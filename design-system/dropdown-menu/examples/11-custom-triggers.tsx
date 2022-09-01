@@ -14,7 +14,7 @@ const DropdownMenuCustomTrigger = () => {
         <Button
           ref={triggerRef}
           {...triggerProps}
-          iconBefore={<MoreIcon label="more" />}
+          iconBefore={<MoreIcon label="" />}
         >
           Click to open
         </Button>

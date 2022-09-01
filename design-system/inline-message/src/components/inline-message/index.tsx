@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { CSSProperties, FC, ReactNode, useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import InlineDialog from '@atlaskit/inline-dialog';

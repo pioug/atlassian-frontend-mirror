@@ -1,5 +1,17 @@
 # @atlaskit/storybook-addon-design-system
 
+## 0.3.2
+
+### Patch Changes
+
+- [`d4be43fdc44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4be43fdc44) - Set the innerText in our hack correctly - oops!
+
+## 0.3.1
+
+### Patch Changes
+
+- [`6dd7050ad7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dd7050ad7a) - Reimplement the style tag hack required for enabling split & stack view in the Storybook addon
+
 ## 0.3.0
 
 ### Minor Changes

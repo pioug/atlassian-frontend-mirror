@@ -49,6 +49,7 @@ export type WithPerformanceAttributes = {
 
 export type SuccessAttributes = {
   status: 'success';
+  fileMediatype?: MediaType;
 };
 
 export type FailureAttributes = {

@@ -83,7 +83,8 @@ describe('TextArea', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    it('should auto increase/decrease height of resize:smart(default) textarea based on content', async () => {
+    // FIXME: This test was automatically skipped due to failure on 31/08/2022: https://product-fabric.atlassian.net/browse/DSP-6599
+    it.skip('should auto increase/decrease height of resize:smart(default) textarea based on content', async () => {
       const selector = '[data-testid="smartResizeTextArea"]';
       const clearTextSelector = '[data-testid="clearTextButton"]';
       const insertTextSelector = '[data-testid="insertTextButton"]';

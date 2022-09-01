@@ -42,7 +42,7 @@ describe('<RightSidebar />', () => {
     );
     expect(getByTestId('component')).toHaveStyleDeclaration(
       'width',
-      'var(--rightSidebarWidth,0px)',
+      'var(--rightSidebarWidth, 0px)',
     );
     expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
       expect.stringContaining(':root{--rightSidebarWidth:200px;}'),
@@ -62,7 +62,7 @@ describe('<RightSidebar />', () => {
     );
     expect(getByTestId('component')).toHaveStyleDeclaration(
       'width',
-      'var(--rightSidebarWidth,0px)',
+      'var(--rightSidebarWidth, 0px)',
     );
     expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
       expect.stringContaining(':root{--rightSidebarWidth:200px;}'),

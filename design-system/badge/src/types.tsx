@@ -24,9 +24,10 @@ export interface BadgeProps {
 
   /**
    * The maximum value to display. Defaults to `99`. If the value is 100, and max is 50, "50+" will be displayed.
-   * This value should be greater than 0.
+   * This value should be greater than 0. If set to `false` the original value will be displayed regardless of
+   * whether it is larger than the default maximum value.
    */
-  max?: number;
+  max?: number | false;
 
   /**
    * Style customization to apply to the badge. Only `backgroundColor` and `color` are supported.

@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 69.2.0
+
+### Minor Changes
+
+- [`0a2a2ff14d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a2a2ff14d9) - [ux] ED-15284 Updated shared styles to add margin-top to paragraphs and headings with indentation mark. Prior to this, indented content had different spacing to the rest of the document.
+- [`d7c4506066d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7c4506066d) - [ux][ed-15295] improve code block copy button label to better indicate to users what will end up in the clipboard when used.
+
+### Patch Changes
+
+- [`a75f0f02c24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a75f0f02c24) - [ux] ED-14683 fix arrow keys in code block unpredictable
+
+  Fixed cursor jumping to expand title when pressing up in a code
+  block in an expand.
+
+- Updated dependencies
+
 ## 69.1.2
 
 ### Patch Changes

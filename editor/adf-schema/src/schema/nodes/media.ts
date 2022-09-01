@@ -216,6 +216,7 @@ const externalOnlyAttributes = ['type', 'url', 'width', 'height', 'alt'];
 
 export const toJSON = (node: PMNode) => ({
   attrs: Object.keys(node.attrs)
+    // Strip private attributes e.g. __fileName, __fileSize, __fileMimeType, etc.
     .filter((key) => !(key[0] === '_' && key[1] === '_'))
     .reduce<Record<string, any>>((obj, key) => {
       if (

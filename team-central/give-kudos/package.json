@@ -33,11 +33,11 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.3.1",
     "@atlaskit/button": "^16.3.1",
-    "@atlaskit/drawer": "^7.1.10",
+    "@atlaskit/drawer": "^7.2.0",
     "@atlaskit/icon": "^21.10.7",
-    "@atlaskit/modal-dialog": "^12.2.9",
+    "@atlaskit/modal-dialog": "^12.3.0",
     "@atlaskit/portal": "^4.2.8",
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/flag": "^14.6.0",
+    "@atlaskit/flag": "^14.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tokens": "^0.10.0",
     "@atlaskit/visual-regression": "*",

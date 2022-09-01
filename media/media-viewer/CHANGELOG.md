@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 47.1.0
+
+### Minor Changes
+
+- [`4733432ab0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4733432ab0c) - [ux] Support rendering code files including txt less than 10MB. For better performance, render code files in plain html if line counts exceed 10k or file size exceeds 5MB.
+
+### Patch Changes
+
+- [`dcdf3560c5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcdf3560c5f) - integrate CodeViewRenderer in archive media-viewer
+- [`c81ee725277`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c81ee725277) - Add attribute fileMediaType into media viewer loadSucceeded event
+- Updated dependencies
+
 ## 47.0.2
 
 ### Patch Changes

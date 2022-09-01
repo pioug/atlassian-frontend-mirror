@@ -89,6 +89,7 @@ import {
 import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identifier';
 import { FireAnalyticsCallback } from '../plugins/analytics/fire-analytics-event';
 import { UfoSessionCompletePayloadAEP } from '../plugins/analytics/types/general-events';
+import ReactEditorViewContext from './ReactEditorViewContext';
 
 export interface EditorViewProps {
   editorProps: EditorProps;
@@ -105,6 +106,7 @@ export interface EditorViewProps {
     eventDispatcher: EventDispatcher;
     transformer?: Transformer<string>;
     dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+    editorRef: React.RefObject<HTMLDivElement>;
   }) => JSX.Element;
   onEditorCreated: (instance: {
     view: EditorView;
@@ -181,6 +183,7 @@ export class ReactEditorView<T = {}> extends React.Component<
   transactionTracker: TransactionTracker;
   validTransactionCount: number;
   experienceStore?: ExperienceStore;
+  editorRef = React.createRef<HTMLDivElement>();
 
   static contextTypes = {
     getAtlaskitAnalyticsEventHandlers: PropTypes.func,
@@ -987,7 +990,12 @@ export class ReactEditorView<T = {}> extends React.Component<
     const useShallow = renderTracking?.useShallow;
 
     return (
-      <React.Fragment>
+      <ReactEditorViewContext.Provider
+        value={{
+          editorRef: this.editorRef,
+          editorView: this.view,
+        }}
+      >
         {renderTrackingEnabled && (
           <RenderTracking
             componentProps={this.props}
@@ -1005,9 +1013,10 @@ export class ReactEditorView<T = {}> extends React.Component<
               eventDispatcher: this.eventDispatcher,
               transformer: this.contentTransformer,
               dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+              editorRef: this.editorRef,
             })
           : this.editor}
-      </React.Fragment>
+      </ReactEditorViewContext.Provider>
     );
   }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { replaceRaf } from 'raf-stub';
+
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import {
@@ -80,11 +82,7 @@ import {
 } from '../../../selection/gap-cursor-selection';
 
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import {
-  CardProvider,
-  MacroAttributes,
-  ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // @ts-ignore
 import { __serializeForClipboard } from 'prosemirror-view';
 import extensionPlugin from '../../../extension';
@@ -104,6 +102,7 @@ import codeBlockPlugin from '../../../code-block';
 import textFormattingPlugin from '../../../text-formatting';
 import layoutPlugin from '../../../layout';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { setupProvider } from '../../../../__tests__/unit/plugins/card/_helpers';
 import { InlineCommentAnnotationProvider } from '../../../annotation/types';
 import annotationPlugin from '../../../annotation';
 import {
@@ -143,6 +142,9 @@ jest.mock('../../pm-plugins/analytics', () => ({
   ...jest.requireActual<Object>('../../pm-plugins/analytics'),
   createPasteMeasurePayload: jest.fn(),
 }));
+
+replaceRaf();
+const requestAnimationFrame = window.requestAnimationFrame as any;
 
 describe('paste plugins', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -458,6 +460,56 @@ describe('paste plugins', () => {
             ),
           );
         });
+      });
+    });
+
+    describe('plain text', () => {
+      // we expect `\n` to be parsed into hardbreak nodes so that the non-paragraph newlines are eventually encoded
+      // in resulting html - so that further copy/pastes of the pasted content in the editor produce the same content result
+      it('should split plain text separated by newline characters into text nodes separated by hardbreak nodes', () => {
+        const { editorView } = editor(doc(p('{<>}')));
+
+        const plain = 'first line\nsecond line\nthird line';
+
+        dispatchPasteEvent(editorView, { plain });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              'first line',
+              hardBreak(),
+              'second line',
+              hardBreak(),
+              'third line',
+            ),
+          ),
+        );
+      });
+      it('should preserve leading and trailing whitespaces and tabs for each new line', () => {
+        const { editorView } = editor(doc(p('{<>}')));
+        const plain =
+          '  text with 2 leading whitespaces\n  text with 2 leading and trailing whitespaces  \ntext with 2 trailing whitespaces  \n\n  text with leading tab and 2 trailing whitespaces  \n  text with leading and trailing tab  \r\ntext with 2 trailing whitespaces  ';
+
+        dispatchPasteEvent(editorView, { plain });
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              '  text with 2 leading whitespaces',
+              hardBreak(),
+              '  text with 2 leading and trailing whitespaces  ',
+              hardBreak(),
+              'text with 2 trailing whitespaces  ',
+            ),
+            p(
+              '  text with leading tab and 2 trailing whitespaces  ',
+              hardBreak(),
+              '  text with leading and trailing tab  ',
+              hardBreak(),
+              'text with 2 trailing whitespaces  ',
+            ),
+          ),
+        );
       });
     });
 
@@ -1827,6 +1879,11 @@ describe('paste plugins', () => {
   });
 
   describe('macroPlugin', () => {
+    const providerWrapper = setupProvider({
+      type: 'inlineCard',
+      attrs: { url: 'https://jdog.jira-dev.com/browse/BENTO-3677' },
+    });
+
     const attrs = {
       extensionType: 'com.atlassian.confluence.macro.core',
       extensionKey: 'dumbMacro',
@@ -1845,33 +1902,12 @@ describe('paste plugins', () => {
       localId: 'testId',
     };
 
-    const cardProvider = Promise.resolve({
-      resolve: () =>
-        Promise.resolve({
-          type: 'inlineCard',
-          attrs: { url: 'https://jdog.jira-dev.com/browse/BENTO-3677' },
-        }),
-      async findPattern(): Promise<boolean> {
-        return true;
-      },
-    } as CardProvider);
-
     const extensionProps = (cardOptions: CardOptions = {}): PluginsOptions => {
-      providerFactory.setProvider(
-        'macroProvider',
-        Promise.resolve({
-          config: {},
-          openMacroBrowser: () => Promise.resolve({} as MacroAttributes),
-          autoConvert: () => {
-            return null;
-          },
-        }),
-      );
       return {
         paste: {
           plainTextPasteLinkification: false,
           cardOptions: {
-            provider: cardProvider,
+            provider: Promise.resolve(providerWrapper.provider),
             ...cardOptions,
           },
         },
@@ -1911,6 +1947,7 @@ describe('paste plugins', () => {
         );
         const href = 'https://jdog.jira-dev.com/browse/BENTO-3677';
 
+        providerWrapper.addProvider(editorView);
         await setMacroProvider(macroProvider)(editorView);
         await flushPromises();
 
@@ -1919,11 +1956,9 @@ describe('paste plugins', () => {
         });
 
         // let the card resolve
-        const resolvedProvider = await cardProvider;
-        await resolvedProvider.resolve(
-          'https://jdog.jira-dev.com/browse/BENTO-3677',
-          'inline',
-        );
+        await flushPromises();
+        requestAnimationFrame.step();
+        await providerWrapper.waitForRequests();
 
         expect(editorView.state.doc).toEqualDocument(
           doc(p('This is the ', a({ href })('selected text'), ' here')),
@@ -1975,6 +2010,7 @@ describe('paste plugins', () => {
           extensionProps({ resolveBeforeMacros: ['jira'] }),
         );
 
+        providerWrapper.addProvider(editorView);
         await setMacroProvider(macroProvider)(editorView);
         await flushPromises();
 
@@ -1983,11 +2019,9 @@ describe('paste plugins', () => {
         });
 
         // let the card resolve
-        const resolvedProvider = await cardProvider;
-        await resolvedProvider.resolve(
-          'https://jdog.jira-dev.com/browse/BENTO-3677',
-          'inline',
-        );
+        await flushPromises();
+        requestAnimationFrame.step();
+        await providerWrapper.waitForRequests();
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1996,7 +2030,6 @@ describe('paste plugins', () => {
               inlineCard({
                 url: 'https://jdog.jira-dev.com/browse/BENTO-3677',
               })(),
-              ' ',
             ),
           ),
         );

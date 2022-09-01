@@ -4,6 +4,7 @@ import {
   AnalyticsEvent,
   ATTRIBUTES_PACKAGE,
   EVENT_SUBJECT,
+  COLLAB_SERVICE,
 } from '../helpers/const';
 
 export const fireAnalyticsEvent = (
@@ -43,6 +44,7 @@ export const triggerCollabAnalyticsEvent = (
     source: 'unknown',
     attributes: {
       packageName: ATTRIBUTES_PACKAGE,
+      collabService: COLLAB_SERVICE.NCS,
       ...analyticsEvent.attributes,
     },
   };

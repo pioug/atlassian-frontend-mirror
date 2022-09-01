@@ -8,7 +8,7 @@ import {
   useMemo,
 } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import GlobalTheme from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';

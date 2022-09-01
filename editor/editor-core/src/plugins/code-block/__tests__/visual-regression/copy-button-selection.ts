@@ -9,4 +9,5 @@ _getCopyButtonTestSuite({
     codeBlock: { allowCopyToClipboard: true },
   },
   nodeSelector: codeBlockSelectors.content,
+  copyButtonText: 'Copy as text',
 });

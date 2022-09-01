@@ -348,6 +348,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           attributes: {
             eventStatus: EVENT_STATUS.SUCCESS,
             latency: measure?.duration,
+            documentAri: this.config.documentAri,
           },
         },
         this.analyticsClient,
@@ -361,6 +362,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
             eventStatus: EVENT_STATUS.FAILURE,
             error: error as ErrorPayload,
             latency: measure?.duration,
+            documentAri: this.config.documentAri,
           },
         },
         this.analyticsClient,
@@ -386,6 +388,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
             attributes: {
               eventStatus: EVENT_STATUS.FAILURE,
               error,
+              documentAri: this.config.documentAri,
             },
           },
           this.analyticsClient,
@@ -456,6 +459,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           eventAction: EVENT_ACTION.ADD_STEPS,
           attributes: {
             eventStatus: EVENT_STATUS.SUCCESS,
+            documentAri: this.config.documentAri,
           },
         },
         this.analyticsClient,
@@ -662,6 +666,16 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     left.forEach((p) => this.participants.delete(p.sessionId));
 
     if (joined.length || left.length) {
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.UPDATE_PARTICIPANTS,
+          attributes: {
+            participants: this.participants.size ?? 1,
+            documentAri: this.config.documentAri,
+          },
+        },
+        this.analyticsClient,
+      );
       this.emit('presence', {
         ...(joined.length ? { joined } : {}),
         ...(left.length ? { left } : {}),
@@ -818,6 +832,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           attributes: {
             eventStatus: EVENT_STATUS.SUCCESS,
             latency: measure?.duration,
+            documentAri: this.config.documentAri,
           },
         },
         this.analyticsClient,
@@ -831,6 +846,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
             eventStatus: EVENT_STATUS.FAILURE,
             latency: measure?.duration,
             error: error as ErrorPayload,
+            documentAri: this.config.documentAri,
           },
         },
         this.analyticsClient,

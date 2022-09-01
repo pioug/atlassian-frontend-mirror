@@ -366,6 +366,16 @@ export type FeatureFlags = {
    * @default false
    */
   lpLinkPicker?: boolean;
+
+  /**
+   * @description
+   * Show link settings button in the Floating toolbar
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3199172609/POP+Some+users+need+to+work+with+URLs+to+get+their+job+done
+   * @see https://product-fabric.atlassian.net/browse/EDM-3268
+   * @default null
+   */
+  floatingToolbarLinkSettingsButton?: string;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

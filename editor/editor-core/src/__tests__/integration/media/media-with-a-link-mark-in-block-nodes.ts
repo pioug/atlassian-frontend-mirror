@@ -40,7 +40,8 @@ async function loadADF(client: any, adf: object): Promise<any> {
 
 BrowserTestCase(
   'should load the adf with media single inside a layout column',
-  {},
+  // TODO: safari skipped due to flakines in pipelines - please fix
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInALayoutColumn);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -49,7 +50,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside a table cell',
-  {},
+  // TODO: safari skipped due to flakines in pipelines - please fix
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInATable);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -58,7 +60,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside a list item',
-  {},
+  // TODO: safari skipped due to flakines in pipelines - please fix
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInAListItem);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -67,7 +70,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside an expand',
-  {},
+  // TODO: safari skipped due to flakines in pipelines - please fix
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInAnExpand);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -76,7 +80,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside a bodied extension',
-  {},
+  // TODO: safari skipped due to flakines in pipelines - please fix
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const doc = await loadADF(
       client,
@@ -89,7 +94,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should load the adf with media single inside a nested expand',
-  {},
+  // TODO: safari skipped due to flakines in pipelines - please fix
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const doc = await loadADF(client, adfMediaSingleWithLinkInANestedExpand);
 

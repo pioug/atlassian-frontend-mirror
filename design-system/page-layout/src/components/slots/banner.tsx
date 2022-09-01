@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import {
   BANNER,

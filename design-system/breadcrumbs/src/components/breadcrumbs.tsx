@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import React, { forwardRef, memo, useRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import {
   UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import __noop from '@atlaskit/ds-lib/noop';
 import GlobalTheme from '@atlaskit/theme/components';
 import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
 
@@ -33,7 +34,7 @@ const analyticsAttributes = {
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-const noop = () => {};
+const noop = __noop;
 
 const interactiveElementSelector = 'a, button, [tabindex]:not([tabindex="-1"])';
 

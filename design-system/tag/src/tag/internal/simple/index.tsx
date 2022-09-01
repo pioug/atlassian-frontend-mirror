@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, memo } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import BaseTag from '../shared/base';
 import Before from '../shared/before';

@@ -1,5 +1,16 @@
 # @atlaskit/reactions
 
+## 21.6.0
+
+### Minor Changes
+
+- [`41d75524c76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41d75524c76) - Upgrade @atlaskit/reactions to use functional components, add comments and cleanup outdated legacy code
+- [`d840e9e5c90`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d840e9e5c90) - show proper error message in tooltip if failed to get reactions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.5.1
 
 ### Patch Changes

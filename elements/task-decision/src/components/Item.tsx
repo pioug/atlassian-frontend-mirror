@@ -1,11 +1,58 @@
-import React from 'react';
+/** @jsx jsx */
+
 import { PureComponent } from 'react';
-import { gridSize } from '@atlaskit/theme/constants';
-
-import { ContentWrapper, TaskWrapper, DecisionWrapper } from '../styled/Item';
-
+import { css, jsx } from '@emotion/react';
 import { Appearance, ContentRef, TaskType, DecisionType } from '../types';
-import { Placeholder } from '../styled/Placeholder';
+import { themed } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
+import { DN50, N100, N20A } from '@atlaskit/theme/colors';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import type { Theme } from '@atlaskit/theme/types';
+
+const contentStyle = css({
+  margin: 0,
+  wordWrap: 'break-word',
+  minWidth: 0,
+  flex: '1 1 auto',
+});
+
+const taskStyles = css({
+  display: 'flex',
+  flexDirection: 'row',
+  padding: '6px 3px',
+  position: 'relative',
+});
+
+const decisionStyles = (theme: Theme) =>
+  css({
+    display: 'flex',
+    flexDirection: 'row',
+    margin: `${gridSize()}px 0 0 0`,
+    padding: `${gridSize()}px`,
+    paddingLeft: `${gridSize() * 1.5}px`,
+    borderRadius: `${borderRadius()}px`,
+    backgroundColor: themed({
+      light: token('color.background.neutral', N20A),
+      dark: token('color.background.neutral', DN50),
+    })({ theme }),
+    position: 'relative',
+
+    '.decision-item': {
+      cursor: 'initial',
+    },
+  });
+
+const placeHolderStyles = (offset: number) =>
+  css({
+    margin: `0 0 0 ${offset}px`,
+    position: 'absolute',
+    color: token('color.text.subtlest', N100),
+    pointerEvents: 'none',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    maxWidth: 'calc(100% - 50px)',
+  });
 
 export interface Props {
   icon: JSX.Element;
@@ -17,6 +64,7 @@ export interface Props {
   showPlaceholder?: boolean;
   dataAttributes?: { [key: string]: string | number };
   checkBoxId?: string;
+  theme: Theme;
 }
 
 export default class Item extends PureComponent<Props, {}> {
@@ -32,9 +80,13 @@ export default class Item extends PureComponent<Props, {}> {
 
     const offset = gridSize() * (itemType === 'TASK' ? 3 : 3.5);
     return (
-      <Placeholder contentEditable={false} offset={offset}>
+      <span
+        data-component="placeholder"
+        css={placeHolderStyles(offset)}
+        contentEditable={false}
+      >
         {placeholder}
-      </Placeholder>
+      </span>
     );
   }
 
@@ -44,29 +96,40 @@ export default class Item extends PureComponent<Props, {}> {
       children,
       icon,
       itemType,
-      dataAttributes,
       checkBoxId,
+      dataAttributes,
+      theme,
     } = this.props;
 
     if (itemType === 'TASK') {
       return (
-        <TaskWrapper id={`${checkBoxId}-wrapper`}>
+        <div css={taskStyles} id={`${checkBoxId}-wrapper`}>
           {icon}
           {this.renderPlaceholder()}
-          <ContentWrapper {...dataAttributes} innerRef={contentRef}>
+          <div
+            data-component="content"
+            css={contentStyle}
+            ref={contentRef}
+            {...dataAttributes}
+          >
             {children}
-          </ContentWrapper>
-        </TaskWrapper>
+          </div>
+        </div>
       );
     } else if (itemType === 'DECISION') {
       return (
-        <DecisionWrapper data-decision-wrapper="true">
+        <div css={decisionStyles(theme)} data-decision-wrapper="true">
           {icon}
           {this.renderPlaceholder()}
-          <ContentWrapper {...dataAttributes} innerRef={contentRef}>
+          <div
+            data-component="content"
+            css={contentStyle}
+            ref={contentRef}
+            {...dataAttributes}
+          >
             {children}
-          </ContentWrapper>
-        </DecisionWrapper>
+          </div>
+        </div>
       );
     }
 

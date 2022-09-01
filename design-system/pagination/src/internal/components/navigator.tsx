@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { ReactElement, SyntheticEvent } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';

@@ -173,6 +173,7 @@ export function getDefaultPresetOptionsFromEditorProps(
     hyperlinkOptions: {
       linkPicker: props.linking?.linkPicker,
       cardOptions,
+      platform: isMobile ? 'mobile' : 'web',
     },
     codeBlock: {
       ...props.codeBlock,

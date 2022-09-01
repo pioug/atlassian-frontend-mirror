@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 import DropdownMenu, {
   DropdownItemCheckbox,
   DropdownItemCheckboxGroup,
@@ -20,7 +22,7 @@ const DropdownCheckboxStateless = () => {
   return (
     <DropdownMenu
       trigger="Select cities"
-      onOpenChange={() => {}}
+      onOpenChange={__noop}
       testId="lite-mode-ddm"
     >
       <DropdownItemCheckboxGroup id="cities" title="Some cities">

@@ -85,7 +85,7 @@ import {
 import { CardAction, CardProps, CardState, CardPreview } from '../..';
 import { Card, CardBase, CardBaseProps } from '../../root/card';
 import { CardView } from '../../root/cardView';
-import { InlinePlayer } from '../../root/inlinePlayer';
+import { InlinePlayerLazy } from '../../root/inlinePlayerLazy';
 import { ViewportDetector } from '../../utils/viewportDetector';
 import {
   getCardPreview,
@@ -1008,7 +1008,7 @@ describe('Card', () => {
   });
 
   describe('Inline player', () => {
-    it('should render InlinePlayer when isPlayingFile=true', () => {
+    it('should render InlinePlayerLazy when isPlayingFile=true', () => {
       const { component } = setup();
       const cardPreview: CardPreview = {
         dataURI: 'some-datauri',
@@ -1019,7 +1019,7 @@ describe('Card', () => {
         cardPreview,
       });
       component.update();
-      const player = component.find(InlinePlayer);
+      const player = component.find(InlinePlayerLazy);
       expect(player).toHaveLength(1);
       expect(player.props().cardPreview).toBe(cardPreview);
     });
@@ -1216,7 +1216,7 @@ describe('Card', () => {
       component.find(CardView).simulate('click');
 
       expect(component.find(MediaViewer)).toHaveLength(0);
-      expect(component.find(InlinePlayer)).toHaveLength(1);
+      expect(component.find(InlinePlayerLazy)).toHaveLength(1);
     });
 
     it('should pass contextId to MV', async () => {
@@ -1340,7 +1340,7 @@ describe('Card', () => {
       expect(actualEvent).toBeDefined();
     });
 
-    it('should pass the Analytics Event fired from InlinePlayer to the provided onClick callback', () => {
+    it('should pass the Analytics Event fired from InlinePlayerLazy to the provided onClick callback', () => {
       const onClickHandler = jest.fn();
       const { component } = setup(undefined, { onClick: onClickHandler });
       component.setState({
@@ -1348,7 +1348,7 @@ describe('Card', () => {
       });
       component.update();
       component
-        .find(InlinePlayer)
+        .find(InlinePlayerLazy)
         .props()
         .onClick({ thiIsA: 'HTMLEvent' }, { thiIsAn: 'AnalyticsEvent' });
 

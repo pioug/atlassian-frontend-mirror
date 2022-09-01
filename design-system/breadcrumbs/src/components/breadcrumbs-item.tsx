@@ -2,7 +2,7 @@
 
 import { ComponentType, CSSProperties, memo, useRef } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { fontSize, gridSize } from '@atlaskit/theme/constants';

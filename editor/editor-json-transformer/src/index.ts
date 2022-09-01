@@ -32,6 +32,7 @@ const isType = (type: string) => (node: PMNode | PMMark) =>
 
 const isCodeBlock = isType('codeBlock');
 const isMediaNode = isType('media');
+const isMediaInline = isType('mediaInline');
 const isMediaSingleNode = isType('mediaSingle');
 const isMentionNode = isType('mention');
 const isParagraph = isType('paragraph');
@@ -88,6 +89,8 @@ const toJSON = (node: PMNode): JSONNode => {
     obj.attrs = mediaToJSON(node).attrs;
   } else if (isMediaSingleNode(node)) {
     obj.attrs = mediaSingleToJSON(node).attrs;
+  } else if (isMediaInline(node)) {
+    obj.attrs = mediaToJSON(node).attrs;
   } else if (isMentionNode(node)) {
     obj.attrs = mentionToJSON(node).attrs;
   } else if (isCodeBlock(node)) {

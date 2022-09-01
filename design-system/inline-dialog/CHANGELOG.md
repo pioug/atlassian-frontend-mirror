@@ -1,5 +1,15 @@
 # @atlaskit/inline-dialog
 
+## 13.4.0
+
+### Minor Changes
+
+- [`8d2ea17980d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d2ea17980d) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.9
 
 ### Patch Changes

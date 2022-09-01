@@ -18,10 +18,6 @@ Object {
           "text": "New heading",
           "type": "text",
         },
-        Object {
-          "text": " ",
-          "type": "text",
-        },
       ],
       "type": "paragraph",
     },

@@ -75,7 +75,7 @@ describe('FindReplaceToolbarButton', () => {
           isActive: true,
           onCancel: onCancelSpy,
         });
-        trigger('keydown', { code: 'Escape' });
+        trigger('keydown', new KeyboardEvent('keydown', { code: 'Escape' }));
         expect(onCancelSpy).toHaveBeenCalled();
         spy.mockRestore();
       });

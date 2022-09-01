@@ -18,10 +18,6 @@ Object {
           "text": "https://product-fabric.atlassian.net/browse/FAB-1166",
           "type": "text",
         },
-        Object {
-          "text": " ",
-          "type": "text",
-        },
       ],
       "type": "paragraph",
     },

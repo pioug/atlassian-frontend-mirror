@@ -1,4 +1,4 @@
-import { CSSObject } from '@emotion/core';
+import { css, CSSObject, SerializedStyles } from '@emotion/react';
 
 import {
   borderRadius as getBorderRadius,
@@ -41,21 +41,23 @@ const getTabPanelStyles = (mode: ThemeModes): CSSObject => ({
   ...highContrastFocusRing,
 });
 
-export const getTabsStyles = (mode: ThemeModes): CSSObject => ({
-  display: 'flex',
-  flexBasis: '100%',
-  flexDirection: 'column',
-  flexGrow: 1,
-  maxWidth: '100%',
-  minHeight: '0%' /* Same Firefox bug as above */,
-
-  '& [role="tabpanel"]': getTabPanelStyles(mode),
-  // The hidden attribute doesn't work on flex elements
-  // Change display to be none
-  '& > [hidden]': {
-    display: 'none',
-  },
-});
+export const getTabsStyles = (mode: ThemeModes): SerializedStyles =>
+  // eslint-disable-next-line @repo/internal/styles/no-exported-styles
+  css({
+    display: 'flex',
+    maxWidth: '100%',
+    minHeight: '0%',
+    flexBasis: '100%',
+    flexDirection: 'column',
+    flexGrow: 1,
+    '& [role="tabpanel"]': getTabPanelStyles(mode),
+    // The hidden attribute doesn't work on flex elements
+    // Change display to be none
+    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    '& > [hidden]': {
+      display: 'none',
+    },
+  });
 
 const tabLineStyles: CSSObject = {
   content: '""',
@@ -68,20 +70,22 @@ const tabLineStyles: CSSObject = {
   right: tabLeftRightPadding,
 };
 
-export const getTabListStyles = (mode: ThemeModes): CSSObject => ({
-  position: 'relative',
-  display: 'flex',
-  fontWeight: 500,
-  padding: 0,
-  margin: 0,
-  '&::before': {
-    ...tabLineStyles,
-    // This line is not a border so the selected line is visible in high contrast mode
-    backgroundColor: getTabLineColor(mode).lineColor,
-    height: underlineHeight,
-  },
-  '& [role="tab"]': getTabStyles(mode),
-});
+export const getTabListStyles = (mode: ThemeModes): SerializedStyles =>
+  // eslint-disable-next-line @repo/internal/styles/no-exported-styles
+  css({
+    display: 'flex',
+    margin: 0,
+    padding: 0,
+    position: 'relative',
+    '& [role="tab"]': getTabStyles(mode),
+    fontWeight: 500,
+    '&::before': {
+      ...tabLineStyles,
+      height: underlineHeight,
+      // This line is not a border so the selected line is visible in high contrast mode
+      backgroundColor: getTabLineColor(mode).lineColor,
+    },
+  });
 
 export const getTabStyles = (mode: ThemeModes): CSSObject => {
   const colors = getTabColors(mode);

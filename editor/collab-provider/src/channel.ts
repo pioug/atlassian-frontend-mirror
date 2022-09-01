@@ -161,6 +161,7 @@ export class Channel extends Emitter<ChannelEvent> {
             eventStatus: EVENT_STATUS.FAILURE,
             error: error as ErrorPayload,
             latency: measure?.duration,
+            documentAri: this.config.documentAri,
           },
         },
         this.analyticsClient,
@@ -189,6 +190,7 @@ export class Channel extends Emitter<ChannelEvent> {
         attributes: {
           eventStatus: EVENT_STATUS.SUCCESS,
           latency: measure?.duration,
+          documentAri: this.config.documentAri,
         },
       },
       this.analyticsClient,
@@ -214,6 +216,7 @@ export class Channel extends Emitter<ChannelEvent> {
             attributes: {
               eventStatus: EVENT_STATUS.SUCCESS, // TODO: detect when document init fails and fire corresponding event for it
               latency: measure?.duration,
+              documentAri: this.config.documentAri,
             },
           },
           this.analyticsClient,

@@ -1,5 +1,12 @@
 # @atlaskit/conversation
 
+## 16.1.5
+
+### Patch Changes
+
+- [`41d75524c76`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41d75524c76) - Upgrade @atlaskit/reactions to use functional components, add comments and cleanup outdated legacy code
+- Updated dependencies
+
 ## 16.1.4
 
 ### Patch Changes

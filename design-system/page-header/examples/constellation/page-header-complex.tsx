@@ -3,13 +3,14 @@ import React from 'react';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import __noop from '@atlaskit/ds-lib/noop';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
 import PageHeader from '../../src';
 
 const breadcrumbs = (
-  <Breadcrumbs onExpand={() => {}}>
+  <Breadcrumbs onExpand={__noop}>
     <BreadcrumbsItem text="Some project" key="Some project" />
     <BreadcrumbsItem text="Parent page" key="Parent page" />
   </Breadcrumbs>

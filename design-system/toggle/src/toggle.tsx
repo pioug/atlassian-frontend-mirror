@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, memo, useMemo, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import {
   UIAnalyticsEvent,
@@ -10,8 +10,7 @@ import {
 import __noop from '@atlaskit/ds-lib/noop';
 import CloseIcon from '@atlaskit/icon/glyph/editor/close';
 import CheckIcon from '@atlaskit/icon/glyph/editor/done';
-import GlobalTheme from '@atlaskit/theme/components';
-import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
+import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import { getStyles } from './internal/styles';
 import { Size, ToggleProps } from './types';
@@ -27,12 +26,17 @@ const analyticsAttributes = {
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-interface ExtendedToggleProps extends ToggleProps {
-  mode: ThemeModes;
-}
-
-const InnerToggle = forwardRef<HTMLInputElement, ExtendedToggleProps>(
-  (props, ref) => {
+/**
+ * __Toggle__
+ *
+ * A toggle is used to view or switch between enabled or disabled states.
+ *
+ * - [Examples](https://atlassian.design/components/toggle/examples)
+ * - [Code](https://atlassian.design/components/toggle/code)
+ * - [Usage](https://atlassian.design/components/toggle/usage)
+ */
+const Toggle = memo(
+  forwardRef<HTMLInputElement, ToggleProps>((props, ref) => {
     const {
       defaultChecked = false,
       isDisabled = false,
@@ -46,10 +50,10 @@ const InnerToggle = forwardRef<HTMLInputElement, ExtendedToggleProps>(
       analyticsContext,
       id,
       testId,
-      mode,
       label,
     } = props;
 
+    const { mode } = useGlobalTheme();
     const isControlled = typeof isChecked === 'undefined';
     const [checked, setChecked] = useState(defaultChecked);
 
@@ -96,6 +100,7 @@ const InnerToggle = forwardRef<HTMLInputElement, ExtendedToggleProps>(
     return (
       // https://product-fabric.atlassian.net/browse/DST-1969
       // eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for
+      // @ts-ignore
       <label {...controlProps} css={toggleStyles}>
         <input
           ref={ref}
@@ -122,27 +127,6 @@ const InnerToggle = forwardRef<HTMLInputElement, ExtendedToggleProps>(
           testId={testId && `${testId}--toggle-cross-icon`}
         />
       </label>
-    );
-  },
-);
-
-/**
- * __Toggle__
- *
- * A toggle is used to view or switch between enabled or disabled states.
- *
- * - [Examples](https://atlassian.design/components/toggle/examples)
- * - [Code](https://atlassian.design/components/toggle/code)
- * - [Usage](https://atlassian.design/components/toggle/usage)
- */
-const Toggle = memo(
-  forwardRef<HTMLInputElement, ToggleProps>(function Toggle(props, ref) {
-    return (
-      <GlobalTheme.Consumer>
-        {(tokens: GlobalThemeTokens) => (
-          <InnerToggle {...props} mode={tokens.mode} ref={ref} />
-        )}
-      </GlobalTheme.Consumer>
     );
   }),
 );

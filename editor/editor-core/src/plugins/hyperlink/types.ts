@@ -32,4 +32,5 @@ export interface LinkingOptions {
 export interface HyperlinkPluginOptions {
   cardOptions?: CardOptions;
   linkPicker?: LinkPickerOptions;
+  platform?: 'mobile' | 'web';
 }

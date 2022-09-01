@@ -17,6 +17,9 @@ import {
   HalpIcon,
   HalpLogo,
   HalpWordmark,
+  JiraAlignIcon,
+  JiraAlignLogo,
+  JiraAlignWordmark,
   JiraIcon,
   JiraLogo,
   JiraServiceManagementIcon,
@@ -109,6 +112,17 @@ export default () => (
           </td>
           <td>
             <ConfluenceIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <JiraAlignLogo />
+          </td>
+          <td>
+            <JiraAlignWordmark />
+          </td>
+          <td>
+            <JiraAlignIcon />
           </td>
         </tr>
         <tr>

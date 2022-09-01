@@ -29,13 +29,12 @@ const buttonStyles = (isActive?: boolean) => (theme: ThemeProps) => {
     /**
      * Hack for item to imitate old dropdown-menu selected styles
      */
-    // TODO: https://product-fabric.atlassian.net/browse/DSP-4500
-    /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
     return css`
       > span,
-      > span:hover {
-        background: #6c798f;
-        color: #fff;
+      > span:hover,
+      > span:active {
+        background: ${token('color.background.selected', '#6c798f')};
+        color: ${token('color.text', '#fff')};
       }
     `;
   } else {
@@ -53,6 +52,18 @@ const buttonStyles = (isActive?: boolean) => (theme: ThemeProps) => {
           dark: token(
             'color.background.neutral.subtle.hovered',
             'rgb(59, 71, 92)',
+          ),
+        })(theme)};
+      }
+      > span:active[aria-disabled='false'] {
+        background-color: ${themed({
+          light: token(
+            'color.background.neutral.subtle.pressed',
+            'rgb(179, 212, 255)',
+          ),
+          dark: token(
+            'color.background.neutral.subtle.pressed',
+            'rgb(179, 212, 255)',
           ),
         })(theme)};
       }

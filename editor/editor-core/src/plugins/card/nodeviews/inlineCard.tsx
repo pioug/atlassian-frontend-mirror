@@ -31,7 +31,6 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
     }
 
     const { title, url } = data;
-
     // don't dispatch immediately since we might be in the middle of
     // rendering a nodeview
     rafSchedule(() =>
@@ -43,6 +42,11 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
         })(view.state.tr),
       ),
     )();
+  };
+
+  onError = (data: { url?: string }) => {
+    const { url } = data;
+    this.onResolve({ url });
   };
 
   render() {
@@ -58,6 +62,7 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
           onClick={this.onClick}
           container={this.scrollContainer}
           onResolve={this.onResolve}
+          onError={this.onError}
           inlinePreloaderStyle={
             useAlternativePreloader ? 'on-right-without-skeleton' : undefined
           }

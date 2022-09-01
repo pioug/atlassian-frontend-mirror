@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import ToolTip from '@atlaskit/tooltip';
 

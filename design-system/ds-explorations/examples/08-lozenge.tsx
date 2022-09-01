@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import Lozenge from '@atlaskit/lozenge';
 
@@ -20,7 +20,7 @@ export default () => {
         paddingInline="sp-50"
       >
         {/* textTransform: uppercase, font-weight: 700 */}
-        <Text fontSize="11" color={['color.text', 'grey']}>
+        <Text fontSize="11px" color={['color.text', 'grey']}>
           Default
         </Text>
       </Box>

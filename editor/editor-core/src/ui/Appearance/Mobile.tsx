@@ -8,12 +8,14 @@ export default function Mobile({
   maxHeight,
   persistScrollGutter,
   editorDOMElement,
+  disabled,
 }: EditorAppearanceComponentProps) {
   return (
     <MobileAppearance
       editorView={editorView || null}
       maxHeight={maxHeight}
       persistScrollGutter={persistScrollGutter}
+      editorDisabled={disabled}
     >
       {editorDOMElement}
       {editorView && <WidthEmitter editorView={editorView} />}

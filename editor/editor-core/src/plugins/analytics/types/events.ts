@@ -29,6 +29,7 @@ import {
   CreateLinkInlineDialogEventPayload,
   UnlinkToolbarAEP,
   EditLinkToolbarAEP,
+  OpenSettingsToolbarAEP,
 } from './link-tool-bar-events';
 import { ExtensionEventPayload } from './extension-events';
 import type {
@@ -65,6 +66,7 @@ export type AnalyticsEventPayload<T = void> =
   | TypeAheadPayload
   | UnlinkToolbarAEP
   | EditLinkToolbarAEP
+  | OpenSettingsToolbarAEP
   | CustomPanelEventPayload
   | FeatureExposureAEP
   | NewCollabSyncUpErrorAEP

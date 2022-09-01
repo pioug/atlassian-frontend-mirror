@@ -40,13 +40,14 @@ export type MobileAppearanceProps = React.PropsWithChildren<{
   editorView: EditorView | null;
   maxHeight?: number;
   persistScrollGutter?: boolean;
+  editorDisabled?: boolean;
 }>;
 
 export function MobileAppearance({
   editorView,
-  maxHeight,
   persistScrollGutter,
   children,
+  editorDisabled,
 }: MobileAppearanceProps) {
   const render = useCallback(
     ({
@@ -95,6 +96,7 @@ export function MobileAppearance({
               minHeight={minHeight}
               persistScrollGutter={persistScrollGutter}
               isExpanded={currentIsExpanded}
+              editorDisabled={editorDisabled}
             >
               <ContentArea>
                 <div className="ak-editor-content-area">{children}</div>
@@ -104,7 +106,7 @@ export function MobileAppearance({
         </WithFlash>
       );
     },
-    [children, editorView, persistScrollGutter],
+    [children, editorView, persistScrollGutter, editorDisabled],
   );
 
   return (

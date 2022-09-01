@@ -1,5 +1,12 @@
 # @atlaskit/editor-shared-styles
 
+## 2.1.5
+
+### Patch Changes
+
+- [`a6df7e823d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6df7e823d8) - [ux] Fixed trello card overflow issue in table cells & fixed merged table cells selection / hover state
+- Updated dependencies
+
 ## 2.1.4
 
 ### Patch Changes

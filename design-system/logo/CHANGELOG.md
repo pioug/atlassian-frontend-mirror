@@ -1,5 +1,15 @@
 # @atlaskit/logo
 
+## 13.9.0
+
+### Minor Changes
+
+- [`76eadca8ef3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76eadca8ef3) - Adds Jira Align logo, icon and wordmark.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.8.2
 
 ### Patch Changes

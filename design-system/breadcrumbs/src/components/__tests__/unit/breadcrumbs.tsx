@@ -2,12 +2,14 @@ import React, { createRef } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
 
 describe('Breadcrumbs container', () => {
   it('should be able to render a single child', () => {
     const { container } = render(
-      <Breadcrumbs onExpand={() => {}} testId="bcs">
+      <Breadcrumbs onExpand={__noop} testId="bcs">
         <BreadcrumbsItem text="item" />
       </Breadcrumbs>,
     );
@@ -38,7 +40,7 @@ describe('Breadcrumbs container', () => {
 
   it('should not count empty children', () => {
     const { container } = render(
-      <Breadcrumbs onExpand={() => {}} maxItems={3}>
+      <Breadcrumbs onExpand={__noop} maxItems={3}>
         {null}
         <BreadcrumbsItem text="item" />
         <BreadcrumbsItem text="item" />

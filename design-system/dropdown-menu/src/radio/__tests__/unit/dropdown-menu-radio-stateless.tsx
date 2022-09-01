@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 import DropdownMenu, {
   DropdownItemRadio,
   DropdownItemRadioGroup,
@@ -12,7 +14,7 @@ const DropdownMenuWithRadio = () => {
   return (
     <DropdownMenu
       trigger="Choices"
-      onOpenChange={() => {}}
+      onOpenChange={__noop}
       testId="lite-mode-ddm"
     >
       <DropdownItemRadioGroup id="oversea-cities" title="Oversea cities">

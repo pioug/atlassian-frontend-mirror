@@ -35,7 +35,7 @@
     "ak-postbuild": "yarn build-css"
   },
   "dependencies": {
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",
     "fbjs": "^3.0.0"

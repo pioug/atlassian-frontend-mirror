@@ -18,7 +18,11 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { setNodeSelection } from '../../../../utils';
-import { visitCardLink, removeCard } from '../../../../plugins/card/toolbar';
+import {
+  visitCardLink,
+  removeCard,
+  openLinkSettings,
+} from '../../../../plugins/card/toolbar';
 import { EditorView } from 'prosemirror-view';
 import { createCardRequest } from './_helpers';
 
@@ -123,22 +127,24 @@ describe('card', () => {
     const linkTypes = [
       {
         name: 'inlineCard',
+        type: 'inline',
         element: p('{<}', inlineCard({ url: atlassianUrl })('{>}')),
       },
       {
         name: 'blockCard',
+        type: 'block',
         element: blockCard({ url: atlassianUrl })(),
       },
     ];
 
-    linkTypes.forEach((type) => {
-      describe(`Toolbar ${type.name}`, () => {
+    linkTypes.forEach(({ type, name, element }) => {
+      describe(`Toolbar ${name}`, () => {
         let editorView: EditorView;
         let refs: Refs;
 
         beforeEach(() => {
-          ({ editorView, refs } = editor(doc(type.element)));
-          if (type.name === 'blockCard') {
+          ({ editorView, refs } = editor(doc(element)));
+          if (name === 'blockCard') {
             setNodeSelection(editorView, 0);
           } else {
             setNodeSelection(editorView, refs['<']);
@@ -154,10 +160,10 @@ describe('card', () => {
             expect(createAnalyticsEvent).toHaveBeenCalledWith({
               action: 'deleted',
               actionSubject: 'smartLink',
-              actionSubjectId: type.name,
+              actionSubjectId: name,
               attributes: expect.objectContaining({
                 inputMethod: 'toolbar',
-                displayMode: type.name,
+                displayMode: name,
               }),
               eventType: 'track',
             });
@@ -181,7 +187,7 @@ describe('card', () => {
             expect(createAnalyticsEvent).toHaveBeenCalledWith({
               action: 'visited',
               actionSubject: 'smartLink',
-              actionSubjectId: type.name,
+              actionSubjectId: name,
               attributes: expect.objectContaining({ inputMethod: 'toolbar' }),
               eventType: 'track',
             });
@@ -189,6 +195,39 @@ describe('card', () => {
 
           it('should open a new tab with the right url', () => {
             expect(windowSpy).toHaveBeenCalledWith(atlassianUrl);
+          });
+        });
+
+        describe('open settings command', () => {
+          let windowSpy: jest.MockInstance<any, any[]>;
+          beforeEach(() => {
+            windowSpy = jest
+              .spyOn(window, 'open')
+              .mockImplementation(() => null);
+            openLinkSettings(editorView.state, editorView.dispatch);
+          });
+
+          afterEach(() => {
+            windowSpy.mockRestore();
+          });
+
+          it('should create analytics V3 event', () => {
+            expect(createAnalyticsEvent).toHaveBeenCalledWith({
+              action: 'clicked',
+              actionSubject: 'button',
+              actionSubjectId: 'goToSmartLinkSettings',
+              attributes: expect.objectContaining({
+                inputMethod: 'toolbar',
+                display: type,
+              }),
+              eventType: 'ui',
+            });
+          });
+
+          it('should open a new tab with the right url', () => {
+            expect(windowSpy).toHaveBeenCalledWith(
+              'https://id.atlassian.com/manage-profile/link-preferences',
+            );
           });
         });
       });

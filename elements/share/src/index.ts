@@ -1,4 +1,6 @@
 export { ShareDialogContainer } from './components/ShareDialogContainer';
+export { CopyLinkButton } from './components/CopyLinkButton';
+
 export {
   // Constants
   ADMIN_NOTIFIED,

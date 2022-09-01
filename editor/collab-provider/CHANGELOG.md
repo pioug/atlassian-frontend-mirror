@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 7.6.0
+
+### Minor Changes
+
+- [`5bd58e91664`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bd58e91664) - [ESS-2513] Add tracking for number of participants in analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.5.1
 
 ### Patch Changes

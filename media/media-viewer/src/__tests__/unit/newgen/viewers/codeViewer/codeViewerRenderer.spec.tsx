@@ -69,7 +69,7 @@ describe('CodeViewRenderer', () => {
     expect(errorMessage.find(Button)).toHaveLength(0);
   });
 
-  it('should call onSuccess when loaded, and onSuccess should render the CodeBlock component with the passed in language style if text (src) <= max formatted lines', async () => {
+  it('should call onSuccess when loaded, and onSuccess should render the CodeBlock component with the passed in language style if text (src) <= max formatted lines and fileSize is less than limit', async () => {
     const { el, onSuccess } = createFixture(undefined);
     el.update();
 
@@ -89,7 +89,7 @@ describe('CodeViewRenderer', () => {
     ).toEqual(true);
   });
 
-  it('should render the CodeBlock component with no codeblock styling if text (src) >= max formatted lines', async () => {
+  it('should render file with html code if text (src) >= max formatted lines', async () => {
     const longString = defaultSrc.repeat(10001);
 
     const { el, onSuccess } = createFixture(undefined, longString);
@@ -99,10 +99,9 @@ describe('CodeViewRenderer', () => {
 
     const codeBlock = el.find(`[data-testid='codeViewRenderer']`).last();
     expect(codeBlock).toHaveLength(1);
-
     expect(
-      codeBlock.contains(
-        <CodeBlock language={'text'} text={longString} testId="code-block" />,
+      codeBlock.containsMatchingElement(
+        <code data-testid="code-block">{longString}</code>,
       ),
     ).toEqual(true);
   });

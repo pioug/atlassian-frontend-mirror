@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import AtlaskitSelect from '../../..';
 
@@ -20,7 +21,6 @@ test('clicking on dropdown indicator should toggle the menu', () => {
   const atlaskitSelectWrapper = mount(
     <AtlaskitSelect classNamePrefix="react-select" />,
   );
-  // console.log(atlaskitSelectWrapper.debug());
   // Menu open by default
   expect(atlaskitSelectWrapper.find('Menu').exists()).toBeFalsy();
   atlaskitSelectWrapper
@@ -47,6 +47,39 @@ test('multi AtlaskitSelect > should show the default AtlaskitSelected value', ()
     />,
   );
   expect(atlaskitSelectWrapper.find('Control').text()).toBe('03');
+});
+
+test('Multiselect should show clear icons on selections plus clear icon for whole select', () => {
+  const { getAllByTestId } = render(
+    <AtlaskitSelect
+      className="multi-select"
+      classNamePrefix="react-select"
+      defaultValue={OPTIONS.slice(3, 5)}
+      options={OPTIONS}
+      isMulti
+    />,
+  );
+
+  const clearIcons = getAllByTestId('show-clear-icon');
+
+  expect(clearIcons.length).toBe(2);
+});
+
+test('Disabled multiselect should not show clear icon on selections or select itself', () => {
+  const { getAllByTestId } = render(
+    <AtlaskitSelect
+      isDisabled
+      className="multi-select"
+      classNamePrefix="react-select"
+      defaultValue={OPTIONS.slice(3, 5)}
+      options={OPTIONS}
+      isMulti
+    />,
+  );
+
+  const clearIcons = getAllByTestId('hide-clear-icon');
+
+  expect(clearIcons.length).toBe(2);
 });
 
 test('display options with group inside Menu (when menu is Open)', () => {

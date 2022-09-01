@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import MoreIcon from '@atlaskit/icon/glyph/more';

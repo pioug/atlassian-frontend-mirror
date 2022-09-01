@@ -28,7 +28,6 @@ import {
   withSmartCardStorage,
   WithSmartCardStorageProps,
 } from '../../ui/SmartCardStorage';
-import { calcLineLength } from '../../ui/Renderer/breakout-ssr';
 
 import {
   StickyTable,
@@ -38,6 +37,7 @@ import {
 } from './table/sticky';
 import { Table } from './table/table';
 import { SharedTableProps } from './table/types';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 type TableArrayMapped = {
   rowNodes: Array<PMNode | null>;
@@ -338,7 +338,7 @@ export class TableContainer extends React.Component<
     const { stickyMode } = this.state;
 
     let tableWidth = calcTableWidth(layout, renderWidth, false);
-    const lineLength = calcLineLength();
+    const lineLength = akEditorDefaultLayoutWidth;
 
     let left;
     if (

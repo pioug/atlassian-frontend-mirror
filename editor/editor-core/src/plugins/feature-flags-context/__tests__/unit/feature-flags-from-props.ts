@@ -228,7 +228,6 @@ describe('Feature Flags from Props', () => {
       'stickyHeadersOptimization',
       'initialRenderOptimization',
       'mouseMoveOptimization',
-      'tableRenderOptimization',
       'tableOverflowShadowsOptimization',
     ])('%s', (flagName) => {
       it.each<{ actual?: any; expected?: any }>([
@@ -236,6 +235,23 @@ describe('Feature Flags from Props', () => {
         { actual: false, expected: false },
         { actual: undefined, expected: false },
         { actual: null, expected: false },
+      ])(`set ${flagName} to %s based on feature flag`, (testData) => {
+        const { actual, expected } = testData;
+        const flags = createFeatureFlagsFromProps({
+          featureFlags: {
+            [flagName]: actual,
+          },
+        });
+        expect((flags as any)[flagName]).toBe(expected);
+      });
+    });
+    describe.each(['tableRenderOptimization'])('%s', (flagName) => {
+      it.each<{ actual?: any; expected?: any }>([
+        { actual: true, expected: true },
+        { actual: false, expected: false },
+        // if not set, tableRenderOptimization will default to true
+        { actual: undefined, expected: true },
+        { actual: null, expected: true },
       ])(`set ${flagName} to %s based on feature flag`, (testData) => {
         const { actual, expected } = testData;
         const flags = createFeatureFlagsFromProps({
@@ -315,12 +331,12 @@ describe('Feature Flags from Props', () => {
       expect(
         createFeatureFlagsFromProps({
           featureFlags: {
-            'view-changing-experiment-toolbar-style': 'control',
+            'view-changing-experiment-toolbar-style': 'true',
           },
         }),
       ).toEqual(
         expect.objectContaining({
-          viewChangingExperimentToolbarStyle: 'control',
+          viewChangingExperimentToolbarStyle: 'true',
         }),
       );
     });
@@ -426,6 +442,46 @@ describe('Feature Flags from Props', () => {
       ).toEqual(
         expect.objectContaining({
           indentationButtonsInTheToolbar: false,
+        }),
+      );
+    });
+  });
+
+  describe('floating toolbar link settings button', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            'floating-toolbar-link-settings-button': 'true',
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          floatingToolbarLinkSettingsButton: 'true',
+        }),
+      );
+    });
+    it('should default to undefined if not a string', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            'view-changing-experiment-toolbar-style': true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          floatingToolbarLinkSettingsButton: undefined,
+        }),
+      );
+    });
+    it('should default to undefined if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          floatingToolbarLinkSettingsButton: undefined,
         }),
       );
     });

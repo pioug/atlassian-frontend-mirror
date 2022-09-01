@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, InterpolationWithTheme } from '@emotion/core';
+import { jsx, Interpolation } from '@emotion/react';
 import { Component, FC } from 'react';
 
 import RadioIcon from '@atlaskit/icon/glyph/radio';
@@ -29,7 +29,7 @@ import { OptionProps, OptionType } from '../types';
 
 const getPrimitiveStyles = (
   props: Omit<OptionProps, 'children' | 'innerProps' | 'innerRef'>,
-): [InterpolationWithTheme<any>, string] => {
+): [Interpolation<any>, string] => {
   const { cx, className, getStyles, isDisabled, isFocused, isSelected } = props;
 
   const styles = {
@@ -55,7 +55,7 @@ const getPrimitiveStyles = (
     },
   };
 
-  const augmentedStyles: InterpolationWithTheme<any> = {
+  const augmentedStyles: Interpolation<any> = {
     ...getStyles('option', props),
     ...styles,
   };
@@ -180,11 +180,11 @@ const getBorderColor = ({
   } else if (isFocused && isSelected) {
     return token('color.background.selected.bold.hovered', B400);
   } else if (isFocused) {
-    return token('color.border', N100);
+    return token('color.border.input', N100);
   } else if (isSelected) {
     return token('color.background.selected.bold', B400);
   }
-  return token('color.border', N100);
+  return token('color.border.input', N100);
 };
 
 interface OptionState {
@@ -224,6 +224,11 @@ class ControlOption<
     const [styles, classes] = getPrimitiveStyles({ getStyles, ...rest });
 
     return (
+      /**
+       * TODO Fix this type error
+       * @see https://product-fabric.atlassian.net/browse/DSP-6063
+       */
+      // @ts-ignore
       <div css={styles} className={classes} ref={innerRef} {...props}>
         <div
           css={{

@@ -60,10 +60,49 @@ export const createCellHoverDecoration = (
 export const createControlsHoverDecoration = (
   cells: Cell[],
   type: 'row' | 'column' | 'table',
+  tr: Transaction | ReadonlyTransaction,
   danger?: boolean,
   selected?: boolean,
-): Decoration[] =>
-  cells.map((cell) => {
+): Decoration[] => {
+  const table = findTable(tr.selection);
+  if (!table) {
+    return [];
+  }
+
+  const map = TableMap.get(table.node);
+  const [min, max] = cells.reduce<[number | null, number | null]>(
+    ([min, max], cell) => {
+      if (min === null || cell.pos < min) {
+        min = cell.pos;
+      }
+      if (max === null || cell.pos > max) {
+        max = cell.pos;
+      }
+
+      return [min, max];
+    },
+    [null, null],
+  );
+
+  if (min === null || max === null) {
+    return [];
+  }
+
+  let updatedCells: number[] = cells.map((x) => x.pos);
+
+  // ED-15246 fixed trello card table overflow issue
+  // If columns / rows have been merged the hovered selection is different to the actual selection
+  // So If the table cells are in danger we want to create a "rectangle" selection
+  // to match the "clicked" selection
+
+  if (danger) {
+    const rect = map.rectBetween(min - table.start, max - table.start);
+    updatedCells = map.cellsInRect(rect).map((x) => x + table.start);
+  }
+
+  return updatedCells.map((pos) => {
+    const cell = tr.doc.nodeAt(pos);
+
     const classes = [ClassName.HOVERED_CELL];
     if (danger) {
       classes.push(ClassName.HOVERED_CELL_IN_DANGER);
@@ -96,14 +135,15 @@ export const createControlsHoverDecoration = (
     }
 
     return Decoration.node(
-      cell.pos,
-      cell.pos + cell.node.nodeSize,
+      pos,
+      pos + cell!.nodeSize,
       {
         class: classes.join(' '),
       },
       { key },
     );
   });
+};
 
 export const createColumnSelectedDecoration = (
   tr: Transaction | ReadonlyTransaction,

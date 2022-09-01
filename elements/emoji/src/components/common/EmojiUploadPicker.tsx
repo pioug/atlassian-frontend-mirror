@@ -1,7 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { Fragment } from 'react';
-import { ChangeEvent, ChangeEventHandler, PureComponent } from 'react';
+import React, {
+  FC,
+  Fragment,
+  KeyboardEventHandler,
+  useEffect,
+  useState,
+  ChangeEvent,
+  ChangeEventHandler,
+} from 'react';
 import {
   FormattedMessage,
   injectIntl,
@@ -29,7 +36,7 @@ import {
 } from './styles';
 
 export interface OnUploadEmoji {
-  (upload: EmojiUpload, retry: boolean): void;
+  (upload: EmojiUpload, retry: boolean, onSuccessHandler?: () => void): void;
 }
 
 export interface Props {
@@ -38,14 +45,6 @@ export interface Props {
   onFileChooserClicked?: () => void;
   errorMessage?: Message;
   initialUploadName?: string;
-}
-
-export interface State {
-  previewImage?: string;
-  name?: string;
-  filename?: string;
-  uploadStatus?: UploadStatus;
-  chooseEmojiErrorMessage?: MessageDescriptor;
 }
 
 const disallowedReplacementsMap = new Map([
@@ -86,139 +85,132 @@ interface ChooseEmojiFileProps {
   errorMessage?: Message;
 }
 
-class ChooseEmojiFile extends PureComponent<
-  ChooseEmojiFileProps & WrappedComponentProps,
-  {}
-> {
-  private onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
+type ChooseEmojiFilePropsType = ChooseEmojiFileProps & WrappedComponentProps;
+const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = (props) => {
+  const {
+    name = '',
+    onChooseFile,
+    onClick,
+    onNameChange,
+    onUploadCancelled,
+    errorMessage,
+    intl,
+  } = props;
+  const { formatMessage } = intl;
+  const disableChooser = !name;
+  const fileChooserButtonDescriptionId =
+    'choose.emoji.file.button.screen.reader.description.id';
+
+  const onKeyDownHandler: KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === 'Escape') {
-      this.props.onUploadCancelled();
+      onUploadCancelled();
     }
   };
 
-  render() {
-    const {
-      name = '',
-      onChooseFile,
-      onClick,
-      onNameChange,
-      errorMessage,
-      intl,
-    } = this.props;
-    const { formatMessage } = intl;
-    const disableChooser = !name;
-    const fileChooserButtonDescriptionId =
-      'choose.emoji.file.button.screen.reader.description.id';
-
-    // Note: FileChooser.accept does not work in Electron due to a bug: https://product-fabric.atlassian.net/browse/FS-1626
-    return (
-      <div css={emojiUpload}>
-        <div css={uploadChooseFileMessage}>
-          <FormattedMessage {...messages.addCustomEmojiLabel}>
-            {(message) => <h5>{message}</h5>}
-          </FormattedMessage>
-        </div>
-        <div css={uploadChooseFileRow}>
-          <span css={uploadChooseFileEmojiName}>
-            <TextField
-              placeholder={formatMessage(messages.emojiPlaceholder)}
-              aria-label={formatMessage(messages.emojiNameAriaLabel)}
-              maxLength={maxNameLength}
-              onChange={onNameChange}
-              onKeyDown={this.onKeyDown}
-              value={name}
-              isCompact
-              autoFocus
-            />
-          </span>
-          <span css={uploadChooseFileBrowse}>
-            <FormattedMessage
-              {...messages.emojiChooseFileScreenReaderDescription}
-            >
-              {(screenReaderDescription) => (
-                <Fragment>
-                  <span hidden id={fileChooserButtonDescriptionId}>
-                    {screenReaderDescription}
-                  </span>
-                  <FileChooser
-                    label={formatMessage(messages.emojiChooseFileTitle)}
-                    onChange={onChooseFile}
-                    onClick={onClick}
-                    accept="image/png,image/jpeg,image/gif"
-                    ariaDescribedBy={fileChooserButtonDescriptionId}
-                    isDisabled={disableChooser}
-                  />
-                </Fragment>
-              )}
-            </FormattedMessage>
-          </span>
-        </div>
-        <div css={emojiUploadBottom}>
-          {!errorMessage ? (
-            <p>
-              <FormattedMessage {...messages.emojiImageRequirements} />
-            </p>
-          ) : (
-            <EmojiErrorMessage
-              messageStyles={emojiChooseFileErrorMessage}
-              message={errorMessage}
-            />
-          )}
-        </div>
+  return (
+    <div css={emojiUpload}>
+      <div css={uploadChooseFileMessage}>
+        <FormattedMessage {...messages.addCustomEmojiLabel}>
+          {(message) => <h5>{message}</h5>}
+        </FormattedMessage>
       </div>
-    );
-  }
-}
+      <div css={uploadChooseFileRow}>
+        <span css={uploadChooseFileEmojiName}>
+          <TextField
+            placeholder={formatMessage(messages.emojiPlaceholder)}
+            aria-label={formatMessage(messages.emojiNameAriaLabel)}
+            maxLength={maxNameLength}
+            onChange={onNameChange}
+            onKeyDown={onKeyDownHandler}
+            value={name}
+            isCompact
+            autoFocus
+          />
+        </span>
+        <span css={uploadChooseFileBrowse}>
+          <FormattedMessage
+            {...messages.emojiChooseFileScreenReaderDescription}
+          >
+            {(screenReaderDescription) => (
+              <Fragment>
+                <span hidden id={fileChooserButtonDescriptionId}>
+                  {screenReaderDescription}
+                </span>
+                <FileChooser
+                  label={formatMessage(messages.emojiChooseFileTitle)}
+                  onChange={onChooseFile}
+                  onClick={onClick}
+                  accept="image/png,image/jpeg,image/gif"
+                  ariaDescribedBy={fileChooserButtonDescriptionId}
+                  isDisabled={disableChooser}
+                />
+              </Fragment>
+            )}
+          </FormattedMessage>
+        </span>
+      </div>
+      <div css={emojiUploadBottom}>
+        {!errorMessage ? (
+          <p>
+            <FormattedMessage {...messages.emojiImageRequirements} />
+          </p>
+        ) : (
+          <EmojiErrorMessage
+            messageStyles={emojiChooseFileErrorMessage}
+            message={errorMessage}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
 
-export class EmojiUploadPicker extends PureComponent<
-  Props & WrappedComponentProps,
-  State
-> {
-  state = {
-    uploadStatus: UploadStatus.Waiting,
-    chooseEmojiErrorMessage: undefined,
-  } as State;
+const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
+  const {
+    errorMessage,
+    initialUploadName,
+    onUploadEmoji,
+    onFileChooserClicked,
+    onUploadCancelled,
+    intl,
+  } = props;
+  const [uploadStatus, setUploadStatus] = useState(
+    errorMessage ? UploadStatus.Error : UploadStatus.Waiting,
+  );
+  const [chooseEmojiErrorMessage, setChooseEmojiErrorMessage] = useState<
+    MessageDescriptor
+  >();
+  const [name, setName] = useState(
+    initialUploadName && sanitizeName(initialUploadName),
+  );
+  const [filename, setFilename] = useState<string>();
+  const [previewImage, setPreviewImage] = useState<string>();
 
-  constructor(props: Props & WrappedComponentProps) {
-    super(props);
-    if (props.errorMessage) {
-      this.state.uploadStatus = UploadStatus.Error;
-    }
-    if (props.initialUploadName) {
-      this.state.name = sanitizeName(props.initialUploadName);
-    }
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    const updatedState: State = {};
-    if (nextProps.errorMessage) {
-      updatedState.uploadStatus = UploadStatus.Error;
+  useEffect(() => {
+    if (errorMessage) {
+      setUploadStatus(UploadStatus.Error);
+      return;
     } else {
-      if (this.state.uploadStatus === UploadStatus.Error) {
-        updatedState.uploadStatus = UploadStatus.Waiting;
+      if (uploadStatus === UploadStatus.Error) {
+        setUploadStatus(UploadStatus.Waiting);
       }
     }
-    if (nextProps.initialUploadName) {
-      if (!this.state.name) {
-        updatedState.name = sanitizeName(nextProps.initialUploadName);
-      }
-    }
-    this.setState(updatedState);
-  }
+  }, [errorMessage, uploadStatus]);
 
-  private onNameChange = (event: ChangeEvent<any>) => {
+  useEffect(() => {
+    if (initialUploadName) {
+      setName(sanitizeName(initialUploadName));
+    }
+  }, [initialUploadName]);
+
+  const onNameChange = (event: ChangeEvent<any>) => {
     let newName = sanitizeName(event.target.value);
-    if (this.state.name !== newName) {
-      this.setState({
-        name: newName,
-      });
+    if (name !== newName) {
+      setName(newName);
     }
   };
 
-  private onAddEmoji = () => {
-    const { onUploadEmoji } = this.props;
-    const { filename, name, previewImage, uploadStatus } = this.state;
-
+  const onAddEmoji = () => {
     if (uploadStatus === UploadStatus.Uploading) {
       return;
     }
@@ -226,9 +218,7 @@ export class EmojiUploadPicker extends PureComponent<
     if (filename && name && previewImage) {
       const notifyUpload = (size: { width: number; height: number }) => {
         const { width, height } = size;
-        this.setState({
-          uploadStatus: UploadStatus.Uploading,
-        });
+        setUploadStatus(UploadStatus.Uploading);
 
         onUploadEmoji(
           {
@@ -240,6 +230,7 @@ export class EmojiUploadPicker extends PureComponent<
             height,
           },
           uploadStatus === UploadStatus.Error,
+          clearUploadPicker,
         );
       };
       ImageUtil.getNaturalImageSize(previewImage)
@@ -257,39 +248,25 @@ export class EmojiUploadPicker extends PureComponent<
         });
     }
   };
-
-  private errorOnUpload = (event: any): void => {
+  const errorOnUpload = (event: any): void => {
     debug('File load error: ', event);
-    this.setState({
-      chooseEmojiErrorMessage: messages.emojiUploadFailed,
-    });
-    this.cancelChooseFile();
+    setChooseEmojiErrorMessage(messages.emojiUploadFailed);
+    cancelChooseFile();
   };
-
-  private onFileLoad = (file: File) => (f: any): Promise<any> => {
-    return ImageUtil.parseImage(f.target.result)
-      .then(() => {
-        const state = {
-          previewImage: f.target.result,
-          filename: file.name,
-        };
-        this.setState(state);
-      })
-      .catch(() => {
-        this.setState({
-          chooseEmojiErrorMessage: messages.emojiInvalidImage,
-        });
-        this.cancelChooseFile();
-      });
+  const onFileLoad = (file: File) => async (f: any): Promise<any> => {
+    try {
+      setFilename(file.name);
+      await ImageUtil.parseImage(f.target.result);
+      setPreviewImage(f.target.result);
+    } catch {
+      setChooseEmojiErrorMessage(messages.emojiInvalidImage);
+      cancelChooseFile();
+    }
   };
-
-  private cancelChooseFile = () => {
-    this.setState({
-      previewImage: undefined,
-    });
+  const cancelChooseFile = () => {
+    setPreviewImage(undefined);
   };
-
-  private onChooseFile = (event: ChangeEvent<any>): void => {
+  const onChooseFile = (event: ChangeEvent<any>): void => {
     const files = event.target.files;
 
     if (files.length) {
@@ -297,73 +274,57 @@ export class EmojiUploadPicker extends PureComponent<
       const file: File = files[0];
 
       if (ImageUtil.hasFileExceededSize(file)) {
-        this.setState({
-          chooseEmojiErrorMessage: messages.emojiImageTooBig,
-        });
-        this.cancelChooseFile();
+        setChooseEmojiErrorMessage(messages.emojiImageTooBig);
+        cancelChooseFile();
         return;
       }
 
-      reader.addEventListener('load', this.onFileLoad(file));
-      reader.addEventListener('abort', this.errorOnUpload);
-      reader.addEventListener('error', this.errorOnUpload);
+      reader.addEventListener('load', onFileLoad(file));
+      reader.addEventListener('abort', errorOnUpload);
+      reader.addEventListener('error', errorOnUpload);
       reader.readAsDataURL(file);
     } else {
-      this.cancelChooseFile();
+      cancelChooseFile();
     }
   };
-
-  clearUploadPicker = () => {
-    this.setState({
-      name: undefined,
-      previewImage: undefined,
-      uploadStatus: UploadStatus.Waiting,
-    });
+  const clearUploadPicker = () => {
+    setName(undefined);
+    setPreviewImage(undefined);
+    setUploadStatus(UploadStatus.Waiting);
+  };
+  const cancelUpload = () => {
+    clearUploadPicker();
+    onUploadCancelled();
   };
 
-  render() {
-    const { errorMessage, onUploadCancelled, intl } = this.props;
-    const {
-      name,
-      previewImage,
-      uploadStatus,
-      chooseEmojiErrorMessage,
-    } = this.state;
-
-    const cancelUpload = () => {
-      this.clearUploadPicker();
-      onUploadCancelled();
-    };
-
-    if (name && previewImage) {
-      return (
+  return (
+    <React.Fragment>
+      {name && previewImage ? (
         <EmojiUploadPreview
           errorMessage={errorMessage}
           name={name}
-          onAddEmoji={this.onAddEmoji}
+          onAddEmoji={onAddEmoji}
           onUploadCancelled={cancelUpload}
           previewImage={previewImage}
           uploadStatus={uploadStatus}
         />
-      );
-    }
+      ) : (
+        <ChooseEmojiFile
+          name={name}
+          onChooseFile={onChooseFile}
+          onClick={onFileChooserClicked}
+          onNameChange={onNameChange}
+          onUploadCancelled={cancelUpload}
+          errorMessage={
+            chooseEmojiErrorMessage ? (
+              <FormattedMessage {...chooseEmojiErrorMessage} />
+            ) : undefined
+          }
+          intl={intl}
+        />
+      )}
+    </React.Fragment>
+  );
+};
 
-    return (
-      <ChooseEmojiFile
-        name={name}
-        onChooseFile={this.onChooseFile}
-        onClick={this.props.onFileChooserClicked}
-        onNameChange={this.onNameChange}
-        onUploadCancelled={cancelUpload}
-        errorMessage={
-          chooseEmojiErrorMessage ? (
-            <FormattedMessage {...chooseEmojiErrorMessage} />
-          ) : undefined
-        }
-        intl={intl}
-      />
-    );
-  }
-}
-
-export default injectIntl(EmojiUploadPicker, { forwardRef: true });
+export default injectIntl(EmojiUploadPicker);

@@ -37,9 +37,9 @@
   "devDependencies": {
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/lozenge": "^11.0.0",
-    "@atlaskit/textfield": "^5.1.0",
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/lozenge": "^11.2.0",
+    "@atlaskit/textfield": "^5.2.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "es6-promise": "^4.0.5",
     "fetch-mock": "^8.0.0",

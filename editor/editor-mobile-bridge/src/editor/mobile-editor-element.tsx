@@ -70,7 +70,7 @@ const getLayoutOptions = memoizeOne(
   isEqual,
 );
 
-const tableOptions = {
+const tableOptions: EditorProps['allowTables'] = {
   allowCellOptionsInFloatingToolbar: true,
   allowControls: true,
   allowBackgroundColor: true,
@@ -80,16 +80,18 @@ const tableOptions = {
   allowNumberColumn: true,
 };
 
-const expandOptions = {
+const expandOptions: EditorProps['allowExpand'] = {
   allowInsertion: true,
 };
 
-const codeBlockOptions = {
+const codeBlockOptions: EditorProps['codeBlock'] = {
   allowCopyToClipboard: true,
   appearance: 'mobile' as EditorProps['appearance'],
 };
 
-const templatePlaceholdersOptions = { allowInserting: true };
+const templatePlaceholdersOptions: EditorProps['allowTemplatePlaceholders'] = {
+  allowInserting: true,
+};
 // End Editor options.
 
 export function MobileEditor(props: MobileEditorProps) {

@@ -1,9 +1,9 @@
-import React, { createRef, PureComponent } from 'react';
-
+import React, { FC, useEffect, useMemo, useRef } from 'react';
 import {
   EmojiDescription,
   EmojiDescriptionWithVariations,
   OnToneSelected,
+  ToneValueType,
 } from '../../types';
 import EmojiButton from './EmojiButton';
 import {
@@ -33,31 +33,36 @@ const extractAllTones = (
   return [emoji];
 };
 
-export class ToneSelectorInternal extends PureComponent<
-  Props & WithAnalyticsEventsProps,
-  {}
-> {
-  private fireEvent(event: AnalyticsEventPayload) {
-    const { createAnalyticsEvent } = this.props;
+type PropsWithAnalyticsEventsPropsType = Props & WithAnalyticsEventsProps;
+export const ToneSelectorInternal: FC<PropsWithAnalyticsEventsPropsType> = (
+  props,
+) => {
+  const { createAnalyticsEvent, emoji, previewEmojiId, onToneSelected } = props;
+  const isMounted = useRef(false);
+  const firstToneButtonRef = useRef<HTMLButtonElement>(null);
+  const emojiToneCollection = useMemo(() => {
+    return extractAllTones(emoji).map((tone, index) => ({
+      ...tone,
+      focused: tone.id !== previewEmojiId,
+      label: setSkinToneAriaLabelText(tone.name),
+      toneId: index,
+    }));
+  }, [emoji, previewEmojiId]);
 
+  useEffect(() => {
+    if (firstToneButtonRef.current) {
+      firstToneButtonRef.current.focus();
+    }
+  }, [firstToneButtonRef]);
+
+  const fireAnalyticsEvent = (event: AnalyticsEventPayload) => {
     if (createAnalyticsEvent) {
       createAndFireEventInElementsChannel(event)(createAnalyticsEvent);
     }
-  }
+  };
 
-  componentDidMount() {
-    this.firstToneButtonRef?.current?.focus();
-  }
-
-  public UNSAFE_componentWillMount() {
-    this.fireEvent(toneSelectorOpenedEvent({}));
-  }
-
-  firstToneButtonRef = createRef<HTMLButtonElement>();
-
-  private onToneSelectedHandler = (skinTone: number) => {
-    const { onToneSelected } = this.props;
-    onToneSelected(skinTone);
+  const onToneSelectedHandler = (toneValue: ToneValueType) => () => {
+    onToneSelected(toneValue);
 
     const toneList = [
       'default',
@@ -67,42 +72,38 @@ export class ToneSelectorInternal extends PureComponent<
       'mediumDark',
       'dark',
     ];
-    this.fireEvent(
+
+    fireAnalyticsEvent(
       toneSelectedEvent({
-        skinToneModifier: toneList[skinTone],
+        skinToneModifier: toneList[toneValue],
       }),
     );
   };
 
-  render() {
-    const { emoji, previewEmojiId } = this.props;
-    const toneEmojis: EmojiDescription[] = extractAllTones(emoji);
-    let isRefAlreadySet = false;
-
-    return (
-      <div>
-        {toneEmojis.map((tone, i) => {
-          const shouldSetRef = !isRefAlreadySet && tone.id !== previewEmojiId;
-          if (shouldSetRef) {
-            isRefAlreadySet = true;
-          }
-
-          return (
-            <EmojiButton
-              ref={shouldSetRef ? this.firstToneButtonRef : null}
-              shouldHideButton={tone.id === previewEmojiId}
-              ariaLabelText={setSkinToneAriaLabelText(tone.name as string)}
-              key={`${tone.id}`}
-              onSelected={() => this.onToneSelectedHandler(i)}
-              emoji={tone}
-              selectOnHover={true}
-            />
-          );
-        })}
-      </div>
-    );
+  if (!isMounted.current) {
+    fireAnalyticsEvent(toneSelectorOpenedEvent({}));
   }
-}
+
+  isMounted.current = true;
+
+  return (
+    <div>
+      {emojiToneCollection.map((tone) => {
+        return (
+          <EmojiButton
+            ref={tone.focused ? firstToneButtonRef : null}
+            shouldHideButton={tone.id === previewEmojiId}
+            ariaLabelText={tone.label}
+            key={`${tone.id}`}
+            onSelected={onToneSelectedHandler(tone.toneId)}
+            emoji={tone}
+            selectOnHover
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 const ToneSelector = withAnalyticsEvents()(ToneSelectorInternal);
 

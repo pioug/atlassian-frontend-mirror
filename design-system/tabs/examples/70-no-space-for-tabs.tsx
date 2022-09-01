@@ -18,7 +18,7 @@ export default function noSpaceForTabs() {
         display: 'flex',
       }}
     >
-      <Tabs id="no-space-for-tabs">
+      <Tabs id="no-space-for-tabs" testId="no-space-for-tabs">
         <TabList>
           <Tab>Here is an incredibly super long label, too long really</Tab>
           <Tab>here, a short label</Tab>

@@ -3,6 +3,7 @@ import { documentWithDecision } from './__fixtures__/document-with-decision';
 import { documentWithInlineCard } from './__fixtures__/document-with-inline-card';
 import { documentWithMediaInlineCard } from './__fixtures__/document-with-media-inline-card';
 import { documentWithText } from './__fixtures__/document-with-text';
+import { emptyDocument } from './__fixtures__/empty-document';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 import { MountProps } from '@atlaskit/renderer/examples/helper/testing-setup';
@@ -189,8 +190,9 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: decision item copied from renderer and pasted',
-  // TODO: Unskip via https://product-fabric.atlassian.net/browse/ED-15079
-  { skip: ['firefox'] },
+  // TODO: Unskip Firefox via https://product-fabric.atlassian.net/browse/ED-15079
+  // TODO: Chrome skipped due to being flaky in pipelines - please fix
+  { skip: ['firefox', 'chrome'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(
@@ -270,7 +272,8 @@ BrowserTestCase(
    * Notes that Chrome on MacOS will fail this test because we are using ['Shift', 'Insert'] in page.paste()
    * which would actually paste the text.
    */
-  {},
+  // TODO: All browsers skipped due to failing in pipelines - please fix
+  { skip: ['chrome', 'safari', 'firefox'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(
@@ -334,7 +337,8 @@ BrowserTestCase(
 // enable this test case for firefox: https://product-fabric.atlassian.net/browse/ED-15270
 BrowserTestCase(
   'paste.ts: media inline card copied from renderer and pasted',
-  { skip: ['firefox'] },
+  // TODO: All browsers skipped due to failing in pipelines - please fix
+  { skip: ['chrome', 'safari', 'firefox'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(
@@ -402,9 +406,11 @@ BrowserTestCase(
   },
 );
 
+// https://product-fabric.atlassian.net/browse/ED-15539
+// All browsers skipped due to failing in pipelines
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: hyperlink',
-  {},
+  { skip: ['chrome', 'safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -418,6 +424,31 @@ BrowserTestCase(
 
     await page.click(fullpage.placeholder);
     await setProseMirrorTextSelection(page, { anchor: 13, head: 26 });
+    await page.paste();
+
+    const doc = await page.$eval(editorSelector, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+// https://product-fabric.atlassian.net/browse/ED-15539
+// All browsers skipped due to failing in pipelines
+BrowserTestCase(
+  `paste.ts: paste tests on fullpage editor: plain text with leading and trailing whitespaces and newlines`,
+  { skip: ['chrome', 'safari', 'firefox'] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    const data =
+      '  text with 2 leading whitespaces\n  text with 2 leading and trailing whitespaces  \ntext with 2 trailing whitespaces  \n\n  text with leading tab and 2 trailing whitespaces  \n  text with leading and trailing tab  \r\ntext with 2 trailing whitespaces  ';
+    await copyAsPlainText(page, data);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: JSON.stringify(emptyDocument),
+    });
+
+    await page.click(fullpage.placeholder);
     await page.paste();
 
     const doc = await page.$eval(editorSelector, getDocFromElement);

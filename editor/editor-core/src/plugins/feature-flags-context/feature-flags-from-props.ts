@@ -107,7 +107,9 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       typeof props.featureFlags?.tableRenderOptimization === 'boolean'
         ? !!props.featureFlags?.tableRenderOptimization
         : typeof props.allowTables === 'object' &&
-          !!props.allowTables?.tableRenderOptimization,
+          typeof props.allowTables?.tableRenderOptimization === 'boolean'
+        ? props.allowTables?.tableRenderOptimization
+        : true,
 
     tableOverflowShadowsOptimization:
       typeof props.featureFlags?.tableOverflowShadowsOptimization === 'boolean'
@@ -223,6 +225,13 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
           ? !!props.featureFlags?.floatingToolbarCopyButton
           : false),
     ),
+
+    floatingToolbarLinkSettingsButton:
+      typeof props.featureFlags?.['floating-toolbar-link-settings-button'] ===
+      'string'
+        ? props.featureFlags['floating-toolbar-link-settings-button'] ||
+          undefined
+        : undefined,
 
     disableSpellcheckByBrowser: getSpellCheck(props.featureFlags!),
   };

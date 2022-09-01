@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import type { FC } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Textfield from '@atlaskit/textfield';
 import {

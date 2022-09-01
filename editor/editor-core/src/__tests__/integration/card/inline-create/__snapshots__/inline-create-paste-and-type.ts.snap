@@ -22,7 +22,7 @@ Object {
           "type": "inlineCard",
         },
         Object {
-          "text": " more typing",
+          "text": "more typing",
           "type": "text",
         },
       ],

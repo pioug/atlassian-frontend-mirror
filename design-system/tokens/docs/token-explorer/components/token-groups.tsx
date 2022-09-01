@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import upperFirst from 'lodash/upperFirst';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports

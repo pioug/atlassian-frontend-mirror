@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment, ReactNode, useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import FocusRing from '@atlaskit/focus-ring';
 import LinkIcon from '@atlaskit/icon/glyph/link';

@@ -1,7 +1,7 @@
 /**  @jsx jsx */
 import { ReactElement } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 export type EllipsisProp = {
   key: string;

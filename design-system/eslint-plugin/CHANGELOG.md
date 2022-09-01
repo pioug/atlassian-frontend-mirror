@@ -1,5 +1,19 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.10.1
+
+### Patch Changes
+
+- [`d76851b2f42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d76851b2f42) - Improved NaN handling and output
+- [`0544fe823d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0544fe823d1) - Updates to account for nested unary selectors.
+- [`1ed3db0c9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed3db0c9be) - Improvements to lint rule and accounting for edge cases
+
+## 4.10.0
+
+### Minor Changes
+
+- [`bb808f9a186`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb808f9a186) - Add exceptions option to ensure-design-token-usage rule
+
 ## 4.9.0
 
 ### Minor Changes

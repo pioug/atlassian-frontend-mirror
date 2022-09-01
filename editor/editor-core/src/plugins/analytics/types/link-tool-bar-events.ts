@@ -141,6 +141,14 @@ export type EditLinkToolbarAEP = UIAEP<
   undefined
 >;
 
+export type OpenSettingsToolbarAEP = UIAEP<
+  ACTION.CLICKED,
+  ACTION_SUBJECT.BUTTON,
+  ACTION_SUBJECT_ID.GOTO_SMART_LINK_SETTINGS,
+  {},
+  undefined
+>;
+
 export type UnlinkToolbarAEP = UIAEP<
   ACTION.UNLINK,
   ACTION_SUBJECT.SMART_LINK | ACTION_SUBJECT.HYPERLINK,

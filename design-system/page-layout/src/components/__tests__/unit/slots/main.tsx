@@ -29,11 +29,11 @@ describe('<Main />', () => {
     expect(getByTestId('main')).toHaveStyleDeclaration('flex-grow', '1');
     expect(getByTestId('left')).toHaveStyleDeclaration(
       'width',
-      'var(--leftSidebarWidth,0px)',
+      'var(--leftSidebarWidth, 0px)',
     );
     expect(getByTestId('right')).toHaveStyleDeclaration(
       'width',
-      'var(--rightSidebarWidth,0px)',
+      'var(--rightSidebarWidth, 0px)',
     );
   });
 });

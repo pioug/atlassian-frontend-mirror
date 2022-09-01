@@ -104,6 +104,7 @@ export type {
 } from './models/file-state';
 
 export type {
+  MobileUpload,
   MobileUploadStartEvent,
   MobileUploadProgressEvent,
   MobileUploadEndEvent,

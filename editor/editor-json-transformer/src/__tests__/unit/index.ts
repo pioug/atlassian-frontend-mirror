@@ -34,6 +34,7 @@ import {
   li,
   media,
   mediaGroup,
+  mediaInline,
   mention,
   nestedExpand,
   ol,
@@ -98,7 +99,11 @@ describe('JSONTransformer:', () => {
         editorProps: {
           emojiProvider: new Promise(() => {}),
           mentionProvider: new Promise(() => {}),
-          media: {},
+          media: {
+            featureFlags: {
+              mediaInline: true,
+            },
+          },
           allowTextColor: true,
           allowPanel: true,
           allowRule: true,
@@ -239,6 +244,43 @@ describe('JSONTransformer:', () => {
             content: [
               {
                 type: 'media',
+                attrs: {
+                  id: 'foo',
+                  type: 'file',
+                  collection: '',
+                },
+              },
+            ],
+          },
+        ],
+      });
+    });
+
+    it('should strip optional attrs from media inline node', () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            mediaInline({
+              id: 'foo',
+              type: 'file',
+              collection: '',
+              __fileName: 'foo.png',
+              __displayType: 'thumbnail',
+              __fileMimeType: 'image/png',
+              __fileSize: 1234,
+            })(),
+          ),
+        ),
+      );
+      expect(toJSON(editorView.state.doc)).toEqual({
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'mediaInline',
                 attrs: {
                   id: 'foo',
                   type: 'file',

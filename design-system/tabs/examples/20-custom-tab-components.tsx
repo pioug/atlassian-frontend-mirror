@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Tooltip from '@atlaskit/tooltip';
 
@@ -40,7 +40,7 @@ const LinkTab = ({ label, href }: { label: string; href: string }) => {
 const href = 'http://atlassian.design';
 
 const CustomTabComponent = () => (
-  <div>
+  <div id="test-container">
     <h3>Tabs with tooltips</h3>
     <Tabs
       onChange={(index) => console.log('Selected Tab', index + 1)}

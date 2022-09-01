@@ -41,7 +41,9 @@ export type UploadsStartEventPayload = {
 };
 
 export type UploadPreviewUpdateEventPayload = {
-  readonly file: MediaFile;
+  readonly file: MediaFile & {
+    readonly collectionName?: string;
+  };
   readonly preview: Preview;
 };
 

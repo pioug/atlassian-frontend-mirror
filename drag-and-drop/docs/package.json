@@ -41,7 +41,7 @@
     "@atlaskit/icon": "^21.10.7",
     "@atlaskit/menu": "^1.3.8",
     "@atlaskit/motion": "^1.1.0",
-    "@atlaskit/theme": "^12.1.9",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.11",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

@@ -146,6 +146,7 @@ export class JIRATransformer implements Transformer<string> {
       orderedList,
       paragraph,
       rule,
+      mediaInline,
       mediaGroup,
       mediaSingle,
       media,
@@ -216,7 +217,10 @@ export class JIRATransformer implements Transformer<string> {
         return this.encodeMediaGroup(node);
       } else if (node.type.name === mediaSingle.name) {
         return this.encodeMediaSingle(node);
-      } else if (node.type.name === media.name) {
+      } else if (
+        node.type.name === media.name ||
+        node.type.name === mediaInline.name
+      ) {
         return this.encodeMedia(node);
       }
     }

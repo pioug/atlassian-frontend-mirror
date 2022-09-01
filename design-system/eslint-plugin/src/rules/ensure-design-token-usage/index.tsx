@@ -20,6 +20,10 @@ import {
 
 type PluginConfig = {
   shouldEnforceFallbacks: boolean;
+  /**
+   * List of exceptions that can be configured for the rule to always ignore.
+   */
+  exceptions?: string[];
 };
 
 const defaultConfig: PluginConfig = {
@@ -90,6 +94,8 @@ token('color.background.blanket');
   },
   create(context) {
     const config: PluginConfig = context.options[0] || defaultConfig;
+    const isException = (value: string) =>
+      config.exceptions?.includes(value) ?? false;
 
     return {
       'TemplateLiteral > Identifier': (node: Rule.Node) => {
@@ -97,7 +103,11 @@ token('color.background.blanket');
           return;
         }
 
-        if (node.type === 'Identifier' && isLegacyNamedColor(node.name)) {
+        if (
+          node.type === 'Identifier' &&
+          isLegacyNamedColor(node.name) &&
+          !isException(node.name)
+        ) {
           context.report({
             messageId: 'hardCodedColor',
             node,
@@ -109,6 +119,7 @@ token('color.background.blanket');
 
       Identifier(node) {
         if (
+          isException(node.name) ||
           isDecendantOfGlobalToken(node) ||
           isDecendantOfType(node, 'ImportDeclaration') ||
           isPropertyKey(node) ||
@@ -117,24 +128,23 @@ token('color.background.blanket');
           return;
         }
 
-        const isNodeHardCodedColor = isHardCodedColor(node.name);
-        if (isLegacyColor(node.name) || isNodeHardCodedColor) {
-          if (
-            node.parent.type === 'MemberExpression' &&
-            node.parent.object.type === 'Identifier'
-          ) {
-            // Object members as named colors, like obj.ivory, should be valid,
-            // and hexes and color functions cannot be property names anyway.
-            if (!isNodeHardCodedColor) {
-              context.report({
-                messageId: 'hardCodedColor',
-                node,
-                suggest: getTokenSuggestion(
-                  node.parent,
-                  `${node.parent.object.name}.${node.name}`,
-                  config,
-                ),
-              });
+        const isNodeLegacyColor = isLegacyColor(node.name);
+        if (isNodeLegacyColor || isHardCodedColor(node.name)) {
+          if (node.parent.type === 'MemberExpression') {
+            if (node.parent.object.type === 'Identifier') {
+              // Object members as named colors, like obj.ivory, should be valid,
+              // and hexes and color functions cannot be property names anyway.
+              if (isNodeLegacyColor) {
+                context.report({
+                  messageId: 'hardCodedColor',
+                  node,
+                  suggest: getTokenSuggestion(
+                    node.parent,
+                    `${node.parent.object.name}.${node.name}`,
+                    config,
+                  ),
+                });
+              }
             }
             return;
           }
@@ -223,6 +233,10 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           return;
         }
 
+        if (isException(node.value)) {
+          return;
+        }
+
         if (
           isHardCodedColor(node.value) ||
           includesHardCodedColor(node.value)
@@ -253,7 +267,8 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
 
         if (
           !isLegacyNamedColor(node.callee.name) ||
-          isDecendantOfGlobalToken(node)
+          isDecendantOfGlobalToken(node) ||
+          isException(node.callee.name)
         ) {
           return;
         }
@@ -274,17 +289,22 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           return;
         }
 
-        if (
-          node.value.type === 'Literal' &&
-          (isHardCodedColor(node.value.value) ||
-            includesHardCodedColor(node.value.value))
-        ) {
-          context.report({
-            messageId: 'hardCodedColor',
-            node,
-            suggest: getTokenSuggestion(node.value, node.value.value, config),
-          });
-          return;
+        if (node.value.type === 'Literal') {
+          const literalValue = node.value.value;
+          if (isException(literalValue)) {
+            return;
+          }
+          if (
+            isHardCodedColor(literalValue) ||
+            includesHardCodedColor(literalValue)
+          ) {
+            context.report({
+              messageId: 'hardCodedColor',
+              node,
+              suggest: getTokenSuggestion(node.value, literalValue, config),
+            });
+            return;
+          }
         }
       },
     };

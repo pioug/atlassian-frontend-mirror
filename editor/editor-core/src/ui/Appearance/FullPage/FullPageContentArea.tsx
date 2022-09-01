@@ -75,7 +75,10 @@ const Content: React.FunctionComponent<
                 ref={props.scrollContainerRef}
                 className="fabric-editor-popup-scroll-parent"
               >
-                <ClickAreaBlock editorView={props.editorView}>
+                <ClickAreaBlock
+                  editorView={props.editorView}
+                  editorDisabled={props.disabled}
+                >
                   <div
                     css={editorContentAreaStyle({
                       fullWidthMode,

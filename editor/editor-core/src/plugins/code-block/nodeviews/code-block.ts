@@ -13,6 +13,7 @@ const toDOM = (node: Node) =>
   [
     'div',
     { class: 'code-block' },
+    ['div', { class: codeBlockClassNames.start, contenteditable: 'false' }],
     ['div', { class: codeBlockClassNames.gutter, contenteditable: 'false' }],
     [
       'div',
@@ -23,10 +24,12 @@ const toDOM = (node: Node) =>
           'data-language': node.attrs.language || '',
           spellcheck: 'false',
           contenteditable: 'true',
+          'data-testid': 'code-block--code',
         },
         0,
       ],
     ],
+    ['div', { class: codeBlockClassNames.end, contenteditable: 'false' }],
   ] as DOMOutputSpec;
 
 export class CodeBlockView {

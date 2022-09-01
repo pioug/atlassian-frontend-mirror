@@ -1,7 +1,5 @@
 /** @jsx jsx */
-import { useMemo } from 'react';
-
-import { css, CSSObject, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import {
   B200,
@@ -31,33 +29,33 @@ const answerDescriptionStyles = css({
   lineHeight: '20px',
 });
 
-const getAnswerStyled = (selected: boolean): CSSObject => ({
-  cursor: 'pointer',
-  borderRadius: 8,
-  textAlign: 'start',
-  border: `1px solid ${
-    selected ? token('color.border.selected', B500) : token('color.border', N40)
-  }`,
-  padding: '8px 12px',
+const baseAnswerStyles = css({
   width: '100%',
-  background: selected
-    ? token('color.background.selected', B50)
-    : token('color.background.neutral.subtle', N0),
   marginBottom: gridSize(),
-  color: selected
-    ? token('color.text.selected', B500)
-    : token('color.text', N800),
-
+  padding: '8px 12px',
+  background: token('color.background.neutral.subtle', N0),
+  border: `1px solid ${token('color.border', N40)}`,
+  borderRadius: 8,
+  color: token('color.text', N800),
+  cursor: 'pointer',
+  textAlign: 'start',
   '&:hover': {
-    background: selected
-      ? token('color.background.selected.hovered', B75)
-      : token('color.background.neutral.subtle.hovered', N30A),
+    background: token('color.background.neutral.subtle.hovered', N30A),
   },
-
   '&:active': {
-    background: selected
-      ? token('color.background.selected.pressed', B200)
-      : token('color.background.neutral.subtle.pressed', N40A),
+    background: token('color.background.neutral.subtle.pressed', N40A),
+  },
+});
+
+const selectedStyles = css({
+  background: token('color.background.selected', B50),
+  borderColor: token('color.border.selected', B500),
+  color: token('color.text.selected', B500),
+  '&:hover': {
+    background: token('color.background.selected.hovered', B75),
+  },
+  '&:active': {
+    background: token('color.background.selected.pressed', B200),
   },
 });
 
@@ -77,11 +75,13 @@ const AnswerCard = ({
   path: [Path] | [];
 }) => {
   const selected = !!path.find((qs) => qs.answer === answer.summary);
-
-  const styles = useMemo(() => getAnswerStyled(selected), [selected]);
-
   return (
-    <button type="button" css={styles} key={answer.summary} onClick={onClick}>
+    <button
+      type="button"
+      css={[baseAnswerStyles, selected && selectedStyles]}
+      key={answer.summary}
+      onClick={onClick}
+    >
       <h5
         css={answerSummaryStyles}
         style={{

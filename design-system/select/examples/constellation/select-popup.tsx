@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import { token } from '@atlaskit/tokens';
 import { Checkbox } from '@atlaskit/checkbox';

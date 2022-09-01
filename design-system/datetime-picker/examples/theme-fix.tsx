@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ThemeContext } from '@emotion/core';
+import { ThemeContext } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 //TODO: This import is bad but because of all the export *'s I can't fix it

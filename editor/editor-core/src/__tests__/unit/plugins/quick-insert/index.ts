@@ -11,6 +11,10 @@ import { pluginKey as quickInsertPluginKey } from '../../../../plugins/quick-ins
 import { TypeAheadInsert } from '../../../../plugins/type-ahead/types';
 import { EditorProps } from '../../../../types/editor-props';
 
+beforeAll(() => {
+  window.queueMicrotask = (fn) => fn();
+});
+
 describe('Quick Insert', () => {
   const createEditor = createEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
@@ -29,6 +33,9 @@ describe('Quick Insert', () => {
         quickInsert: true,
         allowPanel: true,
         allowAnalyticsGASV3: true,
+        media: {
+          allowMediaSingle: true,
+        },
         ...extraProps,
       },
       createAnalyticsEvent,
@@ -109,5 +116,35 @@ describe('Quick Insert', () => {
     expect(editorWithBlockQuote.pluginState.lazyDefaultItems()).toContainEqual(
       expect.objectContaining({ id: 'blockquote' }),
     );
+  });
+
+  describe('search ordering', () => {
+    it('should favour images when using /image', async () => {
+      const getItems = Promise.resolve([
+        {
+          title: 'remote-image',
+          action(insert: TypeAheadInsert) {
+            return insert('custom item');
+          },
+        },
+      ]);
+      const provider = Promise.resolve({
+        getItems() {
+          return getItems;
+        },
+      });
+      const providerFactory = new ProviderFactory();
+      providerFactory.setProvider('quickInsertProvider', provider);
+
+      const { typeAheadTool } = editor(doc(p('{<>}')), providerFactory);
+
+      await getItems;
+      await provider;
+
+      const search = typeAheadTool.searchQuickInsert('image');
+      const items = await search.result();
+
+      expect(items?.[0].id).toBe('media');
+    });
   });
 });

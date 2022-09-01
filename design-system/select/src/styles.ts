@@ -26,7 +26,7 @@ const paddingExcludingBorder = gridSize() - BORDER_WIDTH;
 
 export default function baseStyles<Option, IsMulti extends boolean>(
   validationState: ValidationState,
-  isCompact: boolean,
+  isCompact: boolean = false,
   appearance: 'default' | 'subtle' | 'none',
 ): StylesConfig<Option, IsMulti> {
   return {
@@ -66,7 +66,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 
       let borderColorHover: string = isFocused
         ? token('color.border.focused', B100)
-        : token('color.border', N30);
+        : token('color.border.input', N30);
 
       if (validationState === 'error') {
         borderColorHover = token('color.border.danger', R400);

@@ -1,8 +1,8 @@
 /* eslint-disable @repo/internal/react/no-unsafe-overrides */
 import React from 'react';
 
+import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
-import { ThemeProvider } from 'emotion-theming';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 

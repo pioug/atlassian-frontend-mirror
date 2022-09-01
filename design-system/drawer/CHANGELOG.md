@@ -1,5 +1,16 @@
 # @atlaskit/drawer
 
+## 7.2.0
+
+### Minor Changes
+
+- [`cc4fe7bdf0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc4fe7bdf0c) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- [`11da403db81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11da403db81) - Internal change to add optional `testId` prop pass-through to blanket component. There should be no change in behaviour.
+- Updated dependencies
+
 ## 7.1.12
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/avatar-group
 
+## 9.0.3
+
+### Patch Changes
+
+- [`4bc286406f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bc286406f2) - [ux] Update more indicator icon to use new design tokens and remove the unnecessary use of the :after element with regards to the consumption of the Avatar component.
+- Updated dependencies
+
 ## 9.0.2
 
 ### Patch Changes

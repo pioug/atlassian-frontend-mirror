@@ -17,6 +17,7 @@ import {
 import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
 import { EditorProps } from '../../../../types/editor-props';
 import { PuppeteerPage } from '../../../../__tests__/__helpers/page-objects/_types';
+import { pressKey } from '../../../../__tests__/__helpers/page-objects/_keyboard';
 
 describe('Floating toolbars:', () => {
   let page: PuppeteerPage;
@@ -98,6 +99,33 @@ describe('Floating toolbars:', () => {
         'expand',
       );
       await waitForExtensionToolbar(page);
+    });
+
+    it('should remove macro danger styling when toolbar updates', async () => {
+      await clickOnExtension(
+        page,
+        'com.atlassian.confluence.macro.core',
+        'expand',
+      );
+      await waitForExtensionToolbar(page);
+      await page.waitForSelector('button[aria-label="Remove"]');
+
+      await page.hover('button[aria-label="Remove"]');
+      // move selection into table above
+      await pressKey(page, ['ArrowUp', 'ArrowUp', 'ArrowUp']);
+    });
+
+    it('should remove macro danger styling when toolbar unmounts', async () => {
+      await clickOnExtension(
+        page,
+        'com.atlassian.confluence.macro.core',
+        'expand',
+      );
+      await waitForExtensionToolbar(page);
+      await page.waitForSelector('button[aria-label="Remove"]');
+
+      await page.hover('button[aria-label="Remove"]');
+      await pressKey(page, ['ArrowDown', 'ArrowDown', 'ArrowDown']);
     });
   });
 

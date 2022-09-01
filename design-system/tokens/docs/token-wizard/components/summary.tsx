@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import { B400, B50 } from '@atlaskit/theme/colors';

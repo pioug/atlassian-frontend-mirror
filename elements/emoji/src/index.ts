@@ -39,6 +39,8 @@ import {
   emojiPickerHeight,
 } from './util/constants';
 import { UsageFrequencyTracker } from './api/internal/UsageFrequencyTracker';
+import { useEmojiContext } from './hooks/useEmojiContext';
+import { EmojiContextProvider } from './context/EmojiContextProvider';
 
 export {
   // Classes
@@ -53,6 +55,9 @@ export {
   EmojiTypeAhead,
   EmojiImage,
   ResourcedEmoji,
+  EmojiContextProvider,
+  // hooks,
+  useEmojiContext,
   // functions
   denormaliseEmojiServiceResponse,
   toEmojiId,

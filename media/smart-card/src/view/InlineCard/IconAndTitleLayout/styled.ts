@@ -69,14 +69,12 @@ export const LozengeWrapper = styled.span`
   vertical-align: 1px;
   & > span {
     margin-left: 4px;
-    padding: 2px 0 2px 0;
   }
 `;
 // TODO: Replace overrides with proper AtlasKit solution.
 export const LozengeBlockWrapper = styled.span`
   & > span {
     margin-left: 4px;
-    padding: 2px 0 2px 0;
   }
 `;
 

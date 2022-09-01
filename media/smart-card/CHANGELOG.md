@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 22.1.1
+
+### Patch Changes
+
+- [`9c7cc4139ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c7cc4139ec) - Partially remove Lozenge CSS override which conflicts with updated Lozenge styling.
+- Updated dependencies
+
 ## 22.1.0
 
 ### Minor Changes

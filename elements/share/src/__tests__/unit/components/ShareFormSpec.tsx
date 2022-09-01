@@ -94,7 +94,7 @@ describe('ShareForm', () => {
           </>
         ),
       });
-      const copyLinkButton = footer.find(CopyLinkButton).dive();
+      const copyLinkButton = footer.find(CopyLinkButton);
       expect(copyLinkButton.length).toBe(1);
       expect(copyLinkButton.prop('link')).toEqual(mockLink);
 
@@ -326,12 +326,10 @@ describe('ShareForm', () => {
           {...defaultProps}
           copyLink="link"
           loadOptions={jest.fn()}
-          isPublicLink={true}
           isDisabled={true}
           product="confluence"
         />,
       );
-
       const akForm = wrapper.find<FormProps<{}>>(Form);
       const form = renderProp(akForm, 'children', { formProps: {} })
         .dive()
@@ -340,10 +338,8 @@ describe('ShareForm', () => {
 
       const footer = form.find('[data-testid="form-footer"]');
       expect(footer).toHaveLength(1);
-
-      const copyLinkButton = footer.find(CopyLinkButton).dive();
+      const copyLinkButton = footer.find(CopyLinkButton);
       expect(copyLinkButton.length).toBe(1);
-      expect(copyLinkButton.prop('isPublicLink')).toEqual(true);
       expect(copyLinkButton.prop('isDisabled')).toEqual(true);
     });
   });

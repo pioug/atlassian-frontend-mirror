@@ -841,7 +841,7 @@ describe('Left sidebar', () => {
       expect(getByTestId('component')).toHaveStyleDeclaration('width', '20px');
       expect(getByTestId('component').lastElementChild).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarFlyoutWidth,240px)',
+        'var(--leftSidebarFlyoutWidth, 240px)',
       );
       expect(getDimension('leftSidebarFlyoutWidth')).toEqual('240px');
     });
@@ -883,7 +883,7 @@ describe('Left sidebar', () => {
       expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
       expect(getByTestId('component').lastElementChild).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarFlyoutWidth,240px)',
+        'var(--leftSidebarFlyoutWidth, 240px)',
       );
       expect(getDimension('leftSidebarFlyoutWidth')).toEqual('349px');
     });
@@ -908,7 +908,7 @@ describe('Left sidebar', () => {
       expect(getByTestId('component')).toHaveStyleDeclaration('width', '20px');
       expect(getByTestId('component').lastElementChild).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarFlyoutWidth,240px)',
+        'var(--leftSidebarFlyoutWidth, 240px)',
       );
       expect(
         getByTestId('component').querySelector('style')!.innerHTML,
@@ -921,11 +921,11 @@ describe('Left sidebar', () => {
 
       expect(getByTestId('component')).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarWidth,0px)',
+        'var(--leftSidebarWidth, 0px)',
       );
       expect(getByTestId('component').lastElementChild).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarWidth,0px)',
+        'var(--leftSidebarWidth, 0px)',
       );
       expect(getDimension('leftSidebarWidth')).toBe('20px');
       expect(getDimension('leftSidebarFlyoutWidth')).toEqual('240px');
@@ -945,7 +945,7 @@ describe('Left sidebar', () => {
       const leftSidebar = getByTestId('component');
       expect(leftSidebar).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarWidth,0px)',
+        'var(--leftSidebarWidth, 0px)',
       );
       act(() => {
         fireEvent.mouseOver(leftSidebar);
@@ -963,11 +963,11 @@ describe('Left sidebar', () => {
 
       expect(leftSidebar).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarWidth,0px)',
+        'var(--leftSidebarWidth, 0px)',
       );
       expect(leftSidebar.lastElementChild).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarWidth,0px)',
+        'var(--leftSidebarWidth, 0px)',
       );
     });
 
@@ -1014,7 +1014,7 @@ describe('Left sidebar', () => {
       expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
       expect(getByTestId('component')).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarFlyoutWidth,240px)',
+        'var(--leftSidebarFlyoutWidth, 240px)',
       );
       expect(
         getByTestId('component').querySelector('style')!.innerHTML,
@@ -1040,7 +1040,7 @@ describe('Left sidebar', () => {
       expect(document.documentElement.dataset.isSidebarCollapsed).toBe('true');
       expect(getByTestId('leftsidebar')).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarFlyoutWidth,240px)',
+        'var(--leftSidebarFlyoutWidth, 240px)',
       );
       expect(
         getByTestId('leftsidebar').querySelector('style')!.innerHTML,
@@ -1053,7 +1053,7 @@ describe('Left sidebar', () => {
 
       expect(getByTestId('leftsidebar')).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarWidth,0px)',
+        'var(--leftSidebarWidth, 0px)',
       );
       expect(getDimension('leftSidebarWidth')).toBe('20px');
     });
@@ -1438,7 +1438,7 @@ describe('Left sidebar', () => {
       triggerTransitionEnd(getByTestId('grid'));
       expect(getByTestId('component')).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarWidth,0px)',
+        'var(--leftSidebarWidth, 0px)',
       );
       expect(
         getByTestId('component').querySelector('style')!.innerHTML,
@@ -1458,7 +1458,7 @@ describe('Left sidebar', () => {
 
       expect(getByTestId('component')).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarWidth,0px)',
+        'var(--leftSidebarWidth, 0px)',
       );
       expect(
         getByTestId('component').querySelector('style')!.innerHTML,
@@ -1478,7 +1478,7 @@ describe('Left sidebar', () => {
       );
       expect(getByTestId('component')).toHaveStyleDeclaration(
         'width',
-        'var(--leftSidebarWidth,0px)',
+        'var(--leftSidebarWidth, 0px)',
       );
       expect(
         getByTestId('component').querySelector('style')!.innerHTML,

@@ -182,6 +182,21 @@ describe('fragment plugin', () => {
       );
     });
 
+    it('cannot be present on a table row', () => {
+      // This test prevents `fragment` from being unintentionally added to
+      // `table` node again until we properly support it
+      expect(() => {
+        editor(
+          doc(
+            table({ localId: 'test-table-local-id' })(
+              fragmentMark({ localId: 'test-fragment-id' })(tr(td({})(p()))),
+              tr(td({})(p())),
+            ),
+          ),
+        );
+      }).toThrow();
+    });
+
     describe('nesting inside bodied extension', () => {
       it('can be present on table nodes inside a bodied extension', () => {
         expectDocValidity(

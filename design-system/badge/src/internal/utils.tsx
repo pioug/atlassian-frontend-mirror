@@ -6,7 +6,7 @@ function getSafeValue(value: string | number = 0) {
   return value;
 }
 
-export function formatValue(value?: string | number, max?: string | number) {
+export function formatValue(value?: string | number, max?: number) {
   const safeValue = getSafeValue(value);
   const safeMax = getSafeValue(max);
 

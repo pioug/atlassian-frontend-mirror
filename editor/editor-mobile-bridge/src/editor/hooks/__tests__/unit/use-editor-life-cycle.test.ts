@@ -1,10 +1,16 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { EditorActions, EventDispatcher } from '@atlaskit/editor-core';
+import {
+  EditorActions,
+  EventDispatcher,
+  EditorProps,
+} from '@atlaskit/editor-core';
 import { useEditorLifecycle } from '../../../hooks/use-editor-life-cycle';
 import { toNativeBridge } from '../../../web-to-native';
 import WebBridgeImpl from '../../../native-to-web';
+import MobilePicker from '../../../MobileMediaPicker';
+import { createMediaProvider } from '../../../../providers';
 
 describe('useEditorLifecycle hook', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -123,5 +129,56 @@ describe('useEditorLifecycle hook', () => {
     act(() => result.current.handleEditorDestroyed());
 
     expect(privateUnregisterEditor).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not set bridge.media.mediaPicker if customMediaPicker is not provided in mediaOptions', () => {
+    const mediaOptions: EditorProps['media'] = {};
+    const { result, rerender } = renderHook(() =>
+      useEditorLifecycle(bridge, mediaOptions),
+    );
+    act(() => result.current.handleEditorReady(new EditorActions()));
+    rerender();
+
+    expect(bridge.media.mediaPicker).toBeUndefined();
+  });
+
+  it('should set bridge.media.mediaPicker as set in mediaOption', () => {
+    const mediaPicker = new MobilePicker();
+    const mediaOptions: EditorProps['media'] = {
+      customMediaPicker: mediaPicker,
+    };
+    const { result, rerender } = renderHook(() =>
+      useEditorLifecycle(bridge, mediaOptions),
+    );
+    act(() => result.current.handleEditorReady(new EditorActions()));
+    rerender();
+
+    expect(bridge.media.mediaPicker).toBe(mediaPicker);
+  });
+
+  it('should not set bridge.media.mediaUpload if provider is not provided in mediaOption', () => {
+    const mediaOptions: EditorProps['media'] = {};
+    const { result, rerender } = renderHook(() =>
+      useEditorLifecycle(bridge, mediaOptions),
+    );
+    act(() => result.current.handleEditorReady(new EditorActions()));
+    rerender();
+
+    expect(bridge.media.mediaUpload).toBeUndefined();
+  });
+
+  it('should set bridge.media.mediaUpload as set in mediaOption', () => {
+    const provider = createMediaProvider();
+
+    const mediaOptions: EditorProps['media'] = {
+      provider: provider,
+    };
+    const { result, rerender } = renderHook(() =>
+      useEditorLifecycle(bridge, mediaOptions),
+    );
+    act(() => result.current.handleEditorReady(new EditorActions()));
+    rerender();
+
+    expect(!!bridge.media.mediaUpload).toBe(true); // end result not testable directly
   });
 });

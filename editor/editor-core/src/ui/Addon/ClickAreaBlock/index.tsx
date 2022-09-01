@@ -12,15 +12,20 @@ const clickWrapper = css`
 export interface Props {
   editorView?: EditorView;
   children?: any;
+  editorDisabled?: boolean;
 }
 
 export default class ClickAreaBlock extends React.Component<Props> {
   private handleClick = (event: React.MouseEvent<any>) => {
-    const { editorView: view } = this.props;
+    const { editorView: view, editorDisabled } = this.props;
     if (!view) {
       return;
     }
-    clickAreaClickHandler(view, event);
+
+    if (!editorDisabled) {
+      // if the editor is disabled -- we don't want to intercept any click events
+      clickAreaClickHandler(view, event);
+    }
   };
 
   render() {

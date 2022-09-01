@@ -1,5 +1,16 @@
 # @atlaskit/dynamic-table
 
+## 14.8.0
+
+### Minor Changes
+
+- [`f88eb89b356`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f88eb89b356) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- [`12e03c6416b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12e03c6416b) - Allow `className` on internal components for css prop functionality. There should be no change in behaviour.
+- Updated dependencies
+
 ## 14.7.1
 
 ### Patch Changes

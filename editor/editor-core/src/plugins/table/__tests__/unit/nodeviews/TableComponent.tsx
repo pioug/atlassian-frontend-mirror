@@ -65,6 +65,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       );
       const { state, dispatch } = editorView;
       dispatch(selectTable(state.tr));
+      requestAnimationFrame.step();
 
       const tableContainer = document.querySelector(
         `.${ClassName.TABLE_CONTAINER}`,

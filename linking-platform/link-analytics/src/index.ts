@@ -1,0 +1,1 @@
+export { useSmartLinkLifecycleAnalytics } from './lifecycle';

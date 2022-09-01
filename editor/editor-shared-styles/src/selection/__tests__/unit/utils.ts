@@ -15,7 +15,7 @@ describe('selection plugin: utils', () => {
         style: SelectionStyle.Background,
         regex: /background\-color\:/,
       },
-      { name: 'blanket', style: SelectionStyle.Blanket, regex: /\:\:after/ },
+      { name: 'blanket', style: SelectionStyle.Blanket, regex: /\:\:before/ },
     ];
 
     for (const selectionStyle of selectionStyles) {

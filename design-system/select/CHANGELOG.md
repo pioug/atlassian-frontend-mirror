@@ -1,5 +1,23 @@
 # @atlaskit/select
 
+## 15.7.0
+
+### Minor Changes
+
+- [`0fbb2840aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fbb2840aba) - Add isInvalid prop to `@atlastkit/Select`. The prop indicates whether if the component is in the error state. If true, it visually shows a red border around the input.
+
+  This replaces validationState to make Select more consistent like other components that uses isInvalid prop.
+
+- [`8cf1c311f38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cf1c311f38) - Add additional type check for the modifier generic in PopupSelect.
+- [`41ce212cfe2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41ce212cfe2) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- [`2d61e38e5d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d61e38e5d3) - [ux] Adds isSearchable option to Popup Select
+- [`908a0f65b91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/908a0f65b91) - [ux] Hides clear icon on selections in disabled multi-select
+- [`de1b2769486`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de1b2769486) - Update design tokens used for Select's borders, to new border.input tokens
+- Updated dependencies
+
 ## 15.6.2
 
 ### Patch Changes

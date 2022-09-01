@@ -9,11 +9,13 @@
 
 import type { Appearance } from '@atlaskit/button/types';
 import type { IconProps } from '@atlaskit/icon';
+import { jsx } from '@emotion/react';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
 import { OptionData } from '@atlaskit/smart-user-picker';
 import type { Placement } from '@atlaskit/popper';
 import { default as React_2 } from 'react';
-import type { TriggerProps } from '@atlaskit/popup';
+import { ReactElement } from 'react';
+import { TriggerProps } from '@atlaskit/popup';
 import type { Value } from '@atlaskit/smart-user-picker';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
@@ -35,6 +37,20 @@ export declare type Content = {
   title: string;
   type: string;
 };
+
+export declare class CopyLinkButton extends React_2.Component<Props, State> {
+  private autoDismiss;
+  private inputRef;
+  state: {
+    shouldShowCopiedMessage: boolean;
+  };
+  componentWillUnmount(): void;
+  private clearAutoDismiss;
+  private handleClick;
+  private handleDismissCopiedMessage;
+  renderTriggerButton: (triggerProps: TriggerProps) => jsx.JSX.Element;
+  render(): jsx.JSX.Element;
+}
 
 export declare type DialogContentState = {
   users: OptionData[];
@@ -129,6 +145,17 @@ export declare type ProductId =
   | 'trello';
 
 export declare type ProductName = 'jira' | 'confluence';
+
+declare type Props = {
+  onLinkCopy?: (link: string) => void;
+  link: string;
+  isDisabled?: boolean;
+  copyTooltipText?: string;
+  children?: string | ReactElement;
+  copyLinkButtonText: string;
+  copiedToClipboardText: string;
+  iconBefore?: ReactElement;
+};
 
 export declare type RenderCustomTriggerButton = (
   args: {
@@ -389,6 +416,10 @@ declare interface ShortenRequest {
 declare interface ShortenResponse {
   shortUrl: string;
 }
+
+declare type State = {
+  shouldShowCopiedMessage: boolean;
+};
 
 declare enum TabType {
   default = 0,

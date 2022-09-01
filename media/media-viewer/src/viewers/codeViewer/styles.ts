@@ -17,3 +17,12 @@ export const codeViewerHeaderBarStyles = css`
   height: 75px;
   background-color: #0e1624;
 `;
+
+export const codeViewerHTMLStyles = css`
+  display: flex;
+  line-height: 20px;
+  overflow-x: auto;
+  white-space: pre;
+  font-size: 12px;
+  padding: 8px;
+`;

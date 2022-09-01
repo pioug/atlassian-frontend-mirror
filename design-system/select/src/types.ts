@@ -58,10 +58,12 @@ export interface SelectProps<OptionType, IsMulti extends boolean = false>
     WithAnalyticsEventsProps {
   /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
   spacing?: 'compact' | 'default';
-  /* The state of validation if used in a form */
+  /* @deprecated Use isInvalid instead. The state of validation if used in a form.  */
   validationState?: ValidationState;
   /* This prop affects the backgroundColor and border of the Select field. 'subtle' makes these transparent while 'none' removes them completely */
   appearance?: 'default' | 'subtle' | 'none';
+  /* This prop indicates if the component is in an error state */
+  isInvalid?: boolean;
 }
 
 export type ActionMeta<Option = OptionType> = RSActionMeta<Option>;

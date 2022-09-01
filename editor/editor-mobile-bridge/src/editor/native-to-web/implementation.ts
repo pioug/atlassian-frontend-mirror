@@ -80,6 +80,14 @@ import {
 } from '../../utils/bridge';
 import MobileEditorToolbarActions from '../mobile-editor-toolbar';
 import { trackFontSizeUpdated } from '../track-analytics';
+import {
+  MobileUpload,
+  MobileUploadStartEvent,
+  MobileUploadProgressEvent,
+  MobileUploadEndEvent,
+  MobileUploadErrorEvent,
+} from '@atlaskit/media-client';
+import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -105,6 +113,8 @@ export const defaultSetList: QuickInsertItemId[] = [
   'layout',
   'hyperlink',
 ];
+
+export const ModuleNameInExceptionMessage = 'editor implementations';
 
 type Command = (
   state: EditorState,
@@ -158,6 +168,7 @@ export default class WebBridgeImpl
   eventEmitter: BridgeEventEmitter = new BridgeEventEmitter();
   allowList: allowListPayloadType = new Set(defaultSetList);
   mobileEditingToolbarActions = new MobileEditorToolbarActions();
+  media: MediaBridge = new MediaBridge();
 
   private collabProviderPromise: Promise<CollabProvider> | undefined;
 
@@ -1016,5 +1027,122 @@ export default class WebBridgeImpl
         toNativeBridge.updateStepVersion(undefined, error.message);
       }
     });
+  }
+}
+
+export class MediaBridge {
+  mediaPicker: CustomMediaPicker | undefined;
+  mediaUpload: Promise<MobileUpload | undefined> | undefined;
+
+  async onUploadStart(payload: string) {
+    try {
+      if (!this.mediaUpload || !this.mediaPicker) {
+        throw new Error(
+          'mediaUpload or mediaPicker is null in ' +
+            ModuleNameInExceptionMessage,
+        );
+      }
+      const uploader = await this.mediaUpload;
+      if (!uploader) {
+        throw new Error('uploader is null in ' + ModuleNameInExceptionMessage);
+      }
+      const startEvent: MobileUploadStartEvent = JSON.parse(payload);
+      const width = startEvent.preview?.originalDimensions?.width ?? 100;
+      const height = startEvent.preview?.originalDimensions?.height ?? 100;
+
+      if (!startEvent.preview?.value) {
+        // If there is no preview content, we keep the dimensions if there are and clean the preview object
+        // Otherwise uploader will not fetch the server preview
+        startEvent.preview = undefined;
+      } else {
+        if (
+          'string' !== typeof startEvent.preview?.value ||
+          !startEvent.preview.value.startsWith('data:')
+        ) {
+          // TODO nofatal exception, silent log
+          startEvent.preview = undefined;
+        }
+      }
+
+      uploader.notifyUploadStart(startEvent);
+
+      const pickerPayload: UploadPreviewUpdateEventPayload = {
+        file: {
+          id: startEvent.fileId,
+          name: startEvent.fileName,
+          type: startEvent.fileMimetype,
+          size: startEvent.fileSize,
+          occurrenceKey: startEvent.occurrenceKey,
+          creationDate: startEvent.createdAt ?? Date.now(),
+          collectionName: startEvent.collectionName,
+        },
+        preview: {
+          dimensions: {
+            width,
+            height,
+          },
+          scaleFactor: window.devicePixelRatio,
+        },
+      };
+
+      this.mediaPicker.emit('upload-preview-update', pickerPayload);
+    } catch (e) {
+      // TODO exception in top level interface, error reporting
+    }
+  }
+
+  async onUploadProgress(payload: string) {
+    try {
+      if (!this.mediaUpload) {
+        throw new Error(
+          'mediaUpload is null in ' + ModuleNameInExceptionMessage,
+        );
+      }
+      const progressEvent: MobileUploadProgressEvent = JSON.parse(payload);
+      const uploader = await this.mediaUpload;
+      if (!uploader) {
+        throw new Error('uploader is null in ' + ModuleNameInExceptionMessage);
+      }
+      uploader.notifyUploadProgress(progressEvent);
+    } catch (e) {
+      // TODO exception in top level interface, error reporting
+    }
+  }
+
+  async onUploadEnd(payload: string) {
+    try {
+      if (!this.mediaUpload) {
+        throw new Error(
+          'mediaUpload is null in ' + ModuleNameInExceptionMessage,
+        );
+      }
+      const endEvent: MobileUploadEndEvent = JSON.parse(payload);
+      const uploader = await this.mediaUpload;
+      if (!uploader) {
+        throw new Error('uploader is null in ' + ModuleNameInExceptionMessage);
+      }
+      uploader.notifyUploadEnd(endEvent);
+    } catch (e) {
+      // TODO exception in top level interface, error reporting
+    }
+  }
+
+  async onUploadFail(payload: string) {
+    try {
+      // TODO exception in top level interface, error reporting
+      if (!this.mediaUpload) {
+        throw new Error(
+          'mediaUpload is null in ' + ModuleNameInExceptionMessage,
+        );
+      }
+      const failEvent: MobileUploadErrorEvent = JSON.parse(payload);
+      const uploader = await this.mediaUpload;
+      if (!uploader) {
+        throw new Error('uploader is null in ' + ModuleNameInExceptionMessage);
+      }
+      uploader.notifyUploadError(failEvent);
+    } catch (e) {
+      // TODO exception in top level interface, error reporting
+    }
   }
 }

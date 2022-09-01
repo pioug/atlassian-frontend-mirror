@@ -44,8 +44,10 @@ const Badge = memo(function Badge({
         color: textColor,
       }}
     >
-      <Text fontSize="12" lineHeight="12px" textAlign="center">
-        {typeof children === 'number' ? formatValue(children, max) : children}
+      <Text fontSize="12px" lineHeight="12px" textAlign="center">
+        {typeof children === 'number' && max
+          ? formatValue(children, max)
+          : children}
       </Text>
     </Box>
   );

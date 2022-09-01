@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 17.1.2
+
+### Patch Changes
+
+- [`45b6d35ea96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45b6d35ea96) - [ME-1327] Added new upload methods to editor mobile bridge to support previews and progress for media cards.
+
 ## 17.1.1
 
 ### Patch Changes

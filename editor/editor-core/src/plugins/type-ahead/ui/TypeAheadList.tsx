@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import React, {
   useMemo,
-  useEffect,
   useRef,
   useCallback,
   useLayoutEffect,
+  useState,
 } from 'react';
 import { jsx, css } from '@emotion/react';
 
@@ -12,16 +12,17 @@ import { MenuGroup } from '@atlaskit/menu';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 
 import type { TypeAheadItem, OnSelectItem } from '../types';
-import { ICON_HEIGHT, ITEM_PADDING } from './TypeAheadListItem';
-import { VariableSizeList as List } from 'react-window';
-import { ResizeObserverProvider } from './hooks/use-resize-observer';
-import { useDynamicListHeightCalculation } from './hooks/use-dynamic-list-height-calculation';
 import {
-  DynamicHeightListItem,
-  SelectedIndexContext,
-  ListItemActionsContext,
-  UpdateListItemHeightContext,
-} from './DynamicHeightListItem';
+  CellMeasurer,
+  CellMeasurerCache,
+} from 'react-virtualized/dist/commonjs/CellMeasurer';
+import { List } from 'react-virtualized/dist/commonjs/List';
+
+import {
+  ICON_HEIGHT,
+  ITEM_PADDING,
+  TypeAheadListItem,
+} from './TypeAheadListItem';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { typeAheadListMessages } from '../messages';
 
@@ -45,32 +46,24 @@ const TypeAheadListComponent = React.memo(
     intl,
     fitHeight,
   }: TypeAheadListProps) => {
-    const listRef = useRef<List<TypeAheadItem[]>>() as React.MutableRefObject<
-      List<TypeAheadItem[]>
-    >;
-    const redrawListAtIndex = useCallback((index: number) => {
-      listRef.current.resetAfterIndex(index);
-    }, []);
+    const listRef = useRef<List>() as React.MutableRefObject<List>;
     const lastVisibleIndexes = useRef({
       overscanStartIndex: 0,
       overscanStopIndex: 0,
-      visibleStartIndex: 0,
-      visibleStopIndex: 0,
+      startIndex: 0,
+      stopIndex: 0,
     });
-    const getFirstVisibleIndex = useCallback(() => {
-      return lastVisibleIndexes.current.overscanStartIndex;
-    }, []);
-    const {
-      getListItemHeight,
-      setListItemHeight,
-      renderedListHeight,
-    } = useDynamicListHeightCalculation({
-      redrawListAtIndex,
-      getFirstVisibleIndex,
-      listLength: items.length,
-      listMaxHeight: fitHeight,
-      listItemEstimatedHeight: LIST_ITEM_ESTIMATED_HEIGHT,
-    });
+
+    const estimatedHeight = items.length * LIST_ITEM_ESTIMATED_HEIGHT;
+
+    const [height, setHeight] = useState(Math.min(estimatedHeight, fitHeight));
+
+    const [cache, setCache] = useState(
+      new CellMeasurerCache({
+        fixedWidth: true,
+        defaultHeight: LIST_ITEM_ESTIMATED_HEIGHT,
+      }),
+    );
 
     const onItemsRendered = useCallback((props) => {
       lastVisibleIndexes.current = props;
@@ -101,45 +94,80 @@ const TypeAheadListComponent = React.memo(
           requestAnimationFrame(() => {
             const { current: indexes } = lastVisibleIndexes;
             const isSelectedItemVisible =
-              selectedIndex >= indexes.visibleStartIndex &&
-              selectedIndex <= indexes.visibleStopIndex;
+              selectedIndex >= indexes.startIndex &&
+              selectedIndex <= indexes.stopIndex;
 
             if (!isSelectedItemVisible) {
-              listRef.current.scrollToItem(selectedIndex);
+              listRef.current.scrollToRow(selectedIndex);
             }
           });
         });
       },
-      [selectedIndex],
+      [selectedIndex, lastVisibleIndexes],
     );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       if (!listRef.current) {
         return;
       }
+      const { current: indexes } = lastVisibleIndexes;
+      const isSelectedItemVisible =
+        selectedIndex >= indexes.startIndex &&
+        selectedIndex <= indexes.stopIndex;
 
-      listRef.current.scrollToItem(selectedIndex);
-    }, [selectedIndex]);
+      if (!isSelectedItemVisible) {
+        listRef.current.scrollToRow(selectedIndex);
+      }
+    }, [selectedIndex, lastVisibleIndexes]);
 
     useLayoutEffect(() => {
-      requestAnimationFrame(() => {
-        listRef.current.resetAfterIndex(
-          lastVisibleIndexes.current.overscanStartIndex,
-        );
-      });
+      setCache(
+        new CellMeasurerCache({
+          fixedWidth: true,
+          defaultHeight: LIST_ITEM_ESTIMATED_HEIGHT,
+        }),
+      );
     }, [items]);
+
+    useLayoutEffect(() => {
+      const height = Math.min(
+        items.reduce((prevValue, currentValue, index) => {
+          return prevValue + cache.rowHeight({ index: index });
+        }, 0),
+        fitHeight,
+      );
+      setHeight(height);
+    }, [items, cache, fitHeight]);
+
+    const renderRow = ({ index, key, style, parent }: any) => {
+      return (
+        <CellMeasurer
+          key={key}
+          cache={cache}
+          parent={parent}
+          columnIndex={0}
+          rowIndex={index}
+        >
+          <div style={style} data-index={index}>
+            <div data-testid={`list-item-height-observed-${index}`}>
+              <TypeAheadListItem
+                key={items[index].title}
+                item={items[index]}
+                itemIndex={index}
+                selectedIndex={selectedIndex}
+                onItemClick={actions.onItemClick}
+                onItemHover={actions.onItemHover}
+              />
+            </div>
+          </div>
+        </CellMeasurer>
+      );
+    };
 
     if (!Array.isArray(items)) {
       return null;
     }
 
-    const estimatedHeight = items.length * LIST_ITEM_ESTIMATED_HEIGHT;
-    const height = Math.min(
-      typeof renderedListHeight === 'number'
-        ? renderedListHeight
-        : estimatedHeight,
-      fitHeight,
-    );
     return (
       <MenuGroup
         role="listbox"
@@ -149,38 +177,25 @@ const TypeAheadListComponent = React.memo(
         )}
         aria-relevant="additions removals"
       >
-        <ResizeObserverProvider>
-          <UpdateListItemHeightContext.Provider value={setListItemHeight}>
-            <ListItemActionsContext.Provider value={actions}>
-              <SelectedIndexContext.Provider value={selectedIndex}>
-                <List
-                  useIsScrolling
-                  ref={listRef}
-                  itemData={items}
-                  itemCount={items.length}
-                  estimatedItemSize={LIST_ITEM_ESTIMATED_HEIGHT}
-                  onScroll={onScroll}
-                  onItemsRendered={onItemsRendered}
-                  itemSize={getListItemHeight}
-                  width={LIST_WIDTH}
-                  height={height}
-                  overscanCount={3}
-                  css={css`
-                    button {
-                      padding: 12px 12px 11px;
-
-                      span:last-child span:last-child {
-                        white-space: normal;
-                      }
-                    }
-                  `}
-                >
-                  {DynamicHeightListItem}
-                </List>
-              </SelectedIndexContext.Provider>
-            </ListItemActionsContext.Provider>
-          </UpdateListItemHeightContext.Provider>
-        </ResizeObserverProvider>
+        <List
+          rowRenderer={renderRow}
+          ref={listRef}
+          rowCount={items.length}
+          rowHeight={cache.rowHeight}
+          onRowsRendered={onItemsRendered}
+          width={LIST_WIDTH}
+          onScroll={onScroll}
+          height={height}
+          overscanRowCount={3}
+          css={css`
+            button {
+              padding: 12px 12px 11px;
+              span:last-child span:last-child {
+                white-space: normal;
+              }
+            }
+          `}
+        />
       </MenuGroup>
     );
   },

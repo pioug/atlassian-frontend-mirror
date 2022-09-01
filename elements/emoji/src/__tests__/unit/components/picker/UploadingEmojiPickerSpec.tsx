@@ -285,7 +285,7 @@ describe('<UploadingEmojiPicker />', () => {
         }),
         'fabric-elements',
       );
-      expect(onEvent).toHaveBeenLastCalledWith(
+      expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: uploadSucceededEvent({
             duration: expect.any(Number),

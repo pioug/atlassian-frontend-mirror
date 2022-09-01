@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { bindAll, UnbindFn } from 'bind-event-listener';
 import rafSchd from 'raf-schd';
 

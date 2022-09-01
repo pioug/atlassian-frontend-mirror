@@ -89,4 +89,36 @@ describe('Snapshot Test', () => {
     const tabsImage = await takeElementScreenShot(page, tabs);
     expect(tabsImage).toMatchProdImageSnapshot();
   });
+
+  it(`Tab labels should truncate to match prod example`, async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'tabs',
+      'no-space-for-tabs',
+      global.__BASEURL__,
+    );
+    const tabs = "[data-testid='no-space-for-tabs']";
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('div[role="tablist"]');
+    await page.waitForSelector('div[role="tabpanel"]');
+    const tabsImage = await takeElementScreenShot(page, tabs);
+    expect(tabsImage).toMatchProdImageSnapshot();
+  });
+
+  it(`Custom tabs should match prod example`, async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'tabs',
+      'custom-tab-components',
+      global.__BASEURL__,
+    );
+    const container = '#test-container';
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('div[role="tablist"]');
+    await page.waitForSelector('div[role="tabpanel"]');
+    const tabsImage = await takeElementScreenShot(page, container);
+    expect(tabsImage).toMatchProdImageSnapshot();
+  });
 });

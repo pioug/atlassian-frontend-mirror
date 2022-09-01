@@ -27,7 +27,7 @@ const SelectPopupModalExample = () => {
 
   const select = (
     <PopupSelect
-      searchThreshold={99}
+      isSearchable={false}
       options={options}
       menuPlacement="bottom"
       popperProps={{

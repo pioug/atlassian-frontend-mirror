@@ -6,4 +6,5 @@ export const codeBlockSelectors = {
   floatingToolbar: '[aria-label="CodeBlock floating controls"]',
   floatingToolbarListPicker:
     '[aria-label="CodeBlock floating controls"] [class$="-MenuList"]',
+  floatingToolbarCopyButton: '[aria-label="Copy as text"]',
 };

@@ -35,7 +35,7 @@ export const tableCellMessages = defineMessages({
     description: 'this table column is sorted in ascending order',
   },
   descSortingLabel: {
-    id: 'fabric.editor.headingLink.noneSortingLabel',
+    id: 'fabric.editor.headingLink.descSortingLabel',
     defaultMessage: 'descending',
     description: 'this table column is sorted in descending order',
   },
@@ -58,21 +58,8 @@ export const sortingIconMessages = defineMessages({
     description: 'clear the sorting from this column',
   },
   invalidLabel: {
-    id: 'fabric.editor.headingLink.descOrderLabel',
+    id: 'fabric.editor.headingLink.invalidLabel',
     defaultMessage: `⚠️  You can't sort a table with merged cell`,
     description: 'this sort is invalid for merged cells',
-  },
-});
-
-export const codeBlockCopyButtonMessages = defineMessages({
-  copyCodeToClipboard: {
-    id: 'fabric.editor.codeBlockCopyButton.copyToClipboard',
-    defaultMessage: 'Copy',
-    description: 'Copy the whole content of the element to your clipboard',
-  },
-  copiedCodeToClipboard: {
-    id: 'fabric.editor.codeBlockCopyButton.copiedToClipboard',
-    defaultMessage: 'Copied!',
-    description: 'Copied the whole content of the element to clipboard',
   },
 });

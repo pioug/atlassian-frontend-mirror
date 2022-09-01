@@ -1,5 +1,11 @@
-import React from 'react';
-import { PureComponent, ReactElement } from 'react';
+import React, {
+  ReactElement,
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import ReactDOM from 'react-dom';
 import { RelativePosition } from '../../types';
 
@@ -20,124 +26,123 @@ export interface Props {
   children: ReactElement<any>;
 }
 
-/*
- * Simple implementation of popup while waiting for ak-inline-dialog
- */
-export default class Popup extends PureComponent<Props, {}> {
-  private popup?: HTMLElement;
-  private debounced: number | null = null;
+const Popup: FC<Props> = (props) => {
+  const {
+    relativePosition = 'auto',
+    offsetX = 0,
+    offsetY = 0,
+    zIndex = 9,
+    target,
+    children,
+  } = props;
+  const popup = useRef<HTMLElement>();
+  const [debounced, setDebounced] = useState<number | null>(null);
 
-  static defaultProps = {
-    relativePosition: 'auto',
-    offsetX: 0,
-    offsetY: 0,
-    zIndex: 0,
-  };
-
-  componentDidMount() {
-    this.popup = document.createElement('div');
-    document.body.appendChild(this.popup);
-    this.popup.style.position = 'absolute';
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', this.handleResize);
-    }
-
-    this.applyAbsolutePosition();
-    this.renderContent();
-  }
-
-  componentDidUpdate() {
-    this.applyAbsolutePosition();
-    this.renderContent();
-  }
-
-  componentWillUnmount() {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    window.removeEventListener('resize', this.handleResize);
-    if (this.popup) {
-      ReactDOM.unmountComponentAtNode(this.popup);
-      document.body.removeChild(this.popup);
-    }
-  }
-
-  // Internal
-  applyBelowPosition() {
-    const targetNode = getTargetNode(this.props.target);
-    if (targetNode && this.popup) {
+  const applyBelowPosition = useCallback(() => {
+    const targetNode = getTargetNode(target);
+    if (targetNode && popup.current) {
       const box = targetNode.getBoundingClientRect();
-      const top = box.bottom + (this.props.offsetY || 0);
-      const left = box.left + (this.props.offsetX || 0);
-      this.popup.style.top = `${top}px`;
-      this.popup.style.bottom = '';
-      this.popup.style.left = `${left}px`;
+      const top = box.bottom + (offsetY || 0);
+      const left = box.left + (offsetX || 0);
+      popup.current.style.top = `${top}px`;
+      popup.current.style.bottom = '';
+      popup.current.style.left = `${left}px`;
     }
-  }
+  }, [offsetX, offsetY, target]);
 
-  applyAbovePosition() {
+  const applyAbovePosition = useCallback(() => {
     if (typeof window === 'undefined') {
       return;
     }
-    const targetNode = getTargetNode(this.props.target);
-    if (targetNode && this.popup) {
+    const targetNode = getTargetNode(target);
+    if (targetNode && popup.current) {
       const box = targetNode.getBoundingClientRect();
-      const bottom = window.innerHeight - box.top + (this.props.offsetY || 0);
-      const left = box.left + (this.props.offsetX || 0);
-      this.popup.style.top = '';
-      this.popup.style.bottom = `${bottom}px`;
-      this.popup.style.left = `${left}px`;
+      const bottom = window.innerHeight - box.top + (offsetY || 0);
+      const left = box.left + (offsetX || 0);
+      popup.current.style.top = '';
+      popup.current.style.bottom = `${bottom}px`;
+      popup.current.style.left = `${left}px`;
     }
-  }
+  }, [offsetX, offsetY, target]);
 
-  applyAbsolutePosition() {
+  const applyAbsolutePosition = useCallback(() => {
     if (typeof window === 'undefined') {
       return;
     }
-    if (this.props.relativePosition === 'above') {
-      this.applyAbovePosition();
-    } else if (this.props.relativePosition === 'below') {
-      this.applyBelowPosition();
+    if (relativePosition === 'above') {
+      applyAbovePosition();
+    } else if (relativePosition === 'below') {
+      applyBelowPosition();
     } else {
-      const targetNode = getTargetNode(this.props.target);
+      const targetNode = getTargetNode(target);
       if (targetNode) {
         const box = targetNode.getBoundingClientRect();
         const viewPortHeight = window.innerHeight;
         if (box.top < viewPortHeight / 2) {
-          this.applyBelowPosition();
+          applyBelowPosition();
         } else {
-          this.applyAbovePosition();
+          applyAbovePosition();
         }
       }
     }
-    if (this.props.zIndex && this.popup) {
-      this.popup.style.zIndex = `${this.props.zIndex}`;
+    if (zIndex && popup.current) {
+      popup.current.style.zIndex = `${zIndex}`;
     }
-  }
+  }, [
+    applyAbovePosition,
+    applyBelowPosition,
+    relativePosition,
+    target,
+    zIndex,
+  ]);
 
-  private handleResize = () => {
-    if (this.debounced) {
-      clearTimeout(this.debounced);
-      this.debounced = null;
+  const handleResize = useCallback(() => {
+    if (debounced) {
+      clearTimeout(debounced);
+      setDebounced(null);
     }
     if (typeof window === 'undefined') {
       return;
     }
     // Timeout set to 30ms as to not throttle IE11
-    this.debounced = window.setTimeout(() => {
-      this.applyAbsolutePosition();
-      this.debounced = null;
+    const debounceId = window.setTimeout(() => {
+      applyAbsolutePosition();
+      setDebounced(null);
     }, 30);
-  };
+    setDebounced(debounceId);
+  }, [applyAbsolutePosition, debounced]);
 
-  renderContent() {
-    if (this.popup) {
-      ReactDOM.render<ReactElement<any>>(this.props.children, this.popup);
+  const renderPopup = useCallback(() => {
+    if (!popup.current) {
+      return;
     }
-  }
+    ReactDOM.render<ReactElement<any>>(children, popup.current);
+  }, [children]);
 
-  render() {
-    // inline placeholder element for react to render inplace
-    return <div />;
-  }
-}
+  useEffect(() => {
+    popup.current = document.createElement('div');
+    document.body.appendChild(popup.current);
+    popup.current.style.position = 'absolute';
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+    }
+
+    applyAbsolutePosition();
+    renderPopup();
+
+    return () => {
+      if (typeof window === 'undefined') {
+        return;
+      }
+      window.removeEventListener('resize', handleResize);
+      if (popup.current) {
+        ReactDOM.unmountComponentAtNode(popup.current);
+        document.body.removeChild(popup.current);
+      }
+    };
+  }, [applyAbsolutePosition, handleResize, renderPopup]);
+
+  return <div />;
+};
+
+export default Popup;

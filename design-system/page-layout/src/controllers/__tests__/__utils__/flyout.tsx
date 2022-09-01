@@ -27,7 +27,7 @@ export const expectThatFlyoutIsOpenAndValid = (leftSidebar: HTMLElement) => {
    */
   expect(leftSidebarInner).toHaveStyleDeclaration(
     'width',
-    `var(--${VAR_LEFT_SIDEBAR_FLYOUT},${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px)`,
+    `var(--${VAR_LEFT_SIDEBAR_FLYOUT}, ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px)`,
   );
 
   expect(

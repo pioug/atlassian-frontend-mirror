@@ -40,6 +40,7 @@ class Task extends ReactNodeView<Props> {
       state: isChecked ? 'DONE' : 'TODO',
       localId: taskId,
     });
+    tr.setMeta('scrollIntoView', false);
 
     this.view.dispatch(tr);
   };

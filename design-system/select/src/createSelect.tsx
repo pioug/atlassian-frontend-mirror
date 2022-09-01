@@ -26,6 +26,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 
     static defaultProps = {
       validationState: 'default',
+      isInvalid: false,
       spacing: 'default',
       onClickPreventDefault: true,
       tabSelectsValue: false,
@@ -73,6 +74,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
       const {
         styles,
         validationState,
+        isInvalid,
         spacing,
         isMulti,
         appearance,
@@ -90,7 +92,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
           components={this.components}
           styles={mergeStyles(
             baseStyles<Option, IsMulti>(
-              validationState!,
+              validationState || (isInvalid ? 'error' : 'default'),
               isCompact,
               this.props.appearance || 'default',
             ),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { PureComponent } from 'react';
 import { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
@@ -11,51 +11,41 @@ export interface EmojiUsageProps {
   emojiQueue: Array<string>;
 }
 
-export class EmojiUsageList extends PureComponent<EmojiUsageProps, any> {
-  constructor(props: EmojiUsageProps) {
-    super(props);
-  }
+const EmojiUsageList: FC<EmojiUsageProps> = (props) => {
+  const { emojiList, emojiQueue, emojiProvider } = props;
 
-  render() {
-    let emojiUsageList;
+  let emojiUsageList;
 
-    if (this.props.emojiList.length === 0) {
-      emojiUsageList = <span>None</span>;
-    } else {
-      emojiUsageList = (
-        <span>
-          {this.props.emojiList.map((emoji) => {
-            return (
-              <span key={emoji.id} style={{ marginRight: '15px' }}>
-                <span style={{ marginRight: '3px' }}>
-                  (
-                  {
-                    this.props.emojiQueue.filter(
-                      (emojiId) => emojiId === emoji.id,
-                    ).length
-                  }
-                  )
-                </span>
-                <ResourcedEmoji
-                  emojiId={emoji}
-                  emojiProvider={Promise.resolve(this.props.emojiProvider)}
-                  showTooltip={true}
-                />
+  if (emojiList.length === 0) {
+    emojiUsageList = <span>None</span>;
+  } else {
+    emojiUsageList = (
+      <span>
+        {emojiList.map((emoji) => {
+          return (
+            <span key={emoji.id} style={{ marginRight: '15px' }}>
+              <span style={{ marginRight: '3px' }}>
+                ({emojiQueue.filter((emojiId) => emojiId === emoji.id).length})
               </span>
-            );
-          })}
-        </span>
-      );
-    }
-
-    return (
-      <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-        <h4>Emojis ordered by usage</h4>
-        {emojiUsageList}
-      </div>
+              <ResourcedEmoji
+                emojiId={emoji}
+                emojiProvider={Promise.resolve(emojiProvider)}
+                showTooltip={true}
+              />
+            </span>
+          );
+        })}
+      </span>
     );
   }
-}
+
+  return (
+    <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+      <h4>Emojis ordered by usage</h4>
+      {emojiUsageList}
+    </div>
+  );
+};
 
 export interface LocalStorageViewProps {
   emojiProvider: EmojiProvider;

@@ -40,7 +40,7 @@ export const emojiToneSelectorContainer = css({
   flex: 1,
   display: 'flex',
   justifyContent: 'flex-end',
-  padding: '8px 10px 8px 0',
+  padding: '10px 10px 11px 0',
 });
 
 export const emojiStyles = css({
@@ -152,9 +152,6 @@ export const hiddenToneButton = css({
 });
 
 // Emoji Preview
-
-export const buttons = 'emoji-common-buttons';
-export const toneSelectorContainer = 'emoji-common-tone-selector-container';
 export const emojiPickerAddEmoji = 'emoji-picker-add-emoji';
 
 export const previewText = css({
@@ -202,6 +199,8 @@ export const preview = css({
   flexDirection: 'row',
   flexWrap: 'nowrap',
   padding: '10px',
+  height: '32px',
+  alignItems: 'center',
 });
 
 export const previewImg = css({
@@ -224,12 +223,6 @@ export const previewImg = css({
     padding: 0,
     display: 'block',
   },
-});
-
-export const emojiPreview = css({
-  display: 'flex',
-  height: '50px',
-  boxSizing: 'border-box',
 });
 
 // Scrollable
@@ -446,4 +439,10 @@ export const cancelButton = css({
 export const buttonSpinner = css({
   marginRight: '10px',
   marginLeft: '10px',
+});
+
+export const emojiActionsWrapper = css({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
 });

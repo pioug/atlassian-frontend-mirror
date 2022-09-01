@@ -1,5 +1,12 @@
 # @atlaskit/date
 
+## 0.9.4
+
+### Patch Changes
+
+- [`b4d74c76e7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4d74c76e7b) - [ED-13709] Updated the date object format
+- Updated dependencies
+
 ## 0.9.3
 
 ### Patch Changes

@@ -8,7 +8,6 @@ import { withSampling } from '@atlaskit/emoji';
 
 /**
  * Initial experience config object (deferred from @atlaskit/ufo inner types)
- * TODO: Check if possible to add this to exported types from @atlaskit/ufo
  */
 type Config = {
   type: ExperienceTypes;

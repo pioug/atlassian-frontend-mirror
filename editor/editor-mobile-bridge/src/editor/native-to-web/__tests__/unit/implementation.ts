@@ -12,7 +12,10 @@ import { PluginKey } from 'prosemirror-state';
 import { EditorViewWithComposition } from '../../../../types';
 import MobileEditorConfiguration from '../../../editor-configuration';
 import NativeBridge from '../../../web-to-native/bridge';
-import WebBridgeImpl, { defaultSetList } from '../../implementation';
+import WebBridgeImpl, {
+  MediaBridge,
+  defaultSetList,
+} from '../../implementation';
 import * as BridgeUtils from '../../../../utils/bridge';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { TypeAheadHandler } from '@atlaskit/editor-core/src/plugins/type-ahead/types';
@@ -73,6 +76,21 @@ const createMockCollabProvider = () => {
     })),
   } as unknown) as CollabProvider;
 };
+
+class MockMobileUpload {
+  notifyUploadStart = jest.fn();
+  notifyUploadProgress = jest.fn();
+  notifyUploadEnd = jest.fn();
+  notifyUploadError = jest.fn();
+}
+
+class MockCustomMediaPicker {
+  emit = jest.fn();
+  on = jest.fn();
+  removeAllListeners = jest.fn();
+  destroy = jest.fn();
+  setUploadParams = jest.fn();
+}
 
 describe('Collab Web Bridge', () => {
   let bridge: WebBridgeImpl;
@@ -673,5 +691,278 @@ describe('insert node', () => {
     const dateType = dateToDateType(new Date());
 
     expect(insertDate).toBeCalledWith(dateType, 'toolbar', 'picker');
+  });
+});
+
+describe('media bridge', () => {
+  it('😊 onUploadStart should call uploader.notifyUploadStart and mediaPicker.emit with the expected parameters', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaPicker = new MockCustomMediaPicker();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(uploader);
+    });
+
+    const mockParameter =
+      '{"testId":"testContent","preview":{"value":"data:testValue"}}';
+    await bridge.onUploadStart(mockParameter);
+    const startEvent = JSON.parse(mockParameter);
+
+    const pickerPayload = {
+      file: {
+        id: startEvent.fileId,
+        name: startEvent.fileName,
+        type: startEvent.fileMimetype,
+        size: startEvent.fileSize,
+        occurrenceKey: startEvent.occurrenceKey,
+        creationDate: Date.now(),
+        collectionName: startEvent.collectionName,
+      },
+      preview: {
+        dimensions: {
+          width: 100,
+          height: 100,
+        },
+        scaleFactor: window.devicePixelRatio,
+      },
+    };
+    expect(uploader.notifyUploadStart).toBeCalledWith(startEvent);
+    expect(bridge.mediaPicker.emit).toBeCalledWith(
+      'upload-preview-update',
+      pickerPayload,
+    );
+  });
+
+  it('😊 onUploadStart should call uploader.notifyUploadStart and mediaPicker.emit with the expected parameters (wrong scheme)', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaPicker = new MockCustomMediaPicker();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(uploader);
+    });
+
+    const mockParameter =
+      '{"testId":"testContent","preview":{"value":"http:testValue"}}';
+    await bridge.onUploadStart(mockParameter);
+    const startEvent = JSON.parse(mockParameter);
+    startEvent.preview = undefined;
+
+    const pickerPayload = {
+      file: {
+        id: startEvent.fileId,
+        name: startEvent.fileName,
+        type: startEvent.fileMimetype,
+        size: startEvent.fileSize,
+        occurrenceKey: startEvent.occurrenceKey,
+        creationDate: Date.now(),
+        collectionName: startEvent.collectionName,
+      },
+      preview: {
+        dimensions: {
+          width: 100,
+          height: 100,
+        },
+        scaleFactor: window.devicePixelRatio,
+      },
+    };
+    expect(uploader.notifyUploadStart).toBeCalledWith(startEvent);
+    expect(bridge.mediaPicker.emit).toBeCalledWith(
+      'upload-preview-update',
+      pickerPayload,
+    );
+  });
+
+  it('😊 onUploadStart should call uploader.notifyUploadStart and mediaPicker.emit with expected parameters (no preview value, retained dimensions)', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaPicker = new MockCustomMediaPicker();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(uploader);
+    });
+
+    const mockParameter =
+      '{"testId":"testContent","preview":{"originalDimensions":{"width":120, "height":120}}}';
+    await bridge.onUploadStart(mockParameter);
+    const startEvent = JSON.parse(mockParameter);
+    startEvent.preview = undefined;
+
+    const pickerPayload = {
+      file: {
+        id: startEvent.fileId,
+        name: startEvent.fileName,
+        type: startEvent.fileMimetype,
+        size: startEvent.fileSize,
+        occurrenceKey: startEvent.occurrenceKey,
+        creationDate: Date.now(),
+        collectionName: startEvent.collectionName,
+      },
+      preview: {
+        dimensions: {
+          width: 120,
+          height: 120,
+        },
+        scaleFactor: window.devicePixelRatio,
+      },
+    };
+    expect(uploader.notifyUploadStart).toBeCalledWith(startEvent);
+    expect(bridge.mediaPicker.emit).toBeCalledWith(
+      'upload-preview-update',
+      pickerPayload,
+    );
+  });
+
+  it('🥺 onUploadStart shortcut if mediaPicker is undefined', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaPicker = undefined;
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(uploader);
+    });
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadStart(mockParameter);
+
+    expect(uploader.notifyUploadStart).toBeCalledTimes(0);
+  });
+
+  it('🥺 onUploadStart shortcut if mediaUpload is undefined', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    bridge.mediaPicker = new MockCustomMediaPicker();
+    bridge.mediaUpload = undefined;
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadStart(mockParameter);
+
+    expect(bridge.mediaPicker.emit).toBeCalledTimes(0);
+  });
+
+  it('🥺 onUploadStart shortcut if uploader is resolved as undefined', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    bridge.mediaPicker = new MockCustomMediaPicker();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(undefined);
+    });
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadStart(mockParameter);
+
+    expect(bridge.mediaPicker.emit).toBeCalledTimes(0);
+  });
+
+  it('😊 onUploadProgress should call uploader.notifyUploadProgress with the expected parameters', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(uploader);
+    });
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadProgress(mockParameter);
+
+    const progressEvent = JSON.parse(mockParameter);
+
+    expect(uploader.notifyUploadProgress).toBeCalledWith(progressEvent);
+  });
+
+  it('🥺 onUploadProgress shortcut if mediaUpload is undefined', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaUpload = undefined;
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadProgress(mockParameter);
+
+    expect(uploader.notifyUploadProgress).toBeCalledTimes(0);
+  });
+
+  it('🥺 onUploadProgress shortcut if uploader is resolved as undefined', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(undefined);
+    });
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadProgress(mockParameter);
+
+    expect(uploader.notifyUploadProgress).toBeCalledTimes(0);
+  });
+
+  it('😊 onUploadEnd should call uploader.notifyUploadEnd with the expected parameters', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(uploader);
+    });
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadEnd(mockParameter);
+
+    const progressEvent = JSON.parse(mockParameter);
+
+    expect(uploader.notifyUploadEnd).toBeCalledWith(progressEvent);
+  });
+
+  it('🥺 onUploadEnd shortcut if mediaUpload is undefined', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaUpload = undefined;
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadEnd(mockParameter);
+
+    expect(uploader.notifyUploadEnd).toBeCalledTimes(0);
+  });
+
+  it('🥺 onUploadEnd shortcut if uploader is resolved as undefined', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(undefined);
+    });
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadEnd(mockParameter);
+
+    expect(uploader.notifyUploadEnd).toBeCalledTimes(0);
+  });
+
+  it('😊 onUploadFail should call uploader.notifyUploadError with the expected parameters', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(uploader);
+    });
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadFail(mockParameter);
+
+    const progressEvent = JSON.parse(mockParameter);
+
+    expect(uploader.notifyUploadError).toBeCalledWith(progressEvent);
+  });
+
+  it('🥺 onUploadFail shortcut if mediaUpload is undefined', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaUpload = undefined;
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadFail(mockParameter);
+
+    expect(uploader.notifyUploadError).toBeCalledTimes(0);
+  });
+
+  it('🥺 onUploadFail shortcut if uploader is resolved as undefined', async () => {
+    let bridge: MediaBridge = new MediaBridge();
+    let uploader = new MockMobileUpload();
+    bridge.mediaUpload = new Promise((resolve) => {
+      resolve(undefined);
+    });
+
+    const mockParameter = '{"testId":"testContent"}';
+    await bridge.onUploadFail(mockParameter);
+
+    expect(uploader.notifyUploadError).toBeCalledTimes(0);
   });
 });

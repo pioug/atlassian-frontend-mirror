@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, ReactNode, CSSProperties } from 'react';
 import { components } from 'react-select';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import SearchIcon from '@atlaskit/icon/glyph/editor/search';

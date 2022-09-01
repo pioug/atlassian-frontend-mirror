@@ -15,8 +15,13 @@ describe('StatusPicker', () => {
   const onEnter = jest.fn();
   const fireEvent = jest.fn();
   const preventDefault = jest.fn();
+  const stopPropagation = jest.fn();
   const stopImmediatePropagation = jest.fn();
-  const event = { preventDefault, nativeEvent: { stopImmediatePropagation } };
+  const event = {
+    preventDefault,
+    stopPropagation,
+    nativeEvent: { stopImmediatePropagation },
+  };
 
   beforeEach(() => {
     createAnalyticsEvent.mockReturnValue({
@@ -29,6 +34,7 @@ describe('StatusPicker', () => {
     createAnalyticsEvent.mockReset();
     fireEvent.mockReset();
     preventDefault.mockReset();
+    stopPropagation.mockReset();
     stopImmediatePropagation.mockReset();
     onEnter.mockReset();
     onSelect.mockReset();
@@ -158,7 +164,7 @@ describe('StatusPicker', () => {
       registerDocumentListeners(map);
 
       mountStatusPicker();
-      map.keydown({ code: 'Escape', preventDefault });
+      map.keydown({ code: 'Escape', preventDefault, stopPropagation });
 
       expect(preventDefault).toHaveBeenCalled();
       expect(onEnter).toHaveBeenCalled();

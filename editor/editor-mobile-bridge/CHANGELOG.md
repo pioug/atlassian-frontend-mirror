@@ -1,5 +1,26 @@
 # @atlaskit/editor-mobile-bridge
 
+## 34.5.0
+
+### Minor Changes
+
+- [`45b6d35ea96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45b6d35ea96) - [ME-1327] Added new upload methods to editor mobile bridge to support previews and progress for media cards.
+
+### Patch Changes
+
+- [`c64c93a5cab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c64c93a5cab) - Internal ED-12831 changes to not to log deprecated warnings in prod mode"
+- [`de8c97fde61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8c97fde61) - Revert the premature optimisation that introduces race condition
+- [`9b778e5cd54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b778e5cd54) - [ME-2621] Remove legacy code that imposes risks
+- [`15c39553e92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15c39553e92) - [ux] ED-15130: Make tableRenderOptimization flag default enabled to fix table row control heights being incorrect when smart link inlineCards finish rendering
+- [`d84e2bd9dab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d84e2bd9dab) - ED-13905 Fix dependencies to include @atlaskit/icon in dependencies
+- Updated dependencies
+
+## 34.4.29
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.4.28
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';

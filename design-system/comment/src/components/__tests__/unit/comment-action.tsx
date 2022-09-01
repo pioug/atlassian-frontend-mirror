@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { mount, shallow } from 'enzyme';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import __noop from '@atlaskit/ds-lib/noop';
 
 import CommentActionWithAnalytics, {
   ActionItemProps,
@@ -34,9 +35,9 @@ describe('@atlaskit comments', () => {
 
       it('should reflect onClick, onFocus, and onMouseOver to a wrapping element', () => {
         const props: ActionItemProps = {
-          onClick: () => {},
-          onFocus: () => {},
-          onMouseOver: () => {},
+          onClick: __noop,
+          onFocus: __noop,
+          onMouseOver: __noop,
         };
         const wrapper = shallow(<CommentAction {...props} />);
         const Keys = Object.keys(props) as (keyof ActionItemProps)[];

@@ -366,7 +366,7 @@ describe('SidebarResizeController', () => {
     expect(getByTestId('component')).toHaveStyleDeclaration('width', '20px');
     expect(
       getByTestId('component').firstElementChild!.nextSibling,
-    ).toHaveStyleDeclaration('width', 'var(--leftSidebarFlyoutWidth,240px)');
+    ).toHaveStyleDeclaration('width', 'var(--leftSidebarFlyoutWidth, 240px)');
     expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
       expect.stringContaining(':root{--leftSidebarWidth:20px;}'),
     );
@@ -378,11 +378,11 @@ describe('SidebarResizeController', () => {
 
     expect(getByTestId('component')).toHaveStyleDeclaration(
       'width',
-      'var(--leftSidebarWidth,0px)',
+      'var(--leftSidebarWidth, 0px)',
     );
     expect(
       getByTestId('component').firstElementChild!.nextSibling,
-    ).toHaveStyleDeclaration('width', 'var(--leftSidebarWidth,0px)');
+    ).toHaveStyleDeclaration('width', 'var(--leftSidebarWidth, 0px)');
     expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
       expect.stringContaining(':root{--leftSidebarWidth:240px;}'),
     );

@@ -40,7 +40,7 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { EditorView } from 'prosemirror-view';
-import { Fragment, Node, Slice } from 'prosemirror-model';
+import { Fragment, Slice } from 'prosemirror-model';
 
 import { pluginKey } from '../../main';
 import { CardPluginState } from '../../../types';
@@ -52,7 +52,6 @@ import {
 
 import { setTextSelection } from '../../../../../utils';
 import {
-  insertCard,
   handleFallbackWithAnalytics,
   queueCardsFromChangedTr,
   updateCard,
@@ -1150,33 +1149,6 @@ describe('card', () => {
             linkDomain: 'atlassian.com',
           },
         });
-      });
-    });
-
-    describe('#insertCard', () => {
-      const getInlineCardNode = (editorView: EditorView): Node =>
-        inlineCard(getCardAdfAttrs())()(editorView.state.schema);
-      it('should insert adf node and add a white space', function () {
-        const { editorView } = editor(doc(p('hello{<>}')));
-
-        const { state, dispatch } = editorView;
-        const inlineCardNode = getInlineCardNode(editorView);
-        dispatch(insertCard(state.tr, inlineCardNode, editorView.state.schema));
-
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p('hello', inlineCard(getCardAdfAttrs())(), ' ')),
-        );
-      });
-      it('should replace selection with inline card and add a white space', function () {
-        const { editorView } = editor(doc(p('{<}hello{>}')));
-
-        const { state, dispatch } = editorView;
-        const inlineCardNode = getInlineCardNode(editorView);
-        dispatch(insertCard(state.tr, inlineCardNode, editorView.state.schema));
-
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p(inlineCard(getCardAdfAttrs())(), ' ')),
-        );
       });
     });
 

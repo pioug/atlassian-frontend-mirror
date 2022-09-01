@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import FocusRing from '@atlaskit/focus-ring';
 import { borderRadius, codeFontFamily } from '@atlaskit/theme/constants';

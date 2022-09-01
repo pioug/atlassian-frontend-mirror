@@ -20,6 +20,9 @@ import {
   HalpIcon,
   HalpLogo,
   HalpWordmark,
+  JiraAlignIcon,
+  JiraAlignLogo,
+  JiraAlignWordmark,
   JiraIcon,
   JiraLogo,
   JiraServiceManagementIcon,
@@ -97,6 +100,7 @@ export default () => (
         {buildRows(CompassLogo, CompassWordmark, CompassIcon)}
         {buildRows(ConfluenceLogo, ConfluenceWordmark, ConfluenceIcon)}
         {buildRows(HalpLogo, HalpWordmark, HalpIcon)}
+        {buildRows(JiraAlignLogo, JiraAlignWordmark, JiraAlignIcon)}
         {buildRows(JiraLogo, JiraWordmark, JiraIcon)}
         {buildRows(
           JiraServiceManagementLogo,

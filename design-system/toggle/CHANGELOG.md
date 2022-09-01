@@ -1,5 +1,15 @@
 # @atlaskit/toggle
 
+## 12.5.0
+
+### Minor Changes
+
+- [`0349cb94ca3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0349cb94ca3) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.10
 
 ### Patch Changes

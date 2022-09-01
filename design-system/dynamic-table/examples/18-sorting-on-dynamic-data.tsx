@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import DynamicTable from '../src';
 

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { ComponentProps } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { B100, B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

@@ -1,5 +1,24 @@
 # @atlaskit/emoji
 
+## 65.2.0
+
+### Minor Changes
+
+- [`dc70b6076fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc70b6076fb) - Converted emoji picker component children to functional components.
+- [`f397ebff733`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f397ebff733) - Emoji Upload Component refactor to functional
+- [`f39be18203b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f39be18203b) - ToneSelector and EmojiActions functional component conversion
+- [`2a233390245`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a233390245) - Emoji Upload Picker and File Chooser functional component refactor
+- [`02b3743e97a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02b3743e97a) - Converted emoji picker component to functional and fixed emoji preview bugs
+- [`16b6d3503f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16b6d3503f3) - EmojiErrorMessage, RetryableButton and Popup refactor to functional components
+- [`8a79098bcca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a79098bcca) - CachiningEmoji and EmojiPreviewComponent functional component conversion
+- [`7f5cfd05d71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f5cfd05d71) - Revert changes that causing the emoji picker emoji preview to jump
+
+### Patch Changes
+
+- [`fa52e2a1ffd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa52e2a1ffd) - Convert the 04, 13, 19 and 03 emoji examples to function components
+- [`277d88799b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277d88799b0) - Convert emoji example from class to functional
+- Updated dependencies
+
 ## 65.1.1
 
 ### Patch Changes

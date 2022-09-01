@@ -140,6 +140,22 @@ export const tableStyles = (props: ThemeProps) => css`
 
       td.${ClassName.TABLE_CELL} {
         background-color: ${tableCellBackgroundColor(props)};
+
+        // ED-15246: Trello card is visible through a border of a table border
+        // This fixes a border issue caused by relative positioned table cells
+        &::after {
+          height: 100%;
+          content: '';
+          border-left: 1px solid ${tableBorderColor(props)};
+          border-bottom: 1px solid ${tableBorderColor(props)};
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          bottom: 0;
+          width: 100%;
+          display: inline-block;
+          pointer-events: none;
+        }
       }
     }
 
@@ -578,8 +594,6 @@ export const tableStyles = (props: ThemeProps) => css`
     /* Table */
     .${ClassName.TABLE_NODE_WRAPPER} > table {
       table-layout: fixed;
-      // Fixes Chrome border clipping bug ED-15245
-      background: ${tableBorderColor(props)};
 
       .${ClassName.COLUMN_CONTROLS_DECORATIONS} + * {
         margin-top: 0;
@@ -616,6 +630,7 @@ export const tableStyles = (props: ThemeProps) => css`
         right: 0;
         top: 0;
         bottom: 0;
+        width: 100%;
         pointer-events: none;
       }
       .${ClassName.SELECTED_CELL} {
@@ -623,10 +638,32 @@ export const tableStyles = (props: ThemeProps) => css`
       }
       .${ClassName.SELECTED_CELL}::after {
         background: ${tableCellSelectedColor};
+        z-index: ${akEditorSmallZIndex};
       }
       th.${ClassName.HOVERED_CELL_IN_DANGER}::after,
         td.${ClassName.HOVERED_CELL_IN_DANGER}::after {
         background: ${tableCellDeleteColor};
+        z-index: ${akEditorUnitZIndex * 100};
+      }
+      // ED-15246: Trello card is visible through a border of a table border
+      td.${ClassName.HOVERED_CELL}, td.${ClassName.SELECTED_CELL} {
+        &::after {
+          height: 100%;
+          width: 100%;
+          border: 1px solid ${tableBorderSelectedColor};
+          content: '';
+          position: absolute;
+          left: -1px;
+          top: -1px;
+          bottom: 0;
+          z-index: ${akEditorSmallZIndex};
+          display: inline-block;
+          pointer-events: none;
+        }
+        &.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+          border: 1px solid ${tableBorderDeleteColor};
+          z-index: ${akEditorUnitZIndex * 100};
+        }
       }
     }
     .${ClassName.ROW_CONTROLS_WRAPPER} {

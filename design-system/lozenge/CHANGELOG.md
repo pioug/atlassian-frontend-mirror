@@ -1,5 +1,18 @@
 # @atlaskit/lozenge
 
+## 11.2.0
+
+### Minor Changes
+
+- [`bf235e83ac0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf235e83ac0) - Internal changes to the way styles are applied. The Lozenge background is now centred properly resulting in it sitting 1px higher, however the text inside the Lozenge is unaffected.
+
+### Patch Changes
+
+- [`37246e87cfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37246e87cfc) - Adds position static to Box.
+  Changes lozenge to use position static instead of relative.
+- [`6e0671cb45c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e0671cb45c) - Internal change to implementation which should not have any noticeable impact.
+- Updated dependencies
+
 ## 11.1.12
 
 ### Patch Changes

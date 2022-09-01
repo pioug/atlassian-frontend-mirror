@@ -5,7 +5,7 @@ import {
   MouseEventHandler,
 } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 

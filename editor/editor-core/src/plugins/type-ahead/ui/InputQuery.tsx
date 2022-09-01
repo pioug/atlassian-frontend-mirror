@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useRef, useEffect, useCallback, Fragment } from 'react';
+import React, { useRef, useCallback, Fragment, useLayoutEffect } from 'react';
 import { css, jsx } from '@emotion/react';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
@@ -111,6 +111,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
               addPrefixTrigger: true,
               setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
             });
+            stopDefault = true;
             break;
           case 'Backspace':
             if (
@@ -188,7 +189,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       [onQueryFocus],
     );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       if (!ref.current) {
         return;
       }
@@ -364,7 +365,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       checkKeyEvent,
     ]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       const hasReopenQuery =
         typeof reopenQuery === 'string' && reopenQuery.trim().length > 0;
       if (ref.current && forceFocus) {

@@ -425,6 +425,60 @@ describe('provider unit tests', () => {
         });
       });
     });
+
+    describe('fire participants events', () => {
+      it('should update the the participants', async () => {
+        const triggerCollabAnalyticsEventSpy = jest.spyOn(
+          analytics,
+          'triggerCollabAnalyticsEvent',
+        );
+        const provider = createSocketIOCollabProvider(testProviderConfig);
+        provider.on('presence', ({ joined, left }) => {
+          expect(joined?.length).toBe(1);
+          expect(left).toBe(undefined);
+        });
+        provider.initialize(() => editorState);
+
+        socket.emit('participant:updated', {
+          sessionId: 'sessionId-1',
+          timestamp: Date.now(),
+          userId: 'userId-1',
+          clientId: 'clientId-1',
+        });
+
+        socket.emit('participant:updated', {
+          sessionId: 'sessionId-2',
+          timestamp: Date.now(),
+          userId: 'userId-2',
+          clientId: 'clientId-2',
+        });
+
+        await new Promise(process.nextTick);
+        expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(2);
+        expect(triggerCollabAnalyticsEventSpy).toHaveBeenNthCalledWith(
+          1,
+          {
+            eventAction: 'updateParticipants',
+            attributes: {
+              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+              participants: 1,
+            },
+          },
+          undefined,
+        );
+        expect(triggerCollabAnalyticsEventSpy).toHaveBeenNthCalledWith(
+          2,
+          {
+            eventAction: 'updateParticipants',
+            attributes: {
+              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+              participants: 2,
+            },
+          },
+          undefined,
+        );
+      });
+    });
   });
 
   describe('Emit errors to consumers', () => {
@@ -607,6 +661,7 @@ describe('provider unit tests', () => {
         {
           eventAction: 'convertPMToADF',
           attributes: {
+            documentAri: 'ari:cloud:confluence:ABC:page/testpage',
             eventStatus: 'SUCCESS',
           },
         },
@@ -761,6 +816,7 @@ describe('provider unit tests', () => {
         {
           eventAction: 'convertPMToADF',
           attributes: {
+            documentAri: 'ari:cloud:confluence:ABC:page/testpage',
             eventStatus: 'FAILURE',
             error: new TypeError('Cannot convert undefined or null to object'),
           },

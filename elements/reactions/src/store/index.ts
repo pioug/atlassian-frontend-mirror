@@ -1,3 +1,3 @@
 export { ReactionConsumer } from './ReactionConsumer';
-export { MemoryReactionsStore } from './ReactionsStore';
-export type { ReactionsStore, State } from './ReactionsStore';
+export type { ReactioConsumerProps } from './ReactionConsumer';
+export { MemoryReactionsStore, ufoExperiences } from './MemoryReactionsStore';

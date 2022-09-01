@@ -29,6 +29,7 @@ const createBaseEditorMobileBridgeWebpackConfig = async (args, config) => {
         'react-virtualized/dist/commonjs/AutoSizer': emptyExportPath, // Official way of importing these components
         'react-virtualized/dist/commonjs/Collection': emptyExportPath, // from react-virtualized to avoid treeshaking issues
         'react-virtualized/dist/commonjs/List': emptyExportPath, // ~10kb gzip
+        'react-virtualized/dist/commonjs/CellMeasurer': emptyExportPath,
         'react-virtualized': emptyExportPath, // ~10kb gzip
       },
     },

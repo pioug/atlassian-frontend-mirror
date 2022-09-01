@@ -1,5 +1,15 @@
 # @atlaskit/tabs
 
+## 13.3.0
+
+### Minor Changes
+
+- [`7ec1c1a023f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ec1c1a023f) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.13
 
 ### Patch Changes

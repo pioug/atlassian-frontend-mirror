@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { EmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
+import { FC } from 'react';
 import {
   emojiName,
   emojiShortName,
@@ -14,11 +15,11 @@ type Props = {
   emoji: EmojiDescription;
 };
 
-export const EmojiPreviewComponent = ({ emoji }: Props) => {
+export const EmojiPreviewComponent: FC<Props> = ({ emoji }) => {
   return (
     <div css={preview}>
       <span css={previewImg}>
-        <CachingEmoji emoji={emoji} />
+        <CachingEmoji key={emoji.id || emoji.shortName} emoji={emoji} />
       </span>
       <div css={previewText}>
         {emoji.name && <div css={emojiName}>{emoji.name}</div>}

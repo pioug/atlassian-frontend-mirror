@@ -77,4 +77,30 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, containerSelector);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Lozenge baseline alignment should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'lozenge',
+      'baseline-alignment',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(
+      'span[data-testid="lozenge-baseline-alignment-heading"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-baseline-alignment-11px"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-baseline-alignment-12px"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-baseline-alignment-14px"]',
+    );
+    const containerSelector = "[data-testid='test-container']";
+    const image = await takeElementScreenShot(page, containerSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

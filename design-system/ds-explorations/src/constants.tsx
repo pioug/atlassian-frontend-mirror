@@ -4,6 +4,7 @@ export const SPACING_SCALE = {
   'sp-50': 4,
   'sp-75': 6,
   'sp-100': 8,
+  'sp-150': 12,
   'sp-200': 16,
   'sp-300': 24,
   'sp-400': 32,

@@ -1,7 +1,7 @@
 /**  @jsx jsx */
 import { forwardRef, memo, SyntheticEvent } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import {
   UIAnalyticsEvent,

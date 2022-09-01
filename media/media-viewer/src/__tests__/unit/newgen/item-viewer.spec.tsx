@@ -520,6 +520,7 @@ describe('<ItemViewer />', () => {
             fileMimetype: 'image/png',
             fileSize: 10,
           },
+          fileMediatype: 'image',
           status: 'success',
         },
         eventType: 'operational',
@@ -562,6 +563,7 @@ describe('<ItemViewer />', () => {
             fileMimetype: 'image/png',
             fileSize: 10,
           },
+          fileMediatype: 'image',
           status: 'success',
         },
         eventType: 'operational',
@@ -699,6 +701,7 @@ describe('<ItemViewer />', () => {
             fileMimetype: 'image/png',
             fileSize: 10,
           },
+          fileMediatype: 'image',
           status: 'success',
         },
         eventType: 'operational',
@@ -877,6 +880,28 @@ describe('<ItemViewer />', () => {
       const { el } = mountComponent(mediaClient, identifier);
       el.update();
       expect(el.find(CodeViewer)).toHaveLength(0);
+    });
+
+    it('should show error if file size exceeds the limit', () => {
+      const state: FileState = {
+        id: identifier.id,
+        mediaType: 'unknown',
+        status: 'processed',
+        artifacts: {},
+        name: 'file.c',
+        size: 20000000,
+        mimeType: '',
+      };
+      const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
+      const { el } = mountComponent(mediaClient, identifier);
+      el.update();
+
+      const errorMessage = el.find(ErrorMessage);
+      expect(errorMessage).toHaveLength(1);
+      expect(errorMessage.prop('error').message).toEqual(
+        'codeviewer-file-size-exceeds',
+      );
+      expect(errorMessage.find(ErrorViewDownloadButton).length).toEqual(1);
     });
   });
 });

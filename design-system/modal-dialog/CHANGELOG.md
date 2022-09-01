@@ -1,5 +1,15 @@
 # @atlaskit/modal-dialog
 
+## 12.3.0
+
+### Minor Changes
+
+- [`c44f3f5f973`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c44f3f5f973) - Modal Dialog’s focus lock now allows focus to reach elements outside the modal if they contain the data-atlas-extension attribute, such as a browser extension that renders in-browser.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.15
 
 ### Patch Changes

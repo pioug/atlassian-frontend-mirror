@@ -44,6 +44,6 @@ describe('CopyButton', () => {
     ).not.toContain('clicked');
     expect(
       copyButton.find('button.copy-to-clipboard').props()['aria-label'],
-    ).toEqual('Copy');
+    ).toEqual('Copy as text');
   });
 });

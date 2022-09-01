@@ -1,4 +1,4 @@
-import { CSSObject } from '@emotion/core';
+import { CSSObject } from '@emotion/react';
 
 import { gridSize } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';

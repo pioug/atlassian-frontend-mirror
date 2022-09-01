@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, TextSelection } from 'prosemirror-state';
+import { EditorState, PluginKey, TextSelection } from 'prosemirror-state';
 import { keydownHandler } from 'prosemirror-keymap';
 import { setTextSelection } from 'prosemirror-utils';
 import { getCursor } from '../../../utils';
@@ -30,12 +30,53 @@ import {
   insertNewlineWithIndent,
 } from '../ide-ux/commands';
 import { CommandDispatch } from '../../../types';
+import { EditorView } from 'prosemirror-view';
 
-export default new SafePlugin({
+interface CodeBlockIDEKeyBindingsPluginState {
+  isComposing: boolean;
+}
+
+const codeBlockIDEKeyBindingsKey = new PluginKey<
+  CodeBlockIDEKeyBindingsPluginState
+>('codeBlockIDEKeyBindings');
+
+export default new SafePlugin<CodeBlockIDEKeyBindingsPluginState>({
+  key: codeBlockIDEKeyBindingsKey,
+  state: {
+    init: (): CodeBlockIDEKeyBindingsPluginState => ({
+      isComposing: false,
+    }),
+    apply: (tr, value): CodeBlockIDEKeyBindingsPluginState => {
+      const isComposing: boolean = tr.getMeta(codeBlockIDEKeyBindingsKey);
+      if (typeof isComposing === 'undefined') {
+        return value;
+      }
+
+      return {
+        isComposing,
+      };
+    },
+  },
   props: {
+    handleDOMEvents: {
+      compositionstart: (view: EditorView, event: Event): boolean => {
+        const { tr } = view.state;
+        tr.setMeta(codeBlockIDEKeyBindingsKey, true);
+        view.dispatch(tr);
+        return false;
+      },
+      compositionend: (view: EditorView, event: Event): boolean => {
+        const { tr } = view.state;
+        tr.setMeta(codeBlockIDEKeyBindingsKey, false);
+        view.dispatch(tr);
+        return false;
+      },
+    },
     handleTextInput(view, from, to, text) {
       const { state, dispatch } = view;
-      if (isCursorInsideCodeBlock(state)) {
+      const isComposing = codeBlockIDEKeyBindingsKey.getState(state)
+        .isComposing;
+      if (isCursorInsideCodeBlock(state) && !isComposing) {
         const beforeText = getStartOfCurrentLine(state).text;
         const afterText = getEndOfCurrentLine(state).text;
 

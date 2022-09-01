@@ -2,17 +2,14 @@ import React from 'react';
 let mockFindOverflowScrollParent = jest.fn();
 let mockRafSchedule = jest.fn().mockImplementation((cb: any) => cb());
 jest.mock('raf-schd', () => (cb: any) => () => mockRafSchedule(cb));
+let mockSmartCardRender = jest.fn();
 jest.mock('@atlaskit/smart-card', () => {
   const React = require('react');
   return {
     ...jest.requireActual<Object>('@atlaskit/smart-card'),
     Card: class Card extends React.Component<any> {
       render() {
-        this.props.onResolve({
-          title: 'my-title',
-          url: 'https://my.url.com',
-        });
-        return <div className="smart-card-mock">{this.props.url}</div>;
+        return mockSmartCardRender(this.props);
       }
     },
   };
@@ -59,6 +56,13 @@ describe('inlineCard', () => {
       },
       dispatch: jest.fn(),
     } as unknown) as EditorView;
+    mockSmartCardRender.mockImplementation((props) => {
+      props.onResolve({
+        title: 'my-title',
+        url: 'https://my.url.com',
+      });
+      return <div className="smart-card-mock">{props.url}</div>;
+    });
   });
 
   afterEach(() => {
@@ -170,6 +174,43 @@ describe('inlineCard', () => {
       info: {
         pos: 0,
         title: 'my-title',
+        url: 'https://my.url.com',
+      },
+      type: 'REGISTER',
+    });
+    mockInlineCardNode.unmount();
+  });
+
+  it('should dispatch REGISTER card action when URL renders with error status', () => {
+    mockSmartCardRender.mockImplementation((props) => {
+      props.onError({
+        status: 'not_found',
+        url: 'https://my.url.com',
+      });
+      return <div className="smart-card-mock">{props.url}</div>;
+    });
+    const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
+      defaultSchema,
+    );
+
+    const mockInlineCardNode = mount(
+      <InlineCardComponent
+        node={mockInlinePmNode}
+        view={mockEditorView}
+        getPos={() => 0}
+        cardContext={createCardContext()}
+      />,
+    );
+
+    const wrapper = mockInlineCardNode.find(Card);
+    expect(wrapper).toHaveLength(1);
+    expect(wrapper.prop('url')).toBe('https://some/url');
+    expect(mockRafSchedule).toHaveBeenCalledTimes(1);
+    expect(mockEditorView.state.tr.setMeta).toHaveBeenCalledTimes(1);
+    expect(mockEditorView.dispatch).toHaveBeenCalledTimes(1);
+    expect(mockEditorView.dispatch).toHaveBeenCalledWith({
+      info: {
+        pos: 0,
         url: 'https://my.url.com',
       },
       type: 'REGISTER',

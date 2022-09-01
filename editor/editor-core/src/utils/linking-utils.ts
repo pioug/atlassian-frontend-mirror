@@ -1,3 +1,4 @@
+import { CardAppearance } from '@atlaskit/smart-card';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -31,6 +32,25 @@ export type LinkType =
   | ACTION_SUBJECT_ID.EMBEDS
   | ACTION_SUBJECT_ID.HYPERLINK;
 
+const mapLinkTypeToCardAppearance = (
+  type: LinkType,
+): CardAppearance | 'url' => {
+  switch (type) {
+    case ACTION_SUBJECT_ID.CARD_INLINE: {
+      return 'inline';
+    }
+    case ACTION_SUBJECT_ID.CARD_BLOCK: {
+      return 'block';
+    }
+    case ACTION_SUBJECT_ID.EMBEDS: {
+      return 'embed';
+    }
+    default: {
+      return 'url';
+    }
+  }
+};
+
 export const buildVisitedLinkPayload = (
   type: LinkType,
 ): AnalyticsEventPayload => {
@@ -55,6 +75,21 @@ export const buildVisitedLinkPayload = (
         },
         eventType: EVENT_TYPE.TRACK,
       };
+};
+
+export const buildOpenedSettingsPayload = (
+  type: LinkType,
+): AnalyticsEventPayload => {
+  return {
+    action: ACTION.CLICKED,
+    actionSubject: ACTION_SUBJECT.BUTTON,
+    actionSubjectId: ACTION_SUBJECT_ID.GOTO_SMART_LINK_SETTINGS,
+    attributes: {
+      inputMethod: INPUT_METHOD.TOOLBAR,
+      display: mapLinkTypeToCardAppearance(type),
+    },
+    eventType: EVENT_TYPE.UI,
+  };
 };
 
 export const unlinkPayload = (type: LinkType) => {

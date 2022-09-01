@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`card toolbar displays toolbar items in correct order for blockCard 1`] = `
+exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for blockCard 1`] = `
 Array [
   Object {
     "fallback": Array [],
@@ -56,7 +56,7 @@ Array [
 ]
 `;
 
-exports[`card toolbar displays toolbar items in correct order for embedCard 1`] = `
+exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for embedCard 1`] = `
 Array [
   Object {
     "fallback": Array [],
@@ -158,7 +158,7 @@ Array [
 ]
 `;
 
-exports[`card toolbar displays toolbar items in correct order for embedCard inside an expand 1`] = `
+exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for embedCard inside an expand 1`] = `
 Array [
   Object {
     "id": "editor.link.edit",
@@ -206,7 +206,7 @@ Array [
 ]
 `;
 
-exports[`card toolbar displays toolbar items in correct order for inlineCard 1`] = `
+exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for inlineCard 1`] = `
 Array [
   Object {
     "fallback": Array [],
@@ -272,7 +272,7 @@ Array [
 ]
 `;
 
-exports[`card toolbar displays toolbar items in correct order for inlineCard on mobile 1`] = `
+exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for inlineCard on mobile 1`] = `
 Array [
   Object {
     "fallback": Array [],
@@ -363,6 +363,732 @@ Array [
     },
     "onClick": [Function],
     "title": "Open link in a new tab",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning true displays toolbar items in correct order for blockCard 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.link.settings",
+    "onClick": [Function],
+    "title": "Go to Link Preferences",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning true displays toolbar items in correct order for embedCard 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignCenter",
+    "onClick": [Function],
+    "selected": true,
+    "title": "Align center",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.link.settings",
+    "onClick": [Function],
+    "title": "Go to Link Preferences",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning true displays toolbar items in correct order for embedCard inside an expand 1`] = `
+Array [
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": undefined,
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": undefined,
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.link.settings",
+    "onClick": [Function],
+    "title": "Go to Link Preferences",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning true displays toolbar items in correct order for inlineCard 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.link.unlink",
+    "onClick": [Function],
+    "title": "Unlink",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.link.settings",
+    "onClick": [Function],
+    "title": "Go to Link Preferences",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning true displays toolbar items in correct order for inlineCard on mobile 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.link.unlink",
+    "onClick": [Function],
+    "title": "Unlink",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.link.settings",
+    "onClick": [Function],
+    "title": "Go to Link Preferences",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for blockCard 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for embedCard 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignCenter",
+    "onClick": [Function],
+    "selected": true,
+    "title": "Align center",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.alignRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Align right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapLeft",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap left",
+    "type": "button",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.media.wrapRight",
+    "onClick": [Function],
+    "selected": false,
+    "title": "Wrap right",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for embedCard inside an expand 1`] = `
+Array [
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": undefined,
+      "url": undefined,
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": undefined,
+      "url": undefined,
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for inlineCard 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.link.unlink",
+    "onClick": [Function],
+    "title": "Unlink",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for inlineCard on mobile 1`] = `
+Array [
+  Object {
+    "fallback": Array [],
+    "render": [Function],
+    "type": "custom",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "id": "editor.link.edit",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "selected": false,
+    "showTitle": true,
+    "testId": "link-toolbar-edit-link-button",
+    "title": "Edit link",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.atlassian.com/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "icon": [Function],
+    "id": "editor.link.unlink",
+    "onClick": [Function],
+    "title": "Unlink",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
     "type": "button",
   },
 ]

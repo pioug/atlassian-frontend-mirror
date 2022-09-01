@@ -1,6 +1,5 @@
 import { layers } from '@atlaskit/theme/constants';
-import React from 'react';
-import { Component } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { lorem, onClose, onOpen } from '../example-helpers';
 import { getEmojiResourceUsageClear } from '@atlaskit/util-data-test/get-emoji-resource-usage-clear';
 import {
@@ -8,10 +7,7 @@ import {
   UsagingShowingProps,
 } from '../example-helpers/demo-emoji-usage-components';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
-import {
-  TypeaheadProps,
-  TypeaheadState,
-} from '../example-helpers/typeahead-props';
+import { TypeaheadProps } from '../example-helpers/typeahead-props';
 import { EmojiProvider } from '../src/resource';
 import { EmojiTypeAhead } from '../src/typeahead';
 import { EmojiId, OptionalEmojiDescription } from '../src/types';
@@ -27,124 +23,112 @@ const downPage: React.CSSProperties = {
   top: '400px',
 };
 
-class EmojiTextInput extends Component<TypeaheadProps, TypeaheadState> {
-  private emojiTypeAheadRef?: EmojiTypeAhead | null;
+const loremContent = (
+  <div>
+    <p style={{ width: '400px' }}>{lorem}</p>
+    <p style={{ width: '400px' }}>{lorem}</p>
+  </div>
+);
 
-  static defaultProps = {
-    onSelection: () => {},
-  };
+const EmojiTextInput: FC<TypeaheadProps> = (props) => {
+  const emojiTypeAheadRef = useRef<EmojiTypeAhead | null>();
+  const { onSelection, label, emojiProvider, position } = props;
+  const target = position ? '#demo-input' : undefined;
+  debug('demo-emoji-text-input.render', position);
 
-  constructor(props: TypeaheadProps) {
-    super(props);
-    this.state = {
-      active: false,
-      query: '',
-    };
-  }
+  const [active, setActive] = useState(false);
+  const [query, setQuery] = useState('');
 
-  showEmojiPopup = () => {
-    this.setState({
-      active: true,
-    });
-  };
-
-  hideEmojiPopup = () => {
-    this.setState({
-      active: false,
-    });
+  const showEmojiPopup = () => {
+    setActive(true);
   };
 
-  handleSelection = (emojiId: EmojiId, emoji: OptionalEmojiDescription) => {
-    this.hideEmojiPopup();
-    this.props.onSelection(emojiId, emoji);
+  const hideEmojiPopup = () => {
+    setActive(false);
   };
 
-  updateSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (this.state.active) {
-      this.setState({
-        query: event.target.value || '',
-      } as TypeaheadState);
-    }
-  };
-
-  private handleSearchTextInputChange = (
-    query: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    this.updateSearch(query);
-  };
-  private handleSearchTextInputUp = () => {
-    this.emojiTypeAheadRef && this.emojiTypeAheadRef.selectPrevious();
-  };
-  private handleSearchTextInputDown = () => {
-    this.emojiTypeAheadRef && this.emojiTypeAheadRef.selectNext();
-  };
-  private handleSearchTextInputEnter = () => {
-    this.emojiTypeAheadRef && this.emojiTypeAheadRef.chooseCurrentSelection();
-  };
-  private handleEmojiTypeAheadRef = (ref: EmojiTypeAhead | null) => {
-    this.emojiTypeAheadRef = ref;
-  };
-  private handleEmojiTypeAheadSelection = (
+  const handleSelection = (
     emojiId: EmojiId,
     emoji: OptionalEmojiDescription,
   ) => {
-    this.handleSelection(emojiId, emoji);
+    hideEmojiPopup();
+    onSelection(emojiId, emoji);
   };
 
-  render() {
-    const { label, emojiProvider, position } = this.props;
-    debug('demo-emoji-text-input.render', position);
-    const target = position ? '#demo-input' : undefined;
-    const searchInput = (
-      <SearchTextInput
-        inputId="demo-input"
-        label={label}
-        onChange={this.handleSearchTextInputChange}
-        onUp={this.handleSearchTextInputUp}
-        onDown={this.handleSearchTextInputDown}
-        onEnter={this.handleSearchTextInputEnter}
-        onEscape={this.hideEmojiPopup}
-        onFocus={this.showEmojiPopup}
-        onBlur={this.hideEmojiPopup}
+  const updateSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (active) {
+      setQuery(event.target.value || '');
+    }
+  };
+
+  const handleSearchTextInputChange = (
+    query: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    updateSearch(query);
+  };
+
+  const handleSearchTextInputUp = () => {
+    emojiTypeAheadRef.current?.selectPrevious();
+  };
+
+  const handleSearchTextInputDown = () => {
+    emojiTypeAheadRef.current?.selectNext();
+  };
+
+  const handleSearchTextInputEnter = () => {
+    emojiTypeAheadRef.current?.chooseCurrentSelection();
+  };
+  const handleEmojiTypeAheadRef = (ref: EmojiTypeAhead | null) => {
+    emojiTypeAheadRef.current = ref;
+  };
+  const handleEmojiTypeAheadSelection = (
+    emojiId: EmojiId,
+    emoji: OptionalEmojiDescription,
+  ) => {
+    handleSelection(emojiId, emoji);
+  };
+
+  const searchInput = (
+    <SearchTextInput
+      inputId="demo-input"
+      label={label}
+      onChange={handleSearchTextInputChange}
+      onUp={handleSearchTextInputUp}
+      onDown={handleSearchTextInputDown}
+      onEnter={handleSearchTextInputEnter}
+      onEscape={hideEmojiPopup}
+      onFocus={showEmojiPopup}
+      onBlur={hideEmojiPopup}
+    />
+  );
+
+  let emojiTypeAhead;
+  if (active) {
+    emojiTypeAhead = (
+      <EmojiTypeAhead
+        target={target}
+        position={position}
+        onSelection={handleEmojiTypeAheadSelection}
+        onOpen={onOpen}
+        onClose={onClose}
+        ref={handleEmojiTypeAheadRef}
+        query={query}
+        emojiProvider={emojiProvider}
+        zIndex={layers.modal()}
       />
     );
-
-    let emojiTypeAhead;
-
-    if (this.state.active) {
-      emojiTypeAhead = (
-        <EmojiTypeAhead
-          target={target}
-          position={position}
-          onSelection={this.handleEmojiTypeAheadSelection}
-          onOpen={onOpen}
-          onClose={onClose}
-          ref={this.handleEmojiTypeAheadRef}
-          query={this.state.query}
-          emojiProvider={emojiProvider}
-          zIndex={layers.modal()}
-        />
-      );
-    }
-
-    const loremContent = (
-      <div>
-        <p style={{ width: '400px' }}>{lorem}</p>
-        <p style={{ width: '400px' }}>{lorem}</p>
-      </div>
-    );
-
-    return (
-      <div style={tallPageStyle}>
-        <div style={downPage}>
-          {loremContent}
-          {searchInput}
-          {emojiTypeAhead}
-        </div>
-      </div>
-    );
   }
-}
+
+  return (
+    <div style={tallPageStyle}>
+      <div style={downPage}>
+        {loremContent}
+        {searchInput}
+        {emojiTypeAhead}
+      </div>
+    </div>
+  );
+};
 
 class UsageShowingEmojiTypeAheadTextInput extends UsageShowAndClearComponent {
   constructor(props: UsagingShowingProps) {

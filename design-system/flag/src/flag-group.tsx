@@ -7,7 +7,7 @@ import {
   useMemo,
 } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { easeIn, ExitingPersistence, SlideIn } from '@atlaskit/motion';

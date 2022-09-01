@@ -1,5 +1,15 @@
 # @atlaskit/editor-json-transformer
 
+## 8.8.0
+
+### Minor Changes
+
+- [`f6129bf0223`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6129bf0223) - Add support for media inline
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.7.7
 
 ### Patch Changes

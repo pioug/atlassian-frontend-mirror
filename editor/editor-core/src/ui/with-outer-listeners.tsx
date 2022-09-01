@@ -1,6 +1,8 @@
 import React from 'react';
 import { ComponentClass, StatelessComponent, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
+import ReactEditorViewContext from '../create-editor/ReactEditorViewContext';
+import { EditorView } from 'prosemirror-view';
 
 type SimpleEventHandler<T> = (event: T) => void;
 
@@ -10,55 +12,115 @@ export interface WithOutsideClickProps {
   handleEnterKeydown?: SimpleEventHandler<KeyboardEvent>;
 }
 
+class WithOutsideClick extends PureComponent<
+  WithOutsideClickProps & {
+    isActiveComponent: boolean;
+    editorView?: EditorView;
+    editorRef?: React.RefObject<HTMLDivElement>;
+  },
+  {}
+> {
+  componentDidMount() {
+    if (this.props.handleClickOutside) {
+      document.addEventListener('click', this.handleClick, false);
+    }
+
+    if (this.props.handleEscapeKeydown) {
+      (this.props.editorRef?.current || document).addEventListener(
+        'keydown',
+        this.handleKeydown as any,
+        false,
+      );
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.handleClickOutside) {
+      document.removeEventListener('click', this.handleClick, false);
+    }
+
+    if (this.props.handleEscapeKeydown) {
+      (this.props.editorRef?.current || document).removeEventListener(
+        'keydown',
+        this.handleKeydown as any,
+        false,
+      );
+    }
+  }
+
+  handleClick = (evt: MouseEvent) => {
+    if (!this.props.isActiveComponent) {
+      return;
+    }
+    const domNode = ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
+    if (
+      !domNode ||
+      (evt.target instanceof Node && !domNode.contains(evt.target))
+    ) {
+      if (this.props.handleClickOutside) {
+        this.props.handleClickOutside(evt);
+      }
+    }
+  };
+
+  handleKeydown = (evt: KeyboardEvent) => {
+    if (!this.props.isActiveComponent) {
+      return;
+    }
+    if (evt.code === 'Escape' && this.props.handleEscapeKeydown) {
+      evt.preventDefault();
+      evt.stopPropagation();
+
+      this.props.handleEscapeKeydown(evt);
+
+      if (!this.props.editorView?.hasFocus()) {
+        this.props.editorView?.focus();
+      }
+
+      return false;
+    } else if (evt.code === 'Enter' && this.props.handleEnterKeydown) {
+      this.props.handleEnterKeydown(evt);
+    }
+  };
+
+  render() {
+    return this.props.children;
+  }
+}
+
+type HasIsOpen = {
+  isOpen: boolean;
+};
+
+function hasIsOpen(props: any): props is HasIsOpen {
+  return 'isOpen' in props;
+}
+
 export default function withOuterListeners<P>(
   Component: ComponentClass<P> | StatelessComponent<P>,
-): ComponentClass<P & WithOutsideClickProps> {
-  return class WithOutsideClick extends PureComponent<
-    P & WithOutsideClickProps,
-    {}
-  > {
-    componentDidMount() {
-      if (this.props.handleClickOutside) {
-        document.addEventListener('click', this.handleClick, false);
-      }
-
-      if (this.props.handleEscapeKeydown) {
-        document.addEventListener('keydown', this.handleKeydown, false);
-      }
-    }
-
-    componentWillUnmount() {
-      if (this.props.handleClickOutside) {
-        document.removeEventListener('click', this.handleClick, false);
-      }
-
-      if (this.props.handleEscapeKeydown) {
-        document.removeEventListener('keydown', this.handleKeydown, false);
-      }
-    }
-
-    handleClick = (evt: MouseEvent) => {
-      const domNode = ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
-      if (
-        !domNode ||
-        (evt.target instanceof Node && !domNode.contains(evt.target))
-      ) {
-        if (this.props.handleClickOutside) {
-          this.props.handleClickOutside(evt);
-        }
-      }
-    };
-
-    handleKeydown = (evt: KeyboardEvent) => {
-      if (evt.code === 'Escape' && this.props.handleEscapeKeydown) {
-        this.props.handleEscapeKeydown(evt);
-      } else if (evt.code === 'Enter' && this.props.handleEnterKeydown) {
-        this.props.handleEnterKeydown(evt);
-      }
-    };
-
-    render() {
-      return <Component {...this.props} />;
-    }
+): React.FC<P & WithOutsideClickProps> {
+  return ({
+    handleClickOutside,
+    handleEnterKeydown,
+    handleEscapeKeydown,
+    ...props
+  }) => {
+    const isActiveComponent = hasIsOpen(props) ? props.isOpen : true;
+    return (
+      <ReactEditorViewContext.Consumer>
+        {({ editorView, editorRef }) => (
+          <WithOutsideClick
+            editorView={editorView}
+            editorRef={editorRef}
+            isActiveComponent={isActiveComponent}
+            handleClickOutside={handleClickOutside}
+            handleEnterKeydown={handleEnterKeydown}
+            handleEscapeKeydown={handleEscapeKeydown}
+          >
+            <Component {...(props as P)} />
+          </WithOutsideClick>
+        )}
+      </ReactEditorViewContext.Consumer>
+    );
   };
 }

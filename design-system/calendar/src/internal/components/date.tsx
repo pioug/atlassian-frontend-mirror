@@ -8,7 +8,7 @@ import {
   useRef,
 } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { ThemeModes } from '@atlaskit/theme/types';
@@ -77,7 +77,7 @@ const Date = memo(
       }
     }, [onClick]);
 
-    const dateCellStyles = useMemo(() => getDateCellStyles(mode), [mode]);
+    const dateCellStyles = useMemo(() => css(getDateCellStyles(mode)), [mode]);
 
     return (
       <button

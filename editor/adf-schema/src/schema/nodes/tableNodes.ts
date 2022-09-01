@@ -275,7 +275,7 @@ const createTableSpec = (): NodeSpec => {
   const tableNodeSpec: NodeSpec = {
     content: 'tableRow+',
     attrs: attrs,
-    marks: 'fragment unsupportedMark unsupportedNodeAttribute',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
     tableRole: 'table',
     isolating: true,
     selectable: false,

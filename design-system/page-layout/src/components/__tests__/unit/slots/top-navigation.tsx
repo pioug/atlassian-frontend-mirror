@@ -17,7 +17,7 @@ describe('<TopNavigation />', () => {
 
     expect(getByTestId('component')).toHaveStyleDeclaration(
       'height',
-      'var(--topNavigationHeight,0px)',
+      'var(--topNavigationHeight, 0px)',
     );
     expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
       expect.stringContaining(':root{--topNavigationHeight:50px;}'),
@@ -35,7 +35,7 @@ describe('<TopNavigation />', () => {
     );
     expect(getByTestId('component')).toHaveStyleDeclaration(
       'height',
-      'var(--topNavigationHeight,0px)',
+      'var(--topNavigationHeight, 0px)',
     );
 
     expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(

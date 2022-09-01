@@ -70,6 +70,11 @@ export const errorReasonToMessages: Array<[
     'archiveviewer-encrypted-entry',
     i18nMessages.couldnt_generate_encrypted_entry_preview,
   ],
+  [
+    'archiveviewer-codeviewer-file-size-exceeds',
+    i18nMessages.couldnt_load_file,
+  ],
+  ['codeviewer-file-size-exceeds', i18nMessages.couldnt_load_file],
 ];
 
 export const getErrorMessageFromError = (

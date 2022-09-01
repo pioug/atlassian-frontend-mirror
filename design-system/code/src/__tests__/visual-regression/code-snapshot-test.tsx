@@ -124,4 +124,20 @@ describe('Snapshot Test', () => {
 
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('CodeBidiWarning basic example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'code',
+      'code-bidi-characters',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(
+      '[data-testid="bidi-warning-renderedConditionalJs"]',
+    );
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

@@ -1,5 +1,11 @@
 # @atlaskit/visually-hidden
 
+## 1.1.0
+
+### Minor Changes
+
+- [`86b6aecec17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86b6aecec17) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 1.0.2
 
 ### Patch Changes

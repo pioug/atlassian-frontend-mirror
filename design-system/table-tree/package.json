@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/table-tree",
-  "version": "9.1.10",
+  "version": "9.2.0",
   "description": "A table tree is an expandable table for showing nested hierarchies of information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/spinner": "^15.0.0",
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -43,9 +43,10 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/empty-state": "^7.3.0",
-    "@atlaskit/section-message": "^6.0.0",
-    "@atlaskit/select": "^15.6.0",
+    "@atlaskit/ds-lib": "^2.0.1",
+    "@atlaskit/empty-state": "^7.4.0",
+    "@atlaskit/section-message": "^6.2.0",
+    "@atlaskit/select": "^15.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

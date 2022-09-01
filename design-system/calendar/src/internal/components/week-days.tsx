@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { memo } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import type { ThemeModes } from '@atlaskit/theme/types';
 

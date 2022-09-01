@@ -1,10 +1,14 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { AnalyticsViewerContainer } from '@atlaskit/analytics-viewer';
-import { MemoryReactionsStore, ReactionsStore } from '../../src/store';
-import { MockReactionsClient, ReactionClient } from '../../src/client';
+import { MockReactionsClient } from '../../src/MockReactionsClient';
+import {
+  ReactionsStore,
+  ReactionClient,
+  MemoryReactionsStore,
+} from '../../src';
 
-export type Props = {
+export interface ExampleWrapperProps {
   /**
    * Caller client object
    */
@@ -20,12 +24,12 @@ export type Props = {
     | ((store: ReactionsStore) => React.ReactChild | React.ReactChild[])
     | React.ReactChild
     | React.ReactChild[];
-};
+}
 
 /**
  * A wrapper component to provide a store of resouces/reactions to the wrapper UI element.
  */
-export const ExampleWrapper: React.FC<Props> = ({
+export const ExampleWrapper: React.FC<ExampleWrapperProps> = ({
   children,
   showAnalytics = false,
   client = new MockReactionsClient(500),

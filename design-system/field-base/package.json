@@ -25,9 +25,9 @@
   },
   "dependencies": {
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/inline-dialog": "^13.3.0",
+    "@atlaskit/inline-dialog": "^13.4.0",
     "@atlaskit/spinner": "^15.0.0",
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/input": "^8.0.0",
-    "@atlaskit/section-message": "^6.0.0",
+    "@atlaskit/section-message": "^6.2.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",

@@ -1,5 +1,15 @@
 # @atlaskit/progress-indicator
 
+## 9.3.0
+
+### Minor Changes
+
+- [`b85b29dd351`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b85b29dd351) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.8
 
 ### Patch Changes

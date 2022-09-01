@@ -48,6 +48,7 @@ export default class CornerControls extends Component<Props, any> {
               ? `${this.props.stickyTop}px`
               : undefined,
         }}
+        contentEditable={false}
       >
         <button
           type="button"

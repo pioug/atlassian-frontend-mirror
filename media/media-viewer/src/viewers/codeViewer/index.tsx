@@ -4,6 +4,7 @@ import {
   FileState,
   isErrorFileState,
   request,
+  ErrorFileState,
 } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
 import { MediaViewerError } from '../../errors';
@@ -24,7 +25,7 @@ const componentLoader: () => Promise<ComponentClass<RendererProps>> = () =>
 
 export type Props = {
   mediaClient: MediaClient;
-  item: FileState;
+  item: Exclude<FileState, ErrorFileState>;
   collectionName?: string;
   onClose?: () => void;
   onError: (error: MediaViewerError) => void;

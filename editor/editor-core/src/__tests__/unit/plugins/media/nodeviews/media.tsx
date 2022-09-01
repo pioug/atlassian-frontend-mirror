@@ -10,7 +10,6 @@ import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Card } from '@atlaskit/media-card';
 import Media, {
   MediaNodeProps,
-  MediaNode,
 } from '../../../../../plugins/media/nodeviews/mediaNodeView/media';
 import { stateKey as mediaStateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
@@ -18,7 +17,6 @@ import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider'
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProsemirrorGetPosHandler } from '../../../../../nodeviews/types';
-import { isMobileUploadCompleted } from '../../../../../plugins/media/commands/helpers';
 import { ReactMediaNode } from '../../../../../plugins/media/nodeviews/mediaNodeView';
 import { stateKey as SelectionChangePluginKey } from '../../../../../plugins/base/pm-plugins/react-nodeview';
 import { PortalProviderAPI } from '../../../../../ui/PortalProvider';
@@ -111,58 +109,6 @@ describe('nodeviews/media', () => {
     expect(wrapper.props().node.attrs.url).toEqual(
       'http://example.com/1920x1080.jpg',
     );
-  });
-
-  it('propagates mobile upload progress to Media component', async () => {
-    pluginState.mediaOptions = {
-      allowMarkingUploadsAsIncomplete: true,
-    };
-    pluginState.mobileUploadComplete = { foo: false };
-
-    wrapper = mount(
-      <Media
-        view={view}
-        node={mediaNode()(defaultSchema)}
-        getPos={getPos}
-        selected={false}
-        mediaProvider={mediaProvider}
-        originalDimensions={cardDimensions}
-        maxDimensions={cardDimensions}
-        uploadComplete={isMobileUploadCompleted(
-          pluginState,
-          mediaNode()(defaultSchema).attrs.id,
-        )}
-      />,
-    );
-
-    const { uploadComplete } = wrapper.find(MediaNode).props();
-    expect(uploadComplete).toBe(false);
-  });
-
-  it('propagates mobile upload complete to Media component', async () => {
-    pluginState.mediaOptions = {
-      allowMarkingUploadsAsIncomplete: true,
-    };
-    pluginState.mobileUploadComplete = { foo: true };
-
-    wrapper = mount(
-      <Media
-        view={view}
-        node={mediaNode()(defaultSchema)}
-        getPos={getPos}
-        selected={false}
-        mediaProvider={mediaProvider}
-        originalDimensions={cardDimensions}
-        maxDimensions={cardDimensions}
-        uploadComplete={isMobileUploadCompleted(
-          pluginState,
-          mediaNode()(defaultSchema).attrs.id,
-        )}
-      />,
-    );
-
-    const { uploadComplete } = wrapper.find(MediaNode).props();
-    expect(uploadComplete).toBe(true);
   });
 
   it('passes feature flag to Card component', async () => {

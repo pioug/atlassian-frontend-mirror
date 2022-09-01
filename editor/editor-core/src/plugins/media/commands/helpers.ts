@@ -85,17 +85,6 @@ export const findMediaNode = (
   return mediaNodeWithPos;
 };
 
-export const isMobileUploadCompleted = (
-  mediaPluginState: MediaPluginState,
-  mediaId: string,
-): boolean | undefined =>
-  !!mediaPluginState.mediaOptions &&
-  // This flag tells us that it's a 'mobile' env.
-  !!mediaPluginState.mediaOptions.allowMarkingUploadsAsIncomplete &&
-  typeof mediaPluginState.mobileUploadComplete[mediaId] === 'boolean'
-    ? mediaPluginState.mobileUploadComplete[mediaId]
-    : undefined;
-
 export const isMediaNode = (pos: number, state: EditorState) => {
   const node = state.doc.nodeAt(pos);
   return node && ['media', 'mediaInline'].includes(node.type.name);

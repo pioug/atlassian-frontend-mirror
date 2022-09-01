@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 15.0.16
+
+### Patch Changes
+
+- [`06fd023cd85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06fd023cd85) - Minor internal change to how text is displayed. No change to consumers.
+- [`52809e4839b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52809e4839b) - Allow makers to disable max value formatting in the Badge component
+- Updated dependencies
+
 ## 15.0.15
 
 ### Patch Changes

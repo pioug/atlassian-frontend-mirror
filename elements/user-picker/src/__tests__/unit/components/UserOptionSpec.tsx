@@ -1,7 +1,7 @@
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { LozengeProps } from '../../../types';
 import {
   AvatarItemOption,
@@ -45,30 +45,37 @@ describe('User Option', () => {
   it('should render UserOption component', () => {
     const component = shallowOption();
     const avatarItemOption = component.find(AvatarItemOption);
-    expect(avatarItemOption.props()).toMatchObject({
-      avatar: (
-        <SizeableAvatar
-          appearance="big"
-          src="http://avatars.atlassian.com/jace.png"
-          presence="approved"
-          name="Jace Beleren"
-        />
-      ),
-      primaryText: [
-        <span key="name" css={textWrapper(token('color.text', colors.N800))}>
-          <HighlightText>Jace Beleren</HighlightText>
-        </span>,
-        <React.Fragment key="publicName">
-          {' '}
-          <span>
-            (<HighlightText>jbeleren</HighlightText>)
-          </span>
-        </React.Fragment>,
-      ],
-      secondaryText: <span>Teammate</span>,
-      lozenge: {
-        text: 'WORKSPACE',
-      },
+
+    expect(avatarItemOption.props().avatar).toEqual(
+      <SizeableAvatar
+        appearance="big"
+        src="http://avatars.atlassian.com/jace.png"
+        presence="approved"
+        name="Jace Beleren"
+      />,
+    );
+
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text', colors.N800),
+    );
+
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].key).toEqual('name');
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText>Jace Beleren</HighlightText>,
+    );
+    expect(primaryText[1].key).toEqual('publicName');
+    expect(primaryText[1].props.children[1].props.children[1]).toEqual(
+      <HighlightText>jbeleren</HighlightText>,
+    );
+
+    const secondaryText = avatarItemOption.props()
+      .secondaryText as ReactElement;
+
+    expect(secondaryText.props.children).toEqual('Teammate');
+    expect(avatarItemOption.props().lozenge).toEqual({
+      text: 'WORKSPACE',
     });
   });
 
@@ -79,27 +86,33 @@ describe('User Option', () => {
       3,
       token('color.text.selected', colors.B400),
     );
-    expect(avatarItemOption.props()).toMatchObject({
-      avatar: (
-        <SizeableAvatar
-          appearance="big"
-          src="http://avatars.atlassian.com/jace.png"
-          presence="approved"
-          name="Jace Beleren"
-        />
-      ),
-      primaryText: [
-        <span key="name">
-          <HighlightText>Jace Beleren</HighlightText>
-        </span>,
-        <React.Fragment key="publicName">
-          {' '}
-          <span>
-            (<HighlightText>jbeleren</HighlightText>)
-          </span>
-        </React.Fragment>,
-      ],
-      secondaryText: <span>Teammate</span>,
+
+    expect(avatarItemOption.props().avatar).toEqual(
+      <SizeableAvatar
+        appearance="big"
+        src="http://avatars.atlassian.com/jace.png"
+        presence="approved"
+        name="Jace Beleren"
+      />,
+    );
+
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].key).toEqual('name');
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText>Jace Beleren</HighlightText>,
+    );
+    expect(primaryText[1].key).toEqual('publicName');
+    expect(primaryText[1].props.children[1].props.children[1]).toEqual(
+      <HighlightText>jbeleren</HighlightText>,
+    );
+
+    const secondaryText = avatarItemOption.props()
+      .secondaryText as ReactElement;
+
+    expect(secondaryText.props.children).toEqual('Teammate');
+    expect(avatarItemOption.props().lozenge).toEqual({
+      text: 'WORKSPACE',
     });
   });
 
@@ -125,31 +138,33 @@ describe('User Option', () => {
       2,
       token('color.text.subtlest', colors.N200),
     );
-    expect(avatarItemOption.props()).toMatchObject({
-      avatar: (
-        <SizeableAvatar
-          appearance="big"
-          src="http://avatars.atlassian.com/jace.png"
-          presence="approved"
-          name="Jace Beleren"
-        />
-      ),
-      primaryText: [
-        <span key="name">
-          <HighlightText>Jace Beleren</HighlightText>
-        </span>,
-        <React.Fragment key="publicName">
-          {' '}
-          <span>
-            (<HighlightText>jbeleren</HighlightText>)
-          </span>
-        </React.Fragment>,
-      ],
-      secondaryText: <span>Teammate</span>,
-      lozenge: {
-        text: 'GUEST',
-        appearance: 'new',
-      },
+    expect(avatarItemOption.props().avatar).toEqual(
+      <SizeableAvatar
+        appearance="big"
+        src="http://avatars.atlassian.com/jace.png"
+        presence="approved"
+        name="Jace Beleren"
+      />,
+    );
+
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].key).toEqual('name');
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText>Jace Beleren</HighlightText>,
+    );
+    expect(primaryText[1].key).toEqual('publicName');
+    expect(primaryText[1].props.children[1].props.children[1]).toEqual(
+      <HighlightText>jbeleren</HighlightText>,
+    );
+
+    const secondaryText = avatarItemOption.props()
+      .secondaryText as ReactElement;
+
+    expect(secondaryText.props.children).toEqual('Teammate');
+    expect(avatarItemOption.props().lozenge).toEqual({
+      text: 'GUEST',
+      appearance: 'new',
     });
   });
 
@@ -171,26 +186,34 @@ describe('User Option', () => {
       2,
       token('color.text.subtlest', colors.N200),
     );
-    expect(avatarItemOption.props()).toMatchObject({
-      primaryText: [
-        <span key="name">
-          <HighlightText highlights={[{ start: 0, end: 2 }]}>
-            Jace Beleren
-          </HighlightText>
-        </span>,
-        <React.Fragment key="publicName">
-          {' '}
-          <span>
-            (
-            <HighlightText highlights={[{ start: 2, end: 4 }]}>
-              jbeleren
-            </HighlightText>
-            )
-          </span>
-        </React.Fragment>,
-      ],
-      secondaryText: <span>Teammate</span>,
-    });
+    expect(avatarItemOption.props().avatar).toEqual(
+      <SizeableAvatar
+        appearance="big"
+        src="http://avatars.atlassian.com/jace.png"
+        presence="approved"
+        name="Jace Beleren"
+      />,
+    );
+
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].key).toEqual('name');
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText highlights={[{ start: 0, end: 2 }]}>
+        Jace Beleren
+      </HighlightText>,
+    );
+    expect(primaryText[1].key).toEqual('publicName');
+    expect(primaryText[1].props.children[1].props.children[1]).toEqual(
+      <HighlightText highlights={[{ start: 2, end: 4 }]}>
+        jbeleren
+      </HighlightText>,
+    );
+
+    const secondaryText = avatarItemOption.props()
+      .secondaryText as ReactElement;
+
+    expect(secondaryText.props.children).toEqual('Teammate');
   });
 
   it('should show only the name when no publicName is provided', () => {
@@ -207,13 +230,14 @@ describe('User Option', () => {
     expect(mockTextWrapper).toHaveBeenCalledWith(
       token('color.text', colors.N800),
     );
-    expect(avatarItemOption.prop('primaryText')).toEqual([
-      <span key="name">
-        <HighlightText highlights={[{ start: 2, end: 4 }]}>
-          jbeleren
-        </HighlightText>
-      </span>,
-    ]);
+
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText highlights={[{ start: 2, end: 4 }]}>
+        jbeleren
+      </HighlightText>,
+    );
   });
 
   it('should show only name', () => {
@@ -226,11 +250,13 @@ describe('User Option', () => {
     expect(mockTextWrapper).toHaveBeenCalledWith(
       token('color.text', colors.N800),
     );
-    expect(avatarItemOption.prop('primaryText')).toEqual([
-      <span key="name">
-        <HighlightText>Jace Beleren</HighlightText>
-      </span>,
-    ]);
+
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].key).toEqual('name');
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText>Jace Beleren</HighlightText>,
+    );
   });
 
   it('should ignore blank spaces while comparing', () => {
@@ -243,10 +269,12 @@ describe('User Option', () => {
     expect(mockTextWrapper).toHaveBeenCalledWith(
       token('color.text', colors.N800),
     );
-    expect(avatarItemOption.prop('primaryText')).toEqual([
-      <span key="name">
-        <HighlightText>Jace Beleren</HighlightText>
-      </span>,
-    ]);
+
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].key).toEqual('name');
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText>Jace Beleren</HighlightText>,
+    );
   });
 });

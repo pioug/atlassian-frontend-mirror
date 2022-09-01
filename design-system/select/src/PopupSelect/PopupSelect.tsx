@@ -3,7 +3,13 @@ import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import Select, { components as RSComponents, mergeStyles } from 'react-select';
 import { uid } from 'react-uid';
-import { Manager, Reference, Popper, PopperProps } from 'react-popper';
+import {
+  Manager,
+  Reference,
+  Popper,
+  PopperProps,
+  Modifier,
+} from 'react-popper';
 import { Placement } from '@popperjs/core';
 import NodeResolver from 'react-node-resolver';
 import shallowEqualObjects from 'shallow-equal/objects';
@@ -20,6 +26,7 @@ import {
   ReactSelectProps,
   StylesConfig,
   ValueType,
+  ValidationState,
 } from '../types';
 import { bind, UnbindFn } from 'bind-event-listener';
 
@@ -51,10 +58,22 @@ interface PopupSelectTriggerProps {
   'aria-controls'?: string;
 }
 
+type ModifierList =
+  | 'offset'
+  | 'computeStyles'
+  | 'preventOverflow'
+  | 'handleFlipStyle'
+  | 'flip'
+  | 'popperOffsets'
+  | 'arrow'
+  | 'hide'
+  // Line below to be removed [https://product-fabric.atlassian.net/browse/DSP-6093]
+  | string;
+
 export interface PopupSelectProps<
   Option = OptionType,
   IsMulti extends boolean = false,
-  Modifiers = string
+  Modifiers = ModifierList
 > extends ReactSelectProps<Option, IsMulti> {
   /**
    * Defines whether the menu should close when selected. Defaults to "true"
@@ -74,9 +93,14 @@ export interface PopupSelectProps<
    */
   popperProps?: PopperPropsNoChildren<Modifiers>;
   /**
-   * The maximum number of options the Select can contain without rendering the search field.
+   * The maximum number of options the select can contain without rendering the search field. Defaults to 5.
    */
   searchThreshold?: number;
+  /**
+   * If false, renders a select with no search field. If true, renders a search field in the select when the
+   * number of options exceeds the `searchThreshold`. Defaults to true.
+   */
+  isSearchable?: boolean;
   /**
    * The maximum width for the popup menu. Can be a number, representing width in pixels,
    * or a string containing a CSS length datatype.
@@ -105,6 +129,12 @@ export interface PopupSelectProps<
   ) => ReactNode;
   isOpen?: boolean;
   defaultIsOpen?: boolean;
+  /* The prop indicates if the component has a compacted look */
+  spacing?: string;
+  /* @deprecated Use isInvalid instead. The state of validation if used in a form */
+  validationState?: ValidationState;
+  /* This prop indicates if the component is in an error state */
+  isInvalid?: boolean;
 }
 
 interface State<Modifiers = string> {
@@ -117,22 +147,22 @@ interface State<Modifiers = string> {
 // Class
 // ==============================
 
-const defaultPopperProps: PopperPropsNoChildren<
-  'offset' | 'preventOverflow'
-> = {
-  modifiers: [
-    { name: 'offset', options: { offset: [0, 8] } },
-    {
-      name: 'preventOverflow',
-      enabled: true,
-      options: {
-        padding: 5,
-        boundary: 'clippingParents',
-        altAxis: true,
-        altBoundary: true,
-      },
+const modifiers: Modifier<'offset' | 'preventOverflow'>[] = [
+  { name: 'offset', options: { offset: [0, 8] } },
+  {
+    name: 'preventOverflow',
+    enabled: true,
+    options: {
+      padding: 5,
+      boundary: 'clippingParents',
+      altAxis: true,
+      altBoundary: true,
     },
-  ],
+  },
+];
+
+const defaultPopperProps: PopperPropsNoChildren<defaultModifiers> = {
+  modifiers,
   placement: 'bottom-start' as Placement,
 };
 
@@ -150,7 +180,8 @@ export default class PopupSelect<
 
   defaultStyles: StylesConfig<Option, IsMulti> = mergeStyles(
     baseStyles(
-      this.props.validationState,
+      this.props.validationState ||
+        (this.props.isInvalid ? 'error' : 'default'),
       this.props.spacing === 'compact',
       'default',
     ),
@@ -184,6 +215,7 @@ export default class PopupSelect<
     maxMenuWidth: 440,
     minMenuWidth: 220,
     popperProps: {},
+    isSearchable: true,
     searchThreshold: 5,
     styles: {},
     options: [],
@@ -441,10 +473,10 @@ export default class PopupSelect<
     return maxHeight;
   };
 
-  // if the threshold is exceeded display the search control
+  // if the threshold is exceeded, AND isSearchable is true, then display the search control
   showSearchControl = () => {
-    const { searchThreshold } = this.props;
-    return this.getItemCount() > searchThreshold!;
+    const { searchThreshold, isSearchable } = this.props;
+    return isSearchable && this.getItemCount() > searchThreshold!;
   };
 
   // Renderers

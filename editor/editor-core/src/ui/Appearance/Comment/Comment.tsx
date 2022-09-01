@@ -111,7 +111,16 @@ class Editor extends React.Component<
 
   private appearance: EditorAppearance = 'comment';
   private containerElement: HTMLElement | null = null;
-  private wrapperElement: HTMLElement | null = null;
+
+  // Wrapper container for toolbar and content area
+  private wrapperElementRef = React.createRef<HTMLDivElement>();
+
+  constructor(props: any) {
+    super(props);
+    if (props.innerRef) {
+      this.wrapperElementRef = props.innerRef;
+    }
+  }
 
   private handleSave = () => {
     if (this.props.editorView && this.props.onSave) {
@@ -170,7 +179,7 @@ class Editor extends React.Component<
             `,
           ]}
           className="akEditor"
-          ref={(ref) => (this.wrapperElement = ref)}
+          ref={this.wrapperElementRef}
         >
           <MainToolbar useStickyToolbar={useStickyToolbar}>
             <Toolbar
@@ -191,7 +200,7 @@ class Editor extends React.Component<
               {customPrimaryToolbarComponents}
             </div>
           </MainToolbar>
-          <ClickAreaBlock editorView={editorView}>
+          <ClickAreaBlock editorView={editorView} editorDisabled={disabled}>
             <WidthConsumer>
               {({ width }) => {
                 return (
@@ -222,7 +231,7 @@ class Editor extends React.Component<
                       popupsScrollableElement={popupsScrollableElement}
                       containerElement={this.containerElement}
                       disabled={!!disabled}
-                      wrapperElement={this.wrapperElement}
+                      wrapperElement={this.wrapperElementRef.current}
                     />
                     {editorDOMElement}
                   </ContentArea>

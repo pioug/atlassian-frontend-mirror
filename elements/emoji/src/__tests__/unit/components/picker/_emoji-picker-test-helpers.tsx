@@ -195,7 +195,10 @@ export const searchInputVisible = (component: ReactWrapper) =>
 
 export const findEmojiNameInput = (component: ReactWrapper) =>
   component.update() &&
-  component.find(`.css-${commonStyles.uploadChooseFileEmojiName.name} input`);
+  component.find(`input[aria-label="Enter a name for the new emoji"]`);
+
+export const findEmojiPreview = (component: ReactWrapper) =>
+  component.update() && component.find(`[data-testid="emoji-picker-footer"]`);
 
 export const emojiNameInputVisible = (component: ReactWrapper): boolean =>
   findEmojiNameInput(component).length > 0;

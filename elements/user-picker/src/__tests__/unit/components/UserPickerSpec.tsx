@@ -62,6 +62,8 @@ import { UserPickerWithoutAnalytics } from '../../../components/UserPicker';
 import { User, UserPickerProps } from '../../../types';
 import { MockConcurrentExperienceInstance } from '../_testUtils';
 
+const getStylesMock = getStyles as jest.MockedFunction<typeof getStyles>;
+
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };
 jest.mock('react-intl-next', () => {
@@ -101,6 +103,10 @@ describe('UserPicker', () => {
     },
   ];
 
+  beforeEach(() => {
+    getStylesMock.mockReset();
+  });
+
   afterEach(() => {
     (getCreatableProps as jest.Mock).mockClear();
   });
@@ -110,22 +116,29 @@ describe('UserPicker', () => {
       const component = shallowUserPicker({ options }).dive();
       const select = component.find(Select);
       expect(select).toHaveLength(1);
-      expect(getStyles).toHaveBeenCalledWith(350, false, undefined);
+      expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined);
     });
 
     it('should set width', () => {
       shallowUserPicker({ width: 500 });
-      expect(getStyles).toHaveBeenCalledWith(500, false, undefined);
+      expect(getStylesMock).toHaveBeenCalledWith(500, false, false, undefined);
+    });
+
+    it('should set compact styles', () => {
+      shallowUserPicker({ appearance: 'compact' });
+      expect(getStylesMock).toHaveBeenCalledWith(350, false, true, undefined);
     });
 
     it('should call getComponents with false if single picker', () => {
       shallowUserPicker({ isMulti: false });
       expect(getComponents).toHaveBeenCalledWith(false, undefined);
+      expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined);
     });
 
     it('should call getComponents with true if multi picker', () => {
       shallowUserPicker({ isMulti: true });
       expect(getComponents).toHaveBeenCalledWith(true, undefined);
+      expect(getStylesMock).toHaveBeenCalledWith(350, true, false, undefined);
     });
   });
 

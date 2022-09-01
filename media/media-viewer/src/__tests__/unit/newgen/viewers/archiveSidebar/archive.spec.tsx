@@ -38,6 +38,7 @@ import {
   CustomVideoPlayerWrapper,
 } from '../../../../../styleWrappers';
 import { PDFRenderer } from '../../../../../viewers/doc/pdfRenderer';
+import { CodeViewRenderer } from '../../../../../viewers/codeViewer/codeViewerRenderer';
 import ArchiveSidebarRenderer from '../../../../../viewers/archiveSidebar/archive-sidebar-renderer';
 import ErrorMessage from '../../../../../errorMessage';
 import { ArchiveViewerError } from '../../../../../errors';
@@ -45,6 +46,7 @@ import { Spinner } from '../../../../../loading';
 import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../viewers/archiveSidebar/consts';
 import { createZipEntryLoadSucceededEvent } from '../../../../../analytics/events/operational/zipEntryLoadSucceeded';
 import { createZipEntryLoadFailedEvent } from '../../../../../analytics/events/operational/zipEntryLoadFailed';
+import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../../../../item-viewer';
 
 describe('Archive', () => {
   const fileState: ProcessedFileState = {
@@ -169,6 +171,41 @@ describe('Archive', () => {
     await sleep(0);
     expect(el.find(PDFRenderer)).toHaveLength(1);
   });
+  it('ArchiveSidebarRenderer should change selected entry and render CodeViewRenderer', async () => {
+    const el = mountComponent({});
+    const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
+    const src = 'Hello World';
+    archiveSidebarRenderer.prop('onSelectedArchiveEntryChange')({
+      isDirectory: false,
+      name: 'file_a.txt',
+      src,
+      blob: jest.fn().mockReturnValue({ text: jest.fn().mockReturnValue(src) }),
+    } as any);
+    await sleep(0);
+    const codeViewRenderer = el.find(CodeViewRenderer);
+    expect(codeViewRenderer).toHaveLength(1);
+    expect(codeViewRenderer.prop('src')).toEqual(src);
+  });
+
+  it('ArchiveSidebarRenderer should render error if selected code file size exceeds the limit', async () => {
+    const el = mountComponent({});
+    const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);
+    const src = 'Hello World';
+    archiveSidebarRenderer.prop('onSelectedArchiveEntryChange')({
+      isDirectory: false,
+      name: 'file_a.txt',
+      src,
+      size: (MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER + 1) * 1024 * 1024,
+      blob: jest.fn().mockReturnValue({ text: jest.fn().mockReturnValue(src) }),
+    } as any);
+    await sleep(0);
+    const errorMessage = el.find(ErrorMessage);
+    expect(errorMessage).toHaveLength(1);
+    expect(errorMessage.prop('error').message).toEqual(
+      'archiveviewer-codeviewer-file-size-exceeds',
+    );
+  });
+
   it('should render error if rejectAfter throws an error', async () => {
     const el = mountComponent({});
     const archiveSidebarRenderer = el.find(ArchiveSidebarRenderer);

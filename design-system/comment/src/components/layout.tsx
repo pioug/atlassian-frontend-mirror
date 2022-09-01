@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { N20A } from '@atlaskit/theme/colors';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
@@ -17,8 +17,8 @@ const avatarSectionStyles = css({
 
 const inlineCommentStyles = css({
   gridTemplate: `
-  avatar-area comment-area
-  nested-comments-area nested-comments-area
+  "avatar-area comment-area"
+  "nested-comments-area nested-comments-area"
   / auto 1fr`,
 });
 

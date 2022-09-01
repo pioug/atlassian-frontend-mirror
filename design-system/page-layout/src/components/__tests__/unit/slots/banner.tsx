@@ -17,7 +17,7 @@ describe('<Banner />', () => {
 
     expect(getByTestId('component')).toHaveStyleDeclaration(
       'height',
-      'var(--bannerHeight,0px)',
+      'var(--bannerHeight, 0px)',
     );
     expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
       expect.stringContaining(':root{--bannerHeight:50px;}'),
@@ -36,7 +36,7 @@ describe('<Banner />', () => {
 
     expect(getByTestId('component')).toHaveStyleDeclaration(
       'height',
-      'var(--bannerHeight,0px)',
+      'var(--bannerHeight, 0px)',
     );
     expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
       expect.stringContaining(':root{--bannerHeight:50px;}'),

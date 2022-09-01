@@ -1,5 +1,15 @@
 # @atlaskit/adf-schema
 
+## 24.0.0
+
+### Major Changes
+
+- [`bd524db3926`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd524db3926) - ED-15380 Update fragment prosemirror-schema to match ADF schema
+
+### Minor Changes
+
+- [`1f99f6b79d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f99f6b79d3) - Support media inline for jira transformer and minor schema changes
+
 ## 23.3.1
 
 ### Patch Changes

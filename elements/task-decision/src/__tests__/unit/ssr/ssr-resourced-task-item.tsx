@@ -12,8 +12,17 @@ describe('SSR - Resourced Task Item ', () => {
 
   test('rendering and hydration are ok', async () => {
     await ssr_hydrate(__dirname, '../../../../examples/04-resourced-task-item');
-
+    // ignore warnings caused by emotion's server-side rendering approach
+    // @ts-ignore
     // eslint-disable-next-line no-console
-    expect(console.error).not.toBeCalled();
+    const mockCalls = console.error.mock.calls.filter(
+      ([f, s]: string[]) =>
+        !(
+          f ===
+            'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+          s === 'style'
+        ),
+    );
+    expect(mockCalls).toHaveLength(0);
   });
 });

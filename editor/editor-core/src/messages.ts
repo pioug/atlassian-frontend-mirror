@@ -54,6 +54,11 @@ export const linkToolbarMessages = defineMessages({
     defaultMessage: 'Please enter a link.',
     description: 'Please enter a link.',
   },
+  settingsLink: {
+    id: 'fabric.editor.settingsLinks',
+    defaultMessage: 'Go to Link Preferences',
+    description: 'Go to Link Preferences',
+  },
 });
 
 export default defineMessages({

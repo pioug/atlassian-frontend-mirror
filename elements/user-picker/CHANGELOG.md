@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.3.4
+
+### Patch Changes
+
+- [`dbff164b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbff164b600) - [ux] Fix for appearance=compact not being applied correctly to user pickers
+
 ## 9.3.3
 
 ### Patch Changes

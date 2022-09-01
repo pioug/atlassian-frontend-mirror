@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { ReactNode, useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import { N20, N200 } from '@atlaskit/theme/colors';

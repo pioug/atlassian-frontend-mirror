@@ -57,7 +57,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'task-decision-2.ts: can type into decision',
-  {},
+  // TODO: safari skipped due to flakines in pipelines - please fix
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await gotoEditor(browser);

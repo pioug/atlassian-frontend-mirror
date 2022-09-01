@@ -1,6 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-
 import {
   FloatingToolbarConfig,
   updateStatusWithAnalytics,

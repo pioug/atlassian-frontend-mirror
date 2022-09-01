@@ -1,5 +1,5 @@
 import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
-import { Fragment, Node, Schema, Slice, NodeType } from 'prosemirror-model';
+import { Node, Schema, NodeType } from 'prosemirror-model';
 import { closeHistory } from 'prosemirror-history';
 
 import { pluginKey } from './plugin-key';
@@ -33,18 +33,6 @@ import { UnlinkToolbarAEP } from '../../../plugins/analytics/types/link-tool-bar
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { getFeatureFlags } from '../../feature-flags-context';
 
-export function insertCard(tr: Transaction, cardAdf: Node, schema: Schema) {
-  const { inlineCard } = schema.nodes;
-
-  // ED-5638: add an extra space after inline cards to avoid re-rendering them
-  const nodes = [cardAdf];
-  if (cardAdf.type === inlineCard) {
-    nodes.push(schema.text(' '));
-  }
-
-  return tr.replaceSelection(new Slice(Fragment.fromArray(nodes), 0, 0));
-}
-
 /**
  * Attempt to replace the link into the respective card.
  */
@@ -54,7 +42,6 @@ function replaceLinksToCards(
   schema: Schema,
   request: Request,
 ): string | undefined {
-  const { inlineCard } = schema.nodes;
   const { url } = request;
 
   if (!isSafeUrl(url)) {
@@ -77,12 +64,7 @@ function replaceLinksToCards(
     return;
   }
 
-  // ED-5638: add an extra space after inline cards to avoid re-rendering them
   const nodes = [cardAdf];
-  if (cardAdf.type === inlineCard) {
-    nodes.push(schema.text(' '));
-  }
-
   tr.replaceWith(pos, pos + (node.text || url).length, nodes);
 
   return $pos.node($pos.depth - 1).type.name;

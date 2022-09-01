@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import type { ComponentType, CSSProperties } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';

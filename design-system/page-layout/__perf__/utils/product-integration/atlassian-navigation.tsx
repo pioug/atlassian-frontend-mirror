@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment, MouseEvent, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 // AFP-1799 storybook examples in src cause issues
 import {

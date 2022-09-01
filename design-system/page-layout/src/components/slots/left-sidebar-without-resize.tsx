@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { VAR_LEFT_SIDEBAR_WIDTH } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';

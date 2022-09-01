@@ -14,6 +14,7 @@ import {
   emojiItem,
   typeahead,
 } from '../_helpers';
+import { runEscapeKeydownSuite } from '../escape-keydown/__helpers';
 
 BrowserTestCase(
   'emoji-1.ts:should be able to see emoji if typed the name in full',
@@ -84,6 +85,12 @@ BrowserTestCase(
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );
+
+runEscapeKeydownSuite({
+  openMenu: async (page) => {
+    await emojiSearch(page, 'smile');
+  },
+});
 
 BrowserTestCase(
   'emoji-1.ts: should be able to navigate between emojis',

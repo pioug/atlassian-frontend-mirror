@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import { borderRadius } from '@atlaskit/theme/constants';

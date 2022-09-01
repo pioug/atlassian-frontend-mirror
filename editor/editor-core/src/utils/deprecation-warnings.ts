@@ -12,6 +12,9 @@ const deprecationWarnings = (
   props: any,
   deprecations: Array<DeprecationWarning>,
 ): void => {
+  if (process.env.NODE_ENV === 'production') {
+    return;
+  }
   const nextVersion = nextMajorVersion();
   for (const deprecation of deprecations) {
     const {

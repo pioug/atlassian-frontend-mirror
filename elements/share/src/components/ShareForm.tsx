@@ -131,6 +131,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       copyTooltipText,
       helperMessage,
       orgId,
+      intl: { formatMessage },
     } = this.props;
 
     return (
@@ -164,8 +165,15 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               isDisabled={isDisabled}
               onLinkCopy={onLinkCopy}
               link={copyLink}
-              isPublicLink={isPublicLink}
               copyTooltipText={copyTooltipText}
+              copyLinkButtonText={formatMessage(
+                isPublicLink
+                  ? messages.copyPublicLinkButtonText
+                  : messages.copyLinkButtonText,
+              )}
+              copiedToClipboardText={formatMessage(
+                messages.copiedToClipboardMessage,
+              )}
             />
             {this.renderSubmitButton()}
           </div>

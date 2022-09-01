@@ -2,7 +2,7 @@
 
 import type { ChangeEventHandler, HTMLAttributes, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 type ToggleProps = HTMLAttributes<HTMLInputElement> & {
   children: ReactNode;

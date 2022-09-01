@@ -10,10 +10,7 @@ import { token } from '@atlaskit/tokens';
 export const blockTypeMenuItemStyle = (tagName: string, selected?: boolean) => {
   // TEMP FIX: See https://product-fabric.atlassian.net/browse/ED-13878
   const selectedStyle = selected
-    ? `${tagName} { color: ${token(
-        'color.text.inverse',
-        'white',
-      )} !important; }`
+    ? `${tagName} { color: ${token('color.text', 'white')} !important; }`
     : '';
 
   return (themeProps: ThemeProps) => css`

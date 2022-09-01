@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 11.4.0
+
+### Minor Changes
+
+- [`00fc216bd94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00fc216bd94) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.2
 
 ### Patch Changes

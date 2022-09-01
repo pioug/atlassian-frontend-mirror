@@ -1,5 +1,15 @@
 # @atlaskit/pagination
 
+## 14.2.0
+
+### Minor Changes
+
+- [`2afcf534bad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2afcf534bad) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.10
 
 ### Patch Changes

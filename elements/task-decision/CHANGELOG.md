@@ -1,5 +1,15 @@
 # @atlaskit/task-decision
 
+## 17.5.0
+
+### Minor Changes
+
+- [`2112384b533`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2112384b533) - Replaced styled components with emotion.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.4.5
 
 ### Patch Changes

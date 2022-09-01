@@ -1,5 +1,7 @@
 import React from 'react';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 import DropdownMenu, {
   DropdownItemCheckbox,
   DropdownItemCheckboxGroup,
@@ -9,7 +11,7 @@ const DropdownMenuCheckbox = () => (
   <div style={{ margin: '20px' }}>
     <DropdownMenu
       trigger="Choices"
-      onOpenChange={() => {}}
+      onOpenChange={__noop}
       testId="lite-mode-ddm"
     >
       <DropdownItemCheckboxGroup id="cities" title="Some cities">

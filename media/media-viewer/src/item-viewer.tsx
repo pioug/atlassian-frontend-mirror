@@ -96,6 +96,8 @@ const initialState: State = {
   item: Outcome.pending(),
 };
 
+export const MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER = 10 * 1024 * 1024;
+
 export class ItemViewerBase extends React.Component<Props, State> {
   state: State = initialState;
 
@@ -192,6 +194,15 @@ export class ItemViewerBase extends React.Component<Props, State> {
     };
 
     if (isCodeViewerItem(fileState.name, fileState.mimeType)) {
+      //Render error message if code file has size over 10MB.
+      //Required by https://product-fabric.atlassian.net/browse/MEX-1788
+      if (fileState.size > MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER) {
+        return this.renderError(
+          new MediaViewerError('codeviewer-file-size-exceeds'),
+          fileState,
+        );
+      }
+
       return (
         <CodeViewer
           onSuccess={this.onSuccess}

@@ -64,7 +64,7 @@ export interface Props {
   onSelected?: OnEmojiEvent;
 
   /**
-   * Called when the mouse moved over the emoji.
+   * Called when the mouse moves over the emoji.
    */
   onMouseMove?: OnEmojiEvent;
 
@@ -218,7 +218,7 @@ export const SpriteEmoji = (props: Props) => {
       onMouseDown={(event) => {
         handleMouseDown(props, event);
       }}
-      onMouseMove={(event) => {
+      onMouseEnter={(event) => {
         handleMouseMove(props, event);
       }}
       aria-label={emoji.shortName}
@@ -360,7 +360,7 @@ export const ImageEmoji = (props: Props) => {
       onMouseDown={(event) => {
         handleMouseDown(props, event);
       }}
-      onMouseMove={(event) => {
+      onMouseEnter={(event) => {
         handleMouseMove(props, event);
       }}
       aria-label={emoji.shortName}

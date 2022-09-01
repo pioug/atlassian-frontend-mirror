@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { CSSProperties, forwardRef, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -11,6 +11,7 @@ export type ITableRowProps = {
   isHighlighted?: boolean;
   children?: ReactNode;
   style?: CSSProperties;
+  className?: string;
 };
 
 const rowStyles = css({

@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from '../src';
+import { cities } from './common/data';
 
 const DisabledSelects = () => (
   <>
@@ -60,6 +61,20 @@ const DisabledSelects = () => (
           { label: 'Melbourne', value: 'melbourne', isDisabled: true },
           { label: 'Sydney', value: 'sydney' },
         ]}
+        isMulti
+        isSearchable={false}
+        placeholder="Choose a City"
+      />
+    </p>
+
+    <p>
+      Disabled Multi Select showing selections have no "clear" icon
+      <Select
+        isDisabled
+        className="multi-select"
+        classNamePrefix="react-select"
+        defaultValue={cities.slice(3, 5)}
+        options={cities}
         isMulti
         isSearchable={false}
         placeholder="Choose a City"

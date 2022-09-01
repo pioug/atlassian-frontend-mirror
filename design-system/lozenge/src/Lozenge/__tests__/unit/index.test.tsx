@@ -25,54 +25,65 @@ describe('Lozenge', () => {
 
   describe('maxWidth property', () => {
     it('should set default max width to 200px', () => {
-      const { getByText } = render(
+      const { getByTestId } = render(
         <Lozenge appearance="new" testId="lozenge">
           hello world
         </Lozenge>,
       );
 
-      expect(getByText('hello world')).toHaveStyle(`max-width: 200px`);
+      expect(getByTestId('lozenge--text')).toHaveStyle(
+        `max-width: calc(200px - 8px)`,
+      );
     });
 
     it('should set custom numeric max width', () => {
-      const { getByText } = render(
+      const { getByTestId } = render(
         <Lozenge appearance="new" maxWidth={120} testId="lozenge">
           hello world
         </Lozenge>,
       );
 
-      expect(getByText('hello world')).toHaveStyle(`max-width: 120px`);
+      expect(getByTestId('lozenge--text')).toHaveStyle(
+        `max-width: calc(120px - 8px)`,
+      );
     });
 
-    it('should set custom string max width', () => {
-      const { getByText } = render(
+    it('should set custom string max width - percentage', () => {
+      const { getByTestId } = render(
         <Lozenge appearance="new" maxWidth="99%" testId="lozenge">
           hello world
         </Lozenge>,
       );
 
-      expect(getByText('hello world')).toHaveStyle(`max-width: 99%`);
+      expect(getByTestId('lozenge--text')).toHaveStyle(
+        `max-width: calc(99% - 8px)`,
+      );
+    });
+
+    it('should set custom string max width - none', () => {
+      const { getByTestId } = render(
+        <Lozenge appearance="new" maxWidth="none" testId="lozenge">
+          hello world
+        </Lozenge>,
+      );
+
+      expect(getByTestId('lozenge--text')).not.toHaveStyleRule('max-width');
     });
   });
 
   it('should apply styles properly', () => {
-    const { getByText } = render(<Lozenge>Hello</Lozenge>);
+    const { getByTestId } = render(
+      <Lozenge testId="lozenge-hello">Hello</Lozenge>,
+    );
 
-    expect(getByText(/hello/i)).toHaveStyle(
-      `  
-      display: inline-block;
-      verticalAlign: top;
-      overflowX: hidden;
-      overflowY: hidden;
-      textOverflow: ellipsis;
+    expect(getByTestId('lozenge-hello--text')).toHaveStyle(
+      `
       whiteSpace: nowrap;
-      boxSizing: border-box;
-      paddingTop: 0;
-      paddingRight: 4px;
-      paddingBottom: 0;
-      paddingLeft: 4px';
-      maxWidth: 200px';
+      textOverflow: ellipsis;
+      overflow: hidden;
       width: 100%;
+      boxSizing: border-box;
+      maxWidth: 200px;
     `,
     );
   });

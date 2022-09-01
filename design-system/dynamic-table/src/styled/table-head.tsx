@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { FC, forwardRef, HTMLProps } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { B100, N30A } from '@atlaskit/theme/colors';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';

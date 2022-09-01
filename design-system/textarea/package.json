@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
@@ -45,7 +45,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/form": "^8.5.0",
-    "@atlaskit/section-message": "^6.1.0",
+    "@atlaskit/section-message": "^6.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

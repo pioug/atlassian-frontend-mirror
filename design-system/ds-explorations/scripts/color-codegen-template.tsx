@@ -98,7 +98,7 @@ const ${colorProperty}ColorMap = {
         plugins: [parserTypeScript],
       },
     ) +
-    `\ntype ${capitalize(
+    `\nexport type ${capitalize(
       colorProperty,
     )}Color = keyof typeof ${colorProperty}ColorMap;\n`
   );

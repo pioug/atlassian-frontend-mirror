@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import AkButton from '@atlaskit/button/custom-theme-button';
 import Spinner from '@atlaskit/spinner';
-import { Component } from 'react';
+import { FC } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../i18n';
 import { buttonSpinner, uploadEmojiButton, uploadRetryButton } from './styles';
@@ -15,52 +15,57 @@ export interface Props {
   loading: boolean;
 }
 
-export default class RetryableButton extends Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
+const LoadingSpinner: FC = () => {
+  return (
+    <span css={buttonSpinner}>
+      <Spinner />
+    </span>
+  );
+};
+
+const RetryButton: FC<Props> = (props) => {
+  const { onSubmit } = props;
+
+  return (
+    <FormattedMessage {...messages.retryLabel}>
+      {(retryLabel) => (
+        <AkButton
+          css={uploadRetryButton}
+          appearance="warning"
+          onClick={onSubmit}
+        >
+          {retryLabel}
+        </AkButton>
+      )}
+    </FormattedMessage>
+  );
+};
+
+const UploadButton: FC<Props> = (props) => {
+  const { appearance, onSubmit, label } = props;
+  return (
+    <AkButton
+      css={uploadEmojiButton}
+      appearance={appearance as any}
+      onClick={onSubmit}
+    >
+      {label}
+    </AkButton>
+  );
+};
+
+const RetryableButton: FC<Props> = (props) => {
+  const { loading, error } = props;
+
+  if (loading) {
+    return <LoadingSpinner />;
   }
 
-  renderLoading() {
-    return (
-      <span css={buttonSpinner}>
-        <Spinner />
-      </span>
-    );
+  if (error) {
+    return <RetryButton {...props} />;
   }
 
-  renderRetry() {
-    const { loading, onSubmit } = this.props;
-    return loading ? (
-      this.renderLoading()
-    ) : (
-      <FormattedMessage {...messages.retryLabel}>
-        {(retryLabel) => (
-          <AkButton
-            css={uploadRetryButton}
-            appearance="warning"
-            onClick={onSubmit}
-          >
-            {retryLabel}
-          </AkButton>
-        )}
-      </FormattedMessage>
-    );
-  }
+  return <UploadButton {...props} />;
+};
 
-  render() {
-    const { loading, error, appearance, onSubmit, label } = this.props;
-    return error ? (
-      this.renderRetry()
-    ) : loading ? (
-      this.renderLoading()
-    ) : (
-      <AkButton
-        css={uploadEmojiButton}
-        appearance={appearance as any}
-        onClick={onSubmit}
-      >
-        {label}
-      </AkButton>
-    );
-  }
-}
+export default RetryableButton;

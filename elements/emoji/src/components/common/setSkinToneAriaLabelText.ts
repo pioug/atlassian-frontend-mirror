@@ -11,7 +11,7 @@ const skinToneVariations: IMapping = {
   ['raised hand: dark skin tone']: 'dark skin tone',
 };
 
-export const setSkinToneAriaLabelText = (tone: string) => {
+export const setSkinToneAriaLabelText = (tone?: string) => {
   if (tone) {
     return skinToneVariations[tone];
   }

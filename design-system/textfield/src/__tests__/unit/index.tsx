@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import __noop from '@atlaskit/ds-lib/noop';
 import * as themeConstants from '@atlaskit/theme/constants';
 
 import Textfield from '../../index';
@@ -254,7 +255,7 @@ describe('Textfield', () => {
     describe('value', () => {
       it('should have value="test value"', () => {
         const input = render(
-          <Textfield testId="test" onChange={() => {}} value="test value" />,
+          <Textfield testId="test" onChange={__noop} value="test value" />,
         ).getByTestId('test') as HTMLInputElement;
         expect(input.value).toBe('test value');
       });

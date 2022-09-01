@@ -1,5 +1,5 @@
 /**@jsx jsx */
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import React from 'react';
 import { useState, useRef, useCallback, useMemo } from 'react';
 import {
@@ -14,14 +14,19 @@ import {
 import Button from '@atlaskit/button/standard-button';
 import { Card } from '../src';
 import { FileIdentifier, MediaClient } from '@atlaskit/media-client';
-import {
-  cardWrapperStyles,
-  cardFlowHeaderStyles,
-} from '../example-helpers/styles';
+import { cardFlowHeaderStyles } from '../example-helpers/styles';
 import { MainWrapper } from '../example-helpers';
 const env = sessionStorage.getItem('env') === 'staging' ? 'staging' : 'dev';
 const mediaClientConfig = createUploadMediaClientConfig(undefined, env);
 const mediaClient = new MediaClient(mediaClientConfig);
+
+const cardWrapperStyles = css`
+  border: 1px solid;
+  padding: 10px;
+  margin: 5px;
+  overflow: auto;
+  display: inline-block;
+`;
 
 const browseConfig: BrowserConfig = {
   multiple: true,
@@ -60,6 +65,7 @@ const Example = () => {
               mediaClientConfig={mediaClientConfig}
               identifier={identifier}
               shouldOpenMediaViewer={true}
+              testId={id}
             />
           </div>
         );

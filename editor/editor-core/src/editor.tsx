@@ -464,6 +464,9 @@ export default class Editor extends React.Component<EditorProps, State> {
   }
 
   private deprecationWarnings(props: EditorProps) {
+    if (process.env.NODE_ENV === 'production') {
+      return;
+    }
     const nextVersion = nextMajorVersion();
     const deprecatedProperties = {
       allowTasksAndDecisions: {
@@ -710,11 +713,13 @@ export default class Editor extends React.Component<EditorProps, State> {
                                   eventDispatcher,
                                   config,
                                   dispatchAnalyticsEvent,
+                                  editorRef,
                                 }) => (
                                   <BaseTheme
                                     baseFontSize={this.getBaseFontSize()}
                                   >
                                     <Component
+                                      innerRef={editorRef}
                                       appearance={this.props.appearance!}
                                       disabled={this.props.disabled}
                                       editorActions={this.editorActions}

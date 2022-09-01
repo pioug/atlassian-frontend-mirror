@@ -2,7 +2,7 @@
 
 import { forwardRef, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 type Alignment = 'start' | 'end';
 

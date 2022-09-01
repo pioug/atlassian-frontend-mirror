@@ -26,6 +26,7 @@ export interface Props {
   children?: any;
   persistScrollGutter?: boolean;
   isExpanded?: boolean;
+  editorDisabled?: boolean;
 }
 
 /**
@@ -46,11 +47,14 @@ export default class ClickAreaMobile extends React.Component<Props> {
   private clickElementRef = React.createRef<HTMLDivElement>();
 
   private handleClick = (event: React.MouseEvent<any>) => {
-    const { editorView: view } = this.props;
+    const { editorView: view, editorDisabled } = this.props;
     if (!view) {
       return;
     }
-    clickAreaClickHandler(view, event);
+    if (!editorDisabled) {
+      // if the editor is disabled -- we don't want to intercept any click events
+      clickAreaClickHandler(view, event);
+    }
     const scrollGutterClicked =
       event.clientY > view.dom.getBoundingClientRect().bottom;
     // Reset the default prosemirror scrollIntoView logic by

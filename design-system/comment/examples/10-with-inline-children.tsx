@@ -28,7 +28,7 @@ const ExampleComment = ({
 export default () => {
   const [isRestricted, setIsRestricted] = useState(true);
   return (
-    <div>
+    <div data-testid="comment">
       <p>
         <label htmlFor="checkbox">
           <input

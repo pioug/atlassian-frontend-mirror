@@ -3,6 +3,10 @@ import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import {
+  UNSAFE_Stack as Stack,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
+import {
   B50,
   B500,
   G50,
@@ -71,19 +75,18 @@ export default function Example() {
 
   return (
     <AtlaskitThemeProvider mode={themeMode}>
-      <div data-testid="test-container">
-        <p>
+      <Stack gap="sp-100" testId="test-container">
+        <Text>
           Default:
           <CustomLozenge testId="custom-lozenge-default">default</CustomLozenge>
-        </p>
-        <p>
+        </Text>
+        <Text>
           Appearance: new
           <CustomLozenge testId="custom-lozenge-new" appearance="new">
             new
           </CustomLozenge>
-        </p>
-      </div>
-      <br />
+        </Text>
+      </Stack>
       <Button onClick={toggle}>
         {themeMode === 'dark'
           ? 'Click to apply default badge light theme'

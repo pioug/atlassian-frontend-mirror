@@ -26,8 +26,6 @@ import {
 import { PortalProviderAPI } from '../../../../ui/PortalProvider';
 import WithPluginState from '../../../../ui/WithPluginState';
 import { pluginKey as widthPluginKey, WidthPluginState } from '../../../width';
-import { isMobileUploadCompleted } from '../../commands/helpers';
-import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
 import { MediaOptions } from '../../types';
 import { MediaNodeViewProps } from '../types';
 import MediaNode from './media';
@@ -76,13 +74,6 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
   isMediaBlobUrl(): boolean {
     const attrs = this.getAttrs();
     return isMediaBlobUrlFromAttrs(attrs);
-  }
-
-  uploadComplete() {
-    return isMobileUploadCompleted(
-      mediaStateKey.getState(this.view.state),
-      this.node.attrs.id,
-    );
   }
 
   renderMediaNodeWithState = (
@@ -134,7 +125,6 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
           url={url}
           mediaProvider={mediaProvider}
           contextIdentifierProvider={contextIdentifierProvider}
-          uploadComplete={this.uploadComplete()}
           mediaOptions={mediaOptions}
         />
       );

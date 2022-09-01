@@ -44,10 +44,11 @@ BrowserTestCase(
   },
 );
 
+// unskip firefox https://product-fabric.atlassian.net/browse/EDM-4279
 describe('with feature flag: lp-link-picker', () => {
   BrowserTestCase(
     'card: changing the link label of a block link should convert it to a "dumb" link',
-    { skip: ['safari'] },
+    { skip: ['firefox', 'safari'] },
     async (client: ClientType, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
 

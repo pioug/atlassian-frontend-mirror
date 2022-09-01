@@ -28,12 +28,12 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/dynamic-table": "^14.7.0",
+    "@atlaskit/dynamic-table": "^14.8.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/media-client": "^17.1.0",
     "@atlaskit/media-ui": "^22.1.0",
-    "@atlaskit/media-viewer": "^47.0.0",
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/media-viewer": "^47.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@babel/runtime": "^7.0.0",
     "memoize-one": "^6.0.0"

@@ -17,6 +17,7 @@ import { selectors } from '../../../../__tests__/__helpers/page-objects/_expand'
 import { selectionSelectors } from '../../../../__tests__/__helpers/page-objects/_selection';
 
 import expandAdf from './__fixtures__/empty-expand.json';
+import expandWithNestedCodeBlockTallAdf from './__fixtures__/expand-with-nested-code-block-tall.json';
 import collapsedExpandAdf from './__fixtures__/closed-expand.json';
 import multiLineExpandAdf from './__fixtures__/two-line-expand.json';
 
@@ -363,6 +364,86 @@ describe('expand: arrow key navigation', () => {
         expect(doc).toMatchCustomDocSnapshot(testName);
       },
     );
+
+    describe('and in code block', () => {
+      BrowserTestCase(
+        'dont jump to expand title when user hits up and down arrow in code block',
+        // safari skipped until prosemirror-view upgraded with this fix
+        // https://github.com/ProseMirror/prosemirror-view/pull/134
+        { skip: ['safari'] },
+        async (client: any, testName: string) => {
+          const page = await startEditor(
+            client,
+            expandWithNestedCodeBlockTallAdf,
+          );
+
+          const selector = '[data-testid="code-block--code"]';
+
+          // get code block position
+          let { left, top, bottom } = JSON.parse(
+            await page.executeAsync((selector, done) => {
+              const { left, top, bottom } = (document as any)
+                .querySelector(selector)
+                .getBoundingClientRect();
+
+              done(
+                JSON.stringify({
+                  left: left + 2,
+                  top: top + 2,
+                  bottom: bottom - 2,
+                }),
+              );
+            }, selector),
+          );
+
+          // simulate click at bottom left of code block
+          // needs click twice
+          await page.simulateUserDragAndDrop(left, bottom, left, bottom, 100);
+          await new Promise((r) => setTimeout(r, 200));
+          await page.simulateUserDragAndDrop(left, bottom, left, bottom, 100);
+
+          for (let i = 0; i < 5; i += 1) {
+            await page.keys('ArrowUp');
+          }
+          await page.keys(['h', 'i']);
+          await page.keys(['ArrowUp', 'ArrowUp']);
+          await page.keys(['h', 'i']);
+          await page.keys('ArrowUp');
+          await page.keys('ArrowUp');
+          await page.keys(['h', 'i']);
+
+          // get code block position again
+          ({ left, top, bottom } = JSON.parse(
+            await page.executeAsync((selector, done) => {
+              const { left, top, bottom } = (document as any)
+                .querySelector(selector)
+                .getBoundingClientRect();
+              done(
+                JSON.stringify({
+                  left: left + 2,
+                  top: top + 2,
+                  bottom: bottom - 2,
+                }),
+              );
+            }, selector),
+          ));
+
+          // simulate click at top left of code block
+          await page.simulateUserDragAndDrop(left, top, left, top, 100);
+
+          for (let i = 0; i < 7; i += 1) {
+            await page.keys('ArrowDown');
+          }
+
+          await page.keys(['h', 'i']);
+          await page.keys('ArrowDown');
+          await page.keys(['h', 'i']);
+
+          const doc = await page.$eval(editable, getDocFromElement);
+          expect(doc).toMatchCustomDocSnapshot(testName);
+        },
+      );
+    });
 
     BrowserTestCase(
       "doesn't set focus inside expand title when user hits up arrow from second line of expand body",

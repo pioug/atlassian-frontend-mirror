@@ -139,6 +139,7 @@ export default class PickerFacade {
       fileName: file.name,
       fileSize: file.size,
       fileMimeType: file.type,
+      collection: file.collectionName,
       dimensions,
       scaleFactor,
       status: isErroredFile ? 'error' : undefined,

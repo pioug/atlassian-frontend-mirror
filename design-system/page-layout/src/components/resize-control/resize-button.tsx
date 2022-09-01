@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { MouseEvent } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';

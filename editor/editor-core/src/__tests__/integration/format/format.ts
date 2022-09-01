@@ -7,6 +7,11 @@ import {
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { KEY } from '../../__helpers/page-objects/_keyboard';
 import { selectors } from '../../__helpers/page-objects/_editor';
+import { runEscapeKeydownSuite } from '../escape-keydown/__helpers';
+import {
+  clickToolbarMenu,
+  ToolbarMenuItem,
+} from '../../__helpers/page-objects/_toolbar';
 
 const editorSelector = selectors.editor;
 
@@ -100,3 +105,9 @@ BrowserTestCase(
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );
+
+runEscapeKeydownSuite({
+  openMenu: async (page) => {
+    await clickToolbarMenu(page, ToolbarMenuItem.moreFormatting);
+  },
+});

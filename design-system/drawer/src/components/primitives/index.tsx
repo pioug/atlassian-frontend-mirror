@@ -2,7 +2,7 @@
 
 import { useCallback, useRef } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 import {

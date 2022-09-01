@@ -22,7 +22,7 @@ export interface MobileEditorProps extends EditorProps {
 export function MobileEditor(
   props: MobileEditorProps & WithAnalyticsEventsProps,
 ) {
-  const { maxHeight, createAnalyticsEvent } = props;
+  const { maxHeight, createAnalyticsEvent, disabled } = props;
   const handleAnalyticsEvent = useCreateAnalyticsHandler(createAnalyticsEvent);
   const renderWithConfig = useCallback(
     (config: EditorSharedConfig | null) => {
@@ -30,12 +30,13 @@ export function MobileEditor(
         <MobileAppearance
           editorView={config && config.editorView}
           maxHeight={maxHeight}
+          editorDisabled={disabled}
         >
           <EditorContent />
         </MobileAppearance>
       );
     },
-    [maxHeight],
+    [maxHeight, disabled],
   );
 
   return (

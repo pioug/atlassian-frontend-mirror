@@ -1,5 +1,5 @@
-import React from 'react';
-
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { render } from '@testing-library/react';
 
 import VisuallyHidden from '../../src';
@@ -30,6 +30,6 @@ describe('Visually Hidden', () => {
     expect(element).toHaveStyleDeclaration('width', '1px');
     expect(element).toHaveStyleDeclaration('height', '1px');
     expect(element).toHaveStyleDeclaration('position', 'absolute');
-    expect(element).toHaveStyleDeclaration('clip', 'rect(1px,1px,1px,1px)');
+    expect(element).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
   });
 });

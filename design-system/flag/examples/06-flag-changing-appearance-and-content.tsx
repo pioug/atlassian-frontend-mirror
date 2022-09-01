@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { SyntheticEvent, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';

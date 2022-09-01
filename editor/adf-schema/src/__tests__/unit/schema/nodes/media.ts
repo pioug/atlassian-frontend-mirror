@@ -173,6 +173,27 @@ describe(`${packageName}/schema media node`, () => {
     });
   });
 
+  it('should strip optional attrs during JSON serialization for inline media', () => {
+    const mediaInlineNode = schema.nodes.mediaInline.create({
+      id: 'id',
+      type: 'file',
+      collection: 'collection',
+      alt: '',
+      __fileName: 'file.jpg',
+      __fileSize: 123456,
+      __fileMimeType: 'image/jpeg',
+      __displayType: 'thumbnail',
+    });
+
+    expect(toJSON(mediaInlineNode)).toEqual({
+      attrs: {
+        collection: 'collection',
+        id: 'id',
+        type: 'file',
+      },
+    });
+  });
+
   describe.each<['alt' | 'occurrenceKey']>([['alt'], ['occurrenceKey']])(
     '%s attribute',
     (attributeKey: string) => {

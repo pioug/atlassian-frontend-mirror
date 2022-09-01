@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -60,13 +60,21 @@ describe('EmailOption', () => {
     expect(mockTextWrapper).toHaveBeenCalledWith(
       token('color.text.subtlest', N200),
     );
-    expect(avatarItemOption.props()).toMatchObject({
-      avatar: <AddOptionAvatar label="Invite" />,
-      primaryText: <span key="name">test@test.com</span>,
-      secondaryText: <span>Invite</span>,
-      lozenge: {
-        text: 'EMAIL',
-      },
+    expect(avatarItemOption.props().avatar).toEqual(
+      <AddOptionAvatar label="Invite" />,
+    );
+    const primaryText = avatarItemOption.props().primaryText as ReactElement;
+
+    expect(primaryText.props.children).toEqual('test@test.com');
+    expect(primaryText.key).toEqual('name');
+
+    const secondaryText = avatarItemOption.props()
+      .secondaryText as ReactElement;
+
+    expect(secondaryText.props.children).toEqual('Invite');
+
+    expect(avatarItemOption.props().lozenge).toEqual({
+      text: 'EMAIL',
     });
   });
 
@@ -86,13 +94,21 @@ describe('EmailOption', () => {
     expect(mockTextWrapper).toHaveBeenCalledWith(
       token('color.text.subtlest', N200),
     );
-    expect(avatarItemOption.props()).toMatchObject({
-      avatar: <AddOptionAvatar label="Invite" />,
-      primaryText: <span key="name">test@test.com</span>,
-      secondaryText: <span>Invite</span>,
-      lozenge: {
-        text: 'EMAIL',
-      },
+    expect(avatarItemOption.props().avatar).toEqual(
+      <AddOptionAvatar label="Invite" />,
+    );
+    const primaryText = avatarItemOption.props().primaryText as ReactElement;
+
+    expect(primaryText.props.children).toEqual('test@test.com');
+    expect(primaryText.key).toEqual('name');
+
+    const secondaryText = avatarItemOption.props()
+      .secondaryText as ReactElement;
+
+    expect(secondaryText.props.children).toEqual('Invite');
+
+    expect(avatarItemOption.props().lozenge).toEqual({
+      text: 'EMAIL',
     });
   });
 
@@ -108,10 +124,16 @@ describe('EmailOption', () => {
     expect(mockTextWrapper).toHaveBeenCalledWith(
       token('color.text.subtlest', N200),
     );
-    expect(avatarItemOption.props()).toMatchObject({
-      avatar: <AddOptionAvatar label="Add new user" />,
-      primaryText: <span key="name">test@test.com</span>,
-      secondaryText: <span>Add new user</span>,
-    });
+    expect(avatarItemOption.props().avatar).toEqual(
+      <AddOptionAvatar label="Add new user" />,
+    );
+    const primaryText = avatarItemOption.props().primaryText as ReactElement;
+
+    expect(primaryText.props.children).toEqual('test@test.com');
+    expect(primaryText.key).toEqual('name');
+
+    const secondaryText = avatarItemOption.props()
+      .secondaryText as ReactElement;
+    expect(secondaryText.props.children).toEqual('Add new user');
   });
 });

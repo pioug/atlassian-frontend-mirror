@@ -1,5 +1,4 @@
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { useRef, useState } from 'react';
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import { onSelection } from '../example-helpers';
 import EmojiTypeAheadList from '../src/components/typeahead/EmojiTypeAheadList';
@@ -12,79 +11,55 @@ function randomEmojis(): EmojiDescription[] {
     .slice(0, 50);
 }
 
-export interface Props {}
+export default function RefreshableEmojiList() {
+  const [emojis, setEmojis] = useState<EmojiDescription[]>(randomEmojis());
+  const emojiListRef = useRef<EmojiTypeAheadList | null>(null);
 
-export interface State {
-  emojis: EmojiDescription[];
-}
-
-export default class RefreshableEmojiList extends PureComponent<Props, State> {
-  private emojiList: EmojiTypeAheadList | null = null;
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      emojis: randomEmojis(),
-    };
-  }
-
-  updateData = () => {
-    this.setState({
-      emojis: randomEmojis(),
-    });
+  const updateData = () => {
+    setEmojis(randomEmojis());
   };
 
-  moveUp = () => {
-    if (this.emojiList) {
-      this.emojiList.selectPrevious();
-    }
+  const moveUp = () => {
+    emojiListRef.current?.selectPrevious();
   };
 
-  moveDown = () => {
-    if (this.emojiList) {
-      this.emojiList.selectNext();
-    }
+  const moveDown = () => {
+    emojiListRef.current?.selectNext();
   };
 
-  private handleEmojiTypeAheadListRef = (ref: EmojiTypeAheadList | null) => {
-    this.emojiList = ref;
-  };
+  const emojiList = (
+    <IntlProvider locale="en">
+      <EmojiTypeAheadList
+        emojis={emojis}
+        onEmojiSelected={onSelection}
+        ref={emojiListRef}
+      />
+    </IntlProvider>
+  );
 
-  render() {
-    const emojiList = (
-      <IntlProvider locale="en">
-        <EmojiTypeAheadList
-          emojis={this.state.emojis}
-          onEmojiSelected={onSelection}
-          ref={this.handleEmojiTypeAheadListRef}
-        />
-      </IntlProvider>
-    );
-
-    return (
-      <div>
-        <div style={{ paddingBottom: '10px' }}>
-          <button
-            onClick={this.updateData}
-            style={{ height: '30px', marginRight: '10px' }}
-          >
-            Random refresh
-          </button>
-          <button
-            onClick={this.moveUp}
-            style={{ height: '30px', marginRight: '10px' }}
-          >
-            Up
-          </button>
-          <button
-            onClick={this.moveDown}
-            style={{ height: '30px', marginRight: '10px' }}
-          >
-            Down
-          </button>
-        </div>
-        {emojiList}
+  return (
+    <div>
+      <div style={{ paddingBottom: '10px' }}>
+        <button
+          onClick={updateData}
+          style={{ height: '30px', marginRight: '10px' }}
+        >
+          Random refresh
+        </button>
+        <button
+          onClick={moveUp}
+          style={{ height: '30px', marginRight: '10px' }}
+        >
+          Up
+        </button>
+        <button
+          onClick={moveDown}
+          style={{ height: '30px', marginRight: '10px' }}
+        >
+          Down
+        </button>
       </div>
-    );
-  }
+      {emojiList}
+    </div>
+  );
 }

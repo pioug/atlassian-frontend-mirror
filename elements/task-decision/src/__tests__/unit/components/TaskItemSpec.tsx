@@ -4,8 +4,6 @@ import FabricAnalyticsListener, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
 import TaskItem from '../../../components/TaskItem';
-import { ContentWrapper } from '../../../styled/Item';
-import { Placeholder } from '../../../styled/Placeholder';
 
 describe('<TaskItem/>', () => {
   let analyticsWebClientMock: AnalyticsWebClient;
@@ -26,7 +24,9 @@ describe('<TaskItem/>', () => {
       </TaskItem>,
     );
     expect(component.find('b').length).toEqual(1);
-    expect(component.find(ContentWrapper).text()).toEqual('Hello world');
+    expect(component.find('div[data-component="content"]').text()).toEqual(
+      'Hello world',
+    );
   });
 
   it('should render callback with ref', () => {
@@ -73,7 +73,7 @@ describe('<TaskItem/>', () => {
           placeholder="cheese"
         />,
       );
-      const placeholder = component.find(Placeholder);
+      const placeholder = component.find('span[data-component="placeholder"]');
       expect(placeholder.text()).toEqual('cheese');
     });
 
@@ -83,7 +83,9 @@ describe('<TaskItem/>', () => {
           Hello <b>world</b>
         </TaskItem>,
       );
-      expect(component.find(Placeholder).length).toEqual(0);
+      expect(
+        component.find('span[data-component="placeholder"]').length,
+      ).toEqual(0);
     });
   });
 

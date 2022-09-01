@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { Notifications } from '@atlaskit/atlassian-navigation';
 import { Notifications as NotificationsIframe } from '@atlaskit/atlassian-notifications';

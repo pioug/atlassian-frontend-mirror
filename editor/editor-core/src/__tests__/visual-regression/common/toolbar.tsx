@@ -23,6 +23,7 @@ import {
 import {
   animationFrame,
   scrollToBottom,
+  selectors as prosemirrorSelectors,
 } from '../../__helpers/page-objects/_editor';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
 
@@ -101,6 +102,7 @@ describe('Toolbar: Text Color', () => {
   });
 
   it('should close the text color menu when ESC is pressed', async () => {
+    await page.focus(prosemirrorSelectors.editor);
     await page.keyboard.down('Escape');
   });
 

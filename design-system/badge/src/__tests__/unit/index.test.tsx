@@ -41,6 +41,11 @@ describe('badge component', () => {
     expect(getByText('99+')).toBeInTheDocument();
   });
 
+  it('should render original value when max is set to false', () => {
+    const { getByText } = render(<Badge max={false}>{100}</Badge>);
+    expect(getByText('100')).toBeInTheDocument();
+  });
+
   it.each([
     [10, 100, '10'],
     [1000, 100, '100+'],

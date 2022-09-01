@@ -4,7 +4,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { ComponentClass } from 'react';
+import { ComponentClass, FC } from 'react';
 import { ufoExperiences } from '../../util/analytics';
 import { EmojiProvider } from '../../api/EmojiResource';
 import { OnEmojiEvent } from '../../types';
@@ -24,7 +24,7 @@ const emojiPickerModuleLoader = () =>
     /* webpackChunkName:"@atlaskit-internal_emojiPickerComponent" */ './EmojiPickerComponent'
   );
 
-const emojiPickerLoader: () => Promise<ComponentClass<ComponentProps>> = () =>
+const emojiPickerLoader: () => Promise<FC<ComponentProps>> = () =>
   emojiPickerModuleLoader().then((module) => module.default);
 
 export interface Props extends LoadingProps {
@@ -48,7 +48,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 > {
   // state initialised with static component to prevent
   // rerender when the module has already been loaded
-  static AsyncLoadedComponent?: ComponentClass<ComponentProps>;
+  static AsyncLoadedComponent?: FC<ComponentProps>;
   state = {
     asyncLoadedComponent: EmojiPickerInternal.AsyncLoadedComponent,
   };

@@ -10,12 +10,13 @@ type BlanketProps = {
   onBlanketClicked: (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => void;
+  testId?: string;
 };
 
 /**
  * A wrapper around `@atlaskit/blanket` that adds a fade in/out transition.
  */
-const Blanket = ({ isOpen, onBlanketClicked }: BlanketProps) => {
+const Blanket = ({ isOpen, onBlanketClicked, testId }: BlanketProps) => {
   return (
     <ExitingPersistence appear>
       {isOpen && (
@@ -36,7 +37,11 @@ const Blanket = ({ isOpen, onBlanketClicked }: BlanketProps) => {
         >
           {({ className }) => (
             <div className={className}>
-              <AkBlanket isTinted onBlanketClicked={onBlanketClicked} />
+              <AkBlanket
+                isTinted
+                onBlanketClicked={onBlanketClicked}
+                testId={testId}
+              />
             </div>
           )}
         </FadeIn>

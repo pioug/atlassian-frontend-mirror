@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { CSSProperties, PureComponent } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { CSSTransition } from 'react-transition-group';
 
 import { fontSize } from '@atlaskit/theme/constants';

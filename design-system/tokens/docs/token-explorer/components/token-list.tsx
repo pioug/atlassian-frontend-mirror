@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment, memo } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { token } from '../../../src';
 import type { TransformedTokenMerged } from '../types';

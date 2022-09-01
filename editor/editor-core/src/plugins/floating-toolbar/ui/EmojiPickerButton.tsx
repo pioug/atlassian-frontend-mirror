@@ -8,10 +8,11 @@ import {
   WithProviders,
 } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
+import { Popup } from '@atlaskit/editor-common/ui';
 import { EmojiPicker, EmojiId } from '@atlaskit/emoji';
 import Tooltip from '@atlaskit/tooltip';
 import EditorEmojiAddIcon from './EditorEmojiAddIcon';
+import withOuterListeners from '../../../ui/with-outer-listeners';
 
 // helps adjusts position of popup
 const emojiPickerButtonWrapper = css`

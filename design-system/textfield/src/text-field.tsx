@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { forwardRef, memo, useCallback, useMemo, useRef } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import { useGlobalTheme } from '@atlaskit/theme/components';

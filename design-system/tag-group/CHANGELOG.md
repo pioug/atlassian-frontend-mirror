@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 10.1.0
+
+### Minor Changes
+
+- [`b70da512137`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b70da512137) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 10.0.14
 
 ### Patch Changes

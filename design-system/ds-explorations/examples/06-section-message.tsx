@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import __noop from '@atlaskit/ds-lib/noop';

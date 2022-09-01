@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { Component, CSSProperties } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid, lastDayOfMonth, parseISO } from 'date-fns';
 import pick from 'lodash/pick';
@@ -726,7 +726,7 @@ class DatePicker extends Component<DatePickerProps, State> {
           {...calendarProps}
           isClearable
           spacing={spacing}
-          validationState={isInvalid ? 'error' : 'default'}
+          isInvalid={isInvalid}
           testId={testId}
         />
       </div>

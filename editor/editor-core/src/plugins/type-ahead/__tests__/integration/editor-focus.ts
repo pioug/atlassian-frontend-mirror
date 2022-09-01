@@ -21,6 +21,7 @@ import {
   textAndStatusAtFirstParagraph,
   onlyOneChar,
 } from './__fixtures__/base-adfs';
+import { runEscapeKeydownSuite } from '../../../../__tests__/integration/escape-keydown/__helpers';
 
 describe('typeahead: editor focus', () => {
   const startEditor = async (client: any, adf: any): Promise<WebDriverPage> => {
@@ -130,6 +131,32 @@ describe('typeahead: editor focus', () => {
       expect(pmDocument).toEqualDocument(expectedDocument);
     },
   );
+
+  BrowserTestCase(
+    'it should focus on Editor when Escape is typed right after the trigger',
+    {},
+    async (client: any, testName: string) => {
+      const page = await startEditor(client, onlyOneChar);
+
+      await setProseMirrorTextSelection(page, { anchor: 2, head: 2 });
+
+      await page.keys(' ');
+      await quickInsert(page, '', false);
+      await page.keys(['Escape', 'l', 'o', 'l']);
+
+      const jsonDocument = await page.$eval(editable, getDocFromElement);
+      const pmDocument = PMNode.fromJSON(sampleSchema, jsonDocument);
+      const expectedDocument = doc(p('C /lol'));
+      expect(pmDocument).toEqualDocument(expectedDocument);
+    },
+  );
+
+  runEscapeKeydownSuite({
+    openMenu: async (page) => {
+      await quickInsert(page, '', false);
+    },
+  });
+
   describe('when access from Safari and using keyboard selection shortcuts', () => {
     const allButSafari: Browser[] = ['chrome', 'firefox'];
     describe('when select using COMMAND+SHIFT+ARROW_LEFT', () => {

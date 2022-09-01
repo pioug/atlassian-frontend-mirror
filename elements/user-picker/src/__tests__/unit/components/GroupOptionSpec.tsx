@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { N800, N200, B400 } from '@atlaskit/theme/colors';
@@ -55,19 +55,22 @@ describe('GroupOption', () => {
         />
       </span>
     `);
-    expect(avatarItemOption.prop('primaryText')).toEqual([
-      <span key="name">
-        <HighlightText>dead-jedi-admins</HighlightText>
-      </span>,
-    ]);
-    expect(avatarItemOption.prop('secondaryText')).toEqual(
-      <span>
-        <FormattedMessage
-          id="fabric.elements.user-picker.group.byline"
-          defaultMessage="Admin-managed group"
-          description="Byline for admin-managed groups"
-        />
-      </span>,
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].key).toEqual('name');
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText>dead-jedi-admins</HighlightText>,
+    );
+
+    const secondaryText = avatarItemOption.props()
+      .secondaryText as ReactElement;
+
+    expect(secondaryText.props.children).toEqual(
+      <FormattedMessage
+        id="fabric.elements.user-picker.group.byline"
+        defaultMessage="Admin-managed group"
+        description="Byline for admin-managed groups"
+      />,
     );
   });
 
@@ -78,23 +81,22 @@ describe('GroupOption', () => {
       2,
       token('color.text.selected', B400),
     );
-    expect(avatarItemOption.props()).toMatchObject(
-      expect.objectContaining({
-        primaryText: [
-          <span key="name">
-            <HighlightText>dead-jedi-admins</HighlightText>
-          </span>,
-        ],
-        secondaryText: (
-          <span>
-            <FormattedMessage
-              id="fabric.elements.user-picker.group.byline"
-              defaultMessage="Admin-managed group"
-              description="Byline for admin-managed groups"
-            />
-          </span>
-        ),
-      }),
+
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].key).toEqual('name');
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText>dead-jedi-admins</HighlightText>,
+    );
+    const secondaryText = avatarItemOption.props()
+      .secondaryText as ReactElement;
+
+    expect(secondaryText.props.children).toEqual(
+      <FormattedMessage
+        id="fabric.elements.user-picker.group.byline"
+        defaultMessage="Admin-managed group"
+        description="Byline for admin-managed groups"
+      />,
     );
   });
 
@@ -109,12 +111,14 @@ describe('GroupOption', () => {
     const component = shallowOption({ group: groupWithHighlight });
     const avatarItemOption = component.find(AvatarItemOption);
     expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', N800));
-    expect(avatarItemOption.prop('primaryText')).toEqual([
-      <span key="name">
-        <HighlightText highlights={[testHighlightRange]}>
-          dead-jedi-admins
-        </HighlightText>
-      </span>,
-    ]);
+
+    const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+
+    expect(primaryText[0].key).toEqual('name');
+    expect(primaryText[0].props.children).toEqual(
+      <HighlightText highlights={[testHighlightRange]}>
+        dead-jedi-admins
+      </HighlightText>,
+    );
   });
 });

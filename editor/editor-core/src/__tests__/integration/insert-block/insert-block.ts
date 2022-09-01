@@ -5,10 +5,12 @@ import {
 } from '../../__helpers/testing-example-helpers';
 import { fullpage, editable } from '../_helpers';
 import {
+  clickToolbarMenu,
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
 } from '../../__helpers/page-objects/_toolbar';
 import { elementBrowserSelectors } from '../../__helpers/page-objects/_element-browser';
+import { runEscapeKeydownSuite } from '../escape-keydown/__helpers';
 
 const emojiPanel = '[data-emoji-picker-container="true"]';
 
@@ -74,3 +76,9 @@ BrowserTestCase(
     expect(await page.isExisting(emojiPanel)).toBe(true);
   },
 );
+
+runEscapeKeydownSuite({
+  openMenu: async (page) => {
+    await clickToolbarMenu(page, ToolbarMenuItem.insertBlock);
+  },
+});

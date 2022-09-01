@@ -22,6 +22,7 @@ import {
   stopMeasure,
   shouldForceTracking,
   measureTTI,
+  browser,
 } from '@atlaskit/editor-common/utils';
 
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
@@ -294,9 +295,56 @@ export class Renderer extends PureComponent<RendererProps> {
       windowSelection !== null ? windowSelection.toString() : undefined;
   };
 
+  private handleMouseTripleClickInTables = (event: MouseEvent) => {
+    if (browser.ios || browser.android) {
+      return;
+    }
+    const badBrowser = browser.chrome || browser.safari;
+    const tripleClick = event.detail >= 3;
+    if (!(badBrowser && tripleClick)) {
+      return;
+    }
+    const selection = window.getSelection();
+    if (!selection) {
+      return;
+    }
+    const { type, anchorNode, focusNode } = selection;
+    const rangeSelection = Boolean(type === 'Range' && anchorNode && focusNode);
+    if (!rangeSelection) {
+      return;
+    }
+    const target = event.target as HTMLElement;
+    const tableCell = target.closest('td,th');
+    const clickedInCell = Boolean(tableCell);
+    if (!clickedInCell) {
+      return;
+    }
+    const anchorInCell = tableCell!.contains(anchorNode);
+    const focusInCell = tableCell!.contains(focusNode);
+    const selectionStartsOrEndsOutsideClickedCell = !(
+      anchorInCell && focusInCell
+    );
+    if (!selectionStartsOrEndsOutsideClickedCell) {
+      return;
+    }
+    // If selection starts or ends in a different cell than the clicked cell,
+    // we select the node inside the clicked cell (or if both are in a different
+    // cell, we select the cell's contents instead). We want to select the nearest
+    // parent block, so that a whole line of text/content is selected (rather than
+    // selecting a span that would select one specific chunk of text).
+    const elementToSelect: Element | null | undefined = anchorInCell
+      ? anchorNode!.parentElement?.closest('div,p')
+      : focusInCell
+      ? focusNode!.parentElement?.closest('div,p')
+      : tableCell;
+    if (elementToSelect) {
+      selection.selectAllChildren(elementToSelect);
+    }
+  };
+
   render() {
     const {
-      document,
+      document: adfDocument,
       onComplete,
       onError,
       appearance,
@@ -322,10 +370,17 @@ export class Renderer extends PureComponent<RendererProps> {
      * @param event Click event anywhere inside renderer
      */
     const handleWrapperOnClick = (event: React.MouseEvent) => {
+      const targetElement = event.target as HTMLElement;
+
+      // ED-14862: When a user triple clicks to select a line of content inside a
+      // a table cell, but the browser incorrectly moves the selection start or end into
+      // a different table cell, we manually set the selection back to within the original
+      // table cell the user intended to target
+      this.handleMouseTripleClickInTables((event as unknown) as MouseEvent);
+
       if (!this.props.eventHandlers?.onUnhandledClick) {
         return;
       }
-      const targetElement = event.target as HTMLElement;
       if (!(targetElement instanceof window.Element)) {
         return;
       }
@@ -367,7 +422,7 @@ export class Renderer extends PureComponent<RendererProps> {
       const schema = this.getSchema(this.props.schema, this.props.adfStage);
 
       const { result, stat, pmDoc } = renderDocument(
-        document,
+        adfDocument,
         this.serializer,
         schema,
         adfStage,

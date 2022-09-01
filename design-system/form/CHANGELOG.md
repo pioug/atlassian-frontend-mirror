@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 8.5.8
+
+### Patch Changes
+
+- [`0fbb2840aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fbb2840aba) - Add isInvalid prop to `@atlastkit/Select`. The prop indicates whether if the component is in the error state. If true, it visually shows a red border around the input.
+
+  This replaces validationState to make Select more consistent like other components that uses isInvalid prop.
+
+- Updated dependencies
+
 ## 8.5.7
 
 ### Patch Changes

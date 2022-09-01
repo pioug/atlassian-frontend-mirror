@@ -25,6 +25,7 @@ export const getStyles = memoizeOne(
   (
     width: string | number,
     isMulti?: boolean,
+    isCompact?: boolean,
     overrideStyles?: StylesConfig,
   ) => {
     let styles = {
@@ -34,7 +35,6 @@ export const getStyles = memoizeOne(
         minWidth: state.selectProps.menuMinWidth,
       }),
       control: (css: any, state: any) => {
-        const isCompact = state.selectProps.appearance === 'compact';
         const isMulti = state.selectProps.isMulti;
         return {
           ...css,
@@ -107,7 +107,6 @@ export const getStyles = memoizeOne(
         { paddingTop, paddingBottom, position, ...css }: any,
         state: any,
       ) => {
-        const isCompact = state.selectProps.appearance === 'compact';
         const isMulti = state.selectProps.isMulti;
 
         return {

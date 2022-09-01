@@ -1,6 +1,5 @@
 import React from 'react';
 import * as sinon from 'sinon';
-import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { fireEvent, render } from '@testing-library/react';
 import CachingEmoji from '../../../../components/common/CachingEmoji';
@@ -234,14 +233,9 @@ describe('<CachingEmoji />', () => {
       });
 
       it('should fail rendered emoji UFO experience on render issue', () => {
-        const contextOptions = {
-          context: {
-            emoji: {
-              emojiProvider: emojiProviderStub,
-            },
-          },
-          childContextTypes: {
-            emoji: PropTypes.object,
+        const emojiContext = {
+          emoji: {
+            emojiProvider: emojiProviderStub,
           },
         };
         const experience = ufoExperiences['emoji-rendered'].getInstance(
@@ -263,8 +257,9 @@ describe('<CachingEmoji />', () => {
         );
 
         const component = mount(
-          <CachingEmoji emoji={mediaEmoji} />,
-          contextOptions,
+          <EmojiContextProvider emojiContextValue={emojiContext}>
+            <CachingEmoji emoji={mediaEmoji} />
+          </EmojiContextProvider>,
         );
 
         const renderError = new Error(`I'm error`);

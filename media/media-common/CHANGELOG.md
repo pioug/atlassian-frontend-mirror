@@ -1,5 +1,12 @@
 # @atlaskit/media-common
 
+## 2.16.2
+
+### Patch Changes
+
+- [`c81ee725277`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c81ee725277) - Add attribute fileMediaType into media viewer loadSucceeded event
+- Updated dependencies
+
 ## 2.16.1
 
 ### Patch Changes

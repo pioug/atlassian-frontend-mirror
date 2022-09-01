@@ -1,0 +1,411 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "8be709de-c108-47bb-8d08-a1bd2b9a72f7"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "first paragraph"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "second paragraph "
+                    },
+                    {
+                      "type": "emoji",
+                      "attrs": {
+                        "shortName": ":slight_smile:",
+                        "id": "1f642",
+                        "text": "🙂"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " with "
+                    },
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1658793600000"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " inline "
+                    },
+                    {
+                      "type": "status",
+                      "attrs": {
+                        "text": "some status",
+                        "color": "red",
+                        "localId": "6e57b7de-1c0a-4499-8e82-8cae4fda7072",
+                        "style": ""
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " nodes"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "first paragraph"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "second paragraph "
+                    },
+                    {
+                      "type": "emoji",
+                      "attrs": {
+                        "shortName": ":slight_smile:",
+                        "id": "1f642",
+                        "text": "🙂"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " with "
+                    },
+                    {
+                      "type": "date",
+                      "attrs": {
+                        "timestamp": "1658793600000"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " inline "
+                    },
+                    {
+                      "type": "status",
+                      "attrs": {
+                        "text": "some status",
+                        "color": "red",
+                        "localId": "47b224c7-0320-4eca-aaa4-dbaab610221d",
+                        "style": ""
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " nodes"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "first paragraph"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "second paragraph "
+                    },
+                    {
+                      "type": "emoji",
+                      "attrs": {
+                        "shortName": ":flag_off:",
+                        "id": "atlassian-flag_off",
+                        "text": ":flag_off:"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": " with (img) flag emoji"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "first paragraph"
+                    }
+                  ]
+                },
+                {
+                  "type": "nestedExpand",
+                  "attrs": {
+                    "title": "expand title"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "first paragraph in expand"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "last paragraph in expand"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "status",
+                      "attrs": {
+                        "text": "some status",
+                        "color": "green",
+                        "localId": "b9a1053d-ef48-44bd-9b57-f48fe9d3b25e",
+                        "style": ""
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "decisionList",
+                  "attrs": {
+                    "localId": "6205461f-6e32-4c60-825b-58632eaea273"
+                  },
+                  "content": [
+                    {
+                      "type": "decisionItem",
+                      "attrs": {
+                        "localId": "aa9cece2-ce6c-4e89-ae13-74c951d76be6",
+                        "state": "DECIDED"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "some decision text"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "decisionItem",
+                      "attrs": {
+                        "localId": "37ff0422-0f44-47e5-a495-7d7b8501d2a3",
+                        "state": "DECIDED"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "more decision text"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "first paragraph"
+                    }
+                  ]
+                },
+                {
+                  "type": "panel",
+                  "attrs": {
+                    "panelType": "info"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "first paragraph in panel"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "codeBlock",
+                  "attrs": {},
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "first code line\nlast code line"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "mediaSingle",
+                  "attrs": {
+                    "width": 16.666666666666664,
+                    "layout": "center"
+                  },
+                  "content": [
+                    {
+                      "type": "media",
+                      "attrs": {
+                        "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+                        "type": "file",
+                        "collection": "MediaServicesSample",
+                        "width": 50,
+                        "height": 50
+                      },
+                      "marks": [
+                        {
+                          "type": "link",
+                          "attrs": {
+                            "href": "https://www.atlassian.com/"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "first paragraph"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

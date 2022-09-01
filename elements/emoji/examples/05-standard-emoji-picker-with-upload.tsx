@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { EmojiPicker } from '../src/picker';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-data-test/get-emoji-resource-standard-atlassian';
@@ -7,54 +7,35 @@ import { onSelection } from '../example-helpers';
 import { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
-export interface EmojiState {
-  siteEmojiEnabled: boolean;
-}
+const EmojiPickerWithUpload: FC = () => {
+  const [siteEmojiEnabled, setSiteEmojiEnabled] = useState(true);
 
-export interface EmojiProps {}
+  const emojiProvider = useMemo<Promise<EmojiProvider>>(() => {
+    return siteEmojiEnabled
+      ? getEmojiResource({
+          uploadSupported: true,
+          currentUser: { id: loggedUser },
+        })
+      : getEmojiResourceWithStandardAndAtlassianEmojis({
+          uploadSupported: true,
+          currentUser: { id: loggedUser },
+        });
+  }, [siteEmojiEnabled]);
 
-export default class EmojiPickerWithUpload extends React.Component<
-  EmojiProps,
-  EmojiState
-> {
-  constructor(props: EmojiProps) {
-    super(props);
-    this.state = {
-      siteEmojiEnabled: true,
-    };
-  }
+  return (
+    <IntlProvider locale="en">
+      <div style={{ padding: '10px' }}>
+        <EmojiPicker emojiProvider={emojiProvider} onSelection={onSelection} />
 
-  enableSiteEmoji(value: boolean) {
-    this.setState({ siteEmojiEnabled: value });
-  }
+        <button onClick={() => setSiteEmojiEnabled(true)}>
+          EmojiProvider with Site emoji
+        </button>
+        <button onClick={() => setSiteEmojiEnabled(false)}>
+          EmojiProvider without Site emoji
+        </button>
+      </div>
+    </IntlProvider>
+  );
+};
 
-  render() {
-    const emojiProvider: Promise<EmojiProvider> =
-      this.state.siteEmojiEnabled === true
-        ? getEmojiResource({
-            uploadSupported: true,
-            currentUser: { id: loggedUser },
-          })
-        : getEmojiResourceWithStandardAndAtlassianEmojis({
-            uploadSupported: true,
-            currentUser: { id: loggedUser },
-          });
-    return (
-      <IntlProvider locale="en">
-        <div style={{ padding: '10px' }}>
-          <EmojiPicker
-            emojiProvider={emojiProvider}
-            onSelection={onSelection}
-          />
-
-          <button onClick={() => this.enableSiteEmoji(true)}>
-            EmojiProvider with Site emoji
-          </button>
-          <button onClick={() => this.enableSiteEmoji(false)}>
-            EmojiProvider without Site emoji
-          </button>
-        </div>
-      </IntlProvider>
-    );
-  }
-}
+export default EmojiPickerWithUpload;

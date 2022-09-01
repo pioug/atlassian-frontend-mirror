@@ -24,6 +24,8 @@ import { token } from '@atlaskit/tokens';
 
 export const CodeBlockSharedCssClassName = {
   CODEBLOCK_CONTAINER: 'code-block',
+  CODEBLOCK_START: 'code-block--start',
+  CODEBLOCK_END: 'code-block--end',
   CODEBLOCK_LINE_NUMBER_GUTTER: 'line-number-gutter',
   CODEBLOCK_CONTENT: 'code-content',
   DS_CODEBLOCK: '[data-ds--code--code-block]',
@@ -58,6 +60,22 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
     margin: ${blockNodesVerticalMargin} 0 0 0;
     min-width: ${akEditorTableCellMinWidth}px;
     cursor: pointer;
+
+    .${CodeBlockSharedCssClassName.CODEBLOCK_START} {
+      position: absolute;
+      visibility: hidden;
+      height: 1.5rem;
+      top: 0px;
+      left: 0px;
+    }
+
+    .${CodeBlockSharedCssClassName.CODEBLOCK_END} {
+      position: absolute;
+      visibility: hidden;
+      height: 1.5rem;
+      bottom: 0px;
+      right: 0px;
+    }
 
     .${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
       flex-shrink: 0;

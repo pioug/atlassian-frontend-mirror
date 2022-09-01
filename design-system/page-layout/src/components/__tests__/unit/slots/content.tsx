@@ -24,7 +24,7 @@ describe('<Content />', () => {
 
     expect(document.head.innerHTML).toEqual(
       expect.stringContaining(
-        'grid-template-columns:var(--leftPanelWidth,0px) minmax(0,1fr) var(--rightPanelWidth,0px);',
+        'grid-template-columns:var(--leftPanelWidth, 0px) minmax(0, 1fr) var(--rightPanelWidth, 0px);',
       ),
     );
 

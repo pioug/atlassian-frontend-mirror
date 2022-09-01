@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import type { FC, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { N500, Y500 } from '@atlaskit/theme/colors';

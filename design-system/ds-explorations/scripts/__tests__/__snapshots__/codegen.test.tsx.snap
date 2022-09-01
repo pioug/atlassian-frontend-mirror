@@ -94,7 +94,7 @@ exports[`@atlaskit/design-system-explorations bg styles are generated correctly 
   }),
 };
 
-type BackgroundColor = keyof typeof backgroundColorMap;
+export type BackgroundColor = keyof typeof backgroundColorMap;
 "
 `;
 
@@ -141,7 +141,168 @@ exports[`@atlaskit/design-system-explorations border styles are generated correc
   }),
 };
 
-type BorderColor = keyof typeof borderColorMap;
+export type BorderColor = keyof typeof borderColorMap;
+"
+`;
+
+exports[`@atlaskit/design-system-explorations border styles are generated correctly 2`] = `
+"const backgroundActiveColorMap = {
+  'inverse.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.inverse.subtle.pressed'),
+    },
+  }),
+  input: css({
+    ':active': { backgroundColor: token('color.background.input.pressed') },
+  }),
+  neutral: css({
+    ':active': { backgroundColor: token('color.background.neutral.pressed') },
+  }),
+  'neutral.subtle': css({
+    ':active': {
+      backgroundColor: token('color.background.neutral.subtle.pressed'),
+    },
+  }),
+  'neutral.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.neutral.bold.pressed'),
+    },
+  }),
+  'brand.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.brand.bold.pressed'),
+    },
+  }),
+  selected: css({
+    ':active': { backgroundColor: token('color.background.selected.pressed') },
+  }),
+  'selected.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.selected.bold.pressed'),
+    },
+  }),
+  danger: css({
+    ':active': { backgroundColor: token('color.background.danger.pressed') },
+  }),
+  'danger.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.danger.bold.pressed'),
+    },
+  }),
+  warning: css({
+    ':active': { backgroundColor: token('color.background.warning.pressed') },
+  }),
+  'warning.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.warning.bold.pressed'),
+    },
+  }),
+  success: css({
+    ':active': { backgroundColor: token('color.background.success.pressed') },
+  }),
+  'success.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.success.bold.pressed'),
+    },
+  }),
+  discovery: css({
+    ':active': { backgroundColor: token('color.background.discovery.pressed') },
+  }),
+  'discovery.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.discovery.bold.pressed'),
+    },
+  }),
+  information: css({
+    ':active': {
+      backgroundColor: token('color.background.information.pressed'),
+    },
+  }),
+  'information.bold': css({
+    ':active': {
+      backgroundColor: token('color.background.information.bold.pressed'),
+    },
+  }),
+};
+
+const backgroundHoverColorMap = {
+  'inverse.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.inverse.subtle.hovered'),
+    },
+  }),
+  input: css({
+    ':hover': { backgroundColor: token('color.background.input.hovered') },
+  }),
+  neutral: css({
+    ':hover': { backgroundColor: token('color.background.neutral.hovered') },
+  }),
+  'neutral.subtle': css({
+    ':hover': {
+      backgroundColor: token('color.background.neutral.subtle.hovered'),
+    },
+  }),
+  'neutral.bold': css({
+    ':hover': {
+      backgroundColor: token('color.background.neutral.bold.hovered'),
+    },
+  }),
+  'brand.bold': css({
+    ':hover': { backgroundColor: token('color.background.brand.bold.hovered') },
+  }),
+  selected: css({
+    ':hover': { backgroundColor: token('color.background.selected.hovered') },
+  }),
+  'selected.bold': css({
+    ':hover': {
+      backgroundColor: token('color.background.selected.bold.hovered'),
+    },
+  }),
+  danger: css({
+    ':hover': { backgroundColor: token('color.background.danger.hovered') },
+  }),
+  'danger.bold': css({
+    ':hover': {
+      backgroundColor: token('color.background.danger.bold.hovered'),
+    },
+  }),
+  warning: css({
+    ':hover': { backgroundColor: token('color.background.warning.hovered') },
+  }),
+  'warning.bold': css({
+    ':hover': {
+      backgroundColor: token('color.background.warning.bold.hovered'),
+    },
+  }),
+  success: css({
+    ':hover': { backgroundColor: token('color.background.success.hovered') },
+  }),
+  'success.bold': css({
+    ':hover': {
+      backgroundColor: token('color.background.success.bold.hovered'),
+    },
+  }),
+  discovery: css({
+    ':hover': { backgroundColor: token('color.background.discovery.hovered') },
+  }),
+  'discovery.bold': css({
+    ':hover': {
+      backgroundColor: token('color.background.discovery.bold.hovered'),
+    },
+  }),
+  information: css({
+    ':hover': {
+      backgroundColor: token('color.background.information.hovered'),
+    },
+  }),
+  'information.bold': css({
+    ':hover': {
+      backgroundColor: token('color.background.information.bold.hovered'),
+    },
+  }),
+};
+
+type InteractionBackgroundColor = keyof typeof backgroundHoverColorMap;
 "
 `;
 
@@ -188,6 +349,6 @@ exports[`@atlaskit/design-system-explorations text styles are generated correctl
   }),
 };
 
-type TextColor = keyof typeof textColorMap;
+export type TextColor = keyof typeof textColorMap;
 "
 `;

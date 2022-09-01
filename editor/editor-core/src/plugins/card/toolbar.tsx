@@ -4,6 +4,7 @@ import { EditorState, NodeSelection } from 'prosemirror-state';
 import { removeSelectedNode, findDomRefAtPos } from 'prosemirror-utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
+import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { CardPlatform } from '@atlaskit/smart-card';
 
@@ -47,10 +48,14 @@ import { isSafeUrl } from '@atlaskit/adf-schema';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
 import { messages } from './messages';
 import buildLayoutButtons from '../../ui/MediaAndEmbedsToolbar';
-import { buildVisitedLinkPayload } from '../../utils/linking-utils';
+import {
+  buildOpenedSettingsPayload,
+  buildVisitedLinkPayload,
+} from '../../utils/linking-utils';
 import { LinkPickerOptions } from '../hyperlink/types';
 import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
 import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
+import { getFeatureFlags } from '../feature-flags-context';
 
 export const removeCard: Command = (state, dispatch) => {
   if (!(state.selection instanceof NodeSelection)) {
@@ -107,168 +112,27 @@ export const visitCardLink: Command = (state, dispatch) => {
   return true;
 };
 
-const unlinkCard = (node: Node, state: EditorState): Command => {
-  const displayInfo = displayInfoForCard(node, findCardInfo(state));
-  const text = displayInfo.title || displayInfo.url;
-  if (text) {
-    return changeSelectedCardToText(text);
+export const openLinkSettings: Command = (state, dispatch) => {
+  if (!(state.selection instanceof NodeSelection)) {
+    return false;
   }
-
-  return () => false;
-};
-
-const buildAlignmentOptions = (
-  state: EditorState,
-  intl: IntlShape,
-): FloatingToolbarItem<Command>[] => {
-  return buildLayoutButtons(
-    state,
-    intl,
-    state.schema.nodes.embedCard,
-    true,
-    true,
-  );
-};
-
-const generateDeleteButton = (
-  node: Node,
-  state: EditorState,
-  intl: IntlShape,
-): Array<FloatingToolbarItem<Command>> => {
-  const { inlineCard } = state.schema.nodes;
-  const removeButton: FloatingToolbarItem<Command> = {
-    id: 'editor.link.delete',
-    type: 'button',
-    appearance: 'danger',
-    icon: RemoveIcon,
-    onMouseEnter: hoverDecoration(node.type, true),
-    onMouseLeave: hoverDecoration(node.type, false),
-    onFocus: hoverDecoration(node.type, true),
-    onBlur: hoverDecoration(node.type, false),
-    title: intl.formatMessage(commonMessages.remove),
-    onClick: removeCard,
-  };
-  const copyButton = [
-    ...(state && showCopyButton(state)
-      ? [
-          getCopyButtonConfig(state, intl.formatMessage, node.type),
-          { type: 'separator' } as FloatingToolbarItem<Command>,
-        ]
-      : []),
-  ];
-  if (node.type === inlineCard) {
-    const unlinkButtonWithSeparator: Array<FloatingToolbarItem<Command>> = [
-      {
-        id: 'editor.link.unlink',
-        type: 'button',
-        title: intl.formatMessage(linkToolbarMessages.unlink),
-        icon: UnlinkIcon,
-        onClick: unlinkCard(node, state),
-      },
-      { type: 'separator' },
-    ];
-    return [...unlinkButtonWithSeparator, ...copyButton, removeButton];
+  window.open('https://id.atlassian.com/manage-profile/link-preferences');
+  if (dispatch) {
+    const { type } = state.selection.node;
+    dispatch(
+      addAnalytics(
+        state,
+        state.tr,
+        buildOpenedSettingsPayload(
+          type.name as
+            | ACTION_SUBJECT_ID.CARD_INLINE
+            | ACTION_SUBJECT_ID.CARD_BLOCK
+            | ACTION_SUBJECT_ID.EMBEDS,
+        ),
+      ),
+    );
   }
-
-  return [...copyButton, removeButton];
-};
-
-const generateToolbarItems = (
-  state: EditorState,
-  intl: IntlShape,
-  providerFactory: ProviderFactory,
-  cardOptions: CardOptions,
-  platform?: CardPlatform,
-  linkPicker?: LinkPickerOptions,
-) => (node: Node): Array<FloatingToolbarItem<Command>> => {
-  const { url } = titleUrlPairFromNode(node);
-  let metadata = {};
-  if (url && !isSafeUrl(url)) {
-    return [];
-  } else {
-    const { title } = displayInfoForCard(node, findCardInfo(state));
-    metadata = {
-      url: url,
-      title: title,
-    };
-  }
-
-  const pluginState: CardPluginState = pluginKey.getState(state);
-
-  const currentAppearance = appearanceForNodeType(node.type);
-
-  /* mobile builds toolbar natively using toolbarItems */
-  if (pluginState.showLinkingToolbar && platform !== 'mobile') {
-    return [
-      buildEditLinkToolbar({
-        providerFactory,
-        linkPicker,
-        node,
-      }),
-    ];
-  } else {
-    const toolbarItems: Array<FloatingToolbarItem<Command>> = [
-      {
-        id: 'editor.link.edit',
-        type: 'button',
-        selected: false,
-        metadata: metadata,
-        title: intl.formatMessage(linkToolbarMessages.editLink),
-        showTitle: true,
-        testId: 'link-toolbar-edit-link-button',
-        onClick: editLink,
-      },
-      { type: 'separator' },
-      {
-        id: 'editor.link.openLink',
-        type: 'button',
-        icon: OpenIcon,
-        metadata: metadata,
-        className: 'hyperlink-open-link',
-        title: intl.formatMessage(linkMessages.openLink),
-        onClick: visitCardLink,
-      },
-      { type: 'separator' },
-      ...generateDeleteButton(node, state, intl),
-    ];
-
-    if (currentAppearance === 'embed') {
-      const alignmentOptions = buildAlignmentOptions(state, intl);
-      if (alignmentOptions.length) {
-        alignmentOptions.push({
-          type: 'separator',
-        });
-      }
-      toolbarItems.unshift(...alignmentOptions);
-    }
-    const { allowBlockCards, allowEmbeds } = cardOptions;
-
-    if ((allowBlockCards || allowEmbeds) && currentAppearance) {
-      toolbarItems.unshift(
-        {
-          type: 'custom',
-          fallback: [],
-          render: (editorView) => (
-            <LinkToolbarAppearance
-              key="link-appearance"
-              url={url}
-              intl={intl}
-              currentAppearance={currentAppearance}
-              editorView={editorView}
-              editorState={state}
-              allowEmbeds={allowEmbeds}
-              platform={platform}
-            />
-          ),
-        },
-        {
-          type: 'separator',
-        },
-      );
-    }
-
-    return toolbarItems;
-  }
+  return true;
 };
 
 export const floatingToolbar = (
@@ -333,4 +197,192 @@ export const floatingToolbar = (
       ...(pluginState.showLinkingToolbar ? editLinkToolbarConfig : {}),
     };
   };
+};
+
+const unlinkCard = (node: Node, state: EditorState): Command => {
+  const displayInfo = displayInfoForCard(node, findCardInfo(state));
+  const text = displayInfo.title || displayInfo.url;
+  if (text) {
+    return changeSelectedCardToText(text);
+  }
+
+  return () => false;
+};
+
+const buildAlignmentOptions = (
+  state: EditorState,
+  intl: IntlShape,
+): FloatingToolbarItem<Command>[] => {
+  return buildLayoutButtons(
+    state,
+    intl,
+    state.schema.nodes.embedCard,
+    true,
+    true,
+  );
+};
+
+const generateToolbarItems = (
+  state: EditorState,
+  intl: IntlShape,
+  providerFactory: ProviderFactory,
+  cardOptions: CardOptions,
+  platform?: CardPlatform,
+  linkPicker?: LinkPickerOptions,
+) => (node: Node): Array<FloatingToolbarItem<Command>> => {
+  const { url } = titleUrlPairFromNode(node);
+  let metadata = {};
+  if (url && !isSafeUrl(url)) {
+    return [];
+  } else {
+    const { title } = displayInfoForCard(node, findCardInfo(state));
+    metadata = {
+      url: url,
+      title: title,
+    };
+  }
+
+  const pluginState: CardPluginState = pluginKey.getState(state);
+
+  const currentAppearance = appearanceForNodeType(node.type);
+
+  /* mobile builds toolbar natively using toolbarItems */
+  if (pluginState.showLinkingToolbar && platform !== 'mobile') {
+    return [
+      buildEditLinkToolbar({
+        providerFactory,
+        linkPicker,
+        node,
+      }),
+    ];
+  } else {
+    const { inlineCard } = state.schema.nodes;
+    const toolbarItems: Array<FloatingToolbarItem<Command>> = [
+      {
+        id: 'editor.link.edit',
+        type: 'button',
+        selected: false,
+        metadata: metadata,
+        title: intl.formatMessage(linkToolbarMessages.editLink),
+        showTitle: true,
+        testId: 'link-toolbar-edit-link-button',
+        onClick: editLink,
+      },
+      { type: 'separator' },
+      {
+        id: 'editor.link.openLink',
+        type: 'button',
+        icon: OpenIcon,
+        metadata: metadata,
+        className: 'hyperlink-open-link',
+        title: intl.formatMessage(linkMessages.openLink),
+        onClick: visitCardLink,
+      },
+      { type: 'separator' },
+      ...getUnlinkButtonGroup(state, intl, node, inlineCard),
+      ...getCopyButtonGroup(state, intl, node),
+      ...getSettingsButtonGroup(state, intl),
+      {
+        id: 'editor.link.delete',
+        type: 'button',
+        appearance: 'danger',
+        icon: RemoveIcon,
+        onMouseEnter: hoverDecoration(node.type, true),
+        onMouseLeave: hoverDecoration(node.type, false),
+        onFocus: hoverDecoration(node.type, true),
+        onBlur: hoverDecoration(node.type, false),
+        title: intl.formatMessage(commonMessages.remove),
+        onClick: removeCard,
+      },
+    ];
+
+    if (currentAppearance === 'embed') {
+      const alignmentOptions = buildAlignmentOptions(state, intl);
+      if (alignmentOptions.length) {
+        alignmentOptions.push({
+          type: 'separator',
+        });
+      }
+      toolbarItems.unshift(...alignmentOptions);
+    }
+    const { allowBlockCards, allowEmbeds } = cardOptions;
+
+    if ((allowBlockCards || allowEmbeds) && currentAppearance) {
+      toolbarItems.unshift(
+        {
+          type: 'custom',
+          fallback: [],
+          render: (editorView) => (
+            <LinkToolbarAppearance
+              key="link-appearance"
+              url={url}
+              intl={intl}
+              currentAppearance={currentAppearance}
+              editorView={editorView}
+              editorState={state}
+              allowEmbeds={allowEmbeds}
+              platform={platform}
+            />
+          ),
+        },
+        {
+          type: 'separator',
+        },
+      );
+    }
+
+    return toolbarItems;
+  }
+};
+
+const getUnlinkButtonGroup = (
+  state: EditorState<any>,
+  intl: IntlShape,
+  node: Node<any>,
+  inlineCard: any,
+) => {
+  return node.type === inlineCard
+    ? ([
+        {
+          id: 'editor.link.unlink',
+          type: 'button',
+          title: intl.formatMessage(linkToolbarMessages.unlink),
+          icon: UnlinkIcon,
+          onClick: unlinkCard(node, state),
+        },
+        { type: 'separator' },
+      ] as Array<FloatingToolbarItem<Command>>)
+    : [];
+};
+
+const getSettingsButtonGroup = (
+  state: EditorState<any>,
+  intl: IntlShape,
+): FloatingToolbarItem<Command>[] => {
+  const { floatingToolbarLinkSettingsButton } = getFeatureFlags(state);
+  return floatingToolbarLinkSettingsButton === 'true'
+    ? [
+        {
+          id: 'editor.link.settings',
+          type: 'button',
+          icon: CogIcon,
+          title: intl.formatMessage(linkToolbarMessages.settingsLink),
+          onClick: openLinkSettings,
+        },
+        { type: 'separator' },
+      ]
+    : [];
+};
+
+const getCopyButtonGroup = (
+  state: EditorState<any>,
+  intl: IntlShape,
+  node: Node<any>,
+): FloatingToolbarItem<Command>[] => {
+  return state && showCopyButton(state)
+    ? [
+        getCopyButtonConfig(state, intl.formatMessage, node.type),
+        { type: 'separator' } as FloatingToolbarItem<Command>,
+      ]
+    : [];
 };

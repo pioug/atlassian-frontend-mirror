@@ -1,12 +1,20 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Stack as Stack,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
+
 import Lozenge from '../src';
 
 export default () => (
-  <div data-testid="test-container">
-    <p>
-      <h4>Constrained by maxWidth: </h4>
+  <Stack gap="sp-100" testId="test-container">
+    <Text as="p">
+      <Text fontWeight="500" as="p">
+        Constrained by maxWidth:{' '}
+      </Text>
       <Lozenge
         appearance="success"
         maxWidth={150}
@@ -14,17 +22,22 @@ export default () => (
       >
         very very very wide text which truncates
       </Lozenge>
+    </Text>
 
-      <h4>Constrained by container size: </h4>
-      <div style={{ width: 125, overflow: 'hidden', border: '1px solid red' }}>
-        <Lozenge
-          appearance="success"
-          maxWidth={150}
-          testId="lozenge-truncated-by-container-size"
-        >
-          very very very wide text which truncates
-        </Lozenge>
-      </div>
-    </p>
-  </div>
+    <Text fontWeight="500">Constrained by container size: </Text>
+    <Box
+      borderColor={['danger', 'red']}
+      borderStyle="solid"
+      borderWidth="1px"
+      UNSAFE_style={{ width: 125, overflow: 'hidden' }}
+    >
+      <Lozenge
+        appearance="success"
+        maxWidth={150}
+        testId="lozenge-truncated-by-container-size"
+      >
+        very very very wide text which truncates
+      </Lozenge>
+    </Box>
+  </Stack>
 );

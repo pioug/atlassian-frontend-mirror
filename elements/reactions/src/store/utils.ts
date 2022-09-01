@@ -1,18 +1,20 @@
-import { ReactionsReadyState } from '../types/ReactionsState';
-import { ReactionStatus } from '../types/ReactionStatus';
-import { ReactionSummary } from '../types/ReactionSummary';
-import { Updater } from '../types/Updater';
+import {
+  Updater,
+  ReactionsReadyState,
+  ReactionStatus,
+  ReactionSummary,
+} from '../types';
 
-export const compareEmojiId = (l: string, r: string): number => {
+const compareEmojiId = (l: string, r: string): number => {
   return l.localeCompare(r);
 };
 
-export type ReactionSummarySortFunction = (
+type ReactionSummarySortFunction = (
   a: ReactionSummary,
   b: ReactionSummary,
 ) => number;
 
-export const sortByRelevance: ReactionSummarySortFunction = (
+const sortByRelevance: ReactionSummarySortFunction = (
   a: ReactionSummary,
   b: ReactionSummary,
 ) => {
@@ -25,7 +27,7 @@ export const sortByRelevance: ReactionSummarySortFunction = (
   }
 };
 
-export const sortByPreviousPosition = (
+const sortByPreviousPosition = (
   reactions: ReactionSummary[],
 ): ReactionSummarySortFunction => {
   type Indexes = { [emojiId: string]: number };

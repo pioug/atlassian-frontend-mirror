@@ -29,7 +29,7 @@
     "./types": "./src/types.tsx"
   },
   "dependencies": {
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
@@ -42,10 +42,10 @@
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/lozenge": "^11.1.0",
+    "@atlaskit/lozenge": "^11.2.0",
     "@atlaskit/motion": "^1.2.0",
-    "@atlaskit/section-message": "^6.1.0",
-    "@atlaskit/select": "^15.6.0",
+    "@atlaskit/section-message": "^6.2.0",
+    "@atlaskit/select": "^15.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

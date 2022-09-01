@@ -18,6 +18,11 @@ export {
 export type { LogoProps } from './types';
 export { HalpIcon, HalpLogo, HalpWordmark } from './halp-logo';
 export { HipchatIcon, HipchatLogo, HipchatWordmark } from './hipchat-logo';
+export {
+  JiraAlignIcon,
+  JiraAlignLogo,
+  JiraAlignWordmark,
+} from './jira-align-logo';
 export { JiraCoreIcon, JiraCoreLogo, JiraCoreWordmark } from './jira-core-logo';
 export { JiraIcon, JiraLogo, JiraWordmark } from './jira-logo';
 export {

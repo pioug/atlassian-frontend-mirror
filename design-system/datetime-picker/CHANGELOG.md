@@ -1,5 +1,19 @@
 # @atlaskit/datetime-picker
 
+## 12.2.0
+
+### Minor Changes
+
+- [`a91fbaf0552`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a91fbaf0552) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- [`0fbb2840aba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fbb2840aba) - Add isInvalid prop to `@atlastkit/Select`. The prop indicates whether if the component is in the error state. If true, it visually shows a red border around the input.
+
+  This replaces validationState to make Select more consistent like other components that uses isInvalid prop.
+
+- Updated dependencies
+
 ## 12.1.4
 
 ### Patch Changes

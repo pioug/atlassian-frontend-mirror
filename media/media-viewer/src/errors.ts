@@ -63,6 +63,7 @@ export type MediaViewerErrorReason =
   | 'docviewer-fetch-pdf'
   | 'codeviewer-fetch-src'
   | 'codeviewer-load-src'
+  | 'codeviewer-file-size-exceeds'
   | 'codeviewer-parse-email'
   | 'unsupported';
 
@@ -74,6 +75,8 @@ export type ArchiveViewerErrorReason =
   | 'archiveviewer-videoviewer-onerror'
   | 'archiveviewer-audioviewer-onerror'
   | 'archiveviewer-docviewer-onerror'
+  | 'archiveviewer-codeviewer-onerror'
+  | 'archiveviewer-codeviewer-file-size-exceeds'
   | 'archiveviewer-missing-name-src'
   | 'archiveviewer-unsupported'
   | 'archiveviewer-encrypted-entry';

@@ -7,16 +7,17 @@ import {
   ReactNode,
 } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 import { GlobalSpacingToken, SPACING_SCALE } from '../constants';
 
+import { SurfaceContext } from './surface-provider';
 import { BasePrimitiveProps } from './types';
 
-export interface BoxProps
-  extends Omit<HTMLAttributes<HTMLElement>, 'style'>,
+export interface BoxProps<T extends HTMLElement = HTMLElement>
+  extends Omit<HTMLAttributes<T>, 'style' | 'as' | 'className'>,
     BasePrimitiveProps {
   /**
    * The DOM element to render as the Box. Defaults to `div`.
@@ -25,7 +26,19 @@ export interface BoxProps
   /**
    * Elements to be rendered inside the Box.
    */
-  children: ReactNode;
+  children?: ReactNode;
+  /**
+   * The html className attribute.
+   *
+   * Before using this prop please ensure:
+   * - The styles cannot otherwise be achieved through `Box` directly.
+   * - The use case needs custom styles that cannot be designed or implemented differently
+   *
+   * Ensure you're using the `@atlaskit/eslint-plugin-design-system` with this prop to prevent unbounded usage.
+   *
+   * @see `@atlaskit/eslint-plugin-design-system`
+   */
+  className?: string;
   /**
    * Token representing background color with a fallback.
    */
@@ -85,8 +98,104 @@ export interface BoxProps
    * Defines display type and layout. Defaults to `flex`.
    */
   display?: Display;
+  /**
+   * CSS position property.
+   */
+  position?: keyof typeof positionMap;
 }
 
+/**
+ * __Box__
+ *
+ * Box is a primitive component that has the design decisions of the Atlassian Design System baked in.
+ * Renders a `div` by default.
+ *
+ * @internal
+ */
+const Box = forwardRef<HTMLElement, BoxProps>(
+  (
+    {
+      children,
+      as: Component = 'div',
+      className,
+      display = 'flex',
+      flexDirection,
+      alignItems,
+      justifyContent,
+      backgroundColor: backgroundColorTuple,
+      borderColor: borderColorTuple,
+      borderStyle,
+      borderWidth,
+      borderRadius,
+      padding,
+      paddingBlock,
+      paddingInline,
+      position = 'relative',
+      height,
+      width,
+      UNSAFE_style,
+      testId,
+      ...htmlAttributes
+    },
+    ref,
+  ) => {
+    const [backgroundColor, backgroundColorFallback] =
+      backgroundColorTuple || [];
+    const [borderColor, borderColorFallback] = borderColorTuple || [];
+
+    const node = (
+      <Component
+        style={{
+          ...UNSAFE_style,
+          ...(backgroundColorFallback &&
+            ({ '--ds-bg-fb': backgroundColorFallback } as CSSProperties)),
+          ...(borderColorFallback &&
+            ({ '--ds-bo-fb': borderColorFallback } as CSSProperties)),
+        }}
+        // @ts-ignore
+        ref={ref}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...htmlAttributes}
+        className={className}
+        css={[
+          baseStyles,
+          display && displayMap[display],
+          padding && paddingMap[padding],
+          position && positionMap[position],
+          paddingBlock && paddingBlockMap[paddingBlock],
+          paddingInline && paddingInlineMap[paddingInline],
+          alignItems && flexAlignItemsMap[alignItems],
+          justifyContent && flexJustifyContentMap[justifyContent],
+          backgroundColor && backgroundColorMap[backgroundColor],
+          borderColor && borderColorMap[borderColor],
+          borderStyle && borderStyleMap[borderStyle],
+          borderWidth && borderWidthMap[borderWidth],
+          borderRadius && borderRadiusMap[borderRadius],
+          flexDirection && flexDirectionMap[flexDirection],
+          width && widthMap[width],
+          height && heightMap[height],
+        ]}
+        data-testid={testId}
+      >
+        {children}
+      </Component>
+    );
+
+    return backgroundColor ? (
+      <SurfaceContext.Provider value={backgroundColor}>
+        {node}
+      </SurfaceContext.Provider>
+    ) : (
+      node
+    );
+  },
+);
+
+Box.displayName = 'Box';
+
+export default Box;
+
+// <<< STYLES GO HERE >>>
 type BorderStyle = keyof typeof borderStyleMap;
 const borderStyleMap = {
   none: css({ borderStyle: 'none' }),
@@ -141,92 +250,19 @@ const displayMap = {
 
 const baseStyles = css({
   boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
 });
 
-/**
- * __Box__
- *
- * Box is a primitive component that has the design decisions of the Atlassian Design System baked in.
- * Renders a `div` by default.
- *
- * @internal
- */
-const Box = forwardRef<HTMLElement, BoxProps>(
-  (
-    {
-      children,
-      as: Component = 'div',
-      display = 'flex',
-      flexDirection,
-      alignItems,
-      justifyContent,
-      backgroundColor: backgroundColorTuple,
-      borderColor: borderColorTuple,
-      borderStyle,
-      borderWidth,
-      borderRadius,
-      padding,
-      paddingBlock,
-      paddingInline,
-      height,
-      width,
-      UNSAFE_style,
-      testId,
-      /**
-       * Pull this out to prevent accidentaly spread
-       */
-      // @ts-ignore
-      // @eslint-disbale-next-line no-unused-vars
-      className: dontUseThisProperty,
-      ...htmlAttributes
-    },
-    ref,
-  ) => {
-    const [backgroundColor, backgroundColorFallback] =
-      backgroundColorTuple || [];
-    const [borderColor, borderColorFallback] = borderColorTuple || [];
-    return (
-      <Component
-        style={{
-          ...UNSAFE_style,
-          ...(backgroundColorFallback &&
-            ({ '--ds-bg-fb': backgroundColorFallback } as CSSProperties)),
-          ...(borderColorFallback &&
-            ({ '--ds-bo-fb': borderColorFallback } as CSSProperties)),
-        }}
-        ref={ref}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-        {...htmlAttributes}
-        css={[
-          baseStyles,
-          display && displayMap[display],
-          padding && paddingMap[padding],
-          paddingBlock && paddingBlockMap[paddingBlock],
-          paddingInline && paddingInlineMap[paddingInline],
-          alignItems && flexAlignItemsMap[alignItems],
-          justifyContent && flexJustifyContentMap[justifyContent],
-          backgroundColor && backgroundColorMap[backgroundColor],
-          borderColor && borderColorMap[borderColor],
-          borderStyle && borderStyleMap[borderStyle],
-          borderWidth && borderWidthMap[borderWidth],
-          borderRadius && borderRadiusMap[borderRadius],
-          flexDirection && flexDirectionMap[flexDirection],
-          width && widthMap[width],
-          height && heightMap[height],
-        ]}
-        data-testid={testId}
-      >
-        {children}
-      </Component>
-    );
-  },
-);
-
-export default Box;
+const positionMap = {
+  absolute: css({ position: 'absolute' }),
+  relative: css({ position: 'relative' }),
+  static: css({ position: 'static' }),
+};
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c20a27ff33adec8c016044959564409d>>
+ * @codegen <<SignedSource::57b4c7c177fdfae3f7cd4f00287fd30e>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["padding", "paddingBlock", "paddingInline", "width", "height"]
@@ -237,6 +273,7 @@ const paddingMap = {
   'sp-50': css({ padding: SPACING_SCALE['sp-50'] }),
   'sp-75': css({ padding: SPACING_SCALE['sp-75'] }),
   'sp-100': css({ padding: SPACING_SCALE['sp-100'] }),
+  'sp-150': css({ padding: SPACING_SCALE['sp-150'] }),
   'sp-200': css({ padding: SPACING_SCALE['sp-200'] }),
   'sp-300': css({ padding: SPACING_SCALE['sp-300'] }),
   'sp-400': css({ padding: SPACING_SCALE['sp-400'] }),
@@ -251,6 +288,7 @@ const paddingBlockMap = {
   'sp-50': css({ paddingBlock: SPACING_SCALE['sp-50'] }),
   'sp-75': css({ paddingBlock: SPACING_SCALE['sp-75'] }),
   'sp-100': css({ paddingBlock: SPACING_SCALE['sp-100'] }),
+  'sp-150': css({ paddingBlock: SPACING_SCALE['sp-150'] }),
   'sp-200': css({ paddingBlock: SPACING_SCALE['sp-200'] }),
   'sp-300': css({ paddingBlock: SPACING_SCALE['sp-300'] }),
   'sp-400': css({ paddingBlock: SPACING_SCALE['sp-400'] }),
@@ -265,6 +303,7 @@ const paddingInlineMap = {
   'sp-50': css({ paddingInline: SPACING_SCALE['sp-50'] }),
   'sp-75': css({ paddingInline: SPACING_SCALE['sp-75'] }),
   'sp-100': css({ paddingInline: SPACING_SCALE['sp-100'] }),
+  'sp-150': css({ paddingInline: SPACING_SCALE['sp-150'] }),
   'sp-200': css({ paddingInline: SPACING_SCALE['sp-200'] }),
   'sp-300': css({ paddingInline: SPACING_SCALE['sp-300'] }),
   'sp-400': css({ paddingInline: SPACING_SCALE['sp-400'] }),
@@ -279,6 +318,7 @@ const widthMap = {
   'sp-50': css({ width: SPACING_SCALE['sp-50'] }),
   'sp-75': css({ width: SPACING_SCALE['sp-75'] }),
   'sp-100': css({ width: SPACING_SCALE['sp-100'] }),
+  'sp-150': css({ width: SPACING_SCALE['sp-150'] }),
   'sp-200': css({ width: SPACING_SCALE['sp-200'] }),
   'sp-300': css({ width: SPACING_SCALE['sp-300'] }),
   'sp-400': css({ width: SPACING_SCALE['sp-400'] }),
@@ -293,6 +333,7 @@ const heightMap = {
   'sp-50': css({ height: SPACING_SCALE['sp-50'] }),
   'sp-75': css({ height: SPACING_SCALE['sp-75'] }),
   'sp-100': css({ height: SPACING_SCALE['sp-100'] }),
+  'sp-150': css({ height: SPACING_SCALE['sp-150'] }),
   'sp-200': css({ height: SPACING_SCALE['sp-200'] }),
   'sp-300': css({ height: SPACING_SCALE['sp-300'] }),
   'sp-400': css({ height: SPACING_SCALE['sp-400'] }),
@@ -307,7 +348,7 @@ const heightMap = {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e3f27406477352f51168b4108558f051>>
+ * @codegen <<SignedSource::ebb55786a54803214357d0eef0cac448>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["border", "background"]
@@ -354,7 +395,7 @@ const borderColorMap = {
   }),
 };
 
-type BorderColor = keyof typeof borderColorMap;
+export type BorderColor = keyof typeof borderColorMap;
 
 const backgroundColorMap = {
   disabled: css({
@@ -449,7 +490,7 @@ const backgroundColorMap = {
   }),
 };
 
-type BackgroundColor = keyof typeof backgroundColorMap;
+export type BackgroundColor = keyof typeof backgroundColorMap;
 
 /**
  * @codegenEnd

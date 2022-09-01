@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import {
   UIAnalyticsEvent,
@@ -60,7 +60,7 @@ import {
   fetchAndCacheRemotePreview,
 } from './getCardPreview';
 import { getFileDetails } from '../../utils/metadata';
-import { InlinePlayer } from '../inlinePlayer';
+import { InlinePlayerLazy } from '../inlinePlayerLazy';
 import {
   getFileAttributes,
   extractErrorInfo,
@@ -787,21 +787,25 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     } = this.props;
     const { shouldAutoplay, cardPreview } = this.state;
 
+    const card = this.renderCard(false, 'loading', false);
+
     return (
-      <InlinePlayer
-        mediaClient={mediaClient}
-        dimensions={dimensions}
-        originalDimensions={originalDimensions}
-        identifier={identifier as FileIdentifier}
-        autoplay={!!shouldAutoplay}
-        onFullscreenChange={onFullscreenChange}
-        onError={this.onInlinePlayerError}
-        onClick={this.onClick}
-        selected={selected}
-        ref={this.setRef}
-        testId={testId}
-        cardPreview={cardPreview}
-      />
+      <Suspense fallback={card}>
+        <InlinePlayerLazy
+          mediaClient={mediaClient}
+          dimensions={dimensions}
+          originalDimensions={originalDimensions}
+          identifier={identifier as FileIdentifier}
+          autoplay={!!shouldAutoplay}
+          onFullscreenChange={onFullscreenChange}
+          onError={this.onInlinePlayerError}
+          onClick={this.onClick}
+          selected={selected}
+          ref={this.setRef}
+          testId={testId}
+          cardPreview={cardPreview}
+        />
+      </Suspense>
     );
   };
 
@@ -869,7 +873,11 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     );
   };
 
-  renderCard = () => {
+  renderCard = (
+    withCallbacks = true,
+    cardStatusOverride?: CardStatus,
+    izLazyOverride?: boolean,
+  ) => {
     const {
       identifier,
       isLazy,
@@ -900,9 +908,12 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     const { metadata } = this;
     const { onCardViewClick, onDisplayImage, actions, onMouseEnter } = this;
 
+    const isLazyWithOverride =
+      izLazyOverride === undefined ? isLazy : izLazyOverride;
+
     // Card can be artificially turned visible before entering the viewport
     // For example, when we have the image in cache
-    const nativeLazyLoad = isLazy && !isCardVisible;
+    const nativeLazyLoad = isLazyWithOverride && !isCardVisible;
     // Force Media Image to always display img for SSR
     const forceSyncDisplay = !!ssr;
 
@@ -916,7 +927,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 
     const card = (
       <CardView
-        status={status}
+        status={cardStatusOverride || status}
         error={error}
         mediaItemType={mediaItemType}
         metadata={metadata}
@@ -928,25 +939,25 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         actions={actions}
         selectable={selectable}
         selected={selected}
-        onClick={onCardViewClick}
-        onMouseEnter={onMouseEnter}
+        onClick={withCallbacks ? onCardViewClick : undefined}
+        onMouseEnter={withCallbacks ? onMouseEnter : undefined}
         disableOverlay={disableOverlay}
         progress={progress}
-        onDisplayImage={onDisplayImage}
+        onDisplayImage={withCallbacks ? onDisplayImage : undefined}
         innerRef={this.setRef}
         testId={testId}
         featureFlags={featureFlags}
         titleBoxBgColor={titleBoxBgColor}
         titleBoxIcon={titleBoxIcon}
-        onImageError={this.onImageError}
-        onImageLoad={this.onImageLoad}
+        onImageError={withCallbacks ? this.onImageError : undefined}
+        onImageLoad={withCallbacks ? this.onImageLoad : undefined}
         nativeLazyLoad={nativeLazyLoad}
         forceSyncDisplay={forceSyncDisplay}
         mediaCardCursor={mediaCardCursor}
       />
     );
 
-    return isLazy ? (
+    return isLazyWithOverride ? (
       <ViewportDetector cardEl={cardRef} onVisible={this.onCardInViewport}>
         {card}
       </ViewportDetector>

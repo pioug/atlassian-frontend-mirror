@@ -6,8 +6,10 @@ export const blockMarksSharedStyles = css`
    * inside doc, tableCell, tableHeader, blockquote, etc.
    */
   *:not(.fabric-editor-block-mark) >,
-  /* For nested block marks */
-  *:not(.fabric-editor-block-mark) > div.fabric-editor-block-mark:first-of-type {
+  /* For nested block marks apart from those with indentation mark */
+  *:not(.fabric-editor-block-mark) > div.fabric-editor-block-mark:first-of-type:not(.fabric-editor-indentation-mark),
+  // If first document element has indentation mark remove margin-top
+  .ProseMirror .fabric-editor-indentation-mark:first-of-type:first-child {
     p,
     h1,
     h2,

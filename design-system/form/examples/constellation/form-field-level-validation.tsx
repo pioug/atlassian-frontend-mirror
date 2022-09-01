@@ -122,7 +122,6 @@ export default class extends Component<{}> {
                 {({ fieldProps: { id, ...rest }, error }) => (
                   <Fragment>
                     <Select<Options>
-                      validationState={error ? 'error' : 'default'}
                       inputId={id}
                       {...rest}
                       options={colors}

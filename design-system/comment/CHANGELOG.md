@@ -1,5 +1,16 @@
 # @atlaskit/comment
 
+## 10.6.0
+
+### Minor Changes
+
+- [`60b1a234357`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b1a234357) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- [`7252fae2582`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7252fae2582) - Fixed an issue where shouldRenderNestedCommentsInline was not working
+- Updated dependencies
+
 ## 10.5.3
 
 ### Patch Changes

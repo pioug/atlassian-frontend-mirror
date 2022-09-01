@@ -2,15 +2,16 @@
 
 import { memo } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import __noop from '@atlaskit/ds-lib/noop';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 
 import { EllipsisItemProps } from '../types';
 
 const height = (gridSize() * 3) / fontSize();
-const noop = () => {};
+const noop = __noop;
 
 const gridSizeUnit = gridSize();
 

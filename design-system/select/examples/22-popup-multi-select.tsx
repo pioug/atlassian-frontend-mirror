@@ -81,7 +81,7 @@ class MultiPopupSelectExample extends Component<{}, State> {
             onChange={this.onChange}
             value={values}
             target={({ ref }) => (
-              <Button ref={ref} iconAfter={<DownIcon label="open" />}>
+              <Button ref={ref} iconAfter={<DownIcon label="" />}>
                 {valuesString || placeholder}
               </Button>
             )}

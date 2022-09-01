@@ -1,0 +1,70 @@
+import React from 'react';
+
+import { act, fireEvent, render } from '@testing-library/react';
+
+import { token } from '@atlaskit/tokens';
+
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_InteractionSurface as InteractionSurface,
+} from '../../../index';
+
+describe('InteractionSurface component', () => {
+  it('should render by itself', () => {
+    const { getByTestId } = render(<InteractionSurface testId="basic" />);
+    expect(getByTestId('basic')).toBeInTheDocument();
+  });
+  it('should render given a neutral hover interaction by default', () => {
+    const { getByTestId } = render(
+      <div style={{ position: 'relative' }}>
+        <InteractionSurface testId="surface" />
+        hello
+      </div>,
+    );
+
+    const surfaceElement = getByTestId('surface');
+    expect(getComputedStyle(surfaceElement).backgroundColor).toBe('');
+    act(() => {
+      fireEvent.mouseOver(surfaceElement);
+      expect(surfaceElement).toHaveStyle(
+        `background-color: ${token('color.background.neutral.bold.hovered')}`,
+      );
+    });
+  });
+
+  it('should render given a brand hover interaction by if set as brand', () => {
+    const { getByTestId } = render(
+      <div style={{ position: 'relative' }}>
+        <InteractionSurface appearance="brand.bold" testId="surface" />
+        hello
+      </div>,
+    );
+
+    const surfaceElement = getByTestId('surface');
+    expect(getComputedStyle(surfaceElement).backgroundColor).toBe('');
+    act(() => {
+      fireEvent.mouseOver(surfaceElement);
+      expect(surfaceElement).toHaveStyle(
+        `background-color: ${token('color.background.brand.bold.hovered')}`,
+      );
+    });
+  });
+
+  it('should render an inherited hover state if a Box context is present', () => {
+    const { getByTestId } = render(
+      <Box backgroundColor={['brand.bold', '']}>
+        <InteractionSurface testId="surface" />
+        hello
+      </Box>,
+    );
+
+    const surfaceElement = getByTestId('surface');
+    expect(getComputedStyle(surfaceElement).backgroundColor).toBe('');
+    act(() => {
+      fireEvent.mouseOver(surfaceElement);
+      expect(surfaceElement).toHaveStyle(
+        `background-color: ${token('color.background.brand.bold.hovered')}`,
+      );
+    });
+  });
+});

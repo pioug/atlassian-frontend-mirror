@@ -402,11 +402,11 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       selectProps,
       spacing,
       testId,
+      isInvalid,
     } = this.props;
     const ICON_PADDING = 2;
 
     const { value = '', isOpen } = this.getSafeState();
-    const validationState = this.props.isInvalid ? 'error' : 'default';
 
     const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
     const SelectComponent = this.props.timeIsEditable
@@ -484,7 +484,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
           value={labelAndValue}
           spacing={spacing}
           fixedLayerRef={this.containerRef}
-          validationState={validationState}
+          isInvalid={isInvalid}
           testId={testId}
           {...otherSelectProps}
         />

@@ -10,19 +10,21 @@ import {
   Appearance,
 } from '../../../../__tests__/visual-regression/_utils';
 
-const copyButtonSelector = 'button[aria-label="Copy"]';
-
 export async function _getCopyButtonTestSuite({
   nodeName,
   editorOptions,
   nodeSelector,
+  copyButtonText = 'Copy',
 }: {
   nodeName: string;
   editorOptions: EditorProps;
   nodeSelector: string;
+  copyButtonText?: string;
 }) {
   describe(`Floating toolbar copy button: [${nodeName}]: `, () => {
     let page: PuppeteerPage;
+
+    const copyButtonSelector = `button[aria-label="${copyButtonText}"]`;
 
     beforeAll(() => {
       page = global.page;

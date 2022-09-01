@@ -15,6 +15,7 @@ import {
   resetCopiedState,
 } from './actions';
 import commonMessages from '../../messages';
+import { codeBlockCopyButtonMessages } from '@atlaskit/editor-common/messages';
 import { CodeBlockState } from './pm-plugins/main-state';
 import {
   provideVisualFeedbackForCopyButton,
@@ -100,8 +101,8 @@ export const getToolbarConfig = (
           onClick: copyContentToClipboard,
           title: formatMessage(
             codeBlockState.contentCopied
-              ? commonMessages.copiedToClipboard
-              : commonMessages.copyToClipboard,
+              ? codeBlockCopyButtonMessages.copiedCodeToClipboard
+              : codeBlockCopyButtonMessages.copyCodeToClipboard,
           ),
           onMouseEnter: provideVisualFeedbackForCopyButton,
           // note: resetCopiedState contains logic that also removes the

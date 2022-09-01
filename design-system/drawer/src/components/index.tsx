@@ -128,7 +128,11 @@ export class DrawerBase extends Component<
 
     return (
       <Portal zIndex="unset">
-        <Blanket isOpen={isOpen} onBlanketClicked={this.handleBlanketClick} />
+        <Blanket
+          isOpen={isOpen}
+          onBlanketClicked={this.handleBlanketClick}
+          testId={testId && `${testId}--blanket`}
+        />
         <FocusLock
           autoFocusFirstElem={autoFocusFirstElem}
           isFocusLockEnabled={isFocusLockEnabled}

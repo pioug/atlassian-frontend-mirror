@@ -1,31 +1,11 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { ReactWrapper } from 'enzyme';
 import React from 'react';
-import Emoji from '../../../../components/common/Emoji';
-import EmojiButton from '../../../../components/common/EmojiButton';
-import EmojiActionsWithIntl, {
-  EmojiActions,
-} from '../../../../components/common/EmojiActions';
-import ToneSelector from '../../../../components/common/ToneSelector';
+import EmojiActionsWithIntl from '../../../../components/common/EmojiActions';
 import { EmojiDescriptionWithVariations } from '../../../../types';
 import { generateSkinVariation, imageEmoji } from '../../_test-data';
-import * as helper from './_common-test-helpers';
-import AkButton from '@atlaskit/button/standard-button';
-import EmojiPickerListSearch from '../../../../components/picker/EmojiPickerListSearch';
-
-const baseEmoji = imageEmoji;
-
-const emoji: EmojiDescriptionWithVariations = {
-  ...baseEmoji,
-  skinVariations: [
-    generateSkinVariation(imageEmoji, 1),
-    generateSkinVariation(imageEmoji, 2),
-    generateSkinVariation(imageEmoji, 3),
-    generateSkinVariation(imageEmoji, 4),
-    generateSkinVariation(imageEmoji, 5),
-  ],
-};
+import { renderWithIntl } from '../../_testing-library';
+import userEvent from '@testing-library/user-event';
+import { fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
 
 const baseToneEmoji = {
   ...imageEmoji,
@@ -54,150 +34,189 @@ const props = {
   uploadEnabled: false,
   onOpenUpload: () => {},
   onChange: () => {},
+  onToneSelected: jest.fn(),
 };
 
 describe('<EmojiActions />', () => {
   describe('tone', () => {
-    it('should display tone selector after clicking on the tone button', () => {
-      const wrapper = mountWithIntl(
+    it('should display tone selector after clicking on the tone button', async () => {
+      await renderWithIntl(
         <EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />,
       );
 
-      wrapper.find(EmojiButton).simulate('mousedown', { button: 0 });
-      expect(wrapper.find(EmojiActions).state('selectingTone')).toEqual(true);
-      expect(wrapper.find(ToneSelector)).toHaveLength(1);
+      // Open Skin Tone UI
+      const toneSelectorButton = await screen.findByLabelText(
+        'Select skin tone',
+        { exact: false },
+      );
+      userEvent.click(toneSelectorButton);
+      expect(
+        await screen.findByLabelText('Select skin tone', { exact: false }),
+      ).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('button should show current selected tone if provided', () => {
-      const wrapper = mountWithIntl(
+    it('button should show current selected tone if provided', async () => {
+      await renderWithIntl(
         <EmojiActionsWithIntl
           {...props}
-          selectedTone={1}
           toneEmoji={toneEmoji}
+          selectedTone={3}
         />,
       );
-      const selectedTone = wrapper.find(EmojiButton).find(Emoji).prop('emoji');
-      expect(selectedTone.shortName).toEqual(
-        toneEmoji!.skinVariations![0].shortName,
-      );
+
+      expect(
+        await screen.findByLabelText(toneEmoji!.skinVariations![2].shortName),
+      ).toBeInTheDocument();
     });
 
-    it('button should show default tone if selected tone is not specified', () => {
-      const wrapper = mountWithIntl(
+    it('button should show default tone if selected tone is not specified', async () => {
+      await renderWithIntl(
         <EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />,
       );
 
-      const selectedTone = wrapper.find(EmojiButton).find(Emoji).prop('emoji');
-      expect(selectedTone.shortName).toEqual(toneEmoji.shortName);
-      expect(selectedTone.representation).toEqual(
-        emoji.representation as Object,
-      );
+      expect(
+        await screen.findByLabelText(toneEmoji.shortName),
+      ).toBeInTheDocument();
     });
 
-    it('should stop selecting tone when tone selected', () => {
-      const wrapper = mountWithIntl(
-        <EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />,
-      ).find(EmojiActions);
-
-      const instance = wrapper.instance() as EmojiActions;
-      instance.onToneButtonClick();
-      instance.onToneSelected(1);
-
-      expect(wrapper.find(EmojiActions).state('selectingTone')).toEqual(false);
-    });
-
-    it('should pass onToneSelected to tone selector', () => {
-      const wrapper = mountWithIntl(
+    it('should be able to select a different tone', async () => {
+      await renderWithIntl(
         <EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />,
       );
 
-      const instance = wrapper.find(EmojiActions).instance() as EmojiActions;
-      instance.onToneButtonClick();
-      wrapper.update();
-
-      expect(wrapper.find(ToneSelector).prop('onToneSelected')).toEqual(
-        instance.onToneSelected,
+      // Open Skin Tone UI
+      const toneSelectorButton = await screen.findByLabelText(
+        'Select skin tone',
+        { exact: false },
       );
+      userEvent.click(toneSelectorButton);
+      expect(
+        await screen.findByLabelText('Select skin tone', { exact: false }),
+      ).toHaveAttribute('aria-expanded', 'true');
+
+      // Click a Different Tone
+      const toneSelectorToneOption = await screen.findByTestId(
+        'image-emoji-:raised_back_of_hand-2:',
+      );
+      userEvent.click(toneSelectorToneOption);
+
+      // Automatically close tone ui
+      expect(
+        await screen.findByLabelText('Select skin tone', { exact: false }),
+      ).toHaveAttribute('aria-expanded', 'false');
+
+      // Validate the correct tone id was selected
+      expect(props.onToneSelected).toBeCalledWith(2);
     });
 
-    it('should stop selecting tone on mouse leave', () => {
-      const wrapper = mountWithIntl(
+    it('should stop selecting tone on mouse leave', async () => {
+      await renderWithIntl(
         <EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />,
-      ).find(EmojiActions);
+      );
 
-      const instance = wrapper.instance() as EmojiActions;
-      instance.onToneButtonClick();
+      // Open tone
+      const toneSelectorButton = await screen.findByLabelText(
+        'Select skin tone',
+        { exact: false },
+      );
+      userEvent.click(toneSelectorButton);
+      expect(
+        await screen.findByLabelText('Select skin tone', { exact: false }),
+      ).toHaveAttribute('aria-expanded', 'true');
 
-      wrapper.simulate('mouseLeave');
-      expect(wrapper.find(EmojiActions).state('selectingTone')).toEqual(false);
+      // Move the mouse out of the ui
+      fireEvent.mouseLeave(toneSelectorButton);
+
+      // Validate the tone ui is closed
+      expect(
+        await screen.findByLabelText('Select skin tone', { exact: false }),
+      ).toHaveAttribute('aria-expanded', 'false');
     });
   });
 
   describe('Add custom emoji', () => {
-    const safeFindStartEmojiUpload = async (component: ReactWrapper) => {
-      await waitUntil(() => helper.customEmojiButtonVisible(component));
-      return helper.findCustomEmojiButton(component);
-    };
     describe('Upload not supported', () => {
-      it('"Add custom emoji" button should not appear when uploadEnabled is false', () => {
-        const component = mountWithIntl(
+      it('"Add custom emoji" button should not appear when uploadEnabled is false', async () => {
+        await renderWithIntl(
           <EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />,
         );
-        const addCustomEmojiButton = component.find(AkButton);
-        expect(addCustomEmojiButton.exists()).toBeFalsy();
+
+        expect(
+          await screen.queryByText('Add your own emoji'),
+        ).not.toBeInTheDocument();
       });
     });
 
     describe('Upload supported', () => {
       it('"Add custom emoji" button should appear as default', async () => {
-        const component: ReactWrapper = mountWithIntl(
+        await renderWithIntl(
           <EmojiActionsWithIntl
             {...props}
             toneEmoji={toneEmoji}
-            uploadEnabled={true}
+            uploadEnabled
           />,
         );
-        expect(true).toBe(true);
-        const addCustomEmojiButton = await safeFindStartEmojiUpload(component);
-        expect(addCustomEmojiButton).not.toEqual(undefined);
+
+        expect(
+          await screen.queryByText('Add your own emoji'),
+        ).toBeInTheDocument();
       });
     });
   });
 
   describe('EmojiPickerListSearch', () => {
-    it('should render EmojiPickerListSearch by default', () => {
-      const component: ReactWrapper = mountWithIntl(
+    it('should render EmojiPickerListSearch by default', async () => {
+      await renderWithIntl(
         <EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />,
       );
-      const searchInput = component.find(EmojiPickerListSearch);
-      expect(searchInput.exists()).toBe(true);
+
+      expect(await screen.findByLabelText('Search emoji')).toBeInTheDocument();
     });
 
-    it('should hide EmojiPickerListSearch when ToneSelector is open', () => {
-      const component = mountWithIntl(
+    it('should hide EmojiPickerListSearch when ToneSelector is open', async () => {
+      await renderWithIntl(
         <EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />,
       );
-      component.find(EmojiButton).simulate('mousedown', { button: 0 });
-      expect(component.find(EmojiActions).state('selectingTone')).toEqual(true);
 
-      const searchInput = component.find(EmojiPickerListSearch);
-      expect(searchInput.exists()).toBe(false);
+      // Open tone
+      const toneSelectorButton = await screen.findByLabelText(
+        'Select skin tone',
+        { exact: false },
+      );
+      userEvent.click(toneSelectorButton);
+      expect(
+        await screen.findByLabelText('Select skin tone', { exact: false }),
+      ).toHaveAttribute('aria-expanded', 'true');
+
+      // Validate search bar does not exist
+      expect(screen.queryByLabelText('Search emoji')).toBeNull();
     });
 
-    it('should stop selecting tone and show EmojiPickerListSearch on mouse leave', () => {
-      const component = mountWithIntl(
+    it('should stop selecting tone and show EmojiPickerListSearch on mouse leave', async () => {
+      await renderWithIntl(
         <EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />,
-      ).find(EmojiActions);
-
-      const instance = component.instance() as EmojiActions;
-      instance.onToneButtonClick();
-
-      component.simulate('mouseLeave');
-      expect(component.find(EmojiActions).state('selectingTone')).toEqual(
-        false,
       );
-      const searchInput = component.find(EmojiPickerListSearch);
-      expect(searchInput.exists()).toBe(true);
+
+      // Open tone
+      const toneSelectorButton = await screen.findByLabelText(
+        'Select skin tone',
+        { exact: false },
+      );
+      userEvent.click(toneSelectorButton);
+      expect(
+        await screen.findByLabelText('Select skin tone', { exact: false }),
+      ).toHaveAttribute('aria-expanded', 'true');
+
+      // Move the mouse out of the ui
+      fireEvent.mouseLeave(toneSelectorButton);
+
+      // Validate the tone ui is closed
+      expect(
+        await screen.findByLabelText('Select skin tone', { exact: false }),
+      ).toHaveAttribute('aria-expanded', 'false');
+
+      // Validate search bar does exist
+      expect(await screen.findByLabelText('Search emoji')).toBeInTheDocument();
     });
   });
 });

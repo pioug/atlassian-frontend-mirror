@@ -8,31 +8,21 @@ import { lorem } from '../example-helpers';
 import { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
-export interface EmojiProps {}
+export default function EmojiUploaderWithUpload() {
+  const emojiProvider: Promise<EmojiProvider> = getEmojiResource({
+    uploadSupported: true,
+    currentUser: { id: loggedUser },
+  });
 
-export default class EmojiUploaderWithUpload extends React.Component<
-  EmojiProps,
-  {}
-> {
-  constructor(props: EmojiProps) {
-    super(props);
-  }
-
-  render() {
-    const emojiProvider: Promise<EmojiProvider> = getEmojiResource({
-      uploadSupported: true,
-      currentUser: { id: loggedUser },
-    });
-    return (
-      <IntlProvider locale="en">
-        <div style={{ padding: '10px' }}>
-          <EmojiUploader emojiProvider={emojiProvider} />
-          <p style={{ width: '400px' }}>
-            {lorem}
-            {lorem}
-          </p>
-        </div>
-      </IntlProvider>
-    );
-  }
+  return (
+    <IntlProvider locale="en">
+      <div style={{ padding: '10px' }}>
+        <EmojiUploader emojiProvider={emojiProvider} />
+        <p style={{ width: '400px' }}>
+          {lorem}
+          {lorem}
+        </p>
+      </div>
+    </IntlProvider>
+  );
 }

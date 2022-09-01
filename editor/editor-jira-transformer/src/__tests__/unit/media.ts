@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import {
   doc,
+  mediaInline,
   mediaGroup,
   mediaSingle,
   media,
@@ -402,6 +403,26 @@ describe('JIRATransformer', () => {
           ),
         ),
         '<p class="mediaSingle"><span class="image-wrap"><a><jira-attachment-thumbnail><img alt="foo.png" data-attachment-type="thumbnail" data-attachment-name="foo.png" data-width="200" data-height="200" data-media-services-type="file" data-media-services-id="42" data-media-services-collection="MediaServicesSample"></jira-attachment-thumbnail></a></span></p>',
+      );
+    });
+
+    describe('mediaInline', () => {
+      checkEncode(
+        'thumbnail type (without __displayType)',
+        schema,
+        doc(
+          p(
+            mediaInline({
+              id: '42',
+              type: 'file',
+              collection: 'MediaServicesSample',
+              __fileName: 'foo.txt',
+              __displayType: null,
+              __fileMimeType: 'image/png',
+            })(),
+          ),
+        ),
+        '<p><span class="image-wrap"><a><jira-attachment-thumbnail><img alt="foo.txt" data-attachment-type="thumbnail" data-attachment-name="foo.txt" data-media-services-type="file" data-media-services-id="42" data-media-services-collection="MediaServicesSample"></jira-attachment-thumbnail></a></span></p>',
       );
     });
   });

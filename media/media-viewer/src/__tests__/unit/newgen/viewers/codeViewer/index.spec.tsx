@@ -12,7 +12,6 @@ import React from 'react';
 import {
   globalMediaEventEmitter,
   MediaViewedEventPayload,
-  FileState,
   ProcessedFileState,
 } from '@atlaskit/media-client';
 import {
@@ -37,7 +36,7 @@ jest.mock('../../../../../viewers/codeViewer/msg-parser', () => ({
 
 function createFixture(
   fetchPromise: Promise<any>,
-  codeItem: FileState,
+  codeItem: ProcessedFileState,
   collectionName?: string,
   mockReturnGetFileBinaryURL?: Promise<string>,
   props: Partial<Props> = {},

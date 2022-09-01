@@ -1,5 +1,11 @@
 # @atlaskit/page
 
+## 12.2.0
+
+### Minor Changes
+
+- [`eaa7163c94a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaa7163c94a) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 12.1.4
 
 ### Patch Changes

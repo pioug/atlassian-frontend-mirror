@@ -20,9 +20,25 @@ import hyperlinkPlugin from '../../index';
 import blockTypePlugin from '../../../block-type';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
+import * as featureFlags from '../../../../plugins/feature-flags-context';
 
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();
+  const featureFlagSpy = jest.spyOn(featureFlags, 'getFeatureFlags');
+
+  beforeEach(() => {
+    featureFlagSpy.mockReturnValue({
+      floatingToolbarLinkSettingsButton: 'false',
+    });
+  });
+
+  afterEach(() => {
+    featureFlagSpy.mockReset();
+  });
+
+  afterAll(() => {
+    featureFlagSpy.mockRestore();
+  });
 
   describe.each([true, false, undefined])(
     'when useUnpredictableInputRule is %s',

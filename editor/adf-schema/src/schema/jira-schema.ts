@@ -60,7 +60,7 @@ export default function makeSchema(config: JIRASchemaConfig) {
   }
 
   if (config.allowMedia) {
-    nodes.push('mediaGroup', 'mediaSingle', 'media', 'caption');
+    nodes.push('mediaGroup', 'mediaSingle', 'media', 'caption', 'mediaInline');
   }
 
   if (config.allowTextColor) {
@@ -109,7 +109,11 @@ export function isSchemaWithBlockQuotes(schema: Schema): boolean {
 }
 
 export function isSchemaWithMedia(schema: Schema): boolean {
-  return !!schema.nodes.mediaGroup && !!schema.nodes.media;
+  return (
+    !!schema.nodes.mediaGroup &&
+    !!schema.nodes.media &&
+    !!schema.nodes.mediaInline
+  );
 }
 
 export function isSchemaWithTextColor(schema: Schema): boolean {

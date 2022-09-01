@@ -6,7 +6,6 @@ import FabricAnalyticsListener, {
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import ResourcedTaskItem from '../../../components/ResourcedTaskItem';
 import TaskItem from '../../../components/TaskItem';
-import { Placeholder } from '../../../styled/Placeholder';
 import { TaskDecisionProvider } from '../../../types';
 import { asMock } from '../_mock';
 
@@ -248,7 +247,9 @@ describe('<ResourcedTaskItem/>', () => {
           taskDecisionProvider={Promise.resolve(provider)}
         />,
       );
-      expect(component.find(Placeholder).length).toEqual(1);
+      expect(
+        component.find('span[data-component="placeholder"]').length,
+      ).toEqual(1);
     });
 
     it('should not render placeholder task if not empty', () => {
@@ -263,7 +264,9 @@ describe('<ResourcedTaskItem/>', () => {
           Hello <b>world</b>
         </ResourcedTaskItem>,
       );
-      expect(component.find(Placeholder).length).toEqual(0);
+      expect(
+        component.find('span[data-component="placeholder"]').length,
+      ).toEqual(0);
     });
   });
 

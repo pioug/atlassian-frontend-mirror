@@ -1,6 +1,6 @@
 import { LegacyRef, ReactNode } from 'react';
 
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 
@@ -15,6 +15,7 @@ export interface TruncateStyleProps {
   children?: ReactNode;
   testId?: string;
   innerRef?: LegacyRef<HTMLTableCellElement | HTMLTableRowElement> | undefined;
+  className?: string;
 }
 
 export const truncationWidthStyles = css({ width: `var(${CSS_VAR_WIDTH})` });

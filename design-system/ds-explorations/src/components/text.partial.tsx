@@ -1,29 +1,23 @@
 /** @jsx jsx */
 import { CSSProperties, FC, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
+import invariant from 'tiny-invariant';
 
 import { token } from '@atlaskit/tokens';
 
+import { colorMap } from '../internal/color-map';
+
+import { useSurface } from './surface-provider';
 import { BasePrimitiveProps } from './types';
 
-interface TextProps extends BasePrimitiveProps {
+const asAllowlist = ['span', 'div', 'p'] as const;
+type AsElement = typeof asAllowlist[number];
+export interface TextProps extends BasePrimitiveProps {
   /**
    * HTML tag to be rendered. Defaults to `span`.
    */
-  as?:
-    | 'span'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'label'
-    | 'a'
-    | 'ul'
-    | 'ol'
-    | 'p';
+  as?: AsElement;
   /**
    * Elements rendered within the Text element
    */
@@ -45,22 +39,31 @@ interface TextProps extends BasePrimitiveProps {
    */
   lineHeight?: LineHeight;
   /**
+   * Truncates text with an ellipsis when text overflows its parent container
+   * (i.e. `width` has been set on parent that is shorter than text length).
+   */
+  shouldTruncate?: boolean;
+  /**
    * Text align https://developer.mozilla.org/en-US/docs/Web/CSS/text-align
    */
   textAlign?: TextAlign;
   /**
-   * For use with `a` link tags.
+   * Text transform https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform
    */
-  href?: string;
+  textTransform?: TextTransform;
+  /**
+   * Vertical align https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align
+   */
+  verticalAlign?: VerticalAlign;
 }
 
 const fontFamily = `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`;
 
 type FontSize = keyof typeof fontSizeMap;
 const fontSizeMap = {
-  '11': css({ fontSize: '11px' }),
-  '12': css({ fontSize: '12px' }),
-  '14': css({ fontSize: '14px' }),
+  '11px': css({ fontSize: '11px' }),
+  '12px': css({ fontSize: '12px' }),
+  '14px': css({ fontSize: '14px' }),
 };
 
 type FontWeight = keyof typeof fontWeightMap;
@@ -68,6 +71,7 @@ type FontWeight = keyof typeof fontWeightMap;
 const fontWeightMap = {
   '400': css({ fontWeight: 400 }),
   '500': css({ fontWeight: 500 }),
+  '700': css({ fontWeight: 700 }),
 };
 
 type LineHeight = keyof typeof lineHeightMap;
@@ -88,8 +92,29 @@ const textAlignMap = {
   start: css({ textAlign: 'start' }),
 };
 
+type TextTransform = keyof typeof textTransformMap;
+const textTransformMap = {
+  none: css({ textTransform: 'none' }),
+  lowercase: css({ textTransform: 'lowercase' }),
+  uppercase: css({ textTransform: 'uppercase' }),
+};
+
+type VerticalAlign = keyof typeof verticalAlignMap;
+const verticalAlignMap = {
+  top: css({ verticalAlign: 'top' }),
+  middle: css({ verticalAlign: 'middle' }),
+  bottom: css({ verticalAlign: 'bottom' }),
+};
+
 const baseStyles = css({
+  boxSizing: 'border-box',
   fontFamily,
+});
+
+const truncateStyles = css({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 });
 
 /**
@@ -108,12 +133,22 @@ const Text: FC<TextProps> = ({
   fontSize,
   fontWeight,
   lineHeight,
+  shouldTruncate = false,
   textAlign,
-  href,
+  textTransform,
+  verticalAlign,
   testId,
   UNSAFE_style,
 }: TextProps) => {
-  const [color, fallback] = colorTuple || [];
+  const surface = useSurface();
+  // @ts-ignore
+  const [color = colorMap[surface] ?? 'color.text', fallback] =
+    colorTuple || [];
+  invariant(
+    asAllowlist.includes(Component),
+    `@atlaskit/ds-explorations: Text received an invalid "as" value of "${Component}"`,
+  );
+
   return (
     <Component
       style={{
@@ -122,13 +157,15 @@ const Text: FC<TextProps> = ({
       }}
       css={[
         baseStyles,
-        color && textColorMap[color],
+        color && textColorMap[color as TextColor],
         fontSize && fontSizeMap[fontSize],
         fontWeight && fontWeightMap[fontWeight],
         lineHeight && lineHeightMap[lineHeight],
+        shouldTruncate && truncateStyles,
         textAlign && textAlignMap[textAlign],
+        textTransform && textTransformMap[textTransform],
+        verticalAlign && verticalAlignMap[verticalAlign],
       ]}
-      href={href}
       data-testid={testId}
     >
       {children}
@@ -140,7 +177,7 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::85a0a0bc073c7af8fd63101d6c88d59e>>
+ * @codegen <<SignedSource::140ffff6e1310c1c37e2067e2c232b92>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
@@ -187,7 +224,7 @@ const textColorMap = {
   }),
 };
 
-type TextColor = keyof typeof textColorMap;
+export type TextColor = keyof typeof textColorMap;
 
 /**
  * @codegenEnd

@@ -1,6 +1,6 @@
 import { ComponentType, ReactNode, SyntheticEvent } from 'react';
 
-import { CSSObject } from '@emotion/core';
+import { CSSObject } from '@emotion/react';
 
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 

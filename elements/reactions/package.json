@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "21.5.1",
+  "version": "21.6.0",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,11 +30,11 @@
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/ds-lib": "^2.1.0",
-    "@atlaskit/emoji": "^65.1.0",
+    "@atlaskit/emoji": "^65.2.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/motion": "^1.2.0",
     "@atlaskit/popper": "^5.0.0",
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/ufo": "^0.1.0",
@@ -52,12 +52,18 @@
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/editor-test-helpers": "^17.1.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/section-message": "^6.0.0",
+    "@atlaskit/section-message": "^6.2.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/util-data-test": "^17.5.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/ufo": "^0.1.0",
+    "@emotion/jest": "^11.8.0",
+    "@testing-library/dom": "^7.7.3",
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^8.0.1",
+    "@testing-library/user-event": "10.4.0",
     "@types/webpack-dev-server": "^3.11.2",
+    "dotenv": "^8.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "es6-promise": "^4.0.5",
@@ -80,5 +86,15 @@
       "tree-shaking": []
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "scripts": {
+    "setup-first-time": "yarn run setup-local-config; yarn run setup-env",
+    "setup-local-config": "cp -nv local-config-template.ts local-config.ts",
+    "setup-env": "cp -nv .env-template .env",
+    "start": "cd ../../ && yarn start reactions",
+    "test": "cd ../../ && yarn test reactions",
+    "typecheck": "cd ../../ && yarn typecheck:package ./packages/elements/reactions",
+    "start:dev": "cd ../../ && yarn start reactions --proxy ./packages/elements/reactions/proxy.ts",
+    "start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start reactions --proxy ./packages/elements/reactions/proxy.ts"
+  }
 }

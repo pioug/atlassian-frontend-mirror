@@ -35,6 +35,58 @@ Object {
 }
 `;
 
+exports[`dont jump to expand title when user hits up and down arrow in code block 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "hi",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "attrs": Object {
+        "language": null,
+        "uniqueId": null,
+      },
+      "content": Array [
+        Object {
+          "text": "hi
+
+hi
+
+
+
+
+hi",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "hi",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`sets focus inside expand title when user hits up arrow 1`] = `
 Object {
   "content": Array [

@@ -215,22 +215,6 @@ describe('Popup Select', () => {
     expect(onMenuCloseMock).toHaveBeenCalled();
   });
 
-  test('renders a read only input when isSearchable is false', async () => {
-    const { container, getByText } = render(
-      <PopupSelect
-        options={OPTIONS}
-        value={OPTIONS[0]}
-        isSearchable={false}
-        target={({ ref }) => <button ref={ref}>Target</button>}
-      />,
-    );
-    const body = container.parentElement as HTMLBodyElement;
-    fireEvent.click(getByText('Target'));
-    // popup renders in a portal outside the container
-    const input = body.querySelector('input') as HTMLElement;
-    expect(input.hasAttribute('readonly')).toBe(true);
-  });
-
   test('event listeners continue to work when stopPropagation is called in parent', async () => {
     const { getByText } = render(
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions

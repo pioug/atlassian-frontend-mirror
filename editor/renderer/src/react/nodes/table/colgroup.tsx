@@ -10,17 +10,14 @@ import {
   akEditorWideLayoutWidth,
   akEditorFullWidthLayoutWidth,
   akEditorTableLegacyCellMinWidth,
+  akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
-import { calcLineLength } from '../../../ui/Renderer/breakout-ssr';
 import { SharedTableProps } from './types';
 
 interface TableWidthOptions {
   containerWidth?: number;
 }
-
-// we allow scaling down column widths by no more than 15%
-const MAX_SCALING_PERCENT = 0.15;
 
 const getTableLayoutWidth = (layout: TableLayout, opts?: TableWidthOptions) => {
   switch (layout) {
@@ -29,7 +26,7 @@ const getTableLayoutWidth = (layout: TableLayout, opts?: TableWidthOptions) => {
     case 'wide':
       return akEditorWideLayoutWidth;
     default:
-      return calcLineLength();
+      return akEditorDefaultLayoutWidth;
   }
 };
 
@@ -43,16 +40,9 @@ const fixColumnWidth = (
   _tableWidth: number,
   _layoutWidth: number,
   zeroWidthColumnsCount: number,
-  scaleDownPercent: number,
 ): number => {
   if (columnWidth === 0) {
     return columnWidth;
-  }
-
-  // If the tables total width (including no zero widths col or cols without width) is less than the current layout
-  // We scale up the columns to meet the minimum of the table layout.
-  if (zeroWidthColumnsCount === 0 && scaleDownPercent) {
-    return Math.floor((1 - scaleDownPercent) * columnWidth);
   }
 
   return Math.max(
@@ -60,22 +50,6 @@ const fixColumnWidth = (
     columnWidth - tableCellBorderWidth,
     zeroWidthColumnsCount ? akEditorTableLegacyCellMinWidth : tableCellMinWidth,
   );
-};
-
-export interface ScaleOptions {
-  renderWidth: number;
-  tableWidth: number;
-  maxScale: number;
-}
-
-export const calcScalePercent = ({
-  renderWidth,
-  tableWidth,
-  maxScale,
-}: ScaleOptions) => {
-  const diffPercent = 1 - renderWidth / tableWidth;
-
-  return diffPercent < maxScale ? diffPercent : maxScale;
 };
 
 export const Colgroup = (props: SharedTableProps) => {
@@ -110,7 +84,6 @@ export const Colgroup = (props: SharedTableProps) => {
     minTableWidth += Math.ceil(width) || akEditorTableLegacyCellMinWidth;
   });
   let cellMinWidth = 0;
-  let scaleDownPercent = 0;
   // fixes migration tables with zero-width columns
   if (zeroWidthColumnsCount > 0) {
     if (minTableWidth > maxTableWidth) {
@@ -122,14 +95,6 @@ export const Colgroup = (props: SharedTableProps) => {
           ? akEditorTableLegacyCellMinWidth
           : minWidth;
     }
-  }
-  // scaling down
-  else if (renderWidth < tableWidth) {
-    scaleDownPercent = calcScalePercent({
-      renderWidth,
-      tableWidth,
-      maxScale: MAX_SCALING_PERCENT,
-    });
   }
 
   return (
@@ -144,7 +109,6 @@ export const Colgroup = (props: SharedTableProps) => {
             minTableWidth,
             maxTableWidth,
             zeroWidthColumnsCount,
-            scaleDownPercent,
           ) || cellMinWidth;
 
         const style = width ? { width: `${width}px` } : {};

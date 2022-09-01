@@ -54,11 +54,7 @@ const FormDateTimePickerExample = () => {
             <Field name="DOB" label="Date of Birth" defaultValue="" isRequired>
               {({ fieldProps: { id, ...rest }, error }) => (
                 <Fragment>
-                  <DatePicker
-                    validationState={error ? 'error' : 'none'}
-                    selectProps={{ inputId: id }}
-                    {...rest}
-                  />
+                  <DatePicker selectProps={{ inputId: id }} {...rest} />
                   {error && <ErrorMessage>{error}</ErrorMessage>}
                 </Fragment>
               )}

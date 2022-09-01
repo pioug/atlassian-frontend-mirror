@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/editor-core';
 import { toNativeBridge } from '../web-to-native';
 import WebBridgeImpl from '../native-to-web';
-
+import { MediaClient } from '@atlaskit/media-client';
 interface EditorLifecycle {
   handleEditorReady: (editorActions: EditorActions) => void;
   handleEditorDestroyed: () => void;
@@ -39,8 +39,19 @@ export const useEditorLifecycle = (
 
       const editorView = editorActions._privateGetEditorView();
 
-      if (mediaOptions && mediaOptions.customMediaPicker) {
-        bridge.mediaPicker = mediaOptions.customMediaPicker;
+      if (!!mediaOptions?.customMediaPicker) {
+        bridge.mediaPicker = mediaOptions.customMediaPicker; // deprecating
+        bridge.media.mediaPicker = mediaOptions.customMediaPicker;
+      }
+
+      if (!!mediaOptions?.provider) {
+        bridge.media.mediaUpload = mediaOptions.provider.then((provider) => {
+          if (!provider?.uploadMediaClientConfig) {
+            return;
+          }
+          const mediaClient = new MediaClient(provider.uploadMediaClientConfig);
+          return mediaClient.mobileUploadPromise();
+        });
       }
 
       /**

@@ -38,7 +38,7 @@
   "dependencies": {
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/focus-ring": "^1.0.0",
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
@@ -54,7 +54,7 @@
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/icon-file-type": "^6.0.0",
     "@atlaskit/icon-object": "^6.0.0",
-    "@atlaskit/section-message": "^6.0.0",
+    "@atlaskit/section-message": "^6.2.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

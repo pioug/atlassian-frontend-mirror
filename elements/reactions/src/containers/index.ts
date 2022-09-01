@@ -1,2 +1,2 @@
-export { ConnectedReactionPicker } from './ConnectedReactionPicker';
-export { ConnectedReactionsView } from './ConnectedReactionsView';
+export * from './ConnectedReactionPicker';
+export * from './ConnectedReactionsView';

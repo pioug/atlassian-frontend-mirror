@@ -3,7 +3,7 @@
 
 import { Component, SyntheticEvent } from 'react';
 
-import { css, CSSObject, jsx } from '@emotion/core';
+import { css, CSSObject, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { B400, G400, N0, P400, R400, T400, Y400 } from '@atlaskit/theme/colors';

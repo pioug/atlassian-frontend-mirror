@@ -136,7 +136,6 @@ const FormCustomSelectFieldExample = () => {
               {({ fieldProps: { id, ...rest }, error }) => (
                 <Fragment>
                   <Select<Option>
-                    validationState={error ? 'error' : 'default'}
                     inputId={id}
                     components={{
                       Option: CustomColorOption,
@@ -157,13 +156,7 @@ const FormCustomSelectFieldExample = () => {
             >
               {({ fieldProps: { id, ...rest }, error }) => (
                 <Fragment>
-                  <Select
-                    validationState={error ? 'error' : 'default'}
-                    inputId={id}
-                    {...rest}
-                    options={flavors}
-                    isMulti
-                  />
+                  <Select inputId={id} {...rest} options={flavors} isMulti />
                   {error && <ErrorMessage>{error}</ErrorMessage>}
                 </Fragment>
               )}

@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 type SlotLabelProps = {
   children: ReactNode;

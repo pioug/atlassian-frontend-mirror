@@ -1,12 +1,7 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import {
-  FormattedMessage,
-  injectIntl,
-  WrappedComponentProps,
-} from 'react-intl-next';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
@@ -15,8 +10,6 @@ import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-
-import { messages } from '../i18n';
 
 import { InlineDialogContentWrapper } from './ShareFormWrapper/styled';
 import Button from './styles';
@@ -33,11 +26,11 @@ export const messageContainerStyle = css`
   margin: -8px -16px;
 `;
 
-const isSafari = navigator.userAgent.indexOf('Safari');
-
 const messageTextStyle = css`
   text-indent: 6px;
 `;
+
+const isSafari = navigator.userAgent.indexOf('Safari');
 
 type InputProps = {
   text: string;
@@ -61,8 +54,11 @@ export type Props = {
   onLinkCopy?: (link: string) => void;
   link: string;
   isDisabled?: boolean;
-  isPublicLink?: boolean;
   copyTooltipText?: string;
+  children?: string | ReactElement;
+  copyLinkButtonText: string;
+  copiedToClipboardText: string;
+  iconBefore?: ReactElement;
 };
 
 export type State = {
@@ -70,10 +66,7 @@ export type State = {
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class CopyLinkButton extends React.Component<
-  Props & WrappedComponentProps,
-  State
-> {
+export class CopyLinkButton extends React.Component<Props, State> {
   private autoDismiss: ReturnType<typeof setTimeout> | undefined;
   private inputRef: React.RefObject<HTMLInputElement> = React.createRef();
 
@@ -114,39 +107,24 @@ export class CopyLinkButton extends React.Component<
   };
 
   renderTriggerButton = (triggerProps: TriggerProps) => {
-    const {
-      intl: { formatMessage },
-      isDisabled,
-      isPublicLink,
-    } = this.props;
+    const { isDisabled, copyLinkButtonText, children, iconBefore } = this.props;
     return (
       <Button
-        aria-label={formatMessage(
-          isPublicLink
-            ? messages.copyPublicLinkButtonText
-            : messages.copyLinkButtonText,
-        )}
+        aria-label={copyLinkButtonText}
         isDisabled={isDisabled}
         appearance="subtle-link"
-        iconBefore={<LinkFilledIcon label="" size="medium" />}
+        iconBefore={iconBefore || <LinkFilledIcon label="" size="medium" />}
         onClick={this.handleClick}
         {...triggerProps}
       >
-        <FormattedMessage
-          {...(isPublicLink
-            ? messages.copyPublicLinkButtonText
-            : messages.copyLinkButtonText)}
-        />
+        {children || copyLinkButtonText}
       </Button>
     );
   };
 
   render() {
     const { shouldShowCopiedMessage } = this.state;
-    const {
-      intl: { formatMessage },
-      copyTooltipText,
-    } = this.props;
+    const { copyTooltipText, copiedToClipboardText } = this.props;
 
     return (
       <React.Fragment>
@@ -154,8 +132,7 @@ export class CopyLinkButton extends React.Component<
         {/* message 'Link copied to clipboard' is not announced by VO */}
         {isSafari && (
           <div className="assistive" aria-live="assertive">
-            {shouldShowCopiedMessage &&
-              formatMessage(messages.copiedToClipboardMessage)}
+            {shouldShowCopiedMessage && copiedToClipboardText}
           </div>
         )}
         <HiddenInput ref={this.inputRef} text={this.props.link} />
@@ -164,13 +141,13 @@ export class CopyLinkButton extends React.Component<
           content={() => (
             <InlineDialogContentWrapper>
               <div css={messageContainerStyle} data-testid="message-container">
-                <CheckCircleIcon
-                  label=""
-                  primaryColor={token('color.icon.success', G300)}
-                />
-                <span css={messageTextStyle}>
-                  <FormattedMessage {...messages.copiedToClipboardMessage} />
-                </span>
+                <React.Fragment>
+                  <CheckCircleIcon
+                    label=""
+                    primaryColor={token('color.icon.success', G300)}
+                  />
+                  <div css={messageTextStyle}>{copiedToClipboardText}</div>
+                </React.Fragment>
               </div>
             </InlineDialogContentWrapper>
           )}
@@ -192,4 +169,4 @@ export class CopyLinkButton extends React.Component<
   }
 }
 
-export default injectIntl(CopyLinkButton);
+export default CopyLinkButton;

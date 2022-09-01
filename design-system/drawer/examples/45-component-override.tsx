@@ -2,7 +2,7 @@
 
 import { Component, FC, MouseEventHandler, SyntheticEvent } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';

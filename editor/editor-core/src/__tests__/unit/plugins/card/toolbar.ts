@@ -21,12 +21,18 @@ import commonMessages, {
 
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
+import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 
-import { FloatingToolbarButton } from '../../../../plugins/floating-toolbar/types';
+import {
+  FloatingToolbarButton,
+  FloatingToolbarConfig,
+} from '../../../../plugins/floating-toolbar/types';
 import { Command } from '../../../../types';
 import { getToolbarItems } from '../../../../plugins/floating-toolbar/__tests__/_helpers';
 import * as CardUtils from '../../../../plugins/card/utils';
+import * as featureFlags from '../../../../plugins/feature-flags-context';
+import { EditorView } from 'prosemirror-view';
 
 describe('card', () => {
   const createEditor = createEditorFactory();
@@ -58,121 +64,237 @@ describe('card', () => {
     const visitTitle = intl.formatMessage(linkMessages.openLink);
     const unlinkTitle = intl.formatMessage(linkToolbarMessages.unlink);
     const removeTitle = intl.formatMessage(commonMessages.remove);
+    const openSettingsTitle = intl.formatMessage(
+      linkToolbarMessages.settingsLink,
+    );
 
-    it('displays toolbar items in correct order for inlineCard', () => {
+    describe.each(['true', 'false', undefined])(
+      'with settings button flag returning %s',
+      (isLinkSettingsButtonEnabled) => {
+        const featureFlagSpy = jest.spyOn(featureFlags, 'getFeatureFlags');
+
+        const getSettingsButton = (
+          toolbar: FloatingToolbarConfig,
+          editorView: EditorView<any>,
+        ) =>
+          getToolbarItems(toolbar, editorView).find(
+            (item) =>
+              item.type === 'button' && item.title === openSettingsTitle,
+          ) as FloatingToolbarButton<Command> | undefined;
+
+        const verifySettingsButton = (
+          settingsButton: FloatingToolbarButton<Command> | undefined,
+          editorView: EditorView<any>,
+        ) => {
+          if (isLinkSettingsButtonEnabled === 'true') {
+            expect(settingsButton).toBeDefined();
+            expect(settingsButton).toMatchObject({
+              icon: CogIcon,
+            });
+            settingsButton?.onClick(editorView.state, editorView.dispatch);
+            expect(open).toBeCalledWith(
+              'https://id.atlassian.com/manage-profile/link-preferences',
+            );
+          } else {
+            expect(settingsButton).not.toBeDefined();
+          }
+        };
+
+        beforeEach(() => {
+          featureFlagSpy.mockReturnValue({
+            floatingToolbarLinkSettingsButton: isLinkSettingsButtonEnabled,
+          });
+          global.open = jest.fn();
+        });
+        afterEach(() => {
+          featureFlagSpy.mockReset();
+          (global.open as jest.Mock).mockReset();
+        });
+
+        afterAll(() => {
+          featureFlagSpy.mockRestore();
+          (global.open as jest.Mock).mockRestore();
+        });
+
+        it('displays toolbar items in correct order for inlineCard', () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                '{<node>}',
+                inlineCard({
+                  url: 'http://www.atlassian.com/',
+                })(),
+              ),
+            ),
+          );
+
+          const toolbar = floatingToolbar({
+            allowBlockCards: true,
+            allowEmbeds: true,
+            allowResizing: true,
+          })(editorView.state, intl, providerFactory);
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          expect(toolbar).toBeDefined();
+          expect(toolbarItems).toHaveLength(
+            isLinkSettingsButtonEnabled === 'true' ? 11 : 9,
+          );
+          expect(toolbarItems).toMatchSnapshot();
+
+          const settingsButton = getSettingsButton(toolbar!, editorView);
+          verifySettingsButton(settingsButton, editorView);
+        });
+
+        it('displays toolbar items in correct order for inlineCard on mobile', () => {
+          const { editorView } = editor(
+            doc(
+              p(
+                '{<node>}',
+                inlineCard({
+                  url: 'http://www.atlassian.com/',
+                })(),
+              ),
+            ),
+          );
+
+          const toolbar = floatingToolbar(
+            {
+              allowBlockCards: true,
+              allowEmbeds: true,
+              allowResizing: true,
+            },
+            'mobile',
+          )(editorView.state, intl, providerFactory);
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          expect(toolbarItems[2].type).not.toBe('custom');
+          expect(toolbar).toBeDefined();
+          expect(toolbarItems).toHaveLength(
+            isLinkSettingsButtonEnabled === 'true' ? 11 : 9,
+          );
+          expect(toolbarItems).toMatchSnapshot();
+
+          const settingsButton = getSettingsButton(toolbar!, editorView);
+          verifySettingsButton(settingsButton, editorView);
+        });
+
+        it('displays toolbar items in correct order for blockCard', () => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              blockCard({
+                url: 'http://www.atlassian.com/',
+              })(),
+            ),
+          );
+
+          const toolbar = floatingToolbar({
+            allowBlockCards: true,
+            allowEmbeds: true,
+            allowResizing: true,
+          })(editorView.state, intl, providerFactory);
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          expect(toolbar).toBeDefined();
+          expect(toolbarItems).toHaveLength(
+            isLinkSettingsButtonEnabled === 'true' ? 9 : 7,
+          );
+          expect(toolbarItems).toMatchSnapshot();
+
+          const settingsButton = getSettingsButton(toolbar!, editorView);
+          verifySettingsButton(settingsButton, editorView);
+        });
+
+        it('displays toolbar items in correct order for embedCard', () => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              embedCard({
+                url: 'http://www.atlassian.com/',
+                layout: 'center',
+              })(),
+            ),
+          );
+
+          const toolbar = floatingToolbar({
+            allowBlockCards: true,
+            allowEmbeds: true,
+            allowResizing: true,
+          })(editorView.state, intl, providerFactory);
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          expect(toolbar).toBeDefined();
+          expect(toolbarItems).toHaveLength(
+            isLinkSettingsButtonEnabled === 'true' ? 16 : 14,
+          );
+          expect(toolbarItems).toMatchSnapshot();
+
+          const settingsButton = getSettingsButton(toolbar!, editorView);
+          verifySettingsButton(settingsButton, editorView);
+        });
+
+        it('displays toolbar items in correct order for embedCard inside an expand', () => {
+          const { editorView } = editor(
+            doc(
+              '{<node>}',
+              expand()(
+                embedCard({
+                  url: 'http://www.atlassian.com/',
+                  layout: 'center',
+                })(),
+              ),
+            ),
+          );
+
+          const toolbar = floatingToolbar({
+            allowBlockCards: true,
+            allowEmbeds: true,
+            allowResizing: true,
+          })(editorView.state, intl, providerFactory);
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          expect(toolbar).toBeDefined();
+          expect(toolbarItems).toMatchSnapshot();
+
+          const settingsButton = getSettingsButton(toolbar!, editorView);
+          verifySettingsButton(settingsButton, editorView);
+        });
+      },
+    );
+
+    it('has no toolbar items when url via url attr is invalid', () => {
       const { editorView } = editor(
         doc(
           p(
             '{<node>}',
             inlineCard({
-              url: 'http://www.atlassian.com/',
+              url: 'javascript:alert(document.domain)',
             })(),
           ),
         ),
       );
 
-      const toolbar = floatingToolbar({
-        allowBlockCards: true,
-        allowEmbeds: true,
-        allowResizing: true,
-      })(editorView.state, intl, providerFactory);
-      const toolbarItems = getToolbarItems(toolbar!, editorView);
-      expect(toolbar).toBeDefined();
-      expect(toolbarItems).toHaveLength(9);
-      expect(toolbarItems).toMatchSnapshot();
+      const toolbar = floatingToolbar({})(
+        editorView.state,
+        intl,
+        providerFactory,
+      );
+      expect(getToolbarItems(toolbar!, editorView).length).toEqual(0);
     });
 
-    it('displays toolbar items in correct order for inlineCard on mobile', () => {
+    it('has no toolbar items when url via data attr is invalid', () => {
       const { editorView } = editor(
         doc(
           p(
             '{<node>}',
             inlineCard({
-              url: 'http://www.atlassian.com/',
+              url: 'javascript:alert(document.domain)',
             })(),
           ),
         ),
       );
 
-      const toolbar = floatingToolbar(
-        {
-          allowBlockCards: true,
-          allowEmbeds: true,
-          allowResizing: true,
-        },
-        'mobile',
-      )(editorView.state, intl, providerFactory);
-      const toolbarItems = getToolbarItems(toolbar!, editorView);
-      expect(toolbarItems[2].type).not.toBe('custom');
-      expect(toolbar).toBeDefined();
-      expect(toolbarItems).toHaveLength(9);
-      expect(toolbarItems).toMatchSnapshot();
-    });
-
-    it('displays toolbar items in correct order for blockCard', () => {
-      const { editorView } = editor(
-        doc(
-          '{<node>}',
-          blockCard({
-            url: 'http://www.atlassian.com/',
-          })(),
-        ),
+      const toolbar = floatingToolbar({})(
+        editorView.state,
+        intl,
+        providerFactory,
       );
-
-      const toolbar = floatingToolbar({
-        allowBlockCards: true,
-        allowEmbeds: true,
-        allowResizing: true,
-      })(editorView.state, intl, providerFactory);
-      const toolbarItems = getToolbarItems(toolbar!, editorView);
-      expect(toolbar).toBeDefined();
-      expect(toolbarItems).toHaveLength(7);
-      expect(toolbarItems).toMatchSnapshot();
-    });
-
-    it('displays toolbar items in correct order for embedCard', () => {
-      const { editorView } = editor(
-        doc(
-          '{<node>}',
-          embedCard({
-            url: 'http://www.atlassian.com/',
-            layout: 'center',
-          })(),
-        ),
-      );
-
-      const toolbar = floatingToolbar({
-        allowBlockCards: true,
-        allowEmbeds: true,
-        allowResizing: true,
-      })(editorView.state, intl, providerFactory);
-      const toolbarItems = getToolbarItems(toolbar!, editorView);
-      expect(toolbar).toBeDefined();
-      expect(toolbarItems).toHaveLength(14);
-      expect(toolbarItems).toMatchSnapshot();
-    });
-
-    it('displays toolbar items in correct order for embedCard inside an expand', () => {
-      const { editorView } = editor(
-        doc(
-          '{<node>}',
-          expand()(
-            embedCard({
-              url: 'http://www.atlassian.com/',
-              layout: 'center',
-            })(),
-          ),
-        ),
-      );
-
-      const toolbar = floatingToolbar({
-        allowBlockCards: true,
-        allowEmbeds: true,
-        allowResizing: true,
-      })(editorView.state, intl, providerFactory);
-      const toolbarItems = getToolbarItems(toolbar!, editorView);
-      expect(toolbar).toBeDefined();
-      expect(toolbarItems).toMatchSnapshot();
+      expect(getToolbarItems(toolbar!, editorView).length).toEqual(0);
     });
 
     it('metadata correctly resolves url and title from plugin state', () => {
@@ -479,46 +601,6 @@ describe('card', () => {
 
       removeButton.onClick(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
-    });
-
-    it('has no toolbar items when url via url attr is invalid', () => {
-      const { editorView } = editor(
-        doc(
-          p(
-            '{<node>}',
-            inlineCard({
-              url: 'javascript:alert(document.domain)',
-            })(),
-          ),
-        ),
-      );
-
-      const toolbar = floatingToolbar({})(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
-      expect(getToolbarItems(toolbar!, editorView).length).toEqual(0);
-    });
-
-    it('has no toolbar items when url via data attr is invalid', () => {
-      const { editorView } = editor(
-        doc(
-          p(
-            '{<node>}',
-            inlineCard({
-              url: 'javascript:alert(document.domain)',
-            })(),
-          ),
-        ),
-      );
-
-      const toolbar = floatingToolbar({})(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
-      expect(getToolbarItems(toolbar!, editorView).length).toEqual(0);
     });
   });
 });

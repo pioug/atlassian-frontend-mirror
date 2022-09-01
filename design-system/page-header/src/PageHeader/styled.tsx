@@ -7,7 +7,7 @@
 
 import React from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { h700 } from '@atlaskit/theme/typography';

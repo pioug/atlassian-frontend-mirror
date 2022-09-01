@@ -297,6 +297,7 @@ export enum ACTION_SUBJECT_ID {
   EDIT_LINK = 'editLink',
   UNLINK = 'unlink',
   OPEN_LINK = 'openLink',
+  GOTO_SMART_LINK_SETTINGS = 'goToSmartLinkSettings',
   EMBEDS = 'embeds',
   HYPERLINK = 'hyperlink',
 }

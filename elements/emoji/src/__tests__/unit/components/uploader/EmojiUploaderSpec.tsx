@@ -191,7 +191,6 @@ describe('<EmojiUploader />', () => {
         }),
         'fabric-elements',
       );
-      // Check display reset correctly
       await waitUntil(() => component.update().find(FileChooser).length > 0);
     });
 

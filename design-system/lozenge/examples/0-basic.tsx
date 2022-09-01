@@ -1,18 +1,15 @@
 import React, { ReactNode } from 'react';
 
+import {
+  UNSAFE_Inline as Inline,
+  UNSAFE_Stack as Stack,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
+
 import Lozenge, { ThemeAppearance } from '../src';
 
-const Row: React.FunctionComponent<ReactNode> = ({ children }) => (
-  <div style={{ display: 'flex' }}>{children}</div>
-);
-
 const Col: React.FunctionComponent<ReactNode> = ({ children }) => (
-  <div style={{ flex: '1 1 auto' }}>{children}</div>
-);
-
-const Hr = () => (
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  <div style={{ height: '1px', backgroundColor: '#ddd', margin: '2em 0' }} />
+  <Stack gap="sp-100">{children}</Stack>
 );
 
 const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
@@ -25,55 +22,55 @@ const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 ];
 
 export default () => (
-  <div data-testid="test-container">
-    <Row>
+  <Stack testId="test-container" gap="sp-400">
+    <Inline gap="sp-400">
       <Col>
-        <p>Subtle</p>
+        <Text fontWeight="500">Subtle</Text>
         {APPEARANCES.map((a) => (
-          <p key={a.value as string}>
+          <Text key={a.value as string}>
             <Lozenge appearance={a.value} testId="lozenge-subtle">
               {a.label}
             </Lozenge>
-          </p>
+          </Text>
         ))}
       </Col>
       <Col>
-        <p>Bold</p>
+        <Text fontWeight="500">Bold</Text>
         {APPEARANCES.map((a) => (
-          <p key={a.value as string}>
+          <Text key={a.value as string}>
             <Lozenge appearance={a.value} isBold testId="lozenge-bold">
               {a.label}
             </Lozenge>
-          </p>
+          </Text>
         ))}
       </Col>
-    </Row>
+    </Inline>
 
-    <Hr />
+    <Col>
+      <Text fontWeight="500">Overflowed Lozenge</Text>
+      <Text>
+        <Lozenge testId="lozenge-truncated">
+          Long text will be truncated after a point.
+        </Lozenge>
+      </Text>
+      <Text>
+        <Lozenge
+          appearance="new"
+          maxWidth={250}
+          testId="lozenge-truncated-custom-width"
+        >
+          Long text will be truncated after a point.
+        </Lozenge>
+      </Text>
+    </Col>
 
-    <p>Overflowed Lozenge</p>
-    <p>
-      <Lozenge testId="lozenge-truncated">
-        Long text will be truncated after a point.
-      </Lozenge>
-    </p>
-    <p>
-      <Lozenge
-        appearance="new"
-        maxWidth={250}
-        testId="lozenge-truncated-custom-width"
-      >
-        Long text will be truncated after a point.
-      </Lozenge>
-    </p>
-
-    <Hr />
-
-    <p>Defaults</p>
-    <p>
-      <Lozenge maxWidth="none" testId="lozenge-defaults">
-        Default appearance and boldness
-      </Lozenge>
-    </p>
-  </div>
+    <Col>
+      <Text fontWeight="500">Defaults</Text>
+      <Text>
+        <Lozenge maxWidth="none" testId="lozenge-defaults">
+          Default appearance and boldness
+        </Lozenge>
+      </Text>
+    </Col>
+  </Stack>
 );

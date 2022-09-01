@@ -13,8 +13,10 @@ jest.mock('popper.js', () => {
 
     constructor() {
       return {
+        // eslint-disable-next-line
         destroy: () => {},
-        scheduleUpdate: () => {},
+        // eslint-disable-next-line
+        update: () => {},
       };
     }
   };

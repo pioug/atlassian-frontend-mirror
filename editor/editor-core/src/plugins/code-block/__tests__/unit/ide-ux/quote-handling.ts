@@ -1,3 +1,6 @@
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { code_block, doc } from '@atlaskit/editor-test-helpers/doc-builder';
+import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import {
   getAutoClosingQuoteInfo,
   shouldAutoCloseQuote,
@@ -78,6 +81,47 @@ describe('IDE UX - Quote handling', () => {
     it('should return true otherwise', () => {
       expect(shouldAutoCloseQuote('start ', '')).toBeTruthy();
       expect(shouldAutoCloseQuote('', ' end')).toBeTruthy();
+    });
+  });
+
+  describe('#handleTextInput', () => {
+    it('should ignore and do nothing while composition', () => {
+      const createEditor = createEditorFactory();
+      const { editorView } = createEditor({
+        doc: doc(code_block()('[{<>}]')),
+      });
+
+      const container = document.createTextNode('');
+      //@ts-ignore
+      jest.spyOn(editorView.root, 'getSelection').mockImplementation(() => ({
+        focusNode: container,
+        focusOffset: 1,
+      }));
+
+      const data = "'";
+      [
+        new CompositionEvent('compositionstart'),
+        new InputEvent('beforeinput', {
+          data,
+          isComposing: true,
+          inputType: 'insertCompositionText',
+        }),
+        new CompositionEvent('compositionupdate', {
+          data,
+        }),
+        new KeyboardEvent('keyup', {
+          code: 'Quote',
+          keyCode: 222,
+          isComposing: true,
+        }),
+      ].forEach((event) => editorView.dom.dispatchEvent(event));
+
+      insertText(editorView, "'");
+
+      const codeElement = editorView.dom.querySelector('code');
+
+      // It shouldn't auto close quotes while composing
+      expect(codeElement?.innerHTML).toBe("[']");
     });
   });
 });

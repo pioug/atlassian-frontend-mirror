@@ -6,7 +6,7 @@ import Flag from '../../index';
 import { FlagProps } from '../../types';
 import FlagGroup from '../../flag-group';
 
-import { matchers } from 'jest-emotion';
+import { matchers } from '@emotion/jest';
 
 expect.extend(matchers);
 

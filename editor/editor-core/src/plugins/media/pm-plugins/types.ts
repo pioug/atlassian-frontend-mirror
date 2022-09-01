@@ -28,7 +28,6 @@ export interface MediaPluginState {
   layout: MediaSingleLayout;
   mediaNodes: MediaNodeWithPosHandler[];
   mediaGroupNodes: Record<string, any>;
-  mobileUploadComplete: Record<string, boolean>;
   options: MediaPluginOptions;
   mediaProvider?: MediaProvider;
   pickers: PickerFacade[];
@@ -73,7 +72,6 @@ export interface MediaPluginState {
     attrs: object,
     isMediaSingle: boolean,
   ) => undefined | boolean;
-  isMobileUploadCompleted: (mediaId: string) => boolean | undefined;
   removeNodeById: (state: MediaState) => void;
   removeSelectedMediaContainer: () => boolean;
   selectedMediaContainerNode: () => PMNode | undefined;

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { SyntheticEvent, useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { B50 } from '@atlaskit/theme/colors';
 

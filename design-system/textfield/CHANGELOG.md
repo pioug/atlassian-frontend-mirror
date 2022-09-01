@@ -1,5 +1,15 @@
 # @atlaskit/textfield
 
+## 5.2.0
+
+### Minor Changes
+
+- [`acf974e717c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acf974e717c) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.13
 
 ### Patch Changes

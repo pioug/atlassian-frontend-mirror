@@ -31,6 +31,13 @@ export class FullPageEditor extends React.Component<
   // Wrapper container for toolbar and content area
   private wrapperElementRef = React.createRef<HTMLDivElement>();
 
+  constructor(props: any) {
+    super(props);
+    if (props.innerRef) {
+      this.wrapperElementRef = props.innerRef;
+    }
+  }
+
   private contentAreaRef = (contentArea: HTMLElement) => {
     this.contentArea = contentArea;
   };

@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 74.1.2
+
+### Patch Changes
+
+- [`f9fee1fbf49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9fee1fbf49) - Use react lazy to avoid pulling InlinePlayer component code if it is not being used on a page
+- Updated dependencies
+
 ## 74.1.1
 
 ### Patch Changes

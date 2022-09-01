@@ -32,6 +32,8 @@ import messages from './messages';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
+import { decorationStateKey, ACTIONS } from '../../base/pm-plugins/decoration';
+
 const akGridSize = gridSize();
 
 export type Item = FloatingToolbarItem<Function>;
@@ -177,6 +179,38 @@ export const areSameItems = (
 };
 
 class Toolbar extends Component<Props & WrappedComponentProps> {
+  // remove any decorations added by toolbar buttons i.e danger and selected styling
+  // this prevents https://product-fabric.atlassian.net/browse/ED-10207
+  private resetStyling({ table }: { table: boolean }) {
+    if (this.props.editorView) {
+      const { state, dispatch } = this.props.editorView;
+      // tables use their own decorations
+      // TODO fix for tables https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-617
+      if (table) {
+        return null;
+      }
+      dispatch(
+        state.tr.setMeta(decorationStateKey, {
+          action: ACTIONS.DECORATION_REMOVE,
+        }),
+      );
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.node !== prevProps.node) {
+      this.resetStyling({
+        table: prevProps?.node.type.name === 'table',
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.resetStyling({
+      table: this.props.node.type.name === 'table',
+    });
+  }
+
   render() {
     const {
       items,

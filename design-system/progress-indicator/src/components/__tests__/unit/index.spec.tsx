@@ -3,6 +3,8 @@ import React, { FC } from 'react';
 
 import { mount, shallow } from 'enzyme';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 import { ButtonIndicator, PresentationalIndicator } from '../../indicator';
 import ProgressDots from '../../progress-dots';
 
@@ -52,7 +54,7 @@ describe('Progress Indicator', () => {
       expect(wrapper.find(PresentationalIndicator).exists()).toBe(true);
     });
     it('should return an <ButtonIndicator /> when specified', () => {
-      const wrapper = mount(<StubComponent onSelect={() => {}} />);
+      const wrapper = mount(<StubComponent onSelect={__noop} />);
       expect(wrapper.find(ButtonIndicator).exists()).toBe(true);
     });
   });

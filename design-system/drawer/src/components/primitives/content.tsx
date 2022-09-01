@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { CSSObject, jsx } from '@emotion/core';
+import { css, CSSObject, jsx } from '@emotion/react';
 
 import { gridSize } from '@atlaskit/theme/constants';
 
@@ -23,7 +23,7 @@ const Content = ({ cssFn, ...props }: ContentProps) => (
    */
 
   // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage, @repo/internal/react/no-unsafe-spread-props
-  <div css={cssFn(defaultStyles)} {...props} />
+  <div css={css(cssFn(defaultStyles))} {...props} />
 );
 
 export default {

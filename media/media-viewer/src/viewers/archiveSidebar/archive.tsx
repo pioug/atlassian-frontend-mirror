@@ -4,7 +4,10 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { MediaClient, FileState } from '@atlaskit/media-client';
 import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
-
+import {
+  getLanguageType,
+  isCodeViewerItem,
+} from '@atlaskit/media-ui/codeViewer';
 import { Outcome } from '../../domain';
 import {
   CustomVideoPlayerWrapper,
@@ -24,7 +27,11 @@ import {
   ArchiveViewerWrapper,
 } from './styleWrappers';
 import ArchiveSidebarRenderer from './archive-sidebar-renderer';
-import { getMediaTypeFromFilename, rejectAfter } from '../../utils';
+import {
+  getMediaTypeFromFilename,
+  getMimeTypeFromFilename,
+  rejectAfter,
+} from '../../utils';
 import { Spinner } from '../../loading';
 import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from './consts';
 import { ArchiveViewerProps } from './types';
@@ -40,6 +47,9 @@ import {
 } from '../../errors';
 import { createZipEntryLoadSucceededEvent } from '../../analytics/events/operational/zipEntryLoadSucceeded';
 import { createZipEntryLoadFailedEvent } from '../../analytics/events/operational/zipEntryLoadFailed';
+import { CodeViewRenderer } from '../codeViewer/codeViewerRenderer';
+import { DEFAULT_LANGUAGE } from '../codeViewer/util';
+import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../item-viewer';
 
 export type Props = ArchiveViewerProps & WithAnalyticsEventsProps;
 
@@ -50,6 +60,8 @@ export type Content = {
   selectedArchiveEntry?: ZipEntry;
   hasLoadedEntries?: boolean;
   error?: ArchiveViewerError;
+  codeViewerSrc?: string;
+  isCodeMimeType?: boolean;
 };
 
 export const getArchiveEntriesFromFileState = async (
@@ -113,11 +125,20 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
       }),
     });
     let src = '';
+    let codeViewerSrc = '';
+
+    const isCodeMimeType = isCodeViewerItem(
+      selectedArchiveEntry.name,
+      getMimeTypeFromFilename(selectedArchiveEntry.name),
+    );
+
     if (!selectedArchiveEntry.isDirectory) {
       try {
-        src = URL.createObjectURL(
-          await rejectAfter(() => selectedArchiveEntry.blob()),
-        );
+        const blob = await rejectAfter(() => selectedArchiveEntry.blob());
+        src = URL.createObjectURL(blob);
+        if (isCodeMimeType) {
+          codeViewerSrc = await rejectAfter(() => blob.text());
+        }
       } catch (error) {
         return this.onError(
           new ArchiveViewerError(
@@ -139,6 +160,8 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
         name: selectedArchiveEntry.name,
         isDirectory: selectedArchiveEntry.isDirectory,
         error: undefined,
+        codeViewerSrc,
+        isCodeMimeType,
       }),
     });
   };
@@ -221,7 +244,15 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 
   private renderArchiveItemViewer(content: Content) {
     const { item } = this.props;
-    const { src, name, isDirectory, error, selectedArchiveEntry } = content;
+    const {
+      src,
+      name,
+      isDirectory,
+      error,
+      selectedArchiveEntry,
+      codeViewerSrc,
+      isCodeMimeType,
+    } = content;
 
     if (error) {
       return this.renderPreviewError(error, selectedArchiveEntry);
@@ -236,6 +267,35 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
       }
 
       const mediaType = getMediaTypeFromFilename(name);
+
+      if (isCodeMimeType) {
+        // Same code viewer logic as in Item-Viewer.tsx
+        // Render error message if code file has size over 10MB.
+        // Required by https://product-fabric.atlassian.net/browse/MEX-1788
+        if (
+          selectedArchiveEntry?.size > MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER
+        ) {
+          return this.renderPreviewError(
+            new ArchiveViewerError(
+              'archiveviewer-codeviewer-file-size-exceeds',
+            ),
+            selectedArchiveEntry,
+          );
+        }
+        return (
+          <CodeViewRenderer
+            onSuccess={this.onViewerLoad(selectedArchiveEntry)}
+            onError={this.onViewerError(
+              'archiveviewer-codeviewer-onerror',
+              selectedArchiveEntry,
+            )}
+            item={item}
+            src={codeViewerSrc || ''}
+            language={getLanguageType(name) || DEFAULT_LANGUAGE}
+          />
+        );
+      }
+
       switch (mediaType) {
         case 'image':
           return (

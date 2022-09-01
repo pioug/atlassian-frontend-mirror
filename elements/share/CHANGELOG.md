@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.5.0
+
+### Minor Changes
+
+- [`76c73df383f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76c73df383f) - Exposed CopyLinkButton from share component and made it generic.
+
 ## 3.4.2
 
 ### Patch Changes

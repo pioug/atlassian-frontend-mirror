@@ -7,7 +7,7 @@ import {
   useRef,
 } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,

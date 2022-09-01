@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import {
   createAndFireEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import Blanket from '@atlaskit/blanket';
 
 import { DrawerBase } from '../../index';
 
@@ -64,12 +63,12 @@ describe('Drawer', () => {
     const myEvent = {};
     const createAnalyticsEventSpy: any = jest.fn(() => myEvent);
     const onCloseSpy = jest.fn();
-    const wrapper = mount(
+    const { getByTestId } = render(
       <DrawerBase
         createAnalyticsEvent={createAnalyticsEventSpy}
         onClose={onCloseSpy}
         isOpen
-        testId="test"
+        testId="test-drawer"
         width="narrow"
       >
         <span>Content</span>
@@ -77,10 +76,8 @@ describe('Drawer', () => {
     );
 
     expect(createAnalyticsEventSpy).not.toHaveBeenCalled();
-    wrapper
-      .find('[data-testid="DrawerPrimitiveSidebarCloseButton"]')
-      .first()
-      .simulate('click');
+    getByTestId('DrawerPrimitiveSidebarCloseButton').click();
+
     // Should call createAnalyticsEvent with correct payload
     expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
       action: 'dismissed',
@@ -104,12 +101,12 @@ describe('Drawer', () => {
     const myEvent = {};
     const createAnalyticsEventSpy: any = jest.fn(() => myEvent);
     const onCloseSpy = jest.fn();
-    const wrapper = mount(
+    const { getByTestId } = render(
       <DrawerBase
         createAnalyticsEvent={createAnalyticsEventSpy}
         onClose={onCloseSpy}
         isOpen
-        testId="test"
+        testId="test-drawer"
         width="narrow"
       >
         <span>Content</span>
@@ -117,10 +114,8 @@ describe('Drawer', () => {
     );
 
     // Back button
-    wrapper
-      .find('[data-testid="DrawerPrimitiveSidebarCloseButton"]')
-      .first()
-      .simulate('click');
+    getByTestId('DrawerPrimitiveSidebarCloseButton').click();
+
     expect(createAnalyticsEventSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
         attributes: expect.objectContaining({
@@ -130,7 +125,7 @@ describe('Drawer', () => {
     );
 
     // Blanket
-    wrapper.find(Blanket).simulate('click');
+    getByTestId('test-drawer--blanket').click();
     expect(createAnalyticsEventSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
         attributes: expect.objectContaining({

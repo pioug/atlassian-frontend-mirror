@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.18
+
+### Patch Changes
+
+- [`7101fb6a895`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7101fb6a895) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 0.10.17
 
 ### Patch Changes

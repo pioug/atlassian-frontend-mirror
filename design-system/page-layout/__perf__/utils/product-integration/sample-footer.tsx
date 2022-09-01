@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { CustomItemComponentProps } from '@atlaskit/menu';
 import { Footer } from '@atlaskit/side-navigation';

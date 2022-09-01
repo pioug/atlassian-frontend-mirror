@@ -1,7 +1,8 @@
 /** @jsx jsx */
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
+import __noop from '@atlaskit/ds-lib/noop';
 import InlineEdit from '@atlaskit/inline-edit';
 import { B100, N40 } from '@atlaskit/theme/colors';
 
@@ -41,7 +42,7 @@ const CustomTitleComponent = () => {
         <input css={editViewStyles} {...props} ref={ref} />
       )}
       defaultValue="Editable title"
-      onConfirm={() => {}}
+      onConfirm={__noop}
     />
   );
 };

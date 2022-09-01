@@ -211,7 +211,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
         title: formatMessage(messages.filesAndImages),
         description: formatMessage(messages.filesAndImagesDescription),
         priority: 400,
-        keywords: ['attachment', 'gif', 'media', 'picture'],
+        keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video'],
         icon: () => <IconImages />,
         action(insert, state) {
           const pluginState = pluginKey.getState(state);

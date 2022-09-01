@@ -11,16 +11,7 @@ import Avatar, {
   BORDER_WIDTH,
   SizeType,
 } from '@atlaskit/avatar';
-import {
-  B300,
-  B400,
-  B50,
-  N0,
-  N20,
-  N30,
-  N30A,
-  N500,
-} from '@atlaskit/theme/colors';
+import { B300, B400, B50, N0, N20, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const FONT_SIZE: Record<SizeType, string> = {
@@ -42,6 +33,14 @@ const buttonActiveStyles = css({
     )}`,
     color: token('color.text.selected', B400),
     transform: `scale(${ACTIVE_SCALE_FACTOR})`,
+    '&:hover': {
+      backgroundColor: token('color.background.selected.hovered', N30),
+      color: token('color.text.selected', N500),
+    },
+    '&:active': {
+      backgroundColor: token('color.background.selected.pressed', B50),
+      color: token('color.text.selected', B400),
+    },
   },
 });
 
@@ -56,17 +55,13 @@ const buttonStyles = css({
     '&:hover': {
       backgroundColor: token('color.background.neutral.hovered', N30),
       color: token('color.text', N500),
-      '&:after': {
-        backgroundColor: token('color.background.neutral.hovered', N30A),
-        opacity: 1,
-      },
     },
     '&:active': {
       backgroundColor: token('color.background.neutral.pressed', B50),
       color: token('color.text', B400),
-      '&:after': {
-        backgroundColor: 'transparent',
-      },
+    },
+    '&:after': {
+      display: 'none',
     },
   },
 });

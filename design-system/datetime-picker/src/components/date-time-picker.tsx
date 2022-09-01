@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid, parseISO } from 'date-fns';
 import pick from 'lodash/pick';

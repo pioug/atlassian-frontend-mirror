@@ -9,6 +9,7 @@ import BadgeImportant from '../../examples/constellation/badge-important';
 import BadgeAdded from '../../examples/constellation/badge-added';
 import BadgeRemoved from '../../examples/constellation/badge-removed';
 import BadgeMaxValue from '../../examples/constellation/badge-max-value';
+import BadgeMaxValueDisabled from '../../examples/constellation/badge-max-value-disabled';
 
 ## Appearance
 
@@ -54,6 +55,14 @@ Use a `removed` appearance to show removals. For example, when characters are re
 
 ## Max value
 
-The `max` prop can be used to cap the value of a badge. When the value to display is greater than the `max` prop, a `+` will automatically be appended. The default `max` value of a badge is `99`.
+### Number Values
+
+The `max` prop caps the value of a badge. When the value to display is greater than the `max` prop, a `+` will automatically be appended. The default `max` value of a badge is `99`.
 
 <Example Component={BadgeMaxValue} packageName="@atlaskit/badge" />
+
+### Disabled
+
+If the `max` prop is set to `false` then no `+` will be appended, and the value will be displayed as it was passed.
+
+<Example Component={BadgeMaxValueDisabled} packageName="@atlaskit/badge" />

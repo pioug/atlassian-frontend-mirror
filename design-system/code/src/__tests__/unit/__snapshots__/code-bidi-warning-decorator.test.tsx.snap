@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CodeBidiWarningDecorator Adds decoration to commentingOutC example 1`] = `
+"
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+    bool isAdmin = false;
+    /*[u202e] } [u2066] if (isAdmin)[u2069] [u2066] begin admins only */
+        printf(\\"You are an admin.
+\\");
+    /* end admins only [u202e] { [u2066]*/
+    return 0;
+}"
+`;
+
+exports[`CodeBidiWarningDecorator Adds decoration to renderedConditional2Js example 1`] = `
+"
+#!/usr/bin/env node
+
+var level = \\"user\\";
+if (level != \\"user[u202e] [u2066]// Check if admin [u2069] [u2066]\\") {
+    console.log(\\"You are an admin.\\");
+}"
+`;
+
+exports[`CodeBidiWarningDecorator Adds decoration to renderedConditional2JsSingleLine example 1`] = `"if (level != \\"user[u202e] [u2066]// Check if admin[u2069] [u2066]\\") {"`;
+
+exports[`CodeBidiWarningDecorator Adds decoration to renderedConditionalJs example 1`] = `
+"
+#!/usr/bin/env node
+
+var isAdmin = false;
+/*[u202e] } [u2066]if (isAdmin)[u2069] [u2066] begin admins only */
+    console.log(\\"You are an admin.\\");
+/* end admins only [u202e] { [u2066]*/"
+`;
+
+exports[`CodeBidiWarningDecorator Adds decoration to stretchedStringC example 1`] = `
+"
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char* access_level = \\"user\\";
+    if (strcmp(access_level, \\"user[u202e] [u2066]// Check if admin [u2069] [u2066]\\")) {
+        printf(\\"You are an admin.
+\\");
+    }
+    return 0;
+}"
+`;

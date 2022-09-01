@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { N800 } from '@atlaskit/theme/colors';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';

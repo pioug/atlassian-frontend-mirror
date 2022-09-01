@@ -1,5 +1,11 @@
 /** @jsx jsx */
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useLayoutEffect,
+} from 'react';
 import { css, jsx } from '@emotion/react';
 import { EditorView, DecorationSet } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
@@ -197,7 +203,7 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
 
     const getFitHeightDebounced = rafSchedule(getFitHeight);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       const scrollableElement =
         popupsScrollableElement || findOverflowScrollParent(anchorElement!);
       getFitHeight();

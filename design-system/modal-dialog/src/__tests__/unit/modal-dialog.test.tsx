@@ -4,6 +4,8 @@ import { waitFor } from '@testing-library/dom';
 import { act, cleanup, fireEvent, render } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import Portal from '@atlaskit/portal';
+import { layers } from '@atlaskit/theme/constants';
 
 import { width } from '../../internal/constants';
 import ModalBody from '../../modal-body';
@@ -386,6 +388,71 @@ describe('<ModalDialog />', () => {
 
       expect(callback).not.toHaveBeenCalled();
     });
+  });
+});
+
+describe('focus lock', () => {
+  afterEach(cleanup);
+  it('Input field outside modal dialog does not have focus when data-atlas-extension attribute does not exists and auto focus is turned on', () => {
+    const { getByTestId } = render(
+      <div>
+        <Portal zIndex={layers.dialog() + 1}>
+          <input
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus={true}
+            data-testid="input-field-outside-modal"
+            type="text"
+            placeholder="second"
+            style={{
+              top: '200px',
+              left: '200px',
+              position: 'fixed',
+            }}
+          />
+        </Portal>
+        <ModalDialog testId="modal-focus-lock">
+          <input
+            data-testid="input-field-inside-modal"
+            title="inputFieldInsideModal"
+            type="text"
+            placeholder="first"
+          />
+        </ModalDialog>
+      </div>,
+    );
+    expect(getByTestId('input-field-inside-modal')).toHaveFocus();
+    expect(getByTestId('input-field-outside-modal')).not.toHaveFocus();
+  });
+
+  it('Input field outside modal dialog has focus when data-atlas-extension attribute exists and autofocus is turned on', () => {
+    const { getByTestId } = render(
+      <div>
+        <Portal zIndex={layers.dialog() + 1}>
+          <input
+            data-atlas-extension="test"
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus={true}
+            data-testid="input-field-outside-modal"
+            type="text"
+            placeholder="second"
+            style={{
+              top: '200px',
+              left: '200px',
+              position: 'fixed',
+            }}
+          />
+        </Portal>
+        <ModalDialog testId="modal-focus-lock">
+          <input
+            data-testid="input-field-inside-modal"
+            type="text"
+            placeholder="first"
+          />
+        </ModalDialog>
+      </div>,
+    );
+    expect(getByTestId('input-field-outside-modal')).toHaveFocus();
+    expect(getByTestId('input-field-inside-modal')).not.toHaveFocus();
   });
 });
 

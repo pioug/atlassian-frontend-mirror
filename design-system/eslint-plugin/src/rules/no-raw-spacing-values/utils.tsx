@@ -17,6 +17,10 @@ const properties = [
   'lineHeight',
   'width',
   'height',
+  'rowGap',
+  'gridRowGap',
+  'columnGap',
+  'gridColumnGap',
 ];
 
 export function findIdentifierInParentScope({
@@ -93,7 +97,7 @@ const getValueFromCallExpression = (
 export const getValue = (
   node: EslintNode,
   context: Rule.RuleContext,
-): number | null | number[] => {
+): string | number | any[] | null | undefined => {
   if (isNodeOfType(node, 'Literal')) {
     return getValueFromShorthand(node.value);
   }
@@ -124,7 +128,7 @@ export const getValue = (
 const getValueFromIdentifier = (
   node: EslintNode,
   context: Rule.RuleContext,
-): number | null | number[] => {
+): number | null | any[] | string | undefined => {
   if (!isNodeOfType(node, 'Identifier')) {
     return null;
   }
@@ -140,6 +144,15 @@ const getValueFromIdentifier = (
   }
 
   const definition = variable.defs[0];
+
+  if (
+    isNodeOfType(definition.node, 'ImportSpecifier') &&
+    isNodeOfType(definition.node.parent!, 'ImportDeclaration') &&
+    definition.node.parent.source.value ===
+      '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles'
+  ) {
+    return definition.node.imported.name === 'gridSize' ? 8 : null;
+  }
 
   if (!isNodeOfType(definition.node, 'VariableDeclarator')) {
     return null;
@@ -167,7 +180,7 @@ const getValueFromUnaryExpression = (
   }
 
   // eslint-disable-next-line no-eval
-  return eval(`${node.operator}${value}`);
+  return eval(`${node.operator}(${value})`);
 };
 
 /**
@@ -230,16 +243,16 @@ const emRegex = /(.*\d+)em$/;
 
 export const emToPixels = <T extends unknown>(
   value: T,
-  fontSize: number | null,
+  fontSize: number | null | undefined,
 ) => {
   if (typeof value === 'string') {
     const match = value.match(emRegex);
     if (match && typeof fontSize === 'number') {
       return Number(match[1]) * fontSize;
+    } else {
+      return null;
     }
-    return 'NaN';
   }
-
   return value;
 };
 
@@ -255,4 +268,34 @@ export const removePixelSuffix = (value: string | number) => {
 
   // @ts-ignore This shouldn't be a type error but CI is complaining
   return Number(isString ? value.replace('px', '') : value);
+};
+
+const invalidSpacingUnitRegex = /(%$)|(\d+rem$)|(^calc)|(vw$)|(vh$)/;
+
+export const isValidSpacingValue = (
+  value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
+  fontSize?: number | null | undefined,
+) => {
+  if (typeof value === 'string') {
+    if (invalidSpacingUnitRegex.test(value)) {
+      return false;
+    }
+  } else if (Array.isArray(value)) {
+    // could be array due to shorthand
+    for (const val in value) {
+      if (invalidSpacingUnitRegex.test(val)) {
+        return false;
+      }
+    }
+  }
+
+  if (emRegex.test(value as string) && typeof fontSize !== 'number') {
+    return false;
+  }
+  return true;
+};
+
+// convert line-height to lineHeight
+export const convertHyphenatedNameToCamelCase = (prop: string) => {
+  return prop.replace(/-./g, (m) => m[1].toUpperCase());
 };

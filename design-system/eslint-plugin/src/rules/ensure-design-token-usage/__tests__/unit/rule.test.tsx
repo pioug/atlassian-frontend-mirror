@@ -91,6 +91,9 @@ tester.run('ensure-design-token-usage', rule, {
       colors['blue'] = token('color.background.accent.blue');
       `,
     },
+    {
+      code: `const GOLD_YEARLY = Products.Member.Gold.yearly;`,
+    },
     // Using config -> shouldEnforceFallbacks: true
     {
       options: [{ shouldEnforceFallbacks: true }],
@@ -203,6 +206,23 @@ tester.run('ensure-design-token-usage', rule, {
     `export const App = () => <Avatar src="0x400" />;`,
     // Qualified type identifiers are parsable
     `const options: Foo.Bar = { color: 'red' };`,
+    // Using config -> exceptions: ['GOLD_YEARLY', 'GOLD_MONTHLY']
+    {
+      options: [
+        {
+          shouldEnforceFallbacks: false,
+          exceptions: ['GOLD_YEARLY', 'GOLD_MONTHLY'],
+        },
+      ],
+      code: `
+        const GOLD_YEARLY = Products.Member.Gold.yearly;
+        useQuery({
+          variables: {
+            product: GOLD_YEARLY,
+          },
+        });
+      `,
+    },
   ],
   invalid: [
     {
@@ -424,6 +444,37 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `const options: CSSObject = { color: 'red' };`,
+      errors: [{ messageId: 'hardCodedColor' }],
+    },
+    {
+      code: `
+        const MARKER_LABEL_COLORS = new Map([
+          ['black', Colors.N600],
+          ['blue', Colors.TrelloBlue500],
+          ['green', Colors.Green500],
+        ]);
+      `,
+      errors: [
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+      ],
+    },
+    // Exceptions must be exact matches:
+    {
+      options: [
+        {
+          shouldEnforceFallbacks: false,
+          exceptions: ['GOLD_YEARLY', 'GOLD_MONTHLY'],
+        },
+      ],
+      code: `
+        useQuery({
+          variables: {
+            product: GOLD_MUNTH,
+          },
+        });
+      `,
       errors: [{ messageId: 'hardCodedColor' }],
     },
   ],

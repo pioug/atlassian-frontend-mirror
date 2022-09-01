@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { PureComponent } from 'react';
+import { FC, useState, memo, useEffect } from 'react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 
 import { EmojiUpload } from '../../types';
@@ -9,9 +9,7 @@ import {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import EmojiUploadPickerWithIntl, {
-  EmojiUploadPicker,
-} from '../common/EmojiUploadPicker';
+import EmojiUploadPickerWithIntl from '../common/EmojiUploadPicker';
 import { uploadEmoji } from '../common/UploadEmoji';
 import {
   createAndFireEventInElementsChannel,
@@ -21,6 +19,8 @@ import {
 } from '../../util/analytics';
 import { emojiUploadFooter, emojiUploadWidget } from './styles';
 import { ufoExperiences } from '../../util/analytics/ufoExperiences';
+import { messages } from '../i18n';
+
 export interface UploadRefHandler {
   (ref: HTMLDivElement): void;
 }
@@ -31,108 +31,110 @@ export interface Props {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }
 
-export interface State {
-  uploadErrorMessage?: MessageDescriptor;
-}
+const EmojiUploadComponent: FC<Props> = (props) => {
+  const { emojiProvider, createAnalyticsEvent, onUploaderRef } = props;
+  const [uploadErrorMessage, setUploadErrorMessage] = useState<
+    MessageDescriptor
+  >();
 
-export default class EmojiUploadComponent extends PureComponent<Props, State> {
-  private ref?: EmojiUploadPicker | null;
-
-  constructor(props: Props) {
-    super(props);
-    if (supportsUploadFeature(props.emojiProvider)) {
-      props.emojiProvider.prepareForUpload();
-    }
-
-    this.state = {};
-  }
-
-  componentWillUnmount() {
-    ufoExperiences['emoji-uploaded'].abort({
-      metadata: {
-        source: 'EmojiUploadComponent',
-        reason: 'unmount',
-      },
-    });
-  }
-
-  private onUploadEmoji = (upload: EmojiUpload, retry: boolean) => {
-    const { emojiProvider } = this.props;
-
-    ufoExperiences['emoji-uploaded'].start();
-    ufoExperiences['emoji-uploaded'].addMetadata({ retry });
-
-    this.fireAnalytics(uploadConfirmButton({ retry }));
-    const errorSetter = (message?: MessageDescriptor) => {
-      this.setState({
-        uploadErrorMessage: message,
-      });
-    };
-    uploadEmoji(
-      upload,
-      emojiProvider,
-      errorSetter,
-      this.prepareForUpload,
-      this.fireAnalytics,
-      retry,
-    );
-  };
-
-  private prepareForUpload = () => {
-    const { emojiProvider } = this.props;
+  useEffect(() => {
     if (supportsUploadFeature(emojiProvider)) {
       emojiProvider.prepareForUpload();
     }
+  }, [emojiProvider]);
 
-    this.setState({
-      uploadErrorMessage: undefined,
-    });
+  useEffect(
+    () => () => {
+      ufoExperiences['emoji-uploaded'].abort({
+        metadata: {
+          source: 'EmojiUploadComponent',
+          reason: 'unmount',
+        },
+      });
+    },
+    [],
+  );
 
-    if (this.ref) {
-      this.ref.clearUploadPicker();
+  const onUploadEmoji = async (
+    upload: EmojiUpload,
+    retry: boolean,
+    onSuccessHandler?: () => void,
+  ) => {
+    ufoExperiences['emoji-uploaded'].start();
+    ufoExperiences['emoji-uploaded'].addMetadata({ retry });
+
+    if (supportsUploadFeature(emojiProvider)) {
+      fireAnalytics(uploadConfirmButton({ retry }));
+      try {
+        await emojiProvider.prepareForUpload();
+        const errorSetter = (message?: MessageDescriptor) => {
+          setUploadErrorMessage(message);
+        };
+        // internally handled error from upload callback
+        uploadEmoji(
+          upload,
+          emojiProvider,
+          errorSetter,
+          onUploaded(onSuccessHandler),
+          fireAnalytics,
+          retry,
+        );
+      } catch (error) {
+        // error from upload token generation
+        const message =
+          error instanceof Error
+            ? error.message
+            : 'Issue with generating upload token';
+        ufoExperiences['emoji-uploaded'].failure({
+          metadata: {
+            source: 'EmojiUploadComponent',
+            error: message,
+          },
+        });
+        setUploadErrorMessage(messages.emojiUploadFailed);
+      }
     }
   };
 
-  onFileChooserClicked = () => {
-    this.fireAnalytics(selectedFileEvent());
+  const onUploaded = (onSuccessHandler?: () => void) => () => {
+    setUploadErrorMessage(undefined);
+
+    if (onSuccessHandler) {
+      onSuccessHandler();
+    }
   };
 
-  private onUploadCancelled = () => {
-    this.fireAnalytics(uploadCancelButton());
-    this.prepareForUpload();
+  const onFileChooserClicked = () => {
+    fireAnalytics(selectedFileEvent());
   };
 
-  private onUploaderRef = (emojiUploadPicker: EmojiUploadPicker | null) => {
-    this.ref = emojiUploadPicker;
+  const onUploadCancelled = () => {
+    fireAnalytics(uploadCancelButton());
+    onUploaded();
   };
 
-  private fireAnalytics = (analyticsEvent: AnalyticsEventPayload) => {
-    const { createAnalyticsEvent } = this.props;
-
+  const fireAnalytics = (analyticsEvent: AnalyticsEventPayload) => {
     if (createAnalyticsEvent) {
       createAndFireEventInElementsChannel(analyticsEvent)(createAnalyticsEvent);
     }
   };
 
-  render() {
-    const { uploadErrorMessage } = this.state;
-
-    const errorMessage = uploadErrorMessage ? (
-      <FormattedMessage {...uploadErrorMessage} />
-    ) : null;
-
-    return (
-      <div css={emojiUploadWidget} ref={this.props.onUploaderRef}>
-        <div css={emojiUploadFooter}>
-          <EmojiUploadPickerWithIntl
-            ref={this.onUploaderRef}
-            onFileChooserClicked={this.onFileChooserClicked}
-            onUploadCancelled={this.onUploadCancelled}
-            onUploadEmoji={this.onUploadEmoji}
-            errorMessage={errorMessage}
-          />
-        </div>
+  return (
+    <div css={emojiUploadWidget} ref={onUploaderRef}>
+      <div css={emojiUploadFooter}>
+        <EmojiUploadPickerWithIntl
+          onFileChooserClicked={onFileChooserClicked}
+          onUploadCancelled={onUploadCancelled}
+          onUploadEmoji={onUploadEmoji}
+          errorMessage={
+            uploadErrorMessage ? (
+              <FormattedMessage {...uploadErrorMessage} />
+            ) : null
+          }
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default memo(EmojiUploadComponent);

@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 
-import { CSSObject, jsx } from '@emotion/core';
+import { css, CSSObject, jsx } from '@emotion/react';
 
 import { N500 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
@@ -27,7 +27,7 @@ const sidebarCSS = (): CSSObject => defaultStyle;
 
 const Sidebar: FC<SidebarProps> = ({ cssFn, ...props }) => {
   // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage, @repo/internal/react/no-unsafe-spread-props
-  return <div css={cssFn(defaultStyle)} {...props} />;
+  return <div css={css(cssFn(defaultStyle))} {...props} />;
 };
 
 export default {

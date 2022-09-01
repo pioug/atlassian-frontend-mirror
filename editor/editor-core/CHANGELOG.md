@@ -1,5 +1,55 @@
 # @atlaskit/editor-core
 
+## 172.1.0
+
+### Minor Changes
+
+- [`0a2a2ff14d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a2a2ff14d9) - [ux] ED-15284 Updated shared styles to add margin-top to paragraphs and headings with indentation mark. Prior to this, indented content had different spacing to the rest of the document.
+- [`d7c4506066d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7c4506066d) - [ux][ed-15295] improve code block copy button label to better indicate to users what will end up in the clipboard when used.
+- [`82d38ab18c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82d38ab18c1) - [ux] ED-11600 Fixed - Keyboard composition in code block removes texts
+- [`1c7de731b84`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c7de731b84) - [ux][ed-15135] Add image and video to keywords of files & images typeahead item
+- [`a7e0b90de6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7e0b90de6a) - [ux] ED-15243 fixed page scroll unexpectedly on action item check
+- [`84b5a76c7d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84b5a76c7d5) - [ux] Add link settings button to hyperlink and smart card toolbars.
+
+### Patch Changes
+
+- [`a6df7e823d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6df7e823d8) - [ux] Fixed trello card overflow issue in table cells & fixed merged table cells selection / hover state
+- [`d3d1dd0a666`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3d1dd0a666) - Hyperlink: Fix embed option not showing on toolbar after converting smart link to url
+- [`f5f3d1a0db9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5f3d1a0db9) - Smart Links: Fix edit unresolved link lost link url
+- [`f01b0350e42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01b0350e42) - Repaints editor nodes when theme mode changes.
+- [`da7d675ec1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7d675ec1e) - [ux] ED-15363: Preserve leading and trailing whitespaces when pasting plain text into Editor
+- [`bd524db3926`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd524db3926) - ED-15380 Update fragment prosemirror-schema to match ADF schema
+- [`d28c3de46fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d28c3de46fe) - ED-14771 Replaced react-window with react-virtualized
+- [`c64c93a5cab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c64c93a5cab) - Internal ED-12831 changes to not to log deprecated warnings in prod mode"
+- [`f718a9eb83a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f718a9eb83a) - Fixing usage of diffLines return types in 23-diffing example to be pulled from @types/diff
+- [`c73fb17957a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c73fb17957a) - [ux] ED-10207 When the floating toolbar unmounts or updates, remove any temporary styling that was added to the node via hovering over a floating toolbar button.
+- [`688f1d012a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/688f1d012a9) - [ux][ed-15181] Fix typeahead not opening when typing really quickly
+- [`d3ae8684731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3ae8684731) - [ux] ED-14658 Pressing escape in edit mode when popover open shouldn't cancel changes
+
+  - Moved keydown listener from document to editor element .akEditor to be able to prevent bubbling
+  - Applies to toolbar menus and typeahead, date, emoji picker
+
+- [`9b778e5cd54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b778e5cd54) - [ME-2621] Remove legacy code that imposes risks
+- [`cb72385b5f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb72385b5f4) - [ux] Prevented cursor selecting table corner controls
+- [`15c39553e92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15c39553e92) - [ux] ED-15130: Make tableRenderOptimization flag default enabled to fix table row control heights being incorrect when smart link inlineCards finish rendering
+- [`45b6d35ea96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45b6d35ea96) - [ME-1327] Added new upload methods to editor mobile bridge to support previews and progress for media cards.
+- [`1bdeac4d8a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bdeac4d8a5) - [ux] ED-13528 Fixed - Unable to exit list with an empty character after cursor
+- [`a75f0f02c24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a75f0f02c24) - [ux] ED-14683 fix arrow keys in code block unpredictable
+
+  Fixed cursor jumping to expand title when pressing up in a code
+  block in an expand.
+
+- [`e2d54b5e990`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2d54b5e990) - ED-9738 selection should work when editor is disabled
+- [`1ac9c1f7234`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ac9c1f7234) - [ux] Fixes analytics not firing and ctrl+z not downgrading a smart link paste when smartLinks.resolveBeforeMacros and featureFlags.smartCards.macro-override are enabled.
+- [`cbc6a5ed686`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbc6a5ed686) - Fixes a bug where active states for Editor dropdown menus rendered incorrectly
+- Updated dependencies
+
+## 172.0.5
+
+### Patch Changes
+
+- [`36de2bb7444`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36de2bb7444) - Removing the table background-color style which was introduced as a work around during a HOT, this caused other regressions and the actual fix was implemented by the chromium team. See HOT-99849 for more details
+
 ## 172.0.4
 
 ### Patch Changes

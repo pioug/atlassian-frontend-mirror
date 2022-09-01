@@ -7,7 +7,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { N20, N30, N700 } from '@atlaskit/theme/colors';
 import { copyTextToClipboard } from '../utils/clipboard';
-import { codeBlockCopyButtonMessages } from '../../messages';
+import { codeBlockCopyButtonMessages } from '@atlaskit/editor-common/messages';
 
 import { token } from '@atlaskit/tokens';
 

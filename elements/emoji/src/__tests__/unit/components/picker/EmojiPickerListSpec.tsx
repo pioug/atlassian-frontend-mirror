@@ -1,11 +1,7 @@
-import { ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
-import {
-  CachingEmoji,
-  CachingEmojiProps,
-} from '../../../../components/common/CachingEmoji';
+import { CachingEmoji } from '../../../../components/common/CachingEmoji';
 import DeleteButton from '../../../../components/common/DeleteButton';
 import EmojiPickerCategoryHeading from '../../../../components/picker/EmojiPickerCategoryHeading';
 import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
@@ -97,10 +93,7 @@ describe('<EmojiPickerList />', () => {
         <EmojiPickerList {...props} emojis={outOfOrderEmojis} />,
       );
 
-      const cachingEmojis: ReactWrapper<
-        CachingEmojiProps,
-        never
-      > = wrapper.find(CachingEmoji);
+      const cachingEmojis = wrapper.find(CachingEmoji);
 
       expect(cachingEmojis).toHaveLength(2);
       expect(cachingEmojis.at(0).prop('emoji').id).toEqual(
@@ -129,10 +122,7 @@ describe('<EmojiPickerList />', () => {
         <EmojiPickerList {...props} emojis={frequentCategoryEmojis} />,
       );
 
-      const cachingEmojis: ReactWrapper<
-        CachingEmojiProps,
-        never
-      > = wrapper.find(CachingEmoji);
+      const cachingEmojis = wrapper.find(CachingEmoji);
 
       expect(cachingEmojis).toHaveLength(2);
       expect(cachingEmojis.at(0).prop('emoji').id).toEqual(

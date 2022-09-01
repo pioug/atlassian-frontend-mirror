@@ -1,8 +1,6 @@
-import type { ReactionClient } from '../src/client/ReactionClient';
+import type { Client } from '../src/types';
 
 /**
- * The props definition in custom-item.tsx breaks ERT unfortunately,
- * because we had to typecast the component to make forwardRef work with generics
- * (for the custom component props).
+ * The props definition in src/types/client.ts breaks ERT unfortunately, hence this hack (for the custom component props).
  */
-export default function (_: ReactionClient) {}
+export default function (_: Client) {}

@@ -16,7 +16,7 @@ export default () => {
         paddingInline="sp-75"
         UNSAFE_style={{ lineHeight: '16px' }}
       >
-        <Text fontSize="12">8</Text>
+        <Text fontSize="12px">8</Text>
       </Box>
     </>
   );

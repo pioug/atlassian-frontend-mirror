@@ -42,7 +42,6 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
   isMediaSingle?: boolean;
   onClick?: CardOnClickCallback;
   mediaProvider?: Promise<MediaProvider>;
-  uploadComplete?: boolean;
   isLoading?: boolean;
   mediaOptions?: MediaOptions;
 }
@@ -68,7 +67,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
       !this.state.viewMediaClientConfig && nextState.viewMediaClientConfig;
     if (
       this.props.selected !== nextProps.selected ||
-      this.props.uploadComplete !== nextProps.uploadComplete ||
       this.props.node.attrs.id !== nextProps.node.attrs.id ||
       this.props.node.attrs.collection !== nextProps.node.attrs.collection ||
       this.props.maxDimensions.height !== nextProps.maxDimensions.height ||
@@ -155,7 +153,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
     const {
       node,
       selected,
-      uploadComplete,
       originalDimensions,
       isLoading,
       maxDimensions,
@@ -163,15 +160,9 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
     } = this.props;
 
     const { viewMediaClientConfig, contextIdentifierProvider } = this.state;
-
     const { id, type, collection, url, alt } = node.attrs;
 
-    if (
-      isLoading ||
-      (type !== 'external' &&
-        (!viewMediaClientConfig ||
-          (typeof uploadComplete === 'boolean' && !uploadComplete)))
-    ) {
+    if (isLoading || (type !== 'external' && !viewMediaClientConfig)) {
       return (
         <MediaCardWrapper dimensions={originalDimensions}>
           <CardLoading />

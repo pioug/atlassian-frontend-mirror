@@ -3,7 +3,9 @@ import { token } from '@atlaskit/tokens';
 import {
   akEditorSelectedBgColor,
   akEditorSelectedBorder,
+  akEditorSelectedBorderColor,
   akEditorSelectedBoxShadow,
+  akEditorSmallZIndex,
 } from '../consts';
 
 import { SelectionStyle } from './types';
@@ -38,7 +40,23 @@ export const hideNativeBrowserTextSelectionStyles = `
 const getSelectionStyle = (style: SelectionStyle): string => {
   switch (style) {
     case SelectionStyle.Border:
-      return `border: ${akEditorSelectedBorder};`;
+      return `
+        border: ${akEditorSelectedBorder};
+
+        // Fixes ED-15246: Trello card is visible through a border of a table border
+        &::after {
+          height: 100%;
+          content: '\\00a0';
+          background: ${akEditorSelectedBorderColor};
+          position: absolute;
+          right: -1px;
+          top: 0;
+          bottom: 0;
+          width: 1px;
+          border: none;
+          display: inline-block;
+        }
+      `;
     case SelectionStyle.BoxShadow:
       return `
         box-shadow: ${akEditorSelectedBoxShadow};
@@ -57,14 +75,16 @@ const getSelectionStyle = (style: SelectionStyle): string => {
         // in Safari. Looks like it's caused by user-select: all in the emoji element
         -webkit-user-select: text;
 
-        ::after {
+        ::before {
           position: absolute;
           content: '';
           left: 0;
           right: 0;
           top: 0;
           bottom: 0;
+          width: 100%;
           pointer-events: none;
+          z-index: ${akEditorSmallZIndex};
           background-color: ${token('color.blanket.selected', '#B3D4FF4C')}
         }`;
     default:

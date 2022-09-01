@@ -6,6 +6,11 @@ import {
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
 import { messages } from '../../../plugins/block-type/messages';
+import { runEscapeKeydownSuite } from '../escape-keydown/__helpers';
+import {
+  clickToolbarMenu,
+  ToolbarMenuItem,
+} from '../../__helpers/page-objects/_toolbar';
 
 const alignButton = 'button[aria-label="Text alignment"]';
 const alignRightButton = 'button[aria-label="Align right"]';
@@ -153,3 +158,9 @@ BrowserTestCase(
     ).toMatchCustomDocSnapshot(testName);
   },
 );
+
+runEscapeKeydownSuite({
+  openMenu: async (page) => {
+    await clickToolbarMenu(page, ToolbarMenuItem.alignment);
+  },
+});

@@ -1,5 +1,4 @@
-import React from 'react';
-import { ChangeEventHandler, PureComponent } from 'react';
+import React, { FC, useRef, ChangeEventHandler } from 'react';
 
 import AkButton from '@atlaskit/button/custom-theme-button';
 
@@ -12,38 +11,47 @@ export interface Props {
   isDisabled?: boolean;
 }
 
-export default class FileChooser extends PureComponent<Props, {}> {
-  onChooseFile = () => {
-    if (this.props.onClick) {
-      this.props.onClick();
+const FileChooser: FC<Props> = (props) => {
+  const {
+    accept,
+    ariaDescribedBy,
+    isDisabled,
+    label,
+    onChange,
+    onClick,
+  } = props;
+  const filePickerRef = useRef<HTMLInputElement>(null);
+
+  const handleOnChooseFile = () => {
+    if (!filePickerRef.current) {
+      return;
     }
 
-    const chooseFile = this.refs['chooseFile'] as HTMLInputElement;
-    if (chooseFile) {
-      chooseFile.click();
+    if (onClick) {
+      onClick();
     }
+    filePickerRef.current.click();
   };
 
-  render() {
-    const { accept, ariaDescribedBy, isDisabled, label, onChange } = this.props;
-    return (
-      <span>
-        <AkButton
-          onClick={this.onChooseFile}
-          isDisabled={isDisabled}
-          aria-describedby={ariaDescribedBy}
-        >
-          {label}
-        </AkButton>
-        <input
-          className="emojiUploadFileInput"
-          ref="chooseFile"
-          onChange={onChange}
-          type="file"
-          accept={accept}
-          style={{ display: 'none' }}
-        />
-      </span>
-    );
-  }
-}
+  return (
+    <span>
+      <AkButton
+        onClick={handleOnChooseFile}
+        isDisabled={isDisabled}
+        aria-describedby={ariaDescribedBy}
+      >
+        {label}
+      </AkButton>
+      <input
+        className="emojiUploadFileInput"
+        ref={filePickerRef}
+        onChange={onChange}
+        type="file"
+        accept={accept}
+        style={{ display: 'none' }}
+      />
+    </span>
+  );
+};
+
+export default FileChooser;

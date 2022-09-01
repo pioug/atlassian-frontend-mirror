@@ -23,7 +23,9 @@ jest.mock('popper.js', () => {
 
     constructor() {
       return {
+        // eslint-disable-next-line
         destroy: () => {},
+        // eslint-disable-next-line
         update: () => {},
       };
     }

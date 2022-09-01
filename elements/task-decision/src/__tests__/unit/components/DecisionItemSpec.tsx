@@ -1,8 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import DecisionItem from '../../../components/DecisionItem';
-import { ContentWrapper } from '../../../styled/Item';
-import { Placeholder } from '../../../styled/Placeholder';
 
 describe('<DecisionItem/>', () => {
   it('should render children', () => {
@@ -11,8 +9,11 @@ describe('<DecisionItem/>', () => {
         Hello <b>world</b>
       </DecisionItem>,
     );
+
     expect(component.find('b').length).toBe(1);
-    expect(component.find(ContentWrapper).text()).toBe('Hello world');
+    expect(component.find('div[data-component="content"]').text()).toBe(
+      'Hello world',
+    );
   });
 
   it('should render callback with ref', () => {
@@ -33,7 +34,9 @@ describe('<DecisionItem/>', () => {
       const component = mount(
         <DecisionItem showPlaceholder={true} placeholder="cheese" />,
       );
-      expect(component.find(Placeholder).length).toEqual(1);
+      expect(
+        component.find('span[data-component="placeholder"]').length,
+      ).toEqual(1);
     });
 
     it('should not render placeholder if decision is not empty', () => {
@@ -42,7 +45,9 @@ describe('<DecisionItem/>', () => {
           Hello <b>world</b>
         </DecisionItem>,
       );
-      expect(component.find(Placeholder).length).toEqual(0);
+      expect(
+        component.find('span[data-component="placeholder"]').length,
+      ).toEqual(0);
     });
   });
 });

@@ -24,6 +24,7 @@ export const createLoadSucceededEvent = ({
     action: 'loadSucceeded',
     attributes: {
       status: 'success',
+      fileMediatype,
       fileAttributes: {
         fileId,
         fileMediatype,

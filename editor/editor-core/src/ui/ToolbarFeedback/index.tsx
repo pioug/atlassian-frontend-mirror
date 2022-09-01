@@ -36,7 +36,7 @@ import pickBy from '../../utils/pick-by';
 import { analyticsEventKey } from '../../plugins/analytics/consts';
 import { getContextIdentifier } from '../../plugins/base/pm-plugins/context-identifier';
 
-const PopupWithOutsideListeners: any = withOuterListeners(Popup);
+const PopupWithOutsideListeners = withOuterListeners(Popup);
 const POPUP_HEIGHT = 388;
 const POPUP_WIDTH = 280;
 

@@ -94,7 +94,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   layout: MediaSingleLayout = 'center';
   mediaNodes: MediaNodeWithPosHandler[] = [];
   mediaGroupNodes: Record<string, any> = {};
-  mobileUploadComplete: Record<string, boolean> = {};
   options: MediaPluginOptions;
   mediaProvider?: MediaProvider;
 
@@ -305,17 +304,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         : undefined,
     };
 
-    const collection = this.collectionFromProvider();
+    const collection = mediaState.collection ?? this.collectionFromProvider();
     if (collection === undefined) {
       return;
     }
 
-    if (
-      this.mediaOptions &&
-      this.mediaOptions.allowMarkingUploadsAsIncomplete
-    ) {
-      this.mobileUploadComplete[mediaStateWithContext.id] = false;
-    }
     // We need to dispatch the change to event dispatcher only for successful files
     if (mediaState.status !== 'error') {
       this.updateAndDispatch({
@@ -627,16 +620,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
           isMediaSingle(this.view.state.schema, state.fileMimeType),
         );
 
-        // mark mobile upload as complete
-        this.mobileUploadComplete[attrs.id] = true;
-
         delete this.mediaGroupNodes[state.id];
         break;
     }
   };
-
-  isMobileUploadCompleted = (mediaId: string): boolean | undefined =>
-    helpers.isMobileUploadCompleted(this, mediaId);
 
   removeNodeById = (state: MediaState) => {
     const { id } = state;

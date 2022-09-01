@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { memo } from 'react';
 
-import { jsx, css } from '@emotion/core';
+import { jsx, css } from '@emotion/react';
 import FocusRing from '@atlaskit/focus-ring';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/chevron-up';

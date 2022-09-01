@@ -1,9 +1,8 @@
-import * as sinon from 'sinon';
 import React from 'react';
-import { mount } from 'enzyme';
-
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
 import ToneSelector from '../../../../components/common/ToneSelector';
-import EmojiButton from '../../../../components/common/EmojiButton';
 import {
   EmojiDescription,
   EmojiDescriptionWithVariations,
@@ -33,55 +32,60 @@ const handEmoji: EmojiDescriptionWithVariations = {
 };
 
 describe('<ToneSelector />', () => {
-  it('should display one emoji per skin variations + default', () => {
-    const onToneSelectedSpy = sinon.spy();
-    const wrapper = mount(
-      <ToneSelector emoji={handEmoji} onToneSelected={onToneSelectedSpy} />,
-    );
+  it('should display one emoji per skin variations + default', async () => {
+    await render(<ToneSelector emoji={handEmoji} onToneSelected={() => {}} />);
 
-    expect(wrapper.find(EmojiButton)).toHaveLength(6);
+    expect((await screen.findAllByRole('button')).length).toEqual(6);
   });
 
-  it('should call onToneSelected on click', () => {
-    const onToneSelectedSpy = sinon.spy();
+  it('should call onToneSelected on click', async () => {
+    const handleToneSelectedMock = jest.fn();
 
-    const wrapper = mount(
-      <ToneSelector emoji={handEmoji} onToneSelected={onToneSelectedSpy} />,
+    await render(
+      <ToneSelector
+        emoji={handEmoji}
+        onToneSelected={handleToneSelectedMock}
+      />,
     );
 
-    wrapper.find(EmojiButton).first().simulate('mousedown', { button: 0 });
-    expect(onToneSelectedSpy.calledWith(0)).toEqual(true);
+    const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
+    userEvent.click(toneButton);
+
+    expect(handleToneSelectedMock).toHaveBeenCalled();
+    expect(handleToneSelectedMock).toHaveBeenCalledWith(4);
   });
 
-  it('should fire all relevant analytics', () => {
-    const onEvent = jest.fn();
-    const onToneSelectedSpy = sinon.spy();
+  it('should fire all relevant analytics', async () => {
+    const handleOnEventMock = jest.fn();
+    const handleToneSelectedMock = jest.fn();
 
-    const wrapper = mount(
-      <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
-        <ToneSelector emoji={handEmoji} onToneSelected={onToneSelectedSpy} />
+    const component = await render(
+      <AnalyticsListener channel="fabric-elements" onEvent={handleOnEventMock}>
+        <ToneSelector
+          emoji={handEmoji}
+          onToneSelected={handleToneSelectedMock}
+        />
       </AnalyticsListener>,
     );
 
-    // Check opening event
-    expect(onEvent).toHaveBeenCalledWith(
+    expect(handleOnEventMock).toHaveBeenCalledWith(
       expect.objectContaining({
         payload: toneSelectorOpenedEvent({}),
       }),
       'fabric-elements',
     );
 
-    // Select a tone
-    wrapper.find(EmojiButton).first().simulate('mousedown', { button: 0 });
-    expect(onEvent).toHaveBeenCalledWith(
+    const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
+    userEvent.click(toneButton);
+
+    expect(handleOnEventMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        payload: toneSelectedEvent({ skinToneModifier: 'default' }),
+        payload: toneSelectedEvent({ skinToneModifier: 'mediumDark' }),
       }),
       'fabric-elements',
     );
 
-    // Unmount to ensure cancellation event is NOT fired
-    wrapper.unmount();
-    expect(onEvent).toHaveBeenCalledTimes(2);
+    component.unmount();
+    expect(handleOnEventMock).toHaveBeenCalledTimes(2);
   });
 });

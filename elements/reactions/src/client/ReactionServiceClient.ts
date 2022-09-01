@@ -3,32 +3,52 @@ import {
   ServiceConfig,
   utils,
 } from '@atlaskit/util-service-support';
-import { Reactions } from '../types/Reactions';
-import { ReactionSummary } from '../types/ReactionSummary';
-import { ReactionClient } from './ReactionClient';
+import { Reactions, ReactionSummary, Client } from '../types';
 
 type ReactionsResponse = { ari: string; reactions: ReactionSummary[] };
 
-export class ReactionServiceClient implements ReactionClient {
+/**
+ * Utility class to retrieve/modify all actions on reactions collection
+ */
+export class ReactionServiceClient implements Client {
+  /**
+   * oAuth token
+   */
   private sessionToken?: string;
+  /**
+   * API config
+   */
   private serviceConfig: ServiceConfig;
+
+  /**
+   *
+   * @param baseUrl base domain url
+   * @param sessionToken oAuth token for reactions emoji services
+   */
   constructor(baseUrl: string, sessionToken?: string) {
     this.serviceConfig = { url: baseUrl };
     this.sessionToken = sessionToken;
   }
 
-  private getHeaders(hasBody: boolean = true) {
-    const headers: { [key: string]: string } = {};
+  /**
+   * Get http headers for the "fetch" request
+   * @param hasBody
+   */
+  private getHeaders() {
+    const headers: Record<string, string> = {};
     headers['Accept'] = 'application/json';
-    if (hasBody) {
-      headers['Content-Type'] = 'application/json';
-    }
+    headers['Content-Type'] = 'application/json';
     if (this.sessionToken) {
       headers['Authorization'] = this.sessionToken;
     }
     return headers;
   }
 
+  /**
+   * Send a request to remote service
+   * @param path endpoint api url
+   * @param options Optional custom params
+   */
   private requestService = <T>(path: string, options?: RequestServiceOptions) =>
     utils.requestService<T>(this.serviceConfig, { ...options, path });
 
@@ -51,7 +71,7 @@ export class ReactionServiceClient implements ReactionClient {
     emojiId: string,
   ): Promise<ReactionSummary> {
     const reactionId = `${containerAri}|${ari}|${emojiId}`;
-    const headers = this.getHeaders(false);
+    const headers = this.getHeaders();
     return this.requestService('reactions', {
       queryParams: { reactionId: reactionId },
       requestInit: {
@@ -66,7 +86,7 @@ export class ReactionServiceClient implements ReactionClient {
     containerAri: string,
     ari: string,
     emojiId: string,
-    metadata?: { [k: string]: any },
+    metadata?: Record<string, any>,
   ): Promise<ReactionSummary[]> {
     return this.requestService<ReactionsResponse>('reactions', {
       requestInit: {
@@ -87,7 +107,7 @@ export class ReactionServiceClient implements ReactionClient {
     containerAri: string,
     ari: string,
     emojiId: string,
-    metadata?: { [k: string]: any },
+    metadata?: Record<string, any>,
   ): Promise<ReactionSummary[]> {
     return this.requestService<ReactionsResponse>('reactions', {
       queryParams: {

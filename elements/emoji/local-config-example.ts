@@ -29,7 +29,9 @@ export default {
   },
   optimisticImageApi: {
     getUrl: (emojiId: EmojiId) =>
-      `http://www.example.org/site-id/${emojiId.id || emojiId.shortName}/path`,
+      `http://www.example.org/emoji/site-id/${
+        emojiId.id || emojiId.shortName
+      }/path`,
     securityProvider: () => ({
       headers: {
         'User-Context': '{token}',

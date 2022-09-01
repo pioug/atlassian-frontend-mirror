@@ -1,8 +1,17 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
+
 import { CSSProperties, memo, ReactNode } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/core';
+import { jsx } from '@emotion/core';
 
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_BoxProps as BoxProps,
+  UNSAFE_SPACING_SCALE as SPACING_SCALE,
+  UNSAFE_Text as Text,
+  UNSAFE_TextProps as TextProps,
+} from '@atlaskit/ds-explorations';
 import {
   B400,
   B50,
@@ -23,8 +32,6 @@ import {
   Y500,
   Y75,
 } from '@atlaskit/theme/colors';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
 
 export type ThemeAppearance =
   | 'default'
@@ -68,108 +75,6 @@ export interface LozengeProps {
   testId?: string;
 }
 
-const defaultAppearanceStyles = css({
-  backgroundColor: token('color.background.neutral', N40),
-  color: token('color.text', N500),
-});
-
-const inprogressAppearanceStyles = css({
-  backgroundColor: token('color.background.information', B50),
-  color: token('color.text.information', B500),
-});
-
-const movedAppearanceStyles = css({
-  backgroundColor: token('color.background.warning', Y75),
-  color: token('color.text.warning', N800),
-});
-
-const newAppearanceStyles = css({
-  backgroundColor: token('color.background.discovery', P50),
-  color: token('color.text.discovery', P500),
-});
-
-const removedAppearanceStyles = css({
-  backgroundColor: token('color.background.danger', R50),
-  color: token('color.text.danger', R500),
-});
-
-const successAppearanceStyles = css({
-  backgroundColor: token('color.background.success', G50),
-  color: token('color.text.success', G500),
-});
-
-const defaultBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.neutral.bold', N500),
-  color: token('color.text.inverse', N0),
-});
-
-const inprogressBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.information.bold', B400),
-  color: token('color.text.inverse', N0),
-});
-
-const movedBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.warning.bold', Y500),
-  color: token('color.text.warning.inverse', N800),
-});
-
-const newBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.discovery.bold', P400),
-  color: token('color.text.inverse', N0),
-});
-
-const removedBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.danger.bold', R400),
-  color: token('color.text.inverse', N0),
-});
-
-const successBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.success.bold', G400),
-  color: token('color.text.inverse', N0),
-});
-
-const subtleAppearances: Record<ThemeAppearance, SerializedStyles> = {
-  default: defaultAppearanceStyles,
-  inprogress: inprogressAppearanceStyles,
-  moved: movedAppearanceStyles,
-  new: newAppearanceStyles,
-  removed: removedAppearanceStyles,
-  success: successAppearanceStyles,
-};
-
-const boldAppearances: Record<ThemeAppearance, SerializedStyles> = {
-  default: defaultBoldAppearanceStyles,
-  inprogress: inprogressBoldAppearanceStyles,
-  moved: movedBoldAppearanceStyles,
-  new: newBoldAppearanceStyles,
-  removed: removedBoldAppearanceStyles,
-  success: successBoldAppearanceStyles,
-};
-
-const contentStyles = css({
-  display: 'inline-block',
-  boxSizing: 'border-box',
-  width: '100%',
-  padding: `0 ${gridSize() / 2}px`,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  verticalAlign: 'top',
-  whiteSpace: 'nowrap',
-});
-
-const containerStyles = css({
-  display: 'inline-block',
-  boxSizing: 'border-box',
-  maxWidth: '100%',
-  padding: '2px 0 3px 0',
-  borderRadius: borderRadius(),
-  fontSize: '11px',
-  fontWeight: 700,
-  lineHeight: 1,
-  textTransform: 'uppercase',
-  verticalAlign: 'baseline',
-});
-
 /**
  * __Lozenge__
  *
@@ -187,22 +92,95 @@ const Lozenge = memo(
     appearance = 'default',
     maxWidth = 200,
     style = {},
-  }: LozengeProps) => (
-    <span
-      style={{ backgroundColor: style.backgroundColor, color: style.color }}
-      css={[
-        isBold ? boldAppearances[appearance] : subtleAppearances[appearance],
-        containerStyles,
-      ]}
-      data-testid={testId}
-    >
-      <span style={{ maxWidth }} css={contentStyles}>
-        {children}
-      </span>
-    </span>
-  ),
+  }: LozengeProps) => {
+    const appearanceStyle = isBold ? 'bold' : 'subtle';
+    const appearanceType =
+      appearance in backgroundColors[appearanceStyle] ? appearance : 'default';
+    const maxWidthValue =
+      typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
+
+    return (
+      <Box
+        as="span"
+        display="inlineFlex"
+        backgroundColor={backgroundColors[appearanceStyle][appearanceType]}
+        borderRadius="normal"
+        paddingInline="sp-50"
+        position="static"
+        testId={testId}
+        UNSAFE_style={{
+          backgroundColor: style.backgroundColor,
+          verticalAlign: 'baseline',
+          maxWidth: '100%',
+        }}
+      >
+        <Text
+          as="span"
+          fontSize="11px"
+          fontWeight="700"
+          lineHeight="16px"
+          textTransform="uppercase"
+          color={textColors[appearanceStyle][appearanceType]}
+          shouldTruncate
+          UNSAFE_style={{
+            color: style.color,
+            width: '100%',
+            maxWidth: `calc(${maxWidthValue} - ${SPACING_SCALE['sp-100']}px)`, // to negate paddingInline specified on Box above
+          }}
+          testId={testId && `${testId}--text`}
+        >
+          {children}
+        </Text>
+      </Box>
+    );
+  },
 );
 
 Lozenge.displayName = 'Lozenge';
 
 export default Lozenge;
+
+// Lozenge colors
+const backgroundColors: Record<
+  'bold' | 'subtle',
+  Record<ThemeAppearance, BoxProps['backgroundColor']>
+> = {
+  bold: {
+    default: ['neutral.bold', N500],
+    inprogress: ['information.bold', B400],
+    moved: ['warning.bold', Y500],
+    new: ['discovery.bold', P400],
+    removed: ['danger.bold', R400],
+    success: ['success.bold', G400],
+  },
+  subtle: {
+    default: ['neutral', N40],
+    inprogress: ['information', B50],
+    moved: ['warning', Y75],
+    new: ['discovery', P50],
+    removed: ['danger', R50],
+    success: ['success', G50],
+  },
+};
+
+const textColors: Record<
+  'bold' | 'subtle',
+  Record<ThemeAppearance, TextProps['color']>
+> = {
+  bold: {
+    default: ['inverse', N0],
+    inprogress: ['inverse', N0],
+    moved: ['warning.inverse', N800],
+    new: ['inverse', N0],
+    removed: ['inverse', N0],
+    success: ['inverse', N0],
+  },
+  subtle: {
+    default: ['color.text', N500],
+    inprogress: ['information', B500],
+    moved: ['warning', N800],
+    new: ['discovery', P500],
+    removed: ['danger', R500],
+    success: ['success', G500],
+  },
+};

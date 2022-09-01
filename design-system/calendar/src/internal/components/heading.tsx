@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { memo, useMemo } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';

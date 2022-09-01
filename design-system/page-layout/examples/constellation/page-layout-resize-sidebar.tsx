@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { token } from '@atlaskit/tokens';

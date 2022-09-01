@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@babel/runtime": "^7.0.0",
     "prop-types": "^15.5.10",
     "react-addons-text-content": "^0.0.4",
@@ -38,7 +38,7 @@
     "@atlaskit/avatar": "^21.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/lozenge": "^11.0.0",
+    "@atlaskit/lozenge": "^11.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/visual-regression": "*",

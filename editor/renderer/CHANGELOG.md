@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 101.1.0
+
+### Minor Changes
+
+- [`8308bf30800`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8308bf30800) - [ux] ED-14862: Fix triple click selection in table cells in Renderer so that copy paste doesnt always copy a whole table cell with selected content
+- [`d7c4506066d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7c4506066d) - [ux][ed-15295] improve code block copy button label to better indicate to users what will end up in the clipboard when used.
+
+### Patch Changes
+
+- [`1a559c9fb1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a559c9fb1f) - [ux][ed-15168] PR 2 removes scale down logic from table columns in renderer
+- [`5fd9cd8ae25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fd9cd8ae25) - PCC-583 Fixing duplicated i18n messages ids
+- [`85417020bac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85417020bac) - [ED-15173] removed uses of calcLineLength
+- Updated dependencies
+
 ## 101.0.3
 
 ### Patch Changes

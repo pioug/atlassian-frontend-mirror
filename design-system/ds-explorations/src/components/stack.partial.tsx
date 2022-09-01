@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { GlobalSpacingToken, SPACING_SCALE } from '../constants';
 
@@ -73,11 +73,13 @@ const Stack = forwardRef<HTMLDivElement, StackProps>(
   },
 );
 
+Stack.displayName = 'Stack';
+
 export default Stack;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ac3192fbc453a94ab5e720d0273556ef>>
+ * @codegen <<SignedSource::36d00b5586593733c7f84e9a10ddb7fd>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["gap"]
@@ -88,6 +90,7 @@ const gapMap = {
   'sp-50': css({ gap: SPACING_SCALE['sp-50'] }),
   'sp-75': css({ gap: SPACING_SCALE['sp-75'] }),
   'sp-100': css({ gap: SPACING_SCALE['sp-100'] }),
+  'sp-150': css({ gap: SPACING_SCALE['sp-150'] }),
   'sp-200': css({ gap: SPACING_SCALE['sp-200'] }),
   'sp-300': css({ gap: SPACING_SCALE['sp-300'] }),
   'sp-400': css({ gap: SPACING_SCALE['sp-400'] }),

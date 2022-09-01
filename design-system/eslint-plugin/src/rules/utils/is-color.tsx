@@ -1,4 +1,4 @@
-const namedColors = [
+const namedColors = new Set([
   'black',
   'silver',
   'gray',
@@ -147,9 +147,9 @@ const namedColors = [
   'whitesmoke',
   'yellowgreen',
   'rebeccapurple',
-];
+]);
 
-const legacyColors = [
+const legacyColors = new Set([
   'R50',
   'R75',
   'R100',
@@ -264,9 +264,136 @@ const legacyColors = [
   'DN30A',
   'DN20A',
   'DN10A',
-];
+  // Legacy Trello colors:
+  'AtlassianBlue50',
+  'AtlassianBlue200',
+  'AtlassianBlue300',
+  'AtlassianBlue400',
+  'TrelloBlue25',
+  'TrelloBlue50',
+  'TrelloBlue100',
+  'TrelloBlue200',
+  'TrelloBlue300',
+  'TrelloBlue400',
+  'TrelloBlue500',
+  'TrelloBlue600',
+  'TrelloBlue700',
+  'TrelloBlue800',
+  'TrelloBlue900',
+  'Green50',
+  'Green100',
+  'Green200',
+  'Green300',
+  'Green400',
+  'Green500',
+  'Green600',
+  'Green700',
+  'Green800',
+  'Green900',
+  'Orange50',
+  'Orange100',
+  'Orange200',
+  'Orange300',
+  'Orange400',
+  'Orange500',
+  'Orange600',
+  'Orange700',
+  'Orange800',
+  'Orange900',
+  'Red50',
+  'Red100',
+  'Red200',
+  'Red300',
+  'Red400',
+  'Red500',
+  'Red600',
+  'Red700',
+  'Red800',
+  'Red900',
+  'Yellow50',
+  'Yellow100',
+  'Yellow200',
+  'Yellow300',
+  'Yellow400',
+  'Yellow500',
+  'Yellow600',
+  'Yellow700',
+  'Yellow800',
+  'Yellow900',
+  'Purple50',
+  'Purple100',
+  'Purple200',
+  'Purple300',
+  'Purple400',
+  'Purple500',
+  'Purple600',
+  'Purple700',
+  'Purple800',
+  'Purple900',
+  'VioletMbgAlert',
+  'Pink50',
+  'Pink100',
+  'Pink200',
+  'Pink300',
+  'Pink400',
+  'Pink500',
+  'Pink600',
+  'Pink700',
+  'Pink800',
+  'Pink900',
+  'Sky25',
+  'Sky50',
+  'Sky100',
+  'Sky200',
+  'Sky300',
+  'Sky400',
+  'Sky500',
+  'Sky600',
+  'Sky700',
+  'Sky800',
+  'Sky900',
+  'Lime50',
+  'Lime100',
+  'Lime200',
+  'Lime300',
+  'Lime400',
+  'Lime500',
+  'Lime600',
+  'Lime700',
+  'Lime800',
+  'Lime900',
+  'BusinessBlue50',
+  'BusinessBlue100',
+  'BusinessBlue200',
+  'BusinessBlue300',
+  'BusinessBlue400',
+  'BusinessBlue500',
+  'BusinessBlue600',
+  'BusinessBlue700',
+  'BusinessBlue800',
+  'BusinessBlue900',
+  'Opacity1',
+  'Opacity2',
+  'Opacity3',
+  'Opacity4',
+  'Opacity5',
+  'Opacity6',
+  'Opacity7',
+  'Opacity8',
+  'Opacity9',
+  'OpacityDark1',
+  'OpacityDark2',
+  'OpacityDark3',
+  'OpacityDark4',
+  'OpacityDark5',
+  'OpacityDark6',
+  'OpacityDark7',
+  'OpacityDark8',
+  'OpacityDark9',
+  'Black',
+]);
 
-const legacyColorMixins = [
+const legacyColorMixins = new Set([
   'background',
   'backgroundActive',
   'backgroundHover',
@@ -291,28 +418,19 @@ const legacyColorMixins = [
   'yellow',
   'green',
   'skeleton',
-];
+]);
 
-const includesWholeWord = (value: string, options: string[]) => {
+const includesWholeWord = (value: string, options: Set<string>) => {
   const values = value
     .replace(/[^a-zA-Z ]/g, ' ')
     .trim()
     .split(/(?:,|\.| )+/);
-
-  let result = false;
-
-  options.forEach((el) => {
-    if (values.includes(el)) {
-      result = true;
-    }
-  });
-
-  return result;
+  return values.some((value) => options.has(value));
 };
 
-export const isLegacyColor = (value: string) => legacyColors.includes(value);
+export const isLegacyColor = (value: string) => legacyColors.has(value);
 export const isLegacyNamedColor = (value: string) =>
-  legacyColorMixins.includes(value);
+  legacyColorMixins.has(value);
 
 export const includesHardCodedColor = (raw: string): boolean => {
   const value = raw.toLowerCase();

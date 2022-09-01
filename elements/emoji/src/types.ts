@@ -343,7 +343,7 @@ export interface CategoryDescription {
 }
 
 export interface OnToneSelected {
-  (variation: number): void;
+  (variation: ToneValueType): void;
 }
 
 export interface OnToneSelectorCancelled {
@@ -442,3 +442,5 @@ export enum UfoEmojiTimings {
   ONLOAD_START = 'emoji-onload_start',
   ONLOAD_END = 'emoji-onload_end',
 }
+
+export type ToneValueType = number;

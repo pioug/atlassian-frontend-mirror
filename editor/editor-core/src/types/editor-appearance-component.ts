@@ -59,4 +59,6 @@ export interface EditorAppearanceComponentProps {
 
   featureFlags?: FeatureFlags;
   useStickyToolbar?: boolean | RefObject<HTMLElement>;
+
+  innerRef?: RefObject<HTMLDivElement>;
 }

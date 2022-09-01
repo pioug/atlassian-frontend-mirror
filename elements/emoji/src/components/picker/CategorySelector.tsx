@@ -15,7 +15,7 @@ import { active, categorySelector, disable, categoryStyles } from './styles';
 
 export interface Props {
   dynamicCategories?: CategoryId[];
-  activeCategoryId?: CategoryId;
+  activeCategoryId?: CategoryId | null;
   disableCategories?: boolean;
   onCategorySelected?: OnCategory;
 }

@@ -32,12 +32,11 @@ import {
   isParagraph,
   isText,
   isLinkMark,
-  processRawValue,
   insideTableCell,
 } from '../../utils';
 import { mapSlice } from '../../utils/slice';
 import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
-import { insertCard, queueCardsFromChangedTr } from '../card/pm-plugins/doc';
+import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 import { linkifyContent } from '../hyperlink/utils';
@@ -409,7 +408,7 @@ export function handlePastePreservingMarks(slice: Slice): Command {
   };
 }
 
-async function isLinkSmart(
+async function getSmartLinkAdf(
   text: string,
   type: CardAppearance,
   cardOptions: CardOptions,
@@ -454,7 +453,7 @@ export function handleMacroAutoConvert(
 ): Command {
   return (
     state: EditorState,
-    _dispatch?: CommandDispatch,
+    dispatch?: CommandDispatch,
     view?: EditorView,
   ) => {
     let macro: PMNode | null = null;
@@ -487,20 +486,11 @@ export function handleMacroAutoConvert(
           return insertAutoMacro(slice, macro, view);
         }
 
-        isLinkSmart(text, 'inline', cardsOptions)
-          .then((cardData) => {
-            if (!view) {
-              throw new Error('Missing view');
+        getSmartLinkAdf(text, 'inline', cardsOptions)
+          .then(() => {
+            if (dispatch) {
+              handleMarkdown(slice)(state, dispatch);
             }
-
-            const { schema, tr } = view.state;
-            const cardAdf = processRawValue(schema, cardData);
-
-            if (!cardAdf) {
-              throw new Error('Received invalid ADF from CardProvider');
-            }
-
-            view.dispatch(insertCard(tr, cardAdf, schema));
           })
           .catch(() => insertAutoMacro(slice, macro as PMNode, view));
         return true;

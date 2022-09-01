@@ -4,3 +4,5 @@ examples/
 example-helpers/
 index.ts
 proxy.ts
+local-config-template.ts
+.env-template

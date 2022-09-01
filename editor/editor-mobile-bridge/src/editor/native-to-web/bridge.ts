@@ -65,4 +65,10 @@ export default interface NativeToWebBridge {
   performEditAction(payload: string): void;
   updateSystemFontSize(relativeFontSize: string, actualFontSize?: string): void;
   insertNode(nodeType: string): void;
+  media: {
+    onUploadStart(payload: string): void;
+    onUploadProgress(payload: string): void;
+    onUploadEnd(payload: string): void;
+    onUploadFail(payload: string): void;
+  };
 }

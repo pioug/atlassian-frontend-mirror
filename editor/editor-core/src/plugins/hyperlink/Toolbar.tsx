@@ -18,8 +18,9 @@ import {
 } from './commands';
 import HyperlinkAddToolbar from './ui/HyperlinkAddToolbar';
 import { EditorView } from 'prosemirror-view';
-import { Mark } from 'prosemirror-model';
+import { Mark, NodeType } from 'prosemirror-model';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
+import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { normalizeUrl } from './utils';
 import { EditorState } from 'prosemirror-state';
@@ -33,11 +34,21 @@ import {
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '../../ui/LinkSearch/ToolbarComponents';
 import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
-import { Command } from '../../types';
-import { addAnalytics, ACTION_SUBJECT_ID } from '../analytics';
-import { buildVisitedLinkPayload } from '../../utils/linking-utils';
+import { Command, CommandDispatch } from '../../types';
+import {
+  addAnalytics,
+  ACTION_SUBJECT_ID,
+  AnalyticsEventPayload,
+} from '../analytics';
+import {
+  buildVisitedLinkPayload,
+  buildOpenedSettingsPayload,
+  LinkType,
+} from '../../utils/linking-utils';
 import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
 import { HyperlinkPluginOptions } from './types';
+import { IntlShape } from 'react-intl-next';
+import { getFeatureFlags } from '../feature-flags-context';
 
 /* type guard for edit links */
 function isEditLink(
@@ -46,16 +57,29 @@ function isEditLink(
   return (linkMark as EditInsertedState).pos !== undefined;
 }
 
-const visitHyperlink = (): Command => (state, dispatch) => {
+const dispatchAnalytics = (
+  dispatch: CommandDispatch | undefined,
+  state: EditorState<any>,
+  analyticsBuilder: (type: LinkType) => AnalyticsEventPayload<void>,
+) => {
   if (dispatch) {
     dispatch(
       addAnalytics(
         state,
         state.tr,
-        buildVisitedLinkPayload(ACTION_SUBJECT_ID.HYPERLINK),
+        analyticsBuilder(ACTION_SUBJECT_ID.HYPERLINK),
       ),
     );
   }
+};
+
+const visitHyperlink = (): Command => (state, dispatch) => {
+  dispatchAnalytics(dispatch, state, buildVisitedLinkPayload);
+  return true;
+};
+
+const openLinkSettings = (): Command => (state, dispatch) => {
+  dispatchAnalytics(dispatch, state, buildOpenedSettingsPayload);
   return true;
 };
 
@@ -78,6 +102,40 @@ function getLinkText(
   }
   return activeLinkMark.node.text;
 }
+
+const getCopyButtonGroup = (
+  state: EditorState<any>,
+  intl: IntlShape,
+  nodeType: any[] | NodeType<any>,
+) => {
+  return state && showCopyButton(state)
+    ? [
+        { type: 'separator' } as FloatingToolbarItem<Command>,
+        getCopyButtonConfig(state, intl.formatMessage, nodeType),
+      ]
+    : [];
+};
+
+const getSettingsButtonGroup = (
+  state: EditorState<any>,
+  intl: IntlShape,
+): FloatingToolbarItem<Command>[] => {
+  const { floatingToolbarLinkSettingsButton } = getFeatureFlags(state);
+  return floatingToolbarLinkSettingsButton === 'true'
+    ? [
+        { type: 'separator' },
+        {
+          id: 'editor.link.settings',
+          type: 'button',
+          icon: CogIcon,
+          title: intl.formatMessage(linkToolbarCommonMessages.settingsLink),
+          onClick: openLinkSettings(),
+          href: 'https://id.atlassian.com/manage-profile/link-preferences',
+          target: '_blank',
+        },
+      ]
+    : [];
+};
 
 export const getToolbarConfig = (
   options?: HyperlinkPluginOptions,
@@ -103,7 +161,6 @@ export const getToolbarConfig = (
         ? 'hyperlink-floating-toolbar'
         : '',
     };
-
     switch (activeLinkMark.type) {
       case 'EDIT': {
         const { pos, node } = activeLinkMark;
@@ -146,7 +203,7 @@ export const getToolbarConfig = (
                     editorState={state}
                     cardOptions={options?.cardOptions}
                     providerFactory={providerFactory}
-                    // platform={} // TODO: pass platform
+                    platform={options?.platform}
                   />
                 );
               },
@@ -189,16 +246,8 @@ export const getToolbarConfig = (
               icon: UnlinkIcon,
               tabIndex: null,
             },
-            ...(state && showCopyButton(state)
-              ? [
-                  { type: 'separator' } as FloatingToolbarItem<Command>,
-                  getCopyButtonConfig(
-                    state,
-                    intl.formatMessage,
-                    hyperLinkToolbar.nodeType,
-                  ),
-                ]
-              : []),
+            ...getCopyButtonGroup(state, intl, hyperLinkToolbar.nodeType),
+            ...getSettingsButtonGroup(state, intl),
           ],
         };
       }

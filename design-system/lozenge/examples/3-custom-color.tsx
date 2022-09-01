@@ -1,17 +1,22 @@
 import React from 'react';
 
+import {
+  UNSAFE_Stack as Stack,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
+
 import Lozenge from '../src';
 
 export default function Example() {
   return (
-    <div data-testid="test-container">
-      <p>
+    <Stack gap="sp-100" testId="test-container">
+      <Text>
         default: <Lozenge>default</Lozenge>
-      </p>
-      <p>
+      </Text>
+      <Text>
         appearance: new <Lozenge appearance="new">New</Lozenge>
-      </p>
-      <p>
+      </Text>
+      <Text>
         style: {`{ backgroundColor: 'green' }`}{' '}
         <Lozenge
           testId="lozenge-custom-color1"
@@ -20,8 +25,8 @@ export default function Example() {
         >
           Success
         </Lozenge>
-      </p>
-      <p>
+      </Text>
+      <Text>
         style: {`{ backgroundColor: 'yellow', color: 'blue' }`}{' '}
         <Lozenge
           testId="lozenge-custom-color2"
@@ -30,7 +35,7 @@ export default function Example() {
         >
           Custom
         </Lozenge>
-      </p>
-    </div>
+      </Text>
+    </Stack>
   );
 }

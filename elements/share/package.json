@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "3.4.2",
+  "version": "3.5.0",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,16 +32,16 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/dropdown-menu": "^11.3.0",
+    "@atlaskit/dropdown-menu": "^11.4.0",
     "@atlaskit/form": "^8.5.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/popup": "^1.4.0",
     "@atlaskit/portal": "^4.0.0",
     "@atlaskit/smart-user-picker": "^6.0.0",
     "@atlaskit/spinner": "^15.1.4",
-    "@atlaskit/tabs": "^13.2.3",
+    "@atlaskit/tabs": "^13.3.0",
     "@atlaskit/textarea": "^4.3.0",
-    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/ufo": "^0.1.0",
@@ -62,10 +62,10 @@
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/editor-test-helpers": "^17.1.0",
-    "@atlaskit/flag": "^14.6.0",
-    "@atlaskit/section-message": "^6.0.0",
-    "@atlaskit/select": "^15.6.0",
-    "@atlaskit/toggle": "^12.4.0",
+    "@atlaskit/flag": "^14.7.0",
+    "@atlaskit/section-message": "^6.2.0",
+    "@atlaskit/select": "^15.7.0",
+    "@atlaskit/toggle": "^12.5.0",
     "@atlaskit/util-data-test": "^17.5.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
@@ -104,7 +104,8 @@
   },
   "af:exports": {
     ".": "./src/index.ts",
-    "./clients": "./src/clients/index.ts"
+    "./clients": "./src/clients/index.ts",
+    "./copy-link-button": "./src/components/CopyLinkButton.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

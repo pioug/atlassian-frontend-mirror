@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import Fuse from 'fuse.js';
 import debounce from 'lodash/debounce';
 

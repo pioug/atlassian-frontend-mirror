@@ -3,10 +3,11 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
 
 import Textfield from '../../index';
 
-const noop = () => {};
+const noop = __noop;
 const attributes = {
   componentName: 'textField',
   packageName: process.env._PACKAGE_NAME_ as string,

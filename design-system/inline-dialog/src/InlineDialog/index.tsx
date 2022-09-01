@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { FC, memo, useCallback, useEffect, useRef } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 import NodeResolver from 'react-node-resolver';
 

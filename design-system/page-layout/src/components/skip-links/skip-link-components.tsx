@@ -6,7 +6,7 @@ import {
   ReactNode,
 } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
 import { N30A, N60A } from '@atlaskit/theme/colors';

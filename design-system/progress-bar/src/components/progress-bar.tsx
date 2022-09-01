@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { css, jsx, keyframes } from '@emotion/core';
+import { css, jsx, keyframes } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import { G300, N40A, N500 } from '@atlaskit/theme/colors';

@@ -1,5 +1,15 @@
 # @atlaskit/inline-message
 
+## 11.4.0
+
+### Minor Changes
+
+- [`bcf29b33526`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcf29b33526) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.1
 
 ### Patch Changes

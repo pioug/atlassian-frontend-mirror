@@ -1,5 +1,15 @@
 # @atlaskit/radio
 
+## 5.4.0
+
+### Minor Changes
+
+- [`54a5b7576a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a5b7576a6) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.13
 
 ### Patch Changes

@@ -2,10 +2,12 @@ import type { Rule } from 'eslint';
 import { Identifier, isNodeOfType } from 'eslint-codemod-utils';
 
 import {
+  convertHyphenatedNameToCamelCase,
   emToPixels,
   getValue,
+  getValueFromShorthand,
   isSpacingProperty,
-  removePixelSuffix,
+  isValidSpacingValue,
 } from './utils';
 
 const rule: Rule.RuleModule = {
@@ -32,7 +34,7 @@ const rule: Rule.RuleModule = {
         }
 
         /**
-         * We do this in case we the fontSize for a style object is declared alongside the `em` or `lineHeight` declaration
+         * We do this in case the fontSize for a style object is declared alongside the `em` or `lineHeight` declaration
          */
         const fontSizeNode = parentNode.properties.find((node) => {
           if (!isNodeOfType(node, 'Property')) {
@@ -69,32 +71,46 @@ const rule: Rule.RuleModule = {
             return;
           }
 
+          if (
+            node.value.type === 'Literal' &&
+            !isValidSpacingValue(node.value.value, fontSize)
+          ) {
+            context.report({
+              node,
+              messageId: 'noRawSpacingValues',
+              data: {
+                payload: `NaN:${node.value.value}`,
+              },
+            });
+            return;
+          }
+
           const value = getValue(node.value, context);
 
-          if (value) {
+          if (value && isValidSpacingValue(value, fontSize)) {
             const values =
               typeof value === 'number' || typeof value === 'string'
                 ? [value]
                 : value;
-            values.forEach((value) => {
+
+            values.forEach((val) => {
               context.report({
                 node,
                 messageId: 'noRawSpacingValues',
                 data: {
                   payload: `${(node.key as Identifier).name}:${emToPixels(
-                    value,
+                    val,
                     fontSize,
                   )}`,
                 },
               });
             });
-            return;
           } else {
             context.report({
               node,
               messageId: 'noRawSpacingValues',
               data: {
-                payload: `${node.key.name}:NaN`,
+                payload: `NaN:${value}`,
               },
             });
           }
@@ -120,28 +136,45 @@ const rule: Rule.RuleModule = {
             }`;
           })
           .join('');
-
         /**
          * Attempts to remove all non-essential words & characters from a style block.
          * Including selectors and queries
          * Adapted from ensure-design-token-usage
          */
         const cssProperties = combinedString
+          .split('\n')
+          .filter((line) => !line.trim().startsWith('@'))
+          .join('\n')
           .replace(/\n/g, '')
           .split(/;|{|}/)
           .map((el) => el.trim() || '');
 
         cssProperties.map((style) => {
-          const [property, value] = style.split(':');
+          let [property, value] = style.split(':');
+          property = convertHyphenatedNameToCamelCase(property);
 
           if (isSpacingProperty(property)) {
-            context.report({
-              node,
-              messageId: 'noRawSpacingValues',
-              data: {
-                payload: `${property}:${removePixelSuffix(value.trim())}`,
-              },
-            });
+            if (isValidSpacingValue(value)) {
+              const values = getValueFromShorthand(value);
+              for (const val of values) {
+                // could be array of values e.g. padding: 8px 12px 3px
+                context.report({
+                  node,
+                  messageId: 'noRawSpacingValues',
+                  data: {
+                    payload: `${property}:${val}`,
+                  },
+                });
+              }
+            } else {
+              context.report({
+                node,
+                messageId: 'noRawSpacingValues',
+                data: {
+                  payload: `NaN:${value}`,
+                },
+              });
+            }
           }
           return;
         });

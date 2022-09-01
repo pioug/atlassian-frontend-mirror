@@ -33,6 +33,11 @@ const fillScreenStyles = css({
   WebkitOverflowScrolling: 'touch',
 });
 
+const whiteListElements = (element: HTMLElement) => {
+  // allows focus to reach elements outside the modal if they contain the data-atlas-extension attribute
+  return !element.hasAttribute('data-atlas-extension');
+};
+
 /**
  * __Modal wrapper__
  *
@@ -127,6 +132,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
               autoFocus={autoFocusLock}
               disabled={!isForeground}
               returnFocus
+              whiteList={whiteListElements}
             >
               {/* Ensures scroll events are blocked on the document body and locked */}
               <ScrollLock />

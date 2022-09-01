@@ -1,5 +1,15 @@
 # @atlaskit/editor-jira-transformer
 
+## 8.2.0
+
+### Minor Changes
+
+- [`1f99f6b79d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f99f6b79d3) - Support media inline for jira transformer and minor schema changes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.30
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/calendar
 
+## 12.4.0
+
+### Minor Changes
+
+- [`764726e020b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/764726e020b) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.2
 
 ### Patch Changes

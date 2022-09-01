@@ -4,6 +4,7 @@ import { mount, shallow } from 'enzyme';
 
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/custom-theme-button';
+import __noop from '@atlaskit/ds-lib/noop';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Lozenge from '@atlaskit/lozenge';
@@ -39,7 +40,7 @@ describe('@atlaskit comments', () => {
           const actions = [
             <CommentAction />,
             <CommentAction>action content</CommentAction>,
-            <CommentAction onClick={() => {}}>action content</CommentAction>,
+            <CommentAction onClick={__noop}>action content</CommentAction>,
           ];
           const wrapper = mount(<Comment avatar="" actions={actions} />);
           const container = wrapper.find(CommentAction);
@@ -157,7 +158,7 @@ describe('@atlaskit comments', () => {
             const actions = [
               <CommentAction />,
               <CommentAction>action content</CommentAction>,
-              <CommentAction onClick={() => {}}>action content</CommentAction>,
+              <CommentAction onClick={__noop}>action content</CommentAction>,
             ];
             const wrapper = mount(
               <Comment
@@ -198,7 +199,7 @@ describe('@atlaskit comments', () => {
       describe('isError, errorActions and errorLabel props', () => {
         const errorActions = [
           <CommentAction>Retry</CommentAction>,
-          <CommentAction onClick={() => {}}>Cancel</CommentAction>,
+          <CommentAction onClick={__noop}>Cancel</CommentAction>,
         ];
 
         describe('if isError prop is set', () => {
@@ -228,7 +229,7 @@ describe('@atlaskit comments', () => {
             const actions = [
               <CommentAction />,
               <CommentAction>action content</CommentAction>,
-              <CommentAction onClick={() => {}}>action content</CommentAction>,
+              <CommentAction onClick={__noop}>action content</CommentAction>,
             ];
             const wrapper = mount(
               <Comment

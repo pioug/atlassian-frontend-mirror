@@ -5,6 +5,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 export const selectors = {
+  mediaSingle: '[data-node-type="mediaSingle"]',
   mediaErrorLoading: '.rich-media-item .wrapper',
   caption: '[data-testid="media-caption"]',
   captionPlaceholder: '[data-testid="caption-placeholder"]',

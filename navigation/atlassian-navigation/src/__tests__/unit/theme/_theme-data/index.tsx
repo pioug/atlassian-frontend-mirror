@@ -68,6 +68,11 @@ export const themes: Themes = [
           boxShadow: '',
         },
         selected: { color: '', backgroundColor: '', boxShadow: '' },
+        selectedHover: {
+          backgroundColor: 'rgba(222, 235, 255, 0.6)',
+          boxShadow: '',
+          color: '#0052CC',
+        },
       },
       navigation: { backgroundColor: '#FFFFFF', color: '#6B778C' },
       productHome: {
@@ -103,8 +108,12 @@ export const themes: Themes = [
           color: '#0052CC',
           backgroundColor: '',
           boxShadow: '',
-          bordorBottom: '4px solid #0052CC',
           borderColor: '#0052CC',
+        },
+        selectedHover: {
+          backgroundColor: 'rgba(222, 235, 255, 0.6)',
+          boxShadow: '',
+          color: '#0052CC',
         },
       },
       search: {
@@ -156,6 +165,11 @@ export const themes: Themes = [
           boxShadow: '0 0 0 2px transparent',
           color: '#ffffff',
         },
+        selectedHover: {
+          backgroundColor: 'rgba(222, 235, 255, 0.6)',
+          boxShadow: '',
+          color: '#0052CC',
+        },
       },
       iconButton: {
         active: {
@@ -184,6 +198,11 @@ export const themes: Themes = [
           boxShadow: '0 0 0 2px transparent',
           color: '#000000',
         },
+        selectedHover: {
+          backgroundColor: 'rgba(222, 235, 255, 0.6)',
+          boxShadow: '',
+          color: '#0052CC',
+        },
       },
       primaryButton: {
         active: {
@@ -211,6 +230,11 @@ export const themes: Themes = [
           color: '#000000',
           backgroundColor: '#E8CBD2',
           boxShadow: '0 0 0 2px transparent',
+        },
+        selectedHover: {
+          backgroundColor: 'rgba(222, 235, 255, 0.6)',
+          boxShadow: '',
+          color: '#0052CC',
         },
       },
       navigation: { backgroundColor: '#E8CBD2', color: '#000000' },
@@ -263,6 +287,11 @@ export const themes: Themes = [
           boxShadow: '0 0 0 2px transparent',
           color: '#ffffff',
         },
+        selectedHover: {
+          backgroundColor: 'rgba(222, 235, 255, 0.6)',
+          boxShadow: '',
+          color: '#0052CC',
+        },
       },
       iconButton: {
         active: {
@@ -291,6 +320,11 @@ export const themes: Themes = [
           boxShadow: '0 0 0 2px transparent',
           color: '#ffffff',
         },
+        selectedHover: {
+          backgroundColor: 'rgba(222, 235, 255, 0.6)',
+          boxShadow: '',
+          color: '#0052CC',
+        },
       },
       primaryButton: {
         active: {
@@ -318,6 +352,11 @@ export const themes: Themes = [
           color: '#ffffff',
           backgroundColor: '#272727',
           boxShadow: '0 0 0 2px transparent',
+        },
+        selectedHover: {
+          backgroundColor: 'rgba(222, 235, 255, 0.6)',
+          boxShadow: '',
+          color: '#0052CC',
         },
       },
       navigation: { backgroundColor: '#272727', color: '#ffffff' },

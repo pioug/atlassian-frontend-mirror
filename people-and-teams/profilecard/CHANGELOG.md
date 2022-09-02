@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 17.0.0
+
+### Major Changes
+
+- [`fae495c5956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fae495c5956) - Deprecated the analytics prop and start emitting GASv3 analytics
+
 ## 16.12.1
 
 ### Patch Changes

@@ -86,6 +86,14 @@ const defaultTheme: { mode: Mode } = {
         ),
         boxShadow: '',
       },
+      selectedHover: {
+        color: token('color.text.selected', B400),
+        backgroundColor: token(
+          'color.background.selected.hovered',
+          hexToRGBA(B50, 0.6),
+        ),
+        boxShadow: '',
+      },
     },
     navigation: {
       backgroundColor: token('elevation.surface', N0),
@@ -138,7 +146,15 @@ const defaultTheme: { mode: Mode } = {
         ),
         boxShadow: '',
         borderColor: token('color.border.selected', B400),
-        bordorBottom: `4px solid ${token('color.border.selected', B400)}`,
+      },
+      selectedHover: {
+        color: token('color.text.selected', B400),
+        backgroundColor: token(
+          'color.background.selected.hovered',
+          hexToRGBA(B50, 0.6),
+        ),
+        boxShadow: '',
+        borderColor: token('color.border.selected', B400),
       },
     },
     search: {

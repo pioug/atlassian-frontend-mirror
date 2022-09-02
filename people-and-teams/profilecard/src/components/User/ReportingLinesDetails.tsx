@@ -6,7 +6,6 @@ import Avatar from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import Button from '@atlaskit/button/custom-theme-button';
 
-import { AnalyticsName } from '../../internal/analytics';
 import messages from '../../messages';
 import {
   ManagerName,
@@ -15,17 +14,18 @@ import {
   ReportingLinesHeading,
   ReportingLinesSection,
 } from '../../styled/ReportingLines';
-import { ProfilecardProps, ReportingLinesUser } from '../../types';
+import {
+  AnalyticsWithDurationProps,
+  ProfilecardProps,
+  ReportingLinesUser,
+} from '../../types';
+import { reportingLinesClicked } from '../../util/analytics';
 
 export type ReportingLinesDetailsProps = Pick<
   ProfilecardProps,
-  | 'reportingLines'
-  | 'reportingLinesProfileUrl'
-  | 'onReportingLinesClick'
-  | 'analytics'
-> & {
-  getDuration: () => number | null;
-};
+  'reportingLines' | 'reportingLinesProfileUrl' | 'onReportingLinesClick'
+> &
+  AnalyticsWithDurationProps;
 
 function getProfileHref(userId: string, profileUrl?: string) {
   return profileUrl ? profileUrl + userId : undefined;
@@ -33,11 +33,10 @@ function getProfileHref(userId: string, profileUrl?: string) {
 
 const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
   const {
+    fireAnalyticsWithDuration,
     reportingLines = {},
     reportingLinesProfileUrl,
     onReportingLinesClick,
-    analytics = () => {},
-    getDuration,
   } = props;
   const { managers = [], reports = [] } = reportingLines;
 
@@ -46,14 +45,17 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 
   const getReportingLinesOnClick = (
     user: ReportingLinesUser,
-    analyticsId: string,
+    userType: 'manager' | 'direct-report',
   ) =>
     onReportingLinesClick
       ? () => {
-          analytics(AnalyticsName.PROFILE_CARD_CLICK, {
-            id: analyticsId,
-            duration: getDuration(),
-          });
+          fireAnalyticsWithDuration((duration) =>
+            reportingLinesClicked({
+              duration,
+              userType,
+            }),
+          );
+
           onReportingLinesClick(user);
         }
       : undefined;
@@ -73,10 +75,7 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
                 manager.accountIdentifier,
                 reportingLinesProfileUrl,
               )}
-              onClick={getReportingLinesOnClick(
-                manager,
-                'reporting-lines-manager',
-              )}
+              onClick={getReportingLinesOnClick(manager, 'manager')}
               isDisabled={!onReportingLinesClick}
             >
               <ManagerSection>
@@ -104,10 +103,7 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
                   member.accountIdentifier,
                   reportingLinesProfileUrl,
                 ),
-                onClick: getReportingLinesOnClick(
-                  member,
-                  'reporting-lines-direct-report',
-                ),
+                onClick: getReportingLinesOnClick(member, 'direct-report'),
               };
             })}
             maxCount={5}

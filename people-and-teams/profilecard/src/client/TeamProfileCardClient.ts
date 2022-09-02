@@ -1,8 +1,11 @@
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+
 import type { ProfileClientOptions, Team } from '../types';
 import { teamRequestAnalytics } from '../util/analytics';
 import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
+import { getErrorAttributes } from './errorUtils';
 import { getTeamFromAGG } from './getTeamFromAGG';
 import { GraphQLError, graphqlQuery } from './graphqlUtils';
 
@@ -30,12 +33,6 @@ const buildTeamQuery = (teamId: string, orgId: string | undefined) => ({
     organizationId: orgId || '',
   },
 });
-
-const IGNORED_ERRORS = ['NotPermitted', 'Gone'];
-
-function isRealError(error: GraphQLError): boolean {
-  return !IGNORED_ERRORS.includes(error.reason);
-}
 
 export default class TeamProfileCardClient extends CachingClient<Team> {
   options: ProfileClientOptions;
@@ -73,7 +70,7 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
   getProfile(
     teamId: string,
     orgId: string | undefined,
-    analytics?: (event: Record<string, any>) => void,
+    analytics?: (event: AnalyticsEventPayload) => void,
   ): Promise<Team> {
     if (!teamId) {
       return Promise.reject(new Error('teamId is missing'));
@@ -114,12 +111,11 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
           resolve(data);
         })
         .catch((error: GraphQLError) => {
-          if (analytics && isRealError(error)) {
+          if (analytics) {
             analytics(
               teamRequestAnalytics('failed', {
                 duration: getPageTime() - startTime,
-                errorStatus: error.code,
-                errorReason: error.reason,
+                ...getErrorAttributes(error),
                 gateway: shouldUseGateway,
               }),
             );

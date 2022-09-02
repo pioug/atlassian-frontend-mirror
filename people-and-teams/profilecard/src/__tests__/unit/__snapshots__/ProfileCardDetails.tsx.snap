@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileCardDetails reportingLines property should match snapshot when no reporting lines are specified 1`] = `
+<styled.div>
+  <styled.span
+    data-testid="profilecard-name"
+    noMeta={true}
+  >
+    full name test (jscrazy) 
+  </styled.span>
+  <CustomLozenges />
+  <IconLabel
+    icon="email"
+  />
+  <IconLabel
+    icon="time"
+  />
+  <IconLabel
+    icon="companyName"
+  >
+    Atlassian
+  </IconLabel>
+  <IconLabel
+    icon="location"
+  />
+  <ReportingLinesDetails
+    fireAnalyticsWithDuration={[MockFunction]}
+  />
+</styled.div>
+`;
+
+exports[`ProfileCardDetails reportingLines property should match snapshot when no reporting lines are specified 2`] = `
+<styled.div>
+  <styled.span
+    data-testid="profilecard-name"
+    noMeta={true}
+  >
+    full name test (jscrazy) 
+  </styled.span>
+  <CustomLozenges />
+  <IconLabel
+    icon="email"
+  />
+  <IconLabel
+    icon="time"
+  />
+  <IconLabel
+    icon="companyName"
+  >
+    Atlassian
+  </IconLabel>
+  <IconLabel
+    icon="location"
+  />
+  <ReportingLinesDetails
+    fireAnalyticsWithDuration={[MockFunction]}
+    reportingLines={Object {}}
+  />
+</styled.div>
+`;
+
+exports[`ProfileCardDetails reportingLines property should match snapshot when no reporting lines are specified 3`] = `
+<styled.div>
+  <styled.span
+    data-testid="profilecard-name"
+    noMeta={true}
+  >
+    full name test (jscrazy) 
+  </styled.span>
+  <CustomLozenges />
+  <IconLabel
+    icon="email"
+  />
+  <IconLabel
+    icon="time"
+  />
+  <IconLabel
+    icon="companyName"
+  >
+    Atlassian
+  </IconLabel>
+  <IconLabel
+    icon="location"
+  />
+  <ReportingLinesDetails
+    fireAnalyticsWithDuration={[MockFunction]}
+    reportingLines={
+      Object {
+        "managers": Array [],
+        "reports": Array [],
+      }
+    }
+  />
+</styled.div>
+`;
+
+exports[`ProfileCardDetails reportingLines property should match snapshot when reporting lines are specified 1`] = `
+<styled.div>
+  <styled.span
+    data-testid="profilecard-name"
+    noMeta={true}
+  >
+    full name test (jscrazy) 
+  </styled.span>
+  <CustomLozenges />
+  <IconLabel
+    icon="email"
+  />
+  <IconLabel
+    icon="time"
+  />
+  <IconLabel
+    icon="companyName"
+  >
+    Atlassian
+  </IconLabel>
+  <IconLabel
+    icon="location"
+  />
+  <ReportingLinesDetails
+    fireAnalyticsWithDuration={[MockFunction]}
+    reportingLines={
+      Object {
+        "managers": Array [
+          Object {
+            "accountIdentifier": "abcd",
+            "identifierType": "ATLASSIAN_ID",
+            "pii": Object {
+              "name": "name",
+              "picture": "picture",
+            },
+          },
+        ],
+        "reports": Array [
+          Object {
+            "accountIdentifier": "abcd",
+            "identifierType": "ATLASSIAN_ID",
+            "pii": Object {
+              "name": "name",
+              "picture": "picture",
+            },
+          },
+          Object {
+            "accountIdentifier": "abcd",
+            "identifierType": "ATLASSIAN_ID",
+            "pii": Object {
+              "name": "name",
+              "picture": "picture",
+            },
+          },
+        ],
+      }
+    }
+  />
+</styled.div>
+`;

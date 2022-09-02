@@ -38,12 +38,12 @@ import type {
   TeamProfilecardProps,
 } from '../../types';
 import {
+  actionClicked,
   errorRetryClicked,
   moreActionsClicked,
   moreMembersClicked,
-  teamActionClicked,
+  profileCardRendered,
   teamAvatarClicked,
-  teamProfileCardRendered,
 } from '../../util/analytics';
 import { isBasicClick } from '../../util/click';
 import { ErrorIllustration } from '../Error';
@@ -166,7 +166,7 @@ function onActionClick(
 ) {
   return (event: React.MouseEvent | React.KeyboardEvent, ...args: any) => {
     analytics((duration) =>
-      teamActionClicked({
+      actionClicked('team', {
         duration,
         hasHref: !!action.link,
         hasOnClick: !!action.callback,
@@ -227,7 +227,7 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
       if (shouldBeOpen) {
         // Only fire this event when OPENING the dropdown
         analytics((duration) =>
-          moreActionsClicked({
+          moreActionsClicked('team', {
             duration,
             numActions: count + 2,
           }),
@@ -329,7 +329,7 @@ const TeamProfilecardContent = ({
 
   useEffect(() => {
     analytics((duration) =>
-      teamProfileCardRendered('content', {
+      profileCardRendered('team', 'content', {
         duration,
         numActions: allActions.length,
         memberCount: team.members?.length,
@@ -379,7 +379,7 @@ const ErrorMessage = ({
 
   useEffect(() => {
     analytics((duration) =>
-      teamProfileCardRendered('error', {
+      profileCardRendered('team', 'error', {
         duration,
         hasRetry,
       }),

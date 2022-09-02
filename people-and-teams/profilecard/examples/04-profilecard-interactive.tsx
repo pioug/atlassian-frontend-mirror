@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ExampleWrapper from './helper/example-wrapper';
 import ProfilecardInteractive from './helper/profile-interactive';
 
 export const MainStage = styled.div`
@@ -19,13 +19,13 @@ export const Section = styled.div`
 
 export default function Example() {
   return (
-    <LocaleIntlProvider>
+    <ExampleWrapper>
       <MainStage>
         <Section>
           <h4>Interactive Profilecard</h4>
           <ProfilecardInteractive />
         </Section>
       </MainStage>
-    </LocaleIntlProvider>
+    </ExampleWrapper>
   );
 }

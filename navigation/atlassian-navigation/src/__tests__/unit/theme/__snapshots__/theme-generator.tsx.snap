@@ -57,6 +57,11 @@ Object {
     "boxShadow": "",
     "color": "var(--ds-text-selected, #0052CC)",
   },
+  "selectedHover": Object {
+    "backgroundColor": "var(--ds-background-selected-hovered, rgba(222, 235, 255, 0.6))",
+    "boxShadow": "",
+    "color": "var(--ds-text-selected, #0052CC)",
+  },
 }
 `;
 
@@ -92,7 +97,12 @@ Object {
   "selected": Object {
     "backgroundColor": "var(--ds-background-selected, rgba(222, 235, 255, 0.7))",
     "borderColor": "var(--ds-border-selected, #0052CC)",
-    "bordorBottom": "4px solid var(--ds-border-selected, #0052CC)",
+    "boxShadow": "",
+    "color": "var(--ds-text-selected, #0052CC)",
+  },
+  "selectedHover": Object {
+    "backgroundColor": "var(--ds-background-selected-hovered, rgba(222, 235, 255, 0.6))",
+    "borderColor": "var(--ds-border-selected, #0052CC)",
     "boxShadow": "",
     "color": "var(--ds-text-selected, #0052CC)",
   },
@@ -157,7 +167,13 @@ Object {
     "color": "#ffffff",
   },
   "selected": Object {
-    "backgroundColor": "#E94E34",
+    "backgroundColor": "rgba(159, 113, 105, 0.6)",
+    "borderColor": "#E94E34",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "selectedHover": Object {
+    "backgroundColor": "rgba(159, 113, 105, 0.6)",
     "borderColor": "#E94E34",
     "boxShadow": "0 0 0 2px transparent",
     "color": "#ffffff",
@@ -188,7 +204,13 @@ Object {
     "color": "#ffffff",
   },
   "selected": Object {
-    "backgroundColor": "#272727",
+    "backgroundColor": "rgba(101, 101, 101, 0.6)",
+    "borderColor": "#E94E34",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "selectedHover": Object {
+    "backgroundColor": "rgba(101, 101, 101, 0.6)",
     "borderColor": "#E94E34",
     "boxShadow": "0 0 0 2px transparent",
     "color": "#ffffff",
@@ -226,7 +248,13 @@ Object {
     "color": "#ffffff",
   },
   "selected": Object {
-    "backgroundColor": "#272727",
+    "backgroundColor": "rgba(101, 101, 101, 0.6)",
+    "borderColor": "#E94E34",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "selectedHover": Object {
+    "backgroundColor": "rgba(101, 101, 101, 0.6)",
     "borderColor": "#E94E34",
     "boxShadow": "0 0 0 2px transparent",
     "color": "#ffffff",
@@ -290,7 +318,13 @@ Object {
     "color": "#ffffff",
   },
   "selected": Object {
-    "backgroundColor": "#333333",
+    "backgroundColor": "rgba(105, 105, 105, 0.6)",
+    "borderColor": "#333333",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#ffffff",
+  },
+  "selectedHover": Object {
+    "backgroundColor": "rgba(105, 105, 105, 0.6)",
     "borderColor": "#333333",
     "boxShadow": "0 0 0 2px transparent",
     "color": "#ffffff",
@@ -321,7 +355,13 @@ Object {
     "color": "#000000",
   },
   "selected": Object {
-    "backgroundColor": "#E8CBD2",
+    "backgroundColor": "rgba(159, 150, 152, 0.3)",
+    "borderColor": "#333333",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+  "selectedHover": Object {
+    "backgroundColor": "rgba(159, 150, 152, 0.3)",
     "borderColor": "#333333",
     "boxShadow": "0 0 0 2px transparent",
     "color": "#000000",
@@ -359,7 +399,13 @@ Object {
     "color": "#000000",
   },
   "selected": Object {
-    "backgroundColor": "#E8CBD2",
+    "backgroundColor": "rgba(159, 150, 152, 0.3)",
+    "borderColor": "#333333",
+    "boxShadow": "0 0 0 2px transparent",
+    "color": "#000000",
+  },
+  "selectedHover": Object {
+    "backgroundColor": "rgba(159, 150, 152, 0.3)",
     "borderColor": "#333333",
     "boxShadow": "0 0 0 2px transparent",
     "color": "#000000",

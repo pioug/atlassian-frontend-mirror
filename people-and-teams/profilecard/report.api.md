@@ -7,24 +7,29 @@
 ```ts
 /// <reference types="react" />
 
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { ComponentType } from 'react';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { IntlShape } from 'react-intl-next';
 import { LRUCache } from 'lru-fast';
 import { default as React_2 } from 'react';
-import { ReactElement } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-declare type AnalyticsFromDuration = (duration: number) => Record<string, any>;
+declare type AnalyticsFromDuration = (
+  duration: number,
+) => AnalyticsEventPayload;
 
 declare type AnalyticsFunction = (generator: AnalyticsFromDuration) => void;
+
+declare interface AnalyticsProps {
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+}
 
 export declare interface ApiClientResponse {
   User: {
     id: string;
     isBot: boolean;
     isCurrentUser: boolean;
-    isNotMentionable: boolean;
     avatarUrl: string | null;
     email: string | null;
     fullName: string | null;
@@ -64,6 +69,28 @@ declare interface ClientOverrides {
   teamClient?: TeamProfileClient;
   teamCentralClient?: TeamCentralCardClient;
 }
+
+declare const _default: React_2.ForwardRefExoticComponent<
+  Pick<
+    Omit<
+      ProfileCardResourcedProps & AnalyticsProps,
+      keyof WithAnalyticsEventsProps
+    >,
+    never
+  > &
+    Partial<
+      Pick<
+        Omit<
+          ProfileCardResourcedProps & AnalyticsProps,
+          keyof WithAnalyticsEventsProps
+        >,
+        keyof ProfileCardResourcedProps
+      >
+    > &
+    Partial<Pick<Partial<ProfileCardResourcedProps>, never>> &
+    React_2.RefAttributes<any>
+>;
+export default _default;
 
 export declare const DELAY_MS_HIDE = 200;
 
@@ -105,35 +132,10 @@ export declare const modifyResponse: (
   response: ApiClientResponse,
 ) => ProfileCardClientData;
 
-export declare class ProfileCard extends React_2.PureComponent<
-  ProfilecardProps
-> {
-  static defaultProps: ProfilecardProps;
-  GIVE_KUDOS_ACTION_ID: string;
-  private timeOpen;
-  clientFetchProfile: () => void;
-  constructor(props: ProfilecardProps);
-  private durationSince;
-  callClientFetchProfile: (...args: any) => void;
-  callAnalytics: (id: string, options: any) => void;
-  componentDidMount(): void;
-  renderErrorMessage(): JSX.Element;
-  kudosUrl: () => string;
-  kudosButtonCallback: () => void;
-  getActions(): ProfileCardAction[];
-  renderButton: (action: ProfileCardAction, idx: number) => ReactElement;
-  renderActionsButtons(): JSX.Element | null;
-  private onActionClick;
-  renderCardDetailsDefault(): JSX.Element;
-  renderCardDetailsForDisabledAccount(): JSX.Element;
-  getDisabledAccountName(): string | JSX.Element | null | undefined;
-  getDisabledAccountDesc(): {};
-  private renderFullNameAndPublicName;
-  renderCustomLozenges(lozenges: LozengeProps[]): JSX.Element | null;
-  renderCardDetailsApp(): JSX.Element;
-  renderCardDetails(): JSX.Element;
-  render(): JSX.Element;
-}
+export declare const ProfileCard: React_2.ForwardRefExoticComponent<
+  Omit<ProfilecardProps & AnalyticsProps, keyof WithAnalyticsEventsProps> &
+    React_2.RefAttributes<any>
+>;
 
 export declare interface ProfileCardAction {
   callback?: (...args: any[]) => any;
@@ -146,7 +148,6 @@ export declare interface ProfileCardAction {
 export declare interface ProfileCardClientData {
   isBot: boolean;
   isCurrentUser: boolean;
-  isNotMentionable: boolean;
   avatarUrl?: string;
   email?: string;
   fullName?: string;
@@ -170,7 +171,6 @@ export declare interface ProfilecardProps {
   errorType?: ProfileCardErrorType;
   status?: StatusType;
   isBot?: boolean;
-  isNotMentionable?: boolean;
   avatarUrl?: string;
   fullName?: string;
   meta?: string;
@@ -182,8 +182,7 @@ export declare interface ProfilecardProps {
   companyName?: string;
   timestring?: string;
   actions?: ProfileCardAction[];
-  clientFetchProfile?: any;
-  analytics?: any;
+  clientFetchProfile?: () => void;
   statusModifiedDate?: number | null;
   withoutElevation?: boolean;
   /** Show manager and direct reports section on profile hover card, if available */
@@ -202,34 +201,6 @@ export declare interface ProfilecardProps {
   openKudosDrawer?: () => void;
 }
 
-declare class ProfileCardResourced extends React_2.PureComponent<
-  ProfileCardResourcedProps,
-  ProfileCardResourcedState
-> {
-  static defaultProps: Partial<ProfileCardResourcedProps>;
-  _isMounted: boolean;
-  state: ProfileCardResourcedState;
-  componentDidMount(): void;
-  componentDidUpdate(
-    prevProps: ProfileCardResourcedProps,
-    prevState: ProfileCardResourcedState,
-  ): void;
-  componentWillUnmount(): void;
-  private callAnalytics;
-  clientFetchProfile: () => void;
-  handleClientSuccess(
-    profileData: ProfileCardClientData,
-    reportingLinesData: TeamCentralReportingLinesData,
-    shouldShowGiveKudos: boolean,
-  ): void;
-  handleClientError(err: any): void;
-  filterActions: () => ProfileCardAction[];
-  openKudosDrawer: () => void;
-  closeKudosDrawer: () => void;
-  render(): React_2.ReactNode;
-}
-export default ProfileCardResourced;
-
 export declare interface ProfileCardResourcedProps {
   userId: string;
   cloudId: string;
@@ -237,7 +208,6 @@ export declare interface ProfileCardResourcedProps {
   actions?: ProfileCardAction[];
   reportingLinesProfileUrl?: string;
   onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  analytics?: any;
   position?: ProfilecardTriggerPosition;
   trigger?: TriggerType;
   children?: React_2.ReactNode;
@@ -255,53 +225,26 @@ export declare interface ProfileCardResourcedState {
   kudosDrawerOpen: boolean;
 }
 
-export declare class ProfileCardTrigger extends React_2.PureComponent<
-  ProfileCardTriggerProps,
-  ProfileCardTriggerState
-> {
-  static defaultProps: Partial<ProfileCardTriggerProps>;
-  _isMounted: boolean;
-  showDelay: number;
-  hideDelay: number;
-  showTimer: number;
-  hideTimer: number;
-  hideProfilecard: () => void;
-  showProfilecard: () => void;
-  onClick: (event: React_2.MouseEvent) => void;
-  containerListeners:
-    | {
-        onMouseEnter: () => void;
-        onMouseLeave: () => void;
-        onClick?: undefined;
-      }
-    | {
-        onClick: (event: React_2.MouseEvent) => void;
-        onMouseEnter?: undefined;
-        onMouseLeave?: undefined;
-      };
-  layerListeners: {
-    handleClickOutside: () => void;
-    handleEscapeKeydown: () => void;
-  };
-  state: ProfileCardTriggerState;
-  componentDidMount(): void;
-  componentDidUpdate(prevProps: ProfileCardTriggerProps): void;
-  componentWillUnmount(): void;
-  clientFetchProfile: () => void;
-  handleClientSuccess(
-    profileData: ProfileCardClientData,
-    reportingLinesData: TeamCentralReportingLinesData,
-    shouldShowGiveKudos: boolean,
-  ): void;
-  handleClientError(err: any): void;
-  filterActions(): ProfileCardAction[];
-  renderProfileCard(): JSX.Element;
-  openKudosDrawer: () => void;
-  closeKudosDrawer: () => void;
-  renderCard: () => JSX.Element;
-  renderWithTrigger(): JSX.Element;
-  render(): JSX.Element;
-}
+export declare const ProfileCardTrigger: React_2.ForwardRefExoticComponent<
+  Pick<
+    Omit<
+      ProfileCardTriggerProps & AnalyticsProps,
+      keyof WithAnalyticsEventsProps
+    >,
+    never
+  > &
+    Partial<
+      Pick<
+        Omit<
+          ProfileCardTriggerProps & AnalyticsProps,
+          keyof WithAnalyticsEventsProps
+        >,
+        keyof ProfileCardTriggerProps
+      >
+    > &
+    Partial<Pick<Partial<ProfileCardTriggerProps>, never>> &
+    React_2.RefAttributes<any>
+>;
 
 export declare type ProfilecardTriggerPosition =
   | 'bottom-start'
@@ -335,7 +278,6 @@ export declare interface ProfileCardTriggerProps {
   actions?: ProfileCardAction[];
   reportingLinesProfileUrl?: string;
   onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  analytics?: any;
   position?: ProfilecardTriggerPosition;
   trigger?: TriggerType;
   children?: React_2.ReactNode;
@@ -361,11 +303,15 @@ export declare class ProfileClient {
   tcClient?: TeamCentralCardClient;
   constructor(config: ProfileClientOptions, clients?: ClientOverrides);
   flushCache(): void;
-  getProfile(cloudId: string, userId: string): Promise<any>;
+  getProfile(
+    cloudId: string,
+    userId: string,
+    analytics?: (event: AnalyticsEventPayload) => void,
+  ): Promise<any>;
   getTeamProfile(
     teamId: string,
     orgId?: string,
-    analytics?: (event: Record<string, any>) => void,
+    analytics?: (event: AnalyticsEventPayload) => void,
   ): Promise<Team>;
   getReportingLines(userId: string): Promise<TeamCentralReportingLinesData>;
   getTeamCentralBaseUrl(): string | undefined;
@@ -377,11 +323,12 @@ declare interface ProfileClient_2 {
   getProfile: (
     cloudId: string,
     userId: string,
+    analytics?: (event: AnalyticsEventPayload) => void,
   ) => Promise<ProfileCardClientData>;
   getTeamProfile: (
     teamId: string,
     orgId?: string,
-    fireAnalytics?: (event: Record<string, any>) => void,
+    fireAnalytics?: (event: AnalyticsEventPayload) => void,
   ) => Promise<Team>;
   getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
   shouldShowGiveKudos: () => Promise<boolean>;
@@ -552,9 +499,7 @@ declare interface TeamProfilecardProps extends TeamProfilecardCoreProps {
 export declare const TeamProfileCardTrigger: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<
-      TeamProfileCardTriggerProps & {
-        createAnalyticsEvent?: CreateUIAnalyticsEvent | undefined;
-      },
+      TeamProfileCardTriggerProps & AnalyticsProps,
       keyof WithAnalyticsEventsProps
     >,
     never
@@ -562,9 +507,7 @@ export declare const TeamProfileCardTrigger: React_2.ForwardRefExoticComponent<
     Partial<
       Pick<
         Omit<
-          TeamProfileCardTriggerProps & {
-            createAnalyticsEvent?: CreateUIAnalyticsEvent | undefined;
-          },
+          TeamProfileCardTriggerProps & AnalyticsProps,
           keyof WithAnalyticsEventsProps
         >,
         keyof TeamProfileCardTriggerProps
@@ -653,7 +596,7 @@ export declare class TeamProfileClient extends CachingClient<Team> {
   getProfile(
     teamId: string,
     orgId: string | undefined,
-    analytics?: (event: Record<string, any>) => void,
+    analytics?: (event: AnalyticsEventPayload) => void,
   ): Promise<Team>;
 }
 
@@ -663,7 +606,11 @@ export declare class UserProfileClient extends CachingClient<any> {
   options: ProfileClientOptions;
   constructor(options: ProfileClientOptions);
   makeRequest(cloudId: string, userId: string): Promise<ProfileCardClientData>;
-  getProfile(cloudId: string, userId: string): Promise<any>;
+  getProfile(
+    cloudId: string,
+    userId: string,
+    analytics?: (event: AnalyticsEventPayload) => void,
+  ): Promise<any>;
 }
 
 export declare function withOuterListeners<P>(

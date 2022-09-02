@@ -2,6 +2,11 @@ import React from 'react';
 
 import { IntlShape } from 'react-intl-next';
 
+import {
+  AnalyticsEventPayload,
+  CreateUIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
+
 import TeamCentralCardClient from './client/TeamCentralCardClient';
 import TeamProfileCardClient from './client/TeamProfileCardClient';
 import UserProfileCardClient from './client/UserProfileCardClient';
@@ -11,7 +16,6 @@ export interface ApiClientResponse {
     id: string;
     isBot: boolean;
     isCurrentUser: boolean;
-    isNotMentionable: boolean;
     avatarUrl: string | null;
     email: string | null;
     fullName: string | null;
@@ -48,7 +52,6 @@ export interface Team {
 export interface ProfileCardClientData {
   isBot: boolean;
   isCurrentUser: boolean;
-  isNotMentionable: boolean;
   avatarUrl?: string;
   email?: string;
   fullName?: string;
@@ -85,7 +88,6 @@ export interface ProfileCardResourcedProps {
   actions?: ProfileCardAction[];
   reportingLinesProfileUrl?: string;
   onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  analytics?: any;
   position?: ProfilecardTriggerPosition;
   trigger?: TriggerType;
   children?: React.ReactNode;
@@ -121,7 +123,6 @@ export interface ProfileCardTriggerProps {
   actions?: ProfileCardAction[];
   reportingLinesProfileUrl?: string;
   onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  analytics?: any;
   position?: ProfilecardTriggerPosition;
   trigger?: TriggerType;
   children?: React.ReactNode;
@@ -308,7 +309,6 @@ export interface ProfilecardProps {
   errorType?: ProfileCardErrorType;
   status?: StatusType;
   isBot?: boolean;
-  isNotMentionable?: boolean;
   avatarUrl?: string;
   fullName?: string;
   meta?: string;
@@ -321,8 +321,7 @@ export interface ProfilecardProps {
   companyName?: string;
   timestring?: string;
   actions?: ProfileCardAction[];
-  clientFetchProfile?: any;
-  analytics?: any;
+  clientFetchProfile?: () => void;
   statusModifiedDate?: number | null;
   withoutElevation?: boolean;
   /** Show manager and direct reports section on profile hover card, if available */
@@ -348,9 +347,17 @@ export interface ProfilecardProps {
   openKudosDrawer?: () => void;
 }
 
-export type AnalyticsFromDuration = (duration: number) => Record<string, any>;
+export type AnalyticsFromDuration = (duration: number) => AnalyticsEventPayload;
 
 export type AnalyticsFunction = (generator: AnalyticsFromDuration) => void;
+
+export interface AnalyticsProps {
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+}
+
+export interface AnalyticsWithDurationProps {
+  fireAnalyticsWithDuration: AnalyticsFunction;
+}
 
 export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
   /** Indicates whether the team's details are still loading. */
@@ -386,11 +393,12 @@ export interface ProfileClient {
   getProfile: (
     cloudId: string,
     userId: string,
+    analytics?: (event: AnalyticsEventPayload) => void,
   ) => Promise<ProfileCardClientData>;
   getTeamProfile: (
     teamId: string,
     orgId?: string,
-    fireAnalytics?: (event: Record<string, any>) => void,
+    fireAnalytics?: (event: AnalyticsEventPayload) => void,
   ) => Promise<Team>;
   getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
   shouldShowGiveKudos: () => Promise<boolean>;

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.2.8
+
+### Patch Changes
+
+- [`eb77cae1ea4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb77cae1ea4) - [ux] Selected buttons that have menus in the atlassian-navigation component now show the correct background color when "selected"
+
 ## 2.2.7
 
 ### Patch Changes

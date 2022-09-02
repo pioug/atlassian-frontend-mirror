@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
 
 import ProfileCardClient from '../src/client/ProfileCardClient';
@@ -12,17 +11,8 @@ import teamData from '../src/mocks/team-data';
 import { Team } from '../src/types';
 
 import { Radios, TeamCustomizer } from './helper/customization';
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ExampleWrapper from './helper/example-wrapper';
 import { getMockTeamClient } from './helper/util';
-
-const onAnalyticsEvent = (event: UIAnalyticsEvent) => {
-  console.log(
-    event.payload.action,
-    event.payload.actionSubject,
-    event.payload.actionSubjectId || '',
-    event.payload.attributes,
-  );
-};
 
 const clientArgs = {
   cacheSize: 10,
@@ -163,98 +153,96 @@ export default function Example() {
   }, [isRealClient]);
 
   return (
-    <AnalyticsListener channel="peopleTeams" onEvent={onAnalyticsEvent}>
-      <LocaleIntlProvider>
-        <MainStage>
-          <Section>
-            <input value="Value" type="text" />
-            <Container>
-              <h4>Profilecard triggered by hover</h4>
-              <span>
-                Hover to preview the team:{' '}
-                <TeamProfilecardTrigger
-                  {...defaultProps}
-                  actions={defaultProps.actions.slice(0, numActions)}
-                  trigger="hover"
-                  viewingUserId={viewerId}
-                >
-                  <strong>The Cool Team</strong>
-                </TeamProfilecardTrigger>
-              </span>
-            </Container>
-            <Container>
-              <h4>Profilecard triggered by click</h4>
-              <span>
-                Click on them to preview:{' '}
-                <TeamProfilecardTrigger
-                  {...defaultProps}
-                  actions={defaultProps.actions.slice(0, numActions)}
-                  trigger="click"
-                  viewingUserId={viewerId}
-                >
-                  <strong>The Nice Team</strong>
-                </TeamProfilecardTrigger>
-              </span>
-            </Container>
-            <Container>
-              <h4>Profilecard triggered by hover or click</h4>
-              <span>
-                Click on them to preview:{' '}
-                <TeamProfilecardTrigger
-                  {...defaultProps}
-                  actions={defaultProps.actions.slice(0, numActions)}
-                  trigger="hover-click"
-                  viewingUserId={viewerId}
-                >
-                  <strong>The Hover-Clicky Team</strong>
-                </TeamProfilecardTrigger>
-              </span>
-              <p>
-                This will try to be "smart" to determine whether to close
-                correctly on mousing away or not.
-              </p>
-            </Container>
-          </Section>
-          <CustomizationPanel />
-          <p>
-            Including you?
-            <label htmlFor="includingYou">
-              <input
-                checked={includingYou}
-                id="includingYou"
-                onChange={() => setIncludingYou(!includingYou)}
-                type="checkbox"
-              />
-              {includingYou}
-            </label>
-          </p>
-          <p>
-            Use real client?
-            <label htmlFor="realClient">
-              <input
-                checked={isRealClient}
-                id="realClient"
-                onChange={() => setRealClient(!isRealClient)}
-                type="checkbox"
-              />
-            </label>
-          </p>
-          <TeamCustomizer
-            setTeam={(team) => {
-              teamClientData.team = team;
-            }}
-          />
-          Extra actions
-          <Radios
-            label="actions"
-            options={[0, 1, 2, 3, 4]}
-            setter={(value) => {
-              setNumActions(value);
-            }}
-            currentValue={numActions}
-          />
-        </MainStage>
-      </LocaleIntlProvider>
-    </AnalyticsListener>
+    <ExampleWrapper>
+      <MainStage>
+        <Section>
+          <input value="Value" type="text" />
+          <Container>
+            <h4>Profilecard triggered by hover</h4>
+            <span>
+              Hover to preview the team:{' '}
+              <TeamProfilecardTrigger
+                {...defaultProps}
+                actions={defaultProps.actions.slice(0, numActions)}
+                trigger="hover"
+                viewingUserId={viewerId}
+              >
+                <strong>The Cool Team</strong>
+              </TeamProfilecardTrigger>
+            </span>
+          </Container>
+          <Container>
+            <h4>Profilecard triggered by click</h4>
+            <span>
+              Click on them to preview:{' '}
+              <TeamProfilecardTrigger
+                {...defaultProps}
+                actions={defaultProps.actions.slice(0, numActions)}
+                trigger="click"
+                viewingUserId={viewerId}
+              >
+                <strong>The Nice Team</strong>
+              </TeamProfilecardTrigger>
+            </span>
+          </Container>
+          <Container>
+            <h4>Profilecard triggered by hover or click</h4>
+            <span>
+              Click on them to preview:{' '}
+              <TeamProfilecardTrigger
+                {...defaultProps}
+                actions={defaultProps.actions.slice(0, numActions)}
+                trigger="hover-click"
+                viewingUserId={viewerId}
+              >
+                <strong>The Hover-Clicky Team</strong>
+              </TeamProfilecardTrigger>
+            </span>
+            <p>
+              This will try to be "smart" to determine whether to close
+              correctly on mousing away or not.
+            </p>
+          </Container>
+        </Section>
+        <CustomizationPanel />
+        <p>
+          Including you?
+          <label htmlFor="includingYou">
+            <input
+              checked={includingYou}
+              id="includingYou"
+              onChange={() => setIncludingYou(!includingYou)}
+              type="checkbox"
+            />
+            {includingYou}
+          </label>
+        </p>
+        <p>
+          Use real client?
+          <label htmlFor="realClient">
+            <input
+              checked={isRealClient}
+              id="realClient"
+              onChange={() => setRealClient(!isRealClient)}
+              type="checkbox"
+            />
+          </label>
+        </p>
+        <TeamCustomizer
+          setTeam={(team) => {
+            teamClientData.team = team;
+          }}
+        />
+        Extra actions
+        <Radios
+          label="actions"
+          options={[0, 1, 2, 3, 4]}
+          setter={(value) => {
+            setNumActions(value);
+          }}
+          currentValue={numActions}
+        />
+      </MainStage>
+    </ExampleWrapper>
   );
 }

@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import {
-  CreateUIAnalyticsEvent,
+  AnalyticsEventPayload,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
@@ -15,6 +15,7 @@ import filterActions from '../../internal/filterActions';
 import messages from '../../messages';
 import type {
   AnalyticsFromDuration,
+  AnalyticsProps,
   ProfileCardAction,
   Team,
   TeamProfilecardProps,
@@ -22,9 +23,9 @@ import type {
   TeamProfileCardTriggerState,
 } from '../../types';
 import {
+  cardTriggered,
   fireEvent,
-  teamCardTriggered,
-  teamProfileCardRendered,
+  profileCardRendered,
 } from '../../util/analytics';
 import { isBasicClick } from '../../util/click';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
@@ -35,9 +36,7 @@ import { TeamProfileCardLazy } from './lazyTeamProfileCard';
 import TeamLoadingState from './TeamLoadingState';
 
 export class TeamProfileCardTriggerInternal extends React.PureComponent<
-  TeamProfileCardTriggerProps & {
-    createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  },
+  TeamProfileCardTriggerProps & AnalyticsProps,
   TeamProfileCardTriggerState
 > {
   static defaultProps: Partial<TeamProfileCardTriggerProps> = {
@@ -55,7 +54,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 
   openTime = 0;
 
-  fireAnalytics = (payload: Record<string, any>) => {
+  fireAnalytics = (payload: AnalyticsEventPayload) => {
     // Don't fire any analytics if the component is unmounted
     if (!this._isMounted) {
       return;
@@ -113,7 +112,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
       this.showProfilecard(0);
 
       if (!this.state.visible) {
-        this.fireAnalytics(teamCardTriggered('click'));
+        this.fireAnalytics(cardTriggered('team', 'click'));
       }
     }
   };
@@ -126,7 +125,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
     if (!this.state.visible) {
       this.openedByHover = true;
 
-      this.fireAnalytics(teamCardTriggered('hover'));
+      this.fireAnalytics(cardTriggered('team', 'hover'));
     }
 
     this.showProfilecard(DELAY_MS_SHOW);
@@ -238,7 +237,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
         data: null,
       },
       () => {
-        const fireEvent = (event: Record<string, any>) => {
+        const fireEvent = (event: AnalyticsEventPayload) => {
           this.fireAnalytics(event);
         };
 
@@ -259,7 +258,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 
   onErrorBoundary = () => {
     this.fireAnalytics(
-      teamProfileCardRendered('errorBoundary', {
+      profileCardRendered('team', 'errorBoundary', {
         duration: 0,
       }),
     );

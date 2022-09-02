@@ -1,23 +1,13 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { mount } from 'enzyme';
 
 import Button from '@atlaskit/button/custom-theme-button';
 
-import { ErrorMessage } from '../../components/Error';
-import ProfileCardResourced, { ProfileCard, ProfileClient } from '../../index';
-import {
-  ActionButtonGroup,
-  FullNameLabel,
-  SpinnerContainer,
-} from '../../styled/Card';
-import {
-  LozengeProps,
-  ProfilecardProps,
-  ReportingLinesUser,
-} from '../../types';
-
-import mockGlobalDate from './helper/_mock-global-date';
+import { ProfilecardInternal as ProfileCard } from '../../components/User/ProfileCard';
+import { ActionButtonGroup } from '../../styled/Card';
+import { profileCardRendered } from '../../util/analytics';
 
 jest.mock('react-intl-next', () => {
   return {
@@ -29,220 +19,256 @@ jest.mock('react-intl-next', () => {
   };
 });
 
-describe('Profilecard', () => {
-  const defaultProps: ProfilecardProps = {
-    fullName: 'full name test',
-    status: 'active',
-    nickname: 'jscrazy',
-    companyName: 'Atlassian',
+// Mock for runItLater
+(window as any).requestIdleCallback = (callback: () => void) => callback();
+
+const mockAnalytics = jest.fn();
+mockAnalytics.mockImplementation(() => {
+  return {
+    fire: () => null,
   };
+});
 
-  const TODAY = new Date(2018, 10, 19, 17, 30, 0, 0);
+const flexiTime = (event: Record<string, any>, hasDuration?: boolean) => ({
+  ...event,
+  attributes: {
+    ...event.attributes,
+    firedAt: expect.anything(),
+    duration: hasDuration ? expect.anything() : undefined,
+  },
+});
 
-  beforeAll(() => {
-    mockGlobalDate.setToday(TODAY);
+const defaultProps: Parameters<typeof ProfileCard>[0] = {
+  fullName: 'full name test',
+  status: 'active',
+  nickname: 'jscrazy',
+  companyName: 'Atlassian',
+  createAnalyticsEvent: mockAnalytics,
+};
+
+const renderComponent = (props = {}) =>
+  render(<ProfileCard {...defaultProps} {...props} />);
+
+beforeEach(() => {
+  mockAnalytics.mockClear();
+});
+
+describe('ProfileCard', () => {
+  it('should be possible to create a component', () => {
+    const { getByTestId } = renderComponent();
+    const component = getByTestId('profilecard');
+    expect(component).toBeDefined();
   });
 
-  afterAll(() => {
-    mockGlobalDate.reset();
-  });
+  describe('fullName property', () => {
+    const fullName = 'This is an avatar!';
 
-  const renderShallow = (props = {}) =>
-    shallow(<ProfileCard {...defaultProps} {...props} />);
-
-  it('should export default ProfileCardResourced', () => {
-    expect(ProfileCardResourced).toBeInstanceOf(Object);
-  });
-
-  it('should export named ProfileCard and ProfileClient', () => {
-    expect(ProfileCard).toBeInstanceOf(Object);
-    expect(ProfileClient).toBeInstanceOf(Object);
-  });
-
-  describe('ProfileCard', () => {
-    it('should be possible to create a component', () => {
-      const card = shallow(<ProfileCard />);
-      expect(card.length).toBeGreaterThan(0);
+    it('should show the full name on the card if property is set', () => {
+      const { getByText } = renderComponent({ fullName });
+      const nameComponent = getByText(fullName, { exact: false });
+      expect(nameComponent).toBeDefined();
     });
 
-    describe('fullName property', () => {
-      const fullName = 'This is an avatar!';
-      const card = shallow(<ProfileCard fullName={fullName} />);
+    it('should not render a card if full name is not set', () => {
+      const { queryByTestId } = renderComponent({ fullName: undefined });
+      expect(queryByTestId('profilecard')).toBeNull();
+    });
+  });
 
-      it('should show the full name on the card if property is set', () => {
-        const el = card.find(FullNameLabel).dive();
-        expect(el.text()).toBe(fullName);
+  describe('isLoading property', () => {
+    it('should render the LoadingMessage component', () => {
+      const { getByTestId } = renderComponent({ isLoading: true });
+      expect(getByTestId('profilecard-spinner-container')).toBeDefined();
+    });
+
+    it('should send analytics for loading', () => {
+      renderComponent({ isLoading: true });
+      expect(mockAnalytics).toHaveBeenCalledWith(
+        flexiTime(profileCardRendered('user', 'spinner'), true),
+      );
+    });
+  });
+
+  describe('hasError property', () => {
+    it('should render the ErrorMessage component', () => {
+      const { getByTestId } = renderComponent({ hasError: true });
+      expect(getByTestId('profilecard-error')).toBeDefined();
+    });
+
+    it('should show "Try again" button if callback is provided', () => {
+      const { getByText } = renderComponent({
+        hasError: true,
+        clientFetchProfile: () => null,
       });
+      expect(getByText('Try again')).toBeDefined();
+    });
 
-      it('should not render a card if full name is not set', () => {
-        card.setProps({ fullName: undefined });
-        expect(card.find(ProfileCard).children()).toHaveLength(0);
+    it('should not show "Try again" button if no callback available', () => {
+      const { queryByText } = renderComponent({
+        hasError: true,
+        clientFetchProfile: undefined,
       });
+      expect(queryByText('Try again')).toBeNull();
+    });
 
-      it('should match snapshot when fullName and nickName are equal', () => {
-        const wrapper = renderShallow({
-          fullName: 'Same Same',
-          nickname: 'Same Same',
+    it.each([
+      [true, 'default'],
+      [true, 'NotFound'],
+      [true, ''],
+      [false, 'default'],
+      [false, 'NotFound'],
+      [false, ''],
+    ])(
+      'should send failure analytics with hasRetry=%j and errorType=%s',
+      (hasRetry, errorType) => {
+        renderComponent({
+          hasError: true,
+          clientFetchProfile: hasRetry ? () => null : undefined,
+          errorType: errorType ? { reason: errorType } : undefined,
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(mockAnalytics).toHaveBeenCalledWith(
+          flexiTime(
+            profileCardRendered('user', 'error', {
+              hasRetry,
+              errorType: (errorType || 'default') as 'default' | 'NotFound',
+            }),
+          ),
+        );
+      },
+    );
+  });
+
+  describe('actions property', () => {
+    const actions = [
+      {
+        id: 'one',
+        label: 'one',
+      },
+      {
+        id: 'two',
+        label: 'two',
+      },
+      {
+        id: 'three',
+        label: 'three',
+      },
+    ];
+
+    it('should not render meatball overflow if two or fewer actions', () => {
+      const { getByTestId, getByText, queryByTestId } = renderComponent({
+        actions: actions.slice(0, 2),
       });
 
-      it('should match snapshot when fullName and nickName are set', () => {
-        const wrapper = renderShallow();
-        expect(wrapper).toMatchSnapshot();
-      });
-
-      it('should match snapshot when nickName is missing', () => {
-        const wrapper = renderShallow({ nickname: undefined });
-        expect(wrapper).toMatchSnapshot();
-      });
+      expect(getByTestId('profilecard-actions')).not.toBeNull();
+      expect(getByText(actions[0].label)).not.toBeNull();
+      expect(getByText(actions[1].label)).not.toBeNull();
+      expect(queryByTestId('profilecard-actions-overflow')).toBeNull();
     });
 
-    describe('isLoading property', () => {
-      it('should render the LoadingMessage component', () => {
-        const card = shallow(<ProfileCard isLoading />);
-        expect(card.find(SpinnerContainer).exists()).toBe(true);
+    it('should render two action buttons for actions with the rest added to meatballs overflow menu', () => {
+      const { getByTestId, getByText, queryByText } = renderComponent({
+        actions,
       });
+
+      expect(getByTestId('profilecard-actions')).not.toBeNull();
+      expect(getByText(actions[0].label)).not.toBeNull();
+      expect(getByText(actions[1].label)).not.toBeNull();
+      expect(queryByText(actions[2].label)).toBeNull();
+      expect(getByTestId('profilecard-actions-overflow')).not.toBeNull();
     });
 
-    describe('hasError property', () => {
-      it('should render the ErrorMessage component', () => {
-        const card = shallow(<ProfileCard hasError />);
-        expect(card.find(ErrorMessage).exists()).toBe(true);
-      });
+    it('should not render any action buttons if actions property is not set', () => {
+      const { queryByTestId } = renderComponent({ actions: [] });
 
-      it('should render the ErrorMessage component with retry button if clientFetchProfile is provided', () => {
-        const card = mount(<ProfileCard hasError />);
-
-        const errorComponent = card.find(ErrorMessage);
-        expect(errorComponent.length).toBe(1);
-        // expect(errorComponent.find(CrossCircleIcon).length).toBe(1);
-        expect(errorComponent.find(Button).length).toBe(1);
-      });
+      expect(queryByTestId('profilecard-actions')).toBeNull();
     });
 
-    describe('actions property', () => {
-      const actions = [
-        {
-          id: 'one',
-          label: 'one',
-        },
-        {
-          id: 'two',
-          label: 'two',
-        },
-        {
-          id: 'three',
-          label: 'three',
-        },
-      ];
+    describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {
       const card = mount(<ProfileCard fullName="name" actions={actions} />);
 
-      it('should render two action button for actions with the rest added to meatballs overflow menu', () => {
+      it('should call callback handler for basic click', () => {
+        const spy = jest.fn().mockImplementation(() => {});
+        card.setProps({
+          actions: [
+            {
+              label: 'test',
+              callback: spy,
+            },
+          ],
+        });
         const actionsWrapper = card.find(ActionButtonGroup);
-        const buttonTexts = card
-          .find(Button)
-          .children()
-          .map((node) => node.text());
-
-        expect(actionsWrapper.children().first().children()).toHaveLength(3);
-
-        expect(buttonTexts[0]).toEqual(actions[0].label);
-        expect(buttonTexts[1]).toEqual(actions[1].label);
-        expect(buttonTexts[2]).toEqual(''); // overflow meatballs button
+        const event = { preventDefault: jest.fn() };
+        actionsWrapper.find(Button).first().simulate('click', event);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(event.preventDefault).toHaveBeenCalledTimes(1);
       });
 
-      describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {
-        it('should call callback handler for basic click', () => {
-          const spy = jest.fn().mockImplementation(() => {});
-          card.setProps({
-            actions: [
-              {
-                label: 'test',
-                callback: spy,
-              },
-            ],
-          });
-          const actionsWrapper = card.find(ActionButtonGroup);
-          const event = { preventDefault: jest.fn() };
-          actionsWrapper.find(Button).first().simulate('click', event);
-          expect(spy).toHaveBeenCalledTimes(1);
-          expect(event.preventDefault).toHaveBeenCalledTimes(1);
+      it('should call callback handler for cmd+click', () => {
+        const spy = jest.fn().mockImplementation(() => {});
+        card.setProps({
+          actions: [
+            {
+              label: 'test',
+              callback: spy,
+            },
+          ],
         });
-
-        it('should call callback handler for cmd+click', () => {
-          const spy = jest.fn().mockImplementation(() => {});
-          card.setProps({
-            actions: [
-              {
-                label: 'test',
-                callback: spy,
-              },
-            ],
-          });
-          const actionsWrapper = card.find(ActionButtonGroup);
-          const event = { preventDefault: jest.fn(), metaKey: true };
-          actionsWrapper.find(Button).first().simulate('click', event);
-          expect(spy).not.toHaveBeenCalled();
-          expect(event.preventDefault).not.toHaveBeenCalled();
-        });
-
-        it('should call callback handler for alt+click', () => {
-          const spy = jest.fn().mockImplementation(() => {});
-          card.setProps({
-            actions: [
-              {
-                label: 'test',
-                callback: spy,
-              },
-            ],
-          });
-          const actionsWrapper = card.find(ActionButtonGroup);
-          const event = { preventDefault: jest.fn(), altKey: true };
-          actionsWrapper.find(Button).first().simulate('click', event);
-          expect(spy).not.toHaveBeenCalled();
-          expect(event.preventDefault).not.toHaveBeenCalled();
-        });
-
-        it('should call callback handler for ctrl+click', () => {
-          const spy = jest.fn().mockImplementation(() => {});
-          card.setProps({
-            actions: [
-              {
-                label: 'test',
-                callback: spy,
-              },
-            ],
-          });
-          const actionsWrapper = card.find(ActionButtonGroup);
-          const event = { preventDefault: jest.fn(), ctrlKey: true };
-          actionsWrapper.find(Button).first().simulate('click', event);
-          expect(spy).not.toHaveBeenCalled();
-          expect(event.preventDefault).not.toHaveBeenCalled();
-        });
-
-        it('should call callback handler for shift+click', () => {
-          const spy = jest.fn().mockImplementation(() => {});
-          card.setProps({
-            actions: [
-              {
-                label: 'test',
-                callback: spy,
-              },
-            ],
-          });
-          const actionsWrapper = card.find(ActionButtonGroup);
-          const event = { preventDefault: jest.fn(), shiftKey: true };
-          actionsWrapper.find(Button).first().simulate('click', event);
-          expect(spy).not.toHaveBeenCalled();
-          expect(event.preventDefault).not.toHaveBeenCalled();
-        });
+        const actionsWrapper = card.find(ActionButtonGroup);
+        const event = { preventDefault: jest.fn(), metaKey: true };
+        actionsWrapper.find(Button).first().simulate('click', event);
+        expect(spy).not.toHaveBeenCalled();
+        expect(event.preventDefault).not.toHaveBeenCalled();
       });
 
-      it('should not render any action buttons if actions property is not set', () => {
-        card.setProps({ actions: undefined });
+      it('should call callback handler for alt+click', () => {
+        const spy = jest.fn().mockImplementation(() => {});
+        card.setProps({
+          actions: [
+            {
+              label: 'test',
+              callback: spy,
+            },
+          ],
+        });
         const actionsWrapper = card.find(ActionButtonGroup);
-        expect(actionsWrapper.children().length).toBe(0);
+        const event = { preventDefault: jest.fn(), altKey: true };
+        actionsWrapper.find(Button).first().simulate('click', event);
+        expect(spy).not.toHaveBeenCalled();
+        expect(event.preventDefault).not.toHaveBeenCalled();
+      });
+
+      it('should call callback handler for ctrl+click', () => {
+        const spy = jest.fn().mockImplementation(() => {});
+        card.setProps({
+          actions: [
+            {
+              label: 'test',
+              callback: spy,
+            },
+          ],
+        });
+        const actionsWrapper = card.find(ActionButtonGroup);
+        const event = { preventDefault: jest.fn(), ctrlKey: true };
+        actionsWrapper.find(Button).first().simulate('click', event);
+        expect(spy).not.toHaveBeenCalled();
+        expect(event.preventDefault).not.toHaveBeenCalled();
+      });
+
+      it('should call callback handler for shift+click', () => {
+        const spy = jest.fn().mockImplementation(() => {});
+        card.setProps({
+          actions: [
+            {
+              label: 'test',
+              callback: spy,
+            },
+          ],
+        });
+        const actionsWrapper = card.find(ActionButtonGroup);
+        const event = { preventDefault: jest.fn(), shiftKey: true };
+        actionsWrapper.find(Button).first().simulate('click', event);
+        expect(spy).not.toHaveBeenCalled();
+        expect(event.preventDefault).not.toHaveBeenCalled();
       });
 
       it('link default behaviour should be prevented if a callback is provided', () => {
@@ -278,153 +304,6 @@ describe('Profilecard', () => {
         expect(actionButton.prop('href')).toBe('#');
         actionButton.simulate('click', { preventDefault });
         expect(preventDefault.mock.calls.length).toBe(0);
-      });
-    });
-
-    describe('status property', () => {
-      it('should match snapshot when status=inactive and status modified date is unknown', () => {
-        const card = renderShallow({
-          status: 'inactive',
-          statusModifiedDate: undefined,
-        });
-
-        expect(card).toMatchSnapshot();
-      });
-
-      it('should match snapshot when status=inactive and status modified date is defined', () => {
-        const card = renderShallow({
-          status: 'inactive',
-          statusModifiedDate: 1542608651819,
-        });
-
-        expect(card).toMatchSnapshot();
-      });
-
-      it('should match snapshot when status=closed and status modified date is unknown', () => {
-        const card = renderShallow({
-          fullName: undefined,
-          status: 'closed',
-          statusModifiedDate: undefined,
-        });
-
-        expect(card).toMatchSnapshot();
-      });
-
-      it('should match snapshot when status=closed and status modified date is defined', () => {
-        const card = renderShallow({
-          fullName: undefined,
-          status: 'closed',
-          statusModifiedDate: 1542608651819,
-        });
-
-        expect(card).toMatchSnapshot();
-      });
-
-      it('should match snapshot when status=closed and hasDisabledAccountLozenge=false', () => {
-        const card = renderShallow({
-          status: 'closed',
-          hasDisabledAccountLozenge: false,
-        });
-
-        expect(card).toMatchSnapshot();
-      });
-
-      it('should match snapshot when status=inactive and hasDisabledAccountLozenge=false', () => {
-        const card = renderShallow({
-          status: 'inactive',
-          hasDisabledAccountLozenge: false,
-        });
-
-        expect(card).toMatchSnapshot();
-      });
-
-      it('should match snapshot when status=closed and disabledAccountMessage is defined', () => {
-        const card = renderShallow({
-          status: 'closed',
-          disabledAccountMessage: (
-            <p>this is a custom message for closed account</p>
-          ),
-        });
-
-        expect(card).toMatchSnapshot();
-      });
-
-      it('should match snapshot when status=inactive and disabledAccountMessage is defined', () => {
-        const card = renderShallow({
-          status: 'inactive',
-          disabledAccountMessage: (
-            <p>this is a custom message for inactive account</p>
-          ),
-        });
-
-        expect(card).toMatchSnapshot();
-      });
-    });
-
-    describe('customLozenges property', () => {
-      const customLozenges: LozengeProps[] = [
-        {
-          text: 'Guest',
-          appearance: 'new',
-          isBold: true,
-        },
-        {
-          text: 'Cool Bean',
-          appearance: 'removed',
-        },
-        {
-          text: <div>Another Role</div>,
-          appearance: 'inprogress',
-          isBold: true,
-        },
-      ];
-
-      it('should match snapshot when no custom lozenges are specified', () => {
-        const card = renderShallow();
-
-        expect(card).toMatchSnapshot();
-      });
-
-      it('should match snapshot when one custom lozenge is specified', () => {
-        const card = renderShallow({ customLozenges: [customLozenges[0]] });
-
-        expect(card).toMatchSnapshot();
-      });
-
-      it('should match snapshot when multiple custom lozenges are specified', () => {
-        const card = renderShallow({ customLozenges });
-
-        expect(card).toMatchSnapshot();
-      });
-    });
-
-    describe('reportingLines property', () => {
-      const exampleReportingLinesUser: ReportingLinesUser = {
-        accountIdentifier: 'abcd',
-        identifierType: 'ATLASSIAN_ID',
-        pii: {
-          name: 'name',
-          picture: 'picture',
-        },
-      };
-
-      it('should match snapshot when no reporting lines are specified', () => {
-        expect(renderShallow({ reportingLines: undefined })).toMatchSnapshot();
-        expect(renderShallow({ reportingLines: {} })).toMatchSnapshot();
-        expect(
-          renderShallow({ reportingLines: { managers: [], reports: [] } }),
-        ).toMatchSnapshot();
-      });
-
-      it('should match snapshot when reporting lines are specified', () => {
-        expect(
-          renderShallow({
-            reportingLines: {
-              managers: [exampleReportingLinesUser],
-              reports: [exampleReportingLinesUser, exampleReportingLinesUser],
-            },
-          }),
-        ).toMatchSnapshot();
       });
     });
   });

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { ProfileCard } from '../src';
 import { profiles } from '../src/mocks';
 
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ExampleWrapper from './helper/example-wrapper';
 
 export const MainStage = styled.div`
   margin: 16px;
@@ -15,7 +15,7 @@ const avatarImage = profiles[4].User.avatarUrl;
 
 export default function Example() {
   return (
-    <LocaleIntlProvider>
+    <ExampleWrapper>
       <>
         <MainStage>
           <ProfileCard
@@ -49,6 +49,6 @@ export default function Example() {
           />
         </MainStage>
       </>
-    </LocaleIntlProvider>
+    </ExampleWrapper>
   );
 }

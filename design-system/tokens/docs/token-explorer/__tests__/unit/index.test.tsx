@@ -61,7 +61,7 @@ describe('Token explorer', () => {
       expect(tokenItem[0]).toBeInTheDocument();
     });
 
-    it('should filter tokens by matching name', async () => {
+    xit('should filter tokens by matching name', async () => {
       const { getByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
@@ -78,7 +78,7 @@ describe('Token explorer', () => {
       expect(matchingTokenItem).toBeInTheDocument();
     });
 
-    it('should filter tokens by matching exact name', async () => {
+    xit('should filter tokens by matching exact name', async () => {
       const { getByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
@@ -97,7 +97,7 @@ describe('Token explorer', () => {
       expect(matchingTokenItem).toBeInTheDocument();
     });
 
-    it('should filter tokens by matching value', async () => {
+    xit('should filter tokens by matching value', async () => {
       const { getAllByText, getByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
@@ -113,7 +113,7 @@ describe('Token explorer', () => {
       expect(matchingTokenItem[0]).toBeInTheDocument();
     });
 
-    it('should filter tokens by matching exact value', async () => {
+    xit('should filter tokens by matching exact value', async () => {
       const { getByTestId, getAllByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);

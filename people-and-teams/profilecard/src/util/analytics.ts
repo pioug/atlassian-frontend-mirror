@@ -7,8 +7,9 @@ import { getPageTime } from './performance';
 const ANALYTICS_CHANNEL = 'peopleTeams';
 
 const runItLater = (cb: (arg: any) => void) => {
-  if ((window as any).requestIdleCallback === 'function') {
-    return (window as any).requestIdleCallback(cb);
+  const requestIdleCallback = (window as any).requestIdleCallback;
+  if (typeof requestIdleCallback === 'function') {
+    return requestIdleCallback(cb);
   }
 
   if (typeof window.requestAnimationFrame === 'function') {
@@ -18,11 +19,13 @@ const runItLater = (cb: (arg: any) => void) => {
   return () => setTimeout(cb);
 };
 
+type GenericAttributes = Record<string, string | number | boolean | undefined>;
+
 interface AnalyticsEvent {
   action?: string;
   actionSubject?: string;
   actionSubjectId?: string;
-  attributes?: Record<string, string | number | boolean | undefined>;
+  attributes?: GenericAttributes;
   name?: string;
   source?: string;
 }
@@ -42,13 +45,14 @@ export const fireEvent = (
 /** Above lines are copied from teams common analytics */
 
 const TEAM_SUBJECT = 'teamProfileCard';
+const USER_SUBJECT = 'profilecard';
 
 const createEvent = (
   eventType: 'ui' | 'operational',
   action: string,
   actionSubject: string,
   actionSubjectId?: string,
-  attributes: Record<string, string | number | boolean | undefined> = {},
+  attributes: GenericAttributes = {},
 ): AnalyticsEventPayload => ({
   eventType,
   action,
@@ -58,25 +62,38 @@ const createEvent = (
     packageName: process.env._PACKAGE_NAME_,
     packageVersion: process.env._PACKAGE_VERSION_,
     ...attributes,
-    firedAt: getPageTime(),
+    firedAt: Math.round(getPageTime()),
   },
 });
 
-export const teamCardTriggered = (method: 'hover' | 'click') =>
-  createEvent('ui', 'triggered', TEAM_SUBJECT, undefined, { method });
+export const cardTriggered = (
+  type: 'user' | 'team',
+  method: 'hover' | 'click',
+) =>
+  createEvent(
+    'ui',
+    'triggered',
+    type === 'user' ? USER_SUBJECT : TEAM_SUBJECT,
+    undefined,
+    { method },
+  );
 
 export const teamRequestAnalytics = (
   action: 'triggered' | 'succeeded' | 'failed',
-  attributes?: { duration: number } & Record<
-    string,
-    string | number | boolean | undefined
-  >,
+  attributes?: { duration: number } & GenericAttributes,
 ) => createEvent('operational', action, TEAM_SUBJECT, 'request', attributes);
 
-export const teamProfileCardRendered = (
+export const userRequestAnalytics = (
+  action: 'triggered' | 'succeeded' | 'failed',
+  attributes?: { duration: number } & GenericAttributes,
+) => createEvent('operational', action, USER_SUBJECT, 'request', attributes);
+
+export const profileCardRendered = (
+  type: 'user' | 'team',
   actionSubjectId: 'spinner' | 'content' | 'error' | 'errorBoundary',
-  attributes: {
-    duration: number;
+  attributes?: {
+    duration?: number;
+    errorType?: 'default' | 'NotFound';
     hasRetry?: boolean;
     numActions?: number;
     memberCount?: number;
@@ -84,20 +101,52 @@ export const teamProfileCardRendered = (
     descriptionLength?: number;
     titleLength?: number;
   },
-) => createEvent('ui', 'rendered', TEAM_SUBJECT, actionSubjectId, attributes);
+) =>
+  createEvent(
+    'ui',
+    'rendered',
+    type === 'user' ? USER_SUBJECT : TEAM_SUBJECT,
+    actionSubjectId,
+    attributes,
+  );
 
-export const teamActionClicked = (attributes: {
-  duration: number;
-  hasHref: boolean;
-  hasOnClick: boolean;
-  index: number;
-  actionId: string;
-}) => createEvent('ui', 'clicked', TEAM_SUBJECT, 'action', attributes);
+export const actionClicked = (
+  type: 'user' | 'team',
+  attributes: {
+    duration: number;
+    hasHref: boolean;
+    hasOnClick: boolean;
+    index: number;
+    actionId: string;
+  },
+) =>
+  createEvent(
+    'ui',
+    'clicked',
+    type === 'user' ? USER_SUBJECT : TEAM_SUBJECT,
+    'action',
+    attributes,
+  );
 
-export const moreActionsClicked = (attributes: {
+export const reportingLinesClicked = (attributes: {
+  userType: 'manager' | 'direct-report';
   duration: number;
-  numActions: number;
-}) => createEvent('ui', 'clicked', TEAM_SUBJECT, 'moreActions', attributes);
+}) => createEvent('ui', 'clicked', USER_SUBJECT, 'reportingLines', attributes);
+
+export const moreActionsClicked = (
+  type: 'user' | 'team',
+  attributes: {
+    duration: number;
+    numActions: number;
+  },
+) =>
+  createEvent(
+    'ui',
+    'clicked',
+    type === 'user' ? USER_SUBJECT : TEAM_SUBJECT,
+    'moreActions',
+    attributes,
+  );
 
 export const teamAvatarClicked = (attributes: {
   duration: number;

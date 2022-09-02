@@ -9,7 +9,7 @@ import TeamProfilecardTrigger from '../src/components/Team';
 import ProfileCardTrigger from '../src/components/User';
 import teamData from '../src/mocks/team-data';
 
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient, getMockTeamClient } from './helper/util';
 
 export const Wrap = styled.div`
@@ -111,7 +111,7 @@ export default function Example() {
   ];
 
   return (
-    <LocaleIntlProvider>
+    <ExampleWrapper>
       <MainStage>
         <Wrap>
           <ProfileCardResourced
@@ -192,6 +192,6 @@ export default function Example() {
           ))}
         </FlagGroup>
       </MainStage>
-    </LocaleIntlProvider>
+    </ExampleWrapper>
   );
 }

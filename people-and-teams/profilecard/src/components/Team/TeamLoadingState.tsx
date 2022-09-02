@@ -9,13 +9,15 @@ import {
   LoadingWrapper,
 } from '../../styled/TeamCard';
 import { AnalyticsFunction } from '../../types';
-import { teamProfileCardRendered } from '../../util/analytics';
+import { profileCardRendered } from '../../util/analytics';
 
 export default (props: { analytics: AnalyticsFunction }) => {
   const { analytics } = props;
 
   useEffect(() => {
-    analytics((duration) => teamProfileCardRendered('spinner', { duration }));
+    analytics((duration) =>
+      profileCardRendered('team', 'spinner', { duration }),
+    );
   }, [analytics]);
 
   return (

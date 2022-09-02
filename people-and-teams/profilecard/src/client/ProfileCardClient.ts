@@ -1,3 +1,5 @@
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+
 import {
   ClientOverrides,
   ProfileClientOptions,
@@ -25,14 +27,18 @@ class ProfileCardClient {
     this.tcClient?.flushCache();
   }
 
-  getProfile(cloudId: string, userId: string): Promise<any> {
-    return this.userClient.getProfile(cloudId, userId);
+  getProfile(
+    cloudId: string,
+    userId: string,
+    analytics?: (event: AnalyticsEventPayload) => void,
+  ): Promise<any> {
+    return this.userClient.getProfile(cloudId, userId, analytics);
   }
 
   getTeamProfile(
     teamId: string,
     orgId?: string,
-    analytics?: (event: Record<string, any>) => void,
+    analytics?: (event: AnalyticsEventPayload) => void,
   ) {
     return this.teamClient.getProfile(teamId, orgId, analytics);
   }

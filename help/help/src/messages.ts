@@ -120,7 +120,7 @@ export const messages = defineMessages({
   },
   help_related_article_endpoint_error_description: {
     id: 'help.related_article.endpoint-error.description',
-    defaultMessage: `It's taking us longer than expected to show this content. It's provably a temporary problem.`,
+    defaultMessage: `It's taking us longer than expected to show this content. It's probably a temporary problem.`,
     description:
       'Body for the message displayed when the related articles fetching fails',
   },

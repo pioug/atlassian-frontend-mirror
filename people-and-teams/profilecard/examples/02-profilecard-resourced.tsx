@@ -6,7 +6,7 @@ import Button, { ButtonGroup } from '@atlaskit/button';
 
 import ProfileCardResourced from '../src';
 
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient } from './helper/util';
 
 export const Wrap = styled.div`
@@ -54,7 +54,7 @@ export default function Example() {
   };
 
   return (
-    <LocaleIntlProvider>
+    <ExampleWrapper>
       <MainStage>
         <Wrap>
           <ButtonGroup>
@@ -96,6 +96,6 @@ export default function Example() {
           />
         </Wrap>
       </MainStage>
-    </LocaleIntlProvider>
+    </ExampleWrapper>
   );
 }

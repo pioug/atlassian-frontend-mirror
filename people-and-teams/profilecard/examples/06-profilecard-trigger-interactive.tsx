@@ -2,8 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import ExampleWrapper from './helper/example-wrapper';
 import InteractiveTrigger from './helper/interactive-trigger';
-import LocaleIntlProvider from './helper/locale-intl-provider';
 import { getMockProfileClient } from './helper/util';
 
 const mockClient = getMockProfileClient(10, 0);
@@ -23,13 +23,13 @@ export const Section = styled.div`
 
 export default function Example() {
   return (
-    <LocaleIntlProvider>
+    <ExampleWrapper>
       <MainStage>
         <Section>
           <h4>Profilecard triggered by hover</h4>
           <InteractiveTrigger resourceClient={mockClient} />
         </Section>
       </MainStage>
-    </LocaleIntlProvider>
+    </ExampleWrapper>
   );
 }

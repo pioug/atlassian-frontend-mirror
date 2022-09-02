@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.13
+
+### Patch Changes
+
+- [`d4d09b38089`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4d09b38089) - [ux] fix typo
+
 ## 7.1.12
 
 ### Patch Changes

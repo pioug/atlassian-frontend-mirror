@@ -7,8 +7,8 @@ import { getMockTeamClient } from '../../../examples/helper/util';
 import ProfileClient from '../../../src/client/ProfileCardClient';
 import { TeamProfileCardTriggerInternal as TeamProfileCardTrigger } from '../../components/Team/TeamProfileCardTrigger';
 import {
+  cardTriggered,
   fireEvent as fireAnalyticsEvent,
-  teamCardTriggered,
   teamRequestAnalytics,
 } from '../../util/analytics';
 
@@ -104,7 +104,7 @@ describe('TeamProfileCardTrigger', () => {
 
       expect(fireAnalyticsEvent).toHaveBeenCalledWith(
         expect.any(Function),
-        flexiTime(teamCardTriggered('click')),
+        flexiTime(cardTriggered('team', 'click')),
       );
 
       expect(getByTestId('team-profilecard')).toBeDefined();
@@ -140,7 +140,7 @@ describe('TeamProfileCardTrigger', () => {
 
       expect(fireAnalyticsEvent).toHaveBeenCalledWith(
         expect.any(Function),
-        flexiTime(teamCardTriggered('hover')),
+        flexiTime(cardTriggered('team', 'hover')),
       );
 
       expect(getByTestId('team-profilecard')).toBeDefined();
@@ -589,6 +589,7 @@ describe('TeamProfileCardTrigger', () => {
             duration: expect.anything(),
             errorReason: error,
             gateway: false,
+            isSLOFailure: true,
           }),
         ),
       );

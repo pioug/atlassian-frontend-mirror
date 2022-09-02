@@ -1,5 +1,9 @@
 import React, { Suspense } from 'react';
 
+import {
+  AnalyticsEventPayload,
+  withAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
@@ -7,6 +11,7 @@ import { layers } from '@atlaskit/theme/constants';
 import filterActions from '../../internal/filterActions';
 import { CardWrapper } from '../../styled/Card';
 import {
+  AnalyticsProps,
   ProfileCardAction,
   ProfileCardClientData,
   ProfilecardProps,
@@ -14,13 +19,14 @@ import {
   ProfileCardTriggerState,
   TeamCentralReportingLinesData,
 } from '../../types';
+import { cardTriggered, fireEvent } from '../../util/analytics';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 
 import { ProfileCardLazy } from './lazyProfileCard';
 import UserLoadingState from './UserLoadingState';
 
 class ProfilecardTrigger extends React.PureComponent<
-  ProfileCardTriggerProps,
+  ProfileCardTriggerProps & AnalyticsProps,
   ProfileCardTriggerState
 > {
   static defaultProps: Partial<ProfileCardTriggerProps> = {
@@ -34,6 +40,17 @@ class ProfilecardTrigger extends React.PureComponent<
   hideDelay: number = this.props.trigger === 'click' ? 0 : DELAY_MS_HIDE;
   showTimer: number = 0;
   hideTimer: number = 0;
+
+  fireAnalytics = (payload: AnalyticsEventPayload) => {
+    // Don't fire any analytics if the component is unmounted
+    if (!this._isMounted) {
+      return;
+    }
+
+    if (this.props.createAnalyticsEvent) {
+      fireEvent(this.props.createAnalyticsEvent, payload);
+    }
+  };
 
   hideProfilecard = () => {
     clearTimeout(this.showTimer);
@@ -63,12 +80,24 @@ class ProfilecardTrigger extends React.PureComponent<
     event.stopPropagation();
 
     this.showProfilecard();
+
+    if (!this.state.visible) {
+      this.fireAnalytics(cardTriggered('user', 'click'));
+    }
+  };
+
+  onMouseEnter = () => {
+    this.showProfilecard();
+
+    if (!this.state.visible) {
+      this.fireAnalytics(cardTriggered('user', 'hover'));
+    }
   };
 
   containerListeners =
     this.props.trigger === 'hover'
       ? {
-          onMouseEnter: this.showProfilecard,
+          onMouseEnter: this.onMouseEnter,
           onMouseLeave: this.hideProfilecard,
         }
       : {
@@ -143,7 +172,11 @@ class ProfilecardTrigger extends React.PureComponent<
       },
       () => {
         const requests = Promise.all([
-          this.props.resourceClient.getProfile(cloudId || '', userId),
+          this.props.resourceClient.getProfile(
+            cloudId || '',
+            userId,
+            this.fireAnalytics,
+          ),
           this.props.resourceClient.getReportingLines(userId),
           this.props.resourceClient.shouldShowGiveKudos(),
         ]);
@@ -197,7 +230,6 @@ class ProfilecardTrigger extends React.PureComponent<
       userId: this.props.userId,
       isCurrentUser: this.state.data?.isCurrentUser,
       clientFetchProfile: this.clientFetchProfile,
-      analytics: this.props.analytics,
       ...this.state.data,
       reportingLines: this.state.reportingLinesData,
       onReportingLinesClick: this.props.onReportingLinesClick,
@@ -210,7 +242,7 @@ class ProfilecardTrigger extends React.PureComponent<
     const wrapperProps =
       this.props.trigger === 'hover'
         ? {
-            onMouseEnter: this.showProfilecard,
+            onMouseEnter: this.onMouseEnter,
             onMouseLeave: this.hideProfilecard,
           }
         : {};
@@ -247,7 +279,7 @@ class ProfilecardTrigger extends React.PureComponent<
     if (isLoading === true || isLoading === undefined) {
       return (
         <CardWrapper>
-          <UserLoadingState />
+          <UserLoadingState fireAnalytics={this.fireAnalytics} />
         </CardWrapper>
       );
     } else {
@@ -310,4 +342,4 @@ class ProfilecardTrigger extends React.PureComponent<
   }
 }
 
-export default ProfilecardTrigger;
+export default withAnalyticsEvents()(ProfilecardTrigger);

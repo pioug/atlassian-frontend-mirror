@@ -7,7 +7,7 @@ import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';
 
 import { Radios, TeamCustomizer } from './helper/customization';
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ExampleWrapper from './helper/example-wrapper';
 import { CardWrapper } from './helper/wrapper';
 
 export const MainStage = styled.div`
@@ -39,7 +39,13 @@ const props = {
 };
 
 function analytics(gen: (duration: number) => Record<string, any>) {
-  console.log('Analytics', gen(1000));
+  const payload = gen(1000);
+  console.log(
+    payload.action,
+    payload.actionSubject,
+    payload.actionSubjectId || '',
+    payload.attributes,
+  );
 }
 
 const actionCounts = [0, 1, 2, 3, 4];
@@ -60,7 +66,7 @@ export default function Example() {
   const actions = props.actions.slice(0, numActions);
 
   return (
-    <LocaleIntlProvider>
+    <ExampleWrapper>
       <div>
         <MainStage>
           <CardWrapper>
@@ -130,6 +136,6 @@ export default function Example() {
           </p>
         </MainStage>
       </div>
-    </LocaleIntlProvider>
+    </ExampleWrapper>
   );
 }

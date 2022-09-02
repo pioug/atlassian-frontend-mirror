@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -11,7 +11,8 @@ import MoreIcon from '@atlaskit/icon/glyph/more';
 
 import messages from '../../messages';
 import { OverflowActionButtonsWrapper } from '../../styled/Card';
-import { ProfileCardAction } from '../../types';
+import { AnalyticsWithDurationProps, ProfileCardAction } from '../../types';
+import { moreActionsClicked } from '../../util/analytics';
 
 type OverflowButtonsProps = {
   actions: ProfileCardAction[];
@@ -19,15 +20,43 @@ type OverflowButtonsProps = {
     action: ProfileCardAction,
     args: any,
     event: React.MouseEvent | React.KeyboardEvent,
+    index: number,
   ) => void;
-};
+} & AnalyticsWithDurationProps;
+
+export const ACTION_OVERFLOW_THRESHOLD = 2;
 
 export const OverflowProfileCardButtons = (props: OverflowButtonsProps) => {
   const intl = useIntl();
 
+  const [, setOpen] = useState(false);
+
+  const { actions, onItemClick, fireAnalyticsWithDuration } = props;
+
+  const numActions = actions.length + ACTION_OVERFLOW_THRESHOLD;
+
+  const onOpenChange = useCallback(
+    ({ isOpen: nextOpen }: { isOpen: boolean }) => {
+      setOpen((prevOpen) => {
+        if (nextOpen && !prevOpen) {
+          fireAnalyticsWithDuration((duration) =>
+            moreActionsClicked('user', {
+              duration,
+              numActions,
+            }),
+          );
+        }
+
+        return nextOpen;
+      });
+    },
+    [numActions, fireAnalyticsWithDuration],
+  );
+
   return (
-    <OverflowActionButtonsWrapper>
+    <OverflowActionButtonsWrapper data-testid="profilecard-actions-overflow">
       <DropdownMenu
+        onOpenChange={onOpenChange}
         placement={'bottom-end'}
         trigger={({ triggerRef, isSelected, testId, ...providedProps }) => (
           <Button
@@ -43,11 +72,11 @@ export const OverflowProfileCardButtons = (props: OverflowButtonsProps) => {
         )}
       >
         <DropdownItemGroup>
-          {props.actions.map((action) => (
+          {actions.map((action, index) => (
             <DropdownItem
               key={action.id}
               onClick={(event, ...args: any) => {
-                props.onItemClick(action, args, event);
+                onItemClick(action, args, event, index);
               }}
               href={action.link}
             >

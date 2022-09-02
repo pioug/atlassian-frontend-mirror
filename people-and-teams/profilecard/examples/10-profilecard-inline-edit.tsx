@@ -14,6 +14,7 @@ import teamData from '../src/mocks/team-data';
 import { Team } from '../src/types';
 
 import { Radios, TeamCustomizer } from './helper/customization';
+import ExampleWrapper from './helper/example-wrapper';
 
 const EditViewContainer = styled.div`
   z-index: 300;
@@ -116,47 +117,49 @@ function MiniEditor(props: {
   };
 
   return (
-    <InlineEdit<ValueType<OptionType>>
-      defaultValue={value}
-      label={props.label}
-      editView={(fieldProps) => (
-        <EditViewContainer>
-          <Select<OptionType>
-            {...fieldProps}
-            options={selectOptions}
-            autoFocus
-            openMenuOnClick
-          />
-        </EditViewContainer>
-      )}
-      readView={() => (
-        <div
-          style={{
-            padding: `${gridSize()}px`,
-            width: '300px',
-            display: 'inline-block',
-          }}
-        >
-          <TeamProfilecardTrigger
-            orgId="DUMMY"
-            resourceClient={profileClient}
-            teamId={value.value}
-            viewProfileLink="about:blank"
-            trigger={props.trigger}
-            actions={actions.slice(0, props.numActions)}
+    <ExampleWrapper>
+      <InlineEdit<ValueType<OptionType>>
+        defaultValue={value}
+        label={props.label}
+        editView={(fieldProps) => (
+          <EditViewContainer>
+            <Select<OptionType>
+              {...fieldProps}
+              options={selectOptions}
+              autoFocus
+              openMenuOnClick
+            />
+          </EditViewContainer>
+        )}
+        readView={() => (
+          <div
+            style={{
+              padding: `${gridSize()}px`,
+              width: '300px',
+              display: 'inline-block',
+            }}
           >
-            <strong
-              style={{
-                color: token('color.text', 'black'),
-              }}
+            <TeamProfilecardTrigger
+              orgId="DUMMY"
+              resourceClient={profileClient}
+              teamId={value.value}
+              viewProfileLink="about:blank"
+              trigger={props.trigger}
+              actions={actions.slice(0, props.numActions)}
             >
-              {value.label}
-            </strong>
-          </TeamProfilecardTrigger>
-        </div>
-      )}
-      onConfirm={onConfirm}
-    />
+              <strong
+                style={{
+                  color: token('color.text', 'black'),
+                }}
+              >
+                {value.label}
+              </strong>
+            </TeamProfilecardTrigger>
+          </div>
+        )}
+        onConfirm={onConfirm}
+      />
+    </ExampleWrapper>
   );
 }
 

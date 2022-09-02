@@ -39,7 +39,7 @@ const StoryWrapper = styled.div`
 `;
 
 const ProfileCardWrapper = styled.div`
-  height: 340px;
+  height: 400px;
 `;
 
 const handleActionClick = (title: string) => () => {

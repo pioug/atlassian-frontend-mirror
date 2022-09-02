@@ -1,65 +1,65 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import AkButton from '@atlaskit/button/custom-theme-button';
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import Button from '@atlaskit/button/standard-button';
 import IconError from '@atlaskit/icon/glyph/cross-circle';
 
 import { ErrorText, ErrorTitle, ErrorWrapper } from '../../styled/Error';
 import { ProfileCardErrorType } from '../../types';
+import { profileCardRendered } from '../../util/analytics';
 
-type Props = {
+interface Props {
   reload?: () => void | undefined;
   errorType?: ProfileCardErrorType;
-};
+  fireAnalytics: (payload: AnalyticsEventPayload) => void;
+}
 
-export default class ErrorMessage extends React.PureComponent<Props> {
-  static defaultProps = {
-    errorType: {
-      reason: 'default',
-    },
+const ErrorMessage = (props: Props) => {
+  const errorType = props.errorType || { reason: 'default' };
+  const errorReason = errorType.reason;
+
+  const { fireAnalytics, reload } = props;
+
+  const hasRetry = !!reload;
+
+  useEffect(() => {
+    fireAnalytics(
+      profileCardRendered('user', 'error', {
+        hasRetry,
+        errorType: errorReason,
+      }),
+    );
+  }, [errorReason, fireAnalytics, hasRetry]);
+
+  const errorContent = () => {
+    if (errorReason === 'NotFound') {
+      return (
+        <ErrorTitle>The user is no longer available for the site</ErrorTitle>
+      );
+    }
+
+    return (
+      <ErrorTitle>
+        Oops, looks like we’re having issues
+        <br />
+        {reload && (
+          <ErrorText>Try again and we’ll give it another shot</ErrorText>
+        )}
+      </ErrorTitle>
+    );
   };
 
-  renderNotFound = () => (
-    <ErrorTitle>The user is no longer available for the site</ErrorTitle>
+  return (
+    <ErrorWrapper data-testid="profilecard-error">
+      <IconError label="icon error" size="xlarge" />
+      {errorContent()}
+      {reload && (
+        <Button appearance="link" onClick={reload}>
+          Try again
+        </Button>
+      )}
+    </ErrorWrapper>
   );
+};
 
-  renderDefault = () => (
-    <ErrorTitle>
-      Oops, looks like we’re having issues
-      <br />
-      {this.props.reload ? (
-        <ErrorText>Try again and we’ll give it another shot</ErrorText>
-      ) : null}
-    </ErrorTitle>
-  );
-
-  renderRetryButton = () =>
-    this.props.reload ? (
-      <AkButton appearance="link" onClick={this.props.reload}>
-        Try again
-      </AkButton>
-    ) : null;
-
-  renderErrorContent() {
-    const errorType: ProfileCardErrorType = this.props.errorType || {
-      reason: 'default',
-    };
-
-    switch (errorType.reason) {
-      case 'NotFound':
-        return this.renderNotFound();
-
-      default:
-        return this.renderDefault();
-    }
-  }
-
-  render() {
-    return (
-      <ErrorWrapper>
-        <IconError label="icon error" size="xlarge" />
-        {this.renderErrorContent()}
-        {this.renderRetryButton()}
-      </ErrorWrapper>
-    );
-  }
-}
+export default ErrorMessage;

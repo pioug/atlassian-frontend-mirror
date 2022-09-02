@@ -19,7 +19,9 @@ export const getPrimaryButtonTheme = ({
       padding: '0 4px',
       marginLeft: 0,
       marginRight: 0,
-      ':hover': primaryButton.hover,
+      ':hover': props.isSelected
+        ? primaryButton.selectedHover
+        : primaryButton.hover,
       ':focus': primaryButton.focus,
       // :active doesn't work in FF, because we do a
       // e.preventDefault() on mouse down in Button.

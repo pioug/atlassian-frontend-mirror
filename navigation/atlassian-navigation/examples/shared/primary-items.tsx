@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 
-import { ButtonItem } from '@atlaskit/menu';
+import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
+import Popup from '@atlaskit/popup';
+import { PopupProps } from '@atlaskit/popup/types';
 
-import { PrimaryButton, PrimaryButtonProps } from '../../src';
+import {
+  PrimaryButton,
+  PrimaryButtonProps,
+  PrimaryDropdownButton,
+} from '../../src';
 import { useOverflowStatus } from '../../src/controllers/overflow';
 
 const NavigationButton = (props: PrimaryButtonProps) => {
@@ -12,6 +18,88 @@ const NavigationButton = (props: PrimaryButtonProps) => {
   } else {
     return <ButtonItem>{props.children}</ButtonItem>;
   }
+};
+
+const ProjectsContent = () => (
+  <MenuGroup>
+    <Section title="Starred">
+      <ButtonItem>Mobile Research</ButtonItem>
+      <ButtonItem testId="it-services">IT Services</ButtonItem>
+    </Section>
+    <Section hasSeparator title="Recent">
+      <ButtonItem>Engineering Leadership</ButtonItem>
+      <ButtonItem>BAU</ButtonItem>
+      <ButtonItem>Hardware Support</ButtonItem>
+      <ButtonItem>New Features</ButtonItem>
+      <ButtonItem>SAS</ButtonItem>
+    </Section>
+    <Section hasSeparator>
+      <ButtonItem>View all projects</ButtonItem>
+    </Section>
+  </MenuGroup>
+);
+
+type PrimaryDropdownProps = {
+  content: PopupProps['content'];
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+  text: string;
+  isHighlighted?: boolean;
+};
+
+const PrimaryDropdown = (props: PrimaryDropdownProps) => {
+  const { content, text, isHighlighted } = props;
+  const { isVisible, closeOverflowMenu } = useOverflowStatus();
+  const [isOpen, setIsOpen] = useState(false);
+  const onDropdownItemClick = () => {
+    console.log(
+      'Programmatically closing the menu, even though the click happens inside the popup menu.',
+    );
+    closeOverflowMenu();
+  };
+
+  if (!isVisible) {
+    return (
+      <ButtonItem testId={text} onClick={onDropdownItemClick}>
+        {text}
+      </ButtonItem>
+    );
+  }
+
+  const onClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'ArrowDown') {
+      setIsOpen(true);
+    }
+  };
+
+  return (
+    <Popup
+      content={content}
+      isOpen={isOpen}
+      onClose={onClose}
+      placement="bottom-start"
+      testId={`${text}-popup`}
+      trigger={(triggerProps) => (
+        <PrimaryDropdownButton
+          onClick={onClick}
+          onKeyDown={onKeyDown}
+          isHighlighted={isHighlighted}
+          isSelected={isOpen}
+          testId={`${text}-popup-trigger`}
+          {...triggerProps}
+        >
+          {text}
+        </PrimaryDropdownButton>
+      )}
+    />
+  );
 };
 
 export const bitbucketPrimaryItems = [
@@ -98,13 +186,7 @@ export const confluencePrimaryItems = [
 ];
 
 export const jiraPrimaryItems = [
-  <NavigationButton
-    onClick={(...args: any[]) => {
-      console.log('Projects click', ...args);
-    }}
-  >
-    Projects
-  </NavigationButton>,
+  <PrimaryDropdown content={ProjectsContent} text="Projects" />,
   <NavigationButton
     onClick={(...args: any[]) => {
       console.log('Issues click', ...args);

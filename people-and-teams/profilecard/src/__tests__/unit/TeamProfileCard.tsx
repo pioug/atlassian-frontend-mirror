@@ -5,12 +5,12 @@ import { IntlProvider } from 'react-intl-next';
 
 import TeamProfileCard from '../../components/Team/TeamProfileCard';
 import {
+  actionClicked,
   errorRetryClicked,
   moreActionsClicked,
   moreMembersClicked,
-  teamActionClicked,
+  profileCardRendered,
   teamAvatarClicked,
-  teamProfileCardRendered,
 } from '../../util/analytics';
 
 const analyticsListener = jest.fn();
@@ -72,7 +72,7 @@ describe('TeamProfileCard', () => {
     expect(spinner).toBeDefined();
     expect(analyticsListener).toHaveBeenCalledWith(
       flexiTime(
-        teamProfileCardRendered('spinner', { duration: SAMPLE_DURATION }),
+        profileCardRendered('team', 'spinner', { duration: SAMPLE_DURATION }),
       ),
     );
   });
@@ -92,7 +92,7 @@ describe('TeamProfileCard', () => {
       expect(errorView).toBeDefined();
       expect(analyticsListener).toHaveBeenCalledWith(
         flexiTime(
-          teamProfileCardRendered('error', {
+          profileCardRendered('team', 'error', {
             duration: SAMPLE_DURATION,
             hasRetry: true,
           }),
@@ -138,7 +138,7 @@ describe('TeamProfileCard', () => {
 
     expect(analyticsListener).toHaveBeenCalledWith(
       flexiTime(
-        teamProfileCardRendered('content', {
+        profileCardRendered('team', 'content', {
           duration: SAMPLE_DURATION,
           numActions: 1,
           memberCount: 0,
@@ -269,7 +269,7 @@ describe('TeamProfileCard', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
         expect(analyticsListener).toHaveBeenCalledWith(
           flexiTime(
-            teamActionClicked({
+            actionClicked('team', {
               duration: SAMPLE_DURATION,
               hasHref: true,
               hasOnClick: true,
@@ -386,7 +386,10 @@ describe('TeamProfileCard', () => {
 
       expect(analyticsListener).toHaveBeenCalledWith(
         flexiTime(
-          moreActionsClicked({ duration: SAMPLE_DURATION, numActions: 3 }),
+          moreActionsClicked('team', {
+            duration: SAMPLE_DURATION,
+            numActions: 3,
+          }),
         ),
       );
 
@@ -400,7 +403,7 @@ describe('TeamProfileCard', () => {
 
       expect(analyticsListener).toHaveBeenCalledWith(
         flexiTime(
-          teamActionClicked({
+          actionClicked('team', {
             duration: SAMPLE_DURATION,
             hasHref: false,
             hasOnClick: true,
@@ -419,7 +422,7 @@ describe('TeamProfileCard', () => {
 
       expect(analyticsListener).toHaveBeenCalledWith(
         flexiTime(
-          teamActionClicked({
+          actionClicked('team', {
             duration: SAMPLE_DURATION,
             hasHref: false,
             hasOnClick: true,

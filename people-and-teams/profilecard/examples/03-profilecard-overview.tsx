@@ -7,7 +7,7 @@ import { profiles } from '../src/mocks';
 import { reportingLinesData } from '../src/mocks/reporting-lines-data';
 import { ProfilecardProps, ReportingLinesUser } from '../src/types';
 
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ExampleWrapper from './helper/example-wrapper';
 
 export const MainStage = styled.div`
   margin: 16px;
@@ -98,9 +98,11 @@ const actions = [
   },
 ];
 
+const clientFetchProfile = () => null;
+
 export default function Example() {
   return (
-    <LocaleIntlProvider>
+    <ExampleWrapper>
       <MainStage>
         <Section>
           <h4>Loading State</h4>
@@ -108,7 +110,7 @@ export default function Example() {
         </Section>
         <Section>
           <h4>Error State</h4>
-          <ProfileCard hasError />
+          <ProfileCard hasError clientFetchProfile={clientFetchProfile} />
         </Section>
         <Section>
           <h4>Error State (Not Found Error)</h4>
@@ -117,6 +119,7 @@ export default function Example() {
             errorType={{
               reason: 'NotFound',
             }}
+            clientFetchProfile={clientFetchProfile}
           />
         </Section>
         <Section>
@@ -136,6 +139,6 @@ export default function Example() {
           <ProfileCard {...fakeData({ actions })} />
         </Section>
       </MainStage>
-    </LocaleIntlProvider>
+    </ExampleWrapper>
   );
 }

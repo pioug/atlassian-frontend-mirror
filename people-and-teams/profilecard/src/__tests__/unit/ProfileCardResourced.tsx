@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import ProfileClient from '../../client/ProfileCardClient';
 import { ErrorMessage } from '../../components/Error';
-import ProfileCardResourced from '../../components/User/ProfileCardResourced';
-import { AnalyticsName } from '../../internal/analytics';
+import { ProfileCardResourcedInternal as ProfileCardResourced } from '../../components/User/ProfileCardResourced';
+import { profileCardRendered } from '../../util/analytics';
 
 const clientUrl = 'https://foo/';
 const client = new ProfileClient({
@@ -13,20 +13,34 @@ const client = new ProfileClient({
   teamCentralUrl: clientUrl,
 });
 
-const defaultProps = {
+const flexiTime = (event: Record<string, any>) => ({
+  ...event,
+  attributes: {
+    ...event.attributes,
+    firedAt: expect.anything(),
+  },
+});
+
+const mockAnalytics = jest.fn();
+mockAnalytics.mockReturnValue({
+  fire: () => null,
+});
+
+// Mock for runItLater
+(window as any).requestIdleCallback = (callback: () => void) => callback();
+
+const defaultProps: React.ComponentProps<typeof ProfileCardResourced> = {
   cloudId: 'test-cloud-id',
   userId: 'test-user-id',
-  fullName: 'full name test',
-  status: 'active',
-  nickname: 'jscrazy',
-  companyName: 'Atlassian',
   resourceClient: client,
-  analytics: jest.fn(),
+  createAnalyticsEvent: mockAnalytics,
 };
 
 const waitForPromises = () => new Promise((resolve) => setTimeout(resolve));
 const renderShallow = (props = {}) =>
   shallow(<ProfileCardResourced {...defaultProps} {...props} />);
+const renderMount = (props = {}) =>
+  mount(<ProfileCardResourced {...defaultProps} {...props} />);
 
 beforeEach(() => {
   jest.spyOn(client, 'getProfile').mockResolvedValue({});
@@ -39,6 +53,7 @@ describe('Fetching data', () => {
     expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
       defaultProps.cloudId,
       defaultProps.userId,
+      expect.any(Function),
     );
     expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
       defaultProps.userId,
@@ -60,6 +75,7 @@ describe('Fetching data', () => {
     expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
       defaultProps.cloudId,
       'new-test-user-id',
+      expect.any(Function),
     );
     expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
       'new-test-user-id',
@@ -80,6 +96,7 @@ describe('Fetching data', () => {
     expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
       defaultProps.cloudId,
       'test-user-id',
+      expect.any(Function),
     );
     expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
       'test-user-id',
@@ -96,6 +113,7 @@ describe('Fetching data', () => {
     expect(newClient.getProfile).toHaveBeenCalledWith(
       defaultProps.cloudId,
       'test-user-id',
+      expect.any(Function),
     );
     expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
       'test-user-id',
@@ -114,19 +132,26 @@ describe('ProfileCardResourced', () => {
       expect(wrapper.find(ErrorMessage).exists()).toBe(true);
     });
 
-    it('should trigger analytics', () => {
-      defaultProps.analytics.mockReset();
-      const wrapper = renderShallow();
-      expect(defaultProps.analytics).not.toHaveBeenCalled();
+    it('should trigger analytics', async () => {
+      const expectedErrorEvent = flexiTime(
+        profileCardRendered('user', 'error', {
+          hasRetry: true,
+          errorType: 'default',
+        }),
+      );
+      mockAnalytics.mockClear();
+      const wrapper = renderMount();
+      expect(mockAnalytics).not.toHaveBeenCalledWith(expectedErrorEvent);
 
       wrapper.setState({
         isLoading: false,
         hasError: true,
       });
-      expect(defaultProps.analytics).toHaveBeenCalledWith(
-        AnalyticsName.PROFILE_CARD_RESOURCED_ERROR,
-        {},
-      );
+      wrapper.update();
+
+      await waitForPromises();
+
+      expect(mockAnalytics).toHaveBeenCalledWith(expectedErrorEvent);
     });
   });
 });

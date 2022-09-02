@@ -22,15 +22,16 @@ describe('ReportingLinesDetails', () => {
       reports: [exampleReportingLineUser, exampleReportingLineUser],
     },
     reportingLinesProfileUrl: 'profile-url',
-    onReportingLinesClick: () => {},
-    getDuration: () => null,
+    fireAnalyticsWithDuration: () => {},
   };
 
   const renderShallow = (props = {}) =>
     shallow(<ReportingLinesDetails {...defaultProps} {...props} />);
 
   it('should match snapshot when manager and reports are specified', () => {
-    expect(renderShallow()).toMatchSnapshot();
+    expect(
+      renderShallow({ onReportingLinesClick: () => null }),
+    ).toMatchSnapshot();
   });
 
   it('should match snapshot when manager and reports are NOT specified', () => {

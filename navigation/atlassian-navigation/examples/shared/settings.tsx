@@ -38,7 +38,12 @@ export const DefaultSettings = () => {
       isOpen={isOpen}
       onClose={onClose}
       trigger={(triggerProps) => (
-        <Settings onClick={onClick} tooltip="Settings" {...triggerProps} />
+        <Settings
+          onClick={onClick}
+          isSelected={isOpen}
+          tooltip="Settings"
+          {...triggerProps}
+        />
       )}
     />
   );

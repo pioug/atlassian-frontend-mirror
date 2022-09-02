@@ -1,10 +1,15 @@
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+
 import {
   ApiClientResponse,
   ProfileCardClientData,
   ProfileClientOptions,
 } from '../types';
+import { userRequestAnalytics } from '../util/analytics';
+import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
+import { getErrorAttributes } from './errorUtils';
 import { graphqlQuery } from './graphqlUtils';
 
 /**
@@ -34,7 +39,6 @@ export const modifyResponse = (
   return {
     isBot: data.isBot,
     isCurrentUser: data.isCurrentUser,
-    isNotMentionable: data.isNotMentionable,
     status: data.status,
     statusModifiedDate: data.statusModifiedDate || undefined,
     avatarUrl: data.avatarUrl || undefined,
@@ -103,7 +107,11 @@ export default class UserProfileCardClient extends CachingClient<any> {
     return modifyResponse(response);
   }
 
-  getProfile(cloudId: string, userId: string): Promise<any> {
+  getProfile(
+    cloudId: string,
+    userId: string,
+    analytics?: (event: AnalyticsEventPayload) => void,
+  ): Promise<any> {
     if (!userId) {
       return Promise.reject(new Error('userId missing'));
     }
@@ -116,14 +124,35 @@ export default class UserProfileCardClient extends CachingClient<any> {
     }
 
     return new Promise((resolve, reject) => {
+      const startTime = getPageTime();
+
+      if (analytics) {
+        analytics(userRequestAnalytics('triggered'));
+      }
+
       this.makeRequest(cloudId, userId)
         .then((data: any) => {
           if (this.cache) {
             this.setCachedProfile(cacheIdentifier, data);
           }
+          if (analytics) {
+            analytics(
+              userRequestAnalytics('succeeded', {
+                duration: getPageTime() - startTime,
+              }),
+            );
+          }
           resolve(data);
         })
         .catch((error: any) => {
+          if (analytics) {
+            analytics(
+              userRequestAnalytics('failed', {
+                duration: getPageTime() - startTime,
+                ...getErrorAttributes(error),
+              }),
+            );
+          }
           reject(error);
         });
     });

@@ -12,6 +12,8 @@ import TeamProfilecardTrigger from '../src/components/Team';
 import teamData from '../src/mocks/team-data';
 import { Team } from '../src/types';
 
+import ExampleWrapper from './helper/example-wrapper';
+
 const Table = styled.table`
   border: 1px solid black;
   border-collapse: collapse;
@@ -78,8 +80,8 @@ function Trigger(props: TriggerKind) {
   );
 }
 
-export default function TriggerTypeTable() {
-  return (
+const TriggerTypeTable = () => (
+  <ExampleWrapper>
     <div
       style={{
         padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
@@ -96,7 +98,7 @@ export default function TriggerTypeTable() {
         choose sensibly from these options and consider accessibility.
       </p>
       <p>
-        <input value="Sample" type="text" />
+        <input placeholder="Sample" type="text" />
         <button>Purely demo purposes</button>
       </p>
       <Table>
@@ -251,5 +253,7 @@ export default function TriggerTypeTable() {
         </tr>
       </Table>
     </div>
-  );
-}
+  </ExampleWrapper>
+);
+
+export default TriggerTypeTable;

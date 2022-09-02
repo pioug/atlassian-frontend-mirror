@@ -6,7 +6,7 @@ import { ProfileCard } from '../src';
 import { profiles } from '../src/mocks';
 import { reportingLinesData } from '../src/mocks/reporting-lines-data';
 
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ExampleWrapper from './helper/example-wrapper';
 
 export const MainStage = styled.div`
   margin: 16px;
@@ -16,7 +16,7 @@ const avatarImage = profiles[4].User.avatarUrl;
 
 export default function Example() {
   return (
-    <LocaleIntlProvider>
+    <ExampleWrapper>
       <MainStage>
         <ProfileCard
           avatarUrl={avatarImage}
@@ -40,6 +40,6 @@ export default function Example() {
           }}
         />
       </MainStage>
-    </LocaleIntlProvider>
+    </ExampleWrapper>
   );
 }

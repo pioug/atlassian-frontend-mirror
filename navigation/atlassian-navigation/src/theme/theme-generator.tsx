@@ -55,7 +55,13 @@ const generateButtonCSSStates = (
     },
     selected: {
       color,
-      backgroundColor,
+      backgroundColor: getContrastColor(0.3, opacityValue, backgroundColor),
+      borderColor: highlightColor,
+      boxShadow: getBoxShadow('transparent'),
+    },
+    selectedHover: {
+      color,
+      backgroundColor: getContrastColor(0.3, opacityValue, backgroundColor),
       borderColor: highlightColor,
       boxShadow: getBoxShadow('transparent'),
     },

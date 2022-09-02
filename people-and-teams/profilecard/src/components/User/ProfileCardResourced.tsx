@@ -1,24 +1,29 @@
 import React, { Suspense } from 'react';
 
+import {
+  AnalyticsEventPayload,
+  withAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 
-import { AnalyticsName } from '../../internal/analytics';
 import filterActions from '../../internal/filterActions';
 import { CardWrapper } from '../../styled/Card';
 import {
+  AnalyticsProps,
   ProfileCardAction,
   ProfileCardClientData,
   ProfileCardResourcedProps,
   ProfileCardResourcedState,
   TeamCentralReportingLinesData,
 } from '../../types';
+import { fireEvent } from '../../util/analytics';
 import { ErrorMessage } from '../Error';
 
 import ProfileCard from './ProfileCard';
 import UserLoadingState from './UserLoadingState';
 
-export default class ProfileCardResourced extends React.PureComponent<
-  ProfileCardResourcedProps,
+class ProfileCardResourced extends React.PureComponent<
+  ProfileCardResourcedProps & AnalyticsProps,
   ProfileCardResourcedState
 > {
   static defaultProps: Partial<ProfileCardResourcedProps> = {
@@ -38,6 +43,17 @@ export default class ProfileCardResourced extends React.PureComponent<
     kudosDrawerOpen: false,
   };
 
+  fireAnalytics = (payload: AnalyticsEventPayload) => {
+    // Don't fire analytics if the component is unmounted
+    if (!this._isMounted) {
+      return;
+    }
+
+    if (this.props.createAnalyticsEvent) {
+      fireEvent(this.props.createAnalyticsEvent, payload);
+    }
+  };
+
   componentDidMount() {
     this._isMounted = true;
     this.clientFetchProfile();
@@ -48,7 +64,6 @@ export default class ProfileCardResourced extends React.PureComponent<
     prevState: ProfileCardResourcedState,
   ) {
     const { userId, cloudId, resourceClient } = this.props;
-    const { hasError } = this.state;
 
     if (
       userId !== prevProps.userId ||
@@ -62,22 +77,11 @@ export default class ProfileCardResourced extends React.PureComponent<
         this.clientFetchProfile,
       );
     }
-
-    if (hasError !== prevState.hasError && hasError) {
-      this.callAnalytics(AnalyticsName.PROFILE_CARD_RESOURCED_ERROR);
-    }
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
-
-  private callAnalytics = (id: string, options: any = {}) => {
-    const { analytics } = this.props;
-    if (analytics) {
-      analytics(id, options);
-    }
-  };
 
   clientFetchProfile = () => {
     const { cloudId, userId } = this.props;
@@ -96,7 +100,11 @@ export default class ProfileCardResourced extends React.PureComponent<
       },
       () => {
         const requests = Promise.all([
-          this.props.resourceClient.getProfile(cloudId, userId),
+          this.props.resourceClient.getProfile(
+            cloudId,
+            userId,
+            this.fireAnalytics,
+          ),
           this.props.resourceClient.getReportingLines(userId),
           this.props.resourceClient.shouldShowGiveKudos(),
         ]);
@@ -161,13 +169,7 @@ export default class ProfileCardResourced extends React.PureComponent<
       reportingLinesData,
       isKudosEnabled,
     } = this.state;
-    const {
-      analytics,
-      onReportingLinesClick,
-      cloudId,
-      userId,
-      addFlag,
-    } = this.props;
+    const { onReportingLinesClick, cloudId, userId, addFlag } = this.props;
 
     const isFetchingOrNotStartToFetchYet =
       isLoading === true || isLoading === undefined;
@@ -175,13 +177,17 @@ export default class ProfileCardResourced extends React.PureComponent<
     if (isFetchingOrNotStartToFetchYet) {
       return (
         <CardWrapper>
-          <UserLoadingState />
+          <UserLoadingState fireAnalytics={this.fireAnalytics} />
         </CardWrapper>
       );
     } else if (hasError) {
       return (
         <CardWrapper>
-          <ErrorMessage errorType={error} reload={this.clientFetchProfile} />
+          <ErrorMessage
+            errorType={error}
+            reload={this.clientFetchProfile}
+            fireAnalytics={this.fireAnalytics}
+          />
         </CardWrapper>
       );
     }
@@ -190,7 +196,6 @@ export default class ProfileCardResourced extends React.PureComponent<
       hasError,
       errorType: error,
       clientFetchProfile: this.clientFetchProfile,
-      analytics,
       reportingLines: reportingLinesData,
       onReportingLinesClick: onReportingLinesClick,
       cloudId,
@@ -227,3 +232,7 @@ export default class ProfileCardResourced extends React.PureComponent<
     );
   }
 }
+
+export const ProfileCardResourcedInternal = ProfileCardResourced;
+
+export default withAnalyticsEvents()(ProfileCardResourced);

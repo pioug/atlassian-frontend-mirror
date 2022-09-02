@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // Simulating import from '@atlaskit/profilecard/user'
 import ProfileCardTrigger from '../src/components/User';
 
-import LocaleIntlProvider from './helper/locale-intl-provider';
+import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient } from './helper/util';
 
 const mockClient = getMockProfileClient(10, 0);
@@ -40,7 +40,7 @@ export default function Example() {
   const [clickCount, setCount] = useState(0);
 
   return (
-    <LocaleIntlProvider>
+    <ExampleWrapper>
       <MainStage>
         <Section>
           <h4>Profilecard triggered by hover</h4>
@@ -162,6 +162,6 @@ export default function Example() {
           </span>
         </Section>
       </MainStage>
-    </LocaleIntlProvider>
+    </ExampleWrapper>
   );
 }

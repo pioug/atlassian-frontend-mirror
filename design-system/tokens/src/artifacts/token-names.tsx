@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3acc6507214a2d925fd75bce0549f0ab>>
+ * @codegen <<SignedSource::e9fa17eebeaf3b2a8318f43c4f7e89c4>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -339,6 +339,8 @@ const tokens = {
   'elevation.surface.sunken': '--ds-surface-sunken',
   'elevation.surface.raised': '--ds-surface-raised',
   'elevation.surface.overlay': '--ds-surface-overlay',
+  'opacity.disabled': '--ds-opacity-disabled',
+  'opacity.loading': '--ds-opacity-loading',
   'utility.UNSAFE_util.transparent': '--ds-UNSAFE_util-transparent',
   'utility.UNSAFE_util.MISSING_TOKEN': '--ds-UNSAFE_util-MISSING_TOKEN',
 } as const;
@@ -625,6 +627,8 @@ export type CSSTokenMap = {
   'elevation.surface.sunken': 'var(--ds-surface-sunken)';
   'elevation.surface.raised': 'var(--ds-surface-raised)';
   'elevation.surface.overlay': 'var(--ds-surface-overlay)';
+  'opacity.disabled': 'var(--ds-opacity-disabled)';
+  'opacity.loading': 'var(--ds-opacity-loading)';
   'utility.UNSAFE_util.transparent': 'var(--ds-UNSAFE_util-transparent)';
   'utility.UNSAFE_util.MISSING_TOKEN': 'var(--ds-UNSAFE_util-MISSING_TOKEN)';
 };

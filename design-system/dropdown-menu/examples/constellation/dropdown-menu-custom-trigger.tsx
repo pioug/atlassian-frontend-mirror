@@ -1,16 +1,12 @@
-import React, { Ref } from 'react';
+import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuCustomTriggerExample = () => {
   return (
-    <DropdownMenu
+    <DropdownMenu<HTMLButtonElement>
       trigger={({ triggerRef, isSelected, testId, ...providedProps }) => (
-        <button
-          type="button"
-          {...providedProps}
-          ref={triggerRef as Ref<HTMLButtonElement>}
-        >
+        <button type="button" {...providedProps} ref={triggerRef}>
           &lt;button/&gt; trigger{' '}
         </button>
       )}

@@ -46,7 +46,7 @@
     "@atlaskit/checkbox": "^12.3.9",
     "@atlaskit/code": "^14.3.3",
     "@atlaskit/docs": "*",
-    "@atlaskit/dropdown-menu": "^11.4.0",
+    "@atlaskit/dropdown-menu": "^11.5.0",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/menu": "^1.3.0",
     "@atlaskit/section-message": "^6.2.0",

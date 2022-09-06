@@ -12,11 +12,11 @@ type BoardProps = {
 
 const boardStyles = css({
   display: 'flex',
-  padding: columnGap,
   justifyContent: 'center',
   gap: columnGap,
   flexDirection: 'row',
   '--grid': `${gridSize}px`,
+  height: 480,
 });
 
 const Board = forwardRef<HTMLDivElement, BoardProps>(

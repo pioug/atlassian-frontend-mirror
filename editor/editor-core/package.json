@@ -142,7 +142,7 @@
     "@atlaskit/collab-provider": "7.6.0",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^7.2.0",
-    "@atlaskit/dropdown-menu": "^11.4.0",
+    "@atlaskit/dropdown-menu": "^11.5.0",
     "@atlaskit/droplist": "^11.0.0",
     "@atlaskit/editor-bitbucket-transformer": "^7.2.0",
     "@atlaskit/editor-extension-dropbox": "^0.3.0",

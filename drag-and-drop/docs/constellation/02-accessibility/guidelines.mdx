@@ -1,0 +1,95 @@
+---
+order: 2
+title: Accessibility
+description: Accessible design lets people of all abilities interact with, understand, and navigate our products.
+---
+
+## Alternative flows
+
+### Offer alternatives to dragging
+
+Some users find dragging gestures difficult, and others are unable to do them altogether. Ensure that dragging gestures are not required to complete tasks. Users should be able to achieve the same outcomes using pointing input without any dragging.
+
+<DoDont type="do">
+  Use drag and drop interactions alongside alternative flows.
+</DoDont>
+
+<DoDont type="dont">
+  Restrict task completion to drag and drop interactions.
+</DoDont>
+
+### Make sure it works with a keyboard
+
+Many users do not interact with pointing input, instead relying on keyboard input. Ensure that pointing input is not required to complete tasks. Users should be able to achieve the same outcomes using only a keyboard.
+
+<DoDont type="do">
+  Ensure that keyboard users can achieve the same outcomes as pointing input users.
+</DoDont>
+
+<DoDont type="dont">
+  Create experiences that keyboard users cannot complete all tasks with.
+</DoDont>
+
+### Use standard controls
+
+Native controls like buttons are accessible by default, and common widgets like dropdown menus have straightforward accessibility stories. Use standard controls like these when building alternative flows. This makes it easier to build accessible and familiar experiences.
+
+<DoDont type="do">
+  Use accessible and familiar controls to build alternative flows.
+</DoDont>
+
+<DoDont type="dont">
+  Use inaccessible controls to build alternative flows.
+</DoDont>
+
+### Focus on outcomes
+
+There is no universal design for alternative flows, and the suitability of patterns varies. Focus on the task being completed, not on emulating drag and drop interactions. All users should be able to achieve the same outcomes in an intuitive way.
+
+<DoDont type="do">
+  Ensure that all users can complete tasks and achieve the same outcomes.
+</DoDont>
+
+<DoDont type="dont">
+  Treat drag and drop interactions as the outcome. They are one way of achieving it.
+</DoDont>
+
+## Screen readers
+
+Some users interact with their computer using assistive technology such as a screen reader. Screen readers rely on page authors following best practices.
+
+There are two components to making pages perceivable for screen readers:
+
+1. Labels
+2. Live region announcements
+
+For general guidelines on writing meaningful text, refer to our [accessibility guidelines](/foundations/accessibility).
+
+### Labels
+All interactive elements should have a meaningful name visible to assistive technology.
+
+Ensure that accessible names for buttons include the name of the element being acted on, e.g. “Move task 'clean dishes' to top of backlog”.
+
+<DoDont type="do">
+  Include the name of the element being acted on.
+</DoDont>
+
+<DoDont type="dont">
+  Don't make labels ambiguous.
+</DoDont>
+
+### Live region announcements
+
+Use live regions to announce content changes to screen readers. Messages in live regions will be announced by screen reader.
+
+Live regions should be used to provide real-time feedback both during and after a user interaction. Messages should contain the name of the item being moved, as well as both its old and new position.
+
+<DoDont type="do">
+  Include the name of the element being acted on.
+</DoDont>
+
+<DoDont type="dont">
+  Don''t make labels ambiguous.
+</DoDont>
+
+To simplify making live region announcements, we have created a [live region package](API-addons/live-region).

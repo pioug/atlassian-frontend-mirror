@@ -16,7 +16,6 @@ import { easeInOut } from '@atlaskit/motion/curves';
 import { largeDurationMs, mediumDurationMs } from '@atlaskit/motion/durations';
 import { token } from '@atlaskit/tokens';
 
-import { fallbackColor } from './util/fallback';
 import { GlobalStyles } from './util/global-styles';
 
 const galleryStyles = css({
@@ -141,27 +140,27 @@ const fileStyles = css({
   boxSizing: 'border-box',
   alignItems: 'center',
   justifyContent: 'center',
-  background: token('elevation.surface.sunken', fallbackColor),
+  background: token('elevation.surface.sunken', '#091E4208'),
   borderRadius: 'var(--border-radius)',
-  color: token('color.text.disabled', fallbackColor),
+  color: token('color.text.disabled', '#091E424F'),
   fontSize: '1.4rem',
   transition: `all ${mediumDurationMs}ms ${easeInOut}`,
   border: '2px dashed transparent',
+  width: '100%',
 });
 
 const overStyles = css({
-  background: token('color.background.selected.hovered', fallbackColor),
-  color: token('color.text.selected', fallbackColor),
-  borderColor: token('color.border.brand', fallbackColor),
+  background: token('color.background.selected.hovered', '#CCE0FF'),
+  color: token('color.text.selected', '#0C66E4'),
+  borderColor: token('color.border.brand', '#0C66E4'),
 });
 
 const potentialStyles = css({
-  borderColor: token('color.border.brand', fallbackColor),
+  borderColor: token('color.border.brand', '#0C66E4'),
 });
 
 const appStyles = css({
   display: 'flex',
-  padding: 'var(--grid)',
   alignItems: 'center',
   gap: 'calc(var(--grid) * 2)',
   flexDirection: 'column',

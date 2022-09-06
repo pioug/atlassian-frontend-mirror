@@ -1,5 +1,4 @@
 /** @jsx jsx */
-/* eslint-disable @repo/internal/styles/no-nested-styles */
 import { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
@@ -21,13 +20,17 @@ import {
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 import { token } from '@atlaskit/tokens';
 
-import { authors } from './data/quotes/data';
-import { Author } from './data/quotes/types';
+import { TableRowData, tableRows } from './data/table';
 import { GlobalStyles } from './util/global-styles';
 
+/**
+ * We're doing this to make the drop indicator a bit more visible
+ */
 const tableStyles = css({
-  width: 400,
-  margin: '0 auto',
+  /* eslint-disable-next-line @repo/internal/styles/no-nested-styles */
+  'th:first-child, td:first-child': {
+    paddingLeft: 8,
+  },
 });
 
 type DraggableStatus = 'idle' | 'preview' | 'dragging';
@@ -157,7 +160,12 @@ const DraggableTableRow = ({
   );
 };
 
-const tableHeaderStyles = css({ position: 'relative' });
+const tableHeaderStyles = css({
+  position: 'relative',
+  paddingBlock: 8,
+  lineHeight: 24 / 14,
+  background: token('color.background.neutral', '#091e420f'),
+});
 
 const tableHeaderStatusStyles: Partial<Record<
   DraggableStatus,
@@ -174,7 +182,7 @@ const tableHeaderStatusStyles: Partial<Record<
   }),
   dragging: css({
     background: token('color.background.neutral.hovered', '#091E4224'),
-    opacity: 0.5,
+    color: token('color.text.disabled', '#091E424F'),
   }),
 };
 
@@ -246,14 +254,14 @@ const DraggableTableHeader = ({
   );
 };
 
-function renderCell(author: Author, column: { id: string; label: string }) {
+function renderCell(row: TableRowData, column: { id: string; label: string }) {
   switch (column.id) {
-    case 'avatar':
-      return <Avatar src={author.avatarUrl} size="large" />;
+    case 'icon':
+      return <Avatar src={row.avatarUrl} size="large" appearance="square" />;
 
     case 'id':
     case 'name':
-      return author[column.id];
+      return row[column.id];
   }
 }
 
@@ -261,9 +269,9 @@ export default function Example() {
   const [columns, setColumns] = useState([
     { id: 'id', label: 'Id' },
     { id: 'name', label: 'Name' },
-    { id: 'avatar', label: 'Avatar' },
+    { id: 'icon', label: 'Icon' },
   ]);
-  const [rows, setRows] = useState(authors);
+  const [rows, setRows] = useState(tableRows);
 
   const tableRef = useRef<HTMLTableElement>(null);
   useEffect(() => {
@@ -332,7 +340,7 @@ export default function Example() {
   return (
     <Fragment>
       <GlobalStyles />
-      <table css={tableStyles} ref={tableRef}>
+      <table ref={tableRef} css={tableStyles}>
         <thead>
           <tr>
             {columns.map(column => (

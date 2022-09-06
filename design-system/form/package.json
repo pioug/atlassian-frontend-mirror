@@ -58,7 +58,7 @@
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/datetime-picker": "^12.2.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/dropdown-menu": "^11.4.0",
+    "@atlaskit/dropdown-menu": "^11.5.0",
     "@atlaskit/droplist": "^11.0.0",
     "@atlaskit/modal-dialog": "^12.3.0",
     "@atlaskit/radio": "^5.4.0",

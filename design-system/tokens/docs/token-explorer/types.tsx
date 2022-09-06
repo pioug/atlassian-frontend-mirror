@@ -1,11 +1,17 @@
 import type { TransformedToken } from 'style-dictionary';
 
-import type { PaintToken, RawToken, ShadowToken } from '../../src/types';
+import type {
+  OpacityToken,
+  PaintToken,
+  RawToken,
+  ShadowToken,
+} from '../../src/types';
 
 export interface TransformedTokenWithAttributes extends TransformedToken {
   attributes:
     | (TransformedToken['attributes'] & PaintToken<string>['attributes'])
     | ShadowToken<string>['attributes']
+    | OpacityToken['attributes']
     | RawToken['attributes'];
 }
 

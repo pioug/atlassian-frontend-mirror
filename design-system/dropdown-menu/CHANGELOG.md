@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.5.0
+
+### Minor Changes
+
+- [`7f7e4a0709b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f7e4a0709b) - Fixes the types of the CustomTrigger to be generic rather than set as HTMLElement. This allows improved type inference for custom triggers.
+
 ## 11.4.0
 
 ### Minor Changes

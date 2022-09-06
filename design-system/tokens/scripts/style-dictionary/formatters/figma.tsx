@@ -26,6 +26,7 @@ export const figmaFormatter: Format['formatter'] = ({
         token.attributes &&
         token.attributes.group !== 'palette' &&
         token.attributes.group !== 'raw' &&
+        token.attributes.group !== 'opacity' &&
         token.attributes.state !== 'deprecated' &&
         token.attributes.state !== 'deleted',
     )

@@ -1,4 +1,4 @@
-import { CSS_PREFIX } from '../constants';
+import { CSS_PREFIX, CSS_VAR_FULL } from '../constants';
 
 /**
  * Transforms a style dictionary token path to a CSS custom property.
@@ -14,14 +14,16 @@ import { CSS_PREFIX } from '../constants';
  * // Returns ds-background-bold
  * getCSSCustomProperty('color.background.bold.[default]')
  */
-export const getCSSCustomProperty: GetCssCustomProperty = (path) => {
+export const getCSSCustomProperty = (path: string | string[]): string => {
   const normalizedPath = typeof path === 'string' ? path.split('.') : path;
 
-  return `--${[CSS_PREFIX, ...normalizedPath.slice(1)]
+  // Opacity and other 'shallow' groups are more readable when not trimmed
+  const slice = CSS_VAR_FULL.includes(path[0]) ? 0 : 1;
+
+  return `--${[CSS_PREFIX, ...normalizedPath.slice(slice)]
     .filter((el) => el !== '[default]')
     .join('-')}`;
 };
-type GetCssCustomProperty = (path: string | string[]) => string;
 
 /**
  * Transforms a style dictionary token path to a shorthand token id

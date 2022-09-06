@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.8.4
+
+### Patch Changes
+
+- [`e94f9f982b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e94f9f982b4) - Fixes link picker attempting to dispatch updates after being unmounted.
+
 ## 1.8.3
 
 ### Patch Changes

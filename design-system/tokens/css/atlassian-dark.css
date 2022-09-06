@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e7a1da5f12bf3daf065833cca6f750d8>>
+ * @codegen <<SignedSource::2d184cd66c975da2b8dadfece3cfd90b>>
  * @codegenCommand yarn build tokens
  */
 html[data-theme="dark"] {
@@ -285,6 +285,8 @@ html[data-theme="dark"] {
   --ds-surface-sunken: #101214;
   --ds-surface-raised: #1D2125;
   --ds-surface-overlay: #22272B;
+  --ds-opacity-disabled: 0.4;
+  --ds-opacity-loading: 0.2;
   --ds-UNSAFE_util-transparent: transparent;
   --ds-UNSAFE_util-MISSING_TOKEN: #FA11F2;
 }

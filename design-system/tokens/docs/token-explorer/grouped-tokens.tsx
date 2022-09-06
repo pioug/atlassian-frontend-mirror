@@ -140,6 +140,21 @@ const sortCustomOrder = (
   }
 
   /**
+   * Opacity tokens go after elevation/color
+   */
+  if (
+    a.path[0] === 'opacity' &&
+    (b.path[0] === 'elevation' || b.path[0] === 'color')
+  ) {
+    return 1;
+  } else if (
+    b.path[0] === 'opacity' &&
+    (a.path[0] === 'elevation' || a.path[0] === 'color')
+  ) {
+    return -1;
+  }
+
+  /**
    * Deleted Shadow group always goes last
    */
   if (a.path[0] === 'shadow') {

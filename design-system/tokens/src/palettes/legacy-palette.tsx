@@ -129,6 +129,24 @@ export type BaseToken = keyof PaletteColorTokenSchema<
 >['color']['palette'];
 
 const palette: PaletteColorTokenSchema<PaletteValues> = {
+  value: {
+    opacity: {
+      Opacity20: {
+        value: 0.2,
+        attributes: {
+          group: 'palette',
+          category: 'opacity',
+        },
+      },
+      Opacity40: {
+        value: 0.4,
+        attributes: {
+          group: 'palette',
+          category: 'opacity',
+        },
+      },
+    },
+  },
   color: {
     palette: {
       transparent: {

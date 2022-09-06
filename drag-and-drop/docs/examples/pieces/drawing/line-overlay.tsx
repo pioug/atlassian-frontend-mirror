@@ -1,5 +1,11 @@
 /** @jsx jsx */
-import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import {
+  forwardRef,
+  RefObject,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 
 import { css, jsx, keyframes } from '@emotion/react';
 import invariant from 'tiny-invariant';
@@ -23,7 +29,7 @@ const lineOverlayStyles = css({
   left: 0,
   pointerEvents: 'none',
   stroke: token('color.border.bold', '#738496'),
-  strokeWidth: 8,
+  strokeWidth: 4,
 });
 
 const activeLineAnimation = keyframes({
@@ -40,14 +46,23 @@ const activeLineStyles = css({
 function setPoints(
   line: SVGLineElement,
   { from, to }: { from: Point; to: Point },
+  ref: RefObject<SVGSVGElement>,
 ) {
   if (to.x <= 0 || to.y <= 0) {
     return;
   }
-  line.setAttribute('x1', from.x.toFixed());
-  line.setAttribute('y1', from.y.toFixed());
-  line.setAttribute('x2', to.x.toFixed());
-  line.setAttribute('y2', to.y.toFixed());
+
+  if (ref.current === null) {
+    return;
+  }
+
+  const svg = ref.current;
+  const rect = svg.getBoundingClientRect();
+
+  line.setAttribute('x1', (from.x - rect.x).toFixed());
+  line.setAttribute('y1', (from.y - rect.y).toFixed());
+  line.setAttribute('x2', (to.x - rect.x).toFixed());
+  line.setAttribute('y2', (to.y - rect.y).toFixed());
 }
 
 function createLine() {
@@ -79,7 +94,7 @@ const Lines = forwardRef<LineOverlayHandle, {}>(({}, ref) => {
   const drawActive = useCallback(
     (args: { from: Point; to: Point }) => {
       const line = getActive();
-      setPoints(line, args);
+      setPoints(line, args, svgRef);
       showActive();
     },
     [getActive, showActive],
@@ -87,7 +102,7 @@ const Lines = forwardRef<LineOverlayHandle, {}>(({}, ref) => {
 
   const drawFinished = useCallback((args: { from: Point; to: Point }) => {
     const line = createLine();
-    setPoints(line, args);
+    setPoints(line, args, svgRef);
     svgRef.current?.appendChild(line);
   }, []);
 

@@ -7,11 +7,8 @@ import { N40 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { token } from '../../../src';
-import darkTheme from '../../../src/artifacts/tokens-raw/atlassian-dark';
-import lightTheme from '../../../src/artifacts/tokens-raw/atlassian-light';
-import { cleanTokenName } from '../../utils';
 import results from '../data/results';
-import type { resultID, Token as TokenType } from '../types';
+import type { resultID } from '../types';
 
 import TokenItem from './token-item';
 
@@ -54,19 +51,9 @@ const ResultPanel = ({ resultId }: { resultId: resultID }) => {
         <h5 css={resultTitleStyles}>Your token is:</h5>
       </div>
       {results[resultId].suggestion.map((tokenName, index) => {
-        const lightTokenRaw = lightTheme.find(
-          (token) => cleanTokenName(token.name) === tokenName,
-        ) as TokenType;
-        const darkTokenRaw = darkTheme.find(
-          (token) => cleanTokenName(token.name) === tokenName,
-        ) as TokenType;
-
         return (
-          <Fragment key={lightTokenRaw.name}>
-            <TokenItem
-              lightTokenRaw={lightTokenRaw}
-              darkTokenRaw={darkTokenRaw}
-            />
+          <Fragment key={tokenName}>
+            <TokenItem tokenName={tokenName} />
             {index < results[resultId].suggestion.length - 1 && (
               <hr css={dividerStyles} />
             )}

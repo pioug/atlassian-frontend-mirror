@@ -7,7 +7,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 const DropdownMenuCustomTrigger = () => {
   return (
-    <DropdownMenu
+    <DropdownMenu<HTMLButtonElement>
       placement="bottom-end"
       testId="lite-mode-ddm"
       trigger={({ triggerRef, ...triggerProps }) => (

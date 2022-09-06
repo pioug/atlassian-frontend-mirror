@@ -2,6 +2,7 @@ export const THEMES = ['light', 'dark', 'legacy-light', 'legacy-dark'] as const;
 export const THEME_DATA_ATTRIBUTE = 'data-theme';
 export const DEFAULT_THEME = 'light';
 export const CSS_PREFIX = 'ds';
+export const CSS_VAR_FULL = ['opacity'];
 
 // Maps the longer theme name to a shorthand used in css/code
 export const THEME_NAME_MAP = {

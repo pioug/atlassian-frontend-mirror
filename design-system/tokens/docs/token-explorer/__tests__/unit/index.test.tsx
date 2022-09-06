@@ -44,14 +44,11 @@ describe('Token explorer', () => {
   });
 
   describe('search', () => {
-    it('should render tokens in a single list', () => {
+    it('should render tokens in a single list', async () => {
       const { getByTestId, getAllByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
-
-      act(() => {
-        userEvent.type(search, 'color.text', { delay: 100 });
-      });
+      await userEvent.type(search, 'color.text', { delay: 100 });
 
       // Should only be 1 token list
       const tokenList = getByTestId(TEST_ID_LIST);

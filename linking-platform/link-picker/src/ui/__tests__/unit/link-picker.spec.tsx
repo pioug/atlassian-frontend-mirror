@@ -647,7 +647,7 @@ describe('<LinkPicker />', () => {
 
       // We should still be loading since now the query version is updated
       expect(
-        await screen.findByTestId(testIds.searchResultLoadingIndicator),
+        screen.getByTestId(testIds.searchResultLoadingIndicator),
       ).toBeInTheDocument();
 
       // We release the second result
@@ -951,9 +951,9 @@ describe('<LinkPicker />', () => {
 
       await userEvent.type(screen.getByTestId(testIds.urlInputField), 'do');
 
-      expect(screen.getByTestId(testIds.resultListTitle)).toHaveTextContent(
-        messages.titleResults.defaultMessage,
-      );
+      expect(
+        await screen.findByTestId(testIds.resultListTitle),
+      ).toHaveTextContent(messages.titleResults.defaultMessage);
     });
 
     it('should submit when insert button is clicked', async () => {
@@ -1000,7 +1000,9 @@ describe('<LinkPicker />', () => {
 
       await userEvent.type(screen.getByTestId(testIds.urlInputField), 'xyz');
 
-      expect(screen.getByTestId(testIds.emptyResultPage)).toBeInTheDocument();
+      expect(
+        await screen.findByTestId(testIds.emptyResultPage),
+      ).toBeInTheDocument();
     });
 
     it('should not display a no-result search message when inserting a valid URL', async () => {
@@ -1085,7 +1087,9 @@ describe('<LinkPicker />', () => {
 
         await asyncAct(() => promise1);
 
-        expect(screen.getAllByTestId(testIds.searchResultItem)).toHaveLength(1);
+        expect(
+          await screen.findAllByTestId(testIds.searchResultItem),
+        ).toHaveLength(1);
         expect(screen.getByTestId(testIds.searchResultItem)).toHaveTextContent(
           mockedPluginData[0].name,
         );
@@ -1122,7 +1126,9 @@ describe('<LinkPicker />', () => {
 
         await asyncAct(() => promise2);
 
-        expect(screen.getAllByTestId(testIds.searchResultItem)).toHaveLength(1);
+        expect(
+          await screen.findAllByTestId(testIds.searchResultItem),
+        ).toHaveLength(1);
         expect(screen.getByTestId(testIds.searchResultItem)).toHaveTextContent(
           mockedPluginData[1].name,
         );
@@ -1155,7 +1161,7 @@ describe('<LinkPicker />', () => {
         });
 
         await screen.findByTestId(testIds.linkPicker);
-        const retryAction = screen.getByTestId('mocked-fallback-action');
+        const retryAction = await screen.findByTestId('mocked-fallback-action');
         expect(retryAction).toBeInTheDocument();
         expect(
           screen.queryByText(messages.searchErrorDescription.description),

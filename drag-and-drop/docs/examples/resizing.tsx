@@ -25,7 +25,6 @@ import koala from './icons/koala.png';
 import ui from './icons/ui.png';
 import wallet from './icons/wallet.png';
 import yeti from './icons/yeti.png';
-import { fallbackColor } from './util/fallback';
 import { GlobalStyles } from './util/global-styles';
 
 // The list example we have here was lifted from
@@ -121,7 +120,7 @@ const sidebarDividerStyles = css({
   background: 'transparent',
 
   '::before': {
-    background: token('color.border.brand', fallbackColor),
+    background: token('color.border.brand', '#0C66E4'),
     content: '""',
     position: 'absolute',
     top: 0,
@@ -221,11 +220,10 @@ function Sidebar() {
 }
 
 const stackStyles = css({
-  // It would be great if we had a `Stack` component :)
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-  '> *': {
-    paddingTop: 'calc(var(--grid) * 2)',
-  },
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 'calc(var(--grid) * 2)',
+  padding: 'calc(var(--grid) * 2) 0',
 });
 
 function Content() {
@@ -243,10 +241,10 @@ const containerStyles = css({
   display: 'flex',
   flexDirection: 'row',
   overflow: 'hidden',
-  width: 600,
-  border: `var(--border-width) solid ${token('color.border', fallbackColor)}`,
+  width: '100%',
+  border: `var(--border-width) solid ${token('color.border', '#091E4224')}`,
   borderRadius: 'var(--border-radius)',
-  margin: 'calc(var(--grid) * 2) auto',
+  background: token('elevation.surface', '#FFF'),
 });
 
 export default function Container() {

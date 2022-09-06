@@ -1,5 +1,5 @@
+/* eslint-disable @repo/internal/react/no-unsafe-overrides */
 /** @jsx jsx */
-import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -16,6 +16,9 @@ import {
 import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 
 import { token } from '../../../src';
+import darkTheme from '../../../src/artifacts/tokens-raw/atlassian-dark';
+import lightTheme from '../../../src/artifacts/tokens-raw/atlassian-light';
+import { Groups } from '../../../src/types';
 import { cleanTokenName, getBoxShadow, getTextContrast } from '../../utils';
 import type { Token as TokenType } from '../types';
 
@@ -55,6 +58,58 @@ const colorBlockStyles = css({
   textAlign: 'center',
 });
 
+const opacityTokenBlockStyles = css({
+  position: 'relative',
+  backgroundColor: token('elevation.surface', N0),
+  backgroundImage: `linear-gradient(
+          45deg,
+          ${token('elevation.surface.sunken', '#F4F5F7')} 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          ${token('elevation.surface.sunken', '#F4F5F7')} 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          45deg,
+          transparent 75%,
+          ${token('elevation.surface.sunken', '#F4F5F7')} 75%
+        ),
+        linear-gradient(
+          135deg,
+          transparent 75%,
+          ${token('elevation.surface.sunken', '#F4F5F7')} 75%
+        )`,
+  backgroundPosition: '0px 0px, 8px 0px, 8px -8px, 0px 8px',
+  backgroundSize: '16px 16px',
+  color: token('color.text', 'black'),
+  overflow: 'hidden',
+});
+
+const opacityMaskStyles = css({
+  width: '100%',
+  height: '100%',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  backgroundColor: token('color.text', N800),
+});
+
+const getShadowBlockStyles = (value: any) => ({
+  height: gridSize() * 3,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  backgroundColor: 'white',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  color: 'black',
+  boxShadow: getBoxShadow(value as any),
+});
+
+const getBaseTokenBlockStyles = (value: string) => ({
+  background: value,
+  color: getTextContrast(value),
+});
+
 const subheadingStyles = css({
   fontSize: fontSize(),
   lineHeight: '16px',
@@ -83,21 +138,68 @@ const themeTextStyles = css({
   margin: '0 12px',
   textAlign: 'center',
 });
+
+const ValueCard = ({
+  theme,
+  group,
+  baseToken,
+  value,
+}: {
+  theme: 'light' | 'dark';
+  group: Groups;
+  baseToken: string;
+  value: string | number;
+}) => {
+  return (
+    <div css={valueCardStyles}>
+      {group === 'shadow' ? (
+        <div style={getShadowBlockStyles(value)} />
+      ) : group === 'opacity' ? (
+        <CopyPasteBlock
+          text={baseToken}
+          renderWrapper={(children) => (
+            <div css={[colorBlockStyles, opacityTokenBlockStyles]}>
+              {children}
+              <div css={opacityMaskStyles} style={{ opacity: value }} />
+            </div>
+          )}
+        />
+      ) : (
+        <CopyPasteBlock
+          text={baseToken}
+          renderWrapper={(children) => (
+            <div
+              css={[colorBlockStyles]}
+              style={getBaseTokenBlockStyles(value as string)}
+            >
+              {children}
+            </div>
+          )}
+        />
+      )}
+      <p css={themeTextStyles}>
+        {theme === 'light' ? 'Light Value' : 'Dark Value'}
+      </p>
+    </div>
+  );
+};
+
 /**
  * __TokenItem__
  *
  * A suggested token item on the result panel.
  *
  */
-const TokenItem = ({
-  lightTokenRaw,
-  darkTokenRaw,
-}: {
-  lightTokenRaw: TokenType;
-  darkTokenRaw: TokenType;
-}) => {
+const TokenItem = ({ tokenName }: { tokenName: string }) => {
+  const lightTokenRaw = lightTheme.find(
+    (token) => cleanTokenName(token.name) === tokenName,
+  ) as TokenType;
+
+  const darkTokenRaw = darkTheme.find(
+    (token) => cleanTokenName(token.name) === tokenName,
+  ) as TokenType;
+
   const {
-    name,
     value: lightValue,
     original: { value: lightBaseToken },
     attributes: { group, description },
@@ -106,28 +208,16 @@ const TokenItem = ({
     value: darkValue,
     original: { value: darkBaseToken },
   } = darkTokenRaw;
-  const tokenName = cleanTokenName(name);
 
-  const tokenValue = (theme: 'light' | 'dark') =>
-    group === 'shadow'
-      ? getBoxShadow(theme === 'light' ? lightValue : (darkValue as any))
-      : theme === 'light'
-      ? lightBaseToken
-      : darkBaseToken;
-
-  const getShadowBlockStyles = (value: any) => ({
-    height: gridSize() * 3,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    backgroundColor: 'white',
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    color: 'black',
-    boxShadow: getBoxShadow(value as any),
-  });
-
-  const getBaseTokenBlockStyles = (value: any) => ({
-    background: value,
-    color: getTextContrast(value),
-  });
+  const tokenValue = (theme: 'light' | 'dark'): string => {
+    let value;
+    if (group === 'shadow') {
+      value = getBoxShadow((theme === 'light' ? lightValue : darkValue) as any);
+    } else {
+      value = (theme === 'light' ? lightBaseToken : darkBaseToken) as string;
+    }
+    return value;
+  };
 
   return (
     <div>
@@ -138,43 +228,18 @@ const TokenItem = ({
         )}
       />
       <div css={cardsWrapperStyles}>
-        <div css={valueCardStyles}>
-          {group === 'shadow' ? (
-            <div style={getShadowBlockStyles(lightValue)} />
-          ) : (
-            <CopyPasteBlock
-              text={tokenValue('light')}
-              renderWrapper={(children) => (
-                <div
-                  css={colorBlockStyles}
-                  style={getBaseTokenBlockStyles(lightValue)}
-                >
-                  {children}
-                </div>
-              )}
-            />
-          )}
-          <p css={themeTextStyles}>Light Mode</p>
-        </div>
-
-        <div css={valueCardStyles}>
-          {group === 'shadow' ? (
-            <div style={getShadowBlockStyles(darkValue)} />
-          ) : (
-            <CopyPasteBlock
-              text={tokenValue('dark')}
-              renderWrapper={(children: ReactNode) => (
-                <div
-                  css={colorBlockStyles}
-                  style={getBaseTokenBlockStyles(darkValue)}
-                >
-                  {children}
-                </div>
-              )}
-            />
-          )}
-          <p css={themeTextStyles}>Dark Mode</p>
-        </div>
+        <ValueCard
+          theme="light"
+          group={group as Groups}
+          baseToken={tokenValue('light')}
+          value={lightValue}
+        />
+        <ValueCard
+          theme="dark"
+          group={group as Groups}
+          baseToken={tokenValue('dark')}
+          value={darkValue}
+        />
       </div>
       <h5 css={subheadingStyles}>Description</h5>
       <p css={descriptionStyles}>{description}</p>

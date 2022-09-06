@@ -1,12 +1,22 @@
 import { act, renderHook } from '@testing-library/react-hooks';
+import { ManualPromise } from '@atlaskit/link-test-helpers';
 import {
+  MockLinkPickerGeneratorPlugin,
   MockLinkPickerPlugin,
   MockLinkPickerPromisePlugin,
   UnstableMockLinkPickerPlugin,
 } from '@atlaskit/link-test-helpers/link-picker';
-import { usePlugins } from './';
+
 import { LinkPickerPlugin, LinkPickerState } from '../../ui/types';
 import { RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
+
+import { usePlugins } from './';
+import { CancellationError, resolvePluginUpdates } from './utils';
+import * as reducer from './reducer';
+
+beforeEach(() => {
+  jest.restoreAllMocks();
+});
 
 describe('usePlugins', () => {
   const state = { query: '' };
@@ -83,6 +93,7 @@ describe('usePlugins', () => {
         plugins,
       });
 
+      expect(result.current.isLoading).toBe(true);
       await waitForNextUpdate();
       expect(result.current.isLoading).toBe(true);
 
@@ -180,6 +191,168 @@ describe('usePlugins', () => {
 
       const { errorFallback } = result.current;
       expect(errorFallback).toBeDefined();
+    });
+
+    it('should not dispatch state updates after unmount', async () => {
+      const dispatch = jest.fn();
+      jest
+        .spyOn(reducer, 'usePluginReducer')
+        .mockReturnValue([reducer.INITIAL_STATE, dispatch]);
+
+      const promise = new ManualPromise({ data: [] });
+      const plugin = {
+        resolve: () => promise,
+      };
+      const plugins = [plugin];
+      const resolve = jest.spyOn(plugin, 'resolve');
+      const { unmount } = setUpHook({
+        state,
+        activeTab,
+        plugins,
+      });
+
+      unmount();
+      await promise.resolve();
+      act(() => {});
+
+      expect(resolve).toBeCalledTimes(1);
+      expect(dispatch).toBeCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledWith({
+        type: reducer.ACTION_LOADING,
+      });
+    });
+  });
+});
+
+describe('resolvePluginUpdates', () => {
+  describe('with promise plugin', () => {
+    const setup = () => {
+      const data: never[] = [];
+      const promise = new ManualPromise(data);
+      const plugin = new MockLinkPickerPromisePlugin({ promise });
+      const resolve = jest.spyOn(plugin, 'resolve');
+      const state = { query: '' };
+      const { next, cancel } = resolvePluginUpdates(plugin, state);
+
+      return {
+        data,
+        promise,
+        resolve,
+        state,
+        next,
+        cancel,
+      };
+    };
+
+    it('should successfully resolve if cancel is not called', async () => {
+      const { data, promise, resolve, state, next } = setup();
+
+      // Resolve, no cancel
+      promise.resolve();
+
+      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledWith(state);
+      await expect(next()).resolves.toEqual({
+        done: true,
+        value: { data },
+      });
+    });
+
+    it('should reject with cancellation error if cancel is called before the promise fulfills', async () => {
+      const { promise, resolve, state, next, cancel } = setup();
+
+      // Cancel before resolve
+      cancel();
+      promise.resolve();
+
+      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledWith(state);
+      await expect(next()).rejects.toBeInstanceOf(CancellationError);
+    });
+  });
+
+  describe('with generator plugin', () => {
+    const setup = () => {
+      const data: never[] = [];
+      const promises = [
+        new ManualPromise({ value: { data }, done: false }),
+        new ManualPromise({ value: { data }, done: true }),
+      ];
+      const plugin = new MockLinkPickerGeneratorPlugin(promises);
+      const resolve = jest.spyOn(plugin, 'resolve');
+      const state = { query: '' };
+      const { next, cancel } = resolvePluginUpdates(plugin, state);
+
+      return {
+        data,
+        promises,
+        resolve,
+        state,
+        next,
+        cancel,
+      };
+    };
+
+    it('should successfully resolve if cancel is not called', async () => {
+      const { data, promises, resolve, state, next } = setup();
+
+      // Resolve, no cancel
+      promises[0].resolve();
+      promises[1].resolve();
+
+      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledWith(state);
+      await expect(next()).resolves.toEqual({
+        done: false,
+        value: { data },
+      });
+      await expect(next()).resolves.toEqual({
+        done: true,
+        value: { data },
+      });
+    });
+
+    it('should reject with cancellation error if cancel is called before the promise fulfills', async () => {
+      const { data, promises, next, cancel } = setup();
+
+      promises[0].resolve();
+      await expect(next()).resolves.toEqual({
+        done: false,
+        value: { data },
+      });
+
+      // Cancel after first yield, but before second yield
+      cancel();
+      promises[1].resolve();
+
+      await expect(next()).rejects.toBeInstanceOf(CancellationError);
+    });
+
+    it('should reject with cancellation error if cancel is called before before results are yielded by next()', async () => {
+      const { promises, next, cancel } = setup();
+
+      promises[0].resolve();
+      promises[1].resolve();
+
+      // Cancel before yield using next()
+      cancel();
+
+      await expect(next()).rejects.toBeInstanceOf(CancellationError);
+      await expect(next()).rejects.toBeInstanceOf(CancellationError);
+    });
+
+    it('should reject with cancellation error if cancel is called before the promise fulfills', async () => {
+      const { promises, next, cancel } = setup();
+
+      // Cancel before resolves
+      const result0 = next();
+      const result1 = next();
+      cancel();
+      promises[0].resolve();
+      promises[1].resolve();
+
+      await expect(result0).rejects.toBeInstanceOf(CancellationError);
+      await expect(result1).rejects.toBeInstanceOf(CancellationError);
     });
   });
 });

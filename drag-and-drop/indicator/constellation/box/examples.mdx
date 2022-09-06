@@ -1,0 +1,37 @@
+---
+order: 0
+---
+
+import SectionMessage from '@atlaskit/section-message';
+
+import ClosestEdgeExample from '../../examples/constellation/closest-edge';
+import GapExample from '../../examples/constellation/gap';
+
+When reordering draggable items within drop targets, a drop indicator is used to communicate the intended resting place of the draggable item. The orientation of the drop indicator should always match the direction of the content flow.
+
+<SectionMessage
+  title="Absolute positioning"
+>
+  <p>
+    Ensure that the parent element has non-static positioning.
+    The drop indicator uses `position: absolute` so will be positioned relative
+    to the closest ancestor with non-static positioning.
+  </p>
+  <p>
+    Generally you will want to add `position: relative` to the element you want to position the line against.
+  </p>
+</SectionMessage>
+
+## Edge
+
+Use `edge` to specify which edge of the drop target the drop indicator should be rendered on.
+
+<Example Component={ClosestEdgeExample} />
+
+## Gap
+
+Use `gap` to specify the distance between each draggable item.
+
+The line will be drawn at an offset of half this value, resulting in the line being drawn between draggable items.
+
+<Example Component={GapExample} />

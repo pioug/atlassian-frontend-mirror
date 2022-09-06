@@ -59,7 +59,7 @@ type questionID = {
 
 const questions: Questions = {
   root: {
-    title: 'What kind of element is the color used for?',
+    title: 'What kind of element is the token used for?',
     summary: 'Element',
     answers: [
       {
@@ -743,10 +743,22 @@ const questions: Questions = {
       {
         next: 'other/blanket',
         summary: 'Blanket',
+        description: 'Covering content with a blanket',
       },
       {
         next: 'other/skeleton',
         summary: 'Skeleton',
+        description: 'Displaying a loading skeleton',
+      },
+      {
+        result: 'opacity/disabled',
+        summary: 'Disabled opacity',
+        description: 'Disabling an image',
+      },
+      {
+        result: 'opacity/loading',
+        summary: 'Loading opacity',
+        description: 'De-emphasizing content under a loading spinner',
       },
     ],
   },

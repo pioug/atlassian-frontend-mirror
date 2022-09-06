@@ -46,11 +46,13 @@ export type Behaviors =
   | 'menuitemcheckbox'
   | 'menuitemradio';
 
-export interface CustomTriggerProps extends Omit<TriggerProps, 'ref'> {
+export interface CustomTriggerProps<
+  TriggerElement extends HTMLElement = HTMLElement
+> extends Omit<TriggerProps, 'ref'> {
   /**
    * Ref that should be applied to the trigger. This is used to calculate the menu position.
    */
-  triggerRef: Ref<HTMLElement>;
+  triggerRef: Ref<TriggerElement>;
   /**
    * Makes the trigger appear selected.
    */
@@ -85,7 +87,9 @@ export interface MenuWrapperProps extends MenuGroupProps {
 
 export interface DropdownMenuGroupProps extends SectionProps {}
 
-export interface DropdownMenuProps {
+export interface DropdownMenuProps<
+  TriggerElement extends HTMLElement = HTMLElement
+> {
   /**
    * Controls the appearance of the menu.
    * Default menu has scroll after its height exceeds the pre-defined amount.
@@ -136,7 +140,11 @@ export interface DropdownMenuProps {
    * Content which will trigger the dropdown menu to open and close. Use with `triggerType`
    * to easily get a button trigger.
    */
-  trigger?: string | ((triggerButtonProps: CustomTriggerProps) => ReactElement);
+  trigger?:
+    | string
+    | ((
+        triggerButtonProps: CustomTriggerProps<TriggerElement>,
+      ) => ReactElement);
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique

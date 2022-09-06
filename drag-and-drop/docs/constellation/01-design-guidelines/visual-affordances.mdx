@@ -1,0 +1,150 @@
+---
+order: 2
+title: Design guidelines
+---
+
+import SectionMessage from '@atlaskit/section-message';
+
+## Sorting items
+
+Pragmatic-dnd has been architected for blazing fast performance. By employing low-level platform APIs to do the heavy lifting for us, pragmatic-dnd gains performance benefits and bundle size reductions compared to similar drag and drop implementations. However, these APIs also have limitations which affect the end user experience.
+
+Pragmatic-dnd foregoes computationally demanding physical interactions and instead, uses drop indicators to communicate where a draggable object will be moved to at the completion of a drag operation.
+
+### Drop indicator
+
+DO: Use drop indicators to convey intended sorting order during drag operations.
+
+When reordering draggable items within drop targets, a drop indicator is used to communicate the intended resting place of the draggable item. The orientation of the drop indicator should always match the direction of the content flow.
+
+<figure>
+  <img src="/images/example--drop-ind__sortable.png" />
+  <figcaption>
+    Draggable items being sorted within a single drop target.
+  </figcaption>
+</figure>
+
+#### Drop indicator visual properties
+
+| Property        | Value / Token         | Description                   |
+| --------------- | --------------------- | ----------------------------- |
+| `border-radius` | `0`                   | Drag target line radius       |
+| `border-width`  | `2px`                 | Drop indicator line thickness |
+| `border-color`  | `$color.border.brand` | Drop indicator line color     |
+
+### Drop indicator positioning
+
+To clearly communicate the resting place of a draggable item during a drag operation, the drop indicator should be positioned half way between draggable items.
+
+<SectionMessage>
+
+
+The position of the drop target can be calculated using the formula `(x-y)/2`, where `'x'` is the gap between items, and `'y'` is the drop indicator border width.
+
+</SectionMessage>
+
+
+To put the above formula into practice, let's look at a few examples:
+
+#### Gaps between draggable items
+
+In this example, let's consider a board column with a gap of 16 pixels between each draggable item.
+
+Gap between items (x) = **16px**
+
+Drop indicator border width (y) = **2px**
+
+Drop indicator position (16px - 2px)/2 = **7px**
+
+![](/images/example--list--gap.png)
+
+#### No gap between draggable items
+
+In this example, let's consider a list that doesn't have a gap between items and instead uses a dividing line to demarcate the boundary between items.
+
+Gap between items (x) = **0**
+
+Drop indicator border width (y) = **2px**
+
+Drop indicator position (0 - 2px)/2 = **-1px**
+
+![](/images/example--list--flush.png)
+
+## Moving items between drop targets
+
+While many other drag and drop libraries mimic physical interactions between draggable items and drop targets, the constant repositioning, re-rendering, and animating of items in real-time is computationally expensive and can negatively affect performance.
+
+In lieu of these physical interactions that would normally provide users with direct feedback during drag operations, pragmatic-dnd changes the visual properties of drop targets instead.
+
+### Drop target
+
+DO: Provide real-time feedback during drag operations by updating the visual properties of drop targets.
+
+**Resting state** `isOver={false}`
+
+<figure>
+  <img src="/images/example--drop-target--resting.png" />
+  <figcaption>A drop target in its resting state</figcaption>
+</figure>
+
+| Property     | Value / Token           | Description                  |
+| ------------ | ----------------------- | ---------------------------- |
+| `background` | `$color.surface.sunken` | Drop target background color |
+
+**Active state** `isOver={true}`
+
+<figure>
+  <img src="/images/example--drop-target--over.png" />
+  <figcaption>
+    Changing the background color of the drop target while the user drags an
+    item over it provides them with real-time feedback that item can be dropped
+    there.
+  </figcaption>
+</figure>
+
+| Property           | Value / Token                | Description                    |
+| ------------------ | ---------------------------- | ------------------------------ |
+| `background-color` | `$color.background.selected` | `Drop target background color` |
+
+### Nested drop targets
+
+Drop targets can be nested within each other. As an example, nested drop targets are used in Jira boards: when dragging issues to change their status, some columns provide multiple drop targets for related statuses.
+
+To align with this existing visual language, nested drop targets use dashed borders and background colour changes to provide visual feedback during drag operations.
+
+**Resting state** `isOver={false}`
+
+When nested drop targets are present, they don't become visible until a drag operation is initiated by the user, at which point the nested drop targets are displayed.
+
+<figure>
+  <img src="/images/example--drop-target--nested.png" />
+  <figcaption>
+    When nested drop targets are present, they don't become visible until a drag
+    operation is initiated by the user, at which point the nested drop targets
+    are displayed.
+  </figcaption>
+</figure>
+
+| Property           | Value / Token           | Description                  |
+| ------------------ | ----------------------- | ---------------------------- |
+| `background-color` | `$color.surface.sunken` | Drop target background color |
+| `border-style`     | `dashed`                | Drop target border style     |
+| `border-width`     | `2px`                   | Drop target border thickness |
+| `border-color`     | `$color.border.brand`   | Drop target border color     |
+
+**Active state** `isOver={true}`
+
+<figure>
+  <img src="/images/example--drop-target--nested--over.png" />
+  <figcaption>
+    Drop target while `isOver={true}` maintains consistent visual styling with
+    non-segmented drop targets.
+  </figcaption>
+</figure>
+
+| Property           | Value / Token                        | Description                  |
+| ------------------ | ------------------------------------ | ---------------------------- |
+| `background-color` | `$color.background.selected.hovered` | Drop target background color |
+| `border-style`     | `dashed`                             | Drop target border style     |
+| `border-width`     | `2px`                                | Drop target border thickness |
+| `border-color`     | `$color.border.brand`                | Drop target border color     |

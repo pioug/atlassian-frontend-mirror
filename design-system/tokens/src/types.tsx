@@ -1,7 +1,7 @@
 import { InternalTokenIds } from './artifacts/types-internal';
 import { THEME_NAME_MAP, THEMES } from './constants';
 
-export type Groups = 'raw' | 'paint' | 'shadow' | 'palette';
+export type Groups = 'raw' | 'paint' | 'shadow' | 'opacity' | 'palette';
 export type ActiveTokenState = 'active';
 export type DeprecatedTokenState = 'deprecated';
 export type DeletedTokenState = 'deleted';
@@ -10,6 +10,20 @@ export type TokenState =
   | DeprecatedTokenState
   | DeletedTokenState;
 export type Replacement = InternalTokenIds | InternalTokenIds[]; // Ideally, this is typed to all tokens that are active
+
+export type PaletteCategory =
+  | 'blue'
+  | 'purple'
+  | 'red'
+  | 'magenta'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'teal'
+  | 'light mode neutral'
+  | 'dark mode neutral';
+
+export type ValueCategory = 'opacity';
 
 export type Themes = typeof THEMES[number];
 export type ThemesLongName = keyof typeof THEME_NAME_MAP;
@@ -84,6 +98,22 @@ export type ValueSchema<Schema extends object> = DeepOmit<Schema, 'attributes'>;
 // Recursively strips out values from schema
 export type AttributeSchema<Schema extends object> = DeepOmit<Schema, 'value'>;
 
+export interface PaletteToken extends BaseToken<string, 'palette'> {
+  attributes: {
+    group: 'palette';
+    category: PaletteCategory;
+  };
+}
+
+export interface ValueToken extends BaseToken<number, 'palette'> {
+  attributes: {
+    group: 'palette';
+    category: ValueCategory;
+  };
+}
+
+export type PaintToken<BaseToken> = DesignToken<BaseToken, 'paint'>;
+
 export type ShadowToken<BaseToken> = DesignToken<
   Array<{
     color: BaseToken;
@@ -96,28 +126,17 @@ export type ShadowToken<BaseToken> = DesignToken<
   'shadow'
 >;
 
-export type PaintToken<BaseToken> = DesignToken<BaseToken, 'paint'>;
+export type OpacityToken = DesignToken<string, 'opacity'>;
 
 export type RawToken = DesignToken<string, 'raw'>;
 
-interface PaletteToken extends BaseToken<string, 'palette'> {
-  attributes: {
-    group: 'palette';
-    category:
-      | 'blue'
-      | 'purple'
-      | 'red'
-      | 'magenta'
-      | 'orange'
-      | 'yellow'
-      | 'green'
-      | 'teal'
-      | 'light mode neutral'
-      | 'dark mode neutral';
-  };
-}
-
 export interface PaletteColorTokenSchema<PaletteValues extends string> {
+  value: {
+    opacity: {
+      Opacity20: ValueToken;
+      Opacity40: ValueToken;
+    };
+  };
   color: {
     palette: Record<PaletteValues, PaletteToken>;
   };
@@ -483,6 +502,13 @@ export interface ShadowTokenSchema<BaseToken> {
       overflow: ShadowToken<BaseToken>;
       overlay: ShadowToken<BaseToken>;
     };
+  };
+}
+
+export interface OpacityTokenSchema {
+  opacity: {
+    loading: OpacityToken;
+    disabled: OpacityToken;
   };
 }
 

@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::aa08602e37233a811d9ed10e9d8c16b9>>
+ * @codegen <<SignedSource::d8dc9b82b0acce1509d212aa8839feef>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -1607,7 +1607,7 @@ synchronizeFigmaTokens('AtlassianLight', {
       "group": "shadow",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use to create a shadow when content scolls under other content."
+      "description": "Use to create a shadow when content scrolls under other content."
     },
     "value": [
       {

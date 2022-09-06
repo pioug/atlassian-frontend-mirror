@@ -173,7 +173,7 @@ color.skeleton.subtle, "Use for the pulse or shimmer effect in skeleton loading 
 color.link, "Use for links in a default or hovered state. Add an underline for hovered states."
 color.link.pressed, "Use for links in a pressed state."
 elevation.shadow.raised, "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
-elevation.shadow.overflow, "Use to create a shadow when content scolls under other content."
+elevation.shadow.overflow, "Use to create a shadow when content scrolls under other content."
 elevation.shadow.overlay, "Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay
 
 Also use for the box shadow of raised cards in a dragged state."
@@ -183,5 +183,7 @@ elevation.surface.raised, "Use for the background of raised cards, such as Jira 
 elevation.surface.overlay, "Use for the background of elements that sit on top of they UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.shadow.overlay
 
 Also use for the background of raised cards in a dragged state."
+opacity.disabled, "Apply to images when in a disabled state."
+opacity.loading, "Apply to content that sits under a loading spinner."
 utility.UNSAFE_util.transparent, "Transparent token used for backwards compatibility between new and old theming solutions"
 utility.UNSAFE_util.MISSING_TOKEN, "Used as a placeholder when a suitable token does not exist"

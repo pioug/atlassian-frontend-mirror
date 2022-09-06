@@ -1,9 +1,53 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::48a859c3e6fb79202e5702421d1b6254>>
+ * @codegen <<SignedSource::54a73caa5e11805075c57f698252b1e7>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
+  {
+    "value": 0.2,
+    "attributes": {
+      "group": "palette",
+      "category": "opacity"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 0.2,
+      "attributes": {
+        "group": "palette",
+        "category": "opacity"
+      }
+    },
+    "name": "value.opacity.Opacity20",
+    "path": [
+      "value",
+      "opacity",
+      "Opacity20"
+    ]
+  },
+  {
+    "value": 0.4,
+    "attributes": {
+      "group": "palette",
+      "category": "opacity"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 0.4,
+      "attributes": {
+        "group": "palette",
+        "category": "opacity"
+      }
+    },
+    "name": "value.opacity.Opacity40",
+    "path": [
+      "value",
+      "opacity",
+      "Opacity40"
+    ]
+  },
   {
     "value": "#E9F2FF",
     "attributes": {

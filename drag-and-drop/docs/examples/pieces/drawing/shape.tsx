@@ -15,76 +15,63 @@ const shapes = ['square', 'circle', 'triangle'] as const;
 
 export type ShapeType = typeof shapes[number];
 
-const shape = {
-  size: 128,
-  strokeWidth: 8,
-};
+export const size = 48;
+const strokeWidth = 4;
 
 const shapeStyles = css({
   display: 'flex',
-  width: shape.size,
-  height: shape.size,
+  width: size,
+  height: size,
   position: 'relative',
-  strokeWidth: shape.strokeWidth,
+  strokeWidth,
+  stroke: token('color.border', '#091E4224'),
   ':nth-of-type(1)': {
-    fill: token('color.background.accent.red.bolder', 'red'),
-    stroke: token('color.border.accent.red', 'black'),
+    fill: token('color.background.accent.red.bolder', '#CA3521'),
   },
   ':nth-of-type(2)': {
-    fill: token('color.background.accent.orange.bolder', 'orange'),
-    stroke: token('color.border.accent.orange', 'black'),
+    fill: token('color.background.accent.orange.bolder', '#B65C02'),
   },
   ':nth-of-type(3)': {
-    fill: token('color.background.accent.yellow.bolder', 'yellow'),
-    stroke: token('color.border.accent.yellow', 'black'),
+    fill: token('color.background.accent.yellow.bolder', '#946F00'),
   },
   ':nth-of-type(4)': {
-    fill: token('color.background.accent.green.bolder', 'green'),
-    stroke: token('color.border.accent.green', 'black'),
+    fill: token('color.background.accent.green.bolder', '#1F845A'),
   },
   ':nth-of-type(5)': {
-    fill: token('color.background.accent.blue.bolder', 'blue'),
-    stroke: token('color.border.accent.blue', 'black'),
+    fill: token('color.background.accent.blue.bolder', '#0C66E4'),
   },
   ':nth-of-type(6)': {
-    fill: token('color.background.accent.purple.bolder', 'purple'),
-    stroke: token('color.border.accent.purple', 'black'),
+    fill: token('color.background.accent.purple.bolder', '#6E5DC6'),
   },
 });
 
 const shapeSVG: Record<ShapeType, ReactNode> = {
   square: (
     <rect
-      x={shape.strokeWidth / 2}
-      y={shape.strokeWidth / 2}
-      width={shape.size - shape.strokeWidth}
-      height={shape.size - shape.strokeWidth}
+      x={strokeWidth / 2}
+      y={strokeWidth / 2}
+      width={size - strokeWidth}
+      height={size - strokeWidth}
     />
   ),
-  circle: (
-    <circle
-      cx={shape.size / 2}
-      cy={shape.size / 2}
-      r={(shape.size - shape.strokeWidth) / 2}
-    />
-  ),
+  circle: <circle cx={size / 2} cy={size / 2} r={(size - strokeWidth) / 2} />,
   triangle: (
     <polygon
       points={[
-        [shape.strokeWidth, shape.size - shape.strokeWidth],
-        [shape.size / 2, shape.strokeWidth],
-        [shape.size - shape.strokeWidth, shape.size - shape.strokeWidth],
+        [strokeWidth, size - strokeWidth],
+        [size / 2, strokeWidth],
+        [size - strokeWidth, size - strokeWidth],
       ].join(' ')}
     />
   ),
 };
 
 const Shape = ({
-  type,
+  shape,
   canDrag,
   onDrag: onDragProp,
 }: {
-  type: ShapeType;
+  shape: ShapeType;
   canDrag: boolean;
   onDrag?: (args: { from: Element; to: { x: number; y: number } }) => void;
 }) => {
@@ -99,7 +86,7 @@ const Shape = ({
           return canDrag;
         },
         getInitialData() {
-          return { type };
+          return { type: 'shape', shape };
         },
         onDrag({ location, source }) {
           const currentPosition = {
@@ -125,20 +112,20 @@ const Shape = ({
       dropTargetForElements({
         element: ref.current,
         getData() {
-          return { type };
+          return { type: 'shape', shape };
         },
         canDrop({ source }) {
-          const isSameType = source.data.type === type;
+          const isSameShape = source.data.shape === shape;
           const isDifferentElement = source.element !== ref.current;
-          return isSameType && isDifferentElement;
+          return isSameShape && isDifferentElement;
         },
       }),
     );
-  }, [canDrag, onDragProp, type]);
+  }, [canDrag, onDragProp, shape]);
 
   return (
-    <div css={shapeStyles} ref={ref} data-shape={type}>
-      <svg>{shapeSVG[type]}</svg>
+    <div css={shapeStyles} ref={ref} data-shape={shape}>
+      <svg>{shapeSVG[shape]}</svg>
     </div>
   );
 };

@@ -22,7 +22,6 @@ import { token } from '@atlaskit/tokens';
 
 import { ColumnType } from '../data/tasks';
 import { cardGap, columnGap } from '../util/constants';
-import { fallbackColor } from '../util/fallback';
 
 import { Card } from './card';
 
@@ -30,14 +29,14 @@ const columnStyles = css({
   display: 'flex',
   width: '250px',
   flexDirection: 'column',
-  background: token('elevation.surface.sunken', fallbackColor),
+  background: token('elevation.surface.sunken', '#F7F8F9'),
   borderRadius: 'calc(var(--grid) * 2)',
   transition: `background ${mediumDurationMs}ms ${easeInOut}`,
   position: 'relative',
 });
 
 const scrollContainerStyles = css({
-  height: '60vh',
+  height: '100%',
   overflowY: 'auto',
 });
 
@@ -55,18 +54,17 @@ const columnHeaderStyles = css({
   padding: 'calc(var(--grid) * 2) calc(var(--grid) * 2) calc(var(--grid) * 1)',
   justifyContent: 'space-between',
   flexDirection: 'row',
-  color: token('color.text.subtlest', fallbackColor),
-  // cursor: 'grab',
+  color: token('color.text.subtlest', '#626F86'),
   userSelect: 'none',
 });
 
 const columnHeaderIdStyles = css({
-  color: token('color.text.disabled', fallbackColor),
+  color: token('color.text.disabled', '#091E424F'),
   fontSize: '10px',
 });
 
 const isDraggingOverColumnStyles = css({
-  background: token('color.background.selected.hovered', fallbackColor),
+  background: token('color.background.selected.hovered', '#CCE0FF'),
 });
 
 export const Column = memo(function Column({ column }: { column: ColumnType }) {

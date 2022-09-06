@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6a9d19d9e568ee23ce24a7127ceb09c>>
+ * @codegen <<SignedSource::6977decc7ef870a337b1171d6775d9dc>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -8191,7 +8191,7 @@ const tokens = [
       "group": "shadow",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use to create a shadow when content scolls under other content."
+      "description": "Use to create a shadow when content scrolls under other content."
     },
     "value": [
       {
@@ -8220,7 +8220,7 @@ const tokens = [
         "group": "shadow",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use to create a shadow when content scolls under other content."
+        "description": "Use to create a shadow when content scrolls under other content."
       },
       "value": [
         {
@@ -8416,6 +8416,56 @@ const tokens = [
       "elevation",
       "surface",
       "overlay"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "opacity",
+      "state": "active",
+      "introduced": "0.10.13",
+      "description": "Apply to images when in a disabled state."
+    },
+    "value": 0.4,
+    "filePath": "src/tokens/atlassian-light/opacity/opacity.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "opacity",
+        "state": "active",
+        "introduced": "0.10.13",
+        "description": "Apply to images when in a disabled state."
+      },
+      "value": "Opacity40"
+    },
+    "name": "opacity.disabled",
+    "path": [
+      "opacity",
+      "disabled"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "opacity",
+      "state": "active",
+      "introduced": "0.10.13",
+      "description": "Apply to content that sits under a loading spinner."
+    },
+    "value": 0.2,
+    "filePath": "src/tokens/atlassian-light/opacity/opacity.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "opacity",
+        "state": "active",
+        "introduced": "0.10.13",
+        "description": "Apply to content that sits under a loading spinner."
+      },
+      "value": "Opacity20"
+    },
+    "name": "opacity.loading",
+    "path": [
+      "opacity",
+      "loading"
     ]
   },
   {

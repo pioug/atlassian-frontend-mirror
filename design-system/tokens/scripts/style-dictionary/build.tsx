@@ -121,7 +121,7 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
         buildPath: path.join(ARTIFACT_OUTPUT_DIR, '/tokens-raw/'),
         options: {
           themeName,
-          groups: ['paint', 'shadow', 'raw'],
+          groups: ['paint', 'shadow', 'opacity', 'raw'],
         },
         files: [
           {
@@ -162,7 +162,7 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
         transforms: ['name/custom-dot', 'color/custom-palette'],
         buildPath: ARTIFACT_OUTPUT_DIR,
         options: {
-          groups: ['paint', 'shadow', 'raw'],
+          groups: ['paint', 'shadow', 'opacity', 'raw'],
         },
         files: [
           {

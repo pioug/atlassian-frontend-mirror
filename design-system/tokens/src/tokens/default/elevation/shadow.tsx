@@ -17,7 +17,7 @@ const shadow: AttributeSchema<ShadowTokenSchema<BaseToken>> = {
           group: 'shadow',
           state: 'active',
           introduced: '0.6.0',
-          description: `Use to create a shadow when content scolls under other content.`,
+          description: `Use to create a shadow when content scrolls under other content.`,
         },
       },
       overlay: {

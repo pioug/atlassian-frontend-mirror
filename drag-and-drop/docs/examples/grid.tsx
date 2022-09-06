@@ -20,7 +20,6 @@ import koala from './icons/koala.png';
 import ui from './icons/ui.png';
 import wallet from './icons/wallet.png';
 import yeti from './icons/yeti.png';
-import { fallbackColor } from './util/fallback';
 import { GlobalStyles } from './util/global-styles';
 
 const itemStyles = css({
@@ -29,7 +28,7 @@ const itemStyles = css({
   transition: `all ${smallDurationMs}ms ${easeInOut}`,
   border: `var(--border-width) solid ${token(
     'color.border.discovery',
-    fallbackColor,
+    '#8270DB',
   )}`,
   borderRadius: 'var(--border-radius)',
 });
@@ -59,7 +58,7 @@ const Item = memo(function Item({ src }: { src: string }) {
     return combine(
       draggable({
         element: el,
-        getInitialData: () => ({ src }),
+        getInitialData: () => ({ type: 'grid-item', src }),
         onDragStart: () => setState('dragging'),
         onDrop: () => setState('idle'),
       }),
@@ -67,7 +66,8 @@ const Item = memo(function Item({ src }: { src: string }) {
         element: el,
         getData: () => ({ src }),
         getDropEffect: () => 'link',
-        canDrop: ({ source }) => source.data.src !== src,
+        canDrop: ({ source }) =>
+          source.data.type === 'grid-item' && source.data.src !== src,
         onDragEnter: () => setState('over'),
         onDragLeave: () => setState('idle'),
         onDrop: () => setState('idle'),
@@ -80,9 +80,7 @@ const Item = memo(function Item({ src }: { src: string }) {
 
 const gridStyles = css({
   display: 'grid',
-  maxWidth: '300px',
-  margin: 'calc(var(--grid) * 4) auto',
-  gridTemplateColumns: 'repeat(3, 1fr)',
+  gridTemplateColumns: 'repeat(3, 96px)',
   gap: 'var(--grid)',
 });
 
@@ -105,8 +103,14 @@ export default function Grid() {
         }
         const destinationSrc = destination.data.src;
         const startSrc = source.data.src;
-        invariant(typeof startSrc === 'string');
-        invariant(typeof destinationSrc === 'string');
+
+        if (typeof destinationSrc !== 'string') {
+          return;
+        }
+
+        if (typeof startSrc !== 'string') {
+          return;
+        }
 
         // swapping item positions
         const updated = [...items];

@@ -8,7 +8,12 @@
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Live region",
+      "category": "Libraries",
+      "draft": true
+    }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",

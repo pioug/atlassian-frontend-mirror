@@ -1,6 +1,11 @@
 import type { Transform } from 'style-dictionary';
 
-import type { PaintToken, RawToken, ShadowToken } from '../../../src/types';
+import type {
+  OpacityToken,
+  PaintToken,
+  RawToken,
+  ShadowToken,
+} from '../../../src/types';
 import { getTokenId } from '../../../src/utils/token-ids';
 
 function isHex(hex: string) {
@@ -17,6 +22,7 @@ const transform = (palette: Record<string, any>): Transform => {
       const originalToken = token.original as
         | PaintToken<any>
         | ShadowToken<any>
+        | OpacityToken
         | RawToken;
 
       if (
@@ -49,18 +55,25 @@ const transform = (palette: Record<string, any>): Transform => {
         return originalToken.value as RawToken['value'];
       }
 
-      const values = originalToken.value as ShadowToken<any>['value'];
+      if (originalToken.attributes.group === 'shadow') {
+        const values = originalToken.value as ShadowToken<any>['value'];
 
-      return values.map((value) => {
-        const color = isHex(value.color)
-          ? value.color
-          : palette.color.palette[value.color].value;
+        return values.map((value) => {
+          const color = isHex(value.color)
+            ? value.color
+            : palette.color.palette[value.color].value;
 
-        return {
-          ...value,
-          color,
-        };
-      });
+          return {
+            ...value,
+            color,
+          };
+        });
+      }
+
+      if (originalToken.attributes.group === 'opacity') {
+        const value = originalToken.value as OpacityToken['value'];
+        return palette.value.opacity[value].value;
+      }
     },
   };
 };

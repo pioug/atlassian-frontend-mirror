@@ -89,7 +89,9 @@ const getFallbackPlacements = (
  * - [Code](https://atlassian.design/components/dropdown-menu/code)
  * - [Usage](https://atlassian.design/components/dropdown-menu/usage)
  */
-const DropdownMenu = (props: DropdownMenuProps) => {
+const DropdownMenu = <T extends HTMLElement = HTMLElement>(
+  props: DropdownMenuProps<T>,
+) => {
   const {
     defaultOpen = false,
     isOpen,

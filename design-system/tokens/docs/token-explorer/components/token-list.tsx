@@ -42,6 +42,7 @@ const TokenList = ({
           css={[
             {
               position: 'sticky',
+              zIndex: 1, // Set to ensure it sits above any position:relative children
               backgroundColor: token('elevation.surface', '#FFFFFF'),
             },
             scrollOffset ? css({ top: scrollOffset }) : undefined,

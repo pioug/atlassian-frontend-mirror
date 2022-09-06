@@ -12,7 +12,7 @@ import Lozenge from '@atlaskit/lozenge';
 import SectionMessage from '@atlaskit/section-message';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import TextField from '@atlaskit/textfield';
-import { N200, N40A, N50A } from '@atlaskit/theme/colors';
+import { N0, N200, N40A, N50A, N800 } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import Toggle from '@atlaskit/toggle';
 
@@ -121,6 +121,51 @@ const tokenMetaDataStyles = css({
   color: token('color.text.subtlest', N200),
 });
 
+const shadowBaseTokenStyle = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  backgroundColor: 'white',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  color: 'black',
+});
+
+const opacityBaseTokenStyle = css({
+  position: 'relative',
+  backgroundColor: token('elevation.surface', N0),
+  backgroundImage: `linear-gradient(
+          45deg,
+          ${token('elevation.surface.sunken', '#f9f9fa')} 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          ${token('elevation.surface.sunken', '#f9f9fa')} 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          45deg,
+          transparent 75%,
+          ${token('elevation.surface.sunken', '#f9f9fa')} 75%
+        ),
+        linear-gradient(
+          135deg,
+          transparent 75%,
+          ${token('elevation.surface.sunken', '#f9f9fa')} 75%
+        )`,
+  backgroundPosition: '0px 0px, 10px 0px, 10px -10px, 0px 10px',
+  backgroundSize: '20px 20px',
+  color: token('color.text', 'black'),
+  overflow: 'hidden',
+});
+
+const opacityMaskStyles = css({
+  width: '100%',
+  height: '100%',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  backgroundColor: token('color.text', N800),
+});
+
 interface Token {
   value: string;
   name: string;
@@ -157,27 +202,11 @@ const Token = ({ name, value, attributes, original }: Token) => (
           {attributes.state}
         </Lozenge>
       </div>
-      <div
-        css={tokenValueStyles}
-        style={
-          attributes.group !== 'shadow'
-            ? { backgroundColor: value, color: getTextContrast(value) }
-            : {
-                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-                backgroundColor: 'white',
-                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-                color: 'black',
-                boxShadow: getBoxShadow(value as any),
-              }
-        }
-      >
-        {typeof value === 'string' && (
-          <Fragment>
-            <span>{original.value}</span>
-            <span>{value}</span>
-          </Fragment>
-        )}
-      </div>
+      <TokenValue
+        group={attributes.group}
+        value={value}
+        originalValue={original.value}
+      />
       <p css={tokenDescriptionStyles}>{attributes.description}</p>
       {attributes.replacement && (
         <p css={tokenMetaDataStyles}>
@@ -196,6 +225,48 @@ const Token = ({ name, value, attributes, original }: Token) => (
     </div>
   </div>
 );
+
+const TokenValue = ({
+  group,
+  value,
+  originalValue,
+}: {
+  group: string;
+  value: string | number;
+  originalValue: string;
+}) => {
+  var tokenStyle;
+  if (group === 'shadow') {
+    tokenStyle = {
+      boxShadow: getBoxShadow(value as any),
+    };
+  } else if (typeof value === 'string') {
+    tokenStyle = {
+      backgroundColor: value,
+      color: getTextContrast(value as string),
+    };
+  }
+  return (
+    <div
+      css={[
+        tokenValueStyles,
+        group === 'shadow' && shadowBaseTokenStyle,
+        group === 'opacity' && opacityBaseTokenStyle,
+      ]}
+      style={tokenStyle}
+    >
+      {(typeof value === 'string' || typeof value === 'number') && (
+        <Fragment>
+          <span>{originalValue}</span>
+          <span>{value}</span>
+          {group === 'opacity' && (
+            <div css={opacityMaskStyles} style={{ opacity: value }} />
+          )}
+        </Fragment>
+      )}
+    </div>
+  );
+};
 
 const TokenList = ({ list }: { list: Token[] }) => (
   <Fragment>

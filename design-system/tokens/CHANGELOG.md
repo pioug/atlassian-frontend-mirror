@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.19
+
+### Patch Changes
+
+- [`efe09ca1159`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efe09ca1159) - Adds new opacity tokens, opacity.disabled and opacity.loading, that can be applied to elements to indicate loading and disabled states.
+
 ## 0.10.18
 
 ### Patch Changes

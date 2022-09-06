@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { token } from '../../../src';
 import {
@@ -15,6 +15,36 @@ interface CopyButtonValueProps
   extends Pick<TransformedTokenMerged, 'value' | 'original' | 'attributes'> {
   className?: string;
 }
+
+const opacityStyles = css({
+  position: 'relative',
+  zIndex: 0,
+  backgroundColor: token('elevation.surface', '#ffffff'),
+  backgroundImage: `linear-gradient(
+          45deg,
+          ${token('elevation.surface.sunken', '#F4F5F7')} 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          ${token('elevation.surface.sunken', '#F4F5F7')} 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          45deg,
+          transparent 75%,
+          ${token('elevation.surface.sunken', '#F4F5F7')} 75%
+        ),
+        linear-gradient(
+          135deg,
+          transparent 75%,
+          ${token('elevation.surface.sunken', '#F4F5F7')} 75%
+        )`,
+  backgroundPosition: '0px 0px, 8px 0px, 8px -8px, 0px 8px',
+  backgroundSize: '16px 16px',
+  color: token('color.text', 'black'),
+  overflow: 'hidden',
+});
 
 const CopyButtonValue = ({
   value,
@@ -41,6 +71,7 @@ const CopyButtonValue = ({
           backgroundColor: 'white',
         },
       },
+      attributes?.group === 'opacity' && opacityStyles,
       (attributes?.group === 'paint' || attributes?.group === 'raw') && {
         backgroundColor: value,
         color: getTextColorForBackground(value),
@@ -57,7 +88,20 @@ const CopyButtonValue = ({
     ]}
     className={className}
   >
-    {typeof value === 'string' && original.value}
+    {(typeof value === 'string' || typeof value === 'number') && original.value}
+    {attributes.group === 'opacity' && (
+      <span
+        css={{
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          opacity: value,
+          backgroundColor: token('color.text', 'black'),
+        }}
+      />
+    )}
   </CopyButton>
 );
 

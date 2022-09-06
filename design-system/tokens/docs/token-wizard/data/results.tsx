@@ -111,6 +111,8 @@ interface resultId {
   'other/blanket/selection': any;
   'other/skeleton': any;
   'other/skeleton/subtle': any;
+  'opacity/disabled': any;
+  'opacity/loading': any;
 }
 
 const results: Results = {
@@ -493,6 +495,12 @@ const results: Results = {
   },
   'other/skeleton/subtle': {
     suggestion: ['color.skeleton.subtle'],
+  },
+  'opacity/disabled': {
+    suggestion: ['opacity.disabled'],
+  },
+  'opacity/loading': {
+    suggestion: ['opacity.loading'],
   },
 };
 

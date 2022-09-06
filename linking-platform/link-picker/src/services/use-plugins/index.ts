@@ -1,11 +1,4 @@
-import {
-  useEffect,
-  useReducer,
-  useMemo,
-  useRef,
-  useState,
-  useCallback,
-} from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 
 import { RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
 import {
@@ -13,8 +6,9 @@ import {
   LinkPickerPluginErrorFallback,
   LinkPickerState,
   LinkSearchListItemData,
-  ResolveResult,
 } from '../../ui/types';
+import { CancellationError, resolvePluginUpdates } from './utils';
+import { usePluginReducer } from './reducer';
 
 export interface LinkPickerPluginsService {
   items: LinkSearchListItemData[] | null;
@@ -26,31 +20,14 @@ export interface LinkPickerPluginsService {
   errorFallback?: LinkPickerPluginErrorFallback;
 }
 
-interface PluginState {
-  items: LinkSearchListItemData[] | null;
-  error: unknown | null;
-  isLoading: boolean;
-}
-
-function reducer(state: PluginState, payload: Partial<PluginState>) {
-  return { ...state, ...payload };
-}
-
 export function usePlugins(
   state: LinkPickerState | null,
   activeTab: number,
   plugins?: LinkPickerPlugin[],
 ): LinkPickerPluginsService {
   const [retries, setRetries] = useState(0);
-  const [pluginState, dispatch] = useReducer(reducer, {
-    items: null,
-    error: null,
-    isLoading: false,
-  });
+  const [pluginState, dispatch] = usePluginReducer();
 
-  const { items, isLoading, error } = pluginState;
-
-  const queryVersion = useRef(0);
   const activePlugin = plugins?.[activeTab];
 
   useEffect(() => {
@@ -59,51 +36,39 @@ export function usePlugins(
     }
 
     if (!state) {
-      dispatch({ items: null, isLoading: false, error: null });
+      dispatch({ type: 'CLEAR' });
       return;
     }
 
-    const updates = activePlugin.resolve(state);
+    dispatch({ type: 'LOADING' });
 
-    dispatch({ items: null, isLoading: true, error: null });
+    const { next, cancel } = resolvePluginUpdates(activePlugin, state);
 
-    const newQuery = ++queryVersion.current;
     const updateResults = async () => {
       try {
-        while (newQuery === queryVersion.current) {
-          let done: boolean = false;
-          let value: ResolveResult;
-
-          if (updates instanceof Promise) {
-            done = true;
-            value = await updates;
-          } else {
-            const result = await updates.next();
-            done = result.done ?? false;
-            value = result.value;
-          }
-
-          if (newQuery !== queryVersion.current) {
-            return;
-          }
-
-          dispatch({ items: limit(value.data), isLoading: !done });
-
-          if (done) {
-            return;
-          }
+        let isLoading = true;
+        while (isLoading) {
+          const { value, done } = await next();
+          isLoading = !done;
+          dispatch({
+            type: 'SUCCESS',
+            payload: { items: limit(value.data), isLoading: !done },
+          });
         }
       } catch (error) {
-        dispatch({
-          error,
-          items: null,
-          isLoading: false,
-        });
+        if (!(error instanceof CancellationError)) {
+          dispatch({
+            type: 'ERROR',
+            payload: error,
+          });
+        }
       }
     };
 
     updateResults();
-  }, [activePlugin, queryVersion, state, retries]);
+
+    return cancel;
+  }, [activePlugin, state, retries, dispatch]);
 
   const tabs = useMemo(() => {
     if (!plugins || plugins.length <= 1) {
@@ -120,6 +85,8 @@ export function usePlugins(
   const handleRetry = useCallback(() => {
     setRetries(prev => ++prev);
   }, []);
+
+  const { items, isLoading, error } = pluginState;
 
   return {
     tabs,

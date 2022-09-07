@@ -38,11 +38,12 @@ describe('ExternalUserOption', () => {
   // eg. <div>jbeleren<span>@email.com</span></div>
   const hasTextIgnoringHtml = (matchingText: string) => (
     content: string,
-    node: Element,
+    node: Element | null,
   ) => {
-    const hasText = (node: Element) => node.textContent === matchingText;
+    const hasText = (node: Element | null) =>
+      node?.textContent === matchingText;
     const nodeHasText = hasText(node);
-    const childrenDontHaveText = Array.from(node.children).every(
+    const childrenDontHaveText = Array.from(node!.children).every(
       (child) => !hasText(child),
     );
 

@@ -11,7 +11,7 @@ import { ReactWrapper } from 'enzyme';
 import { RenderResult } from '@testing-library/react';
 import { ShallowWrapper } from 'enzyme';
 
-export declare function asyncAct(cb: () => Promise<any>): Promise<void>;
+export declare function asyncAct(cb: () => Promise<any> | void): Promise<void>;
 
 export declare const flushPromises: () => Promise<unknown>;
 

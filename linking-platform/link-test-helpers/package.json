@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/link-picker": "^1.8.0",
     "@babel/runtime": "^7.0.0",
-    "@testing-library/react": "^8.0.1",
+    "@testing-library/react": "^12.1.5",
     "enzyme": "^3.10.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },

@@ -7,7 +7,11 @@ jest.doMock('../../../utils/analytics/analytics');
 import '../../__mocks__/intersection-observer.mock';
 import React from 'react';
 import { useEffect, useState, ReactNode, FC } from 'react';
-import { render, cleanup, waitForElement } from '@testing-library/react';
+import {
+  render,
+  cleanup,
+  waitFor as waitForElement,
+} from '@testing-library/react';
 import { CardClient } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';

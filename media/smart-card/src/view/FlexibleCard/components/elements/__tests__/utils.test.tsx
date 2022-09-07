@@ -111,7 +111,8 @@ describe('createElement', () => {
       });
       const element = await findByTestId(testId);
       expect(element.getAttribute('data-smart-element-badge')).toBeTruthy();
-      expect(element.textContent).toEqual(context.provider?.label);
+      const elementLabel = await findByTestId(testId + '-label');
+      expect(elementLabel.textContent).toEqual(context.provider?.label);
       const icon = await findByTestId(`${testId}-icon--wrapper`);
       expect(icon).toBeDefined();
     });

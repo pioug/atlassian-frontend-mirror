@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { fireEvent, render, waitForElement } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import Container from '../index';
@@ -22,7 +22,7 @@ describe('Container', () => {
   it('renders container', async () => {
     const { getByTestId } = render(<Container testId={testId} />);
 
-    const container = await waitForElement(() => getByTestId(testId));
+    const container = await waitFor(() => getByTestId(testId));
 
     expect(container).toBeTruthy();
     expect(container.getAttribute('data-smart-link-container')).toBeTruthy();
@@ -46,7 +46,7 @@ describe('Container', () => {
           <Container size={size} testId={testId} />,
         );
 
-        const block = await waitForElement(() => getByTestId(testId));
+        const block = await waitFor(() => getByTestId(testId));
 
         expect(block).toHaveStyleDeclaration('gap', expectedGap);
         expect(block).toHaveStyleDeclaration('padding', expectedPadding);
@@ -135,7 +135,7 @@ describe('Container', () => {
     it('shows background by default', async () => {
       const { getByTestId } = render(<Container testId={testId} />);
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container).toHaveStyleDeclaration(
         'background-color',
@@ -148,7 +148,7 @@ describe('Container', () => {
         <Container hideBackground={false} testId={testId} />,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container).toHaveStyleDeclaration(
         'background-color',
@@ -161,7 +161,7 @@ describe('Container', () => {
         <Container hideBackground={true} testId={testId} />,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container).not.toHaveStyleDeclaration(
         'background-color',
@@ -177,7 +177,7 @@ describe('Container', () => {
     it('shows elevation by default', async () => {
       const { getByTestId } = render(<Container testId={testId} />);
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container).toHaveStyleDeclaration('border', border);
       expect(container).toHaveStyleDeclaration('border-radius', borderRadius);
@@ -192,7 +192,7 @@ describe('Container', () => {
         <Container hideElevation={false} testId={testId} />,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container).toHaveStyleDeclaration('border', border);
       expect(container).toHaveStyleDeclaration('border-radius', borderRadius);
@@ -207,7 +207,7 @@ describe('Container', () => {
         <Container hideElevation={true} testId={testId} />,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container).not.toHaveStyleDeclaration('border', border);
       expect(container).not.toHaveStyleDeclaration(
@@ -227,7 +227,7 @@ describe('Container', () => {
     it('shows padding by default', async () => {
       const { getByTestId } = render(<Container testId={testId} />);
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container).toHaveStyleDeclaration('padding', padding);
     });
@@ -237,7 +237,7 @@ describe('Container', () => {
         <Container hidePadding={false} testId={testId} />,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container).toHaveStyleDeclaration('padding', padding);
     });
@@ -247,7 +247,7 @@ describe('Container', () => {
         <Container hidePadding={true} testId={testId} />,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container).not.toHaveStyleDeclaration('padding', padding);
     });
@@ -262,7 +262,7 @@ describe('Container', () => {
         </Container>,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container.children.length).toEqual(2);
     });
@@ -276,7 +276,7 @@ describe('Container', () => {
         </Container>,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container.children.length).toEqual(2);
     });
@@ -286,7 +286,7 @@ describe('Container', () => {
         <Container testId={testId}>This is a text.</Container>,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container.children.length).toEqual(0);
     });
@@ -306,7 +306,7 @@ describe('Container', () => {
           </IntlProvider>,
         );
 
-        const message = await waitForElement(() =>
+        const message = await waitFor(() =>
           getByTestId('smart-block-title-errored-view-message'),
         );
         fireEvent(
@@ -332,7 +332,7 @@ describe('Container', () => {
           </Container>,
         );
 
-        const element = await waitForElement(() =>
+        const element = await waitFor(() =>
           getByTestId('smart-block-title-resolved-view'),
         );
 
@@ -350,7 +350,7 @@ describe('Container', () => {
           </Container>,
         );
 
-        const block = await waitForElement(() =>
+        const block = await waitFor(() =>
           getByTestId('smart-block-title-resolved-view'),
         );
 
@@ -371,7 +371,7 @@ describe('Container', () => {
           </Container>,
         );
 
-        const element = await waitForElement(() =>
+        const element = await waitFor(() =>
           getByTestId('smart-block-title-errored-view'),
         );
 
@@ -390,9 +390,7 @@ describe('Container', () => {
           </FlexibleUiContext.Provider>,
         );
 
-        const element = await waitForElement(() =>
-          getByTestId('smart-element-link'),
-        );
+        const element = await waitFor(() => getByTestId('smart-element-link'));
 
         expect(element).toHaveStyleDeclaration(
           'color',
@@ -410,9 +408,7 @@ describe('Container', () => {
           </FlexibleUiContext.Provider>,
         );
 
-        const element = await waitForElement(() =>
-          getByTestId('smart-element-link'),
-        );
+        const element = await waitFor(() => getByTestId('smart-element-link'));
 
         expect(element).toHaveStyleDeclaration(
           'color',

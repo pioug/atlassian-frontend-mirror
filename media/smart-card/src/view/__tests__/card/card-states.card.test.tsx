@@ -7,7 +7,7 @@ jest.mock('react-transition-group/Transition', () => (data: any) =>
 jest.doMock('../../../utils/analytics/analytics');
 
 import React from 'react';
-import { render, cleanup, waitForElement } from '@testing-library/react';
+import { render, cleanup, waitFor } from '@testing-library/react';
 import { CardClient } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
@@ -41,7 +41,7 @@ describe('smart-card: card states, block', () => {
             </Provider>
           </IntlProvider>,
         );
-        const loadingView = await waitForElement(() =>
+        const loadingView = await waitFor(() =>
           getByTestId('block-card-resolving-view'),
         );
         expect(loadingView).toBeTruthy();
@@ -59,10 +59,10 @@ describe('smart-card: card states, block', () => {
             </Provider>
           </IntlProvider>,
         );
-        const resolvedViewName = await waitForElement(() =>
+        const resolvedViewName = await waitFor(() =>
           getByText('I love cheese'),
         );
-        const resolvedViewDescription = await waitForElement(() =>
+        const resolvedViewDescription = await waitFor(() =>
           getByText('Here is your serving of cheese: 🧀'),
         );
         expect(resolvedViewName).toBeTruthy();
@@ -80,7 +80,7 @@ describe('smart-card: card states, block', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(resolvedView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -92,7 +92,7 @@ describe('smart-card: card states, block', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(2);
       });
@@ -106,7 +106,7 @@ describe('smart-card: card states, block', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(resolvedView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -118,7 +118,7 @@ describe('smart-card: card states, block', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });
@@ -133,11 +133,11 @@ describe('smart-card: card states, block', () => {
               <Card appearance="block" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const frame = await waitForElement(() =>
+          const frame = await waitFor(() =>
             getByTestId('block-card-forbidden-view'),
           );
           expect(frame).toBeTruthy();
-          const forbiddenLink = await waitForElement(() => getByText(mockUrl));
+          const forbiddenLink = await waitFor(() => getByText(mockUrl));
           expect(forbiddenLink).toBeTruthy();
           const forbiddenLinkButton = container.querySelector('button');
           expect(forbiddenLinkButton).toBeTruthy();
@@ -162,11 +162,11 @@ describe('smart-card: card states, block', () => {
               <Card appearance="block" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const frame = await waitForElement(() =>
+          const frame = await waitFor(() =>
             getByTestId('block-card-forbidden-view'),
           );
           expect(frame).toBeTruthy();
-          const forbiddenLink = await waitForElement(() => getByText(mockUrl));
+          const forbiddenLink = await waitFor(() => getByText(mockUrl));
           const forbiddenLinkButton = container.querySelector('button');
           expect(forbiddenLink).toBeTruthy();
           expect(forbiddenLinkButton).toBeFalsy();
@@ -189,13 +189,11 @@ describe('smart-card: card states, block', () => {
               <Card appearance="block" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const frame = await waitForElement(() =>
+          const frame = await waitFor(() =>
             getByTestId('block-card-unauthorized-view'),
           );
           expect(frame).toBeTruthy();
-          const unauthorizedLink = await waitForElement(() =>
-            getByText(mockUrl),
-          );
+          const unauthorizedLink = await waitFor(() => getByText(mockUrl));
           expect(unauthorizedLink).toBeTruthy();
           const unauthorizedLinkButton = getByTestId('button-connect-account');
           expect(unauthorizedLinkButton).toBeTruthy();
@@ -218,13 +216,11 @@ describe('smart-card: card states, block', () => {
               <Card appearance="block" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const frame = await waitForElement(() =>
+          const frame = await waitFor(() =>
             getByTestId('block-card-unauthorized-view'),
           );
           expect(frame).toBeTruthy();
-          const unauthorizedLink = await waitForElement(() =>
-            getByText(mockUrl),
-          );
+          const unauthorizedLink = await waitFor(() => getByText(mockUrl));
           const unauthorizedLinkButton = container.querySelector('button');
           expect(unauthorizedLink).toBeTruthy();
           expect(unauthorizedLinkButton).toBeFalsy();
@@ -245,7 +241,7 @@ describe('smart-card: card states, block', () => {
               <Card appearance="block" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const dumbLink = await waitForElement(() => getByText(mockUrl));
+          const dumbLink = await waitFor(() => getByText(mockUrl));
           expect(dumbLink).toBeTruthy();
           expect(mockFetch).toBeCalled();
           expect(mockFetch).toBeCalledTimes(1);
@@ -287,11 +283,11 @@ describe('smart-card: card states, block', () => {
             <Card appearance="block" url={mockUrl} onError={mockOnError} />
           </Provider>,
         );
-        const frame = await waitForElement(() =>
+        const frame = await waitFor(() =>
           getByTestId('block-card-not-found-view'),
         );
         expect(frame).toBeTruthy();
-        const link = await waitForElement(() => getByText(mockUrl));
+        const link = await waitFor(() => getByText(mockUrl));
         expect(link).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -317,10 +313,10 @@ describe('smart-card: card states, block', () => {
             </Provider>
           </IntlProvider>,
         );
-        const resolvedViewName = await waitForElement(() =>
+        const resolvedViewName = await waitFor(() =>
           getByText('I love cheese'),
         );
-        const resolvedViewDescription = await waitForElement(() =>
+        const resolvedViewDescription = await waitFor(() =>
           getByText('Here is your serving of cheese: 🧀'),
         );
         expect(resolvedViewName).toBeTruthy();

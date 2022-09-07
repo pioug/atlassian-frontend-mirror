@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-common",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Contains utils and interfaces shared across different LP components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@testing-library/react": "^8.0.1",
+    "@testing-library/react": "^12.1.5",
     "@types/lodash": "^4.14.157",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",

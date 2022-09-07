@@ -12,6 +12,10 @@ export interface ErrorResponse {
   error: ErrorResponseBody;
 }
 
+export interface SearchErrorResponse {
+  error: ErrorResponseBody;
+}
+
 export interface ErrorResponseBody {
   type: ServerErrorType;
   message: string;
@@ -40,6 +44,15 @@ export const isErrorResponse = (
   const hasStatus = response.status >= 200;
   const hasErrorBody = 'error' in response;
   return hasStatus && hasErrorBody;
+};
+
+export const isSearchErrorResponse = (
+  response: SearchErrorResponse | JsonLd.Response,
+): response is SearchErrorResponse => {
+  if (!response) {
+    return false;
+  }
+  return 'error' in response;
 };
 
 export interface SearchProviderInfo {

@@ -1,6 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { context } from 'local-cypress';
-
 import { CypressType } from '../../types';
 
 import { InProductTestCase } from './base-test-case';

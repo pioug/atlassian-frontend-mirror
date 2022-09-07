@@ -53,7 +53,7 @@ describe('banner', () => {
     it('should have role=alert and aria-hidden=true by default', () => {
       const { getByTestId } = render(<Banner testId="banner" />);
       const { getByRole } = within(getByTestId('banner'));
-      const banner = getByRole('alert');
+      const banner = getByRole('alert', { hidden: true });
 
       expect(banner).toBeInTheDocument(); // check role=alert
       expect(banner).toHaveAttribute('aria-hidden', 'true');
@@ -63,7 +63,10 @@ describe('banner', () => {
       const { getByTestId } = render(<Banner testId="banner" />);
       const { getByRole } = within(getByTestId('banner'));
 
-      expect(getByRole('alert')).toHaveAttribute('aria-hidden', 'true');
+      expect(getByRole('alert', { hidden: true })).toHaveAttribute(
+        'aria-hidden',
+        'true',
+      );
     });
 
     it('should have role=alert when appearance is "error"', () => {
@@ -72,7 +75,7 @@ describe('banner', () => {
       );
       const { getByRole } = within(getByTestId('banner'));
 
-      expect(getByRole('alert')).toBeInTheDocument();
+      expect(getByRole('alert', { hidden: true })).toBeInTheDocument();
     });
 
     it('should have correct a11y props when appearance is "announcement"', () => {

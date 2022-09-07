@@ -28,7 +28,9 @@ describe('Left sidebar', () => {
 
   const completeAnimations = () => {
     act(() => raf.flush());
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
   };
 
   describe('Resize button', () => {
@@ -1400,7 +1402,9 @@ describe('Left sidebar', () => {
     });
     const completeAnimations = () => {
       act(() => raf.flush());
-      act(() => jest.runAllTimers());
+      act(() => {
+        jest.runAllTimers();
+      });
     };
     const triggerTransitionEnd = (component: any) => {
       // JSDom doesn't trigger transitionend event

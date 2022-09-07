@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, wait } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
@@ -50,7 +50,7 @@ describe('HelpContentButton', () => {
     );
     const { container } = render(component);
 
-    await wait(() => notificationLogProvider);
+    await waitFor(() => notificationLogProvider);
 
     expect(container.firstChild).toMatchSnapshot();
   });
@@ -73,7 +73,7 @@ describe('HelpContentButton', () => {
     );
     const { queryByText } = render(component);
 
-    await wait(() => notificationLogProvider);
+    await waitFor(() => notificationLogProvider);
 
     const notificationCounterElm = queryByText(`${notificationNumber}`);
     expect(notificationCounterElm).not.toBeNull();
@@ -100,7 +100,7 @@ describe('HelpContentButton', () => {
     );
     const { queryByText } = render(component);
 
-    await wait(() => notificationLogProvider);
+    await waitFor(() => notificationLogProvider);
 
     const notificationCounterElm = queryByText(`${notificationMax}+`);
     expect(notificationCounterElm).not.toBeNull();

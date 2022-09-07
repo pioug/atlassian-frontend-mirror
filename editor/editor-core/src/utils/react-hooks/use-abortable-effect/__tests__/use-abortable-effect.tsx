@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { create, act, ReactTestRenderer } from 'react-test-renderer';
+import {
+  create,
+  act,
+  ReactTestRenderer,
+  ReactTestRendererJSON,
+} from 'react-test-renderer';
 import {
   ControllablePromiseResult,
   createControllablePromise,
@@ -76,7 +81,9 @@ describe('useAbortableEffect', () => {
   });
 
   it('should be able to run an effect', async () => {
-    expect(testRenderer!.toJSON()!.children).toEqual(['waiting']);
+    expect(
+      (testRenderer!.toJSON() as ReactTestRendererJSON)!.children,
+    ).toEqual(['waiting']);
 
     asyncOperation.invokeResolve('hey');
 
@@ -84,7 +91,9 @@ describe('useAbortableEffect', () => {
     await Promise.resolve();
 
     expect(onComplete).toBeCalledWith('hey');
-    expect(testRenderer!.toJSON()!.children).toEqual(['hey']);
+    expect(
+      (testRenderer!.toJSON() as ReactTestRendererJSON)!.children,
+    ).toEqual(['hey']);
 
     act(() => {
       testRenderer!.unmount();
@@ -92,7 +101,9 @@ describe('useAbortableEffect', () => {
   });
 
   it('should be able to clean up an effect', async () => {
-    expect(testRenderer!.toJSON()!.children).toEqual(['waiting']);
+    expect(
+      (testRenderer!.toJSON() as ReactTestRendererJSON)!.children,
+    ).toEqual(['waiting']);
 
     testRenderer!.unmount();
 
@@ -100,7 +111,9 @@ describe('useAbortableEffect', () => {
   });
 
   it('should pass the signal down so effects can decide what to do when the component unmounts', async () => {
-    expect(testRenderer!.toJSON()!.children).toEqual(['waiting']);
+    expect(
+      (testRenderer!.toJSON() as ReactTestRendererJSON)!.children,
+    ).toEqual(['waiting']);
 
     testRenderer!.unmount();
 

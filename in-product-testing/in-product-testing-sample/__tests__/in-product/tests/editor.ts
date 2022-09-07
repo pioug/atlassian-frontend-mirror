@@ -1,5 +1,3 @@
-import { beforeEach, cy } from 'local-cypress';
-
 import {
   blockSmartLinksTestCollection,
   embedSmartLinksTestCollection,

@@ -4,7 +4,7 @@ import {
   act,
   fireEvent,
   render,
-  wait,
+  waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import { mount, ReactWrapper } from 'enzyme';
@@ -897,7 +897,7 @@ test('should indicate validating status for async validation', async () => {
   await waitForElementToBeRemoved(() => queryByText('Checking......'));
 
   // too short password
-  await wait(() =>
+  await waitFor(() =>
     expect(
       queryByText('Password needs to be more than 8 characters.'),
     ).toBeInTheDocument(),
@@ -910,10 +910,10 @@ test('should indicate validating status for async validation', async () => {
   });
 
   // eventually a good password
-  await wait(() =>
+  await waitFor(() =>
     expect(queryByText('Awesome password!')).toBeInTheDocument(),
   );
-  await wait(() => promise);
+  await waitFor(() => promise);
 });
 
 test('should correctly update form state with a nested of object usernames', () => {

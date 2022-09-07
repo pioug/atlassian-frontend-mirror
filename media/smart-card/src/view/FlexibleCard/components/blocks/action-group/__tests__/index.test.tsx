@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, waitForElement } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
@@ -39,7 +39,7 @@ describe('ActionGroup', () => {
     it('renders action group', async () => {
       const { container } = setup(1);
 
-      const actionGroup = await waitForElement(() => container.firstChild);
+      const actionGroup = await waitFor(() => container.firstChild);
 
       expect(actionGroup).toBeTruthy();
       expect(actionGroup?.textContent).toMatch('Delete');
@@ -67,7 +67,7 @@ describe('ActionGroup', () => {
         it(`should render ${visibleButtonsNum} actions as a buttons`, async () => {
           const { getByTestId } = setup(visibleButtonsNum, visibleButtonsNum);
           for (let i = 0; i < visibleButtonsNum; i++) {
-            const element = await waitForElement(() =>
+            const element = await waitFor(() =>
               getByTestId(`smart-element-test-${i + 1}`),
             );
             expect(element).toBeDefined();
@@ -90,7 +90,7 @@ describe('ActionGroup', () => {
           );
           // First minus one buttons are stand alone buttons
           for (let i = 0; i < visibleButtonsNum - 1; i++) {
-            const element = await waitForElement(() =>
+            const element = await waitFor(() =>
               getByTestId(`smart-element-test-${i + 1}`),
             );
             expect(element).toBeDefined();
@@ -108,7 +108,7 @@ describe('ActionGroup', () => {
             visibleButtonsNum + 1,
             visibleButtonsNum,
           );
-          const element = await waitForElement(() =>
+          const element = await waitFor(() =>
             getByTestId('action-group-more-button'),
           );
           expect(element).toBeDefined();
@@ -119,7 +119,7 @@ describe('ActionGroup', () => {
             visibleButtonsNum + 1,
             visibleButtonsNum,
           );
-          const moreButton = await waitForElement(() =>
+          const moreButton = await waitFor(() =>
             getByTestId('action-group-more-button'),
           );
           userEvent.click(moreButton);
@@ -135,7 +135,7 @@ describe('ActionGroup', () => {
            * dropdown shows actions #1, #2 (indices 0, 1)
            */
           for (let i = 0; i < 2; i++) {
-            const secondActionElement = await waitForElement(() =>
+            const secondActionElement = await waitFor(() =>
               getByTestId(`smart-element-test-${i + visibleButtonsNum}`),
             );
             expect(secondActionElement).toBeDefined();

@@ -5,7 +5,7 @@ import React from 'react';
 import { TestErrorBoundary } from '../_boundary';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
-import { render, waitForElement, cleanup } from '@testing-library/react';
+import { render, waitFor, cleanup } from '@testing-library/react';
 import { mocks } from '../../../utils/mocks';
 import { APIError } from '@atlaskit/linking-common';
 import { CardClient } from '@atlaskit/link-provider';
@@ -45,7 +45,7 @@ describe('smart-card: error analytics', () => {
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const erroredLink = await waitForElement(
+    const erroredLink = await waitFor(
       () => getByTestId('erroredLink-fallback-view'),
       { timeout: 10000 },
     );
@@ -76,7 +76,7 @@ describe('smart-card: error analytics', () => {
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const erroredLink = await waitForElement(
+    const erroredLink = await waitFor(
       () => getByTestId('erroredLink-unauthorized-view'),
       { timeout: 10000 },
     );
@@ -110,10 +110,9 @@ describe('smart-card: error analytics', () => {
         </TestErrorBoundary>
       </Provider>,
     );
-    const errorBoundary = await waitForElement(
-      () => getByTestId('error-boundary'),
-      { timeout: 10000 },
-    );
+    const errorBoundary = await waitFor(() => getByTestId('error-boundary'), {
+      timeout: 10000,
+    });
 
     expect(errorBoundary).toBeTruthy();
     expect(onError).toHaveBeenCalledWith(
@@ -146,7 +145,7 @@ describe('smart-card: error analytics', () => {
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const erroredLink = await waitForElement(
+    const erroredLink = await waitFor(
       () => getByTestId('erroredLink-errored-view'),
       { timeout: 10000 },
     );
@@ -177,7 +176,7 @@ describe('smart-card: error analytics', () => {
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const erroredLink = await waitForElement(
+    const erroredLink = await waitFor(
       () => getByTestId('erroredLink-errored-view'),
       { timeout: 10000 },
     );
@@ -208,7 +207,7 @@ describe('smart-card: error analytics', () => {
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const erroredLink = await waitForElement(
+    const erroredLink = await waitFor(
       () => getByTestId('erroredLink-errored-view'),
       { timeout: 10000 },
     );
@@ -246,10 +245,9 @@ describe('smart-card: error analytics', () => {
         </TestErrorBoundary>
       </Provider>,
     );
-    const errorBoundary = await waitForElement(
-      () => getByTestId('error-boundary'),
-      { timeout: 10000 },
-    );
+    const errorBoundary = await waitFor(() => getByTestId('error-boundary'), {
+      timeout: 10000,
+    });
 
     expect(errorBoundary).toBeTruthy();
     expect(onError).toHaveBeenCalledWith(
@@ -294,7 +292,7 @@ describe('smart-card: error analytics', () => {
         </TestErrorBoundary>
       </Provider>,
     );
-    const resolvedView = await waitForElement(
+    const resolvedView = await waitFor(
       () => getByTestId('erroredLink-resolved-view'),
       { timeout: 10000 },
     );

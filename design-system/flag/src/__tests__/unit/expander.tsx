@@ -31,7 +31,9 @@ describe('Flag Expander', () => {
     let toggleButton = getByTestId('expander-test-toggle');
     fireEvent.click(toggleButton);
     expect(queryByText('Hi!')).not.toBeNull();
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     // Trigger collapse
     toggleButton = getByTestId('expander-test-toggle');
@@ -39,7 +41,9 @@ describe('Flag Expander', () => {
     expect(queryByText('Hi!')).not.toBeNull();
 
     // ..once collapse animation finishes, children not rendered
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(queryByText('Hi!')).toBeNull();
   });
 

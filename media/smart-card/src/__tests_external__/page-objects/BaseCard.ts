@@ -23,12 +23,13 @@ export class BaseCardPageObject extends InProductTestPageObject {
     status: CardType = 'resolved',
   ) {
     const selector = this._toSelector(this.appearance, status);
+
     return (
       this.cy
         // NOTE: `timeout` used since Smart Links rely on a network response.
         .get(selector, { timeout: BaseCardPageObject.CARD_TIMEOUT })
         .should('have.length', numOfCards)
-        .each((element) => {
+        .each((element: any) => {
           this.cy
             .wrap(element)
             // NOTE: `be.visible` is used to ensure the file is still visible

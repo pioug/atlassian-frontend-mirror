@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { render, wait, fireEvent } from '@testing-library/react';
+import { render, waitFor, fireEvent } from '@testing-library/react';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
 
 import {
@@ -86,7 +86,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(container.firstChild).toMatchSnapshot();
   });
@@ -108,12 +108,12 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(mockOnGetRelatedArticles).toHaveBeenCalledTimes(1);
   });
 
-  it('Should show loading state', () => {
+  it('Should show loading state', async () => {
     const { getByLabelText } = render(
       <IntlProvider locale="en">
         <RelatedArticles
@@ -128,7 +128,7 @@ describe('RelatedArticles', () => {
       </IntlProvider>,
     );
 
-    wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(getByLabelText(messageLoading)).not.toBeNull();
   });
@@ -150,7 +150,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(getAllByText(mockArticleItem.title).length).toBeGreaterThan(0);
   });
@@ -172,7 +172,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     const firstItem = getAllByText(mockArticleItem.title)[0].closest('a');
 
@@ -202,7 +202,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     const showMoreButton = getByText(messageShowMore).closest('button');
 
@@ -232,7 +232,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(queryByText(messageTitle)).toBeNull();
   });
@@ -255,7 +255,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(getByText(messageTitle)).not.toBeNull();
   });
@@ -275,7 +275,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(queryByText(messageEndpointErrorTitle)).not.toBeNull();
     expect(queryByText(messageEndpointErrorDescription)).not.toBeNull();
@@ -297,7 +297,7 @@ describe('RelatedArticles', () => {
 
     jest.advanceTimersByTime(200);
 
-    await wait(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
+    await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
 
     expect(queryByText(messageEndpointErrorTitle)).not.toBeNull();
     expect(queryByText(messageEndpointErrorDescription)).not.toBeNull();

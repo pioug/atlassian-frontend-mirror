@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { DeleteAction, EditAction } from '../index';
 import { SmartLinkSize } from '../../../../../constants';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { fireEvent, render, waitForElement } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import { ActionProps } from '../action/types';
@@ -29,7 +29,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
           </IntlProvider>,
         );
 
-        const element = await waitForElement(() => getByTestId(testId));
+        const element = await waitFor(() => getByTestId(testId));
 
         expect(element).toBeTruthy();
         expect(element.textContent).toBe(name);
@@ -49,7 +49,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
           </IntlProvider>,
         );
 
-        const element = await waitForElement(() => getByTestId(testId));
+        const element = await waitFor(() => getByTestId(testId));
 
         expect(element).toBeTruthy();
         expect(element.textContent).toBe('spaghetti');
@@ -67,7 +67,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
           </IntlProvider>,
         );
 
-        const element = await waitForElement(() => getByTestId(testId));
+        const element = await waitFor(() => getByTestId(testId));
 
         userEvent.click(element);
         expect(mockOnClick).toHaveBeenCalled();
@@ -94,9 +94,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
             </IntlProvider>,
           );
 
-          const element = await waitForElement(() =>
-            getByTestId(`${testId}-icon`),
-          );
+          const element = await waitFor(() => getByTestId(`${testId}-icon`));
 
           expect(element).toHaveStyleDeclaration('height', expectedSize);
           expect(element).toHaveStyleDeclaration('width', expectedSize);

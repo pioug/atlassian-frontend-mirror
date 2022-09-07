@@ -10,13 +10,7 @@ import React from 'react';
 import { Card } from '../../Card';
 import { Provider, TitleBlock } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
-import {
-  render,
-  waitForElement,
-  fireEvent,
-  cleanup,
-  wait,
-} from '@testing-library/react';
+import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import * as analytics from '../../../utils/analytics';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import 'jest-extended';
@@ -129,7 +123,7 @@ describe('smart-card: success analytics', () => {
         </Provider>,
       );
 
-      await waitForElement(() => getByTestId('resolvedCard1-resolved-view'), {
+      await waitFor(() => getByTestId('resolvedCard1-resolved-view'), {
         timeout: 10000,
       });
 
@@ -154,7 +148,7 @@ describe('smart-card: success analytics', () => {
           <Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
         </Provider>,
       );
-      await waitForElement(() => getByTestId('resolvedCard1-resolved-view'), {
+      await waitFor(() => getByTestId('resolvedCard1-resolved-view'), {
         timeout: 10000,
       });
 
@@ -167,10 +161,10 @@ describe('smart-card: success analytics', () => {
         </Provider>,
       );
 
-      await waitForElement(() => getByTestId('resolvedCard1-resolved-view'), {
+      await waitFor(() => getByTestId('resolvedCard1-resolved-view'), {
         timeout: 10000,
       });
-      await waitForElement(() => getByTestId('resolvedCard2-resolved-view'), {
+      await waitFor(() => getByTestId('resolvedCard2-resolved-view'), {
         timeout: 10000,
       });
 
@@ -327,7 +321,7 @@ describe('smart-card: success analytics', () => {
         </Provider>,
       );
 
-      await wait(
+      await waitFor(
         () => expect(analytics.fireSmartLinkEvent).toBeCalledTimes(1),
         {
           timeout: 5000,
@@ -380,7 +374,7 @@ describe('smart-card: success analytics', () => {
         </Provider>,
       );
 
-      await wait(
+      await waitFor(
         () => expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1),
         {
           timeout: 5000,
@@ -416,7 +410,7 @@ describe('smart-card: success analytics', () => {
     mockSucceedUfoExperience.mockClear();
 
     fireEvent.click(downloadActionButton);
-    await wait(() => {
+    await waitFor(() => {
       expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeSucceededEvent).toHaveBeenCalledTimes(1);
     });
@@ -478,7 +472,7 @@ describe('smart-card: success analytics', () => {
 
     fireEvent.click(commentActionButton);
     expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
-    await wait(() => {
+    await waitFor(() => {
       expect(analytics.invokeFailedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeFailedEvent).toHaveBeenCalledWith({
         id: expect.any(String),
@@ -534,7 +528,7 @@ describe('smart-card: success analytics', () => {
 
     fireEvent.click(previewActionButton);
     // Analytics tied to block card should be fired.
-    await wait(() => {
+    await waitFor(() => {
       expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeSucceededEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeSucceededEvent).toHaveBeenCalledWith({

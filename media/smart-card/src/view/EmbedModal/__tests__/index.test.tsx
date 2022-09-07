@@ -4,7 +4,7 @@ import {
   act,
   fireEvent,
   render,
-  wait,
+  waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
@@ -94,11 +94,22 @@ describe('EmbedModal', () => {
   describe('with buttons', () => {
     it('closes modal and trigger close callback when clicking close button', async () => {
       const onClose = jest.fn();
-      const { findByTestId, queryByTestId } = renderEmbedModal({ onClose });
+      const { getByTestId, findByTestId, queryByTestId } = renderEmbedModal({
+        onClose,
+      });
 
       const button = await findByTestId(`${testId}-close-button`);
 
       fireEvent.mouseOver(button);
+
+      // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
+      await waitFor(
+        () => {
+          expect(getByTestId(`${testId}-close-tooltip`)).toBeInTheDocument();
+        },
+        { timeout: 2000 },
+      );
+
       const tooltip = await findByTestId(`${testId}-close-tooltip`);
       expect(tooltip.textContent).toBe(messages.preview_close.defaultMessage);
 
@@ -112,12 +123,21 @@ describe('EmbedModal', () => {
     });
 
     it('resizes modal when clicking resize button', async () => {
-      const { findByTestId } = renderEmbedModal();
+      const { getByTestId, findByTestId } = renderEmbedModal();
       const modal = await findByTestId(testId);
       const button = await findByTestId(`${testId}-resize-button`);
 
       // Resize to maximum size
       fireEvent.mouseOver(button);
+
+      // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
+      await waitFor(
+        () => {
+          expect(getByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
+        },
+        { timeout: 2000 },
+      );
+
       const maxTooltip = await findByTestId(`${testId}-resize-tooltip`);
       expect(maxTooltip.textContent).toBe(
         messages.preview_max_size.defaultMessage,
@@ -129,6 +149,15 @@ describe('EmbedModal', () => {
 
       // Resize to minimum size
       fireEvent.mouseOver(button);
+
+      // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
+      await waitFor(
+        () => {
+          expect(getByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
+        },
+        { timeout: 2000 },
+      );
+
       const minTooltip = await findByTestId(`${testId}-resize-tooltip`);
       expect(minTooltip.textContent).toBe(
         messages.preview_min_size.defaultMessage,
@@ -141,24 +170,42 @@ describe('EmbedModal', () => {
 
     describe('with url button', () => {
       it('renders url button', async () => {
-        const { findByTestId } = renderEmbedModal({
+        const { getByTestId, findByTestId } = renderEmbedModal({
           url: 'https://link-url',
         });
         const button = await findByTestId(`${testId}-url-button`);
         expect(button).toBeInTheDocument();
 
         fireEvent.mouseOver(button);
+
+        // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
+        await waitFor(
+          () => {
+            expect(getByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
+          },
+          { timeout: 2000 },
+        );
+
         const tooltip = await findByTestId(`${testId}-url-tooltip`);
         expect(tooltip.textContent).toBe(messages.viewOriginal.defaultMessage);
       });
 
       it('renders url button with provider name', async () => {
-        const { findByTestId } = renderEmbedModal({
+        const { getByTestId, findByTestId } = renderEmbedModal({
           providerName: 'Confluence',
           url: 'https://link-url',
         });
         const button = await findByTestId(`${testId}-url-button`);
         fireEvent.mouseOver(button);
+
+        // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
+        await waitFor(
+          () => {
+            expect(getByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
+          },
+          { timeout: 2000 },
+        );
+
         const tooltip = await findByTestId(`${testId}-url-tooltip`);
         expect(tooltip.textContent).toBe('View in Confluence');
       });
@@ -183,26 +230,48 @@ describe('EmbedModal', () => {
 
     describe('with download button', () => {
       it('renders download button', async () => {
-        const { findByTestId } = renderEmbedModal({
+        const { getByTestId, findByTestId } = renderEmbedModal({
           download: 'https://download-url',
         });
         const button = await findByTestId(`${testId}-download-button`);
         expect(button).toBeInTheDocument();
 
         fireEvent.mouseOver(button);
+
+        // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
+        await waitFor(
+          () => {
+            expect(
+              getByTestId(`${testId}-download-tooltip`),
+            ).toBeInTheDocument();
+          },
+          { timeout: 2000 },
+        );
+
         const tooltip = await findByTestId(`${testId}-download-tooltip`);
         expect(tooltip.textContent).toBe(messages.download.defaultMessage);
       });
 
       it('triggers download action callback when clicking download button', async () => {
         const onDownloadActionClick = jest.fn();
-        const { findByTestId } = renderEmbedModal({
+        const { getByTestId, findByTestId } = renderEmbedModal({
           download: 'https://download-url',
           onDownloadActionClick,
         });
         const button = await findByTestId(`${testId}-download-button`);
 
         fireEvent.mouseOver(button);
+
+        // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
+        await waitFor(
+          () => {
+            expect(
+              getByTestId(`${testId}-download-tooltip`),
+            ).toBeInTheDocument();
+          },
+          { timeout: 2000 },
+        );
+
         const tooltip = await findByTestId(`${testId}-download-tooltip`);
         expect(tooltip.textContent).toBe(messages.download.defaultMessage);
 
@@ -316,7 +385,7 @@ describe('EmbedModal', () => {
       });
       await findByTestId(testId);
 
-      await wait(() => expect(onOpen).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
 
       expect(dispatchAnalytics).toHaveBeenCalledTimes(2);
       expect(dispatchAnalytics).toHaveBeenNthCalledWith(1, {
@@ -368,7 +437,7 @@ describe('EmbedModal', () => {
         onOpenFailed,
       });
 
-      await wait(() => expect(onOpenFailed).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(onOpenFailed).toHaveBeenCalledTimes(1));
       expect(dispatchAnalytics).toHaveBeenCalledWith({
         action: 'renderFailed',
         actionSubject: 'smartLink',
@@ -400,7 +469,7 @@ describe('EmbedModal', () => {
         onOpen,
         origin: 'smartLinkCard',
       });
-      await wait(() => expect(onOpen).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
       const button = await findByTestId(`${testId}-close-button`);
       act(() => {
         userEvent.click(button);

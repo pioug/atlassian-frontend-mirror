@@ -4,7 +4,9 @@ import * as raf from './raf';
 
 export const completeAnimations = () => {
   act(() => raf.flush());
-  act(() => jest.runAllTimers());
+  act(() => {
+    jest.runAllTimers();
+  });
 };
 export const triggerTransitionEnd = (component: any) => {
   // JSDom doesn't trigger transitionend event

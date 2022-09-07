@@ -76,7 +76,9 @@ describe('FlagGroup', () => {
       </FlagGroup>,
     );
 
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(queryByTestId('0')).toBeNull();
 
     const flag1Container = getByTestId('1').parentElement;
@@ -112,7 +114,9 @@ describe('FlagGroup', () => {
       </FlagGroup>,
     );
 
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     const flag0Container = getByTestId('0').parentElement;
     const flag1Container = getByTestId('1').parentElement;
@@ -152,7 +156,9 @@ describe('FlagGroup', () => {
     );
 
     fireEvent.click(getByTestId('a-dismiss'));
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith('a', expect.anything());
@@ -172,7 +178,9 @@ describe('FlagGroup', () => {
     );
 
     fireEvent.click(getByTestId('a-dismiss'));
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith('a', expect.anything());
@@ -193,7 +201,9 @@ describe('FlagGroup', () => {
     );
 
     fireEvent.click(getByTestId('a-dismiss'));
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(flagGroupSpy).toHaveBeenCalledTimes(1);
     expect(flagGroupSpy).toHaveBeenCalledWith('a', expect.anything());
@@ -217,7 +227,9 @@ describe('FlagGroup', () => {
     );
 
     fireEvent.click(getByTestId('a-dismiss'));
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(flagASpy).toHaveBeenCalledTimes(1);
     expect(flagASpy).toHaveBeenCalledWith('a', expect.anything());
@@ -241,7 +253,9 @@ describe('FlagGroup', () => {
     );
 
     fireEvent.click(getByTestId('a-dismiss'));
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith('a', expect.anything());

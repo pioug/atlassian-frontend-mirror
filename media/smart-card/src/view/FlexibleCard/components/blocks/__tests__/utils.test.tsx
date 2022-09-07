@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitForElement } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {
@@ -110,7 +110,7 @@ describe('renderElementItems', () => {
       'renders element %s',
       async (name: ElementName) => {
         const { getByTestId } = renderTestBlock(display, name, testId);
-        const element = await waitForElement(() =>
+        const element = await waitFor(() =>
           getByTestId(getElementTestId(name, testId)),
         );
         expect(element).toBeDefined();
@@ -207,10 +207,10 @@ describe('renderActionItems', () => {
             asDropdownItem,
           );
 
-          const element = await waitForElement(() => getByTestId(testId));
+          const element = await waitFor(() => getByTestId(testId));
           expect(element).toBeDefined();
 
-          const icon = await waitForElement(() => getByTestId(iconTestId));
+          const icon = await waitFor(() => getByTestId(iconTestId));
           expect(icon).toBeDefined();
 
           expect(element.textContent).toEqual(expectedContent);
@@ -224,7 +224,7 @@ describe('renderActionItems', () => {
             asDropdownItem,
           );
 
-          const element = await waitForElement(() => getByTestId(testId));
+          const element = await waitFor(() => getByTestId(testId));
           expect(element).toBeDefined();
 
           expect(queryByTestId(iconTestId)).toBeNull();
@@ -241,10 +241,10 @@ describe('renderActionItems', () => {
               asDropdownItem,
             );
 
-            const element = await waitForElement(() => getByTestId(testId));
+            const element = await waitFor(() => getByTestId(testId));
             expect(element).toBeDefined();
 
-            const icon = await waitForElement(() => getByTestId(iconTestId));
+            const icon = await waitFor(() => getByTestId(iconTestId));
             expect(icon).toBeDefined();
 
             expect(element.textContent).toEqual(expectedContent);
@@ -258,10 +258,10 @@ describe('renderActionItems', () => {
               asDropdownItem,
             );
 
-            const element = await waitForElement(() => getByTestId(testId));
+            const element = await waitFor(() => getByTestId(testId));
             expect(element).toBeDefined();
 
-            const icon = await waitForElement(() => getByTestId(iconTestId));
+            const icon = await waitFor(() => getByTestId(iconTestId));
             expect(icon).toBeDefined();
 
             expect(element.textContent).toEqual('');

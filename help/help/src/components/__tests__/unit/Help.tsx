@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { render, wait, fireEvent, act } from '@testing-library/react';
+import { render, waitFor, fireEvent, act } from '@testing-library/react';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
 
 import {
@@ -155,7 +155,9 @@ describe('Help', () => {
     );
 
     // onGetArticle promise gets resolved after 100ms
-    act(() => jest.advanceTimersByTime(100));
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
     expect(mockOnGetHelpArticle).toHaveBeenCalledTimes(1);
 
     const defaultContentElm = queryByText(defaultContentText);
@@ -169,7 +171,9 @@ describe('Help', () => {
       expect(window.getComputedStyle(defaultContentContainerElm!).display).toBe(
         'block',
       );
-      act(() => jest.advanceTimersByTime(HIDE_CONTENT_DELAY));
+      act(() => {
+        jest.advanceTimersByTime(HIDE_CONTENT_DELAY);
+      });
       expect(window.getComputedStyle(defaultContentContainerElm!).display).toBe(
         'none',
       );
@@ -258,12 +262,14 @@ describe('Help', () => {
     );
 
     // onGetArticle promise gets resolved after 100ms
-    act(() => jest.advanceTimersByTime(200));
+    act(() => {
+      jest.advanceTimersByTime(200);
+    });
 
     // Wait until the fade-in transition of the back button finishes
-    act(() =>
-      jest.advanceTimersByTime(SLIDEIN_OVERLAY_TRANSITION_DURATION_MS + 200),
-    );
+    act(() => {
+      jest.advanceTimersByTime(SLIDEIN_OVERLAY_TRANSITION_DURATION_MS + 200);
+    });
     const BackButton = queryByText(messageBack)!.closest('button');
     expect(BackButton).not.toBeNull();
 
@@ -272,11 +278,13 @@ describe('Help', () => {
       fireEvent.click(BackButton);
 
       // Wait until the fade-out transition of the back button finishes
-      act(() =>
-        jest.advanceTimersByTime(SLIDEIN_OVERLAY_TRANSITION_DURATION_MS + 200),
-      );
+      act(() => {
+        jest.advanceTimersByTime(SLIDEIN_OVERLAY_TRANSITION_DURATION_MS + 200);
+      });
 
-      await wait(() => expect(mockOnBackButtonClick).toHaveBeenCalledTimes(1));
+      await waitFor(() =>
+        expect(mockOnBackButtonClick).toHaveBeenCalledTimes(1),
+      );
     }
 
     jest.clearAllTimers();

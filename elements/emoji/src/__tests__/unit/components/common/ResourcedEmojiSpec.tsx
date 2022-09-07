@@ -1,6 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
-import { render, waitForElement, cleanup } from '@testing-library/react';
+import { render, waitFor, cleanup } from '@testing-library/react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
@@ -69,7 +69,7 @@ describe('<ResourcedEmoji />', () => {
       />,
     );
 
-    await waitForElement(async () => {
+    await waitFor(async () => {
       const result = await component.findByText('wow cool');
       expect(result).toBeInTheDocument();
     });
@@ -84,7 +84,7 @@ describe('<ResourcedEmoji />', () => {
       />,
     );
 
-    await waitForElement(async () => {
+    await waitFor(async () => {
       const result = await component.findByText('wow cool');
       expect(result).toBeInTheDocument();
     });

@@ -13,7 +13,7 @@ jest.mock('uuid', () => {
 });
 
 import React from 'react';
-import { render, cleanup, waitForElement } from '@testing-library/react';
+import { render, cleanup, waitFor } from '@testing-library/react';
 import { CardClient } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
@@ -79,7 +79,7 @@ describe('smart-card: prefetching of content', () => {
         <Card appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const resolvedView = await waitForElement(() =>
+    const resolvedView = await waitFor(() =>
       getByTestId('inline-card-resolved-view'),
     );
     // In this test, only the fetch path should have been called
@@ -120,7 +120,7 @@ describe('smart-card: prefetching of content', () => {
         <Card appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const lazyPlaceholderView = await waitForElement(() =>
+    const lazyPlaceholderView = await waitFor(() =>
       getByTestId('lazy-render-placeholder'),
     );
     // In this test, the prefetch path is privileged, since the URL is not
@@ -146,7 +146,7 @@ describe('smart-card: prefetching of content', () => {
         <Card appearance="inline" url={mockUrl} placeholder="spaghetti" />
       </Provider>,
     );
-    const lazyPlaceholderView = await waitForElement(() =>
+    const lazyPlaceholderView = await waitFor(() =>
       getByTestId('lazy-render-placeholder'),
     );
     // In this test, the prefetch path is privileged, since the URL is not
@@ -173,7 +173,7 @@ describe('smart-card: prefetching of content', () => {
         <Card appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const lazyPlaceholderView = await waitForElement(() =>
+    const lazyPlaceholderView = await waitFor(() =>
       getByTestId('lazy-render-placeholder'),
     );
     // In this test, the prefetch path is privileged, since the URL is not
@@ -191,7 +191,7 @@ describe('smart-card: prefetching of content', () => {
       { isIntersecting: true },
     ]);
 
-    const resolvedView = await waitForElement(() =>
+    const resolvedView = await waitFor(() =>
       getByTestId('inline-card-resolved-view'),
     );
 

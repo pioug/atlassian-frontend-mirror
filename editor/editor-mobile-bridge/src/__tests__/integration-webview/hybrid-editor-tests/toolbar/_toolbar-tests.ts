@@ -5,7 +5,6 @@ import {
   PaletteColor,
 } from '@atlaskit/editor-core';
 import { getDummyBridgeCalls } from '../../../integration/_utils';
-import { wait } from '@testing-library/react';
 import adfContent from '../../__fixtures__/panel-date-status-adf.json';
 import {
   StatusSharedCssClassName,
@@ -14,6 +13,8 @@ import {
 } from '@atlaskit/editor-common/styles';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { loadEditor } from '../../_page-objects/hybrid-editor-page';
+
+const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 const buildInitialStatusToolbarItems = (color: PaletteColor) => [
   {
@@ -335,7 +336,7 @@ export default async () => {
       await page.execute(() => {
         window.bridge?.performEditAction('0', 'New Status');
       });
-      await wait(undefined, { interval: 1000 });
+      await wait(1000);
 
       calls = await getDummyBridgeCalls(page, 'onNodeSelected');
       expect(calls.length).toBe(3);
@@ -362,7 +363,7 @@ export default async () => {
         window.bridge?.performEditAction('2.1');
       });
 
-      await wait(undefined, { interval: 1000 });
+      await wait(1000);
 
       calls = await getDummyBridgeCalls(page, 'onNodeSelected');
       expect(calls.length).toBe(6);

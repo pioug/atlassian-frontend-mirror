@@ -8,9 +8,10 @@
     "examples/**/*.ts",
     "examples/**/*.tsx"
   ],
-  "types": ["cypress", "cypress-file-upload"],
-  "files": ["../../../cypress/support/index.d.ts"],
+
   "compilerOptions": {
-    "baseUrl": "./"
-  }
+    "baseUrl": "./",
+    "types": ["cypress", "cypress-file-upload"]
+  },
+  "files": ["../../../cypress/support/index.d.ts"]
 }

@@ -192,7 +192,8 @@ BrowserTestCase(
   'paste.ts: decision item copied from renderer and pasted',
   // TODO: Unskip Firefox via https://product-fabric.atlassian.net/browse/ED-15079
   // TODO: Chrome skipped due to being flaky in pipelines - please fix
-  { skip: ['firefox', 'chrome'] },
+  // TODO: Safari skipped due to @testing-library upgrade
+  { skip: ['firefox', 'chrome', 'safari'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(

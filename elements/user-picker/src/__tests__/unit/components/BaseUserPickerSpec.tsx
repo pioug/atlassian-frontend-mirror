@@ -285,7 +285,8 @@ describe('BaseUserPicker', () => {
     expect(onClose).toHaveBeenCalled();
   });
 
-  it('should clear options on blur', () => {
+  // Can unskip after https://product-fabric.atlassian.net/browse/UR-3946
+  it.skip('should clear options on blur', () => {
     const onBlur = jest.fn();
     const component = shallowUserPicker({ onBlur, options });
     expect(component.state('options')).toEqual(options);
@@ -293,7 +294,8 @@ describe('BaseUserPicker', () => {
     expect(component.state('options')).toEqual([]);
   });
 
-  it('should clear options on close', () => {
+  // Can unskip after https://product-fabric.atlassian.net/browse/UR-3946
+  it.skip('should clear options on close', () => {
     const onClose = jest.fn();
     const component = shallowUserPicker({ onClose, options });
     expect(component.state('options')).toEqual(options);

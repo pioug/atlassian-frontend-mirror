@@ -1,5 +1,14 @@
 # @atlaskit/in-product-testing-sample
 
+## 0.2.3
+
+### Patch Changes
+
+- [`46059beebbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46059beebbf) - - include **tests_external** in build
+  - replace usage of @local-cypress package with @cypress
+  - bump @cypress from ^6.4.0 to ^7.7.0
+  - import cypress types into @atlaskit/in-product-testing tsconfig
+
 ## 0.2.2
 
 ### Patch Changes

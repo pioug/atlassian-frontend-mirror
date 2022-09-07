@@ -45,7 +45,7 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/core": "^10.0.9",
-    "@testing-library/react": "^8.0.1",
+    "@testing-library/react": "^12.1.5",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",

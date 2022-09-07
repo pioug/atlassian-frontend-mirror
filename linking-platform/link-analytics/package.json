@@ -32,7 +32,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@testing-library/react-hooks": "^1.0.4"
+    "@testing-library/react-hooks": "^1.1.0"
   },
   "af:exports": {
     ".": "./src/index.ts"

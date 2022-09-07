@@ -1,11 +1,7 @@
 import React, { MouseEvent } from 'react';
 
 import { waitFor } from '@testing-library/dom';
-import {
-  render,
-  waitForDomChange,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { render, waitForElementToBeRemoved } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
@@ -163,6 +159,8 @@ describe('Drawer primitive', () => {
   });
 
   it('should call onOpenComplete when the Slide has finished entering (entered)', async () => {
+    jest.useFakeTimers();
+
     const onOpenComplete = jest.fn();
     const props = { ...commonProps, in: true, onOpenComplete };
     const { getByTestId } = render(
@@ -170,24 +168,19 @@ describe('Drawer primitive', () => {
         <DrawerContent />
       </DrawerPrimitive>,
     );
-
     const drawer = getByTestId('test');
 
+    expect(onOpenComplete).toHaveBeenCalledTimes(0);
+
     /**
-     * The thinking behind this is that the className should change when the
-     * animation has finished.
+     * Simulates the animation completing
      */
-    await waitForDomChange({
-      container: drawer,
-      mutationObserverOptions: {
-        attributes: true,
-        childList: false,
-        subtree: false,
-      },
-    });
+    jest.runAllTimers();
 
     expect(onOpenComplete).toHaveBeenCalledTimes(1);
     expect(onOpenComplete).toHaveBeenCalledWith(drawer);
+
+    jest.useRealTimers();
   });
 
   describe('overrides', () => {

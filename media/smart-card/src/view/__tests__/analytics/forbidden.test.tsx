@@ -22,12 +22,7 @@ import React from 'react';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
-import {
-  render,
-  waitForElement,
-  fireEvent,
-  cleanup,
-} from '@testing-library/react';
+import { render, waitFor, fireEvent, cleanup } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 describe('smart-card: forbidden analytics', () => {
@@ -58,7 +53,7 @@ describe('smart-card: forbidden analytics', () => {
           </Provider>
         </IntlProvider>,
       );
-      const forbiddenLink = await waitForElement(
+      const forbiddenLink = await waitFor(
         () => getByTestId('forbiddenCard1-forbidden-view'),
         {
           timeout: 10000,
@@ -73,7 +68,7 @@ describe('smart-card: forbidden analytics', () => {
       fireEvent.click(forbiddenLinkButton!);
 
       mockFetch.mockImplementationOnce(async () => mocks.success);
-      const resolvedView = await waitForElement(
+      const resolvedView = await waitFor(
         () => getByTestId('forbiddenCard1-resolved-view'),
         {
           timeout: 10000,
@@ -111,7 +106,7 @@ describe('smart-card: forbidden analytics', () => {
           </Provider>
         </IntlProvider>,
       );
-      const forbiddenLink = await waitForElement(
+      const forbiddenLink = await waitFor(
         () => getByTestId('forbiddenCard2-forbidden-view'),
         {
           timeout: 10000,
@@ -128,7 +123,7 @@ describe('smart-card: forbidden analytics', () => {
       fireEvent.click(forbiddenLinkButton!);
 
       mockFetch.mockImplementationOnce(async () => mocks.success);
-      const unresolvedView = await waitForElement(
+      const unresolvedView = await waitFor(
         () => getByTestId('forbiddenCard2-resolved-view'),
         {
           timeout: 10000,

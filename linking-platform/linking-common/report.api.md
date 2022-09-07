@@ -212,6 +212,11 @@ export declare type ServerErrorType =
   | 'ResolveUnsupportedError'
   | 'ResolveFailedError'
   | 'ResolveTimeoutError'
+  | 'SearchBadRequestError'
+  | 'SearchAuthError'
+  | 'SearchUnsupportedError'
+  | 'SearchFailedError'
+  | 'SearchTimeoutError'
   | 'InternalServerError';
 
 export {};

@@ -20,7 +20,9 @@ describe('NestingTransitionProvider', () => {
 
   const completeAnimations = () => {
     act(() => raf.step());
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
   };
 
   it('should have tabIndex set as -1', () => {

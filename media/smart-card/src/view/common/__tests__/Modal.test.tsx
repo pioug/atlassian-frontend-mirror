@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl-next';
 import {
   act,
   render,
-  wait,
+  waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
@@ -73,7 +73,7 @@ describe('Modal', () => {
       });
       await findByTestId(testId);
 
-      await wait(() => expect(onOpen).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
 
       expect(dispatchAnalytics).toHaveBeenCalledTimes(2);
       expect(dispatchAnalytics).toHaveBeenNthCalledWith(1, {
@@ -125,7 +125,7 @@ describe('Modal', () => {
         onOpenFailed,
       });
 
-      await wait(() => expect(onOpenFailed).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(onOpenFailed).toHaveBeenCalledTimes(1));
       expect(dispatchAnalytics).toHaveBeenCalledWith({
         action: 'renderFailed',
         actionSubject: 'smartLink',
@@ -157,7 +157,7 @@ describe('Modal', () => {
         onOpen,
         origin: 'smartLinkCard',
       });
-      await wait(() => expect(onOpen).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
       const button = await findByTestId('preview-close-button');
       act(() => {
         userEvent.click(button);

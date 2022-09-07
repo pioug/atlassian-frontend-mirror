@@ -178,7 +178,7 @@ describe('Calendar analytics', () => {
       const selectedDayElement = renderResult.getAllByRole(
         (content, element) =>
           content === 'gridcell' &&
-          element.textContent === stringifiedSelectedDay,
+          element!.textContent === stringifiedSelectedDay,
       )[0];
       const selectedDayElementInnerElement = within(
         selectedDayElement,

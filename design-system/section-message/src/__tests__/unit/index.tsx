@@ -207,7 +207,7 @@ describe('SectionMessage', () => {
         getAllByRole(
           (content, element) =>
             content === 'presentation' &&
-            element.tagName.toLowerCase() === 'svg',
+            element!.tagName.toLowerCase() === 'svg',
         ),
       ).toHaveLength(1);
     },

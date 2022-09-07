@@ -10,12 +10,7 @@ import {
   SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import React from 'react';
-import {
-  render,
-  cleanup,
-  waitForElement,
-  fireEvent,
-} from '@testing-library/react';
+import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
 import { Card, CardAppearance } from '../../Card';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
@@ -63,13 +58,13 @@ describe('smart-card: card states, flexible', () => {
           </Provider>,
         );
 
-        const erroredView = await waitForElement(() =>
+        const erroredView = await waitFor(() =>
           getByTestId('smart-block-title-errored-view'),
         );
         expect(erroredView).toBeTruthy();
         await flushPromises();
 
-        const erroredViewAgain = await waitForElement(() =>
+        const erroredViewAgain = await waitFor(() =>
           getByTestId('smart-block-title-errored-view'),
         );
         expect(erroredViewAgain).toBeTruthy();
@@ -90,7 +85,7 @@ describe('smart-card: card states, flexible', () => {
             </Card>
           </Provider>,
         );
-        const resolvedView = await waitForElement(
+        const resolvedView = await waitFor(
           () => getByTestId('smart-block-title-resolved-view'),
           {
             timeout: 5000,
@@ -114,7 +109,7 @@ describe('smart-card: card states, flexible', () => {
             </Card>
           </Provider>,
         );
-        const resolvedViewName = await waitForElement(() =>
+        const resolvedViewName = await waitFor(() =>
           getByText('I love cheese'),
         );
         expect(resolvedViewName).toBeTruthy();
@@ -130,9 +125,7 @@ describe('smart-card: card states, flexible', () => {
             </Card>
           </Provider>,
         );
-        const resolvedView = await waitForElement(() =>
-          getByText('I love cheese'),
-        );
+        const resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(resolvedView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -144,7 +137,7 @@ describe('smart-card: card states, flexible', () => {
             </Card>
           </Provider>,
         );
-        await waitForElement(() => getByText('I love cheese'));
+        await waitFor(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(2);
       });
@@ -157,9 +150,7 @@ describe('smart-card: card states, flexible', () => {
             </Card>
           </Provider>,
         );
-        const resolvedView = await waitForElement(() =>
-          getByText('I love cheese'),
-        );
+        const resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(resolvedView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -171,7 +162,7 @@ describe('smart-card: card states, flexible', () => {
             </Card>
           </Provider>,
         );
-        await waitForElement(() => getByText('I love cheese'));
+        await waitFor(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });
@@ -186,7 +177,7 @@ describe('smart-card: card states, flexible', () => {
             </Card>
           </Provider>,
         );
-        const resolvedView = await waitForElement(
+        const resolvedView = await waitFor(
           () => getByTestId('smart-block-title-resolved-view'),
           {
             timeout: 5000,
@@ -209,10 +200,10 @@ describe('smart-card: card states, flexible', () => {
             </Card>
           </Provider>,
         );
-        const resolvedViewName = await waitForElement(() =>
+        const resolvedViewName = await waitFor(() =>
           getByText('I love cheese'),
         );
-        const resolvedViewDescription = await waitForElement(() =>
+        const resolvedViewDescription = await waitFor(() =>
           getByText('Here is your serving of cheese: 🧀'),
         );
         expect(resolvedViewName).toBeTruthy();
@@ -235,7 +226,7 @@ describe('smart-card: card states, flexible', () => {
           </Card>
         </Provider>,
       );
-      const block = await waitForElement(() => getByTestId(testId));
+      const block = await waitFor(() => getByTestId(testId));
       expect(block).toBeTruthy();
     });
 

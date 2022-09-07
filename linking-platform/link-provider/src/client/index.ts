@@ -20,6 +20,8 @@ import {
   isSuccessfulResponse,
   isErrorResponse,
   SearchProviderInfoResponse,
+  SearchErrorResponse,
+  isSearchErrorResponse,
 } from './types/responses';
 import { InvokeRequest } from './types/requests';
 
@@ -257,11 +259,71 @@ export default class CardClient implements CardClientInterface {
         context,
       },
     };
-    return await api.request(
+    const response = await api.request<SearchErrorResponse | JsonLd.Collection>(
       'post',
       `${this.resolverUrl}/invoke/search`,
       request,
     );
+    if (isSearchErrorResponse(response)) {
+      // There is no hostname/it is not known. Hostname is not logged anyway as it's considered PII.
+      const hostname = '';
+      // Catch non-200 server responses to fallback or return useful information.
+      if (response.error) {
+        const errorType = response.error.type;
+        const errorMessage = response.error.message;
+        // this means there was a network error and we fallback to blue link
+        // without impacting SLO's
+        if (response.error instanceof api.NetworkError) {
+          throw new APIError('fallback', hostname, errorMessage, errorType);
+        }
+
+        switch (errorType) {
+          // BadRequestError - indicative of an API error, render
+          // a blue link to mitigate customer impact.
+          case 'ResolveBadRequestError':
+            throw new APIError('fallback', hostname, errorMessage, errorType);
+          case 'SearchBadRequestError':
+            throw new APIError('fallback', hostname, errorMessage, errorType);
+          // AuthError - if the user logs in, we may be able
+          // to recover. Render an unauthorized card.
+          case 'ResolveAuthError':
+            throw new APIError('auth', hostname, errorMessage, errorType);
+          case 'SearchAuthError':
+            throw new APIError('auth', hostname, errorMessage, errorType);
+          // UnsupportedError - we do not know how to render this URL.
+          // Bail out and ask the Editor to render as a blue link.
+          case 'ResolveUnsupportedError': // URL isn't supported
+            throw new APIError('fatal', hostname, errorMessage, errorType);
+          case 'SearchUnsupportedError':
+            throw new APIError('fatal', hostname, errorMessage, errorType);
+          // ResolveFailedError - link resolver may have failed.
+          // We could recover on re-resolve; render with fallback state.
+          case 'ResolveFailedError': // Timeouts
+            throw new APIError('error', hostname, errorMessage, errorType);
+          // TimeoutError - link resolver may be taking a long time.
+          // We could recover on re-resolve; render with fallback state.
+          case 'ResolveTimeoutError': // Timeouts
+            throw new APIError('error', hostname, errorMessage, errorType);
+          // InternalServerError - API call failed.
+          // We may recover later; render with fallback state.
+          case 'InternalServerError': // ORS failures
+            throw new APIError('error', hostname, errorMessage, errorType);
+          case 'SearchFailedError':
+            throw new APIError('error', hostname, errorMessage, errorType);
+          case 'SearchTimeoutError':
+            throw new APIError('error', hostname, errorMessage, errorType);
+        }
+      }
+      // Catch all: we don't know this error, bail out.
+      throw new APIError(
+        'fatal',
+        hostname,
+        JSON.stringify(response),
+        'UnexpectedError',
+      );
+    } else {
+      return response;
+    }
   }
 
   public async fetchAvailableSearchProviders() {

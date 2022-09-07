@@ -1,6 +1,6 @@
 import { useTranslations } from '../../use-translations';
 import { renderHook } from '@testing-library/react-hooks';
-import { wait } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 
 describe('Use translations', () => {
   const getMessagesCallbackSpy = jest.fn();
@@ -15,7 +15,9 @@ describe('Use translations', () => {
   it('should call the callback for get messages if passed', async () => {
     renderHook(() => useTranslations('fr', getMessagesCallbackSpy));
 
-    await wait(() => expect(getMessagesCallbackSpy).toHaveBeenCalledTimes(1));
+    await waitFor(() =>
+      expect(getMessagesCallbackSpy).toHaveBeenCalledTimes(1),
+    );
 
     expect(getMessagesCallbackSpy).toHaveBeenCalledWith('fr');
   });
@@ -23,7 +25,7 @@ describe('Use translations', () => {
   it('should return empty messages when no callback passed', async () => {
     const hookResult = renderHook(() => useTranslations('fr'));
 
-    await wait(() => expect(hookResult.result.current).not.toBeUndefined());
+    await waitFor(() => expect(hookResult.result.current).not.toBeUndefined());
 
     expect(hookResult.result.current.messages).toEqual({});
   });
@@ -33,7 +35,7 @@ describe('Use translations', () => {
       useTranslations('fr', getMessagesCallbackSpy),
     );
 
-    await wait(() => expect(hookResult.result.current).not.toBeUndefined());
+    await waitFor(() => expect(hookResult.result.current).not.toBeUndefined());
 
     expect(hookResult.result.current).toEqual({
       locale: 'fr',
@@ -52,7 +54,7 @@ describe('Use translations', () => {
       ),
     );
 
-    await wait(() => expect(onWillLocaleChange).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(onWillLocaleChange).toHaveBeenCalledTimes(1));
 
     expect(onWillLocaleChange).toHaveBeenCalledWith();
   });
@@ -63,7 +65,7 @@ describe('Use translations', () => {
       useTranslations('fr', getMessagesCallbackSpy, onLocaleChanged),
     );
 
-    await wait(() => expect(onLocaleChanged).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(onLocaleChanged).toHaveBeenCalledTimes(1));
 
     expect(onLocaleChanged).toHaveBeenCalledWith();
   });

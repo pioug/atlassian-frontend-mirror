@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/core';
-import { render, waitForElement } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import ElementGroup from '../index';
 import {
@@ -18,7 +18,7 @@ describe('ElementGroup', () => {
       <ElementGroup>I am an element group.</ElementGroup>,
     );
 
-    const elementGroup = await waitForElement(() => getByTestId(testId));
+    const elementGroup = await waitFor(() => getByTestId(testId));
 
     expect(elementGroup).toBeTruthy();
     expect(elementGroup.getAttribute('data-smart-element-group')).toBeTruthy();
@@ -35,7 +35,7 @@ describe('ElementGroup', () => {
       </ElementGroup>,
     );
 
-    const elementGroup = await waitForElement(() => getByTestId(testId));
+    const elementGroup = await waitFor(() => getByTestId(testId));
 
     expect(elementGroup).toHaveStyleDeclaration('line-height', '20rem');
     expect(elementGroup).toHaveStyleDeclaration(
@@ -58,7 +58,7 @@ describe('ElementGroup', () => {
           <ElementGroup size={size}>I am an element group.</ElementGroup>,
         );
 
-        const elementGroup = await waitForElement(() => getByTestId(testId));
+        const elementGroup = await waitFor(() => getByTestId(testId));
 
         expect(elementGroup).toHaveStyleDeclaration('gap', expected);
       },
@@ -79,7 +79,7 @@ describe('ElementGroup', () => {
           </ElementGroup>,
         );
 
-        const elementGroup = await waitForElement(() => getByTestId(testId));
+        const elementGroup = await waitFor(() => getByTestId(testId));
 
         expect(elementGroup).toHaveStyleDeclaration('flex-direction', expected);
       },
@@ -102,7 +102,7 @@ describe('ElementGroup', () => {
           <ElementGroup align={align}>I am an element group.</ElementGroup>,
         );
 
-        const elementGroup = await waitForElement(() => getByTestId(testId));
+        const elementGroup = await waitFor(() => getByTestId(testId));
 
         expect(elementGroup).toHaveStyleDeclaration(
           'justify-content',
@@ -124,7 +124,7 @@ describe('ElementGroup', () => {
         </ElementGroup>,
       );
 
-      const elementGroup = await waitForElement(() => getByTestId(testId));
+      const elementGroup = await waitFor(() => getByTestId(testId));
 
       expect(elementGroup).toHaveStyleDeclaration('flex', '1 3');
     });

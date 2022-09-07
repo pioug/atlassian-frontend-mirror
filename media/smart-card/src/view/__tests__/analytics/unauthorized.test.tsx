@@ -8,12 +8,7 @@ import React from 'react';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
-import {
-  render,
-  waitForElement,
-  fireEvent,
-  cleanup,
-} from '@testing-library/react';
+import { render, waitFor, fireEvent, cleanup } from '@testing-library/react';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import 'jest-extended';
 import { JestFunction } from '@atlaskit/media-test-helpers';
@@ -62,7 +57,7 @@ describe('smart-card: unauthorized analytics', () => {
         </IntlProvider>,
       );
 
-      const unauthorizedLink = await waitForElement(
+      const unauthorizedLink = await waitFor(
         () => getByTestId('unauthorizedCard1-unauthorized-view'),
 
         { timeout: 10000 },
@@ -95,7 +90,7 @@ describe('smart-card: unauthorized analytics', () => {
         </IntlProvider>,
       );
 
-      const unauthorizedLink = await waitForElement(
+      const unauthorizedLink = await waitFor(
         () => getByTestId('unauthorizedCard1-unauthorized-view'),
         { timeout: 10000 },
       );
@@ -122,7 +117,7 @@ describe('smart-card: unauthorized analytics', () => {
           </Provider>
         </IntlProvider>,
       );
-      const unauthorizedLink = await waitForElement(
+      const unauthorizedLink = await waitFor(
         () => getByTestId('unauthorizedCard1-unauthorized-view'),
         { timeout: 10000 },
       );
@@ -135,7 +130,7 @@ describe('smart-card: unauthorized analytics', () => {
       fireEvent.click(unauthorizedLinkButton!);
 
       mockFetch.mockImplementationOnce(async () => mocks.success);
-      const resolvedView = await waitForElement(() =>
+      const resolvedView = await waitFor(() =>
         getByTestId('unauthorizedCard1-resolved-view'),
       );
       expect(resolvedView).toBeTruthy();
@@ -195,7 +190,7 @@ describe('smart-card: unauthorized analytics', () => {
             </Provider>
           </IntlProvider>,
         );
-        const unauthorizedLink = await waitForElement(
+        const unauthorizedLink = await waitFor(
           () => getByTestId('unauthorizedCard2-unauthorized-view'),
           { timeout: 10000 },
         );
@@ -211,7 +206,7 @@ describe('smart-card: unauthorized analytics', () => {
         );
         fireEvent.click(unauthorizedLinkButton!);
 
-        const unresolvedView = await waitForElement(
+        const unresolvedView = await waitFor(
           () => getByTestId('unauthorizedCard2-unauthorized-view'),
           {
             timeout: 10000,
@@ -262,7 +257,7 @@ describe('smart-card: unauthorized analytics', () => {
           </Provider>
         </IntlProvider>,
       );
-      const unauthorizedLink = await waitForElement(
+      const unauthorizedLink = await waitFor(
         () => getByTestId('unauthorizedCard3-unauthorized-view'),
         { timeout: 10000 },
       );
@@ -276,7 +271,7 @@ describe('smart-card: unauthorized analytics', () => {
       );
       fireEvent.click(unauthorizedLinkButton!);
 
-      const resolvedView = await waitForElement(
+      const resolvedView = await waitFor(
         () => getByTestId('unauthorizedCard3-resolved-view'),
         {
           timeout: 10000,

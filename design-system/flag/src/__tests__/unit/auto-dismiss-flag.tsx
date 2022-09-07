@@ -21,7 +21,9 @@ describe('Auto dismiss flag', () => {
 
     describe('timer tests', () => {
       const runTimer = () =>
-        act(() => jest.runTimersToTime(AUTO_DISMISS_SECONDS * 1000));
+        act(() => {
+          jest.runTimersToTime(AUTO_DISMISS_SECONDS * 1000);
+        });
 
       beforeEach(() => {
         jest.useFakeTimers();
@@ -82,14 +84,18 @@ describe('Auto dismiss flag', () => {
             {generateAutoDismissFlag({ id: '1' })}
           </FlagGroup>,
         );
-        act(() => jest.runTimersToTime((AUTO_DISMISS_SECONDS / 2) * 1000));
+        act(() => {
+          jest.runTimersToTime((AUTO_DISMISS_SECONDS / 2) * 1000);
+        });
         rerender(
           <FlagGroup onDismissed={onDismissedSpy}>
             {generateAutoDismissFlag({ id: '0' })}
             {generateAutoDismissFlag({ id: '1' })}
           </FlagGroup>,
         );
-        act(() => jest.runTimersToTime((AUTO_DISMISS_SECONDS / 2) * 1000));
+        act(() => {
+          jest.runTimersToTime((AUTO_DISMISS_SECONDS / 2) * 1000);
+        });
         expect(onDismissedSpy).not.toBeCalled();
       });
 
@@ -165,7 +171,9 @@ describe('Auto dismiss flag', () => {
           </FlagGroup>,
         );
 
-        act(() => jest.runTimersToTime(AUTO_DISMISS_SECONDS * 1000));
+        act(() => {
+          jest.runTimersToTime(AUTO_DISMISS_SECONDS * 1000);
+        });
         expect(onDismissedSpy).toBeCalled();
       });
 

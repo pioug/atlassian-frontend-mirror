@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { waitForElement, cleanup } from '@testing-library/react';
+import { waitFor, cleanup } from '@testing-library/react';
 
 let mockModalRender = jest.fn();
 jest.mock('../../../../view/common/Modal', () => ({
@@ -71,7 +71,7 @@ describe('PreviewAction', () => {
     };
 
     const { getByTestId } = renderWithIntl(<PreviewWrapper />);
-    const modal = await waitForElement(() => getByTestId('preview-modal'));
+    const modal = await waitFor(() => getByTestId('preview-modal'));
     expect(modal).toBeTruthy();
     expect(modal.textContent).toBe('My modal mock');
     expect(modal.id).toBe(mockPopupMountPointId);

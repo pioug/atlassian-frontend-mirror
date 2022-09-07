@@ -1,7 +1,9 @@
-import { fireEvent } from '@testing-library/dom';
+// Note: not using '@testing-library/dom' in this file as it can
+// add it's own "error" event listeners when other events are being fired
+// This file uses vanilla event firing so that we are in total control
 
 import { combine } from '../../../src/entry-point/util/combine';
-import { appendToBody, getElements, userEvent } from '../_util';
+import { appendToBody, getElements } from '../_util';
 
 let addEventListener = jest.spyOn(window, 'addEventListener');
 let removeEventListener = jest.spyOn(window, 'removeEventListener');
@@ -16,7 +18,9 @@ afterEach(() => {
 
 afterEach(() => {
   // cleanup any pending drags
-  fireEvent.dragEnd(window);
+  window.dispatchEvent(
+    new DragEvent('dragend', { cancelable: true, bubbles: true }),
+  );
 });
 
 it('should add event listeners when the first draggable is mounted', () => {
@@ -154,7 +158,11 @@ it('should bind event listeners needed for the drag only while dragging', () => 
   // addEventListener.mockReset();
 
   // let's start a drag
-  userEvent.lift(A);
+  A.dispatchEvent(
+    new DragEvent('dragstart', { cancelable: true, bubbles: true }),
+  );
+  // @ts-expect-error
+  requestAnimationFrame.step();
   expect(ordered).toEqual(['preview', 'start']);
   ordered.length = 0;
 
@@ -164,7 +172,10 @@ it('should bind event listeners needed for the drag only while dragging', () => 
   expect(removeEventListener).not.toHaveBeenCalled();
 
   // finish the drag
-  fireEvent.dragEnd(window);
+  // cleanup any pending drags
+  window.dispatchEvent(
+    new DragEvent('dragend', { cancelable: true, bubbles: true }),
+  );
 
   expect(ordered).toEqual(['drop']);
 
@@ -212,7 +223,11 @@ it('should keep dragging event listeners bound even if only draggable is removed
   // addEventListener.mockReset();
 
   // let's start a drag
-  userEvent.lift(A);
+  A.dispatchEvent(
+    new DragEvent('dragstart', { cancelable: true, bubbles: true }),
+  );
+  // @ts-expect-error
+  requestAnimationFrame.step();
   expect(ordered).toEqual([
     'draggable:preview',
     'monitor:preview',
@@ -232,7 +247,9 @@ it('should keep dragging event listeners bound even if only draggable is removed
   expect(removeEventListener).toHaveBeenCalledTimes(1);
 
   // finish the drag
-  fireEvent.dragEnd(window);
+  window.dispatchEvent(
+    new DragEvent('dragend', { cancelable: true, bubbles: true }),
+  );
 
   // monitor still told about the drop
   expect(ordered).toEqual(['monitor:drop']);
@@ -277,7 +294,11 @@ it('should keep dragging event listeners bound if only draggable is remounted mi
   // addEventListener.mockReset();
 
   // let's start a drag
-  userEvent.lift(A);
+  A.dispatchEvent(
+    new DragEvent('dragstart', { cancelable: true, bubbles: true }),
+  );
+  // @ts-expect-error
+  requestAnimationFrame.step();
   expect(ordered).toEqual([
     'draggable(1):preview',
     'monitor:preview',
@@ -307,7 +328,9 @@ it('should keep dragging event listeners bound if only draggable is remounted mi
   );
 
   // finish the drag
-  fireEvent.dragEnd(window);
+  window.dispatchEvent(
+    new DragEvent('dragend', { cancelable: true, bubbles: true }),
+  );
 
   // because 'A' is the key, A2 is treated as the original draggable
   expect(ordered).toEqual(['draggable(2):drop', 'monitor:drop']);

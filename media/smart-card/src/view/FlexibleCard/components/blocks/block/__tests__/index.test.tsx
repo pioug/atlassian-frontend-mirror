@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElement, fireEvent } from '@testing-library/react';
+import { render, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Block from '../index';
 import {
@@ -20,7 +20,7 @@ describe('Block', () => {
   it('renders block', async () => {
     const { getByTestId } = render(<Block>I am a block.</Block>);
 
-    const block = await waitForElement(() => getByTestId(testId));
+    const block = await waitFor(() => getByTestId(testId));
 
     expect(block).toBeTruthy();
     expect(block.getAttribute('data-smart-block')).toBeTruthy();
@@ -31,7 +31,7 @@ describe('Block', () => {
   it('calls OnRender', async () => {
     const onRender = jest.fn();
     const { getByTestId } = render(<Block onRender={onRender}></Block>);
-    await waitForElement(() => getByTestId(testId));
+    await waitFor(() => getByTestId(testId));
 
     expect(onRender).toHaveBeenCalledTimes(1);
   });
@@ -41,7 +41,7 @@ describe('Block', () => {
     const { getByTestId } = render(
       <Block onTransitionEnd={onTransitionEnd}></Block>,
     );
-    const block = await waitForElement(() => getByTestId(testId));
+    const block = await waitFor(() => getByTestId(testId));
     fireEvent.transitionEnd(block);
 
     expect(onTransitionEnd).toHaveBeenCalledTimes(1);
@@ -50,7 +50,7 @@ describe('Block', () => {
   it('returns ref to block', async () => {
     let ref = { current: null };
     const { getByTestId } = render(<Block blockRef={ref}></Block>);
-    const block = await waitForElement(() => getByTestId(testId));
+    const block = await waitFor(() => getByTestId(testId));
 
     expect(ref.current).toEqual(block);
   });
@@ -69,7 +69,7 @@ describe('Block', () => {
           <Block size={size}>I am a block.</Block>,
         );
 
-        const block = await waitForElement(() => getByTestId(testId));
+        const block = await waitFor(() => getByTestId(testId));
 
         expect(block).toHaveStyleDeclaration('gap', expected);
       },
@@ -88,7 +88,7 @@ describe('Block', () => {
           <Block direction={direction}>I am a block.</Block>,
         );
 
-        const block = await waitForElement(() => getByTestId(testId));
+        const block = await waitFor(() => getByTestId(testId));
 
         expect(block).toHaveStyleDeclaration('flex-direction', expected);
       },
@@ -104,7 +104,7 @@ describe('Block', () => {
         </Block>,
       );
 
-      const container = await waitForElement(() => getByTestId(testId));
+      const container = await waitFor(() => getByTestId(testId));
 
       expect(container.children.length).toEqual(2);
     });
@@ -119,9 +119,7 @@ describe('Block', () => {
           </FlexibleUiContext.Provider>,
         );
 
-        const element = await waitForElement(() =>
-          getByTestId('smart-element-link'),
-        );
+        const element = await waitFor(() => getByTestId('smart-element-link'));
 
         expect(element).toHaveStyleDeclaration('font-size', '0.75rem');
       });
@@ -135,9 +133,7 @@ describe('Block', () => {
           </FlexibleUiContext.Provider>,
         );
 
-        const element = await waitForElement(() =>
-          getByTestId('smart-element-link'),
-        );
+        const element = await waitFor(() => getByTestId('smart-element-link'));
 
         expect(element).toHaveStyleDeclaration('font-size', '0.875rem');
       });
@@ -151,7 +147,7 @@ describe('Block', () => {
           </Block>,
         );
 
-        const elementGroup = await waitForElement(() =>
+        const elementGroup = await waitFor(() =>
           getByTestId('smart-element-group'),
         );
 
@@ -165,7 +161,7 @@ describe('Block', () => {
           </Block>,
         );
 
-        const elementGroup = await waitForElement(() =>
+        const elementGroup = await waitFor(() =>
           getByTestId('smart-element-group'),
         );
 
@@ -185,7 +181,7 @@ describe('Block', () => {
           </IntlProvider>,
         );
 
-        const icon = await waitForElement(() =>
+        const icon = await waitFor(() =>
           getByTestId('smart-action-delete-action-icon'),
         );
 
@@ -204,7 +200,7 @@ describe('Block', () => {
           </IntlProvider>,
         );
 
-        const icon = await waitForElement(() =>
+        const icon = await waitFor(() =>
           getByTestId('smart-action-delete-action-icon'),
         );
 
@@ -227,7 +223,7 @@ describe('Block', () => {
         </Block>,
       );
 
-      await waitForElement(() => getByTestId('random-node'));
+      await waitFor(() => getByTestId('random-node'));
 
       expect(fn).not.toHaveBeenCalledWith(expect.objectContaining({ size }));
     });

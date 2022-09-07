@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/in-product-testing-sample",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -30,9 +30,9 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@testing-library/react": "^8.0.1",
+    "@testing-library/react": "^12.1.5",
+    "cypress": "^7.7.0",
     "cypress-file-upload": "^5.0.2",
-    "local-cypress": "^1.2.1",
     "react-dom": "^16.8.0",
     "typescript": "4.3.5",
     "wait-for-expect": "^1.2.0"

@@ -1,5 +1,10 @@
 import React from 'react';
-import { create, act, ReactTestRenderer } from 'react-test-renderer';
+import {
+  create,
+  act,
+  ReactTestRenderer,
+  ReactTestRendererJSON,
+} from 'react-test-renderer';
 import {
   ControllablePromiseResult,
   createControllablePromise,
@@ -39,7 +44,9 @@ describe('useStateFromPromise', () => {
   });
 
   it('should set the state when the promise resolves', async () => {
-    expect(testRenderer!.toJSON()!.children).toEqual(['waiting']);
+    expect(
+      (testRenderer!.toJSON() as ReactTestRendererJSON)!.children,
+    ).toEqual(['waiting']);
 
     asyncOperation.invokeResolve('hey');
 
@@ -49,7 +56,9 @@ describe('useStateFromPromise', () => {
       jest.runAllTimers();
     });
 
-    expect(testRenderer!.toJSON()!.children).toEqual(['hey']);
+    expect(
+      (testRenderer!.toJSON() as ReactTestRendererJSON)!.children,
+    ).toEqual(['hey']);
 
     testRenderer!.unmount();
   });

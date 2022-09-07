@@ -16,7 +16,9 @@ import { expectThatFlyoutIsOpenAndValid } from './__utils__/flyout';
 
 const completeAnimations = () => {
   act(() => raf.flush());
-  act(() => jest.runAllTimers());
+  act(() => {
+    jest.runAllTimers();
+  });
 };
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ResizeControlledConsumer = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 
 import { ActionName } from '../../../../../constants';
 import { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
@@ -31,7 +31,7 @@ describe('createUIAction', () => {
       const props = { onClick: () => {} };
       const { getByTestId } = renderAction(Action, context, testId, props);
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await waitFor(() => getByTestId(testId));
 
       expect(Action).toBeDefined();
       expect(element.textContent).toEqual('Delete');
@@ -58,7 +58,7 @@ describe('createUIAction', () => {
       content: expectedTextContent,
     });
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await waitFor(() => getByTestId(testId));
 
     expect(element.textContent).toEqual(expectedTextContent);
   });

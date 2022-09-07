@@ -56,7 +56,8 @@ describe('FooterBlock', () => {
     const { findByTestId } = renderFooterBlock({ testId: testIdBase });
     const provider = await findByTestId(`${testIdBase}-provider`);
     expect(provider).toBeDefined();
-    expect(provider.textContent).toBe('Confluence');
+    const providerLabel = await findByTestId(`${testIdBase}-provider-label`);
+    expect(providerLabel.textContent).toBe('Confluence');
   });
 
   it('should not render actions when array is empty', () => {

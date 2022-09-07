@@ -7,8 +7,6 @@
 ```ts
 /// <reference types="cypress" />
 
-import { cy } from 'local-cypress';
-
 export declare type CypressType = typeof cy;
 
 export declare interface InProductCommonTestCaseOpts {

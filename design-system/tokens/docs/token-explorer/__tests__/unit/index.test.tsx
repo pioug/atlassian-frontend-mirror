@@ -81,8 +81,8 @@ describe('Token explorer', () => {
       const search = getByTestId(TEST_ID_SEARCH);
       const exactCheckbox = getByTestId(TEST_ID_EXACT_CHECKBOX);
 
-      act(() => {
-        userEvent.type(search, 'color.text.brand', { delay: 100 });
+      act(async () => {
+        await userEvent.type(search, 'color.text.brand', { delay: 100 });
         userEvent.click(exactCheckbox);
       });
 
@@ -116,8 +116,8 @@ describe('Token explorer', () => {
       const search = getByTestId(TEST_ID_SEARCH);
       const exactCheckbox = getByTestId(TEST_ID_EXACT_CHECKBOX);
 
-      act(() => {
-        userEvent.type(search, 'N0', { delay: 100 });
+      act(async () => {
+        await userEvent.type(search, 'N0', { delay: 100 });
         userEvent.click(exactCheckbox);
       });
 

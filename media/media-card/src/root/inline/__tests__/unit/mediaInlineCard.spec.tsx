@@ -13,7 +13,7 @@ import {
   asMock,
 } from '@atlaskit/media-test-helpers';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
-import { render, waitForElement } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 
 describe('<MediaInlineCard />', () => {
   const identifier: FileIdentifier = {
@@ -55,10 +55,10 @@ describe('<MediaInlineCard />', () => {
         mediaClient={mediaClient}
       />,
     );
-    const loadedView = await waitForElement(() =>
+    const loadedView = await waitFor(() =>
       getByTestId('media-inline-card-loaded-view'),
     );
-    const title = await waitForElement(() => getByText('file_name'));
+    const title = await waitFor(() => getByText('file_name'));
 
     expect(loadedView).toBeTruthy();
     expect(title).toBeTruthy();
@@ -73,15 +73,13 @@ describe('<MediaInlineCard />', () => {
         shouldOpenMediaViewer
       />,
     );
-    const loadedView = await waitForElement(() =>
+    const loadedView = await waitFor(() =>
       getByTestId('media-inline-card-loaded-view'),
     );
 
     loadedView.click();
 
-    const mediaViewer = await waitForElement(() =>
-      getByTestId('media-viewer-popup'),
-    );
+    const mediaViewer = await waitFor(() => getByTestId('media-viewer-popup'));
 
     expect(mediaViewer).toBeTruthy();
   });
@@ -96,7 +94,7 @@ describe('<MediaInlineCard />', () => {
         onClick={onClick}
       />,
     );
-    const loadedView = await waitForElement(() =>
+    const loadedView = await waitFor(() =>
       getByTestId('media-inline-card-loaded-view'),
     );
 
@@ -113,7 +111,7 @@ describe('<MediaInlineCard />', () => {
         mediaClient={mediaClient}
       />,
     );
-    const fileTypeIcon = await waitForElement(() =>
+    const fileTypeIcon = await waitFor(() =>
       getByTestId('media-inline-card-file-type-icon'),
     );
     expect(fileTypeIcon.getAttribute('data-type')).toEqual('image');
@@ -141,7 +139,7 @@ describe('<MediaInlineCard />', () => {
         mediaClient={mediaClient}
       />,
     );
-    const fileTypeIcon = await waitForElement(() =>
+    const fileTypeIcon = await waitFor(() =>
       getByTestId('media-inline-card-file-type-icon'),
     );
     expect(fileTypeIcon.getAttribute('data-type')).toEqual('spreadsheet');
@@ -158,7 +156,7 @@ describe('<MediaInlineCard />', () => {
         mediaClient={mediaClient}
       />,
     );
-    const erroredView = await waitForElement(() =>
+    const erroredView = await waitFor(() =>
       getByTestId('media-inline-card-errored-view'),
     );
 

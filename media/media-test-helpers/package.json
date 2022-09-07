@@ -33,7 +33,7 @@
     "@atlaskit/ufo": "^0.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^10.0.7",
-    "@testing-library/react": "^8.0.1",
+    "@testing-library/react": "^12.1.5",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",
     "kakapo": "^4.0.6",

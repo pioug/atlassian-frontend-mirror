@@ -1,4 +1,6 @@
-import { fireEvent } from '@testing-library/dom';
+// Note: not using '@testing-library/dom' in this file as it can
+// add it's own "error" event listeners when other events are being fired
+// This file uses vanilla event firing so that we are in total control
 
 import { combine } from '../../../src/entry-point/util/combine';
 import { appendToBody, getElements, userEvent } from '../_util';
@@ -16,7 +18,9 @@ afterEach(() => {
 
 afterEach(() => {
   // cleanup any pending drags
-  fireEvent.dragEnd(window);
+  window.dispatchEvent(
+    new DragEvent('dragend', { cancelable: true, bubbles: true }),
+  );
 });
 
 it('should add event listeners when the first drop target is mounted', () => {
@@ -168,7 +172,9 @@ it('should bind event listeners needed for the drag only while dragging', () => 
   expect(removeEventListener).not.toHaveBeenCalled();
 
   // finish the drag
-  fireEvent.dragEnd(window);
+  window.dispatchEvent(
+    new DragEvent('dragend', { cancelable: true, bubbles: true }),
+  );
 
   expect(ordered).toEqual(['drop']);
 
@@ -228,7 +234,9 @@ it('should keep dragging event listeners bound even if only drop target is remov
   expect(removeEventListener).toHaveBeenCalledTimes(1);
 
   // finish the drag
-  fireEvent.dragEnd(window);
+  window.dispatchEvent(
+    new DragEvent('dragend', { cancelable: true, bubbles: true }),
+  );
 
   // monitor still told about the drop
   expect(ordered).toEqual(['monitor:drop']);
@@ -281,7 +289,9 @@ it('should keep dragging event listeners bound if only drop  is remounted mid dr
   expect(removeEventListener).not.toHaveBeenCalled();
 
   // entering into A
-  fireEvent.dragEnter(A);
+  A.dispatchEvent(
+    new DragEvent('dragenter', { cancelable: true, bubbles: true }),
+  );
   expect(ordered).toEqual(['a(1):change']);
   ordered.length = 0;
 
@@ -300,7 +310,7 @@ it('should keep dragging event listeners bound if only drop  is remounted mid dr
   );
 
   // drop on A
-  fireEvent.drop(A);
+  A.dispatchEvent(new DragEvent('drop', { cancelable: true, bubbles: true }));
 
   // because 'A' is the key, A2 is treated as the original drop target
   expect(ordered).toEqual(['a(2):drop', 'monitor:drop']);

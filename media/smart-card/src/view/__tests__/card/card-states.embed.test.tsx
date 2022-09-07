@@ -7,7 +7,7 @@ jest.doMock('../../../utils/analytics/analytics');
 import '../../__mocks__/intersection-observer.mock';
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
-import { render, cleanup, waitForElement } from '@testing-library/react';
+import { render, cleanup, waitFor } from '@testing-library/react';
 import { CardClient } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
@@ -41,7 +41,7 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        const loadingView = await waitForElement(() =>
+        const loadingView = await waitFor(() =>
           getByTestId('embed-card-resolving-view'),
         );
         expect(loadingView).toBeTruthy();
@@ -59,7 +59,7 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        const resolvedViewName = await waitForElement(() =>
+        const resolvedViewName = await waitFor(() =>
           getByTestId('embed-card-resolved-view-frame'),
         );
         expect(resolvedViewName).toBeTruthy();
@@ -87,10 +87,10 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        const resolvedViewName = await waitForElement(() =>
+        const resolvedViewName = await waitFor(() =>
           getByText('I love cheese'),
         );
-        const resolvedViewDescription = await waitForElement(() =>
+        const resolvedViewDescription = await waitFor(() =>
           getByText('Here is your serving of cheese: 🧀'),
         );
         expect(resolvedViewName).toBeTruthy();
@@ -120,10 +120,10 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        const resolvedViewName = await waitForElement(() =>
+        const resolvedViewName = await waitFor(() =>
           getByText('I love cheese'),
         );
-        const resolvedViewDescription = await waitForElement(() =>
+        const resolvedViewDescription = await waitFor(() =>
           getByTestId('inline-card-resolved-view'),
         );
         expect(resolvedViewName).toBeTruthy();
@@ -141,7 +141,7 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(resolvedView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -153,7 +153,7 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(2);
       });
@@ -167,7 +167,7 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(resolvedView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -179,7 +179,7 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        resolvedView = await waitFor(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });
@@ -197,7 +197,7 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        const iframeEl = await waitForElement(() =>
+        const iframeEl = await waitFor(() =>
           getByTestId('embed-card-resolved-view-frame'),
         );
         expect(iframeEl).toBe(iframeRef.current);
@@ -215,7 +215,7 @@ describe('smart-card: card states, embed', () => {
           );
           await new Promise((resolve) => setTimeout(resolve, 1000));
 
-          const forbiddenLink = await waitForElement(() =>
+          const forbiddenLink = await waitFor(() =>
             getByText(/Restricted link/),
           );
           expect(forbiddenLink).toBeTruthy();
@@ -242,7 +242,7 @@ describe('smart-card: card states, embed', () => {
               <Card appearance="embed" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const forbiddenLink = await waitForElement(() =>
+          const forbiddenLink = await waitFor(() =>
             getByText(/Restricted link/),
           );
           expect(forbiddenLink).toBeTruthy();
@@ -270,7 +270,7 @@ describe('smart-card: card states, embed', () => {
               />
             </Provider>,
           );
-          const unauthorizedLink = await waitForElement(() =>
+          const unauthorizedLink = await waitFor(() =>
             getByText(/Connect your.*?account/),
           );
 
@@ -296,7 +296,7 @@ describe('smart-card: card states, embed', () => {
               <Card appearance="embed" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const unauthorizedLink = await waitForElement(() =>
+          const unauthorizedLink = await waitFor(() =>
             getByText(/Connect your.*?account/),
           );
           expect(unauthorizedLink).toBeTruthy();
@@ -317,7 +317,7 @@ describe('smart-card: card states, embed', () => {
               <Card appearance="embed" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const errorView = await waitForElement(() =>
+          const errorView = await waitFor(() =>
             getByText(/We couldn't load this link/),
           );
           expect(errorView).toBeTruthy();
@@ -358,7 +358,7 @@ describe('smart-card: card states, embed', () => {
             <Card appearance="embed" url={mockUrl} onError={mockOnError} />
           </Provider>,
         );
-        const errorView = await waitForElement(() =>
+        const errorView = await waitFor(() =>
           getByText(/Uh oh. We can't find this link!/),
         );
         expect(errorView).toBeTruthy();
@@ -386,10 +386,10 @@ describe('smart-card: card states, embed', () => {
             </Provider>
           </IntlProvider>,
         );
-        const resolvedViewName = await waitForElement(() =>
+        const resolvedViewName = await waitFor(() =>
           getByText('I love cheese'),
         );
-        const resolvedViewDescription = await waitForElement(() =>
+        const resolvedViewDescription = await waitFor(() =>
           getByText('Here is your serving of cheese: 🧀'),
         );
         expect(resolvedViewName).toBeTruthy();

@@ -15,7 +15,7 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 
 import '../../__mocks__/intersection-observer.mock';
 import React from 'react';
-import { fireEvent, render, cleanup, wait } from '@testing-library/react';
+import { fireEvent, render, cleanup, waitFor } from '@testing-library/react';
 import { fakeFactory } from '../../../utils/mocks';
 import { CardClient } from '@atlaskit/link-provider';
 import { Provider } from '../../..';
@@ -537,7 +537,7 @@ describe('HoverCard', () => {
       await setup();
       jest.runAllTimers();
 
-      await wait(() => expect(analytics.fireSmartLinkEvent).toBeCalled(), {
+      await waitFor(() => expect(analytics.fireSmartLinkEvent).toBeCalled(), {
         timeout: 5000,
       });
       expect(analytics.uiRenderFailedEvent).toHaveBeenCalledTimes(1);
@@ -678,7 +678,7 @@ describe('HoverCard', () => {
       jest.useFakeTimers();
       fireEvent.mouseEnter(element);
       jest.runAllTimers();
-      await wait(() => expect(mockFetch).toBeCalledTimes(1));
+      await waitFor(() => expect(mockFetch).toBeCalledTimes(1));
 
       return { findByTestId, queryByTestId, resolveFetch, rejectFetch };
     };

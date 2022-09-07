@@ -82,7 +82,9 @@ describe('flag provider', () => {
       fireEvent.click(getByTestId('flag-dismiss'));
     });
 
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(queryAllByText('title')).toHaveLength(1);
     jest.useRealTimers();
   });

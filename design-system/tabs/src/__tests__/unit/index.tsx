@@ -5,6 +5,7 @@ import {
   fireEvent,
   render,
   RenderResult,
+  waitFor,
 } from '@testing-library/react';
 
 import Tabs, { Tab, TabList, TabPanel } from '../../index';
@@ -59,7 +60,7 @@ describe('@atlaskit/tabs', () => {
 
         getByText('Tab 2 label').click();
 
-        expect(getAllByRole('tabpanel').length).toBe(2);
+        waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
         expect(getByText('Tab 1 panel')).toBeTruthy();
         expect(getByText('Tab 2 panel')).toBeTruthy();
         expect(queryByText('Tab 3 panel')).not.toBeTruthy();
@@ -74,7 +75,7 @@ describe('@atlaskit/tabs', () => {
         getByText('Tab 2 label').click();
         getByText('Tab 1 label').click();
 
-        expect(getAllByRole('tabpanel').length).toBe(2);
+        waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
         expect(getByText('Tab 1 panel')).toBeTruthy();
         expect(getByText('Tab 2 panel')).toBeTruthy();
         expect(queryByText('Tab 3 panel')).not.toBeTruthy();
@@ -106,7 +107,7 @@ describe('@atlaskit/tabs', () => {
           </Tabs>,
         );
 
-        expect(getAllByRole('tabpanel').length).toBe(2);
+        waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
         expect(getByText('Tab 1 panel')).toBeTruthy();
         expect(getByText('Tab 2 panel')).toBeTruthy();
         expect(queryByText('Tab 3 panel')).not.toBeTruthy();
@@ -135,7 +136,7 @@ describe('@atlaskit/tabs', () => {
           </Tabs>,
         );
 
-        expect(getAllByRole('tabpanel').length).toBe(2);
+        waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
         expect(getByText('Tab 1 panel')).toBeTruthy();
         expect(getByText('Tab 2 panel')).toBeTruthy();
         expect(queryByText('Tab 3 panel')).not.toBeTruthy();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { FilePreviewItem } from '../../filePreviewItem';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 import { IntlShape } from 'react-intl-next';
@@ -19,15 +19,13 @@ describe('<FilePreviewItem />', () => {
     const { getByTestId } = render(
       <FilePreviewItem mediaPluginState={mediaPluginState} intl={intl} />,
     );
-    const resolvedView = await waitForElement(() =>
+    const resolvedView = await waitFor(() =>
       getByTestId('file-preview-toolbar-button'),
     );
 
     resolvedView.click();
 
-    const mediaViewer = await waitForElement(() =>
-      getByTestId('media-viewer-popup'),
-    );
+    const mediaViewer = await waitFor(() => getByTestId('media-viewer-popup'));
 
     expect(mediaViewer).toBeTruthy();
   });

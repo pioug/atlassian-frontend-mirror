@@ -268,6 +268,7 @@ export declare const Card: React_2.ForwardRefExoticComponent<
     > &
       React_2.RefAttributes<any> &
       WithContextProps,
+    | 'url'
     | 'children'
     | 'data'
     | 'appearance'
@@ -280,7 +281,6 @@ export declare const Card: React_2.ForwardRefExoticComponent<
     | 'onClick'
     | 'analyticsContext'
     | 'key'
-    | 'url'
     | 'ui'
     | 'showActions'
     | 'showHoverPreview'

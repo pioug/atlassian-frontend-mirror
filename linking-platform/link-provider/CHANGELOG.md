@@ -1,5 +1,12 @@
 # @atlaskit/link-provider
 
+## 1.2.6
+
+### Patch Changes
+
+- [`61acd5bc2d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61acd5bc2d0) - Added more search errors
+- Updated dependencies
+
 ## 1.2.5
 
 ### Patch Changes

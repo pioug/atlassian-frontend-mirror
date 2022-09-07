@@ -35,15 +35,13 @@ describe('Smart Card: Client', () => {
 
   it('successfully sets up client with passed environment', async () => {
     mockRequest.mockImplementationOnce(async () => [successfulResponse]);
-    const client = new SmartCardClient('stg');
+    const client = new SmartCardClient();
     const resourceUrl = 'https://i.love.cheese';
     const response = await client.fetchData('https://i.love.cheese');
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      expect.stringMatching(
-        /.*?commerce-components-preview.*?\/resolve\/batch/,
-      ),
+      '/gateway/api/object-resolver/resolve/batch',
       [
         {
           resourceUrl,
@@ -65,7 +63,7 @@ describe('Smart Card: Client', () => {
     }
 
     mockRequest.mockImplementationOnce(mockRequestFn);
-    const client = new SmartCardClient('stg');
+    const client = new SmartCardClient();
     const [responseFirst, responseSecond, responseThird] = await Promise.all([
       // NOTE: send in _two_ of the same URL
       client.fetchData(`${hostname}/success`),
@@ -75,9 +73,7 @@ describe('Smart Card: Client', () => {
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      expect.stringMatching(
-        /.*?commerce-components-preview.*?\/resolve\/batch/,
-      ),
+      '/gateway/api/object-resolver/resolve/batch',
       [
         // NOTE: we only expect _one_ of the duplicated URLs to actually be sent to the backend
         {
@@ -101,7 +97,7 @@ describe('Smart Card: Client', () => {
       unauthorizedResponse,
       notFoundResponse,
     ]);
-    const client = new SmartCardClient('stg');
+    const client = new SmartCardClient();
     const hostname = 'https://www.google.com';
     const [responseFirst, responseSecond, responseThird] = await Promise.all([
       client.fetchData(`${hostname}/1`),
@@ -111,9 +107,7 @@ describe('Smart Card: Client', () => {
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      expect.stringMatching(
-        /.*?commerce-components-preview.*?\/resolve\/batch/,
-      ),
+      '/gateway/api/object-resolver/resolve/batch',
       [
         {
           resourceUrl: `${hostname}/1`,
@@ -139,7 +133,7 @@ describe('Smart Card: Client', () => {
       successfulResponse,
     ]);
 
-    const client = new SmartCardClient('stg');
+    const client = new SmartCardClient();
     const hostname = 'https://www.google.com';
     Promise.all([
       client.fetchData(`${hostname}/1`),
@@ -176,7 +170,7 @@ describe('Smart Card: Client', () => {
         message: 'error-message',
       }),
     );
-    const client = new SmartCardClient('stg');
+    const client = new SmartCardClient();
     const resourceUrl = 'https://i.love.cheese';
     try {
       await client.fetchData(resourceUrl);
@@ -198,7 +192,7 @@ describe('Smart Card: Client', () => {
     mockRequest.mockImplementationOnce(async () =>
       Promise.reject(new NetworkError('some-network-error')),
     );
-    const client = new SmartCardClient('stg');
+    const client = new SmartCardClient();
     const resourceUrl = 'https://i.love.cheese';
     try {
       await client.fetchData(resourceUrl);
@@ -209,7 +203,7 @@ describe('Smart Card: Client', () => {
   });
 
   it('postData()', async () => {
-    const client = new SmartCardClient('stg');
+    const client = new SmartCardClient();
 
     client.postData({
       action: {
@@ -224,7 +218,7 @@ describe('Smart Card: Client', () => {
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      expect.stringMatching(/.*?commerce-components-preview.*?\/invoke/),
+      '/gateway/api/object-resolver/invoke',
       {
         action: {
           type: '',
@@ -238,28 +232,168 @@ describe('Smart Card: Client', () => {
     );
   });
 
-  it('search()', async () => {
-    const client = new SmartCardClient('stg');
+  describe('search()', () => {
+    it('makes request with given parameters', async () => {
+      const client = new SmartCardClient();
 
-    client.search({
-      key: 'google-search-provider',
-      action: { query: 'search terms', context: { id: 'some-id' } },
-    });
-    expect(mockRequest).toBeCalled();
-
-    expect(mockRequest).toBeCalledWith(
-      'post',
-      expect.stringMatching(
-        /.*?commerce-components-preview.*?\/invoke\/search/,
-      ),
-      {
+      await client.search({
         key: 'google-search-provider',
-        search: {
-          query: 'search terms',
-          context: { id: 'some-id' },
+        action: { query: 'search terms', context: { id: 'some-id' } },
+      });
+      expect(mockRequest).toBeCalled();
+
+      expect(mockRequest).toBeCalledWith(
+        'post',
+        '/gateway/api/object-resolver/invoke/search',
+        {
+          key: 'google-search-provider',
+          search: {
+            query: 'search terms',
+            context: { id: 'some-id' },
+          },
         },
-      },
-    );
+      );
+    });
+
+    it('returns json-ld when no error occurs', async () => {
+      mockRequest.mockImplementationOnce(async () => mocks.searchSuccess);
+      const client = new SmartCardClient();
+
+      const response = await client.search({
+        key: 'google-search-provider',
+        action: { query: 'search terms', context: { id: 'some-id' } },
+      });
+      expect(mockRequest).toBeCalled();
+
+      expect(mockRequest).toBeCalledWith(
+        'post',
+        '/gateway/api/object-resolver/invoke/search',
+        {
+          key: 'google-search-provider',
+          search: {
+            query: 'search terms',
+            context: { id: 'some-id' },
+          },
+        },
+      );
+      expect(response.data).not.toBeNull();
+      expect(response.meta).not.toBeNull();
+    });
+
+    it('returns correct error when provider key is incorrect', async () => {
+      mockRequest.mockImplementationOnce(
+        async () => mocks.invokeSearchUnsupportedError,
+      );
+      const client = new SmartCardClient();
+      try {
+        await client.search({
+          key: 'not-a-valid-provider',
+          action: { query: '', context: { id: 'some-id' } },
+        });
+      } catch (error) {
+        expect(error).toBeInstanceOf(APIError);
+        expect(error).toEqual(
+          expect.objectContaining({
+            kind: 'fatal',
+            hostname: '',
+            type: 'SearchUnsupportedError',
+            name: 'APIError',
+          }),
+        );
+      }
+    });
+
+    it('returns correct error for search timeout', async () => {
+      mockRequest.mockImplementationOnce(
+        async () => mocks.invokeSearchTimeoutError,
+      );
+      const client = new SmartCardClient();
+      try {
+        await client.search({
+          key: 'not-a-valid-provider',
+          action: { query: '', context: { id: 'some-id' } },
+        });
+      } catch (error) {
+        expect(error).toBeInstanceOf(APIError);
+        expect(error).toEqual(
+          expect.objectContaining({
+            kind: 'error',
+            hostname: '',
+            type: 'SearchTimeoutError',
+            name: 'APIError',
+          }),
+        );
+      }
+    });
+
+    it('returns correct error for search failed', async () => {
+      mockRequest.mockImplementationOnce(
+        async () => mocks.invokeSearchFailedError,
+      );
+      const client = new SmartCardClient();
+      try {
+        await client.search({
+          key: 'not-a-valid-provider',
+          action: { query: '', context: { id: 'some-id' } },
+        });
+      } catch (error) {
+        expect(error).toBeInstanceOf(APIError);
+        expect(error).toEqual(
+          expect.objectContaining({
+            kind: 'error',
+            hostname: '',
+            type: 'SearchFailedError',
+            name: 'APIError',
+          }),
+        );
+      }
+    });
+
+    it('returns correct error for search auth error', async () => {
+      mockRequest.mockImplementationOnce(
+        async () => mocks.invokeSearchAuthError,
+      );
+      const client = new SmartCardClient();
+      try {
+        await client.search({
+          key: 'not-a-valid-provider',
+          action: { query: '', context: { id: 'some-id' } },
+        });
+      } catch (error) {
+        expect(error).toBeInstanceOf(APIError);
+        expect(error).toEqual(
+          expect.objectContaining({
+            kind: 'auth',
+            hostname: '',
+            type: 'SearchAuthError',
+            name: 'APIError',
+          }),
+        );
+      }
+    });
+
+    it('returns correct error for internal server error', async () => {
+      mockRequest.mockImplementationOnce(
+        async () => mocks.invokeInternalServerError,
+      );
+      const client = new SmartCardClient();
+      try {
+        await client.search({
+          key: 'not-a-valid-provider',
+          action: { query: '', context: { id: 'some-id' } },
+        });
+      } catch (error) {
+        expect(error).toBeInstanceOf(APIError);
+        expect(error).toEqual(
+          expect.objectContaining({
+            kind: 'error',
+            hostname: '',
+            type: 'InternalServerError',
+            name: 'APIError',
+          }),
+        );
+      }
+    });
   });
 
   describe('prefetchData', () => {
@@ -271,7 +405,7 @@ describe('Smart Card: Client', () => {
       ]);
 
       const hostname = 'https://www.google.com';
-      const client = new SmartCardClient('stg');
+      const client = new SmartCardClient();
 
       const responses = await Promise.all([
         client.prefetchData(`${hostname}/1`),
@@ -300,7 +434,7 @@ describe('Smart Card: Client', () => {
       mockRequest.mockImplementationOnce(async () => [successfulResponse]);
 
       const hostname = 'https://www.google.com';
-      const client = new SmartCardClient('stg');
+      const client = new SmartCardClient();
 
       const responses = await Promise.all([
         client.prefetchData(`${hostname}/1`),
@@ -331,7 +465,7 @@ describe('Smart Card: Client', () => {
       mockRequest.mockImplementationOnce(async () => [errorResponse]);
 
       const hostname = 'https://www.google.com';
-      const client = new SmartCardClient('stg');
+      const client = new SmartCardClient();
 
       const responses = await Promise.all([
         client.prefetchData(`${hostname}/1`),
@@ -372,7 +506,7 @@ describe('Smart Card: Client', () => {
       mockRequest.mockImplementationOnce(async () => [errorResponse]);
 
       const hostname = 'https://www.google.com';
-      const client = new SmartCardClient('stg');
+      const client = new SmartCardClient();
 
       // Kickoff a proper fetch of the URL.
       const fetchResponse = await client.fetchData(`${hostname}/3`);

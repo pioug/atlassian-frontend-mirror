@@ -121,7 +121,9 @@ describe('<KeyframesMotion />', () => {
           {(props) => <div {...props} />}
         </KeyframesMotion>,
       );
-      act(() => jest.runTimersToTime(duration));
+      act(() => {
+        jest.runTimersToTime(duration);
+      });
 
       expect(callback).toHaveBeenCalledWith('entering');
     });
@@ -151,7 +153,9 @@ describe('<KeyframesMotion />', () => {
       );
 
       // Step is actually logarithmic so we add a little on to make sure it hits the timeout.
-      act(() => jest.runTimersToTime(duration + step + 2));
+      act(() => {
+        jest.runTimersToTime(duration + step + 2);
+      });
       expect(callback).toHaveBeenCalledWith('entering');
     });
 
@@ -171,7 +175,9 @@ describe('<KeyframesMotion />', () => {
           </KeyframesMotion>
         </ExitingPersistence>,
       );
-      act(() => jest.runAllTimers());
+      act(() => {
+        jest.runAllTimers();
+      });
 
       expect(callback).not.toHaveBeenCalled();
     });
@@ -255,7 +261,9 @@ describe('<KeyframesMotion />', () => {
       );
 
       rerender(<ExitingPersistence>{false}</ExitingPersistence>);
-      act(() => jest.runTimersToTime(duration * 0.5));
+      act(() => {
+        jest.runTimersToTime(duration * 0.5);
+      });
 
       expect(callback).toHaveBeenCalledWith('exiting');
     });
@@ -279,7 +287,9 @@ describe('<KeyframesMotion />', () => {
       callback.mockReset();
       rerender(<span />);
 
-      act(() => jest.runAllTimers());
+      act(() => {
+        jest.runAllTimers();
+      });
 
       expect(callback).not.toHaveBeenCalled();
     });

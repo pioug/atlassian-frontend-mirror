@@ -190,7 +190,9 @@ describe('<ShrinkOut />', () => {
 
     raf.step();
     raf.step();
-    act(() => jest.advanceTimersByTime(smallDurationMs));
+    act(() => {
+      jest.advanceTimersByTime(smallDurationMs);
+    });
 
     expect(callback).toHaveBeenCalledWith('exiting');
   });
@@ -215,7 +217,9 @@ describe('<ShrinkOut />', () => {
 
     raf.step();
     raf.step();
-    act(() => jest.advanceTimersByTime(smallDurationMs));
+    act(() => {
+      jest.advanceTimersByTime(smallDurationMs);
+    });
 
     expect(baseElement.querySelector('[data-testid="target"]')).toEqual(null);
   });

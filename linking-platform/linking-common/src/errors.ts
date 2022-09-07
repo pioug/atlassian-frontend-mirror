@@ -4,6 +4,11 @@ export type ServerErrorType =
   | 'ResolveUnsupportedError'
   | 'ResolveFailedError'
   | 'ResolveTimeoutError'
+  | 'SearchBadRequestError'
+  | 'SearchAuthError'
+  | 'SearchUnsupportedError'
+  | 'SearchFailedError'
+  | 'SearchTimeoutError'
   | 'InternalServerError';
 
 // Used to catch any other errors - not server-side.

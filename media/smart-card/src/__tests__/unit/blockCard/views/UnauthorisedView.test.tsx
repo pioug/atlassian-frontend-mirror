@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent, waitForElement } from '@testing-library/react';
+import { cleanup, fireEvent, waitFor } from '@testing-library/react';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import {
   getResolvedProps,
@@ -83,7 +83,7 @@ describe('BlockCard Views - Unauthorised', () => {
 
     // Click button, expecting it to succeed.
     fireEvent.click(button);
-    const checkIcon = await waitForElement(() => getByTestId('check-icon'));
+    const checkIcon = await waitFor(() => getByTestId('check-icon'));
     expect(checkIcon).toBeInTheDocument();
   });
 

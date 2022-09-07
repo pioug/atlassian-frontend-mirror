@@ -74,7 +74,9 @@ describe('<ExitingPersistence />', () => {
     );
     rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(baseElement.querySelector('[data-testid=element]')).toEqual(null);
   });
@@ -122,7 +124,9 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(baseElement.querySelector('[data-testid=element2]')).toEqual(null);
   });
@@ -152,7 +156,9 @@ describe('<ExitingPersistence />', () => {
         ]}
       </ExitingPersistence>,
     );
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     rerender(
       <ExitingPersistence>
@@ -272,7 +278,9 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(baseElement.querySelector('[data-testid=element2]')).toEqual(null);
   });
@@ -423,15 +431,21 @@ describe('<ExitingPersistence />', () => {
         ]}
       </ExitingPersistence>,
     );
-    act(() => jest.advanceTimersByTime(99));
+    act(() => {
+      jest.advanceTimersByTime(99);
+    });
     rerender(
       <ExitingPersistence>
         {[<Motion id="element3" key="element3" />]}
       </ExitingPersistence>,
     );
-    act(() => jest.advanceTimersByTime(99));
+    act(() => {
+      jest.advanceTimersByTime(99);
+    });
     rerender(<ExitingPersistence>{[]}</ExitingPersistence>);
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(baseElement.querySelector('[data-testid=element1]')).toEqual(null);
     expect(baseElement.querySelector('[data-testid=element2]')).toEqual(null);
@@ -467,7 +481,9 @@ describe('<ExitingPersistence />', () => {
       </ExitingPersistence>,
     );
 
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(getByTestId('element2')).toBeDefined();
   });
@@ -506,7 +522,9 @@ describe('<ExitingPersistence />', () => {
         {false}
       </ExitingPersistence>,
     );
-    act(() => jest.runAllTimers());
+    act(() => {
+      jest.runAllTimers();
+    });
 
     // Once for initial render, twice for rerender
     expect(onRender).toHaveBeenCalledTimes(2);

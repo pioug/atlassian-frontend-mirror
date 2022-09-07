@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -171,7 +171,7 @@ describe('@atlaskit/tabs', () => {
 
       getByText('Tab 2 label').click();
 
-      expect(getAllByRole('tabpanel').length).toBe(2);
+      waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
       expect(getByText('Tab 1 panel')).toBeTruthy();
       expect(getByText('Tab 2 panel')).toBeTruthy();
       expect(queryByText('Tab 3 panel')).not.toBeTruthy();

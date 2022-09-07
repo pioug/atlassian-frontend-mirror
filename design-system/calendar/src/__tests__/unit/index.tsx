@@ -21,27 +21,28 @@ const getById = queryByAttribute.bind(null, 'id');
 const getDayElement = (renderResult: RenderResult, textContent: string) =>
   renderResult.getAllByRole(
     (content, element) =>
-      content === 'gridcell' && element.textContent === textContent,
+      content === 'gridcell' && element?.textContent === textContent,
   )[0];
 
 const getCalendarElement = (renderResult: RenderResult) =>
   renderResult.getByRole(
     (content, element) =>
-      content === 'grid' && element.getAttribute('aria-label') === 'calendar',
+      content === 'grid' && element!.getAttribute('aria-label') === 'calendar',
   );
 
 const getSwitchMonthElement = (renderResult: RenderResult, label: string) =>
   renderResult.getAllByRole(
     (content, element) =>
-      content === 'img' && element.getAttribute('aria-label') === label,
+      content === 'img' && element!.getAttribute('aria-label') === label,
+    { hidden: true },
   )[0];
 
 const getHeaderElements = (renderResult: RenderResult, values: string[]) =>
   renderResult.getByRole(
     (content, element) =>
       content === 'presentation' &&
-      element.firstChild?.nodeName.toLowerCase() === 'div' &&
-      element.firstChild?.textContent === values.join(''),
+      element!.firstChild?.nodeName.toLowerCase() === 'div' &&
+      element!.firstChild?.textContent === values.join(''),
   );
 
 const getAnnouncerElementTextContent = (container: HTMLElement) =>

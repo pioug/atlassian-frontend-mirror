@@ -47,7 +47,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/react": "^11.7.1",
-    "@testing-library/dom": "^7.7.3",
+    "@testing-library/dom": "^8.17.1",
     "@types/raf-schd": "^4.0.1",
     "globby": "^6.1.0",
     "react": "^16.8.0",

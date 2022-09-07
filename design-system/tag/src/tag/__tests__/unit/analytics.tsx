@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, wait } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
@@ -44,7 +44,7 @@ describe('Tag analytics', () => {
     });
     fireEvent.click(getByLabelText('Remove Post Removal Hook'));
 
-    await wait(() => {
+    await waitFor(() => {
       const mock: jest.Mock = onAtlaskitEvent;
       expect(mock).toHaveBeenCalledTimes(1);
       expect(mock.mock.calls[0][0].payload).toEqual(expected.payload);

@@ -128,7 +128,7 @@
     "w3c-keyname": "^2.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.2.4",
+    "@atlaskit/link-provider": "^1.2.6",
     "@atlaskit/media-core": "^33.0.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
@@ -175,10 +175,10 @@
     "@atlassian/search-provider": "2.3.3",
     "@atlassian/ufo": "^0.1.0",
     "@emotion/jest": "^11.8.0",
-    "@testing-library/dom": "^7.7.3",
-    "@testing-library/react": "^8.0.1",
-    "@testing-library/react-hooks": "^1.0.4",
-    "@testing-library/user-event": "10.4.0",
+    "@testing-library/dom": "^8.17.1",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^1.1.0",
+    "@testing-library/user-event": "^13.5.0",
     "@types/diff": "^5.0.2",
     "@types/jscodeshift": "^0.11.0",
     "@types/lodash": "^4.14.157",

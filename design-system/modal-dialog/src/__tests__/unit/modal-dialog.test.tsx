@@ -282,7 +282,9 @@ describe('<ModalDialog />', () => {
       const spy = jest.fn();
 
       render(<ModalDialog onOpenComplete={spy} />);
-      act(() => jest.runAllTimers());
+      act(() => {
+        jest.runAllTimers();
+      });
 
       await waitFor(() => expect(spy).toHaveBeenCalledTimes(1));
     });
@@ -307,10 +309,14 @@ describe('<ModalDialog />', () => {
       );
 
       const { rerender } = render(<ModalWithTransition isOpen />);
-      act(() => jest.runAllTimers());
+      act(() => {
+        jest.runAllTimers();
+      });
 
       rerender(<ModalWithTransition isOpen={false} />);
-      act(() => jest.runAllTimers());
+      act(() => {
+        jest.runAllTimers();
+      });
 
       await waitFor(() => expect(spy).toHaveBeenCalledTimes(1));
     });

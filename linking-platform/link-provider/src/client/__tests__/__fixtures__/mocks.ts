@@ -37,6 +37,45 @@ export const mocks = {
       url: 'https://some.url',
     },
   } as JsonLd.Response,
+  searchSuccess: {
+    meta: {
+      visibility: 'public',
+      access: 'granted',
+      auth: [],
+      definitionId: 'd1',
+      key: 'object-provider',
+    },
+    data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Collection',
+      items: [
+        {
+          '@context': {
+            '@vocab': 'https://www.w3.org/ns/activitystreams#',
+            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+            schema: 'http://schema.org/',
+          },
+          '@type': 'Object',
+          name: 'I love cheese',
+          summary: 'Here is your serving of cheese: 🧀',
+          'schema:potentialAction': {
+            '@id': 'comment',
+            '@type': 'CommentAction',
+            identifier: 'object-provider',
+            name: 'Comment',
+          },
+          preview: {
+            href: 'https://www.ilovecheese.com',
+          },
+          url: 'https://some.url',
+        },
+      ],
+    },
+  } as JsonLd.Response,
   notFound: {
     meta: {
       visibility: 'not_found',
@@ -115,6 +154,41 @@ export const mocks = {
     },
     data: {
       status: 'CompletedStatus',
+    },
+  },
+  invokeSearchUnsupportedError: {
+    error: {
+      type: 'SearchUnsupportedError',
+      message: 'Search not supported',
+      status: 404,
+    },
+  },
+  invokeSearchTimeoutError: {
+    error: {
+      type: 'SearchTimeoutError',
+      message: 'Server took too long to respond',
+      status: 504,
+    },
+  },
+  invokeSearchFailedError: {
+    error: {
+      type: 'SearchFailedError',
+      message: 'Search failed',
+      status: 404,
+    },
+  },
+  invokeSearchAuthError: {
+    error: {
+      type: 'SearchAuthError',
+      message: 'Authorization failed',
+      status: 504,
+    },
+  },
+  invokeInternalServerError: {
+    error: {
+      type: 'InternalServerError',
+      message: 'Something went wrong',
+      status: 504,
     },
   },
 };

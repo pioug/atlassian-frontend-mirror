@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.8.0
+
+### Minor Changes
+
+- [`61acd5bc2d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61acd5bc2d0) - Added more search errors
+
 ## 1.7.0
 
 ### Minor Changes

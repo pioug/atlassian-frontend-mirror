@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, wait } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
@@ -40,7 +40,7 @@ describe('Help', () => {
       <Help tooltip={`Help button`} badge={NotificationsBadge} />,
     );
 
-    await wait(() => notificationLogProvider);
+    await waitFor(() => notificationLogProvider);
 
     const notificationCounterElm = queryByText(
       `${MAX_NUMBER_OF_NOTIFICATIONS}+`,
@@ -65,7 +65,7 @@ describe('Help', () => {
       <Help tooltip={`Help button`} badge={NotificationsBadge} />,
     );
 
-    await wait(() => notificationLogProvider);
+    await waitFor(() => notificationLogProvider);
 
     const notificationCounterElm = queryByText(`${numberOfNotifications}`);
     expect(notificationCounterElm).toBeNull();

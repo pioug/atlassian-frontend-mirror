@@ -8,4 +8,5 @@ export type {
   ElementDropTargetEventPayloadMap,
   ElementEventPayloadMap,
   ElementEventBasePayload,
+  ElementMonitorCanMonitorArgs,
 } from '../../adapter/element-adapter';

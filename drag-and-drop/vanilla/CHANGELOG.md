@@ -1,5 +1,25 @@
 # @atlaskit/drag-and-drop
 
+## 0.4.0
+
+### Minor Changes
+
+- [`4d739042b04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d739042b04) - Improving jsdoc auto complete information for `GetFeedbackArgs`
+
+## 0.3.0
+
+### Minor Changes
+
+- [`52403a2c11f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52403a2c11f) - Adding a `canMonitor()` function to _monitors_ to allow a _monitor_ to conditionally apply to a drag operation.
+
+  ```ts
+  monitorForElements({
+    canMonitor: ({ source }) => source.data.type === 'card',
+    onDragStart: () =>
+      console.log('I will only be activated when dragging a card!'),
+  });
+  ```
+
 ## 0.2.0
 
 ### Minor Changes

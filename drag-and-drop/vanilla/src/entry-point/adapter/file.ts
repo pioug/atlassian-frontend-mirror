@@ -7,4 +7,5 @@ export type {
   FileEventBasePayload,
   FileDropTargetEventPayloadMap,
   FileEventPayloadMap,
+  FileMonitorCanMonitorArgs,
 } from '../../adapter/file-adapter';

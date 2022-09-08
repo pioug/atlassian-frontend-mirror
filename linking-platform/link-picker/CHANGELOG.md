@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.8.5
+
+### Patch Changes
+
+- [`47c9a0a3331`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c9a0a3331) - Improves spacing and reduced jitter of height when loading items.
+
 ## 1.8.4
 
 ### Patch Changes

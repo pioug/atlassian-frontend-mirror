@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 4.6.0
+
+### Minor Changes
+
+- [`dc7a50a70a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc7a50a70a2) - Split out automatically sent events to handle upcoming change in the flag exposure pipeline
+
 ## 4.5.5
 
 ### Patch Changes

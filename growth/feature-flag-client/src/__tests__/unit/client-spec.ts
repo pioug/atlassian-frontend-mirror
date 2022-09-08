@@ -276,8 +276,21 @@ describe('Feature Flag Client', () => {
             },
           }),
         ).toBe(false);
-        expect(analyticsHandler).toHaveBeenCalledTimes(1);
-        expect(analyticsHandler).toHaveBeenCalledWith({
+        expect(analyticsHandler).toHaveBeenCalledTimes(2);
+        expect(analyticsHandler).toHaveBeenNthCalledWith(1, {
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.detailed.boolean.flag',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: false,
+          },
+          tags: ['defaultExposure', 'measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+        expect(analyticsHandler).toHaveBeenNthCalledWith(2, {
           action: 'exposed',
           actionSubject: 'feature',
           attributes: {
@@ -288,7 +301,7 @@ describe('Feature Flag Client', () => {
             permissions: 'read',
             section: 'view-page',
           },
-          tags: ['defaultExposure', 'measurement'],
+          tags: ['measurement', 'defaultExposure', 'hasCustomAttributes'],
           highPriority: true,
           source: '@atlaskit/feature-flag-client',
         });
@@ -651,8 +664,21 @@ describe('Feature Flag Client', () => {
             },
           }),
         ).toBe('experiment');
-        expect(analyticsHandler).toHaveBeenCalledTimes(1);
-        expect(analyticsHandler).toHaveBeenCalledWith({
+        expect(analyticsHandler).toHaveBeenCalledTimes(2);
+        expect(analyticsHandler).toHaveBeenNthCalledWith(1, {
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: 'experiment',
+          },
+          tags: ['defaultExposure', 'measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+        expect(analyticsHandler).toHaveBeenNthCalledWith(2, {
           action: 'exposed',
           actionSubject: 'feature',
           attributes: {
@@ -663,7 +689,7 @@ describe('Feature Flag Client', () => {
             permissions: 'read',
             container: 'space',
           },
-          tags: ['defaultExposure', 'measurement'],
+          tags: ['measurement', 'defaultExposure', 'hasCustomAttributes'],
           highPriority: true,
           source: '@atlaskit/feature-flag-client',
         });
@@ -1162,8 +1188,21 @@ describe('Feature Flag Client', () => {
             },
           }),
         ).toBe('experiment');
-        expect(analyticsHandler).toHaveBeenCalledTimes(1);
-        expect(analyticsHandler).toHaveBeenCalledWith({
+        expect(analyticsHandler).toHaveBeenCalledTimes(2);
+        expect(analyticsHandler).toHaveBeenNthCalledWith(1, {
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            value: 'experiment',
+          },
+          tags: ['defaultExposure', 'measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+        expect(analyticsHandler).toHaveBeenNthCalledWith(2, {
           action: 'exposed',
           actionSubject: 'feature',
           attributes: {
@@ -1174,7 +1213,7 @@ describe('Feature Flag Client', () => {
             permissions: 'read',
             container: 'space',
           },
-          tags: ['defaultExposure', 'measurement'],
+          tags: ['measurement', 'defaultExposure', 'hasCustomAttributes'],
           highPriority: true,
           source: '@atlaskit/feature-flag-client',
         });
@@ -1952,7 +1991,20 @@ describe('Feature Flag Client', () => {
         expect(automaticAnalyticsHandler.sendOperationalEvent).toBeCalledTimes(
           0,
         );
-        expect(analyticsHandler).toHaveBeenCalledWith({
+        expect(analyticsHandler).toHaveBeenNthCalledWith(1, {
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'RULE_MATCH',
+            ruleId: 'aaaa-vbbbb-ccccc',
+            value: '111-bbbbbb-ccc',
+          },
+          tags: ['manualExposure', 'measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+        expect(analyticsHandler).toHaveBeenNthCalledWith(2, {
           action: 'exposed',
           actionSubject: 'feature',
           attributes: {
@@ -1962,7 +2014,7 @@ describe('Feature Flag Client', () => {
             someCustomAttribute: 9000,
             value: '111-bbbbbb-ccc',
           },
-          tags: ['manualExposure', 'measurement'],
+          tags: ['measurement', 'manualExposure', 'hasCustomAttributes'],
           highPriority: true,
           source: '@atlaskit/feature-flag-client',
         });

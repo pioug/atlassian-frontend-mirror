@@ -39,6 +39,23 @@ While a drag operation is occurring:
 - `canDrag?: (args: GetFeedbackArgs) => boolean`: used to conditionally allow dragging (see below)
 - `getInitialData?: (args: GetFeedbackArgs) => Record<string, unknown>`: a one time attaching of data to a draggable as a drag is starting
 
+```ts
+type GetFeedbackArgs = {
+  /**
+   * The user input as a drag is trying to start (the `initial` input)
+   */
+  input: Input;
+  /**
+   * The `draggable` element
+   */
+  element: HTMLElement;
+  /**
+   * The `dragHandle` element for the `draggable`
+   */
+  dragHandle: Element | null;
+};
+```
+
 For events (eg `onDragStart`) see [our events guide]('./events.md)
 
 - `onGenerateDragPreview`

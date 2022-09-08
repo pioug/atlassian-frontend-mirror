@@ -10,6 +10,7 @@ import {
   EventPayloadMap,
   Input,
   InternalDragType,
+  MonitorCanMonitorArgs,
 } from '../internal-types';
 import { makeAdapter } from '../make-adapter/make-adapter';
 import { addAttribute } from '../util/add-attribute';
@@ -27,8 +28,17 @@ type ElementDragType = InternalDragType<
 >;
 
 type GetFeedbackArgs = {
+  /**
+   * The user input as a drag is trying to start (the `initial` input)
+   */
   input: Input;
+  /**
+   * The `draggable` element
+   */
   element: HTMLElement;
+  /**
+   * The `dragHandle` element for the `draggable`
+   */
   dragHandle: Element | null;
 };
 
@@ -202,3 +212,7 @@ export type ElementDropTargetEventPayloadMap = DropTargetEventPayloadMap<
 export type ElementEventPayloadMap = EventPayloadMap<ElementDragType>;
 
 export type ElementEventBasePayload = BaseEventPayload<ElementDragType>;
+
+export type ElementMonitorCanMonitorArgs = MonitorCanMonitorArgs<
+  ElementDragType
+>;

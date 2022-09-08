@@ -263,6 +263,7 @@ export default class FeatureFlagClient {
       return;
     }
 
+    const hasCustomAttributes = Object.keys(exposureData).length > 0;
     checkForReservedAttributes(exposureData);
 
     const flagAttributes: ReservedAttributes = {
@@ -272,16 +273,40 @@ export default class FeatureFlagClient {
       value: flag.value,
     };
 
-    const exposureEvent: ExposureEvent = {
-      action: 'exposed',
-      actionSubject: 'feature',
-      attributes: Object.assign(exposureData, flagAttributes),
-      tags: [exposureTriggerReason, 'measurement'],
-      highPriority: true,
-      source: '@atlaskit/feature-flag-client',
-    };
+    const action = 'exposed';
+    const actionSubject = 'feature';
+    const highPriority = true;
+    const source = '@atlaskit/feature-flag-client';
 
-    this.analyticsHandler(exposureEvent);
+    this.analyticsHandler({
+      action,
+      actionSubject,
+      attributes: flagAttributes as ExposureEventAttributes,
+      tags: [exposureTriggerReason, 'measurement'],
+      highPriority,
+      source,
+    });
+
+    // Due to the way we've simplified our pipeline, custom attributes are dropped from exposure
+    // events. In order not to break existing users of this feature immediately, we're sending an
+    // extra event that won't be consumed by our pipeline, but will end up in the `cloud.*` tables.
+    // See: https://hello.atlassian.net/wiki/spaces/MEASURE/pages/1838596497/AtlasKit+TAC
+    if (hasCustomAttributes) {
+      this.analyticsHandler({
+        action,
+        actionSubject,
+        attributes: Object.assign({}, flagAttributes, exposureData),
+        tags: [
+          'measurement',
+          exposureTriggerReason === ExposureTriggerReason.AutoExposure
+            ? ExposureTriggerReason.Manual
+            : exposureTriggerReason,
+          ExposureTriggerReason.hasCustomAttributes,
+        ],
+        highPriority,
+        source,
+      });
+    }
 
     this.trackedFlags.add(flagKey);
   }

@@ -89,6 +89,7 @@ export declare enum ExposureTriggerReason {
   Manual = 'manualExposure',
   Default = 'defaultExposure',
   AutoExposure = 'autoExposure',
+  hasCustomAttributes = 'hasCustomAttributes',
 }
 
 declare class FeatureFlagClient {

@@ -8,6 +8,7 @@ import {
   DropTargetEventPayloadMap,
   EventPayloadMap,
   ExternalDragType,
+  MonitorCanMonitorArgs,
 } from '../internal-types';
 import { makeAdapter } from '../make-adapter/make-adapter';
 import { combine } from '../util/combine';
@@ -126,3 +127,5 @@ export type FileEventPayloadMap = StripPreviewEvent<
   EventPayloadMap<FileDragType>
 >;
 export type FileEventBasePayload = BaseEventPayload<FileDragType>;
+
+export type FileMonitorCanMonitorArgs = MonitorCanMonitorArgs<FileDragType>;

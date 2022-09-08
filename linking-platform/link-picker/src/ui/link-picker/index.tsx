@@ -13,8 +13,6 @@ import { jsx } from '@emotion/react';
 import { useIntl, IntlShape, FormattedMessage } from 'react-intl-next';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
-import { FormFooter } from '@atlaskit/form';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -34,19 +32,24 @@ import { withLinkPickerAnalyticsContext } from '../../services/with-link-picker-
 
 import { messages } from './messages';
 import PanelTextInput from './text-input';
-import LinkSearchList from './link-search-list';
 import { normalizeUrl, isSafeUrl } from '../../common/utils/url';
+import useFixHeight from '../../controllers/use-fix-height';
 import {
   rootContainerStyles,
   searchIconStyles,
-  listTitleStyles,
   tabsWrapperStyles,
+  flexColumnStyles,
+  formFooterMargin,
 } from './styled';
 import { browser } from './browser';
 import Announcer from './announcer';
-import LinkSearchNoResults from './link-search-no-results';
 import { transformTimeStamp } from './transformTimeStamp';
-import LinkSearchError from './link-search-error';
+
+import LinkSearchList, { testIds as listTestIds } from './link-search-list';
+import LinkSearchError, {
+  testIds as searchErrorTestIds,
+} from './link-search-error';
+import FormFooter, { testIds as formFooterTestIds } from './form-footer';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
@@ -56,19 +59,14 @@ export const testIds = {
   urlInputField: 'link-url',
   textInputField: 'link-text',
   searchIcon: 'link-picker-search-icon',
-  insertButton: 'link-picker-insert-button',
-  cancelButton: 'link-picker-cancel-button',
+  ...formFooterTestIds,
+  ...searchErrorTestIds,
+  ...listTestIds,
   clearUrlButton: 'clear-text',
-  resultListTitle: 'link-picker-list-title',
-  emptyResultPage: 'link-search-no-results',
-  searchResultList: 'link-search-list',
-  searchResultItem: 'link-search-list-item',
-  searchResultLoadingIndicator: 'link-picker.results-loading-indicator',
   urlError: 'link-error',
   tabList: 'link-picker-tabs',
   tabItem: 'link-picker-tab',
-  searchError: 'link-search-error',
-};
+} as const;
 
 interface Meta {
   /** Indicates how the link was picked. */
@@ -178,6 +176,8 @@ function LinkPicker({
     retry,
     errorFallback,
   } = usePlugins(queryState, activeTab, plugins);
+
+  const fixListHeightProps = useFixHeight(isLoading);
 
   const isEditing = !!initUrl;
   const selectedItem: LinkSearchListItemData | undefined =
@@ -342,17 +342,6 @@ function LinkPicker({
     ? messages.placeholder
     : messages.linkPlaceholder;
 
-  const linkListTitle =
-    queryState?.query?.length !== 0
-      ? messages.titleResults
-      : messages.titleRecentlyViewed;
-
-  const insertButtonMsg = isEditing
-    ? messages.saveButton
-    : messages.insertButton;
-
-  const noResults = items?.length === 0 && !error;
-
   const screenReaderDescriptionId = 'search-recent-links-field-description';
   const linkSearchListId = 'link-picker-search-list';
   const ariaActiveDescendant =
@@ -421,7 +410,7 @@ function LinkPicker({
         onKeyDown={handleKeyDown}
         onChange={handleChangeText}
       />
-      {queryState && (
+      {isActivePlugin && !!queryState && (
         <Fragment>
           {tabs.length > 0 && (
             <div css={tabsWrapperStyles}>
@@ -447,92 +436,31 @@ function LinkPicker({
               </Tabs>
             </div>
           )}
-          {!!items?.length && (
-            <div
-              css={listTitleStyles}
-              id={testIds.resultListTitle}
-              data-testid={testIds.resultListTitle}
-            >
-              <FormattedMessage {...linkListTitle} />
-            </div>
-          )}
-          <VisuallyHidden id="fabric.smartcard.linkpicker.suggested.results">
-            {url && (
-              <FormattedMessage
-                {...messages.searchLinkResults}
-                values={{ count: items?.length ?? 0 }}
-                aria-live="polite"
-                aria-atomic="true"
+          <div css={flexColumnStyles} {...fixListHeightProps}>
+            {!error && (
+              <LinkSearchList
+                id={linkSearchListId}
+                role="listbox"
+                items={items}
+                isLoading={isLoading}
+                selectedIndex={selectedIndex}
+                activeIndex={activeIndex}
+                onSelect={handleSelected}
+                onMouseEnter={handleMouseEnterResultItem}
+                onMouseLeave={handleMouseLeaveResultItem}
+                error={error}
+                hasSearchTerm={!!queryState?.query.length}
               />
             )}
-          </VisuallyHidden>
-          <LinkSearchList
-            ariaLabelledBy={testIds.resultListTitle}
-            ariaControls="fabric.smartcard.linkpicker.suggested.results"
-            id={linkSearchListId}
-            role="listbox"
-            items={items ?? []}
-            isLoading={isLoading}
-            selectedIndex={selectedIndex}
-            activeIndex={activeIndex}
-            onSelect={handleSelected}
-            onMouseEnter={handleMouseEnterResultItem}
-            onMouseLeave={handleMouseLeaveResultItem}
-          />
-
-          {error &&
-            (errorFallback?.(error, retry) ?? (
-              <LinkSearchError
-                testId={testIds.searchError}
-                header={intl.formatMessage(messages.searchErrorHeader)}
-                description={
-                  <FormattedMessage
-                    {...messages.searchErrorDescription}
-                    values={{
-                      a: (label: string) => (
-                        <Button
-                          appearance="link"
-                          spacing="none"
-                          href={CONTACT_SUPPORT_LINK}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {label}
-                        </Button>
-                      ),
-                    }}
-                  />
-                }
-              />
-            ))}
-
-          {noResults && (
-            <LinkSearchNoResults
-              testId={testIds.emptyResultPage}
-              header={intl.formatMessage(messages.noResults)}
-              description={intl.formatMessage(messages.noResultsDescription)}
-            />
-          )}
+            {error && (errorFallback?.(error, retry) ?? <LinkSearchError />)}
+          </div>
         </Fragment>
       )}
-      <FormFooter align="end">
-        <ButtonGroup>
-          <Button
-            appearance="default"
-            onClick={onCancel}
-            testId={testIds.cancelButton}
-          >
-            {intl.formatMessage(messages.cancelButton)}
-          </Button>
-          <Button
-            type="submit"
-            appearance="primary"
-            testId={testIds.insertButton}
-          >
-            {intl.formatMessage(insertButtonMsg)}
-          </Button>
-        </ButtonGroup>
-      </FormFooter>
+      <FormFooter
+        css={!queryState || !plugins?.length ? formFooterMargin : undefined}
+        isEditing={isEditing}
+        onCancel={onCancel}
+      />
     </form>
   );
 }

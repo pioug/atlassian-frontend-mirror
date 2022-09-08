@@ -13,5 +13,7 @@ export const clearTextButtonStyles = css`
 `;
 
 export const fieldStyles = css`
-  margin-bottom: ${gridSize() * 2}px;
+  & + & {
+    margin-top: ${gridSize() * 2}px;
+  }
 `;

@@ -1,5 +1,17 @@
 # @atlaskit/drag-and-drop-autoscroll
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.1
 
 ### Patch Changes

@@ -14,6 +14,7 @@ export enum ExposureTriggerReason {
   Manual = 'manualExposure', // Consumer manually fires the event using client.trackExposure
   Default = 'defaultExposure', // Consumer does not specify shouldTrackExposure (default behaviour)
   AutoExposure = 'autoExposure', // Consumer sets shouldTrackExposure to false (fired as part of TAC)
+  hasCustomAttributes = 'hasCustomAttributes', // Set if consumer sends extra exposure data along (in addition to above tags)
 }
 
 export type RuleId = string;

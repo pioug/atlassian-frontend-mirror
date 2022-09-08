@@ -18,7 +18,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { LinkPickerProps } from '../../../';
 import LinkPicker, { testIds } from '../../link-picker';
 
-import { messages } from '../../link-picker/messages';
+import { messages as resultsListMessages } from '../../link-picker/link-search-list';
 
 jest.mock('date-fns/differenceInCalendarDays', () => {
   return jest.fn().mockImplementation(() => -5);
@@ -927,7 +927,7 @@ describe('<LinkPicker />', () => {
       await asyncAct(() => plugin.promises[1]);
 
       expect(screen.getByTestId(testIds.resultListTitle)).toHaveTextContent(
-        messages.titleRecentlyViewed.defaultMessage,
+        resultsListMessages.titleRecentlyViewed.defaultMessage,
       );
     });
 
@@ -953,7 +953,7 @@ describe('<LinkPicker />', () => {
 
       expect(
         await screen.findByTestId(testIds.resultListTitle),
-      ).toHaveTextContent(messages.titleResults.defaultMessage);
+      ).toHaveTextContent(resultsListMessages.titleResults.defaultMessage);
     });
 
     it('should submit when insert button is clicked', async () => {
@@ -1164,7 +1164,7 @@ describe('<LinkPicker />', () => {
         const retryAction = await screen.findByTestId('mocked-fallback-action');
         expect(retryAction).toBeInTheDocument();
         expect(
-          screen.queryByText(messages.searchErrorDescription.description),
+          screen.queryByTestId(testIds.searchError),
         ).not.toBeInTheDocument();
 
         act(() => userEvent.click(retryAction));

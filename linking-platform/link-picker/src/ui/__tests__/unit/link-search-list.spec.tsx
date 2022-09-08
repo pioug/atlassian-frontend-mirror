@@ -11,7 +11,7 @@ interface SetupOptions extends LinkSearchListProps {}
 
 describe('<LinkSearchList />', () => {
   const setup = (userOptions: Partial<SetupOptions> = {}) => {
-    const defaultOptions: Required<SetupOptions> = {
+    const defaultOptions = {
       items: getDefaultItems(),
       isLoading: false,
       onMouseEnter: jest.fn(),
@@ -23,8 +23,8 @@ describe('<LinkSearchList />', () => {
       ariaLabelledBy: '',
       role: '',
       id: '',
-    };
-    const options: Required<SetupOptions> = {
+    } as const;
+    const options = {
       ...defaultOptions,
       ...userOptions,
     };
@@ -42,7 +42,7 @@ describe('<LinkSearchList />', () => {
 
   it('should render the list items and no loading when loaded', () => {
     const { component, items } = setup();
-    expect(component.find(LinkSearchListItem)).toHaveLength(items.length);
+    expect(component.find(LinkSearchListItem)).toHaveLength(items!.length);
     expect(component.find(Spinner)).toHaveLength(0);
   });
 
@@ -52,7 +52,7 @@ describe('<LinkSearchList />', () => {
     const image = component.find(LinkSearchListItem).at(0).render().find('img');
 
     expect(image.attr('alt')).toMatch('List item');
-    expect(image.attr('src')).toMatch(`${items[0].icon}`);
+    expect(image.attr('src')).toMatch(`${items![0].icon}`);
   });
 
   it('should render a spinner when loading and not items', () => {
@@ -71,7 +71,7 @@ describe('<LinkSearchList />', () => {
     });
 
     expect(component.find(Spinner)).toHaveLength(1);
-    expect(component.find(LinkSearchListItem)).toHaveLength(items.length);
+    expect(component.find(LinkSearchListItem)).toHaveLength(items!.length);
   });
 
   it('should not render list when there are no items', () => {
@@ -85,8 +85,8 @@ describe('<LinkSearchList />', () => {
 
     let firstItem = component.find(LinkSearchListItem).at(0);
     const itemProps = firstItem.props();
-    expect(itemProps.item).toEqual(items[0]);
-    expect(firstItem.key()).toEqual(items[0].objectId);
+    expect(itemProps.item).toEqual(items![0]);
+    expect(firstItem.key()).toEqual(items![0].objectId);
     expect(itemProps.onSelect).toEqual(onSelect);
     expect(itemProps.onMouseEnter).toEqual(onMouseEnter);
     expect(itemProps.onMouseLeave).toEqual(onMouseLeave);

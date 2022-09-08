@@ -1,51 +1,51 @@
 import {
   AllDragTypes,
-  AllEvents,
   CleanupFn,
   EventPayloadMap,
+  MonitorArgs,
+  MonitorCanMonitorArgs,
 } from '../internal-types';
-import { combine } from '../util/combine';
 
-type Keys<Obj extends Record<string, unknown>> = (keyof Obj)[];
-
-function getKeys<Obj extends Record<string, unknown>>(obj: Obj): Keys<Obj> {
-  return Object.keys(obj);
-}
+type DraggingState<DragType extends AllDragTypes> = {
+  canMonitorArgs: MonitorCanMonitorArgs<DragType>;
+  active: Set<MonitorArgs<DragType>>;
+};
 
 export function makeMonitor<DragType extends AllDragTypes>() {
-  const registry: {
-    [EventName in keyof AllEvents<DragType>]: Set<
-      AllEvents<DragType>[EventName]
-    >;
-  } = {
-    onGenerateDragPreview: new Set(),
-    onDragStart: new Set(),
-    onDropTargetChange: new Set(),
-    onDrag: new Set(),
-    onDrop: new Set(),
-  };
+  const registry = new Set<MonitorArgs<DragType>>();
 
-  function monitorForConsumers(obj: Partial<AllEvents<DragType>>): CleanupFn {
-    const cleanups = getKeys(obj).map(eventName => {
-      // creating a unique reference for each function so that
-      // any new calls to monitor will not override existing ones
-      function listener(payload: EventPayloadMap<DragType>[typeof eventName]) {
-        obj[eventName]?.(
-          // I cannot seem to get the types right here.
-          // TS doesn't seem to like that one event can need `nativeSetDragImage`
-          // @ts-expect-error
-          payload,
-        );
+  let dragging: DraggingState<DragType> | null = null;
+
+  function tryAddToActive(monitor: MonitorArgs<DragType>) {
+    if (!dragging) {
+      return;
+    }
+    // Monitor is allowed to monitor events if:
+    // 1. It has no `canMonitor` function (default is that a monitor can listen to everything)
+    // 2. `canMonitor` returns true
+    if (!monitor.canMonitor || monitor.canMonitor(dragging.canMonitorArgs)) {
+      dragging.active.add(monitor);
+    }
+  }
+
+  function monitorForConsumers(args: MonitorArgs<DragType>): CleanupFn {
+    // We are giving each `args` a new reference so that you
+    // can create multiple monitors with the same `args`.
+    const entry: MonitorArgs<DragType> = { ...args };
+
+    registry.add(entry);
+
+    // if there is an active drag we need to see if this new monitor is relevant
+    tryAddToActive(entry);
+
+    return function cleanup() {
+      registry.delete(entry);
+
+      // We need to stop publishing events during a drag to this monitor!
+      if (dragging) {
+        dragging.active.delete(entry);
       }
-
-      registry[eventName].add(listener);
-
-      return function cleanup() {
-        registry[eventName].delete(listener);
-      };
-    });
-
-    return combine(...cleanups);
+    };
   }
 
   function dispatchEvent<EventName extends keyof EventPayloadMap<DragType>>({
@@ -55,10 +55,33 @@ export function makeMonitor<DragType extends AllDragTypes>() {
     eventName: EventName;
     payload: EventPayloadMap<DragType>[EventName];
   }) {
-    // This line does not work in TS 4.2
-    // It does work in TS 4.7
-    // @ts-expect-error
-    registry[eventName].forEach(listener => listener(payload));
+    if (eventName === 'onGenerateDragPreview') {
+      dragging = {
+        canMonitorArgs: {
+          initial: payload.location.initial,
+          source: payload.source,
+        },
+        active: new Set(),
+      };
+      for (const monitor of registry) {
+        tryAddToActive(monitor);
+      }
+    }
+
+    // This should never happen.
+    if (!dragging) {
+      return;
+    }
+
+    for (const monitor of dragging.active) {
+      // @ts-expect-error: I cannot get this type working!
+      monitor[eventName]?.(payload);
+    }
+
+    if (eventName === 'onDrop') {
+      dragging.active.clear();
+      dragging = null;
+    }
   }
 
   return {

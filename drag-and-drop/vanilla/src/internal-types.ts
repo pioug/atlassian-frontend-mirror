@@ -194,9 +194,26 @@ export type AllEvents<DragType extends AllDragTypes> = {
   ) => void;
 };
 
+export type MonitorCanMonitorArgs<DragType extends AllDragTypes> = {
+  /**
+   * The users `initial` drag location
+   */
+  initial: DragLocation;
+  /**
+   * The data associated with the entity being dragged
+   */
+  source: DragType['payload'];
+};
+
+export type MonitorArgs<DragType extends AllDragTypes> = Partial<
+  AllEvents<DragType>
+> & {
+  canMonitor?: (args: MonitorCanMonitorArgs<DragType>) => boolean;
+};
+
 export type DropTargetGetFeedbackArgs<DragType extends AllDragTypes> = {
   /**
-   * The users current input
+   * The users _current_ input
    */
   input: Input;
   /**

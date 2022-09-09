@@ -33,10 +33,10 @@ const invertedItemStyles = css({
 
 export default function Example() {
   return (
-    <div>
+    <div data-testid="badge">
       <div css={itemStyles}>
         <p>Added</p>
-        <Badge appearance="added" max={99} testId="badge">
+        <Badge appearance="added" max={99}>
           {3000}
         </Badge>
       </div>
@@ -46,49 +46,35 @@ export default function Example() {
       </div>
       <div css={itemStyles}>
         <p>Default (∞)</p>
-        <Badge max={Infinity} testId="badge">
-          {Infinity}
-        </Badge>
+        <Badge max={Infinity}>{Infinity}</Badge>
       </div>
       <div css={itemStyles}>
         <p>Important</p>
-        <Badge appearance="important" testId="badge">
-          {25}
-        </Badge>
+        <Badge appearance="important">{25}</Badge>
       </div>
       <div css={itemStyles}>
         <p>Primary</p>
-        <Badge appearance="primary" testId="badge">
-          {-5}
-        </Badge>
+        <Badge appearance="primary">{-5}</Badge>
       </div>
       <div css={[itemStyles, invertedItemStyles]}>
         <p>Primary Inverted</p>
-        <Badge appearance="primaryInverted" testId="badge">
-          {5}
-        </Badge>
+        <Badge appearance="primaryInverted">{5}</Badge>
       </div>
       <div css={itemStyles}>
         <p>Removed</p>
-        <Badge appearance="removed" testId="badge">
-          {100}
-        </Badge>
+        <Badge appearance="removed">{100}</Badge>
       </div>
       <div css={itemStyles}>
         <p>Added code</p>
-        <Badge appearance="added" testId="badge">
-          +100
-        </Badge>
+        <Badge appearance="added">+100</Badge>
       </div>
       <div css={itemStyles}>
         <p>Removed code</p>
-        <Badge appearance="removed" testId="badge">
-          -100
-        </Badge>
+        <Badge appearance="removed">-100</Badge>
       </div>
       <div css={itemStyles}>
         <p>Added</p>
-        <Badge appearance="added" max={4000} testId="badge">
+        <Badge appearance="added" max={4000}>
           {3000}
         </Badge>
       </div>

@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.9.0
+
+### Minor Changes
+
+- [`26ca68a3993`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26ca68a3993) - Add support for the onSubmit handler prop to receive a second argument, being a clone of the form submitted analytic event
+
 ## 1.8.5
 
 ### Patch Changes

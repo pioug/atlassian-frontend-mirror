@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 0.1.3
+
+### Patch Changes
+
+- [`d6328e5e1ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6328e5e1ec) - Removes the default values for `<Text />`.
+
 ## 0.1.2
 
 ### Patch Changes

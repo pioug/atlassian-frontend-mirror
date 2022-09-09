@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 172.1.1
+
+### Patch Changes
+
+- [`fb0c1db4bf7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb0c1db4bf7) - [ux] ED-15512 Fix can't delete quote in first line jira comment
+
 ## 172.1.0
 
 ### Minor Changes

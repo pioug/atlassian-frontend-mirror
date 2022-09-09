@@ -142,8 +142,7 @@ const Text: FC<TextProps> = ({
 }: TextProps) => {
   const surface = useSurface();
   // @ts-ignore
-  const [color = colorMap[surface] ?? 'color.text', fallback] =
-    colorTuple || [];
+  const [color = colorMap[surface], fallback] = colorTuple || [];
   invariant(
     asAllowlist.includes(Component),
     `@atlaskit/ds-explorations: Text received an invalid "as" value of "${Component}"`,

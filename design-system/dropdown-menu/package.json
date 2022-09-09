@@ -44,7 +44,7 @@
   "devDependencies": {
     "@atlaskit/avatar": "^21.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/lozenge": "11.2.0",
+    "@atlaskit/lozenge": "11.2.1",
     "@atlaskit/modal-dialog": "^12.3.0",
     "@atlaskit/section-message": "^6.2.0",
     "@atlaskit/ssr": "*",

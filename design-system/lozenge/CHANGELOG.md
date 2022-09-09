@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 11.2.1
+
+### Patch Changes
+
+- [`fe54d8f1aec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe54d8f1aec) - Update ds-explorations dependency. No change in behaviour.
+
 ## 11.2.0
 
 ### Minor Changes

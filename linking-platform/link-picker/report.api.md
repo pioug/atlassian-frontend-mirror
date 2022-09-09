@@ -10,6 +10,7 @@
 import { MessageDescriptor } from 'react-intl-next';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export declare type LinkInputType = 'manual' | 'typeAhead';
 
@@ -35,8 +36,13 @@ export declare type LinkPickerPluginErrorFallback = (
 ) => ReactNode;
 
 export declare interface LinkPickerProps {
-  /** Callback to fire on form submission. */
-  onSubmit: (arg: OnSubmitParameter) => void;
+  /**
+   * Callback to fire on form submission.
+   */
+  onSubmit: (
+    arg: OnSubmitParameter,
+    analytic?: UIAnalyticsEvent | null,
+  ) => void;
   /** Callback to fire when the cancel button is clicked. */
   onCancel: () => void;
   /** Callback to fire when content is changed inside the link picker e.g. items, when loading, tabs */

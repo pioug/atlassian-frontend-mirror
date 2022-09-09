@@ -5,12 +5,13 @@ import { fireEvent } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-
-import { LinkPickerProps } from '../../../';
-import { ANALYTICS_CHANNEL } from '../../../common/constants';
-import LinkPicker, { testIds } from '../../link-picker';
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import matches from 'lodash/matches';
+
+import { LinkPicker, LinkPickerProps } from '../../../';
+import { ANALYTICS_CHANNEL } from '../../../common/constants';
+import { testIds } from '../../link-picker';
+import { PACKAGE_DATA as ROOT_CONTEXT } from '../../';
 
 expect.extend({
   toBeFiredWithAnalyticEventOnce(analyticsListenerSpy, event, channel) {
@@ -55,12 +56,13 @@ describe('LinkPicker analytics', () => {
     ...props
   }: Partial<LinkPickerProps> = {}) => {
     const spy = jest.fn();
+    const onSubmit = jest.fn();
 
     const wrappedLinkPicker = render(
       <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={spy}>
         <LinkPicker
           url={url}
-          onSubmit={jest.fn()}
+          onSubmit={onSubmit}
           plugins={plugins ?? []}
           onCancel={jest.fn()}
           onContentResize={jest.fn()}
@@ -71,40 +73,62 @@ describe('LinkPicker analytics', () => {
 
     return {
       spy,
+      onSubmit,
       testIds,
       wrappedLinkPicker,
     };
   };
 
-  it('should fire `ui.form.submitted.linkPicker` on form submission', async () => {
-    const { spy, testIds } = setupLinkPicker();
+  it('should fire `ui.form.submitted.linkPicker` and emit a clone of the `ui.form.submitted.linkPicker` event on form submission', async () => {
+    const { onSubmit, spy, testIds } = setupLinkPicker();
 
     await userEvent.type(
-      screen.getByTestId(testIds.urlInputField),
+      await screen.findByTestId(testIds.urlInputField),
       'www.atlassian.com',
     );
 
-    fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+    fireEvent.submit(await screen.findByTestId(testIds.urlInputField));
+
+    const payload = {
+      action: 'submitted',
+      eventType: 'ui',
+      actionSubject: 'form',
+      actionSubjectId: 'linkPicker',
+      attributes: {},
+    };
+
+    const context = [
+      ROOT_CONTEXT,
+      {
+        attributes: {
+          linkState: 'newLink',
+        },
+      },
+    ];
 
     expect(spy).toBeFiredWithAnalyticEventOnce(
       {
         hasFired: true,
-        context: [
-          {
-            attributes: {
-              linkState: 'newLink',
-            },
-          },
-        ],
-        payload: {
-          action: 'submitted',
-          eventType: 'ui',
-          actionSubject: 'form',
-          actionSubjectId: 'linkPicker',
-          attributes: {},
-        },
+        context,
+        payload,
       },
       ANALYTICS_CHANNEL,
+    );
+
+    // Second onSubmit argument should be a `UIAnalyticsEvent` match the event dispatched
+    // except it should not yet have been fired (`hasFired` = false)
+    expect(onSubmit).toHaveBeenCalledWith<[{}, UIAnalyticsEvent]>(
+      expect.objectContaining({
+        url: 'http://www.atlassian.com',
+      }),
+      expect.any(UIAnalyticsEvent),
+    );
+    expect(onSubmit.mock.calls[0][1]).toStrictEqual(
+      expect.objectContaining({
+        hasFired: false,
+        context,
+        payload,
+      }),
     );
   });
 
@@ -115,6 +139,7 @@ describe('LinkPicker analytics', () => {
       {
         hasFired: true,
         context: [
+          ROOT_CONTEXT,
           {
             attributes: {
               linkState: 'newLink',
@@ -142,6 +167,7 @@ describe('LinkPicker analytics', () => {
       {
         hasFired: true,
         context: [
+          ROOT_CONTEXT,
           {
             attributes: {
               linkState: 'newLink',
@@ -175,6 +201,7 @@ describe('LinkPicker analytics', () => {
         {
           hasFired: true,
           context: [
+            ROOT_CONTEXT,
             {
               attributes: {
                 linkState: 'newLink',
@@ -204,6 +231,7 @@ describe('LinkPicker analytics', () => {
         {
           hasFired: true,
           context: [
+            ROOT_CONTEXT,
             {
               attributes: {
                 linkState: 'editLink',

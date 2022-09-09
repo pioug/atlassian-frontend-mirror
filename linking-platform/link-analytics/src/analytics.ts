@@ -1,4 +1,5 @@
-export const createSmartLinkPayload = {
+export const linkCreatedPayload = {
   action: 'created',
-  actionSubject: 'smartLink',
-};
+  actionSubject: 'link',
+  eventType: 'track',
+} as const;

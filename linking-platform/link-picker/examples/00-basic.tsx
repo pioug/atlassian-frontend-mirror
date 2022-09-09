@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
+import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 
 import {
   AtlassianLinkPickerPlugin,
@@ -7,11 +8,9 @@ import {
 } from '@atlassian/link-picker-atlassian-plugin';
 import { useForgeSearchProviders } from '@atlassian/link-picker-plugins';
 
-import { LinkPicker, LinkPickerPlugin } from '../src';
+import { LinkPicker, LinkPickerProps, LinkPickerPlugin } from '../src';
 
-type OnSubmitPayload = Parameters<
-  Required<React.ComponentProps<typeof LinkPicker>>['onSubmit']
->[0];
+type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 
 export default function Basic() {
   const [link, setLink] = useState<OnSubmitPayload>({
@@ -23,9 +22,11 @@ export default function Basic() {
     },
   });
   const [isLinkPickerVisible, setIsLinkPickerVisible] = useState(true);
+  const { linkCreated } = useSmartLinkLifecycleAnalytics();
 
-  const handleSubmit = (payload: OnSubmitPayload) => {
+  const handleSubmit: LinkPickerProps['onSubmit'] = (payload, analytic) => {
     setLink(payload);
+    linkCreated(payload, analytic);
     setIsLinkPickerVisible(false);
   };
 

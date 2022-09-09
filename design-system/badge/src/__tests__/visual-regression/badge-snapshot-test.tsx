@@ -1,28 +1,26 @@
 import {
   getExampleUrl,
   loadPage,
-  waitForElementCount,
+  takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-describe('Snapshot Test', () => {
-  it('badge basic example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'badge',
-      'basic',
-      global.__BASEURL__,
-    );
-    const { page } = global;
+describe('@atlaskit/badge Snapshot Test', () => {
+  it.each(['light', 'dark', 'none'] as const)(
+    'badge (%s) configurations should match production example',
+    async (theme) => {
+      const url = getExampleUrl(
+        'design-system',
+        'badge',
+        'basic',
+        global.__BASEURL__,
+        theme,
+      );
+      const { page } = global;
 
-    await loadPage(page, url);
-    // Move the mouse away from the first button to avoid
-    // the hover effect from triggering.
-    await page.mouse.move(400, 0);
+      await loadPage(page, url);
 
-    // Wait for 10 list items
-    await waitForElementCount(page, 'span[data-testid="badge"]', 9);
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+      const image = await takeElementScreenShot(page, '[data-testid="badge"]');
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 });

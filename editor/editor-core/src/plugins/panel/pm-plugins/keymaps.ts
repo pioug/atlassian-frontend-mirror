@@ -76,7 +76,7 @@ export function keymapPlugin(): SafePlugin | undefined {
         isInsideAnEmptyNode(selection, blockquote, state.schema)
       ) {
         const content = $from.node($from.depth).content;
-        const insertPos = previousPos.pos - 1;
+        const insertPos = previousPos.pos;
         deleteCurrentItem($from, tr).insert(insertPos, content);
         if (dispatch) {
           dispatch(setTextSelection(insertPos)(tr).scrollIntoView());

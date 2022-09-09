@@ -1,5 +1,17 @@
 # @atlaskit/badge
 
+## 15.0.18
+
+### Patch Changes
+
+- [`57adb9bb931`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57adb9bb931) - Fixes an issue with '@atlaskit/badge' text color for certain appearances.
+
+## 15.0.17
+
+### Patch Changes
+
+- [`fe54d8f1aec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe54d8f1aec) - Update ds-explorations dependency. No change in behaviour.
+
 ## 15.0.16
 
 ### Patch Changes

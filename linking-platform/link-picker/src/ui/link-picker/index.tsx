@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl, IntlShape, FormattedMessage } from 'react-intl-next';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
@@ -92,8 +92,13 @@ interface OnSubmitParameter {
 }
 
 export interface LinkPickerProps {
-  /** Callback to fire on form submission. */
-  onSubmit: (arg: OnSubmitParameter) => void;
+  /**
+   * Callback to fire on form submission.
+   */
+  onSubmit: (
+    arg: OnSubmitParameter,
+    analytic?: UIAnalyticsEvent | null,
+  ) => void;
   /** Callback to fire when the cancel button is clicked. */
   onCancel: () => void;
   /** Callback to fire when content is changed inside the link picker e.g. items, when loading, tabs */
@@ -293,15 +298,23 @@ function LinkPicker({
         createEventPayload('ui.form.submitted.linkPicker', {}),
       );
 
+      // Clone the event so that it can be emitted for consumer usage
+      // This must happen BEFORE the original event is fired!
+      const consumerEvent = event.clone();
+
+      // Dispatch the original event to our channel
       event.fire(ANALYTICS_CHANNEL);
 
-      onSubmit({
-        url,
-        displayText: displayText || null,
-        title: title || null,
-        meta: { inputMethod: inputType },
-        ...(inputType === 'manual' ? { rawUrl: state.url } : {}),
-      });
+      onSubmit(
+        {
+          url,
+          displayText: displayText || null,
+          title: title || null,
+          meta: { inputMethod: inputType },
+          ...(inputType === 'manual' ? { rawUrl: state.url } : {}),
+        },
+        consumerEvent,
+      );
     },
     [displayText, onSubmit, state.url, createAnalyticsEvent],
   );

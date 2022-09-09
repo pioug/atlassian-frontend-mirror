@@ -1,12 +1,12 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
   "license": "Apache-2.0",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": false,
-    "releaseModel": "scheduled"
+    "releaseModel": "continuous"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

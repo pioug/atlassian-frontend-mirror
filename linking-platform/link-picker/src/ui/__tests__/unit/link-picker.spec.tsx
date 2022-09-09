@@ -15,6 +15,8 @@ import { act, fireEvent } from '@testing-library/react';
 import { screen, waitFor } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+
 import { LinkPickerProps } from '../../../';
 import LinkPicker, { testIds } from '../../link-picker';
 
@@ -77,15 +79,18 @@ describe('<LinkPicker />', () => {
       fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: 'http://www.atlassian.com',
-        title: null,
-        displayText: null,
-        rawUrl: 'www.atlassian.com',
-        meta: {
-          inputMethod: 'manual',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://www.atlassian.com',
+          title: null,
+          displayText: null,
+          rawUrl: 'www.atlassian.com',
+          meta: {
+            inputMethod: 'manual',
+          },
         },
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     it('should display a valid URL on load', async () => {
@@ -107,15 +112,18 @@ describe('<LinkPicker />', () => {
       fireEvent.submit(screen.getByTestId(testIds.textInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: 'http://www.atlassian.com',
-        displayText: 'link',
-        title: null,
-        meta: {
-          inputMethod: 'manual',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://www.atlassian.com',
+          displayText: 'link',
+          title: null,
+          meta: {
+            inputMethod: 'manual',
+          },
+          rawUrl: 'www.atlassian.com',
         },
-        rawUrl: 'www.atlassian.com',
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     it('should NOT display search icon', async () => {
@@ -159,15 +167,18 @@ describe('<LinkPicker />', () => {
       userEvent.click(screen.getByTestId(testIds.insertButton));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: 'http://www.atlassian.com',
-        displayText: null,
-        title: null,
-        meta: {
-          inputMethod: 'manual',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://www.atlassian.com',
+          displayText: null,
+          title: null,
+          meta: {
+            inputMethod: 'manual',
+          },
+          rawUrl: 'www.atlassian.com',
         },
-        rawUrl: 'www.atlassian.com',
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     it('should handle event when cancel button is clicked', async () => {
@@ -200,15 +211,18 @@ describe('<LinkPicker />', () => {
       fireEvent.submit(screen.getByTestId(testIds.textInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: 'https://www.atlassian.com',
-        displayText: 'link',
-        title: null,
-        meta: {
-          inputMethod: 'manual',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'https://www.atlassian.com',
+          displayText: 'link',
+          title: null,
+          meta: {
+            inputMethod: 'manual',
+          },
+          rawUrl: 'https://www.atlassian.com',
         },
-        rawUrl: 'https://www.atlassian.com',
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     it('should not submit if provided a valid url and changed to invalid', async () => {
@@ -220,15 +234,18 @@ describe('<LinkPicker />', () => {
       await userEvent.type(screen.getByTestId(testIds.urlInputField), 'foo');
 
       expect(onSubmitMock).not.toHaveBeenCalled();
-      expect(onSubmitMock).not.toHaveBeenCalledWith({
-        url: 'foo',
-        displayText: null,
-        title: null,
-        meta: {
-          inputMethod: 'manual',
+      expect(onSubmitMock).not.toHaveBeenCalledWith(
+        {
+          url: 'foo',
+          displayText: null,
+          title: null,
+          meta: {
+            inputMethod: 'manual',
+          },
+          rawUrl: 'foo',
         },
-        rawUrl: 'foo',
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
   });
 
@@ -274,15 +291,18 @@ describe('<LinkPicker />', () => {
       fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: 'http://www.atlassian.com',
-        displayText: null,
-        title: null,
-        meta: {
-          inputMethod: 'manual',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://www.atlassian.com',
+          displayText: null,
+          title: null,
+          meta: {
+            inputMethod: 'manual',
+          },
+          rawUrl: 'www.atlassian.com',
         },
-        rawUrl: 'www.atlassian.com',
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     it('should submit with valid url and title in the input field', async () => {
@@ -296,15 +316,18 @@ describe('<LinkPicker />', () => {
       fireEvent.submit(screen.getByTestId(testIds.textInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: 'http://www.atlassian.com',
-        displayText: 'link',
-        title: null,
-        meta: {
-          inputMethod: 'manual',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://www.atlassian.com',
+          displayText: 'link',
+          title: null,
+          meta: {
+            inputMethod: 'manual',
+          },
+          rawUrl: 'www.atlassian.com',
         },
-        rawUrl: 'www.atlassian.com',
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     describe('onContentResize', () => {
@@ -707,14 +730,17 @@ describe('<LinkPicker />', () => {
 
       const secondItem = mockedPluginData[1];
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: secondItem.url,
-        title: secondItem.name,
-        displayText: null,
-        meta: {
-          inputMethod: 'typeAhead',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: secondItem.url,
+          title: secondItem.name,
+          displayText: null,
+          meta: {
+            inputMethod: 'typeAhead',
+          },
         },
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     it('should display Error message when URL is invalid', async () => {
@@ -790,14 +816,17 @@ describe('<LinkPicker />', () => {
 
       const secondItem = mockedPluginData[1];
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: secondItem.url,
-        displayText: null,
-        title: secondItem.name,
-        meta: {
-          inputMethod: 'typeAhead',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: secondItem.url,
+          displayText: null,
+          title: secondItem.name,
+          meta: {
+            inputMethod: 'typeAhead',
+          },
         },
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     it('should populate url field with active item when navigated to via keyboard', async () => {
@@ -899,15 +928,18 @@ describe('<LinkPicker />', () => {
       });
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: 'http://example.com',
-        displayText: null,
-        title: null,
-        meta: {
-          inputMethod: 'manual',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://example.com',
+          displayText: null,
+          title: null,
+          meta: {
+            inputMethod: 'manual',
+          },
+          rawUrl: 'example.com',
         },
-        rawUrl: 'example.com',
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     it('should display search icon', async () => {
@@ -969,15 +1001,18 @@ describe('<LinkPicker />', () => {
       userEvent.click(screen.getByTestId(testIds.insertButton));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        url: 'http://example.com',
-        displayText: null,
-        title: null,
-        meta: {
-          inputMethod: 'manual',
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://example.com',
+          displayText: null,
+          title: null,
+          meta: {
+            inputMethod: 'manual',
+          },
+          rawUrl: 'example.com',
         },
-        rawUrl: 'example.com',
-      });
+        expect.any(UIAnalyticsEvent),
+      );
     });
 
     it('should display a message if search returns no results and state is not loading', async () => {

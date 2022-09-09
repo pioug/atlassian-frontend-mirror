@@ -12,7 +12,7 @@ import { ErrorBoundaryFallback } from './error-boundary-fallback';
 import { LinkPickerProps } from './link-picker';
 import { LoaderFallback } from './loader-fallback';
 
-const PACKAGE_DATA = {
+export const PACKAGE_DATA = {
   packageName,
   packageVersion,
   componentName: COMPONENT_NAME,

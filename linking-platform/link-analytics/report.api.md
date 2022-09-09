@@ -4,20 +4,57 @@
 
 [Learn more about API reports](https://hello.atlassian.net/wiki/spaces/UR/pages/1825484529/Package+API+Reports)
 
-```ts
-declare type SmartLinkAnalyticsAttributes = Record<string, any>;
+````ts
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-declare interface SmartLinkDetails {
+declare type LinkAnalyticsAttributes = Record<string, any>;
+
+/**
+ * Fires an event for when a smart link is created.
+ * @param details The link data including the url
+ * @param sourceEvent A source analytic event that represents the trigger for creating the event
+ * @param attributes Custom attributes to decorate the event with
+ */
+declare interface LinkCreated {
+  (
+    details: LinkDetails,
+    sourceEvent?: UIAnalyticsEvent | null,
+    attributes?: LinkAnalyticsAttributes,
+  ): void;
+}
+
+declare interface LinkDetails {
   url: string;
   smartLinkId?: string;
 }
 
-export declare const useSmartLinkLifecycleAnalytics: () => {
-  createSmartLink: (
-    _details: SmartLinkDetails,
-    attributes: SmartLinkAnalyticsAttributes,
-  ) => void;
-};
+declare interface SmartLinkLifecycleMethods {
+  linkCreated: LinkCreated;
+}
+
+/**
+ * Exposes callbacks to fire analytics events for the lifecycle (create, update and deletion) of links
+ * @returns An object containing the analytic lifecycle methods
+ *
+ * @example Link created Example
+ *
+ * ```ts
+ * export const ExampleComponent = () => {
+ *   const { linkCreated } = useSmartLinkLifecycleAnalytics();
+ *
+ *   const handleCreateLink = ({ url }) => {
+ *     // ... do stuff
+ *     // Call when a link is created
+ *     linkCreated({ url })
+ *   }
+ *
+ *   return (
+ *     <SomeLinkCreatingComponent onCreateLink={handleCreateLink} />
+ *   )
+ * }
+ * ```
+ */
+export declare const useSmartLinkLifecycleAnalytics: () => SmartLinkLifecycleMethods;
 
 export {};
-```
+````

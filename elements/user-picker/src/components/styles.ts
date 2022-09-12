@@ -40,17 +40,17 @@ export const getStyles = memoizeOne(
           ...css,
           width,
           borderColor: state.isFocused
-            ? token('color.border', css.borderColor)
+            ? token('color.border.focused', css.borderColor)
             : state.selectProps.subtle || state.selectProps.noBorder
             ? 'transparent'
-            : token('color.border', N40),
+            : token('color.border.input', N40),
           backgroundColor: state.isFocused
-            ? token('elevation.surface', css['backgroundColor'])
+            ? token('color.background.input', css['backgroundColor'])
             : state.selectProps.subtle
             ? 'transparent'
             : state.selectProps.textFieldBackgroundColor
             ? token('color.background.input', N10)
-            : token('color.background.neutral', N20),
+            : token('color.background.input', N20),
           '&:hover .fabric-user-picker__clear-indicator': { opacity: 1 },
           ':hover': {
             ...css[':hover'],
@@ -61,19 +61,22 @@ export const getStyles = memoizeOne(
               : state.selectProps.subtle
               ? state.selectProps.hoveringClearIndicator
                 ? token('color.icon.danger', R50)
-                : token('color.border', N30)
-              : token('color.border', N40),
+                : token('color.icon', N30)
+              : token('color.border.input', N40),
             backgroundColor:
               state.selectProps.subtle &&
               state.selectProps.hoveringClearIndicator
                 ? token('color.background.danger', R50)
                 : state.isFocused
                 ? css[':hover']
-                  ? token('elevation.surface', css[':hover'].backgroundColor)
-                  : token('elevation.surface', N0)
+                  ? token(
+                      'color.background.input',
+                      css[':hover'].backgroundColor,
+                    )
+                  : token('color.background.input', N0)
                 : state.isDisabled
                 ? token('color.background.disabled', N10)
-                : token('elevation.surface', N30),
+                : token('color.background.input.hovered', N30),
           },
           padding: 0,
           minHeight: isCompact ? 'none' : 44,
@@ -91,12 +94,17 @@ export const getStyles = memoizeOne(
         ...css
       }: any) => ({
         ...css,
-        opacity: 0,
+        // By default show clear indicator, except for on devices where "hover" is supported.
+        // This means mobile devices (which do not support hover) will be able to see the clear indicator.
+        opacity: 1,
+        '@media (hover: hover) and (pointer: fine)': {
+          opacity: 0,
+        },
         transition: css.transition + ', opacity 150ms',
         paddingTop: 0,
         padding: 0,
         ':hover': {
-          color: token('color.text.danger', R400),
+          color: token('color.icon.danger', R400),
         },
       }),
       indicatorsContainer: (css: any) => ({

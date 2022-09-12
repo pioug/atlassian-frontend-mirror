@@ -1,5 +1,11 @@
 # @atlaskit/activity-provider
 
+## 2.3.6
+
+### Patch Changes
+
+- [`3771da907e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3771da907e9) - Add deprecation to package.json
+
 ## 2.3.5
 
 ### Patch Changes

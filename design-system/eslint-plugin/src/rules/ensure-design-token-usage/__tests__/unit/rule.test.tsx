@@ -206,12 +206,21 @@ tester.run('ensure-design-token-usage', rule, {
     `export const App = () => <Avatar src="0x400" />;`,
     // Qualified type identifiers are parsable
     `const options: Foo.Bar = { color: 'red' };`,
-    // Using config -> exceptions: ['GOLD_YEARLY', 'GOLD_MONTHLY']
+    // Using config -> exceptions: ['dangerouslyGetComputedToken', 'gold']
     {
       options: [
         {
           shouldEnforceFallbacks: false,
-          exceptions: ['GOLD_YEARLY', 'GOLD_MONTHLY'],
+          exceptions: ['dangerouslyGetComputedToken', 'gold'],
+        },
+      ],
+      code: `dangerouslyGetComputedToken('color.text', N800);`,
+    },
+    {
+      options: [
+        {
+          shouldEnforceFallbacks: false,
+          exceptions: ['dangerouslyGetComputedToken', 'gold'],
         },
       ],
       code: `
@@ -459,23 +468,6 @@ tester.run('ensure-design-token-usage', rule, {
         { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
       ],
-    },
-    // Exceptions must be exact matches:
-    {
-      options: [
-        {
-          shouldEnforceFallbacks: false,
-          exceptions: ['GOLD_YEARLY', 'GOLD_MONTHLY'],
-        },
-      ],
-      code: `
-        useQuery({
-          variables: {
-            product: GOLD_MUNTH,
-          },
-        });
-      `,
-      errors: [{ messageId: 'hardCodedColor' }],
     },
   ],
 });

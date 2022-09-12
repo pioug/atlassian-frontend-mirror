@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.3
+
+### Patch Changes
+
+- [`916af279b4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/916af279b4d) - added validation to handle strong mark under list
+
 ## 11.1.2
 
 ### Patch Changes

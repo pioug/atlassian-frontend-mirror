@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/activity-provider",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "A provider to support recent activities in editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -19,6 +19,10 @@
     ".": "./src/index.ts"
   },
   "atlassian": {
+    "website": {
+      "name": "@atlaskit/activity-provider",
+      "deprecated": "This package is deprecated and no longer supported. We recommend using @atlassian/activity-provider instead."
+    },
     "team": "Linking Platform",
     "releaseModel": "continuous"
   },

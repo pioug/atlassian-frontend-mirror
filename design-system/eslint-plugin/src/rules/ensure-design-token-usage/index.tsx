@@ -1,6 +1,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
+import { getIsException } from '../utils/get-is-exception';
 import {
   includesHardCodedColor,
   isHardCodedColor,
@@ -94,8 +95,8 @@ token('color.background.blanket');
   },
   create(context) {
     const config: PluginConfig = context.options[0] || defaultConfig;
-    const isException = (value: string) =>
-      config.exceptions?.includes(value) ?? false;
+
+    const isException = getIsException(config.exceptions);
 
     return {
       'TemplateLiteral > Identifier': (node: Rule.Node) => {
@@ -106,7 +107,7 @@ token('color.background.blanket');
         if (
           node.type === 'Identifier' &&
           isLegacyNamedColor(node.name) &&
-          !isException(node.name)
+          !isException(node)
         ) {
           context.report({
             messageId: 'hardCodedColor',
@@ -119,7 +120,7 @@ token('color.background.blanket');
 
       Identifier(node) {
         if (
-          isException(node.name) ||
+          isException(node) ||
           isDecendantOfGlobalToken(node) ||
           isDecendantOfType(node, 'ImportDeclaration') ||
           isPropertyKey(node) ||
@@ -218,11 +219,7 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
       },
 
       'ObjectExpression > Property > Literal': (node: Rule.Node) => {
-        if (node.type !== 'Literal') {
-          return;
-        }
-
-        if (typeof node.value !== 'string') {
+        if (node.type !== 'Literal' || typeof node.value !== 'string') {
           return;
         }
 
@@ -233,13 +230,10 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           return;
         }
 
-        if (isException(node.value)) {
-          return;
-        }
-
         if (
-          isHardCodedColor(node.value) ||
-          includesHardCodedColor(node.value)
+          (isHardCodedColor(node.value) ||
+            includesHardCodedColor(node.value)) &&
+          !isException(node)
         ) {
           context.report({
             messageId: 'hardCodedColor',
@@ -268,7 +262,7 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         if (
           !isLegacyNamedColor(node.callee.name) ||
           isDecendantOfGlobalToken(node) ||
-          isException(node.callee.name)
+          isException(node)
         ) {
           return;
         }
@@ -290,10 +284,10 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         }
 
         if (node.value.type === 'Literal') {
-          const literalValue = node.value.value;
-          if (isException(literalValue)) {
+          if (isException(node)) {
             return;
           }
+          const literalValue = node.value.value;
           if (
             isHardCodedColor(literalValue) ||
             includesHardCodedColor(literalValue)

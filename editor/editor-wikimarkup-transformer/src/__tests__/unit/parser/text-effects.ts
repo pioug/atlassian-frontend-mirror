@@ -112,6 +112,14 @@ https://app.datadoghq.com/screen/282018/product-fabric-adf-service?tv_mode=true#
       'ESS-2439 should remove the last closing parenthesis from the link',
       'text prefix https://example.com/()) text suffix',
     ],
+    [
+      'ADFEXP-38 bullet items should not contain code-block marks with others.',
+      '* h3. Une fois que le service {{comments}}',
+    ],
+    [
+      'ADFEXP-38 ordered list should not contain code-block marks with others.',
+      '# h3. Une fois que le service {{comments}}',
+    ],
   ];
 
   for (const [testCaseDescription, markup] of testCases) {

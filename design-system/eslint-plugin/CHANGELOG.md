@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.11.0
+
+### Minor Changes
+
+- [`268f92124e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/268f92124e2) - Bolster isException logic to support descendants of excepted functions and to be case-agnostic
+
 ## 4.10.1
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import { normalizePMNodes } from '../utils/normalize';
 import { parseMacroKeyword } from './keyword';
 import { Token, TokenType, parseToken, TokenParser } from './';
 import { parseNewlineOnly } from './whitespace';
+import { hasAnyOfMarks } from '../utils/text';
 
 export const MAX_LIST_DEPTH = 20;
 
@@ -267,7 +268,14 @@ function sanitize(nodes: PMNode[], schema: Schema) {
             if (n.text) {
               n.text = n.text.toUpperCase();
             }
-            contentBuffer.push(n.mark([...n.marks, mark]));
+            if (
+              n.type.name === 'text' &&
+              !hasAnyOfMarks(n, ['strong', 'code'])
+            ) {
+              contentBuffer.push(n.mark([...n.marks, mark]));
+            } else {
+              contentBuffer.push(n);
+            }
           } else {
             contentBuffer.push(n);
           }

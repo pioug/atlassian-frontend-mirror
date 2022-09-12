@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 9.3.6
+
+### Patch Changes
+
+- [`cb4c9cdd28b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb4c9cdd28b) - [ux] Update input component to use input tokens
+
+## 9.3.5
+
+### Patch Changes
+
+- [`45da4e093b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45da4e093b9) - [ux] User picker now shows the "X" clear indicator on mobile, which previously wasn't working because hover was required which doesn't work on mobile.
+
 ## 9.3.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.2.1
+
+### Patch Changes
+
+- [`d0e187cc5bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0e187cc5bd) - Fixed a babel issue causing `styled-components` to get injected, which broke our styling.
+
 ## 9.2.0
 
 ### Minor Changes

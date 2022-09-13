@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 172.1.2
+
+### Patch Changes
+
+- [`764bb2b1267`](https://bitbucket.org/atlassian/atlassian-frontend/commits/764bb2b1267) - Fixed a bug where toolbar would disappear / break when mediaSingle is resized
+
 ## 172.1.1
 
 ### Patch Changes

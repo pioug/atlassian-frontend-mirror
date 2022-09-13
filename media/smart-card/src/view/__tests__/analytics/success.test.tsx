@@ -19,6 +19,7 @@ import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
 import { isSpecialEvent } from '../../../utils';
 import * as cardWithUrlContent from '../../CardWithUrl/component';
+import { TestErrorBoundary } from '../_boundary';
 
 describe('smart-card: success analytics', () => {
   let mockClient: CardClient;
@@ -315,11 +316,16 @@ describe('smart-card: success analytics', () => {
           throw new Error();
         });
 
+      const onError = jest.fn();
       render(
-        <Provider client={mockClient}>
-          <Card appearance="inline" url={mockUrl} />
-        </Provider>,
+        <TestErrorBoundary onError={onError}>
+          <Provider client={mockClient}>
+            <Card appearance="inline" url={mockUrl} />
+          </Provider>
+        </TestErrorBoundary>,
       );
+
+      expect(onError).toHaveBeenCalledTimes(1);
 
       await waitFor(
         () => expect(analytics.fireSmartLinkEvent).toBeCalledTimes(1),
@@ -357,22 +363,29 @@ describe('smart-card: success analytics', () => {
           throw new Error();
         });
 
+      const onError = jest.fn();
       const { rerender } = render(
-        <Provider client={mockClient}>
-          <Card appearance="inline" url={mockUrl} showActions={false} />
-        </Provider>,
+        <TestErrorBoundary onError={onError}>
+          <Provider client={mockClient}>
+            <Card appearance="inline" url={mockUrl} showActions={false} />
+          </Provider>
+        </TestErrorBoundary>,
       );
 
       rerender(
-        <Provider client={mockClient}>
-          <Card
-            testId="resolvedCard1"
-            appearance="inline"
-            url={mockUrl}
-            showActions={true}
-          />
-        </Provider>,
+        <TestErrorBoundary onError={onError}>
+          <Provider client={mockClient}>
+            <Card
+              testId="resolvedCard1"
+              appearance="inline"
+              url={mockUrl}
+              showActions={true}
+            />
+          </Provider>
+        </TestErrorBoundary>,
       );
+
+      expect(onError).toHaveBeenCalledTimes(1);
 
       await waitFor(
         () => expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1),

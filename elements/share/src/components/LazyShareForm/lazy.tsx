@@ -7,7 +7,6 @@ import Spinner from '@atlaskit/spinner';
 import { ShareFormWrapper } from '../ShareFormWrapper';
 
 import type { LazyShareFormProps } from './LazyShareForm';
-import { SpinnerWrapper } from './styled';
 
 const LazyShareFormLazy = lazyForPaint<FunctionComponent<LazyShareFormProps>>(
   () =>
@@ -38,9 +37,17 @@ const LoadingDialog: React.FC<LoadingDialog> = ({
       // if `showTitle` is passed, we use it. Otherwise, we will show title for loading dialog.
       shouldShowTitle={typeof showTitle === 'boolean' ? showTitle : true}
     >
-      <SpinnerWrapper>
+      <div
+        css={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignContent: 'center',
+        }}
+      >
         <Spinner />
-      </SpinnerWrapper>
+      </div>
     </ShareFormWrapper>
   );
 };

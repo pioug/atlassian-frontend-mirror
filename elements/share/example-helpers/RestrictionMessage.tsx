@@ -1,6 +1,6 @@
-import React from 'react';
+/** @jsx jsx */
 
-import styled from 'styled-components';
+import { jsx } from '@emotion/react';
 
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import { token } from '@atlaskit/tokens';
@@ -8,19 +8,18 @@ import { token } from '@atlaskit/tokens';
 const message =
   'Restrictions on this page may prevent people from viewing or editing';
 
-const Wrapper = styled.div`
-  max-width: 100%;
-  color: ${token('color.text.danger', '#de350c')};
-  display: flex;
-
-  & > div {
-    flex-grow: 1;
-    line-height: 24px;
-  }
-`;
-
 export default () => (
-  <Wrapper>
+  <div
+    css={{
+      maxWidth: '100%',
+      color: `${token('color.text.danger', '#de350c')}`,
+      display: 'flex',
+      '& > div': {
+        flexGrow: 1,
+        lineHeight: 24,
+      },
+    }}
+  >
     <LockFilledIcon label={message} /> <div>{message}</div>
-  </Wrapper>
+  </div>
 );

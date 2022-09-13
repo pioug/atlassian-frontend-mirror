@@ -210,6 +210,15 @@ export default class MediaSingleNode extends Component<
       width,
     });
     tr.setMeta('scrollIntoView', false);
+    /**
+     * Any changes to attributes of a node count the node as "recreated" in Prosemirror[1]
+     * This makes it so Prosemirror resets the selection to the child i.e. "media" instead of "media-single"
+     * The recommended fix is to reset the selection.[2]
+     *
+     * [1] https://discuss.prosemirror.net/t/setnodemarkup-loses-current-nodeselection/976
+     * [2] https://discuss.prosemirror.net/t/setnodemarkup-and-deselect/3673
+     */
+    tr.setSelection(NodeSelection.create(tr.doc, pos));
     return dispatch(tr);
   };
 

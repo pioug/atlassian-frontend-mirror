@@ -9,27 +9,37 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 declare type LinkAnalyticsAttributes = Record<string, any>;
 
-/**
- * Fires an event for when a smart link is created.
- * @param details The link data including the url
- * @param sourceEvent A source analytic event that represents the trigger for creating the event
- * @param attributes Custom attributes to decorate the event with
- */
-declare interface LinkCreated {
-  (
-    details: LinkDetails,
-    sourceEvent?: UIAnalyticsEvent | null,
-    attributes?: LinkAnalyticsAttributes,
-  ): void;
-}
-
 declare interface LinkDetails {
   url: string;
   smartLinkId?: string;
 }
 
+declare interface LinkLifecycleEventCallback {
+  (
+    /** The link data including the url */
+    details: LinkDetails,
+    /** A source analytic event that represents the trigger for creating the link */
+    sourceEvent?: UIAnalyticsEvent | null,
+    /** Custom attributes to decorate the event with */
+    attributes?: LinkAnalyticsAttributes,
+  ): void;
+}
+
 declare interface SmartLinkLifecycleMethods {
-  linkCreated: LinkCreated;
+  /**
+   * Fires an event to track the creation of a link.
+   * @param details The link data including the url
+   * @param sourceEvent (RECOMMENDED) A source analytic event that represents the trigger for creating the link
+   * @param attributes (OPTIONAL) Custom attributes to decorate the event with
+   */
+  linkCreated: LinkLifecycleEventCallback;
+  /**
+   * Fires an event to track the deletion of a link.
+   * @param details The link data including the url
+   * @param sourceEvent (RECOMMENDED) A source analytic event that represents the trigger for deleting the link
+   * @param attributes(OPTIONAL)  Custom attributes to decorate the event with
+   */
+  linkDeleted: LinkLifecycleEventCallback;
 }
 
 /**
@@ -40,12 +50,12 @@ declare interface SmartLinkLifecycleMethods {
  *
  * ```ts
  * export const ExampleComponent = () => {
- *   const { linkCreated } = useSmartLinkLifecycleAnalytics();
+ *   const linkAnalytics = useSmartLinkLifecycleAnalytics();
  *
  *   const handleCreateLink = ({ url }) => {
  *     // ... do stuff
  *     // Call when a link is created
- *     linkCreated({ url })
+ *     linkAnalytics.linkCreated({ url })
  *   }
  *
  *   return (

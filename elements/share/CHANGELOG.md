@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 3.5.2
+
+### Patch Changes
+
+- [`e9a46954c0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9a46954c0f) - added examples of copy link button
+
+## 3.5.1
+
+### Patch Changes
+
+- [`99ba33da55f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99ba33da55f) - Removed styled components from tests and examples
+
 ## 3.5.0
 
 ### Minor Changes

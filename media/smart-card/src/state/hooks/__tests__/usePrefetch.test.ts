@@ -137,4 +137,18 @@ describe('usePrefetch', () => {
     expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
     expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
   });
+
+  it('does not throw errors when CardContext props are undefined', async () => {
+    mockUseSmartLinkContext.mockImplementation(() => ({
+      store: undefined,
+      prefetchStore: undefined,
+      connections: undefined,
+    }));
+
+    const prefetcher = usePrefetch(mockUrl);
+    await prefetcher();
+
+    expect(mockConnections.client.prefetchData).not.toBeCalled();
+    expect(mockStore.dispatch).not.toBeCalled();
+  });
 });

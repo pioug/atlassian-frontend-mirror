@@ -1,7 +1,10 @@
+/**@jsx jsx */
+/**@jsxFrag */
+
 import React, { useState } from 'react';
 
+import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Appearance } from '@atlaskit/button/types';
@@ -56,9 +59,9 @@ type UserData = {
 
 ufologger.enable();
 
-const WrapperWithMarginTop = styled.div`
-  margin-top: 10px;
-`;
+const WrapperWithMarginTop: React.FC = ({ children }) => (
+  <div css={{ marginTop: 10 }}>{children}</div>
+);
 
 const JDOG_CLOUD_ID = '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5';
 
@@ -218,21 +221,32 @@ const renderCustomTriggerButton: RenderCustomTriggerButton = (
   </button>
 );
 
-const FooterWrapper = styled.div`
-  margin-top: 8px;
+const FooterWrapper: React.FC = ({ children }) => (
+  <div
+    css={{
+      marginTop: 8,
+      '& > *': {
+        borderRadius: 0,
+      },
+    }}
+  >
+    {children}
+  </div>
+);
 
-  > * {
-    border-radius: 0;
-  }
-`;
-
-const FieldsFooterWrapper = styled.div`
-  margin-top: 8px;
-  margin-bottom: 8px;
-  > * {
-    border-radius: 0;
-  }
-`;
+const FieldsFooterWrapper: React.FC = ({ children }) => (
+  <div
+    css={{
+      marginTop: 8,
+      marginBottom: 8,
+      '& > *': {
+        borderRadius: 0,
+      },
+    }}
+  >
+    {children}
+  </div>
+);
 
 const CustomFooter = () => (
   <FooterWrapper>

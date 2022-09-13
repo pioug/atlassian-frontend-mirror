@@ -20,13 +20,18 @@ import {
   isSuccessfulResponse,
   isErrorResponse,
   SearchProviderInfoResponse,
-  SearchErrorResponse,
-  isSearchErrorResponse,
 } from './types/responses';
 import { InvokeRequest } from './types/requests';
+import { getStatus } from '../helpers';
+import { LRUCache } from 'lru-fast/lru';
 
 const MAX_BATCH_SIZE = 50;
 const MIN_TIME_BETWEEN_BATCHES = 250;
+const URL_RESPONSE_CACHE_SIZE = 100;
+
+export const urlResponseCache = new LRUCache<string, SuccessResponse>(
+  URL_RESPONSE_CACHE_SIZE,
+);
 
 export default class CardClient implements CardClientInterface {
   private resolverUrl: string;
@@ -169,63 +174,33 @@ export default class CardClient implements CardClientInterface {
   public async fetchData(url: string): Promise<JsonLd.Response> {
     const hostname = new URL(url).hostname;
     const loader = this.getLoader(hostname);
-    const response = await loader.load(url);
-    if (!isSuccessfulResponse(response)) {
-      // Catch non-200 server responses to fallback or return useful information.
-      if (response.error) {
-        const errorType = response.error.type;
-        const errorMessage = response.error.message;
-        // this means there was a network error and we fallback to blue link
-        // without impacting SLO's
-        if (response.error instanceof api.NetworkError) {
-          throw new APIError('fallback', hostname, errorMessage, errorType);
-        }
+    let response: SuccessResponse | ErrorResponse;
 
-        switch (errorType) {
-          // BadRequestError - indicative of an API error, render
-          // a blue link to mitigate customer impact.
-          case 'ResolveBadRequestError':
-            throw new APIError('fallback', hostname, errorMessage, errorType);
-          // AuthError - if the user logs in, we may be able
-          // to recover. Render an unauthorized card.
-          case 'ResolveAuthError':
-            throw new APIError('auth', hostname, errorMessage, errorType);
-          // UnsupportedError - we do not know how to render this URL.
-          // Bail out and ask the Editor to render as a blue link.
-          case 'ResolveUnsupportedError': // URL isn't supported
-            throw new APIError('fatal', hostname, errorMessage, errorType);
-          // ResolveFailedError - link resolver may have failed.
-          // We could recover on re-resolve; render with fallback state.
-          case 'ResolveFailedError': // Timeouts
-            throw new APIError('error', hostname, errorMessage, errorType);
-          // TimeoutError - link resolver may be taking a long time.
-          // We could recover on re-resolve; render with fallback state.
-          case 'ResolveTimeoutError': // Timeouts
-            throw new APIError('error', hostname, errorMessage, errorType);
-          // InternalServerError - API call failed.
-          // We may recover later; render with fallback state.
-          case 'InternalServerError': // ORS failures
-            throw new APIError('error', hostname, errorMessage, errorType);
-        }
-      }
-      // Catch all: we don't know this error, bail out.
-      throw new APIError(
-        'fatal',
-        hostname,
-        JSON.stringify(response),
-        'UnexpectedError',
-      );
+    const cachedResponse = urlResponseCache.get(url);
+    if (cachedResponse) {
+      response = cachedResponse;
     } else {
-      // Set a flag in the `resolvedCache` for this URL. The intent of this is
-      // to ensure that the exponential backoff method in `prefetchData` does
-      // not continue to retry fetching for this URL, especially if it was previously
-      // in a failed state. Note: this scenario only occurs on initial page load, if the
-      // user scrolls through the page very fast. Once the URL is visible, prefetching
-      // no longer takes place.
-      this.resolvedCache[url] = true;
-      // Return the JSON-LD response back up!
-      return response.body;
+      response = await loader.load(url);
+      if (
+        isSuccessfulResponse(response) &&
+        getStatus(response.body) === 'resolved'
+      ) {
+        urlResponseCache.put(url, response);
+      }
     }
+
+    if (!isSuccessfulResponse(response)) {
+      throw this.mapErrorResponse(response, hostname);
+    }
+    // Set a flag in the `resolvedCache` for this URL. The intent of this is
+    // to ensure that the exponential backoff method in `prefetchData` does
+    // not continue to retry fetching for this URL, especially if it was previously
+    // in a failed state. Note: this scenario only occurs on initial page load, if the
+    // user scrolls through the page very fast. Once the URL is visible, prefetching
+    // no longer takes place.
+    this.resolvedCache[url] = true;
+    // Return the JSON-LD response back up!
+    return response.body;
   }
 
   public async postData(
@@ -259,71 +234,16 @@ export default class CardClient implements CardClientInterface {
         context,
       },
     };
-    const response = await api.request<SearchErrorResponse | JsonLd.Collection>(
+    const response = await api.request<ErrorResponse | JsonLd.Collection>(
       'post',
       `${this.resolverUrl}/invoke/search`,
       request,
     );
-    if (isSearchErrorResponse(response)) {
+    if (isErrorResponse(response)) {
       // There is no hostname/it is not known. Hostname is not logged anyway as it's considered PII.
-      const hostname = '';
-      // Catch non-200 server responses to fallback or return useful information.
-      if (response.error) {
-        const errorType = response.error.type;
-        const errorMessage = response.error.message;
-        // this means there was a network error and we fallback to blue link
-        // without impacting SLO's
-        if (response.error instanceof api.NetworkError) {
-          throw new APIError('fallback', hostname, errorMessage, errorType);
-        }
-
-        switch (errorType) {
-          // BadRequestError - indicative of an API error, render
-          // a blue link to mitigate customer impact.
-          case 'ResolveBadRequestError':
-            throw new APIError('fallback', hostname, errorMessage, errorType);
-          case 'SearchBadRequestError':
-            throw new APIError('fallback', hostname, errorMessage, errorType);
-          // AuthError - if the user logs in, we may be able
-          // to recover. Render an unauthorized card.
-          case 'ResolveAuthError':
-            throw new APIError('auth', hostname, errorMessage, errorType);
-          case 'SearchAuthError':
-            throw new APIError('auth', hostname, errorMessage, errorType);
-          // UnsupportedError - we do not know how to render this URL.
-          // Bail out and ask the Editor to render as a blue link.
-          case 'ResolveUnsupportedError': // URL isn't supported
-            throw new APIError('fatal', hostname, errorMessage, errorType);
-          case 'SearchUnsupportedError':
-            throw new APIError('fatal', hostname, errorMessage, errorType);
-          // ResolveFailedError - link resolver may have failed.
-          // We could recover on re-resolve; render with fallback state.
-          case 'ResolveFailedError': // Timeouts
-            throw new APIError('error', hostname, errorMessage, errorType);
-          // TimeoutError - link resolver may be taking a long time.
-          // We could recover on re-resolve; render with fallback state.
-          case 'ResolveTimeoutError': // Timeouts
-            throw new APIError('error', hostname, errorMessage, errorType);
-          // InternalServerError - API call failed.
-          // We may recover later; render with fallback state.
-          case 'InternalServerError': // ORS failures
-            throw new APIError('error', hostname, errorMessage, errorType);
-          case 'SearchFailedError':
-            throw new APIError('error', hostname, errorMessage, errorType);
-          case 'SearchTimeoutError':
-            throw new APIError('error', hostname, errorMessage, errorType);
-        }
-      }
-      // Catch all: we don't know this error, bail out.
-      throw new APIError(
-        'fatal',
-        hostname,
-        JSON.stringify(response),
-        'UnexpectedError',
-      );
-    } else {
-      return response;
+      throw this.mapErrorResponse(response);
     }
+    return response;
   }
 
   public async fetchAvailableSearchProviders() {
@@ -334,5 +254,49 @@ export default class CardClient implements CardClientInterface {
     );
 
     return response.providers;
+  }
+  private mapErrorResponse(response: ErrorResponse, hostname: string = '') {
+    // Catch non-200 server responses to fallback or return useful information.
+    if (response.error) {
+      const errorType = response.error.type;
+      const errorMessage = response.error.message;
+      // this means there was a network error and we fallback to blue link
+      // without impacting SLO's
+      if (response.error instanceof api.NetworkError) {
+        return new APIError('fallback', hostname, errorMessage, errorType);
+      }
+
+      switch (errorType) {
+        // BadRequestError - indicative of an API error, render
+        // a blue link to mitigate customer impact.
+        case 'ResolveBadRequestError':
+        case 'SearchBadRequestError':
+          return new APIError('fallback', hostname, errorMessage, errorType);
+        // AuthError - if the user logs in, we may be able
+        // to recover. Render an unauthorized card.
+        case 'ResolveAuthError':
+        case 'SearchAuthError':
+          return new APIError('auth', hostname, errorMessage, errorType);
+        // UnsupportedError - we do not know how to render this URL.
+        // Bail out and ask the Editor to render as a blue link.
+        case 'ResolveUnsupportedError': // URL isn't supported
+        case 'SearchUnsupportedError': // Search isn't supported
+          return new APIError('fatal', hostname, errorMessage, errorType);
+        case 'ResolveFailedError': // Failed
+        case 'SearchFailedError':
+        case 'ResolveTimeoutError': // Timeouts
+        case 'SearchTimeoutError':
+        case 'SearchRateLimitError': //Rate Limit Error
+        case 'InternalServerError': // ORS failures
+          return new APIError('error', hostname, errorMessage, errorType);
+      }
+    }
+    // Catch all: we don't know this error, bail out.
+    return new APIError(
+      'fatal',
+      hostname,
+      JSON.stringify(response),
+      'UnexpectedError',
+    );
   }
 }

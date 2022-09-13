@@ -5,8 +5,12 @@ jest.mock('../api', () => ({
 }));
 
 import { mocks } from './__fixtures__/mocks';
-import SmartCardClient from '..';
-import { isSuccessfulResponse, SuccessResponse } from '../types/responses';
+import SmartCardClient, { urlResponseCache } from '..';
+import {
+  ErrorResponseBody,
+  isSuccessfulResponse,
+  SuccessResponse,
+} from '../types/responses';
 import { APIError } from '@atlaskit/linking-common';
 import { NetworkError } from '../api';
 import { flushPromises } from '@atlaskit/media-test-helpers';
@@ -23,9 +27,32 @@ const successfulResponse = { status: 200, body: mocks.success };
 const notFoundResponse = { status: 200, body: mocks.notFound };
 const unauthorizedResponse = { status: 200, body: mocks.unauthorized };
 
+const hostname = 'https://www.google.com';
+
+// Map the URLs sent by DataLoader to their respective responses.
+async function mockRequestFn(_method: string, _url: string, data?: any) {
+  return data.map(({ resourceUrl }: any) => {
+    const parts = resourceUrl.split(`/`);
+    const key: keyof typeof mocks = parts[parts.length - 1];
+    if (['notSupported'].includes(key)) {
+      return {
+        status: (mocks[key] as ErrorResponseBody).status,
+        error: mocks[key],
+      };
+    }
+    return { status: 200, body: mocks[key] };
+  });
+}
+
+const expectedStagingResolveBatchUrl =
+  '/gateway/api/object-resolver/resolve/batch';
+
 describe('Smart Card: Client', () => {
   beforeEach(() => {
     mockRequest = jest.fn();
+    // Since we use module level caching,
+    // we need to clear it up for clean test run
+    urlResponseCache.removeAll();
   });
 
   afterEach(() => {
@@ -39,29 +66,15 @@ describe('Smart Card: Client', () => {
     const resourceUrl = 'https://i.love.cheese';
     const response = await client.fetchData('https://i.love.cheese');
     expect(mockRequest).toBeCalled();
-    expect(mockRequest).toBeCalledWith(
-      'post',
-      '/gateway/api/object-resolver/resolve/batch',
-      [
-        {
-          resourceUrl,
-        },
-      ],
-    );
+    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
+      {
+        resourceUrl,
+      },
+    ]);
     expect(response).toBe(mocks.success);
   });
 
   it('successfully deduplicates requests made in batches in same execution frame', async () => {
-    const hostname = 'https://www.google.com';
-
-    // Map the URLs sent by DataLoader to their respective responses.
-    async function mockRequestFn(_method: string, _url: string, data?: any) {
-      return data.map(({ resourceUrl }: any) => {
-        const key: keyof typeof mocks = resourceUrl.split(`${hostname}/`)[1];
-        return { status: 200, body: mocks[key] };
-      });
-    }
-
     mockRequest.mockImplementationOnce(mockRequestFn);
     const client = new SmartCardClient();
     const [responseFirst, responseSecond, responseThird] = await Promise.all([
@@ -71,19 +84,15 @@ describe('Smart Card: Client', () => {
       client.fetchData(`${hostname}/notFound`),
     ]);
     expect(mockRequest).toBeCalled();
-    expect(mockRequest).toBeCalledWith(
-      'post',
-      '/gateway/api/object-resolver/resolve/batch',
-      [
-        // NOTE: we only expect _one_ of the duplicated URLs to actually be sent to the backend
-        {
-          resourceUrl: `${hostname}/success`,
-        },
-        {
-          resourceUrl: `${hostname}/notFound`,
-        },
-      ],
-    );
+    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
+      // NOTE: we only expect _one_ of the duplicated URLs to actually be sent to the backend
+      {
+        resourceUrl: `${hostname}/success`,
+      },
+      {
+        resourceUrl: `${hostname}/notFound`,
+      },
+    ]);
 
     // NOTE: we still expect all three responses to be the same
     expect(responseFirst).toBe(mocks.success);
@@ -98,28 +107,23 @@ describe('Smart Card: Client', () => {
       notFoundResponse,
     ]);
     const client = new SmartCardClient();
-    const hostname = 'https://www.google.com';
     const [responseFirst, responseSecond, responseThird] = await Promise.all([
       client.fetchData(`${hostname}/1`),
       client.fetchData(`${hostname}/2`),
       client.fetchData(`${hostname}/3`),
     ]);
     expect(mockRequest).toBeCalled();
-    expect(mockRequest).toBeCalledWith(
-      'post',
-      '/gateway/api/object-resolver/resolve/batch',
-      [
-        {
-          resourceUrl: `${hostname}/1`,
-        },
-        {
-          resourceUrl: `${hostname}/2`,
-        },
-        {
-          resourceUrl: `${hostname}/3`,
-        },
-      ],
-    );
+    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
+      {
+        resourceUrl: `${hostname}/1`,
+      },
+      {
+        resourceUrl: `${hostname}/2`,
+      },
+      {
+        resourceUrl: `${hostname}/3`,
+      },
+    ]);
     expect(responseFirst).toBe(mocks.success);
     expect(responseSecond).toBe(mocks.unauthorized);
     expect(responseThird).toBe(mocks.notFound);
@@ -134,7 +138,6 @@ describe('Smart Card: Client', () => {
     ]);
 
     const client = new SmartCardClient();
-    const hostname = 'https://www.google.com';
     Promise.all([
       client.fetchData(`${hostname}/1`),
       client.fetchData(`${hostname}/2`),
@@ -372,6 +375,29 @@ describe('Smart Card: Client', () => {
       }
     });
 
+    it('returns correct error when there is search rate limit error', async () => {
+      mockRequest.mockImplementationOnce(
+        async () => mocks.invokeSearchRateLimitError,
+      );
+      const client = new SmartCardClient();
+      try {
+        await client.search({
+          key: 'not-a-valid-provider',
+          action: { query: '', context: { id: 'some-id' } },
+        });
+      } catch (error) {
+        expect(error).toBeInstanceOf(APIError);
+        expect(error).toEqual(
+          expect.objectContaining({
+            kind: 'error',
+            hostname: '',
+            type: 'SearchRateLimitError',
+            name: 'APIError',
+          }),
+        );
+      }
+    });
+
     it('returns correct error for internal server error', async () => {
       mockRequest.mockImplementationOnce(
         async () => mocks.invokeInternalServerError,
@@ -404,7 +430,6 @@ describe('Smart Card: Client', () => {
         notFoundResponse,
       ]);
 
-      const hostname = 'https://www.google.com';
       const client = new SmartCardClient();
 
       const responses = await Promise.all([
@@ -433,7 +458,6 @@ describe('Smart Card: Client', () => {
       // Succeed on 2nd retry attempt.
       mockRequest.mockImplementationOnce(async () => [successfulResponse]);
 
-      const hostname = 'https://www.google.com';
       const client = new SmartCardClient();
 
       const responses = await Promise.all([
@@ -464,7 +488,6 @@ describe('Smart Card: Client', () => {
       mockRequest.mockImplementationOnce(async () => [errorResponse]);
       mockRequest.mockImplementationOnce(async () => [errorResponse]);
 
-      const hostname = 'https://www.google.com';
       const client = new SmartCardClient();
 
       const responses = await Promise.all([
@@ -505,7 +528,6 @@ describe('Smart Card: Client', () => {
       mockRequest.mockImplementationOnce(async () => [errorResponse]);
       mockRequest.mockImplementationOnce(async () => [errorResponse]);
 
-      const hostname = 'https://www.google.com';
       const client = new SmartCardClient();
 
       // Kickoff a proper fetch of the URL.
@@ -534,6 +556,184 @@ describe('Smart Card: Client', () => {
       expect(mockRequest.mock.calls.shift()).toMatchSnapshot('initial request');
       expect(mockRequest.mock.calls.shift()).toMatchSnapshot('retry attempt 1');
     });
+  });
+});
+
+describe('Smart Card Client with url caching', () => {
+  beforeEach(() => {
+    mockRequest = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+    jest.clearAllMocks();
+  });
+
+  it('should not make second call for the same url when response is successful', async () => {
+    mockRequest.mockImplementation(mockRequestFn);
+    const client = new SmartCardClient();
+
+    // Since there is one call (notSupported) that will throw an exception, we can't use Promise.all
+    // But we do want them all end up in the same batch.
+    const firstSuccessResponsePromise = client.fetchData(
+      `${hostname}/first/success`,
+    );
+    const secondSuccessResponsePromise = client.fetchData(
+      `${hostname}/second/success`,
+    );
+    const notFoundResponsePromise = client.fetchData(`${hostname}/notFound`);
+    const forbiddenResponsePromise = client.fetchData(`${hostname}/forbidden`);
+    const unauthResponsePromise = client.fetchData(`${hostname}/unauthorized`);
+    const notSupportedPromise = client.fetchData(`${hostname}/notSupported`);
+
+    const [
+      firstSuccessResponse,
+      secondSuccessResponse,
+      notFoundResponse,
+      forbiddenResponse,
+      unauthResponse,
+    ] = await Promise.all([
+      firstSuccessResponsePromise,
+      secondSuccessResponsePromise,
+      notFoundResponsePromise,
+      forbiddenResponsePromise,
+      unauthResponsePromise,
+    ]);
+
+    try {
+      await notSupportedPromise;
+    } catch (apiError) {
+      expect(apiError.type).toEqual('ResolveUnsupportedError');
+    }
+
+    expect(mockRequest).toBeCalledTimes(1);
+    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
+      {
+        resourceUrl: `${hostname}/first/success`,
+      },
+      {
+        resourceUrl: `${hostname}/second/success`,
+      },
+      {
+        resourceUrl: `${hostname}/notFound`,
+      },
+      {
+        resourceUrl: `${hostname}/forbidden`,
+      },
+      {
+        resourceUrl: `${hostname}/unauthorized`,
+      },
+      {
+        resourceUrl: `${hostname}/notSupported`,
+      },
+    ]);
+    expect(firstSuccessResponse).toBe(mocks.success);
+    expect(secondSuccessResponse).toBe(mocks.success);
+    expect(notFoundResponse).toBe(mocks.notFound);
+    expect(forbiddenResponse).toBe(mocks.forbidden);
+    expect(unauthResponse).toBe(mocks.unauthorized);
+    expect(unauthResponse).toBe(mocks.unauthorized);
+
+    const firstSuccessSecondResponsePromise = client.fetchData(
+      `${hostname}/first/success`,
+    );
+    const thirdSuccessResponsePromise = client.fetchData(
+      `${hostname}/third/success`,
+    );
+    const notFoundSecondResponsePromise = client.fetchData(
+      `${hostname}/notFound`,
+    );
+    const forbiddenSecondResponsePromise = client.fetchData(
+      `${hostname}/forbidden`,
+    );
+    const unauthSecondResponsePromise = client.fetchData(
+      `${hostname}/unauthorized`,
+    );
+    const notSupportedSecondPromise = client.fetchData(
+      `${hostname}/notSupported`,
+    );
+
+    const [
+      firstSuccessSecondResponse,
+      thirdSuccessResponse,
+      notFoundSecondResponse,
+      forbiddenSecondResponse,
+      unauthSecondResponse,
+    ] = await Promise.all([
+      firstSuccessSecondResponsePromise,
+      thirdSuccessResponsePromise,
+      notFoundSecondResponsePromise,
+      forbiddenSecondResponsePromise,
+      unauthSecondResponsePromise,
+    ]);
+
+    try {
+      await notSupportedSecondPromise;
+    } catch (apiError) {
+      expect(apiError.type).toEqual('ResolveUnsupportedError');
+    }
+
+    expect(mockRequest).toBeCalledTimes(2);
+
+    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
+      // First url was already requested before and shuoldn't happen again.
+      // {
+      //   resourceUrl: `first.${hostname}/success`,
+      // },
+
+      // This is new url, so it should go ahead
+      {
+        resourceUrl: `${hostname}/third/success`,
+      },
+
+      // All non-success cases shouldn't be cached and so be called again.
+      {
+        resourceUrl: `${hostname}/notFound`,
+      },
+      {
+        resourceUrl: `${hostname}/forbidden`,
+      },
+      {
+        resourceUrl: `${hostname}/unauthorized`,
+      },
+      {
+        resourceUrl: `${hostname}/notSupported`,
+      },
+    ]);
+
+    expect(firstSuccessSecondResponse).toBe(mocks.success);
+    expect(thirdSuccessResponse).toBe(mocks.success);
+    expect(notFoundSecondResponse).toBe(mocks.notFound);
+    expect(forbiddenSecondResponse).toBe(mocks.forbidden);
+    expect(unauthSecondResponse).toBe(mocks.unauthorized);
+  });
+
+  it('should have limited cache', async () => {
+    mockRequest.mockImplementation(mockRequestFn);
+    const client = new SmartCardClient('stg');
+
+    // Requests 0..99. Should fill in full cache
+    const requestPromises = Array(100)
+      .fill(null)
+      .map((_, i) => client.fetchData(`${hostname}/${i}/success`));
+    await Promise.all(requestPromises);
+    // Two batches of 50
+    expect(mockRequest).toBeCalledTimes(2);
+
+    // Requests 100..109. Should remove first 10 cached requests out.
+    const requestPromises2 = Array(10)
+      .fill(null)
+      .map((_, i) => client.fetchData(`${hostname}/${i + 100}/success`));
+    await Promise.all(requestPromises2);
+    expect(mockRequest).toBeCalledTimes(3);
+
+    // Requests 0..09
+    const requestPromises3 = Array(10)
+      .fill(null)
+      .map((_, i) => client.fetchData(`${hostname}/${i}/success`));
+    await Promise.all(requestPromises3);
+    // If cache was unlimited these results would be taken from cache and next assertion would fail.
+    expect(mockRequest).toBeCalledTimes(4);
   });
 });
 

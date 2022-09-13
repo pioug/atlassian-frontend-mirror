@@ -155,7 +155,7 @@ export const Card = memo(function Card({ item }: { item: Item }) {
       <span css={idStyles}>ID: {item.itemId}</span>
       <DragIcon state={state} />
       <CardText state={state} />
-      <DropIndicator edge={closestEdge} gap={cardGap} />
+      <DropIndicator edge={closestEdge} gap={`${cardGap}px`} />
     </div>
   );
 });

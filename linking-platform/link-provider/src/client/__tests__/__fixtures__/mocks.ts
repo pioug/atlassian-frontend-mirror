@@ -1,5 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 import CardClient from '../..';
+import { ErrorResponseBody } from '../../types/responses';
 
 export const mockContext = {
   '@vocab': 'https://www.w3.org/ns/activitystreams#',
@@ -145,23 +146,18 @@ export const mocks = {
       url: 'https://some.url',
     },
   } as JsonLd.Response,
-  actionSuccess: {
-    meta: {
-      visibility: 'public',
-      access: 'granted',
-      auth: [],
-      definitionId: 'd1',
-    },
-    data: {
-      status: 'CompletedStatus',
-    },
-  },
+  notSupported: {
+    message: 'URL not supported',
+    status: 404,
+    type: 'ResolveUnsupportedError',
+  } as ErrorResponseBody,
   invokeSearchUnsupportedError: {
     error: {
       type: 'SearchUnsupportedError',
       message: 'Search not supported',
       status: 404,
     },
+    status: 404,
   },
   invokeSearchTimeoutError: {
     error: {
@@ -169,6 +165,7 @@ export const mocks = {
       message: 'Server took too long to respond',
       status: 504,
     },
+    status: 200,
   },
   invokeSearchFailedError: {
     error: {
@@ -176,13 +173,23 @@ export const mocks = {
       message: 'Search failed',
       status: 404,
     },
+    status: 200,
   },
   invokeSearchAuthError: {
     error: {
       type: 'SearchAuthError',
       message: 'Authorization failed',
-      status: 504,
+      status: 403,
     },
+    status: 403,
+  },
+  invokeSearchRateLimitError: {
+    error: {
+      type: 'SearchRateLimitError',
+      message: 'Too many requests',
+      status: 429,
+    },
+    status: 200,
   },
   invokeInternalServerError: {
     error: {
@@ -190,6 +197,7 @@ export const mocks = {
       message: 'Something went wrong',
       status: 504,
     },
+    status: 500,
   },
 };
 export const fakeResponse = () => Promise.resolve(mocks.success);

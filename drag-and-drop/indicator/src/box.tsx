@@ -14,9 +14,11 @@ export type DropIndicatorProps = {
    */
   edge: Edge | null;
   /**
-   * The distance between draggable items.
+   * The distance between draggable items. This should be a valid CSS length.
+   * @example "8px"
+   * @example "var(--gap)"
    */
-  gap?: number;
+  gap?: string;
 };
 
 const lineStyles = css({
@@ -65,17 +67,20 @@ const edgeStyles: Record<Edge, SerializedStyles> = {
  *
  * A drop indicator is used to communicate the intended resting place of the draggable item. The orientation of the drop indicator should always match the direction of the content flow.
  */
-export function DropIndicator({ edge, gap = 0 }: DropIndicatorProps) {
+export function DropIndicator({ edge, gap = '0px' }: DropIndicatorProps) {
   /**
    * To clearly communicate the resting place of a draggable item during a drag operation,
    * the drop indicator should be positioned half way between draggable items.
    */
-  const lineOffset = -0.5 * (gap + line.thickness);
+  const lineOffset = `calc(-0.5 * (${gap} + ${line.thickness}px))`;
 
   return (
     <div
       css={[lineStyles, edge && edgeStyles[edge]]}
-      style={{ '--local-line-offset': `${lineOffset}px` } as CSSProperties}
+      style={{ '--local-line-offset': lineOffset } as CSSProperties}
     />
   );
 }
+
+// This default export is intended for usage with React.lazy
+export default DropIndicator;

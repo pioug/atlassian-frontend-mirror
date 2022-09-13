@@ -12,10 +12,6 @@ export interface ErrorResponse {
   error: ErrorResponseBody;
 }
 
-export interface SearchErrorResponse {
-  error: ErrorResponseBody;
-}
-
 export interface ErrorResponseBody {
   type: ServerErrorType;
   message: string;
@@ -35,24 +31,15 @@ export const isSuccessfulResponse = (
 };
 
 export const isErrorResponse = (
-  response: SuccessResponse | ErrorResponse,
+  response: SuccessResponse | ErrorResponse | JsonLd.Collection,
 ): response is ErrorResponse => {
   if (!response) {
     return false;
   }
 
-  const hasStatus = response.status >= 200;
+  const hasStatus = 'status' in response && response.status >= 200;
   const hasErrorBody = 'error' in response;
   return hasStatus && hasErrorBody;
-};
-
-export const isSearchErrorResponse = (
-  response: SearchErrorResponse | JsonLd.Response,
-): response is SearchErrorResponse => {
-  if (!response) {
-    return false;
-  }
-  return 'error' in response;
 };
 
 export interface SearchProviderInfo {

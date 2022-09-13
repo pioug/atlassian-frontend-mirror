@@ -2,11 +2,14 @@
 // @see https://github.com/graphql/dataloader/issues/249
 import 'setimmediate';
 import DataLoader from 'dataloader';
-import { CardAdf, CardAppearance } from '@atlaskit/linking-common';
+import {
+  CardAdf,
+  CardAppearance,
+  extractPreview,
+} from '@atlaskit/linking-common';
 import {
   CardProvider,
   LinkAppearance,
-  ORSCheckResponse,
   ORSProvidersResponse,
   ProviderPattern,
   ProvidersData,
@@ -16,6 +19,9 @@ import { Transformer } from './transformer';
 import { getBaseUrl, getResolverUrl } from '../client/utils/environments';
 import { EnvironmentsKeys } from '../client/types';
 import * as api from '../client/api';
+import CardClient from '../client';
+import { JsonLd } from 'json-ld-types';
+import { getStatus } from '../helpers';
 
 const BATCH_WAIT_TIME = 50;
 
@@ -41,7 +47,7 @@ export class EditorCardProvider implements CardProvider {
   private requestHeaders: HeadersInit;
   private transformer: Transformer;
   private providersLoader: DataLoader<string, ProvidersData | undefined>;
-  private checkedUrls: Map<string, boolean>;
+  private cardClient: CardClient;
 
   constructor(envKey?: EnvironmentsKeys) {
     this.baseUrl = getBaseUrl(envKey);
@@ -53,7 +59,7 @@ export class EditorCardProvider implements CardProvider {
     this.providersLoader = new DataLoader(keys => this.batchProviders(keys), {
       batchScheduleFn: callback => setTimeout(callback, BATCH_WAIT_TIME),
     });
-    this.checkedUrls = new Map<string, boolean>();
+    this.cardClient = new CardClient(envKey);
   }
 
   private async batchProviders(
@@ -67,24 +73,12 @@ export class EditorCardProvider implements CardProvider {
 
   private async check(resourceUrl: string): Promise<boolean | undefined> {
     try {
-      if (this.checkedUrls.has(resourceUrl)) {
-        return this.checkedUrls.get(resourceUrl);
+      const response = await this.cardClient.fetchData(resourceUrl);
+      if (getStatus(response) !== 'not_found') {
+        return true;
       }
-      const endpoint = `${this.resolverUrl}/check`;
-      const response = await api.request<ORSCheckResponse>(
-        'post',
-        endpoint,
-        {
-          resourceUrl,
-        },
-        this.requestHeaders,
-      );
-      this.checkedUrls.set(resourceUrl, response.isSupported);
-      return response.isSupported;
-    } catch (err) {
-      // eslint-disable-next-line
-      console.error('failed to fetch /check', err);
-      return undefined;
+    } catch (e) {
+      return false;
     }
   }
 
@@ -182,6 +176,32 @@ export class EditorCardProvider implements CardProvider {
     }
   }
 
+  /**
+   * Make a /resolve call and find out if result has embed capability
+   * @param url
+   * @private
+   */
+  private async canBeResolvedAsEmbed(url: string) {
+    try {
+      const details = await this.cardClient.fetchData(url);
+      const data = (details && details.data) as JsonLd.Data.BaseData;
+      if (!data) {
+        return false;
+      }
+      // Imagine response is "unauthorized". We won't be able to tell if even after auth
+      // page going to have preview. Yes, we can show auth view for embed. But what if even after
+      // success auth flow there won't be preview? We will already have ugly embed ADF.
+      // Being on a safe side - if we get anything but resolved - we decide it can't be an embed.
+      if (getStatus(details) !== 'resolved') {
+        return false;
+      }
+      const preview = extractPreview(data, 'web');
+      return !!preview;
+    } catch (e) {
+      return false;
+    }
+  }
+
   async resolve(
     url: string,
     appearance: CardAppearance,
@@ -209,7 +229,7 @@ export class EditorCardProvider implements CardProvider {
       if (isSupported) {
         const providerDefaultAppearance = matchedProviderPattern?.defaultView;
 
-        const preferredAppearance =
+        let preferredAppearance =
           shouldForceAppearance === undefined
             ? // Ignore both User and provider's appearances if older editor that doesn't send shouldForceAppearance
               hardCodedAppearance || appearance
@@ -223,6 +243,16 @@ export class EditorCardProvider implements CardProvider {
               providerDefaultAppearance ||
               // If not, we pick what editor (or any other client) requested
               appearance;
+
+        if (
+          preferredAppearance === userPreference &&
+          userPreference === 'embed'
+        ) {
+          const canItBeEmbed = await this.canBeResolvedAsEmbed(url);
+          if (!canItBeEmbed) {
+            preferredAppearance = 'inline';
+          }
+        }
 
         return this.transformer.toAdf(url, preferredAppearance);
       }

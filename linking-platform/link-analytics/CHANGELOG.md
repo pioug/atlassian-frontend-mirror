@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 1.1.0
+
+### Minor Changes
+
+- [`d107fd8bd93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d107fd8bd93) - Adds callbacks for tracking link updates and link deletions.
+
 ## 1.0.0
 
 ### Major Changes

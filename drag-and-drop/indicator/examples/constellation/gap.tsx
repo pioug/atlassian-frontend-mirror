@@ -24,7 +24,7 @@ export default function GapExample() {
     <div css={containerStyles}>
       <div css={dropTargetStyles}>
         <span>Drop target</span>
-        <DropIndicator edge="right" gap={itemGap} />
+        <DropIndicator edge="right" gap={`${itemGap}px`} />
       </div>
       <div css={dropTargetStyles}>
         <span>Drop target</span>

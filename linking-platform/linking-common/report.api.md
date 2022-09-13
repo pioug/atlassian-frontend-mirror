@@ -105,7 +105,6 @@ export declare type CardType =
   | 'fallback'
   | 'unauthorized'
   | 'forbidden'
-  | 'errored'
   | 'not_found';
 
 export declare interface EmbedCardAdf {
@@ -217,6 +216,7 @@ export declare type ServerErrorType =
   | 'SearchUnsupportedError'
   | 'SearchFailedError'
   | 'SearchTimeoutError'
+  | 'SearchRateLimitError'
   | 'InternalServerError';
 
 export {};

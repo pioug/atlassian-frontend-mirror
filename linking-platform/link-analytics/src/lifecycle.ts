@@ -1,9 +1,12 @@
-import { useCallback } from 'react';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useMemo } from 'react';
+import {
+  CreateUIAnalyticsEvent,
+  useAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 
-import { linkCreatedPayload } from './analytics';
-import { SmartLinkLifecycleMethods } from './types';
-import { processAttributesFromBaseEvent } from './process-attributes';
+import { linkCreatedPayload, linkDeletedPayload } from './analytics';
+import { LinkLifecycleEventCallback, SmartLinkLifecycleMethods } from './types';
+import { mergeAttributes } from './process-attributes';
 import { name as packageName, version as packageVersion } from './version.json';
 
 const PACKAGE_DATA = {
@@ -13,6 +16,19 @@ const PACKAGE_DATA = {
 
 const ANALYTICS_CHANNEL = 'media';
 
+const generateCallback = (
+  eventPayload: Record<string, any>,
+  createAnalyticsEvent: CreateUIAnalyticsEvent,
+): LinkLifecycleEventCallback => {
+  return (details, sourceEvent, attributes = {}) => {
+    createAnalyticsEvent({
+      ...PACKAGE_DATA,
+      attributes: mergeAttributes(details, sourceEvent, attributes),
+      ...eventPayload,
+    }).fire(ANALYTICS_CHANNEL);
+  };
+};
+
 /**
  * Exposes callbacks to fire analytics events for the lifecycle (create, update and deletion) of links
  * @returns An object containing the analytic lifecycle methods
@@ -21,12 +37,12 @@ const ANALYTICS_CHANNEL = 'media';
  *
  * ```ts
  * export const ExampleComponent = () => {
- *   const { linkCreated } = useSmartLinkLifecycleAnalytics();
+ *   const linkAnalytics = useSmartLinkLifecycleAnalytics();
  *
  *   const handleCreateLink = ({ url }) => {
  *     // ... do stuff
  *     // Call when a link is created
- *     linkCreated({ url })
+ *     linkAnalytics.linkCreated({ url })
  *   }
  *
  *   return (
@@ -38,24 +54,12 @@ const ANALYTICS_CHANNEL = 'media';
 export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const linkCreated = useCallback<SmartLinkLifecycleMethods['linkCreated']>(
-    (details, sourceEvent, attributes = {}) => {
-      const eventAttributes: Record<string, any> = {
-        ...(sourceEvent ? processAttributesFromBaseEvent(sourceEvent) : {}),
-        ...attributes,
-        smartLinkId: details.smartLinkId,
-      };
-
-      createAnalyticsEvent({
-        ...PACKAGE_DATA,
-        attributes: eventAttributes,
-        ...linkCreatedPayload,
-      }).fire(ANALYTICS_CHANNEL);
-    },
+  return useMemo(
+    () => ({
+      linkCreated: generateCallback(linkCreatedPayload, createAnalyticsEvent),
+      // linkUpdated: generateCallback(linkUpdatedPayload, createAnalyticsEvent),
+      linkDeleted: generateCallback(linkDeletedPayload, createAnalyticsEvent),
+    }),
     [createAnalyticsEvent],
   );
-
-  return {
-    linkCreated,
-  };
 };

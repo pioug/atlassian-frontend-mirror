@@ -1,5 +1,11 @@
 # @atlaskit/badge
 
+## 15.0.19
+
+### Patch Changes
+
+- [`342ab3bc77e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/342ab3bc77e) - Update ds-explorations dependency to support previous patch
+
 ## 15.0.18
 
 ### Patch Changes

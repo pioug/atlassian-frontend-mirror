@@ -2,6 +2,7 @@ import React from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import type {
   ShareData,
@@ -12,8 +13,6 @@ import { INTEGRATION_MODAL_SOURCE } from '../analytics/analytics';
 import { IntegrationForm, IntegrationFormProps } from '../IntegrationForm';
 import { ShareForm } from '../ShareForm';
 import { ShareFormWrapper } from '../ShareFormWrapper';
-
-import { BottomMessageWrapper, CustomFooterWrapper } from './styled';
 
 export type LazyShareFormProps = Pick<
   ShareDialogWithTriggerProps,
@@ -110,10 +109,18 @@ function LazyShareForm(props: LazyShareFormProps) {
   const footer = (
     <div>
       {bottomMessage ? (
-        <BottomMessageWrapper>{bottomMessage}</BottomMessageWrapper>
+        <div css={{ width: `${gridSize() * 44}px` }}>{bottomMessage}</div>
       ) : null}
       {customFooter && selectedIntegration === null && (
-        <CustomFooterWrapper>{customFooter}</CustomFooterWrapper>
+        <div
+          css={{
+            margin: `0 ${-gridSize() * 3}px ${-gridSize() * 2}px ${
+              -gridSize() * 3
+            }px`,
+          }}
+        >
+          {customFooter}
+        </div>
       )}
     </div>
   );

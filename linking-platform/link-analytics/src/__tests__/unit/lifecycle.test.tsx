@@ -5,6 +5,7 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { useSmartLinkLifecycleAnalytics } from '../../lifecycle';
+import { linkCreatedPayload, linkDeletedPayload } from '../../analytics';
 
 describe('useSmartLinkLifecycleAnalytics', () => {
   const ANALYTICS_CHANNEL = 'media';
@@ -20,22 +21,29 @@ describe('useSmartLinkLifecycleAnalytics', () => {
     return { onEvent, ...renderResult };
   };
 
-  describe('createSmartLink', () => {
-    it('fires a `link created` event with custom attributes', () => {
+  const cases: [
+    string,
+    'linkCreated' | 'linkDeleted',
+    { action: string; actionSubject: string },
+  ][] = [
+    ['link created', 'linkCreated', linkCreatedPayload],
+    ['link deleted', 'linkDeleted', linkDeletedPayload],
+  ];
+
+  describe.each(cases)('%s', (name, method, payload) => {
+    it(`fires a ${name} event with custom attributes`, () => {
       const { onEvent, result } = setup();
       act(() => {
-        result.current.linkCreated(
-          { url: 'test.com', smartLinkId: 'xyz' },
-          null,
-          { extensionKey: 'test-key' },
-        );
+        result.current[method]({ url: 'test.com', smartLinkId: 'xyz' }, null, {
+          extensionKey: 'test-key',
+        });
       });
+
       expect(onEvent).toBeCalledWith(
         expect.objectContaining({
           hasFired: true,
           payload: expect.objectContaining({
-            action: 'created',
-            actionSubject: 'link',
+            ...payload,
             attributes: {
               smartLinkId: 'xyz',
               extensionKey: 'test-key',
@@ -47,7 +55,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       );
     });
 
-    it('supports deriving attributes from a source event', () => {
+    it(`${name} supports deriving attributes from a source event`, () => {
       const sourceEvent = new UIAnalyticsEvent({
         context: [
           {
@@ -67,17 +75,19 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
 
       const { onEvent, result } = setup();
+
       act(() => {
-        result.current.linkCreated(
+        result.current[method](
           { url: 'test.com', smartLinkId: 'xyz' },
           sourceEvent,
         );
       });
+
       expect(onEvent).toBeCalledWith(
         expect.objectContaining({
           hasFired: true,
           payload: expect.objectContaining({
-            action: 'created',
+            ...payload,
             actionSubject: 'link',
             attributes: {
               sourceEvent: 'form submitted',
@@ -92,7 +102,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       );
     });
 
-    it('supports custom attributes + attributes from a source event', () => {
+    it(`${name} supports custom attributes + attributes from a source event`, () => {
       const sourceEvent = new UIAnalyticsEvent({
         context: [
           {
@@ -115,7 +125,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       const { onEvent, result } = setup();
 
       act(() => {
-        result.current.linkCreated(
+        result.current[method](
           { url: 'test.com', smartLinkId: 'xyz' },
           sourceEvent,
         );
@@ -125,9 +135,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
         expect.objectContaining({
           hasFired: true,
           payload: expect.objectContaining({
-            action: 'created',
-            actionSubject: 'link',
-            eventType: 'track',
+            ...payload,
             attributes: {
               sourceEvent: 'form submitted (linkPicker)',
               smartLinkId: 'xyz',

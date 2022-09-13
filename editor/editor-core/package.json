@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "172.1.1",
+  "version": "172.1.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -68,7 +68,7 @@
     "@atlaskit/radio": "^5.4.0",
     "@atlaskit/section-message": "^6.2.0",
     "@atlaskit/select": "^15.7.0",
-    "@atlaskit/smart-card": "^22.1.0",
+    "@atlaskit/smart-card": "^22.2.0",
     "@atlaskit/smart-user-picker": "^6.0.0",
     "@atlaskit/spinner": "^15.1.0",
     "@atlaskit/status": "^1.1.0",

@@ -9,6 +9,7 @@ export type ServerErrorType =
   | 'SearchUnsupportedError'
   | 'SearchFailedError'
   | 'SearchTimeoutError'
+  | 'SearchRateLimitError'
   | 'InternalServerError';
 
 // Used to catch any other errors - not server-side.

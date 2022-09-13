@@ -1,5 +1,18 @@
 # @atlaskit/link-provider
 
+## 1.2.8
+
+### Patch Changes
+
+- [`86c47a3f711`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86c47a3f711) - Added search ratelimit error
+- Updated dependencies
+
+## 1.2.7
+
+### Patch Changes
+
+- [`90ceb732d6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90ceb732d6d) - Improved speed of resolving links due to single /resolve call and no more /check calls before that
+
 ## 1.2.6
 
 ### Patch Changes

@@ -22,11 +22,11 @@ export default function Basic() {
     },
   });
   const [isLinkPickerVisible, setIsLinkPickerVisible] = useState(true);
-  const { linkCreated } = useSmartLinkLifecycleAnalytics();
+  const linkAnalytics = useSmartLinkLifecycleAnalytics();
 
   const handleSubmit: LinkPickerProps['onSubmit'] = (payload, analytic) => {
     setLink(payload);
-    linkCreated(payload, analytic);
+    linkAnalytics.linkCreated(payload, analytic);
     setIsLinkPickerVisible(false);
   };
 

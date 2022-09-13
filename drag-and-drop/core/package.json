@@ -1,0 +1,82 @@
+{
+  "name": "@atlaskit/drag-and-drop",
+  "version": "0.6.0",
+  "description": "A performance optimized drag and drop framework for everyone",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Design System Team",
+    "inPublicMirror": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Core",
+      "category": "Libraries",
+      "draft": true
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./adapter/element": "./src/entry-point/adapter/element.ts",
+    "./adapter/file": "./src/entry-point/adapter/file.ts",
+    "./types": "./src/entry-point/types.ts",
+    "./addon/cancel-unhandled": "./src/entry-point/addon/cancel-unhandled.ts",
+    "./util/combine": "./src/entry-point/util/combine.ts",
+    "./util/once": "./src/entry-point/util/once.ts",
+    "./util/reorder": "./src/entry-point/util/reorder.ts",
+    "./util/disable-native-drag-preview": "./src/entry-point/util/disable-native-drag-preview.ts",
+    "./util/scroll-just-enough-into-view": "./src/entry-point/util/scroll-just-enough-into-view.ts",
+    "./experimental/cross-window-element-adapter": "./src/entry-point/experimental/cross-with-element-adapter.ts"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "bind-event-listener": "^2.1.1",
+    "raf-schd": "^4.0.3"
+  },
+  "devDependencies": {
+    "@atlaskit/tokens": "^0.10.11",
+    "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@emotion/react": "^11.7.1",
+    "@testing-library/dom": "^8.17.1",
+    "@types/raf-schd": "^4.0.1",
+    "globby": "^6.1.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "tiny-invariant": "^1.2.0",
+    "typescript": "4.3.5",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion",
+        "static"
+      ]
+    }
+  },
+  "homepage": "https://atlassian.design/components/drag-and-drop/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

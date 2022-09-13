@@ -17,7 +17,7 @@ export default function ClosestEdgeExample() {
       </Layout>
       <Layout testId="layout--with-gap">
         {edges.map(edge => (
-          <Card key={edge} edge={edge} gap={32}>
+          <Card key={edge} edge={edge} gap="32px">
             {edge}
           </Card>
         ))}

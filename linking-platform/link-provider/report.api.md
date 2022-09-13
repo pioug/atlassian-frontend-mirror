@@ -57,6 +57,7 @@ export declare class CardClient implements CardClient_2 {
     data: InvokePayload<InvocationSearchPayload>,
   ): Promise<JsonLd.Collection>;
   fetchAvailableSearchProviders(): Promise<SearchProviderInfo[]>;
+  private mapErrorResponse;
 }
 
 declare interface CardClient_2 {
@@ -114,7 +115,7 @@ export declare class EditorCardProvider implements CardProvider {
   private requestHeaders;
   private transformer;
   private providersLoader;
-  private checkedUrls;
+  private cardClient;
   constructor(envKey?: EnvironmentsKeys);
   private batchProviders;
   private check;
@@ -124,6 +125,12 @@ export declare class EditorCardProvider implements CardProvider {
   private findUserPreference;
   private findPatternData;
   private getHardCodedAppearance;
+  /**
+   * Make a /resolve call and find out if result has embed capability
+   * @param url
+   * @private
+   */
+  private canBeResolvedAsEmbed;
   resolve(
     url: string,
     appearance: CardAppearance,

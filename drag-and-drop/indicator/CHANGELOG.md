@@ -1,5 +1,27 @@
 # @atlaskit/drag-and-drop-indicator
 
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.0
+
+### Minor Changes
+
+- [`01232de241c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01232de241c) - The `gap` prop now takes a CSS string instead of a number.
+
+## 0.3.0
+
+### Minor Changes
+
+- [`17950433a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17950433a70) - Touching package to release re-release previous version. The previous (now deprecated) version did not have it's entry points built correctly
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.2
 
 ### Patch Changes

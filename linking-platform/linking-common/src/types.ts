@@ -39,7 +39,6 @@ export type CardType =
   | 'fallback'
   | 'unauthorized'
   | 'forbidden'
-  | 'errored'
   | 'not_found';
 
 export type MetadataStatus = 'pending' | 'resolved' | 'errored';

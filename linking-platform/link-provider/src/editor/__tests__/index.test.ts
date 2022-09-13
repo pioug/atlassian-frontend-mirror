@@ -4,6 +4,8 @@ import {
   ORSProvidersResponse,
   UserPreferences,
 } from '../types';
+import { mocks } from '../../client/__tests__/__fixtures__/mocks';
+import { urlResponseCache } from '../../client';
 
 const getMockProvidersResponse = ({
   userPreferences,
@@ -100,6 +102,9 @@ describe('providers > editor', () => {
   let mockFetch: jest.Mock;
 
   beforeEach(() => {
+    // Since we use module level caching,
+    // we need to clear it up for clean test run
+    urlResponseCache.removeAll();
     mockFetch = jest.fn();
     (global as any).fetch = mockFetch;
   });
@@ -222,16 +227,16 @@ describe('providers > editor', () => {
     },
   );
 
-  it('returns inlineCard when calling /providers endpoint, with fallback to /check', async () => {
+  it('returns inlineCard when calling /providers endpoint, with fallback to /resolve', async () => {
     const provider = new EditorCardProvider();
     // Mocking call to /providers
     mockFetch.mockResolvedValueOnce({
       json: async () => getMockProvidersResponse(),
       ok: true,
     });
-    // Mocking call to /check
+    // Mocking call to /resolve/batch
     mockFetch.mockResolvedValueOnce({
-      json: async () => ({ isSupported: true }),
+      json: async () => [{ body: mocks.success, status: 200 }],
       ok: true,
     });
     const url = 'https://drive.google.com/file/123';
@@ -239,22 +244,25 @@ describe('providers > editor', () => {
     expect(adf).toEqual(expectedInlineAdf(url));
   });
 
-  it('returns undefined when calling /providers endpoint, with fallback to /check, not supported', async () => {
+  it('returns undefined when calling /providers endpoint, with fallback to /resolve, not supported', async () => {
     const provider = new EditorCardProvider();
     // Mocking call to /providers
     mockFetch.mockResolvedValueOnce({
       json: async () => getMockProvidersResponse(),
+      ok: true,
     });
-    // Mocking call to /check
+    // Mocking call to /resolve/batch
     mockFetch.mockResolvedValueOnce({
-      json: async () => ({ isSupported: false }),
+      json: async () => [{ body: mocks.notFound, status: 404 }],
+      ok: true,
     });
+
     const url = 'https://drive.google.com/file/123';
     const promise = provider.resolve(url, 'inline', false);
     await expect(promise).rejects.toEqual(undefined);
   });
 
-  it('returns undefined when calling /providers endpoint, with fallback to /check, both fail', async () => {
+  it('returns undefined when calling /providers endpoint, with fallback to /resolve, both fail', async () => {
     const provider = new EditorCardProvider();
     mockFetch.mockResolvedValueOnce({
       json: async () => {
@@ -313,41 +321,41 @@ describe('providers > editor', () => {
       json: async () => getMockProvidersResponse(),
       ok: true,
     });
-    // Mocking call to /check
+    // Mocking call to /resolve/batch
     mockFetch.mockResolvedValueOnce({
-      json: async () => ({ isSupported: false }),
+      json: async () => [{ body: mocks.notFound, status: 404 }],
       ok: true,
     });
     const url = 'https://site-without-pattern.com';
     expect(await provider.findPattern(url)).toBe(false);
   });
 
-  it('should return true when /check fallback call says it is supported when pattern is not found', async () => {
+  it('should return true when /resolve returns positive results but pattern is not found', async () => {
     const provider = new EditorCardProvider();
     // Mocking call to /providers
     mockFetch.mockResolvedValueOnce({
       json: async () => getMockProvidersResponse(),
       ok: true,
     });
-    // Mocking call to /check
+    // Mocking call to /resolve/batch
     mockFetch.mockResolvedValueOnce({
-      json: async () => ({ isSupported: true }),
+      json: async () => [{ body: mocks.success, status: 200 }],
       ok: true,
     });
     const url = 'https://site-without-pattern.com';
     expect(await provider.findPattern(url)).toBe(true);
   });
 
-  it('should not call /check second time', async () => {
+  it('should not call /resolve/batch second time', async () => {
     const provider = new EditorCardProvider();
     // Mocking call to /providers
     mockFetch.mockResolvedValueOnce({
       json: async () => getMockProvidersResponse(),
       ok: true,
     });
-    // Mocking call to /check
+    // Mocking call to /resolve/batch
     mockFetch.mockResolvedValueOnce({
-      json: async () => ({ isSupported: true }),
+      json: async () => [{ body: mocks.success, status: 200 }],
       ok: true,
     });
     const url = 'https://site-without-pattern.com';
@@ -569,9 +577,9 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
@@ -599,9 +607,9 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
@@ -629,13 +637,13 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
-      const url = 'box.com/foo';
+      const url = 'http://box.com/foo';
       const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedBlockAdf(url));
     });
@@ -659,9 +667,9 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
@@ -689,9 +697,9 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
@@ -719,9 +727,9 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
@@ -749,9 +757,9 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
@@ -780,9 +788,9 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
@@ -810,9 +818,9 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
@@ -840,9 +848,9 @@ describe('providers > editor', () => {
         ok: true,
       });
 
-      // Mocking call to /check
+      // Mocking call to /resolve/batch
       mockFetch.mockResolvedValueOnce({
-        json: async () => ({ isSupported: true }),
+        json: async () => [{ body: mocks.success, status: 200 }],
         ok: true,
       });
 
@@ -891,7 +899,7 @@ describe('providers > editor', () => {
           ok: true,
         });
         mockFetch.mockResolvedValueOnce({
-          json: async () => ({ isSupported: true }),
+          json: async () => [{ body: mocks.success, status: 200 }],
           ok: true,
         });
 

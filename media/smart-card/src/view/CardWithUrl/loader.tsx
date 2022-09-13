@@ -83,16 +83,11 @@ export function CardWithURLRenderer(props: CardProps) {
       },
     ) => {
       const { componentStack } = info;
-      // NB: APIErrors are thrown in response to Object Resolver Service.
-      // In these cases, control is handed back to the Editor. We do not
+      // NB: APIErrors are thrown in response to Object Resolver Service. We do not
       // fire an event for these, as they do not cover failed UI render events.
-      if (error.name === 'APIError') {
-        throw error;
-      }
-      // NB: the rest of the errors caught here are unexpected, and correlate
-      // to the reliability of the smart-card front-end components. We instrument
-      // these in order to measure our front-end reliability.
-      else {
+      // The rest of the errors caught here are unexpected, and correlate
+      // to the reliability of the smart-card front-end components.
+      if (error.name !== 'APIError') {
         const errorInfo: ErrorInfo = {
           componentStack,
         };
@@ -103,6 +98,10 @@ export function CardWithURLRenderer(props: CardProps) {
           errorInfo,
         });
       }
+
+      // Rethrow to hand control to the consumer of Smart-card.
+      // In the case of editor this allows the Smart Link to fallback to a blue link.
+      throw error;
     },
     [analytics.ui, appearance, id],
   );
@@ -145,6 +144,6 @@ export function CardWithURLRenderer(props: CardProps) {
   );
 }
 
-const ErrorFallback = (): React.ReactElement => {
-  return <span />;
+const ErrorFallback = () => {
+  return null;
 };

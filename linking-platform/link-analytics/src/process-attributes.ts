@@ -1,5 +1,7 @@
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
+import { LinkDetails } from './types';
+
 const getSourceEvent = (event: UIAnalyticsEvent) => {
   const base =
     event.payload.eventName ??
@@ -30,5 +32,17 @@ export const processAttributesFromBaseEvent = (event: UIAnalyticsEvent) => {
     sourceEvent: getSourceEvent(event),
     ...contextAttributes,
     ...event.payload.attributes,
+  };
+};
+
+export const mergeAttributes = (
+  details: LinkDetails,
+  sourceEvent?: UIAnalyticsEvent | null,
+  attributes?: Record<string, any>,
+): Record<string, any> => {
+  return {
+    ...(sourceEvent ? processAttributesFromBaseEvent(sourceEvent) : {}),
+    ...attributes,
+    smartLinkId: details.smartLinkId,
   };
 };

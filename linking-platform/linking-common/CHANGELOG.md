@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.9.0
+
+### Minor Changes
+
+- [`86c47a3f711`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86c47a3f711) - Added search ratelimit error
+
 ## 1.8.0
 
 ### Minor Changes

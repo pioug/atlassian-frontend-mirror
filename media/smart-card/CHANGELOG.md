@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 22.2.0
+
+### Minor Changes
+
+- [`9a0c1c39d27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a0c1c39d27) - Rethrow errors from child component of smart-card so all non API errors will be handed to parent of smart-card
+
 ## 22.1.2
 
 ### Patch Changes

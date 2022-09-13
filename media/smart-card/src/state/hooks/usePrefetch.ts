@@ -7,10 +7,14 @@ import {
 
 export function usePrefetch(url: string) {
   const { store, prefetchStore, connections } = useSmartLinkContext();
-  const { dispatch, getState } = store;
-  const { client } = connections;
+  const { dispatch, getState } = store || {};
+  const { client } = connections || {};
 
   return useCallback(async () => {
+    // If smartlink context props are undefined do nothing.
+    if (!store || !prefetchStore || !connections) {
+      return;
+    }
     // If the link is already being prefetched, the prefetch store
     // should have a flag set against the URL. The prefetch store is purposefully
     // separate from the UI in order to ensure no rendering takes place;
@@ -58,5 +62,5 @@ export function usePrefetch(url: string) {
         // mutations yet, the link will behave like a 'brand new' link.
       }
     }
-  }, [prefetchStore, url, getState, client, dispatch]);
+  }, [store, prefetchStore, connections, url, getState, client, dispatch]);
 }

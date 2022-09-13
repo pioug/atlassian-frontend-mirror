@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-analytics",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,9 +34,12 @@
     "@atlaskit/button": "^16.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/link-picker": "^1.9.0",
+    "@atlaskit/link-test-helpers": "^1.4.1",
     "@atlaskit/popup": "^1.4.0",
+    "@atlaskit/smart-card": "^22.1.2",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react-hooks": "^1.1.0",
+    "fetch-mock": "^8.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "af:exports": {

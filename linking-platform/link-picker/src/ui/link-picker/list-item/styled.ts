@@ -62,6 +62,16 @@ export const listItemContextStyles = css`
   color: ${token('color.text', N300)};
   font-size: ${relativeFontSizeToBase16(fontSizeSmall())};
   line-height: ${fontSize()}px;
+  display: flex;
+`;
+
+export const listItemContainerStyles = css`
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const listItemContainerInnerStyles = css`
+  white-space: nowrap;
 `;
 
 export const itemIconStyles = css`

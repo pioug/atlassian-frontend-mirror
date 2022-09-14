@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ArticleWasHelpfulForm Match snapshot 1`] = `
-.emotion-8 {
+.emotion-6 {
   position: relative;
 }
 
@@ -14,27 +14,12 @@ exports[`ArticleWasHelpfulForm Match snapshot 1`] = `
   display: inline-block;
 }
 
-.emotion-7 {
+.emotion-5 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-}
-
-.emotion-3 {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.emotion-3 + .emotion-3::before {
-  content: '';
-  display: inline-block;
-  width: 4px;
+  gap: 4px;
 }
 
 .emotion-2,
@@ -112,7 +97,7 @@ exports[`ArticleWasHelpfulForm Match snapshot 1`] = `
 }
 
 <div
-  class="emotion-8"
+  class="emotion-6"
 >
   <div
     class="emotion-0"
@@ -121,38 +106,30 @@ exports[`ArticleWasHelpfulForm Match snapshot 1`] = `
     Was this helpful?
   </div>
   <div
-    class="emotion-7"
+    class="emotion-5"
   >
-    <div
-      class="emotion-3"
+    <button
+      class="emotion-2"
+      tabindex="0"
+      type="button"
     >
-      <button
-        class="emotion-2"
-        tabindex="0"
-        type="button"
+      <span
+        class="emotion-1"
       >
-        <span
-          class="emotion-1"
-        >
-          Yes
-        </span>
-      </button>
-    </div>
-    <div
-      class="emotion-3"
+        Yes
+      </span>
+    </button>
+    <button
+      class="emotion-2"
+      tabindex="0"
+      type="button"
     >
-      <button
-        class="emotion-2"
-        tabindex="0"
-        type="button"
+      <span
+        class="emotion-1"
       >
-        <span
-          class="emotion-1"
-        >
-          No
-        </span>
-      </button>
-    </div>
+        No
+      </span>
+    </button>
   </div>
 </div>
 `;

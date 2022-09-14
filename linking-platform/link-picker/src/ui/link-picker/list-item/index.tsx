@@ -12,6 +12,8 @@ import {
   listItemNameStyles,
   composeListItemStyles,
   imgStyles,
+  listItemContainerStyles,
+  listItemContainerInnerStyles,
 } from './styled';
 import { testIds } from '../';
 
@@ -72,9 +74,17 @@ const LinkSearchListItem = ({
           data-testid={`${testIds.searchResultItem}-subtitle`}
           css={listItemContextStyles}
         >
-          {container}
-          {container && date && <Fragment>&nbsp; •&nbsp; </Fragment>}
-          {date && <Fragment>{formatDate(date)}</Fragment>}
+          {container && (
+            <div css={listItemContainerStyles}>
+              <span css={listItemContainerInnerStyles}>{container}</span>
+            </div>
+          )}
+          {date && (
+            <div css={listItemContainerInnerStyles}>
+              {container && <Fragment>&nbsp; •&nbsp; </Fragment>}
+              <Fragment>{formatDate(date)}</Fragment>
+            </div>
+          )}
         </div>
       </div>
     </div>

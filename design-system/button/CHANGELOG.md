@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.3.7
+
+### Patch Changes
+
+- [`14d635468f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14d635468f6) - [ux] DSP-6696: prevent empty ButtonGroup items from showing spacing by switching to flexbox gap
+
 ## 16.3.6
 
 ### Patch Changes

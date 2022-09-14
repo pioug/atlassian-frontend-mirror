@@ -163,7 +163,7 @@ const MOCK_DATA_V3: MockDataV3 = {
                         'ari:cloud:confluence:9a357bbc-b7c6-47c8-b1dc-c3db3ac8954b:page/539197608',
                       title: 'FAB-996 Other one',
                       pageId: '539197608',
-                      space: { name: 'Cool space' },
+                      space: { name: 'Cool space with a very long name' },
                     },
                   },
                   event: {

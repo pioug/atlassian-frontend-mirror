@@ -1,9 +1,7 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { Fragment } from 'react';
 
-import { jsx } from '@emotion/core';
-
-import { gridSize } from '@atlaskit/theme/constants';
+import { css, jsx } from '@emotion/core';
 
 import { Appearance } from './types';
 
@@ -15,35 +13,28 @@ export type ButtonGroupProps = {
   children?: React.ReactNode;
 };
 
-export const groupItemStyles = {
-  flex: '1 0 auto',
-  display: 'flex',
-
-  /* margins don't flip when the layout uses dir="rtl", whereas pseudos do */
-  '& + &::before': {
-    content: `''`,
-    display: 'inline-block',
-    width: `${gridSize() / 2}px`,
-  },
-};
+const buttonGroupStyles = css({
+  display: 'inline-flex',
+  gap: 4,
+});
 
 export default function ButtonGroup({
   appearance,
   children,
 }: ButtonGroupProps) {
   return (
-    <div css={{ display: 'inline-flex' }}>
+    <div css={buttonGroupStyles}>
       {React.Children.map(children, (child, idx) => {
         if (!child) {
           return null;
         }
         return (
-          <div key={idx} css={groupItemStyles}>
+          <Fragment key={idx}>
             {appearance
               ? // eslint-disable-next-line @repo/internal/react/no-clone-element
                 React.cloneElement(child as JSX.Element, { appearance })
               : child}
-          </div>
+          </Fragment>
         );
       })}
     </div>

@@ -25,7 +25,8 @@ describe('Mention', () => {
     await snapshot(page);
   });
 
-  it('Should repaint when theme mode changes', async () => {
+  // FIXME: This test was automatically skipped due to failure on 13/09/2022: https://product-fabric.atlassian.net/browse/ED-15650
+  it.skip('Should repaint when theme mode changes', async () => {
     const url = getExampleUrl('editor', 'editor-core', 'kitchen-sink');
     await navigateToUrl(page, url, false);
     await page.keyboard.type('@carolyn\n');

@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.9.1
+
+### Patch Changes
+
+- [`548071512ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/548071512ad) - [ux] Add truncating logic to metadata to be constrained to one line
+
 ## 1.9.0
 
 ### Minor Changes

@@ -346,6 +346,7 @@ export declare interface ProfileClientOptions {
   teamCentralBaseUrl?: string;
   /** Name of integrating product e.g. jira, atlas, confluence **/
   productIdentifier?: string;
+  cloudId?: string;
 }
 
 export declare type RelativeDateKeyType =
@@ -409,7 +410,9 @@ declare class TeamCentralCardClient extends CachingClient<
    */
   bypassOnFailure: boolean;
   featureFlagKeys: Map<string, boolean>;
+  isTCReadyPromise: Promise<boolean>;
   constructor(options: TeamCentralCardClientOptions);
+  createTcReadyPromise(config: ProfileClientOptions): Promise<boolean>;
   makeFeatureFlagCheckRequest(
     featureKey: string,
     context?: FeatureFlagExtraContext[],

@@ -46,10 +46,7 @@ class ProfileCardClient {
   getReportingLines(userId: string): Promise<TeamCentralReportingLinesData> {
     return (
       this.tcClient?.getReportingLines(userId) ||
-      Promise.resolve({
-        managers: [],
-        reports: [],
-      })
+      Promise.resolve({ managers: [], reports: [] })
     );
   }
 
@@ -61,7 +58,7 @@ class ProfileCardClient {
     // Check if the kudos feature enabled and if the user has TC
     // if the user does not have TC the tc client will be undefined.
     return (
-      (this.tcClient?.options.teamCentralBaseUrl &&
+      (this.getTeamCentralBaseUrl() &&
         this.tcClient?.getFlagEnabled(
           'team-central-kudos-enabled-m2',
           this.tcClient?.options.productIdentifier,

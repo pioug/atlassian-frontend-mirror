@@ -1,5 +1,23 @@
 # @atlaskit/link-picker
 
+## 1.9.4
+
+### Patch Changes
+
+- [`81ac9ce10ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81ac9ce10ff) - Update error boundary implementation to replace analytic instrumentation for uncaught errors.
+
+## 1.9.3
+
+### Patch Changes
+
+- [`e3f8fb1f348`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3f8fb1f348) - Adds tracking of how the input fields are populated ie paste vs manual vs search.
+
+## 1.9.2
+
+### Patch Changes
+
+- [`c37f08a275a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c37f08a275a) - Fix onClick event bubbling on text field clear button activation.
+
 ## 1.9.1
 
 ### Patch Changes

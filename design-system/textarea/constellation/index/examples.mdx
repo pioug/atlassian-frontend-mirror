@@ -6,6 +6,9 @@ import TextareaDefault from '../../examples/constellation/text-area-default';
 import TextareaForm from '../../examples/constellation/text-area-form';
 import TextareaValidation from '../../examples/constellation/text-area-validation';
 import TextareaResize from '../../examples/constellation/text-area-resize';
+import TextAreaAppearanceStandard from '../../examples/constellation/text-area-appearance-standard';
+import TextAreaAppearanceSubtle from '../../examples/constellation/text-area-appearance-subtle';
+import TextAreaAppearanceNone from '../../examples/constellation/text-area-appearance-none';
 
 ## Default
 
@@ -23,11 +26,11 @@ Text area used with the `Form` component.
 
 This behavior is how text area will behave within [forms](/patterns/forms).
 
-Validation displays an error message related to the restrictions of the text area. 
+Validation displays an error message related to the restrictions of the text area.
 
 When a user selects the text area and starts typing or changing content, the focus color changes to blue. When validating text areas in real-time, message icons switch based on the message type. For example, helper text becomes an error message when the input content doesn't meet the criteria. Error and warning messages disappear when the criteria is met.
 
-Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help. 
+Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
 
 <Example Component={TextareaValidation} packageName="@atlaskit/textarea" />
 
@@ -35,7 +38,7 @@ Keep helper text as short as possible. For complex information, provide a link t
 
 ### Smart
 
-A text area that shows all user input at once. Overflow text wraps onto a new line and expands the text area. 
+A text area that shows all user input at once. Overflow text wraps onto a new line and expands the text area.
 
 ### Auto
 
@@ -50,3 +53,23 @@ A text area that lets the user resize the area either vertically only or horizon
 A text area that does not resize and uses a scroll bar to show overflow text.
 
 <Example Component={TextareaResize} packageName="@atlaskit/textarea" />
+
+## Appearance
+
+### Standard
+
+The standard (default) text area appearance.
+
+<Example Component={TextAreaAppearanceStandard} packageName="@atlaskit/textarea" />
+
+### Subtle
+
+A text area that's transparent until interaction or error.
+
+<Example Component={TextAreaAppearanceSubtle} packageName="@atlaskit/textarea" />
+
+### None
+
+A text area that's fully transparent with no indication on interaction or error.
+
+<Example Component={TextAreaAppearanceNone} packageName="@atlaskit/textarea" />

@@ -7,6 +7,9 @@ import TextFieldForm from '../../examples/constellation/text-field-form';
 import TextFieldFormNativeValidation from '../../examples/constellation/text-field-form-native-validation';
 import TextFieldFormValidation from '../../examples/constellation/text-field-form-validation';
 import TextFieldMaxValue from '../../examples/constellation/text-field-max-value';
+import TextFieldAppearanceStandard from '../../examples/constellation/text-field-appearance-standard';
+import TextFieldAppearanceSubtle from '../../examples/constellation/text-field-appearance-subtle';
+import TextFieldAppearanceNone from '../../examples/constellation/text-field-appearance-none';
 import TextFieldElementsBeforeAndAfter from '../../examples/constellation/text-field-elements-before-and-after';
 import TextFieldOverrideStyles from '../../examples/constellation/text-field-customisation';
 
@@ -45,6 +48,26 @@ Validation can display an error message related to the restrictions of the field
 Text fields can be set with a maximum character limit for constraining the amount of content that can be entered. Inline validation can also be set to alert the user and clarify the request.
 
 <Example Component={TextFieldMaxValue} packageName="@atlaskit/textfield" />
+
+## Appearance
+
+### Standard
+
+The standard (default) text field appearance.
+
+<Example Component={TextFieldAppearanceStandard} packageName="@atlaskit/textfield" />
+
+### Subtle
+
+A text field that's transparent until interaction or error.
+
+<Example Component={TextFieldAppearanceSubtle} packageName="@atlaskit/textfield" />
+
+### None
+
+A text field that's fully transparent with no indication on interaction or error.
+
+<Example Component={TextFieldAppearanceNone} packageName="@atlaskit/textfield" />
 
 ## Elements before and after input
 

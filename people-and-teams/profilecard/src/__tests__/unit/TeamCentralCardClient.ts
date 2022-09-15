@@ -1,9 +1,16 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
+import ProfileCardClient from '../../client/ProfileCardClient';
 import TeamCentralCardClient from '../../client/TeamCentralCardClient';
 import { ReportingLinesUser } from '../../types';
 
 const EXAMPLE_TEAM_CENTRAL_URL = 'https://team.atlassian.com';
+const EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL =
+  EXAMPLE_TEAM_CENTRAL_URL + '/?operationName=ReportingLines';
+const EXAMPLE_TEAM_CENTRAL_FEATURE_URL =
+  EXAMPLE_TEAM_CENTRAL_URL + '/?operationName=isFeatureKeyEnabled';
+const WORKSPACE_TEAM_CENTRAL_URL =
+  '/gateway/api/watermelon/organization/containsAnyWorkspace?cloudId=';
 const EXAMPLE_REPORTING_LINE_USER: ReportingLinesUser = {
   accountIdentifier: 'abcd',
   identifierType: 'ATLASSIAN_ID',
@@ -14,7 +21,21 @@ const EXAMPLE_REPORTING_LINE_USER: ReportingLinesUser = {
 };
 
 function mockReportingLines(promise: Promise<string>) {
-  fetchMock.post(EXAMPLE_TEAM_CENTRAL_URL, () => promise, {
+  fetchMock.post(EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL, () => promise, {
+    method: 'POST',
+    overwriteRoutes: true,
+  });
+}
+
+function mockHasWorkspace(status: number, cloudId: string) {
+  fetchMock.mock(WORKSPACE_TEAM_CENTRAL_URL + cloudId, status, {
+    method: 'GET',
+    overwriteRoutes: true,
+  });
+}
+
+function mockCheckFeatureFlag(promise: Promise<string>) {
+  fetchMock.post(EXAMPLE_TEAM_CENTRAL_FEATURE_URL, () => promise, {
     method: 'POST',
     overwriteRoutes: true,
   });
@@ -29,7 +50,39 @@ function initClient() {
   });
 }
 
+function initProfileCardClient(cloudId: string) {
+  const teamCentralClient = new TeamCentralCardClient({
+    cacheSize: 10,
+    cacheMaxAge: 5000,
+    url: EXAMPLE_TEAM_CENTRAL_URL,
+    teamCentralUrl: EXAMPLE_TEAM_CENTRAL_URL,
+    teamCentralBaseUrl: EXAMPLE_TEAM_CENTRAL_URL,
+    cloudId: cloudId,
+  });
+  return new ProfileCardClient(
+    { url: EXAMPLE_TEAM_CENTRAL_URL, cloudId: cloudId },
+    { teamCentralClient },
+  );
+}
+
+function initProfileCardClientWithNoCloudId() {
+  const teamCentralClient = new TeamCentralCardClient({
+    cacheSize: 10,
+    cacheMaxAge: 5000,
+    url: EXAMPLE_TEAM_CENTRAL_URL,
+    teamCentralUrl: EXAMPLE_TEAM_CENTRAL_URL,
+    teamCentralBaseUrl: EXAMPLE_TEAM_CENTRAL_URL,
+  });
+  return new ProfileCardClient(
+    { url: EXAMPLE_TEAM_CENTRAL_URL },
+    { teamCentralClient },
+  );
+}
+
 describe('TeamCentralCardClient', () => {
+  const hasWorkspaceCloudId = 'test-has-workspace';
+  const hasNoWorkspaceCloudId = 'test-has-no-workspace';
+
   beforeEach(() => {
     mockReportingLines(
       Promise.resolve(
@@ -46,6 +99,18 @@ describe('TeamCentralCardClient', () => {
         }),
       ),
     );
+    mockHasWorkspace(200, hasWorkspaceCloudId);
+    mockCheckFeatureFlag(
+      Promise.resolve(
+        JSON.stringify({
+          data: {
+            isFeatureEnabled: {
+              enabled: true,
+            },
+          },
+        }),
+      ),
+    );
   });
 
   afterEach(() => {
@@ -57,11 +122,15 @@ describe('TeamCentralCardClient', () => {
     const reportingLines = await client.getReportingLines('user');
     expect(reportingLines.managers).toHaveLength(1);
     expect(reportingLines.reports).toHaveLength(2);
-    expect(fetchMock.calls(EXAMPLE_TEAM_CENTRAL_URL)).toHaveLength(1);
+    expect(
+      fetchMock.calls(EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL),
+    ).toHaveLength(1);
 
     // Loads from cache
     await client.getReportingLines('user');
-    expect(fetchMock.calls(EXAMPLE_TEAM_CENTRAL_URL)).toHaveLength(1);
+    expect(
+      fetchMock.calls(EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL),
+    ).toHaveLength(1);
   });
 
   it('failure should return empty data because reporting lines is not part of the critical path', async () => {
@@ -69,7 +138,9 @@ describe('TeamCentralCardClient', () => {
     const client = initClient();
     const reportingLines = await client.getReportingLines('user');
     expect(reportingLines).toEqual({});
-    expect(fetchMock.calls(EXAMPLE_TEAM_CENTRAL_URL)).toHaveLength(1);
+    expect(
+      fetchMock.calls(EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL),
+    ).toHaveLength(1);
   });
 
   it('auth failure should trip the circuit breaker', async () => {
@@ -79,10 +150,51 @@ describe('TeamCentralCardClient', () => {
     const client = initClient();
     const reportingLines = await client.getReportingLines('user');
     expect(reportingLines).toEqual({});
-    expect(fetchMock.calls(EXAMPLE_TEAM_CENTRAL_URL)).toHaveLength(1);
+    expect(
+      fetchMock.calls(EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL),
+    ).toHaveLength(1);
 
     // Will not make any further calls
     await client.getReportingLines('user');
-    expect(fetchMock.calls(EXAMPLE_TEAM_CENTRAL_URL)).toHaveLength(1);
+    expect(
+      fetchMock.calls(EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL),
+    ).toHaveLength(1);
+  });
+
+  it('workspace exists should resolve reporting lines', async () => {
+    const client = initProfileCardClient(hasWorkspaceCloudId);
+    const reportingLines = await client.getReportingLines('user');
+    expect(reportingLines.managers).toHaveLength(1);
+    expect(reportingLines.reports).toHaveLength(2);
+    expect(
+      fetchMock.calls(WORKSPACE_TEAM_CENTRAL_URL + hasWorkspaceCloudId),
+    ).toHaveLength(1);
+  });
+
+  it('workspace does not exist should not resolve reporting lines', async () => {
+    mockHasWorkspace(404, hasNoWorkspaceCloudId);
+    const client = initProfileCardClient(hasNoWorkspaceCloudId);
+    const reportingLines = await client.getReportingLines('user');
+    expect(reportingLines.managers).toHaveLength(0);
+    expect(reportingLines.reports).toHaveLength(0);
+  });
+
+  it('workspace exists should show give kudos', async () => {
+    const client = initProfileCardClient(hasWorkspaceCloudId);
+    const shouldShowGiveKudos = await client.shouldShowGiveKudos();
+    expect(shouldShowGiveKudos).toEqual(true);
+  });
+
+  it('workspace does not exist should not show give kudos', async () => {
+    mockHasWorkspace(404, hasNoWorkspaceCloudId);
+    const client = initProfileCardClient(hasNoWorkspaceCloudId);
+    const shouldShowGiveKudos = await client.shouldShowGiveKudos();
+    expect(shouldShowGiveKudos).toEqual(false);
+  });
+
+  it('cloudId not passed in should still check to show give kudos', async () => {
+    const client = initProfileCardClientWithNoCloudId();
+    const shouldShowGiveKudos = await client.shouldShowGiveKudos();
+    expect(shouldShowGiveKudos).toEqual(true);
   });
 });

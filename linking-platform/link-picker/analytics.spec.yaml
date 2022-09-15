@@ -1,8 +1,51 @@
 context:
+  PackageMetaData: &PackageMetaDataContext
+    packageName:
+      type: ['@atlaskit/link-picker']
+      description: name of the package the event was fired from
+    packageVersion:
+      type: string
+      description: version of the package the event was fired from
+    source:
+      type: ['linkPicker']
+      description: the name of the ui source the event originated from (linkPicker)
+    componentName:
+      type: ['linkPicker']
+      description: the name of the component the event originated from (linkPicker)
+
   LinkPickerAnalyticsContext: &LinkPickerAnalyticsContext
     linkState:
       type: ['editLink', 'newLink']
-      description: whether the link picker is inserting a new link or editing an existing link
+      description: |
+        Whether the link picker is inserting a new link or editing an existing link.
+
+    linkFieldContent:
+      type: ['url', 'text_string']
+      required: false
+      description: |
+        The type of text that has been entered into the link input field (mainly URL vs other text strings that trigger a Search).
+        NULL if there is no text in the link input field.
+
+    linkFieldContentInputMethod:
+      type: ['manual', 'paste', 'searchResult']
+      required: false
+      description: |
+        How the user input the text entered into the link input field.
+        NULL if there is no text in link input field.
+
+    displayTextFieldContent:
+      type: ['text_string']
+      required: false
+      description: |
+        The type of text that has been entered into the display text input field (mainly URL vs other text strings that trigger a Search).
+        NULL if there is no text in the display text input field.
+
+    displayTextFieldContentInputMethod:
+      type: ['manual', 'paste']
+      required: false
+      description: |
+        How the user input the text entered into the display text input field.
+        NULL if there is no text in display text input field.
 
 events:
   - action: submitted
@@ -11,6 +54,7 @@ events:
     type: ui
     description: fired when the link picker is successfully submitted
     attributes:
+      <<: *PackageMetaDataContext
       <<: *LinkPickerAnalyticsContext
 
   - action: viewed
@@ -19,6 +63,7 @@ events:
     type: ui
     description: fired when the link picker component is mounted/viewed
     attributes:
+      <<: *PackageMetaDataContext
       <<: *LinkPickerAnalyticsContext
 
   - action: closed
@@ -27,5 +72,40 @@ events:
     type: ui
     description: fired when the link picked component is unmounted/dismissed for any reason
     attributes:
+      <<: *PackageMetaDataContext
       <<: *LinkPickerAnalyticsContext
 
+  - action: updated
+    actionSubject: textField
+    actionSubjectId: linkField
+    type: ui
+    description: fired when the user's focus moves away from the link input field after modifying its value
+    attributes:
+      <<: *PackageMetaDataContext
+      <<: *LinkPickerAnalyticsContext
+
+  - action: updated
+    actionSubject: textField
+    actionSubjectId: displayTextField
+    type: ui
+    description: fired when the user's focus moves away from the display text input field after modifying its value
+    attributes:
+      <<: *PackageMetaDataContext
+      <<: *LinkPickerAnalyticsContext
+
+  - action: unhandledErrorCaught
+    actionSubject: linkPicker
+    type: ui
+    description: fired when the link picked root error boundary catches an error
+    attributes:
+      <<: *PackageMetaDataContext
+      browserInfo:
+        type: string
+        description: the window navigator userAgent if it exists, else unknown
+      error:
+        type: string
+        description: the error that was caught by the error boundary
+      componentStack:
+        type: string
+        description: componentStack from componentDidCatch info
+        required: false

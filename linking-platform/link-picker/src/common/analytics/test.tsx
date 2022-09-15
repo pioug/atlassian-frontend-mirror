@@ -6,7 +6,7 @@ import {
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
-import { ANALYTICS_CHANNEL } from '../../common/constants';
+import { ANALYTICS_CHANNEL } from '../constants';
 import { withLinkPickerAnalyticsContext } from '.';
 
 describe('withLinkPickerAnalyticsContext', () => {
@@ -43,12 +43,10 @@ describe('withLinkPickerAnalyticsContext', () => {
 
     expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({
-        payload: EVENT_PAYLOAD,
-        context: expect.arrayContaining([
-          {
-            attributes: expect.objectContaining({ linkState: 'newLink' }),
-          },
-        ]),
+        payload: {
+          ...EVENT_PAYLOAD,
+          attributes: expect.objectContaining({ linkState: 'newLink' }),
+        },
       }),
       ANALYTICS_CHANNEL,
     );
@@ -59,12 +57,10 @@ describe('withLinkPickerAnalyticsContext', () => {
 
     expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({
-        payload: EVENT_PAYLOAD,
-        context: expect.arrayContaining([
-          {
-            attributes: expect.objectContaining({ linkState: 'newLink' }),
-          },
-        ]),
+        payload: {
+          ...EVENT_PAYLOAD,
+          attributes: expect.objectContaining({ linkState: 'newLink' }),
+        },
       }),
       ANALYTICS_CHANNEL,
     );
@@ -75,10 +71,10 @@ describe('withLinkPickerAnalyticsContext', () => {
 
     expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({
-        payload: EVENT_PAYLOAD,
-        context: expect.arrayContaining([
-          { attributes: expect.objectContaining({ linkState: 'editLink' }) },
-        ]),
+        payload: {
+          ...EVENT_PAYLOAD,
+          attributes: expect.objectContaining({ linkState: 'editLink' }),
+        },
       }),
       ANALYTICS_CHANNEL,
     );

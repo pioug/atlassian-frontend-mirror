@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 17.1.0
+
+### Minor Changes
+
+- [`aa321e66c2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa321e66c2a) - Add cloudid as optional client prop and add workspace check for Atlas functionality
+
 ## 17.0.0
 
 ### Major Changes

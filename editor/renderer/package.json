@@ -79,7 +79,7 @@
     "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/mention": "^21.0.0",
     "@atlaskit/navigation-next": "^9.0.0",
-    "@atlaskit/profilecard": "^17.0.0",
+    "@atlaskit/profilecard": "^17.1.0",
     "@atlaskit/radio": "^5.4.0",
     "@atlaskit/range": "^6.0.0",
     "@atlaskit/ssr": "*",

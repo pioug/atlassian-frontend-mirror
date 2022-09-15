@@ -144,4 +144,20 @@ describe('Snapshot Test', () => {
     const image = await takeElementScreenShot(page, cityDiv);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Appearances example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'select',
+      'appearance',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector('.single-select');
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

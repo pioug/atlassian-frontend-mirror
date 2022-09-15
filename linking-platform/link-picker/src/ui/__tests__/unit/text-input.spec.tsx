@@ -1,11 +1,12 @@
 import { mount, ReactWrapper } from 'enzyme';
-import { render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
+import { testIds } from '../../link-picker';
 import { browser } from '../../link-picker/browser';
-import PanelTextInput from '../../link-picker/text-input';
+import TextInput from '../../link-picker/text-input';
 
-describe('<PanelTextInput />', () => {
+describe('<TextInput />', () => {
   let panel: ReactWrapper;
 
   beforeEach(() => {
@@ -30,7 +31,7 @@ describe('<PanelTextInput />', () => {
     const preventDefault = jest.fn();
     const onChangeHandler = jest.fn();
     panel = mount(
-      <PanelTextInput value="" name="test" onChange={onChangeHandler} />,
+      <TextInput value="" name="test" onChange={onChangeHandler} />,
     );
 
     const input = panel.find('input');
@@ -43,7 +44,7 @@ describe('<PanelTextInput />', () => {
     const onKeyDownHandler = jest.fn();
     const onChangeHandler = jest.fn();
     panel = mount(
-      <PanelTextInput
+      <TextInput
         name="test"
         value=""
         onKeyDown={onKeyDownHandler}
@@ -65,7 +66,7 @@ describe('<PanelTextInput />', () => {
       onChangeSpy = jest.fn();
 
       panel = mount(
-        <PanelTextInput
+        <TextInput
           name="test"
           value=""
           onUndo={onUndoSpy}
@@ -132,7 +133,7 @@ describe('<PanelTextInput />', () => {
     const onChangeHandler = jest.fn();
 
     const { getByTestId } = render(
-      <PanelTextInput
+      <TextInput
         testId="link-url"
         value=""
         name="test"
@@ -148,7 +149,7 @@ describe('<PanelTextInput />', () => {
     const onChangeHandler = jest.fn();
 
     const { getByTestId } = render(
-      <PanelTextInput
+      <TextInput
         testId="link-url"
         value=""
         name="test"
@@ -157,5 +158,26 @@ describe('<PanelTextInput />', () => {
     );
 
     expect(getByTestId('link-url')).not.toHaveFocus();
+  });
+
+  it('should stop propagation of the event when clear button is activated', async () => {
+    render(<TextInput name="url" value="XYZ" onChange={jest.fn()} />);
+
+    const clearButton = screen.getByTestId(testIds.clearUrlButton);
+    clearButton.focus();
+    const event = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+    });
+    Object.assign(event, {
+      preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
+    });
+    // Click on clear button
+    fireEvent(clearButton, event);
+    // Prevent default should have been called
+    expect(event.preventDefault).toHaveBeenCalled();
+    // Stop propagation should have been called
+    expect(event.stopPropagation).toHaveBeenCalled();
   });
 });

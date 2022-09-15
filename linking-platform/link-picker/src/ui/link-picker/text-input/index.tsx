@@ -1,57 +1,48 @@
 /** @jsx jsx */
 import {
-  ChangeEvent,
   KeyboardEvent,
   MutableRefObject,
   useCallback,
   useRef,
   Fragment,
+  MouseEvent,
 } from 'react';
 
 import { jsx } from '@emotion/react';
 import { ErrorMessage, Field } from '@atlaskit/form';
 import Tooltip from '@atlaskit/tooltip';
 import Textfield, { TextFieldProps } from '@atlaskit/textfield';
-
 import Selectclear from '@atlaskit/icon/glyph/select-clear';
-import { isRedoEvent, isUndoEvent } from '../utils';
-import { clearTextButtonStyles, fieldStyles } from './styled';
-import { testIds } from '../';
 
-export interface Props
-  extends Omit<
-    TextFieldProps,
-    'value' | 'onChange' | 'autoFocus' | 'onSubmit'
-  > {
+import { isRedoEvent, isUndoEvent } from '../utils';
+import { testIds } from '../';
+import { clearTextButtonStyles, fieldStyles } from './styled';
+
+export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> & {
   name: string;
-  label?: string;
-  autoFocus?: boolean;
   value: string;
-  onChange: (value: string) => void;
+  label?: string;
   // overrides default browser undo behaviour (cmd/ctrl + z) with that function
   onUndo?: Function;
   // overrides default browser redo behaviour (cm + shift + z / ctrl + y) with that function
   onRedo?: Function;
-  onClear?: Function;
+  onClear?: (name: string) => void;
   clearLabel?: string;
   error?: string | null;
-}
+};
 
-const PanelTextInput = (props: Props) => {
-  const {
-    name,
-    label,
-    autoFocus,
-    onRedo,
-    onUndo,
-    onChange,
-    onKeyDown,
-    onClear,
-    clearLabel,
-    error,
-    ...restProps
-  } = props;
-
+const TextInput = ({
+  name,
+  label,
+  autoFocus,
+  onRedo,
+  onUndo,
+  onKeyDown,
+  onClear,
+  clearLabel,
+  error,
+  ...restProps
+}: TextInputProps) => {
   const inputRef: MutableRefObject<HTMLInputElement | null> = useRef<
     HTMLInputElement
   >(null);
@@ -67,13 +58,6 @@ const PanelTextInput = (props: Props) => {
       }
     },
     [autoFocus],
-  );
-
-  const handleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      onChange(e.currentTarget.value);
-    },
-    [onChange],
   );
 
   const handleKeydown = useCallback(
@@ -93,12 +77,15 @@ const PanelTextInput = (props: Props) => {
     [onUndo, onRedo, onKeyDown],
   );
 
-  const handleClear = useCallback(() => {
-    if (inputRef.current && onClear) {
-      inputRef.current.focus();
-      onClear(name);
-    }
-  }, [name, onClear]);
+  const handleClear = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onClear?.(name);
+      inputRef.current?.focus();
+    },
+    [name, onClear],
+  );
 
   const clearText = restProps.value !== '' && (
     <Tooltip content={clearLabel}>
@@ -123,7 +110,6 @@ const PanelTextInput = (props: Props) => {
                 {...fieldProps}
                 {...restProps}
                 onKeyDown={handleKeydown}
-                onChange={handleChange}
                 ref={handleRef}
                 elemAfterInput={clearText}
                 isInvalid={!!error}
@@ -139,4 +125,4 @@ const PanelTextInput = (props: Props) => {
   );
 };
 
-export default PanelTextInput;
+export default TextInput;

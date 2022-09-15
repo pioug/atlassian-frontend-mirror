@@ -7,6 +7,7 @@ import {
   useEffect,
   useLayoutEffect,
   useReducer,
+  ChangeEvent,
   memo,
 } from 'react';
 import { jsx } from '@emotion/react';
@@ -26,14 +27,18 @@ import {
 import createEventPayload from '../../analytics.codegen';
 
 import { ANALYTICS_CHANNEL } from '../../common/constants';
+import {
+  useLinkPickerAnalytics,
+  withInputFieldTracking,
+  withLinkPickerAnalyticsContext,
+} from '../../common/analytics';
+import { normalizeUrl, isSafeUrl } from '../../common/utils/url';
 import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
-import { withLinkPickerAnalyticsContext } from '../../services/with-link-picker-analytics';
+import useFixHeight from '../../controllers/use-fix-height';
 
 import { messages } from './messages';
-import PanelTextInput from './text-input';
-import { normalizeUrl, isSafeUrl } from '../../common/utils/url';
-import useFixHeight from '../../controllers/use-fix-height';
+import TextInput from './text-input';
 import {
   rootContainerStyles,
   searchIconStyles,
@@ -120,8 +125,6 @@ export interface PickerState {
   activeTab: number;
 }
 
-type LinkPickerForm = 'url' | 'displayText';
-
 const initState = {
   url: '',
   displayText: '',
@@ -144,6 +147,28 @@ function reducer(state: PickerState, payload: Partial<PickerState>) {
 
   return { ...state, ...payload };
 }
+
+/**
+ * Bind input fields to analytics tracking
+ */
+
+const getLinkFieldContent = (value: string) => {
+  if (!Boolean(value)) {
+    return null;
+  }
+  return isSafeUrl(value) ? 'url' : 'text_string';
+};
+
+const LinkInputField = withInputFieldTracking(
+  TextInput,
+  'link',
+  (event, attributes) => ({
+    ...attributes,
+    linkFieldContent: getLinkFieldContent(event.currentTarget.value),
+  }),
+);
+
+const DisplayTextInputField = withInputFieldTracking(TextInput, 'displayText');
 
 function LinkPicker({
   onSubmit,
@@ -189,6 +214,8 @@ function LinkPicker({
     items?.[selectedIndex];
   const isSelectedItem = selectedItem?.url === url;
 
+  const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
+
   useEffect(() => {
     // Anything in here is fired on component mount.
     const event = createAnalyticsEvent(
@@ -213,15 +240,15 @@ function LinkPicker({
     }
   }, [onContentResize, items, isLoading, isActivePlugin, tabs]);
 
-  const handleChangeUrl = useCallback((url: string) => {
+  const handleChangeUrl = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
-      url,
+      url: e.currentTarget.value,
     });
   }, []);
 
-  const handleChangeText = useCallback((displayText: string) => {
+  const handleChangeText = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
-      displayText,
+      displayText: e.currentTarget.value,
     });
   }, []);
 
@@ -252,6 +279,14 @@ function LinkPicker({
         [KEY_CODE_ARROW_DOWN, KEY_CODE_ARROW_UP].includes(keyCode) &&
         items[updatedIndex]
       ) {
+        /**
+         * Manually track that the url has been updated using searchResult method
+         */
+        trackAttribute(
+          'linkFieldContent',
+          getLinkFieldContent(items[updatedIndex].url),
+        );
+        trackAttribute('linkFieldContentInputMethod', 'searchResult');
         dispatch({
           activeIndex: updatedIndex,
           selectedIndex: updatedIndex,
@@ -260,10 +295,10 @@ function LinkPicker({
         });
       }
     },
-    [activeIndex, items],
+    [activeIndex, items, trackAttribute],
   );
 
-  const handleClear = useCallback((field: LinkPickerForm) => {
+  const handleClear = useCallback((field: string) => {
     dispatch({
       [field]: '',
     });
@@ -301,7 +336,9 @@ function LinkPicker({
       // Clone the event so that it can be emitted for consumer usage
       // This must happen BEFORE the original event is fired!
       const consumerEvent = event.clone();
-
+      // Cloned event doesnt have the attributes that are added by
+      // the analytics listener in the LinkPickerAnalyticsContext, add them here
+      consumerEvent?.update({ attributes: getAttributes() });
       // Dispatch the original event to our channel
       event.fire(ANALYTICS_CHANNEL);
 
@@ -316,7 +353,7 @@ function LinkPicker({
         consumerEvent,
       );
     },
-    [displayText, onSubmit, state.url, createAnalyticsEvent],
+    [displayText, onSubmit, state.url, createAnalyticsEvent, getAttributes],
   );
 
   const handleSelected = useCallback(
@@ -326,10 +363,15 @@ function LinkPicker({
       if (selectedItem) {
         const { url, name } = selectedItem;
         dispatchEvent(new Event('submit'));
+        /**
+         * Manually track that the url has been updated using searchResult method
+         */
+        trackAttribute('linkFieldContent', getLinkFieldContent(url));
+        trackAttribute('linkFieldContentInputMethod', 'searchResult');
         handleInsert(url, name, 'typeAhead');
       }
     },
-    [handleInsert, items],
+    [handleInsert, trackAttribute, items],
   );
 
   const handleSubmit = useCallback(
@@ -389,7 +431,7 @@ function LinkPicker({
       <VisuallyHidden id={screenReaderDescriptionId}>
         <FormattedMessage {...messages.searchLinkAriaDescription} />
       </VisuallyHidden>
-      <PanelTextInput
+      <LinkInputField
         role="combobox"
         autoComplete="off"
         name="url"
@@ -410,7 +452,7 @@ function LinkPicker({
         onKeyDown={handleKeyDown}
         onChange={handleChangeUrl}
       />
-      <PanelTextInput
+      <DisplayTextInputField
         autoComplete="off"
         name="displayText"
         testId={testIds.textInputField}

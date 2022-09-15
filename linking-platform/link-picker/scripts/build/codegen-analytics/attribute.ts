@@ -2,22 +2,27 @@ import * as ts from 'typescript';
 
 import { AttributeSpec } from './types';
 
-const getEventAttributeType = (type: AttributeSpec['type']) => {
+const getEventAttributeType = (attr: AttributeSpec) => {
+  const isOptional = attr.required === false;
+
   /** Handle enum */
-  if (Array.isArray(type)) {
-    return ts.factory.createUnionTypeNode(
-      type.map(t =>
+  if (Array.isArray(attr.type)) {
+    return ts.factory.createUnionTypeNode([
+      ...attr.type.map(t =>
         ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(t)),
       ),
-    );
+      ...(isOptional
+        ? [ts.factory.createLiteralTypeNode(ts.factory.createNull())]
+        : []),
+    ]);
   }
-  switch (type) {
+  switch (attr.type) {
     case 'string':
       return ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
     case 'number':
       return ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
     default:
-      throw new Error(`Unsupported attribute type: ${type}`);
+      throw new Error(`Unsupported attribute type: ${attr.type}`);
   }
 };
 
@@ -29,6 +34,6 @@ export const getAttributePropertySignature = ([name, attr]: [
     undefined,
     name,
     undefined,
-    getEventAttributeType(attr.type),
+    getEventAttributeType(attr),
   );
 };

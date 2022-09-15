@@ -3,6 +3,9 @@ import { jsx } from '@emotion/react';
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
+import EmptyState from '@atlaskit/empty-state';
+
+import GenericErrorSVG from '../../../common/generic-error-svg';
 
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
 
@@ -19,9 +22,6 @@ export const messages = defineMessages({
     description: 'Describes possible actions when search throws an error',
   },
 });
-import EmptyState from '@atlaskit/empty-state';
-
-import GenericErrorSVG from '../../../common/generic-error-svg';
 
 export const testIds = {
   searchError: 'link-search-error',

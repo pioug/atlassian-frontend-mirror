@@ -434,6 +434,7 @@ export interface ProfileClientOptions {
   teamCentralBaseUrl?: string;
   /** Name of integrating product e.g. jira, atlas, confluence **/
   productIdentifier?: string;
+  cloudId?: string;
 }
 
 export interface ClientOverrides {

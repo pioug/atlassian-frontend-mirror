@@ -41,11 +41,15 @@ const requestAnimationFrame = window.requestAnimationFrame as any;
 describe('table -> nodeviews -> TableComponent.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
 
+  const getEditorFeatureFlags = jest.fn();
+
   const editor = (
     doc: DocBuilder,
     featureFlags?: { [featureFlag: string]: string | boolean },
-  ) =>
-    createEditor({
+  ) => {
+    getEditorFeatureFlags.mockReturnValue(featureFlags || {});
+
+    return createEditor({
       doc,
       editorProps: {
         allowTables: { advanced: true },
@@ -53,6 +57,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       },
       pluginKey,
     });
+  };
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -156,6 +161,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
           containerWidth={{}}
           // @ts-ignore
           getNode={getNode}
+          getEditorFeatureFlags={getEditorFeatureFlags}
           {...props}
         />,
       );
@@ -234,6 +240,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
               wrapper?.appendChild(node);
             }
           }}
+          getEditorFeatureFlags={getEditorFeatureFlags}
         />,
       );
 
@@ -346,6 +353,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
           }}
           isMediaFullscreen={isMediaFullscreen}
           allowColumnResizing={true}
+          getEditorFeatureFlags={getEditorFeatureFlags}
         />,
       );
       return { wrapper, view };

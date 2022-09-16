@@ -22,6 +22,7 @@ import { pluginKey as dateStateKey } from '../date/pm-plugins/plugin-key';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
+import type { InsertNodeAPI } from '../../insert-api/types';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
   switch (toolbarSize) {
@@ -47,6 +48,7 @@ export interface InsertBlockOptions {
   nativeStatusSupported?: boolean;
   replacePlusMenuWithElementBrowser?: boolean;
   showElementBrowserLink?: boolean;
+  insertNodeAPI?: InsertNodeAPI;
 }
 
 /**
@@ -103,6 +105,7 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
             layoutState,
           }) => (
             <ToolbarInsertBlock
+              insertNodeAPI={options.insertNodeAPI}
               buttons={buttons}
               isReducedSpacing={isToolbarReducedSpacing}
               isDisabled={disabled}

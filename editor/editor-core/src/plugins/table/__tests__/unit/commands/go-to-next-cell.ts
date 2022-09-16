@@ -15,6 +15,7 @@ import {
   p,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 import tablePlugin from '../../../index';
 import { pluginKey } from '../../../pm-plugins/plugin-key';
@@ -26,6 +27,9 @@ const TABLE_LOCAL_ID = 'test-table-local-id';
 const tdNextFocus = td()(p('{nextFocus}'));
 
 describe('table plugin: goToNextCell', () => {
+  const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+    attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
+  };
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
   const editor = (doc: DocBuilder) =>
@@ -43,7 +47,10 @@ describe('table plugin: goToNextCell', () => {
       dispatch,
     } = editorView;
 
-    const returnValue = goToNextCell(1)(state, dispatch);
+    const returnValue = goToNextCell(editorAnalyticsAPIFake)(1)(
+      state,
+      dispatch,
+    );
 
     expect(returnValue).toBeFalsy();
     expect(editorView.state.doc).toEqual(initialDoc);
@@ -60,7 +67,10 @@ describe('table plugin: goToNextCell', () => {
     );
     const { state, dispatch } = editorView;
 
-    const returnValue = goToNextCell(1)(state, dispatch);
+    const returnValue = goToNextCell(editorAnalyticsAPIFake)(1)(
+      state,
+      dispatch,
+    );
 
     expect(returnValue).toBeTruthy();
     expect(editorView.state.selection.$anchor.pos).toEqual(refs.nextFocus);
@@ -77,7 +87,10 @@ describe('table plugin: goToNextCell', () => {
     );
     const { state, dispatch } = editorView;
 
-    const returnValue = goToNextCell(-1)(state, dispatch);
+    const returnValue = goToNextCell(editorAnalyticsAPIFake)(-1)(
+      state,
+      dispatch,
+    );
 
     expect(returnValue).toBeTruthy();
     expect(editorView.state.selection.$anchor.pos).toEqual(refs.nextFocus);
@@ -102,7 +115,10 @@ describe('table plugin: goToNextCell', () => {
       ),
     )(state.schema);
 
-    const returnValue = goToNextCell(1)(state, dispatch);
+    const returnValue = goToNextCell(editorAnalyticsAPIFake)(1)(
+      state,
+      dispatch,
+    );
 
     expect(returnValue).toBeTruthy();
     expect(expected.eq(editorView.state.doc)).toBeTruthy();
@@ -128,7 +144,10 @@ describe('table plugin: goToNextCell', () => {
       ),
     )(state.schema);
 
-    const returnValue = goToNextCell(-1)(state, dispatch);
+    const returnValue = goToNextCell(editorAnalyticsAPIFake)(-1)(
+      state,
+      dispatch,
+    );
 
     expect(returnValue).toBeTruthy();
     expect(expected.eq(editorView.state.doc)).toBeTruthy();

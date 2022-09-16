@@ -20,6 +20,8 @@ import { EventDispatcher } from '../../../../event-dispatcher';
 
 describe('TableView', () => {
   const createEditor = createEditorFactory<TablePluginState>();
+  const getEditorContainerWidth = () => ({ width: 500 });
+  const fakeGetEditorFeatureFlags = () => ({});
 
   const editor = (doc: DocBuilder) => {
     const tableOptions = {
@@ -71,6 +73,8 @@ describe('TableView', () => {
       portalProviderAPI,
       eventDispatcher,
       getPos: () => 1,
+      getEditorContainerWidth,
+      getEditorFeatureFlags: fakeGetEditorFeatureFlags,
     }).init();
 
     // we expect to have a contentDOM after instanciating the NodeView so that

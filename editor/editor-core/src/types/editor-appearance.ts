@@ -1,6 +1,1 @@
-export type EditorAppearance =
-  | 'comment'
-  | 'full-page'
-  | 'full-width'
-  | 'chromeless'
-  | 'mobile';
+export type { EditorAppearance } from '@atlaskit/editor-common/types';

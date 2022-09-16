@@ -2,7 +2,11 @@ import { css } from '@emotion/react';
 
 import { gridSize } from '@atlaskit/theme/constants';
 import { N40A, N50A } from '@atlaskit/theme/colors';
-import { columnLayoutSharedStyle } from '@atlaskit/editor-common/styles';
+import {
+  columnLayoutSharedStyle,
+  LAYOUT_SECTION_MARGIN,
+  LAYOUT_COLUMN_PADDING,
+} from '@atlaskit/editor-common/styles';
 import {
   gridMediumMaxWidth,
   akEditorDeleteBackground,
@@ -19,8 +23,7 @@ import { token } from '@atlaskit/tokens';
 import { TableCssClassName } from '../table/types';
 import { tableMarginFullWidthMode } from '../table/ui/consts';
 
-export const LAYOUT_SECTION_MARGIN = gridSize();
-export const LAYOUT_COLUMN_PADDING = gridSize() * 1.5;
+export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
 
 export const layoutStyles = css`
   .ProseMirror {

@@ -1,4 +1,5 @@
 import { KeyboardEvent } from 'react';
+import { LinkPickerPlugin, LinkSearchListItemData } from '../types';
 
 import { browser } from './browser';
 
@@ -22,4 +23,14 @@ export const isRedoEvent = (e: KeyboardEvent<HTMLInputElement>) => {
     (browser.mac && e.metaKey && e.shiftKey && e.keyCode === KeyZCode) ||
     (e.ctrlKey && e.shiftKey && e.keyCode === KeyZCode)
   );
+};
+
+/**
+ * Retrieve the data source for a link given the item and the plugin that resolved it
+ */
+export const getDataSource = (
+  item: LinkSearchListItemData,
+  plugin?: LinkPickerPlugin,
+) => {
+  return item.meta?.source ?? plugin?.meta?.source ?? 'unknown';
 };

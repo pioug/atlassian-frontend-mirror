@@ -16,6 +16,17 @@ export {
   todayTimestampInUTC,
 } from './date';
 export type { Date } from './date';
+export {
+  isElementInTableCell,
+  isTextSelection,
+  isLastItemMediaGroup,
+  setNodeSelection,
+  nonNullable,
+  stepAddsOneOf,
+  stepHasSlice,
+  extractSliceFromStep,
+  isValidPosition,
+} from './editor-core-utils';
 export { withImageLoader } from './imageLoader';
 export type {
   ImageLoaderProps,
@@ -28,6 +39,45 @@ export {
   calcWideWidth,
   breakoutConsts,
 } from './breakout';
+
+export {
+  findChangedNodesFromTransaction,
+  validNode,
+  validateNodes,
+  isType,
+  isParagraph,
+  isText,
+  isLinkMark,
+  SelectedState,
+  isNodeSelectedOrInRange,
+  isSupportedInParent,
+} from './nodes';
+
+export type { Reducer } from './plugin-state-factory';
+export { pluginFactory } from './plugin-state-factory';
+
+export {
+  getFragmentBackingArray,
+  mapFragment,
+  mapSlice,
+  flatmap,
+  mapChildren,
+} from './slice';
+export type { FlatMapCallback, MapWithCallback } from './slice';
+
+export {
+  walkUpTreeUntil,
+  unwrap,
+  removeNestedEmptyEls,
+  containsClassName,
+  closest,
+  closestElement,
+  parsePx,
+  mapElem,
+  maphElem,
+} from './dom';
+export type { MapCallback } from './dom';
+
 export { default as ADFTraversor } from './traversor';
 export {
   analyticsEventKey,
@@ -66,6 +116,7 @@ export {
 } from './table';
 export { createCompareNodes } from './compareNodes';
 export { compose } from './compose';
+export { isTextInput } from './is-text-input';
 export { ZERO_WIDTH_SPACE } from './whitespace';
 
 export type { Diff } from './types';

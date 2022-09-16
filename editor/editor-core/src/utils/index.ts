@@ -28,7 +28,8 @@ import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 import { isNodeEmpty } from './document';
 import { atTheBeginningOfDoc, atTheEndOfDoc } from './prosemirror/position';
-import { closest } from './dom';
+
+export { insideTable } from '@atlaskit/editor-common/core-utils';
 
 export {
   isEmptyParagraph,
@@ -623,26 +624,9 @@ export const isEmptyNode = (schema: Schema) => {
   return innerIsEmptyNode;
 };
 
-export const insideTable = (state: EditorState): Boolean => {
-  const { table, tableCell } = state.schema.nodes;
-
-  return hasParentNodeOfType([table, tableCell])(state.selection);
-};
-
 export const insideTableCell = (state: EditorState) => {
   const { tableCell, tableHeader } = state.schema.nodes;
   return hasParentNodeOfType([tableCell, tableHeader])(state.selection);
-};
-
-export const isElementInTableCell = (
-  element: HTMLElement | null,
-): HTMLElement | null => {
-  return closest(element, 'td') || closest(element, 'th');
-};
-
-export const isLastItemMediaGroup = (node: Node): boolean => {
-  const { content } = node;
-  return !!content.lastChild && content.lastChild.type.name === 'mediaGroup';
 };
 
 export const isInLayoutColumn = (state: EditorState): boolean => {
@@ -702,9 +686,12 @@ export function dedupe<T>(
   });
 }
 
-export const isTextSelection = (
-  selection: Selection,
-): selection is TextSelection => selection instanceof TextSelection;
+export {
+  isTextSelection,
+  isElementInTableCell,
+  isLastItemMediaGroup,
+  nonNullable,
+} from '@atlaskit/editor-common/utils';
 
 /** Helper type for single arg function */
 type Func<A, B> = (a: A) => B;
@@ -797,7 +784,4 @@ export function sum<T>(arr: Array<T>, f: (val: T) => number) {
   return arr.reduce((val, x) => val + f(x), 0);
 }
 
-export function nonNullable<T>(value: T): value is NonNullable<T> {
-  return value !== null && value !== undefined;
-}
 export { SetAttrsStep } from '@atlaskit/adf-schema/steps';

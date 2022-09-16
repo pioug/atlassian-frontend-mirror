@@ -24,6 +24,7 @@ import {
   placeholderTextPlugin,
   rulePlugin,
   saveOnEnterPlugin,
+  // tablesPlugin,
   tablesPlugin,
   tasksAndDecisionsPlugin,
   textColorPlugin,
@@ -51,6 +52,9 @@ import {
   codeBidiWarningPlugin,
   copyButtonPlugin,
 } from '../plugins';
+// import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import {
   GUTTER_SIZE_MOBILE_IN_PX,
@@ -71,6 +75,9 @@ import {
   BeforeAndAfterToolbarComponents,
   PrimaryToolbarComponents,
 } from '../types/editor-props';
+import type { InsertNodeAPI } from '../insert-api/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 
 const isCodeBlockAllowed = (
   options?: Pick<BlockTypePluginOptions, 'allowBlockType'>,
@@ -194,6 +201,10 @@ export default function createPluginsList(
   props: EditorProps,
   prevProps?: EditorProps,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
+  insertNodeAPI?: InsertNodeAPI,
+  editorAnalyticsAPI?: EditorAnalyticsAPI,
+  editorSelectionAPI?: EditorSelectionAPI,
+  getEditorContainerWidth?: GetEditorContainerWidth,
 ): EditorPlugin[] {
   const appearance = props.appearance;
   const isMobile = appearance === 'mobile';
@@ -203,6 +214,7 @@ export default function createPluginsList(
     getDefaultPresetOptionsFromEditorProps(props, createAnalyticsEvent),
   );
   const featureFlags = createFeatureFlagsFromProps(props);
+  const getEditorFeatureFlags = () => featureFlags;
 
   if (props.allowAnalyticsGASV3) {
     const { performanceTracking } = props;
@@ -326,6 +338,10 @@ export default function createPluginsList(
         allowContextualMenu: !isMobile,
         fullWidthEnabled: props.appearance === 'full-width',
         wasFullWidthEnabled: prevProps && prevProps.appearance === 'full-width',
+        editorAnalyticsAPI,
+        editorSelectionAPI,
+        getEditorContainerWidth,
+        getEditorFeatureFlags,
       },
     ]);
   }
@@ -541,6 +557,7 @@ export default function createPluginsList(
         (props.elementBrowser && props.elementBrowser.showModal) || false,
       replacePlusMenuWithElementBrowser:
         (props.elementBrowser && props.elementBrowser.replacePlusMenu) || false,
+      insertNodeAPI,
     },
   ]);
 

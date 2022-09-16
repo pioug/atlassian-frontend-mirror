@@ -50,7 +50,6 @@ export {
   hasResizeHandler,
 } from './dom';
 export {
-  getColumnsWidths,
   isColumnDeleteButtonVisible,
   getColumnDeleteButtonParams,
   getColumnClassNames,

@@ -1,13 +1,16 @@
 import { css } from '@emotion/react';
-import { gridSize, borderRadius } from '@atlaskit/theme/constants';
-import { N30, N100 } from '@atlaskit/theme/colors';
+import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import {
-  akEditorMobileMaxWidth,
-  relativeFontSizeToBase16,
-} from '@atlaskit/editor-shared-styles';
 
-const akGridSize = gridSize() + 'px';
+export { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+export { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
+
+// TODO ED-15449 delete this style when deleting editor-core table
+export const cellColourPreviewStyles = (selectedColor: string) => css`
+  &::before {
+    background: ${selectedColor};
+  }
+`;
 
 export const buttonGroupStyle = css`
   display: inline-flex;
@@ -79,64 +82,6 @@ export const dropShadow = css`
   )};
 `;
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4494
-export const scrollbarStyles = `
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-
-  &::-webkit-scrollbar {
-    height: ${akGridSize};
-    width: ${akGridSize};
-  }
-
-  &::-webkit-scrollbar-corner {
-    display: none;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${token(
-      'color.background.neutral.subtle',
-      'rgba(0, 0, 0, 0)',
-    )};
-  }
-
-  &:hover::-webkit-scrollbar-thumb {
-    background-color: ${token(
-      'color.background.neutral.bold',
-      'rgba(0, 0, 0, 0.2)',
-    )};
-    border-radius: ${akGridSize};
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: ${token(
-      'color.background.neutral.bold.hovered',
-      'rgba(0, 0, 0, 0.4)',
-    )};
-  }
-`;
-
-export const shortcutStyle = css`
-  background-color: ${token(
-    'color.background.neutral',
-    'rgba(223, 225, 229, 0.5)',
-  )}; /* N60 at 50% */
-  color: ${token('color.text.subtle', N100)};
-  border-radius: ${borderRadius()}px;
-  padding: 4px;
-  line-height: 12px;
-  font-size: ${relativeFontSizeToBase16(11.67)};
-  align-self: flex-end;
-  @media (max-width: ${akEditorMobileMaxWidth}px) {
-    display: none;
-  }
-`;
-
 export const clickSelectWrapperStyle = css`
   user-select: all;
-`;
-
-export const cellColourPreviewStyles = (selectedColor: string) => css`
-  &::before {
-    background: ${selectedColor};
-  }
 `;

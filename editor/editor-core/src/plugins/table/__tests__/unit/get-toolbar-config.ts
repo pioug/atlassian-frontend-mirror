@@ -18,18 +18,22 @@ import {
   FloatingToolbarItem,
   FloatingToolbarButton,
 } from '../../../floating-toolbar/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const formatMessage: (t: { id: string }) => string = (message) =>
   `${message.id}`;
 
 describe('getToolbarConfig', () => {
+  const getEditorContainerWidth = () => ({ width: 500 });
+  const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+    attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
+  };
   const getButton = (editorView: EditorView) => {
     const { state } = editorView;
-    const config = getToolbarConfig({})(
-      state,
-      { formatMessage } as any,
-      {} as any,
-    )!;
+    const config = getToolbarConfig(
+      getEditorContainerWidth,
+      editorAnalyticsAPIFake,
+    )({})(state, { formatMessage } as any, {} as any)!;
 
     expect(config).not.toBeUndefined();
     expect(Array.isArray(config.items)).toBeTruthy();

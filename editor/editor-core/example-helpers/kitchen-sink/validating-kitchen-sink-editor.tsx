@@ -28,6 +28,8 @@ import {
 import { Error } from '../ErrorReport';
 import { validationErrorHandler } from '@atlaskit/editor-common/utils';
 
+// import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+
 export type ValidatingKitchenSinkEditorProps = {
   actions: EditorActions;
   appearance: EditorAppearance;
@@ -50,6 +52,45 @@ export type ValidatingKitchenSinkEditorState = {
 const smartCardClient = new ConfluenceCardClient('stg');
 const DEFAULT_VALIDATION_TIMEOUT = 500;
 const EMPTY: EditorPlugin[] = [];
+// TODO ED-15449: mimic old defaults
+// const tableOptions = {
+//   advanced: true,
+//   allowBackgroundColor: true,
+//   allowColumnResizing: true,
+//   allowColumnSorting: false,
+//   allowDistributeColumns: true,
+//   allowHeaderColumn: true,
+//   allowHeaderRow: true,
+//   allowMergeCells: true,
+//   allowNumberColumn: true,
+//   allowControls: true,
+//   permittedLayouts: 'all' as any,
+//   stickToolbarToBottom: true,
+//   // Sticky headers don't demonstrate well with the kitchen sink wrapper
+//   stickyHeaders: false,
+//   // stickyHeaders: true,
+//   // stickyHeadersOptimization: true,
+// };
+
+// TODO: restore when using new table plugin in editor-core
+// Plugins must be created outside
+// let moduleTablePlugin: EditorPlugin | undefined;
+// const getKitchenSinkPlugins = (
+//   props: ValidatingKitchenSinkEditorProps,
+// ): EditorPlugin[] => {
+//   const isMobile = props.appearance === 'mobile';
+//   const tablePlugin =
+//     moduleTablePlugin ||
+//     tablesPlugin({
+//       tableOptions,
+//       breakoutEnabled: props.appearance === 'full-page',
+//       allowContextualMenu: !isMobile,
+//       fullWidthEnabled: props.appearance === 'full-width',
+//       // wasFullWidthEnabled: prevProps && prevProps.appearance === 'full-width',
+//     });
+//   moduleTablePlugin = tablePlugin;
+//   return [tablePlugin];
+// };
 
 export class ValidatingKitchenSinkEditor extends React.Component<
   ValidatingKitchenSinkEditorProps,
@@ -88,6 +129,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             advanced: true,
             allowDistributeColumns: true,
           }}
+          // allowTables={false}
           allowBreakout={true}
           allowJiraIssue={true}
           allowPanel={true}
@@ -151,6 +193,12 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           dangerouslyAppendPlugins={{
             __plugins: this.props.editorPlugins ?? EMPTY,
           }}
+          // dangerouslyAppendPlugins={{
+          //   __plugins: [
+          //     ...(this.props.editorPlugins || []),
+          //     ...getKitchenSinkPlugins(this.props),
+          //   ],
+          // }}
         />
       </SmartCardProvider>
     );

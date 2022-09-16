@@ -1,5 +1,9 @@
 import { Node as PmNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 
 import { EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
@@ -20,4 +24,6 @@ export interface Props {
   getPos: () => number;
   options?: TableOptions;
   tableRenderOptimization?: boolean;
+  getEditorContainerWidth: GetEditorContainerWidth;
+  getEditorFeatureFlags: GetEditorFeatureFlags;
 }

@@ -8,24 +8,10 @@ import {
   AllSelection,
   Selection,
 } from 'prosemirror-state';
-import { Mark, Node, ResolvedPos } from 'prosemirror-model';
-import { ContentNodeWithPos } from 'prosemirror-utils';
+import { Mark, Node } from 'prosemirror-model';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 
-import {
-  GapCursorSelection,
-  Side,
-} from '../plugins/selection/gap-cursor/selection';
-
-export const setNodeSelection = (view: EditorView, pos: number) => {
-  const { state, dispatch } = view;
-
-  if (!isFinite(pos)) {
-    return;
-  }
-
-  const tr = state.tr.setSelection(NodeSelection.create(state.doc, pos));
-  dispatch(tr);
-};
+export { setNodeSelection } from '@atlaskit/editor-common/utils';
 
 export function setTextSelection(
   view: EditorView,
@@ -93,50 +79,6 @@ export const normaliseNestedLayout = (
   }
 
   return node;
-};
-
-export const isSelectionAtStartOfNode = (
-  $pos: ResolvedPos,
-  parentNode?: ContentNodeWithPos,
-): boolean => {
-  if (!parentNode) {
-    return false;
-  }
-
-  for (let i = $pos.depth + 1; i > 0; i--) {
-    const node = $pos.node(i);
-    if (node && node.eq(parentNode.node)) {
-      break;
-    }
-
-    if (i > 1 && $pos.before(i) !== $pos.before(i - 1) + 1) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-export const isSelectionAtEndOfNode = (
-  $pos: ResolvedPos,
-  parentNode?: ContentNodeWithPos,
-): boolean => {
-  if (!parentNode) {
-    return false;
-  }
-
-  for (let i = $pos.depth + 1; i > 0; i--) {
-    const node = $pos.node(i);
-    if (node && node.eq(parentNode.node)) {
-      break;
-    }
-
-    if (i > 1 && $pos.after(i) !== $pos.after(i - 1) - 1) {
-      return false;
-    }
-  }
-
-  return true;
 };
 
 // checks if the given position is within the ProseMirror document

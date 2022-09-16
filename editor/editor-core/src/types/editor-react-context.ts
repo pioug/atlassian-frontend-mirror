@@ -1,7 +1,1 @@
-import { IntlShape } from 'react-intl-next';
-import { UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
-
-export type EditorReactContext = {
-  getAtlaskitAnalyticsEventHandlers: () => UIAnalyticsEventHandler[];
-  intl: IntlShape;
-};
+export type { EditorReactContext } from '@atlaskit/editor-common/types';

@@ -27,6 +27,7 @@ jest.mock('@atlaskit/editor-common/ui', () => ({
 }));
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   browser: {
     ie: false,
     ie_version: 0,

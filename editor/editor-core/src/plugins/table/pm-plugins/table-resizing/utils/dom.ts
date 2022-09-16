@@ -7,6 +7,7 @@ import {
   tableMarginTop,
 } from '@atlaskit/editor-common/styles';
 import { browser } from '@atlaskit/editor-common/utils';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 import {
   closestElement,
@@ -19,7 +20,9 @@ import { getRowHeights } from '../../../utils';
 import { colWidthsForRow } from '../../../utils/column-controls';
 import { getPluginState as getMainPluginState } from '../../plugin-factory';
 
-export const updateControls = (state: EditorState) => {
+export const updateControls = (
+  getEditorFeatureFlags: GetEditorFeatureFlags,
+) => (state: EditorState) => {
   const { tableRef } = getMainPluginState(state);
   if (!tableRef) {
     return;
@@ -64,7 +67,13 @@ export const updateControls = (state: EditorState) => {
     `.${ClassName.TABLE_LEFT_SHADOW}`,
   );
 
-  updateOverflowShadows(state, wrapper, tableRef, rightShadows, leftShadows);
+  updateOverflowShadows(getEditorFeatureFlags)(
+    state,
+    wrapper,
+    tableRef,
+    rightShadows,
+    leftShadows,
+  );
 };
 
 export const isClickNear = (

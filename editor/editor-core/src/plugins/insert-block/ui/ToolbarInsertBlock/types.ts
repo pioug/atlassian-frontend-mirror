@@ -1,6 +1,6 @@
 import { INPUT_METHOD } from '../../../analytics/types';
 import { EditorView } from 'prosemirror-view';
-import EditorActions from '../../../../actions';
+import { EditorActionsOptions as EditorActions } from '@atlaskit/editor-common/types';
 import { Command } from '../../../../types/command';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { BlockType } from '../../../block-type/types';
@@ -9,6 +9,7 @@ import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { Node as PMNode } from 'prosemirror-model';
 import { DispatchAnalyticsEvent } from '../../../analytics';
 import { BlockMenuItem } from './create-items';
+import type { InsertNodeAPI } from '../../../../insert-api/types';
 
 export interface Props {
   buttons: number;
@@ -53,6 +54,7 @@ export interface Props {
     isEditing?: boolean,
   ) => (view: EditorView) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+  insertNodeAPI?: InsertNodeAPI | undefined | null;
 }
 
 export interface State {

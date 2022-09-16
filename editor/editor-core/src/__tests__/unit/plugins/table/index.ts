@@ -54,10 +54,16 @@ import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 import { getPluginState } from '../../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('table plugin', () => {
+  const getEditorContainerWidth: GetEditorContainerWidth = () => {
+    return {
+      width: 500,
+    };
+  };
   beforeAll(() => {
     uuid.setStatic(TABLE_LOCAL_ID);
     tablesUuid.setStatic(TABLE_LOCAL_ID);
@@ -130,9 +136,12 @@ describe('table plugin', () => {
     it('should not insert a column if selection is not in table', () => {
       const { editorView } = editor(doc(p('{<>}')));
 
-      expect(insertColumn(2)(editorView.state, editorView.dispatch)).toBe(
-        false,
-      );
+      expect(
+        insertColumn(getEditorContainerWidth)(2)(
+          editorView.state,
+          editorView.dispatch,
+        ),
+      ).toBe(false);
     });
 
     describe('when table has 2 columns', () => {
@@ -142,7 +151,10 @@ describe('table plugin', () => {
             doc(p('text'), table()(tr(td({})(p('c1')), td({})(p('c2{<>}'))))),
           );
 
-          insertColumn(0)(editorView.state, editorView.dispatch);
+          insertColumn(getEditorContainerWidth)(0)(
+            editorView.state,
+            editorView.dispatch,
+          );
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
@@ -161,7 +173,10 @@ describe('table plugin', () => {
             doc(p('text'), table()(tr(td({})(p('c1{<>}')), td({})(p('c2'))))),
           );
 
-          insertColumn(1)(editorView.state, editorView.dispatch);
+          insertColumn(getEditorContainerWidth)(1)(
+            editorView.state,
+            editorView.dispatch,
+          );
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),
@@ -180,7 +195,10 @@ describe('table plugin', () => {
             doc(p('text'), table()(tr(td({})(p('c1{<>}')), td({})(p('c2'))))),
           );
 
-          insertColumn(2)(editorView.state, editorView.dispatch);
+          insertColumn(getEditorContainerWidth)(2)(
+            editorView.state,
+            editorView.dispatch,
+          );
           expect(editorView.state.doc).toEqualDocument(
             doc(
               p('text'),

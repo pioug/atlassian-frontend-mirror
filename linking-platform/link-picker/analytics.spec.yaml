@@ -33,6 +33,15 @@ context:
         How the user input the text entered into the link input field.
         NULL if there is no text in link input field.
 
+    linkFieldContentInputSource:
+      type: string
+      required: false
+      description: |
+        What data source did the inputted URL come from?
+        Mainly useful for Search, so we know where the Search result came from.
+        NULL if the user defined via manual typing or paste.
+        unknown if the user selected the item for a search result, but the data source is not known.
+
     displayTextFieldContent:
       type: ['text_string']
       required: false

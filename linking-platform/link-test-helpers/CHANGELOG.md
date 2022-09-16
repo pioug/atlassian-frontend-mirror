@@ -1,5 +1,15 @@
 # @atlaskit/link-test-helpers
 
+## 1.5.0
+
+### Minor Changes
+
+- [`7dbc77d866a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7dbc77d866a) - Adds support for plugins providing metadata about resolved links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.1
 
 ### Patch Changes

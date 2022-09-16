@@ -60,3 +60,8 @@ export {
   convertTableNodeToArrayOfRows,
 } from './utils/reorder-utils';
 export { handlePaste } from './utils/handle-paste';
+export { replaceSelectedTable } from './utils/replace-table';
+export {
+  getSelectedTableInfo,
+  getSelectedCellInfo,
+} from './utils/analytics-helpers';

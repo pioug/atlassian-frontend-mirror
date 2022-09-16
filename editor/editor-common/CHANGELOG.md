@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 69.3.0
+
+### Minor Changes
+
+- [`c804f3217e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c804f3217e7) - [ED-15588] Decouple messages in table plugin by moving dependencies to editor-common.
+- [`a4d1c1e9dd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d1c1e9dd0) - Shifted slice transforms to editor-common
+- [`f920b646662`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f920b646662) - Shifted many common utils from editor-core to editor-common
+- [`7987d8b379b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7987d8b379b) - ED-15584 Re-enable extracted layout button, shifting common editor-core UI elements to `editor-common/menu-ui`
+- [`7487d066e92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7487d066e92) - [ED-15551] Copy ReactNodeView and dependencies into editor-common
+- [`922840a4c85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/922840a4c85) - [ED-15502][ed-15564] Decoupled selection and tables and re-enabled tableSelectionKeymap in new table plugin. Introduced new api EditorSelectionAPI.
+- [`7955a53b7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7955a53b7aa) - [ED-15550] Move analytics types to editor-common package
+- [`73d9a2fa116`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73d9a2fa116) - ED-15568 Restore table's FloatingContextualMenu, extract utils/UI components
+- [`1691708e13b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1691708e13b) - [ED-15555] Export getParentNodeWidth to editor-common
+
+### Patch Changes
+
+- [`63a90f2585f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63a90f2585f) - [ED-15551] Fix ReactNodeView init call
+- [`949bba4aaf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/949bba4aaf4) - [ED-15556] Initial Editor Analytic API for Table extraction
+- [`fdeacec217f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdeacec217f) - [ED-15590] Import editor utils functions from editor-common
+- Updated dependencies
+
 ## 69.2.2
 
 ### Patch Changes

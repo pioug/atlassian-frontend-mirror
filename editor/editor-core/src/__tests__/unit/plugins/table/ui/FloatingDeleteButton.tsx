@@ -23,21 +23,7 @@ import FloatingDeleteButton, {
 } from '../../../../../plugins/table/ui/FloatingDeleteButton';
 import DeleteButton from '../../../../../plugins/table/ui/FloatingDeleteButton/DeleteButton';
 import tableMessages from '../../../../../plugins/table/ui/messages';
-/**
- * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
- *
- * ```
- * import * as tableUtils from '../../../../../plugins/table/utils';
- * jest.spyOn(tableUtils, 'getColumnsWidths')
- * ```
- *
- * This is a workaround: https://github.com/microsoft/TypeScript/issues/38568#issuecomment-628637477
- */
-jest.mock('../../../../../plugins/table/utils', () => ({
-  __esModule: true,
-  ...jest.requireActual<Object>('../../../../../plugins/table/utils'),
-}));
-import * as tableUtils from '../../../../../plugins/table/utils';
+import * as tableColumnControlsUtils from '../../../../../plugins/table/utils/column-controls';
 import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 
 describe('Floating Delete Button', () => {
@@ -104,7 +90,7 @@ describe('Floating Delete Button', () => {
       } as DOMRect);
       tableWrapper!.scrollLeft = 0;
       jest
-        .spyOn(tableUtils, 'getColumnsWidths')
+        .spyOn(tableColumnControlsUtils, 'getColumnsWidths')
         .mockReturnValue([COLUMN_WIDTH, COLUMN_WIDTH, COLUMN_WIDTH]);
     });
 

@@ -21,7 +21,7 @@ import cellBackgroundColorPalette from '../../../../ui/ColorPalette/Palettes/cel
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import { shortcutStyle, cellColourPreviewStyles } from '../../../../ui/styles';
 import { closestElement } from '../../../../utils/dom';
-import { INPUT_METHOD } from '../../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
 import {
   clearHoverSelection,
@@ -54,6 +54,8 @@ import {
 import tableMessages from '../messages';
 import { contextualMenuDropdownWidth } from '../consts';
 import { getNewResizeStateFromSelectedColumns } from '../../pm-plugins/table-resizing/utils/resize-state';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 export const messages = defineMessages({
   cellBackground: {
@@ -110,6 +112,8 @@ export interface Props {
   allowBackgroundColor?: boolean;
   boundariesElement?: HTMLElement;
   offset?: Array<number>;
+  editorAnalyticsAPI?: EditorAnalyticsAPI;
+  getEditorContainerWidth: GetEditorContainerWidth;
 }
 
 export interface State {
@@ -271,6 +275,7 @@ export class ContextualMenu extends Component<
         selectionRect,
         state,
         editorView.domAtPos.bind(editorView),
+        this.props.getEditorContainerWidth,
       );
 
       const wouldChange = newResizeState?.changed ?? false;
@@ -317,14 +322,19 @@ export class ContextualMenu extends Component<
   };
 
   private onMenuItemActivated = ({ item }: { item: DropdownItem }) => {
-    const { editorView, selectionRect } = this.props;
+    const {
+      editorView,
+      selectionRect,
+      editorAnalyticsAPI,
+      getEditorContainerWidth,
+    } = this.props;
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
     const { state, dispatch } = editorView;
     const { targetCellPosition } = getPluginState(state);
 
     switch (item.value.name) {
       case 'sort_column_desc':
-        sortColumnWithAnalytics(
+        sortColumnWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.CONTEXT_MENU,
           selectionRect.left,
           SortOrder.DESC,
@@ -332,7 +342,7 @@ export class ContextualMenu extends Component<
         this.toggleOpen();
         break;
       case 'sort_column_asc':
-        sortColumnWithAnalytics(
+        sortColumnWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.CONTEXT_MENU,
           selectionRect.left,
           SortOrder.ASC,
@@ -340,11 +350,11 @@ export class ContextualMenu extends Component<
         this.toggleOpen();
         break;
       case 'merge':
-        mergeCellsWithAnalytics()(state, dispatch);
+        mergeCellsWithAnalytics(editorAnalyticsAPI)(state, dispatch);
         this.toggleOpen();
         break;
       case 'split':
-        splitCellWithAnalytics()(state, dispatch);
+        splitCellWithAnalytics(editorAnalyticsAPI)(state, dispatch);
         this.toggleOpen();
         break;
       case 'distribute_columns':
@@ -352,10 +362,11 @@ export class ContextualMenu extends Component<
           selectionRect,
           state,
           editorView.domAtPos.bind(editorView),
+          this.props.getEditorContainerWidth,
         );
 
         if (newResizeStateWithAnalytics) {
-          distributeColumnsWidthsWithAnalytics(
+          distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI)(
             INPUT_METHOD.CONTEXT_MENU,
             newResizeStateWithAnalytics,
           )(state, dispatch);
@@ -363,31 +374,31 @@ export class ContextualMenu extends Component<
         }
         break;
       case 'clear':
-        emptyMultipleCellsWithAnalytics(
+        emptyMultipleCellsWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.CONTEXT_MENU,
           targetCellPosition,
         )(state, dispatch);
         this.toggleOpen();
         break;
       case 'insert_column':
-        insertColumnWithAnalytics(
+        insertColumnWithAnalytics(getEditorContainerWidth, editorAnalyticsAPI)(
           INPUT_METHOD.CONTEXT_MENU,
           selectionRect.right,
         )(state, dispatch, editorView);
         this.toggleOpen();
         break;
       case 'insert_row':
-        insertRowWithAnalytics(INPUT_METHOD.CONTEXT_MENU, {
+        insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, {
           index: selectionRect.bottom,
           moveCursorToInsertedRow: true,
         })(state, dispatch);
         this.toggleOpen();
         break;
       case 'delete_column':
-        deleteColumnsWithAnalytics(INPUT_METHOD.CONTEXT_MENU, selectionRect)(
-          state,
-          dispatch,
-        );
+        deleteColumnsWithAnalytics(editorAnalyticsAPI)(
+          INPUT_METHOD.CONTEXT_MENU,
+          selectionRect,
+        )(state, dispatch);
         this.toggleOpen();
         break;
       case 'delete_row':
@@ -395,7 +406,7 @@ export class ContextualMenu extends Component<
           pluginConfig: { isHeaderRowRequired },
         } = getPluginState(state);
 
-        deleteRowsWithAnalytics(
+        deleteRowsWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.CONTEXT_MENU,
           selectionRect,
           !!isHeaderRowRequired,
@@ -481,11 +492,14 @@ export class ContextualMenu extends Component<
   };
 
   private setColor = (color: string) => {
-    const { editorView } = this.props;
+    const { editorView, editorAnalyticsAPI } = this.props;
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
     const { targetCellPosition } = getPluginState(editorView.state);
     const { state, dispatch } = editorView;
-    setColorWithAnalytics(color, targetCellPosition)(state, dispatch);
+    setColorWithAnalytics(editorAnalyticsAPI)(color, targetCellPosition)(
+      state,
+      dispatch,
+    );
     this.toggleOpen();
   };
 }

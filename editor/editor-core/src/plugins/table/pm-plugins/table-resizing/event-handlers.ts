@@ -6,9 +6,8 @@ import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
-import { getParentNodeWidth } from '../../../../utils/node-width';
+import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
 import { pluginKey as editorDisabledPluginKey } from '../../../editor-disabled';
-import { pluginKey as widthPluginKey } from '../../../width';
 import { updateColumnWidths } from '../../transforms';
 import { getSelectedColumnIndexes, updateResizeHandles } from '../../utils';
 
@@ -25,15 +24,23 @@ import {
 
 import {
   ACTION_SUBJECT,
-  addAnalytics,
   EVENT_TYPE,
   TABLE_ACTION,
-} from '../../../analytics';
+} from '@atlaskit/editor-common/analytics';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 
 export const handleMouseDown = (
   view: EditorView,
   event: MouseEvent,
   localResizeHandlePos: number,
+  getEditorContainerWidth: GetEditorContainerWidth,
+  getEditorFeatureFlags: GetEditorFeatureFlags,
+  editorAnalyticsAPI?: EditorAnalyticsAPI,
 ): boolean => {
   const { state, dispatch } = view;
   const { editorDisabled } = editorDisabledPluginKey.getState(state);
@@ -59,7 +66,7 @@ export const handleMouseDown = (
     dom = dom.closest('table') as HTMLTableElement;
   }
 
-  const containerWidth = widthPluginKey.getState(state);
+  const containerWidth = getEditorContainerWidth();
   const parentWidth = getParentNodeWidth(start, state, containerWidth);
 
   let maxSize =
@@ -160,7 +167,7 @@ export const handleMouseDown = (
         if (colIndex === map.width - 1) {
           const mouseUpTime = event.timeStamp;
 
-          tr = addAnalytics(state, tr, {
+          editorAnalyticsAPI?.attachAnalyticsEvent({
             action: TABLE_ACTION.ATTEMPTED_TABLE_WIDTH_CHANGE,
             actionSubject: ACTION_SUBJECT.TABLE,
             actionSubjectId: null,
@@ -171,7 +178,7 @@ export const handleMouseDown = (
               delta: Math.abs(clientX - dragging.startX),
             },
             eventType: EVENT_TYPE.UI,
-          });
+          })(tr);
         }
       }
 
@@ -202,7 +209,7 @@ export const handleMouseDown = (
 
     resizeColumn(resizeState, colIndex, clientX - dragging.startX, dom);
 
-    updateControls(state);
+    updateControls(getEditorFeatureFlags)(state);
     updateResizeHandles(dom);
   }
 

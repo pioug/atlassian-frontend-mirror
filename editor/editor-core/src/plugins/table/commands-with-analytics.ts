@@ -16,9 +16,11 @@ import {
   INPUT_METHOD,
   TABLE_ACTION,
   TABLE_BREAKOUT,
-  withAnalytics,
+} from '@atlaskit/editor-common/analytics';
+import type {
   AnalyticsEventPayload,
-} from '../analytics';
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 
 import { clearMultipleCells } from './commands/clear';
 import { wrapTableInExpand } from './commands/collapse';
@@ -48,23 +50,28 @@ import {
   getSelectedCellInfo,
   getSelectedTableInfo,
 } from './utils';
+import { withEditorAnalyticsAPI } from './utils/analytics';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
 import { ResizeStateWithAnalytics } from './pm-plugins/table-resizing/utils';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 const TABLE_BREAKOUT_NAME_MAPPING = {
   default: TABLE_BREAKOUT.NORMAL,
   wide: TABLE_BREAKOUT.WIDE,
   'full-width': TABLE_BREAKOUT.FULL_WIDTH,
 };
+
 // #region Analytics wrappers
 export const emptyMultipleCellsWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (
   inputMethod:
     | INPUT_METHOD.CONTEXT_MENU
     | INPUT_METHOD.KEYBOARD
     | INPUT_METHOD.FLOATING_TB,
   targetCellPosition?: number,
 ) =>
-  withAnalytics(({ selection }) => {
+  withEditorAnalyticsAPI(({ selection }) => {
     const {
       horizontalCells,
       verticalCells,
@@ -85,10 +92,12 @@ export const emptyMultipleCellsWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(clearMultipleCells(targetCellPosition));
+  })(editorAnalyticsAPI)(clearMultipleCells(targetCellPosition));
 
-export const mergeCellsWithAnalytics = () =>
-  withAnalytics(({ selection }) => {
+export const mergeCellsWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
+) =>
+  withEditorAnalyticsAPI(({ selection }) => {
     const {
       horizontalCells,
       verticalCells,
@@ -110,15 +119,17 @@ export const mergeCellsWithAnalytics = () =>
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })((state, dispatch) => {
+  })(editorAnalyticsAPI)((state, dispatch) => {
     if (dispatch) {
       dispatch(mergeCells(state.tr));
     }
     return true;
   });
 
-export const splitCellWithAnalytics = () =>
-  withAnalytics(({ selection }) => {
+export const splitCellWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) =>
+  withEditorAnalyticsAPI(({ selection }) => {
     const { totalRowCount, totalColumnCount } = getSelectedCellInfo(selection);
     const cell = findCellClosestToPos(selection.$anchor);
     if (cell) {
@@ -142,13 +153,12 @@ export const splitCellWithAnalytics = () =>
       };
     }
     return;
-  })(splitCell);
+  })(editorAnalyticsAPI)(splitCell);
 
 export const setColorWithAnalytics = (
-  cellColor: string,
-  targetCellPosition?: number,
-) =>
-  withAnalytics(({ selection }) => {
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (cellColor: string, targetCellPosition?: number) =>
+  withEditorAnalyticsAPI(({ selection }) => {
     const {
       horizontalCells,
       verticalCells,
@@ -173,12 +183,13 @@ export const setColorWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(setMultipleCellAttrs({ background: cellColor }, targetCellPosition));
+  })(editorAnalyticsAPI)(
+    setMultipleCellAttrs({ background: cellColor }, targetCellPosition),
+  );
 
-export const addRowAroundSelection = (side: RowInsertPosition): Command => (
-  state,
-  dispatch,
-) => {
+export const addRowAroundSelection = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (side: RowInsertPosition): Command => (state, dispatch) => {
   const { selection } = state;
   const isCellSelection = selection instanceof CellSelection;
   const rect = isCellSelection
@@ -194,17 +205,16 @@ export const addRowAroundSelection = (side: RowInsertPosition): Command => (
 
   const offset = side === 'BOTTOM' ? 1 : 0;
 
-  return insertRowWithAnalytics(INPUT_METHOD.SHORTCUT, {
+  return insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT, {
     index: position + offset,
     moveCursorToInsertedRow: false,
   })(state, dispatch);
 };
 
 export const insertRowWithAnalytics = (
-  inputMethod: InsertRowMethods,
-  options: InsertRowOptions,
-) =>
-  withAnalytics((state) => {
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (inputMethod: InsertRowMethods, options: InsertRowOptions) =>
+  withEditorAnalyticsAPI((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -220,9 +230,14 @@ export const insertRowWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(insertRow(options.index, options.moveCursorToInsertedRow));
+  })(editorAnalyticsAPI)(
+    insertRow(options.index, options.moveCursorToInsertedRow),
+  );
 
 export const insertColumnWithAnalytics = (
+  getEditorContainerWidth: GetEditorContainerWidth,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (
   inputMethod:
     | INPUT_METHOD.CONTEXT_MENU
     | INPUT_METHOD.BUTTON
@@ -230,7 +245,7 @@ export const insertColumnWithAnalytics = (
     | INPUT_METHOD.FLOATING_TB,
   position: number,
 ) =>
-  withAnalytics((state) => {
+  withEditorAnalyticsAPI((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -246,9 +261,11 @@ export const insertColumnWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(insertColumn(position));
+  })(editorAnalyticsAPI)(insertColumn(getEditorContainerWidth)(position));
 
 export const deleteRowsWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (
   inputMethod:
     | INPUT_METHOD.CONTEXT_MENU
     | INPUT_METHOD.BUTTON
@@ -256,7 +273,7 @@ export const deleteRowsWithAnalytics = (
   rect: Rect,
   isHeaderRowRequired: boolean,
 ) =>
-  withAnalytics(({ selection }) => {
+  withEditorAnalyticsAPI(({ selection }) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
 
     return {
@@ -272,7 +289,7 @@ export const deleteRowsWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })((state, dispatch) => {
+  })(editorAnalyticsAPI)((state, dispatch) => {
     if (dispatch) {
       dispatch(deleteRows(rect, isHeaderRowRequired)(state.tr));
     }
@@ -280,13 +297,15 @@ export const deleteRowsWithAnalytics = (
   });
 
 export const deleteColumnsWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (
   inputMethod:
     | INPUT_METHOD.CONTEXT_MENU
     | INPUT_METHOD.BUTTON
     | INPUT_METHOD.FLOATING_TB,
   rect: Rect,
 ) =>
-  withAnalytics(({ selection }) => {
+  withEditorAnalyticsAPI(({ selection }) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
 
     return {
@@ -302,7 +321,7 @@ export const deleteColumnsWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })((state, dispatch) => {
+  })(editorAnalyticsAPI)((state, dispatch) => {
     if (dispatch) {
       dispatch(
         deleteColumns(rect, getAllowAddColumnCustomStep(state))(state.tr),
@@ -328,20 +347,24 @@ const getTableDeletedAnalytics = (
   };
 };
 
-export const deleteTableWithAnalytics = () =>
-  withAnalytics(({ selection }) =>
+export const deleteTableWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) =>
+  withEditorAnalyticsAPI(({ selection }) =>
     getTableDeletedAnalytics(selection, INPUT_METHOD.FLOATING_TB),
-  )(deleteTable);
+  )(editorAnalyticsAPI)(deleteTable);
 
 export const deleteTableIfSelectedWithAnalytics = (
-  inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.KEYBOARD,
-) =>
-  withAnalytics(({ selection }) =>
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.KEYBOARD) =>
+  withEditorAnalyticsAPI(({ selection }) =>
     getTableDeletedAnalytics(selection, inputMethod),
-  )(deleteTableIfSelected);
+  )(editorAnalyticsAPI)(deleteTableIfSelected);
 
-export const toggleHeaderRowWithAnalytics = () =>
-  withAnalytics((state) => {
+export const toggleHeaderRowWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) =>
+  withEditorAnalyticsAPI((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -358,10 +381,12 @@ export const toggleHeaderRowWithAnalytics = () =>
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(toggleHeaderRow);
+  })(editorAnalyticsAPI)(toggleHeaderRow);
 
-export const toggleHeaderColumnWithAnalytics = () =>
-  withAnalytics((state) => {
+export const toggleHeaderColumnWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) =>
+  withEditorAnalyticsAPI((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -378,10 +403,12 @@ export const toggleHeaderColumnWithAnalytics = () =>
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(toggleHeaderColumn);
+  })(editorAnalyticsAPI)(toggleHeaderColumn);
 
-export const toggleNumberColumnWithAnalytics = () =>
-  withAnalytics((state) => {
+export const toggleNumberColumnWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) =>
+  withEditorAnalyticsAPI((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -396,10 +423,12 @@ export const toggleNumberColumnWithAnalytics = () =>
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(toggleNumberColumn);
+  })(editorAnalyticsAPI)(toggleNumberColumn);
 
-export const toggleTableLayoutWithAnalytics = () =>
-  withAnalytics((state) => {
+export const toggleTableLayoutWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) =>
+  withEditorAnalyticsAPI((state) => {
     const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -420,14 +449,16 @@ export const toggleTableLayoutWithAnalytics = () =>
       };
     }
     return;
-  })(toggleTableLayout);
+  })(editorAnalyticsAPI)(toggleTableLayout);
 
 export const sortColumnWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (
   inputMethod: INPUT_METHOD.CONTEXT_MENU,
   columnIndex: number,
   sortOrder: SortOrder,
 ) =>
-  withAnalytics((state) => {
+  withEditorAnalyticsAPI((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -444,13 +475,15 @@ export const sortColumnWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(sortByColumn(columnIndex, sortOrder));
+  })(editorAnalyticsAPI)(sortByColumn(columnIndex, sortOrder));
 
 export const distributeColumnsWidthsWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (
   inputMethod: INPUT_METHOD.CONTEXT_MENU,
   { resizeState, table, attributes }: ResizeStateWithAnalytics,
 ) => {
-  return withAnalytics(() => {
+  return withEditorAnalyticsAPI(() => {
     return {
       action: TABLE_ACTION.DISTRIBUTED_COLUMNS_WIDTHS,
       actionSubject: ACTION_SUBJECT.TABLE,
@@ -461,7 +494,7 @@ export const distributeColumnsWidthsWithAnalytics = (
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })((state, dispatch) => {
+  })(editorAnalyticsAPI)((state, dispatch) => {
     if (dispatch) {
       distributeColumnsWidths(resizeState, table)(state, dispatch);
     }
@@ -469,8 +502,10 @@ export const distributeColumnsWidthsWithAnalytics = (
   });
 };
 
-export const wrapTableInExpandWithAnalytics = () =>
-  withAnalytics((state) => {
+export const wrapTableInExpandWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) =>
+  withEditorAnalyticsAPI((state) => {
     const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
       state.selection,
     );
@@ -484,5 +519,5 @@ export const wrapTableInExpandWithAnalytics = () =>
       },
       eventType: EVENT_TYPE.TRACK,
     };
-  })(wrapTableInExpand);
+  })(editorAnalyticsAPI)(wrapTableInExpand);
 // #endregion

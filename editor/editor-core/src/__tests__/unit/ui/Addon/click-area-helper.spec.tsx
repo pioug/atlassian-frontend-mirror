@@ -7,6 +7,7 @@ import {
   panel,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { closestElement } from '@atlaskit/editor-common/utils';
 
 import {
   clickAreaClickHandler,
@@ -17,11 +18,15 @@ import {
   GapCursorSelection,
   Side,
 } from '../../../../plugins/selection/gap-cursor-selection';
-import * as utils from '../../../../utils/dom';
 import * as commands from '../../../../commands';
 import * as actions from '../../../../../src/plugins/selection/gap-cursor/actions';
 
 import Modal from '@atlaskit/modal-dialog';
+
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+  closestElement: jest.fn(),
+}));
 
 const Editor = (props: any) => (
   <div onClick={props.handleClick}>
@@ -208,8 +213,7 @@ describe('Editor click area handler', () => {
   // @see ED-5126
   it('should not set a GapCursor and not append a paragraph node when a Popup is clicked', () => {
     editorView = editor(doc(p('Hello world'))).editorView;
-    const closestElementSpy = jest.spyOn(utils, 'closestElement');
-    (closestElementSpy as any).mockReturnValue({});
+    (closestElement as any).mockImplementation(() => ({}));
     wrapper.find('.ak-editor-content-area').simulate('click', { clientY: 10 });
     const selection = editorView.state.selection as GapCursorSelection;
     expect(selection instanceof GapCursorSelection).toBeFalsy();

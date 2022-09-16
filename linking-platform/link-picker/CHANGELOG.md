@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.10.0
+
+### Minor Changes
+
+- [`7dbc77d866a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7dbc77d866a) - Adds support for plugins providing metadata about resolved links.
+
 ## 1.9.4
 
 ### Patch Changes

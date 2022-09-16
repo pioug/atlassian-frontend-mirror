@@ -25,6 +25,8 @@ import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 
+// import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+
 import {
   TTI_SEVERITY_THRESHOLD_DEFAULTS,
   TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
@@ -40,7 +42,11 @@ import {
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 
-import Editor, { EditorProps, EditorAppearance } from './../src/editor';
+import Editor, {
+  EditorProps,
+  EditorAppearance,
+  // EditorPlugin,
+} from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import {
@@ -77,6 +83,35 @@ import {
   mediaMock,
 } from '@atlaskit/media-test-helpers/media-mock';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
+
+// const tableOptions = {
+//   advanced: true,
+//   allowColumnSorting: true,
+//   stickyHeaders: true,
+//   tableCellOptimization: true,
+//   allowCollapse: true,
+//   allowDistributeColumns: true,
+//   permittedLayouts: 'all' as any,
+// };
+
+// TODO: restore when using new table plugin in editor-core
+// Plugins must be created outside
+// let moduleTablePlugin: EditorPlugin | undefined;
+// const __getFullPageDangerouslyAppendedPlugins = (
+//   props: EditorProps,
+// ): EditorPlugin[] => {
+//   const tablePlugin =
+//     moduleTablePlugin ||
+//     tablesPlugin({
+//       tableOptions,
+//       breakoutEnabled: props.appearance === 'full-page',
+//       allowContextualMenu: false,
+//       fullWidthEnabled: props.appearance === 'full-width',
+//       // wasFullWidthEnabled: prevProps && prevProps.appearance === 'full-width',
+//     });
+//   moduleTablePlugin = tablePlugin;
+//   return [tablePlugin];
+// };
 
 addGlobalEventEmitterListeners();
 if (isMediaMockOptedIn()) {
@@ -320,6 +355,7 @@ export class ExampleEditorComponent extends React.Component<
                   allowCollapse: true,
                   allowDistributeColumns: true,
                 }}
+                // allowTables={false}
                 allowBreakout={true}
                 allowJiraIssue={true}
                 allowPanel
@@ -510,6 +546,15 @@ export class ExampleEditorComponent extends React.Component<
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}
                 trackValidTransactions={{ samplingRate: 100 }}
+                // dangerouslyAppendPlugins={{
+                //   __plugins: [
+                //     ...(this.props.dangerouslyAppendPlugins?.__plugins || []),
+                //     ...__getFullPageDangerouslyAppendedPlugins({
+                //       ...this.props,
+                //       appearance: this.state.appearance,
+                //     }),
+                //   ],
+                // }}
               />
             </SmartCardProvider>
           </div>

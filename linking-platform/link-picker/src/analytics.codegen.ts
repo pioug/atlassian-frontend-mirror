@@ -3,7 +3,7 @@
  *
  * Generates analytics utilities from the package analytics spec yaml
  *
- * @codegen <<SignedSource::3c46f1d8f463b6898a7a0e1e1f4676b4>>
+ * @codegen <<SignedSource::e8a730530bb93e19d0b85114da0581c8>>
  * @codegenCommand yarn workspace @atlaskit/link-picker run codegen-analytics
  */
 export type PackageMetaDataType = {
@@ -16,6 +16,7 @@ export type LinkPickerAnalyticsContextType = {
   linkState: 'editLink' | 'newLink';
   linkFieldContent: 'url' | 'text_string' | null;
   linkFieldContentInputMethod: 'manual' | 'paste' | 'searchResult' | null;
+  linkFieldContentInputSource: string | null;
   displayTextFieldContent: 'text_string' | null;
   displayTextFieldContentInputMethod: 'manual' | 'paste' | null;
 };
@@ -27,7 +28,7 @@ export type TextFieldUpdatedDisplayTextFieldAttributesType = {};
 export type LinkPickerUnhandledErrorCaughtAttributesType = {
   browserInfo: string;
   error: string;
-  componentStack: string;
+  componentStack: string | null;
 };
 type AnalyticsEventAttributes = {
   'ui.form.submitted.linkPicker': FormSubmittedLinkPickerAttributesType;

@@ -1,19 +1,12 @@
 import React from 'react';
 import Select, { ValueType } from '@atlaskit/select';
 
-export interface RenderOptionsPropsT<T> {
-  hide: () => void;
-  dispatchCommand: (command: T) => void;
-}
+import type {
+  RenderOptionsPropsT,
+  SelectOption,
+} from '@atlaskit/editor-common/types';
 
-export interface SelectOption<T = unknown> {
-  value: string;
-  label: string;
-  selected?: boolean;
-  disabled?: boolean;
-  hidden?: boolean;
-  data?: T;
-}
+export type { RenderOptionsPropsT, SelectOption };
 
 export interface Props {
   hideExpandIcon?: boolean;

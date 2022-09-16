@@ -1,11 +1,5 @@
-import { Node as PMNode, Fragment } from 'prosemirror-model';
 import type { DecorationSet } from 'prosemirror-view';
 
-import type {
-  TypeAheadItem,
-  TypeAheadItemRenderProps,
-} from '@atlaskit/editor-common/provider-factory';
-import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import {
   EditorState,
   Transaction,
@@ -13,30 +7,34 @@ import {
 } from 'prosemirror-state';
 
 import type { INPUT_METHOD } from '../analytics/types/enums';
-import type { TypeAheadPayload } from '../analytics/types/type-ahead';
 import type { CloseSelectionOptions } from './constants';
 import type { UiComponentFactoryParams } from '../../types/ui-components';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-export type { TypeAheadItem, TypeAheadItemRenderProps };
 
-export type TypeAheadInsert = (
-  node?: PMNode | Object | string | Fragment,
-  opts?: { selectInlineNode?: boolean },
-) => Transaction;
+import type {
+  TypeAheadStats,
+  TypeAheadItemRenderProps,
+  TypeAheadInsert,
+  TypeAheadSelectItem,
+  TypeAheadItem,
+  TypeAheadForceSelect,
+  TypeAheadHandler,
+} from '@atlaskit/editor-common/types';
+
+export type {
+  TypeAheadStats,
+  TypeAheadItemRenderProps,
+  TypeAheadInsert,
+  TypeAheadSelectItem,
+  TypeAheadItem,
+  TypeAheadForceSelect,
+  TypeAheadHandler,
+};
 
 export type OnSelectItem = (props: {
   index: number;
   item: TypeAheadItem;
 }) => void;
-
-export interface TypeAheadStats {
-  startedAt: number;
-  endedAt: number;
-  keyCount: {
-    arrowUp: number;
-    arrowDown: number;
-  };
-}
 
 export interface TypeAheadStatsSerializable extends TypeAheadStats {
   serialize: () => TypeAheadStats;
@@ -52,50 +50,6 @@ export interface TypeAheadStatsMobileModifier
   resetTime: () => void;
   closeTime: () => void;
 }
-
-export type TypeAheadSelectItem = (
-  state: EditorState,
-  item: TypeAheadItem,
-  insert: TypeAheadInsert,
-  meta: {
-    mode: SelectItemMode;
-    stats: TypeAheadStats;
-    query: string;
-    sourceListItem: Array<TypeAheadItem>;
-  },
-) => Transaction | false;
-
-type TypeAheadForceSelectProps = {
-  query: string;
-  items: Array<TypeAheadItem>;
-  editorState: EditorState;
-};
-
-export type TypeAheadForceSelect = (
-  props: TypeAheadForceSelectProps,
-) => TypeAheadItem | undefined;
-
-export type TypeAheadHandler = {
-  id: TypeAheadAvailableNodes;
-  trigger: string;
-  customRegex?: string;
-  headless?: boolean;
-  forceSelect?: TypeAheadForceSelect;
-  onInvokeAnalytics?: TypeAheadPayload;
-  onOpen?: (editorState: EditorState) => void;
-  getItems: (props: {
-    query: string;
-    editorState: EditorState;
-  }) => Promise<Array<TypeAheadItem>>;
-  selectItem: TypeAheadSelectItem;
-  dismiss?: (props: {
-    editorState: EditorState;
-    query: string;
-    stats: TypeAheadStats;
-    wasItemInserted?: boolean;
-  }) => void;
-  getHighlight?: (state: EditorState) => JSX.Element | null;
-};
 
 export type TypeAheadPluginState = {
   decorationSet: DecorationSet;

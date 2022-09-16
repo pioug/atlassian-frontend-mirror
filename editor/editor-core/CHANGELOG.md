@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 172.2.0
+
+### Minor Changes
+
+- [`922840a4c85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/922840a4c85) - [ED-15502][ed-15564] Decoupled selection and tables and re-enabled tableSelectionKeymap in new table plugin. Introduced new api EditorSelectionAPI.
+- [`7955a53b7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7955a53b7aa) - [ED-15550] Move analytics types to editor-common package
+- [`762d8bfe380`](https://bitbucket.org/atlassian/atlassian-frontend/commits/762d8bfe380) - [ED-15503] First InsertionNodeAPI code: Removing the Toolbar - Table couple code
+
+### Patch Changes
+
+- [`c804f3217e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c804f3217e7) - [ED-15588] Decouple messages in table plugin by moving dependencies to editor-common.
+- [`7b0587fe2ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b0587fe2ee) - [ED-1556] Fixed up tests failing due Babel generates properties with only `get` defined for re-exported functions. Solution is to import the modules where the functions used are defined or mock implementation.
+- [`a4d1c1e9dd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d1c1e9dd0) - Shifted slice transforms to editor-common
+- [`131a0e81682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/131a0e81682) - [ED-15586] Fix missing analytics from table's cut event
+- [`f920b646662`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f920b646662) - Shifted many common utils from editor-core to editor-common
+- [`7987d8b379b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7987d8b379b) - ED-15584 Re-enable extracted layout button, shifting common editor-core UI elements to `editor-common/menu-ui`
+- [`7487d066e92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7487d066e92) - [ED-15551] Copy ReactNodeView and dependencies into editor-common
+- [`949bba4aaf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/949bba4aaf4) - [ED-15556] Initial Editor Analytic API for Table extraction
+- [`95f007063cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95f007063cf) - Decoupling paste plugin and table plugin, copied `replaceSelectedTable` and `getSelectedTableInfo` utils to editor-tables utils package and analytics dependency shifted to paste plugin.
+- [`73d9a2fa116`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73d9a2fa116) - ED-15568 Restore table's FloatingContextualMenu, extract utils/UI components
+- [`1691708e13b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1691708e13b) - [ED-15555] Export getParentNodeWidth to editor-common
+- [`fdeacec217f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdeacec217f) - [ED-15590] Import editor utils functions from editor-common
+- Updated dependencies
+
 ## 172.1.2
 
 ### Patch Changes

@@ -9,8 +9,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-  withAnalytics,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import {
   createTable,
   goToNextCell,
@@ -24,38 +23,51 @@ import {
 } from '../commands-with-analytics';
 import { addColumnAfter, addColumnBefore } from '../commands/insert';
 
-const createTableWithAnalytics = () =>
-  withAnalytics({
+import { withEditorAnalyticsAPI } from '../utils/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+
+const createTableWithAnalytics = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) =>
+  withEditorAnalyticsAPI({
     action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,
     actionSubjectId: ACTION_SUBJECT_ID.TABLE,
     attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
     eventType: EVENT_TYPE.TRACK,
-  })(createTable());
+  })(editorAnalyticsAPI)(createTable());
 
-export function keymapPlugin(): SafePlugin {
+export function keymapPlugin(
+  getEditorContainerWidth: GetEditorContainerWidth,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
     keymaps.nextCell.common!,
-    goToNextCell(1),
+    goToNextCell(editorAnalyticsAPI)(1),
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.previousCell.common!,
-    goToNextCell(-1),
+    goToNextCell(editorAnalyticsAPI)(-1),
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.toggleTable.common!,
-    createTableWithAnalytics(),
+    createTableWithAnalytics(editorAnalyticsAPI),
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.backspace.common!,
     chainCommands(
-      deleteTableIfSelectedWithAnalytics(INPUT_METHOD.KEYBOARD),
-      emptyMultipleCellsWithAnalytics(INPUT_METHOD.KEYBOARD),
+      deleteTableIfSelectedWithAnalytics(editorAnalyticsAPI)(
+        INPUT_METHOD.KEYBOARD,
+      ),
+      emptyMultipleCellsWithAnalytics(editorAnalyticsAPI)(
+        INPUT_METHOD.KEYBOARD,
+      ),
     ),
     list,
   );
@@ -68,25 +80,25 @@ export function keymapPlugin(): SafePlugin {
   // Add row/column shortcuts
   keymaps.bindKeymapWithCommand(
     keymaps.addRowBefore.common!,
-    addRowAroundSelection('TOP'),
+    addRowAroundSelection(editorAnalyticsAPI)('TOP'),
     list,
   );
 
   keymaps.bindKeymapWithCommand(
     keymaps.addRowAfter.common!,
-    addRowAroundSelection('BOTTOM'),
+    addRowAroundSelection(editorAnalyticsAPI)('BOTTOM'),
     list,
   );
 
   keymaps.bindKeymapWithCommand(
     keymaps.addColumnBefore.common!,
-    triggerUnlessTableHeader(addColumnBefore),
+    triggerUnlessTableHeader(addColumnBefore(getEditorContainerWidth)),
     list,
   );
 
   keymaps.bindKeymapWithCommand(
     keymaps.addColumnAfter.common!,
-    addColumnAfter,
+    addColumnAfter(getEditorContainerWidth),
     list,
   );
 

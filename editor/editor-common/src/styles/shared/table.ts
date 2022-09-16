@@ -53,6 +53,8 @@ export const TableSharedCssClassName = {
   TABLE_CELL_NODEVIEW_CONTENT_DOM: tableCellContentDomSelector,
   TABLE_CELL_WRAPPER: tableCellSelector,
   TABLE_HEADER_CELL_WRAPPER: tableHeaderSelector,
+  TABLE_ROW_CONTROLS_WRAPPER: `${tablePrefixSelector}-row-controls-wrapper`,
+  TABLE_COLUMN_CONTROLS_DECORATIONS: `${tablePrefixSelector}-column-controls-decoration`,
 };
 
 const tableSharedStyle = (props: ThemeProps) => css`

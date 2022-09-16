@@ -38,6 +38,7 @@ const DEFAULT_CONTEXT_ATTRIBUTES: LinkPickerAnalyticsContextType = {
   linkState: 'newLink',
   linkFieldContent: null,
   linkFieldContentInputMethod: null,
+  linkFieldContentInputSource: null,
   displayTextFieldContent: null,
   displayTextFieldContentInputMethod: null,
 };

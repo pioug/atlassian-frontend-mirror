@@ -33,8 +33,8 @@
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^69.2.0",
-    "@atlaskit/editor-core": "^172.1.0",
+    "@atlaskit/editor-common": "^69.3.0",
+    "@atlaskit/editor-core": "^172.2.0",
     "@atlaskit/editor-test-helpers": "^17.1.0",
     "@atlaskit/mention": "^21.0.0",
     "@atlaskit/profilecard": "^17.1.0",

@@ -16,6 +16,7 @@ jest.mock('@atlaskit/smart-card', () => {
 });
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   browser: () => ({}),
   withImageLoader: jest.fn(),
 }));

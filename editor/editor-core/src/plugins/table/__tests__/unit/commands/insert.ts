@@ -14,6 +14,7 @@ import {
   p,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 import tablePlugin from '../../../index';
 import { pluginKey } from '../../../pm-plugins/plugin-key';
@@ -28,23 +29,22 @@ describe('table plugin: insert', () => {
     // We override the body as the table resizing logic uses it via the width plugin
     // to calculate if a table should overflow
     const mockBodyOffsetWidth = 1000;
-    const originalBodyElement = document.body;
-    beforeAll(() => {
-      // @ts-ignore
-      delete document.documentElement;
-      Object.defineProperties(document.body, {
-        offsetWidth: { value: mockBodyOffsetWidth },
-      });
-    });
-    afterAll(() => {
-      // @ts-ignore
-      document.body = originalBodyElement;
-    });
+    const getEditorContainerWidth: GetEditorContainerWidth = () => {
+      return {
+        width: mockBodyOffsetWidth,
+      };
+    };
 
     const createEditor = createProsemirrorEditorFactory();
 
     const preset = new Preset<LightEditorPlugin>();
-    preset.add(tablePlugin);
+    preset.add([
+      tablePlugin,
+      {
+        getEditorContainerWidth: () => ({ width: mockBodyOffsetWidth }),
+        tableOptions: {},
+      },
+    ]);
     preset.add(widthPlugin);
 
     const editor = (doc: DocBuilder) =>
@@ -71,7 +71,11 @@ describe('table plugin: insert', () => {
       const lastTableCellNode =
         transaction.doc.content.firstChild?.firstChild?.lastChild;
 
-      const updatedTransaction = addColumnAt(2, true, editorView)(transaction);
+      const updatedTransaction = addColumnAt(getEditorContainerWidth)(
+        2,
+        true,
+        editorView,
+      )(transaction);
 
       const updatedLastTableCellNode =
         updatedTransaction.doc.content.firstChild?.firstChild?.lastChild;
@@ -96,7 +100,11 @@ describe('table plugin: insert', () => {
       const { state } = editorView;
       const transaction = state.tr;
 
-      const updatedTransaction = addColumnAt(2, true, editorView)(transaction);
+      const updatedTransaction = addColumnAt(getEditorContainerWidth)(
+        2,
+        true,
+        editorView,
+      )(transaction);
 
       const tablePMNode = updatedTransaction.doc.content.firstChild;
       const tableRowNode = tablePMNode?.firstChild;

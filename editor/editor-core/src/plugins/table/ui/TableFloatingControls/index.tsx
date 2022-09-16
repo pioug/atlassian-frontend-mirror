@@ -14,9 +14,12 @@ import { isSelectionUpdated } from '../../utils';
 import CornerControls from './CornerControls';
 import NumberColumn from './NumberColumn';
 import RowControls from './RowControls';
-import { getFeatureFlags } from '../../../feature-flags-context';
+
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+
 export interface Props {
   editorView: EditorView;
+  getEditorFeatureFlags: GetEditorFeatureFlags;
   selection?: Selection;
   tableRef?: HTMLTableElement;
   tableActive?: boolean;
@@ -53,8 +56,7 @@ export default class TableFloatingControls extends Component<Props, State> {
   // tracking the table height changes to update floating controls
   private tryInitResizeObserver() {
     let { tableRef } = this.props;
-    const { tableRenderOptimization } =
-      getFeatureFlags(this.props.editorView.state) || {};
+    const { tableRenderOptimization } = this.props.getEditorFeatureFlags();
     if (
       tableRenderOptimization &&
       tableRef &&
@@ -86,8 +88,7 @@ export default class TableFloatingControls extends Component<Props, State> {
       headerRowHeight,
       stickyHeader,
     } = this.props;
-    const { tableRenderOptimization } =
-      getFeatureFlags(this.props.editorView.state) || {};
+    const { tableRenderOptimization } = this.props.getEditorFeatureFlags();
     const tableHeight = tableRenderOptimization
       ? this.state?.tableHeight
       : this.props.tableHeight;

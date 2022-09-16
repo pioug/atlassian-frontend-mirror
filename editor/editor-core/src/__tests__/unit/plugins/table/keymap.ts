@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/editor-tables/utils';
 import { PluginKey } from 'prosemirror-state';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -69,6 +70,10 @@ describe('table keymap', () => {
     uuid.setStatic(false);
     tablesUuid.setStatic(false);
   });
+
+  let editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+    attachAnalyticsEvent: jest.fn().mockReturnValue(jest.fn()),
+  };
   const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
     () => ({ fire() {} } as UIAnalyticsEvent),
   );
@@ -76,7 +81,10 @@ describe('table keymap', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add(selectionPlugin)
-    .add(tablePlugin)
+    .add([
+      tablePlugin,
+      { tableOptions: {}, editorAnalyticsAPI: editorAnalyticsAPIFake },
+    ])
     .add(expandPlugin)
     .add(tasksDecisionsPlugin)
     .add(panelPlugin)
@@ -582,7 +590,7 @@ describe('table keymap', () => {
     });
 
     it('should dispatch analytics event', () => {
-      expect(createAnalyticsEvent).toBeCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
         actionSubject: 'document',
         actionSubjectId: 'table',

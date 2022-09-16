@@ -13,7 +13,6 @@ import {
   buttonGroupStyle,
   wrapperStyle,
 } from '../../../../ui/styles';
-import { createTable } from '../../../table/commands';
 import { insertDate } from '../../../date/actions';
 import { openElementBrowserModal } from '../../../quick-insert/commands';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
@@ -29,7 +28,6 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-  withAnalytics as commandWithAnalytics,
 } from '../../../analytics';
 import { insertEmoji } from '../../../emoji/commands/insert-emoji';
 import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
@@ -323,15 +321,25 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertTable = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView } = this.props;
+    const { insertNodeAPI } = this.props;
 
-    return commandWithAnalytics({
-      action: ACTION.INSERTED,
-      actionSubject: ACTION_SUBJECT.DOCUMENT,
-      actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-      attributes: { inputMethod },
-      eventType: EVENT_TYPE.TRACK,
-    })(createTable())(editorView.state, editorView.dispatch);
+    if (!insertNodeAPI) {
+      return false;
+    }
+
+    return insertNodeAPI.insert({
+      node: 'table',
+      options: {
+        selectNodeInserted: false,
+        analyticsPayload: {
+          action: ACTION.INSERTED,
+          actionSubject: ACTION_SUBJECT.DOCUMENT,
+          actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+          attributes: { inputMethod },
+          eventType: EVENT_TYPE.TRACK,
+        },
+      },
+    });
   };
 
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {

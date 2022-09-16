@@ -17,9 +17,9 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import { isValidPosition } from '../../../utils';
-import { getParentNodeWidth } from '../../../utils/node-width';
+import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
+import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import { parsePx } from '../../../utils/dom';
-import { WidthPluginState } from '../../width';
 import { autoSizeTable } from '../commands';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import {
@@ -51,7 +51,7 @@ import { TableOptions } from './types';
 import { updateOverflowShadows } from './update-overflow-shadows';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { ForwardRef } from '../../../nodeviews/types';
-import { getFeatureFlags } from '../../feature-flags-context';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import memoizeOne from 'memoize-one';
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';
 
@@ -67,7 +67,7 @@ export interface ComponentProps {
   options?: TableOptions;
 
   contentDOM: ForwardRef;
-  containerWidth: WidthPluginState;
+  containerWidth: EditorContainerWidth;
   allowControls: boolean;
   isHeaderRowEnabled: boolean;
   isHeaderColumnEnabled: boolean;
@@ -75,6 +75,7 @@ export interface ComponentProps {
   tableActive: boolean;
   ordering: TableColumnOrdering;
   tableResizingPluginState?: ColumnResizingPluginState;
+  getEditorFeatureFlags: GetEditorFeatureFlags;
 }
 
 interface TableState {
@@ -101,13 +102,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private wrapper?: HTMLDivElement | null;
   private table?: HTMLTableElement | null;
   private node: PmNode;
-  private containerWidth?: WidthPluginState;
+  private containerWidth?: EditorContainerWidth;
   private layoutSize?: number;
   private overflowShadowsObserver?: OverflowShadowsObserver;
 
   constructor(props: ComponentProps) {
     super(props);
-    const { options, containerWidth, getNode, view } = props;
+    const { options, containerWidth, getNode, getEditorFeatureFlags } = props;
     this.node = getNode();
     this.containerWidth = containerWidth;
 
@@ -133,7 +134,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       });
     }
 
-    const { initialRenderOptimization } = getFeatureFlags(view.state) || {};
+    const { initialRenderOptimization } = getEditorFeatureFlags();
 
     if (!initialRenderOptimization) {
       // @see ED-7945
@@ -196,15 +197,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   componentDidUpdate(prevProps: ComponentProps) {
-    const {
-      view,
-      getNode,
-      isMediaFullscreen,
-      allowColumnResizing,
-    } = this.props;
+    const { getNode, isMediaFullscreen, allowColumnResizing } = this.props;
 
-    const { tableOverflowShadowsOptimization } =
-      getFeatureFlags(view.state) || {};
+    const {
+      tableOverflowShadowsOptimization,
+    } = this.props.getEditorFeatureFlags();
 
     if (!tableOverflowShadowsOptimization) {
       this.updateShadows();
@@ -246,7 +243,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       ) {
         const { view } = this.props;
         recreateResizeColsByNode(this.table, currentTable);
-        updateControls(view.state);
+        updateControls(this.props.getEditorFeatureFlags)(view.state);
       }
 
       this.handleTableResizingDebounced();
@@ -263,7 +260,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         `.${ClassName.TABLE_LEFT_SHADOW}`,
       );
 
-      updateOverflowShadows(
+      updateOverflowShadows(this.props.getEditorFeatureFlags)(
         this.props.view.state,
         this.wrapper,
         this.table,
@@ -285,8 +282,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   };
 
   onStickyState = (state: StickyPluginState) => {
-    const { tableOverflowShadowsOptimization } =
-      getFeatureFlags(this.props.view.state) || {};
+    const {
+      tableOverflowShadowsOptimization,
+    } = this.props.getEditorFeatureFlags();
 
     const pos = this.props.getPos();
     if (!isValidPosition(pos, this.props.view.state)) {
@@ -330,7 +328,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       initialRenderOptimization,
       tableRenderOptimization,
       tableOverflowShadowsOptimization,
-    } = getFeatureFlags(view.state) || {};
+    } = this.props.getEditorFeatureFlags();
 
     const tableRef = this.table || undefined;
     const isResizing =
@@ -363,6 +361,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           tableHeight={tableHeight}
           headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
           stickyHeader={this.state.stickyHeader}
+          getEditorFeatureFlags={this.props.getEditorFeatureFlags}
         />
       </div>
     );
@@ -503,8 +502,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       }
     }
 
-    const { tableOverflowShadowsOptimization } =
-      getFeatureFlags(this.props.view.state) || {};
+    const {
+      tableOverflowShadowsOptimization,
+    } = this.props.getEditorFeatureFlags();
 
     if (!tableOverflowShadowsOptimization) {
       this.updateShadows();

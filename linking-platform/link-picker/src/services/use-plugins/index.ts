@@ -14,6 +14,7 @@ export interface LinkPickerPluginsService {
   items: LinkSearchListItemData[] | null;
   isLoading: boolean;
   isActivePlugin: boolean;
+  activePlugin?: LinkPickerPlugin;
   tabs: { tabTitle: string }[];
   error: unknown | null;
   retry: () => void;
@@ -92,6 +93,7 @@ export function usePlugins(
     tabs,
     items,
     isLoading,
+    activePlugin,
     isActivePlugin: !!activePlugin,
     error,
     retry: handleRetry,

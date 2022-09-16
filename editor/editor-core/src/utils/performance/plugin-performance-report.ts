@@ -6,35 +6,23 @@ import {
   EVENT_NAME_VIEW_STATE_UPDATED,
 } from './track-transactions';
 
-export interface PluginMethodReport {
-  stateApply: number;
-  viewUpdate: number;
-  onEditorViewStateUpdated: number;
-}
+import {
+  PluginMethodReport,
+  PluginsReport,
+  NodeCount,
+  PluginPerformanceReportData,
+} from '@atlaskit/editor-common/analytics';
+
+export type {
+  PluginMethodReport,
+  PluginsReport,
+  NodeCount,
+  PluginPerformanceReportData,
+};
 
 export interface OutlierReport {
   stateApplyOutlier: number | undefined;
   viewUpdateOutlier: number | undefined;
-}
-
-export interface PluginsReport {
-  [name: string]: PluginMethodReport;
-}
-
-export interface PluginPerformanceReportData {
-  trigger: string;
-  duration: number;
-  nodes: NodeCount;
-  extensionNodes: NodeCount;
-  plugins: PluginsReport;
-  slowPlugins: PluginsReport;
-  stepDurations: {
-    stateApply: number;
-    viewUpdate: number;
-    onChange: number;
-    onEditorViewStateUpdated: number;
-    countNodes: number;
-  };
 }
 
 export interface PluginPerformanceReportOptions {
@@ -44,8 +32,6 @@ export interface PluginPerformanceReportOptions {
   outlierThreshold: number;
   outlierFactor: number;
 }
-
-type NodeCount = Record<string, number>;
 
 export type NodesCount = {
   nodeCount: NodeCount;

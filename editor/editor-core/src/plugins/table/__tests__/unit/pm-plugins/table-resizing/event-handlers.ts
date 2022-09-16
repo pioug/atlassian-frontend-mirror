@@ -13,35 +13,35 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   TABLE_ACTION,
-} from '../../../../../analytics';
+} from '@atlaskit/editor-common/analytics';
 
 import { TablePluginState } from '../../../../types';
 import { pluginKey } from '../../../../pm-plugins/plugin-key';
 import { TextSelection, NodeSelection } from 'prosemirror-state';
 
-import * as analytics from '../../../../../analytics/utils';
-
 describe('table-resizing/event-handlers', () => {
   let editor: any;
+  const createAnalyticsEventFake = jest.fn();
   beforeEach(() => {
+    createAnalyticsEventFake.mockReset();
     const createEditor = createEditorFactory<TablePluginState>();
     editor = (doc: DocBuilder) =>
       createEditor({
         doc,
         editorProps: {
+          allowAnalyticsGASV3: true,
           allowPanel: true,
           allowTables: {
             allowColumnResizing: true,
           },
         },
         pluginKey,
+        createAnalyticsEvent: createAnalyticsEventFake,
       });
   });
 
   describe('#handleMouseDown', () => {
     it('should dispatch analytics event on last column resizing attempt', async () => {
-      const analyticsFn = jest.spyOn(analytics, 'addAnalytics');
-
       const { editorView: view } = editor(
         doc(table()(tr(td()(p('1')), td()(p('2')), td()(p('3{<>}'))))),
       );
@@ -59,9 +59,7 @@ describe('table-resizing/event-handlers', () => {
       });
       window.dispatchEvent(mouseupEvent);
 
-      expect(analyticsFn).toHaveBeenCalledWith(
-        expect.anything(),
-        expect.anything(),
+      expect(createAnalyticsEventFake).toHaveBeenCalledWith(
         expect.objectContaining({
           action: TABLE_ACTION.ATTEMPTED_TABLE_WIDTH_CHANGE,
           actionSubject: ACTION_SUBJECT.TABLE,

@@ -4,7 +4,6 @@ import { EditorView, NodeView } from 'prosemirror-view';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 
 import { EventDispatcher } from '../../../../../event-dispatcher';
-import { pluginKey as widthPluginKey } from '../../../../../plugins/width';
 import { mapChildren } from '../../../../../utils/slice';
 import {
   TableCssClassName as ClassName,
@@ -24,7 +23,7 @@ import {
 } from '../../table-resizing/utils/dom';
 import { updateStickyState } from '../commands';
 import { getTop, getTree, TableDOMElements } from './dom';
-import { getFeatureFlags } from '../../../../feature-flags-context';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
@@ -86,6 +85,7 @@ export class TableRowNodeView implements NodeView {
     view: EditorView,
     getPos: any,
     eventDispatcher: EventDispatcher,
+    getEditorFeatureFlags: GetEditorFeatureFlags,
   ) {
     this.view = view;
     this.node = node;
@@ -95,7 +95,7 @@ export class TableRowNodeView implements NodeView {
     this.dom = document.createElement('tr');
     this.contentDOM = this.dom;
 
-    const featureFlags = getFeatureFlags(view.state) || {};
+    const featureFlags = getEditorFeatureFlags();
     const { stickyHeadersOptimization } = featureFlags;
     this.stickyHeadersOptimization = !!stickyHeadersOptimization;
     this.lastTimePainted = 0;
@@ -139,10 +139,7 @@ export class TableRowNodeView implements NodeView {
       this.topPosEditorElement = getTop(this.editorScrollableElement);
     }
 
-    this.eventDispatcher.on(
-      (widthPluginKey as any).key,
-      this.onWidthPluginState,
-    );
+    this.eventDispatcher.on('widthPlugin', this.onWidthPluginState);
 
     this.eventDispatcher.on(
       (tablePluginKey as any).key,
@@ -175,10 +172,7 @@ export class TableRowNodeView implements NodeView {
       this.editorScrollableElement.removeEventListener('scroll', this.onScroll);
     }
 
-    this.eventDispatcher.off(
-      (widthPluginKey as any).key,
-      this.onWidthPluginState,
-    );
+    this.eventDispatcher.off('widthPlugin', this.onWidthPluginState);
     this.eventDispatcher.off(
       (tablePluginKey as any).key,
       this.onTablePluginState,

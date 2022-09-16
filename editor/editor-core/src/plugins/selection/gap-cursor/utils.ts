@@ -1,5 +1,5 @@
 import { Node as PMNode, ResolvedPos, Schema } from 'prosemirror-model';
-import { TableCssClassName } from '../../table/types';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { Side } from './selection';
 import { UnsupportedSharedCssClassName } from '../../unsupported-content/styles';
 import { CAPTION_PLACEHOLDER_ID } from '../../media/ui/CaptionPlaceholder';
@@ -133,7 +133,7 @@ export const isIgnoredClick = (elem: HTMLElement) => {
     if (
       node.className &&
       (node.getAttribute('class') || '').indexOf(
-        TableCssClassName.TABLE_CONTAINER,
+        TableSharedCssClassName.TABLE_CONTAINER,
       ) > -1
     ) {
       tableWrap = node;
@@ -144,12 +144,14 @@ export const isIgnoredClick = (elem: HTMLElement) => {
 
   if (tableWrap) {
     const rowControls = tableWrap.querySelector(
-      `.${TableCssClassName.ROW_CONTROLS_WRAPPER}`,
+      `.${TableSharedCssClassName.TABLE_ROW_CONTROLS_WRAPPER}`,
     );
     const isColumnControlsDecoration =
       elem &&
       elem.classList &&
-      elem.classList.contains(TableCssClassName.COLUMN_CONTROLS_DECORATIONS);
+      elem.classList.contains(
+        TableSharedCssClassName.TABLE_COLUMN_CONTROLS_DECORATIONS,
+      );
     return (
       (rowControls && rowControls.contains(elem)) || isColumnControlsDecoration
     );

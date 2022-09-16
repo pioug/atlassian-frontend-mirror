@@ -51,14 +51,14 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 
 import { defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 import TableCellNodeView from '../nodeviews/tableCell';
 import { getPosHandler } from '../../../nodeviews';
-import { DispatchAnalyticsEvent } from '../../analytics/types/dispatch-analytics-event';
+import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   transformSliceRemoveCellBackgroundColor,
   transformSliceToRemoveColumnsWidths,
@@ -69,6 +69,11 @@ import { transformSliceToRemoveOpenExpand } from '../../expand/utils';
 import { transformSliceToRemoveOpenBodiedExtension } from '../../extension/actions';
 import { insideTable } from '../../../utils';
 import { isHeaderRowRequired } from '../utils/paste';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 
 let isBreakoutEnabled: boolean | undefined;
 let isFullWidthModeEnabled: boolean | undefined;
@@ -80,9 +85,12 @@ export const createPlugin = (
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   pluginConfig: PluginConfig,
+  getEditorContainerWidth: GetEditorContainerWidth,
+  getEditorFeatureFlags: GetEditorFeatureFlags,
   breakoutEnabled?: boolean,
   fullWidthModeEnabled?: boolean,
   previousFullWidthModeEnabled?: boolean,
+  editorAnalyticsAPI?: EditorAnalyticsAPI,
 ) => {
   isBreakoutEnabled = breakoutEnabled;
   isFullWidthModeEnabled = fullWidthModeEnabled;
@@ -117,12 +125,26 @@ export const createPlugin = (
           node: ProseMirrorNode,
           view: EditorView,
           getPos: getPosHandler,
-        ) => new TableCellNodeView(node, view, getPos, observer),
+        ) =>
+          new TableCellNodeView(
+            node,
+            view,
+            getPos,
+            getEditorFeatureFlags,
+            observer,
+          ),
         tableHeader: (
           node: ProseMirrorNode,
           view: EditorView,
           getPos: getPosHandler,
-        ) => new TableCellNodeView(node, view, getPos, observer),
+        ) =>
+          new TableCellNodeView(
+            node,
+            view,
+            getPos,
+            getEditorFeatureFlags,
+            observer,
+          ),
       }
     : {};
 
@@ -171,7 +193,7 @@ export const createPlugin = (
 
       if (tr) {
         // "fixTables" removes empty rows as we don't allow that in schema
-        const updatedTr = handleCut(tr, oldState, newState);
+        const updatedTr = handleCut(tr, oldState, newState, editorAnalyticsAPI);
         return fixTables(updatedTr) || updatedTr;
       }
       if (transactions.find((tr) => tr.docChanged)) {
@@ -318,7 +340,12 @@ export const createPlugin = (
         return maybeTr ? maybeTr.classList.contains('sticky') : false;
       },
       handleTextInput: ({ state, dispatch }, from, to, text) => {
-        const tr = replaceSelectedTable(state, text, INPUT_METHOD.KEYBOARD);
+        const tr = replaceSelectedTable(
+          state,
+          text,
+          INPUT_METHOD.KEYBOARD,
+          editorAnalyticsAPI,
+        );
         if (tr.selectionSet) {
           dispatch(tr);
           return true;
@@ -341,6 +368,8 @@ export const createPlugin = (
               isFullWidthModeEnabled,
               wasFullWidthModeEnabled,
             },
+            getEditorContainerWidth,
+            getEditorFeatureFlags,
           ),
       },
 
@@ -351,7 +380,10 @@ export const createPlugin = (
         mouseover: whenTableInFocus(handleMouseOver),
         mouseleave: whenTableInFocus(handleMouseLeave),
         mouseout: whenTableInFocus(handleMouseOut),
-        mousemove: whenTableInFocus(handleMouseMove, elementContentRects),
+        mousemove: whenTableInFocus(
+          handleMouseMove(getEditorFeatureFlags),
+          elementContentRects,
+        ),
         click: whenTableInFocus(handleClick),
       },
 

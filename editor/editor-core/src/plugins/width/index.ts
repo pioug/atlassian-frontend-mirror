@@ -3,12 +3,9 @@ import { PluginKey } from 'prosemirror-state';
 
 import { Dispatch } from '../../event-dispatcher';
 import { EditorPlugin } from '../../types';
+import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 
-export type WidthPluginState = {
-  width: number;
-  containerWidth?: number;
-  lineLength?: number;
-};
+export type WidthPluginState = EditorContainerWidth;
 
 export const pluginKey = new PluginKey<WidthPluginState>('widthPlugin');
 

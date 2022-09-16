@@ -26,9 +26,18 @@ import clone from 'lodash/clone';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
+const getEditorContainerWidth = () => {
+  return {
+    width: 500,
+  };
+};
 // HELPERS
 const INSERT_COLUMN = (editorView: EditorView) =>
-  insertColumn(1)(editorView.state, editorView.dispatch, editorView);
+  insertColumn(getEditorContainerWidth)(1)(
+    editorView.state,
+    editorView.dispatch,
+    editorView,
+  );
 const DELETE_COLUMN = (editorView: EditorView) => {
   const { state, dispatch } = editorView;
   dispatch(deleteColumns(colsToRect([0], 1))(state.tr));

@@ -19,6 +19,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { uuid } from '@atlaskit/adf-schema';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 
 import selectionPlugin from '../../../../selection';
 import panelPlugin from '../../../../panel';
@@ -26,9 +27,13 @@ import codeBlockPlugin from '../../../../code-block';
 import tablePlugin from '../../../index';
 import { TablePluginState } from '../../../types';
 import { pluginKey } from '../../../pm-plugins/plugin-key';
+import { createEditorSelectionAPI } from '../../../../../selection-api/api';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('table selection keymap', () => {
+  const editorSelectionAPI: EditorSelectionAPI = createEditorSelectionAPI();
+
   beforeAll(() => {
     uuid.setStatic(TABLE_LOCAL_ID);
   });
@@ -40,7 +45,13 @@ describe('table selection keymap', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add(selectionPlugin)
-    .add(tablePlugin)
+    .add([
+      tablePlugin,
+      {
+        tableOptions: {},
+        editorSelectionAPI,
+      },
+    ])
     .add(panelPlugin)
     .add([codeBlockPlugin, { appearance: 'full-page' }]);
 

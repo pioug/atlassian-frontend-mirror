@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.2.0
+
+### Minor Changes
+
+- [`73d9a2fa116`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73d9a2fa116) - ED-15568 Restore table's FloatingContextualMenu, extract utils/UI components
+
 ## 2.1.5
 
 ### Patch Changes

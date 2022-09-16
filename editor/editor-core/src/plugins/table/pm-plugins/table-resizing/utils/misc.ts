@@ -19,8 +19,9 @@ import { containsClassName } from '../../../../../utils';
 import { TableOptions } from '../../../nodeviews/types';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
-import { pluginKey as widthPluginKey } from '../../../../width';
-import { getParentNodeWidth } from '../../../../../utils/node-width';
+
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
 
 export const tableLayoutToSize: Record<string, number> = {
   default: akEditorDefaultLayoutWidth,
@@ -113,6 +114,7 @@ interface getTableMaxWidthProps {
   tableStart: number;
   state: EditorState;
   layout: TableLayout;
+  getEditorContainerWidth: GetEditorContainerWidth;
 }
 
 export const getTableMaxWidth = ({
@@ -120,8 +122,9 @@ export const getTableMaxWidth = ({
   tableStart,
   state,
   layout,
+  getEditorContainerWidth,
 }: getTableMaxWidthProps) => {
-  const containerWidth = widthPluginKey.getState(state);
+  const containerWidth = getEditorContainerWidth();
   const parentWidth = getParentNodeWidth(tableStart, state, containerWidth);
 
   let maxWidth = parentWidth || getLayoutSize(layout, containerWidth.width, {});

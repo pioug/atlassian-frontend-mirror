@@ -11,6 +11,9 @@ const data: LinkSearchListItemData[] = [
       'https://hello.atlassian.net/secure/viewavatar?size=medium&avatarId=35551&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-25T05:21:01.112Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -22,6 +25,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T23:55:20.712Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -34,6 +40,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T23:30:54.633Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -45,6 +54,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T23:29:08.924Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -56,6 +68,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/epic.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T05:54:44.729Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -67,6 +82,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/epic.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T05:54:39.227Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -78,6 +96,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-23T22:43:16.989Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -89,6 +110,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-23T22:43:11.836Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -100,6 +124,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-22T03:53:03.44Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -112,6 +139,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-21T04:05:02.823Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -123,6 +153,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-21T01:18:32.488Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -134,6 +167,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-21T01:17:44.873Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -145,6 +181,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-21T00:25:08.564Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -157,6 +196,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-17T23:06:22.56Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -169,6 +211,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-17T00:02:06.291Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -181,6 +226,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-16T00:11:43.139Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -192,6 +240,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-15T03:03:24.527Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -203,6 +254,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-14T02:26:50.116Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -215,6 +269,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-14T02:26:45.814Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -226,6 +283,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-14T01:19:40.885Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -237,6 +297,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-10T06:35:57.461Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -248,6 +311,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-09T03:22:01.503Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -259,6 +325,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-08T00:54:20.91Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -271,6 +340,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-04T02:54:36.237Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -282,6 +354,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-04T02:10:53.561Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -293,6 +368,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-03T05:36:42.106Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -304,6 +382,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-03T02:52:27.715Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -315,6 +396,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/epic.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-03T00:00:22.685Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -326,6 +410,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-02T23:52:00.036Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -337,6 +424,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-02T05:28:55.195Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -349,6 +439,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-02T03:47:54.642Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -360,6 +453,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-02T00:20:24.347Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -371,6 +467,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-24T05:17:25.412Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -382,6 +481,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-24T01:19:20.482Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -394,6 +496,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-21T00:55:49.158Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -405,6 +510,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-14T03:12:01.591Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -416,6 +524,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-14T02:14:01.567Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -428,6 +539,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-13T23:38:28.558Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -439,6 +553,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-13T00:51:27.365Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -451,6 +568,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-blogpost-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-11T05:04:39.413Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -463,6 +583,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-11T03:21:51.021Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -474,6 +597,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-10T05:08:21.639Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -486,6 +612,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-09T23:49:03.872Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
   {
     objectId:
@@ -497,6 +626,9 @@ const data: LinkSearchListItemData[] = [
       'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-05T05:49:14.404Z'),
+    meta: {
+      source: 'xp-search',
+    },
   },
   {
     objectId:
@@ -509,6 +641,9 @@ const data: LinkSearchListItemData[] = [
       'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-05T05:45:48.571Z'),
+    meta: {
+      source: 'recent-work',
+    },
   },
 ];
 

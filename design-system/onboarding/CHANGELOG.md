@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 10.5.3
+
+### Patch Changes
+
+- [`7ca0e5a0c31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ca0e5a0c31) - Update "subtle" action in Onboarding component to use correct tokens
+- [`0e5102ee5ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e5102ee5ab) - Update "subtle-link" action in Onboarding component to use correct tokens
+
 ## 10.5.2
 
 ### Patch Changes

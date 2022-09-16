@@ -38,6 +38,7 @@ describe('FloatingContextualMenu', () => {
           editorView={editorView}
           isOpen={true}
           pluginConfig={getPluginState(editorView.state).pluginConfig}
+          getEditorContainerWidth={jest.fn()}
         />,
       );
       expect(wrapper.find('Popup').length).toEqual(1);

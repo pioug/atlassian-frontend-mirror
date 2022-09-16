@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,24 +17,46 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^69.2.0",
+    "@atlaskit/adf-schema": "^24.0.0",
+    "@atlaskit/editor-common": "^69.3.0",
+    "@atlaskit/editor-shared-styles": "^2.2.0",
+    "@atlaskit/editor-tables": "^2.1.0",
+    "@atlaskit/icon": "^21.10.0",
+    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/tokens": "^0.10.0",
+    "@atlaskit/tooltip": "^17.5.0",
     "@babel/runtime": "^7.0.0",
+    "@emotion/react": "^11.7.1",
     "@types/prosemirror-state": "^1.2.0",
     "@types/prosemirror-view": "^1.9.0",
+    "classnames": "^2.2.5",
+    "lodash": "^4.17.21",
+    "memoize-one": "^6.0.0",
+    "prosemirror-commands": "1.1.11",
+    "prosemirror-keymap": "1.1.4",
     "prosemirror-model": "1.14.3",
     "prosemirror-state": "1.3.4",
-    "prosemirror-view": "1.23.2"
+    "prosemirror-transform": "1.3.2",
+    "prosemirror-utils": "^1.0.0-0",
+    "prosemirror-view": "1.23.2",
+    "raf-schd": "^4.0.3",
+    "uuid": "^3.1.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
+    "react-dom": "^16.8.0",
+    "react-intl-next": "npm:react-intl@^5.18.1",
+    "styled-components": "^3.2.6"
   },
   "devDependencies": {
+    "@atlaskit/editor-core": "^172.2.0",
     "@atlaskit/editor-test-helpers": "^17.1.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@types/prosemirror-history": "^1.0.1",
     "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0",
+    "prosemirror-history": "^1.1.3",
+    "raf-stub": "^2.0.1",
     "typescript": "4.3.5"
   },
   "af:exports": {

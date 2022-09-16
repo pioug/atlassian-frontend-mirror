@@ -17,6 +17,7 @@ import { syncStickyRowToTable } from './dom';
 import { ResizeState, ResizeStateWithAnalytics } from './types';
 import { getTableMaxWidth } from './misc';
 import { EditorState } from 'prosemirror-state';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { getSelectedTableInfo } from '../../../utils';
 
 export const getResizeState = ({
@@ -286,6 +287,7 @@ export const getNewResizeStateFromSelectedColumns = (
   rect: Rect,
   state: EditorState,
   domAtPos: (pos: number) => { node: Node; offset: number },
+  getEditorContainerWidth: GetEditorContainerWidth,
 ): ResizeStateWithAnalytics | undefined => {
   const { totalRowCount, totalColumnCount, table } = getSelectedTableInfo(
     state.selection,
@@ -309,6 +311,7 @@ export const getNewResizeStateFromSelectedColumns = (
     tableStart: table.start,
     state,
     layout,
+    getEditorContainerWidth,
   });
 
   const resizeState = getResizeState({

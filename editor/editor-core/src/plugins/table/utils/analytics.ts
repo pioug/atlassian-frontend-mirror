@@ -1,6 +1,13 @@
 import { Selection } from 'prosemirror-state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
+import type {
+  AnalyticsEventPayload,
+  AnalyticsEventPayloadCallback,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
+
+import { HigherOrderCommand } from '@atlaskit/editor-common/types';
 
 export function getSelectedTableInfo(selection: Selection) {
   let map;
@@ -48,3 +55,28 @@ export function getSelectedCellInfo(selection: Selection) {
     totalCells,
   };
 }
+
+export const withEditorAnalyticsAPI = (
+  payload: AnalyticsEventPayload | AnalyticsEventPayloadCallback,
+) => (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+): HigherOrderCommand => {
+  return (command) => (state, dispatch, view) =>
+    command(
+      state,
+      (tr) => {
+        const dynamicPayload =
+          payload instanceof Function ? payload(state) : payload;
+
+        if (dynamicPayload) {
+          editorAnalyticsAPI?.attachAnalyticsEvent(dynamicPayload)(tr);
+        }
+
+        if (dispatch) {
+          dispatch(tr);
+        }
+        return true;
+      },
+      view,
+    );
+};

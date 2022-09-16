@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-tables",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "A package that contains common classes and utility functions for editor tables",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

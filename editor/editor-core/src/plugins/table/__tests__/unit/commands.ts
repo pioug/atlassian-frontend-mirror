@@ -24,6 +24,7 @@ import {
   bodiedExtension,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 import {
   getFreshMediaProvider,
@@ -391,6 +392,9 @@ describe('table plugin: actions', () => {
   });
 
   describe('#handleCut', () => {
+    const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+      attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
+    };
     describe('when the entire table is selected', () => {
       it('should remove the table', () => {
         const { editorView, refs } = editor(
@@ -423,7 +427,27 @@ describe('table plugin: actions', () => {
             new TextSelection(oldState.doc.resolve(refs.cursorPos)),
           ),
         );
-        const newTr = handleCut(oldState.tr, oldState, editorView.state);
+        const newTr = handleCut(
+          oldState.tr,
+          oldState,
+          editorView.state,
+          editorAnalyticsAPIFake,
+        );
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
+          action: 'cut',
+          actionSubject: 'table',
+          actionSubjectId: null,
+          attributes: {
+            horizontalCells: 4,
+            totalCells: 8,
+            totalColumnCount: 4,
+            totalRowCount: 2,
+            verticalCells: 2,
+          },
+          eventType: 'track',
+        });
         expect(newTr.doc).toEqualDocument(doc(p('')));
       });
     });
@@ -463,7 +487,27 @@ describe('table plugin: actions', () => {
             new TextSelection(oldState.doc.resolve(refs.cursorPos)),
           ),
         );
-        const newTr = handleCut(oldState.tr, oldState, editorView.state);
+        const newTr = handleCut(
+          oldState.tr,
+          oldState,
+          editorView.state,
+          editorAnalyticsAPIFake,
+        );
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
+          action: 'cut',
+          actionSubject: 'table',
+          actionSubjectId: null,
+          attributes: {
+            horizontalCells: 4,
+            totalCells: 8,
+            totalColumnCount: 4,
+            totalRowCount: 2,
+            verticalCells: 2,
+          },
+          eventType: 'track',
+        });
         expect(newTr.doc).toEqualDocument(
           doc(
             table({ localId: TABLE_LOCAL_ID })(
@@ -502,7 +546,27 @@ describe('table plugin: actions', () => {
             new TextSelection(oldState.doc.resolve(refs.cursorPos)),
           ),
         );
-        const newTr = handleCut(oldState.tr, oldState, editorView.state);
+        const newTr = handleCut(
+          oldState.tr,
+          oldState,
+          editorView.state,
+          editorAnalyticsAPIFake,
+        );
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
+          action: 'cut',
+          actionSubject: 'table',
+          actionSubjectId: null,
+          attributes: {
+            horizontalCells: 4,
+            totalCells: 8,
+            totalColumnCount: 4,
+            totalRowCount: 2,
+            verticalCells: 2,
+          },
+          eventType: 'track',
+        });
         expect(newTr.doc).toEqualDocument(
           doc(
             table({ localId: TABLE_LOCAL_ID })(

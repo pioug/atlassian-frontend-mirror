@@ -1,0 +1,1 @@
+export { shortcutStyle } from './shortcut';

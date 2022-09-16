@@ -55,6 +55,7 @@ import LinkSearchError, {
   testIds as searchErrorTestIds,
 } from './link-search-error';
 import FormFooter, { testIds as formFooterTestIds } from './form-footer';
+import { getDataSource } from './utils';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
@@ -201,6 +202,7 @@ function LinkPicker({
     items,
     isLoading,
     isActivePlugin,
+    activePlugin,
     tabs,
     error,
     retry,
@@ -240,11 +242,16 @@ function LinkPicker({
     }
   }, [onContentResize, items, isLoading, isActivePlugin, tabs]);
 
-  const handleChangeUrl = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      url: e.currentTarget.value,
-    });
-  }, []);
+  const handleChangeUrl = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      /** Any on change event is triggered by manual input or paste, so source is null */
+      trackAttribute('linkFieldContentInputSource', null);
+      dispatch({
+        url: e.currentTarget.value,
+      });
+    },
+    [trackAttribute],
+  );
 
   const handleChangeText = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -275,27 +282,27 @@ function LinkPicker({
           break;
       }
 
-      if (
-        [KEY_CODE_ARROW_DOWN, KEY_CODE_ARROW_UP].includes(keyCode) &&
-        items[updatedIndex]
-      ) {
+      const item = items[updatedIndex];
+
+      if ([KEY_CODE_ARROW_DOWN, KEY_CODE_ARROW_UP].includes(keyCode) && item) {
         /**
          * Manually track that the url has been updated using searchResult method
          */
-        trackAttribute(
-          'linkFieldContent',
-          getLinkFieldContent(items[updatedIndex].url),
-        );
+        trackAttribute('linkFieldContent', getLinkFieldContent(item.url));
         trackAttribute('linkFieldContentInputMethod', 'searchResult');
+        trackAttribute(
+          'linkFieldContentInputSource',
+          getDataSource(item, activePlugin),
+        );
         dispatch({
           activeIndex: updatedIndex,
           selectedIndex: updatedIndex,
-          url: items[updatedIndex].url,
+          url: item.url,
           invalidUrl: false,
         });
       }
     },
-    [activeIndex, items, trackAttribute],
+    [activeIndex, items, trackAttribute, activePlugin],
   );
 
   const handleClear = useCallback((field: string) => {
@@ -303,6 +310,11 @@ function LinkPicker({
       [field]: '',
     });
   }, []);
+
+  const handleUrlClear = useCallback(() => {
+    trackAttribute('linkFieldContentInputSource', null);
+    handleClear('url');
+  }, [trackAttribute, handleClear]);
 
   const handleMouseEnterResultItem = useCallback(
     (objectId: string) => {
@@ -362,16 +374,20 @@ function LinkPicker({
 
       if (selectedItem) {
         const { url, name } = selectedItem;
-        dispatchEvent(new Event('submit'));
         /**
          * Manually track that the url has been updated using searchResult method
          */
+        dispatchEvent(new Event('submit'));
         trackAttribute('linkFieldContent', getLinkFieldContent(url));
         trackAttribute('linkFieldContentInputMethod', 'searchResult');
+        trackAttribute(
+          'linkFieldContentInputSource',
+          getDataSource(selectedItem, activePlugin),
+        );
         handleInsert(url, name, 'typeAhead');
       }
     },
-    [handleInsert, trackAttribute, items],
+    [handleInsert, trackAttribute, items, activePlugin],
   );
 
   const handleSubmit = useCallback(
@@ -448,7 +464,7 @@ function LinkPicker({
         aria-activedescendant={ariaActiveDescendant}
         aria-describedby={screenReaderDescriptionId}
         error={invalidUrl ? intl.formatMessage(messages.linkInvalid) : null}
-        onClear={handleClear}
+        onClear={handleUrlClear}
         onKeyDown={handleKeyDown}
         onChange={handleChangeUrl}
       />

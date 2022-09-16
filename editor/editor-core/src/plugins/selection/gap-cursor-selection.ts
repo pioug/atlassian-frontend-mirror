@@ -1,4 +1,4 @@
-export { GapCursorSelection, Side } from './gap-cursor/selection';
+export { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 export {
   setCursorForTopLevelBlocks,
   setSelectionTopLevelBlocks,

@@ -1,0 +1,1 @@
+export { insideTable } from './inside';

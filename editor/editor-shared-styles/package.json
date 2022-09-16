@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-shared-styles",
-  "version": "2.1.5",
+  "version": "2.2.0",
   "description": "Style values used in the editor/renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,6 +22,8 @@
   "af:exports": {
     "./consts": "./src/consts/index.ts",
     "./selection": "./src/selection/index.ts",
+    "./shortcut": "./src/shortcut/index.ts",
+    "./scrollbar": "./src/scrollbar-styles.ts",
     ".": "./src/index.ts"
   },
   "dependencies": {

@@ -28,6 +28,7 @@ import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 
 describe('table event handlers', () => {
   const createEditor = createEditorFactory<TablePluginState>();
+  const fakeGetEditorFeatureFlags = () => ({});
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
@@ -92,7 +93,9 @@ describe('table event handlers', () => {
         const event = {
           target: firstCell.node,
         };
-        expect(handleMouseMove(editorView, event as any)).toEqual(false);
+        expect(
+          handleMouseMove(fakeGetEditorFeatureFlags)(editorView, event as any),
+        ).toEqual(false);
       });
     });
   });

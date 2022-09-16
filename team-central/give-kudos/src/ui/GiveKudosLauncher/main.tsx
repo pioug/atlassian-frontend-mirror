@@ -208,6 +208,9 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   };
 
   const renderDrawer = useMemo(() => {
+    if (props.isOpen) {
+      sendAnalytic('opened', {});
+    }
     return (
       <Drawer
         width="full"

@@ -1,13 +1,15 @@
 import { css } from '@emotion/react';
-import { gridSize } from '@atlaskit/theme/constants';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N20, DN50, DN700, B200, N20A, N70 } from '@atlaskit/theme/colors';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
+import {
+  EXTENSION_PADDING,
+  BODIED_EXT_PADDING,
+} from '@atlaskit/editor-common/styles';
 
-export const padding = gridSize();
-export const BODIED_EXT_PADDING = padding * 2;
+export { EXTENSION_PADDING as padding, BODIED_EXT_PADDING };
 
 export const wrapperDefault = (theme: ThemeProps) => css`
   background: ${themed({

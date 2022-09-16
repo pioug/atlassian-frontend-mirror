@@ -1,6 +1,6 @@
 import { EditorState } from 'prosemirror-state';
 import { TableCssClassName as ClassName } from '../types';
-import { getFeatureFlags } from '../../feature-flags-context';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 export const updateShadowListForStickyStyles = (
   heightStyle: string,
@@ -24,13 +24,15 @@ export const updateShadowListForStickyStyles = (
  * if `overflowShadowOptimization` is enabled, this will exit early.
  */
 export const updateOverflowShadows = (
+  getEditorFeatureFlags: GetEditorFeatureFlags,
+) => (
   editorState: EditorState,
   wrapper?: HTMLElement | null,
   table?: HTMLElement | null,
   rightShadows?: NodeListOf<HTMLElement> | null,
   leftShadows?: NodeListOf<HTMLElement> | null,
 ) => {
-  if (getFeatureFlags(editorState)?.tableOverflowShadowsOptimization === true) {
+  if (getEditorFeatureFlags()?.tableOverflowShadowsOptimization === true) {
     return false;
   }
   // Right shadow

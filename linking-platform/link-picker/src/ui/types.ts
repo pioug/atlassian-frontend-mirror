@@ -22,6 +22,11 @@ export interface LinkSearchListItemData {
   lastUpdatedDate?: Date;
   /** Whether the result is pre-fetched from activity provider */
   prefetch?: boolean;
+  /** Metadata about the result */
+  meta?: {
+    /** The data source that provided the result */
+    source?: string;
+  };
 }
 
 export type ListItemTimeStamp = {
@@ -49,6 +54,11 @@ export interface LinkPickerPlugin {
   tabTitle?: string;
   /** Render function to customise the UI that is displayed when an error occurs resolving results */
   errorFallback?: LinkPickerPluginErrorFallback;
+  /** Metadata about the plugin */
+  meta?: {
+    /** The data source that provides all results provided by the plugin */
+    source?: string;
+  };
 }
 
 export type LinkPickerPluginErrorFallback = (

@@ -13,7 +13,7 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import { closestElement } from '../../../../utils/dom';
-import { INPUT_METHOD } from '../../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
 import {
   deleteColumnsWithAnalytics,
@@ -24,16 +24,17 @@ import { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import {
   getColumnDeleteButtonParams,
-  getColumnsWidths,
   getRowDeleteButtonParams,
   getRowHeights,
 } from '../../utils';
+import { getColumnsWidths } from '../../utils/column-controls';
 import tableMessages from '../messages';
 import { stickyRowZIndex } from '../consts';
 
 import DeleteButton from './DeleteButton';
 import getPopupOptions from './getPopUpOptions';
 import { CellSelectionType } from './types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export interface Props {
   editorView: EditorView;
@@ -44,6 +45,7 @@ export interface Props {
   scrollableElement?: HTMLElement;
   stickyHeaders?: RowStickyState;
   isNumberColumnEnabled?: boolean;
+  editorAnalyticsAPI?: EditorAnalyticsAPI;
 }
 
 export interface State {
@@ -262,6 +264,7 @@ class FloatingDeleteButton extends Component<Props, State> {
    * @memberof FloatingDeleteButton
    */
   private handleClick = () => {
+    const { editorAnalyticsAPI } = this.props;
     let { state, dispatch } = this.props.editorView;
     const {
       pluginConfig: { isHeaderRowRequired },
@@ -271,14 +274,14 @@ class FloatingDeleteButton extends Component<Props, State> {
     if (rect) {
       switch (this.state.selectionType) {
         case 'column': {
-          deleteColumnsWithAnalytics(INPUT_METHOD.BUTTON, rect)(
-            state,
-            dispatch,
-          );
+          deleteColumnsWithAnalytics(editorAnalyticsAPI)(
+            INPUT_METHOD.BUTTON,
+            rect,
+          )(state, dispatch);
           return;
         }
         case 'row': {
-          deleteRowsWithAnalytics(
+          deleteRowsWithAnalytics(editorAnalyticsAPI)(
             INPUT_METHOD.BUTTON,
             rect,
             !!isHeaderRowRequired,

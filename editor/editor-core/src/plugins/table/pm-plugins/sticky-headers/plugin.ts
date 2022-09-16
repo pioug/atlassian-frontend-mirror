@@ -1,4 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 import { Dispatch, EventDispatcher } from '../../../../event-dispatcher';
 
@@ -10,6 +11,7 @@ export const createPlugin = (
   dispatch: Dispatch,
   eventDispatcher: EventDispatcher,
   initialState = () => [],
+  getEditorFeatureFlags: GetEditorFeatureFlags,
 ) => {
   return new SafePlugin({
     state: createPluginState(dispatch, initialState),
@@ -17,7 +19,13 @@ export const createPlugin = (
     props: {
       nodeViews: {
         tableRow: (node, view, getPos) => {
-          return new TableRowNodeView(node, view, getPos, eventDispatcher);
+          return new TableRowNodeView(
+            node,
+            view,
+            getPos,
+            eventDispatcher,
+            getEditorFeatureFlags,
+          );
         },
       },
     },

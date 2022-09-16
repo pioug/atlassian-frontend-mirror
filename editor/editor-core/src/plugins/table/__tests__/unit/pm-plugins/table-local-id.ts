@@ -29,6 +29,7 @@ import { pluginKey as tablePluginKey } from '../../../../../plugins/table/pm-plu
 import { CellSelection } from '@atlaskit/editor-tables';
 
 import { uuid } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as any;
@@ -379,6 +380,10 @@ describe('table local id plugin', () => {
           .mockReturnValueOnce(flooFirst)
           .mockReturnValueOnce(flooSecond);
 
+        const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+          attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
+        };
+
         const {
           editorView,
           refs: { from, to },
@@ -407,12 +412,31 @@ describe('table local id plugin', () => {
           sel.content(),
         );
         const oldState = editorView.state;
-        const newTr = handleCut(oldState.tr, oldState, editorView.state);
+        const newTr = handleCut(
+          oldState.tr,
+          oldState,
+          editorView.state,
+          editorAnalyticsAPIFake,
+        );
 
         // Ensure table is "cut"/removed
         expect(newTr.doc).toEqualDocument(doc(p('')));
         editorView.dispatch(newTr);
-
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
+          action: 'cut',
+          actionSubject: 'table',
+          actionSubjectId: null,
+          attributes: {
+            horizontalCells: 3,
+            totalCells: 9,
+            totalColumnCount: 3,
+            totalRowCount: 3,
+            verticalCells: 3,
+          },
+          eventType: 'track',
+        });
         // Paste it & ensure we retain the same ID
         dispatchPasteEvent(editorView, { html: dom.innerHTML, plain: text });
         expect(editorView.state.doc).toEqualDocument(

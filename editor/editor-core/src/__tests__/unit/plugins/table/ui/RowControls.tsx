@@ -30,6 +30,7 @@ const RowControlsButtonWrap = `.${ClassName.ROW_CONTROLS_BUTTON_WRAP}`;
 
 describe('RowControls', () => {
   const createEditor = createEditorFactory<TablePluginState>();
+  const fakeGetEditorFeatureFlags = jest.fn(() => ({}));
   let floatingControls: ReactWrapper;
   let originalResizeObserver: any;
 
@@ -66,12 +67,16 @@ describe('RowControls', () => {
     jest.clearAllMocks();
   });
 
-  const editor = (doc: DocBuilder, props?: EditorProps) =>
-    createEditor({
+  const editor = (doc: DocBuilder, props?: EditorProps) => {
+    const { featureFlags } = props || {};
+    fakeGetEditorFeatureFlags.mockReturnValue(featureFlags || {});
+
+    return createEditor({
       doc,
       editorProps: { allowTables: true, ...props },
       pluginKey,
     });
+  };
 
   [1, 2, 3].forEach((row) => {
     describe(`when table has ${row} rows`, () => {
@@ -86,6 +91,7 @@ describe('RowControls', () => {
             tableRef={document.querySelector('table')!}
             tableActive={true}
             editorView={editorView}
+            getEditorFeatureFlags={fakeGetEditorFeatureFlags}
           />,
         );
         expect(floatingControls.find(RowControlsButtonWrap)).toHaveLength(row);
@@ -100,6 +106,7 @@ describe('RowControls', () => {
         tableRef={document.querySelector('table')!}
         tableActive={false}
         editorView={editorView}
+        getEditorFeatureFlags={fakeGetEditorFeatureFlags}
       />,
     );
     expect(floatingControls.find(RowControlsButtonWrap)).toHaveLength(0);
@@ -115,6 +122,7 @@ describe('RowControls', () => {
           tableRef={document.querySelector('table')!}
           tableActive={true}
           editorView={editorView}
+          getEditorFeatureFlags={fakeGetEditorFeatureFlags}
         />,
       );
       const tableElement = editorView.domAtPos(1).node as HTMLElement;
@@ -144,6 +152,7 @@ describe('RowControls', () => {
             tableRef={document.querySelector('table')!}
             tableActive={true}
             editorView={editorView}
+            getEditorFeatureFlags={fakeGetEditorFeatureFlags}
           />,
         );
 

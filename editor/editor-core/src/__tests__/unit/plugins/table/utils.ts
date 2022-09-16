@@ -10,7 +10,6 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
-  getColumnsWidths,
   getRowHeights,
   isColumnDeleteButtonVisible,
   isRowDeleteButtonVisible,
@@ -20,6 +19,7 @@ import {
   getColumnClassNames,
   getRowClassNames,
 } from '../../../../plugins/table/utils';
+import { getColumnsWidths } from '../../../../plugins/table/utils/column-controls';
 import { TablePluginState } from '../../../../plugins/table/types';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 

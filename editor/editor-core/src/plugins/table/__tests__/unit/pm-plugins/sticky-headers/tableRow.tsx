@@ -43,15 +43,19 @@ import {
 
 describe('TableRowNodeView', () => {
   let tableRowNodeView: TableRowNodeView;
+  const fakeGetEditorFeatureFlags = jest.fn(() => ({}));
   const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocBuilder, stickyHeadersOptimization?: boolean) =>
-    createEditor({
+  const editor = (doc: DocBuilder, stickyHeadersOptimization?: boolean) => {
+    const featureFlags = { stickyHeadersOptimization };
+    fakeGetEditorFeatureFlags.mockReturnValue(featureFlags);
+    return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([tablePlugin])
-        .add([featureFlagsPlugin, { stickyHeadersOptimization }]),
+        .add([featureFlagsPlugin, featureFlags]),
       pluginKey,
     });
+  };
   let editorView: EditorView;
   let eventDispatcher: EventDispatcher;
   let tableRowNode: ProseMirrorNode;
@@ -89,6 +93,7 @@ describe('TableRowNodeView', () => {
         editorView,
         jest.fn(),
         eventDispatcher,
+        fakeGetEditorFeatureFlags,
       );
     });
     afterEach(() => {
@@ -190,6 +195,7 @@ describe('TableRowNodeView', () => {
         editorView,
         jest.fn(),
         eventDispatcher,
+        fakeGetEditorFeatureFlags,
       );
       tableRowDom = editorView.dom.getElementsByTagName('tr')[0];
     });
@@ -335,6 +341,7 @@ describe('TableRowNodeView', () => {
         editorView,
         jest.fn(),
         eventDispatcher,
+        fakeGetEditorFeatureFlags,
       );
       tableRowNodeView.dom = tableRowDom;
     });
@@ -391,6 +398,7 @@ describe('TableRowNodeView', () => {
         <TableComponent
           view={editorView}
           eventDispatcher={eventDispatcher}
+          getEditorFeatureFlags={fakeGetEditorFeatureFlags}
           // @ts-ignore
           containerWidth={{}}
           // @ts-ignore

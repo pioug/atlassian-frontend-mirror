@@ -1,9 +1,11 @@
 import React from 'react';
+
 import {
   DOMOutputSpec,
   DOMSerializer,
   Node as PmNode,
 } from 'prosemirror-model';
+import { PluginKey, EditorState } from 'prosemirror-state';
 import { EditorView, NodeView } from 'prosemirror-view';
 import { stateKey as mediaPluginKey } from '../../../plugins/media/pm-plugins/plugin-key';
 import { EventDispatcher } from '../../../event-dispatcher';
@@ -15,7 +17,6 @@ import {
 import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import WithPluginState from '../../../ui/WithPluginState';
-import { pluginKey as widthPluginKey } from '../../width';
 import { pluginConfig as getPluginConfig } from '../create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey } from '../pm-plugins/plugin-key';
@@ -25,9 +26,12 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import TableComponent from './TableComponent';
 import { Props, TableOptions } from './types';
-import { getFeatureFlags } from '../../feature-flags-context';
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import { EmitterEvents } from '../../../extensibility';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 
 const tableAttributes = (node: PmNode) => {
   return {
@@ -104,11 +108,21 @@ export default class TableView extends ReactNodeView<Props> {
   };
 
   render(props: Props, forwardRef: ForwardRef) {
+    // TODO: ED-15663
+    // Please, do not copy or use this kind of code below
+    // @ts-ignore
+    const fakePluginKey = {
+      key: 'widthPlugin$',
+      getState: (state: EditorState) => {
+        return (state as any)['widthPlugin$'];
+      },
+    } as PluginKey;
+
     return (
       <WithPluginState
         plugins={{
-          containerWidth: widthPluginKey,
           pluginState: pluginKey,
+          widthPlugin: fakePluginKey,
           tableResizingPluginState: tableResizingPluginKey,
           mediaState: mediaPluginKey,
         }}
@@ -117,10 +131,10 @@ export default class TableView extends ReactNodeView<Props> {
           const {
             tableResizingPluginState,
             pluginState,
-            containerWidth,
             mediaState,
           } = pluginStates;
           const tableActive = props.getPos() === pluginState!.tablePos;
+          const containerWidth = props.getEditorContainerWidth();
           return (
             <TableComponent
               view={props.view}
@@ -138,6 +152,7 @@ export default class TableView extends ReactNodeView<Props> {
               getNode={this.getNode}
               containerWidth={containerWidth!}
               contentDOM={forwardRef}
+              getEditorFeatureFlags={props.getEditorFeatureFlags}
             />
           );
         }}
@@ -202,10 +217,12 @@ export const createTableView = (
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   options: TableOptions,
+  getEditorContainerWidth: GetEditorContainerWidth,
+  getEditorFeatureFlags: GetEditorFeatureFlags,
 ): NodeView => {
   const { pluginConfig } = getPluginState(view.state);
   const { allowColumnResizing } = getPluginConfig(pluginConfig);
-  const { tableRenderOptimization } = getFeatureFlags(view.state) || {};
+  const { tableRenderOptimization } = getEditorFeatureFlags();
   return new TableView({
     node,
     view,
@@ -215,5 +232,7 @@ export const createTableView = (
     getPos: getPos as getPosHandlerNode,
     options,
     tableRenderOptimization,
+    getEditorContainerWidth,
+    getEditorFeatureFlags,
   }).init();
 };

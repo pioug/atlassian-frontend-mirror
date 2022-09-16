@@ -1,7 +1,7 @@
 import { defineMessages } from 'react-intl-next';
 
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import commonMessages from '../../messages';
+import commonMessages from '@atlaskit/editor-common/messages';
 import { Command, CommandDispatch } from '../../types/command';
 import {
   FloatingToolbarDropdown,
@@ -35,7 +35,7 @@ import {
   TableCssClassName,
 } from './types';
 import { isReferencedSource } from './utils/referentiality';
-import { INPUT_METHOD } from '../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   findCellRectClosestToPos,
   findTable,
@@ -50,8 +50,10 @@ import { messages as ContextualMenuMessages } from './ui/FloatingContextualMenu/
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import { findParentDomRefOfType } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
-import { closestElement } from '../../utils/dom';
+import { closestElement } from '@atlaskit/editor-common/utils';
 import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 // TODO: ED-14403 investigate why these translations don't work
 export const messages = defineMessages({
@@ -86,33 +88,34 @@ export const getToolbarMenuConfig = (
   config: ToolbarMenuConfig,
   state: ToolbarMenuState,
   { formatMessage }: ToolbarMenuContext,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 ): FloatingToolbarItem<Command> => {
   const options = [
     {
       id: 'editor.table.headerRow',
       title: formatMessage(messages.headerRow),
-      onClick: toggleHeaderRowWithAnalytics(),
+      onClick: toggleHeaderRowWithAnalytics(editorAnalyticsAPI),
       selected: state.isHeaderRowEnabled,
       hidden: !config.allowHeaderRow,
     },
     {
       id: 'editor.table.headerColumn',
       title: formatMessage(messages.headerColumn),
-      onClick: toggleHeaderColumnWithAnalytics(),
+      onClick: toggleHeaderColumnWithAnalytics(editorAnalyticsAPI),
       selected: state.isHeaderColumnEnabled,
       hidden: !config.allowHeaderColumn,
     },
     {
       id: 'editor.table.numberedColumn',
       title: formatMessage(messages.numberedColumn),
-      onClick: toggleNumberColumnWithAnalytics(),
+      onClick: toggleNumberColumnWithAnalytics(editorAnalyticsAPI),
       selected: state.isNumberColumnEnabled,
       hidden: !config.allowNumberColumn,
     },
     {
       id: 'editor.table.collapseTable',
       title: formatMessage(messages.collapseTable),
-      onClick: wrapTableInExpandWithAnalytics(),
+      onClick: wrapTableInExpandWithAnalytics(editorAnalyticsAPI),
       selected: !!state.isTableCollapsed,
       disabled: !state.canCollapseTable,
       hidden: !config.allowCollapse,
@@ -135,6 +138,8 @@ export const getToolbarCellOptionsConfig = (
   editorState: EditorState,
   initialSelectionRect: Rect,
   { formatMessage }: ToolbarMenuContext,
+  getEditorContainerWidth: GetEditorContainerWidth,
+  editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
 ): FloatingToolbarDropdown<Command> => {
   const { top, bottom, right, left } = initialSelectionRect;
   const numberOfColumns = right - left;
@@ -152,11 +157,10 @@ export const getToolbarCellOptionsConfig = (
         const selectionRect = getClosestSelectionRect(state);
         const index = selectionRect?.right;
         if (index) {
-          insertColumnWithAnalytics(INPUT_METHOD.FLOATING_TB, index)(
-            state,
-            dispatch,
-            view,
-          );
+          insertColumnWithAnalytics(
+            getEditorContainerWidth,
+            editorAnalyticsAPI,
+          )(INPUT_METHOD.FLOATING_TB, index)(state, dispatch, view);
         }
         return true;
       },
@@ -170,7 +174,7 @@ export const getToolbarCellOptionsConfig = (
         const selectionRect = getClosestSelectionRect(state);
         const index = selectionRect?.bottom;
         if (index) {
-          insertRowWithAnalytics(INPUT_METHOD.FLOATING_TB, {
+          insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.FLOATING_TB, {
             index,
             moveCursorToInsertedRow: true,
           })(state, dispatch);
@@ -192,11 +196,10 @@ export const getToolbarCellOptionsConfig = (
       ) => {
         const selectionRect = getClosestSelectionRect(state);
         if (selectionRect) {
-          deleteColumnsWithAnalytics(INPUT_METHOD.FLOATING_TB, selectionRect)(
-            state,
-            dispatch,
-            view,
-          );
+          deleteColumnsWithAnalytics(editorAnalyticsAPI)(
+            INPUT_METHOD.FLOATING_TB,
+            selectionRect,
+          )(state, dispatch, view);
         }
         return true;
       },
@@ -211,7 +214,7 @@ export const getToolbarCellOptionsConfig = (
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         const selectionRect = getClosestSelectionRect(state);
         if (selectionRect) {
-          deleteRowsWithAnalytics(
+          deleteRowsWithAnalytics(editorAnalyticsAPI)(
             INPUT_METHOD.FLOATING_TB,
             selectionRect,
             false,
@@ -225,14 +228,14 @@ export const getToolbarCellOptionsConfig = (
     {
       id: 'editor.table.mergeCells',
       title: formatMessage(ContextualMenuMessages.mergeCells),
-      onClick: mergeCellsWithAnalytics(),
+      onClick: mergeCellsWithAnalytics(editorAnalyticsAPI),
       selected: false,
       disabled: !canMergeCells(editorState.tr),
     },
     {
       id: 'editor.table.splitCell',
       title: formatMessage(ContextualMenuMessages.splitCell),
-      onClick: splitCellWithAnalytics(),
+      onClick: splitCellWithAnalytics(editorAnalyticsAPI),
       selected: false,
       disabled: !splitCell(editorState),
     },
@@ -243,7 +246,7 @@ export const getToolbarCellOptionsConfig = (
       }),
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         const { targetCellPosition } = getPluginState(state);
-        emptyMultipleCellsWithAnalytics(
+        emptyMultipleCellsWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.FLOATING_TB,
           targetCellPosition,
         )(state, dispatch);
@@ -271,8 +274,9 @@ const getClosestSelectionRect = (state: EditorState): Rect | undefined => {
 };
 
 export const getToolbarConfig = (
-  config: PluginConfig,
-): FloatingToolbarHandler => (state, intl) => {
+  getEditorContainerWidth: GetEditorContainerWidth,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+) => (config: PluginConfig): FloatingToolbarHandler => (state, intl) => {
   const tableObject = findTable(state.selection);
   const pluginState = getPluginState(state);
   const resizeState:
@@ -280,9 +284,20 @@ export const getToolbarConfig = (
     | undefined = tableResizingPluginKey.getState(state);
   if (tableObject && pluginState.editorHasFocus) {
     const nodeType = state.schema.nodes.table;
-    const menu = getToolbarMenuConfig(config, pluginState, intl);
+    const menu = getToolbarMenuConfig(
+      config,
+      pluginState,
+      intl,
+      editorAnalyticsAPI,
+    );
 
-    const cellItems = getCellItems(config, state, intl);
+    const cellItems = getCellItems(
+      config,
+      state,
+      intl,
+      getEditorContainerWidth,
+      editorAnalyticsAPI,
+    );
 
     // Check if we need to show confirm dialog for delete button
     let confirmDialog;
@@ -352,7 +367,7 @@ export const getToolbarConfig = (
           type: 'button',
           appearance: 'danger',
           icon: RemoveIcon,
-          onClick: deleteTableWithAnalytics(),
+          onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
           disabled: !!resizeState && !!resizeState.dragging,
           onMouseEnter: hoverTable(true),
           onMouseLeave: clearHoverSelection(),
@@ -376,6 +391,8 @@ const getCellItems = (
   pluginConfig: PluginConfig,
   state: EditorState,
   { formatMessage }: ToolbarMenuContext,
+  getEditorContainerWidth: GetEditorContainerWidth,
+  editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
 ): Array<FloatingToolbarItem<Command>> => {
   if (pluginConfig.allowCellOptionsInFloatingToolbar) {
     const initialSelectionRect = getClosestSelectionRect(state);
@@ -384,6 +401,8 @@ const getCellItems = (
         state,
         initialSelectionRect,
         { formatMessage },
+        getEditorContainerWidth,
+        editorAnalyticsAPI,
       );
       return [cellOptions, separator(cellOptions.hidden!)];
     }

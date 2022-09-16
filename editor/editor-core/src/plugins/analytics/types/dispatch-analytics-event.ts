@@ -1,3 +1,1 @@
-import { AnalyticsEventPayload } from './events';
-
-export type DispatchAnalyticsEvent = (payload: AnalyticsEventPayload) => void;
+export type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';

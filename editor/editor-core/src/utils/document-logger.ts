@@ -1,12 +1,7 @@
 import { Node as PMNode, Fragment } from 'prosemirror-model';
 
-export type SimplifiedNode = {
-  type: string;
-  pos: number;
-  nodeSize: number;
-  marks?: string[];
-  content?: SimplifiedNode[];
-};
+import type { SimplifiedNode } from '@atlaskit/editor-common/analytics';
+export type { SimplifiedNode };
 
 const hash: { [key: string]: { [key: string]: string } } = {
   nodes: {

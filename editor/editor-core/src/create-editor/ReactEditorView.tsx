@@ -23,7 +23,10 @@ import {
   EditorExperience,
   RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
-import { Transformer } from '@atlaskit/editor-common/types';
+import {
+  Transformer,
+  GetEditorContainerWidth,
+} from '@atlaskit/editor-common/types';
 
 import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
 import { processRawValue } from '../utils';
@@ -90,6 +93,10 @@ import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identif
 import { FireAnalyticsCallback } from '../plugins/analytics/fire-analytics-event';
 import { UfoSessionCompletePayloadAEP } from '../plugins/analytics/types/general-events';
 import ReactEditorViewContext from './ReactEditorViewContext';
+import { pluginKey as widthPluginKey } from '../plugins/width';
+import { createInsertNodeAPI } from '../insert-api/api';
+import { createEditorAnalyticsAPI } from '../analytics-api/api';
+import { createEditorSelectionAPI } from '../selection-api/api';
 
 export interface EditorViewProps {
   editorProps: EditorProps;
@@ -413,13 +420,12 @@ export class ReactEditorView<T = {}> extends React.Component<
     // nodes that haven't been re-rendered to the document yet.
     this.blur();
 
-    this.config = processPluginsList(
-      this.getPlugins(
-        props.editorProps,
-        this.props.editorProps,
-        this.props.createAnalyticsEvent,
-      ),
+    const editorPlugins = this.getPlugins(
+      props.editorProps,
+      this.props.editorProps,
+      this.props.createAnalyticsEvent,
     );
+    this.config = processPluginsList(editorPlugins);
 
     const state = this.editorState;
 
@@ -501,6 +507,7 @@ export class ReactEditorView<T = {}> extends React.Component<
     // this.view will be destroyed when React unmounts in handleEditorViewRef
   }
 
+  private editorPlugins: EditorPlugin[] = [];
   // Helper to allow tests to inject plugins directly
   getPlugins(
     editorProps: EditorProps,
@@ -508,15 +515,38 @@ export class ReactEditorView<T = {}> extends React.Component<
     createAnalyticsEvent?: CreateUIAnalyticsEvent,
   ): EditorPlugin[] {
     const editorPlugins = editorProps.dangerouslyAppendPlugins?.__plugins ?? [];
+    const insertNodeAPI = createInsertNodeAPI({
+      getEditorView: () => this.view,
+      getEditorPlugins: () => this.editorPlugins,
+    });
+    const editorAnalyticsAPI = createEditorAnalyticsAPI({
+      getEditorView: () => this.view,
+      getCreateUIAnalyticsEvent: () => createAnalyticsEvent,
+    });
+    const editorSelectionAPI = createEditorSelectionAPI();
+    const getEditorContainerWidth: GetEditorContainerWidth = () => {
+      if (!this.view) {
+        return null;
+      }
+      const { state } = this.view;
+
+      return widthPluginKey.getState(state) || null;
+    };
     const builtinPlugins = createPluginList(
       editorProps,
       prevEditorProps,
       createAnalyticsEvent,
+      insertNodeAPI,
+      editorAnalyticsAPI,
+      editorSelectionAPI,
+      getEditorContainerWidth,
     );
 
     if (editorPlugins && editorPlugins.length > 0) {
       builtinPlugins.push(...editorPlugins);
     }
+
+    this.editorPlugins = builtinPlugins;
 
     return builtinPlugins;
   }

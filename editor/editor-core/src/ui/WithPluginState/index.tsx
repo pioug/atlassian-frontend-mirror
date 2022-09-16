@@ -13,7 +13,8 @@ import {
   AnalyticsDispatch,
   AnalyticsEventPayload,
 } from '../../plugins/analytics';
-import { analyticsEventKey } from '../../plugins/analytics/consts';
+
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import { analyticsPluginKey } from '../../plugins/analytics/plugin-key';
 import { getParticipantsCount } from '../../plugins/collab-edit/get-participants-count';
 import { NamedPluginKeys, NamedPluginStates, Writeable } from './types';

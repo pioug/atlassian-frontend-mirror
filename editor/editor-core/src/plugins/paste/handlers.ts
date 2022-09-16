@@ -24,6 +24,7 @@ import { EditorView } from 'prosemirror-view';
 import { MentionAttributes } from '@atlaskit/adf-schema';
 import { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
 import { CardAdf, CardAppearance } from '@atlaskit/smart-card';
+import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 
 import { Command, CommandDispatch } from '../../types';
 import {
@@ -46,9 +47,12 @@ import {
   pluginKey as textFormattingPluginKey,
   TextFormattingState,
 } from '../text-formatting/pm-plugins/main';
-import { replaceSelectedTable } from '../table/transforms/replace-table';
 
-import { applyTextMarksToSlice, hasOnlyNodesOfType } from './util';
+import {
+  addReplaceSelectedTableAnalytics,
+  applyTextMarksToSlice,
+  hasOnlyNodesOfType,
+} from './util';
 import { isListNode, isListItemNode } from '../list/utils/node';
 import { canLinkBeCreatedInRange } from '../hyperlink/pm-plugins/main';
 
@@ -288,7 +292,11 @@ export function handlePasteAsPlainText(
       // <- using the same internal flag that prosemirror-view is using
 
       // if user has selected table we need custom logic to replace the table
-      tr = replaceSelectedTable(state, slice, INPUT_METHOD.CLIPBOARD);
+      tr = replaceSelectedTable(state, slice);
+
+      // add analytics after replacing selected table
+      tr = addReplaceSelectedTableAnalytics(state, tr);
+
       // otherwise just replace the selection
       if (!tr.docChanged) {
         tr.replaceSelection(slice);
@@ -926,7 +934,11 @@ export const handleSelectedTable = (slice: Slice): Command => (
   state,
   dispatch,
 ) => {
-  const tr = replaceSelectedTable(state, slice, INPUT_METHOD.CLIPBOARD);
+  let tr = replaceSelectedTable(state, slice);
+
+  // add analytics after replacing selected table
+  tr = addReplaceSelectedTableAnalytics(state, tr);
+
   if (tr.docChanged) {
     if (dispatch) {
       dispatch(tr);

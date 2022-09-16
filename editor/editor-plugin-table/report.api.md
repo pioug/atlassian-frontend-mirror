@@ -5,7 +5,56 @@
 [Learn more about API reports](https://hello.atlassian.net/wiki/spaces/UR/pages/1825484529/Package+API+Reports)
 
 ```ts
-export declare const tablesPlugin: () => any;
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import { TableLayout } from '@atlaskit/adf-schema';
+
+declare type PermittedLayoutsDescriptor = TableLayout[] | 'all';
+
+declare interface PluginConfig {
+  advanced?: boolean;
+  allowBackgroundColor?: boolean;
+  allowColumnResizing?: boolean;
+  allowHeaderColumn?: boolean;
+  allowHeaderRow?: boolean;
+  allowMergeCells?: boolean;
+  allowNumberColumn?: boolean;
+  allowColumnSorting?: boolean;
+  allowAddColumnWithCustomStep?: boolean;
+  allowCollapse?: boolean;
+  isHeaderRowRequired?: boolean;
+  stickToolbarToBottom?: boolean;
+  permittedLayouts?: PermittedLayoutsDescriptor;
+  allowControls?: boolean;
+  stickyHeaders?: boolean;
+  allowCellOptionsInFloatingToolbar?: boolean;
+  tableCellOptimization?: boolean;
+  tableRenderOptimization?: boolean;
+  stickyHeadersOptimization?: boolean;
+  initialRenderOptimization?: boolean;
+  mouseMoveOptimization?: boolean;
+  tableOverflowShadowsOptimization?: boolean;
+  allowDistributeColumns?: boolean;
+}
+
+declare interface TablePluginOptions {
+  tableOptions: PluginConfig;
+  breakoutEnabled?: boolean;
+  allowContextualMenu?: boolean;
+  fullWidthEnabled?: boolean;
+  wasFullWidthEnabled?: boolean;
+  editorAnalyticsAPI?: EditorAnalyticsAPI;
+  editorSelectionAPI?: EditorSelectionAPI;
+  getEditorContainerWidth?: GetEditorContainerWidth;
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
+}
+
+export declare const tablesPlugin: (
+  options?: TablePluginOptions | undefined,
+) => EditorPlugin;
 
 export {};
 ```

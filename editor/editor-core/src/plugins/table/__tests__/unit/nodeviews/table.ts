@@ -67,6 +67,8 @@ describe('table -> nodeviews -> table.tsx', () => {
             eventDispatcher,
             getPos: () => 1,
             tableRenderOptimization: true,
+            getEditorContainerWidth: () => ({ width: 500 }),
+            getEditorFeatureFlags: () => ({}),
           }).init();
 
           renderSpy = jest.spyOn(tableNodeView, 'render');

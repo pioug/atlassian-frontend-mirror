@@ -36,6 +36,7 @@ import {
 } from '../../../../../plugins/analytics/types/enums';
 import { createIntl, IntlShape } from 'react-intl-next';
 
+const getEditorContainerWidth = () => ({ width: 500 });
 describe('Floating Insert Button when findDomRefAtPos fails', () => {
   const createEditor = createEditorFactory<TablePluginState>();
   let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
@@ -80,6 +81,7 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
         tableNode={tableNode && tableNode.node}
         editorView={editorView}
         dispatchAnalyticsEvent={createAnalyticsEvent}
+        getEditorContainerWidth={getEditorContainerWidth}
       />,
     );
   });
@@ -167,6 +169,7 @@ describe('Floating Insert Button', () => {
         tableRef={document.querySelector('table')!}
         tableNode={tableNode && tableNode.node}
         editorView={editorView}
+        getEditorContainerWidth={getEditorContainerWidth}
       />,
     ) as unknown) as ReactWrapper<FloatingInsertButtonProps>;
   });

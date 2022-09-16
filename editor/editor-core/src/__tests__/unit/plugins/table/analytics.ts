@@ -39,6 +39,7 @@ import { INPUT_METHOD } from '../../../../plugins/analytics';
 import { handleCut } from '../../../../plugins/table/event-handlers';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { replaceSelectedTable } from '../../../../plugins/table/transforms';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const defaultTable = table()(
   tr(thEmpty, thEmpty, thEmpty),
@@ -50,6 +51,13 @@ const secondRow: Rect = { left: 0, top: 1, bottom: 2, right: 3 };
 const secondColumn: Rect = { left: 1, top: 0, bottom: 3, right: 2 };
 
 describe('Table analytic events', () => {
+  let editorAnalyticsAPIFake: EditorAnalyticsAPI;
+  beforeEach(() => {
+    editorAnalyticsAPIFake = {
+      attachAnalyticsEvent: jest.fn().mockReturnValue(jest.fn()),
+    };
+  });
+
   const createEditor = createEditorFactory<TablePluginState>();
   let createAnalyticsEvent: jest.Mock<UIAnalyticsEvent>;
 
@@ -102,11 +110,14 @@ describe('Table analytic events', () => {
   describe('table deleted', () => {
     beforeEach(() => {
       const { editorView } = editor(doc(defaultTable));
-      deleteTableWithAnalytics()(editorView.state, editorView.dispatch);
+      deleteTableWithAnalytics(editorAnalyticsAPIFake)(
+        editorView.state,
+        editorView.dispatch,
+      );
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'deleted',
         actionSubject: 'table',
         attributes: expect.objectContaining({
@@ -129,14 +140,13 @@ describe('Table analytic events', () => {
           ),
         ),
       );
-      deleteTableIfSelectedWithAnalytics(INPUT_METHOD.KEYBOARD)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      deleteTableIfSelectedWithAnalytics(editorAnalyticsAPIFake)(
+        INPUT_METHOD.KEYBOARD,
+      )(editorView.state, editorView.dispatch);
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'deleted',
         actionSubject: 'table',
         attributes: expect.objectContaining({
@@ -162,14 +172,15 @@ describe('Table analytic events', () => {
           ),
         );
 
-        emptyMultipleCellsWithAnalytics(INPUT_METHOD.CONTEXT_MENU)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        emptyMultipleCellsWithAnalytics(editorAnalyticsAPIFake)(
+          INPUT_METHOD.CONTEXT_MENU,
+        )(editorView.state, editorView.dispatch);
       });
 
       it('should fire v3 analytics', () => {
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
           action: 'cleared',
           actionSubject: 'table',
           actionSubjectId: null,
@@ -230,11 +241,14 @@ describe('Table analytic events', () => {
         ),
       );
 
-      mergeCellsWithAnalytics()(editorView.state, editorView.dispatch);
+      mergeCellsWithAnalytics(editorAnalyticsAPIFake)(
+        editorView.state,
+        editorView.dispatch,
+      );
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'merged',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -262,11 +276,14 @@ describe('Table analytic events', () => {
         ),
       );
 
-      splitCellWithAnalytics()(editorView.state, editorView.dispatch);
+      splitCellWithAnalytics(editorAnalyticsAPIFake)(
+        editorView.state,
+        editorView.dispatch,
+      );
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'split',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -294,11 +311,14 @@ describe('Table analytic events', () => {
         ),
       );
 
-      setColorWithAnalytics(B50)(editorView.state, editorView.dispatch);
+      setColorWithAnalytics(editorAnalyticsAPIFake)(B50)(
+        editorView.state,
+        editorView.dispatch,
+      );
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'colored',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -318,11 +338,14 @@ describe('Table analytic events', () => {
   describe('header row toggled', () => {
     beforeEach(() => {
       const { editorView } = editor(defaultTable);
-      toggleHeaderRowWithAnalytics()(editorView.state, editorView.dispatch);
+      toggleHeaderRowWithAnalytics(editorAnalyticsAPIFake)(
+        editorView.state,
+        editorView.dispatch,
+      );
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'toggledHeaderRow',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -339,11 +362,14 @@ describe('Table analytic events', () => {
   describe('header column toggled', () => {
     beforeEach(() => {
       const { editorView } = editor(defaultTable);
-      toggleHeaderColumnWithAnalytics()(editorView.state, editorView.dispatch);
+      toggleHeaderColumnWithAnalytics(editorAnalyticsAPIFake)(
+        editorView.state,
+        editorView.dispatch,
+      );
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'toggledHeaderColumn',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -360,11 +386,14 @@ describe('Table analytic events', () => {
   describe('number column toggled', () => {
     beforeEach(() => {
       const { editorView } = editor(defaultTable);
-      toggleNumberColumnWithAnalytics()(editorView.state, editorView.dispatch);
+      toggleNumberColumnWithAnalytics(editorAnalyticsAPIFake)(
+        editorView.state,
+        editorView.dispatch,
+      );
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'toggledNumberColumn',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -382,9 +411,14 @@ describe('Table analytic events', () => {
     describe('normal', () => {
       it('should fire v3 analytics', () => {
         const { editorView } = editor(defaultTable);
-        toggleTableLayoutWithAnalytics()(editorView.state, editorView.dispatch);
+        toggleTableLayoutWithAnalytics(editorAnalyticsAPIFake)(
+          editorView.state,
+          editorView.dispatch,
+        );
 
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
           action: 'changedBreakoutMode',
           actionSubject: 'table',
           actionSubjectId: null,
@@ -412,9 +446,14 @@ describe('Table analytic events', () => {
             ),
           ),
         );
-        toggleTableLayoutWithAnalytics()(editorView.state, editorView.dispatch);
+        toggleTableLayoutWithAnalytics(editorAnalyticsAPIFake)(
+          editorView.state,
+          editorView.dispatch,
+        );
 
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
           action: 'changedBreakoutMode',
           actionSubject: 'table',
           actionSubjectId: null,
@@ -441,9 +480,14 @@ describe('Table analytic events', () => {
           ),
         );
 
-        toggleTableLayoutWithAnalytics()(editorView.state, editorView.dispatch);
+        toggleTableLayoutWithAnalytics(editorAnalyticsAPIFake)(
+          editorView.state,
+          editorView.dispatch,
+        );
 
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
           action: 'changedBreakoutMode',
           actionSubject: 'table',
           actionSubjectId: null,
@@ -472,12 +516,17 @@ describe('Table analytic events', () => {
       );
 
       editorView.dispatch(
-        handleCut(editorView.state.tr, editorView.state, editorView.state),
+        handleCut(
+          editorView.state.tr,
+          editorView.state,
+          editorView.state,
+          editorAnalyticsAPIFake,
+        ),
       );
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'cut',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -497,14 +546,19 @@ describe('Table analytic events', () => {
     describe('context menu', () => {
       beforeEach(() => {
         const { editorView } = editor(defaultTable);
-        insertRowWithAnalytics(INPUT_METHOD.CONTEXT_MENU, {
-          index: 2,
-          moveCursorToInsertedRow: false,
-        })(editorView.state, editorView.dispatch);
+        insertRowWithAnalytics(editorAnalyticsAPIFake)(
+          INPUT_METHOD.CONTEXT_MENU,
+          {
+            index: 2,
+            moveCursorToInsertedRow: false,
+          },
+        )(editorView.state, editorView.dispatch);
       });
 
       it('should fire v3 analytics', () => {
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
           action: 'addedRow',
           actionSubject: 'table',
           actionSubjectId: null,
@@ -575,9 +629,15 @@ describe('Table analytic events', () => {
   });
 
   describe('column added', () => {
+    const getEditorContainerWidth = () => {
+      return { width: 500 };
+    };
     beforeEach(() => {
       const { editorView } = editor(defaultTable);
-      insertColumnWithAnalytics(INPUT_METHOD.CONTEXT_MENU, 2)(
+      insertColumnWithAnalytics(
+        getEditorContainerWidth,
+        editorAnalyticsAPIFake,
+      )(INPUT_METHOD.CONTEXT_MENU, 2)(
         editorView.state,
         editorView.dispatch,
         editorView,
@@ -585,7 +645,7 @@ describe('Table analytic events', () => {
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'addedColumn',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -603,7 +663,7 @@ describe('Table analytic events', () => {
   describe('row deleted', () => {
     beforeEach(() => {
       const { editorView } = editor(defaultTable);
-      deleteRowsWithAnalytics(
+      deleteRowsWithAnalytics(editorAnalyticsAPIFake)(
         INPUT_METHOD.CONTEXT_MENU,
         secondRow,
         true,
@@ -611,7 +671,7 @@ describe('Table analytic events', () => {
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'deletedRow',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -630,14 +690,14 @@ describe('Table analytic events', () => {
   describe('column deleted', () => {
     beforeEach(() => {
       const { editorView } = editor(defaultTable);
-      deleteColumnsWithAnalytics(INPUT_METHOD.CONTEXT_MENU, secondColumn)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      deleteColumnsWithAnalytics(editorAnalyticsAPIFake)(
+        INPUT_METHOD.CONTEXT_MENU,
+        secondColumn,
+      )(editorView.state, editorView.dispatch);
     });
 
     it('should fire v3 analytics', () => {
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'deletedColumn',
         actionSubject: 'table',
         actionSubjectId: null,
@@ -664,10 +724,15 @@ describe('Table analytic events', () => {
         ),
       );
       editorView.dispatch(
-        replaceSelectedTable(editorView.state, 'text', INPUT_METHOD.KEYBOARD),
+        replaceSelectedTable(
+          editorView.state,
+          'text',
+          INPUT_METHOD.KEYBOARD,
+          editorAnalyticsAPIFake,
+        ),
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'replaced',
         actionSubject: 'table',
         attributes: expect.objectContaining({

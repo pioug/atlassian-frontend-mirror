@@ -72,6 +72,7 @@ import { openElementBrowserModal } from '../../../../../plugins/quick-insert/com
 import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
 
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { createInsertNodeAPI } from '../../../../../insert-api/api';
 
 jest.mock('../../../../../plugins/quick-insert/commands', () => ({
   openElementBrowserModal: jest.fn(() => jest.fn()),
@@ -183,11 +184,16 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   };
 
   const buildToolbar = (props: Partial<ToolbarInsertBlockProps> = {}) => {
+    const insertNodeAPI = createInsertNodeAPI({
+      getEditorView: () => editorView,
+      getEditorPlugins: () => [],
+    });
     let defaultProps = {
       editorView,
       isReducedSpacing: false,
       buttons: 0,
       dispatchAnalyticsEvent: dispatchAnalyticsSpy as any,
+      insertNodeAPI,
     };
     toolbarOption = mountWithIntl(
       <ToolbarInsertBlock {...defaultProps} {...props} />,

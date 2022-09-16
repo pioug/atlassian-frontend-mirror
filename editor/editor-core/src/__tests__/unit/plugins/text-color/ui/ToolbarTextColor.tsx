@@ -15,7 +15,9 @@ import {
   TextColorPluginState,
   pluginKey,
 } from '../../../../../plugins/text-color/pm-plugins/main';
-import Color from '../../../../../ui/ColorPalette/Color';
+// import Color from '../../../../../ui/ColorPalette/Color';
+import { Color } from '@atlaskit/editor-common/ui-color';
+
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import {
   ToolbarTextColor,

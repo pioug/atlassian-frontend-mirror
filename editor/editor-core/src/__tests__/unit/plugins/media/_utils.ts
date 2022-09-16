@@ -1,14 +1,15 @@
-import { MediaAttributes } from '@atlaskit/adf-schema';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import randomId from '@atlaskit/editor-test-helpers/random-id';
 import {
-  media,
-  mediaGroup,
-  mediaInline,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+  getFreshMediaProvider,
+  temporaryMediaGroup,
+  temporaryMediaInline,
+  testCollectionName,
+  temporaryFileId,
+  temporaryMediaAttrs,
+  temporaryMedia,
+} from '@atlaskit/editor-test-helpers/media-provider';
+import { media, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/plugin-key';
 import { EditorProps } from '../../../../types';
@@ -17,17 +18,15 @@ import { insertMediaGroupNode } from '../../../../plugins/media/utils/media-file
 import { ImagePreview, MediaFile } from '@atlaskit/media-picker/types';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';
-
-export const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
-export const temporaryFileId = `temporary:${randomId()}`;
-
-export const temporaryMediaAttrs: MediaAttributes = {
-  id: temporaryFileId,
-  type: 'file',
-  collection: testCollectionName,
+export {
+  getFreshMediaProvider,
+  temporaryMediaGroup,
+  temporaryMediaInline,
+  temporaryMediaAttrs,
+  testCollectionName,
+  temporaryFileId,
+  temporaryMedia,
 };
-
-export const temporaryMedia = media(temporaryMediaAttrs)();
 
 export const temporaryMediaWithDimensions = (width = 256, height = 128) => {
   return media({
@@ -36,11 +35,6 @@ export const temporaryMediaWithDimensions = (width = 256, height = 128) => {
     height,
   })();
 };
-
-export const temporaryMediaGroup = mediaGroup(temporaryMedia);
-export const temporaryMediaInline = mediaInline({
-  ...temporaryMediaAttrs,
-})();
 
 export const imageFile: MediaFile = {
   id: '1',
@@ -57,11 +51,6 @@ export const imagePreview: ImagePreview = {
   },
   scaleFactor: 2,
 };
-
-export const getFreshMediaProvider = (collectionName = testCollectionName) =>
-  storyMediaProviderFactory({
-    collectionName,
-  });
 
 const createEditor = createEditorFactory<MediaPluginState>();
 export const mediaEditor = (

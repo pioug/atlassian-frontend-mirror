@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
-import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
+import {
+  MockLinkPickerPlugin,
+  mockedPluginData,
+} from '@atlaskit/link-test-helpers/link-picker';
 import { fireEvent } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
@@ -107,6 +110,7 @@ describe('LinkPicker analytics', () => {
         displayTextFieldContentInputMethod: null,
         linkFieldContent: 'text_string',
         linkFieldContentInputMethod: 'manual',
+        linkFieldContentInputSource: null,
         linkState: 'newLink',
       },
     };
@@ -455,6 +459,7 @@ describe('LinkPicker analytics', () => {
             linkState: 'newLink',
             linkFieldContent: 'url',
             linkFieldContentInputMethod: 'searchResult',
+            linkFieldContentInputSource: 'recent-work',
             displayTextFieldContent: null,
             displayTextFieldContentInputMethod: null,
           },
@@ -490,10 +495,180 @@ describe('LinkPicker analytics', () => {
             linkState: 'newLink',
             linkFieldContent: 'url',
             linkFieldContentInputMethod: 'searchResult',
+            linkFieldContentInputSource: 'recent-work',
             displayTextFieldContent: null,
             displayTextFieldContentInputMethod: null,
           },
         },
+      });
+    });
+
+    describe('linkFieldContentInputSource', () => {
+      it('should be provided by the item if both item and plugin provide `meta.source`', async () => {
+        const { spy, urlField } = setupWithPlugins({
+          plugins: [
+            {
+              meta: {
+                source: 'plugin-source',
+              },
+              resolve: async () => {
+                return {
+                  data: [
+                    {
+                      ...mockedPluginData[0],
+                      meta: {
+                        source: 'item-source',
+                      },
+                    },
+                  ],
+                };
+              },
+            },
+          ],
+        });
+
+        expect(await urlField()).toHaveFocus();
+        expect(await screen.findByTestId(testIds.searchResultItem));
+
+        spy.mockClear();
+        userEvent.keyboard('{arrowdown}');
+        userEvent.keyboard('{enter}');
+
+        // Should have tracked `linkFieldContentInputSource` and input method as searchResult
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'submitted',
+            eventType: 'ui',
+            actionSubject: 'form',
+            actionSubjectId: 'linkPicker',
+            attributes: {
+              linkFieldContentInputMethod: 'searchResult',
+              linkFieldContentInputSource: 'item-source',
+            },
+          },
+        });
+      });
+
+      it('should fallback to the plugin if it provided `meta.source` if item did not provide', async () => {
+        const { spy, urlField } = setupWithPlugins({
+          plugins: [
+            {
+              meta: {
+                source: 'plugin-source',
+              },
+              resolve: async () => ({
+                data: [
+                  {
+                    ...mockedPluginData[0],
+                    meta: {},
+                  },
+                ],
+              }),
+            },
+          ],
+        });
+
+        expect(await urlField()).toHaveFocus();
+        expect(await screen.findByTestId(testIds.searchResultItem));
+
+        spy.mockClear();
+        userEvent.keyboard('{arrowdown}');
+        userEvent.keyboard('{enter}');
+
+        // Should have tracked `linkFieldContentInputSource` and input method as searchResult
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'submitted',
+            eventType: 'ui',
+            actionSubject: 'form',
+            actionSubjectId: 'linkPicker',
+            attributes: {
+              linkFieldContentInputMethod: 'searchResult',
+              linkFieldContentInputSource: 'plugin-source',
+            },
+          },
+        });
+      });
+
+      it('should set source as `unknown` if a search result is selected but neither the plugin or item specifies the source', async () => {
+        const { spy, urlField } = setupWithPlugins({
+          plugins: [
+            {
+              meta: {},
+              resolve: async () => ({
+                data: [
+                  {
+                    ...mockedPluginData[0],
+                    meta: {},
+                  },
+                ],
+              }),
+            },
+          ],
+        });
+
+        expect(await urlField()).toHaveFocus();
+        expect(await screen.findByTestId(testIds.searchResultItem));
+
+        spy.mockClear();
+        userEvent.keyboard('{arrowdown}');
+        userEvent.keyboard('{enter}');
+
+        // Should have set the input method back to manual, and unset the input source
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'submitted',
+            eventType: 'ui',
+            actionSubject: 'form',
+            actionSubjectId: 'linkPicker',
+            attributes: {
+              linkFieldContentInputMethod: 'searchResult',
+              linkFieldContentInputSource: 'unknown',
+            },
+          },
+        });
+      });
+
+      it('should be unset if the user modifies the url after selecting using keyboard', async () => {
+        const { spy, urlField } = setupWithPlugins({
+          plugins: [
+            {
+              meta: {
+                source: 'plugin-source',
+              },
+              resolve: async () => ({
+                data: [
+                  {
+                    ...mockedPluginData[0],
+                    meta: {},
+                  },
+                ],
+              }),
+            },
+          ],
+        });
+
+        expect(await urlField()).toHaveFocus();
+        expect(await screen.findByTestId(testIds.searchResultItem));
+
+        spy.mockClear();
+        userEvent.keyboard('{arrowdown}');
+        userEvent.keyboard('{backspace}');
+        userEvent.keyboard('{enter}');
+
+        // Should have set the input method back to manual, and unset the input source
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'submitted',
+            eventType: 'ui',
+            actionSubject: 'form',
+            actionSubjectId: 'linkPicker',
+            attributes: {
+              linkFieldContentInputMethod: 'manual',
+              linkFieldContentInputSource: null,
+            },
+          },
+        });
       });
     });
   });

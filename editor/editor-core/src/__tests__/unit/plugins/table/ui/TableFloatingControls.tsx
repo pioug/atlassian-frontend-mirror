@@ -22,6 +22,7 @@ import { getDecorations } from '../../../../../plugins/table/pm-plugins/decorati
 
 describe('TableFloatingControls', () => {
   const createEditor = createEditorFactory<TablePluginState>();
+  const fakeGetEditorFeatureFlags = () => ({});
 
   const editor = (doc: DocBuilder) =>
     createEditor({
@@ -36,7 +37,10 @@ describe('TableFloatingControls', () => {
         doc(p('text'), table()(tr(tdEmpty, tdEmpty, tdEmpty))),
       );
       const floatingControls = mount(
-        <TableFloatingControls editorView={editorView} />,
+        <TableFloatingControls
+          editorView={editorView}
+          getEditorFeatureFlags={fakeGetEditorFeatureFlags}
+        />,
       );
       expect(floatingControls.html()).toEqual(null);
       floatingControls.unmount();
@@ -53,6 +57,7 @@ describe('TableFloatingControls', () => {
           tableRef={document.querySelector('table')!}
           tableActive={true}
           editorView={editorView}
+          getEditorFeatureFlags={fakeGetEditorFeatureFlags}
         />,
       );
       floatingControls.setProps({

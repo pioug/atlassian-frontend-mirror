@@ -5,6 +5,7 @@ import { browser } from '@atlaskit/editor-common/utils';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { createTable } from '@atlaskit/editor-tables/utils';
 
+import type { Schema } from 'prosemirror-model';
 import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
 
 import { toggleTable, tooltip } from '../../keymaps';
@@ -14,11 +15,11 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
-import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+} from '@atlaskit/editor-common/analytics';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+
 import { IconTable } from '../quick-insert/assets';
 
 import { pluginConfig } from './create-plugin-config';
@@ -48,6 +49,12 @@ import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
 import { isLayoutSupported } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;
@@ -56,7 +63,19 @@ interface TablePluginOptions {
   // TODO these two need to be rethought
   fullWidthEnabled?: boolean;
   wasFullWidthEnabled?: boolean;
+  editorAnalyticsAPI?: EditorAnalyticsAPI;
+  editorSelectionAPI?: EditorSelectionAPI;
+  getEditorContainerWidth?: GetEditorContainerWidth;
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
+
+const defaultGetEditorContainerWidth = () => {
+  return {
+    width: document?.body?.offsetWidth || 500,
+  };
+};
+
+const defaultGetEditorFeatureFlags = () => ({});
 
 const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
   name: 'table',
@@ -85,6 +104,8 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             wasFullWidthEnabled,
             breakoutEnabled,
             tableOptions,
+            editorAnalyticsAPI,
+            getEditorFeatureFlags,
           } = options || ({} as TablePluginOptions);
           return createPlugin(
             dispatchAnalyticsEvent,
@@ -92,22 +113,36 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             portalProviderAPI,
             eventDispatcher,
             pluginConfig(tableOptions),
+            options?.getEditorContainerWidth || defaultGetEditorContainerWidth,
+            getEditorFeatureFlags || defaultGetEditorFeatureFlags,
             breakoutEnabled,
             fullWidthEnabled,
             wasFullWidthEnabled,
+            editorAnalyticsAPI,
           );
         },
       },
       {
         name: 'tablePMColResizing',
         plugin: ({ dispatch }) => {
-          const { fullWidthEnabled, tableOptions } =
-            options || ({} as TablePluginOptions);
+          const {
+            fullWidthEnabled,
+            tableOptions,
+            editorAnalyticsAPI,
+            getEditorFeatureFlags,
+            getEditorContainerWidth,
+          } = options || ({} as TablePluginOptions);
           const { allowColumnResizing } = pluginConfig(tableOptions);
           return allowColumnResizing
-            ? createFlexiResizingPlugin(dispatch, {
-                lastColumnResizable: !fullWidthEnabled,
-              } as ColumnResizingPluginState)
+            ? createFlexiResizingPlugin(
+                dispatch,
+                {
+                  lastColumnResizable: !fullWidthEnabled,
+                } as ColumnResizingPluginState,
+                getEditorContainerWidth || defaultGetEditorContainerWidth,
+                getEditorFeatureFlags || defaultGetEditorFeatureFlags,
+                editorAnalyticsAPI,
+              )
             : undefined;
         },
       },
@@ -116,11 +151,15 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
       // plugin as it is currently swallowing backspace events inside tables
       {
         name: 'tableKeymap',
-        plugin: () => keymapPlugin(),
+        plugin: () =>
+          keymapPlugin(
+            options?.getEditorContainerWidth || defaultGetEditorContainerWidth,
+            options?.editorAnalyticsAPI,
+          ),
       },
       {
         name: 'tableSelectionKeymap',
-        plugin: () => tableSelectionKeymapPlugin(),
+        plugin: () => tableSelectionKeymapPlugin(options?.editorSelectionAPI),
       },
       { name: 'tableEditing', plugin: () => tableEditing() as SafePlugin },
 
@@ -128,7 +167,12 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         name: 'tableStickyHeaders',
         plugin: ({ dispatch, eventDispatcher }) =>
           options && options.tableOptions.stickyHeaders
-            ? createStickyHeadersPlugin(dispatch, eventDispatcher)
+            ? createStickyHeadersPlugin(
+                dispatch,
+                eventDispatcher,
+                () => [],
+                options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
+              )
             : undefined,
       },
 
@@ -250,6 +294,11 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                     scrollableElement={popupsScrollableElement}
                     hasStickyHeaders={stickyHeader && stickyHeader.sticky}
                     dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+                    editorAnalyticsAPI={options?.editorAnalyticsAPI}
+                    getEditorContainerWidth={
+                      options?.getEditorContainerWidth ||
+                      defaultGetEditorContainerWidth
+                    }
                   />
                 )}
                 <FloatingContextualMenu
@@ -259,6 +308,11 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                   targetCellPosition={targetCellPosition}
                   isOpen={Boolean(isContextualMenuOpen)}
                   pluginConfig={pluginConfig}
+                  editorAnalyticsAPI={options?.editorAnalyticsAPI}
+                  getEditorContainerWidth={
+                    options?.getEditorContainerWidth ||
+                    defaultGetEditorContainerWidth
+                  }
                 />
                 {allowControls && (
                   <FloatingDeleteButton
@@ -272,6 +326,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                     isNumberColumnEnabled={
                       tableNode && tableNode.attrs.isNumberColumnEnabled
                     }
+                    editorAnalyticsAPI={options?.editorAnalyticsAPI}
                   />
                 )}
                 {isLayoutSupported(state) &&
@@ -288,6 +343,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                         !!resizingPluginState && !!resizingPluginState.dragging
                       }
                       stickyHeader={stickyHeader}
+                      editorAnalyticsAPI={options?.editorAnalyticsAPI}
                     />
                   )}
               </>
@@ -299,6 +355,26 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
   },
 
   pluginsOptions: {
+    // TODO: ED-14676 This is not the final API design
+    // For now, we are using this on (insert-api/api.ts) but we may create a proper place for it
+    createNodeHandler: ({
+      nodeName,
+      schema,
+    }: {
+      nodeName: string;
+      schema: Schema;
+    }) => {
+      // An EditorPlugin may manage more than one node.
+      if (nodeName !== 'table') {
+        return null;
+      }
+
+      const table = createTable({
+        schema,
+      });
+
+      return table;
+    },
     quickInsert: ({ formatMessage }) => [
       {
         id: 'table',
@@ -314,17 +390,22 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
               schema: state.schema,
             }),
           );
-          return addAnalytics(state, tr, {
+          options?.editorAnalyticsAPI?.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.TABLE,
             attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
             eventType: EVENT_TYPE.TRACK,
-          });
+          })(tr);
+
+          return tr;
         },
       },
     ],
-    floatingToolbar: getToolbarConfig(pluginConfig(options?.tableOptions)),
+    floatingToolbar: getToolbarConfig(
+      options?.getEditorContainerWidth || defaultGetEditorContainerWidth,
+      options?.editorAnalyticsAPI,
+    )(pluginConfig(options?.tableOptions)),
   },
 });
 

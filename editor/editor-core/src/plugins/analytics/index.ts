@@ -27,7 +27,7 @@ export {
   USER_CONTEXT,
   DELETE_DIRECTION,
   LIST_TEXT_SCENARIOS,
-} from './types';
+} from '@atlaskit/editor-common/analytics';
 export type {
   AnalyticsDispatch,
   AnalyticsEventPayload,
@@ -52,7 +52,7 @@ export type {
   PasteType,
   SubstituteEventPayload,
   TableEventPayload,
-} from './types';
+} from '@atlaskit/editor-common/analytics';
 export {
   withAnalytics,
   addAnalytics,

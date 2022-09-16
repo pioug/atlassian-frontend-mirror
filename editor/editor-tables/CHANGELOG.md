@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.1.6
+
+### Patch Changes
+
+- [`95f007063cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95f007063cf) - Decoupling paste plugin and table plugin, copied `replaceSelectedTable` and `getSelectedTableInfo` utils to editor-tables utils package and analytics dependency shifted to paste plugin.
+
 ## 2.1.5
 
 ### Patch Changes

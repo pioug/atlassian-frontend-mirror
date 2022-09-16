@@ -11,7 +11,7 @@ import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { Popup } from '@atlaskit/editor-common/ui';
 
 import { closestElement } from '../../../../utils/dom';
-import { INPUT_METHOD } from '../../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   insertColumnWithAnalytics,
   insertRowWithAnalytics,
@@ -24,10 +24,13 @@ import InsertButton from './InsertButton';
 import {
   DispatchAnalyticsEvent,
   AnalyticsEventPayload,
-} from '../../../analytics/types';
+} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 export interface Props {
   editorView: EditorView;
+  getEditorContainerWidth: GetEditorContainerWidth;
   tableRef?: HTMLElement;
   tableNode?: PmNode;
   insertColumnButtonIndex?: number;
@@ -39,13 +42,14 @@ export interface Props {
   scrollableElement?: HTMLElement;
   hasStickyHeaders?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+  editorAnalyticsAPI?: EditorAnalyticsAPI;
 }
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   CONTENT_COMPONENT,
-} from '../../../analytics/types/enums';
+} from '@atlaskit/editor-common/analytics';
 
 export class FloatingInsertButton extends React.Component<
   Props & WrappedComponentProps,
@@ -227,13 +231,13 @@ export class FloatingInsertButton extends React.Component<
   }
 
   private insertRow(event: React.SyntheticEvent) {
-    const { editorView, insertRowButtonIndex } = this.props;
+    const { editorView, insertRowButtonIndex, editorAnalyticsAPI } = this.props;
 
     if (typeof insertRowButtonIndex !== 'undefined') {
       event.preventDefault();
 
       const { state, dispatch } = editorView;
-      insertRowWithAnalytics(INPUT_METHOD.BUTTON, {
+      insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.BUTTON, {
         index: insertRowButtonIndex,
         moveCursorToInsertedRow: true,
       })(state, dispatch);
@@ -241,17 +245,21 @@ export class FloatingInsertButton extends React.Component<
   }
 
   private insertColumn(event: React.SyntheticEvent) {
-    const { editorView, insertColumnButtonIndex } = this.props;
+    const {
+      editorView,
+      insertColumnButtonIndex,
+      editorAnalyticsAPI,
+      getEditorContainerWidth,
+    } = this.props;
 
     if (typeof insertColumnButtonIndex !== 'undefined') {
       event.preventDefault();
 
       const { state, dispatch } = editorView;
-      insertColumnWithAnalytics(INPUT_METHOD.BUTTON, insertColumnButtonIndex)(
-        state,
-        dispatch,
-        editorView,
-      );
+      insertColumnWithAnalytics(getEditorContainerWidth, editorAnalyticsAPI)(
+        INPUT_METHOD.BUTTON,
+        insertColumnButtonIndex,
+      )(state, dispatch, editorView);
     }
   }
 }

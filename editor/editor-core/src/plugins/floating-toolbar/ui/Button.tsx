@@ -3,7 +3,8 @@ import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/custom-theme-button';
 import { getButtonStyles, iconOnlySpacing } from './styles';
 
-export type ButtonAppearance = 'subtle' | 'danger';
+import type { ButtonAppearance } from '@atlaskit/editor-common/types';
+export type { ButtonAppearance };
 export interface Props {
   title?: string;
   icon?: React.ReactElement<any>;

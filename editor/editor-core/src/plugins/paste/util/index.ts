@@ -6,10 +6,21 @@ import {
   Schema,
 } from 'prosemirror-model';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
-import { Selection } from 'prosemirror-state';
-import { PasteSource } from '../../analytics';
+import { EditorState, Selection, Transaction } from 'prosemirror-state';
+import {
+  ACTION_SUBJECT,
+  addAnalytics,
+  EVENT_TYPE,
+  INPUT_METHOD,
+  PasteSource,
+  TABLE_ACTION,
+} from '../../analytics';
 import { TextSelection, NodeSelection } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';
+import {
+  getSelectedTableInfo,
+  isTableSelected,
+} from '@atlaskit/editor-tables/utils';
 
 export function isPastedFromWord(html?: string): boolean {
   return !!html && html.indexOf('urn:schemas-microsoft-com:office:word') >= 0;
@@ -254,4 +265,27 @@ export const removeDuplicateInvalidLinks = (html: string): string => {
     return fixedHtml;
   }
   return html;
+};
+
+export const addReplaceSelectedTableAnalytics = (
+  state: EditorState,
+  tr: Transaction,
+): Transaction => {
+  if (isTableSelected(state.selection)) {
+    const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
+      state.selection,
+    );
+    addAnalytics(state, tr, {
+      action: TABLE_ACTION.REPLACED,
+      actionSubject: ACTION_SUBJECT.TABLE,
+      attributes: {
+        totalColumnCount,
+        totalRowCount,
+        inputMethod: INPUT_METHOD.CLIPBOARD,
+      },
+      eventType: EVENT_TYPE.TRACK,
+    });
+    return tr;
+  }
+  return state.tr;
 };

@@ -26,27 +26,47 @@ const ctx = { formatMessage };
 
 describe('getToolbarMenuConfig', () => {
   it('hidden by default', () => {
-    const menu = getToolbarMenuConfig({}, {}, ctx);
+    const menu = getToolbarMenuConfig({}, {}, ctx, undefined);
     expect(menu.hidden).toBe(true);
   });
 
   it('visible for allowHeaderRow', () => {
-    const menu = getToolbarMenuConfig({ allowHeaderRow: true }, {}, ctx);
+    const menu = getToolbarMenuConfig(
+      { allowHeaderRow: true },
+      {},
+      ctx,
+      undefined,
+    );
     expect(menu.hidden).toBe(false);
   });
 
   it('visible for allowHeaderColumn', () => {
-    const menu = getToolbarMenuConfig({ allowHeaderColumn: true }, {}, ctx);
+    const menu = getToolbarMenuConfig(
+      { allowHeaderColumn: true },
+      {},
+      ctx,
+      undefined,
+    );
     expect(menu.hidden).toBe(false);
   });
 
   it('visible for allowNumberColumn', () => {
-    const menu = getToolbarMenuConfig({ allowNumberColumn: true }, {}, ctx);
+    const menu = getToolbarMenuConfig(
+      { allowNumberColumn: true },
+      {},
+      ctx,
+      undefined,
+    );
     expect(menu.hidden).toBe(false);
   });
 
   it('visible for allowCollapse', () => {
-    const menu = getToolbarMenuConfig({ allowCollapse: true }, {}, ctx);
+    const menu = getToolbarMenuConfig(
+      { allowCollapse: true },
+      {},
+      ctx,
+      undefined,
+    );
     expect(menu.hidden).toBe(false);
   });
 
@@ -55,7 +75,7 @@ describe('getToolbarMenuConfig', () => {
       config: ToolbarMenuConfig,
       state: ToolbarMenuState,
     ) => {
-      const menu = getToolbarMenuConfig(config, state, ctx);
+      const menu = getToolbarMenuConfig(config, state, ctx, undefined);
       const options = (menu as FloatingToolbarDropdown<Command>).options;
 
       if (Array.isArray(options)) {
@@ -110,13 +130,20 @@ describe('getToolbarMenuConfig', () => {
 
 describe('getToolbarCellOptionsConfig', () => {
   const state = createEditorState(doc(table()(row(td()(p('1{cursor}'))))));
+  const getEditorContainerWidth = () => ({ width: 500 });
 
   const formatMessage: (t: { id: string }) => string = (message) =>
     `${message.id}`;
   const rect = new Rect(1, 1, 1, 1);
-  const cellOptionsMenu = getToolbarCellOptionsConfig(state, rect, {
-    formatMessage,
-  });
+  const cellOptionsMenu = getToolbarCellOptionsConfig(
+    state,
+    rect,
+    {
+      formatMessage,
+    },
+    getEditorContainerWidth,
+    undefined,
+  );
 
   it('is hidden by default', () => {
     expect(cellOptionsMenu.hidden).toBe(true);
@@ -166,9 +193,15 @@ describe('getToolbarCellOptionsConfig', () => {
       () => () => true,
     );
 
-    const cellOptionsMenu = getToolbarCellOptionsConfig(state, rect, {
-      formatMessage,
-    });
+    const cellOptionsMenu = getToolbarCellOptionsConfig(
+      state,
+      rect,
+      {
+        formatMessage,
+      },
+      getEditorContainerWidth,
+      undefined,
+    );
     const items = cellOptionsMenu.options as Array<DropdownOptionT<Command>>;
     const item = items.find(
       (item) => item.title === 'fabric.editor.mergeCells',
@@ -184,9 +217,15 @@ describe('getToolbarCellOptionsConfig', () => {
       true,
     );
 
-    const cellOptionsMenu = getToolbarCellOptionsConfig(state, rect, {
-      formatMessage,
-    });
+    const cellOptionsMenu = getToolbarCellOptionsConfig(
+      state,
+      rect,
+      {
+        formatMessage,
+      },
+      getEditorContainerWidth,
+      undefined,
+    );
     const items = cellOptionsMenu.options as Array<DropdownOptionT<Command>>;
     const splitCellItem = items.find(
       (item) => item.title === 'fabric.editor.splitCell',

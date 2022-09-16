@@ -32,8 +32,8 @@ const spotlightTheme = {
   subtle: {
     background: {
       default: 'none',
-      hover: token('color.background.neutral.hovered', colors.P200),
-      active: token('color.background.neutral.pressed', colors.P500),
+      hover: token('color.background.inverse.subtle.hovered', colors.P200),
+      active: token('color.background.inverse.subtle.pressed', colors.P500),
       disabled: 'none',
       selected: {
         light: token('color.background.selected.hovered', colors.N700),
@@ -61,7 +61,7 @@ const spotlightTheme = {
   },
   'subtle-link': {
     textDecoration: {
-      hover: `underline ${token('color.text.discovery', colors.P75)}`,
+      hover: `underline ${token('color.text.inverse', colors.P75)}`,
     },
     textDecorationLine: {
       active: 'none',

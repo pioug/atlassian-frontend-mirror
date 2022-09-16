@@ -8,7 +8,7 @@ import {
   getCellAttrs,
   CellDomAttrs,
 } from '@atlaskit/adf-schema';
-import { getFeatureFlags } from '../../feature-flags-context';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 export default class TableCellNodeView implements NodeView {
   node: Node;
@@ -24,6 +24,7 @@ export default class TableCellNodeView implements NodeView {
     node: Node,
     view: EditorView,
     getPos: any,
+    getEditorFeatureFlags: GetEditorFeatureFlags,
     observer?: ResizeObserver,
   ) {
     this.view = view;
@@ -38,7 +39,7 @@ export default class TableCellNodeView implements NodeView {
     this.dom = dom as HTMLElement;
     this.contentDOM = contentDOM as HTMLElement;
 
-    const { mouseMoveOptimization } = getFeatureFlags(view.state) || {};
+    const { mouseMoveOptimization } = getEditorFeatureFlags();
 
     if (mouseMoveOptimization && observer) {
       this.contentDOM.id = uuid();

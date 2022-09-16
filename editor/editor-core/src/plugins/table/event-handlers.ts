@@ -26,10 +26,10 @@ import {
 import { closestElement } from '../../utils/dom';
 import {
   ACTION_SUBJECT,
-  addAnalytics,
   EVENT_TYPE,
   TABLE_ACTION,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 import {
   addResizeHandleDecorations,
@@ -66,7 +66,7 @@ import {
   isTableContainerOrWrapper,
 } from './utils';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
-import { getFeatureFlags } from '../feature-flags-context';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 const isFocusingCalendar = (event: Event) =>
   event instanceof FocusEvent &&
@@ -293,6 +293,8 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
 };
 
 export const handleMouseMove = (
+  getEditorFeatureFlags: GetEditorFeatureFlags,
+) => (
   view: EditorView,
   event: Event,
   tableCellOptimization?: boolean,
@@ -338,7 +340,7 @@ export const handleMouseMove = (
     }
   }
 
-  const { mouseMoveOptimization } = getFeatureFlags(view.state) || {};
+  const { mouseMoveOptimization } = getEditorFeatureFlags();
   // we only want to allow mouseMoveOptimisation when tableCellOptimization is enabled
   // because it relies on tableCell node view that is added  via tableCellOptimization
   const useMouseMoveOptimisation =
@@ -413,6 +415,7 @@ export const handleCut = (
   oldTr: Transaction,
   oldState: EditorState,
   newState: EditorState,
+  editorAnalyticsAPI?: EditorAnalyticsAPI,
 ): Transaction => {
   const oldSelection = oldState.tr.selection;
   let { tr } = newState;
@@ -439,7 +442,7 @@ export const handleCut = (
         } = getSelectedCellInfo(tr.selection);
 
         // Reassigning to make it more obvious and consistent
-        tr = addAnalytics(newState, tr, {
+        editorAnalyticsAPI?.attachAnalyticsEvent({
           action: TABLE_ACTION.CUT,
           actionSubject: ACTION_SUBJECT.TABLE,
           actionSubjectId: null,
@@ -451,7 +454,7 @@ export const handleCut = (
             totalColumnCount,
           },
           eventType: EVENT_TYPE.TRACK,
-        });
+        })(tr);
 
         // Need this check again since we are overriding the tr in previous statement
         if (tr.selection instanceof CellSelection) {

@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 0.7.0
+
+### Minor Changes
+
+- [`8561663af05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8561663af05) - Add analytics when kudos drawer opened
+
 ## 0.6.0
 
 ### Minor Changes

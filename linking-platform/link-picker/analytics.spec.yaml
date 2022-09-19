@@ -1,3 +1,7 @@
+common:
+  source: linkPicker
+  product: media
+
 context:
   PackageMetaData: &PackageMetaDataContext
     packageName:
@@ -57,64 +61,63 @@ context:
         NULL if there is no text in display text input field.
 
 events:
-  - action: submitted
-    actionSubject: form
-    actionSubjectId: linkPicker
-    type: ui
-    description: fired when the link picker is successfully submitted
-    attributes:
-      <<: *PackageMetaDataContext
-      <<: *LinkPickerAnalyticsContext
+  - form submitted (linkPicker):
+      type: ui
+      description: fired when the link picker is successfully submitted
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkPickerAnalyticsContext
 
-  - action: viewed
-    actionSubject: inlineDialog
-    actionSubjectId: linkPicker
-    type: ui
-    description: fired when the link picker component is mounted/viewed
-    attributes:
-      <<: *PackageMetaDataContext
-      <<: *LinkPickerAnalyticsContext
+  - inlineDialog viewed (linkPicker):
+      type: ui
+      description: fired when the link picker component is mounted/viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkPickerAnalyticsContext
 
-  - action: closed
-    actionSubject: inlineDialog
-    actionSubjectId: linkPicker
-    type: ui
-    description: fired when the link picked component is unmounted/dismissed for any reason
-    attributes:
-      <<: *PackageMetaDataContext
-      <<: *LinkPickerAnalyticsContext
+  - inlineDialog closed (linkPicker):
+      type: ui
+      description: fired when the link picked component is unmounted/dismissed for any reason
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkPickerAnalyticsContext
 
-  - action: updated
-    actionSubject: textField
-    actionSubjectId: linkField
-    type: ui
-    description: fired when the user's focus moves away from the link input field after modifying its value
-    attributes:
-      <<: *PackageMetaDataContext
-      <<: *LinkPickerAnalyticsContext
+  - textField updated (linkField):
+      type: ui
+      description: fired when the user's focus moves away from the link input field after modifying its value
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkPickerAnalyticsContext
 
-  - action: updated
-    actionSubject: textField
-    actionSubjectId: displayTextField
-    type: ui
-    description: fired when the user's focus moves away from the display text input field after modifying its value
-    attributes:
-      <<: *PackageMetaDataContext
-      <<: *LinkPickerAnalyticsContext
+  - textField updated (displayTextField):
+      type: ui
+      description: fired when the user's focus moves away from the display text input field after modifying its value
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkPickerAnalyticsContext
 
-  - action: unhandledErrorCaught
-    actionSubject: linkPicker
-    type: ui
-    description: fired when the link picked root error boundary catches an error
-    attributes:
-      <<: *PackageMetaDataContext
-      browserInfo:
-        type: string
-        description: the window navigator userAgent if it exists, else unknown
-      error:
-        type: string
-        description: the error that was caught by the error boundary
-      componentStack:
-        type: string
-        description: componentStack from componentDidCatch info
-        required: false
+  - linkPicker unhandledErrorCaught:
+      type: ui
+      description: fired when the link picked root error boundary catches an error
+      attributes:
+        <<: *PackageMetaDataContext
+        browserInfo:
+          type: string
+          description: the window navigator userAgent if it exists, else unknown
+        error:
+          type: string
+          description: the error that was caught by the error boundary
+        componentStack:
+          type: string
+          description: componentStack from componentDidCatch info
+          required: false
+
+  - resultsResolve failed:
+      type: operational
+      description: fired when a link picker plugin throws an error when attempting to resolve results
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkPickerAnalyticsContext
+        error:
+          type: string
+          description: a stringified version of the error

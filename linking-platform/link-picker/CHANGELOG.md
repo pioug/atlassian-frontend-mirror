@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.10.1
+
+### Patch Changes
+
+- [`df6de875d71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df6de875d71) - Adds operational logging for plugin resolve failures.
+
 ## 1.10.0
 
 ### Minor Changes

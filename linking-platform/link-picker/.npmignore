@@ -9,3 +9,4 @@ __tests__/
 tsconfig.json
 scripts/
 analytics.spec.yaml
+generated.json

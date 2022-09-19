@@ -2,15 +2,25 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { LinkDetails } from './types';
 
-const getSourceEvent = (event: UIAnalyticsEvent) => {
-  const base =
-    event.payload.eventName ??
-    `${event.payload.actionSubject} ${event.payload.action}`;
+const getSourceEvent = (payload: Record<string, unknown>): string | null => {
+  const base = (payload.eventName
+    ? [payload.eventName]
+    : [payload.actionSubject, payload.action]
+  ).filter(Boolean);
 
-  if (event.payload.actionSubjectId) {
-    return `${base} (${event.payload.actionSubjectId})`;
+  if (base.length) {
+    const baseStr = base.join(' ');
+
+    return payload.actionSubjectId
+      ? `${baseStr} (${payload.actionSubjectId})`
+      : baseStr;
   }
-  return base;
+
+  if (payload['data'] && typeof payload['data'] === 'object') {
+    return getSourceEvent({ ...payload['data'] });
+  }
+
+  return null;
 };
 
 /**
@@ -29,9 +39,10 @@ export const processAttributesFromBaseEvent = (event: UIAnalyticsEvent) => {
   }, {});
 
   return {
-    sourceEvent: getSourceEvent(event),
+    sourceEvent: getSourceEvent(event.payload),
     ...contextAttributes,
     ...event.payload.attributes,
+    ...event.payload.data?.attributes,
   };
 };
 
@@ -39,7 +50,7 @@ export const mergeAttributes = (
   details: LinkDetails,
   sourceEvent?: UIAnalyticsEvent | null,
   attributes?: Record<string, any>,
-): Record<string, any> => {
+): Record<string, unknown> => {
   return {
     ...(sourceEvent ? processAttributesFromBaseEvent(sourceEvent) : {}),
     ...attributes,

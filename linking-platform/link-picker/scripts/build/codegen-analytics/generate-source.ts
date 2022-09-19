@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { EventSpec, AnalyticsSpec } from './types';
+import { EventSpec, NormalizedSpec } from './types';
 
 import { getAttributePropertySignature } from './attribute';
 import { generateContextDataTypeAliases } from './context';
@@ -30,7 +30,7 @@ const getEventPayloadTypeName = ({
   );
 };
 
-export const generateSource = (spec: AnalyticsSpec): string => {
+export const generateSource = (spec: NormalizedSpec): string => {
   const file = ts.createSourceFile(
     'source.ts',
     '',

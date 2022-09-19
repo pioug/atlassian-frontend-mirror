@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState, useCallback } from 'react';
 
+import { convertToError } from '@atlaskit/frontend-utilities/convert-to-error';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+
 import { RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
 import {
   LinkPickerPlugin,
@@ -7,6 +10,8 @@ import {
   LinkPickerState,
   LinkSearchListItemData,
 } from '../../ui/types';
+import createEventPayload from '../../analytics.codegen';
+import { ANALYTICS_CHANNEL } from '../../common/constants';
 import { CancellationError, resolvePluginUpdates } from './utils';
 import { usePluginReducer } from './reducer';
 
@@ -26,6 +31,7 @@ export function usePlugins(
   activeTab: number,
   plugins?: LinkPickerPlugin[],
 ): LinkPickerPluginsService {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
   const [retries, setRetries] = useState(0);
   const [pluginState, dispatch] = usePluginReducer();
 
@@ -56,12 +62,17 @@ export function usePlugins(
             payload: { items: limit(value.data), isLoading: !done },
           });
         }
-      } catch (error) {
+      } catch (error: unknown) {
         if (!(error instanceof CancellationError)) {
           dispatch({
             type: 'ERROR',
             payload: error,
           });
+          createAnalyticsEvent(
+            createEventPayload('operational.resultsResolve.failed', {
+              error: convertToError(error).toString(),
+            }),
+          ).fire(ANALYTICS_CHANNEL);
         }
       }
     };
@@ -69,7 +80,7 @@ export function usePlugins(
     updateResults();
 
     return cancel;
-  }, [activePlugin, state, retries, dispatch]);
+  }, [activePlugin, state, retries, createAnalyticsEvent, dispatch]);
 
   const tabs = useMemo(() => {
     if (!plugins || plugins.length <= 1) {

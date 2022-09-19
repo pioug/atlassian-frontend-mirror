@@ -11,16 +11,26 @@ export type AnnotatedAttributeSpec = AttributeSpec & {
   context?: string;
 };
 
-export type EventSpec = {
+export type EventIdentifier = {
   action: string;
   actionSubject: string;
   actionSubjectId?: string;
+};
+
+export type EventDescriptor = {
   type: EventType;
   description: string;
   attributes: Record<string, AnnotatedAttributeSpec>;
 };
 
+export type EventSpec = EventIdentifier & EventDescriptor;
+
 export type AnalyticsSpec = {
+  events: (EventSpec | Record<string, EventDescriptor>)[];
+  context: Record<string, Record<string, AttributeSpec>>;
+};
+
+export type NormalizedSpec = {
   events: EventSpec[];
   context: Record<string, Record<string, AttributeSpec>>;
 };

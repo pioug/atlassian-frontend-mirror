@@ -1,7 +1,13 @@
 import * as ts from 'typescript';
 import { getAttributePropertySignature } from './attribute';
 
-import { AnalyticsSpec, AttributeSpec, EventSpec } from './types';
+import {
+  AnalyticsSpec,
+  AttributeSpec,
+  EventDescriptor,
+  EventSpec,
+  NormalizedSpec,
+} from './types';
 
 const getAttributeContext = (
   attributeName: string,
@@ -34,19 +40,52 @@ const annotateEventAttributesWithContext = (
   );
 };
 
+const isEventSpec = (obj: Record<string, unknown>): obj is EventSpec => {
+  return Boolean(obj.action && obj.actionSubject);
+};
+
+/**
+ * Given events that could be an array or object, normalize into an array of events with 'identifiers'
+ */
+const normaliseEvents = (events: AnalyticsSpec['events']): EventSpec[] => {
+  return events.map<EventSpec>(
+    (event: EventSpec | Record<string, EventDescriptor>) => {
+      if (isEventSpec(event)) {
+        return event;
+      }
+
+      const [eventName, eventDescriptor] = Object.entries(event)[0];
+
+      const match = eventName.match(
+        /(?<actionSubject>[a-zA-Z]+)\s(?<action>[a-zA-Z]+)(?:\s\((?<actionSubjectId>[a-zA-Z]+)\))?/,
+      );
+
+      if (!match) {
+        throw new Error(
+          `Event name does not match the pattern \`actionSubject action\` or \`actionSubject action (actionSubjectId)\``,
+        );
+      }
+
+      return {
+        ...eventDescriptor,
+        actionSubject: match[1],
+        action: match[2],
+        actionSubjectId: match[3],
+      };
+    },
+  );
+};
+
 /**
  * Annotates all event attributes with the context in which they are provided by
  * This logic assumes that an attribute name will only be present in any single context
  * and that there will be no attribute name collisions
  */
-export const annotateContextualAttributes = (spec: AnalyticsSpec) => {
+export const preProcessSpec = (spec: AnalyticsSpec): NormalizedSpec => {
   const contexts = spec.context;
+  const events = normaliseEvents(spec.events);
 
-  if (!contexts) {
-    return spec;
-  }
-
-  return spec.events.reduce<AnalyticsSpec>(
+  return events.reduce<NormalizedSpec>(
     (acc, event) => {
       const annotatedEvent = annotateEventAttributesWithContext(
         event,

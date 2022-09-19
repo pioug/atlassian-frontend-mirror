@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 1.1.1
+
+### Patch Changes
+
+- [`e48301ec460`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e48301ec460) - Adds support for confluence-style analytic events.
+
 ## 1.1.0
 
 ### Minor Changes

@@ -77,4 +77,28 @@ describe('processAttributesFromBaseEvent', () => {
       }),
     );
   });
+
+  it('should should support getting a "confluence" style event with action and action subject on data object', () => {
+    const event = processAttributesFromBaseEvent(
+      new UIAnalyticsEvent({
+        payload: {
+          type: 'sendTrackEvent',
+          data: {
+            action: 'undo',
+            actionSubject: 'add',
+            attributes: {
+              xyz: '123',
+            },
+          },
+        },
+      }),
+    );
+
+    expect(event).toStrictEqual(
+      expect.objectContaining({
+        sourceEvent: 'add undo',
+        xyz: '123',
+      }),
+    );
+  });
 });

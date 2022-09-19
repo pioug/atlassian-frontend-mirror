@@ -6,7 +6,7 @@ import { join } from 'path';
 import yaml from 'js-yaml';
 
 import { generateSource } from './generate-source';
-import { annotateContextualAttributes } from './context';
+import { preProcessSpec } from './context';
 
 const generateCode = () => {
   try {
@@ -16,7 +16,7 @@ const generateCode = () => {
       }),
     );
 
-    const transformedSpec = annotateContextualAttributes(spec);
+    const transformedSpec = preProcessSpec(spec);
 
     const source = format(generateSource(transformedSpec), {
       parser: 'typescript',

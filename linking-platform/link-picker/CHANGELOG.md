@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.10.2
+
+### Patch Changes
+
+- [`8a538989c8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a538989c8d) - [ux] Updated label and Placeholder messages
+
 ## 1.10.1
 
 ### Patch Changes

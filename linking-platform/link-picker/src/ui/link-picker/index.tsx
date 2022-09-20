@@ -11,7 +11,7 @@ import {
   memo,
 } from 'react';
 import { jsx } from '@emotion/react';
-import { useIntl, IntlShape, FormattedMessage } from 'react-intl-next';
+import { useIntl, FormattedMessage } from 'react-intl-next';
 import { useAnalyticsEvents, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
@@ -37,7 +37,12 @@ import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
 import useFixHeight from '../../controllers/use-fix-height';
 
-import { messages } from './messages';
+import {
+  searchMessages,
+  linkMessages,
+  formMessages,
+  linkTextMessages,
+} from './messages';
 import TextInput from './text-input';
 import {
   rootContainerStyles,
@@ -48,17 +53,15 @@ import {
 } from './styled';
 import { browser } from './browser';
 import Announcer from './announcer';
-import { transformTimeStamp } from './transformTimeStamp';
 
 import LinkSearchList, { testIds as listTestIds } from './link-search-list';
 import LinkSearchError, {
   testIds as searchErrorTestIds,
 } from './link-search-error';
 import FormFooter, { testIds as formFooterTestIds } from './form-footer';
-import { getDataSource } from './utils';
+import { getDataSource, getScreenReaderText } from './utils';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
-export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
 
 export const testIds = {
   linkPicker: 'link-picker',
@@ -409,9 +412,7 @@ function LinkPicker({
     [handleInsert, isSelectedItem, selectedItem, url],
   );
 
-  const linkPlaceHolder = isActivePlugin
-    ? messages.placeholder
-    : messages.linkPlaceholder;
+  const messages = isActivePlugin ? searchMessages : linkMessages;
 
   const screenReaderDescriptionId = 'search-recent-links-field-description';
   const linkSearchListId = 'link-picker-search-list';
@@ -445,7 +446,7 @@ function LinkPicker({
         />
       )}
       <VisuallyHidden id={screenReaderDescriptionId}>
-        <FormattedMessage {...messages.searchLinkAriaDescription} />
+        <FormattedMessage {...messages.linkAriaLabel} />
       </VisuallyHidden>
       <LinkInputField
         role="combobox"
@@ -453,17 +454,17 @@ function LinkPicker({
         name="url"
         testId={testIds.urlInputField}
         label={intl.formatMessage(messages.linkLabel)}
-        placeholder={intl.formatMessage(linkPlaceHolder)}
+        placeholder={intl.formatMessage(messages.linkPlaceholder)}
         value={url}
         autoFocus
         elemBeforeInput={searchIcon}
-        clearLabel={intl.formatMessage(messages.clearLink)}
+        clearLabel={intl.formatMessage(formMessages.clearLink)}
         aria-expanded
         aria-autocomplete="list"
         aria-controls={linkSearchListId}
         aria-activedescendant={ariaActiveDescendant}
         aria-describedby={screenReaderDescriptionId}
-        error={invalidUrl ? intl.formatMessage(messages.linkInvalid) : null}
+        error={invalidUrl ? intl.formatMessage(formMessages.linkInvalid) : null}
         onClear={handleUrlClear}
         onKeyDown={handleKeyDown}
         onChange={handleChangeUrl}
@@ -473,10 +474,10 @@ function LinkPicker({
         name="displayText"
         testId={testIds.textInputField}
         value={displayText}
-        label={intl.formatMessage(messages.linkTextLabel)}
-        placeholder={intl.formatMessage(messages.linkTextPlaceholder)}
-        clearLabel={intl.formatMessage(messages.clearText)}
-        aria-label={intl.formatMessage(messages.linkAriaLabel)}
+        label={intl.formatMessage(linkTextMessages.linkTextLabel)}
+        placeholder={intl.formatMessage(linkTextMessages.linkTextPlaceholder)}
+        clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
+        aria-label={intl.formatMessage(linkTextMessages.linkTextAriaLabel)}
         onClear={handleClear}
         onKeyDown={handleKeyDown}
         onChange={handleChangeText}
@@ -537,21 +538,3 @@ function LinkPicker({
 }
 
 export default withLinkPickerAnalyticsContext(memo(LinkPicker));
-
-function getScreenReaderText(
-  items: LinkSearchListItemData[],
-  selectedIndex: number,
-  intl: IntlShape,
-): string | undefined {
-  if (items.length && selectedIndex > -1) {
-    const { name, container, lastUpdatedDate, lastViewedDate } = items[
-      selectedIndex
-    ];
-
-    const date = transformTimeStamp(intl, lastViewedDate, lastUpdatedDate);
-    const formattedDate = [date?.pageAction, date?.dateString, date?.timeSince]
-      .filter(Boolean)
-      .join(' ');
-    return [name, container, formattedDate].filter(Boolean).join(', ');
-  }
-}

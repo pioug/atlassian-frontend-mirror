@@ -1,57 +1,78 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
-  placeholder: {
-    id: 'fabric.linkPicker.hyperlinkToolbarPlaceholder',
+export const searchMessages = defineMessages({
+  linkLabel: {
+    id: 'fabric.linkPicker.search.linkLabel',
     defaultMessage: 'Search or paste a link',
-    description: 'Search or paste a link',
+    description: 'Label for the link input',
+  },
+  linkAriaLabel: {
+    id: 'fabric.linkPicker.search.linkAriaLabel',
+    defaultMessage: 'Suggestions will appear below as you type into the field',
+    description: 'Aria label for the link input',
+  },
+  linkPlaceholder: {
+    id: 'fabric.linkPicker.search.linkPlaceholder',
+    defaultMessage: 'Find recent links or paste a new link',
+    description: 'Placeholder text for the link input',
+  },
+});
+
+export const linkMessages = defineMessages({
+  linkLabel: {
+    id: 'fabric.linkPicker.linkLabel',
+    defaultMessage: 'Link',
+    description: 'Label for the link input',
+  },
+  linkAriaLabel: {
+    id: 'fabric.linkPicker.linkAriaLabel',
+    defaultMessage: 'Type or paste a link into the field',
+    description: 'Aria label for the link input',
   },
   linkPlaceholder: {
     id: 'fabric.linkPicker.linkPlaceholder',
-    defaultMessage: 'Paste link',
-    description: 'Create a new link by pasting a URL.',
+    defaultMessage: 'Paste a link',
+    description: 'Placeholder text for the link input',
   },
-  linkTextPlaceholder: {
-    id: 'fabric.linkPicker.linkTextPlaceholder',
-    defaultMessage: 'Add a description',
-    description: 'Text to display',
-  },
-  linkLabel: {
-    id: 'fabric.linkPicker.linkAddress',
-    defaultMessage: 'Link',
-    description: 'Link Label',
-  },
+});
+
+export const formMessages = defineMessages({
   linkInvalid: {
     id: 'fabric.linkPicker.linkInvalid',
     defaultMessage: 'Enter a valid URL.',
-    description: 'Input Error the URL is invalid',
-  },
-  linkTextLabel: {
-    id: 'fabric.linkPicker.displayText',
-    defaultMessage: 'Link text',
-    description: 'Link text label',
-  },
-  clearText: {
-    id: 'fabric.linkPicker.clearLinkText',
-    defaultMessage: 'Clear text',
-    description: 'Clears text on the link toolbar',
+    description: 'Error message shown for invalid links',
   },
   clearLink: {
     id: 'fabric.linkPicker.clearLink',
     defaultMessage: 'Clear link',
-    description: 'Clears link in the link toolbar',
+    description: 'Tooltip message for link input clear button',
   },
-  searchLinkAriaDescription: {
-    id: 'fabric.linkPicker.hyperlink.searchLinkAriaDescription',
-    defaultMessage: 'Suggestions will appear below as you type into the field',
-    description:
-      'Describes what the search field does for screen reader users.',
+});
+
+export const linkTextMessages = defineMessages({
+  linkTextLabel: {
+    id: 'fabric.linkPicker.linkTextLabel',
+    defaultMessage: 'Add a description (optional)',
+    description: 'Label for the link description input',
   },
-  linkAriaLabel: {
-    id: 'fabric.linkPicker.hyperlink.linkAriaLabel',
-    defaultMessage: 'Link label',
-    description: 'aria label for a link',
+  linkTextAriaLabel: {
+    id: 'fabric.linkPicker.linkTextAriaLabel',
+    defaultMessage: 'Link description',
+    description: 'Aria label for the link description input',
   },
+  linkTextPlaceholder: {
+    id: 'fabric.linkPicker.linkTextPlaceholder',
+    defaultMessage: 'Give this link a title or description',
+    description: 'Placeholder text for the link description input',
+  },
+  clearLinkText: {
+    id: 'fabric.linkPicker.clearLinkText',
+    defaultMessage: 'Clear text',
+    description: 'Tooltip message for link input clear button',
+  },
+});
+
+export const messages = defineMessages({
   timeUpdated: {
     id: 'fabric.linkPicker.time.updated',
     defaultMessage: 'Updated',

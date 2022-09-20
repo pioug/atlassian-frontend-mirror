@@ -1,7 +1,9 @@
 import { KeyboardEvent } from 'react';
-import { LinkPickerPlugin, LinkSearchListItemData } from '../types';
+import { IntlShape } from 'react-intl-next';
 
 import { browser } from './browser';
+import { LinkPickerPlugin, LinkSearchListItemData } from '../types';
+import { transformTimeStamp } from './transformTimeStamp';
 
 const KeyZCode = 90;
 const KeyYCode = 89;
@@ -34,3 +36,21 @@ export const getDataSource = (
 ) => {
   return item.meta?.source ?? plugin?.meta?.source ?? 'unknown';
 };
+
+export function getScreenReaderText(
+  items: LinkSearchListItemData[],
+  selectedIndex: number,
+  intl: IntlShape,
+): string | undefined {
+  if (items.length && selectedIndex > -1) {
+    const { name, container, lastUpdatedDate, lastViewedDate } = items[
+      selectedIndex
+    ];
+
+    const date = transformTimeStamp(intl, lastViewedDate, lastUpdatedDate);
+    const formattedDate = [date?.pageAction, date?.dateString, date?.timeSince]
+      .filter(Boolean)
+      .join(' ');
+    return [name, container, formattedDate].filter(Boolean).join(', ');
+  }
+}

@@ -1,6 +1,7 @@
 ---
 order: 2
-title: Cypress
+title: Testing
+description: Guidance on how to test your drag and drop experiences
 ---
 
 With [`cypress`](https://www.cypress.io/), you need to ensure that when you trigger a drag event (eg `"dragstart"`), you need to add [`{force: true}`](https://docs.cypress.io/guides/core-concepts/interacting-with-elements#Forcing). This will ensure that the drag events fire on the correct elements.
@@ -21,8 +22,7 @@ it('should allow drag and drop between columns', () => {
     .should('have.length', 16);
 
   // Move A0 to column B
-  cy.get('[data-testid="item-A0"]')
-    .trigger('dragstart', { force: true });
+  cy.get('[data-testid="item-A0"]').trigger('dragstart', { force: true });
 
   cy.get('[data-testid="item-B0"]')
     .trigger('dragenter', { force: true })

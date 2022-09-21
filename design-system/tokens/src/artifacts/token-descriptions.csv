@@ -178,11 +178,15 @@ elevation.shadow.overlay, "Use for the box shadow of elements that sit on top of
 
 Also use for the box shadow of raised cards in a dragged state."
 elevation.surface, "Use as the primary background for the UI."
+elevation.surface.hovered, "Hovered state of elevation.surface"
+elevation.surface.pressed, "Pressed state of elevation.surface"
 elevation.surface.sunken, "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
-elevation.surface.raised, "Use for the background of raised cards, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised"
-elevation.surface.overlay, "Use for the background of elements that sit on top of they UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.shadow.overlay
-
-Also use for the background of raised cards in a dragged state."
+elevation.surface.raised, "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
+elevation.surface.raised.hovered, "Hovered state of elevation.surface.raised"
+elevation.surface.raised.pressed, "Pressed state of elevation.surface.raised"
+elevation.surface.overlay, "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
+elevation.surface.overlay.hovered, "Hovered state of elevation.surface.overlay"
+elevation.surface.overlay.pressed, "Pressed state of elevation.surface.overlay"
 opacity.disabled, "Apply to images when in a disabled state."
 opacity.loading, "Apply to content that sits under a loading spinner."
 utility.UNSAFE_util.transparent, "Transparent token used for backwards compatibility between new and old theming solutions"

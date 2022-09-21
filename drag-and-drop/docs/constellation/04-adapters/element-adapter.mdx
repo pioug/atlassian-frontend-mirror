@@ -1,10 +1,11 @@
 ---
 order: 1
-title: Element adapter
-description: The element adapter enables drag and drop operations on HTML Elements
+title: Adapters
 ---
 
 import SectionMessage from '@atlaskit/section-message';
+
+The element adapter enables drag and drop operations on HTML Elements.
 
 ## The Pieces
 
@@ -194,6 +195,7 @@ draggable({
 `scrollJustEnoughIntoView` will scroll the draggable element just enough into view so that the element becomes totally visible. If the element is already totally visible then no scrolling will occur.
 
 <SectionMessage>
+
 
 We don't bake `scrollJustEnoughIntoView` into the `@atlaskit/drag-and-drop` itself as it may not be the best approach in all circumstances (for example, you might be making a small drag preview for a large draggable element, or you might be opting out of the native drag preview)
 

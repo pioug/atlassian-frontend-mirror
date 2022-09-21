@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e9fa17eebeaf3b2a8318f43c4f7e89c4>>
+ * @codegen <<SignedSource::fc7198ce92b9604af441e36c1acb2075>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -336,9 +336,15 @@ const tokens = {
   'elevation.shadow.overflow': '--ds-shadow-overflow',
   'elevation.shadow.overlay': '--ds-shadow-overlay',
   'elevation.surface': '--ds-surface',
+  'elevation.surface.hovered': '--ds-surface-hovered',
+  'elevation.surface.pressed': '--ds-surface-pressed',
   'elevation.surface.sunken': '--ds-surface-sunken',
   'elevation.surface.raised': '--ds-surface-raised',
+  'elevation.surface.raised.hovered': '--ds-surface-raised-hovered',
+  'elevation.surface.raised.pressed': '--ds-surface-raised-pressed',
   'elevation.surface.overlay': '--ds-surface-overlay',
+  'elevation.surface.overlay.hovered': '--ds-surface-overlay-hovered',
+  'elevation.surface.overlay.pressed': '--ds-surface-overlay-pressed',
   'opacity.disabled': '--ds-opacity-disabled',
   'opacity.loading': '--ds-opacity-loading',
   'utility.UNSAFE_util.transparent': '--ds-UNSAFE_util-transparent',
@@ -624,9 +630,15 @@ export type CSSTokenMap = {
   'elevation.shadow.overflow': 'var(--ds-shadow-overflow)';
   'elevation.shadow.overlay': 'var(--ds-shadow-overlay)';
   'elevation.surface': 'var(--ds-surface)';
+  'elevation.surface.hovered': 'var(--ds-surface-hovered)';
+  'elevation.surface.pressed': 'var(--ds-surface-pressed)';
   'elevation.surface.sunken': 'var(--ds-surface-sunken)';
   'elevation.surface.raised': 'var(--ds-surface-raised)';
+  'elevation.surface.raised.hovered': 'var(--ds-surface-raised-hovered)';
+  'elevation.surface.raised.pressed': 'var(--ds-surface-raised-pressed)';
   'elevation.surface.overlay': 'var(--ds-surface-overlay)';
+  'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
+  'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';
   'opacity.disabled': 'var(--ds-opacity-disabled)';
   'opacity.loading': 'var(--ds-opacity-loading)';
   'utility.UNSAFE_util.transparent': 'var(--ds-UNSAFE_util-transparent)';

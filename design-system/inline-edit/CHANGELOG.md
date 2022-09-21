@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 12.2.1
+
+### Patch Changes
+
+- [`be93a207731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be93a207731) - Action buttons now use interactive elevation design tokens. There is no change to their appearance when design tokens are not enabled.
+
 ## 12.2.0
 
 ### Minor Changes

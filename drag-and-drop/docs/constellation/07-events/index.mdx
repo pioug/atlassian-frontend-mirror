@@ -52,7 +52,7 @@ const unbind = combine(
 
 ## Shared event payload
 
-All events are provided the following base data. Particular event types add additional data. Additionally, event listeners pieces of the system (eg `dropTargetForFiles({ onDragStart })`) can be given additional localized data for convenance
+All events are provided the following base data. Particular event types add additional data. Additionally, event listeners pieces of the system (eg `dropTargetForFiles({ onDragStart })`) can be given additional localized data for convenience.
 
 ```ts
 import {
@@ -142,9 +142,7 @@ By following this model, all entity types follow the same event lifecycle.
 
 ## Event: `onGenerateDragPreview`
 
-You can make changes to the DOM that you want to be reflected in your _drag preview_
-
-Additional data
+You can make changes to the DOM that you want to be reflected in your _drag preview_.
 
 ```ts
 BaseEventPayload & {
@@ -163,7 +161,7 @@ Flow
 
 ## Event: `onDragStart`
 
-A drag operation has started. You can make changes to the DOM and those changes won't be reflected in your _drag preview_
+A drag operation has started. You can make changes to the DOM and those changes won't be reflected in your _drag preview_.
 
 Flow
 
@@ -173,7 +171,7 @@ Flow
 
 ## Event: `onDrag`
 
-A throttled update of where the the user is currently dragging. Useful if you want to create a high fidelity experience such as drawing. `@atlaskit/drag-and-drop` throttles native `drag` events using `requestAnimationFrame` so `onDrag` events will fire ~60 times a second
+A throttled update of where the the user is currently dragging. Useful if you want to create a high fidelity experience such as drawing. `@atlaskit/drag-and-drop` throttles native `drag` events using `requestAnimationFrame` so `onDrag` events will fire around 60 times a second.
 
 Flow
 

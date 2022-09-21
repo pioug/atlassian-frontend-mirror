@@ -3,11 +3,11 @@ order: 0
 title: Adapters
 ---
 
-A drag adapter teaches `@atlaskit/drag-and-drop` how to handle dragging a particular entity (eg [elements]('./element-adapter.md'), [external files]('./file-adapter.md), text etc). When you use a drag adapter you will bring in the code required for that entity and no more. For example, if you use the element adapter, your application won't include any code for handling files.
+A drag adapter teaches `@atlaskit/drag-and-drop` how to handle dragging a particular entity (eg elements, text etc). When you use a drag adapter you will bring in the code required for that entity and no more. For example, if you use the element adapter, your application won't include any code for handling files.
 
 A drag adapter always provides at least two pieces:
 
-1. A way of registering _drop target_ (eg `dropTargetForElements`).
+1. A way of registering a _drop target_ (eg `dropTargetForElements`).
 2. A way to create a _monitor_ (eg `monitorForFiles`).
 
 ```ts
@@ -22,7 +22,7 @@ import {
 } from '@atlaskit/drag-and-drop/adapter/element';
 ```
 
-A drag adapter can also provide additional pieces. For example, the [element adapter]('./element-adapter.md) provides a `draggable` function which is a way of registering an `Element` as being draggable.
+A drag adapter can also provide additional pieces. For example, the element adapter provides a `draggable` function which is a way of registering an `Element` as being draggable.
 
 ```ts
 import { draggable } from '@atlaskit/drag-and-drop/adapter/element';

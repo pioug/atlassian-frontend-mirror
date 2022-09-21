@@ -223,6 +223,15 @@ exports[`@atlaskit/design-system-explorations border styles are generated correc
       backgroundColor: token('color.background.information.bold.pressed'),
     },
   }),
+  'elevation.surface': css({
+    ':active': { backgroundColor: token('elevation.surface.pressed') },
+  }),
+  'elevation.surface.raised': css({
+    ':active': { backgroundColor: token('elevation.surface.raised.pressed') },
+  }),
+  'elevation.surface.overlay': css({
+    ':active': { backgroundColor: token('elevation.surface.overlay.pressed') },
+  }),
 };
 
 const backgroundHoverColorMap = {
@@ -299,6 +308,15 @@ const backgroundHoverColorMap = {
     ':hover': {
       backgroundColor: token('color.background.information.bold.hovered'),
     },
+  }),
+  'elevation.surface': css({
+    ':hover': { backgroundColor: token('elevation.surface.hovered') },
+  }),
+  'elevation.surface.raised': css({
+    ':hover': { backgroundColor: token('elevation.surface.raised.hovered') },
+  }),
+  'elevation.surface.overlay': css({
+    ':hover': { backgroundColor: token('elevation.surface.overlay.hovered') },
   }),
 };
 

@@ -26,9 +26,11 @@ import SectionMessage from '@atlaskit/section-message';
 
 <SectionMessage>
 
-  `@atlaskit/drag-and-drop` is currently in early access and is on a `0.x` version to reflect that. There will likely be some API instability as we head towards stable versions `1.x`. We have done this to allow us the room to quickly evolve `@atlaskit/drag-and-drop` in order to meet the needs of our consumers. All API changes will be clearly communicated during `0.x`, but we won't be providing automated change tooling until we hit stable versions.
+
+`@atlaskit/drag-and-drop` is currently in early access and is on a `0.x` version to reflect that. There will likely be some API instability as we head towards stable versions `1.x`. We have done this to allow us the room to quickly evolve `@atlaskit/drag-and-drop` in order to meet the needs of our consumers. All API changes will be clearly communicated during `0.x`, but we won't be providing automated change tooling until we hit stable versions.
 
 </SectionMessage>
+
 
 ## Quick start
 
@@ -87,7 +89,7 @@ Some experiences you can power with `@atlaskit/drag-and-drop`:
 
 ### Adapter
 
-A drag adapter teaches `@atlaskit/drag-and-drop` how to handle dragging a particular entity (eg [elements]('./element-adapter.md'), [external files]('./file-adapter.md), text etc). When you use a drag adapter you will bring in the code required for that entity and no more. For example, if you use the element adapter, your application won't include any code for handling files.
+A drag adapter teaches `@atlaskit/drag-and-drop` how to handle dragging a particular entity (eg [elements](/components/drag-and-drop/adapters/element-adapter), [external files](/components/drag-and-drop/adapters/file-adapter), text etc). When you use a drag adapter you will bring in the code required for that entity and no more. For example, if you use the element adapter, your application won't include any code for handling files.
 
 A drag adapter always provides at least two pieces:
 
@@ -106,7 +108,7 @@ import {
 } from '@atlaskit/drag-and-drop/adapter/element';
 ```
 
-A drag adapter can also provide additional pieces. For example, the [element adapter]('./element-adapter.md) provides a `draggable` function which is a way of registering an `Element` as being draggable.
+A drag adapter can also provide additional pieces. For example, the [element adapter](/components/drag-and-drop/adapters/element-adapter) provides a `draggable` function which is a way of registering an `Element` as being draggable.
 
 ```ts
 import { draggable } from '@atlaskit/drag-and-drop/adapter/element';
@@ -118,7 +120,7 @@ const cleanup = draggable({
 
 ### Drop targets
 
-An `Element` that can be dropped on by something that is dragging
+An `Element` that can be dropped on by something that is dragging.
 
 ```ts
 import { dropTargetForFiles } from '@atlaskit/drag-and-drop/adapter/file';
@@ -128,7 +130,7 @@ const cleanup = dropTargetForFiles({
 });
 ```
 
-More information → [drop target]('./drop-target.md)
+More information → [drop target](/components/drag-and-drop/drop-targets)
 
 ### Monitors
 
@@ -145,7 +147,7 @@ const cleanup = monitorForElements({
 
 ### Addons
 
-An addon piece of code that impacts the control flow of your drag operation (eg [closest edge addon]('./closest-edge-addon')) or performs some side effect during the drag operation (eg the [auto scroller addon](./TODO)).
+An addon piece of code that impacts the control flow of your drag operation (eg [hitbox detection addon](/components/drag-and-drop/packages/hitbox)) or performs some side effect during the drag operation (eg the [auto scroller addon](/components/drag-and-drop/packages/autoscroll)).
 
 ```ts
 import { autoScroller } from '@atlaskit/drag-and-drop-autoscroll';
@@ -167,7 +169,7 @@ const cleanup = monitorForElements({
 
 ### Utilities
 
-Small helpers functions common tasks (eg `once` for simple memoization, `combine` to collapse cleanup functions)
+Small helpers functions common tasks (eg `once` for simple memoization, `combine` to collapse cleanup functions).
 
 ```ts
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
@@ -186,6 +188,6 @@ const cleanup = combine(
 
 These are some terms you will see used to refer to particular entities:
 
-- **Drag source**: The entity that is dragging. These can be internal to a page (eg a `draggable` from the [element adapter]('./element-adapter.md)) or external (eg a [file]('./file-adapter.md'))
+- **Drag source**: The entity that is dragging. These can be internal to a page (eg a `draggable` from the [element adapter](/components/drag-and-drop/adapters/element-adapter)) or external (eg a [file](/components/drag-and-drop/adapters/file-adapter))
 - **Drag preview**: The _thing_ that a user drags around. For elements, this is generally a picture of the drag source (a `draggable` element)
 - **Drop indicator**: Something that is drawn to indicate where the drag source will be dropped (generally a line). You are free to draw your own drop indicators. We also have a package of premade ones: `@atlaskit/drag-and-drop-indicator`.

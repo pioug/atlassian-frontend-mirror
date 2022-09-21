@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b2f59f139505a9ba4477df154a83033b>>
+ * @codegen <<SignedSource::7a959658c89ba654506e1ad33c9e0304>>
  * @codegenCommand yarn build tokens
  */
 html[data-theme="legacy-light"] {
@@ -282,9 +282,15 @@ html[data-theme="legacy-light"] {
   --ds-shadow-overflow: 0px 8px 8px #091e4214, 0px 0px 1px #091e421F;
   --ds-shadow-overlay: 0px 8px 12px #091e4226, 0px 0px 1px #091e424F;
   --ds-surface: #FFFFFF;
+  --ds-surface-hovered: #FAFBFC;
+  --ds-surface-pressed: #F4F5F7;
   --ds-surface-sunken: #F4F5F7;
   --ds-surface-raised: #FFFFFF;
+  --ds-surface-raised-hovered: #FAFBFC;
+  --ds-surface-raised-pressed: #F4F5F7;
   --ds-surface-overlay: #FFFFFF;
+  --ds-surface-overlay-hovered: #FAFBFC;
+  --ds-surface-overlay-pressed: #F4F5F7;
   --ds-opacity-disabled: 0.4;
   --ds-opacity-loading: 0.2;
   --ds-UNSAFE_util-transparent: transparent;

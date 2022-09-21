@@ -1,12 +1,12 @@
 ---
 order: 1
-title: React
-description: Using @atlaskit/drag-and-drop with react
+title: Usage with UI Frameworks
+description: How to use @atlaskit/drag-and-drop with different UI libraries and frameworks
 ---
 
 ### Attaching behaviour
 
-We advise that you attach drag and drop behaviour to elements using [`useEffect`](https://reactjs.org/docs/hooks-effect.html)
+We advise that you attach drag and drop behaviour to elements using [the `useEffect` hook](https://reactjs.org/docs/hooks-effect.html).
 
 ```tsx
 // card.tsx
@@ -43,7 +43,7 @@ It is fine if your `draggable` or `dropTargetForElements` effect is cleaned up a
 
 ### Monitors
 
-Using effects is also a nice way to manage the lifecyle of monitors
+Using effects is also a nice way to manage the lifecyle of monitors:
 
 ```tsx
 export function App() {
@@ -78,7 +78,7 @@ function App() {
 }
 ```
 
-As `@atlaskit/drag-and-drop` is not tied to `react`, you can also attach drag and drop behaviour at some point after a component has already been rendered
+As `@atlaskit/drag-and-drop` is not tied to `react`, you can also attach drag and drop behaviour at some point after a component has already been rendered:
 
 ```tsx
 function Card({ item }: { item: Item }) {
@@ -134,4 +134,4 @@ function Card({ item }: { item: Item }) {
 };
 ```
 
-For more details, see our [deferred loading guide](TODO).
+For more details, see our [deferred loading guide](/components/drag-and-drop/deferred-loading).

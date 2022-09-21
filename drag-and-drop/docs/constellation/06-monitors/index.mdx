@@ -1,6 +1,6 @@
 ---
 title: Monitors
-description: Monitors can listen to all events for a particular entity type (eg elements)
+description: Monitors can listen to all events for a particular entity type (eg elements).
 ---
 
 ## Basic usage
@@ -23,7 +23,6 @@ import React, { useEffect, useRef } from 'react';
 import { monitorForElements } from '@atlaskit/drag-and-drop/adapter/elements';
 
 function App() {
-
   // It is often convinant to tie monitors to components using effects
   // By doing this you can ensure you monitors are cleaned up
   // when a component is no longer being used.
@@ -89,7 +88,8 @@ All events flow through the system in the same way:
 1. drag source (eg `draggable`) if relevant
 2. drop targets - inner most upwards (bubble ordering) `grandChild -> child -> parent`
 3. monitors (in the order that they were created)
-_monitors_ are called in the same order in which they are created. Over time it can be hard to reason about what this ordering is as a consumer as you might be creating / destroying monitors frequently. So it is safe to expect that "monitors are called last", but you need to be careful if you want to rely on any ordering relationships between _monitors_
+
+_monitors_ are called in the same order in which they are created. Over time it can be hard to reason about what this ordering is as a consumer as you might be creating / destroying monitors frequently. So it is safe to expect that "monitors are called last", but you need to be careful if you want to rely on any ordering relationships between _monitors_.
 
 ```tsx
 function App() {
@@ -105,4 +105,3 @@ function App() {
 ```
 
 [→ More information on event ordering](/components/drag-and-drop/events)
-

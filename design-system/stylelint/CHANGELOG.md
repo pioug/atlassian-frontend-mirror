@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 0.3.7
+
+### Patch Changes
+
+- [`631207af050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/631207af050) - Manual bump of @atlaskit/tokens due to a bug with atlassian/changesets
+
 ## 0.3.6
 
 ### Patch Changes

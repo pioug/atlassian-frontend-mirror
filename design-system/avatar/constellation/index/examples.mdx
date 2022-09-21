@@ -3,6 +3,7 @@ order: 0
 ---
 
 import AvatarDefault from '../../examples/constellation/avatar-default';
+import AvatarDisabled from '../../examples/constellation/avatar-disabled';
 import AvatarCircle from '../../examples/constellation/avatar-circle';
 import AvatarSquare from '../../examples/constellation/avatar-square';
 import AvatarTooltip from '../../examples/constellation/avatar-tooltip';
@@ -32,6 +33,16 @@ Use a `circle` avatar to represent a person.
 Use `square` avatars to represent an entity, such as a project, repository or space.
 
 <Example Component={AvatarSquare} packageName="@atlaskit/avatar" />
+
+## States
+
+### Disabled
+
+Set `isDisabled` to disable an avatar that is not usable. This sets the avatar image to 40% opacity using the `opacity.disabled` token.
+
+Avoid using disabled UI, as it can cause accessibility problems.
+
+<Example Component={AvatarDisabled} packageName="@atlaskit/avatar" />
 
 ## Size
 

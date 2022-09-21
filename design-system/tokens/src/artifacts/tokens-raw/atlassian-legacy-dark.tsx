@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a99ec8f38397a16cab91e936de51714f>>
+ * @codegen <<SignedSource::c82e43b67b045a60bb8a6c1dc11edd58>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -6197,7 +6197,7 @@ const tokens = [
       "introduced": "0.0.15",
       "deprecated": "0.6.0",
       "deleted": "0.8.0",
-      "replacement": "elevation.surface.raised",
+      "replacement": "elevation.surface.raised.[default]",
       "description": "Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card."
     },
     "value": "#FA11F2",
@@ -6210,7 +6210,7 @@ const tokens = [
         "introduced": "0.0.15",
         "deprecated": "0.6.0",
         "deleted": "0.8.0",
-        "replacement": "elevation.surface.raised",
+        "replacement": "elevation.surface.raised.[default]",
         "description": "Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card."
       },
       "value": "#FA11F2"
@@ -6229,7 +6229,7 @@ const tokens = [
       "introduced": "0.0.15",
       "deprecated": "0.6.0",
       "deleted": "0.8.0",
-      "replacement": "elevation.surface.[default]",
+      "replacement": "elevation.surface.[default].[default]",
       "description": "Use as the primary background for the UI"
     },
     "value": "#FA11F2",
@@ -6242,7 +6242,7 @@ const tokens = [
         "introduced": "0.0.15",
         "deprecated": "0.6.0",
         "deleted": "0.8.0",
-        "replacement": "elevation.surface.[default]",
+        "replacement": "elevation.surface.[default].[default]",
         "description": "Use as the primary background for the UI"
       },
       "value": "#FA11F2"
@@ -6261,7 +6261,7 @@ const tokens = [
       "introduced": "0.0.15",
       "deprecated": "0.6.0",
       "deleted": "0.8.0",
-      "replacement": "elevation.surface.overlay",
+      "replacement": "elevation.surface.overlay.[default]",
       "description": "\nUse for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).\n\nAlso use for the background of raised cards in a dragged state.\n\nCombine with shadow.overlay."
     },
     "value": "#FA11F2",
@@ -6274,7 +6274,7 @@ const tokens = [
         "introduced": "0.0.15",
         "deprecated": "0.6.0",
         "deleted": "0.8.0",
-        "replacement": "elevation.surface.overlay",
+        "replacement": "elevation.surface.overlay.[default]",
         "description": "\nUse for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).\n\nAlso use for the background of raised cards in a dragged state.\n\nCombine with shadow.overlay."
       },
       "value": "#FA11F2"
@@ -8153,6 +8153,17 @@ const tokens = [
     },
     "value": [
       {
+        "radius": 0,
+        "spread": 1,
+        "color": "#000000",
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "opacity": 0,
+        "inset": true
+      },
+      {
         "radius": 1,
         "offset": {
           "x": 0,
@@ -8181,6 +8192,17 @@ const tokens = [
         "description": "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
       },
       "value": [
+        {
+          "radius": 0,
+          "spread": 1,
+          "color": "#000000",
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "opacity": 0,
+          "inset": true
+        },
         {
           "radius": 1,
           "offset": {
@@ -8377,11 +8399,66 @@ const tokens = [
       },
       "value": "DN30"
     },
-    "name": "elevation.surface.[default]",
+    "name": "elevation.surface.[default].[default]",
     "path": [
       "elevation",
       "surface",
+      "[default]",
       "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface"
+    },
+    "value": "#202B3D",
+    "filePath": "src/tokens/atlassian-legacy-dark/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface"
+      },
+      "value": "DN40"
+    },
+    "name": "elevation.surface.[default].hovered",
+    "path": [
+      "elevation",
+      "surface",
+      "[default]",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface"
+    },
+    "value": "#283447",
+    "filePath": "src/tokens/atlassian-legacy-dark/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface"
+      },
+      "value": "DN50"
+    },
+    "name": "elevation.surface.[default].pressed",
+    "path": [
+      "elevation",
+      "surface",
+      "[default]",
+      "pressed"
     ]
   },
   {
@@ -8415,7 +8492,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for the background of raised cards, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised"
+      "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
     },
     "value": "#455166",
     "filePath": "src/tokens/atlassian-legacy-dark/elevation/surface.tsx",
@@ -8425,15 +8502,70 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for the background of raised cards, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised"
+        "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
       },
       "value": "DN80"
     },
-    "name": "elevation.surface.raised",
+    "name": "elevation.surface.raised.[default]",
     "path": [
       "elevation",
       "surface",
-      "raised"
+      "raised",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface.raised"
+    },
+    "value": "#56637A",
+    "filePath": "src/tokens/atlassian-legacy-dark/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface.raised"
+      },
+      "value": "DN90"
+    },
+    "name": "elevation.surface.raised.hovered",
+    "path": [
+      "elevation",
+      "surface",
+      "raised",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface.raised"
+    },
+    "value": "#67758F",
+    "filePath": "src/tokens/atlassian-legacy-dark/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface.raised"
+      },
+      "value": "DN100"
+    },
+    "name": "elevation.surface.raised.pressed",
+    "path": [
+      "elevation",
+      "surface",
+      "raised",
+      "pressed"
     ]
   },
   {
@@ -8441,7 +8573,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for the background of elements that sit on top of they UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.shadow.overlay\n\nAlso use for the background of raised cards in a dragged state."
+      "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
     },
     "value": "#7988A3",
     "filePath": "src/tokens/atlassian-legacy-dark/elevation/surface.tsx",
@@ -8451,15 +8583,70 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for the background of elements that sit on top of they UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.shadow.overlay\n\nAlso use for the background of raised cards in a dragged state."
+        "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
       },
       "value": "DN200"
     },
-    "name": "elevation.surface.overlay",
+    "name": "elevation.surface.overlay.[default]",
     "path": [
       "elevation",
       "surface",
-      "overlay"
+      "overlay",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface.overlay"
+    },
+    "value": "#8C9CB8",
+    "filePath": "src/tokens/atlassian-legacy-dark/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Hovered state of elevation.surface.overlay"
+      },
+      "value": "DN300"
+    },
+    "name": "elevation.surface.overlay.hovered",
+    "path": [
+      "elevation",
+      "surface",
+      "overlay",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface.overlay"
+    },
+    "value": "#9FB0CC",
+    "filePath": "src/tokens/atlassian-legacy-dark/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.20",
+        "description": "Pressed state of elevation.surface.overlay"
+      },
+      "value": "DN400"
+    },
+    "name": "elevation.surface.overlay.pressed",
+    "path": [
+      "elevation",
+      "surface",
+      "overlay",
+      "pressed"
     ]
   },
   {

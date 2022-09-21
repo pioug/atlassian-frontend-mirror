@@ -32,7 +32,7 @@ const cleanup = combine(
 );
 ```
 
-During a drag operation, if a _drop target_ is removed and readded on the same `element`, then `@atlaskit/drag-and-drop` will treat the added _drop target_ as if it was the same _drop target_
+During a drag operation, if a _drop target_ is removed and readded on the same `element`, then `@atlaskit/drag-and-drop` will treat the added _drop target_ as if it was the same _drop target_.
 
 ```ts
 const monitor = monitorForElements({
@@ -68,7 +68,7 @@ const cleanup2 = dropTargetForElements({
 
 ## `draggable`
 
-The `key` for a `draggable` is the element. An element can only be used for a single `draggable`
+The `key` for a `draggable` is the element. An element can only be used for a single `draggable`.
 
 ```ts
 // ❌ Using the same element for two draggables
@@ -82,7 +82,7 @@ The `key` for a `draggable` is the element. An element can only be used for a si
 );
 ```
 
-During a drag operation, if the dragging `draggable` is removed and readded on the same `element`, then `@atlaskit/drag-and-drop` will treat the added `draggable` as if it was the original `draggable`
+During a drag operation, if the dragging `draggable` is removed and readded on the same `element`, then `@atlaskit/drag-and-drop` will treat the added `draggable` as if it was the original `draggable`.
 
 ```ts
 const monitor = monitorForElements({

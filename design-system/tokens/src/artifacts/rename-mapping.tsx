@@ -12,7 +12,7 @@
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::afc1ce63c4571109e333891b70af2ae8>>
+ * @codegen <<SignedSource::785f21ff78f22bc07f51619e1add8ba9>>
  * @codegenCommand yarn build tokens
  */
 import tokens from './token-names';
@@ -278,17 +278,17 @@ const renameMapper: RenameMap[] = [
   {
     "path": "color.background.card",
     "state": "deleted",
-    "replacement": "elevation.surface.raised"
+    "replacement": "elevation.surface.raised.[default]"
   },
   {
     "path": "color.background.default",
     "state": "deleted",
-    "replacement": "elevation.surface.[default]"
+    "replacement": "elevation.surface.[default].[default]"
   },
   {
     "path": "color.background.overlay",
     "state": "deleted",
-    "replacement": "elevation.surface.overlay"
+    "replacement": "elevation.surface.overlay.[default]"
   },
   {
     "path": "color.background.subtleBorderedNeutral.pressed",

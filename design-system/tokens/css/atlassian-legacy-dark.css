@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9e4724606cca025b6077a0f11ccdee6c>>
+ * @codegen <<SignedSource::71b7c5a8b5077f954c16cb37bf043616>>
  * @codegenCommand yarn build tokens
  */
 html[data-theme="legacy-dark"] {
@@ -278,13 +278,19 @@ html[data-theme="legacy-dark"] {
   --ds-overlay-pressed: #FA11F2;
   --ds-card: 0px 1px 1px #FA11F280, 0px 0px 1px #FA11F280;
   --ds-overlay: inset 0px 0px 0px 1px #FA11F20A, 0px 8px 12px #FA11F25C, 0px 0px 1px #FA11F280;
-  --ds-shadow-raised: 0px 1px 1px #0d142480, 0px 0px 1px #0d142480;
+  --ds-shadow-raised: inset 0px 0px 0px 1px #00000000, 0px 1px 1px #0d142480, 0px 0px 1px #0d142480;
   --ds-shadow-overflow: 0px 0px 12px #0304048F, 0px 0px 1px #03040480;
   --ds-shadow-overlay: inset 0px 0px 0px 1px #0d14240A, 0px 8px 12px #0d14245C, 0px 0px 1px #0d142480;
   --ds-surface: #1B2638;
+  --ds-surface-hovered: #202B3D;
+  --ds-surface-pressed: #283447;
   --ds-surface-sunken: #67758F;
   --ds-surface-raised: #455166;
+  --ds-surface-raised-hovered: #56637A;
+  --ds-surface-raised-pressed: #67758F;
   --ds-surface-overlay: #7988A3;
+  --ds-surface-overlay-hovered: #8C9CB8;
+  --ds-surface-overlay-pressed: #9FB0CC;
   --ds-opacity-disabled: 0.4;
   --ds-opacity-loading: 0.2;
   --ds-UNSAFE_util-transparent: transparent;

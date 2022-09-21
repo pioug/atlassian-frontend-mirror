@@ -487,10 +487,22 @@ export interface UtilTokenSchema<BaseToken> {
 export interface SurfaceTokenSchema<BaseToken> {
   elevation: {
     surface: {
-      '[default]': PaintToken<BaseToken>;
+      '[default]': {
+        '[default]': PaintToken<BaseToken>;
+        hovered: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
+      };
       sunken: PaintToken<BaseToken>;
-      raised: PaintToken<BaseToken>;
-      overlay: PaintToken<BaseToken>;
+      raised: {
+        '[default]': PaintToken<BaseToken>;
+        hovered: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
+      };
+      overlay: {
+        '[default]': PaintToken<BaseToken>;
+        hovered: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
+      };
     };
   };
 }

@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::88ce71c3956661092a271d288c20d7db>>
+ * @codegen <<SignedSource::69de52e823ca2f200b8d0ad00824651a>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -1658,7 +1658,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       }
     ]
   },
-  "Elevation/Surface/Default": {
+  "Elevation/Surface/Default/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -1666,6 +1666,24 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "description": "Use as the primary background for the UI."
     },
     "value": "#FFFFFF"
+  },
+  "Elevation/Surface/Default/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface"
+    },
+    "value": "#FAFBFC"
+  },
+  "Elevation/Surface/Default/Pressed": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface"
+    },
+    "value": "#F4F5F7"
   },
   "Elevation/Surface/Sunken": {
     "attributes": {
@@ -1676,23 +1694,59 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
     },
     "value": "#F4F5F7"
   },
-  "Elevation/Surface/Raised": {
+  "Elevation/Surface/Raised/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for the background of raised cards, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised"
+      "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
     },
     "value": "#FFFFFF"
   },
-  "Elevation/Surface/Overlay": {
+  "Elevation/Surface/Raised/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface.raised"
+    },
+    "value": "#FAFBFC"
+  },
+  "Elevation/Surface/Raised/Pressed": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface.raised"
+    },
+    "value": "#F4F5F7"
+  },
+  "Elevation/Surface/Overlay/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for the background of elements that sit on top of they UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.shadow.overlay\n\nAlso use for the background of raised cards in a dragged state."
+      "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
     },
     "value": "#FFFFFF"
+  },
+  "Elevation/Surface/Overlay/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface.overlay"
+    },
+    "value": "#FAFBFC"
+  },
+  "Elevation/Surface/Overlay/Pressed": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface.overlay"
+    },
+    "value": "#F4F5F7"
   }
 }, {
   "Color/Text/HighEmphasis": "Color/Text/Default",
@@ -1745,9 +1799,9 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
   "Color/Background/BoldWarning/Hover": "Color/Background/Warning/Bold/Hovered",
   "Color/Background/BoldWarning/Pressed": "Color/Background/Warning/Bold/Pressed",
   "Color/Background/BoldWarning/Resting": "Color/Background/Warning/Bold/Default",
-  "Color/Background/Card": "Elevation/Surface/Raised",
-  "Color/Background/Default": "Elevation/Surface/Default",
-  "Color/Background/Overlay": "Elevation/Surface/Overlay",
+  "Color/Background/Card": "Elevation/Surface/Raised/Default",
+  "Color/Background/Default": "Elevation/Surface/Default/Default",
+  "Color/Background/Overlay": "Elevation/Surface/Overlay/Default",
   "Color/Background/SubtleBorderedNeutral/Pressed": "Color/Background/Input/Pressed",
   "Color/Background/SubtleBorderedNeutral/Resting": "Color/Background/Input/Default",
   "Color/Background/SubtleBrand/Hover": "Color/Background/Selected/Default/Hovered",

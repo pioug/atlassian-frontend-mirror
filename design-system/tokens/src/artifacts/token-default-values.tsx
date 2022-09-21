@@ -3,7 +3,7 @@
  *
  * Token names mapped to their value in the default Atlassian theme ('light')
  *
- * @codegen <<SignedSource::d33654f7422a0d210f1d8a1bf4497a45>>
+ * @codegen <<SignedSource::59a1a4aaa5f768efccaed2c726fc2b08>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -285,9 +285,15 @@ const defaultTokenValues = {
   'elevation.shadow.overflow': '0px 8px 8px #091E4214, 0px 0px 1px #091E421F',
   'elevation.shadow.overlay': '0px 8px 12px #091E4226, 0px 0px 1px #091E424F',
   'elevation.surface': '#FFFFFF',
+  'elevation.surface.hovered': '#F1F2F4',
+  'elevation.surface.pressed': '#DCDFE4',
   'elevation.surface.sunken': '#F7F8F9',
   'elevation.surface.raised': '#FFFFFF',
+  'elevation.surface.raised.hovered': '#F1F2F4',
+  'elevation.surface.raised.pressed': '#DCDFE4',
   'elevation.surface.overlay': '#FFFFFF',
+  'elevation.surface.overlay.hovered': '#F1F2F4',
+  'elevation.surface.overlay.pressed': '#DCDFE4',
   'opacity.disabled': '0.4',
   'opacity.loading': '0.2',
   'utility.UNSAFE_util.transparent': 'transparent',

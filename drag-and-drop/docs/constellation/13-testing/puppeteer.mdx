@@ -1,9 +1,10 @@
 ---
 order: 3
-title: Puppeteer
+title: Testing
+description: Guidance on how to test your drag and drop experiences
 ---
 
-The big gotcha with [`puppeteer`](https://pptr.dev/) is that you need to rember to to [`page.setDragInterception(true)`](https://pub.dev/documentation/puppeteer/latest/puppeteer/Page/setDragInterception.html) in order to successfully leverage drag events
+When using [`puppeteer`](https://pptr.dev/) you must call [`page.setDragInterception(true)`](https://pub.dev/documentation/puppeteer/latest/puppeteer/Page/setDragInterception.html) to successfully leverage drag events.
 
 ```ts
 import puppeteer, { Protocol } from 'puppeteer';

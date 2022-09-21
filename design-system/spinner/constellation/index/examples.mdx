@@ -7,6 +7,7 @@ import SizeExample from '../../examples/1-sizes';
 import AnimatedExitExample from '../../examples/animated-exit';
 import ThemingExample from '../../examples/theming';
 import DelayingExample from '../../examples/delaying';
+import SpinnerOverContentExample from '../../examples/constellation/spinner-over-content';
 
 ## Default
 
@@ -35,6 +36,12 @@ A spinner will respect the current theme. You can invert the color of a spinner 
 A spinner will always animate itself in. For graceful exit animations we recommend that you use `<FadeIn />` from [@atlaskit/motion](https://atlaskit.atlassian.com/packages/design-system/motion)
 
 <Example Component={AnimatedExitExample} packageName="@atlaskit/spinner" />
+
+## Spinner over content
+
+When using a spinner directly over content, apply the `opacity.loading` token to the content container to de-emphasis the content and allow the spinner to be seen.
+
+<Example Component={SpinnerOverContentExample} packageName="@atlaskit/spinner" />
 
 ## Delaying a spinner
 

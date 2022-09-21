@@ -1,7 +1,7 @@
 ---
 order: 0
 title: Drop targets
-description: Drop targets are elements that can be dropped on
+description: Drop targets are elements that can be dropped on.
 ---
 
 ## Basic usage
@@ -41,7 +41,7 @@ function DropTarget() {
 ## Rules
 
 - Drop targets are scoped to a particular entity type. For example, `dropTargetForElements` is a _drop target_ for elements, and `dropTargetForFiles` is a drop target for files.
-- A single `element` can be used as a drop target for multiple entity types
+- A single `element` can be used as a drop target for multiple entity types.
 
 ```ts
 // ✅ Using the same element as a drop target for elements and for files
@@ -55,7 +55,7 @@ const cleanup = combine(
 );
 ```
 
-- A single `element` cannot be used to create multiple drop targets for the same entity type (you will get a warning in your `console` if you make a mistake)
+- A single `element` cannot be used to create multiple drop targets for the same entity type (you will get a warning in your `console` if you make a mistake).
 
 ```ts
 // ❌ Using the same element for two drop targets of the same entity type is not allowed
@@ -70,7 +70,7 @@ const cleanup = combine(
 );
 ```
 
-- Drop targets can be nested
+- Drop targets can be nested.
 
 ```ts
 dropTargetForElements({
@@ -108,7 +108,7 @@ High level:
 
 ### Optional arguments
 
-- `getData?: (args: GetFeedbackArgs) => Record<string, unknown>`: a function that returns data you want to attach to the drop target. `getData()` is called _repeatedly_ while the user is dragging over the drop target in order to power addons. If your `getData()` function is expensive, consider using [`once`]('./util.md') `getData()` is called with `GetFeedbackArgs` (see below) which contains limited information about the current drag operation. Try to make your `getData()` function _pure_ (same input results in the same output)
+- `getData?: (args: GetFeedbackArgs) => Record<string, unknown>`: a function that returns data you want to attach to the drop target. `getData()` is called _repeatedly_ while the user is dragging over the drop target in order to power addons. If your `getData()` function is expensive, consider using the [`once` utility function](/components/drag-and-drop/packages/core/about#once). `getData()` is called with `GetFeedbackArgs` (see below) which contains limited information about the current drag operation. Try to make your `getData()` function _pure_ (same input results in the same output)
 
 ```ts
 const cleanup = dropTargetForFiles({
@@ -205,12 +205,11 @@ A _drop target_ that otherwise would not be dragged over any more due to changes
 > Scenario: `[B(sticky), A(sticky)]` → `[X]`
 > Result: `[X]`
 
-
 All _drop targets_, regardless of stickiness, will no longer be "dragged over" when the users pointer moves out of the `window`
 
 ## Nested drop targets
 
-When calculating what _drop targets_ are currently being dragged over, we look from the deepest possible _drop target_ upwards (bubble ordering). We will search up to the document root to find any available drop targets. If a _drop target_ specifies that it cannot be dropped on (`canDrop()` returns `false`), then it will be ignored and the search will continue upwards
+When calculating what _drop targets_ are currently being dragged over, we look from the deepest possible _drop target_ upwards (bubble ordering). We will search up to the document root to find any available drop targets. If a _drop target_ specifies that it cannot be dropped on (`canDrop()` returns `false`), then it will be ignored and the search will continue upwards.
 
 > Scenario: `[] -> [B, A(blocked)]`
 > Result: `[] -> [B]`

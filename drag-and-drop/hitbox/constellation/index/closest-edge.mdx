@@ -1,9 +1,8 @@
 ---
 order: 1
-title: Closest Edge Addon
-description: Detecting the closest edge of a drop target during a drag operation
+title: Hitbox
+description: An addon to extract collision information from a user's drag.
 ---
-
 
 The closest edge _addon_ is used to know what the closest edge (`"top", "right", "bottom", "left"`) is when dragging over a _drop target_. Knowing the closest edge can be helpful when doing reordering and moving operations. This addon leverages the fact that `getData()` is _repeatedly_ called throughout a drag and drop operation.
 
@@ -14,7 +13,11 @@ type Edge = 'top' | 'right' | 'bottom' | 'left';
 ```
 
 ```ts
-import { attachClosestEdge, extractClosestEdge, Edge } from '@atlaskit/drag-and-drop-hitbox/closest-edge';
+import {
+  attachClosestEdge,
+  extractClosestEdge,
+  Edge,
+} from '@atlaskit/drag-and-drop-hitbox/closest-edge';
 
 dropTargetForElements({
   element: myElement,

@@ -1,5 +1,18 @@
 # @atlaskit/tokens
 
+## 0.10.20
+
+### Patch Changes
+
+- [`9f6aa1d7cdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f6aa1d7cdc) - Introduces new interaction states to a number of existing elevation tokens:
+
+  - elevation.surface.hovered
+  - elevation.surface.pressed
+  - elevation.surface.raised.hovered
+  - elevation.surface.raised.pressed
+  - elevation.surface.overlay.hovered
+  - elevation.surface.overlay.pressed
+
 ## 0.10.19
 
 ### Patch Changes

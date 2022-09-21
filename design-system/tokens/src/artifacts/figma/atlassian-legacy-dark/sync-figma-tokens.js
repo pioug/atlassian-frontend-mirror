@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::5ca17c5e6fd9b37f3d483a7f72cb12ca>>
+ * @codegen <<SignedSource::da9be1d003c8792d957d0f11f7c8344d>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -1583,6 +1583,17 @@ synchronizeFigmaTokens('AtlassianLegacyDark', {
     },
     "value": [
       {
+        "radius": 0,
+        "spread": 1,
+        "color": "#000000",
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "opacity": 0,
+        "inset": true
+      },
+      {
         "radius": 1,
         "offset": {
           "x": 0,
@@ -1669,7 +1680,7 @@ synchronizeFigmaTokens('AtlassianLegacyDark', {
       }
     ]
   },
-  "Elevation/Surface/Default": {
+  "Elevation/Surface/Default/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -1677,6 +1688,24 @@ synchronizeFigmaTokens('AtlassianLegacyDark', {
       "description": "Use as the primary background for the UI."
     },
     "value": "#1B2638"
+  },
+  "Elevation/Surface/Default/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface"
+    },
+    "value": "#202B3D"
+  },
+  "Elevation/Surface/Default/Pressed": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface"
+    },
+    "value": "#283447"
   },
   "Elevation/Surface/Sunken": {
     "attributes": {
@@ -1687,23 +1716,59 @@ synchronizeFigmaTokens('AtlassianLegacyDark', {
     },
     "value": "#67758F"
   },
-  "Elevation/Surface/Raised": {
+  "Elevation/Surface/Raised/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for the background of raised cards, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised"
+      "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
     },
     "value": "#455166"
   },
-  "Elevation/Surface/Overlay": {
+  "Elevation/Surface/Raised/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface.raised"
+    },
+    "value": "#56637A"
+  },
+  "Elevation/Surface/Raised/Pressed": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface.raised"
+    },
+    "value": "#67758F"
+  },
+  "Elevation/Surface/Overlay/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for the background of elements that sit on top of they UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.shadow.overlay\n\nAlso use for the background of raised cards in a dragged state."
+      "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
     },
     "value": "#7988A3"
+  },
+  "Elevation/Surface/Overlay/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Hovered state of elevation.surface.overlay"
+    },
+    "value": "#8C9CB8"
+  },
+  "Elevation/Surface/Overlay/Pressed": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.20",
+      "description": "Pressed state of elevation.surface.overlay"
+    },
+    "value": "#9FB0CC"
   }
 }, {
   "Color/Text/HighEmphasis": "Color/Text/Default",
@@ -1756,9 +1821,9 @@ synchronizeFigmaTokens('AtlassianLegacyDark', {
   "Color/Background/BoldWarning/Hover": "Color/Background/Warning/Bold/Hovered",
   "Color/Background/BoldWarning/Pressed": "Color/Background/Warning/Bold/Pressed",
   "Color/Background/BoldWarning/Resting": "Color/Background/Warning/Bold/Default",
-  "Color/Background/Card": "Elevation/Surface/Raised",
-  "Color/Background/Default": "Elevation/Surface/Default",
-  "Color/Background/Overlay": "Elevation/Surface/Overlay",
+  "Color/Background/Card": "Elevation/Surface/Raised/Default",
+  "Color/Background/Default": "Elevation/Surface/Default/Default",
+  "Color/Background/Overlay": "Elevation/Surface/Overlay/Default",
   "Color/Background/SubtleBorderedNeutral/Pressed": "Color/Background/Input/Pressed",
   "Color/Background/SubtleBorderedNeutral/Resting": "Color/Background/Input/Default",
   "Color/Background/SubtleBrand/Hover": "Color/Background/Selected/Default/Hovered",

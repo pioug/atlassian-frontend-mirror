@@ -645,7 +645,7 @@ const color: AttributeSchema<DeprecatedTokenSchema<BaseToken>> = {
           introduced: '0.0.15',
           deprecated: '0.6.0',
           deleted: '0.8.0',
-          replacement: 'elevation.surface.raised',
+          replacement: 'elevation.surface.raised.[default]',
           description:
             'Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card.',
         },
@@ -657,7 +657,7 @@ const color: AttributeSchema<DeprecatedTokenSchema<BaseToken>> = {
           introduced: '0.0.15',
           deprecated: '0.6.0',
           deleted: '0.8.0',
-          replacement: 'elevation.surface.[default]',
+          replacement: 'elevation.surface.[default].[default]',
           description: 'Use as the primary background for the UI',
         },
       },
@@ -682,7 +682,7 @@ const color: AttributeSchema<DeprecatedTokenSchema<BaseToken>> = {
           introduced: '0.0.15',
           deprecated: '0.6.0',
           deleted: '0.8.0',
-          replacement: 'elevation.surface.overlay',
+          replacement: 'elevation.surface.overlay.[default]',
           description: `
 Use for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).
 

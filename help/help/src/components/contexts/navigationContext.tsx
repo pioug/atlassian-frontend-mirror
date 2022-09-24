@@ -62,7 +62,7 @@ const getNewHistoryItem = (id: string, type: ARTICLE_TYPE) => {
     uid,
     id,
     type,
-    state: REQUEST_STATE.loading,
+    state: REQUEST_STATE.load,
   };
 
   return newHistoryItem;
@@ -489,8 +489,6 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
         });
       }
     } else {
-      // console.log('same articleId');
-
       if (setNavigationData) {
         const simpleHistory = getSimpleHistory(currentHistory);
 
@@ -541,10 +539,14 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
      */
     const lastHistoryItem = getCurrentArticle(currentHistory);
     if (
-      lastHistoryItem?.state === REQUEST_STATE.loading ||
+      lastHistoryItem?.state === REQUEST_STATE.load ||
       lastHistoryItem?.state === REQUEST_STATE.reload
     ) {
       requestNewArticle(lastHistoryItem);
+      dispatchNavigationAction({
+        type: 'updateHistoryItem',
+        payload: { ...lastHistoryItem, state: REQUEST_STATE.loading },
+      });
     }
   }, [currentArticleId, currentHistory, fetchArticleData]);
 

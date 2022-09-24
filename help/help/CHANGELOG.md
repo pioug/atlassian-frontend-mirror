@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.14
+
+### Patch Changes
+
+- [`8b28f38cfa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b28f38cfa8) - Fixed double request issue for the help articles
+
 ## 7.1.13
 
 ### Patch Changes

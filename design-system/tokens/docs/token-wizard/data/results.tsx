@@ -5,12 +5,20 @@ import { ActiveTokens } from '../../../src/artifacts/types';
  * Instead we have to define an object type with all the result keys
  */
 
+export type Pairings = {
+  icon: string;
+  text: string;
+  border: string;
+  background: string;
+};
+
 export type Results = {
   [key in keyof resultId]: {
     suggestion: ActiveTokens[];
     metadata?: {
       hints?: string[];
     };
+    pairings?: Pairings[];
   };
 };
 interface resultId {
@@ -218,30 +226,122 @@ const results: Results = {
   },
   'background-surface/background/colored/brand': {
     suggestion: ['color.background.brand.bold'],
+    pairings: [
+      {
+        background: 'color.background.brand.bold',
+        icon: 'color.icon.inverse',
+        text: 'color.text.inverse',
+        border: 'color.border.brand',
+      },
+    ],
   },
   'background-surface/background/colored/information': {
     suggestion: [
       'color.background.information',
       'color.background.information.bold',
     ],
+    pairings: [
+      {
+        background: 'color.background.information',
+        icon: 'color.icon.information',
+        text: 'color.text',
+        border: 'color.border.information',
+      },
+      {
+        background: 'color.background.information.bold',
+        icon: 'color.icon.inverse',
+        text: 'color.text.inverse',
+        border: 'color.border.information',
+      },
+    ],
   },
   'background-surface/background/colored/success': {
     suggestion: ['color.background.success', 'color.background.success.bold'],
+    pairings: [
+      {
+        background: 'color.background.success',
+        icon: 'color.icon.success',
+        text: 'color.text',
+        border: 'color.border.success',
+      },
+      {
+        background: 'color.background.success.bold',
+        icon: 'color.icon.inverse',
+        text: 'color.text.inverse',
+        border: 'color.border.success',
+      },
+    ],
   },
   'background-surface/background/colored/warning': {
     suggestion: ['color.background.warning', 'color.background.warning.bold'],
+    pairings: [
+      {
+        background: 'color.background.warning',
+        icon: 'color.icon.warning',
+        text: 'color.text',
+        border: 'color.border.warning',
+      },
+      {
+        background: 'color.background.warning.bold',
+        icon: 'color.icon.inverse',
+        text: 'color.text.inverse',
+        border: 'color.border.warning',
+      },
+    ],
   },
   'background-surface/background/colored/danger': {
     suggestion: ['color.background.danger', 'color.background.danger.bold'],
+    pairings: [
+      {
+        background: 'color.background.danger',
+        icon: 'color.icon.danger',
+        text: 'color.text',
+        border: 'color.border.danger',
+      },
+      {
+        background: 'color.background.danger.bold',
+        icon: 'color.icon.inverse',
+        text: 'color.text.inverse',
+        border: 'color.border.danger',
+      },
+    ],
   },
   'background-surface/background/colored/discovery': {
     suggestion: [
       'color.background.discovery',
       'color.background.discovery.bold',
     ],
+    pairings: [
+      {
+        background: 'color.background.discovery',
+        icon: 'color.icon.discovery',
+        text: 'color.text',
+        border: 'color.border.discovery',
+      },
+      {
+        background: 'color.background.discovery.bold',
+        icon: 'color.icon.inverse',
+        text: 'color.text.inverse',
+        border: 'color.border.discovery',
+      },
+    ],
   },
   'background-surface/background/colored/selected': {
     suggestion: ['color.background.selected', 'color.background.selected.bold'],
+    pairings: [
+      {
+        background: 'color.background.selected',
+        icon: 'color.icon.selected',
+        text: 'color.text',
+        border: 'color.border.selected',
+      },
+      {
+        background: 'color.background.selected.bold',
+        icon: 'color.icon.inverse',
+        text: 'color.text.inverse',
+        border: 'color.border.selected',
+      },
+    ],
   },
   'background-surface/background/colored/accent/blue': {
     suggestion: [
@@ -323,6 +423,14 @@ const results: Results = {
   },
   'background-surface/background/neutral/neutral': {
     suggestion: ['color.background.neutral'],
+    pairings: [
+      {
+        text: 'color.text',
+        border: 'color.border',
+        icon: 'color.icon',
+        background: 'color.background.neutral',
+      },
+    ],
   },
   'background-surface/background/neutral/subtle': {
     suggestion: ['color.background.neutral.subtle'],
@@ -331,9 +439,25 @@ const results: Results = {
         'Use color.background.neutral.subtle for the resting state; though transparent it allows for fade animation',
       ],
     },
+    pairings: [
+      {
+        text: 'color.text',
+        border: 'color.border',
+        icon: 'color.icon',
+        background: 'color.background.neutral.subtle',
+      },
+    ],
   },
   'background-surface/background/neutral/vibrant': {
     suggestion: ['color.background.neutral.bold'],
+    pairings: [
+      {
+        text: 'color.text.inverse',
+        border: 'color.border',
+        icon: 'color.icon.inverse',
+        background: 'color.background.neutral.bold',
+      },
+    ],
   },
   'background-surface/background/neutral/on-bold': {
     suggestion: ['color.background.inverse.subtle'],

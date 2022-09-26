@@ -1,5 +1,6 @@
 /* eslint-disable @repo/internal/react/no-unsafe-overrides */
 /** @jsx jsx */
+import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -20,9 +21,11 @@ import darkTheme from '../../../src/artifacts/tokens-raw/atlassian-dark';
 import lightTheme from '../../../src/artifacts/tokens-raw/atlassian-light';
 import { Groups } from '../../../src/types';
 import { cleanTokenName, getBoxShadow, getTextContrast } from '../../utils';
+import type { Pairings as PairingsType } from '../data/results';
 import type { Token as TokenType } from '../types';
 
 import CopyPasteBlock from './copy-paste-block';
+import Pairings from './pairings';
 
 const cardsWrapperStyles = css({
   display: 'flex',
@@ -30,11 +33,11 @@ const cardsWrapperStyles = css({
 });
 
 const tokenNameStyled = css({
-  padding: `${gridSize() * 0.5}px`,
+  padding: `${gridSize() * 0.5}px ${gridSize()}px`,
   background: token('color.background.neutral', N20),
   borderRadius: borderRadius(),
   color: token('color.text', N800),
-  cursor: 'copy',
+  cursor: 'pointer',
   fontSize: '12px',
   lineHeight: '24px',
   span: {
@@ -52,7 +55,7 @@ const tokenNameStyled = css({
 const colorBlockStyles = css({
   minWidth: gridSize() * 12,
   borderRadius: 3,
-  cursor: 'copy',
+  cursor: 'pointer',
   fontSize: fontSize(),
   lineHeight: '24px',
   textAlign: 'center',
@@ -112,6 +115,7 @@ const getBaseTokenBlockStyles = (value: string) => ({
 
 const subheadingStyles = css({
   fontSize: fontSize(),
+  fontWeight: 500,
   lineHeight: '16px',
 });
 
@@ -178,7 +182,7 @@ const ValueCard = ({
         />
       )}
       <p css={themeTextStyles}>
-        {theme === 'light' ? 'Light Value' : 'Dark Value'}
+        {theme === 'light' ? 'Light value' : 'Dark value'}
       </p>
     </div>
   );
@@ -190,7 +194,13 @@ const ValueCard = ({
  * A suggested token item on the result panel.
  *
  */
-const TokenItem = ({ tokenName }: { tokenName: string }) => {
+const TokenItem = ({
+  tokenName,
+  pairings,
+}: {
+  tokenName: string;
+  pairings?: PairingsType;
+}) => {
   const lightTokenRaw = lightTheme.find(
     (token) => cleanTokenName(token.name) === tokenName,
   ) as TokenType;
@@ -220,7 +230,7 @@ const TokenItem = ({ tokenName }: { tokenName: string }) => {
   };
 
   return (
-    <div>
+    <Fragment>
       <CopyPasteBlock
         text={tokenName}
         renderWrapper={(children) => (
@@ -243,7 +253,15 @@ const TokenItem = ({ tokenName }: { tokenName: string }) => {
       </div>
       <h5 css={subheadingStyles}>Description</h5>
       <p css={descriptionStyles}>{description}</p>
-    </div>
+      {pairings && (
+        <Fragment>
+          <h5 css={[subheadingStyles, { marginTop: 0 }]}>
+            Recommended pairings
+          </h5>
+          <Pairings pairings={pairings} />
+        </Fragment>
+      )}
+    </Fragment>
   );
 };
 

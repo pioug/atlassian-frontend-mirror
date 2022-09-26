@@ -28,3 +28,12 @@ export function getBoxShadow(rawShadow: any[]) {
 export function cleanTokenName(name: string) {
   return name.replace(/\.\[default\]/g, '');
 }
+
+export function paramsToObject(entries: any) {
+  const result: { [key: string]: string } = {};
+  for (const [key, value] of entries) {
+    const decodedKey = decodeURIComponent(key);
+    result[decodedKey] = decodeURIComponent(value);
+  }
+  return result;
+}

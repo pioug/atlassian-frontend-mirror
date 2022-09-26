@@ -1,41 +1,34 @@
 /** @jsx jsx */
-import { Fragment, ReactNode, useCallback, useState } from 'react';
+import {
+  Fragment,
+  ReactNode,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import FocusRing from '@atlaskit/focus-ring';
-import LinkIcon from '@atlaskit/icon/glyph/link';
+import Tooltip from '@atlaskit/tooltip';
 
 const COPY_MESSAGE = {
-  PROMPT: '',
+  PROMPT: 'Copy to clipboard',
   SUCCESS: 'Copied',
-  FAILURE: 'Copy to clipboard failed',
+  FAILURE: 'Copy failed',
 };
 
 const copyButtonStyles = css({
   padding: 0,
   background: 'none',
   border: 'none',
-  svg: {
-    display: 'none',
-  },
-  '&:hover, &:focus': {
-    svg: {
-      display: 'inline-block',
-    },
-
-    p: {
-      transform: 'translateX(0)',
-      transition: 'transform 100ms ease-out',
-    },
-  },
 });
 
 const textStyles = css({
   display: 'inline-block',
   margin: 0,
   textAlign: 'center',
-  transform: 'translateX(8px)',
 });
 
 /**
@@ -51,7 +44,7 @@ const CopyPasteBlock = ({
   text: string;
   renderWrapper: (copyContent: ReactNode) => JSX.Element;
 }) => {
-  const [copyMessage, setCopyMessage] = useState<string>(text);
+  const [copyMessage, setCopyMessage] = useState<string>(COPY_MESSAGE.PROMPT);
 
   const handleSuccess = useCallback(() => {
     setCopyMessage(COPY_MESSAGE.SUCCESS);
@@ -64,29 +57,52 @@ const CopyPasteBlock = ({
   const onCopy = () => {
     try {
       navigator.clipboard.writeText(text).then(handleSuccess, handleError);
-      // setCopiedTextType(type);
       setTimeout(() => {
-        setCopyMessage(text);
-      }, 400);
+        resetPrompt();
+      }, 1000);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('Unable to copy text');
     }
   };
+  const resetPrompt = () => setCopyMessage(COPY_MESSAGE.PROMPT);
 
   const renderCopyContent = () => (
     <Fragment>
-      <p css={textStyles}>{copyMessage}</p>
-      {copyMessage === text && <LinkIcon label="copy" size="small" />}
+      <p css={textStyles}>{text}</p>
     </Fragment>
   );
 
+  const updateTooltip = useRef<() => void>();
+  useLayoutEffect(() => {
+    updateTooltip.current?.();
+  }, [copyMessage]);
+
   return (
-    <FocusRing>
-      <button onClick={onCopy} type="button" css={copyButtonStyles}>
-        {renderWrapper(renderCopyContent())}
-      </button>
-    </FocusRing>
+    <Tooltip
+      content={({ update }) => {
+        updateTooltip.current = update;
+        return copyMessage;
+      }}
+      position="top"
+      onHide={resetPrompt}
+    >
+      {(tooltipProps) => (
+        <FocusRing>
+          <button
+            type="button"
+            css={copyButtonStyles}
+            {...tooltipProps}
+            onClick={(e) => {
+              tooltipProps.onClick(e);
+              onCopy();
+            }}
+          >
+            {renderWrapper(renderCopyContent())}
+          </button>
+        </FocusRing>
+      )}
+    </Tooltip>
   );
 };
 

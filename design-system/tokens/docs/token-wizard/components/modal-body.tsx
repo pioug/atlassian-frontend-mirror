@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -48,19 +48,67 @@ const selectAnswerStyles = css({
  * Modal body of the token wizard modal dialog.
  *
  */
-const TokenWizardModalBody = () => {
+const TokenWizardModalBody = ({
+  params,
+  removeParamsInUrl,
+}: {
+  params: Record<string, resultID | boolean | string>;
+  removeParamsInUrl: () => void;
+}) => {
   const [currentQuestionId, setCurrentQuestionId] = useState<questionID>(
     'root',
   );
   const [path, setPath] = useState<[Path] | []>([]);
   const [resultId, setResultId] = useState<resultID | ''>('');
 
+  useEffect(() => {
+    if (Object.keys(params).length) {
+      try {
+        const questionIdList = Object.keys(params).filter(
+          (param) => param !== 'resultId' && param !== 'isTokenPickerOpen',
+        );
+        if (
+          questionIdList.some(
+            (questionId: string) =>
+              !questions.hasOwnProperty(questionId) ||
+              //@ts-ignore
+              !questions[questionId]?.answers
+                .map((answer: Answer) => answer.summary)
+                .includes(params[questionId]),
+          ) ||
+          !Object.keys(params).includes('resultId')
+        ) {
+          // eslint-disable-next-line no-console
+          console.error('Invalid query parameters in URL');
+          return;
+        }
+
+        const pathInSearchParam = questionIdList.map((questionId) => ({
+          questionId,
+          //@ts-ignore
+          question: questions[questionId].summary,
+          answer: params[questionId],
+        }));
+        setResultId(params.resultId as resultID);
+        setPath(pathInSearchParam as [Path]);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('Invalid query parameters in URL');
+      }
+    }
+  }, [params]);
+
+  const resetQueryParams = () => {
+    if (Object.keys(params).length) {
+      removeParamsInUrl();
+    }
+  };
+
   const onClickAnswer = ({
     questionId,
     answer,
   }: {
     questionId: questionID;
-
     answer: Answer;
   }) => {
     const selectedIndex = path.findIndex((qs) => qs.questionId === questionId);
@@ -91,13 +139,23 @@ const TokenWizardModalBody = () => {
       ] as [Path]);
     }
 
-    return answer.result
-      ? setResultId(answer.result)
-      : setCurrentQuestionId(answer.next);
+    if (answer.result) {
+      resetQueryParams();
+      setResultId(answer.result);
+    } else {
+      setCurrentQuestionId(answer.next);
+    }
   };
 
   const onClickSummary = (questionId: questionID) => {
     setCurrentQuestionId(questionId);
+    setResultId('');
+  };
+
+  const onClickStartAgain = () => {
+    resetQueryParams();
+    setCurrentQuestionId('root');
+    setPath([]);
     setResultId('');
   };
 
@@ -149,7 +207,11 @@ const TokenWizardModalBody = () => {
         )}
       </div>
       {resultId ? (
-        <ResultPanel resultId={resultId} />
+        <ResultPanel
+          resultId={resultId}
+          onClickStartAgain={onClickStartAgain}
+          path={path}
+        />
       ) : (
         renderAnswers(currentQuestionId)
       )}

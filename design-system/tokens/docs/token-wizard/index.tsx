@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -12,6 +12,8 @@ import Modal, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
+
+import { paramsToObject } from '../utils';
 
 import TokenWizardModalBody from './components/modal-body';
 
@@ -28,8 +30,42 @@ const ModalHeaderStyles = css({
  */
 const TokenWizardModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [params, setParams] = useState({});
   const openModal = useCallback(() => setIsOpen(true), []);
-  const closeModal = useCallback(() => setIsOpen(false), []);
+
+  useEffect(() => {
+    try {
+      const queryString = window.location.hash
+        ? window?.location?.hash?.split('?')[1]
+        : window?.location?.search;
+      const urlParams = new URLSearchParams(queryString);
+      const entries = urlParams.entries();
+      const paramInURL = paramsToObject(entries);
+      setParams(paramInURL);
+      setIsOpen(!!paramInURL.isTokenPickerOpen);
+    } catch {
+      // eslint-disable-next-line no-console
+      console.error('Invalid query parameters in URL');
+    }
+  }, []);
+
+  const removeParamsInUrl = useCallback(() => {
+    window?.history?.pushState(
+      {},
+      document?.title,
+      `${window?.location.pathname}${
+        window?.location.hash ? window?.location.hash.split('?')[0] : ''
+      }`,
+    );
+  }, []);
+
+  const closeModal = () => {
+    if (Object.keys(params).length) {
+      setParams({});
+      removeParamsInUrl();
+    }
+    setIsOpen(false);
+  };
 
   return (
     <Fragment>
@@ -54,7 +90,10 @@ const TokenWizardModal = () => {
               />
             </ModalHeader>
             <ModalBody>
-              <TokenWizardModalBody />
+              <TokenWizardModalBody
+                params={params}
+                removeParamsInUrl={removeParamsInUrl}
+              />
             </ModalBody>
           </Modal>
         )}

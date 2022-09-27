@@ -19,7 +19,7 @@ describe('SSR - Resourced Task Item ', () => {
       ([f, s]: string[]) =>
         !(
           f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
           s === 'style'
         ),
     );

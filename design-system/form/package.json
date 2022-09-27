@@ -60,6 +60,7 @@
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/dropdown-menu": "^11.5.0",
     "@atlaskit/droplist": "^11.0.0",
+    "@atlaskit/ds-lib": "^2.1.1",
     "@atlaskit/modal-dialog": "^12.3.0",
     "@atlaskit/radio": "^5.4.0",
     "@atlaskit/range": "^6.0.0",

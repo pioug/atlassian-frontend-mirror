@@ -34,7 +34,7 @@ test('should ssr then hydrate page-layout correctly', async () => {
     ([f, s]) =>
       !(
         f ===
-          'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+          'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
         s === 'style'
       ),
   );

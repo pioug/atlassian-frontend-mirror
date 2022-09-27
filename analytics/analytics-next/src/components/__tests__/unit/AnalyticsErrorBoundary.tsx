@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
+import { render } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
@@ -43,7 +44,7 @@ describe('AnalyticsErrorBoundary', () => {
     expect(createAnalyticsEvent).not.toHaveBeenCalled();
   });
 
-  it('should fire an analytics event if error has been triggered in one of the children components', () => {
+  it('should fire an analytics event if error has been triggered in one of the children components', async () => {
     const analyticsEvent = new UIAnalyticsEvent({
       context: [],
       handlers: [],
@@ -61,16 +62,15 @@ describe('AnalyticsErrorBoundary', () => {
 
     const error = new Error('Error');
     const Something = () => {
-      useEffect(() => {
-        throw error;
-      }, []);
-      // this is just a placeholder
-      return <div className="child-component" />;
+      throw error;
     };
-
-    const wrapper = mount(
+    const ErrorComponent = () => {
+      return <div>Something</div>;
+    };
+    const { findByText } = render(
       <BaseAnalyticsErrorBoundary
         {...props}
+        ErrorComponent={ErrorComponent}
         createAnalyticsEvent={createAnalyticsEvent}
       >
         <Something />
@@ -96,10 +96,10 @@ describe('AnalyticsErrorBoundary', () => {
     );
 
     expect(analyticsEvent.fire).toHaveBeenNthCalledWith(1, 'atlaskit');
-    expect(wrapper.find('Something').exists()).toBe(true);
+    expect(await findByText('Something')).toBeInTheDocument();
   });
 
-  it('should render error component when error occurs', () => {
+  it('should render error component when error occurs', async () => {
     const analyticsEvent = new UIAnalyticsEvent({
       context: [],
       handlers: [],
@@ -129,7 +129,7 @@ describe('AnalyticsErrorBoundary', () => {
       return <div>Error occurred</div>;
     };
 
-    const wrapper = mount(
+    const { findByText } = render(
       <BaseAnalyticsErrorBoundary
         {...props}
         createAnalyticsEvent={createAnalyticsEvent}
@@ -159,7 +159,6 @@ describe('AnalyticsErrorBoundary', () => {
     );
     expect(analyticsEvent.fire).toHaveBeenNthCalledWith(1, 'atlaskit');
     expect(onError).toHaveBeenCalledTimes(1);
-    expect(wrapper.find('Something').exists()).toBe(false);
-    expect(wrapper.find('ErrorScreen').exists()).toBe(true);
+    expect(await findByText('Error occurred')).toBeInTheDocument();
   });
 });

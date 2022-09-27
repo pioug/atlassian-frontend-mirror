@@ -115,6 +115,7 @@ describe('Container', () => {
     });
 
     it('triggers onClick even when link is clicked', async () => {
+      const user = userEvent.setup();
       const mockOnClick = jest.fn();
       const { findByTestId } = render(
         <Container
@@ -125,7 +126,7 @@ describe('Container', () => {
       );
 
       const link = await findByTestId(`${testId}-layered-link`);
-      userEvent.click(link);
+      await user.click(link);
 
       expect(mockOnClick).toHaveBeenCalled();
     });

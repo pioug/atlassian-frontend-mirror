@@ -55,6 +55,10 @@ expect.extend({
 });
 
 describe('LinkPicker analytics', () => {
+  let user: ReturnType<typeof userEvent.setup>;
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
   afterAll(() => {
     jest.restoreAllMocks();
   });
@@ -96,7 +100,7 @@ describe('LinkPicker analytics', () => {
   it('should fire `ui.form.submitted.linkPicker` and emit a clone of the `ui.form.submitted.linkPicker` event on form submission', async () => {
     const { onSubmit, spy, urlField } = setupLinkPicker();
 
-    userEvent.type(await urlField(), 'www.atlassian.com');
+    await user.type(await urlField(), 'www.atlassian.com');
     spy.mockClear();
     fireEvent.submit(await urlField());
 
@@ -182,7 +186,7 @@ describe('LinkPicker analytics', () => {
     it('should be `newLink` when URL prop is NOT provided', async () => {
       const { spy, urlField } = setupLinkPicker();
 
-      userEvent.type(await urlField(), 'www.atlassian.com');
+      await user.type(await urlField(), 'www.atlassian.com');
       fireEvent.submit(await urlField());
 
       expect(spy).toBeFiredWithAnalyticEventOnce({
@@ -237,8 +241,8 @@ describe('LinkPicker analytics', () => {
         url: 'https://google.com',
       });
 
-      userEvent.clear(await urlField());
-      userEvent.type(await urlField(), 'www.atlassian.com');
+      await user.clear(await urlField());
+      await user.type(await urlField(), 'www.atlassian.com');
       fireEvent.submit(await urlField());
 
       expect(spy).toBeFiredWithAnalyticEventOnce({
@@ -261,7 +265,7 @@ describe('LinkPicker analytics', () => {
     it('should track url input field content as `url` when the field has a valid url', async () => {
       const { spy, urlField } = setupLinkPicker();
 
-      userEvent.type(await urlField(), 'www.atlassian.com');
+      await user.type(await urlField(), 'www.atlassian.com');
       spy.mockClear();
       fireEvent.submit(await urlField());
 
@@ -288,9 +292,9 @@ describe('LinkPicker analytics', () => {
         url: 'https://google.com',
       });
 
-      userEvent.type(await urlField(), 'https://www.atlassian.com');
+      await user.type(await urlField(), 'https://www.atlassian.com');
       spy.mockClear();
-      userEvent.tab();
+      await user.tab();
 
       expect(spy).toBeFiredWithAnalyticEventOnce({
         payload: {
@@ -314,10 +318,10 @@ describe('LinkPicker analytics', () => {
         url: 'https://google.com',
       });
 
-      userEvent.clear(await urlField());
-      userEvent.keyboard('https://www.atlassian.com');
-      userEvent.tab();
-      userEvent.keyboard('https://google.com');
+      await user.clear(await urlField());
+      await user.keyboard('https://www.atlassian.com');
+      await user.tab();
+      await user.keyboard('https://google.com');
 
       expect(spy).not.toBeFiredWithAnalyticEventOnce({
         payload: {
@@ -333,14 +337,14 @@ describe('LinkPicker analytics', () => {
       const { spy } = setupLinkPicker();
 
       // Tab to displayText field
-      userEvent.tab();
+      await user.tab();
       spy.mockClear();
-      userEvent.type(
+      await user.type(
         screen.getByTestId(testIds.textInputField),
         'Custom Display Text',
       );
       // Blur display text
-      userEvent.tab();
+      await user.tab();
 
       expect(spy).toBeFiredWithAnalyticEventOnce({
         payload: {
@@ -373,7 +377,7 @@ describe('LinkPicker analytics', () => {
       });
 
       // Tab to clear button
-      userEvent.tab();
+      await user.tab();
 
       expect(spy).toBeFiredWithAnalyticEventOnce({
         payload: {
@@ -394,7 +398,7 @@ describe('LinkPicker analytics', () => {
       spy.mockClear();
 
       // Tab to displayText field
-      userEvent.tab();
+      await user.tab();
 
       fireEvent.input(await screen.findByTestId(testIds.textInputField), {
         inputType: 'insertFromPaste',
@@ -402,7 +406,7 @@ describe('LinkPicker analytics', () => {
       });
 
       // Blur display text
-      userEvent.tab();
+      await user.tab();
 
       expect(spy).toBeFiredWithAnalyticEventOnce({
         payload: {
@@ -432,7 +436,7 @@ describe('LinkPicker analytics', () => {
     it('should track the url field value as `url` when submitting by clicking a result', async () => {
       const { spy } = setupWithPlugins();
 
-      userEvent.click(
+      await user.click(
         (await screen.findAllByTestId(testIds.searchResultItem))[0],
       );
 
@@ -470,10 +474,12 @@ describe('LinkPicker analytics', () => {
     it('should track the url field value as `url` when submitting by using typeahead/autocomplete (keydown pressing) and pressing enter', async () => {
       const { spy, urlField } = setupWithPlugins();
 
-      expect(await urlField()).toHaveFocus();
+      const urlFieldElement = await urlField();
+
+      expect(urlFieldElement).toHaveFocus();
       spy.mockClear();
-      userEvent.keyboard('{arrowdown}');
-      userEvent.keyboard('{enter}');
+      await user.keyboard('{arrowdown}');
+      await user.keyboard('{enter}');
 
       // Should not have fired a text field update
       expect(spy).not.toBeFiredWithAnalyticEventOnce({
@@ -504,6 +510,10 @@ describe('LinkPicker analytics', () => {
     });
 
     describe('linkFieldContentInputSource', () => {
+      let user: ReturnType<typeof userEvent.setup>;
+      beforeEach(() => {
+        user = userEvent.setup();
+      });
       it('should be provided by the item if both item and plugin provide `meta.source`', async () => {
         const { spy, urlField } = setupWithPlugins({
           plugins: [
@@ -531,8 +541,8 @@ describe('LinkPicker analytics', () => {
         expect(await screen.findByTestId(testIds.searchResultItem));
 
         spy.mockClear();
-        userEvent.keyboard('{arrowdown}');
-        userEvent.keyboard('{enter}');
+        await user.keyboard('{arrowdown}');
+        await user.keyboard('{enter}');
 
         // Should have tracked `linkFieldContentInputSource` and input method as searchResult
         expect(spy).toBeFiredWithAnalyticEventOnce({
@@ -572,8 +582,8 @@ describe('LinkPicker analytics', () => {
         expect(await screen.findByTestId(testIds.searchResultItem));
 
         spy.mockClear();
-        userEvent.keyboard('{arrowdown}');
-        userEvent.keyboard('{enter}');
+        await user.keyboard('{arrowdown}');
+        await user.keyboard('{enter}');
 
         // Should have tracked `linkFieldContentInputSource` and input method as searchResult
         expect(spy).toBeFiredWithAnalyticEventOnce({
@@ -611,8 +621,8 @@ describe('LinkPicker analytics', () => {
         expect(await screen.findByTestId(testIds.searchResultItem));
 
         spy.mockClear();
-        userEvent.keyboard('{arrowdown}');
-        userEvent.keyboard('{enter}');
+        await user.keyboard('{arrowdown}');
+        await user.keyboard('{enter}');
 
         // Should have set the input method back to manual, and unset the input source
         expect(spy).toBeFiredWithAnalyticEventOnce({
@@ -652,9 +662,9 @@ describe('LinkPicker analytics', () => {
         expect(await screen.findByTestId(testIds.searchResultItem));
 
         spy.mockClear();
-        userEvent.keyboard('{arrowdown}');
-        userEvent.keyboard('{backspace}');
-        userEvent.keyboard('{enter}');
+        await user.keyboard('{arrowdown}');
+        await user.keyboard('{backspace}');
+        await user.keyboard('{enter}');
 
         // Should have set the input method back to manual, and unset the input source
         expect(spy).toBeFiredWithAnalyticEventOnce({

@@ -43,6 +43,9 @@ export default function getMockProfileClient(
   }
 
   class MockTeamCentralClient extends TeamCentralCardClient {
+    createTcReadyPromise(config: ProfileClientOptions): Promise<boolean> {
+      return Promise.resolve(true);
+    }
     makeRequest(userId: string) {
       const timeout = random(1500) + 500;
       const matchError = userId.match(/^error:([0-9a-zA-Z\-]+)$/);

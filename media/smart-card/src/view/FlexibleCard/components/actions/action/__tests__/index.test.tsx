@@ -8,6 +8,12 @@ import { SmartLinkSize } from '../../../../../../constants';
 import TestIcon from '@atlaskit/icon/glyph/activity';
 
 describe('Action', () => {
+  let user: ReturnType<typeof userEvent.setup>;
+
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
+
   const testId = 'smart-action';
 
   it('renders action', async () => {
@@ -50,7 +56,7 @@ describe('Action', () => {
       expect(element).toBeTruthy();
       expect(element.textContent).toBe('spaghetti');
 
-      userEvent.click(element);
+      await user.click(element);
       expect(mockOnClick).toHaveBeenCalled();
     });
 
@@ -108,7 +114,7 @@ describe('Action', () => {
       );
 
       const element = await findByTestId(testId);
-      userEvent.click(element);
+      await user.click(element);
 
       expect(actionOnClick).toHaveBeenCalledTimes(1);
       expect(containerOnClick).not.toHaveBeenCalled();
@@ -140,7 +146,7 @@ describe('Action', () => {
       expect(element).toBeTruthy();
       expect(element.textContent).toBe(text);
 
-      userEvent.click(element);
+      await user.click(element);
       expect(onClick).toHaveBeenCalled();
     });
 
@@ -159,7 +165,7 @@ describe('Action', () => {
       );
 
       const element = await findByTestId(testId);
-      userEvent.click(element);
+      await user.click(element);
 
       expect(actionOnClick).toHaveBeenCalledTimes(1);
       expect(containerOnClick).not.toHaveBeenCalled();

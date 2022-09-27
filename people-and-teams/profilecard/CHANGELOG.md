@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 17.2.0
+
+### Minor Changes
+
+- [`7f54d783d6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f54d783d6e) - Add mock for team central client workspace check
+
 ## 17.1.1
 
 ### Patch Changes

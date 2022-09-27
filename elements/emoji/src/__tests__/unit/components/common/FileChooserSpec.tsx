@@ -5,6 +5,10 @@ import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 
 describe('File Chooser', () => {
+  let user: ReturnType<typeof userEvent.setup>;
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
   it('is displayed to the user', async () => {
     await render(<FileChooser label="click to upload" />);
     expect(await screen.findByText('click to upload')).toBeInTheDocument();
@@ -23,7 +27,7 @@ describe('File Chooser', () => {
     const filePickerOpenButton = await screen.findByRole('button');
     expect(filePickerOpenButton).toHaveAttribute('disabled');
 
-    userEvent.click(filePickerOpenButton);
+    await user.click(filePickerOpenButton);
 
     expect(onFileDialogOpen).not.toHaveBeenCalled();
   });
@@ -35,7 +39,7 @@ describe('File Chooser', () => {
     );
 
     const filePickerOpenButton = await screen.findByRole('button');
-    userEvent.click(filePickerOpenButton);
+    await user.click(filePickerOpenButton);
     expect(onFileDialogOpen).toHaveBeenCalled();
   });
 });

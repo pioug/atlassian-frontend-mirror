@@ -48,7 +48,7 @@ test('should ssr then hydrate inline-dialog correctly', async () => {
       ([f, s]: [string, string]) =>
         !(
           (f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
             s === 'style') ||
           f.includes(
             'Warning: An update to %s inside a test was not wrapped in act',

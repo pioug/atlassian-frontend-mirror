@@ -2,11 +2,12 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 
+import __noop from '@atlaskit/ds-lib/noop';
 import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
 declare var global: any;
 
-jest.spyOn(global.console, 'error').mockImplementation(() => {});
+jest.spyOn(global.console, 'error').mockImplementation(__noop);
 
 afterEach(() => {
   jest.resetAllMocks();
@@ -27,7 +28,7 @@ test('should ssr then hydrate range correctly', async () => {
     ([f, s]: [string, string]) =>
       !(
         f ===
-          'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+          'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
         s === 'style'
       ),
   );

@@ -47,7 +47,7 @@
     "@atlassiansox/analytics-web-client": "^4.7.0",
     "@storybook/addon-knobs": "^5.3.18",
     "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^1.1.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@welldone-software/why-did-you-render": "^6.2.0",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",

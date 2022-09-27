@@ -13,7 +13,8 @@ import { GroupOption } from '../../../components/GroupOption/main';
 import { Email, Team, User, Group, ExternalUser } from '../../../types';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
 
-describe('Option', () => {
+// https://product-fabric.atlassian.net/browse/UR-3963
+describe.skip('Option', () => {
   const selectProps: any = {};
 
   // assigning props as any to avoid nooping all react-select Option props.

@@ -144,7 +144,8 @@ describe('<Rating />', () => {
     expect(getByTestId('item--label').style.transform).toEqual('scale(1.2)');
   });
 
-  it('should set a tooltip on the label', () => {
+  // https://ecosystem.atlassian.net/browse/OWL-1282
+  it.skip('should set a tooltip on the label', () => {
     jest.useFakeTimers();
     const { getByTestId } = render(
       <Rating

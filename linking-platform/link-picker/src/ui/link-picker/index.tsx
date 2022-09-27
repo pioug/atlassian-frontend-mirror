@@ -264,22 +264,22 @@ function LinkPicker({
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
-      const { keyCode } = event;
-      const KEY_CODE_ARROW_DOWN = 40;
-      const KEY_CODE_ARROW_UP = 38;
+      const { key } = event;
+      const KEY_ARROW_DOWN = 'ArrowDown';
+      const KEY_ARROW_UP = 'ArrowUp';
 
       if (!items || !items.length) {
         return;
       }
 
       let updatedIndex = activeIndex;
-      switch (keyCode) {
-        case KEY_CODE_ARROW_DOWN: // down
+      switch (key) {
+        case KEY_ARROW_DOWN: // down
           event.preventDefault();
           updatedIndex = (activeIndex + 1) % items.length;
           break;
 
-        case KEY_CODE_ARROW_UP: // up
+        case KEY_ARROW_UP: // up
           event.preventDefault();
           updatedIndex = activeIndex > 0 ? activeIndex - 1 : items.length - 1;
           break;
@@ -287,7 +287,7 @@ function LinkPicker({
 
       const item = items[updatedIndex];
 
-      if ([KEY_CODE_ARROW_DOWN, KEY_CODE_ARROW_UP].includes(keyCode) && item) {
+      if ([KEY_ARROW_DOWN, KEY_ARROW_UP].includes(key) && item) {
         /**
          * Manually track that the url has been updated using searchResult method
          */

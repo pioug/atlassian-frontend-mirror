@@ -23,7 +23,7 @@ test.skip('should ssr then hydrate tree correctly', async () => {
       ([f, s]) =>
         !(
           f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
           s === 'style'
         ),
     );

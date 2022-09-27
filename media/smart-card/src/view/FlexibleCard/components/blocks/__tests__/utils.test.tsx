@@ -272,6 +272,7 @@ describe('renderActionItems', () => {
   );
 
   it('calls onActionItemClick and onClick when action is clicked', async () => {
+    const user = userEvent.setup();
     const onActionItemClick = jest.fn();
     const onClick = jest.fn();
     const { findByTestId } = render(
@@ -289,7 +290,7 @@ describe('renderActionItems', () => {
     );
 
     const action = await findByTestId(testId);
-    userEvent.click(action);
+    await user.click(action);
 
     expect(onActionItemClick).toHaveBeenCalled();
     expect(onClick).toHaveBeenCalled();

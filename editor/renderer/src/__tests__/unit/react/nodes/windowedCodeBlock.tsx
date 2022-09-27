@@ -78,7 +78,8 @@ describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
   });
 
   describe('when in viewport', () => {
-    it('should initially render LightWeightCodeBlock and eventually render AkCodeBlock', async () => {
+    // https://product-fabric.atlassian.net/browse/ED-15729
+    it.skip('should initially render LightWeightCodeBlock and eventually render AkCodeBlock', async () => {
       act(() => {
         ({ cleanup } = render());
       });
@@ -108,7 +109,8 @@ describe('Renderer - React/Nodes/WindowedCodeBlock', () => {
   });
 
   describe("when transitioning from 'not in viewport' to 'in viewport'", () => {
-    it('should initially render LightWeightCodeBlock and eventually render AkCodeBlock', async () => {
+    // https://product-fabric.atlassian.net/browse/ED-15729
+    it.skip('should initially render LightWeightCodeBlock and eventually render AkCodeBlock', async () => {
       act(() => {
         ({ cleanup } = render());
       });

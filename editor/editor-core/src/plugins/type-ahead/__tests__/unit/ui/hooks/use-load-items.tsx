@@ -32,6 +32,22 @@ describe('Hooks: useLoadItems', () => {
       title: 'Jupiter',
     },
   ];
+  /**
+   * We had to mock the global queueMicrotask because queueMicrotask has an error about isn't defined.
+   * Here Although we are not checking any things for queueMicrotask,
+   * we have an error since the hook does include the queueMicrotask
+   */
+  let queueMicrotaskOriginal: typeof global.queueMicrotask;
+
+  beforeAll(() => {
+    queueMicrotaskOriginal = global.queueMicrotask;
+    global.queueMicrotask = () => {};
+  });
+
+  afterAll(() => {
+    global.queueMicrotask = queueMicrotaskOriginal;
+  });
+
   let triggerHandler: TypeAheadHandler;
   beforeEach(() => {
     triggerHandler = {

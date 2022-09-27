@@ -56,6 +56,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
       });
 
       it('should call the supplied onClick when button is clicked', async () => {
+        const user = userEvent.setup();
         const mockOnClick = jest.fn();
         const { getByTestId } = render(
           <IntlProvider locale="en">
@@ -69,7 +70,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
 
         const element = await waitFor(() => getByTestId(testId));
 
-        userEvent.click(element);
+        await user.click(element);
         expect(mockOnClick).toHaveBeenCalled();
       });
     });

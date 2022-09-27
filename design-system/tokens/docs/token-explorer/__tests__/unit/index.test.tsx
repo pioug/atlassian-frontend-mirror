@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { waitFor } from '@testing-library/dom';
-import { act, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import TokenExplorer from '../../index';
@@ -23,6 +23,12 @@ const FUSE_JS_WAIT_TIME = 5000;
 const TokenExplorerTest = <TokenExplorer testId={TEST_ID} />;
 
 describe('Token explorer', () => {
+  let user: ReturnType<typeof userEvent.setup>;
+
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
+
   it('should render', () => {
     const { getByTestId } = render(TokenExplorerTest);
     const tokenExplorer = getByTestId(TEST_ID);
@@ -45,10 +51,13 @@ describe('Token explorer', () => {
 
   describe('search', () => {
     it('should render tokens in a single list', async () => {
+      user = userEvent.setup({
+        delay: 100,
+      });
       const { getByTestId, getAllByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
-      await userEvent.type(search, 'color.text', { delay: 100 });
+      await user.type(search, 'color.text');
 
       // Should only be 1 token list
       const tokenList = getByTestId(TEST_ID_LIST);
@@ -59,13 +68,14 @@ describe('Token explorer', () => {
     });
 
     xit('should filter tokens by matching name', async () => {
+      user = userEvent.setup({
+        delay: 100,
+      });
       const { getByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
 
-      act(() => {
-        userEvent.type(search, 'color.text', { delay: 100 });
-      });
+      await user.type(search, 'color.text');
 
       const matchingTokenItem = await waitFor(
         () => getByTestId(`${TEST_ID_ITEM_NAME_PREFIX}color.text.[default]`),
@@ -76,15 +86,16 @@ describe('Token explorer', () => {
     });
 
     xit('should filter tokens by matching exact name', async () => {
+      user = userEvent.setup({
+        delay: 100,
+      });
       const { getByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
       const exactCheckbox = getByTestId(TEST_ID_EXACT_CHECKBOX);
 
-      act(async () => {
-        await userEvent.type(search, 'color.text.brand', { delay: 100 });
-        userEvent.click(exactCheckbox);
-      });
+      await user.type(search, 'color.text.brand');
+      await user.click(exactCheckbox);
 
       const matchingTokenItem = await waitFor(
         () => getByTestId(`${TEST_ID_ITEM_NAME_PREFIX}color.text.brand`),
@@ -99,9 +110,7 @@ describe('Token explorer', () => {
 
       const search = getByTestId(TEST_ID_SEARCH);
 
-      act(() => {
-        userEvent.type(search, 'N0');
-      });
+      await user.type(search, 'N0');
 
       const matchingTokenItem = await waitFor(() => getAllByText('N0'), {
         timeout: FUSE_JS_WAIT_TIME,
@@ -111,15 +120,14 @@ describe('Token explorer', () => {
     });
 
     xit('should filter tokens by matching exact value', async () => {
+      user = userEvent.setup({ delay: 100 });
       const { getByTestId, getAllByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
       const exactCheckbox = getByTestId(TEST_ID_EXACT_CHECKBOX);
 
-      act(async () => {
-        await userEvent.type(search, 'N0', { delay: 100 });
-        userEvent.click(exactCheckbox);
-      });
+      await user.type(search, 'N0');
+      await user.click(exactCheckbox);
 
       const matchingTokenItem = await waitFor(
         () => getAllByTestId(`${TEST_ID_ITEM_VALUE_PREFIX}N0`),
@@ -146,24 +154,18 @@ describe('Token explorer', () => {
       expect(filters).toBeInTheDocument();
 
       // Open filter dropdown
-      act(() => {
-        userEvent.click(filters);
-      });
+      await user.click(filters);
 
       // Remove 'active' state from filter
       const filtersActive = getByTestId(TEST_ID_FILTERS_ACTIVE);
-      act(() => {
-        userEvent.click(filtersActive);
-      });
+      await user.click(filtersActive);
 
       // Token item should be filtered out of results
       expect(tokenItem[0]).not.toBeInTheDocument();
 
       // Select 'deleted' state from filter
       const filtersDeleted = getByTestId(TEST_ID_FILTERS_DELETED);
-      act(() => {
-        userEvent.click(filtersDeleted);
-      });
+      await user.click(filtersDeleted);
 
       // Token item should remain filtered out of results
       expect(tokenItem[0]).not.toBeInTheDocument();

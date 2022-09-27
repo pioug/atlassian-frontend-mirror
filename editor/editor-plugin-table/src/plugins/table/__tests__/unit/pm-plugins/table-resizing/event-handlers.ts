@@ -23,6 +23,7 @@ import tablePlugin from '../../../../../table';
 import { pluginKey } from '../../../../pm-plugins/plugin-key';
 import { TextSelection, NodeSelection } from 'prosemirror-state';
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
+import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('table-resizing/event-handlers', () => {
@@ -44,6 +45,7 @@ describe('table-resizing/event-handlers', () => {
               editorAnalyticsAPI: editorAnalyticsAPIFake,
             },
           ])
+          .add(widthPlugin)
           .add(panelPlugin),
         pluginKey,
       });

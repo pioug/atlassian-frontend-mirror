@@ -239,6 +239,7 @@ describe('LinkToolbarAppearance', () => {
     });
 
     it('should switch from `inline` to `block` appearance in the existing position on appearance change', async () => {
+      const user = userEvent.setup();
       mockPreview('some-url-preview');
 
       const { editorView } = setup({
@@ -248,7 +249,7 @@ describe('LinkToolbarAppearance', () => {
       });
 
       const cardButton = queryForButtonByLabel('Card');
-      userEvent.click(cardButton!);
+      await user.click(cardButton!);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(panel()(p(), blockCard(defaultCardAttributes)())),
@@ -256,6 +257,7 @@ describe('LinkToolbarAppearance', () => {
     });
 
     it('should switch from smart card into `hyperlink` when clicking on the `URL` button', async () => {
+      const user = userEvent.setup();
       mockPreview('some-url-preview');
 
       const url = 'some-url';
@@ -266,7 +268,7 @@ describe('LinkToolbarAppearance', () => {
       });
 
       const button = queryForButtonByLabel('URL');
-      userEvent.click(button!);
+      await user.click(button!);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(panel()(p(a({ href: url })(url)))),

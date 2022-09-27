@@ -1,3 +1,4 @@
+import __noop from '@atlaskit/ds-lib/noop';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -8,7 +9,7 @@ type File = {
   filePath: string;
 };
 
-jest.spyOn(global.console, 'error').mockImplementation(() => {});
+jest.spyOn(global.console, 'error').mockImplementation(__noop);
 
 afterEach(() => {
   jest.resetAllMocks();
@@ -33,7 +34,7 @@ test('should ssr then hydrate icon correctly', async () => {
       ([f, s]) =>
         !(
           f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
           s === 'style'
         ),
     );

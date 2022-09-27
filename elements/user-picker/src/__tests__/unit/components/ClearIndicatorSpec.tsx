@@ -53,7 +53,8 @@ describe('ClearIndicator', () => {
     expect(stopPropagation).toHaveBeenCalledTimes(0);
   });
 
-  it('should pass in clearValueLabel to tooltip', async () => {
+  // https://product-fabric.atlassian.net/browse/UR-3963
+  it.skip('should pass in clearValueLabel to tooltip', async () => {
     const component = renderClearIndicator({
       selectProps: { clearValueLabel: 'test' },
     });

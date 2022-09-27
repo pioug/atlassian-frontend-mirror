@@ -26,7 +26,7 @@ test('should ssr then hydrate flag correctly', async () => {
     ([f, s]: [any, any]) =>
       !(
         f ===
-          'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+          'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
         s === 'style'
       ),
   );

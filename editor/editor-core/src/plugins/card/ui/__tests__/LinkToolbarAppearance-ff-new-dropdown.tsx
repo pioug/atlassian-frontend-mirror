@@ -1,19 +1,19 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { screen, fireEvent } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/dom';
 
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import {
-  doc,
-  p,
-  inlineCard,
-  blockCard,
-  ul,
-  li,
   a,
-  panel,
+  blockCard,
+  doc,
   DocBuilder,
+  inlineCard,
+  li,
+  p,
+  panel,
+  ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
@@ -32,6 +32,7 @@ import userEvent from '@testing-library/user-event';
 
 describe('LinkToolbarAppearance', () => {
   const createEditor = createEditorFactory();
+  let user: ReturnType<typeof userEvent.setup>;
 
   const editor = (doc: DocBuilder) => {
     return createEditor({
@@ -93,29 +94,30 @@ describe('LinkToolbarAppearance', () => {
     });
   };
 
-  const clickDropdownTrigger = () => {
+  const clickDropdownTrigger = async () => {
     const dropdownButton = screen.queryByTestId(
       'link-toolbar-appearance-button',
     );
-    userEvent.click(dropdownButton!);
+    await user.click(dropdownButton!);
   };
 
   beforeEach(() => {
     mockPreview();
     mockCardContextState();
+    user = userEvent.setup();
   });
 
   describe('when featureFlag `viewChangingExperimentToolbarStyle` is `newDropdown`', () => {
-    it('should render default options', () => {
+    it('should render default options', async () => {
       setup();
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       expect(queryForButtonByLabel('URL')).toBeTruthy();
       expect(queryForButtonByLabel('Inline')).toBeTruthy();
       expect(queryForButtonByLabel('Card')).toBeTruthy();
       expect(queryForButtonByLabel('Embed')).toBeNull();
     });
 
-    it('should render `Embed` option when available', () => {
+    it('should render `Embed` option when available', async () => {
       mockPreview('some-url-preview');
 
       setup({
@@ -123,24 +125,24 @@ describe('LinkToolbarAppearance', () => {
         platform: 'web',
       });
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       expect(queryForButtonByLabel('URL')).toBeTruthy();
       expect(queryForButtonByLabel('Inline')).toBeTruthy();
       expect(queryForButtonByLabel('Card')).toBeTruthy();
       expect(queryForButtonByLabel('Embed')).toBeTruthy();
     });
 
-    it('should not render `Embed` option by default', () => {
+    it('should not render `Embed` option by default', async () => {
       setup();
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       expect(queryForButtonByLabel('URL')).toBeTruthy();
       expect(queryForButtonByLabel('Inline')).toBeTruthy();
       expect(queryForButtonByLabel('Card')).toBeTruthy();
       expect(queryForButtonByLabel('Embed')).toBeNull();
     });
 
-    it('when `currentApperance` is `undefined`, only renders URL button as selected', () => {
+    it('when `currentApperance` is `undefined`, only renders URL button as selected', async () => {
       mockPreview('some-url-preview');
 
       setup({
@@ -149,7 +151,7 @@ describe('LinkToolbarAppearance', () => {
         platform: 'web',
       });
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       expect(queryForButtonByLabel('URL')).toHaveAttribute(
         'aria-selected',
         'true',
@@ -168,7 +170,7 @@ describe('LinkToolbarAppearance', () => {
       );
     });
 
-    it('when `currentApperance` is `inline`, only renders Inline button as selected', () => {
+    it('when `currentApperance` is `inline`, only renders Inline button as selected', async () => {
       mockPreview('some-url-preview');
 
       setup({
@@ -177,7 +179,7 @@ describe('LinkToolbarAppearance', () => {
         platform: 'web',
       });
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       expect(queryForButtonByLabel('URL')).toHaveAttribute(
         'aria-selected',
         'false',
@@ -196,7 +198,7 @@ describe('LinkToolbarAppearance', () => {
       );
     });
 
-    it('when `currentApperance` is `block`, only renders Card button as selected', () => {
+    it('when `currentApperance` is `block`, only renders Card button as selected', async () => {
       mockPreview('some-url-preview');
 
       setup({
@@ -205,7 +207,7 @@ describe('LinkToolbarAppearance', () => {
         platform: 'web',
       });
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       expect(queryForButtonByLabel('URL')).toHaveAttribute(
         'aria-selected',
         'false',
@@ -224,7 +226,7 @@ describe('LinkToolbarAppearance', () => {
       );
     });
 
-    it('when `currentApperance` is `embed`, only renders Embed button as selected', () => {
+    it('when `currentApperance` is `embed`, only renders Embed button as selected', async () => {
       mockPreview('some-url-preview');
 
       setup({
@@ -233,7 +235,7 @@ describe('LinkToolbarAppearance', () => {
         platform: 'web',
       });
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       expect(queryForButtonByLabel('URL')).toHaveAttribute(
         'aria-selected',
         'false',
@@ -261,9 +263,9 @@ describe('LinkToolbarAppearance', () => {
         platform: 'web',
       });
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       const cardButton = queryForButtonByLabel('Card');
-      userEvent.click(cardButton!);
+      await user.click(cardButton!);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(panel()(p(), blockCard(defaultCardAttributes)())),
@@ -280,9 +282,9 @@ describe('LinkToolbarAppearance', () => {
         currentAppearance: 'inline',
       });
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       const button = queryForButtonByLabel('URL');
-      userEvent.click(button!);
+      await user.click(button!);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(panel()(p(a({ href: url })(url)))),
@@ -313,7 +315,7 @@ describe('LinkToolbarAppearance', () => {
       expect(dropdownButton).toBeNull();
     });
 
-    it('should disable appearance button if its not supported in the parent', () => {
+    it('should disable appearance button if its not supported in the parent', async () => {
       mockPreview('some-url-preview');
 
       setup(
@@ -325,7 +327,7 @@ describe('LinkToolbarAppearance', () => {
         [ul(li(p('{<node>}', inlineCard(defaultCardAttributes)())))],
       );
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
       expect(queryForButtonByLabel('URL')).toHaveAttribute(
         'aria-disabled',
         'false',
@@ -344,7 +346,7 @@ describe('LinkToolbarAppearance', () => {
       );
     });
 
-    it('should be able to select a dropdown option with enter key', () => {
+    it('should be able to select a dropdown option with enter key', async () => {
       const url = 'some-url';
 
       const { editorView } = setup({
@@ -352,11 +354,11 @@ describe('LinkToolbarAppearance', () => {
         currentAppearance: 'inline',
       });
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
 
       // Floating toolbar dropdown trigger does not receive focus by default.
       screen.queryByTestId('link-toolbar-appearance-button')?.focus();
-      userEvent.tab();
+      await user.tab();
       const urlButton = queryForButtonByLabel('URL');
       expect(urlButton).toHaveFocus();
       fireEvent.keyDown(urlButton!, {
@@ -369,7 +371,7 @@ describe('LinkToolbarAppearance', () => {
       );
     });
 
-    it('should not be able to select a disabled dropdown option with enter key', () => {
+    it('should not be able to select a disabled dropdown option with enter key', async () => {
       mockPreview('some-url-preview');
 
       const { editorView } = setup(
@@ -381,14 +383,14 @@ describe('LinkToolbarAppearance', () => {
         [ul(li(p('{<node>}', inlineCard(defaultCardAttributes)())))],
       );
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
 
       // Floating toolbar dropdown trigger does not receive focus by default.
       screen.queryByTestId('link-toolbar-appearance-button')?.focus();
       const cardButton = queryForButtonByLabel('Card');
-      userEvent.tab();
-      userEvent.tab(); // :)
-      userEvent.tab();
+      await user.tab();
+      await user.tab(); // :)
+      await user.tab();
       expect(cardButton).toHaveFocus();
       fireEvent.keyDown(cardButton!, {
         key: 'Enter',
@@ -402,7 +404,7 @@ describe('LinkToolbarAppearance', () => {
       );
     });
 
-    it('should be able to select a dropdown option with spacebar', () => {
+    it('should be able to select a dropdown option with spacebar', async () => {
       const url = 'some-url';
 
       const { editorView } = setup({
@@ -410,11 +412,11 @@ describe('LinkToolbarAppearance', () => {
         currentAppearance: 'inline',
       });
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
 
       // Floating toolbar dropdown trigger does not receive focus by default
       screen.queryByTestId('link-toolbar-appearance-button')?.focus();
-      userEvent.tab();
+      await user.tab();
       const urlButton = queryForButtonByLabel('URL');
       expect(urlButton).toHaveFocus();
       fireEvent.keyDown(urlButton!, {
@@ -427,7 +429,7 @@ describe('LinkToolbarAppearance', () => {
       );
     });
 
-    it('should not be able to select a disabled dropdown option with spacebar', () => {
+    it('should not be able to select a disabled dropdown option with spacebar', async () => {
       mockPreview('some-url-preview');
 
       const { editorView } = setup(
@@ -439,14 +441,14 @@ describe('LinkToolbarAppearance', () => {
         [ul(li(p('{<node>}', inlineCard(defaultCardAttributes)())))],
       );
 
-      clickDropdownTrigger();
+      await clickDropdownTrigger();
 
       // Floating toolbar dropdown trigger does not receive focus by default.
       screen.queryByTestId('link-toolbar-appearance-button')?.focus();
       const cardButton = queryForButtonByLabel('Card');
-      userEvent.tab();
-      userEvent.tab(); // :)
-      userEvent.tab();
+      await user.tab();
+      await user.tab(); // :)
+      await user.tab();
       expect(cardButton).toHaveFocus();
       fireEvent.keyDown(cardButton!, {
         key: 'Space',

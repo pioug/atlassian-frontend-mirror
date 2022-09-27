@@ -38,6 +38,12 @@ const props = {
 };
 
 describe('<EmojiActions />', () => {
+  let user: ReturnType<typeof userEvent.setup>;
+
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
+
   describe('tone', () => {
     it('should display tone selector after clicking on the tone button', async () => {
       await renderWithIntl(
@@ -49,7 +55,7 @@ describe('<EmojiActions />', () => {
         'Select skin tone',
         { exact: false },
       );
-      userEvent.click(toneSelectorButton);
+      await user.click(toneSelectorButton);
       expect(
         await screen.findByLabelText('Select skin tone', { exact: false }),
       ).toHaveAttribute('aria-expanded', 'true');
@@ -89,16 +95,16 @@ describe('<EmojiActions />', () => {
         'Select skin tone',
         { exact: false },
       );
-      userEvent.click(toneSelectorButton);
+      await user.click(toneSelectorButton);
       expect(
         await screen.findByLabelText('Select skin tone', { exact: false }),
       ).toHaveAttribute('aria-expanded', 'true');
 
       // Click a Different Tone
-      const toneSelectorToneOption = await screen.findByTestId(
-        'image-emoji-:raised_back_of_hand-2:',
+      const toneSelectorToneOption = await screen.findByLabelText(
+        ':raised_back_of_hand-2:',
       );
-      userEvent.click(toneSelectorToneOption);
+      fireEvent.mouseDown(toneSelectorToneOption);
 
       // Automatically close tone ui
       expect(
@@ -106,7 +112,8 @@ describe('<EmojiActions />', () => {
       ).toHaveAttribute('aria-expanded', 'false');
 
       // Validate the correct tone id was selected
-      expect(props.onToneSelected).toBeCalledWith(2);
+      expect(props.onToneSelected).toHaveBeenCalled();
+      expect(props.onToneSelected).toHaveBeenCalledWith(2);
     });
 
     it('should stop selecting tone on mouse leave', async () => {
@@ -119,7 +126,7 @@ describe('<EmojiActions />', () => {
         'Select skin tone',
         { exact: false },
       );
-      userEvent.click(toneSelectorButton);
+      await user.click(toneSelectorButton);
       expect(
         await screen.findByLabelText('Select skin tone', { exact: false }),
       ).toHaveAttribute('aria-expanded', 'true');
@@ -183,7 +190,7 @@ describe('<EmojiActions />', () => {
         'Select skin tone',
         { exact: false },
       );
-      userEvent.click(toneSelectorButton);
+      await user.click(toneSelectorButton);
       expect(
         await screen.findByLabelText('Select skin tone', { exact: false }),
       ).toHaveAttribute('aria-expanded', 'true');
@@ -202,7 +209,7 @@ describe('<EmojiActions />', () => {
         'Select skin tone',
         { exact: false },
       );
-      userEvent.click(toneSelectorButton);
+      await user.click(toneSelectorButton);
       expect(
         await screen.findByLabelText('Select skin tone', { exact: false }),
       ).toHaveAttribute('aria-expanded', 'true');

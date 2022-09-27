@@ -31,7 +31,7 @@ test('should ssr then hydrate modal-dialog correctly', async () => {
       ([f, s]: [string, string]) =>
         !(
           f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
           s === 'style'
         ),
     );

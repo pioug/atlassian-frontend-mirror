@@ -3,10 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import waitForExpect from 'wait-for-expect';
 
+import __noop from '@atlaskit/ds-lib/noop';
 import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
 beforeEach(() => {
-  jest.spyOn(global.console, 'error').mockImplementation(() => {});
+  jest.spyOn(global.console, 'error').mockImplementation(__noop);
   jest.setTimeout(10000);
 });
 
@@ -31,7 +32,7 @@ test.skip('should ssr then hydrate drawer popup', async () => {
       ([f, s]) =>
         !(
           f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.' &&
+            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
           s === 'style'
         ),
     );

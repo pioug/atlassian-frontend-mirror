@@ -36,6 +36,11 @@ describe('TitleBlock', () => {
       </IntlProvider>,
     );
   };
+  let user: ReturnType<typeof userEvent.setup>;
+
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
 
   it('renders block', async () => {
     const { findByTestId } = renderTitleBlock();
@@ -142,7 +147,7 @@ describe('TitleBlock', () => {
       expect(queryByTestId(`smart-element-test-1`)).toBeNull();
       expect(queryByTestId(`smart-element-test-2`)).toBeNull();
 
-      userEvent.click(moreButton);
+      await user.click(moreButton);
 
       for (let i = 0; i < 2; i++) {
         const element = await findByTestId(`smart-element-test-${i + 1}`);
@@ -174,11 +179,11 @@ describe('TitleBlock', () => {
 
         // Open the action dropdown menu
         const moreButton = await findByTestId('action-group-more-button');
-        userEvent.click(moreButton);
+        await user.click(moreButton);
         expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
 
         // Close the action dropdown menu
-        userEvent.click(moreButton);
+        await user.click(moreButton);
         expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
       });
 
@@ -194,12 +199,12 @@ describe('TitleBlock', () => {
 
         // Open the action dropdown menu
         const moreButton = await findByTestId('action-group-more-button');
-        userEvent.click(moreButton);
+        await user.click(moreButton);
         expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
 
         // Click on the action button outside action dropdown menu
         const action = await findByTestId(actionTestId);
-        userEvent.click(action);
+        await user.click(action);
         expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
       });
 
@@ -215,12 +220,12 @@ describe('TitleBlock', () => {
 
         // Open the action dropdown menu
         const moreButton = await findByTestId('action-group-more-button');
-        userEvent.click(moreButton);
+        await user.click(moreButton);
         expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
 
         // Click on the action dropdown menu item
         const action = await findByTestId(actionTestId);
-        userEvent.click(action);
+        await user.click(action);
         expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
       });
 
@@ -232,12 +237,12 @@ describe('TitleBlock', () => {
 
         // Open the action dropdown menu
         const moreButton = await findByTestId('action-group-more-button');
-        userEvent.click(moreButton);
+        await user.click(moreButton);
         expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
 
         // Click on the action button outside action dropdown menu
         const title = await findByTestId(titleTestId);
-        userEvent.click(title);
+        await user.click(title);
         expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
       });
 
@@ -249,7 +254,7 @@ describe('TitleBlock', () => {
         });
 
         const action = await findByTestId(actionTestId);
-        userEvent.click(action);
+        await user.click(action);
         expect(onActionMenuOpenChange).not.toHaveBeenCalled();
       });
     });

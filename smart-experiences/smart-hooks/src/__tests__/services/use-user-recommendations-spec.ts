@@ -1,4 +1,4 @@
-import { act, HookResult, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, RenderResult } from '@testing-library/react-hooks';
 import { v4 as uuid } from 'uuid';
 
 import { createAndFireEvent } from '@atlaskit/analytics-next';
@@ -89,7 +89,7 @@ describe('useUserRecommendations hook', () => {
   });
 
   const setUpInstrumentation = (
-    result: HookResult<ReturnType<typeof useUserRecommendations>>,
+    result: RenderResult<ReturnType<typeof useUserRecommendations>>,
   ) => {
     expect(result.current.recommendations).toEqual(instrumentFailureOption);
     expect(result.current.isLoading).toEqual(false);

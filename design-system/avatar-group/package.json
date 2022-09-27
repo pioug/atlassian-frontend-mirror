@@ -43,6 +43,7 @@
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/code": "^14.3.0",
     "@atlaskit/docs": "*",
+    "@atlaskit/ds-lib": "^2.1.1",
     "@atlaskit/form": "^8.4.5",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/modal-dialog": "^12.3.0",

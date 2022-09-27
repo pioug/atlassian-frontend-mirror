@@ -15,6 +15,11 @@ import { EditorLinkPicker } from '..';
 
 describe('EditorLinkPicker', () => {
   const createEditor = createEditorFactory();
+  let user: ReturnType<typeof userEvent.setup>;
+
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
 
   it('dispatches to hide the link picker when escape is pressed', async () => {
     const { editorView } = createEditor({});
@@ -51,7 +56,7 @@ describe('EditorLinkPicker', () => {
       </div>,
     );
 
-    userEvent.click(await screen.findByTestId('outside-link-picker'));
+    await user.click(await screen.findByTestId('outside-link-picker'));
 
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch.mock.calls[0][0].getMeta(hyperlinkPluginKey)).toStrictEqual(
@@ -74,7 +79,7 @@ describe('EditorLinkPicker', () => {
       />,
     );
 
-    userEvent.click(await screen.findByRole('button', { name: /cancel/i }));
+    await user.click(await screen.findByRole('button', { name: /cancel/i }));
 
     expect(dispatch).toHaveBeenCalledTimes(2);
     expect(dispatch.mock.calls[0][0].getMeta(hyperlinkPluginKey).type).toBe(
@@ -98,7 +103,7 @@ describe('EditorLinkPicker', () => {
       />,
     );
 
-    userEvent.click(await screen.findByTestId('link-picker-insert-button'));
+    await user.click(await screen.findByTestId('link-picker-insert-button'));
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });

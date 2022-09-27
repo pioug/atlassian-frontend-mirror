@@ -71,6 +71,7 @@ describe('FooterBlock', () => {
   });
 
   it('should render provided actions', async () => {
+    const user = userEvent.setup();
     const actionItem: ActionItem = {
       testId: 'some-delete-actionItem-test-id',
       name: ActionName.DeleteAction,
@@ -90,7 +91,7 @@ describe('FooterBlock', () => {
     expect(deleteAction).toBeDefined();
     expect(deleteAction.textContent).toBe('Delete');
 
-    userEvent.click(deleteAction);
+    await user.click(deleteAction);
     expect(actionItem.onClick).toHaveBeenCalled();
   });
 

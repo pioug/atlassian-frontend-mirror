@@ -27,7 +27,7 @@
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.2.6",
+    "@atlaskit/link-provider": "^1.2.8",
     "react": "^16.8.0"
   },
   "devDependencies": {
@@ -38,7 +38,7 @@
     "@atlaskit/popup": "^1.4.0",
     "@atlaskit/smart-card": "^22.1.2",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@testing-library/react-hooks": "^1.1.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "fetch-mock": "^8.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },

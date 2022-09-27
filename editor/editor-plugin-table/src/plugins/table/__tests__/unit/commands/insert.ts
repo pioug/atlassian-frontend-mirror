@@ -41,7 +41,6 @@ describe('table plugin: insert', () => {
     preset.add([
       tablePlugin,
       {
-        getEditorContainerWidth: () => ({ width: mockBodyOffsetWidth }),
         tableOptions: {},
       },
     ]);

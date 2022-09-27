@@ -13,7 +13,7 @@ jest.mock('uuid', () => {
 });
 
 import React from 'react';
-import { render, cleanup, waitFor } from '@testing-library/react';
+import { cleanup, render, waitFor } from '@testing-library/react';
 import { CardClient } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
@@ -74,14 +74,14 @@ describe('smart-card: prefetching of content', () => {
   });
 
   it('does not prefetch URLs if they are already visible, rendering as Smart Link', async () => {
-    const { getByTestId } = render(
+    jest.useFakeTimers();
+    mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
+    const { findByTestId } = render(
       <Provider client={mockClient}>
         <Card appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const resolvedView = await waitFor(() =>
-      getByTestId('inline-card-resolved-view'),
-    );
+    const resolvedView = await findByTestId('inline-card-resolved-view');
     // In this test, only the fetch path should have been called
     // since prefetching is not meant to be triggered when a URL
     // is already in the viewport.
@@ -95,6 +95,9 @@ describe('smart-card: prefetching of content', () => {
     // - Assertions that prefetch was not called ⬇️
     expect(mockPrefetch).not.toHaveBeenCalled();
 
+    // Since there is a setTimeout in the window.IntersectionObserver, this test affected the other tests below it.
+    // So I skipped 100ms to run properly the tests.
+    jest.advanceTimersByTime(100);
     // - Assertions that we started and finished the UFO render experience in that order.
     expect(mockStartUfoExperience).toBeCalledWith(
       'smart-link-rendered',
@@ -111,6 +114,7 @@ describe('smart-card: prefetching of content', () => {
     expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(
       mockStartUfoExperience as jest.Mock,
     );
+    jest.useRealTimers();
   });
 
   it('does prefetch URLs if they are not visible, rendering as lazy rendering placeholder', async () => {
@@ -130,8 +134,10 @@ describe('smart-card: prefetching of content', () => {
     // - Assertions that fetch was not called ⬇️
     expect(mockFetch).not.toBeCalled();
     // - Assertions that prefetch was called ⬇️
-    expect(mockPrefetch).toBeCalled();
-    expect(mockPrefetch).toBeCalledTimes(1);
+    await waitFor(() => {
+      expect(mockPrefetch).toBeCalled();
+      expect(mockPrefetch).toBeCalledTimes(1);
+    });
 
     // - Assertions that UFO experience has not been started or succeeded since
     // it is not in the viewport
@@ -168,14 +174,12 @@ describe('smart-card: prefetching of content', () => {
 
   it('converts a lazy render placeholder into a Smart Link when it enters the viewPort', async () => {
     mockGetEntries.mockImplementation(() => [{ isIntersecting: false }]);
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <Provider client={mockClient}>
         <Card appearance="inline" url={mockUrl} />
       </Provider>,
     );
-    const lazyPlaceholderView = await waitFor(() =>
-      getByTestId('lazy-render-placeholder'),
-    );
+    const lazyPlaceholderView = await findByTestId('lazy-render-placeholder');
     // In this test, the prefetch path is privileged, since the URL is not
     // in the viewport. The result in the DOM should be a placeholder for the link.
     // - Assertions that we rendered the correct Smart Link ⬇️.
@@ -191,9 +195,7 @@ describe('smart-card: prefetching of content', () => {
       { isIntersecting: true },
     ]);
 
-    const resolvedView = await waitFor(() =>
-      getByTestId('inline-card-resolved-view'),
-    );
+    const resolvedView = await findByTestId('inline-card-resolved-view');
 
     expect(resolvedView).toBeTruthy();
     expect(resolvedView.textContent).toBe('I love cheese');

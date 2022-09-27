@@ -5,6 +5,12 @@ import userEvent from '@testing-library/user-event';
 import { useEscapeClickaway } from '../useEscapeClickaway';
 
 describe('useEscapeClickaway', () => {
+  let user: ReturnType<typeof userEvent.setup>;
+
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
+
   it('calls `onEscape` when escape is pressed', () => {
     const onEscape = jest.fn();
     const onClickaway = jest.fn();
@@ -36,7 +42,7 @@ describe('useEscapeClickaway', () => {
     expect(onClickaway).toHaveBeenCalledTimes(0);
   });
 
-  it('does not call `onClickaway` when the user clicks inside ref', () => {
+  it('does not call `onClickaway` when the user clicks inside ref', async () => {
     const onEscape = jest.fn();
     const onClickaway = jest.fn();
     const { result } = renderHook(() =>
@@ -48,13 +54,13 @@ describe('useEscapeClickaway', () => {
 
     const child = document.createElement('div');
     el.appendChild(child);
-    userEvent.click(child);
+    await user.click(child);
 
     expect(onEscape).toHaveBeenCalledTimes(0);
     expect(onClickaway).toHaveBeenCalledTimes(0);
   });
 
-  it('calls `onClickaway` when the user clicks on element outside the ref', () => {
+  it('calls `onClickaway` when the user clicks on element outside the ref', async () => {
     const onEscape = jest.fn();
     const onClickaway = jest.fn();
     const { result } = renderHook(() =>
@@ -66,18 +72,18 @@ describe('useEscapeClickaway', () => {
 
     expect(onClickaway).toHaveBeenCalledTimes(0);
 
-    userEvent.click(document.body);
+    await user.click(document.body);
 
     expect(onEscape).toHaveBeenCalledTimes(0);
     expect(onClickaway).toHaveBeenCalledTimes(1);
 
-    userEvent.click(document.body);
+    await user.click(document.body);
 
     expect(onEscape).toHaveBeenCalledTimes(0);
     expect(onClickaway).toHaveBeenCalledTimes(2);
   });
 
-  it('cleans up event listeners when unmounted', () => {
+  it('cleans up event listeners when unmounted', async () => {
     const onEscape = jest.fn();
     const onClickaway = jest.fn();
     const { unmount } = renderHook(() =>
@@ -87,7 +93,7 @@ describe('useEscapeClickaway', () => {
     unmount();
 
     fireEvent.keyDown(document, { key: 'Escape' });
-    userEvent.click(document.body);
+    await user.click(document.body);
 
     expect(onEscape).toHaveBeenCalledTimes(0);
     expect(onClickaway).toHaveBeenCalledTimes(0);

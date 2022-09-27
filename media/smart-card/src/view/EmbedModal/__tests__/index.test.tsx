@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import {
-  act,
   fireEvent,
   render,
   waitFor,
@@ -63,6 +62,11 @@ describe('EmbedModal', () => {
 
   const expectModalMinSize = (modal: HTMLElement) =>
     expectModalSize(modal, '800px'); // This is DS modal dialog size for 'large'
+  let user: ReturnType<typeof userEvent.setup>;
+
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
 
   it('renders embed modal', async () => {
     const { findByTestId } = renderEmbedModal();
@@ -113,9 +117,7 @@ describe('EmbedModal', () => {
       const tooltip = await findByTestId(`${testId}-close-tooltip`);
       expect(tooltip.textContent).toBe(messages.preview_close.defaultMessage);
 
-      act(() => {
-        userEvent.click(button);
-      });
+      await user.click(button);
       await waitForElementToBeRemoved(() => queryByTestId(testId));
       const modal = queryByTestId(testId);
       expect(modal).not.toBeInTheDocument();
@@ -142,9 +144,7 @@ describe('EmbedModal', () => {
       expect(maxTooltip.textContent).toBe(
         messages.preview_max_size.defaultMessage,
       );
-      act(() => {
-        userEvent.click(button);
-      });
+      await user.click(button);
       expectModalMaxSize(modal);
 
       // Resize to minimum size
@@ -162,9 +162,7 @@ describe('EmbedModal', () => {
       expect(minTooltip.textContent).toBe(
         messages.preview_min_size.defaultMessage,
       );
-      act(() => {
-        userEvent.click(button);
-      });
+      await user.click(button);
       expectModalMinSize(modal);
     });
 
@@ -217,7 +215,7 @@ describe('EmbedModal', () => {
           url: 'https://link-url',
         });
         const button = await findByTestId(`${testId}-url-button`);
-        userEvent.click(button);
+        await user.click(button);
         expect(onViewActionClick).toHaveBeenCalledTimes(1);
       });
 
@@ -275,7 +273,7 @@ describe('EmbedModal', () => {
         const tooltip = await findByTestId(`${testId}-download-tooltip`);
         expect(tooltip.textContent).toBe(messages.download.defaultMessage);
 
-        userEvent.click(button);
+        await user.click(button);
         expect(onDownloadActionClick).toHaveBeenCalledTimes(1);
       });
 
@@ -471,9 +469,7 @@ describe('EmbedModal', () => {
       });
       await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
       const button = await findByTestId(`${testId}-close-button`);
-      act(() => {
-        userEvent.click(button);
-      });
+      await user.click(button);
       await waitForElementToBeRemoved(() => queryByTestId(testId));
 
       expect(onClose).toHaveBeenCalledTimes(1);
@@ -509,9 +505,7 @@ describe('EmbedModal', () => {
       });
 
       const button = await findByTestId(`${testId}-resize-button`);
-      act(() => {
-        userEvent.click(button);
-      });
+      await user.click(button);
 
       expect(dispatchAnalytics).toHaveBeenCalledWith({
         action: 'clicked',

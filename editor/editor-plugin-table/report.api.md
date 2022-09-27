@@ -12,7 +12,6 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { TableLayout } from '@atlaskit/adf-schema';
 
@@ -81,8 +80,6 @@ interface TablePluginOptions {
   editorSelectionAPI?: EditorSelectionAPI;
   // (undocumented)
   fullWidthEnabled?: boolean;
-  // (undocumented)
-  getEditorContainerWidth?: GetEditorContainerWidth;
   // (undocumented)
   getEditorFeatureFlags?: GetEditorFeatureFlags;
   // (undocumented)

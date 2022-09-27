@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 0.0.2
+
+### Patch Changes
+
+- [`b18bb5420cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b18bb5420cb) - [ED-15731] Replace the GetEditorContainerWidth API with a workaround to grab with plugin state data
+
 ## 0.0.1
 
 ### Patch Changes

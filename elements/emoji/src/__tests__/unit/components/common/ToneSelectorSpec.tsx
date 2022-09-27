@@ -32,6 +32,10 @@ const handEmoji: EmojiDescriptionWithVariations = {
 };
 
 describe('<ToneSelector />', () => {
+  let user: ReturnType<typeof userEvent.setup>;
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
   it('should display one emoji per skin variations + default', async () => {
     await render(<ToneSelector emoji={handEmoji} onToneSelected={() => {}} />);
 
@@ -49,7 +53,7 @@ describe('<ToneSelector />', () => {
     );
 
     const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
-    userEvent.click(toneButton);
+    await user.click(toneButton);
 
     expect(handleToneSelectedMock).toHaveBeenCalled();
     expect(handleToneSelectedMock).toHaveBeenCalledWith(4);
@@ -76,7 +80,7 @@ describe('<ToneSelector />', () => {
     );
 
     const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
-    userEvent.click(toneButton);
+    await user.click(toneButton);
 
     expect(handleOnEventMock).toHaveBeenCalledWith(
       expect.objectContaining({

@@ -53,7 +53,8 @@ describe('MentionItem', () => {
     expect(component.html()).not.toContain('@');
   });
 
-  it('should display access restriction if accessLevel is NONE', async () => {
+  // https://product-fabric.atlassian.net/browse/UR-3967
+  it.skip('should display access restriction if accessLevel is NONE', async () => {
     const component = setupMentionItem({
       id: '1',
       name: 'Kaitlyn Prouty',

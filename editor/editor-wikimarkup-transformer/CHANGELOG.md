@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.4
+
+### Patch Changes
+
+- [`49280fb073e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49280fb073e) - Removing Array.at usage to support older browsers.
+
 ## 11.1.3
 
 ### Patch Changes

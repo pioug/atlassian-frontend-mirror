@@ -119,7 +119,7 @@ export function parseString({
           buffer.push(token.text);
         } else if (token.type === 'pmnode') {
           /*ESS-2539 We are keeping track of consecutive newLines in the newLines array
-            Whenever more than two consecutive newLines are encountered, we start a new paragraph 
+            Whenever more than two consecutive newLines are encountered, we start a new paragraph
           */
           if (
             newLines.length >= 2 &&
@@ -196,8 +196,8 @@ export function parseString({
   return [...output, ...inlineNodes];
 }
 
-/* checks whether a newLine is required between two consecutive nodes 
-   Returns true for inline nodes, false for block nodes 
+/* checks whether a newLine is required between two consecutive nodes
+   Returns true for inline nodes, false for block nodes
 */
 function isNewLineRequiredBetweenNodes(
   currentNodes: PMNode[],
@@ -207,7 +207,7 @@ function isNewLineRequiredBetweenNodes(
   if (currentNodes.length === 0) {
     return false;
   }
-  if (buffer.length > 0 && currentNodes.at(-1)?.isBlock) {
+  if (buffer.length > 0 && currentNodes[currentNodes.length - 1]?.isBlock) {
     return false;
   }
   if (buffer.length === 0) {
@@ -217,7 +217,10 @@ function isNewLineRequiredBetweenNodes(
     if (nextNodes[0]?.type.name === 'hardBreak') {
       return false;
     }
-    if (nextNodes[0]?.isBlock || currentNodes.at(-1)?.isBlock) {
+    if (
+      nextNodes[0]?.isBlock ||
+      currentNodes[currentNodes.length - 1]?.isBlock
+    ) {
       return false;
     }
   }
@@ -227,7 +230,7 @@ function isNewLineRequiredBetweenNodes(
 function isConsecutiveMediaGroups(currentNodes: PMNode[], nextNodes: PMNode[]) {
   return (
     currentNodes.length > 0 &&
-    currentNodes.at(-1)?.type.name === 'mediaGroup' &&
+    currentNodes[currentNodes.length - 1]?.type.name === 'mediaGroup' &&
     nextNodes[0]?.type.name === 'mediaGroup'
   );
 }

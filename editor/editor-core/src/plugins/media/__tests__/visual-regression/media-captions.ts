@@ -4,9 +4,9 @@ import {
   initFullPageEditorWithAdf,
   Device,
 } from '../../../../__tests__/visual-regression/_utils';
-import { waitForMediaToBeLoaded } from '../../../../__tests__/__helpers/page-objects/_media';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import * as mediaAdf from './__fixtures__/media.adf.json';
-import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 async function initEditor(page: PuppeteerPage) {
   await initFullPageEditorWithAdf(

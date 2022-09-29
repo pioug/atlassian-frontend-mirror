@@ -5,11 +5,11 @@ import {
   getSelectorForTableCell,
   selectRow,
   tableSelectors,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 let page: PuppeteerPage;
 const initEditor = async (adf: Object) => {

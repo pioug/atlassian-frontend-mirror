@@ -5,12 +5,12 @@ import {
   getDocFromElement,
   fullpage,
   quickInsert,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 BrowserTestCase(
   'delete-last-column-with-empty-action.ts: Delete last table column with empty action',

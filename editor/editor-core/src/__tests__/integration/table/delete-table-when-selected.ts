@@ -7,16 +7,16 @@ import {
   clipboardInput,
   copyAsPlaintextButton,
   copyAsHTMLButton,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   tableSelectors,
   clickFirstCell,
   waitForNoTable,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 
 import basicTableAdf from './__fixtures__/basic-table';
 

@@ -4,14 +4,14 @@ import {
   getDocFromElement,
   fullpage,
   setProseMirrorTextSelection,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { document as documentWithTable } from './__fixtures__/document-with-table';
 import { emptyDocument } from './__fixtures__/empty-document';
-import { selectors } from '../../__helpers/page-objects/_editor';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 const editorSelector = selectors.editor;
 const tableSelector = 'tbody tr:first-child th:nth-child(1)';

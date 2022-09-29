@@ -1,9 +1,13 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, editable, copyToClipboard } from '../_helpers';
+import {
+  getDocFromElement,
+  editable,
+  copyToClipboard,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 

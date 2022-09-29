@@ -10,18 +10,18 @@ import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
 } from '@atlaskit/editor-common/panel';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
-import { panelSelectors } from '../../__helpers/page-objects/_panel';
-import { waitForEmojisToLoad } from '../../__helpers/page-objects/_emoji';
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import {
   pressKey,
   pressWithKeyModifier,
-} from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 describe('Panel:', () => {
   let page: PuppeteerPage;

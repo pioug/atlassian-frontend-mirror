@@ -3,8 +3,8 @@ import {
   loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
-import { waitForBrowseMenuIcons } from '../../../../__tests__/__helpers/page-objects/_element-browser';
-import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
+import { waitForBrowseMenuIcons } from '@atlaskit/editor-test-helpers/page-objects/element-browser';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('ElementBrowser', () => {
   it('should match ElementBrowser snapshot', async () => {

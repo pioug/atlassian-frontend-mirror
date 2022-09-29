@@ -9,10 +9,10 @@ import adf from './__fixtures__/table-with-blocks.adf.json';
 import {
   setTableLayout,
   getSelectorForTableCell,
-} from '../../__helpers/page-objects/_table';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
-import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   PuppeteerPage,
   waitForLoadedBackgroundImages,

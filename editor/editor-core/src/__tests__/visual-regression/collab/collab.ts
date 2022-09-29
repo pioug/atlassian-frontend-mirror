@@ -3,7 +3,7 @@ import {
   waitForElementCount,
   waitForLoadedBackgroundImages,
 } from '@atlaskit/visual-regression/helper';
-import { mainToolbarSelector } from '../../__helpers/page-objects/_toolbar';
+import { mainToolbarSelector } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   snapshot,
   editorSelector,

@@ -4,7 +4,7 @@ import {
   multiCellTableSelectionTopLeftToBottomRight,
   multiCellTableSelectionBottomRightToFirstCell,
   multiCellTableSelectionBottomRightToMiddleTopCell,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('multi cell table selection', () => {

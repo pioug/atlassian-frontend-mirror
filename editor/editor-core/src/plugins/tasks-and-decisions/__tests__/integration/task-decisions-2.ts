@@ -8,7 +8,7 @@ import {
   gotoEditor,
   insertMentionUsingClick,
   insertBlockMenuItem,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 export const loadActionButton = '[aria-label="Action item"]';
 const TYPE_AHEAD_MENU_LIST = `[aria-label="Popup"] [role="listbox"]`;

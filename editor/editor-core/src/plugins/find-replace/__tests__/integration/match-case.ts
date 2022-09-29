@@ -1,15 +1,15 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { fullpage } from '../../../../__tests__/integration/_helpers';
+import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import matchCaseAdf from './__fixtures__/match-case-adf.json';
 import {
   findReplaceSelectors,
   findText,
   toggleMatchCase,
-} from '../../../../__tests__/__helpers/page-objects/_find-replace';
+} from '@atlaskit/editor-test-helpers/page-objects/find-replace';
 
 const openFindReplace = async (
   client: any,

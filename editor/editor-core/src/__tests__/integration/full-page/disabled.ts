@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
-import { fullpageDisabled } from '../_helpers';
+import { fullpageDisabled } from '@atlaskit/editor-test-helpers/integration/helpers';
 
 // TODO: fix expect condition or find a way to fetch error from api
 BrowserTestCase(

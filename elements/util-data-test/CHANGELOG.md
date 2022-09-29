@@ -1,5 +1,12 @@
 # @atlaskit/util-data-test
 
+## 17.5.4
+
+### Patch Changes
+
+- [`b7ec6e38528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7ec6e38528) - Adding extra user-picker data and team data
+- Updated dependencies
+
 ## 17.5.3
 
 ### Patch Changes

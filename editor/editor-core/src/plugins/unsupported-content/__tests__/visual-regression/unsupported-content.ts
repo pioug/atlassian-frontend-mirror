@@ -8,8 +8,8 @@ import {
   initEditorWithAdf,
   Appearance,
 } from '../../../../__tests__/visual-regression/_utils';
-import { unsupportedNodeSelectors } from '../../../../__tests__/__helpers/page-objects/_unsupported';
-import { panelSelectors } from '../../../../__tests__/__helpers/page-objects/_panel';
+import { unsupportedNodeSelectors } from '@atlaskit/editor-test-helpers/page-objects/unsupported';
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import unsupportedBlockAdf from '../__fixtures__/unsupported-block-adf.json';
 import unsupportedInlineAdf from '../__fixtures__/unsupported-inline-adf.json';
 import unsupportedInlineInsidePanelAdf from '../__fixtures__/unsupported-inline-inside-panel-adf.json';

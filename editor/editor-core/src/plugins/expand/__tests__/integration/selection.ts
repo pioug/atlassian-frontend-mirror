@@ -3,15 +3,15 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { selectors } from '../../../../__tests__/__helpers/page-objects/_expand';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/expand';
 import {
   fullpage,
   getProsemirrorSelection,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import expandAdf from './__fixtures__/two-line-expand.json';
-import { calcUserDragAndDropFromMidPoint } from '../../../../__tests__/__helpers/utils';
+import { calcUserDragAndDropFromMidPoint } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 BrowserTestCase(
   "doesn't select expand node if click and drag before releasing mouse",

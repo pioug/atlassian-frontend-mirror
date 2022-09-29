@@ -2,9 +2,9 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import taskDateAdf from './__fixtures__/task-item-date.adf.json';
-import { selectors } from '../../__helpers/page-objects/_editor';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 BrowserTestCase(
   `Format date in task item`,

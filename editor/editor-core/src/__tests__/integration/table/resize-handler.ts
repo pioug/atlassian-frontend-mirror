@@ -1,13 +1,17 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { fullpage, quickInsert, hoverResizeHandler } from '../_helpers';
+import {
+  fullpage,
+  quickInsert,
+  hoverResizeHandler,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   clickFirstCell,
   getSelectorForTableCell,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 interface BBoxWithId {
   left: number;

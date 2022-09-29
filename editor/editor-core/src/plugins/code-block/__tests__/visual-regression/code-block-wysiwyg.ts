@@ -1,5 +1,5 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { initWysiwygTest } from '../../../../__tests__/__helpers/wysiwyg/init-wysiwyg-test';
+import { initWysiwygTest } from '@atlaskit/editor-test-helpers/wysiwyg-helpers';
 import { minimalCodeBlock } from '../__fixtures__/minimal-code-block';
 import { tableHeaderCodeBlock } from '../__fixtures__/table-header-code-block';
 import { overflowCodeBlock } from '../__fixtures__/overflow-code-block';

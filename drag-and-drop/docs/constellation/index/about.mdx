@@ -22,6 +22,7 @@ import SectionMessage from '@atlaskit/section-message';
 - 📱 Touch device compatible
 - 🎁 Addons: patterns that allow sharing small pieces of functionality that can be added together
 - 🎄 Framework agnostic: works with any frontend framework
+- 👾 Virtualization support
 - 🧑‍🦽 Accessible: [comprehensive toolchain and patterns](/components/drag-and-drop/accessibility/overview) for creating highly accessible experiences
 
 <SectionMessage>
@@ -86,6 +87,13 @@ Some experiences you can power with `@atlaskit/drag-and-drop`:
 
 
 ## The Pieces
+
+<figure>
+  <img src="/images/drag-and-drop--high-level-pieces.png" />
+  <figcaption style="text-align:center">
+    How the various pieces of @atlaskit/drag-and-drop fit together
+  </figcaption>
+</figure>
 
 ### Adapter
 
@@ -183,6 +191,13 @@ const cleanup = combine(
   }),
 );
 ```
+
+<figure>
+  <img src="/images/drag-and-drop--only-pay-for-what-you-use.png" />
+  <figcaption style="text-align:center">
+    You only pay the bytes for the pieces of @atlaskit/drag-and-drop that you use. This helps keep bundles lean!
+  </figcaption>
+</figure>
 
 ## Common terms
 

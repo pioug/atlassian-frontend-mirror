@@ -4,7 +4,7 @@ import {
   insertRow,
   insertColumn,
   clickFirstCell,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test: table insert/delete', () => {

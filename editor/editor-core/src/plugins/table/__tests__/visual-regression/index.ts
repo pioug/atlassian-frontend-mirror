@@ -8,7 +8,7 @@ import tableWith100ListItemsADF from './__fixtures__/table-with-100-numbered-lis
 import {
   scrollToBottom,
   scrollToElement,
-} from '../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 async function initEditor(page: PuppeteerPage, adf: Object) {
   await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI, undefined, {});

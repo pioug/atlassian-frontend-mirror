@@ -2,14 +2,14 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   getDocFromElement,
   editable,
   insertEmoji,
   emojiItem,
   insertEmojiBySelect,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 BrowserTestCase(
   'emoji-2.ts: should be able to use emoji inside blockquote',

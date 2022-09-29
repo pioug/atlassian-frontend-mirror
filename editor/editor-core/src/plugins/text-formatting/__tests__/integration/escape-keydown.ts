@@ -1,8 +1,8 @@
 import {
   clickToolbarMenu,
   ToolbarMenuItem,
-} from '../../../../__tests__/__helpers/page-objects/_toolbar';
-import { runEscapeKeydownSuite } from '../../../../__tests__/integration/escape-keydown/__helpers';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration/escape-keydown';
 
 runEscapeKeydownSuite({
   openMenu: async (page) => {

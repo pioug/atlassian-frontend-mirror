@@ -9,11 +9,11 @@ import {
   clickFirstCell,
   mergeCells,
   splitCells,
-} from '../../__helpers/page-objects/_table';
-import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import adf from './__fixtures__/default-table.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Table context menu: merge-split cells', () => {
   let page: PuppeteerPage;

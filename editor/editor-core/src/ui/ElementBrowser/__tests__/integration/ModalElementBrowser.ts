@@ -1,13 +1,13 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { goToFullPageWithXExtensions } from '../../../../__tests__/__helpers/testing-example-helpers';
+import { goToFullPageWithXExtensions } from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
-} from '../../../../__tests__/__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   elementBrowserSelectors,
   waitForNumOfModalBrowserItems,
-} from '../../../../__tests__/__helpers/page-objects/_element-browser';
+} from '@atlaskit/editor-test-helpers/page-objects/element-browser';
 
 BrowserTestCase(
   'should display element list items when new category is clicked on after scrolling',

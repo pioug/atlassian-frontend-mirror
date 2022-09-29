@@ -3,8 +3,8 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../__helpers/testing-example-helpers';
-import { linkPickerSelectors } from '../../../__helpers/page-objects/_hyperlink';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 import {
   getDocFromElement,
   editable,
@@ -13,7 +13,7 @@ import {
   linkLabelSelector,
   insertLongText,
   fullpage,
-} from '../../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
 const mockLinkSearchTitle = 'home opt-in';

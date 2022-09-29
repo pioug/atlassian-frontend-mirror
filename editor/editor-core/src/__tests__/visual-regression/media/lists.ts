@@ -1,9 +1,9 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import { clickEditableContent } from '../../__helpers/page-objects/_editor';
+import { clickEditableContent } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   waitForMediaToBeLoaded,
   resizeMediaInPosition,
-} from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import * as panelList from './__fixtures__/panel-list-adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import bulletListAdf from './__fixtures__/mediaSingle-in-buttetList.adf.json';

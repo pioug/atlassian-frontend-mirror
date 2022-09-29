@@ -4,7 +4,7 @@ import {
   Appearance,
   getBoundingClientRect,
 } from '../../../../__tests__/visual-regression/_utils';
-import { codeBlockSelectors } from '../../../../__tests__/__helpers/page-objects/_code-block';
+import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 import { codeBlocks } from '../__fixtures__/code-blocks';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { tableHeaderCode } from '../__fixtures__/table-code-header';

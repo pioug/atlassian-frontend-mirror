@@ -219,7 +219,7 @@ export interface OptionData {
   name: string;
   type?: 'user' | 'team' | 'email' | 'group';
   fixed?: boolean;
-  lozenge?: string | LozengeProps;
+  lozenge?: string | LozengeProps | ReactNode;
 }
 
 export const UserType = 'user';
@@ -278,6 +278,7 @@ export interface Team extends OptionData {
   includesYou?: boolean;
   highlight?: TeamHighlight;
   type: 'team';
+  byline?: string;
 }
 
 export const GroupType = 'group';

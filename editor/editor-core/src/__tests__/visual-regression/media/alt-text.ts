@@ -5,13 +5,13 @@ import {
   waitForMediaToBeLoaded,
   clickMediaInPosition,
   scrollToMedia,
-} from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   clickEditableContent,
   animationFrame,
   scrollToBottom,
-} from '../../__helpers/page-objects/_editor';
-import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { EditorProps } from '../../../types';
 import mediaSingleAdf from './__fixtures__/mediaSingle-image.adf.json';

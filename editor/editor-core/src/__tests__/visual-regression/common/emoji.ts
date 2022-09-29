@@ -1,7 +1,7 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import emojiAdf from './__fixtures__/emoji-adf.json';
-import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
+import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import {
   waitForNoTooltip,
   waitForLoadedBackgroundImages,

@@ -4,11 +4,11 @@ import {
   getDocFromElement,
   fullpage,
   copyToClipboard,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { sleep } from '@atlaskit/media-test-helpers';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { toBeOneOfMatchers } from './_matchers';

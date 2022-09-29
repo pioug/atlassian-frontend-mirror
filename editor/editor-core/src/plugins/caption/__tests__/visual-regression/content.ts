@@ -4,17 +4,17 @@ import {
   initFullPageEditorWithAdf,
   Device,
 } from '../../../../__tests__/visual-regression/_utils';
-import { waitForEmojisToLoad } from '../../../../__tests__/__helpers/page-objects/_emoji';
+import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import {
   clickMediaInPosition,
   waitForMediaToBeLoaded,
-} from '../../../../__tests__/__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import captionWithDate from './__fixtures__/caption-with-date.adf.json';
 import captionWithEmoji from './__fixtures__/caption-with-emoji.adf.json';
 import captionWithLongText from './__fixtures__/caption-with-long-text.adf.json';
 import captionWithMention from './__fixtures__/caption-with-mention.adf.json';
 import captionWithStatus from './__fixtures__/caption-with-status.adf.json';
-import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 async function initEditor(page: PuppeteerPage, adf: object) {
   await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI, undefined, {

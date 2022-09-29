@@ -2,19 +2,19 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   emojiSelectors,
   emojiSearch,
-} from '../../__helpers/page-objects/_emoji';
+} from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import {
   getDocFromElement,
   editable,
   insertEmoji,
   emojiItem,
   typeahead,
-} from '../_helpers';
-import { runEscapeKeydownSuite } from '../escape-keydown/__helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration/escape-keydown';
 
 BrowserTestCase(
   'emoji-1.ts:should be able to see emoji if typed the name in full',

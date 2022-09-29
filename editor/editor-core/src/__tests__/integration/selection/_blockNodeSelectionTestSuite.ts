@@ -3,7 +3,7 @@ import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
 import {
@@ -13,9 +13,9 @@ import {
   SelectionMatch,
   editable,
   getDocFromElement,
-} from '../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { Node as PMNode } from 'prosemirror-model';
-import { WebDriverPage } from '../../../__tests__/__helpers/page-objects/_types';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 
 import {
   buildAdfSingleNodeWithParagraphs,

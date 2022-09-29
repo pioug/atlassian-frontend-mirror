@@ -11,13 +11,13 @@ import {
   initEditorWithAdf,
   Appearance,
 } from '../../../../__tests__/visual-regression/_utils';
-import { animationFrame } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   waitForMediaToBeLoaded,
   mediaImageSelector,
   mediaToolbarRemoveSelector,
   mediaDangerSelector,
-} from '../../../../__tests__/__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 
 import adf from './__fixtures__/nested-elements.adf.json';
 

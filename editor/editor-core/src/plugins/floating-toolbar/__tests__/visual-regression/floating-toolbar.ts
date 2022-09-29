@@ -6,18 +6,18 @@ import {
 import {
   getSelectorForTableCell,
   tableSelectors,
-} from '../../../../__tests__/__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import toolbarAdf from './__fixtures__/toolbar-adf.json';
 import extendedToolbarAdf from './__fixtures__/toolbar-with-extension-buttons-adf.json';
-import { waitForElementWithText } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { waitForElementWithText } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   clickOnExtension,
   waitForExtensionToolbar,
-} from '../../../../__tests__/__helpers/page-objects/_extensions';
-import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/extensions';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { EditorProps } from '../../../../types/editor-props';
-import { PuppeteerPage } from '../../../../__tests__/__helpers/page-objects/_types';
-import { pressKey } from '../../../../__tests__/__helpers/page-objects/_keyboard';
+import { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 describe('Floating toolbars:', () => {
   let page: PuppeteerPage;

@@ -10,17 +10,17 @@ import {
   dateSelectors,
   waitForDatePicker,
   waitForNoDatePicker,
-} from '../../../../__tests__/__helpers/page-objects/_date';
+} from '@atlaskit/editor-test-helpers/page-objects/date';
 import {
   pressKey,
   pressKeyCombo,
-} from '../../../../__tests__/__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import {
   animationFrame,
   typeInEditorAtEndOfDocument,
   selectors,
-} from '../../../../__tests__/__helpers/page-objects/_editor';
-import { quickInsert } from '../../../../__tests__/__helpers/page-objects/_extensions';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { quickInsert } from '@atlaskit/editor-test-helpers/page-objects/extensions';
 import { standardDateMockMillisUnixTime } from '@atlaskit/visual-regression/helper/mock-date';
 import { THEME_MODES } from '@atlaskit/theme/constants';
 import { getModeFromTheme } from '@atlaskit/editor-common/utils';

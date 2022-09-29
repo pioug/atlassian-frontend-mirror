@@ -10,7 +10,7 @@ import {
 import {
   tableSelectors,
   clickFirstCell,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import tableWithMergeRowAdf from './__fixtures__/table-with-merged-rows.adf.json';
 import tableWithTrelloCardNarrowColumnsAdf from './__fixtures__/table-with-trello-card-narrow-columns.adf.json';
 

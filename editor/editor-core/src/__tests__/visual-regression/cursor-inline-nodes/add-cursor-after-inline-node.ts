@@ -4,8 +4,8 @@ import { adfs } from './__fixtures__/inline-nodes';
 import {
   animationFrame,
   getBoundingRect,
-} from '../../__helpers/page-objects/_editor';
-import { waitForEmojisToLoad } from '../../__helpers/page-objects/_emoji';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 
 const initEditor = async (_adf: Object, page: PuppeteerPage) =>
   initEditorWithAdf(page, {

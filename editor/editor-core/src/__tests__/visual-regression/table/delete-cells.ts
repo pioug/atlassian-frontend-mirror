@@ -5,7 +5,7 @@ import tableWithFirstColumnMerged from './__fixtures__/table-3x3-with-two-cells-
 import {
   tableSelectors,
   clickFirstCell,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Delete in table:', () => {

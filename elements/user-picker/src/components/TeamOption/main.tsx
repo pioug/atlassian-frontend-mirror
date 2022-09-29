@@ -111,11 +111,29 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
         }
       : this.props.team.lozenge;
 
+  private renderCustomByLine = () => {
+    if (!this.props.team?.byline) {
+      return undefined;
+    }
+
+    return (
+      <span
+        css={textWrapper(
+          this.props.isSelected
+            ? token('color.text.selected', B400)
+            : token('color.text.subtlest', N200),
+        )}
+      >
+        {this.props.team.byline}
+      </span>
+    );
+  };
+
   render() {
     return (
       <AvatarItemOption
         avatar={this.renderAvatar()}
-        secondaryText={this.renderByline()}
+        secondaryText={this.renderCustomByLine() || this.renderByline()}
         primaryText={this.getPrimaryText()}
         lozenge={this.getLozengeProps()}
       />

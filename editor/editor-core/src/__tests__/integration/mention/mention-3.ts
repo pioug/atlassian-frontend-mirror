@@ -5,14 +5,14 @@ import {
   editable,
   lozenge as mentionId,
   fullpage,
-} from '../_helpers';
-import { codeBlockSelectors } from '../../__helpers/page-objects/_code-block';
-import { mentionSearch } from '../../__helpers/page-objects/_mention';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
+import { mentionSearch } from '@atlaskit/editor-test-helpers/page-objects/mention';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
-import { selectors } from './../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 // add the button click on the right toolbar
 BrowserTestCase(

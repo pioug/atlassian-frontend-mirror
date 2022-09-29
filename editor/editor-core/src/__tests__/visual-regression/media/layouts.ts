@@ -8,12 +8,12 @@ import {
   clickMediaInPosition,
   mediaSingleLayouts,
   MediaLayout,
-} from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   clickEditableContent,
   animationFrame,
-} from '../../__helpers/page-objects/_editor';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import * as singleCellTable from './__fixtures__/single-cell-table-adf.json';
 import columnLayoutAdf from './__fixtures__/3-column-layout-with-image.adf.json';
 import mediaSingleAdf from './__fixtures__/mediaSingle-image-wrap-with-text.adf.json';

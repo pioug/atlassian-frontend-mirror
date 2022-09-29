@@ -5,8 +5,8 @@ import {
   mainToolbarSelector,
   toolbarMenuItemsSelectors,
   ToolbarMenuItem,
-} from '../../__helpers/page-objects/_toolbar';
-import { timeouts } from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { timeouts } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Toolbar: Jira configurarion', () => {
   let page: PuppeteerPage;

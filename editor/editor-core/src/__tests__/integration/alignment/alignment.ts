@@ -1,16 +1,20 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, editable, quickInsert } from '../_helpers';
+import {
+  getDocFromElement,
+  editable,
+  quickInsert,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { messages } from '../../../plugins/block-type/messages';
-import { runEscapeKeydownSuite } from '../escape-keydown/__helpers';
+import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration/escape-keydown';
 import {
   clickToolbarMenu,
   ToolbarMenuItem,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 const alignButton = 'button[aria-label="Text alignment"]';
 const alignRightButton = 'button[aria-label="Align right"]';

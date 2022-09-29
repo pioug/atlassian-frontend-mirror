@@ -6,7 +6,7 @@ import {
   hoverCellOption,
   selectCellBackground,
   tableSelectors,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 
 import adf from './__fixtures__/default-table.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';

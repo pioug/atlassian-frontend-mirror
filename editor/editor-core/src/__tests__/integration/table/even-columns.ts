@@ -4,11 +4,11 @@ import {
   getDocFromElement,
   fullpage,
   doubleClickResizeHandle,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   clickFirstCell,
   selectTable,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   tableWithUnevenColumns,
   tableWithUnevenColumnsInOverflow,
@@ -17,7 +17,7 @@ import {
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 // moveTo in doubleClickResizeHandle does not work for safari
 BrowserTestCase(

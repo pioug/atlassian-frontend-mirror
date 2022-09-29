@@ -1,6 +1,6 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
-import { scrollToTable } from '../../__helpers/page-objects/_table';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
+import { scrollToTable } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mediaSingleAdf from './__fixtures__/mediaSingle-in-table.adf.json';
 

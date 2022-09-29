@@ -1,16 +1,16 @@
 import { Browser, BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 
 import {
   editable,
   getDocFromElement,
   fullpage,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 const copyButtonSelector = 'button[aria-label="Copy"]';
 

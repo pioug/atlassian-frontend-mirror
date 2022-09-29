@@ -50,7 +50,7 @@
   "devDependencies": {
     "@atlaskit/analytics-viewer": "^0.4.5",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/editor-test-helpers": "^17.1.0",
+    "@atlaskit/editor-test-helpers": "^17.2.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/section-message": "^6.2.0",
     "@atlaskit/tooltip": "^17.5.0",

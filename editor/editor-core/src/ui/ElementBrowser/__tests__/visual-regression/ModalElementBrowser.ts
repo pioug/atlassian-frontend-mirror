@@ -7,13 +7,13 @@ import {
 import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
-} from '../../../../__tests__/__helpers/page-objects/_toolbar';
-import { clickEditableContent } from '../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { clickEditableContent } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   elementBrowserSelectors,
   waitForBrowseMenuIcons,
   waitForInsertMenuIcons,
-} from '../../../../__tests__/__helpers/page-objects/_element-browser';
+} from '@atlaskit/editor-test-helpers/page-objects/element-browser';
 
 let page: PuppeteerPage;
 let url: string;

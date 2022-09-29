@@ -7,8 +7,8 @@ import {
 import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { toolbarMessages } from '../../../plugins/layout/toolbar-messages';
-import { clickFirstCell } from '../../__helpers/page-objects/_table';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   toggleBreakout,
   waitForLayoutChange,
@@ -16,7 +16,7 @@ import {
   waitForLayoutToolbar,
   waitForBreakoutNestedLayout,
   layoutSelectors,
-} from '../../__helpers/page-objects/_layouts';
+} from '@atlaskit/editor-test-helpers/page-objects/layouts';
 
 describe('Snapshot Test: Nested table inside layouts', () => {
   let page: PuppeteerPage;

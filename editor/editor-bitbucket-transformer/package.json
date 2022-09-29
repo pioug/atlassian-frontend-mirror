@@ -37,7 +37,7 @@
     "@atlaskit/adf-schema": "^24.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^172.2.0",
-    "@atlaskit/editor-test-helpers": "^17.1.0",
+    "@atlaskit/editor-test-helpers": "^17.2.0",
     "@atlaskit/emoji": "^65.2.0",
     "@atlaskit/smart-card": "^22.2.0",
     "@atlaskit/theme": "^12.2.0",

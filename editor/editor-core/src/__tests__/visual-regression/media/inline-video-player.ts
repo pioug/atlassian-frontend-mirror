@@ -3,10 +3,10 @@ import {
   waitForNoTooltip,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
-import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import mediaSingleVideoAdf from '../table/__fixtures__/mediasingle-video.adf.json';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Snapshot Test: Media inline video player', () => {
   let page: PuppeteerPage;

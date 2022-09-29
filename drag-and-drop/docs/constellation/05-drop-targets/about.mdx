@@ -230,3 +230,23 @@ Flow:
 - `C` visited and allows dropping. Drop targets: `[] -> [C]`
 - `B` visited and does not allow dropping
 - `A` visited and allows dropping. Drop targets `[C] -> [C, A]`
+
+### Handling `onDrop()` for nested drop targets
+
+When you have nested _drop targets_ all of them will have their `onDrop()` callbacks executed on a drop. Let's say we have two _drop targets_ `parent` and `child`. You might want to perform one operation if `parent` is dropped on, and a different operation if `child` is dropped on. In `parent`s `onDrop()` how do you tell if `child` was dropped on?
+
+We can leverage the fact that `location.current.dropTargets` is always bubbled ordered, so inner drop targets come before outer ones
+
+```ts
+dropTargetForElements({
+  element: parent,
+  onDrop({location, self}) {
+    // we know that if 'self' is in the first position, then no inner drop target was dropped on
+    if(location.current.dropTargets[0]?.element === self.element) {
+      action1();
+      return;
+    }
+    // at this point we know that an inner drop target was dropped on
+    action2();
+  }
+})

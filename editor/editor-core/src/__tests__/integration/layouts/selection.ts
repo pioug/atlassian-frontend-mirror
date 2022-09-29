@@ -3,12 +3,15 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
-import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
-import { fullpage, getProsemirrorSelection } from '../_helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+import {
+  fullpage,
+  getProsemirrorSelection,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import layoutAdf from './__fixtures__/basic-layout-adf.json';
-import { calcUserDragAndDropFromMidPoint } from '../../__helpers/utils';
+import { calcUserDragAndDropFromMidPoint } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 BrowserTestCase(
   "doesn't select layout section node if click and drag before releasing mouse",

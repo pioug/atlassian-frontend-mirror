@@ -17,25 +17,25 @@ import {
   wrappingMediaADF,
 } from './__fixtures__/expand-adf';
 import * as simpleExpandAdf from './__fixtures__/simple-expand.adf.json';
-import { selectors } from '../../__helpers/page-objects/_expand';
-import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/expand';
+import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import {
   clickFirstCell,
   tableSelectors,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   resizeMediaInPositionWithSnapshot,
   waitForMediaToBeLoaded,
-} from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   getBoundingRect,
   animationFrame,
-} from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import expandBreakoutAdf from './__fixtures__/expand-breakout.adf.json';
 import nestedExpandAdf from './__fixtures__/nested-expand.adf.json';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
-import { toggleBreakout } from '../../__helpers/page-objects/_layouts';
-import { selectionSelectors } from '../../__helpers/page-objects/_selection';
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { toggleBreakout } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+import { selectionSelectors } from '@atlaskit/editor-test-helpers/page-objects/selection';
 
 const themes = ['light', 'dark'];
 

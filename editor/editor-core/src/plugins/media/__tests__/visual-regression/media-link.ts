@@ -7,9 +7,9 @@ import {
   initFullPageEditorWithAdf,
   Device,
 } from '../../../../__tests__/visual-regression/_utils';
-import { waitForMediaToBeLoaded } from '../../../../__tests__/__helpers/page-objects/_media';
-import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
-import { selectors } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 const getMediaWithLink = (link: string) => ({
   version: 1,

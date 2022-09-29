@@ -15,14 +15,14 @@ import {
 import findReplaceAdf from './__fixtures__/with-content.json';
 import borderRadiusAdf from './__fixtures__/find-replace-border-radius-adf.json';
 import matchCaseAdf from './__fixtures__/find-replace-match-case-adf.json';
-import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
-import { findReplaceSelectors } from '../../__helpers/page-objects/_find-replace';
+import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+import { findReplaceSelectors } from '@atlaskit/editor-test-helpers/page-objects/find-replace';
 import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { FindReplaceOptions } from '../../../plugins/find-replace/types';
-import { selectAtPosWithProseMirror } from '../../__helpers/page-objects/_editor';
+import { selectAtPosWithProseMirror } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Find/replace:', () => {
   let page: PuppeteerPage;

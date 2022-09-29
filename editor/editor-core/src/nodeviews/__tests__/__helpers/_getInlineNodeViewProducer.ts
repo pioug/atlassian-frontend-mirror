@@ -1,5 +1,5 @@
-import { getBoundingRect } from '../../../__tests__/__helpers/page-objects/_editor';
-import { WebDriverPage } from '../../../__tests__/__helpers/page-objects/_types';
+import { getBoundingRect } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 
 export const keyboardSelectLineFromLineEnd = async (page: WebDriverPage) => {
   // The keyboard shortcuts to extend a selection to the start of

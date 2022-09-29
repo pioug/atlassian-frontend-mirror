@@ -1,12 +1,12 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { initFullPageEditorWithAdf, snapshot, Device } from '../_utils';
 import longContent from './__fixtures__/long-content-adf.json';
-import { typeInEditorAtEndOfDocument } from '../../__helpers/page-objects/_editor';
-import { tableSelectors } from '../../__helpers/page-objects/_table';
-import { panelSelectors } from '../../__helpers/page-objects/_panel';
-import { decisionSelectors } from '../../__helpers/page-objects/_decision';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
-import { quickInsert } from '../../__helpers/page-objects/_extensions';
+import { typeInEditorAtEndOfDocument } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { quickInsert } from '@atlaskit/editor-test-helpers/page-objects/extensions';
 
 const waitForScrollGutter = async (page: PuppeteerPage) => {
   await page.waitForSelector('#editor-scroll-gutter');

@@ -1,7 +1,7 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import adf from './__fixtures__/with-content.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
+import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import { waitForAllMedia } from '@atlaskit/renderer/src/__tests__/__helpers/page-objects/_media';
 

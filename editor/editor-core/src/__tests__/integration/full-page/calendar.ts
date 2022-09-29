@@ -2,9 +2,9 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
-import { insertBlockMenuItem } from '../_helpers';
-import { selectors } from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { insertBlockMenuItem } from '@atlaskit/editor-test-helpers/integration/helpers';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 const editorSelector = selectors.editor;
 const calendar = '[aria-label="calendar"]';

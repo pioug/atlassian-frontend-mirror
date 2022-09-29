@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop
 
+## 0.7.0
+
+### Minor Changes
+
+- [`f2a7931d609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2a7931d609) - Adding jsdoc to DragLocation type for better autocomplete
+
 ## 0.6.0
 
 ### Minor Changes

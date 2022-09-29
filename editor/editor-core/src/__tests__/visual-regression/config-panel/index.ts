@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 import { getBoundingClientRect } from '../_utils';
-import { extensionSelectors } from '../../../__tests__/__helpers/page-objects/_extensions';
+import { extensionSelectors } from '@atlaskit/editor-test-helpers/page-objects/extensions';
 
 export async function goToConfigPanelWithParameters() {
   const url = getExampleUrl(

@@ -4,9 +4,9 @@ import {
   PuppeteerPage,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
-import { panelSelectors } from '../../__helpers/page-objects/_panel';
-import { waitForEmojisToLoad } from '../../__helpers/page-objects/_emoji';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Custom panel looks correct for fullpage:', () => {
   let page: PuppeteerPage;

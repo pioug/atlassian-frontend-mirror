@@ -10,7 +10,7 @@ import {
   animationFrame,
   clickEditableContent,
   scrollToBottom,
-} from '../../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Comment with sticky toolbar', () => {
   let page: PuppeteerPage;

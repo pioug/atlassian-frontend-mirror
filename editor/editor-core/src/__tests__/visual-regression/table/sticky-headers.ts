@@ -1,6 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import * as stickyHeaderADF from './__fixtures__/sticky-header.adf.json';
 
 async function scrollToPos(

@@ -1,7 +1,7 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
-import { fullpage } from '../_helpers';
+import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
 
 const fullPageEditor = getExampleUrl('editor', 'editor-core', 'full-page');
 const titleSelector = '.ak-editor-content-area textarea';

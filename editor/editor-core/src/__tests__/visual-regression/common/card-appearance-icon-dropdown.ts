@@ -15,7 +15,7 @@ import {
   waitForResolvedInlineCard,
   blockCardSelector,
 } from '@atlaskit/media-integration-test-helpers';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 /**
  * [EDM-2640] [EDM-2641]

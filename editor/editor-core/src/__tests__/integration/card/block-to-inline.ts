@@ -2,11 +2,15 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import * as blockCardAdf from './_fixtures_/block-card-with-empty-p-at-bottom.adf.json';
 import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';
-import { getDocFromElement, editable, getProseMirrorPos } from '../_helpers';
+import {
+  getDocFromElement,
+  editable,
+  getProseMirrorPos,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 BrowserTestCase(
   `card: should switch to inline mode with proper cursor position`,

@@ -9,12 +9,12 @@ import {
   selectNumberedColumnRow,
   clickFirstCell,
   tableSelectors,
-} from '../../__helpers/page-objects/_table';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   selectors,
   animationFrame,
-} from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test: Table selection', () => {

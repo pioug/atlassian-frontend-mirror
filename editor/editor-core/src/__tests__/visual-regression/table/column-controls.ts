@@ -1,5 +1,5 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   getSelectorForTableCell,
   selectCellOption,
@@ -8,11 +8,11 @@ import {
   clickFirstCell,
   grabResizeHandle,
   hoverColumnControls,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   pressKeyDown,
   pressKeyUp,
-} from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import adf from './__fixtures__/default-table.adf.json';
 import adfTableWithoutTableHeader from './__fixtures__/table-without-table-header.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';

@@ -1,5 +1,5 @@
 import memoizeOne from 'memoize-one';
-import { ReactChild, ReactElement } from 'react';
+import { ReactChild, ReactElement, ReactNode } from 'react';
 import {
   AtlaskitSelectValue,
   ExternalUser,
@@ -17,6 +17,7 @@ import {
   Value,
   OptionIdentifier,
   DefaultValue,
+  LozengeProps,
 } from '../types';
 import { PopupSelect } from '@atlaskit/select';
 
@@ -147,3 +148,9 @@ export const isPopupUserPickerByComponent = (
 
 export const isPopupUserPickerByProps = (selectProps: any) =>
   selectProps.searchThreshold === -1;
+
+export const isLozengeText = (
+  lozengeProp: ReactNode | LozengeProps,
+): lozengeProp is LozengeProps => {
+  return lozengeProp?.hasOwnProperty('text') || false;
+};

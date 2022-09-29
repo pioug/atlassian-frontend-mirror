@@ -9,18 +9,18 @@ import {
   getProseMirrorPos,
   setProseMirrorTextSelection,
   animationFrame,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { KEY } from '../../../../__tests__/__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { KEY } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 import floatsAdf from './__fixtures__/lists-adjacent-floats.adf.json';
 import listsAdf from './__fixtures__/lists-indentation-paragraphs.json';
 import listInTableAdf from './__fixtures__/list-in-table-adf.json';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { clickFirstCell } from '../../../../__tests__/__helpers/page-objects/_table';
+import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 
 const PM_FOCUS_SELECTOR = '.ProseMirror-focused';
 

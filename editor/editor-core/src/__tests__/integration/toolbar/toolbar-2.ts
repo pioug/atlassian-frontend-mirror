@@ -1,10 +1,14 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { comment, fullpage, editable } from '../_helpers';
+import {
+  comment,
+  fullpage,
+  editable,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { toolbarMessages as blockTypeMessages } from '../../../plugins/block-type/ui/ToolbarBlockType/toolbar-messages';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { messages } from '../../../plugins/block-type/messages';
 
 const changeFormatting = `[aria-label="${blockTypeMessages.textStyles.defaultMessage}"]`;

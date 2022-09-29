@@ -3,17 +3,17 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   getDocFromElement,
   editable,
   gotoEditor,
   linkUrlSelector,
   fullpage,
-} from '../../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
-import { linkPickerSelectors } from '../../../__helpers/page-objects/_hyperlink';
+import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
 BrowserTestCase(
   `card: unlinking a card created from CMD + K should leave only url text`,

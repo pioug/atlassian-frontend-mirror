@@ -18,14 +18,14 @@ import {
   getDocFromElement,
   setProseMirrorTextSelection,
   insertMenuItem,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { onlyOneChar, tableWithPlaceholders } from './__fixtures__/base-adfs';
-import { selectors } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('typeahead: content', () => {
   const startEditor = async (client: any, adf: any): Promise<WebDriverPage> => {

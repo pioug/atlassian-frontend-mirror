@@ -1,6 +1,6 @@
 import { waitForTooltip } from '@atlaskit/visual-regression/helper';
 import { initEditorWithAdf, Appearance, snapshot, pmSelector } from '../_utils';
-import { helpDialogSelector } from '../../__helpers/page-objects/_help-dialog';
+import { helpDialogSelector } from '@atlaskit/editor-test-helpers/page-objects/help-dialog';
 
 describe('Help Dialog', () => {
   it('displays help dialog', async () => {

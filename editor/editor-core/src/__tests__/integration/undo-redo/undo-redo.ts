@@ -1,10 +1,13 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { fullpage, editable } from '../_helpers';
+import {
+  fullpage,
+  editable,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
-import { KEY } from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { KEY } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import { toolbarTestIdPrefix } from '../../../ui/Toolbar/toolbar-types';
 
 const input = 'helloworld ';

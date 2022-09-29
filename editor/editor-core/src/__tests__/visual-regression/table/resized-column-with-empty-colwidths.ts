@@ -2,7 +2,7 @@ import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   scrollToElement,
   selectors,
-} from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import adf from './__fixtures__/table-with-text-in-zero-colwidth-columns.adf.json';
 

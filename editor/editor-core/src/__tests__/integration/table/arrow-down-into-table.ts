@@ -3,11 +3,11 @@ import {
   fullpage,
   setProseMirrorTextSelection,
   expectToMatchSelection,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import tableAdf from './__fixtures__/paragraph-and-table-adf.json';
 
 // This keyboard navigation is actually browser functionality

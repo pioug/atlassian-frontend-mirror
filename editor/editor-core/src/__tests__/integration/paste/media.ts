@@ -1,11 +1,15 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { documentWithParagraph } from './__fixtures__/document-with-paragraph';
-import { getDocFromElement, fullpage, copyAsHTML } from '../_helpers';
+import {
+  getDocFromElement,
+  fullpage,
+  copyAsHTML,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
-import { selectors } from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 const editorSelector = selectors.editor;
 

@@ -1,6 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { Device, initFullPageEditorWithAdf, snapshot } from '../_utils';
-import { tableSelectors } from '../../__helpers/page-objects/_table';
+import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { EditorProps } from '../../../types';
 import adf from './__fixtures__/table-with-overflown-content.adf.json';
 import { THEME_MODES } from '@atlaskit/theme/constants';

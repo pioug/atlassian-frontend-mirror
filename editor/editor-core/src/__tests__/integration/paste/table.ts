@@ -6,14 +6,14 @@ import {
   fullpage,
   setProseMirrorTextSelection,
   getDocFromElement,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import { selectors as editorSelectors } from '../../__helpers/page-objects/_editor';
-import { tableSelectors } from '../../__helpers/page-objects/_table';
+import { selectors as editorSelectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   documentWithTextAndSimpleTable,
   documentWithTextAndComplexTable,

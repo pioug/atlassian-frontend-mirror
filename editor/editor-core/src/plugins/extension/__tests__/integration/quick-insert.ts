@@ -5,11 +5,11 @@ import {
   fullpage,
   editable,
   quickInsert,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
 BrowserTestCase(

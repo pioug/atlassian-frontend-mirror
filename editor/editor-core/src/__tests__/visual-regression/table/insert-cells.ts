@@ -7,8 +7,8 @@ import {
   insertColumn,
   tableSelectors,
   clickFirstCell,
-} from '../../__helpers/page-objects/_table';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 let page: PuppeteerPage;

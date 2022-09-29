@@ -6,11 +6,11 @@ import {
   insertMedia,
   quickInsert,
   fullpage,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { selectors } from '../../../plugins/panel/__tests__/integration/_utils';
 
 [

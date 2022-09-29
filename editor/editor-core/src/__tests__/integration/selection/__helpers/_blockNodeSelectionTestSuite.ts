@@ -1,4 +1,4 @@
-import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { ADFEntity } from '@atlaskit/adf-utils/types';
 
 export const keyboardSelectDocFromStart = async (page: WebDriverPage) => {

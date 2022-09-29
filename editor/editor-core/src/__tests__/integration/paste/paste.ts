@@ -13,14 +13,14 @@ import {
   copyAsPlainText,
   copyAsHTML,
   setProseMirrorTextSelection,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import { selectors } from '../../__helpers/page-objects/_editor';
-import { panelSelectors } from '../../__helpers/page-objects/_panel';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 
 const editorSelector = selectors.editor;
 

@@ -2,12 +2,13 @@ import {
   PuppeteerPage,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
-import { resetMousePosition } from '../../../../../__tests__/__helpers/page-objects/_mouse';
+import { resetMousePosition } from '@atlaskit/editor-test-helpers/page-objects/mouse';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   snapshot,
   initFullPageEditorWithAdf,
 } from '../../../../../__tests__/visual-regression/_utils';
-import { waitForMediaToBeLoaded } from '../../../../../__tests__/__helpers/page-objects/_media';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import mediaGroupAdf from './__fixtures__/mediaGroup.adf.json';
 import mediaGroupMultiFilesAdf from './__fixtures__/mediaGroupMultiFiles.adf.json';
 
@@ -36,6 +37,8 @@ describe('Media Toolbar:', () => {
     initEditor(mediaGroupAdf);
     await waitForMediaToBeLoaded(page);
     await resetMousePosition(page);
+    await animationFrame(page);
+    await animationFrame(page);
   });
 
   afterEach(async () => {
@@ -63,6 +66,8 @@ describe('Media Toolbar:', () => {
 
   it('should show red border while hovering over the delete button', async () => {
     await page.hover('[data-testid="media-toolbar-remove-button"]');
+    await animationFrame(page);
+    await animationFrame(page);
     await waitForTooltip(page);
   });
 

@@ -24,7 +24,7 @@ import {
 import {
   isPushingEditorContent,
   editorWithWideBreakoutAndSidebarWidth,
-} from '../../__helpers/page-objects/_context-panel';
+} from '@atlaskit/editor-test-helpers/page-objects/context-panel';
 
 const panelSelector = 'div[data-testid="context-panel-panel"]';
 

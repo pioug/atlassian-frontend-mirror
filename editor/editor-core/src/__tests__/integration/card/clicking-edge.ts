@@ -1,9 +1,12 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, editable } from '../_helpers';
+import {
+  getDocFromElement,
+  editable,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 import * as inlineCardAdf from './_fixtures_/inline-card.adf.json';
 import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-helpers';

@@ -3,15 +3,15 @@ import adf from './__fixtures__/table-with-top-row-content.adf.json';
 import {
   clickFirstCell,
   getSelectorForTableCell,
-} from '../../__helpers/page-objects/_table';
-import { tableSelectors } from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   clickToolbarMenu,
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 let page: PuppeteerPage;
 const initEditor = async (adf: Object) => {

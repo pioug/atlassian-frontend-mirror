@@ -80,7 +80,17 @@ export type Input = {
 };
 
 export type DragLocation = {
+  /**
+   * A users input at a point in time
+   */
   input: Input;
+  /**
+   * A _bubble_ ordered (innermost upwards) list of active drop targets
+   *
+   * @example
+   * [grandChildRecord, childRecord, parentRecord]
+   *
+   */
   dropTargets: DropTargetRecord[];
 };
 
@@ -156,7 +166,7 @@ BaseEventPayload & {
 Flow
 
 - `onGenerateDragPreview` fires on the drag source (eg a `draggable`)
-- `onGenerateDragPreview` on the any parent drop targets of the drag sources in bubble order (innermost outwards)
+- `onGenerateDragPreview` on the any parent drop targets of the drag sources in bubble order (innermost upwards)
 - `onGenerateDragPreview` on _monitors_
 
 ## Event: `onDragStart`
@@ -166,7 +176,7 @@ A drag operation has started. You can make changes to the DOM and those changes 
 Flow
 
 - `onDragStart` fires on the drag source (eg a `draggable`)
-- `onDragStart` on the any parent drop targets of the drag sources in bubble order (innermost outwards)
+- `onDragStart` on the any parent drop targets of the drag sources in bubble order (innermost upwards)
 - `onDragStart` on _monitors_
 
 ## Event: `onDrag`

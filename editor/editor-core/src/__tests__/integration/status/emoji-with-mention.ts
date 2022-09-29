@@ -3,7 +3,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   editable,
   getDocFromElement,
@@ -11,7 +11,7 @@ import {
   emojiItem,
   insertMention,
   lozenge,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 BrowserTestCase(
   'emoji.ts: Insert an emoji, then a mention, move to right before the emoji and try to add text between both',

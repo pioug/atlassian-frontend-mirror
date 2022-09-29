@@ -1,7 +1,7 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import adf from './__fixtures__/default-table.adf.json';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   clickFirstCell,
   selectTableOption,
@@ -11,8 +11,8 @@ import {
   getSelectorForTableCell,
   mergeCells,
   splitCells,
-} from '../../__helpers/page-objects/_table';
-import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 describe('Table contextual menu: fullpage', () => {
   let page: PuppeteerPage;

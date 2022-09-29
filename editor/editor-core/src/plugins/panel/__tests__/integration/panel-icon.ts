@@ -2,8 +2,8 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { fullpage } from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
 import panelAdf from '../__fixtures__/custom-panel-adf.json';
 
 // Vertical alignment only works for inline-block elements in Firefox.

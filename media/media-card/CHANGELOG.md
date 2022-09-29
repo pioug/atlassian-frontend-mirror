@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 74.1.4
+
+### Patch Changes
+
+- [`80a1ca7b589`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80a1ca7b589) - Fix compatility issue of Intersection Observer API in old browser versions
+
 ## 74.1.3
 
 ### Patch Changes

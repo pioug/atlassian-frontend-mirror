@@ -7,15 +7,15 @@ import {
 import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
-} from '../../../../__tests__/__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   elementBrowserSelectors,
   waitForInsertMenuIcons,
-} from '../../../../__tests__/__helpers/page-objects/_element-browser';
+} from '@atlaskit/editor-test-helpers/page-objects/element-browser';
 import {
   clickEditableContent,
   animationFrame,
-} from '../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { snapshot } from '../../../../__tests__/visual-regression/_utils';
 
 let page: PuppeteerPage;

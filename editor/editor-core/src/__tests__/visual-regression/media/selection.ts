@@ -12,12 +12,12 @@ import {
   MediaLayout,
   scrollToMedia,
   waitForMediaToBeLoaded,
-} from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   clickEditableContent,
   animationFrame,
-} from '../../__helpers/page-objects/_editor';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import mediaGroupAdf from './__fixtures__/media-group-multiple-cards.adf.json';
 import mediaSelectionAdf from './__fixtures__/media-selection.adf.json';
 

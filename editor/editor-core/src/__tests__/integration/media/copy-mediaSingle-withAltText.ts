@@ -1,9 +1,13 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { editable, getDocFromElement, fullpage } from '../_helpers';
+import {
+  editable,
+  getDocFromElement,
+  fullpage,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { waitForNumImages } from './_utils';
 import adf from './_fixtures_/one-image.adf';
 

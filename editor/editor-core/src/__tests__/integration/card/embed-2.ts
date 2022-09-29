@@ -1,13 +1,17 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, editable, fullpage } from '../_helpers';
+import {
+  getDocFromElement,
+  editable,
+  fullpage,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import * as embedCardAdf from './_fixtures_/embed-card.adf.json';
 import { waitForEmbedCardSelection } from '@atlaskit/media-integration-test-helpers';
-import { linkPickerSelectors } from '../../__helpers/page-objects/_hyperlink';
+import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 

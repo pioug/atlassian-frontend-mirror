@@ -6,11 +6,11 @@ import {
 import {
   insertTable,
   tableSelectors,
-} from '../../__helpers/page-objects/_table';
-import { contextPanelSelectors } from '../../__helpers/page-objects/_context-panel';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { contextPanelSelectors } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
 import { focusEditor, snapshot } from '../_utils';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 export async function goToFullPageWithTemplateContextPanel() {
   const url = getExampleUrl(

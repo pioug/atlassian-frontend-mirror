@@ -2,11 +2,11 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToFullPage,
   goToFullPageClickToEdit,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { MediaMockControlsBackdoor } from '@atlaskit/media-test-helpers';
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
 import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
-import { selectors } from '../../__helpers/page-objects/_editor';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 type ClientType = Parameters<typeof goToFullPage>[0];
 
 // Skipping safari because of ongoing issue (comms via email with support with Browserstack atm)

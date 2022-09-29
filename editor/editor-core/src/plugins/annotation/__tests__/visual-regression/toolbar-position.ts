@@ -8,7 +8,7 @@ import {
   scrollToBottom,
   scrollToElement,
   selectAtPosWithProseMirror,
-} from '../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -21,8 +21,8 @@ import {
   selectColumn,
   selectRow,
   tableSelectors,
-} from '../../../../__tests__/__helpers/page-objects/_table';
-import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 const init = async (page: PuppeteerPage, adf: Object) => {
   return await initFullPageEditorWithAdf(

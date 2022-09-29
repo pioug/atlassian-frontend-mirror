@@ -3,12 +3,12 @@ import {
   fullpage,
   setProseMirrorTextSelection,
   animationFrame,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { expandClassNames } from '../../ui/class-names';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import longExpand from './__fixtures__/long-expand.json';
 
 const getScrollTop = async (client: any) =>

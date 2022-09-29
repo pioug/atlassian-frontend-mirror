@@ -6,11 +6,11 @@ import {
   fullpage,
   quickInsert,
   insertBlockMenuItem,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 const calendar = '[aria-label="calendar"]';
 const nextDate = 'button[aria-selected=true] + button';

@@ -2,7 +2,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorLabsTestingExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { MobilePresetProps } from '../../presets/mobile';
 
 BrowserTestCase('Should render mobile editor', {}, async (client: any) => {

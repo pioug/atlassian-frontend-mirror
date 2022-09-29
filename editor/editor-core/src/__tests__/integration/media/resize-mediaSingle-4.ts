@@ -1,9 +1,9 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
-import { goToEditorTestingWDExample } from '../../__helpers/testing-example-helpers';
+import { goToEditorTestingWDExample } from '@atlaskit/editor-test-helpers/testing-example-page';
 import mediaSingleInsideListWithinLayoutAdf from './_fixtures_/media-single-inside-list-within-layout.adf.json';
-import { resizeMediaSingle } from '../../__helpers/page-objects/_media';
-import { assertWidthBeforeAndAfter, setupEditor } from './resize-mediaSingle-1';
+import { resizeMediaSingle } from '@atlaskit/editor-test-helpers/page-objects/media';
+import { assertWidthBeforeAndAfter, setupEditor } from './_utils';
 
 BrowserTestCase(
   'resize-mediaSingle.ts: Image within List is resized to 100% inside column of a two-column layout [EDM-1318]',

@@ -17,11 +17,11 @@ import resizedTableFullWidthAdf from './__fixtures__/resized-table-full-width.ad
 import resizedTableInLayout from './__fixtures__/resized-table-in-layout.adf.json';
 import resizedTableInExt from '../table/__fixtures__/nested-table-inside-bodied-ext.adf.json';
 import resizedTableFWM from './__fixtures__/resized-table-fwm.adf.json';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
-import { clickFirstCell } from '../../../__tests__/__helpers/page-objects/_table';
-import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
-import { panelSelectors } from '../../__helpers/page-objects/_panel';
-import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
 
 type ToggleFullWidthOptions = {
   // Focus is lost after toggling full width mode so if your test

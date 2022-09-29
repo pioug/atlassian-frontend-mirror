@@ -3,7 +3,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   getDocFromElement,
   editable,
@@ -12,9 +12,9 @@ import {
   linkLabelSelector,
   insertLongText,
   fullpage,
-} from '../../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
-import { linkPickerSelectors } from '../../../__helpers/page-objects/_hyperlink';
+import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
 BrowserTestCase(
   'card: inserting a link with CMD + K with link not in recents list inserted as blue link',

@@ -2,8 +2,12 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
-import { fullpage, editable, getDocFromElement } from '../_helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import {
+  fullpage,
+  editable,
+  getDocFromElement,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import superScriptAdf from './__fixtures__/super-script.adf.json';
 
 BrowserTestCase(

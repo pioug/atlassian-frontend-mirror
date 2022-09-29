@@ -1,7 +1,7 @@
 import {
   clickFirstCell,
   tableSelectors,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   Device,
   editorCommentContentSelector,
@@ -12,7 +12,7 @@ import {
 import adf from './__fixtures__/numbered-table.adf.json';
 import tableWithContentAdf from './__fixtures__/numbered-table-with-content.adf.json';
 import multipleTablesAdf from './__fixtures__/numbered-table-multiple.adf.json';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { THEME_MODES } from '@atlaskit/theme/constants';
 

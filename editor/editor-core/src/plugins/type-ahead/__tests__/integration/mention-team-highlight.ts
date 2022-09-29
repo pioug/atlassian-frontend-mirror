@@ -6,14 +6,14 @@ import {
   editable,
   getDocFromElement,
   setProseMirrorTextSelection,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { doc, p, mention } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
-import { mentionSearch } from '../../../../__tests__/__helpers/page-objects/_mention';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import { mentionSearch } from '@atlaskit/editor-test-helpers/page-objects/mention';
 
 const spaceAtEnd = {
   version: 1,

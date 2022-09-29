@@ -8,12 +8,12 @@ import {
   Appearance,
   pmSelector,
 } from '../../../../__tests__/visual-regression/_utils';
-import { selectAtPosWithProseMirror } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { selectAtPosWithProseMirror } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 import selectionKitchenSink1Adf from './__fixtures__/kitchen-sink-1.adf.json';
 import selectionKitchenSink2Adf from './__fixtures__/kitchen-sink-2.adf.json';
 import selectionKitchenSink3Adf from './__fixtures__/kitchen-sink-3.adf.json';
-import { emojiSelectors } from '../../../../__tests__/__helpers/page-objects/_emoji';
+import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 
 describe('Selection:', () => {
   let page: PuppeteerPage;

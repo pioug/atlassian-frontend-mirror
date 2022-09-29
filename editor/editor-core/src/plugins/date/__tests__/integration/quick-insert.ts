@@ -3,13 +3,13 @@ import {
   editable,
   quickInsert,
   getDocFromElement,
-} from '../../../../__tests__/integration/_helpers';
-import { stripZeroWidthSpaces } from '../../../../__tests__/__helpers/utils';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { stripZeroWidthSpaces } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { dateSelectors } from '../../../../__tests__/__helpers/page-objects/_date';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { dateSelectors } from '@atlaskit/editor-test-helpers/page-objects/date';
 
 const { dateLozenge } = dateSelectors;
 

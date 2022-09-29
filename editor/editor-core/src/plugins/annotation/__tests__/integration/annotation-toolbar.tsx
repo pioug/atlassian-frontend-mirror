@@ -2,12 +2,12 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   fullpage,
   setProseMirrorTextSelection,
   editable,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import * as paragraphWithEmoji from '../__fixtures__/paragraph-with-emoji.adf.json';
 import * as paragraphADF from '../__fixtures__/paragraph.adf.json';
 import { annotationSelectors } from '../_utils';

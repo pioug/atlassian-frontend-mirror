@@ -5,7 +5,7 @@ import {
   editable,
   copyToClipboard,
   gotoEditor,
-} from '../../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 
 BrowserTestCase(

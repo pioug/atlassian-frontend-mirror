@@ -1,6 +1,6 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import adf from './__fixtures__/nested-table.adf.json';
-import { clickFirstCell } from '../../__helpers/page-objects/_table';
+import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test: nested block extension with table', () => {

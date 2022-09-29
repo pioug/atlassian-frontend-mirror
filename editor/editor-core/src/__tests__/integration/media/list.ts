@@ -1,9 +1,13 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, editable, insertMedia } from '../_helpers';
+import {
+  getDocFromElement,
+  editable,
+  insertMedia,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { Appearance } from '../../visual-regression/_utils';
 
 BrowserTestCase(

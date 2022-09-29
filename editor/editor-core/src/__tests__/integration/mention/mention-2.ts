@@ -6,12 +6,12 @@ import {
   getDocFromElement,
   editable,
   fullpage,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
-import { selectors } from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 BrowserTestCase(
   'mention-2.ts: user should see picker if they type "@"',

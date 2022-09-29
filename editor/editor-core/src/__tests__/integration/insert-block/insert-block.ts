@@ -2,15 +2,18 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
-import { fullpage, editable } from '../_helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import {
+  fullpage,
+  editable,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   clickToolbarMenu,
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
-} from '../../__helpers/page-objects/_toolbar';
-import { elementBrowserSelectors } from '../../__helpers/page-objects/_element-browser';
-import { runEscapeKeydownSuite } from '../escape-keydown/__helpers';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { elementBrowserSelectors } from '@atlaskit/editor-test-helpers/page-objects/element-browser';
+import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration/escape-keydown';
 
 const emojiPanel = '[data-emoji-picker-container="true"]';
 

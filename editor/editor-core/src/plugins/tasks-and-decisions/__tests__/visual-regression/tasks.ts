@@ -5,7 +5,7 @@ import {
   snapshot,
 } from '../../../../__tests__/visual-regression/_utils';
 import tasksAdf from '../__fixtures__/basic-tasks-adf.json';
-import { animationFrame } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('tasks', () => {
   let page: PuppeteerPage;

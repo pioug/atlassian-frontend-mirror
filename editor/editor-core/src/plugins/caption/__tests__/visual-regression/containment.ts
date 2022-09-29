@@ -7,12 +7,12 @@ import {
 import {
   clickMediaInPosition,
   waitForMediaToBeLoaded,
-} from '../../../../__tests__/__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import captionWrappedTable from './__fixtures__/caption-wrapped-table.adf.json';
 import captionWrappedSkinnyTable from './__fixtures__/caption-wrapped-skinny-table.adf.json';
 import captionWrappedLayout from './__fixtures__/caption-wrapped-layout.adf.json';
 import captionWrappedExpand from './__fixtures__/caption-wrapped-expand.adf.json';
-import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 async function initEditor(page: PuppeteerPage, adf: object) {
   await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI, undefined, {

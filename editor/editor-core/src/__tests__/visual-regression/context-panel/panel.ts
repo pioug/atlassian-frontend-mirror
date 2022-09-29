@@ -3,9 +3,9 @@ import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import adfWithMixedContent from './__fixtures__/content.adf.json';
 import adfWithNoBreakoutContent from './__fixtures__/content-nobreakout.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { scrollToTop } from '../../__helpers/page-objects/_editor';
+import { scrollToTop } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';
-import { contextPanelSelectors } from '../../__helpers/page-objects/_context-panel';
+import { contextPanelSelectors } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
 
 describe('Context panel', () => {
   let page: PuppeteerPage;

@@ -3,23 +3,23 @@ import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   clickFirstCell,
   tableSelectors,
-} from '../../../../__tests__/__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   expectToMatchSelection,
   editable,
   getDocFromElement,
   animationFrame,
-} from '../../../../__tests__/integration/_helpers';
-import { clickTaskNth } from '../../../../__tests__/__helpers/page-objects/_task';
-import { clickNthDecision } from '../../../../__tests__/__helpers/page-objects/_decision';
-import { fullpage } from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { clickTaskNth } from '@atlaskit/editor-test-helpers/page-objects/task';
+import { clickNthDecision } from '@atlaskit/editor-test-helpers/page-objects/decision';
+import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
 import taskListTableAdf from '../__fixtures__/tasklist-in-table-adf.json';
 import decisionListInTableAdf from '../__fixtures__/decisionlist-in-table-adf.json';
-import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 const initEditor = async (page: WebdriverPage, adf: Object) =>
   await mountEditor(page, {

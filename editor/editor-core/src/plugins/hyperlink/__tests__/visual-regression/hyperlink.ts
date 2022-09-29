@@ -13,14 +13,14 @@ import {
 import {
   animationFrame,
   selectors,
-} from '../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
   clickToolbarMenu,
   ToolbarMenuItem,
-} from '../../../../__tests__/__helpers/page-objects/_toolbar';
-import { hyperlinkSelectors } from '../../../../__tests__/__helpers/page-objects/_hyperlink';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { hyperlinkSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
 import hyperlinkAdf from '../__fixtures__/basic-hyperlink.adf.json';
 import hyperlinkWithTextAdf from '../__fixtures__/basic-hyperlink-with-text.adf.json';
@@ -30,7 +30,7 @@ import hyperlinkWithText from '../__fixtures__/hyperlink-with-text.adf.json';
 import {
   pressKeyDown,
   pressKeyUp,
-} from '../../../../__tests__/__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 const click = async (page: any, selector: string) => {
   await page.waitForSelector(selector);

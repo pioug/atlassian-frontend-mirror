@@ -6,7 +6,7 @@ import {
 } from '../_utils';
 import adf from './__fixtures__/decision-adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { decisionSelectors } from '../../__helpers/page-objects/_decision';
+import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
 
 describe('Decisions', () => {
   let page: PuppeteerPage;

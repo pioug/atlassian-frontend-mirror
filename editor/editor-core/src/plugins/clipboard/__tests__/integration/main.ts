@@ -3,18 +3,18 @@ import {
   editable,
   getDocFromElement,
   fullpage,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { emptyParagraphUnderneathTable } from '../../../../__tests__/integration/table/__fixtures__/empty-paragraph-underneath-table';
-import { selectors } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   tableSelectors,
   clickFirstCell,
   setTableLayoutWide,
-} from '../../../../__tests__/__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 

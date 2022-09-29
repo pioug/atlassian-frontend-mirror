@@ -1,16 +1,16 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { fullpage } from '../_helpers';
+import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 import tableWithTextAndEmptyRow from './__fixtures__/table-with-text-and-empty-row';
 import {
   multiCellTableSelectionTopLeftToBottomRight,
   multiCellTableSelectionBottomRightToFirstCell,
   multiCellTableSelectionBottomRightToMiddleTopCell,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import isEqual from 'lodash/isEqual';
 
 BrowserTestCase(

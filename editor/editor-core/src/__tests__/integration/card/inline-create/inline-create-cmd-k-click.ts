@@ -7,13 +7,13 @@ import {
   linkUrlSelector,
   insertLongText,
   fullpage,
-} from '../../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../__helpers/testing-example-helpers';
-import { linkPickerSelectors } from '../../../__helpers/page-objects/_hyperlink';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
 BrowserTestCase(
   `card: selecting a link from CMD + K menu should create an inline card with click`,

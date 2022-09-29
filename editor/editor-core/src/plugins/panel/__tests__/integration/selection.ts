@@ -3,17 +3,17 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { panelSelectors } from '../../../../__tests__/__helpers/page-objects/_panel';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import {
   editable,
   expectToMatchDocument,
   fullpage,
   getProsemirrorSelection,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import panelAdf from '../__fixtures__/basic-panel-adf.json';
-import { calcUserDragAndDropFromMidPoint } from '../../../../__tests__/__helpers/utils';
+import { calcUserDragAndDropFromMidPoint } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 BrowserTestCase(
   'selection.ts: Writing inside the panel, selecting panel and typing should drop text in panel',

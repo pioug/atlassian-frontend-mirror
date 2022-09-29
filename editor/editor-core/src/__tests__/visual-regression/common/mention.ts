@@ -5,7 +5,7 @@ import {
   PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 import mentionAdf from './__fixtures__/mention-adf.json';
-import { mentionSelectors } from '../../__helpers/page-objects/_mention';
+import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/mention';
 
 describe('Mention', () => {
   let page: PuppeteerPage;

@@ -9,12 +9,12 @@ import {
   editable,
   getDocFromElement,
   setProseMirrorTextSelection,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { spaceAtEnd } from './__fixtures__/base-adfs';
 
 const TYPE_AHEAD_MENU_LIST = `[aria-label="Popup"] [role="listbox"]`;

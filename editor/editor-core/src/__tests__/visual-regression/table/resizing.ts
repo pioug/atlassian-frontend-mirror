@@ -18,12 +18,12 @@ import {
   scrollTable,
   unselectTable,
   tableSelectors,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   animationFrame,
   scrollToBottom,
-} from '../../__helpers/page-objects/_editor';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import { EditorProps } from '../../../types';

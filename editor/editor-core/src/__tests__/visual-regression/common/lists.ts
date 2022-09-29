@@ -6,7 +6,7 @@ import {
   Appearance,
   deviceViewPorts,
 } from '../_utils';
-import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { traverse } from '@atlaskit/adf-utils/traverse';
 import smartLinksAdf from './__fixtures__/smart-link-nested-in-list.adf.json';
 import extensionAdf from './__fixtures__/inline-extension-inside-lists.adf.json';
@@ -18,23 +18,23 @@ import list100ItemsAdf from './__fixtures__/lists-100-items.adf';
 import {
   waitForCardToolbar,
   clickOnCard,
-} from '../../__helpers/page-objects/_smart-links';
+} from '@atlaskit/editor-test-helpers/page-objects/smart-links';
 import {
   waitForExtensionToolbar,
   clickOnExtension,
-} from '../../__helpers/page-objects/_extensions';
+} from '@atlaskit/editor-test-helpers/page-objects/extensions';
 import {
   waitForStatusToolbar,
   clickOnStatus,
-} from '../../__helpers/page-objects/_status';
+} from '@atlaskit/editor-test-helpers/page-objects/status';
 import {
   waitForDatePicker,
   clickOnDate,
-} from '../../__helpers/page-objects/_date';
+} from '@atlaskit/editor-test-helpers/page-objects/date';
 import {
   animationFrame,
   scrollToBottom,
-} from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-helpers';
 

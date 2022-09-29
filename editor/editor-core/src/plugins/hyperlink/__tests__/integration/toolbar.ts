@@ -3,16 +3,16 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   fullpage,
   editable,
   getDocFromElement,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   hyperlinkSelectors,
   linkPickerSelectors,
-} from '../../../../__tests__/__helpers/page-objects/_hyperlink';
+} from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 import basicHyperlinkAdf from '../__fixtures__/basic-hyperlink.adf.json';
 
 BrowserTestCase(

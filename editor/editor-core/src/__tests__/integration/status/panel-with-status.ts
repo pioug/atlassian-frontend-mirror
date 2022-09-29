@@ -2,8 +2,12 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
-import { editable, getDocFromElement, quickInsert } from '../_helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import {
+  editable,
+  getDocFromElement,
+  quickInsert,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 BrowserTestCase(
   'status.ts: Insert status into panel, move cursor to right before status, and add text',

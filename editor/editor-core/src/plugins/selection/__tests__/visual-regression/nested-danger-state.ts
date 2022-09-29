@@ -13,8 +13,8 @@ import {
 import {
   tableSelectors,
   clickFirstCell,
-} from '../../../../__tests__/__helpers/page-objects/_table';
-import { animationFrame } from '../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import adf from './__fixtures__/nested-elements.adf.json';
 
 describe('Danger for nested elements', () => {

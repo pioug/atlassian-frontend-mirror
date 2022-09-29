@@ -4,15 +4,15 @@ import {
   mediaImageSelector,
   waitForActivityItems,
   waitForMediaToBeLoaded,
-} from '../../__helpers/page-objects/_media';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mediaSingleVideoAlignmentAdf from './__fixtures__/mediaSingle-video-alignment.adf.json';
 import mediaSingleVideoWrapAdf from './__fixtures__/mediaSingle-video-wrap.adf.json';
 import videoInsideExpandAdf from './__fixtures__/video-inside-expand-toolbar.adf.json';
 import mediaSingleAdf from './__fixtures__/mediaSingle-image.adf.json';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
-import { scrollToBottom } from '../../__helpers/page-objects/_editor';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { scrollToBottom } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;

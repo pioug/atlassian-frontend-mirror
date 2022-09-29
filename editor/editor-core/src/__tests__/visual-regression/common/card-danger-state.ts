@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/media-integration-test-helpers';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
 import { initFullPageEditorWithAdf, snapshot } from '../_utils';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Card danger states', () => {
   let page: PuppeteerPage;

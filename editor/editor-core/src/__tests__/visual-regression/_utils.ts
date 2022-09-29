@@ -10,7 +10,7 @@ import {
   SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
 import { EditorProps } from '../../types';
-import { animationFrame } from '../__helpers/page-objects/_editor';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { GUTTER_SELECTOR } from '../../plugins/base/pm-plugins/scroll-gutter';
 import { CreateCollabProviderOptions } from '@atlaskit/synchrony-test-helpers';
 import {

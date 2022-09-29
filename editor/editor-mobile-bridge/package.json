@@ -72,7 +72,7 @@
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-test-helpers": "^17.1.0",
+    "@atlaskit/editor-test-helpers": "^17.2.0",
     "@atlaskit/form": "^8.5.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/media-core": "^33.0.0",

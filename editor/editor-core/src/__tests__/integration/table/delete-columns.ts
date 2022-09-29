@@ -1,13 +1,17 @@
 import { createIntl } from 'react-intl-next';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
-import { editable, getDocFromElement, fullpage } from '../_helpers';
+import {
+  editable,
+  getDocFromElement,
+  fullpage,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { documentWithMergedCells } from './__fixtures__/merged-rows-and-cols-document';
 import { TableCssClassName as ClassName } from '../../../plugins/table/types';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import messages from '../../../plugins/table/ui/messages';
 
 BrowserTestCase(

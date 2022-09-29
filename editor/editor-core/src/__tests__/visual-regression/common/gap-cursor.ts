@@ -2,10 +2,10 @@ import { Appearance, initEditorWithAdf, snapshot } from '../_utils';
 import gapcursor from './__fixtures__/gap-cursor-adf.json';
 import gapCursorLayout from './__fixtures__/gap-cursor-layout-adf.json';
 import paragraph from './__fixtures__/paragraph-of-text.adf.json';
-import { selectors } from '../../__helpers/page-objects/_editor';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { clickOnStatus } from '../../__helpers/page-objects/_status';
+import { clickOnStatus } from '@atlaskit/editor-test-helpers/page-objects/status';
 
 let page: PuppeteerPage;
 

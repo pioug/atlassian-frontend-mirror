@@ -3,9 +3,9 @@ import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import {
   resizeMediaInPosition,
   waitForMediaToBeLoaded,
-} from '../../__helpers/page-objects/_media';
-import { insertExpand } from '../../__helpers/page-objects/_expand';
-import { toggleBreakout } from '../../__helpers/page-objects/_layouts';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+import { insertExpand } from '@atlaskit/editor-test-helpers/page-objects/expand';
+import { toggleBreakout } from '@atlaskit/editor-test-helpers/page-objects/layouts';
 import adf from './__fixtures__/breakout-nodes-with-media.adf.json';
 
 describe('Snapshot Test: Media inside of breakout nodes', () => {

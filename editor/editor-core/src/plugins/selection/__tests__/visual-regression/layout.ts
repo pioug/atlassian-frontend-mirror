@@ -9,9 +9,9 @@ import {
   clickTopLeft,
   retryUntil,
 } from '../../../../__tests__/visual-regression/_utils';
-import { mentionSelectors } from '../../../../__tests__/__helpers/page-objects/_mention';
-import { layoutSelectors } from '../../../../__tests__/__helpers/page-objects/_layouts';
-import { animationFrame } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/mention';
+import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import selectionLayoutAdf from './__fixtures__/layout.adf.json';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 

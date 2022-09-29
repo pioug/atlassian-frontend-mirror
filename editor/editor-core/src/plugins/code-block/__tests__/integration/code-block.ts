@@ -2,14 +2,14 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   getDocFromElement,
   editable,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { EditorAppearance } from '../../../../types';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { messages } from '../../../block-type/messages';
-import { codeBlockSelectors } from '../__helpers__/code-block-selectors';
+import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 
 const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
 

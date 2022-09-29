@@ -5,7 +5,7 @@ import {
   editable,
   copyToClipboard,
   gotoEditor,
-} from '../../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 BrowserTestCase(
   `card: pressing backspace with the cursor at the end of Inline link should delete it`,

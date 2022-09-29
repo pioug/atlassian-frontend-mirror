@@ -4,7 +4,7 @@ import {
   toggleTaskNth,
   waitForTaskList,
   LIST_SELECTOR,
-} from '../../__helpers/page-objects/_task';
+} from '@atlaskit/editor-test-helpers/page-objects/task';
 
 describe('Tasks', () => {
   it('Can check a task with status as the first element', async () => {

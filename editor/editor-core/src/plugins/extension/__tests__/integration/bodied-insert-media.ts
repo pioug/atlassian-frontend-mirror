@@ -7,7 +7,7 @@ import {
   insertBlockMenuItem,
   insertMedia,
   setupMediaMocksProviders,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 BrowserTestCase(
   `bodied-insert-media.ts: Bodied Extension: Insert Media`,

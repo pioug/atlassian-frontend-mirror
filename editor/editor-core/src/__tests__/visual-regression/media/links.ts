@@ -2,7 +2,7 @@ import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   retryUntilStablePosition,
   triggerHyperLinkToolBar,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   Appearance,
   initEditorWithAdf,
@@ -13,7 +13,7 @@ import * as linkADf from './__fixtures__/mediasingle-and-media-with-link-mark.js
 import {
   mediaResizeSelectors,
   waitForMediaToBeLoaded,
-} from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;

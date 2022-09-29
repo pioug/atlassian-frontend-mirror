@@ -5,9 +5,9 @@ import {
 import { Device, snapshot, initFullPageEditorWithAdf } from '../_utils';
 import * as adfWithExpand from './__fixtures__/simple-expand.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { clickEditableContent } from '../../__helpers/page-objects/_editor';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+import { clickEditableContent } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Expand: tab navigation', () => {
   let page: PuppeteerPage;

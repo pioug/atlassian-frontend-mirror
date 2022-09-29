@@ -4,7 +4,7 @@ import { initFullPageEditorWithAdf, snapshot } from '../../_utils';
 import {
   getEditorWidth,
   animationFrame,
-} from '../../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   resizeMediaInPositionWithSnapshot,
   clickMediaInPosition,
@@ -15,8 +15,8 @@ import {
   scrollToMedia,
   isLayoutAvailable,
   waitForMediaToBeLoaded,
-} from '../../../__helpers/page-objects/_media';
-import { selectors } from '../../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import * as layout2Col from './../__fixtures__/mediaSingle-in-column.adf.json';
 import mediaSelectionAdf from './../__fixtures__/mediaSingle-image.adf.json';
 import bulletListAdf from './../__fixtures__/mediaSingle-in-buttetList.adf.json';

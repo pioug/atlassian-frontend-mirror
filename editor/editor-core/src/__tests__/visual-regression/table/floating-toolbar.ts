@@ -6,8 +6,8 @@ import {
   clickTableOptions,
   clickCellOptions,
   selectCellOption,
-} from '../../__helpers/page-objects/_table';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 const floatingControlsAriaLabel = 'Table floating controls';
 const dropdownListSelector =

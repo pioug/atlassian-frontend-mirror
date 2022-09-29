@@ -7,11 +7,11 @@ import {
   quickInsert,
   clipboardInput,
   copyAsPlaintextButton,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { selectors } from './_utils';
 
 BrowserTestCase(

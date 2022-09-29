@@ -281,6 +281,15 @@
     "includesYou": false
   },
   {
+    "id": "team-9",
+    "name": "Team with custom byline",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/6.svg",
+    "type": "team",
+    "fixed": false,
+    "description": "This team has a custom byline which is not reliant on memberCount and includesYou props",
+    "byline": "A custom byline"
+  },
+  {
     "id": "group-1",
     "name": "admin-groups-group",
     "type": "group"

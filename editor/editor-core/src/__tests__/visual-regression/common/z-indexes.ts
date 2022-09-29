@@ -7,11 +7,11 @@ import {
 import {
   clickToolbarMenu,
   ToolbarMenuItem,
-} from '../../__helpers/page-objects/_toolbar';
-import { selectors } from '../../__helpers/page-objects/_editor';
-import { tableSelectors } from '../../__helpers/page-objects/_table';
-import { insertTable } from '../../__helpers/page-objects/_table';
-import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
+import { insertTable } from '@atlaskit/editor-test-helpers/page-objects/table';
+import { emojiSelectors } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import adf from './__fixtures__/noData-adf.json';
 import {

@@ -2,13 +2,13 @@ import {
   waitForMediaToBeLoaded,
   resizeMediaInPosition,
   MediaResizeSide,
-} from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   resizeColumn,
   clickFirstCell,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import mediaSingleInTableAdf from './__fixtures__/mediaSingle-in-table.adf.json';
 

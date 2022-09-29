@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-hitbox
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.4
 
 ### Patch Changes

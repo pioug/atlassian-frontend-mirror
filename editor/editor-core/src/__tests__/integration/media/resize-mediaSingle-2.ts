@@ -1,19 +1,22 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
-import { goToEditorTestingWDExample } from '../../__helpers/testing-example-helpers';
+import { goToEditorTestingWDExample } from '@atlaskit/editor-test-helpers/testing-example-page';
 import defaultTableAdf from './_fixtures_/defaultTableAdf.json';
 import {
   navigateToTableCell,
   selectTable,
   setTableLayout,
-} from '../../__helpers/page-objects/_table';
-import { insertMedia, removeMedia } from '../_helpers';
-import { resizeMediaSingle } from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import {
+  insertMedia,
+  removeMedia,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { resizeMediaSingle } from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
   assertWidthBeforeAndAfter,
   calcSizeDragDistance,
   setupEditor,
-} from './resize-mediaSingle-1';
+} from './_utils';
 
 BrowserTestCase(
   'resize-mediaSingle.ts: Image is resized down in left column of 3x3 table with different layouts',

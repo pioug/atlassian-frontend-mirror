@@ -5,12 +5,12 @@ import {
   fullpage,
   editable,
   getDocFromElement,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { unsupportedNodeSelectors } from '../../../../__tests__/__helpers/page-objects/_unsupported';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { unsupportedNodeSelectors } from '@atlaskit/editor-test-helpers/page-objects/unsupported';
 import unsupportedBlockAdf from '../__fixtures__/unsupported-block-adf.json';
 import unsupportedInlineAdf from '../__fixtures__/unsupported-inline-adf.json';
 

@@ -1,6 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { selectElementWithText } from '../../__helpers/page-objects/_editor';
-import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
+import { selectElementWithText } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import tableAdf from './__fixtures__/table-headers-with-headings.adf.json';
 

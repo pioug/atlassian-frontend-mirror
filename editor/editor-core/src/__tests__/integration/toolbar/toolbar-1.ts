@@ -1,11 +1,16 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, comment, fullpage, editable } from '../_helpers';
+import {
+  getDocFromElement,
+  comment,
+  fullpage,
+  editable,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { toolbarMessages as textFormattingMessages } from '../../../plugins/text-formatting/ui/Toolbar/toolbar-messages';
 import { toolbarMessages as blockTypeToolbarMessages } from '../../../plugins/block-type/ui/ToolbarBlockType/toolbar-messages';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { messages as blockTypeMessages } from '../../../plugins/block-type/messages';
 
 const input = 'helloworld ';

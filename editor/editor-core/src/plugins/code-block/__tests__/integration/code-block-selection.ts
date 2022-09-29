@@ -3,15 +3,15 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { codeBlockSelectors } from '../../../../__tests__/__helpers/page-objects/_code-block';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 import {
   fullpage,
   getProsemirrorSelection,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import { basicCodeBlock } from '../__fixtures__/basic-code-block';
-import { calcUserDragAndDropFromMidPoint } from '../../../../__tests__/__helpers/utils';
+import { calcUserDragAndDropFromMidPoint } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 BrowserTestCase(
   "doesn't select codeblock node if click and drag before releasing mouse",

@@ -1,11 +1,15 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { testMediaGroup } from '@atlaskit/editor-test-helpers/media-mock';
 import { sleep } from '@atlaskit/media-test-helpers';
-import { editable, getDocFromElement, fullpage } from '../_helpers';
+import {
+  editable,
+  getDocFromElement,
+  fullpage,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { waitForAtLeastNumFileCards } from './_utils';
 
 const baseADF = {

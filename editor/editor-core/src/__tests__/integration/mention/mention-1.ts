@@ -6,11 +6,11 @@ import {
   typeAheadPicker,
   lozenge,
   fullpage,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 BrowserTestCase(
   'mention-1.ts: user can see mention inside blockquote',

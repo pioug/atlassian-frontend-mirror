@@ -4,14 +4,14 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   fullpage,
   editable,
   getDocFromElement,
-} from '../../../../__tests__/integration/_helpers';
-import { hyperlinkSelectors } from '../../../../__tests__/__helpers/page-objects/_hyperlink';
-import { copyHyperlink } from '../../../../__tests__/__helpers/page-objects/_hyperlink';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { hyperlinkSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
+import { copyHyperlink } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
 BrowserTestCase(
   'can insert hyperlink via markdown',

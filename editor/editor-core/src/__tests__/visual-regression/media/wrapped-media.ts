@@ -12,9 +12,9 @@ import {
   waitForMediaToBeLoaded,
   mediaImageSelector,
   mediaResizeSelectors,
-} from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import * as nonResizableMedia from './__fixtures__/non-resizable-media.adf.json';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 describe('Snapshot Test: Wrapped media', () => {
   let page: PuppeteerPage;

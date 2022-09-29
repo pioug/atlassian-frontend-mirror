@@ -3,8 +3,11 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
-import { getDocFromElement, editable } from '../_helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import {
+  getDocFromElement,
+  editable,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import commonMessages from '../../../messages';
 import adf from './__fixtures__/breakout-columns-with-iframe.adf.json';

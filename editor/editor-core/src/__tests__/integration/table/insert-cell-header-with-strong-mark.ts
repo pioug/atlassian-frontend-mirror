@@ -5,11 +5,11 @@ import {
   getDocFromElement,
   fullpage,
   quickInsert,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 BrowserTestCase(
   'inside-table.ts: Insert panel into table, add text, change panel type',

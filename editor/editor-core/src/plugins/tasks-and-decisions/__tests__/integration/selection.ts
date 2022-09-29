@@ -3,14 +3,14 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { decisionSelectors } from '../../../../__tests__/__helpers/page-objects/_decision';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
 import {
   fullpage,
   getProsemirrorSelection,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import decisionAdf from '../__fixtures__/basic-decisions-adf.json';
-import { calcUserDragAndDropFromMidPoint } from '../../../../__tests__/__helpers/utils';
+import { calcUserDragAndDropFromMidPoint } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 BrowserTestCase(
   "doesn't select decision item node if click and drag before releasing mouse",

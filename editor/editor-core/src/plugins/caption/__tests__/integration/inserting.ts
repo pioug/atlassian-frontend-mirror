@@ -1,14 +1,14 @@
 import { selectors } from '@atlaskit/renderer/src/__tests__/__helpers/page-objects/_media';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { waitForNumImages } from '../../../../__tests__/integration/media/_utils';
+import { waitForNumImages } from '@atlaskit/editor-test-helpers/integration/media';
 import {
   editable,
   getDocFromElement,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import adf from './__fixtures__/one-image.adf';
 
 BrowserTestCase(

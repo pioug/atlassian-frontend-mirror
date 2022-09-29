@@ -1,13 +1,13 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import {
   fullpage,
   quickInsert,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 // Height + Padding
 const DEFAULT_LIST_HEIGHT = 388;

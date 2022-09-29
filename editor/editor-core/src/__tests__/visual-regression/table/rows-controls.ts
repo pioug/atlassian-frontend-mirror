@@ -1,9 +1,9 @@
-import { getBoundingRect } from '../../__helpers/page-objects/_editor';
-import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
+import { getBoundingRect } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   clickFirstCell,
   tableSelectors,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   initFullPageEditorWithAdf,

@@ -2,14 +2,14 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/lib/runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import dateInTaskAdf from '../__fixtures__/date-in-task-adf.json';
 import {
   animationFrame,
   expectToMatchSelection,
   fullpage,
-} from '../../../../__tests__/integration/_helpers';
-import { clickTaskNth } from '../../../../__tests__/__helpers/page-objects/_task';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { clickTaskNth } from '@atlaskit/editor-test-helpers/page-objects/task';
 
 BrowserTestCase(
   'Pressing up arrow key moves cursor to previous taskItem',

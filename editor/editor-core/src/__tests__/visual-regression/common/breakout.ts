@@ -11,15 +11,15 @@ import {
   scrollToLayoutColumn,
   toggleBreakout,
   layoutSelectors,
-} from '../../__helpers/page-objects/_layouts';
+} from '@atlaskit/editor-test-helpers/page-objects/layouts';
 import {
   animationFrame,
   clickFirstParagraph,
-} from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { layoutToolbarTitle } from '../../../plugins/layout/toolbar';
 

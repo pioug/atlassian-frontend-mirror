@@ -5,11 +5,11 @@ import {
   waitForStatusToolbar,
   insertStatusFromMenu,
   STATUS_SELECTORS,
-} from '../../__helpers/page-objects/_status';
+} from '@atlaskit/editor-test-helpers/page-objects/status';
 import {
   animationFrame,
   waitForElementOffset,
-} from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import adf from './__fixtures__/status-adf.json';
 import overflownStatusInsideTableAdf from './__fixtures__/overflow-status-inside-table.adf.json';
 
@@ -17,7 +17,7 @@ import blank_adf from './__fixtures__/blank-adf.json';
 import {
   insertTaskFromMenu,
   ITEM_SELECTOR,
-} from '../../__helpers/page-objects/_task';
+} from '@atlaskit/editor-test-helpers/page-objects/task';
 
 describe('Status:', () => {
   let page: PuppeteerPage;
@@ -53,6 +53,8 @@ describe('Status:', () => {
     await page.waitForSelector(ITEM_SELECTOR);
     await insertStatusFromMenu(page);
     await page.waitForSelector(STATUS_SELECTORS.STATUS_NODE);
+    await animationFrame(page);
+    await animationFrame(page);
     await snapshot(page);
   });
 

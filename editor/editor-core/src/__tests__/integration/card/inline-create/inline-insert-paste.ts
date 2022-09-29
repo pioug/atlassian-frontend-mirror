@@ -5,7 +5,7 @@ import {
   editable,
   copyToClipboard,
   gotoEditor,
-} from '../../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 BrowserTestCase(
   `card: pasting an link converts to inline card`,

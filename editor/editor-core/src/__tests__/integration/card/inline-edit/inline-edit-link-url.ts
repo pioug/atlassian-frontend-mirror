@@ -5,7 +5,7 @@ import {
   copyToClipboard,
   gotoEditor,
   linkUrlSelector,
-} from '../../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';

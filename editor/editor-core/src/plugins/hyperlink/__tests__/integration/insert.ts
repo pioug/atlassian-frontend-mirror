@@ -3,21 +3,21 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   fullpage,
   editable,
   getDocFromElement,
   quickInsert,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   clickToolbarMenu,
   ToolbarMenuItem,
-} from '../../../../__tests__/__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   hyperlinkSelectors,
   linkPickerSelectors,
-} from '../../../../__tests__/__helpers/page-objects/_hyperlink';
+} from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
 BrowserTestCase(
   'can insert hyperlink with only URL using toolbar',

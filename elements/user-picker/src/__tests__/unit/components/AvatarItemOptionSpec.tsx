@@ -2,6 +2,7 @@ import { mount } from 'enzyme';
 import React, { ReactNode } from 'react';
 import { LozengeProps } from '../../../types';
 import { AvatarItemOption } from '../../../components/AvatarItemOption';
+import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 
 jest.mock('@atlaskit/tooltip', () => ({
   ...jest.requireActual<any>('@atlaskit/tooltip'),
@@ -28,6 +29,12 @@ describe('AvatarItemOption', () => {
       text: 'in progress',
       appearance: 'inprogress',
     };
+    const lozengeHtml: ReactNode = (
+      <ChevronRightIcon
+        testId="lozenge-chevron-right-icon"
+        label="chevron-right"
+      />
+    );
 
     it('primary as well as secondary texts', () => {
       const primaryText = 'PrimaryText';
@@ -56,6 +63,19 @@ describe('AvatarItemOption', () => {
       );
 
       expect(component.text()).toContain(lozenge.text);
+    });
+
+    it('with html lozenge when lozenge is present', async () => {
+      const component = mount(
+        <AvatarItemOption
+          primaryText={primaryText}
+          secondaryText={secondaryText}
+          lozenge={lozengeHtml}
+          avatar="Avatar"
+        />,
+      );
+
+      expect(component.html()).toContain('lozenge-chevron-right-icon');
     });
   });
 });

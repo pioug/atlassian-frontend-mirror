@@ -11,7 +11,7 @@ import {
   fullpage,
   editable,
   insertBlockMenuItem,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import { messages } from '../../../insert-block/ui/ToolbarInsertBlock/messages';
 

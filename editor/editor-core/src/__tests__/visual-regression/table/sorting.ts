@@ -15,12 +15,12 @@ import {
   hoverCellOption,
   tableSelectors,
   clickFirstCell,
-} from '../../__helpers/page-objects/_table';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   pressKeyDown,
   pressKeyUp,
-} from '../../__helpers/page-objects/_keyboard';
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import { EditorProps } from '../../../types';
 import adfWithMergedRows from './__fixtures__/table-with-merged-rows.adf.json';
 import adfWithMedia from './__fixtures__/table-with-media.adf.json';

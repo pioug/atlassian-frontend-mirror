@@ -1,5 +1,8 @@
 import faker from 'faker';
-import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
+import {
+  userPickerData,
+  userPickerTeamData,
+} from '@atlaskit/util-data-test/user-picker';
 import { OptionData } from '../src/types';
 
 export const isTesting = () => typeof jest !== 'undefined';
@@ -16,9 +19,11 @@ const ssrExampleOptions = userPickerData.map((u: any) => ({
   avatarUrl: undefined,
 })) as OptionData[];
 
-export const exampleOptions = isTesting()
+const testOptions = isTesting()
   ? ssrExampleOptions
   : (userPickerDataWithAvatar as OptionData[]);
+
+export const exampleOptions = testOptions.concat(userPickerTeamData);
 
 export const unassigned = { id: 'unassign', name: 'Unassigned' };
 export const assignToMe = { id: 'assign-me', name: 'Assign to me' };

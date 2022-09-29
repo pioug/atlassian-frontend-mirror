@@ -7,9 +7,9 @@ import {
   changeSelectedNodeLayout,
   animationFrame,
   toggleBreakout,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
-import { clickFirstCell } from '../../__helpers/page-objects/_table';
+import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 
 import {
   defaultTableInOverflow,
@@ -20,7 +20,7 @@ import {
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 import messages from '../../../messages';
 

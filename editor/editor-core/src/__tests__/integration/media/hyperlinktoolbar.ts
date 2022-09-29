@@ -1,10 +1,14 @@
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { editable, getDocFromElement, fullpage } from '../_helpers';
+import {
+  editable,
+  getDocFromElement,
+  fullpage,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 const linkUrlSelector = '[data-testid="link-url"]';
 const linkLabelSelector = '[data-testid="link-label"]';

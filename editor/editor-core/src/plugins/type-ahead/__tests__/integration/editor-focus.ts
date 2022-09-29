@@ -10,18 +10,18 @@ import {
   quickInsert,
   setProseMirrorTextSelection,
   getDocFromElement,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
-import { clickFirstParagraph } from '../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import { clickFirstParagraph } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   textAndStatusAtFirstParagraph,
   onlyOneChar,
 } from './__fixtures__/base-adfs';
-import { runEscapeKeydownSuite } from '../../../../__tests__/integration/escape-keydown/__helpers';
+import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration/escape-keydown';
 
 describe('typeahead: editor focus', () => {
   const startEditor = async (client: any, adf: any): Promise<WebDriverPage> => {

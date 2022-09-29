@@ -5,7 +5,7 @@ import {
   waitForElementWithText,
   setSelection,
   scrollToTop,
-} from '../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,

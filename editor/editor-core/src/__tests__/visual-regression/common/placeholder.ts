@@ -9,7 +9,7 @@ import {
   clickToolbarMenu,
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   PuppeteerPage,
   waitForNoTooltip,

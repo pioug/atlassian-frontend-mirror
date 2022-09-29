@@ -113,7 +113,17 @@ export type Input = {
 };
 
 export type DragLocation = {
+  /**
+   * A users input at a point in time
+   */
   input: Input;
+  /**
+   * A _bubble_ ordered (innermost upwards) list of active drop targets
+   *
+   * @example
+   * [grandChildRecord, childRecord, parentRecord]
+   *
+   */
   dropTargets: DropTargetRecord[];
 };
 

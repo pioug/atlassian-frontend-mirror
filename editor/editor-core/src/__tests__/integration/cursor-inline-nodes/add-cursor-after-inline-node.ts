@@ -1,18 +1,24 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { Node as PMNode } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { editable, expectToMatchSelection } from '../_helpers';
+import {
+  editable,
+  expectToMatchSelection,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   selectors,
   getDocFromElement,
   getBoundingRect,
-} from '../../__helpers/page-objects/_editor';
-import { animationFrame, fullpage } from '../_helpers';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import {
+  animationFrame,
+  fullpage,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import { adfs } from './__fixtures__/inline-nodes';
 

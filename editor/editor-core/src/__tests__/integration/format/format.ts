@@ -1,17 +1,20 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { fullpage, getDocFromElement } from '../_helpers';
+import {
+  fullpage,
+  getDocFromElement,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
-import { KEY } from '../../__helpers/page-objects/_keyboard';
-import { selectors } from '../../__helpers/page-objects/_editor';
-import { runEscapeKeydownSuite } from '../escape-keydown/__helpers';
+import { KEY } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration/escape-keydown';
 import {
   clickToolbarMenu,
   ToolbarMenuItem,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 const editorSelector = selectors.editor;
 

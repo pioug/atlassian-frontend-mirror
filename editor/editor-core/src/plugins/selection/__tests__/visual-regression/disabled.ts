@@ -6,7 +6,7 @@ import {
   snapshot,
 } from '../../../../__tests__/visual-regression/_utils';
 
-import { selectAtPos } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { selectAtPos } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Selection:', () => {
   let page: PuppeteerPage;

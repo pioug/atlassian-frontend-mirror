@@ -187,7 +187,7 @@ export interface OptionData {
   // (undocumented)
   id: string;
   // (undocumented)
-  lozenge?: string | LozengeProps;
+  lozenge?: string | LozengeProps | ReactNode;
   // (undocumented)
   name: string;
   // (undocumented)
@@ -302,6 +302,8 @@ export type Target = (options: { ref: any; isOpen: boolean }) => ReactNode;
 export interface Team extends OptionData {
   // (undocumented)
   avatarUrl?: string;
+  // (undocumented)
+  byline?: string;
   // (undocumented)
   description?: string;
   // (undocumented)

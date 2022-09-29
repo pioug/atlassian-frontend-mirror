@@ -3,11 +3,11 @@ import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   typeInEditorAtEndOfDocument,
   selectors,
-} from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   waitForTypeAheadMenu,
   waitForMenuIconsToLoad,
-} from '../../__helpers/page-objects/_quick-insert';
+} from '@atlaskit/editor-test-helpers/page-objects/quick-insert';
 
 describe('Quick Insert:', () => {
   let page: PuppeteerPage;

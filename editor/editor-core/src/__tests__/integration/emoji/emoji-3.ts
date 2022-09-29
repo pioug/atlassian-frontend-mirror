@@ -1,10 +1,10 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { codeBlockSelectors } from '../../__helpers/page-objects/_code-block';
+import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
-import { emojiSearch } from '../../__helpers/page-objects/_emoji';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { emojiSearch } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import {
   getDocFromElement,
   editable,
@@ -12,7 +12,7 @@ import {
   emojiItem,
   typeahead,
   highlightEmojiInTypeahead,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 BrowserTestCase(
   'emoji-3.ts: user can navigate typeahead using keyboard',

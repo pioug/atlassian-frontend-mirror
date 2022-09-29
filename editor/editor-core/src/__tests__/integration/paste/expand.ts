@@ -1,17 +1,21 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { copyAsHTML, getDocFromElement, fullpage } from '../_helpers';
+import {
+  copyAsHTML,
+  getDocFromElement,
+  fullpage,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { document } from './__fixtures__/document-with-table';
 import {
   documentWithExpand,
   documentWithExpandAndTables,
   tableWithPanel,
 } from './__fixtures__/document-with-expand';
-import { panelSelectors } from '../../__helpers/page-objects/_panel';
-import { selectors } from '../../__helpers/page-objects/_editor';
+import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 const editorSelector = selectors.editor;
 const expandSelector = '[data-node-type="expand"]';

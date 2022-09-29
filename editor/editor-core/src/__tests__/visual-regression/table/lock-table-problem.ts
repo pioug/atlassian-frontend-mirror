@@ -9,10 +9,10 @@ import {
   clickFirstCell,
   grabAndMoveColumnResing,
   tableSelectors,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import { EditorProps } from '../../../types';
 import adf from './__fixtures__/default-table.adf.json';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Table lock problems', () => {
   let page: PuppeteerPage;

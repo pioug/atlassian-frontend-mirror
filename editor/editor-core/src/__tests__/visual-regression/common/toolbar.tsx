@@ -19,12 +19,12 @@ import {
   toolbarDropdownMenuSelectors,
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   animationFrame,
   scrollToBottom,
   selectors as prosemirrorSelectors,
-} from '../../__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
 
 describe('Toolbar', () => {

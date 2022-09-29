@@ -230,4 +230,25 @@ describe('Team Option', () => {
       />,
     );
   });
+
+  it('should render custom byline if byline is set on team and memberCount and includesYou is provided', () => {
+    const customByline = 'A custom byline';
+    const component = shallowOption(
+      { isSelected: true },
+      buildTeam({
+        byline: customByline,
+        includesYou: true,
+        memberCount: 45,
+      }),
+    );
+    const avatarOptionProps = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.selected', colors.B400),
+    );
+
+    const secondaryText = avatarOptionProps.props()
+      .secondaryText as ReactElement;
+
+    expect(secondaryText.props.children).toEqual(customByline);
+  });
 });

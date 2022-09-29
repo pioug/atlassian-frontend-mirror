@@ -1,7 +1,7 @@
 import { snapshot, Device, initFullPageEditorWithAdf } from '../_utils';
 import * as layoutsAndWidths from './__fixtures__/layouts-and-widths-adf.json';
 import * as nestedMedia from './__fixtures__/nested-media.adf.json';
-import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 
 describe('Snapshot Test: Media', () => {
   describe('full page editor', () => {

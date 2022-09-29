@@ -2,9 +2,12 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import * as embedCardAdf from './_fixtures_/embed-card.adf.json';
-import { editable, getDocFromElement } from '../_helpers';
+import {
+  editable,
+  getDocFromElement,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 [
   { type: 'align left', value: 'button[aria-label="Align left"]' },

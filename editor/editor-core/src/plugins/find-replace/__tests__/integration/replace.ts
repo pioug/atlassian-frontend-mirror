@@ -3,13 +3,13 @@ import {
   fullpage,
   editable,
   getDocFromElement,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import replaceAdf from './__fixtures__/replace-adf.json';
-import { findReplaceSelectors } from '../../../../__tests__/__helpers/page-objects/_find-replace';
+import { findReplaceSelectors } from '@atlaskit/editor-test-helpers/page-objects/find-replace';
 
 BrowserTestCase(
   'replace.ts: modifying find text before replace should not restore stale pluginState replace text',

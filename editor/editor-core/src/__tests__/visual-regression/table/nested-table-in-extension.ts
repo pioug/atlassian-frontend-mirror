@@ -1,7 +1,7 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import tableInExtAdf from './__fixtures__/nested-table-inside-bodied-ext.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { clickFirstCell } from '../../../__tests__/__helpers/page-objects/_table';
+import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 import messages from '../../../messages';
 
 describe('Snapshot Test: Nested table inside bodied extension', () => {

@@ -1,6 +1,6 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
-import { goToEditorTestingWDExample } from '../../__helpers/testing-example-helpers';
+import { goToEditorTestingWDExample } from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   addLayout,
   allBreakoutTypes,
@@ -9,10 +9,14 @@ import {
   removeLayout,
   selectBreakout,
   selectLayoutColumn,
-} from '../../__helpers/page-objects/_layouts';
-import { insertMedia, removeMedia } from '../_helpers';
-import { resizeMediaSingle } from '../../__helpers/page-objects/_media';
-import { assertWidthBeforeAndAfter, setupEditor } from './resize-mediaSingle-1';
+} from '@atlaskit/editor-test-helpers/page-objects/layouts';
+import {
+  insertMedia,
+  removeMedia,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { resizeMediaSingle } from '@atlaskit/editor-test-helpers/page-objects/media';
+
+import { assertWidthBeforeAndAfter, setupEditor } from './_utils';
 
 BrowserTestCase(
   'resize-mediaSingle.ts: Image is resized in the layout',

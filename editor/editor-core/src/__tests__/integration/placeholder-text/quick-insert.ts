@@ -4,11 +4,11 @@ import {
   fullpage,
   getDocFromElement,
   quickInsert,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 const placeholderInputSelector = 'input[placeholder="Add placeholder text"]';
 

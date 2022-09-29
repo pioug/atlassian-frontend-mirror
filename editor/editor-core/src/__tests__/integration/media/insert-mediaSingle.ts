@@ -5,11 +5,11 @@ import {
   insertMedia,
   fullpage,
   comment,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 BrowserTestCase(
   'insert-mediaSingle.ts: Inserts a media single on fullpage',

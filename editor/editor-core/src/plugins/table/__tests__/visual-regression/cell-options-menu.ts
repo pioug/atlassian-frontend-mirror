@@ -2,7 +2,7 @@ import {
   PuppeteerPage,
   waitForNoTooltip,
 } from '@atlaskit/visual-regression/helper';
-import { insertTable } from '../../../../__tests__/__helpers/page-objects/_table';
+import { insertTable } from '@atlaskit/editor-test-helpers/page-objects/table';
 
 import {
   snapshot,

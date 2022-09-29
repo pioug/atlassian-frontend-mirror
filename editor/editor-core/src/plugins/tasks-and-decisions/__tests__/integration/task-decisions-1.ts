@@ -7,7 +7,7 @@ import {
   getDocFromElement,
   gotoEditor,
   insertBlockMenuItem,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 /*
  * Safari adds special characters that end up in the snapshot

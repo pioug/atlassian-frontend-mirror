@@ -4,15 +4,15 @@ import {
   animationFrame,
   getDocFromElement,
   fullpage,
-} from '../_helpers';
-import { insertRow } from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { insertRow } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { table as tableInsideLayout } from './__fixtures__/table-inside-layout';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
-import { clickFirstCell } from '../../__helpers/page-objects/_table';
+import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 
 BrowserTestCase(
   'Should scale remaining columns when adding a new column preventing from going to overflow',

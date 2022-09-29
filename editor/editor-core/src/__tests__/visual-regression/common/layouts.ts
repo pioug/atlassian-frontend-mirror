@@ -5,12 +5,12 @@ import {
   getBoundingClientRect,
 } from '../_utils';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { layoutSelectors } from '../../__helpers/page-objects/_layouts';
-import { decisionSelectors } from '../../__helpers/page-objects/_decision';
+import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
+import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import * as col1 from './__fixtures__/column1-adf.json';
 import * as col2 from './__fixtures__/column2-adf.json';
 import * as col3 from './__fixtures__/column3-adf.json';

@@ -12,11 +12,11 @@ import {
   Appearance,
   retryUntil,
 } from '../../../../__tests__/visual-regression/_utils';
-import { mentionSelectors } from '../../../../__tests__/__helpers/page-objects/_mention';
-import { animationFrame } from '../../../../__tests__/__helpers/page-objects/_editor';
+import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/mention';
+import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import selectionPanelAdf from './__fixtures__/panel.adf.json';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
-import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 // ED-10826: The editor may present a clickable interface before it is
 // fully mounted. We implement retryable clicking to overcome this edge case.

@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import React, { ReactNode } from 'react';
+import { gridSize } from '@atlaskit/theme/constants';
 import { css, jsx } from '@emotion/core';
 import Lozenge from '@atlaskit/lozenge';
 import { LozengeProps } from '../types';
+import { isLozengeText } from './utils';
 
 const AsyncTooltip = React.lazy(() =>
   import(
@@ -25,6 +27,14 @@ const wrapper = css({
   cursor: 'pointer',
 });
 
+const optionWrapper = css({
+  maxWidth: '100%',
+  minWidth: 0,
+  flex: '1 1 100%',
+  lineHeight: '1.4',
+  paddingLeft: `${gridSize()}px`,
+});
+
 const getTextStyle = (isSecondary?: boolean) => {
   const secondaryCssArgs = isSecondary ? { fontSize: '0.85em' } : {};
 
@@ -45,7 +55,7 @@ export const textWrapper = (color?: string) =>
   css({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    display: 'inline-block',
+    display: 'inline',
     color,
   });
 
@@ -53,7 +63,7 @@ export type AvatarItemOptionProps = {
   avatar: ReactNode;
   primaryText?: ReactNode;
   secondaryText?: ReactNode;
-  lozenge?: LozengeProps;
+  lozenge?: ReactNode | LozengeProps;
 };
 
 export const AvatarItemOption = ({
@@ -61,40 +71,39 @@ export const AvatarItemOption = ({
   primaryText,
   secondaryText,
   lozenge,
-}: AvatarItemOptionProps) => (
-  <span css={wrapper}>
-    {avatar}
-    <div
-      style={{
-        maxWidth: '100%',
-        minWidth: 0,
-        flex: '1 1 100%',
-        lineHeight: '1.4',
-        paddingLeft: '8px',
-      }}
-    >
-      <div>
-        <span css={getTextStyle()}>{primaryText}</span>
-        <span css={additionalInfo}>
-          {lozenge?.text &&
-            (lozenge?.tooltip ? (
-              // Note that entire Lozenge must be wrapped in the Tooltip (rather than just the
-              // Lozenge text) or tooltip won't work
-              <React.Suspense
-                fallback={<Lozenge {...lozenge}>{lozenge.text}</Lozenge>}
-              >
-                <AsyncTooltip content={lozenge.tooltip}>
-                  <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
-                </AsyncTooltip>
-              </React.Suspense>
-            ) : (
+}: AvatarItemOptionProps) => {
+  const renderLozenge = () => {
+    if (isLozengeText(lozenge)) {
+      if (lozenge?.tooltip) {
+        // Note that entire Lozenge must be wrapped in the Tooltip (rather than just the
+        // Lozenge text) or tooltip won't work
+        return (
+          <React.Suspense
+            fallback={<Lozenge {...lozenge}>{lozenge.text}</Lozenge>}
+          >
+            <AsyncTooltip content={lozenge.tooltip}>
               <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
-            ))}
-        </span>
+            </AsyncTooltip>
+          </React.Suspense>
+        );
+      }
+
+      return <Lozenge {...lozenge}>{lozenge.text}</Lozenge>;
+    }
+
+    return lozenge;
+  };
+
+  return (
+    <span css={wrapper}>
+      {avatar}
+      <div css={optionWrapper}>
+        <div>
+          <div css={getTextStyle()}>{primaryText}</div>
+          {secondaryText && <div css={getTextStyle(true)}>{secondaryText}</div>}
+        </div>
       </div>
-      <div>
-        <span css={getTextStyle(true)}>{secondaryText}</span>
-      </div>
-    </div>
-  </span>
-);
+      {lozenge && <div css={additionalInfo}>{renderLozenge()}</div>}
+    </span>
+  );
+};

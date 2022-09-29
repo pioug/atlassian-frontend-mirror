@@ -12,8 +12,8 @@ import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   scrollToTop,
   clickFirstParagraph,
-} from '../../__helpers/page-objects/_editor';
-import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 
 describe('Full-width mode', () => {
   let page: PuppeteerPage;

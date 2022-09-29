@@ -1,6 +1,6 @@
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import adf from './__fixtures__/nested-actions.adf.json';
-import { selectors } from '../../__helpers/page-objects/_editor';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 describe('Nested actions', () => {
   it('looks correct', async () => {

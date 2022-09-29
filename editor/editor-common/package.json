@@ -115,7 +115,7 @@
   },
   "devDependencies": {
     "@atlaskit/editor-json-transformer": "^8.8.0",
-    "@atlaskit/editor-test-helpers": "^17.1.0",
+    "@atlaskit/editor-test-helpers": "^17.2.0",
     "@atlaskit/media-core": "^33.0.0",
     "@atlaskit/util-data-test": "^17.5.0",
     "@atlaskit/visual-regression": "*",

@@ -2,8 +2,8 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
-import { animationFrame } from '../_helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { animationFrame } from '@atlaskit/editor-test-helpers/integration/helpers';
 
 BrowserTestCase(
   'emoji-4.ts: emoji picker should be scrollable',

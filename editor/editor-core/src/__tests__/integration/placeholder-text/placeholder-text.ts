@@ -2,13 +2,13 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import {
   editable,
   getDocFromElement,
   fullpage,
   insertBlockMenuItem,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import placeholderAdf from './__fixtures__/placeholder.adf.json';
 
 const placeholderInputSelector = 'input[placeholder="Add placeholder text"]';

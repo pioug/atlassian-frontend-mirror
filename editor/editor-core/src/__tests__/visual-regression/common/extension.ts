@@ -4,17 +4,17 @@ import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors,
   retryUntilStablePosition,
-} from '../../__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
   clickBlockMenuItem,
   BlockMenuItem,
-} from '../../__helpers/page-objects/_blocks';
+} from '@atlaskit/editor-test-helpers/page-objects/blocks';
 import {
   clickOnExtension,
   extensionSelectors,
   extensionWidthSelectors,
   waitForExtensionToolbar,
-} from '../../__helpers/page-objects/_extensions';
+} from '@atlaskit/editor-test-helpers/page-objects/extensions';
 import adf from './__fixtures__/extension-wide.adf.json';
 import defaultBodiedAdf from './__fixtures__/bodied-extension-default.adf.json';
 import extensionLayouts from './__fixtures__/extension-layouts.adf.json';

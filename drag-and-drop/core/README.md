@@ -25,9 +25,11 @@ The goals of `@atlaskit/drag-and-drop` are:
 - 🪡 Incremental: only pay for what you use
 - ⏳ Deferred compatible: consumers can delay the loading of `@atlaskit/drag-and-drop` (and related packages) in order to improve page load speeds
 - 🎨 Headless: full rendering and style control
-- 📱 Mobile support
+- 🦊 Cross browser support: full feature support in Firefox, Safari and Chrome
+- 📱 Touch device compatible
 - 🎁 Addons: patterns that allow sharing small pieces of functionality that can be added together
 - 🎄 Framework agnostic: works with any frontend framework
+- 👾 Virtualization support
 - 🧑‍🦽 Accessible: comprehensive toolchain and patterns for creating highly accessible experiences
 
 ## Installation

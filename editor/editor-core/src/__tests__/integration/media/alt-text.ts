@@ -6,11 +6,11 @@ import {
   getDocFromElement,
   insertMedia,
   fullpage,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 const altTextButtonSelector = '[data-testid="alt-text-edit-button"]';
 const cancelBtnSelector = '[data-testid="alt-text-clear-button"]';

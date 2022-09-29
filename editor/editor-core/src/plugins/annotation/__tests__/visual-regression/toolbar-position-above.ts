@@ -9,7 +9,7 @@ import {
   scrollToElement,
   selectAtPos,
   selectAtPosWithProseMirror,
-} from '../../../../__tests__/__helpers/page-objects/_editor';
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -22,7 +22,7 @@ import {
   selectColumn,
   selectRow,
   tableSelectors,
-} from '../../../../__tests__/__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 
 const init = async (page: PuppeteerPage, adf: Object) => {
   return await initFullPageEditorWithAdf(

@@ -1,6 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { selectElementWithText } from '../../__helpers/page-objects/_editor';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
+import { selectElementWithText } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import adf from './__fixtures__/table-with-paragraph.adf.json';
 

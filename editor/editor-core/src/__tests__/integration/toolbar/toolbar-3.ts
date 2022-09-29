@@ -1,16 +1,21 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { getDocFromElement, comment, fullpage, editable } from '../_helpers';
+import {
+  getDocFromElement,
+  comment,
+  fullpage,
+  editable,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { toolbarMessages } from '../../../plugins/text-formatting/ui/Toolbar/toolbar-messages';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 import { messages as blockTypeMessages } from '../../../plugins/block-type/messages';
 import colorPaletteMessages from '../../../ui/ColorPalette/Palettes/paletteMessages';
 import {
   toolbarMenuItemsSelectors,
   ToolbarMenuItem,
-} from '../../../__tests__/__helpers/page-objects/_toolbar';
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 const more = `[aria-label="${toolbarMessages.moreFormatting.defaultMessage}"]`;
 const textColor = toolbarMenuItemsSelectors[ToolbarMenuItem.textColor];

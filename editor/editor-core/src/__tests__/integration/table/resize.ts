@@ -8,13 +8,13 @@ import {
   resizeColumn,
   selectColumns,
   updateEditorProps,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import {
   insertColumn,
   clickFirstCell,
   selectTable,
-} from '../../__helpers/page-objects/_table';
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 
 import {
   tableWithRowSpan,
@@ -32,7 +32,7 @@ import { pluginKey as tableResizingPluginKey } from '../../../plugins/table/pm-p
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../__helpers/testing-example-helpers';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 BrowserTestCase(
   'Can resize normally with a rowspan in the non last column.',

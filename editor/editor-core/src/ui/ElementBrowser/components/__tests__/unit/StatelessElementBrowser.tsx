@@ -1,5 +1,5 @@
 import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
-import { elementBrowserSelectors } from '../../../../../__tests__/__helpers/page-objects/_element-browser';
+import { elementBrowserSelectors } from '@atlaskit/editor-test-helpers/page-objects/element-browser';
 
 const mockGetWidth = jest.fn();
 

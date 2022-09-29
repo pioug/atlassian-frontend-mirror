@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.4.0
+
+### Minor Changes
+
+- [`47c6607c914`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47c6607c914) - [ux] Adding ability for Options of type Team to allow for custom html in the lozenge prop. Added byline prop for type Team which will override the default byline generated from includesYou and memberCount props.
+
 ## 9.3.6
 
 ### Patch Changes

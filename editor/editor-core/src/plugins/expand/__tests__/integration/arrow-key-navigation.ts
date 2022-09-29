@@ -7,14 +7,14 @@ import {
   editable,
   setProseMirrorTextSelection,
   sendKeyNumTimes,
-} from '../../../../__tests__/integration/_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
-} from '../../../../__tests__/__helpers/testing-example-helpers';
-import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
-import { selectors } from '../../../../__tests__/__helpers/page-objects/_expand';
-import { selectionSelectors } from '../../../../__tests__/__helpers/page-objects/_selection';
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/expand';
+import { selectionSelectors } from '@atlaskit/editor-test-helpers/page-objects/selection';
 
 import expandAdf from './__fixtures__/empty-expand.json';
 import expandWithNestedCodeBlockTallAdf from './__fixtures__/expand-with-nested-code-block-tall.json';

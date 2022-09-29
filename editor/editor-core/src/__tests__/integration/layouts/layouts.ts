@@ -5,7 +5,7 @@ import {
   fullpage,
   editable,
   insertMenuItem,
-} from '../_helpers';
+} from '@atlaskit/editor-test-helpers/integration/helpers';
 import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
 BrowserTestCase(

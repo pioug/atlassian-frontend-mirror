@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { ClassNames } from '@emotion/core';
+import { ClassNames } from '@emotion/react';
 
 import type { Edge } from '@atlaskit/drag-and-drop-hitbox/types';
 

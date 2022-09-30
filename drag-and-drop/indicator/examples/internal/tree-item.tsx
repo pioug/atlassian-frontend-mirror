@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import type { Edge } from '@atlaskit/drag-and-drop-hitbox/experimental/tree';
 import { token } from '@atlaskit/tokens';

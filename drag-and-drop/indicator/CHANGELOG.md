@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-indicator
 
+## 0.5.0
+
+### Minor Changes
+
+- [`5b37b07dc94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b37b07dc94) - Moving from `@emotion/core@10` to `@emotion/react@11` to line up `@emotion` usage with the rest of the Design System
+
 ## 0.4.2
 
 ### Patch Changes

@@ -2,7 +2,7 @@
 
 import type { CSSProperties } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { line } from './internal/constants';
 

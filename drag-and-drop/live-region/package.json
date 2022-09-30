@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop-live-region",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "An accompanying utility for `@atlaskit/drag-and-drop` which enables screen reader messaging for alternative flows",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@emotion/core": "^10.0.9",
+    "@emotion/react": "^11.7.1",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
     "react": "^16.8.0",

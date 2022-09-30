@@ -3,7 +3,7 @@
 
 import { useCallback, useReducer } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';

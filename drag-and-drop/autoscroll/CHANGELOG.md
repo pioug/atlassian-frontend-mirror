@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-autoscroll
 
+## 0.1.7
+
+### Patch Changes
+
+- [`32d7630d1aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32d7630d1aa) - Updating @emotion dev dependency
+
 ## 0.1.6
 
 ### Patch Changes

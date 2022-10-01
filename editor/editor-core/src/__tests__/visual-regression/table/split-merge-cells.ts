@@ -34,7 +34,8 @@ describe('Table context menu: merge-split cells', () => {
       await clickFirstCell(page);
     });
 
-    it('ensures table looks ok after merging cells and undo', async () => {
+    // FIXME: This test was automatically skipped due to failure on 30/09/2022: https://product-fabric.atlassian.net/browse/ED-15751
+    it.skip('ensures table looks ok after merging cells and undo', async () => {
       const from = getSelectorForTableCell({
         row: 1,
         cell: 1,

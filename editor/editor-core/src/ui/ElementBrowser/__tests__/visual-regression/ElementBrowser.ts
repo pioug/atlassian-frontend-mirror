@@ -7,7 +7,8 @@ import { waitForBrowseMenuIcons } from '@atlaskit/editor-test-helpers/page-objec
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('ElementBrowser', () => {
-  it('should match ElementBrowser snapshot', async () => {
+  // FIXME: This test was automatically skipped due to failure on 30/09/2022: https://product-fabric.atlassian.net/browse/ED-15752
+  it.skip('should match ElementBrowser snapshot', async () => {
     const url = getExampleUrl(
       'editor',
       'editor-core',

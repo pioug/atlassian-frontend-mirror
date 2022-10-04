@@ -82,7 +82,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
       } catch (error) {
         const codeViewerError = new MediaViewerError(
           'codeviewer-fetch-src',
-          error,
+          error instanceof Error ? error : undefined,
         );
         this.setState({
           content: Outcome.failed(codeViewerError),

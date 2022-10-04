@@ -47,7 +47,7 @@ export function msgToText(buffer: ArrayBuffer) {
 
     return text.trim();
   } catch (e) {
-    return { error: e.stack };
+    return { error: e instanceof Error ? e.stack : '' };
   }
 }
 

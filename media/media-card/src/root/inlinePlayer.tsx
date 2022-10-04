@@ -141,7 +141,7 @@ export class InlinePlayerBase extends Component<
             } catch (error) {
               const { onError } = this.props;
 
-              if (onError) {
+              if (onError && error instanceof Error) {
                 onError(error);
               }
             }
@@ -167,7 +167,7 @@ export class InlinePlayerBase extends Component<
 
       this.setFileSrc(fileSrc);
     } catch (error) {
-      if (onError) {
+      if (onError && error instanceof Error) {
         onError(error);
       }
     }

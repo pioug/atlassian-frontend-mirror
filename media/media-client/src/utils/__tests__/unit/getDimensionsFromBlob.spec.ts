@@ -62,7 +62,7 @@ describe('getDimensionsFromBlob()', () => {
         await getDimensionsFromBlob('image', new Blob());
       } catch (e) {
         expect(e).toBeInstanceOf(Error);
-        expect(e.message).toEqual('unknown error');
+        expect((e as Error).message).toEqual('unknown error');
         expect(getImageDimensionsFromBlob).toHaveBeenCalledTimes(1);
         expect(createObjectURLSpy).toHaveBeenCalledTimes(1);
         expect(revokeObjectURLSpy).toHaveBeenCalledTimes(1);

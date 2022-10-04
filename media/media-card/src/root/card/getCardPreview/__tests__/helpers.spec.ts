@@ -35,7 +35,7 @@ describe('getCardPreviewFromBackend()', () => {
         'some-id',
         params,
       );
-    } catch (e) {
+    } catch (e: any) {
       expect(isRemotePreviewError(e)).toBe(true);
       expect(e.secondaryError).toBe(error);
     }
@@ -67,7 +67,7 @@ describe('getCardPreviewFromFilePreview()', () => {
     let cardPreview;
     try {
       cardPreview = await getCardPreviewFromFilePreview(Promise.reject(error));
-    } catch (e) {
+    } catch (e: any) {
       expect(isLocalPreviewError(e)).toBe(true);
       expect(e.secondaryError).toBe(error);
     }
@@ -113,7 +113,7 @@ describe('getCardPreviewFromFilePreview()', () => {
     let cardPreview;
     try {
       cardPreview = await getCardPreviewFromFilePreview(filePreview);
-    } catch (e) {
+    } catch (e: any) {
       expect(takeSnapshot).toBeCalledWith(filePreview.value);
       expect(isLocalPreviewError(e)).toBe(true);
       expect(e.secondaryError).toBe(error);

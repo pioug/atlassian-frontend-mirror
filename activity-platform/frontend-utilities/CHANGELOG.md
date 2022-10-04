@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 2.0.1
+
+### Patch Changes
+
+- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+
 ## 2.0.0
 
 ### Major Changes

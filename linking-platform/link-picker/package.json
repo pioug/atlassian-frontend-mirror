@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-picker",
-  "version": "1.10.2",
+  "version": "1.10.3",
   "description": "Standalone link picker",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -83,7 +83,7 @@
     "prettier": "^2.1.1",
     "react-dom": "^16.8.0",
     "sinon": "^2.2.0",
-    "typescript": "4.3.5"
+    "typescript": "4.5.5"
   },
   "techstack": {
     "@repo/internal": {

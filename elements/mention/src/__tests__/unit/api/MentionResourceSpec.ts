@@ -494,7 +494,7 @@ describe('MentionResource', () => {
             expect(getSecurityHeader(calls[1])).toEqual(666);
             done();
           } catch (ex) {
-            done.fail(ex);
+            done.fail(ex instanceof Error ? ex : String(ex));
           }
         },
       );

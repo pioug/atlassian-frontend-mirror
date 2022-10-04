@@ -46,7 +46,7 @@ describe('request', () => {
         await nextTick();
 
         await p;
-      } catch (err) {
+      } catch (err: any) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
         }
@@ -105,7 +105,7 @@ describe('request', () => {
         await nextTick();
 
         await p;
-      } catch (err) {
+      } catch (err: any) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
         }
@@ -134,7 +134,7 @@ describe('request', () => {
 
       try {
         await fetchRetry(functionToRetry, emptyMetadata, { maxAttempts: 3 });
-      } catch (err) {
+      } catch (err: any) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
         }
@@ -154,7 +154,7 @@ describe('request', () => {
 
       try {
         await fetchRetry(functionToRetry, emptyMetadata, { maxAttempts: 3 });
-      } catch (err) {
+      } catch (err: any) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
         }
@@ -175,7 +175,7 @@ describe('request', () => {
 
       try {
         await fetchRetry(functionToRetry, emptyMetadata, { maxAttempts: 3 });
-      } catch (err) {
+      } catch (err: any) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
         }
@@ -204,7 +204,7 @@ describe('request', () => {
 
       try {
         await fetchRetry(functionToRetry, requestMetadata, { maxAttempts: 3 });
-      } catch (err) {
+      } catch (err: any) {
         if (!isRequestError(err)) {
           return expect(isRequestError(err)).toBeTruthy();
         }
@@ -341,7 +341,9 @@ describe('request', () => {
         error = e;
       }
 
+      // @ts-expect-error
       if (!isRequestError(error)) {
+        // @ts-expect-error
         return expect(isRequestError(error)).toBeTruthy();
       }
 
@@ -422,7 +424,9 @@ describe('request', () => {
         error = e;
       }
 
+      // @ts-expect-error
       if (!isRequestError(error)) {
+        // @ts-expect-error
         return expect(isRequestError(error)).toBeTruthy();
       }
 
@@ -455,7 +459,9 @@ describe('request', () => {
         error = e;
       }
 
+      // @ts-expect-error
       if (!isRequestError(error)) {
+        // @ts-expect-error
         return expect(isRequestError(error)).toBeTruthy();
       }
 
@@ -487,7 +493,9 @@ describe('request', () => {
         error = e;
       }
 
+      // @ts-expect-error
       if (!isRequestError(error)) {
+        // @ts-expect-error
         return expect(isRequestError(error)).toBeTruthy();
       }
 
@@ -509,7 +517,9 @@ describe('request', () => {
         error = e;
       }
 
+      // @ts-expect-error
       if (!isRequestError(error)) {
+        // @ts-expect-error
         return expect(isRequestError(error)).toBeTruthy();
       }
 
@@ -540,7 +550,9 @@ describe('request', () => {
         error = e;
       }
 
+      // @ts-expect-error
       if (!isRequestError(error)) {
+        // @ts-expect-error
         return expect(isRequestError(error)).toBeTruthy();
       }
 
@@ -574,7 +586,9 @@ describe('request', () => {
         error = e;
       }
 
+      // @ts-expect-error
       if (!isRequestError(error)) {
+        // @ts-expect-error
         return expect(isRequestError(error)).toBeTruthy();
       }
 

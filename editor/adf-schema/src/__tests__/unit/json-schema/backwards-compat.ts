@@ -39,7 +39,7 @@ expect.extend({
       return {
         pass: true,
       };
-    } catch (ex) {
+    } catch (ex: any) {
       return {
         message: () => ex.message,
         pass: false,
@@ -54,7 +54,7 @@ describe('JSON schema', () => {
     const existingSchema = await fetchLastPublishedJSONSchema();
     try {
       expect(newSchema).toBeBackwardsCompatibleWith(existingSchema);
-    } catch (ex) {
+    } catch (ex: any) {
       throw new Error(
         'JSON schema backwards compatibility test failed. ' +
           `${IMPORTANT_MESSAGE_START}Have you tried rebasing your current branch against target branch?${IMPORTANT_MESSAGE_END}\n` +

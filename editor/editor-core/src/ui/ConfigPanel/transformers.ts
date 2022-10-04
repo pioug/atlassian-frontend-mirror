@@ -457,7 +457,9 @@ export const deserialize = async (
         try {
           value = fieldDeserializer(value);
         } catch (error) {
-          errors.push({ [name]: error.message });
+          errors.push({
+            [name]: error instanceof Error ? error.message : String(error),
+          });
           continue;
         }
 

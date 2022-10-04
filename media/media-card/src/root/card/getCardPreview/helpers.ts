@@ -27,7 +27,10 @@ const getImageLocalPreview = async (value: Blob): Promise<CardPreview> => {
       source: 'local',
     };
   } catch (e) {
-    throw new LocalPreviewError('local-preview-image', e);
+    throw new LocalPreviewError(
+      'local-preview-image',
+      e instanceof Error ? e : undefined,
+    );
   }
 };
 
@@ -40,7 +43,10 @@ const getVideoLocalPreview = async (value: Blob): Promise<CardPreview> => {
       source: 'local',
     };
   } catch (e) {
-    throw new LocalPreviewError('local-preview-video', e);
+    throw new LocalPreviewError(
+      'local-preview-video',
+      e instanceof Error ? e : undefined,
+    );
   }
 };
 
@@ -52,7 +58,10 @@ export const getCardPreviewFromFilePreview = async (
     const resolvedFilePreview = await filePreview;
     value = resolvedFilePreview.value;
   } catch (e) {
-    throw new LocalPreviewError('local-preview-rejected', e);
+    throw new LocalPreviewError(
+      'local-preview-rejected',
+      e instanceof Error ? e : undefined,
+    );
   }
   if (typeof value === 'string') {
     return {
@@ -86,6 +95,9 @@ export const getCardPreviewFromBackend = async (
       source: 'remote',
     };
   } catch (e) {
-    throw new RemotePreviewError('remote-preview-fetch', e);
+    throw new RemotePreviewError(
+      'remote-preview-fetch',
+      e instanceof Error ? e : undefined,
+    );
   }
 };

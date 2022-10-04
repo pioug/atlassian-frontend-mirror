@@ -190,7 +190,7 @@ export function createApiRouter(
     if (record && record.data.blob && !isSvgFile(record)) {
       dimensions = new Promise((resolve) => {
         const image = new Image();
-        image.src = URL.createObjectURL(record.data.blob);
+        image.src = URL.createObjectURL(record.data.blob!);
         image.onload = () =>
           resolve({ height: image.height, width: image.width });
       });

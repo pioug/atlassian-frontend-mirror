@@ -127,3 +127,7 @@ export type {
   getPosHandler,
   getPosHandlerNode,
 } from './editor-plugin';
+
+export type IconProps = {
+  label?: string;
+};

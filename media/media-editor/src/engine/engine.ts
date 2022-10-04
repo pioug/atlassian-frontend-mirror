@@ -73,7 +73,10 @@ export class Engine {
         return { isExported: true, content: image, dimensions };
       }
     } catch (error) {
-      return { isExported: false, error: error.message };
+      return {
+        isExported: false,
+        error: error instanceof Error ? error.message : String(error),
+      };
     }
   }
 

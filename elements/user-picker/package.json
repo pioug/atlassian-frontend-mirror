@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/user-picker",
-  "version": "9.4.0",
+  "version": "9.4.1",
   "description": "Fabric component for display a dropdown to select a user from",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -73,7 +73,7 @@
     "faker": "^4.1.0",
     "mock-apollo-client": "^0.1.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "4.3.5"
+    "typescript": "4.5.5"
   },
   "techstack": {
     "@repo/internal": {

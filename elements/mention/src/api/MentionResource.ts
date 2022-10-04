@@ -315,7 +315,7 @@ export class MentionResource
 
       this.notify(searchTime, results, query);
     } catch (error) {
-      this.notifyError(error, query);
+      this.notifyError(error as Error, query);
     }
   }
 

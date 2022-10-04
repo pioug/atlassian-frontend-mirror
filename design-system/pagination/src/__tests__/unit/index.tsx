@@ -29,7 +29,7 @@ function assertPageButtonRendering(
         expect.stringContaining(`pagination--page`),
       );
     }
-  } catch (error) {
+  } catch (error: any) {
     Error.captureStackTrace(error, assertPageButtonRendering);
 
     throw error;
@@ -52,7 +52,7 @@ function assertNavigationButtonRendering(
       expect(navigationButton).toHaveAttribute('disabled');
       expect(navigationButton).toHaveStyle('cursor: not-allowed');
     }
-  } catch (error) {
+  } catch (error: any) {
     Error.captureStackTrace(error, assertNavigationButtonRendering);
 
     throw error;

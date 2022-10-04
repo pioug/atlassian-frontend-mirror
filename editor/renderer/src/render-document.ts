@@ -159,7 +159,7 @@ const _createNodeAndCheck = (
         actionSubject: ACTION_SUBJECT.RENDERER,
         attributes: {
           platform: PLATFORM.WEB,
-          errorStack: err?.toString(),
+          errorStack: err instanceof Error ? err.message : String(err),
         },
         eventType: EVENT_TYPE.OPERATIONAL,
       });

@@ -322,7 +322,7 @@ export function processRawValue(
           actionSubject: ACTION_SUBJECT.EDITOR,
           eventType: EVENT_TYPE.OPERATIONAL,
           attributes: {
-            errorStack: err?.toString(),
+            errorStack: err instanceof Error ? err.stack : String(err),
           },
         });
       }
@@ -345,14 +345,16 @@ export function processRawValue(
         actionSubject: ACTION_SUBJECT.EDITOR,
         eventType: EVENT_TYPE.OPERATIONAL,
         attributes: {
-          errorStack: e?.toString(),
+          errorStack: e instanceof Error ? e.stack : String(e),
         },
       });
     }
 
     // eslint-disable-next-line no-console
     console.error(
-      `Error processing document:\n${e.message}\n\n`,
+      `Error processing document:\n${
+        e instanceof Error ? e.message : String(e)
+      }\n\n`,
       JSON.stringify(node),
     );
 

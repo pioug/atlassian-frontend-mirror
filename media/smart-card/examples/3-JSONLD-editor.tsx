@@ -37,7 +37,7 @@ class Example extends React.Component<ExampleProps, ExampleState> {
     } catch (err) {
       this.setState({
         text,
-        error: err.message,
+        error: err instanceof Error ? err.message : String(err),
       });
     }
   };

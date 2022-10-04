@@ -55,7 +55,12 @@ export default class ArchiveSidebarRenderer extends Component<
       onSuccess();
     } catch (error) {
       this.setState({ status: 'loaded' });
-      onError(new ArchiveViewerError('archiveviewer-read-binary', error));
+      onError(
+        new ArchiveViewerError(
+          'archiveviewer-read-binary',
+          error instanceof Error ? error : undefined,
+        ),
+      );
     }
   }
 

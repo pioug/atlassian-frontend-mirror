@@ -50,7 +50,7 @@ const processLevelsAndTrack: ProcessLevelsAndTrack = (
       actionSubject: ACTION_SUBJECT.RENDERER,
       attributes: {
         platform: PLATFORM.WEB,
-        error: err?.toString(),
+        error: err instanceof Error ? err.message : String(err),
       },
       eventType: EVENT_TYPE.OPERATIONAL,
     });

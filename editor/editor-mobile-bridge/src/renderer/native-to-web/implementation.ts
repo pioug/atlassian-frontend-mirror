@@ -118,7 +118,7 @@ class RendererBridgeImplementation
       const payload = await this.fetchPayload('promise', uuid);
       resolvePromise(uuid, payload);
     } catch (err) {
-      rejectPromise(uuid, err);
+      rejectPromise(uuid, err as Error);
     }
   }
 

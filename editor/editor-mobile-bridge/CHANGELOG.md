@@ -1,5 +1,18 @@
 # @atlaskit/editor-mobile-bridge
 
+## 34.5.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.5.7
+
+### Patch Changes
+
+- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- Updated dependencies
+
 ## 34.5.6
 
 ### Patch Changes

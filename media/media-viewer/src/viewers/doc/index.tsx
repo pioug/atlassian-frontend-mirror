@@ -71,7 +71,10 @@ export class DocViewer extends BaseViewer<string, Props> {
           content: Outcome.successful(src),
         });
       } catch (error) {
-        const docError = new MediaViewerError('docviewer-fetch-url', error);
+        const docError = new MediaViewerError(
+          'docviewer-fetch-url',
+          error instanceof Error ? error : undefined,
+        );
         this.setState({
           content: Outcome.failed(docError),
         });

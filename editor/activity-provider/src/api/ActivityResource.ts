@@ -92,7 +92,7 @@ export default class ActivityResource implements ActivityProvider {
         type: node.object.type,
         viewedTimestamp: node.timestamp,
       }));
-    } catch (err) {
+    } catch (err: any) {
       throw new ActivityError(err.reason, err.code);
     }
   }

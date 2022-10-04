@@ -167,7 +167,7 @@ export class TaskWrapper<C = any, P = any> {
     } catch (e) {
       this.spinner.fail(chalk.red(`[error] ${e}`));
       /* eslint-disable no-console */
-      console.log(e.stack);
+      console.log(e instanceof Error ? e.stack : e);
       throw e;
     }
   }

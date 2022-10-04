@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-shared-styles",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Style values used in the editor/renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
   "peerDependencies": {},
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "typescript": "4.3.5"
+    "typescript": "4.5.5"
   },
   "techstack": {
     "@atlassian/frontend": {

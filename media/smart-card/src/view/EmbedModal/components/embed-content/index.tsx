@@ -19,7 +19,7 @@ const EmbedContent: FC<EmbedProps> = ({ isTrusted, name, src, testId }) => {
     src,
     'data-testid': `${testId}-embed`,
   };
-  return src ? <iframe src={src} {...props} /> : <iframe {...props} />;
+  return <iframe {...props} />;
 };
 
 export default EmbedContent;

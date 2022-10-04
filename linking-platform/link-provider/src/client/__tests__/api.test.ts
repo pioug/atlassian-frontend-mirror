@@ -67,7 +67,7 @@ describe('Smart Card: request()', () => {
       });
     } catch (error) {
       expect(error).toBeInstanceOf(NetworkError);
-      expect(error.message).toEqual('some-error');
+      expect((error as Error).message).toEqual('some-error');
     }
   });
 
@@ -83,7 +83,7 @@ describe('Smart Card: request()', () => {
       });
     } catch (error) {
       expect(error).toBeInstanceOf(NetworkError);
-      expect(error.message).toEqual('TypeError: some-type-error');
+      expect((error as Error).message).toEqual('TypeError: some-type-error');
     }
   });
 });

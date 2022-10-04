@@ -255,9 +255,9 @@ export const PopupUserPicker: React_2.ForwardRefExoticComponent<
         | 'offset'
         | 'isMulti'
         | 'width'
+        | 'rootBoundary'
         | 'boundariesElement'
         | 'placement'
-        | 'rootBoundary'
         | 'shouldFlip'
       >
     > &

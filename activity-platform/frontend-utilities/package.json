@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/frontend-utilities",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Collecton of small useful frontend utilities",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -44,7 +44,7 @@
     "@atlaskit/renderer": "^101.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
-    "typescript": "4.3.5",
+    "typescript": "4.5.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

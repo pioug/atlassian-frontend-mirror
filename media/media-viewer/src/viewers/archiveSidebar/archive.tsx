@@ -139,7 +139,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
         if (isCodeMimeType) {
           codeViewerSrc = await rejectAfter(() => blob.text());
         }
-      } catch (error) {
+      } catch (error: any) {
         return this.onError(
           new ArchiveViewerError(
             error.message === ENCRYPTED_ENTRY_ERROR_MESSAGE

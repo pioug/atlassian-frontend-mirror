@@ -181,7 +181,9 @@ describe('MediaStore', () => {
         try {
           await mediaStore.createUpload(createUpTo);
         } catch (err) {
+          // @ts-expect-error
           if (!isRequestError(err)) {
+            // @ts-expect-error
             return expect(isRequestError(err)).toBeTruthy();
           }
 
@@ -301,7 +303,9 @@ describe('MediaStore', () => {
         try {
           await mediaStore.probeChunks(chunks);
         } catch (err) {
+          // @ts-expect-error
           if (!isRequestError(err)) {
+            // @ts-expect-error
             return expect(isRequestError(err)).toBeTruthy();
           }
 
@@ -387,7 +391,9 @@ describe('MediaStore', () => {
         try {
           await mediaStore.createFileFromUpload(body, params);
         } catch (err) {
+          // @ts-expect-error
           if (!isRequestError(err)) {
+            // @ts-expect-error
             return expect(isRequestError(err)).toBeTruthy();
           }
 
@@ -450,7 +456,9 @@ describe('MediaStore', () => {
         try {
           await mediaStore.getFile(fileId, params);
         } catch (err) {
+          // @ts-expect-error
           if (!isRequestError(err)) {
+            // @ts-expect-error
             return expect(isRequestError(err)).toBeTruthy();
           }
 
@@ -666,7 +674,9 @@ describe('MediaStore', () => {
         try {
           await mediaStore.touchFiles(body, params);
         } catch (err) {
+          // @ts-expect-error
           if (!isRequestError(err)) {
+            // @ts-expect-error
             return expect(isRequestError(err)).toBeTruthy();
           }
 
@@ -694,7 +704,9 @@ describe('MediaStore', () => {
         try {
           await mediaStore.touchFiles(body, params);
         } catch (err) {
+          // @ts-expect-error
           if (!isRequestError(err)) {
+            // @ts-expect-error
             return expect(isRequestError(err)).toBeTruthy();
           }
 
@@ -921,7 +933,9 @@ describe('MediaStore', () => {
         try {
           await mediaStore.getItems(items, 'collection-1');
         } catch (err) {
+          // @ts-expect-error
           if (!isRequestError(err)) {
+            // @ts-expect-error
             return expect(isRequestError(err)).toBeTruthy();
           }
 
@@ -1004,7 +1018,9 @@ describe('MediaStore', () => {
         try {
           await mediaStore.getImageMetadata('123');
         } catch (err) {
+          // @ts-expect-error
           if (!isRequestError(err)) {
+            // @ts-expect-error
             return expect(isRequestError(err)).toBeTruthy();
           }
 
@@ -1127,7 +1143,9 @@ describe('MediaStore', () => {
         try {
           await mediaStore.copyFileWithToken(body, params);
         } catch (err) {
+          // @ts-expect-error
           if (!isRequestError(err)) {
+            // @ts-expect-error
             return expect(isRequestError(err)).toBeTruthy();
           }
 

@@ -23,8 +23,8 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 
-// import { IconTable } from '../quick-insert/assets';
-//
+import { IconTable } from '@atlaskit/editor-common/icons';
+
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 
@@ -411,7 +411,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => {
           keywords: ['cell', 'table'],
           priority: 600,
           keyshortcut: tooltip(toggleTable),
-          // icon: () => <IconTable />,
+          icon: () => <IconTable />,
           action(insert, state) {
             const tr = insert(
               createTable({

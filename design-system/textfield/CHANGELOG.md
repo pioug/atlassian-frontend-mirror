@@ -1,5 +1,17 @@
 # @atlaskit/textfield
 
+## 5.2.2
+
+### Patch Changes
+
+- [`bedbdec0e82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bedbdec0e82) - Update hover state appearance of subtle Textarea, Textfield and Select components to match the hover states of their default counterparts.
+
+## 5.2.1
+
+### Patch Changes
+
+- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+
 ## 5.2.0
 
 ### Minor Changes

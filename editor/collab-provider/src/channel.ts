@@ -263,7 +263,7 @@ export class Channel extends Emitter<ChannelEvent> {
         stepMaps,
         metadata,
       };
-    } catch (error) {
+    } catch (error: any) {
       logger("Can't fetch the catchup", error.message);
       const errorCatchup: ErrorPayload = {
         message: ErrorCodeMapper.catchupFail.message,

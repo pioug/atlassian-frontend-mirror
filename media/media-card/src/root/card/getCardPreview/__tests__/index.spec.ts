@@ -353,7 +353,7 @@ describe('getCardPreview()', () => {
         onLocalPreviewError,
       });
     } catch (e) {
-      expectedError = e;
+      expectedError = e as Error;
     }
     expect(expectedError).toBe(error);
     expect(cardPreview).toBeUndefined();
@@ -446,7 +446,7 @@ describe('getCardPreview()', () => {
         isRemotePreviewReady: true,
       });
     } catch (e) {
-      expectedError = e;
+      expectedError = e as Error;
     }
     expect(expectedError).toBe(error);
     expect(cardPreview).toBeUndefined();
@@ -458,7 +458,7 @@ describe('getCardPreview()', () => {
     try {
       cardPreview = await getCardPreview(cardPreviewParams);
     } catch (e) {
-      expectedError = e;
+      expectedError = e as Error;
     }
     expect(expectedError).toBeDefined();
     expect(cardPreview).toBeUndefined();

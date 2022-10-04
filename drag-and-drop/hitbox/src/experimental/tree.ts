@@ -55,8 +55,5 @@ export function attachClosestEdge(
 export function extractClosestEdge(
   userData: Record<string | symbol, unknown>,
 ): Edge | null {
-  // Sadly this doesn't work in TS4.2
-  // It does work in TS4.7
-  // @ts-expect-error
   return (userData[uniqueKey] as Edge) ?? null;
 }

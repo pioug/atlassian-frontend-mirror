@@ -747,7 +747,7 @@ describe('unsupported content levels severity', () => {
             actionSubject: 'renderer',
             attributes: expect.objectContaining({
               platform: 'web',
-              error: 'Error: custom mocked error',
+              error: 'custom mocked error',
             }),
             eventType: 'operational',
           }),

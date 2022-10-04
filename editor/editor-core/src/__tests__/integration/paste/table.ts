@@ -28,7 +28,7 @@ const testCases: {
   adf: ADFEntity;
   selection: { anchor: number; head: number };
   skipBrowsers: Browser[];
-  selectToPaste: (page: Page) => Promise<undefined>;
+  selectToPaste: (page: Page) => Promise<void>;
   waitForSelector: string;
 }[] = [
   {

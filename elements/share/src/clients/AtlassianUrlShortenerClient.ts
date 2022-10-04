@@ -37,7 +37,9 @@ export class AtlassianUrlShortenerClient implements UrlShortenerClient {
 
       return result;
     } catch (err) {
-      err.message = `While shortening URL: ${err.message}!`;
+      if (err instanceof Error) {
+        err.message = `While shortening URL: ${err.message}!`;
+      }
       throw err;
     }
   }

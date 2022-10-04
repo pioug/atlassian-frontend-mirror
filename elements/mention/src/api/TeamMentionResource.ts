@@ -136,7 +136,7 @@ export default class TeamMentionResource
       userResults = await userRequest;
       notifyWhenOneRequestDone(userResults, false);
     } catch (error) {
-      userRequestError = error;
+      userRequestError = error as Error;
     }
 
     // team request will wait for user request done
@@ -150,7 +150,7 @@ export default class TeamMentionResource
         true,
       );
     } catch (error) {
-      teamRequestError = error;
+      teamRequestError = error as Error;
     }
 
     // both requests fail, show one of errors in UI

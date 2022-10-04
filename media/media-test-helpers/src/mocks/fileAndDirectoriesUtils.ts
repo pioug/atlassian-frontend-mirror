@@ -41,6 +41,7 @@ const createDataTransferItem = (
     },
     kind: 'file',
     type: '',
+    // @ts-expect-error
     webkitGetAsEntry: () => webkitGetAsEntryResult,
   });
 
@@ -61,6 +62,7 @@ const createDataTransferItemList = (
     length: itemsArray.length,
     add: () => null,
     clear: () => null,
+    // @ts-expect-error
     item: (index: number) => itemsArray[index],
     remove: () => null,
   });

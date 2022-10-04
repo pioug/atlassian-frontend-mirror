@@ -25,7 +25,11 @@ export default class Logger {
     }
   }
 
-  logMessage(level: number, type: keyof Console, ...args: any[]) {
+  logMessage(
+    level: number,
+    type: keyof Pick<Console, 'log' | 'info' | 'warn' | 'error'>,
+    ...args: any[]
+  ) {
     if (level >= this.logLevel) {
       console[type](...args);
     }

@@ -1,5 +1,11 @@
 # @atlaskit/react-experiment-framework
 
+## 0.7.7
+
+### Patch Changes
+
+- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+
 ## 0.7.6
 
 ### Patch Changes

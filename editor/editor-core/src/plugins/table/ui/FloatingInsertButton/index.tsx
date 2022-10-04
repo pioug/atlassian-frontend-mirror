@@ -126,7 +126,7 @@ export class FloatingInsertButton extends React.Component<
     let target: Node | undefined;
     try {
       target = findDomRefAtPos(pos, domAtPos);
-    } catch (error) {
+    } catch (error: any) {
       // eslint-disable-next-line no-console
       console.warn(error);
       if (dispatchAnalyticsEvent) {

@@ -85,8 +85,8 @@ export default function baseStyles<Option, IsMulti extends boolean>(
           ? token('elevation.surface', N0)
           : 'transparent';
         backgroundColorHover = isFocused
-          ? token('elevation.surface', N0)
-          : token('elevation.surface', N30);
+          ? token('color.background.input.pressed', N0)
+          : token('color.background.input.hovered', N30);
       }
       if (appearance === 'none') {
         borderColor = 'transparent';

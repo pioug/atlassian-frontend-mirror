@@ -20,7 +20,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 
-import { IconTable } from '../quick-insert/assets';
+import { IconTable } from '@atlaskit/editor-common/icons';
 
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';

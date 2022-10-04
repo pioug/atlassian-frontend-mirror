@@ -412,7 +412,11 @@ export default class RendererDemo extends React.Component<
         </div>
       );
     } catch (ex) {
-      return <pre>Invalid document: {ex.stack}</pre>;
+      return (
+        <pre>
+          Invalid document: {ex instanceof Error ? ex.stack : String(ex)}
+        </pre>
+      );
     }
   }
 

@@ -37,7 +37,7 @@ describe('@atlaskit/tabs', () => {
       try {
         render(<Tab>Label 1</Tab>);
       } catch (e) {
-        errorMessage = e.message;
+        errorMessage = e instanceof Error ? e.message : String(e);
       }
 
       expect(errorMessage).toBe(

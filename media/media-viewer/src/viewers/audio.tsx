@@ -187,7 +187,10 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
     } catch (error) {
       this.setState({
         content: Outcome.failed(
-          new MediaViewerError('audioviewer-fetch-url', error),
+          new MediaViewerError(
+            'audioviewer-fetch-url',
+            error instanceof Error ? error : undefined,
+          ),
         ),
       });
     }

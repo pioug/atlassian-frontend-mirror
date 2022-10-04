@@ -141,7 +141,7 @@ export function parseToken(
     try {
       return tokenParser({ input, position, schema, context });
     } catch (err) {
-      if (context.tokenErrCallback) {
+      if (context.tokenErrCallback && err instanceof Error) {
         context.tokenErrCallback(err, type);
       }
       return fallback(input, position);

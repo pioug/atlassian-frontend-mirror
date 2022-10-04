@@ -83,7 +83,7 @@ export function InlineCommentView({
       position,
       editorView.domAtPos.bind(editorView),
     ) as HTMLElement;
-  } catch (error) {
+  } catch (error: any) {
     // eslint-disable-next-line no-console
     console.warn(error);
     if (dispatchAnalyticsEvent) {

@@ -51,7 +51,7 @@ describe('getVideoDimensionsFromBlob()', () => {
       await getVideoDimensionsFromBlob(new Blob(), snapshoterMock);
     } catch (e) {
       expect(e).toBeInstanceOf(Error);
-      expect(e.message).toEqual('unknown error');
+      expect((e as Error).message).toEqual('unknown error');
       expect(snapshoterMock.end).toHaveBeenCalledTimes(1);
     }
   });

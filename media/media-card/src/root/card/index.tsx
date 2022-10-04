@@ -161,7 +161,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
               this.getImageURLParams(identifier),
               this.getMediaBlobUrlAttrs(identifier),
             );
-          } catch (e) {
+          } catch (e: any) {
             this.ssrReliability[ssr] = {
               status: 'fail',
               ...extractErrorInfo(e),
@@ -455,7 +455,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       const cardPreview = await getCardPreview(params);
       this.safeSetState({ cardPreview });
     } catch (e) {
-      const wrappedError = ensureMediaCardError('preview-fetch', e);
+      const wrappedError = ensureMediaCardError('preview-fetch', e as Error);
       //  If remote preview fails, we set status 'error'
       //  If local preview fails (i.e, no remote preview available),
       //  we can stay in the same status until there is a remote preview available

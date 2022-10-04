@@ -71,7 +71,11 @@ export default class ToolsDrawer extends React.Component<any, State> {
         </div>
       );
     } catch (ex) {
-      return <pre>Invalid document: {ex.stack}</pre>;
+      return (
+        <pre>
+          Invalid document: {ex instanceof Error ? ex.stack : String(ex)}
+        </pre>
+      );
     }
   }
 

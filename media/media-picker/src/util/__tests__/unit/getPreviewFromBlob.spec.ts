@@ -54,7 +54,7 @@ describe('getPreviewFromBlob()', () => {
         await getPreviewFromBlob('image', file);
       } catch (e) {
         expect(e).toBeInstanceOf(Error);
-        expect(e.message).toEqual('some error');
+        expect((e as Error).message).toEqual('some error');
       }
     });
   });

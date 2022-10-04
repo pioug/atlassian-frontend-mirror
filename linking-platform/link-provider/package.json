@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-provider",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "Contains provider with react context for anything link related and the link http client",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -55,7 +55,7 @@
     "@types/redux": "^3.6.0",
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
-    "typescript": "4.3.5",
+    "typescript": "4.5.5",
     "wait-for-expect": "^1.2.0"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

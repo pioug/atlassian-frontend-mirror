@@ -199,7 +199,7 @@ describe('Smart Card: Client', () => {
     const resourceUrl = 'https://i.love.cheese';
     try {
       await client.fetchData(resourceUrl);
-    } catch (error) {
+    } catch (error: any) {
       expect(error).toBeInstanceOf(APIError);
       expect(error.kind).toEqual('fallback');
     }
@@ -602,7 +602,7 @@ describe('Smart Card Client with url caching', () => {
 
     try {
       await notSupportedPromise;
-    } catch (apiError) {
+    } catch (apiError: any) {
       expect(apiError.type).toEqual('ResolveUnsupportedError');
     }
 
@@ -669,7 +669,7 @@ describe('Smart Card Client with url caching', () => {
 
     try {
       await notSupportedSecondPromise;
-    } catch (apiError) {
+    } catch (apiError: any) {
       expect(apiError.type).toEqual('ResolveUnsupportedError');
     }
 

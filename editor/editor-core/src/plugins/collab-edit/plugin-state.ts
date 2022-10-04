@@ -150,7 +150,7 @@ export class PluginState {
           );
           to = isSelection ? getValidPos(tr, rawTo) : from;
         } catch (err) {
-          this.onError(err);
+          this.onError(err as Error);
         }
 
         add = add.concat(
@@ -202,7 +202,7 @@ export class PluginState {
           },
         });
       } catch (err) {
-        this.onError(err);
+        this.onError(err as Error);
       }
 
       // Remove any selection decoration within the change range,

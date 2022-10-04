@@ -83,8 +83,8 @@ export class FloatingContextualButtonInner extends React.Component<
             selection: editorView.state.selection.toJSON(),
             position: targetCellPosition,
             docSize: editorView.state.doc.nodeSize,
-            error: error.toString(),
-            errorStack: error.stack || undefined,
+            error: error instanceof Error ? error.message : String(error),
+            errorStack: error instanceof Error ? error.stack : undefined,
           },
         };
         dispatchAnalyticsEvent(payload);

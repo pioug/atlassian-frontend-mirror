@@ -177,6 +177,7 @@ export class PortalProviderAPI extends EventDispatcher {
     } catch (error) {
       if (this.onAnalyticsEvent) {
         this.onAnalyticsEvent({
+          // @ts-expect-error
           payload: {
             action: ACTION.FAILED_TO_UNMOUNT,
             actionSubject: ACTION_SUBJECT.EDITOR,

@@ -84,10 +84,11 @@ const placeholderStyle = (placeholderTextColor: string) => ({
   },
 });
 
-const hoverBackgroundStyle = (props: ThemeTokens) => {
+const hoverBackgroundAndBorderStyles = (props: ThemeTokens) => {
   return {
     '&:hover:not(:read-only):not(:focus)': {
       backgroundColor: props.backgroundColorHover,
+      borderColor: props.borderColorHover,
       '&:disabled': {
         backgroundColor: props.disabledRules.backgroundColorHover,
       },
@@ -139,7 +140,8 @@ const staticStyles: CSSObject = {
   borderRadius: borderRadius,
   boxSizing: 'border-box',
   overflow: 'auto',
-  transition: `background-color ${transitionDuration} ease-in-out`,
+  transition: `background-color ${transitionDuration} ease-in-out,
+               border-color ${transitionDuration} ease-in-out`,
   wordWrap: 'break-word',
   fontSize,
   borderWidth: borderWidth,
@@ -181,7 +183,7 @@ export const getBaseStyles = ({
 export const themeStyles = (props: ThemeTokens): CSSObject => {
   return {
     ...bgAndBorderColorStyles(props),
-    ...hoverBackgroundStyle(props),
+    ...hoverBackgroundAndBorderStyles(props),
     ...placeholderStyle(props.placeholderTextColor),
     color: props.textColor,
     '&:disabled': {

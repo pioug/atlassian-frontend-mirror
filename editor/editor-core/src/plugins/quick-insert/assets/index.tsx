@@ -203,16 +203,6 @@ export const IconStatus = Loadable({
   loading: () => null,
 });
 
-export const IconTable = Loadable({
-  loader: () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_editor-icon-table" */ './table'
-    ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
-    >,
-  loading: () => null,
-});
-
 export const IconFallback = Loadable({
   loader: () =>
     import(

@@ -76,7 +76,11 @@ class Logger {
   // (undocumented)
   logLevel: number;
   // (undocumented)
-  logMessage(level: number, type: keyof Console, ...args: any[]): void;
+  logMessage(
+    level: number,
+    type: keyof Pick<Console, 'log' | 'info' | 'warn' | 'error'>,
+    ...args: any[]
+  ): void;
   // (undocumented)
   setLogLevel(logLevel: number): void;
   // (undocumented)

@@ -64,7 +64,7 @@ const backgroundColorFocus = {
 
 const backgroundColorHover = {
   standard: componentTokens.defaultBackgroundColorHover,
-  subtle: componentTokens.subtleBackgroundColorHover,
+  subtle: componentTokens.defaultBackgroundColorHover,
   none: componentTokens.transparent,
 };
 
@@ -80,6 +80,12 @@ const borderColorFocus = {
   none: componentTokens.transparent,
 };
 
+const borderColorHover = {
+  standard: componentTokens.defaultBorderColor,
+  subtle: componentTokens.subtleBorderColorHover,
+  none: componentTokens.transparent,
+};
+
 const getContainerTextBgAndBorderColor = (
   appearance: Appearance,
   mode: ThemeModes,
@@ -90,6 +96,7 @@ const getContainerTextBgAndBorderColor = (
   cursor: 'text',
   '&:hover': {
     backgroundColor: backgroundColorHover[appearance][mode],
+    borderColor: borderColorHover[appearance][mode],
   },
   '&:focus-within': {
     backgroundColor: backgroundColorFocus[appearance][mode],
@@ -213,6 +220,7 @@ export const textFieldColors = {
   backgroundColorHover,
   borderColor,
   borderColorFocus,
+  borderColorHover,
   placeholderTextColor: componentTokens.placeholderTextColor,
   textColor: componentTokens.textColor,
   invalidRules,

@@ -16,7 +16,7 @@ function getPayload(payload: string): [Error | null, any] {
   try {
     return [null, JSON.parse(payload)];
   } catch (e) {
-    return [e, null];
+    return [e instanceof Error ? e : new Error(String(e)), null];
   }
 }
 

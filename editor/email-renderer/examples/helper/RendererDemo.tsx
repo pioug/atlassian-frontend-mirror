@@ -178,7 +178,7 @@ export default class RendererDemo extends React.Component<
         </div>
       );
     } catch (ex) {
-      console.error(ex.stack);
+      console.error(ex instanceof Error ? ex.stack : ex);
       return null;
     }
   }

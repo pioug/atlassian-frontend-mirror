@@ -46,7 +46,7 @@ export default class ExampleEditor extends React.Component<Props> {
     super(props);
 
     // opens an iframe
-    if (window.top !== window.self) {
+    if (window.top && window.top !== window.self) {
       window.top.location.replace(location.href);
     }
   }

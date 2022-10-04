@@ -30,7 +30,7 @@ const popupStyles = css({
   },
 });
 const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>(
-  (props, ref) => <div css={popupStyles} ref={ref} {...props} />,
+  (props, ref) => <div css={popupStyles} {...props} ref={ref} />,
 );
 
 function PopperWrapper({

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "21.6.0",
+  "version": "21.6.1",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -70,7 +70,7 @@
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "4.3.5",
+    "typescript": "4.5.5",
     "wait-for-expect": "^1.2.0",
     "webpack-dev-server": "^3.11.2"
   },

@@ -133,7 +133,10 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
     } catch (error) {
       this.setState({
         content: Outcome.failed(
-          new MediaViewerError('videoviewer-fetch-url', error),
+          new MediaViewerError(
+            'videoviewer-fetch-url',
+            error instanceof Error ? error : undefined,
+          ),
         ),
       });
     }

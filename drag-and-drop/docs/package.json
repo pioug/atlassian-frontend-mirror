@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop-docs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "This package holds the documentation for all @atlaskit/drag-and-drop-* packages in one place. It is not intended to be consumed in production applications",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -52,7 +52,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "tiny-invariant": "^1.2.0",
-    "typescript": "4.3.5"
+    "typescript": "4.5.5"
   },
   "techstack": {
     "@atlassian/frontend": {

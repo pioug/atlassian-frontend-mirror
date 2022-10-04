@@ -36,19 +36,19 @@ export const defaultBackgroundColorHover = {
   dark: token('color.background.input.hovered', DN30),
 };
 
-export const subtleBackgroundColorHover = {
-  light: token('color.background.neutral.subtle.hovered', N30),
-  dark: token('color.background.neutral.subtle.hovered', DN30),
-};
-
 export const defaultBorderColor = {
-  light: token('color.border', N40),
-  dark: token('color.border', DN40),
+  light: token('color.border.input', N40),
+  dark: token('color.border.input', DN40),
 };
 
 export const defaultBorderColorFocus = {
   light: token('color.border.focused', B100),
   dark: token('color.border.focused', B75),
+};
+
+export const subtleBorderColorHover = {
+  light: token('color.border.input', 'transparent'),
+  dark: token('color.border.input', 'transparent'),
 };
 
 export const transparent = { light: 'transparent', dark: 'transparent' };

@@ -154,7 +154,7 @@ export const getCardPreview = async ({
         mediaBlobUrlAttrs,
       );
     }
-  } catch (e) {
+  } catch (e: any) {
     /**
      * We report the error if:
      * - local preview is supported and fails
@@ -262,7 +262,7 @@ export const getSSRCardPreview = (
     return { dataURI, source, orientation: 1 };
   } catch (e) {
     const reason = ssr === 'server' ? 'ssr-server-uri' : 'ssr-client-uri';
-    throw new SsrPreviewError(reason, e);
+    throw new SsrPreviewError(reason, e instanceof Error ? e : undefined);
   }
 };
 

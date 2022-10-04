@@ -116,7 +116,7 @@ describe('Tabs analytics', () => {
         </Tabs>,
       );
     } catch (e) {
-      errorMessage = e.message;
+      errorMessage = e instanceof Error ? e.message : String(e);
     }
 
     expect(errorMessage).toBe('');

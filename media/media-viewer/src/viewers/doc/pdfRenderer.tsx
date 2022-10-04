@@ -136,7 +136,10 @@ export class PDFRenderer extends React.Component<Props, State> {
         }
       });
     } catch (error) {
-      const pdfError = new MediaViewerError('docviewer-fetch-pdf', error);
+      const pdfError = new MediaViewerError(
+        'docviewer-fetch-pdf',
+        error instanceof Error ? error : undefined,
+      );
       this.setState({
         doc: Outcome.failed(pdfError),
       });

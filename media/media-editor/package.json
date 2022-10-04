@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-editor",
-  "version": "39.2.3",
+  "version": "39.2.4",
   "description": "Media component for image annotations",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -62,7 +62,7 @@
     "enzyme": "^3.10.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "4.3.5",
+    "typescript": "4.5.5",
     "wait-for-expect": "^1.2.0"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

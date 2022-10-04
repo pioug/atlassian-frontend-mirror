@@ -7,6 +7,7 @@ export const getObjectUrlFromFileState = async (
     const { preview } = state;
     if (preview) {
       try {
+        // @ts-expect-error
         return URL.createObjectURL((await preview).value);
       } catch (err) {
         return undefined;

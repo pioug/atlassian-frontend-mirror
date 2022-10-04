@@ -74,7 +74,7 @@ export default class StorageClient {
         }
         return parsedItem.value;
       } catch (e) {
-        this.captureException(e);
+        this.captureException(e as Error);
       }
     }
     return undefined;
@@ -84,7 +84,7 @@ export default class StorageClient {
     try {
       this.client.removeItem(this.itemKey(key));
     } catch (e) {
-      this.captureException(e);
+      this.captureException(e as Error);
     }
   };
 
@@ -97,7 +97,7 @@ export default class StorageClient {
     try {
       this.client.setItem(this.itemKey(key), JSON.stringify(itemWithExpiry));
     } catch (e) {
-      this.captureException(e);
+      this.captureException(e as Error);
     }
   };
 }

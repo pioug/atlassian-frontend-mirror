@@ -259,7 +259,9 @@ export class EditorCardProvider implements CardProvider {
     } catch (e) {
       // eslint-disable-next-line
       console.warn(
-        `Error when trying to check Smart Card url "${url} - ${e.name} ${e.message}`,
+        `Error when trying to check Smart Card url "${url}"${
+          e instanceof Error ? ` - ${e.name} ${e.message}` : ''
+        }`,
         e,
       );
     }

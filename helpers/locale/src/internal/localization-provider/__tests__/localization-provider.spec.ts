@@ -8,6 +8,7 @@ import { toFormattedParts } from '../toFormattedParts';
 import { createDateParser } from '../../date-parser';
 
 expect.extend({
+  // @ts-expect-error
   toBeDateWithYear: (received: Date, year: number) => {
     const message = () => `expected ${received} to have year ${year}`;
     try {

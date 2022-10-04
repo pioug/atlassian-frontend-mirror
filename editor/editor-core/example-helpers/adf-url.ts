@@ -44,7 +44,7 @@ export function fromLocation<T>(
   try {
     return decode(data);
   } catch (err) {
-    return err;
+    return err instanceof Error ? err : undefined;
   }
 }
 

@@ -322,7 +322,7 @@ export default class Editor extends React.Component<EditorProps, State> {
             }
             samplingCounters.success++;
             return value;
-          } catch (err) {
+          } catch (err: any) {
             if (
               samplingCounters.failure ===
               (props?.performanceTracking?.contentRetrievalTracking

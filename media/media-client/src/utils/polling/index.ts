@@ -76,7 +76,7 @@ export class PollingFunction {
         this.poll_intervalMs,
       );
     } catch (error) {
-      this.fail(error);
+      this.fail(error as Error);
     }
   }
 

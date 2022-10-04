@@ -197,7 +197,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       );
     } catch (err) {
       const wrappedError = new Error(
-        `Media functionality disabled due to rejected provider: ${err.message}`,
+        `Media functionality disabled due to rejected provider: ${
+          err instanceof Error ? err.message : String(err)
+        }`,
       );
       this.errorReporter.captureException(wrappedError);
 

@@ -76,12 +76,16 @@ export class CodeViewRenderer extends Component<Props, State> {
         onSuccess();
       }
     } catch (error) {
+      const mediaError = new MediaViewerError(
+        'codeviewer-load-src',
+        error instanceof Error ? error : undefined,
+      );
       this.setState({
-        doc: Outcome.failed(new MediaViewerError('codeviewer-load-src', error)),
+        doc: Outcome.failed(mediaError),
       });
 
       if (onError) {
-        onError(error);
+        onError(mediaError);
       }
     }
   }

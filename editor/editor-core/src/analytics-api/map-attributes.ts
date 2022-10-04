@@ -15,6 +15,7 @@ export function mapActionSubjectIdToAttributes(
   if (hasActionSubjectId && (documentInserted || textFormatted)) {
     payload.attributes = {
       ...payload.attributes,
+      // @ts-expect-error
       actionSubjectId: payload.actionSubjectId,
     };
   }

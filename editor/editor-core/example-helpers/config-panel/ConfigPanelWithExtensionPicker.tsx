@@ -77,7 +77,10 @@ function ExtensionConfigPanel({
         ...JSON.parse(parametersJson),
       });
     } catch (e) {
-      console.error('Invalid JSON Parameters', e.message);
+      console.error(
+        'Invalid JSON Parameters',
+        e instanceof Error ? e.message : String(e),
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parametersJson]);
@@ -135,11 +138,14 @@ function ExtensionConfigPanel({
 }
 
 const addHashToTheUrl = (extensionPath: string): void => {
+  // @ts-expect-error
   window.top.location.hash = extensionPath;
 };
 
 const getHashFromUrl = (): string =>
+  // @ts-expect-error
   window.top.location.hash &&
+  // @ts-expect-error
   decodeURIComponent(window.top.location.hash.slice(1));
 
 export default function ConfigPanelWithExtensionPicker({

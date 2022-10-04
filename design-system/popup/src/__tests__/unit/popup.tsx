@@ -114,7 +114,7 @@ describe('Popup', () => {
         isOpen={false}
         popupComponent={forwardRef<HTMLDivElement, PopupComponentProps>(
           ({ children, ...props }, ref) => (
-            <div ref={ref} {...props}>
+            <div {...props} ref={ref}>
               popup component
               <div>{children}</div>
             </div>
@@ -134,7 +134,7 @@ describe('Popup', () => {
         isOpen
         popupComponent={forwardRef<HTMLDivElement, PopupComponentProps>(
           ({ children, ...props }, ref) => (
-            <div ref={ref} {...props}>
+            <div {...props} ref={ref}>
               popup component
               <div>{children}</div>
             </div>
@@ -152,7 +152,7 @@ describe('Popup', () => {
       content: () => <div>content</div>,
       popupComponent: forwardRef<HTMLDivElement, PopupComponentProps>(
         ({ children, ...props }, ref) => (
-          <div ref={ref} {...props}>
+          <div {...props} ref={ref}>
             popup component
             <div>{children}</div>
           </div>

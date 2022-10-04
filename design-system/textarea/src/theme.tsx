@@ -50,7 +50,7 @@ const backgroundColorFocus = {
 };
 const backgroundColorHover = {
   standard: componentTokens.defaultBackgroundColorHover,
-  subtle: componentTokens.subtleHoverBackgroundColor,
+  subtle: componentTokens.defaultBackgroundColorHover,
   none: componentTokens.transparent,
 };
 const borderColor = {
@@ -61,6 +61,11 @@ const borderColor = {
 const borderColorFocus = {
   standard: componentTokens.defaultBorderColorFocus,
   subtle: componentTokens.defaultBorderColorFocus,
+  none: componentTokens.transparent,
+};
+const borderColorHover = {
+  standard: componentTokens.defaultBorderColor,
+  subtle: componentTokens.subtleBorderColorHover,
   none: componentTokens.transparent,
 };
 
@@ -82,6 +87,7 @@ export type ThemeProps = {
 export type ThemeTokens = {
   borderColor: string;
   borderColorFocus: string;
+  borderColorHover: string;
   backgroundColor: string;
   backgroundColorFocus: string;
   backgroundColorHover: string;
@@ -130,6 +136,7 @@ export const Theme = createTheme<ThemeTokens, ThemeProps>(
   ({ appearance, mode }: ThemeProps): ThemeTokens => ({
     borderColor: borderColor[appearance][mode],
     borderColorFocus: borderColorFocus[appearance][mode],
+    borderColorHover: borderColorHover[appearance][mode],
     backgroundColorHover: backgroundColorHover[appearance][mode],
     backgroundColorFocus: backgroundColorFocus[appearance][mode],
     backgroundColor: backgroundColor[appearance][mode],

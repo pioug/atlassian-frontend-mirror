@@ -80,7 +80,7 @@ describe('<ModalFooter />', () => {
     try {
       render(<ModalFooter>Lone footer</ModalFooter>);
     } catch (e) {
-      expect(e.message).toBe(
+      expect((e as Error).message).toBe(
         '@atlaskit/modal-dialog: Modal context unavailable – this component needs to be a child of ModalDialog.',
       );
     }

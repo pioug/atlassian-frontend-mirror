@@ -5,7 +5,7 @@ export async function awaitError(
   try {
     await response;
   } catch (err) {
-    if (err.message !== expectedMessage) {
+    if (err instanceof Error && err.message !== expectedMessage) {
       throw err;
     }
   }

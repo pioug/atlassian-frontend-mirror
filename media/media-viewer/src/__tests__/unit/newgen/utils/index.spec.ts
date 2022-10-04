@@ -167,7 +167,7 @@ describe('utils', () => {
         try {
           await rejectAfter(jest.fn(), 1);
         } catch (error) {
-          expect(error.message).toEqual('timed out');
+          expect((error as Error).message).toEqual('timed out');
         }
         await nextTick();
         expect(setTimeout).toHaveBeenCalledTimes(1);

@@ -404,6 +404,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 
     // The selectionToDOM method uses the document selection to determine currently selected node
     // We need to mimic blurring this as it seems doing the above is not enough.
+    // @ts-expect-error
     const sel = (this.view.root as DocumentOrShadowRoot).getSelection();
     if (sel) {
       sel.removeAllRanges();

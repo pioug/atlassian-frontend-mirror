@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/task-decision",
-  "version": "17.5.0",
+  "version": "17.5.1",
   "description": "Tasks and decisions react components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
     "@atlaskit/analytics-listeners": "^8.3.0",
     "@atlaskit/avatar": "^21.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^69.3.0",
+    "@atlaskit/editor-common": "^69.4.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/renderer": "^101.1.0",
     "@atlaskit/util-data-test": "^17.5.0",
@@ -59,7 +59,7 @@
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",
     "sinon": "^2.2.0",
-    "typescript": "4.3.5",
+    "typescript": "4.5.5",
     "url-search-params": "^0.10.0"
   },
   "techstack": {

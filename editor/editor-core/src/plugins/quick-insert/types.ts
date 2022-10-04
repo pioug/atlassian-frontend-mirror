@@ -5,6 +5,8 @@ import {
   QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 
+export type { IconProps } from '@atlaskit/editor-common/types';
+
 import { EmptyStateHandler } from '../../types/empty-state-handler';
 
 export type {
@@ -22,10 +24,6 @@ export type QuickInsertOptions =
 export type QuickInsertHandler =
   | Array<QuickInsertItem>
   | ((intl: IntlShape) => Array<QuickInsertItem>);
-
-export type IconProps = {
-  label?: string;
-};
 
 export type QuickInsertPluginState = {
   isElementBrowserModalOpen: boolean;

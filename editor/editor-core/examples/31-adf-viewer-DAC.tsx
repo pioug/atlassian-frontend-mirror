@@ -106,7 +106,10 @@ export default class Example extends React.Component<{}, AdfState> {
       }
     } catch (error) {
       this.setState({ isValidAdf: false });
-      throw new Error(error);
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error(String(error));
     }
     this.setState({ isValidAdf: true });
   };

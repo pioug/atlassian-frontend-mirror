@@ -48,10 +48,10 @@ export const ContainerPicker: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<Props, keyof WithAnalyticsEventsProps>,
     | 'value'
-    | 'cloudId'
-    | 'contextType'
-    | 'baseUrl'
     | 'isLoading'
+    | 'contextType'
+    | 'cloudId'
+    | 'baseUrl'
     | 'debounceTime'
     | 'formatOptionLabel'
     | 'product'

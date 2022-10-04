@@ -22,7 +22,10 @@ export const resolveAuth = async (
     if (err instanceof MediaStoreError) {
       throw err;
     }
-    throw new MediaStoreError('failedAuthProvider', err);
+    throw new MediaStoreError(
+      'failedAuthProvider',
+      err instanceof Error ? err : undefined,
+    );
   }
 
   if (!auth) {

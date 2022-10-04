@@ -68,7 +68,7 @@ export class FloatingContextualButtonInner extends React.Component<
     let targetCellRef: Node | undefined;
     try {
       targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
-    } catch (error) {
+    } catch (error: any) {
       // eslint-disable-next-line no-console
       console.warn(error);
       if (dispatchAnalyticsEvent) {

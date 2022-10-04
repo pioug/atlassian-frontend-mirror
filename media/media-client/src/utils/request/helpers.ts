@@ -105,7 +105,7 @@ export async function mapResponseToJson(response: Response): Promise<any> {
       {
         statusCode: response.status,
       },
-      err,
+      err instanceof Error ? err : undefined,
     );
   }
 }
@@ -128,7 +128,7 @@ export async function mapResponseToBlob(response: Response): Promise<Blob> {
       {
         statusCode: response.status,
       },
-      err,
+      err instanceof Error ? err : undefined,
     );
   }
 }
@@ -160,7 +160,7 @@ export function createMapResponseToJson(
           ...extractMediaHeaders(response),
           statusCode: response.status,
         },
-        err,
+        err instanceof Error ? err : undefined,
       );
     }
   };
@@ -180,7 +180,7 @@ export function createMapResponseToBlob(
           ...extractMediaHeaders(response),
           statusCode: response.status,
         },
-        err,
+        err instanceof Error ? err : undefined,
       );
     }
   };
@@ -232,7 +232,7 @@ export async function fetchRetry(
   while (attempts < maxAttempts) {
     try {
       return await functionToRetry();
-    } catch (err) {
+    } catch (err: any) {
       lastError = err;
 
       // don't retry if request was aborted by user

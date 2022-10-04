@@ -22,7 +22,7 @@ BrowserTestCase(
     // in IE11 and Edge, after hitting escape, the element disappears from the DOM and can't be queried.
     try {
       await popupSelectTest.isExisting(popupSelect);
-    } catch (err) {
+    } catch (err: any) {
       expect(err.toString()).toContain(
         `Error: Unable to find element with css selector == ${popupSelect}`,
       );

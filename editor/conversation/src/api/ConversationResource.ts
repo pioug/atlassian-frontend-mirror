@@ -313,7 +313,7 @@ export class ConversationResource extends AbstractConversationResource {
           }),
         },
       );
-    } catch (error) {
+    } catch (error: any) {
       result = { ...tempConversation, error };
       dispatch({ type: CREATE_CONVERSATION_ERROR, payload: result });
       return result as Conversation;

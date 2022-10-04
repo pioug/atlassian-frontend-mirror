@@ -320,7 +320,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
         eventType: EVENT_TYPE.UI,
       });
       return items;
-    } catch (err) {
+    } catch (err: any) {
       const perfStop = performance.now();
       const duration = perfStop - perfStart;
       this.fireAnalytics({
@@ -450,7 +450,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
         },
         eventType: EVENT_TYPE.UI,
       });
-    } catch (err) {
+    } catch (err: any) {
       const perfStop = performance.now();
       const duration = perfStop - perfStart;
       this.fireAnalytics({

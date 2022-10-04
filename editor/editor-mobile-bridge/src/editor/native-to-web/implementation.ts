@@ -437,7 +437,7 @@ export default class WebBridgeImpl
   onPromiseResolved(uuid: string, payload: string) {
     try {
       resolvePromise(uuid, JSON.parse(payload));
-    } catch (err) {
+    } catch (err: any) {
       err.message = `${err.message}. Payload: ${JSON.stringify(payload)}`;
       rejectPromise(uuid, err);
     }
@@ -447,7 +447,7 @@ export default class WebBridgeImpl
     try {
       const payload = await this.fetchPayload('promise', uuid);
       resolvePromise(uuid, payload);
-    } catch (err) {
+    } catch (err: any) {
       err.message = `${err.message}.`;
       rejectPromise(uuid, err);
     }
@@ -1024,7 +1024,10 @@ export default class WebBridgeImpl
         const state = await provider.getFinalAcknowledgedState();
         toNativeBridge.updateStepVersion(state.stepVersion);
       } catch (error) {
-        toNativeBridge.updateStepVersion(undefined, error.message);
+        toNativeBridge.updateStepVersion(
+          undefined,
+          error instanceof Error ? error.message : String(error),
+        );
       }
     });
   }

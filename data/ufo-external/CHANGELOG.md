@@ -1,5 +1,11 @@
 # @af/ufo-types
 
+## 0.1.4
+
+### Patch Changes
+
+- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+
 ## 0.1.3
 
 ### Patch Changes

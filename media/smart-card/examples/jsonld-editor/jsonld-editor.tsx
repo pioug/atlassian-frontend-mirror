@@ -37,7 +37,7 @@ const JsonldEditor: React.FC<{
       setJson(json);
       setJsonError(undefined);
     } catch (err) {
-      setJsonError(err.message);
+      setJsonError(err instanceof Error ? err.message : String(err));
     }
   }, []);
 
@@ -49,7 +49,7 @@ const JsonldEditor: React.FC<{
       setJson(updatedJson);
       setJsonError(undefined);
     } catch (err) {
-      setJsonError(err.message);
+      setJsonError(err instanceof Error ? err.message : String(err));
     }
   }, []);
 

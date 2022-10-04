@@ -264,7 +264,7 @@ describe('Renderer', () => {
             attributes: {
               platform: PLATFORM.WEB,
               errorStack:
-                'RangeError: Invalid collection of marks for node text: link,link',
+                'Invalid collection of marks for node text: link,link',
             },
           }),
         );

@@ -316,7 +316,10 @@ export default class Example extends React.Component<any, DocBuilderState> {
       this.setState({ adfValid: true });
     } catch (error) {
       this.setState({ adfValid: false });
-      throw new Error(error);
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error(String(error));
     }
   };
 

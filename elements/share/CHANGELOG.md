@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.5.3
+
+### Patch Changes
+
+- [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+
 ## 3.5.2
 
 ### Patch Changes

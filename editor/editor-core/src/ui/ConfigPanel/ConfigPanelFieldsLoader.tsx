@@ -99,7 +99,7 @@ const FieldDefinitionsPromiseResolver = (
             const dynamicFields: FieldDefinition[] = value(extensionParameters);
             setFields(dynamicFields);
           } catch (err) {
-            if (err && typeof err.message === 'string') {
+            if (err instanceof Error) {
               setErrorMessage(err.message);
             }
             setFields(undefined);

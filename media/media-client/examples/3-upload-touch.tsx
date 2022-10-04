@@ -40,7 +40,7 @@ class Example extends React.Component<{}, State> {
           },
         ],
       });
-    } catch (reason) {
+    } catch (reason: any) {
       let data = {};
       try {
         data = await reason.json();

@@ -76,6 +76,7 @@ export class ArchiveSidebar extends React.Component<
         ? await this.onFolderEntrySelected(entry, isArchive)
         : null;
     } catch (error) {
+      // @ts-expect-error
       return this.props.onError(error, entry);
     }
   };

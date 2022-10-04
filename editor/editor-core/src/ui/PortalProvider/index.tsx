@@ -180,7 +180,7 @@ export class PortalProviderAPI extends EventDispatcher {
             actionSubject: ACTION_SUBJECT.EDITOR,
             actionSubjectId: ACTION_SUBJECT_ID.REACT_NODE_VIEW,
             attributes: {
-              error,
+              error: error as Error,
               domNodes: {
                 container: container ? container.className : undefined,
                 child: container.firstElementChild

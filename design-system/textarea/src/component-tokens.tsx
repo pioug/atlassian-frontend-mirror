@@ -60,9 +60,9 @@ export const defaultBackgroundColorFocus = {
   dark: token('color.background.input.pressed', DN10),
 };
 
-export const subtleHoverBackgroundColor = {
-  light: token('color.background.input.hovered', N30),
-  dark: token('color.background.input.hovered', DN30),
+export const subtleBorderColorHover = {
+  light: token('color.border.input', 'transparent'),
+  dark: token('color.border.input', 'transparent'),
 };
 
 export const placeholderTextColor = {

@@ -103,10 +103,8 @@ export interface FlagWrapper {
   }): FlagValue;
 }
 
-export type AnalyticsHandler = (event: ExposureEvent) => void;
-
-export interface AutomaticAnalyticsHandler {
-  sendOperationalEvent(event: ExposureEvent): void;
+export interface AnalyticsHandler {
+  sendOperationalEvent(event: ExposureEvent): Promise<void>;
 }
 
 export type FlagStats = {
@@ -125,4 +123,11 @@ export type TrackFeatureFlagOptions = {
   triggerReason?: ExposureTriggerReason;
   value?: string | boolean | object;
   explanation?: FlagExplanation | undefined;
+};
+
+export type ClientOptions = {
+  flags?: Flags;
+  analyticsHandler?: AnalyticsHandler;
+  isAutomaticExposuresEnabled?: boolean;
+  ignoreTypes?: boolean;
 };

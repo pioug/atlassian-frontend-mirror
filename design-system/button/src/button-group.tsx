@@ -16,6 +16,10 @@ export type ButtonGroupProps = {
 const buttonGroupStyles = css({
   display: 'inline-flex',
   gap: 4,
+
+  '> *': {
+    flex: '1 0 auto',
+  },
 });
 
 export default function ButtonGroup({

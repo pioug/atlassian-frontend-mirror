@@ -3,39 +3,50 @@ import { CardClient, EnvironmentsKeys } from '@atlaskit/link-provider';
 import { getDefaultResponse } from './utils';
 
 class JsonldEditorClient extends CardClient {
-  response?: JsonLd.Response;
-  forceFetch?: boolean;
-  onErrorCallback?: (error: Error) => void;
+  onFetch?: () => JsonLd.Response | undefined;
+  onResolve?: (response: JsonLd.Response) => void;
+  onError?: (error: Error) => void;
 
   constructor(
     envKey?: EnvironmentsKeys,
-    response?: JsonLd.Response,
-    forceFetch: boolean = false,
-    onErrorCallback?: (error: Error) => void,
+    onFetch?: () => JsonLd.Response | undefined,
+    onResolve?: (response: JsonLd.Response) => void,
+    onError?: (error: Error) => void,
   ) {
     super(envKey);
-    this.response = response;
-    this.forceFetch = forceFetch;
-    this.onErrorCallback = onErrorCallback;
+    this.onFetch = onFetch;
+    this.onResolve = onResolve;
+    this.onError = onError;
   }
 
   fetchData(url: string) {
-    if (this.forceFetch) {
-      return super.fetchData(url).catch((error) => {
-        if (this.onErrorCallback) {
-          this.onErrorCallback(error);
+    if (this.onFetch) {
+      const response = this.onFetch();
+      if (response) {
+        return Promise.resolve({
+          ...response,
+          data: {
+            ...response?.data,
+            url,
+          },
+        } as JsonLd.Response);
+      }
+    }
+
+    return super
+      .fetchData(url)
+      .then((res) => {
+        if (this.onResolve) {
+          this.onResolve(res);
+        }
+        return res;
+      })
+      .catch((error) => {
+        if (this.onError) {
+          this.onError(error);
         }
         return getDefaultResponse();
       });
-    }
-
-    return Promise.resolve({
-      ...this.response,
-      data: {
-        ...this.response?.data,
-        url,
-      },
-    } as JsonLd.Response);
   }
 }
 

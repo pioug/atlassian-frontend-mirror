@@ -2,12 +2,15 @@ import React, { SyntheticEvent, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
+import { ufologger } from '@atlaskit/ufo';
 
 import { LinkPicker } from '../src';
 
 type OnSubmitPayload = Parameters<
   Required<React.ComponentProps<typeof LinkPicker>>['onSubmit']
 >[0];
+
+ufologger.enable();
 
 export default function InPopup() {
   const [isOpen, setIsOpen] = useState(true);

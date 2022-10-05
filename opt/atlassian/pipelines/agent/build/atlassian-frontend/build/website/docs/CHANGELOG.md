@@ -1,5 +1,11 @@
 # @atlaskit/docs
 
+## 9.0.13
+
+### Patch Changes
+
+- [`93118b676a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93118b676a8) - This changeset exists because a PR touches these packages in a way that doesn't require a release
+
 ## 9.0.12
 
 ### Patch Changes

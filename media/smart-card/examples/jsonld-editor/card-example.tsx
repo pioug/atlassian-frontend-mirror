@@ -1,36 +1,50 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
-import { JsonLd } from 'json-ld-types';
+import React, { useCallback, useMemo } from 'react';
 import { Card } from '../../src';
 import withJsonldEditorProvider from './jsonld-editor-provider';
-import withJsonldEditorReload from './jsonld-editor-reload';
 import FlexibleDataView from '../utils/flexible-data-view';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const CardExample: React.FC<{
-  json?: JsonLd.Response<JsonLd.Data.BaseData>;
+  isEmbedSupported?: boolean;
   url?: string;
-}> = ({ json, url }) => {
+}> = ({ isEmbedSupported = false, url }) => {
+  const fallback = useMemo(() => <span>😭Something went wrong.</span>, []);
+  const onError = useCallback((err) => console.error(err.message), []);
+
   return (
     <div>
       <h6>Inline</h6>
+      <br />
       <div>
         Bowsprit scallywag weigh anchor Davy Jones' Locker warp ballast scurvy
         nipper brigantine Jolly Roger wench sloop Shiver me timbers rope's end
         chandler. Admiral of the Black cackle fruit deck{' '}
-        <Card
-          appearance="inline"
-          data={json?.data}
-          url={url}
-          showHoverPreview={true}
-        />
+        <ErrorBoundary fallback={fallback} onError={onError}>
+          <Card appearance="inline" url={url} showHoverPreview={true} />
+        </ErrorBoundary>{' '}
         wench bounty rope's end bilge water scourge of the seven seas hardtack
         come about execution dock Nelsons folly handsomely rigging splice the
         main brace.
       </div>
       <h6>Block</h6>
       <br />
-      <Card appearance="block" data={json?.data} url={url} />
+      <ErrorBoundary fallback={fallback} onError={onError}>
+        <Card appearance="block" url={url} />
+      </ErrorBoundary>
+      <h6>Embed</h6>
+      <br />
+      {isEmbedSupported ? (
+        <ErrorBoundary fallback={fallback} onError={onError}>
+          <Card appearance="embed" platform="web" url={url} />
+        </ErrorBoundary>
+      ) : (
+        <div>
+          <i>Whoops! This link does not support embed view.</i>
+        </div>
+      )}
+
       <h6>
         Flexible (
         <a href="https://atlaskit.atlassian.com/packages/media/smart-card/docs/flexible">
@@ -45,4 +59,4 @@ const CardExample: React.FC<{
 };
 
 // Not the most elegant implementation but this will do.
-export default withJsonldEditorProvider(withJsonldEditorReload(CardExample));
+export default withJsonldEditorProvider(CardExample);

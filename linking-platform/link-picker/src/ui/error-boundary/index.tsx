@@ -1,79 +1,55 @@
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-
 import createEventPayload from '../../analytics.codegen';
+import { ANALYTICS_CHANNEL } from '../../common/constants';
+import {
+  failUfoExperience,
+  ufoExperience,
+} from '../../common/analytics/experiences';
+import { useLinkPickerSessionId } from '../../controllers/session-provider';
 
-type ErrorBoundaryErrorInfo = {
-  componentStack: string;
-};
+import { ErrorBoundaryFallback } from './error-boundary-fallback';
+import {
+  BaseErrorBoundary,
+  ErrorBoundaryErrorInfo,
+} from './error-boundary-base';
 
-export interface ErrorBoundaryProps extends WithAnalyticsEventsProps {
+interface ErrorBoundaryProps extends WithAnalyticsEventsProps {
   children: ReactNode;
-  channel: string;
-  ErrorComponent?: React.ComponentType;
-  onError?: (error: Error, info?: ErrorBoundaryErrorInfo) => void;
 }
 
-type ErrorBoundaryPayload = {
-  error: Error | string;
-  info?: ErrorBoundaryErrorInfo;
-  [key: string]: any;
-};
+function ErrorBoundary({ children, createAnalyticsEvent }: ErrorBoundaryProps) {
+  const linkPickerSessionId = useLinkPickerSessionId();
 
-type ErrorBoundaryState = {
-  hasError: boolean;
-};
+  const handleError = useCallback(
+    (error: Error, info?: ErrorBoundaryErrorInfo) => {
+      // Fire Analytics event
+      createAnalyticsEvent!(
+        createEventPayload('ui.linkPicker.unhandledErrorCaught', {
+          browserInfo: window?.navigator?.userAgent || 'unknown',
+          error: error.toString(),
+          componentStack: info?.componentStack ?? '',
+        }),
+      ).fire(ANALYTICS_CHANNEL);
 
-// eslint-disable-next-line @repo/internal/react/no-class-components
-export class BaseErrorBoundary extends Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
-  }
+      // Fire UFO failed experience
+      failUfoExperience(ufoExperience.mounted, linkPickerSessionId);
+    },
+    [createAnalyticsEvent, linkPickerSessionId],
+  );
 
-  fireAnalytics = (analyticsErrorPayload: ErrorBoundaryPayload) => {
-    const { createAnalyticsEvent, channel } = this.props;
-
-    createAnalyticsEvent!(
-      createEventPayload('ui.linkPicker.unhandledErrorCaught', {
-        browserInfo: window?.navigator?.userAgent || 'unknown',
-        error: analyticsErrorPayload.error.toString(),
-        componentStack: analyticsErrorPayload.info?.componentStack ?? '',
-      }),
-    ).fire(channel);
-  };
-
-  componentDidCatch(error: Error, info?: ErrorBoundaryErrorInfo): void {
-    const { onError } = this.props;
-    const payload: ErrorBoundaryPayload = {
-      error,
-      info,
-    };
-
-    this.fireAnalytics(payload);
-    onError && onError(error, info);
-    this.setState({ hasError: true });
-  }
-
-  render() {
-    const { children, ErrorComponent } = this.props;
-    const { hasError } = this.state;
-
-    if (hasError && ErrorComponent) {
-      return <ErrorComponent />;
-    }
-
-    return children;
-  }
+  return (
+    <BaseErrorBoundary
+      onError={handleError}
+      ErrorComponent={ErrorBoundaryFallback}
+    >
+      {children}
+    </BaseErrorBoundary>
+  );
 }
 
-const ErrorBoundary = withAnalyticsEvents()(BaseErrorBoundary);
-
-export default ErrorBoundary;
+export default withAnalyticsEvents()(ErrorBoundary);

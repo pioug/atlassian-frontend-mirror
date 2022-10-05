@@ -4,8 +4,10 @@ import { Fragment } from 'react';
 import { jsx } from '@emotion/react';
 import upperFirst from 'lodash/upperFirst';
 
+import Heading from '@atlaskit/heading';
+
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import SectionLink from '../../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/section-link';
+import SectionLink from '../../../../../../services/website-constellation/src/components/section-link';
 import type { TokenGroup } from '../grouped-tokens';
 
 import NoResults from './no-results';
@@ -38,8 +40,8 @@ const TokenGroups = ({
 
         return hasTokens || hasSubgroupTokens ? (
           <div key={group.name} data-testid={testId && `${testId}-token-group`}>
-            <SectionLink level={2} id={group.name}>
-              {upperFirst(group.name)}
+            <SectionLink id={group.name}>
+              <Heading level="h700">{upperFirst(group.name)}</Heading>
             </SectionLink>
             {hasTokens && (
               <TokenList
@@ -52,8 +54,8 @@ const TokenGroups = ({
             {group.subgroups?.map((subgroup) =>
               subgroup.tokens.length > 0 ? (
                 <Fragment key={`${group.name}-${subgroup.name}`}>
-                  <SectionLink level={3} id={`${group.name}-${subgroup.name}`}>
-                    {upperFirst(subgroup.name)}
+                  <SectionLink id={`${group.name}-${subgroup.name}`}>
+                    <Heading level="h700">{upperFirst(subgroup.name)}</Heading>
                   </SectionLink>
                   <TokenList
                     list={subgroup.tokens}

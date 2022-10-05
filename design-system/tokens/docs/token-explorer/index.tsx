@@ -20,6 +20,7 @@ import DropdownMenu, {
   DropdownItemCheckboxGroup,
 } from '@atlaskit/dropdown-menu';
 import FocusRing from '@atlaskit/focus-ring';
+import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import FilterIcon from '@atlaskit/icon/glyph/filter';
 import SearchIcon from '@atlaskit/icon/glyph/search';
@@ -30,7 +31,7 @@ import ToolTip from '@atlaskit/tooltip';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import { useHeadings } from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import SectionLink from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/section-link';
+import SectionLink from '../../../../../services/website-constellation/src/components/section-link';
 import { token } from '../../src';
 import TokenWizardModal from '../token-wizard';
 
@@ -335,8 +336,8 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
         },
       }}
     >
-      <SectionLink level={2} id={ALL_DESIGN_TOKENS_LIST_HEADING.id}>
-        {ALL_DESIGN_TOKENS_LIST_HEADING.value}
+      <SectionLink id={ALL_DESIGN_TOKENS_LIST_HEADING.id}>
+        <Heading level="h700">{ALL_DESIGN_TOKENS_LIST_HEADING.value}</Heading>
       </SectionLink>
       <div
         css={{

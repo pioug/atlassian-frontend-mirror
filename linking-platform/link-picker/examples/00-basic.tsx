@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import { ufologger } from '@atlaskit/ufo';
 
 import {
   AtlassianLinkPickerPlugin,
@@ -11,6 +12,8 @@ import { useForgeSearchProviders } from '@atlassian/link-picker-plugins';
 import { LinkPicker, LinkPickerProps, LinkPickerPlugin } from '../src';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
+
+ufologger.enable();
 
 export default function Basic() {
   const [link, setLink] = useState<OnSubmitPayload>({

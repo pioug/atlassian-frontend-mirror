@@ -1,5 +1,14 @@
 # @atlaskit/feature-flag-client
 
+## 5.0.0
+
+### Major Changes
+
+- [`21a06c801dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21a06c801dc) - Removed the ability for exposure events to be send via Track GASv3 events.
+  Removed `client.getFlag` API.
+  Automatic exposures now uses the same analyticsHandler as the other exposure events.
+  Automatic exposures can be enabled in the constructor.
+
 ## 4.6.1
 
 ### Patch Changes

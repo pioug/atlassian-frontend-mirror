@@ -22,6 +22,12 @@ exports[`ArticleWasHelpfulForm Match snapshot 1`] = `
   gap: 4px;
 }
 
+.emotion-5 > * {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+}
+
 .emotion-2,
 .emotion-2:hover,
 .emotion-2:active,

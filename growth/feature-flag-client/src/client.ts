@@ -1,50 +1,57 @@
 import {
   AnalyticsHandler,
-  Flags,
-  ExposureEvent,
-  FlagShape,
+  ClientOptions,
   CustomAttributes,
-  ReservedAttributes,
-  AutomaticAnalyticsHandler,
+  ExposureEvent,
   ExposureEventAttributes,
-  FlagWrapper,
+  ExposureTriggerReason,
+  Flags,
+  FlagShape,
   FlagStats,
   FlagValue,
-  ExposureTriggerReason,
+  FlagWrapper,
+  ReservedAttributes,
   TrackFeatureFlagOptions,
 } from './types';
 
 import {
-  isObject,
-  enforceAttributes,
-  validateFlags,
   checkForReservedAttributes,
+  enforceAttributes,
+  isObject,
+  isObjectEmptyOrUndefined,
+  validateFlags,
 } from './lib';
 
 import MissingFlag from './missing-flag';
 import BasicFlag from './basic-flag';
+
 export default class FeatureFlagClient {
-  flags: Map<String, FlagShape>;
-  flagWrapperCache: Map<string, FlagWrapper>;
-  trackedFlags: Set<string>;
-  analyticsHandler?: AnalyticsHandler;
-  automaticAnalyticsHandler?: AutomaticAnalyticsHandler;
-  isAutomaticExposuresEnabled: boolean;
-  automaticExposuresCache: Set<string>;
+  private readonly flags: Map<String, FlagShape>;
+  private readonly flagWrapperCache: Map<string, FlagWrapper>;
 
-  constructor(options: {
-    flags?: Flags;
-    analyticsHandler: (event: ExposureEvent) => void;
-  }) {
-    const { flags, analyticsHandler } = options;
+  private analyticsHandler?: AnalyticsHandler;
 
+  private isAutomaticExposuresEnabled: boolean;
+
+  private readonly trackedFlags: Set<string>;
+  private readonly customAttributesExposuresCache: Set<string>;
+  private readonly ignoreTypes: boolean;
+
+  constructor(options: ClientOptions) {
     enforceAttributes(options, ['analyticsHandler'], 'Feature Flag Client');
+    const {
+      flags,
+      analyticsHandler,
+      isAutomaticExposuresEnabled,
+      ignoreTypes,
+    } = options;
 
     this.flags = new Map();
     this.flagWrapperCache = new Map();
-    this.automaticExposuresCache = new Set();
+    this.customAttributesExposuresCache = new Set();
     this.trackedFlags = new Set();
-    this.isAutomaticExposuresEnabled = false;
+    this.isAutomaticExposuresEnabled = isAutomaticExposuresEnabled || false;
+    this.ignoreTypes = ignoreTypes || false;
 
     this.setFlags(flags || {});
     this.setAnalyticsHandler(analyticsHandler);
@@ -73,54 +80,18 @@ export default class FeatureFlagClient {
     }
   }
 
-  setAnalyticsHandler(analyticsHandler: AnalyticsHandler) {
+  setAnalyticsHandler(analyticsHandler?: AnalyticsHandler) {
     this.analyticsHandler = analyticsHandler;
-  }
-
-  setAutomaticAnalyticsHandler(
-    automaticAnalyticsHandler: AutomaticAnalyticsHandler,
-  ) {
-    this.automaticAnalyticsHandler = automaticAnalyticsHandler;
   }
 
   setIsAutomaticExposuresEnabled(isEnabled: boolean) {
     this.isAutomaticExposuresEnabled = isEnabled;
   }
 
-  setAutomaticExposuresMode(
-    enableAutomaticExposures: boolean,
-    automaticAnalyticsHandler: AutomaticAnalyticsHandler,
-  ) {
-    this.setIsAutomaticExposuresEnabled(enableAutomaticExposures);
-    this.setAutomaticAnalyticsHandler(automaticAnalyticsHandler);
-  }
-
-  /**
-   * @todo Remove this method in a future major release.
-   * This method should not have been exposed publically, but unfortunately is still used in some products.
-   * We have created the getRawValue method already, which should solve the previous use-cases, but
-   * have kept the method in order to get the changes rolled out.
-   *
-   * @deprecated Since 4.2.0. Will be deleted in version 5.0. Please use getRawValue instead.
-   */
-  getFlag(flagKey: string): BasicFlag | null {
-    const wrapper = this.getFlagWrapper(flagKey);
-
-    if (wrapper instanceof BasicFlag) {
-      return wrapper;
-    }
-
-    // This is added for backwards compatibility
-    return null;
-  }
-
   /**
    * This method returns the wrapper object for the given flag key.
    * If the flag does not exist, this will return a stubbed flag following the null-object pattern,
    * so it is always guaranteed to return an object.
-   *
-   * @todo In a future major release, we should look at removing getFlag from the public API, and merging
-   * these two methods together. getFlag has been left returning null values for backwards compatibility.
    */
   private getFlagWrapper(flagKey: string): FlagWrapper {
     let wrapper: FlagWrapper | undefined = this.flagWrapperCache.get(flagKey);
@@ -135,6 +106,7 @@ export default class FeatureFlagClient {
         flag,
         this._trackExposure.bind(this),
         this.sendAutomaticExposure.bind(this),
+        this.ignoreTypes,
       );
     } else {
       wrapper = new MissingFlag(flagKey, this.sendAutomaticExposure.bind(this));
@@ -252,18 +224,14 @@ export default class FeatureFlagClient {
     flagKey: string,
     flag: Omit<FlagShape, 'value'> & { value: unknown },
     exposureTriggerReason: ExposureTriggerReason,
-    exposureData: CustomAttributes = {},
+    exposureData?: CustomAttributes,
   ) {
     if (
-      this.trackedFlags.has(flagKey) ||
-      !flag ||
-      !flag.explanation ||
-      !this.analyticsHandler
+      !(flag && flag.explanation && this.shouldSendEvent(flagKey, exposureData))
     ) {
       return;
     }
 
-    const hasCustomAttributes = Object.keys(exposureData).length > 0;
     checkForReservedAttributes(exposureData);
 
     const flagAttributes: ReservedAttributes = {
@@ -273,42 +241,19 @@ export default class FeatureFlagClient {
       value: flag.value,
     };
 
-    const action = 'exposed';
-    const actionSubject = 'feature';
-    const highPriority = true;
-    const source = '@atlaskit/feature-flag-client';
+    this.sendExposureEvent(flagAttributes, exposureTriggerReason, exposureData);
+  }
 
-    this.analyticsHandler({
-      action,
-      actionSubject,
-      attributes: flagAttributes as ExposureEventAttributes,
-      tags: [exposureTriggerReason, 'measurement'],
-      highPriority,
-      source,
-    });
-
-    // Due to the way we've simplified our pipeline, custom attributes are dropped from exposure
-    // events. In order not to break existing users of this feature immediately, we're sending an
-    // extra event that won't be consumed by our pipeline, but will end up in the `cloud.*` tables.
-    // See: https://hello.atlassian.net/wiki/spaces/MEASURE/pages/1838596497/AtlasKit+TAC
-    if (hasCustomAttributes) {
-      this.analyticsHandler({
-        action,
-        actionSubject,
-        attributes: Object.assign({}, flagAttributes, exposureData),
-        tags: [
-          'measurement',
-          exposureTriggerReason === ExposureTriggerReason.AutoExposure
-            ? ExposureTriggerReason.Manual
-            : exposureTriggerReason,
-          ExposureTriggerReason.hasCustomAttributes,
-        ],
-        highPriority,
-        source,
-      });
-    }
-
-    this.trackedFlags.add(flagKey);
+  private shouldSendEvent(
+    flagKey: string,
+    customAttributes?: CustomAttributes,
+  ): boolean {
+    return (
+      this.analyticsHandler !== undefined &&
+      (!this.trackedFlags.has(flagKey) ||
+        (!isObjectEmptyOrUndefined(customAttributes) &&
+          !this.customAttributesExposuresCache.has(flagKey)))
+    );
   }
 
   private sendAutomaticExposure(
@@ -317,11 +262,11 @@ export default class FeatureFlagClient {
     flagExplanation?: FlagShape['explanation'],
   ) {
     if (
-      this.automaticExposuresCache.has(flagKey) ||
-      !flagExplanation ||
-      !this.isAutomaticExposuresEnabled ||
-      this.trackedFlags.has(flagKey) ||
-      !this.automaticAnalyticsHandler
+      !(
+        flagExplanation &&
+        this.isAutomaticExposuresEnabled &&
+        this.shouldSendEvent(flagKey)
+      )
     ) {
       return;
     }
@@ -329,25 +274,54 @@ export default class FeatureFlagClient {
     const flagAttributes: ReservedAttributes = {
       flagKey,
       value,
-      reason: 'SIMPLE_EVAL',
+      reason: flagExplanation.kind || 'SIMPLE_EVAL', // In theory this shouldnt be necessary
+      ruleId: flagExplanation.ruleId,
+      errorKind: flagExplanation.errorKind,
     };
 
-    flagAttributes.reason = flagExplanation.kind;
-    flagAttributes.ruleId = flagExplanation.ruleId;
-    flagAttributes.errorKind = flagExplanation.errorKind;
+    this.sendExposureEvent(flagAttributes, ExposureTriggerReason.AutoExposure);
+  }
 
-    const exposureEvent: ExposureEvent = {
-      action: 'exposed',
-      actionSubject: 'feature',
-      attributes: flagAttributes as ExposureEventAttributes,
-      tags: [ExposureTriggerReason.AutoExposure, 'measurement'],
-      highPriority: false,
-      source: '@atlaskit/feature-flag-client',
-    };
+  private sendExposureEvent(
+    attributes: ReservedAttributes,
+    exposureTriggerReason: ExposureTriggerReason,
+    customAttributes?: CustomAttributes,
+  ) {
+    if (!this.trackedFlags.has(attributes.flagKey)) {
+      const exposureEvent: ExposureEvent = {
+        action: 'exposed',
+        actionSubject: 'feature',
+        attributes: attributes as ExposureEventAttributes,
+        tags: ['measurement', exposureTriggerReason],
+        highPriority: false,
+        source: '@atlaskit/feature-flag-client',
+      };
+      this.analyticsHandler?.sendOperationalEvent(exposureEvent);
+      this.trackedFlags.add(attributes.flagKey);
+    }
 
-    this.automaticAnalyticsHandler.sendOperationalEvent(exposureEvent);
-
-    this.automaticExposuresCache.add(flagKey);
+    // Due to the way we've simplified our pipeline, custom attributes are dropped from exposure
+    // events. In order not to break existing users of this feature immediately, we're sending an
+    // extra event that won't be consumed by our pipeline, but will end up in the `cloud.*` tables.
+    // See: https://hello.atlassian.net/wiki/spaces/MEASURE/pages/1838596497/AtlasKit+TAC
+    if (!isObjectEmptyOrUndefined(customAttributes)) {
+      const customeAttributesExposureEvent: ExposureEvent = {
+        action: 'exposed',
+        actionSubject: 'feature',
+        attributes: Object.assign({}, attributes, customAttributes),
+        tags: [
+          'measurement',
+          ExposureTriggerReason.hasCustomAttributes,
+          exposureTriggerReason,
+        ],
+        highPriority: true,
+        source: '@atlaskit/feature-flag-client',
+      };
+      this.analyticsHandler?.sendOperationalEvent(
+        customeAttributesExposureEvent,
+      );
+      this.customAttributesExposuresCache.add(attributes.flagKey);
+    }
   }
 
   getFlagStats(): FlagStats {

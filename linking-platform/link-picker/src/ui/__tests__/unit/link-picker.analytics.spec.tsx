@@ -1,4 +1,5 @@
 import React from 'react';
+import 'jest-extended';
 
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import {
@@ -16,6 +17,26 @@ import { LinkPicker, LinkPickerProps } from '../../../';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import { testIds } from '../../link-picker';
 import { PACKAGE_DATA as ROOT_CONTEXT } from '../../';
+
+import { ConcurrentExperience } from '@atlaskit/ufo';
+
+const mockUfoStart = jest.fn();
+const mockUfoSuccess = jest.fn();
+const mockUfoFailure = jest.fn();
+const mockUfoAbort = jest.fn();
+
+jest.mock('@atlaskit/ufo', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ConcurrentExperience: (): Partial<ConcurrentExperience> => ({
+    getInstance: jest.fn().mockImplementation((id: string) => ({
+      start: mockUfoStart,
+      success: mockUfoSuccess,
+      failure: mockUfoFailure,
+      abort: mockUfoAbort,
+    })),
+  }),
+}));
 
 expect.extend({
   toBeFiredWithAnalyticEventOnce(analyticsListenerSpy, event, channel) {
@@ -680,6 +701,41 @@ describe('LinkPicker analytics', () => {
           },
         });
       });
+    });
+  });
+
+  describe('UFO metrics', () => {
+    it('should send a Success experience when mounted successfully', async () => {
+      const { testIds } = setupLinkPicker();
+
+      expect(mockUfoStart).toHaveBeenCalled();
+      await screen.findAllByTestId(testIds.linkPicker);
+
+      expect(mockUfoSuccess).toHaveBeenCalled();
+      expect(mockUfoStart).toHaveBeenCalledBefore(mockUfoSuccess);
+    });
+
+    it('should send a Failed experience when mount fails', async () => {
+      const badUrl = new URL('https://atlassian.com') as any;
+      setupLinkPicker({ url: badUrl });
+
+      expect(mockUfoStart).toHaveBeenCalled();
+      expect(mockUfoFailure).toHaveBeenCalled();
+      expect(mockUfoSuccess).not.toHaveBeenCalled();
+      expect(mockUfoStart).toHaveBeenCalledBefore(mockUfoFailure);
+    });
+
+    it('should send an Abort experience when unmounted successfully', async () => {
+      const { wrappedLinkPicker } = setupLinkPicker();
+      expect(mockUfoStart).toHaveBeenCalled();
+      await screen.findAllByTestId(testIds.linkPicker);
+
+      expect(mockUfoSuccess).toHaveBeenCalled();
+      expect(mockUfoStart).toHaveBeenCalledBefore(mockUfoSuccess);
+
+      wrappedLinkPicker.unmount();
+      expect(mockUfoAbort).toHaveBeenCalled();
+      expect(mockUfoFailure).not.toHaveBeenCalled();
     });
   });
 });

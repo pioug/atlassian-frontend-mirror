@@ -10,7 +10,6 @@ import { BlockTemplate, FlexibleTemplate } from './types';
 import { token } from '@atlaskit/tokens';
 import * as Blocks from '../../src/view/FlexibleCard/components/blocks';
 import withJsonldEditorProvider from '../jsonld-editor/jsonld-editor-provider';
-import withJsonldEditorReload from '../jsonld-editor/jsonld-editor-reload';
 import FlexibleDataView from '../utils/flexible-data-view';
 
 const backColor = token('color.background.neutral.subtle', '#FFFFFF');
@@ -125,6 +124,4 @@ const TemplateRenderer: React.FC<{
   );
 };
 
-export default withJsonldEditorProvider(
-  withJsonldEditorReload(TemplateRenderer),
-);
+export default withJsonldEditorProvider(TemplateRenderer);

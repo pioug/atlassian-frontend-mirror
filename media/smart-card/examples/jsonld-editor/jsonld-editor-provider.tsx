@@ -1,66 +1,46 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { JsonLd } from 'json-ld-types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import JsonldEditorClient from './jsonld-editor-client';
-import { CardType, useSmartCardState } from '../../src/state/store';
-import { SmartLinkStatus } from '../../src/constants';
-
-const isResolvedOrErrored = (status: CardType) => {
-  switch (status) {
-    case SmartLinkStatus.Errored:
-    case SmartLinkStatus.Fallback:
-    case SmartLinkStatus.Forbidden:
-    case SmartLinkStatus.NotFound:
-    case SmartLinkStatus.Resolved:
-    case SmartLinkStatus.Unauthorized:
-      return true;
-    default:
-      return false;
-  }
-};
 
 type Props = {
   json?: JsonLd.Response;
   onError?: (error: Error) => void;
+  onFetch?: () => JsonLd.Response | undefined;
   onResolve?: (json: JsonLd.Response) => void;
-  url?: string;
+  url: string;
 };
 const JsonldEditorProvider: React.FC<Props> = ({
   children,
-  json,
   onError,
-  url,
+  onFetch,
+  onResolve,
 }) => {
-  const forceFetch = url !== undefined;
+  // This will cause Provider to rerender which is not a normal use case for
+  // smart links. We are hacking it so that we can force using json from
+  // jsonld editor.
   const client = useMemo(
-    () => new JsonldEditorClient('staging', json, forceFetch, onError),
-    [forceFetch, json, onError],
+    () => new JsonldEditorClient('staging', onFetch, onResolve, onError),
+    [onError, onFetch, onResolve],
   );
   return <SmartCardProvider client={client}>{children}</SmartCardProvider>;
-};
-
-// This is a hack to update response to jsonld editor.
-const JsonUpdater: React.FC<{
-  onResolve?: (json: JsonLd.Response) => void;
-  url?: string;
-}> = ({ onResolve, url }) => {
-  const cardState = useSmartCardState(url || '');
-  if (onResolve && isResolvedOrErrored(cardState.status) && cardState.details) {
-    onResolve(cardState.details);
-  }
-  return null;
 };
 
 const withJsonldEditorProvider = <P extends object>(
   Component: React.ComponentType<P>,
 ): React.FC<P & Props> => (props) => {
   const { json, onError, onResolve, url } = props;
+  const onFetch = useCallback(() => json, [json]);
 
   return (
-    <JsonldEditorProvider json={json} onError={onError} url={url}>
-      <JsonUpdater onResolve={onResolve} url={url} />
+    <JsonldEditorProvider
+      onError={onError}
+      onFetch={onFetch}
+      onResolve={onResolve}
+      url={url}
+    >
       <Component {...props} />
     </JsonldEditorProvider>
   );

@@ -83,6 +83,11 @@ export const unicornResponse = {
     'schema:programmingLanguage': 'Javascript',
     summary:
       'This is a showcase of a link response that contains a vast amount of data. It is unlikely that a real link would have all these information. For example, a blog link would not have data for a pull request target branch.',
+    tag: {
+      '@type': 'Object',
+      appearance: 'inprogress',
+      name: 'In Progress',
+    },
     updated: '2022-02-05T16:44:00.000+1000',
     url,
   },

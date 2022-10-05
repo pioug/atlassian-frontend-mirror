@@ -9,12 +9,15 @@ import {
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 import mockRecentData from '../example-helpers/mock-data';
 import { LinkPicker, LinkPickerPlugin } from '../src';
+import { ufologger } from '@atlaskit/ufo';
 
 type OnSubmitPayload = Parameters<
   Required<React.ComponentProps<typeof LinkPicker>>['onSubmit']
 >[0];
 
 mockEndpoints(undefined, undefined, mockRecentData);
+
+ufologger.enable();
 
 export default function InPopup() {
   const [isOpen, setIsOpen] = useState(true);

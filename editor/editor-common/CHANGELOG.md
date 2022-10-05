@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 69.4.1
+
+### Patch Changes
+
+- [`8dfda7116ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8dfda7116ca) - remove cypress-config export from editor-common
+
 ## 69.4.0
 
 ### Minor Changes

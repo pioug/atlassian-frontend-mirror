@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.10.4
+
+### Patch Changes
+
+- [`a3358adb9f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3358adb9f1) - Basic UFO Instrumentation for LinkPicker
+
 ## 1.10.3
 
 ### Patch Changes

@@ -28,7 +28,7 @@ const JsonldExample: React.FC<{
   return (
     <div css={jsonldExampleStyles}>
       <Button onClick={() => handleOnClick(defaultValue)} spacing="compact">
-        Start
+        🦄
       </Button>
       {Object.entries(examples).map(([key, data], idx) => (
         <Button key={idx} onClick={() => handleOnClick(data)} spacing="compact">

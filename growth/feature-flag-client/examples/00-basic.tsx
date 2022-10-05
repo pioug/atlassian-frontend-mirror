@@ -2,8 +2,10 @@ import React from 'react';
 import FeatureFlagClient from '../src/index';
 import { ExposureEvent } from '../src/types';
 
-const myAnalyticsHandler = (event: ExposureEvent) => {
-  console.log('Sending exposure event', event);
+const myAnalyticsHandler = {
+  sendOperationalEvent: async (event: ExposureEvent): Promise<void> => {
+    console.log('Sending exposure event', event);
+  },
 };
 
 const client = new FeatureFlagClient({

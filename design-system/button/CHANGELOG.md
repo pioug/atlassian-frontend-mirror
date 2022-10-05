@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.3.9
+
+### Patch Changes
+
+- [`1f4dba8f1a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f4dba8f1a5) - [ux] DSP-6696: prevent ButtonGroup items from being squished
+
 ## 16.3.8
 
 ### Patch Changes

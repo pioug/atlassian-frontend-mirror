@@ -13,33 +13,29 @@ import {
  * This class contains the base logic for evaluating feature flags.
  */
 export default class BasicFlag implements FlagWrapper {
-  flagKey: string;
-  flag: FlagShape;
-  /**
-   * @todo The value is only required for backwards compatibility, since
-   * the object returned from client.getFlag has always contained this field.
-   * This field can be deleted once client.getFlag has been removed from
-   * the public API
-   */
-  value: FlagValue;
-  evaluationCount: number;
-  trackExposure: InternalTriggeredExposureHandler;
-  sendAutomaticExposure: AutomaticExposureHandler;
+  public evaluationCount: number;
 
-  _evaluationResult?: EvaluationResult;
+  private readonly flagKey: string;
+  private readonly flag: FlagShape;
+  private readonly trackExposure: InternalTriggeredExposureHandler;
+  private readonly sendAutomaticExposure: AutomaticExposureHandler;
+  private readonly ignoreTypes: boolean;
+
+  private evaluationResult?: EvaluationResult;
 
   constructor(
     flagKey: string,
     flag: FlagShape,
     trackExposure: InternalTriggeredExposureHandler,
     sendAutomaticExposure: AutomaticExposureHandler,
+    ignoreTypes: boolean,
   ) {
     this.flagKey = flagKey;
     this.flag = flag;
-    this.value = flag.value;
     this.evaluationCount = 0;
     this.trackExposure = trackExposure;
     this.sendAutomaticExposure = sendAutomaticExposure;
+    this.ignoreTypes = ignoreTypes;
   }
 
   private getCachedResultOrCompute(
@@ -53,8 +49,8 @@ export default class BasicFlag implements FlagWrapper {
       shouldTrackExposureEvent?: boolean;
       exposureData?: CustomAttributes;
       oneOf?: FlagValue[];
-      ignoreTypes?: boolean;
-    } = {},
+      ignoreTypes: boolean;
+    },
   ): FlagValue {
     let exposureTriggerReason = ExposureTriggerReason.OptIn;
     if (shouldTrackExposureEvent === undefined) {
@@ -65,9 +61,9 @@ export default class BasicFlag implements FlagWrapper {
     // It is very common for products to call this method many times for the same flag key,
     // as flag evaluations are often done inside action callbacks and/or inside components with many instances.
     // We can cache the result of the first evaluation to avoid doing the same validation checks on every call.
-    let result = this._evaluationResult;
+    let result = this.evaluationResult;
     if (result === undefined) {
-      result = this._evaluationResult = this.computeWithValidation(
+      result = this.evaluationResult = this.computeWithValidation(
         defaultValue,
         { oneOf, ignoreTypes },
       );
@@ -138,7 +134,7 @@ export default class BasicFlag implements FlagWrapper {
     const value = this.getCachedResultOrCompute(options.default, {
       ...options,
       oneOf: undefined,
-      ignoreTypes: false,
+      ignoreTypes: this.ignoreTypes || false,
     });
 
     return value as boolean;
@@ -152,7 +148,7 @@ export default class BasicFlag implements FlagWrapper {
   }): string {
     const value = this.getCachedResultOrCompute(options.default, {
       ...options,
-      ignoreTypes: false,
+      ignoreTypes: this.ignoreTypes || false,
     });
 
     return value as string;
@@ -161,7 +157,7 @@ export default class BasicFlag implements FlagWrapper {
   getJSONValue(): object {
     return this.getCachedResultOrCompute(
       {},
-      { shouldTrackExposureEvent: false },
+      { shouldTrackExposureEvent: false, ignoreTypes: this.ignoreTypes },
     ) as object;
   }
 

@@ -60,6 +60,11 @@ import LinkSearchError, {
 } from './link-search-error';
 import FormFooter, { testIds as formFooterTestIds } from './form-footer';
 import { getDataSource, getScreenReaderText } from './utils';
+import {
+  succeedUfoExperience,
+  ufoExperience,
+} from '../../common/analytics/experiences';
+import { useLinkPickerSessionId } from '../../controllers/session-provider';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -183,6 +188,7 @@ function LinkPicker({
   displayText: initDisplayText,
 }: LinkPickerProps) {
   const { createAnalyticsEvent } = useAnalyticsEvents();
+
   const [state, dispatch] = useReducer(reducer, {
     ...initState,
     url: normalizeUrl(initUrl) || '',
@@ -220,6 +226,12 @@ function LinkPicker({
   const isSelectedItem = selectedItem?.url === url;
 
   const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
+
+  const linkPickerSessionId = useLinkPickerSessionId();
+
+  useLayoutEffect(() => {
+    succeedUfoExperience(ufoExperience.mounted, linkPickerSessionId);
+  }, [linkPickerSessionId]);
 
   useEffect(() => {
     // Anything in here is fired on component mount.

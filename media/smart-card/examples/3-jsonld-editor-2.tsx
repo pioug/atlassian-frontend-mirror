@@ -24,6 +24,7 @@ const Example: React.FC = () => {
     <JsonldEditor>
       {({
         initialJson,
+        isEmbedSupported,
         json,
         jsonError,
         onJsonChange,
@@ -38,6 +39,7 @@ const Example: React.FC = () => {
         <div css={styles}>
           <div>
             <CardExample
+              isEmbedSupported={isEmbedSupported}
               json={json}
               onError={onUrlError}
               onResolve={onUrlResolve}

@@ -7,18 +7,19 @@ import {
   CustomAttributes,
 } from './types';
 
+const MISSING_FLAG_EXPLANATION = {
+  kind: 'ERROR' as Reason,
+  errorKind: 'FLAG_NOT_FOUND' as ErrorKind,
+};
+
 /**
  * This class handles the evaluations for flags that do not exist in the collection given to the client.
  */
 export default class MissingFlag implements FlagWrapper {
-  static readonly explanation = {
-    kind: 'ERROR' as Reason,
-    errorKind: 'FLAG_NOT_FOUND' as ErrorKind,
-  };
+  public evaluationCount: number;
 
-  flagKey: string;
-  sendAutomaticExposure: AutomaticExposureHandler;
-  evaluationCount: number;
+  private readonly flagKey: string;
+  private readonly sendAutomaticExposure: AutomaticExposureHandler;
 
   constructor(
     flagKey: string,
@@ -33,7 +34,7 @@ export default class MissingFlag implements FlagWrapper {
     this.sendAutomaticExposure(
       this.flagKey,
       defaultValue,
-      MissingFlag.explanation,
+      MISSING_FLAG_EXPLANATION,
     );
     this.evaluationCount++;
     return defaultValue;

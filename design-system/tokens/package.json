@@ -65,7 +65,7 @@
     "@atlaskit/dynamic-table": "^14.8.0",
     "@atlaskit/empty-state": "^7.4.0",
     "@atlaskit/focus-ring": "^1.0.0",
-    "@atlaskit/heading": "*",
+    "@atlaskit/heading": "^0.1.16",
     "@atlaskit/icon": "^21.10.2",
     "@atlaskit/lozenge": "^11.2.0",
     "@atlaskit/modal-dialog": "^12.3.0",

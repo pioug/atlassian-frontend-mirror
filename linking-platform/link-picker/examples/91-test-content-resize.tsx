@@ -4,6 +4,7 @@ import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
 import Toggle from '@atlaskit/toggle';
 import { MockLinkPickerPromisePlugin } from '@atlaskit/link-test-helpers/link-picker';
+import { ufologger } from '@atlaskit/ufo';
 
 import { LinkPicker, LinkPickerState } from '../src';
 
@@ -25,6 +26,8 @@ class Plugin extends MockLinkPickerPromisePlugin {
 }
 
 const noop = () => {};
+
+ufologger.enable();
 
 export default function TestContentResize() {
   const [isOpen, setIsOpen] = useState(false);

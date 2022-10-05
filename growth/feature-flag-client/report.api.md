@@ -10,64 +10,18 @@
 
 ```ts
 // @public (undocumented)
-type AnalyticsHandler = (event: ExposureEvent) => void;
-
-// @public (undocumented)
-interface AutomaticAnalyticsHandler {
+interface AnalyticsHandler {
   // (undocumented)
-  sendOperationalEvent(event: ExposureEvent): void;
+  sendOperationalEvent(event: ExposureEvent): Promise<void>;
 }
 
 // @public (undocumented)
-type AutomaticExposureHandler = (
-  flagKey: string,
-  value: string | boolean | object,
-  flagExplanation?: FlagShape['explanation'],
-) => void;
-
-// @public
-class BasicFlag implements FlagWrapper {
-  constructor(
-    flagKey: string,
-    flag: FlagShape,
-    trackExposure: InternalTriggeredExposureHandler,
-    sendAutomaticExposure: AutomaticExposureHandler,
-  );
-  // (undocumented)
-  evaluationCount: number;
-  // (undocumented)
-  _evaluationResult?: EvaluationResult;
-  // (undocumented)
-  flag: FlagShape;
-  // (undocumented)
-  flagKey: string;
-  // (undocumented)
-  getBooleanValue(options: {
-    default: boolean;
-    shouldTrackExposureEvent?: boolean;
-    exposureData?: CustomAttributes;
-  }): boolean;
-  // (undocumented)
-  getJSONValue(): object;
-  // (undocumented)
-  getRawValue(options: {
-    default: FlagValue;
-    shouldTrackExposureEvent?: boolean;
-    exposureData?: CustomAttributes;
-  }): FlagValue;
-  // (undocumented)
-  getVariantValue(options: {
-    default: string;
-    oneOf: string[];
-    shouldTrackExposureEvent?: boolean;
-    exposureData?: CustomAttributes;
-  }): string;
-  // (undocumented)
-  sendAutomaticExposure: AutomaticExposureHandler;
-  // (undocumented)
-  trackExposure: InternalTriggeredExposureHandler;
-  value: FlagValue;
-}
+type ClientOptions = {
+  flags?: Flags_2;
+  analyticsHandler?: AnalyticsHandler;
+  isAutomaticExposuresEnabled?: boolean;
+  ignoreTypes?: boolean;
+};
 
 // @public (undocumented)
 type CustomAttributes = {
@@ -76,13 +30,6 @@ type CustomAttributes = {
 
 // @public (undocumented)
 type ErrorKind = 'WRONG_TYPE' | 'FLAG_NOT_FOUND' | 'VALIDATION_ERROR';
-
-// @public (undocumented)
-type EvaluationResult = {
-  value: FlagValue;
-  explanation?: FlagExplanation;
-  didFallbackToDefaultValue: boolean;
-};
 
 // @public (undocumented)
 type ExposureEvent = {
@@ -113,22 +60,9 @@ export enum ExposureTriggerReason {
 
 // @public (undocumented)
 class FeatureFlagClient {
-  constructor(options: {
-    flags?: Flags_2;
-    analyticsHandler: (event: ExposureEvent) => void;
-  });
-  // (undocumented)
-  analyticsHandler?: AnalyticsHandler;
-  // (undocumented)
-  automaticAnalyticsHandler?: AutomaticAnalyticsHandler;
-  // (undocumented)
-  automaticExposuresCache: Set<string>;
+  constructor(options: ClientOptions);
   // (undocumented)
   clear(): void;
-  // (undocumented)
-  flags: Map<String, FlagShape>;
-  // (undocumented)
-  flagWrapperCache: Map<string, FlagWrapper>;
   // (undocumented)
   getBooleanValue(
     flagKey: string,
@@ -138,8 +72,6 @@ class FeatureFlagClient {
       exposureData?: CustomAttributes;
     },
   ): boolean;
-  // @deprecated
-  getFlag(flagKey: string): BasicFlag | null;
   // (undocumented)
   getFlagStats(): FlagStats;
   // (undocumented)
@@ -164,24 +96,11 @@ class FeatureFlagClient {
     },
   ): string;
   // (undocumented)
-  isAutomaticExposuresEnabled: boolean;
-  // (undocumented)
-  setAnalyticsHandler(analyticsHandler: AnalyticsHandler): void;
-  // (undocumented)
-  setAutomaticAnalyticsHandler(
-    automaticAnalyticsHandler: AutomaticAnalyticsHandler,
-  ): void;
-  // (undocumented)
-  setAutomaticExposuresMode(
-    enableAutomaticExposures: boolean,
-    automaticAnalyticsHandler: AutomaticAnalyticsHandler,
-  ): void;
+  setAnalyticsHandler(analyticsHandler?: AnalyticsHandler): void;
   // (undocumented)
   setFlags(flags: Flags_2): void;
   // (undocumented)
   setIsAutomaticExposuresEnabled(isEnabled: boolean): void;
-  // (undocumented)
-  trackedFlags: Set<string>;
   // (undocumented)
   trackExposure(
     flagKey: string,
@@ -220,41 +139,6 @@ type FlagStats = {
 
 // @public (undocumented)
 type FlagValue = boolean | string | object;
-
-// @public (undocumented)
-interface FlagWrapper {
-  // (undocumented)
-  evaluationCount: number;
-  // (undocumented)
-  getBooleanValue(options: {
-    default: boolean;
-    shouldTrackExposureEvent?: boolean;
-    exposureData?: CustomAttributes;
-  }): boolean;
-  // (undocumented)
-  getJSONValue(): object;
-  // (undocumented)
-  getRawValue(options: {
-    default: FlagValue;
-    shouldTrackExposureEvent?: boolean;
-    exposureData?: CustomAttributes;
-  }): FlagValue;
-  // (undocumented)
-  getVariantValue(options: {
-    default: string;
-    oneOf: string[];
-    shouldTrackExposureEvent?: boolean;
-    exposureData?: CustomAttributes;
-  }): string;
-}
-
-// @public (undocumented)
-type InternalTriggeredExposureHandler = (
-  flagKey: string,
-  flag: FlagShape,
-  exposureTriggerReason: ExposureTriggerReason,
-  exposureData?: CustomAttributes,
-) => void;
 
 // @public (undocumented)
 type Reason =

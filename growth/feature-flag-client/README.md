@@ -76,7 +76,7 @@ client.getRawValue('my.delimited.flag', {
 
 **NOTE**: For performance reasons, the client will only run validation checks once and then cache this result for subsequent calls. It is important that you always use the same method and `oneOf` values whenever retrieving the value for your flag.
 
-### Setting flags asynchronously?
+### Setting flags asynchronously
 
 If you load your flags after the app bootstrap, you set the to the client through the 'setFlags' method.
 
@@ -91,9 +91,27 @@ client.setFlags({
   },
 });
 ```
-### How to send exposure events for all feature flags?
 
-You can call the `setAutomaticExposuresMode(enableAutomaticExposures: boolean, automaticAnalyticsHandler: AutomaticAnalyticsHandler) ` method after initialising the client in your app. When this mode is enabled, exposure events will be handled in the following circumstances: sent for all simple flags (ie. flags without an explanation), and for all evalulated (ie. flags with evalauation details) with the `shouldTrackExposureEvent` option set to false.
+### Exposure events
+
+Exposure events are great for tracking which users and sites saw your flags and in what state. These exposure events can be used for:
+1. Rollouts,
+2. Experiments, and
+3. Incident investigations.
+
+To send any exposure events, you need to provide an object that looks like `src/types.ts#AnalyticsHandler` (or internally to Atlassian this is the same as the AnalyticsWebClient).
+
+This can be set on initialisation of the client, or later with the `client.setAnalyticsHandler(analyticsHandler);` fucntion.
+
+
+#### How to send exposure events for all feature flags
+
+To turn on Automatic Exposures, you can either:
+
+1. Set `isAutomaticExposuresEnabled` to true in the constructor args, or
+1. Call `client.setIsAutomaticExposuresEnabled(true)`.
+
+When this mode is enabled, exposure events will be handled in the following circumstances: sent for all simple flags (ie. flags without an explanation), and for all evalulated (ie. flags with evalauation details) with the `shouldTrackExposureEvent` option set to false.
 
 - Simple Flags: Automatic exposure events will always be fired with the flag key and value
 - Evaluated Flags with `shouldTrackExposureEvent: false`: Automatic exposure events will fire with explanation details
@@ -101,7 +119,7 @@ You can call the `setAutomaticExposuresMode(enableAutomaticExposures: boolean, a
 
 The exposure events that are fired in this fashion will be tagged with an additional tag on the event `tags: ['autoExposure']` to make it easier to differientiate between those exposures fired manually and those fired automatically.
 
-### How to avoid firing the exposure event?
+### How to avoid firing the exposure event
 
 You can skip the exposure event by setting 'shouldTrackExposureEvent' to 'false'. Note: this will not disable the automatic exposure event from firing when the Automode is enabled.
 
@@ -112,7 +130,7 @@ client.getBooleanValue('my.detailed.boolean.flag', {
 });
 ```
 
-### How to fire the exposure event manually?
+### How to fire the exposure event manually
 
 ```javascript
 client.trackExposure('my.detailed.boolean.flag', {
@@ -124,7 +142,7 @@ client.trackExposure('my.detailed.boolean.flag', {
 });
 ```
 
-### How to include custom attributes in the exposure event?
+### How to include custom attributes in the exposure event
 
 You can send extra attributes by including an object within the `exposureData` attribute. This object accepts strings, numbers or booleans. Reserved attributes can't be used, like `flagKey`, `reason`, `ruleId` or `value`.
 

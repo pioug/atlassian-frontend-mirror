@@ -1,4 +1,4 @@
-import type { OwnProps as Props } from '../src/text-area';
+import type { OwnProps as Props } from '../src/types';
 
 export default function TextareaProps(props: Props) {
   return null;

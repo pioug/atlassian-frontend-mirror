@@ -27,8 +27,6 @@ We are moving towards a new way of accessing color and elevations: through desig
 
 Make sure you understand the basics of design tokens. Learn about this in [design tokens](/foundations/design-tokens/).
 
-What is changing?
-
 ## Colors are changing
 
 Tokens and theming are being launched alongside our new color system. Our new color system brings usability, accessibility, consistency, and visual improvements.
@@ -64,7 +62,7 @@ There are now three options for neutral text:
 
 ## More consistent form fields
 
-Form input elements such as text field, text area, radio, checkbox, select, dropdown menu etc. are now visually aligned. 
+Form inputs, such as text field, text area, radio, checkbox, select, and dropdown menu, are now more consistent in appearance.
 We have dedicated tokens to use on form inputs: `color.border.input` and `color.background.input`.
 
 ![form fields](images/form-fields.png)
@@ -99,14 +97,23 @@ Navigation components will no longer use an elevation with a shadow. Instead, us
 ## Changes for designers
 
 The current ADS Figma libraries will eventually be deprecated. 
-Use the new ADS Figma libraries once you start adopting tokens and theming. These libraries are currently only available for Atlassian employees. 
-
-To learn more about where to find the new libraries, where to find tokens, and how to swap between light and dark theme, 
-read [getting started in Figma](/components/tokens/getting-started-in-Figma).
+Onboarding to the new Figma libraries that support design tokens is currently limited to certain Atlassian teams.
 
 ## Changes for engineers
 
-Token migration involves replacing all existing colour uses in your code, conversion in code looks like this:
+Token migration involves replacing all existing color uses in your code. 
+
+During this rollout period, tokens are only being used internally. Until tokens are enabled for the whole product via feature flag, 
+use fallbacks as shown in the following code samples. The value of the fallback should be the original color used before converting 
+your experience to tokens.
+
+Atlassians employees can install the [Chrome extension](http://go/dst-theming-extension/) and 
+[storybook add-on](https://www.npmjs.com/package/@atlaskit/storybook-addon-design-system) to preview tokens ahead of time.
+
+#### Example of converting colors to use tokens
+
+In the following sample, the `B400` will be the fallback that we provide.
+Conversion in code looks like this:
 
 ```diff
 +import { token } from '@atlaskit/tokens';
@@ -116,7 +123,7 @@ import { B400 } from ‘@atlaskit/theme/colors;
 +color: token('color.background.selected.bold, B400)
 ```
 
-Example of converting an elevation to use tokens:
+#### Example of converting an elevation to use tokens
 ```diff
 import { elevation } from '@atlaskit/theme';
 +import { N40A, N50A } from '@atlaskit/theme/colors';
@@ -129,17 +136,10 @@ import { elevation } from '@atlaskit/theme';
 +)};
 ```
 
-Using tokens will be supported by [linting rules](https://www.npmjs.com/package/eslint-plugin-design-system), this is what allows us to have a global theme switch between dark and light modes.
-
-If you’re interested in what we will and won’t be shipping in this project, 
+Using tokens will be supported by [linting rules](https://www.npmjs.com/package/eslint-plugin-design-system), allowing us 
+to have a global theme switch between dark and light modes.
+If you’re interested in what will be shipping in this project, 
 please read the [technical considerations](http://go/theming-technical-considerations).
-
-**The reason we provide fallbacks**
-
-We are rolling out tokens behind-the-scenes, which means tokens will not be active on the page and visible to the end user unless tokens are enabled for the whole product via feature flag. 
-For development purposes we provide a [Chrome browser extension](http://go/dst-theming-extension/) and a [storybook addon](https://www.npmjs.com/package/@atlaskit/storybook-addon-design-system) that injects these tokens for you ahead of time.
-Under the hood, tokens use CSS custom properties. If tokens aren’t available, the browser will use the provided fallback instead. This is what your end-user will see until we officially launch.
-The value of the fallback should be the original color used before converting your experience to tokens. Typically this would be a color from the @atlaskit/theme package, or sometimes raw hex or rgba values.
 
 ### Codemod (CSS-in-JS)
 
@@ -204,6 +204,6 @@ Go to [go/help-design-system](https://atlassian.slack.com/archives/CFJ9DU39U) fo
 
 ## Related
 
-- Learn how to set up and use design tokens by going to [getting started with code](/components/tokens/getting-started-in-code) or [getting started with Figma](/components/tokens/getting-started-in-Figma).
+- Learn how to set up and use design tokens by going to [getting started with code](/components/tokens/getting-started-in-code).
 - Get design token usage guidelines for [color](/foundations/color) and [elevations](/foundations/elevation).
 - See the list of [all design tokens](/components/tokens/all-tokens) for full descriptions and values for all tokens.

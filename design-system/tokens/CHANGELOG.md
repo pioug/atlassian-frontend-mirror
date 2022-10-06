@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.22
+
+### Patch Changes
+
+- [`8e324bc208f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e324bc208f) - Source files for tokens chrome extension has been moved out and into its own pacakge
+
 ## 0.10.21
 
 ### Patch Changes

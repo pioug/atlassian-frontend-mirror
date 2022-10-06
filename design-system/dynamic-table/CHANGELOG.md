@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.8.2
+
+### Patch Changes
+
+- [`f9cd9e55e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cd9e55e43) - Update to disabled tokens which slightly affects the opacity in disabled states
+
 ## 14.8.1
 
 ### Patch Changes

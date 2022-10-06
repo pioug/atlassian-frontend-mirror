@@ -15,10 +15,28 @@ export default () => {
         TimePicker - subtle appearance
       </Label>
       <TimePicker id="time-subtle" onChange={console.log} appearance="subtle" />
+      <Label htmlFor="react-select-time-subtle--input">
+        TimePicker - subtle appearance, disabled
+      </Label>
+      <TimePicker
+        id="time-subtle"
+        onChange={console.log}
+        appearance="subtle"
+        isDisabled
+      />
       <Label htmlFor="react-select-time-no-appearance--input">
         TimePicker - 'none' appearance
       </Label>
       <TimePicker id="time-none" onChange={console.log} appearance="none" />
+      <Label htmlFor="react-select-time-no-appearance--input">
+        TimePicker - 'none' appearance, disabled
+      </Label>
+      <TimePicker
+        id="time-none"
+        onChange={console.log}
+        appearance="none"
+        isDisabled
+      />
       <Label htmlFor="react-select-time-compact--input">
         TimePicker - compact spacing
       </Label>

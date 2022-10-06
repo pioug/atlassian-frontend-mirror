@@ -40,7 +40,7 @@
     "@atlaskit/smart-user-picker": "^6.0.0",
     "@atlaskit/spinner": "^15.1.4",
     "@atlaskit/tabs": "^13.3.0",
-    "@atlaskit/textarea": "^4.3.0",
+    "@atlaskit/textarea": "^4.4.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@atlaskit/tooltip": "^17.5.0",

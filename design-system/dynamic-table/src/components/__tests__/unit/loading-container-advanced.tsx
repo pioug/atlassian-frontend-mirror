@@ -106,7 +106,6 @@ describe('LoadingContainerAdvanced', () => {
       node: HTMLElement,
       isLoading: boolean,
     ) => {
-      expect(node.style.opacity).toBe(isLoading ? '0.22' : '');
       expect(node.style.pointerEvents).toBe(isLoading ? 'none' : '');
     };
 

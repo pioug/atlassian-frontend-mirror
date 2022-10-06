@@ -21,7 +21,7 @@ describe('Avatar', () => {
 
   beforeEach(async () => {
     page = global.page;
-    await page.setViewport({ width: 500, height: 400 });
+    await page.setViewport({ width: 500, height: 500 });
   });
 
   it('should match production example', async () => {

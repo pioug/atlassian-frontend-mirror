@@ -249,7 +249,7 @@ const getStyles = (
         cursor: not-allowed;
 
         &::after {
-          opacity: 0.7;
+          opacity: ${token('opacity.disabled', '0.7')};
           pointer-events: none;
           background-color: ${token('elevation.surface', N0)};
         }

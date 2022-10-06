@@ -33,7 +33,7 @@
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/modal-dialog": "^12.3.0",
     "@atlaskit/select": "^15.7.0",
-    "@atlaskit/textarea": "^4.3.0",
+    "@atlaskit/textarea": "^4.4.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",

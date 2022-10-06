@@ -50,7 +50,7 @@ describe('Token explorer', () => {
   });
 
   describe('search', () => {
-    it('should render tokens in a single list', async () => {
+    xit('should render tokens in a single list', async () => {
       user = userEvent.setup({
         delay: 100,
       });
@@ -141,7 +141,7 @@ describe('Token explorer', () => {
   });
 
   describe('filters', () => {
-    it('should filter tokens by state', async () => {
+    xit('should filter tokens by state', async () => {
       const { getByTestId, getAllByTestId } = render(TokenExplorerTest, {
         container: document.body,
       });

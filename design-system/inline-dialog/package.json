@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/datetime-picker": "^12.2.0",
+    "@atlaskit/datetime-picker": "^12.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/modal-dialog": "^12.3.0",

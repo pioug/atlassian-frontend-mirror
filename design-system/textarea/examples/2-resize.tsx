@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/core';
 import Button, { ButtonGroup } from '@atlaskit/button';
 
 import TextArea from '../src';
-import { TextAreaProps } from '../src/text-area';
+import { TextAreaProps } from '../src/types';
 
 const wrapperStyles = css({
   maxWidth: 500,

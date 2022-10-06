@@ -41,5 +41,20 @@ export default () => (
       <Gap />
       <Avatar appearance="square" name="xsmall" size="xsmall" />
     </Block>
+    <Block heading="Disabled">
+      <Tooltip content="xxlarge">
+        <Avatar name="xxlarge" size="xxlarge" testId="avatar" isDisabled />
+      </Tooltip>
+      <Gap />
+      <Avatar name="xlarge" size="xlarge" presence="online" isDisabled />
+      <Gap />
+      <Avatar name="large" size="large" presence="offline" isDisabled />
+      <Gap />
+      <Avatar name="medium" size="medium" presence="busy" isDisabled />
+      <Gap />
+      <Avatar name="small" size="small" presence="focus" isDisabled />
+      <Gap />
+      <Avatar name="xsmall" size="xsmall" isDisabled />
+    </Block>
   </div>
 );

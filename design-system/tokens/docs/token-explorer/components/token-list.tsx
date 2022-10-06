@@ -49,8 +49,8 @@ const TokenList = ({
           ]}
         >
           <th>Token and description</th>
-          <th>Light value</th>
-          <th>Dark value</th>
+          <th css={valueHeaderStyles}>Light value</th>
+          <th css={valueHeaderStyles}>Dark value</th>
         </tr>
       </thead>
       <tbody css={{ borderBottom: 0 }}>
@@ -71,5 +71,14 @@ const TokenList = ({
     </table>
   );
 };
+
+const valueHeaderStyles = css({
+  '@media (max-width: 1080px)': {
+    width: '50%',
+  },
+  '@media (min-width: 1081px)': {
+    width: 130,
+  },
+});
 
 export default memo(TokenList);

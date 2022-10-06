@@ -162,7 +162,7 @@ const getStyles = (
     ${isDisabled &&
     `
         cursor: not-allowed;
-        opacity: 0.5;
+        opacity: ${token('opacity.disabled', '0.5')};
         pointer-events: none;
       `}
   `;

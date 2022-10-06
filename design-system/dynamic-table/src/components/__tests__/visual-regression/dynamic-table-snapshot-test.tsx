@@ -175,4 +175,24 @@ describe('Snapshot Test', () => {
     const tableAfter = await takeElementScreenShot(page, table);
     expect(tableAfter).toMatchProdImageSnapshot();
   });
+
+  it('Should show spinner and apply opacity to children when loading', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dynamic-table',
+      'loading-state-many-rows',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector(table);
+    await page.click("[data-testid='toggle-loading']");
+    await page.waitForSelector(
+      "[data-testid='the-table--loadingSpinner-wrapper']",
+    );
+    const tableAfter = await takeElementScreenShot(page, table);
+    expect(tableAfter).toMatchProdImageSnapshot();
+  });
 });

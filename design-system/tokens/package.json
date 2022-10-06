@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.10.21",
+  "version": "0.10.22",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -40,8 +40,7 @@
   "scripts": {
     "ak-postbuild": "cd ../../../ && yarn build @af/codegen && cd packages/design-system/tokens && yarn codegen-tokens && yarn check-clean-git",
     "check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
-    "codegen-tokens": "ts-node --project ../../../tsconfig.node.json ./scripts/style-dictionary/build",
-    "build-chrome-extension": "yarn --cwd tokens-browser-extension build-chrome-extension"
+    "codegen-tokens": "ts-node --project ../../../tsconfig.node.json ./scripts/style-dictionary/build"
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^2.1.0",
@@ -72,7 +71,7 @@
     "@atlaskit/section-message": "^6.2.0",
     "@atlaskit/tabs": "^13.3.0",
     "@atlaskit/tag": "^11.4.0",
-    "@atlaskit/textfield": "^5.2.0",
+    "@atlaskit/textfield": "^5.3.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/toggle": "^12.5.0",
     "@atlaskit/tooltip": "^17.5.7",
@@ -90,6 +89,7 @@
     "lodash": "^4.17.21",
     "prettier": "^2.1.1",
     "react": "^16.8.0",
+    "react-use-clipboard": "^1.0.0",
     "style-dictionary": "^3.0.0",
     "ts-node": "^10.9.1",
     "typescript": "4.5.5"

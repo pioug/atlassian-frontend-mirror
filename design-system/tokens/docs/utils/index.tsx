@@ -15,14 +15,15 @@ export function getTextContrast(hex: string) {
   return lum >= 80 ? 'black' : 'white';
 }
 
-export function getBoxShadow(rawShadow: any[]) {
-  return rawShadow
-    .map(({ radius, offset, color, opacity }) => {
-      const { r, g, b } = hexToRGB(color);
+export function getBoxShadowAsList(rawShadow: any[]) {
+  return rawShadow.map(({ radius, offset, color, opacity }) => {
+    const { r, g, b } = hexToRGB(color);
+    return `${offset.x}px ${offset.y}px ${radius}px rgba(${r}, ${g}, ${b}, ${opacity})`;
+  });
+}
 
-      return `${offset.x}px ${offset.y}px ${radius}px rgba(${r}, ${g}, ${b}, ${opacity})`;
-    })
-    .join(',');
+export function getBoxShadow(rawShadow: any[]) {
+  return getBoxShadowAsList(rawShadow).join(',');
 }
 
 export function cleanTokenName(name: string) {

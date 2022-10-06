@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/theme/constants';
 
 import { ThemeTokens } from './theme';
+import { TextAreaProps } from './types';
 
 export interface StyleProps {
   minimumRows: number | undefined;
@@ -50,7 +51,10 @@ const borderBoxMinHeightCompact = (
   return contentHeightCompact + compactVerticalPadding * 2 + borderHeight * 2;
 };
 
-const bgAndBorderColorStyles = (props: ThemeTokens): CSSObject => ({
+const bgAndBorderColorStyles = (
+  props: ThemeTokens,
+  appearance: TextAreaProps['appearance'],
+): CSSObject => ({
   '&:focus': {
     backgroundColor: props.backgroundColorFocus,
     borderColor: props.borderColorFocus,
@@ -58,15 +62,6 @@ const bgAndBorderColorStyles = (props: ThemeTokens): CSSObject => ({
   '&:not(:focus)': {
     backgroundColor: props.backgroundColor,
     borderColor: props.borderColor,
-  },
-
-  '&:disabled:focus': {
-    backgroundColor: props.disabledRules.backgroundColorFocus,
-    borderColor: props.disabledRules.borderColorFocus,
-  },
-  '&:disabled:not(:focus)': {
-    backgroundColor: props.disabledRules.backgroundColor,
-    borderColor: props.disabledRules.borderColor,
   },
   '&[data-invalid]:focus': {
     backgroundColor: props.invalidRules.backgroundColorFocus,
@@ -76,6 +71,20 @@ const bgAndBorderColorStyles = (props: ThemeTokens): CSSObject => ({
     backgroundColor: props.invalidRules.backgroundColor,
     borderColor: props.invalidRules.borderColor,
   },
+  // Disabled background and border styles should not be applied to components that
+  // have either no background or transparent background to begin with
+  ...(appearance === 'standard'
+    ? {
+        '&:disabled:focus': {
+          backgroundColor: props.disabledRules.backgroundColorFocus,
+          borderColor: props.disabledRules.borderColorFocus,
+        },
+        '&:disabled:not(:focus)': {
+          backgroundColor: props.disabledRules.backgroundColor,
+          borderColor: props.disabledRules.borderColor,
+        },
+      }
+    : {}),
 });
 
 const placeholderStyle = (placeholderTextColor: string) => ({
@@ -180,9 +189,12 @@ export const getBaseStyles = ({
   maxHeight,
 });
 
-export const themeStyles = (props: ThemeTokens): CSSObject => {
+export const themeStyles = (
+  props: ThemeTokens,
+  appearance: TextAreaProps['appearance'],
+): CSSObject => {
   return {
-    ...bgAndBorderColorStyles(props),
+    ...bgAndBorderColorStyles(props, appearance),
     ...hoverBackgroundAndBorderStyles(props),
     ...placeholderStyle(props.placeholderTextColor),
     color: props.textColor,

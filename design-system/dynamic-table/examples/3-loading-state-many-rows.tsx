@@ -10,7 +10,10 @@ const LoadingLargePageExample = () => {
   const [isLoading, setIsLoading] = useState(false);
   return (
     <div>
-      <Button onClick={() => setIsLoading((loading) => !loading)}>
+      <Button
+        onClick={() => setIsLoading((loading) => !loading)}
+        testId="toggle-loading"
+      >
         Toggle loading
       </Button>
       <DynamicTableStateless
@@ -19,6 +22,7 @@ const LoadingLargePageExample = () => {
         rowsPerPage={20}
         page={1}
         isLoading={isLoading}
+        testId="the-table"
       />
     </div>
   );

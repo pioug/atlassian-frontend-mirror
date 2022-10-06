@@ -4,6 +4,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 
 import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
 
 import { LARGE, LOADING_CONTENTS_OPACITY } from '../internal/constants';
 import {
@@ -26,7 +27,7 @@ export interface LoadingContainerAdvancedProps {
   children: React.ReactElement<any>;
   isLoading?: boolean;
   spinnerSize?: SpinnerSizeType;
-  contentsOpacity: number;
+  contentsOpacity: number | string;
   targetRef?: () => HTMLDivElement | undefined;
   testId?: string;
 }
@@ -40,7 +41,7 @@ export default class LoadingContainerAdvanced extends React.Component<
   static defaultProps = {
     isLoading: true,
     spinnerSize: LARGE,
-    contentsOpacity: LOADING_CONTENTS_OPACITY,
+    contentsOpacity: token('opacity.loading', `${LOADING_CONTENTS_OPACITY}`),
   };
   componentDidMount = () => {
     if (this.props.isLoading && this.hasTargetNode()) {

@@ -94,21 +94,25 @@ const getContainerTextBgAndBorderColor = (
   borderColor: borderColor[appearance][mode],
   color: componentTokens.textColor[mode],
   cursor: 'text',
-  '&:hover': {
+  '&:hover:not([data-disabled])': {
     backgroundColor: backgroundColorHover[appearance][mode],
     borderColor: borderColorHover[appearance][mode],
   },
-  '&:focus-within': {
+  '&:focus-within:not([data-disabled])': {
     backgroundColor: backgroundColorFocus[appearance][mode],
     borderColor: borderColorFocus[appearance][mode],
   },
   '&[data-disabled]': {
-    backgroundColor: disabledRules[mode].backgroundColor,
-    borderColor: disabledRules[mode].borderColor,
     color: disabledRules[mode].textColor,
     cursor: 'not-allowed',
+    // Disabled background and border styles should not be applied to components that
+    // have either no background or transparent background to begin with
+    ...(appearance === 'standard' && {
+      backgroundColor: disabledRules[mode].backgroundColor,
+      borderColor: disabledRules[mode].borderColor,
+    }),
   },
-  '&[data-invalid]': {
+  '&[data-invalid], &[data-invalid]:hover': {
     borderColor: invalidRules[mode].borderColor,
   },
   '&[data-invalid]:focus-within': {

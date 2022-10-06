@@ -43,7 +43,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.3.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^5.2.0",
+    "@atlaskit/textfield": "^5.3.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/visual-regression": "*",

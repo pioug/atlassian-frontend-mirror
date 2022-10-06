@@ -4,7 +4,7 @@ export interface TextfieldProps extends AllHTMLAttributes<HTMLInputElement> {
   /**
    * Affects the visual style of the text field.
    */
-  appearance?: 'standard' | 'none' | 'subtle';
+  appearance?: Appearance;
 
   /**
    * Applies compact styling, making the field smaller.

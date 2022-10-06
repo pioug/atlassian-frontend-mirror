@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.3.0
+
+### Minor Changes
+
+- [`b8841384da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8841384da6) - Disabled background and border styles should not be applied to components that have either no background or transparent background to begin with. Textfield and textarea variants that do not have backgrounds (sublte or none) have no backgrounds or borders applied when disabled. As such, any comopnents that consume these will also be affected.
+
 ## 12.2.1
 
 ### Patch Changes

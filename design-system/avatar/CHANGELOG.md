@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.0.3
+
+### Patch Changes
+
+- [`f9cd9e55e43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cd9e55e43) - Update to disabled tokens which slightly affects the opacity in disabled states
+
 ## 21.0.2
 
 ### Patch Changes

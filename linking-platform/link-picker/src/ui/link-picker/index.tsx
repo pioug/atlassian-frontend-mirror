@@ -69,6 +69,7 @@ import { useLinkPickerSessionId } from '../../controllers/session-provider';
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
 export const testIds = {
+  linkPickerRoot: 'link-picker-root',
   linkPicker: 'link-picker',
   urlInputField: 'link-url',
   textInputField: 'link-text',
@@ -123,6 +124,10 @@ export interface LinkPickerProps {
   displayText?: string | null;
   /** Plugins that provide link suggestions / search capabilities. */
   plugins?: LinkPickerPlugin[];
+  /** Customise the link picker root component */
+  component?: React.ComponentType<
+    Partial<LinkPickerProps> & { children: React.ReactElement }
+  >;
 }
 
 export interface PickerState {
@@ -549,4 +554,20 @@ function LinkPicker({
   );
 }
 
-export default withLinkPickerAnalyticsContext(memo(LinkPicker));
+const DefaultRootComponent = ({
+  children,
+}: Omit<React.HTMLAttributes<HTMLDivElement>, 'onSubmit'> &
+  LinkPickerProps) => {
+  return <div data-testid={testIds.linkPickerRoot}>{children}</div>;
+};
+
+export default withLinkPickerAnalyticsContext(
+  memo(({ component, ...props }: LinkPickerProps) => {
+    const RootComponent = component ?? DefaultRootComponent;
+    return (
+      <RootComponent {...props} data-testid={testIds.linkPickerRoot}>
+        <LinkPicker {...props} />
+      </RootComponent>
+    );
+  }),
+);

@@ -1,5 +1,21 @@
 # @atlaskit/link-picker
 
+## 1.11.1
+
+### Patch Changes
+
+- [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping dependencies via Renovate:
+
+  - react-loosely-lazy
+
+## 1.11.0
+
+### Minor Changes
+
+- [`2cbf4131640`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cbf4131640) - Make LinkPicker to accept a custom root component
+  And now we offer a new useLinkPickerEditorProps hook
+  useForgeSearchProviders hook will now get client from SmartCardContext
+
 ## 1.10.4
 
 ### Patch Changes

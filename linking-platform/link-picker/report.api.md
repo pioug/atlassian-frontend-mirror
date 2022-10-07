@@ -46,6 +46,11 @@ export type LinkPickerPluginErrorFallback = (
 
 // @public (undocumented)
 export interface LinkPickerProps {
+  component?: React.ComponentType<
+    Partial<LinkPickerProps> & {
+      children: React.ReactElement;
+    }
+  >;
   displayText?: string | null;
   onCancel: () => void;
   onContentResize?: () => void;

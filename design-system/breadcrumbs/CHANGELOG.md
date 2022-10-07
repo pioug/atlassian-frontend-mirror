@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 11.7.2
+
+### Patch Changes
+
+- [`af6e73a1e17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af6e73a1e17) - Bumping dependencies via Renovate:
+
+  - react-loosely-lazy
+
 ## 11.7.1
 
 ### Patch Changes

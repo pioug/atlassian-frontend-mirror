@@ -2,8 +2,33 @@ import { components } from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
 import noop from 'lodash/noop';
 import { mount } from 'enzyme';
-import React from 'react';
+import React, { ReactChildren } from 'react';
 import { ClearIndicator } from '../../../components/ClearIndicator';
+
+// Helper to make <React.Suspense> and React.lazy() work with Enzyme
+jest.mock('react', () => {
+  const React = jest.requireActual('react');
+
+  return {
+    ...React,
+    Suspense: ({ children }: { children: ReactChildren }) => children,
+    lazy: jest.fn().mockImplementation((fn) => {
+      const Component = (props: any) => {
+        const [C, setC] = React.useState();
+
+        React.useEffect(() => {
+          fn().then((v: any) => {
+            setC(v);
+          });
+        }, []);
+
+        return C ? <C.default {...props} /> : null;
+      };
+
+      return Component;
+    }),
+  };
+});
 
 describe('ClearIndicator', () => {
   const renderClearIndicator = (props: any) =>
@@ -53,8 +78,7 @@ describe('ClearIndicator', () => {
     expect(stopPropagation).toHaveBeenCalledTimes(0);
   });
 
-  // https://product-fabric.atlassian.net/browse/UR-3963
-  it.skip('should pass in clearValueLabel to tooltip', async () => {
+  it('should pass in clearValueLabel to tooltip', async () => {
     const component = renderClearIndicator({
       selectProps: { clearValueLabel: 'test' },
     });

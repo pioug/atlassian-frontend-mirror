@@ -2,6 +2,7 @@ import React from 'react';
 
 import { createSearchProvider, Scope } from '@atlassian/search-provider';
 import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin';
+import { useLinkPickerEditorProps } from '@atlassian/link-picker-plugins/editor';
 
 import { default as FullPageExample } from './5-full-page';
 
@@ -18,9 +19,15 @@ const atlassianPlugin = new AtlassianLinkPickerPlugin({
   activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
 });
 
-export default () => (
-  <FullPageExample
-    linking={{ linkPicker: { plugins: [atlassianPlugin] } }}
-    featureFlags={{ 'lp-link-picker': true }}
-  />
-);
+export default () => {
+  const linkPicker = useLinkPickerEditorProps({
+    plugins: [atlassianPlugin],
+  });
+
+  return (
+    <FullPageExample
+      linking={{ linkPicker }}
+      featureFlags={{ 'lp-link-picker': true }}
+    />
+  );
+};

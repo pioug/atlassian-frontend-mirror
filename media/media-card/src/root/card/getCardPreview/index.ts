@@ -219,6 +219,7 @@ export const getCardPreview = async ({
 export const shouldResolvePreview = ({
   status,
   fileState,
+  prevDimensions,
   dimensions,
   identifier,
   fileImageMode,
@@ -228,6 +229,7 @@ export const shouldResolvePreview = ({
 }: {
   status: CardStatus;
   fileState: FileState;
+  prevDimensions?: CardDimensions;
   dimensions?: CardDimensions;
   identifier: FileIdentifier;
   fileImageMode?: ImageResizeMode;
@@ -239,8 +241,8 @@ export const shouldResolvePreview = ({
     status,
     extractFilePreviewStatus(fileState, isBannedLocalPreview, featureFlags),
   );
-  const cardPreview = cardPreviewCache.get(identifier.id, fileImageMode);
-  const dimensionsAreBigger = isBigger(cardPreview?.dimensions, dimensions);
+
+  const dimensionsAreBigger = isBigger(prevDimensions, dimensions);
   return statusIsPreviewable && (!hasCardPreview || dimensionsAreBigger);
 };
 

@@ -65,8 +65,12 @@ describe('Popup Select', () => {
 
     selectTrigger.click();
 
-    expect(selectTrigger).not.toHaveFocus();
-    expect(document.body.querySelector('#react-select-2-input')).toHaveFocus();
+    await waitForExpect(() => {
+      expect(selectTrigger).not.toHaveFocus();
+      expect(
+        document.body.querySelector('#react-select-2-input'),
+      ).toHaveFocus();
+    });
 
     userEvent.tab();
 

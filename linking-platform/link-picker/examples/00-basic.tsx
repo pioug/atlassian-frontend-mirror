@@ -8,14 +8,16 @@ import {
   Scope,
 } from '@atlassian/link-picker-atlassian-plugin';
 import { useForgeSearchProviders } from '@atlassian/link-picker-plugins';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 import { LinkPicker, LinkPickerProps, LinkPickerPlugin } from '../src';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 
 ufologger.enable();
+const smartCardClient = new CardClient('staging');
 
-export default function Basic() {
+function Basic() {
   const [link, setLink] = useState<OnSubmitPayload>({
     url: '',
     displayText: null,
@@ -39,8 +41,9 @@ export default function Basic() {
     setIsLinkPickerVisible(true);
   };
 
-  const forgePlugins: LinkPickerPlugin[] = useForgeSearchProviders('stg');
   const handleCancel = () => setIsLinkPickerVisible(false);
+
+  const forgePlugins: LinkPickerPlugin[] = useForgeSearchProviders();
   const plugins: LinkPickerPlugin[] = React.useMemo(
     () => [
       new AtlassianLinkPickerPlugin({
@@ -76,5 +79,13 @@ export default function Basic() {
         {linkPicker}
       </IntlProvider>
     </div>
+  );
+}
+
+export default function BasicExampleWrapper() {
+  return (
+    <SmartCardProvider client={smartCardClient}>
+      <Basic />
+    </SmartCardProvider>
   );
 }

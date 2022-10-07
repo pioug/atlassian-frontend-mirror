@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "3.5.3",
+  "version": "3.5.4",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,10 +49,11 @@
     "@atlaskit/util-service-support": "^6.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
+    "@react-loosely-lazy/manifest": "^1.0.0",
     "fast-deep-equal": "^3.1.1",
     "memoize-one": "^6.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "react-loosely-lazy": "^0.5.0",
+    "react-loosely-lazy": "^1.0.0",
     "tiny-invariant": "^1.2.0"
   },
   "peerDependencies": {

@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 15.7.3
+
+### Patch Changes
+
+- [`5e578b89178`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e578b89178) - Fixed an issue in PopupSelect that caused the page to scroll to the top.
+
 ## 15.7.2
 
 ### Patch Changes

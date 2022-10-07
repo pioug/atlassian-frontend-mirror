@@ -1218,4 +1218,52 @@ describe('<LinkPicker />', () => {
       });
     });
   });
+
+  describe('with root component', () => {
+    it('should render the default root component if nothing was specified', async () => {
+      const { testIds } = setupLinkPicker();
+
+      expect(screen.getByTestId(testIds.linkPickerRoot)).toBeInTheDocument();
+    });
+
+    it('should render a customized root component', async () => {
+      const CustomRootComponent: React.ComponentType<Partial<
+        LinkPickerProps
+      >> = ({ children }) => {
+        return <div data-testid="custom-test-id">{children}</div>;
+      };
+      setupLinkPicker({
+        component: CustomRootComponent,
+      });
+
+      expect(screen.getByTestId('custom-test-id')).toBeInTheDocument();
+    });
+
+    it('should allow the customized root component to overwrite the plugins prop', async () => {
+      const plugin1 = new MockLinkPickerPromisePlugin({
+        tabKey: 'tab1',
+        tabTitle: 'tab1',
+      });
+      const plugin2 = new MockLinkPickerPromisePlugin({
+        tabKey: 'tab2',
+        tabTitle: 'tab2',
+      });
+      const CustomRootComponent: React.ComponentType<
+        Partial<LinkPickerProps> & { children: React.ReactElement }
+      > = ({ children }) => {
+        return React.cloneElement(children, {
+          plugins: [plugin1, plugin2],
+        });
+      };
+
+      setupLinkPicker({
+        component: CustomRootComponent,
+        plugins: [plugin1],
+      });
+
+      expect(screen.getByTestId(testIds.tabList)).toBeInTheDocument();
+      const tabItems = screen.getAllByTestId(testIds.tabItem);
+      expect(tabItems).toHaveLength(2);
+    });
+  });
 });

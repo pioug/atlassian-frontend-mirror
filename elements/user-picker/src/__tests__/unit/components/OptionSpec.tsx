@@ -3,7 +3,7 @@ import noop from 'lodash/noop';
 import { IntlProvider } from 'react-intl-next';
 
 import { mount } from 'enzyme';
-import React from 'react';
+import React, { ReactChildren } from 'react';
 import { AvatarItemOption } from '../../../components/AvatarItemOption';
 import { EmailOption } from '../../../components/EmailOption/main';
 import { Option } from '../../../components/Option';
@@ -13,8 +13,32 @@ import { GroupOption } from '../../../components/GroupOption/main';
 import { Email, Team, User, Group, ExternalUser } from '../../../types';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
 
-// https://product-fabric.atlassian.net/browse/UR-3963
-describe.skip('Option', () => {
+// Helper to make <React.Suspense> and React.lazy() work with Enzyme
+jest.mock('react', () => {
+  const React = jest.requireActual('react');
+
+  return {
+    ...React,
+    Suspense: ({ children }: { children: ReactChildren }) => children,
+    lazy: jest.fn().mockImplementation((fn) => {
+      const Component = (props: any) => {
+        const [C, setC] = React.useState();
+
+        React.useEffect(() => {
+          fn().then((v: any) => {
+            setC(v);
+          });
+        }, []);
+
+        return C ? <C.default {...props} /> : null;
+      };
+
+      return Component;
+    }),
+  };
+});
+
+describe('Option', () => {
   const selectProps: any = {};
 
   // assigning props as any to avoid nooping all react-select Option props.
@@ -145,7 +169,7 @@ describe.skip('Option', () => {
     });
   });
 
-  describe('TeamOption', async () => {
+  describe('TeamOption', () => {
     const team: Team = {
       id: 'team-123',
       name: 'That Awesome team',

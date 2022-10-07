@@ -237,6 +237,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     const {
       mediaClient: prevMediaClient,
       identifier: prevIdentifier,
+      dimensions: prevDimensions,
     } = prevProps;
     const { isCardVisible: prevIsCardVisible } = prevState;
     const {
@@ -299,6 +300,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       shouldResolvePreview({
         status,
         fileState,
+        prevDimensions,
         dimensions,
         identifier,
         fileImageMode,

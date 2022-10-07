@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 74.1.7
+
+### Patch Changes
+
+- [`ca22e26cd7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca22e26cd7c) - Fix image refetch logic when image dimensions change.
+
 ## 74.1.5
 
 ### Patch Changes

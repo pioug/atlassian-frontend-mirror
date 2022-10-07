@@ -138,6 +138,7 @@ export interface PopupSelectProps<
 }
 
 interface State<Modifiers = string> {
+  focusLockEnabled: boolean;
   isOpen: boolean;
   mergedComponents: Object;
   mergedPopperProps: PopperPropsNoChildren<defaultModifiers | Modifiers>;
@@ -199,6 +200,7 @@ export default class PopupSelect<
     : this.props.defaultIsOpen;
 
   state = {
+    focusLockEnabled: false,
     isOpen: this.defaultOpenState ?? false,
     mergedComponents: defaultComponents,
     mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<
@@ -329,6 +331,13 @@ export default class PopupSelect<
     }
   };
 
+  handleFirstPopperUpdate = () => {
+    // When the popup opens it's focused into. Since the popup is inside a portal, it's position is
+    // initially set to 0,0 - this causes the window scroll position to jump to the top. To prevent
+    // this we defer enabling the focus-lock until after Popper has positioned the popup the first time.
+    this.setState({ focusLockEnabled: true });
+  };
+
   // Internal Lifecycle
   // ==============================
 
@@ -387,6 +396,7 @@ export default class PopupSelect<
     }
 
     this.setState({ isOpen: false });
+    this.setState({ focusLockEnabled: false });
 
     if (this.targetRef != null) {
       this.targetRef.focus();
@@ -484,7 +494,12 @@ export default class PopupSelect<
 
   renderSelect = () => {
     const { footer, maxMenuWidth, minMenuWidth, target, ...props } = this.props;
-    const { isOpen, mergedComponents, mergedPopperProps } = this.state;
+    const {
+      focusLockEnabled,
+      isOpen,
+      mergedComponents,
+      mergedPopperProps,
+    } = this.state;
     const showSearchControl = this.showSearchControl();
     const portalDestination = canUseDOM() ? document.body : null;
     const components = {
@@ -496,7 +511,13 @@ export default class PopupSelect<
       return null;
     }
     const popper = (
-      <Popper {...mergedPopperProps}>
+      <Popper
+        {...mergedPopperProps}
+        onFirstUpdate={(state) => {
+          this.handleFirstPopperUpdate();
+          mergedPopperProps.onFirstUpdate?.(state);
+        }}
+      >
         {({ placement, ref, style }) => {
           return (
             <NodeResolver innerRef={this.resolveMenuRef(ref)}>
@@ -507,7 +528,7 @@ export default class PopupSelect<
                 maxWidth={maxMenuWidth}
                 id={this.popperWrapperId}
               >
-                <FocusLock returnFocus>
+                <FocusLock disabled={!focusLockEnabled} returnFocus>
                   <Select<Option, IsMulti>
                     backspaceRemovesValue={false}
                     controlShouldRenderValue={false}

@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 172.3.1
+
+### Patch Changes
+
+- [`ebbb19af585`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebbb19af585) - bump editor-common to 69.4.1
+
 ## 172.3.0
 
 ### Minor Changes

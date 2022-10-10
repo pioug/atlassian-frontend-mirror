@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.23
+
+### Patch Changes
+
+- [`264f928f021`](https://bitbucket.org/atlassian/atlassian-frontend/commits/264f928f021) - Fix ignored entrypoint to allow correct access to babel-plugin
+
 ## 0.10.22
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 0.0.5
+
+### Patch Changes
+
+- [`75afc133d94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75afc133d94) - [ED-15625] Fix media full screen on table
+
 ## 0.0.4
 
 ### Patch Changes

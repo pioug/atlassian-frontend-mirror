@@ -28,8 +28,8 @@ export type FlagExplanation = {
   errorKind?: ErrorKind;
 };
 
-export type FlagShape = {
-  value: FlagValue;
+export type FlagShape<T = FlagValue> = {
+  value: T;
   explanation?: FlagExplanation;
 };
 
@@ -101,6 +101,12 @@ export interface FlagWrapper {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): FlagValue;
+
+  getFlagEvaluation<T = FlagValue>(options: {
+    default: T;
+    shouldTrackExposureEvent?: boolean;
+    exposureData?: CustomAttributes;
+  }): FlagShape<T>;
 }
 
 export interface AnalyticsHandler {
@@ -113,8 +119,8 @@ export type FlagStats = {
   };
 };
 
-export type EvaluationResult = {
-  value: FlagValue;
+export type EvaluationResult<T = FlagValue> = {
+  value: T;
   explanation?: FlagExplanation;
   didFallbackToDefaultValue: boolean;
 };

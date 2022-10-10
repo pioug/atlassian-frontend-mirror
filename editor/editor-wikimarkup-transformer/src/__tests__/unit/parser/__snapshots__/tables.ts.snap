@@ -159,6 +159,869 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to table header  1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header Column 0",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header 1",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header 2",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header Column 1",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 1",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 2",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header Column 2",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 3",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 4",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to table header if it is list 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "marks": Array [
+                                Object {
+                                  "type": "strong",
+                                },
+                              ],
+                              "text": "Header Column 0",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "listItem",
+                    },
+                  ],
+                  "type": "bulletList",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header 1",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header 2",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "marks": Array [
+                                Object {
+                                  "type": "strong",
+                                },
+                              ],
+                              "text": "Header Column 1",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "listItem",
+                    },
+                  ],
+                  "type": "orderedList",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 1",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 2",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "marks": Array [
+                                Object {
+                                  "type": "strong",
+                                },
+                              ],
+                              "text": "Header Column 2",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "listItem",
+                    },
+                  ],
+                  "type": "bulletList",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 3",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 4",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to table header if it is list with multiple items 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "marks": Array [
+                                Object {
+                                  "type": "strong",
+                                },
+                              ],
+                              "text": "list",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "listItem",
+                    },
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "marks": Array [
+                                Object {
+                                  "type": "strong",
+                                },
+                              ],
+                              "text": "with",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "listItem",
+                    },
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "marks": Array [
+                                Object {
+                                  "type": "strong",
+                                },
+                              ],
+                              "text": "multiple",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "listItem",
+                    },
+                    Object {
+                      "content": Array [
+                        Object {
+                          "content": Array [
+                            Object {
+                              "marks": Array [
+                                Object {
+                                  "type": "strong",
+                                },
+                              ],
+                              "text": "items",
+                              "type": "text",
+                            },
+                          ],
+                          "type": "paragraph",
+                        },
+                      ],
+                      "type": "listItem",
+                    },
+                  ],
+                  "type": "bulletList",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to table header if they are codeblocks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "code",
+                        },
+                      ],
+                      "text": "Header Column 0",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header 1",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header 2",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header Column 1",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 1",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 2",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
+                      "text": "Header Column 2",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 3",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": "Cell 4",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not close a table cell 1`] = `
 Object {
   "content": Array [
@@ -387,6 +1250,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Heading 1",
                       "type": "text",
                     },
@@ -407,6 +1275,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Heading 2",
                       "type": "text",
                     },
@@ -926,6 +1799,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Day / Status ",
                       "type": "text",
                     },
@@ -946,6 +1824,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Mon ",
                       "type": "text",
                     },
@@ -958,6 +1841,11 @@ Object {
                       "type": "emoji",
                     },
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": " ",
                       "type": "text",
                     },
@@ -978,6 +1866,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Tue ",
                       "type": "text",
                     },
@@ -990,6 +1883,11 @@ Object {
                       "type": "emoji",
                     },
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": " ",
                       "type": "text",
                     },
@@ -1010,6 +1908,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Wed ",
                       "type": "text",
                     },
@@ -1022,6 +1925,11 @@ Object {
                       "type": "emoji",
                     },
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": " ",
                       "type": "text",
                     },
@@ -1042,6 +1950,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Thu ",
                       "type": "text",
                     },
@@ -1054,6 +1967,11 @@ Object {
                       "type": "emoji",
                     },
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": " ",
                       "type": "text",
                     },
@@ -1074,6 +1992,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Fri ",
                       "type": "text",
                     },
@@ -1086,6 +2009,11 @@ Object {
                       "type": "emoji",
                     },
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": " ",
                       "type": "text",
                     },
@@ -1559,6 +2487,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Header 0",
                       "type": "text",
                     },
@@ -1579,6 +2512,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Header Row 1",
                       "type": "text",
                     },
@@ -1599,6 +2537,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Header Row 2",
                       "type": "text",
                     },
@@ -1624,6 +2567,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Header Column 1",
                       "type": "text",
                     },
@@ -1689,6 +2637,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Header Column 2",
                       "type": "text",
                     },
@@ -1773,6 +2726,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "heading 1",
                       "type": "text",
                     },
@@ -1793,6 +2751,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "heading 2",
                       "type": "text",
                     },
@@ -1813,6 +2776,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "heading 3",
                       "type": "text",
                     },
@@ -1990,6 +2958,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "foo ",
                       "type": "text",
                     },
@@ -2010,6 +2983,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "bar",
                       "type": "text",
                     },
@@ -2120,6 +3098,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "foo ",
                       "type": "text",
                     },
@@ -2140,6 +3123,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "bar ",
                       "type": "text",
                     },
@@ -2440,6 +3428,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "hfoo",
                       "type": "text",
                     },
@@ -2460,6 +3453,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "hbar",
                       "type": "text",
                     },
@@ -2517,11 +3515,19 @@ Object {
                           },
                           "type": "link",
                         },
+                        Object {
+                          "type": "strong",
+                        },
                       ],
                       "text": "link 1",
                       "type": "text",
                     },
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": ", ",
                       "type": "text",
                     },
@@ -2533,6 +3539,9 @@ Object {
                             "href": "https://atlassian.com",
                           },
                           "type": "link",
+                        },
+                        Object {
+                          "type": "strong",
                         },
                       ],
                       "text": "link 2",
@@ -2642,6 +3651,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Heading 1",
                       "type": "text",
                     },
@@ -2662,6 +3676,11 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "marks": Array [
+                        Object {
+                          "type": "strong",
+                        },
+                      ],
                       "text": "Heading 2",
                       "type": "text",
                     },

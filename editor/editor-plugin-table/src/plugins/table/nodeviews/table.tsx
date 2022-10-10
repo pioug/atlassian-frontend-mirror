@@ -5,7 +5,6 @@ import {
   Node as PmNode,
 } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-// import { stateKey as mediaPluginKey } from '../../../plugins/media/pm-plugins/plugin-key';
 import { PluginKey, EditorState } from 'prosemirror-state';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type {
@@ -118,13 +117,23 @@ export default class TableView extends ReactNodeView<Props> {
       },
     } as PluginKey;
 
+    // TODO: ED-15663
+    // Please, do not copy or use this kind of code below
+    // @ts-ignore
+    const fakeMediaPluginKey = {
+      key: 'mediaPlugin$',
+      getState: (state: EditorState) => {
+        return (state as any)['mediaPlugin$'];
+      },
+    } as PluginKey;
+
     return (
       <WithPluginState
         plugins={{
           pluginState: pluginKey,
           tableResizingPluginState: tableResizingPluginKey,
           widthPlugin: fakePluginKey,
-          // mediaState: mediaPluginKey,
+          mediaState: fakeMediaPluginKey,
         }}
         editorView={props.view}
         render={(pluginStates) => {
@@ -132,10 +141,8 @@ export default class TableView extends ReactNodeView<Props> {
             tableResizingPluginState,
             pluginState,
             // containerWidth,
-            // mediaState,
+            mediaState,
           } = pluginStates;
-          // const mediaState = {};
-          const mediaState = { isFullscreen: false };
           const tableActive = props.getPos() === pluginState!.tablePos;
           const containerWidth = props.getEditorContainerWidth();
           return (

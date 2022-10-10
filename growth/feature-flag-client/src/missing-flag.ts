@@ -5,9 +5,10 @@ import {
   AutomaticExposureHandler,
   FlagValue,
   CustomAttributes,
+  FlagShape,
 } from './types';
 
-const MISSING_FLAG_EXPLANATION = {
+export const MISSING_FLAG_EXPLANATION = {
   kind: 'ERROR' as Reason,
   errorKind: 'FLAG_NOT_FOUND' as ErrorKind,
 };
@@ -30,10 +31,10 @@ export default class MissingFlag implements FlagWrapper {
     this.evaluationCount = 0;
   }
 
-  private evaluate<T extends FlagValue>(defaultValue: T) {
+  private evaluate<T = FlagValue>(defaultValue: T) {
     this.sendAutomaticExposure(
       this.flagKey,
-      defaultValue,
+      (defaultValue as unknown) as FlagValue,
       MISSING_FLAG_EXPLANATION,
     );
     this.evaluationCount++;
@@ -67,5 +68,17 @@ export default class MissingFlag implements FlagWrapper {
     exposureData?: CustomAttributes;
   }): FlagValue {
     return this.evaluate(options.default);
+  }
+
+  getFlagEvaluation<T = FlagValue>(options: {
+    default: T;
+    shouldTrackExposureEvent?: boolean | undefined;
+    exposureData?: CustomAttributes | undefined;
+  }): FlagShape<T> {
+    const value: T = this.evaluate<T>(options.default);
+    return {
+      value,
+      explanation: MISSING_FLAG_EXPLANATION,
+    } as FlagShape<T>;
   }
 }

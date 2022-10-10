@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { Example } from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/example/Example';
+import { Example } from '../../../../../services/design-system-docs/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/example/Example';
 import token from '../../src/get-token';
 
 import Card from './token-card-base';

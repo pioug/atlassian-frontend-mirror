@@ -1,4 +1,5 @@
 import FeatureFlagClient from '../../client';
+import { MISSING_FLAG_EXPLANATION } from '../../missing-flag';
 import {
   AnalyticsHandler,
   CustomAttributes,
@@ -793,6 +794,198 @@ describe('Feature Flag Client', () => {
         });
         assertNoExposures();
         client.getRawValue('detailed.boolean', {
+          default: false,
+          shouldTrackExposureEvent: true,
+        });
+        assertExposureSent(ExposureTriggerReason.OptIn, {
+          flagKey: 'detailed.boolean',
+          reason: 'RULE_MATCH',
+          ruleId: '111-bbbbb-ccc',
+          value: false,
+        });
+      });
+    });
+
+    describe('getFlagEvaluation', () => {
+      test('should throw if called without default', () => {
+        expect(() =>
+          client.getFlagEvaluation('missing.flag', {} as any),
+        ).toThrow('getRawValue: Missing default');
+      });
+
+      test('should return default if flag is not set, and not fire exposure event', () => {
+        client.setIsAutomaticExposuresEnabled(false);
+        expect(
+          client.getFlagEvaluation('missing.flag', {
+            default: 'control',
+          }),
+        ).toEqual({ value: 'control', explanation: MISSING_FLAG_EXPLANATION });
+        assertNoExposures();
+      });
+
+      test('should return default value if flag is set to different type', () => {
+        expect(
+          client.getFlagEvaluation('variation', {
+            default: false,
+          }),
+        ).toEqual({
+          value: false,
+          explanation: { kind: 'ERROR', errorKind: 'WRONG_TYPE' },
+        });
+      });
+
+      test('should return the right value if the flag is a boolean, and fire exposure event', () => {
+        expect(
+          client.getFlagEvaluation('detailed.boolean', {
+            default: true,
+          }),
+        ).toEqual({
+          value: false,
+          explanation: {
+            kind: 'RULE_MATCH',
+            ruleId: '111-bbbbb-ccc',
+            ruleIndex: 1,
+          },
+        });
+        assertExposureSent(ExposureTriggerReason.Default, {
+          flagKey: 'detailed.boolean',
+          reason: 'RULE_MATCH',
+          ruleId: '111-bbbbb-ccc',
+          value: false,
+        });
+      });
+
+      test('should return the right value if the flag is a string, and fire exposure event', () => {
+        expect(
+          client.getFlagEvaluation('detailed.variation', {
+            default: 'experiment',
+          }),
+        ).toEqual({
+          value: 'control',
+          explanation: {
+            kind: 'RULE_MATCH',
+            ruleId: '222-ccccc-ddd',
+          },
+        });
+        assertExposureSent(ExposureTriggerReason.Default, {
+          flagKey: 'detailed.variation',
+          reason: 'RULE_MATCH',
+          ruleId: '222-ccccc-ddd',
+          value: 'control',
+        });
+      });
+
+      test('should return the right value if the flag is an object, and fire exposure event', () => {
+        expect(
+          client.getFlagEvaluation('detailed.json', {
+            default: {},
+          }),
+        ).toEqual({
+          value: {
+            nav: 'blue',
+            footer: 'black',
+          },
+          explanation: {
+            kind: 'RULE_MATCH',
+            ruleId: '333-ddddd-eee',
+          },
+        });
+        assertExposureSent(ExposureTriggerReason.Default, {
+          flagKey: 'detailed.json',
+          reason: 'RULE_MATCH',
+          ruleId: '333-ddddd-eee',
+          value: {
+            nav: 'blue',
+            footer: 'black',
+          },
+        });
+      });
+
+      test('should not fire exposure event if shouldTrackExposureEvent is false', () => {
+        client.setIsAutomaticExposuresEnabled(false);
+        expect(
+          client.getFlagEvaluation('detailed.variation', {
+            default: 'control',
+            shouldTrackExposureEvent: false,
+          }),
+        ).toEqual({
+          explanation: { kind: 'RULE_MATCH', ruleId: '222-ccccc-ddd' },
+          value: 'control',
+        });
+        assertNoExposures();
+      });
+
+      test('should allow for extra attributes in the exposure event', () => {
+        const customAttributes = {
+          permissions: 'read',
+          container: 'space',
+        };
+        expect(
+          client.getFlagEvaluation('detailed.variation', {
+            default: 'control',
+            exposureData: customAttributes,
+          }),
+        ).toEqual({
+          explanation: { kind: 'RULE_MATCH', ruleId: '222-ccccc-ddd' },
+          value: 'control',
+        });
+        assertCustomExposureSent(
+          {
+            flagKey: 'detailed.variation',
+            reason: 'RULE_MATCH',
+            ruleId: '222-ccccc-ddd',
+            value: 'control',
+          },
+          customAttributes,
+        );
+      });
+
+      test('should return the same value on repeated calls where the flag is in a valid state', () => {
+        const firstEvalResult = client.getFlagEvaluation('boolean', {
+          default: false,
+        });
+        const secondEvalResult = client.getFlagEvaluation('boolean', {
+          default: false,
+        });
+
+        expect(firstEvalResult).toEqual({
+          explanation: undefined,
+          value: true,
+        });
+        expect(secondEvalResult).toEqual({
+          explanation: undefined,
+          value: true,
+        });
+      });
+
+      test('should return the passed in default value for repeated calls when the flag is in an invalid state', () => {
+        // Same flag key, same validation rules, but different defaults
+        const firstEvalResult = client.getFlagEvaluation('missing.flag', {
+          default: false,
+        });
+        const secondEvalResult = client.getFlagEvaluation('missing.flag', {
+          default: 'experiment',
+        });
+
+        expect(firstEvalResult).toEqual({
+          explanation: { errorKind: 'FLAG_NOT_FOUND', kind: 'ERROR' },
+          value: false,
+        });
+        expect(secondEvalResult).toEqual({
+          explanation: { errorKind: 'FLAG_NOT_FOUND', kind: 'ERROR' },
+          value: 'experiment',
+        });
+      });
+
+      test('should allow exposure events to be suppressed on the initial call, and fired in a later call instead', () => {
+        client.setIsAutomaticExposuresEnabled(false);
+
+        client.getFlagEvaluation('detailed.boolean', {
+          default: false,
+          shouldTrackExposureEvent: false,
+        });
+        assertNoExposures();
+        client.getFlagEvaluation('detailed.boolean', {
           default: false,
           shouldTrackExposureEvent: true,
         });

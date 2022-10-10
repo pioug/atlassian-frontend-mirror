@@ -11,6 +11,7 @@ import { Context } from '../../interfaces';
 import { parseNewlineOnly } from './whitespace';
 import { parseMacroKeyword } from './keyword';
 import { parseToken } from './';
+import { hasAnyOfMarks } from '../utils/text';
 
 /*
   The following are currently NOT supported
@@ -305,15 +306,59 @@ function bufferToCells(
   context: Context,
 ) {
   if (buffer.length) {
-    const contentNode = parseString({
+    let contentNode: PMNode[] = parseString({
       schema,
       context,
       ignoreTokenTypes: ignoreTokenTypes,
       input: buffer,
     });
+    if (style === '||') {
+      contentNode = contentNode.map((e) => {
+        return createTableHeader(e, schema);
+      });
+    }
     cellsBuffer.push({
       style,
       content: normalizePMNodes(contentNode, schema),
     });
   }
+}
+
+function createTableHeader(pmNode: PMNode, schema: Schema): PMNode {
+  const mark = schema.marks.strong.create();
+  if (
+    pmNode.type.name === 'text' &&
+    !hasAnyOfMarks(pmNode, ['strong', 'code'])
+  ) {
+    return pmNode.mark([...pmNode.marks, mark]);
+  } else if (pmNode.childCount > 0 && pmNode.firstChild && pmNode.child(0)) {
+    const jsonNode = traverseJsonNodeAndAddMarks(
+      pmNode.toJSON(),
+      'strong',
+      schema,
+    );
+    pmNode = PMNode.fromJSON(schema, jsonNode);
+    return pmNode;
+  }
+  return pmNode;
+}
+
+function traverseJsonNodeAndAddMarks(node: any, mark: string, schema: Schema) {
+  if (node.type === 'text') {
+    if (
+      node.marks &&
+      node.marks.find(
+        ({ type }: { type: String }) => type === 'strong' || type === 'code',
+      )
+    ) {
+      return node;
+    }
+    node.marks = node.marks
+      ? [...node.marks, { type: mark }]
+      : [{ type: mark }];
+  }
+  if (node.content && Array.isArray(node.content)) {
+    node.content.map((e: any) => traverseJsonNodeAndAddMarks(e, mark, schema));
+  }
+  return node;
 }

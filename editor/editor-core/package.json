@@ -144,7 +144,7 @@
     "@atlaskit/droplist": "^11.0.0",
     "@atlaskit/editor-bitbucket-transformer": "^7.2.0",
     "@atlaskit/editor-extension-dropbox": "^0.3.0",
-    "@atlaskit/editor-plugin-table": "^0.0.4",
+    "@atlaskit/editor-plugin-table": "^0.0.5",
     "@atlaskit/editor-test-helpers": "^17.2.0",
     "@atlaskit/flag": "^14.7.0",
     "@atlaskit/inline-dialog": "^13.4.0",

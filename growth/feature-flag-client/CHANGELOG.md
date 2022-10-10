@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 5.1.0
+
+### Minor Changes
+
+- [`9391c400ada`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9391c400ada) - Added API `getFlagEvaluation` to get FlagShape of evaluation details
+
 ## 5.0.0
 
 ### Major Changes

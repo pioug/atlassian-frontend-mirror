@@ -21,7 +21,9 @@ export default class BasicFlag implements FlagWrapper {
   private readonly sendAutomaticExposure: AutomaticExposureHandler;
   private readonly ignoreTypes: boolean;
 
-  private evaluationResult?: EvaluationResult;
+  // Makes the casting easier later on. The APIs should not leak any.
+  // Should only be used in private functions.
+  private evaluationResult?: EvaluationResult<any>;
 
   constructor(
     flagKey: string,
@@ -38,8 +40,8 @@ export default class BasicFlag implements FlagWrapper {
     this.ignoreTypes = ignoreTypes;
   }
 
-  private getCachedResultOrCompute(
-    defaultValue: FlagValue,
+  private getCachedResultOrCompute<T = FlagValue>(
+    defaultValue: T,
     {
       shouldTrackExposureEvent,
       exposureData,
@@ -48,10 +50,10 @@ export default class BasicFlag implements FlagWrapper {
     }: {
       shouldTrackExposureEvent?: boolean;
       exposureData?: CustomAttributes;
-      oneOf?: FlagValue[];
+      oneOf?: T[];
       ignoreTypes: boolean;
     },
-  ): FlagValue {
+  ): FlagShape<T> {
     let exposureTriggerReason = ExposureTriggerReason.OptIn;
     if (shouldTrackExposureEvent === undefined) {
       shouldTrackExposureEvent = true;
@@ -61,16 +63,15 @@ export default class BasicFlag implements FlagWrapper {
     // It is very common for products to call this method many times for the same flag key,
     // as flag evaluations are often done inside action callbacks and/or inside components with many instances.
     // We can cache the result of the first evaluation to avoid doing the same validation checks on every call.
-    let result = this.evaluationResult;
-    if (result === undefined) {
-      result = this.evaluationResult = this.computeWithValidation(
-        defaultValue,
-        { oneOf, ignoreTypes },
-      );
+    if (this.evaluationResult === undefined) {
+      this.evaluationResult = this.computeWithValidation<T>(defaultValue, {
+        oneOf,
+        ignoreTypes,
+      });
     }
 
-    let value = result.value;
-    if (result.didFallbackToDefaultValue) {
+    let value: T = this.evaluationResult.value;
+    if (this.evaluationResult.didFallbackToDefaultValue) {
       // Use the default that was passed in, just in case it's different to what it was in the initial evaluation
       value = defaultValue;
     } else if (shouldTrackExposureEvent) {
@@ -83,24 +84,31 @@ export default class BasicFlag implements FlagWrapper {
       );
     }
 
-    this.sendAutomaticExposure(this.flagKey, value, result.explanation);
+    this.sendAutomaticExposure(
+      this.flagKey,
+      (value as unknown) as FlagValue,
+      this.evaluationResult.explanation,
+    );
 
     this.evaluationCount++;
-    return value;
+    return {
+      value,
+      explanation: this.evaluationResult.explanation,
+    };
   }
 
-  private computeWithValidation(
-    defaultValue: FlagValue,
+  private computeWithValidation<T = FlagValue>(
+    defaultValue: T,
     {
       oneOf,
       ignoreTypes,
     }: {
-      oneOf?: FlagValue[];
+      oneOf?: T[];
       ignoreTypes?: boolean;
     },
-  ): EvaluationResult {
-    let result: EvaluationResult = {
-      value: this.flag.value,
+  ): EvaluationResult<T> {
+    let result: EvaluationResult<T> = {
+      value: (this.flag.value as unknown) as T,
       explanation: this.flag.explanation,
       didFallbackToDefaultValue: false,
     };
@@ -113,7 +121,10 @@ export default class BasicFlag implements FlagWrapper {
         kind: 'ERROR',
         errorKind: 'WRONG_TYPE',
       };
-    } else if (oneOf !== undefined && !oneOf.includes(this.flag.value)) {
+    } else if (
+      oneOf !== undefined &&
+      !oneOf.includes((this.flag.value as unknown) as T)
+    ) {
       result.value = defaultValue;
       result.didFallbackToDefaultValue = true;
       result.explanation = {
@@ -131,13 +142,13 @@ export default class BasicFlag implements FlagWrapper {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): boolean {
-    const value = this.getCachedResultOrCompute(options.default, {
+    const flag = this.getCachedResultOrCompute<boolean>(options.default, {
       ...options,
       oneOf: undefined,
       ignoreTypes: this.ignoreTypes || false,
     });
 
-    return value as boolean;
+    return flag.value;
   }
 
   getVariantValue(options: {
@@ -146,30 +157,44 @@ export default class BasicFlag implements FlagWrapper {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): string {
-    const value = this.getCachedResultOrCompute(options.default, {
+    const flag = this.getCachedResultOrCompute<string>(options.default, {
       ...options,
       ignoreTypes: this.ignoreTypes || false,
     });
 
-    return value as string;
+    return flag.value;
   }
 
-  getJSONValue(): object {
-    return this.getCachedResultOrCompute(
+  getJSONValue<T = object>(): T | {} {
+    return this.getCachedResultOrCompute<T | {}>(
       {},
-      { shouldTrackExposureEvent: false, ignoreTypes: this.ignoreTypes },
-    ) as object;
+      {
+        shouldTrackExposureEvent: false,
+        ignoreTypes: this.ignoreTypes,
+      },
+    ).value as T;
   }
 
-  getRawValue(options: {
-    default: FlagValue;
+  getRawValue<T extends FlagValue = FlagValue>(options: {
+    default: T;
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
-  }): FlagValue {
-    return this.getCachedResultOrCompute(options.default, {
+  }): T {
+    return this.getCachedResultOrCompute<T>(options.default, {
       ...options,
       oneOf: undefined,
       ignoreTypes: true,
+    }).value;
+  }
+
+  getFlagEvaluation<T = FlagValue>(options: {
+    default: T;
+    shouldTrackExposureEvent?: boolean;
+    exposureData?: CustomAttributes;
+  }): FlagShape<T> {
+    return this.getCachedResultOrCompute<T>(options.default, {
+      ...options,
+      ignoreTypes: this.ignoreTypes || false,
     });
   }
 }

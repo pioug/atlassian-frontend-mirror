@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.6
+
+### Patch Changes
+
+- [`ea34f8260e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea34f8260e3) - Wiki to adf: Tables headings to be strong by default
+
 ## 11.1.5
 
 ### Patch Changes

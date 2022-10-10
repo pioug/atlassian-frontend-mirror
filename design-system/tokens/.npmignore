@@ -7,7 +7,7 @@ build/
 __tests__/
 tsconfig.json
 tsconfig.node.json
-babel-plugin.js
+/babel-plugin.js
 dist/figma/
 dist/tokens-browser-extension
 tokens-browser-extension

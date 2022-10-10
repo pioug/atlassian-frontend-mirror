@@ -7,7 +7,7 @@ import upperFirst from 'lodash/upperFirst';
 import Heading from '@atlaskit/heading';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import SectionLink from '../../../../../../services/website-constellation/src/components/section-link';
+import SectionLink from '../../../../../../services/design-system-docs/src/components/section-link';
 import type { TokenGroup } from '../grouped-tokens';
 
 import NoResults from './no-results';

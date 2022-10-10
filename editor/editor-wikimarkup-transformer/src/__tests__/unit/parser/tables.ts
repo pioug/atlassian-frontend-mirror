@@ -101,6 +101,31 @@ this is a new line text, not in the table`,
 |asdasd[{color:red}test{color}|test]asdasdasd|
 |test|`,
     ],
+    [
+      'ADFEXP-102 Should add the strong marks to table header ',
+      `||Header Column 0||Header 1||Header 2||
+       ||Header Column 1|Cell 1|Cell 2|
+       ||Header Column 2|Cell 3|Cell 4|`,
+    ],
+    [
+      'ADFEXP-102 Should not add the strong marks to table header if they are codeblocks',
+      `||{{Header Column 0}}||Header 1||Header 2||
+       ||Header Column 1|Cell 1|Cell 2|
+       ||Header Column 2|Cell 3|Cell 4|`,
+    ],
+    [
+      'ADFEXP-102 Should add the strong marks to table header if it is list',
+      `|| - Header Column 0||Header 1||Header 2||
+       || # Header Column 1|Cell 1|Cell 2|
+       || - Header Column 2|Cell 3|Cell 4|`,
+    ],
+    [
+      'ADFEXP-102 Should add the strong marks to table header if it is list with multiple items',
+      `|| - list
+            - with
+            - multiple
+            - items`,
+    ],
   ];
 
   const context = {

@@ -26,7 +26,7 @@ import MissingFlag from './missing-flag';
 import BasicFlag from './basic-flag';
 
 export default class FeatureFlagClient {
-  private readonly flags: Map<String, FlagShape>;
+  private readonly flags: Map<string, FlagShape>;
   private readonly flagWrapperCache: Map<string, FlagWrapper>;
 
   private analyticsHandler?: AnalyticsHandler;
@@ -165,6 +165,19 @@ export default class FeatureFlagClient {
     enforceAttributes(options, ['default'], 'getRawValue');
     const wrapper = this.getFlagWrapper(flagKey);
     return wrapper.getRawValue(options);
+  }
+
+  getFlagEvaluation<T = FlagValue>(
+    flagKey: string,
+    options: {
+      default: T;
+      shouldTrackExposureEvent?: boolean;
+      exposureData?: CustomAttributes;
+    },
+  ): FlagShape<T> {
+    enforceAttributes(options, ['default'], 'getRawValue');
+    const wrapper = this.getFlagWrapper(flagKey);
+    return wrapper.getFlagEvaluation<T>(options);
   }
 
   /**

@@ -1,7 +1,7 @@
 import upperFirst from 'lodash/upperFirst';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { Heading } from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
+import { Heading } from '../../../../../services/design-system-docs/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
 
 import type { TokenGroup } from './grouped-tokens';
 import type { TransformedTokenGrouped, TransformedTokenMerged } from './types';

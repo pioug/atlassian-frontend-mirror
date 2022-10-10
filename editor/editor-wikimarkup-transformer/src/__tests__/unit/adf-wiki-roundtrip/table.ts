@@ -19,6 +19,7 @@ import {
   th,
   tr,
   ul,
+  strong,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - Table', () => {
@@ -27,7 +28,7 @@ describe('ADF => WikiMarkup - Table', () => {
   test('should convert Table node', () => {
     const node = doc(
       table()(
-        tr(th()(p('Header 1')), th()(p('Header 2'))),
+        tr(th()(p(strong('Header 1'))), th()(p(strong('Header 2')))),
         tr(td()(p('Cell 1')), td()(p('Cell 2'))),
         tr(td()(p('Cell 3')), td()(p('Cell 4'))),
       ),
@@ -189,12 +190,20 @@ describe('ADF => WikiMarkup - Table', () => {
     const node = doc(
       table()(
         tr(
-          th()(p('Header 0')),
-          th()(p('Header Row 1')),
-          th()(p('Header Row 2')),
+          th()(p(strong('Header 0'))),
+          th()(p(strong('Header Row 1'))),
+          th()(p(strong('Header Row 2'))),
         ),
-        tr(th()(p('Header Column 1')), td()(p('Cell 1')), td()(p('Cell 2'))),
-        tr(th()(p('Header Column 2')), td()(p('Cell 3')), td()(p('Cell 4'))),
+        tr(
+          th()(p(strong('Header Column 1'))),
+          td()(p('Cell 1')),
+          td()(p('Cell 2')),
+        ),
+        tr(
+          th()(p(strong('Header Column 2'))),
+          td()(p('Cell 3')),
+          td()(p('Cell 4')),
+        ),
       ),
     )(defaultSchema);
     const wiki = transformer.encode(node);

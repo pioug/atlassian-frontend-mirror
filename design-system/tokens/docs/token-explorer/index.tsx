@@ -29,9 +29,9 @@ import { gridSize } from '@atlaskit/theme/constants';
 import ToolTip from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { useHeadings } from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
+import { useHeadings } from '../../../../../services/design-system-docs/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import SectionLink from '../../../../../services/website-constellation/src/components/section-link';
+import SectionLink from '../../../../../services/design-system-docs/src/components/section-link';
 import { token } from '../../src';
 import TokenWizardModal from '../token-wizard';
 

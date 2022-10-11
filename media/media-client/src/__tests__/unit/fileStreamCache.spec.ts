@@ -1,4 +1,4 @@
-import { LRUCache } from 'lru-fast';
+import { LRUMap } from 'lru_map';
 import { StreamsCache } from '../../file-streams-cache';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { FileState } from '../../models/file-state';
@@ -7,7 +7,7 @@ import { createMediaSubject } from '../../utils/createMediaSubject';
 describe('StreamsCache', () => {
   it('should return the stream if already exist', () => {
     const cache = new StreamsCache(
-      new LRUCache<string, ReplaySubject<FileState>>(10),
+      new LRUMap<string, ReplaySubject<FileState>>(10),
     );
     const fileStateSubject = createMediaSubject<FileState>();
 

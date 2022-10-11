@@ -17,9 +17,20 @@ import { getPluginState } from '../../../utils';
 import typeAheadPlugin from '../../../';
 import { redo, undo } from 'prosemirror-history';
 import { EditorView } from 'prosemirror-view';
+import { IntlProvider } from 'react-intl-next';
 
 let _queueMicrotask: any;
 let editor: any;
+
+interface DebounceFunction {
+  cancel: jest.Mock;
+}
+
+jest.mock('lodash/debounce', () => (fn: DebounceFunction) => {
+  fn.cancel = jest.fn();
+  return fn;
+});
+
 beforeAll(() => {
   _queueMicrotask = window.queueMicrotask;
   window.queueMicrotask = (fn: Function) => {
@@ -60,13 +71,15 @@ const renderWrapperTypeAhead = ({
   shouldFocusCursorInsideQuery,
 }: Props) => {
   return render(
-    <WrapperTypeAhead
-      triggerHandler={triggerHandler!}
-      editorView={editorView!}
-      anchorElement={anchorElement!}
-      getDecorationPosition={jest.fn()}
-      shouldFocusCursorInsideQuery={true!}
-    />,
+    <IntlProvider locale="en">
+      <WrapperTypeAhead
+        triggerHandler={triggerHandler!}
+        editorView={editorView!}
+        anchorElement={anchorElement!}
+        getDecorationPosition={jest.fn()}
+        shouldFocusCursorInsideQuery={true!}
+      />
+    </IntlProvider>,
   );
 };
 
@@ -138,7 +151,7 @@ describe('WrapperTypeAhead', () => {
       anchorElement: container!,
     });
 
-    const inputQuery = getByRole('textbox');
+    const inputQuery = getByRole('combobox');
     expect(inputQuery).not.toBeNull();
   });
 
@@ -155,11 +168,11 @@ describe('WrapperTypeAhead', () => {
     });
 
     await resolvedItems;
-    const inputQuery = getByRole('textbox');
+    const inputQuery = getByRole('combobox');
 
-    fireKeyDown(inputQuery, ['Enter']);
+    fireKeyDown(inputQuery, ['ArrowDown', 'Enter']);
 
-    expect(queryByRole('textbox')).toBeNull();
+    expect(queryByRole('combobox')).toBeNull();
     expect(editorView.state).toEqualDocumentAndSelection(
       doc(p('Hello Earth{<>}')),
     );
@@ -178,12 +191,12 @@ describe('WrapperTypeAhead', () => {
     });
 
     await resolvedItems;
-    const inputQuery = getByRole('textbox');
+    const inputQuery = getByRole('combobox');
 
     fireKeyDown(inputQuery, ['ArrowDown', 'ArrowDown', 'ArrowUp', 'Enter']);
 
     expect(editorView.state).toEqualDocumentAndSelection(
-      doc(p('Hello Mars{<>}')),
+      doc(p('Hello Earth{<>}')),
     );
   });
 
@@ -196,11 +209,11 @@ describe('WrapperTypeAhead', () => {
       anchorElement: container!,
     });
 
-    const inputQuery = getByRole('textbox');
+    const inputQuery = getByRole('combobox');
 
     fireKeyDown(inputQuery, ['Esc']);
 
-    expect(queryByRole('textbox')).toBeNull();
+    expect(queryByRole('combobox')).toBeNull();
     expect(editorView.state).toEqualDocumentAndSelection(doc(p('Hello /{<>}')));
   });
 
@@ -218,7 +231,7 @@ describe('WrapperTypeAhead', () => {
           anchorElement: container!,
         });
 
-        const inputQuery = getByRole('textbox');
+        const inputQuery = getByRole('combobox');
         act(() => {
           // There is no way to test a true contenteditable event with jsdom
           // so we are faking it
@@ -245,7 +258,7 @@ describe('WrapperTypeAhead', () => {
           anchorElement: container!,
         });
 
-        const inputQuery = getByRole('textbox');
+        const inputQuery = getByRole('combobox');
         act(() => {
           // There is no way to test a true contenteditable event with jsdom
           // so we are faking it
@@ -277,7 +290,7 @@ describe('WrapperTypeAhead', () => {
 
       await resolvedItems;
 
-      const inputQuery = getByRole('textbox');
+      const inputQuery = getByRole('combobox');
       act(() => {
         // There is no way to test a true contenteditable event with jsdom
         // so we are faking it
@@ -288,7 +301,7 @@ describe('WrapperTypeAhead', () => {
       });
 
       act(() => {
-        fireKeyDown(inputQuery, ['Enter']);
+        fireKeyDown(inputQuery, ['ArrowDown', 'Enter']);
       });
     });
 
@@ -328,25 +341,25 @@ describe('WrapperTypeAhead', () => {
 
       await resolvedItems;
 
-      inputQuery = getByRole('textbox');
+      inputQuery = getByRole('combobox');
       act(() => {
         inputQuery.click();
       });
     });
 
     describe('when the component is mounted for the first time', () => {
-      it('should set the selectedIndex to 0', async () => {
+      it('should set the selectedIndex to -1', async () => {
         const pluginState = getPluginState(editorView.state);
-        expect(pluginState.selectedIndex).toBe(0);
+        expect(pluginState.selectedIndex).toBe(-1);
       });
     });
 
-    describe('when arrow up is pressed at the index  0', () => {
+    describe('when arrow up is pressed at the index  -1', () => {
       it('should set the selectedIndex to the last item', async () => {
         fireKeyDown(inputQuery, ['ArrowUp']);
 
         const pluginState = getPluginState(editorView.state);
-        expect(pluginState.selectedIndex).toBe(2);
+        expect(pluginState.selectedIndex).toBe(-1);
       });
     });
 
@@ -364,7 +377,7 @@ describe('WrapperTypeAhead', () => {
         fireKeyDown(inputQuery, ['ArrowDown', 'ArrowDown', 'ArrowUp']);
 
         const pluginState = getPluginState(editorView.state);
-        expect(pluginState.selectedIndex).toBe(1);
+        expect(pluginState.selectedIndex).toBe(0);
       });
     });
   });
@@ -388,7 +401,7 @@ describe('WrapperTypeAhead', () => {
 
       await resolvedItems;
 
-      inputQuery = getByRole('textbox');
+      inputQuery = getByRole('combobox');
       act(() => {
         inputQuery.click();
       });

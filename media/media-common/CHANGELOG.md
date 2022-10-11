@@ -1,5 +1,12 @@
 # @atlaskit/media-common
 
+## 2.16.4
+
+### Patch Changes
+
+- [`42116304154`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42116304154) - Mocks console when it's not available
+- Updated dependencies
+
 ## 2.16.3
 
 ### Patch Changes

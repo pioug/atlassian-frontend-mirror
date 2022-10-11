@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { InlinePlayer } from '../src/root/inlinePlayer';
+import { InlinePlayer } from '../src/card/inlinePlayer';
 import {
   createStorybookMediaClient,
   videoSquareFileId,

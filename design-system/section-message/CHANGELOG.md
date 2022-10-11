@@ -1,5 +1,16 @@
 # @atlaskit/section-message
 
+## 6.3.0
+
+### Minor Changes
+
+- [`7a9e73ec430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a9e73ec430) - [ux] Internal changes to how styles are represented in SectionMessage. Some minor visual changes to the color and spacing of SectionMessage. No changes to the SectionMessage API.
+
+### Patch Changes
+
+- [`5f07e7b56a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f07e7b56a2) - Updates to the public types to better reflect the actual API.
+- Updated dependencies
+
 ## 6.2.1
 
 ### Patch Changes

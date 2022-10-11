@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Component, ComponentType } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import CodeBlock from '@atlaskit/code/block';
 import Select, { ValueType } from '@atlaskit/select';

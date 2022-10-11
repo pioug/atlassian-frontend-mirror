@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import AvatarGroup from '@atlaskit/avatar-group';
 import { AvatarClickEventHandler } from '@atlaskit/avatar';

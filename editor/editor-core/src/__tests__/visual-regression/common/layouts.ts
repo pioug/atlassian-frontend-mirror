@@ -1,9 +1,5 @@
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-  getBoundingClientRect,
-} from '../_utils';
+import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
 import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';

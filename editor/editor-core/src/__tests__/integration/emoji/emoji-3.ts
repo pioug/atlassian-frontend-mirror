@@ -22,7 +22,6 @@ BrowserTestCase(
 
     await mountEditor(page, { appearance: 'full-page' });
     await emojiSearch(page, 'smi');
-    await page.keys('ArrowDown');
 
     // The typeahead may re-order our results.
     // Go down 5 items til we find our desired emoji

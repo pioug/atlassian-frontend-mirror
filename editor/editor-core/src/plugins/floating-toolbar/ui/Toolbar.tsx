@@ -156,7 +156,6 @@ export const isSameItem = (leftItem: Item, rightItem: Item): boolean => {
     case 'extensions-placeholder':
       return compareItemWithKeys(leftItem, rightItem as typeof leftItem);
   }
-  return true;
 };
 
 export const areSameItems = (
@@ -328,6 +327,8 @@ class Toolbar extends Component<Props & WrappedComponentProps> {
                       mountPoint={popupsMountPoint}
                       boundariesElement={popupsBoundariesElement}
                       scrollableElement={popupsScrollableElement}
+                      dropdownWidth={item.dropdownWidth}
+                      showSelected={item.showSelected}
                     />
                   );
 

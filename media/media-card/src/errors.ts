@@ -1,4 +1,4 @@
-import { CardPreview } from '.';
+import { CardPreview } from './types';
 
 /**
  * Primary reason is logged through Data Portal.

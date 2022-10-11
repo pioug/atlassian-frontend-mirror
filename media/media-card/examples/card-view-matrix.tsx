@@ -13,7 +13,7 @@ import DownloadIcon from '@atlaskit/icon/glyph/download';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 import { CardAction, CardStatus } from '../src';
-import { CardView } from '../src/root/cardView';
+import { CardView } from '../src/card/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl-next';
 import { Y75 } from '@atlaskit/theme/colors';

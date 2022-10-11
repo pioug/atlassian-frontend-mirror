@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { SmartLinkSize } from '../../../../../constants';
 import { ActionProps } from './types';
 import ActionButton from './action-button';

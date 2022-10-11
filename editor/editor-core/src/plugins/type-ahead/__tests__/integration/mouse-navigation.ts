@@ -28,34 +28,17 @@ describe('typeahead: mouse navigation', () => {
 
   describe('typeahead: mouse navigation', () => {
     BrowserTestCase(
-      'initial render should always highlight first item',
+      'initial render and then Arrow Down should always highlight first item',
       { skip: [] },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
         await setProseMirrorTextSelection(page, { anchor: 1, head: 1 });
 
         await quickInsert(page, '', false);
-
+        await page.keys('ArrowDown');
         const selectedItem = await page.$(SELECTED_ITEM_SELECTOR);
         expect(await selectedItem.getAttribute('aria-label')).toEqual(
           'Action item',
-        );
-      },
-    );
-
-    BrowserTestCase(
-      'mouse hover should update selected item',
-      { skip: [] },
-      async (client: any, testName: string) => {
-        const page = await startEditor(client, spaceAtEnd);
-        await setProseMirrorTextSelection(page, { anchor: 1, head: 1 });
-
-        await quickInsert(page, 'heading', false);
-
-        await page.hover('[aria-label="Heading 1"]');
-        const selectedItem = await page.$(SELECTED_ITEM_SELECTOR);
-        expect(await selectedItem.getAttribute('aria-label')).toEqual(
-          'Heading 1',
         );
       },
     );

@@ -2,7 +2,7 @@ import { Plugin, ReadonlyTransaction, Transaction } from 'prosemirror-state';
 
 import { handlePaste } from '../utils';
 import { drawCellSelection } from '../utils/draw-cell-selection';
-import { fixTables } from '../utils/fix-tables';
+import { fixTables, ReportFixedTable } from '../utils/fix-tables';
 import { normalizeSelection } from '../utils/normalize-selection';
 
 import { handleKeyDown, handleMouseDown, handleTripleClick } from './input';
@@ -23,9 +23,13 @@ import { tableEditingKey } from './plugin-key';
 
 type PluginState = number | null;
 
-export function tableEditing({ allowTableNodeSelection = false } = {}): Plugin<
-  PluginState
-> {
+export function tableEditing({
+  allowTableNodeSelection = false,
+  reportFixedTable,
+}: {
+  allowTableNodeSelection?: boolean;
+  reportFixedTable?: ReportFixedTable;
+} = {}): Plugin<PluginState> {
   return new Plugin({
     key: tableEditingKey,
 
@@ -75,7 +79,7 @@ export function tableEditing({ allowTableNodeSelection = false } = {}): Plugin<
     appendTransaction(_, oldState, state) {
       return normalizeSelection(
         state,
-        fixTables(state, oldState),
+        fixTables(state, oldState, reportFixedTable),
         allowTableNodeSelection,
       );
     },

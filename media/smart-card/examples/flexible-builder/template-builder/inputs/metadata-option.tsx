@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import React, { useCallback, useMemo } from 'react';
 import Select from '@atlaskit/select/Select';
 import { ElementItem, ElementName } from '../../../../src';

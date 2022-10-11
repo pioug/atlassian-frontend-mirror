@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 22.3.0
+
+### Minor Changes
+
+- [`b31cdf70f6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b31cdf70f6e) - Updates `@emotion/core` v10 to `@emotion/react` v11. There is no expected behaviour change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.2.1
 
 ### Patch Changes

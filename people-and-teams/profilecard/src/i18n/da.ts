@@ -40,6 +40,7 @@ export default {
     'Personens konto blev deaktiveret i denne uge.',
   'pt.profile-card.inactive.account.no.date':
     'Personens konto er blevet deaktiveret.',
+  'pt.profile-card.more-icon-label': 'Mere',
   'pt.team-profile-card.directReports.heading': 'Direkte underordnede',
   'pt.team-profile-card.error.refresh-button': 'Prøv igen',
   'pt.team-profile-card.error.suggestion':

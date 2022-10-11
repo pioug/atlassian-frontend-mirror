@@ -1,5 +1,20 @@
 # @atlaskit/banner
 
+## 12.0.0
+
+### Major Changes
+
+- [`6f834df2eab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f834df2eab) - Removed `isOpen` and `innerRef` props. Banner is now displayed by default - use conditional rendering to achieve the same behaviour as `isOpen`.
+
+### Minor Changes
+
+- [`e9b3ce1794d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9b3ce1794d) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [`b0418893d72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0418893d72) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- [`5f07e7b56a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f07e7b56a2) - Updates to the public types to better reflect the actual API.
+
 ## 11.6.3
 
 ### Patch Changes

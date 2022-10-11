@@ -41,6 +41,7 @@ export interface Props {
   hide: Function;
   dispatchCommand: Function;
   items: Array<DropdownOptionT<Function>>;
+  showSelected?: boolean;
 }
 
 class Dropdown extends Component<Props & WrappedComponentProps> {
@@ -55,6 +56,7 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
               <ButtonItem
                 key={idx}
                 iconBefore={this.renderSelected(item, intl)}
+                iconAfter={item.elemAfter}
                 onClick={() => {
                   /**
                    * The order of dispatching the event and hide() is important, because
@@ -90,20 +92,20 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
   }
 
   private renderSelected(item: DropdownOptionT<any>, intl: IntlShape) {
+    const { showSelected = true } = this.props;
     const { selected } = item;
-    if (selected !== undefined) {
-      return selected ? (
+
+    if (showSelected && selected) {
+      return (
         <EditorDoneIcon
           primaryColor={token('color.icon.selected', B400)}
           size="small"
           label={intl.formatMessage(messages.confirmModalOK)}
         />
-      ) : (
-        <span css={spacer} />
       );
     }
 
-    return;
+    return <span css={spacer} />;
   }
 }
 

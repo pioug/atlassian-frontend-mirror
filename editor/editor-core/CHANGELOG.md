@@ -1,5 +1,56 @@
 # @atlaskit/editor-core
 
+## 173.0.0
+
+### Major Changes
+
+- [`aed2ee012bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aed2ee012bc) - ED-13182 insertTaskDecision has been depreciated and removed from this release in favor of insertTaskDecisionCommand.
+
+  `insertTaskDecision` was a duplicate of `insertTaskDecisionCommand` with added unnecessary overhead, replace all occurrences with `insertTaskDecisionCommand`. The function signatures are slightly different to remediate remove the first parameter from the function call (`view: EditorView`) and insert a third parameter with a value of `undefined`.
+
+### Minor Changes
+
+- [`e71cf110b81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e71cf110b81) - [ux] ED-14418 Copied table cell options to the floating toolbar if feature flag is enabled (off by default)
+- [`d8acf7254db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8acf7254db) - ED-8567 added tracking for fixTables()
+
+### Patch Changes
+
+- [`0474f9cedb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0474f9cedb2) - ED-15443 replace only telepointer and not zero character
+- [`7302b885bb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7302b885bb3) - Fixed blue selection frame not showing up in typeahead menu.
+- [`adaf9bab9a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adaf9bab9a9) - ED-15530 remove styled-component dependency from editor-core
+- [`53c2a7f9eb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53c2a7f9eb4) - [ux] ED-15174: Ensure original link paste position is honoured when pasting macro links even if other changes occur while resolving links
+- [`07160af53b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07160af53b7) - [ux] ED-15447: Stop breakout width layout button position flickering when user moves selection out and into breakout-supported nodes
+- [`1ee63eda764`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ee63eda764) - Fixed typeahead selection frame showing with mouse selections.
+- [`0ed72f9c96e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ed72f9c96e) - [ux] ED-15208 fixed status bar selection issue
+- [`15e418edc1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15e418edc1b) - Set Firefox collab telepointer decoration side value to 0 to fix backspace issues
+- [`95f2b5569a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95f2b5569a5) - Bump & force prosemirror-dev-tools to 3.0.1
+- [`556bcd32873`](https://bitbucket.org/atlassian/atlassian-frontend/commits/556bcd32873) - ED-15593 Fixed a regression - Adding back the hover style of mention menu items
+- [`dbc1b4943c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbc1b4943c2) - ED-13162 add word joiner before and after telepointer
+- [`da012d93a6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da012d93a6a) - [ux] Insert a paragraph beside an embedded smart card when it changes its layout wrap to either left or right, ensuring a user can add text beside it
+- [`13f3001af1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13f3001af1e) - ED-15482 Improve esbuild devloop
+
+  - Bumps esbuild to 0.15.5
+  - Unlock locked prosemirror-dev-tools dependency version
+  - Add prosemirror-dev-tools to Editor kitchen sink example
+  - Partially address translations not working in examples via esbuild
+  - Defaults esbuild for non-VR editor-core + renderer devloop
+
+- [`8f1264a6bc8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f1264a6bc8) - Updated date lozenge component from styled components to use Emotion CSS
+- [`5b018789978`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b018789978) - To fix scroll position of typeahead list elements [ED-15754]
+- [`dbfc8c36104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbfc8c36104) - [ux][ux] ED-15655 To add visible focus styles for type ahead list items when focused through navigation
+- [`f5a41e1c164`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5a41e1c164) - Fixed pasting of plain text content where double slashes collapsed into a single slash.
+- [`e47c25f7cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e47c25f7cbd) - [ux] ED-15388 Fixed - Lose focus when canceling composition input in Japanese at the beginning of page
+- [`d58c77cae8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d58c77cae8d) - ED-15182 corrected blockquote to blockquote content copy paste bug
+- [`f86e84d3cd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f86e84d3cd8) - ED-13980 Changes to make typeahead menu accessible by adding assistive text and improving keyboard navigation
+- [`830f3ba0e98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/830f3ba0e98) - [ux] ED-15324 Allow pasted inline nodes to replace placeholder nodes.
+- Updated dependencies
+
+## 172.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 172.3.1
 
 ### Patch Changes

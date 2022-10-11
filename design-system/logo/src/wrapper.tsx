@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { css, jsx, SerializedStyles } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { sizes, WrapperProps } from './constants';
 import { Size } from './types';

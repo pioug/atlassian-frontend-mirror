@@ -109,7 +109,7 @@ BrowserTestCase(
     // Insert an action via quickinsert/typeahead
     await browser.keys('/Action Item'.split(''));
     await browser.waitForVisible(TYPE_AHEAD_MENU_LIST);
-    await browser.keys(['Enter', 'c']);
+    await browser.keys(['ArrowDown', 'Enter', 'c']);
 
     const doc = await browser.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -129,11 +129,11 @@ BrowserTestCase(
     // Insert a new action via quickinsert when the cursor is inside of a non-empty action
     await browser.keys('/Action Item'.split(''));
     await browser.waitForVisible(TYPE_AHEAD_MENU_LIST);
-    await browser.keys('Enter');
+    await browser.keys(['ArrowDown', 'Enter']);
     // Insert a new action via quickinsert when the cursor is inside of an empty action
     await browser.keys('/Action Item'.split(''));
     await browser.waitForVisible(TYPE_AHEAD_MENU_LIST);
-    await browser.keys(['Enter', 'c']);
+    await browser.keys(['ArrowDown', 'Enter', 'c']);
 
     const doc = await browser.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

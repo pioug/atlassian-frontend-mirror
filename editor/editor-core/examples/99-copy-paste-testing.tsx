@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 import React, { KeyboardEvent, FormEvent } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -33,12 +33,12 @@ import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock'
 const mediaMock = createEditorMediaMock();
 mediaMock.enable();
 
-const Wrapper = styled.div`
+const wrapper = css`
   box-sizing: border-box;
   height: calc(100vh - 32px);
   display: flex;
 `;
-const Content = styled.div`
+const content = css`
   padding: 0;
   height: 100%;
   width: 50%;
@@ -280,7 +280,7 @@ class ExampleEditorComponent extends React.Component<
 
     return (
       <EditorContext key={collectionName}>
-        <Content data-testid={`editor-${collectionName}`}>
+        <div data-testid={`editor-${collectionName}`} css={content}>
           <h2>Editor ({collectionName})</h2>
           <SmartCardProvider>
             <WithEditorActions
@@ -353,7 +353,7 @@ class ExampleEditorComponent extends React.Component<
               )}
             />
           </SmartCardProvider>
-        </Content>
+        </div>
       </EditorContext>
     );
   };
@@ -361,10 +361,10 @@ class ExampleEditorComponent extends React.Component<
   render() {
     return (
       <div>
-        <Wrapper>
+        <div css={wrapper}>
           {this.renderEditor(defaultCollectionName, doc)}
           {this.renderEditor(defaultMediaPickerCollectionName)}
-        </Wrapper>
+        </div>
       </div>
     );
   }

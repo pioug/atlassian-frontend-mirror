@@ -14,6 +14,7 @@ import {
   macroProvider,
   MockMacroProvider,
 } from '@atlaskit/editor-test-helpers/mock-macro-provider';
+import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 
 import {
   code_block,
@@ -535,6 +536,29 @@ describe('paste plugins', () => {
         const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(editorView, { plain: '>- Hello' });
         expect(editorView.state.doc).toEqualDocument(doc(p('>- Hello')));
+      });
+    });
+
+    describe('paste in blockquote', () => {
+      it('should paste blockquote content as plain text', () => {
+        const { editorView } = editor(
+          doc(blockquote(p(strong('Paste here {<>}')))),
+        );
+        const blockquoteHtml = `<meta charset='utf-8'><p data-pm-slice="1 1 [&quot;blockquote&quot;,{}]">copy me</p>`;
+        dispatchPasteEvent(editorView, { html: blockquoteHtml });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(blockquote(p(strong('Paste here copy me')))),
+        );
+      });
+      it('should paste blockquote marked content with marks', () => {
+        const { editorView } = editor(
+          doc(blockquote(p(strong('Paste here {<>}')))),
+        );
+        const blockquoteHtmlMarked = `<meta charset='utf-8'><p data-pm-slice="1 1 [&quot;blockquote&quot;,{}]"><span class="fabric-text-color-mark" style="--custom-text-color: #ff991f" data-text-custom-color="#ff991f">copy me</span></p>`;
+        dispatchPasteEvent(editorView, { html: blockquoteHtmlMarked });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(blockquote(p(strong('Paste here copy me')))),
+        );
       });
     });
 
@@ -2005,8 +2029,8 @@ describe('paste plugins', () => {
 
       it('inserts inline card when FF for resolving links over extensions is enabled', async () => {
         const macroProvider = Promise.resolve(new MockMacroProvider({}));
-        const { editorView } = editor(
-          doc(p('Hello world{<>}')),
+        const { editorView, refs } = editor(
+          doc(p('{docStart}Hello world{<>}')),
           extensionProps({ resolveBeforeMacros: ['jira'] }),
         );
 
@@ -2014,9 +2038,19 @@ describe('paste plugins', () => {
         await setMacroProvider(macroProvider)(editorView);
         await flushPromises();
 
-        await dispatchPasteEvent(editorView, {
+        dispatchPasteEvent(editorView, {
           plain: 'https://jdog.jira-dev.com/browse/BENTO-3677',
         });
+
+        // move selection back to the beginning of the document,
+        // synchronously, before link resolves, to cover scenario where
+        // user clicks elsewhere and continues typing while link is resolving
+        const resolvedPos = editorView.state.doc.resolve(refs.docStart);
+        editorView.dispatch(
+          editorView.state.tr.setSelection(
+            new TextSelection(resolvedPos, resolvedPos),
+          ),
+        );
 
         // let the card resolve
         await flushPromises();
@@ -2030,6 +2064,72 @@ describe('paste plugins', () => {
               inlineCard({
                 url: 'https://jdog.jira-dev.com/browse/BENTO-3677',
               })(),
+              ' ',
+            ),
+          ),
+        );
+      });
+
+      it('inserts inlineExtension when FF for resolving links over extensions is enabled and resolving the link fails', async () => {
+        const macroProvider = Promise.resolve(new MockMacroProvider({}));
+        const { editorView, refs } = editor(
+          doc(p('{docStart}Hello world{<>}')),
+          extensionProps({
+            resolveBeforeMacros: ['jira'],
+            provider: Promise.resolve(({
+              resolve: () => Promise.reject('error'),
+            } as unknown) as CardProvider),
+          }),
+        );
+
+        providerWrapper.addProvider(editorView);
+        await setMacroProvider(macroProvider)(editorView);
+        await flushPromises();
+
+        dispatchPasteEvent(editorView, {
+          plain: 'https://jdog.jira-dev.com/browse/BENTO-3677',
+        });
+
+        // move selection back to the beginning of the document,
+        // synchronously, before link resolves, to cover scenario where
+        // user clicks elsewhere and continues typing while link is resolving
+        const resolvedPos = editorView.state.doc.resolve(refs.docStart);
+        editorView.dispatch(
+          editorView.state.tr.setSelection(
+            new TextSelection(resolvedPos, resolvedPos),
+          ),
+        );
+
+        // let the card resolve
+        await flushPromises();
+        requestAnimationFrame.step();
+        await providerWrapper.waitForRequests();
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              'Hello world',
+              inlineExtension({
+                extensionType: 'com.atlassian.confluence.macro.core',
+                extensionKey: 'jira',
+                parameters: {
+                  macroParams: {
+                    paramA: {
+                      value: 'https://jdog.jira-dev.com/browse/BENTO-3677',
+                    },
+                  },
+                  macroMetadata: {
+                    macroId: { value: 12345 },
+                    placeholder: [
+                      {
+                        data: { url: '' },
+                        type: 'icon',
+                      },
+                    ],
+                  },
+                },
+                localId: 'testId',
+              })(),
             ),
           ),
         );
@@ -2042,7 +2142,7 @@ describe('paste plugins', () => {
         await setMacroProvider(macroProvider)(editorView);
         await flushPromises();
 
-        await dispatchPasteEvent(editorView, {
+        dispatchPasteEvent(editorView, {
           plain: 'https://jdog.jira-dev.com/browse/BENTO-3677',
         });
 
@@ -3105,7 +3205,7 @@ describe('paste plugins', () => {
       ['panel', panelDoc, ACTION_SUBJECT_ID.PASTE_PANEL],
       ['blockquote', blockQuoteDoc, ACTION_SUBJECT_ID.PASTE_BLOCKQUOTE],
       ['table cell', tableCellDoc, ACTION_SUBJECT_ID.PASTE_TABLE_CELL],
-    ])('paste inside %s', (_, doc, actionSubjectId) => {
+    ])('paste inside %s', (description, doc, actionSubjectId) => {
       let editorView: EditorView;
 
       beforeEach(() => {
@@ -3221,6 +3321,11 @@ describe('paste plugins', () => {
         'should create analytics event for paste %s',
         (_, content, html, plain = '', linkDomain = []) => {
           dispatchPasteEvent(editorView, { html, plain });
+
+          if (description.includes('blockquote') && content === 'blockquote') {
+            //To change the assertion data when pasting blockquote inside blockquote as it should be pasted as text
+            content = 'text';
+          }
 
           expect(createAnalyticsEvent).toHaveBeenCalledWith(
             expect.objectContaining({

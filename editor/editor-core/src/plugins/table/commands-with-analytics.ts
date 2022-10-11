@@ -96,7 +96,7 @@ export const emptyMultipleCellsWithAnalytics = (
 
 export const mergeCellsWithAnalytics = (
   editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
-) =>
+) => (inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB) =>
   withEditorAnalyticsAPI(({ selection }) => {
     const {
       horizontalCells,
@@ -111,6 +111,7 @@ export const mergeCellsWithAnalytics = (
       actionSubject: ACTION_SUBJECT.TABLE,
       actionSubjectId: null,
       attributes: {
+        inputMethod,
         horizontalCells,
         verticalCells,
         totalCells,
@@ -128,7 +129,7 @@ export const mergeCellsWithAnalytics = (
 
 export const splitCellWithAnalytics = (
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) =>
+) => (inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB) =>
   withEditorAnalyticsAPI(({ selection }) => {
     const { totalRowCount, totalColumnCount } = getSelectedCellInfo(selection);
     const cell = findCellClosestToPos(selection.$anchor);
@@ -143,6 +144,7 @@ export const splitCellWithAnalytics = (
         actionSubject: ACTION_SUBJECT.TABLE,
         actionSubjectId: null,
         attributes: {
+          inputMethod,
           horizontalCells,
           verticalCells,
           totalCells: horizontalCells * verticalCells,
@@ -157,7 +159,11 @@ export const splitCellWithAnalytics = (
 
 export const setColorWithAnalytics = (
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (cellColor: string, targetCellPosition?: number) =>
+) => (
+  inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+  cellColor: string,
+  targetCellPosition?: number,
+) =>
   withEditorAnalyticsAPI(({ selection }) => {
     const {
       horizontalCells,
@@ -172,6 +178,7 @@ export const setColorWithAnalytics = (
       actionSubject: ACTION_SUBJECT.TABLE,
       actionSubjectId: null,
       attributes: {
+        inputMethod,
         cellColor: (
           tableBackgroundColorPalette.get(cellColor.toLowerCase()) || cellColor
         ).toLowerCase(),
@@ -454,7 +461,7 @@ export const toggleTableLayoutWithAnalytics = (
 export const sortColumnWithAnalytics = (
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 ) => (
-  inputMethod: INPUT_METHOD.CONTEXT_MENU,
+  inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
   columnIndex: number,
   sortOrder: SortOrder,
 ) =>
@@ -480,7 +487,7 @@ export const sortColumnWithAnalytics = (
 export const distributeColumnsWidthsWithAnalytics = (
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 ) => (
-  inputMethod: INPUT_METHOD.CONTEXT_MENU,
+  inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
   { resizeState, table, attributes }: ResizeStateWithAnalytics,
 ) => {
   return withEditorAnalyticsAPI(() => {

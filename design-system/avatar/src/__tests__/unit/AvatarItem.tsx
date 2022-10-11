@@ -3,6 +3,8 @@ import React, { FC, ReactNode } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 import Avatar, { AvatarItem } from '../../index';
 
 describe('Avatar', () => {
@@ -150,7 +152,7 @@ describe('Avatar', () => {
       <AvatarItem
         avatar={<Avatar />}
         testId={'avatar'}
-        onClick={() => {}}
+        onClick={__noop}
         label="Test avatar"
       />,
     );

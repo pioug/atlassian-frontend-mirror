@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -9,7 +10,6 @@ const BannerErrorExample = () => {
     <Banner
       appearance="error"
       icon={<ErrorIcon label="" secondaryColor="inherit" />}
-      isOpen
     >
       Bitbucket is experiencing an incident, but we’re on it. Check our status
       page for more details.{' '}

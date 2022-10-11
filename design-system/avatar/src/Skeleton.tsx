@@ -2,7 +2,7 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { FC } from 'react';
 
-import { CSSObject, jsx } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { AVATAR_RADIUS, AVATAR_SIZES, BORDER_WIDTH } from './constants';
 import { AppearanceType, SizeType } from './types';
@@ -23,17 +23,18 @@ const getStyles = ({
   appearance = 'circle',
   color = 'currentColor',
   weight = 'normal',
-}: SkeletonProps): CSSObject => ({
-  width: `${AVATAR_SIZES[size]}px`,
-  height: `${AVATAR_SIZES[size]}px`,
-  display: 'inline-block',
-  borderRadius: `${
-    appearance === 'square' ? `${AVATAR_RADIUS[size]}px` : '50%'
-  }`,
-  backgroundColor: color,
-  border: `${BORDER_WIDTH}px solid transparent`,
-  opacity: `${weight === 'strong' ? 0.3 : 0.15}`,
-});
+}: SkeletonProps): SerializedStyles =>
+  css({
+    display: 'inline-block',
+    width: `${AVATAR_SIZES[size]}px`,
+    height: `${AVATAR_SIZES[size]}px`,
+    backgroundColor: color,
+    border: `${BORDER_WIDTH}px solid transparent`,
+    borderRadius: `${
+      appearance === 'square' ? `${AVATAR_RADIUS[size]}px` : '50%'
+    }`,
+    opacity: `${weight === 'strong' ? 0.3 : 0.15}`,
+  });
 
 /**
  * __Skeleton__

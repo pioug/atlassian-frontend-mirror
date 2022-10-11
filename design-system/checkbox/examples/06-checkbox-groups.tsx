@@ -2,7 +2,7 @@
 /**  @jsx jsx */
 import { ChangeEvent, useCallback, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { Checkbox } from '../src';
 

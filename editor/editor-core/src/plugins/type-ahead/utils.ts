@@ -137,7 +137,7 @@ export const moveSelectedIndex = ({
       ? typeAheadState.stats
       : new StatsModifier();
 
-  let nextIndex = 0;
+  let nextIndex;
   if (direction === 'next') {
     stats.increaseArrowDown();
     nextIndex = selectedIndex >= items.length - 1 ? 0 : selectedIndex + 1;

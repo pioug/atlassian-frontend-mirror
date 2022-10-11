@@ -153,7 +153,10 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
   handleClickOutside = (event: Event) => {
     event.preventDefault();
     this.inputMethod = InputMethod.blur;
-    this.props.closeStatusPicker();
+    const selectedText = window.getSelection();
+    if (!selectedText) {
+      this.props.closeStatusPicker();
+    }
   };
 
   private handleEscapeKeydown = (event: Event) => {

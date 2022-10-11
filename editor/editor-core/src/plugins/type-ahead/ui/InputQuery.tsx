@@ -1,8 +1,16 @@
 /** @jsx jsx */
-import React, { useRef, useCallback, Fragment, useLayoutEffect } from 'react';
+import React, {
+  useRef,
+  useCallback,
+  Fragment,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import { css, jsx } from '@emotion/react';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
+import { getPluginState } from '../utils';
+import type { EditorView } from 'prosemirror-view';
 
 import {
   CloseSelectionOptions,
@@ -10,6 +18,10 @@ import {
 } from '../constants';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../constants';
+import { AssistiveText } from './AssistiveText';
+import { typeAheadListMessages } from '../messages';
+import { useIntl } from 'react-intl-next';
 
 const querySpan = css`
   outline: none;
@@ -55,6 +67,8 @@ type InputQueryProps = {
   forceFocus: boolean;
   onUndoRedo?: (inputType: 'historyUndo' | 'historyRedo') => boolean;
   reopenQuery?: string;
+  editorView: EditorView;
+  items: any[];
 };
 export const InputQuery: React.FC<InputQueryProps> = React.memo(
   ({
@@ -68,6 +82,8 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
     reopenQuery,
     onQueryFocus,
     onUndoRedo,
+    editorView,
+    items,
   }) => {
     const ref = useRef<HTMLSpanElement>(document.createElement('span'));
     const cleanedInputContent = useCallback(() => {
@@ -83,6 +99,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       },
       [onQueryChange, cleanedInputContent],
     );
+    const [isInFocus, setInFocus] = useState(false);
 
     const checkKeyEvent = useCallback(
       (event: KeyboardEvent) => {
@@ -91,6 +108,8 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
         const raw = ref.current?.textContent || '';
         const text = cleanedInputContent();
         let stopDefault = false;
+        const { selectedIndex } = getPluginState(editorView.state);
+        setInFocus(true);
 
         switch (key) {
           case ' ': // space key
@@ -134,25 +153,29 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
             // event.isComposing can't be used alone as this also included a virtual keyboard under a keyboardless device, therefore, it seems the best practice would be intercepting the event as below.
             // Some suggested the other workaround maybe listen on`keypress` instead of `keydown`
             if (
-              event.isComposing &&
-              (event.which === 229 || event.keyCode === 229)
+              !event.isComposing ||
+              (event.which !== 229 && event.keyCode !== 229)
             ) {
-              break;
+              if (selectedIndex === -1) {
+                selectNextItem();
+              }
+              onItemSelect(
+                event.shiftKey
+                  ? SelectItemMode.SHIFT_ENTER
+                  : SelectItemMode.ENTER,
+              );
             }
-            onItemSelect(
-              event.shiftKey
-                ? SelectItemMode.SHIFT_ENTER
-                : SelectItemMode.ENTER,
-            );
             break;
           case 'Tab':
+            if (selectedIndex === -1) {
+              selectNextItem();
+            }
             onItemSelect(SelectItemMode.TAB);
             break;
           case 'ArrowDown':
-            selectNextItem();
-            break;
-          case 'ArrowUp':
-            selectPreviousItem();
+            if (selectedIndex === -1) {
+              selectNextItem();
+            }
             break;
         }
 
@@ -172,8 +195,8 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
         onItemSelect,
         selectNextItem,
         cancel,
-        selectPreviousItem,
         cleanedInputContent,
+        editorView.state,
       ],
     );
 
@@ -281,6 +304,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       };
 
       const beforeinput = (e: InputEvent) => {
+        setInFocus(false);
         const { target } = e;
         if (e.isComposing || !(target instanceof HTMLElement)) {
           return;
@@ -363,6 +387,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       onQueryFocus,
       cancel,
       checkKeyEvent,
+      editorView.state,
     ]);
 
     useLayoutEffect(() => {
@@ -389,9 +414,14 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           }
 
           ref.current.focus();
+          setInFocus(true);
         });
       }
     }, [forceFocus, reopenQuery]);
+
+    const assistiveHintID =
+      TYPE_AHEAD_DECORATION_ELEMENT_ID + '__assistiveHint';
+    const intl = useIntl();
 
     /**
       When we migrated to emotion from styled component, we started getting this error.
@@ -408,9 +438,28 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           ref={ref}
           onKeyUp={onKeyUp}
           onClick={onClick}
-          role="textbox"
+          role="combobox"
+          aria-controls={TYPE_AHEAD_DECORATION_ELEMENT_ID}
+          aria-autocomplete="list"
+          aria-expanded={items.length !== 0}
+          aria-labelledby={assistiveHintID}
           suppressContentEditableWarning
           data-query-prefix={triggerQueryPrefix}
+        />
+        <span id={assistiveHintID} style={{ display: 'none' }}>
+          {intl.formatMessage(typeAheadListMessages.inputQueryAssistiveLabel)}
+        </span>
+
+        <AssistiveText
+          assistiveText={
+            items.length === 0
+              ? intl.formatMessage(typeAheadListMessages.noSearchResultsLabel, {
+                  itemsLength: items.length,
+                })
+              : ''
+          }
+          isInFocus={items.length === 0 || isInFocus}
+          id={TYPE_AHEAD_DECORATION_ELEMENT_ID}
         />
       </Fragment>
     );

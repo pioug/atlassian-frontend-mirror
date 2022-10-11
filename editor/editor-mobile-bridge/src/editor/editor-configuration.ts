@@ -27,6 +27,7 @@ interface EditorConfig {
   allowCustomPanel?: boolean;
   allowCustomPanelEdit?: boolean;
   allowMediaInline?: boolean;
+  tableCellOptionsInFloatingToolbar?: boolean;
 }
 
 export default class MobileEditorConfiguration
@@ -41,6 +42,7 @@ export default class MobileEditorConfiguration
   private placeholder?: string | undefined;
   private allowCustomPanel: boolean = false;
   private allowCustomPanelEdit: boolean = false;
+  private tableCellOptionsInFloatingToolbar: boolean = false;
 
   constructor(editorConfig?: string) {
     if (editorConfig) {
@@ -80,6 +82,10 @@ export default class MobileEditorConfiguration
       config.allowCustomPanelEdit !== undefined
         ? config.allowCustomPanelEdit
         : this.allowCustomPanelEdit;
+    this.tableCellOptionsInFloatingToolbar =
+      config.tableCellOptionsInFloatingToolbar !== undefined
+        ? config.tableCellOptionsInFloatingToolbar
+        : this.tableCellOptionsInFloatingToolbar;
   }
 
   getEditorAppearance(): EditorAppearance {
@@ -132,6 +138,10 @@ export default class MobileEditorConfiguration
 
   isCustomPanelEditable(): boolean {
     return this.allowCustomPanelEdit;
+  }
+
+  isTableCellOptionsInFloatingToolbar(): boolean {
+    return this.tableCellOptionsInFloatingToolbar;
   }
 
   // We need to retain the previous configuration flags as `locale` and `mode` can be configured

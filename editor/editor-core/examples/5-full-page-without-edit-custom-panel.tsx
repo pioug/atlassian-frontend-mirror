@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { default as FullPageExample } from './5-full-page';
 import { exampleDocument } from '../example-helpers/example-doc-with-custom-panels';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { ThemeProvider as StyledThemeProvider } from '@emotion/react';
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points

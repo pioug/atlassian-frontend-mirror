@@ -10,8 +10,8 @@ import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers/example-inline-comment-component';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
-  Device,
   snapshot,
   initFullPageEditorWithAdf,
 } from '../../../../__tests__/visual-regression/_utils';

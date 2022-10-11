@@ -57,7 +57,7 @@ ${(
 ${(
   <Props
     heading="Properties"
-    props={require('!!extract-react-types-loader!../src/root/card')}
+    props={require('!!extract-react-types-loader!../src/card')}
   />
 )}
 

@@ -18,7 +18,9 @@ describe('Forbidden view', () => {
         <InlineCardForbiddenView url={URL} onAuthorise={onRetrySpy} />
       </IntlProvider>,
     );
-    element.find('[type="button"]').at(0).simulate('click');
+    element
+      .find('span[data-testid="button-connect-other-account"]')
+      .simulate('click');
     expect(onRetrySpy).toHaveBeenCalledTimes(1);
   });
 
@@ -34,7 +36,9 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    element.find('[type="button"]').at(0).simulate('click');
+    element
+      .find('span[data-testid="button-connect-other-account"]')
+      .simulate('click');
     expect(onRetrySpy).toHaveBeenCalledTimes(1);
     expect(onClickSpy).not.toHaveBeenCalled();
   });
@@ -117,7 +121,9 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    element.find('[type="button"]').at(0).simulate('click');
+    element
+      .find('span[data-testid="button-connect-other-account"]')
+      .simulate('click');
     expect(promise).toHaveBeenCalledTimes(1);
   });
 
@@ -148,7 +154,9 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    element.find('[type="button"]').at(0).simulate('click');
+    element
+      .find('span[data-testid="button-connect-other-account"]')
+      .simulate('click');
     expect(promise).toHaveBeenCalledTimes(1);
   });
 });

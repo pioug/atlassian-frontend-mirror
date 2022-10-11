@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.2.0
+
+### Minor Changes
+
+- [`d8acf7254db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8acf7254db) - ED-8567 added tracking for fixTables()
+
 ## 2.1.6
 
 ### Patch Changes

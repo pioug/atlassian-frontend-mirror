@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
 import { css, jsx } from '@emotion/react';
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import { N70 } from '@atlaskit/theme/colors';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
@@ -55,7 +54,7 @@ export function withSidebarContainer<T>(
        * https://github.com/emotion-js/emotion/issues/2169
        */}
       <Component
-        {...(props as EmotionJSX.LibraryManagedAttributes<typeof Component, T>)}
+        {...(props as JSX.LibraryManagedAttributes<typeof Component, T>)}
       />
     </SidebarContainer>
   );

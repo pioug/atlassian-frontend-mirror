@@ -21,7 +21,7 @@ const baseStyles = css({
 });
 
 interface InteractionSurfaceProps extends BasePrimitiveProps {
-  children?: ReactNode;
+  children: ReactNode;
   appearance?: InteractionBackgroundColor;
 }
 
@@ -31,8 +31,9 @@ interface InteractionSurfaceProps extends BasePrimitiveProps {
  * ```js
  * // a minimal icon button
  * <Box as="button">
- *   <InteractionSurface />
- *   <WarningIcon label="icon button" />
+ *   <InteractionSurface>
+ *    <WarningIcon label="icon button" />
+ *  </InteractionSurface>
  * </Box>
  * ```
  */

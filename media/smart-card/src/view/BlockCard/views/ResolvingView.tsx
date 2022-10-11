@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
 import { N50, N90 } from '@atlaskit/theme/colors';

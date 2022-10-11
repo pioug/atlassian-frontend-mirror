@@ -6,11 +6,11 @@ import {
 
 import {
   animationFrame,
-  getBoundingClientRect,
   initRendererWithADF,
   snapshot,
   waitForText,
 } from './_utils';
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import * as wideTableResized from '../__fixtures__/table-wide-resized.adf.json';
 import * as tableWithShadowAdf from '../__fixtures__/table-with-shadow.adf.json';
 import * as tableWithWrappedNodesAdf from './__fixtures__/table-with-wrapped-nodes.adf.json';

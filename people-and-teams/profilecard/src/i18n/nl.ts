@@ -39,6 +39,7 @@ export default {
     'Zijn/haar account is deze week gedeactiveerd.',
   'pt.profile-card.inactive.account.no.date':
     'Zijn/haar account is gedeactiveerd.',
+  'pt.profile-card.more-icon-label': 'Meer',
   'pt.team-profile-card.directReports.heading': 'Directe rapporten',
   'pt.team-profile-card.error.refresh-button': 'Opnieuw proberen',
   'pt.team-profile-card.error.suggestion':

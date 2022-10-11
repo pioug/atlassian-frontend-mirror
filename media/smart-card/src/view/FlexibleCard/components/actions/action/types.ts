@@ -1,4 +1,4 @@
-import { SerializedStyles } from '@emotion/core';
+import { SerializedStyles } from '@emotion/react';
 import { SmartLinkSize } from '../../../../../constants';
 import { Appearance } from '@atlaskit/button/types';
 import { ReactChild } from 'react';

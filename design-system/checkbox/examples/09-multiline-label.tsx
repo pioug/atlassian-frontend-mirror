@@ -1,7 +1,7 @@
 /* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /**  @jsx jsx */
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { Checkbox } from '../src';
 

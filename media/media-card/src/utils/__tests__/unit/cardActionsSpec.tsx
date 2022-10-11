@@ -1,6 +1,13 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
-import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
+import {
+  createEvent,
+  fireEvent,
+  render,
+  RenderResult,
+  within,
+} from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+
 import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import {
@@ -9,13 +16,8 @@ import {
 } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 
-import {
-  CardActionsView,
-  CardActionIconButton,
-  CardActionsDropdownMenu,
-} from '../../cardActions';
-import { CardAction } from '../../../actions';
-import { PreventClickThrough } from '../../preventClickThrough';
+import { CardActionsView } from '../../cardActions';
+import { CardAction } from '../../../card/actions';
 
 describe('CardActions', () => {
   const openAction = {
@@ -36,14 +38,13 @@ describe('CardActions', () => {
     handler: jest.fn(),
     icon: <CrossIcon size="small" label="delete" />,
   };
-  const cardActionButtonId = 'div#cardActionButton';
+  const actionButtonTestId = 'media-card-primary-action';
+  const dropdownItemsTestId = 'media-card-actions-menu-item';
   const menuActions = [openAction, closeAction, annotateAction, deleteAction];
 
-  const openDropdownMenuIfExists = (card: ReactWrapper) => {
-    const dropdownMenu = card.find(DropdownMenu);
-    if (dropdownMenu.length > 0) {
-      dropdownMenu.find(cardActionButtonId).simulate('click');
-    }
+  const openDropdownMenuIfExists = (card: RenderResult) => {
+    const moreButton = card.queryByLabelText('more')?.closest('div');
+    moreButton && fireEvent.click(moreButton);
   };
 
   const setup = (
@@ -54,7 +55,7 @@ describe('CardActions', () => {
     const TheCardActionsView = () => (
       <CardActionsView actions={actions} triggerColor={triggerColor} />
     );
-    const card = mount(
+    const card = render(
       analyticsHandler ? (
         <AnalyticsListener
           channel={FabricChannel.media}
@@ -68,9 +69,11 @@ describe('CardActions', () => {
     );
     openDropdownMenuIfExists(card);
 
-    const iconButtons = card.find(CardActionIconButton);
-    const dropdownMenu = card.find(CardActionsDropdownMenu);
-    const dropdownItems = dropdownMenu.find(DropdownItem);
+    const iconButtons = card.queryAllByTestId(actionButtonTestId);
+    const dropdownMenu = screen.queryByTestId(
+      'media-card-actions-menu--content',
+    );
+    const dropdownItems = card.queryAllByTestId(dropdownItemsTestId);
 
     return {
       card,
@@ -83,7 +86,7 @@ describe('CardActions', () => {
   it('should render nothing given no actions', () => {
     const { card } = setup([]);
 
-    expect(card.find(PreventClickThrough)).toHaveLength(0);
+    expect(card.queryByTestId('prevent-click-through')).toBeNull();
   });
 
   /* Disabled because Dropdown now defers rendering children until layer is positioned. Integration test will replace these https://ecosystem.atlassian.net/browse/AK-5183
@@ -110,17 +113,19 @@ describe('CardActions', () => {
   });
   */
   it('should render only icon button given one action with an icon', () => {
-    const triggerColor = 'some-trigger-color';
+    const triggerColor = 'red';
     const { iconButtons, dropdownMenu, dropdownItems } = setup(
       [annotateAction],
       triggerColor,
     );
 
     expect(iconButtons).toHaveLength(1);
-    const actionButton = iconButtons.find(cardActionButtonId);
-    expect(actionButton.find(AnnotateIcon)).toHaveLength(1);
-    expect(actionButton.prop('style')).toEqual({ color: triggerColor });
-    expect(dropdownMenu).toHaveLength(0);
+    const actionButton = iconButtons[0];
+    const actionButtonIcon = within(actionButton).getByRole('img');
+    expect(actionButtonIcon).toBeTruthy();
+    expect(actionButton.style.color).toEqual(triggerColor);
+
+    expect(dropdownMenu).toBeNull();
     expect(dropdownItems).toHaveLength(0);
   });
 
@@ -131,7 +136,7 @@ describe('CardActions', () => {
     ]);
 
     expect(iconButtons).toHaveLength(2);
-    expect(dropdownMenu).toHaveLength(0);
+    expect(dropdownMenu).toBeNull();
     expect(dropdownItems).toHaveLength(0);
   });
 
@@ -147,20 +152,19 @@ describe('CardActions', () => {
 
   it('should call onToggle callback when dropdown menu trigger is clicked', () => {
     const onToggle = jest.fn();
-    const card = mount(
+    const card = render(
       <CardActionsView actions={menuActions} onToggle={onToggle} />,
     );
-
-    card.find(DropdownMenu).find(cardActionButtonId).simulate('click');
+    openDropdownMenuIfExists(card);
 
     expect(onToggle).toHaveBeenCalled();
   });
 
   it('should call action handler when icon button is pressed', () => {
-    const triggerColor = 'some-color-string';
+    const triggerColor = 'green';
     const { iconButtons } = setup([annotateAction], triggerColor);
 
-    iconButtons.simulate('click');
+    iconButtons[0].click();
 
     expect(annotateAction.handler).toHaveBeenCalled();
   });
@@ -175,37 +179,43 @@ describe('CardActions', () => {
   });
   */
 
-  it('should pass supplied trigger color to dropdown menu trigger when there are multiple actions', () => {
-    const triggerColor = 'some-color-string';
-    const { dropdownMenu } = setup(menuActions, triggerColor);
-    const trigger = dropdownMenu.find(cardActionButtonId);
+  it('should pass supplied trigger color to dropdown menu trigger when there are multiple actions', async () => {
+    const triggerColor = 'green';
+    const { card } = setup(menuActions, triggerColor);
+    const moreButton = card.getByLabelText('more').closest('div');
 
-    expect(trigger.prop('style')).toMatchObject({ color: triggerColor });
+    fireEvent.click(moreButton!);
+
+    const actions = screen.getAllByTestId(actionButtonTestId);
+    actions.forEach((action) => {
+      expect(action.style.color).toEqual(triggerColor);
+    });
   });
 
   it('should pass supplied trigger color to delete button when there is a single action', () => {
-    const triggerColor = 'some-color-string';
+    const triggerColor = 'blue';
     const { iconButtons } = setup([deleteAction], triggerColor);
 
-    expect(iconButtons.prop('triggerColor')).toEqual(triggerColor);
+    iconButtons.forEach((iconButton) => {
+      expect(iconButton.style.color).toEqual(triggerColor);
+    });
   });
 
   it('should prevent default of mousedown event to avoid changing currently focused element', () => {
-    const { iconButtons } = setup([annotateAction], 'some-color-string');
-    const mockedEvent = {
-      preventDefault: jest.fn(),
-    };
+    const { iconButtons } = setup([annotateAction], 'pink');
 
-    iconButtons.simulate('mousedown', mockedEvent);
+    const mockEvent = createEvent.mouseDown(iconButtons[0]);
+    mockEvent.preventDefault = jest.fn();
+    fireEvent(iconButtons[0], mockEvent);
 
-    expect(mockedEvent.preventDefault).toHaveBeenCalled();
+    expect(mockEvent.preventDefault).toHaveBeenCalled();
   });
 
   describe('Analytics Events', () => {
-    const clickIconButton = (card: ReactWrapper, at: number) =>
-      card.find(CardActionIconButton).at(at).simulate('click');
-    const clickDropdownItem = (card: ReactWrapper, at: number) =>
-      card.find(DropdownMenu).find(DropdownItem).at(at).simulate('click');
+    const clickIconButton = (card: RenderResult, at: number) =>
+      card.getAllByTestId(actionButtonTestId)[at].click();
+    const clickDropdownItem = (card: RenderResult, at: number) =>
+      card.getAllByTestId(dropdownItemsTestId)[at].click();
 
     const matchingActionEventPayload = (
       actionSubjectId: string,

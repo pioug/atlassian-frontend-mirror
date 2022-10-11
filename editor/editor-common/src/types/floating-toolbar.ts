@@ -27,6 +27,7 @@ export interface DropdownOptionT<T> {
   hidden?: boolean;
   testId?: string;
   tooltip?: string;
+  elemAfter?: React.ReactNode;
 }
 
 export type DropdownOptions<T> =
@@ -188,6 +189,8 @@ export type FloatingToolbarDropdown<T> = {
   hideExpandIcon?: boolean;
   disabled?: boolean;
   tooltip?: string;
+  dropdownWidth?: number;
+  showSelected?: boolean;
 };
 
 type FloatingToolbarExtensionsPlaceholder = {

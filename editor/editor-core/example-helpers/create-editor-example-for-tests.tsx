@@ -6,7 +6,7 @@ import { Step } from 'prosemirror-transform';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import {
   getEmojiProvider,
   currentUser,

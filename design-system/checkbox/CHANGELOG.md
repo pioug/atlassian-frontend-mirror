@@ -1,5 +1,15 @@
 # @atlaskit/checkbox
 
+## 12.4.0
+
+### Minor Changes
+
+- [`0944c0e7eed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0944c0e7eed) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.20
 
 ### Patch Changes

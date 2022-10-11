@@ -7,6 +7,7 @@ export type {
   ReactionsReadyState,
   ReactionsState,
   ReactionSummary,
+  QuickReactionEmojiSummary,
   ReactionsNotLoaded,
   Reactions,
   ReactionClick,

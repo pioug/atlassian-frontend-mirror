@@ -18,7 +18,7 @@ import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types'
 import { spaceAtEnd } from './__fixtures__/base-adfs';
 
 const TYPE_AHEAD_MENU_LIST = `[aria-label="Popup"] [role="listbox"]`;
-const TYPE_AHEAD_SEARCH_BOX = '[role="textbox"][data-query-prefix]';
+const TYPE_AHEAD_SEARCH_BOX = '[role="combobox"][data-query-prefix]';
 describe('typeahead: undo redo', () => {
   const startEditor = async (client: any, adf: any): Promise<WebDriverPage> => {
     const page = await goToEditorTestingWDExample(client);
@@ -134,7 +134,7 @@ describe('typeahead: undo redo', () => {
 
         await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-        await page.keys('Enter');
+        await page.keys(['ArrowDown', 'Enter']);
         await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
         await page.undo();
@@ -157,7 +157,7 @@ describe('typeahead: undo redo', () => {
 
           await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-          await page.keys('Enter');
+          await page.keys(['ArrowDown', 'Enter']);
           await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
           await page.undo();
@@ -186,7 +186,7 @@ describe('typeahead: undo redo', () => {
 
           await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-          await page.keys('Enter');
+          await page.keys(['ArrowDown', 'Enter']);
           await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
           await page.undo();
@@ -215,7 +215,7 @@ describe('typeahead: undo redo', () => {
 
           await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-          await page.keys('Enter');
+          await page.keys(['ArrowDown', 'Enter']);
           await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
           await page.undo();
@@ -245,7 +245,7 @@ describe('typeahead: undo redo', () => {
 
             await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-            await page.keys('Enter');
+            await page.keys(['ArrowDown', 'Enter']);
             await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
             await page.undo();
@@ -267,7 +267,7 @@ describe('typeahead: undo redo', () => {
 
       describe('when two redo happens', () => {
         BrowserTestCase(
-          'it should opens the typeahead menu with the query',
+          'it should open the typeahead menu with the query',
           { skip: [] },
           async (client: any, testName: string) => {
             const page = await startEditor(client, spaceAtEnd);
@@ -277,7 +277,7 @@ describe('typeahead: undo redo', () => {
 
             await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-            await page.keys('Enter');
+            await page.keys(['ArrowDown', 'Enter']);
             await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
             await page.undo();
@@ -311,7 +311,7 @@ describe('typeahead: undo redo', () => {
 
             await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
 
-            await page.keys('Enter');
+            await page.keys(['ArrowDown', 'Enter']);
             await page.waitForInvisible(TYPE_AHEAD_MENU_LIST);
 
             await page.undo();

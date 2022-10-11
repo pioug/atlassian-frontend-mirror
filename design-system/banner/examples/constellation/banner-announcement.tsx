@@ -1,10 +1,11 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import Banner from '../../src';
 
 const BannerAnnouncementExample = () => {
   return (
-    <Banner appearance="announcement" isOpen>
+    <Banner appearance="announcement">
       We’re making changes to our server and Data Center products, including the
       end of sale for new server licenses on February 2, 2021 and the end of
       support for server on February 2, 2024.{' '}

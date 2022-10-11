@@ -3,7 +3,8 @@ import {
   waitForElementCount,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
-import { initFullPageEditorWithAdf, snapshot, Device } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { initFullPageEditorWithAdf, snapshot } from '../_utils';
 import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
 import cardListAppearanceAdf from './__fixtures__/card-list-appearance.adf.json';
 import cardInsideLayout from './__fixtures__/card-inside-layout-adf.json';

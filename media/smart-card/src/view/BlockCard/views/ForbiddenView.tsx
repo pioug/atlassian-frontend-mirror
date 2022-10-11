@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { MouseEvent } from 'react';
 import { R300 } from '@atlaskit/theme/colors';

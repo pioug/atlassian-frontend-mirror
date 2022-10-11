@@ -1,5 +1,5 @@
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
-  Device,
   initFullPageEditorWithAdf,
   snapshot,
 } from '../../../../__tests__/visual-regression/_utils';

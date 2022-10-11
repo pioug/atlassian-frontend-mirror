@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, useEffect, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';
 import Select from '@atlaskit/select';

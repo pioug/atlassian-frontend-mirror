@@ -12,7 +12,8 @@ import {
   useRef,
 } from 'react';
 
-import { ClassNames, Interpolation, jsx } from '@emotion/core';
+import { ClassNames, jsx } from '@emotion/react';
+import { CSSInterpolation } from '@emotion/serialize';
 
 import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { B300, N0, N70A } from '@atlaskit/theme/colors';
@@ -136,7 +137,7 @@ export interface AvatarPropTypes {
 const getStyles = (
   css: (
     template: TemplateStringsArray,
-    ...args: Array<Interpolation>
+    ...args: Array<CSSInterpolation>
   ) => string,
   {
     size,

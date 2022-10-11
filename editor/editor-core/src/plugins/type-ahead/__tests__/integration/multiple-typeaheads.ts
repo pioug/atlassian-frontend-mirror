@@ -37,7 +37,7 @@ describe('type-ahead: multiple handlers', () => {
         await quickInsert(page, 'mention', false);
         await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
 
-        await page.keys('Enter');
+        await page.keys(['ArrowDown', 'Enter']);
 
         // make sure the typeahead for mentions is open after press enter
         const result = await page.waitForVisible(
@@ -61,7 +61,7 @@ describe('type-ahead: multiple handlers', () => {
 
         await quickInsert(page, 'emoji', false);
         await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
-        await page.keys('Enter');
+        await page.keys(['ArrowDown', 'Enter']);
 
         // make sure the typeahead for mentions is open after press enter
         const result = await page.waitForVisible(

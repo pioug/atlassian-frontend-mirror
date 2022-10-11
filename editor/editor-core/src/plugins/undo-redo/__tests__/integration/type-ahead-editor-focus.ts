@@ -47,7 +47,7 @@ describe('typeahead: undo redo', () => {
 
         await quickInsert(page, 'Action', false);
 
-        await page.keys('Enter');
+        await page.keys(['ArrowDown', 'Enter']);
 
         // undo the action item
         await page.click(selectors.undoButton);
@@ -76,7 +76,7 @@ describe('typeahead: undo redo', () => {
 
         await quickInsert(page, 'Action', false);
 
-        await page.keys('Enter');
+        await page.keys(['ArrowDown', 'Enter']);
 
         // undo the action item
         await page.click(selectors.undoButton);

@@ -9,7 +9,7 @@ exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
   line-height: 1;
 }
 
-.emotion-0 > svg {
+.emotion-0 >svg {
   overflow: hidden;
   pointer-events: none;
   max-width: 100%;
@@ -19,12 +19,12 @@ exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
   vertical-align: bottom;
 }
 
-.emotion-0 > svg stop {
+.emotion-0 >svg stop {
   stop-color: currentColor;
 }
 
-@media screen and (forced-colors:active) {
-  .emotion-0 > svg {
+@media screen and (forced-colors: active) {
+  .emotion-0 >svg {
     -webkit-filter: grayscale(1);
     filter: grayscale(1);
     --icon-primary-color: CanvasText;
@@ -63,7 +63,7 @@ exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
   line-height: 1;
 }
 
-.emotion-0 > svg {
+.emotion-0 >svg {
   overflow: hidden;
   pointer-events: none;
   max-width: 100%;
@@ -73,12 +73,12 @@ exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
   vertical-align: bottom;
 }
 
-.emotion-0 > svg stop {
+.emotion-0 >svg stop {
   stop-color: currentColor;
 }
 
-@media screen and (forced-colors:active) {
-  .emotion-0 > svg {
+@media screen and (forced-colors: active) {
+  .emotion-0 >svg {
     -webkit-filter: grayscale(1);
     filter: grayscale(1);
     --icon-primary-color: CanvasText;

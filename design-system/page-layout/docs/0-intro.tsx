@@ -130,7 +130,7 @@ A banner displays a prominent message at the top of the screen.
 ${(
   <Props
     heading="Banner Props"
-    props={require('!!extract-react-types-loader!../src/components/slots/banner')}
+    props={require('!!extract-react-types-loader!../src/components/slots/banner-slot')}
   />
 )}
 

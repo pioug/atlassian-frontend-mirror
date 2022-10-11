@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import PremiumIcon from '@atlaskit/icon/glyph/premium';
 import { ActionName, FooterBlock } from '../../src';

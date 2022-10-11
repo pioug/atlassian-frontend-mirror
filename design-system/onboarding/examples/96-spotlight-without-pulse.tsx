@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { token } from '@atlaskit/tokens';

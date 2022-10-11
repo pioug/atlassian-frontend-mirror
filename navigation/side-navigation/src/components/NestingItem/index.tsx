@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import RightArrow from '@atlaskit/icon/glyph/arrow-right-circle';
 import {

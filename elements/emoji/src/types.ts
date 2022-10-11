@@ -17,6 +17,19 @@ export interface EmojiProvider
   getMediaEmojiDescriptionURLWithInlineToken(
     emoji: EmojiDescription,
   ): Promise<EmojiDescription>;
+
+  /**
+   * Returns the first fetched emoji matching the emojiId.id.
+   *
+   * If the interface is not defined it will fail gracefully to findByEmojiId
+   */
+  fetchByEmojiId(
+    emojiId: EmojiId,
+    optimistic: boolean,
+  ):
+    | OptionalEmojiDescriptionWithVariations
+    | Promise<OptionalEmojiDescriptionWithVariations>;
+
   /**
    * Returns the first matching emoji matching the shortName, or null if none found.
    *

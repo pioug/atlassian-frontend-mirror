@@ -32,7 +32,7 @@ export interface SelectorProps {
    */
   onMoreClick?: React.MouseEventHandler<HTMLElement>;
   /**
-   * Optional emojis shown for user to select from when the reaction add button is clicked (defaults to pre-defined list of emojis {@link constants.DEFAULT_REACTION_EMOJI_IDS})
+   * Optional emojis shown for user to select from when the reaction add button is clicked (defaults to pre-defined list of emojis {@link constants.DefaultReactions})
    */
   pickerQuickReactionEmojiIds?: EmojiId[];
 }

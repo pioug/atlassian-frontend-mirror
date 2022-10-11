@@ -32,3 +32,7 @@ export const matches = (srcObj: Object) => {
     return true;
   };
 };
+
+const fakeConsole = { info: () => {}, log: () => {}, error: () => {} };
+export const getConsole = () =>
+  typeof console !== 'undefined' ? console : fakeConsole;

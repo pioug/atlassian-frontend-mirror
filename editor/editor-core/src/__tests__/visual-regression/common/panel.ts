@@ -1,8 +1,5 @@
-import {
-  initFullPageEditorWithAdf,
-  snapshot,
-  getBoundingClientRect,
-} from '../_utils';
+import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import * as panel from './__fixtures__/panel-adf.json';
 import * as basicPanel from './__fixtures__/basic-panel-adf.json';
 import * as customPanel from './__fixtures__/custom-panel-adf.json';

@@ -3,8 +3,7 @@ import {
   loadPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
-
-import { getBoundingClientRect } from '../_utils';
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import { extensionSelectors } from '@atlaskit/editor-test-helpers/page-objects/extensions';
 
 export async function goToConfigPanelWithParameters() {

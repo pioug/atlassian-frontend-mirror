@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { CSSProperties, useMemo } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { useUID } from 'react-uid';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';

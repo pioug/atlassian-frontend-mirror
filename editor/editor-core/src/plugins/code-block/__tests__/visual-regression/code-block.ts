@@ -2,8 +2,8 @@ import {
   snapshot,
   initEditorWithAdf,
   Appearance,
-  getBoundingClientRect,
 } from '../../../../__tests__/visual-regression/_utils';
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 import { codeBlocks } from '../__fixtures__/code-blocks';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';

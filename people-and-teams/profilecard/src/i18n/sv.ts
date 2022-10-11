@@ -39,6 +39,7 @@ export default {
     'Personens konto inaktiverades den här veckan.',
   'pt.profile-card.inactive.account.no.date':
     'Personens konto har inaktiverats.',
+  'pt.profile-card.more-icon-label': 'Mer',
   'pt.team-profile-card.directReports.heading': 'Direkt underordnade',
   'pt.team-profile-card.error.refresh-button': 'Försök igen',
   'pt.team-profile-card.error.suggestion': 'Vänta ett tag och försök igen.',

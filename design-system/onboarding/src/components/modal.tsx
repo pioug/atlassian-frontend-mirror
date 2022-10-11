@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Component, ElementType, ReactNode } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import Button, {
   Theme as ButtonTheme,

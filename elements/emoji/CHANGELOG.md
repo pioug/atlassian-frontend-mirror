@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 66.0.1
+
+### Patch Changes
+
+- [`98b7ff82dae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98b7ff82dae) - [UX] To remove the unwanted styles (which is taken care in typeahead list component ED-15655)
+- [`f86e84d3cd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f86e84d3cd8) - ED-13980 Changes to make typeahead menu accessible by adding assistive text and improving keyboard navigation
+- Updated dependencies
+
+## 66.0.0
+
+### Major Changes
+
+- [`052c7e4e4b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/052c7e4e4b2) - Update emoji interface types to include fetchByEmojiId
+
 ## 65.2.1
 
 ### Patch Changes

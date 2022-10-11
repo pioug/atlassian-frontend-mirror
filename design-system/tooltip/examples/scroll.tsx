@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { N20, N40 } from '@atlaskit/theme/colors';

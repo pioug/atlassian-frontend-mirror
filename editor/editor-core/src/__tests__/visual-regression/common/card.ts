@@ -3,7 +3,8 @@ import {
   PuppeteerPage,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
-import { Device, initFullPageEditorWithAdf, snapshot } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { initFullPageEditorWithAdf, snapshot } from '../_utils';
 import cardAdf from './__fixtures__/card-adf.json';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
 import cardAdfRequestAccess from './__fixtures__/card-request-access.adf.json';

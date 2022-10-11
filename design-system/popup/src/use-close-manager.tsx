@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 
-import { CloseManagerHook } from './types';
+import noop from '@atlaskit/ds-lib/noop';
 
-function noop() {}
+import { CloseManagerHook } from './types';
 
 export const useCloseManager = ({
   isOpen,

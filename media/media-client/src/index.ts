@@ -111,9 +111,6 @@ export type {
   MobileUploadErrorEvent,
 } from './models/mobile-upload';
 
-// TODO: remove access to media file stream cache https://product-fabric.atlassian.net/browse/MEX-1417
-export { StreamsCache } from './file-streams-cache';
-
 export { uploadFile } from './uploader';
 export type {
   UploadableFile,

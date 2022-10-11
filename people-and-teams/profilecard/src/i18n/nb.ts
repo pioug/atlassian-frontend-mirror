@@ -39,6 +39,7 @@ export default {
     'Vedkommendes konto ble deaktivert denne uken.',
   'pt.profile-card.inactive.account.no.date':
     'Vedkommendes konto er deaktivert.',
+  'pt.profile-card.more-icon-label': 'Mer',
   'pt.team-profile-card.directReports.heading': 'Direkte underordnede',
   'pt.team-profile-card.error.refresh-button': 'Prøv på nytt',
   'pt.team-profile-card.error.suggestion': 'Vent litt og prøv på nytt.',

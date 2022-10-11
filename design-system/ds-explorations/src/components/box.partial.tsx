@@ -1,11 +1,5 @@
 /** @jsx jsx */
-import {
-  CSSProperties,
-  ElementType,
-  forwardRef,
-  HTMLAttributes,
-  ReactNode,
-} from 'react';
+import { CSSProperties, ElementType, forwardRef, HTMLAttributes } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -14,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 import { GlobalSpacingToken, SPACING_SCALE } from '../constants';
 
 import { SurfaceContext } from './surface-provider';
-import { BasePrimitiveProps } from './types';
+import type { BasePrimitiveProps, NonTextChildren } from './types';
 
 export interface BoxProps<T extends HTMLElement = HTMLElement>
   extends Omit<HTMLAttributes<T>, 'style' | 'as' | 'className'>,
@@ -26,7 +20,7 @@ export interface BoxProps<T extends HTMLElement = HTMLElement>
   /**
    * Elements to be rendered inside the Box.
    */
-  children?: ReactNode;
+  children?: NonTextChildren | boolean | null | undefined;
   /**
    * The html className attribute.
    *
@@ -71,6 +65,10 @@ export interface BoxProps<T extends HTMLElement = HTMLElement>
    * Used to align children along the main axis.
    */
   justifyContent?: FlexJustifyContent;
+  /**
+   * Defines what happens if content overflows the box.
+   */
+  overflow?: Overflow;
   /**
    * Shorthand for `paddingBlock` and `paddingInline` together.
    *
@@ -132,6 +130,7 @@ const Box = forwardRef<HTMLElement, BoxProps>(
       paddingInline,
       position = 'relative',
       height,
+      overflow,
       width,
       UNSAFE_style,
       testId,
@@ -253,6 +252,11 @@ const baseStyles = css({
   appearance: 'none',
   border: 'none',
 });
+
+type Overflow = keyof typeof overflowMap;
+const overflowMap = {
+  auto: css({ overflow: 'auto' }),
+};
 
 const positionMap = {
   absolute: css({ position: 'absolute' }),

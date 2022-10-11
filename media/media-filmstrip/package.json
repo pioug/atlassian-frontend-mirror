@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-filmstrip",
-  "version": "45.0.2",
+  "version": "46.0.0",
   "description": "Includes components that show media cards as a filmstrip",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,27 +27,27 @@
     }
   },
   "dependencies": {
-    "@atlaskit/icon": "^21.10.0",
+    "@atlaskit/icon": "^21.11.0",
     "@atlaskit/media-card": "^74.1.0",
-    "@atlaskit/media-client": "^17.1.0",
+    "@atlaskit/media-client": "^18.0.0",
     "@atlaskit/media-common": "^2.16.0",
     "@atlaskit/theme": "^12.2.0",
     "@babel/runtime": "^7.0.0",
     "debounce": "^1.0.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^33.0.3",
+    "@atlaskit/media-core": "^34.0.0",
     "@emotion/react": "^11.7.1",
     "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/checkbox": "^12.0.0",
+    "@atlaskit/checkbox": "^12.4.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-core": "^33.0.0",
+    "@atlaskit/media-core": "^34.0.0",
     "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/radio": "^5.4.0",
-    "@atlaskit/range": "^6.0.0",
+    "@atlaskit/range": "^6.1.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/debounce": "^1.2.0",

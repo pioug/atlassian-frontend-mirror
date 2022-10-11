@@ -1,4 +1,5 @@
-import { snapshot, initFullPageEditorWithAdf, Device } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import adf from './__fixtures__/embeds-fallback.adf.json';
 import erroredViewAdf from './__fixtures__/embeds-errored.adf.json';
 import { waitForBlockCardSelection } from '@atlaskit/media-integration-test-helpers';

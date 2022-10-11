@@ -382,19 +382,22 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
             ]),
           });
 
-          const tab1 = wrapper.find('#configPanelTabs-tabGroup-0');
-          const tab2 = wrapper.find('#configPanelTabs-tabGroup-1');
+          const tab1 = wrapper.find('#configPanelTabs-tabGroup-0').hostNodes();
+          const tab2 = wrapper.find('#configPanelTabs-tabGroup-1').hostNodes();
 
           // Tab 2 should be selected by default.
-          expect(tab1.prop('aria-selected')).toEqual(false);
-          expect(tab2.prop('aria-selected')).toEqual(true);
+          expect(tab1.hostNodes().prop('aria-selected')).toEqual(false);
+          expect(tab2.hostNodes().prop('aria-selected')).toEqual(true);
 
           // table 2 should be displayed
           expect(wrapper.find('#configPanelTabs-tabGroup-0-tab').length).toBe(
             0,
           );
           expect(
-            wrapper.find('#configPanelTabs-tabGroup-1-tab').prop('hidden'),
+            wrapper
+              .find('#configPanelTabs-tabGroup-1-tab')
+              .hostNodes()
+              .prop('hidden'),
           ).toBeUndefined();
 
           typeInField(
@@ -407,10 +410,16 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
           wrapper.update();
 
           expect(
-            wrapper.find('#configPanelTabs-tabGroup-0-tab').prop('hidden'),
+            wrapper
+              .find('#configPanelTabs-tabGroup-0-tab')
+              .hostNodes()
+              .prop('hidden'),
           ).toBeUndefined();
           expect(
-            wrapper.find('#configPanelTabs-tabGroup-1-tab').prop('hidden'),
+            wrapper
+              .find('#configPanelTabs-tabGroup-1-tab')
+              .hostNodes()
+              .prop('hidden'),
           ).toBe(true);
 
           wrapper

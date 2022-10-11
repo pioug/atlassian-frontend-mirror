@@ -6,7 +6,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { IntlProvider, createIntl } from 'react-intl-next';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
-import { HeadType } from '@atlaskit/dynamic-table/types';
+import { HeadType, RowType } from '@atlaskit/dynamic-table/types';
 import ImageIcon from '@atlaskit/icon-file-type/glyph/image/24';
 import {
   FileState,
@@ -104,6 +104,11 @@ describe('MediaTable', () => {
         content: '',
         width: 10,
       },
+      {
+        key: 'preview',
+        content: '',
+        width: 10,
+      },
     ],
   };
 
@@ -190,6 +195,14 @@ describe('MediaTable', () => {
     }
 
     mediaTable.update();
+
+    expect(mediaTable.find(MediaViewer)).toHaveLength(1);
+    expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should open MediaViewer and call onPreviewOpen when a preview button is clicked', async () => {
+    const { mediaTable } = await setup();
+    mediaTable.find('[data-testid="preview-button"]').first().simulate('click');
 
     expect(mediaTable.find(MediaViewer)).toHaveLength(1);
     expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
@@ -345,7 +358,7 @@ describe('MediaTable', () => {
     const columnLength = mediaTable.find(DynamicTableStateless).prop('head')
       .cells.length;
 
-    expect(columnLength).toEqual(5);
+    expect(columnLength).toEqual(6);
   });
 
   it('should have matching row data length and column length', async () => {
@@ -355,7 +368,7 @@ describe('MediaTable', () => {
     const rowDataLength = mediaTable.find(DynamicTableStateless).prop('rows')[0]
       .cells.length;
 
-    expect(columnLength).toEqual(4);
+    expect(columnLength).toEqual(5);
     expect(rowDataLength).toEqual(columnLength);
   });
 
@@ -386,7 +399,7 @@ describe('MediaTable', () => {
     const rowDataLength = mediaTable.find(DynamicTableStateless).prop('rows')[0]
       .cells.length;
 
-    expect(rowDataLength).toEqual(4);
+    expect(rowDataLength).toEqual(5);
   });
 
   it('should have same number of table rows as rows passed in', async () => {
@@ -567,6 +580,104 @@ describe('MediaTable', () => {
         actionSubject: 'mediaFile',
         actionSubjectId: 'mediaFileRow',
       });
+    });
+  });
+
+  describe('row clicking functionality - On click', () => {
+    it('should trigger onRowClick when present', async () => {
+      const onRowClick = jest.fn();
+      const { mediaTable, createAnalyticsEventSpy } = await setup(true, {
+        ...defaultProps,
+        onRowClick,
+      });
+
+      const rows: RowType[] = mediaTable
+        .find(DynamicTableStateless)
+        .prop('rows');
+
+      if (rows && rows[0].onClick) {
+        rows[0].onClick({} as any);
+      }
+
+      expect(onRowClick).toHaveBeenCalledTimes(1);
+      expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'mediaFile',
+        actionSubjectId: 'mediaFileRow',
+      });
+    });
+
+    it('should prevent openPreview & allow onRowClick when onRowClick returns true', async () => {
+      const onRowClick = jest.fn(() => true);
+      const onPreviewOpen = jest.fn();
+      const { mediaTable } = await setup(true, {
+        ...defaultProps,
+        onRowClick,
+        onPreviewOpen,
+      });
+      const items = defaultProps.items;
+
+      const rows: RowType[] = mediaTable
+        .find(DynamicTableStateless)
+        .prop('rows');
+
+      if (rows && rows[0].onClick) {
+        rows[0].onClick({} as any);
+      }
+
+      expect(onPreviewOpen).toHaveBeenCalledTimes(0);
+      expect(onRowClick).toHaveBeenCalledTimes(1);
+      expect(onRowClick).toHaveBeenCalledWith(items[0].data, 0);
+    });
+  });
+
+  describe('row clicking functionality - Key press (Enter)', () => {
+    it('should trigger onRowClick when present', async () => {
+      const onRowClick = jest.fn();
+      const { mediaTable, createAnalyticsEventSpy } = await setup(true, {
+        ...defaultProps,
+        onRowClick,
+      });
+
+      const rows: RowType[] = mediaTable
+        .find(DynamicTableStateless)
+        .prop('rows');
+
+      if (rows && rows[0].onClick) {
+        rows[0].onKeyPress?.({ key: 'Enter' } as any);
+      }
+
+      expect(onRowClick).toHaveBeenCalledTimes(1);
+      expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
+        eventType: 'ui',
+        action: 'keyPressed',
+        actionSubject: 'mediaFile',
+        actionSubjectId: 'mediaFileRow',
+      });
+    });
+
+    it('should prevent openPreview & allow onRowClick when onRowClick returns true', async () => {
+      const onRowClick = jest.fn(() => true);
+      const onPreviewOpen = jest.fn();
+      const { mediaTable } = await setup(true, {
+        ...defaultProps,
+        onRowClick,
+        onPreviewOpen,
+      });
+      const items = defaultProps.items;
+
+      const rows: RowType[] = mediaTable
+        .find(DynamicTableStateless)
+        .prop('rows');
+
+      if (rows && rows[0].onClick) {
+        rows[0].onKeyPress?.({ key: 'Enter' } as any);
+      }
+
+      expect(onPreviewOpen).toHaveBeenCalledTimes(0);
+      expect(onRowClick).toHaveBeenCalledTimes(1);
+      expect(onRowClick).toHaveBeenCalledWith(items[0].data, 0);
     });
   });
 });

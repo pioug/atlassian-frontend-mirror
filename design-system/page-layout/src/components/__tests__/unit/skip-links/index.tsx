@@ -6,7 +6,7 @@ import noop from '@atlaskit/ds-lib/noop';
 
 import { SkipLinksContext } from '../../../../controllers/skip-link-context';
 import { SkipLinkWrapper, useCustomSkipLink } from '../../../skip-links';
-import Banner from '../../../slots/banner';
+import Banner from '../../../slots/banner-slot';
 import PageLayout from '../../../slots/page-layout';
 
 describe('skip links', () => {

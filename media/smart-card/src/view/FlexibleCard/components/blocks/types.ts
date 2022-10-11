@@ -5,7 +5,7 @@ import {
   SmartLinkSize,
   SmartLinkStatus,
 } from '../../../../constants';
-import { SerializedStyles } from '@emotion/core';
+import { SerializedStyles } from '@emotion/react';
 import { ActionProps } from '../actions/action/types';
 import { Ref } from 'react';
 

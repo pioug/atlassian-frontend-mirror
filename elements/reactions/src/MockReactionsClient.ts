@@ -42,7 +42,7 @@ const defaultUsers = [
   getUser('alunnon', 'Alex Lunnon'),
 ];
 
-const mockData: {
+export const mockData: {
   [key: string]: ReactionSummary[];
 } = {
   [getReactionKey(containerAri, ari)]: [

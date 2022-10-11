@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, HTMLAttributes, Ref } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import useScrollbarWidth from '@atlaskit/ds-lib/use-scrollbar-width';
 

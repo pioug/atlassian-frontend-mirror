@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { ExitingPersistence } from '@atlaskit/motion';
 

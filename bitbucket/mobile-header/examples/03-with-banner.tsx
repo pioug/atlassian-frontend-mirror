@@ -45,7 +45,6 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
     return (
       <div>
         <Banner
-          isOpen
           icon={<WarningIcon label="Warning icon" secondaryColor="inherit" />}
         >
           This is a warning banner

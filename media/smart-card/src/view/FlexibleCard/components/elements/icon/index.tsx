@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 
 import LinkIcon from '@atlaskit/icon/glyph/link';
-import { css, jsx, SerializedStyles } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { IconProps } from './types';
 import {

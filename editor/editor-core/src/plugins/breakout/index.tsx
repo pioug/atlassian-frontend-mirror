@@ -171,15 +171,16 @@ const breakoutPlugin = (options?: BreakoutPluginOptions): EditorPlugin => ({
     return (
       <WithPluginState
         plugins={{
-          pluginState: pluginKey,
+          breakoutPluginState: pluginKey,
+          widthPluginState: widthPluginKey,
         }}
-        render={({ pluginState }) => (
+        render={({ breakoutPluginState }) => (
           <LayoutButton
             editorView={editorView}
             mountPoint={popupsMountPoint}
             boundariesElement={popupsBoundariesElement}
             scrollableElement={popupsScrollableElement}
-            node={pluginState?.breakoutNode ?? null}
+            node={breakoutPluginState?.breakoutNode ?? null}
           />
         )}
       />

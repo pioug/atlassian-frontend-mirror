@@ -641,6 +641,12 @@ export const hasOpenEnd = (slice: Slice): boolean => {
   return slice.openStart > 0 || slice.openEnd > 0;
 };
 
+export const isInsideBlockQuote = (state: EditorState): boolean => {
+  const { blockquote } = state.schema.nodes;
+
+  return hasParentNodeOfType(blockquote)(state.selection);
+};
+
 export function filterChildrenBetween(
   doc: Node,
   from: number,

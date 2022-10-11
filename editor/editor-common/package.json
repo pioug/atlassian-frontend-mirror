@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "69.4.1",
+  "version": "70.0.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -64,25 +64,25 @@
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/code": "^14.3.0",
+    "@atlaskit/code": "^14.4.0",
     "@atlaskit/codemod-utils": "^4.1.0",
     "@atlaskit/editor-json-transformer": "^8.8.0",
     "@atlaskit/editor-shared-styles": "^2.2.0",
-    "@atlaskit/emoji": "^65.2.0",
-    "@atlaskit/icon": "^21.10.0",
+    "@atlaskit/emoji": "^66.0.0",
+    "@atlaskit/icon": "^21.11.0",
     "@atlaskit/in-product-testing": "^0.1.0",
     "@atlaskit/media-card": "^74.1.0",
-    "@atlaskit/media-client": "^17.1.0",
-    "@atlaskit/media-picker": "^63.0.0",
+    "@atlaskit/media-client": "^18.0.0",
+    "@atlaskit/media-picker": "^64.0.0",
     "@atlaskit/mention": "^21.0.0",
     "@atlaskit/menu": "^1.3.0",
     "@atlaskit/profilecard": "^17.2.0",
-    "@atlaskit/smart-card": "^22.2.0",
+    "@atlaskit/smart-card": "^22.3.0",
     "@atlaskit/smart-user-picker": "^6.0.0",
     "@atlaskit/task-decision": "^17.5.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
-    "@atlaskit/tooltip": "^17.5.0",
+    "@atlaskit/tooltip": "^17.6.0",
     "@atlaskit/ufo": "^0.1.0",
     "@atlaskit/width-detector": "^4.0.0",
     "@babel/runtime": "^7.0.0",
@@ -107,7 +107,7 @@
     "react-loadable": "^5.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^33.0.3",
+    "@atlaskit/media-core": "^34.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
@@ -115,7 +115,7 @@
   "devDependencies": {
     "@atlaskit/editor-json-transformer": "^8.8.0",
     "@atlaskit/editor-test-helpers": "^17.2.0",
-    "@atlaskit/media-core": "^33.0.0",
+    "@atlaskit/media-core": "^34.0.0",
     "@atlaskit/util-data-test": "^17.5.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

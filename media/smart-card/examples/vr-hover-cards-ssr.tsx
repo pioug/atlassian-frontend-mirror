@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { VRTestWrapper } from './utils/vr-test';
 import { Provider, Client, ResolveResponse } from '../src';

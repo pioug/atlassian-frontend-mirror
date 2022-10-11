@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 8.6.0
+
+### Minor Changes
+
+- [`ae87a1a6d39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae87a1a6d39) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.9
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { css, jsx, SerializedStyles } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { LinkIcon } from '../../../elements';
 import { TitleBlockViewProps } from '../types';

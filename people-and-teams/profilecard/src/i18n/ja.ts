@@ -39,6 +39,7 @@ export default {
     'アカウントは今週無効になりました。',
   'pt.profile-card.inactive.account.no.date':
     'アカウントは無効になっています。',
+  'pt.profile-card.more-icon-label': 'その他',
   'pt.team-profile-card.directReports.heading': '直属の部下',
   'pt.team-profile-card.error.refresh-button': '再試行',
   'pt.team-profile-card.error.suggestion':

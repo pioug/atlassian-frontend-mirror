@@ -44,7 +44,7 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    const selector = '#appearance-example';
+    const selector = '[data-testid="appearance-example"]';
 
     await loadPage(page, url);
     await page.waitForSelector(selector);

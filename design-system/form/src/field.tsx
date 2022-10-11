@@ -11,7 +11,7 @@ import {
   useState,
 } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { FieldState } from 'final-form';
 import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';

@@ -8,6 +8,7 @@ import {
 } from './types';
 
 import { getProductKeys } from './productKeys';
+import { getConsole } from '../utils/helpers';
 
 export const areEqualFeatureFlags = (
   ffA?: MediaFeatureFlags,
@@ -120,8 +121,7 @@ export function getMediaFeatureFlag<T = boolean>(
 Object.keys(defaultMediaFeatureFlags).forEach((flagName) => {
   const localOverride = getLocalMediaFeatureFlag(flagName);
   if (localOverride !== null) {
-    // eslint-disable-next-line no-console
-    console.info(
+    getConsole().info(
       `%c* LOCAL * MediaFeatureFlag.${flagName} = ${localOverride}`,
       'font-weight:bold;color:cyan',
     );

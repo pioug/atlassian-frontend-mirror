@@ -7,8 +7,8 @@ jest.mock('../../utils/viewportDetector', () => {
     ViewportDetector: jest.fn(({ children }) => <>{children}</>),
   };
 });
-jest.mock('../../root/card/getCardPreview', () => {
-  const actualModule = jest.requireActual('../../root/card/getCardPreview');
+jest.mock('../../card/getCardPreview', () => {
+  const actualModule = jest.requireActual('../../card/getCardPreview');
   return {
     __esModule: true,
     ...actualModule,
@@ -16,16 +16,16 @@ jest.mock('../../root/card/getCardPreview', () => {
     getCardPreviewFromCache: jest.fn(),
   };
 });
-jest.mock('../../root/card/getCardStatus', () => {
-  const actualModule = jest.requireActual('../../root/card/getCardStatus');
+jest.mock('../../card/getCardStatus', () => {
+  const actualModule = jest.requireActual('../../card/getCardStatus');
   return {
     __esModule: true,
     ...actualModule,
     getCardStatus: jest.fn(actualModule.getCardStatus),
   };
 });
-jest.mock('../../root/card/cardAnalytics', () => {
-  const actualModule = jest.requireActual('../../root/card/cardAnalytics');
+jest.mock('../../card/cardAnalytics', () => {
+  const actualModule = jest.requireActual('../../card/cardAnalytics');
   return {
     __esModule: true,
     ...actualModule,
@@ -82,25 +82,27 @@ import {
   expectToEqual,
 } from '@atlaskit/media-test-helpers';
 
-import { CardAction, CardProps, CardState, CardPreview } from '../..';
-import { Card, CardBase, CardBaseProps } from '../../root/card';
-import { CardView } from '../../root/cardView';
-import { InlinePlayerLazy } from '../../root/inlinePlayerLazy';
+import { CardProps, CardState, CardPreview } from '../../types';
+import { CardAction } from '../../card/actions';
+import { CardBase, CardBaseProps, Card } from '../../card/card';
+import { CardView } from '../../card/cardView';
+
+import { InlinePlayerLazy } from '../../card/inlinePlayerLazy';
 import { ViewportDetector } from '../../utils/viewportDetector';
 import {
   getCardPreview,
   getCardPreviewFromCache,
-} from '../../root/card/getCardPreview';
+} from '../../card/getCardPreview';
 import { IntlProvider } from 'react-intl-next';
 import { getFileAttributes } from '../../utils/analytics';
 import { getFileDetails } from '../../utils/metadata';
-import { getCardStatus } from '../../root/card/getCardStatus';
+import { getCardStatus } from '../../card/getCardStatus';
 import {
   fireOperationalEvent,
   fireCopiedEvent,
   fireCommencedEvent,
   fireScreenEvent,
-} from '../../root/card/cardAnalytics';
+} from '../../card/cardAnalytics';
 import { isMediaCardError, MediaCardError } from '../../errors';
 import { CardStatus } from '../../types';
 import getDocument from '../../utils/document';

@@ -36,6 +36,7 @@ import {
   ACTION,
 } from '../../plugins/analytics';
 import { toolbarMessages } from './toolbar-messages';
+import { insideTable, isInLayoutColumn } from '../../utils';
 
 type IconMap = Array<
   | { id?: string; value: string; icon: React.ComponentClass<any> }
@@ -123,6 +124,27 @@ const makeAlign = (layout: MediaSingleLayout, nodeType: NodeType): Command => {
     // when image captions are enabled, the wrong node gets selected after
     // setNodeMarkup is called
     tr.setSelection(NodeSelection.create(tr.doc, state.selection.from));
+
+    const {
+      doc: {
+        type: {
+          schema: {
+            nodes: { paragraph },
+          },
+        },
+      },
+    } = tr;
+
+    // see https://product-fabric.atlassian.net/browse/ED-15518 insert a new paragraph when an embedded card is wrapped left or right
+    if (
+      layout.startsWith('wrap') &&
+      paragraph &&
+      !tr.doc.nodeAt(state.selection.to) &&
+      (insideTable(state) || isInLayoutColumn(state))
+    ) {
+      tr.insert(state.selection.to, paragraph.createAndFill());
+    }
+
     dispatch(
       addAnalytics(state, tr, {
         eventType: EVENT_TYPE.TRACK,

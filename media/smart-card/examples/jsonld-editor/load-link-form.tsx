@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import React, { useCallback, useMemo } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';

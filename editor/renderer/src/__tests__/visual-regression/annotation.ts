@@ -4,12 +4,10 @@ import {
 } from './../__helpers/page-objects/_renderer';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
-  snapshot,
-  initRendererWithADF,
-  Device,
   deviceViewPorts,
-  ViewPortOptions,
-} from './_utils';
+  Device,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initRendererWithADF, ViewPortOptions } from './_utils';
 import { selectors } from '../__helpers/page-objects/_annotation';
 import * as annotationAdf from '../__fixtures__/annotation-adf.json';
 import { ThemeModes } from '@atlaskit/theme/types';

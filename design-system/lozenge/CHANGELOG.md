@@ -1,5 +1,12 @@
 # @atlaskit/lozenge
 
+## 11.2.3
+
+### Patch Changes
+
+- [`3ee63238f49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ee63238f49) - Update internals of Box, Text, Inline and Stack to handle `children` more accurately.
+  Also update scope of `use-primitives` to suggest Box and Text more selectively.
+
 ## 11.2.2
 
 ### Patch Changes

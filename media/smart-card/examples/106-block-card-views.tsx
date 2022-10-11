@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx, css } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { Appearance } from '@atlaskit/button/types';

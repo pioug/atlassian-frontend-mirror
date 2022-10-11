@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { AvatarClickEventHandler } from '@atlaskit/avatar';
 import Lozenge from '@atlaskit/lozenge';
 import { MouseEvent } from 'react';

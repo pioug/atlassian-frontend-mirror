@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import React, { useCallback, useState } from 'react';
 import { FlexibleTemplate } from './flexible-builder/types';
 import Code from './flexible-builder/code';

@@ -90,7 +90,7 @@ const Clone = (props: CloneProps) => {
         dangerouslySetInnerHTML={{
           __html: cloneAndOverrideStyles(targetNode).outerHTML,
         }}
-        style={{ pointerEvents: 'none' }}
+        style={{ height: '100%', pointerEvents: 'none' }}
       />
       <TargetOverlay
         onClick={

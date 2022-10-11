@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import CardExample from './jsonld-editor/card-example';
 import JsonldExample from './jsonld-editor/jsonld-example';
 import LoadLinkForm from './jsonld-editor/load-link-form';

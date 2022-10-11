@@ -2,7 +2,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import AvatarGroup from '..';
 
 describe('Element: Avatar Group', () => {

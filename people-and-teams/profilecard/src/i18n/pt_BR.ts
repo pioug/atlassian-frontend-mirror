@@ -39,6 +39,7 @@ export default {
     'A conta do usuário foi desativada nesta semana.',
   'pt.profile-card.inactive.account.no.date':
     'A conta do usuário foi desativada.',
+  'pt.profile-card.more-icon-label': 'Mais',
   'pt.team-profile-card.directReports.heading': 'Relatórios diretos',
   'pt.team-profile-card.error.refresh-button': 'Tentar novamente',
   'pt.team-profile-card.error.suggestion':

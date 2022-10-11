@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, useCallback } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Avatar, {
   ACTIVE_SCALE_FACTOR,

@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { Fragment } from 'react';
+
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
@@ -55,15 +57,16 @@ export default () => {
                 paddingInline="sp-150"
                 backgroundColor={[app, '']}
               >
-                <InteractionSurface />
-                <Text
-                  textAlign="center"
-                  fontSize="14px"
-                  lineHeight="32px"
-                  fontWeight="500"
-                >
-                  {app}
-                </Text>
+                <InteractionSurface>
+                  <Text
+                    textAlign="center"
+                    fontSize="14px"
+                    lineHeight="32px"
+                    fontWeight="500"
+                  >
+                    {app}
+                  </Text>
+                </InteractionSurface>
               </Box>
             </FocusRing>
           ))}
@@ -81,12 +84,13 @@ export default () => {
               position="relative"
               padding="sp-50"
             >
-              <InteractionSurface />
-              <WarningIcon
-                label="icon button"
-                primaryColor={token('color.icon.inverse')}
-                secondaryColor={token('color.background.brand.bold')}
-              />
+              <InteractionSurface>
+                <WarningIcon
+                  label="icon button"
+                  primaryColor={token('color.icon.inverse')}
+                  secondaryColor={token('color.background.brand.bold')}
+                />
+              </InteractionSurface>
             </Box>
           </FocusRing>
           <FocusRing>
@@ -98,9 +102,9 @@ export default () => {
               position="relative"
               padding="sp-50"
             >
-              <InteractionSurface />
-
-              <WarningIcon label="icon button" />
+              <InteractionSurface>
+                <WarningIcon label="icon button" />
+              </InteractionSurface>
             </Box>
           </FocusRing>
           <FocusRing>
@@ -112,12 +116,13 @@ export default () => {
               position="relative"
               padding="sp-50"
             >
-              <InteractionSurface />
-              <WarningIcon
-                label="icon button"
-                primaryColor={token('color.icon.warning.inverse')}
-                secondaryColor={token('color.background.warning.bold')}
-              />
+              <InteractionSurface>
+                <WarningIcon
+                  label="icon button"
+                  primaryColor={token('color.icon.warning.inverse')}
+                  secondaryColor={token('color.background.warning.bold')}
+                />
+              </InteractionSurface>
             </Box>
           </FocusRing>
         </Inline>
@@ -136,7 +141,9 @@ export default () => {
                 position="relative"
                 padding="sp-50"
               >
-                <InteractionSurface />
+                <InteractionSurface>
+                  <Fragment />
+                </InteractionSurface>
               </Box>
             </FocusRing>
           ))}
@@ -157,7 +164,7 @@ export default () => {
           >
             <input
               id="textfield"
-              pattern="[\d+]"
+              pattern="\d+"
               style={{
                 padding: 0,
                 border: 'none',

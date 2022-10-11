@@ -1,4 +1,4 @@
-import { withAppearance } from '../../../styles';
+import { withAppearance } from '../../../card/styles';
 
 describe('withAppearance', () => {
   const horizontalStyles = `

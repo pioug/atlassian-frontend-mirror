@@ -42,6 +42,7 @@ function replaceLinksToCards(
   schema: Schema,
   request: Request,
 ): string | undefined {
+  const { inlineCard } = schema.nodes;
   const { url } = request;
 
   if (!isSafeUrl(url)) {
@@ -64,7 +65,12 @@ function replaceLinksToCards(
     return;
   }
 
+  // ED-5638: add an extra space after inline cards to avoid re-rendering them
   const nodes = [cardAdf];
+  if (cardAdf.type === inlineCard) {
+    nodes.push(schema.text(' '));
+  }
+
   tr.replaceWith(pos, pos + (node.text || url).length, nodes);
 
   return $pos.node($pos.depth - 1).type.name;

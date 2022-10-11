@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import React, { useCallback } from 'react';
 import { Field } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';

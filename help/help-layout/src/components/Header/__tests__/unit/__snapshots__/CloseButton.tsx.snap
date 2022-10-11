@@ -145,7 +145,7 @@ exports[`BackButton Should match snapshot 1`] = `
   height: 24px;
 }
 
-.emotion-0 > svg {
+.emotion-0 >svg {
   overflow: hidden;
   pointer-events: none;
   max-width: 100%;
@@ -155,12 +155,12 @@ exports[`BackButton Should match snapshot 1`] = `
   vertical-align: bottom;
 }
 
-.emotion-0 > svg stop {
+.emotion-0 >svg stop {
   stop-color: currentColor;
 }
 
-@media screen and (forced-colors:active) {
-  .emotion-0 > svg {
+@media screen and (forced-colors: active) {
+  .emotion-0 >svg {
     -webkit-filter: grayscale(1);
     filter: grayscale(1);
     --icon-primary-color: CanvasText;
@@ -168,7 +168,7 @@ exports[`BackButton Should match snapshot 1`] = `
   }
 }
 
-.emotion-0 > svg {
+.emotion-0 >svg {
   width: 24px;
   height: 24px;
 }

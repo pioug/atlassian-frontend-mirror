@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React, { memo } from 'react';
 
 import {
@@ -18,9 +19,9 @@ afterEach(cleanup);
 const renderTabs = (overridingProps: Partial<TabsProps> = {}) => (
   <Tabs id="test" {...overridingProps}>
     <TabList>
-      <Tab>Tab 1 label</Tab>
-      <Tab>Tab 2 label</Tab>
-      <Tab>Tab 3 label</Tab>
+      <Tab testId="tab-1">Tab 1 label</Tab>
+      <Tab testId="tab-2">Tab 2 label</Tab>
+      <Tab testId="tab-3">Tab 3 label</Tab>
     </TabList>
     <TabPanel>Tab 1 panel</TabPanel>
     <TabPanel>Tab 2 panel</TabPanel>
@@ -204,61 +205,69 @@ describe('@atlaskit/tabs', () => {
 
       describe('selected', () => {
         it('should set the selected tab on initial mount', () => {
-          const { getByText } = render(renderTabs({ selected: 1 }));
+          const { getByText, getByTestId } = render(
+            renderTabs({ selected: 1 }),
+          );
           expect(
-            getByText('Tab 2 label').getAttribute('aria-selected'),
+            getByTestId('tab-2').getAttribute('aria-selected'),
           ).toBeTruthy();
           expect(getByText('Tab 2 panel')).toBeTruthy();
         });
 
         it('should take precedence over defaultSelected', () => {
-          const { getByText } = render(
+          const { getByText, getByTestId } = render(
             renderTabs({ selected: 1, defaultSelected: 2 }),
           );
           expect(
-            getByText('Tab 2 label').getAttribute('aria-selected'),
+            getByTestId('tab-2').getAttribute('aria-selected'),
           ).toBeTruthy();
           expect(getByText('Tab 2 panel')).toBeTruthy();
         });
 
         it('changing this prop should update the selected tab after the initial mount', () => {
-          const { getByText, rerender } = render(renderTabs({ selected: 1 }));
+          const { getByText, getByTestId, rerender } = render(
+            renderTabs({ selected: 1 }),
+          );
 
           rerender(renderTabs({ selected: 2 }));
 
           expect(
-            getByText('Tab 3 label').getAttribute('aria-selected'),
+            getByTestId('tab-3').getAttribute('aria-selected'),
           ).toBeTruthy();
           expect(getByText('Tab 3 panel')).toBeTruthy();
         });
 
         it('should default to the first tab if neither selected nor defaultSelected are set', () => {
-          const { getByText } = render(renderTabs());
+          const { getByText, getByTestId } = render(renderTabs());
           expect(
-            getByText('Tab 1 label').getAttribute('aria-selected'),
+            getByTestId('tab-1').getAttribute('aria-selected'),
           ).toBeTruthy();
           expect(getByText('Tab 1 panel')).toBeTruthy();
         });
 
         describe("setting this prop should make the component 'controlled'", () => {
           it('should listen to selected prop if defined', () => {
-            const { getByText } = render(renderTabs({ selected: 1 }));
-            getByText('Tab 1 label').click();
+            const { getByTestId, getByText } = render(
+              renderTabs({ selected: 1 }),
+            );
+            getByTestId('tab-1').click();
 
             expect(
-              getByText('Tab 2 label').getAttribute('aria-selected'),
+              getByTestId('tab-2').getAttribute('aria-selected'),
             ).toBeTruthy();
             expect(getByText('Tab 2 panel')).toBeTruthy();
           });
 
           it('should maintain its own internal state in case selected is not provided', () => {
-            const { getByText, rerender } = render(renderTabs({ selected: 1 }));
-            getByText('Tab 1 label').click();
+            const { getByTestId, getByText, rerender } = render(
+              renderTabs({ selected: 1 }),
+            );
+            getByTestId('tab-1').click();
 
             rerender(renderTabs());
 
             expect(
-              getByText('Tab 1 label').getAttribute('aria-selected'),
+              getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
             expect(getByText('Tab 1 panel')).toBeTruthy();
           });
@@ -297,11 +306,11 @@ describe('@atlaskit/tabs', () => {
       });
       describe('id', () => {
         it('maps id correctly', () => {
-          const { getByText } = render(renderTabs());
+          const { getByTestId, getByText } = render(renderTabs());
 
-          expect(getByText('Tab 1 label').id).toBe('test-0');
-          expect(getByText('Tab 2 label').id).toBe('test-1');
-          expect(getByText('Tab 3 label').id).toBe('test-2');
+          expect(getByTestId('tab-1').id).toBe('test-0');
+          expect(getByTestId('tab-2').id).toBe('test-1');
+          expect(getByTestId('tab-3').id).toBe('test-2');
           expect(getByText('Tab 1 panel').id).toBe('test-0-tab');
         });
       });
@@ -317,7 +326,7 @@ describe('@atlaskit/tabs', () => {
             onChange = jest.fn();
             wrapper = render(renderTabs({ defaultSelected: 1, onChange }));
             expect(
-              wrapper.getByText('Tab 2 label').getAttribute('aria-selected'),
+              wrapper.getByTestId('tab-2').getAttribute('aria-selected'),
             ).toBe('true');
             expect(wrapper.getByText('Tab 2 panel')).toBeTruthy();
           });
@@ -334,7 +343,7 @@ describe('@atlaskit/tabs', () => {
             simulateKeyboardNav(2, 'ArrowLeft');
 
             expect(
-              wrapper.getByText('Tab 1 label').getAttribute('aria-selected'),
+              wrapper.getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
             expect(wrapper.getByText('Tab 1 panel')).toBeTruthy();
             expect(onChange).toHaveBeenCalledTimes(1);
@@ -348,7 +357,7 @@ describe('@atlaskit/tabs', () => {
             simulateKeyboardNav(2, 'ArrowRight');
 
             expect(
-              wrapper.getByText('Tab 3 label').getAttribute('aria-selected'),
+              wrapper.getByTestId('tab-3').getAttribute('aria-selected'),
             ).toBeTruthy();
             expect(wrapper.getByText('Tab 3 panel')).toBeTruthy();
             expect(onChange).toHaveBeenCalledTimes(1);
@@ -363,7 +372,7 @@ describe('@atlaskit/tabs', () => {
             simulateKeyboardNav(1, 'ArrowLeft');
 
             expect(
-              wrapper.getByText('Tab 3 label').getAttribute('aria-selected'),
+              wrapper.getByTestId('tab-3').getAttribute('aria-selected'),
             ).toBeTruthy();
             expect(wrapper.getByText('Tab 3 panel')).toBeTruthy();
             expect(onChange).toHaveBeenCalledTimes(2);
@@ -378,7 +387,7 @@ describe('@atlaskit/tabs', () => {
             simulateKeyboardNav(3, 'ArrowRight');
 
             expect(
-              wrapper.getByText('Tab 1 label').getAttribute('aria-selected'),
+              wrapper.getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
             expect(wrapper.getByText('Tab 1 panel')).toBeTruthy();
             expect(onChange).toHaveBeenCalledTimes(2);
@@ -392,7 +401,7 @@ describe('@atlaskit/tabs', () => {
             simulateKeyboardNav(2, 'Home');
 
             expect(
-              wrapper.getByText('Tab 1 label').getAttribute('aria-selected'),
+              wrapper.getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
             expect(wrapper.getByText('Tab 1 panel')).toBeTruthy();
             expect(onChange).toHaveBeenCalledTimes(1);
@@ -406,7 +415,7 @@ describe('@atlaskit/tabs', () => {
             simulateKeyboardNav(2, 'End');
 
             expect(
-              wrapper.getByText('Tab 3 label').getAttribute('aria-selected'),
+              wrapper.getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
             expect(wrapper.getByText('Tab 3 panel')).toBeTruthy();
             expect(onChange).toHaveBeenCalledTimes(1);

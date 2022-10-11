@@ -87,6 +87,18 @@ export class MockNonUploadingEmojiResource
     return this.promiseBuilder(emoji, 'findByShortName');
   }
 
+  fetchByEmojiId(
+    emojiId: EmojiId,
+    optimistic: boolean,
+  ): Promise<OptionalEmojiDescription> | OptionalEmojiDescription {
+    const { id, shortName } = emojiId;
+    if (id) {
+      const emoji = this.emojiRepository.findById(id);
+      return this.promiseBuilder(emoji, 'fetchByEmojiId');
+    }
+    return this.emojiRepository.findByShortName(shortName);
+  }
+
   findByEmojiId(
     emojiId: EmojiId,
   ): Promise<OptionalEmojiDescription> | OptionalEmojiDescription {

@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 7.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.6.1
 
 ### Patch Changes

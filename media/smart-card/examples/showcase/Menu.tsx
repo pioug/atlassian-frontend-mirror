@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import Select, { OptionsType } from '@atlaskit/select';
 import { N50A, N40A, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

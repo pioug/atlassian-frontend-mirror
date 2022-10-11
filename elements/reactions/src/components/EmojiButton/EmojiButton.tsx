@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
+import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/core';
 import {
   EmojiId,
@@ -7,7 +8,7 @@ import {
   EmojiProvider,
   ResourcedEmoji,
 } from '@atlaskit/emoji';
-import { utils } from '../../shared';
+import { i18n, utils } from '../../shared';
 import * as styles from './styles';
 
 export const RENDER_BUTTON_TESTID = 'button-emoji-id';
@@ -42,11 +43,15 @@ export const EmojiButton: React.FC<EmojiButtonProps> = ({
     }
   };
 
+  const intl = useIntl();
+
   return (
     <button
       data-testid={RENDER_BUTTON_TESTID}
       onClick={onButtonClick}
-      title={emojiId.shortName}
+      aria-label={intl.formatMessage(i18n.messages.reactWithEmoji, {
+        emoji: emojiId.shortName,
+      })}
       type="button"
       css={styles.emojiButtonStyle}
     >

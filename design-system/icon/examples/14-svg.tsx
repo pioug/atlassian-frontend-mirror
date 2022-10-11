@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { B300, G300 } from '@atlaskit/theme/colors';
 import type { SVGProps } from '@atlaskit/icon/types';

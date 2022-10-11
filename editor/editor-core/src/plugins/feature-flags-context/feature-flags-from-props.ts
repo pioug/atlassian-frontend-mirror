@@ -38,6 +38,11 @@ function getSpellCheck(featureFlags: {
 export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
   const normalizedFeatureFlags = normalizeFeatureFlags(props.featureFlags);
 
+  const tableCellOptionsInFloatingToolbar =
+    normalizedFeatureFlags.tableCellOptionsInFloatingToolbar ||
+    props.featureFlags?.tableCellOptionsInFloatingToolbar ||
+    undefined;
+
   return {
     ...normalizedFeatureFlags,
 
@@ -202,6 +207,11 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? props.featureFlags['view-changing-experiment-toolbar-style'] ||
           undefined
         : undefined,
+
+    tableCellOptionsInFloatingToolbar:
+      typeof tableCellOptionsInFloatingToolbar === 'boolean'
+        ? tableCellOptionsInFloatingToolbar
+        : false,
 
     showHoverPreview: Boolean(
       typeof props.featureFlags?.showHoverPreview === 'boolean'

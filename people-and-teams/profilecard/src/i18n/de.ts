@@ -40,6 +40,7 @@ export default {
     'Das Konto dieser Person wurde diese Woche deaktiviert.',
   'pt.profile-card.inactive.account.no.date':
     'Das Konto dieser Person wurde deaktiviert.',
+  'pt.profile-card.more-icon-label': 'Mehr',
   'pt.team-profile-card.directReports.heading': 'Direkt unterstellt',
   'pt.team-profile-card.error.refresh-button': 'Versuchen Sie es erneut.',
   'pt.team-profile-card.error.suggestion':

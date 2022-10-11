@@ -1,5 +1,11 @@
 # @atlaskit/date
 
+## 0.9.6
+
+### Patch Changes
+
+- [`8f1264a6bc8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f1264a6bc8) - Updated date lozenge component from styled components to use Emotion CSS
+
 ## 0.9.5
 
 ### Patch Changes

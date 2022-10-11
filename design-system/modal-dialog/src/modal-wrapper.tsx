@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import FocusLock from 'react-focus-lock';
 import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 

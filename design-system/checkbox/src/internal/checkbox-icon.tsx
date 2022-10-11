@@ -1,7 +1,7 @@
 /**  @jsx jsx */
 import { memo, useMemo } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import PrimitiveSVGIcon from '@atlaskit/icon/svg';
 

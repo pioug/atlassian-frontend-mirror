@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.8.3
+
+### Patch Changes
+
+- [`ba5370e80b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba5370e80b4) - Update table row background color on drag to better match design token semantics
+
 ## 14.8.2
 
 ### Patch Changes

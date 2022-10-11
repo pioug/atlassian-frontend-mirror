@@ -1,5 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF, Device } from './_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initRendererWithADF } from './_utils';
 import { selectors } from '../__helpers/page-objects/_unsupported-nodes';
 import * as unsupportedBlockPanelAdf from '../__fixtures__/unsupported-block.adf.json';
 

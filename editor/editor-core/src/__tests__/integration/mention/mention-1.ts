@@ -116,7 +116,7 @@ BrowserTestCase(
 
     await page.type(editable, '@');
     await page.waitForSelector(typeAheadPicker);
-    await page.keys(['ArrowDown', 'Enter']);
+    await page.keys(['ArrowDown', 'ArrowDown', 'Enter']); // To selet the second item the menu
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },

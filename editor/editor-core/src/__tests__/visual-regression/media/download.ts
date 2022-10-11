@@ -1,4 +1,5 @@
-import { snapshot, Device, initFullPageEditorWithAdf } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import * as mediaGroup from './__fixtures__/mediaGroup.adf.json';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

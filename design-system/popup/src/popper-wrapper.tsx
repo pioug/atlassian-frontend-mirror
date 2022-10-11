@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, useMemo, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { Popper } from '@atlaskit/popper';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';

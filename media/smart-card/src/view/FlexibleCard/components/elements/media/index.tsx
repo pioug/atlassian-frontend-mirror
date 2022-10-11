@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import ImageIcon from '../../common/image-icon';
 import { MediaProps } from './types';

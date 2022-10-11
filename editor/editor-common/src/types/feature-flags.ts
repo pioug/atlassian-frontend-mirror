@@ -302,6 +302,13 @@ export type FeatureFlags = {
   chromeCursorHandlerFixedVersion?: number;
 
   /**
+   * Enable table cell options in the floating toolbar
+   * @see https://product-fabric.atlassian.net/browse/ED-14418
+   * @default false
+   */
+  tableCellOptionsInFloatingToolbar?: boolean;
+
+  /**
    * Number to distinguish between which different toolbar is being displayed
    * as part of the smart link view changing experiment run by the Linking Platform.
    * @see https://product-fabric.atlassian.net/browse/EDM-2640

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { css, Global, jsx } from '@emotion/core';
+import { css, Global, jsx } from '@emotion/react';
 
 import Page from '@atlaskit/page';
 import SectionMessage from '@atlaskit/section-message';

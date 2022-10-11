@@ -19,7 +19,7 @@ import { ImageResizeMode } from '@atlaskit/media-client';
 import Toggle from '@atlaskit/toggle';
 import Range from '@atlaskit/range';
 import * as exenv from 'exenv';
-import { CardView } from '../src/root/cardView';
+import { CardView } from '../src/card/cardView';
 import { CardAppearance, CardStatus, CardDimensions, CardAction } from '../src';
 import {
   openAction,

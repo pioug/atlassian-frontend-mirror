@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import Popup from '@atlaskit/popup';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import React, { FC, useCallback, useRef } from 'react';
 import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkActions';
 import { useSmartLinkRenderers } from '../../../state/renderers';

@@ -1,4 +1,4 @@
-import { LRUCache } from 'lru-fast';
+import { LRUMap } from 'lru_map';
 import { Interpreter } from 'xstate';
 
 import {
@@ -8,7 +8,7 @@ import {
 } from './stateMachine/types';
 
 export function createServicesCache() {
-  return new LRUCache<
+  return new LRUMap<
     string,
     Interpreter<
       StateMachineContext,

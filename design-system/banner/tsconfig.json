@@ -4,6 +4,7 @@
     "__perf__",
     "./src/**/*.ts",
     "./src/**/*.tsx",
+    "./codemods/**/*.tsx",
     "./docs/**/*.ts",
     "./docs/**/*.tsx",
     "./examples/**/*.ts",

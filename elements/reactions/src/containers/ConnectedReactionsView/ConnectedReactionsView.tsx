@@ -19,7 +19,7 @@ import {
 } from '../../types';
 
 export interface ConnectedReactionsViewProps
-  extends Pick<ReactionsProps, 'quickReactionEmojiIds'>,
+  extends Pick<ReactionsProps, 'quickReactionEmojis'>,
     Pick<ReactionPickerProps, 'pickerQuickReactionEmojiIds'> {
   /**
    * Provider for loading emojis

@@ -21,6 +21,10 @@ Object {
           },
           "type": "inlineCard",
         },
+        Object {
+          "text": " ",
+          "type": "text",
+        },
       ],
       "type": "paragraph",
     },

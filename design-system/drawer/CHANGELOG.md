@@ -1,5 +1,16 @@
 # @atlaskit/drawer
 
+## 7.3.0
+
+### Minor Changes
+
+- [`b975291711b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b975291711b) - Add zindex as prop to drawer
+
+### Patch Changes
+
+- [`a0653d05aa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0653d05aa0) - Add `testId` prop to internal blanket component, passthrough `testId` from Drawer to Blanket for testing purposes. No behaviour change.
+- Updated dependencies
+
 ## 7.2.1
 
 ### Patch Changes

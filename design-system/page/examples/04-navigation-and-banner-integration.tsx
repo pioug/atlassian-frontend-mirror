@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-deprecated-apis */
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/standard-button';
@@ -12,29 +12,29 @@ import Page, { Grid } from '../src';
 import { ButtonWrapper } from './common/button-wrapper';
 
 const NavigationExample = () => {
-  const errorBannerRef = useRef<HTMLElement>();
-  const announcementBannerRef = useRef<HTMLElement>();
+  const errorBannerRef = useRef<HTMLDivElement>(null);
+  const announcementBannerRef = useRef<HTMLDivElement>(null);
 
   const [isErrorBannerOpen, setIsErrorBannerOpen] = useState(false);
   const [isAnnouncementBannerOpen, setIsAnnouncementBannerOpen] = useState(
     false,
   );
+  const [offset, setOffset] = useState(0);
 
-  const offset = useMemo(() => {
+  useEffect(() => {
     const errorBannerHeight = errorBannerRef?.current?.clientHeight ?? 0;
     const announcementBannerHeight =
       announcementBannerRef?.current?.clientHeight ?? 0;
 
-    let offset = 0;
+    let tempOffset = 0;
     if (isErrorBannerOpen) {
-      offset += errorBannerHeight;
+      tempOffset += errorBannerHeight;
     }
     if (isAnnouncementBannerOpen) {
-      offset += announcementBannerHeight;
+      tempOffset += announcementBannerHeight;
     }
-
-    return offset;
-  }, [isAnnouncementBannerOpen, isErrorBannerOpen]);
+    setOffset(tempOffset);
+  }, [isErrorBannerOpen, isAnnouncementBannerOpen]);
 
   const toggleErrorBanner = useCallback(
     () => setIsErrorBannerOpen((isOpen) => !isOpen),
@@ -56,28 +56,20 @@ const NavigationExample = () => {
         bannerHeight={offset}
         banner={
           <>
-            <Banner
-              appearance="error"
-              isOpen={isErrorBannerOpen}
-              innerRef={(ref: HTMLElement) => {
-                errorBannerRef.current = ref;
-              }}
-            >
-              Example Banner
-            </Banner>
-            <Banner
-              appearance="announcement"
-              isOpen={isAnnouncementBannerOpen}
-              innerRef={(ref: HTMLElement) => {
-                announcementBannerRef.current = ref;
-              }}
-            >
-              <p>What if we have two?</p>
-              <p>Can we render this?</p>
-              <p>Will it work if this expands?</p>
-              <p>To maximum length?</p>
-              <p>Yes, we can!</p>
-            </Banner>
+            {isErrorBannerOpen && (
+              <Banner appearance="error" ref={errorBannerRef}>
+                Example Banner
+              </Banner>
+            )}
+            {isAnnouncementBannerOpen && (
+              <Banner appearance="announcement" ref={announcementBannerRef}>
+                <p>What if we have two?</p>
+                <p>Can we render this?</p>
+                <p>Will it work if this expands?</p>
+                <p>To maximum length?</p>
+                <p>Yes, we can!</p>
+              </Banner>
+            )}
           </>
         }
         navigation={

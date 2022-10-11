@@ -156,8 +156,6 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, {}> {
         scrollableElement={scrollableElement}
         stick={true}
         forcePlacement={true}
-        scheduleExtraLayoutUpdates={true}
-        waitForExtraLayoutUpdates={true}
       >
         <div css={toolbarButtonWrapper}>
           <ToolbarButton

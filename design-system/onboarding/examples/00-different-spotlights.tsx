@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import UndoIcon from '@atlaskit/icon/glyph/editor/undo';
@@ -79,7 +79,7 @@ export default () => {
       <SpotlightCard
         heading="Switch it up"
         headingAfterElement={
-          <Button iconBefore={<UndoIcon label="undo" />} appearance="subtle">
+          <Button iconBefore={<UndoIcon label="" />} appearance="subtle">
             Replay
           </Button>
         }

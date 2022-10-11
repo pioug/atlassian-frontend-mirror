@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { N10, N500 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { imageFileId } from '@atlaskit/media-test-helpers';
-import { Card } from '../../root/card';
+import { Card } from '../../card/card';
 import { tallImage, createMediaStoreError } from '@atlaskit/media-test-helpers';
 import { MediaClient } from '@atlaskit/media-client';
 import {

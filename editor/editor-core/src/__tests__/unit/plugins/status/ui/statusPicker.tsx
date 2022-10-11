@@ -169,18 +169,38 @@ describe('StatusPicker', () => {
       expect(preventDefault).toHaveBeenCalled();
       expect(onEnter).toHaveBeenCalled();
     });
+    describe('close status picker', () => {
+      let windowSpy: jest.MockInstance<any, any[]>;
+      let map: any;
+      beforeEach(() => {
+        windowSpy = jest.spyOn(window, 'getSelection');
+        registerListenersAndMountPicker();
+      });
+      afterEach(() => jest.clearAllMocks());
 
-    it('should fire props.close callback when user clicks outside the popup', () => {
-      const map: any = {};
-      registerDocumentListeners(map);
+      const registerListenersAndMountPicker = () => {
+        map = {};
+        registerDocumentListeners(map);
+        mountStatusPicker();
+      };
 
-      mountStatusPicker();
+      it('should fire props.close callback when user clicks outside the popup', () => {
+        windowSpy.mockImplementation(() => null);
+        // simulate user clicking outside the popup
+        map.click({ ...event, target: document.createElement('BUTTON') });
+        expect(preventDefault).toHaveBeenCalled();
+        expect(closeStatusPicker).toHaveBeenCalled();
+      });
 
-      // simulate user clicking outside the popup
-      map.click({ ...event, target: document.createElement('BUTTON') });
-
-      expect(preventDefault).toHaveBeenCalled();
-      expect(closeStatusPicker).toHaveBeenCalled();
+      it('should NOT fire props.close callback when user selecting text and mouseup outside popup', () => {
+        windowSpy.mockImplementation(() => ({
+          key: 'here',
+        }));
+        // simulate user clicking outside the popup
+        map.click({ ...event, target: document.createElement('BUTTON') });
+        expect(preventDefault).toHaveBeenCalled();
+        expect(closeStatusPicker).not.toHaveBeenCalled();
+      });
     });
   });
 });

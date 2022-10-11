@@ -241,7 +241,7 @@ describe('<Spotlight />', () => {
     );
 
     expect(getByTestId('spotlight--target')).toHaveStyle(
-      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55,0.055,0.675,0.19) infinite`,
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
     );
   });
 
@@ -268,7 +268,7 @@ describe('<Spotlight />', () => {
     );
 
     expect(getByTestId('spotlight--target')).not.toHaveStyle(
-      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55,0.055,0.675,0.19) infinite`,
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
     );
   });
 
@@ -286,7 +286,7 @@ describe('<Spotlight />', () => {
     );
 
     expect(getByTestId('spotlight-pulse')).not.toHaveStyle(
-      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55,0.055,0.675,0.19) infinite`,
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
     );
   });
 
@@ -304,7 +304,7 @@ describe('<Spotlight />', () => {
     );
 
     expect(getByTestId('spotlight-pulse')).toHaveStyle(
-      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55,0.055,0.675,0.19) infinite`,
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
     );
   });
 });

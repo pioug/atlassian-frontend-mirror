@@ -1,6 +1,6 @@
 import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
 import Dataloader from 'dataloader';
-import { LRUCache } from 'lru-fast';
+import { LRUMap } from 'lru_map';
 import { Interpreter } from 'xstate';
 
 import { UploadingFileState } from '../models/file-state';
@@ -30,7 +30,7 @@ import {
 import { MediaStore } from './media-store';
 export class MobileUploadImpl implements MobileUpload {
   private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
-  private readonly servicesCache: LRUCache<
+  private readonly servicesCache: LRUMap<
     string,
     Interpreter<
       StateMachineContext,
@@ -82,7 +82,7 @@ export class MobileUploadImpl implements MobileUpload {
 
     const subject = createMobileFileStateSubject(service);
 
-    this.servicesCache.put(fileId, service);
+    this.servicesCache.set(fileId, service);
     getFileStreamsCache().set(fileId, subject);
   }
 

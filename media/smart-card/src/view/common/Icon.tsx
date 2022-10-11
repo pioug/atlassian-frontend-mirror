@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import React from 'react';
 import ImageLoader from 'react-render-image';
 import LinkIcon from '@atlaskit/icon/glyph/link';

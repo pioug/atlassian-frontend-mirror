@@ -1,9 +1,8 @@
 import {
-  snapshot,
-  Device,
-  initRendererWithADF,
   deviceViewPorts,
-} from '../_utils';
+  Device,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initRendererWithADF } from '../_utils';
 import resizeAdf from './__fixtures__/renderer-media.adf.json';
 import commentRendererAdf from './__fixtures__/comment-renderer-media-adf.json';
 import wrappedCommentRendererAdf from './__fixtures__/comment-renderer-wrapped-media.adf.json';

@@ -74,7 +74,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
     const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
 
-    const firstEmoji = selectorButtons.at(0);
+    const firstEmoji = selectorButtons[0];
     expect(firstEmoji).toBeDefined();
     if (firstEmoji) {
       fireEvent.click(firstEmoji);

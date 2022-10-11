@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import type { CustomGlyphProps } from '../../src/types';
 import Icon from '../../src';
 import { B500, Y500 } from '@atlaskit/theme/colors';

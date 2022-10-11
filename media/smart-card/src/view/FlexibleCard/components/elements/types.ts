@@ -1,4 +1,4 @@
-import { SerializedStyles } from '@emotion/core';
+import { SerializedStyles } from '@emotion/react';
 
 import { ElementName, SmartLinkSize } from '../../../../constants';
 

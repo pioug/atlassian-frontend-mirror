@@ -99,6 +99,24 @@ describe('placeholder', () => {
 
       expectNoPlaceholder(editorView);
     });
+
+    it("shouldn't render placeholder while composition", async () => {
+      const { editorView } = await hintPlaceholderEditor(
+        doc(p('Hello World'), p('{<>}')),
+      );
+
+      const container = document.createTextNode('');
+      //@ts-ignore
+      jest.spyOn(editorView.root, 'getSelection').mockImplementation(() => ({
+        focusNode: container,
+      }));
+
+      expectPlaceHolderWithText(editorView, slashPlaceholder);
+      editorView.dom.dispatchEvent(new CompositionEvent('compositionstart'));
+      expectNoPlaceholder(editorView);
+      editorView.dom.dispatchEvent(new CompositionEvent('compositionend'));
+      expectPlaceHolderWithText(editorView, slashPlaceholder);
+    });
   });
 
   describe('Bracket placeholder', () => {

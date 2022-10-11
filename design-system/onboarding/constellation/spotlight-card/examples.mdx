@@ -5,6 +5,7 @@ order: 0
 ---
 
 import SpotlightCardDefault from '../../examples/constellation/spotlight-card-default';
+import SpotlightCardRichText from '../../examples/constellation/spotlight-card-rich-text';
 import SpotlightCardFlat from '../../examples/constellation/spotlight-card-flat';
 import SpotlightCardActions from '../../examples/constellation/spotlight-card-actions';
 import SpotlightCardActionsBefore from '../../examples/constellation/spotlight-card-actions-before';
@@ -15,9 +16,15 @@ import SpotlightCardWidth from '../../examples/constellation/spotlight-card-widt
 
 ## Default
 
-A spotlight card shows onboarding messages without requiring a dialog and target element the way [spotlight](/components/onboarding) does. Spotlight cards are also less opinionated about the layout of child elements, so you are able to design more bespoke experiences.
+A spotlight card shows onboarding messages without requiring a dialog and target element the way [spotlight](/components/onboarding) does. Spotlight cards are generally more flexible, so you can design more bespoke experiences as seen in the other examples below.
 
 <Example Component={SpotlightCardDefault} packageName="@atlaskit/onboarding" />
+
+## Rich text
+
+To display rich text messages, wrap the content with a block level element, such as a `div`.
+
+<Example Component={SpotlightCardRichText} packageName="@atlaskit/onboarding" />
 
 ## Flat
 

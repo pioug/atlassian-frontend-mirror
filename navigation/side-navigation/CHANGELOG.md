@@ -1,5 +1,15 @@
 # @atlaskit/side-navigation
 
+## 1.3.0
+
+### Minor Changes
+
+- [`02e2f7aacef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02e2f7aacef) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.15
 
 ### Patch Changes

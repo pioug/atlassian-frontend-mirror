@@ -69,6 +69,10 @@ export interface MediaTableProps {
   onPreviewOpen?: () => void;
   /** Called when the preview is closed */
   onPreviewClose?: () => void;
+  /** Row index that will be highlighted **/
+  highlightedRowIndex?: number[];
+  /** callback triggered when row click is passed, if returned true it will prevent default behaviour. **/
+  onRowClick?: (rowData: RowData, index: number) => boolean;
 }
 
 export interface MediaTableState {

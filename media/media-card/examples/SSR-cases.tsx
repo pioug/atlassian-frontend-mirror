@@ -10,7 +10,7 @@ import { tallImage } from '@atlaskit/media-test-helpers';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaClient } from '@atlaskit/media-client';
 import { SSR } from '@atlaskit/media-common';
-import { Card, CardBaseProps } from '../src/root/card';
+import { Card, CardBaseProps } from '../src/card/card';
 import ReactDOMServer from 'react-dom/server';
 import { imageFileId } from '@atlaskit/media-test-helpers';
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';

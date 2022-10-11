@@ -71,7 +71,7 @@ describe('placeholder-text: type-ahead', () => {
             await sendArrowLeftKey(page, { numTimes: 2 });
 
             await quickInsert(page, 'Action', false);
-            await page.keys('Enter');
+            await page.keys(['ArrowDown', 'Enter']);
 
             const jsonDocument = await page.$eval(editable, getDocFromElement);
 
@@ -98,7 +98,7 @@ describe('placeholder-text: type-ahead', () => {
             await sendArrowLeftKey(page, { numTimes: 4 });
 
             await quickInsert(page, 'Action', false);
-            await page.keys('Enter');
+            await page.keys(['ArrowDown', 'Enter']);
 
             const jsonDocument = await page.$eval(editable, getDocFromElement);
 

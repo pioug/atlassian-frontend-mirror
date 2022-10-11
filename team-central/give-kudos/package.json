@@ -33,9 +33,9 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.3.1",
     "@atlaskit/button": "^16.3.1",
-    "@atlaskit/drawer": "^7.2.0",
-    "@atlaskit/icon": "^21.10.7",
-    "@atlaskit/modal-dialog": "^12.3.0",
+    "@atlaskit/drawer": "^7.3.0",
+    "@atlaskit/icon": "^21.11.0",
+    "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/portal": "^4.2.8",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",

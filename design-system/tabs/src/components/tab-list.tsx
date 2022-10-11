@@ -10,8 +10,8 @@ import {
 
 import { jsx } from '@emotion/react';
 
-import GlobalTheme from '@atlaskit/theme/components';
-import { ThemeModes } from '@atlaskit/theme/types';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import { useTabList } from '../hooks';
 import { TabContext } from '../internal/context';
@@ -19,12 +19,18 @@ import { getTabListStyles } from '../internal/styles';
 import { onMouseDownBlur } from '../internal/utils';
 import { TabListProps } from '../types';
 
-type InnerProps = TabListProps & {
-  mode: ThemeModes;
-};
-
-const TabListWithMode = (props: InnerProps) => {
-  const { children, mode } = props;
+/**
+ * __TabList__
+ *
+ * A TabList groups `Tab` components together.
+ *
+ * - [Examples](https://atlassian.design/components/tabs/examples)
+ * - [Code](https://atlassian.design/components/tabs/code)
+ * - [Usage](https://atlassian.design/components/tabs/usage)
+ */
+const TabList = (props: TabListProps) => {
+  const { children } = props;
+  const { mode } = useGlobalTheme();
   const { tabsId, selected, onChange } = useTabList();
 
   const ref = createRef<HTMLDivElement>();
@@ -33,7 +39,7 @@ const TabListWithMode = (props: InnerProps) => {
   const childrenArray = Children.toArray(children).filter(Boolean);
   const length = childrenArray.length;
 
-  const styles = useMemo(() => getTabListStyles(mode), [mode]);
+  const tabListStyles = useMemo(() => getTabListStyles(mode), [mode]);
 
   const selectTabByIndex = useCallback(
     (index: number) => {
@@ -118,8 +124,20 @@ const TabListWithMode = (props: InnerProps) => {
   );
 
   return (
-    // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-    <div role="tablist" css={styles} ref={ref}>
+    // Only styles that affect the TabList itself have been applied via primitives.
+    // The other styles applied through the CSS prop are there for styling children
+    // through inheritance. This is important for custom cases that use the useTab(),
+    // which applies accessibility atributes that we use as a styling hook.
+    <Box
+      as="div"
+      role="tablist"
+      display="flex"
+      position="relative"
+      padding="sp-0"
+      ref={ref}
+      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+      css={tabListStyles}
+    >
       {childrenArray.map((child, index) =>
         getTabWithContext({
           tab: child,
@@ -127,25 +145,8 @@ const TabListWithMode = (props: InnerProps) => {
           isSelected: index === selected,
         }),
       )}
-    </div>
+    </Box>
   );
 };
-
-/**
- * __TabList__
- *
- * A TabList groups `Tab` components together.
- *
- * - [Examples](https://atlassian.design/components/tabs/examples)
- * - [Code](https://atlassian.design/components/tabs/code)
- * - [Usage](https://atlassian.design/components/tabs/usage)
- */
-export const TabList = (props: TabListProps) => (
-  <GlobalTheme.Consumer>
-    {({ mode }: { mode: ThemeModes }) => (
-      <TabListWithMode {...props} mode={mode} />
-    )}
-  </GlobalTheme.Consumer>
-);
 
 export default TabList;

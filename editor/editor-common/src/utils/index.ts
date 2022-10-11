@@ -117,7 +117,7 @@ export {
 export { createCompareNodes } from './compareNodes';
 export { compose } from './compose';
 export { isTextInput } from './is-text-input';
-export { ZERO_WIDTH_SPACE } from './whitespace';
+export { ZERO_WIDTH_SPACE, ZERO_WIDTH_JOINER } from './whitespace';
 
 export type { Diff } from './types';
 export { shouldForceTracking } from './should-force-tracking';

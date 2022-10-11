@@ -1,13 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
+
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 
 import type { MenuGroupProps } from '../types';
-
-const groupStyles = css({
-  display: 'flex',
-  flexDirection: 'column',
-  overflow: 'auto',
-});
 
 /**
  * __Menu group__
@@ -26,16 +22,20 @@ const MenuGroup = ({
   role,
   ...rest
 }: MenuGroupProps) => (
-  <div
-    style={{
+  // @ts-ignore type of rest/children needs to be made stricter to fit in Box -- string shouldn't be allowed
+  <Box
+    UNSAFE_style={{
       minWidth,
       maxWidth,
       minHeight,
       maxHeight,
     }}
-    css={groupStyles}
-    data-testid={testId}
+    display="flex"
+    flexDirection="column"
+    overflow="auto"
+    testId={testId}
     role={role}
+    position="static"
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...rest}
   />

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { MessageDescriptor } from 'react-intl-next';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { BadgeProps } from './types';
 import { tokens } from '../../../../../utils/token';

@@ -1,7 +1,5 @@
 import type { ElementType, ReactNode } from 'react';
 
-import type { Interpolation } from '@emotion/core';
-
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
 import type { AvatarPropTypes } from '@atlaskit/avatar';
 
@@ -40,8 +38,3 @@ export type onAvatarClickHandler = (
   analyticsEvent: AnalyticsEvent | undefined,
   index: number,
 ) => void;
-
-export type CssCallback = (
-  template: TemplateStringsArray,
-  ...args: Array<Interpolation>
-) => string;

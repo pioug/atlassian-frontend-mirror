@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
-import { css, jsx, SerializedStyles } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import Tooltip from '@atlaskit/tooltip';
 

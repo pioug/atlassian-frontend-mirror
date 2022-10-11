@@ -1,6 +1,6 @@
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import LikeIcon from '@atlaskit/icon/glyph/like';
 import { token } from '@atlaskit/tokens';
 import { CardType, CardState } from '@atlaskit/linking-common';

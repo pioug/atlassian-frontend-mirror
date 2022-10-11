@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { forwardRef, memo, useMemo } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
@@ -22,7 +22,7 @@ import type { CodeProps } from './types';
 const Code = memo(
   forwardRef<HTMLElement, CodeProps>(function Code({ testId, ...props }, ref) {
     const theme = useGlobalTheme();
-    const styles = useMemo(() => getCodeStyles(theme), [theme]);
+    const styles = useMemo(() => css(getCodeStyles(theme)), [theme]);
     const {
       children,
       codeBidiWarnings = true,

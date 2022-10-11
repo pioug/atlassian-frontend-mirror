@@ -1,5 +1,11 @@
 # @atlaskit/range
 
+## 6.1.0
+
+### Minor Changes
+
+- [`1966ffa850d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1966ffa850d) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 6.0.9
 
 ### Patch Changes

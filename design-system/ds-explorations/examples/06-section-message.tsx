@@ -40,7 +40,7 @@ export default () => {
               to assure my dear sister of my welfare and increasing confidence
               in the success of my undertaking.
             </Text>
-            <Inline divider="·" gap="sp-100">
+            <Inline divider="·" gap="sp-75">
               <Button
                 appearance="link"
                 spacing="none"

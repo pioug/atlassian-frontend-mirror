@@ -135,44 +135,6 @@ exports[`BackButton Should match snapshot 1`] = `
   margin: 0 2px;
 }
 
-.emotion-0 {
-  display: inline-block;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 1;
-  width: 24px;
-  height: 24px;
-}
-
-.emotion-0 > svg {
-  overflow: hidden;
-  pointer-events: none;
-  max-width: 100%;
-  max-height: 100%;
-  color: var(--icon-primary-color);
-  fill: var(--icon-secondary-color);
-  vertical-align: bottom;
-}
-
-.emotion-0 > svg stop {
-  stop-color: currentColor;
-}
-
-@media screen and (forced-colors:active) {
-  .emotion-0 > svg {
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1);
-    --icon-primary-color: CanvasText;
-    --icon-secondary-color: Canvas;
-  }
-}
-
-.emotion-0 > svg {
-  width: 24px;
-  height: 24px;
-}
-
 .emotion-2 {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
@@ -188,6 +150,44 @@ exports[`BackButton Should match snapshot 1`] = `
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.emotion-0 {
+  display: inline-block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-0 >svg {
+  overflow: hidden;
+  pointer-events: none;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
+}
+
+.emotion-0 >svg stop {
+  stop-color: currentColor;
+}
+
+@media screen and (forced-colors: active) {
+  .emotion-0 >svg {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    --icon-primary-color: CanvasText;
+    --icon-secondary-color: Canvas;
+  }
+}
+
+.emotion-0 >svg {
+  width: 24px;
+  height: 24px;
 }
 
 <div

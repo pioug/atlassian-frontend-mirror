@@ -1,5 +1,11 @@
 # @atlaskit/focus-ring
 
+## 1.1.0
+
+### Minor Changes
+
+- [`b5d79ded842`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5d79ded842) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 1.0.7
 
 ### Patch Changes

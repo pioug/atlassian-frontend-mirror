@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.6.0
+
+### Minor Changes
+
+- [`15f0ad7aaa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15f0ad7aaa3) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 17.5.17
 
 ### Patch Changes

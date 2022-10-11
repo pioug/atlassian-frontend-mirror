@@ -10,8 +10,6 @@ import { jsx, css } from '@emotion/react';
 
 import { MenuGroup } from '@atlaskit/menu';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-
-import type { TypeAheadItem, OnSelectItem } from '../types';
 import {
   CellMeasurer,
   CellMeasurerCache,
@@ -23,8 +21,14 @@ import {
   ITEM_PADDING,
   TypeAheadListItem,
 } from './TypeAheadListItem';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { WrappedComponentProps, injectIntl, useIntl } from 'react-intl-next';
 import { typeAheadListMessages } from '../messages';
+import type { TypeAheadItem } from '../types';
+import { moveSelectedIndex } from '../utils';
+import { updateSelectedIndex } from '../commands/update-selected-index';
+import { EditorView } from 'prosemirror-view';
+import { AssistiveText } from './AssistiveText';
+import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../constants';
 
 const LIST_ITEM_ESTIMATED_HEIGHT = ICON_HEIGHT + ITEM_PADDING * 2;
 const LIST_WIDTH = 320;
@@ -32,21 +36,41 @@ const LIST_WIDTH = 320;
 type TypeAheadListProps = {
   items: Array<TypeAheadItem>;
   selectedIndex: number;
-  onItemHover: OnSelectItem;
+  editorView: EditorView;
   onItemClick: (mode: SelectItemMode, index: number) => void;
   fitHeight: number;
+  decorationElement: HTMLElement;
 } & WrappedComponentProps;
+
+const TypeaheadAssistiveTextPureComponent = React.memo(
+  ({ numberOfResults }: { numberOfResults: string }) => {
+    const intl = useIntl();
+    return (
+      <AssistiveText
+        assistiveText={intl.formatMessage(
+          typeAheadListMessages.searchResultsLabel,
+          { itemsLength: numberOfResults },
+        )}
+        // when the popup is open its always in focus
+        isInFocus={true}
+        id={TYPE_AHEAD_DECORATION_ELEMENT_ID + '__popup'}
+      />
+    );
+  },
+);
 
 const TypeAheadListComponent = React.memo(
   ({
     items,
     selectedIndex,
-    onItemHover,
+    editorView,
     onItemClick,
     intl,
     fitHeight,
+    decorationElement,
   }: TypeAheadListProps) => {
     const listRef = useRef<List>() as React.MutableRefObject<List>;
+    const listContainerRef = useRef<HTMLDivElement>(null);
     const lastVisibleIndexes = useRef({
       overscanStartIndex: 0,
       overscanStopIndex: 0,
@@ -69,11 +93,41 @@ const TypeAheadListComponent = React.memo(
       lastVisibleIndexes.current = props;
     }, []);
 
-    const actions = useMemo(() => ({ onItemClick, onItemHover }), [
-      onItemClick,
-      onItemHover,
-    ]);
+    const actions = useMemo(() => ({ onItemClick }), [onItemClick]);
 
+    const isNavigationKey = (event: KeyboardEvent): boolean => {
+      return ['ArrowDown', 'ArrowUp', 'Tab', 'Enter'].includes(event.key);
+    };
+
+    const focusTargetElement = useCallback(() => {
+      //To reset the selected index
+      updateSelectedIndex(-1)(editorView.state, editorView.dispatch);
+      listRef.current.scrollToRow(0);
+      decorationElement
+        ?.querySelector<HTMLSpanElement>(`[role='combobox']`)
+        ?.focus();
+    }, [editorView, listRef, decorationElement]);
+
+    const selectNextItem = useMemo(
+      () =>
+        moveSelectedIndex({
+          editorView,
+          direction: 'next',
+        }),
+      [editorView],
+    );
+
+    const selectPreviousItem = useMemo(
+      () =>
+        moveSelectedIndex({
+          editorView,
+          direction: 'previous',
+        }),
+      [editorView],
+    );
+
+    const lastVisibleStartIndex = lastVisibleIndexes.current.startIndex;
+    const lastVisibleStopIndex = lastVisibleIndexes.current.stopIndex;
     const onScroll = useCallback(
       ({ scrollUpdateWasRequested }) => {
         if (!scrollUpdateWasRequested) {
@@ -92,33 +146,37 @@ const TypeAheadListComponent = React.memo(
         // to calculate each height. THen, we can schedule a new frame when this one finishs.
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            const { current: indexes } = lastVisibleIndexes;
             const isSelectedItemVisible =
-              selectedIndex >= indexes.startIndex &&
-              selectedIndex <= indexes.stopIndex;
+              selectedIndex >= lastVisibleStartIndex &&
+              selectedIndex <= lastVisibleStopIndex;
 
-            if (!isSelectedItemVisible) {
+            //Should scroll to the list item only when the selectedIndex >= 0 and item is not visible
+            if (!isSelectedItemVisible && selectedIndex !== -1) {
               listRef.current.scrollToRow(selectedIndex);
+            } else if (selectedIndex === -1) {
+              listRef.current.scrollToRow(0);
             }
           });
         });
       },
-      [selectedIndex, lastVisibleIndexes],
+      [selectedIndex, lastVisibleStartIndex, lastVisibleStopIndex],
     );
 
     useLayoutEffect(() => {
       if (!listRef.current) {
         return;
       }
-      const { current: indexes } = lastVisibleIndexes;
       const isSelectedItemVisible =
-        selectedIndex >= indexes.startIndex &&
-        selectedIndex <= indexes.stopIndex;
+        selectedIndex >= lastVisibleStartIndex &&
+        selectedIndex <= lastVisibleStopIndex;
 
-      if (!isSelectedItemVisible) {
+      //Should scroll to the list item only when the selectedIndex >= 0 and item is not visible
+      if (!isSelectedItemVisible && selectedIndex !== -1) {
         listRef.current.scrollToRow(selectedIndex);
+      } else if (selectedIndex === -1) {
+        listRef.current.scrollToRow(0);
       }
-    }, [selectedIndex, lastVisibleIndexes]);
+    }, [selectedIndex, lastVisibleStartIndex, lastVisibleStopIndex]);
 
     useLayoutEffect(() => {
       setCache(
@@ -139,6 +197,81 @@ const TypeAheadListComponent = React.memo(
       setHeight(height);
     }, [items, cache, fitHeight]);
 
+    useLayoutEffect(() => {
+      if (!listContainerRef.current) {
+        return;
+      }
+      const { current: element } = listContainerRef;
+      /**
+       * To handle the key events on the list
+       * @param event
+       */
+      const handleKeyDown = (event: KeyboardEvent): void => {
+        if (isNavigationKey(event)) {
+          switch (event.key) {
+            case 'ArrowDown':
+              if (selectedIndex === items.length - 1) {
+                event.stopPropagation();
+              } else {
+                selectNextItem();
+              }
+              event.preventDefault();
+              break;
+
+            case 'ArrowUp':
+              if (selectedIndex === 0) {
+                //To set focus on target element when up arrow is pressed on first option of list
+                focusTargetElement();
+              } else {
+                selectPreviousItem();
+              }
+              event.preventDefault();
+              break;
+
+            case 'Tab':
+              //Tab key quick inserts the selected item.
+              onItemClick(SelectItemMode.TAB, selectedIndex);
+              event.preventDefault();
+              break;
+
+            case 'Enter':
+              //Enter key quick inserts the selected item.
+              if (
+                !event.isComposing ||
+                (event.which !== 229 && event.keyCode !== 229)
+              ) {
+                onItemClick(
+                  event.shiftKey
+                    ? SelectItemMode.SHIFT_ENTER
+                    : SelectItemMode.ENTER,
+                  selectedIndex,
+                );
+                event.preventDefault();
+              }
+              break;
+
+            default:
+              event.preventDefault();
+          }
+        } else {
+          //All the remaining keys sets focus on the typeahead query(inputQuery.tsx))
+          focusTargetElement();
+        }
+      };
+      element?.addEventListener('keydown', handleKeyDown);
+      return () => {
+        element?.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [
+      editorView.state,
+      focusTargetElement,
+      selectNextItem,
+      selectPreviousItem,
+      selectedIndex,
+      onItemClick,
+      items.length,
+    ]);
+
     const renderRow = ({ index, key, style, parent }: any) => {
       return (
         <CellMeasurer
@@ -153,10 +286,10 @@ const TypeAheadListComponent = React.memo(
               <TypeAheadListItem
                 key={items[index].title}
                 item={items[index]}
+                itemsLength={items.length}
                 itemIndex={index}
                 selectedIndex={selectedIndex}
                 onItemClick={actions.onItemClick}
-                onItemHover={actions.onItemHover}
               />
             </div>
           </div>
@@ -168,34 +301,44 @@ const TypeAheadListComponent = React.memo(
       return null;
     }
 
+    const menuGroupId =
+      decorationElement
+        .querySelector<HTMLSpanElement>(`[role='combobox']`)
+        ?.getAttribute('aria-controls') || TYPE_AHEAD_DECORATION_ELEMENT_ID;
+
     return (
       <MenuGroup
-        role="listbox"
-        aria-live="polite"
         aria-label={intl.formatMessage(
           typeAheadListMessages.typeAheadResultLabel,
         )}
         aria-relevant="additions removals"
       >
-        <List
-          rowRenderer={renderRow}
-          ref={listRef}
-          rowCount={items.length}
-          rowHeight={cache.rowHeight}
-          onRowsRendered={onItemsRendered}
-          width={LIST_WIDTH}
-          onScroll={onScroll}
-          height={height}
-          overscanRowCount={3}
-          css={css`
-            button {
-              padding: 12px 12px 11px;
-              span:last-child span:last-child {
-                white-space: normal;
+        <div id={menuGroupId} ref={listContainerRef}>
+          <List
+            rowRenderer={renderRow}
+            ref={listRef}
+            rowCount={items.length}
+            rowHeight={cache.rowHeight}
+            onRowsRendered={onItemsRendered}
+            width={LIST_WIDTH}
+            onScroll={onScroll}
+            height={height}
+            overscanRowCount={3}
+            containerRole="presentation"
+            role="listbox"
+            css={css`
+              button {
+                padding: 12px 12px 11px;
+                span:last-child span:last-child {
+                  white-space: normal;
+                }
               }
-            }
-          `}
-        />
+            `}
+          />
+          <TypeaheadAssistiveTextPureComponent
+            numberOfResults={items.length.toString()}
+          />
+        </div>
       </MenuGroup>
     );
   },

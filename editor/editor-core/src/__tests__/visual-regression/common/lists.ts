@@ -1,11 +1,11 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
-  snapshot,
-  Device,
-  initEditorWithAdf,
-  Appearance,
   deviceViewPorts,
-} from '../_utils';
+  Device,
+  ViewportSize,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+
+import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { traverse } from '@atlaskit/adf-utils/traverse';
 import smartLinksAdf from './__fixtures__/smart-link-nested-in-list.adf.json';
@@ -45,9 +45,7 @@ describe('Lists', () => {
   const initEditor = async (
     page: PuppeteerPage,
     adf: any,
-    viewport: { width: number; height: number } = deviceViewPorts[
-      Device.Default
-    ],
+    viewport: ViewportSize = deviceViewPorts[Device.Default],
     editorProps = {},
   ) =>
     await initEditorWithAdf(page, {

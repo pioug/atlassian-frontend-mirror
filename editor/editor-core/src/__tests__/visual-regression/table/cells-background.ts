@@ -1,4 +1,5 @@
-import { Device, initFullPageEditorWithAdf, snapshot } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { initFullPageEditorWithAdf, snapshot } from '../_utils';
 
 import {
   clickCellOptions,

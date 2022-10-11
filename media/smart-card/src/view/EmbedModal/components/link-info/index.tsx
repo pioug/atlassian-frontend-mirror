@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { useModal } from '@atlaskit/modal-dialog';

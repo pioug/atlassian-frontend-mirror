@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import React from 'react';
 import EnumOption from './inputs/enum-option';
 import { SmartLinkSize, SmartLinkTheme } from '../../../src';

@@ -5,7 +5,7 @@ import { Node as PMNode } from 'prosemirror-model';
 import * as themeColors from '@atlaskit/theme/colors';
 
 import { hexToRgba } from '@atlaskit/adf-schema';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
+import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/utils';
 import { addAnalytics } from '../analytics/utils';
 import {
   AnalyticsEventPayload,
@@ -102,17 +102,35 @@ export const createTelepointers = (
     );
   }
 
+  const spaceJoinerBefore = document.createElement('span');
+  spaceJoinerBefore.textContent = ZERO_WIDTH_JOINER;
+  const spaceJoinerAfter = document.createElement('span');
+  spaceJoinerAfter.textContent = ZERO_WIDTH_JOINER;
+
   const cursor = document.createElement('span');
-  cursor.textContent = ZERO_WIDTH_SPACE;
+  cursor.textContent = ZERO_WIDTH_JOINER;
   cursor.className = `telepointer color-${color} telepointer-selection-badge`;
   cursor.style.cssText = `${style({ color: avatarColor.color.solid })};`;
   cursor.setAttribute('data-initial', initial);
-  return decorations.concat(
-    (Decoration as any).widget(to, cursor, {
-      pointer: { sessionId },
-      key: `telepointer-${sessionId}`,
-    }),
-  );
+  return decorations
+    .concat(
+      (Decoration as any).widget(to, spaceJoinerAfter, {
+        pointer: { sessionId },
+        key: `telepointer-${sessionId}-zero`,
+      }),
+    )
+    .concat(
+      (Decoration as any).widget(to, cursor, {
+        pointer: { sessionId },
+        key: `telepointer-${sessionId}`,
+      }),
+    )
+    .concat(
+      (Decoration as any).widget(to, spaceJoinerBefore, {
+        pointer: { sessionId },
+        key: `telepointer-${sessionId}-zero`,
+      }),
+    );
 };
 
 export const replaceDocument = (

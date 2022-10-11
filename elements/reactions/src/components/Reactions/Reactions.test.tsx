@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import { ReactWrapper } from 'enzyme';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -13,12 +13,15 @@ import {
 } from '../../MockReactionsClient';
 import { renderWithIntl } from '../../__tests__/_testing-library';
 import { constants, i18n } from '../../shared';
-import { ReactionStatus, ReactionSummary } from '../../types';
+import {
+  QuickReactionEmojiSummary,
+  ReactionStatus,
+  ReactionSummary,
+} from '../../types';
 import { Trigger } from '../Trigger';
 import { ReactionPicker } from '../ReactionPicker';
 import { RENDER_REACTION_TESTID } from '../Reaction';
-import { ReactionsProps, Reactions, RENDER_TOOLTIP_TESTID } from './Reactions';
-import { RENDER_REACTIONPICKER_TESTID } from '../ReactionPicker';
+import { ReactionsProps, Reactions, getTooltip } from './Reactions';
 
 describe('@atlaskit/reactions/components/Reactions', () => {
   const mockOnReactionsClick = jest.fn();
@@ -35,7 +38,11 @@ describe('@atlaskit/reactions/components/Reactions', () => {
   /**
    * Custom quick Reaction list to pick from
    */
-  const quickReactionEmojiIds = [constants.DefaultReactions[5].id ?? ''];
+  const quickReactionEmojis: QuickReactionEmojiSummary = {
+    ari,
+    containerAri,
+    emojiIds: [constants.DefaultReactions[5].id ?? ''],
+  };
   const status = ReactionStatus.ready;
 
   beforeEach(() => {
@@ -53,8 +60,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
     return renderWithIntl(
       <Reactions
         emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
-        ari={ari}
-        containerAri={containerAri}
         reactions={reactions}
         status={status}
         onReactionClick={mockOnReactionsClick}
@@ -76,35 +81,40 @@ describe('@atlaskit/reactions/components/Reactions', () => {
     expect(mockOnReactionsClick).toHaveBeenCalled();
   });
 
-  it('should show pre-defined quickReactionEmojiIds list when reactions prop is empty', async () => {
-    renderReactions({ reactions: [], quickReactionEmojiIds });
+  it('should show pre-defined quickReactionEmojis type when reactions prop is empty', async () => {
+    renderReactions({ reactions: [], quickReactionEmojis });
     const reactionButtons = await screen.findAllByTestId(
       RENDER_REACTION_TESTID,
     );
-    expect(reactionButtons.length).toEqual(quickReactionEmojiIds.length);
+    expect(reactionButtons.length).toEqual(quickReactionEmojis.emojiIds.length);
     for (let index = 0; index < reactionButtons.length; ++index) {
-      expect(reactionButtons[index].title).toEqual(
-        quickReactionEmojiIds[index],
+      expect(reactionButtons[index].dataset.emojiId).toEqual(
+        quickReactionEmojis.emojiIds[index],
       );
     }
   });
 
-  it('should ignore pre-defined quickReactionEmojiIds list when reactions prop is populated with at least one emoji', async () => {
-    renderReactions({ reactions, quickReactionEmojiIds });
+  it('should ignore pre-defined quickReactionEmojis type when reactions prop is populated with at least one emoji', async () => {
+    renderReactions({ reactions, quickReactionEmojis });
     const reactionButtons = await screen.findAllByTestId(
       RENDER_REACTION_TESTID,
     );
     expect(reactionButtons.length).toEqual(reactions.length);
 
-    const reactionTitles = reactionButtons.map((button) => button.title);
-    const intersection = reactionTitles.some((title) =>
-      quickReactionEmojiIds.includes(title),
+    const reactionEmojiIds = reactionButtons.map(
+      (button) => button.dataset.emojiId || '',
+    );
+    const intersection = reactionEmojiIds.some((id) =>
+      quickReactionEmojis.emojiIds.includes(id),
     );
     expect(intersection).toEqual(false);
   });
 
-  it('should return empty reaction list when both pre-defined quickReactionEmojiIds list and reactions prop are empty', async () => {
-    renderReactions({ reactions: [], quickReactionEmojiIds: [] });
+  it('should return empty reaction list when both pre-defined quickReactionEmojis.emojiIds list and reactions prop are empty', async () => {
+    renderReactions({
+      reactions: [],
+      quickReactionEmojis: { ...quickReactionEmojis, emojiIds: [] },
+    });
     const reactionButtons = await screen.queryAllByTestId(
       RENDER_REACTION_TESTID,
     );
@@ -112,66 +122,41 @@ describe('@atlaskit/reactions/components/Reactions', () => {
   });
 
   describe('getTooltip', () => {
-    it('should show nothing when status was initally set to undefined', async () => {
-      const { queryByTestId } = renderReactions({
-        status: undefined,
-        allowAllEmojis: true,
-      });
-
-      const reactionPicker = queryByTestId(RENDER_REACTIONPICKER_TESTID);
-      expect(reactionPicker).toBeInTheDocument();
-      if (reactionPicker) {
-        fireEvent.mouseOver(reactionPicker);
-      }
-
-      act(() => {
-        jest.runAllTimers();
-      });
-
-      const tooltip = queryByTestId(RENDER_TOOLTIP_TESTID);
-      expect(tooltip).not.toBeInTheDocument();
-    });
-
-    it('should show loading tooltip when status is set to loading', async () => {
-      const { getByTestId } = renderReactions({
-        status: ReactionStatus.loading,
-        allowAllEmojis: true,
-      });
-
-      const reactionPicker = getByTestId(RENDER_REACTIONPICKER_TESTID);
-      expect(reactionPicker).toBeInTheDocument();
-      fireEvent.mouseOver(reactionPicker);
-
-      act(() => {
-        jest.runAllTimers();
-      });
-
-      const tooltip = getByTestId(RENDER_TOOLTIP_TESTID);
-      expect(tooltip).toBeInTheDocument();
-      expect(tooltip.textContent).toEqual(
+    it('status is set to loading', async () => {
+      renderWithIntl(getTooltip(ReactionStatus.loading) as JSX.Element);
+      const element = screen.queryByText(
         i18n.messages.loadingReactions.defaultMessage,
       );
+      expect(element).toBeDefined();
     });
 
-    it('should show loading tooltip when status is set to error', async () => {
-      const { getByTestId } = renderReactions({
-        status: ReactionStatus.error,
-        allowAllEmojis: true,
-      });
-
-      const reactionPicker = getByTestId(RENDER_REACTIONPICKER_TESTID);
-      expect(reactionPicker).toBeInTheDocument();
-      fireEvent.mouseOver(reactionPicker);
-
-      act(() => {
-        jest.runAllTimers();
-      });
-
-      const tooltip = getByTestId(RENDER_TOOLTIP_TESTID);
-      expect(tooltip).toBeInTheDocument();
-      expect(tooltip.textContent).toEqual(
+    it('status is set to error', async () => {
+      renderWithIntl(getTooltip(ReactionStatus.error) as JSX.Element);
+      const element = screen.queryByText(
         i18n.messages.unexpectedError.defaultMessage,
       );
+      expect(element).toBeDefined();
+    });
+
+    it('status is set to ready', async () => {
+      renderWithIntl(getTooltip(ReactionStatus.ready) as JSX.Element);
+      const element = screen.queryByText(
+        i18n.messages.addReaction.defaultMessage,
+      );
+      expect(element).toBeDefined();
+    });
+
+    it('status is set to notLoaded', async () => {
+      renderWithIntl(getTooltip(ReactionStatus.notLoaded) as JSX.Element);
+      const element = screen.queryByText(
+        i18n.messages.loadingReactions.defaultMessage,
+      );
+      expect(element).toBeDefined();
+    });
+
+    it('status is set to disabled', async () => {
+      const tooltip = getTooltip(ReactionStatus.disabled);
+      expect(tooltip).toBeNull();
     });
   });
 
@@ -188,8 +173,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
       <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
         <Reactions
           emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
-          ari={ari}
-          containerAri={containerAri}
           reactions={[
             getReactionSummary(':fire:', 1, true),
             getReactionSummary(':thumbsup:', 9, false),
@@ -235,7 +218,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
     describe('with ReactionPicker open', () => {
       beforeEach(() => {
-        component.find(Trigger).simulate('click');
+        component.find(Trigger).find('button').simulate('click');
       });
 
       it('should trigger clicked for Reaction Picker Button', () => {

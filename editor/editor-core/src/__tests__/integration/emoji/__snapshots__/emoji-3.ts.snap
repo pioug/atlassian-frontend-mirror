@@ -65,9 +65,9 @@ Object {
       "content": Array [
         Object {
           "attrs": Object {
-            "id": "1f61c",
-            "shortName": ":stuck_out_tongue_winking_eye:",
-            "text": "😜",
+            "id": "1f609",
+            "shortName": ":wink:",
+            "text": "😉",
           },
           "type": "emoji",
         },
@@ -90,9 +90,9 @@ Object {
       "content": Array [
         Object {
           "attrs": Object {
-            "id": "1f603",
-            "shortName": ":smiley:",
-            "text": "😃",
+            "id": "1f604",
+            "shortName": ":smile:",
+            "text": "😄",
           },
           "type": "emoji",
         },

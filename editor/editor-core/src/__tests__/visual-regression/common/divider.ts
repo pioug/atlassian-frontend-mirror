@@ -1,9 +1,10 @@
 import { THEME_MODES } from '@atlaskit/theme/constants';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 
 import * as adfWithDivider from './__fixtures__/divider.adf.json';
 
-import { Device, initFullPageEditorWithAdf, snapshot } from '../_utils';
+import { initFullPageEditorWithAdf, snapshot } from '../_utils';
 
 describe('Snapshot Test: Divider', () => {
   let page: PuppeteerPage;

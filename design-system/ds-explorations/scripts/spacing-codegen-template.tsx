@@ -22,6 +22,12 @@ const spacingProperties = {
   gap: {
     cssProperty: 'gap',
   },
+  columnGap: {
+    cssProperty: 'columnGap',
+  },
+  rowGap: {
+    cssProperty: 'rowGap',
+  },
 } as const;
 
 export const createSpacingStylesFromTemplate = (

@@ -39,6 +39,7 @@ export default {
     'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วในสัปดาห์นี้',
   'pt.profile-card.inactive.account.no.date':
     'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้ว',
+  'pt.profile-card.more-icon-label': 'เพิ่มเติม',
   'pt.team-profile-card.directReports.heading': 'รายงานโดยตรง',
   'pt.team-profile-card.error.refresh-button': 'ลองอีกครั้ง',
   'pt.team-profile-card.error.suggestion': 'โปรดรอสักครู่แล้วลองอีกครั้ง',

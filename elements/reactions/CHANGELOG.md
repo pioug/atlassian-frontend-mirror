@@ -1,5 +1,27 @@
 # @atlaskit/reactions
 
+## 21.7.0
+
+### Minor Changes
+
+- [`e2635f36d53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2635f36d53) - Adds new optional prop to <ReactionPicker /> component to setup the content for the tooltip on the add new reaction element
+  [ux] This adds a border around the Add reaction button according with new design requirements
+- [`ce1ceee9114`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce1ceee9114) - Refactor props of <Reactions /> component to better infer types from quickReactionEmojiIds to quickReactionEmojis
+
+### Patch Changes
+
+- [`4b6f775e6c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b6f775e6c0) - update reaction picker position at the edge of window
+- [`b2be1d1c8d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2be1d1c8d2) - removing title of reaction buttons
+- [`458aabb9add`](https://bitbucket.org/atlassian/atlassian-frontend/commits/458aabb9add) - Remove tooltip when reactions are disabled
+- [`a62cf3c2b49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a62cf3c2b49) - fix emoji upload in reaction picker
+- Updated dependencies
+
+## 21.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.6.1
 
 ### Patch Changes

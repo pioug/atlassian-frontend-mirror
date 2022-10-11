@@ -1,4 +1,4 @@
-import { CardDimensions } from '../../utils/cardDimensions';
+import { CardDimensions } from '../../types';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { GlobalThemeTokens } from '@atlaskit/theme/components';
 

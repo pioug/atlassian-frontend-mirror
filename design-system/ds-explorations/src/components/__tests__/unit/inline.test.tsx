@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { UNSAFE_Box as Box, UNSAFE_Inline as Inline } from '../../../index';
+import { UNSAFE_Inline as Inline, UNSAFE_Text as Text } from '../../../index';
 
 describe('Inline component', () => {
   const testId = 'test';
@@ -10,8 +10,8 @@ describe('Inline component', () => {
   it('should render inline', () => {
     const { getByText } = render(
       <Inline gap="sp-50">
-        <Box>1</Box>
-        <Box>2</Box>
+        <Text>1</Text>
+        <Text>2</Text>
       </Inline>,
     );
     expect(getByText('1')).toBeInTheDocument();
@@ -21,8 +21,8 @@ describe('Inline component', () => {
   it('should render inline with dividers', () => {
     const { getByText } = render(
       <Inline gap="sp-50" divider="/">
-        <Box>1</Box>
-        <Box>2</Box>
+        <Text>1</Text>
+        <Text>2</Text>
       </Inline>,
     );
     expect(getByText('1')).toBeInTheDocument();
@@ -33,8 +33,8 @@ describe('Inline component', () => {
   it('should render with a given test id', () => {
     const { getByTestId } = render(
       <Inline gap="sp-50" testId={testId}>
-        <Box>1</Box>
-        <Box>2</Box>
+        <Text>1</Text>
+        <Text>2</Text>
       </Inline>,
     );
     const element = getByTestId(testId);

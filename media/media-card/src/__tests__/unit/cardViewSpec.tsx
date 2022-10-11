@@ -14,12 +14,12 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import * as mediaUi from '@atlaskit/media-ui';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 
-import { CardView, CardViewBase, CardViewOwnProps } from '../../root/cardView';
-import { FileCardImageView } from '../../files';
+import { CardView, CardViewBase, CardViewOwnProps } from '../../card/cardView';
+import { FileCardImageView } from '../../card/cardImageView';
 import { breakpointSize, BreakpointSizeValue } from '../../utils/breakpoint';
 import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumbnail';
-import { CardDimensionValue } from '../../index';
-import { Wrapper } from '../../root/cardViewWrapper';
+import { CardDimensionValue } from '../../types';
+import { Wrapper } from '../../card/cardImageView/cardViewWrapper';
 
 const mockHumanReadableMediaSize = 'some KB';
 jest.mock('@atlaskit/media-ui', () => ({

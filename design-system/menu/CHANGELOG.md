@@ -1,5 +1,12 @@
 # @atlaskit/menu
 
+## 1.3.11
+
+### Patch Changes
+
+- [`8f2153a45a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f2153a45a7) - Convert Menu Group to use primitives.
+- Updated dependencies
+
 ## 1.3.10
 
 ### Patch Changes

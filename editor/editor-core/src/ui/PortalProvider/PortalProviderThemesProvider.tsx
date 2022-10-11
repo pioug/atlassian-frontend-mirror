@@ -4,7 +4,6 @@ import type { ThemeModes } from '@atlaskit/theme/types';
 import AtlaskitTheme from '@atlaskit/theme/components';
 import { CHANNEL } from '@atlaskit/theme/constants';
 import { ThemeProvider } from '@emotion/react';
-import { ThemeProvider as DeprectateStyledComponentsProvider } from 'styled-components';
 
 export function PortalProviderThemeProviders(props: {
   mode: ThemeModes;
@@ -27,12 +26,10 @@ export function PortalProviderThemeProviders(props: {
   const atlaskitTheme = React.useCallback(() => ({ mode }), [mode]);
 
   return (
-    <DeprectateStyledComponentsProvider theme={styledComponentsAndEmotionTheme}>
-      <ThemeProvider theme={styledComponentsAndEmotionTheme}>
-        <AtlaskitTheme.Provider value={atlaskitTheme}>
-          {children}
-        </AtlaskitTheme.Provider>
-      </ThemeProvider>
-    </DeprectateStyledComponentsProvider>
+    <ThemeProvider theme={styledComponentsAndEmotionTheme}>
+      <AtlaskitTheme.Provider value={atlaskitTheme}>
+        {children}
+      </AtlaskitTheme.Provider>
+    </ThemeProvider>
   );
 }

@@ -8,6 +8,7 @@ import {
   AnalyticsListener,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
 
 import Avatar from '../../index';
 
@@ -419,7 +420,7 @@ describe('Avatar', () => {
 
   it('should output an aria-label on BUTTON tag', () => {
     const { getByTestId } = render(
-      <Avatar testId={'avatar'} onClick={() => {}} label="Test avatar" />,
+      <Avatar testId={'avatar'} onClick={__noop} label="Test avatar" />,
     );
     const element = getByTestId('avatar--inner');
 

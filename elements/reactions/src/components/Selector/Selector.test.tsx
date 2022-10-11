@@ -1,11 +1,11 @@
 import React from 'react';
 import { EmojiProvider, OnEmojiEvent } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { render } from '@testing-library/react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EmojiButton } from '../EmojiButton';
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
 import { constants } from '../../shared';
+import { renderWithIntl } from '../../__tests__/_testing-library';
 import { RENDER_SELECTOR_TESTID, Selector } from './Selector';
 
 const renderSelector = (
@@ -33,7 +33,7 @@ describe('@atlaskit/reactions/components/selector', () => {
   });
 
   it('should render default reactions', async () => {
-    const renderer = render(renderSelector());
+    const renderer = renderWithIntl(renderSelector());
     const emojiWrappers = renderer.getAllByRole('presentation');
     expect(emojiWrappers.length).toEqual(constants.DefaultReactions.length);
 

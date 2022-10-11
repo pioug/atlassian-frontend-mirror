@@ -17,6 +17,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
+  TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 
@@ -49,6 +50,7 @@ import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
 import { isLayoutSupported } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
+import { EditorState, Transaction } from 'prosemirror-state';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type {
@@ -161,7 +163,31 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         name: 'tableSelectionKeymap',
         plugin: () => tableSelectionKeymapPlugin(options?.editorSelectionAPI),
       },
-      { name: 'tableEditing', plugin: () => tableEditing() as SafePlugin },
+      {
+        name: 'tableEditing',
+        plugin: () =>
+          tableEditing({
+            reportFixedTable: ({
+              state,
+              tr,
+              reason,
+            }: {
+              state: EditorState;
+              tr: Transaction;
+              reason: string;
+            }) => {
+              options?.editorAnalyticsAPI?.attachAnalyticsEvent({
+                action: TABLE_ACTION.FIXED,
+                actionSubject: ACTION_SUBJECT.TABLE,
+                actionSubjectId: null,
+                attributes: {
+                  reason,
+                },
+                eventType: EVENT_TYPE.TRACK,
+              })(tr);
+            },
+          }) as SafePlugin,
+      },
 
       {
         name: 'tableStickyHeaders',

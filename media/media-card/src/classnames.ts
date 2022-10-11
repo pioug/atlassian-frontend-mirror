@@ -1,4 +1,8 @@
+/**
+ * Entry Point: @atlaskit/media-card/classnames
+ * tsconfig.entry-points.json
+ */
 export {
   fileCardImageViewSelector,
   fileCardImageViewSelectedSelector,
-} from './files/cardImageView/classnames';
+} from './card/cardImageView/classnames';

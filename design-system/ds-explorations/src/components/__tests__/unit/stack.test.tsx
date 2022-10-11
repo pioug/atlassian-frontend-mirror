@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { UNSAFE_Box as Box, UNSAFE_Stack as Stack } from '../../../index';
+import { UNSAFE_Stack as Stack, UNSAFE_Text as Text } from '../../../index';
 
 describe('Stack component', () => {
   const testId = 'test';
@@ -10,8 +10,8 @@ describe('Stack component', () => {
   it('should render stack', () => {
     const { getByText } = render(
       <Stack gap="sp-50">
-        <Box>1</Box>
-        <Box>2</Box>
+        <Text>1</Text>
+        <Text>2</Text>
       </Stack>,
     );
     expect(getByText('1')).toBeInTheDocument();
@@ -21,8 +21,8 @@ describe('Stack component', () => {
   it('should render with a given test id', () => {
     const { getByTestId } = render(
       <Stack gap="sp-50" testId={testId}>
-        <Box>1</Box>
-        <Box>2</Box>
+        <Text>1</Text>
+        <Text>2</Text>
       </Stack>,
     );
     const element = getByTestId(testId);

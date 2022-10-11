@@ -1,5 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF, getBoundingClientRect } from './_utils';
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
+import { snapshot, initRendererWithADF } from './_utils';
 import { editorPlaceholderSelector } from '../../../examples/helper/testing-setup';
 
 function sleep(ms: number) {

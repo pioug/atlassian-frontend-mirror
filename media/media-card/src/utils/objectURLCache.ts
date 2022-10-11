@@ -1,11 +1,11 @@
-import { LRUCache, Entry } from 'lru-fast';
+import { LRUMap } from 'lru_map';
 import { EventEmitter2 } from 'eventemitter2';
 
-import { CardPreview } from '../';
+import { CardPreview } from '../types';
 
 export const PREVIEW_CACHE_LRU_SIZE = 50;
 
-class ExtendedLRUCache<K, V> extends LRUCache<K, V> {
+class ExtendedLRUCache<K, V> extends LRUMap<K, V> {
   private readonly eventEmitter: EventEmitter2;
 
   constructor(limit: number) {
@@ -13,13 +13,13 @@ class ExtendedLRUCache<K, V> extends LRUCache<K, V> {
     this.eventEmitter = new EventEmitter2();
   }
 
-  shift(): Entry<K, V> | undefined {
+  shift(): [K, V] | undefined {
     const entry = super.shift();
     this.eventEmitter.emit('shift', entry);
     return entry;
   }
 
-  on(event: string, callback: (entry: Entry<K, V>) => void) {
+  on(event: string, callback: (entry: [K, V]) => void) {
     this.eventEmitter.on(event, callback);
   }
 }
@@ -29,9 +29,9 @@ export class ObjectURLCache {
 
   constructor(size: number) {
     this.cache = new ExtendedLRUCache(size);
-    this.cache.on('shift', (entry: Entry<string, CardPreview>) => {
-      if (entry && entry.value.dataURI) {
-        URL.revokeObjectURL(entry.value.dataURI);
+    this.cache.on('shift', (entry: [string, CardPreview]) => {
+      if (entry && entry[1].dataURI) {
+        URL.revokeObjectURL(entry[1].dataURI);
       }
     });
   }
@@ -48,7 +48,7 @@ export class ObjectURLCache {
     this.cache.set(key, value);
   }
   remove(key: string) {
-    const removed = this.cache.remove(key);
+    const removed = this.cache.delete(key);
     removed && URL.revokeObjectURL(removed.dataURI);
   }
 }

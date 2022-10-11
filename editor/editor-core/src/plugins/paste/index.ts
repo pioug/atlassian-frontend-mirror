@@ -19,10 +19,16 @@ const pastePlugin = ({
     return [
       {
         name: 'paste',
-        plugin: ({ schema, providerFactory, dispatchAnalyticsEvent }) =>
+        plugin: ({
+          schema,
+          providerFactory,
+          dispatchAnalyticsEvent,
+          dispatch,
+        }) =>
           createPlugin(
             schema,
             dispatchAnalyticsEvent,
+            dispatch,
             plainTextPasteLinkification,
             cardOptions,
             sanitizePrivateContent,

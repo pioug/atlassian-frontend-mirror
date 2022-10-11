@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect, useRef } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import TextArea from '../src';
 

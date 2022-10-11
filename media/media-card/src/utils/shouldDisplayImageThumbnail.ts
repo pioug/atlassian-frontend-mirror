@@ -3,7 +3,7 @@ import {
   MediaType,
   isMimeTypeSupportedByBrowser,
 } from '@atlaskit/media-client';
-import { CardStatus } from '..';
+import { CardStatus } from '../types';
 
 export const shouldDisplayImageThumbnail = (
   cardStatus: CardStatus,

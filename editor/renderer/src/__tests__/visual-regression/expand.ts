@@ -1,10 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import {
-  animationFrame,
-  snapshot,
-  initRendererWithADF,
-  Device,
-} from './_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { animationFrame, snapshot, initRendererWithADF } from './_utils';
 import { selectors } from '../__helpers/page-objects/_expand';
 import { expandADF } from '../__fixtures__/expand-adf';
 import { ThemeModes } from '@atlaskit/theme/types';

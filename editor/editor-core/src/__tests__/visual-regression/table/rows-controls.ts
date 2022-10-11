@@ -5,11 +5,11 @@ import {
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   initFullPageEditorWithAdf,
   initCommentEditorWithAdf,
   snapshot,
-  Device,
 } from '../_utils';
 import adf from './__fixtures__/table-with-merged-cells-on-first-column.adf.json';
 import defaultTableAdf from './__fixtures__/default-table.adf.json';

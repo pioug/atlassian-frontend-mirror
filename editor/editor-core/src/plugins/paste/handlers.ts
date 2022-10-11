@@ -20,6 +20,7 @@ import {
   safeInsert,
 } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
+import uuid from 'uuid/v4';
 
 import { MentionAttributes } from '@atlaskit/adf-schema';
 import { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
@@ -57,6 +58,11 @@ import { isListNode, isListItemNode } from '../list/utils/node';
 import { canLinkBeCreatedInRange } from '../hyperlink/pm-plugins/main';
 
 import { insertSliceForLists } from './edge-cases';
+import {
+  startTrackingPastedMacroPositions,
+  stopTrackingPastedMacroPositions,
+} from './commands';
+import { getPluginState as getPastePluginState } from './pm-plugins/plugin-factory';
 
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
@@ -432,13 +438,21 @@ function insertAutoMacro(
   slice: Slice,
   macro: PMNode,
   view?: EditorView,
+  from?: number,
+  to?: number,
 ): boolean {
   if (view) {
     // insert the text or linkified/md-converted clipboard data
     const selection = view.state.tr.selection;
-
-    const tr = view.state.tr.replaceSelection(slice);
-    const before = tr.mapping.map(selection.from, -1);
+    let tr: Transaction;
+    let before: number;
+    if (typeof from === 'number' && typeof to === 'number') {
+      tr = view.state.tr.replaceRange(from, to, slice);
+      before = tr.mapping.map(from, -1);
+    } else {
+      tr = view.state.tr.replaceSelection(slice);
+      before = tr.mapping.map(selection.from, -1);
+    }
     view.dispatch(tr);
 
     // replace the text with the macro as a separate transaction
@@ -494,13 +508,48 @@ export function handleMacroAutoConvert(
           return insertAutoMacro(slice, macro, view);
         }
 
+        if (!view) {
+          throw new Error('View is missing');
+        }
+
+        const trackingId = uuid();
+        const trackingFrom = `handleMacroAutoConvert-from-${trackingId}`;
+        const trackingTo = `handleMacroAutoConvert-to-${trackingId}`;
+
+        startTrackingPastedMacroPositions({
+          [trackingFrom]: state.selection.from,
+          [trackingTo]: state.selection.to,
+        })(state, dispatch);
+
         getSmartLinkAdf(text, 'inline', cardsOptions)
           .then(() => {
+            // we use view.state rather than state because state becomes a stale
+            // state reference after getSmartLinkAdf's async work
+            const { pastedMacroPositions } = getPastePluginState(view.state);
             if (dispatch) {
-              handleMarkdown(slice)(state, dispatch);
+              handleMarkdown(
+                slice,
+                pastedMacroPositions[trackingFrom],
+                pastedMacroPositions[trackingTo],
+              )(view.state, dispatch);
             }
           })
-          .catch(() => insertAutoMacro(slice, macro as PMNode, view));
+          .catch(() => {
+            const { pastedMacroPositions } = getPastePluginState(view.state);
+            insertAutoMacro(
+              slice,
+              macro as PMNode,
+              view,
+              pastedMacroPositions[trackingFrom],
+              pastedMacroPositions[trackingTo],
+            );
+          })
+          .finally(() => {
+            stopTrackingPastedMacroPositions([trackingFrom, trackingTo])(
+              view.state,
+              dispatch,
+            );
+          });
         return true;
       }
 
@@ -628,11 +677,19 @@ export function handleExpandPasteInTable(slice: Slice): Command {
   };
 }
 
-export function handleMarkdown(markdownSlice: Slice): Command {
+export function handleMarkdown(
+  markdownSlice: Slice,
+  from?: number,
+  to?: number,
+): Command {
   return (state, dispatch) => {
     const tr = closeHistory(state.tr);
 
-    tr.replaceSelection(markdownSlice);
+    if (typeof from === 'number' && typeof to === 'number') {
+      tr.replaceRange(from, to, markdownSlice);
+    } else {
+      tr.replaceSelection(markdownSlice);
+    }
 
     queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
     if (dispatch) {

@@ -1,5 +1,12 @@
 # @atlaskit/mobile-header
 
+## 5.0.12
+
+### Patch Changes
+
+- [`522a27e6119`](https://bitbucket.org/atlassian/atlassian-frontend/commits/522a27e6119) - Remove `isOpen` prop from @atlaskit/banner, it is now open by default.
+- Updated dependencies
+
 ## 5.0.11
 
 ### Patch Changes

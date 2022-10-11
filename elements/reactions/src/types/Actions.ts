@@ -1,7 +1,7 @@
 /**
  * Event callback by the client to the API
- * @param containerAri the container for reactions/ari in the page (attached to the "quickReactionEmojiIds" prop)
- * @param ariunique Atlassian identifier for an emoji (attached to the "quickReactionEmojiIds" prop)
+ * @param containerAri the container for reactions/ari in the page (attached to the "quickReactionEmojis" prop)
+ * @param ariunique Atlassian identifier for an emoji (attached to the "quickReactionEmojis" prop)
  * @param emojiId unique identifier guid for the emoji
  */
 export type ReactionAction = (

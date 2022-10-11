@@ -20,6 +20,7 @@ import {
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { mediaTableWrapperStyles } from './styles';
 import DownloadButton from './downloadButton';
+import PreviewButton from './previewButton';
 import {
   RowData,
   OnSortData,
@@ -31,6 +32,7 @@ import {
   getValidTableProps,
   generateHeadValues,
   CELL_KEY_DOWNLOAD,
+  CELL_KEY_PREVIEW,
   ANALYTICS_MEDIA_CHANNEL,
 } from '../util';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -95,6 +97,8 @@ export class MediaTable extends Component<
       const content =
         cell.key === CELL_KEY_DOWNLOAD ? (
           <DownloadButton onClick={this.onDownloadClick(identifier)} />
+        ) : cell.key === CELL_KEY_PREVIEW ? (
+          <PreviewButton onClick={this.onPreviewClick(identifier)} />
         ) : (
           (cell.key && data[cell.key]) || ''
         );
@@ -122,6 +126,13 @@ export class MediaTable extends Component<
     );
   };
 
+  private onPreviewClick = (identifier: FileIdentifier) => (
+    event: React.MouseEvent<HTMLElement>,
+  ) => {
+    event.stopPropagation();
+    this.openPreview(identifier);
+  };
+
   private onSort = (data: OnSortData) => {
     const { onSort } = this.props;
     const { key, sortOrder, item } = data;
@@ -135,16 +146,16 @@ export class MediaTable extends Component<
   ) => {
     const { items, columns } = this.props;
 
-    const rowValues: RowType[] = items.map((item) => {
+    const rowValues: RowType[] = items.map((item, index) => {
       const { data, identifier, rowProps } = item;
       return {
         cells: this.generateCellValues(data, identifier),
         key: identifier.id,
         tabIndex: 0,
-        onClick: this.onRowClick(identifier),
+        onClick: this.onRowClick(identifier, data, index),
         onKeyPress: (event) => {
           if (event.key === 'Enter') {
-            this.onRowEnterKeyPressed(identifier);
+            this.onRowEnterKeyPressed(identifier, data, index);
           }
         },
         ...rowProps,
@@ -171,6 +182,7 @@ export class MediaTable extends Component<
       items,
       sortKey,
       sortOrder,
+      highlightedRowIndex,
     } = this.props;
 
     const {
@@ -200,6 +212,7 @@ export class MediaTable extends Component<
         onSort={this.onSort}
         onSetPage={onSetPage}
         isFixedSize
+        highlightedRowIndex={highlightedRowIndex}
       />
     );
   };
@@ -211,8 +224,13 @@ export class MediaTable extends Component<
     onPreviewOpen && onPreviewOpen();
   };
 
-  private onRowEnterKeyPressed = (identifier: FileIdentifier) => {
-    const { createAnalyticsEvent } = this.props;
+  private onRowEnterKeyPressed = (
+    identifier: FileIdentifier,
+    data: RowData,
+    index: number,
+  ) => {
+    const { createAnalyticsEvent, onRowClick } = this.props;
+
     const ev = createAnalyticsEvent({
       eventType: 'ui',
       action: 'keyPressed',
@@ -221,11 +239,20 @@ export class MediaTable extends Component<
     });
     ev.fire(ANALYTICS_MEDIA_CHANNEL);
 
-    this.openPreview(identifier);
+    const shouldPreventDefaultRowClick = onRowClick?.(data, index);
+
+    if (!shouldPreventDefaultRowClick) {
+      this.openPreview(identifier);
+    }
   };
 
-  private onRowClick = (identifier: FileIdentifier) => () => {
-    const { createAnalyticsEvent } = this.props;
+  private onRowClick = (
+    identifier: FileIdentifier,
+    data: RowData,
+    index: number,
+  ) => () => {
+    const { createAnalyticsEvent, onRowClick } = this.props;
+
     const ev = createAnalyticsEvent({
       eventType: 'ui',
       action: 'clicked',
@@ -234,7 +261,11 @@ export class MediaTable extends Component<
     });
     ev.fire(ANALYTICS_MEDIA_CHANNEL);
 
-    this.openPreview(identifier);
+    const shouldPreventDefaultRowClick = onRowClick?.(data, index);
+
+    if (!shouldPreventDefaultRowClick) {
+      this.openPreview(identifier);
+    }
   };
 
   private safeSetState = (state: Partial<MediaTableState>) => {

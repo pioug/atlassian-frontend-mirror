@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Tooltip from '@atlaskit/tooltip';
 import { renderActionItems } from '../utils';

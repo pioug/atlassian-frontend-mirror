@@ -1,5 +1,5 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles */
-import { css, SerializedStyles } from '@emotion/core';
+import { css, SerializedStyles } from '@emotion/react';
 
 import { Placement } from '@atlaskit/popper';
 

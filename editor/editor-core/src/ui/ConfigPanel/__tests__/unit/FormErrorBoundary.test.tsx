@@ -48,7 +48,7 @@ describe('FormErrorBoundary', () => {
     expect(wrapper.find('FormErrorBoundary').exists()).toBeTruthy();
     expect(wrapper.find('SectionMessage').exists()).toBeTruthy();
 
-    const heading = wrapper.find('h1');
+    const heading = wrapper.find('h2');
     expect(heading.exists()).toBeTruthy();
     expect(heading.text()).toEqual(messages.errorBoundaryTitle.defaultMessage);
 

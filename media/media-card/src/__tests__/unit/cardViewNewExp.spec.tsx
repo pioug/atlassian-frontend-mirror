@@ -1,6 +1,6 @@
 jest.mock('../../utils/getElementDimension');
-jest.mock('../../root/ui/styles', () => {
-  const original = jest.requireActual('../../root/ui/styles');
+jest.mock('../../card/ui/styles', () => {
+  const original = jest.requireActual('../../card/ui/styles');
   return {
     ...original,
     calcBreakpointSize: jest.fn(original.calcBreakpointSize),
@@ -9,32 +9,32 @@ jest.mock('../../root/ui/styles', () => {
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { CardViewBase, CardViewOwnProps } from '../../root/cardView';
-import { CardStatus } from '../../';
+import { CardViewBase, CardViewOwnProps } from '../../card/cardView';
+import { CardStatus } from '../../types';
 import { FileDetails } from '@atlaskit/media-client';
-import { PlayButton } from '../../root/ui/playButton/playButton';
-import { Blanket } from '../../root/ui/blanket/blanket';
-import { TitleBox } from '../../root/ui/titleBox/titleBox';
-import { ProgressBar } from '../../root/ui/progressBar/progressBar';
-import { ImageRenderer } from '../../root/ui/imageRenderer/imageRenderer';
-import { TickBox } from '../../root/ui/tickBox/tickBox';
+import { PlayButton } from '../../card/ui/playButton/playButton';
+import { Blanket } from '../../card/ui/blanket/blanket';
+import { TitleBox } from '../../card/ui/titleBox/titleBox';
+import { ProgressBar } from '../../card/ui/progressBar/progressBar';
+import { ImageRenderer } from '../../card/ui/imageRenderer/imageRenderer';
+import { TickBox } from '../../card/ui/tickBox/tickBox';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import { FailedTitleBox } from '../../root/ui/titleBox/failedTitleBox';
-import { calcBreakpointSize } from '../../root/ui/styles';
+import { FailedTitleBox } from '../../card/ui/titleBox/failedTitleBox';
+import { calcBreakpointSize } from '../../card/ui/styles';
 import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { getElementDimension } from '../../utils/getElementDimension';
 import Tooltip from '@atlaskit/tooltip';
 import SpinnerIcon from '@atlaskit/spinner';
-import { IconWrapper } from '../../root/ui/iconWrapper/iconWrapper';
+import { IconWrapper } from '../../card/ui/iconWrapper/iconWrapper';
 import {
   PreviewUnavailable,
   PreviewCurrentlyUnavailable,
   CreatingPreview,
   FailedToUpload,
-} from '../../root/ui/iconMessage';
+} from '../../card/ui/iconMessage';
 import { createPollingMaxAttemptsError } from '@atlaskit/media-test-helpers';
 import { MediaCardError } from '../../errors';
-import { NewFileExperienceWrapper } from '../../root/ui/newFileExperience/newFileExperienceWrapper';
+import { NewFileExperienceWrapper } from '../../card/ui/newFileExperience/newFileExperienceWrapper';
 
 const cardPreview = {
   dataURI: 'some-data',

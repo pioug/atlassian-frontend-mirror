@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
+import __noop from '@atlaskit/ds-lib/noop';
 
 import AvatarGroup from '../../avatar-group';
 
@@ -196,7 +197,7 @@ describe('<AvatarGroup />', () => {
         testId="test"
         data={generateData({
           avatarCount: 5,
-          onClick: () => {},
+          onClick: __noop,
           label: 'Label',
         })}
         // While max count is 4 - 2 items will be moved into the overflow menu

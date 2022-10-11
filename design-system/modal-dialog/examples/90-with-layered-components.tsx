@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment, ReactNode, useCallback, useRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import AvatarGroup from '@atlaskit/avatar-group';

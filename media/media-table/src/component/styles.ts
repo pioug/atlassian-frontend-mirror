@@ -23,7 +23,8 @@ export const mediaTableWrapperStyles = css`
   tr {
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background: ${N20};
     }
 

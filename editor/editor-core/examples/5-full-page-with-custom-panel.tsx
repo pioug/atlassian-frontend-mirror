@@ -5,7 +5,7 @@ import languages from '../src/i18n/languages';
 import { default as FullPageExample } from './5-full-page';
 import LanguagePicker from '../example-helpers/LanguagePicker';
 import { exampleDocument } from '../example-helpers/example-doc-with-custom-panels';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { ThemeProvider as StyledThemeProvider } from '@emotion/react';
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import type { ThemeModes } from '@atlaskit/theme/types';
 

@@ -40,7 +40,7 @@ const Blanket = ({ isOpen, onBlanketClicked, testId }: BlanketProps) => {
               <AkBlanket
                 isTinted
                 onBlanketClicked={onBlanketClicked}
-                testId={testId}
+                testId={testId && testId}
               />
             </div>
           )}

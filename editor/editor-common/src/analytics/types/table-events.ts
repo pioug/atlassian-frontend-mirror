@@ -25,6 +25,7 @@ export enum TABLE_ACTION {
   REPLACED = 'replaced',
   ATTEMPTED_TABLE_WIDTH_CHANGE = 'attemptedTableWidthChange',
   DISTRIBUTED_COLUMNS_WIDTHS = 'distributedColumnsWidths',
+  FIXED = 'fixed',
 }
 
 export enum TABLE_BREAKOUT {
@@ -86,13 +87,17 @@ type TableClearAEP = TableAEP<
 
 type TableMergeSplitAEP = TableAEP<
   TABLE_ACTION.MERGED | TABLE_ACTION.SPLIT,
-  AllCellInfo,
+  {
+    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB;
+  } & AllCellInfo,
   undefined
 >;
 
 type TableColorAEP = TableAEP<
   TABLE_ACTION.COLORED,
-  { cellColor: string } & AllCellInfo,
+  {
+    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB;
+  } & { cellColor: string } & AllCellInfo,
   undefined
 >;
 
@@ -150,7 +155,7 @@ type TableDeleteRowOrColumnAEP = TableAEP<
 type TableDistributeColumnsWidthsAEP = TableAEP<
   TABLE_ACTION.DISTRIBUTED_COLUMNS_WIDTHS,
   {
-    inputMethod: INPUT_METHOD.CONTEXT_MENU;
+    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB;
     position: number;
     count: number;
   } & TotalRowAndColCount,
@@ -164,6 +169,7 @@ type TableSortColumnAEP = TableAEP<
       | INPUT_METHOD.SHORTCUT
       | INPUT_METHOD.CONTEXT_MENU
       | INPUT_METHOD.BUTTON
+      | INPUT_METHOD.FLOATING_TB
       | INPUT_METHOD.KEYBOARD;
     position: number;
   } & TotalRowAndColCount &
@@ -193,6 +199,14 @@ type TableCollapsedAEP = TableAEP<
   undefined
 >;
 
+type TableFixedAEP = TableAEP<
+  TABLE_ACTION.FIXED,
+  {
+    reason: string;
+  },
+  undefined
+>;
+
 //#endregion
 
 export type TableEventPayload =
@@ -209,4 +223,5 @@ export type TableEventPayload =
   | TableReplaceAEP
   | TableAttemptedResizeAEP
   | TableDistributeColumnsWidthsAEP
-  | TableCollapsedAEP;
+  | TableCollapsedAEP
+  | TableFixedAEP;

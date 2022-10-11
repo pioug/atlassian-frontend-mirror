@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { smallImage } from '@atlaskit/media-test-helpers';
 
 import { BlockCardResolvedView } from '../src/view/BlockCard';

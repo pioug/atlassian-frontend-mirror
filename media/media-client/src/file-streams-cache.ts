@@ -1,9 +1,8 @@
-import { LRUCache } from 'lru-fast';
+import { LRUMap } from 'lru_map';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { FileState } from './models/file-state';
-
 export class StreamsCache<T> {
-  constructor(private readonly streams: LRUCache<string, ReplaySubject<T>>) {}
+  constructor(private readonly streams: LRUMap<string, ReplaySubject<T>>) {}
 
   has(id: string): boolean {
     return !!this.streams.find(id);
@@ -25,11 +24,11 @@ export class StreamsCache<T> {
   }
 
   removeAll() {
-    this.streams.removeAll();
+    this.streams.clear();
   }
 
   remove(id: string) {
-    this.streams.remove(id);
+    this.streams.delete(id);
   }
 
   get size(): number {

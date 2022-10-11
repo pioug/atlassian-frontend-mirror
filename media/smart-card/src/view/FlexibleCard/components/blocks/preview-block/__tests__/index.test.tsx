@@ -2,7 +2,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';

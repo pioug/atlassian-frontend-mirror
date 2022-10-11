@@ -1,7 +1,6 @@
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import Button from '@atlaskit/button/custom-theme-button';
-import Range from '@atlaskit/range';
 import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import * as colors from '@atlaskit/theme/colors';
 
@@ -64,7 +63,8 @@ function simulateChangeOnLineWidthPopup(
 
   component
     .find(LineWidthPopup)
-    .find(Range)
+    .find('[type="range"]')
+    .last() // To get the inner-most range node, ignoring emotion wrappers
     .simulate('change', { target: { value } });
 }
 

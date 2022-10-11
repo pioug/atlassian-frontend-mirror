@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import React, { useMemo } from 'react';
 import { withErrorBoundary } from 'react-error-boundary';
 import { CodeBlock } from '@atlaskit/code';

@@ -1,5 +1,18 @@
 # @atlaskit/util-data-test
 
+## 17.5.7
+
+### Patch Changes
+
+- [`588c8a3e413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/588c8a3e413) - Update mocks to include interface fetchByEmojiId
+- Updated dependencies
+
+## 17.5.6
+
+### Patch Changes
+
+- [`12e166e12ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12e166e12ee) - Updated user picker team data to demonstrate a hover effect on the custom icon. New example component added for custom icon.
+
 ## 17.5.5
 
 ### Patch Changes

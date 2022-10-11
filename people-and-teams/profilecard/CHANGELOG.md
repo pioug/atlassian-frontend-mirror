@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 17.2.2
+
+### Patch Changes
+
+- [`285ad326001`](https://bitbucket.org/atlassian/atlassian-frontend/commits/285ad326001) - no-issue: Translations update
+
 ## 17.2.1
 
 ### Patch Changes

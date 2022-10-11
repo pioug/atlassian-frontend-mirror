@@ -15,7 +15,6 @@ import Textfield, { TextFieldProps } from '@atlaskit/textfield';
 import Selectclear from '@atlaskit/icon/glyph/select-clear';
 
 import { isRedoEvent, isUndoEvent } from '../utils';
-import { testIds } from '../';
 import { clearTextButtonStyles, fieldStyles } from './styled';
 
 export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> & {
@@ -29,6 +28,11 @@ export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> & {
   onClear?: (name: string) => void;
   clearLabel?: string;
   error?: string | null;
+};
+
+export const testIds = {
+  urlError: 'link-error',
+  clearUrlButton: 'clear-text',
 };
 
 const TextInput = ({

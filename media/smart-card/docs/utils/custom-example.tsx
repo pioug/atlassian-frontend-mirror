@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { Example } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
 

@@ -32,6 +32,11 @@ const columns: HeadType = {
       content: '',
       width: 10,
     },
+    {
+      key: 'preview',
+      content: '',
+      width: 10,
+    },
   ],
 };
 

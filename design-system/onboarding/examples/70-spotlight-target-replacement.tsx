@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Component } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import { borderRadius as getBorderRadius } from '@atlaskit/theme/constants';

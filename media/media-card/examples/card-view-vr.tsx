@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 // eslint-disable-line no-console
 import React from 'react';
 import { CardStatus } from '../src';
-import { CardView } from '../src/root/cardView';
+import { CardView } from '../src/card/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl-next';

@@ -1,8 +1,8 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
   initFullPageEditorWithAdf,
-  Device,
 } from '../../../../../__tests__/visual-regression/_utils';
 import textListADF from './__fixtures__/text-and-list.adf.json';
 

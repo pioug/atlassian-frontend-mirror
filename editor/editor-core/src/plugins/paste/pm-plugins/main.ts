@@ -1,10 +1,17 @@
-import { Schema, Slice, Node, Fragment } from 'prosemirror-model';
+import {
+  Schema,
+  Slice,
+  Node,
+  Fragment,
+  Node as PMNode,
+} from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, Transaction } from 'prosemirror-state';
+import { Transaction } from 'prosemirror-state';
 import uuid from 'uuid';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { mapChildren } from '../../../utils/slice';
 import {
   ExtensionProvider,
   getExtensionAutoConvertersFromProvider,
@@ -56,7 +63,7 @@ import {
   DispatchAnalyticsEvent,
   PasteTypes,
 } from '../../analytics';
-import { insideTable, measurements } from '../../../utils';
+import { isInsideBlockQuote, insideTable, measurements } from '../../../utils';
 import { measureRender } from '@atlaskit/editor-common/utils';
 import {
   transformSliceToCorrectMediaWrapper,
@@ -80,12 +87,15 @@ import {
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { extractSliceFromStep } from '../../../utils/step';
 
-export const stateKey = new PluginKey('pastePlugin');
+import { pluginKey as stateKey, createPluginState } from './plugin-factory';
+export { pluginKey as stateKey } from './plugin-factory';
 export { md } from '../md';
+import type { Dispatch } from '../../../event-dispatcher';
 
 export function createPlugin(
   schema: Schema,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
+  dispatch: Dispatch,
   plainTextPasteLinkification?: boolean,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
@@ -99,8 +109,8 @@ export function createPlugin(
     openEnd: number,
   ): Slice | undefined {
     let textInput: string = text;
-    if (textInput.includes(':\\\\')) {
-      textInput = textInput.replace(/:\\\\/g, ':\\\\\\\\');
+    if (textInput.includes('\\')) {
+      textInput = textInput.replace(/\\/g, '\\\\');
     }
 
     const doc = atlassianMarkDownParser.parse(escapeLinks(textInput));
@@ -139,6 +149,9 @@ export function createPlugin(
 
   return new SafePlugin({
     key: stateKey,
+    state: createPluginState(dispatch, {
+      pastedMacroPositions: {},
+    }),
     props: {
       // For serialising to plain text
       clipboardTextSerializer,
@@ -398,6 +411,29 @@ export function createPlugin(
             event,
             markdownSlice,
           )(state, dispatch);
+        }
+
+        if (isRichText && isInsideBlockQuote(state)) {
+          //If pasting inside blockquote
+          //Skip the blockquote node and keep remaining nodes as they are
+          const { blockquote } = schema.nodes;
+          const children = [] as PMNode[];
+
+          mapChildren(slice.content, (node: PMNode) => {
+            if (node.type === blockquote) {
+              for (let i = 0; i < node.childCount; i++) {
+                children.push(node.child(i));
+              }
+            } else {
+              children.push(node);
+            }
+          });
+
+          slice = new Slice(
+            Fragment.fromArray(children),
+            slice.openStart,
+            slice.openEnd,
+          );
         }
 
         // finally, handle rich-text copy-paste

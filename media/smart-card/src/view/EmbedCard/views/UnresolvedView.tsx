@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { Appearance } from '@atlaskit/button/types';
 import Button from '@atlaskit/button/custom-theme-button';
 import { fontSize } from '@atlaskit/theme/constants';

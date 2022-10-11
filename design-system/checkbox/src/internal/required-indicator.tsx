@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

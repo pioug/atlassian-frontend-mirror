@@ -10,6 +10,7 @@ import {
 import { mount, ReactWrapper } from 'enzyme';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import __noop from '@atlaskit/ds-lib/noop';
 import Select, { ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
@@ -488,7 +489,7 @@ test('should associate label with field', () => {
 });
 
 test('should indicate whether form is submitting', () => {
-  let complete = () => {};
+  let complete = __noop;
   const promise = new Promise<void>((res) => {
     complete = res;
   });
@@ -539,7 +540,7 @@ test('should never render with undefined fieldProp value', () => {
   const spy = jest.fn(() => 'Hello');
 
   mount(
-    <Form onSubmit={() => {}}>
+    <Form onSubmit={__noop}>
       {() => (
         <Field name="username" defaultValue="Joe Bloggs">
           {spy}
@@ -832,7 +833,7 @@ test('should correctly update form state with array of usernames', () => {
 });
 
 test('should indicate validating status for async validation', async () => {
-  const onSubmitMock = () => {};
+  const onSubmitMock = __noop;
 
   const promise = new Promise((resolve) => setTimeout(resolve, 100));
   const validate = async (value: any) => {

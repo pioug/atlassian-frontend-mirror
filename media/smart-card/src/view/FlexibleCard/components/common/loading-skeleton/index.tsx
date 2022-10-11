@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { css, jsx, keyframes } from '@emotion/core';
+import { css, jsx, keyframes } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { LoadingSkeletonProps } from './types';
 

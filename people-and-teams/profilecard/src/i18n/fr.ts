@@ -38,6 +38,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week':
     'Son compte a été désactivé cette semaine.',
   'pt.profile-card.inactive.account.no.date': 'Son compte a été désactivé.',
+  'pt.profile-card.more-icon-label': 'Plus',
   'pt.team-profile-card.directReports.heading': 'Collaborateurs directs',
   'pt.team-profile-card.error.refresh-button': 'Réessayez',
   'pt.team-profile-card.error.suggestion':

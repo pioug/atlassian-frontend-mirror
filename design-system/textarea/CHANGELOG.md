@@ -1,5 +1,15 @@
 # @atlaskit/textarea
 
+## 4.5.0
+
+### Minor Changes
+
+- [`6612a236510`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6612a236510) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- [`32d761cfc1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32d761cfc1d) - [ux] Fix bug that prevented consumers from rendering a single line textarea
+
 ## 4.4.0
 
 ### Minor Changes

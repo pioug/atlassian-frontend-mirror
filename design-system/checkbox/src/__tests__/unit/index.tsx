@@ -2,6 +2,8 @@ import React, { ChangeEvent, createRef } from 'react';
 
 import { render } from '@testing-library/react';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 import Checkbox from '../../checkbox';
 
 declare var global: any;
@@ -11,7 +13,7 @@ describe('@atlaskit/checkbox', () => {
     render(
       <Checkbox
         label="stub"
-        onChange={() => {}}
+        onChange={__noop}
         name="stub"
         value="stub value"
         // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
@@ -107,7 +109,7 @@ describe('@atlaskit/checkbox', () => {
       rerender(
         <Checkbox
           label="stub"
-          onChange={() => {}}
+          onChange={__noop}
           name="stub"
           value="stub value"
           isChecked={false}

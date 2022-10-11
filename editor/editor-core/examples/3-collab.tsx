@@ -287,7 +287,7 @@ class Example extends React.Component<Props> {
   render() {
     return (
       <div>
-        <div css={columns}>
+        <div css={columns} id="left">
           <div css={column}>
             <DropzoneEditorWrapper>
               {(parentContainer) => (
@@ -304,7 +304,7 @@ class Example extends React.Component<Props> {
               )}
             </DropzoneEditorWrapper>
           </div>
-          <div css={column}>
+          <div css={column} id="right">
             <DropzoneEditorWrapper>
               {(parentContainer) => (
                 <EditorContext>

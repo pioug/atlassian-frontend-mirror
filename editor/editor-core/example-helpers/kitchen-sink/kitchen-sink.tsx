@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React from 'react';
 
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { scrubAdf } from '@atlaskit/adf-utils/scrub';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { Checkbox } from '@atlaskit/checkbox';

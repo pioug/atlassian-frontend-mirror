@@ -1,17 +1,24 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForTooltip,
+} from '@atlaskit/visual-regression/helper';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import adf from './__fixtures__/default-table.adf.json';
 import {
   clickFirstCell,
   clickTableOptions,
+  clickCellOptionsInFloatingToolbar,
+  clickCellBackgroundInFloatingToolbar,
   clickCellOptions,
   selectCellOption,
+  tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 const floatingControlsAriaLabel = 'Table floating controls';
 const dropdownListSelector =
   '[aria-label="Popup"] [data-role="droplistContent"]';
+const colourPickerPopupSelector = '[aria-label="Popup"] [role="radiogroup"]';
 
 describe('Table floating toolbar:fullpage', () => {
   let page: PuppeteerPage;
@@ -47,20 +54,40 @@ describe('Table floating toolbar:fullpage', () => {
     await page.waitForSelector(dropdownListSelector);
   });
 
-  // Skipped as when run;
-  // - on local dev machine (mac intel) - one consistent result
-  // - on CI - another consistent result
-  // As this was triggering while working a release blocker (ED-13507)
-  // we are skipping and adding a ticket (ED-15321).
-  it.skip('display cell background', async () => {
+  it('display cell background', async () => {
     // Wait for table cell options drop down list to be shown, then
     // select background color option and wait for color picker popout to be shown
     await selectCellOption(page, 'Cell background');
     await page.waitForSelector(
       `${dropdownListSelector} .pm-table-contextual-submenu`,
     );
-    await page.waitForSelector(
-      `${dropdownListSelector} .pm-table-contextual-submenu`,
-    );
+  });
+
+  describe('When tableCellOptionsInFloatingToolbar FF enabled', () => {
+    beforeEach(async () => {
+      page = global.page;
+      await initFullPageEditorWithAdf(page, adf, undefined, undefined, {
+        featureFlags: {
+          tableCellOptionsInFloatingToolbar: true,
+        },
+      });
+      // Focus the table and select the first (non header row) cell
+      await clickFirstCell(page, true);
+      // Wait for floating table controls underneath the table
+      await waitForFloatingControl(page, floatingControlsAriaLabel);
+    });
+
+    it('displays cell options in floating toolbar', async () => {
+      await clickCellOptionsInFloatingToolbar(page);
+      await page.waitForSelector(
+        `[aria-label="${floatingControlsAriaLabel}"] ${dropdownListSelector}`,
+      );
+    });
+
+    it('display cell background in floating toolbar', async () => {
+      await clickCellBackgroundInFloatingToolbar(page);
+      await waitForTooltip(page, tableSelectors.cellBackgroundText);
+      await page.waitForSelector(colourPickerPopupSelector);
+    });
   });
 });

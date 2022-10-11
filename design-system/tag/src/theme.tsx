@@ -39,8 +39,8 @@ export const textColors = {
     dark: token('color.text.accent.purple.bolder', colors.N800),
   },
   grey: {
-    light: token('color.text.inverse', colors.N0),
-    dark: token('color.text.inverse', colors.N0),
+    light: token('color.text.accent.gray.bolder', colors.N0),
+    dark: token('color.text.accent.gray.bolder', colors.N0),
   },
   blueLight: {
     light: token('color.text.accent.blue', colors.B500),
@@ -67,8 +67,8 @@ export const textColors = {
     dark: token('color.text.accent.purple', colors.P500),
   },
   greyLight: {
-    light: token('color.text', colors.N500),
-    dark: token('color.text', colors.N500),
+    light: token('color.text.accent.gray', colors.N500),
+    dark: token('color.text.accent.gray', colors.N500),
   },
 };
 
@@ -108,8 +108,8 @@ export const textHoverColors = {
     dark: token('color.text.accent.purple.bolder', colors.N800),
   },
   grey: {
-    light: token('color.text.inverse', colors.N0),
-    dark: token('color.text.inverse', colors.N0),
+    light: token('color.text.accent.gray.bolder', colors.N0),
+    dark: token('color.text.accent.gray.bolder', colors.N0),
   },
   blueLight: {
     light: token('color.text.accent.blue', colors.B500),
@@ -136,8 +136,8 @@ export const textHoverColors = {
     dark: token('color.text.accent.purple', colors.P500),
   },
   greyLight: {
-    light: token('color.text', colors.N500),
-    dark: token('color.text', colors.N500),
+    light: token('color.text.accent.gray', colors.N500),
+    dark: token('color.text.accent.gray', colors.N500),
   },
 };
 
@@ -171,8 +171,8 @@ export const textActiveColors = {
     dark: token('color.text.accent.purple', colors.N800),
   },
   grey: {
-    light: token('color.text.inverse', colors.N0),
-    dark: token('color.text.inverse', colors.N0),
+    light: token('color.text.accent.gray', colors.N0),
+    dark: token('color.text.accent.gray', colors.N0),
   },
   blueLight: {
     light: token('color.text.accent.blue.bolder', colors.B500),
@@ -199,8 +199,8 @@ export const textActiveColors = {
     dark: token('color.text.accent.purple.bolder', colors.P500),
   },
   greyLight: {
-    light: token('color.text', colors.N500),
-    dark: token('color.text', colors.N500),
+    light: token('color.text.accent.gray.bolder', colors.N500),
+    dark: token('color.text.accent.gray.bolder', colors.N500),
   },
 };
 
@@ -235,8 +235,8 @@ export const backgroundColors = {
     dark: token('color.background.accent.purple.subtle', colors.P100),
   },
   grey: {
-    light: token('color.background.neutral.bold', colors.N500),
-    dark: token('color.background.neutral.bold', colors.N500),
+    light: token('color.background.accent.gray.subtle', colors.N500),
+    dark: token('color.background.accent.gray.subtle', colors.N500),
   },
   blueLight: {
     light: token('color.background.accent.blue.subtler', colors.B75),
@@ -263,8 +263,8 @@ export const backgroundColors = {
     dark: token('color.background.accent.purple.subtler', colors.P75),
   },
   greyLight: {
-    light: token('color.background.neutral', colors.N30),
-    dark: token('color.background.neutral', colors.N30),
+    light: token('color.background.accent.gray.subtler', colors.N30),
+    dark: token('color.background.accent.gray.subtler', colors.N30),
   },
 };
 
@@ -298,8 +298,8 @@ export const linkHoverBackgroundColors = {
     dark: token('color.background.accent.purple.subtler', colors.DN60),
   },
   grey: {
-    light: token('color.background.neutral.bold.hovered', colors.N400),
-    dark: token('color.background.neutral.bold.hovered', colors.N500),
+    light: token('color.background.accent.gray.subtler', colors.N400),
+    dark: token('color.background.accent.gray.subtler', colors.N500),
   },
   blueLight: {
     light: token('color.background.accent.blue.subtlest', colors.B50),
@@ -326,8 +326,8 @@ export const linkHoverBackgroundColors = {
     dark: token('color.background.accent.purple.subtlest', colors.DN60),
   },
   greyLight: {
-    light: token('color.background.neutral.hovered', colors.N40),
-    dark: token('color.background.neutral.hovered', colors.DN60),
+    light: token('color.background.accent.gray.subtlest', colors.N40),
+    dark: token('color.background.accent.gray.subtlest', colors.DN60),
   },
 };
 
@@ -361,8 +361,8 @@ export const linkActiveBackgroundColors = {
     dark: token('color.background.accent.purple.subtlest', colors.DN600),
   },
   grey: {
-    light: token('color.background.neutral.bold.pressed', colors.N300),
-    dark: token('color.background.neutral.bold.pressed', colors.DN600),
+    light: token('color.background.accent.gray.subtlest', colors.N300),
+    dark: token('color.background.accent.gray.subtlest', colors.DN600),
   },
   blueLight: {
     light: token('color.background.accent.blue.subtle', colors.B100),
@@ -389,8 +389,8 @@ export const linkActiveBackgroundColors = {
     dark: token('color.background.accent.purple.subtle', colors.DN600),
   },
   greyLight: {
-    light: token('color.background.neutral.pressed', colors.N50),
-    dark: token('color.background.neutral.pressed', colors.DN600),
+    light: token('color.background.accent.gray.subtle', colors.N50),
+    dark: token('color.background.accent.gray.subtle', colors.DN600),
   },
 };
 
@@ -434,14 +434,14 @@ export const removeButtonColors = {
   green: token('color.text.accent.green.bolder', colors.N500),
   teal: token('color.text.accent.teal.bolder', colors.N500),
   purple: token('color.text.accent.purple.bolder', colors.N500),
-  grey: token('color.text.inverse', colors.N500),
+  grey: token('color.text.accent.gray.bolder', colors.N500),
   blueLight: token('color.text.accent.blue', colors.N500),
   redLight: token('color.text.accent.red', colors.N500),
   yellowLight: token('color.text.accent.yellow', colors.N500),
   greenLight: token('color.text.accent.green', colors.N500),
   tealLight: token('color.text.accent.teal', colors.N500),
   purpleLight: token('color.text.accent.purple', colors.N500),
-  greyLight: token('color.text', colors.N500),
+  greyLight: token('color.text.accent.gray', colors.N500),
 };
 
 export const removeButtonHoverColors = {

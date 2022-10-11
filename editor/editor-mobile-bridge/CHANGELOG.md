@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 35.0.0
+
+### Minor Changes
+
+- [`e71cf110b81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e71cf110b81) - [ux] ED-14418 Copied table cell options to the floating toolbar if feature flag is enabled (off by default)
+- [`c3f440484ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3f440484ff) - Removed styled components theme provider
+
+### Patch Changes
+
+- [`84169485e13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84169485e13) - ME-2672 add feature flag for new media card, https://team.atlassian.com/project/ATLAS-7118/about
+- Updated dependencies
+
+## 34.5.11
+
+### Patch Changes
+
+- [`588c8a3e413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/588c8a3e413) - Update mocks to include interface fetchByEmojiId
+- Updated dependencies
+
 ## 34.5.10
 
 ### Patch Changes

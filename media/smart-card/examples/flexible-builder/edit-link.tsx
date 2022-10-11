@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import React, { useCallback, useState } from 'react';
 import { JsonLd } from 'json-ld-types';
 import Button, { ButtonGroup } from '@atlaskit/button';

@@ -1,5 +1,5 @@
 import { shouldDisplayImageThumbnail } from '../../shouldDisplayImageThumbnail';
-import { CardStatus } from '../../..';
+import { CardStatus } from '../../../types';
 
 describe('#shouldDisplayImageThumbnail()', () => {
   const cardStatuses: CardStatus[] = [

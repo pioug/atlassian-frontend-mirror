@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { ElementGroupProps } from './types';
 import {
@@ -42,9 +42,10 @@ const getGapStyles = (
     return css`
       > span {
         margin-left: ${gap}rem;
-        &:first-child {
-          margin-left: initial;
-        }
+      }
+
+      > span:first-child {
+        margin-left: initial;
       }
     `;
   }

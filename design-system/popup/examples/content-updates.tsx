@@ -1,14 +1,15 @@
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import __noop from '@atlaskit/ds-lib/noop';
 
 import Popup from '../src';
 
-const noop = () => {};
+const noop = __noop;
 const data = [
   `Last night I saw you in my dreams, now I can't wait to go to sleep.`,
   `You've got to realize that the world's a test, you can only do your best and let Him do the rest.`,

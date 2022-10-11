@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useEffect } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { BlockProps } from '../types';
 import {

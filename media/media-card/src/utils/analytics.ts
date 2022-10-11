@@ -30,8 +30,7 @@ import {
   MediaCardError,
   MediaCardErrorPrimaryReason,
 } from '../errors';
-import { CardDimensions } from './cardDimensions';
-import { CardPreviewSource } from '../types';
+import { CardPreviewSource, CardDimensions } from '../types';
 
 const relevantFlags = {
   newCardExperience: true,

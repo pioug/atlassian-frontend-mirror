@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 12.3.0
+
+### Minor Changes
+
+- [`f2fe91811eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2fe91811eb) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
+
 ## 12.2.16
 
 ### Patch Changes

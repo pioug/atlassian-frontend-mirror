@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { CSSProperties, FC, forwardRef, useRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { ReactNode } from 'react-redux';
 
 import { N20, N60A } from '@atlaskit/theme/colors';

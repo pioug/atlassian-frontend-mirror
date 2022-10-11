@@ -101,7 +101,7 @@ export const createReducer = ({
       triggerHandler,
       decorationElement,
       inputMethod,
-      selectedIndex: typeof selectedIndex === 'number' ? selectedIndex : 0,
+      selectedIndex: typeof selectedIndex === 'number' ? selectedIndex : -1,
       items: [],
       query: reopenQuery || '',
     };
@@ -185,7 +185,7 @@ export const createReducer = ({
         items,
         selectedIndex: Math.max(
           selectedIndex >= items.length ? items.length - 1 : selectedIndex,
-          0,
+          -1,
         ),
       };
     } else if (shouldUpdateSelectedIndex) {

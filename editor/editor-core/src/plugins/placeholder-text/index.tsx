@@ -94,11 +94,14 @@ export function createPlugin(
           adjacentNode.type === placeholderNodeType &&
           didPlaceholderExistBeforeTxn
         ) {
+          const { $head: $newHead } = newState.selection;
+          const { $head: $oldHead } = oldState.selection;
           // Check that cursor has moved forward in the document **and** that there is content before the cursor
-          const wasContentAdded =
-            oldState.selection.$head.pos < newState.selection.$head.pos &&
-            !isNodeEmpty(newState.selection.$head.nodeBefore!);
-          if (wasContentAdded) {
+          const cursorMoved = $oldHead.pos < $newHead.pos;
+          const nodeBeforeHasContent = !isNodeEmpty($newHead.nodeBefore!);
+          const nodeBeforeIsInline = $newHead.nodeBefore?.type.isInline;
+
+          if (cursorMoved && (nodeBeforeHasContent || nodeBeforeIsInline)) {
             const { $from, $to } = NodeSelection.create(
               newState.doc,
               adjacentNodePos,

@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { CardStatus } from '../src';
-import { CardView } from '../src/root/cardView';
+import { CardView } from '../src/card/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl-next';
 import { MainWrapper } from '../example-helpers';

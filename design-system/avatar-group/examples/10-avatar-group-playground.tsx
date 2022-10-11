@@ -73,14 +73,14 @@ const AvatarGroupExample: FC = () => {
             <Button
               isDisabled={avatarSize === 'small'}
               onClick={() => decrement('sizeIndex')}
-              iconBefore={<ArrowDown size="small" label="Smaller" />}
+              iconBefore={<ArrowDown size="small" label="" />}
             >
               Smaller
             </Button>
             <Button
               isDisabled={avatarSize === 'xlarge'}
               onClick={() => increment('sizeIndex')}
-              iconBefore={<ArrowUp size="small" label="Larger" />}
+              iconBefore={<ArrowUp size="small" label="" />}
             >
               Larger
             </Button>
@@ -92,14 +92,14 @@ const AvatarGroupExample: FC = () => {
             <Button
               isDisabled={avatarCount <= 1}
               onClick={() => decrement('avatarCount')}
-              iconBefore={<ArrowDown size="small" label="Less" />}
+              iconBefore={<ArrowDown size="small" label="" />}
             >
               Less
             </Button>
             <Button
               isDisabled={avatarCount >= 30}
               onClick={() => increment('avatarCount')}
-              iconBefore={<ArrowUp size="small" label="More" />}
+              iconBefore={<ArrowUp size="small" label="" />}
             >
               More
             </Button>
@@ -111,14 +111,14 @@ const AvatarGroupExample: FC = () => {
             <Button
               isDisabled={avatarCountMax <= 1}
               onClick={() => decrement('avatarCountMax')}
-              iconBefore={<ArrowDown size="small" label="Less" />}
+              iconBefore={<ArrowDown size="small" label="" />}
             >
               Less
             </Button>
             <Button
               isDisabled={avatarCountMax >= 30}
               onClick={() => increment('avatarCountMax')}
-              iconBefore={<ArrowUp size="small" label="More" />}
+              iconBefore={<ArrowUp size="small" label="" />}
             >
               More
             </Button>

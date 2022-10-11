@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import __noop from '@atlaskit/ds-lib/noop';
 import Range from '@atlaskit/range';
 
 import Form, { RangeField } from '../../index';
@@ -13,7 +14,7 @@ describe('RangeField', () => {
     const warn = jest.spyOn(console, 'warn');
 
     render(
-      <Form onSubmit={() => {}}>
+      <Form onSubmit={__noop}>
         {({ formProps }) => (
           <form {...formProps} data-testid="form">
             <RangeField name="light" defaultValue={30}>

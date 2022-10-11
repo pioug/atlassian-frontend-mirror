@@ -124,10 +124,11 @@ export class DrawerBase extends Component<
       isFocusLockEnabled,
       shouldReturnFocus,
       overrides,
+      zIndex = 'unset',
     } = this.props;
 
     return (
-      <Portal zIndex="unset">
+      <Portal zIndex={zIndex}>
         <Blanket
           isOpen={isOpen}
           onBlanketClicked={this.handleBlanketClick}

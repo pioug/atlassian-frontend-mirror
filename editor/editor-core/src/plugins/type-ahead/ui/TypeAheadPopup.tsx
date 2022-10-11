@@ -45,7 +45,7 @@ const typeAheadContent = css`
 type TypeAheadPopupProps = {
   triggerHandler: TypeAheadHandler;
   editorView: EditorView;
-  anchorElement?: HTMLElement;
+  anchorElement: HTMLElement;
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
@@ -84,7 +84,6 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
       popupsScrollableElement,
       items,
       selectedIndex,
-      setSelectedItem,
       onItemInsert,
       fireAnalyticsCallback,
       isEmptyQuery,
@@ -248,9 +247,10 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
           <TypeAheadList
             items={items}
             selectedIndex={selectedIndex}
-            onItemHover={setSelectedItem}
             onItemClick={onItemInsert}
             fitHeight={fitHeight}
+            editorView={editorView}
+            decorationElement={anchorElement}
           />
         </div>
       </Popup>

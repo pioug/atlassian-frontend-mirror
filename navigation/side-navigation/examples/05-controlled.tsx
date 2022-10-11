@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import FilterIcon from '@atlaskit/icon/glyph/filter';
 import WorkIcon from '@atlaskit/icon/glyph/folder';

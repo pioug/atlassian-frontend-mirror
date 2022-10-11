@@ -60,7 +60,7 @@ describe('mention: Team Highlight on TypeAhead', () => {
     return page;
   };
 
-  describe('when the user clicks at the close icon at the team highligh', () => {
+  describe('when the user clicks at the close icon at the team highlight', () => {
     BrowserTestCase(
       'it should not close the typeahead popup',
       {},
@@ -93,7 +93,7 @@ describe('mention: Team Highlight on TypeAhead', () => {
         await page.keys('C');
         await page.keys('a');
         await page.keys('r');
-        await page.keys('Enter');
+        await page.keys(['ArrowDown', 'Enter']);
 
         const expectedDocument = doc(
           // prettier-ignore

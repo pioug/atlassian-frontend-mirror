@@ -10,7 +10,11 @@ describe('Box component', () => {
   const testId = 'test';
 
   it('should render box', () => {
-    const { getByText } = render(<Box>Box</Box>);
+    const { getByText } = render(
+      <Box>
+        <Text>Box</Text>
+      </Box>,
+    );
     expect(getByText('Box')).toBeInTheDocument();
   });
 
@@ -43,7 +47,11 @@ describe('Box component', () => {
   });
 
   it('should render with a given test id', () => {
-    const { getByTestId } = render(<Box testId={testId}>Box with testid</Box>);
+    const { getByTestId } = render(
+      <Box testId={testId}>
+        <Text>Box with testid</Text>
+      </Box>,
+    );
     const element = getByTestId(testId);
     expect(element).toBeInTheDocument();
   });

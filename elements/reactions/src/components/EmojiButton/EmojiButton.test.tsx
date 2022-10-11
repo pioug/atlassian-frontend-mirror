@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import {
   EmojiDescription,
   EmojiId,
@@ -10,6 +10,7 @@ import {
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import { EmojiButton, RENDER_BUTTON_TESTID } from './EmojiButton';
+import { renderWithIntl } from '../../__tests__/_testing-library';
 
 const emojiRepository = getTestEmojiRepository();
 
@@ -21,7 +22,7 @@ const smiley: EmojiDescription = emojiRepository.findByShortName(
 const emojiId: EmojiId = toEmojiId(smiley);
 
 const renderButton = async (onClick: OnEmojiEvent = () => {}) => {
-  return render(
+  return renderWithIntl(
     <EmojiButton
       onClick={onClick}
       emojiId={emojiId}

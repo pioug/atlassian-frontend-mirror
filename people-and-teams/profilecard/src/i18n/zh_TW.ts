@@ -34,6 +34,7 @@ export default {
     '其帳戶在這個月已停用。',
   'pt.profile-card.inactive.account.has.date.this.week': '其帳戶在本週已停用。',
   'pt.profile-card.inactive.account.no.date': '其帳戶已停用。',
+  'pt.profile-card.more-icon-label': '更多',
   'pt.team-profile-card.directReports.heading': '直接報告',
   'pt.team-profile-card.error.refresh-button': '再試一次',
   'pt.team-profile-card.error.suggestion': '請稍候，然後再試一次。',

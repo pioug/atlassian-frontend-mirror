@@ -1,5 +1,15 @@
 # @atlaskit/avatar
 
+## 21.1.0
+
+### Minor Changes
+
+- [`c1d012d6d20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1d012d6d20) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.3
 
 ### Patch Changes

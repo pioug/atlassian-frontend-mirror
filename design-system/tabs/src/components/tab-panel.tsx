@@ -1,5 +1,9 @@
 /** @jsx jsx */
+import { Fragment } from 'react';
+
 import { jsx } from '@emotion/react';
+
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 
 import { useTabPanel } from '../hooks';
 import { TabPanelProps } from '../types';
@@ -17,9 +21,10 @@ import { TabPanelProps } from '../types';
 const TabPanel = ({ children, testId }: TabPanelProps) => {
   const tabPanelAttributes = useTabPanel();
   return (
-    <div data-testid={testId} {...tabPanelAttributes}>
-      {children}
-    </div>
+    <Box testId={testId} as="div" {...tabPanelAttributes}>
+      {/* Fragment is a workaround as Box types don't allow ReactNode children */}
+      <Fragment>{children}</Fragment>
+    </Box>
   );
 };
 export default TabPanel;

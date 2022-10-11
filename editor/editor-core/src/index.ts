@@ -98,10 +98,7 @@ export {
 } from './plugins/block-type/commands';
 export type { InputMethod as BlockTypeInputMethod } from './plugins/block-type/commands';
 export { createTable } from './plugins/table/commands';
-export {
-  insertTaskDecision,
-  insertTaskDecisionCommand,
-} from './plugins/tasks-and-decisions/commands';
+export { insertTaskDecisionCommand } from './plugins/tasks-and-decisions/commands';
 export type { TaskDecisionInputMethod } from './plugins/tasks-and-decisions/types';
 export { EventDispatcher } from './event-dispatcher';
 export { pluginKey as statusPluginKey } from './plugins/status/plugin';

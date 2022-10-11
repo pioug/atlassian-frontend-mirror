@@ -1,8 +1,8 @@
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   initFullPageEditorWithAdf,
   snapshot,
   updateEditorProps,
-  Device,
   initEditorWithAdf,
   Appearance,
 } from '../_utils';

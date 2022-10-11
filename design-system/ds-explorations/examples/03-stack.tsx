@@ -11,6 +11,7 @@ import { GlobalSpacingToken, SPACING_SCALE } from '../src/constants';
 
 const flexAlignItems = ['center', 'baseline', 'flexStart', 'flexEnd'];
 const flexJustifyContent = ['center', 'flexStart', 'flexEnd'];
+const flexWrap = ['wrap'];
 
 /**
  * Stack permutations
@@ -22,7 +23,7 @@ export default () => {
         <Heading level="h700">Spacing</Heading>
         <Inline gap="sp-400">
           {Object.keys(SPACING_SCALE).map((space) => (
-            <Stack gap="sp-300">
+            <Stack key={space} gap="sp-300">
               <Heading level="h500">{space}</Heading>
 
               <Box backgroundColor={['neutral', 'grey']}>
@@ -30,21 +31,15 @@ export default () => {
                   <Box
                     padding="sp-100"
                     backgroundColor={['success.bold', 'green']}
-                  >
-                    {' '}
-                  </Box>
+                  />
                   <Box
                     padding="sp-100"
                     backgroundColor={['success.bold', 'green']}
-                  >
-                    {' '}
-                  </Box>
+                  />
                   <Box
                     padding="sp-100"
                     backgroundColor={['success.bold', 'green']}
-                  >
-                    {' '}
-                  </Box>
+                  />
                 </Stack>
               </Box>
             </Stack>
@@ -56,7 +51,7 @@ export default () => {
         <Heading level="h600">alignItems</Heading>
         <Inline gap="sp-400">
           {flexAlignItems.map((alignItemsValue) => (
-            <Stack gap="sp-300">
+            <Stack key={alignItemsValue} gap="sp-300">
               <Heading level="h500">{alignItemsValue}</Heading>
 
               <Box backgroundColor={['neutral', 'grey']} display="block">
@@ -64,21 +59,15 @@ export default () => {
                   <Box
                     padding="sp-100"
                     backgroundColor={['success.bold', 'green']}
-                  >
-                    {' '}
-                  </Box>
+                  />
                   <Box
                     padding="sp-100"
                     backgroundColor={['success.bold', 'green']}
-                  >
-                    {' '}
-                  </Box>
+                  />
                   <Box
                     padding="sp-100"
                     backgroundColor={['success.bold', 'green']}
-                  >
-                    {' '}
-                  </Box>
+                  />
                 </Stack>
               </Box>
             </Stack>
@@ -88,7 +77,7 @@ export default () => {
         <Heading level="h600">justifyContent</Heading>
         <Inline gap="sp-400">
           {flexJustifyContent.map((justifyContentValue) => (
-            <Stack gap="sp-300">
+            <Stack key={justifyContentValue} gap="sp-300">
               <Heading level="h500">{justifyContentValue}</Heading>
 
               <Box
@@ -99,21 +88,45 @@ export default () => {
                   <Box
                     padding="sp-100"
                     backgroundColor={['success.bold', 'green']}
-                  >
-                    {' '}
-                  </Box>
+                  />
                   <Box
                     padding="sp-100"
                     backgroundColor={['success.bold', 'green']}
-                  >
-                    {' '}
-                  </Box>
+                  />
                   <Box
                     padding="sp-100"
                     backgroundColor={['success.bold', 'green']}
-                  >
-                    {' '}
-                  </Box>
+                  />
+                </Stack>
+              </Box>
+            </Stack>
+          ))}
+        </Inline>
+
+        <Heading level="h700">Overflow</Heading>
+        <Heading level="h600">flexWrap</Heading>
+        <Inline gap="sp-400">
+          {flexWrap.map((flexWrapValue) => (
+            <Stack key={flexWrapValue} gap="sp-300">
+              <Heading level="h500">{flexWrapValue}</Heading>
+
+              <Box
+                backgroundColor={['neutral', 'grey']}
+                UNSAFE_style={{ height: '50px' }}
+              >
+                <Stack gap="sp-200" flexWrap={flexWrapValue as any}>
+                  <Box
+                    padding="sp-100"
+                    backgroundColor={['success.bold', 'green']}
+                  />
+                  <Box
+                    padding="sp-100"
+                    backgroundColor={['success.bold', 'green']}
+                  />
+                  <Box
+                    padding="sp-100"
+                    backgroundColor={['success.bold', 'green']}
+                  />
                 </Stack>
               </Box>
             </Stack>

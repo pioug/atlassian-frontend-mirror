@@ -307,7 +307,7 @@ describe('#createPasteAnalyticsPayload()', () => {
       });
     });
     describe('plain text paste', () => {
-      it('should count no links in plain text pasted contennt when no links present', () => {
+      it('should count no links in plain text pasted content when no links present', () => {
         const { editorView } = editor(doc(p('{<>}')), {
           plainTextPasteLinkification,
         });
@@ -348,6 +348,42 @@ describe('#createPasteAnalyticsPayload()', () => {
           }),
         );
       });
+    });
+  });
+
+  describe('Plain text paste', () => {
+    it('should paste correct number of slashes', () => {
+      const { editorView } = editor(doc(p('{<>}')), {
+        plainTextPasteLinkification: false,
+      });
+
+      const pasteContent =
+        '\\ test \\ \n' +
+        '\\\\ test \\\\ \n' +
+        '\\\\\\ test \\\\\\ \n' +
+        'test \\ test \\ test \n' +
+        'test \\\\ test \\\\ test \n' +
+        'test \\\\\\ test \\\\\\ test \n' +
+        '\\\\networkDrive\\folder';
+
+      dispatchPasteEvent(
+        editorView,
+        {
+          plain: pasteContent,
+        },
+        { shift: true },
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p('\\ test \\ '),
+          p('\\\\ test \\\\ '),
+          p('\\\\\\ test \\\\\\ '),
+          p('test \\ test \\ test '),
+          p('test \\\\ test \\\\ test '),
+          p('test \\\\\\ test \\\\\\ test '),
+          p('\\\\networkDrive\\folder'),
+        ),
+      );
     });
   });
 });

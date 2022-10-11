@@ -1,6 +1,6 @@
 import React from 'react';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { ThemeProvider as StyledThemeProvider } from '@emotion/react';
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import { default as FullPageExample, ExampleProps } from './5-full-page';
 import { EditorProps } from './../src/editor';

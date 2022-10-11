@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Ref } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { Direction, easeOut, SlideIn } from '@atlaskit/motion';
 

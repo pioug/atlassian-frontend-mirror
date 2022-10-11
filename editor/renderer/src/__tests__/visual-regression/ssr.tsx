@@ -21,9 +21,7 @@ const { window } = new JSDOM('', { url: 'http://localhost/' });
 (global as any).navigator = window.navigator;
 (global as any).document = window.document;
 
-// FIXME VR test failures due to timeout https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-515
-// Test works consistenty locally but fails on CI
-describe.skip('ssr for renderer', () => {
+describe('ssr for renderer', () => {
   interface CustomProvidersProps {
     children?: JSX.Element;
     [k: string]: any;
@@ -51,16 +49,18 @@ describe.skip('ssr for renderer', () => {
   };
   let page: PuppeteerPage;
 
-  const setPage = () => (page = global.page);
-
-  beforeAll(async () => {
-    setPage();
+  const setPage = async () => {
+    if (page) {
+      await page.close();
+      global.page = await page.browser().newPage();
+    }
+    page = global.page;
     await page.setViewport({ width: 1420, height: 2400 });
-  });
+  };
+
   beforeEach(setPage);
 
-  // FIXME: Unskip via https://product-fabric.atlassian.net/browse/ED-15263
-  it.skip('should not throw when rendering any example on the server', async () => {
+  it('should not throw when rendering any example on the server', async () => {
     const RendererWrapper = () => (
       <IntlProvider locale="en">
         <ReactRenderer
@@ -85,8 +85,7 @@ describe.skip('ssr for renderer', () => {
     await snapshot(page);
   });
 
-  // FIXME: Unskip via https://product-fabric.atlassian.net/browse/ED-15288
-  it.skip('should render image right dimensions for a resized image on the server', async () => {
+  it('should render image right dimensions for a resized image on the server', async () => {
     const RendererWrapper = () => (
       <IntlProvider locale="en">
         <ReactRenderer

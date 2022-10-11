@@ -14,6 +14,7 @@ import { placeHolderClassName } from './styles';
 export const pluginKey = new PluginKey('placeholderPlugin');
 import { focusStateKey } from '../base/pm-plugins/focus-handler';
 import { isTypeAheadOpen } from '../type-ahead/utils';
+import { isComposing } from '../base/pm-plugins/composition';
 
 interface PlaceHolderState {
   hasPlaceholder: boolean;
@@ -178,7 +179,12 @@ export function createPlugin(
           editorState,
         );
 
-        if (hasPlaceholder && placeholderText && pos !== undefined) {
+        if (
+          hasPlaceholder &&
+          placeholderText &&
+          pos !== undefined &&
+          !isComposing(editorState)
+        ) {
           return createPlaceholderDecoration(editorState, placeholderText, pos);
         }
         return;

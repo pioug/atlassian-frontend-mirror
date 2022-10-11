@@ -39,3 +39,7 @@ export const getSelectionObserverEnabled = (): boolean =>
 export const getMediaImageResize = (): boolean => {
   return getQueryParams().get('enableMediaResize') === 'true';
 };
+
+export const getEnableNewMediaCard = (): boolean => {
+  return getQueryParams().get('enableNewMediaCard') === 'true';
+};

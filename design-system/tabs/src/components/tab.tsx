@@ -1,6 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
+
 import { useTab } from '../hooks';
 import { TabProps } from '../types';
 
@@ -16,8 +21,10 @@ import { TabProps } from '../types';
 export default function Tab({ children, testId }: TabProps) {
   const tabAttributes = useTab();
   return (
-    <div data-testid={testId} {...tabAttributes}>
-      {children}
-    </div>
+    <Box as="div" testId={testId} {...tabAttributes}>
+      <Text shouldTruncate UNSAFE_style={{ color: 'inherit' }}>
+        {children}
+      </Text>
+    </Box>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { css, SerializedStyles } from '@emotion/core';
+import { css, SerializedStyles } from '@emotion/react';
 import extractPreview from '../../../extractors/flexible/extract-preview';
 import {
   PreviewBlock,

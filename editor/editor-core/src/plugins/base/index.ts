@@ -23,6 +23,7 @@ import {
   InputTracking,
   BrowserFreezetracking,
 } from '../../types/performance-tracking';
+import compositionPlugin from './pm-plugins/composition';
 
 export interface BasePluginOptions {
   allowScrollGutter?: ScrollGutterPluginOptions;
@@ -127,6 +128,11 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
     plugins.push({
       name: 'disableSpellcheckingPlugin',
       plugin: () => disableSpellcheckingPlugin(),
+    });
+
+    plugins.push({
+      name: 'compositionPlugin',
+      plugin: () => compositionPlugin(),
     });
 
     return plugins;

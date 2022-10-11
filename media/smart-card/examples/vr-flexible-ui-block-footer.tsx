@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { VRTestWrapper } from './utils/vr-test';
 import { FooterBlock } from '../src/view/FlexibleCard/components/blocks';

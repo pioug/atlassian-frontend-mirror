@@ -16,24 +16,19 @@ import { CreateCollabProviderOptions } from '@atlaskit/synchrony-test-helpers';
 import {
   TestExtensionProviders,
   getBoundingClientRect,
-} from '@atlaskit/editor-test-helpers/vr-utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 
-export { getBoundingClientRect };
+import {
+  deviceViewPorts,
+  Device,
+  ViewportSize,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+
 export const editorSelector = '.akEditor';
 export const editorFullPageContentSelector =
   '.fabric-editor-popup-scroll-parent';
 export const editorCommentContentSelector = '.ak-editor-content-area';
 export const pmSelector = '.ProseMirror';
-
-export const DEFAULT_WIDTH = 800;
-export const DEFAULT_HEIGHT = 600;
-
-export const dynamicTextViewportSizes = [
-  { width: 1440, height: 4000 },
-  { width: 1280, height: 4000 },
-  { width: 768, height: 4000 },
-  { width: 1024, height: 4000 },
-];
 
 export interface EventHooks {
   /**
@@ -47,24 +42,6 @@ export interface EventHooks {
    */
   onEditorMountCalled?: () => Promise<void>;
 }
-
-export enum Device {
-  Default = 'Default',
-  LaptopHiDPI = 'LaptopHiDPI',
-  LaptopMDPI = 'LaptopMDPI',
-  iPadPro = 'iPadPro',
-  iPad = 'iPad',
-  iPhonePlus = 'iPhonePlus',
-}
-
-export const deviceViewPorts = {
-  [Device.Default]: { width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT },
-  [Device.LaptopHiDPI]: { width: 1440, height: 900 },
-  [Device.LaptopMDPI]: { width: 1280, height: 800 },
-  [Device.iPadPro]: { width: 1024, height: 1366 },
-  [Device.iPad]: { width: 768, height: 1024 },
-  [Device.iPhonePlus]: { width: 414, height: 736 },
-};
 
 /**
  * Sometimes it's useful to visualise whitespace, invisible elements, or bounding boxes
@@ -276,7 +253,7 @@ type InitEditorWithADFOptions = {
   appearance: Appearance;
   adf?: Object;
   device?: Device;
-  viewport?: { width: number; height: number };
+  viewport?: ViewportSize;
   editorProps?: EditorProps;
   mode?: 'light' | 'dark';
   allowSideEffects?: SideEffectOptions;
@@ -391,7 +368,7 @@ export const initFullPageEditorWithAdf = async (
   page: PuppeteerPage,
   adf: Object,
   device?: Device,
-  viewport?: { width: number; height: number },
+  viewport?: ViewportSize,
   editorProps?: EditorProps,
   mode?: 'light' | 'dark',
   allowSideEffects?: SideEffectOptions,

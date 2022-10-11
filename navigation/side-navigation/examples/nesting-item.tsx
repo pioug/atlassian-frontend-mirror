@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import OpenIcon from '@atlaskit/icon/glyph/open';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';

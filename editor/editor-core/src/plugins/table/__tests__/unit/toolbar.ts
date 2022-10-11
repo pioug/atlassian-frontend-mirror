@@ -2,8 +2,12 @@ import {
   getToolbarMenuConfig,
   getToolbarCellOptionsConfig,
 } from '../../toolbar';
-import { ToolbarMenuConfig, ToolbarMenuState } from '../../types';
-import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import {
+  TablePluginState,
+  ToolbarMenuConfig,
+  ToolbarMenuState,
+} from '../../types';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,
@@ -17,6 +21,7 @@ import { FloatingToolbarDropdown } from '../../../floating-toolbar/types';
 import { splitCell } from '@atlaskit/editor-tables/utils';
 import { canMergeCells } from '../../transforms';
 import { Rect } from '@atlaskit/editor-tables/table-map';
+import { pluginKey } from '../../pm-plugins/plugin-key';
 
 jest.mock('@atlaskit/editor-tables/utils');
 jest.mock('../../transforms');
@@ -129,7 +134,16 @@ describe('getToolbarMenuConfig', () => {
 });
 
 describe('getToolbarCellOptionsConfig', () => {
-  const state = createEditorState(doc(table()(row(td()(p('1{cursor}'))))));
+  const createEditor = createEditorFactory<TablePluginState>();
+  const {
+    editorView: { state },
+  } = createEditor({
+    doc: doc(table()(row(td()(p('1{cursor}'))))),
+    editorProps: {
+      allowTables: {},
+    },
+    pluginKey,
+  });
   const getEditorContainerWidth = () => ({ width: 500 });
 
   const formatMessage: (t: { id: string }) => string = (message) =>
@@ -144,10 +158,6 @@ describe('getToolbarCellOptionsConfig', () => {
     getEditorContainerWidth,
     undefined,
   );
-
-  it('is hidden by default', () => {
-    expect(cellOptionsMenu.hidden).toBe(true);
-  });
 
   it('is a dropdown with the following dropdown items with the given order', () => {
     const items = cellOptionsMenu.options as Array<DropdownOptionT<Command>>;

@@ -1,5 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { snapshot, Device, initRendererWithADF } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initRendererWithADF } from '../_utils';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import {
   selectors,

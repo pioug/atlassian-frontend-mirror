@@ -13,6 +13,16 @@ import {
 import { removeColSpan } from './colspan';
 import { tableNodeTypes } from './table-node-types';
 
+export type ReportFixedTable = ({
+  state,
+  tr,
+  reason,
+}: {
+  state: EditorState;
+  tr: Transaction;
+  reason: string;
+}) => void;
+
 // Helper for iterating through the nodes in a document that changed
 // compared to the given previous document. Useful for avoiding
 // duplicate work on each transaction.
@@ -54,11 +64,12 @@ function changedDescendants(
 export function fixTables(
   state: EditorState,
   oldState?: EditorState,
+  reportFixedTable?: ReportFixedTable,
 ): Transaction | undefined {
   let tr: Transaction | undefined;
   const check = (node: Node, pos: number) => {
     if (node.type.spec.tableRole === 'table') {
-      tr = fixTable(state, node, pos, tr);
+      tr = fixTable(state, node, pos, tr, reportFixedTable);
     }
   };
   if (!oldState) {
@@ -77,6 +88,7 @@ export function fixTable(
   table: Node,
   tablePos: number,
   transaction?: Transaction,
+  reportFixedTable?: ReportFixedTable,
 ): Transaction | undefined {
   let tr = transaction;
   const map = TableMap.get(table);
@@ -93,8 +105,14 @@ export function fixTable(
   for (let i = 0; i < map.height; i++) {
     mustAdd.push(0);
   }
+
   for (let i = 0; i < map.problems.length; i++) {
     const prob = map.problems[i];
+
+    if (reportFixedTable) {
+      reportFixedTable({ state, tr, reason: prob.type || 'unknown' });
+    }
+
     if (prob.type === TableProblemTypes.COLLISION) {
       const collision = prob as TableProblemCollision;
       const cell = table.nodeAt(prob.pos);

@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import NestIcon from '@atlaskit/icon/glyph/editor/number-list';
 import { CustomItemComponentProps } from '@atlaskit/menu';

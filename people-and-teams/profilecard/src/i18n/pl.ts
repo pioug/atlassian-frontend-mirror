@@ -39,6 +39,7 @@ export default {
     'Jej konto zostało zdezaktywowane w tym tygodniu.',
   'pt.profile-card.inactive.account.no.date':
     'Jej konto zostało zdezaktywowane pomyślnie.',
+  'pt.profile-card.more-icon-label': 'Więcej',
   'pt.team-profile-card.directReports.heading': 'Bezpośredni podwładni',
   'pt.team-profile-card.error.refresh-button': 'Spróbuj ponownie',
   'pt.team-profile-card.error.suggestion':

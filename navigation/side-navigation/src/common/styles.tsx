@@ -1,5 +1,3 @@
-import { CSSObject } from '@emotion/core';
-
 import { CSSFn, StatelessCSSFn } from '@atlaskit/menu';
 import { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';
 import {
@@ -27,7 +25,7 @@ export const overrideStyleFunction = <TState,>(
   newStyle: CSSFn<TState> | undefined = () => ({}),
 ): CSSFn<TState> => {
   return (state: TState) => {
-    return [baseStyle(state), newStyle(state)] as CSSObject[];
+    return [baseStyle(state), newStyle(state)] as any;
   };
 };
 

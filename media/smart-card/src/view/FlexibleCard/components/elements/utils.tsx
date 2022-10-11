@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { FormattedDate, MessageDescriptor } from 'react-intl-next';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import { ElementName, IconType } from '../../../../constants';
 import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';

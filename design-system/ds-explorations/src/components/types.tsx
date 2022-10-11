@@ -13,3 +13,5 @@ export interface BasePrimitiveProps {
    */
   UNSAFE_style?: CSSProperties;
 }
+
+export type NonTextChildren = JSX.Element | (JSX.Element | null | false)[];

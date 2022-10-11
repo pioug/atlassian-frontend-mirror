@@ -58,6 +58,7 @@ describe('Date:', () => {
         // Insert date by quick insert
         await typeInEditorAtEndOfDocument(page, '');
         await quickInsert(page, 'Date', false);
+        await pressKey(page, 'ArrowDown');
         await pressKey(page, 'Enter');
 
         await waitForDatePicker(page);
@@ -69,6 +70,7 @@ describe('Date:', () => {
         // Insert date by quick insert
         await typeInEditorAtEndOfDocument(page, '');
         await quickInsert(page, 'Date', false);
+        await pressKey(page, 'ArrowDown');
         await pressKey(page, 'Enter');
 
         // Date picker is now open
@@ -145,6 +147,7 @@ describe('Date:', () => {
         // Insert date by quick insert
         await typeInEditorAtEndOfDocument(page, '');
         await quickInsert(page, 'Date', false);
+        await pressKey(page, 'ArrowDown');
         await pressKey(page, 'Enter');
 
         // Date picker is now open
@@ -165,6 +168,7 @@ describe('Date:', () => {
         // Insert date by quick insert
         await typeInEditorAtEndOfDocument(page, '');
         await quickInsert(page, 'Date', false);
+        await pressKey(page, 'ArrowDown');
         await pressKey(page, 'Enter');
 
         // Date picker is now open
@@ -184,6 +188,7 @@ describe('Date:', () => {
         // Insert date by quick insert
         await typeInEditorAtEndOfDocument(page, '');
         await quickInsert(page, 'Date', false);
+        await pressKey(page, 'ArrowDown');
         await pressKey(page, 'Enter');
 
         // Date picker is now open
@@ -203,6 +208,7 @@ describe('Date:', () => {
         await quickInsert(page, 'Date', false);
         await page.waitForSelector(selectors.typeaheadPopup);
         await animationFrame(page);
+        await pressKey(page, 'ArrowDown');
         await pressKey(page, 'Enter');
 
         // Date picker is now open
@@ -226,6 +232,7 @@ describe('Date:', () => {
 
       await typeInEditorAtEndOfDocument(page, 'hello ');
       await quickInsert(page, 'Date', false);
+      await pressKey(page, 'ArrowDown');
       await pressKey(page, 'Enter');
 
       await waitForDatePicker(page);
@@ -236,6 +243,7 @@ describe('Date:', () => {
       await pressKey(page, 'Backspace');
 
       // Date picker is now empty, enter should remove date
+      await pressKey(page, 'ArrowDown');
       await pressKey(page, 'Enter');
       await waitForNoDatePicker(page);
 
@@ -252,9 +260,11 @@ describe('Date:', () => {
       // Insert date by quick insert
       await typeInEditorAtEndOfDocument(page, '');
       await quickInsert(page, 'Date', false);
+      await pressKey(page, 'ArrowDown');
       await pressKey(page, 'Enter');
 
       await waitForDatePicker(page);
+      await pressKey(page, 'ArrowDown');
       await pressKey(page, 'Enter');
       await waitForNoDatePicker(page);
       await clickOnDate(page);
@@ -271,9 +281,11 @@ describe('Date:', () => {
       // Insert date by quick insert
       await typeInEditorAtEndOfDocument(page, '');
       await quickInsert(page, 'Date', false);
+      await pressKey(page, 'ArrowDown');
       await pressKey(page, 'Enter');
 
       await waitForDatePicker(page);
+      await pressKey(page, 'ArrowDown');
       await pressKey(page, 'Enter');
       await waitForNoDatePicker(page);
       await clickOnDate(page);

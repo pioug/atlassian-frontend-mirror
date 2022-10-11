@@ -1,5 +1,5 @@
 import { isRetina } from './isRetina';
-import { CardDimensions } from './cardDimensions';
+import { CardDimensions } from '../types';
 import { ElementDimension, getElementDimension } from './getElementDimension';
 import { defaultImageCardDimensions } from './cardDimensions';
 import { isValidPercentageUnit } from './isValidPercentageUnit';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { css, SerializedStyles } from '@emotion/core';
+import { css, SerializedStyles } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { Spacing } from '@atlaskit/button';
 import { SmartLinkSize } from '../../../constants';

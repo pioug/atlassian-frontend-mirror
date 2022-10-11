@@ -5,13 +5,13 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 async function waitForBannerVisible(page: PuppeteerPage) {
-  await page.waitForSelector('div[aria-hidden="false"][role="alert"]', {
+  await page.waitForSelector('div[role="alert"]', {
     visible: true,
   });
 }
 
 async function waitForAnnouncementBannerVisible(page: PuppeteerPage) {
-  await page.waitForSelector('div[aria-hidden="false"][role="region"]', {
+  await page.waitForSelector('div[role="region"]', {
     visible: true,
   });
 }

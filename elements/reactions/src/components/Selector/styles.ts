@@ -16,7 +16,7 @@ export const emojiStyle = css({
   },
 });
 
-export const revealAnimation = keyframes({
+export const revealAnimation = (keyframes({
   '0%': {
     opacity: 1,
     transform: 'scale(0.5)',
@@ -28,7 +28,7 @@ export const revealAnimation = keyframes({
     opacity: 1,
     transform: 'scale(1)',
   },
-});
+}) as unknown) as typeof keyframes;
 
 export const revealStyle = css({
   animation: `${revealAnimation} 150ms ease-in-out forwards`,

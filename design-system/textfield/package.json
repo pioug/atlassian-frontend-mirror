@@ -36,13 +36,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^21.0.0",
+    "@atlaskit/avatar": "^21.1.0",
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.0.1",
-    "@atlaskit/form": "^8.5.0",
-    "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/section-message": "^6.2.0",
+    "@atlaskit/form": "^8.6.0",
+    "@atlaskit/icon": "^21.11.0",
+    "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.5.0",
     "@atlaskit/visual-regression": "*",

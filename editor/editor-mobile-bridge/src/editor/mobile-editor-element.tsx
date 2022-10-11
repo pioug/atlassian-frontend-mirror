@@ -36,6 +36,7 @@ import {
   getAllowCaptions,
   getMediaImageResize,
   getAllowMediaInline,
+  getEnableNewMediaCard,
 } from '../query-param-reader';
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
@@ -130,6 +131,7 @@ export function MobileEditor(props: MobileEditorProps) {
     featureFlags: {
       captions: getAllowCaptions(),
       mediaInline: getAllowMediaInline(),
+      newCardExperience: getEnableNewMediaCard(),
     },
     alignLeftOnInsert: true,
   };
@@ -200,6 +202,7 @@ export function MobileEditor(props: MobileEditorProps) {
   type Flags = { [key: string]: string | boolean };
   const extendedFeatureFlags: Flags = {
     ...featureFlags,
+    tableCellOptionsInFloatingToolbar: editorConfiguration.isTableCellOptionsInFloatingToolbar(),
     useUnpredictableInputRule: editorConfiguration.isUnpredictableInputRuleEnabled(),
     enableViewUpdateSubscription: true,
   };

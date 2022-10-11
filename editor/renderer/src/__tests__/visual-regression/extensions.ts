@@ -2,7 +2,8 @@ import {
   PuppeteerPage,
   waitForElementCount,
 } from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF, Device } from './_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initRendererWithADF } from './_utils';
 import { selectors } from '../__helpers/page-objects/_expand';
 import { selectors as rendererSelectors } from '../__helpers/page-objects/_renderer';
 import * as nestedIframe from '../__fixtures__/extension-iframe-nested.adf.json';

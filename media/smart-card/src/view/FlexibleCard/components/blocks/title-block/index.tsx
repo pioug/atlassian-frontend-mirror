@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { css, SerializedStyles } from '@emotion/core';
+import { css, SerializedStyles } from '@emotion/react';
 
 import { TitleBlockProps } from './types';
 import { SmartLinkStatus } from '../../../../../constants';

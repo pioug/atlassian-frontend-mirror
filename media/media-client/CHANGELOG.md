@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 18.0.0
+
+### Major Changes
+
+- [`37ff149ab87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37ff149ab87) - Remove exposing StreamsCache class
+
+### Patch Changes
+
+- [`153829bfcb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153829bfcb3) - Upgrade caching algorithm library lru-fast to lru_map.
+- Updated dependencies
+
 ## 17.1.3
 
 ### Patch Changes

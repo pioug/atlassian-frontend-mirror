@@ -1,5 +1,11 @@
 import React from 'react';
 
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Stack as Stack,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
+
 import SectionMessage, { SectionMessageAction } from '../src';
 
 const SomeParts = ({
@@ -11,50 +17,52 @@ const SomeParts = ({
   title?: boolean;
   actions?: boolean;
 }) => (
-  <div style={{ padding: '10px' }}>
-    <SectionMessage
-      title={title ? 'The Modern Prometheus' : undefined}
-      actions={
-        actions
-          ? [
-              <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
-                Mary
-              </SectionMessageAction>,
-              <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
-                Villa Diodatti
-              </SectionMessageAction>,
-              <SectionMessageAction>M. J. Godwin</SectionMessageAction>,
-            ]
-          : []
-      }
-    >
-      {body ? (
-        <p>
-          You will rejoice to hear that no disaster has accompanied the
-          commencement of an enterprise which you have regarded with such evil
-          forebodings. I arrived here yesterday, and my first task is to assure
-          my dear sister of my welfare and increasing confidence in the success
-          of my undertaking.
-        </p>
-      ) : null}
-    </SectionMessage>
-  </div>
+  <SectionMessage
+    title={title ? 'The Modern Prometheus' : undefined}
+    actions={
+      actions
+        ? [
+            <SectionMessageAction href="https://en.wikipedia.org/wiki/Mary_Shelley">
+              Mary
+            </SectionMessageAction>,
+            <SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
+              Villa Diodatti
+            </SectionMessageAction>,
+            <SectionMessageAction>M. J. Godwin</SectionMessageAction>,
+          ]
+        : []
+    }
+  >
+    {body && (
+      <Text>
+        You will rejoice to hear that no disaster has accompanied the
+        commencement of an enterprise which you have regarded with such evil
+        forebodings. I arrived here yesterday, and my first task is to assure my
+        dear sister of my welfare and increasing confidence in the success of my
+        undertaking.
+      </Text>
+    )}
+  </SectionMessage>
 );
 
 const Example = () => (
-  <div>
-    <p>
+  <>
+    <Text>
       This example has been constructed for ease-of-reference and comparison in
       developing section message. It is not a suggested implementation.
-    </p>
-    <SomeParts body title actions />
-    <SomeParts body title />
-    <SomeParts body actions />
-    <SomeParts title actions />
-    <SomeParts body />
-    <SomeParts title />
-    <SomeParts actions />
-  </div>
+    </Text>
+    <Box display="block" padding="sp-100">
+      <Stack gap="sp-200">
+        <SomeParts body title actions />
+        <SomeParts body title />
+        <SomeParts body actions />
+        <SomeParts title actions />
+        <SomeParts body />
+        <SomeParts title />
+        <SomeParts actions />
+      </Stack>
+    </Box>
+  </>
 );
 
 export default Example;

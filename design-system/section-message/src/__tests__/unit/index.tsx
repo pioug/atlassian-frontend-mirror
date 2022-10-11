@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import {
@@ -8,6 +9,7 @@ import {
 } from '@testing-library/react';
 import cases from 'jest-in-case';
 
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InfoIcon from '@atlaskit/icon/glyph/info';
@@ -75,18 +77,23 @@ describe('SectionMessage', () => {
   describe('actions', () => {
     it('should render actions beneath the section message description', () => {
       const actions = [
-        <SectionMessageAction>aye</SectionMessageAction>,
-        <SectionMessageAction>aye</SectionMessageAction>,
+        <SectionMessageAction>
+          <Text>aye</Text>
+        </SectionMessageAction>,
+        <SectionMessageAction>
+          <Text>aye</Text>
+        </SectionMessageAction>,
       ];
       const { getAllByText } = render(
         <SectionMessage actions={actions}>boo</SectionMessage>,
       );
 
       expect(getAllByText('aye')).toHaveLength(2);
+      expect(getAllByText('·')).toHaveLength(1);
     });
 
     it('should render React Nodes as actions', () => {
-      const MyAction = () => <span>Hello, World!</span>;
+      const MyAction = () => <Text>Hello, World!</Text>;
       const Aye = (
         <SectionMessageAction>
           <MyAction />
@@ -97,6 +104,27 @@ describe('SectionMessage', () => {
       );
 
       expect(getByText('Hello, World!')).toBeInTheDocument();
+    });
+
+    it('should render actions separated by dividers when passed in a Fragment', () => {
+      const actions = (
+        <>
+          <SectionMessageAction>
+            <Text>aye</Text>
+          </SectionMessageAction>
+          <SectionMessageAction>
+            <Text>aye</Text>
+          </SectionMessageAction>
+        </>
+      );
+      const { getAllByText } = render(
+        <SectionMessage testId="a" actions={actions}>
+          boo
+        </SectionMessage>,
+      );
+
+      expect(getAllByText('aye')).toHaveLength(2);
+      expect(getAllByText('·')).toHaveLength(1);
     });
 
     it('should render a link when passed an action', () => {

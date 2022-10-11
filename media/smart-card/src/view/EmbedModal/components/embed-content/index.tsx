@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC } from 'react';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { getIframeSandboxAttribute } from '../../../../utils';
 import { EmbedProps } from './types';
 

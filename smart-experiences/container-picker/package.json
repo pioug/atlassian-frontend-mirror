@@ -24,7 +24,7 @@
   "dependencies": {
     "@atlaskit/analytics": "^8.0.0",
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/avatar": "^21.0.0",
+    "@atlaskit/avatar": "^21.1.0",
     "@atlaskit/select": "^15.7.0",
     "@babel/runtime": "^7.0.0",
     "uuid": "^3.1.0"

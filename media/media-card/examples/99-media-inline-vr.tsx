@@ -8,7 +8,7 @@ import {
   MockFileInputParams,
 } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl-next';
-import MediaInlineCard from '../src/root/inline/loader';
+import MediaInlineCard from '../src/inline/loader';
 import { MainWrapper } from '../example-helpers';
 import {
   mediaInlineTableStyles,

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import OpenIcon from '@atlaskit/icon/glyph/open';

@@ -17,6 +17,7 @@ import { EmojiResource } from '@atlaskit/emoji/resource';
 import {
   getEnableLightDarkTheming,
   getAllowCaptions,
+  getEnableNewMediaCard,
 } from '../query-param-reader';
 import { rendererAnalyticsClient } from './renderer-analytics-client';
 import { useRendererContent } from './hooks/use-set-renderer-content';
@@ -135,6 +136,7 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
         allowLinking: !disableMediaLinking,
         featureFlags: {
           captions: getAllowCaptions(),
+          newCardExperience: getEnableNewMediaCard(),
         },
       }}
       allowHeadingAnchorLinks={headingAnchorLinksConfig}

@@ -82,13 +82,16 @@ export async function loadEditor(page: Page, params = '') {
  */
 export async function configureEditor(page: Page, config: string) {
   await page.switchToWeb();
-  return page.execute(
+  await page.execute(
     (_config, _bridgeKey) => {
       (window as any)[_bridgeKey].configure(_config);
     },
     config,
     'bridge',
   );
+
+  // Configure triggers an editor reset, then wait for exist after reset
+  return page.waitForSelector(EDITOR_CONTENT_AREA_ELEMENT);
 }
 
 /**

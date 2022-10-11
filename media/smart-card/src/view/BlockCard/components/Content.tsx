@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { gs, mq } from '../../common/utils';
 
 export interface ContentProps {

@@ -7,7 +7,7 @@
  * - the "setup" function hides the base conditions of the tests, making them hard to understand
  * - many tests have to recreate many previous operations to test some features. They should be simplified
  */
-jest.mock('../../root/card/getCardPreview/cache');
+jest.mock('../../card/getCardPreview/cache');
 jest.mock('../../utils/globalScope/getSSRData');
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -20,8 +20,8 @@ import type {
   FileState,
 } from '@atlaskit/media-client';
 import { createMediaSubject } from '@atlaskit/media-client';
-import { CardBase } from '../../root/card';
-import type { CardPreview, CardState } from '../..';
+import { CardBase } from '../../card/card';
+import type { CardPreview, CardState } from '../../types';
 import {
   isImageLoadError,
   ImageLoadError,
@@ -31,10 +31,10 @@ import {
   RemotePreviewError,
   LocalPreviewPrimaryReason,
 } from '../../errors';
-import { CardView } from '../../root/cardView';
-import * as getCardPreviewModule from '../../root/card/getCardPreview';
-import * as stateUpdaterModule from '../../root/card/cardState';
-import * as cardAnalyticsModule from '../../root/card/cardAnalytics';
+import { CardView } from '../../card/cardView';
+import * as getCardPreviewModule from '../../card/getCardPreview';
+import * as stateUpdaterModule from '../../card/cardState';
+import * as cardAnalyticsModule from '../../card/cardAnalytics';
 import { getSSRData } from '../../utils/globalScope';
 import { extractErrorInfo, getFileAttributes } from '../../utils/analytics';
 import { getFileDetails } from '../../utils/metadata';

@@ -8,10 +8,10 @@ import React, {
   useRef,
 } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import GlobalTheme from '@atlaskit/theme/components';
+import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import { borderWidth, getBaseStyles, themeStyles } from './styles';
 import { Theme, ThemeTokens } from './theme';
@@ -51,7 +51,7 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
     isDisabled = false,
     isInvalid = false,
     isMonospaced = false,
-    minimumRows = 1,
+    minimumRows = 2,
     theme,
     testId,
     maxHeight = '50vh',
@@ -126,11 +126,11 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
     [minimumRows, resize, appearance, isMonospaced, maxHeight],
   );
 
-  const textAreaStyles = [
+  const textAreaStyles = css([
     baseStyles,
     // not memoizing themeStyles as `tokens` is an unstable reference
     themeStyles(tokens, appearance),
-  ];
+  ]);
 
   return (
     <textarea
@@ -143,7 +143,9 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
       onChange={handleOnChange}
       onBlur={onBlurWithAnalytics}
       onFocus={onFocusWithAnalytics}
+      rows={minimumRows}
       // TODO refactor to follow emotion styling rules
+      // see: https://product-fabric.atlassian.net/browse/DSP-6060
       // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
       css={textAreaStyles}
       {...rest}
@@ -165,21 +167,15 @@ const TextArea = memo(
     props: TextAreaProps,
     ref: React.Ref<HTMLTextAreaElement>,
   ) {
+    const { mode } = useGlobalTheme();
     return (
-      <GlobalTheme.Consumer>
-        {({ mode }: { mode: 'dark' | 'light' }) => (
-          <Theme.Provider value={props.theme}>
-            <Theme.Consumer
-              appearance={props.appearance || 'standard'}
-              mode={mode}
-            >
-              {(tokens: ThemeTokens) => (
-                <TextAreaWithTokens ref={ref} {...props} tokens={tokens} />
-              )}
-            </Theme.Consumer>
-          </Theme.Provider>
-        )}
-      </GlobalTheme.Consumer>
+      <Theme.Provider value={props.theme}>
+        <Theme.Consumer appearance={props.appearance || 'standard'} mode={mode}>
+          {(tokens: ThemeTokens) => (
+            <TextAreaWithTokens ref={ref} {...props} tokens={tokens} />
+          )}
+        </Theme.Consumer>
+      </Theme.Provider>
     );
   }),
 );

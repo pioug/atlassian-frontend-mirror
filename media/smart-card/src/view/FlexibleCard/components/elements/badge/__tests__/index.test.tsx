@@ -2,7 +2,7 @@
 import React from 'react';
 import { IntlProvider, MessageFormatElement } from 'react-intl-next';
 import { render } from '@testing-library/react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import { IconType } from '../../../../../../constants';
 import Badge from '../index';

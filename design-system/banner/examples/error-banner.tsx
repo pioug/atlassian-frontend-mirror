@@ -7,7 +7,7 @@ import Banner from '../src';
 const Icon = <ErrorIcon label="" secondaryColor="inherit" />;
 
 export default () => (
-  <Banner icon={Icon} isOpen appearance="error">
+  <Banner icon={Icon} appearance="error">
     This is an error banner
   </Banner>
 );

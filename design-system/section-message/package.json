@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/section-message",
-  "version": "6.2.1",
+  "version": "6.3.0",
   "description": "A section message is used to alert users to a particular section of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,21 +31,22 @@
   "dependencies": {
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/codemod-utils": "^4.1.0",
-    "@atlaskit/icon": "^21.10.0",
+    "@atlaskit/ds-explorations": "^0.1.0",
+    "@atlaskit/heading": "^0.1.13",
+    "@atlaskit/icon": "^21.11.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
+    "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/analytics-next": "^8.1.2",
-    "@atlaskit/code": "^14.3.0",
+    "@atlaskit/code": "^14.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.1.0",
-    "@atlaskit/range": "^6.0.0",
+    "@atlaskit/range": "^6.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
@@ -66,11 +67,13 @@
     "@repo/internal": {
       "design-system": "v1",
       "dom-events": "use-bind-event-listener",
-      "ui-components": "lite-mode",
+      "ui-components": [
+        "primitives",
+        "lite-mode"
+      ],
       "analytics": "analytics-next",
       "styling": [
-        "static",
-        "emotion"
+        "static"
       ],
       "theming": "tokens",
       "deprecation": "no-deprecated-imports"

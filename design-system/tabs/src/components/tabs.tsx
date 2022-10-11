@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import {
   Children,
+  Fragment,
   ReactNode,
   useCallback,
   useMemo,
@@ -12,8 +13,8 @@ import { jsx } from '@emotion/react';
 
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import GlobalTheme from '@atlaskit/theme/components';
-import { ThemeModes } from '@atlaskit/theme/types';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import { TabListContext, TabPanelContext } from '../internal/context';
 import { getTabsStyles } from '../internal/styles';
@@ -54,11 +55,16 @@ const getTabPanelWithContext = ({
     </TabPanelContext.Provider>
   );
 
-type InnerProps = TabsProps & {
-  mode: ThemeModes;
-};
-
-const TabsWithMode = (props: InnerProps) => {
+/**
+ * __Tabs__
+ *
+ * Tabs acts as a container for all Tab components.
+ *
+ * - [Examples](https://atlassian.design/components/tabs/examples)
+ * - [Code](https://atlassian.design/components/tabs/code)
+ * - [Usage](https://atlassian.design/components/tabs/usage)
+ */
+const Tabs = (props: TabsProps) => {
   const {
     shouldUnmountTabPanelOnChange = false,
     selected: SelectedType,
@@ -68,8 +74,8 @@ const TabsWithMode = (props: InnerProps) => {
     analyticsContext,
     children,
     testId,
-    mode,
   } = props;
+  const { mode } = useGlobalTheme();
 
   const [selectedState, setSelected] = useState(
     SelectedType || defaultSelected || 0,
@@ -125,33 +131,33 @@ const TabsWithMode = (props: InnerProps) => {
   const tabsStyles = useMemo(() => getTabsStyles(mode), [mode]);
 
   return (
-    // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-    <div data-testid={testId} css={tabsStyles}>
+    // Only styles that affect the Tabs container itself have been applied via primitives.
+    // The other styles applied through the CSS prop are there for styling children
+    // through inheritance. This is important for custom cases that use the useTabPanel(),
+    // which applies accessibility atributes that we use as a styling hook.
+    <Box
+      as="div"
+      testId={testId}
+      display="flex"
+      flexDirection="column"
+      UNSAFE_style={{
+        maxWidth: '100%',
+        minHeight: '0%',
+        flexBasis: '100%',
+        flexGrow: 1,
+      }}
+      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+      css={tabsStyles}
+    >
       <TabListContext.Provider
         value={{ selected, onChange: onChangeAnalytics, tabsId: id }}
       >
         {tabList}
       </TabListContext.Provider>
-      {tabPanelsWithContext}
-    </div>
+      {/* Fragment is a workaround as Box types don't allow ReactNode children */}
+      <Fragment>{tabPanelsWithContext}</Fragment>
+    </Box>
   );
 };
-
-/**
- * __Tabs__
- *
- * Tabs acts as a container for all Tab components.
- *
- * - [Examples](https://atlassian.design/components/tabs/examples)
- * - [Code](https://atlassian.design/components/tabs/code)
- * - [Usage](https://atlassian.design/components/tabs/usage)
- */
-export const Tabs = (props: TabsProps) => (
-  <GlobalTheme.Consumer>
-    {({ mode }: { mode: ThemeModes }) => (
-      <TabsWithMode {...props} mode={mode} />
-    )}
-  </GlobalTheme.Consumer>
-);
 
 export default Tabs;

@@ -37,6 +37,10 @@ export interface Props {
   disabled?: boolean;
   tooltip?: string;
   buttonTestId?: string;
+  // Increased dropdown item width to prevent labels from being truncated
+  dropdownWidth?: number;
+  // Show a check next to selected dropdown menu items (true by default)
+  showSelected?: boolean;
 }
 
 export interface State {
@@ -60,6 +64,7 @@ export default class Dropdown extends Component<Props, State> {
       disabled,
       tooltip,
       buttonTestId,
+      dropdownWidth,
     } = this.props;
 
     let trigger;
@@ -101,7 +106,7 @@ export default class Dropdown extends Component<Props, State> {
      */
     const fitTolerance = 10;
     const fitWidth = Array.isArray(options)
-      ? menuItemDimensions.width
+      ? dropdownWidth || menuItemDimensions.width
       : options.width;
     const fitHeight = Array.isArray(options)
       ? options.length * menuItemDimensions.height + itemSpacing * 2
@@ -126,13 +131,17 @@ export default class Dropdown extends Component<Props, State> {
     );
   }
 
-  private renderArrayOptions = (options: Array<DropdownOptionT<Function>>) => (
-    <DropdownMenu
-      hide={this.hide}
-      dispatchCommand={this.props.dispatchCommand}
-      items={options}
-    />
-  );
+  private renderArrayOptions = (options: Array<DropdownOptionT<Function>>) => {
+    const { showSelected, dispatchCommand } = this.props;
+    return (
+      <DropdownMenu
+        hide={this.hide}
+        dispatchCommand={dispatchCommand}
+        items={options}
+        showSelected={showSelected}
+      />
+    );
+  };
 
   private toggleOpen = () => {
     this.setState({ isOpen: !this.state.isOpen });

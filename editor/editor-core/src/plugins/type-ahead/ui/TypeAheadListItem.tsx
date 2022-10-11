@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import React, { useCallback, useMemo, useRef, useLayoutEffect } from 'react';
+import React, { useCallback, useMemo, useLayoutEffect } from 'react';
 import { css, jsx } from '@emotion/react';
-import { DN600, N200, N800 } from '@atlaskit/theme/colors';
+import { DN600, N200, N800, N30, B100 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
@@ -10,7 +10,7 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 import IconFallback from '../../quick-insert/assets/fallback';
 import { shortcutStyle } from '../../../ui/styles';
-import type { TypeAheadItem, OnSelectItem } from '../types';
+import type { TypeAheadItem } from '../types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { token } from '@atlaskit/tokens';
 
@@ -61,7 +61,36 @@ const itemAfter = css`
   flex: 0 0 auto;
 `;
 
-const hidden = { overflow: 'hidden' };
+const customRenderItemDivStyle = css`
+  overflow: hidden;
+  &:hover {
+    background-color: ${token('color.background.selected', N30)};
+  }
+  &:focus {
+    box-shadow: inset 0px 0px 0px 2px ${token('color.border.focused', B100)};
+    outline: none;
+  }
+`;
+
+/**
+ * This CSS emulates the desired behaviour with :focus-visible for firefox.
+ * Firefox unfortunately does not register keyboard focus if user mouseDown and drag a typeahead item
+ * resulting in focus-visible style not drawn.
+ */
+const selectionFrame = {
+  '& > button:focus': {
+    boxShadow: `inset 0px 0px 0px 2px ${token('color.border.focused', B100)}`,
+    outline: 'none',
+    '&:active': {
+      boxShadow: 'none',
+    },
+  },
+};
+
+const selectedStyle = css`
+  background-color: ${token('color.background.selected', N30)};
+`;
+
 const FallbackIcon: React.FC<Record<'label', string>> = React.memo(
   ({ label }) => {
     return <IconFallback />;
@@ -72,41 +101,24 @@ const noop = () => {};
 
 type TypeAheadListItemProps = {
   item: TypeAheadItem;
+  itemsLength: number;
   itemIndex: number;
   selectedIndex: number;
-  onItemHover: OnSelectItem;
   onItemClick: (mode: SelectItemMode, index: number) => void;
 };
 export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
   item,
+  itemsLength,
   selectedIndex,
-  onItemHover,
   onItemClick,
   itemIndex,
 }) => {
-  const isSelected = itemIndex === selectedIndex;
-
-  // It's possible for onMouseMove to be called multiple times in quick
-  // succession because the mousemove event can fire very rapidly. This
-  // provides an additional safety net to prevent that.
-  const mouseMoveCalled = useRef(false);
-
-  const onMouseMove = useCallback(() => {
-    if (isSelected || mouseMoveCalled.current) {
-      return;
-    }
-    mouseMoveCalled.current = true;
-    onItemHover({
-      item,
-      index: itemIndex,
-    });
-  }, [item, itemIndex, onItemHover, isSelected]);
-
-  useLayoutEffect(() => {
-    if (!isSelected) {
-      mouseMoveCalled.current = false;
-    }
-  }, [isSelected]);
+  /**
+   * To select and highlight the first Item when no item is selected
+   * However selectedIndex remains -1, So that user does not skip the first item when down arrow key is used from typeahead query(inputQuery.tsx)
+   */
+  const isSelected =
+    itemIndex === selectedIndex || (selectedIndex === -1 && itemIndex === 0);
 
   const { icon, title, render: customRenderItem } = item;
   const elementIcon = useMemo(() => {
@@ -119,43 +131,76 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
     onItemClick(SelectItemMode.SELECTED, itemIndex);
   }, [onItemClick, itemIndex]);
 
+  const customItemRef = React.createRef<HTMLDivElement>();
+  const buttonItemRef = React.createRef<HTMLDivElement>();
+  const shouldUpdateFocus = selectedIndex === itemIndex;
+
+  useLayoutEffect(() => {
+    if (shouldUpdateFocus) {
+      customItemRef?.current?.focus();
+    }
+  }, [customItemRef, shouldUpdateFocus]);
+
+  useLayoutEffect(() => {
+    if (shouldUpdateFocus) {
+      buttonItemRef?.current?.focus();
+    }
+  }, [buttonItemRef, shouldUpdateFocus]);
+
   const customItem = useMemo(() => {
     if (!customRenderItem) {
       return null;
     }
-
     const Comp = customRenderItem;
+    const listItemClasses = [
+      customRenderItemDivStyle,
+      isSelected && selectedStyle,
+    ];
     return (
       <div
         aria-selected={isSelected}
         aria-label={title}
         role="option"
+        aria-setsize={itemsLength}
         tabIndex={0}
-        style={hidden}
-        onMouseMove={onMouseMove}
+        css={listItemClasses}
+        className={`ak-typeahead-item ${
+          isSelected ? 'typeahead-selected-item' : ''
+        }`}
+        //CSS classes added for test cases purpose
+        ref={customItemRef}
       >
         <Comp
           onClick={insertSelectedItem}
-          isSelected={isSelected}
+          isSelected={false} //The selection styles are handled in the parent div instead. Hence isSelected is made false always.
           onHover={noop}
         />
       </div>
     );
-  }, [customRenderItem, insertSelectedItem, onMouseMove, isSelected, title]);
+  }, [
+    customRenderItem,
+    insertSelectedItem,
+    isSelected,
+    title,
+    customItemRef,
+    itemsLength,
+  ]);
 
   if (customItem) {
     return customItem;
   }
 
   return (
-    <span onMouseMove={onMouseMove}>
+    <span css={selectionFrame}>
       <ButtonItem
         onClick={insertSelectedItem}
         iconBefore={elementIcon}
         isSelected={isSelected}
         aria-selected={isSelected}
         aria-label={item.title}
+        aria-setsize={itemsLength}
         role="option"
+        ref={buttonItemRef}
         description={item.description}
       >
         <div css={itemBody}>

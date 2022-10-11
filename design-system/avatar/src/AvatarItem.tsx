@@ -9,7 +9,8 @@ import {
   Ref,
 } from 'react';
 
-import { ClassNames, css, Interpolation, jsx } from '@emotion/core';
+import { ClassNames, css, jsx } from '@emotion/react';
+import { CSSInterpolation } from '@emotion/serialize';
 
 import {
   B200,
@@ -103,7 +104,7 @@ export interface AvatarItemProps {
 const getStyles = (
   css: (
     template: TemplateStringsArray,
-    ...args: Array<Interpolation>
+    ...args: Array<CSSInterpolation>
   ) => string,
   {
     backgroundColor,

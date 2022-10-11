@@ -8,7 +8,7 @@ import {
   sleep,
 } from '@atlaskit/media-test-helpers';
 import { MainWrapper } from '../example-helpers';
-import { Card } from '../src/root/card';
+import { Card } from '../src/card/card';
 import { CardProps } from '../src';
 import { CardDimensions } from '../src';
 import { R500 } from '@atlaskit/theme/colors';

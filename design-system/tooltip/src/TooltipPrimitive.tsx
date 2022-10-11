@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { CSSProperties, forwardRef, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { layers } from '@atlaskit/theme/constants';
 

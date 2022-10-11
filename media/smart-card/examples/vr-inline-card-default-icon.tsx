@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { InlineCardResolvedView } from '../src/view/InlineCard';
 import { VRTestCase } from './utils/common';

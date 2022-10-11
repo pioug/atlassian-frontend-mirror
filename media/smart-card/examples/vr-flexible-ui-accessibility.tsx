@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { IntlProvider } from 'react-intl-next';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 
 import { VRTestWrapper } from './utils/vr-test';

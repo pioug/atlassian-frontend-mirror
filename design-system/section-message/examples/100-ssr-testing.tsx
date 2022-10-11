@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+
 const SSRTestingExample = () => {
   return (
-    <div id="ssr-example">
-      <div id="ssr" />
-      <div id="hydrated" />
-    </div>
+    <Box id="ssr-example">
+      <Box id="ssr"></Box>
+      <Box id="hydrated"></Box>
+    </Box>
   );
 };
 

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, memo, MouseEvent, useCallback } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';

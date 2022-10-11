@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { jsx } from '@emotion/core';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import Tooltip from '@atlaskit/tooltip';
 import { FormattedMessage } from 'react-intl-next';
 import { Analytics } from '../../analytics';
 import {
@@ -10,22 +9,18 @@ import {
   ReactionClick,
   ReactionSummary,
   ReactionSource,
+  QuickReactionEmojiSummary,
 } from '../../types';
 import { i18n } from '../../shared';
 import { Reaction } from '../Reaction';
 import { ReactionPicker, ReactionPickerProps } from '../ReactionPicker';
-import * as styles from './styles';
 import { SelectorProps } from '../Selector';
+import * as styles from './styles';
 
 /**
  * Test id for wrapper Reactions div
  */
 export const RENDER_REACTIONS_TESTID = 'render-reactions';
-
-/**
- * Test id for the tooltip
- */
-export const RENDER_TOOLTIP_TESTID = 'render-tooltip';
 
 export interface ReactionsProps
   extends Pick<ReactionPickerProps, 'allowAllEmojis' | 'emojiProvider'>,
@@ -64,17 +59,29 @@ export interface ReactionsProps
    */
   errorMessage?: string;
   /**
-   * the container for reactions/ari in the page (attached to the "quickReactionEmojiIds" prop)
+   * quickReactionEmojis are emojis that will be shown in the the primary view even if the reaction count is zero
    */
-  containerAri: string;
-  /**
-   * unique Atlassian identifier for an emoji (attached to the "quickReactionEmojiIds" prop)
-   */
-  ari: string;
-  /**
-   * quickReactionEmojiIds are emojis that will be shown in the the primary view even if the reaction count is zero
-   */
-  quickReactionEmojiIds?: string[];
+  quickReactionEmojis?: QuickReactionEmojiSummary;
+}
+
+/**
+ * Get content of the tooltip
+ */
+export function getTooltip(status: ReactionStatus, errorMessage?: string) {
+  switch (status) {
+    case ReactionStatus.error:
+      return (
+        errorMessage || <FormattedMessage {...i18n.messages.unexpectedError} />
+      );
+    // When reaction is not available don't show any tooltip (e.g. Archive page in Confluence)
+    case ReactionStatus.disabled:
+      return null;
+    case ReactionStatus.notLoaded:
+    case ReactionStatus.loading:
+      return <FormattedMessage {...i18n.messages.loadingReactions} />;
+    case ReactionStatus.ready:
+      return <FormattedMessage {...i18n.messages.addReaction} />;
+  }
 }
 
 /**
@@ -86,9 +93,7 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
     status,
     errorMessage,
     loadReaction,
-    quickReactionEmojiIds,
-    containerAri,
-    ari,
+    quickReactionEmojis,
     pickerQuickReactionEmojiIds,
     onReactionHover,
     onSelection,
@@ -122,25 +127,6 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
         renderTime.current = undefined;
       }
     }, [createAnalyticsEvent, status]);
-
-    /**
-     * Get content of the tooltip
-     */
-    const getTooltip = () => {
-      switch (status) {
-        case ReactionStatus.error:
-          return (
-            errorMessage || (
-              <FormattedMessage {...i18n.messages.unexpectedError} />
-            )
-          );
-        case ReactionStatus.loading:
-        case ReactionStatus.notLoaded:
-          return <FormattedMessage {...i18n.messages.loadingReactions} />;
-        default:
-          return undefined;
-      }
-    };
 
     const handleReactionMouseEnter = (summary: ReactionSummary) => {
       if (onReactionHover) {
@@ -198,12 +184,13 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
       /**
        * If reactions not empty, don't show quick reactions Pre defined emoji or if its empty => return the current list of reactions
        */
-      if (reactions.length > 0 || !quickReactionEmojiIds) {
+      if (reactions.length > 0 || !quickReactionEmojis) {
         return reactions;
       }
 
       // add any missing default reactions
-      const items: ReactionSummary[] = quickReactionEmojiIds
+      const { ari, containerAri, emojiIds } = quickReactionEmojis;
+      const items: ReactionSummary[] = emojiIds
         .filter(
           (emojiId) =>
             !reactions.some((reaction) => reaction.emojiId === emojiId),
@@ -218,7 +205,7 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
           };
         });
       return reactions.concat(items);
-    }, [ari, containerAri, quickReactionEmojiIds, reactions]);
+    }, [quickReactionEmojis, reactions]);
 
     return (
       <div css={styles.wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
@@ -233,20 +220,19 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
             flash={flash[reaction.emojiId]}
           />
         ))}
-        <Tooltip testId={RENDER_TOOLTIP_TESTID} content={getTooltip()}>
-          <ReactionPicker
-            css={styles.reactionStyle}
-            emojiProvider={emojiProvider}
-            miniMode
-            allowAllEmojis={allowAllEmojis}
-            pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
-            disabled={status !== ReactionStatus.ready}
-            onSelection={handleOnSelection}
-            onOpen={handlePickerOpen}
-            onCancel={handleOnCancel}
-            onShowMore={handleOnMore}
-          />
-        </Tooltip>
+        <ReactionPicker
+          css={styles.reactionStyle}
+          emojiProvider={emojiProvider}
+          miniMode
+          allowAllEmojis={allowAllEmojis}
+          pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
+          disabled={status !== ReactionStatus.ready}
+          onSelection={handleOnSelection}
+          onOpen={handlePickerOpen}
+          onCancel={handleOnCancel}
+          onShowMore={handleOnMore}
+          tooltipContent={getTooltip(status, errorMessage)}
+        />
       </div>
     );
   },

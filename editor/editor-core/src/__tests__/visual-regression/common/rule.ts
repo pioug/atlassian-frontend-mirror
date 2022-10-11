@@ -1,10 +1,7 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import * as rule from './__fixtures__/rule-adf.json';
-import {
-  snapshot,
-  initFullPageEditorWithAdf,
-  getBoundingClientRect,
-} from '../_utils';
+import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 
 const ruleSelector = 'hr';
 

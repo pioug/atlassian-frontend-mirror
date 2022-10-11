@@ -34,10 +34,6 @@ export interface Props {
   forcePlacement?: boolean;
   allowOutOfBounds?: boolean; // Allow to correct position elements inside table: https://product-fabric.atlassian.net/browse/ED-7191
   rect?: DOMRect;
-  scheduleExtraLayoutUpdates?: boolean; // Schedule additional layout updates in subsequent animation frames. E.g. We use this to ensure breakout
-  // button is always positioned correctly: https://product-fabric.atlassian.net/browse/ED-15233
-  waitForExtraLayoutUpdates?: boolean; // If forcing additional layout updates in subsequent animation frames, choose whether to wait for those
-  // updates, which will skip earlier updates so that flickering (between updated positions) does not occur: https://product-fabric.atlassian.net/browse/ED-15233
 }
 
 export interface State {
@@ -191,26 +187,8 @@ export default class Popup extends React.Component<Props, State> {
     this.initPopup(popup);
   };
 
-  private cancelRequestAnimationFrames = () => {
-    for (const rafId of this.rafIds) {
-      cancelAnimationFrame(rafId);
-    }
-  };
-
   private scheduledUpdatePosition = rafSchedule((props: Props) => {
-    if (!this.props.waitForExtraLayoutUpdates) {
-      this.updatePosition(this.props);
-    }
-
-    if (this.props.scheduleExtraLayoutUpdates) {
-      // We need two requestAnimationFrame calls to ensure reflow/repaints
-      // are flushed to DOM before our popup position recalculations happen
-      const rafId = requestAnimationFrame(() => {
-        this.updatePosition(this.props);
-        this.rafIds.delete(rafId);
-      });
-      this.rafIds.add(rafId);
-    }
+    this.updatePosition(this.props);
   });
 
   onResize = () => this.scheduledUpdatePosition(this.props);
@@ -256,7 +234,6 @@ export default class Popup extends React.Component<Props, State> {
       this.resizeObserver.unobserve(this.scrollParentElement);
     }
     this.scheduledUpdatePosition.cancel();
-    this.cancelRequestAnimationFrames();
   }
 
   private renderPopup() {

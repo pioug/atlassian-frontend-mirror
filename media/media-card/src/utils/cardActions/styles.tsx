@@ -5,7 +5,7 @@ import React, { MouseEvent, HTMLAttributes } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { N500, N0 } from '@atlaskit/theme/colors';
 import { borderRadius, size, center } from '@atlaskit/media-ui';
-import { rootStyles } from '../../styles';
+import { rootStyles } from '../../card/styles';
 
 export const wrapperStyles = css`
   ${rootStyles()}

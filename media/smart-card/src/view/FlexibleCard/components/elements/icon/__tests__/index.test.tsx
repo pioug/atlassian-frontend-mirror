@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import Icon from '../index';
 import {
   IconType,

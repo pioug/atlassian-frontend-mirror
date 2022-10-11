@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/core';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { EmojiProvider, ResourcedEmoji, EmojiId } from '@atlaskit/emoji';
@@ -12,7 +13,7 @@ import {
 import { Counter } from '../Counter';
 import { FlashAnimation } from '../FlashAnimation';
 import { ReactionTooltip } from '../ReactionTooltip';
-import { utils } from '../../shared';
+import { i18n, utils } from '../../shared';
 import * as styles from './styles';
 
 /**
@@ -68,10 +69,7 @@ export const Reaction: React.FC<ReactionProps> = ({
   useEffect(() => {
     (async () => {
       const emojiResource = await Promise.resolve(emojiProvider);
-      const foundEmoji = await emojiResource.findByEmojiId({
-        shortName: '',
-        id: reaction.emojiId,
-      });
+      const foundEmoji = await emojiResource.findById(reaction.emojiId);
       if (foundEmoji) {
         setEmojiName(foundEmoji.name);
       }
@@ -113,13 +111,18 @@ export const Reaction: React.FC<ReactionProps> = ({
     [createAnalyticsEvent, reaction, onMouseEnter],
   );
 
+  const intl = useIntl();
+
   return (
     <ReactionTooltip emojiName={emojiName} reaction={reaction}>
       <button
         className={className}
         css={[styles.reactionStyle, reaction.reacted && styles.reactedStyle]}
-        title={reaction.emojiId}
+        aria-label={intl.formatMessage(i18n.messages.reactWithEmoji, {
+          emoji: emojiName,
+        })}
         type="button"
+        data-emoji-id={reaction.emojiId}
         data-testid={RENDER_REACTION_TESTID}
         onMouseUp={handleMouseUp}
         onMouseEnter={handleMouseEnter}

@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/logo": "^13.9.0",
+    "@atlaskit/logo": "^13.10.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",

@@ -44,12 +44,6 @@ const getTabPanelStyles = (mode: ThemeModes): CSSObject => ({
 export const getTabsStyles = (mode: ThemeModes): SerializedStyles =>
   // eslint-disable-next-line @repo/internal/styles/no-exported-styles
   css({
-    display: 'flex',
-    maxWidth: '100%',
-    minHeight: '0%',
-    flexBasis: '100%',
-    flexDirection: 'column',
-    flexGrow: 1,
     '& [role="tabpanel"]': getTabPanelStyles(mode),
     // The hidden attribute doesn't work on flex elements
     // Change display to be none
@@ -73,10 +67,6 @@ const tabLineStyles: CSSObject = {
 export const getTabListStyles = (mode: ThemeModes): SerializedStyles =>
   // eslint-disable-next-line @repo/internal/styles/no-exported-styles
   css({
-    display: 'flex',
-    margin: 0,
-    padding: 0,
-    position: 'relative',
     '& [role="tab"]': getTabStyles(mode),
     fontWeight: 500,
     '&::before': {

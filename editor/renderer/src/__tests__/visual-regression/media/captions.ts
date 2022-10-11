@@ -2,7 +2,8 @@ import {
   PuppeteerPage,
   waitForLoadedBackgroundImages,
 } from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF, Device } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initRendererWithADF } from '../_utils';
 import * as captionAdf from './__fixtures__/caption.adf.json';
 import * as longCaptionAdf from './__fixtures__/caption-long.adf.json';
 import * as complicatedCaptionAdf from './__fixtures__/caption-complicated.adf.json';

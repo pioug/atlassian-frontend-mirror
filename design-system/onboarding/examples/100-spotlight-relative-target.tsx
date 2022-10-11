@@ -2,7 +2,7 @@
 
 import { Component } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import {
   Spotlight,

@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.5.0
+
+### Minor Changes
+
+- [`c520e306869`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c520e306869) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 1.4.2
 
 ### Patch Changes

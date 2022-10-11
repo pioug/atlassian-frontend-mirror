@@ -1,9 +1,9 @@
 import {
-  initFullPageEditorWithAdf,
-  snapshot,
-  Device,
   deviceViewPorts,
-} from '../_utils';
+  Device,
+  ViewportSize,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { initFullPageEditorWithAdf, snapshot } from '../_utils';
 import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { toolbarMessages } from '../../../plugins/layout/toolbar-messages';
@@ -30,9 +30,7 @@ describe('Snapshot Test: Nested table inside layouts', () => {
   ];
 
   const initEditor = async (
-    viewport: { height: number; width: number } = deviceViewPorts[
-      Device.LaptopHiDPI
-    ],
+    viewport: ViewportSize = deviceViewPorts[Device.LaptopHiDPI],
   ) => {
     await initFullPageEditorWithAdf(page, tableIn2ColAdf, undefined, viewport, {
       allowLayouts: { allowBreakout: true, UNSAFE_addSidebarLayouts: true },

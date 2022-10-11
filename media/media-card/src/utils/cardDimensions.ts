@@ -1,9 +1,4 @@
-import { CardAppearance, CardDimensionValue } from '../types';
-
-export interface CardDimensions {
-  width?: CardDimensionValue;
-  height?: CardDimensionValue;
-}
+import { CardAppearance, CardDimensions } from '../types';
 
 // Default dimensions
 

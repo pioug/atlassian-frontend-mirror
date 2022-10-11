@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect, useRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';

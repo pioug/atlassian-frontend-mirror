@@ -3,7 +3,7 @@ import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { FC, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { AnalyticsPayload } from '../../../src/utils/types';

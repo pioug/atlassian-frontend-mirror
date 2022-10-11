@@ -128,6 +128,12 @@ export type DrawerProps = BaseProps &
      * Controls if the drawer is open or closed.
      */
     isOpen: boolean;
+    /**
+     * Z-index that the popup should be displayed in.
+     * This is passed to the portal component.
+     * Defaults to `unset`.
+     */
+    zIndex?: number;
   };
 
 export interface FocusLockProps {

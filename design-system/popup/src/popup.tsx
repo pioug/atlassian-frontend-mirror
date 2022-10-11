@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { FC, memo, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';

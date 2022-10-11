@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+
 import SectionMessage, { SectionMessageAction } from '../../index';
 
 const sectionMessageInfoId = 'info-section-message';
@@ -28,19 +30,17 @@ const sectionMessageWrapperWithTestIds = (
       </SectionMessageAction>,
     ]}
   >
-    <p>
+    <Text>
       Atlassian provides the tools to help every team unleash their full
       potential.
-    </p>
-    <p />
-    <b>Bitbucket:</b>
-    <p>
+    </Text>
+    <Text>Bitbucket:</Text>
+    <Text>
       Bitbucket is more than just Git code management. Bitbucket gives teams one
       place to plan projects, collaborate on code, test, and deploy.
-    </p>
-    <p />
-    <b>Jira:</b>
-    <p>The #1 software development tool used by agile teams.</p>
+    </Text>
+    <Text>Jira:</Text>
+    <Text>The #1 software development tool used by agile teams.</Text>
   </SectionMessage>
 );
 

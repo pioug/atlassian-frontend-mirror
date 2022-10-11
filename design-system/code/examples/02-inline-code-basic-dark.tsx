@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
@@ -9,16 +9,16 @@ import { Code } from '../src';
 const jsCode = `const map = new Map({ key: 'value' })`;
 const adg4 = `ADG 4.0`;
 
-const containerStyles: CSSObject = {
-  maxWidth: 800,
+const containerStyles = css({
   display: 'grid',
-  alignItems: 'baseline',
-  gridTemplateColumns: '100px 1fr',
-  gap: 8,
+  maxWidth: 800,
   margin: 8,
-};
+  alignItems: 'baseline',
+  gap: 8,
+  gridTemplateColumns: '100px 1fr',
+});
 
-const noMarginTopStyles: CSSObject = { marginTop: 0 };
+const noMarginTopStyles = css({ marginTop: 0 });
 
 export default function Component() {
   return (

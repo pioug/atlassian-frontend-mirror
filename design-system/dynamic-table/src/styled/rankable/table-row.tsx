@@ -18,19 +18,13 @@ const rankingStyles = css({
   display: 'block',
 });
 
-const elevationStyle = token(
-  'elevation.shadow.overlay',
-  `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
-);
-
-/**
- * TODO: Pass the props here to get particular theme for the table
- * Skipping it for now as it may impact migration as util-shared-styles does not support this feature
- */
 const rankingItemStyles = css({
-  backgroundColor: token('color.background.neutral', N20),
+  backgroundColor: token('elevation.surface.overlay', N20),
   borderRadius: '2px',
-  boxShadow: elevationStyle,
+  boxShadow: token(
+    'elevation.shadow.overlay',
+    `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
+  ),
 });
 
 const draggableStyles = css({

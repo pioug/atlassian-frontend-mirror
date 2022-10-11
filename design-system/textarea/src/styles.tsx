@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { CSSObject } from '@emotion/core';
+import { css, CSSObject } from '@emotion/react';
 
 import {
   codeFontFamily as getCodeFontFamily,
@@ -54,125 +54,130 @@ const borderBoxMinHeightCompact = (
 const bgAndBorderColorStyles = (
   props: ThemeTokens,
   appearance: TextAreaProps['appearance'],
-): CSSObject => ({
-  '&:focus': {
-    backgroundColor: props.backgroundColorFocus,
-    borderColor: props.borderColorFocus,
-  },
-  '&:not(:focus)': {
-    backgroundColor: props.backgroundColor,
-    borderColor: props.borderColor,
-  },
-  '&[data-invalid]:focus': {
-    backgroundColor: props.invalidRules.backgroundColorFocus,
-    borderColor: props.invalidRules.borderColorFocus,
-  },
-  '&[data-invalid]:not(:focus)': {
-    backgroundColor: props.invalidRules.backgroundColor,
-    borderColor: props.invalidRules.borderColor,
-  },
-  // Disabled background and border styles should not be applied to components that
-  // have either no background or transparent background to begin with
-  ...(appearance === 'standard'
-    ? {
-        '&:disabled:focus': {
-          backgroundColor: props.disabledRules.backgroundColorFocus,
-          borderColor: props.disabledRules.borderColorFocus,
-        },
-        '&:disabled:not(:focus)': {
-          backgroundColor: props.disabledRules.backgroundColor,
-          borderColor: props.disabledRules.borderColor,
-        },
-      }
-    : {}),
-});
+) =>
+  css({
+    '&:focus': {
+      backgroundColor: props.backgroundColorFocus,
+      borderColor: props.borderColorFocus,
+    },
+    '&:not(:focus)': {
+      backgroundColor: props.backgroundColor,
+      borderColor: props.borderColor,
+    },
+    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    '&[data-invalid]:focus': {
+      backgroundColor: props.invalidRules.backgroundColorFocus,
+      borderColor: props.invalidRules.borderColorFocus,
+    },
+    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    '&[data-invalid]:not(:focus)': {
+      backgroundColor: props.invalidRules.backgroundColor,
+      borderColor: props.invalidRules.borderColor,
+    },
+    // Disabled background and border styles should not be applied to components that
+    // have either no background or transparent background to begin with
+    ...(appearance === 'standard'
+      ? {
+          '&:disabled:focus': {
+            backgroundColor: props.disabledRules.backgroundColorFocus,
+            borderColor: props.disabledRules.borderColorFocus,
+          },
+          '&:disabled:not(:focus)': {
+            backgroundColor: props.disabledRules.backgroundColor,
+            borderColor: props.disabledRules.borderColor,
+          },
+        }
+      : {}),
+  });
 
-const placeholderStyle = (placeholderTextColor: string) => ({
-  '&::placeholder': {
-    color: placeholderTextColor,
-  },
-});
+const placeholderStyle = (placeholderTextColor: string) =>
+  css({
+    '&::placeholder': {
+      color: placeholderTextColor,
+    },
+  });
 
-const hoverBackgroundAndBorderStyles = (props: ThemeTokens) => {
-  return {
+const hoverBackgroundAndBorderStyles = (props: ThemeTokens) =>
+  css({
     '&:hover:not(:read-only):not(:focus)': {
       backgroundColor: props.backgroundColorHover,
       borderColor: props.borderColorHover,
       '&:disabled': {
         backgroundColor: props.disabledRules.backgroundColorHover,
       },
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
       '&[data-invalid]': {
         backgroundColor: props.invalidRules.backgroundColorHover,
       },
     },
-  };
-};
+  });
 
-const resizeStyle = (resize: string | undefined): CSSObject => {
+const resizeStyle = (resize: string | undefined) => {
   if (resize === 'horizontal' || resize === 'vertical') {
-    return { resize };
+    return css({ resize });
   }
   if (resize === 'auto') {
-    return { resize: 'both' };
+    return css({ resize: 'both' });
   }
-  return { resize: 'none' };
+  return css({ resize: 'none' });
 };
 
-const borderStyle = (appearance: string | undefined): CSSObject => ({
-  borderStyle: appearance === 'none' ? 'none' : 'solid',
-});
+const borderStyle = (appearance: string | undefined) =>
+  css({
+    borderStyle: appearance === 'none' ? 'none' : 'solid',
+  });
 
-const fontFamilyStyle = (isMonospaced: boolean | undefined): CSSObject => ({
-  fontFamily: isMonospaced ? codeFontFamily : fontFamily,
-});
+const fontFamilyStyle = (isMonospaced: boolean | undefined) =>
+  css({
+    fontFamily: isMonospaced ? codeFontFamily : fontFamily,
+  });
 
-const borderPaddingAndHeightStyles = (minimumRows = 1): CSSObject => {
+const borderPaddingAndHeightStyles = (minimumRows = 1) => {
   const horizontalPaddingWithoutBorderWidth = horizontalPadding - borderWidth;
   const borderHeight = borderWidth;
-  return {
+  return css({
+    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
     '&[data-compact]': {
+      minHeight: borderBoxMinHeightCompact(minimumRows, borderHeight),
       padding: `${compactVerticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
       lineHeight: lineHeightCompact / fontSize,
-      minHeight: borderBoxMinHeightCompact(minimumRows, borderHeight),
     },
     '&:not([data-compact])': {
+      minHeight: borderBoxMinHeight(minimumRows, borderHeight),
       padding: `${verticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
       lineHeight: lineHeightBase / fontSize,
-      minHeight: borderBoxMinHeight(minimumRows, borderHeight),
     },
-  };
+  });
 };
 
-const staticStyles: CSSObject = {
-  flex: '1 1 100%',
-  position: 'relative',
-  borderRadius: borderRadius,
+const staticStyles = css({
+  display: 'block',
   boxSizing: 'border-box',
+  width: '100%',
+  minWidth: 0,
+  maxWidth: '100%',
+  margin: 0,
+  position: 'relative',
+  flex: '1 1 100%',
+  borderRadius: borderRadius,
+  borderWidth: borderWidth,
+  fontSize: fontSize,
+  outline: 'none',
   overflow: 'auto',
-  transition: `background-color ${transitionDuration} ease-in-out,
+  transition: `background-color ${transitionDuration} ease-in-out, 
                border-color ${transitionDuration} ease-in-out`,
   wordWrap: 'break-word',
-  fontSize,
-  borderWidth: borderWidth,
-  maxWidth: '100%',
-  display: 'block',
-  margin: 0,
-  minWidth: 0,
-  outline: 'none',
-  width: '100%',
   '&:disabled': {
     cursor: 'not-allowed',
     ...overrideSafariDisabledStyles,
   },
-
   '&::-ms-clear': {
     display: 'none',
   },
-
   '&:invalid': {
     boxShadow: 'none',
   },
-};
+});
 
 export const getBaseStyles = ({
   minimumRows,
@@ -180,26 +185,30 @@ export const getBaseStyles = ({
   appearance,
   isMonospaced,
   maxHeight,
-}: StyleProps): CSSObject => ({
-  ...staticStyles,
-  ...borderPaddingAndHeightStyles(minimumRows),
-  ...resizeStyle(resize),
-  ...borderStyle(appearance),
-  ...fontFamilyStyle(isMonospaced),
-  maxHeight,
-});
+}: StyleProps) =>
+  // eslint-disable-next-line @repo/internal/styles/no-exported-styles
+  css([
+    staticStyles,
+    borderPaddingAndHeightStyles(minimumRows),
+    resizeStyle(resize),
+    borderStyle(appearance),
+    fontFamilyStyle(isMonospaced),
+    { maxHeight },
+  ]);
 
 export const themeStyles = (
   props: ThemeTokens,
   appearance: TextAreaProps['appearance'],
-): CSSObject => {
-  return {
-    ...bgAndBorderColorStyles(props, appearance),
-    ...hoverBackgroundAndBorderStyles(props),
-    ...placeholderStyle(props.placeholderTextColor),
-    color: props.textColor,
-    '&:disabled': {
-      color: props.disabledRules.textColor,
+) =>
+  // eslint-disable-next-line @repo/internal/styles/no-exported-styles
+  css([
+    bgAndBorderColorStyles(props, appearance),
+    hoverBackgroundAndBorderStyles(props),
+    placeholderStyle(props.placeholderTextColor),
+    {
+      color: props.textColor,
+      '&:disabled': {
+        color: props.disabledRules.textColor,
+      },
     },
-  };
-};
+  ]);

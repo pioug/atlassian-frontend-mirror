@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.24
+
+### Patch Changes
+
+- [`619d2c2eaed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/619d2c2eaed) - Fixed typo in `elevation.surface.overlay` description
+
 ## 0.10.23
 
 ### Patch Changes

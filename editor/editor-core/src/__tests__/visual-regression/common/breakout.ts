@@ -1,9 +1,9 @@
 import {
   initFullPageEditorWithAdf,
-  Device,
   snapshot,
   updateEditorProps,
 } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import adf from './__fixtures__/columns.adf.json';
 import layoutEmptyAdf from './__fixtures__/layout-empty.adf.json';
 import {
@@ -12,10 +12,7 @@ import {
   toggleBreakout,
   layoutSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/layouts';
-import {
-  animationFrame,
-  clickFirstParagraph,
-} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { clickFirstParagraph } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
@@ -70,10 +67,8 @@ describe('Columns:', () => {
       visible: true,
     });
 
-    // first we make the layout full-width
-    await toggleBreakout(page, 2);
-    await animationFrame(page);
-    await animationFrame(page);
+    // first we make the node's layout wide
+    await toggleBreakout(page, 1);
 
     // then we visually hide and disable the Editor
     await page.evaluate(() => {
@@ -82,17 +77,11 @@ describe('Columns:', () => {
       );
       container!.style.display = 'none';
     });
-    await animationFrame(page);
-    await animationFrame(page);
 
     await updateEditorProps(page, { disabled: true });
-    await animationFrame(page);
-    await animationFrame(page);
 
     // then we re-enable and visually re-display the Editor
     await updateEditorProps(page, { disabled: false });
-    await animationFrame(page);
-    await animationFrame(page);
 
     await page.evaluate(() => {
       const container = document.querySelector<HTMLDivElement>(
@@ -100,9 +89,6 @@ describe('Columns:', () => {
       );
       container!.style.display = 'unset';
     });
-    await animationFrame(page);
-    await animationFrame(page);
-    await animationFrame(page);
 
     await page.waitForSelector(layoutSelectors.column, { visible: true });
     // unfortunately we need to hide floating toolbar as its incorrectly positioned
@@ -110,7 +96,7 @@ describe('Columns:', () => {
     // of this test, we ignore it for now). We also cannot simply 'clip' the snapshot because
     // clipping affects layout (and fixes breakout button positioning).
     await hideFloatingToolbar(page);
-    await snapshot(page, { tolerance: 0.05, useUnsafeThreshold: true });
+    await snapshot(page);
   });
 });
 

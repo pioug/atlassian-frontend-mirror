@@ -79,7 +79,7 @@ describe('typeahead: content', () => {
         await page.waitForSelector(selectors.mentionQuery);
 
         await page.keys('Carolyn'.split(''));
-        await page.keys('Return');
+        await page.keys(['ArrowDown', 'Return']);
 
         const jsonDocument = await page.$eval(editable, getDocFromElement);
         const pmDocument = Node.fromJSON(sampleSchema, jsonDocument);

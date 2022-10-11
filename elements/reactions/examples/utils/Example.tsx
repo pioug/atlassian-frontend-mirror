@@ -17,9 +17,11 @@ export interface ExampleProps {
  */
 export const Example: React.FC<ExampleProps> = ({ title, body }) => {
   return (
-    <div style={{ marginTop: '10px', marginBottom: '10px' }}>
+    <div
+      style={{ marginTop: '10px', marginLeft: '10px', marginBottom: '10px' }}
+    >
       <p>
-        <strong> {title}</strong>
+        <strong>{title}</strong>
       </p>
       {body}
     </div>

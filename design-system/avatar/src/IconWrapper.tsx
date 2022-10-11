@@ -2,7 +2,7 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { FC, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { background } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

@@ -8,7 +8,7 @@ import {
   imageFileId,
   videoFileId,
 } from '@atlaskit/media-test-helpers';
-import CardLoader from '../src/root/card/cardLoader';
+import { Card } from '../src/card';
 import ReactDOMServer from 'react-dom/server';
 
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';
@@ -52,7 +52,7 @@ const Page = ({
   return (
     <SSRAnalyticsWrapper>
       <h3>{title}</h3>
-      <CardLoader
+      <Card
         mediaClientConfig={mediaClientConfig}
         identifier={mode === 'video' ? videoFileId : imageFileId}
         dimensions={dimensions}

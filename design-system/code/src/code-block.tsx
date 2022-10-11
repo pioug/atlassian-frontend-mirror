@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { memo, useCallback, useMemo } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
@@ -42,7 +42,8 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 
   const getStyles = useMemo(() => getCodeBlockStyles(theme), [theme]);
   const styles = useMemo(
-    () => getStyles(highlightedStartText, highlightedEndText, showLineNumbers),
+    () =>
+      css(getStyles(highlightedStartText, highlightedEndText, showLineNumbers)),
     [highlightedStartText, highlightedEndText, showLineNumbers, getStyles],
   );
 

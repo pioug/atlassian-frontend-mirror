@@ -5,9 +5,11 @@ import {
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 import {
-  Appearance,
-  Device,
   deviceViewPorts,
+  Device,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import {
+  Appearance,
   editorSelector,
   initEditorWithAdf,
   snapshot,

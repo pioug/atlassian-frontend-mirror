@@ -165,7 +165,6 @@ const buildInitialTableToolbarItems = () => [
     id: 'editor.table.cellOptions',
     type: 'dropdown',
     title: 'Cell options',
-    hidden: true,
     options: [
       {
         id: 'editor.table.insertColumn',
@@ -221,7 +220,6 @@ const buildInitialTableToolbarItems = () => [
   },
   {
     type: 'separator',
-    hidden: true,
   },
   {
     id: 'editor.table.delete',

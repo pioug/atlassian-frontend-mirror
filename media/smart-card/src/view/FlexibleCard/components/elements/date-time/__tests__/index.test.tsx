@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { render } from '@testing-library/react';
 
 import DateTime from '../index';

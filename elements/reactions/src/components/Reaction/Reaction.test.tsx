@@ -1,5 +1,6 @@
 import React from 'react';
-import { mount, ReactWrapper, EnzymePropSelector } from 'enzyme';
+import { ReactWrapper, EnzymePropSelector } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import {
   Emoji,
@@ -96,7 +97,7 @@ const renderReaction = (
 
 describe('@atlaskit/reactions/components/Reaction', () => {
   it('should render emoji with resolved emoji data', (done) => {
-    const reaction = mount(
+    const reaction = mountWithIntl(
       renderReaction(
         false,
         1,
@@ -117,7 +118,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
   it('should call onClick on click', () => {
     const onClickSpy = jest.fn();
     const onMouseEnterSpy = jest.fn();
-    const reaction = mount(
+    const reaction = mountWithIntl(
       renderReaction(false, 1, onClickSpy, onMouseEnterSpy, false),
     );
 
@@ -128,7 +129,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
   it('should delegate flash to Flash component', () => {
     const onClickSpy = jest.fn();
     const onMouseEnterSpy = jest.fn();
-    const reaction = mount(
+    const reaction = mountWithIntl(
       renderReaction(true, 10, onClickSpy, onMouseEnterSpy, true),
     );
     const flashComponent = reaction.find(FlashAnimation);
@@ -139,7 +140,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
   it('should render ReactionTooltip', () => {
     const onClickSpy = jest.fn();
     const onMouseEnterSpy = jest.fn();
-    const reaction = mount(
+    const reaction = mountWithIntl(
       renderReaction(false, 1, onClickSpy, onMouseEnterSpy),
     );
 
@@ -172,7 +173,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
     });
 
     it('should trigger clicked for Reaction', () => {
-      const component = mount(
+      const component = mountWithIntl(
         <ReactionWithAnalyticsListener
           reacted={false}
           count={10}
@@ -199,7 +200,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
     });
 
     it('should trigger hovered for Reaction', () => {
-      const component = mount(
+      const component = mountWithIntl(
         <ReactionWithAnalyticsListener
           reacted={false}
           count={10}

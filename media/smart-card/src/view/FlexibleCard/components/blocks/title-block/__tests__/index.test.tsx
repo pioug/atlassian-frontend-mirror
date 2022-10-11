@@ -3,7 +3,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import TitleBlock from '../index';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';

@@ -165,7 +165,11 @@ export const WrapperTypeAhead: React.FC<WrapperProps> = React.memo(
         forceFocus={shouldFocusCursorInsideQuery}
         onUndoRedo={onUndoRedo}
         reopenQuery={reopenQuery}
+        editorView={editorView}
+        items={items}
       />
     );
   },
 );
+
+WrapperTypeAhead.displayName = 'WrapperTypeAhead';

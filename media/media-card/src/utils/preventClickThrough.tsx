@@ -14,6 +14,7 @@ export function PreventClickThrough({
         event.stopPropagation();
         event.preventDefault();
       }}
+      data-testid="prevent-click-through"
     >
       {children}
     </span>

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useCallback } from 'react';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/custom-theme-button';
 import Tooltip from '@atlaskit/tooltip';
 import { SmartLinkSize } from '../../../../../../constants';

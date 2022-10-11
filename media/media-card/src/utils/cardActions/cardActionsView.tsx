@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
 
-import { CardAction } from '../../actions';
+import { CardAction } from '../../card/actions';
 import {
   CardActionIconButton,
   CardActionIconButtonProps,

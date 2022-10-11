@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { DN0, DN600, N0, N800 } from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';

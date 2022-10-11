@@ -108,6 +108,8 @@ const verticalAlignMap = {
 
 const baseStyles = css({
   boxSizing: 'border-box',
+  margin: '0px',
+  padding: '0px',
   fontFamily,
 });
 

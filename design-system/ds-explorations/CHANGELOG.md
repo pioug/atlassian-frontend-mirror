@@ -1,5 +1,16 @@
 # @atlaskit/ds-explorations
 
+## 0.1.5
+
+### Patch Changes
+
+- [`7014fd08976`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7014fd08976) - [ux] Inline gap prop now internally sets column-gap; Stack gap prop now internally sets row-gap
+- [`ba660f4f76f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba660f4f76f) - Add `start` and `end` values to Stack and Inline flex properties.
+- [`3ee63238f49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ee63238f49) - Update internals of Box, Text, Inline and Stack to handle `children` more accurately.
+  Also update scope of `use-primitives` to suggest Box and Text more selectively.
+- [`9dec0fe6946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dec0fe6946) - Add overflow prop to Box.
+- [`7a9e73ec430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a9e73ec430) - [ux] Internal changes to how styles are represented in SectionMessage. Some minor visual changes to the color and spacing of SectionMessage. No changes to the SectionMessage API.
+
 ## 0.1.4
 
 ### Patch Changes

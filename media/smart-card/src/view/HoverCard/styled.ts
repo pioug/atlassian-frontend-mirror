@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { loadingPlaceholderClassName } from '../../index';
 import { SmartLinkSize, SmartLinkTheme } from '../../constants';
 import { FlexibleUiOptions } from '../FlexibleCard/types';

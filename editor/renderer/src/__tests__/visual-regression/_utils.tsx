@@ -10,31 +10,14 @@ import {
 import { ThemeModes } from '@atlaskit/theme/types';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { RendererPropsOverrides } from '../__helpers/testing-example-helpers';
-export { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils';
-
-const DEFAULT_WIDTH = 800;
-const DEFAULT_HEIGHT = 600;
+import {
+  deviceViewPorts,
+  Device,
+  ViewportSize,
+} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 
 type WindowOverride = Window & {
   __mountRenderer: (props?: RendererPropsOverrides, adf?: Object) => void;
-};
-
-export enum Device {
-  Default = 'Default',
-  LaptopHiDPI = 'LaptopHiDPI',
-  LaptopMDPI = 'LaptopMDPI',
-  iPadPro = 'iPadPro',
-  iPad = 'iPad',
-  iPhonePlus = 'iPhonePlus',
-}
-
-export const deviceViewPorts = {
-  [Device.Default]: { width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT },
-  [Device.LaptopHiDPI]: { width: 1440, height: 900 },
-  [Device.LaptopMDPI]: { width: 1280, height: 800 },
-  [Device.iPadPro]: { width: 1024, height: 1366 },
-  [Device.iPad]: { width: 768, height: 1024 },
-  [Device.iPhonePlus]: { width: 414, height: 736 },
 };
 
 export async function goToRendererTestingExample(
@@ -74,9 +57,7 @@ export async function mountRenderer(
   await page.waitForSelector('.ak-renderer-document');
 }
 
-export type ViewPortOptions = {
-  width: number;
-  height: number;
+export type ViewPortOptions = ViewportSize & {
   hasTouch?: boolean;
   isMobile?: boolean;
   isLandscape?: boolean;

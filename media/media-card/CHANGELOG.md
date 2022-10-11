@@ -1,5 +1,16 @@
 # @atlaskit/media-card
 
+## 74.1.8
+
+### Patch Changes
+
+- [`153829bfcb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153829bfcb3) - Upgrade caching algorithm library lru-fast to lru_map.
+- [`09464edc105`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09464edc105) - ⚠️ Big Folder Structure Refactor
+- [`60fb320493e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60fb320493e) - Fixed circular imports
+- [`9f23fe7478e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f23fe7478e) - Fixed Card Actions Dropdown Menu positioning
+- [`2f2daf58c20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f2daf58c20) - Add `testId` to components to help with testing. No change in behaviour.
+- Updated dependencies
+
 ## 74.1.7
 
 ### Patch Changes

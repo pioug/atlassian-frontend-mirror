@@ -7,8 +7,8 @@ import DropdownMenu, {
   DropdownItem,
 } from '@atlaskit/dropdown-menu';
 
-import { CardAction } from '../../actions';
-import { CardActionIconButtonVariant, CardActionButtonProps } from './styles';
+import { CardAction } from '../../card/actions';
+import { CardActionIconButtonVariant } from './styles';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -24,12 +24,6 @@ export type CardActionsDropdownMenuProps = {
   readonly onOpenChange?: (attrs: { isOpen: boolean }) => void;
 };
 
-type CardActionButtonWithAnalyticsProps = CardActionButtonProps &
-  WithAnalyticsEventsProps;
-const CardActionButtonWithProps = (
-  props: CardActionButtonWithAnalyticsProps,
-) => <CardActionButton {...props} />;
-
 const CardActionButtonWithAnalytics = withAnalyticsEvents({
   onClick: createAndFireMediaCardEvent({
     eventType: 'ui',
@@ -38,11 +32,11 @@ const CardActionButtonWithAnalytics = withAnalyticsEvents({
     actionSubjectId: 'mediaCardDropDownMenu',
     attributes: {},
   }),
-})(CardActionButtonWithProps);
+})(CardActionButton);
 
 type DropdownItemProps = any & WithAnalyticsEventsProps; // Trick applied due to the lack of props type of DropdownItem
 const DropdownItemWithProps = (props: DropdownItemProps) => (
-  <DropdownItem data-testid="media-card-actions-menu-item" {...props} />
+  <DropdownItem testId="media-card-actions-menu-item" {...props} />
 );
 
 const createDropdownItemWithAnalytics = (action: CardAction, index: number) => {

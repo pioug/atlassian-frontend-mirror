@@ -39,6 +39,7 @@ export default {
     'Bu kullanıcının hesabı bu hafta devre dışı bırakıldı.',
   'pt.profile-card.inactive.account.no.date':
     'Bu kullanıcının hesabı devre dışı bırakıldı.',
+  'pt.profile-card.more-icon-label': 'Daha fazlası',
   'pt.team-profile-card.directReports.heading': 'Astlar',
   'pt.team-profile-card.error.refresh-button': 'Yeniden deneyin',
   'pt.team-profile-card.error.suggestion':

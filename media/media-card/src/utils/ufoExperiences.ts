@@ -3,7 +3,7 @@ import {
   ExperiencePerformanceTypes,
   ExperienceTypes,
 } from '@atlaskit/ufo';
-import { CardStatus } from '../../src';
+import { CardStatus } from '../types';
 import { FileAttributes } from '@atlaskit/media-common';
 import {
   extractErrorInfo,

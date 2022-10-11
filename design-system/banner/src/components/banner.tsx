@@ -1,39 +1,21 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_BoxProps as BoxProps,
+  UNSAFE_Inline as Inline,
+  UNSAFE_Text as Text,
+  UNSAFE_TextProps as TextProps,
+} from '@atlaskit/ds-explorations';
 import { N0, N500, N700, R400, Y300 } from '@atlaskit/theme/colors';
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-const gridSize = getGridSize();
-const MAX_HEIGHT = gridSize * 6.5;
-
-const iconStyles = css({
-  display: 'flex',
-  alignItems: 'center',
-  flex: '0 0 auto',
-  flexDirection: 'column',
-  '@media screen and (forced-colors: active)': {
-    fill: 'CanvasText',
-    filter: 'grayscale(100%)',
-  },
-});
-
-const overflowStyles = css({
-  overflow: 'hidden',
-});
-
-const contentStyles = css({
-  display: 'flex',
-  margin: 'auto',
-  padding: gridSize * 1.5,
-  alignItems: 'center',
-  justifyContent: 'start',
-  color: 'currentColor',
-  fontWeight: 500,
-  textAlign: 'center',
+// Applies styles to nested links within banner messages.
+const nestedLinkStyles = css({
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   'a, a:visited, a:hover, a:focus, a:active': {
     color: 'currentColor',
@@ -41,39 +23,37 @@ const contentStyles = css({
   },
 });
 
-const childrenTextStyles = css({
-  padding: gridSize / 2,
-  flex: '0 1 auto',
-  alignSelf: 'center',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-});
-
-const containerStyles = css({
-  maxHeight: MAX_HEIGHT,
-});
-
-const appearanceStyles = {
-  warning: {
-    backgroundColor: token('color.background.warning.bold', Y300),
-    color: token('color.text.warning.inverse', N700),
-  },
-  error: {
-    backgroundColor: token('color.background.danger.bold', R400),
-    color: token('color.text.inverse', N0),
-  },
-  announcement: {
-    backgroundColor: token('color.background.neutral.bold', N500),
-    color: token('color.text.inverse', N0),
-  },
+const backgroundColors: Record<Appearance, BoxProps['backgroundColor']> = {
+  warning: ['warning.bold', Y300],
+  error: ['danger.bold', R400],
+  announcement: ['neutral.bold', N500],
 };
+
+const tokenBackgroundColors: Record<Appearance, string> = {
+  warning: token('color.background.warning.bold', Y300),
+  error: token('color.background.danger.bold', R400),
+  announcement: token('color.background.neutral.bold', N500),
+};
+
+const textColors: Record<Appearance, TextProps['color']> = {
+  warning: ['warning.inverse', N700],
+  error: ['inverse', N0],
+  announcement: ['inverse', N0],
+};
+
+const tokenTextColors: Record<Appearance, string> = {
+  warning: token('color.text.warning.inverse', N700),
+  error: token('color.text.inverse', N0),
+  announcement: token('color.text.inverse', N0),
+};
+
+type Appearance = 'warning' | 'error' | 'announcement';
 
 interface BannerProps {
   /**
    * Visual style to be used for the banner
    */
-  appearance?: 'warning' | 'error' | 'announcement';
+  appearance?: Appearance;
   /**
    * Content to be shown next to the icon. Typically text content but can contain links.
    */
@@ -81,100 +61,91 @@ interface BannerProps {
   /**
    * Icon to be shown left of the main content. Typically an Atlaskit [@atlaskit/icon](packages/design-system/icon)
    */
-  icon?: React.ReactChild;
-  /**
-   * @deprecated
-   * @see https://hello.atlassian.net/wiki/spaces/DST/pages/1724409294/RFC+Deprecating+props+isOpen+and+innerRef+in+atlaskit+banner
-   *
-   * Defines whether the banner is shown. An animation is used when the value is changed.
-   */
-  isOpen?: boolean;
-  /**
-   * @deprecated
-   * @see https://hello.atlassian.net/wiki/spaces/DST/pages/1724409294/RFC+Deprecating+props+isOpen+and+innerRef+in+atlaskit+banner
-   *
-   * Returns the inner ref of the component. This is exposed so the height can be used in page.
-   */
-  innerRef?: (element: HTMLElement) => void;
+  icon?: React.ReactElement;
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    */
   testId?: string;
 }
 
-const Banner: FC<BannerProps> = ({
-  appearance = 'warning',
-  children,
-  icon,
-  isOpen = false,
-  innerRef,
-  testId,
-}) => {
-  const [maxHeight, setMaxHeight] = useState(0);
+/**
+ * __Banner__
+ *
+ * A banner displays a prominent message at the top of the screen.
+ *
+ * - [Examples](https://atlassian.design/components/banner/examples)
+ * - [Code](https://atlassian.design/components/banner/code)
+ * - [Usage](https://atlassian.design/components/banner/usage)
+ */
+const Banner = forwardRef<HTMLDivElement, BannerProps>(
+  ({ appearance = 'warning', children, icon, testId }, ref) => {
+    const appearanceType =
+      appearance in backgroundColors ? appearance : 'warning';
 
-  const bannerRef = useCallback(
-    (ref: HTMLElement | null) => {
-      if (!ref) {
-        return;
-      }
-
-      if (innerRef) {
-        innerRef(ref);
-      }
-
-      setMaxHeight(ref.clientHeight);
-    },
-
-    [innerRef],
-  );
-
-  const accessibilityProps = useMemo(() => {
-    let baseProps = {
-      'aria-hidden': !isOpen,
-      role: 'alert',
-    };
-
-    if (appearance === 'announcement') {
-      return {
-        ...baseProps,
-        'aria-label': 'announcement',
-        tabIndex: 0,
-        role: 'region',
+    const accessibilityProps = useMemo(() => {
+      let baseProps = {
+        role: 'alert',
       };
-    }
 
-    return baseProps;
-  }, [isOpen, appearance]);
+      if (appearance === 'announcement') {
+        return {
+          ...baseProps,
+          'aria-label': 'announcement',
+          tabIndex: 0,
+          role: 'region',
+        };
+      }
 
-  return (
-    <div
-      css={overflowStyles}
-      style={{ maxHeight: `${isOpen ? maxHeight : 0}px` }}
-      data-testid={testId}
-    >
-      <div
-        css={[containerStyles]}
-        style={{
-          ...appearanceStyles[appearance],
-        }}
-        ref={bannerRef}
+      return baseProps;
+    }, [appearance]);
+
+    return (
+      <Box
+        display="block"
+        backgroundColor={backgroundColors[appearanceType]}
+        paddingInline="sp-150"
+        testId={testId}
+        ref={ref}
         {...accessibilityProps}
+        UNSAFE_style={{
+          paddingBlock: '14px', // TODO: Revist design and use a spacing token
+          overflow: 'hidden',
+          maxHeight: '52px',
+        }}
+        css={nestedLinkStyles}
       >
-        <div css={[contentStyles]}>
-          <span
-            css={iconStyles}
-            style={{
-              fill: appearanceStyles[appearance].backgroundColor,
+        <Inline gap="sp-50" alignItems="center" justifyContent="start">
+          {icon ? (
+            <Box
+              as="span"
+              display="inline"
+              width="sp-300"
+              height="sp-300" // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
+              UNSAFE_style={{
+                fill: tokenBackgroundColors[appearanceType],
+                color: tokenTextColors[appearanceType],
+                flexShrink: 0,
+              }}
+            >
+              {icon}
+            </Box>
+          ) : null}
+          <Text
+            fontWeight="500"
+            lineHeight="24px"
+            color={textColors[appearanceType]}
+            UNSAFE_style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
             }}
           >
-            {icon}
-          </span>
-          <span css={[childrenTextStyles]}>{children}</span>
-        </div>
-      </div>
-    </div>
-  );
-};
+            {children}
+          </Text>
+        </Inline>
+      </Box>
+    );
+  },
+);
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Banner;

@@ -83,17 +83,17 @@ export class PortalProviderAPI extends EventDispatcher {
       hasAnalyticsContext,
       hasIntlContext,
     });
-    const childrenWithThemeProviders = () => (
+    const childrenWithThemeProviders = (
       <PortalProviderThemeProviders mode={this.themeMode!}>
         {children()}
       </PortalProviderThemeProviders>
     );
     let wrappedChildren = this.useAnalyticsContext ? (
       <AnalyticsContextWrapper>
-        {childrenWithThemeProviders()}
+        {childrenWithThemeProviders}
       </AnalyticsContextWrapper>
     ) : (
-      (childrenWithThemeProviders() as JSX.Element)
+      (childrenWithThemeProviders as JSX.Element)
     );
     if (hasIntlContext) {
       wrappedChildren = (
@@ -131,7 +131,7 @@ export class PortalProviderAPI extends EventDispatcher {
 
       let wrappedChildren = portal.children() as JSX.Element;
 
-      const childrenWithThemeProviders = () => (
+      const childrenWithThemeProviders = (
         <PortalProviderThemeProviders mode={themeMode!}>
           {wrappedChildren}
         </PortalProviderThemeProviders>
@@ -140,7 +140,7 @@ export class PortalProviderAPI extends EventDispatcher {
       if (portal.hasAnalyticsContext && this.useAnalyticsContext) {
         wrappedChildren = (
           <AnalyticsContextWrapper>
-            {childrenWithThemeProviders()}
+            {childrenWithThemeProviders}
           </AnalyticsContextWrapper>
         );
       }
@@ -148,7 +148,7 @@ export class PortalProviderAPI extends EventDispatcher {
       if (portal.hasIntlContext) {
         wrappedChildren = (
           <RawIntlProvider value={this.intl}>
-            {childrenWithThemeProviders()}
+            {childrenWithThemeProviders}
           </RawIntlProvider>
         );
       }

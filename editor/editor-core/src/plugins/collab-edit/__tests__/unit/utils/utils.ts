@@ -13,7 +13,11 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { getPositionOfTelepointer, scrollToCollabCursor } from '../../../utils';
+import {
+  createTelepointers,
+  getPositionOfTelepointer,
+  scrollToCollabCursor,
+} from '../../../utils';
 import { CollabParticipant } from '../../../types';
 import { getValidPos } from '../../../plugin-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
@@ -148,6 +152,18 @@ describe('collab-edit: utils', () => {
         actionSubject: 'selection',
         eventType: 'track',
       });
+    });
+  });
+
+  describe('createTelepointers', () => {
+    it('should add ZERO_WIDTH_JOINER character before and after telepointer', () => {
+      const decorationSet = createTelepointers(20, 25, 'temp', false, 'data');
+      expect(escape((decorationSet[0] as any).type.toDOM.outerHTML)).toContain(
+        'u200D',
+      );
+      expect(escape((decorationSet[2] as any).type.toDOM.outerHTML)).toContain(
+        'u200D',
+      );
     });
   });
 });

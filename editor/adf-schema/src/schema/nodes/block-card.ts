@@ -71,6 +71,6 @@ export const blockCard: NodeSpec = {
       href: node.attrs.url || '',
       'data-card-data': node.attrs.data ? JSON.stringify(node.attrs.data) : '',
     };
-    return ['a', attrs];
+    return ['a', attrs, node?.attrs?.url || ' '];
   },
 };

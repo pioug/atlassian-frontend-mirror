@@ -33,13 +33,6 @@ describe('banner', () => {
     });
   });
 
-  describe('isOpen max-height', () => {
-    it('should have max-height 0 when isOpen is not set', () => {
-      const { getByTestId } = render(<Banner testId="banner-closed" />);
-      expect(getByTestId('banner-closed')).toHaveStyle('max-height: 0px');
-    });
-  });
-
   describe('a11y', () => {
     it('should not fail an aXe audit', async () => {
       const { getByTestId } = render(
@@ -50,45 +43,29 @@ describe('banner', () => {
       expect(results).toHaveNoViolations();
     });
 
-    it('should have role=alert and aria-hidden=true by default', () => {
+    it('should have role=alert by default', () => {
       const { getByTestId } = render(<Banner testId="banner" />);
-      const { getByRole } = within(getByTestId('banner'));
-      const banner = getByRole('alert', { hidden: true });
-
-      expect(banner).toBeInTheDocument(); // check role=alert
-      expect(banner).toHaveAttribute('aria-hidden', 'true');
-    });
-
-    it('should be aria-hidden=true when isOpen is false', () => {
-      const { getByTestId } = render(<Banner testId="banner" />);
-      const { getByRole } = within(getByTestId('banner'));
-
-      expect(getByRole('alert', { hidden: true })).toHaveAttribute(
-        'aria-hidden',
-        'true',
-      );
+      const banner = getByTestId('banner');
+      expect(banner).toHaveAttribute('role', 'alert');
     });
 
     it('should have role=alert when appearance is "error"', () => {
       const { getByTestId } = render(
         <Banner testId="banner" appearance="error" />,
       );
-      const { getByRole } = within(getByTestId('banner'));
-
-      expect(getByRole('alert', { hidden: true })).toBeInTheDocument();
+      const banner = getByTestId('banner');
+      expect(banner).toHaveAttribute('role', 'alert');
     });
 
     it('should have correct a11y props when appearance is "announcement"', () => {
       const { getByTestId } = render(
-        <Banner testId="banner" appearance="announcement" isOpen />,
+        <Banner testId="banner" appearance="announcement" />,
       );
-      const { getByRole } = within(getByTestId('banner'));
-      const banner = getByRole('region');
+      const banner = getByTestId('banner');
 
-      expect(banner).toBeInTheDocument(); // check role=region
+      expect(banner).toHaveAttribute('role', 'region');
       expect(banner).toHaveAttribute('tabindex', '0');
       expect(banner).toHaveAttribute('aria-label', 'announcement');
-      expect(banner).toHaveAttribute('aria-hidden', 'false');
     });
   });
 });

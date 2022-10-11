@@ -29,7 +29,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/icon": "^21.10.0",
+    "@atlaskit/icon": "^21.11.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
@@ -45,7 +45,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.0.1",
     "@atlaskit/empty-state": "^7.4.0",
-    "@atlaskit/section-message": "^6.2.0",
+    "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/select": "^15.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

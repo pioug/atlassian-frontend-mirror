@@ -113,4 +113,20 @@ describe('onboarding spotlight visual regression', () => {
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it(`should render the target with the correct height when the target element's height is determined by a parent element`, async () => {
+    const { __BASEURL__, page } = global;
+
+    const url = getExampleUrl(
+      'design-system',
+      'onboarding',
+      'spotlight-target-height',
+      __BASEURL__,
+    );
+
+    await loadPage(page, url);
+
+    const image = await takeElementScreenShot(page, 'body');
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

@@ -1,14 +1,28 @@
 /** @jsx jsx */
-import React, { Fragment, useCallback, useRef, useState } from 'react';
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { jsx } from '@emotion/core';
+import { FormattedMessage } from 'react-intl-next';
 import { EmojiId } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
-import { Manager, Popper, Reference, PopperProps } from '@atlaskit/popper';
+import {
+  Manager,
+  Popper,
+  Reference,
+  PopperProps,
+  PopperChildrenProps,
+} from '@atlaskit/popper';
 import { layers } from '@atlaskit/theme/constants';
 import { Selector, SelectorProps } from '../Selector';
-import { Trigger } from '../Trigger';
+import { Trigger, TriggerProps } from '../Trigger';
 import { UFO } from '../../analytics';
+import { i18n } from '../../shared';
 import { useClickAway } from '../../hooks';
 import { ReactionSource } from '../../types';
 import * as styles from './styles';
@@ -51,7 +65,8 @@ const popperModifiers: PopperProps<{}>['modifiers'] = [
 ];
 
 export interface ReactionPickerProps
-  extends Pick<SelectorProps, 'pickerQuickReactionEmojiIds'> {
+  extends Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
+    Partial<Pick<TriggerProps, 'tooltipContent' | 'miniMode'>> {
   /**
    * Provider for loading emojis
    */
@@ -62,10 +77,6 @@ export interface ReactionPickerProps
    * @param source source where the reaction was picked (either the initial default reactions or the custom reactions picker)
    */
   onSelection: (emojiId: string, source: ReactionSource) => void;
-  /**
-   * apply "miniMode" className to the <ReactionPicker /> component
-   */
-  miniMode?: boolean;
   /**
    * Optional class name
    */
@@ -108,6 +119,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
       onShowMore,
       onOpen,
       onCancel,
+      tooltipContent = <FormattedMessage {...i18n.messages.addReaction} />,
     } = props;
     /**
      * Container <div /> reference (used by custom hook to detect click outside)
@@ -116,7 +128,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
     /**
      * a function you can ask Popper to recompute your tooltip's position. It will directly call the Popper#update method
      */
-    const updatePopper = useRef<() => Promise<any>>(() => Promise.resolve());
+    const updatePopper = useRef<PopperChildrenProps['update']>();
 
     const [settings, setSettings] = useState({
       /**
@@ -135,12 +147,17 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
     /**
      * Custom hook triggers when user clicks outside the reactions picker
      */
-    useClickAway(wrapperRef, () => {
-      if (onCancel) {
-        onCancel();
-      }
-      close();
-    });
+    useClickAway(
+      wrapperRef,
+      () => {
+        if (onCancel) {
+          onCancel();
+        }
+        close();
+      },
+      'click',
+      true,
+    );
 
     /**
      * Event callback when the picker is closed
@@ -171,14 +188,9 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
      * Event handle rwhen selecting to show the custom emoji icons picker
      * @param e event param
      */
-    const onSelectMoreClick: (
-      e: React.MouseEvent<HTMLElement>,
-    ) => Promise<void> = useCallback(
-      async (e) => {
+    const onSelectMoreClick = useCallback(
+      (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-
-        await updatePopper.current();
-        // Update popper position
         setSettings({
           isOpen: true,
           showFullPicker: true,
@@ -216,6 +228,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
     const onTriggerClick = () => {
       // ufo start reactions picker open experience
       UFO.PickerRender.start();
+
       setSettings({
         isOpen: !settings.isOpen,
         showFullPicker:
@@ -229,6 +242,17 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
       // ufo reactions picker opened success
       UFO.PickerRender.success();
     };
+
+    /**
+     * When picker is opened, re-calculate the picker position
+     */
+    useEffect(() => {
+      if (settings.isOpen) {
+        if (updatePopper.current) {
+          updatePopper.current();
+        }
+      }
+    }, [settings]);
 
     const wrapperClassName = ` ${settings.isOpen ? 'isOpen' : ''} ${
       miniMode ? 'miniMode' : ''
@@ -250,6 +274,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
                 onClick={onTriggerClick}
                 miniMode={miniMode}
                 disabled={disabled}
+                tooltipContent={tooltipContent}
               />
             )}
           </Reference>

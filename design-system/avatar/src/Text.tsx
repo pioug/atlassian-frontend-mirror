@@ -2,7 +2,7 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { FC, ReactNode } from 'react';
 
-import { CSSObject, jsx } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { N200, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -10,22 +10,23 @@ import { token } from '@atlaskit/tokens';
 const getStyles = (
   isSecondary: boolean | undefined,
   shouldTruncate: boolean,
-): CSSObject => ({
-  display: 'block',
-  margin: 0,
-  color: token('color.text', N900),
+): SerializedStyles =>
+  css({
+    display: 'block',
+    margin: 0,
+    color: token('color.text', N900),
 
-  ...(shouldTruncate && {
-    overflowX: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  }),
+    ...(shouldTruncate && {
+      overflowX: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    }),
 
-  ...(isSecondary && {
-    color: token('color.text.subtlest', N200),
-    fontSize: '0.85em',
-  }),
-});
+    ...(isSecondary && {
+      color: token('color.text.subtlest', N200),
+      fontSize: '0.85em',
+    }),
+  });
 
 /**
  * __Text__

@@ -2,8 +2,8 @@ import {
   clickFirstCell,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
-  Device,
   editorCommentContentSelector,
   initCommentEditorWithAdf,
   initFullPageEditorWithAdf,

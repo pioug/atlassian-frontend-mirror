@@ -12,6 +12,7 @@ import { render, act, cleanup } from '@testing-library/react';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../../analytics';
 import { TypeAheadPopup } from '../../../ui/TypeAheadPopup';
 import type { TypeAheadHandler } from '../../../types';
+import { IntlProvider } from 'react-intl-next';
 
 let container: HTMLElement | null;
 beforeEach(() => {
@@ -58,19 +59,23 @@ describe('TypeAheadPopup', () => {
   });
 
   type Props = Partial<React.ComponentProps<typeof TypeAheadPopup>>;
+  const ref: HTMLSpanElement = document.createElement('span');
   const renderPopup = ({ isEmptyQuery, selectedIndex, items }: Props) => {
     return render(
-      <TypeAheadPopup
-        triggerHandler={triggerHandler}
-        editorView={editorView}
-        fireAnalyticsCallback={fireAnalyticsCallback}
-        items={items || EMPTY_LIST}
-        selectedIndex={selectedIndex || 0}
-        setSelectedItem={setSelectedItem}
-        decorationSet={DecorationSet.empty}
-        isEmptyQuery={Boolean(isEmptyQuery)}
-        onItemInsert={onItemInsert}
-      />,
+      <IntlProvider locale="en">
+        <TypeAheadPopup
+          triggerHandler={triggerHandler}
+          editorView={editorView}
+          fireAnalyticsCallback={fireAnalyticsCallback}
+          items={items || EMPTY_LIST}
+          selectedIndex={selectedIndex || 0}
+          setSelectedItem={setSelectedItem}
+          decorationSet={DecorationSet.empty}
+          isEmptyQuery={Boolean(isEmptyQuery)}
+          onItemInsert={onItemInsert}
+          anchorElement={ref}
+        />
+      </IntlProvider>,
     );
   };
 
@@ -132,18 +137,22 @@ describe('TypeAheadPopup', () => {
             },
           };
           act(() => {
+            const ref: HTMLSpanElement = document.createElement('span');
             rerender(
-              <TypeAheadPopup
-                triggerHandler={nextTriggerHandler}
-                editorView={editorView}
-                fireAnalyticsCallback={fireAnalyticsCallback}
-                items={items}
-                selectedIndex={0}
-                setSelectedItem={setSelectedItem}
-                decorationSet={DecorationSet.empty}
-                isEmptyQuery={isEmptyQuery}
-                onItemInsert={onItemInsert}
-              />,
+              <IntlProvider locale="en">
+                <TypeAheadPopup
+                  triggerHandler={nextTriggerHandler}
+                  editorView={editorView}
+                  fireAnalyticsCallback={fireAnalyticsCallback}
+                  items={items}
+                  selectedIndex={0}
+                  setSelectedItem={setSelectedItem}
+                  decorationSet={DecorationSet.empty}
+                  isEmptyQuery={isEmptyQuery}
+                  onItemInsert={onItemInsert}
+                  anchorElement={ref}
+                />
+              </IntlProvider>,
             );
           });
           expect(fireAnalyticsCallback).toHaveBeenCalledTimes(2);
@@ -160,18 +169,22 @@ describe('TypeAheadPopup', () => {
 
           const selectedIndex = 1;
           act(() => {
+            const ref: HTMLSpanElement = document.createElement('span');
             rerender(
-              <TypeAheadPopup
-                triggerHandler={triggerHandler}
-                editorView={editorView}
-                fireAnalyticsCallback={fireAnalyticsCallback}
-                items={items}
-                selectedIndex={selectedIndex}
-                setSelectedItem={setSelectedItem}
-                decorationSet={DecorationSet.empty}
-                isEmptyQuery={isEmptyQuery}
-                onItemInsert={onItemInsert}
-              />,
+              <IntlProvider locale="en">
+                <TypeAheadPopup
+                  triggerHandler={triggerHandler}
+                  editorView={editorView}
+                  fireAnalyticsCallback={fireAnalyticsCallback}
+                  items={items}
+                  selectedIndex={selectedIndex}
+                  setSelectedItem={setSelectedItem}
+                  decorationSet={DecorationSet.empty}
+                  isEmptyQuery={isEmptyQuery}
+                  onItemInsert={onItemInsert}
+                  anchorElement={ref}
+                />
+              </IntlProvider>,
             );
           });
           expect(fireAnalyticsCallback).toHaveBeenCalledWith({
@@ -196,18 +209,22 @@ describe('TypeAheadPopup', () => {
         fireAnalyticsCallback.mockClear();
 
         act(() => {
+          const ref: HTMLSpanElement = document.createElement('span');
           rerender(
-            <TypeAheadPopup
-              triggerHandler={triggerHandler}
-              editorView={editorView}
-              fireAnalyticsCallback={fireAnalyticsCallback}
-              items={items}
-              selectedIndex={0}
-              setSelectedItem={setSelectedItem}
-              decorationSet={DecorationSet.empty}
-              isEmptyQuery={isEmptyQuery}
-              onItemInsert={onItemInsert}
-            />,
+            <IntlProvider locale="en">
+              <TypeAheadPopup
+                triggerHandler={triggerHandler}
+                editorView={editorView}
+                fireAnalyticsCallback={fireAnalyticsCallback}
+                items={items}
+                selectedIndex={0}
+                setSelectedItem={setSelectedItem}
+                decorationSet={DecorationSet.empty}
+                isEmptyQuery={isEmptyQuery}
+                onItemInsert={onItemInsert}
+                anchorElement={ref}
+              />
+            </IntlProvider>,
           );
         });
 

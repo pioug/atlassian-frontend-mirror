@@ -25,5 +25,7 @@ export const popupStyle = css({
   ),
   '&> div': {
     boxShadow: undefined,
+    marginTop: '4px',
+    marginBottom: '4px',
   },
 });

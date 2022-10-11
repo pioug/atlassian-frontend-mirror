@@ -38,6 +38,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week':
     'Его аккаунт был отключен на этой неделе.',
   'pt.profile-card.inactive.account.no.date': 'Его аккаунт был отключен.',
+  'pt.profile-card.more-icon-label': 'Еще',
   'pt.team-profile-card.directReports.heading': 'Прямые подчиненные',
   'pt.team-profile-card.error.refresh-button': 'Повторить попытку',
   'pt.team-profile-card.error.suggestion':

@@ -1,5 +1,20 @@
 # @atlaskit/media-table
 
+## 14.0.0
+
+### Major Changes
+
+- [`64a9be7d742`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64a9be7d742) - [ux] Add a preconfiguration for columns with the key 'preview' to display a media preview button
+
+### Minor Changes
+
+- [`692477d9854`](https://bitbucket.org/atlassian/atlassian-frontend/commits/692477d9854) - [ux] Adds row selection & row highlighting to media table component
+
+### Patch Changes
+
+- [`153829bfcb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153829bfcb3) - Upgrade caching algorithm library lru-fast to lru_map.
+- Updated dependencies
+
 ## 13.0.2
 
 ### Patch Changes

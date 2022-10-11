@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
 import { SmartLinkSize } from '../../../../../constants';

@@ -1,6 +1,7 @@
 import { ReadonlyTransaction, Selection } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Step, ReplaceStep } from 'prosemirror-transform';
+import { browser } from '@atlaskit/editor-common/utils';
 
 import {
   CollabParticipant,
@@ -171,7 +172,11 @@ export class PluginState {
         this.decorationSet = this.decorationSet.map(tr.mapping, tr.doc, {
           // Reapplies decorators those got removed by the state change
           onRemove: (spec) => {
-            if (spec.pointer && spec.pointer.sessionId) {
+            if (
+              spec.pointer &&
+              spec.pointer.sessionId &&
+              spec.key === `telepointer-${spec.pointer.sessionId}`
+            ) {
               const step = tr.steps.filter(isReplaceStep)[0];
               if (step) {
                 const { sessionId } = spec.pointer;
@@ -231,7 +236,12 @@ export class PluginState {
             deco.type.toDOM.classList.add(TELEPOINTER_DIM_CLASS);
           }
 
-          deco.type.side = -1;
+          // Browser condition here to fix ED-14722 where telepointer
+          // decorations with side -1 in Firefox causes backspace issues.
+          // This is likely caused by contenteditable quirks in Firefox
+          if (!browser.gecko) {
+            deco.type.side = -1;
+          }
         } else {
           if (hasTelepointerDimClass) {
             deco.type.toDOM.classList.remove(TELEPOINTER_DIM_CLASS);

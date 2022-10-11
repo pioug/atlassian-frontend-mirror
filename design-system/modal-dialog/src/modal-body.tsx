@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { TouchScrollable } from 'react-scrolllock';
 
 import { useModal } from './hooks';

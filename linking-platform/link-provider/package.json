@@ -40,7 +40,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/code": "^14.3.0",
+    "@atlaskit/code": "^14.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/ssr": "*",

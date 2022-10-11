@@ -31,7 +31,13 @@ export default () => {
 
           <hr />
 
-          <strong style={{ fontSize: '14px', textDecoration: 'underline' }}>
+          <strong
+            style={{
+              fontSize: '14px',
+              marginLeft: '10px',
+              textDecoration: 'underline',
+            }}
+          >
             "allowAllEmojis" prop - Show the "more emoji" selector icon for
             choosing emoji icons beyond the default list of emojis (defaults to
             constants.DEFAULT_REACTION_EMOJI_IDS)
@@ -70,7 +76,13 @@ export default () => {
 
           <hr />
 
-          <strong style={{ fontSize: '14px', textDecoration: 'underline' }}>
+          <strong
+            style={{
+              fontSize: '14px',
+              marginLeft: '10px',
+              textDecoration: 'underline',
+            }}
+          >
             "pickerQuickReactionEmojiIds" prop - emojis shown for user to select
             from the picker popup when the reaction add button is clicked
           </strong>
@@ -113,8 +125,14 @@ export default () => {
 
           <hr />
 
-          <strong style={{ fontSize: '14px', textDecoration: 'underline' }}>
-            "quickReactionEmojiIds" prop - emojis that will be shown in the the
+          <strong
+            style={{
+              fontSize: '14px',
+              marginLeft: '10px',
+              textDecoration: 'underline',
+            }}
+          >
+            "quickReactionEmojis" prop - emojis that will be shown in the the
             primary view even if the reaction count is zero and no emojis were
             created on the post/reply yet
           </strong>
@@ -122,7 +140,7 @@ export default () => {
           {/* Example 6 */}
           <Example
             title={
-              '"ConnectedReactionsView" with quickReactionEmojiIds array without any emoji (undefined or empty array) added to the container|ari item'
+              '"ConnectedReactionsView" with quickReactionEmojis array without any emoji (undefined or empty array) added to the container|ari item'
             }
             body={
               <ConnectedReactionsView
@@ -132,7 +150,6 @@ export default () => {
                 emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
                 allowAllEmojis
                 pickerQuickReactionEmojiIds={[]}
-                quickReactionEmojiIds={undefined}
               />
             }
           />
@@ -140,7 +157,7 @@ export default () => {
           {/* Example 7 */}
           <Example
             title={
-              '"ConnectedReactionsView" with quickReactionEmojiIds array with some quick emoji icons selections to choose'
+              '"ConnectedReactionsView" with quickReactionEmojis array with some quick emoji icons selections to choose'
             }
             body={
               <ConnectedReactionsView
@@ -148,10 +165,13 @@ export default () => {
                 containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
                 ari={`${ExampleConstants.AriPrefix}7`}
                 emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
-                quickReactionEmojiIds={constants.DefaultReactions.slice(
-                  3,
-                  5,
-                ).map((item) => item.id ?? '')}
+                quickReactionEmojis={{
+                  ari: `${ExampleConstants.AriPrefix}7`,
+                  containerAri: `${ExampleConstants.ContainerAriPrefix}1`,
+                  emojiIds: constants.DefaultReactions.slice(3, 5).map(
+                    (item) => item.id ?? '',
+                  ),
+                }}
               />
             }
           />

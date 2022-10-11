@@ -2,10 +2,10 @@ import {
   PuppeteerPage,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
   initFullPageEditorWithAdf,
-  Device,
 } from '../../../../__tests__/visual-regression/_utils';
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';

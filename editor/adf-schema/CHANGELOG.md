@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 24.0.2
+
+### Patch Changes
+
+- [`b86981a0cf0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b86981a0cf0) - [ux] ED-15426 fix broken copy paste of block card. Add content to schema toDOM.
+- Updated dependencies
+
 ## 24.0.1
 
 ### Patch Changes

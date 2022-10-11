@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { ElementType, MouseEventHandler, useCallback, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import Avatar, { SizeType } from '@atlaskit/avatar';
 import { PopupMenuGroup, Section } from '@atlaskit/menu';

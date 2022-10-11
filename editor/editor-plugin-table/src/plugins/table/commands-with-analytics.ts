@@ -111,6 +111,7 @@ export const mergeCellsWithAnalytics = (
       actionSubject: ACTION_SUBJECT.TABLE,
       actionSubjectId: null,
       attributes: {
+        inputMethod: INPUT_METHOD.CONTEXT_MENU, // TODO: merge with floating toolbar once command is updated
         horizontalCells,
         verticalCells,
         totalCells,
@@ -143,6 +144,7 @@ export const splitCellWithAnalytics = (
         actionSubject: ACTION_SUBJECT.TABLE,
         actionSubjectId: null,
         attributes: {
+          inputMethod: INPUT_METHOD.CONTEXT_MENU, // TODO: merge with floating toolbar once command is updated
           horizontalCells,
           verticalCells,
           totalCells: horizontalCells * verticalCells,
@@ -172,6 +174,7 @@ export const setColorWithAnalytics = (
       actionSubject: ACTION_SUBJECT.TABLE,
       actionSubjectId: null,
       attributes: {
+        inputMethod: INPUT_METHOD.CONTEXT_MENU, // TODO: merge with floating toolbar once command is updated
         cellColor: (
           tableBackgroundColorPalette.get(cellColor.toLowerCase()) || cellColor
         ).toLowerCase(),

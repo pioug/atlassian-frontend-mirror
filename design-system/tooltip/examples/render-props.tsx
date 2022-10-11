@@ -56,7 +56,7 @@ export default () => {
         {(tooltipProps) => (
           <Button
             aria-label="Add"
-            iconBefore={<AddIcon label="Add" />}
+            iconBefore={<AddIcon label="" />}
             testId="add"
             {...tooltipProps}
           />

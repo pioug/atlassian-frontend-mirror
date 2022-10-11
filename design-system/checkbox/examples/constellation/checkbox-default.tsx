@@ -1,5 +1,7 @@
 import React from 'react';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 import { Checkbox } from '../../src';
 
 const CheckboxDefaultExample = () => {
@@ -7,7 +9,7 @@ const CheckboxDefaultExample = () => {
     <Checkbox
       value="default checkbox"
       label="Default checkbox"
-      onChange={() => {}}
+      onChange={__noop}
       name="checkbox-default"
       testId="cb-default"
     />

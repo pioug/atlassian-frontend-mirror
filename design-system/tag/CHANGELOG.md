@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 11.4.2
+
+### Patch Changes
+
+- [`30538b8eba9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30538b8eba9) - [ux] Update grey color to use design tokens
+- Updated dependencies
+
 ## 11.4.1
 
 ### Patch Changes

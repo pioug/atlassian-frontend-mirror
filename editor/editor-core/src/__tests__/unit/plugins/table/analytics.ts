@@ -50,6 +50,11 @@ const defaultTable = table()(
 const secondRow: Rect = { left: 0, top: 1, bottom: 2, right: 3 };
 const secondColumn: Rect = { left: 1, top: 0, bottom: 3, right: 2 };
 
+const CELL_OPTIONS_INPUT_METHODS: (
+  | INPUT_METHOD.CONTEXT_MENU
+  | INPUT_METHOD.FLOATING_TB
+)[] = [INPUT_METHOD.CONTEXT_MENU, INPUT_METHOD.FLOATING_TB];
+
 describe('Table analytic events', () => {
   let editorAnalyticsAPIFake: EditorAnalyticsAPI;
   beforeEach(() => {
@@ -160,38 +165,46 @@ describe('Table analytic events', () => {
   });
 
   describe('table cleared', () => {
-    describe('context menu', () => {
-      beforeEach(() => {
-        const { editorView } = editor(
-          doc(
-            table()(
-              tr(thEmpty, td()(p('{<cell}Hello')), thEmpty),
-              tr(td()(p('Hello')), tdEmpty, tdEmpty),
-              tr(tdEmpty, td()(p('{cell>}')), tdEmpty),
-            ),
+    const setupAndEmpty = (
+      inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    ) => {
+      const { editorView } = editor(
+        doc(
+          table()(
+            tr(thEmpty, td()(p('{<cell}Hello')), thEmpty),
+            tr(td()(p('Hello')), tdEmpty, tdEmpty),
+            tr(tdEmpty, td()(p('{cell>}')), tdEmpty),
           ),
-        );
+        ),
+      );
 
-        emptyMultipleCellsWithAnalytics(editorAnalyticsAPIFake)(
-          INPUT_METHOD.CONTEXT_MENU,
-        )(editorView.state, editorView.dispatch);
-      });
+      emptyMultipleCellsWithAnalytics(editorAnalyticsAPIFake)(inputMethod)(
+        editorView.state,
+        editorView.dispatch,
+      );
+    };
 
-      it('should fire v3 analytics', () => {
-        expect(
-          editorAnalyticsAPIFake.attachAnalyticsEvent,
-        ).toHaveBeenCalledWith({
-          action: 'cleared',
-          actionSubject: 'table',
-          actionSubjectId: null,
-          attributes: expect.objectContaining({
-            inputMethod: 'contextMenu',
-            verticalCells: 3,
-            horizontalCells: 1,
-            totalRowCount: 3,
-            totalColumnCount: 3,
-          }),
-          eventType: 'track',
+    CELL_OPTIONS_INPUT_METHODS.forEach((inputMethod) => {
+      describe(`via ${inputMethod}`, () => {
+        beforeEach(() => {
+          setupAndEmpty(inputMethod);
+        });
+        it('should fire v3 analytics', () => {
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
+            action: 'cleared',
+            actionSubject: 'table',
+            actionSubjectId: null,
+            attributes: expect.objectContaining({
+              inputMethod,
+              verticalCells: 3,
+              horizontalCells: 1,
+              totalRowCount: 3,
+              totalColumnCount: 3,
+            }),
+            eventType: 'track',
+          });
         });
       });
     });
@@ -230,7 +243,9 @@ describe('Table analytic events', () => {
   });
 
   describe('cells merged', () => {
-    beforeEach(() => {
+    const setupAndMerge = (
+      inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    ) => {
       const { editorView } = editor(
         doc(
           table()(
@@ -240,32 +255,43 @@ describe('Table analytic events', () => {
           ),
         ),
       );
-
-      mergeCellsWithAnalytics(editorAnalyticsAPIFake)(
+      mergeCellsWithAnalytics(editorAnalyticsAPIFake)(inputMethod)(
         editorView.state,
         editorView.dispatch,
       );
-    });
+    };
 
-    it('should fire v3 analytics', () => {
-      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'merged',
-        actionSubject: 'table',
-        actionSubjectId: null,
-        attributes: expect.objectContaining({
-          verticalCells: 3,
-          horizontalCells: 1,
-          totalCells: 3,
-          totalRowCount: 3,
-          totalColumnCount: 3,
-        }),
-        eventType: 'track',
+    CELL_OPTIONS_INPUT_METHODS.forEach((inputMethod) => {
+      describe(`via ${inputMethod}`, () => {
+        beforeEach(() => {
+          setupAndMerge(inputMethod);
+        });
+        it('should fire v3 analytics', () => {
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
+            action: 'merged',
+            actionSubject: 'table',
+            actionSubjectId: null,
+            attributes: expect.objectContaining({
+              inputMethod,
+              verticalCells: 3,
+              horizontalCells: 1,
+              totalCells: 3,
+              totalRowCount: 3,
+              totalColumnCount: 3,
+            }),
+            eventType: 'track',
+          });
+        });
       });
     });
   });
 
   describe('cell split', () => {
-    beforeEach(() => {
+    const setupAndSplit = (
+      inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    ) => {
       const { editorView } = editor(
         doc(
           table()(
@@ -276,31 +302,43 @@ describe('Table analytic events', () => {
         ),
       );
 
-      splitCellWithAnalytics(editorAnalyticsAPIFake)(
+      splitCellWithAnalytics(editorAnalyticsAPIFake)(inputMethod)(
         editorView.state,
         editorView.dispatch,
       );
-    });
+    };
 
-    it('should fire v3 analytics', () => {
-      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'split',
-        actionSubject: 'table',
-        actionSubjectId: null,
-        attributes: expect.objectContaining({
-          verticalCells: 1,
-          horizontalCells: 3,
-          totalCells: 3,
-          totalRowCount: 3,
-          totalColumnCount: 3,
-        }),
-        eventType: 'track',
+    CELL_OPTIONS_INPUT_METHODS.forEach((inputMethod) => {
+      describe(`via ${inputMethod}`, () => {
+        beforeEach(() => {
+          setupAndSplit(inputMethod);
+        });
+        it('should fire v3 analytics', () => {
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
+            action: 'split',
+            actionSubject: 'table',
+            actionSubjectId: null,
+            attributes: expect.objectContaining({
+              inputMethod,
+              verticalCells: 1,
+              horizontalCells: 3,
+              totalCells: 3,
+              totalRowCount: 3,
+              totalColumnCount: 3,
+            }),
+            eventType: 'track',
+          });
+        });
       });
     });
   });
 
   describe('cells colored', () => {
-    beforeEach(() => {
+    const setupAndColor = (
+      inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    ) => {
       const { editorView } = editor(
         doc(
           table()(
@@ -311,26 +349,36 @@ describe('Table analytic events', () => {
         ),
       );
 
-      setColorWithAnalytics(editorAnalyticsAPIFake)(B50)(
+      setColorWithAnalytics(editorAnalyticsAPIFake)(inputMethod, B50)(
         editorView.state,
         editorView.dispatch,
       );
-    });
+    };
 
-    it('should fire v3 analytics', () => {
-      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'colored',
-        actionSubject: 'table',
-        actionSubjectId: null,
-        attributes: expect.objectContaining({
-          cellColor: 'light blue',
-          verticalCells: 1,
-          horizontalCells: 3,
-          totalCells: 3,
-          totalRowCount: 3,
-          totalColumnCount: 3,
-        }),
-        eventType: 'track',
+    CELL_OPTIONS_INPUT_METHODS.forEach((inputMethod) => {
+      describe(`via ${inputMethod}`, () => {
+        beforeEach(() => {
+          setupAndColor(inputMethod);
+        });
+        it('should fire v3 analytics', () => {
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
+            action: 'colored',
+            actionSubject: 'table',
+            actionSubjectId: null,
+            attributes: expect.objectContaining({
+              inputMethod,
+              cellColor: 'light blue',
+              verticalCells: 1,
+              horizontalCells: 3,
+              totalCells: 3,
+              totalRowCount: 3,
+              totalColumnCount: 3,
+            }),
+            eventType: 'track',
+          });
+        });
       });
     });
   });
@@ -543,32 +591,36 @@ describe('Table analytic events', () => {
   });
 
   describe('row added', () => {
-    describe('context menu', () => {
-      beforeEach(() => {
-        const { editorView } = editor(defaultTable);
-        insertRowWithAnalytics(editorAnalyticsAPIFake)(
-          INPUT_METHOD.CONTEXT_MENU,
-          {
-            index: 2,
-            moveCursorToInsertedRow: false,
-          },
-        )(editorView.state, editorView.dispatch);
-      });
+    const setupAndAddRow = (
+      inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    ) => {
+      const { editorView } = editor(defaultTable);
+      insertRowWithAnalytics(editorAnalyticsAPIFake)(inputMethod, {
+        index: 2,
+        moveCursorToInsertedRow: false,
+      })(editorView.state, editorView.dispatch);
+    };
 
-      it('should fire v3 analytics', () => {
-        expect(
-          editorAnalyticsAPIFake.attachAnalyticsEvent,
-        ).toHaveBeenCalledWith({
-          action: 'addedRow',
-          actionSubject: 'table',
-          actionSubjectId: null,
-          attributes: expect.objectContaining({
-            inputMethod: 'contextMenu',
-            position: 2,
-            totalRowCount: 3,
-            totalColumnCount: 3,
-          }),
-          eventType: 'track',
+    CELL_OPTIONS_INPUT_METHODS.forEach((inputMethod) => {
+      describe(`via ${inputMethod}`, () => {
+        beforeEach(() => {
+          setupAndAddRow(inputMethod);
+        });
+        it('should fire v3 analytics', () => {
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
+            action: 'addedRow',
+            actionSubject: 'table',
+            actionSubjectId: null,
+            attributes: expect.objectContaining({
+              inputMethod: inputMethod,
+              position: 2,
+              totalRowCount: 3,
+              totalColumnCount: 3,
+            }),
+            eventType: 'track',
+          });
         });
       });
     });
@@ -629,86 +681,117 @@ describe('Table analytic events', () => {
   });
 
   describe('column added', () => {
-    const getEditorContainerWidth = () => {
-      return { width: 500 };
-    };
-    beforeEach(() => {
+    const setupAndAddColumn = (
+      inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    ) => {
+      const getEditorContainerWidth = () => {
+        return { width: 500 };
+      };
       const { editorView } = editor(defaultTable);
       insertColumnWithAnalytics(
         getEditorContainerWidth,
         editorAnalyticsAPIFake,
-      )(INPUT_METHOD.CONTEXT_MENU, 2)(
-        editorView.state,
-        editorView.dispatch,
-        editorView,
-      );
-    });
+      )(inputMethod, 2)(editorView.state, editorView.dispatch, editorView);
+    };
 
-    it('should fire v3 analytics', () => {
-      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'addedColumn',
-        actionSubject: 'table',
-        actionSubjectId: null,
-        attributes: expect.objectContaining({
-          inputMethod: 'contextMenu',
-          position: 2,
-          totalRowCount: 3,
-          totalColumnCount: 3,
-        }),
-        eventType: 'track',
+    CELL_OPTIONS_INPUT_METHODS.forEach((inputMethod) => {
+      describe(`via ${inputMethod}`, () => {
+        beforeEach(() => {
+          setupAndAddColumn(inputMethod);
+        });
+        it('should fire v3 analytics', () => {
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
+            action: 'addedColumn',
+            actionSubject: 'table',
+            actionSubjectId: null,
+            attributes: expect.objectContaining({
+              inputMethod: inputMethod,
+              position: 2,
+              totalRowCount: 3,
+              totalColumnCount: 3,
+            }),
+            eventType: 'track',
+          });
+        });
       });
     });
   });
 
   describe('row deleted', () => {
-    beforeEach(() => {
+    const setupAndDeleteRow = (
+      inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    ) => {
       const { editorView } = editor(defaultTable);
       deleteRowsWithAnalytics(editorAnalyticsAPIFake)(
-        INPUT_METHOD.CONTEXT_MENU,
+        inputMethod,
         secondRow,
         true,
       )(editorView.state, editorView.dispatch);
-    });
+    };
 
-    it('should fire v3 analytics', () => {
-      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'deletedRow',
-        actionSubject: 'table',
-        actionSubjectId: null,
-        attributes: expect.objectContaining({
-          inputMethod: 'contextMenu',
-          position: 1,
-          count: 1,
-          totalRowCount: 3,
-          totalColumnCount: 3,
-        }),
-        eventType: 'track',
+    CELL_OPTIONS_INPUT_METHODS.forEach((inputMethod) => {
+      describe(`via ${inputMethod}`, () => {
+        beforeEach(() => {
+          setupAndDeleteRow(inputMethod);
+        });
+
+        it('should fire v3 analytics', () => {
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
+            action: 'deletedRow',
+            actionSubject: 'table',
+            actionSubjectId: null,
+            attributes: expect.objectContaining({
+              inputMethod,
+              position: 1,
+              count: 1,
+              totalRowCount: 3,
+              totalColumnCount: 3,
+            }),
+            eventType: 'track',
+          });
+        });
       });
     });
   });
 
   describe('column deleted', () => {
-    beforeEach(() => {
+    const setupAndDeleteColumn = (
+      inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    ) => {
       const { editorView } = editor(defaultTable);
       deleteColumnsWithAnalytics(editorAnalyticsAPIFake)(
-        INPUT_METHOD.CONTEXT_MENU,
+        inputMethod,
         secondColumn,
       )(editorView.state, editorView.dispatch);
-    });
+    };
 
-    it('should fire v3 analytics', () => {
-      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'deletedColumn',
-        actionSubject: 'table',
-        actionSubjectId: null,
-        attributes: expect.objectContaining({
-          inputMethod: 'contextMenu',
-          position: 1,
-          count: 1,
-          totalRowCount: 3,
-          totalColumnCount: 3,
-        }),
-        eventType: 'track',
+    CELL_OPTIONS_INPUT_METHODS.forEach((inputMethod) => {
+      describe(`via ${inputMethod}`, () => {
+        beforeEach(() => {
+          setupAndDeleteColumn(inputMethod);
+        });
+
+        it('should fire v3 analytics', () => {
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
+            action: 'deletedColumn',
+            actionSubject: 'table',
+            actionSubjectId: null,
+            attributes: expect.objectContaining({
+              inputMethod,
+              position: 1,
+              count: 1,
+              totalRowCount: 3,
+              totalColumnCount: 3,
+            }),
+            eventType: 'track',
+          });
+        });
       });
     });
   });

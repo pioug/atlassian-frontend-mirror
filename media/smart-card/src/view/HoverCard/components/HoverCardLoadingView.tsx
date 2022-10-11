@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import React from 'react';
 import LoadingSkeleton from '../../FlexibleCard/components/common/loading-skeleton';
 import FlexibleCard from '../../FlexibleCard';

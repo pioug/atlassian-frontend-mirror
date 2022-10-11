@@ -2,7 +2,8 @@ import {
   waitForTooltip,
   waitForNoTooltip,
 } from '@atlaskit/visual-regression/helper';
-import { Device, snapshot, initFullPageEditorWithAdf } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import * as adfWithExpand from './__fixtures__/simple-expand.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { clickEditableContent } from '@atlaskit/editor-test-helpers/page-objects/editor';

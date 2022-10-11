@@ -40,6 +40,7 @@ export default {
     'Обліковий запис користувача деактивовано цього тижня.',
   'pt.profile-card.inactive.account.no.date':
     'Обліковий запис користувача деактивовано.',
+  'pt.profile-card.more-icon-label': 'Більше варіантів',
   'pt.team-profile-card.directReports.heading': 'Безпосередні підлеглі',
   'pt.team-profile-card.error.refresh-button': 'Повторіть спробу',
   'pt.team-profile-card.error.suggestion': 'Повторіть спробу за кілька хвилин.',

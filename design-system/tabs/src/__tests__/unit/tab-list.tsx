@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
@@ -30,9 +31,9 @@ const renderTabList = (
     }}
   >
     <TabList>
-      <Tab>Tab 1 label</Tab>
-      <Tab>Tab 2 label</Tab>
-      <Tab>Tab 3 label</Tab>
+      <Tab testId="tab-1">Tab 1 label</Tab>
+      <Tab testId="tab-2">Tab 2 label</Tab>
+      <Tab testId="tab-3">Tab 3 label</Tab>
     </TabList>
   </TabListContext.Provider>
 );
@@ -68,7 +69,7 @@ describe('@atlaskit/tabs', () => {
     });
 
     it('should render correctly if one of the children is not a react element', () => {
-      const { getByText } = render(
+      const { getByTestId } = render(
         <TabListContext.Provider
           value={{
             selected: 0,
@@ -77,16 +78,16 @@ describe('@atlaskit/tabs', () => {
           }}
         >
           <TabList>
-            <Tab>Tab 1 label</Tab>
-            <Tab>Tab 2 label</Tab>
+            <Tab testId="tab-1">Tab 1 label</Tab>
+            <Tab testId="tab-2">Tab 2 label</Tab>
             {''}
-            <Tab>Tab 3 label</Tab>
+            <Tab testId="tab-3">Tab 3 label</Tab>
           </TabList>
         </TabListContext.Provider>,
       );
 
-      ['Tab 1 label', 'Tab 2 label', 'Tab 3 label'].forEach((label, index) => {
-        const tab = getByText(label);
+      ['tab-1', 'tab-2', 'tab-3'].forEach((testId, index) => {
+        const tab = getByTestId(testId);
         const isSelected = index === 0;
 
         expect(tab.getAttribute('aria-controls')).toBe(`test-${index}-tab`);
@@ -100,12 +101,12 @@ describe('@atlaskit/tabs', () => {
     });
 
     it('should map values from context correctly', () => {
-      const { getByText } = render(
+      const { getByTestId } = render(
         renderTabList({ selected: 1, tabsId: 'hello' }),
       );
 
-      ['Tab 1 label', 'Tab 2 label', 'Tab 3 label'].forEach((label, index) => {
-        const tab = getByText(label);
+      ['tab-1', 'tab-2', 'tab-3'].forEach((testId, index) => {
+        const tab = getByTestId(testId);
         const isSelected = index === 1;
 
         expect(tab.getAttribute('aria-controls')).toBe(`hello-${index}-tab`);
@@ -118,7 +119,7 @@ describe('@atlaskit/tabs', () => {
     });
 
     it('should map values from context correctly when wrapped in a div', () => {
-      const { getByText } = render(
+      const { getByTestId } = render(
         <TabListContext.Provider
           value={{
             selected: 1,
@@ -128,16 +129,16 @@ describe('@atlaskit/tabs', () => {
         >
           <div>
             <TabList>
-              <Tab>Tab 1 label</Tab>
-              <Tab>Tab 2 label</Tab>
-              <Tab>Tab 3 label</Tab>
+              <Tab testId="tab-1">Tab 1 label</Tab>
+              <Tab testId="tab-2">Tab 2 label</Tab>
+              <Tab testId="tab-3">Tab 3 label</Tab>
             </TabList>
           </div>
         </TabListContext.Provider>,
       );
 
-      ['Tab 1 label', 'Tab 2 label', 'Tab 3 label'].forEach((label, index) => {
-        const tab = getByText(label);
+      ['tab-1', 'tab-2', 'tab-3'].forEach((testId, index) => {
+        const tab = getByTestId(testId);
         const isSelected = index === 1;
 
         expect(tab.getAttribute('aria-controls')).toBe(`test-${index}-tab`);
@@ -150,12 +151,12 @@ describe('@atlaskit/tabs', () => {
     });
 
     it('should render each tab with the correct attributes after changing', () => {
-      const { getByText, rerender } = render(renderTabList());
+      const { getByTestId, rerender } = render(renderTabList());
 
       rerender(renderTabList({ selected: 2 }));
 
-      ['Tab 1 label', 'Tab 2 label', 'Tab 3 label'].forEach((label, index) => {
-        const tab = getByText(label);
+      ['tab-1', 'tab-2', 'tab-3'].forEach((testId, index) => {
+        const tab = getByTestId(testId);
         const isSelected = index === 2;
 
         expect(tab.getAttribute('aria-controls')).toBe(`test-${index}-tab`);

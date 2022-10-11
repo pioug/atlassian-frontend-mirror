@@ -43,7 +43,7 @@ import {
   formMessages,
   linkTextMessages,
 } from './messages';
-import TextInput from './text-input';
+import TextInput, { testIds as textFieldTestIds } from './text-input';
 import {
   rootContainerStyles,
   searchIconStyles,
@@ -77,8 +77,7 @@ export const testIds = {
   ...formFooterTestIds,
   ...searchErrorTestIds,
   ...listTestIds,
-  clearUrlButton: 'clear-text',
-  urlError: 'link-error',
+  ...textFieldTestIds,
   tabList: 'link-picker-tabs',
   tabItem: 'link-picker-tab',
 } as const;

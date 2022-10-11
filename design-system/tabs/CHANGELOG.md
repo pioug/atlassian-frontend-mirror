@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 13.3.2
+
+### Patch Changes
+
+- [`0d42cd1c926`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d42cd1c926) - Internal changes to the way styles are applied. There should be no noticeable changes to consumers.
+
 ## 13.3.1
 
 ### Patch Changes

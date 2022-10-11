@@ -6,7 +6,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "Welcome to Atlassian!",
+          "text": "Welcome to Atlassian! ",
           "type": "text",
         },
       ],

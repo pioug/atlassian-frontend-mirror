@@ -1,12 +1,12 @@
 import React from 'react';
 
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+
 import Banner from '../src';
 
-const { Fragment } = React;
-
 export default () => (
-  <Fragment>
-    <Banner isOpen appearance="announcement">
+  <>
+    <Banner appearance="announcement">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut id volutpat
       sem, nec iaculis augue. Vestibulum quis luctus lacus, et laoreet odio.
       Praesent bibendum, ipsum sit amet interdum rutrum, neque urna tempus ex,
@@ -26,9 +26,9 @@ export default () => (
       Nulla scelerisque elementum massa. Donec eu urna in ipsum ultricies
       sollicitudin. In sit amet lobortis turpis.
     </Banner>
-    <div>
+    <Text>
       Above we have an announcement banner with long content which will be
       truncated.
-    </div>
-  </Fragment>
+    </Text>
+  </>
 );

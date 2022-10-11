@@ -355,6 +355,8 @@ describe('helpers', () => {
     getAsciiMap = () =>
       Promise.resolve(new Map([[grinEmoji.ascii![0], grinEmoji]]));
     findByShortName = (_shortName: string) => Promise.resolve(evilburnsEmoji);
+    fetchByEmojiId = (_emojiId: EmojiId, optimistic: boolean) =>
+      Promise.resolve(evilburnsEmoji);
     findByEmojiId = (_emojiId: EmojiId) => Promise.resolve(evilburnsEmoji);
     findById = (_emojiIdStr: string) => Promise.resolve(evilburnsEmoji);
     findInCategory = (_categoryId: string) => Promise.resolve([]);

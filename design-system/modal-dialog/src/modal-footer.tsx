@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { useModal } from './hooks';
 import { footerItemGap, keylineHeight, padding } from './internal/constants';

@@ -9,6 +9,10 @@ class EmojiProviderImpl implements EmojiProvider {
     return undefined;
   }
 
+  fetchByEmojiId() {
+    return undefined;
+  }
+
   findByEmojiId() {
     return undefined;
   }

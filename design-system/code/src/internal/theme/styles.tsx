@@ -1,4 +1,4 @@
-import type { CSSObject } from '@emotion/core';
+import type { CSSObject } from '@emotion/react';
 
 import { borderRadius } from '@atlaskit/theme/constants';
 import type { Theme } from '@atlaskit/theme/types';
@@ -192,7 +192,7 @@ const syntaxKeywordColors = (theme: CodeBlockTheme): CSSObject => ({
 /**
  * Styles applied at the root element level, common across code/codeblock
  */
-export const getBaseCodeStyles = (theme: CodeTheme): CSSObject => ({
+export const getBaseCodeStyles = (theme: CodeTheme) => ({
   fontSize: CODE_FONT_SIZE,
   fontFamily: theme.fontFamily,
   fontWeight: 'normal',
@@ -308,17 +308,12 @@ export const getCodeStyles = (
   return {
     ...baseStyles,
     display: 'inline',
-    // monospace font appears slightly larger than the serif font so
-    // we use a relative size to better match when used inline
-    fontSize: '0.875em',
-    // NB vertical padding _will_ effect the boxes vertical alignment so it needs to be
-    // minimised. 2px provides a minumum and allows the line height to do the heavy lifting
-    // ; 0.5ch is to emulate the half space between the next word with varied font sizes.
     padding: '2px 0.5ch',
-    whiteSpace: 'pre-wrap',
-    overflowWrap: 'break-word',
-    overflow: 'auto',
     boxDecorationBreak: 'clone',
+    fontSize: '0.875em',
+    overflow: 'auto',
+    overflowWrap: 'break-word',
+    whiteSpace: 'pre-wrap',
   };
 };
 

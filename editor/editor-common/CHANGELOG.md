@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 70.0.0
+
+### Patch Changes
+
+- [`07160af53b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07160af53b7) - [ux] ED-15447: Stop breakout width layout button position flickering when user moves selection out and into breakout-supported nodes
+- [`dbc1b4943c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbc1b4943c2) - ED-13162 add word joiner before and after telepointer
+- Updated dependencies
+
+## 69.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.4.1
 
 ### Patch Changes

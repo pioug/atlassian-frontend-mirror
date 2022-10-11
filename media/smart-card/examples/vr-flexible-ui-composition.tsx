@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { IntlProvider } from 'react-intl-next';
 import { JsonLd } from 'json-ld-types';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { VRTestWrapper } from './utils/vr-test';
 import {
   FooterBlock,

@@ -1,4 +1,4 @@
-import { CardDimensionValue } from '../';
+import { CardDimensionValue } from '../types';
 import { size } from '@atlaskit/media-ui';
 
 export type BreakpointSizeValue = 'small' | 'medium' | 'large' | 'xlarge';

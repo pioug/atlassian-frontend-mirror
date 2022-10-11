@@ -1,5 +1,4 @@
 import { NodeType, ResolvedPos, Schema, NodeRange } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 import {
   EditorState,
   Selection,
@@ -107,33 +106,6 @@ export const getListTypes = (
     list: decisionList,
     item: decisionItem,
   };
-};
-
-/*
- * @deprecated - [ED-13182] insertTaskDecision has been depreciated in favor of insertTaskDecisionCommand
- */
-export const insertTaskDecision = (
-  view: EditorView,
-  listType: TaskDecisionListType,
-  inputMethod:
-    | INPUT_METHOD.FORMATTING
-    | INPUT_METHOD.QUICK_INSERT
-    | TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
-  listLocalId?: string,
-  itemLocalId?: string,
-): Command => {
-  // eslint-disable-next-line no-console
-  console.warn(
-    'insertTaskDecision has been depreciated in favor of insertTaskDecisionCommand',
-  );
-
-  return insertTaskDecisionCommand(
-    listType,
-    inputMethod,
-    undefined,
-    listLocalId,
-    itemLocalId,
-  );
 };
 
 export const insertTaskDecisionAction = (

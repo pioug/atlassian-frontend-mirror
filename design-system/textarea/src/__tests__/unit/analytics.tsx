@@ -3,13 +3,14 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
 
 import TextArea from '../../text-area';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-const noop = () => {};
+const noop = __noop;
 const attributes = {
   componentName: 'textArea',
   packageName,

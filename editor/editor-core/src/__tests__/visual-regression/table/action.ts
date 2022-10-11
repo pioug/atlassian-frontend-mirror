@@ -1,4 +1,5 @@
-import { Device, snapshot, initFullPageEditorWithAdf } from '../_utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { snapshot, initFullPageEditorWithAdf } from '../_utils';
 import adf from './__fixtures__/table-with-action.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 

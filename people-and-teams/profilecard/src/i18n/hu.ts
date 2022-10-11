@@ -38,6 +38,7 @@ export default {
   'pt.profile-card.inactive.account.has.date.this.week':
     'A fiókját ezen a héten inaktiváltuk.',
   'pt.profile-card.inactive.account.no.date': 'A fiókját inaktiváltuk.',
+  'pt.profile-card.more-icon-label': 'Továbbiak',
   'pt.team-profile-card.directReports.heading': 'Közvetlen beosztottak',
   'pt.team-profile-card.error.refresh-button': 'Próbáld újra',
   'pt.team-profile-card.error.suggestion':

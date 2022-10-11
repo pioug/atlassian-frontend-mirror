@@ -1,16 +1,13 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import {
+  UNSAFE_Box as Box,
   UNSAFE_Inline as Inline,
   UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
 
 import Lozenge, { ThemeAppearance } from '../src';
-
-const Col: React.FunctionComponent<ReactNode> = ({ children }) => (
-  <Stack gap="sp-100">{children}</Stack>
-);
 
 const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
   { label: 'Default', value: 'default' },
@@ -24,36 +21,40 @@ const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 export default () => (
   <Stack testId="test-container" gap="sp-400">
     <Inline gap="sp-400">
-      <Col>
+      <Stack gap="sp-100">
         <Text fontWeight="500">Subtle</Text>
-        {APPEARANCES.map((a) => (
-          <Text key={a.value as string}>
-            <Lozenge appearance={a.value} testId="lozenge-subtle">
-              {a.label}
-            </Lozenge>
-          </Text>
-        ))}
-      </Col>
-      <Col>
+        <>
+          {APPEARANCES.map((a) => (
+            <Box key={a.value}>
+              <Lozenge appearance={a.value} testId="lozenge-subtle">
+                {a.label}
+              </Lozenge>
+            </Box>
+          ))}
+        </>
+      </Stack>
+      <Stack gap="sp-100">
         <Text fontWeight="500">Bold</Text>
-        {APPEARANCES.map((a) => (
-          <Text key={a.value as string}>
-            <Lozenge appearance={a.value} isBold testId="lozenge-bold">
-              {a.label}
-            </Lozenge>
-          </Text>
-        ))}
-      </Col>
+        <>
+          {APPEARANCES.map((a) => (
+            <Box key={a.value}>
+              <Lozenge appearance={a.value} isBold testId="lozenge-bold">
+                {a.label}
+              </Lozenge>
+            </Box>
+          ))}
+        </>
+      </Stack>
     </Inline>
 
-    <Col>
+    <Stack gap="sp-100">
       <Text fontWeight="500">Overflowed Lozenge</Text>
-      <Text>
+      <Box>
         <Lozenge testId="lozenge-truncated">
           Long text will be truncated after a point.
         </Lozenge>
-      </Text>
-      <Text>
+      </Box>
+      <Box>
         <Lozenge
           appearance="new"
           maxWidth={250}
@@ -61,16 +62,16 @@ export default () => (
         >
           Long text will be truncated after a point.
         </Lozenge>
-      </Text>
-    </Col>
+      </Box>
+    </Stack>
 
-    <Col>
+    <Stack gap="sp-100">
       <Text fontWeight="500">Defaults</Text>
-      <Text>
+      <Box>
         <Lozenge maxWidth="none" testId="lozenge-defaults">
           Default appearance and boldness
         </Lozenge>
-      </Text>
-    </Col>
+      </Box>
+    </Stack>
   </Stack>
 );

@@ -40,6 +40,24 @@ export interface ReactionSummary {
 }
 
 /**
+ * Metadata for composing a summary of emojis that will be shown in the the primary view even if the reaction count is zero
+ */
+export interface QuickReactionEmojiSummary {
+  /**
+   * unique Atlassian identifier for an emoji (attached to the "emojiIds" when forming {@link ReactionSummary} object)
+   */
+  ari: string;
+  /**
+   * unique Atlassian identifier for the container grouping reactions/ari in the page (attached to the "emojiIds" when forming {@link ReactionSummary} object)
+   */
+  containerAri: string;
+  /**
+   * emoji ids collection that will be shown in the the primary view even if the reaction count is zero
+   */
+  emojiIds: string[];
+}
+
+/**
  * Event handler for when the user clicks on the reaction
  * @param id give id for the emoji
  * @param event selected mouse event proerties
@@ -67,6 +85,7 @@ export enum ReactionStatus {
   loading = 'LOADING',
   error = 'ERROR',
   notLoaded = 'NOT_LOADED',
+  disabled = 'DISABLED',
 }
 
 /**

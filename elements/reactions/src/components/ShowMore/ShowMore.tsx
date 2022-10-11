@@ -59,7 +59,7 @@ export const ShowMore: React.FC<ShowMoreProps> = ({
             <button
               className={className.button}
               css={[styles.moreButtonStyle, buttonStyle]}
-              title={i18n.messages.moreEmoji.defaultMessage}
+              aria-label={i18n.messages.moreEmoji.defaultMessage}
               type="button"
               style={style.button}
               onMouseDown={onClick}

@@ -1,5 +1,16 @@
 # @atlaskit/onboarding
 
+## 10.6.0
+
+### Minor Changes
+
+- [`e0015d4e201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0015d4e201) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- [`05efb20bca8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05efb20bca8) - Fixes an issue with the Spotlight target element height when this is determined by a parent element.
+- Updated dependencies
+
 ## 10.5.4
 
 ### Patch Changes

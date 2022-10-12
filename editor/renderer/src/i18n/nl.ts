@@ -6,16 +6,16 @@
  */
 //Dutch (Netherlands)
 export default {
-  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Gekopieerd!',
-  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Kopiëren',
   'fabric.editor.headingLink.ascOrderLabel': 'Rangschik kolom van Z tot A',
   'fabric.editor.headingLink.ascSortingLabel': 'oplopend',
   'fabric.editor.headingLink.copied': 'Gekopieerd!',
   'fabric.editor.headingLink.copyAnchorLink': 'Link naar kop kopiëren',
   'fabric.editor.headingLink.copyAriaLabel': 'Kopiëren',
-  'fabric.editor.headingLink.descOrderLabel':
-    '⚠️ Je kunt een tabel met samengevoegde cellen niet rangschikken',
+  'fabric.editor.headingLink.descOrderLabel': 'Sortering wissen',
+  'fabric.editor.headingLink.descSortingLabel': 'aflopend',
   'fabric.editor.headingLink.failedToCopy': 'Kopiëren mislukt',
+  'fabric.editor.headingLink.invalidLabel':
+    '⚠️ Je kan een tabel met samengevoegde cellen niet rangschikken',
   'fabric.editor.headingLink.noOrderLabel': 'Rangschik kolom van A tot Z',
-  'fabric.editor.headingLink.noneSortingLabel': 'aflopend',
+  'fabric.editor.headingLink.noneSortingLabel': 'Geen',
 };

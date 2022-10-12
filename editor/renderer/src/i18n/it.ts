@@ -6,16 +6,16 @@
  */
 //Italian (Italy)
 export default {
-  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Copiato.',
-  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Copia',
   'fabric.editor.headingLink.ascOrderLabel': 'Ordina colonna da Z ad A',
   'fabric.editor.headingLink.ascSortingLabel': 'crescente',
   'fabric.editor.headingLink.copied': 'Copiato.',
   'fabric.editor.headingLink.copyAnchorLink': "Copia link nell'intestazione",
   'fabric.editor.headingLink.copyAriaLabel': 'Copia',
-  'fabric.editor.headingLink.descOrderLabel':
-    '⚠️ Non puoi ordinare una tabella con celle unite',
+  'fabric.editor.headingLink.descOrderLabel': "Cancella l'ordinamento",
+  'fabric.editor.headingLink.descSortingLabel': 'decrescente',
   'fabric.editor.headingLink.failedToCopy': 'Copia non riuscita',
+  'fabric.editor.headingLink.invalidLabel':
+    '⚠️ Non puoi ordinare una tabella con celle unite',
   'fabric.editor.headingLink.noOrderLabel': 'Ordina colonna da A a Z',
-  'fabric.editor.headingLink.noneSortingLabel': 'decrescente',
+  'fabric.editor.headingLink.noneSortingLabel': 'nessuno',
 };

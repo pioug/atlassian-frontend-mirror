@@ -1,9 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-/** @jsx jsx */
 
-import { CSSProperties, memo, ReactNode } from 'react';
-
-import { jsx } from '@emotion/core';
+import React, { CSSProperties, memo, ReactNode } from 'react';
 
 import {
   UNSAFE_Box as Box,

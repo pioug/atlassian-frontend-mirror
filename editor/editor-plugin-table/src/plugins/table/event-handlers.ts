@@ -18,11 +18,6 @@ import { EditorView } from 'prosemirror-view';
 
 import { browser } from '@atlaskit/editor-common/utils';
 
-// import {
-//   isElementInTableCell,
-//   isLastItemMediaGroup,
-//   setNodeSelection,
-// } from '@atlaskit/editor-core/src/utils';
 import {
   isElementInTableCell,
   isLastItemMediaGroup,

@@ -6,16 +6,16 @@
  */
 //Danish (Denmark)
 export default {
-  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Kopieret!',
-  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Kopiér',
   'fabric.editor.headingLink.ascOrderLabel': 'Sortér kolonnen fra Å til A',
   'fabric.editor.headingLink.ascSortingLabel': 'stigende',
   'fabric.editor.headingLink.copied': 'Kopieret!',
   'fabric.editor.headingLink.copyAnchorLink': 'Kopiér link til overskrift',
   'fabric.editor.headingLink.copyAriaLabel': 'Kopiér',
-  'fabric.editor.headingLink.descOrderLabel':
-    '⚠️ En tabel med flettede celler kan ikke sorteres',
+  'fabric.editor.headingLink.descOrderLabel': 'Ryd sortering',
+  'fabric.editor.headingLink.descSortingLabel': 'faldende',
   'fabric.editor.headingLink.failedToCopy': 'Kopiering mislykkedes',
+  'fabric.editor.headingLink.invalidLabel':
+    '⚠️ En tabel med flettede celler kan ikke sorteres',
   'fabric.editor.headingLink.noOrderLabel': 'Sortér kolonnen fra A til Å',
-  'fabric.editor.headingLink.noneSortingLabel': 'faldende',
+  'fabric.editor.headingLink.noneSortingLabel': 'ingen',
 };

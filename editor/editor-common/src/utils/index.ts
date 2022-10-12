@@ -21,6 +21,7 @@ export {
   isTextSelection,
   isLastItemMediaGroup,
   setNodeSelection,
+  setTextSelection,
   nonNullable,
   stepAddsOneOf,
   stepHasSlice,

@@ -18,6 +18,7 @@ import {
 import {
   ACTION_ITEM_HELP_TEXT,
   ACTION_ITEM_HELP_TEXT_IN_FR,
+  DECISION_HELP_TEXT_IN_FR,
   AT_SYMBOL,
   DECISION_PANEL_HELP_TEXT,
   UNSUPPORTED_BLOCK_NODE_ERROR_MESSAGE,
@@ -178,6 +179,23 @@ export async function isDecisionPanelVisible(page: Page) {
       DECISION_PANEL_HELP_TEXT &&
     (await getDecisionPanelType(page)) === DECISION_PANEL_TYPE
   );
+}
+
+/**
+ * Compare translated help text value of decision to validate if localised decision is visible in the editor
+ */
+export async function compareDecisionPanelHelpTextTranslatedToFR(page: Page) {
+  page.switchToWeb();
+  /** The i18n strings provided have different space characters - this let's us
+   * compare the help text without being strict about the spaces */
+  const pageText = await page.getTextOfElement(EDITOR_CONTENT_AREA_ELEMENT);
+  const pageTextTrimmed = pageText.replace(/\s/g, '');
+  const frTrimmed = DECISION_HELP_TEXT_IN_FR.replace(/\s/g, '');
+  return {
+    isEqual: pageTextTrimmed === frTrimmed,
+    expected: frTrimmed,
+    actual: pageTextTrimmed,
+  };
 }
 
 /**

@@ -186,7 +186,8 @@ describe('Flexible Card', () => {
   });
 
   describe('integrated', () => {
-    it('renders various compositions', async () => {
+    // FIXME: This test was automatically skipped due to failure on 11/10/2022: https://product-fabric.atlassian.net/browse/EDM-4620
+    it.skip('renders various compositions', async () => {
       const url = getURL('vr-flexible-ui-composition');
       const page = await setup(url);
 

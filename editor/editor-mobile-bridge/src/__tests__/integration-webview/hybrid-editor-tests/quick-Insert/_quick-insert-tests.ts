@@ -14,6 +14,7 @@ import {
   isWarningPanelVisible,
   isErrorPanelVisible,
   isMentionSymbolVisible,
+  compareDecisionPanelHelpTextTranslatedToFR,
 } from '../../_page-objects/hybrid-editor-page';
 import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 import {
@@ -141,6 +142,30 @@ export default async () => {
       await page.tapKeys(decisionText);
 
       expect(await isDecisionAdded(page, decisionText)).toBe(true);
+    },
+  );
+
+  MobileTestCase(
+    'Quick Insert - Decision: Users can add and see a localized decision panel by typing "/" and pressing enter',
+    {},
+    async (client: any, testName: string) => {
+      const page = await Page.create(client);
+      await loadEditor(page);
+      await configureEditor(page, ENABLE_QUICK_INSERT_AND_SET_LOCALE_TO_FR);
+      await focusOnWebView(page);
+      await page.tapKeys(DECISION_QUICK_INSERT);
+      await page.tapKeys(SPECIAL_KEYS.ENTER);
+
+      await new Promise((resolve) => {
+        window.setTimeout(() => resolve(null), 0);
+      });
+
+      const {
+        expected,
+        actual,
+      } = await compareDecisionPanelHelpTextTranslatedToFR(page);
+
+      expect(expected).toEqual(actual);
     },
   );
 

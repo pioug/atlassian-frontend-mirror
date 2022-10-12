@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 70.1.0
+
+### Minor Changes
+
+- [`74abc212007`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74abc212007) - Move `setTextSelection` from `editor-core` to `editor-common`, then re-export it form `editor-core` to ensure there are no breaking changes
+
 ## 70.0.0
 
 ### Patch Changes

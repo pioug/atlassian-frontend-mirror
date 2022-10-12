@@ -11,19 +11,10 @@ import {
 import { Mark, Node } from 'prosemirror-model';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 
-export { setNodeSelection } from '@atlaskit/editor-common/utils';
-
-export function setTextSelection(
-  view: EditorView,
-  anchor: number,
-  head?: number,
-) {
-  const { state, dispatch } = view;
-  const tr = state.tr.setSelection(
-    TextSelection.create(state.doc, anchor, head),
-  );
-  dispatch(tr);
-}
+export {
+  setNodeSelection,
+  setTextSelection,
+} from '@atlaskit/editor-common/utils';
 
 export function setAllSelection(view: EditorView) {
   const { state, dispatch } = view;

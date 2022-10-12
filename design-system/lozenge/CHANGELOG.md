@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 11.2.4
+
+### Patch Changes
+
+- [`4c6b6f0c927`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c6b6f0c927) - Removes `@emotion/core` dependency as it is no longer used within Lozenge. There is no expected behavior change.
+
 ## 11.2.3
 
 ### Patch Changes

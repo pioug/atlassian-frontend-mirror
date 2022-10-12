@@ -6,6 +6,7 @@ export const ACTION_ITEM_HELP_TEXT =
 export const ACTION_ITEM_HELP_TEXT_IN_FR = fr['fabric.editor.taskPlaceholder'];
 export const ACTION_ITEM_HELP_TEXT_IN_ZH = '输入您的操作，使用“@”进行分配。';
 export const DECISION_PANEL_HELP_TEXT = 'Add a decision…';
+export const DECISION_HELP_TEXT_IN_FR = fr['fabric.editor.decisionPlaceholder'];
 export const UNSUPPORTED_BLOCK_NODE_ERROR_MESSAGE =
   'This editor does not support displaying this content: ';
 export const UNSUPPORTED_NODE_TOOLTIP =

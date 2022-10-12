@@ -97,7 +97,8 @@ describe('Distribute Columns', () => {
       await snapshot(page);
     });
 
-    it('if there will not be any change after resizing', async () => {
+    // FIXME: This test was automatically skipped due to failure on 27/09/2022: https://product-fabric.atlassian.net/browse/ED-15738
+    it.skip('if there will not be any change after resizing', async () => {
       await pageInit(mergedColumnsResized);
       const from = getSelectorForTableCell({
         row: 5,

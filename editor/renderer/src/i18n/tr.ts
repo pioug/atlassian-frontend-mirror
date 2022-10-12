@@ -6,16 +6,16 @@
  */
 //Turkish (Turkey)
 export default {
-  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Kopyalandı!',
-  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Kopyala',
   'fabric.editor.headingLink.ascOrderLabel': "Sütunu Z'den A'ya sırala",
   'fabric.editor.headingLink.ascSortingLabel': 'artan',
   'fabric.editor.headingLink.copied': 'Kopyalandı!',
   'fabric.editor.headingLink.copyAnchorLink': 'Başlık bağlantısını kopyala',
   'fabric.editor.headingLink.copyAriaLabel': 'Kopyala',
-  'fabric.editor.headingLink.descOrderLabel':
-    '⚠️ Birleştirilmiş hücre içeren bir tabloyu sıralayamazsınız',
+  'fabric.editor.headingLink.descOrderLabel': 'Sıralamayı temizle',
+  'fabric.editor.headingLink.descSortingLabel': 'azalan',
   'fabric.editor.headingLink.failedToCopy': 'Kopyalama işlemi başarısız oldu',
+  'fabric.editor.headingLink.invalidLabel':
+    '⚠️ Birleştirilmiş hücre içeren bir tabloyu sıralayamazsınız',
   'fabric.editor.headingLink.noOrderLabel': "Sütunu A'dan Z'ye sırala",
-  'fabric.editor.headingLink.noneSortingLabel': 'azalan',
+  'fabric.editor.headingLink.noneSortingLabel': 'yok',
 };

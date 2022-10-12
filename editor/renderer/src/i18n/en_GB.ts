@@ -6,16 +6,16 @@
  */
 //English (United Kingdom)
 export default {
-  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Copied!',
-  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Copy',
   'fabric.editor.headingLink.ascOrderLabel': 'Sort column Z to A',
   'fabric.editor.headingLink.ascSortingLabel': 'ascending',
   'fabric.editor.headingLink.copied': 'Copied!',
   'fabric.editor.headingLink.copyAnchorLink': 'Copy link to heading',
   'fabric.editor.headingLink.copyAriaLabel': 'Copy',
-  'fabric.editor.headingLink.descOrderLabel':
-    "⚠️ You can't sort a table with merged cell",
+  'fabric.editor.headingLink.descOrderLabel': 'Clear sorting',
+  'fabric.editor.headingLink.descSortingLabel': 'descending',
   'fabric.editor.headingLink.failedToCopy': 'Copy failed',
+  'fabric.editor.headingLink.invalidLabel':
+    "⚠️ You can't sort a table with merged cells",
   'fabric.editor.headingLink.noOrderLabel': 'Sort column A to Z',
-  'fabric.editor.headingLink.noneSortingLabel': 'descending',
+  'fabric.editor.headingLink.noneSortingLabel': 'none',
 };

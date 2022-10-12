@@ -6,13 +6,8 @@
  */
 //Spanish (International)
 export default {
-  'fabric.editor.action': 'Elemento de acción',
-  'fabric.editor.action.description': 'Crear y asignar elementos de acción',
   'fabric.editor.addAltText': 'Texto alternativo',
   'fabric.editor.alignCenter': 'Alinear al centro',
-  'fabric.editor.alignImageCenter': 'Centrar',
-  'fabric.editor.alignImageLeft': 'Alinear a la izquierda',
-  'fabric.editor.alignImageRight': 'Alinear a la derecha',
   'fabric.editor.alignLeft': 'Alinear a la izquierda',
   'fabric.editor.alignRight': 'Alinear a la derecha',
   'fabric.editor.alignment': 'Alineación de texto',
@@ -27,22 +22,14 @@ export default {
   'fabric.editor.blockDescription':
     'Mostrar más información sobre un enlace, incluido un resumen y acciones',
   'fabric.editor.blockTitle': 'Tarjeta',
-  'fabric.editor.blockquote': 'una cita',
   'fabric.editor.blockquote.description': 'Insertar una cita o referencia',
   'fabric.editor.blockquote2': 'Citar',
   'fabric.editor.bold': 'Negrita',
   'fabric.editor.bug': 'Error',
-  'fabric.editor.canNotSortTable':
-    '⚠️ No puedes ordenar una tabla con celdas combinadas',
-  'fabric.editor.cancelButton': 'Cancelar',
   'fabric.editor.captionPlaceholder': 'Añadir un subtítulo',
   'fabric.editor.cardFloatingControls': 'Opciones de tarjeta',
-  'fabric.editor.cellBackground': 'Fondo de celda',
-  'fabric.editor.cellOptions': 'Opciones de celda',
   'fabric.editor.chromeCollapsedPlaceholder': 'Escribe algo…',
   'fabric.editor.clearAltTextEdit': 'Borrar texto alternativo',
-  'fabric.editor.clearCells':
-    '{0, plural, one {Borrar celda} other {Borrar celdas}}',
   'fabric.editor.clearFormatting': 'Borrar formato',
   'fabric.editor.clearLink': 'Borrar enlace',
   'fabric.editor.clearLinkText': 'Borrar texto',
@@ -54,9 +41,6 @@ export default {
   'fabric.editor.codeblock': 'Fragmento de código',
   'fabric.editor.codeblock.description':
     'Mostrar código con resaltado de sintaxis',
-  'fabric.editor.collapseTable': 'Contraer tabla',
-  'fabric.editor.columns': 'Diseños',
-  'fabric.editor.columns.description': 'Estructurar la página con secciones',
   'fabric.editor.configFailedToLoad': 'No se pudo cargar',
   'fabric.editor.configPanel.cancel': 'Cancelar',
   'fabric.editor.configPanel.close': 'Cerrar',
@@ -75,19 +59,12 @@ export default {
   'fabric.editor.configPanel.invalid': 'Campo no válido',
   'fabric.editor.configPanel.required': 'Campo obligatorio',
   'fabric.editor.configPanel.submit': 'Enviar',
-  'fabric.editor.copiedToClipboard': '¡Copiado!',
-  'fabric.editor.copyToClipboard': 'Copiar',
   'fabric.editor.createComment': 'Comentar',
   'fabric.editor.createCommentInvalid':
     'Solo puedes comentar en el texto y los encabezados',
   'fabric.editor.customPanel': 'Panel personalizado',
   'fabric.editor.customPanel.description':
     'Añade una nota con un emoticono y un fondo de color',
-  'fabric.editor.date': 'Fecha',
-  'fabric.editor.date.description': 'Añadir una fecha usando un calendario',
-  'fabric.editor.decision': 'Decisión',
-  'fabric.editor.decision.description':
-    'Captar decisiones para que sea más fácil supervisarlas',
   'fabric.editor.decisionPlaceholder': 'Añadir una decisión...',
   'fabric.editor.defaultAltText': 'Elemento de la lista',
   'fabric.editor.displayBlock': 'Mostrar como tarjeta',
@@ -97,7 +74,6 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     'Esta opción de visualización no se encuentra disponible en {node}',
   'fabric.editor.displayText': 'Texto para mostrar',
-  'fabric.editor.distributeColumns': 'Distribuir columnas',
   'fabric.editor.dropPlaceholderLabel': 'Documento',
   'fabric.editor.ecombedDescription':
     'Mostrar una vista previa interactiva de un enlace',
@@ -105,7 +81,6 @@ export default {
   'fabric.editor.editAltText': 'Editar texto alternativo',
   'fabric.editor.editDateText': 'Editar fecha',
   'fabric.editor.editLink': 'Editar enlace',
-  'fabric.editor.editMode.inviteToEditButton.title': 'Invitar a editar',
   'fabric.editor.editStatusColor': 'Editar color de estado',
   'fabric.editor.editStatusText': 'Editar estado',
   'fabric.editor.editableContentLabel': 'Contenido editable',
@@ -137,25 +112,18 @@ export default {
     'Explorar Atlassian Marketplace',
   'fabric.editor.elementbrowser.sidebar.heading': 'Explorar',
   'fabric.editor.embedTitle': 'Integrar',
-  'fabric.editor.emoji': 'Emoji',
-  'fabric.editor.emoji.description':
-    'Usa emojis para expresar ideas 🎉 y emociones 😄',
   'fabric.editor.emptyLink': 'Introduce un enlace.',
   'fabric.editor.epic': 'Epic',
   'fabric.editor.error': 'Error',
   'fabric.editor.errorPanel': 'Panel de errores',
   'fabric.editor.errorPanel.description':
     'Resaltar los errores en un panel de color',
-  'fabric.editor.expand': 'Ampliar',
-  'fabric.editor.expand.description': 'Insertar una ampliación',
+  'fabric.editor.extension.confirmDeleteLinkedModalMessage':
+    'Al eliminar esta extensión, se interrumpirá todo lo que haya conectado a ella.',
+  'fabric.editor.extension.confirmDeleteLinkedModalOKButton':
+    'Eliminar extensión',
   'fabric.editor.extensions.config-panel.save-indicator':
     'Todos los cambios se guardan siempre automáticamente',
-  'fabric.editor.feedbackDialog': 'Enviar comentarios',
-  'fabric.editor.feedbackDialog.description':
-    'Cuéntanos tu experiencia con el editor nuevo',
-  'fabric.editor.filesAndImages': 'Archivos e imágenes',
-  'fabric.editor.filesAndImages.description':
-    'Añadir imágenes y otros archivos a la página',
   'fabric.editor.find': 'Buscar',
   'fabric.editor.findNext': 'Buscar siguiente',
   'fabric.editor.findPrevious': 'Buscar anterior',
@@ -167,8 +135,6 @@ export default {
     'Se han abierto los controles de la barra de herramientas flotante',
   'fabric.editor.floatingToolbar.floatingToolbarAriaLabel':
     'Barra de herramientas flotante',
-  'fabric.editor.headerColumn': 'Columna de encabezado',
-  'fabric.editor.headerRow': 'Fila de encabezado',
   'fabric.editor.heading1': 'Título 1',
   'fabric.editor.heading1Description': 'Úsalo en un título de nivel superior',
   'fabric.editor.heading2': 'Título 2',
@@ -190,43 +156,31 @@ export default {
   'fabric.editor.headingLink.hyperlinkIconStoryLabel': 'Historia',
   'fabric.editor.headingLink.hyperlinkIconTaskLabel': 'Tarea',
   'fabric.editor.headingLink.toolbarHelpTitle': 'Abrir diálogo de ayuda',
-  'fabric.editor.help': 'Ayuda',
-  'fabric.editor.help.description':
-    'Navegar por todos los atajos de teclado y opciones de markdown',
   'fabric.editor.helpDialogTips':
     'Pulsa {keyMap} para abrir este diálogo con rapidez en cualquier momento',
-  'fabric.editor.horizontalRule': 'Divisor',
-  'fabric.editor.horizontalRule.description':
-    'Separar el contenido con una línea horizontal',
   'fabric.editor.hyperlink.linkAriaLabel': 'Etiqueta de enlace',
   'fabric.editor.hyperlink.searchLinkAriaDescription':
     'Las sugerencias aparecerán abajo a medida que escribas en el campo',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {no hay resultados} one {{count,number} resultado encontrado} other {{count,number} resultados encontrados}}',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'Pegar o buscar el enlace',
-  'fabric.editor.image': 'Imagen',
   'fabric.editor.improvement': 'Mejora',
+  'fabric.editor.indent': 'Aplicar sangría',
   'fabric.editor.info': 'Información',
   'fabric.editor.infoPanel': 'Panel de información',
   'fabric.editor.infoPanel.description':
     'Destacar información en un panel de color',
   'fabric.editor.inlineDescription': 'Mostrar enlace como texto insertado',
   'fabric.editor.inlineTitle': 'Insertado',
-  'fabric.editor.insertColumn': 'Insertar columna a la derecha',
-  'fabric.editor.insertMenu': 'Insertar',
-  'fabric.editor.insertRow': 'Insertar fila debajo',
+  'fabric.editor.inputQueryAssistiveTxt':
+    'Cuando aparezcan los resultados del rellenado automático, usa las flechas hacia arriba y hacia abajo para revisarlos, y pulsa Entrar para seleccionar uno. Toca los usuarios de dispositivos, explora con toques o gestos de deslizamiento.',
   'fabric.editor.invalidDateError': 'Introducir una fecha válida',
   'fabric.editor.invalidLink': 'Introduce un enlace válido.',
   'fabric.editor.inviteItem.title':
     '{userRole, select, admin {Invita a un compañero de equipo a {productName}} trusted {Invita a un compañero de equipo a {productName}} other {Añade a un compañero de equipo a {productName}}}',
   'fabric.editor.italic': 'Cursiva',
   'fabric.editor.keyboardShortcuts': 'Métodos abreviados de teclado',
-  'fabric.editor.layoutFixedWidth': 'Volver a centrar',
-  'fabric.editor.layoutFullWidth': 'Usar ancho completo',
-  'fabric.editor.layoutWide': 'Usar formato ancho',
   'fabric.editor.leftSidebar': 'Barra lateral izquierda',
-  'fabric.editor.link': 'Vincular',
-  'fabric.editor.link.description': 'Insertar un enlace',
   'fabric.editor.linkAddress': 'Dirección del enlace',
   'fabric.editor.linkPlaceholder': 'Pegar enlace',
   'fabric.editor.lists': 'Listas',
@@ -234,58 +188,42 @@ export default {
   'fabric.editor.matchCase': 'Coincidir mayúsculas y minúsculas',
   'fabric.editor.mediaAddLink': 'Añadir enlace',
   'fabric.editor.mediaGroupDeleteLabel': 'Eliminar',
-  'fabric.editor.mention': 'Mención',
-  'fabric.editor.mention.description':
-    'Mencionar a alguien para enviarle una notificación',
   'fabric.editor.mentionsAddLabel': 'añadir-icono',
   'fabric.editor.mentionsIconLabel': 'Mención',
-  'fabric.editor.mergeCells': 'Combinar celdas',
   'fabric.editor.moreFormatting': 'Más formatos',
   'fabric.editor.noResultsFound': 'Sin resultados',
+  'fabric.editor.noSearchResults': 'No hay resultados de búsqueda',
   'fabric.editor.normal': 'Texto normal',
   'fabric.editor.note': 'Nota',
   'fabric.editor.notePanel': 'Panel de notas',
   'fabric.editor.notePanel.description': 'Añadir una nota en un panel de color',
-  'fabric.editor.numberedColumn': 'Columna numerada',
   'fabric.editor.off': '{formattingType} desactivado',
   'fabric.editor.on': '{formattingType} activado',
   'fabric.editor.orderedList': 'Lista numerada',
   'fabric.editor.orderedList.description': 'Crear una lista ordenada',
   'fabric.editor.other': 'Otros...',
+  'fabric.editor.outdent': 'Anular sangría',
   'fabric.editor.pageActionsLabel': 'Acciones de la página',
   'fabric.editor.panel.backgroundColor': 'Color de fondo',
   'fabric.editor.panel.emoji': 'Añadir emoji',
   'fabric.editor.pastePlainText': 'Pegar texto sin formato',
   'fabric.editor.placeholderAltText':
     'Describir esta imagen con texto alternativo',
-  'fabric.editor.placeholderText': 'Texto de marcador de posición',
-  'fabric.editor.placeholderText.description':
-    'Insertar un marcador de posición de texto en la página',
   'fabric.editor.placeholderTextPlaceholder':
     'Añadir texto de marcador de posición',
   'fabric.editor.quickInsert': 'Inserción rápida',
   'fabric.editor.redo': 'Rehacer',
-  'fabric.editor.remove': 'Eliminar',
-  'fabric.editor.removeColumns':
-    '{0, plural, one {Eliminar columna} other {Eliminar columnas}}',
-  'fabric.editor.removeEmoji': 'Eliminar emoji',
-  'fabric.editor.removeRows':
-    '{0, plural, one {Eliminar fila} other {Eliminar filas}}',
   'fabric.editor.replace': 'Reemplazar',
   'fabric.editor.replaceAll': 'Reemplazar todo',
   'fabric.editor.replaceWith': 'Reemplazar por',
   'fabric.editor.resultsCount':
     '{selectedMatchPosition} de {totalResultsCount}',
   'fabric.editor.rightSidebar': 'Barra lateral derecha',
-  'fabric.editor.saveButton': 'Guardar',
+  'fabric.editor.searchResults':
+    '{itemsLength, plural, one {{itemsLength,number} resultado de búsqueda disponible} other {{itemsLength,number} resultados de búsqueda disponibles}}',
   'fabric.editor.selectLanguage': 'Seleccionar lenguaje',
+  'fabric.editor.settingsLinks': 'Ir a Preferencias de enlaces',
   'fabric.editor.single': 'Una sola columna',
-  'fabric.editor.sortColumnASC': 'Ordenar columna A → Z',
-  'fabric.editor.sortColumnDESC': 'Ordenar columna Z → A',
-  'fabric.editor.splitCell': 'Dividir celda',
-  'fabric.editor.status': 'Estado',
-  'fabric.editor.status.description':
-    'Añadir una etiqueta de estado personalizada',
   'fabric.editor.statusPlaceholder': 'Establecer un estado',
   'fabric.editor.story': 'Historia',
   'fabric.editor.strike': 'Tachado',
@@ -302,13 +240,6 @@ export default {
     'Superíndice desactivado, subíndice activado',
   'fabric.editor.supportAltText':
     'El texto alternativo es útil para aquellas personas que utilicen lectores de pantalla debido a limitaciones visuales.',
-  'fabric.editor.table': 'Tabla',
-  'fabric.editor.table.description': 'Insertar una tabla',
-  'fabric.editor.tableOptions': 'Opciones de tabla',
-  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
-    'Al eliminar esta tabla, se interrumpirán todos los gráficos conectados a ella.',
-  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
-    'Eliminar tabla y datos',
   'fabric.editor.task': 'Tarea',
   'fabric.editor.taskPlaceholder':
     'Escribe la acción y usa "@" para asignársela a alguien.',
@@ -318,17 +249,8 @@ export default {
   'fabric.editor.threeColumns': 'Tres columnas',
   'fabric.editor.threeColumnsWithSidebars':
     'Tres columnas con barras laterales',
-  'fabric.editor.time.ago': 'antes',
-  'fabric.editor.time.updated': 'Actualizado',
-  'fabric.editor.time.viewed': 'Visto',
   'fabric.editor.toolbarLabel': 'Barra de herramientas del editor',
   'fabric.editor.toolbarMediaTitle': 'Archivos e imágenes',
-  'fabric.editor.tooltip.blockPanel': 'un panel',
-  'fabric.editor.tooltip.bulletList': 'una lista',
-  'fabric.editor.tooltip.decisionList': 'una lista de decisiones',
-  'fabric.editor.tooltip.defaultBlockNode': 'un nodo de bloqueo',
-  'fabric.editor.tooltip.nestedExpand': 'una expansión anidada',
-  'fabric.editor.tooltip.taskList': 'un elemento de acción',
   'fabric.editor.twoColumns': 'Dos columnas',
   'fabric.editor.typeAheadResultLabel': 'Resultados de escritura predictiva',
   'fabric.editor.unableToOpenLink': 'No se puede abrir este enlace',
@@ -340,8 +262,6 @@ export default {
   'fabric.editor.url': 'Mostrar URL',
   'fabric.editor.urlDescription': 'Mostrar enlace como URL',
   'fabric.editor.urlTitle': 'URL',
-  'fabric.editor.viewMore': 'Ver más',
-  'fabric.editor.visit': 'Abrir el enlace en otra ventana',
   'fabric.editor.warning': 'Advertencia',
   'fabric.editor.warningPanel': 'Panel de advertencias',
   'fabric.editor.warningPanel.description':

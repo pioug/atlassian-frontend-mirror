@@ -6,14 +6,8 @@
  */
 //
 export default {
-  'fabric.editor.action': '⁣⁢Action item⁠⁯⁡⁪⁫⁬⁭⁮‌⁬⁡⁬⁫⁠⁡⁭‌⁪‌⁠‌⁯⁯⁠⁠⁣⁤',
-  'fabric.editor.action.description':
-    '⁣⁢Create and assign action items⁮⁯‍⁮‌⁮؜‍⁡⁮؜⁫⁡⁡‌⁠⁮⁫⁣⁤',
   'fabric.editor.addAltText': '⁣⁢Alt text‌‍⁪⁯‌؜⁡⁬⁭؜⁡⁬⁭⁮⁣⁤',
   'fabric.editor.alignCenter': '⁣⁢Align Center⁪؜؜؜⁭⁫⁭⁮⁬⁪؜⁠⁠⁬⁪⁠‍⁬⁠‍⁪⁣⁤',
-  'fabric.editor.alignImageCenter': '⁣⁢Align center⁡⁯⁠⁭⁫⁪⁬⁬⁫⁫⁬⁪⁮⁫⁬⁫⁬‍؜⁠‍⁯⁣⁤',
-  'fabric.editor.alignImageLeft': '⁣⁢Align left⁭‍⁠‍⁬⁬⁪⁮⁡⁪⁭⁠‍⁠⁭⁠⁪⁭⁠⁠⁮⁠⁣⁤',
-  'fabric.editor.alignImageRight': '⁣⁢Align right‌⁡⁪⁭⁡؜⁬‍⁯‌⁫⁮‌⁫‍⁡‍؜⁭‍⁠‍⁫⁣⁤',
   'fabric.editor.alignLeft': '⁣⁢Align left⁭⁠؜⁮‌‌؜⁬⁡⁫‍‍⁭⁯⁠⁮؜⁠⁭؜⁡⁡⁣⁤',
   'fabric.editor.alignRight': '⁣⁢Align Right⁫⁯⁡⁭⁪⁬؜⁡⁡⁪⁭⁯⁯⁠‍⁮‍⁠⁭⁮؜⁣⁤',
   'fabric.editor.alignment': '⁣⁢Text alignment⁫⁮؜⁮⁠⁡‌⁬⁭⁠⁬؜⁡⁫⁫؜⁠⁮⁯⁬⁮⁣⁤',
@@ -29,25 +23,17 @@ export default {
   'fabric.editor.blockDescription':
     '⁣⁢Display more information about a link, including a summary and actions⁬⁮⁯⁬⁠⁭؜⁡⁫⁪؜؜⁡⁭‍⁯⁪⁮‌⁬⁮⁠‍‌‍؜⁣⁤',
   'fabric.editor.blockTitle': '⁣⁢Card⁮‍‍⁫‍⁭⁡⁮⁭⁭⁡؜⁠⁯⁭‌⁡⁪‍‌؜⁮⁪‍⁯‌⁣⁤',
-  'fabric.editor.blockquote': '⁣⁢a quote‍⁬⁫‌⁬⁠‍‌⁯⁡⁠⁮⁯⁬⁫⁪⁫⁣⁤',
   'fabric.editor.blockquote.description':
     '⁣⁢Insert a quote or citation⁪⁬⁠⁬⁪⁫⁯⁫⁮⁮⁠‌⁮؜⁠⁫⁭⁫؜؜⁫‌⁣⁤',
   'fabric.editor.blockquote2': '⁣⁢Quote⁠⁠⁯⁬⁪‍⁬؜⁠‍‌⁠⁬⁬⁬⁡؜؜⁮⁫⁬⁭⁠⁣⁤',
   'fabric.editor.bold': '⁣⁢Bold⁮⁯‍⁬⁬‍‍⁭⁠⁯⁬⁯‍⁫⁡⁯⁫⁡⁮⁯⁡⁬⁫⁠‍⁣⁤',
   'fabric.editor.bug': '⁣⁢Bug‍⁭‍⁯⁪⁡‌⁭⁫⁠⁬⁬⁡⁮؜⁪⁡⁯⁡⁫⁯⁡‌؜⁬‍‍⁣⁤',
-  'fabric.editor.canNotSortTable':
-    "⁣⁢⚠️ You can't sort a table with merged cells؜⁡⁮؜⁠⁠⁬؜⁬⁫⁠⁬‍⁭⁮⁬⁬؜⁬⁫⁣⁤",
-  'fabric.editor.cancelButton': '⁣⁢Cancel‌⁮⁠⁭⁬⁯‌‍‍⁫⁡⁬⁬⁪⁠⁮‌⁭⁬؜⁣⁤',
   'fabric.editor.captionPlaceholder': '⁣⁢Add a caption‌⁭‌⁮⁪⁪؜⁡⁪⁡⁡⁠⁬⁭⁠‍⁪⁮‍⁯‍؜⁣⁤',
   'fabric.editor.cardFloatingControls':
     '⁣⁢Card options‌⁯؜⁠⁮‌⁡⁡⁬⁯⁬⁬⁮؜‍⁬⁡؜⁭‌⁭⁮⁣⁤',
-  'fabric.editor.cellBackground': '⁣⁢Cell background‍⁪‌⁭⁮⁭؜⁮⁪⁪⁡⁫⁮‌⁪⁪‌؜⁡⁡⁣⁤',
-  'fabric.editor.cellOptions': '⁣⁢Cell options‌⁬⁮⁠⁫⁫⁭؜⁪‌⁡‍؜⁬⁭⁡⁠⁯⁮⁡⁣⁤',
   'fabric.editor.chromeCollapsedPlaceholder':
     '⁣⁢Type something…⁪؜⁪⁪⁡⁮‌‌⁭‍⁭⁡؜⁠⁠⁫⁪⁮⁬⁯‍⁭⁣⁤',
   'fabric.editor.clearAltTextEdit': '⁣⁢Clear alt text‍⁬⁮⁠⁮‌؜⁯⁡⁠⁠؜‌‍⁮‍⁯⁫⁬⁭⁡⁫⁠⁣⁤',
-  'fabric.editor.clearCells':
-    '{0, plural, one {⁣⁢Clear cell‌⁫⁪⁮⁡⁪‌⁠⁬⁠⁮‍‌⁠⁯؜⁭⁪؜⁮⁠⁠‍⁠⁠⁭‍؜⁣⁤} other {⁣⁢Clear cells‌⁫⁪⁮⁡⁪‌⁠⁬⁠⁮‍‌⁠⁯؜⁭⁪؜⁮⁠⁠‍⁠⁠⁭‍؜⁣⁤}}',
   'fabric.editor.clearFormatting':
     '⁣⁢Clear formatting⁡⁮⁠⁡⁫⁭⁬⁭⁬⁫⁬⁬⁠⁪⁮⁮⁯⁫‌⁯⁭‍⁮⁮⁭⁣⁤',
   'fabric.editor.clearLink': '⁣⁢Clear link؜⁫⁡⁠⁬⁡⁬⁯⁪⁬⁫⁡⁯؜؜⁫؜‌⁡⁣⁤',
@@ -61,10 +47,6 @@ export default {
   'fabric.editor.codeblock': '⁣⁢Code snippet؜⁫⁪‍⁯⁮⁡‍⁠‌⁡⁭⁮⁯؜⁮؜‍⁣⁤',
   'fabric.editor.codeblock.description':
     '⁣⁢Display code with syntax highlighting⁭‌⁫⁡⁮⁯‍⁠⁮‌⁫؜⁡⁫⁭⁡⁪⁬⁬⁭⁬⁪⁣⁤',
-  'fabric.editor.collapseTable': '⁣⁢Collapse table⁬⁪⁭⁪⁪⁫؜⁭⁡؜⁬⁬⁠‍⁪⁯⁭⁫⁮⁯⁣⁤',
-  'fabric.editor.columns': '⁣⁢Layouts‍⁪⁮‍⁡⁫⁠⁯⁪؜⁬⁬⁪‍‌⁬؜⁯⁣⁤',
-  'fabric.editor.columns.description':
-    '⁣⁢Structure your page using sections⁫⁬‍‍‌⁠⁭⁯⁮⁯⁡⁪⁠؜⁫؜⁠‍‍⁭‍⁣⁤',
   'fabric.editor.configFailedToLoad':
     '⁣⁢Failed to load⁠⁪⁡⁬⁮⁮⁬⁬⁠؜⁠⁬⁡⁪⁪⁬⁯⁭⁯⁭‌‍⁬؜⁣⁤',
   'fabric.editor.configPanel.cancel': '⁣⁢Cancel⁯‍⁪⁭⁠؜؜⁫⁫⁮⁫⁪⁬⁭⁬⁬؜؜‍‍‍⁠⁠⁡⁣⁤',
@@ -98,20 +80,12 @@ export default {
   'fabric.editor.configPanel.required':
     '⁣⁢Required field‍⁭⁪‍؜‌⁮‌⁫⁭⁭‍⁠⁪⁫⁫‍⁯⁡⁫⁯⁣⁤',
   'fabric.editor.configPanel.submit': '⁣⁢Submit‍⁪‍⁫⁬⁫؜⁬‌⁫‌⁭؜؜⁡⁡‍⁡⁫⁠⁪⁣⁤',
-  'fabric.editor.copiedToClipboard': '⁣⁢Copied!‌‌⁪؜؜⁯⁯⁮؜⁬؜⁪‍‍⁯‌؜⁭‍⁡⁮⁪⁯⁣⁤',
-  'fabric.editor.copyToClipboard': '⁣⁢Copy⁫⁪‍⁠⁠⁯‍‍‍‍‍⁠⁠؜⁯؜⁮⁮⁠⁯⁮‌⁣⁤',
   'fabric.editor.createComment': '⁣⁢Comment؜⁠⁮؜⁭‍⁫⁭⁭⁠⁯؜⁬⁠⁫؜⁪⁠⁡⁯⁬‍؜⁬⁫⁣⁤',
   'fabric.editor.createCommentInvalid':
     '⁣⁢You can only comment on text and headings⁫‍⁡⁯⁬⁡⁡⁯؜⁪‌⁯⁭⁫⁯؜⁬؜‍‌⁮‌⁪⁬⁣⁤',
   'fabric.editor.customPanel': '⁣⁢Custom panel‌⁪‍⁡؜⁠؜‌؜⁪‌؜⁠؜⁡⁠⁬‌⁫‍‍⁮⁠⁡⁣⁤',
   'fabric.editor.customPanel.description':
     '⁣⁢Add a note with an emoji and colored background⁮⁮؜⁪⁭؜‍‍⁠‍⁠؜⁡‌؜⁫⁫⁭⁬⁡⁬⁣⁤',
-  'fabric.editor.date': '⁣⁢Date⁬⁯‍‌⁯⁭⁡⁬⁯‌⁫⁫‍⁮⁫⁪⁭؜‌؜⁪⁫⁬⁬‍⁣⁤',
-  'fabric.editor.date.description':
-    '⁣⁢Add a date using a calendar‍‍‌⁬⁬⁪⁯⁫⁮⁪⁮⁯؜‍⁪⁡⁬⁮⁭⁠؜⁭⁬⁫⁯؜⁣⁤',
-  'fabric.editor.decision': '⁣⁢Decision⁫⁠⁠⁭⁮⁫‌⁭؜⁠⁯⁪⁯؜‌⁯⁮⁠⁭⁮‍⁡⁯⁫⁣⁤',
-  'fabric.editor.decision.description':
-    '⁣⁢Capture decisions so they’re easy to track‍⁮⁡‍⁫‍‌⁮؜⁯‍‌؜⁡⁯⁪⁡‌؜⁯⁠⁣⁤',
   'fabric.editor.decisionPlaceholder':
     '⁣⁢Add a decision…⁮⁮⁡⁬⁫‌⁪⁯⁡‍؜⁡⁡⁪⁠‍⁫⁭⁭⁯⁬‌⁣⁤',
   'fabric.editor.defaultAltText': '⁣⁢List item⁫⁫⁬⁡⁭⁪‍⁯⁫؜‌‍⁯⁠‍⁬⁠⁯⁬⁡‌⁯⁣⁤',
@@ -122,8 +96,6 @@ export default {
   'fabric.editor.displayOptionUnavailableInParentNode':
     "⁣⁢This display option isn't available inside {node}⁬⁮⁬⁫⁬‍⁡⁠⁯‍‌⁪⁭؜؜‌؜⁠⁠⁯⁬⁣⁤",
   'fabric.editor.displayText': '⁣⁢Text to display⁡‍؜⁫‍⁭⁫⁬⁡⁡؜‌⁠⁭‍⁡‌⁫⁮⁣⁤',
-  'fabric.editor.distributeColumns':
-    '⁣⁢Distribute columns‍⁭⁬‌⁭⁫⁮⁫؜⁮⁬⁡‍؜‍؜⁭⁫⁬‌؜⁬⁮⁮؜⁣⁤',
   'fabric.editor.dropPlaceholderLabel': '⁣⁢Document⁠؜⁬⁡⁠⁭⁪⁠⁡⁬⁠‌؜⁡؜؜⁬⁪⁣⁤',
   'fabric.editor.ecombedDescription':
     '⁣⁢Display an interactive preview of a link⁫؜⁠⁭⁡⁫⁫⁬⁠⁬⁭⁬‌⁠⁯⁬⁫⁭⁯⁮⁫⁫‌⁣⁤',
@@ -131,8 +103,6 @@ export default {
   'fabric.editor.editAltText': '⁣⁢Edit alt text؜⁬‍⁫⁡⁬⁫⁫⁠⁭⁯⁠⁪‍؜⁪⁭⁭⁮؜⁮⁪⁡⁣⁤',
   'fabric.editor.editDateText': '⁣⁢Edit Date⁡‌⁬⁠⁫⁭⁠⁫⁮⁫‍؜⁬؜⁮⁠⁭⁭⁯⁮⁡⁯⁡⁡⁣⁤',
   'fabric.editor.editLink': '⁣⁢Edit link⁪⁬؜⁡⁡⁠⁬⁬⁮⁬⁯⁭⁭⁠⁮⁯؜⁯⁬⁯⁣⁤',
-  'fabric.editor.editMode.inviteToEditButton.title':
-    '⁣⁢Invite to edit⁠⁯⁠‍‌؜⁭⁫⁠⁯⁫‌⁪⁪⁪⁡⁮‍⁡⁯⁬⁣⁤',
   'fabric.editor.editStatusColor':
     '⁣⁢Edit Status Color‌⁬⁯‌⁭⁯⁡‌‍؜⁯⁡‍⁯⁮⁬⁪⁮؜⁡⁮⁬⁬⁣⁤',
   'fabric.editor.editStatusText': '⁣⁢Edit Status⁡‍‌‌‍⁬⁯⁬؜⁡⁯؜‍⁮⁯‍؜⁯؜⁪⁣⁤',
@@ -172,26 +142,18 @@ export default {
   'fabric.editor.elementbrowser.sidebar.heading':
     '⁣⁢Browse⁪⁫؜⁡⁫؜⁡⁫⁠⁪‍‌‍‌⁬⁡⁫⁮⁯⁪⁣⁤',
   'fabric.editor.embedTitle': '⁣⁢Embed‍⁯⁫‌⁬⁡⁡؜؜⁭⁪؜⁫⁯⁯‌⁯⁯⁫؜؜⁫⁣⁤',
-  'fabric.editor.emoji': '⁣⁢Emoji⁮؜⁪‍⁬⁫؜؜⁪‍⁯⁭‌⁯⁭⁠‍⁭⁣⁤',
-  'fabric.editor.emoji.description':
-    '⁣⁢Use emojis to express ideas 🎉 and emotions 😄⁬⁡⁪⁠‍⁪⁫⁭⁪⁬؜⁯⁮⁫⁬⁭⁬⁫⁡⁫⁮⁣⁤',
   'fabric.editor.emptyLink': '⁣⁢Please enter a link.‌⁪⁮‌‍⁡⁡‌⁬⁪‌⁯⁮⁯⁫⁬‌⁮⁯‌⁠⁣⁤',
   'fabric.editor.epic': '⁣⁢Epic‌⁭⁭⁪⁠‍⁭⁭⁪⁮⁡⁮⁫⁮⁫⁠⁠⁭⁡⁯⁫؜⁪⁭⁣⁤',
   'fabric.editor.error': '⁣⁢Error⁪؜⁫‌⁮⁪⁬⁪⁮⁡‌⁪⁭⁫⁯⁪⁪؜⁯⁡‌⁫⁪⁣⁤',
   'fabric.editor.errorPanel': '⁣⁢Error panel⁠‍؜⁠⁠⁯⁭⁫؜‍⁬⁠⁪⁬⁯⁯⁠⁯⁭⁡⁯⁫⁣⁤',
   'fabric.editor.errorPanel.description':
     '⁣⁢Call out errors in a colored panel⁡⁬⁠⁪⁪⁮⁪؜⁡⁮‍‌⁪⁮⁯‍⁬⁪⁯؜‍⁯⁯⁣⁤',
-  'fabric.editor.expand': '⁣⁢Expand⁫⁪⁪⁪⁮⁬⁠⁮⁡⁡؜⁬‍⁯⁠⁬⁡‌⁭⁫⁯⁮⁣⁤',
-  'fabric.editor.expand.description':
-    '⁣⁢Insert an expand⁯⁪⁯‌⁡‌⁮؜؜⁮⁯؜⁮‍⁬⁬⁭‌⁠⁫⁠⁫⁬‍‌⁣⁤',
+  'fabric.editor.extension.confirmDeleteLinkedModalMessage':
+    '⁣⁢Removing this extension will break anything connected to it.⁠؜⁡⁬⁬⁫⁬⁪‌⁭⁪‌‍‌⁡⁠⁡⁡⁡⁮⁡⁣⁤',
+  'fabric.editor.extension.confirmDeleteLinkedModalOKButton':
+    '⁣⁢Remove extension⁡‍‌‍⁪⁪⁫⁠⁯⁯‌⁬⁬⁯‍⁬⁭‍⁮⁬⁫⁠⁠⁬⁣⁤',
   'fabric.editor.extensions.config-panel.save-indicator':
     '⁣⁢All changes are always autosaved⁠⁯⁫⁮⁯⁪‍؜‌‌‍⁫⁮⁫‍⁡‌⁯‌‍‌‌⁬⁣⁤',
-  'fabric.editor.feedbackDialog': '⁣⁢Give feedback‌⁯‍⁪⁫⁯‍⁠⁮؜‍⁠⁯⁬‍⁮؜⁪⁠⁫⁯⁡‍⁣⁤',
-  'fabric.editor.feedbackDialog.description':
-    '⁣⁢Tell us about your experience using the new editor⁡⁬⁡⁭⁡⁫⁯⁪‍؜⁪⁡⁠⁫⁡⁮⁪⁫⁫⁭⁮⁣⁤',
-  'fabric.editor.filesAndImages': '⁣⁢Files & images‍‌⁠⁪‍⁫⁬⁠‌⁡⁪⁯⁯‍⁠‍؜⁪⁠⁬؜‌⁪⁣⁤',
-  'fabric.editor.filesAndImages.description':
-    '⁣⁢Add images and other files to your page⁠⁬⁫⁮⁫⁠⁮⁫⁮⁯⁬⁯⁡؜⁬⁡⁭⁯؜‌⁭؜⁣⁤',
   'fabric.editor.find': '⁣⁢Find⁯⁠⁪⁭⁫⁪‌⁯⁠⁮⁪‌⁪⁭⁯⁬⁯⁠⁪‍⁯⁫؜⁣⁤',
   'fabric.editor.findNext': '⁣⁢Find next⁮؜⁬⁮‌؜⁮⁪⁮⁮⁬‌؜⁫⁫⁠⁣⁤',
   'fabric.editor.findPrevious': '⁣⁢Find previous⁯⁮⁠⁠⁭⁬⁮⁪⁮⁯⁯⁡⁡⁮‍⁫⁫‍⁮⁮⁡⁬⁡⁣⁤',
@@ -206,8 +168,10 @@ export default {
     '⁣⁢Floating toolbar controls have been opened⁮⁠⁫⁠⁫⁬⁫‌‌⁫⁪⁪⁯⁮⁫⁮؜‍⁪⁬⁭⁣⁤',
   'fabric.editor.floatingToolbar.floatingToolbarAriaLabel':
     '⁣⁢Floating Toolbar⁮⁯⁪؜⁭‌⁪⁭⁫⁯⁠؜‍⁭⁮⁬‍⁯⁡⁮⁫⁪⁣⁤',
-  'fabric.editor.headerColumn': '⁣⁢Header column؜‌⁯⁪⁯‍⁠‍‍‌⁬⁡⁠⁪⁪⁮⁪⁫⁭⁮⁪⁡⁮⁣⁤',
-  'fabric.editor.headerRow': '⁣⁢Header row⁬⁯⁬⁬⁭⁡‍⁯‌⁪⁡‌‍⁬⁫⁯⁫‍‌⁡‍؜⁬‌‍⁣⁤',
+  'fabric.editor.floatingToolbar.scrollLeft':
+    '⁣⁢Scroll left⁡⁠⁮⁯‍⁡⁮⁯⁪⁭⁪⁡⁡⁮⁡⁫⁮‍⁠؜⁠⁣⁤',
+  'fabric.editor.floatingToolbar.scrollRight':
+    '⁣⁢Scroll right⁮‍؜⁭⁫⁫⁠⁯⁮⁯؜‍⁭⁮‍⁪؜⁮‌‍⁫⁫⁪⁣⁤',
   'fabric.editor.heading1': '⁣⁢Heading 1‌⁯⁭⁭⁫؜⁡⁬⁮‌‌‌⁭‌⁪⁯⁪⁪⁮⁮‌⁣⁤',
   'fabric.editor.heading1Description':
     '⁣⁢Use this for a top level heading‌؜⁪⁭⁠⁡⁯⁮⁮⁯‍‍⁫‌⁮‍⁠‌‍⁫‌؜‌⁯⁣⁤',
@@ -240,14 +204,8 @@ export default {
     '⁣⁢Task⁯‍‍‌⁬؜؜‌؜⁡⁬⁠⁬⁭⁫‌⁪‌⁫⁬⁯⁪⁯⁫⁠⁪⁣⁤',
   'fabric.editor.headingLink.toolbarHelpTitle':
     '⁣⁢Open help dialog⁪⁭⁪‌⁯⁯⁬⁫⁡⁭⁭‌⁪⁠⁮‌⁪⁠⁣⁤',
-  'fabric.editor.help': '⁣⁢Help⁡⁡⁮⁯‍‍⁡⁡‍⁠‌⁭⁠⁯⁯⁮⁡⁬⁮⁫؜⁪⁣⁤',
-  'fabric.editor.help.description':
-    '⁣⁢Browse all the keyboard shortcuts and markdown options⁡‍⁡⁫⁫⁯⁯⁭⁬؜⁡⁮⁫⁠⁡‌‌⁭⁡⁠⁡⁡⁯⁣⁤',
   'fabric.editor.helpDialogTips':
     '⁣⁢Press {keyMap} to quickly open this dialog at any time⁭⁯؜⁡‍‍⁫؜‌⁡⁮⁬⁪؜⁯⁬‌⁮‍⁪⁬⁣⁤',
-  'fabric.editor.horizontalRule': '⁣⁢Divider‌⁭؜؜⁮⁠⁬⁭‍؜⁠‌⁮⁯⁬‌⁬⁫⁯⁮⁣⁤',
-  'fabric.editor.horizontalRule.description':
-    '⁣⁢Separate content with a horizontal line⁭⁫⁯⁪⁯⁡⁯⁯‌‌⁭⁮⁯⁡⁫‌⁪⁪⁪⁡⁯⁭⁪⁭‌⁡⁣⁤',
   'fabric.editor.hyperlink.linkAriaLabel':
     '⁣⁢Link label⁬⁯⁬⁠‌⁭⁫⁭‌‌⁮⁭‍⁬؜⁪⁯⁬‌⁯‍⁮⁪⁣⁤',
   'fabric.editor.hyperlink.searchLinkAriaDescription':
@@ -256,8 +214,8 @@ export default {
     '{count, plural, =0 {⁣⁢no results found⁪⁯⁮⁡⁠⁮⁮⁯⁪⁫؜؜⁭؜⁭؜⁣⁤} one {⁣⁢{count,number} result found؜⁠؜‌⁮‍⁮⁡⁪⁫‍⁡⁪؜⁬‌⁡⁬‌⁣⁤} other {⁣⁢{count,number} results found؜⁠؜‌⁮‍⁮⁡⁪⁫‍⁡⁪؜⁬‌⁡⁬‌⁣⁤}}',
   'fabric.editor.hyperlinkToolbarPlaceholder':
     '⁣⁢Paste or search for link‌⁪⁭⁪‌‍؜⁪⁬‌؜‍⁮⁫⁮⁭⁯⁡⁪⁯⁭⁠⁣⁤',
-  'fabric.editor.image': '⁣⁢Image‌⁫⁠⁭‌⁮⁫‌⁭⁪⁠⁮⁡⁠؜‌⁫⁠⁣⁤',
   'fabric.editor.improvement': '⁣⁢Improvement⁡⁡‍⁪⁭⁮⁪⁪‍‌⁪⁬⁠⁭⁫‍⁯⁫⁫⁮⁬⁡⁯⁪⁣⁤',
+  'fabric.editor.indent': '⁣⁢Indent‌⁬⁮⁬⁬⁭⁭⁯⁠⁫⁪⁫‌⁬⁠‍⁮⁡⁫⁭⁣⁤',
   'fabric.editor.info': '⁣⁢Info⁮⁪⁡⁡⁫‌⁡⁭⁠⁯؜⁪؜‌⁫⁭‍⁯⁠⁣⁤',
   'fabric.editor.infoPanel': '⁣⁢Info panel‌‌‍⁫‌⁠⁠⁬⁪⁬⁫⁭؜⁬⁭⁠⁠⁪⁠⁪⁭⁯⁮⁫⁣⁤',
   'fabric.editor.infoPanel.description':
@@ -265,10 +223,8 @@ export default {
   'fabric.editor.inlineDescription':
     '⁣⁢Display link as inline text⁭⁯⁠⁪؜⁡⁮⁭⁯⁮⁬‌⁮‍⁫⁮⁡⁬‌⁮⁠⁪⁣⁤',
   'fabric.editor.inlineTitle': '⁣⁢Inline‍⁯⁫⁪؜⁪⁡⁪⁪⁠‍‍⁮؜⁪‌⁡⁬⁯⁣⁤',
-  'fabric.editor.insertColumn':
-    '⁣⁢Insert column right⁬⁭⁫‌⁠‍⁪⁫⁠⁡‍⁫⁡‌؜⁬⁯‍‍⁠⁮⁫⁬⁬⁣⁤',
-  'fabric.editor.insertMenu': '⁣⁢Insert⁡‌؜؜‍⁫⁫⁡⁮⁯⁫‍⁫⁯؜⁠⁬‍‌⁬⁬⁯‌‌⁣⁤',
-  'fabric.editor.insertRow': '⁣⁢Insert row below⁬‌⁠؜؜⁮⁮؜⁬⁭؜‍⁬⁬⁯⁯⁡⁡⁭⁮⁪⁫⁠⁣⁤',
+  'fabric.editor.inputQueryAssistiveTxt':
+    '⁣⁢When autocomplete results are available use up and down arrows to review and enter to select. Touch device users, explore by touch or with swipe gestures.‌‍؜⁭⁪⁬‌⁯؜⁡⁮⁮⁮⁭⁮⁮‍⁪⁫⁣⁤',
   'fabric.editor.invalidDateError':
     '⁣⁢Enter a valid date⁬⁭‍⁭‌‌‌⁠⁠‌⁡؜⁬⁪⁬⁮⁫‌⁮⁮⁯⁪⁬‍⁯⁯⁣⁤',
   'fabric.editor.invalidLink':
@@ -278,13 +234,7 @@ export default {
   'fabric.editor.italic': '⁣⁢Italic⁮؜⁫‍⁡⁮؜⁡⁠‌؜⁬⁭⁯‍⁯⁬⁪؜⁪‌⁣⁤',
   'fabric.editor.keyboardShortcuts':
     '⁣⁢Keyboard shortcuts⁯‍⁠⁭⁯⁯⁯⁭‌⁪⁡⁭⁮؜⁠⁭⁡⁬⁮⁠⁯؜⁣⁤',
-  'fabric.editor.layoutFixedWidth':
-    '⁣⁢Back to center‌⁬⁬⁡⁫‌⁭⁡⁡‌؜⁭⁬⁮⁭⁬⁬⁯⁬⁮⁡⁠؜⁬⁣⁤',
-  'fabric.editor.layoutFullWidth': '⁣⁢Go full width⁫⁪⁬⁭⁪‌⁫⁡⁪⁭⁬⁬⁮‌⁭‍⁪⁯⁪⁠؜⁡⁫‌⁣⁤',
-  'fabric.editor.layoutWide': '⁣⁢Go wide⁡‌⁭⁬‍؜⁬‍⁫‌؜⁪⁯⁫‌⁭؜⁫⁮⁭⁣⁤',
   'fabric.editor.leftSidebar': '⁣⁢Left sidebar⁫⁫⁭⁡⁬⁬‍⁫‍⁪‍⁯⁮⁭⁬⁬⁫⁬⁪‍⁫⁣⁤',
-  'fabric.editor.link': '⁣⁢Link⁪⁫⁡⁭⁯⁯؜؜‌؜⁯⁯⁠⁡⁯⁫⁬⁪⁯⁯‍⁯⁠⁮⁣⁤',
-  'fabric.editor.link.description': '⁣⁢Insert a link⁫⁯⁮⁮⁠‍⁮⁪؜‌⁬⁪⁯⁬؜‌⁮‌‍؜⁣⁤',
   'fabric.editor.linkAddress': '⁣⁢Link address⁮؜⁠⁡⁡⁮‌‍؜⁠⁫⁮‍⁬؜⁬⁯⁯⁠⁪⁬‍⁪⁣⁤',
   'fabric.editor.linkPlaceholder': '⁣⁢Paste link⁮؜⁯⁠⁮⁫⁫⁠⁭⁭⁯⁭⁠‌⁯‍⁡⁪⁭⁮⁯⁠؜⁮⁮‍⁣⁤',
   'fabric.editor.lists': '⁣⁢Lists‍‍؜⁭؜⁯⁡⁪⁡⁪⁮⁭⁪⁮؜؜؜⁭⁠⁭⁫⁬⁪⁣⁤',
@@ -292,26 +242,23 @@ export default {
   'fabric.editor.matchCase': '⁣⁢Match case‌⁮‌⁮⁬⁪⁠⁡‍؜⁭‍⁫‍⁭⁫‌؜⁡⁭⁡⁠‍⁮⁣⁤',
   'fabric.editor.mediaAddLink': '⁣⁢Add link⁮‍⁠⁯⁬⁠⁬‌⁯‍‌⁪⁮⁮⁮⁡‌⁪⁫؜⁭‍⁣⁤',
   'fabric.editor.mediaGroupDeleteLabel': '⁣⁢delete⁮⁬‌⁫‌⁠⁫⁪⁡⁠⁬⁪‍⁮⁪⁠⁪⁬⁭⁣⁤',
-  'fabric.editor.mention': '⁣⁢Mention⁠؜⁭⁪؜‌⁬‍⁡⁬⁫⁯⁭؜⁡⁪⁠⁭⁭⁪⁯⁠؜⁡⁣⁤',
-  'fabric.editor.mention.description':
-    '⁣⁢Mention someone to send them a notification⁮⁠⁬‍‌؜⁭⁭؜؜⁫⁭⁡‌⁮⁬⁯⁯⁭‍⁯‌⁣⁤',
   'fabric.editor.mentionsAddLabel': '⁣⁢add-icon⁬‌⁭‌‌؜⁡⁪⁫‍‍⁡⁮⁡⁪⁪‍⁬‍⁫⁠⁫⁣⁤',
   'fabric.editor.mentionsIconLabel': '⁣⁢Mention⁮⁭⁠⁭⁠⁠⁡⁮‌⁮⁠⁮؜⁮‍؜؜⁡⁬⁠⁬⁯⁠⁮⁣⁤',
-  'fabric.editor.mergeCells': '⁣⁢Merge cells؜⁯‌⁫⁫⁫⁬⁪⁠⁫⁭⁡‍؜‌⁪⁬‍⁬⁮؜⁬‍؜؜⁣⁤',
   'fabric.editor.moreFormatting': '⁣⁢More formatting‍؜⁫⁪‌⁯‌⁪⁠‍⁫‍؜‍⁮⁪⁪⁯⁬⁭⁡⁣⁤',
   'fabric.editor.noResultsFound': '⁣⁢No results‍⁮؜⁯⁪⁮‌‌⁬⁯⁬⁮⁯‌⁭⁯؜⁡⁣⁤',
+  'fabric.editor.noSearchResults': '⁣⁢No search results؜⁬⁭؜‍‍‍⁯⁪⁬⁫⁭؜‍⁯⁡⁬⁮⁮⁮⁮⁣⁤',
   'fabric.editor.normal': '⁣⁢Normal text⁮⁠⁠⁬‍⁪⁠⁮⁠⁬‌⁮⁠‍⁬⁬⁯⁮⁫؜⁡⁯⁠⁫‌⁡⁠⁣⁤',
   'fabric.editor.note': '⁣⁢Note⁠⁮⁠⁭⁬؜⁮⁯⁡⁭⁯‌؜⁪‍⁯‌‍‍⁪‌⁯⁮⁡⁣⁤',
   'fabric.editor.notePanel': '⁣⁢Note panel؜‍⁡؜⁬⁠؜‍⁭⁠‍⁡⁡؜⁮‍⁯‍‌⁭⁪⁭⁡⁯⁣⁤',
   'fabric.editor.notePanel.description':
     '⁣⁢Add a note in a colored panel⁡⁯⁮⁬⁠⁯‍‌⁫⁬‌‌⁮⁡⁭⁫⁮⁠؜‌‍⁣⁤',
-  'fabric.editor.numberedColumn': '⁣⁢Numbered column⁭⁯؜⁭‌؜⁫؜⁬؜⁫⁪⁪؜‍⁫‌⁠⁬⁭⁬⁣⁤',
   'fabric.editor.off': '⁣⁢{formattingType} Off⁭⁯⁮⁯⁯⁬⁬⁯⁭؜⁭⁯⁬⁠⁫⁯⁠⁮⁭⁭⁣⁤',
   'fabric.editor.on': '⁣⁢{formattingType} On⁠⁬⁯⁮⁯‍⁯⁡⁬⁭⁭⁪⁪⁭‍⁫⁮⁡⁬⁠⁣⁤',
   'fabric.editor.orderedList': '⁣⁢Numbered list⁪؜⁯⁡⁯⁭‌⁯⁮⁫‍⁭؜⁭⁮⁡‌⁡⁯⁫‍⁬⁣⁤',
   'fabric.editor.orderedList.description':
     '⁣⁢Create an ordered list⁠؜⁮⁡⁯‌؜‌‍⁯‍⁡⁡‌⁬‌؜⁫⁭؜‌⁠‍⁡⁣⁤',
   'fabric.editor.other': '⁣⁢Others...؜؜⁡⁯؜⁮⁭⁮⁠⁡⁯⁪⁠⁮؜‍⁬‍⁮⁠⁪⁣⁤',
+  'fabric.editor.outdent': '⁣⁢Outdent‍‍؜⁮⁯⁪⁭⁮⁮؜⁭‌‌‍⁬⁪⁭⁪‍⁡⁣⁤',
   'fabric.editor.pageActionsLabel': '⁣⁢Page actions⁠⁯⁭⁮⁡‍⁠⁪⁪‍؜⁮⁠⁫⁭⁪⁭⁮⁭⁬⁠⁬؜⁣⁤',
   'fabric.editor.panel.backgroundColor':
     '⁣⁢Background color⁡⁪⁫⁡⁭⁬‌⁯‍⁪‌⁡؜‌⁯⁯‍⁡⁭‌⁡⁡⁣⁤',
@@ -319,36 +266,23 @@ export default {
   'fabric.editor.pastePlainText': '⁣⁢Paste plain text⁭⁬⁭‍‍؜⁯⁮⁬⁪⁫⁠⁡؜⁬⁯؜⁭⁡؜⁣⁤',
   'fabric.editor.placeholderAltText':
     '⁣⁢Describe this image with alt text⁬⁬‍⁫⁭‍⁮‌‍⁮⁫؜⁠‍‌⁭‍⁯⁯⁪⁡؜⁡⁣⁤',
-  'fabric.editor.placeholderText':
-    '⁣⁢Placeholder text⁭⁮⁭⁫⁪‍⁠⁯⁯⁠⁮⁠⁪⁡⁡‍⁬⁬⁯⁠⁪‌⁮⁪‍‍⁫⁣⁤',
-  'fabric.editor.placeholderText.description':
-    '⁣⁢Insert a text placeholder into the page؜⁬‌⁠؜⁪‌⁬⁯⁫⁫‌⁬⁫⁪؜⁡⁫⁭⁪⁡⁣⁤',
   'fabric.editor.placeholderTextPlaceholder':
     '⁣⁢Add placeholder text⁫⁮‍‌⁠⁡‍⁮⁮⁬⁡؜⁠⁪⁪‍⁠؜‍⁣⁤',
   'fabric.editor.quickInsert': '⁣⁢Quick insert⁠⁯⁭⁠⁬⁫⁫⁫⁫⁮⁫⁠⁭⁭⁬‌⁮⁭؜⁬⁭⁮⁠⁬⁣⁤',
   'fabric.editor.redo': '⁣⁢Redo⁠؜⁭⁡؜⁪⁪؜⁪⁮⁪⁡⁮⁬‌⁭⁬⁪‍‍⁯⁡⁣⁤',
-  'fabric.editor.remove': '⁣⁢Remove⁪⁯⁠‌⁪⁠⁡⁠⁪‌⁫⁭⁠‌؜⁮⁫⁡⁬‍‌⁡⁡⁯⁣⁤',
-  'fabric.editor.removeColumns':
-    '{0, plural, one {⁣⁢Delete column⁪‌‍⁯؜⁮⁠⁭؜؜⁪⁭⁬؜‌⁮⁠⁪⁮⁪⁫⁣⁤} other {⁣⁢Delete columns⁪‌‍⁯؜⁮⁠⁭؜؜⁪⁭⁬؜‌⁮⁠⁪⁮⁪⁫⁣⁤}}',
-  'fabric.editor.removeEmoji': '⁣⁢Remove emoji⁭⁫؜‌⁭⁯‍⁭⁯⁮‌‌‍⁭⁬⁡⁫⁭⁯⁮⁣⁤',
-  'fabric.editor.removeRows':
-    '{0, plural, one {⁣⁢Delete row⁬⁭‌⁯⁭⁫⁪⁫⁫⁯؜⁫‌⁭⁯⁫⁠⁭⁠⁬⁪⁡⁡⁣⁤} other {⁣⁢Delete rows⁬⁭‌⁯⁭⁫⁪⁫⁫⁯؜⁫‌⁭⁯⁫⁠⁭⁠⁬⁪⁡⁡⁣⁤}}',
   'fabric.editor.replace': '⁣⁢Replace⁯⁯⁯‌⁠⁭؜⁯⁮⁮⁠⁠⁪⁠⁭⁭‌⁠⁡⁭⁯⁠⁯⁣⁤',
   'fabric.editor.replaceAll': '⁣⁢Replace all‌⁭⁮⁬⁮⁡⁭⁬⁯⁮؜⁮⁬⁬⁪‍⁠⁮⁫⁮⁣⁤',
   'fabric.editor.replaceWith': '⁣⁢Replace with‍‍⁫⁭⁪⁡⁫⁬؜⁯⁮⁭⁡⁠⁡⁫⁯⁮⁯؜؜⁠⁠⁣⁤',
   'fabric.editor.resultsCount':
     '⁣⁢{selectedMatchPosition} of {totalResultsCount}⁠⁠⁬⁠⁪⁯⁬⁫⁬⁪⁮⁭⁫⁮⁪⁠⁯⁯⁣⁤',
   'fabric.editor.rightSidebar': '⁣⁢Right sidebar⁠⁮‍⁠؜⁫⁪⁯⁬‍⁠⁮‍؜⁡⁭⁭⁡‌⁭⁭‍⁡‍⁬⁪⁣⁤',
-  'fabric.editor.saveButton': '⁣⁢Save⁪⁠⁭‍⁡⁪⁭؜‌⁪⁬⁠⁡؜‍⁯⁬⁮⁫⁯⁡⁭؜⁡⁣⁤',
+  'fabric.editor.searchResults':
+    '{itemsLength, plural, one {⁣⁢{itemsLength,number} search result available⁭⁡‍‍⁪⁠⁮⁯‍⁭؜⁠⁬⁪⁮⁬⁪⁬⁯⁯؜‌⁡⁮⁣⁤} other {⁣⁢{itemsLength,number} search results available⁭⁡‍‍⁪⁠⁮⁯‍⁭؜⁠⁬⁪⁮⁬⁪⁬⁯⁯؜‌⁡⁮⁣⁤}}',
   'fabric.editor.selectLanguage':
     '⁣⁢Select language⁬⁬⁪⁬‍⁠⁮⁭⁫‌⁫؜⁬‌⁭⁫⁮⁯⁯⁭⁫⁮⁡‍⁯⁫‌⁣⁤',
+  'fabric.editor.settingsLinks':
+    '⁣⁢Go to Link Preferences؜⁭؜‌⁡⁭‍؜⁠⁪⁬⁡⁯⁪⁯⁭⁪⁠⁠⁯‌⁪⁠⁪⁣⁤',
   'fabric.editor.single': '⁣⁢Single column⁯⁡⁯‍⁮⁠⁯⁯‌⁪⁭؜⁡⁪⁪⁫‍‌⁪⁯‍⁬⁣⁤',
-  'fabric.editor.sortColumnASC': '⁣⁢Sort column A → Z‍⁬؜⁠⁭؜‌⁡‌⁡‍⁠⁮⁬⁬⁫⁪‌⁬⁮؜⁭⁣⁤',
-  'fabric.editor.sortColumnDESC': '⁣⁢Sort column Z → A⁡⁫⁡؜⁡⁯⁬‍⁯‍⁬‌⁮‍‌⁮‍⁭⁡⁠⁫⁬⁣⁤',
-  'fabric.editor.splitCell': '⁣⁢Split cell‌؜؜⁡⁫؜⁯⁯⁠⁠⁮‍‌⁫‍⁫⁪⁭‌⁡⁬⁪‍⁬⁣⁤',
-  'fabric.editor.status': '⁣⁢Status⁪⁪⁪‍⁮⁯⁠⁭⁯⁯⁭⁡⁭⁫⁪‍⁮⁠‌⁣⁤',
-  'fabric.editor.status.description':
-    '⁣⁢Add a custom status label⁪⁭⁯؜؜⁭‌⁭‌؜⁯⁪⁡⁬⁫‍؜⁭⁬⁮⁣⁤',
   'fabric.editor.statusPlaceholder': '⁣⁢Set a status⁠⁮⁫؜⁭⁫⁠⁪⁪⁮⁭⁠⁫⁡⁮⁫⁡‍⁬⁣⁤',
   'fabric.editor.story': '⁣⁢Story‌⁡⁭⁡⁫⁯⁮؜؜⁫⁮⁡⁪⁫⁡⁪⁠⁫⁬⁪⁡⁠⁪⁣⁤',
   'fabric.editor.strike': '⁣⁢Strikethrough‍‍؜؜⁯⁬‍؜‍⁡⁮⁪⁬⁯⁠‍⁠⁮⁫⁭‌⁭⁣⁤',
@@ -365,13 +299,6 @@ export default {
     '⁣⁢Superscript Off, Subscript On‌⁮‍⁫⁯⁯؜⁠⁡⁯‌⁮⁮⁫‍⁮⁮؜⁠⁪⁣⁤',
   'fabric.editor.supportAltText':
     '⁣⁢Alt text is useful for people using screen readers because of visual limitations.⁮⁬‍⁬⁠‍⁫⁯⁠⁮‌⁪⁡؜؜⁠⁠⁡⁫⁡⁮⁠⁬⁯⁬⁠⁯⁪⁣⁤',
-  'fabric.editor.table': '⁣⁢Table⁫⁮‌⁮⁮⁭⁯⁠⁮⁪⁯⁮⁠‍⁪⁮‌⁮⁪⁣⁤',
-  'fabric.editor.table.description': '⁣⁢Insert a table؜⁪⁬⁫‌⁠⁡‌⁬⁭⁬⁬؜؜⁪⁯⁬‌⁡⁡‍⁮⁣⁤',
-  'fabric.editor.tableOptions': '⁣⁢Table options‍؜⁫⁮⁯⁡‌⁫؜‍⁯⁫⁭؜⁠⁪؜⁭؜؜⁣⁤',
-  'fabric.editor.tables.confirmDeleteLinkedModalMessage':
-    '⁣⁢Removing this table will break all the charts connected to it.⁭⁭⁡‌⁮‌⁠⁫⁪‍⁬⁮⁪⁫⁪⁡⁫⁠‍⁫⁠؜‌⁮؜⁡‌⁪؜⁣⁤',
-  'fabric.editor.tables.confirmDeleteLinkedModalOKButton':
-    '⁣⁢Remove table and data‍‍⁠⁬⁡⁠؜⁡‍؜⁬⁫⁠‌⁭⁡⁬⁮⁯⁪⁡⁮⁣⁤',
   'fabric.editor.task': '⁣⁢Task⁪⁡‍؜‌⁭⁪‍⁫⁫؜؜⁠‍⁮⁬⁮⁯⁠⁠⁮⁬‍⁬⁭⁣⁤',
   'fabric.editor.taskPlaceholder':
     "⁣⁢Type your action, use '@' to assign to someone.‌⁫⁭⁠⁭⁠⁠⁠⁠⁯⁭⁮‍⁬‍⁬⁭⁡⁪⁡‌⁬⁣⁤",
@@ -382,22 +309,9 @@ export default {
   'fabric.editor.threeColumns': '⁣⁢Three columns⁪⁪⁪⁫؜⁯‍‌‍⁫⁪⁪‌‌⁭⁭⁮⁭‌‌⁠⁬؜⁣⁤',
   'fabric.editor.threeColumnsWithSidebars':
     '⁣⁢Three columns with sidebars؜⁯⁫⁪‌⁬⁠⁠⁪‍⁯⁬⁫⁡⁬؜⁪⁫‍⁭؜؜⁪⁪⁪⁣⁤',
-  'fabric.editor.time.ago': '⁣⁢ago⁮⁠؜⁮‌⁡‌⁪⁪؜⁯؜؜⁯؜؜⁪⁯⁭⁭⁣⁤',
-  'fabric.editor.time.updated': '⁣⁢Updated⁠‍⁬؜⁭⁪⁠⁯⁡؜⁠⁭⁪⁬⁮⁡⁪‍‌⁮⁭⁣⁤',
-  'fabric.editor.time.viewed': '⁣⁢Viewed⁫⁬⁬⁪⁮⁪⁬⁭؜؜⁬⁫؜‍؜‍‌⁬⁯‌⁣⁤',
   'fabric.editor.toolbarLabel': '⁣⁢Editor toolbar‌‍⁬⁫⁬⁬⁯⁭؜⁮⁯‍؜⁠‌⁫⁭⁪⁪⁠⁬‍‍⁣⁤',
   'fabric.editor.toolbarMediaTitle':
     '⁣⁢Files & images⁬⁪⁪⁫⁯⁪؜⁯⁯⁡⁡⁫⁯‌⁡‌⁡⁯⁡⁫‍⁡⁯⁭⁫⁠⁡⁣⁤',
-  'fabric.editor.tooltip.blockPanel': '⁣⁢a panel‍‍؜⁯⁮⁬‍⁪⁭⁬⁭⁯⁯⁪⁫⁡؜⁫‍⁡⁮⁣⁤',
-  'fabric.editor.tooltip.bulletList': '⁣⁢a list⁬⁡⁯؜⁫⁯⁯⁮⁪⁬⁮‌⁭⁭⁪؜‌⁮⁪⁫⁮⁯⁬⁠⁣⁤',
-  'fabric.editor.tooltip.decisionList':
-    '⁣⁢a decision list⁠⁫‌⁬⁠⁫‍⁭؜⁬⁫⁪⁪‌⁯‍⁠⁠⁮‌⁭⁭⁬⁣⁤',
-  'fabric.editor.tooltip.defaultBlockNode':
-    '⁣⁢a block node⁫⁭‍؜⁠⁭⁠⁬⁬‌⁮⁭‌⁬⁫⁡⁯⁡‍⁣⁤',
-  'fabric.editor.tooltip.nestedExpand':
-    '⁣⁢a nested expand⁪⁬⁡؜⁮‍⁭؜‍‍⁫⁯؜‍⁭⁬‌⁡⁬‍⁭⁡⁯⁣⁤',
-  'fabric.editor.tooltip.taskList':
-    '⁣⁢an action item⁪⁬⁫؜⁪⁯⁯‍؜⁬⁯‍⁫⁫⁬⁮‌⁮⁯⁭‌⁠⁫⁬⁯⁣⁤',
   'fabric.editor.twoColumns': '⁣⁢Two columns⁮⁡⁪⁪‌‍⁬⁫⁯؜⁪⁫‌⁫‍؜⁭‍‍‍⁡⁫⁣⁤',
   'fabric.editor.typeAheadResultLabel':
     '⁣⁢TypeAhead results⁬⁪⁪⁡‌⁫‌⁫⁫⁭⁭⁭⁯⁠⁫؜⁪⁪⁠⁫‍⁠⁣⁤',
@@ -413,34 +327,10 @@ export default {
   'fabric.editor.urlDescription':
     '⁣⁢Display link as URL⁬⁫‍‍⁭⁫⁯‍⁯⁬‍‍⁭⁫‌؜⁡⁪⁫⁪⁬⁡⁣⁤',
   'fabric.editor.urlTitle': '⁣⁢URL⁮⁬⁯؜⁡‍‍‌⁬⁬؜‍⁫‍⁭⁪⁡؜⁪⁮⁣⁤',
-  'fabric.editor.viewMore': '⁣⁢View more⁭⁠‍⁡⁬⁭‍⁯⁡⁠‍⁡⁬‌⁫⁮⁭⁡⁮⁫⁭‌⁣⁤',
-  'fabric.editor.visit': '⁣⁢Open link in a new window⁪⁯⁬‍⁮‍⁭⁭⁪⁡⁮؜⁭؜⁪⁡؜؜⁬⁯‌⁮‌⁣⁤',
   'fabric.editor.warning': '⁣⁢Warning⁯؜⁬⁪⁯⁬⁯⁡⁠؜⁯‌⁭⁫⁯⁯‍‌⁠⁯⁡⁫⁭‌⁣⁤',
   'fabric.editor.warningPanel': '⁣⁢Warning panel⁡‍‌⁬⁬⁭⁬⁬؜⁫⁭⁠⁪‌⁡⁫⁮؜⁠؜⁡⁡⁠⁯؜⁣⁤',
   'fabric.editor.warningPanel.description':
     '⁣⁢Add a note of caution in a colored panel⁭‌⁮⁯⁮⁠⁡‍⁠⁫⁫؜⁯⁬⁮‍⁮⁯⁡⁯⁡⁡⁣⁤',
   'fabric.editor.wrapLeft': '⁣⁢Wrap left؜⁫‍⁭⁭⁡⁭⁪‌⁡⁠‌⁪⁯‌⁪⁪‌⁯⁡⁬⁮⁫⁫⁣⁤',
   'fabric.editor.wrapRight': '⁣⁢Wrap right⁪‍؜⁯⁮⁯؜⁡؜⁮⁭⁪⁣⁤',
-  'fabric.theme.blue': '⁣⁢Blue⁮‌⁯⁬⁡‌⁫⁭⁭⁯⁯⁯‌‌⁬⁫⁪⁫‌⁭⁠⁮⁮⁣⁤',
-  'fabric.theme.dark-blue': '⁣⁢Dark blue⁠⁫⁯‍‌‍⁫⁮⁡⁬⁭⁯⁪⁮⁠⁠⁠⁣⁤',
-  'fabric.theme.dark-green': '⁣⁢Dark green‌⁠‍⁡⁬⁫⁠‍‍‌‌‌⁠⁠⁯؜⁯‌⁣⁤',
-  'fabric.theme.dark-purple': '⁣⁢Dark purple؜⁪‍⁪⁭⁬‍‌؜‍⁠⁮⁮⁡؜⁮‌⁠⁭‍⁫⁠‌⁭‌⁣⁤',
-  'fabric.theme.dark-red': '⁣⁢Dark red⁪⁯‌‍⁫⁠⁫⁭⁠⁪⁮⁠‌‌⁯⁮⁯⁬⁮⁯⁭⁪⁡⁣⁤',
-  'fabric.theme.dark-teal': '⁣⁢Dark teal⁪⁪‍⁠⁯⁬‍⁭⁮؜⁯⁠⁬⁬⁪‌⁯⁬⁪⁪⁯⁪⁬⁪؜⁣⁤',
-  'fabric.theme.dark-yellow': '⁣⁢Dark yellow⁠⁮‌⁭؜⁪⁮⁡⁯⁪⁠⁬⁯⁪⁬؜‌⁪⁪‌⁠⁠⁣⁤',
-  'fabric.theme.gray': '⁣⁢Gray⁠⁬⁭⁪‌‍⁭⁡⁭⁪⁮⁠⁡⁬⁭‍‍⁪⁮⁪⁮⁯⁣⁤',
-  'fabric.theme.green': '⁣⁢Green⁯؜⁪⁪؜⁭⁭⁫⁡⁬⁫⁯‍⁠⁫⁯‍⁠⁮⁣⁤',
-  'fabric.theme.light-blue': '⁣⁢Light blue⁬⁪⁯⁯⁮⁬⁡⁭‍؜⁭؜⁫⁭⁡‍⁠⁡⁫‍؜⁮⁣⁤',
-  'fabric.theme.light-gray': '⁣⁢Light gray⁫⁮⁫⁡‌⁯‍⁬⁬⁫⁪؜⁠⁮⁬⁪؜⁬⁡⁯‌⁠⁮⁫⁭⁯‍⁣⁤',
-  'fabric.theme.light-green': '⁣⁢Light green⁯⁪؜؜⁫⁭⁭‌‍‌⁬⁠⁯⁠‍⁯⁡⁠⁮⁭⁯⁬⁫⁣⁤',
-  'fabric.theme.light-purple': '⁣⁢Light purple‌⁭⁮⁫‌‌⁡⁡⁮‍⁭؜‌‌‌⁡⁫⁫‌‍‌⁣⁤',
-  'fabric.theme.light-red': '⁣⁢Light red‌⁮⁬‌⁡⁪⁯⁮⁭⁫⁭⁬⁠⁡⁠⁭⁡⁪⁭؜؜⁬⁣⁤',
-  'fabric.theme.light-teal': '⁣⁢Light teal⁯⁬‌⁪‌؜⁫⁫⁭⁭⁠⁮⁯⁭⁭⁡⁡‌⁠⁣⁤',
-  'fabric.theme.light-yellow': '⁣⁢Light yellow؜⁭‍‌⁭⁡‌⁬⁪⁭⁭⁫⁡⁯⁡⁮؜⁭⁡⁫⁡‌⁪؜⁡‍⁣⁤',
-  'fabric.theme.orange': '⁣⁢Orange؜⁡⁯‍؜⁭‍⁪⁬‌⁪⁯⁬؜⁪⁭⁣⁤',
-  'fabric.theme.purple': '⁣⁢Purple⁫؜⁮؜⁪⁡⁠⁬⁬‌⁬‍⁠⁠‌⁬⁯⁭‌‌⁡⁭⁣⁤',
-  'fabric.theme.red': '⁣⁢Red⁠‍⁭‍‍‌‍⁬⁯‌‍؜⁭⁪⁮⁯‍⁪⁫⁠⁬‌؜‌⁭⁭⁣⁤',
-  'fabric.theme.teal': '⁣⁢Teal‍؜⁭⁫⁬‌⁪⁡؜⁫⁡‌⁯⁡⁬⁠⁮⁯⁠⁣⁤',
-  'fabric.theme.white': '⁣⁢White⁭⁪⁪⁫⁠؜‍⁠⁫‌⁠⁫⁮⁫⁬⁡‌⁮⁫⁡‍⁮⁣⁤',
-  'fabric.theme.yellow': '⁣⁢Yellow‌⁮⁮⁯؜⁭⁪⁠‌؜⁮⁫⁮؜⁪⁫⁪⁣⁤',
 };

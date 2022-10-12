@@ -65,7 +65,6 @@ export const isLastItemMediaGroup = (node: Node): boolean => {
   return !!content.lastChild && content.lastChild.type.name === 'mediaGroup';
 };
 
-// TODO: pulled from `packages/editor/editor-core/src/utils/selection.ts`
 export const setNodeSelection = (view: EditorView, pos: number) => {
   const { state, dispatch } = view;
 
@@ -76,6 +75,18 @@ export const setNodeSelection = (view: EditorView, pos: number) => {
   const tr = state.tr.setSelection(NodeSelection.create(state.doc, pos));
   dispatch(tr);
 };
+
+export function setTextSelection(
+  view: EditorView,
+  anchor: number,
+  head?: number,
+) {
+  const { state, dispatch } = view;
+  const tr = state.tr.setSelection(
+    TextSelection.create(state.doc, anchor, head),
+  );
+  dispatch(tr);
+}
 
 export function nonNullable<T>(value: T): value is NonNullable<T> {
   return value !== null && value !== undefined;

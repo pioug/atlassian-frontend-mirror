@@ -6,16 +6,16 @@
  */
 //Russian
 export default {
-  'fabric.editor.codeBlockCopyButton.copiedToClipboard': 'Скопировано!',
-  'fabric.editor.codeBlockCopyButton.copyToClipboard': 'Скопировать',
   'fabric.editor.headingLink.ascOrderLabel': 'Сортировать столбцы (Я–А)',
   'fabric.editor.headingLink.ascSortingLabel': 'по возрастанию',
   'fabric.editor.headingLink.copied': 'Скопировано!',
   'fabric.editor.headingLink.copyAnchorLink': 'Копировать ссылку в заголовок',
   'fabric.editor.headingLink.copyAriaLabel': 'Скопировать',
-  'fabric.editor.headingLink.descOrderLabel':
-    '⚠️ Невозможно отсортировать таблицу с объединенной ячейкой',
+  'fabric.editor.headingLink.descOrderLabel': 'Очистить сортировку',
+  'fabric.editor.headingLink.descSortingLabel': 'по убыванию',
   'fabric.editor.headingLink.failedToCopy': 'Ошибка копирования',
+  'fabric.editor.headingLink.invalidLabel':
+    '⚠️ Невозможно отсортировать таблицу с объединением ячеек',
   'fabric.editor.headingLink.noOrderLabel': 'Сортировать столбцы (А–Я)',
-  'fabric.editor.headingLink.noneSortingLabel': 'по убыванию',
+  'fabric.editor.headingLink.noneSortingLabel': 'Нет',
 };

@@ -155,8 +155,12 @@ export const handleClick = (view: EditorView, event: Event): boolean => {
       },
     },
   } = view;
-  const editorElement = table.node.nodeAt(map.map[cellIndex]) as PmNode;
+  const cellPos = map.map[cellIndex];
+  if (isNaN(cellPos) || cellPos === undefined || typeof cellPos !== 'number') {
+    return false;
+  }
 
+  const editorElement = table.node.nodeAt(cellPos) as PmNode;
   /** Only if the last item is media group, insert a paragraph */
   if (isLastItemMediaGroup(editorElement)) {
     const posInTable = map.map[cellIndex] + editorElement.nodeSize;

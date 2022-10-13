@@ -62,7 +62,7 @@ export const getCellsRefsInColumn = (
   return cells;
 };
 
-// calculates column withs based on `cells` DOM refs
+// calculates column widths based on `cells` DOM refs
 export const calculateColumnWidth = (
   cells: HTMLElement[],
   calculateColumnWidthCb: (

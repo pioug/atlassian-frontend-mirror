@@ -8,8 +8,8 @@ export const growColumn = (
   amount: number,
   selectedColumns?: number[],
 ): ResizeState => {
-  // can't grow the last column
-  if (!state.cols[colIndex + 1]) {
+  // can't grow if columns don't exist or it's the last column
+  if (!state.cols[colIndex] || !state.cols[colIndex + 1]) {
     return state;
   }
   const res = moveSpaceFrom(state, colIndex + 1, colIndex, amount);
@@ -32,6 +32,10 @@ export const shrinkColumn = (
   amount: number,
   selectedColumns?: number[],
 ): ResizeState => {
+  // can't shrink if columns don't exist
+  if (!state.cols[colIndex] || !state.cols[colIndex + 1]) {
+    return state;
+  }
   // try to shrink dragging column by giving from the column to the right first
   const res = moveSpaceFrom(state, colIndex, colIndex + 1, -amount);
   let newState = res.state;

@@ -11,6 +11,9 @@ import {
 } from '@atlaskit/adf-schema';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
+const DEFAULT_COL_SPAN = 1;
+const DEFAULT_ROW_SPAN = 1;
+
 export default class TableCellNodeView implements NodeView {
   node: Node;
   dom: HTMLElement;
@@ -62,11 +65,9 @@ export default class TableCellNodeView implements NodeView {
 
     // need to rerender when colspan/rowspan in dom are different from the node attrs
     // this can happen when undoing merge cells
-    const defaultColspan = 1,
-      defaultRowspan = 1;
     if (
-      colspan !== (node.attrs.colspan || defaultColspan) ||
-      rowspan !== (node.attrs.rowspan || defaultRowspan)
+      colspan !== (node.attrs.colspan || DEFAULT_COL_SPAN) ||
+      rowspan !== (node.attrs.rowspan || DEFAULT_ROW_SPAN)
     ) {
       return false;
     }

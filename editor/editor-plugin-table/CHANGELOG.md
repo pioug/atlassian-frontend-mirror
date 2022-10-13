@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-table
 
+## 0.0.7
+
+### Patch Changes
+
+- [`3b93848ef7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b93848ef7e) - This changes addresses a bug that occurs when a user is resizing tables and receives a TypeError (found on Sentry). This change adds a null check on columns existing in the growColumn and shrinkColumn functions so that we do not try to access a column that doesn't exist.
+- [`a1b80e72418`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b80e72418) - This change addresses a RangeError on `getRelativeDomCellWidths` found on Sentry. It sets the check for `colspan` to be strict equals to one as the value comes from the first table row's colspan DOM attribute and cannot be negative.
+
+  Reference: https://sentry.io/organizations/atlassian-2y/issues/3434914334/?project=5988900
+
+- [`b63aa34e1fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b63aa34e1fe) - This change addresses a bug that occurs when a user is clicking into an element inside the table and receives a RangeError (found on Sentry). This change adds bounds, NaN, and type checks when reading a cellIndex from tableMap so that we don't pass NaN or undefined to the call to nodeAt.
+
 ## 0.0.6
 
 ### Patch Changes

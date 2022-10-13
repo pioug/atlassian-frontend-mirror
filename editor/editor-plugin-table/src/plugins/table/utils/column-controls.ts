@@ -144,7 +144,7 @@ const getRelativeDomCellWidths = ({
   // for cells in a table with unchanged column widths,
   // these are identified by the lack of colwidth data attribute,
   // return equally partitioned total cell width in DOM for each cell.
-  if (colspan <= 1 || !colwidth) {
+  if (colspan === 1 || !colwidth) {
     return new Array(colspan).fill(width / colspan);
   }
 

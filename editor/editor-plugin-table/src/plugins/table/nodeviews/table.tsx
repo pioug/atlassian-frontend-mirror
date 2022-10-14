@@ -72,6 +72,10 @@ export default class TableView extends ReactNodeView<Props> {
       props.portalProviderAPI,
       props.eventDispatcher,
       props,
+      undefined,
+      undefined,
+      undefined,
+      props.hasIntlContext,
     );
     this.getPos = props.getPos;
     this.tableRenderOptimization = props.tableRenderOptimization;
@@ -233,6 +237,8 @@ export const createTableView = (
   const { pluginConfig } = getPluginState(view.state);
   const { allowColumnResizing } = getPluginConfig(pluginConfig);
   const { tableRenderOptimization } = getEditorFeatureFlags();
+  const hasIntlContext = true;
+
   return new TableView({
     node,
     view,
@@ -244,5 +250,6 @@ export const createTableView = (
     tableRenderOptimization,
     getEditorContainerWidth,
     getEditorFeatureFlags,
+    hasIntlContext,
   }).init();
 };

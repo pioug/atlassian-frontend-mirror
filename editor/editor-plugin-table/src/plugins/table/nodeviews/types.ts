@@ -26,4 +26,5 @@ export interface Props {
   tableRenderOptimization?: boolean;
   getEditorContainerWidth: GetEditorContainerWidth;
   getEditorFeatureFlags: GetEditorFeatureFlags;
+  hasIntlContext: boolean;
 }

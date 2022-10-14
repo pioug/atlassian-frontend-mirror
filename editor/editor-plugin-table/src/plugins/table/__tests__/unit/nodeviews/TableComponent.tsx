@@ -259,7 +259,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       return { wrapper, view };
     }
 
-    describe('with optimisation on', () => {
+    describe('with optimization on', () => {
       let wrapper: ReactWrapper;
       beforeEach(() => {
         wrapper = setupTable(true).wrapper;
@@ -306,7 +306,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       });
     });
 
-    describe('with optimisation off', () => {
+    describe('with optimization off', () => {
       let wrapper: ReactWrapper;
       beforeEach(() => {
         wrapper = setupTable(false).wrapper;

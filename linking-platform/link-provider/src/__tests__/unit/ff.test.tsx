@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import SmartCardProvider from '../../provider';
 import { useFeatureFlag } from '../../ff';
 
@@ -11,39 +11,40 @@ describe('useFeatureFlag()', () => {
   };
 
   it('should return undefined if provider.featureFlags are not provided', () => {
-    const component = mount(
+    const { getByText } = render(
       <SmartCardProvider>
         <Component />
       </SmartCardProvider>,
     );
-    expect(component.text()).toEqual('undefined');
+
+    expect(getByText('undefined')).toBeInTheDocument();
   });
 
   it('should return undefined if showHoverPreview is not provided', () => {
-    const component = mount(
+    const { getByText } = render(
       <SmartCardProvider featureFlags={{}}>
         <Component />
       </SmartCardProvider>,
     );
-    expect(component.text()).toEqual('undefined');
+    expect(getByText('undefined')).toBeInTheDocument();
   });
 
   it('should return ff when value is true', () => {
-    const component = mount(
+    const { getByText } = render(
       <SmartCardProvider featureFlags={{ showHoverPreview: true }}>
         <Component />
       </SmartCardProvider>,
     );
-    expect(component.text()).toEqual('true');
+    expect(getByText('true')).toBeInTheDocument();
   });
 
   it('should return ff when value is false', () => {
-    const component = mount(
+    const { getByText } = render(
       <SmartCardProvider featureFlags={{ showHoverPreview: false }}>
         <Component />
       </SmartCardProvider>,
     );
-    expect(component.text()).toEqual('false');
+    expect(getByText('false')).toBeInTheDocument();
   });
 
   it('should be able to access not defined ff', () => {
@@ -53,7 +54,7 @@ describe('useFeatureFlag()', () => {
       return <div>{`${showHoverPreview}`}</div>;
     };
 
-    const component = mount(
+    const { getByText } = render(
       <SmartCardProvider
         featureFlags={{
           newFeatureNotYetAdopted: true,
@@ -63,6 +64,6 @@ describe('useFeatureFlag()', () => {
         <Component />
       </SmartCardProvider>,
     );
-    expect(component.text()).toEqual('false');
+    expect(getByText('false')).toBeInTheDocument();
   });
 });

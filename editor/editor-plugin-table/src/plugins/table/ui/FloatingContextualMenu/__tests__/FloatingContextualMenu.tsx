@@ -34,7 +34,7 @@ it.skip('TODO: restore unit', () => {});
 //       }));
 //     });
 
-//     test('should render floating contextual menu when no tableCellPosition is passed but exist on editor state ', () => {
+//     it('should render floating contextual menu when no tableCellPosition is passed but exist on editor state ', () => {
 //       const wrapper = shallow(
 //         <FloatingContextualMenu
 //           editorView={editorView}

@@ -11,9 +11,9 @@ import { RowStickyState } from '../../pm-plugins/sticky-headers';
 
 import { isSelectionUpdated } from '../../utils';
 
-import CornerControls from './CornerControls';
+import { CornerControls } from './CornerControls';
 import NumberColumn from './NumberColumn';
-import RowControls from './RowControls';
+import { RowControls } from './RowControls';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 export interface Props {

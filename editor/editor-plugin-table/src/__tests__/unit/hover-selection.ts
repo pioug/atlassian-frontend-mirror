@@ -87,7 +87,7 @@ describe('table hover selection plugin', () => {
         selectColumns([column])(editorView.state, editorView.dispatch);
       });
 
-      test('should add decoration', () => {
+      it('should add decoration', () => {
         const cells = getCellsInColumn(column)(editorView.state.selection)!;
 
         const decor = getTableDecorations(

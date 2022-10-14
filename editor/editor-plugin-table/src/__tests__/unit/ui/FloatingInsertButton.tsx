@@ -94,8 +94,8 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
     jest.restoreAllMocks();
   });
 
-  test('sends error analytics event after attempting to render for second column', () => {
-    // We need to set the props here, as by default insertColumnButtonIndex in undefined (in
+  it('sends error analytics event after attempting to render for second column', () => {
+    // We need to set the props here, as by default insertColumnButtonIndex is undefined (in
     // mountWithIntl()) and rendering halts when it's undefined
     wrapper.setProps({
       insertColumnButtonIndex: 1,
@@ -115,11 +115,11 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
     });
   });
 
-  test('should not render insert button with index', () => {
+  it('should not render insert button by default', () => {
     expect(wrapper.find(InsertButton).length).toBe(0);
   });
 
-  test("shouldn't render insert button for second column", () => {
+  it("shouldn't render insert button for second column", () => {
     wrapper.setProps({
       insertColumnButtonIndex: 1,
     });
@@ -127,7 +127,7 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
     expect(wrapper.find(InsertButton).length).toBe(0);
   });
 
-  test("shouldn't render insert button for second row", () => {
+  it("shouldn't render insert button for second row", () => {
     wrapper.setProps({
       insertRowButtonIndex: 1,
     });
@@ -181,21 +181,21 @@ describe('Floating Insert Button', () => {
     wrapper.unmount();
   });
 
-  test('should not render insert button with index', () => {
+  it('should not render insert button by default', () => {
     expect(wrapper.find(InsertButton).length).toBe(0);
   });
 
-  test('should render insert button for second column', () => {
+  it('should render insert button for second column', () => {
     wrapper.setProps({ insertColumnButtonIndex: 1 });
     expect(wrapper.find(InsertButton).length).toBe(1);
   });
 
-  test('should render insert button for second row', () => {
+  it('should render insert button for second row', () => {
     wrapper.setProps({ insertRowButtonIndex: 1 });
     expect(wrapper.find(InsertButton).length).toBe(1);
   });
 
-  test('should no render insert button for first row when row header is enabled', () => {
+  it('should not render insert button for first row when row header is enabled', () => {
     wrapper.setProps({
       insertRowButtonIndex: 0,
       isHeaderRowEnabled: true,
@@ -204,7 +204,7 @@ describe('Floating Insert Button', () => {
     expect(wrapper.find(InsertButton).length).toBe(0);
   });
 
-  test('should render insert button for first row when row header is disabled', () => {
+  it('should render insert button for first row when row header is disabled', () => {
     wrapper.setProps({
       insertRowButtonIndex: 0,
       isHeaderRowEnabled: false,
@@ -213,7 +213,7 @@ describe('Floating Insert Button', () => {
     expect(wrapper.find(InsertButton).length).toBe(1);
   });
 
-  test('should no render insert button for first col when column header is enabled', () => {
+  it('should not render insert button for first col when column header is enabled', () => {
     wrapper.setProps({
       insertColumnButtonIndex: 0,
       isHeaderColumnEnabled: true,
@@ -222,7 +222,7 @@ describe('Floating Insert Button', () => {
     expect(wrapper.find(InsertButton).length).toBe(0);
   });
 
-  test('should render insert button for first col when column header is disabled', () => {
+  it('should render insert button for first col when column header is disabled', () => {
     wrapper.setProps({
       insertColumnButtonIndex: 0,
       isHeaderColumnEnabled: false,
@@ -231,7 +231,7 @@ describe('Floating Insert Button', () => {
     expect(wrapper.find(InsertButton).length).toBe(1);
   });
 
-  test('should render insert button when a single cell is selected', () => {
+  it('should render insert button when a single cell is selected', () => {
     selectCell(1, 1)(editorView.state, editorView.dispatch);
 
     wrapper.setProps({
@@ -242,7 +242,7 @@ describe('Floating Insert Button', () => {
     expect(wrapper.find(InsertButton).length).toBe(1);
   });
 
-  test('should no render insert button when a whole column is selected', () => {
+  it('should not render insert button when a whole column is selected', () => {
     selectColumns([1])(editorView.state, editorView.dispatch);
 
     wrapper.setProps({
@@ -253,7 +253,7 @@ describe('Floating Insert Button', () => {
     expect(wrapper.find(InsertButton).length).toBe(0);
   });
 
-  test('should no render insert button when a whole row is selected', () => {
+  it('should no render insert button when a whole row is selected', () => {
     selectRows([1])(editorView.state, editorView.dispatch);
 
     wrapper.setProps({

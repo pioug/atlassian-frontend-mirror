@@ -1,7 +1,8 @@
 import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   table,
@@ -10,16 +11,11 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import {
-  TablePluginState,
-  TableCssClassName as ClassName,
-} from '../../../plugins/table/types';
-import CornerControls from '../../../plugins/table/ui/TableFloatingControls/CornerControls';
+import { TablePluginState } from '../../../plugins/table/types';
+import { CornerControls } from '../../../plugins/table/ui/TableFloatingControls/CornerControls';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../../plugins/table-plugin';
-
-const CornerButton = `.${ClassName.CONTROLS_CORNER_BUTTON}`;
 
 describe('CornerControls', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -40,17 +36,19 @@ describe('CornerControls', () => {
         doc(table()(tr(thEmpty, thEmpty, thEmpty))),
       );
 
-      const controls = mountWithIntl(
-        <CornerControls
-          tableRef={document.querySelector('table')!}
-          editorView={editorView}
-        />,
+      const ref = editorView.dom.querySelector('table') || undefined;
+
+      render(
+        <IntlProvider locale="en">
+          <CornerControls tableRef={ref} editorView={editorView} />
+        </IntlProvider>,
       );
 
-      controls.find(CornerButton).simulate('click');
+      const cornerControl = screen.getByLabelText('Highlight table');
+
+      fireEvent.click(cornerControl);
 
       expect(isTableSelected(editorView.state.selection)).toBe(true);
-      controls.unmount();
     });
   });
 
@@ -62,19 +60,21 @@ describe('CornerControls', () => {
         ),
       );
 
-      const controls = mountWithIntl(
-        <CornerControls
-          tableRef={document.querySelector('table')!}
-          editorView={editorView}
-        />,
+      const ref = editorView.dom.querySelector('table') || undefined;
+
+      render(
+        <IntlProvider locale="en">
+          <CornerControls tableRef={ref} editorView={editorView} />
+        </IntlProvider>,
       );
 
-      controls.find(CornerButton).simulate('mouseover');
+      const cornerControl = screen.getByLabelText('Highlight table');
+
+      fireEvent.mouseOver(cornerControl);
 
       const { hoveredColumns, hoveredRows } = getPluginState(editorView.state);
       expect(hoveredColumns).toEqual([0, 1, 2]);
       expect(hoveredRows).toEqual([0, 1]);
-      controls.unmount();
     });
   });
 });

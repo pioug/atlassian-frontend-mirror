@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 0.0.8
+
+### Patch Changes
+
+- [`e5b0deecf68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5b0deecf68) - Add ability to localize for nodeview and add aria labels to RowControl and CornerControl
+
 ## 0.0.7
 
 ### Patch Changes

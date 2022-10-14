@@ -1,5 +1,11 @@
 # @atlaskit/media-editor
 
+## 40.0.0
+
+### Major Changes
+
+- [`a556a0eb567`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a556a0eb567) - [ux] Deprecated media-editor package
+
 ## 39.2.5
 
 ### Patch Changes

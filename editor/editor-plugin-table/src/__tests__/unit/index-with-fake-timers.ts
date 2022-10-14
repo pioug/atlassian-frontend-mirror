@@ -82,6 +82,7 @@ describe.skip('TableView', () => {
       getPos: () => 1,
       getEditorContainerWidth,
       getEditorFeatureFlags: fakeGetEditorFeatureFlags,
+      hasIntlContext: true,
     }).init();
 
     // we expect to have a contentDOM after instanciating the NodeView so that

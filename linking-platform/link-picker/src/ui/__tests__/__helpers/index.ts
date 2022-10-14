@@ -15,7 +15,7 @@ export const getDefaultItems = (
       icon: `http://some-icon-url-${i + 1}.com`,
       iconAlt: {
         id: 'fabric.linkPicker.defaultAltText',
-        defaultMessage: 'List item',
+        defaultMessage: `List item ${i + 1}`,
         description: 'Default alt text for ListItem image',
       },
     }));

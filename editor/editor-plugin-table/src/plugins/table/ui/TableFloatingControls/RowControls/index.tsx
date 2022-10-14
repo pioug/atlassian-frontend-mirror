@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import { EditorView } from 'prosemirror-view';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
 
 import { clearHoverSelection } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
@@ -11,6 +13,15 @@ import {
   RowParams,
 } from '../../../utils';
 import { tableControlsSpacing, tableToolbarSize } from '../../consts';
+
+const messages = defineMessages({
+  rowControl: {
+    id: 'fabric.editor.rowControl',
+    defaultMessage: 'Highlight row',
+    description:
+      'A button on the left of each row that shows up when the table is in focus. Clicking on it will select the entire row.',
+  },
+});
 
 export interface Props {
   editorView: EditorView;
@@ -24,7 +35,7 @@ export interface Props {
   stickyTop?: number;
 }
 
-export default class RowControls extends Component<Props> {
+class RowControlsComponent extends Component<Props & WrappedComponentProps> {
   render() {
     const {
       editorView,
@@ -32,6 +43,7 @@ export default class RowControls extends Component<Props> {
       hoveredRows,
       isInDanger,
       isResizing,
+      intl: { formatMessage },
     } = this.props;
     if (!tableRef) {
       return null;
@@ -89,6 +101,7 @@ export default class RowControls extends Component<Props> {
                   }}
                 >
                   <button
+                    aria-label={formatMessage(messages.rowControl)}
                     type="button"
                     className={`${ClassName.ROW_CONTROLS_BUTTON}
                   ${ClassName.CONTROLS_BUTTON}
@@ -117,3 +130,5 @@ export default class RowControls extends Component<Props> {
     clearHoverSelection()(state, dispatch);
   };
 }
+
+export const RowControls = injectIntl(RowControlsComponent);

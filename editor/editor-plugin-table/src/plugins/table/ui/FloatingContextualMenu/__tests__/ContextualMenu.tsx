@@ -37,7 +37,7 @@ it.skip('TODO: restore unit', () => {});
 //       }));
 //     });
 
-//     test('should render contextual menu when no tableCellPosition is passed but exist on editor state ', () => {
+//     it('should render contextual menu when no tableCellPosition is passed but exist on editor state ', () => {
 //       const intl = createIntl({ locale: 'en' });
 //       const wrapper = shallow(
 //         <ContextualMenu

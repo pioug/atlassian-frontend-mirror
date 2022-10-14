@@ -53,7 +53,7 @@ describe('table plugin: insert', () => {
         pluginKey,
       });
 
-    test('does scale cells in tables which are not overflowing', () => {
+    it('does scale cells in tables which are not overflowing', () => {
       const { editorView } = editor(
         doc(
           table({ localId: TABLE_LOCAL_ID })(
@@ -84,7 +84,7 @@ describe('table plugin: insert', () => {
       );
     });
 
-    test('does not scale cells in tables which are overflowing', () => {
+    it('does not scale cells in tables which are overflowing', () => {
       const { editorView } = editor(
         doc(
           table({ localId: TABLE_LOCAL_ID })(

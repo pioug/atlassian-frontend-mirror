@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
 
 import classnames from 'classnames';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
@@ -12,6 +14,15 @@ import { EditorView } from 'prosemirror-view';
 import { clearHoverSelection, hoverTable } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
 
+const messages = defineMessages({
+  cornerControl: {
+    id: 'fabric.editor.cornerControl',
+    defaultMessage: 'Highlight table',
+    description:
+      'A button on the upper left corner of the table that shows up when the table is in focus. Clicking on it will select the entire table.',
+  },
+});
+
 export interface Props {
   editorView: EditorView;
   tableRef?: HTMLTableElement;
@@ -23,13 +34,17 @@ export interface Props {
   stickyTop?: number;
 }
 
-export default class CornerControls extends Component<Props, any> {
+class CornerControlComponent extends Component<
+  Props & WrappedComponentProps,
+  any
+> {
   render() {
     const {
       isInDanger,
       tableRef,
       isHeaderColumnEnabled,
       isHeaderRowEnabled,
+      intl: { formatMessage },
     } = this.props;
     if (!tableRef) {
       return null;
@@ -50,6 +65,7 @@ export default class CornerControls extends Component<Props, any> {
         }}
       >
         <button
+          aria-label={formatMessage(messages.cornerControl)}
           type="button"
           className={classnames(ClassName.CONTROLS_CORNER_BUTTON, {
             danger: isActive && isInDanger,
@@ -103,3 +119,5 @@ export default class CornerControls extends Component<Props, any> {
     hoverTable()(state, dispatch);
   };
 }
+
+export const CornerControls = injectIntl(CornerControlComponent);

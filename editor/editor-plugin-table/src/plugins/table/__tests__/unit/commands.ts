@@ -810,7 +810,7 @@ describe('table plugin: actions', () => {
      * | th | th | th |
      * | th | td | td |
      */
-    test('should keep right row header and cells after split', () => {
+    it('should keep right row header and cells after split', () => {
       const { editorView } = editor(
         doc(
           table()(
@@ -833,7 +833,7 @@ describe('table plugin: actions', () => {
       );
     });
 
-    test('should split cell with media selected', () => {
+    it('should split cell with media selected', () => {
       const { editorView } = editor(
         doc(
           table()(

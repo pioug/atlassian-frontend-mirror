@@ -7,8 +7,7 @@ import {
   TEST_OBJECT,
 } from '../../__mocks__/jsonld';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../constants';
-import { mount } from 'enzyme';
-import { render } from '../../__mocks__/render';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 
 describe('extractors.context.provider', () => {
   afterEach(() => jest.clearAllMocks());
@@ -71,9 +70,8 @@ describe('extractors.context.provider', () => {
       generator: { ...TEST_OBJECT, '@id': CONFLUENCE_GENERATOR_ID },
     });
     expect(provider).toBeDefined();
-    expect(mount(render(provider!.icon)).find('ConfluenceIcon')).toHaveLength(
-      1,
-    );
+    const { getByLabelText } = render(provider!.icon);
+    expect(getByLabelText('Confluence')).toBeDefined();
   });
 
   it('returns generator icon for Jira', () => {
@@ -82,6 +80,7 @@ describe('extractors.context.provider', () => {
       generator: { ...TEST_OBJECT, '@id': JIRA_GENERATOR_ID },
     });
     expect(provider).toBeDefined();
-    expect(mount(render(provider!.icon)).find('JiraIcon')).toHaveLength(1);
+    const { getByLabelText } = render(provider!.icon);
+    expect(getByLabelText('Jira')).toBeDefined();
   });
 });

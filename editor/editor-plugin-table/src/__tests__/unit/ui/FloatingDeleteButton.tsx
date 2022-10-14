@@ -69,11 +69,11 @@ describe('Floating Delete Button', () => {
     }
   });
 
-  test('should not render a delete button with no selection', () => {
+  it('should not render a delete button with no selection', () => {
     expect(wrapper.find(DeleteButton).length).toBe(0);
   });
 
-  test('should not render a delete button with whole table selected', () => {
+  it('should not render a delete button with whole table selected', () => {
     // select the whole table
     editorView.dispatch(selectTable(editorView.state.tr));
 
@@ -112,7 +112,7 @@ describe('Floating Delete Button', () => {
       },
     );
 
-    test('should render a single delete button over multiple column selections', () => {
+    it('should render a single delete button over multiple column selections', () => {
       selectColumns([0, 1])(editorView.state, editorView.dispatch);
 
       // We need to force renderer

@@ -1,7 +1,9 @@
-import type { ElementHandle, Protocol } from 'puppeteer';
+import type { Protocol } from 'puppeteer';
 import invariant from 'tiny-invariant';
 
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+
+import { getElement } from './_utils';
 
 const url = getExampleUrl(
   'drag-and-drop',
@@ -10,12 +12,6 @@ const url = getExampleUrl(
   global.__BASEURL__,
   'light',
 );
-
-async function getElement(selector: string): Promise<ElementHandle<Element>> {
-  const handle = await page.$(selector);
-  invariant(handle, `Unable to find element with selector: ${selector}`);
-  return handle;
-}
 
 it('should support dropping of many files at once', async () => {
   const { page } = global;

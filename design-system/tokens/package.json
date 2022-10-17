@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.10.24",
+  "version": "0.10.25",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -28,6 +28,7 @@
   "af:exports": {
     ".": "./src/index.tsx",
     "./palettes-raw": "./src/entry-points/palettes-raw.tsx",
+    "./tokens-raw": "./src/entry-points/tokens-raw.tsx",
     "./token-ids": "./src/entry-points/token-ids.tsx",
     "./token-names": "./src/entry-points/token-names.tsx",
     "./rename-mapping": "./src/entry-points/rename-mapping.tsx",

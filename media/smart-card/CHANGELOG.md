@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 22.3.1
+
+### Patch Changes
+
+- [`829baeda46d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/829baeda46d) - [ux] Update token usages in the loading shimmer effect on inline cards.
+
 ## 22.3.0
 
 ### Minor Changes

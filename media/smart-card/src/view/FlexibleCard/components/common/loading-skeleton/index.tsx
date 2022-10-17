@@ -21,13 +21,12 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
     border-radius: 2px;
     user-select: none;
     background: ${token('color.skeleton.subtle', '#f6f7f8')};
-    // TODO: https://product-fabric.atlassian.net/browse/DSP-4236
     background-image: linear-gradient(
       to right,
-      ${token('color.skeleton.subtle', '#f6f7f8')} 0%,
+      ${token('utility.UNSAFE_util.transparent', '#f6f7f8')} 0%,
       ${token('color.skeleton', '#edeef1')} 20%,
       ${token('color.skeleton.subtle', '#f6f7f8')} 40%,
-      ${token('color.skeleton.subtle', '#f6f7f8')}100%
+      ${token('color.skeleton.subtle', '#f6f7f8')} 100%
     );
     background-repeat: no-repeat;
     background-size: 280% 100%;

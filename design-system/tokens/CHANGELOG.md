@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.25
+
+### Patch Changes
+
+- [`2e2ac6d3091`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e2ac6d3091) - Add new entrypoint `@atlaskit/tokens/tokens-raw` which provides access to raw token data. This enables the Atlassian Design Tokens Figma plugin to import required token information:wq
+
 ## 0.10.24
 
 ### Patch Changes

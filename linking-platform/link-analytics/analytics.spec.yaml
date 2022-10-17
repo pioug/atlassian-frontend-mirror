@@ -1,0 +1,33 @@
+common:
+  libraryType: 'client'
+  product: 'media'
+
+context:
+  ExternalContext: &ExternalContext
+    location:
+      type: string
+      description: Where is the link located?
+    display:
+      type: ['flexible', 'inline', 'url', 'card', 'embed']
+      description: In what format is the link shown as?
+
+events:
+  - link created:
+      type: track
+      description: fired when a link is created
+      attributes:
+        <<: *ExternalContext
+
+  - link updated:
+      type: track
+      description: fired when a link is updated
+      attributes:
+        <<: *ExternalContext
+
+  - link deleted:
+      type: track
+      description: fired when a link is deleted
+      attributes:
+        <<: *ExternalContext
+
+

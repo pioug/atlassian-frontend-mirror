@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 0.8.0
+
+### Minor Changes
+
+- [`62d324028bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62d324028bb) - Set z index for kudos drawer to modal layer
+
 ## 0.7.0
 
 ### Minor Changes

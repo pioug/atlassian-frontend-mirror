@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.7
+
+### Patch Changes
+
+- [`12399f5aaa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12399f5aaa1) - Adding custom regex for escaping of media, link and mention.
+
 ## 11.1.6
 
 ### Patch Changes

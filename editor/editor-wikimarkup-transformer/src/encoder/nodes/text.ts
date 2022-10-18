@@ -28,6 +28,15 @@ const markEncoderMapping = new Map([
 ]);
 
 /**
+ * ADFEXP-131: Improved logic for escaping metacharacters "[" and "!"
+ * Before this change, any instance of "[" and "!" was being escaped
+ * "[" is used for mentions
+ * "!" is used for media
+ */
+const MENTION_ESCAPE_PATTERN = '(\\[~)'; // Matches pattern like [~
+const MEDIA_ESCAPE_PATTERN = '(![^ !]+)(!)'; // Matches non space content between two consecutive "!" e.g. !filename.txt!
+
+/**
  * Checks if the node's content needs to be escaped before continuing processing.
  * Currently, the `code` mark and `codeBlock` nodes handle their own escaping, and
  * therefore, should not be escaped here.
@@ -44,15 +53,18 @@ const isEscapeNeeded = (node: PMNode, parent?: PMNode) => {
 };
 /**
  * ESS-2569: Removing the backsalshes from the regex
+ * ADFEXP-131: Improved logic for escaping metacharacters "[" and "!"
  */
 function escapingWikiFormatter(text: string) {
   const pattern = [
-    '([![])',
+    MENTION_ESCAPE_PATTERN,
     ...macroKeywordTokenMap.map(
       (macro) => `(${macro.regex.source.replace('^', '')})`,
     ),
   ].join('|');
-  return text.replace(new RegExp(pattern, 'g'), '\\$&');
+  return text
+    .replace(new RegExp(pattern, 'g'), '\\$&')
+    .replace(new RegExp(MEDIA_ESCAPE_PATTERN, 'g'), '\\$1\\$2'); // Extra step required for media as currently both ends need to be escaped e.q. !filename.txt!
 }
 
 export const text: NodeEncoder = (

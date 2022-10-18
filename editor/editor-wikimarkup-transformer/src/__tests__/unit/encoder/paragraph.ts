@@ -170,4 +170,14 @@ describe('ADF => WikiMarkup - Paragraph', () => {
     );
     expect(transformer.encode(node)).toMatchSnapshot();
   });
+
+  test('[ADFEXP-131] Should not escape opening sqaure bracket not having mention or link', () => {
+    const node = doc(p('this is an [ordinary] text.'))(defaultSchema);
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
+
+  test('[ADFEXP-131] Should not escape exclamation not enclosed in a media.', () => {
+    const node = doc(p('this is simple sentence!'))(defaultSchema);
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
 });

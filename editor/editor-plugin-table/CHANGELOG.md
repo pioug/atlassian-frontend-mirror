@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 0.0.10
+
+### Patch Changes
+
+- [`b519be31909`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b519be31909) - Improve FloatingDeleteButton accessibility and update tests
+
+## 0.0.9
+
+### Patch Changes
+
+- [`30d47a9f80d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d47a9f80d) - This change adds data-testid to the top and bottom sticky sentinels in TableComponent and updates tests to access the sentinels by the testId.
+
 ## 0.0.8
 
 ### Patch Changes

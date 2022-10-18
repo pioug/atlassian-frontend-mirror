@@ -394,7 +394,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         data-layout={node.attrs.layout}
       >
         {stickyHeadersOptimization && (
-          <div className={ClassName.TABLE_STICKY_SENTINEL_TOP} />
+          <div
+            className={ClassName.TABLE_STICKY_SENTINEL_TOP}
+            data-testid="sticky-sentinel-top"
+          />
         )}
         {allowControls &&
           (!isLoading || initialRenderOptimization) &&
@@ -465,7 +468,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           </div>
         )}
         {stickyHeadersOptimization && (
-          <div className={ClassName.TABLE_STICKY_SENTINEL_BOTTOM} />
+          <div
+            className={ClassName.TABLE_STICKY_SENTINEL_BOTTOM}
+            data-testid="sticky-sentinel-bottom"
+          />
         )}
       </div>
     );

@@ -215,6 +215,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
       <Drawer
         width="full"
         isOpen={props.isOpen}
+        zIndex={layers.modal()}
         onClose={handleCloseDrawerClicked}
         // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
         overrides={{

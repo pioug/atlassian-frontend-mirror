@@ -2,7 +2,6 @@ import React, { SyntheticEvent } from 'react';
 
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
-// import { MessageDescriptor } from '../../../../types/i18n';
 import { MessageDescriptor } from 'react-intl-next';
 import { TableCssClassName as ClassName } from '../../types';
 
@@ -30,7 +29,7 @@ const DeleteButton = ({
   >
     <button
       type="button"
-      title={formatMessage(removeLabel, { 0: 1 })}
+      aria-label={formatMessage(removeLabel, { 0: 1 })}
       className={ClassName.CONTROLS_DELETE_BUTTON}
       onMouseDown={onClick}
       onMouseMove={(e) => e.preventDefault()}

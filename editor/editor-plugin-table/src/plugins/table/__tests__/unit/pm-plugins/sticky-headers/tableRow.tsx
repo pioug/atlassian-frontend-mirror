@@ -33,9 +33,9 @@ jest.mock('@atlaskit/editor-common/ui', () => ({
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { updateStickyState } from '../../../../pm-plugins/sticky-headers/commands';
 import { TableCssClassName } from '../../../../types';
-import { mount } from 'enzyme';
 import TableComponent from '../../../../nodeviews/TableComponent';
 import React from 'react';
+import { render, screen } from '@testing-library/react';
 import {
   stickyRowOffsetTop,
   tableScrollbarOffset,
@@ -388,13 +388,13 @@ describe('TableRowNodeView', () => {
       return scrollContainer;
     }
 
-    function mountTableComponent({
+    function renderTableComponent({
       disableContentDomMock,
     }: {
       disableContentDomMock?: true;
     } = {}) {
       const getNode = () => editorView.state.doc.firstChild;
-      return mount(
+      return render(
         <TableComponent
           view={editorView}
           eventDispatcher={eventDispatcher}
@@ -428,28 +428,21 @@ describe('TableRowNodeView', () => {
     });
 
     it('sentinel elements are rendered inside table component', () => {
-      const tableComponent = mountTableComponent();
-      // rafStub.flush();
-      const sentinelWrapperTop = tableComponent.find(
-        `.${TableCssClassName.TABLE_STICKY_SENTINEL_TOP}`,
-      );
-      const sentinelWrapperBottom = tableComponent.find(
-        `.${TableCssClassName.TABLE_STICKY_SENTINEL_BOTTOM}`,
-      );
-      expect(sentinelWrapperTop).toHaveLength(1);
-      expect(sentinelWrapperBottom).toHaveLength(1);
+      renderTableComponent();
+      const sentinelTop = screen.getByTestId('sticky-sentinel-top');
+      const sentinelBottom = screen.getByTestId('sticky-sentinel-bottom');
+
+      expect(sentinelTop).toBeTruthy();
+      expect(sentinelBottom).toBeTruthy();
     });
 
     describe('updates sticky header state', () => {
       it('top sentinel does nothing if the rootBounds has height 0', () => {
-        const tableComponent = mountTableComponent();
-        const sentinelWrapperTop = tableComponent.find(
-          `.${TableCssClassName.TABLE_STICKY_SENTINEL_TOP}`,
-        );
-        const sentinelTop = sentinelWrapperTop.getDOMNode() as HTMLElement;
+        renderTableComponent();
+        const sentinelTop = screen.getByTestId('sticky-sentinel-top');
 
         triggerElementIntersect({
-          target: sentinelTop,
+          target: sentinelTop as HTMLElement,
           isIntersecting: false,
           rootBounds: { bottom: 0, top: 0, height: 0 },
           boundingClientRect: { bottom: 0, top: 0 },
@@ -459,13 +452,10 @@ describe('TableRowNodeView', () => {
       });
 
       it('bottom sentinel does nothing if the rootBounds has height 0', () => {
-        const tableComponent = mountTableComponent();
-        const sentinelWrapperBottom = tableComponent.find(
-          `.${TableCssClassName.TABLE_STICKY_SENTINEL_BOTTOM}`,
-        );
-        const sentinelBottom = sentinelWrapperBottom.getDOMNode() as HTMLElement;
+        renderTableComponent();
+        const sentinelBottom = screen.getByTestId('sticky-sentinel-bottom');
         triggerElementIntersect({
-          target: sentinelBottom,
+          target: sentinelBottom as HTMLElement,
           isIntersecting: false,
           rootBounds: { bottom: 0, top: 0, height: 0 },
           boundingClientRect: { bottom: 0, top: 0 },
@@ -474,12 +464,9 @@ describe('TableRowNodeView', () => {
         expect(updateStickyState).not.toHaveBeenCalled();
       });
 
-      it('when top sentinel leaves scroll area', () => {
-        const tableComponent = mountTableComponent();
-        const sentinelWrapperTop = tableComponent.find(
-          `.${TableCssClassName.TABLE_STICKY_SENTINEL_TOP}`,
-        );
-        const sentinelTop = sentinelWrapperTop.getDOMNode() as HTMLElement;
+      it('updates sticky header when top of sticky header sentinel leaves scroll area', () => {
+        renderTableComponent();
+        const sentinelTop = screen.getByTestId('sticky-sentinel-top');
 
         triggerElementIntersect({
           target: sentinelTop,
@@ -512,12 +499,9 @@ describe('TableRowNodeView', () => {
         );
       });
 
-      it('when bottom sentinel enters or leaves scroll area', () => {
-        const tableComponent = mountTableComponent();
-        const sentinelWrapperBottom = tableComponent.find(
-          `.${TableCssClassName.TABLE_STICKY_SENTINEL_BOTTOM}`,
-        );
-        const sentinelBottom = sentinelWrapperBottom.getDOMNode() as HTMLElement;
+      it('updates sticky header when bottom of sticky header sentinel enters or leaves scroll area', () => {
+        renderTableComponent();
+        const sentinelBottom = screen.getByTestId('sticky-sentinel-bottom');
 
         triggerElementIntersect({
           target: sentinelBottom,
@@ -560,13 +544,10 @@ describe('TableRowNodeView', () => {
       (_, contentRectSupported: boolean) => {
         const { tableWrapper } = getTableElements(tableRowDom);
         // disabled due to editorView dom being cleared by use of contentDom mocks
-        const tableComponent = mountTableComponent({
+        renderTableComponent({
           disableContentDomMock: true,
         });
-        const sentinelWrapperBottom = tableComponent.find(
-          `.${TableCssClassName.TABLE_STICKY_SENTINEL_BOTTOM}`,
-        );
-        const sentinelBottom = sentinelWrapperBottom.getDOMNode() as HTMLElement;
+        const sentinelBottom = screen.getByTestId('sticky-sentinel-bottom');
         tableWrapper?.appendChild(sentinelBottom);
         rafStub.flush();
 
@@ -584,13 +565,10 @@ describe('TableRowNodeView', () => {
     it('marks sentinels as unobserved when isHeaderRowEnabled is set to false', () => {
       const { tableWrapper } = getTableElements(tableRowDom);
       // disabled due to editorView dom being cleared by use of contentDom mocks
-      const tableComponent = mountTableComponent({
+      renderTableComponent({
         disableContentDomMock: true,
       });
-      const sentinelWrapperBottom = tableComponent.find(
-        `.${TableCssClassName.TABLE_STICKY_SENTINEL_BOTTOM}`,
-      );
-      const sentinelBottom = sentinelWrapperBottom.getDOMNode() as HTMLElement;
+      const sentinelBottom = screen.getByTestId('sticky-sentinel-bottom');
       tableWrapper?.appendChild(sentinelBottom);
       rafStub.flush();
       expect(sentinelBottom.dataset.isObserved).toBeDefined();

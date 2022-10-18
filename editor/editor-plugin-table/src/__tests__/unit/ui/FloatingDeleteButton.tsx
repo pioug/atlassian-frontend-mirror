@@ -1,5 +1,4 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   table,
@@ -10,10 +9,11 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { selectColumns, selectRows } from '@atlaskit/editor-test-helpers/table';
-import { ReactWrapper } from 'enzyme';
 import { selectTable } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 import {
   TablePluginState,
   TableCssClassName,
@@ -21,8 +21,6 @@ import {
 import FloatingDeleteButton, {
   Props as FloatingDeleteButtonProps,
 } from '../../../plugins/table/ui/FloatingDeleteButton';
-import DeleteButton from '../../../plugins/table/ui/FloatingDeleteButton/DeleteButton';
-import tableMessages from '../../../plugins/table/ui/messages';
 import * as tableColumnControlsUtils from '../../../plugins/table/utils/column-controls';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../../plugins/table-plugin';
@@ -40,7 +38,6 @@ describe('Floating Delete Button', () => {
       pluginKey,
     });
 
-  let wrapper: ReactWrapper<FloatingDeleteButtonProps>;
   let editorView: EditorView;
 
   beforeEach(() => {
@@ -53,34 +50,31 @@ describe('Floating Delete Button', () => {
         ),
       ),
     ));
-
-    wrapper = (mountWithIntl(
-      <FloatingDeleteButton
-        tableRef={document.querySelector('table')!}
-        editorView={editorView}
-        selection={editorView.state.selection}
-      />,
-    ) as unknown) as ReactWrapper<FloatingDeleteButtonProps>;
   });
 
-  afterEach(() => {
-    if (wrapper) {
-      wrapper.unmount();
-    }
-  });
+  const component = (props: FloatingDeleteButtonProps) =>
+    render(
+      <IntlProvider locale="en">
+        <FloatingDeleteButton
+          tableRef={editorView.dom.querySelector('table')!}
+          {...props}
+        />
+      </IntlProvider>,
+    );
 
   it('should not render a delete button with no selection', () => {
-    expect(wrapper.find(DeleteButton).length).toBe(0);
+    component({ selection: editorView.state.selection, editorView });
+
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 
   it('should not render a delete button with whole table selected', () => {
-    // select the whole table
+    // selects the whole table
     editorView.dispatch(selectTable(editorView.state.tr));
 
-    // We need to force renderer
-    wrapper.setProps({ selection: editorView.state.selection });
-    // set numberOfColumns prop to trick shouldComponentUpdate and force re-render
-    expect(wrapper.find(DeleteButton).length).toBe(0);
+    component({ selection: editorView.state.selection, editorView });
+
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 
   describe('Columns', () => {
@@ -104,21 +98,18 @@ describe('Floating Delete Button', () => {
         // Select columns start from 0
         selectColumns([column - 1])(editorView.state, editorView.dispatch);
 
-        // We need to force renderer
-        wrapper.setProps({ selection: editorView.state.selection });
+        component({ selection: editorView.state.selection, editorView });
 
-        // we should now have a delete button
-        expect(wrapper.find(DeleteButton).length).toBe(1);
+        expect(screen.getAllByLabelText('Delete column').length).toBe(1);
       },
     );
 
     it('should render a single delete button over multiple column selections', () => {
       selectColumns([0, 1])(editorView.state, editorView.dispatch);
 
-      // We need to force renderer
-      wrapper.setProps({ selection: editorView.state.selection });
+      component({ selection: editorView.state.selection, editorView });
 
-      expect(wrapper.find(DeleteButton).length).toBe(1);
+      expect(screen.getAllByLabelText('Delete column').length).toBe(1);
     });
   });
 
@@ -128,9 +119,9 @@ describe('Floating Delete Button', () => {
       (row) => {
         selectRows([row - 1])(editorView.state, editorView.dispatch);
 
-        wrapper.setProps({ selection: editorView.state.selection });
+        component({ selection: editorView.state.selection, editorView });
 
-        expect(wrapper.find(DeleteButton).length).toBe(1);
+        expect(screen.getAllByLabelText('Delete row').length).toBe(1);
       },
     );
 
@@ -138,38 +129,9 @@ describe('Floating Delete Button', () => {
       selectRows([0, 1])(editorView.state, editorView.dispatch);
 
       // selecting the row mutates the editor state (which is inside editorView)
-      // we set tableHeight prop to trick shouldComponentUpdate and force re-render
-      wrapper.setProps({ selection: editorView.state.selection });
+      component({ selection: editorView.state.selection, editorView });
 
-      expect(wrapper.find(DeleteButton).length).toBe(1);
-    });
-  });
-
-  describe('<DeleteButton />', () => {
-    it('should fire the onMouseEnter callback', () => {
-      const onMouseEnter = jest.fn();
-      const button = mountWithIntl(
-        <DeleteButton
-          removeLabel={tableMessages.removeColumns}
-          onMouseEnter={onMouseEnter}
-        />,
-      );
-      button.simulate('mouseenter');
-      expect(onMouseEnter).toBeCalled();
-      button.unmount();
-    });
-
-    it('should fire the onMouseLeave callback', () => {
-      const onMouseLeave = jest.fn();
-      const button = mountWithIntl(
-        <DeleteButton
-          removeLabel={tableMessages.removeRows}
-          onMouseLeave={onMouseLeave}
-        />,
-      );
-      button.simulate('mouseleave');
-      expect(onMouseLeave).toBeCalled();
-      button.unmount();
+      expect(screen.getAllByLabelText('Delete row').length).toBe(1);
     });
   });
 });

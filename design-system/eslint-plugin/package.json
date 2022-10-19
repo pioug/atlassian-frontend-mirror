@@ -11,8 +11,7 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "ESLint plugin",
-      "category": "Tooling",
-      "draft": true
+      "category": "Tooling"
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

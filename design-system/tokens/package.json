@@ -9,7 +9,7 @@
   },
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Design tokens",
       "category": "Libraries",

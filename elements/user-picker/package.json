@@ -71,7 +71,6 @@
     "@types/uuid": "^3.4.4",
     "enzyme": "^3.10.0",
     "enzyme-react-intl": "^2.0.6",
-    "faker": "^4.1.0",
     "mock-apollo-client": "^0.1.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
     "typescript": "4.5.5"

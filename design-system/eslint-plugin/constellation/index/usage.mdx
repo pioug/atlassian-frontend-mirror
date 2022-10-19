@@ -2,4 +2,44 @@
 order: 2
 ---
 
-usage
+This plugin contains rules that should be used with the Atlassian Design System.
+Where possible, these rules come with auto fixers.
+
+You can read more about configuring eslint in their [documentation](https://eslint.org/docs/user-guide/configuring).
+
+## Configuration
+
+Add the plugin to your `.eslintrc.js` file.
+
+```diff
+module.exports = {
+  plugins: [
++    '@atlaskit/design-system',
+  ],
+};
+```
+
+Extend the configuration file.
+
+```diff
+module.exports = {
+  extends: [
++    'plugin:@atlaskit/design-system/recommended',
+  ],
+};
+```
+
+Enable any desired rules. The rules shown below are strongly recommended.
+
+```diff
+module.exports = {
+  rules: {
++    '@atlaskit/design-system/ensure-design-token-usage': ['error', { 'shouldEnsureFallbackUsage': true }],
++    '@atlaskit/design-system/no-deprecated-design-token-usage': 'warn',
++    '@atlaskit/design-system/no-unsafe-design-token-usage': ['error', { 'shouldEnsureFallbackUsage': true }],
++    '@atlaskit/design-system/use-visually-hidden': 'error',
++    '@atlaskit/design-system/no-deprecated-imports': 'error',
++    '@atlaskit/design-system/no-deprecated-api-usage': 'error'
+    }
+};
+```

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3e1535e99114e3ceefa050ae548283a1>>
+ * @codegen <<SignedSource::47205df5ad0c00f62bcd307009504921>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -21,7 +21,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "B800"
+      "value": "Blue800"
     },
     "name": "color.text.accent.blue.[default]",
     "path": [
@@ -49,7 +49,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use on bold blue accent backgrounds."
       },
-      "value": "B900"
+      "value": "Blue900"
     },
     "name": "color.text.accent.blue.bolder",
     "path": [
@@ -77,7 +77,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for red text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "R800"
+      "value": "Red800"
     },
     "name": "color.text.accent.red.[default]",
     "path": [
@@ -105,7 +105,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use on bold red accent backgrounds."
       },
-      "value": "R900"
+      "value": "Red900"
     },
     "name": "color.text.accent.red.bolder",
     "path": [
@@ -133,7 +133,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for orange text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "O800"
+      "value": "Orange800"
     },
     "name": "color.text.accent.orange.[default]",
     "path": [
@@ -161,7 +161,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use on bold orange accent backgrounds."
       },
-      "value": "O900"
+      "value": "Orange900"
     },
     "name": "color.text.accent.orange.bolder",
     "path": [
@@ -189,7 +189,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for yellow text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "Y800"
+      "value": "Yellow800"
     },
     "name": "color.text.accent.yellow.[default]",
     "path": [
@@ -217,7 +217,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use on bold yellow accent backgrounds."
       },
-      "value": "Y900"
+      "value": "Yellow900"
     },
     "name": "color.text.accent.yellow.bolder",
     "path": [
@@ -245,7 +245,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for green text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "G800"
+      "value": "Green800"
     },
     "name": "color.text.accent.green.[default]",
     "path": [
@@ -273,7 +273,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use on bold green accent backgrounds."
       },
-      "value": "G900"
+      "value": "Green900"
     },
     "name": "color.text.accent.green.bolder",
     "path": [
@@ -301,7 +301,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "P800"
+      "value": "Purple800"
     },
     "name": "color.text.accent.purple.[default]",
     "path": [
@@ -329,7 +329,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use on bold purple accent backgrounds."
       },
-      "value": "P900"
+      "value": "Purple900"
     },
     "name": "color.text.accent.purple.bolder",
     "path": [
@@ -357,7 +357,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for teal text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "T800"
+      "value": "Teal800"
     },
     "name": "color.text.accent.teal.[default]",
     "path": [
@@ -385,7 +385,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use on bold teal accent backgrounds."
       },
-      "value": "T900"
+      "value": "Teal900"
     },
     "name": "color.text.accent.teal.bolder",
     "path": [
@@ -413,7 +413,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for magenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "M800"
+      "value": "Magenta800"
     },
     "name": "color.text.accent.magenta.[default]",
     "path": [
@@ -441,7 +441,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use on bold magenta accent backgrounds."
       },
-      "value": "M900"
+      "value": "Magenta900"
     },
     "name": "color.text.accent.magenta.bolder",
     "path": [
@@ -469,7 +469,7 @@ const tokens = [
         "introduced": "0.10.5",
         "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
       },
-      "value": "N800"
+      "value": "Neutral800"
     },
     "name": "color.text.accent.gray.[default]",
     "path": [
@@ -497,7 +497,7 @@ const tokens = [
         "introduced": "0.10.5",
         "description": "Use for text and icons on gray subtle accent backgrounds."
       },
-      "value": "N1000"
+      "value": "Neutral1000"
     },
     "name": "color.text.accent.gray.bolder",
     "path": [
@@ -525,7 +525,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
       },
-      "value": "N1000"
+      "value": "Neutral1000"
     },
     "name": "color.text.[default]",
     "path": [
@@ -551,7 +551,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
       },
-      "value": "N800"
+      "value": "Neutral800"
     },
     "name": "color.text.subtle",
     "path": [
@@ -577,7 +577,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
       },
-      "value": "N700"
+      "value": "Neutral700"
     },
     "name": "color.text.subtlest",
     "path": [
@@ -603,7 +603,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for text in a disabled state."
       },
-      "value": "N400A"
+      "value": "Neutral400A"
     },
     "name": "color.text.disabled",
     "path": [
@@ -629,7 +629,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for text on bold backgrounds."
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "color.text.inverse",
     "path": [
@@ -655,7 +655,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for text that reinforces our brand."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.text.brand",
     "path": [
@@ -681,7 +681,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.text.selected",
     "path": [
@@ -707,7 +707,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for critical text, such as input field error messaging."
       },
-      "value": "R800"
+      "value": "Red800"
     },
     "name": "color.text.danger",
     "path": [
@@ -733,7 +733,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for text to emphasize caution, such as in moved lozenges."
       },
-      "value": "O800"
+      "value": "Orange800"
     },
     "name": "color.text.warning.[default]",
     "path": [
@@ -760,7 +760,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for text when on bold warning backgrounds."
       },
-      "value": "N1000"
+      "value": "Neutral1000"
     },
     "name": "color.text.warning.inverse",
     "path": [
@@ -787,7 +787,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for text to communicate a favourable outcome, such as input field success messaging."
       },
-      "value": "G800"
+      "value": "Green800"
     },
     "name": "color.text.success",
     "path": [
@@ -813,7 +813,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for text to emphasize change or something new, such as in new lozenges."
       },
-      "value": "P800"
+      "value": "Purple800"
     },
     "name": "color.text.discovery",
     "path": [
@@ -839,7 +839,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
       },
-      "value": "B800"
+      "value": "Blue800"
     },
     "name": "color.text.information",
     "path": [
@@ -871,7 +871,7 @@ const tokens = [
         "replacement": "color.text.[default]",
         "description": "Use for primary text, such as body copy, sentence case headers, and buttons"
       },
-      "value": "N1000"
+      "value": "Neutral1000"
     },
     "name": "color.text.highEmphasis",
     "path": [
@@ -903,7 +903,7 @@ const tokens = [
         "replacement": "color.link.pressed",
         "description": "Use for links in a pressed state"
       },
-      "value": "B800"
+      "value": "Blue800"
     },
     "name": "color.text.link.pressed",
     "path": [
@@ -936,7 +936,7 @@ const tokens = [
         "replacement": "color.link.[default]",
         "description": "Use for links in a resting or hover state. Add an underline for hover states"
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.text.link.resting",
     "path": [
@@ -969,7 +969,7 @@ const tokens = [
         "replacement": "color.text.subtlest",
         "description": "\nUse for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text.\n\nUse for icons that are paired with text.medEmphasis text"
       },
-      "value": "N700"
+      "value": "Neutral700"
     },
     "name": "color.text.lowEmphasis",
     "path": [
@@ -1001,7 +1001,7 @@ const tokens = [
         "replacement": "color.text.subtle",
         "description": "\nUse for secondary text, such navigation, subtle button links, input field labels, and all caps subheadings.\n\nUse for icon-only buttons, or icons paired with text.highEmphasis text\n          "
       },
-      "value": "N800"
+      "value": "Neutral800"
     },
     "name": "color.text.mediumEmphasis",
     "path": [
@@ -1033,7 +1033,7 @@ const tokens = [
         "replacement": "color.text.inverse",
         "description": "Use for text and icons when on bold backgrounds"
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "color.text.onBold",
     "path": [
@@ -1065,7 +1065,7 @@ const tokens = [
         "replacement": "color.text.warning.inverse",
         "description": "Use for text and icons when on bold warning backgrounds"
       },
-      "value": "N1000"
+      "value": "Neutral1000"
     },
     "name": "color.text.onBoldWarning",
     "path": [
@@ -1091,7 +1091,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "B600"
+      "value": "Blue600"
     },
     "name": "color.icon.accent.blue",
     "path": [
@@ -1118,7 +1118,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "R600"
+      "value": "Red600"
     },
     "name": "color.icon.accent.red",
     "path": [
@@ -1145,7 +1145,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "O600"
+      "value": "Orange600"
     },
     "name": "color.icon.accent.orange",
     "path": [
@@ -1172,7 +1172,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "Y600"
+      "value": "Yellow600"
     },
     "name": "color.icon.accent.yellow",
     "path": [
@@ -1199,7 +1199,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for green icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "G600"
+      "value": "Green600"
     },
     "name": "color.icon.accent.green",
     "path": [
@@ -1226,7 +1226,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "P600"
+      "value": "Purple600"
     },
     "name": "color.icon.accent.purple",
     "path": [
@@ -1253,7 +1253,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for teal icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "T600"
+      "value": "Teal600"
     },
     "name": "color.icon.accent.teal",
     "path": [
@@ -1280,7 +1280,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "M600"
+      "value": "Magenta600"
     },
     "name": "color.icon.accent.magenta",
     "path": [
@@ -1307,7 +1307,7 @@ const tokens = [
         "introduced": "0.10.5",
         "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
       },
-      "value": "N600"
+      "value": "Neutral600"
     },
     "name": "color.icon.accent.gray",
     "path": [
@@ -1334,7 +1334,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icon-only buttons, or icons paired with color.text"
       },
-      "value": "N800"
+      "value": "Neutral800"
     },
     "name": "color.icon.[default]",
     "path": [
@@ -1360,7 +1360,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons paired with color.text.subtle"
       },
-      "value": "N700"
+      "value": "Neutral700"
     },
     "name": "color.icon.subtle",
     "path": [
@@ -1386,7 +1386,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons on bold backgrounds."
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "color.icon.inverse",
     "path": [
@@ -1412,7 +1412,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons in a disabled state."
       },
-      "value": "N400A"
+      "value": "Neutral400A"
     },
     "name": "color.icon.disabled",
     "path": [
@@ -1438,7 +1438,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons that reinforce our brand."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.icon.brand",
     "path": [
@@ -1464,7 +1464,7 @@ const tokens = [
         "introduced": "0.6.2",
         "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.icon.selected",
     "path": [
@@ -1490,7 +1490,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons communicating critical information, such as those used in error handing."
       },
-      "value": "R600"
+      "value": "Red600"
     },
     "name": "color.icon.danger",
     "path": [
@@ -1516,7 +1516,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons communicating caution, such as those used in warning section messages."
       },
-      "value": "O600"
+      "value": "Orange600"
     },
     "name": "color.icon.warning.[default]",
     "path": [
@@ -1543,7 +1543,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons when on bold warning backgrounds."
       },
-      "value": "N1000"
+      "value": "Neutral1000"
     },
     "name": "color.icon.warning.inverse",
     "path": [
@@ -1570,7 +1570,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons communicating a favourable outcome, such as those used in success section messaged."
       },
-      "value": "G600"
+      "value": "Green600"
     },
     "name": "color.icon.success",
     "path": [
@@ -1596,7 +1596,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons communicating change or something new, such as discovery section messages."
       },
-      "value": "P600"
+      "value": "Purple600"
     },
     "name": "color.icon.discovery",
     "path": [
@@ -1622,7 +1622,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons communicating information or something in-progress, such as information section messages."
       },
-      "value": "B600"
+      "value": "Blue600"
     },
     "name": "color.icon.information",
     "path": [
@@ -1648,7 +1648,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "B600"
+      "value": "Blue600"
     },
     "name": "color.border.accent.blue",
     "path": [
@@ -1675,7 +1675,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "R600"
+      "value": "Red600"
     },
     "name": "color.border.accent.red",
     "path": [
@@ -1702,7 +1702,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "O600"
+      "value": "Orange600"
     },
     "name": "color.border.accent.orange",
     "path": [
@@ -1729,7 +1729,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "Y600"
+      "value": "Yellow600"
     },
     "name": "color.border.accent.yellow",
     "path": [
@@ -1756,7 +1756,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for green borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "G600"
+      "value": "Green600"
     },
     "name": "color.border.accent.green",
     "path": [
@@ -1783,7 +1783,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "P600"
+      "value": "Purple600"
     },
     "name": "color.border.accent.purple",
     "path": [
@@ -1810,7 +1810,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for teal borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "T600"
+      "value": "Teal600"
     },
     "name": "color.border.accent.teal",
     "path": [
@@ -1837,7 +1837,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color."
       },
-      "value": "M600"
+      "value": "Magenta600"
     },
     "name": "color.border.accent.magenta",
     "path": [
@@ -1864,7 +1864,7 @@ const tokens = [
         "introduced": "0.10.5",
         "description": "Use for borders on non-bold gray accent backgrounds."
       },
-      "value": "N600"
+      "value": "Neutral600"
     },
     "name": "color.border.accent.gray",
     "path": [
@@ -1891,7 +1891,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
       },
-      "value": "N300A"
+      "value": "Neutral300A"
     },
     "name": "color.border.[default]",
     "path": [
@@ -1917,7 +1917,7 @@ const tokens = [
         "introduced": "0.10.8",
         "description": "A neutral border option that passes min 3:1 contrast ratios."
       },
-      "value": "N600"
+      "value": "Neutral600"
     },
     "name": "color.border.bold",
     "path": [
@@ -1943,7 +1943,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for borders on bold backgrounds."
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "color.border.inverse",
     "path": [
@@ -1969,7 +1969,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for focus rings of elements in a focus state."
       },
-      "value": "B500"
+      "value": "Blue500"
     },
     "name": "color.border.focused",
     "path": [
@@ -1995,7 +1995,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
       },
-      "value": "N300A"
+      "value": "Neutral300A"
     },
     "name": "color.border.input",
     "path": [
@@ -2021,7 +2021,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for borders of elements in a disabled state."
       },
-      "value": "N200A"
+      "value": "Neutral200A"
     },
     "name": "color.border.disabled",
     "path": [
@@ -2047,7 +2047,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.border.brand",
     "path": [
@@ -2073,7 +2073,7 @@ const tokens = [
         "introduced": "0.6.2",
         "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.border.selected",
     "path": [
@@ -2099,7 +2099,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
       },
-      "value": "R600"
+      "value": "Red600"
     },
     "name": "color.border.danger",
     "path": [
@@ -2125,7 +2125,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for borders communicating caution."
       },
-      "value": "O600"
+      "value": "Orange600"
     },
     "name": "color.border.warning",
     "path": [
@@ -2151,7 +2151,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for borders communicating a favourable outcome, such as the borders on validated text fields."
       },
-      "value": "G600"
+      "value": "Green600"
     },
     "name": "color.border.success",
     "path": [
@@ -2177,7 +2177,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
       },
-      "value": "P600"
+      "value": "Purple600"
     },
     "name": "color.border.discovery",
     "path": [
@@ -2203,7 +2203,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for borders communicating information or something in-progress."
       },
-      "value": "B600"
+      "value": "Blue600"
     },
     "name": "color.border.information",
     "path": [
@@ -2235,7 +2235,7 @@ const tokens = [
         "replacement": "color.border.focused",
         "description": "Use for focus rings of elements in a focus state"
       },
-      "value": "B500"
+      "value": "Blue500"
     },
     "name": "color.border.focus",
     "path": [
@@ -2267,7 +2267,7 @@ const tokens = [
         "replacement": "color.border.[default]",
         "description": "Use to create borders around UI elements such as text fields, checkboxes, and radio buttons, or to visually group or separate UI elements, such as flat cards or side panel dividers"
       },
-      "value": "N300A"
+      "value": "Neutral300A"
     },
     "name": "color.border.neutral",
     "path": [
@@ -2293,7 +2293,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "B100"
+      "value": "Blue100"
     },
     "name": "color.background.accent.blue.subtlest",
     "path": [
@@ -2321,7 +2321,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "B200"
+      "value": "Blue200"
     },
     "name": "color.background.accent.blue.subtler",
     "path": [
@@ -2349,7 +2349,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "B400"
+      "value": "Blue400"
     },
     "name": "color.background.accent.blue.subtle",
     "path": [
@@ -2377,7 +2377,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.background.accent.blue.bolder",
     "path": [
@@ -2411,7 +2411,7 @@ const tokens = [
         "replacement": "color.background.accent.blue.subtler",
         "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "B200"
+      "value": "Blue200"
     },
     "name": "color.background.accent.blue.[default]",
     "path": [
@@ -2445,7 +2445,7 @@ const tokens = [
         "replacement": "color.background.accent.blue.subtle",
         "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "B400"
+      "value": "Blue400"
     },
     "name": "color.background.accent.blue.bold",
     "path": [
@@ -2473,7 +2473,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "R100"
+      "value": "Red100"
     },
     "name": "color.background.accent.red.subtlest",
     "path": [
@@ -2501,7 +2501,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "R200"
+      "value": "Red200"
     },
     "name": "color.background.accent.red.subtler",
     "path": [
@@ -2529,7 +2529,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "R400"
+      "value": "Red400"
     },
     "name": "color.background.accent.red.subtle",
     "path": [
@@ -2557,7 +2557,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "R700"
+      "value": "Red700"
     },
     "name": "color.background.accent.red.bolder",
     "path": [
@@ -2591,7 +2591,7 @@ const tokens = [
         "replacement": "color.background.accent.red.subtler",
         "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "R200"
+      "value": "Red200"
     },
     "name": "color.background.accent.red.[default]",
     "path": [
@@ -2625,7 +2625,7 @@ const tokens = [
         "replacement": "color.background.accent.red.subtle",
         "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "R400"
+      "value": "Red400"
     },
     "name": "color.background.accent.red.bold",
     "path": [
@@ -2653,7 +2653,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "O100"
+      "value": "Orange100"
     },
     "name": "color.background.accent.orange.subtlest",
     "path": [
@@ -2681,7 +2681,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "O200"
+      "value": "Orange200"
     },
     "name": "color.background.accent.orange.subtler",
     "path": [
@@ -2709,7 +2709,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "O400"
+      "value": "Orange400"
     },
     "name": "color.background.accent.orange.subtle",
     "path": [
@@ -2737,7 +2737,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "O700"
+      "value": "Orange700"
     },
     "name": "color.background.accent.orange.bolder",
     "path": [
@@ -2771,7 +2771,7 @@ const tokens = [
         "replacement": "color.background.accent.orange.subtler",
         "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "O200"
+      "value": "Orange200"
     },
     "name": "color.background.accent.orange.[default]",
     "path": [
@@ -2805,7 +2805,7 @@ const tokens = [
         "replacement": "color.background.accent.orange.subtle",
         "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "O400"
+      "value": "Orange400"
     },
     "name": "color.background.accent.orange.bold",
     "path": [
@@ -2833,7 +2833,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "Y100"
+      "value": "Yellow100"
     },
     "name": "color.background.accent.yellow.subtlest",
     "path": [
@@ -2861,7 +2861,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "Y200"
+      "value": "Yellow200"
     },
     "name": "color.background.accent.yellow.subtler",
     "path": [
@@ -2889,7 +2889,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "Y400"
+      "value": "Yellow400"
     },
     "name": "color.background.accent.yellow.subtle",
     "path": [
@@ -2917,7 +2917,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "Y700"
+      "value": "Yellow700"
     },
     "name": "color.background.accent.yellow.bolder",
     "path": [
@@ -2951,7 +2951,7 @@ const tokens = [
         "replacement": "color.background.accent.yellow.subtler",
         "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "Y200"
+      "value": "Yellow200"
     },
     "name": "color.background.accent.yellow.[default]",
     "path": [
@@ -2985,7 +2985,7 @@ const tokens = [
         "replacement": "color.background.accent.yellow.subtle",
         "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "Y400"
+      "value": "Yellow400"
     },
     "name": "color.background.accent.yellow.bold",
     "path": [
@@ -3013,7 +3013,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "G100"
+      "value": "Green100"
     },
     "name": "color.background.accent.green.subtlest",
     "path": [
@@ -3041,7 +3041,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "G200"
+      "value": "Green200"
     },
     "name": "color.background.accent.green.subtler",
     "path": [
@@ -3069,7 +3069,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "G400"
+      "value": "Green400"
     },
     "name": "color.background.accent.green.subtle",
     "path": [
@@ -3097,7 +3097,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "G700"
+      "value": "Green700"
     },
     "name": "color.background.accent.green.bolder",
     "path": [
@@ -3131,7 +3131,7 @@ const tokens = [
         "replacement": "color.background.accent.green.subtler",
         "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "G200"
+      "value": "Green200"
     },
     "name": "color.background.accent.green.[default]",
     "path": [
@@ -3165,7 +3165,7 @@ const tokens = [
         "replacement": "color.background.accent.green.subtle",
         "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "G400"
+      "value": "Green400"
     },
     "name": "color.background.accent.green.bold",
     "path": [
@@ -3193,7 +3193,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "T100"
+      "value": "Teal100"
     },
     "name": "color.background.accent.teal.subtlest",
     "path": [
@@ -3221,7 +3221,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "T200"
+      "value": "Teal200"
     },
     "name": "color.background.accent.teal.subtler",
     "path": [
@@ -3249,7 +3249,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "T400"
+      "value": "Teal400"
     },
     "name": "color.background.accent.teal.subtle",
     "path": [
@@ -3277,7 +3277,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "T700"
+      "value": "Teal700"
     },
     "name": "color.background.accent.teal.bolder",
     "path": [
@@ -3311,7 +3311,7 @@ const tokens = [
         "replacement": "color.background.accent.teal.subtler",
         "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "T200"
+      "value": "Teal200"
     },
     "name": "color.background.accent.teal.[default]",
     "path": [
@@ -3345,7 +3345,7 @@ const tokens = [
         "replacement": "color.background.accent.teal.subtle",
         "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "T400"
+      "value": "Teal400"
     },
     "name": "color.background.accent.teal.bold",
     "path": [
@@ -3373,7 +3373,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "P100"
+      "value": "Purple100"
     },
     "name": "color.background.accent.purple.subtlest",
     "path": [
@@ -3401,7 +3401,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "P200"
+      "value": "Purple200"
     },
     "name": "color.background.accent.purple.subtler",
     "path": [
@@ -3429,7 +3429,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "P400"
+      "value": "Purple400"
     },
     "name": "color.background.accent.purple.subtle",
     "path": [
@@ -3457,7 +3457,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "P700"
+      "value": "Purple700"
     },
     "name": "color.background.accent.purple.bolder",
     "path": [
@@ -3491,7 +3491,7 @@ const tokens = [
         "replacement": "color.background.accent.purple.subtler",
         "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "P200"
+      "value": "Purple200"
     },
     "name": "color.background.accent.purple.[default]",
     "path": [
@@ -3525,7 +3525,7 @@ const tokens = [
         "replacement": "color.background.accent.purple.subtle",
         "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "P400"
+      "value": "Purple400"
     },
     "name": "color.background.accent.purple.bold",
     "path": [
@@ -3553,7 +3553,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "M100"
+      "value": "Magenta100"
     },
     "name": "color.background.accent.magenta.subtlest",
     "path": [
@@ -3581,7 +3581,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "M200"
+      "value": "Magenta200"
     },
     "name": "color.background.accent.magenta.subtler",
     "path": [
@@ -3609,7 +3609,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "M400"
+      "value": "Magenta400"
     },
     "name": "color.background.accent.magenta.subtle",
     "path": [
@@ -3637,7 +3637,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "M700"
+      "value": "Magenta700"
     },
     "name": "color.background.accent.magenta.bolder",
     "path": [
@@ -3671,7 +3671,7 @@ const tokens = [
         "replacement": "color.background.accent.magenta.subtler",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "M200"
+      "value": "Magenta200"
     },
     "name": "color.background.accent.magenta.[default]",
     "path": [
@@ -3705,7 +3705,7 @@ const tokens = [
         "replacement": "color.background.accent.magenta.subtle",
         "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "M400"
+      "value": "Magenta400"
     },
     "name": "color.background.accent.magenta.bold",
     "path": [
@@ -3733,7 +3733,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
       },
-      "value": "N200"
+      "value": "Neutral200"
     },
     "name": "color.background.accent.gray.subtlest",
     "path": [
@@ -3761,7 +3761,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "N300"
+      "value": "Neutral300"
     },
     "name": "color.background.accent.gray.subtler",
     "path": [
@@ -3789,7 +3789,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "N500"
+      "value": "Neutral500"
     },
     "name": "color.background.accent.gray.subtle",
     "path": [
@@ -3817,7 +3817,7 @@ const tokens = [
         "introduced": "0.7.0",
         "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
-      "value": "N700"
+      "value": "Neutral700"
     },
     "name": "color.background.accent.gray.bolder",
     "path": [
@@ -3845,7 +3845,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for backgrounds of elements in a disabled state."
       },
-      "value": "N100A"
+      "value": "Neutral100A"
     },
     "name": "color.background.disabled",
     "path": [
@@ -3988,7 +3988,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "color.background.input.[default]",
     "path": [
@@ -4015,7 +4015,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.input"
       },
-      "value": "N100"
+      "value": "Neutral100"
     },
     "name": "color.background.input.hovered",
     "path": [
@@ -4042,7 +4042,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.input"
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "color.background.input.pressed",
     "path": [
@@ -4069,7 +4069,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "The default background for neutral elements, such as default buttons."
       },
-      "value": "N200A"
+      "value": "Neutral200A"
     },
     "name": "color.background.neutral.[default].[default]",
     "path": [
@@ -4097,7 +4097,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.neutral"
       },
-      "value": "N300A"
+      "value": "Neutral300A"
     },
     "name": "color.background.neutral.[default].hovered",
     "path": [
@@ -4125,7 +4125,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.neutral"
       },
-      "value": "N400A"
+      "value": "Neutral400A"
     },
     "name": "color.background.neutral.[default].pressed",
     "path": [
@@ -4181,7 +4181,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.neutral.subtle"
       },
-      "value": "N200A"
+      "value": "Neutral200A"
     },
     "name": "color.background.neutral.subtle.hovered",
     "path": [
@@ -4209,7 +4209,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.neutral.subtle"
       },
-      "value": "N300A"
+      "value": "Neutral300A"
     },
     "name": "color.background.neutral.subtle.pressed",
     "path": [
@@ -4237,7 +4237,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "A vibrant background option for neutral UI elements, such as announcement banners."
       },
-      "value": "N800"
+      "value": "Neutral800"
     },
     "name": "color.background.neutral.bold.[default]",
     "path": [
@@ -4265,7 +4265,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.neutral.bold"
       },
-      "value": "N900"
+      "value": "Neutral900"
     },
     "name": "color.background.neutral.bold.hovered",
     "path": [
@@ -4293,7 +4293,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.neutral.bold"
       },
-      "value": "N1000"
+      "value": "Neutral1000"
     },
     "name": "color.background.neutral.bold.pressed",
     "path": [
@@ -4321,7 +4321,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.background.brand.bold.[default]",
     "path": [
@@ -4349,7 +4349,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.brand.bold"
       },
-      "value": "B800"
+      "value": "Blue800"
     },
     "name": "color.background.brand.bold.hovered",
     "path": [
@@ -4377,7 +4377,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.brand.bold"
       },
-      "value": "B900"
+      "value": "Blue900"
     },
     "name": "color.background.brand.bold.pressed",
     "path": [
@@ -4411,7 +4411,7 @@ const tokens = [
         "replacement": "color.background.selected.[default].[default]",
         "description": "Use for the background of elements used to reinforce our brand."
       },
-      "value": "B100"
+      "value": "Blue100"
     },
     "name": "color.background.brand.[default].[default]",
     "path": [
@@ -4445,7 +4445,7 @@ const tokens = [
         "replacement": "color.background.selected.[default].hovered",
         "description": "Hovered state for color.background.brand"
       },
-      "value": "B200"
+      "value": "Blue200"
     },
     "name": "color.background.brand.[default].hovered",
     "path": [
@@ -4479,7 +4479,7 @@ const tokens = [
         "replacement": "color.background.selected.[default].pressed",
         "description": "Pressed state for color.background.brand"
       },
-      "value": "B300"
+      "value": "Blue300"
     },
     "name": "color.background.brand.[default].pressed",
     "path": [
@@ -4507,7 +4507,7 @@ const tokens = [
         "introduced": "0.6.2",
         "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
       },
-      "value": "B100"
+      "value": "Blue100"
     },
     "name": "color.background.selected.[default].[default]",
     "path": [
@@ -4535,7 +4535,7 @@ const tokens = [
         "introduced": "0.6.2",
         "description": "Hovered state for color.background.selected"
       },
-      "value": "B200"
+      "value": "Blue200"
     },
     "name": "color.background.selected.[default].hovered",
     "path": [
@@ -4563,7 +4563,7 @@ const tokens = [
         "introduced": "0.6.2",
         "description": "Pressed state for color.background.selected"
       },
-      "value": "B300"
+      "value": "Blue300"
     },
     "name": "color.background.selected.[default].pressed",
     "path": [
@@ -4591,7 +4591,7 @@ const tokens = [
         "introduced": "0.6.2",
         "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.background.selected.bold.[default]",
     "path": [
@@ -4619,7 +4619,7 @@ const tokens = [
         "introduced": "0.6.2",
         "description": "Hovered state of color.background.selected.bold"
       },
-      "value": "B800"
+      "value": "Blue800"
     },
     "name": "color.background.selected.bold.hovered",
     "path": [
@@ -4647,7 +4647,7 @@ const tokens = [
         "introduced": "0.6.2",
         "description": "Pressed state of color.background.selected.bold"
       },
-      "value": "B900"
+      "value": "Blue900"
     },
     "name": "color.background.selected.bold.pressed",
     "path": [
@@ -4681,7 +4681,7 @@ const tokens = [
         "replacement": "color.background.selected.[default].[default]",
         "description": "Use for backgrounds of elements in a selected state"
       },
-      "value": "B100"
+      "value": "Blue100"
     },
     "name": "color.background.selected.resting",
     "path": [
@@ -4714,7 +4714,7 @@ const tokens = [
         "replacement": "color.background.selected.[default].hovered",
         "description": "Hover state for color.background.selected"
       },
-      "value": "B200"
+      "value": "Blue200"
     },
     "name": "color.background.selected.hover",
     "path": [
@@ -4741,7 +4741,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for backgrounds communicating critical information, such in error section messages."
       },
-      "value": "R100"
+      "value": "Red100"
     },
     "name": "color.background.danger.[default].[default]",
     "path": [
@@ -4769,7 +4769,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.danger"
       },
-      "value": "R200"
+      "value": "Red200"
     },
     "name": "color.background.danger.[default].hovered",
     "path": [
@@ -4797,7 +4797,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.danger"
       },
-      "value": "R300"
+      "value": "Red300"
     },
     "name": "color.background.danger.[default].pressed",
     "path": [
@@ -4825,7 +4825,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "A vibrant background option for communicating critical information, such as in danger buttons and error banners."
       },
-      "value": "R700"
+      "value": "Red700"
     },
     "name": "color.background.danger.bold.[default]",
     "path": [
@@ -4853,7 +4853,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.danger.bold"
       },
-      "value": "R800"
+      "value": "Red800"
     },
     "name": "color.background.danger.bold.hovered",
     "path": [
@@ -4881,7 +4881,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.danger.bold"
       },
-      "value": "R900"
+      "value": "Red900"
     },
     "name": "color.background.danger.bold.pressed",
     "path": [
@@ -4909,7 +4909,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for backgrounds communicating caution, such as in warning section messages."
       },
-      "value": "Y100"
+      "value": "Yellow100"
     },
     "name": "color.background.warning.[default].[default]",
     "path": [
@@ -4937,7 +4937,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.warning"
       },
-      "value": "Y200"
+      "value": "Yellow200"
     },
     "name": "color.background.warning.[default].hovered",
     "path": [
@@ -4965,7 +4965,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.warning"
       },
-      "value": "Y300"
+      "value": "Yellow300"
     },
     "name": "color.background.warning.[default].pressed",
     "path": [
@@ -4993,7 +4993,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
       },
-      "value": "Y400"
+      "value": "Yellow400"
     },
     "name": "color.background.warning.bold.[default]",
     "path": [
@@ -5021,7 +5021,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.warning.bold"
       },
-      "value": "Y500"
+      "value": "Yellow500"
     },
     "name": "color.background.warning.bold.hovered",
     "path": [
@@ -5049,7 +5049,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.warning.bold"
       },
-      "value": "Y600"
+      "value": "Yellow600"
     },
     "name": "color.background.warning.bold.pressed",
     "path": [
@@ -5077,7 +5077,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for backgrounds communicating a favourable outcome, such as in success section messages."
       },
-      "value": "G100"
+      "value": "Green100"
     },
     "name": "color.background.success.[default].[default]",
     "path": [
@@ -5105,7 +5105,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.success"
       },
-      "value": "G200"
+      "value": "Green200"
     },
     "name": "color.background.success.[default].hovered",
     "path": [
@@ -5133,7 +5133,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.success"
       },
-      "value": "G300"
+      "value": "Green300"
     },
     "name": "color.background.success.[default].pressed",
     "path": [
@@ -5161,7 +5161,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "A vibrant background option for communicating a favourable outcome, such as in checked toggles."
       },
-      "value": "G700"
+      "value": "Green700"
     },
     "name": "color.background.success.bold.[default]",
     "path": [
@@ -5189,7 +5189,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.success.bold"
       },
-      "value": "G800"
+      "value": "Green800"
     },
     "name": "color.background.success.bold.hovered",
     "path": [
@@ -5217,7 +5217,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.success.bold"
       },
-      "value": "G900"
+      "value": "Green900"
     },
     "name": "color.background.success.bold.pressed",
     "path": [
@@ -5245,7 +5245,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for backgrounds communicating change or something new, such as in discovery section messages."
       },
-      "value": "P100"
+      "value": "Purple100"
     },
     "name": "color.background.discovery.[default].[default]",
     "path": [
@@ -5273,7 +5273,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hover state for color.background.discovery"
       },
-      "value": "P200"
+      "value": "Purple200"
     },
     "name": "color.background.discovery.[default].hovered",
     "path": [
@@ -5301,7 +5301,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.discovery"
       },
-      "value": "P300"
+      "value": "Purple300"
     },
     "name": "color.background.discovery.[default].pressed",
     "path": [
@@ -5329,7 +5329,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "A vibrant background option communicating change or something new, such as in onboarding spotlights."
       },
-      "value": "P700"
+      "value": "Purple700"
     },
     "name": "color.background.discovery.bold.[default]",
     "path": [
@@ -5357,7 +5357,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.discovery.bold"
       },
-      "value": "P800"
+      "value": "Purple800"
     },
     "name": "color.background.discovery.bold.hovered",
     "path": [
@@ -5385,7 +5385,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.discovery.bold"
       },
-      "value": "P900"
+      "value": "Purple900"
     },
     "name": "color.background.discovery.bold.pressed",
     "path": [
@@ -5413,7 +5413,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for backgrounds communicating information or something in-progress, such as in information section messages."
       },
-      "value": "B100"
+      "value": "Blue100"
     },
     "name": "color.background.information.[default].[default]",
     "path": [
@@ -5441,7 +5441,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.information"
       },
-      "value": "B200"
+      "value": "Blue200"
     },
     "name": "color.background.information.[default].hovered",
     "path": [
@@ -5469,7 +5469,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.information"
       },
-      "value": "B300"
+      "value": "Blue300"
     },
     "name": "color.background.information.[default].pressed",
     "path": [
@@ -5497,7 +5497,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "A vibrant background option for communicating information or something in-progress."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.background.information.bold.[default]",
     "path": [
@@ -5525,7 +5525,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.information.bold"
       },
-      "value": "B800"
+      "value": "Blue800"
     },
     "name": "color.background.information.bold.hovered",
     "path": [
@@ -5553,7 +5553,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.information.bold"
       },
-      "value": "B900"
+      "value": "Blue900"
     },
     "name": "color.background.information.bold.pressed",
     "path": [
@@ -5587,7 +5587,7 @@ const tokens = [
         "replacement": "color.blanket.[default]",
         "description": "Use for the screen overlay that appears with modal dialogs"
       },
-      "value": "N500A"
+      "value": "Neutral500A"
     },
     "name": "color.background.blanket",
     "path": [
@@ -5619,7 +5619,7 @@ const tokens = [
         "replacement": "color.background.brand.bold.hovered",
         "description": "Hover state of background.boldBrand"
       },
-      "value": "B800"
+      "value": "Blue800"
     },
     "name": "color.background.boldBrand.hover",
     "path": [
@@ -5652,7 +5652,7 @@ const tokens = [
         "replacement": "color.background.brand.bold.pressed",
         "description": "Pressed state of background.boldBrand"
       },
-      "value": "B900"
+      "value": "Blue900"
     },
     "name": "color.background.boldBrand.pressed",
     "path": [
@@ -5685,7 +5685,7 @@ const tokens = [
         "replacement": "color.background.brand.bold.[default]",
         "description": "A vibrant background for small UI elements like primary buttons and bold in progress lozenges."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.background.boldBrand.resting",
     "path": [
@@ -5718,7 +5718,7 @@ const tokens = [
         "replacement": "color.background.danger.bold.hovered",
         "description": "Hover state of background.boldDanger"
       },
-      "value": "R800"
+      "value": "Red800"
     },
     "name": "color.background.boldDanger.hover",
     "path": [
@@ -5751,7 +5751,7 @@ const tokens = [
         "replacement": "color.background.danger.bold.pressed",
         "description": "Pressed state of background.boldDanger"
       },
-      "value": "R900"
+      "value": "Red900"
     },
     "name": "color.background.boldDanger.pressed",
     "path": [
@@ -5784,7 +5784,7 @@ const tokens = [
         "replacement": "color.background.danger.bold.[default]",
         "description": "A vibrant background for small UI elements like danger buttons and bold removed lozenges."
       },
-      "value": "R700"
+      "value": "Red700"
     },
     "name": "color.background.boldDanger.resting",
     "path": [
@@ -5817,7 +5817,7 @@ const tokens = [
         "replacement": "color.background.discovery.bold.hovered",
         "description": "Hover state of background.boldDiscovery"
       },
-      "value": "P800"
+      "value": "Purple800"
     },
     "name": "color.background.boldDiscovery.hover",
     "path": [
@@ -5850,7 +5850,7 @@ const tokens = [
         "replacement": "color.background.discovery.bold.pressed",
         "description": "Pressed state of background.boldDiscovery"
       },
-      "value": "P900"
+      "value": "Purple900"
     },
     "name": "color.background.boldDiscovery.pressed",
     "path": [
@@ -5883,7 +5883,7 @@ const tokens = [
         "replacement": "color.background.discovery.bold.[default]",
         "description": "A vibrant background for small UI elements like onboarding buttons and bold new lozenges."
       },
-      "value": "P700"
+      "value": "Purple700"
     },
     "name": "color.background.boldDiscovery.resting",
     "path": [
@@ -5916,7 +5916,7 @@ const tokens = [
         "replacement": "color.background.neutral.bold.hovered",
         "description": "Hover state of background.boldNeutral"
       },
-      "value": "N900"
+      "value": "Neutral900"
     },
     "name": "color.background.boldNeutral.hover",
     "path": [
@@ -5949,7 +5949,7 @@ const tokens = [
         "replacement": "color.background.neutral.bold.pressed",
         "description": "Pressed state of background.boldNeutral"
       },
-      "value": "N1000"
+      "value": "Neutral1000"
     },
     "name": "color.background.boldNeutral.pressed",
     "path": [
@@ -5982,7 +5982,7 @@ const tokens = [
         "replacement": "color.background.neutral.bold.[default]",
         "description": "A vibrant background for small UI elements like unchecked toggles and bold default lozenges."
       },
-      "value": "N800"
+      "value": "Neutral800"
     },
     "name": "color.background.boldNeutral.resting",
     "path": [
@@ -6015,7 +6015,7 @@ const tokens = [
         "replacement": "color.background.success.bold.hovered",
         "description": "Hover state of background.boldSuccess"
       },
-      "value": "G800"
+      "value": "Green800"
     },
     "name": "color.background.boldSuccess.hover",
     "path": [
@@ -6048,7 +6048,7 @@ const tokens = [
         "replacement": "color.background.success.bold.pressed",
         "description": "Pressed state of background.boldSuccess"
       },
-      "value": "G900"
+      "value": "Green900"
     },
     "name": "color.background.boldSuccess.pressed",
     "path": [
@@ -6081,7 +6081,7 @@ const tokens = [
         "replacement": "color.background.success.bold.[default]",
         "description": "A vibrant background for small UI elements like checked toggles and bold success lozenges."
       },
-      "value": "G700"
+      "value": "Green700"
     },
     "name": "color.background.boldSuccess.resting",
     "path": [
@@ -6114,7 +6114,7 @@ const tokens = [
         "replacement": "color.background.warning.bold.hovered",
         "description": "Hover state of background.boldWarning"
       },
-      "value": "Y500"
+      "value": "Yellow500"
     },
     "name": "color.background.boldWarning.hover",
     "path": [
@@ -6147,7 +6147,7 @@ const tokens = [
         "replacement": "color.background.warning.bold.pressed",
         "description": "Pressed state of background.boldWarning"
       },
-      "value": "Y600"
+      "value": "Yellow600"
     },
     "name": "color.background.boldWarning.pressed",
     "path": [
@@ -6180,7 +6180,7 @@ const tokens = [
         "replacement": "color.background.warning.bold.[default]",
         "description": "A vibrant background for small UI elements like warning buttons and bold moved lozenges."
       },
-      "value": "Y400"
+      "value": "Yellow400"
     },
     "name": "color.background.boldWarning.resting",
     "path": [
@@ -6213,7 +6213,7 @@ const tokens = [
         "replacement": "elevation.surface.raised.[default]",
         "description": "Use for the background of raised cards, such as Jira cards on a Kanban board.\nCombine with shadow.card."
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "color.background.card",
     "path": [
@@ -6245,7 +6245,7 @@ const tokens = [
         "replacement": "elevation.surface.[default].[default]",
         "description": "Use as the primary background for the UI"
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "color.background.default",
     "path": [
@@ -6277,7 +6277,7 @@ const tokens = [
         "replacement": "elevation.surface.overlay.[default]",
         "description": "\nUse for the background of overlay elements, such as modals, dropdown menus, flags, and inline dialogs (i.e. elements that sit on top of the UI).\n\nAlso use for the background of raised cards in a dragged state.\n\nCombine with shadow.overlay."
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "color.background.overlay",
     "path": [
@@ -6309,7 +6309,7 @@ const tokens = [
         "replacement": "color.background.input.pressed",
         "description": "Pressed state for background.subtleBorderedNeutral"
       },
-      "value": "N200A"
+      "value": "Neutral200A"
     },
     "name": "color.background.subtleBorderedNeutral.pressed",
     "path": [
@@ -6342,7 +6342,7 @@ const tokens = [
         "replacement": "color.background.input.[default]",
         "description": "Hover state for background.subtleBorderedNeutral"
       },
-      "value": "N100A"
+      "value": "Neutral100A"
     },
     "name": "color.background.subtleBorderedNeutral.resting",
     "path": [
@@ -6375,7 +6375,7 @@ const tokens = [
         "replacement": "color.background.selected.[default].hovered",
         "description": "Hover state for background.subtleBrand"
       },
-      "value": "B200"
+      "value": "Blue200"
     },
     "name": "color.background.subtleBrand.hover",
     "path": [
@@ -6408,7 +6408,7 @@ const tokens = [
         "replacement": "color.background.selected.[default].pressed",
         "description": "Pressed state for background.subtleBrand"
       },
-      "value": "B300"
+      "value": "Blue300"
     },
     "name": "color.background.subtleBrand.pressed",
     "path": [
@@ -6441,7 +6441,7 @@ const tokens = [
         "replacement": "color.background.selected.[default].[default]",
         "description": "Use for subdued backgrounds of UI elements like information section messages and in progress lozenges."
       },
-      "value": "B100"
+      "value": "Blue100"
     },
     "name": "color.background.subtleBrand.resting",
     "path": [
@@ -6474,7 +6474,7 @@ const tokens = [
         "replacement": "color.background.danger.[default].hovered",
         "description": "Hover state for background.subtleDanger"
       },
-      "value": "R200"
+      "value": "Red200"
     },
     "name": "color.background.subtleDanger.hover",
     "path": [
@@ -6507,7 +6507,7 @@ const tokens = [
         "replacement": "color.background.danger.[default].pressed",
         "description": "Pressed state for background.subtleDanger"
       },
-      "value": "R300"
+      "value": "Red300"
     },
     "name": "color.background.subtleDanger.pressed",
     "path": [
@@ -6540,7 +6540,7 @@ const tokens = [
         "replacement": "color.background.danger.[default].[default]",
         "description": "Use for subdued backgrounds of UI elements like error section messages and removed lozenges."
       },
-      "value": "R100"
+      "value": "Red100"
     },
     "name": "color.background.subtleDanger.resting",
     "path": [
@@ -6573,7 +6573,7 @@ const tokens = [
         "replacement": "color.background.discovery.[default].hovered",
         "description": "Hover state for background.subtleDiscovery"
       },
-      "value": "P200"
+      "value": "Purple200"
     },
     "name": "color.background.subtleDiscovery.hover",
     "path": [
@@ -6606,7 +6606,7 @@ const tokens = [
         "replacement": "color.background.discovery.[default].pressed",
         "description": "Pressed state for background.subtleDiscovery"
       },
-      "value": "P300"
+      "value": "Purple300"
     },
     "name": "color.background.subtleDiscovery.pressed",
     "path": [
@@ -6639,7 +6639,7 @@ const tokens = [
         "replacement": "color.background.discovery.[default].[default]",
         "description": "Use for subdued backgrounds of UI elements like discovery section messages and new lozenges."
       },
-      "value": "P100"
+      "value": "Purple100"
     },
     "name": "color.background.subtleDiscovery.resting",
     "path": [
@@ -6672,7 +6672,7 @@ const tokens = [
         "replacement": "color.background.neutral.[default].hovered",
         "description": "Hover state for background.subtleNeutral"
       },
-      "value": "N300A"
+      "value": "Neutral300A"
     },
     "name": "color.background.subtleNeutral.hover",
     "path": [
@@ -6705,7 +6705,7 @@ const tokens = [
         "replacement": "color.background.neutral.[default].pressed",
         "description": "Pressed state for background.subtleNeutral"
       },
-      "value": "N400A"
+      "value": "Neutral400A"
     },
     "name": "color.background.subtleNeutral.pressed",
     "path": [
@@ -6738,7 +6738,7 @@ const tokens = [
         "replacement": "color.background.neutral.[default].[default]",
         "description": "Use as the default background of UI elements like buttons, lozenges, and tags."
       },
-      "value": "N200A"
+      "value": "Neutral200A"
     },
     "name": "color.background.subtleNeutral.resting",
     "path": [
@@ -6771,7 +6771,7 @@ const tokens = [
         "replacement": "color.background.success.[default].hovered",
         "description": "Hover state for background.subtleSuccess"
       },
-      "value": "G200"
+      "value": "Green200"
     },
     "name": "color.background.subtleSuccess.hover",
     "path": [
@@ -6804,7 +6804,7 @@ const tokens = [
         "replacement": "color.background.success.[default].pressed",
         "description": "Pressed state for background.subtleSuccess"
       },
-      "value": "G300"
+      "value": "Green300"
     },
     "name": "color.background.subtleSuccess.pressed",
     "path": [
@@ -6837,7 +6837,7 @@ const tokens = [
         "replacement": "color.background.success.[default].[default]",
         "description": "Use for subdued backgrounds of UI elements like success section messages and success lozenges."
       },
-      "value": "G100"
+      "value": "Green100"
     },
     "name": "color.background.subtleSuccess.resting",
     "path": [
@@ -6870,7 +6870,7 @@ const tokens = [
         "replacement": "color.background.warning.[default].hovered",
         "description": "Hover state for background.subtleWarning"
       },
-      "value": "Y200"
+      "value": "Yellow200"
     },
     "name": "color.background.subtleWarning.hover",
     "path": [
@@ -6903,7 +6903,7 @@ const tokens = [
         "replacement": "color.background.warning.[default].pressed",
         "description": "Pressed state for background.subtleWarning"
       },
-      "value": "Y300"
+      "value": "Yellow300"
     },
     "name": "color.background.subtleWarning.pressed",
     "path": [
@@ -6936,7 +6936,7 @@ const tokens = [
         "replacement": "color.background.warning.[default].[default]",
         "description": "Use for subdued backgrounds of UI elements like warning section messages and moved lozenges."
       },
-      "value": "Y100"
+      "value": "Yellow100"
     },
     "name": "color.background.subtleWarning.resting",
     "path": [
@@ -6969,7 +6969,7 @@ const tokens = [
         "replacement": "elevation.surface.sunken",
         "description": "Use as a secondary background for the UI"
       },
-      "value": "N100A"
+      "value": "Neutral100A"
     },
     "name": "color.background.sunken",
     "path": [
@@ -7001,7 +7001,7 @@ const tokens = [
         "replacement": "color.background.neutral.subtle.hovered",
         "description": "Hover state for UIs that do not have a default background, such as menu items or subtle buttons."
       },
-      "value": "N200A"
+      "value": "Neutral200A"
     },
     "name": "color.background.transparentNeutral.hover",
     "path": [
@@ -7034,7 +7034,7 @@ const tokens = [
         "replacement": "color.background.neutral.subtle.pressed",
         "description": "Pressed state for UIs that do not have a default background, such as menu items or subtle buttons."
       },
-      "value": "N300A"
+      "value": "Neutral300A"
     },
     "name": "color.background.transparentNeutral.pressed",
     "path": [
@@ -7061,7 +7061,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for the screen overlay that appears with modal dialogs"
       },
-      "value": "N500A"
+      "value": "Neutral500A"
     },
     "name": "color.blanket.[default]",
     "path": [
@@ -7257,7 +7257,7 @@ const tokens = [
         "introduced": "0.8.0",
         "description": "Use for skeleton loading states"
       },
-      "value": "N200A"
+      "value": "Neutral200A"
     },
     "name": "color.skeleton.[default]",
     "path": [
@@ -7283,7 +7283,7 @@ const tokens = [
         "introduced": "0.8.0",
         "description": "Use for the pulse or shimmer effect in skeleton loading states"
       },
-      "value": "N100A"
+      "value": "Neutral100A"
     },
     "name": "color.skeleton.subtle",
     "path": [
@@ -7309,7 +7309,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for links in a default or hovered state. Add an underline for hovered states."
       },
-      "value": "B700"
+      "value": "Blue700"
     },
     "name": "color.link.[default]",
     "path": [
@@ -7335,7 +7335,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for links in a pressed state."
       },
-      "value": "B800"
+      "value": "Blue800"
     },
     "name": "color.link.pressed",
     "path": [
@@ -7367,7 +7367,7 @@ const tokens = [
         "replacement": "color.background.accent.blue.bolder",
         "description": "Use for blue backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
-      "value": "B400"
+      "value": "Blue400"
     },
     "name": "color.accent.boldBlue",
     "path": [
@@ -7399,7 +7399,7 @@ const tokens = [
         "replacement": "color.background.accent.green.bolder",
         "description": "Use for green backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
-      "value": "G400"
+      "value": "Green400"
     },
     "name": "color.accent.boldGreen",
     "path": [
@@ -7431,7 +7431,7 @@ const tokens = [
         "replacement": "color.background.accent.orange.bolder",
         "description": "Use for orange backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
-      "value": "O400"
+      "value": "Orange400"
     },
     "name": "color.accent.boldOrange",
     "path": [
@@ -7463,7 +7463,7 @@ const tokens = [
         "replacement": "color.background.accent.purple.bolder",
         "description": "Use for purple backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
-      "value": "P400"
+      "value": "Purple400"
     },
     "name": "color.accent.boldPurple",
     "path": [
@@ -7495,7 +7495,7 @@ const tokens = [
         "replacement": "color.background.accent.red.bolder",
         "description": "Use for red backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
-      "value": "R400"
+      "value": "Red400"
     },
     "name": "color.accent.boldRed",
     "path": [
@@ -7527,7 +7527,7 @@ const tokens = [
         "replacement": "color.background.accent.teal.bolder",
         "description": "Use for teal backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
-      "value": "T400"
+      "value": "Teal400"
     },
     "name": "color.accent.boldTeal",
     "path": [
@@ -7559,7 +7559,7 @@ const tokens = [
         "replacement": "color.background.accent.blue.subtler",
         "description": "Use for blue subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "B200"
+      "value": "Blue200"
     },
     "name": "color.accent.subtleBlue",
     "path": [
@@ -7591,7 +7591,7 @@ const tokens = [
         "replacement": "color.background.accent.green.subtler",
         "description": "Use for green subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "G200"
+      "value": "Green200"
     },
     "name": "color.accent.subtleGreen",
     "path": [
@@ -7623,7 +7623,7 @@ const tokens = [
         "replacement": "color.background.accent.magenta.subtler",
         "description": "Use for magenta subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "M200"
+      "value": "Magenta200"
     },
     "name": "color.accent.subtleMagenta",
     "path": [
@@ -7655,7 +7655,7 @@ const tokens = [
         "replacement": "color.background.accent.orange.subtler",
         "description": "Use for orange subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "O200"
+      "value": "Orange200"
     },
     "name": "color.accent.subtleOrange",
     "path": [
@@ -7687,7 +7687,7 @@ const tokens = [
         "replacement": "color.background.accent.purple.subtler",
         "description": "Use for purple subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "P200"
+      "value": "Purple200"
     },
     "name": "color.accent.subtlePurple",
     "path": [
@@ -7719,7 +7719,7 @@ const tokens = [
         "replacement": "color.background.accent.red.subtler",
         "description": "Use for red subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "R200"
+      "value": "Red200"
     },
     "name": "color.accent.subtleRed",
     "path": [
@@ -7751,7 +7751,7 @@ const tokens = [
         "replacement": "color.background.accent.teal.subtler",
         "description": "Use for teal subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
-      "value": "T200"
+      "value": "Teal200"
     },
     "name": "color.accent.subtleTeal",
     "path": [
@@ -7783,7 +7783,7 @@ const tokens = [
         "replacement": "color.icon.brand",
         "description": "\nUse rarely for icons or borders representing brand, in-progress, or information, such as the icons in information sections messages.\n\nAlso use for blue icons or borders when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "B600"
+      "value": "Blue600"
     },
     "name": "color.iconBorder.brand",
     "path": [
@@ -7815,7 +7815,7 @@ const tokens = [
         "replacement": "color.icon.danger",
         "description": "\nUse rarely for icons and borders representing critical information, such the icons in error section messages or the borders on invalid text fields.\n\nAlso use for red icons or borders when there is no meaning tied to the color, such as file type icons."
       },
-      "value": "R600"
+      "value": "Red600"
     },
     "name": "color.iconBorder.danger",
     "path": [
@@ -7847,7 +7847,7 @@ const tokens = [
         "replacement": "color.icon.discovery",
         "description": "\nUse rarely for icons and borders representing new information, such as the icons in discovery section mesages or the borders in onboarding spotlights.\n\nAlso use for purple icons or borders when there is no meaning tied to the color, such as file type icons.\n"
       },
-      "value": "P600"
+      "value": "Purple600"
     },
     "name": "color.iconBorder.discovery",
     "path": [
@@ -7879,7 +7879,7 @@ const tokens = [
         "replacement": "color.icon.success",
         "description": "\nUse rarely for icons and borders representing positive information, such as the icons in success section messages or the borders on validated text fields.\n\nAlso use for green icons or borders when there is no meaning tied to the color, such as file type icons.\n"
       },
-      "value": "G600"
+      "value": "Green600"
     },
     "name": "color.iconBorder.success",
     "path": [
@@ -7911,7 +7911,7 @@ const tokens = [
         "replacement": "color.icon.warning.[default]",
         "description": "\nUse rarely for icons and borders representing semi-urgent information, such as the icons in warning section messages.\n\nAlso use for yellow icons or borders when there is no meaning tied to the color, such as file type icons.\n"
       },
-      "value": "O600"
+      "value": "Orange600"
     },
     "name": "color.iconBorder.warning",
     "path": [
@@ -7943,7 +7943,7 @@ const tokens = [
         "replacement": "color.interaction.hovered",
         "description": "Use as a background overlay for elements in a hover state when their background color cannot change, such as avatars."
       },
-      "value": "N400A"
+      "value": "Neutral400A"
     },
     "name": "color.overlay.hover",
     "path": [
@@ -7975,7 +7975,7 @@ const tokens = [
         "replacement": "color.interaction.pressed",
         "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
       },
-      "value": "N500A"
+      "value": "Neutral500A"
     },
     "name": "color.overlay.pressed",
     "path": [
@@ -8033,7 +8033,7 @@ const tokens = [
             "x": 0,
             "y": 1
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.25
         },
         {
@@ -8042,7 +8042,7 @@ const tokens = [
             "x": 0,
             "y": 0
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.31
         }
       ]
@@ -8102,7 +8102,7 @@ const tokens = [
             "x": 0,
             "y": 8
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.15
         },
         {
@@ -8111,7 +8111,7 @@ const tokens = [
             "x": 0,
             "y": 0
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.31
         }
       ]
@@ -8165,7 +8165,7 @@ const tokens = [
             "x": 0,
             "y": 1
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.25
         },
         {
@@ -8174,7 +8174,7 @@ const tokens = [
             "x": 0,
             "y": 0
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.31
         }
       ]
@@ -8229,7 +8229,7 @@ const tokens = [
             "x": 0,
             "y": 8
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.08
         },
         {
@@ -8238,7 +8238,7 @@ const tokens = [
             "x": 0,
             "y": 0
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.12
         }
       ]
@@ -8293,7 +8293,7 @@ const tokens = [
             "x": 0,
             "y": 8
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.15
         },
         {
@@ -8302,7 +8302,7 @@ const tokens = [
             "x": 0,
             "y": 0
           },
-          "color": "N1100",
+          "color": "Neutral1100",
           "opacity": 0.31
         }
       ]
@@ -8331,7 +8331,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use as the primary background for the UI."
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "elevation.surface.[default].[default]",
     "path": [
@@ -8358,7 +8358,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Hovered state of elevation.surface"
       },
-      "value": "N200"
+      "value": "Neutral200"
     },
     "name": "elevation.surface.[default].hovered",
     "path": [
@@ -8385,7 +8385,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Pressed state of elevation.surface"
       },
-      "value": "N300"
+      "value": "Neutral300"
     },
     "name": "elevation.surface.[default].pressed",
     "path": [
@@ -8412,7 +8412,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
       },
-      "value": "N100"
+      "value": "Neutral100"
     },
     "name": "elevation.surface.sunken",
     "path": [
@@ -8438,7 +8438,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "elevation.surface.raised.[default]",
     "path": [
@@ -8465,7 +8465,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Hovered state of elevation.surface.raised"
       },
-      "value": "N200"
+      "value": "Neutral200"
     },
     "name": "elevation.surface.raised.hovered",
     "path": [
@@ -8492,7 +8492,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Pressed state of elevation.surface.raised"
       },
-      "value": "N300"
+      "value": "Neutral300"
     },
     "name": "elevation.surface.raised.pressed",
     "path": [
@@ -8519,7 +8519,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
       },
-      "value": "N0"
+      "value": "Neutral0"
     },
     "name": "elevation.surface.overlay.[default]",
     "path": [
@@ -8546,7 +8546,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Hovered state of elevation.surface.overlay"
       },
-      "value": "N200"
+      "value": "Neutral200"
     },
     "name": "elevation.surface.overlay.hovered",
     "path": [
@@ -8573,7 +8573,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Pressed state of elevation.surface.overlay"
       },
-      "value": "N300"
+      "value": "Neutral300"
     },
     "name": "elevation.surface.overlay.pressed",
     "path": [

@@ -1,25 +1,33 @@
 import { JsonLd } from 'json-ld-types';
 import { CardClient, EnvironmentsKeys } from '@atlaskit/link-provider';
 import { getDefaultResponse } from './utils';
+import { BatchResponse, isSuccessfulResponse, request } from './client-utils';
 
 class JsonldEditorClient extends CardClient {
-  onFetch?: () => JsonLd.Response | undefined;
-  onResolve?: (response: JsonLd.Response) => void;
-  onError?: (error: Error) => void;
+  private readonly resolveUrl: string =
+    'https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver';
+  private readonly onFetch?: () => JsonLd.Response | undefined;
+  private readonly onResolve?: (response: JsonLd.Response) => void;
+  private readonly onError?: (error: Error) => void;
+  private readonly ari?: string;
 
   constructor(
     envKey?: EnvironmentsKeys,
     onFetch?: () => JsonLd.Response | undefined,
     onResolve?: (response: JsonLd.Response) => void,
     onError?: (error: Error) => void,
+    ari?: string,
   ) {
     super(envKey);
+
     this.onFetch = onFetch;
     this.onResolve = onResolve;
     this.onError = onError;
+    this.ari = ari;
   }
 
-  fetchData(url: string) {
+  async fetchData(url: string) {
+    // Return response from editor
     if (this.onFetch) {
       const response = this.onFetch();
       if (response) {
@@ -33,21 +41,41 @@ class JsonldEditorClient extends CardClient {
       }
     }
 
+    // Fetch with ari context
+    if (this.ari) {
+      const data = [{ resourceUrl: url, context: this.ari }];
+      return request('post', `${this.resolveUrl}/resolve/batch`, data)
+        .then((resolvedUrls: BatchResponse = []) => {
+          const response = resolvedUrls[0];
+          if (!isSuccessfulResponse(response)) {
+            // @ts-ignore CardClient.mapErrorResponse is a private method...
+            throw super.mapErrorResponse(response);
+          }
+          return this.handleFetchSuccess(response.body);
+        })
+        .catch(this.handleFetchError);
+    }
+
+    // Native fetch
     return super
       .fetchData(url)
-      .then((res) => {
-        if (this.onResolve) {
-          this.onResolve(res);
-        }
-        return res;
-      })
-      .catch((error) => {
-        if (this.onError) {
-          this.onError(error);
-        }
-        return getDefaultResponse();
-      });
+      .then(this.handleFetchSuccess)
+      .catch(this.handleFetchError);
   }
+
+  private handleFetchError = (error: Error) => {
+    if (this.onError) {
+      this.onError(error);
+    }
+    return getDefaultResponse();
+  };
+
+  private handleFetchSuccess = async (response: JsonLd.Response) => {
+    if (this.onResolve) {
+      this.onResolve(response);
+    }
+    return response;
+  };
 }
 
 export default JsonldEditorClient;

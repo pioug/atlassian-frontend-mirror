@@ -15,6 +15,8 @@ export type EventIdentifier = {
   action: string;
   actionSubject: string;
   actionSubjectId?: string;
+  // TODO ONLY FOR PURPOSE OF DOCS NOT THE ACTUAL EVENT NAME
+  eventName: string;
 };
 
 export type EventDescriptor = {

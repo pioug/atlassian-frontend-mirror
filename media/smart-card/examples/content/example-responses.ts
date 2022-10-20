@@ -77,7 +77,7 @@ export const unicornResponse = {
     endTime: '2022-07-31T00:00:00.000Z',
     image: preview,
     mediaType: 'text/plain',
-    name: 'An unicorn link response for Smart Links example.',
+    name: 'A unicorn link response for Smart Links example.',
     'schema:commentCount': 22,
     'schema:dateCreated': '2022-01-21T10:25:11.676+1100',
     'schema:programmingLanguage': 'Javascript',

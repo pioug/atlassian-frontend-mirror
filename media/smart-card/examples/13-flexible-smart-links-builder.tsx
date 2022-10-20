@@ -48,6 +48,7 @@ export default () => {
       <div css={leftPanelStyles}>
         <JsonldEditor>
           {({
+            ari,
             initialJson,
             json,
             jsonError,
@@ -63,6 +64,7 @@ export default () => {
             <React.Fragment>
               <TemplateRenderer
                 template={template}
+                ari={ari}
                 json={json}
                 onError={onUrlError}
                 onResolve={onUrlResolve}

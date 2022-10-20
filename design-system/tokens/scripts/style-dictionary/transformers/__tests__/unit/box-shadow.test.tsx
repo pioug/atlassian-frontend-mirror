@@ -31,7 +31,7 @@ describe('palette transformer', () => {
       },
       value: [
         {
-          color: 'B100',
+          color: 'Blue100',
           offset: { x: 1, y: 2 },
           opacity: 1,
           radius: 3,
@@ -54,7 +54,7 @@ describe('palette transformer', () => {
       },
       value: [
         {
-          color: 'B100',
+          color: 'Blue100',
           offset: { x: 1, y: 2 },
           opacity: 1,
           radius: 3,
@@ -78,7 +78,7 @@ describe('palette transformer', () => {
       },
       value: [
         {
-          color: 'B100',
+          color: 'Blue100',
           offset: { x: 1, y: 2 },
           opacity: 1,
           radius: 3,
@@ -102,7 +102,7 @@ describe('palette transformer', () => {
       },
       value: [
         {
-          color: 'B100',
+          color: 'Blue100',
           offset: { x: 1, y: 2 },
           opacity: 0.5,
           radius: 3,
@@ -125,13 +125,13 @@ describe('palette transformer', () => {
       },
       value: [
         {
-          color: 'B100',
+          color: 'Blue100',
           offset: { x: 1, y: 2 },
           opacity: 0.5,
           radius: 3,
         },
         {
-          color: 'B500',
+          color: 'Blue500',
           offset: { x: 0, y: 0 },
           opacity: 1,
           radius: 1,

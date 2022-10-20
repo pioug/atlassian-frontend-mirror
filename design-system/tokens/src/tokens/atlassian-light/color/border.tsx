@@ -5,43 +5,43 @@ const color: ValueSchema<BorderColorTokenSchema<BaseToken>> = {
   color: {
     border: {
       '[default]': {
-        value: 'N300A',
+        value: 'Neutral300A',
       },
       bold: {
-        value: 'N600',
+        value: 'Neutral600',
       },
       inverse: {
-        value: 'N0',
+        value: 'Neutral0',
       },
       focused: {
-        value: 'B500',
+        value: 'Blue500',
       },
       input: {
-        value: 'N300A',
+        value: 'Neutral300A',
       },
       disabled: {
-        value: 'N200A',
+        value: 'Neutral200A',
       },
       brand: {
-        value: 'B700',
+        value: 'Blue700',
       },
       selected: {
-        value: 'B700',
+        value: 'Blue700',
       },
       danger: {
-        value: 'R600',
+        value: 'Red600',
       },
       warning: {
-        value: 'O600',
+        value: 'Orange600',
       },
       success: {
-        value: 'G600',
+        value: 'Green600',
       },
       discovery: {
-        value: 'P600',
+        value: 'Purple600',
       },
       information: {
-        value: 'B600',
+        value: 'Blue600',
       },
     },
   },

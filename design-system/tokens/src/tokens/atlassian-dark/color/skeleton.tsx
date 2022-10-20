@@ -5,10 +5,10 @@ const color: ValueSchema<SkeletonColorTokenSchema<BaseToken>> = {
   color: {
     skeleton: {
       '[default]': {
-        value: 'DN200A',
+        value: 'DarkNeutral200A',
       },
       subtle: {
-        value: 'DN100A',
+        value: 'DarkNeutral100A',
       },
     },
   },

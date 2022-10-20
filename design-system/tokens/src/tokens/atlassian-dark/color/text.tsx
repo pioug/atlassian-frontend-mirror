@@ -5,53 +5,53 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
   color: {
     text: {
       '[default]': {
-        value: 'DN1000',
+        value: 'DarkNeutral1000',
       },
       subtle: {
-        value: 'DN800',
+        value: 'DarkNeutral800',
       },
       subtlest: {
-        value: 'DN700',
+        value: 'DarkNeutral700',
       },
       inverse: {
-        value: 'DN0',
+        value: 'DarkNeutral0',
       },
       disabled: {
-        value: 'DN400A',
+        value: 'DarkNeutral400A',
       },
       brand: {
-        value: 'B400',
+        value: 'Blue400',
       },
       selected: {
-        value: 'B400',
+        value: 'Blue400',
       },
       danger: {
-        value: 'R300',
+        value: 'Red300',
       },
       warning: {
         '[default]': {
-          value: 'Y300',
+          value: 'Yellow300',
         },
         inverse: {
-          value: 'DN0',
+          value: 'DarkNeutral0',
         },
       },
       success: {
-        value: 'G300',
+        value: 'Green300',
       },
       information: {
-        value: 'B300',
+        value: 'Blue300',
       },
       discovery: {
-        value: 'P300',
+        value: 'Purple300',
       },
     },
     link: {
       '[default]': {
-        value: 'B400',
+        value: 'Blue400',
       },
       pressed: {
-        value: 'B300',
+        value: 'Blue300',
       },
     },
   },

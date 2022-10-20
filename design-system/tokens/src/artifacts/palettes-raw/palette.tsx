@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::54a73caa5e11805075c57f698252b1e7>>
+ * @codegen <<SignedSource::6a8bee72650af744db4926f40106688a>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -63,11 +63,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B100",
+    "name": "color.palette.Blue100",
     "path": [
       "color",
       "palette",
-      "B100"
+      "Blue100"
     ]
   },
   {
@@ -85,11 +85,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B200",
+    "name": "color.palette.Blue200",
     "path": [
       "color",
       "palette",
-      "B200"
+      "Blue200"
     ]
   },
   {
@@ -107,11 +107,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B300",
+    "name": "color.palette.Blue300",
     "path": [
       "color",
       "palette",
-      "B300"
+      "Blue300"
     ]
   },
   {
@@ -129,11 +129,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B400",
+    "name": "color.palette.Blue400",
     "path": [
       "color",
       "palette",
-      "B400"
+      "Blue400"
     ]
   },
   {
@@ -151,11 +151,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B500",
+    "name": "color.palette.Blue500",
     "path": [
       "color",
       "palette",
-      "B500"
+      "Blue500"
     ]
   },
   {
@@ -173,11 +173,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B600",
+    "name": "color.palette.Blue600",
     "path": [
       "color",
       "palette",
-      "B600"
+      "Blue600"
     ]
   },
   {
@@ -195,11 +195,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B700",
+    "name": "color.palette.Blue700",
     "path": [
       "color",
       "palette",
-      "B700"
+      "Blue700"
     ]
   },
   {
@@ -217,11 +217,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B800",
+    "name": "color.palette.Blue800",
     "path": [
       "color",
       "palette",
-      "B800"
+      "Blue800"
     ]
   },
   {
@@ -239,11 +239,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B900",
+    "name": "color.palette.Blue900",
     "path": [
       "color",
       "palette",
-      "B900"
+      "Blue900"
     ]
   },
   {
@@ -261,11 +261,11 @@ const tokens = [
         "category": "blue"
       }
     },
-    "name": "color.palette.B1000",
+    "name": "color.palette.Blue1000",
     "path": [
       "color",
       "palette",
-      "B1000"
+      "Blue1000"
     ]
   },
   {
@@ -283,11 +283,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R100",
+    "name": "color.palette.Red100",
     "path": [
       "color",
       "palette",
-      "R100"
+      "Red100"
     ]
   },
   {
@@ -305,11 +305,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R200",
+    "name": "color.palette.Red200",
     "path": [
       "color",
       "palette",
-      "R200"
+      "Red200"
     ]
   },
   {
@@ -327,11 +327,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R300",
+    "name": "color.palette.Red300",
     "path": [
       "color",
       "palette",
-      "R300"
+      "Red300"
     ]
   },
   {
@@ -349,11 +349,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R400",
+    "name": "color.palette.Red400",
     "path": [
       "color",
       "palette",
-      "R400"
+      "Red400"
     ]
   },
   {
@@ -371,11 +371,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R500",
+    "name": "color.palette.Red500",
     "path": [
       "color",
       "palette",
-      "R500"
+      "Red500"
     ]
   },
   {
@@ -393,11 +393,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R600",
+    "name": "color.palette.Red600",
     "path": [
       "color",
       "palette",
-      "R600"
+      "Red600"
     ]
   },
   {
@@ -415,11 +415,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R700",
+    "name": "color.palette.Red700",
     "path": [
       "color",
       "palette",
-      "R700"
+      "Red700"
     ]
   },
   {
@@ -437,11 +437,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R800",
+    "name": "color.palette.Red800",
     "path": [
       "color",
       "palette",
-      "R800"
+      "Red800"
     ]
   },
   {
@@ -459,11 +459,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R900",
+    "name": "color.palette.Red900",
     "path": [
       "color",
       "palette",
-      "R900"
+      "Red900"
     ]
   },
   {
@@ -481,11 +481,11 @@ const tokens = [
         "category": "red"
       }
     },
-    "name": "color.palette.R1000",
+    "name": "color.palette.Red1000",
     "path": [
       "color",
       "palette",
-      "R1000"
+      "Red1000"
     ]
   },
   {
@@ -503,11 +503,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y100",
+    "name": "color.palette.Yellow100",
     "path": [
       "color",
       "palette",
-      "Y100"
+      "Yellow100"
     ]
   },
   {
@@ -525,11 +525,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y200",
+    "name": "color.palette.Yellow200",
     "path": [
       "color",
       "palette",
-      "Y200"
+      "Yellow200"
     ]
   },
   {
@@ -547,11 +547,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y300",
+    "name": "color.palette.Yellow300",
     "path": [
       "color",
       "palette",
-      "Y300"
+      "Yellow300"
     ]
   },
   {
@@ -569,11 +569,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y400",
+    "name": "color.palette.Yellow400",
     "path": [
       "color",
       "palette",
-      "Y400"
+      "Yellow400"
     ]
   },
   {
@@ -591,11 +591,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y500",
+    "name": "color.palette.Yellow500",
     "path": [
       "color",
       "palette",
-      "Y500"
+      "Yellow500"
     ]
   },
   {
@@ -613,11 +613,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y600",
+    "name": "color.palette.Yellow600",
     "path": [
       "color",
       "palette",
-      "Y600"
+      "Yellow600"
     ]
   },
   {
@@ -635,11 +635,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y700",
+    "name": "color.palette.Yellow700",
     "path": [
       "color",
       "palette",
-      "Y700"
+      "Yellow700"
     ]
   },
   {
@@ -657,11 +657,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y800",
+    "name": "color.palette.Yellow800",
     "path": [
       "color",
       "palette",
-      "Y800"
+      "Yellow800"
     ]
   },
   {
@@ -679,11 +679,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y900",
+    "name": "color.palette.Yellow900",
     "path": [
       "color",
       "palette",
-      "Y900"
+      "Yellow900"
     ]
   },
   {
@@ -701,11 +701,11 @@ const tokens = [
         "category": "yellow"
       }
     },
-    "name": "color.palette.Y1000",
+    "name": "color.palette.Yellow1000",
     "path": [
       "color",
       "palette",
-      "Y1000"
+      "Yellow1000"
     ]
   },
   {
@@ -723,11 +723,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G100",
+    "name": "color.palette.Green100",
     "path": [
       "color",
       "palette",
-      "G100"
+      "Green100"
     ]
   },
   {
@@ -745,11 +745,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G200",
+    "name": "color.palette.Green200",
     "path": [
       "color",
       "palette",
-      "G200"
+      "Green200"
     ]
   },
   {
@@ -767,11 +767,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G300",
+    "name": "color.palette.Green300",
     "path": [
       "color",
       "palette",
-      "G300"
+      "Green300"
     ]
   },
   {
@@ -789,11 +789,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G400",
+    "name": "color.palette.Green400",
     "path": [
       "color",
       "palette",
-      "G400"
+      "Green400"
     ]
   },
   {
@@ -811,11 +811,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G500",
+    "name": "color.palette.Green500",
     "path": [
       "color",
       "palette",
-      "G500"
+      "Green500"
     ]
   },
   {
@@ -833,11 +833,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G600",
+    "name": "color.palette.Green600",
     "path": [
       "color",
       "palette",
-      "G600"
+      "Green600"
     ]
   },
   {
@@ -855,11 +855,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G700",
+    "name": "color.palette.Green700",
     "path": [
       "color",
       "palette",
-      "G700"
+      "Green700"
     ]
   },
   {
@@ -877,11 +877,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G800",
+    "name": "color.palette.Green800",
     "path": [
       "color",
       "palette",
-      "G800"
+      "Green800"
     ]
   },
   {
@@ -899,11 +899,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G900",
+    "name": "color.palette.Green900",
     "path": [
       "color",
       "palette",
-      "G900"
+      "Green900"
     ]
   },
   {
@@ -921,11 +921,11 @@ const tokens = [
         "category": "green"
       }
     },
-    "name": "color.palette.G1000",
+    "name": "color.palette.Green1000",
     "path": [
       "color",
       "palette",
-      "G1000"
+      "Green1000"
     ]
   },
   {
@@ -943,11 +943,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P100",
+    "name": "color.palette.Purple100",
     "path": [
       "color",
       "palette",
-      "P100"
+      "Purple100"
     ]
   },
   {
@@ -965,11 +965,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P200",
+    "name": "color.palette.Purple200",
     "path": [
       "color",
       "palette",
-      "P200"
+      "Purple200"
     ]
   },
   {
@@ -987,11 +987,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P300",
+    "name": "color.palette.Purple300",
     "path": [
       "color",
       "palette",
-      "P300"
+      "Purple300"
     ]
   },
   {
@@ -1009,11 +1009,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P400",
+    "name": "color.palette.Purple400",
     "path": [
       "color",
       "palette",
-      "P400"
+      "Purple400"
     ]
   },
   {
@@ -1031,11 +1031,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P500",
+    "name": "color.palette.Purple500",
     "path": [
       "color",
       "palette",
-      "P500"
+      "Purple500"
     ]
   },
   {
@@ -1053,11 +1053,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P600",
+    "name": "color.palette.Purple600",
     "path": [
       "color",
       "palette",
-      "P600"
+      "Purple600"
     ]
   },
   {
@@ -1075,11 +1075,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P700",
+    "name": "color.palette.Purple700",
     "path": [
       "color",
       "palette",
-      "P700"
+      "Purple700"
     ]
   },
   {
@@ -1097,11 +1097,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P800",
+    "name": "color.palette.Purple800",
     "path": [
       "color",
       "palette",
-      "P800"
+      "Purple800"
     ]
   },
   {
@@ -1119,11 +1119,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P900",
+    "name": "color.palette.Purple900",
     "path": [
       "color",
       "palette",
-      "P900"
+      "Purple900"
     ]
   },
   {
@@ -1141,11 +1141,11 @@ const tokens = [
         "category": "purple"
       }
     },
-    "name": "color.palette.P1000",
+    "name": "color.palette.Purple1000",
     "path": [
       "color",
       "palette",
-      "P1000"
+      "Purple1000"
     ]
   },
   {
@@ -1163,11 +1163,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T100",
+    "name": "color.palette.Teal100",
     "path": [
       "color",
       "palette",
-      "T100"
+      "Teal100"
     ]
   },
   {
@@ -1185,11 +1185,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T200",
+    "name": "color.palette.Teal200",
     "path": [
       "color",
       "palette",
-      "T200"
+      "Teal200"
     ]
   },
   {
@@ -1207,11 +1207,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T300",
+    "name": "color.palette.Teal300",
     "path": [
       "color",
       "palette",
-      "T300"
+      "Teal300"
     ]
   },
   {
@@ -1229,11 +1229,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T400",
+    "name": "color.palette.Teal400",
     "path": [
       "color",
       "palette",
-      "T400"
+      "Teal400"
     ]
   },
   {
@@ -1251,11 +1251,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T500",
+    "name": "color.palette.Teal500",
     "path": [
       "color",
       "palette",
-      "T500"
+      "Teal500"
     ]
   },
   {
@@ -1273,11 +1273,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T600",
+    "name": "color.palette.Teal600",
     "path": [
       "color",
       "palette",
-      "T600"
+      "Teal600"
     ]
   },
   {
@@ -1295,11 +1295,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T700",
+    "name": "color.palette.Teal700",
     "path": [
       "color",
       "palette",
-      "T700"
+      "Teal700"
     ]
   },
   {
@@ -1317,11 +1317,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T800",
+    "name": "color.palette.Teal800",
     "path": [
       "color",
       "palette",
-      "T800"
+      "Teal800"
     ]
   },
   {
@@ -1339,11 +1339,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T900",
+    "name": "color.palette.Teal900",
     "path": [
       "color",
       "palette",
-      "T900"
+      "Teal900"
     ]
   },
   {
@@ -1361,11 +1361,11 @@ const tokens = [
         "category": "teal"
       }
     },
-    "name": "color.palette.T1000",
+    "name": "color.palette.Teal1000",
     "path": [
       "color",
       "palette",
-      "T1000"
+      "Teal1000"
     ]
   },
   {
@@ -1383,11 +1383,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O100",
+    "name": "color.palette.Orange100",
     "path": [
       "color",
       "palette",
-      "O100"
+      "Orange100"
     ]
   },
   {
@@ -1405,11 +1405,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O200",
+    "name": "color.palette.Orange200",
     "path": [
       "color",
       "palette",
-      "O200"
+      "Orange200"
     ]
   },
   {
@@ -1427,11 +1427,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O300",
+    "name": "color.palette.Orange300",
     "path": [
       "color",
       "palette",
-      "O300"
+      "Orange300"
     ]
   },
   {
@@ -1449,11 +1449,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O400",
+    "name": "color.palette.Orange400",
     "path": [
       "color",
       "palette",
-      "O400"
+      "Orange400"
     ]
   },
   {
@@ -1471,11 +1471,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O500",
+    "name": "color.palette.Orange500",
     "path": [
       "color",
       "palette",
-      "O500"
+      "Orange500"
     ]
   },
   {
@@ -1493,11 +1493,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O600",
+    "name": "color.palette.Orange600",
     "path": [
       "color",
       "palette",
-      "O600"
+      "Orange600"
     ]
   },
   {
@@ -1515,11 +1515,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O700",
+    "name": "color.palette.Orange700",
     "path": [
       "color",
       "palette",
-      "O700"
+      "Orange700"
     ]
   },
   {
@@ -1537,11 +1537,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O800",
+    "name": "color.palette.Orange800",
     "path": [
       "color",
       "palette",
-      "O800"
+      "Orange800"
     ]
   },
   {
@@ -1559,11 +1559,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O900",
+    "name": "color.palette.Orange900",
     "path": [
       "color",
       "palette",
-      "O900"
+      "Orange900"
     ]
   },
   {
@@ -1581,11 +1581,11 @@ const tokens = [
         "category": "orange"
       }
     },
-    "name": "color.palette.O1000",
+    "name": "color.palette.Orange1000",
     "path": [
       "color",
       "palette",
-      "O1000"
+      "Orange1000"
     ]
   },
   {
@@ -1603,11 +1603,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M100",
+    "name": "color.palette.Magenta100",
     "path": [
       "color",
       "palette",
-      "M100"
+      "Magenta100"
     ]
   },
   {
@@ -1625,11 +1625,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M200",
+    "name": "color.palette.Magenta200",
     "path": [
       "color",
       "palette",
-      "M200"
+      "Magenta200"
     ]
   },
   {
@@ -1647,11 +1647,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M300",
+    "name": "color.palette.Magenta300",
     "path": [
       "color",
       "palette",
-      "M300"
+      "Magenta300"
     ]
   },
   {
@@ -1669,11 +1669,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M400",
+    "name": "color.palette.Magenta400",
     "path": [
       "color",
       "palette",
-      "M400"
+      "Magenta400"
     ]
   },
   {
@@ -1691,11 +1691,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M500",
+    "name": "color.palette.Magenta500",
     "path": [
       "color",
       "palette",
-      "M500"
+      "Magenta500"
     ]
   },
   {
@@ -1713,11 +1713,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M600",
+    "name": "color.palette.Magenta600",
     "path": [
       "color",
       "palette",
-      "M600"
+      "Magenta600"
     ]
   },
   {
@@ -1735,11 +1735,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M700",
+    "name": "color.palette.Magenta700",
     "path": [
       "color",
       "palette",
-      "M700"
+      "Magenta700"
     ]
   },
   {
@@ -1757,11 +1757,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M800",
+    "name": "color.palette.Magenta800",
     "path": [
       "color",
       "palette",
-      "M800"
+      "Magenta800"
     ]
   },
   {
@@ -1779,11 +1779,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M900",
+    "name": "color.palette.Magenta900",
     "path": [
       "color",
       "palette",
-      "M900"
+      "Magenta900"
     ]
   },
   {
@@ -1801,11 +1801,11 @@ const tokens = [
         "category": "magenta"
       }
     },
-    "name": "color.palette.M1000",
+    "name": "color.palette.Magenta1000",
     "path": [
       "color",
       "palette",
-      "M1000"
+      "Magenta1000"
     ]
   },
   {
@@ -1823,11 +1823,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN-100",
+    "name": "color.palette.DarkNeutral-100",
     "path": [
       "color",
       "palette",
-      "DN-100"
+      "DarkNeutral-100"
     ]
   },
   {
@@ -1845,11 +1845,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN-100A",
+    "name": "color.palette.DarkNeutral-100A",
     "path": [
       "color",
       "palette",
-      "DN-100A"
+      "DarkNeutral-100A"
     ]
   },
   {
@@ -1867,11 +1867,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN0",
+    "name": "color.palette.DarkNeutral0",
     "path": [
       "color",
       "palette",
-      "DN0"
+      "DarkNeutral0"
     ]
   },
   {
@@ -1889,11 +1889,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN100",
+    "name": "color.palette.DarkNeutral100",
     "path": [
       "color",
       "palette",
-      "DN100"
+      "DarkNeutral100"
     ]
   },
   {
@@ -1911,11 +1911,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN100A",
+    "name": "color.palette.DarkNeutral100A",
     "path": [
       "color",
       "palette",
-      "DN100A"
+      "DarkNeutral100A"
     ]
   },
   {
@@ -1933,11 +1933,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN200",
+    "name": "color.palette.DarkNeutral200",
     "path": [
       "color",
       "palette",
-      "DN200"
+      "DarkNeutral200"
     ]
   },
   {
@@ -1955,11 +1955,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN200A",
+    "name": "color.palette.DarkNeutral200A",
     "path": [
       "color",
       "palette",
-      "DN200A"
+      "DarkNeutral200A"
     ]
   },
   {
@@ -1977,11 +1977,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN300",
+    "name": "color.palette.DarkNeutral300",
     "path": [
       "color",
       "palette",
-      "DN300"
+      "DarkNeutral300"
     ]
   },
   {
@@ -1999,11 +1999,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN300A",
+    "name": "color.palette.DarkNeutral300A",
     "path": [
       "color",
       "palette",
-      "DN300A"
+      "DarkNeutral300A"
     ]
   },
   {
@@ -2021,11 +2021,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN400",
+    "name": "color.palette.DarkNeutral400",
     "path": [
       "color",
       "palette",
-      "DN400"
+      "DarkNeutral400"
     ]
   },
   {
@@ -2043,11 +2043,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN400A",
+    "name": "color.palette.DarkNeutral400A",
     "path": [
       "color",
       "palette",
-      "DN400A"
+      "DarkNeutral400A"
     ]
   },
   {
@@ -2065,11 +2065,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN500",
+    "name": "color.palette.DarkNeutral500",
     "path": [
       "color",
       "palette",
-      "DN500"
+      "DarkNeutral500"
     ]
   },
   {
@@ -2087,11 +2087,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN500A",
+    "name": "color.palette.DarkNeutral500A",
     "path": [
       "color",
       "palette",
-      "DN500A"
+      "DarkNeutral500A"
     ]
   },
   {
@@ -2109,11 +2109,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN600",
+    "name": "color.palette.DarkNeutral600",
     "path": [
       "color",
       "palette",
-      "DN600"
+      "DarkNeutral600"
     ]
   },
   {
@@ -2131,11 +2131,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN700",
+    "name": "color.palette.DarkNeutral700",
     "path": [
       "color",
       "palette",
-      "DN700"
+      "DarkNeutral700"
     ]
   },
   {
@@ -2153,11 +2153,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN800",
+    "name": "color.palette.DarkNeutral800",
     "path": [
       "color",
       "palette",
-      "DN800"
+      "DarkNeutral800"
     ]
   },
   {
@@ -2175,11 +2175,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN900",
+    "name": "color.palette.DarkNeutral900",
     "path": [
       "color",
       "palette",
-      "DN900"
+      "DarkNeutral900"
     ]
   },
   {
@@ -2197,11 +2197,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN1000",
+    "name": "color.palette.DarkNeutral1000",
     "path": [
       "color",
       "palette",
-      "DN1000"
+      "DarkNeutral1000"
     ]
   },
   {
@@ -2219,11 +2219,11 @@ const tokens = [
         "category": "dark mode neutral"
       }
     },
-    "name": "color.palette.DN1100",
+    "name": "color.palette.DarkNeutral1100",
     "path": [
       "color",
       "palette",
-      "DN1100"
+      "DarkNeutral1100"
     ]
   },
   {
@@ -2241,11 +2241,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N0",
+    "name": "color.palette.Neutral0",
     "path": [
       "color",
       "palette",
-      "N0"
+      "Neutral0"
     ]
   },
   {
@@ -2263,11 +2263,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N100",
+    "name": "color.palette.Neutral100",
     "path": [
       "color",
       "palette",
-      "N100"
+      "Neutral100"
     ]
   },
   {
@@ -2285,11 +2285,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N100A",
+    "name": "color.palette.Neutral100A",
     "path": [
       "color",
       "palette",
-      "N100A"
+      "Neutral100A"
     ]
   },
   {
@@ -2307,11 +2307,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N200",
+    "name": "color.palette.Neutral200",
     "path": [
       "color",
       "palette",
-      "N200"
+      "Neutral200"
     ]
   },
   {
@@ -2329,11 +2329,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N200A",
+    "name": "color.palette.Neutral200A",
     "path": [
       "color",
       "palette",
-      "N200A"
+      "Neutral200A"
     ]
   },
   {
@@ -2351,11 +2351,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N300",
+    "name": "color.palette.Neutral300",
     "path": [
       "color",
       "palette",
-      "N300"
+      "Neutral300"
     ]
   },
   {
@@ -2373,11 +2373,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N300A",
+    "name": "color.palette.Neutral300A",
     "path": [
       "color",
       "palette",
-      "N300A"
+      "Neutral300A"
     ]
   },
   {
@@ -2395,11 +2395,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N400",
+    "name": "color.palette.Neutral400",
     "path": [
       "color",
       "palette",
-      "N400"
+      "Neutral400"
     ]
   },
   {
@@ -2417,11 +2417,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N400A",
+    "name": "color.palette.Neutral400A",
     "path": [
       "color",
       "palette",
-      "N400A"
+      "Neutral400A"
     ]
   },
   {
@@ -2439,11 +2439,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N500",
+    "name": "color.palette.Neutral500",
     "path": [
       "color",
       "palette",
-      "N500"
+      "Neutral500"
     ]
   },
   {
@@ -2461,11 +2461,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N500A",
+    "name": "color.palette.Neutral500A",
     "path": [
       "color",
       "palette",
-      "N500A"
+      "Neutral500A"
     ]
   },
   {
@@ -2483,11 +2483,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N600",
+    "name": "color.palette.Neutral600",
     "path": [
       "color",
       "palette",
-      "N600"
+      "Neutral600"
     ]
   },
   {
@@ -2505,11 +2505,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N700",
+    "name": "color.palette.Neutral700",
     "path": [
       "color",
       "palette",
-      "N700"
+      "Neutral700"
     ]
   },
   {
@@ -2527,11 +2527,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N800",
+    "name": "color.palette.Neutral800",
     "path": [
       "color",
       "palette",
-      "N800"
+      "Neutral800"
     ]
   },
   {
@@ -2549,11 +2549,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N900",
+    "name": "color.palette.Neutral900",
     "path": [
       "color",
       "palette",
-      "N900"
+      "Neutral900"
     ]
   },
   {
@@ -2571,11 +2571,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N1000",
+    "name": "color.palette.Neutral1000",
     "path": [
       "color",
       "palette",
-      "N1000"
+      "Neutral1000"
     ]
   },
   {
@@ -2593,11 +2593,11 @@ const tokens = [
         "category": "light mode neutral"
       }
     },
-    "name": "color.palette.N1100",
+    "name": "color.palette.Neutral1100",
     "path": [
       "color",
       "palette",
-      "N1100"
+      "Neutral1100"
     ]
   }
 ];

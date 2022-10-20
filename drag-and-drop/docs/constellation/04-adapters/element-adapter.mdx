@@ -172,7 +172,9 @@ If you want to take complete control and render your own drag preview, here is w
 
 If you are doing this technique, you will likely want to use the `cancelUnhandled` _addon_. Using that addon will prevent the strange situation where when the user does not drop on a drop target there is a fairly large pause before the drop event. This is because the browser does a drop animation when the user does not drop on a drop target; a "return home" animation. Because you have hidden the native drag preview, the user won't see this return home drop animation, but will experience a delay. Using `cancelUnhandled()` ensures that the return home drop animation won't run.
 
-#### Make your draggable element totally visible
+## Native drag preview tips
+
+### Make your draggable element totally visible
 
 If you are leveraging the native _drag preview_ generation (where a picture of the draggable element is dragged around), then it is important that your draggable element is _completely_ visible at the start of the drag operation. Your _drag preview_ will only be the visible part of your draggable element. So if you have any partially obstructed parts of your draggable element, those parts will not be included in the _drag preview_, which ends up looking like there are chunks missing from your _drag preview_.
 
@@ -201,6 +203,13 @@ We don't bake `scrollJustEnoughIntoView` into the `@atlaskit/drag-and-drop` itse
 
 </SectionMessage>
 
+
+### Avoid CSS `transform` for native drag previews
+
+In Safari, CSS `transform`s that impact a `draggable` can mess up native drag previews
+
+- [Bug](https://bugs.webkit.org/show_bug.cgi?id=246734) when a `transform` impacts a `draggable` _before_ a drag starts:
+- [Bug](https://twitter.com/alexandereardon/status/1511148574943240194) when CSS `transform` is applied to a `draggable` element in `onGenerateDragPreview`
 
 ## `dropTargetForElements`
 

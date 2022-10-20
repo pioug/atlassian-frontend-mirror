@@ -13,12 +13,13 @@ const initialUrl = getDefaultUrl();
 const temporaryUrl = 'https://json-ld-editor-temporary-url';
 
 type JsonldEditorOpts = {
+  ari?: string;
   initialJson: JsonLd.Response;
   isEmbedSupported: boolean;
   json?: JsonLd.Response;
   jsonError?: string;
   onJsonChange: (json: JsonLd.Response) => void;
-  onSubmitUrl: (url: string) => void;
+  onSubmitUrl: (url: string, ari?: string) => void;
   onTextChange: (str: string) => void;
   onUrlError: (error: Error) => void;
   onUrlResolve: (json: JsonLd.Response) => void;
@@ -33,6 +34,7 @@ const JsonldEditor: React.FC<{
   const [jsonError, setJsonError] = useState<string | undefined>();
   const [text, setText] = useState<string>(initialText);
   const [url, setUrl] = useState<string>(initialUrl);
+  const [ari, setAri] = useState<string>();
   const [urlError, setUrlError] = useState<string | undefined>();
   const [isEmbedSupported, setIsEmbedSupported] = useState<boolean>(false);
 
@@ -123,12 +125,14 @@ const JsonldEditor: React.FC<{
   );
 
   /**
-   * Load actual URL.
+   * Load actual URL and ARI.
    * Triggered by LoadLinkForm.
    */
-  const onSubmitUrl = useCallback((newUrl: string) => {
-    // Set new url to provider.
+  const onSubmitUrl = useCallback((newUrl: string, newAri?: string) => {
+    // Set new url and ari to provider.
+    setAri(newAri);
     setUrl(newUrl);
+
     setUrlError(undefined);
 
     // Clear json so client would fetch actual url.
@@ -181,6 +185,7 @@ const JsonldEditor: React.FC<{
 
   const options = useMemo(
     () => ({
+      ari,
       initialJson,
       isEmbedSupported,
       json,
@@ -192,9 +197,11 @@ const JsonldEditor: React.FC<{
       onUrlResolve,
       text,
       url,
+      setAri,
       urlError,
     }),
     [
+      ari,
       isEmbedSupported,
       json,
       jsonError,
@@ -205,6 +212,7 @@ const JsonldEditor: React.FC<{
       onUrlResolve,
       text,
       url,
+      setAri,
       urlError,
     ],
   );

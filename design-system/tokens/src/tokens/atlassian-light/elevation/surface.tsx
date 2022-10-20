@@ -6,38 +6,38 @@ const elevation: ValueSchema<SurfaceTokenSchema<BaseToken>> = {
     surface: {
       '[default]': {
         '[default]': {
-          value: 'N0',
+          value: 'Neutral0',
         },
         hovered: {
-          value: 'N200',
+          value: 'Neutral200',
         },
         pressed: {
-          value: 'N300',
+          value: 'Neutral300',
         },
       },
       sunken: {
-        value: 'N100',
+        value: 'Neutral100',
       },
       raised: {
         '[default]': {
-          value: 'N0',
+          value: 'Neutral0',
         },
         hovered: {
-          value: 'N200',
+          value: 'Neutral200',
         },
         pressed: {
-          value: 'N300',
+          value: 'Neutral300',
         },
       },
       overlay: {
         '[default]': {
-          value: 'N0',
+          value: 'Neutral0',
         },
         hovered: {
-          value: 'N200',
+          value: 'Neutral200',
         },
         pressed: {
-          value: 'N300',
+          value: 'Neutral300',
         },
       },
     },

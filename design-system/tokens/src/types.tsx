@@ -40,7 +40,7 @@ export interface Token<TValue, Group extends Groups> {
 
 /**
  * Base tokens define the raw values consumed by Design Tokens. They are a context-agnostic
- * name:value pairing (for example, the base token N0 represents the value #FFFFFF ).
+ * name:value pairing (for example, the base token Neutral0 represents the value #FFFFFF ).
  */
 export interface BaseToken<TValue, Group extends Groups>
   extends Token<TValue, Group> {
@@ -51,7 +51,7 @@ export interface BaseToken<TValue, Group extends Groups>
 
 /**
  * Design tokens represent single sources of truth to name and store semantic design decisions.
- * They map a semantic name (color.background.default) to a base token (N0).
+ * They map a semantic name (color.background.default) to a base token (Neutral0).
  */
 export interface DesignToken<TValue, Group extends Groups>
   extends Token<TValue, Group> {

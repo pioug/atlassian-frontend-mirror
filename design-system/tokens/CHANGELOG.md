@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.26
+
+### Patch Changes
+
+- [`92faa09c2d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92faa09c2d4) - Rename base tokens to pascal case
+
 ## 0.10.25
 
 ### Patch Changes

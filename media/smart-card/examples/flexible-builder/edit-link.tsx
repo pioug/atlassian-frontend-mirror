@@ -15,7 +15,7 @@ const EditLink: React.FC<{
   initialJson: JsonLd.Response;
   jsonError?: string;
   onJsonChange: (json: JsonLd.Response) => void;
-  onSubmitUrl: (url: string) => void;
+  onSubmitUrl: (url: string, ari?: string) => void;
   onTextChange: (str: string) => void;
   text: string;
   urlError?: string;

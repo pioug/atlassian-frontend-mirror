@@ -68,6 +68,7 @@ const normaliseEvents = (events: AnalyticsSpec['events']): EventSpec[] => {
 
       return {
         ...eventDescriptor,
+        eventName,
         actionSubject: match[1],
         action: match[2],
         actionSubjectId: match[3],

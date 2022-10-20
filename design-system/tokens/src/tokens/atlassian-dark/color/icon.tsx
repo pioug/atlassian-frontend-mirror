@@ -5,42 +5,42 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
   color: {
     icon: {
       '[default]': {
-        value: 'DN800',
+        value: 'DarkNeutral800',
       },
       subtle: {
-        value: 'DN700',
+        value: 'DarkNeutral700',
       },
       inverse: {
-        value: 'DN0',
+        value: 'DarkNeutral0',
       },
       disabled: {
-        value: 'DN400A',
+        value: 'DarkNeutral400A',
       },
       brand: {
-        value: 'B400',
+        value: 'Blue400',
       },
       selected: {
-        value: 'B400',
+        value: 'Blue400',
       },
       danger: {
-        value: 'R500',
+        value: 'Red500',
       },
       warning: {
         '[default]': {
-          value: 'Y500',
+          value: 'Yellow500',
         },
         inverse: {
-          value: 'DN0',
+          value: 'DarkNeutral0',
         },
       },
       success: {
-        value: 'G500',
+        value: 'Green500',
       },
       discovery: {
-        value: 'P500',
+        value: 'Purple500',
       },
       information: {
-        value: 'B500',
+        value: 'Blue500',
       },
     },
   },

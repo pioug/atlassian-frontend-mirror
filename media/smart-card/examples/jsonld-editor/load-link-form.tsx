@@ -7,7 +7,13 @@ import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-const loadLinkStyles = css`
+const labelHelpMessageStyles = css`
+  font-weight: normal;
+  font-size: 0.9em;
+  vertical-align: text-top;
+`;
+
+const textFieldStyles = css`
   align-content: stretch;
   align-items: center;
   display: flex;
@@ -26,7 +32,7 @@ const tooltipStyles = css`
   }
 `;
 
-const pattern = new RegExp(
+const urlPattern = new RegExp(
   '^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -35,25 +41,31 @@ const pattern = new RegExp(
     '(\\#[-a-z\\d_]*)?$',
   'i',
 ); // fragment locator
-const validate = (str: unknown) => {
-  if (!pattern.test(str as string)) {
-    return 'INCORRECT_URL';
+const validateUrl = (str: unknown) => {
+  if (!urlPattern.test(str as string)) {
+    return 'INCORRECT_URL_FORMAT';
   }
-  return undefined;
+};
+
+const ariPattern = new RegExp('^ari:cloud:.+$');
+const validateAri = (str: unknown) => {
+  if (str && !ariPattern.test(str as string)) {
+    return 'INCORRECT_ARI_FORMAT';
+  }
 };
 
 const LoadLinkForm: React.FC<{
   error?: string;
-  onSubmit: (url: string) => void;
+  onSubmit: (url: string, ari?: string) => void;
 }> = ({ error: urlError, onSubmit }) => {
   const handleSubmit = useCallback(
-    (formState: { url: string }) => {
-      onSubmit(formState.url);
+    (formState: { url: string; ari: string }) => {
+      onSubmit(formState.url, formState.ari);
     },
     [onSubmit],
   );
 
-  const helpMessage = useMemo(
+  const helpMessageUrl = useMemo(
     () => (
       <Tooltip
         content={
@@ -91,21 +103,67 @@ const LoadLinkForm: React.FC<{
     [],
   );
 
+  const ariLabel = useMemo(
+    () => (
+      <Tooltip
+        content={
+          <div css={tooltipStyles}>
+            <p>
+              Third-party Smart Links are typically installed on{' '}
+              <a
+                href="https://developer.atlassian.com/platform/atlassian-resource-identifier/resource-owners/registry/"
+                target="_blank"
+              >
+                ARIs
+              </a>
+              .
+            </p>
+            <p>
+              To load link from a specific ARI, please enter the ARI in
+              following format; ari:cloud:confluence::site/your-site-id
+            </p>
+            <p>
+              Your site ID can be found by navigating to the{' '}
+              <a
+                href="https://pug.jira-dev.com/_edge/tenant_info"
+                target="_blank"
+              >
+                instance with the installed resolver
+              </a>{' '}
+              and appending "/_edge/tenant_info" to the domain.
+            </p>
+          </div>
+        }
+        tag="span"
+      >
+        {(tooltipProps) => (
+          <span {...tooltipProps}>
+            ARI <span css={labelHelpMessageStyles}>(?)</span>
+          </span>
+        )}
+      </Tooltip>
+    ),
+    [],
+  );
+
   return (
     <Form onSubmit={handleSubmit}>
       {({ formProps }) => (
         <form {...formProps} name="load-link">
-          <Field label="URL" name="url" validate={validate} defaultValue="">
+          <Field
+            aria-required={true}
+            defaultValue=""
+            label="URL"
+            isRequired
+            name="url"
+            validate={validateUrl}
+          >
             {({ fieldProps, error, meta: { dirtySinceLastSubmit } }: any) => (
               <React.Fragment>
-                <div css={loadLinkStyles}>
+                <div css={textFieldStyles}>
                   <Textfield {...fieldProps} />
-                  <Button type="submit" appearance="primary">
-                    Load link
-                  </Button>
                 </div>
-                <HelperMessage>{helpMessage}</HelperMessage>
-                {error === 'INCORRECT_URL' && (
+                {error === 'INCORRECT_URL_FORMAT' && (
                   <ErrorMessage>Please enter a valid url.</ErrorMessage>
                 )}
                 {!dirtySinceLastSubmit && urlError && (
@@ -114,6 +172,28 @@ const LoadLinkForm: React.FC<{
               </React.Fragment>
             )}
           </Field>
+          <Field
+            label={ariLabel}
+            name="ari"
+            validate={validateAri}
+            defaultValue=""
+          >
+            {({ fieldProps, error }: any) => (
+              <React.Fragment>
+                <div css={textFieldStyles}>
+                  <Textfield {...fieldProps} />
+                </div>
+                {error === 'INCORRECT_ARI_FORMAT' && (
+                  <ErrorMessage>Please enter a valid ARI.</ErrorMessage>
+                )}
+              </React.Fragment>
+            )}
+          </Field>
+          <HelperMessage>{helpMessageUrl}</HelperMessage>
+          <p></p>
+          <Button type="submit" appearance="primary">
+            Load URL
+          </Button>
         </form>
       )}
     </Form>

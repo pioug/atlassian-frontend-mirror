@@ -5,7 +5,7 @@ import { EventSpec, NormalizedSpec } from './types';
 import { getAttributePropertySignature } from './attribute';
 import { generateContextDataTypeAliases } from './context';
 
-const getEventKey = ({
+export const getEventKey = ({
   type,
   action,
   actionSubject,

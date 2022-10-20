@@ -31,7 +31,7 @@ const CardExample: React.FC<{
       <h6>Block</h6>
       <br />
       <ErrorBoundary fallback={fallback} onError={onError}>
-        <Card appearance="block" url={url} />
+        <Card appearance="block" platform="web" url={url} />
       </ErrorBoundary>
       <h6>Embed</h6>
       <br />
@@ -47,7 +47,7 @@ const CardExample: React.FC<{
 
       <h6>
         Flexible (
-        <a href="https://atlaskit.atlassian.com/packages/media/smart-card/docs/flexible">
+        <a href="http://go/flexible-smart-links-docs" target="_blank">
           go/flexible-smart-links-docs
         </a>
         )

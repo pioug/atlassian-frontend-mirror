@@ -14,11 +14,8 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { Component } from 'react';
 import { default as React_2 } from 'react';
-import { ReactWrapper } from 'enzyme';
 import { RenderResult } from '@testing-library/react';
-import { ShallowWrapper } from 'enzyme';
 
 // @public (undocumented)
 export function asyncAct(cb: () => Promise<any> | void): Promise<void>;
@@ -40,21 +37,7 @@ export class ManualPromise<T> extends Promise<T> {
 }
 
 // @public (undocumented)
-export function mountWithIntl<
-  P = {},
-  S = {},
-  C extends Component<P, S> = Component<P, S>
->(jsx: JSX.Element): ReactWrapper<P, S, C>;
-
-// @public (undocumented)
 export const renderWithIntl: (component: React_2.ReactNode) => RenderResult;
-
-// @public (undocumented)
-export function shallowWithIntl<
-  P = {},
-  S = {},
-  C extends Component<P, S> = Component<P, S>
->(jsx: JSX.Element): ShallowWrapper<P, S, C>;
 
 // (No @packageDocumentation comment for this package)
 ```

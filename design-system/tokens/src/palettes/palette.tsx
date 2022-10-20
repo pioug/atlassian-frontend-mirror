@@ -1,122 +1,122 @@
 import type { PaletteColorTokenSchema } from '../types';
 
 type PaletteValues =
-  | 'B100'
-  | 'B200'
-  | 'B300'
-  | 'B400'
-  | 'B500'
-  | 'B600'
-  | 'B700'
-  | 'B800'
-  | 'B900'
-  | 'B1000'
-  | 'R100'
-  | 'R200'
-  | 'R300'
-  | 'R400'
-  | 'R500'
-  | 'R600'
-  | 'R700'
-  | 'R800'
-  | 'R900'
-  | 'R1000'
-  | 'Y100'
-  | 'Y200'
-  | 'Y300'
-  | 'Y400'
-  | 'Y500'
-  | 'Y600'
-  | 'Y700'
-  | 'Y800'
-  | 'Y900'
-  | 'Y1000'
-  | 'G100'
-  | 'G200'
-  | 'G300'
-  | 'G400'
-  | 'G500'
-  | 'G600'
-  | 'G700'
-  | 'G800'
-  | 'G900'
-  | 'G1000'
-  | 'P100'
-  | 'P200'
-  | 'P300'
-  | 'P400'
-  | 'P500'
-  | 'P600'
-  | 'P700'
-  | 'P800'
-  | 'P900'
-  | 'P1000'
-  | 'T100'
-  | 'T200'
-  | 'T300'
-  | 'T400'
-  | 'T500'
-  | 'T600'
-  | 'T700'
-  | 'T800'
-  | 'T900'
-  | 'T1000'
-  | 'O100'
-  | 'O200'
-  | 'O300'
-  | 'O400'
-  | 'O500'
-  | 'O600'
-  | 'O700'
-  | 'O800'
-  | 'O900'
-  | 'O1000'
-  | 'M100'
-  | 'M200'
-  | 'M300'
-  | 'M400'
-  | 'M500'
-  | 'M600'
-  | 'M700'
-  | 'M800'
-  | 'M900'
-  | 'M1000'
-  | 'DN-100'
-  | 'DN-100A'
-  | 'DN0'
-  | 'DN100'
-  | 'DN100A'
-  | 'DN200'
-  | 'DN200A'
-  | 'DN300'
-  | 'DN300A'
-  | 'DN400'
-  | 'DN400A'
-  | 'DN500'
-  | 'DN500A'
-  | 'DN600'
-  | 'DN700'
-  | 'DN800'
-  | 'DN900'
-  | 'DN1000'
-  | 'DN1100'
-  | 'N0'
-  | 'N100'
-  | 'N100A'
-  | 'N200'
-  | 'N200A'
-  | 'N300'
-  | 'N300A'
-  | 'N400'
-  | 'N400A'
-  | 'N500'
-  | 'N500A'
-  | 'N600'
-  | 'N700'
-  | 'N800'
-  | 'N900'
-  | 'N1000'
-  | 'N1100';
+  | 'Blue100'
+  | 'Blue200'
+  | 'Blue300'
+  | 'Blue400'
+  | 'Blue500'
+  | 'Blue600'
+  | 'Blue700'
+  | 'Blue800'
+  | 'Blue900'
+  | 'Blue1000'
+  | 'Red100'
+  | 'Red200'
+  | 'Red300'
+  | 'Red400'
+  | 'Red500'
+  | 'Red600'
+  | 'Red700'
+  | 'Red800'
+  | 'Red900'
+  | 'Red1000'
+  | 'Yellow100'
+  | 'Yellow200'
+  | 'Yellow300'
+  | 'Yellow400'
+  | 'Yellow500'
+  | 'Yellow600'
+  | 'Yellow700'
+  | 'Yellow800'
+  | 'Yellow900'
+  | 'Yellow1000'
+  | 'Green100'
+  | 'Green200'
+  | 'Green300'
+  | 'Green400'
+  | 'Green500'
+  | 'Green600'
+  | 'Green700'
+  | 'Green800'
+  | 'Green900'
+  | 'Green1000'
+  | 'Purple100'
+  | 'Purple200'
+  | 'Purple300'
+  | 'Purple400'
+  | 'Purple500'
+  | 'Purple600'
+  | 'Purple700'
+  | 'Purple800'
+  | 'Purple900'
+  | 'Purple1000'
+  | 'Teal100'
+  | 'Teal200'
+  | 'Teal300'
+  | 'Teal400'
+  | 'Teal500'
+  | 'Teal600'
+  | 'Teal700'
+  | 'Teal800'
+  | 'Teal900'
+  | 'Teal1000'
+  | 'Orange100'
+  | 'Orange200'
+  | 'Orange300'
+  | 'Orange400'
+  | 'Orange500'
+  | 'Orange600'
+  | 'Orange700'
+  | 'Orange800'
+  | 'Orange900'
+  | 'Orange1000'
+  | 'Magenta100'
+  | 'Magenta200'
+  | 'Magenta300'
+  | 'Magenta400'
+  | 'Magenta500'
+  | 'Magenta600'
+  | 'Magenta700'
+  | 'Magenta800'
+  | 'Magenta900'
+  | 'Magenta1000'
+  | 'DarkNeutral-100'
+  | 'DarkNeutral-100A'
+  | 'DarkNeutral0'
+  | 'DarkNeutral100'
+  | 'DarkNeutral100A'
+  | 'DarkNeutral200'
+  | 'DarkNeutral200A'
+  | 'DarkNeutral300'
+  | 'DarkNeutral300A'
+  | 'DarkNeutral400'
+  | 'DarkNeutral400A'
+  | 'DarkNeutral500'
+  | 'DarkNeutral500A'
+  | 'DarkNeutral600'
+  | 'DarkNeutral700'
+  | 'DarkNeutral800'
+  | 'DarkNeutral900'
+  | 'DarkNeutral1000'
+  | 'DarkNeutral1100'
+  | 'Neutral0'
+  | 'Neutral100'
+  | 'Neutral100A'
+  | 'Neutral200'
+  | 'Neutral200A'
+  | 'Neutral300'
+  | 'Neutral300A'
+  | 'Neutral400'
+  | 'Neutral400A'
+  | 'Neutral500'
+  | 'Neutral500A'
+  | 'Neutral600'
+  | 'Neutral700'
+  | 'Neutral800'
+  | 'Neutral900'
+  | 'Neutral1000'
+  | 'Neutral1100';
 
 export type BaseToken = keyof PaletteColorTokenSchema<
   PaletteValues
@@ -143,574 +143,574 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
   },
   color: {
     palette: {
-      B100: {
+      Blue100: {
         value: '#E9F2FF',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      B200: {
+      Blue200: {
         value: '#CCE0FF',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      B300: {
+      Blue300: {
         value: '#85B8FF',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      B400: {
+      Blue400: {
         value: '#579DFF',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      B500: {
+      Blue500: {
         value: '#388BFF',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      B600: {
+      Blue600: {
         value: '#1D7AFC',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      B700: {
+      Blue700: {
         value: '#0C66E4',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      B800: {
+      Blue800: {
         value: '#0055CC',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      B900: {
+      Blue900: {
         value: '#09326C',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      B1000: {
+      Blue1000: {
         value: '#082145',
         attributes: {
           group: 'palette',
           category: 'blue',
         },
       },
-      R100: {
+      Red100: {
         value: '#FFEDEB',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      R200: {
+      Red200: {
         value: '#FFD2CC',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      R300: {
+      Red300: {
         value: '#FF9C8F',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      R400: {
+      Red400: {
         value: '#F87462',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      R500: {
+      Red500: {
         value: '#EF5C48',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      R600: {
+      Red600: {
         value: '#E34935',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      R700: {
+      Red700: {
         value: '#CA3521',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      R800: {
+      Red800: {
         value: '#AE2A19',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      R900: {
+      Red900: {
         value: '#601E16',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      R1000: {
+      Red1000: {
         value: '#391813',
         attributes: {
           group: 'palette',
           category: 'red',
         },
       },
-      Y100: {
+      Yellow100: {
         value: '#FFF7D6',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      Y200: {
+      Yellow200: {
         value: '#F8E6A0',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      Y300: {
+      Yellow300: {
         value: '#F5CD47',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      Y400: {
+      Yellow400: {
         value: '#E2B203',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      Y500: {
+      Yellow500: {
         value: '#CF9F02',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      Y600: {
+      Yellow600: {
         value: '#B38600',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      Y700: {
+      Yellow700: {
         value: '#946F00',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      Y800: {
+      Yellow800: {
         value: '#7F5F01',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      Y900: {
+      Yellow900: {
         value: '#533F04',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      Y1000: {
+      Yellow1000: {
         value: '#3D2E00',
         attributes: {
           group: 'palette',
           category: 'yellow',
         },
       },
-      G100: {
+      Green100: {
         value: '#DFFCF0',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      G200: {
+      Green200: {
         value: '#BAF3DB',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      G300: {
+      Green300: {
         value: '#7EE2B8',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      G400: {
+      Green400: {
         value: '#4BCE97',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      G500: {
+      Green500: {
         value: '#2ABB7F',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      G600: {
+      Green600: {
         value: '#22A06B',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      G700: {
+      Green700: {
         value: '#1F845A',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      G800: {
+      Green800: {
         value: '#216E4E',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      G900: {
+      Green900: {
         value: '#164B35',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      G1000: {
+      Green1000: {
         value: '#133527',
         attributes: {
           group: 'palette',
           category: 'green',
         },
       },
-      P100: {
+      Purple100: {
         value: '#F3F0FF',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      P200: {
+      Purple200: {
         value: '#DFD8FD',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      P300: {
+      Purple300: {
         value: '#B8ACF6',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      P400: {
+      Purple400: {
         value: '#9F8FEF',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      P500: {
+      Purple500: {
         value: '#8F7EE7',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      P600: {
+      Purple600: {
         value: '#8270DB',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      P700: {
+      Purple700: {
         value: '#6E5DC6',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      P800: {
+      Purple800: {
         value: '#5E4DB2',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      P900: {
+      Purple900: {
         value: '#352C63',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      P1000: {
+      Purple1000: {
         value: '#231C3F',
         attributes: {
           group: 'palette',
           category: 'purple',
         },
       },
-      T100: {
+      Teal100: {
         value: '#E3FAFC',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      T200: {
+      Teal200: {
         value: '#C1F0F5',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      T300: {
+      Teal300: {
         value: '#8BDBE5',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      T400: {
+      Teal400: {
         value: '#60C6D2',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      T500: {
+      Teal500: {
         value: '#37B4C3',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      T600: {
+      Teal600: {
         value: '#1D9AAA',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      T700: {
+      Teal700: {
         value: '#1D7F8C',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      T800: {
+      Teal800: {
         value: '#206B74',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      T900: {
+      Teal900: {
         value: '#1D474C',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      T1000: {
+      Teal1000: {
         value: '#153337',
         attributes: {
           group: 'palette',
           category: 'teal',
         },
       },
-      O100: {
+      Orange100: {
         value: '#FFF4E5',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      O200: {
+      Orange200: {
         value: '#FFE2BD',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      O300: {
+      Orange300: {
         value: '#FEC57B',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      O400: {
+      Orange400: {
         value: '#FAA53D',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      O500: {
+      Orange500: {
         value: '#F18D13',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      O600: {
+      Orange600: {
         value: '#D97008',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      O700: {
+      Orange700: {
         value: '#B65C02',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      O800: {
+      Orange800: {
         value: '#974F0C',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      O900: {
+      Orange900: {
         value: '#5F3811',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      O1000: {
+      Orange1000: {
         value: '#43290F',
         attributes: {
           group: 'palette',
           category: 'orange',
         },
       },
-      M100: {
+      Magenta100: {
         value: '#FFECF8',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      M200: {
+      Magenta200: {
         value: '#FDD0EC',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      M300: {
+      Magenta300: {
         value: '#F797D2',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      M400: {
+      Magenta400: {
         value: '#E774BB',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      M500: {
+      Magenta500: {
         value: '#DA62AC',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      M600: {
+      Magenta600: {
         value: '#CD519D',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      M700: {
+      Magenta700: {
         value: '#AE4787',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      M800: {
+      Magenta800: {
         value: '#943D73',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      M900: {
+      Magenta900: {
         value: '#50253F',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      M1000: {
+      Magenta1000: {
         value: '#341829',
         attributes: {
           group: 'palette',
           category: 'magenta',
         },
       },
-      'DN-100': {
+      'DarkNeutral-100': {
         value: '#101214',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      'DN-100A': {
+      'DarkNeutral-100A': {
         // #030404 26%
         value: '#03040442',
         attributes: {
@@ -718,21 +718,21 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'dark mode neutral',
         },
       },
-      DN0: {
+      DarkNeutral0: {
         value: '#161A1D',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN100: {
+      DarkNeutral100: {
         value: '#1D2125',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN100A: {
+      DarkNeutral100A: {
         // #BCD6F0 4%
         value: '#BCD6F00A',
         attributes: {
@@ -740,14 +740,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'dark mode neutral',
         },
       },
-      DN200: {
+      DarkNeutral200: {
         value: '#22272B',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN200A: {
+      DarkNeutral200A: {
         // #A1BDD9 8%
         value: '#A1BDD914',
         attributes: {
@@ -755,14 +755,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'dark mode neutral',
         },
       },
-      DN300: {
+      DarkNeutral300: {
         value: '#2C333A',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN300A: {
+      DarkNeutral300A: {
         // #A6C5E2 16%
         value: '#A6C5E229',
         attributes: {
@@ -770,14 +770,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'dark mode neutral',
         },
       },
-      DN400: {
+      DarkNeutral400: {
         value: '#454F59',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN400A: {
+      DarkNeutral400A: {
         // #BFDBF8 28%
         value: '#BFDBF847',
         attributes: {
@@ -785,14 +785,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'dark mode neutral',
         },
       },
-      DN500: {
+      DarkNeutral500: {
         value: '#596773',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN500A: {
+      DarkNeutral500A: {
         // #9BB4CA @50%
         value: '#9BB4CA80',
         attributes: {
@@ -800,63 +800,63 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'dark mode neutral',
         },
       },
-      DN600: {
+      DarkNeutral600: {
         value: '#738496',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN700: {
+      DarkNeutral700: {
         value: '#8696A7',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN800: {
+      DarkNeutral800: {
         value: '#9FADBC',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN900: {
+      DarkNeutral900: {
         value: '#B6C2CF',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN1000: {
+      DarkNeutral1000: {
         value: '#C7D1DB',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      DN1100: {
+      DarkNeutral1100: {
         value: '#DEE4EA',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
-      N0: {
+      Neutral0: {
         value: '#FFFFFF',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N100: {
+      Neutral100: {
         value: '#F7F8F9',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N100A: {
+      Neutral100A: {
         // #091E42 3%
         value: '#091E4208',
         attributes: {
@@ -864,14 +864,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'light mode neutral',
         },
       },
-      N200: {
+      Neutral200: {
         value: '#F1F2F4',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N200A: {
+      Neutral200A: {
         // #091E42 6%
         value: '#091E420F',
         attributes: {
@@ -879,14 +879,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'light mode neutral',
         },
       },
-      N300: {
+      Neutral300: {
         value: '#DCDFE4',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N300A: {
+      Neutral300A: {
         // #091E42 14%
         value: '#091E4224',
         attributes: {
@@ -894,14 +894,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'light mode neutral',
         },
       },
-      N400: {
+      Neutral400: {
         value: '#B3B9C4',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N400A: {
+      Neutral400A: {
         // #091E42 31%
         value: '#091E424F',
         attributes: {
@@ -909,14 +909,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'light mode neutral',
         },
       },
-      N500: {
+      Neutral500: {
         value: '#8993A5',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N500A: {
+      Neutral500A: {
         // #091E42 48%
         value: '#091E427A',
         attributes: {
@@ -924,42 +924,42 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'light mode neutral',
         },
       },
-      N600: {
+      Neutral600: {
         value: '#758195',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N700: {
+      Neutral700: {
         value: '#626F86',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N800: {
+      Neutral800: {
         value: '#44546F',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N900: {
+      Neutral900: {
         value: '#2C3E5D',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N1000: {
+      Neutral1000: {
         value: '#172B4D',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
-      N1100: {
+      Neutral1100: {
         value: '#091E42',
         attributes: {
           group: 'palette',

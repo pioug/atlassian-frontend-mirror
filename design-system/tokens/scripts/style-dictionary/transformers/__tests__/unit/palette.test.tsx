@@ -41,7 +41,7 @@ describe('palette transformer', () => {
         state: 'active',
         introduced: '0.1.0',
       },
-      value: 'B600',
+      value: 'Blue600',
     };
 
     const actual = palette.transformer({ original: token } as any);
@@ -57,7 +57,9 @@ describe('palette transformer', () => {
         state: 'active',
         introduced: '0.1.0',
       },
-      value: [{ color: 'B100', offset: { x: 0, y: 0 }, opacity: 1, radius: 1 }],
+      value: [
+        { color: 'Blue100', offset: { x: 0, y: 0 }, opacity: 1, radius: 1 },
+      ],
     };
 
     const actual = palette.transformer({ original: token } as any);

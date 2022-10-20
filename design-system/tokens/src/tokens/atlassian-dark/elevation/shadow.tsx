@@ -19,14 +19,14 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
           {
             radius: 1,
             offset: { x: 0, y: 1 },
-            color: 'DN-100A',
+            color: 'DarkNeutral-100A',
             // This opacity overrides the color alpha.
             opacity: 0.5,
           },
           {
             radius: 1,
             offset: { x: 0, y: 0 },
-            color: 'DN-100A',
+            color: 'DarkNeutral-100A',
             // This opacity overrides the color alpha.
             opacity: 0.5,
           },
@@ -57,7 +57,7 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
           {
             radius: 0,
             spread: 1,
-            color: 'DN100A',
+            color: 'DarkNeutral100A',
             offset: { x: 0, y: 0 },
             opacity: 0.04,
             inset: true,
@@ -65,14 +65,14 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
           {
             radius: 12,
             offset: { x: 0, y: 8 },
-            color: 'DN-100A',
+            color: 'DarkNeutral-100A',
             // This opacity overrides the color alpha.
             opacity: 0.36,
           },
           {
             radius: 1,
             offset: { x: 0, y: 0 },
-            color: 'DN-100A',
+            color: 'DarkNeutral-100A',
             // This opacity overrides the color alpha.
             opacity: 0.5,
           },

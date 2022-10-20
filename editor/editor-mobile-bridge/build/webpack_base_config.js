@@ -20,7 +20,6 @@ const createBaseEditorMobileBridgeWebpackConfig = async (args, config) => {
       extensions: ['.js', '.json', '.ts', '.tsx'],
       alias: {
         ...(await moduleResolveMapBuilder()),
-        '@atlaskit/media-editor': emptyExportPath, // ~145kb gzip
         '@atlaskit/media-viewer': emptyExportPath, // ~335kb gzip
         '@atlaskit/profilecard': emptyExportPath, // ~7kb gzip
         '@atlaskit/select': emptyExportPath,

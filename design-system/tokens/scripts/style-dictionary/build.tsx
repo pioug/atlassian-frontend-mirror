@@ -7,6 +7,7 @@ import styleDictionary, { Config } from 'style-dictionary';
 import { DEFAULT_THEME, THEME_NAME_MAP } from '../../src/constants';
 import legacyPalette from '../../src/palettes/legacy-palette';
 import defaultPalette from '../../src/palettes/palette';
+import defaultScale from '../../src/palettes/spacing-scale';
 import { ThemesLongName } from '../../src/types';
 
 import formatterCSSVariables from './formatters/css-variables';
@@ -31,6 +32,7 @@ const paletteConfig: Record<keyof typeof THEME_NAME_MAP, object> = {
   'atlassian-dark': defaultPalette,
   'atlassian-legacy-light': legacyPalette,
   'atlassian-legacy-dark': legacyPalette,
+  'atlassian-spacing': defaultScale,
 };
 
 const createThemeConfig = (themeName: ThemesLongName): Config => {
@@ -39,22 +41,22 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
   const typescriptFiles = [
     {
       format: 'typescript/custom-token-names',
-      destination: 'token-names.tsx',
+      destination: `${themeName}-token-names.tsx`,
     },
     {
       format: 'typescript/custom-token-types-internal',
-      destination: 'types-internal.tsx',
+      destination: `${themeName}-types-internal.tsx`,
     },
     {
       format: 'typescript/custom-token-types',
-      destination: 'types.tsx',
+      destination: `${themeName}-types.tsx`,
     },
   ];
 
-  if (THEME_NAME_MAP[themeName] === DEFAULT_THEME) {
+  if (DEFAULT_THEME.includes(THEME_NAME_MAP[themeName])) {
     typescriptFiles.push({
       format: 'typescript/custom-token-default-values',
-      destination: `token-default-values.tsx`,
+      destination: `${themeName}-token-default-values.tsx`,
     });
   }
 
@@ -108,11 +110,14 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
       },
       renameMapper: {
         transforms: ['name/custom-dot'],
-        buildPath: ARTIFACT_OUTPUT_DIR,
+        buildPath: path.join(ARTIFACT_OUTPUT_DIR, '/rename-mapping/'),
+        options: {
+          themeName,
+        },
         files: [
           {
             format: 'rename-mapper',
-            destination: `rename-mapping.tsx`,
+            destination: `${themeName}.tsx`,
           },
         ],
       },
@@ -121,7 +126,6 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
         buildPath: path.join(ARTIFACT_OUTPUT_DIR, '/tokens-raw/'),
         options: {
           themeName,
-          groups: ['paint', 'shadow', 'opacity', 'raw'],
         },
         files: [
           {
@@ -137,7 +141,10 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
           'box-shadow/custom-figma',
         ],
         transformGroup: 'js',
-        buildPath: ARTIFACT_OUTPUT_DIR,
+        buildPath: path.join(ARTIFACT_OUTPUT_DIR, '/typescript/'),
+        options: {
+          themeName,
+        },
         files: typescriptFiles,
       },
       css: {
@@ -160,14 +167,14 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
       },
       csv: {
         transforms: ['name/custom-dot', 'color/custom-palette'],
-        buildPath: ARTIFACT_OUTPUT_DIR,
+        buildPath: path.join(ARTIFACT_OUTPUT_DIR, '/csv/'),
         options: {
           groups: ['paint', 'shadow', 'opacity', 'raw'],
         },
         files: [
           {
             format: 'csv/token-descriptions',
-            destination: 'token-descriptions.csv',
+            destination: `${themeName}-token-descriptions.csv`,
           },
         ],
       },

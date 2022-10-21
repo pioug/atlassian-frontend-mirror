@@ -65,12 +65,17 @@ describe('tokens', () => {
     });
   });
 
-  it('should ensure all themes have the same folder structure', () => {
+  it('should ensure all color themes have the same folder structure', () => {
     const themes = fs
       .readdirSync(`${__dirname}/../../tokens`, {
         withFileTypes: true,
       })
-      .filter((result) => result.isDirectory())
+      .filter(
+        (result) =>
+          result.isDirectory() &&
+          result.name !== 'atlassian-spacing' &&
+          result.name !== 'default',
+      )
       .map((result) => result.name);
     let snapshot: string[];
 

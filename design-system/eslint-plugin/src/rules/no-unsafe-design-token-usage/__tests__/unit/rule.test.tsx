@@ -23,11 +23,26 @@ jest.mock('@atlaskit/tokens/rename-mapping', () => ({
       state: 'deprecated',
       replacement: 'tokenName.new',
     },
+    {
+      path: 'spacing.gutter',
+      state: 'experimental',
+      // This feature checks if the replacement is an existing token
+      replacement: 'spacing.scale.100',
+    },
+    {
+      path: 'example.token.with.replacement.that.is.not.a.token',
+      state: 'experimental',
+      replacement: '8px',
+    },
   ],
 }));
 
 const oldTokenName = renameMapping[0].path;
 const newTokenName = renameMapping[0].replacement;
+const experimentalTokenName1 = renameMapping[3].path;
+const experimentalTokenReplacement1 = renameMapping[3].replacement;
+const experimentalTokenName2 = renameMapping[4].path;
+const experimentalTokenReplacement2 = renameMapping[4].replacement;
 
 tester.run('no-unsafe-design-token-usage', rule, {
   valid: [
@@ -255,6 +270,18 @@ tester.run('no-unsafe-design-token-usage', rule, {
       code: `css({ color: token('${oldTokenName}') })`,
       output: `css({ color: token('${newTokenName}') })`,
       errors: [{ messageId: 'tokenRemoved' }],
+    },
+    {
+      // Replace experimental token with a different token
+      code: `css({ color: token('${experimentalTokenName1}') })`,
+      output: `css({ color: token('${experimentalTokenReplacement1}') })`,
+      errors: [{ messageId: 'tokenIsExperimental' }],
+    },
+    {
+      // Replace experimental token with a raw value
+      code: `css({ padding: token('${experimentalTokenName2}') })`,
+      output: `css({ padding: '${experimentalTokenReplacement2}' })`,
+      errors: [{ messageId: 'tokenIsExperimental' }],
     },
     {
       // should remove [default] from paths

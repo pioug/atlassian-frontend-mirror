@@ -18,14 +18,18 @@ export const typescriptFormatter: Format['formatter'] = ({ dictionary }) => {
       activeTokens.push(getFullyQualifiedTokenId(token.path)),
     );
 
-  const activeTokenType = activeTokens
-    .map((value) => ` | '${value}'`)
-    .join('\n');
+  if (activeTokens.length) {
+    const activeTokenType = activeTokens
+      .map((value) => ` | '${value}'`)
+      .join('\n');
 
-  return prettier.format(
-    `export type InternalTokenIds = ${activeTokenType};\n`,
-    { parser: 'typescript', singleQuote: true },
-  );
+    return prettier.format(
+      `export type InternalTokenIds = ${activeTokenType};\n`,
+      { parser: 'typescript', singleQuote: true },
+    );
+  }
+
+  return `// No active tokens in this theme\nexport {}`;
 };
 
 const fileFormatter: Format['formatter'] = (args) =>

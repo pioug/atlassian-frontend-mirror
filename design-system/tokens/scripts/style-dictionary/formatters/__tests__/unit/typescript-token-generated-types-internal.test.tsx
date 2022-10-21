@@ -74,7 +74,7 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toEqual(
-      expect.stringContaining(`export type InternalTokenIds = ;`),
+      expect.stringContaining(`// No active tokens in this theme\nexport {}`),
     );
   });
 

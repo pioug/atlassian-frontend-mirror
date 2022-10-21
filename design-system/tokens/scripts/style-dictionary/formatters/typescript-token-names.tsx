@@ -11,7 +11,11 @@ export const typescriptTokenFormatter: Format['formatter'] = ({
   const tokens: Record<string, string> = {};
 
   dictionary.allTokens
-    .filter((token) => token.attributes?.group !== 'palette')
+    .filter(
+      (token) =>
+        token.attributes?.group !== 'palette' &&
+        token.attributes?.group !== 'scale',
+    )
     .forEach((token) => {
       const tokenName = getTokenId(token.path);
       tokens[tokenName] = getCSSCustomProperty(token.path);
@@ -33,8 +37,6 @@ export const typescriptTokenFormatter: Format['formatter'] = ({
     export type CSSTokenMap = {
       ${tokenReturnKeyValues}
     };
-
-    export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
     export default tokens;\n`,
     { parser: 'typescript', singleQuote: true },

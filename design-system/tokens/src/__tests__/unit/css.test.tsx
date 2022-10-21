@@ -13,6 +13,7 @@ describe('generated CSS', () => {
       'atlassian-legacy-dark.css',
       'atlassian-legacy-light.css',
       'atlassian-light.css',
+      'atlassian-spacing.css',
     ]);
   });
 
@@ -20,9 +21,15 @@ describe('generated CSS', () => {
     getCSSFileNames().forEach((name) => {
       const css = getCSSFile(name);
 
-      expect(css).toMatch(
-        /\nhtml\[data-theme="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
-      );
+      if (name === 'atlassian-spacing.css') {
+        expect(css).toMatch(
+          /\nhtml\[data-spacing-theme="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
+        );
+      } else {
+        expect(css).toMatch(
+          /\nhtml\[data-theme="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
+        );
+      }
     });
   });
 

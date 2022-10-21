@@ -13,6 +13,7 @@ import { Label } from './token-button-variants';
 enum LozengeAppearance {
   deprecated = 'moved',
   deleted = 'removed',
+  experimental = 'new',
 }
 
 interface TokenItemNameProps

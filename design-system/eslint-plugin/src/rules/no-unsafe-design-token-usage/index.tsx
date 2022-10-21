@@ -44,6 +44,8 @@ token('color.background.blanket');
       invalidToken: 'The token "{{name}}" does not exist.',
       tokenRemoved:
         'The token "{{name}}" is removed in favour of "{{replacement}}".',
+      tokenIsExperimental:
+        'The token "{{name}}" is experimental and should not be used directly at this time. It should be replaced by "{{replacement}}".',
       tokenFallbackEnforced: `Token function requires a fallback, preferably something that best matches the light/default theme in case tokens aren't present.
 
 \`\`\`
@@ -157,12 +159,12 @@ token('color.background.blanket');
           return;
         }
 
-        const migrationMeta = renameMapping
+        const deletedMigrationMeta = renameMapping
           .filter((t) => t.state === 'deleted')
           .find((t) => getTokenId(t.path) === tokenKey);
 
-        if (typeof tokenKey === 'string' && migrationMeta) {
-          const cleanTokenKey = getTokenId(migrationMeta.replacement);
+        if (typeof tokenKey === 'string' && deletedMigrationMeta) {
+          const cleanTokenKey = getTokenId(deletedMigrationMeta.replacement);
 
           context.report({
             messageId: 'tokenRemoved',
@@ -173,6 +175,32 @@ token('color.background.blanket');
             },
             fix: (fixer) =>
               fixer.replaceText(node.arguments[0], `'${cleanTokenKey}'`),
+          });
+          return;
+        }
+
+        const experimentalMigrationMeta = renameMapping
+          .filter((t) => t.state === 'experimental')
+          .find((t) => getTokenId(t.path) === tokenKey);
+
+        const tokenNames = Object.keys(tokens);
+
+        if (typeof tokenKey === 'string' && experimentalMigrationMeta) {
+          const replacementValue = experimentalMigrationMeta.replacement;
+
+          const isReplacementAToken = tokenNames.includes(replacementValue);
+
+          context.report({
+            messageId: 'tokenIsExperimental',
+            node,
+            data: {
+              name: tokenKey,
+              replacement: replacementValue,
+            },
+            fix: (fixer) =>
+              isReplacementAToken
+                ? fixer.replaceText(node.arguments[0], `'${replacementValue}'`)
+                : fixer.replaceText(node, `'${replacementValue}'`),
           });
           return;
         }

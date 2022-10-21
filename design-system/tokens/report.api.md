@@ -18,7 +18,10 @@
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
 // @public (undocumented)
-type CSSTokenMap = {
+type CSSTokenMap = CSSTokenMap_2 & CSSTokenMap_3;
+
+// @public (undocumented)
+type CSSTokenMap_2 = {
   'color.text.accent.blue': 'var(--ds-text-accent-blue)';
   'color.text.accent.blue.bolder': 'var(--ds-text-accent-blue-bolder)';
   'color.text.accent.red': 'var(--ds-text-accent-red)';
@@ -313,6 +316,23 @@ type CSSTokenMap = {
 };
 
 // @public (undocumented)
+type CSSTokenMap_3 = {
+  'spacing.container.gutter': 'var(--ds-container-gutter)';
+  'spacing.scale.0': 'var(--ds-scale-0)';
+  'spacing.scale.100': 'var(--ds-scale-100)';
+  'spacing.scale.150': 'var(--ds-scale-150)';
+  'spacing.scale.200': 'var(--ds-scale-200)';
+  'spacing.scale.250': 'var(--ds-scale-250)';
+  'spacing.scale.300': 'var(--ds-scale-300)';
+  'spacing.scale.400': 'var(--ds-scale-400)';
+  'spacing.scale.500': 'var(--ds-scale-500)';
+  'spacing.scale.600': 'var(--ds-scale-600)';
+  'spacing.scale.025': 'var(--ds-scale-025)';
+  'spacing.scale.050': 'var(--ds-scale-050)';
+  'spacing.scale.075': 'var(--ds-scale-075)';
+};
+
+// @public (undocumented)
 export const setGlobalTheme: (theme: Themes) => void;
 
 // @public
@@ -327,7 +347,13 @@ export class ThemeMutationObserver {
 }
 
 // @public (undocumented)
-const THEMES: readonly ['light', 'dark', 'legacy-light', 'legacy-dark'];
+const THEMES: readonly [
+  'light',
+  'dark',
+  'legacy-light',
+  'legacy-dark',
+  'spacing',
+];
 
 // @public (undocumented)
 export type Themes = typeof THEMES[number];
@@ -341,8 +367,21 @@ export function token<T extends keyof Tokens>(
 // @public (undocumented)
 type Tokens = typeof tokens;
 
-// @public
+// @public (undocumented)
 const tokens: {
+  readonly 'spacing.container.gutter': '--ds-container-gutter';
+  readonly 'spacing.scale.0': '--ds-scale-0';
+  readonly 'spacing.scale.100': '--ds-scale-100';
+  readonly 'spacing.scale.150': '--ds-scale-150';
+  readonly 'spacing.scale.200': '--ds-scale-200';
+  readonly 'spacing.scale.250': '--ds-scale-250';
+  readonly 'spacing.scale.300': '--ds-scale-300';
+  readonly 'spacing.scale.400': '--ds-scale-400';
+  readonly 'spacing.scale.500': '--ds-scale-500';
+  readonly 'spacing.scale.600': '--ds-scale-600';
+  readonly 'spacing.scale.025': '--ds-scale-025';
+  readonly 'spacing.scale.050': '--ds-scale-050';
+  readonly 'spacing.scale.075': '--ds-scale-075';
   readonly 'color.text.accent.blue': '--ds-text-accent-blue';
   readonly 'color.text.accent.blue.bolder': '--ds-text-accent-blue-bolder';
   readonly 'color.text.accent.red': '--ds-text-accent-red';

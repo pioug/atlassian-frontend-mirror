@@ -30,7 +30,16 @@ export const cssVariableFormatter: Format['formatter'] = ({
       tokens.push({ ...token, name: tokenName });
     });
 
-  let output = `html[data-theme="${themeMode}"] {\n`;
+  let output = '';
+  if (options.themeName === 'atlassian-spacing') {
+    // For now we are using a different data attribute for spacing until we
+    // consolidate a global theme switching approach. This will likely look like
+    // `html[data-theme~="value"]`, matching when the attribute has this value
+    // in a space-separated list https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors#syntax
+    output = `html[data-spacing-theme="${themeMode}"] {\n`;
+  } else {
+    output = `html[data-theme="${themeMode}"] {\n`;
+  }
 
   tokens.forEach((token) => {
     output += `  ${token.name}: ${token.value};\n`;

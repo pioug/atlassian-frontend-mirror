@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.27
+
+### Patch Changes
+
+- [`56b107f0989`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56b107f0989) - Adds experimental spacing tokens, currently for internal use only. These are not ready for widespread consumption yet and a lint rule will raise issues if you try to use them.
+
 ## 0.10.26
 
 ### Patch Changes

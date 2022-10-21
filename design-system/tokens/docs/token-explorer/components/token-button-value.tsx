@@ -40,6 +40,18 @@ const TokenButtonValue = ({
           <Label isHovered={isHovered}>
             {attributes.group === 'shadow' ? (
               <BoxShadowCopy boxShadowValue={value} />
+            ) : original.value.length > 12 ? (
+              // Break the long base token names and wrap to two lines e.g.
+              // DarkNeutral
+              // 1000
+              original.value
+                .match(/[a-z]+|[^a-z]+./gi)
+                .map((breakWord: string) => (
+                  <Fragment>
+                    {breakWord}
+                    {'\n'}
+                  </Fragment>
+                ))
             ) : (
               original.value
             )}

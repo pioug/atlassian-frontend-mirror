@@ -131,6 +131,7 @@ const tokenValueCellStyles = css({
 });
 
 const valueButtonStyles = css({
+  maxWidth: 104,
   marginBottom: gridSize(),
   '@media (max-width: 1080px)': {
     marginTop: gridSize(),

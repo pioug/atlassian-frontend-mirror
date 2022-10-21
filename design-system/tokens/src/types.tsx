@@ -1,15 +1,28 @@
 import { InternalTokenIds } from './artifacts/types-internal';
 import { THEME_NAME_MAP, THEMES } from './constants';
 
-export type Groups = 'raw' | 'paint' | 'shadow' | 'opacity' | 'palette';
+export type Groups =
+  | 'raw'
+  | 'paint'
+  | 'shadow'
+  | 'palette'
+  | 'opacity'
+  | 'spacing'
+  | 'scale';
 export type ActiveTokenState = 'active';
 export type DeprecatedTokenState = 'deprecated';
 export type DeletedTokenState = 'deleted';
+export type ExperimentalTokenState = 'experimental';
 export type TokenState =
   | ActiveTokenState
   | DeprecatedTokenState
-  | DeletedTokenState;
+  | DeletedTokenState
+  | ExperimentalTokenState;
 export type Replacement = InternalTokenIds | InternalTokenIds[]; // Ideally, this is typed to all tokens that are active
+export type ExperimentalReplacement =
+  | InternalTokenIds
+  | InternalTokenIds[]
+  | string; // Allow replacements that aren't tokens for experimental state
 
 export type PaletteCategory =
   | 'blue'
@@ -34,7 +47,7 @@ export interface Token<TValue, Group extends Groups> {
     group: Group;
     description?: string;
     state?: TokenState;
-    replacement?: Replacement;
+    replacement?: Replacement | ExperimentalReplacement;
   };
 }
 
@@ -78,6 +91,13 @@ export interface DesignToken<TValue, Group extends Groups>
         deprecated: string;
         deleted: string;
         replacement?: Replacement; // Still optional, as there may be no correct replacement
+      }
+    | {
+        state: ExperimentalTokenState;
+        group: Group;
+        description: string;
+        introduced: string;
+        replacement?: ExperimentalReplacement; // Still optional, as there may be no correct replacement;
       };
 }
 
@@ -128,7 +148,15 @@ export type ShadowToken<BaseToken> = DesignToken<
 
 export type OpacityToken = DesignToken<string, 'opacity'>;
 
+export type SpacingToken<BaseToken> = DesignToken<BaseToken, 'spacing'>;
+
 export type RawToken = DesignToken<string, 'raw'>;
+
+export interface ScaleToken extends BaseToken<string, 'scale'> {
+  attributes: {
+    group: 'scale';
+  };
+}
 
 export interface PaletteColorTokenSchema<PaletteValues extends string> {
   value: {
@@ -139,6 +167,12 @@ export interface PaletteColorTokenSchema<PaletteValues extends string> {
   };
   color: {
     palette: Record<PaletteValues, PaletteToken>;
+  };
+}
+
+export interface SpacingScaleTokenSchema<ScaleValues extends string> {
+  spacing: {
+    scale: Record<ScaleValues, ScaleToken>;
   };
 }
 
@@ -717,3 +751,25 @@ export type ColorTokenSchema<BaseToken> = BackgroundColorTokenSchema<
 
 export type TokenSchema<BaseToken> = ColorTokenSchema<BaseToken> &
   ElevationTokenSchema<BaseToken>;
+
+export interface SpacingTokenSchema<BaseToken> {
+  spacing: {
+    container: {
+      gutter: SpacingToken<BaseToken>;
+    };
+    scale: {
+      '0': SpacingToken<BaseToken>;
+      '025': SpacingToken<BaseToken>;
+      '050': SpacingToken<BaseToken>;
+      '075': SpacingToken<BaseToken>;
+      '100': SpacingToken<BaseToken>;
+      '150': SpacingToken<BaseToken>;
+      '200': SpacingToken<BaseToken>;
+      '250': SpacingToken<BaseToken>;
+      '300': SpacingToken<BaseToken>;
+      '400': SpacingToken<BaseToken>;
+      '500': SpacingToken<BaseToken>;
+      '600': SpacingToken<BaseToken>;
+    };
+  };
+}

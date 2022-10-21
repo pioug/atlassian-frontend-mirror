@@ -39,8 +39,11 @@ const subtleStyles = css({
 });
 
 const ghostStyles = css({
+  display: 'inline-block',
   paddingLeft: '5px',
   justifyContent: 'flex-start',
+  lineHeight: '20px',
+  overflowWrap: 'break-word',
   textAlign: 'left',
   '&[data-is-hovered="true"]': {
     background: token('color.background.neutral', '#091E420F'),

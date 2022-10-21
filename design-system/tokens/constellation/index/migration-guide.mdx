@@ -7,7 +7,7 @@ import SectionMessage, {
 } from '@atlaskit/section-message';
 
 We are moving towards a new way of accessing color and elevations: through design tokens.
- This guide is for those just starting to migrate to the new design tokens solution. It will highlight what’s changing and what to watch out for.
+This guide is for those just starting to migrate to the new design tokens solution, highlighting the new changes.
 
 <SectionMessage
   title="Design tokens are currently in internal testing (beta)."
@@ -31,11 +31,15 @@ Make sure you understand the basics of design tokens. Learn about this in [desig
 
 Tokens and theming are being launched alongside our new color system. Our new color system brings usability, accessibility, consistency, and visual improvements.
 
-The new color palette has similar names to the old palette, but their values are different. In other words, the old `N100` is not the same value as the new `N100`. This means you may notice colors changing in light mode as you adopt design tokens.
+![New colors](images/new-colors.png)
+
+In the new system, the new colors are named differently. Instead of using a letter followed by numbers (such as, `N0`, `B100`, `G200`), the new system uses the full color name followed by numbers (such as `Neutral0`, `Blue100`, `Green200`).
+
+![base-token-rename](images/base-token-rename.png)
+
+The colors are also not completely equivalent. For instance, `N100` is not the same as `Neutral100`. You may notice colors changing in light mode as you adopt design tokens.
 
 [Learn more about our new colors](/foundations/color).
-
-![New colors](images/new-colors.png)
 
 ### Accessible yellows
 

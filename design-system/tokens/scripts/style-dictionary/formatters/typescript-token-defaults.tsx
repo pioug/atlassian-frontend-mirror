@@ -32,7 +32,8 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
   return createSignedArtifact(
     source,
     `yarn build tokens`,
-    `Token names mapped to their value in the default Atlassian theme ('${DEFAULT_THEME}')`,
+    `Token names mapped to their value in the default Atlassian themes ('${DEFAULT_THEME}').
+    These default values are used by the Babel plugin to optionally provide automatic fallbacks.`,
   );
 };
 

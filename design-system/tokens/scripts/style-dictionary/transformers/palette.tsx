@@ -5,6 +5,7 @@ import type {
   PaintToken,
   RawToken,
   ShadowToken,
+  SpacingToken,
 } from '../../../src/types';
 import { getTokenId } from '../../../src/utils/token-ids';
 
@@ -22,6 +23,7 @@ const transform = (palette: Record<string, any>): Transform => {
       const originalToken = token.original as
         | PaintToken<any>
         | ShadowToken<any>
+        | SpacingToken<any>
         | OpacityToken
         | RawToken;
 
@@ -73,6 +75,11 @@ const transform = (palette: Record<string, any>): Transform => {
       if (originalToken.attributes.group === 'opacity') {
         const value = originalToken.value as OpacityToken['value'];
         return palette.value.opacity[value].value;
+      }
+
+      if (originalToken.attributes.group === 'spacing') {
+        const value = originalToken.value;
+        return palette.spacing.scale[value].value;
       }
     },
   };

@@ -1,0 +1,20 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::f1f1039ddd3c82ce8ece454a2e17cd85>>
+ * @codegenCommand yarn build tokens
+ */
+html[data-spacing-theme="spacing"] {
+  --ds-container-gutter: 8px;
+  --ds-scale-0: 0;
+  --ds-scale-100: 8px;
+  --ds-scale-150: 12px;
+  --ds-scale-200: 16px;
+  --ds-scale-250: 20px;
+  --ds-scale-300: 24px;
+  --ds-scale-400: 32px;
+  --ds-scale-500: 40px;
+  --ds-scale-600: 48px;
+  --ds-scale-025: 2px;
+  --ds-scale-050: 4px;
+  --ds-scale-075: 6px;
+}

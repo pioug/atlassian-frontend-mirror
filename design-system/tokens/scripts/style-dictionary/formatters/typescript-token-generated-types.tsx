@@ -16,16 +16,20 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     )
     .forEach((token) => activeTokens.push(getTokenId(token.path)));
 
-  const activeTokenType = activeTokens
-    .map((value) => ` | '${value}'`)
-    .join('\n');
+  if (activeTokens.length) {
+    const activeTokenType = activeTokens
+      .map((value) => ` | '${value}'`)
+      .join('\n');
+    return prettier.format(`export type ActiveTokens = ${activeTokenType};\n`, {
+      parser: 'typescript',
+      singleQuote: true,
+    });
+  }
 
-  const source = prettier.format(
-    `export type ActiveTokens = ${activeTokenType};\n`,
-    { parser: 'typescript', singleQuote: true },
-  );
-
-  return createSignedArtifact(source, `yarn build tokens`);
+  return `// No active tokens in this theme\nexport {}`;
 };
 
-export default formatter;
+const fileFormatter: Format['formatter'] = (args) =>
+  createSignedArtifact(formatter(args), `yarn build tokens`);
+
+export default fileFormatter;

@@ -3,6 +3,7 @@ import { Buffer } from 'buffer';
 import React, { Component } from 'react';
 
 import { FormFields, SelectOptionDetails, SelectValue } from '../types';
+import { isApiGatewayUrl } from '../utils/is-api-gateway-url';
 import truncate from '../utils/Truncate';
 
 import FeedbackForm from './FeedbackForm';
@@ -138,7 +139,7 @@ export default class FeedbackCollector extends Component<Props> {
 
   async getEntitlementInformation(): Promise<FieldType[] | []> {
     const url = this.props.url;
-    // jira / confluence / bitbucket
+    // jira / confluence / bitbucket / trello
     let productName;
     let productEntitlement;
     let entitlementDetails;
@@ -155,6 +156,11 @@ export default class FeedbackCollector extends Component<Props> {
       );
       const hasPremium = entitlementDetails['hasPremium'];
       productEntitlement = hasPremium ? 'PREMIUM' : 'STANDARD';
+    } else if (
+      ['trellis.coffee', 'trello.com'].includes(window.location.host)
+    ) {
+      productName = 'Trello';
+      productKey = 'trello';
     } else {
       if (document.querySelector('meta[id="confluence-context-path"]')) {
         productName = 'Confluence';
@@ -172,7 +178,7 @@ export default class FeedbackCollector extends Component<Props> {
             headers: {
               'Content-Type': 'application/json',
             },
-            ...(this.props.url === `/gateway/api`
+            ...(isApiGatewayUrl(this.props.url)
               ? { credentials: 'include' }
               : {}),
           },
@@ -345,7 +351,7 @@ export default class FeedbackCollector extends Component<Props> {
   postFeedback = async (formValues: FormFields) => {
     const requestType: string = this.props.requestTypeId;
     const embedKey: string = this.props.embeddableKey;
-    let url: string = this.props.url;
+    let fetchUrl: string = this.props.url;
 
     // Don't dispatch unless we have suitable props (allows tests to pass through empty strings and avoid redundant network calls)
     if (embedKey && requestType) {
@@ -357,22 +363,19 @@ export default class FeedbackCollector extends Component<Props> {
           ...formData,
         },
       };
-
-      if (this.props.url === `/gateway/api`) {
-        url += '/feedback-collector-api';
+      if (isApiGatewayUrl(this.props.url)) {
+        fetchUrl += '/feedback-collector-api';
       } else {
-        url = 'https://feedback-collector-api.services.atlassian.com';
+        fetchUrl = 'https://feedback-collector-api.services.atlassian.com';
       }
       const postData = Buffer.from(JSON.stringify(body)).toString('base64');
-      fetch(`${url}/feedback`, {
+      fetch(`${fetchUrl}/feedback`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ data: postData }),
-        ...(this.props.url === `/gateway/api`
-          ? { credentials: 'include' }
-          : {}),
+        ...(isApiGatewayUrl(this.props.url) ? { credentials: 'include' } : {}),
       });
     }
 

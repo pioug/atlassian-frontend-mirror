@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.6.3
+
+### Patch Changes
+
+- [`9ecee5db726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ecee5db726) - Add support for Trello.
+
 ## 10.6.2
 
 ### Patch Changes

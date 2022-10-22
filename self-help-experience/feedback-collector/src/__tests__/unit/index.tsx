@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { mount, ReactWrapper, shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
@@ -46,6 +46,7 @@ describe('Feedback Collector unit tests', () => {
         />,
       );
       expect(wrapper).toBeDefined();
+      wrapper.unmount();
     });
 
     describe('Transforming form values into format', () => {
@@ -61,6 +62,11 @@ describe('Feedback Collector unit tests', () => {
           />,
         );
       });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+
       test('value is selected, everything else is empty', async () => {
         const formValues: FormFields = {
           type: 'bug',
@@ -277,6 +283,10 @@ describe('Feedback Collector unit tests', () => {
         );
       });
 
+      afterEach(() => {
+        wrapper.unmount();
+      });
+
       test('Should set feedback without a feedback type', async () => {
         const formValues: FormFields = {
           type: 'question',
@@ -370,6 +380,10 @@ describe('Feedback Collector unit tests', () => {
             }
           />,
         );
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
       });
 
       test('Should render the custom copy in the component without reason select', () => {
@@ -512,9 +526,47 @@ describe('Feedback Collector unit tests', () => {
         };
 
         await feedbackCollector.postFeedback(feedback);
-
         expect(entitlementSpy).toHaveBeenCalled();
       });
+
+      test.each`
+        url                                             | expected
+        ${'/not-a-gateway-url'}                         | ${'https://feedback-collector-api.services.atlassian.com/feedback'}
+        ${'/gateway/api'}                               | ${'/gateway/api/feedback-collector-api/feedback'}
+        ${'https://api-gateway.trello.com/gateway/api'} | ${'https://api-gateway.trello.com/gateway/api/feedback-collector-api/feedback'}
+      `(
+        'Should call $expected when called url is $url',
+        async ({ url, expected }) => {
+          fetchMock.mockClear();
+          const mocked = fetchMock.mockResponseOnce(
+            JSON.stringify({
+              status: 'OK',
+              message: 'Successfully collected and dispatched Feedback',
+            }),
+          );
+          render(
+            <FeedbackCollector
+              requestTypeId="request_type_id"
+              embeddableKey="embeddable_key"
+              url={url}
+              showTypeField={false}
+            />,
+          );
+          const textarea = screen.getByPlaceholderText(
+            "Let us know what's on your mind",
+          );
+          textarea.innerText = 'Some comment';
+          fireEvent.change(textarea);
+          const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+          await waitFor(() => {
+            expect(submitBtn).not.toBeDisabled();
+          });
+          fireEvent.click(submitBtn);
+          await waitFor(() => {
+            expect(mocked.mock.calls?.[0]?.[0]).toBe(expected);
+          });
+        },
+      );
     });
 
     describe('Localisation', () => {

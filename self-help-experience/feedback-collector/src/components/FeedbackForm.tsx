@@ -242,6 +242,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                 appearance="primary"
                 type="submit"
                 isDisabled={isDisabled}
+                testId="feedbackCollectorSubmitBtn"
               >
                 {submitButtonLabel || (
                   <FormattedMessage {...messages.submitButtonLabel} />

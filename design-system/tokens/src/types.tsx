@@ -1,5 +1,4 @@
 import { InternalTokenIds } from './artifacts/types-internal';
-import { THEME_NAME_MAP, THEMES } from './constants';
 
 export type Groups =
   | 'raw'
@@ -37,9 +36,6 @@ export type PaletteCategory =
   | 'dark mode neutral';
 
 export type ValueCategory = 'opacity';
-
-export type Themes = typeof THEMES[number];
-export type ThemesLongName = keyof typeof THEME_NAME_MAP;
 
 export interface Token<TValue, Group extends Groups> {
   value: TValue;

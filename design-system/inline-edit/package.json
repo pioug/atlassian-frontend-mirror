@@ -16,6 +16,7 @@
   "atlaskit:src": "src/index.ts",
   "homepage": "https://atlassian.design/components/inline-edit/",
   "atlassian": {
+    "disableProductCI": true,
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {

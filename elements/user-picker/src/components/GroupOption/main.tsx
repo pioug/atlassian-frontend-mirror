@@ -80,9 +80,10 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
     return (
       <AvatarItemOption
         avatar={this.renderAvatar()}
-        secondaryText={this.renderByline()}
-        primaryText={this.getPrimaryText()}
+        isDisabled={this.props.group.isDisabled}
         lozenge={this.getLozengeProps()}
+        primaryText={this.getPrimaryText()}
+        secondaryText={this.renderByline()}
       />
     );
   }

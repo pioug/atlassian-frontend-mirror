@@ -61,6 +61,15 @@ import { setGlobalTheme } from '@atlaskit/tokens';
 setGlobalTheme('dark');
 `}
 
+It also allows you to synchronize the theme with the operating system-level theme setting, by passing true to the second argument.
+
+${code`
+import { setGlobalTheme } from '@atlaskit/tokens';
+
+setGlobalTheme('dark', true);
+`}
+
+
 ### Using tokens
 
 Accessing individual tokens can be done by simply using the css-variables mounted to the page.

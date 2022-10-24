@@ -177,9 +177,10 @@ export type OnPicker = (sessionId?: string) => void;
 
 // @public (undocumented)
 type Option_2<Data = OptionData> = {
+  data: Data;
+  isDisabled?: boolean;
   label: string;
   value: string;
-  data: Data;
 };
 export { Option_2 as Option };
 
@@ -192,6 +193,8 @@ export interface OptionData {
   // (undocumented)
   id: string;
   // (undocumented)
+  isDisabled?: boolean;
+  // (undocumented)
   lozenge?: LozengeProps | ReactNode | string;
   // (undocumented)
   name: string;
@@ -200,7 +203,7 @@ export interface OptionData {
 }
 
 // @public (undocumented)
-export type OptionIdentifier = Pick<OptionData, 'id' | 'type'>;
+export type OptionIdentifier = Pick<OptionData, 'id' | 'isDisabled' | 'type'>;
 
 // @public (undocumented)
 export const PopupUserPicker: React_2.ForwardRefExoticComponent<

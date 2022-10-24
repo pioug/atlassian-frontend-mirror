@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 5.1.1
+
+### Patch Changes
+
+- [`c708e3eff99`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c708e3eff99) - Remove object spread from get feature-flag value
+
 ## 5.1.0
 
 ### Minor Changes

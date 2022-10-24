@@ -1,4 +1,3 @@
-import { CSS_PREFIX } from '../../../../../src/constants';
 import { cssVariableFormatter as formatter } from '../../css-variables';
 
 describe('formatter', () => {
@@ -17,14 +16,20 @@ describe('formatter', () => {
       options: {
         themeName: 'atlassian-dark',
       },
-    } as any)
-      .split('html')
-      .pop();
+    } as any);
 
-    expect(result).toEqual(`[data-theme="dark"] {
-  --${CSS_PREFIX}-brand: #ffffff;
-}
-`);
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"dark\\"] {
+        --ds-brand: #ffffff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html[data-color-mode=\\"auto\\"] {
+          --ds-brand: #ffffff;
+        }
+      }
+      "
+    `);
   });
 
   it('should preserve camelCase tokens', () => {
@@ -42,14 +47,20 @@ describe('formatter', () => {
       options: {
         themeName: 'atlassian-dark',
       },
-    } as any)
-      .split('html')
-      .pop();
+    } as any);
 
-    expect(result).toEqual(`[data-theme="dark"] {
-  --${CSS_PREFIX}-colorAccent: #ffffff;
-}
-`);
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"dark\\"] {
+        --ds-colorAccent: #ffffff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html[data-color-mode=\\"auto\\"] {
+          --ds-colorAccent: #ffffff;
+        }
+      }
+      "
+    `);
   });
 
   it('should omit palette tokens', () => {
@@ -69,11 +80,20 @@ describe('formatter', () => {
       options: {
         themeName: 'atlassian-dark',
       },
-    } as any)
-      .split('html')
-      .pop();
+    } as any);
 
-    expect(result).toEqual('[data-theme="dark"] {\n}\n');
+    expect(result).toMatchInlineSnapshot(
+      `
+      "html[data-theme~=\\"dark\\"] {
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html[data-color-mode=\\"auto\\"] {
+        }
+      }
+      "
+    `,
+    );
   });
 
   it('should parse nested token', () => {
@@ -91,14 +111,20 @@ describe('formatter', () => {
       options: {
         themeName: 'atlassian-dark',
       },
-    } as any)
-      .split('html')
-      .pop();
+    } as any);
 
-    expect(result).toEqual(`[data-theme="dark"] {
-  --${CSS_PREFIX}-accent: #ffffff;
-}
-`);
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"dark\\"] {
+        --ds-accent: #ffffff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html[data-color-mode=\\"auto\\"] {
+          --ds-accent: #ffffff;
+        }
+      }
+      "
+    `);
   });
 
   it('should parse deeply nested token', () => {
@@ -116,14 +142,20 @@ describe('formatter', () => {
       options: {
         themeName: 'atlassian-dark',
       },
-    } as any)
-      .split('html')
-      .pop();
+    } as any);
 
-    expect(result).toEqual(`[data-theme="dark"] {
-  --${CSS_PREFIX}-accent-brand: #ffffff;
-}
-`);
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"dark\\"] {
+        --ds-accent-brand: #ffffff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html[data-color-mode=\\"auto\\"] {
+          --ds-accent-brand: #ffffff;
+        }
+      }
+      "
+    `);
   });
 
   it('should omit [default] keywords in token paths', () => {
@@ -143,14 +175,20 @@ describe('formatter', () => {
       options: {
         themeName: 'atlassian-dark',
       },
-    } as any)
-      .split('html')
-      .pop();
+    } as any);
 
-    expect(result).toEqual(`[data-theme="dark"] {
-  --${CSS_PREFIX}-background-brand: #ffffff;
-}
-`);
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"dark\\"] {
+        --ds-background-brand: #ffffff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html[data-color-mode=\\"auto\\"] {
+          --ds-background-brand: #ffffff;
+        }
+      }
+      "
+    `);
   });
 
   it('should omit nested [default] keywords in token paths', () => {
@@ -170,14 +208,20 @@ describe('formatter', () => {
       options: {
         themeName: 'atlassian-dark',
       },
-    } as any)
-      .split('html')
-      .pop();
+    } as any);
 
-    expect(result).toEqual(`[data-theme="dark"] {
-  --${CSS_PREFIX}-background-brand: #ffffff;
-}
-`);
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"dark\\"] {
+        --ds-background-brand: #ffffff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html[data-color-mode=\\"auto\\"] {
+          --ds-background-brand: #ffffff;
+        }
+      }
+      "
+    `);
   });
 
   it('should omit nested [default] keywords in the middle of token paths', () => {
@@ -202,15 +246,48 @@ describe('formatter', () => {
         ],
       },
       options: {
-        themeName: 'atlassian-dark',
+        themeName: 'atlassian-light',
       },
-    } as any)
-      .split('html')
-      .pop();
+    } as any);
 
-    expect(result).toEqual(`[data-theme="dark"] {
-  --${CSS_PREFIX}-background-brand-pressed: #ffffff;
-}
-`);
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"light\\"] {
+        --ds-background-brand-pressed: #ffffff;
+      }
+
+      @media (prefers-color-scheme: light) {
+        html[data-color-mode=\\"auto\\"] {
+          --ds-background-brand-pressed: #ffffff;
+        }
+      }
+      "
+    `);
+  });
+
+  it('should omit prefers-color-scheme media selector for non-color themes', () => {
+    const result = formatter({
+      dictionary: {
+        allTokens: [
+          {
+            value: '0',
+            name: 'spacing.scale.Space0',
+            path: ['spacing', 'scale', 'Space0'],
+            attributes: {
+              group: 'scale',
+            },
+          },
+        ],
+      },
+      options: {
+        themeName: 'atlassian-spacing',
+      },
+    } as any);
+
+    expect(result).toMatchInlineSnapshot(`
+      "html[data-theme~=\\"spacing\\"] {
+        --ds-scale-Space0: 0;
+      }
+      "
+    `);
   });
 });

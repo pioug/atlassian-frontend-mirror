@@ -21,15 +21,9 @@ describe('generated CSS', () => {
     getCSSFileNames().forEach((name) => {
       const css = getCSSFile(name);
 
-      if (name === 'atlassian-spacing.css') {
-        expect(css).toMatch(
-          /\nhtml\[data-spacing-theme="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
-        );
-      } else {
-        expect(css).toMatch(
-          /\nhtml\[data-theme="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
-        );
-      }
+      expect(css).toMatch(
+        /\nhtml\[data-theme~="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
+      );
     });
   });
 
@@ -47,18 +41,19 @@ describe('generated CSS', () => {
     expect(() => {
       CSSNames.forEach((CSSName) => {
         const valueMap: Record<string, boolean> = {};
-        const customProperties = getCSSFile(CSSName)
+        let cssFile = getCSSFile(CSSName);
+        cssFile = cssFile.substring(0, cssFile.indexOf('@media'));
+
+        const customProperties = cssFile
           .split('\n')
           .filter(Boolean)
           .map((line) => line.split(':')[0].trim());
-
         customProperties.forEach((customPropertyName) => {
           if (valueMap[customPropertyName]) {
             throw new Error(
               `A duplicate custom property "${customPropertyName}" was found in the CSS output!`,
             );
           }
-
           valueMap[customPropertyName] = true;
         });
       });

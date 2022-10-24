@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.5.0
+
+### Minor Changes
+
+- [`a4d4f93b480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4d4f93b480) - [ux] UserPicker now supports disabling option items through a new optional `isDisabled` field on data passed to the `options` prop.
+
 ## 9.4.1
 
 ### Patch Changes

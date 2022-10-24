@@ -15,6 +15,7 @@
   "atlaskit:src": "src/index.tsx",
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/overview",
   "atlassian": {
+    "disableProductCI": true,
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {

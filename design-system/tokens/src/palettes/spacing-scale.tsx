@@ -22,7 +22,7 @@ const scale: SpacingScaleTokenSchema<ScaleValues> = {
   spacing: {
     scale: {
       Space0: {
-        value: '0',
+        value: '0px',
         attributes: {
           group: 'scale',
         },

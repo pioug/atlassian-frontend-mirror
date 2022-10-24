@@ -1,11 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f1f1039ddd3c82ce8ece454a2e17cd85>>
+ * @codegen <<SignedSource::81f5d367651ef095d997884b2349fc44>>
  * @codegenCommand yarn build tokens
  */
-html[data-spacing-theme="spacing"] {
+html[data-theme~="spacing"] {
   --ds-container-gutter: 8px;
-  --ds-scale-0: 0;
+  --ds-scale-0: 0px;
   --ds-scale-100: 8px;
   --ds-scale-150: 12px;
   --ds-scale-200: 16px;

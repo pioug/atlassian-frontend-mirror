@@ -46,8 +46,8 @@ const ThemedComponent = () => {
   );
 };
 
-const HookWrapper: React.FC = ({ children }) => {
-  setGlobalTheme('dark');
+const HookWrapper: React.FC<{ isAuto?: boolean }> = ({ isAuto, children }) => {
+  setGlobalTheme('dark', isAuto);
   return <>{children}</>;
 };
 
@@ -60,6 +60,15 @@ describe('useThemeObserver', () => {
     const { result } = renderHook(() => useThemeObserver());
 
     expect(result.current).toEqual(null);
+  });
+
+  it('should return auto if it has been set', async () => {
+    setGlobalTheme('light', true);
+    const { result } = renderHook(() => useThemeObserver(), {
+      wrapper: ({ children }) => <HookWrapper isAuto>{children}</HookWrapper>,
+    });
+
+    expect(result.current).toEqual('auto');
   });
 
   it('should return the theme if it has been set', async () => {

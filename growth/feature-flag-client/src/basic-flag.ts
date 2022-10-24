@@ -143,7 +143,8 @@ export default class BasicFlag implements FlagWrapper {
     exposureData?: CustomAttributes;
   }): boolean {
     const flag = this.getCachedResultOrCompute<boolean>(options.default, {
-      ...options,
+      exposureData: options.exposureData,
+      shouldTrackExposureEvent: options.shouldTrackExposureEvent,
       oneOf: undefined,
       ignoreTypes: this.ignoreTypes || false,
     });
@@ -158,7 +159,9 @@ export default class BasicFlag implements FlagWrapper {
     exposureData?: CustomAttributes;
   }): string {
     const flag = this.getCachedResultOrCompute<string>(options.default, {
-      ...options,
+      exposureData: options.exposureData,
+      shouldTrackExposureEvent: options.shouldTrackExposureEvent,
+      oneOf: options.oneOf,
       ignoreTypes: this.ignoreTypes || false,
     });
 
@@ -181,7 +184,8 @@ export default class BasicFlag implements FlagWrapper {
     exposureData?: CustomAttributes;
   }): T {
     return this.getCachedResultOrCompute<T>(options.default, {
-      ...options,
+      shouldTrackExposureEvent: options.shouldTrackExposureEvent,
+      exposureData: options.exposureData,
       oneOf: undefined,
       ignoreTypes: true,
     }).value;
@@ -193,7 +197,8 @@ export default class BasicFlag implements FlagWrapper {
     exposureData?: CustomAttributes;
   }): FlagShape<T> {
     return this.getCachedResultOrCompute<T>(options.default, {
-      ...options,
+      shouldTrackExposureEvent: options.shouldTrackExposureEvent,
+      exposureData: options.exposureData,
       ignoreTypes: this.ignoreTypes || false,
     });
   }

@@ -3,6 +3,8 @@ import React, { ReactNode } from 'react';
 import { gridSize } from '@atlaskit/theme/constants';
 import { css, jsx } from '@emotion/core';
 import Lozenge from '@atlaskit/lozenge';
+import { token } from '@atlaskit/tokens';
+
 import { LozengeProps } from '../types';
 import { isLozengeText } from './utils';
 
@@ -16,16 +18,18 @@ const AsyncTooltip = React.lazy(() =>
   }),
 );
 
-const wrapper = css({
-  alignItems: 'center',
-  boxSizing: 'border-box',
-  display: 'flex',
-  lineHeight: 1,
-  outline: 'none',
-  margin: 0,
-  width: '100%',
-  cursor: 'pointer',
-});
+const wrapper = (isDisabled?: boolean) =>
+  css({
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    display: 'flex',
+    lineHeight: 1,
+    outline: 'none',
+    margin: 0,
+    width: '100%',
+    cursor: isDisabled ? 'not-allowed' : 'pointer',
+    opacity: isDisabled ? token('opacity.disabled', '0.4') : undefined,
+  });
 
 const optionWrapper = css({
   maxWidth: '100%',
@@ -61,16 +65,18 @@ export const textWrapper = (color?: string) =>
 
 export type AvatarItemOptionProps = {
   avatar: ReactNode;
+  isDisabled?: boolean;
+  lozenge?: ReactNode | LozengeProps;
   primaryText?: ReactNode;
   secondaryText?: ReactNode;
-  lozenge?: ReactNode | LozengeProps;
 };
 
 export const AvatarItemOption = ({
   avatar,
+  isDisabled,
+  lozenge,
   primaryText,
   secondaryText,
-  lozenge,
 }: AvatarItemOptionProps) => {
   const renderLozenge = () => {
     if (isLozengeText(lozenge)) {
@@ -95,7 +101,7 @@ export const AvatarItemOption = ({
   };
 
   return (
-    <span css={wrapper}>
+    <span css={wrapper(isDisabled)}>
       {avatar}
       <div css={optionWrapper}>
         <div>

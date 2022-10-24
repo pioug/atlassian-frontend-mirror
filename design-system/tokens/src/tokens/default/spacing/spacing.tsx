@@ -18,8 +18,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '0': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '0',
+          state: 'active',
           introduced: '0.10.16',
           description:
             'Equates to `0`. Can be used for resetting default spacing styles.',
@@ -28,8 +27,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '025': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '2px',
+          state: 'active',
           introduced: '0.10.16',
           description:
             'Use for spacing in compact scenarios. The smallest value in our scale.',
@@ -38,8 +36,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '050': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '4px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },
@@ -47,8 +44,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '075': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '6px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },
@@ -56,8 +52,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '100': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '8px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },
@@ -65,8 +60,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '150': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '12px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },
@@ -74,8 +68,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '200': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '16px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },
@@ -83,8 +76,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '250': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '20px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },
@@ -92,8 +84,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '300': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '24px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },
@@ -101,8 +92,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '400': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '32px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },
@@ -110,8 +100,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '500': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '40px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },
@@ -119,8 +108,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
       '600': {
         attributes: {
           group: 'spacing',
-          state: 'experimental',
-          replacement: '48px',
+          state: 'active',
           introduced: '0.10.16',
           description: 'Helpful guidance goes here',
         },

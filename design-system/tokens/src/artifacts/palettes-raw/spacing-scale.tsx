@@ -1,18 +1,18 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::08ae35ae5d6bfe790b538db89c5876de>>
+ * @codegen <<SignedSource::9ec4d3766ad54f86aa1d9891b0f32317>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
   {
-    "value": "0",
+    "value": "0px",
     "attributes": {
       "group": "scale"
     },
     "filePath": "src/palettes/spacing-scale.tsx",
     "isSource": true,
     "original": {
-      "value": "0",
+      "value": "0px",
       "attributes": {
         "group": "scale"
       }

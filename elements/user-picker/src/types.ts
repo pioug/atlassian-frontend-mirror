@@ -215,11 +215,12 @@ export interface GroupHighlight {
 
 export interface OptionData {
   avatarUrl?: any;
+  fixed?: boolean;
   id: string;
+  isDisabled?: boolean;
+  lozenge?: string | LozengeProps | ReactNode;
   name: string;
   type?: 'user' | 'team' | 'email' | 'group';
-  fixed?: boolean;
-  lozenge?: string | LozengeProps | ReactNode;
 }
 
 export const UserType = 'user';
@@ -290,7 +291,7 @@ export interface Group extends OptionData {
 export type Value = OptionData | OptionData[] | null | undefined;
 
 export type DefaultValue = Value | OptionIdentifier | OptionIdentifier[];
-export type OptionIdentifier = Pick<OptionData, 'id' | 'type'>;
+export type OptionIdentifier = Pick<OptionData, 'id' | 'type' | 'isDisabled'>;
 
 export const EmailType = 'email';
 
@@ -317,9 +318,10 @@ export type OnPicker = (sessionId?: string) => void;
 export type OnOption = (value: Value, sessionId?: string) => void;
 
 export type Option<Data = OptionData> = {
+  data: Data;
+  isDisabled?: boolean;
   label: string;
   value: string;
-  data: Data;
 };
 
 export interface UserSourceResult {

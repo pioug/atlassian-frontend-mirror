@@ -97,9 +97,10 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
     return (
       <AvatarItemOption
         avatar={this.renderAvatar()}
+        lozenge={this.getLozengeProps()}
+        isDisabled={this.props.user.isDisabled}
         primaryText={this.getPrimaryText()}
         secondaryText={this.renderSecondaryText()}
-        lozenge={this.getLozengeProps()}
       />
     );
   }

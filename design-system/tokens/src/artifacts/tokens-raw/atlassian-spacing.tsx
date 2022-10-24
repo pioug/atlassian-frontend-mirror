@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fd4d0992b574a7a22bc1b95ebcdaafc8>>
+ * @codegen <<SignedSource::e19d1d58b2463145dd0eae095e3d0b36>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -35,19 +35,17 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "0",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Equates to `0`. Can be used for resetting default spacing styles."
     },
-    "value": "0",
+    "value": "0px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "0",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Equates to `0`. Can be used for resetting default spacing styles."
       },
@@ -63,8 +61,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "8px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -74,8 +71,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "8px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },
@@ -91,8 +87,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "12px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -102,8 +97,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "12px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },
@@ -119,8 +113,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "16px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -130,8 +123,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "16px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },
@@ -147,8 +139,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "20px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -158,8 +149,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "20px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },
@@ -175,8 +165,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "24px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -186,8 +175,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "24px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },
@@ -203,8 +191,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "32px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -214,8 +201,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "32px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },
@@ -231,8 +217,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "40px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -242,8 +227,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "40px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },
@@ -259,8 +243,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "48px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -270,8 +253,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "48px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },
@@ -287,8 +269,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "2px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Use for spacing in compact scenarios. The smallest value in our scale."
     },
@@ -298,8 +279,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "2px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Use for spacing in compact scenarios. The smallest value in our scale."
       },
@@ -315,8 +295,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "4px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -326,8 +305,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "4px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },
@@ -343,8 +321,7 @@ const tokens = [
   {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "6px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -354,8 +331,7 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "spacing",
-        "state": "experimental",
-        "replacement": "6px",
+        "state": "active",
         "introduced": "0.10.16",
         "description": "Helpful guidance goes here"
       },

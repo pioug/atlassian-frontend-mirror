@@ -133,9 +133,10 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
     return (
       <AvatarItemOption
         avatar={this.renderAvatar()}
-        secondaryText={this.renderCustomByLine() || this.renderByline()}
-        primaryText={this.getPrimaryText()}
+        isDisabled={this.props.team.isDisabled}
         lozenge={this.getLozengeProps()}
+        primaryText={this.getPrimaryText()}
+        secondaryText={this.renderCustomByLine() || this.renderByline()}
       />
     );
   }

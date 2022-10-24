@@ -4,11 +4,11 @@ import path from 'path';
 
 import styleDictionary, { Config } from 'style-dictionary';
 
-import { DEFAULT_THEME, THEME_NAME_MAP } from '../../src/constants';
+import { DEFAULT_THEME } from '../../src/constants';
 import legacyPalette from '../../src/palettes/legacy-palette';
 import defaultPalette from '../../src/palettes/palette';
-import defaultScale from '../../src/palettes/spacing-scale';
-import { ThemesLongName } from '../../src/types';
+import spacingScale from '../../src/palettes/spacing-scale';
+import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
 
 import formatterCSSVariables from './formatters/css-variables';
 import formatterTokenDescriptionCSV from './formatters/csv-token-description';
@@ -27,15 +27,19 @@ const PALETTE_INPUT_DIR = './src/palettes/';
 const THEME_INPUT_DIR = './src/tokens/';
 const ARTIFACT_OUTPUT_DIR = './src/artifacts/';
 
-const paletteConfig: Record<keyof typeof THEME_NAME_MAP, object> = {
-  'atlassian-light': defaultPalette,
-  'atlassian-dark': defaultPalette,
-  'atlassian-legacy-light': legacyPalette,
-  'atlassian-legacy-dark': legacyPalette,
-  'atlassian-spacing': defaultScale,
+const getPalette = (paletteId: Palettes) => {
+  switch (paletteId) {
+    case 'spacingScale':
+      return spacingScale;
+    case 'legacyPalette':
+      return legacyPalette;
+    case 'defaultPalette':
+    default:
+      return defaultPalette;
+  }
 };
 
-const createThemeConfig = (themeName: ThemesLongName): Config => {
+const createThemeConfig = (themeName: ThemeFileNames): Config => {
   // Optionally generate the default token mapping if the current theme
   // is the default one
   const typescriptFiles = [
@@ -53,7 +57,7 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
     },
   ];
 
-  if (DEFAULT_THEME.includes(THEME_NAME_MAP[themeName])) {
+  if (DEFAULT_THEME.includes(themeConfig[themeName].id)) {
     typescriptFiles.push({
       format: 'typescript/custom-token-default-values',
       destination: `${themeName}-token-default-values.tsx`,
@@ -61,7 +65,7 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
   }
 
   // Palette to be applied to the theme.
-  const palette = paletteConfig[themeName];
+  const palette = getPalette(themeConfig[themeName].palette);
 
   return {
     parsers: [
@@ -89,11 +93,7 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
       'box-shadow/custom-figma': boxShadowTransform(palette),
     },
     source: [path.join(THEME_INPUT_DIR, `${themeName}/**/*.tsx`)],
-    include: [
-      // path.join(TOKENS_INPUT_DIR, 'palette.tsx'),
-      // path.join(TOKENS_INPUT_DIR, 'legacy-palette.tsx'),
-      path.join(THEME_INPUT_DIR, 'default/**/*.tsx'),
-    ],
+    include: [path.join(THEME_INPUT_DIR, 'default/**/*.tsx')],
     platforms: {
       figma: {
         transforms: ['name/custom-dot', 'color/custom-palette'],
@@ -236,7 +236,7 @@ const tokensInputDir = `${__dirname}/../../src/tokens`;
 fs.readdirSync(tokensInputDir, { withFileTypes: true })
   .filter((result) => result.isDirectory() && result.name !== 'default')
   .forEach((theme) => {
-    const config = createThemeConfig(theme.name as ThemesLongName);
+    const config = createThemeConfig(theme.name as ThemeFileNames);
     const StyleDictionary = styleDictionary.extend(config);
     StyleDictionary.buildAllPlatforms();
   });

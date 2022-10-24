@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::3e65f9a2c9030184ee5ab49ad975439f>>
+ * @codegen <<SignedSource::4134117a741f7f5eac4c8fae9158b6a1>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -21,18 +21,16 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/0": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "0",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Equates to `0`. Can be used for resetting default spacing styles."
     },
-    "value": "0"
+    "value": "0px"
   },
   "Spacing/Scale/100": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "8px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -41,8 +39,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/150": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "12px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -51,8 +48,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/200": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "16px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -61,8 +57,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/250": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "20px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -71,8 +66,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/300": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "24px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -81,8 +75,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/400": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "32px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -91,8 +84,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/500": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "40px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -101,8 +93,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/600": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "48px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -111,8 +102,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/025": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "2px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Use for spacing in compact scenarios. The smallest value in our scale."
     },
@@ -121,8 +111,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/050": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "4px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
@@ -131,25 +120,12 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/Scale/075": {
     "attributes": {
       "group": "spacing",
-      "state": "experimental",
-      "replacement": "6px",
+      "state": "active",
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
     "value": "6px"
   }
 }, {
-  "Spacing/Container/Gutter": "8px",
-  "Spacing/Scale/0": "0",
-  "Spacing/Scale/100": "8px",
-  "Spacing/Scale/150": "12px",
-  "Spacing/Scale/200": "16px",
-  "Spacing/Scale/250": "20px",
-  "Spacing/Scale/300": "24px",
-  "Spacing/Scale/400": "32px",
-  "Spacing/Scale/500": "40px",
-  "Spacing/Scale/600": "48px",
-  "Spacing/Scale/025": "2px",
-  "Spacing/Scale/050": "4px",
-  "Spacing/Scale/075": "6px"
+  "Spacing/Container/Gutter": "8px"
 });

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.12.1
+
+### Patch Changes
+
+- [`e86c57a4a60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e86c57a4a60) - Improves the `no-raw-spacing-values` rule to include an autofixer. Spacing values that can be resolved to a token will be.
+
 ## 4.12.0
 
 ### Minor Changes

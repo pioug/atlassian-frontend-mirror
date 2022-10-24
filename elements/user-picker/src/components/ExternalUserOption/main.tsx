@@ -48,6 +48,7 @@ class ExternalUserOptionImpl extends React.PureComponent<
     return (
       <ExternalAvatarItemOption
         avatar={this.renderAvatar()}
+        isDisabled={this.props.user.isDisabled}
         primaryText={this.getPrimaryText()}
         secondaryText={this.renderSecondaryText()}
         sourcesInfoTooltip={this.getSourcesInfoTooltip()}

@@ -68,9 +68,10 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
   private renderOption = (label: string) => (
     <AvatarItemOption
       avatar={<AddOptionAvatar label={label} />}
+      lozenge={this.getLozengeProps()}
+      isDisabled={this.props.email.isDisabled}
       primaryText={this.renderPrimaryText()}
       secondaryText={this.renderSecondaryText(label)}
-      lozenge={this.getLozengeProps()}
     />
   );
 

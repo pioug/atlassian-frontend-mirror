@@ -3,6 +3,8 @@ import { CallExpression, EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
 const properties = [
   'padding',
+  'paddingBlock',
+  'paddingInline',
   'paddingLeft',
   'paddingTop',
   'paddingRight',
@@ -15,8 +17,8 @@ const properties = [
   'gap',
   'fontSize',
   'lineHeight',
-  'width',
-  'height',
+  // 'width', re-enable later
+  // 'height', re-enable later
   'rowGap',
   'gridRowGap',
   'columnGap',
@@ -71,10 +73,7 @@ const isFontSizeSmall = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node.callee, 'Identifier') &&
   node.callee.name === 'fontSizeSmall';
 
-const getValueFromCallExpression = (
-  node: EslintNode,
-  context: Rule.RuleContext,
-) => {
+const getValueFromCallExpression = (node: EslintNode) => {
   if (!isNodeOfType(node, 'CallExpression')) {
     return null;
   }
@@ -111,7 +110,7 @@ export const getValue = (
   }
 
   if (isNodeOfType(node, 'CallExpression')) {
-    return getValueFromCallExpression(node, context);
+    return getValueFromCallExpression(node);
   }
 
   if (isNodeOfType(node, 'Identifier')) {

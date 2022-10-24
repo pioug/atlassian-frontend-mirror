@@ -48,18 +48,20 @@ export const optionToSelectableOption = (
 ): Option => {
   if (isOptionData(option)) {
     return {
+      data: option,
+      isDisabled: option.isDisabled,
       label: option.name,
       value: option.id,
-      data: option,
     };
   } else {
     return {
-      label: option.id,
-      value: option.id,
       data: {
         ...option,
         name: option.id,
       },
+      isDisabled: option.isDisabled,
+      label: option.id,
+      value: option.id,
     };
   }
 };

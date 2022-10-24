@@ -4,16 +4,18 @@ import { css, jsx } from '@emotion/core';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const outerWrapper = css({
-  alignItems: 'center',
-  boxSizing: 'border-box',
-  display: 'flex',
-  lineHeight: 1,
-  outline: 'none',
-  margin: 0,
-  width: '100%',
-  cursor: 'pointer',
-});
+const outerWrapper = (isDisabled?: boolean) =>
+  css({
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    display: 'flex',
+    lineHeight: 1,
+    outline: 'none',
+    margin: 0,
+    width: '100%',
+    cursor: isDisabled ? 'not-allowed' : 'pointer',
+    opacity: isDisabled ? token('opacity.disabled', '0.4') : undefined,
+  });
 
 const detailsWrapper = css({
   display: 'flex',
@@ -52,6 +54,7 @@ const getTextStyle = (isSecondary?: boolean) => {
 
 export type ExternalAvatarItemOptionProps = {
   avatar: ReactNode;
+  isDisabled?: boolean;
   primaryText: ReactNode;
   secondaryText?: ReactNode;
   sourcesInfoTooltip?: ReactNode;
@@ -59,11 +62,12 @@ export type ExternalAvatarItemOptionProps = {
 
 export const ExternalAvatarItemOption = ({
   avatar,
+  isDisabled,
   primaryText,
   secondaryText,
   sourcesInfoTooltip,
 }: ExternalAvatarItemOptionProps) => (
-  <div css={outerWrapper}>
+  <div css={outerWrapper(isDisabled)}>
     {avatar}
     <div css={detailsWrapper}>
       <div css={textSection}>

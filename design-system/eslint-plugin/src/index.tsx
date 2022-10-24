@@ -1,10 +1,10 @@
 import ensureTokenUsage from './rules/ensure-design-token-usage';
+import ensureTokenUsageSpacing from './rules/ensure-design-token-usage-spacing';
 import iconLabel from './rules/icon-label';
 import noBannedImports from './rules/no-banned-imports';
 import noDeprecatedAPIs from './rules/no-deprecated-apis';
 import noDeprecatedUsage from './rules/no-deprecated-design-token-usage';
 import noDeprecatedImports from './rules/no-deprecated-imports';
-import noRawSpacingValues from './rules/no-raw-spacing-values';
 import noUnsafeUsage from './rules/no-unsafe-design-token-usage';
 import useVisuallyHidden from './rules/use-visually-hidden';
 
@@ -17,7 +17,7 @@ export const rules = {
   'no-banned-imports': noBannedImports,
   'no-unsafe-design-token-usage': noUnsafeUsage,
   'use-visually-hidden': useVisuallyHidden,
-  'no-raw-spacing-values': noRawSpacingValues,
+  'ensure-design-token-usage-spacing': ensureTokenUsageSpacing,
 };
 
 export const configs = {
@@ -40,7 +40,8 @@ export const configs = {
       '@atlaskit/design-system/use-visually-hidden': 'error',
       '@atlaskit/design-system/ensure-design-token-usage': 'error',
       '@atlaskit/design-system/no-banned-imports': 'error',
-      '@atlaskit/design-system/no-raw-spacing-values': 'error',
+      '@atlaskit/design-system/no-unsafe-design-token-usage': 'error',
+      '@atlaskit/design-system/ensure-design-token-usage-spacing': 'error',
     },
   },
 };

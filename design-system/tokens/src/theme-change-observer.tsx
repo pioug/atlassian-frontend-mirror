@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { THEME_DATA_ATTRIBUTE } from './constants';
-import { Themes } from './types';
+import { COLOR_MODE_ATTRIBUTE } from './constants';
+import { ThemeIds } from './theme-config';
 
-const getGlobalTheme = (): Themes | null =>
+const getGlobalTheme = (): ThemeIds | null =>
   typeof document !== 'undefined'
     ? (document.documentElement.getAttribute(
-        THEME_DATA_ATTRIBUTE,
-      ) as Themes | null)
+        COLOR_MODE_ATTRIBUTE,
+      ) as ThemeIds | null)
     : null;
 
 /**
@@ -25,8 +25,9 @@ const getGlobalTheme = (): Themes | null =>
  */
 export class ThemeMutationObserver {
   observer: MutationObserver | null = null;
+  mediaObserver: any = null;
 
-  constructor(private callback: (theme: Themes | null) => unknown) {}
+  constructor(private callback: (theme: ThemeIds | null) => unknown) {}
 
   observe() {
     if (!this.observer) {
@@ -36,7 +37,7 @@ export class ThemeMutationObserver {
     }
 
     this.observer.observe(document.documentElement, {
-      attributeFilter: [THEME_DATA_ATTRIBUTE],
+      attributeFilter: [COLOR_MODE_ATTRIBUTE],
     });
   }
 
@@ -58,8 +59,8 @@ export class ThemeMutationObserver {
  * }, [theme]);
  * ```
  */
-export const useThemeObserver: () => Themes | null = () => {
-  const [theme, setTheme] = useState<Themes | null>(getGlobalTheme());
+export const useThemeObserver: () => ThemeIds | null = () => {
+  const [theme, setTheme] = useState<ThemeIds | null>(getGlobalTheme());
 
   useEffect(() => {
     const observer = new ThemeMutationObserver((theme) => setTheme(theme));

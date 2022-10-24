@@ -33,11 +33,11 @@ const formatCreateLabel = (inputText?: string) => {
 
 const isOptionDisabled = (
   isValidEmail: EmailValidator = defaultIsValidEmail,
-) => (option: Option) => {
+) => (option: Option): boolean => {
   if (isEmail(option.data)) {
     return isValidEmail(option.data.id) !== 'VALID';
   }
-  return false;
+  return !!option.isDisabled;
 };
 
 function creatableProps(isValidEmail?: EmailValidator) {

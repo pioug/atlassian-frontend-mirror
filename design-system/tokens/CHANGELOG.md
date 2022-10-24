@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.28
+
+### Patch Changes
+
+- [`52ee11d5b3c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52ee11d5b3c) - Adds an additional entrypoint for the `@atlaskit/tokens` package to support tooling.
+
 ## 0.10.27
 
 ### Patch Changes

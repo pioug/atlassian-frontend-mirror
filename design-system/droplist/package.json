@@ -14,6 +14,7 @@
   "atlaskit:src": "src/index.js",
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/components/drop-menu",
   "atlassian": {
+    "disableProductCI": true,
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",

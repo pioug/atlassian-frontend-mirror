@@ -1,6 +1,7 @@
 import type { Rule } from 'eslint';
 import {
   CallExpression,
+  EslintNode,
   Expression,
   isNodeOfType,
   Property,
@@ -8,10 +9,10 @@ import {
   VariableDeclarator,
 } from 'eslint-codemod-utils';
 
-export const isDecendantOfGlobalToken = (node: Rule.Node): boolean => {
+export const isDecendantOfGlobalToken = (node: EslintNode): boolean => {
   if (
-    node.type === 'CallExpression' &&
-    node.callee.type === 'Identifier' &&
+    isNodeOfType(node, 'CallExpression') &&
+    isNodeOfType(node.callee, 'Identifier') &&
     node.callee.name === 'token'
   ) {
     return true;

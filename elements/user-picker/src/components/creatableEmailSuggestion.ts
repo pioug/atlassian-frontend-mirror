@@ -46,11 +46,11 @@ const formatCreateLabel = (inputText?: string) => {
 // Option will not be selectable until the email value is valid and can actually be invited
 const isOptionDisabled = (
   isValidEmail: EmailValidator = defaultIsValidEmail,
-) => (option: Option) => {
+) => (option: Option): boolean => {
   if (isEmail(option.data)) {
     return isValidEmail(option.data.id) !== 'VALID';
   }
-  return false;
+  return !!option.isDisabled;
 };
 
 // Generates user picker props to always create an email item visible

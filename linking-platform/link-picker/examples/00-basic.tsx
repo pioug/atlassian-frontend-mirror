@@ -1,23 +1,22 @@
-import React, { SyntheticEvent, useState } from 'react';
-import { IntlProvider } from 'react-intl-next';
+import React, { SyntheticEvent, useState, useMemo } from 'react';
+
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
-import { ufologger } from '@atlaskit/ufo';
 
 import {
   AtlassianLinkPickerPlugin,
   Scope,
 } from '@atlassian/link-picker-atlassian-plugin';
-import { useForgeSearchProviders } from '@atlassian/link-picker-plugins';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
-import { LinkPicker, LinkPickerProps, LinkPickerPlugin } from '../src';
+import { LinkPicker, LinkPickerProps } from '../src';
+import mockRecentData from '../example-helpers/mock-recents-data';
+import { PageWrapper } from '../example-helpers/common';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 
-ufologger.enable();
-const smartCardClient = new CardClient('staging');
+mockEndpoints(undefined, undefined, mockRecentData);
 
-function Basic() {
+export default function Basic() {
   const [link, setLink] = useState<OnSubmitPayload>({
     url: '',
     displayText: null,
@@ -43,8 +42,7 @@ function Basic() {
 
   const handleCancel = () => setIsLinkPickerVisible(false);
 
-  const forgePlugins: LinkPickerPlugin[] = useForgeSearchProviders();
-  const plugins: LinkPickerPlugin[] = React.useMemo(
+  const plugins = useMemo(
     () => [
       new AtlassianLinkPickerPlugin({
         cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
@@ -53,9 +51,8 @@ function Basic() {
           'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
         activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
       }),
-      ...forgePlugins,
     ],
-    [forgePlugins],
+    [],
   );
 
   const linkPicker = isLinkPickerVisible && (
@@ -69,23 +66,13 @@ function Basic() {
   );
 
   return (
-    <div className="example" style={{ padding: 50 }}>
-      <IntlProvider locale="en">
-        <div onClick={handleClick}>
-          <a href={link.url} target="_blank">
-            {link.displayText || link.url}
-          </a>
-        </div>
-        {linkPicker}
-      </IntlProvider>
-    </div>
-  );
-}
-
-export default function BasicExampleWrapper() {
-  return (
-    <SmartCardProvider client={smartCardClient}>
-      <Basic />
-    </SmartCardProvider>
+    <PageWrapper>
+      <div style={{ paddingBottom: 20 }}>
+        <a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
+          {link.displayText || link.url}
+        </a>
+      </div>
+      {linkPicker}
+    </PageWrapper>
   );
 }

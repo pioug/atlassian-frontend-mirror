@@ -1,18 +1,16 @@
 import React, { SyntheticEvent, useState } from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
-import { ufologger } from '@atlaskit/ufo';
 
 import { LinkPicker } from '../src';
+import { PageHeader, PageWrapper } from '../example-helpers/common';
 
 type OnSubmitPayload = Parameters<
   Required<React.ComponentProps<typeof LinkPicker>>['onSubmit']
 >[0];
 
-ufologger.enable();
-
-export default function InPopup() {
+export default function WithoutPlugins() {
   const [isOpen, setIsOpen] = useState(true);
   const [link, setLink] = useState<OnSubmitPayload>({
     url: '',
@@ -36,41 +34,49 @@ export default function InPopup() {
     setIsOpen(true);
   };
 
-  return (
-    <div className="example" style={{ padding: 50 }}>
-      <IntlProvider locale="en">
-        <Popup
-          isOpen={isOpen}
-          autoFocus={false}
-          onClose={handleToggle}
-          content={({ update }) => (
-            <LinkPicker
-              url={link.url}
-              displayText={link.displayText}
-              onSubmit={handleSubmit}
-              onCancel={handleToggle}
-              onContentResize={update}
-            />
-          )}
-          placement="bottom-start"
-          trigger={({ ref, ...triggerProps }) => (
-            <Button
-              {...triggerProps}
-              ref={ref}
-              appearance="primary"
-              isSelected={isOpen}
-              onClick={handleToggle}
-            >
-              Toggle
-            </Button>
-          )}
+  const linkPickerInPopup = (
+    <Popup
+      isOpen={isOpen}
+      autoFocus={false}
+      onClose={handleToggle}
+      content={({ update }) => (
+        <LinkPicker
+          url={link.url}
+          displayText={link.displayText}
+          onSubmit={handleSubmit}
+          onCancel={handleToggle}
+          onContentResize={update}
         />
-        <div onClick={handleClick}>
-          <a href={link.url} target="_blank">
-            {link.displayText || link.url}
-          </a>
-        </div>
-      </IntlProvider>
-    </div>
+      )}
+      placement="right-start"
+      trigger={({ ref, ...triggerProps }) => (
+        <Button
+          {...triggerProps}
+          ref={ref}
+          appearance="primary"
+          isSelected={isOpen}
+          onClick={handleToggle}
+        >
+          {isOpen ? '-' : '+'}
+        </Button>
+      )}
+    />
+  );
+
+  return (
+    <PageWrapper>
+      <PageHeader>
+        <p>
+          <b>LinkPicker</b> without search, used as an interface to submit a
+          valid link with custom display text.
+        </p>
+      </PageHeader>
+      <div style={{ paddingBottom: 20 }}>
+        <a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
+          {link.displayText || link.url}
+        </a>
+      </div>
+      {linkPickerInPopup}
+    </PageWrapper>
   );
 }

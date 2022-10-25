@@ -5,7 +5,7 @@ import { waitForElementToBeRemoved } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
-import { LinkPicker as LinkPickerType } from '../../../';
+import { LinkPicker as LinkPickerType } from '../../..';
 
 describe('<ComposedLinkPicker />', () => {
   const setupLinkPicker = ({ url = '' }: { url?: string } = {}) => {

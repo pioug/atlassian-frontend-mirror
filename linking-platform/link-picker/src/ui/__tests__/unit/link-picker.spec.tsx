@@ -17,7 +17,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { LinkPickerProps } from '../../../';
+import { LinkPickerProps } from '../../..';
 import LinkPicker, { testIds } from '../../link-picker';
 
 import { messages as resultsListMessages } from '../../link-picker/link-search-list';

@@ -2,13 +2,9 @@ import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
-import {
-  ExternalUser,
-  UserSource,
-  UserSourceResult,
-} from '../../../../src/types';
-import { ExusUserSourceProvider } from '../../../../src/clients/UserSourceProvider';
-import { createAndFireEventInElementsChannel } from '../../../../src/analytics';
+import { ExternalUser, UserSource, UserSourceResult } from '../../../types';
+import { ExusUserSourceProvider } from '../../../clients/UserSourceProvider';
+import { createAndFireEventInElementsChannel } from '../../../analytics';
 import { IntlProvider } from 'react-intl-next';
 
 jest.mock('../../../../src/analytics', () => ({

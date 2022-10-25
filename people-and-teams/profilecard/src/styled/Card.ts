@@ -18,7 +18,7 @@ import {
   headerTextColorInactive,
   labelIconColor,
   labelTextColor,
-} from '../styled/constants';
+} from './constants';
 
 interface FullNameLabelProps {
   noMeta?: boolean;

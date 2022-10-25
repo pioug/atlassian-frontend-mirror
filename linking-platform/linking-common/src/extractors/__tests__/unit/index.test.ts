@@ -1,4 +1,4 @@
-import { genericExtractPropsFromJSONLD } from '../../';
+import { genericExtractPropsFromJSONLD } from '../..';
 
 const defaultExtractorFunction = () => ({
   title: { text: 'default extractor function' },

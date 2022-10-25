@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createEvent, fireEvent, render, screen } from '@testing-library/react';
 
-import { browser } from '../../link-picker/browser';
+import { browser } from '../browser';
 import TextInput, { TextInputProps, testIds } from '.';
 
 describe('TextInput', () => {

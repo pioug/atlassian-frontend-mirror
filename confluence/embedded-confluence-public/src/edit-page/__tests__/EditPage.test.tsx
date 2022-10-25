@@ -2,7 +2,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
 
-import { EditPage } from '../../edit-page/EditPage';
+import { EditPage } from '../EditPage';
 
 const defaultProps = {
   contentId: '123',

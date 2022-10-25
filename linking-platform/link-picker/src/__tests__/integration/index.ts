@@ -36,7 +36,7 @@ BrowserTestCase(
     await page.click(testIds.insertButton);
 
     // Open to edit link details
-    await page.click('a');
+    await page.click('#test-link');
     await page.waitFor(testIds.linkPicker);
 
     // Edit link text and submit using keyboard
@@ -46,8 +46,8 @@ BrowserTestCase(
     await page.keys(['Enter']);
 
     expect(await page.isExisting(testIds.linkPicker)).toBe(false);
-    expect(await page.getHTML('a')).toMatch('Edited');
-    expect(await page.getProperty('a', 'href')).toMatch(
+    expect(await page.getHTML('#test-link')).toMatch('Edited');
+    expect(await page.getProperty('#test-link', 'href')).toMatch(
       'https://atlassian.com',
     );
   },
@@ -58,7 +58,7 @@ BrowserTestCase(
   {},
   async (client: any) => {
     const page = new Page(client);
-    const exampleUrl = getURL('with-plugins');
+    const exampleUrl = getURL('basic');
     await page.goto(exampleUrl);
     await page.waitFor(testIds.linkPicker);
 
@@ -96,7 +96,7 @@ BrowserTestCase(
   { skip: ['chrome', 'firefox', 'safari'] },
   async (client: any) => {
     const page = new Page(client);
-    const exampleUrl = getURL('test-content-resize');
+    const exampleUrl = getURL('popup-content-resize');
     const trigger = '[data-testid="trigger"]';
     const updateFnToggle = '[data-testid="provide-updateFn-toggle"]';
 

@@ -9,7 +9,7 @@ import PeopleIcon from '@atlaskit/icon/glyph/people';
 
 import { Group } from '../../types';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
-import { messages } from '.././i18n';
+import { messages } from '../i18n';
 import { HighlightText } from '../HighlightText';
 
 export const groupOptionIconWrapper = css({

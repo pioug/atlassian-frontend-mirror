@@ -15,7 +15,7 @@ import {
   listItemContainerStyles,
   listItemContainerInnerStyles,
 } from './styled';
-import { testIds } from '../';
+import { testIds } from '..';
 
 export interface Props {
   item: LinkSearchListItemData;

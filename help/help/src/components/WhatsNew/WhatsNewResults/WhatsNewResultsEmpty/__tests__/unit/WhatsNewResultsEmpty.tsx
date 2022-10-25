@@ -5,7 +5,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { createIntl, createIntlCache } from 'react-intl-next';
 
 import { messages } from '../../../../../../messages';
-import { WhatsNewResultsEmpty } from '../../../WhatsNewResultsEmpty';
+import { WhatsNewResultsEmpty } from '../..';
 
 const cache = createIntlCache();
 const intl = createIntl(

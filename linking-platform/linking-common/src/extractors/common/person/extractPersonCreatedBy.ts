@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import { extractPersonFromJsonLd } from '../person';
+import { extractPersonFromJsonLd } from '.';
 import { LinkPerson } from './types';
 
 export const extractPersonCreatedBy = (

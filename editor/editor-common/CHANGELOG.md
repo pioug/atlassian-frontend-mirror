@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 70.1.1
+
+### Patch Changes
+
+- [`fa5c9465369`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa5c9465369) - [ED-15753] adds types for editor-referentiality plugin analytics events
+
 ## 70.1.0
 
 ### Minor Changes

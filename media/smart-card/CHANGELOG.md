@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 22.3.2
+
+### Patch Changes
+
+- [`d4f3f7afbe4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4f3f7afbe4) - [ux] Smart Links: Change date format of the Flexible Smart Links' CreatedOn and ModifiedOn element to short month to better accommodate smaller space, including but not limited to Hover Preview.
+
 ## 22.3.1
 
 ### Patch Changes

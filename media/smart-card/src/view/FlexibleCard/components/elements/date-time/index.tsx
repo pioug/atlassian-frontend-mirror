@@ -58,7 +58,7 @@ const DateTime: React.FC<DateTimeProps> = ({
   if (isLongerThenWeek) {
     typeVariant = 'absolute';
     context = formatDate(date, {
-      month: 'long',
+      month: 'short',
       day: 'numeric',
       year: 'numeric',
     });

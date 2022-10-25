@@ -332,31 +332,68 @@ type CSSTokenMap_3 = {
   'spacing.scale.075': 'var(--ds-scale-075)';
 };
 
+// @public
+type Palettes = 'defaultPalette' | 'legacyPalette' | 'spacingScale';
+
 // @public (undocumented)
-export const setGlobalTheme: (theme: Themes) => void;
+export const setGlobalTheme: (
+  themeId: ThemeIds,
+  shouldMatchSystem?: boolean,
+) => void;
+
+// @public
+type ThemeColorModes = 'dark' | 'light';
+
+// @public
+interface ThemeConfig {
+  // (undocumented)
+  attributes:
+    | {
+        type: 'color';
+        mode: ThemeColorModes;
+      }
+    | {
+        type: 'spacing';
+      };
+  // (undocumented)
+  displayName: string;
+  // (undocumented)
+  id: ThemeIds;
+  // (undocumented)
+  palette: Palettes;
+}
+
+// @public (undocumented)
+export const themeConfig: Record<Themes, ThemeConfig>;
+
+// @public
+export type ThemeIds =
+  | 'dark'
+  | 'legacy-dark'
+  | 'legacy-light'
+  | 'light'
+  | 'spacing';
 
 // @public
 export class ThemeMutationObserver {
-  constructor(callback: (theme: Themes | null) => unknown);
+  constructor(callback: (theme: ThemeIds | null) => unknown);
   // (undocumented)
   disconnect(): void;
+  // (undocumented)
+  mediaObserver: any;
   // (undocumented)
   observe(): void;
   // (undocumented)
   observer: MutationObserver | null;
 }
 
-// @public (undocumented)
-const THEMES: readonly [
-  'light',
-  'dark',
-  'legacy-light',
-  'legacy-dark',
-  'spacing',
-];
-
-// @public (undocumented)
-export type Themes = typeof THEMES[number];
+// @public
+export type Themes =
+  | 'atlassian-dark'
+  | 'atlassian-legacy-dark'
+  | 'atlassian-legacy-light'
+  | 'atlassian-light'
+  | 'atlassian-spacing';
 
 // @public (undocumented)
 export function token<T extends keyof Tokens>(
@@ -676,7 +713,7 @@ const tokens: {
 };
 
 // @public
-export const useThemeObserver: () => Themes | null;
+export const useThemeObserver: () => ThemeIds | null;
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -15,7 +15,7 @@ import {
 } from '@atlaskit/linking-common';
 import { Reducer } from 'react';
 import { JsonLd } from 'json-ld-types';
-import { cardReducer } from '../../../reducers';
+import { cardReducer } from '../..';
 
 describe('Smart Card: Reducers', () => {
   let url: string;

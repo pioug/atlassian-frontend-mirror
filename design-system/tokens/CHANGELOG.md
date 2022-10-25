@@ -1,5 +1,66 @@
 # @atlaskit/tokens
 
+## 0.10.29
+
+### Patch Changes
+
+- [`41dad8915d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41dad8915d7) - **✨ Color modes**
+
+  Color modes are now attached to the DOM with the data-theme attr:
+
+  ```html
+  <html data-theme="dark" data-color-mode="auto"></html>
+  ```
+
+  **✨ Multi-theme**
+
+  We now allow multiple active themes:
+
+  ```html
+  <html data-theme="dark spacing"></html>
+  ```
+
+  **✨ System preferences**
+
+  We also output `@media (prefers-color-scheme: dark)` media selectors for color themes
+
+  ```css
+  @media (prefers-color-scheme: dark) {
+    html[data-color-mode='auto'] {
+      ...;
+    }
+  }
+  ```
+
+  This allows Product themes to be toggled by the OS-level setting.
+
+  **✨ Setting theme state**
+
+  `setGlobalTheme` now allows you to set auto color scheme via an additional boolean arg
+
+  ```js
+  setGlobalTheme(themeState, true); // data-color-mode="auto"
+  ```
+
+  ✨ Source of truth for themes
+
+  All theme configuration now exists in a single object as a source of truth
+
+  ```ts
+  const themeConfig: Record<Themes, ThemeConfig> = {
+    'atlassian-light': {
+      id: 'light',
+      displayName: 'Light Theme',
+      palette: 'defaultPalette',
+      attributes: {
+        type: 'color',
+        mode: 'light',
+      },
+    },
+    ...
+  };
+  ```
+
 ## 0.10.28
 
 ### Patch Changes

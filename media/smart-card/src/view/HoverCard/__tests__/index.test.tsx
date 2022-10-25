@@ -149,7 +149,7 @@ describe('HoverCard', () => {
       const createdBy = await findByTestId('createdby-metadata-element');
 
       expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-      expect(modifiedOn.textContent).toBe('Updated on January 1, 2022');
+      expect(modifiedOn.textContent).toBe('Updated on Jan 1, 2022');
       expect(createdBy.textContent).toBe('Created by Michael Schrute');
     });
   });

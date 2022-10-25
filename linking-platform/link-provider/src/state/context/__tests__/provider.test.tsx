@@ -5,7 +5,7 @@ jest.mock('@atlaskit/linking-common/extractors', () => ({
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { SmartCardContext as Context } from '../../context';
+import { SmartCardContext as Context } from '..';
 import CardClient from '../../../client';
 import { SmartCardProvider, CardContext } from '..';
 import { CardStore } from '@atlaskit/linking-common';

@@ -13,10 +13,10 @@ import '@testing-library/jest-dom/extend-expect';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import matches from 'lodash/matches';
 
-import { LinkPicker, LinkPickerProps } from '../../../';
+import { LinkPicker, LinkPickerProps } from '../../..';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import { testIds } from '../../link-picker';
-import { PACKAGE_DATA as ROOT_CONTEXT } from '../../';
+import { PACKAGE_DATA as ROOT_CONTEXT } from '../..';
 
 import { ConcurrentExperience } from '@atlaskit/ufo';
 

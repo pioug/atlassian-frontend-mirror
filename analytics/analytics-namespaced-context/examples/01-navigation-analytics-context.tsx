@@ -1,7 +1,7 @@
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import React from 'react';
-import { createDummyComponentWithAnalytics } from '../examples/helpers';
+import { createDummyComponentWithAnalytics } from './helpers';
 import { NavigationAnalyticsContext } from '../src';
 
 const myOnClickHandler = () => {};

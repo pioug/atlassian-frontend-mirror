@@ -4,7 +4,7 @@ import { act, createEvent, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { getMockTeamClient } from '../../../examples/helper/util';
-import ProfileClient from '../../../src/client/ProfileCardClient';
+import ProfileClient from '../../client/ProfileCardClient';
 import { TeamProfileCardTriggerInternal as TeamProfileCardTrigger } from '../../components/Team/TeamProfileCardTrigger';
 import {
   cardTriggered,

@@ -9,7 +9,7 @@ import { getComponents } from './components';
 import { getCreatableProps } from './creatable';
 import { getCreatableSuggestedEmailProps } from './creatableEmailSuggestion';
 import MessagesIntlProvider from './MessagesIntlProvider';
-import { ExusUserSourceProvider } from './../clients/UserSourceProvider';
+import { ExusUserSourceProvider } from '../clients/UserSourceProvider';
 import {
   userPickerRenderedUfoExperience as experience,
   UfoErrorBoundary,

@@ -35,6 +35,7 @@ import type { ListEventPayload } from './list-events';
 import type { MediaEventPayload } from './media-events';
 import type { NodeEventPayload } from './node-events';
 import type { PasteEventPayload } from './paste-events';
+import type { ReferentialityEventPayload } from './referentiality-events';
 import type { SelectionEventPayload } from './selection-events';
 import type { SubstituteEventPayload } from './substitute-events';
 import type { TableEventPayload } from './table-events';
@@ -81,7 +82,8 @@ export type AnalyticsEventPayload<T = void> =
   | CustomPanelEventPayload
   | FeatureExposureAEP
   | NewCollabSyncUpErrorAEP
-  | UnsupportedContentTooltipPayload;
+  | UnsupportedContentTooltipPayload
+  | ReferentialityEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
   ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

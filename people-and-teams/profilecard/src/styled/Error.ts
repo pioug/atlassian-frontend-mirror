@@ -5,11 +5,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import { h400 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-import {
-  errorIconColor,
-  errorTextColor,
-  errorTitleColor,
-} from '../styled/constants';
+import { errorIconColor, errorTextColor, errorTitleColor } from './constants';
 
 export const ErrorWrapper = styled.div`
   text-align: center;

@@ -4,7 +4,7 @@ import {
   createAnalyticsWebClientMock,
   createComponentWithAnalytics,
   IncorrectEventType,
-} from '../examples/helpers';
+} from './helpers';
 import { LOG_LEVEL } from '../src';
 import FabricAnalyticsListeners from '../src/FabricAnalyticsListeners';
 import { FabricChannel } from '../src/types';

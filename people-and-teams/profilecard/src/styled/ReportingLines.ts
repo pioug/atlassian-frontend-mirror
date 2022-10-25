@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
 
-import { appLabelTextColor } from '../styled/constants';
+import { appLabelTextColor } from './constants';
 
 export const ReportingLinesSection = styled.div`
   // Minor left margin to align better with existing icon fields

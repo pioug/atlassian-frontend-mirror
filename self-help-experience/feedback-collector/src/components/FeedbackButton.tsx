@@ -6,11 +6,11 @@ import Button from '@atlaskit/button';
 import { FlagGroup } from '@atlaskit/flag';
 import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
 
-import { IntlProviderWithResolvedMessages } from '../components/IntlProviderWithResolvedMessages';
 import { messages } from '../messages';
 
 import FeedbackCollector from './FeedbackCollector';
 import FeedbackFlag from './FeedbackFlag';
+import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';
 
 interface Props {
   embeddableKey: string;

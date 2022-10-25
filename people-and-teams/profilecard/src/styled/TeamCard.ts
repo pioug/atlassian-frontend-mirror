@@ -5,7 +5,7 @@ import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { h600 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-import { bgColor, teamHeaderBgColor } from '../styled/constants';
+import { bgColor, teamHeaderBgColor } from './constants';
 
 export const CardTriggerWrapper = styled.div`
   display: inherit;

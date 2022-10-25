@@ -1,5 +1,11 @@
 # @atlaskit/rating
 
+## 0.2.44
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.43
 
 ### Patch Changes

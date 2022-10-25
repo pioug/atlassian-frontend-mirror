@@ -10,7 +10,7 @@ import {
 import { LinkPickerPlugin, LinkPickerState } from '../../ui/types';
 import { RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
 
-import { usePlugins } from './';
+import { usePlugins } from '.';
 import { CancellationError, resolvePluginUpdates } from './utils';
 import * as reducer from './reducer';
 

@@ -54,7 +54,7 @@ describe('Element: Text', () => {
       );
       const element = await findByTestId(testId);
       expect(element).toBeTruthy();
-      expect(element.textContent).toBe('Created on January 17, 2022');
+      expect(element.textContent).toBe('Created on Jan 17, 2022');
     });
 
     it('should render another modified at element', async () => {
@@ -66,7 +66,7 @@ describe('Element: Text', () => {
       );
       const element = await findByTestId(testId);
       expect(element).toBeTruthy();
-      expect(element.textContent).toBe('Updated on January 5, 2022');
+      expect(element.textContent).toBe('Updated on Jan 5, 2022');
     });
   });
 
@@ -102,7 +102,7 @@ describe('Element: Text', () => {
     );
     const element = await findByTestId(testId);
     expect(element).toBeTruthy();
-    expect(element.textContent).toBe('First commit on January 17, 2022');
+    expect(element.textContent).toBe('First commit on Jan 17, 2022');
   });
 
   it('should render overridden text for modified on element', async () => {
@@ -118,6 +118,6 @@ describe('Element: Text', () => {
     );
     const element = await findByTestId(testId);
     expect(element).toBeTruthy();
-    expect(element.textContent).toBe('Last commit on January 17, 2022');
+    expect(element.textContent).toBe('Last commit on Jan 17, 2022');
   });
 });

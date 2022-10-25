@@ -5,45 +5,53 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 async function waitForBannerVisible(page: PuppeteerPage) {
-  await page.waitForSelector('div[role="alert"]', {
+  return page.waitForSelector('div[role="alert"]', {
     visible: true,
   });
 }
 
 async function waitForAnnouncementBannerVisible(page: PuppeteerPage) {
-  await page.waitForSelector('div[role="region"]', {
+  return page.waitForSelector('div[role="region"]', {
     visible: true,
   });
 }
 
-describe('Snapshot Test', () => {
-  it('Announcement banner example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'banner',
-      'announcement-banner',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForAnnouncementBannerVisible(page);
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+describe('@atlaskit/banner visual regression', () => {
+  it.each(['none', 'light', 'dark'] as const)(
+    'Announcement banner example should match production example (tokens %s)',
+    async (token) => {
+      const url = getExampleUrl(
+        'design-system',
+        'banner',
+        'announcement-banner',
+        global.__BASEURL__,
+        token,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      const element = await waitForAnnouncementBannerVisible(page);
+      const image = await element?.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
-  it('basic-usage example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'banner',
-      'basic-usage',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForBannerVisible(page);
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+  it.each(['none', 'light', 'dark'] as const)(
+    'basic-usage example should match production example (tokens %s)',
+    async (token) => {
+      const url = getExampleUrl(
+        'design-system',
+        'banner',
+        'basic-usage',
+        global.__BASEURL__,
+        token,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      const element = await waitForBannerVisible(page);
+      const image = await element?.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
   it('error banner example should match production example', async () => {
     const url = getExampleUrl(
@@ -54,8 +62,8 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await waitForBannerVisible(page);
-    const image = await page.screenshot();
+    const element = await waitForBannerVisible(page);
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -88,8 +96,8 @@ describe('Snapshot Test', () => {
     );
     const { page } = global;
     await loadPage(page, url);
-    await waitForAnnouncementBannerVisible(page);
-    const image = await page.screenshot();
+    const element = await waitForAnnouncementBannerVisible(page);
+    const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
 });

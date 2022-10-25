@@ -36,19 +36,16 @@ describe('link-picker', () => {
   });
 
   it('should render component with results', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();
   });
 
   it('Should render component to edit a link', async () => {
-    const url = getURL('with-plugins');
+    const url = getURL('vr-edit-link');
     const page = await setup(url);
-    await page.type('[data-testid="link-url"]', 'http://atlassian.com');
-    await page.keyboard.press('Enter');
 
-    await page.click('a');
     await page.waitForSelector(testSelector);
 
     const image = await takeElementScreenShot(page, testSelector);
@@ -56,7 +53,7 @@ describe('link-picker', () => {
   });
 
   it('Should change list-item background on hover and selection', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('ArrowDown');
@@ -67,7 +64,7 @@ describe('link-picker', () => {
   });
 
   it('Should not change the background of selected list-item on hover', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
     await page.keyboard.press('ArrowDown');
     await page.hover('[data-testid="link-search-list-item"]');
@@ -77,7 +74,7 @@ describe('link-picker', () => {
   });
 
   it('Should change input background on hover', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
     await page.hover('[data-testid="link-text-container"]');
 
@@ -86,7 +83,7 @@ describe('link-picker', () => {
   });
 
   it('Should change input border-color on focus', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
     await page.focus('[data-testid="link-text"]');
 
@@ -95,7 +92,7 @@ describe('link-picker', () => {
   });
 
   it('Should display ClearText button when input has value', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
 
     await page.keyboard.type('FAB');
@@ -106,7 +103,7 @@ describe('link-picker', () => {
   });
 
   it('Should display ClearText tooltip on hover', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
 
     await page.keyboard.type('FAB');
@@ -118,7 +115,7 @@ describe('link-picker', () => {
   });
 
   it('Should not display text under ClearText button', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
 
     const longText =
@@ -130,7 +127,7 @@ describe('link-picker', () => {
   });
 
   it('Should render Linkpicker within Popup with input focused', async () => {
-    const url = getURL('with-plugins');
+    const url = getURL('vr-with-popup-integration');
     const page = await setup(url);
 
     const image = await page.screenshot();
@@ -138,7 +135,7 @@ describe('link-picker', () => {
   });
 
   it('Should render Linkpicker without Plugins', async () => {
-    const url = getURL('without-plugins');
+    const url = getURL('vr-with-no-plugins');
     const page = await setup(url);
 
     const image = await takeElementScreenShot(page, testSelector);
@@ -146,7 +143,7 @@ describe('link-picker', () => {
   });
 
   it('Should display error message and highlight input border for invalid URLs', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
 
     await page.type('[data-testid="link-url"]', 'FAB');
@@ -157,7 +154,7 @@ describe('link-picker', () => {
   });
 
   it('Should display error message and highlight input border for empty URLs', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
 
     await page.focus('[data-testid="link-text"]');
@@ -167,7 +164,7 @@ describe('link-picker', () => {
   });
 
   it('Should display subtitle with `Results` after search', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
 
     await page.type('[data-testid="link-url"]', 'FAB');
@@ -176,7 +173,7 @@ describe('link-picker', () => {
   });
 
   it('Should error message after search returns no results', async () => {
-    const url = getURL('vr');
+    const url = getURL('vr-basic');
     const page = await setup(url);
 
     await page.type('[data-testid="link-url"]', 'FOO', { delay: 50 });
@@ -186,7 +183,7 @@ describe('link-picker', () => {
   });
 
   it('Should render tabs with multiple plugins', async () => {
-    const url = getURL('vr-multiple-plugins');
+    const url = getURL('vr-with-multiple-plugins');
     const page = await setup(url);
 
     const image = await takeElementScreenShot(page, testSelector);
@@ -194,7 +191,7 @@ describe('link-picker', () => {
   });
 
   it('Should render tabs with multiple plugins and select second tab', async () => {
-    const url = getURL('vr-multiple-plugins');
+    const url = getURL('vr-with-multiple-plugins');
     const page = await setup(url);
 
     await page.click('#link-picker-tabs-1');
@@ -214,7 +211,7 @@ describe('link-picker', () => {
   });
 
   it('Should provide an error message when an error is thrown by a plugin', async () => {
-    const url = getURL('vr-search-error');
+    const url = getURL('vr-handle-plugin-error');
     const page = await setup(url);
 
     await page.click('#link-picker-tabs-1');

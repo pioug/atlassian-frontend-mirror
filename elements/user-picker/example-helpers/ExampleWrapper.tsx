@@ -1,12 +1,7 @@
 import { AnalyticsViewerContainer } from '@atlaskit/analytics-viewer';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import {
-  assignToMe,
-  exampleOptions,
-  filterUsers,
-  unassigned,
-} from '../example-helpers';
+import { assignToMe, exampleOptions, filterUsers, unassigned } from '.';
 import {
   OptionData,
   LoadOptions,

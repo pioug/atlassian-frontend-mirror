@@ -1,11 +1,12 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
 
-import { LinkPicker } from '../src';
 import {
   MockLinkPickerPromisePlugin,
   UnstableMockLinkPickerPlugin,
 } from '@atlaskit/link-test-helpers/link-picker';
+
+import { LinkPicker } from '../src';
+import { PageWrapper } from '../example-helpers/common';
 
 const plugins = [
   new MockLinkPickerPromisePlugin({
@@ -18,12 +19,10 @@ const plugins = [
   }),
 ];
 
-export default function Unstable() {
+export default function VrHandlePluginError() {
   return (
-    <div className="example" style={{ padding: 50 }}>
-      <IntlProvider locale="en">
-        <LinkPicker plugins={plugins} onSubmit={() => {}} onCancel={() => {}} />
-      </IntlProvider>
-    </div>
+    <PageWrapper>
+      <LinkPicker plugins={plugins} onSubmit={() => {}} onCancel={() => {}} />
+    </PageWrapper>
   );
 }

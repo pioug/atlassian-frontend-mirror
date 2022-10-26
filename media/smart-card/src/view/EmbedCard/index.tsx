@@ -123,6 +123,21 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           url,
           context: forbiddenViewProps.context?.text,
         });
+
+        if (forbiddenViewProps.preview) {
+          return (
+            <EmbedCardResolvedView
+              {...forbiddenViewProps}
+              title={forbiddenViewProps.link}
+              isSelected={isSelected}
+              isFrameVisible={isFrameVisible}
+              inheritDimensions={inheritDimensions}
+              onClick={handleFrameClick}
+              ref={iframeRef}
+            />
+          );
+        }
+
         return (
           <EmbedCardForbiddenView
             {...forbiddenViewProps}

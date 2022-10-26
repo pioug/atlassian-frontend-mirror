@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import {
-  Fragment,
   ReactNode,
   useCallback,
   useLayoutEffect,
@@ -28,6 +27,7 @@ const copyButtonStyles = css({
 const textStyles = css({
   display: 'inline-block',
   margin: 0,
+  padding: '0 8px',
   textAlign: 'center',
 });
 
@@ -67,11 +67,7 @@ const CopyPasteBlock = ({
   };
   const resetPrompt = () => setCopyMessage(COPY_MESSAGE.PROMPT);
 
-  const renderCopyContent = () => (
-    <Fragment>
-      <p css={textStyles}>{text}</p>
-    </Fragment>
-  );
+  const renderCopyContent = () => <p css={textStyles}>{text}</p>;
 
   const updateTooltip = useRef<() => void>();
   useLayoutEffect(() => {

@@ -5,6 +5,7 @@ import { jsx } from '@emotion/react';
 import upperFirst from 'lodash/upperFirst';
 
 import Heading from '@atlaskit/heading';
+import { gridSize } from '@atlaskit/theme/constants';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import SectionLink from '../../../../../../services/design-system-docs/src/components/section-link';
@@ -40,9 +41,11 @@ const TokenGroups = ({
 
         return hasTokens || hasSubgroupTokens ? (
           <div key={group.name} data-testid={testId && `${testId}-token-group`}>
-            <SectionLink id={group.name}>
-              <Heading level="h700">{upperFirst(group.name)}</Heading>
-            </SectionLink>
+            <div css={{ marginTop: `${gridSize() * 6}px` }}>
+              <SectionLink id={group.name}>
+                <Heading level="h700">{upperFirst(group.name)}</Heading>
+              </SectionLink>
+            </div>
             {hasTokens && (
               <TokenList
                 list={group.tokens}
@@ -54,9 +57,17 @@ const TokenGroups = ({
             {group.subgroups?.map((subgroup) =>
               subgroup.tokens.length > 0 ? (
                 <Fragment key={`${group.name}-${subgroup.name}`}>
-                  <SectionLink id={`${group.name}-${subgroup.name}`}>
-                    <Heading level="h700">{upperFirst(subgroup.name)}</Heading>
-                  </SectionLink>
+                  <div
+                    css={{
+                      margin: `${gridSize() * 6}px 0 ${gridSize() * 3}px`,
+                    }}
+                  >
+                    <SectionLink id={`${group.name}-${subgroup.name}`}>
+                      <Heading level="h700">
+                        {upperFirst(subgroup.name)}
+                      </Heading>
+                    </SectionLink>
+                  </div>
                   <TokenList
                     list={subgroup.tokens}
                     scrollOffset={scrollOffset}

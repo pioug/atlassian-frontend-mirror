@@ -62,6 +62,13 @@ describe('JIRA wiki markup - Issue key (smart card)', () => {
       'should parse issues in between exclaimation mark',
       'this !ABC-10 !ABC-20 are smart cards',
     ],
+    ['should parse issues that end with a period', 'this ABC-10 text ABC-20.'],
+    [
+      'should parse issues that end with a comma',
+      'this ABC-10 text ABC-20, ABC-30',
+    ],
+    ['should parse issues that end with a forward slash', 'this ABC-10/ABC-20'],
+    ['should parse issues that end with a colon', 'this ABC-10 text ABC-10:'],
   ];
 
   const context: Context = {

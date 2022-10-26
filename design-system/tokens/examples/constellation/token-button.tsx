@@ -19,7 +19,7 @@ background: token('color.background.selected.bold', B400),
 
 // pressed state
 &:active {
-  background: token('color.background.selected.bold.pressed, B500),
+  background: token('color.background.selected.bold.pressed', B500),
 }`;
 
 const TokensButton = () => {

@@ -79,7 +79,8 @@ const withInlineCardFromTextStamp = (issue: Issue): string =>
     ? issue.url
     : `${issue.url}#icft=${issue.key}`;
 
-const isNotAllowedChars = (char: string): boolean => !/\s|\(|\)|!/.test(char);
+const isNotAllowedChars = (char: string): boolean =>
+  !/\s|\(|\)|!|\.|\,|\/|\:/.test(char);
 
 export const buildIssueKeyRegex = (
   inlineCardConversion?: ConversionMap,

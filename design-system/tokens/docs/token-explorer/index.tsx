@@ -323,22 +323,12 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
   );
 
   return (
-    <div
-      data-testid={testId}
-      css={{
-        'h2, h2:first-of-type': {
-          marginTop: gridSize() * 4,
-          marginBottom: gridSize() * 2,
-        },
-        'h3, h3:first-of-type': {
-          marginTop: gridSize() * 4,
-          marginBottom: gridSize() * 2,
-        },
-      }}
-    >
-      <SectionLink id={ALL_DESIGN_TOKENS_LIST_HEADING.id}>
-        <Heading level="h700">{ALL_DESIGN_TOKENS_LIST_HEADING.value}</Heading>
-      </SectionLink>
+    <div data-testid={testId}>
+      <div css={{ margin: `${gridSize() * 4}px 0 ${gridSize() * 4}px` }}>
+        <SectionLink id={ALL_DESIGN_TOKENS_LIST_HEADING.id}>
+          <Heading level="h700">{ALL_DESIGN_TOKENS_LIST_HEADING.value}</Heading>
+        </SectionLink>
+      </div>
       <div
         css={{
           display: 'flex',

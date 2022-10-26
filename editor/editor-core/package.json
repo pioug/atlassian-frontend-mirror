@@ -68,7 +68,7 @@
     "@atlaskit/radio": "^5.4.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/select": "^15.7.0",
-    "@atlaskit/smart-card": "^22.3.0",
+    "@atlaskit/smart-card": "^22.4.0",
     "@atlaskit/smart-user-picker": "^6.0.0",
     "@atlaskit/spinner": "^15.1.0",
     "@atlaskit/status": "^1.1.0",

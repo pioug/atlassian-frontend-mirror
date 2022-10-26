@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 22.4.0
+
+### Minor Changes
+
+- [`b5278b469b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5278b469b8) - [ux] Allow rendering custom preview of embeds in forbidden view
+
 ## 22.3.2
 
 ### Patch Changes

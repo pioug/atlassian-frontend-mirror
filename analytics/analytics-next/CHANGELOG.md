@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 8.3.4
+
+### Patch Changes
+
+- [`2cbb787f8b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cbb787f8b3) - AFO-711 Analytics-next: nullable check for context
+
 ## 8.3.3
 
 ### Patch Changes

@@ -100,8 +100,8 @@ Navigation components will no longer use an elevation with a shadow. Instead, us
 
 ## Changes for designers
 
-The current ADS Figma libraries will eventually be deprecated. 
-Onboarding to the new Figma libraries that support design tokens is currently limited to certain Atlassian teams.
+You will soon be able to try the new Atlassian Design System Figma libraries in the [Figma community](https://www.figma.com/@atlassian).
+These libraries will include updated colors, design tokens, and themed components. There will also be a new Atlassian Design Tokens plugin, which will help you migrate to (and use) design tokens in your Figma files.
 
 ## Changes for engineers
 
@@ -111,7 +111,7 @@ During this rollout period, tokens are only being used internally. Until tokens 
 use fallbacks as shown in the following code samples. The value of the fallback should be the original color used before converting 
 your experience to tokens.
 
-Atlassians employees can install the [Chrome extension](http://go/dst-theming-extension/) and 
+Atlassians employees can install the [Chrome extension](https://chrome.google.com/webstore/detail/tokens-test-theming-exten/aediombkjpcbdgppnoidkhkmomngghhc/) and 
 [storybook add-on](https://www.npmjs.com/package/@atlaskit/storybook-addon-design-system) to preview tokens ahead of time.
 
 #### Example of converting colors to use tokens
@@ -143,7 +143,7 @@ import { elevation } from '@atlaskit/theme';
 Using tokens will be supported by [linting rules](https://www.npmjs.com/package/eslint-plugin-design-system), allowing us 
 to have a global theme switch between dark and light modes.
 If you’re interested in what will be shipping in this project, 
-please read the [technical considerations](http://go/theming-technical-considerations).
+please read the [technical considerations](https://hello.atlassian.net/wiki/spaces/DST/pages/1167209534/Technical+considerations) (Atlassian employees).
 
 ### Codemod (CSS-in-JS)
 
@@ -190,24 +190,22 @@ npx @atlaskit/codemod-cli --extensions css,scss,less <relative-path>
 The CLI will show a list of components and versions, select `@atlaskit/codemod-cli: css-to-design-tokens` and your code will be automatically be migrated. 
 However, the codemod only provides token suggestions which means manually review is still required after running the codemod.
 
-### Chrome browser extension
+### Chrome browser extension (Atlassian employees)
 To install the Chrome browser extension:
-1. Visit [go/dst-theming-extension](http://go/dst-theming-extension/) and install the Chrome extension
-2. Open a new tab and navigate to an Atlassian product
-3. Open Developer Tools
-4. Navigate to the Theming extension
-5. Voila! You’re ready to toggle between Light and Dark themes check the amazing progress and work the teams have done
+1. Visit [Tokens Test Theming Extension](https://chrome.google.com/webstore/detail/tokens-test-theming-exten/aediombkjpcbdgppnoidkhkmomngghhc/) and install the Chrome extension.
+2. Open a new tab and navigate to an Atlassian product.
+3. Open Developer Tools.
+4. Navigate to the Theming extension.
+5. Voila! You're ready to toggle between Light and Dark themes and check the amazing progress and work the teams have done.
 
 You can also pin it to your main toolbar for easy access, from the Extension popup.
 
 ## Get help
 
-Design tokens and theming are currently only recommended for use by Atlassian employees. If you’re an Atlassian employee, 
-go to [go/tokens-early-adopters](https://atlassian.slack.com/archives/C0256AVSPHN) for questions or issues about design tokens and relevant tooling. 
-Go to [go/help-design-system](https://atlassian.slack.com/archives/CFJ9DU39U) for all other questions related to the Atlassian Design System.
+Go to [#design-system-tokens-early-adopters Slack channel](https://atlassian.slack.com/archives/C0256AVSPHN) for questions or issues about design tokens and relevant tooling (Atlassian employees). 
+Go to [#help-design-system Slack channel](https://atlassian.slack.com/archives/CFJ9DU39U) for all other questions related to the Atlassian Design System (Atlassian employees).
 
 ## Related
 
-- Learn how to set up and use design tokens by going to [getting started with code](/components/tokens/getting-started-in-code).
 - Get design token usage guidelines for [color](/foundations/color) and [elevations](/foundations/elevation).
 - See the list of [all design tokens](/components/tokens/all-tokens) for full descriptions and values for all tokens.

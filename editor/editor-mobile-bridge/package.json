@@ -18,13 +18,13 @@
     }
   },
   "scripts": {
-    "start": "webpack-dev-server --config webpack.test.config.js -d --progress --serveIndex",
-    "start:watch": "webpack-dev-server --config webpack.test.config.js -d --watch --progress --serveIndex",
+    "start": "webpack-dev-server --config webpack.test.config.js -d --progress",
+    "start:watch": "webpack-dev-server --config webpack.test.config.js -d --watch --progress",
     "debug": "webpack -d --watch --progress",
-    "build:dev": "webpack -d",
+    "build:dev": "webpack -d eval",
     "prebuild": "rm -rf dist && copy-pkg package.json tmp/package.json --only name,version,sideEffects && mv tmp/package.json src/version.json",
-    "build": "webpack -p",
-    "build:test": "webpack --config webpack.test.config.js -p"
+    "build": "webpack --mode production",
+    "build:test": "webpack --config webpack.test.config.js --mode production"
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^24.0.0",
@@ -107,8 +107,8 @@
     "typescript": "4.5.5",
     "url": "^0.11.0",
     "webpack": "^4.41.3",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "keywords": [
     "editor",

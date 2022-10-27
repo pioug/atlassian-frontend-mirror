@@ -40,7 +40,9 @@ module.exports = async function createWebpackConfig(_, args) {
       }),
     ],
     devServer: {
-      contentBase: path.join(__dirname, 'dist/test/bundle'),
+      static: {
+        directory: path.join(__dirname, 'dist/test/bundle'),
+      },
     },
   });
 };

@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.8
+
+### Patch Changes
+
+- [`0cc27eb485f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cc27eb485f) - Added support for issue-key followed by punctuation marks
+
 ## 11.1.7
 
 ### Patch Changes

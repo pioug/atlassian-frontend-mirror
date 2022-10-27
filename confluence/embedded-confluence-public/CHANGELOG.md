@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.3.4
+
+### Patch Changes
+
+- [`0bd0e835ff7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bd0e835ff7) - Fix footer logo misalignment
+
 ## 1.3.3
 
 ### Patch Changes

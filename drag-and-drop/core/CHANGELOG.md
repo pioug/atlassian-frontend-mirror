@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop
 
+## 0.8.0
+
+### Minor Changes
+
+- [`1e3f9743e57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e3f9743e57) - A _monitor_ that is added during an event (eg `onDragStart`) will no longer be called for the current event. This is to prevent the accidental creation of infinite loops. This behaviour matches native [`EventTargets`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) where an event listener cannot add another event listener during an active event to the same event target in the same event phase.
+
 ## 0.7.1
 
 ### Patch Changes

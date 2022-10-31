@@ -1,5 +1,19 @@
 # @atlaskit/link-provider
 
+## 1.3.1
+
+### Patch Changes
+
+- [`fd4495cc938`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd4495cc938) - [ux] Jira Work Management (JWM) Summary view links will be converted into smart link embed by default
+
+## 1.3.0
+
+### Minor Changes
+
+- [`3d99b313302`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d99b313302) - `CardClient` and `EditorCardProvider` members now accept second optional argument called `baseUrlOverride`.
+  When provided, first argument `envKey` is ignored and provided override url is used as a base for object-resolver-service calls.
+  For example, if `https://api-gateway.trellis.coffee/gateway/api` is provided, final fetching url would be `https://api-gateway.trellis.coffee/gateway/api/object-resolver`.
+
 ## 1.2.9
 
 ### Patch Changes

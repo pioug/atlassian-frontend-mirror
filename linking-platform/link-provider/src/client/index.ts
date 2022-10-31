@@ -42,8 +42,8 @@ export default class CardClient implements CardClientInterface {
   private retryConfig: Options;
   private resolvedCache: Record<string, boolean>;
 
-  constructor(envKey?: EnvironmentsKeys) {
-    this.resolverUrl = getResolverUrl(envKey);
+  constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string) {
+    this.resolverUrl = getResolverUrl(envKey, baseUrlOverride);
     this.loadersByDomain = {};
     this.retryConfig = {
       retries: 2,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "A performance optimized drag and drop framework for everyone",
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",

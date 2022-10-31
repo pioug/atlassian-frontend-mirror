@@ -8,8 +8,4 @@ export interface CardClient {
   postData(data: InvokePayload<ServerActionOpts>): Promise<JsonLd.Response>;
 }
 
-export type ClientEnvironment = {
-  baseUrl: string;
-  resolverUrl: string;
-};
 export type EnvironmentsKeys = keyof typeof Environments;

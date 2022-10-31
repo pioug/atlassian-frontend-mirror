@@ -37,7 +37,7 @@ const isPolarisView = (url: string) =>
 
 const isJwmView = (url: string) =>
   url.match(
-    /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board|(form\/[^\/]+?))\/?/,
+    /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board|summary|(form\/[^\/]+?))\/?/,
   );
 
 export class EditorCardProvider implements CardProvider {
@@ -49,9 +49,9 @@ export class EditorCardProvider implements CardProvider {
   private providersLoader: DataLoader<string, ProvidersData | undefined>;
   private cardClient: CardClient;
 
-  constructor(envKey?: EnvironmentsKeys) {
-    this.baseUrl = getBaseUrl(envKey);
-    this.resolverUrl = getResolverUrl(envKey);
+  constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string) {
+    this.baseUrl = baseUrlOverride || getBaseUrl(envKey);
+    this.resolverUrl = getResolverUrl(envKey, baseUrlOverride);
     this.transformer = new Transformer();
     this.requestHeaders = {
       Origin: this.baseUrl,
@@ -59,7 +59,7 @@ export class EditorCardProvider implements CardProvider {
     this.providersLoader = new DataLoader(keys => this.batchProviders(keys), {
       batchScheduleFn: callback => setTimeout(callback, BATCH_WAIT_TIME),
     });
-    this.cardClient = new CardClient(envKey);
+    this.cardClient = new CardClient(envKey, baseUrlOverride);
   }
 
   private async batchProviders(

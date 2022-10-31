@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/link-provider"
 
@@ -48,7 +48,7 @@ export interface CardAuthFlowOpts {
 
 // @public (undocumented)
 export class CardClient implements CardClient_2 {
-  constructor(envKey?: EnvironmentsKeys);
+  constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string);
   // (undocumented)
   fetchAvailableSearchProviders(): Promise<SearchProviderInfo[]>;
   // (undocumented)
@@ -135,7 +135,7 @@ export interface CardProviderStoreOpts {
 
 // @public (undocumented)
 export class EditorCardProvider implements CardProvider {
-  constructor(envKey?: EnvironmentsKeys);
+  constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string);
   // (undocumented)
   findPattern(url: string): Promise<boolean>;
   // (undocumented)

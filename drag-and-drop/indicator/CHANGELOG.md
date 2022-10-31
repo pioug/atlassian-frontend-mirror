@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-indicator
 
+## 0.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.5.1
 
 ### Patch Changes

@@ -34,4 +34,10 @@ describe('getResolverUrl', () => {
   it('should return a the edge proxy url when no environment is passed', () => {
     expect(getResolverUrl()).toBe('/gateway/api/object-resolver');
   });
+
+  it('should use custom baseUrl when provided', () => {
+    expect(
+      getResolverUrl('prod', 'https://api-gateway.trellis.coffee/gateway/api'),
+    ).toBe('https://api-gateway.trellis.coffee/gateway/api/object-resolver');
+  });
 });

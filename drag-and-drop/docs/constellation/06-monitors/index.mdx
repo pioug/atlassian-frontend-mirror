@@ -105,3 +105,22 @@ function App() {
 ```
 
 [→ More information on event ordering](/components/drag-and-drop/events)
+
+## Adding monitors during an event
+
+A _monitor_ that is added during an event (eg `onDragStart`) will not be called for the current event. This is to prevent the accidental creation of infinite loops. This behaviour matches native [`EventTargets`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) where an event listener cannot add another event listener during an active event to the same event target in the same event phase.
+
+```ts
+const monitor1 = monitorForElements({
+  onGenerateDragPreview: () => {
+    const monitor2 = monitorForElements({
+      // Setting up another monitor during `onGenerateDragPreview`
+      onGenerateDragPreview: () => {
+        // monitor2 will not be called for the _current_ `onGenerateDragPreview` event
+      },
+      // The monitor will be called for subsequent events
+      onDragStart: () => {},
+    });
+  },
+});
+```

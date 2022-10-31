@@ -44,7 +44,7 @@ async function mockRequestFn(_method: string, _url: string, data?: any) {
   });
 }
 
-const expectedStagingResolveBatchUrl =
+const expectedDefaultResolveBatchUrl =
   '/gateway/api/object-resolver/resolve/batch';
 
 describe('Smart Card: Client', () => {
@@ -62,15 +62,42 @@ describe('Smart Card: Client', () => {
 
   it('successfully sets up client with passed environment', async () => {
     mockRequest.mockImplementationOnce(async () => [successfulResponse]);
-    const client = new SmartCardClient();
+    const client = new SmartCardClient('stg');
     const resourceUrl = 'https://i.love.cheese';
-    const response = await client.fetchData('https://i.love.cheese');
+    const response = await client.fetchData(resourceUrl);
     expect(mockRequest).toBeCalled();
-    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
-      {
-        resourceUrl,
-      },
-    ]);
+    expect(mockRequest).toBeCalledWith(
+      'post',
+      expect.stringMatching(
+        /.*?commerce-components-preview.*?\/resolve\/batch/,
+      ),
+      [
+        {
+          resourceUrl,
+        },
+      ],
+    );
+    expect(response).toBe(mocks.success);
+  });
+
+  it('successfully sets up client with passed baseUrlOverride', async () => {
+    mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+    const client = new SmartCardClient(
+      'stg',
+      'https://api-gateway.trellis.coffee/gateway/api',
+    );
+    const resourceUrl = 'https://i.love.cheese';
+    const response = await client.fetchData(resourceUrl);
+    expect(mockRequest).toBeCalled();
+    expect(mockRequest).toBeCalledWith(
+      'post',
+      'https://api-gateway.trellis.coffee/gateway/api/object-resolver/resolve/batch',
+      [
+        {
+          resourceUrl,
+        },
+      ],
+    );
     expect(response).toBe(mocks.success);
   });
 
@@ -84,7 +111,7 @@ describe('Smart Card: Client', () => {
       client.fetchData(`${hostname}/notFound`),
     ]);
     expect(mockRequest).toBeCalled();
-    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
+    expect(mockRequest).toBeCalledWith('post', expectedDefaultResolveBatchUrl, [
       // NOTE: we only expect _one_ of the duplicated URLs to actually be sent to the backend
       {
         resourceUrl: `${hostname}/success`,
@@ -113,7 +140,7 @@ describe('Smart Card: Client', () => {
       client.fetchData(`${hostname}/3`),
     ]);
     expect(mockRequest).toBeCalled();
-    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
+    expect(mockRequest).toBeCalledWith('post', expectedDefaultResolveBatchUrl, [
       {
         resourceUrl: `${hostname}/1`,
       },
@@ -607,7 +634,7 @@ describe('Smart Card Client with url caching', () => {
     }
 
     expect(mockRequest).toBeCalledTimes(1);
-    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
+    expect(mockRequest).toBeCalledWith('post', expectedDefaultResolveBatchUrl, [
       {
         resourceUrl: `${hostname}/first/success`,
       },
@@ -675,7 +702,7 @@ describe('Smart Card Client with url caching', () => {
 
     expect(mockRequest).toBeCalledTimes(2);
 
-    expect(mockRequest).toBeCalledWith('post', expectedStagingResolveBatchUrl, [
+    expect(mockRequest).toBeCalledWith('post', expectedDefaultResolveBatchUrl, [
       // First url was already requested before and shuoldn't happen again.
       // {
       //   resourceUrl: `first.${hostname}/success`,
@@ -710,7 +737,7 @@ describe('Smart Card Client with url caching', () => {
 
   it('should have limited cache', async () => {
     mockRequest.mockImplementation(mockRequestFn);
-    const client = new SmartCardClient('stg');
+    const client = new SmartCardClient();
 
     // Requests 0..99. Should fill in full cache
     const requestPromises = Array(100)

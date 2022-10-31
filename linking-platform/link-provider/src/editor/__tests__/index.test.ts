@@ -42,7 +42,7 @@ const getMockProvidersResponse = ({
         },
         {
           source:
-            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/core\\/projects\\/(?<resourceId>\\w+)\\/(timeline|calendar|list|board)\\/?',
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/core\\/projects\\/(?<resourceId>\\w+)\\/(timeline|calendar|list|board|summary)\\/?',
         },
         {
           source:
@@ -115,6 +115,107 @@ describe('providers > editor', () => {
 
   afterAll(() => {
     delete (global as any).fetch;
+  });
+
+  it('should use baseUrl defined by provided environment for /providers call', async () => {
+    const provider = new EditorCardProvider('stg');
+    mockFetch.mockResolvedValueOnce({
+      json: async () => getMockProvidersResponse(),
+      ok: true,
+    });
+    const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
+    await provider.resolve(url, 'inline', false);
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringMatching(/.*?commerce-components-preview.*?\/providers/),
+      expect.objectContaining({
+        method: 'post',
+        headers: expect.objectContaining({
+          Origin:
+            'https://commerce-components-preview.dev.atlassian.com/gateway/api',
+        }),
+      }),
+    );
+  });
+
+  it('should use baseUrl defined by provided override for /providers call', async () => {
+    const provider = new EditorCardProvider(
+      'stg',
+      'https://api-gateway.trellis.coffee/gateway/api',
+    );
+    mockFetch.mockResolvedValueOnce({
+      json: async () => getMockProvidersResponse(),
+      ok: true,
+    });
+    const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
+    await provider.resolve(url, 'inline', false);
+    expect(mockFetch).toHaveBeenCalledWith(
+      'https://api-gateway.trellis.coffee/gateway/api/object-resolver/providers',
+      expect.objectContaining({
+        method: 'post',
+        headers: expect.objectContaining({
+          Origin: 'https://api-gateway.trellis.coffee/gateway/api',
+        }),
+      }),
+    );
+  });
+
+  it('should use baseUrl defined by provided environment for /resolve/batch call', async () => {
+    const provider = new EditorCardProvider('stg');
+    // Mocking call to /providers
+    mockFetch.mockResolvedValueOnce({
+      json: async () => getMockProvidersResponse(),
+      ok: true,
+    });
+    // Mocking call to /resolve/batch
+    mockFetch.mockResolvedValueOnce({
+      json: async () => [{ body: mocks.success, status: 200 }],
+      ok: true,
+    });
+    const url = 'https://site-without-pattern.com';
+    await provider.findPattern(url);
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringMatching(
+        /.*?commerce-components-preview.*?\/resolve\/batch/,
+      ),
+      expect.objectContaining({
+        body: JSON.stringify([
+          {
+            resourceUrl: url,
+          },
+        ]),
+        method: 'post',
+      }),
+    );
+  });
+
+  it('should use baseUrl defined by provided override for /resolve/batch call', async () => {
+    const provider = new EditorCardProvider(
+      'stg',
+      'https://api-gateway.trellis.coffee/gateway/api',
+    );
+    // Mocking call to /providers
+    mockFetch.mockResolvedValueOnce({
+      json: async () => getMockProvidersResponse(),
+      ok: true,
+    });
+    // Mocking call to /resolve/batch
+    mockFetch.mockResolvedValueOnce({
+      json: async () => [{ body: mocks.success, status: 200 }],
+      ok: true,
+    });
+    const url = 'https://site-without-pattern.com';
+    await provider.findPattern(url);
+    expect(mockFetch).toHaveBeenCalledWith(
+      'https://api-gateway.trellis.coffee/gateway/api/object-resolver/resolve/batch',
+      expect.objectContaining({
+        body: JSON.stringify([
+          {
+            resourceUrl: url,
+          },
+        ]),
+        method: 'post',
+      }),
+    );
   });
 
   it('returns inlineCard when calling /providers endpoint', async () => {
@@ -205,6 +306,10 @@ describe('providers > editor', () => {
     [
       'Jira work management (JWM) board view',
       'https://jdog.jira-dev.com/jira/core/projects/NPM5/board',
+    ],
+    [
+      'Jira work management (JWM) summary view',
+      'https://gopi-2.jira-dev.com/jira/core/projects/T2/summary',
     ],
     [
       'Jira work management (JWM) form view',

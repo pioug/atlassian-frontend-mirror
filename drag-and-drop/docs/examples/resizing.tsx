@@ -214,7 +214,15 @@ function Sidebar() {
       >
         <Menu />
       </div>
-      <div css={sidebarDividerStyles} ref={ref}></div>
+      <div
+        css={[
+          sidebarDividerStyles,
+          // Disabling the cursor on the sidebar line while dragging
+          // Otherwise the cursor can flash between resizing and the default cursor repeatedly
+          state.type === 'dragging' ? noPointerEventsStyles : undefined,
+        ]}
+        ref={ref}
+      ></div>
     </div>
   );
 }

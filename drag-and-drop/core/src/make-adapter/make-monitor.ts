@@ -73,7 +73,13 @@ export function makeMonitor<DragType extends AllDragTypes>() {
       return;
     }
 
-    for (const monitor of dragging.active) {
+    // Creating an array from the set _before_ iterating
+    // This is so that monitors added during the current event will not be called.
+    // This behaviour matches native EventTargets where an event listener
+    // cannot add another event listener during an active event to the same
+    // event target in the same event (for us we have a single global event target)
+    const active: MonitorArgs<DragType>[] = Array.from(dragging.active);
+    for (const monitor of active) {
       // @ts-expect-error: I cannot get this type working!
       monitor[eventName]?.(payload);
     }

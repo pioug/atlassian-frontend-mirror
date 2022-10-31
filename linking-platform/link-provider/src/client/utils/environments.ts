@@ -1,3 +1,5 @@
+import { EnvironmentsKeys } from '../types';
+
 const devBaseUrl = 'https://api-private.dev.atlassian.com';
 const stgBaseUrl =
   'https://commerce-components-preview.dev.atlassian.com/gateway/api';
@@ -25,10 +27,14 @@ export const getBaseUrl = (envKey?: keyof typeof BaseUrls) => {
   return window.location.origin;
 };
 
-export const getResolverUrl = (envKey?: keyof typeof BaseUrls) => {
+export const getResolverUrl = (
+  envKey?: EnvironmentsKeys,
+  baseUrlOverride?: string,
+) => {
   // If an environment is provided, then use Stargate directly for requests.
-  if (envKey) {
-    const baseUrl = getBaseUrl(envKey);
+  if (envKey || baseUrlOverride) {
+    const baseUrl = baseUrlOverride || getBaseUrl(envKey);
+
     return `${baseUrl}/object-resolver`;
   } else {
     // Otherwise, we fallback to using the Edge Proxy to access Stargate,

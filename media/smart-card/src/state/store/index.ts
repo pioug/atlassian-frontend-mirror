@@ -7,15 +7,18 @@ export type { CardType } from '@atlaskit/linking-common';
 export function useSmartCardState(url: string): CardState {
   const { store } = useSmartLinkContext();
   // Initially, card state should be pending and 'empty'.
-  const [state, setState] = useState<CardState>(getUrl(store, url));
+  const newCardState = getUrl(store, url);
+  const [, setCardState] = useState<CardState>(newCardState);
   // Selector for initial and subsequent states.
   useEffect(() => {
     const unsubscribe = store.subscribe(() => {
-      setState(getUrl(store, url));
+      // forcing re-renders when the store changes
+      setCardState(getUrl(store, url));
     });
 
     return () => unsubscribe();
   }, [url, store]);
-  // State for use in view components.
-  return state;
+
+  // Returning fresh state for use in view components. Added as a part of the fix in EDM-4422.
+  return newCardState;
 }

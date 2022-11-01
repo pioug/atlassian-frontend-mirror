@@ -4,6 +4,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 import { cssVar, defaultMargin, tagHeight } from '../../../constants';
 import type { AppearanceType, TagColor } from '../../../index';
@@ -22,7 +23,8 @@ const baseStyles = css({
   display: 'inline-flex',
   height: tagHeight,
   margin: defaultMargin,
-  padding: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  padding: token('spacing.scale.0', '0px'),
   position: 'relative',
   backgroundColor: `var(${cssVar.color.background.default})`,
   borderRadius: `var(${cssVar.borderRadius})`,

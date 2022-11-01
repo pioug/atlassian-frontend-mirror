@@ -1,11 +1,18 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { gridSize } from '@atlaskit/theme/constants';
 
 export interface NavigationHeaderProps {
   children: JSX.Element | JSX.Element[];
 }
+
+const navigationHeaderStyles = css({
+  paddingTop: gridSize() * 3,
+  paddingRight: gridSize(),
+  paddingBottom: gridSize(),
+  paddingLeft: gridSize(),
+});
 
 /**
  * __Navigation header__
@@ -18,15 +25,7 @@ export interface NavigationHeaderProps {
 const NavigationHeader = (props: NavigationHeaderProps) => {
   const { children } = props;
   return (
-    <div
-      data-navheader
-      css={{
-        paddingTop: gridSize() * 3,
-        paddingBottom: gridSize(),
-        paddingLeft: gridSize(),
-        paddingRight: gridSize(),
-      }}
-    >
+    <div data-navheader css={navigationHeaderStyles}>
       {children}
     </div>
   );

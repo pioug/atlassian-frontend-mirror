@@ -9,10 +9,10 @@ import {
   CardClient,
   SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
-import React from 'react';
+import React, { useState } from 'react';
 import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
 import { Card, CardAppearance } from '../../Card';
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import { fakeFactory, mockByUrl, mocks } from '../../../utils/mocks';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 import { JsonLd } from 'json-ld-types';
@@ -303,6 +303,71 @@ describe('smart-card: card states, flexible', () => {
         url: mockUrl,
         status: 'fallback',
       });
+    });
+
+    it('change of url should trigger a re-render', async () => {
+      const secondUrl = 'https://some.url2';
+      const customMockFetch = jest.fn((url) => {
+        return mockByUrl(url);
+      });
+
+      const customClient = new (fakeFactory(customMockFetch))();
+
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <Provider client={customClient}>{children}</Provider>
+      );
+
+      const Component = () => {
+        const [url, setUrl] = useState(secondUrl);
+
+        const onClickHandler = () => {
+          setUrl(mockUrl);
+        };
+
+        return (
+          <>
+            <Card appearance={'block'} url={mockUrl}>
+              <TitleBlock />
+            </Card>
+            <Card appearance={'block'} url={url}>
+              <TitleBlock />
+            </Card>
+            <button data-testid={'change-url-button'} onClick={onClickHandler}>
+              {' '}
+              Change URL
+            </button>
+          </>
+        );
+      };
+
+      const {
+        getByTestId,
+        getAllByTestId,
+        getByText,
+        getAllByText,
+        queryByText,
+      } = render(<Component />, { wrapper });
+
+      await waitFor(() => getAllByTestId('smart-block-title-resolved-view'), {
+        timeout: 5000,
+      });
+
+      const secondUrlBeforeUpdate = await waitFor(() =>
+        getByText('https://some.url2'),
+      );
+      expect(secondUrlBeforeUpdate).toBeTruthy();
+
+      const button = await waitFor(() => getByTestId('change-url-button'), {
+        timeout: 5000,
+      });
+
+      fireEvent.click(button);
+
+      expect(queryByText('https://some.url2')).toBeNull();
+      const secondUrlAfterUpdate = await waitFor(() =>
+        getAllByText('https://some.url'),
+      );
+      expect(secondUrlAfterUpdate.length).toEqual(2);
     });
   });
 });

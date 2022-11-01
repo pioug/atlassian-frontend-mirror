@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/stylelint-design-system",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Stylelint plugin for Design System code standards.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

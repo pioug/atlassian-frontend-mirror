@@ -2,6 +2,18 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+
+<SectionMessage
+  title="A new color system, design tokens, and themes are coming soon"
+  appearance="warning"
+>
+  <p>
+    This ESLint plugin includes rules to help you use <a href="/foundations/design-tokens">design tokens</a>, which will soon be the new way to use color.
+    <br/><br/>Do not use the design token-related rules until design tokens are available for you to adopt.
+  </p>
+</SectionMessage>
+
 ## ensure-design-token-usage
 
 Ensures that the codebase uses the global `token` function, rather than hard-coded values. This ruleset is great for codebases that are starting to adopt tokens and those that have already adopted tokens. This ruleset also prevents new contributors from accidentally adding hard-coded color values.

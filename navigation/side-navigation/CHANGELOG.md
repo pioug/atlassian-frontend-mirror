@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 1.3.1
+
+### Patch Changes
+
+- [`5f36f2ce46d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f36f2ce46d) - Adds a defensive `css()` function wrapping to many of the style calls in the side-navigation package. This is expected to help fix an issue with certain styles in side navigation not appearing if consumed when different versions of `@emotion` are present on the page.
+
 ## 1.3.0
 
 ### Minor Changes

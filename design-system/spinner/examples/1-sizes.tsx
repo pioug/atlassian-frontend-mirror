@@ -3,16 +3,16 @@
 import { css, jsx } from '@emotion/core';
 
 import Lozenge from '@atlaskit/lozenge';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Spinner, { Size } from '../src';
 
 const sizes: Size[] = ['xsmall', 'small', 'medium', 'large', 'xlarge', 80];
-const grid: number = gridSize();
 
 const containerStyles = css({
   display: 'flex',
-  gap: 2 * grid,
+  // TODO Delete this comment after verifying spacing token -> previous value `2 * grid`
+  gap: token('spacing.scale.200', '16px'),
   flexWrap: 'wrap',
 });
 
@@ -20,7 +20,8 @@ const itemStyles = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
-  gap: grid,
+  // TODO Delete this comment after verifying spacing token -> previous value `grid`
+  gap: token('spacing.scale.100', '8px'),
   flexDirection: 'column',
 });
 

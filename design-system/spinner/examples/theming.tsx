@@ -7,19 +7,18 @@ import Button from '@atlaskit/button/standard-button';
 import Lozenge from '@atlaskit/lozenge';
 import { N0, N500 } from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
-import { gridSize } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import Spinner from '../src';
 
-const grid: number = gridSize();
 const dark: string = token('color.text', N500);
 const light: string = token('color.text', N0);
 
 const layoutStyles = css({
   display: 'grid',
-  gap: grid,
+  // TODO Delete this comment after verifying spacing token -> previous value `grid`
+  gap: token('spacing.scale.100', '8px'),
   placeItems: 'center',
 });
 
@@ -31,7 +30,8 @@ const boxStyles = css({
   height: 100,
   alignItems: 'center',
   justifyContent: 'center',
-  gap: grid,
+  // TODO Delete this comment after verifying spacing token -> previous value `grid`
+  gap: token('spacing.scale.100', '8px'),
   flexDirection: 'column',
 });
 

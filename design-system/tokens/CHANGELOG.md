@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.30
+
+### Patch Changes
+
+- [`d9173fbdc13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9173fbdc13) - Added some more experimental spacing tokens for internal testing and validation. These are not intended for public consumption yet.
+
 ## 0.10.29
 
 ### Patch Changes

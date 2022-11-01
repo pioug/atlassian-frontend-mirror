@@ -2,10 +2,13 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import Tabs, { Tab, TabList, useTabPanel } from '../src';
 
 const customPanelStyles = css({
-  padding: '20px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'20px'`
+  padding: token('spacing.scale.250', '20px'),
 });
 
 const CustomTabPanel = ({

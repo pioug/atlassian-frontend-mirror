@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.10.29",
+  "version": "0.10.30",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -13,8 +13,7 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Design tokens",
-      "category": "Libraries",
-      "draft": true
+      "category": "Libraries"
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -22,6 +21,13 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.0 <4.5": {
+      "*": [
+        "dist/types-ts4.0/*"
+      ]
+    }
+  },
   "sideEffects": [
     "**/*.css"
   ],

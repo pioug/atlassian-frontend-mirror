@@ -13,8 +13,17 @@ import spacingScale from '@atlaskit/tokens/spacing-raw';
 
 import { isDecendantOfGlobalToken } from '../utils/is-node';
 
+/**
+ * Currently we have a wide range of experimental spacing tokens that we are testing.
+ * We only want transforms to apply to the stable scale values, not the rest.
+ * This could be removed in the future.
+ */
+const onlyScaleTokens = spacingScale.filter((token) =>
+  token.name.startsWith('spacing.scale.'),
+);
+
 const spacingValueToToken = Object.fromEntries(
-  spacingScale.map((token) => [token.value, token.name]),
+  onlyScaleTokens.map((token) => [token.value, token.name]),
 );
 
 /**

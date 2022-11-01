@@ -5,11 +5,11 @@ import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
-import __noop from '@atlaskit/ds-lib/noop';
+import noop from '@atlaskit/ds-lib/noop';
+import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
 
-const noop = __noop;
 const data = [
   `Last night I saw you in my dreams, now I can't wait to go to sleep.`,
   `You've got to realize that the world's a test, you can only do your best and let Him do the rest.`,
@@ -21,7 +21,8 @@ const data = [
 
 const quoteStyles = css({
   maxWidth: 300,
-  padding: 16,
+  // TODO Delete this comment after verifying spacing token -> previous value `16`
+  padding: token('spacing.scale.200', '16px'),
   textAlign: 'center',
 });
 

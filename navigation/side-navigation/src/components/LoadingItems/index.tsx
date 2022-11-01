@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { ExitingPersistence, FadeIn, mediumDurationMs } from '@atlaskit/motion';
 
@@ -36,6 +36,19 @@ export interface LoadingItemsProps {
   testId?: string;
 }
 
+const baseMotionStyles = css({
+  position: 'absolute',
+  zIndex: 1,
+  top: 0,
+  right: 0,
+  left: 0,
+});
+
+const enteringStyles = css({
+  position: 'static',
+  zIndex: 2,
+});
+
 /**
  * __Loading items__
  *
@@ -59,14 +72,7 @@ const LoadingItems = ({
           <span
             {...motion}
             data-testid={testId && `${testId}--${state}`}
-            css={{
-              // Used to have the exiting section appear above the entering one.
-              position: state === 'entering' ? undefined : 'absolute',
-              zIndex: state === 'entering' ? 2 : 1,
-              top: 0,
-              left: 0,
-              right: 0,
-            }}
+            css={[baseMotionStyles, state === 'entering' && enteringStyles]}
           >
             {isLoading ? fallback : children}
           </span>

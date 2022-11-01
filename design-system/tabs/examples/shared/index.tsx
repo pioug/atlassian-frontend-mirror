@@ -5,20 +5,19 @@ import { ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { N20, N200 } from '@atlaskit/theme/colors';
-import {
-  borderRadius as getBorderRadius,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
+import { borderRadius as getBorderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const borderRadius = getBorderRadius();
-const gridSize = getGridSize();
 
 const panelStyles = css({
   display: 'flex',
-  marginTop: `${gridSize * 2}px`,
-  marginBottom: `${gridSize}px`,
-  padding: `${gridSize * 4}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize * 2}px``
+  marginTop: token('spacing.scale.200', '16px'),
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
+  marginBottom: token('spacing.scale.100', '8px'),
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize * 4}px``
+  padding: token('spacing.scale.400', '32px'),
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',

@@ -1,10 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::873e77ae05fb3ff2730f5f6110aaeae3>>
+ * @codegen <<SignedSource::1808e289835f4813ce4782e16cce419d>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
-  'spacing.container.gutter': '--ds-container-gutter',
   'spacing.scale.0': '--ds-scale-0',
   'spacing.scale.100': '--ds-scale-100',
   'spacing.scale.150': '--ds-scale-150',
@@ -17,10 +16,73 @@ const tokens = {
   'spacing.scale.025': '--ds-scale-025',
   'spacing.scale.050': '--ds-scale-050',
   'spacing.scale.075': '--ds-scale-075',
+  'spacing.scaleLinear.0': '--ds-scaleLinear-0',
+  'spacing.scaleLinear.100': '--ds-scaleLinear-100',
+  'spacing.scaleLinear.200': '--ds-scaleLinear-200',
+  'spacing.scaleLinear.300': '--ds-scaleLinear-300',
+  'spacing.scaleLinear.400': '--ds-scaleLinear-400',
+  'spacing.scaleLinear.500': '--ds-scaleLinear-500',
+  'spacing.scaleLinear.600': '--ds-scaleLinear-600',
+  'spacing.scaleLinear.700': '--ds-scaleLinear-700',
+  'spacing.scaleLinear.800': '--ds-scaleLinear-800',
+  'spacing.scaleLinear.900': '--ds-scaleLinear-900',
+  'spacing.scaleLinear.1000': '--ds-scaleLinear-1000',
+  'spacing.scaleLinear.1100': '--ds-scaleLinear-1100',
+  'spacing.pixel.0': '--ds-pixel-0',
+  'spacing.pixel.2': '--ds-pixel-2',
+  'spacing.pixel.4': '--ds-pixel-4',
+  'spacing.pixel.6': '--ds-pixel-6',
+  'spacing.pixel.8': '--ds-pixel-8',
+  'spacing.pixel.12': '--ds-pixel-12',
+  'spacing.pixel.16': '--ds-pixel-16',
+  'spacing.pixel.20': '--ds-pixel-20',
+  'spacing.pixel.24': '--ds-pixel-24',
+  'spacing.pixel.32': '--ds-pixel-32',
+  'spacing.pixel.40': '--ds-pixel-40',
+  'spacing.pixel.48': '--ds-pixel-48',
+  'spacing.size.none': '--ds-size-none',
+  'spacing.size.xxxxSmall': '--ds-size-xxxxSmall',
+  'spacing.size.xxxSmall': '--ds-size-xxxSmall',
+  'spacing.size.xxSmall': '--ds-size-xxSmall',
+  'spacing.size.xsmall': '--ds-size-xsmall',
+  'spacing.size.small': '--ds-size-small',
+  'spacing.size.medium': '--ds-size-medium',
+  'spacing.size.large': '--ds-size-large',
+  'spacing.size.xlarge': '--ds-size-xlarge',
+  'spacing.size.xxlarge': '--ds-size-xxlarge',
+  'spacing.size.xxxlarge': '--ds-size-xxxlarge',
+  'spacing.size.xxxxlarge': '--ds-size-xxxxlarge',
+  'spacing.ecl.element.2': '--ds-ecl-element-2',
+  'spacing.ecl.element.4': '--ds-ecl-element-4',
+  'spacing.ecl.element.6': '--ds-ecl-element-6',
+  'spacing.ecl.element.8': '--ds-ecl-element-8',
+  'spacing.ecl.container.12': '--ds-ecl-container-12',
+  'spacing.ecl.container.16': '--ds-ecl-container-16',
+  'spacing.ecl.container.20': '--ds-ecl-container-20',
+  'spacing.ecl.container.24': '--ds-ecl-container-24',
+  'spacing.ecl.layout.32': '--ds-ecl-layout-32',
+  'spacing.ecl.layout.40': '--ds-ecl-layout-40',
+  'spacing.ecl.layout.64': '--ds-ecl-layout-64',
+  'spacing.ccc.component.2': '--ds-ccc-component-2',
+  'spacing.ccc.component.4': '--ds-ccc-component-4',
+  'spacing.ccc.component.6': '--ds-ccc-component-6',
+  'spacing.ccc.component.8': '--ds-ccc-component-8',
+  'spacing.ccc.content.12': '--ds-ccc-content-12',
+  'spacing.ccc.content.16': '--ds-ccc-content-16',
+  'spacing.ccc.content.20': '--ds-ccc-content-20',
+  'spacing.ccc.content.24': '--ds-ccc-content-24',
+  'spacing.ccc.container.32': '--ds-ccc-container-32',
+  'spacing.ccc.container.40': '--ds-ccc-container-40',
+  'spacing.ccc.container.48': '--ds-ccc-container-48',
+  'spacing.gap.100': '--ds-gap-100',
+  'spacing.gap.200': '--ds-gap-200',
+  'spacing.gap.300': '--ds-gap-300',
+  'spacing.inset.100': '--ds-inset-100',
+  'spacing.inset.200': '--ds-inset-200',
+  'spacing.inset.300': '--ds-inset-300',
 } as const;
 
 export type CSSTokenMap = {
-  'spacing.container.gutter': 'var(--ds-container-gutter)';
   'spacing.scale.0': 'var(--ds-scale-0)';
   'spacing.scale.100': 'var(--ds-scale-100)';
   'spacing.scale.150': 'var(--ds-scale-150)';
@@ -33,6 +95,70 @@ export type CSSTokenMap = {
   'spacing.scale.025': 'var(--ds-scale-025)';
   'spacing.scale.050': 'var(--ds-scale-050)';
   'spacing.scale.075': 'var(--ds-scale-075)';
+  'spacing.scaleLinear.0': 'var(--ds-scaleLinear-0)';
+  'spacing.scaleLinear.100': 'var(--ds-scaleLinear-100)';
+  'spacing.scaleLinear.200': 'var(--ds-scaleLinear-200)';
+  'spacing.scaleLinear.300': 'var(--ds-scaleLinear-300)';
+  'spacing.scaleLinear.400': 'var(--ds-scaleLinear-400)';
+  'spacing.scaleLinear.500': 'var(--ds-scaleLinear-500)';
+  'spacing.scaleLinear.600': 'var(--ds-scaleLinear-600)';
+  'spacing.scaleLinear.700': 'var(--ds-scaleLinear-700)';
+  'spacing.scaleLinear.800': 'var(--ds-scaleLinear-800)';
+  'spacing.scaleLinear.900': 'var(--ds-scaleLinear-900)';
+  'spacing.scaleLinear.1000': 'var(--ds-scaleLinear-1000)';
+  'spacing.scaleLinear.1100': 'var(--ds-scaleLinear-1100)';
+  'spacing.pixel.0': 'var(--ds-pixel-0)';
+  'spacing.pixel.2': 'var(--ds-pixel-2)';
+  'spacing.pixel.4': 'var(--ds-pixel-4)';
+  'spacing.pixel.6': 'var(--ds-pixel-6)';
+  'spacing.pixel.8': 'var(--ds-pixel-8)';
+  'spacing.pixel.12': 'var(--ds-pixel-12)';
+  'spacing.pixel.16': 'var(--ds-pixel-16)';
+  'spacing.pixel.20': 'var(--ds-pixel-20)';
+  'spacing.pixel.24': 'var(--ds-pixel-24)';
+  'spacing.pixel.32': 'var(--ds-pixel-32)';
+  'spacing.pixel.40': 'var(--ds-pixel-40)';
+  'spacing.pixel.48': 'var(--ds-pixel-48)';
+  'spacing.size.none': 'var(--ds-size-none)';
+  'spacing.size.xxxxSmall': 'var(--ds-size-xxxxSmall)';
+  'spacing.size.xxxSmall': 'var(--ds-size-xxxSmall)';
+  'spacing.size.xxSmall': 'var(--ds-size-xxSmall)';
+  'spacing.size.xsmall': 'var(--ds-size-xsmall)';
+  'spacing.size.small': 'var(--ds-size-small)';
+  'spacing.size.medium': 'var(--ds-size-medium)';
+  'spacing.size.large': 'var(--ds-size-large)';
+  'spacing.size.xlarge': 'var(--ds-size-xlarge)';
+  'spacing.size.xxlarge': 'var(--ds-size-xxlarge)';
+  'spacing.size.xxxlarge': 'var(--ds-size-xxxlarge)';
+  'spacing.size.xxxxlarge': 'var(--ds-size-xxxxlarge)';
+  'spacing.ecl.element.2': 'var(--ds-ecl-element-2)';
+  'spacing.ecl.element.4': 'var(--ds-ecl-element-4)';
+  'spacing.ecl.element.6': 'var(--ds-ecl-element-6)';
+  'spacing.ecl.element.8': 'var(--ds-ecl-element-8)';
+  'spacing.ecl.container.12': 'var(--ds-ecl-container-12)';
+  'spacing.ecl.container.16': 'var(--ds-ecl-container-16)';
+  'spacing.ecl.container.20': 'var(--ds-ecl-container-20)';
+  'spacing.ecl.container.24': 'var(--ds-ecl-container-24)';
+  'spacing.ecl.layout.32': 'var(--ds-ecl-layout-32)';
+  'spacing.ecl.layout.40': 'var(--ds-ecl-layout-40)';
+  'spacing.ecl.layout.64': 'var(--ds-ecl-layout-64)';
+  'spacing.ccc.component.2': 'var(--ds-ccc-component-2)';
+  'spacing.ccc.component.4': 'var(--ds-ccc-component-4)';
+  'spacing.ccc.component.6': 'var(--ds-ccc-component-6)';
+  'spacing.ccc.component.8': 'var(--ds-ccc-component-8)';
+  'spacing.ccc.content.12': 'var(--ds-ccc-content-12)';
+  'spacing.ccc.content.16': 'var(--ds-ccc-content-16)';
+  'spacing.ccc.content.20': 'var(--ds-ccc-content-20)';
+  'spacing.ccc.content.24': 'var(--ds-ccc-content-24)';
+  'spacing.ccc.container.32': 'var(--ds-ccc-container-32)';
+  'spacing.ccc.container.40': 'var(--ds-ccc-container-40)';
+  'spacing.ccc.container.48': 'var(--ds-ccc-container-48)';
+  'spacing.gap.100': 'var(--ds-gap-100)';
+  'spacing.gap.200': 'var(--ds-gap-200)';
+  'spacing.gap.300': 'var(--ds-gap-300)';
+  'spacing.inset.100': 'var(--ds-inset-100)';
+  'spacing.inset.200': 'var(--ds-inset-200)';
+  'spacing.inset.300': 'var(--ds-inset-300)';
 };
 
 export default tokens;

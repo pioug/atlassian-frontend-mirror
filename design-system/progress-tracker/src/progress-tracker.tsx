@@ -4,6 +4,8 @@ import { CSSProperties, PureComponent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { defaultGridSize, spacing } from './constants';
 import {
   ANIMATION_EASE_OUT,
@@ -23,8 +25,11 @@ import type {
 const containerStyles = css({
   display: 'grid',
   width: '100%',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '0 auto',
-  padding: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  padding: token('spacing.scale.0', '0px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   gap: `var(${varSpacing})`,
   listStyleType: 'none',
   '&&': {

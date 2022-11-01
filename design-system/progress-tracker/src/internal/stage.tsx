@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { CSSTransition } from 'react-transition-group';
 
 import { fontSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import ProgressBar from './bar';
 import {
@@ -32,13 +33,16 @@ const containerStyles = css({
 });
 
 const listItemStyles = css({
-  margin: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
   overflowWrap: 'break-word',
 });
 
 const titleStyles = css({
   marginTop: LABEL_TOP_SPACING,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginRight: 'auto',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginLeft: 'auto',
   fontSize: fontSize(),
   lineHeight: '16px',

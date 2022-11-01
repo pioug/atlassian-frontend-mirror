@@ -8,6 +8,7 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import { token } from '@atlaskit/tokens';
 
 import { cssVar } from '../../../constants';
 
@@ -25,8 +26,10 @@ type RemoveButtonProps = {
 const baseStyles = css({
   display: 'flex',
   height: '16px',
-  margin: 0,
-  padding: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  padding: token('spacing.scale.0', '0px'),
   position: 'absolute',
   right: 0,
   alignItems: 'center',

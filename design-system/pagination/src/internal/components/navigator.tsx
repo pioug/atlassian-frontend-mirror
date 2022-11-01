@@ -4,13 +4,13 @@ import React, { ReactElement, SyntheticEvent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
-
-const gridSize = getGridSize();
+import { token } from '@atlaskit/tokens';
 
 const navigatorStyles = css({
-  paddingRight: gridSize / 2,
-  paddingLeft: gridSize / 2,
+  // TODO Delete this comment after verifying spacing token -> previous value `gridSize / 2`
+  paddingRight: token('spacing.scale.050', '4px'),
+  // TODO Delete this comment after verifying spacing token -> previous value `gridSize / 2`
+  paddingLeft: token('spacing.scale.050', '4px'),
 });
 
 export type NavigatorProps<T> = {

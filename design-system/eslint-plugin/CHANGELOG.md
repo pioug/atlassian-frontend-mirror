@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.12.2
+
+### Patch Changes
+
+- [`c6b748ff03a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6b748ff03a) - Small tweak to the ensure-design-token-usage-spacing rule to ensure we aren't over-eager in auto-fixing code with highly experimental tokens.
+
 ## 4.12.1
 
 ### Patch Changes

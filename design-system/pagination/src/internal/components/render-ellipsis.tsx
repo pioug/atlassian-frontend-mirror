@@ -3,13 +3,18 @@ import { ReactElement } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 export type EllipsisProp = {
   key: string;
 };
 
 const ellipsisStyles = css({
   display: 'inline-flex',
-  padding: '0 8px',
+  padding: `${token('spacing.scale.0', '0px')} ${token(
+    'spacing.scale.100',
+    '8px',
+  )}`,
   alignItems: 'center',
   textAlign: 'center',
 });

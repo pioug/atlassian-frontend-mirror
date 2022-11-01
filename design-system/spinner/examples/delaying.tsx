@@ -13,11 +13,10 @@ import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import Select, { ValueType } from '@atlaskit/select';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Spinner from '../src';
 
-const grid: number = gridSize();
 type Delays = {
   spinner: number;
   content: number;
@@ -28,7 +27,8 @@ type Phase = 'stopped' | 'loading' | 'ready';
 
 const layoutStyles = css({
   display: 'grid',
-  marginTop: grid * 4,
+  // TODO Delete this comment after verifying spacing token -> previous value `grid * 4`
+  marginTop: token('spacing.scale.400', '32px'),
   justifyContent: 'center',
   gridTemplateColumns: 'repeat(auto-fit, minmax(0, 300px))',
 });
@@ -37,7 +37,8 @@ const controlContainerStyles = css({
   display: 'flex',
   maxWidth: 300,
   margin: '0 auto',
-  gap: grid,
+  // TODO Delete this comment after verifying spacing token -> previous value `grid`
+  gap: token('spacing.scale.100', '8px'),
   flexDirection: 'column',
 });
 

@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 4.2.12
+
+### Patch Changes
+
+- [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op change to introduce spacing tokens to design system components.
+
 ## 4.2.11
 
 ### Patch Changes

@@ -6,13 +6,11 @@ import { css, jsx } from '@emotion/core';
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Spinner from '../src';
 
 type Phase = 'stopped' | 'loading' | 'ready';
-
-const grid: number = gridSize();
 
 const layoutStyles = css({
   display: 'flex',
@@ -25,7 +23,10 @@ const columnStyles = css({
   flexDirection: 'column',
 });
 
-const headingStyles = css({ marginBottom: grid * 2 });
+const headingStyles = css({
+  // TODO Delete this comment after verifying spacing token -> previous value `grid * 2`
+  marginBottom: token('spacing.scale.200', '16px'),
+});
 
 const loadingContainerStyles = css({
   display: 'flex',

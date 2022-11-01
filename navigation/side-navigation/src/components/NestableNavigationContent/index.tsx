@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { ExitingPersistence } from '@atlaskit/motion';
 
@@ -76,6 +76,20 @@ export interface NestableNavigationContentProps {
     };
   };
 }
+
+const nestableNavigationContentStyles = css({
+  height: '100%',
+  position: 'relative',
+  outline: 'none',
+});
+
+const nestingRootStyles = css({
+  display: 'flex',
+  width: '100%',
+  height: '100%',
+  position: 'absolute',
+  flexDirection: 'column',
+});
 
 /**
  * __Nestable navigation content__
@@ -206,11 +220,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
   return (
     <div
       data-testid={testId}
-      css={{
-        position: 'relative',
-        height: '100%',
-        outline: 'none',
-      }}
+      css={nestableNavigationContentStyles}
       ref={containerRef}
       tabIndex={-1}
       onClick={manageFocus}
@@ -225,16 +235,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
           testId={testId && `${testId}-anim`}
         >
           {(motion) => (
-            <div
-              css={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-              {...motion}
-            >
+            <div css={nestingRootStyles} {...motion}>
               <NestedContext.Provider
                 // This provider is inside the NestingMotion to ensure it keeps a stale
                 // reference to the previous value.

@@ -4,6 +4,7 @@ import type { HTMLAttributes } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import FocusRing from '@atlaskit/focus-ring';
+import { token } from '@atlaskit/tokens';
 
 import { varDotsMargin, varDotsSize } from './constants';
 
@@ -24,7 +25,8 @@ const commonStyles = css({
 });
 
 const buttonStyles = css({
-  padding: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  padding: token('spacing.scale.0', '0px'),
   border: 0,
   cursor: 'pointer',
   outline: 0,

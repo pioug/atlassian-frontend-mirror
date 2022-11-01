@@ -2,6 +2,8 @@
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   buttonWidthUnitless,
   cssVar,
@@ -21,9 +23,13 @@ interface ContentProps extends SimpleTagProps {
 
 const baseStyles = css({
   maxWidth: maxTextWidth,
-  paddingTop: '2px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'2px'`
+  paddingTop: token('spacing.scale.025', '2px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingRight: defaultTextPadding,
-  paddingBottom: '2px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'2px'`
+  paddingBottom: token('spacing.scale.025', '2px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingLeft: defaultTextPadding,
   fontSize: textFontSize,
   fontWeight: 'normal',
@@ -55,10 +61,12 @@ const linkStyles = css({
 
 const hasAfterStyles = css({
   maxWidth: `${maxTextWidthUnitless - buttonWidthUnitless}px`,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingRight: textPaddingRight,
 });
 
 const hasBeforeStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginLeft: textMarginLeft,
 });
 

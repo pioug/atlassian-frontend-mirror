@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { gridSize } from '@atlaskit/theme/constants';
 
@@ -9,11 +9,11 @@ export interface NavigationFooterProps {
   children: ReactNode;
 }
 
-const footerCSS = {
-  position: 'relative',
+const footerStyles = css({
   padding: gridSize(),
   paddingBottom: gridSize() * 1.75,
-} as const;
+  position: 'relative',
+});
 
 /**
  * __Navigation footer__
@@ -24,7 +24,7 @@ const footerCSS = {
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
 const NavigationFooter = ({ children }: NavigationFooterProps) => {
-  return <div css={footerCSS}>{children}</div>;
+  return <div css={footerStyles}>{children}</div>;
 };
 
 export default NavigationFooter;

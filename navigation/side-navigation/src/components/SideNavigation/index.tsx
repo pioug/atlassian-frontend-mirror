@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { N10, N500 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
@@ -30,6 +30,18 @@ export interface SideNavigationProps {
   testId?: string;
 }
 
+const sideNavStyles = css({
+  display: 'flex',
+  width: '100%',
+  minWidth: gridSize() * 30,
+  height: '100%',
+  position: 'relative',
+  flexDirection: 'column',
+  backgroundColor: token('elevation.surface', N10),
+  color: token('color.text.subtle', N500),
+  overflow: 'hidden',
+});
+
 /**
  * __Side navigation__
  *
@@ -47,17 +59,7 @@ const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
         ref={ref}
         data-testid={testId}
         aria-label={label}
-        css={{
-          width: '100%',
-          height: '100%',
-          color: token('color.text.subtle', N500),
-          minWidth: gridSize() * 30,
-          backgroundColor: token('elevation.surface', N10),
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-        }}
+        css={sideNavStyles}
       >
         {children}
       </nav>

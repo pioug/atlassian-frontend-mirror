@@ -2,7 +2,7 @@ import React from 'react';
 
 import { HashRouter, Link, Route, Switch } from 'react-router-dom';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Pagination from '../src';
 
@@ -64,8 +64,8 @@ function renderLink(pageType: string, selectedIndex: number) {
       pageType === 'page'
         ? undefined
         : {
-            paddingLeft: `${gridSize() / 2}px`,
-            paddingRight: `${gridSize() / 2}px`,
+            paddingLeft: token('spacing.scale.050', '4px'),
+            paddingRight: token('spacing.scale.050', '4px'),
           };
     return isDisabled ? (
       <div {...rest} style={style} />
@@ -80,7 +80,7 @@ const PaginationWithSelectPage = ({
 }: {
   pageSelected: number;
 }) => (
-  <div style={{ marginTop: `${gridSize() * 3} px` }}>
+  <div style={{ marginTop: token('spacing.scale.300', '24px') }}>
     <Pagination
       testId="pagination"
       style={{ marginTop: '24px' }}

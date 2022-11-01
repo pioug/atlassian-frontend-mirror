@@ -5,13 +5,15 @@ import { Component, FC } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import { ProgressIndicator } from '../src';
 import { DotsAppearance } from '../src/components/types';
 
 const footerStyles = css({
   display: 'flex',
-  margin: '16px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
+  margin: token('spacing.scale.200', '16px'),
   alignItems: 'center',
   justifyContent: 'space-between',
 });

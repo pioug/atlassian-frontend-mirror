@@ -70,6 +70,7 @@ export interface DesignToken<TValue, Group extends Groups>
         group: Group;
         description: string;
         introduced: string;
+        suggest?: string[]; // optionally provide values that you want ESLint to suggest replacing
       }
     | {
         state: DeprecatedTokenState;
@@ -93,7 +94,8 @@ export interface DesignToken<TValue, Group extends Groups>
         group: Group;
         description: string;
         introduced: string;
-        replacement?: ExperimentalReplacement; // Still optional, as there may be no correct replacement;
+        replacement?: ExperimentalReplacement; // Still optional, as there may be no correct replacement
+        suggest?: string[]; // optionally provide values that you want ESLint to suggest replacing
       };
 }
 
@@ -750,9 +752,6 @@ export type TokenSchema<BaseToken> = ColorTokenSchema<BaseToken> &
 
 export interface SpacingTokenSchema<BaseToken> {
   spacing: {
-    container: {
-      gutter: SpacingToken<BaseToken>;
-    };
     scale: {
       '0': SpacingToken<BaseToken>;
       '025': SpacingToken<BaseToken>;
@@ -766,6 +765,96 @@ export interface SpacingTokenSchema<BaseToken> {
       '400': SpacingToken<BaseToken>;
       '500': SpacingToken<BaseToken>;
       '600': SpacingToken<BaseToken>;
+    };
+    scaleLinear: {
+      '0': SpacingToken<BaseToken>;
+      '100': SpacingToken<BaseToken>;
+      '200': SpacingToken<BaseToken>;
+      '300': SpacingToken<BaseToken>;
+      '400': SpacingToken<BaseToken>;
+      '500': SpacingToken<BaseToken>;
+      '600': SpacingToken<BaseToken>;
+      '700': SpacingToken<BaseToken>;
+      '800': SpacingToken<BaseToken>;
+      '900': SpacingToken<BaseToken>;
+      '1000': SpacingToken<BaseToken>;
+      '1100': SpacingToken<BaseToken>;
+    };
+    pixel: {
+      '0': SpacingToken<BaseToken>;
+      '2': SpacingToken<BaseToken>;
+      '4': SpacingToken<BaseToken>;
+      '6': SpacingToken<BaseToken>;
+      '8': SpacingToken<BaseToken>;
+      '12': SpacingToken<BaseToken>;
+      '16': SpacingToken<BaseToken>;
+      '20': SpacingToken<BaseToken>;
+      '24': SpacingToken<BaseToken>;
+      '32': SpacingToken<BaseToken>;
+      '40': SpacingToken<BaseToken>;
+      '48': SpacingToken<BaseToken>;
+    };
+    size: {
+      none: SpacingToken<BaseToken>;
+      xxxxSmall: SpacingToken<BaseToken>;
+      xxxSmall: SpacingToken<BaseToken>;
+      xxSmall: SpacingToken<BaseToken>;
+      xsmall: SpacingToken<BaseToken>;
+      small: SpacingToken<BaseToken>;
+      medium: SpacingToken<BaseToken>;
+      large: SpacingToken<BaseToken>;
+      xlarge: SpacingToken<BaseToken>;
+      xxlarge: SpacingToken<BaseToken>;
+      xxxlarge: SpacingToken<BaseToken>;
+      xxxxlarge: SpacingToken<BaseToken>;
+    };
+    ecl: {
+      element: {
+        '2': SpacingToken<BaseToken>;
+        '4': SpacingToken<BaseToken>;
+        '6': SpacingToken<BaseToken>;
+        '8': SpacingToken<BaseToken>;
+      };
+      container: {
+        '12': SpacingToken<BaseToken>;
+        '16': SpacingToken<BaseToken>;
+        '20': SpacingToken<BaseToken>;
+        '24': SpacingToken<BaseToken>;
+      };
+      layout: {
+        '32': SpacingToken<BaseToken>;
+        '40': SpacingToken<BaseToken>;
+        '64': SpacingToken<BaseToken>;
+      };
+    };
+    ccc: {
+      component: {
+        '2': SpacingToken<BaseToken>;
+        '4': SpacingToken<BaseToken>;
+        '6': SpacingToken<BaseToken>;
+        '8': SpacingToken<BaseToken>;
+      };
+      content: {
+        '12': SpacingToken<BaseToken>;
+        '16': SpacingToken<BaseToken>;
+        '20': SpacingToken<BaseToken>;
+        '24': SpacingToken<BaseToken>;
+      };
+      container: {
+        '32': SpacingToken<BaseToken>;
+        '40': SpacingToken<BaseToken>;
+        '48': SpacingToken<BaseToken>;
+      };
+    };
+    gap: {
+      100: { value: 'Space100' };
+      200: { value: 'Space200' };
+      300: { value: 'Space300' };
+    };
+    inset: {
+      100: { value: 'Space100' };
+      200: { value: 'Space200' };
+      300: { value: 'Space300' };
     };
   };
 }

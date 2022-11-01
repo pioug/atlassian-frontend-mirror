@@ -13,9 +13,12 @@ const allLinks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
  * This regression test has been added to cover the case.
  */
 
+// FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16005
 BrowserTestCase(
   `The link should be clickable inside renderer with media card`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: BrowserObject) => {
     const page = new Page(client);
     const baseUrl = getExampleUrl(

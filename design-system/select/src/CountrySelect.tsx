@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { token } from '@atlaskit/tokens';
 import { jsx, css } from '@emotion/react';
 
 import { groupedCountries } from './data/countries';
@@ -16,7 +17,8 @@ const labelStyles = css({
 
 const flagStyles = css({
   fontSize: '18px',
-  marginRight: '8px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
+  marginRight: token('spacing.scale.100', '8px'),
 });
 
 const Opt = ({

@@ -15,7 +15,10 @@ export interface TooltipContainerProps extends TooltipPrimitiveProps {}
 const baseStyles = css({
   boxSizing: 'border-box',
   maxWidth: '240px',
-  padding: '2px 6px',
+  padding: `${token('spacing.scale.025', '2px')} ${token(
+    'spacing.scale.075',
+    '6px',
+  )}`,
   top: 0,
   left: 0,
   borderRadius: `${borderRadius()}px`,

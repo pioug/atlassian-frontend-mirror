@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.0.1
+
+### Patch Changes
+
+- [`3b30fc47274`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b30fc47274) - Smart Link card state fix relating to an issue with returning old state if url changes to the one already present in the store.
+
 ## 23.0.0
 
 ### Patch Changes

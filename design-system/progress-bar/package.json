@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-bar",
-  "version": "0.5.11",
+  "version": "0.5.12",
   "description": "A progress bar displays the status of a given process.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -57,6 +57,7 @@
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
       "design-system": "v1",
+      "design-tokens": "spacing",
       "theming": "tokens",
       "deprecation": "no-deprecated-imports",
       "styling": [

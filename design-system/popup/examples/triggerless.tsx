@@ -7,6 +7,7 @@ import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import JiraCaptureIcon from '@atlaskit/icon/glyph/jira/capture';
 import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import { B75 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
 
@@ -14,7 +15,10 @@ const triggerStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: B75,
 });
-const popupStyles = css({ padding: 4 });
+const popupStyles = css({
+  // TODO Delete this comment after verifying spacing token -> previous value `4`
+  padding: token('spacing.scale.050', '4px'),
+});
 const HighlightPopup = (props: { children: React.ReactNode }) => (
   <Popup
     isOpen

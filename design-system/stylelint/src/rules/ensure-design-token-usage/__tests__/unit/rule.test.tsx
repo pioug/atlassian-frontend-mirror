@@ -1,5 +1,7 @@
 import path from 'path';
 
+import { token } from '@atlaskit/tokens';
+
 import testRule from '../../../../__tests__/utils/_test-rule';
 import { messages, ruleName } from '../../index';
 
@@ -8,11 +10,12 @@ const plugin = path.resolve(__dirname, '../../../../index.tsx');
 testRule({
   plugins: [plugin],
   ruleName,
-  config: [false],
+  config: { color: false, spacing: false },
   accept: [
     {
-      code: 'color: red;',
-      description: 'should not do any checks when isEnabled is false',
+      code: 'color: red; margin: 10px;',
+      description:
+        'should not do any checks when isEnabled contains only false values',
     },
   ],
 });
@@ -20,7 +23,24 @@ testRule({
 testRule({
   plugins: [plugin],
   ruleName,
-  config: [true],
+  config: { color: true, spacing: true },
+  reject: [
+    {
+      code: 'margin: 10px; background-color: #FFFFFF;',
+      description:
+        'reports for all relevant rule violations when multiple are enabled',
+      warnings: [
+        { message: messages.noHardcodedSpacing },
+        { message: messages.noHardcodedColors },
+      ],
+    },
+  ],
+});
+
+testRule({
+  plugins: [plugin],
+  ruleName,
+  config: { color: true },
   accept: [
     {
       code: 'color: var(--ds-text, #000);',
@@ -55,7 +75,7 @@ testRule({
   reject: [
     {
       code: 'background: linear-gradient(var(--color-a), var(--color-b));',
-      description: 'should now allow vars inside functions',
+      description: 'should not allow vars inside functions',
       warnings: [
         { message: messages.noNonTokenVars },
         { message: messages.noNonTokenVars },
@@ -125,5 +145,88 @@ testRule({
       description: 'should reject named multi-part properties',
       message: messages.noHardcodedColors,
     },
+  ],
+});
+
+testRule({
+  plugins: [plugin],
+  ruleName,
+  config: { spacing: true },
+  accept: [
+    {
+      code: 'gap: var(--ds-scale-300);',
+      description: 'should accept spacing token values',
+    },
+    {
+      // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+      code: `gap: ${token('spacing.scale.025')};`,
+      description: 'should accept spacing token values via calls to token()',
+    },
+    {
+      code: 'z-index: 1;',
+      description: 'should accept length values for non-spacing css rules',
+    },
+    {
+      code: 'display: var(--display-type);',
+      description: 'should accept css variables for non spacing related rules',
+    },
+  ],
+  reject: [
+    {
+      code: 'gap: var(--ds-scale-123);',
+      description: 'should reject invalid CSS variables in spacing rules',
+      warnings: [{ message: messages.noHardcodedSpacing }],
+    },
+    {
+      code: 'margin: 0;',
+      description: 'should reject 0 values for spacing rules',
+      message: messages.noHardcodedSpacing,
+    },
+    {
+      code: 'margin: 1.5;',
+      description: 'should reject floating point <length> values without units',
+      message: messages.noHardcodedSpacing,
+    },
+    {
+      code: 'gap: 12%;',
+      description: 'should reject <percentage> values',
+      message: messages.noHardcodedSpacing,
+    },
+    {
+      code: 'gap: 20px 10cm;',
+      description: 'should reject multi-part <length> values',
+      warnings: [
+        { message: messages.noHardcodedSpacing },
+        { message: messages.noHardcodedSpacing },
+      ],
+    },
+    {
+      code: 'margin: 20pt 10mm 50vh 27.6vw;',
+      description: 'should reject multi-part <length> values',
+      warnings: [
+        { message: messages.noHardcodedSpacing },
+        { message: messages.noHardcodedSpacing },
+        { message: messages.noHardcodedSpacing },
+        { message: messages.noHardcodedSpacing },
+      ],
+    },
+    {
+      code: 'padding: 20svw 1dvh var(--ds-scale-300) 17Q;',
+      description: 'should only reject multi-part <length> values',
+      warnings: [
+        { message: messages.noHardcodedSpacing },
+        { message: messages.noHardcodedSpacing },
+        { message: messages.noHardcodedSpacing },
+      ],
+    },
+    // TODO: Handle these when we decide on correct behaviour
+    // {
+    //   code: 'gap: revert-layer;',
+    //   description: 'How should we handle global CSS values?',
+    // },
+    // {
+    //   code: 'gap: calc(var(--ds-scale-300) + var(--ds-scale-300));',
+    //   description: 'How should we handle calculations on tokens?',
+    // },
   ],
 });

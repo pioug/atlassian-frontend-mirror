@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import RightArrow from '@atlaskit/icon/glyph/arrow-right-circle';
 import {
@@ -125,6 +125,14 @@ export interface NestingItemProps<
   overrides?: NestingItemOverrides;
 }
 
+const nestingItemStyles = css({
+  marginRight: gridSize(),
+  marginLeft: gridSize(),
+  // This padding bottom needs to match the section margin inside @atlaskit/menu.
+  paddingTop: gridSize() * 0.75,
+  paddingBottom: gridSize() * 0.75,
+});
+
 /**
  * NestingItem will render itself differently depending in what context it is rendered in.
  * When not open - it will render itself as an item.
@@ -209,19 +217,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
   if (currentStackId === id) {
     return (
       <NestedContext.Provider value={context}>
-        {stack.length >= 1 && (
-          <div
-            css={{
-              marginLeft: gridSize(),
-              marginRight: gridSize(),
-              // This padding bottom needs to match the section margin inside @atlaskit/menu.
-              paddingTop: gridSize() * 0.75,
-              paddingBottom: gridSize() * 0.75,
-            }}
-          >
-            {backButton}
-          </div>
-        )}
+        {stack.length >= 1 && <div css={nestingItemStyles}>{backButton}</div>}
         <NavigationContent
           testId={testId}
           showTopScrollIndicator={stack.length >= 1}

@@ -69,10 +69,7 @@ const createBaseEditorMobileBridgeWebpackConfig = async (args, config) => {
         '.ngrok.io',
       ],
       port: PORT,
-      static: {
-        directory: config.devServer?.static?.directory,
-        serveIndex: true,
-      },
+      contentBase: config.devServer.contentBase,
     },
   };
 };

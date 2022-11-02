@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 0.3.10
+
+### Patch Changes
+
+- [`61a0cc155e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61a0cc155e2) - Augment design-sytem/ensure-design-token-usage rule to include spacing
+
 ## 0.3.9
 
 ### Patch Changes

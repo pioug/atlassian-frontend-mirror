@@ -4,7 +4,6 @@ import {
   Fragment,
   KeyboardEvent,
   useCallback,
-  useEffect,
   useLayoutEffect,
   useReducer,
   ChangeEvent,
@@ -60,11 +59,9 @@ import LinkSearchError, {
 } from './link-search-error';
 import FormFooter, { testIds as formFooterTestIds } from './form-footer';
 import { getDataSource, getScreenReaderText } from './utils';
-import {
-  succeedUfoExperience,
-  ufoExperience,
-} from '../../common/analytics/experiences';
-import { useLinkPickerSessionId } from '../../controllers/session-provider';
+
+import TrackTabViewed from './track-tab-viewed';
+import TrackMount from './track-mount';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -230,30 +227,6 @@ function LinkPicker({
   const isSelectedItem = selectedItem?.url === url;
 
   const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
-
-  const linkPickerSessionId = useLinkPickerSessionId();
-
-  useLayoutEffect(() => {
-    succeedUfoExperience(ufoExperience.mounted, linkPickerSessionId);
-  }, [linkPickerSessionId]);
-
-  useEffect(() => {
-    // Anything in here is fired on component mount.
-    const event = createAnalyticsEvent(
-      createEventPayload('ui.inlineDialog.viewed.linkPicker', {}),
-    );
-
-    event.fire(ANALYTICS_CHANNEL);
-
-    return () => {
-      // Anything in here is fired on component unmount.
-      const event = createAnalyticsEvent(
-        createEventPayload('ui.inlineDialog.closed.linkPicker', {}),
-      );
-
-      event.fire(ANALYTICS_CHANNEL);
-    };
-  }, [createAnalyticsEvent]);
 
   useLayoutEffect(() => {
     if (onContentResize) {
@@ -428,6 +401,19 @@ function LinkPicker({
     [handleInsert, isSelectedItem, selectedItem, url],
   );
 
+  const handleTabChange = useCallback(
+    (activeTab: number) => {
+      dispatch({
+        selectedIndex: -1,
+        activeIndex: -1,
+        invalidUrl: false,
+        activeTab,
+      });
+      trackAttribute('tab', plugins?.[activeTab]?.tabKey ?? null);
+    },
+    [dispatch, plugins, trackAttribute],
+  );
+
   const messages = isActivePlugin ? searchMessages : linkMessages;
 
   const screenReaderDescriptionId = 'search-recent-links-field-description';
@@ -453,6 +439,7 @@ function LinkPicker({
       css={rootContainerStyles}
       onSubmit={handleSubmit}
     >
+      <TrackMount />
       {screenReaderText && (
         <Announcer
           ariaLive="assertive"
@@ -505,14 +492,8 @@ function LinkPicker({
               <Tabs
                 id={testIds.tabList}
                 testId={testIds.tabList}
-                onChange={activeTab =>
-                  dispatch({
-                    selectedIndex: -1,
-                    activeIndex: -1,
-                    invalidUrl: false,
-                    activeTab,
-                  })
-                }
+                selected={activeTab}
+                onChange={handleTabChange}
               >
                 <TabList>
                   {tabs.map(tab => (
@@ -522,6 +503,7 @@ function LinkPicker({
                   ))}
                 </TabList>
               </Tabs>
+              <TrackTabViewed activeTab={activeTab} />
             </div>
           )}
           <div css={flexColumnStyles} {...fixListHeightProps}>
@@ -536,7 +518,6 @@ function LinkPicker({
                 onSelect={handleSelected}
                 onMouseEnter={handleMouseEnterResultItem}
                 onMouseLeave={handleMouseLeaveResultItem}
-                error={error}
                 hasSearchTerm={!!queryState?.query.length}
               />
             )}

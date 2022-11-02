@@ -65,7 +65,6 @@ export interface LinkSearchListProps
   ariaLabelledBy?: string;
   role?: string;
   id?: string;
-  error?: unknown;
   hasSearchTerm?: boolean;
 }
 

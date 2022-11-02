@@ -1,5 +1,17 @@
 # @atlaskit/link-provider
 
+## 1.3.3
+
+### Patch Changes
+
+- [`f21edecaac4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f21edecaac4) - Don't initiate a fetch for a url if there is already another request in progress for the same url
+
+## 1.3.2
+
+### Patch Changes
+
+- [`6af519d2a17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6af519d2a17) - Upgrade json-ld-types from 3.0.2 to 3.1.0
+
 ## 1.3.1
 
 ### Patch Changes

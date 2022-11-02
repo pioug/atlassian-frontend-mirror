@@ -3,7 +3,7 @@
  *
  * Generates analytics utilities from the package analytics spec yaml
  *
- * @codegen <<SignedSource::05d8b1c9e46066efd0d11fa9d19c32a9>>
+ * @codegen <<SignedSource::c0fb3bb39f50f3a7c35ebd90e8903280>>
  * @codegenCommand yarn workspace @atlaskit/link-picker run codegen-analytics
  */
 export type PackageMetaDataType = {
@@ -19,12 +19,14 @@ export type LinkPickerAnalyticsContextType = {
   linkFieldContentInputSource: string | null;
   displayTextFieldContent: 'text_string' | null;
   displayTextFieldContentInputMethod: 'manual' | 'paste' | null;
+  tab: string | null;
 };
 export type FormSubmittedLinkPickerAttributesType = {};
 export type InlineDialogViewedLinkPickerAttributesType = {};
 export type InlineDialogClosedLinkPickerAttributesType = {};
 export type TextFieldUpdatedLinkFieldAttributesType = {};
 export type TextFieldUpdatedDisplayTextFieldAttributesType = {};
+export type TabViewedAttributesType = {};
 export type LinkPickerUnhandledErrorCaughtAttributesType = {
   browserInfo: string;
   error: string;
@@ -39,6 +41,7 @@ type AnalyticsEventAttributes = {
   'ui.inlineDialog.closed.linkPicker': InlineDialogClosedLinkPickerAttributesType;
   'ui.textField.updated.linkField': TextFieldUpdatedLinkFieldAttributesType;
   'ui.textField.updated.displayTextField': TextFieldUpdatedDisplayTextFieldAttributesType;
+  'ui.tab.viewed': TabViewedAttributesType;
   'ui.linkPicker.unhandledErrorCaught': LinkPickerUnhandledErrorCaughtAttributesType;
   'operational.resultsResolve.failed': ResultsResolveFailedAttributesType;
 };

@@ -137,6 +137,7 @@ describe('LinkPicker analytics', () => {
         linkFieldContentInputMethod: 'manual',
         linkFieldContentInputSource: null,
         linkState: 'newLink',
+        tab: null,
       },
     };
 
@@ -702,9 +703,164 @@ describe('LinkPicker analytics', () => {
         });
       });
     });
+
+    describe('tab tracking', () => {
+      it('should fire a `tab viewed` event when viewing a tab', async () => {
+        const { spy, urlField } = setupWithPlugins({
+          plugins: [
+            {
+              tabKey: 'tabA',
+              tabTitle: 'Tab A',
+              resolve: async () => ({
+                data: [],
+              }),
+            },
+            {
+              tabKey: 'tabB',
+              tabTitle: 'Tab B',
+              resolve: async () => ({
+                data: [],
+              }),
+            },
+          ],
+        });
+
+        expect(
+          await screen.findByRole('tab', { name: 'Tab A' }),
+        ).toBeInTheDocument();
+        // Should have fired with tab = tabA
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            eventType: 'ui',
+            actionSubject: 'tab',
+            attributes: {
+              tab: 'tabA',
+            },
+          },
+        });
+
+        spy.mockClear();
+        // Clicked
+        user.click(
+          await screen.findByRole('tab', { selected: false, name: 'Tab B' }),
+        );
+        // Expect tab to be selected
+        await screen.findByRole('tab', { selected: true, name: 'Tab B' });
+        // Should have fired with tab = tabB
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            eventType: 'ui',
+            actionSubject: 'tab',
+            attributes: {
+              tab: 'tabB',
+            },
+          },
+        });
+
+        // Typing url will hide suggestions and tabs
+        await user.type(await urlField(), 'https://www.atlassian.com');
+        // Clear url
+        spy.mockClear();
+        user.click(await screen.findByTestId(testIds.clearUrlButton));
+        // Expect tab to be visible and selected
+        await screen.findByRole('tab', { selected: true, name: 'Tab B' });
+        // Should re-fire when tabs remount
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            eventType: 'ui',
+            actionSubject: 'tab',
+            attributes: {
+              tab: 'tabB',
+            },
+          },
+        });
+      });
+
+      it('correctly sets the initial tab when mounting with plugins', async () => {
+        const { spy } = setupWithPlugins({
+          plugins: [
+            {
+              tabKey: 'tabA',
+              tabTitle: 'Tab A',
+              resolve: async () => ({
+                data: [],
+              }),
+            },
+            {
+              tabKey: 'tabB',
+              tabTitle: 'Tab B',
+              resolve: async () => ({
+                data: [],
+              }),
+            },
+          ],
+        });
+
+        // Mounted event should have context attribute
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            eventType: 'ui',
+            actionSubject: 'inlineDialog',
+            actionSubjectId: 'linkPicker',
+            attributes: {
+              tab: 'tabA',
+            },
+          },
+        });
+      });
+
+      it('should set the `tab` attribute when clicking a tab', async () => {
+        const { spy, urlField } = setupWithPlugins({
+          plugins: [
+            {
+              tabKey: 'tabA',
+              tabTitle: 'Tab A',
+              resolve: async () => ({
+                data: [],
+              }),
+            },
+            {
+              tabKey: 'tabB',
+              tabTitle: 'Tab B',
+              resolve: async () => ({
+                data: [],
+              }),
+            },
+          ],
+        });
+
+        spy.mockClear();
+        // Clicked
+        user.click(await screen.findByRole('tab', { name: 'Tab B' }));
+        // Submit
+        await user.type(await urlField(), 'https://www.atlassian.com');
+
+        // Expect for submission to have changed tab
+        spy.mockClear();
+        fireEvent.submit(await urlField());
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'submitted',
+            eventType: 'ui',
+            actionSubject: 'form',
+            attributes: {
+              tab: 'tabB',
+            },
+          },
+        });
+      });
+    });
   });
 
   describe('UFO metrics', () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
     it('should send a Success experience when mounted successfully', async () => {
       const { testIds } = setupLinkPicker();
 
@@ -717,6 +873,8 @@ describe('LinkPicker analytics', () => {
 
     it('should send a Failed experience when mount fails', async () => {
       const badUrl = new URL('https://atlassian.com') as any;
+
+      jest.spyOn(console, 'error').mockImplementation(() => {});
       setupLinkPicker({ url: badUrl });
 
       expect(mockUfoStart).toHaveBeenCalled();

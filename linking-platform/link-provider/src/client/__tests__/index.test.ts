@@ -5,7 +5,7 @@ jest.mock('../api', () => ({
 }));
 
 import { mocks } from './__fixtures__/mocks';
-import SmartCardClient, { urlResponseCache } from '..';
+import SmartCardClient, { urlResponsePromiseCache } from '..';
 import {
   ErrorResponseBody,
   isSuccessfulResponse,
@@ -23,9 +23,9 @@ const errorResponse = {
     message: 'received failure error',
   },
 };
-const successfulResponse = { status: 200, body: mocks.success };
-const notFoundResponse = { status: 200, body: mocks.notFound };
-const unauthorizedResponse = { status: 200, body: mocks.unauthorized };
+let successfulResponse: SuccessResponse;
+let notFoundResponse: SuccessResponse;
+let unauthorizedResponse: SuccessResponse;
 
 const hostname = 'https://www.google.com';
 
@@ -34,32 +34,43 @@ async function mockRequestFn(_method: string, _url: string, data?: any) {
   return data.map(({ resourceUrl }: any) => {
     const parts = resourceUrl.split(`/`);
     const key: keyof typeof mocks = parts[parts.length - 1];
-    if (['notSupported'].includes(key)) {
-      return {
-        status: (mocks[key] as ErrorResponseBody).status,
-        error: mocks[key],
-      };
-    }
-    return { status: 200, body: mocks[key] };
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        if (['notSupported'].includes(key)) {
+          resolve({
+            status: (mocks[key] as ErrorResponseBody).status,
+            error: mocks[key],
+          });
+        } else {
+          resolve({ status: 200, body: mocks[key] });
+        }
+      }, 1);
+    });
   });
 }
 
 const expectedDefaultResolveBatchUrl =
   '/gateway/api/object-resolver/resolve/batch';
 
+beforeEach(() => {
+  mockRequest = jest.fn();
+
+  successfulResponse = { status: 200, body: mocks.success };
+  notFoundResponse = { status: 200, body: mocks.notFound };
+  unauthorizedResponse = { status: 200, body: mocks.unauthorized };
+
+  // Since we use module level caching,
+  // we need to clear it up for clean test run
+  urlResponsePromiseCache.removeAll();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
+  jest.clearAllMocks();
+});
+
 describe('Smart Card: Client', () => {
-  beforeEach(() => {
-    mockRequest = jest.fn();
-    // Since we use module level caching,
-    // we need to clear it up for clean test run
-    urlResponseCache.removeAll();
-  });
-
-  afterEach(() => {
-    jest.useRealTimers();
-    jest.clearAllMocks();
-  });
-
   it('successfully sets up client with passed environment', async () => {
     mockRequest.mockImplementationOnce(async () => [successfulResponse]);
     const client = new SmartCardClient('stg');
@@ -587,15 +598,6 @@ describe('Smart Card: Client', () => {
 });
 
 describe('Smart Card Client with url caching', () => {
-  beforeEach(() => {
-    mockRequest = jest.fn();
-  });
-
-  afterEach(() => {
-    jest.useRealTimers();
-    jest.clearAllMocks();
-  });
-
   it('should not make second call for the same url when response is successful', async () => {
     mockRequest.mockImplementation(mockRequestFn);
     const client = new SmartCardClient();
@@ -761,6 +763,79 @@ describe('Smart Card Client with url caching', () => {
     await Promise.all(requestPromises3);
     // If cache was unlimited these results would be taken from cache and next assertion would fail.
     expect(mockRequest).toBeCalledTimes(4);
+  });
+
+  it('should not initiate second call for the same url if already in progress', async () => {
+    let delayedPromiseResolve1: Function = () => {};
+    let delayedPromiseResolve2: Function = () => {};
+
+    const delayedPromise1 = new Promise(resolve => {
+      delayedPromiseResolve1 = resolve;
+    });
+    const delayedPromise2 = new Promise(resolve => {
+      delayedPromiseResolve2 = resolve;
+    });
+
+    mockRequest.mockReturnValueOnce(delayedPromise1);
+    mockRequest.mockReturnValueOnce(delayedPromise2);
+
+    const client = new SmartCardClient();
+
+    const firstSuccessResponsePromise = client.fetchData(
+      `${hostname}/first/success`,
+    );
+
+    await flushPromises();
+
+    const secondSuccessResponsePromise = client.fetchData(
+      `${hostname}/first/success`,
+    );
+
+    delayedPromiseResolve1([successfulResponse]);
+
+    const firstSuccessResponse = await firstSuccessResponsePromise;
+
+    delayedPromiseResolve2([successfulResponse]);
+
+    const secondSuccessResponse = await secondSuccessResponsePromise;
+
+    expect(mockRequest).toBeCalledTimes(1);
+    expect(mockRequest).toBeCalledWith('post', expectedDefaultResolveBatchUrl, [
+      {
+        resourceUrl: `${hostname}/first/success`,
+      },
+    ]);
+    expect(firstSuccessResponse).toBe(mocks.success);
+    expect(secondSuccessResponse).toBe(mocks.success);
+  });
+
+  it('should not cache request that end with promise rejection', async () => {
+    mockRequest.mockRejectedValueOnce([new Error('some error')]);
+    mockRequest.mockResolvedValueOnce([successfulResponse]);
+
+    const client = new SmartCardClient();
+
+    const failedResponsePromise = client.fetchData(`${hostname}/first/success`);
+
+    await flushPromises();
+
+    try {
+      await failedResponsePromise;
+    } catch (e) {
+      expect(e).toEqual(expect.any(Error));
+    }
+
+    const successResponsePromise = await client.fetchData(
+      `${hostname}/first/success`,
+    );
+
+    expect(mockRequest).toBeCalledTimes(2);
+    expect(mockRequest).toBeCalledWith('post', expectedDefaultResolveBatchUrl, [
+      {
+        resourceUrl: `${hostname}/first/success`,
+      },
+    ]);
+    expect(successResponsePromise).toBe(mocks.success);
   });
 });
 

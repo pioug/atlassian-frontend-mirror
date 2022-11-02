@@ -5,7 +5,7 @@ import {
   UserPreferences,
 } from '../types';
 import { mocks } from '../../client/__tests__/__fixtures__/mocks';
-import { urlResponseCache } from '../../client';
+import { urlResponsePromiseCache } from '../../client';
 
 const getMockProvidersResponse = ({
   userPreferences,
@@ -104,7 +104,7 @@ describe('providers > editor', () => {
   beforeEach(() => {
     // Since we use module level caching,
     // we need to clear it up for clean test run
-    urlResponseCache.removeAll();
+    urlResponsePromiseCache.removeAll();
     mockFetch = jest.fn();
     (global as any).fetch = mockFetch;
   });

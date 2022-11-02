@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.11.2
+
+### Patch Changes
+
+- [`841110b3cf0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/841110b3cf0) - Adds tab attribute to analytics context
+
 ## 1.11.1
 
 ### Patch Changes

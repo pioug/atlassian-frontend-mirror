@@ -60,6 +60,13 @@ context:
         How the user input the text entered into the display text input field.
         NULL if there is no text in display text input field.
 
+    tab:
+      type: string
+      required: false
+      description: |
+        The tab that the user is on when they perform their UI action in the Link Picker
+        NULL is default
+
 events:
   - form submitted (linkPicker):
       type: ui
@@ -92,6 +99,13 @@ events:
   - textField updated (displayTextField):
       type: ui
       description: fired when the user's focus moves away from the display text input field after modifying its value
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkPickerAnalyticsContext
+
+  - tab viewed:
+      type: ui
+      description: fired when the user views a tab
       attributes:
         <<: *PackageMetaDataContext
         <<: *LinkPickerAnalyticsContext

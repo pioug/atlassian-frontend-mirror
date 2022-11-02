@@ -29,9 +29,12 @@ const MAX_BATCH_SIZE = 50;
 const MIN_TIME_BETWEEN_BATCHES = 250;
 const URL_RESPONSE_CACHE_SIZE = 100;
 
-export const urlResponseCache = new LRUCache<string, SuccessResponse>(
-  URL_RESPONSE_CACHE_SIZE,
-);
+// Contains cached mapping between url and a promise of a response.
+// Note that promise can be either unsettled/ongoing OR successfully resolved (not an error or non-resolved)
+export const urlResponsePromiseCache = new LRUCache<
+  string,
+  Promise<SuccessResponse | ErrorResponse>
+>(URL_RESPONSE_CACHE_SIZE);
 
 export default class CardClient implements CardClientInterface {
   private resolverUrl: string;
@@ -176,19 +179,30 @@ export default class CardClient implements CardClientInterface {
   public async fetchData(url: string): Promise<JsonLd.Response> {
     const hostname = new URL(url).hostname;
     const loader = this.getLoader(hostname);
-    let response: SuccessResponse | ErrorResponse;
+    let responsePromise: Promise<SuccessResponse | ErrorResponse> | undefined;
 
-    const cachedResponse = urlResponseCache.get(url);
-    if (cachedResponse) {
-      response = cachedResponse;
-    } else {
-      response = await loader.load(url);
-      if (
-        isSuccessfulResponse(response) &&
-        getStatus(response.body) === 'resolved'
-      ) {
-        urlResponseCache.put(url, response);
-      }
+    responsePromise = urlResponsePromiseCache.get(url);
+    if (!responsePromise) {
+      responsePromise = loader.load(url);
+      urlResponsePromiseCache.put(url, responsePromise);
+    }
+
+    let response: SuccessResponse | ErrorResponse;
+    try {
+      response = await responsePromise;
+    } catch (e) {
+      // Technically this never happens, since batchResolve handles errors and doesn't throw,
+      // But just in case.
+      urlResponsePromiseCache.remove(url);
+      throw e;
+    }
+
+    const isUnresolvedLink =
+      !isSuccessfulResponse(response) ||
+      getStatus(response.body) !== 'resolved';
+    if (isUnresolvedLink) {
+      // We want consequent calls for fetchData() to cause actual http call
+      urlResponsePromiseCache.remove(url);
     }
 
     if (!isSuccessfulResponse(response)) {
@@ -257,6 +271,7 @@ export default class CardClient implements CardClientInterface {
 
     return response.providers;
   }
+
   private mapErrorResponse(response: ErrorResponse, hostname: string = '') {
     // Catch non-200 server responses to fallback or return useful information.
     if (response.error) {

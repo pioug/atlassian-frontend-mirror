@@ -8,6 +8,7 @@ import React, {
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { LinkPickerAnalyticsContextType } from '../../analytics.codegen';
+import { LinkPickerProps } from '../../';
 import { ANALYTICS_CHANNEL } from '../constants';
 import { normalizeUrl } from '../utils/url';
 
@@ -41,6 +42,7 @@ const DEFAULT_CONTEXT_ATTRIBUTES: LinkPickerAnalyticsContextType = {
   linkFieldContentInputSource: null,
   displayTextFieldContent: null,
   displayTextFieldContentInputMethod: null,
+  tab: null,
 };
 
 const LinkPickerAnalyticsContext = React.createContext<AnalyticsContextType>({
@@ -51,9 +53,10 @@ const LinkPickerAnalyticsContext = React.createContext<AnalyticsContextType>({
 
 /**
  * TODO: Should we hook this into the form state/reducer?
+ * This function continues to duplicate / assume logic that runs in the picker
  */
 const contextAttributesFromIntialProps = <
-  P extends { url?: string; displayText?: string }
+  P extends Pick<LinkPickerProps, 'url' | 'displayText' | 'plugins'>
 >(
   props: P,
 ) => {
@@ -61,6 +64,8 @@ const contextAttributesFromIntialProps = <
     linkState: normalizeUrl(props.url) ? 'editLink' : 'newLink',
     linkFieldContent: normalizeUrl(props.url) ? 'url' : null,
     displayTextFieldContent: Boolean(props.displayText) ? 'text_string' : null,
+    // TODO: Assumes we alway load the first plugin as the current tab
+    tab: props.plugins?.[0]?.tabKey ?? null,
   } as const;
 };
 

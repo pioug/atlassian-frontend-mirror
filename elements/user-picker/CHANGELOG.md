@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.5.1
+
+### Patch Changes
+
+- [`c522aeea1da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c522aeea1da) - bumped up @atlaskit/tokens version to ^0.10.19
+
 ## 9.5.0
 
 ### Minor Changes

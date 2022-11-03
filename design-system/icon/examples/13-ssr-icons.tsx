@@ -15,16 +15,21 @@ import ArrowLeftCircleIcon from '../glyph/arrow-left-circle';
 import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
 import ArrowUpIcon from '../glyph/arrow-up';
+import { token } from '@atlaskit/tokens';
 
 const iconRowStyles = css({
   display: 'flex;',
-  padding: '8px 0',
+  padding: `${token('spacing.scale.100', '8px')} ${token(
+    'spacing.scale.0',
+    '0px',
+  )}`,
   justifyContent: 'flex-start',
   flexDirection: 'row',
 });
 
 const iconWrapperStyles = css({
-  margin: 4,
+  // TODO Delete this comment after verifying spacing token -> previous value `4`
+  margin: token('spacing.scale.050', '4px'),
 });
 
 const demoIcons = [

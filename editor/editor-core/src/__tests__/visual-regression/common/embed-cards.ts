@@ -2,6 +2,7 @@ import {
   waitForLoadedImageElements,
   waitForElementCount,
   evaluateTeardownMockDate,
+  waitForElementCountTimeouts,
 } from '@atlaskit/visual-regression/helper';
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { snapshot, initFullPageEditorWithAdf } from '../_utils';
@@ -18,8 +19,7 @@ import {
 } from '@atlaskit/media-integration-test-helpers';
 
 describe('Embed Cards:', () => {
-  // FIXME: This test was automatically skipped due to failure on 20/07/2022: https://product-fabric.atlassian.net/browse/ED-15297
-  it.skip('displays embed properly with different layouts', async () => {
+  it('displays embed properly with different layouts', async () => {
     const { page } = global;
 
     await initFullPageEditorWithAdf(
@@ -42,14 +42,22 @@ describe('Embed Cards:', () => {
       true,
     );
     await evaluateTeardownMockDate(page);
-    await waitForElementCount(page, embedCardSelector(), 6);
+    await waitForElementCount(page, embedCardSelector(), 6, {
+      timeout: waitForElementCountTimeouts.LONG,
+    });
     await waitForSuccessfullyResolvedEmbedCard(page, 6);
-    await waitForLoadedImageElements(page, 3000);
+    await waitForLoadedImageElements(page, waitForElementCountTimeouts.LONG);
 
     // wait for iframes to be loaded
-    await waitForElementCount(page, '[originalheight="282"]', 5);
-    await waitForElementCount(page, '[originalheight="316"]', 1);
-    await waitForElementCount(page, '[data-iframe-loaded="true"]', 6);
+    await waitForElementCount(page, '[originalheight="282"]', 5, {
+      timeout: waitForElementCountTimeouts.LONG,
+    });
+    await waitForElementCount(page, '[originalheight="316"]', 1, {
+      timeout: waitForElementCountTimeouts.LONG,
+    });
+    await waitForElementCount(page, '[data-iframe-loaded="true"]', 6, {
+      timeout: waitForElementCountTimeouts.LONG,
+    });
     await snapshot(page);
   });
 

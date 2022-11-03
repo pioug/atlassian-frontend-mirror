@@ -90,6 +90,7 @@ export enum SmartLinkWidth {
  *    (src/view/FlexibleCard/components/blocks/utils.tsx)
  */
 export enum ElementName {
+  AttachmentCount = 'AttachmentCount',
   AuthorGroup = 'AuthorGroup',
   CollaboratorGroup = 'CollaboratorGroup',
   CommentCount = 'CommentCount',
@@ -181,6 +182,7 @@ export enum IconType {
   Forbidden = 'Default:Forbidden',
 
   // Badge
+  Attachment = 'Badge:Attachment',
   Comment = 'Badge:Comment',
   View = 'Badge:View',
   React = 'Badge:React',

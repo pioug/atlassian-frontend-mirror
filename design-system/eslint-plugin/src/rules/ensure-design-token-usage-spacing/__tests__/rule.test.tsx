@@ -14,6 +14,11 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     {
       code: `const styles = css({ gap: token('spacing.scale.100', '8px') })`,
     },
+    {
+      code: `const someValue = 8;\nconst styles = css({
+      padding: \`\${token('spacing.scale.100', '8px')} \${token('spacing.scale.100', '8px')}\`,
+    });`,
+    },
   ],
   invalid: [
     // just literals

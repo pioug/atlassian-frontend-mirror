@@ -8,6 +8,12 @@ import { IconType, MediaType } from '../../constants';
  */
 export type FlexibleUiDataContext = {
   /**
+   * Contains the number of attachments on the linked resource.
+   * @type number
+   * @see AttachmentCount
+   */
+  attachmentCount?: number;
+  /**
    * An array containing data used to populate the AuthorGroup element.
    * @see AvatarGroup
    */

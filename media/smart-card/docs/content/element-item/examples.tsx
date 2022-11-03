@@ -4,6 +4,21 @@ import customMd from '../../utils/custom-md';
 
 export default customMd`
 
+### Attachments
+
+A \`AttachmentCount\` element shows the number of subscribers on the link resource.
+Its data is mapped to \`atlassian:attachmentCount\` from a link resolver.
+
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/element-attachment-count').default
+    }
+    source={require('!!raw-loader!../../../examples/content/element-attachment-count')}
+  />
+)}
+
 ### Authors
 
 A \`AuthorGroup\` element shows the group of people who have attributed to the link resource.
@@ -248,6 +263,7 @@ ${(
     source={require('!!raw-loader!../../../examples/content/element-subscriber-count')}
   />
 )}
+
 
 ### Views
 

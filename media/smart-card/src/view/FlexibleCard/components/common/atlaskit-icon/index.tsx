@@ -71,6 +71,7 @@ const importIconMapper: {
   [IconType.Forbidden]: () => import(/* webpackChunkName: "glyphForbidden" */ '@atlaskit/icon/glyph/lock-filled'),
 
   // Badge
+  [IconType.Attachment]: () => import(/* webpackChunkName: "glyphAttachment" */ '@atlaskit/icon/glyph/attachment'),
   [IconType.Comment]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/comment'),
   [IconType.View]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/watch'),
   [IconType.React]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/like'),

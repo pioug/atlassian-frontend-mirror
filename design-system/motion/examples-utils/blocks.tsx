@@ -39,7 +39,8 @@ export const Block = forwardRef<HTMLDivElement, BlockProps>(
           display: 'flex',
           width: `${size}px`,
           height: `${size}px`,
-          margin: '16px',
+          // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
+          margin: token('spacing.scale.200', '16px'),
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: N0,

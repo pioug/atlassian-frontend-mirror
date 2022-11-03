@@ -3,7 +3,11 @@ import ModernAnalyticsListener from './ModernAnalyticsListener';
 import { AnalyticsListenerFunction } from './types';
 
 let ExportedAnalyticsListener: AnalyticsListenerFunction;
-if (process?.env?.['ANALYTICS_NEXT_MODERN_CONTEXT']) {
+if (
+  typeof process !== 'undefined' &&
+  process !== null &&
+  process.env?.['ANALYTICS_NEXT_MODERN_CONTEXT']
+) {
   ExportedAnalyticsListener = ModernAnalyticsListener as any;
 } else {
   ExportedAnalyticsListener = LegacyAnalyticsListener as any;

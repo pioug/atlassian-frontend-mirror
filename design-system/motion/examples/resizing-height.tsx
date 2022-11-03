@@ -62,9 +62,11 @@ export default () => {
           css={css({
             width: '100%',
             maxWidth: '500px',
-            marginTop: '24px',
+            // TODO Delete this comment after verifying spacing token -> previous value `'24px'`
+            marginTop: token('spacing.scale.300', '24px'),
             marginBottom: '56px',
-            paddingBottom: '8px',
+            // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
+            paddingBottom: token('spacing.scale.100', '8px'),
             borderRadius: '3px',
             boxShadow: token(
               'elevation.shadow.overlay',
@@ -83,8 +85,10 @@ export default () => {
                 display: 'block',
                 boxSizing: 'border-box',
                 width: '100%',
-                marginBottom: '8px',
-                padding: '16px',
+                // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
+                marginBottom: token('spacing.scale.100', '8px'),
+                // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
+                padding: token('spacing.scale.200', '16px'),
                 border: 'none',
                 borderRadius: '3px 3px 0 0',
                 color: '#172b4d',
@@ -104,7 +108,8 @@ export default () => {
                     <div
                       css={css({
                         display: 'flex',
-                        padding: '16px',
+                        // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
+                        padding: token('spacing.scale.200', '16px'),
                         fontSize: '16px',
                         fontWeight: 500,
                         ':hover': {

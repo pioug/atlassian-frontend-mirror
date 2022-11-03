@@ -2,6 +2,7 @@ import { FlexibleUiDataContext } from '../state/flexible-ui-context/types';
 import { IconType, MediaType } from '../constants';
 
 const context: FlexibleUiDataContext = {
+  attachmentCount: 3,
   commentCount: 10,
   viewCount: 21,
   reactCount: 31,

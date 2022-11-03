@@ -157,6 +157,7 @@ export type OnActionMenuOpenChangeOptions = {
  * A type that contains all the possible combinations of elements with their corresponding props.
  */
 export type ElementItemProps =
+  | AttachmentCount
   | AuthorGroup
   | CollaboratorGroup
   | CommentCount
@@ -181,6 +182,13 @@ export type ElementItemProps =
   | ViewCount
   | VoteCount;
 
+/**
+ * Represents the props available for an AttachmentCount element.
+ * @see AttachmentCount
+ */
+export type AttachmentCount = {
+  name: ElementName.AttachmentCount;
+};
 /**
  * Represents the props available for an AuthorGroup element.
  * @see AuthorGroup

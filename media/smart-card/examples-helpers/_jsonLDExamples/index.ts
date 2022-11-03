@@ -20,3 +20,4 @@ export { ConfluencePage } from './atlassian.textDigitalDocument';
 export { ConfluenceSpace } from './atlassian.project';
 export { ConfluenceTemplate } from './atlassian.template';
 export { ConfluenceBlogPost } from './schema.blogpost';
+export { TrelloCard, TrelloBoard } from './provider.trello';

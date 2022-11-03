@@ -6,6 +6,7 @@ export default () => (
   <ExampleContainer>
     <MetadataBlock
       primary={[
+        { name: ElementName.AttachmentCount },
         { name: ElementName.AuthorGroup },
         { name: ElementName.CreatedBy },
         { name: ElementName.CreatedOn },
@@ -20,6 +21,7 @@ export default () => (
         { name: ElementName.VoteCount },
         { name: ElementName.ReactCount },
         // Repeat
+        { name: ElementName.AttachmentCount },
         { name: ElementName.AuthorGroup },
         { name: ElementName.CreatedBy },
         { name: ElementName.CreatedOn },

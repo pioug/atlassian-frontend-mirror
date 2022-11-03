@@ -124,6 +124,13 @@ const rule: Rule.RuleModule = {
           }
 
           if (
+            isNodeOfType(node.value, 'TemplateLiteral') &&
+            node.value.expressions.some(isDecendantOfGlobalToken)
+          ) {
+            return;
+          }
+
+          if (
             node.value.type === 'Literal' &&
             !isValidSpacingValue(node.value.value, fontSize)
           ) {

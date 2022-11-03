@@ -8,6 +8,7 @@ import Lorem from 'react-lorem-component';
 
 import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
 import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
+import { token } from '@atlaskit/tokens';
 
 import {
   Spotlight,
@@ -34,7 +35,7 @@ const buttonStyles = css({
   display: 'flex',
   width: '36px',
   height: '32px',
-  marginRight: '4px',
+  marginRight: token('spacing.scale.050', '4px'),
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: 'rgba(255, 255, 255, 0.1)',

@@ -22,7 +22,7 @@ const sampleComponents = [
   BookIcon,
 ];
 
-const randomIcon = () => {
+const RandomIcon = () => {
   const Icon = nullthrows(sample(sampleComponents));
   return <Icon label="Random icon" />;
 };
@@ -71,14 +71,14 @@ const AnimationDemo: React.FC = () => {
       </label>
       <hr />
       <div>
-        {randomIcon()}
-        {randomIcon()}
-        {randomIcon()}
-        {randomIcon()}
-        {randomIcon()}
-        {randomIcon()}
-        {randomIcon()}
-        {randomIcon()}
+        <RandomIcon />
+        <RandomIcon />
+        <RandomIcon />
+        <RandomIcon />
+        <RandomIcon />
+        <RandomIcon />
+        <RandomIcon />
+        <RandomIcon />
       </div>
     </div>
   );

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.2.10
+
+### Patch Changes
+
+- [`fc570a62923`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc570a62923) - [ux] Fixed a regression which could prevent items from collapsing.
+
 ## 2.2.9
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-next",
-  "version": "8.3.4",
+  "version": "8.3.5",
   "description": "React components, HOCs and hooks to assist with tracking user activity with React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

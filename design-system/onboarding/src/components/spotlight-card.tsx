@@ -9,11 +9,7 @@ import Button, {
 import Heading from '@atlaskit/heading';
 import { N0, N50A, N60A, P300 } from '@atlaskit/theme/colors';
 import { createTheme, ThemeProp } from '@atlaskit/theme/components';
-import {
-  borderRadius,
-  gridSize as getGridSize,
-  layers,
-} from '@atlaskit/theme/constants';
+import { borderRadius, layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { DialogActionItem, DialogActionItemContainer } from '../styled/dialog';
@@ -21,17 +17,19 @@ import { Actions } from '../types';
 
 import { spotlightButtonTheme } from './theme';
 
-const gridSize = getGridSize();
-
 const bodyStyles = css({
   display: 'flex',
-  padding: `${gridSize * 2}px ${gridSize * 2.5}px`,
+  padding: `${token('spacing.scale.200', '16px')} ${token(
+    'spacing.scale.250',
+    '20px',
+  )}`,
   flexDirection: 'column',
 });
 
 const defaultHeaderStyles = css({
   display: 'flex',
-  paddingBottom: `${gridSize}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
+  paddingBottom: token('spacing.scale.100', '8px'),
   alignItems: 'baseline',
   justifyContent: 'space-between',
 });
@@ -42,7 +40,8 @@ const DefaultHeader: React.FC<{}> = ({ children }) => (
 
 const defaultFooterStyles = css({
   display: 'flex',
-  paddingTop: `${gridSize}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
+  paddingTop: token('spacing.scale.100', '8px'),
   alignItems: 'center',
   justifyContent: 'space-between',
 });

@@ -3,13 +3,12 @@ import { FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
-
-const gridSize = getGridSize();
+import { token } from '@atlaskit/tokens';
 
 const spinnerContainerStyles = css({
-  width: `${3 * gridSize}px`,
-  marginLeft: `${2 * gridSize}px`,
+  width: token('spacing.scale.300', '24px'),
+  // TODO Delete this comment after verifying spacing token -> previous value ``${2 * gridSize}px``
+  marginLeft: token('spacing.scale.200', '16px'),
 });
 
 /**

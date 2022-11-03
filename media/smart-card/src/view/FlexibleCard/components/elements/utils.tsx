@@ -28,6 +28,10 @@ const elementMappings: Record<
   ElementName,
   { component: React.FC<any> | undefined; props?: any }
 > = {
+  [ElementName.AttachmentCount]: {
+    component: Badge,
+    props: { icon: IconType.Attachment },
+  },
   [ElementName.AuthorGroup]: { component: AvatarGroup },
   [ElementName.CollaboratorGroup]: { component: AvatarGroup },
   [ElementName.CommentCount]: {
@@ -104,6 +108,7 @@ const getData = (
     case ElementName.AuthorGroup:
     case ElementName.CollaboratorGroup:
       return toAvatarGroupProps(data as AvatarItemProps[]);
+    case ElementName.AttachmentCount:
     case ElementName.CommentCount:
     case ElementName.ViewCount:
     case ElementName.ReactCount:

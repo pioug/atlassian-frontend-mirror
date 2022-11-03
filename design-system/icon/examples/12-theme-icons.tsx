@@ -20,16 +20,21 @@ import ArrowUpIcon from '../glyph/arrow-up';
 import { useState } from 'react';
 import Button from '@atlaskit/button';
 import { background, text } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const iconRowStyles = css({
   display: 'flex',
-  padding: '8px 0',
+  padding: `${token('spacing.scale.100', '8px')} ${token(
+    'spacing.scale.0',
+    '0px',
+  )}`,
   justifyContent: 'flex-start',
   flexDirection: 'row',
 });
 
 const iconWrapperStyles = css({
-  margin: 4,
+  // TODO Delete this comment after verifying spacing token -> previous value `4`
+  margin: token('spacing.scale.050', '4px'),
 });
 
 const demoIcons = [

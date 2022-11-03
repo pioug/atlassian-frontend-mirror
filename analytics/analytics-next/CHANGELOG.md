@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 8.3.5
+
+### Patch Changes
+
+- [`ccdc8e150f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccdc8e150f9) - AFO-771 Analytics next - fix node process check
+
 ## 8.3.4
 
 ### Patch Changes

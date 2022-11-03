@@ -1,9 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
-
-const gridSize = getGridSize();
+import { token } from '@atlaskit/tokens';
 
 const imageStyles = css({
   maxWidth: '100%',
@@ -12,14 +10,17 @@ const imageStyles = css({
 
 const actionItemContainerStyles = css({
   display: 'flex',
-  margin: `0 -${gridSize / 2}px`,
+  margin: `${token('spacing.scale.0', '0px')} -4px`,
   /* When there is more than one action, place primary action visually on the
   right, but keep it's position as the first focusable element in the DOM */
   flexDirection: 'row-reverse',
 });
 
 const actionItemStyles = css({
-  margin: `0 ${gridSize / 2}px`,
+  margin: `${token('spacing.scale.0', '0px')} ${token(
+    'spacing.scale.050',
+    '4px',
+  )}`,
 });
 
 /**

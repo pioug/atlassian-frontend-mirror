@@ -13,6 +13,13 @@ import { MediaProps } from './media/types';
 // This will help reducing the code for mapping elements inside
 // createElement and renderElementItems
 /**
+ * Creates a AttachmentCount Badge element using the data from AttachmentCount in the Flexible UI Context.
+ * @see Badge
+ */
+export const AttachmentCount = createElement<BadgeProps>(
+  ElementName.AttachmentCount,
+);
+/**
  * An AvatarGroup element using the data from AuthorGroup in the Flexible UI Context.
  * @see AvatarGroup
  */

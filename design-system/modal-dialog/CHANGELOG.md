@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.4.1
+
+### Patch Changes
+
+- [`9de88fa1e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de88fa1e1e) - Internal changes to include spacing tokens in component implementations.
+
 ## 12.4.0
 
 ### Minor Changes

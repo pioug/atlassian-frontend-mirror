@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
 import { iconColor, titleIconMargin } from './internal/constants';
@@ -18,7 +19,8 @@ const titleStyles = css({
   display: 'flex',
   minWidth: 0,
 
-  margin: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
   alignItems: 'center',
 
   fontSize: `${fontSize}px`,

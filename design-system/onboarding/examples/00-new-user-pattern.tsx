@@ -4,11 +4,9 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { SpotlightCard } from '../src';
-
-const gridSize = getGridSize();
 
 const wrapperStyles = css({
   display: 'flex',
@@ -25,11 +23,13 @@ const headingStyles = css({
 });
 
 const taglineStyles = css({
-  paddingBottom: `${gridSize * 2}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize * 2}px``
+  paddingBottom: token('spacing.scale.200', '16px'),
 });
 
 const optionStyles = css({
-  padding: `${gridSize / 2}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize / 2}px``
+  padding: token('spacing.scale.050', '4px'),
 });
 
 const Option: React.FC<{}> = ({ children }) => (

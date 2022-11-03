@@ -10,7 +10,6 @@ import Button from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { N30, R400, subtleText } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
@@ -26,7 +25,8 @@ const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];
 
 const containerStyles = css({
-  padding: `${gridSize() * 2}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() * 2}px``
+  padding: token('spacing.scale.200', '16px'),
 });
 
 const titleStyles = css({

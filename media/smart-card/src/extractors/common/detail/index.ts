@@ -5,3 +5,5 @@ export { extractProgrammingLanguage } from './extractProgrammingLanguage';
 export type { LinkProgrammingLanguageType } from './extractProgrammingLanguage';
 export { extractSubscriberCount } from './extractSubscriberCount';
 export type { LinkSubscriberType } from './extractSubscriberCount';
+export { extractAttachmentCount } from './extractAttachmentCount';
+export type { LinkAttachmentType } from './extractAttachmentCount';

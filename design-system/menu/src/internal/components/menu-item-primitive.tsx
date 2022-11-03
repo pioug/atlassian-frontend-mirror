@@ -21,11 +21,11 @@ const defaultRender: RenderFunction = (Component, props) => (
 
 const gridSize = gridSizeFn();
 const fontSize = fontSizeFn();
-const itemTopBottomPadding = gridSize;
-const itemSidePadding = gridSize * 2.5;
-const itemElemSpacing = gridSize * 1.5;
+const itemTopBottomPadding = token('spacing.scale.100', '8px');
+const itemSidePadding = token('spacing.scale.250', '20px');
+const itemElemSpacing = token('spacing.scale.150', '12px');
 const itemDescriptionSpacing = gridSize * 0.375;
-const itemMinHeight = gridSize * 5;
+const itemMinHeight = token('spacing.scale.500', '40px');
 
 const beforeElementStyles = css({
   display: 'flex',
@@ -75,8 +75,9 @@ const primitiveStyles = css({
   boxSizing: 'border-box',
   width: '100%',
   minHeight: itemMinHeight,
-  margin: 0,
-  padding: `${itemTopBottomPadding}px ${itemSidePadding}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
+  padding: `${itemTopBottomPadding} ${itemSidePadding}`,
   alignItems: 'center',
   border: 0,
   fontSize: fontSize,

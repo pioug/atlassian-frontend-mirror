@@ -21,6 +21,7 @@ export const ElementDisplaySchema: Record<
   ElementName,
   ElementDisplaySchemaType[]
 > = {
+  [ElementName.AttachmentCount]: ['inline'],
   [ElementName.AuthorGroup]: ['inline'],
   [ElementName.CollaboratorGroup]: ['inline'],
   [ElementName.CommentCount]: ['inline'],

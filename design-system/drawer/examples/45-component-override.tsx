@@ -23,8 +23,10 @@ const iconButtonStyles = css({
   display: 'flex',
   width: '40px',
   height: '40px',
-  marginBottom: '16px',
-  padding: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
+  marginBottom: token('spacing.scale.200', '16px'),
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  padding: token('spacing.scale.0', '0px'),
   alignItems: 'center',
   justifyContent: 'center',
   background: 0,

@@ -9,6 +9,7 @@ import {
   TEST_URL,
 } from '../../common/__mocks__/jsonld';
 import {
+  extractAttachmentCount,
   extractCommentCount,
   extractCreatedBy,
   extractDueOn,
@@ -18,6 +19,21 @@ import {
   extractSubscriberCount,
   extractTargetBranch,
 } from '../utils';
+
+describe('extractAttachmentCount', () => {
+  it('returns undefined when no attachment count present', () => {
+    expect(extractAttachmentCount(TEST_BASE_DATA)).toBe(undefined);
+  });
+
+  it('returns number and icon when attachment count present', () => {
+    const value = extractAttachmentCount({
+      ...TEST_BASE_DATA,
+      'atlassian:attachmentCount': 3,
+    } as JsonLd.Data.BaseData);
+    expect(value).toBeDefined();
+    expect(value).toBe(3);
+  });
+});
 
 describe('extractCommentCount', () => {
   it('returns undefined when no comment count present', () => {

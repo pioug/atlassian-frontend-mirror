@@ -30,7 +30,8 @@ const iconExplorerLinkStyles = css({
 
 const iconModalHeaderStyles = css({
   display: 'flex',
-  padding: 20,
+  // TODO Delete this comment after verifying spacing token -> previous value `20`
+  padding: token('spacing.scale.250', '20px'),
   alignItems: 'center',
   justifyContent: 'flex-start',
   flexDirection: 'row',

@@ -41,8 +41,8 @@ const ItemVariants = () => {
         or of Congress) or other legislative instrument.
       </ButtonItem>
       <ButtonItem
-        iconBefore={<StarIcon label="Icon before" />}
-        iconAfter={<StarIcon label="Icon after" />}
+        iconBefore={<StarIcon label="" />}
+        iconAfter={<StarIcon label="" />}
         testId="item-button-at-scale-before-after"
         description="The long title is intended to provide a summarised description of the purpose or scope of the instrument."
       >
@@ -71,20 +71,17 @@ const ItemVariants = () => {
       </ButtonItem>
       <ButtonItem
         testId="item-button-before"
-        iconBefore={<EmojiCustomIcon label="Icon before" />}
+        iconBefore={<EmojiCustomIcon label="" />}
       >
         With iconBefore prop
       </ButtonItem>
-      <ButtonItem
-        testId="item-button-after"
-        iconAfter={<StarIcon label="Icon before" />}
-      >
+      <ButtonItem testId="item-button-after" iconAfter={<StarIcon label="" />}>
         With iconAfter prop
       </ButtonItem>
       <ButtonItem
         testId="item-button-before-after"
-        iconBefore={<EmojiCustomIcon label="icon before" />}
-        iconAfter={<StarIcon label="icon after" />}
+        iconBefore={<EmojiCustomIcon label="" />}
+        iconAfter={<StarIcon label="" />}
       >
         With both iconAfter and iconBefore prop
       </ButtonItem>
@@ -159,8 +156,8 @@ const ItemVariants = () => {
           testId="item-custom-router"
           description="some custom text"
           isSelected
-          iconAfter={<StarIcon label="icon after" />}
-          iconBefore={<EmojiCustomIcon label="icon before" />}
+          iconAfter={<StarIcon label="" />}
+          iconBefore={<EmojiCustomIcon label="" />}
         >
           I'm a react-router link rendered using CustomItem
         </CustomItem>

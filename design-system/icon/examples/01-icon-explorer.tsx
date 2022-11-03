@@ -16,6 +16,7 @@ import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
 import metadata from '../src/metadata';
 import IconExplorerCell from './utils/icon-explorer-cell';
 import logoIcons from '../utils/logo-icons';
+import { token } from '@atlaskit/tokens';
 
 type IconsList = Record<string, IconData>;
 
@@ -131,20 +132,23 @@ const getKeywords = (logoMap: LogoMap) =>
   );
 
 const gridWrapperStyles = css({
-  padding: '10px 5px 0',
+  padding: `${token('spacing.scale.100', '10px')} ${token(
+    'spacing.scale.050',
+    '5px',
+  )} ${token('spacing.scale.0', '0px')}`,
 });
 
 const iconExplorerGridStyles = css({
   display: 'flex',
-  marginTop: 10,
+  marginTop: token('spacing.scale.100', '10px'),
   justifyContent: 'flex-start',
   flexDirection: 'row',
   flexWrap: 'wrap',
 });
 
 const noIconsStyles = css({
-  marginTop: 10,
-  padding: 10,
+  marginTop: token('spacing.scale.100', '10px'),
+  padding: token('spacing.scale.100', '10px'),
 });
 
 const filterIcons = (icons: IconsList, query: string) => {

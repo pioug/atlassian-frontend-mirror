@@ -14,6 +14,7 @@ const yesterday = new Date().setDate(today.getDate() - 1);
 const lastMonth = new Date().setDate(today.getMonth() - 1);
 const nextMonth = new Date().setDate(today.getMonth() + 1);
 const context = getContext({
+  attachmentCount: 3,
   authorGroup: [{ name: 'Aliza', src: avatar3 }],
   collaboratorGroup: [
     { name: 'Steve', src: avatar2 },

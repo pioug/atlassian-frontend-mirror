@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import UndoIcon from '@atlaskit/icon/glyph/editor/undo';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 import { h400 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 import { SpotlightCard } from '../src';
 
@@ -20,7 +21,8 @@ const wrapperStyles = css({
   display: 'flex',
   width: '600px',
   height: '500px',
-  padding: '16px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
+  padding: token('spacing.scale.200', '16px'),
   alignItems: 'space-evenly',
   justifyContent: 'space-evenly',
   flexDirection: 'column',

@@ -14,7 +14,8 @@ import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
 const targetContainerStyles = css({
   width: 200,
   height: 400,
-  margin: 20,
+  // TODO Delete this comment after verifying spacing token -> previous value `20`
+  margin: token('spacing.scale.250', '20px'),
 });
 
 const targetStyles = css({

@@ -5,18 +5,20 @@ import { css, jsx } from '@emotion/core';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { N20A } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import SkeletonShimmer from '../internal/components/skeleton-shimmer';
 import type { SkeletonHeadingItemProps } from '../types';
 
 const skeletonStyles = css({
-  padding: `0 ${gridSize() * 2.5}px`,
+  padding: `${token('spacing.scale.0', '0px')} ${token(
+    'spacing.scale.250',
+    '20px',
+  )}`,
   '::after': {
     display: 'block',
     width: '30%',
-    height: gridSize(),
+    height: token('spacing.scale.100', '8px'),
     backgroundColor: token('color.skeleton', N20A),
     borderRadius: 100,
     content: '""',

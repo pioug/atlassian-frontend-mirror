@@ -2,15 +2,11 @@
 import { css, jsx } from '@emotion/react';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
-import {
-  borderRadius as getBorderRadius,
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
+import { borderRadius as getBorderRadius } from '@atlaskit/theme/constants';
 import { h600 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
-const gridSize = getGridSize();
 const borderRadius = getBorderRadius();
-const actionItemBottomMargin = gridSize / 2;
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
@@ -18,13 +14,17 @@ const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
 const darkH600Styles = css(h600({ theme: { mode: 'dark' } }));
 
 const modalBodyStyles = css({
-  padding: '40px 20px',
+  padding: `${token('spacing.scale.500', '40px')} ${token(
+    'spacing.scale.250',
+    '20px',
+  )}`,
   textAlign: 'center',
 });
 
 // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const modalHeadingStyles = css({
-  marginBottom: `${gridSize}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
+  marginBottom: token('spacing.scale.100', '8px'),
   color: 'inherit',
 });
 
@@ -40,7 +40,10 @@ const modalImageStyles = css({
 
 const modalActionContainerStyles = css({
   display: 'flex',
-  padding: `0 40px ${40 - actionItemBottomMargin}px`,
+  padding: `${token('spacing.scale.0', '0px')} ${token(
+    'spacing.scale.500',
+    '40px',
+  )} 36px`,
   justifyContent: 'center',
   flexDirection: 'row',
   flexFlow: 'wrap',
@@ -51,7 +54,10 @@ const modalActionContainerReversedStyles = css({
 });
 
 const modalActionItemStyles = css({
-  margin: `0 ${gridSize / 2}px ${actionItemBottomMargin}px`,
+  margin: `${token('spacing.scale.0', '0px')} ${token(
+    'spacing.scale.050',
+    '4px',
+  )} ${token('spacing.scale.050', '4px')}`,
 });
 
 /**

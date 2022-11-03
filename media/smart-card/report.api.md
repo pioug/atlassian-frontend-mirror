@@ -125,6 +125,11 @@ type AnchorTarget = '_blank' | '_parent' | '_self' | '_top';
 export { APIError };
 
 // @public
+type AttachmentCount = {
+  name: ElementName.AttachmentCount;
+};
+
+// @public
 type AuthorGroup = {
   name: ElementName.AuthorGroup;
 };
@@ -380,6 +385,7 @@ export type ElementItem = {
 
 // @public
 type ElementItemProps =
+  | AttachmentCount
   | AuthorGroup
   | CollaboratorGroup
   | CommentCount
@@ -406,6 +412,8 @@ type ElementItemProps =
 
 // @public
 export enum ElementName {
+  // (undocumented)
+  AttachmentCount = 'AttachmentCount',
   // (undocumented)
   AuthorGroup = 'AuthorGroup',
   // (undocumented)

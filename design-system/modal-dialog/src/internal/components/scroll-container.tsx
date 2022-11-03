@@ -11,12 +11,14 @@ import noop from '@atlaskit/ds-lib/noop';
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
 import useStateRef from '@atlaskit/ds-lib/use-state-ref';
 import FocusRing from '@atlaskit/focus-ring';
+import { token } from '@atlaskit/tokens';
 
 import { keylineColor, keylineHeight } from '../constants';
 
 const baseStyles = css({
   display: 'inherit',
-  margin: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
   flex: 'inherit',
   flexDirection: 'inherit',
   flexGrow: 1,

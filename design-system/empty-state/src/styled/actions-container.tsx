@@ -3,14 +3,14 @@ import { FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
-
-const gridSize = getGridSize();
+import { token } from '@atlaskit/tokens';
 
 const actionsStyles = css({
   display: 'flex',
-  marginBottom: `${gridSize}px`,
-  paddingLeft: `${5 * gridSize}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
+  marginBottom: token('spacing.scale.100', '8px'),
+  // TODO Delete this comment after verifying spacing token -> previous value ``${5 * gridSize}px``
+  paddingLeft: token('spacing.scale.500', '40px'),
   alignItems: 'center',
   justifyContent: 'center',
 });

@@ -1,5 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 import {
+  LinkAttachmentType,
   LinkCommentType,
   LinkProgrammingLanguageType,
   LinkSubscriberType,
@@ -83,6 +84,9 @@ export const extractSourceBranch = (
 
 export const extractSubscriberCount = (data: JsonLd.Data.BaseData) =>
   extractValue<LinkSubscriberType, number>(data, 'atlassian:subscriberCount');
+
+export const extractAttachmentCount = (data: JsonLd.Data.BaseData) =>
+  extractValue<LinkAttachmentType, number>(data, 'atlassian:attachmentCount');
 
 export const extractTargetBranch = (
   data: JsonLd.Data.SourceCodePullRequest,

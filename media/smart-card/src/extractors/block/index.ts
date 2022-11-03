@@ -10,6 +10,8 @@ import {
   LinkProgrammingLanguageType,
   extractSubscriberCount,
   LinkSubscriberType,
+  extractAttachmentCount,
+  LinkAttachmentType,
 } from '../common/detail';
 import { LinkDetail } from '../common/detail/types';
 import {
@@ -51,6 +53,7 @@ const extractBlockDetails = (jsonLd: JsonLd.Data.BaseData): LinkDetail[] =>
     extractCommentCount(jsonLd as LinkCommentType),
     extractProgrammingLanguage(jsonLd as LinkProgrammingLanguageType),
     extractSubscriberCount(jsonLd as LinkSubscriberType),
+    extractAttachmentCount(jsonLd as LinkAttachmentType),
   ].filter((detail) => !!detail) as LinkDetail[];
 
 export const extractBlockActions = (

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -80,6 +80,7 @@
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
       "design-system": "v1",
+      "design-tokens": "spacing",
       "theming": "tokens",
       "deprecation": "no-deprecated-imports",
       "styling": [

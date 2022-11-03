@@ -5,6 +5,7 @@ import { extractSummary } from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
 import { extractLinkIcon } from './icon';
 import {
+  extractAttachmentCount,
   extractCommentCount,
   extractCreatedBy,
   extractModifiedBy,
@@ -41,6 +42,7 @@ const extractFlexibleUiContext = (
   const data = response.data as JsonLd.Data.BaseData;
   const url = extractLink(data);
   return {
+    attachmentCount: extractAttachmentCount(data),
     authorGroup: extractPersonCreatedBy(data),
     collaboratorGroup: extractPersonsUpdatedBy(data as JsonLd.Data.Document),
     commentCount: extractCommentCount(data),

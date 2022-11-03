@@ -14,7 +14,7 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
-    "releaseModel": "continuous"
+    "releaseModel": "scheduled"
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^24.0.0",

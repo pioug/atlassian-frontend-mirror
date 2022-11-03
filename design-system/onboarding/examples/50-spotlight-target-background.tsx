@@ -11,7 +11,8 @@ import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
 import { Code, Highlight, HighlightGroup } from './styled';
 
 const wrapperStyles = css({
-  padding: '40px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'40px'`
+  padding: token('spacing.scale.500', '40px'),
   backgroundColor: token('elevation.surface.raised', '#f6f6f6'),
   borderRadius: '4px',
 });

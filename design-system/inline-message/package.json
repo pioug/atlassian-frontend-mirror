@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-message",
-  "version": "11.4.1",
+  "version": "11.4.2",
   "description": "An inline message lets users know when important information is available or when an action is required.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,7 +15,6 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "disableProductCI": true,
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
@@ -67,6 +66,7 @@
       ],
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
+      "design-tokens": "spacing",
       "theming": "tokens",
       "deprecation": "no-deprecated-imports"
     }

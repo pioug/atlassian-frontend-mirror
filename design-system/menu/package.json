@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "1.3.11",
+  "version": "1.3.12",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -90,6 +90,7 @@
         "emotion"
       ],
       "analytics": "analytics-next",
+      "design-tokens": "spacing",
       "theming": "tokens",
       "deprecation": "no-deprecated-imports"
     }

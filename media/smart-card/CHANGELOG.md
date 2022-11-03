@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.1.0
+
+### Minor Changes
+
+- [`b3ba198b928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ba198b928) - [ux] Adds attachment count widget to metadata section
+
 ## 23.0.2
 
 ### Patch Changes

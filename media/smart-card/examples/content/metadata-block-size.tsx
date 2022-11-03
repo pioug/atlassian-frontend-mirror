@@ -14,6 +14,7 @@ const metadata: ElementItem[] = [
   { name: ElementName.State },
   { name: ElementName.SubscriberCount },
   { name: ElementName.CommentCount },
+  { name: ElementName.AttachmentCount },
   { name: ElementName.Priority },
   { name: ElementName.ViewCount },
   { name: ElementName.VoteCount },

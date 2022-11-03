@@ -12,6 +12,7 @@ export default () => (
       secondary={[
         { name: ElementName.SubscriberCount },
         { name: ElementName.CommentCount },
+        { name: ElementName.AttachmentCount },
         { name: ElementName.Priority },
         { name: ElementName.State },
       ]}

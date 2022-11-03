@@ -9,7 +9,6 @@ import * as colors from '@atlaskit/theme/colors';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
-import { itemSpacing } from '../../constants';
 import type { IconAppearance, InlineDialogPlacement } from '../../types';
 import MessageIcon from '../message-icon';
 
@@ -68,12 +67,18 @@ const buttonContentsStyles = css({
 });
 
 const titleStyles = css({
-  padding: `0 ${itemSpacing}px`,
+  padding: `${token('spacing.scale.0', '0px')} ${token(
+    'spacing.scale.050',
+    '4px',
+  )}`,
   fontWeight: 500,
 });
 
 const textStyles = css({
-  padding: `0 ${itemSpacing}px`,
+  padding: `${token('spacing.scale.0', '0px')} ${token(
+    'spacing.scale.050',
+    '4px',
+  )}`,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',

@@ -129,8 +129,20 @@ export const useOverflowController = (nodes: ReactNode | ReactNode[]) => {
       return;
     }
 
+    /**
+     * This is not necessarily equal to `lastItemWidth` because the
+     * ```js
+     * if (wasJustLimited) {}
+     * ```
+     * branch above modifies `itemsWidths`.
+     *
+     * Using `lastItemWidth` here can cause collapsing behavior to fail,
+     * such as the issue reported in DSP-7329.
+     */
+    const currentLastItemWidth = itemsWidths[itemsLimit] || 0;
+
     if (
-      width - lastItemWidth > ITEM_APPROX_MINWIDTH * 1.1 &&
+      width - currentLastItemWidth > ITEM_APPROX_MINWIDTH * 1.1 &&
       itemsLimit < items.length
     ) {
       // If we have enough room to accomodate next item width we increase the limit

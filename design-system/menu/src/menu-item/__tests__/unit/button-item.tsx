@@ -3,13 +3,13 @@ import { css, jsx } from '@emotion/core';
 import { fireEvent, render } from '@testing-library/react';
 import serializer, { matchers } from 'jest-emotion';
 
+import noop from '@atlaskit/ds-lib/noop';
+
 import type { CSSFn } from '../../../types';
 import ButtonItem from '../../button-item';
 
 expect.addSnapshotSerializer(serializer);
 expect.extend(matchers);
-
-const noop = () => {};
 
 window.requestAnimationFrame = (cb) => {
   cb(-1);

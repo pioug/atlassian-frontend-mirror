@@ -36,14 +36,14 @@ const stackColumnStyles: CSSProperties = {
  * Forcefully retarget the token declarations to apply to our hacked class,
  * .ads-theme-override, for split and stack views.
  */
-const hackThemeOverrideOnStyleElement = (
-  style: HTMLStyleElement,
-  theme: 'light' | 'dark',
-) => {
-  style.innerText = style.textContent!.replace(
-    `html[data-theme="${theme}"]`,
-    `html[data-theme="${theme}"],.ads-theme-override[data-theme="${theme}"]`,
-  );
+const hackThemeOverrideOnStyleElement = (style: HTMLStyleElement) => {
+  const regex = /html\[(data-theme.?=)"(light|dark)"\](\s{)/i;
+  if (regex.test(style.innerText)) {
+    style.innerText = style.textContent!.replace(
+      regex,
+      `html[$1"$2"], .ads-theme-override[$1"$2"]$3`,
+    );
+  }
 };
 
 const withDesignTokens = makeDecorator({
@@ -54,13 +54,8 @@ const withDesignTokens = makeDecorator({
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      const adsThemes = ['light', 'dark'] as const;
       document.querySelectorAll('style').forEach((el) => {
-        adsThemes.forEach((adsTheme) => {
-          if (el.innerText.includes(`html[data-theme="${adsTheme}"] {`)) {
-            hackThemeOverrideOnStyleElement(el, adsTheme);
-          }
-        });
+        hackThemeOverrideOnStyleElement(el);
       });
     }, [context.id]);
 

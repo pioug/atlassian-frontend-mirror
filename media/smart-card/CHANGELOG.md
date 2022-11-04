@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 23.1.1
+
+### Patch Changes
+
+- [`d2cde0ebdfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cde0ebdfd) - fix editor cypress tests and delete media cypress tests
+- [`8f95d913495`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f95d913495) - Smart Link: Add default view to inline/block/embed appearance
+
 ## 23.1.0
 
 ### Minor Changes

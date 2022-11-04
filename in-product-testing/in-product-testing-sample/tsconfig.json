@@ -11,7 +11,7 @@
 
   "compilerOptions": {
     "baseUrl": "./",
-    "types": ["cypress", "cypress-file-upload"]
+    "types": ["cypress"]
   },
   "files": ["../../../cypress/support/index.d.ts"]
 }

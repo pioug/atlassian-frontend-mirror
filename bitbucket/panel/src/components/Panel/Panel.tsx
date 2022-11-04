@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { FC, useState } from 'react';
 
 import PanelStateless, { BasePanelProps } from './PanelStateless';
 
@@ -7,37 +7,26 @@ type Props = BasePanelProps & {
   isDefaultExpanded?: boolean;
 };
 
-type State = {
-  isExpanded: boolean;
+const PanelState: FC<Props> = ({
+  isDefaultExpanded = false,
+  children,
+  header,
+}) => {
+  const [isExpanded, setisExpanded] = useState(isDefaultExpanded);
+
+  const handleChange = () => {
+    setisExpanded(!isExpanded);
+  };
+
+  return (
+    <PanelStateless
+      header={header}
+      isExpanded={isExpanded}
+      onChange={handleChange}
+    >
+      {children}
+    </PanelStateless>
+  );
 };
 
-export default class Panel extends PureComponent<Props, State> {
-  static defaultProps = {
-    isDefaultExpanded: false,
-  };
-
-  state = {
-    isExpanded: !!this.props.isDefaultExpanded,
-  };
-
-  handleChange = () => {
-    this.setState((prevState) => ({
-      isExpanded: !prevState.isExpanded,
-    }));
-  };
-
-  render() {
-    const { children, header } = this.props;
-    const { isExpanded } = this.state;
-
-    return (
-      <PanelStateless
-        header={header}
-        isExpanded={isExpanded}
-        onChange={this.handleChange}
-      >
-        {children}
-      </PanelStateless>
-    );
-  }
-}
+export default PanelState;

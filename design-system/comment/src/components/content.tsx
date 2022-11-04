@@ -4,7 +4,6 @@ import { FC } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { N100A, N800 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 interface ContentProps {
@@ -13,7 +12,8 @@ interface ContentProps {
 }
 
 const contentStyles = css({
-  marginTop: `${gridSize() / 2}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() / 2}px``
+  marginTop: token('spacing.scale.050', '4px'),
   color: token('color.text', N800),
 });
 

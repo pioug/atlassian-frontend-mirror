@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/heading",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "A heading is a typography component used to display text in different sizes and formats.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -62,6 +62,7 @@
       ],
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
+      "design-tokens": "spacing",
       "theming": "tokens",
       "deprecation": "no-deprecated-imports"
     }

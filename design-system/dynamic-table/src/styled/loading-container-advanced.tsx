@@ -4,10 +4,11 @@ import { FC, forwardRef, HTMLProps } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
-  marginBottom: `${gridSize() * 3}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() * 3}px``
+  marginBottom: token('spacing.scale.300', '24px'),
   position: 'relative',
 });
 

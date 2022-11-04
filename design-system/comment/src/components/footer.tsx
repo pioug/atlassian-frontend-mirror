@@ -5,7 +5,6 @@ import { css, jsx } from '@emotion/react';
 
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { N500, Y500 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { actionsPadding } from './constants';
@@ -35,12 +34,14 @@ const actionItemStyles = css({
 });
 
 const paddingRightStyles = css({
-  paddingRight: 8,
+  // TODO Delete this comment after verifying spacing token -> previous value `8`
+  paddingRight: token('spacing.scale.100', '8px'),
 });
 
 const actionsContainerStyles = css({
   display: 'flex',
-  marginTop: (3 * gridSize()) / 4,
+  // TODO Delete this comment after verifying spacing token -> previous value `3 * gridSize() / 4`
+  marginTop: token('spacing.scale.075', '6px'),
   alignItems: 'center',
   flexWrap: 'wrap',
 });

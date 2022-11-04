@@ -134,7 +134,7 @@
   },
   "devDependencies": {
     "@atlaskit/atlassian-navigation": "^2.2.0",
-    "@atlaskit/breadcrumbs": "11.7.2",
+    "@atlaskit/breadcrumbs": "11.7.3",
     "@atlaskit/code": "^14.4.0",
     "@atlaskit/collab-provider": "7.6.2",
     "@atlaskit/docs": "*",

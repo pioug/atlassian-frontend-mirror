@@ -11,6 +11,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import __noop from '@atlaskit/ds-lib/noop';
 import GlobalTheme from '@atlaskit/theme/components';
 import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import { getColors } from '../internal/colors';
 import { BreadcrumbsProps } from '../types';
@@ -40,8 +41,10 @@ const interactiveElementSelector = 'a, button, [tabindex]:not([tabindex="-1"])';
 
 const breadcrumbStyles = css({
   display: 'flex',
-  margin: 0,
-  padding: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  padding: token('spacing.scale.0', '0px'),
   flexWrap: 'wrap',
 });
 

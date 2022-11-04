@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/standard-button';
 import __noop from '@atlaskit/ds-lib/noop';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { EllipsisItemProps } from '../types';
 
@@ -20,13 +21,18 @@ const itemWrapperStyles = css({
   boxSizing: 'border-box',
   maxWidth: '100%',
   height: `${height}em`,
-  margin: 0,
-  padding: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  padding: token('spacing.scale.0', '0px'),
   flexDirection: 'row',
   lineHeight: `${height}em`,
   '&:not(:last-child)::after': {
     width: `${gridSizeUnit}px`,
-    padding: `0 ${gridSizeUnit}px`,
+    padding: `${token('spacing.scale.0', '0px')} ${token(
+      'spacing.scale.100',
+      '8px',
+    )}`,
     flexShrink: 0,
     content: '"/"',
     textAlign: 'center',

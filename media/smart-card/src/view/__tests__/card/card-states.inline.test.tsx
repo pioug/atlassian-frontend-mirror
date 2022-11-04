@@ -12,7 +12,7 @@ import {
   cleanup,
   waitFor as waitForElement,
 } from '@testing-library/react';
-import { CardClient } from '@atlaskit/link-provider';
+import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
@@ -328,6 +328,22 @@ describe('smart-card: card states, inline', () => {
           url: mockUrl,
           status: 'not_found',
         });
+      });
+    });
+
+    describe('> state: invalid', () => {
+      it('inline: does not throw error when state is invalid', async () => {
+        const storeOptions = {
+          initialState: { [mockUrl]: {} },
+        } as CardProviderStoreOpts;
+        const { findByTestId } = render(
+          <Provider client={mockClient} storeOptions={storeOptions}>
+            <Card appearance="inline" url={mockUrl} />
+          </Provider>,
+        );
+
+        const link = await findByTestId('inline-card-resolved-view');
+        expect(link).toBeTruthy();
       });
     });
   });

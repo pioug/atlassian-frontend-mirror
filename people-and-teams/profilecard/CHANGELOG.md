@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 17.2.4
+
+### Patch Changes
+
+- [`250ad85dd78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/250ad85dd78) - [ux] Removed ButtonGroup from team profile card to fix the layout of action buttons
+
 ## 17.2.3
 
 ### Patch Changes

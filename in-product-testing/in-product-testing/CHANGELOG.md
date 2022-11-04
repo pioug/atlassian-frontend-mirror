@@ -1,5 +1,11 @@
 # @af/in-product-testing
 
+## 0.1.5
+
+### Patch Changes
+
+- [`d2cde0ebdfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cde0ebdfd) - fix editor cypress tests and delete media cypress tests
+
 ## 0.1.4
 
 ### Patch Changes

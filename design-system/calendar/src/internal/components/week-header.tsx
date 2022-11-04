@@ -16,7 +16,10 @@ const dayNameGridStyles = css({
 const dayNameCellStyles = css({
   boxSizing: 'border-box',
   minWidth: 40,
-  padding: '8px 8px',
+  padding: `${token('spacing.scale.100', '8px')} ${token(
+    'spacing.scale.100',
+    '8px',
+  )}`,
   border: 0,
   color: token('color.text.subtle', N200),
   fontSize: 11,

@@ -8,7 +8,7 @@ import '../../__mocks__/intersection-observer.mock';
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
 import { render, cleanup, waitFor } from '@testing-library/react';
-import { CardClient } from '@atlaskit/link-provider';
+import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
@@ -368,6 +368,22 @@ describe('smart-card: card states, embed', () => {
           url: mockUrl,
           status: 'not_found',
         });
+      });
+    });
+
+    describe('> state: invalid', () => {
+      it('embed: does not throw error when state is invalid', async () => {
+        const storeOptions = {
+          initialState: { [mockUrl]: {} },
+        } as CardProviderStoreOpts;
+        const { findByTestId } = render(
+          <Provider client={mockClient} storeOptions={storeOptions}>
+            <Card appearance="embed" url={mockUrl} />
+          </Provider>,
+        );
+
+        const link = await findByTestId('embed-card-resolved-view');
+        expect(link).toBeTruthy();
       });
     });
   });

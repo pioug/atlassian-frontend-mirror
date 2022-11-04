@@ -3,18 +3,12 @@ import {
   embedSmartLinksTestCollection,
   fundamentalsTestCollection,
   inlineSmartLinksTestCollection,
-  mediaTestCollection,
 } from '@atlaskit/editor-common/in-product';
 
 describe('Editor', () => {
   const smartLinkTestCaseOpts = {
     url: 'https://www.youtube.com/watch?v=y8OnoxKotPQ',
     ui: { publishButton: '[data-testid="publish-button"]' },
-  };
-  const mediaTestCaseOpts = {
-    fixtures: ['files/corne-avocado.jpg'],
-    ui: { publishButton: '[data-testid="publish-button"]' },
-    runOnly: ['media-caption'],
   };
 
   beforeEach(() => {
@@ -25,5 +19,4 @@ describe('Editor', () => {
   inlineSmartLinksTestCollection(smartLinkTestCaseOpts).test(cy);
   blockSmartLinksTestCollection(smartLinkTestCaseOpts).test(cy);
   embedSmartLinksTestCollection(smartLinkTestCaseOpts).test(cy);
-  mediaTestCollection(mediaTestCaseOpts).test(cy);
 });

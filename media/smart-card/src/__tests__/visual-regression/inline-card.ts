@@ -25,4 +25,13 @@ describe('Inline Card', () => {
     const image = await takeSnapshot(page, 280, 0);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('shows unresolved views', async () => {
+    const url = getURL('vr-inline-card-unresolved-views');
+    const page = await setup(url);
+    await page.waitForSelector('[data-testid="inline-card-errored-view"]');
+
+    const image = await takeSnapshot(page, 300);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

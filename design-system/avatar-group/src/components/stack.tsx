@@ -5,20 +5,24 @@ import { css, jsx } from '@emotion/react';
 
 import { BORDER_WIDTH } from '@atlaskit/avatar';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const gutter = BORDER_WIDTH * 2 + gridSize() / 2;
 
 const listStyles = css({
   display: 'flex',
-  margin: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
   marginRight: gutter,
-  padding: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  padding: token('spacing.scale.0', '0px'),
   lineHeight: 1,
   listStyleType: 'none !important',
 });
 
 const listItemStyles = css({
-  margin: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
   marginRight: -gutter,
 });
 

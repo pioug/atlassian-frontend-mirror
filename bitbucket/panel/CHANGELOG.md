@@ -1,5 +1,11 @@
 # @atlaskit/panel
 
+## 0.6.0
+
+### Minor Changes
+
+- [`303da7ab728`](https://bitbucket.org/atlassian/atlassian-frontend/commits/303da7ab728) - Update class components for the bitbucket panel to be functional components and internationalize the labels for A11Y.
+
 ## 0.4.10
 
 ### Patch Changes

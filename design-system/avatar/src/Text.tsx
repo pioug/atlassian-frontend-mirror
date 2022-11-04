@@ -13,7 +13,8 @@ const getStyles = (
 ): SerializedStyles =>
   css({
     display: 'block',
-    margin: 0,
+    // TODO Delete this comment after verifying spacing token -> previous value `0`
+    margin: token('spacing.scale.0', '0px'),
     color: token('color.text', N900),
 
     ...(shouldTruncate && {

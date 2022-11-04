@@ -7,6 +7,7 @@ import '../../__mocks__/intersection-observer.mock';
 import { APIError } from '@atlaskit/linking-common';
 import {
   CardClient,
+  CardProviderStoreOpts,
   SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import React, { useState } from 'react';
@@ -186,6 +187,24 @@ describe('smart-card: card states, flexible', () => {
         expect(resolvedView).toBeTruthy();
 
         expect(mockFn).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('> state: invalid', () => {
+      it('flexible: does not throw error when state is invalid', async () => {
+        const storeOptions = {
+          initialState: { [mockUrl]: {} },
+        } as CardProviderStoreOpts;
+        const { findByTestId } = render(
+          <Provider client={mockClient} storeOptions={storeOptions}>
+            <Card appearance="block" url={mockUrl}>
+              <TitleBlock />
+            </Card>
+          </Provider>,
+        );
+
+        const link = await findByTestId('smart-block-title-resolved-view');
+        expect(link).toBeTruthy();
       });
     });
   });

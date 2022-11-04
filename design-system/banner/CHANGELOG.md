@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 12.0.1
+
+### Patch Changes
+
+- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+
 ## 12.0.0
 
 ### Major Changes

@@ -5,6 +5,7 @@ import { FC, forwardRef, HTMLProps } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { row, tableBorder } from '../theme';
 
@@ -69,7 +70,8 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
 
 const captionStyles = css({
   marginTop: `${gridSize * 3.5}px`,
-  marginBottom: `${gridSize}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
+  marginBottom: token('spacing.scale.100', '8px'),
   fontSize: '1.42857143em',
   fontStyle: 'inherit',
   fontWeight: 500,

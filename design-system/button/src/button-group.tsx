@@ -3,6 +3,8 @@ import React, { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
+import { token } from '@atlaskit/tokens';
+
 import { Appearance } from './types';
 
 export type ButtonGroupProps = {
@@ -15,8 +17,8 @@ export type ButtonGroupProps = {
 
 const buttonGroupStyles = css({
   display: 'inline-flex',
-  gap: 4,
-
+  // TODO Delete this comment after verifying spacing token -> previous value `4`
+  gap: token('spacing.scale.050', '4px'),
   '> *': {
     flex: '1 0 auto',
   },

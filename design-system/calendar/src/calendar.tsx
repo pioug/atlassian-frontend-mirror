@@ -27,7 +27,8 @@ import type { CalendarProps } from './types';
 const lightWrapperStyles = css({
   display: 'inline-block',
   boxSizing: 'border-box',
-  padding: 16,
+  // TODO Delete this comment after verifying spacing token -> previous value `16`
+  padding: token('spacing.scale.200', '16px'),
   backgroundColor: token('utility.UNSAFE_util.transparent', N0),
   color: token('color.text', N900),
   outline: 'none',
@@ -37,7 +38,8 @@ const lightWrapperStyles = css({
 const darkWrapperStyles = css({
   display: 'inline-block',
   boxSizing: 'border-box',
-  padding: 16,
+  // TODO Delete this comment after verifying spacing token -> previous value `16`
+  padding: token('spacing.scale.200', '16px'),
   backgroundColor: token('utility.UNSAFE_util.transparent', N700),
   color: token('color.text', DN600),
   outline: 'none',
@@ -47,7 +49,8 @@ const darkWrapperStyles = css({
 const gridsContainerStyles = css({
   display: 'inline-block',
   width: 289,
-  margin: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  margin: token('spacing.scale.0', '0px'),
   marginBottom: 5,
   textAlign: 'center',
 });

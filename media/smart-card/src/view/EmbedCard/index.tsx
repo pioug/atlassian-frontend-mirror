@@ -163,6 +163,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
         );
       case 'fallback':
       case 'errored':
+      default:
         if (onError) {
           onError({ url, status });
         }

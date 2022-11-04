@@ -1,6 +1,7 @@
 import type { Rule } from 'eslint';
 import {
   callExpression,
+  EslintNode,
   Identifier,
   identifier,
   isNodeOfType,
@@ -21,7 +22,6 @@ import { isDecendantOfGlobalToken } from '../utils/is-node';
 const onlyScaleTokens = spacingScale.filter((token) =>
   token.name.startsWith('spacing.scale.'),
 );
-
 const spacingValueToToken = Object.fromEntries(
   onlyScaleTokens.map((token) => [token.value, token.name]),
 );
@@ -106,9 +106,13 @@ const rule: Rule.RuleModule = {
           ? fontSizeValue[0]
           : fontSizeValue;
 
-        parentNode.properties.forEach((node) => {
+        function findObjectStyles(node: EslintNode): void {
           if (!isNodeOfType(node, 'Property')) {
             return;
+          }
+
+          if (isNodeOfType(node.value, 'ObjectExpression')) {
+            return node.value.properties.forEach(findObjectStyles);
           }
 
           if (!isNodeOfType(node.key, 'Identifier')) {
@@ -240,7 +244,9 @@ const rule: Rule.RuleModule = {
                   : undefined,
             });
           });
-        });
+        }
+
+        parentNode.properties.forEach(findObjectStyles);
       },
 
       // CSSTemplateLiteral and StyledTemplateLiteral

@@ -7,5 +7,3 @@ export {
   embedSmartLinksTestCollection,
   blueLinksTestCollection,
 } from './cases/smart-links';
-
-export { mediaTestCollection } from './cases/media/test-cases';

@@ -23,7 +23,11 @@ const mockOnWasHelpfulYesButtonClick = jest.fn();
 const mockOnWasHelpfulNoButtonClick = jest.fn();
 
 describe('ArticleWasHelpfulForm', () => {
-  it('Match snapshot', () => {
+  /**
+   * FIXME Snapshot tests that test a large surface area cause friction to platform teams.
+   * Review if this test is required or whether it can be removed.
+   */
+  it.skip('Match snapshot', () => {
     const { container } = render(
       <IntlProvider locale="en">
         <ArticleWasHelpfulForm

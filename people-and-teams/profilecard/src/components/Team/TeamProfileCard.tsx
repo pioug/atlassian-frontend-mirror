@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import AvatarGroup from '@atlaskit/avatar-group';
-import ButtonGroup from '@atlaskit/button/button-group';
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
@@ -286,21 +285,19 @@ const ButtonSection = ({ actions, analytics }: ActionProps) => {
   const initialActions = actions.slice(0, 2);
 
   return (
-    <ButtonGroup>
-      <ActionButtons>
-        {initialActions.map((action, index) => (
-          <ActionButton
-            action={action}
-            analytics={analytics}
-            index={index}
-            key={index}
-          />
-        ))}
-        {extraActions && (
-          <ExtraActions actions={extraActions} analytics={analytics} />
-        )}
-      </ActionButtons>
-    </ButtonGroup>
+    <ActionButtons>
+      {initialActions.map((action, index) => (
+        <ActionButton
+          action={action}
+          analytics={analytics}
+          index={index}
+          key={index}
+        />
+      ))}
+      {extraActions && (
+        <ExtraActions actions={extraActions} analytics={analytics} />
+      )}
+    </ActionButtons>
   );
 };
 

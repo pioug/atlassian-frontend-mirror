@@ -20,10 +20,4 @@ export class EditorPageObject extends InProductTestPageObject {
     }
     throw Error('No publish button selector supplied!');
   }
-
-  public upload(fixtures: string[]) {
-    return this.getEditorArea().attachFile(fixtures, {
-      subjectType: 'drag-n-drop',
-    });
-  }
 }

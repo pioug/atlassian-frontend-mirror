@@ -6,7 +6,6 @@ import { css, jsx } from '@emotion/react';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
 import { N100A } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const inlineBlockStyles = css({
@@ -15,13 +14,15 @@ const inlineBlockStyles = css({
 
 const containerStyles = css({
   display: 'flex',
-  gap: gridSize(),
+  // TODO Delete this comment after verifying spacing token -> previous value `gridSize()`
+  gap: token('spacing.scale.100', '8px'),
 });
 
 const restrictedContainerStyles = css({
   display: 'flex',
   alignItems: 'baseline',
-  gap: `${gridSize() / 2}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() / 2}px``
+  gap: token('spacing.scale.050', '4px'),
   color: token('color.text.subtlest', N100A),
 });
 

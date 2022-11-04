@@ -154,6 +154,7 @@ export const BlockCard: FC<BlockCardProps> = ({
       );
     case 'fallback':
     case 'errored':
+    default:
       if (onError) {
         onError({ url, status });
       }

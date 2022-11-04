@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
+import { token } from '@atlaskit/tokens';
 
 import { presidents } from './numerical';
 
@@ -29,7 +30,8 @@ const NameWrapper: FC = ({ children }) => (
 );
 
 const avatarWrapperStyles = css({
-  marginRight: '8px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
+  marginRight: token('spacing.scale.100', '8px'),
 });
 
 const AvatarWrapper: FC = ({ children }) => (

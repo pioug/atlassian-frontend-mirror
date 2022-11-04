@@ -17,7 +17,7 @@ import {
   backgroundActive,
   backgroundHover,
 } from '@atlaskit/theme/colors';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { BORDER_WIDTH } from './constants';
@@ -28,7 +28,8 @@ import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
 const avatarItemStyles = css({
   minWidth: 0,
   maxWidth: '100%',
-  paddingLeft: `${gridSize()}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize()}px``
+  paddingLeft: token('spacing.scale.100', '8px'),
   flex: '1 1 100%',
   lineHeight: '1.4',
 });
@@ -131,7 +132,7 @@ const getStyles = (
     line-height: 1;
     outline: none;
     margin: 0;
-    padding: ${gridSize() / 2}px;
+    padding: ${token('spacing.scale.050', '4px')};
     text-align: left;
     text-decoration: none;
     width: 100%;

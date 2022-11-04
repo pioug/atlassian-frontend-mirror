@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "10.6.1",
+  "version": "10.6.2",
   "description": "A comment displays discussions and user feedback.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -62,6 +62,7 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
+      "design-tokens": "spacing",
       "theming": "tokens",
       "styling": [
         "static",

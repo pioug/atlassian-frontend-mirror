@@ -135,6 +135,7 @@ export const InlineCard: FC<InlineCardProps> = ({
       );
     case 'fallback':
     case 'errored':
+    default:
       if (onError) {
         onError({ url, status });
       }

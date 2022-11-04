@@ -3,8 +3,11 @@ import { FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 const rowPlaceholderStyles = css({
-  padding: 0,
+  // TODO Delete this comment after verifying spacing token -> previous value `0`
+  padding: token('spacing.scale.0', '0px'),
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

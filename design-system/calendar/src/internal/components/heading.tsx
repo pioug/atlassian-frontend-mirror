@@ -17,7 +17,11 @@ const headingColor = {
 
 const headingStyles = css({
   display: 'flex',
-  padding: '0 0 13px 0',
+  // TODO Delete this comment after verifying spacing tokens
+  padding: `${token('spacing.scale.0', '0px')} ${token(
+    'spacing.scale.0',
+    '0px',
+  )} 13px ${token('spacing.scale.0', '0px')}`,
   color: token('color.text', N800),
   fontWeight: 'bold',
 });
@@ -29,8 +33,14 @@ const getMonthAndYearStyles = (mode: ThemeModes = 'light') =>
     textAlign: 'center',
   });
 
-const arrowLeftStyles = css({ marginLeft: 8 });
-const arrowRightStyles = css({ marginRight: 8 });
+const arrowLeftStyles = css({
+  // TODO Delete this comment after verifying spacing token -> previous value `8`
+  marginLeft: token('spacing.scale.100', '8px'),
+});
+const arrowRightStyles = css({
+  // TODO Delete this comment after verifying spacing token -> previous value `8`
+  marginRight: token('spacing.scale.100', '8px'),
+});
 
 interface HeadingProps {
   monthLongTitle: string;

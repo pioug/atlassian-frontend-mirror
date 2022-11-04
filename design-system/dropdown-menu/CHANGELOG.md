@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.5.2
+
+### Patch Changes
+
+- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+
 ## 11.5.1
 
 ### Patch Changes

@@ -26,20 +26,23 @@ const containerStyles = css({
   display: 'grid',
   paddingTop: `${verticalPadding}px`,
   position: 'relative',
-  gap: `${gridSize}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
+  gap: token('spacing.scale.100', '8px'),
   gridTemplate: `"avatar-area comment-area" \
     ". nested-comments-area"
     / auto 1fr`,
   /* We need both selectors as there is not a common wrapper component around
   comments. We also provide isFirst as an escape hatch. */
   '&:first-child, &:first-of-type': {
-    paddingTop: 0,
+    // TODO Delete this comment after verifying spacing token -> previous value `0`
+    paddingTop: token('spacing.scale.0', '0px'),
   },
 });
 
 const contentSectionStyles = css({
   minWidth: 0,
-  marginTop: `${gridSize / 4}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize / 4}px``
+  marginTop: token('spacing.scale.025', '2px'),
   gridArea: 'comment-area',
   wordWrap: 'break-word',
 });
@@ -47,7 +50,10 @@ const contentSectionStyles = css({
 const highlightStyles = css({
   width: '100%',
   height: '100%',
-  padding: `${gridSize}px ${gridSize}px ${gridSize / 2}px`,
+  padding: `${token('spacing.scale.100', '8px')} ${token(
+    'spacing.scale.100',
+    '8px',
+  )} ${token('spacing.scale.050', '4px')}`,
   background: token('color.background.neutral', N20A),
   gridArea: '1 / 1 / 2 / 3',
   pointerEvents: 'none',

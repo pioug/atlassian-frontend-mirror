@@ -14,7 +14,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { PureComponent } from 'react';
+import { FC } from 'react';
 import { ReactNode } from 'react';
 
 // @public (undocumented)
@@ -24,46 +24,21 @@ type BasePanelProps = {
 };
 
 // @public (undocumented)
-class Panel extends PureComponent<Props, State> {
-  // (undocumented)
-  static defaultProps: {
-    isDefaultExpanded: boolean;
-  };
-  // (undocumented)
-  handleChange: () => void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  state: {
-    isExpanded: boolean;
-  };
-}
-export default Panel;
+const PanelState: FC<Props>;
+export default PanelState;
 
 // @public (undocumented)
-export class PanelStateless extends PureComponent<Props_2> {
-  // (undocumented)
-  static defaultProps: {
-    isExpanded: boolean;
-  };
-  // (undocumented)
-  render(): JSX.Element;
-}
-
-// @public (undocumented)
-type Props = BasePanelProps & {
-  isDefaultExpanded?: boolean;
-};
-
-// @public (undocumented)
-type Props_2 = BasePanelProps & {
+type PanelState_2 = BasePanelProps & {
   isExpanded: boolean;
   onChange: (isExpanded: boolean) => void;
 };
 
 // @public (undocumented)
-type State = {
-  isExpanded: boolean;
+export const PanelStateless: FC<PanelState_2>;
+
+// @public (undocumented)
+type Props = BasePanelProps & {
+  isDefaultExpanded?: boolean;
 };
 
 // (No @packageDocumentation comment for this package)

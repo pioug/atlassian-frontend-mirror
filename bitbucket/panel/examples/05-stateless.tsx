@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+
+import { IntlProvider } from 'react-intl-next';
 
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 
@@ -6,26 +8,20 @@ import { PanelStateless } from '../src';
 
 const Header = <span>This is stateless panel example</span>;
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends Component {
-  state = {
-    isExpanded: false,
-  };
+const StatelessPanel = () => {
+  const isDefaultExpanded = false;
+  const [isExpanded, setIsExpanded] = useState(isDefaultExpanded);
 
-  handleChange = (isExpanded: boolean) => {
-    this.setState({ isExpanded });
-  };
-
-  render() {
-    return (
+  return (
+    <IntlProvider locale="en">
       <Page>
         <Grid layout="fixed">
           <GridColumn medium={2} />
           <GridColumn medium={8}>
             <PanelStateless
               header={Header}
-              isExpanded={this.state.isExpanded}
-              onChange={this.handleChange}
+              isExpanded={isExpanded}
+              onChange={setIsExpanded}
             >
               <p>
                 Sit nulla est ex deserunt exercitation anim occaecat. Nostrud
@@ -37,6 +33,8 @@ export default class extends Component {
           </GridColumn>
         </Grid>
       </Page>
-    );
-  }
-}
+    </IntlProvider>
+  );
+};
+
+export default StatelessPanel;

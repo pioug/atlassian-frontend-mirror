@@ -14,8 +14,10 @@ import { token } from '@atlaskit/tokens';
 
 const labelStyles = css({
   display: 'inline-block',
-  marginTop: `0`,
-  marginBottom: '4px',
+  // TODO Delete this comment after verifying spacing token -> previous value ``0``
+  marginTop: token('spacing.scale.0', '0px'),
+  // TODO Delete this comment after verifying spacing token -> previous value `'4px'`
+  marginBottom: token('spacing.scale.050', '4px'),
   color: token('color.text.subtlest', colors.N200),
   fontSize: `${headingSizes.h200.size / fontSize()}em`,
   fontStyle: 'inherit',

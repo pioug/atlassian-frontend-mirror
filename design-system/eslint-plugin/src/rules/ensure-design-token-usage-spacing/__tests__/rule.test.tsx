@@ -447,6 +447,33 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         },
       ],
     },
+    // nested object
+    {
+      code: `const decoration = css({
+        position: 'relative',
+        ':before': {
+          display: 'inline-flex',
+          padding: '0 4px',
+        },
+      });`,
+      output: `const decoration = css({
+        position: 'relative',
+        ':before': {
+          display: 'inline-flex',
+          padding: \`\${token('spacing.scale.0', '0px')} \${token('spacing.scale.050', '4px')}\`,
+        },
+      });`,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:0>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
+        },
+      ],
+    },
     // callExpression in template
     {
       code: `const styledTemplateLiteral = styled.p\`color: red; padding: \${gridSize()}px; margin: 4px; gap: 2px\`;`,

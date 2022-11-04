@@ -33,7 +33,8 @@ const containerStyles = css({
   gap: `var(${varSpacing})`,
   listStyleType: 'none',
   '&&': {
-    marginTop: 40,
+    // TODO Delete this comment after verifying spacing token -> previous value `40`
+    marginTop: token('spacing.scale.500', '40px'),
   },
 });
 

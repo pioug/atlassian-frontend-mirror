@@ -15,8 +15,9 @@ import Blanket from '../src';
 
 const blanketChildStyles = css({
   width: '50%',
-  margin: `${gridSize() * 3}px auto`,
-  padding: `${gridSize() * 5}px`,
+  margin: `${token('spacing.scale.300', '24px')} auto`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() * 5}px``
+  padding: token('spacing.scale.500', '40px'),
   backgroundColor: token('elevation.surface', N0),
 });
 
@@ -58,7 +59,7 @@ const BasicExample = () => {
           Show blanket
         </Button>
         <Button
-          style={{ marginLeft: gridSize() }}
+          style={{ marginLeft: token('spacing.scale.100', `${gridSize()}px`) }}
           testId="toggle-theme"
           onClick={toggleMode}
         >

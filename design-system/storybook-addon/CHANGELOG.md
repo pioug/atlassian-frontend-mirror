@@ -1,5 +1,11 @@
 # @atlaskit/storybook-addon-design-system
 
+## 0.3.4
+
+### Patch Changes
+
+- [`43464a5fb17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43464a5fb17) - Update split and stack theme settings to use tilde selectors
+
 ## 0.3.3
 
 ### Patch Changes

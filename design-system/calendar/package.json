@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/calendar",
-  "version": "12.4.1",
+  "version": "12.4.2",
   "description": "An interactive calendar for date selection experiences.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -66,6 +66,7 @@
       "design-system": "v1",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
+      "design-tokens": "spacing",
       "theming": "tokens",
       "deprecation": "no-deprecated-imports",
       "styling": [

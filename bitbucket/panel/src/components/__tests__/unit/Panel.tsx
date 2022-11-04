@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-import { mount, shallow } from 'enzyme';
-import AnimateHeight from 'react-animate-height';
+import { render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl-next';
 
 import Panel from '../../Panel';
-import * as styles from '../../Panel/styledPanel';
 
 const NestedContent = () => (
   <p>
@@ -14,46 +14,44 @@ const NestedContent = () => (
   </p>
 );
 
+type TestWrapperProps = {
+  locale?: string;
+};
+
+const TestWrapper: FC<TestWrapperProps> = ({ children, locale = 'en' }) => (
+  <IntlProvider locale={locale}>{children}</IntlProvider>
+);
+
 const Header = <span>Header</span>;
 
 describe('Panel component', () => {
-  it('toggles height prop of AnimateHeight component when clicked on header', () => {
-    const wrapper = mount(
-      <Panel header={Header}>
-        <NestedContent />
-      </Panel>,
+  it('toggles height prop of AnimateHeight component when clicked on header', async () => {
+    const { container, getByText } = render(
+      <TestWrapper>
+        <Panel header={Header}>
+          <NestedContent />
+        </Panel>
+      </TestWrapper>,
     );
-    expect(wrapper.find(AnimateHeight).props().height).toBe(0);
 
-    const panelHeader = wrapper.find(styles.PanelHeader);
-    panelHeader.simulate('click');
+    let panelContent = container.getElementsByClassName('panel-content');
+    expect(panelContent[0]).toHaveStyle({ height: '0px' });
 
-    expect(wrapper.find(AnimateHeight).props().height).toBe('auto');
+    userEvent.click(getByText('Header'));
+    await waitFor(() =>
+      expect(panelContent[0]).toHaveStyle({ height: 'auto' }),
+    );
   });
   it('is expanded by default when isDefaultExpanded is passed', () => {
-    const wrapper = mount(
-      <Panel header={Header} isDefaultExpanded>
-        <NestedContent />
-      </Panel>,
+    const { container } = render(
+      <TestWrapper>
+        <Panel header={Header} isDefaultExpanded>
+          <NestedContent />
+        </Panel>
+      </TestWrapper>,
     );
-    expect(wrapper.find(AnimateHeight).props().height).toBe('auto');
-  });
-  it('renders nested content', () => {
-    const wrapper = mount(
-      <Panel header={Header}>
-        <NestedContent />
-      </Panel>,
-    );
-    expect(wrapper.find(NestedContent)).toHaveLength(1);
-  });
-  it('header matches the snapshot', () => {
-    const wrapper = shallow(
-      <Panel header={Header}>
-        <NestedContent />
-      </Panel>,
-    );
-    const panelHeader = wrapper.dive().find(styles.PanelHeader);
 
-    expect(panelHeader).toMatchSnapshot();
+    const panelContent = container.getElementsByClassName('panel-content');
+    expect(panelContent[0]).toHaveStyle({ height: 'auto' });
   });
 });

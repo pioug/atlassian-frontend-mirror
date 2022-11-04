@@ -69,8 +69,14 @@ export class EditorSmartLinkPageObject extends InProductTestPageObject {
   public insertSmartLinkByTyping(url: string) {
     return this.editor
       .getEditorArea()
-      .focus()
-      .type(`${url} {enter}`, { delay: 0 });
+      .type(`${url} `, { delay: 0 })
+      .get('p>a')
+      .type('{leftArrow}{leftArrow}')
+      .get('[aria-label="Floating Toolbar"]')
+      .then(() => {
+        this.openViewSwitcher();
+        this.selectViewSwitcherOption('inline');
+      });
   }
 
   public switchAfterInsert(type: CardAppearance | 'url' = 'inline') {

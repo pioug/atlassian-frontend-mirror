@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 74.1.9
+
+### Patch Changes
+
+- [`d2cde0ebdfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2cde0ebdfd) - fix editor cypress tests and delete media cypress tests
+
 ## 74.1.8
 
 ### Patch Changes

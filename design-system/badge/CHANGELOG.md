@@ -1,5 +1,11 @@
 # @atlaskit/badge
 
+## 15.0.21
+
+### Patch Changes
+
+- [`bc989043572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc989043572) - Internal changes to apply spacing tokens. This should be a no-op change.
+
 ## 15.0.20
 
 ### Patch Changes

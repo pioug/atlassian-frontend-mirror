@@ -128,8 +128,7 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 20/07/2022: https://product-fabric.atlassian.net/browse/SKIP-347
-  it.skip('with AvatarGroup', async () => {
+  it('with AvatarGroup', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToBottom);

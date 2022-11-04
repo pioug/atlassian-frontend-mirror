@@ -8,6 +8,7 @@ import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
+import { token } from '@atlaskit/tokens';
 
 import { lorem } from './lorem';
 import { presidents } from './presidents';
@@ -37,7 +38,8 @@ const NameWrapper: FC = ({ children }) => (
 );
 
 const avatarWrapperStyles = css({
-  marginRight: '8px',
+  // TODO Delete this comment after verifying spacing token -> previous value `'8px'`
+  marginRight: token('spacing.scale.100', '8px'),
 });
 
 const AvatarWrapper: FC = ({ children }) => (

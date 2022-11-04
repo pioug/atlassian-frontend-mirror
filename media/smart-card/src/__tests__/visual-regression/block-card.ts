@@ -28,4 +28,13 @@ describe('Block Card', () => {
     const image = await takeSnapshot(page, 280, 0);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('shows unresolved views', async () => {
+    const url = getURL('vr-block-card-unresolved-views');
+    const page = await setup(url);
+    await page.waitForSelector('[data-testid="block-card-errored-view"]');
+
+    const image = await takeSnapshot(page, 600);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

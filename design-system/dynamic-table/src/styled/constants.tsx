@@ -2,11 +2,9 @@ import { LegacyRef, ReactNode } from 'react';
 
 import { css } from '@emotion/react';
 
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const CSS_VAR_WIDTH = '--local-dynamic-table-width';
-
-const gridSize = getGridSize();
 
 export interface TruncateStyleProps {
   width?: number;
@@ -33,13 +31,18 @@ export const getTruncationStyleVars = ({ width }: TruncateStyleProps) =>
   typeof width !== 'undefined' ? { [CSS_VAR_WIDTH]: `${width}%` } : undefined;
 
 export const cellStyles = css({
-  padding: `${gridSize / 2}px ${gridSize}px`,
+  padding: `${token('spacing.scale.050', '4px')} ${token(
+    'spacing.scale.100',
+    '8px',
+  )}`,
   border: 'none',
   textAlign: 'left',
   '&:first-of-type': {
-    paddingLeft: 0,
+    // TODO Delete this comment after verifying spacing token -> previous value `0`
+    paddingLeft: token('spacing.scale.0', '0px'),
   },
   '&:last-child': {
-    paddingRight: 0,
+    // TODO Delete this comment after verifying spacing token -> previous value `0`
+    paddingRight: token('spacing.scale.0', '0px'),
   },
 });

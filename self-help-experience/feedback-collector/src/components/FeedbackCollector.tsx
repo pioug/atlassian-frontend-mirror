@@ -375,7 +375,7 @@ export default class FeedbackCollector extends Component<Props> {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ data: postData }),
-        ...(isApiGatewayUrl(this.props.url) ? { credentials: 'include' } : {}),
+        credentials: 'include',
       });
     }
 

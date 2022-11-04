@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.6.4
+
+### Patch Changes
+
+- [`086761a9ac0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/086761a9ac0) - always send credentials in fetch
+
 ## 10.6.3
 
 ### Patch Changes

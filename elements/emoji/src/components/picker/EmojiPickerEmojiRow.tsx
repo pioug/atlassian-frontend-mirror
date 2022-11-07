@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { FC, memo } from 'react';
+import { jsx } from '@emotion/react';
 import { EmojiDescription, OnEmojiEvent } from '../../types';
 import CachingEmoji from '../common/CachingEmoji';
 import { emojiItem, emojiPickerRow } from './styles';
+
 export interface Props {
   emojis: EmojiDescription[];
   title: string;

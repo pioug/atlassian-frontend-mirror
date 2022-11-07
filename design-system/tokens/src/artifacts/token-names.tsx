@@ -10,7 +10,7 @@ import {
 } from './typescript/atlassian-spacing-token-names';
 
 const tokens = {
-    ...atlassianLightTokenNames,
+  ...atlassianLightTokenNames,
   ...atlassianSpacingTokenNames,
 } as const;
 

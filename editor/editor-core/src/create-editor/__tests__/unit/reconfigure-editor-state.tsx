@@ -41,7 +41,7 @@ describe('ReactEditorView/reconfigureState', () => {
           {...analyticsProps()}
           editorProps={{
             featureFlags: {
-              useUnpredictableInputRule: true,
+              tableOverflowShadowsOptimization: true,
             },
           }}
         />,
@@ -49,24 +49,24 @@ describe('ReactEditorView/reconfigureState', () => {
       expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
         1,
         expect.anything(),
-        expect.objectContaining({ useUnpredictableInputRule: true }),
+        expect.objectContaining({ tableOverflowShadowsOptimization: true }),
       );
     });
   });
   describe('when the editor props flag changes', () => {
-    it('should reconfigure the state using new UNSAFE_allowUndoRedoButtons', () => {
+    it('should reconfigure the state using new allowUndoRedoButtons', () => {
       const wrapper = mountWithIntl(
         <ReactEditorView
           {...requiredProps()}
           {...analyticsProps()}
           editorProps={{
-            UNSAFE_allowUndoRedoButtons: false,
+            allowUndoRedoButtons: false,
           }}
         />,
       );
       wrapper.setProps({
         editorProps: {
-          UNSAFE_allowUndoRedoButtons: true,
+          allowUndoRedoButtons: true,
         },
       });
       expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
@@ -85,7 +85,7 @@ describe('ReactEditorView/reconfigureState', () => {
           {...analyticsProps()}
           editorProps={{
             featureFlags: {
-              useUnpredictableInputRule: true,
+              tableOverflowShadowsOptimization: true,
             },
             appearance: 'mobile',
           }}
@@ -94,7 +94,7 @@ describe('ReactEditorView/reconfigureState', () => {
       wrapper.setProps({
         editorProps: {
           featureFlags: {
-            useUnpredictableInputRule: false,
+            tableOverflowShadowsOptimization: false,
             appearance: 'mobile',
           },
         },
@@ -102,7 +102,7 @@ describe('ReactEditorView/reconfigureState', () => {
       expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
         2,
         expect.anything(),
-        expect.objectContaining({ useUnpredictableInputRule: false }),
+        expect.objectContaining({ tableOverflowShadowsOptimization: false }),
       );
       wrapper.unmount();
     });

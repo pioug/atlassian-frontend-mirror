@@ -37,7 +37,7 @@ const SVG = memo(function SVG({
       }}
       css={[svgStyles, sizeStyleMap[size]]}
       data-testid={testId}
-      aria-label={label}
+      aria-label={label || undefined}
       role={label ? 'img' : 'presentation'}
     >
       {children}

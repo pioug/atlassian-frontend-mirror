@@ -1,6 +1,10 @@
 const mockStore = {
   failAll: jest.fn(),
 };
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+  isOutdatedBrowser: (userAgent: string) => userAgent === 'Unsupported',
+}));
 jest.mock('@atlaskit/editor-common/ufo', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/ufo'),
   ExperienceStore: {
@@ -25,7 +29,7 @@ import {
 } from '../../../plugins/analytics/types';
 import featureFlagsContextPlugin from '../../../plugins/feature-flags-context';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import { flushPromises } from '../../__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 const mockCtxIdentifierProvider = {
   objectId: 'MOCK-OBJECT-ID',
@@ -82,6 +86,7 @@ describe('create-editor/error-boundary', () => {
   const spy: { [key: string]: jest.MockInstance<any, any> } = {
     console: jest.fn(),
     componentDidCatch: jest.fn(),
+    userAgent: jest.fn(),
   };
 
   beforeAll(() => {
@@ -90,6 +95,9 @@ describe('create-editor/error-boundary', () => {
       EditorErrorBoundary.prototype,
       'componentDidCatch',
     );
+    spy.userAgent = jest
+      .spyOn(window.navigator, 'userAgent', 'get')
+      .mockReturnValue('Supported');
   });
   beforeEach(() => {
     createAnalyticsEvent = createAnalyticsEventMock();
@@ -98,11 +106,13 @@ describe('create-editor/error-boundary', () => {
     wrapper.unmount();
     spy.console.mockClear();
     spy.componentDidCatch.mockClear();
+    spy.userAgent.mockClear();
     jest.clearAllMocks();
   });
   afterAll(() => {
     spy.console.mockRestore();
     spy.componentDidCatch.mockRestore();
+    spy.userAgent.mockRestore();
   });
 
   it('should render children when no errors are thrown', () => {
@@ -166,6 +176,7 @@ describe('create-editor/error-boundary', () => {
           componentStack: expect.any(String),
         }),
         errorId: expect.any(String),
+        outdatedBrowser: false,
       },
     };
     const expectedAdditionalInformationAnalyticsEvent = {
@@ -349,6 +360,38 @@ describe('create-editor/error-boundary', () => {
           actionSubject: ACTION_SUBJECT.EDITOR,
           attributes: expect.not.objectContaining({
             docStructure: expect.any(String),
+          }),
+        }),
+      );
+    });
+  });
+
+  describe('UnsupportedBrowser', () => {
+    it('should dispatch an analytics event with outdatedBrowser flag when the current browser is unsupported', async () => {
+      wrapper = shallow(
+        <EditorErrorBoundary
+          rethrow={false}
+          createAnalyticsEvent={createAnalyticsEvent}
+          contextIdentifierProvider={contextIdentifierProvider}
+        >
+          <Foo />
+        </EditorErrorBoundary>,
+      );
+
+      spy.userAgent.mockReturnValue('Unsupported');
+      const error = new Error('Triggered error boundary');
+      wrapper.find(Foo).simulateError(error);
+
+      // Error boundary has a async operation to get the productName,
+      // I need to wait until that promise resolve
+      await flushPromises();
+
+      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          action: ACTION.EDITOR_CRASHED,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            outdatedBrowser: true,
           }),
         }),
       );

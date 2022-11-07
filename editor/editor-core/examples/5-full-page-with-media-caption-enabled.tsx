@@ -35,23 +35,25 @@ export default class ExampleEditor extends React.Component<Props, State> {
         messages={messages}
       >
         <FullPageExample
-          defaultValue={adf}
-          allowHelpDialog
-          media={mediaOptions}
-          primaryToolbarComponents={
-            <WithEditorActions
-              render={(actions) => (
-                <React.Fragment>
-                  <LanguagePicker
-                    languages={languages}
-                    locale={locale}
-                    onChange={this.loadLocale}
-                  />
-                  <SaveAndCancelButtons editorActions={actions} />
-                </React.Fragment>
-              )}
-            />
-          }
+          editorProps={{
+            defaultValue: adf,
+            allowHelpDialog: true,
+            media: mediaOptions,
+            primaryToolbarComponents: (
+              <WithEditorActions
+                render={(actions) => (
+                  <React.Fragment>
+                    <LanguagePicker
+                      languages={languages}
+                      locale={locale}
+                      onChange={this.loadLocale}
+                    />
+                    <SaveAndCancelButtons editorActions={actions} />
+                  </React.Fragment>
+                )}
+              />
+            ),
+          }}
         />
       </IntlProvider>
     );

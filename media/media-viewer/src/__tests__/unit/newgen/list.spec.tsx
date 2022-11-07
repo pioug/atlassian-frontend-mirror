@@ -66,7 +66,9 @@ describe('<List />', () => {
       defaultSelectedItem: identifier,
     });
     expect(el.state().selectedItem).toMatchObject({ id: 'some-id' });
-    el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
+    el.find(`button[data-testid="${nextNavButtonId}"]`)
+      .first()
+      .simulate('click');
     expect(el.state().selectedItem).toMatchObject({ id: 'some-id-2' });
   });
 
@@ -78,8 +80,12 @@ describe('<List />', () => {
       showControls,
     });
 
-    el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
-    el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
+    el.find(`button[data-testid="${nextNavButtonId}"]`)
+      .first()
+      .simulate('click');
+    el.find(`button[data-testid="${nextNavButtonId}"]`)
+      .first()
+      .simulate('click');
     expect(showControls).toHaveBeenCalledTimes(2);
   });
 
@@ -102,7 +108,9 @@ describe('<List />', () => {
         defaultSelectedItem: identifier,
         showControls,
       });
-      el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
+      el.find(`button[data-testid="${nextNavButtonId}"]`)
+        .first()
+        .simulate('click');
       const itemViewer = el.find(ItemViewer);
       expect(itemViewer.prop('previewCount')).toEqual(1);
     });

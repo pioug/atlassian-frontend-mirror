@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/standard-button';
@@ -11,9 +11,7 @@ import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import Popup, { TriggerProps } from '@atlaskit/popup';
-import Spinner from '@atlaskit/spinner';
 import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
@@ -22,12 +20,7 @@ import useGeneratedId from './internal/utils/use-generated-id';
 import type { DropdownMenuProps, Placement } from './types';
 
 const gridSize = gridSizeFn();
-const spinnerContainerStyles = css({
-  display: 'flex',
-  minWidth: `${gridSize * 20}px`,
-  padding: `${gridSize * 2.5}px`,
-  justifyContent: 'center',
-});
+
 const MAX_HEIGHT = `calc(100vh - ${gridSize * 2}px)`;
 
 type mainAxes = 'top' | 'bottom' | 'left' | 'right' | 'auto';
@@ -103,7 +96,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
     isLoading = false,
     autoFocus = false,
     testId,
-    statusLabel = 'Loading',
+    statusLabel,
     zIndex = layers.modal(),
   } = props;
   const [isLocalOpen, setLocalIsOpen] = useControlledState(
@@ -221,26 +214,22 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
             </Button>
           );
         }}
-        content={({ setInitialFocusRef }) => (
+        content={({ setInitialFocusRef, update }) => (
           <FocusManager>
             <MenuWrapper
               maxHeight={MAX_HEIGHT}
               maxWidth={800}
               onClose={handleOnClose}
+              onUpdate={update}
+              isLoading={isLoading}
+              statusLabel={statusLabel}
               setInitialFocusRef={
                 isTriggeredUsingKeyboard || autoFocus
                   ? setInitialFocusRef
                   : undefined
               }
             >
-              {isLoading ? (
-                <div css={spinnerContainerStyles}>
-                  <Spinner size="small" />
-                  <VisuallyHidden role="status">{statusLabel}</VisuallyHidden>
-                </div>
-              ) : (
-                children
-              )}
+              {children}
             </MenuWrapper>
           </FocusManager>
         )}

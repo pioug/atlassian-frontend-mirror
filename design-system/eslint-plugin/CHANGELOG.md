@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.13.0
+
+### Minor Changes
+
+- [`9693f6e7816`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9693f6e7816) - [ux] Adds a new case to the no-unsafe-design-token-usage rule to lint against uses of 'experimental' tokens and automatically replace them with their replacement (either a token or a fallback) via a fixer.
+
 ## 4.12.4
 
 ### Patch Changes

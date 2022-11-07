@@ -52,34 +52,26 @@ function moveCursorToNextPos(
 
 describe('text-formatting input rules', () => {
   const createEditor = createProsemirrorEditorFactory();
-  describe.each([true, false])(
-    'when useUnpredictableInputRule is %s',
-    (useUnpredictableInputRule) => {
-      const editor = (doc: DocBuilder) => {
-        const editor = createEditor({
-          doc,
-          preset: new Preset<LightEditorPlugin>()
-            .add(base)
-            .add(textFormatting)
-            .add(blockType),
-          featureFlags: {
-            useUnpredictableInputRule,
-          },
-        });
+  const editor = (doc: DocBuilder) => {
+    const editor = createEditor({
+      doc,
+      preset: new Preset<LightEditorPlugin>()
+        .add(base)
+        .add(textFormatting)
+        .add(blockType),
+    });
 
-        return editor;
-      };
+    return editor;
+  };
 
-      it('should not replace text outside of matched word in a long paragraph', () => {
-        const longParagraph = 'Hello world. '.repeat(50);
-        const { editorView } = editor(doc(p(`${longParagraph}it{<>}`)));
-        typeText(editorView, "'s");
-        expect(editorView.state.doc).toEqualDocument(
-          doc(p(`${longParagraph}it’s`)),
-        );
-      });
-    },
-  );
+  it('should not replace text outside of matched word in a long paragraph', () => {
+    const longParagraph = 'Hello world. '.repeat(50);
+    const { editorView } = editor(doc(p(`${longParagraph}it{<>}`)));
+    typeText(editorView, "'s");
+    expect(editorView.state.doc).toEqualDocument(
+      doc(p(`${longParagraph}it’s`)),
+    );
+  });
 
   describe('when inserting single quotes around text', () => {
     const startSmartQuote = '‘';

@@ -12,10 +12,11 @@ import { removeColumnAt } from '@atlaskit/editor-tables/utils';
 import {
   TablePluginState,
   PluginConfig,
-} from '../../../../plugins/table/types';
+} from '@atlaskit/editor-plugin-table/types';
 
-import { setResizeHandlePos } from '../../../../plugins/table/pm-plugins/table-resizing/commands';
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { setResizeHandlePos } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing/commands';
+import { pluginKey as tablePluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('Tables with Collab editing', () => {

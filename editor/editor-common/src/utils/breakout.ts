@@ -1,3 +1,4 @@
+import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import {
   akEditorBreakoutPadding,
   akEditorDefaultLayoutWidth,
@@ -8,6 +9,8 @@ import {
 
 import { mapBreakpointToLayoutMaxWidth } from '../ui/BaseTheme';
 import { getBreakpoint } from '../ui/WidthProvider';
+
+import { parsePx } from './dom';
 
 /**
  * Variables required to construct a context for breakout ssr inline script.
@@ -22,6 +25,10 @@ const breakoutConsts: any = {
   wideLayoutWidth: akEditorWideLayoutWidth,
   mapBreakpointToLayoutMaxWidth,
   getBreakpoint,
+  /**
+   * Consumers are opinionated that this will always return a string ending in
+   * `px` when called with `full-width` or `wide` as the layout parameter.
+   */
   calcBreakoutWidth: (
     layout: 'full-width' | 'wide' | string,
     containerWidth: number,
@@ -89,3 +96,61 @@ export const absoluteBreakoutWidth = (
 export { breakoutConsts };
 export const calcWideWidth = breakoutConsts.calcWideWidth;
 export const calcBreakoutWidth = breakoutConsts.calcBreakoutWidth;
+
+export function calculateBreakoutStyles({
+  mode,
+  widthStateLineLength,
+  widthStateWidth,
+}: {
+  mode: BreakoutMarkAttrs['mode'];
+  /**
+   * offsetWidth of the content the editor is attached to.
+   * Expected to be retrieved via `WidthState.lineLength`.
+   */
+  widthStateWidth?: number;
+  /**
+   * clientWidth of the content area in the editor (ie. EditorPlugin contentComponents).
+   * Expected to be retrieved via `WidthState.width`.
+   */
+  widthStateLineLength?: number;
+}) {
+  const breakoutWidth = calcBreakoutWidth(mode, widthStateWidth);
+  const breakoutWidthPx = parsePx(breakoutWidth) as number;
+
+  if (!widthStateLineLength) {
+    // lineLength is not normally undefined when this is run for,
+    // consumers but can be in SSR, initial render or test (jsdom)
+    // environments.
+    //
+    // this approach doesn't work well with position: fixed, so
+    // it breaks things like sticky headers.
+    //
+    // It can also cause bluriness for some child content (such as iframes)
+    return {
+      type: 'line-length-unknown' as const,
+      width: breakoutWidth,
+      transform: 'translateX(-50%)',
+      marginLeft: '50%',
+    };
+  }
+
+  // NOTE
+  // At time of writing -- when toggling between full-width and
+  // full-page appearance modes. There is a slight delay before
+  // the widthState is updated.
+  // During this period -- the marginLeftPx will be incorrect.
+  const marginLeftPx = -(breakoutWidthPx - widthStateLineLength) / 2;
+
+  return {
+    type: 'line-length-known' as const,
+    width: breakoutWidth,
+    marginLeft: `${marginLeftPx}px`,
+  };
+}
+
+export function calcBreakoutWidthPx(
+  mode: BreakoutMarkAttrs['mode'],
+  widthStateWidth?: number,
+) {
+  return parsePx(calcBreakoutWidth(mode, widthStateWidth)) as number;
+}

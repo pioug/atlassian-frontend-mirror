@@ -22,7 +22,7 @@ import {
 } from '../../../utils/selection';
 import { Side as GapCursorSide } from '../../../plugins/selection/gap-cursor-selection';
 import rulePlugin from '../../../plugins/rule';
-import tablePlugin from '../../../plugins/table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -30,7 +30,7 @@ describe('toEqualDocumentAndSelection matches', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add(rulePlugin)
-    .add(tablePlugin);
+    .add(tablesPlugin);
 
   const editor = (doc: DocBuilder) =>
     createEditor({

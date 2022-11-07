@@ -4,6 +4,7 @@ export type {
   AlignType,
   ConfirmDialogOptions,
   FloatingToolbarButton,
+  FloatingToolbarCopyButton,
   FloatingToolbarInput,
   FloatingToolbarCustom,
   FloatingToolbarListPicker,
@@ -17,4 +18,7 @@ export type {
   FloatingToolbarItem,
   FloatingToolbarConfig,
   FloatingToolbarHandler,
+  Command,
+  MarkOptions,
+  NodeOptions,
 } from '@atlaskit/editor-common/types';

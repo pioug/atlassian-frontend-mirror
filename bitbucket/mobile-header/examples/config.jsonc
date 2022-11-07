@@ -5,6 +5,7 @@
  */
 {
   "exampleDependencies": [
+    "@atlaskit/banner",
     "@atlaskit/navigation"
   ]
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ObjectInterpolation } from '@emotion/core';
+import { CSSObject } from '@emotion/react';
 
 import KeyframesMotion, { KeyframesMotionProps } from './keyframes-motion';
 
-export const zoomInAnimation = (): ObjectInterpolation<undefined> => ({
+export const zoomInAnimation = (): CSSObject => ({
   '0%': {
     opacity: 0,
     transform: 'scale(0.5)',
@@ -20,7 +20,7 @@ export const zoomInAnimation = (): ObjectInterpolation<undefined> => ({
   },
 });
 
-export const shrinkOutAnimation = (): ObjectInterpolation<undefined> => ({
+export const shrinkOutAnimation = (): CSSObject => ({
   to: {
     opacity: 0,
     transform: 'scale(0.75)',

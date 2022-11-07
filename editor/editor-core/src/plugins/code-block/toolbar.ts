@@ -137,6 +137,7 @@ export const getToolbarConfig = (
       findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
     nodeType,
     items: [languageSelect, separator, ...copyToClipboardItems, deleteButton],
+    scrollable: true,
   };
 };
 

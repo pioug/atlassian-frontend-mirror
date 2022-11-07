@@ -1,9 +1,9 @@
 import React from 'react';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
-import { breakout } from '@atlaskit/adf-schema';
-import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
+import { Node as PMNode, Mark as PMMark } from 'prosemirror-model';
+import { breakout, BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
 import { EditorPlugin, PMPluginFactoryParams } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
 import { pluginKey as widthPluginKey, WidthPluginState } from '../width';
@@ -11,19 +11,26 @@ import LayoutButton from './ui/LayoutButton';
 import { BreakoutCssClassName } from './constants';
 import { EventDispatcher } from '../../';
 import { pluginKey } from './plugin-key';
-import { parsePx } from '../../utils/dom';
 import { findSupportedNodeForBreakout } from './utils/find-breakout-node';
 import { BreakoutPluginState } from './types';
+import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
+
+type BreakoutPMMark = Omit<PMMark, 'attrs'> & { attrs: BreakoutMarkAttrs };
 
 class BreakoutView {
   dom: HTMLElement;
   contentDOM: HTMLElement;
   view: EditorView;
-  node: PMNode;
+  mark: BreakoutPMMark;
   eventDispatcher: EventDispatcher;
 
   constructor(
-    node: PMNode,
+    /**
+     * Note: this is actually a PMMark -- however our version
+     * of the prosemirror and prosemirror types mean using PMNode
+     * is not problematic.
+     */
+    mark: PMNode,
     view: EditorView,
     eventDispatcher: EventDispatcher,
   ) {
@@ -32,11 +39,11 @@ class BreakoutView {
 
     const dom = document.createElement('div');
     dom.className = BreakoutCssClassName.BREAKOUT_MARK;
-    dom.setAttribute('data-layout', node.attrs.mode);
+    dom.setAttribute('data-layout', mark.attrs.mode);
     dom.appendChild(contentDOM);
 
     this.dom = dom;
-    this.node = node;
+    this.mark = (mark as any) as BreakoutPMMark;
     this.view = view;
     this.contentDOM = contentDOM;
     this.eventDispatcher = eventDispatcher;
@@ -52,22 +59,38 @@ class BreakoutView {
     if (widthState.width === 0) {
       return;
     }
-    const width = calcBreakoutWidth(this.node.attrs.mode, widthState.width);
-    let newStyle = `width: ${width}; `;
 
-    const lineLength = widthState.lineLength;
-    const widthPx = parsePx(width);
+    let containerStyle = ``;
+    let contentStyle = ``;
+    let breakoutWidthPx = calcBreakoutWidthPx(
+      this.mark.attrs.mode,
+      widthState.width,
+    );
 
-    if (lineLength && widthPx) {
-      const marginLeftPx = -(widthPx - lineLength) / 2;
-      newStyle += `transform: none; margin-left: ${marginLeftPx}px;`;
+    if (widthState.lineLength) {
+      if (breakoutWidthPx < widthState.lineLength) {
+        breakoutWidthPx = widthState.lineLength;
+      }
+      containerStyle += `
+        transform: none;
+        display: flex;
+        justify-content: center;
+        `;
+
+      // There is a delay in the animation because widthState is delayed.
+      // When the editor goes full width the animation for the editor
+      // begins and finishes before widthState can update the new dimensions.
+      contentStyle += `
+        min-width: ${breakoutWidthPx}px;
+        transition: min-width 0.5s ${akEditorSwoopCubicBezier};
+      `;
     } else {
       // fallback method
       // (lineLength is not normally undefined, but might be in e.g. SSR or initial render)
       //
       // this approach doesn't work well with position: fixed, so
       // it breaks things like sticky headers
-      newStyle += `transform: translateX(-50%); margin-left: 50%;`;
+      containerStyle += `width: ${breakoutWidthPx}px; transform: translateX(-50%); margin-left: 50%;`;
     }
 
     // NOTE: This is a hack to ignore mutation since mark NodeView doesn't support
@@ -81,9 +104,11 @@ class BreakoutView {
     }
 
     if (typeof this.dom.style.cssText !== 'undefined') {
-      this.dom.style.cssText = newStyle;
+      this.dom.style.cssText = containerStyle;
+      this.contentDOM.style.cssText = contentStyle;
     } else {
-      this.dom.setAttribute('style', newStyle);
+      this.dom.setAttribute('style', containerStyle);
+      this.contentDOM.setAttribute('style', contentStyle);
     }
   };
 
@@ -130,8 +155,12 @@ function createPlugin({ dispatch, eventDispatcher }: PMPluginFactoryParams) {
     key: pluginKey,
     props: {
       nodeViews: {
-        breakout: (node, view) => {
-          return new BreakoutView(node, view, eventDispatcher);
+        // Note: When we upgrade to prosemirror 1.27.2 -- we should
+        // move this to markViews.
+        // See the following link for more details:
+        // https://prosemirror.net/docs/ref/#view.EditorProps.nodeViews.
+        breakout: (mark, view) => {
+          return new BreakoutView(mark, view, eventDispatcher);
         },
       },
     },

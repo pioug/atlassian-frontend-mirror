@@ -23,7 +23,7 @@ import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { smallImage, dataURItoBlob } from '@atlaskit/media-test-helpers';
 import pastePlugin from '../../index';
 import textColorPlugin from '../../../text-color';
-import tablesPlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import blockTypePlugin from '../../../block-type';
 import hyperlinkPlugin from '../../../hyperlink';
 import { textFormattingPlugin } from '../../../index';

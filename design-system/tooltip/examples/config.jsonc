@@ -9,7 +9,6 @@
     "defaultTooltip.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/icon",
     "react-redux"
   ]
 }

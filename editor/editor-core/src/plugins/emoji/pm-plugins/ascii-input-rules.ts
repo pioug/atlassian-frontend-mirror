@@ -31,9 +31,7 @@ export function inputRulePlugin(
       inputRuleHandler,
     );
 
-    return createPlugin('emoji', [asciiEmojiRule], {
-      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
-    });
+    return createPlugin('emoji', [asciiEmojiRule]);
   }
   return;
 }

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::de3cdd57ab11cc9e909f280b3ea720f0>>
+ * @codegen <<SignedSource::6f233e4b1b5be5c6a4c556fffa5fe40d>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -541,7 +541,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
     },
-    "value": "#5E6C84",
+    "value": "#42526E",
     "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
     "isSource": true,
     "original": {
@@ -551,7 +551,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
       },
-      "value": "N300"
+      "value": "N500"
     },
     "name": "color.text.subtle",
     "path": [
@@ -723,7 +723,7 @@ const tokens = [
       "introduced": "0.0.15",
       "description": "Use for text to emphasize caution, such as in moved lozenges."
     },
-    "value": "#FF8B00",
+    "value": "#974F0C",
     "filePath": "src/tokens/atlassian-legacy-light/color/text.tsx",
     "isSource": true,
     "original": {
@@ -733,7 +733,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for text to emphasize caution, such as in moved lozenges."
       },
-      "value": "Y500"
+      "value": "O800"
     },
     "name": "color.text.warning.[default]",
     "path": [
@@ -4059,7 +4059,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "The default background for neutral elements, such as default buttons."
     },
-    "value": "#091e42a",
+    "value": "#DFE1E6",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4069,7 +4069,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "The default background for neutral elements, such as default buttons."
       },
-      "value": "N20A"
+      "value": "N40"
     },
     "name": "color.background.neutral.[default].[default]",
     "path": [
@@ -4339,7 +4339,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Hovered state of color.background.brand.bold"
     },
-    "value": "#2684FF",
+    "value": "#0065FF",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4349,7 +4349,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.brand.bold"
       },
-      "value": "B200"
+      "value": "B300"
     },
     "name": "color.background.brand.bold.hovered",
     "path": [
@@ -4367,7 +4367,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.brand.bold"
     },
-    "value": "#0052CC",
+    "value": "#0747A6",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4377,7 +4377,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.brand.bold"
       },
-      "value": "B400"
+      "value": "B500"
     },
     "name": "color.background.brand.bold.pressed",
     "path": [
@@ -4843,7 +4843,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Hovered state of color.background.danger.bold"
     },
-    "value": "#FF7452",
+    "value": "#FF5630",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4853,7 +4853,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state of color.background.danger.bold"
       },
-      "value": "R200"
+      "value": "R300"
     },
     "name": "color.background.danger.bold.hovered",
     "path": [
@@ -4871,7 +4871,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.danger.bold"
     },
-    "value": "#DE350B",
+    "value": "#BF2600",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4881,7 +4881,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.danger.bold"
       },
-      "value": "R400"
+      "value": "R500"
     },
     "name": "color.background.danger.bold.pressed",
     "path": [
@@ -4983,7 +4983,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
     },
-    "value": "#FF991F",
+    "value": "#FFAB00",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4993,7 +4993,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
       },
-      "value": "Y400"
+      "value": "Y300"
     },
     "name": "color.background.warning.bold.[default]",
     "path": [
@@ -5039,7 +5039,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.warning.bold"
     },
-    "value": "#FF8B00",
+    "value": "#FF991F",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -5049,7 +5049,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state of color.background.warning.bold"
       },
-      "value": "Y500"
+      "value": "Y400"
     },
     "name": "color.background.warning.bold.pressed",
     "path": [
@@ -7273,7 +7273,7 @@ const tokens = [
       "introduced": "0.8.0",
       "description": "Use for the pulse or shimmer effect in skeleton loading states"
     },
-    "value": "#091e42a",
+    "value": "#091e420a",
     "filePath": "src/tokens/atlassian-legacy-light/color/skeleton.tsx",
     "isSource": true,
     "original": {

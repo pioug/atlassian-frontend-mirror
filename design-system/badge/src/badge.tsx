@@ -1,14 +1,12 @@
+/* eslint-disable @atlassian/tangerine/import/entry-points */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { memo } from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
-import { useGlobalTheme } from '@atlaskit/theme/components';
+import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
+import Text, { TextProps } from '@atlaskit/ds-explorations/text';
 
-import { backgroundColors, textColors } from './internal/theme';
 import { formatValue } from './internal/utils';
-import type { BadgeProps } from './types';
+import type { BadgeProps, ThemeAppearance } from './types';
 
 /**
  * __Badge__
@@ -26,25 +24,28 @@ const Badge = memo(function Badge({
   style,
   testId,
 }: BadgeProps) {
-  const { mode } = useGlobalTheme();
-  const backgroundColor =
-    style?.backgroundColor ?? backgroundColors[appearance][mode];
-  const textColor = style?.color ?? textColors[appearance][mode];
-
   return (
     <Box
       testId={testId}
       as="span"
+      backgroundColor={backgroundColors[appearance]}
       borderRadius="badge"
       display="inlineFlex"
-      paddingInline="sp-75"
-      paddingBlock="sp-25"
-      UNSAFE_style={{
-        backgroundColor,
-        color: textColor,
-      }}
+      paddingInline="scale.075"
+      paddingBlock="scale.025"
+      UNSAFE_style={
+        style?.backgroundColor
+          ? { backgroundColor: style.backgroundColor }
+          : undefined
+      }
     >
-      <Text fontSize="12px" lineHeight="12px" textAlign="center">
+      <Text
+        fontSize="12px"
+        lineHeight="12px"
+        textAlign="center"
+        color={textColors[appearance]}
+        UNSAFE_style={style?.color ? { color: style.color } : undefined}
+      >
         {typeof children === 'number' && max
           ? formatValue(children, max)
           : children}
@@ -56,3 +57,21 @@ const Badge = memo(function Badge({
 Badge.displayName = 'Badge';
 
 export default Badge;
+
+const backgroundColors: Record<ThemeAppearance, BoxProps['backgroundColor']> = {
+  added: 'success',
+  default: 'neutral',
+  important: 'danger.bold',
+  primary: 'brand.bold',
+  primaryInverted: 'elevation.surface',
+  removed: 'danger',
+};
+
+const textColors: Record<ThemeAppearance, TextProps['color']> = {
+  added: 'success',
+  default: 'color.text',
+  important: 'inverse',
+  primary: 'inverse',
+  primaryInverted: 'brand',
+  removed: 'danger',
+};

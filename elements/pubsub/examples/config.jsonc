@@ -6,7 +6,7 @@
 {
   "exampleDependencies": [
     "@atlaskit/button",
-    "@atlaskit/field-text",
-    "@atlaskit/lozenge"
+    "@atlaskit/lozenge",
+    "@atlaskit/textfield"
   ]
 }

@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 15.2.0
+
+### Minor Changes
+
+- [`daab1376ed1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daab1376ed1) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 15.1.17
 
 ### Patch Changes

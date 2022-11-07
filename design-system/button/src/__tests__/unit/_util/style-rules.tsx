@@ -1,4 +1,4 @@
-import { css, CSSObject, SerializedStyles } from '@emotion/core';
+import { css, CSSObject, SerializedStyles } from '@emotion/react';
 
 function flatten<T>(lists: T[][]): T[] {
   return Array.prototype.concat.apply([], lists);

@@ -7,13 +7,13 @@ export default () => {
   return (
     <Box>
       <Box
-        paddingBlock="sp-400"
-        paddingInline="sp-400"
+        paddingBlock="scale.400"
+        paddingInline="scale.400"
         alignItems="center"
-        backgroundColor={['brand.bold', 'blue']}
+        backgroundColor="brand.bold"
         UNSAFE_style={{ aspectRatio: '1/1' }}
       >
-        <Text fontWeight="500" color={['inverse', 'white']}>
+        <Text fontWeight="500" color="inverse">
           A basic box
         </Text>
       </Box>

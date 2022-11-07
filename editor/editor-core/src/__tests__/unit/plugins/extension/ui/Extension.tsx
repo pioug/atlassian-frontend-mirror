@@ -22,12 +22,14 @@ const providerFactory = ProviderFactory.create({
 describe('@atlaskit/editor-core/ui/Extension', () => {
   const node = extensionData[0] as any;
   const noop: any = () => {};
+  const mockGetPos = () => 1;
 
   it('should render macro component', () => {
     const extension = mount(
       <Extension
         editorView={{} as any}
         node={node}
+        getPos={mockGetPos}
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={{}}
@@ -70,6 +72,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           } as any
         }
         node={extensionNode}
+        getPos={mockGetPos}
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={extensionHandlers}
@@ -112,6 +115,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           } as any
         }
         node={extensionNode}
+        getPos={mockGetPos}
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={extensionHandlers}
@@ -162,6 +166,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           } as any
         }
         node={extensionNode}
+        getPos={mockGetPos}
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={extensionHandlers}
@@ -214,6 +219,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           } as any
         }
         node={extensionNode}
+        getPos={mockGetPos}
         providerFactory={providerFactory}
         handleContentDOMRef={noop}
         extensionHandlers={extensionHandlers}
@@ -268,6 +274,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           }
           providerFactory={providerFactory}
           node={extensionNode}
+          getPos={mockGetPos}
           handleContentDOMRef={noop}
           extensionHandlers={{}}
         />,
@@ -312,6 +319,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           }
           providerFactory={providerFactory}
           node={extensionNode}
+          getPos={mockGetPos}
           handleContentDOMRef={noop}
           extensionHandlers={extensionHandlers}
         />,
@@ -340,6 +348,7 @@ describe('@atlaskit/editor-core/ui/Extension', () => {
           }
           providerFactory={providerFactory}
           node={extensionNode}
+          getPos={mockGetPos}
           handleContentDOMRef={noop}
           extensionHandlers={extensionHandlers}
         />,

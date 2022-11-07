@@ -17,7 +17,7 @@ import {
   inlineExtension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { Schema } from '@atlaskit/editor-test-helpers/schema';
-import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { ExtensionsPlaceholder } from '../../ui/ExtensionsPlaceholder';
 import { createTestExtensionProvider } from '../_helpers';
 

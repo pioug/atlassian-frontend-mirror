@@ -1,5 +1,15 @@
 # @atlaskit/media-common
 
+## 2.17.0
+
+### Minor Changes
+
+- [`2c402e87213`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c402e87213) - [Experimental] Add traceId in media card get image request.
+
+### Patch Changes
+
+- [`19141d537a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19141d537a4) - Removes use of console.info in runtime
+
 ## 2.16.4
 
 ### Patch Changes

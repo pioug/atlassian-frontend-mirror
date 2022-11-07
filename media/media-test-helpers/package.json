@@ -19,12 +19,12 @@
     "releaseModel": "scheduled"
   },
   "dependencies": {
-    "@atlaskit/button": "^16.3.0",
+    "@atlaskit/button": "^16.4.0",
     "@atlaskit/checkbox": "^12.4.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/locale": "^2.1.0",
-    "@atlaskit/media-client": "^18.0.0",
-    "@atlaskit/media-common": "^2.16.0",
+    "@atlaskit/media-client": "^18.1.0",
+    "@atlaskit/media-common": "^2.17.0",
     "@atlaskit/media-core": "^34.0.0",
     "@atlaskit/media-ui": "^22.1.0",
     "@atlaskit/popup": "^1.5.0",

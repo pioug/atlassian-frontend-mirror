@@ -106,6 +106,7 @@ const remoteFetchParams = [
   cardPreviewParams.mediaClient,
   cardPreviewParams.id,
   cardPreviewParams.imageUrlParams,
+  undefined,
 ];
 
 const isBigger = jest.spyOn(dimensionComparerModule, 'isBigger');

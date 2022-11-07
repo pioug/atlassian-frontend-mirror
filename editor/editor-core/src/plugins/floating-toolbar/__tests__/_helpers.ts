@@ -1,10 +1,13 @@
 import { EditorView } from 'prosemirror-view';
+
 import {
   FloatingToolbarButton,
   FloatingToolbarConfig,
   FloatingToolbarItem,
 } from '../types';
 import { Command } from '../../../types';
+import { processCopyButtonItems } from '../../copy-button/toolbar';
+
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type {
   ContextualToolbar,
@@ -16,11 +19,10 @@ export const getToolbarItems = (
   view: EditorView,
 ) => {
   const node = view.state.doc.nodeAt(view.state.selection.from)!;
-  if (Array.isArray(toolbar.items)) {
-    return toolbar.items;
-  } else {
-    return toolbar.items(node);
-  }
+
+  return processCopyButtonItems(view.state)(
+    Array.isArray(toolbar.items) ? toolbar.items : toolbar.items(node),
+  );
 };
 
 export const findToolbarBtn = (

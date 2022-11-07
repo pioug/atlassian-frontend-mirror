@@ -3,8 +3,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { mount } from 'enzyme';
 
-import Button from '@atlaskit/button/custom-theme-button';
-
 import { ProfilecardInternal as ProfileCard } from '../../components/User/ProfileCard';
 import { ActionButtonGroup } from '../../styled/Card';
 import { profileCardRendered } from '../../util/analytics';
@@ -198,7 +196,10 @@ describe('ProfileCard', () => {
         });
         const actionsWrapper = card.find(ActionButtonGroup);
         const event = { preventDefault: jest.fn() };
-        actionsWrapper.find(Button).first().simulate('click', event);
+        actionsWrapper
+          .find('button[type="button"]')
+          .first()
+          .simulate('click', event);
         expect(spy).toHaveBeenCalledTimes(1);
         expect(event.preventDefault).toHaveBeenCalledTimes(1);
       });
@@ -215,7 +216,10 @@ describe('ProfileCard', () => {
         });
         const actionsWrapper = card.find(ActionButtonGroup);
         const event = { preventDefault: jest.fn(), metaKey: true };
-        actionsWrapper.find(Button).first().simulate('click', event);
+        actionsWrapper
+          .find('button[type="button"]')
+          .first()
+          .simulate('click', event);
         expect(spy).not.toHaveBeenCalled();
         expect(event.preventDefault).not.toHaveBeenCalled();
       });
@@ -232,7 +236,10 @@ describe('ProfileCard', () => {
         });
         const actionsWrapper = card.find(ActionButtonGroup);
         const event = { preventDefault: jest.fn(), altKey: true };
-        actionsWrapper.find(Button).first().simulate('click', event);
+        actionsWrapper
+          .find('button[type="button"]')
+          .first()
+          .simulate('click', event);
         expect(spy).not.toHaveBeenCalled();
         expect(event.preventDefault).not.toHaveBeenCalled();
       });
@@ -249,7 +256,10 @@ describe('ProfileCard', () => {
         });
         const actionsWrapper = card.find(ActionButtonGroup);
         const event = { preventDefault: jest.fn(), ctrlKey: true };
-        actionsWrapper.find(Button).first().simulate('click', event);
+        actionsWrapper
+          .find('button[type="button"]')
+          .first()
+          .simulate('click', event);
         expect(spy).not.toHaveBeenCalled();
         expect(event.preventDefault).not.toHaveBeenCalled();
       });
@@ -266,7 +276,10 @@ describe('ProfileCard', () => {
         });
         const actionsWrapper = card.find(ActionButtonGroup);
         const event = { preventDefault: jest.fn(), shiftKey: true };
-        actionsWrapper.find(Button).first().simulate('click', event);
+        actionsWrapper
+          .find('button[type="button"]')
+          .first()
+          .simulate('click', event);
         expect(spy).not.toHaveBeenCalled();
         expect(event.preventDefault).not.toHaveBeenCalled();
       });
@@ -283,8 +296,11 @@ describe('ProfileCard', () => {
             },
           ],
         });
-        const actionButton = card.find(ActionButtonGroup).find(Button).first();
-        expect(actionButton.prop('href')).toBe('#');
+        const actionButton = card
+          .find(ActionButtonGroup)
+          .find('a[href]')
+          .first();
+        expect(actionButton.getDOMNode().getAttribute('href')).toBe('#');
         actionButton.simulate('click', { preventDefault });
         expect(spy.mock.calls.length).toBe(1);
         expect(preventDefault.mock.calls.length).toBe(1);
@@ -300,8 +316,11 @@ describe('ProfileCard', () => {
             },
           ],
         });
-        const actionButton = card.find(ActionButtonGroup).find(Button).first();
-        expect(actionButton.prop('href')).toBe('#');
+        const actionButton = card
+          .find(ActionButtonGroup)
+          .find('a[href]')
+          .first();
+        expect(actionButton.getDOMNode().getAttribute('href')).toBe('#');
         actionButton.simulate('click', { preventDefault });
         expect(preventDefault.mock.calls.length).toBe(0);
       });

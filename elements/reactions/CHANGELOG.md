@@ -1,5 +1,18 @@
 # @atlaskit/reactions
 
+## 21.8.0
+
+### Minor Changes
+
+- [`cb37ece1f9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb37ece1f9e) - Add aria expanded and aria cotrols to reaction picker toggle
+
+### Patch Changes
+
+- [`d74d5065a25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d74d5065a25) - minor analytics update
+- [`2d0d8c066d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d0d8c066d4) - Upgrade emotion library inside Reactions to use version 11
+- [`ee2a087d647`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee2a087d647) - Reducing Enzyme dependencies across reactions unit tests and move the testint-library
+- Updated dependencies
+
 ## 21.7.0
 
 ### Minor Changes

@@ -95,7 +95,7 @@ import {
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 } from '../../consts';
 import * as FireAnalyticsEvent from '../../../plugins/analytics/fire-analytics-event';
-import { flushPromises } from '../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import {
   EditorExperience,
   RELIABILITY_INTERVAL,
@@ -1367,10 +1367,10 @@ describe('@atlaskit/editor-core', () => {
       expect(actual).toBe(true);
     });
 
-    it('should return TRUE when UNSAFE_allowUndoRedoButtons is changed', () => {
+    it('should return TRUE when allowUndoRedoButtons is changed', () => {
       const nextProps: EditorProps = {
         ...props,
-        UNSAFE_allowUndoRedoButtons: true,
+        allowUndoRedoButtons: true,
       };
 
       const actual = shouldReconfigureState(props, nextProps);

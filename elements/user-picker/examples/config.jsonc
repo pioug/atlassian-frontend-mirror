@@ -6,7 +6,9 @@
 {
   "exampleDependencies": [
     "@atlaskit/button",
+    "@atlaskit/modal-dialog",
+    "@atlaskit/radio",
     "@atlaskit/range",
-    "@atlaskit/modal-dialog"
+    "@emotion/styled"
   ]
 }

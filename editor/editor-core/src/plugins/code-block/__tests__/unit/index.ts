@@ -28,7 +28,7 @@ import {
 import { setTextSelection } from '../../../../utils';
 import { copyToClipboard } from '../../../../utils/clipboard';
 import codeBlockPlugin from '../../';
-import tablesPlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import basePlugin from '../../../base';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useCallback, useEffect, useRef } from 'react';
 
-import { CSSObject, jsx } from '@emotion/core';
+import { css, CSSObject, jsx, SerializedStyles } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
@@ -109,7 +109,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
 
     // we are 'disabling' input with a button when there is an overlay
     const hasOverlay: boolean = Boolean(overlay);
-    const fadeCss: CSSObject = getFadingCss({ hasOverlay });
+    const fadeCss: SerializedStyles = css(getFadingCss({ hasOverlay }));
 
     const isInteractive: boolean = !isDisabled && !hasOverlay;
 

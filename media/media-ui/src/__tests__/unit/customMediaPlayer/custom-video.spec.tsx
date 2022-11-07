@@ -11,7 +11,6 @@ jest.mock('../../../customMediaPlayer/fullscreen', () => {
 jest.mock('../../../customMediaPlayer/simultaneousPlayManager');
 jest.mock('@atlaskit/width-detector');
 
-import Button from '@atlaskit/button/custom-theme-button';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import FullScreenIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import VidHdCircleIcon from '@atlaskit/icon/glyph/vid-hd-circle';
@@ -138,34 +137,34 @@ describe('<CustomMediaPlayer />', () => {
       component.update();
     };
 
-    const downloadButton = component
-      .find(Button)
-      .filter({ testId: 'custom-media-player-download-button' });
+    const downloadButton = component.find(
+      'button[type="button"][data-testid="custom-media-player-download-button"]',
+    );
 
-    const hdButton = component
-      .find(Button)
-      .filter({ testId: 'custom-media-player-hd-button' });
+    const hdButton = component.find(
+      'button[type="button"][data-testid="custom-media-player-hd-button"]',
+    );
 
-    const fullscreenButton = component
-      .find(Button)
-      .filter({ testId: 'custom-media-player-fullscreen-button' });
+    const fullscreenButton = component.find(
+      'button[type="button"][data-testid="custom-media-player-fullscreen-button"]',
+    );
 
     const getPlayPauseButton = () =>
-      component
-        .find(Button)
-        .filter({ testId: 'custom-media-player-play-toggle-button' });
+      component.find(
+        'button[type="button"][data-testid="custom-media-player-play-toggle-button"]',
+      );
 
-    const muteButton = component
-      .find(Button)
-      .filter({ testId: 'custom-media-player-volume-toggle-button' });
+    const muteButton = component.find(
+      'button[type="button"][data-testid="custom-media-player-volume-toggle-button"]',
+    );
 
-    const skipBackwardButton = component
-      .find(Button)
-      .filter({ testId: 'custom-media-player-skip-backward-button' });
+    const skipBackwardButton = component.find(
+      'button[type="button"][data-testid="custom-media-player-skip-backward-button"]',
+    );
 
-    const skipForwardButton = component
-      .find(Button)
-      .filter({ testId: 'custom-media-player-skip-forward-button' });
+    const skipForwardButton = component.find(
+      'button[type="button"][data-testid="custom-media-player-skip-forward-button"]',
+    );
 
     const blanket = component.find(PlayPauseBlanket);
 
@@ -247,9 +246,9 @@ describe('<CustomMediaPlayer />', () => {
     it('should render play button icon at first', async () => {
       const { getPlayPauseButton } = setup({ isAutoPlay: false });
 
-      let iconBefore = getPlayPauseButton().prop('iconBefore');
-      expect(iconBefore.type).toEqual(VidPlayIcon);
-      expect(iconBefore.props.label).toEqual('fakeIntl["Play"]');
+      const iconBefore = getPlayPauseButton().find(VidPlayIcon);
+      expect(iconBefore).toHaveLength(1);
+      expect(iconBefore.getElement().props.label).toEqual('fakeIntl["Play"]');
     });
 
     it('should have tooltip around play button', () => {
@@ -272,9 +271,8 @@ describe('<CustomMediaPlayer />', () => {
       const { getPlayPauseButton, triggerPlay } = setup({ isAutoPlay: false });
       triggerPlay();
 
-      let iconBefore = getPlayPauseButton().prop('iconBefore');
-      expect(iconBefore.type).toEqual(VidPauseIcon);
-      expect(iconBefore.props.label).toEqual('fakeIntl["Pause"]');
+      const iconBefore = getPlayPauseButton().find(VidPauseIcon);
+      expect(iconBefore.getElement().props.label).toEqual('fakeIntl["Pause"]');
     });
 
     it('should render a time range with the time properties', () => {
@@ -306,7 +304,7 @@ describe('<CustomMediaPlayer />', () => {
     it('should render the fullscreen button', () => {
       const { fullscreenButton } = setup();
 
-      expect(fullscreenButton.props().iconBefore.type).toEqual(FullScreenIcon);
+      expect(fullscreenButton.find(FullScreenIcon)).toHaveLength(1);
     });
 
     it('should render the playPauseBlanket', () => {
@@ -319,18 +317,22 @@ describe('<CustomMediaPlayer />', () => {
       const { skipBackwardButton } = setup();
 
       expect(skipBackwardButton).toHaveLength(1);
-      const beforeIcon = skipBackwardButton.props().iconBefore;
-      expect(beforeIcon.type).toEqual(SkipTenBackwardIcon);
-      expect(beforeIcon.props.label).toEqual('fakeIntl["Back 10 seconds"]');
+      const beforeIcon = skipBackwardButton.find(SkipTenBackwardIcon);
+      expect(beforeIcon).toHaveLength(1);
+      expect(beforeIcon.getElement().props.label).toEqual(
+        'fakeIntl["Back 10 seconds"]',
+      );
     });
 
     it('should render the skip forward button', () => {
       const { skipForwardButton } = setup();
 
       expect(skipForwardButton).toHaveLength(1);
-      const beforeIcon = skipForwardButton.props().iconBefore;
-      expect(beforeIcon.type).toEqual(SkipTenForwardIcon);
-      expect(beforeIcon.props.label).toEqual('fakeIntl["Forward 10 seconds"]');
+      const beforeIcon = skipForwardButton.find(SkipTenForwardIcon);
+      expect(beforeIcon).toHaveLength(1);
+      expect(beforeIcon.getElement().props.label).toEqual(
+        'fakeIntl["Forward 10 seconds"]',
+      );
     });
 
     it('should render tooltip around skip backward button', () => {
@@ -361,7 +363,7 @@ describe('<CustomMediaPlayer />', () => {
           isHDAvailable: true,
         });
 
-        expect(hdButton.props().iconBefore.type).toEqual(VidHdCircleIcon);
+        expect(hdButton.find(VidHdCircleIcon)).toHaveLength(1);
       });
       it('should fire callback when hd button is clicked', () => {
         const onHDToggleClick = jest.fn();
@@ -397,7 +399,7 @@ describe('<CustomMediaPlayer />', () => {
 
       it('should render download button if onDownloadClick is passed', () => {
         const { downloadButton } = setup({ onDownloadClick });
-        expect(downloadButton.props().iconBefore.type).toEqual(DownloadIcon);
+        expect(downloadButton.find(DownloadIcon)).toHaveLength(1);
       });
 
       it('should call onDownloadClick when download button is pressed', () => {
@@ -1124,9 +1126,9 @@ describe('<CustomMediaPlayer />', () => {
 
     it('should fire clicked event when playbackSpeed button is clicked', () => {
       const { component, getUIAnalyticsEventDetails } = setup();
-      const playbackSpeedButton = component
-        .find(Button)
-        .filter({ testId: 'custom-media-player-playback-speed-toggle-button' });
+      const playbackSpeedButton = component.find(
+        'button[type="button"][data-testid="custom-media-player-playback-speed-toggle-button"]',
+      );
 
       playbackSpeedButton.simulate('click');
 

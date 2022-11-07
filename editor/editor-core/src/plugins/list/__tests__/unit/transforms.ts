@@ -4,6 +4,41 @@ import { splitIntoParagraphs } from '../../transforms';
 
 describe('transforms', () => {
   describe('splitIntoParagraphs()', () => {
+    describe('when the content is invalid for a paragraph', () => {
+      it('should do not throw an exception', () => {
+        const { panel } = defaultSchema.nodes;
+        const emptyPanel = panel.createAndFill();
+        const from = Fragment.from([defaultSchema.text('LOL'), emptyPanel!]);
+
+        expect(() => {
+          splitIntoParagraphs({
+            fragment: from,
+            schema: defaultSchema,
+          });
+        }).not.toThrow();
+      });
+
+      it('should do keep the content outside the paragraph', () => {
+        const { panel, paragraph } = defaultSchema.nodes;
+        const emptyPanel = panel.createAndFill();
+        const from = Fragment.from([defaultSchema.text('LOL'), emptyPanel!]);
+
+        // It is inverted because the inner logic of how the mapSlice works
+        // We should change this order because it can cause multiple issues
+        const expected = Fragment.from([
+          panel.createAndFill()!,
+          paragraph.createChecked({}, defaultSchema.text('LOL')),
+        ]);
+
+        const result = splitIntoParagraphs({
+          fragment: from,
+          schema: defaultSchema,
+        });
+
+        expect(result).toStrictEqual(expected);
+      });
+    });
+
     it('should split texts followed by 2 hardBreaks into paragraphs with the texts', () => {
       for (let i = 1; i <= 3; i++) {
         const { paragraph, hardBreak } = defaultSchema.nodes;

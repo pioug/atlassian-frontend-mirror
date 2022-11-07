@@ -11,9 +11,9 @@ import {
 import {
   TablePluginState,
   PluginConfig,
-} from '../../../../plugins/table/types';
+} from '@atlaskit/editor-plugin-table/types';
 
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+import { pluginKey as tablePluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('fix tables', () => {

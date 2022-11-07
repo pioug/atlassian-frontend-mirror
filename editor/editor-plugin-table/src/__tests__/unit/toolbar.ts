@@ -133,7 +133,7 @@ describe('getToolbarMenuConfig', () => {
 describe('getToolbarCellOptionsConfig', () => {
   const state = createEditorState(doc(table()(row(td()(p('1{cursor}'))))));
   const getEditorContainerWidth = () => ({ width: 500 });
-  //
+
   const formatMessage: (t: { id: string }) => string = (message) =>
     `${message.id}`;
   const rect = new Rect(1, 1, 1, 1);
@@ -146,10 +146,6 @@ describe('getToolbarCellOptionsConfig', () => {
     getEditorContainerWidth,
     undefined,
   );
-  //
-  it('is hidden by default', () => {
-    expect(cellOptionsMenu.hidden).toBe(true);
-  });
 
   it('is a dropdown with the following dropdown items with the given order', () => {
     const items = cellOptionsMenu.options as Array<DropdownOptionT<Command>>;

@@ -5,6 +5,8 @@
  */
 {
   "exampleDependencies": [
+    "@atlaskit/section-message",
+    "@atlaskit/select",
     "@atlaskit/toggle",
     "@atlaskit/util-data-test"
   ]

@@ -108,7 +108,7 @@ export const Icon = memo(function Icon(props: IconProps) {
   return (
     <span
       data-testid={testId}
-      role={label ? 'img' : 'presentation'}
+      role={label ? 'img' : undefined}
       aria-label={label ? label : undefined}
       aria-hidden={label ? undefined : true}
       style={

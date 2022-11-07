@@ -1,8 +1,10 @@
+export {};
+
 // import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+// import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 // import {
 //   snapshot,
 //   initFullPageEditorWithAdf,
-//   Device,
 // } from '../../../../__tests__/visual-regression/_utils';
 // import tableWith100ListItemsADF from './__fixtures__/table-with-100-numbered-list-items.json';
 // import {

@@ -2,7 +2,7 @@
 
 import { forwardRef, memo, MouseEventHandler } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 

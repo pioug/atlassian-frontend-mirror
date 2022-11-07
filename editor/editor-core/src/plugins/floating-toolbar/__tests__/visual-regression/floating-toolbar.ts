@@ -17,7 +17,14 @@ import {
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { EditorProps } from '../../../../types/editor-props';
 import { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
-import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import {
+  pressKey,
+  pressKeyCombo,
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+
+async function focusToolbar() {
+  await pressKeyCombo(page, ['Alt', 'F10']);
+}
 
 describe('Floating toolbars:', () => {
   let page: PuppeteerPage;
@@ -48,15 +55,61 @@ describe('Floating toolbars:', () => {
     page = global.page;
   });
 
-  afterEach(async () => {
-    await snapshot(page, undefined, undefined, {
-      captureBeyondViewport: false,
+  describe('standard floating toolbars', () => {
+    beforeEach(async () => {
+      await initEditor();
+    });
+
+    afterEach(async () => {
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
+      focusToolbar();
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
+    });
+
+    it('should render and focus the block extension toolbar inside table', async () => {
+      const endCellSelector = getSelectorForTableCell({ row: 2, cell: 3 });
+      await page.click(`${endCellSelector} .extensionView-content-wrap`);
+
+      await waitForExtensionToolbar(page);
+    });
+
+    it('should render and focus the inline extension toolbar inside table', async () => {
+      const endCellSelector = getSelectorForTableCell({ row: 2, cell: 2 });
+      await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
+
+      await waitForExtensionToolbar(page);
+    });
+
+    it('should render and focus the info extension toolbar inside table', async () => {
+      const endCellSelector = getSelectorForTableCell({ row: 3, cell: 3 });
+      await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
+
+      await waitForExtensionToolbar(page);
+    });
+
+    it('should render and focus toolbar for macro', async () => {
+      await clickOnExtension(
+        page,
+        'com.atlassian.confluence.macro.core',
+        'expand',
+      );
+      await waitForExtensionToolbar(page);
     });
   });
 
   describe('standard floating toolbars', () => {
     beforeEach(async () => {
       await initEditor();
+    });
+
+    afterEach(async () => {
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
     });
 
     it('should render the table toolbar', async () => {
@@ -69,36 +122,6 @@ describe('Floating toolbars:', () => {
       );
 
       await waitForElementWithText(page, tableSelectors.tableOptionsText);
-    });
-
-    it('should render the block extension toolbar inside table', async () => {
-      const endCellSelector = getSelectorForTableCell({ row: 2, cell: 3 });
-      await page.click(`${endCellSelector} .extensionView-content-wrap`);
-
-      await waitForExtensionToolbar(page);
-    });
-
-    it('should render the inline extension toolbar inside table', async () => {
-      const endCellSelector = getSelectorForTableCell({ row: 2, cell: 2 });
-      await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
-
-      await waitForExtensionToolbar(page);
-    });
-
-    it('should render the info extension toolbar inside table', async () => {
-      const endCellSelector = getSelectorForTableCell({ row: 3, cell: 3 });
-      await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
-
-      await waitForExtensionToolbar(page);
-    });
-
-    it('should render toolbar for macro', async () => {
-      await clickOnExtension(
-        page,
-        'com.atlassian.confluence.macro.core',
-        'expand',
-      );
-      await waitForExtensionToolbar(page);
     });
 
     it('should remove macro danger styling when toolbar updates', async () => {
@@ -129,7 +152,34 @@ describe('Floating toolbars:', () => {
     });
   });
 
+  describe('standard floating toolbars', () => {
+    beforeEach(async () => {
+      await initEditor();
+    });
+
+    afterEach(async () => {
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
+    });
+
+    it('Escape should focus back to the inline extension', async () => {
+      const endCellSelector = getSelectorForTableCell({ row: 2, cell: 2 });
+      await page.click(`${endCellSelector} .inlineExtensionView-content-wrap`);
+
+      await waitForExtensionToolbar(page);
+      focusToolbar();
+      await pressKey(page, ['Escape']);
+    });
+  });
+
   describe('with extension buttons', () => {
+    afterEach(async () => {
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
+    });
+
     it('should render toolbar with extension buttons', async () => {
       await initEditor({
         editorProps: {

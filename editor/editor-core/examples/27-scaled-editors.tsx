@@ -18,7 +18,7 @@ const avatar = css`
   height: 24px;
   width: 24px;
 `;
-const Author: React.FunctionComponent<{}> = () => (
+const Author = () => (
   <div css={user}>
     <img css={avatar} src="https://i.imgur.com/zJi8dw9.jpg"></img>
     <span>Philip J. Fry</span>
@@ -61,9 +61,7 @@ const editorWrapper = css`
   }
 `;
 
-const InlineCommentEditor: React.FunctionComponent<{
-  editor: JSX.Element;
-}> = (props) => (
+const InlineCommentEditor = (props: { editor: React.ReactNode }) => (
   <div css={frame}>
     <Author />
     <div css={editorWrapper}>{props.editor}</div>
@@ -71,22 +69,22 @@ const InlineCommentEditor: React.FunctionComponent<{
   </div>
 );
 
-export default class ScaledEditorsExample extends React.Component {
-  render() {
-    const editor = (
-      <FullPageExample
-        appearance="chromeless"
-        placeholder=""
-        placeholderHints={[]}
-        contentComponents={undefined}
-        disabled={false}
-      />
-    );
+const editor = (
+  <FullPageExample
+    editorProps={{
+      appearance: 'chromeless',
+      placeholder: '',
+      placeholderHints: [],
+      contentComponents: undefined,
+      disabled: false,
+    }}
+  />
+);
 
-    return (
-      <div style={{ padding: '20px' }}>
-        <InlineCommentEditor editor={editor} />
-      </div>
-    );
-  }
-}
+const ScaledEditorsExample = () => (
+  <div style={{ padding: '20px' }}>
+    <InlineCommentEditor editor={editor} />
+  </div>
+);
+
+export default ScaledEditorsExample;

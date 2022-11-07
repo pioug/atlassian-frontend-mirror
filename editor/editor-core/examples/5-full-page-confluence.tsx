@@ -2,9 +2,8 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
-import { EditorProps, EditorAppearance } from './../src/editor';
+import { EditorAppearance } from './../src/editor';
 import FullPageExample, {
-  ExampleProps,
   getAppearance,
   LOCALSTORAGE_defaultDocKey,
 } from './5-full-page';
@@ -36,10 +35,7 @@ interface State {
  *  - 64px sidebar on the left
  *  - collab editing enabled
  */
-export default class ExampleEditorComponent extends React.Component<
-  EditorProps & ExampleProps,
-  State
-> {
+export default class ExampleEditorComponent extends React.Component<{}, State> {
   collabSessionId = 'quokka';
 
   state = {
@@ -66,6 +62,8 @@ export default class ExampleEditorComponent extends React.Component<
     const defaultDoc =
       (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
       undefined;
+    const { disabled, appearance } = this.state;
+
     return (
       <SidebarContainer>
         {this.state.disabled && (
@@ -74,17 +72,18 @@ export default class ExampleEditorComponent extends React.Component<
           </div>
         )}
         <FullPageExample
-          {...this.props}
-          collabEdit={{
-            provider: createCollabEditProvider({
-              userId: this.collabSessionId,
-              defaultDoc,
-            }),
-            inviteToEditComponent: InviteToEditButton,
+          editorProps={{
+            collabEdit: {
+              provider: createCollabEditProvider({
+                userId: this.collabSessionId,
+                defaultDoc,
+              }),
+              inviteToEditComponent: InviteToEditButton,
+            },
+            disabled,
+            appearance,
+            shouldFocus: true,
           }}
-          disabled={this.state.disabled}
-          appearance={this.state.appearance}
-          shouldFocus={true}
         />
       </SidebarContainer>
     );

@@ -18,7 +18,7 @@ import {
 
 import blockTypePlugin from '../../block-type';
 import panelPlugin from '../../panel';
-import tablesPlugin from '../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { changeColor } from '../commands/change-color';
 import textColorPlugin from '../index';
 import {

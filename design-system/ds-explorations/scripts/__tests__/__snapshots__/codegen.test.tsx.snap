@@ -3,94 +3,82 @@
 exports[`@atlaskit/design-system-explorations bg styles are generated correctly 1`] = `
 "const backgroundColorMap = {
   disabled: css({
-    backgroundColor: token('color.background.disabled', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.disabled', '#091e4289'),
   }),
   'inverse.subtle': css({
-    backgroundColor: token(
-      'color.background.inverse.subtle',
-      'var(--ds-bg-fb)',
-    ),
+    backgroundColor: token('color.background.inverse.subtle', '#00000029'),
   }),
   input: css({
-    backgroundColor: token('color.background.input', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.input', '#FAFBFC'),
   }),
   neutral: css({
-    backgroundColor: token('color.background.neutral', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.neutral', '#DFE1E6'),
   }),
   'neutral.subtle': css({
-    backgroundColor: token(
-      'color.background.neutral.subtle',
-      'var(--ds-bg-fb)',
-    ),
+    backgroundColor: token('color.background.neutral.subtle', 'transparent'),
   }),
   'neutral.bold': css({
-    backgroundColor: token('color.background.neutral.bold', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.neutral.bold', '#42526E'),
   }),
   'brand.bold': css({
-    backgroundColor: token('color.background.brand.bold', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.brand.bold', '#0052CC'),
   }),
   selected: css({
-    backgroundColor: token('color.background.selected', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.selected', '#DEEBFF'),
   }),
   'selected.bold': css({
-    backgroundColor: token('color.background.selected.bold', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.selected.bold', '#0052CC'),
   }),
   danger: css({
-    backgroundColor: token('color.background.danger', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.danger', '#FFEBE6'),
   }),
   'danger.bold': css({
-    backgroundColor: token('color.background.danger.bold', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.danger.bold', '#DE350B'),
   }),
   warning: css({
-    backgroundColor: token('color.background.warning', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.warning', '#FFFAE6'),
   }),
   'warning.bold': css({
-    backgroundColor: token('color.background.warning.bold', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.warning.bold', '#FFAB00'),
   }),
   success: css({
-    backgroundColor: token('color.background.success', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.success', '#E3FCEF'),
   }),
   'success.bold': css({
-    backgroundColor: token('color.background.success.bold', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.success.bold', '#00875A'),
   }),
   discovery: css({
-    backgroundColor: token('color.background.discovery', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.discovery', '#EAE6FF'),
   }),
   'discovery.bold': css({
-    backgroundColor: token(
-      'color.background.discovery.bold',
-      'var(--ds-bg-fb)',
-    ),
+    backgroundColor: token('color.background.discovery.bold', '#5243AA'),
   }),
   information: css({
-    backgroundColor: token('color.background.information', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.background.information', '#DEEBFF'),
   }),
   'information.bold': css({
-    backgroundColor: token(
-      'color.background.information.bold',
-      'var(--ds-bg-fb)',
-    ),
+    backgroundColor: token('color.background.information.bold', '#0052CC'),
   }),
   'color.blanket': css({
-    backgroundColor: token('color.blanket', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.blanket', '#091e4289'),
   }),
   'color.blanket.selected': css({
-    backgroundColor: token('color.blanket.selected', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.blanket.selected', '#388BFF14'),
   }),
   'color.blanket.danger': css({
-    backgroundColor: token('color.blanket.danger', 'var(--ds-bg-fb)'),
+    backgroundColor: token('color.blanket.danger', '#EF5C4814'),
   }),
   'elevation.surface': css({
-    backgroundColor: token('elevation.surface', 'var(--ds-bg-fb)'),
+    backgroundColor: token('elevation.surface', '#FFFFFF'),
   }),
   'elevation.surface.sunken': css({
-    backgroundColor: token('elevation.surface.sunken', 'var(--ds-bg-fb)'),
+    backgroundColor: token('elevation.surface.sunken', '#F4F5F7'),
   }),
   'elevation.surface.raised': css({
-    backgroundColor: token('elevation.surface.raised', 'var(--ds-bg-fb)'),
+    backgroundColor: token('elevation.surface.raised', '#FFFFFF'),
   }),
   'elevation.surface.overlay': css({
-    backgroundColor: token('elevation.surface.overlay', 'var(--ds-bg-fb)'),
+    backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
   }),
 };
 
@@ -101,43 +89,43 @@ export type BackgroundColor = keyof typeof backgroundColorMap;
 exports[`@atlaskit/design-system-explorations border styles are generated correctly 1`] = `
 "const borderColorMap = {
   'color.border': css({
-    borderColor: token('color.border', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border', '#091e4221'),
   }),
   bold: css({
-    borderColor: token('color.border.bold', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.bold', '#344563'),
   }),
   inverse: css({
-    borderColor: token('color.border.inverse', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.inverse', '#FFFFFF'),
   }),
   focused: css({
-    borderColor: token('color.border.focused', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.focused', '#4C9AFF'),
   }),
   input: css({
-    borderColor: token('color.border.input', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.input', '#FAFBFC'),
   }),
   disabled: css({
-    borderColor: token('color.border.disabled', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.disabled', '#FAFBFC'),
   }),
   brand: css({
-    borderColor: token('color.border.brand', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.brand', '#0052CC'),
   }),
   selected: css({
-    borderColor: token('color.border.selected', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.selected', '#0052CC'),
   }),
   danger: css({
-    borderColor: token('color.border.danger', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.danger', '#FF5630'),
   }),
   warning: css({
-    borderColor: token('color.border.warning', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.warning', '#FFC400'),
   }),
   success: css({
-    borderColor: token('color.border.success', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.success', '#00875A'),
   }),
   discovery: css({
-    borderColor: token('color.border.discovery', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.discovery', '#998DD9'),
   }),
   information: css({
-    borderColor: token('color.border.information', 'var(--ds-bo-fb)'),
+    borderColor: token('color.border.information', '#0065FF'),
   }),
 };
 
@@ -327,43 +315,43 @@ type InteractionBackgroundColor = keyof typeof backgroundHoverColorMap;
 exports[`@atlaskit/design-system-explorations text styles are generated correctly 1`] = `
 "const textColorMap = {
   'color.text': css({
-    color: token('color.text', 'var(--ds-co-fb)'),
+    color: token('color.text', '#172B4D'),
   }),
   subtle: css({
-    color: token('color.text.subtle', 'var(--ds-co-fb)'),
+    color: token('color.text.subtle', '#42526E'),
   }),
   subtlest: css({
-    color: token('color.text.subtlest', 'var(--ds-co-fb)'),
+    color: token('color.text.subtlest', '#7A869A'),
   }),
   disabled: css({
-    color: token('color.text.disabled', 'var(--ds-co-fb)'),
+    color: token('color.text.disabled', '#A5ADBA'),
   }),
   inverse: css({
-    color: token('color.text.inverse', 'var(--ds-co-fb)'),
+    color: token('color.text.inverse', '#FFFFFF'),
   }),
   brand: css({
-    color: token('color.text.brand', 'var(--ds-co-fb)'),
+    color: token('color.text.brand', '#0065FF'),
   }),
   selected: css({
-    color: token('color.text.selected', 'var(--ds-co-fb)'),
+    color: token('color.text.selected', '#0052CC'),
   }),
   danger: css({
-    color: token('color.text.danger', 'var(--ds-co-fb)'),
+    color: token('color.text.danger', '#DE350B'),
   }),
   warning: css({
-    color: token('color.text.warning', 'var(--ds-co-fb)'),
+    color: token('color.text.warning', '#974F0C'),
   }),
   'warning.inverse': css({
-    color: token('color.text.warning.inverse', 'var(--ds-co-fb)'),
+    color: token('color.text.warning.inverse', '#172B4D'),
   }),
   success: css({
-    color: token('color.text.success', 'var(--ds-co-fb)'),
+    color: token('color.text.success', '#006644'),
   }),
   discovery: css({
-    color: token('color.text.discovery', 'var(--ds-co-fb)'),
+    color: token('color.text.discovery', '#403294'),
   }),
   information: css({
-    color: token('color.text.information', 'var(--ds-co-fb)'),
+    color: token('color.text.information', '#0052CC'),
   }),
 };
 

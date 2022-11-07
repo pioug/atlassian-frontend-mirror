@@ -24,7 +24,7 @@ test('should default to false value', () => {
       )}
     </Form>,
   );
-  wrapper.find(Button).simulate('click');
+  wrapper.find('button').simulate('click');
   return wait(200).then(() => {
     expect(spy).toHaveBeenCalledWith({ remember: false });
   });
@@ -71,7 +71,7 @@ test('should use value prop when set', () => {
       )}
     </Form>,
   );
-  wrapper.find(Button).simulate('click');
+  wrapper.find('button').simulate('click');
   return wait(200).then(() => {
     expect(spy).toHaveBeenCalledWith({ remember: ['always'] });
   });
@@ -91,7 +91,7 @@ test('should be undefined when value prop set and not checked', () => {
       )}
     </Form>,
   );
-  wrapper.find(Button).simulate('click');
+  wrapper.find('button').simulate('click');
   // toHaveBeenCalled doesn't check undefined object properties
   return wait(200).then(() => {
     expect(spy.mock.calls[0][0]).toMatchObject({ remember: [] });
@@ -120,7 +120,7 @@ test('fields with same name and defaultIsChecked should create array of values',
       )}
     </Form>,
   );
-  wrapper.find(Button).simulate('click');
+  wrapper.find('button').simulate('click');
   return wait(200).then(() => {
     expect(spy).toHaveBeenCalledWith({
       product: ['jira', 'confluence'],

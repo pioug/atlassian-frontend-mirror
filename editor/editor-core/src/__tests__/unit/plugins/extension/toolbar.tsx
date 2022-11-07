@@ -24,7 +24,10 @@ import {
 import { getToolbarConfig } from '../../../../plugins/extension/toolbar';
 import commonMessages from '../../../../messages';
 import { EditorProps } from '../../../../types';
-import { waitForProvider, flushPromises } from '../../../__helpers/utils';
+import {
+  waitForProvider,
+  flushPromises,
+} from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { getToolbarItems } from '../../../../plugins/floating-toolbar/__tests__/_helpers';
 
 describe('extension toolbar', () => {

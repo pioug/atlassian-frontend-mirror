@@ -8,6 +8,7 @@ import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
 import { messages } from '../i18n';
 import { ufoExperiences } from '../../util/analytics/ufoExperiences';
+import { extractErrorInfo } from '../../util/analytics/analytics';
 
 export const uploadEmoji = (
   upload: EmojiUpload,
@@ -45,7 +46,7 @@ export const uploadEmoji = (
         ufoExperiences['emoji-uploaded'].failure({
           metadata: {
             source: 'UploadEmoji',
-            error: err,
+            error: extractErrorInfo(err),
           },
         });
       });

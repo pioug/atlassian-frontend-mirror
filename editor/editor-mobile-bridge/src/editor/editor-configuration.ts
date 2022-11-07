@@ -22,7 +22,6 @@ interface EditorConfig {
   enableQuickInsert?: boolean;
   selectionObserverEnabled?: boolean;
   allowCollabProvider?: boolean;
-  useUnpredictableInputRule?: boolean;
   placeholder?: string;
   allowCustomPanel?: boolean;
   allowCustomPanelEdit?: boolean;
@@ -38,7 +37,6 @@ export default class MobileEditorConfiguration
   private enableQuickInsert: boolean = false;
   private selectionObserverEnabled: boolean = false;
   private allowCollabProvider: boolean = false;
-  private useUnpredictableInputRule: boolean = true;
   private placeholder?: string | undefined;
   private allowCustomPanel: boolean = false;
   private allowCustomPanelEdit: boolean = false;
@@ -68,10 +66,6 @@ export default class MobileEditorConfiguration
       config.allowCollabProvider !== undefined
         ? config.allowCollabProvider
         : this.allowCollabProvider;
-    this.useUnpredictableInputRule =
-      config.useUnpredictableInputRule !== undefined
-        ? config.useUnpredictableInputRule
-        : this.useUnpredictableInputRule;
     this.placeholder =
       config.placeholder !== undefined ? config.placeholder : this.placeholder;
     this.allowCustomPanel =
@@ -110,10 +104,6 @@ export default class MobileEditorConfiguration
 
   isCollabProviderEnabled(): boolean {
     return this.allowCollabProvider;
-  }
-
-  isUnpredictableInputRuleEnabled(): boolean {
-    return this.useUnpredictableInputRule;
   }
 
   isScrollGutterPersisted(): boolean {

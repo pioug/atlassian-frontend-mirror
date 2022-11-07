@@ -85,7 +85,7 @@ Refer to our [elevation guidelines](/foundations/elevation/) for token pairing g
 
 ### Less unneccessary elevations
 
-Not everything that uses an elevation with a shadow today should continue doing so. 
+Not everything that uses an elevation with a shadow today should continue doing so.
 Rather than adding more visual complexity with elevations, consider using a simple border or background to group content. Elevations should be reserved for things that are draggable or lay on top of other surfaces.
 
 ![elevation card](images/elevation-card.png)
@@ -102,13 +102,13 @@ There will also be a new Atlassian Design Tokens plugin, which will help you mig
 
 ## Changes for engineers
 
-Token migration involves replacing all existing color uses in your code. 
+Token migration involves replacing all existing color uses in your code.
 
-During this rollout period, tokens are only being used internally. Until tokens are enabled for the whole product via feature flag, 
-use fallbacks as shown in the following code samples. The value of the fallback should be the original color used before converting 
+During this rollout period, tokens are only being used internally. Until tokens are enabled for the whole product via feature flag,
+use fallbacks as shown in the following code samples. The value of the fallback should be the original color used before converting
 your experience to tokens.
 
-Atlassians employees can install the [Chrome extension](https://chrome.google.com/webstore/detail/tokens-test-theming-exten/aediombkjpcbdgppnoidkhkmomngghhc/) and 
+Atlassians employees can install the [Chrome extension](https://chrome.google.com/webstore/detail/tokens-test-theming-exten/aediombkjpcbdgppnoidkhkmomngghhc/) and
 [storybook add-on](https://www.npmjs.com/package/@atlaskit/storybook-addon-design-system) to preview tokens ahead of time.
 
 #### Example of converting colors to use tokens
@@ -137,14 +137,14 @@ import { elevation } from '@atlaskit/theme';
 +)};
 ```
 
-Using tokens will be supported by [linting rules](https://www.npmjs.com/package/eslint-plugin-design-system), allowing us 
+Using tokens will be supported by [linting rules](https://www.npmjs.com/package/eslint-plugin-design-system), allowing us
 to have a global theme switch between dark and light modes.
-If you’re interested in what will be shipping in this project, 
+If you’re interested in what will be shipping in this project,
 please read the [technical considerations](https://hello.atlassian.net/wiki/spaces/DST/pages/1167209534/Technical+considerations) (Atlassian employees).
 
 ### Codemod (CSS-in-JS)
 
-We've also provided a [codemod](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/intro-to-codemods/) to help the migration by converting the color to a suggested token. 
+We've also provided a [codemod](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/intro-to-codemods/) to help the migration by converting the color to a suggested token.
 When you run the codemod, it goes into every single color in the target files and suggests tokens based on context of the surrounding code.
 
 This is what it looks like after running the codemod.
@@ -158,7 +158,7 @@ export const DangerMessage = style.div`
 -    background-color: ${colors.R60};
 +    background-color: ${token('color.background.danger.hovered', colors.R60)};
   }
-  
+
   :active {
 -    background-color: ${colors.R80};
 +    background-color: ${token('color.background.danger.pressed', colors.R80)};
@@ -176,7 +176,7 @@ The CLI will show a list of components and versions, select `@atlaskit/codemod-c
 
 ### Codemod (CSS, SASS, Less)
 
-We have also provided a “vanilla” css codemod for users of css,sass and less. 
+We have also provided a “vanilla” css codemod for users of css,sass and less.
 
 Use `@atlaskit/codemod-cli` to run the codemod cli
 
@@ -184,7 +184,7 @@ Use `@atlaskit/codemod-cli` to run the codemod cli
 npx @atlaskit/codemod-cli --extensions css,scss,less <relative-path>
 ```
 
-The CLI will show a list of components and versions, select `@atlaskit/codemod-cli: css-to-design-tokens` and your code will be automatically be migrated. 
+The CLI will show a list of components and versions, select `@atlaskit/codemod-cli: css-to-design-tokens` and your code will be automatically be migrated.
 However, the codemod only provides token suggestions which means manually review is still required after running the codemod.
 
 ### Chrome browser extension (Atlassian employees)
@@ -199,7 +199,7 @@ You can also pin it to your main toolbar for easy access, from the Extension pop
 
 ## Get help
 
-Go to [#design-system-tokens-early-adopters Slack channel](https://atlassian.slack.com/archives/C0256AVSPHN) for questions or issues about design tokens and relevant tooling (Atlassian employees). 
+Go to [#design-system-tokens-early-adopters Slack channel](https://atlassian.slack.com/archives/C0256AVSPHN) for questions or issues about design tokens and relevant tooling (Atlassian employees).
 Go to [#help-design-system Slack channel](https://atlassian.slack.com/archives/CFJ9DU39U) for all other questions related to the Atlassian Design System (Atlassian employees).
 
 ## Related

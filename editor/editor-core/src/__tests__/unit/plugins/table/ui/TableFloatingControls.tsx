@@ -12,13 +12,17 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { TablePluginState } from '../../../../../plugins/table/types';
-import { hoverTable } from '../../../../../plugins/table/commands';
-import TableFloatingControls from '../../../../../plugins/table/ui/TableFloatingControls';
-import CornerControls from '../../../../../plugins/table/ui/TableFloatingControls/CornerControls';
-import RowControls from '../../../../../plugins/table/ui/TableFloatingControls/RowControls';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
-import { getDecorations } from '../../../../../plugins/table/pm-plugins/decorations/plugin';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+import { hoverTable } from '@atlaskit/editor-plugin-table/commands';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import TableFloatingControls from '@atlaskit/editor-plugin-table/src/plugins/table/ui/TableFloatingControls';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { CornerControls } from '@atlaskit/editor-plugin-table/src/plugins/table/ui/TableFloatingControls/CornerControls';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { RowControls } from '@atlaskit/editor-plugin-table/src/plugins/table/ui/TableFloatingControls/RowControls';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { getDecorations } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/decorations/plugin';
 
 describe('TableFloatingControls', () => {
   const createEditor = createEditorFactory<TablePluginState>();

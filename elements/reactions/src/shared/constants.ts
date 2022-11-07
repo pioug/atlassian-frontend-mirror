@@ -13,6 +13,16 @@ export const DefaultReactions: EmojiId[] = [
 ];
 
 /**
+ * Default label to show for the overLimitLabel prop
+ */
+export const DEFAULT_OVER_THE_LIMIT_REACTION_LABEL = '1k+';
+
+/**
+ * Default maximum value to use when the emoji received higher than top limit reactions
+ */
+export const DEFAULT_REACTION_TOP_LIMIT = 1000;
+
+/**
  * ES6 Map object from default emoji reactions (with key => shortName, value => entire emoji item)
  */
 export const DefaultReactionsByShortName = new Map<string, EmojiId>(

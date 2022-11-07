@@ -51,14 +51,16 @@ class FullPageWithFF extends React.Component<
         </div>
         {!this.state.reloadEditor && (
           <FullPageExample
-            defaultValue={this.props.doc}
-            smartLinks={{
-              // This is how we pass in the provider for smart cards
-              provider: Promise.resolve(cardProvider),
-              resolveBeforeMacros: this.state.resolveBeforeMacros,
-              allowBlockCards: true,
-              allowEmbeds: true,
-              allowResizing: true,
+            editorProps={{
+              defaultValue: this.props.doc,
+              smartLinks: {
+                // This is how we pass in the provider for smart cards
+                provider: Promise.resolve(cardProvider),
+                resolveBeforeMacros: this.state.resolveBeforeMacros,
+                allowBlockCards: true,
+                allowEmbeds: true,
+                allowResizing: true,
+              },
             }}
           />
         )}

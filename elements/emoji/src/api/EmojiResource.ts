@@ -201,9 +201,7 @@ export class EmojiResource
               metadata: {
                 reason,
                 source: 'EmojiProvider',
-                data: {
-                  providerUrl: provider.url,
-                },
+                providerUrl: provider.url,
               },
             });
           });
@@ -220,9 +218,7 @@ export class EmojiResource
     if (this.emojiRepository && this.isLoaded()) {
       const emoji = await this.findByEmojiId(emojiId);
       if (emoji) {
-        return Promise.resolve(
-          this.getMediaEmojiDescriptionURLWithInlineToken(emoji),
-        );
+        return await this.getMediaEmojiDescriptionURLWithInlineToken(emoji);
       }
     }
 

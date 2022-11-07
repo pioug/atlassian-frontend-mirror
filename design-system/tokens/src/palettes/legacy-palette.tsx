@@ -22,6 +22,7 @@ type PaletteValues =
   | 'Y300'
   | 'Y400'
   | 'Y500'
+  | 'O800'
   | 'G50'
   | 'G75'
   | 'G100'
@@ -252,6 +253,13 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         attributes: {
           group: 'palette',
           category: 'yellow',
+        },
+      },
+      O800: {
+        value: '#974F0C',
+        attributes: {
+          group: 'palette',
+          category: 'orange',
         },
       },
       G50: {
@@ -584,14 +592,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       N10A: {
-        value: '#091e425',
+        value: '#091e4205',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
       N20A: {
-        value: '#091e42a',
+        value: '#091e420a',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',

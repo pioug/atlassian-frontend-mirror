@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import SearchIcon from '@atlaskit/icon/glyph/search';
 
@@ -116,6 +116,7 @@ export const Search = (props: SearchProps) => {
         value={value || ''}
       />
       <IconButton
+        // @ts-ignore Overriding styles is not supported.
         css={searchIconStyles}
         icon={<SearchIcon label={label} />}
         tooltip={tooltip}

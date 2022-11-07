@@ -21,7 +21,7 @@ import EditorActions from '../../src/actions';
 import { editSelectedExtension } from '../../src/extensions';
 
 const isNativeFieldType = (fieldType: string) => {
-  return /^(enum|string|number|boolean|date)$/.test(fieldType);
+  return /^(enum|string|number|boolean|date|color)$/.test(fieldType);
 };
 
 const getMacrosManifestList = async (editorActions?: EditorActions) => {
@@ -267,8 +267,27 @@ const transformLegacyMacrosToExtensionManifest = (
       // the context panel for editing, and then wraps it back after saving.
       return new Promise(() => {
         actions!.editInContextPanel(
-          (parameters) => parameters.macroParams,
-          (parameters) => Promise.resolve({ macroParams: parameters }),
+          (parameters) =>
+            Object.keys(parameters.macroParams).reduce<Record<string, any>>(
+              (result, key) => {
+                if (key) {
+                  result[key] = parameters.macroParams[key].value;
+                }
+                return result;
+              },
+              {},
+            ),
+          (parameters) =>
+            Promise.resolve({
+              macroParams: Object.keys(parameters).reduce<
+                Record<string, { value: any }>
+              >((result, key) => {
+                if (key) {
+                  result[key] = { value: parameters[key] };
+                }
+                return result;
+              }, {}),
+            }),
         );
       });
     };

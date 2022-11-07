@@ -24,7 +24,7 @@ import {
 import { outdentList } from '../../../commands/outdent-list';
 import analyticsPlugin, { INPUT_METHOD } from '../../../../analytics';
 import listPlugin from '../../..';
-import tablePlugin from '../../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { setTextSelection } from '../../../../../utils';
 
 describe('lists plugin -> commands -> outdentList', () => {
@@ -38,7 +38,7 @@ describe('lists plugin -> commands -> outdentList', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPlugin)
-      .add(tablePlugin)
+      .add(tablesPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }]);
 
     return createProseMirrorEditor({

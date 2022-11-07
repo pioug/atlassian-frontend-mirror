@@ -58,7 +58,7 @@ export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
           '& svg': {
             transform: props.expanded
               ? 'transform: rotate(90deg);'
-              : 'tranform: rotate(0deg);',
+              : 'transform: rotate(0deg);',
             transition: `transform 0.2s ${akEditorSwoopCubicBezier};`,
           },
         },

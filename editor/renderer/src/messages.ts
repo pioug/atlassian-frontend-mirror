@@ -59,7 +59,7 @@ export const sortingIconMessages = defineMessages({
   },
   invalidLabel: {
     id: 'fabric.editor.headingLink.invalidLabel',
-    defaultMessage: `⚠️  You can't sort a table with merged cell`,
+    defaultMessage: `⚠️  You can't sort a table with merged cells`,
     description: 'this sort is invalid for merged cells',
   },
 });

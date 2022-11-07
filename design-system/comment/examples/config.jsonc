@@ -5,7 +5,8 @@
  */
 {
   "testExamples": [
-    "01-example-comment.tsx"
+    "01-example-comment.tsx",
+    "10-with-inline-children.tsx"
   ],
   "exampleDependencies": [
     "@atlaskit/editor-core"

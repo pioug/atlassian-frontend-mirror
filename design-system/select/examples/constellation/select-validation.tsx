@@ -15,13 +15,13 @@ const ValidationExample = () => (
     {({ formProps }: any) => (
       <form {...formProps}>
         <Field label="City" name="fail-city" validate={validate}>
-          {({ fieldProps, error }: any) => (
+          {({ fieldProps: { isInvalid, ...props }, error }: any) => (
             <Fragment>
               <Select
-                {...fieldProps}
+                {...props}
                 options={cities}
                 placeholder="Choose a City"
-                isInvalid={error}
+                isInvalid={isInvalid}
               />
               <HelperMessage>
                 Trigger a validation error by focusing on this field and
@@ -41,12 +41,12 @@ const ValidationExample = () => (
           defaultValue={cities[0]}
           validate={validate}
         >
-          {({ fieldProps, error }: any) => (
+          {({ fieldProps: { isInvalid, ...props } }: any) => (
             <Select
-              {...fieldProps}
+              {...props}
               options={cities}
               placeholder="Choose a City"
-              isInvalid={error}
+              isInvalid={isInvalid}
             />
           )}
         </Field>

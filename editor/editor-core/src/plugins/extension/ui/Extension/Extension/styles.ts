@@ -6,10 +6,9 @@ import { wrapperDefault, padding } from '../styles';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-const dataConsumerSelector = '[data-mark-type="dataConsumer"]';
 export const widerLayoutClassName = 'wider-layout';
 
-export const wrapperStyle = (theme: ThemeProps, extensionWidth: string) => css`
+export const wrapperStyle = (theme: ThemeProps) => css`
   ${wrapperDefault(theme)}
 
   &.without-frame {
@@ -20,19 +19,6 @@ export const wrapperStyle = (theme: ThemeProps, extensionWidth: string) => css`
 
   .extension-overflow-wrapper:not(.with-body) {
     overflow-x: auto;
-  }
-
-  /* extension container breakout, only works on top level */
-  .ProseMirror
-    > ${dataConsumerSelector}
-    > [extensiontype]
-    &.${widerLayoutClassName},
-    .ProseMirror
-    > [extensiontype]
-    &.${widerLayoutClassName} {
-    width: ${extensionWidth};
-    margin-left: 50%;
-    transform: translateX(-50%);
   }
 `;
 

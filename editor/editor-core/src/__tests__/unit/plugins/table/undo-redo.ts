@@ -15,12 +15,14 @@ import { EditorView } from 'prosemirror-view';
 import {
   TablePluginState,
   PluginConfig,
-} from '../../../../plugins/table/types';
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+} from '@atlaskit/editor-plugin-table/types';
+import { pluginKey as tablePluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 import { redo, undo } from 'prosemirror-history';
-import { insertColumn } from '../../../../plugins/table/commands';
-import { deleteColumns } from '../../../../plugins/table/transforms';
-import { colsToRect } from '../../../../plugins/table/utils/table';
+import { insertColumn } from '@atlaskit/editor-plugin-table/commands';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { deleteColumns } from '@atlaskit/editor-plugin-table/src/plugins/table/transforms';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { colsToRect } from '@atlaskit/editor-plugin-table/src/plugins/table/utils/table';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import clone from 'lodash/clone';
 

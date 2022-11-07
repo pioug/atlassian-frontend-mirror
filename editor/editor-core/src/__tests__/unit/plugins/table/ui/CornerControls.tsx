@@ -13,10 +13,12 @@ import {
 import {
   TablePluginState,
   TableCssClassName as ClassName,
-} from '../../../../../plugins/table/types';
-import CornerControls from '../../../../../plugins/table/ui/TableFloatingControls/CornerControls';
-import { getPluginState } from '../../../../../plugins/table/pm-plugins/plugin-factory';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
+} from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { CornerControls } from '@atlaskit/editor-plugin-table/src/plugins/table/ui/TableFloatingControls/CornerControls';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { getPluginState } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 const CornerButton = `.${ClassName.CONTROLS_CORNER_BUTTON}`;
 

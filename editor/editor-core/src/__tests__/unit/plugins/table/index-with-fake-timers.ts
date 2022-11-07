@@ -10,12 +10,13 @@ import {
   tdCursor,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import TableView from '../../../../plugins/table/nodeviews/table';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import TableView from '@atlaskit/editor-plugin-table/src/plugins/table/nodeviews/table';
 import {
   TablePluginState,
   PluginConfig,
-} from '../../../../plugins/table/types';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+} from '@atlaskit/editor-plugin-table/types';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 import { EventDispatcher } from '../../../../event-dispatcher';
 
 describe('TableView', () => {
@@ -75,6 +76,7 @@ describe('TableView', () => {
       getPos: () => 1,
       getEditorContainerWidth,
       getEditorFeatureFlags: fakeGetEditorFeatureFlags,
+      hasIntlContext: true,
     }).init();
 
     // we expect to have a contentDOM after instanciating the NodeView so that

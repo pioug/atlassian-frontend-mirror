@@ -59,16 +59,10 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder) => {
     const editorTemp = createEditor({
-      featureFlags: {
-        useUnpredictableInputRule: false,
-      },
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([emojiPlugin])
-        .add([
-          featureFlagsPlugin,
-          { newInsertionBehaviour: true, useUnpredictableInputRule: false },
-        ])
+        .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
         .add(typeAheadPlugin)
         .add(blockTypePlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
@@ -1071,6 +1065,28 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
       }),
     },
   ];
+
+  describe('test auto formatting undo for multiple "`"', () => {
+    it('should not turn back into code block after initial undo', () => {
+      const { editorView, validateCurrentDocument, insert, undo, sel } = editor(
+        doc(p('``{<>}')),
+      );
+
+      let currentDocumentPosition = sel;
+
+      insert('`');
+      currentDocumentPosition += 1;
+      undo();
+      validateCurrentDocument(doc(p('```')));
+
+      insertText(editorView, '`', currentDocumentPosition);
+      currentDocumentPosition += 1;
+      validateCurrentDocument(doc(p('````')));
+
+      insertText(editorView, '`', currentDocumentPosition);
+      validateCurrentDocument(doc(p('`````')));
+    });
+  });
 
   describe.each<TestCase>([
     case00,

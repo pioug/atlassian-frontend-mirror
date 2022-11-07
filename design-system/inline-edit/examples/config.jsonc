@@ -13,5 +13,8 @@
     "08-start-with-edit.tsx",
     "09-mandatory-field.tsx",
     "10-compact.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/datetime-picker"
   ]
 }

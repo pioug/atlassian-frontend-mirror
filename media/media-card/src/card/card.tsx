@@ -10,7 +10,11 @@ import {
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
-import { FileAttributes } from '@atlaskit/media-common';
+import {
+  FileAttributes,
+  MediaTraceContext,
+  getRandomHex,
+} from '@atlaskit/media-common';
 import {
   FileDetails,
   FileIdentifier,
@@ -117,6 +121,10 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   private timeElapsedTillCommenced: number = performance.now();
   subscription?: MediaSubscription;
   private ssrData?: MediaCardSsrData;
+  // Generate unique traceId for file
+  private traceContext: MediaTraceContext = {
+    traceId: getRandomHex(16),
+  };
   static defaultProps: Partial<CardProps> = {
     appearance: 'auto',
     resizeMode: 'crop',
@@ -389,6 +397,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   private getCardPreviewParams = (
     identifier: FileIdentifier,
     fileState: FileState,
+    traceContext: MediaTraceContext,
   ): CardPreviewParams => {
     const { isBannedLocalPreview } = this.state;
     const { id } = identifier;
@@ -407,6 +416,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       mediaBlobUrlAttrs: this.getMediaBlobUrlAttrs(identifier, fileState),
       createAnalyticsEvent,
       featureFlags: this.props.featureFlags,
+      traceId: traceContext.traceId,
     };
   };
 
@@ -448,7 +458,11 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     fileState: FileState,
   ) => {
     try {
-      const params = this.getCardPreviewParams(identifier, fileState);
+      const params = this.getCardPreviewParams(
+        identifier,
+        fileState,
+        this.traceContext,
+      );
       const cardPreview = await getCardPreview(params);
       this.safeSetState({ cardPreview });
     } catch (e) {
@@ -629,6 +643,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         this.getPerformanceAttributes(),
         this.ssrReliability,
         error,
+        this.traceContext,
       );
     completeUfoExperience(
       this.internalOccurrenceKey,
@@ -644,9 +659,14 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     this.timeElapsedTillCommenced = performance.now();
     const { createAnalyticsEvent } = this.props;
     createAnalyticsEvent &&
-      fireCommencedEvent(createAnalyticsEvent, this.fileAttributes, {
-        overall: { durationSincePageStart: this.timeElapsedTillCommenced },
-      });
+      fireCommencedEvent(
+        createAnalyticsEvent,
+        this.fileAttributes,
+        {
+          overall: { durationSincePageStart: this.timeElapsedTillCommenced },
+        },
+        this.traceContext,
+      );
     startUfoExperience(this.internalOccurrenceKey);
   }
 

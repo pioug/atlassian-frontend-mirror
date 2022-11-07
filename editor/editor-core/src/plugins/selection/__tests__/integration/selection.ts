@@ -1,9 +1,10 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
+import type { BrowserObject } from 'webdriverio';
 import {
+  expectToMatchSelection,
   fullpage,
   SelectionMatch,
-  expectToMatchSelection,
   setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
@@ -182,11 +183,11 @@ BrowserTestCase(
       { type: 'text', from: 1, to: 60 },
     ];
 
-    await page.keys(['Shift']);
     for (const selection of expectedSelections) {
       // shift is held down in chrome, not other browsers
       if (page.isBrowser('chrome')) {
-        await page.keys(['ArrowUp']);
+        await page.keys(['Shift', 'ArrowUp']);
+        await page.keys(['Shift']);
       } else {
         await page.keys(['Shift', 'ArrowUp'], true);
       }
@@ -211,11 +212,97 @@ BrowserTestCase(
     for (const selection of expectedSelections) {
       // shift is held down in chrome, not other browsers
       if (page.isBrowser('chrome')) {
-        await page.keys(['ArrowDown']);
+        await page.keys(['Shift', 'ArrowDown']);
+        await page.keys(['Shift']);
       } else {
         await page.keys(['Shift', 'ArrowDown'], true);
       }
       await expectToMatchSelection(page, selection);
     }
+  },
+);
+
+BrowserTestCase(
+  'selection: shift + arrowup selection for entire nodes in react node views',
+  { skip: [] },
+  async (client: any) => {
+    const run = async () => {
+      const page = await goToEditorTestingWDExample(client);
+      await initEditor(page, selectionAdf, { anchor: 1 });
+
+      // Do shift arrow down
+      if (page.isBrowser('chrome')) {
+        await page.keys(['Shift', 'ArrowUp']);
+        await page.keys(['Shift']);
+      } else {
+        await page.keys(['Shift', 'ArrowUp'], true);
+      }
+
+      // Wait
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Check if there is a Uncaught exception in the console.log (Only works under chrome)
+      if (page.isBrowser('chrome')) {
+        const logs = await (client as BrowserObject).getLogs('browser');
+        logs.forEach((value: Object) => {
+          const { message } = value as { message: string };
+          if (
+            message.match(
+              /Uncaught RangeError: Position ([-]?\d+) out of range/,
+            )
+          ) {
+            throw new Error(message);
+          }
+        });
+      }
+    };
+
+    await expect(run()).resolves.not.toThrowError(
+      /Uncaught RangeError: Position ([-]?\d+) out of range/,
+    );
+  },
+);
+
+BrowserTestCase(
+  'selection: shift + arrowdown selection for entire nodes in react node views',
+  { skip: [] },
+  async (client: any) => {
+    const run = async () => {
+      const page = await goToEditorTestingWDExample(client);
+      await initEditor(page, selectionAdf, { anchor: 34 });
+
+      // Select All
+      await page.selectAll();
+
+      // Shift arrow down
+      if (page.isBrowser('chrome')) {
+        await page.keys(['Shift', 'ArrowDown']);
+        await page.keys(['Shift']);
+      } else {
+        await page.keys(['Shift', 'ArrowDown'], true);
+      }
+
+      // Wait
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Check if there is a Uncaught exception in the console.log (Only works under chrome)
+      if (page.isBrowser('chrome')) {
+        const logs = await (client as BrowserObject).getLogs('browser');
+        logs.forEach((value: Object) => {
+          const { message } = value as { message: string };
+          if (
+            message.match(
+              /Uncaught RangeError: There is no position after the top-level node/,
+            )
+          ) {
+            throw new Error(message);
+          }
+        });
+      }
+    };
+
+    await expect(run()).resolves.not.toThrowError(
+      /Uncaught RangeError: There is no position after the top-level node/,
+    );
   },
 );

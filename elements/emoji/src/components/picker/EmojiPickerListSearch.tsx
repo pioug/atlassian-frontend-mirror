@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React, { PureComponent } from 'react';
+import { jsx } from '@emotion/react';
 import TextField from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -30,7 +30,8 @@ export default function ButtonGroup({
 }: ButtonGroupProps) {
   return (
     <div css={buttonGroupStyles}>
-      {React.Children.map(children, (child, idx) => {
+      {/* flatten children to apply correct styles in the case where a child is an array of elements */}
+      {React.Children.map(React.Children.toArray(children), (child, idx) => {
         if (!child) {
           return null;
         }

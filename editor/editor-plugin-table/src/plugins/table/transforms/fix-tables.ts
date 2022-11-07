@@ -9,9 +9,8 @@ import {
   akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
-// import { sendLogs } from '../../../utils/sendLogs';
-// import { sendLogs } from '@atlaskit/editor-core/src/utils/sendLogs';
-import { sendLogs } from '../todo-stubs';
+import { sendLogs } from '@atlaskit/editor-common/utils';
+
 import {
   calculateColumnWidth,
   contentWidth,

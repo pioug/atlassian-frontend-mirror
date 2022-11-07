@@ -30,7 +30,6 @@ export default {
     'blockTypeInputRule',
     'tasksAndDecisionsInputRule',
     'list',
-    'typeAhead',
     'typeAheadKeymap',
     'typeAheadInputRule',
     'date', // Needs to be before indentation to handle tab into input field

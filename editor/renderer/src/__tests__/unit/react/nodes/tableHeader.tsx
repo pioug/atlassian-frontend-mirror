@@ -14,6 +14,13 @@ import { RendererCssClassName } from '../../../../consts';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
+const MOCK_SORTING_ICON_ID = 'mock-sort-icon';
+
+jest.mock('../../../../ui/SortingIcon', () => ({
+  __esModule: true,
+  default: (props: any) => <div id={MOCK_SORTING_ICON_ID} {...props} />,
+}));
+
 describe('Renderer - React/Nodes/TableHeader', () => {
   const baseProps = {
     colspan: 6,
@@ -75,7 +82,9 @@ describe('Renderer - React/Nodes/TableHeader', () => {
         const wrapper = mountWithIntl(<WithSortableColumn />);
 
         expect(
-          wrapper.find(TestComp).hasClass(RendererCssClassName.SORTABLE_COLUMN),
+          wrapper
+            .find(TestComp)
+            .hasClass(RendererCssClassName.SORTABLE_COLUMN_WRAPPER),
         ).toBeFalsy();
       });
     });
@@ -87,7 +96,9 @@ describe('Renderer - React/Nodes/TableHeader', () => {
         );
 
         expect(
-          wrapper.find(TestComp).hasClass(RendererCssClassName.SORTABLE_COLUMN),
+          wrapper
+            .find(TestComp)
+            .hasClass(RendererCssClassName.SORTABLE_COLUMN_WRAPPER),
         ).toBeFalsy();
       });
     });
@@ -98,22 +109,10 @@ describe('Renderer - React/Nodes/TableHeader', () => {
           <WithSortableColumn allowColumnSorting />,
         );
         expect(
-          wrapper.find(TestComp).hasClass(RendererCssClassName.SORTABLE_COLUMN),
+          wrapper
+            .find(TestComp)
+            .hasClass(RendererCssClassName.SORTABLE_COLUMN_WRAPPER),
         ).toBeTruthy();
-      });
-
-      describe('when onSorting function does not exist', () => {
-        it('should add sortable not allowed class name', () => {
-          const wrapper = mountWithIntl(
-            <WithSortableColumn allowColumnSorting />,
-          );
-
-          expect(
-            wrapper
-              .find(TestComp)
-              .hasClass(RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED),
-          ).toBeTruthy();
-        });
       });
 
       describe('when onSorting function exist', () => {
@@ -133,49 +132,43 @@ describe('Renderer - React/Nodes/TableHeader', () => {
           onSorting = jest.fn();
         });
 
-        it('should not add sortable not allowed class name', () => {
+        it('should call onSorting when clicking the sort button', () => {
           wrapper = mountWrapper();
-          expect(
-            wrapper
-              .find(TestComp)
-              .hasClass(RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED),
-          ).toBeFalsy();
-        });
-
-        it('should call onSorting on click', () => {
-          wrapper = mountWrapper();
-          wrapper
-            .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
-            .simulate('click');
+          wrapper.find(`[id="${MOCK_SORTING_ICON_ID}"]`).simulate('click');
           expect(onSorting).toHaveBeenCalled();
         });
 
-        describe('with a checkbox', () => {
-          beforeEach(() => {
-            wrapper = mountWrapper(
-              <div>
-                <input type="checkbox" />
-                <label>Checkbox label</label>
-                <span id="test-span">Random Span</span>
-              </div>,
-            );
-          });
-
-          it('onSorting should not be called when checkbox input is clicked', () => {
-            wrapper.find('input[type="checkbox"]').simulate('click');
-            expect(onSorting).not.toHaveBeenCalled();
-          });
-
-          it('onSorting should not be called when label is clicked', () => {
-            wrapper.find('label').simulate('click');
-            expect(onSorting).not.toHaveBeenCalled();
-          });
-
-          it('onSorting should be called when label is clicked', () => {
-            wrapper.find('span[id="test-span"]').simulate('click');
-            expect(onSorting).toHaveBeenCalled();
-          });
+        it('should not call onSorting when clicking the wrapper', () => {
+          wrapper = mountWrapper();
+          wrapper
+            .find(`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`)
+            .simulate('click');
+          expect(onSorting).not.toHaveBeenCalled();
         });
+
+        const keys = [' ', 'Enter', 'Spacebar'];
+
+        it.each(keys)(
+          'should call onSorting when %s key is pressed and the sort button is the target',
+          (key) => {
+            wrapper = mountWrapper();
+            wrapper
+              .find(`[id="${MOCK_SORTING_ICON_ID}"]`)
+              .simulate('keydown', { key });
+            expect(onSorting).toHaveBeenCalled();
+          },
+        );
+
+        it.each(keys)(
+          'should not call onSorting when %s key is pressed and the wrapper is the target',
+          (key) => {
+            wrapper = mountWrapper();
+            wrapper
+              .find(`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`)
+              .simulate('keydown', { key });
+            expect(onSorting).not.toHaveBeenCalled();
+          },
+        );
       });
 
       describe('call onSorting changing the sort order', () => {
@@ -199,9 +192,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
             />,
           );
 
-          wrapper
-            .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
-            .simulate('click');
+          wrapper.find(`[id="${MOCK_SORTING_ICON_ID}"]`).simulate('click');
 
           expect(onSorting).toBeCalledWith(0, to);
         });
@@ -222,9 +213,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
           />,
         );
 
-        tableCell
-          .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
-          .simulate('click');
+        tableCell.find(`[id="${MOCK_SORTING_ICON_ID}"]`).simulate('click');
 
         expect(fireAnalyticsEvent).toHaveBeenCalledWith({
           action: ACTION.SORT_COLUMN_NOT_ALLOWED,
@@ -252,9 +241,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
           />,
         );
 
-        tableCell
-          .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
-          .simulate('click');
+        tableCell.find(`[id="${MOCK_SORTING_ICON_ID}"]`).simulate('click');
 
         expect(fireAnalyticsEvent).toHaveBeenCalledWith({
           action: ACTION.SORT_COLUMN,
@@ -283,9 +270,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
           />,
         );
 
-        tableCell
-          .find(`.${RendererCssClassName.SORTABLE_COLUMN_BUTTON}`)
-          .simulate('click');
+        tableCell.find(`[id="${MOCK_SORTING_ICON_ID}"]`).simulate('click');
 
         expect(fireAnalyticsEvent).toHaveBeenCalledWith({
           action: ACTION.SORT_COLUMN_NOT_ALLOWED,

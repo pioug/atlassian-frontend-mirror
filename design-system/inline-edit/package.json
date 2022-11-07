@@ -26,9 +26,9 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/button": "^16.3.0",
+    "@atlaskit/button": "^16.4.0",
     "@atlaskit/codemod-utils": "^4.1.0",
-    "@atlaskit/form": "^8.6.0",
+    "@atlaskit/form": "^8.7.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/inline-dialog": "^13.4.0",
     "@atlaskit/textfield": "^5.3.0",

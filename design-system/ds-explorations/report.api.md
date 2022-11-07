@@ -16,12 +16,14 @@
 ```ts
 /// <reference types="react" />
 
+import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithRef } from 'react';
 import type { CSSProperties } from 'react';
 import { ElementType } from 'react';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
-import { HTMLAttributes } from 'react';
 import { jsx } from '@emotion/react';
+import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import { SerializedStyles } from '@emotion/react';
@@ -85,6 +87,9 @@ const backgroundHoverColorMap: {
   'discovery.bold': SerializedStyles;
   information: SerializedStyles;
   'information.bold': SerializedStyles;
+  'elevation.surface': SerializedStyles;
+  'elevation.surface.raised': SerializedStyles;
+  'elevation.surface.overlay': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -143,6 +148,57 @@ const borderWidthMap: {
   '1px': SerializedStyles;
   '2px': SerializedStyles;
   '3px': SerializedStyles;
+};
+
+// @public (undocumented)
+type BoxComponent<T extends ElementType = 'div'> = (<
+  T extends ElementType = 'div'
+>(
+  props: UNSAFE_BoxProps<T>,
+) => ReactElement | null) &
+  FC<UNSAFE_BoxProps<T>>;
+
+// @public (undocumented)
+type BoxPropsBase<T extends ElementType> = {
+  as?: T;
+  children?: NonTextChildren | boolean | null;
+  className?: string;
+  backgroundColor?: BackgroundColor;
+  borderStyle?: BorderStyle;
+  borderWidth?: BorderWidth;
+  borderColor?: BorderColor;
+  borderRadius?: BorderRadius;
+  flexDirection?: FlexDirection;
+  alignItems?: FlexAlignItems;
+  justifyContent?: FlexJustifyContent;
+  overflow?: Overflow;
+  padding?: Padding;
+  paddingBlock?: PaddingBlock;
+  paddingInline?: PaddingInline;
+  width?: Width;
+  height?: Height;
+  display?: Display;
+  position?: Position;
+  ref?: ComponentPropsWithRef<T>['ref'];
+};
+
+// @public (undocumented)
+type ColumnGap = keyof typeof columnGapMap;
+
+// @public
+const columnGapMap: {
+  'scale.0': SerializedStyles;
+  'scale.025': SerializedStyles;
+  'scale.050': SerializedStyles;
+  'scale.075': SerializedStyles;
+  'scale.100': SerializedStyles;
+  'scale.150': SerializedStyles;
+  'scale.200': SerializedStyles;
+  'scale.250': SerializedStyles;
+  'scale.300': SerializedStyles;
+  'scale.400': SerializedStyles;
+  'scale.500': SerializedStyles;
+  'scale.600': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -269,11 +325,28 @@ type FontWeight = keyof typeof fontWeightMap;
 const fontWeightMap: {
   '400': SerializedStyles;
   '500': SerializedStyles;
+  '600': SerializedStyles;
   '700': SerializedStyles;
 };
 
 // @public (undocumented)
-type GlobalSpacingToken = keyof typeof UNSAFE_SPACING_SCALE;
+type Height = keyof typeof heightMap;
+
+// @public (undocumented)
+const heightMap: {
+  'scale.0': SerializedStyles;
+  'scale.025': SerializedStyles;
+  'scale.050': SerializedStyles;
+  'scale.075': SerializedStyles;
+  'scale.100': SerializedStyles;
+  'scale.150': SerializedStyles;
+  'scale.200': SerializedStyles;
+  'scale.250': SerializedStyles;
+  'scale.300': SerializedStyles;
+  'scale.400': SerializedStyles;
+  'scale.500': SerializedStyles;
+  'scale.600': SerializedStyles;
+};
 
 // @public (undocumented)
 interface InlineProps extends BasePrimitiveProps {
@@ -281,7 +354,7 @@ interface InlineProps extends BasePrimitiveProps {
   children: NonTextChildren;
   divider?: ReactNode;
   flexWrap?: FlexWrap;
-  gap: GlobalSpacingToken;
+  gap: ColumnGap;
   justifyContent?: FlexJustifyContent_2;
 }
 
@@ -322,6 +395,66 @@ const overflowMap: {
 };
 
 // @public (undocumented)
+type Padding = keyof typeof paddingMap;
+
+// @public (undocumented)
+type PaddingBlock = keyof typeof paddingBlockMap;
+
+// @public (undocumented)
+const paddingBlockMap: {
+  'scale.0': SerializedStyles;
+  'scale.025': SerializedStyles;
+  'scale.050': SerializedStyles;
+  'scale.075': SerializedStyles;
+  'scale.100': SerializedStyles;
+  'scale.150': SerializedStyles;
+  'scale.200': SerializedStyles;
+  'scale.250': SerializedStyles;
+  'scale.300': SerializedStyles;
+  'scale.400': SerializedStyles;
+  'scale.500': SerializedStyles;
+  'scale.600': SerializedStyles;
+};
+
+// @public (undocumented)
+type PaddingInline = keyof typeof paddingInlineMap;
+
+// @public (undocumented)
+const paddingInlineMap: {
+  'scale.0': SerializedStyles;
+  'scale.025': SerializedStyles;
+  'scale.050': SerializedStyles;
+  'scale.075': SerializedStyles;
+  'scale.100': SerializedStyles;
+  'scale.150': SerializedStyles;
+  'scale.200': SerializedStyles;
+  'scale.250': SerializedStyles;
+  'scale.300': SerializedStyles;
+  'scale.400': SerializedStyles;
+  'scale.500': SerializedStyles;
+  'scale.600': SerializedStyles;
+};
+
+// @public
+const paddingMap: {
+  'scale.0': SerializedStyles;
+  'scale.025': SerializedStyles;
+  'scale.050': SerializedStyles;
+  'scale.075': SerializedStyles;
+  'scale.100': SerializedStyles;
+  'scale.150': SerializedStyles;
+  'scale.200': SerializedStyles;
+  'scale.250': SerializedStyles;
+  'scale.300': SerializedStyles;
+  'scale.400': SerializedStyles;
+  'scale.500': SerializedStyles;
+  'scale.600': SerializedStyles;
+};
+
+// @public (undocumented)
+type Position = keyof typeof positionMap;
+
+// @public (undocumented)
 const positionMap: {
   absolute: SerializedStyles;
   relative: SerializedStyles;
@@ -329,11 +462,33 @@ const positionMap: {
 };
 
 // @public (undocumented)
+type PropsToOmit = 'as' | 'className' | 'style';
+
+// @public (undocumented)
+type RowGap = keyof typeof rowGapMap;
+
+// @public
+const rowGapMap: {
+  'scale.0': SerializedStyles;
+  'scale.025': SerializedStyles;
+  'scale.050': SerializedStyles;
+  'scale.075': SerializedStyles;
+  'scale.100': SerializedStyles;
+  'scale.150': SerializedStyles;
+  'scale.200': SerializedStyles;
+  'scale.250': SerializedStyles;
+  'scale.300': SerializedStyles;
+  'scale.400': SerializedStyles;
+  'scale.500': SerializedStyles;
+  'scale.600': SerializedStyles;
+};
+
+// @public (undocumented)
 interface StackProps extends BasePrimitiveProps {
   alignItems?: FlexAlignItems_3;
   children: NonTextChildren;
   flexWrap?: FlexWrap_2;
-  gap: GlobalSpacingToken;
+  gap: RowGap;
   justifyContent?: FlexJustifyContent_3;
 }
 
@@ -378,34 +533,15 @@ const textTransformMap: {
 };
 
 // @internal
-export const UNSAFE_Box: ForwardRefExoticComponent<
-  UNSAFE_BoxProps<HTMLElement> & RefAttributes<HTMLElement>
->;
+export const UNSAFE_Box: BoxComponent;
 
 // @public (undocumented)
-export interface UNSAFE_BoxProps<T extends HTMLElement = HTMLElement>
-  extends Omit<HTMLAttributes<T>, 'as' | 'className' | 'style'>,
-    BasePrimitiveProps {
-  alignItems?: FlexAlignItems;
-  as?: ElementType;
-  backgroundColor?: [BackgroundColor, string];
-  borderColor?: [BorderColor, string];
-  borderRadius?: BorderRadius;
-  borderStyle?: BorderStyle;
-  borderWidth?: BorderWidth;
-  children?: NonTextChildren | boolean | null | undefined;
-  className?: string;
-  display?: Display;
-  flexDirection?: FlexDirection;
-  height?: GlobalSpacingToken;
-  justifyContent?: FlexJustifyContent;
-  overflow?: Overflow;
-  padding?: GlobalSpacingToken;
-  paddingBlock?: GlobalSpacingToken;
-  paddingInline?: GlobalSpacingToken;
-  position?: keyof typeof positionMap;
-  width?: GlobalSpacingToken;
-}
+export type UNSAFE_BoxProps<T extends ElementType = 'div'> = Omit<
+  ComponentPropsWithoutRef<T>,
+  PropsToOmit
+> &
+  BasePrimitiveProps &
+  BoxPropsBase<T>;
 
 // @public
 export const UNSAFE_Inline: ForwardRefExoticComponent<
@@ -419,22 +555,6 @@ export const UNSAFE_InteractionSurface: ({
   testId,
 }: InteractionSurfaceProps) => jsx.JSX.Element;
 
-// @public (undocumented)
-export const UNSAFE_SPACING_SCALE: {
-  'sp-0': number;
-  'sp-25': number;
-  'sp-50': number;
-  'sp-75': number;
-  'sp-100': number;
-  'sp-150': number;
-  'sp-200': number;
-  'sp-300': number;
-  'sp-400': number;
-  'sp-500': number;
-  'sp-600': number;
-  'sp-800': number;
-};
-
 // @public
 export const UNSAFE_Stack: ForwardRefExoticComponent<
   StackProps & RefAttributes<HTMLDivElement>
@@ -447,7 +567,7 @@ export const UNSAFE_Text: FC<UNSAFE_TextProps>;
 export interface UNSAFE_TextProps extends BasePrimitiveProps {
   as?: AsElement;
   children: ReactNode;
-  color?: [TextColor, string];
+  color?: TextColor;
   fontSize?: FontSize;
   fontWeight?: FontWeight;
   lineHeight?: LineHeight;
@@ -465,6 +585,25 @@ const verticalAlignMap: {
   top: SerializedStyles;
   middle: SerializedStyles;
   bottom: SerializedStyles;
+};
+
+// @public (undocumented)
+type Width = keyof typeof widthMap;
+
+// @public (undocumented)
+const widthMap: {
+  'scale.0': SerializedStyles;
+  'scale.025': SerializedStyles;
+  'scale.050': SerializedStyles;
+  'scale.075': SerializedStyles;
+  'scale.100': SerializedStyles;
+  'scale.150': SerializedStyles;
+  'scale.200': SerializedStyles;
+  'scale.250': SerializedStyles;
+  'scale.300': SerializedStyles;
+  'scale.400': SerializedStyles;
+  'scale.500': SerializedStyles;
+  'scale.600': SerializedStyles;
 };
 
 // (No @packageDocumentation comment for this package)

@@ -11,7 +11,7 @@
     "@atlaskit/editor-test-helpers",
     "@atlaskit/spinner",
     "@atlaskit/util-data-test",
-    "pretty-data",
-    "styled-components"
+    "@emotion/react",
+    "pretty-data"
   ]
 }

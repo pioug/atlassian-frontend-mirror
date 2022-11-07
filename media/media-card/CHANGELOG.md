@@ -1,5 +1,16 @@
 # @atlaskit/media-card
 
+## 74.2.0
+
+### Minor Changes
+
+- [`2c402e87213`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c402e87213) - [Experimental] Add traceId in media card get image request.
+
+### Patch Changes
+
+- [`bf8302c838a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf8302c838a) - Implemented internal functionality to create local video preview.
+- Updated dependencies
+
 ## 74.1.9
 
 ### Patch Changes

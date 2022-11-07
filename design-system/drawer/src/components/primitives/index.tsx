@@ -2,7 +2,7 @@
 
 import { useCallback, useRef } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 import {
@@ -12,44 +12,23 @@ import {
   useExitingPersistence,
 } from '@atlaskit/motion';
 import type { SlideInProps } from '@atlaskit/motion/types';
-import { N0 } from '@atlaskit/theme/colors';
-import { gridSize, layers } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
 
 import { animationTimingFunction, transitionDurationMs } from '../../constants';
 import {
   DrawerPrimitiveDefaults,
   DrawerPrimitiveOverrides,
   DrawerPrimitiveProps,
-  Widths,
 } from '../types';
 import { createExtender } from '../utils';
 
 import ContentOverrides from './content';
+import DrawerWrapper from './drawer-wrapper';
+import FocusLock from './focus-lock';
 import IconButton from './icon-button';
 import SidebarOverrides from './sidebar';
 
 // Misc.
 // ------------------------------
-
-const widths: Widths = {
-  full: '100vw',
-  extended: '95vw',
-  narrow: 45 * gridSize(),
-  medium: 60 * gridSize(),
-  wide: 75 * gridSize(),
-};
-
-const wrapperStyles = css({
-  display: 'flex',
-  height: '100vh',
-  position: 'fixed',
-  zIndex: layers.blanket() + 1,
-  top: 0,
-  left: 0,
-  backgroundColor: token('elevation.surface.overlay', N0),
-  overflow: 'hidden',
-});
 
 const defaults: DrawerPrimitiveDefaults = {
   Sidebar: SidebarOverrides,
@@ -95,7 +74,10 @@ const DrawerPrimitive = ({
   overrides,
   testId,
   in: isOpen,
-  ...props
+  shouldReturnFocus,
+  autoFocusFirstElem,
+  isFocusLockEnabled,
+  width,
 }: DrawerPrimitiveProps) => {
   const getOverrides = createExtender<
     DrawerPrimitiveDefaults,
@@ -105,14 +87,17 @@ const DrawerPrimitive = ({
   const { component: Sidebar, ...sideBarOverrides } = getOverrides('Sidebar');
   const { component: Content, ...contentOverrides } = getOverrides('Content');
 
-  const ref = useRef<HTMLDivElement>(null);
+  /**
+   * A ref to point to our wrapper, passed to `onCloseComplete` and `onOpenComplete` callbacks.
+   */
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   const onFinish = useCallback(
     (state: Transition) => {
       if (state === 'entering') {
-        onOpenComplete?.(ref.current);
+        onOpenComplete?.(drawerRef.current);
       } else if (state === 'exiting') {
-        onCloseComplete?.(ref.current);
+        onCloseComplete?.(drawerRef.current);
       }
     },
     [onCloseComplete, onOpenComplete],
@@ -123,29 +108,33 @@ const DrawerPrimitive = ({
       {isOpen && (
         <CustomSlideIn onFinish={onFinish}>
           {({ className }) => (
-            <div
-              className={className}
-              css={wrapperStyles}
-              style={{
-                width: widths[props.width ?? 'narrow'],
-              }}
-              data-testid={testId}
-              ref={ref}
+            <FocusLock
+              autoFocusFirstElem={autoFocusFirstElem}
+              isFocusLockEnabled={isFocusLockEnabled}
+              shouldReturnFocus={shouldReturnFocus}
             >
-              <Sidebar {...sideBarOverrides}>
-                <IconButton
-                  onClick={onClose}
-                  testId={testId && 'DrawerPrimitiveSidebarCloseButton'}
-                >
-                  {Icon ? (
-                    <Icon size="large" />
-                  ) : (
-                    <ArrowLeft label="Close drawer" />
-                  )}
-                </IconButton>
-              </Sidebar>
-              <Content {...contentOverrides}>{children}</Content>
-            </div>
+              <DrawerWrapper
+                className={className}
+                width={width}
+                testId={testId}
+                drawerRef={drawerRef}
+              >
+                <Sidebar {...sideBarOverrides}>
+                  <IconButton
+                    onClick={onClose}
+                    testId={testId && 'DrawerPrimitiveSidebarCloseButton'}
+                  >
+                    {Icon ? (
+                      <Icon size="large" />
+                    ) : (
+                      <ArrowLeft label="Close drawer" />
+                    )}
+                  </IconButton>
+                </Sidebar>
+
+                <Content {...contentOverrides}>{children}</Content>
+              </DrawerWrapper>
+            </FocusLock>
           )}
         </CustomSlideIn>
       )}

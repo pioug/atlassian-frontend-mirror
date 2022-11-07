@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { gridSize } from '../../common/constants';
 import { PrimaryButtonSkeleton } from '../PrimaryButton/skeleton';

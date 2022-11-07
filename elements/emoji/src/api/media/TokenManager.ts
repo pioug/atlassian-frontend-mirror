@@ -35,7 +35,6 @@ export default class TokenManager {
     if (nowInSeconds < expiresAt) {
       return true;
     }
-
     return false;
   }
 

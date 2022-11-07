@@ -50,6 +50,8 @@ type Props = WithAnalyticsEventsProps & {
     width: number;
     height: number;
   };
+  mountPoint?: HTMLElement;
+  setDisableParentScroll?: (disable: boolean) => void;
 };
 
 const ColorPickerButton = (props: Props) => {
@@ -59,6 +61,13 @@ const ColorPickerButton = (props: Props) => {
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
   };
+
+  React.useEffect(() => {
+    if (props.setDisableParentScroll) {
+      props.setDisableParentScroll(isPopupOpen);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPopupOpen]);
 
   const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
 
@@ -100,6 +109,12 @@ const ColorPickerButton = (props: Props) => {
         fitWidth={350}
         offset={[0, 10]}
         alignX={props.alignX}
+        mountTo={props.setDisableParentScroll ? props.mountPoint : undefined}
+        // Confluence inline comment editor has z-index: 500
+        // if the toolbar is scrollable, this will be mounted in the root editor
+        // we need an index of > 500 to display over it
+        zIndex={props.setDisableParentScroll ? 600 : undefined}
+        ariaLabel="Color picker popup"
       >
         <div css={colorPickerWrapper}>
           <ColorPaletteWithListeners

@@ -10,7 +10,7 @@ import {
 import Lozenge from '../src';
 
 export default () => (
-  <Stack gap="sp-100" testId="test-container">
+  <Stack gap="scale.100" testId="test-container">
     <Text as="p">
       <Text fontWeight="500" as="p">
         Constrained by maxWidth:{' '}
@@ -26,7 +26,7 @@ export default () => (
 
     <Text fontWeight="500">Constrained by container size: </Text>
     <Box
-      borderColor={['danger', 'red']}
+      borderColor="danger"
       borderStyle="solid"
       borderWidth="1px"
       UNSAFE_style={{ width: 125, overflow: 'hidden' }}

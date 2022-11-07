@@ -1,0 +1,14 @@
+/**
+ * This file is used by the test scaling project to optimise test result caching
+ * Examples that are used by tests affect the outcome of tests so must be included when hashing
+ * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
+ */
+{
+  "testExamples": [
+    "01-heading.tsx",
+    "02-links.tsx",
+    "03-lists-flat.tsx",
+    "05-tables-simple.tsx",
+    "09-misc-elements.tsx"
+  ]
+}

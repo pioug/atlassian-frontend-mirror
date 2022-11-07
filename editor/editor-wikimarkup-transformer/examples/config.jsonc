@@ -7,7 +7,6 @@
   "exampleDependencies": [
     "@atlaskit/editor-common",
     "@atlaskit/mention",
-    "@atlaskit/profilecard",
     "@atlaskit/renderer"
   ]
 }

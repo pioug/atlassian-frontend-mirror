@@ -26,6 +26,7 @@ import dataConsumerPlugin from '@atlaskit/editor-core/src/plugins/data-consumer'
 import type {
   FloatingToolbarItem,
   FloatingToolbarButton,
+  GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 
 const formatMessage: (t: { id: string }) => string = (message) =>
@@ -36,11 +37,15 @@ describe('getToolbarConfig', () => {
   const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
     attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
   };
+  const getEditorFeatureFlags: GetEditorFeatureFlags = jest
+    .fn()
+    .mockReturnValue({});
   const getButton = (editorView: EditorView) => {
     const { state } = editorView;
     const config = getToolbarConfig(
       getEditorContainerWidth,
       editorAnalyticsAPIFake,
+      getEditorFeatureFlags,
     )({})(state, { formatMessage } as any, {} as any)!;
     //
     expect(config).not.toBeUndefined();

@@ -1,12 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * Some artifact
+ * The color map is used to map a background color token to a matching text color that will meet contrast.
  *
- * @codegen <<SignedSource::8f568e4f0837f7af4a10429e060ad059>>
+ * @codegen <<SignedSource::c9429c38d12f88de9f5be644bf5e704a>>
  * @codegenCommand yarn codegen-styles
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::0c1fe9904b2ff2465a532b97ab76491e>>
  */
-export const colorMap = {
+export default {
   'neutral.bold': 'inverse',
   'neutral.bold.hovered': 'inverse',
   'neutral.bold.pressed': 'inverse',

@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { defaultCategories } from '../../util/constants';

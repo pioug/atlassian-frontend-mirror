@@ -1,3 +1,4 @@
+export {};
 it.todo('TODO: ED-15801 - Fix smart link async rendering integration test');
 // import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 // import { copyToClipboard } from '@atlaskit/editor-test-helpers/integration/helpers';

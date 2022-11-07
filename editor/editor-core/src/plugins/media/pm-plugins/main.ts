@@ -47,6 +47,7 @@ import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { isInListItem } from '../../../utils';
 import { CAPTION_PLACEHOLDER_ID } from '../ui/CaptionPlaceholder';
 import { IntlShape, RawIntlProvider } from 'react-intl-next';
+import { MediaTaskManager } from './mediaTaskManager';
 
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
@@ -80,7 +81,6 @@ const createDropPlaceholder = (intl: IntlShape, allowDropLine?: boolean) => {
 };
 
 const MEDIA_RESOLVED_STATES = ['ready', 'error', 'cancelled'];
-
 export class MediaPluginStateImplementation implements MediaPluginState {
   allowsUploads: boolean = false;
   mediaClientConfig?: MediaClientConfig;
@@ -97,7 +97,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   options: MediaPluginOptions;
   mediaProvider?: MediaProvider;
 
-  private pendingTask = Promise.resolve<MediaState | null>(null);
   private view!: EditorView;
   private destroyed = false;
   private contextIdentifierProvider?: ContextIdentifierProvider;
@@ -105,8 +104,12 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   // @ts-ignore: private is OK
   private customPicker?: PickerFacade;
   private removeOnCloseListener: () => void = () => {};
+
   private openMediaPickerBrowser?: () => void;
   private onPopupToggleCallback: (isOpen: boolean) => void = () => {};
+
+  private nodeCount = new Map<string, number>();
+  private taskManager = new MediaTaskManager();
 
   pickers: PickerFacade[] = [];
   pickerPromises: Array<Promise<PickerFacade>> = [];
@@ -355,23 +358,22 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       state.status && MEDIA_RESOLVED_STATES.indexOf(state.status) !== -1;
 
     if (!isEndState(mediaStateWithContext)) {
-      // Chain the previous promise with a new one for this media item
-      this.addPendingTask(
-        new Promise<MediaState | null>((resolve) => {
-          onMediaStateChanged((newState) => {
-            // When media item reaches its final state, remove listener and resolve
-            if (isEndState(newState)) {
-              resolve(newState);
-            }
-          });
-        }),
-      );
-
-      this.pendingTask.then(() => {
-        this.updateAndDispatch({
-          allUploadsFinished: true,
+      const uploadingPromise = new Promise<MediaState | null>((resolve) => {
+        onMediaStateChanged((newState) => {
+          // When media item reaches its final state, remove listener and resolve
+          if (isEndState(newState)) {
+            resolve(newState);
+          }
         });
       });
+
+      this.taskManager
+        .addPendingTask(uploadingPromise, mediaStateWithContext.id)
+        .then(() => {
+          this.updateAndDispatch({
+            allUploadsFinished: true,
+          });
+        });
     }
 
     // refocus the view
@@ -381,10 +383,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     }
   };
 
-  addPendingTask = (promise: Promise<any>) => {
-    const currentPendingTask = this.pendingTask;
-    const pendingPromise = () => currentPendingTask;
-    this.pendingTask = promise.then(pendingPromise, pendingPromise);
+  addPendingTask = (task: Promise<any>) => {
+    this.taskManager.addPendingTask(task);
   };
 
   splitMediaGroup = (): boolean => splitMediaGroup(this.view);
@@ -414,42 +414,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
    *
    * NOTE: The promise will resolve even if some of the media have failed to process.
    */
-  waitForPendingTasks = (
-    timeout?: number,
-    lastTask?: Promise<MediaState | null>,
-  ): Promise<MediaState | null> => {
-    if (lastTask && this.pendingTask === lastTask) {
-      return lastTask;
-    }
-
-    const chainedPromise: Promise<MediaState | null> = this.pendingTask.then(
-      () =>
-        // Call ourselves to make sure that no new pending tasks have been
-        // added before the current promise has resolved.
-        this.waitForPendingTasks(undefined, this.pendingTask),
-    );
-
-    if (!timeout) {
-      return chainedPromise;
-    }
-
-    let rejectTimeout: number;
-    const timeoutPromise = new Promise<null>((_resolve, reject) => {
-      rejectTimeout = window.setTimeout(
-        () =>
-          reject(new Error(`Media operations did not finish in ${timeout} ms`)),
-        timeout,
-      );
-    });
-
-    return Promise.race([
-      timeoutPromise,
-      chainedPromise.then((value) => {
-        clearTimeout(rejectTimeout);
-        return value;
-      }),
-    ]);
-  };
+  waitForPendingTasks = this.taskManager.waitForPendingTasks;
 
   setView(view: EditorView) {
     this.view = view;
@@ -471,10 +436,29 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     removeMediaNode(this.view, getNode, getPos);
   };
 
+  trackMediaNodeAddition = (node: PMNode) => {
+    const id = node.attrs.id;
+    const count = this.nodeCount.get(id) ?? 0;
+    if (count === 0) {
+      this.taskManager.resumePendingTask(id);
+    }
+    this.nodeCount.set(id, count + 1);
+  };
+
+  trackMediaNodeRemoval = (node: PMNode) => {
+    const id = node.attrs.id;
+    const count = this.nodeCount.get(id) ?? 0;
+    if (count === 1) {
+      this.taskManager.cancelPendingTask(id);
+    }
+    this.nodeCount.set(id, count - 1);
+  };
   /**
    * Called from React UI Component on componentDidMount
    */
   handleMediaNodeMount = (node: PMNode, getPos: ProsemirrorGetPosHandler) => {
+    this.trackMediaNodeAddition(node);
+
     this.mediaNodes.unshift({ node, getPos });
   };
 
@@ -483,7 +467,26 @@ export class MediaPluginStateImplementation implements MediaPluginState {
    * when React component's underlying node property is replaced with a new node
    */
   handleMediaNodeUnmount = (oldNode: PMNode) => {
+    this.trackMediaNodeRemoval(oldNode);
+
     this.mediaNodes = this.mediaNodes.filter(({ node }) => oldNode !== node);
+  };
+
+  handleMediaGroupUpdate = (oldNodes: PMNode[], newNodes: PMNode[]) => {
+    const addedNodes = newNodes.filter((node) =>
+      oldNodes.every((oldNode) => oldNode.attrs.id !== node.attrs.id),
+    );
+    const removedNodes = oldNodes.filter((node) =>
+      newNodes.every((newNode) => newNode.attrs.id !== node.attrs.id),
+    );
+
+    addedNodes.forEach((node) => {
+      this.trackMediaNodeAddition(node);
+    });
+
+    removedNodes.forEach((oldNode) => {
+      this.trackMediaNodeRemoval(oldNode);
+    });
   };
 
   destroy() {

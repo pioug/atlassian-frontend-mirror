@@ -3,6 +3,7 @@ import { documentWithDecision } from './__fixtures__/document-with-decision';
 import { documentWithInlineCard } from './__fixtures__/document-with-inline-card';
 import { documentWithMediaInlineCard } from './__fixtures__/document-with-media-inline-card';
 import { documentWithText } from './__fixtures__/document-with-text';
+import { documentWithCodeBlock } from './__fixtures__/document-with-code-block';
 import { emptyDocument } from './__fixtures__/empty-document';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
@@ -260,6 +261,44 @@ BrowserTestCase(
 
     const doc = await page.$eval(editorSelector, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'paste.ts: paste code with new lines into code block. ensure up arrow is working',
+  // skip safari this test is for windows only
+  // firefox skipped due to flaky copy paste https://product-fabric.atlassian.net/browse/ED-15079
+  { skip: ['safari', 'firefox'] },
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    const text =
+      '// Your First C++ Program\r\n\r\n#include <iostream>\r\n\r\nint main() {\r\n    std::cout << "Hello World!";\r\n    return 0;\r\n}\r\n';
+    await copyAsPlainText(page, text);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: JSON.stringify(documentWithCodeBlock),
+    });
+
+    await page.paste();
+
+    const doc = await page.$eval(editorSelector, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+
+    await page.keys([
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+    ]);
+
+    await page.keys(['a']);
+    expect(doc).toMatchCustomDocSnapshot(testName + '1');
   },
 );
 

@@ -8,7 +8,7 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { TablePluginState } from '../../../types';
+import { TablePluginState } from '../../../plugins/table/types';
 
 describe('table/safari-delete-composition-text-issue-workaround', () => {
   let editor: any;

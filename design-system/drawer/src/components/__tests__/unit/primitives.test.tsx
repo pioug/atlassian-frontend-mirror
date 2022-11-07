@@ -7,11 +7,11 @@ import { mount } from 'enzyme';
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 
 import DrawerPrimitive from '../../primitives';
-import ContentOverrides from '../../primitives/content';
-import SidebarOverrides from '../../primitives/sidebar';
 import { DrawerWidth } from '../../types';
 
-const DrawerContent = () => <code>Drawer contents</code>;
+const DrawerContent = () => (
+  <code data-testid="DrawerContents">Drawer contents</code>
+);
 
 describe('Drawer primitive', () => {
   const commonProps = {
@@ -183,61 +183,163 @@ describe('Drawer primitive', () => {
     jest.useRealTimers();
   });
 
+  /**
+   * This test is fairly explicit as our DrawerWrapper is quite fragile;
+   * we use `node.children[1]` to target our content for a ref, so the DOM should match expected.
+   */
+  describe('works with our DrawerWrapper ref hack', () => {
+    it('should render only two children nodes: Sidebar and Content', async () => {
+      const { getByTestId } = render(
+        <DrawerPrimitive {...commonProps}>
+          <DrawerContent />
+        </DrawerPrimitive>,
+      );
+      const drawer = getByTestId('test');
+
+      expect(drawer.childNodes).toHaveLength(2);
+
+      // Sidebar content:
+      expect(drawer.childNodes[0]).toContainElement(
+        getByTestId('DrawerPrimitiveSidebarCloseButton'),
+      );
+
+      // Content:
+      expect(drawer.childNodes[1]).toHaveTextContent('Drawer contents');
+      expect(drawer.childNodes[1]).toContainElement(
+        getByTestId('DrawerContents'),
+      );
+    });
+
+    it('with both overrides, should render only two children nodes: Sidebar and Content', async () => {
+      const { getByTestId } = render(
+        <DrawerPrimitive
+          {...commonProps}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides -- Testing the functionality even if it's deprecated
+          overrides={{
+            Content: {
+              component: () => (
+                <div data-testid="override-content">Override content</div>
+              ),
+            },
+            Sidebar: {
+              component: () => (
+                <div data-testid="override-sidebar">Override sidebar</div>
+              ),
+            },
+          }}
+        >
+          <DrawerContent />
+        </DrawerPrimitive>,
+      );
+
+      const drawer = getByTestId('test');
+      expect(drawer.childNodes).toHaveLength(2);
+
+      // Sidebar content:
+      expect(drawer.childNodes[0]).toHaveTextContent('Override sidebar');
+      expect(drawer.childNodes[0]).toContainElement(
+        getByTestId('override-sidebar'),
+      );
+
+      // Content:
+      expect(drawer.childNodes[1]).toHaveTextContent('Override content');
+      expect(drawer.childNodes[1]).toContainElement(
+        getByTestId('override-content'),
+      );
+    });
+
+    /**
+     * WARNING: If both `Content` and `Sidebar` were `() => null`, they throw an error.
+     */
+    it.each([
+      ['Content', 'override-sidebar'],
+      ['Sidebar', 'override-content'],
+    ] as const)(
+      'with overriding %p to return `null` you only get one child node',
+      (override, validTestId) => {
+        const { getByTestId } = render(
+          <DrawerPrimitive
+            {...commonProps}
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides -- Testing the functionality even if it's deprecated
+            overrides={{
+              Content: {
+                component: () => (
+                  <div data-testid="override-content">Override content</div>
+                ),
+              },
+              Sidebar: {
+                component: () => (
+                  <div data-testid="override-sidebar">Override sidebar</div>
+                ),
+              },
+              [override]: { component: () => null },
+            }}
+          >
+            <DrawerContent />
+          </DrawerPrimitive>,
+        );
+
+        const drawer = getByTestId('test');
+        expect(drawer.childNodes).toHaveLength(1);
+
+        expect(drawer.childNodes[0]).toHaveTextContent(/Override/);
+        expect(drawer.childNodes[0]).toContainElement(getByTestId(validTestId));
+      },
+    );
+  });
+
   describe('overrides', () => {
     const overrides = [
       {
         name: 'Sidebar',
-        defaultComponent: SidebarOverrides.component,
         component: jest.fn(() => <div data-testid="sidebar-override" />),
         cssFn: jest.fn(),
         testId: 'sidebar-override',
       },
       {
         name: 'Content',
-        defaultComponent: ContentOverrides.component,
         component: jest.fn(() => <div data-testid="content-override" />),
         cssFn: jest.fn(),
         testId: 'content-override',
       },
     ];
 
-    overrides.forEach(
-      ({ name, component, defaultComponent, cssFn, testId }) => {
-        it(`should be able to override the ${name} component by providing a component override`, () => {
-          const props = {
-            ...commonProps,
-            overrides: {
-              [name]: {
-                component,
-              },
+    overrides.forEach(({ name, component, cssFn, testId }) => {
+      it(`should be able to override the ${name} component by providing a component override`, () => {
+        const props = {
+          ...commonProps,
+          overrides: {
+            [name]: {
+              component,
             },
-          };
-          const { getByTestId } = render(
-            <DrawerPrimitive {...props}>
-              <DrawerContent />
-            </DrawerPrimitive>,
-          );
+          },
+        };
+        const { getByTestId } = render(
+          <DrawerPrimitive {...props}>
+            <DrawerContent />
+          </DrawerPrimitive>,
+        );
 
-          expect(getByTestId(testId)).toBeInTheDocument();
-        });
-        it(`should be able to override the style of the ${name} component by providing a cssFn override`, () => {
-          const props = {
-            ...commonProps,
-            overrides: {
-              [name]: {
-                cssFn,
-              },
+        expect(getByTestId(testId)).toBeInTheDocument();
+      });
+
+      it(`should be able to override the style of the ${name} component by providing a cssFn override`, () => {
+        const props = {
+          ...commonProps,
+          overrides: {
+            [name]: {
+              cssFn,
             },
-          };
-          render(
-            <DrawerPrimitive {...props}>
-              <DrawerContent />
-            </DrawerPrimitive>,
-          );
+          },
+        };
+        render(
+          <DrawerPrimitive {...props}>
+            <DrawerContent />
+          </DrawerPrimitive>,
+        );
 
-          expect(cssFn).toHaveBeenCalled();
-        });
-      },
-    );
+        expect(cssFn).toHaveBeenCalled();
+      });
+    });
   });
 });

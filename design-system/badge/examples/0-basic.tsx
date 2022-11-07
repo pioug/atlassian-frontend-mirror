@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { B400, B500, N0, N20 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';

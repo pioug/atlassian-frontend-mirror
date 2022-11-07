@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import ButtonGroup from '@atlaskit/button/button-group';

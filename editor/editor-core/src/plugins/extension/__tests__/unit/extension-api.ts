@@ -7,6 +7,7 @@ import {
   td,
   taskList,
   taskItem,
+  extension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { NodeSelection } from 'prosemirror-state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -23,6 +24,9 @@ import {
 } from '../../../analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+
 describe('ExtensionAPI', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
@@ -32,7 +36,7 @@ describe('ExtensionAPI', () => {
    * old state for the unique localId plugin
    */
   const createEditorFn = createEditorFactory<{}>();
-  const createEditor = (doc: DocBuilder) => {
+  const createEditor = (doc: DocBuilder, allowFragmentMark = false) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
 
     const { editorView } = createEditorFn({
@@ -44,6 +48,7 @@ describe('ExtensionAPI', () => {
         allowExpand: true,
         allowTasksAndDecisions: true,
         allowAnalyticsGASV3: true,
+        allowFragmentMark,
       },
       createAnalyticsEvent,
     });
@@ -180,7 +185,7 @@ describe('ExtensionAPI', () => {
           type: '😑',
           content: [{ type: 'text', text: 'hello API!' }],
         });
-      }).toThrowError("insertAfter(): Invalid ADF type '😑'.");
+      }).toThrowError('insertAfter(): Invalid ADF given.');
     });
 
     it('should throw error when invalid adf is given', () => {
@@ -199,7 +204,7 @@ describe('ExtensionAPI', () => {
           content: [{ type: 'text', donut: 'hello API!' }],
         };
         api.doc.insertAfter('tableId', badContentsADF);
-      }).toThrowError('Invalid text node in JSON');
+      }).toThrowError('insertAfter(): Invalid ADF given.');
     });
 
     it('should throw error when invalid marks given', () => {
@@ -531,6 +536,107 @@ describe('ExtensionAPI', () => {
       const api = createAPI(editorView);
       api.doc.scrollTo(localId);
       expect(createAnalyticsEvent).toBeCalledWith(expectedApiCallPayload);
+    });
+  });
+
+  describe('doc.update()', () => {
+    it('should update ADF content with the given localId', () => {
+      const localId = 'local-id';
+      const initDoc = doc(
+        extension({
+          localId,
+          extensionKey: 'key-1',
+          extensionType: 'type-1',
+        })(),
+      );
+
+      const editorView = createEditor(initDoc, true);
+      const api = createAPI(editorView);
+
+      api.doc.update(
+        localId,
+        ({ attrs, marks }: Pick<ADFEntity, 'attrs' | 'marks'>) => ({
+          attrs,
+          marks: (marks ?? []).concat({
+            type: 'fragment',
+            attrs: { localId: 'fragment-id' },
+          }),
+        }),
+      );
+
+      const adf = new JSONTransformer().encode(editorView.state.doc);
+      expect(adf).toEqual({
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'extension',
+            attrs: {
+              extensionType: 'type-1',
+              extensionKey: 'key-1',
+              layout: 'default',
+              localId: 'local-id',
+            },
+            marks: [
+              {
+                type: 'fragment',
+                attrs: {
+                  localId: 'fragment-id',
+                },
+              },
+            ],
+          },
+        ],
+      });
+    });
+
+    it('should throw error when invalid marks given', () => {
+      const localId = 'local-id';
+      const initDoc = doc(
+        table({ localId })(tr(td({})(p()), td({})(p()), td({})(p()))),
+      );
+      const editorView = createEditor(initDoc, false);
+      const api = createAPI(editorView);
+
+      expect(() => {
+        api.doc.update(
+          localId,
+          ({ attrs, marks }: Pick<ADFEntity, 'attrs' | 'marks'>) => ({
+            attrs,
+            marks: (marks ?? []).concat({
+              type: 'fragment',
+              attrs: { localId },
+            }),
+          }),
+        );
+      }).toThrowError("update(): Invalid ADF mark type 'fragment'.");
+    });
+
+    it('should throw error when not allowed marks given', () => {
+      const localId = 'local-id';
+      const initDoc = doc(
+        extension({
+          localId,
+          extensionKey: 'key-1',
+          extensionType: 'type-1',
+        })(),
+      );
+      const editorView = createEditor(initDoc, true);
+      const api = createAPI(editorView);
+
+      expect(() => {
+        api.doc.update(
+          localId,
+          ({ attrs, marks }: Pick<ADFEntity, 'attrs' | 'marks'>) => ({
+            attrs,
+            marks: (marks ?? []).concat({
+              type: 'code',
+            }),
+          }),
+        );
+      }).toThrowError(
+        "update(): Parent of type 'doc' does not allow marks of type 'code'.",
+      );
     });
   });
 });

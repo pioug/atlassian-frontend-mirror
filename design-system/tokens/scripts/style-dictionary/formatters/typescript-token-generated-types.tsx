@@ -20,6 +20,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     const activeTokenType = activeTokens
       .map((value) => ` | '${value}'`)
       .join('\n');
+
     return prettier.format(`export type ActiveTokens = ${activeTokenType};\n`, {
       parser: 'typescript',
       singleQuote: true,

@@ -10,7 +10,6 @@ import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import { Popup } from '@atlaskit/editor-common/ui';
 
-// import { closestElement } from '../../../../utils/dom';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {

@@ -2,6 +2,8 @@ import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import legacyTokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-legacy-light';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import tokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-light';
 
 import {
@@ -25,13 +27,11 @@ const colors = {
   text: {
     prefix: 'color.text.',
     cssProperty: 'color',
-    legacyFallbackCSSProperty: '--ds-co-fb',
     filterFn: <T extends Token>(t: T) => t.token.startsWith(colors.text.prefix),
   },
   background: {
     prefix: 'color.background.',
     cssProperty: 'backgroundColor',
-    legacyFallbackCSSProperty: '--ds-bg-fb',
     filterFn: <T extends Token>(t: T) =>
       t.token.startsWith(colors.background.prefix) ||
       t.token.startsWith('elevation.surface') ||
@@ -40,21 +40,22 @@ const colors = {
   border: {
     prefix: 'color.border.',
     cssProperty: 'borderColor',
-    legacyFallbackCSSProperty: '--ds-bo-fb',
     filterFn: <T extends Token>(t: T) =>
       t.token.startsWith(colors.border.prefix),
   },
 } as const;
 
-const activeTokens = tokens
+const bothTokens = tokens.map((t, i) => [t, legacyTokens[i]]);
+
+const activeTokens = bothTokens
   .filter(
-    (t) =>
+    ([t]) =>
       t.attributes.state !== 'deleted' && t.attributes.state !== 'deprecated',
   )
   .map(
-    (t): Token => ({
+    ([t, legacy]): Token => ({
       token: t.name,
-      fallback: t.value as string,
+      fallback: legacy.value as string,
     }),
   )
   .filter(compose(pick('token'), not(isAccent)))
@@ -68,9 +69,7 @@ export const createColorStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${colorProperty}"`);
   }
 
-  const { prefix, cssProperty, filterFn, legacyFallbackCSSProperty } = colors[
-    colorProperty
-  ];
+  const { prefix, cssProperty, filterFn } = colors[colorProperty];
 
   return (
     prettier.format(
@@ -83,11 +82,7 @@ const ${colorProperty}ColorMap = {
     .map((t) => {
       // handle the default case eg color.border or color.text
       const propName = t.token.replace(prefix, '');
-      return `'${propName}': ${tokenToStyle(
-        cssProperty,
-        t.token,
-        `"var(${legacyFallbackCSSProperty})"`,
-      )}`;
+      return `'${propName}': ${tokenToStyle(cssProperty, t.token, t.fallback)}`;
     })
     .join(',\n\t')}
 };`,

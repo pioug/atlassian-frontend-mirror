@@ -11,9 +11,9 @@ export default () => {
       <Badge>{8}</Badge>
       <Box
         borderRadius="badge"
-        backgroundColor={['neutral', 'white']}
+        backgroundColor="neutral"
         display="inlineFlex"
-        paddingInline="sp-75"
+        paddingInline="scale.075"
         UNSAFE_style={{ lineHeight: '16px' }}
       >
         <Text fontSize="12px">8</Text>

@@ -143,6 +143,7 @@ const ViewMore = ({ item }: { item: QuickInsertItem }) => {
         iconBefore={<div css={itemBefore}>{item.icon!()}</div>}
         aria-describedby={item.title}
         data-testid="view-more-elements-item"
+        // @ts-ignore Overriding Menu styles is not supported
         css={css`
           padding: 0px 12px;
         `}

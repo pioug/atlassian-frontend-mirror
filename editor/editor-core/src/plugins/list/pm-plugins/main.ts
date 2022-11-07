@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ReadonlyTransaction, PluginKey, EditorState } from 'prosemirror-state';
-import { DecorationSet, Decoration } from 'prosemirror-view';
+import { DecorationSet, Decoration, EditorView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 import { findParentNodeOfType } from 'prosemirror-utils';
 import { isWrappingPossible } from '../utils/selection';
@@ -8,6 +8,12 @@ import { isListNode } from '../utils/node';
 import { Dispatch } from '../../../event-dispatcher';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 import { ListState } from '../types';
+import { setGapCursorSelection } from '../../../utils';
+import { Side } from '../../selection/gap-cursor-selection';
+import {
+  listPaddingLeftMarkerSpace,
+  CodeBlockSharedCssClassName,
+} from '@atlaskit/editor-common/styles';
 
 const listPluginKey = new PluginKey<ListState>('listPlugin');
 export const pluginKey = listPluginKey;
@@ -148,6 +154,36 @@ export const createPlugin = (eventDispatch: Dispatch): SafePlugin =>
       decorations(state) {
         const { decorationSet } = getPluginState(state);
         return decorationSet;
+      },
+      handleClick: (view: EditorView, pos, event: MouseEvent) => {
+        const { state } = view;
+        if (['LI', 'UL'].includes((event?.target as HTMLElement).tagName)) {
+          const nodeAtPos = state.tr.doc.nodeAt(pos);
+          const { listItem, codeBlock } = view.state.schema.nodes;
+          if (
+            nodeAtPos?.type === listItem &&
+            nodeAtPos?.firstChild?.type === codeBlock
+          ) {
+            const bufferPx = 50;
+            const isCodeBlockNextToListMarker = Boolean(
+              document
+                ?.elementFromPoint(
+                  event.clientX + (listPaddingLeftMarkerSpace + bufferPx),
+                  event.clientY,
+                )
+                ?.closest(
+                  `.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`,
+                ),
+            );
+            if (isCodeBlockNextToListMarker) {
+              // +1 needed to put cursor inside li
+              // otherwise gap cursor markup will be injected as immediate child of ul resulting in invalid html
+              setGapCursorSelection(view, pos + 1, Side.LEFT);
+              return true;
+            }
+          }
+        }
+        return false;
       },
     },
   });

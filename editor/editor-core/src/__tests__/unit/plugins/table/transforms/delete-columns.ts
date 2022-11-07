@@ -11,10 +11,11 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { uuid } from '@atlaskit/adf-schema';
-import { TablePluginState } from '../../../../../plugins/table/types';
-import { deleteColumns } from '../../../../../plugins/table/transforms';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { deleteColumns } from '@atlaskit/editor-plugin-table/src/plugins/table/transforms';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
   left: Math.min(...cols),

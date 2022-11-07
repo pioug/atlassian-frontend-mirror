@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 import {
   akEditorCodeFontFamily,
+  akEditorLineHeight,
   akEditorTableCellMinWidth,
   blockNodesVerticalMargin,
   overflowShadow,
@@ -124,5 +125,18 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
         line-height: 1.5rem;
       }
     }
+  }
+`;
+
+export const codeBlockInListSafariFix = css`
+  ::before {
+    content: ' ';
+    line-height: ${akEditorLineHeight};
+  }
+
+  > p:first-child,
+  > .code-block:first-child,
+  > .ProseMirror-gapcursor:first-child + .code-block {
+    margin-top: -${akEditorLineHeight}em !important;
   }
 `;

@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import React, { MouseEvent, PureComponent } from 'react';
+import { jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
-import React from 'react';
-import { MouseEvent, PureComponent } from 'react';
 import { emojiTypeAheadMaxHeight } from '../../util/shared-styles';
 import { toEmojiId } from '../../util/type-helpers';
 import { EmojiDescription, EmojiId, OnEmojiEvent } from '../../types';

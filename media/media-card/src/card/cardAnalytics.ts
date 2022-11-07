@@ -1,4 +1,8 @@
-import { FileAttributes, PerformanceAttributes } from '@atlaskit/media-common';
+import {
+  FileAttributes,
+  MediaTraceContext,
+  PerformanceAttributes,
+} from '@atlaskit/media-common';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   fireMediaCardEvent,
@@ -21,6 +25,7 @@ export const fireOperationalEvent = (
   performanceAttributes: PerformanceAttributes,
   ssrReliability: SSRStatus,
   error: MediaCardError = new MediaCardError('missing-error-data'),
+  traceContext: MediaTraceContext,
 ) => {
   const fireEvent = (payload: MediaCardAnalyticsEventPayload) =>
     fireMediaCardEvent(payload, createAnalyticsEvent);
@@ -32,6 +37,7 @@ export const fireOperationalEvent = (
           fileAttributes,
           performanceAttributes,
           ssrReliability,
+          traceContext,
         ),
       );
       break;
@@ -41,6 +47,7 @@ export const fireOperationalEvent = (
           fileAttributes,
           performanceAttributes,
           ssrReliability,
+          traceContext,
         ),
       );
       break;
@@ -51,6 +58,7 @@ export const fireOperationalEvent = (
           performanceAttributes,
           error,
           ssrReliability,
+          traceContext,
         ),
       );
       break;
@@ -61,9 +69,14 @@ export const fireCommencedEvent = (
   createAnalyticsEvent: CreateUIAnalyticsEvent,
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
+  traceContext: MediaTraceContext,
 ) => {
   fireMediaCardEvent(
-    getRenderCommencedEventPayload(fileAttributes, performanceAttributes),
+    getRenderCommencedEventPayload(
+      fileAttributes,
+      performanceAttributes,
+      traceContext,
+    ),
     createAnalyticsEvent,
   );
 };

@@ -7,12 +7,12 @@ import {
   fullpage,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { documentWithMergedCells } from './__fixtures__/merged-rows-and-cols-document';
-import { TableCssClassName as ClassName } from '@atlaskit/editor-core/src/plugins/table/types';
+import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import messages from '@atlaskit/editor-core/src/plugins/table/ui/messages';
+import messages from '../../plugins/table/ui/messages';
 
 BrowserTestCase(
   'Should delete merged columns from contextual menu and append missing cells to the table',

@@ -41,6 +41,7 @@ export interface Props {
   dropdownWidth?: number;
   // Show a check next to selected dropdown menu items (true by default)
   showSelected?: boolean;
+  setDisableParentScroll?: (disable: boolean) => void;
 }
 
 export interface State {
@@ -150,4 +151,13 @@ export default class Dropdown extends Component<Props, State> {
   private hide = () => {
     this.setState({ isOpen: false });
   };
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      this.props.setDisableParentScroll &&
+      prevState.isOpen !== this.state.isOpen
+    ) {
+      this.props.setDisableParentScroll(this.state.isOpen);
+    }
+  }
 }

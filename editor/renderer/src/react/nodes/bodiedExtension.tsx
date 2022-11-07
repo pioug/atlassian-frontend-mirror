@@ -1,5 +1,5 @@
 import React from 'react';
-import { Node as PMNode } from 'prosemirror-model';
+import { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
 import { RendererContext } from '../types';
 import { Serializer } from '../..';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
@@ -21,6 +21,7 @@ export interface Props {
   content?: any;
   layout?: ExtensionLayout;
   localId?: string;
+  marks?: PMMark[];
 }
 
 const BodiedExtension: React.FunctionComponent<Props> = (props) => {

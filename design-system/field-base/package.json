@@ -27,7 +27,7 @@
   "dependencies": {
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/inline-dialog": "^13.4.0",
-    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/spinner": "^15.2.0",
     "@atlaskit/theme": "^12.2.0",
     "@babel/runtime": "^7.0.0"
   },

@@ -19,6 +19,7 @@ import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 import { useEmojiContext } from '../../hooks/useEmojiContext';
 import { useCallback } from 'react';
+import { extractErrorInfo } from '../../util/analytics/analytics';
 export interface State {
   cachedEmoji?: EmojiDescription;
   invalidImage?: boolean;
@@ -39,7 +40,7 @@ export const CachingEmoji: FC<CachingEmojiProps> = (props) => {
   useSampledUFOComponentExperience(
     ufoExperiences['emoji-rendered'].getInstance(emoji.id || emoji.shortName),
     SAMPLING_RATE_EMOJI_RENDERED_EXP,
-    { source: 'caching-emoji', emoji: emoji.shortName },
+    { source: 'CachingEmoji', emojiId: emoji.id },
   );
 
   useEffect(() => {
@@ -99,20 +100,15 @@ export const CachingMediaEmoji: FC<CachingEmojiProps> = (props) => {
           setInvalidImage(false);
           sampledUfoRenderedEmoji(emoji).mark(UfoEmojiTimings.MEDIA_END);
         })
-        .catch(() => {
+        .catch((error) => {
           setCachedEmoji(undefined);
           setInvalidImage(true);
           sampledUfoRenderedEmoji(emoji).failure({
             metadata: {
+              error: extractErrorInfo(error),
               reason: 'failed to load media emoji',
               source: 'CachingMediaEmoji',
-              data: {
-                emoji: {
-                  id: emoji.id,
-                  shortName: emoji.shortName,
-                  name: emoji.name,
-                },
-              },
+              emojiId: emoji.id,
             },
           });
         });
@@ -131,7 +127,7 @@ export const CachingMediaEmoji: FC<CachingEmojiProps> = (props) => {
       metadata: {
         reason: 'load error',
         source: 'CachingMediaEmoji',
-        emoji: { id: _emojiId.id, shortName: _emojiId.shortName },
+        emojiId: _emojiId.id,
       },
     });
     setInvalidImage(true);

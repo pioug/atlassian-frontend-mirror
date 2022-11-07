@@ -94,9 +94,9 @@ export const plugin = (dispatch: Dispatch) =>
     props: {
       handleKeyDown(view: EditorView, event: KeyboardEvent) {
         const { state, dispatch } = view;
-        if (event.key === keymaps.moveRight.common) {
+        if (event.key === keymaps.moveRight.common && !event.metaKey) {
           return commands.moveRight()(state, dispatch);
-        } else if (event.key === keymaps.moveLeft.common) {
+        } else if (event.key === keymaps.moveLeft.common && !event.metaKey) {
           return commands.moveLeft()(state, dispatch);
         }
         return false;

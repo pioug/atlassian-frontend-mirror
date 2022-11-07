@@ -22,13 +22,6 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
     inviteItem = mountWithIntl(<InviteItem productName="jira" selected />);
 
     expect(inviteItem.length).toBe(1);
-    //TODO: https://product-fabric.atlassian.net/browse/DSP-4336
-    // expect(
-    //   getComputedStyle(inviteItem.find(mentionItemSelector).getDOMNode())
-    //     .backgroundColor,
-    // ).toEqual('rgb(235, 236, 240)'); // N30 #EBECF0
-
-    // expect(inviteItem.find(AddIcon).prop('primaryColor')).toBe(N300);
     expect(inviteItem.find(AddIcon).length).toBe(1);
     expect(
       inviteItem

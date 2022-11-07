@@ -67,7 +67,11 @@ describe('Avatar Picker Dialog', () => {
     const croppedImgDataURI = 'data:image/meme;based64:w0w';
     component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
 
-    component.find(ModalFooter).find(Button).first().simulate('click');
+    component
+      .find(ModalFooter)
+      .find('button[type="button"]')
+      .first()
+      .simulate('click');
 
     expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
   });
@@ -84,7 +88,11 @@ describe('Avatar Picker Dialog', () => {
     const croppedImgDataURI = 'data:image/meme;based64:w0w';
     component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
 
-    component.find(ModalFooter).find(Button).first().simulate('click');
+    component
+      .find(ModalFooter)
+      .find('button[type="button"]')
+      .first()
+      .simulate('click');
 
     expect(onImagePickedDataURI).toBeCalledWith(croppedImgDataURI);
   });
@@ -98,7 +106,11 @@ describe('Avatar Picker Dialog', () => {
     const { onAvatarSelected } = component.find(PredefinedAvatarList).props();
     onAvatarSelected(selectedAvatar);
 
-    component.find(ModalFooter).find(Button).first().simulate('click');
+    component
+      .find(ModalFooter)
+      .find('button[type="button"]')
+      .first()
+      .simulate('click');
 
     expect(onAvatarPicked).toBeCalledWith(selectedAvatar);
   });

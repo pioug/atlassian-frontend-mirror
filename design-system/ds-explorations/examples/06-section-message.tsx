@@ -18,18 +18,18 @@ import Text from '../src/components/text.partial';
 
 export default () => {
   return (
-    <Stack gap="sp-100">
+    <Stack gap="scale.100">
       <Box
-        paddingBlock="sp-200"
-        paddingInline="sp-200"
-        backgroundColor={['information', 'purple']}
+        paddingBlock="scale.200"
+        paddingInline="scale.200"
+        backgroundColor="information"
       >
-        <Inline gap="sp-200">
+        <Inline gap="scale.200">
           <InfoIcon
             primaryColor={token('color.icon.information')}
             label="info"
           />
-          <Stack gap="sp-100">
+          <Stack gap="scale.100">
             <Heading as="h1" level="h500">
               The Modern Prometheus
             </Heading>
@@ -40,7 +40,7 @@ export default () => {
               to assure my dear sister of my welfare and increasing confidence
               in the success of my undertaking.
             </Text>
-            <Inline divider="·" gap="sp-75">
+            <Inline divider="·" gap="scale.075">
               <Button
                 appearance="link"
                 spacing="none"

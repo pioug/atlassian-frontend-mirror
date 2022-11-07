@@ -42,7 +42,10 @@
     },
     "@repo/internal": {
       "deprecation": "no-deprecated-imports",
-      "theming": "tokens"
+      "theming": "tokens",
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

@@ -13,6 +13,6 @@
     "vr-inline-card-lozenge.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/checkbox"
+    "@atlaskit/lozenge"
   ]
 }

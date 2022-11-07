@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 7.6.3
+
+### Patch Changes
+
+- [`1a64a3e3e53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a64a3e3e53) - ESS-2591 Reduce initial re-connection delay and increase randomization factor for socket io connections.
+- [`ee8ac15d730`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee8ac15d730) - ESS-1363 add packageVersion to analytic events
+- [`29292da81d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29292da81d7) - Increased the limits for the collab sync on returning the document to the consumer
+- [`e06f8ba062f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e06f8ba062f) - Disable collab provider transport closing on the beforeunload event.
+- Updated dependencies
+
 ## 7.6.2
 
 ### Patch Changes

@@ -82,7 +82,7 @@ describe('@atlaskit/icon', () => {
         expect(element.getAttribute('aria-label')).toEqual('hello-world');
       });
 
-      it('should present itself as presentation when label is an empty string', () => {
+      it('should present as hidden, without a role when the label is an empty string', () => {
         const testId = 'test-icon';
         const { getByTestId } = render(
           <Icon
@@ -93,22 +93,9 @@ describe('@atlaskit/icon', () => {
         );
 
         const element = getByTestId(testId);
-        expect(element.getAttribute('role')).toEqual('presentation');
-        expect(element.getAttribute('aria-label')).toEqual(null);
-      });
-
-      it('should be hidden for assistive technologies when label is an empty string', () => {
-        const testId = 'test-icon';
-        const { getByTestId } = render(
-          <Icon
-            testId="test-icon"
-            dangerouslySetGlyph={customGlyphString}
-            label=""
-          />,
-        );
-
-        const element = getByTestId(testId);
-        expect(element.getAttribute('aria-hidden')).toBe('true');
+        expect(element).not.toHaveAttribute('role'); // the default role for a span is `none`
+        expect(element).not.toHaveAttribute('aria-label');
+        expect(element).toHaveAttribute('aria-hidden', 'true');
       });
     });
 

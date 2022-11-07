@@ -19,7 +19,7 @@
     "releaseModel": "scheduled"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^70.1.0",
+    "@atlaskit/editor-common": "^70.2.0",
     "@babel/runtime": "^7.0.0",
     "prosemirror-state": "1.3.4"
   },
@@ -41,7 +41,10 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "deprecation": "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "af:exports": {

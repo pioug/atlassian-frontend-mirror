@@ -9,7 +9,7 @@ import {
 import Lozenge from '../src';
 
 export default () => (
-  <Stack gap="sp-200" testId="test-container">
+  <Stack gap="scale.200" testId="test-container">
     <Box display="block">
       <Text UNSAFE_style={{ fontSize: '30px' }}>Heading</Text>
       <Text> </Text>

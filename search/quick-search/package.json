@@ -25,7 +25,7 @@
     "@atlaskit/analytics": "^8.0.0",
     "@atlaskit/avatar": "^21.1.0",
     "@atlaskit/item": "^12.0.0",
-    "@atlaskit/spinner": "^15.0.0",
+    "@atlaskit/spinner": "^15.2.0",
     "@atlaskit/theme": "^12.2.0",
     "@babel/runtime": "^7.0.0",
     "keycode": "^2.1.7"
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@atlaskit/avatar": "^21.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/drawer": "^7.3.0",
+    "@atlaskit/drawer": "^7.4.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/navigation": "^37.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button, { LoadingButton } from '@atlaskit/button';
 import SearchIcon from '@atlaskit/icon/glyph/search';

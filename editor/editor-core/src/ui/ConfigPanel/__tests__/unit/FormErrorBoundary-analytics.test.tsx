@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import { act } from '@testing-library/react-hooks';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { FormErrorBoundaryImpl } from '../../FormErrorBoundary';
-import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 const BadComponent = () => {
   throw new Error('This should fail');

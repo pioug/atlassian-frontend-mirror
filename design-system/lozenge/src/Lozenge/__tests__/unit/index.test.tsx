@@ -14,7 +14,7 @@ describe('Lozenge', () => {
       );
 
       expect(getByTestId('lozenge--text')).toHaveStyle(
-        `max-width: calc(200px - 8px)`,
+        `max-width: calc(200px - var(--ds-scale-100, 8px))`,
       );
     });
 
@@ -26,7 +26,7 @@ describe('Lozenge', () => {
       );
 
       expect(getByTestId('lozenge--text')).toHaveStyle(
-        `max-width: calc(120px - 8px)`,
+        `max-width: calc(120px - var(--ds-scale-100, 8px))`,
       );
     });
 
@@ -38,7 +38,7 @@ describe('Lozenge', () => {
       );
 
       expect(getByTestId('lozenge--text')).toHaveStyle(
-        `max-width: calc(99% - 8px)`,
+        `max-width: calc(99% - var(--ds-scale-100, 8px))`,
       );
     });
 

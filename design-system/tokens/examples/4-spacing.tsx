@@ -17,7 +17,7 @@ import '../css/atlassian-spacing.css';
 
 const ExampleSizeBox = ({ scaleToken }: { scaleToken: CSSToken }) => (
   <Box
-    backgroundColor={['brand.bold', '#0052CC']}
+    backgroundColor="brand.bold"
     // These should be updated to use a Box prop directly instead of UNSAFE_style once Box takes tokens
     UNSAFE_style={{
       width: scaleToken,
@@ -35,7 +35,7 @@ export default () => {
   return (
     <div>
       <h1>Spacing scale</h1>
-      <Inline gap="sp-100" alignItems="flexEnd">
+      <Inline gap="scale.100" alignItems="flexEnd">
         <ExampleSizeBox scaleToken={token('spacing.scale.025')} />
         <ExampleSizeBox scaleToken={token('spacing.scale.050')} />
         <ExampleSizeBox scaleToken={token('spacing.scale.075')} />

@@ -54,7 +54,6 @@ import {
 } from '../../utils/linking-utils';
 import { LinkPickerOptions } from '../hyperlink/types';
 import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
-import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
 import { getFeatureFlags } from '../feature-flags-context';
 
 export const removeCard: Command = (state, dispatch) => {
@@ -195,6 +194,7 @@ export const floatingToolbar = (
         linkPickerOptions,
       ),
       ...(pluginState.showLinkingToolbar ? editLinkToolbarConfig : {}),
+      scrollable: pluginState.showLinkingToolbar ? false : true,
     };
   };
 };
@@ -280,7 +280,17 @@ const generateToolbarItems = (
       },
       { type: 'separator' },
       ...getUnlinkButtonGroup(state, intl, node, inlineCard),
-      ...getCopyButtonGroup(state, intl, node),
+      {
+        type: 'copy-button',
+        items: [
+          {
+            state,
+            formatMessage: intl.formatMessage,
+            nodeType: node.type,
+          },
+          { type: 'separator' },
+        ],
+      },
       ...getSettingsButtonGroup(state, intl),
       {
         id: 'editor.link.delete',
@@ -370,19 +380,6 @@ const getSettingsButtonGroup = (
           onClick: openLinkSettings,
         },
         { type: 'separator' },
-      ]
-    : [];
-};
-
-const getCopyButtonGroup = (
-  state: EditorState<any>,
-  intl: IntlShape,
-  node: Node<any>,
-): FloatingToolbarItem<Command>[] => {
-  return state && showCopyButton(state)
-    ? [
-        getCopyButtonConfig(state, intl.formatMessage, node.type),
-        { type: 'separator' } as FloatingToolbarItem<Command>,
       ]
     : [];
 };

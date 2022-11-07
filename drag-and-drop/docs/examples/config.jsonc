@@ -4,6 +4,13 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
+  "testExamples": [],
+  "exampleDependencies": [
+    "@atlaskit/avatar",
+    "@atlaskit/code",
+    "@atlaskit/drag-and-drop-autoscroll",
+    "@atlaskit/menu",
+    "@atlassian/react-async",
+    "bind-event-listener"
   ]
 }

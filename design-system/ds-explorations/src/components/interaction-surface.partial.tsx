@@ -70,10 +70,11 @@ export default InteractionSurface;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::45000716488a9f41306a232c1f4c9f8d>>
+ * @codegen <<SignedSource::1bad97ad2c03ae813521797686ac780d>>
  * @codegenId interactions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["background"]
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::0c1fe9904b2ff2465a532b97ab76491e>>
  */
 const backgroundActiveColorMap = {
   'inverse.subtle': css({
@@ -152,6 +153,15 @@ const backgroundActiveColorMap = {
       backgroundColor: token('color.background.information.bold.pressed'),
     },
   }),
+  'elevation.surface': css({
+    ':active': { backgroundColor: token('elevation.surface.pressed') },
+  }),
+  'elevation.surface.raised': css({
+    ':active': { backgroundColor: token('elevation.surface.raised.pressed') },
+  }),
+  'elevation.surface.overlay': css({
+    ':active': { backgroundColor: token('elevation.surface.overlay.pressed') },
+  }),
 };
 
 const backgroundHoverColorMap = {
@@ -228,6 +238,15 @@ const backgroundHoverColorMap = {
     ':hover': {
       backgroundColor: token('color.background.information.bold.hovered'),
     },
+  }),
+  'elevation.surface': css({
+    ':hover': { backgroundColor: token('elevation.surface.hovered') },
+  }),
+  'elevation.surface.raised': css({
+    ':hover': { backgroundColor: token('elevation.surface.raised.hovered') },
+  }),
+  'elevation.surface.overlay': css({
+    ':hover': { backgroundColor: token('elevation.surface.overlay.hovered') },
   }),
 };
 

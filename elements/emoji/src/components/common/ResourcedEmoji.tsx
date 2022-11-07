@@ -48,8 +48,8 @@ export default class ResourcedEmoji extends LoadingEmojiComponent<
     ufoExperiences['emoji-rendered']
       .getInstance(props.emojiId.id || props.emojiId.shortName)
       .addMetadata({
-        source: 'resourced-emoji',
-        emoji: props.emojiId.shortName,
+        source: 'ResourcedEmoji',
+        emojiId: props.emojiId.id,
       });
   }
 
@@ -58,10 +58,6 @@ export default class ResourcedEmoji extends LoadingEmojiComponent<
       metadata: {
         source: 'ResourcedEmoji',
         reason: 'unmount',
-        data: {
-          emojiId: this.props.emojiId.id,
-          shortName: this.props.emojiId.shortName,
-        },
       },
     });
   }

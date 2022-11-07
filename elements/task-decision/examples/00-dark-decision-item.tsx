@@ -1,13 +1,12 @@
 import React from 'react';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import DecisionItem from '../src/components/DecisionItem';
 import { dumpRef } from '../example-helpers/story-utils';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 export default () => (
-  <DeprecatedThemeProvider mode={'dark'} provider={StyledThemeProvider}>
+  <AtlaskitThemeProvider mode="dark">
     <div style={{ padding: '10px' }}>
       <h3>Simple DecisionItem</h3>
       <DecisionItem contentRef={dumpRef}>
@@ -33,5 +32,5 @@ export default () => (
       <h3>Simple DecisionItem with placeholder</h3>
       <DecisionItem contentRef={dumpRef} showPlaceholder={true} />
     </div>
-  </DeprecatedThemeProvider>
+  </AtlaskitThemeProvider>
 );

@@ -25,6 +25,7 @@ import { useGlobalTheme } from '@atlaskit/theme/components';
 import type { ThemeModes } from '@atlaskit/theme/types';
 
 import { PortalProviderThemeProviders } from './PortalProviderThemesProvider';
+import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
 
 export type BasePortalProviderProps = {
   render: (
@@ -224,18 +225,41 @@ class BasePortalProvider extends React.Component<BasePortalProviderProps> {
 }
 
 export const PortalProvider = injectIntl(BasePortalProvider);
-export const PortalProviderWithThemeProviders = (
-  props: Omit<BasePortalProviderProps, 'intl' | 'themeMode'>,
-) => {
+
+type PortalProviderWithThemeProvidersProps = Omit<
+  BasePortalProviderProps,
+  'intl' | 'themeMode'
+>;
+
+export const PortalProviderWithThemeProviders = ({
+  onAnalyticsEvent,
+  useAnalyticsContext,
+  render,
+}: PortalProviderWithThemeProvidersProps) => (
+  <IntlProviderIfMissingWrapper>
+    <PortalProviderWithThemeAndIntlProviders
+      onAnalyticsEvent={onAnalyticsEvent}
+      useAnalyticsContext={useAnalyticsContext}
+      render={render}
+    />
+  </IntlProviderIfMissingWrapper>
+);
+
+const PortalProviderWithThemeAndIntlProviders = ({
+  onAnalyticsEvent,
+  useAnalyticsContext,
+  render,
+}: PortalProviderWithThemeProvidersProps) => {
   const intl = useIntl();
   const globalTheme = useGlobalTheme();
+
   return (
     <BasePortalProvider
       intl={intl}
       themeMode={globalTheme.mode}
-      onAnalyticsEvent={props.onAnalyticsEvent}
-      useAnalyticsContext={props.useAnalyticsContext}
-      render={props.render}
+      onAnalyticsEvent={onAnalyticsEvent}
+      useAnalyticsContext={useAnalyticsContext}
+      render={render}
     />
   );
 };

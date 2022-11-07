@@ -16,7 +16,7 @@ import {
 } from './_utils';
 import { getPluginState } from '../../plugin';
 import blockTypePlugin from '../../../block-type';
-import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 describe('find/replace plugin', () => {
   const containerElement = getContainerElement();

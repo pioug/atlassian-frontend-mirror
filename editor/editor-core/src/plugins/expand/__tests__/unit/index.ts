@@ -25,7 +25,7 @@ import expandPlugin from '../../index';
 import analyticsPlugin from '../../../analytics';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
-import tablesPlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 describe('expand actions', () => {
   const createEditor = createProsemirrorEditorFactory();

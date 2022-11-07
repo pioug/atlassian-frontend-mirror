@@ -59,13 +59,14 @@ export const hoverMergedCells = () =>
 export const hoverColumns = (hoveredColumns: number[], isInDanger?: boolean) =>
   createCommand(
     (state) => {
-      const cells = getCellsInColumn(hoveredColumns)(state.selection);
+      const cells = getCellsInColumn(hoveredColumns)(state.tr.selection);
       if (!cells) {
         return false;
       }
       const decorations = createControlsHoverDecoration(
         cells,
         'column',
+        state.tr,
         isInDanger,
       );
 
@@ -95,6 +96,7 @@ export const hoverRows = (hoveredRows: number[], isInDanger?: boolean) =>
       const decorations = createControlsHoverDecoration(
         cells,
         'row',
+        state.tr,
         isInDanger,
       );
 
@@ -131,6 +133,7 @@ export const hoverTable = (isInDanger?: boolean, isSelected?: boolean) =>
       const decorations = createControlsHoverDecoration(
         cells,
         'table',
+        state.tr,
         isInDanger,
         isSelected,
       );

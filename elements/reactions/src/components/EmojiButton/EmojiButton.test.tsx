@@ -2,15 +2,17 @@ import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import {
   EmojiDescription,
-  EmojiId,
   EmojiProvider,
   OnEmojiEvent,
   toEmojiId,
 } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+} from '../../__tests__/_testing-library';
 import { EmojiButton, RENDER_BUTTON_TESTID } from './EmojiButton';
-import { renderWithIntl } from '../../__tests__/_testing-library';
 
 const emojiRepository = getTestEmojiRepository();
 
@@ -19,7 +21,7 @@ const shortName = ':smiley:';
 const smiley: EmojiDescription = emojiRepository.findByShortName(
   shortName,
 ) as EmojiDescription;
-const emojiId: EmojiId = toEmojiId(smiley);
+const emojiId = toEmojiId(smiley);
 
 const renderButton = async (onClick: OnEmojiEvent = () => {}) => {
   return renderWithIntl(
@@ -32,6 +34,8 @@ const renderButton = async (onClick: OnEmojiEvent = () => {}) => {
 };
 
 describe('@atlaskit/reactions/components/EmojiButton', () => {
+  mockReactDomWarningGlobal();
+
   it('should render a button', async () => {
     const renderer = await renderButton();
     const elem = renderer.getByTestId(RENDER_BUTTON_TESTID);

@@ -55,9 +55,6 @@ describe('tasks and decisions - input rules', () => {
         allowExtension: true,
         allowLayouts: true,
         allowAnalyticsGASV3: true,
-        featureFlags: {
-          useUnpredictableInputRule: false,
-        },
       },
       doc,
       createAnalyticsEvent,

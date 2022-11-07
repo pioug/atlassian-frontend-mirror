@@ -1,9 +1,12 @@
 import React from 'react';
-import { fireEvent } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/react';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { renderWithIntl } from '../../__tests__/_testing-library';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+  useFakeTimers,
+} from '../../__tests__/_testing-library';
 import { StorePropInput } from '../../types';
 import { RENDER_BUTTON_TESTID } from '../../components/EmojiButton';
 import { ConnectedReactionPicker } from './ConnectedReactionPicker';
@@ -13,7 +16,8 @@ describe('@atlaskit/reactions/containers/ConnectedReactionPicker', () => {
   const ari = 'ari';
   let store: StorePropInput;
 
-  beforeEach(() => {
+  mockReactDomWarningGlobal();
+  useFakeTimers(() => {
     store = new Promise((resolve) =>
       resolve({
         getReactions: jest.fn(),
@@ -25,14 +29,6 @@ describe('@atlaskit/reactions/containers/ConnectedReactionPicker', () => {
         removeOnChangeListener: jest.fn(),
       }),
     );
-  });
-
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
-  afterAll(() => {
-    jest.useRealTimers();
   });
 
   it(`Should call addReaction onSelection`, async () => {
@@ -47,13 +43,13 @@ describe('@atlaskit/reactions/containers/ConnectedReactionPicker', () => {
     const triggerPickerButton = await screen.findByLabelText('Add reaction');
 
     const btn = triggerPickerButton.closest('button');
-    expect(btn).toBeDefined();
+    expect(btn).toBeInTheDocument();
     if (btn) {
       fireEvent.click(btn);
     }
     const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
-    const firstEmoji = selectorButtons[0];
-    expect(firstEmoji).toBeDefined();
+    const firstEmoji = selectorButtons.at(0);
+    expect(firstEmoji).toBeInTheDocument();
     if (firstEmoji) {
       fireEvent.click(firstEmoji);
     }

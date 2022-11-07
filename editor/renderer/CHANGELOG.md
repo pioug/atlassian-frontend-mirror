@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 103.0.1
+
+### Patch Changes
+
+- [`324e88d23ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/324e88d23ad) - Exposes fragmentLocalId as part of ExtensionRenderer.
+- [`3f7900cbf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f7900cbf37) - [ux] ED-14993 added better support for codeblocks inside lists and gap cursor selection inside lists:
+
+  - made list markers visible in safari (desktop and mobile) when list contains codeblocks;
+  - fixed bug so users can now set gapcursor next to codeblock by clicking or touching (mobile) the list marker;
+  - fixed bug so when users have gapcursor next to a codeblock, they can still toggle (or untoggle) it into a list;
+  - fixed margins for codeblocks in lists;
+
+- [`51e84999643`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51e84999643) - ED-15381 - Patch table / layout CSS to fix issue of ProseMirror gapcursor within the cell
+- [`268cd192e21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/268cd192e21) - DSP-4136 - Update renderer's table sorting icon to support design tokens.
+- [`907a18e29bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/907a18e29bb) - [ux] Increase padding for panels with no emoji
+- [`cff103bb0c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cff103bb0c4) - [ux] Only allow sort table columns when sort button is clicked
+- [`0915ecdd1db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0915ecdd1db) - Removed styled components from dev and peer dependencies
+- [`5a57831530b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a57831530b) - ED-15353 Fix comments dialog table overlap flakey testwq
+- [`1adad899d8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1adad899d8a) - Fix typo in table sort tooltip
+- Updated dependencies
+
 ## 103.0.0
 
 ### Patch Changes

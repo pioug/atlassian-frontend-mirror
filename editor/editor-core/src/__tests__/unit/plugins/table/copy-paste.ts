@@ -29,15 +29,16 @@ import { uuid } from '@atlaskit/adf-schema';
 import {
   TablePluginState,
   PluginConfig,
-} from '../../../../plugins/table/types';
+} from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   unwrapContentFromTable,
   removeTableFromFirstChild,
   removeTableFromLastChild,
   transformSliceToRemoveOpenTable,
   transformSliceToFixHardBreakProblemOnCopyFromCell,
-} from '../../../../plugins/table/utils/paste';
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+} from '@atlaskit/editor-plugin-table/src/plugins/table/utils/paste';
+import { pluginKey as tablePluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 import { transformSliceToRemoveOpenExpand } from '../../../../plugins/expand/utils';
 import { Schema } from 'prosemirror-model';
 

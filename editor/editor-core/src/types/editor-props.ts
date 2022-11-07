@@ -19,7 +19,7 @@ import { ActivityProvider } from '@atlaskit/activity-provider';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { TaskDecisionProvider } from '@atlaskit/task-decision';
 
-import { PluginConfig as TablesPluginConfig } from '../plugins/table/types';
+import { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
 import { MediaOptions, MediaState } from '../plugins/media/types';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
@@ -348,7 +348,7 @@ export interface EditorProps {
   codeBlock?: CodeBlockOptions;
 
   // Enable undo/redo buttons within the editor.
-  UNSAFE_allowUndoRedoButtons?: boolean;
+  allowUndoRedoButtons?: boolean;
 
   /**
    * @default undefined

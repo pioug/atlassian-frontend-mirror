@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React, {
   FC,
   Fragment,
@@ -9,6 +8,7 @@ import React, {
   ChangeEvent,
   ChangeEventHandler,
 } from 'react';
+import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,

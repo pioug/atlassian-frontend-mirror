@@ -123,7 +123,7 @@ describe('StatelessElementBrowser', () => {
       );
       const categoryItems = wrapper.find(elementBrowserSelectors.categoryItem);
       mockCreateAnalyticsEvent.mockClear();
-      categoryItems.first().simulate('click');
+      categoryItems.last().simulate('click');
       expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
         action: 'clicked',
         actionSubject: 'button',

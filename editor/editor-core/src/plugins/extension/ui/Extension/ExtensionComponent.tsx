@@ -21,10 +21,12 @@ import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 
 import Extension from './Extension';
 import InlineExtension from './InlineExtension';
+import { ProsemirrorGetPosHandler } from '../../../../nodeviews';
 import { EditorAppearance } from '../../../../types/editor-appearance';
 export interface Props {
   editorView: EditorView;
   node: PMNode;
+  getPos: ProsemirrorGetPosHandler;
   handleContentDOMRef: (node: HTMLElement | null) => void;
   extensionHandlers: ExtensionHandlers;
   extensionProvider?: Promise<ExtensionProvider>;
@@ -98,6 +100,7 @@ export default class ExtensionComponent extends Component<Props, State> {
         return (
           <Extension
             node={node}
+            getPos={this.props.getPos}
             references={references}
             extensionProvider={this.state.extensionProvider}
             handleContentDOMRef={handleContentDOMRef}
@@ -197,6 +200,10 @@ export default class ExtensionComponent extends Component<Props, State> {
       return;
     }
 
+    const fragmentLocalId = pmNode?.marks?.find(
+      (m) => m.type.name === 'fragment',
+    )?.attrs?.localId;
+
     const node: ExtensionParams<Parameters> = {
       type: pmNode.type.name as
         | 'extension'
@@ -207,6 +214,7 @@ export default class ExtensionComponent extends Component<Props, State> {
       parameters,
       content: text,
       localId: pmNode.attrs.localId,
+      fragmentLocalId,
     };
 
     let result;

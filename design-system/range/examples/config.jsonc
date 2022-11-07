@@ -6,6 +6,7 @@
 {
   "testExamples": [
     "00-basic-example-uncontrolled.tsx",
+    "02-disabled-display.tsx",
     "09-different-values.tsx"
   ],
   "exampleDependencies": [

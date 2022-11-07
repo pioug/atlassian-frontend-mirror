@@ -5,7 +5,15 @@
  */
 {
   "testExamples": [
-    "14-with-keyboard-interaction.tsx"
+    "01-default-dropdown-menu.tsx",
+    "20-setting-z-index.tsx",
+    "93-testing-is-loading-reposition.tsx",
+    "94-testing-checkbox-stateless.tsx",
+    "95-testing-checkbox.tsx",
+    "96-testing-radio.tsx",
+    "97-testing-ddm-stateless.tsx",
+    "98-testing-ddm-default.tsx",
+    "99-testing-placements.tsx"
   ],
   "exampleDependencies": [
     "@atlaskit/lozenge"

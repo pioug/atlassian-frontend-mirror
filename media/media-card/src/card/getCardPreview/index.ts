@@ -71,6 +71,7 @@ export type CardPreviewParams = {
   mediaBlobUrlAttrs?: MediaBlobUrlAttrs;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   featureFlags?: MediaFeatureFlags;
+  traceId?: string;
 };
 
 const extendAndCachePreview = (
@@ -126,6 +127,7 @@ export const getCardPreview = async ({
   mediaBlobUrlAttrs,
   createAnalyticsEvent,
   featureFlags,
+  traceId,
 }: CardPreviewParams): Promise<CardPreview> => {
   const mode = imageUrlParams.mode;
   const cachedPreview = cardPreviewCache.get(id, mode);
@@ -195,6 +197,7 @@ export const getCardPreview = async ({
     dimensions,
     imageUrlParams,
     mediaBlobUrlAttrs,
+    traceId,
   );
   if (getMediaFeatureFlag('memoryCacheLogging', featureFlags)) {
     createAnalyticsEvent &&
@@ -301,11 +304,13 @@ export const fetchAndCacheRemotePreview = async (
   dimensions: CardDimensions,
   params: MediaStoreGetFileImageParams,
   mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+  traceId?: string,
 ) => {
   const remotePreview = await getCardPreviewFromBackend(
     mediaClient,
     id,
     params,
+    traceId,
   );
   return extendAndCachePreview(
     id,

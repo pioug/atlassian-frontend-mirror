@@ -40,6 +40,7 @@ export type {
   PackageAttributes,
   WithFileAttributes,
   WithPerformanceAttributes,
+  WithTraceContext,
   FileAttributes,
   PerformanceAttributes,
   SuccessAttributes,
@@ -77,4 +78,16 @@ export {
 
 export type SSR = 'client' | 'server';
 
-export { isUndefined, pick, omitBy, debounce, matches } from './utils/helpers';
+export {
+  isUndefined,
+  pick,
+  omitBy,
+  debounce,
+  matches,
+  getRandomHex,
+} from './utils/helpers';
+
+export type MediaTraceContext = {
+  traceId: string;
+  spanId?: string;
+};

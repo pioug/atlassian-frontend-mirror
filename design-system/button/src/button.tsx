@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { CSSObject } from '@emotion/core';
+import { CSSObject } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { useGlobalTheme } from '@atlaskit/theme/components';

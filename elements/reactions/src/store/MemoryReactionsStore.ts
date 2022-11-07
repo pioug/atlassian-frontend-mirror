@@ -6,6 +6,7 @@ import * as utils from './utils';
 import { isRealErrorFromService } from './utils';
 import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../analytics/constants';
 import { sampledReactionsRendered } from '../analytics/ufo';
+import { extractErrorInfo } from '../analytics/analytics';
 
 /**
  * Set of all available UFO experiences relating to reaction element
@@ -268,6 +269,13 @@ export class MemoryReactionsStore implements Types.Store {
     const exp = ufoExperiences.add.getInstance(`${ari}|${emojiId}`);
     // ufo start reaction experience
     exp.start();
+    exp.addMetadata({
+      source: 'MemoryReactionsStore',
+      storeMetadata: this.metadata,
+      ari,
+      containerAri,
+      emojiId,
+    });
 
     this.client
       .addReaction(containerAri, ari, emojiId, this.metadata)
@@ -294,9 +302,7 @@ export class MemoryReactionsStore implements Types.Store {
           // ufo add reaction failure
           exp.failure({
             metadata: {
-              error,
-              source: 'Reaction-Store',
-              data: { containerAri, ari, emojiId, metadata: this.metadata },
+              error: extractErrorInfo(error),
               reason: 'addReaction fetch failed',
             },
           });
@@ -312,6 +318,13 @@ export class MemoryReactionsStore implements Types.Store {
     // ufo start reaction experience
 
     exp.start();
+    exp.addMetadata({
+      source: 'MemoryReactionsStore',
+      storeMetadata: this.metadata,
+      ari,
+      containerAri,
+      emojiId,
+    });
     this.optmisticUpdate(containerAri, ari, emojiId)(utils.removeOne);
     this.client
       .deleteReaction(containerAri, ari, emojiId, this.metadata)
@@ -323,9 +336,7 @@ export class MemoryReactionsStore implements Types.Store {
         // ufo add reaction failure
         exp.failure({
           metadata: {
-            error,
-            source: 'Reaction-Store',
-            data: { containerAri, ari, emojiId, metadata: this.metadata },
+            error: extractErrorInfo(error),
             reason: 'deleteReaction fetch failed',
           },
         });
@@ -347,6 +358,12 @@ export class MemoryReactionsStore implements Types.Store {
     const arisArr = aris.reduce(utils.flattenAris);
     // ufo start reaction experience
     sampledExp.start({ samplingRate: SAMPLING_RATE_REACTIONS_RENDERED_EXP });
+    sampledExp.addMetadata({
+      source: 'MemoryReactionsStore',
+      storeMetadata: this.metadata,
+      containerAri,
+      aris: arisArr.join(','),
+    });
     this.client
       .getReactions(containerAri, arisArr)
       .then((value: Types.Reactions) => {
@@ -387,9 +404,7 @@ export class MemoryReactionsStore implements Types.Store {
           }
           sampledExp.failure({
             metadata: {
-              error,
-              source: 'Reaction-Store',
-              data: { containerAri, aris: arisArr.join(',') },
+              error: extractErrorInfo(error),
               reason: 'getReactions fetch failed',
             },
           });
@@ -431,8 +446,14 @@ export class MemoryReactionsStore implements Types.Store {
     emojiId: string,
   ): void => {
     const exp = ufoExperiences.fetchDetails.getInstance(`${ari}|${emojiId}`);
-
     exp.start();
+    exp.addMetadata({
+      source: 'MemoryReactionsStore',
+      storeMetadata: this.metadata,
+      ari,
+      containerAri,
+      emojiId,
+    });
     this.client
       .getDetailedReaction(containerAri, ari, emojiId)
       .then((summary) => {
@@ -444,9 +465,7 @@ export class MemoryReactionsStore implements Types.Store {
         // ufo get reaction details failure
         exp.failure({
           metadata: {
-            error,
-            source: 'Reaction-Store',
-            data: { containerAri, ari, emojiId },
+            error: extractErrorInfo(error),
             reason: 'getDetailedReaction fetch failed',
           },
         });

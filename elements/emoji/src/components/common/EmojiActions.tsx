@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { Fragment, useState, FC } from 'react';
+import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
@@ -215,7 +215,11 @@ export const EmojiActions: FC<EmojiActionsProps> = (props) => {
   }
 
   return (
-    <div css={previewFooterClassnames} onMouseLeave={onMouseLeaveHandler}>
+    <div
+      data-testid="emoji-actions"
+      css={previewFooterClassnames}
+      onMouseLeave={onMouseLeaveHandler}
+    >
       <div css={emojiActionsWrapper}>
         {!showToneSelector && (
           <EmojiPickerListSearch onChange={onChange} query={query} />

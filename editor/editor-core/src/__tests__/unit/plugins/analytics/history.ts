@@ -15,7 +15,7 @@ import {
   ACTION_SUBJECT,
   withAnalytics,
 } from '../../../../plugins/analytics';
-import { createTable } from '../../../../plugins/table/commands';
+import { createTable } from '@atlaskit/editor-plugin-table/commands';
 
 /**
  * Note that the history events are defined within `@atlaskit/adf-schema`.

@@ -1,5 +1,15 @@
 # @atlaskit/range
 
+## 7.0.0
+
+### Major Changes
+
+- [`78741dd1644`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78741dd1644) - [ux] Breaking visual changes to range to afford better contrast:
+
+  - The scrubber now applies the same color as the foreground
+  - The disabled state has been altered; it's now a consistently applied opacity state overlay across the whole element
+  - The input now uses :focus-visible, rather than :focus and applies an offset focus ring
+
 ## 6.1.1
 
 ### Patch Changes

@@ -24,9 +24,9 @@ const nestedLinkStyles = css({
 });
 
 const backgroundColors: Record<Appearance, BoxProps['backgroundColor']> = {
-  warning: ['warning.bold', Y300],
-  error: ['danger.bold', R400],
-  announcement: ['neutral.bold', N500],
+  warning: 'warning.bold',
+  error: 'danger.bold',
+  announcement: 'neutral.bold',
 };
 
 const tokenBackgroundColors: Record<Appearance, string> = {
@@ -36,9 +36,9 @@ const tokenBackgroundColors: Record<Appearance, string> = {
 };
 
 const textColors: Record<Appearance, TextProps['color']> = {
-  warning: ['warning.inverse', N700],
-  error: ['inverse', N0],
-  announcement: ['inverse', N0],
+  warning: 'warning.inverse',
+  error: 'inverse',
+  announcement: 'inverse',
 };
 
 const tokenTextColors: Record<Appearance, string> = {
@@ -83,7 +83,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
       appearance in backgroundColors ? appearance : 'warning';
 
     const accessibilityProps = useMemo(() => {
-      let baseProps = {
+      const baseProps = {
         role: 'alert',
       };
 
@@ -103,7 +103,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
       <Box
         display="block"
         backgroundColor={backgroundColors[appearanceType]}
-        paddingInline="sp-150"
+        paddingInline="scale.150"
         testId={testId}
         ref={ref}
         {...accessibilityProps}
@@ -114,13 +114,13 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
         }}
         css={nestedLinkStyles}
       >
-        <Inline gap="sp-50" alignItems="center" justifyContent="start">
+        <Inline gap="scale.050" alignItems="center" justifyContent="start">
           {icon ? (
             <Box
               as="span"
               display="inline"
-              width="sp-300"
-              height="sp-300" // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
+              width="scale.300"
+              height="scale.300" // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
               UNSAFE_style={{
                 fill: tokenBackgroundColors[appearanceType],
                 color: tokenTextColors[appearanceType],

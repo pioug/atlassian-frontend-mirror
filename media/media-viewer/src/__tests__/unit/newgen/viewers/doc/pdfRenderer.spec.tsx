@@ -19,7 +19,6 @@ jest.mock('pdfjs-dist/web/pdf_viewer', () => ({
 import React from 'react';
 import * as pdfjsLib from 'pdfjs-dist/build/pdf';
 import * as PDFJSViewer from 'pdfjs-dist/web/pdf_viewer';
-import Button from '@atlaskit/button/custom-theme-button';
 import {
   PDFRenderer,
   pdfViewerClassName,
@@ -80,7 +79,10 @@ describe('PDFRenderer', () => {
 
     expect(el.state('doc').status).toEqual('SUCCESSFUL');
     expect(el.find(ZoomControls)).toHaveLength(1);
-    el.find(ZoomControls).find(Button).first().simulate('click');
+    el.find(ZoomControls)
+      .find('button[type="button"]')
+      .first()
+      .simulate('click');
     expect(el.state('zoomLevel').value).toBeLessThan(1);
   });
 
@@ -104,7 +106,7 @@ describe('PDFRenderer', () => {
     expect(errorMessage.text()).toContain(
       "We couldn't generate a preview for this file",
     );
-    expect(errorMessage.find(Button)).toHaveLength(0);
+    expect(errorMessage.find('button[type="button"]')).toHaveLength(0);
   });
 
   it('MSW-700: clicking on background of DocViewer does not close it', async () => {

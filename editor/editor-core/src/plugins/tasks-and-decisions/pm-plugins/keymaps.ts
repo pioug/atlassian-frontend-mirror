@@ -13,8 +13,9 @@ import { uuid } from '@atlaskit/adf-schema';
 import { Command } from '../../../types';
 import {
   filter,
-  isEmptySelectionAtEnd,
   isEmptySelectionAtStart,
+  deleteEmptyParagraphAndMoveBlockUp,
+  isEmptySelectionAtEnd,
 } from '../../../utils/commands';
 import {
   ACTION,
@@ -42,9 +43,9 @@ import {
   liftBlock,
   subtreeHeight,
   walkOut,
-  isTable,
   getTaskItemIndex,
   isInsideDecision,
+  isTable,
 } from './helpers';
 
 type IndentationInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
@@ -77,6 +78,14 @@ const actionDecisionFollowsOrNothing = ($pos: ResolvedPos) => {
 };
 
 const joinTaskDecisionFollowing: Command = (state, dispatch) => {
+  // only run if selection is at end of text, and inside a task or decision item
+  if (
+    !isEmptySelectionAtEnd(state) ||
+    !isInsideTaskOrDecisionItem(state) ||
+    !dispatch
+  ) {
+    return false;
+  }
   // look for the node after this current one
   const $next = walkOut(state.selection.$from);
 
@@ -106,7 +115,6 @@ const joinTaskDecisionFollowing: Command = (state, dispatch) => {
     // If the item we are joining is a list
     if ($next.parent.type === bulletList || $next.parent.type === orderedList) {
       // If the list has an item
-
       if (
         $next.parent.firstChild &&
         $next.parent.firstChild.type === listItem
@@ -248,72 +256,75 @@ const backspace = filter(
   ),
 );
 
-const deleteHandler = filter(
-  [isInsideTaskOrDecisionItem, isEmptySelectionAtEnd],
-  chainCommands(joinTaskDecisionFollowing, (state, dispatch) => {
-    // look for the node after this current one
-    const $next = walkOut(state.selection.$from);
+const unindentTaskOrUnwrapTaskDecisionFollowing: Command = (
+  state,
+  dispatch,
+) => {
+  const {
+    selection: { $from },
+    schema: {
+      nodes: { taskList, doc, paragraph },
+    },
+    tr,
+  } = state;
 
-    const { taskList, paragraph, doc } = state.schema.nodes;
-
-    // this is a top-level node it wont have $next.before()
-    if (!$next.parent || $next.parent.type === doc) {
-      return false;
-    }
-
-    // previous was empty, just delete backwards
-    const taskBefore = $next.doc.resolve($next.before());
-
-    if (
-      taskBefore.nodeBefore &&
-      isActionOrDecisionItem(taskBefore.nodeBefore) &&
-      taskBefore.nodeBefore.nodeSize === 2
-    ) {
-      return false;
-    }
-
-    // if nested, just unindent
-    if (
-      $next.node($next.depth - 2).type === taskList ||
-      // this is for the case when we are on a non-nested item and next one is nested
-      ($next.node($next.depth - 1).type === taskList &&
-        $next.parent.type === taskList)
-    ) {
-      const tr = liftBlock(state.tr, $next, $next);
-      if (dispatch && tr) {
-        dispatch(tr);
-      }
-
-      return true;
-    }
-
-    // if located inside of a table, don't delete forward
-    if (isTable(taskBefore.nodeBefore)) {
-      return false;
-    }
-
-    // bottom level, should "unwrap" taskItem contents into paragraph
-    // we achieve this by slicing the content out, and replacing
-    if (actionDecisionFollowsOrNothing(state.selection.$from)) {
-      if (dispatch) {
-        const taskContent = state.doc.slice($next.start(), $next.end()).content;
-
-        // might be end of document after
-        const slice = taskContent.size
-          ? paragraph.createChecked(undefined, taskContent)
-          : [];
-
-        dispatch(splitListItemWith(state.tr, slice, $next, false));
-      }
-
-      return true;
-    }
-
+  // only run if cursor is at the end of the node
+  if (!isEmptySelectionAtEnd(state) || !dispatch) {
     return false;
-  }),
-);
+  }
 
-const deleteForwards = autoJoin(deleteHandler, ['taskList', 'decisionList']);
+  // look for the node after this current one
+  const $next = walkOut($from);
+
+  // this is a top-level node it wont have $next.before()
+  if (!$next.parent || $next.parent.type === doc) {
+    return false;
+  }
+
+  // if nested, just unindent
+  if (
+    $next.node($next.depth - 2).type === taskList ||
+    // this is for the case when we are on a non-nested item and next one is nested
+    ($next.node($next.depth - 1).type === taskList &&
+      $next.parent.type === taskList)
+  ) {
+    liftBlock(tr, $next, $next);
+    dispatch(tr);
+
+    return true;
+  }
+
+  // if next node is of same type, remove the node wrapping and create paragraph
+  if (
+    !isTable($next.nodeAfter) &&
+    isActionOrDecisionItem($from.parent) &&
+    actionDecisionFollowsOrNothing($from) &&
+    // only forward delete if the node is same type
+    $next.node().type.name === $from.node().type.name
+  ) {
+    const taskContent = state.doc.slice($next.start(), $next.end()).content;
+
+    // might be end of document after
+    const slice = taskContent.size
+      ? paragraph.createChecked(undefined, taskContent)
+      : [];
+
+    dispatch(splitListItemWith(tr, slice, $next, false));
+
+    return true;
+  }
+
+  return false;
+};
+
+const deleteForwards = autoJoin(
+  chainCommands(
+    deleteEmptyParagraphAndMoveBlockUp(isActionOrDecisionList),
+    joinTaskDecisionFollowing,
+    unindentTaskOrUnwrapTaskDecisionFollowing,
+  ),
+  ['taskList', 'decisionList'],
+);
 
 const splitListItemWith = (
   tr: Transaction,
@@ -500,6 +511,7 @@ export function keymapPlugin(
   const keymaps = {
     Backspace: backspace,
     Delete: deleteForwards,
+    'Ctrl-d': deleteForwards,
 
     Enter: enter,
 

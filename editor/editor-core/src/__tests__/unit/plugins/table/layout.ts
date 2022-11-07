@@ -21,11 +21,13 @@ import { TableLayout } from '@atlaskit/adf-schema';
 import {
   PermittedLayoutsDescriptor,
   TablePluginState,
-} from '../../../../plugins/table/types';
-import { toggleTableLayout } from '../../../../plugins/table/commands';
-import { isLayoutSupported } from '../../../../plugins/table/utils';
-import { getPluginState } from '../../../../plugins/table/pm-plugins/plugin-factory';
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+} from '@atlaskit/editor-plugin-table/types';
+import { toggleTableLayout } from '@atlaskit/editor-plugin-table/commands';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { isLayoutSupported } from '@atlaskit/editor-plugin-table/src/plugins/table/utils';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { getPluginState } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/plugin-factory';
+import { pluginKey as tablePluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 describe('table toolbar', () => {
   const createEditor = createEditorFactory<TablePluginState>();

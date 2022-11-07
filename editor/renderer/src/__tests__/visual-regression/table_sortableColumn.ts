@@ -17,7 +17,7 @@ async function waitForSort(
   sortModifier: 'no_order' | 'asc' | 'desc' | 'not_allowed',
 ) {
   const col = `th:nth-child(${columnIndex})`;
-  const element = 'figure.ak-renderer-tableHeader-sorting-icon';
+  const element = 'figure.ak-renderer-tableHeader-sorting-icon__wrapper';
   const icon = `.sorting-icon-svg__${sortModifier}`;
   await page.waitForSelector(`${col} ${element} ${icon}`);
 }
@@ -32,7 +32,7 @@ const initRenderer = async (page: PuppeteerPage, adf: any) => {
 };
 
 const getSortableColumnSelector = (nth: number) =>
-  `tr:first-of-type .${RendererCssClassName.SORTABLE_COLUMN}:nth-of-type(${nth})`;
+  `tr:first-of-type .${RendererCssClassName.SORTABLE_COLUMN}:nth-of-type(${nth}) div[aria-label="sort column"]`;
 
 const waitForDateText = async (page: PuppeteerPage, text: string) =>
   await waitForText(page, '.date-lozenger-container > span', text);
@@ -117,7 +117,7 @@ describe('Snapshot Test: Table sorting', () => {
       await initRenderer(page, tableWithMergedCells);
 
       await page.waitForSelector(
-        `.${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED}`,
+        `.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`,
       );
       await page.hover(
         `${getSortableColumnSelector(1)} .${

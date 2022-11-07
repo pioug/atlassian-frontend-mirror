@@ -12,13 +12,13 @@ import {
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 import type { PortalProviderAPI } from '../ui/PortalProvider';
+import {
+  getPerformanceOptions,
+  startMeasureReactNodeViewRendered,
+  stopMeasureReactNodeViewRendered,
+} from '../utils';
 import { analyticsEventKey } from '../utils/analytics';
 
-//import {
-//  getPerformanceOptions,
-//  startMeasureReactNodeViewRendered,
-//  stopMeasureReactNodeViewRendered,
-//} from './get-performance-options';
 import {
   ForwardRef,
   getPosHandler,
@@ -98,28 +98,27 @@ export default class ReactNodeView<P = ReactComponentProps>
     // difference between them and it kills the nodeView
     this.domRef.classList.add(`${this.node.type.name}View-content-wrap`);
 
-    // TODO: ED-15580
-    //const {
-    //  samplingRate,
-    //  slowThreshold,
-    //  trackingEnabled,
-    //} = getPerformanceOptions(this.view);
+    const {
+      samplingRate,
+      slowThreshold,
+      trackingEnabled,
+    } = getPerformanceOptions(this.view);
 
-    //trackingEnabled &&
-    //  startMeasureReactNodeViewRendered({ nodeTypeName: this.node.type.name });
+    trackingEnabled &&
+      startMeasureReactNodeViewRendered({ nodeTypeName: this.node.type.name });
 
     this.renderReactComponent(() =>
       this.render(this.reactComponentProps, this.handleRef),
     );
 
-    //trackingEnabled &&
-    //  stopMeasureReactNodeViewRendered({
-    //    nodeTypeName: this.node.type.name,
-    //    dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-    //    editorState: this.view.state,
-    //    samplingRate,
-    //    slowThreshold,
-    //  });
+    trackingEnabled &&
+      stopMeasureReactNodeViewRendered({
+        nodeTypeName: this.node.type.name,
+        dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+        editorState: this.view.state,
+        samplingRate,
+        slowThreshold,
+      });
 
     return this;
   }

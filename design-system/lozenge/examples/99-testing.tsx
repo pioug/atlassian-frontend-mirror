@@ -12,7 +12,7 @@ import Lozenge from '../src';
 export default function Example() {
   return (
     <AtlaskitThemeProvider mode="light">
-      <Stack gap="sp-100">
+      <Stack gap="scale.100">
         <Box>
           <Text>
             default: <Lozenge testId="default-lozenge">default</Lozenge>

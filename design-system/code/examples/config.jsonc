@@ -8,7 +8,9 @@
     "01-inline-code-basic.tsx",
     "02-inline-code-basic-dark.tsx",
     "10-code-block-basic.tsx",
-    "12-code-block-ssr.tsx"
+    "12-code-block-ssr.tsx",
+    "21-code-block-empty.tsx",
+    "22-code-bidi-characters.tsx"
   ],
   "exampleDependencies": [
     "prismjs"

@@ -8,7 +8,6 @@
     "01-basic.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/section-message",
     "react-router-dom"
   ]
 }

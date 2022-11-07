@@ -1,6 +1,7 @@
 import React from 'react';
 import { RendererContext } from '../types';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
+import { Mark as PMMark } from 'prosemirror-model';
 
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -14,6 +15,7 @@ export interface Props {
   text?: string;
   parameters?: any;
   localId?: string;
+  marks?: PMMark[];
 }
 
 const InlineExtension: React.StatelessComponent<Props> = (props) => {

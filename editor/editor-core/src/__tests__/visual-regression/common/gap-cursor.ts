@@ -1,6 +1,7 @@
 import { Appearance, initEditorWithAdf, snapshot } from '../_utils';
 import gapcursor from './__fixtures__/gap-cursor-adf.json';
 import gapCursorLayout from './__fixtures__/gap-cursor-layout-adf.json';
+import gapCursorTable from './__fixtures__/gap-cursor-table-adf.json';
 import paragraph from './__fixtures__/paragraph-of-text.adf.json';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
@@ -69,6 +70,69 @@ describe('Gap cursor: layout', () => {
     await pressKey(page, ['ArrowRight', 'ArrowRight']);
     await page.waitForSelector(selectors.gapCursor);
     await snapshot(page, undefined, '[data-layout-section]');
+  });
+
+  it('should the gap-cursor before the top divider element to have zero margin top', async () => {
+    await page.click('hr:first-child');
+    await pressKey(page, ['ArrowLeft']);
+    await page.waitForSelector(selectors.gapCursor);
+    await snapshot(page);
+  });
+
+  it('should the gap-cursor after the top divider element to have zero margin top', async () => {
+    await page.click('hr:first-child');
+    await pressKey(page, ['ArrowRight']);
+    await page.waitForSelector(selectors.gapCursor);
+    await snapshot(page);
+  });
+
+  it('should the gap-cursor before the bottom divider element remains the same margin on both top and bottom', async () => {
+    await page.click('hr:last-of-type');
+    await pressKey(page, ['ArrowLeft']);
+    await page.waitForSelector(selectors.gapCursor);
+    await snapshot(page);
+  });
+
+  it('should the gap-cursor after the bottom divider element remains the same margin on both top and bottom', async () => {
+    await page.click('hr:last-of-type');
+    await pressKey(page, ['ArrowRight']);
+    await page.waitForSelector(selectors.gapCursor);
+    await snapshot(page);
+  });
+});
+
+describe('Gap cursor: table', () => {
+  beforeEach(async () => {
+    page = global.page;
+    await initEditor(gapCursorTable);
+  });
+
+  afterEach(async () => {
+    await snapshot(page);
+  });
+
+  it('should the gap-cursor before the top divider element to have zero margin top', async () => {
+    await page.click('hr:first-child');
+    await pressKey(page, ['ArrowLeft']);
+    await page.waitForSelector(selectors.gapCursor);
+  });
+
+  it('should the gap-cursor after the top divider element to have zero margin top', async () => {
+    await page.click('hr:first-child');
+    await pressKey(page, ['ArrowRight']);
+    await page.waitForSelector(selectors.gapCursor);
+  });
+
+  it('should the gap-cursor before the bottom divider element remains the same margin on both top and bottom', async () => {
+    await page.click('hr:last-of-type');
+    await pressKey(page, ['ArrowLeft']);
+    await page.waitForSelector(selectors.gapCursor);
+  });
+
+  it('should the gap-cursor after the bottom divider element remains the same margin on both top and bottom', async () => {
+    await page.click('hr:last-of-type');
+    await pressKey(page, ['ArrowRight']);
+    await page.waitForSelector(selectors.gapCursor);
   });
 });
 

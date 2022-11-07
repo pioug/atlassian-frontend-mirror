@@ -8,6 +8,7 @@ import {
   SelectionStyle,
   getSelectionStyles,
   akEditorSelectedNodeClassName,
+  blockNodesVerticalMargin,
 } from '@atlaskit/editor-shared-styles';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
@@ -20,8 +21,19 @@ export const codeBlockStyles = (props: ThemeProps) => css`
     ${codeBlockSharedStyles(props)}
   }
 
-  .ProseMirror li > .code-block {
-    margin: 0;
+  .ProseMirror li {
+    /* if same list item has multiple code blocks we need top margin for all but first */
+    > .code-block {
+      margin: ${blockNodesVerticalMargin} 0 0 0;
+    }
+    > .code-block:first-child,
+    > .ProseMirror-gapcursor:first-child + .code-block {
+      margin-top: 0;
+    }
+
+    > div:last-of-type.code-block {
+      margin-bottom: ${blockNodesVerticalMargin};
+    }
   }
 
   .ProseMirror .code-block.${akEditorSelectedNodeClassName}:not(.danger) {

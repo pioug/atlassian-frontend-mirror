@@ -1,7 +1,11 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import uuid from 'uuid';
 import { PureComponent } from 'react';
+import {
+  AnalyticsEventPayload,
+  CreateUIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
+import uuid from 'uuid';
+import { jsx } from '@emotion/react';
 import { EmojiProvider, OnEmojiProviderChange } from '../../api/EmojiResource';
 import { defaultListLimit } from '../../util/constants';
 import { toEmojiId } from '../../util/type-helpers';
@@ -20,14 +24,11 @@ import {
   typeaheadRenderedEvent,
   ufoExperiences,
 } from '../../util/analytics';
-import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
-import EmojiList from './EmojiTypeAheadList';
-import {
-  AnalyticsEventPayload,
-  CreateUIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
-import { emojiTypeAhead } from './styles';
 import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
+import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
+
+import EmojiList from './EmojiTypeAheadList';
+import { emojiTypeAhead } from './styles';
 
 export interface OnLifecycle {
   (): void;
@@ -157,14 +158,14 @@ export default class EmojiTypeAheadComponent extends PureComponent<
       metadata: {
         source: 'EmojiTypeAheadComponent',
         reason: 'unmount',
-        data: { query },
+        query,
       },
     });
     ufoExperiences['emoji-selection-recorded'].abort({
       metadata: {
         source: 'EmojiTypeAheadComponent',
         reason: 'unmount',
-        data: { query },
+        query,
       },
     });
     this.sessionId = uuid();
@@ -243,7 +244,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<
     ufoExperiences['emoji-searched'].start();
     ufoExperiences['emoji-searched'].addMetadata({
       queryLength: query?.length || 0,
-      source: 'typeahead',
+      source: 'EmojiTypeAheadComponent',
     });
 
     this.renderStartTime = Date.now();

@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 8.7.0
+
+### Minor Changes
+
+- [`500a96aa7de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/500a96aa7de) - Add elementAfterLabel prop to form Field.
+
+### Patch Changes
+
+- [`001c650e983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/001c650e983) - Add ds-lib devDependency. No behaviour change.
+
 ## 8.6.0
 
 ### Minor Changes

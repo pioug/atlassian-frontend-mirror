@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 70.2.0
+
+### Minor Changes
+
+- [`30e8425f7d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30e8425f7d6) - [ux] ED-15706 Reenable copy button on editor-plugin-table. Added property copyButton to floatingToolbarConfig.
+- [`90c44a68da2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90c44a68da2) - Removed editor-core table plugin and replaced with new `editor-plugin-table` package. This change required adding copying new table changes from editor-core to the new table package, moving IconTable to shared package, and creating new entry-points from editor-plugin-table. `getPluginState` from `packages/editor/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing` was also exported.
+
+  [ED-15674][ed15739] [ED-15633]
+
+- [`61cd2188e62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cd2188e62) - [ux] ED-15405 added horizontal scrolling to floating toolbar in case of overflow
+
+### Patch Changes
+
+- [`79a48f1c6b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79a48f1c6b5) - Adds fragmentLocalId to ExtensionParams type.
+- [`3f7900cbf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f7900cbf37) - [ux] ED-14993 added better support for codeblocks inside lists and gap cursor selection inside lists:
+
+  - made list markers visible in safari (desktop and mobile) when list contains codeblocks;
+  - fixed bug so users can now set gapcursor next to codeblock by clicking or touching (mobile) the list marker;
+  - fixed bug so when users have gapcursor next to a codeblock, they can still toggle (or untoggle) it into a list;
+  - fixed margins for codeblocks in lists;
+
+- [`916c3b17290`](https://bitbucket.org/atlassian/atlassian-frontend/commits/916c3b17290) - ED-15573 re-enable getParticipantsCount in analytics payload
+- [`e7836c150bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7836c150bb) - Re-enable Performance metric for ReactNodeView, WithPluginState
+- [`b2b98eca8cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2b98eca8cc) - ED-14814 Add "outdatedBrowser" attribute into analytics error payload, add browser check and expose the function "isOutdatedBrowser()"
+- [`51e84999643`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51e84999643) - ED-15381 - Patch table / layout CSS to fix issue of ProseMirror gapcursor within the cell
+- [`edb93baa953`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edb93baa953) - Moved sendLogs to editor-common. Re-exported in editor-core and import sendLogs from editor-common in editor-plugin-table package.
+- [`184d3cf7ce6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/184d3cf7ce6) - Preventing error being logged to the console if the consumer of the Editor component does not have IntlProvider in the component hierarchy.
+- [`8c16cb97a11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c16cb97a11) - ED-12676 cleanup useUnpredictableInputRule feature flag
+- [`47f1c7fff80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f1c7fff80) - [ux] ED-14991 rework extension breakout to share logic with breakout mark views. Fixes an issue where iframes inside bodied extensions that were set to full-width or wide would be blurry.
+- [`ab072299e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab072299e05) - ED-15519 - Extensions used as data sources will now display a delete confirmation dialog
+- [`992ed2b7e2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/992ed2b7e2a) - ED-15510 Fixes animation when resizing breakout
+- [`3cecda14f87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cecda14f87) - [ED-15847] Changes to fix a regression caused in ED-15805 Id attribute given to identify type of floating toolbars
+- Updated dependencies
+
 ## 70.1.3
 
 ### Patch Changes

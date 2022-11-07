@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import React from 'react';
-import { jsx } from '@emotion/core';
+import React, { AriaAttributes } from 'react';
+import { jsx } from '@emotion/react';
 import { AnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import Tooltip from '@atlaskit/tooltip';
@@ -34,6 +34,10 @@ export interface TriggerProps {
    * Tooltip content for trigger button
    */
   tooltipContent: React.ReactNode;
+  /**
+   * Aria accessibility attributes that will be added to the button
+   */
+  ariaAttributes?: AriaAttributes;
 }
 
 /**
@@ -41,7 +45,13 @@ export interface TriggerProps {
  */
 export const Trigger = React.forwardRef(
   (props: TriggerProps, ref: React.Ref<HTMLButtonElement>) => {
-    const { onClick, miniMode, tooltipContent, disabled = false } = props;
+    const {
+      onClick,
+      miniMode,
+      tooltipContent,
+      disabled = false,
+      ariaAttributes = {},
+    } = props;
 
     const handleMouseDown = (
       e: React.MouseEvent<HTMLElement>,
@@ -66,6 +76,7 @@ export const Trigger = React.forwardRef(
           iconBefore={<EmojiAddIcon size="small" label="Add reaction" />}
           spacing="none"
           ref={ref}
+          {...ariaAttributes}
         />
       </Tooltip>
     );

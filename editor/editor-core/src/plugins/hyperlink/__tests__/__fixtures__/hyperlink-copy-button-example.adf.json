@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Atlassian",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "http://atlassian.com/"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " text"
+        }
+      ]
+    }
+  ]
+}

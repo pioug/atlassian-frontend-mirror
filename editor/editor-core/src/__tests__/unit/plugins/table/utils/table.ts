@@ -8,7 +8,8 @@ import {
   tdEmpty,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getCellsInRow } from '@atlaskit/editor-tables/utils';
-import { getMergedCellsPositions } from '../../../../../plugins/table/utils';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { getMergedCellsPositions } from '@atlaskit/editor-plugin-table/src/plugins/table/utils';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 
 describe('table utils', () => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import Button from '@atlaskit/button/custom-theme-button';
 import TeamMentionHighlight, {
   Props,
 } from '../../../components/TeamMentionHighlight';
@@ -123,7 +122,7 @@ describe('MentionHighlight', () => {
   it('should send analytics data if the highlight has been closed by the user', () => {
     const highlight = render({ onClose: jest.fn() });
     expect(highlight.html()).not.toEqual('');
-    highlight.find(Button).simulate('click');
+    highlight.find('button[type="button"]').simulate('click');
     expect(mockFireAnalyticsHighlightMentionEvent).toHaveBeenCalledWith(
       TeamMentionHighlightAnalytics.ComponentNames.TEAM_MENTION_HIGHLIGHT,
       TeamMentionHighlightAnalytics.Actions.CLOSED,

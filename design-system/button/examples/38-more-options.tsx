@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import Expand from '@atlaskit/icon/glyph/arrow-down';
 import Calendar from '@atlaskit/icon/glyph/calendar';

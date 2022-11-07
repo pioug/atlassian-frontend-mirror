@@ -31,9 +31,9 @@ import {
   isRichMediaInsideOfBlockNode,
 } from '../../../utils/rich-media-utils';
 import { EventDispatcher } from '../../../event-dispatcher';
-import { pluginKey as tableResizePluginKey } from '../../table/pm-plugins/table-resizing';
-import { ColumnResizingPluginState } from '../../table/types';
+import { ColumnResizingPluginState } from '@atlaskit/editor-plugin-table/types';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { EditorState, PluginKey } from 'prosemirror-state';
 
 export type EmbedCardState = {
   hasPreview: boolean;
@@ -185,10 +185,18 @@ export class EmbedCardComponent extends React.PureComponent<
   ) => {
     const { view } = this.props;
 
-    const tableResizeState = tableResizePluginKey.getState(view.state) as
-      | ColumnResizingPluginState
-      | undefined
-      | null;
+    // TODO: ED-15663
+    // Please, do not copy or use this kind of code below
+    // @ts-ignore
+    const fakeTableResizePluginKey = {
+      key: 'tableFlexiColumnResizing$',
+      getState: (state: EditorState) => {
+        return (state as any)['tableFlexiColumnResizing$'];
+      },
+    } as PluginKey;
+    const fakeTableResizeState = fakeTableResizePluginKey.getState(
+      view.state,
+    ) as ColumnResizingPluginState | undefined | null;
 
     // We are not updating ADF when this function fired while table is resizing.
     // Changing ADF in the middle of resize will break table resize plugin logic
@@ -196,7 +204,7 @@ export class EmbedCardComponent extends React.PureComponent<
     // But this is not a big problem, editor user will be seeing latest height anyway (via updated state)
     // And even if page to be saved with slightly outdated height, renderer is capable of reading latest height value
     // when embed loads, and so it won't be a problem.
-    if (tableResizeState?.dragging) {
+    if (fakeTableResizeState?.dragging) {
       return;
     }
 

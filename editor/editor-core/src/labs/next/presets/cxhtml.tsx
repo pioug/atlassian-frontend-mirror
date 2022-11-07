@@ -1,9 +1,9 @@
 // #region Imports
 import React from 'react';
 import { MentionProvider } from '@atlaskit/mention/resource';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 import {
-  tablesPlugin,
   panelPlugin,
   listPlugin,
   textColorPlugin,

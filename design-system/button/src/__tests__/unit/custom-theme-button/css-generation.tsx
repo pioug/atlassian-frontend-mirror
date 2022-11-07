@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/core';
+import { CSSObject, jsx } from '@emotion/react';
 import { fireEvent, render } from '@testing-library/react';
 
 import { getCustomCss } from '../../../custom-theme-button/theme';

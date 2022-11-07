@@ -2,6 +2,10 @@ import waitForExpect from 'wait-for-expect';
 import { Client, ReactionStatus } from '../types';
 import { Analytics as AnalyticsModule } from '../analytics';
 import {
+  mockReactDomWarningGlobal,
+  useFakeTimers,
+} from '../__tests__/_testing-library';
+import {
   ari,
   containerAri,
   getReactionSummary,
@@ -49,6 +53,7 @@ interface FakeUFOInstance {
   success: jest.Mock;
   failure: jest.Mock;
   abort: jest.Mock;
+  addMetadata: jest.Mock;
 }
 
 describe('MemoryReactionsStore', () => {
@@ -58,18 +63,21 @@ describe('MemoryReactionsStore', () => {
     success: jest.fn(),
     failure: jest.fn(),
     abort: jest.fn(),
+    addMetadata: jest.fn(),
   };
   const fakeRemoveUFOInstance: FakeUFOInstance = {
     start: jest.fn(),
     success: jest.fn(),
     failure: jest.fn(),
     abort: jest.fn(),
+    addMetadata: jest.fn(),
   };
   const fakeRenderUFOInstance: FakeUFOInstance = {
     start: jest.fn(),
     success: jest.fn(),
     failure: jest.fn(),
     abort: jest.fn(),
+    addMetadata: jest.fn(),
   };
 
   const fakeFetchDetailsUFOInstance: FakeUFOInstance = {
@@ -77,6 +85,7 @@ describe('MemoryReactionsStore', () => {
     success: jest.fn(),
     failure: jest.fn(),
     abort: jest.fn(),
+    addMetadata: jest.fn(),
   };
 
   const fakeClient: Client = {
@@ -120,17 +129,16 @@ describe('MemoryReactionsStore', () => {
   };
 
   let store: MemoryReactionsStore;
-  beforeAll(() => {
-    jest.useFakeTimers();
-    spyCreateAndFireSafe.mockImplementation(fakeCreateAndFireSafe);
-    loadFakeUFOInstances();
-  });
-  afterAll(() => {
-    jest.useRealTimers();
-    spyCreateAndFireSafe.mockRestore();
-  });
-
-  beforeEach(() => {
+  mockReactDomWarningGlobal(
+    () => {
+      spyCreateAndFireSafe.mockImplementation(fakeCreateAndFireSafe);
+      loadFakeUFOInstances();
+    },
+    () => {
+      spyCreateAndFireSafe.mockRestore();
+    },
+  );
+  useFakeTimers(() => {
     (fakeClient.getReactions as jest.Mock<any>).mockReset();
     (fakeClient.getDetailedReaction as jest.Mock<any>).mockReset();
     (fakeClient.addReaction as jest.Mock<any>).mockReset();

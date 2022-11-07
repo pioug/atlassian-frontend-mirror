@@ -75,7 +75,7 @@ describe('Extension:', () => {
     beforeEach(async () => {
       await initEditor(defaultBodiedAdf, undefined, {
         featureFlags: { undoRedoButtons: true },
-        UNSAFE_allowUndoRedoButtons: true,
+        allowUndoRedoButtons: true,
       });
       await clickOnExtension(
         page,

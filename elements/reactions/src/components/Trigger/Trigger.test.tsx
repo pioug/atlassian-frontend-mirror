@@ -1,14 +1,17 @@
 import React from 'react';
-import { fireEvent } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
+import { screen, fireEvent } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
-import { renderWithIntl } from '../../__tests__/_testing-library';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+} from '../../__tests__/_testing-library';
 import { Trigger } from './Trigger';
 
 // Add the custom matchers provided by '@emotion/jest'
 expect.extend(matchers);
 
 describe('@atlaskit/reactions/components/Trigger', () => {
+  mockReactDomWarningGlobal();
   it('should render a button', async () => {
     renderWithIntl(<Trigger tooltipContent="" />);
     const btn = await screen.findByLabelText('Add reaction');

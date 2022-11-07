@@ -31,7 +31,7 @@ const activeTokens = tokens
 export const createColorMapTemplate = () => {
   return prettier.format(
     `
-export const colorMap = {
+export default {
   ${activeTokens
     .map((t) => {
       // handle the default case eg color.border or color.text

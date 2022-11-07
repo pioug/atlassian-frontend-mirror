@@ -116,7 +116,7 @@ export function provideVisualFeedbackForCopyButton(
     dispatch(tr);
   }
 
-  return false;
+  return true;
 }
 
 export function removeVisualFeedbackForCopyButton(
@@ -135,5 +135,5 @@ export function removeVisualFeedbackForCopyButton(
     dispatch(tr);
   }
 
-  return false;
+  return true;
 }

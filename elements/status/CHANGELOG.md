@@ -1,5 +1,15 @@
 # @atlaskit/status
 
+## 1.2.0
+
+### Minor Changes
+
+- [`b3be5346e02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3be5346e02) - Status warning color picker updated to match the color of the underlying lozenge.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.6
 
 ### Patch Changes

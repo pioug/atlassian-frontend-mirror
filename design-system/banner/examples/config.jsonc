@@ -5,8 +5,11 @@
  */
 {
   "testExamples": [
+    "00-basic-usage.tsx",
+    "announcement-banner-with-long-text.tsx",
     "announcement-banner.tsx",
-    "basic-usage.tsx",
+    "error-banner.tsx",
+    "open-close-example.tsx",
     "testing.tsx"
   ],
   "exampleDependencies": [

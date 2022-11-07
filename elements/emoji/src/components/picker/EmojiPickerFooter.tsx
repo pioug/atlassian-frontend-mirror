@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { memo } from 'react';
+import { jsx } from '@emotion/react';
 import { EmojiDescription } from '../../types';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { emojiPickerFooter, emojiPickerFooterWithTopShadow } from './styles';

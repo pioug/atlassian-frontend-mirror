@@ -1,4 +1,5 @@
 import {
+  code_block,
   doc,
   ol,
   ul,
@@ -23,9 +24,12 @@ import { uuid } from '@atlaskit/adf-schema';
 import listPlugin from '../..';
 import textFormattingPlugin from '../../../text-formatting';
 import panelPlugin from '../../../panel';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import codeBlockPlugin from '../../../code-block';
 import statusInlineBlockTypePlugin from '../../../status';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
+import { setGapCursorSelection, setNodeSelection } from '../../../../utils';
+import { Side } from '../../../selection/gap-cursor-selection';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -46,7 +50,8 @@ describe('lists plugin -> converting lists', () => {
       .add(textFormattingPlugin)
       .add(panelPlugin)
       .add([statusInlineBlockTypePlugin, { menuDisabled: false }])
-      .add(tablePlugin);
+      .add(tablesPlugin)
+      .add([codeBlockPlugin, {}]);
 
     return createEditor({
       doc,
@@ -1042,5 +1047,89 @@ describe('lists plugin -> converting lists', () => {
 
     toggleOrderedList(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
+  });
+
+  describe('with gap curor selection in front of code block', () => {
+    it('wraps codeblock in a bullet list', () => {
+      const expectedOutput = doc(ul(li(code_block({})('some code'))));
+      const { editorView, refs } = editor(
+        doc('{pos}', code_block({})('some code')),
+      );
+      setGapCursorSelection(editorView, refs.pos, Side.LEFT);
+      toggleBulletList(editorView);
+      expect(editorView.state.doc).toEqualDocument(expectedOutput);
+    });
+
+    it('wraps codeblock in a numbered list', () => {
+      const expectedOutput = doc(ol(li(code_block({})('some code'))));
+      const { editorView, refs } = editor(
+        doc('{pos}', code_block({})('some code')),
+      );
+      setGapCursorSelection(editorView, refs.pos, Side.LEFT);
+      toggleOrderedList(editorView);
+      expect(editorView.state.doc).toEqualDocument(expectedOutput);
+    });
+
+    it('toggles bullet to numbered list', () => {
+      const expectedOutput = doc(ol(li(code_block({})('some code'))));
+      const { editorView, refs } = editor(
+        doc(ul(li('{pos}', code_block({})('some code')))),
+      );
+      setGapCursorSelection(editorView, refs.pos, Side.LEFT);
+      toggleOrderedList(editorView);
+      expect(editorView.state.doc).toEqualDocument(expectedOutput);
+    });
+
+    it('toggles numbered to bullet list', () => {
+      const expectedOutput = doc(ul(li(code_block({})('some code'))));
+      const { editorView, refs } = editor(
+        doc(ol(li('{pos}', code_block({})('some code')))),
+      );
+      setGapCursorSelection(editorView, refs.pos, Side.LEFT);
+      toggleBulletList(editorView);
+      expect(editorView.state.doc).toEqualDocument(expectedOutput);
+    });
+  });
+
+  describe('with node selection on a code block', () => {
+    it('wraps codeblock in a bullet list', () => {
+      const expectedOutput = doc(ul(li(code_block({})('some code'))));
+      const { editorView, refs } = editor(
+        doc(code_block({})('some {pos}code')),
+      );
+      setNodeSelection(editorView, refs.pos);
+      toggleBulletList(editorView);
+      expect(editorView.state.doc).toEqualDocument(expectedOutput);
+    });
+
+    it('wraps codeblock in a numbered list', () => {
+      const expectedOutput = doc(ol(li(code_block({})('some code'))));
+      const { editorView, refs } = editor(
+        doc(code_block({})('some {pos}code')),
+      );
+      setNodeSelection(editorView, refs.pos);
+      toggleOrderedList(editorView);
+      expect(editorView.state.doc).toEqualDocument(expectedOutput);
+    });
+
+    it('toggles bullet to numbered list', () => {
+      const expectedOutput = doc(ul(li(code_block({})('some code'))));
+      const { editorView, refs } = editor(
+        doc(ol(li(code_block({})('some {pos}code')))),
+      );
+      setNodeSelection(editorView, refs.pos);
+      toggleBulletList(editorView);
+      expect(editorView.state.doc).toEqualDocument(expectedOutput);
+    });
+
+    it('toggles numbered to bullet list', () => {
+      const expectedOutput = doc(ul(li(code_block({})('some code'))));
+      const { editorView, refs } = editor(
+        doc(ol(li(code_block({})('some {pos}code')))),
+      );
+      setNodeSelection(editorView, refs.pos);
+      toggleBulletList(editorView);
+      expect(editorView.state.doc).toEqualDocument(expectedOutput);
+    });
   });
 });

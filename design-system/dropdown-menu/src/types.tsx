@@ -83,6 +83,9 @@ export interface OnOpenChangeArgs {
 export interface MenuWrapperProps extends MenuGroupProps {
   setInitialFocusRef?: ContentProps['setInitialFocusRef'];
   onClose?: ContentProps['onClose'];
+  onUpdate: ContentProps['update'];
+  isLoading?: DropdownMenuProps['isLoading'];
+  statusLabel?: DropdownMenuProps['statusLabel'];
 }
 
 export interface DropdownMenuGroupProps extends SectionProps {}

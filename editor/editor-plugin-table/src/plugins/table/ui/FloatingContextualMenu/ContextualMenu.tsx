@@ -29,9 +29,7 @@ import { closestElement } from '@atlaskit/editor-common/utils';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-// import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
 
-// TODO ED-15449 - unstub type?
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 type DropdownItem = MenuItem & {
   value: {
@@ -365,11 +363,17 @@ export class ContextualMenu extends Component<
         this.toggleOpen();
         break;
       case 'merge':
-        mergeCellsWithAnalytics(editorAnalyticsAPI)(state, dispatch);
+        mergeCellsWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU)(
+          state,
+          dispatch,
+        );
         this.toggleOpen();
         break;
       case 'split':
-        splitCellWithAnalytics(editorAnalyticsAPI)(state, dispatch);
+        splitCellWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU)(
+          state,
+          dispatch,
+        );
         this.toggleOpen();
         break;
       case 'distribute_columns':
@@ -511,12 +515,11 @@ export class ContextualMenu extends Component<
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
     const { targetCellPosition } = getPluginState(editorView.state);
     const { state, dispatch } = editorView;
-    // setColorWithAnalytics(color, targetCellPosition)(state, dispatch);
-    // TODO: restore
-    setColorWithAnalytics(editorAnalyticsAPI)(color, targetCellPosition)(
-      state,
-      dispatch,
-    );
+    setColorWithAnalytics(editorAnalyticsAPI)(
+      INPUT_METHOD.CONTEXT_MENU,
+      color,
+      targetCellPosition,
+    )(state, dispatch);
     this.toggleOpen();
   };
 }

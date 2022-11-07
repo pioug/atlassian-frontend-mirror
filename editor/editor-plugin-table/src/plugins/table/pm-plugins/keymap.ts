@@ -11,10 +11,10 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import {
+  triggerUnlessTableHeader,
   createTable,
   goToNextCell,
   moveCursorBackward,
-  triggerUnlessTableHeader,
 } from '../commands';
 import {
   addRowAroundSelection,

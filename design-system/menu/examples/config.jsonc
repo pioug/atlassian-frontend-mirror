@@ -13,6 +13,8 @@
     "link-item.tsx",
     "loading-skeleton.tsx",
     "menu.tsx",
-    "scrollable-sections.tsx"
+    "scrollable-sections.tsx",
+    "skeleton-heading-item.tsx",
+    "skeleton-item.tsx"
   ]
 }

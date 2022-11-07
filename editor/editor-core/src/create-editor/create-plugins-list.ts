@@ -24,8 +24,6 @@ import {
   placeholderTextPlugin,
   rulePlugin,
   saveOnEnterPlugin,
-  // tablesPlugin,
-  tablesPlugin,
   tasksAndDecisionsPlugin,
   textColorPlugin,
   cardPlugin,
@@ -52,7 +50,7 @@ import {
   codeBidiWarningPlugin,
   copyButtonPlugin,
 } from '../plugins';
-// import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
@@ -149,7 +147,7 @@ export function getDefaultPresetOptionsFromEditorProps(
       lastNodeMustBeParagraph:
         appearance === 'comment' || appearance === 'chromeless',
       allowBlockType: props.allowBlockType,
-      isUndoRedoButtonsEnabled: props.UNSAFE_allowUndoRedoButtons,
+      isUndoRedoButtonsEnabled: props.allowUndoRedoButtons,
     },
     placeholder: {
       placeholder: props.placeholder,
@@ -161,7 +159,7 @@ export function getDefaultPresetOptionsFromEditorProps(
       responsiveToolbarMenu:
         props.textFormatting?.responsiveToolbarMenu != null
           ? props.textFormatting.responsiveToolbarMenu
-          : props.UNSAFE_allowUndoRedoButtons,
+          : props.allowUndoRedoButtons,
     },
     annotationProviders: props.annotationProviders,
     submitEditor: props.onSave,
@@ -340,7 +338,6 @@ export default function createPluginsList(
         wasFullWidthEnabled: prevProps && prevProps.appearance === 'full-width',
         editorAnalyticsAPI,
         editorSelectionAPI,
-        getEditorContainerWidth,
         getEditorFeatureFlags,
       },
     ]);
@@ -528,7 +525,7 @@ export default function createPluginsList(
     preset.add(scrollIntoViewPlugin);
   }
 
-  if (isMobile || props.UNSAFE_allowUndoRedoButtons) {
+  if (isMobile || props.allowUndoRedoButtons) {
     preset.add(historyPlugin);
   }
 

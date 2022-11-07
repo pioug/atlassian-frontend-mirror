@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-common/extensions';
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 
-import { flushPromises } from '../../../__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import ConfigPanelFieldsLoader from '../../../../ui/ConfigPanel/ConfigPanelFieldsLoader';
 
 expect.extend(matchers);

@@ -37,7 +37,7 @@ import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import statusPlugin from '../../../status';
 import blockTypePlugin from '../../../block-type';
 import hyperlinkPlugin from '../../../hyperlink';
-import tablesPlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
 import datePlugin from '../../../date';
 import layoutPlugin from '../../../layout';

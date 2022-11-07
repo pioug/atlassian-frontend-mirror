@@ -63,6 +63,7 @@ class CornerControlComponent extends Component<
               ? `${this.props.stickyTop}px`
               : undefined,
         }}
+        contentEditable={false}
       >
         <button
           aria-label={formatMessage(messages.cornerControl)}

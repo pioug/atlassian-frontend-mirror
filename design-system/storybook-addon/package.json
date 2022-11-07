@@ -47,7 +47,9 @@
       "dom-events": "use-bind-event-listener",
       "design-system": "v1",
       "deprecation": "no-deprecated-imports",
-      "styling": "emotion"
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "homepage": "https://atlassian.design/components/storybook-addon-design-system",

@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { FileStatus } from '../src';
 
@@ -29,11 +30,11 @@ export interface FilesWrapperProps {
 }
 
 const statusColorMap: { [key in FileStatus]: string } = {
-  uploading: 'cornflowerblue',
-  processing: 'peachpuff',
-  processed: 'darkseagreen',
-  error: 'indianred',
-  'failed-processing': 'indianred',
+  uploading: token('color.background.accent.blue.subtle', 'cornflowerblue'),
+  processing: token('color.background.accent.orange.subtler', 'peachpuff'),
+  processed: token('color.background.accent.green.subtle', 'darkseagreen'),
+  error: token('color.background.accent.red.subtle', 'indianred'),
+  'failed-processing': token('color.background.accent.red.subtle', 'indianred'),
 };
 
 export const fileWrapperStyles = (status: FileStatus) => css`
@@ -47,11 +48,11 @@ export const fileWrapperStyles = (status: FileStatus) => css`
 export const cardsWrapperStyles = css`
   width: 900px;
   padding: 10px;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid ${token('color.border', '#ccc')};
 
   h1 {
     text-align: center;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid ${token('color.border', '#ccc')};
   }
 
   > div {
@@ -68,7 +69,7 @@ export const headerStyles = css`
 `;
 
 export const fileStateWrapperStyles = css`
-  border: 1px solid;
+  border: 1px solid ${token('color.border', '#ccc')};
   margin: 10px;
   padding: 10px;
   width: 500px;

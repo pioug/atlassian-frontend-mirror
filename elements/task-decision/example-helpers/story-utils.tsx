@@ -1,17 +1,28 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import styled from 'styled-components';
 
-export const Grid: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-`;
+export const Grid: React.FC<React.HTMLAttributes<{}>> = ({ children }) => (
+  <div
+    css={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+    }}
+  >
+    {children}
+  </div>
+);
 
-export const Item: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
-  flex: 1 1 0;
-  margin: 10px;
-`;
+export const Item: React.FC<React.HTMLAttributes<{}>> = ({ children }) => (
+  <div
+    css={{
+      flex: '1 1 0',
+      margin: 10,
+    }}
+  >
+    {children}
+  </div>
+);
 
 export const dumpRef = (ref: HTMLElement | null) => {
   // eslint-disable-next-line no-console

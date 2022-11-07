@@ -9,6 +9,7 @@
   ],
   "exampleDependencies": [
     "@atlaskit/button",
+    "@emotion/core",
     "lodash"
   ]
 }

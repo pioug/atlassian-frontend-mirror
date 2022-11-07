@@ -21,14 +21,15 @@ import {
   hoverColumns,
   hoverRows,
   hoverTable,
-} from '../../../../plugins/table/commands';
+} from '@atlaskit/editor-plugin-table/commands';
 import {
   TablePluginState,
   TableDecorations,
   TableCssClassName as ClassName,
-} from '../../../../plugins/table/types';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
-import { getDecorations } from '../../../../plugins/table/pm-plugins/decorations/plugin';
+} from '@atlaskit/editor-plugin-table/types';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { getDecorations } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/decorations/plugin';
 
 describe('table hover selection plugin', () => {
   const createEditor = createEditorFactory<TablePluginState>();

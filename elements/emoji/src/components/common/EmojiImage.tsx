@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { FC, useMemo, useState } from 'react';
+import { jsx } from '@emotion/react';
 import { EmojiId, EmojiImageRepresentation } from '../../types';
+import { defaultEmojiHeight } from '../../util/constants';
 import {
   emojiContainer,
   emojiImage,
@@ -9,8 +10,6 @@ import {
   emojiNodeStyles,
   emojiStyles,
 } from './styles';
-
-import { defaultEmojiHeight } from '../../util/constants';
 
 type EmojiImageType = {
   emojiId: EmojiId;

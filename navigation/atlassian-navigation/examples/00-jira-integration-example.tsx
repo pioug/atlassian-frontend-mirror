@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment, KeyboardEvent, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import Drawer from '@atlaskit/drawer';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';

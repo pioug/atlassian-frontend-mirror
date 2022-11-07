@@ -10,7 +10,6 @@ import {
   isTableSelected,
 } from '@atlaskit/editor-tables/utils';
 
-// import { parsePx } from '@atlaskit/editor-core/src/utils/dom';
 import { parsePx } from '@atlaskit/editor-common/utils';
 import { TableCssClassName as ClassName } from '../types';
 import { tableDeleteButtonSize } from '../ui/consts';

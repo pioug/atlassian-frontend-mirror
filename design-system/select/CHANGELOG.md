@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 15.7.5
+
+### Patch Changes
+
+- [`a0bf7e532ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0bf7e532ff) - Fix validationState taking precedent over isInvalid
+- Updated dependencies
+
 ## 15.7.4
 
 ### Patch Changes

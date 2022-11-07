@@ -51,11 +51,11 @@ export async function _getCopyButtonTestSuite({
     const { editorView } = editor(doc);
 
     it('should dispatch analytics event when copy button is clicked', () => {
-      const copyButton = getCopyButtonConfig(
-        editorView.state,
-        dummyFormatMessage as IntlShape['formatMessage'],
-        editorView.state.schema.nodes[nodeType],
-      ) as FloatingToolbarButton<any>;
+      const copyButton = getCopyButtonConfig({
+        state: editorView.state,
+        formatMessage: dummyFormatMessage as IntlShape['formatMessage'],
+        nodeType: editorView.state.schema.nodes[nodeType],
+      }) as FloatingToolbarButton<any>;
 
       copyButton.onClick(editorView.state, editorView.dispatch);
 

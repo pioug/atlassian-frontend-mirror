@@ -66,6 +66,7 @@ export interface MediaPluginState {
     getPos: ProsemirrorGetPosHandler,
   ) => void;
   handleMediaNodeUnmount: (oldNode: PMNode) => void;
+  handleMediaGroupUpdate: (oldNodes: PMNode[], newNodes: PMNode[]) => void;
   findMediaNode: (id: string) => MediaNodeWithPosHandler | null;
   updateMediaNodeAttrs: (
     id: string,

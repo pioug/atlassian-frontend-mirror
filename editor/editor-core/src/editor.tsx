@@ -781,8 +781,7 @@ export default class Editor extends React.Component<EditorProps, State> {
                                           ?.toolbarMinWidthOverflow != null
                                           ? !!this.props.featureFlags
                                               ?.toolbarMinWidthOverflow
-                                          : this.props
-                                              .UNSAFE_allowUndoRedoButtons
+                                          : this.props.allowUndoRedoButtons
                                       }
                                       useStickyToolbar={
                                         this.props.useStickyToolbar

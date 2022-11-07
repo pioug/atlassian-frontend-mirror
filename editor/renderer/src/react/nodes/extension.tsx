@@ -1,5 +1,5 @@
 import React from 'react';
-import { Node as PMNode } from 'prosemirror-model';
+import { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
 import { RendererContext } from '../types';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
@@ -21,6 +21,7 @@ export interface Props {
   parameters?: any;
   layout?: ExtensionLayout;
   localId?: string;
+  marks?: PMMark[];
 }
 
 type AllOrNone<T> = T | { [K in keyof T]?: never };

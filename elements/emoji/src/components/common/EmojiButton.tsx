@@ -1,12 +1,10 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import React, { forwardRef } from 'react';
-import { MouseEvent } from 'react';
-
-import Emoji from './Emoji';
+import React, { MouseEvent, forwardRef } from 'react';
+import { jsx } from '@emotion/react';
 import { EmojiDescription } from '../../types';
 import { leftClick } from '../../util/mouse';
 import { emojiButton, hiddenToneButton } from './styles';
+import Emoji from './Emoji';
 
 export interface Props {
   emoji: EmojiDescription;

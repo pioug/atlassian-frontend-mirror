@@ -9,7 +9,7 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import Toolbar, { areSameItems, isSameItem, Item } from '../../ui/Toolbar';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';

@@ -54,4 +54,33 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('should prevent programmatic scroll when open', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'drawer',
+      'scroll',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+
+    await page.setViewport({ width: 800, height: 600 });
+    await page.evaluate(() => window.scrollBy(0, 50));
+
+    await page.click('[data-testid="open-drawer"]');
+    await page.waitForSelector('[data-testid="content-inner"]');
+
+    // should not scroll the page further, but the drawer will scroll
+    await page.evaluate(() => window.scrollBy(0, 300));
+    await page.evaluate(() =>
+      document
+        .querySelector('[data-testid="content-inner"]')
+        ?.parentElement?.scrollBy(0, 700),
+    );
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

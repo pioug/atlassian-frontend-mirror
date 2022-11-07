@@ -23,7 +23,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorState, PluginKey } from 'prosemirror-state';
 import basePlugin from '../../';
 import emojiPlugin from '../../../emoji';
-import tablesPlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });

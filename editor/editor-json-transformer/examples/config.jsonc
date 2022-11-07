@@ -5,7 +5,7 @@
  */
 {
   "exampleDependencies": [
-    "prosemirror-view",
-    "styled-components"
+    "@emotion/react",
+    "prosemirror-view"
   ]
 }

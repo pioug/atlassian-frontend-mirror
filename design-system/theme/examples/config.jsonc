@@ -9,6 +9,7 @@
     "with-emotion-theme-provider.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/button"
+    "@atlaskit/button",
+    "styled-components"
   ]
 }

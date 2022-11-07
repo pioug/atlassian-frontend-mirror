@@ -19,7 +19,7 @@ import panelPlugin from '../../../plugins/panel';
 import placeholderPlugin from '../../../plugins/placeholder';
 import rulePlugin from '../../../plugins/rule';
 import statusPlugin from '../../../plugins/status';
-import tablesPlugin from '../../../plugins/table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import tasksAndDecisionsPlugin from '../../../plugins/tasks-and-decisions';
 import textColorPlugin from '../../../plugins/text-color';
 import maxContentSizePlugin from '../../../plugins/max-content-size';

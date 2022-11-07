@@ -27,7 +27,8 @@ import { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
 import { createCardContext } from '../_helpers';
 import { EmbedCardAttributes } from '@atlaskit/adf-schema';
 import { SmartCardProps } from '../../../../../plugins/card/nodeviews/genericCard';
-import { setDragging } from '../../../../../plugins/table/pm-plugins/table-resizing/commands';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { setDragging } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing/commands';
 
 describe('EmbedCard', () => {
   const createEditor = createEditorFactory();

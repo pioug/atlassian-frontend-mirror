@@ -916,8 +916,19 @@ export default class WebBridgeImpl
     if (!this.onEditorConfigChanged) {
       return;
     }
+
     const updatedConfig = this.editorConfiguration.cloneAndUpdateConfig(config);
     this.onEditorConfigChanged(updatedConfig);
+
+    /**
+     * Reloads the Editor/ProseMirror states to work with new props passed in.
+     * This ensures that schemas and plugins are initialised correctly.
+     *
+     * Note: side effect is cursor position changes to start of document.
+     */
+    this.editorActions.getValue().then((value) => {
+      this.editorActions.replaceDocument(value);
+    });
   }
 
   registerEditor(editorActions: EditorActions) {

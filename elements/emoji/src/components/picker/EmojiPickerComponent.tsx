@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import {
   SyntheticEvent,
   useCallback,
@@ -10,6 +9,7 @@ import {
   createRef,
   memo,
 } from 'react';
+import { jsx } from '@emotion/react';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
 import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 import { getEmojiVariation } from '../../api/EmojiRepository';
@@ -444,7 +444,7 @@ const EmojiPickerComponent = ({
         ufoExperiences['emoji-searched'].start();
         ufoExperiences['emoji-searched'].addMetadata({
           queryLength: query.length,
-          source: 'picker',
+          source: 'EmojiPickerComponent',
         });
       }
       if (searchQuery !== query) {

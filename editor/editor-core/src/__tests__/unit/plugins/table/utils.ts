@@ -9,6 +9,7 @@ import {
   tdEmpty,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   getRowHeights,
   isColumnDeleteButtonVisible,
@@ -18,10 +19,11 @@ import {
   getRowsParams,
   getColumnClassNames,
   getRowClassNames,
-} from '../../../../plugins/table/utils';
-import { getColumnsWidths } from '../../../../plugins/table/utils/column-controls';
-import { TablePluginState } from '../../../../plugins/table/types';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+} from '@atlaskit/editor-plugin-table/src/plugins/table/utils';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { getColumnsWidths } from '@atlaskit/editor-plugin-table/src/plugins/table/utils/column-controls';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 describe('table plugin: utils', () => {
   const createEditor = createEditorFactory<TablePluginState>();

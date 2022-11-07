@@ -121,6 +121,10 @@ export interface FieldComponentProps<
    */
   label?: ReactNode;
   /**
+   * Element displayed after the label, and after the red asterisk if field is required.
+   */
+  elementAfterLabel?: ReactNode;
+  /**
    * Specifies the name of the field. This is important for referencing the form data.
    */
   name: string;
@@ -425,6 +429,7 @@ export default function Field<
               *
             </span>
           )}
+          {props.elementAfterLabel}
         </Label>
       )}
       <FieldId.Provider value={fieldId}>

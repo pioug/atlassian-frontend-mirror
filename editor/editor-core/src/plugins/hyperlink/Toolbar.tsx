@@ -18,7 +18,7 @@ import {
 } from './commands';
 import HyperlinkAddToolbar from './ui/HyperlinkAddToolbar';
 import { EditorView } from 'prosemirror-view';
-import { Mark, NodeType } from 'prosemirror-model';
+import { Mark } from 'prosemirror-model';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
@@ -45,7 +45,6 @@ import {
   buildOpenedSettingsPayload,
   LinkType,
 } from '../../utils/linking-utils';
-import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
 import { HyperlinkPluginOptions } from './types';
 import { IntlShape } from 'react-intl-next';
 import { getFeatureFlags } from '../feature-flags-context';
@@ -102,19 +101,6 @@ function getLinkText(
   }
   return activeLinkMark.node.text;
 }
-
-const getCopyButtonGroup = (
-  state: EditorState<any>,
-  intl: IntlShape,
-  nodeType: any[] | NodeType<any>,
-) => {
-  return state && showCopyButton(state)
-    ? [
-        { type: 'separator' } as FloatingToolbarItem<Command>,
-        getCopyButtonConfig(state, intl.formatMessage, nodeType),
-      ]
-    : [];
-};
 
 const getSettingsButtonGroup = (
   state: EditorState<any>,
@@ -246,9 +232,20 @@ export const getToolbarConfig = (
               icon: UnlinkIcon,
               tabIndex: null,
             },
-            ...getCopyButtonGroup(state, intl, hyperLinkToolbar.nodeType),
+            {
+              type: 'copy-button',
+              items: [
+                { type: 'separator' },
+                {
+                  state,
+                  formatMessage: formatMessage,
+                  markType: state.schema.marks.link,
+                },
+              ],
+            },
             ...getSettingsButtonGroup(state, intl),
           ],
+          scrollable: true,
         };
       }
 
@@ -274,6 +271,7 @@ export const getToolbarConfig = (
             {
               type: 'custom',
               fallback: [],
+              disableArrowNavigation: true,
               render: (
                 view?: EditorView,
                 idx?: number,

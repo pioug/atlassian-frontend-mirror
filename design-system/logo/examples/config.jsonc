@@ -9,9 +9,7 @@
     "4-color.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/button",
     "@atlaskit/code",
-    "@atlaskit/field-radio-group",
     "@atlaskit/select"
   ]
 }

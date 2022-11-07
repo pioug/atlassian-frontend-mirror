@@ -26,22 +26,27 @@ import {
 interface PanelStyledProps {
   'data-panel-type': PanelType;
   backgroundColor?: string;
+  hasIcon?: boolean;
 }
 
 const PanelStyled: React.FC<
   PanelStyledProps & React.HTMLAttributes<HTMLDivElement>
-> = (props) => {
+> = ({ backgroundColor, hasIcon, ...props }) => {
   let styles = (theme: ThemeProps['theme']) => css`
     &.${PanelSharedCssClassName.prefix} {
       ${panelSharedStylesWithoutPrefix({ theme })}
+
+      &[data-panel-type=${PanelType.CUSTOM}] {
+        ${hasIcon ? '' : 'padding: 12px;'}
+      }
     }
   `;
 
-  if (props['data-panel-type'] === PanelType.CUSTOM && props.backgroundColor) {
+  if (props['data-panel-type'] === PanelType.CUSTOM && backgroundColor) {
     styles = (theme: ThemeProps['theme']) => {
       const customStyle = themed({
         dark: getPanelBackgroundDarkModeColors,
-        light: `background-color: ${props.backgroundColor};`,
+        light: `background-color: ${backgroundColor};`,
       })({ theme });
 
       return css`
@@ -51,6 +56,7 @@ const PanelStyled: React.FC<
 
         &[data-panel-type=${PanelType.CUSTOM}] {
           ${customStyle};
+          ${hasIcon ? '' : 'padding: 12px;'}
         }
       `;
     };
@@ -127,9 +133,9 @@ const Panel = (props: Props) => {
     return <Icon label={`Panel ${panelType}`} />;
   };
 
-  const renderIcon = () => {
-    const icon = getIcon();
+  const icon = getIcon();
 
+  const renderIcon = () => {
     if (icon) {
       return <div className={PanelSharedCssClassName.icon}>{icon}</div>;
     }
@@ -144,6 +150,7 @@ const Panel = (props: Props) => {
       data-panel-icon-id={panelIconId}
       data-panel-icon-text={panelIconText}
       backgroundColor={panelColor}
+      hasIcon={Boolean(icon)}
     >
       {renderIcon()}
       <div className={PanelSharedCssClassName.content}>{children}</div>

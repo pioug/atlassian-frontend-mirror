@@ -22,7 +22,7 @@ import {
 
 import rulePlugin from '../../../rule';
 import layoutPlugin from '../../../layout';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import selectionPlugin from '../../index';
 import { selectionPluginKey, SelectionPluginState } from '../../types';
 import {
@@ -38,7 +38,7 @@ describe('selection analytics', () => {
     .add(selectionPlugin)
     .add(rulePlugin)
     .add(layoutPlugin)
-    .add(tablePlugin);
+    .add(tablesPlugin);
 
   const editor = (doc: DocBuilder) =>
     createEditor<SelectionPluginState, PluginKey>({

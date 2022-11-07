@@ -6,5 +6,10 @@
 {
   "testExamples": [
     "00-basic.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/popup",
+    "@atlaskit/toggle",
+    "@atlassian/recent-work-client"
   ]
 }

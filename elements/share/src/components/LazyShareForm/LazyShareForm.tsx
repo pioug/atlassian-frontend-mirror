@@ -1,4 +1,7 @@
+/** @jsx jsx */
 import React from 'react';
+
+import { jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';

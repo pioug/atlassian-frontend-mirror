@@ -10,13 +10,16 @@ import {
 // Regular expression for a windows filepath in the format <DRIVE LETTER>:\<folder name>\
 export const FILEPATH_REGEXP = /([a-zA-Z]:|\\)([^\/:*?<>"|]+\\)?([^\/:*?<>"| ]+(?=\s?))?/gim;
 
+// Don't linkify if starts with $ or {
+export const DONTLINKIFY_REGEXP = /^(\$|{)/;
+
 /**
  * Instance of class LinkMatcher are used in autoformatting in place of Regex.
  * Hence it has been made similar to regex with an exec method.
  * Extending it directly from class Regex was introducing some issues, thus that has been avoided.
  */
 export class LinkMatcher {
-  static create(useUnpredictableInputRule: boolean): RegExp {
+  static create(): RegExp {
     class LinkMatcherRegex {
       exec(str: string): Match | null {
         const stringsBySpace = str.slice(0, str.length - 1).split(' ');
@@ -24,6 +27,10 @@ export class LinkMatcher {
         const isLastStringValid = lastStringBeforeSpace.length > 0;
 
         if (!str.endsWith(' ') || !isLastStringValid) {
+          return null;
+        }
+
+        if (DONTLINKIFY_REGEXP.test(lastStringBeforeSpace)) {
           return null;
         }
 
@@ -38,14 +45,6 @@ export class LinkMatcher {
         lastLink.length = lastLink.lastIndex - lastLink.index + 1;
         lastLink.index =
           str.lastIndexOf(lastStringBeforeSpace) + lastMatch.index;
-
-        if (useUnpredictableInputRule) {
-          // ugly hack to make this works with unpredictable input rules
-          // prosemirror does this to find the positions:
-          // `(match[0].length - text.length)`
-          // @ts-ignore
-          lastLink[0] = lastLink;
-        }
 
         return lastLink;
       }

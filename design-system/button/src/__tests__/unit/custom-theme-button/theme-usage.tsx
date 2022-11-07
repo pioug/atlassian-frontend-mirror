@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/core';
+import { CSSObject, jsx } from '@emotion/react';
 import { render } from '@testing-library/react';
 
 import { CustomThemeButton, CustomThemeButtonProps } from '../../../index';

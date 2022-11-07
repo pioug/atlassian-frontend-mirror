@@ -15,7 +15,8 @@ export default function Example() {
         {
           'Alternatively you can render <Editor /> wrapped with the <IntlProvider />. '
         }
-        {code`import { IntlProvider } from 'react-intl-next';
+      </p>
+      {code`import { IntlProvider } from 'react-intl-next';
 // ...
 
 return (
@@ -23,7 +24,7 @@ return (
     <Editor />
   </IntlProvider>
 );`}
-      </p>
+
       <br />
       <Editor />
     </div>

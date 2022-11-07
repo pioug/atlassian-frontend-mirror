@@ -7,7 +7,7 @@ import {
   hasParentNodeOfType,
   findPositionOfNodeBefore,
 } from 'prosemirror-utils';
-import { hasVisibleContent, isNodeEmpty } from '../../../utils/document';
+import { hasVisibleContent } from '../../../utils/document';
 import {
   findCutBefore,
   isEmptySelectionAtStart,
@@ -15,7 +15,11 @@ import {
   filter,
 } from '../../../utils/commands';
 import { sanitiseMarksInSelection } from '../../../utils';
-import { liftFollowingList, liftSelectionList } from '../transforms';
+import {
+  liftFollowingList,
+  liftTextSelectionList,
+  liftNodeSelectionList,
+} from '../transforms';
 import { Command } from '../../../types';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 import {
@@ -49,13 +53,12 @@ export const enterKeyCommand: Command = (state, dispatch): boolean => {
   if (selection.empty) {
     const { $from } = selection;
     const { listItem, codeBlock } = state.schema.nodes;
-    const node = $from.node($from.depth);
     const wrapper = $from.node($from.depth - 1);
 
     if (wrapper && wrapper.type === listItem) {
       /** Check if the wrapper has any visible content */
       const wrapperHasContent = hasVisibleContent(wrapper);
-      if (isNodeEmpty(node) && !wrapperHasContent) {
+      if (!wrapperHasContent) {
         return outdentList(INPUT_METHOD.KEYBOARD)(state, dispatch);
       } else if (!hasParentNodeOfType(codeBlock)(selection)) {
         return splitListItem(listItem)(state, dispatch);
@@ -127,7 +130,14 @@ function untoggleSelectedList(tr: Transaction) {
     depth || 0,
     tr,
   );
-  tr = liftSelectionList(selection, tr);
+  if (
+    selection instanceof NodeSelection ||
+    selection instanceof GapCursorSelection
+  ) {
+    return liftNodeSelectionList(selection, tr);
+  }
+
+  return liftTextSelectionList(selection, tr);
 }
 
 export function toggleList(
@@ -146,8 +156,19 @@ export function toggleList(
 
     if (listInsideSelection) {
       const { selection } = state;
-      const fromNode = selection.$from.node(selection.$from.depth - 2);
-      const toNode = selection.$to.node(selection.$to.depth - 2);
+
+      // for gap cursor or node selection - list is expected 1 level up (listItem -> list)
+      // for text selection - list is expected 2 levels up (paragraph -> listItem -> list)
+      const positionDiff =
+        selection instanceof GapCursorSelection ||
+        selection instanceof NodeSelection
+          ? 1
+          : 2;
+      const fromNode = selection.$from.node(
+        selection.$from.depth - positionDiff,
+      );
+      const toNode = selection.$to.node(selection.$to.depth - positionDiff);
+
       const transformedFrom =
         listInsideSelection.type.name === 'bulletList'
           ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET

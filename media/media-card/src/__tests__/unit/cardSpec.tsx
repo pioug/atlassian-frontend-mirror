@@ -1472,6 +1472,9 @@ describe('Card', () => {
           },
           { client: { status: 'unknown' }, server: { status: 'unknown' } },
           error,
+          {
+            traceId: expect.any(String),
+          },
         );
 
         component.setState({ status: 'another-status' as CardStatus });
@@ -1491,6 +1494,9 @@ describe('Card', () => {
           },
           { client: { status: 'unknown' }, server: { status: 'unknown' } },
           error,
+          {
+            traceId: expect.any(String),
+          },
         );
       });
     });
@@ -1560,6 +1566,9 @@ describe('Card', () => {
           createAnalyticsEvent,
           expect.objectContaining({ fileId: fileIdentifier.id }),
           { overall: { durationSincePageStart: 1000 } },
+          {
+            traceId: expect.any(String),
+          },
         );
         expect(startUfoExperience).toBeCalledTimes(1);
         expect(startUfoExperience).toBeCalledWith('some-id');
@@ -1584,6 +1593,9 @@ describe('Card', () => {
           createAnalyticsEvent,
           expect.objectContaining({ fileId: 'external-image' }),
           { overall: { durationSincePageStart: 1000 } },
+          {
+            traceId: expect.any(String),
+          },
         );
         expect(startUfoExperience).toBeCalledTimes(1);
         expect(startUfoExperience).toBeCalledWith('some-id');

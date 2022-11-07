@@ -159,34 +159,22 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
         return <WrapperComponent {...this.props} />;
       }
 
-      let className = RendererCssClassName.SORTABLE_COLUMN;
-
-      if (!onSorting) {
-        className = `${className} ${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED}`;
-      }
-
       return (
         <WrapperComponent
           {...this.props}
-          className={className}
+          className={RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
           ariaSort={getSortOrderLabel(intl, sortOrdered)}
         >
-          <div
-            className={RendererCssClassName.SORTABLE_COLUMN_BUTTON}
-            role="button"
-            tabIndex={onSorting ? 0 : -1}
-            onClick={this.onClick}
-            onKeyDown={this.onKeyPress}
-            aria-disabled={!onSorting}
-          >
+          <div className={RendererCssClassName.SORTABLE_COLUMN}>
             {children}
             <figure
-              aria-hidden
-              className={`${RendererCssClassName.SORTABLE_COLUMN_ICON} ${sortOrderedClassName}`}
+              className={`${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} ${sortOrderedClassName}`}
             >
               <SortingIcon
                 isSortingAllowed={!!onSorting}
                 sortOrdered={sortOrdered}
+                onClick={this.sort}
+                onKeyDown={this.onKeyPress}
               />
             </figure>
           </div>
@@ -200,18 +188,11 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
       // trigger sorting if space or enter are clicked but not when in an input field (template variables)
       if (keys.includes(event.key) && !IgnoreSorting.includes(tagName)) {
         event.preventDefault();
-        this.onClick(event);
+        this.sort();
       }
     };
 
-    onClick = (
-      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-    ) => {
-      // ignore sorting when specific elements are clicked
-      const { tagName } = event.target as HTMLElement;
-      if (IgnoreSorting.includes(tagName)) {
-        return;
-      }
+    sort = () => {
       const {
         fireAnalyticsEvent,
         onSorting,

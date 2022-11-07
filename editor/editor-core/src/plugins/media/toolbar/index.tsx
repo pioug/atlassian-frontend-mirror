@@ -42,7 +42,6 @@ import {
   MediaInlineNodeSelector,
   MediaSingleNodeSelector,
 } from '../nodeviews/styles';
-import { getCopyButtonConfig, showCopyButton } from '../../copy-button/toolbar';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -119,12 +118,17 @@ const generateMediaCardFloatingToolbar = (
       title: intl.formatMessage(messages.download),
     },
     { type: 'separator' },
-    ...(state && showCopyButton(state)
-      ? [
-          getCopyButtonConfig(state, intl.formatMessage, mediaGroup),
-          { type: 'separator' } as FloatingToolbarItem<Command>,
-        ]
-      : []),
+    {
+      type: 'copy-button',
+      items: [
+        {
+          state,
+          formatMessage: intl.formatMessage,
+          nodeType: mediaGroup,
+        },
+        { type: 'separator' },
+      ],
+    },
     {
       id: 'editor.media.delete',
       type: 'button',
@@ -203,12 +207,17 @@ const generateMediaInlineFloatingToolbar = (
       title: intl.formatMessage(messages.download),
     },
     { type: 'separator' },
-    ...(state && showCopyButton(state)
-      ? [
-          getCopyButtonConfig(state, intl.formatMessage, mediaInline),
-          { type: 'separator' } as FloatingToolbarItem<Command>,
-        ]
-      : []),
+    {
+      type: 'copy-button',
+      items: [
+        {
+          state,
+          formatMessage: intl.formatMessage,
+          nodeType: mediaInline,
+        },
+        { type: 'separator' },
+      ],
+    },
     {
       id: 'editor.media.delete',
       type: 'button',
@@ -321,12 +330,17 @@ const generateMediaSingleFloatingToolbar = (
   };
   const items: Array<FloatingToolbarItem<Command>> = [
     ...toolbarButtons,
-    ...(state && showCopyButton(state)
-      ? [
-          getCopyButtonConfig(state, intl.formatMessage, mediaSingle),
-          { type: 'separator' } as FloatingToolbarItem<Command>,
-        ]
-      : []),
+    {
+      type: 'copy-button',
+      items: [
+        {
+          state,
+          formatMessage: intl.formatMessage,
+          nodeType: mediaSingle,
+        },
+        { type: 'separator' },
+      ],
+    },
     removeButton,
   ];
 
@@ -436,5 +450,6 @@ export const floatingToolbar = (
   return {
     ...baseToolbar,
     items,
+    scrollable: true,
   };
 };

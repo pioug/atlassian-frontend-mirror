@@ -86,9 +86,16 @@ export const getCardPreviewFromBackend = async (
   mediaClient: MediaClient,
   id: string,
   params: MediaStoreGetFileImageParams,
+  traceId?: string,
 ): Promise<CardPreview> => {
   try {
-    const blob = await mediaClient.getImage(id, params);
+    const blob = await mediaClient.getImage(
+      id,
+      params,
+      undefined,
+      undefined,
+      traceId,
+    );
     return {
       dataURI: URL.createObjectURL(blob),
       orientation: 1,

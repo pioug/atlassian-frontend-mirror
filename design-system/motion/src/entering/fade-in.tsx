@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ObjectInterpolation } from '@emotion/core';
+import { CSSObject } from '@emotion/react';
 
 import { easeInOut } from '../utils/curves';
 import { largeDurationMs } from '../utils/durations';
@@ -33,7 +33,7 @@ const invertedDirection = {
 export const fadeInAnimation = (
   direction?: Direction,
   distance: Distance = 'proportional',
-): ObjectInterpolation<undefined> => {
+): CSSObject => {
   return {
     from: {
       opacity: 0,
@@ -53,7 +53,7 @@ export const fadeInAnimation = (
 export const fadeOutAnimation = (
   direction?: Direction,
   distance: Distance = 'proportional',
-): ObjectInterpolation<undefined> => ({
+): CSSObject => ({
   from: {
     opacity: 1,
     transform: direction !== undefined ? 'translate3d(0, 0, 0)' : undefined,

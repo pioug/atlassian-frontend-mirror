@@ -5,6 +5,7 @@
  */
 {
   "exampleDependencies": [
+    "@atlaskit/flag",
     "@atlaskit/inline-edit",
     "@atlaskit/select"
   ]

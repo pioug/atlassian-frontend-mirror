@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
+import { jsx } from '@emotion/react';
 import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
 import { customCategory, userCustomTitle } from '../../util/constants';
 import {
@@ -35,6 +34,11 @@ import EmojiActions from '../common/EmojiActions';
 import { OnUploadEmoji } from '../common/EmojiUploadPicker';
 import { OnDeleteEmoji } from '../common/EmojiDeletePreview';
 import { emojiPickerList, virtualList } from './styles';
+
+/**
+ * Test id for wrapper Emoji Picker List div
+ */
+export const RENDER_EMOJI_PICKER_LIST_TESTID = 'render-emoji-picker-list';
 
 const categoryClassname = 'emoji-category';
 
@@ -377,7 +381,11 @@ export default class EmojiPickerVirtualList extends PureComponent<
     } = this.props;
 
     return (
-      <div ref="root" css={emojiPickerList}>
+      <div
+        ref="root"
+        css={emojiPickerList}
+        data-testid={RENDER_EMOJI_PICKER_LIST_TESTID}
+      >
         <EmojiActions
           selectedTone={selectedTone}
           onToneSelected={onToneSelected}

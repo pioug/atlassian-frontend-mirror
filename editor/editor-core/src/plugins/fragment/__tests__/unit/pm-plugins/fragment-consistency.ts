@@ -11,7 +11,8 @@ import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-eve
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { replaceRaf } from 'raf-stub';
 
-import { handleCut } from '../../../../table/event-handlers';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { handleCut } from '@atlaskit/editor-plugin-table/src/plugins/table/event-handlers';
 
 import fragmentMarkPlugin from '../../../index';
 import { pluginKey as fragmentMarkPluginKey } from '../../../plugin-key';
@@ -33,7 +34,7 @@ import { CellSelection } from '@atlaskit/editor-tables';
 
 import { uuid } from '@atlaskit/adf-schema';
 
-import tablePlugin from '../../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import extensionPlugin from '../../../../extension';
 import layoutPlugin from '../../../../layout';
 import expandPlugin from '../../../../expand';
@@ -57,7 +58,7 @@ describe('fragment mark consistency plugin', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>();
     preset.add(fragmentMarkPlugin);
-    preset.add([tablePlugin, { tableOptions: {} }]);
+    preset.add([tablesPlugin, { tableOptions: {} }]);
     preset.add(extensionPlugin);
     preset.add(layoutPlugin);
     preset.add(expandPlugin);

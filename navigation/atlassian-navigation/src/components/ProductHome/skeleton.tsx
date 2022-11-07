@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { gridSize, PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';

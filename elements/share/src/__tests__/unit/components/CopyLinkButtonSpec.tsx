@@ -153,7 +153,7 @@ describe('CopyLinkButton', () => {
       const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
         <CopyLinkButton {...props} />,
       );
-      wrapper.find(Button).simulate('click');
+      wrapper.find('button').simulate('click');
       expect(wrapper.instance().autoDismiss).not.toBeUndefined();
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().autoDismiss).toBeUndefined();
@@ -165,7 +165,7 @@ describe('CopyLinkButton', () => {
       const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
         <CopyLinkButton {...props} />,
       );
-      wrapper.find(Button).simulate('click');
+      wrapper.find('button').simulate('click');
       expect(wrapper.find(CheckCircleIcon)).toHaveLength(1);
       expect(wrapper.find('div[data-testid="message-container"]')).toHaveLength(
         1,
@@ -200,7 +200,7 @@ describe('CopyLinkButton', () => {
         wrapper.instance().inputRef.current,
         'select',
       );
-      wrapper.find(Button).simulate('click');
+      wrapper.find('button').simulate('click');
       expect(spiedInputSelect).toHaveBeenCalledTimes(1);
       expect(spiedExecCommand).toHaveBeenCalledTimes(1);
       expect(spiedOnLinkCopy).toHaveBeenCalledTimes(1);

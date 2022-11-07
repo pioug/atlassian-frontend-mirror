@@ -9,6 +9,7 @@
   ],
   "exampleDependencies": [
     "@atlaskit/media-card",
-    "@atlaskit/modal-dialog"
+    "@atlaskit/modal-dialog",
+    "exenv"
   ]
 }

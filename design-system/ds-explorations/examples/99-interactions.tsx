@@ -35,10 +35,10 @@ const fieldsetStyles = css({
 
 export default () => {
   return (
-    <Box width="sp-800" padding="sp-100" testId="all">
-      <Stack gap="sp-200">
+    <Box width="scale.600" padding="scale.100" testId="all">
+      <Stack gap="scale.200">
         <Heading level="h400">Current ADS Buttons</Heading>
-        <Inline gap="sp-200">
+        <Inline gap="scale.200">
           <Button appearance="primary">brand.bold</Button>
           <Button appearance="default">neutral</Button>
           <Button appearance="warning">warning.bold</Button>
@@ -46,7 +46,7 @@ export default () => {
         <Heading level="h400">
           Buttons with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline gap="sp-200" testId="buttons">
+        <Inline gap="scale.200" testId="buttons">
           {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
             <FocusRing key={app}>
               <Box
@@ -54,8 +54,8 @@ export default () => {
                 onClick={() => console.log('hello')}
                 borderRadius="normal"
                 position="relative"
-                paddingInline="sp-150"
-                backgroundColor={[app, '']}
+                paddingInline="scale.150"
+                backgroundColor={app}
               >
                 <InteractionSurface>
                   <Text
@@ -74,15 +74,15 @@ export default () => {
         <Heading level="h400">
           Icon Buttons with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline gap="sp-200" testId="icon-buttons">
+        <Inline gap="scale.200" testId="icon-buttons">
           <FocusRing>
             <Box
               as="button"
-              backgroundColor={['brand.bold', 'pink']}
+              backgroundColor="brand.bold"
               onClick={() => console.log('hello')}
               borderRadius="normal"
               position="relative"
-              padding="sp-50"
+              padding="scale.050"
             >
               <InteractionSurface>
                 <WarningIcon
@@ -96,11 +96,11 @@ export default () => {
           <FocusRing>
             <Box
               as="button"
-              backgroundColor={['neutral', 'pink']}
+              backgroundColor="neutral"
               onClick={() => console.log('hello')}
               borderRadius="normal"
               position="relative"
-              padding="sp-50"
+              padding="scale.050"
             >
               <InteractionSurface>
                 <WarningIcon label="icon button" />
@@ -110,11 +110,11 @@ export default () => {
           <FocusRing>
             <Box
               as="button"
-              backgroundColor={['warning.bold', 'pink']}
+              backgroundColor="warning.bold"
               onClick={() => console.log('hello')}
               borderRadius="normal"
               position="relative"
-              padding="sp-50"
+              padding="scale.050"
             >
               <InteractionSurface>
                 <WarningIcon
@@ -129,17 +129,17 @@ export default () => {
         <Heading level="h400">
           Progress Indicator with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline gap="sp-200" testId="progress-indicators">
+        <Inline gap="scale.200" testId="progress-indicators">
           {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
             <FocusRing>
               <Box
                 key={app}
                 as="button"
-                backgroundColor={[app, 'pink']}
+                backgroundColor={app}
                 onClick={() => console.log('hello')}
                 borderRadius="rounded"
                 position="relative"
-                padding="sp-50"
+                padding="scale.050"
               >
                 <InteractionSurface>
                   <Fragment />
@@ -149,17 +149,17 @@ export default () => {
           ))}
         </Inline>
         <Heading level="h400">Textfield / input spikes</Heading>
-        <Inline gap="sp-200">
+        <Inline gap="scale.200">
           <Textfield />
           <Box
             as="fieldset"
             borderRadius="normal"
             borderStyle="solid"
             borderWidth="2px"
-            padding="sp-100"
+            padding="scale.100"
             tabIndex={-1}
-            borderColor={['color.border', '#ddd']}
-            backgroundColor={['input', '#eee']}
+            borderColor="color.border"
+            backgroundColor="input"
             css={fieldsetStyles}
           >
             <input

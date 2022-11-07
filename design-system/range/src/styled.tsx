@@ -4,6 +4,8 @@ import { CSSProperties, forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import * as theme from './theme';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -13,6 +15,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 
 const VAR_THUMB_BORDER_COLOR = '--thumb-border';
 const VAR_THUMB_SHADOW = '--thumb-shadow';
+const VAR_THUMB_BACKGROUND_COLOR = '--thumb-bg';
 const VAR_TRACK_BACKGROUND_COLOR = '--track-bg';
 const VAR_TRACK_FOREGROUND_COLOR = '--track-fg';
 const VAR_TRACK_FOREGROUND_WIDTH = '--track-fg-width';
@@ -21,12 +24,15 @@ const sliderThumbStyles = {
   boxSizing: 'border-box',
   width: theme.thumb.size,
   height: theme.thumb.size,
-  background: theme.thumb.background,
-  border: `${theme.thumb.borderWidth}px solid var(${VAR_THUMB_BORDER_COLOR})`,
+  border: 'none',
+  background: `var(${VAR_THUMB_BACKGROUND_COLOR}, ${theme.thumb.background.default})`,
+  // adapted from @atlaskit/focus-ring
+  outline: `solid 2px var(${VAR_THUMB_BORDER_COLOR})`,
+  outlineOffset: '2px',
   borderRadius: '50%',
   boxShadow: `var(${VAR_THUMB_SHADOW})`,
-  cursor: 'pointer', // Different implicit behavior across browsers -> making it explicit
-  transition: `border-color ${theme.transitionDuration} ease-in-out`,
+  cursor: 'pointer', // Different implicit behavior across browsers -> making it explicit.
+  transition: `background-color ${theme.transitionDuration} ease-in-out`,
 } as const;
 
 const sliderTrackStyles = {
@@ -104,25 +110,24 @@ const baseStyles = css({
   },
   ':disabled': {
     cursor: 'not-allowed',
+    opacity: token('opacity.disabled', '0.4'),
   },
 });
 
 const themeStyles = css({
-  [VAR_THUMB_BORDER_COLOR]: theme.thumb.borderColor.default,
   [VAR_THUMB_SHADOW]: theme.thumb.boxShadow.default,
   [VAR_TRACK_BACKGROUND_COLOR]: theme.track.background.default,
   [VAR_TRACK_FOREGROUND_COLOR]: theme.track.foreground.default,
-  ':active, :hover': {
+  ':hover:not(:disabled)': {
+    [VAR_THUMB_BACKGROUND_COLOR]: theme.thumb.background.hovered,
     [VAR_TRACK_BACKGROUND_COLOR]: theme.track.background.hovered,
     [VAR_TRACK_FOREGROUND_COLOR]: theme.track.foreground.hovered,
   },
-  ':focus': {
-    [VAR_THUMB_BORDER_COLOR]: theme.thumb.borderColor.focused,
+  ':active:not(:disabled)': {
+    [VAR_THUMB_BACKGROUND_COLOR]: theme.thumb.background.pressed,
   },
-  ':disabled': {
-    [VAR_THUMB_SHADOW]: theme.thumb.boxShadow.disabled,
-    [VAR_TRACK_BACKGROUND_COLOR]: theme.track.background.disabled,
-    [VAR_TRACK_FOREGROUND_COLOR]: theme.track.foreground.disabled,
+  ':focus-visible': {
+    [VAR_THUMB_BORDER_COLOR]: theme.thumb.borderColor.focused,
   },
 });
 

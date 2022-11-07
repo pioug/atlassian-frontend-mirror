@@ -1,11 +1,32 @@
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
 import { ReactWrapper } from 'enzyme';
-import React from 'react';
+import React, { ReactChildren } from 'react';
 import MentionItem from '../../../components/MentionItem';
 import { Props, State } from '../../../components/MentionList';
 import { MentionDescription, LozengeProps } from '../../../types';
 import Lozenge from '@atlaskit/lozenge';
+
+// Helper to make <React.Suspense> and React.lazy() work with Enzyme
+jest.mock('react', () => {
+  const React = jest.requireActual('react');
+  return {
+    ...React,
+    Suspense: ({ children }: { children: ReactChildren }) => children,
+    lazy: jest.fn().mockImplementation((fn) => {
+      const Component = (props: any) => {
+        const [C, setC] = React.useState();
+        React.useEffect(() => {
+          fn().then((v: any) => {
+            setC(v);
+          });
+        }, []);
+        return C ? <C.default {...props} /> : null;
+      };
+      return Component;
+    }),
+  };
+});
 
 const mentionWithNickname = {
   id: '0',
@@ -53,8 +74,7 @@ describe('MentionItem', () => {
     expect(component.html()).not.toContain('@');
   });
 
-  // https://product-fabric.atlassian.net/browse/UR-3967
-  it.skip('should display access restriction if accessLevel is NONE', async () => {
+  it('should display access restriction if accessLevel is NONE', async () => {
     const component = setupMentionItem({
       id: '1',
       name: 'Kaitlyn Prouty',

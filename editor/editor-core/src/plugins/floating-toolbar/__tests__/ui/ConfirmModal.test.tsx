@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
-import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { LightEditorPlugin } from '../../../../create-editor/get-plugins';
 import { Command } from '../../../../types/command';
 import { Preset } from '../../../../labs/next/presets/preset';

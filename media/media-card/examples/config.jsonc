@@ -12,9 +12,11 @@
   "exampleDependencies": [
     "@atlaskit/button",
     "@atlaskit/checkbox",
-    "@atlaskit/select",
+    "@atlaskit/media-picker",
     "@atlaskit/radio",
     "@atlaskit/range",
-    "@atlaskit/toggle"
+    "@atlaskit/select",
+    "@atlaskit/toggle",
+    "exenv"
   ]
 }

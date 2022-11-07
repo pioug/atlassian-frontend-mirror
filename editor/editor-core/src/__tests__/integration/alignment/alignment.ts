@@ -4,7 +4,7 @@ import {
   editable,
   quickInsert,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { TableCssClassName as ClassName } from '../../../plugins/table/types';
+import { TableCssClassName as ClassName } from '@atlaskit/editor-plugin-table/types';
 import {
   goToEditorTestingWDExample,
   mountEditor,

@@ -5,6 +5,10 @@
  */
 {
   "testExamples": [
+    "12-with-lots-of-pages-rankable.tsx",
+    "15-highlighted-row.tsx",
+    "20-highlighted-row-with-sorting.tsx",
+    "3-loading-state-many-rows.tsx",
     "6-empty-view-with-body.tsx",
     "99-testing.tsx"
   ],

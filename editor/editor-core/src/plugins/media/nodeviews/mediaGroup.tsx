@@ -151,10 +151,13 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
     });
   };
 
+  componentWillUnmount() {
+    this.mediaPluginState.handleMediaGroupUpdate(this.mediaNodes, []);
+  }
+
   UNSAFE_componentWillReceiveProps(props: MediaGroupProps) {
     this.updateMediaClientConfig();
     this.setMediaItems(props);
-
     if (props.isCopyPasteEnabled !== false) {
       this.updateNodeAttrs(props);
     }
@@ -185,6 +188,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 
   setMediaItems = (props: MediaGroupProps) => {
     const { node } = props;
+    const oldMediaNodes = this.mediaNodes;
     this.mediaNodes = [] as Array<PMNode>;
     node.forEach((item, childOffset) => {
       this.mediaPluginState.mediaGroupNodes[item.attrs.id] = {
@@ -193,6 +197,11 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
       };
       this.mediaNodes.push(item);
     });
+
+    this.mediaPluginState.handleMediaGroupUpdate(
+      oldMediaNodes,
+      this.mediaNodes,
+    );
   };
 
   getIdentifier = (item: PMNode): Identifier => {

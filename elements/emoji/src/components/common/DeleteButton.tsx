@@ -1,20 +1,25 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { FC } from 'react';
+import { jsx } from '@emotion/react';
 import Button, {
   CustomThemeButtonProps,
 } from '@atlaskit/button/custom-theme-button';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import { FC } from 'react';
 import { token } from '@atlaskit/tokens';
 import { N500 } from '@atlaskit/theme/colors';
 import { deleteEmojiLabel } from '../../util/constants';
 import { emojiDeleteButton, deleteButton } from './styles';
 
+/**
+ * Test id for wrapper Emoji delete button
+ */
+export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
+
 const DeleteButton: FC<CustomThemeButtonProps> = (props) => (
   <span
     css={deleteButton}
     className={emojiDeleteButton}
-    data-testid="emoji-delete-button"
+    data-testid={RENDER_EMOJI_DELETE_BUTTON_TESTID}
   >
     <Button
       iconBefore={

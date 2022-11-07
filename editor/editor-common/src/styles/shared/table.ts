@@ -140,11 +140,13 @@ const tableSharedStyle = (props: ThemeProps) => css`
           margin-top: 0;
         }
 
-        > .ProseMirror-gapcursor.-right:first-of-type + * {
+        > .ProseMirror-gapcursor:first-child + *,
+        > style:first-child + .ProseMirror-gapcursor + * {
           margin-top: 0;
         }
 
-        > .ProseMirror-gapcursor:first-of-type + span + * {
+        > .ProseMirror-gapcursor:first-child + span + *,
+        > style:first-child + .ProseMirror-gapcursor + span + * {
           margin-top: 0;
         }
 

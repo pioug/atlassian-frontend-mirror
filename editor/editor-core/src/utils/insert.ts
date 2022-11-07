@@ -133,15 +133,15 @@ export const safeInsert = (content: InsertableContent, position?: number) => (
     }
   }
 
-  const grandParentType = tr.selection.$from.node(-1)?.type;
-  const parentType = tr.selection.$from.parent.type;
+  const grandParentNodeType = tr.selection.$from.node(-1)?.type;
+  const parentNodeType = tr.selection.$from.parent.type;
   if (
     !lookDirection &&
-    !shouldSplitSelectedNodeOnNodeInsertion(
-      parentType,
-      grandParentType,
+    !shouldSplitSelectedNodeOnNodeInsertion({
+      parentNodeType,
+      grandParentNodeType,
       content,
-    )
+    })
   ) {
     // node to be inserted is an invalid child of selection so insert below selected node
     return pmSafeInsert(content, tr.selection.from)(tr);
@@ -293,17 +293,24 @@ export const insertSelectedItem = (
   return tr;
 };
 
-// ED-14584: Util to check if the current node is a paragraph & the content being
-// inserted is a valid child of the grandparent node
-// In this case, the node being inserted to should split
-export const shouldSplitSelectedNodeOnNodeInsertion = (
-  parentNodeType: NodeType<any>,
-  grandParentNodeType: NodeType<any>,
-  content: Node,
-) => {
+/**
+ * ED-14584: Util to check if the destination node is a paragraph & the
+ * content being inserted is a valid child of the grandparent node.
+ * In this case, the destination node should split
+ */
+export const shouldSplitSelectedNodeOnNodeInsertion = ({
+  parentNodeType,
+  grandParentNodeType,
+  content,
+}: {
+  parentNodeType: NodeType<any>;
+  grandParentNodeType: NodeType<any>;
+  content: Node;
+}) => {
   if (
-    parentNodeType.name === 'paragraph' &&
-    grandParentNodeType.validContent(Fragment.from(content as Node))
+    parentNodeType.name === 'doc' ||
+    (parentNodeType.name === 'paragraph' &&
+      grandParentNodeType.validContent(Fragment.from(content as Node)))
   ) {
     return true;
   }

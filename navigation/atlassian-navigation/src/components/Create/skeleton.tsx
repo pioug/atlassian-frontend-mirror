@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { CREATE_BREAKPOINT, gridSize } from '../../common/constants';
 import { useTheme } from '../../theme';

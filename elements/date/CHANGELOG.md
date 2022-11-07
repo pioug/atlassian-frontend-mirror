@@ -1,5 +1,11 @@
 # @atlaskit/date
 
+## 0.9.7
+
+### Patch Changes
+
+- [`0915ecdd1db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0915ecdd1db) - Removed styled components from dev and peer dependencies
+
 ## 0.9.6
 
 ### Patch Changes

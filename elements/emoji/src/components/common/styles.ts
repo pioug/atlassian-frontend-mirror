@@ -1,5 +1,4 @@
-import { css, keyframes } from '@emotion/core';
-
+import { css, keyframes } from '@emotion/react';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { defaultEmojiHeight } from '../../util/constants';

@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { CSSProperties, FC, ReactNode } from 'react';
+import { createContext, FC, Fragment, ReactNode, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import { token } from '@atlaskit/tokens';
 
-import { colorMap } from '../internal/color-map';
+import surfaceColorMap from '../internal/color-map';
 
 import { useSurface } from './surface-provider';
-import { BasePrimitiveProps } from './types';
+import type { BasePrimitiveProps } from './types';
 
 const asAllowlist = ['span', 'div', 'p'] as const;
 type AsElement = typeof asAllowlist[number];
@@ -25,7 +25,7 @@ export interface TextProps extends BasePrimitiveProps {
   /**
    * Text color
    */
-  color?: [TextColor, string];
+  color?: TextColor;
   /**
    * Font size https://developer.mozilla.org/en-US/docs/Web/CSS/font-size
    */
@@ -71,6 +71,7 @@ type FontWeight = keyof typeof fontWeightMap;
 const fontWeightMap = {
   '400': css({ fontWeight: 400 }),
   '500': css({ fontWeight: 500 }),
+  '600': css({ fontWeight: 600 }),
   '700': css({ fontWeight: 700 }),
 };
 
@@ -120,6 +121,26 @@ const truncateStyles = css({
 });
 
 /**
+ * Custom hook designed to abstract the parsing of the color props and make it clearer in the future how color is reconciled between themes and tokens.
+ */
+const useColor = (colorProp: TextColor): NonNullable<TextColor> => {
+  const surface = useSurface();
+  const inverseTextColor =
+    surfaceColorMap[surface as keyof typeof surfaceColorMap];
+
+  /**
+   * Where the color of the surface is inverted we override the user choice
+   * as there is no valid choice that is not covered by the override.
+   */
+  const color = inverseTextColor ?? colorProp;
+
+  return color;
+};
+
+const HasTextAncestorContext = createContext(false);
+const useHasTextAncestor = () => useContext(HasTextAncestorContext);
+
+/**
  * __Text__
  *
  * Text is a primitive component that has the Atlassian Design System's design guidelines baked in.
@@ -128,37 +149,41 @@ const truncateStyles = css({
  *
  * @internal
  */
-const Text: FC<TextProps> = ({
-  as: Component = 'span',
-  children,
-  color: colorTuple,
-  fontSize,
-  fontWeight,
-  lineHeight,
-  shouldTruncate = false,
-  textAlign,
-  textTransform,
-  verticalAlign,
-  testId,
-  UNSAFE_style,
-}: TextProps) => {
-  const surface = useSurface();
-  // @ts-ignore
-  const [color = colorMap[surface], fallback] = colorTuple || [];
+const Text: FC<TextProps> = ({ children, ...props }) => {
+  const {
+    as: Component = 'span',
+    color: colorProp,
+    fontSize,
+    fontWeight,
+    lineHeight,
+    shouldTruncate = false,
+    textAlign,
+    textTransform,
+    verticalAlign,
+    testId,
+    UNSAFE_style,
+  } = props;
   invariant(
     asAllowlist.includes(Component),
     `@atlaskit/ds-explorations: Text received an invalid "as" value of "${Component}"`,
   );
+  const color = useColor(colorProp!);
+  const isWrapped = useHasTextAncestor();
 
-  return (
+  /**
+   * If the text is already wrapped and applies no props we can just
+   * render the children directly as a fragment.
+   */
+  if (isWrapped && Object.keys(props).length === 0) {
+    return <Fragment>{children}</Fragment>;
+  }
+
+  const component = (
     <Component
-      style={{
-        ...UNSAFE_style,
-        ...(fallback && ({ '--ds-co-fb': fallback } as CSSProperties)),
-      }}
+      style={UNSAFE_style}
       css={[
         baseStyles,
-        color && textColorMap[color as TextColor],
+        color && textColorMap[color],
         fontSize && fontSizeMap[fontSize],
         fontWeight && fontWeightMap[fontWeight],
         lineHeight && lineHeightMap[lineHeight],
@@ -172,56 +197,66 @@ const Text: FC<TextProps> = ({
       {children}
     </Component>
   );
+
+  return isWrapped ? (
+    // no need to re-apply context if the text is already wrapped
+    component
+  ) : (
+    <HasTextAncestorContext.Provider value={true}>
+      {component}
+    </HasTextAncestorContext.Provider>
+  );
 };
 
 export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::140ffff6e1310c1c37e2067e2c232b92>>
+ * @codegen <<SignedSource::21771f01de3c37646642de03274f0738>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::0c1fe9904b2ff2465a532b97ab76491e>>
  */
 const textColorMap = {
   'color.text': css({
-    color: token('color.text', 'var(--ds-co-fb)'),
+    color: token('color.text', '#172B4D'),
   }),
   subtle: css({
-    color: token('color.text.subtle', 'var(--ds-co-fb)'),
+    color: token('color.text.subtle', '#42526E'),
   }),
   subtlest: css({
-    color: token('color.text.subtlest', 'var(--ds-co-fb)'),
+    color: token('color.text.subtlest', '#7A869A'),
   }),
   disabled: css({
-    color: token('color.text.disabled', 'var(--ds-co-fb)'),
+    color: token('color.text.disabled', '#A5ADBA'),
   }),
   inverse: css({
-    color: token('color.text.inverse', 'var(--ds-co-fb)'),
+    color: token('color.text.inverse', '#FFFFFF'),
   }),
   brand: css({
-    color: token('color.text.brand', 'var(--ds-co-fb)'),
+    color: token('color.text.brand', '#0065FF'),
   }),
   selected: css({
-    color: token('color.text.selected', 'var(--ds-co-fb)'),
+    color: token('color.text.selected', '#0052CC'),
   }),
   danger: css({
-    color: token('color.text.danger', 'var(--ds-co-fb)'),
+    color: token('color.text.danger', '#DE350B'),
   }),
   warning: css({
-    color: token('color.text.warning', 'var(--ds-co-fb)'),
+    color: token('color.text.warning', '#974F0C'),
   }),
   'warning.inverse': css({
-    color: token('color.text.warning.inverse', 'var(--ds-co-fb)'),
+    color: token('color.text.warning.inverse', '#172B4D'),
   }),
   success: css({
-    color: token('color.text.success', 'var(--ds-co-fb)'),
+    color: token('color.text.success', '#006644'),
   }),
   discovery: css({
-    color: token('color.text.discovery', 'var(--ds-co-fb)'),
+    color: token('color.text.discovery', '#403294'),
   }),
   information: css({
-    color: token('color.text.information', 'var(--ds-co-fb)'),
+    color: token('color.text.information', '#0052CC'),
   }),
 };
 

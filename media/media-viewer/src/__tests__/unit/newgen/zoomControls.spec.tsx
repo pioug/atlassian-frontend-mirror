@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Button from '@atlaskit/button/custom-theme-button';
 import { ZoomControlsBase, ZoomControlsProps } from '../../../zoomControls';
 import { ZoomLevelIndicator } from '../../../styleWrappers';
 import { ZoomLevel } from '../../../domain/zoomLevel';
@@ -34,9 +33,9 @@ describe('Zooming', () => {
       const { component, onChange } = setupBase();
       const zoomLevel = new ZoomLevel(1);
 
-      component.find(Button).first().simulate('click');
+      component.find('button').first().simulate('click');
       expect(onChange).lastCalledWith(zoomLevel.zoomOut());
-      component.find(Button).last().simulate('click');
+      component.find('button').last().simulate('click');
       expect(onChange).lastCalledWith(zoomLevel.zoomIn());
     });
 
@@ -44,7 +43,7 @@ describe('Zooming', () => {
       const { component, onChange } = setupBase({
         zoomLevel: new ZoomLevel(1).fullyZoomIn(),
       });
-      component.find(Button).last().simulate('click');
+      component.find('button').last().simulate('click');
       expect(onChange).not.toBeCalled();
     });
 
@@ -52,7 +51,7 @@ describe('Zooming', () => {
       const { component, onChange } = setupBase({
         zoomLevel: new ZoomLevel(1).fullyZoomOut(),
       });
-      component.find(Button).first().simulate('click');
+      component.find('button').first().simulate('click');
       expect(onChange).not.toBeCalled();
     });
 
@@ -66,7 +65,7 @@ describe('Zooming', () => {
     describe('analytics', () => {
       it('triggers analytics events on zoom Out', () => {
         const { component, createAnalyticsEventSpy } = setupBase();
-        component.find(Button).first().simulate('click');
+        component.find('button').first().simulate('click');
 
         expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
           eventType: 'ui',
@@ -81,7 +80,7 @@ describe('Zooming', () => {
 
       it('triggers analytics events on zoom in', () => {
         const { component, createAnalyticsEventSpy } = setupBase();
-        component.find(Button).last().simulate('click');
+        component.find('button').last().simulate('click');
 
         expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
           eventType: 'ui',

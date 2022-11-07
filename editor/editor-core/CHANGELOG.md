@@ -1,5 +1,91 @@
 # @atlaskit/editor-core
 
+## 175.0.0
+
+### Major Changes
+
+- [`291529c1b2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/291529c1b2d) - ED-12937: change Editor prop name from UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons.
+
+  BREAKING CHANGE: `UNSAFE_allowUndoRedoButtons` change to `allowUndoRedoButtons` in `<Editor />` in `@atlaskit/editor-core`
+
+  Upgrade guide: If you are currently consume `<Editor />` with `UNSAFE_allowUndoRedoButtons`, You need to update name to `allowUndoRedoButtons`.
+
+  ```jsx
+  import Editor from '@atlaskit/editor-core';
+
+  return (
+      <Editor
+          // .....
+          allowUndoRedoButtons={true}
+          // ....
+      >
+  )
+
+  ```
+
+### Minor Changes
+
+- [`7b1d6002178`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b1d6002178) - added 'measurement' and 'hasCustomAttributes' tags to operational feature exposed event
+- [`30e8425f7d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30e8425f7d6) - [ux] ED-15706 Reenable copy button on editor-plugin-table. Added property copyButton to floatingToolbarConfig.
+- [`65d0516e638`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65d0516e638) - Adds a new function to editorActions: getNodeByFragmentLocalId. Exposes fragmentLocalId as part of ExtensionComponent. extension-api.update function starts using parent node to check if mark changes are allowed.
+- [`90c44a68da2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90c44a68da2) - Removed editor-core table plugin and replaced with new `editor-plugin-table` package. This change required adding copying new table changes from editor-core to the new table package, moving IconTable to shared package, and creating new entry-points from editor-plugin-table. `getPluginState` from `packages/editor/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing` was also exported.
+
+  [ED-15674][ed15739] [ED-15633]
+
+- [`72d44f7f681`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d44f7f681) - [ux] ED-15457: call replaceDocument() from mobile bridge to properly reload web Editor with all props taken into consideration
+- [`61cd2188e62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cd2188e62) - [ux] ED-15405 added horizontal scrolling to floating toolbar in case of overflow
+- [`ab072299e05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab072299e05) - ED-15519 - Extensions used as data sources will now display a delete confirmation dialog
+
+### Patch Changes
+
+- [`f7764c8dac0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7764c8dac0) - [ux][ed-15511] Handle pasting nested bullet list from within a table within an extension so it does not maintain parent unexpectedly
+- [`860d7a34a93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/860d7a34a93) - [ux] ED-15743 prevent content area from scrolling when copy button is clicked
+- [`415c9dbd1dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/415c9dbd1dc) - Removed duplication from plugin rankings
+- [`91f1d4531c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91f1d4531c8) - [ux] Fix behaviour of forward delete when selection is on empty paragraphs, allowing panels, quoteblocks, desision and action lists to move upwards.
+- [`ad1da0b1bf7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad1da0b1bf7) - [ux] Disabled visual hints for the hyperlink copy button. These caused the floating toolbar to jump around when the link mark was applied to inline nodes.
+- [`36ce7fd0da1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36ce7fd0da1) - [ux] ED-15476 Fixes visual hints for hyperlink copy buttons, and what goes into the clipboard when the button is used.
+- [`ab1d440e0de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab1d440e0de) - [ux] ED-12978 Updated insertCodeBlock() command to allow the current range selection to be added to the codeBlock as content on insertion.
+- [`3f7900cbf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f7900cbf37) - [ux] ED-14993 added better support for codeblocks inside lists and gap cursor selection inside lists:
+
+  - made list markers visible in safari (desktop and mobile) when list contains codeblocks;
+  - fixed bug so users can now set gapcursor next to codeblock by clicking or touching (mobile) the list marker;
+  - fixed bug so when users have gapcursor next to a codeblock, they can still toggle (or untoggle) it into a list;
+  - fixed margins for codeblocks in lists;
+
+- [`eb229be25c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb229be25c4) - Fixed expand button vertical alignment not correctly aligned with title
+- [`094edf099c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/094edf099c0) - [ux] ED-15522 Fix up arrow not working past blank new line in code block when paste. windows
+- [`e7836c150bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7836c150bb) - Re-enable Performance metric for ReactNodeView, WithPluginState
+- [`e6e37b36e94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6e37b36e94) - ED-14611 - Patch to fix Uncaught RangeError exception while keyboard doing shift arrow-up / shift arrow-down
+- [`1e32a1072b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e32a1072b9) - [ux] Ensure more than three backticks are not converted to a codeblock
+- [`b2b98eca8cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2b98eca8cc) - ED-14814 Add "outdatedBrowser" attribute into analytics error payload, add browser check and expose the function "isOutdatedBrowser()"
+- [`8f52252d256`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f52252d256) - Ed-15440 CMD+ArrowLeft after a code block should move the cursor to the start of the line.
+  Also the reverse should happen for CMD+ArrowRight.
+- [`51e84999643`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51e84999643) - ED-15381 - Patch table / layout CSS to fix issue of ProseMirror gapcursor within the cell
+- [`edb93baa953`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edb93baa953) - Moved sendLogs to editor-common. Re-exported in editor-core and import sendLogs from editor-common in editor-plugin-table package.
+- [`d98c5a4168b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d98c5a4168b) - [ux] ED-13528 fixed - Unable to exit list with an empty character after cursor
+- [`907a18e29bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/907a18e29bb) - [ux] Increase padding for panels with no emoji
+- [`2016989cd5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2016989cd5d) - unblock document from saving when the “uploading card” is removed
+- [`cb758a1eedf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb758a1eedf) - [ux] ED-15707: fixed floating toolbar select mount point for comment/chromeless appearance
+- [`f42f1472587`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f42f1472587) - [ux] ED-15399 Fix create column before. Ctrl + Option + Left should create column before when cursor is in a table header.
+- [`1e1ac6d1d15`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e1ac6d1d15) - [ED-15501] Removal of coupled table-resizing code in `editor-core` media and card plugin. This makes entry-point `/table-resizing` from `editor-plugin-table` unused so removed the entry-point.
+- [`184d3cf7ce6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/184d3cf7ce6) - Preventing error being logged to the console if the consumer of the Editor component does not have IntlProvider in the component hierarchy.
+- [`8a1155bee73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a1155bee73) - [ux] ED-15050 Fixed - Pasting list markup into a table cell ends up with cursor in the next cell
+- [`afd30c4664e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afd30c4664e) - Refactored Editor Help Dialog to be more conformant to accessibility standards
+- [`858c4edfa37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/858c4edfa37) - [ux] ED-15262 Don't linkify string starting with \$ or {
+- [`51224a1893c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51224a1893c) - ED-15405 fixed an issue with the Code block language select dropdown not mounting to the correct div on first load
+- [`dad944b371c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dad944b371c) - To add role attributes for main and contextual toolbars for better accessibility [ED-15493]
+- [`8c16cb97a11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c16cb97a11) - ED-12676 cleanup useUnpredictableInputRule feature flag
+- [`47f1c7fff80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f1c7fff80) - [ux] ED-14991 rework extension breakout to share logic with breakout mark views. Fixes an issue where iframes inside bodied extensions that were set to full-width or wide would be blurry.
+- [`3cecda14f87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cecda14f87) - [ED-15847] To fix the arrow key navigation regression caused in ED-15483, post this fix user should be able to edit a hyperlink text and url using arrow keys.
+- [`6c7d7adbd7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c7d7adbd7a) - ED-14740 Removes margin top for rich media items in a layout
+- [`5128df4c8bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5128df4c8bd) - Fixed a bug where toolbar would disappear / break when mediaSingle is resized
+- [`1b04126a190`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b04126a190) - These changes are to improve the keyboard navigation support for floating toolbars through a specific shortcut and to trap the focus inside the floating toolbar [more details in ED-15483]
+- [`901aa96d69f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/901aa96d69f) - Remove the node check in UNSAFE_componentWillReceiveProps in mediaGroup to prevent infinite steps creation
+- [`14e7ee2737a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14e7ee2737a) - [ED-12768] Fix splitParagraph to avoid try to insert invalid content inside paragraphs
+- [`992ed2b7e2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/992ed2b7e2a) - ED-15510 Fixes animation when resizing breakout
+- [`e7157aaf997`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7157aaf997) - ED-15476 internal refactor of `getCopyButtonConfig` function in preparation for supporting marks.
+- Updated dependencies
+
 ## 174.0.0
 
 ### Patch Changes

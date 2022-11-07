@@ -203,7 +203,6 @@ export function MobileEditor(props: MobileEditorProps) {
   const extendedFeatureFlags: Flags = {
     ...featureFlags,
     tableCellOptionsInFloatingToolbar: editorConfiguration.isTableCellOptionsInFloatingToolbar(),
-    useUnpredictableInputRule: editorConfiguration.isUnpredictableInputRuleEnabled(),
     enableViewUpdateSubscription: true,
   };
 

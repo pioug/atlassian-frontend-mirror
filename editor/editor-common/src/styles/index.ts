@@ -29,7 +29,7 @@ export { ruleSharedStyles } from './shared/rule';
 export { whitespaceSharedStyles } from './shared/whitespace';
 export { paragraphSharedStyles } from './shared/paragraph';
 export { linkSharedStyle } from './shared/link';
-export { listsSharedStyles } from './shared/lists';
+export { listsSharedStyles, listPaddingLeftMarkerSpace } from './shared/lists';
 export { indentationSharedStyles } from './shared/indentation';
 export { blockMarksSharedStyles } from './shared/block-marks';
 export { codeMarkSharedStyles } from './shared/code-mark';
@@ -49,6 +49,7 @@ export {
 export {
   CodeBlockSharedCssClassName,
   codeBlockSharedStyles,
+  codeBlockInListSafariFix,
 } from './shared/code-block';
 export { LAYOUT_SECTION_MARGIN, LAYOUT_COLUMN_PADDING } from './shared/layout';
 export { EXTENSION_PADDING, BODIED_EXT_PADDING } from './shared/extension';

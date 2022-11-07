@@ -288,15 +288,6 @@ describe('mobile editor element', () => {
       );
     });
 
-    it('should have called isUnpredictableInputRuleEnabled', () => {
-      const mockedUseUnpredictableInputRule = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isUnpredictableInputRuleEnabled',
-      );
-      initEditor();
-      expect(mockedUseUnpredictableInputRule).toBeCalled();
-    });
-
     it('should have called isScrollGutterPersisted', () => {
       const mockedPersistScrollGutter = jest.spyOn(
         MobileEditorConfiguration.prototype,
@@ -328,18 +319,6 @@ describe('mobile editor element', () => {
       initEditor();
 
       expect(mockedIsTableCellOptionsInFloatingToolbar).toBeCalled();
-    });
-  });
-
-  describe('Mobile Editor with Re Configuration', () => {
-    it('should have called isUnpredictableInputRuleEnabled', () => {
-      const mockedUseUnpredictableInputRule = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isUnpredictableInputRuleEnabled',
-      );
-      initEditor();
-      bridge.configure('{"useUnpredictableInputRule": false}');
-      expect(mockedUseUnpredictableInputRule).toBeCalled();
     });
   });
 

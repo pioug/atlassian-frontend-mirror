@@ -8,5 +8,8 @@
     "0-basic.tsx",
     "5-customization.tsx",
     "99-testing.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/button"
   ]
 }

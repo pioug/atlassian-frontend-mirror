@@ -1,6 +1,5 @@
 import React from 'react';
-import { fireEvent } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/react';
 import { ReactWrapper } from 'enzyme';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { EmojiProvider } from '@atlaskit/emoji';
@@ -11,14 +10,17 @@ import {
   ari,
   containerAri,
 } from '../../MockReactionsClient';
-import { renderWithIntl } from '../../__tests__/_testing-library';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+  useFakeTimers,
+} from '../../__tests__/_testing-library';
 import { constants, i18n } from '../../shared';
 import {
   QuickReactionEmojiSummary,
   ReactionStatus,
   ReactionSummary,
 } from '../../types';
-import { Trigger } from '../Trigger';
 import { ReactionPicker } from '../ReactionPicker';
 import { RENDER_REACTION_TESTID } from '../Reaction';
 import { ReactionsProps, Reactions, getTooltip } from './Reactions';
@@ -27,6 +29,13 @@ describe('@atlaskit/reactions/components/Reactions', () => {
   const mockOnReactionsClick = jest.fn();
   const mockOnSelection = jest.fn();
   const mockLoadReaction = jest.fn();
+
+  mockReactDomWarningGlobal();
+  useFakeTimers(() => {
+    mockOnReactionsClick.mockClear();
+    mockOnSelection.mockClear();
+    mockLoadReaction.mockClear();
+  });
 
   /**
    * Pre defined selected emoji ids
@@ -44,17 +53,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
     emojiIds: [constants.DefaultReactions[5].id ?? ''],
   };
   const status = ReactionStatus.ready;
-
-  beforeEach(() => {
-    mockOnReactionsClick.mockClear();
-    mockOnSelection.mockClear();
-    mockLoadReaction.mockClear();
-    jest.useFakeTimers();
-  });
-
-  afterAll(() => {
-    jest.useRealTimers();
-  });
 
   const renderReactions = (extraProps: Partial<ReactionsProps> = {}) => {
     return renderWithIntl(
@@ -218,7 +216,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
     describe('with ReactionPicker open', () => {
       beforeEach(() => {
-        component.find(Trigger).find('button').simulate('click');
+        component.find('[type="button"]').last().simulate('click');
       });
 
       it('should trigger clicked for Reaction Picker Button', () => {

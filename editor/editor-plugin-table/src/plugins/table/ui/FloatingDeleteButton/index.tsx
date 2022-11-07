@@ -12,7 +12,6 @@ import { createPortal } from 'react-dom';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
-// import { closestElement } from '../../../../utils/dom';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';

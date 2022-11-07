@@ -23,10 +23,7 @@ import {
   EditorExperience,
   RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
-import {
-  Transformer,
-  GetEditorContainerWidth,
-} from '@atlaskit/editor-common/types';
+import { Transformer } from '@atlaskit/editor-common/types';
 
 import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
 import { processRawValue } from '../utils';
@@ -93,7 +90,6 @@ import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identif
 import { FireAnalyticsCallback } from '../plugins/analytics/fire-analytics-event';
 import { UfoSessionCompletePayloadAEP } from '../plugins/analytics/types/general-events';
 import ReactEditorViewContext from './ReactEditorViewContext';
-import { pluginKey as widthPluginKey } from '../plugins/width';
 import { createInsertNodeAPI } from '../insert-api/api';
 import { createEditorAnalyticsAPI } from '../analytics-api/api';
 import { createEditorSelectionAPI } from '../selection-api/api';
@@ -163,7 +159,7 @@ export function shouldReconfigureState(
   const properties: Array<keyof EditorProps> = [
     'appearance',
     'persistScrollGutter',
-    'UNSAFE_allowUndoRedoButtons',
+    'allowUndoRedoButtons',
     'placeholder',
     ...mobileProperties,
   ];
@@ -525,14 +521,6 @@ export class ReactEditorView<T = {}> extends React.Component<
       getCreateUIAnalyticsEvent: () => createAnalyticsEvent,
     });
     const editorSelectionAPI = createEditorSelectionAPI();
-    const getEditorContainerWidth: GetEditorContainerWidth = () => {
-      if (!this.view) {
-        return null;
-      }
-      const { state } = this.view;
-
-      return widthPluginKey.getState(state) || null;
-    };
     const builtinPlugins = createPluginList(
       editorProps,
       prevEditorProps,
@@ -540,7 +528,6 @@ export class ReactEditorView<T = {}> extends React.Component<
       insertNodeAPI,
       editorAnalyticsAPI,
       editorSelectionAPI,
-      getEditorContainerWidth,
     );
 
     if (editorPlugins && editorPlugins.length > 0) {

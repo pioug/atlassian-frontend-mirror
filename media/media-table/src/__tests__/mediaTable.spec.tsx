@@ -202,7 +202,10 @@ describe('MediaTable', () => {
 
   it('should open MediaViewer and call onPreviewOpen when a preview button is clicked', async () => {
     const { mediaTable } = await setup();
-    mediaTable.find('[data-testid="preview-button"]').first().simulate('click');
+    mediaTable
+      .find('button[data-testid="preview-button"]')
+      .first()
+      .simulate('click');
 
     expect(mediaTable.find(MediaViewer)).toHaveLength(1);
     expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
@@ -269,7 +272,7 @@ describe('MediaTable', () => {
     const { mediaClient, mediaTable } = await setup(true);
 
     mediaTable
-      .find('[data-testid="download-button"]')
+      .find('button[data-testid="download-button"]')
       .first()
       .simulate('click');
 
@@ -299,7 +302,7 @@ describe('MediaTable', () => {
     );
 
     mediaTable
-      .find('[data-testid="download-button"]')
+      .find('button[data-testid="download-button"]')
       .first()
       .simulate('click');
 

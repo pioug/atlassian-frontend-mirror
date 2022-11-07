@@ -9,8 +9,8 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { taskListSelector, decisionListSelector } from '@atlaskit/adf-schema';
 import { createEditorContentStyle } from '../../ContentStyles';
-import { tableFullPageEditorStyles } from '../../../plugins/table/ui/common-styles';
-import { tableMarginFullWidthMode } from '../../../plugins/table/ui/consts';
+import { tableFullPageEditorStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
+import { tableMarginFullWidthMode } from '@atlaskit/editor-plugin-table/ui/consts';
 import { scrollbarStyles } from '../../styles';
 
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;

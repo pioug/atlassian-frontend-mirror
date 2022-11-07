@@ -21,7 +21,6 @@ import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
-import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 
@@ -44,18 +43,11 @@ import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-p
 
 import Editor, {
   EditorProps,
-  EditorAppearance,
   // EditorPlugin,
 } from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
-import {
-  fromLocation,
-  encode,
-  amend,
-  check,
-  Message,
-} from '../example-helpers/adf-url';
+import { fromLocation, encode, amend, check } from '../example-helpers/adf-url';
 import * as FeatureFlagUrl from '../example-helpers/feature-flag-url';
 import { copy } from '../example-helpers/copy';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
@@ -76,6 +68,12 @@ import {
   DEFAULT_MODE,
   LOCALSTORAGE_defaultMode,
 } from '../example-helpers/example-constants';
+import {
+  ExampleProps,
+  EditorState,
+  ExampleRendererProps,
+  ExampleEditorProps,
+} from '../example-helpers/full-page/types';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 import {
@@ -206,13 +204,6 @@ export const SaveAndCancelButtons = (props: {
   </ButtonGroup>
 );
 
-export type State = {
-  disabled: boolean;
-  title?: string;
-  appearance: EditorAppearance;
-  warning?: Message;
-};
-
 const searchProvider = createSearchProvider(
   'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
   Scope.ConfluencePageBlog,
@@ -246,26 +237,15 @@ export const getAppearance = (): 'full-page' | 'full-width' => {
     : 'full-width';
 };
 
-export interface ExampleProps {
-  onTitleChange?: (title: string) => void;
-  setMode?: (isEditing: boolean) => void;
-  customPrimaryToolbarComponents?: EditorProps['primaryToolbarComponents'];
-  onExampleEditorReady?: (
-    editorActions: EditorActions,
-    timeTaken?: number,
-  ) => void;
-  clickToEdit?: boolean;
-}
-
 const smartCardClient = new CardClient('staging');
 export class ExampleEditorComponent extends React.Component<
-  EditorProps & ExampleProps,
-  State
+  ExampleEditorProps,
+  EditorState
 > {
-  state: State = {
+  state: EditorState = {
     disabled: true,
     title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
-    appearance: this.props.appearance || getAppearance(),
+    appearance: this.props.editorProps.appearance || getAppearance(),
   };
 
   private startTime: number = 0;
@@ -284,15 +264,22 @@ export class ExampleEditorComponent extends React.Component<
     `);
   }
 
-  componentDidUpdate(prevProps: EditorProps) {
-    if (prevProps.appearance !== this.props.appearance) {
+  componentDidUpdate(prevProps: ExampleEditorProps) {
+    if (
+      prevProps.editorProps.appearance !== this.props.editorProps.appearance
+    ) {
       this.setState(() => ({
-        appearance: this.props.appearance || 'full-page',
+        appearance: this.props.editorProps.appearance || 'full-page',
       }));
     }
 
-    if (prevProps.defaultValue !== this.props.defaultValue) {
-      this.editorActions?.replaceDocument(this.props.defaultValue, false);
+    if (
+      prevProps.editorProps.defaultValue !== this.props.editorProps.defaultValue
+    ) {
+      this.editorActions?.replaceDocument(
+        this.props.editorProps.defaultValue,
+        false,
+      );
     }
   }
 
@@ -331,7 +318,8 @@ export class ExampleEditorComponent extends React.Component<
   };
 
   render() {
-    const { media } = this.props;
+    const { editorProps } = this.props;
+    const { media } = editorProps;
     const mediaEditorProps = media
       ? media.featureFlags
       : defaultMediaFeatureFlags;
@@ -341,7 +329,7 @@ export class ExampleEditorComponent extends React.Component<
           <div css={content}>
             <SmartCardProvider client={smartCardClient}>
               <Editor
-                UNSAFE_allowUndoRedoButtons={true}
+                allowUndoRedoButtons={true}
                 allowAnalyticsGASV3={true}
                 quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
                 allowTextColor={{
@@ -537,9 +525,9 @@ export class ExampleEditorComponent extends React.Component<
                     },
                   },
                 }}
-                {...this.props}
+                {...editorProps}
                 featureFlags={{
-                  ...this.props.featureFlags,
+                  ...editorProps.featureFlags,
                   // Enabling to catch during dev by default
                   'safer-dispatched-transactions': true,
                 }}
@@ -665,14 +653,7 @@ const providerFactory = ProviderFactory.create({
   contextIdentifierProvider,
 });
 
-const Renderer = (props: {
-  document?: string | object;
-  setMode: (mode: boolean) => void;
-  extensionProviders?: (ExtensionProvider | Promise<ExtensionProvider>)[];
-  allowCustomPanel?: boolean;
-  clickToEdit?: boolean;
-  mediaFeatureFlags?: MediaFeatureFlags;
-}) => {
+const Renderer = (props: ExampleRendererProps) => {
   if (props.extensionProviders && props.extensionProviders.length > 0) {
     providerFactory.setProvider(
       'extensionProvider',
@@ -737,11 +718,12 @@ const Renderer = (props: {
   );
 };
 
-export function FullPageExample(props: EditorProps & ExampleProps) {
+export function FullPageExample(props: ExampleProps) {
+  const { editorProps = {} } = props;
   const [isEditingMode, setMode] = React.useState(true);
 
   const maybeDoc =
-    props.defaultValue || fromLocation<object>(window.parent.location);
+    editorProps.defaultValue || fromLocation<object>(window.parent.location);
   const doc = maybeDoc instanceof window.Error ? undefined : maybeDoc;
   const localDraft =
     (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
@@ -763,21 +745,27 @@ export function FullPageExample(props: EditorProps & ExampleProps) {
   };
 
   const featureFlags =
-    props.featureFlags ||
+    editorProps.featureFlags ||
     (!maybeFlags || maybeFlags instanceof window.Error
       ? defaultFeatureFlags
       : JSON.parse(maybeFlags ?? '{}'));
 
   let allowCustomPanel = false;
-  if (props.allowPanel && typeof props.allowPanel === 'object') {
+  if (editorProps.allowPanel && typeof editorProps.allowPanel === 'object') {
     allowCustomPanel =
-      (props.allowPanel as PanelPluginConfig).allowCustomPanel || false;
+      (editorProps.allowPanel as PanelPluginConfig).allowCustomPanel || false;
   }
 
-  const { media } = props;
+  const { media } = editorProps;
   const mediaProps = media?.featureFlags
     ? media.featureFlags
     : defaultMediaFeatureFlags;
+
+  const passedEditorProps: EditorProps = {
+    ...editorProps,
+    featureFlags,
+    defaultValue: doc || localDraft,
+  };
 
   return (
     <EditorContext>
@@ -785,19 +773,22 @@ export function FullPageExample(props: EditorProps & ExampleProps) {
         <DevTools />
         {isEditingMode ? (
           <ExampleEditor
-            {...props}
-            featureFlags={featureFlags}
-            defaultValue={doc || localDraft}
+            editorProps={passedEditorProps}
+            onExampleEditorReady={props.onExampleEditorReady}
+            onTitleChange={props.onTitleChange}
             setMode={setMode}
+            customPrimaryToolbarComponents={
+              props.customPrimaryToolbarComponents
+            }
           />
         ) : (
           <Renderer
             document={localDraft || doc}
             setMode={setMode}
             extensionProviders={
-              typeof props.extensionProviders === 'function'
-                ? props.extensionProviders()
-                : props.extensionProviders
+              typeof editorProps.extensionProviders === 'function'
+                ? editorProps.extensionProviders()
+                : editorProps.extensionProviders
             }
             allowCustomPanel={allowCustomPanel}
             clickToEdit={props.clickToEdit}

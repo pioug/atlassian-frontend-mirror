@@ -4,13 +4,15 @@ import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
 
 import browser from '../../utils/browser';
 
+export const listPaddingLeftMarkerSpace = 24;
+
 export const listsSharedStyles = css`
   /* =============== INDENTATION SPACING ========= */
 
   ul,
   ol {
     box-sizing: border-box;
-    padding-left: 24px;
+    padding-left: ${listPaddingLeftMarkerSpace}px;
 
     /*
     Firefox does not handle empty block element inside li tag.

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx, SerializedStyles } from '@emotion/core';
+import { jsx, SerializedStyles } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
 import Tooltip from '@atlaskit/tooltip';
@@ -11,6 +11,8 @@ import * as styles from './styles';
  * Test id for wrapper button
  */
 export const RENDER_SHOWMORE_TESTID = 'show-more-button';
+
+export const RENDER_WRAPPER_TESTID = 'show-more-wrapper';
 
 interface CommonProps<T> {
   container?: T;
@@ -50,6 +52,7 @@ export const ShowMore: React.FC<ShowMoreProps> = ({
       className={className.container}
       css={styles.moreEmojiContainerStyle}
       style={style.container}
+      data-testid={RENDER_WRAPPER_TESTID}
     >
       <div css={styles.separatorStyle} />
       <FormattedMessage {...i18n.messages.moreEmoji}>

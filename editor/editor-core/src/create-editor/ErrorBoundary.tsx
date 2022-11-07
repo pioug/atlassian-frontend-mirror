@@ -1,28 +1,28 @@
+import memoizeOne from 'memoize-one';
+import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import uuid from 'uuid';
-import { EditorView } from 'prosemirror-view';
-import memoizeOne from 'memoize-one';
 
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
-import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { CustomData } from '@atlaskit/ufo/types';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
-
+import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
+import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
+import type { CustomData } from '@atlaskit/ufo/types';
 import {
   ACTION,
   ACTION_SUBJECT,
+  ErrorEventAttributes,
   ErrorEventPayload,
   EVENT_TYPE,
-  ErrorEventAttributes,
 } from '../plugins/analytics';
 import { editorAnalyticsChannel } from '../plugins/analytics/consts';
 import { getFeatureFlags } from '../plugins/feature-flags-context';
 import { FeatureFlags } from '../types/feature-flags';
 import { getDocStructure } from '../utils/document-logger';
 import { WithEditorView } from './WithEditorView';
+import { isOutdatedBrowser } from '@atlaskit/editor-common/utils';
 
 export type ErrorBoundaryProps = {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -89,13 +89,11 @@ export class ErrorBoundaryWithEditorView extends React.Component<
     const product = await this.getProductName();
     const { error, errorInfo, errorStack } = analyticsErrorPayload;
     const sharedId = uuid();
+    const browserInfo = window?.navigator?.userAgent || 'unknown';
 
     const attributes: ErrorEventAttributes = {
       product,
-      browserInfo:
-        window && window.navigator && window.navigator.userAgent
-          ? window.navigator.userAgent
-          : 'unknown',
+      browserInfo,
       error: (error as any) as Error,
       errorInfo,
       errorId: sharedId,
@@ -104,6 +102,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
         this.featureFlags.errorBoundaryDocStructure && this.props.editorView
           ? getDocStructure(this.props.editorView.state.doc, { compact: true })
           : undefined,
+      outdatedBrowser: isOutdatedBrowser(browserInfo),
     };
 
     this.fireAnalyticsEvent({

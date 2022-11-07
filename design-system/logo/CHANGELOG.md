@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.10.1
+
+### Patch Changes
+
+- [`88a34a8c2dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88a34a8c2dd) - Remove redundant `role=presentation` on wrapping @atlaskit/icon and @atlaskit/logo spans.
+
 ## 13.10.0
 
 ### Minor Changes

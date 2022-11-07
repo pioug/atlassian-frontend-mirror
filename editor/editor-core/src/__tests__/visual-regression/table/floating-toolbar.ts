@@ -12,13 +12,13 @@ import {
   clickCellOptions,
   selectCellOption,
   tableSelectors,
+  floatingToolbarAriaLabel as tableFloatingToolbarAriaLabel,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
-const floatingControlsAriaLabel = 'Table floating controls';
 const dropdownListSelector =
   '[aria-label="Popup"] [data-role="droplistContent"]';
-const colourPickerPopupSelector = '[aria-label="Popup"] [role="radiogroup"]';
 
 describe('Table floating toolbar:fullpage', () => {
   let page: PuppeteerPage;
@@ -30,7 +30,7 @@ describe('Table floating toolbar:fullpage', () => {
     // Focus the table and select the first (non header row) cell
     await clickFirstCell(page, true);
     // Wait for floating table controls underneath the table
-    await waitForFloatingControl(page, floatingControlsAriaLabel);
+    await waitForFloatingControl(page, tableFloatingToolbarAriaLabel);
   });
 
   afterEach(async () => {
@@ -42,7 +42,7 @@ describe('Table floating toolbar:fullpage', () => {
     await clickTableOptions(page);
     // Wait for the drop down list within floating table controls to be shown
     await page.waitForSelector(
-      `[aria-label="${floatingControlsAriaLabel}"] ${dropdownListSelector}`,
+      `[aria-label="${tableFloatingToolbarAriaLabel}"] ${dropdownListSelector}`,
     );
   });
 
@@ -74,20 +74,20 @@ describe('Table floating toolbar:fullpage', () => {
       // Focus the table and select the first (non header row) cell
       await clickFirstCell(page, true);
       // Wait for floating table controls underneath the table
-      await waitForFloatingControl(page, floatingControlsAriaLabel);
+      await waitForFloatingControl(page, tableFloatingToolbarAriaLabel);
     });
 
     it('displays cell options in floating toolbar', async () => {
       await clickCellOptionsInFloatingToolbar(page);
       await page.waitForSelector(
-        `[aria-label="${floatingControlsAriaLabel}"] ${dropdownListSelector}`,
+        `[aria-label="${tableFloatingToolbarAriaLabel}"] ${dropdownListSelector}`,
       );
     });
 
     it('display cell background in floating toolbar', async () => {
       await clickCellBackgroundInFloatingToolbar(page);
       await waitForTooltip(page, tableSelectors.cellBackgroundText);
-      await page.waitForSelector(colourPickerPopupSelector);
+      await page.waitForSelector(selectors.colorPicker);
     });
   });
 });

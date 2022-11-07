@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import Switcher from '@atlaskit/icon/glyph/app-switcher';
 import { token } from '@atlaskit/tokens';

@@ -129,7 +129,7 @@ describe('Navigation', () => {
         selectedItem={identifier2}
       />,
     );
-    el.find(`[data-testid="${prevNavButtonId}"]`).first().simulate('click');
+    el.find(`[data-testid="${prevNavButtonId}"]`).last().simulate('click');
     expect(onChange).toBeCalledWith(identifier);
   });
 
@@ -142,7 +142,7 @@ describe('Navigation', () => {
         selectedItem={identifier}
       />,
     );
-    el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
+    el.find(`[data-testid="${nextNavButtonId}"]`).last().simulate('click');
     expect(onChange).toBeCalledWith(identifier2);
   });
 
@@ -200,13 +200,13 @@ describe('Navigation', () => {
   describe('Analytics', () => {
     it('should fire analytics on right arrow click', () => {
       const { el, createAnalyticsEventSpy } = mountBaseComponent();
-      el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
+      el.find(`[data-testid="${nextNavButtonId}"]`).last().simulate('click');
       expect(createAnalyticsEventSpy).toHaveBeenCalled();
     });
 
     it('should fire analytics on left arrow click', () => {
       const { el, createAnalyticsEventSpy } = mountBaseComponent();
-      el.find(`[data-testid="${prevNavButtonId}"]`).first().simulate('click');
+      el.find(`[data-testid="${prevNavButtonId}"]`).last().simulate('click');
       expect(createAnalyticsEventSpy).toHaveBeenCalled();
     });
   });

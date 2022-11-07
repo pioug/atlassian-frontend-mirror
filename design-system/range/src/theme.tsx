@@ -1,4 +1,4 @@
-import * as colors from '@atlaskit/theme/colors';
+import { B200, B300, B400, N30, N40, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const transitionDuration = '0.2s';
@@ -10,19 +10,23 @@ export const input = {
 export const thumb = {
   size: 16,
   borderWidth: 2,
-  background: token('elevation.surface.raised', colors.N0),
+  background: {
+    default: token('color.background.neutral.bold', B400),
+    hovered: token('color.background.neutral.bold.hovered', B300),
+    pressed: token('color.background.neutral.bold.pressed', B200),
+  },
   borderColor: {
     default: 'transparent',
-    focused: token('color.border.focused', colors.B200),
+    focused: token('color.border.focused', B200),
   },
   boxShadow: {
     default: token(
-      'elevation.shadow.overlay',
-      `0 4px 8px -2px ${colors.N50A}, 0 0 1px ${colors.N60A}`,
+      'utility.UNSAFE_util.transparent',
+      `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
     ),
-    disabled: token('elevation.shadow.raised', `0 0 1px ${colors.N60A}`),
+    disabled: token('elevation.shadow.raised', `0 0 1px ${N60A}`),
   },
-};
+} as const;
 
 export const track = {
   height: 4,
@@ -32,13 +36,11 @@ export const track = {
    */
   borderRadius: 2,
   background: {
-    default: token('color.background.neutral', colors.N30),
-    hovered: token('color.background.neutral.hovered', colors.N40),
-    disabled: token('color.background.disabled', colors.N30),
+    default: token('color.background.neutral', N30),
+    hovered: token('color.background.neutral.hovered', N40),
   },
   foreground: {
-    default: token('color.background.brand.bold', colors.B400),
-    hovered: token('color.background.brand.bold.hovered', colors.B300),
-    disabled: token('color.text.disabled', colors.N50),
+    default: token('color.background.neutral.bold', B400),
+    hovered: token('color.background.neutral.bold.hovered', B300),
   },
-};
+} as const;

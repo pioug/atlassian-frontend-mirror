@@ -1,12 +1,18 @@
 import React from 'react';
+import { screen, fireEvent } from '@testing-library/react';
+import { matchers } from '@emotion/jest';
 import { EmojiProvider, OnEmojiEvent } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { EmojiButton } from '../EmojiButton';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+  useFakeTimers,
+} from '../../__tests__/_testing-library';
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
-import { constants } from '../../shared';
-import { renderWithIntl } from '../../__tests__/_testing-library';
+import { constants, i18n } from '../../shared';
 import { RENDER_SELECTOR_TESTID, Selector } from './Selector';
+
+expect.extend(matchers);
 
 const renderSelector = (
   onSelection: OnEmojiEvent = () => {},
@@ -24,56 +30,58 @@ const renderSelector = (
 };
 
 describe('@atlaskit/reactions/components/selector', () => {
-  beforeEach(function () {
-    jest.useFakeTimers();
-  });
-
-  afterEach(function () {
-    jest.useRealTimers();
-  });
+  mockReactDomWarningGlobal();
+  useFakeTimers();
 
   it('should render default reactions', async () => {
-    const renderer = renderWithIntl(renderSelector());
-    const emojiWrappers = renderer.getAllByRole('presentation');
+    renderWithIntl(renderSelector());
+
+    const emojiWrappers = screen.getAllByRole('presentation');
     expect(emojiWrappers.length).toEqual(constants.DefaultReactions.length);
 
     constants.DefaultReactions.forEach(({ id, shortName }) => {
-      const elem = renderer.getByLabelText(shortName);
+      const elem = screen.getByLabelText(shortName);
       expect(elem).toBeInTheDocument();
     });
   });
 
-  it('should call "onSelection" on selection', () => {
+  it('should call "onSelection" on selection', async () => {
     const onSelection = jest.fn();
-    const selector = mountWithIntl(renderSelector(onSelection));
-    selector.find(EmojiButton).first().props().onClick();
+    renderWithIntl(renderSelector(onSelection));
 
-    jest.runTimersToTime(500);
+    const firstButton = await screen.findByLabelText(
+      i18n.messages.reactWithEmoji.defaultMessage.replace(
+        '{emoji}',
+        constants.DefaultReactions[0].shortName,
+      ),
+    );
+
+    expect(firstButton).toBeInTheDocument();
+    fireEvent.click(firstButton);
+
+    jest.runTimersToTime(500); // Skip the animation
+
     expect(onSelection).toHaveBeenCalled();
   });
 
-  it('should call "onMoreClick" when more button is clicked', () => {
+  it('should call "onMoreClick" when more button is clicked', async () => {
     const onSelection = jest.fn();
     const onMoreClick = jest.fn();
-    const selector = mountWithIntl(
-      renderSelector(onSelection, true, onMoreClick),
-    );
 
-    selector
-      .find(`button[data-testid="${RENDER_SHOWMORE_TESTID}"]`)
-      .simulate('mousedown');
+    renderWithIntl(renderSelector(onSelection, true, onMoreClick));
+    const button = await screen.findByTestId(RENDER_SHOWMORE_TESTID);
+    expect(button).toBeInTheDocument();
+    fireEvent.mouseDown(button);
 
     expect(onMoreClick.mock.calls).toHaveLength(1);
   });
 
-  it('should calculate animation delay based on reaction index', () => {
-    const selector = mountWithIntl(renderSelector());
+  it('should calculate animation delay based on reaction index', async () => {
+    renderWithIntl(renderSelector());
+    const buttons = await screen.findAllByTestId(RENDER_SELECTOR_TESTID);
+    expect(buttons.length).toBeGreaterThan(0);
 
-    expect(
-      selector
-        .find(`div[data-testid="${RENDER_SELECTOR_TESTID}"]`)
-        .at(2)
-        .prop('style'),
-    ).toHaveProperty('animationDelay', '100ms');
+    const btn = buttons[2];
+    expect(btn).toHaveStyle('animation-delay: 100ms');
   });
 });

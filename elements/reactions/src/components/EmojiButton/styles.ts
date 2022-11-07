@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 export const emojiButtonStyle = css({
   outline: 'none',

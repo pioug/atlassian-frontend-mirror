@@ -3,7 +3,6 @@ import { Transaction, ReadonlyTransaction } from 'prosemirror-state';
 import { ContentNodeWithPos, findParentNodeOfType } from 'prosemirror-utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
-// import { isTextInput } from '../../utils/is-text-input';
 import { isTextInput } from '@atlaskit/editor-common/utils';
 import { isTableCollapsible } from './utils/collapse';
 

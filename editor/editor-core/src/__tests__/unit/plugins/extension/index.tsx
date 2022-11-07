@@ -48,7 +48,10 @@ import {
 import { getPluginState } from '../../../../plugins/extension/pm-plugins/main';
 import { getSelectedExtension } from '../../../../plugins/extension/utils';
 import { setNodeSelection } from '../../../../utils';
-import { waitForProvider, flushPromises } from '../../../__helpers/utils';
+import {
+  waitForProvider,
+  flushPromises,
+} from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { useIntl } from 'react-intl-next';
 
 const macroProviderPromise = Promise.resolve(macroProvider);

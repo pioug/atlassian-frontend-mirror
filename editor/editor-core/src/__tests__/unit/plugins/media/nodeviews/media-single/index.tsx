@@ -39,7 +39,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
 import { MediaSingleNodeViewProps } from '../../../../../../plugins/media/nodeviews/types';
-import { flushPromises } from '../../../../../__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
 

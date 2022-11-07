@@ -1,19 +1,14 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+
 import ReactNodeView from '../ReactNodeView';
 import { EventDispatcher } from '../../event-dispatcher';
+import { analyticsPluginKey } from '../../plugins/analytics/plugin-key';
 
 jest.mock('../../plugins/analytics/plugin-key', () => ({
   analyticsPluginKey: {
-    getState() {
-      return {
-        performanceTracking: {
-          nodeViewTracking: {
-            enabled: true,
-          },
-        },
-      };
-    },
+    key: 'analyticsPlugin$',
   },
 }));
 
@@ -36,9 +31,39 @@ describe('ReactNodeView', () => {
 
   describe('Performance tracking', () => {
     it('should call performance.mark twice with appropriate arguments', () => {
+      const pluginState = {
+        performanceTracking: {
+          nodeViewTracking: {
+            enabled: true,
+          },
+        },
+      };
       const { editorView } = createEditor({
         doc: doc(p()),
-        editorPlugins: [],
+        editorPlugins: [
+          {
+            name: 'analytics',
+            pmPlugins() {
+              return [
+                {
+                  name: 'analyticsPlugin',
+                  plugin: () =>
+                    new SafePlugin({
+                      key: analyticsPluginKey,
+                      state: {
+                        init() {
+                          return pluginState;
+                        },
+                        apply() {
+                          return pluginState;
+                        },
+                      },
+                    }),
+                },
+              ];
+            },
+          },
+        ],
       });
       const node = editorView.state.doc;
 

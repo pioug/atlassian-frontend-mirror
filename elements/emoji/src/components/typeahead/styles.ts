@@ -1,6 +1,5 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-
 import {
   emojiPreviewSelectedColor,
   emojiTypeAheadMaxHeight,

@@ -266,7 +266,11 @@ export default class Example extends React.Component<any, DocBuilderState> {
               render={(actions) => {
                 this.editorActions = actions;
                 return (
-                  <FullPageEditor onChange={(e) => this.handleEditorChange()} />
+                  <FullPageEditor
+                    editorProps={{
+                      onChange: (e) => this.handleEditorChange(),
+                    }}
+                  />
                 );
               }}
             />

@@ -86,7 +86,7 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       typeof props.allowLayouts === 'object' &&
       !!props.allowLayouts?.UNSAFE_allowSingleColumnLayout,
 
-    undoRedoButtons: props.UNSAFE_allowUndoRedoButtons,
+    undoRedoButtons: props.allowUndoRedoButtons,
 
     catchAllTracking: props.performanceTracking?.catchAllTracking?.enabled,
 
@@ -125,14 +125,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     extendFloatingToolbar: Boolean(
       typeof props.allowExtension === 'object' &&
         props.allowExtension?.allowExtendFloatingToolbars,
-    ),
-
-    useUnpredictableInputRule: Boolean(
-      typeof props.featureFlags?.useUnpredictableInputRule === 'boolean'
-        ? !!props.featureFlags?.useUnpredictableInputRule
-        : props.UNSAFE_allowUndoRedoButtons
-        ? false
-        : true,
     ),
 
     showAvatarGroupAsPlugin: Boolean(

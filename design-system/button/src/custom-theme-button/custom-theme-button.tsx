@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { CSSObject } from '@emotion/core';
+import { CSSObject } from '@emotion/react';
 
 import GlobalTheme from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';

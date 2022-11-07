@@ -1,4 +1,3 @@
-import AkButton from '@atlaskit/button/custom-theme-button';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { ReactWrapper } from 'enzyme';
@@ -211,14 +210,26 @@ export const uploadAddRowSelector = `.css-${commonStyles.uploadAddRow.name}`;
 
 export const findAddEmojiButton = (component: ReactWrapper) =>
   component.update() &&
-  component.find(uploadAddRowSelector).find(AkButton).at(0);
+  component
+    .find(uploadAddRowSelector)
+    .find('[type="button"]')
+    .findWhere((node) => {
+      return node.type() !== undefined && node.text() === 'Add emoji';
+    })
+    .last();
 
 export const addEmojiButtonVisible = (component: ReactWrapper) =>
   component.update() && findAddEmojiButton(component).length > 0;
 
-export const findCancelLink = (component: ReactWrapper) =>
-  component.update() &&
-  component.find(uploadAddRowSelector).find(AkButton).at(1);
+export const findCancelLink = (component: ReactWrapper) => {
+  return (
+    component.update() &&
+    component
+      .find(uploadAddRowSelector)
+      .find('[data-testid="cancel-upload-button"]')
+      .last()
+  );
+};
 
 export const findUploadPreview = (component: ReactWrapper) =>
   component.update() && component.find(EmojiUploadPreview);

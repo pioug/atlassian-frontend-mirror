@@ -57,7 +57,7 @@ describe('InteractionSurface component', () => {
 
   it('should render an inherited hover state if a Box context is present', () => {
     const { getByTestId } = render(
-      <Box backgroundColor={['brand.bold', '']}>
+      <Box backgroundColor="brand.bold">
         <InteractionSurface testId="surface">
           <Text>hello</Text>
         </InteractionSurface>

@@ -31,9 +31,7 @@ export function inputRulePlugin(
     },
   );
 
-  return createPlugin('image-upload', [imageRule], {
-    useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
-  });
+  return createPlugin('image-upload', [imageRule]);
 }
 
 export default inputRulePlugin;

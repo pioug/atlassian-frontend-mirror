@@ -17,7 +17,6 @@ import { FeatureFlags } from '../../../types/feature-flags';
 export function createLinkInputRule(
   regexp: RegExp,
   skipAnalytics: boolean = false,
-  useUnpredictableInputRule: boolean = true,
 ): InputRuleWrapper {
   // Plain typed text (eg, typing 'www.google.com') should convert to a hyperlink
   return createRule(
@@ -43,9 +42,6 @@ export function createLinkInputRule(
       );
       if (isLinkInMatches(start, filepaths)) {
         const tr = state.tr;
-        if (useUnpredictableInputRule) {
-          tr.insertText(' ');
-        } // To keep consistent with original behaviour.
         return tr;
       }
 
@@ -55,7 +51,7 @@ export function createLinkInputRule(
       const tr = state.tr.addMark(from, to, markType);
 
       // Keep old behavior that will delete the space after the link
-      if (useUnpredictableInputRule || to === end) {
+      if (to === end) {
         tr.insertText(' ');
       }
 
@@ -80,15 +76,9 @@ export function createInputRulePlugin(
     return;
   }
 
-  const hasUseUnpredictableFlag =
-    typeof featureFlags.useUnpredictableInputRule === 'boolean';
-  const useUnpredictableInputRule = hasUseUnpredictableFlag
-    ? Boolean(featureFlags.useUnpredictableInputRule)
-    : true;
   const urlWithASpaceRule = createLinkInputRule(
-    LinkMatcher.create(useUnpredictableInputRule),
+    LinkMatcher.create(),
     skipAnalytics,
-    featureFlags.useUnpredictableInputRule,
   );
 
   // [something](link) should convert to a hyperlink
@@ -116,9 +106,7 @@ export function createInputRulePlugin(
     },
   );
 
-  return createPlugin('hyperlink', [urlWithASpaceRule, markdownLinkRule], {
-    useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
-  });
+  return createPlugin('hyperlink', [urlWithASpaceRule, markdownLinkRule]);
 }
 
 export default createInputRulePlugin;

@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/core';
+import { CSSObject, jsx } from '@emotion/react';
 
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import * as colors from '@atlaskit/theme/colors';

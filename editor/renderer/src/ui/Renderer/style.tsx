@@ -34,9 +34,11 @@ import {
   smartCardSharedStyles,
   tableCellPadding,
   textColorStyles,
+  codeBlockInListSafariFix,
 } from '@atlaskit/editor-common/styles';
 
 import { shadowClassNames } from '@atlaskit/editor-common/ui';
+import { browser } from '@atlaskit/editor-common/utils';
 import {
   editorFontSize,
   blockNodesVerticalMargin,
@@ -238,13 +240,12 @@ const tableSortableColumnStyle = ({
     `;
   }
   return css`
-    .${RendererCssClassName.SORTABLE_COLUMN} {
+    .${RendererCssClassName.SORTABLE_COLUMN_WRAPPER} {
       padding: 0;
 
-      .${RendererCssClassName.SORTABLE_COLUMN_BUTTON} {
+      .${RendererCssClassName.SORTABLE_COLUMN} {
         width: 100%;
         height: 100%;
-        cursor: pointer;
         padding: ${tableCellPadding}px;
         border-width: 1.5px;
         border-style: solid;
@@ -254,11 +255,13 @@ const tableSortableColumnStyle = ({
           margin-top: 0;
         }
 
-        > .ProseMirror-gapcursor.-right:first-of-type + * {
+        > .ProseMirror-gapcursor:first-child + *,
+        > style:first-child + .ProseMirror-gapcursor + * {
           margin-top: 0;
         }
 
-        > .ProseMirror-gapcursor:first-of-type + span + * {
+        > .ProseMirror-gapcursor:first-child + span + *,
+        > style:first-child + .ProseMirror-gapcursor + span + * {
           margin-top: 0;
         }
 
@@ -274,24 +277,28 @@ const tableSortableColumnStyle = ({
         ${headingsCss}
       }
 
-      &.${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED}
-        .${RendererCssClassName.SORTABLE_COLUMN_BUTTON} {
-        cursor: default;
-      }
-
-      .${RendererCssClassName.SORTABLE_COLUMN_ICON} {
+      .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
         margin: 0;
-        opacity: 1;
-        transition: opacity 0.2s ease-in-out;
+        .${RendererCssClassName.SORTABLE_COLUMN_ICON} {
+          opacity: 1;
+          transition: opacity 0.2s ease-in-out;
+        }
       }
 
       .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-        opacity: 0;
+        .${RendererCssClassName.SORTABLE_COLUMN_ICON} {
+          opacity: 0;
+          &:focus {
+            opacity: 1;
+          }
+        }
       }
 
       &:hover {
         .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-          opacity: 1;
+          .${RendererCssClassName.SORTABLE_COLUMN_ICON} {
+            opacity: 1;
+          }
         }
       }
     }
@@ -727,6 +734,21 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
           margin-left: 0;
         }
       }
+    }
+
+    & li {
+      > .code-block {
+        margin: ${blockNodesVerticalMargin} 0 0 0;
+      }
+      > .code-block:first-child {
+        margin-top: 0;
+      }
+
+      > div:last-of-type.code-block {
+        margin-bottom: ${blockNodesVerticalMargin};
+      }
+
+      ${browser.safari ? codeBlockInListSafariFix : ''}
     }
   `;
 };

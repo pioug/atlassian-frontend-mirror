@@ -14,7 +14,6 @@ import { browser } from '@atlaskit/editor-common/utils';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import AkModalDialog, {
   ModalTransition,
-  ModalBody,
   useModal,
 } from '@atlaskit/modal-dialog';
 import {
@@ -23,13 +22,13 @@ import {
   contentWrapper,
   line,
   content,
-  columnRight,
-  columnLeft,
   row,
   codeSm,
   codeMd,
   codeLg,
   title,
+  column,
+  dialogHeader,
 } from './styles';
 import * as keymaps from '../../../keymaps';
 import ToolbarButton from '../../../ui/ToolbarButton';
@@ -398,6 +397,14 @@ const quickInsertAutoFormat: (intl: IntlShape) => Format = ({
   ),
 });
 
+const getKeyParts = (keymap: keymaps.Keymap) => {
+  let shortcut: string = keymap[browser.mac ? 'mac' : 'windows'];
+  if (browser.mac) {
+    shortcut = shortcut.replace('Alt', 'Opt');
+  }
+  return shortcut.replace(/\-(?=.)/g, ' + ').split(' ');
+};
+
 export const getSupportedFormatting = (
   schema: Schema,
   intl: IntlShape,
@@ -416,19 +423,15 @@ export const getSupportedFormatting = (
 };
 
 export const getComponentFromKeymap = (keymap: keymaps.Keymap) => {
-  let shortcut: string = keymap[browser.mac ? 'mac' : 'windows'];
-  if (browser.mac) {
-    shortcut = shortcut.replace('Alt', 'Opt');
-  }
-  const keyParts = shortcut.replace(/\-(?=.)/g, ' + ').split(' ');
+  const keyParts = getKeyParts(keymap);
   return (
     <span>
       {keyParts.map((part, index) => {
         if (part === '+') {
-          return <span key={`${shortcut}-${index}`}>{' + '}</span>;
+          return <span key={`${keyParts}-${index}`}>{' + '}</span>;
         } else if (part === 'Cmd') {
           return (
-            <span css={codeSm} key={`${shortcut}-${index}`}>
+            <span css={codeSm} key={`${keyParts}-${index}`}>
               ⌘
             </span>
           );
@@ -436,13 +439,13 @@ export const getComponentFromKeymap = (keymap: keymaps.Keymap) => {
           ['ctrl', 'alt', 'opt', 'shift'].indexOf(part.toLowerCase()) >= 0
         ) {
           return (
-            <span css={codeMd} key={`${shortcut}-${index}`}>
+            <span css={codeMd} key={`${keyParts}-${index}`}>
               {part}
             </span>
           );
         }
         return (
-          <span css={codeSm} key={`${shortcut}-${index}`}>
+          <span css={codeSm} key={`${keyParts}-${index}`}>
             {part.toUpperCase()}
           </span>
         );
@@ -463,7 +466,10 @@ const ModalHeader = injectIntl(
     const { onClose } = useModal();
     return (
       <div css={header}>
-        <FormattedMessage {...messages.editorHelp} />
+        <h1 css={dialogHeader}>
+          <FormattedMessage {...messages.editorHelp} />
+        </h1>
+
         <div>
           <ToolbarButton
             // @ts-ignore
@@ -537,73 +543,68 @@ class HelpDialog extends React.Component<Props & WrappedComponentProps> {
             testId="help-modal-dialog"
           >
             <ModalHeader />
-            <ModalBody>
-              <div css={contentWrapper}>
-                <div css={line} />
-                <div css={content}>
-                  <div css={columnLeft}>
-                    <div css={title}>
-                      <FormattedMessage {...messages.keyboardShortcuts} />
-                    </div>
-                    <div>
-                      {this.formatting
-                        .filter((form) => {
-                          const keymap = form.keymap && form.keymap(this.props);
-                          return (
-                            keymap && keymap[browser.mac ? 'mac' : 'windows']
-                          );
-                        })
-                        .map((form) => (
-                          <div css={row} key={`textFormatting-${form.name}`}>
-                            <span>{form.name}</span>
-                            {getComponentFromKeymap(form.keymap!())}
-                          </div>
-                        ))}
 
-                      {this.formatting
-                        .filter(
-                          (form) =>
-                            shortcutNamesWithoutKeymap.indexOf(form.type) !==
-                            -1,
-                        )
-                        .filter((form) => form.autoFormatting)
-                        .map((form) => (
-                          <div css={row} key={`autoFormatting-${form.name}`}>
-                            <span>{form.name}</span>
-                            {form.autoFormatting!()}
-                          </div>
-                        ))}
-                    </div>
-                  </div>
-                  <div css={line} />
-                  <div css={columnRight}>
-                    <div css={title}>
-                      <FormattedMessage {...messages.markdown} />
-                    </div>
-                    <div>
-                      {this.formatting
-                        .filter(
-                          (form) =>
-                            shortcutNamesWithoutKeymap.indexOf(form.type) ===
-                            -1,
-                        )
-                        .map(
-                          (form) =>
-                            form.autoFormatting && (
-                              <div
-                                css={row}
-                                key={`autoFormatting-${form.name}`}
-                              >
-                                <span>{form.name}</span>
-                                {form.autoFormatting()}
-                              </div>
-                            ),
-                        )}
-                    </div>
-                  </div>
+            <div css={contentWrapper}>
+              <div css={line} />
+              <div css={content}>
+                <div css={column}>
+                  <h2 css={title}>
+                    <FormattedMessage {...messages.keyboardShortcuts} />
+                  </h2>
+                  <ul>
+                    {this.formatting
+                      .filter((form) => {
+                        const keymap = form.keymap && form.keymap(this.props);
+                        return (
+                          keymap && keymap[browser.mac ? 'mac' : 'windows']
+                        );
+                      })
+                      .map((form) => (
+                        <li css={row} key={`textFormatting-${form.name}`}>
+                          <span>{form.name}</span>
+                          {getComponentFromKeymap(form.keymap!())}
+                        </li>
+                      ))}
+
+                    {this.formatting
+                      .filter(
+                        (form) =>
+                          shortcutNamesWithoutKeymap.indexOf(form.type) !== -1,
+                      )
+                      .filter((form) => form.autoFormatting)
+                      .map((form) => (
+                        <li css={row} key={`autoFormatting-${form.name}`}>
+                          <span>{form.name}</span>
+                          {form.autoFormatting!()}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+                <div css={line} />
+                <div css={column}>
+                  <h2 css={title}>
+                    <FormattedMessage {...messages.markdown} />
+                  </h2>
+                  <ul>
+                    {this.formatting
+                      .filter(
+                        (form) =>
+                          shortcutNamesWithoutKeymap.indexOf(form.type) === -1,
+                      )
+                      .map(
+                        (form) =>
+                          form.autoFormatting && (
+                            <li key={`autoFormatting-${form.name}`} css={row}>
+                              <span>{form.name}</span>
+                              {form.autoFormatting()}
+                            </li>
+                          ),
+                      )}
+                  </ul>
                 </div>
               </div>
-            </ModalBody>
+            </div>
+
             <ModalFooter />
           </AkModalDialog>
         ) : null}

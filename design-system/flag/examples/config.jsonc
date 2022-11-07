@@ -5,8 +5,11 @@
  */
 {
   "testExamples": [
-    "01-flag-without-flagGroup.tsx",
+    "01-flag-without-flag-group.tsx",
+    "08-flag-with-a-description-containing-a-link.tsx",
     "11-bold-flag-component.tsx",
+    "15-flag-long-title.tsx",
+    "16-flag-long-content.tsx",
     "99-testing.tsx"
   ],
   "exampleDependencies": [

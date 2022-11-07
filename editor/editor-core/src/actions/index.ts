@@ -24,6 +24,7 @@ import { getFeatureFlags } from '../plugins/feature-flags-context/get-feature-fl
 import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
 import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import deprecationWarnings from '../utils/deprecation-warnings';
+import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
 
 export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   private editorView?: EditorView;
@@ -165,6 +166,14 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   getNodeByLocalId(id: string): Node | undefined {
     if (this.editorView?.state) {
       return findNodePosWithLocalId(this.editorView?.state, id)?.node;
+    }
+  }
+
+  getNodeByFragmentLocalId(id: string): Node | undefined {
+    if (this.editorView?.state) {
+      let nodes = findNodePosByFragmentLocalIds(this.editorView?.state, [id]);
+
+      return nodes.length > 0 ? nodes[0].node : undefined;
     }
   }
 

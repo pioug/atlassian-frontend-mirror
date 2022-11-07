@@ -178,6 +178,10 @@ export function createPlugin(
           slice = new Slice(Fragment.from(schema.text(text)), 1, 1);
         }
 
+        if (text?.includes('\r')) {
+          text = text.replace(/\r/g, '');
+        }
+
         const isPastedFile = clipboard.isPastedFile(event);
         const isPlainText = text && !html;
         const isRichText = !!html;

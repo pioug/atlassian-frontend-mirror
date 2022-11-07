@@ -1,4 +1,4 @@
-import { EditorState, TextSelection, Selection } from 'prosemirror-state';
+import { EditorState, TextSelection } from 'prosemirror-state';
 import { Node as PMNode, NodeType } from 'prosemirror-model';
 import { findWrapping } from 'prosemirror-transform';
 import { safeInsert } from 'prosemirror-utils';
@@ -24,6 +24,7 @@ import {
 import { filterChildrenBetween } from '../../../utils';
 import { PanelType } from '@atlaskit/adf-schema';
 import { CellSelection } from '@atlaskit/editor-tables';
+import { transformToCodeBlockAction } from './transform-to-code-block';
 
 export type InputMethod =
   | INPUT_METHOD.TOOLBAR
@@ -238,7 +239,7 @@ export const insertBlockTypesWithAnalytics = (
 
 /**
  * Function will add wrapping node.
- * 1. If currently selected blocks can be wrapped in the warpper type it will wrap them.
+ * 1. If currently selected blocks can be wrapped in the wrapper type it will wrap them.
  * 2. If current block can not be wrapped inside wrapping block it will create a new block below selection,
  *  and set selection on it.
  */
@@ -272,29 +273,26 @@ function wrapSelectionIn(type: NodeType<any>): Command {
  */
 function insertCodeBlock(): Command {
   return function (state: EditorState, dispatch) {
-    const { tr } = state;
-    const { $to, $from } = state.selection;
+    let { tr } = state;
+    const { from } = state.selection;
     const { codeBlock } = state.schema.nodes;
-    const grandParentType = state.selection.$from.node(-1)?.type;
-    const parentType = state.selection.$from.parent.type;
+    const grandParentNodeType = state.selection.$from.node(-1)?.type;
+    const parentNodeType = state.selection.$from.parent.type;
 
-    /** We always want to append a block type unless we're inserting into a paragraph
-     * AND it's a valid child of the grandparent node
+    /** We always want to append a codeBlock unless we're inserting into a paragraph
+     * AND it's a valid child of the grandparent node.
+     * Insert the current selection as codeBlock content unless it contains nodes other
+     * than paragraphs and inline.
      */
-    if (
-      shouldSplitSelectedNodeOnNodeInsertion(
-        parentType,
-        grandParentType,
-        codeBlock.createAndFill() as PMNode,
-      )
-    ) {
-      tr.replaceRangeWith(
-        $from.pos,
-        $to.pos,
-        codeBlock.createAndFill() as PMNode,
-      );
+    const canInsertCodeBlock =
+      shouldSplitSelectedNodeOnNodeInsertion({
+        parentNodeType,
+        grandParentNodeType,
+        content: codeBlock.createAndFill() as PMNode,
+      }) && contentAllowedInCodeBlock(state);
 
-      tr.setSelection(Selection.near(tr.doc.resolve(state.selection.to)));
+    if (canInsertCodeBlock) {
+      tr = transformToCodeBlockAction(state, from);
     } else {
       safeInsert(codeBlock.createAndFill() as PMNode)(tr).scrollIntoView();
     }
@@ -304,6 +302,30 @@ function insertCodeBlock(): Command {
     }
     return true;
   };
+}
+/**
+ * Check if the current selection contains any nodes that are not permitted
+ * as codeBlock child nodes. Note that this allows paragraphs and inline nodes
+ * as we extract their text content.
+ */
+function contentAllowedInCodeBlock(state: EditorState): boolean {
+  const { $from, $to } = state.selection;
+  let isAllowedChild = true;
+  state.doc.nodesBetween($from.pos, $to.pos, (node) => {
+    if (!isAllowedChild) {
+      return false;
+    }
+
+    return (isAllowedChild =
+      node.type === state.schema.nodes.listItem ||
+      node.type === state.schema.nodes.bulletList ||
+      node.type === state.schema.nodes.orderedList ||
+      node.type === state.schema.nodes.paragraph ||
+      node.isInline ||
+      node.isText);
+  });
+
+  return isAllowedChild;
 }
 
 export const cleanUpAtTheStartOfDocument: Command = (state, dispatch) => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Date, DateProps } from '../src';
-import styled, { css } from 'styled-components';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

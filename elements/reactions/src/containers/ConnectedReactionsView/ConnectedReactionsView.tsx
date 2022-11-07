@@ -58,7 +58,7 @@ type DispatchProps = Pick<
 >;
 
 /**
- * Export the mapper function outside the component so easier to do unit tests migration from Enzyme to React Testing Library
+ * Export the mapper function outside the component so easier to do unit tests
  */
 export const mapStateToPropsHelper = (
   containerAri: string,
@@ -88,7 +88,7 @@ export const mapStateToPropsHelper = (
 };
 
 /**
- * Export the mapper function outside the component so easier to do unit tests migration from Enzyme to React Testing Library
+ * Export the mapper function outside the component so easier to do unit tests
  */
 export const mapDispatchToPropsHelper = (
   actions: Actions,
@@ -133,8 +133,9 @@ export const ConnectedReactionsView: React.FC<ConnectedReactionsViewProps> = (
     return function cleanup() {
       experienceInstance.current?.abort({
         metadata: {
-          source: 'Connected-Reactions-View',
-          data: { ari, containerAri },
+          source: 'ConnectedReactionsView',
+          ari,
+          containerAri,
           reason: 'unmount',
         },
       });

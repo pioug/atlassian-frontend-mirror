@@ -1,7 +1,6 @@
+import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-
 import { emojiPickerWidth } from '../../util/constants';
-import { css } from '@emotion/core';
 
 // Uploader
 

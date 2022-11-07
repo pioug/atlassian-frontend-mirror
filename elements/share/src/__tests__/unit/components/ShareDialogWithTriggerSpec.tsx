@@ -192,7 +192,7 @@ describe('ShareDialogWithTrigger', () => {
   describe('onTriggerButtonClick prop', () => {
     it('passed function should be called when share button is clicked', () => {
       const wrapper = getMountWrapper();
-      wrapper.find(ShareButton).simulate('click');
+      wrapper.find('button').simulate('click');
       expect(mockOnTriggerButtonClick).toHaveBeenCalledTimes(1);
     });
   });
@@ -244,12 +244,12 @@ describe('ShareDialogWithTrigger', () => {
         (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
           .isDialogOpen,
       ).toEqual(false);
-      shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
+      shareDialogWithTriggerInternal.find('button').simulate('click');
       expect(
         (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
           .isDialogOpen,
       ).toEqual(true);
-      shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
+      shareDialogWithTriggerInternal.find('button').simulate('click');
       expect(
         (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
           .isDialogOpen,
@@ -546,7 +546,7 @@ describe('ShareDialogWithTrigger', () => {
         (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
           .isDialogOpen,
       ).toEqual(false);
-      shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
+      shareDialogWithTriggerInternal.find('button').simulate('click');
       expect(
         (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
           .isDialogOpen,
@@ -564,7 +564,7 @@ describe('ShareDialogWithTrigger', () => {
       ).toEqual(false);
       expect(mockOnDialogOpen).not.toHaveBeenCalled();
 
-      shareDialogWithTriggerInternal.find(ShareButton).simulate('click');
+      shareDialogWithTriggerInternal.find('button').simulate('click');
       expect(
         (shareDialogWithTriggerInternal.state() as ShareDialogWithTriggerStates)
           .isDialogOpen,
@@ -576,7 +576,7 @@ describe('ShareDialogWithTrigger', () => {
       const wrapper = getMountWrapper();
       expect(mockCreateAnalyticsEvent).not.toHaveBeenCalled();
 
-      wrapper.find(ShareButton).simulate('click');
+      wrapper.find('button').simulate('click');
       expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(2);
       // Share button clicked event
       expect(mockCreateAnalyticsEvent.mock.calls[0][0]).toMatchObject({

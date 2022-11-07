@@ -202,7 +202,9 @@ describe('<Collection />', () => {
       el.update();
 
       expect(mediaClient.collection.loadNextPage).not.toHaveBeenCalled();
-      el.find(`[data-testid="${nextNavButtonId}"]`).first().simulate('click');
+      el.find(`button[data-testid="${nextNavButtonId}"]`)
+        .first()
+        .simulate('click');
       expect(mediaClient.collection.loadNextPage).toHaveBeenCalled();
     });
   });

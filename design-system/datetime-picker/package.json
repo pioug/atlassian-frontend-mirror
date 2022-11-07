@@ -44,13 +44,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.3.0",
+    "@atlaskit/button": "^16.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/field-base": "^15.0.5",
-    "@atlaskit/form": "^8.6.0",
+    "@atlaskit/form": "^8.7.0",
     "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/popup": "^1.5.0",
-    "@atlaskit/range": "^6.1.0",
+    "@atlaskit/range": "^7.0.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.3.0",
@@ -76,10 +76,11 @@
       "dom-events": "use-bind-event-listener",
       "design-system": "v1",
       "styling": [
-        "static",
+        "emotion",
         "emotion"
       ],
-      "theming": "tokens"
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",

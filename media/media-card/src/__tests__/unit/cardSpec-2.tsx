@@ -1110,6 +1110,9 @@ describe('Media Card', () => {
           client: { status: 'fail', ...extractErrorInfo(clientError) },
         },
         undefined,
+        {
+          traceId: expect.any(String),
+        },
       );
     });
 
@@ -1164,6 +1167,9 @@ describe('Media Card', () => {
           },
         },
         undefined,
+        {
+          traceId: expect.any(String),
+        },
       );
     });
 
@@ -1213,6 +1219,9 @@ describe('Media Card', () => {
           },
         },
         undefined,
+        {
+          traceId: expect.any(String),
+        },
       );
     });
 
@@ -1264,6 +1273,9 @@ describe('Media Card', () => {
           client: { status: 'success' },
         },
         undefined,
+        {
+          traceId: expect.any(String),
+        },
       );
     });
 
@@ -1310,6 +1322,9 @@ describe('Media Card', () => {
           client: { status: 'success' },
         },
         undefined,
+        {
+          traceId: expect.any(String),
+        },
       );
     });
 
@@ -1356,6 +1371,9 @@ describe('Media Card', () => {
           client: { status: 'success' },
         },
         undefined,
+        {
+          traceId: expect.any(String),
+        },
       );
     });
   });

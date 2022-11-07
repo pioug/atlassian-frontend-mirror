@@ -69,3 +69,44 @@ export function findNode(
   });
   return matchedNode;
 }
+
+export function getFirstFocusableElement(
+  rootNode: HTMLElement | null,
+): HTMLElement | undefined {
+  if (!rootNode) {
+    return;
+  }
+  const focusableModalElements =
+    (rootNode.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select',
+    ) as NodeListOf<HTMLElement>) || [];
+  return focusableModalElements[0] as HTMLElement;
+}
+
+export function getFocusableElements(
+  rootNode: HTMLElement | null,
+): NodeListOf<HTMLElement> | undefined {
+  if (!rootNode) {
+    return;
+  }
+  const focusableModalElements =
+    (rootNode.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select',
+    ) as NodeListOf<HTMLElement>) || [];
+  return focusableModalElements;
+}
+
+export function getLastFocusableElement(
+  rootNode: HTMLElement | null,
+): HTMLElement | undefined {
+  if (!rootNode) {
+    return;
+  }
+  const focusableModalElements =
+    (rootNode.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select',
+    ) as NodeListOf<HTMLElement>) || [];
+  return focusableModalElements[
+    focusableModalElements.length - 1
+  ] as HTMLElement;
+}

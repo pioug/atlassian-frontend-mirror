@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 16.4.0
+
+### Minor Changes
+
+- [`9f6369f5505`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f6369f5505) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behaviour change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.3.10
 
 ### Patch Changes

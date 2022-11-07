@@ -1,46 +1,22 @@
 import React from 'react';
-import { ReactWrapper, EnzymePropSelector } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import {
-  Emoji,
-  EmojiDescription,
-  EmojiProvider,
-  toEmojiId,
-} from '@atlaskit/emoji';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { act, fireEvent, screen } from '@testing-library/react';
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { EmojiDescription, EmojiProvider, toEmojiId } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
-import { FlashAnimation } from '../FlashAnimation';
-import { Reaction } from '../Reaction';
-import { ReactionTooltip } from '../ReactionTooltip';
 import {
   ReactionSummary,
   ReactionClick,
   ReactionMouseEnter,
   User,
 } from '../../types';
-
-/**
- * Helper function for tests where explicit calls to update() are needed
- * for Enzyme 3 when React components' internal state has changed
- *
- * Only the root node can be updated but find() can be called on child nodes
- * If no child is passed in, find is called on the root node
- *
- * @param root ReactWrapper to update
- * @param prop Child component to find
- * @param child Optional child of root that find should be called on
- */
-export function hasSelector(
-  root: ReactWrapper<any, any>,
-  prop: EnzymePropSelector,
-  child?: ReactWrapper<any, any>,
-): boolean {
-  const component = child || root;
-  root.update();
-  return component.find(prop).length > 0;
-}
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+  useFakeTimers,
+} from '../../__tests__/_testing-library';
+import { RENDER_FLASHANIMATION_TESTID } from '../FlashAnimation';
+import { Reaction, RENDER_REACTION_TESTID } from './Reaction';
 
 const emojiRepository = getTestEmojiRepository();
 const ari = 'ari:cloud:owner:demo-cloud-id:item/1';
@@ -77,111 +53,119 @@ const getReaction = (
  * @param onClick click handler
  * @param onMouseEnter onMouseEnter handler
  * @param enableFlash show custom animation or render as standard without animation (defaults to false)
+ * @param onEvent onEvent for the analytics engine handler
+ * @param users list of users reacted to the emoji clicked
  * @returns JSX.Element
  */
 const renderReaction = (
   reacted: boolean,
   count: number,
-  onClick: ReactionClick,
-  onMouseEnter: ReactionMouseEnter,
+  onClick: ReactionClick = () => {},
+  onMouseEnter: ReactionMouseEnter = () => {},
   enableFlash = false,
-) => (
-  <Reaction
-    reaction={getReaction(count, reacted)}
-    emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
-    onClick={onClick}
-    onMouseEnter={onMouseEnter}
-    flash={enableFlash}
-  />
-);
+  onEvent: (event: UIAnalyticsEvent, channel?: string) => void = () => {},
+  users: User[] = [],
+) =>
+  renderWithIntl(
+    <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
+      <Reaction
+        reaction={getReaction(count, reacted, users)}
+        emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        flash={enableFlash}
+      />
+    </AnalyticsListener>,
+  );
 
 describe('@atlaskit/reactions/components/Reaction', () => {
-  it('should render emoji with resolved emoji data', (done) => {
-    const reaction = mountWithIntl(
-      renderReaction(
-        false,
-        1,
-        () => {},
-        () => {},
-      ),
-    );
+  mockReactDomWarningGlobal();
+  useFakeTimers();
 
-    waitUntil(() => hasSelector(reaction, Emoji)).then(() => {
-      const emoji = reaction.find(Emoji).first();
-      expect(emoji.length).toEqual(1);
-      const emojiDesc = emoji.prop('emoji');
-      expect(emojiDesc.id).toEqual(grinning.id);
-      done();
-    });
+  it('should render emoji with resolved emoji data', async () => {
+    const count = 1;
+    const reacted = false;
+    renderReaction(reacted, count);
+
+    const emojiButton = await screen.findByTestId(RENDER_REACTION_TESTID);
+    expect(emojiButton).toBeInTheDocument();
+    expect(emojiButton).toHaveAttribute('data-emoji-id', grinning.id);
   });
 
-  it('should call onClick on click', () => {
+  it('should call onClick on click', async () => {
+    const count = 1;
+    const reacted = false;
     const onClickSpy = jest.fn();
     const onMouseEnterSpy = jest.fn();
-    const reaction = mountWithIntl(
-      renderReaction(false, 1, onClickSpy, onMouseEnterSpy, false),
-    );
+    renderReaction(reacted, count, onClickSpy, onMouseEnterSpy);
 
-    reaction.find('button').first().simulate('mouseup', { button: 0 });
+    const emojiButton = await screen.findByTestId(RENDER_REACTION_TESTID);
+    expect(emojiButton).toBeInTheDocument();
+
+    act(() => {
+      fireEvent.mouseUp(emojiButton);
+    });
     expect(onClickSpy).toHaveBeenCalled();
   });
 
-  it('should delegate flash to Flash component', () => {
+  it('should delegate flash to Flash component', async () => {
+    const count = 1;
+    const reacted = false;
+    const enableFlash = true;
     const onClickSpy = jest.fn();
     const onMouseEnterSpy = jest.fn();
-    const reaction = mountWithIntl(
-      renderReaction(true, 10, onClickSpy, onMouseEnterSpy, true),
-    );
-    const flashComponent = reaction.find(FlashAnimation);
 
-    expect(flashComponent.prop('flash')).toBeTruthy();
+    renderReaction(reacted, count, onClickSpy, onMouseEnterSpy, enableFlash);
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    const flashAnimationWrapper = await screen.findByTestId(
+      RENDER_FLASHANIMATION_TESTID,
+    );
+    expect(flashAnimationWrapper).toBeInTheDocument();
+    const styles = window.getComputedStyle(flashAnimationWrapper);
+    expect(styles.getPropertyValue('animation')).toBeTruthy();
   });
 
-  it('should render ReactionTooltip', () => {
+  it('should render ReactionTooltip', async () => {
+    const count = 1;
+    const reacted = false;
     const onClickSpy = jest.fn();
     const onMouseEnterSpy = jest.fn();
-    const reaction = mountWithIntl(
-      renderReaction(false, 1, onClickSpy, onMouseEnterSpy),
-    );
+    renderReaction(reacted, count, onClickSpy, onMouseEnterSpy);
 
-    const tooltip = reaction.find(ReactionTooltip);
-    expect(tooltip.prop('reaction')).toEqual(getReaction(1, false));
+    const content = await screen.findByRole('button');
+    expect(content).toBeInTheDocument();
+    const tooltipWrapper = await screen.findByRole('presentation');
+    expect(tooltipWrapper).toBeInTheDocument();
   });
 
   describe('with analytics', () => {
-    const onEvent = jest.fn();
-
-    const ReactionWithAnalyticsListener = (props: {
-      reacted: boolean;
-      count: number;
-      onClick: ReactionClick;
-      onMouseEnter?: ReactionMouseEnter;
-      users?: User[];
-    }) => (
-      <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
-        <Reaction
-          reaction={getReaction(props.count, props.reacted, props.users)}
-          emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
-          onClick={props.onClick}
-          onMouseEnter={props.onMouseEnter}
-        />
-      </AnalyticsListener>
-    );
-
-    afterEach(() => {
-      onEvent.mockClear();
-    });
-
-    it('should trigger clicked for Reaction', () => {
-      const component = mountWithIntl(
-        <ReactionWithAnalyticsListener
-          reacted={false}
-          count={10}
-          onClick={jest.fn()}
-        />,
+    it('should trigger clicked for Reaction', async () => {
+      const count = 10;
+      const reacted = false;
+      const onClickSpy = jest.fn();
+      const onMouseEnterSpy = jest.fn();
+      const enableFlash = false;
+      const onEventSpy = jest.fn();
+      renderReaction(
+        reacted,
+        count,
+        onClickSpy,
+        onMouseEnterSpy,
+        enableFlash,
+        onEventSpy,
       );
-      component.find('button').first().simulate('mouseup', { button: 0 });
-      expect(onEvent).toHaveBeenCalledWith(
+
+      const btn = await screen.findByRole('button');
+      expect(btn).toBeInTheDocument();
+
+      // Click the Reaction emoji button
+      act(() => {
+        fireEvent.mouseUp(btn);
+      });
+      expect(onEventSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: expect.objectContaining({
             action: 'clicked',
@@ -199,32 +183,44 @@ describe('@atlaskit/reactions/components/Reaction', () => {
       );
     });
 
-    it('should trigger hovered for Reaction', () => {
-      const component = mountWithIntl(
-        <ReactionWithAnalyticsListener
-          reacted={false}
-          count={10}
-          onClick={jest.fn()}
-          onMouseEnter={jest.fn()}
-        />,
+    it('should trigger hovered for Reaction', async () => {
+      const count = 10;
+      const reacted = false;
+      const onClickSpy = jest.fn();
+      const onMouseEnterSpy = jest.fn();
+      const enableFlash = false;
+      const onEventSpy = jest.fn();
+      const users: User[] = [
+        {
+          id: 'user-1',
+          displayName: 'Luiz',
+        },
+      ];
+      renderReaction(
+        reacted,
+        count,
+        onClickSpy,
+        onMouseEnterSpy,
+        enableFlash,
+        onEventSpy,
+        users,
       );
-      component.find('button').first().simulate('mouseEnter');
-      component.setProps({
-        users: [
-          {
-            id: 'user-1',
-            displayName: 'Luiz',
-          },
-        ],
+
+      const btn = await screen.findByRole('button');
+      expect(btn).toBeInTheDocument();
+
+      // Click the Reaction emoji button
+      act(() => {
+        fireEvent.mouseOver(btn);
       });
-      expect(onEvent).toHaveBeenCalledWith(
+
+      expect(onEventSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: expect.objectContaining({
             action: 'hovered',
             actionSubject: 'existingReaction',
             eventType: 'ui',
             attributes: {
-              duration: expect.any(Number),
               packageName: '@atlaskit/reactions',
               packageVersion: expect.any(String),
             },

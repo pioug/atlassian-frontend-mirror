@@ -38,7 +38,7 @@ import hyperlinkPlugin from '../../../../hyperlink';
 import listPlugin from '../../../../list';
 import tasksAndDecisionsPlugin from '../../../../tasks-and-decisions';
 import { default as textFormattingPlugin } from '../../../../text-formatting';
-import tablePlugin from '../../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
 
@@ -56,7 +56,7 @@ describe('paste paragraph edge cases', () => {
         .add(listPlugin)
         .add(tasksAndDecisionsPlugin)
         .add(textFormattingPlugin)
-        .add(tablePlugin)
+        .add(tablesPlugin)
         .add(layoutPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([mediaPlugin, { allowMediaSingle: true }])

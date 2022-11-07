@@ -42,6 +42,7 @@ import {
   uploadFailedEvent,
   uploadSucceededEvent,
 } from '../../../../util/analytics';
+import console from 'console';
 
 describe('<UploadingEmojiPicker />', () => {
   let onEvent: jest.SpyInstance;
@@ -53,7 +54,7 @@ describe('<UploadingEmojiPicker />', () => {
 
   const safeFindCustomEmojiButton = async (component: ReactWrapper) => {
     await waitUntil(() => commonHelper.customEmojiButtonVisible(component));
-    return commonHelper.findCustomEmojiButton(component);
+    return commonHelper.findCustomEmojiButton(component).last();
   };
 
   const uploadPreviewShown = (component: ReactWrapper) => {
@@ -649,7 +650,12 @@ describe('<UploadingEmojiPicker />', () => {
       const provider = await emojiProvider;
 
       // add emoji
-      const addEmojiButton = helper.findAddEmojiButton(component);
+      const addEmojiButton = helper
+        .findAddEmojiButton(component)
+        .findWhere((node) => {
+          return node.type() !== undefined && node.text() === 'Add emoji';
+        })
+        .last();
       addEmojiButton.simulate('click');
 
       // wait for error

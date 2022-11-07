@@ -6,5 +6,8 @@
 {
   "testExamples": [
     "controlled-expanded-state.js"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/select"
   ]
 }

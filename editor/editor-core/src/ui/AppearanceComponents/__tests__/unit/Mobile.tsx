@@ -9,8 +9,8 @@ import {
   tr,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../../../plugins/table';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -21,7 +21,7 @@ describe('Mobile Appearance Component', () => {
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add(tablePlugin),
+      preset: new Preset<LightEditorPlugin>().add(tablesPlugin),
       pluginKey,
     });
 

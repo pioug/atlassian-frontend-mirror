@@ -1,9 +1,12 @@
 import React from 'react';
-import { fireEvent, act } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
+import { fireEvent, act, screen } from '@testing-library/react';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { renderWithIntl } from '../../__tests__/_testing-library';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+  useFakeTimers,
+} from '../../__tests__/_testing-library';
 import { DefaultReactions } from '../../shared/constants';
 import { ReactionPicker } from '../ReactionPicker';
 import { RENDER_BUTTON_TESTID } from '../EmojiButton';
@@ -23,22 +26,18 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
       />
     );
   };
-
   const animStub = window.cancelAnimationFrame;
   const onSelectionSpy = jest.fn();
-
-  beforeEach(() => {
+  mockReactDomWarningGlobal(
+    () => {
+      window.cancelAnimationFrame = () => {};
+    },
+    () => {
+      window.cancelAnimationFrame = animStub;
+    },
+  );
+  useFakeTimers(() => {
     onSelectionSpy.mockClear();
-  });
-
-  beforeAll(() => {
-    window.cancelAnimationFrame = () => {};
-    jest.useFakeTimers();
-  });
-
-  afterAll(() => {
-    jest.useRealTimers();
-    window.cancelAnimationFrame = animStub;
   });
 
   it('should render a trigger button', async () => {
@@ -46,7 +45,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
     const triggerPickerButton = await screen.findByLabelText('Add reaction');
 
     const btn = triggerPickerButton.closest('button');
-    expect(btn).toBeDefined();
+    expect(btn).toBeInTheDocument();
   });
 
   it('should render selector options when trigger button is clicked', async () => {
@@ -54,7 +53,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
     const triggerPickerButton = await screen.findByLabelText('Add reaction');
 
     const btn = triggerPickerButton.closest('button');
-    expect(btn).toBeDefined();
+    expect(btn).toBeInTheDocument();
     if (btn) {
       fireEvent.click(btn);
     }
@@ -67,15 +66,15 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
     renderWithIntl(renderPicker(onSelectionSpy));
     const triggerPickerButton = await screen.findByLabelText('Add reaction');
     const btn = triggerPickerButton.closest('button');
-    expect(btn).toBeDefined();
+    expect(btn).toBeInTheDocument();
     if (btn) {
       fireEvent.click(btn);
     }
 
     const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
 
-    const firstEmoji = selectorButtons[0];
-    expect(firstEmoji).toBeDefined();
+    const firstEmoji = selectorButtons.at(0);
+    expect(firstEmoji).toBeInTheDocument();
     if (firstEmoji) {
       fireEvent.click(firstEmoji);
     }
@@ -93,7 +92,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
     const triggerPickerButton = screen
       .getByLabelText('Add reaction')
       .closest('button');
-    expect(triggerPickerButton).toBeDefined();
+    expect(triggerPickerButton).toBeInTheDocument();
     if (triggerPickerButton) {
       const prop = triggerPickerButton.getAttribute('disabled');
       expect(prop).toBeDefined();

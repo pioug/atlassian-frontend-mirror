@@ -23,7 +23,9 @@ describe('Snapshot Test', () => {
     // Wait for next & prev buttons (and their inner icons)
     await page.waitForSelector(prevPageBtnSelector + '[disabled]');
     await page.waitForSelector(nextPageBtnSelector + ':not([disabled])');
-    await page.waitForSelector('span[role="presentation"] > svg');
+    await page.waitForSelector(
+      'button[data-testid="pagination--right-navigator"] svg',
+    );
 
     // Wait for page 5
     await page.waitForSelector(getPageSelectorForPage(5));

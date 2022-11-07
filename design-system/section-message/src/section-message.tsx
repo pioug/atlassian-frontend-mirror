@@ -8,7 +8,6 @@ import {
   UNSAFE_Text as Text,
 } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
-import { N500 } from '@atlaskit/theme/colors';
 
 import { getAppearanceIconStyles } from './internal/appearance-icon';
 import type { SectionMessageProps } from './types';
@@ -42,8 +41,8 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
     return (
       <Box
         as="section"
-        backgroundColor={[appearanceMap[appearance], secondaryColor]}
-        padding="sp-200"
+        backgroundColor={appearanceMap[appearance]}
+        padding="scale.200"
         borderRadius="normal"
         testId={testId}
         ref={ref}
@@ -51,7 +50,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
           wordBreak: 'break-word',
         }}
       >
-        <Inline gap="sp-200">
+        <Inline gap="scale.200">
           <Box
             UNSAFE_style={{
               margin: '-2px 0',
@@ -63,7 +62,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
               secondaryColor={secondaryColor}
             />
           </Box>
-          <Stack gap="sp-100" testId={testId && `${testId}--content`}>
+          <Stack gap="scale.100" testId={testId && `${testId}--content`}>
             {!!title && (
               <Heading as="h2" level="h500">
                 {title}
@@ -74,8 +73,8 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
               <Inline
                 flexWrap="wrap"
                 testId={testId && `${testId}--actions`}
-                divider={<Text color={['subtle', N500]}>·</Text>}
-                gap="sp-75"
+                divider={<Text color="subtle">·</Text>}
+                gap="scale.075"
               >
                 {actionsArray}
               </Inline>

@@ -1,5 +1,8 @@
 import { css } from '@emotion/react';
+
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
+import { browser } from '@atlaskit/editor-common/utils';
+import { codeBlockInListSafariFix } from '@atlaskit/editor-common/styles';
 
 export const listsStyles = css`
   .ProseMirror li {
@@ -15,5 +18,7 @@ export const listsStyles = css`
     > style:first-child + p {
       margin-top: ${blockNodesVerticalMargin};
     }
+
+    ${browser.safari ? codeBlockInListSafariFix : ''}
   }
 `;

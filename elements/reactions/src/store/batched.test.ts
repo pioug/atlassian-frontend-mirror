@@ -1,15 +1,14 @@
+import {
+  mockReactDomWarningGlobal,
+  useFakeTimers,
+} from '../__tests__/_testing-library';
 import { batch, batchByKey } from './batched';
 
 describe('batch', () => {
   const func = jest.fn();
 
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
-  afterEach(() => {
-    jest.useRealTimers();
-  });
+  mockReactDomWarningGlobal();
+  useFakeTimers();
 
   const batched = batch(func);
 
@@ -27,14 +26,13 @@ describe('batch', () => {
 describe('batchByKey', () => {
   const func = jest.fn();
 
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
-  afterEach(() => {
-    jest.useRealTimers();
-    func.mockClear();
-  });
+  mockReactDomWarningGlobal();
+  useFakeTimers(
+    () => {},
+    () => {
+      func.mockClear();
+    },
+  );
 
   const batched = batchByKey(func);
 

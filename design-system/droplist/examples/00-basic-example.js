@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item, { ItemGroup } from '@atlaskit/item';
 
 import DropList from '../src';

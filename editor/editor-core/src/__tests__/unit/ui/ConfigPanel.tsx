@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-common/extensions';
 import SmartUserPicker from '@atlaskit/smart-user-picker';
 
-import { flushPromises } from '../../__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 import { FieldTypeError, ValidationError } from '../../../ui/ConfigPanel/types';
 import { validate } from '../../../ui/ConfigPanel/utils';
@@ -1816,12 +1816,15 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
         describe('Dynamic', () => {
           const clickAddFieldButton = (wrapper: Wrapper) => {
-            wrapper.find('[data-testid="add-more"]').first().simulate('click');
+            wrapper
+              .find('button[data-testid="add-more"]')
+              .first()
+              .simulate('click');
             wrapper.update();
           };
 
           const hasAddButton = (wrapper: Wrapper) => {
-            return wrapper.find('[data-testid="add-more"]').exists();
+            return wrapper.find('button[data-testid="add-more"]').exists();
           };
 
           it('should show only 1 field when first rendering', async () => {

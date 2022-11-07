@@ -97,7 +97,7 @@ export {
   setBlockTypeWithAnalytics,
 } from './plugins/block-type/commands';
 export type { InputMethod as BlockTypeInputMethod } from './plugins/block-type/commands';
-export { createTable } from './plugins/table/commands';
+export { createTable } from '@atlaskit/editor-plugin-table/commands';
 export { insertTaskDecisionCommand } from './plugins/tasks-and-decisions/commands';
 export type { TaskDecisionInputMethod } from './plugins/tasks-and-decisions/types';
 export { EventDispatcher } from './event-dispatcher';

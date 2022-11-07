@@ -26,7 +26,7 @@ import {
 
 import { pluginKey as fragmentMarkPluginKey } from '../../plugin-key';
 import fragmentMarkPlugin from '../../index';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import extensionPlugin from '../../../extension';
 import layoutPlugin from '../../../layout';
 import expandPlugin from '../../../expand';
@@ -85,7 +85,7 @@ describe('fragment plugin', () => {
     const preset = new Preset<LightEditorPlugin>();
 
     preset.add(fragmentMarkPlugin);
-    preset.add([tablePlugin, { tableOptions: {} }]);
+    preset.add([tablesPlugin, { tableOptions: {} }]);
     preset.add(extensionPlugin);
     preset.add(layoutPlugin);
     preset.add(expandPlugin);

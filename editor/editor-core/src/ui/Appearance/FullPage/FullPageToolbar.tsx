@@ -149,7 +149,7 @@ export const EditorToolbar: React.FunctionComponent<
             css={mainToolbarFirstChildStyle(
               !!props.featureFlags?.twoLineEditorToolbar,
             )}
-            role="region"
+            role="toolbar"
             aria-label={props.intl.formatMessage(messages.toolbarLabel)}
           >
             {shouldSplitToolbar ? customToolbar : nonCustomToolbar}

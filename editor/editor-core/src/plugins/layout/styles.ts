@@ -20,8 +20,8 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
-import { TableCssClassName } from '../table/types';
-import { tableMarginFullWidthMode } from '../table/ui/consts';
+import { TableCssClassName } from '@atlaskit/editor-plugin-table/types';
+import { tableMarginFullWidthMode } from '@atlaskit/editor-plugin-table/ui/consts';
 
 export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
 
@@ -36,7 +36,6 @@ export const layoutStyles = css`
       [data-layout-column] {
         flex: 1;
         min-width: 0;
-        // TODO: https://product-fabric.atlassian.net/browse/DSP-4353
         border: ${akEditorSelectedBorderSize}px solid
           ${token('color.border', N40A)};
         border-radius: 4px;
@@ -49,15 +48,17 @@ export const layoutStyles = css`
             margin-top: 0;
           }
 
-          > .ProseMirror-gapcursor.-right:first-of-type + * {
+          > .ProseMirror-gapcursor:first-child + *,
+          > style:first-child + .ProseMirror-gapcursor + * {
             margin-top: 0;
           }
 
-          > .ProseMirror-gapcursord:first-of-type + span + * {
+          > .ProseMirror-gapcursor:first-child + span + *,
+          > style:first-child + .ProseMirror-gapcursor:first-child + span + * {
             margin-top: 0;
           }
 
-          .rich-media-item {
+          > .embedCardView-content-wrap:first-of-type .rich-media-item {
             margin-top: 0;
           }
 
@@ -65,13 +66,25 @@ export const layoutStyles = css`
             margin-top: 0;
           }
 
-          > .ProseMirror-gapcursor.-right:first-of-type
+          > .ProseMirror-gapcursor.-right:first-child
             + .mediaSingleView-content-wrap
+            .rich-media-item,
+          > style:first-child
+            + .ProseMirror-gapcursor.-right
+            + .mediaSingleView-content-wrap
+            .rich-media-item,
+          > .ProseMirror-gapcursor.-right:first-of-type
+            + .embedCardView-content-wrap
             .rich-media-item {
             margin-top: 0;
           }
 
-          > .ProseMirror-gapcursor:first-of-type
+          > .ProseMirror-gapcursor:first-child
+            + span
+            + .mediaSingleView-content-wrap
+            .rich-media-item,
+          > style:first-child
+            + .ProseMirror-gapcursor
             + span
             + .mediaSingleView-content-wrap
             .rich-media-item {
@@ -105,7 +118,9 @@ export const layoutStyles = css`
         }
       }
 
-      // TODO: https://product-fabric.atlassian.net/browse/DSP-4441
+      // TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
+      // This is because the default state already uses the same token and, as such, the hover style won't change anything.
+      // https://product-fabric.atlassian.net/browse/DSP-4441
       /* Shows the border when cursor is inside a layout */
       &.selected [data-layout-column],
       &:hover [data-layout-column] {

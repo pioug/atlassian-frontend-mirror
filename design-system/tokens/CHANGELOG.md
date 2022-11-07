@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 0.10.31
+
+### Patch Changes
+
+- [`e35fc41dc33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e35fc41dc33) - Internal change to use updated primtive spacing prop values. No expected behaviour change.
+- [`92ee7c98d1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92ee7c98d1a) - Fixes a number of neutral palette colors which were being generated without their alphas in the legacy palette.
+- [`7e491389968`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e491389968) - Adds experimental spacing tokens, currently for internal use only. These are not ready for widespread consumption yet and a lint rule will raise issues if you try to use them.
+
 ## 0.10.30
 
 ### Patch Changes

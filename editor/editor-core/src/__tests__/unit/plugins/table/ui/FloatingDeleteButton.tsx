@@ -17,14 +17,18 @@ import React from 'react';
 import {
   TablePluginState,
   TableCssClassName,
-} from '../../../../../plugins/table/types';
+} from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import FloatingDeleteButton, {
   Props as FloatingDeleteButtonProps,
-} from '../../../../../plugins/table/ui/FloatingDeleteButton';
-import DeleteButton from '../../../../../plugins/table/ui/FloatingDeleteButton/DeleteButton';
-import tableMessages from '../../../../../plugins/table/ui/messages';
-import * as tableColumnControlsUtils from '../../../../../plugins/table/utils/column-controls';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
+} from '@atlaskit/editor-plugin-table/src/plugins/table/ui/FloatingDeleteButton';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import DeleteButton from '@atlaskit/editor-plugin-table/src/plugins/table/ui/FloatingDeleteButton/DeleteButton';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import tableMessages from '@atlaskit/editor-plugin-table/src/plugins/table/ui/messages';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import * as tableColumnControlsUtils from '@atlaskit/editor-plugin-table/src/plugins/table/utils/column-controls';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 describe('Floating Delete Button', () => {
   const createEditor = createEditorFactory<TablePluginState>();

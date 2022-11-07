@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import Spinner from '@atlaskit/spinner';
 import { ReactNode } from 'react';
+import { jsx } from '@emotion/react';
+import Spinner from '@atlaskit/spinner';
 import EmojiPickerCategoryHeading, {
   Props as CategoryHeadingProps,
 } from './EmojiPickerCategoryHeading';

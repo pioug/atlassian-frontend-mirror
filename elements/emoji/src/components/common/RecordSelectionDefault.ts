@@ -8,6 +8,7 @@ import {
 } from '../../util/analytics';
 import { EmojiId, OnEmojiEvent, OptionalEmojiDescription } from '../../types';
 import { EmojiProvider } from '../../api/EmojiResource';
+import { extractErrorInfo } from '../../util/analytics/analytics';
 
 /**
  * A function that will wrap any configured Emoji 'onSelection' function to ensure recordSelection is always
@@ -36,19 +37,14 @@ export const createRecordSelectionDefault = <T>(
             fireAnalytics && fireAnalytics(recordSucceeded);
             ufoExperiences['emoji-selection-recorded'].success();
           })
-          .catch(() => {
+          .catch((error) => {
             fireAnalytics && fireAnalytics(recordFailed);
             ufoExperiences['emoji-selection-recorded'].failure({
               metadata: {
+                error: extractErrorInfo(error),
                 reason: 'recordSelection error',
                 source: 'RecordSelectionDefault',
-                data: {
-                  emoji: {
-                    id: emoji.id,
-                    name: emoji.name,
-                    shortName: emoji.shortName,
-                  },
-                },
+                emojiId: emoji.id,
               },
             });
           });

@@ -36,9 +36,7 @@ export default function inputRulePlugin(
   }
 
   if (rules.length !== 0) {
-    return createPlugin('lists', rules, {
-      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
-    });
+    return createPlugin('lists', rules);
   }
 
   return;

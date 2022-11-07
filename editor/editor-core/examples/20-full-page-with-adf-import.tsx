@@ -42,8 +42,33 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
       <div style={{ height: '100%' }}>
         <DevTools />
         <FullPageEditor
-          defaultValue={adfValue}
-          smartLinks={{ allowEmbeds: true, allowBlockCards: true }}
+          editorProps={{
+            defaultValue: adfValue,
+            smartLinks: { allowEmbeds: true, allowBlockCards: true },
+            allowTables: {
+              advanced: true,
+              allowColumnSorting: true,
+            },
+            contextPanel: (
+              <WithEditorActions
+                key={1}
+                render={(actions) => (
+                  <AdfPanel
+                    open={panelOpen}
+                    value={adfValue}
+                    onInput={(value) => {
+                      setAdfValue(value);
+                      try {
+                        // Don't try to set document if no valid json
+                        const data = JSON.parse(value);
+                        actions.replaceDocument(data);
+                      } catch (err) {}
+                    }}
+                  />
+                )}
+              />
+            ),
+          }}
           customPrimaryToolbarComponents={
             <WithEditorActions
               key={1}
@@ -63,29 +88,6 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
                   </Fragment>
                 );
               }}
-            />
-          }
-          allowTables={{
-            advanced: true,
-            allowColumnSorting: true,
-          }}
-          contextPanel={
-            <WithEditorActions
-              key={1}
-              render={(actions) => (
-                <AdfPanel
-                  open={panelOpen}
-                  value={adfValue}
-                  onInput={(value) => {
-                    setAdfValue(value);
-                    try {
-                      // Don't try to set document if no valid json
-                      const data = JSON.parse(value);
-                      actions.replaceDocument(data);
-                    } catch (err) {}
-                  }}
-                />
-              )}
             />
           }
         />

@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 11.5.3
+
+### Patch Changes
+
+- [`625585b8db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/625585b8db6) - Bug fix to re-position the menu after change in loading state.
+- Updated dependencies
+
 ## 11.5.2
 
 ### Patch Changes

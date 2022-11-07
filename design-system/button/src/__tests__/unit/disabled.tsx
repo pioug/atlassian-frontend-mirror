@@ -46,7 +46,7 @@ types.forEach((tag: React.ElementType) => {
 
       // Blocking pointer events on children
       expect(
-        hasStyleRule(`.${button.className} > *`, { pointerEvents: 'none' }),
+        hasStyleRule(`.${button.className} >*`, { pointerEvents: 'none' }),
       ).toBe(true);
     });
 

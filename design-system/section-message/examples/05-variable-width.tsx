@@ -14,7 +14,7 @@ const Example = () => {
   const [width, setWidth] = useState(800);
 
   return (
-    <Stack gap="sp-0">
+    <Stack gap="scale.0">
       <Text>SectionMessage expands to fill the space available to it.</Text>
       <Range min={100} max={800} onChange={setWidth} step={1} value={width} />
       <Box UNSAFE_style={{ maxWidth: `${width}px` }}>

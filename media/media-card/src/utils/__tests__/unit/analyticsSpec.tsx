@@ -20,7 +20,11 @@ import {
   extractErrorInfo,
   SSRStatus,
 } from '../../analytics';
-import { FileAttributes, PerformanceAttributes } from '@atlaskit/media-common';
+import {
+  FileAttributes,
+  MediaTraceContext,
+  PerformanceAttributes,
+} from '@atlaskit/media-common';
 import {
   createMediaStoreError,
   createRateLimitedError,
@@ -119,6 +123,7 @@ describe('Media Analytics', () => {
         'metadata-fetch',
         createRateLimitedError(),
       );
+      const traceContext: MediaTraceContext = { traceId: 'some-trace-id' };
       const ssrReliability: SSRStatus = {
         server: { status: 'unknown' },
         client: { status: 'unknown' },
@@ -129,6 +134,7 @@ describe('Media Analytics', () => {
           performanceAttributes,
           error,
           ssrReliability,
+          traceContext,
         ),
       ).toMatchObject({
         eventType: 'operational',
@@ -142,6 +148,7 @@ describe('Media Analytics', () => {
           error: getRenderErrorErrorReason(error),
           errorDetail: getRenderErrorErrorDetail(error),
           request: getRenderErrorRequestMetadata(error),
+          traceContext,
         },
       });
     });

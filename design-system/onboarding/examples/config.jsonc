@@ -13,7 +13,5 @@
     "90-spotlight-button-appearance.tsx",
     "99-modal-basic.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/progress-indicator"
-  ]
+  "exampleDependencies": []
 }

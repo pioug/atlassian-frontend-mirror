@@ -5,8 +5,6 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/checkbox",
-    "react-intl",
-    "react-intl-next"
+    "@atlaskit/checkbox"
   ]
 }

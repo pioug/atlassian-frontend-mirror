@@ -11,8 +11,5 @@
     "09-submit-form.tsx",
     "10-submission-validation.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/datetime-picker",
-    "@atlaskit/modal-dialog"
-  ]
+  "exampleDependencies": []
 }

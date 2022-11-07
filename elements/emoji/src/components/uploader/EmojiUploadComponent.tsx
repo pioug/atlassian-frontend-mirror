@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { FC, useState, memo, useEffect } from 'react';
+import { jsx } from '@emotion/react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
-
-import { EmojiUpload } from '../../types';
-import { EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
 import {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+
+import { EmojiUpload } from '../../types';
+import { EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
 import EmojiUploadPickerWithIntl from '../common/EmojiUploadPicker';
 import { uploadEmoji } from '../common/UploadEmoji';
 import {

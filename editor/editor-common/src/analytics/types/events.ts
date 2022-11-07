@@ -227,6 +227,7 @@ export type ErrorEventAttributes = {
   errorId?: string;
   docStructure?: string | SimplifiedNode;
   browserExtensions?: UserBrowserExtensionResults;
+  outdatedBrowser?: boolean;
 };
 
 type ComponentCrashErrorAEP = OperationalAEP<

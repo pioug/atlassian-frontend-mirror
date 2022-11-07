@@ -1,5 +1,11 @@
 # @atlaskit/editor-json-transformer
 
+## 8.8.2
+
+### Patch Changes
+
+- [`fbbfaba77c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbbfaba77c9) - ED-13997 Fixed unhandled exception in encodeNode function
+
 ## 8.8.1
 
 ### Patch Changes

@@ -12,7 +12,6 @@ import {
 
 import { EditorView } from 'prosemirror-view';
 
-// import { maphElem } from '@atlaskit/editor-core/src/utils/dom';
 import { maphElem } from '@atlaskit/editor-common/utils';
 
 import { TableCssClassName as ClassName } from '../types';

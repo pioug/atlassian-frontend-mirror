@@ -9,7 +9,6 @@
   ],
   "exampleDependencies": [
     "@atlaskit/page",
-    "react-intl",
     "react-intl-next"
   ]
 }

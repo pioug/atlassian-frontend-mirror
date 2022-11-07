@@ -167,7 +167,6 @@ export class FloatingContextualButtonInner extends React.Component<
       this.props.stickyHeader !== nextProps.stickyHeader
     );
   }
-  // TODO: restore
   private handleClick = () => {
     const { state, dispatch } = this.props.editorView;
     // Clicking outside the dropdown handles toggling the menu closed

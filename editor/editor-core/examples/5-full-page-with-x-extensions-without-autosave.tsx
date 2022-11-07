@@ -4,9 +4,11 @@ import { default as FullPageExample } from './5-full-page';
 
 export default () => (
   <FullPageExample
-    extensionProviders={(editorActions) => [
-      getExampleExtensionProviders(editorActions),
-    ]}
-    allowExtension={{ allowAutoSave: false }}
+    editorProps={{
+      extensionProviders: (editorActions) => [
+        getExampleExtensionProviders(editorActions),
+      ],
+      allowExtension: { allowAutoSave: false },
+    }}
   />
 );

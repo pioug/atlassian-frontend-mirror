@@ -12,6 +12,7 @@ import type { ProviderFactory } from '../provider-factory';
 import type { PaletteColor } from '../ui-color/ColorPalette/Palettes/type';
 
 import type { Command } from './command';
+import type { MarkOptions, NodeOptions } from './copy-button';
 
 export interface RenderOptionsPropsT<T> {
   hide: () => void;
@@ -67,6 +68,12 @@ export interface ConfirmDialogOptions {
   cancelButtonLabel?: string; // Defaults to "Cancel"
 }
 
+export type FloatingToolbarCopyButton = {
+  type: 'copy-button';
+  items: Array<FloatingToolbarSeparator | MarkOptions | NodeOptions>;
+  hidden?: boolean;
+};
+
 export type FloatingToolbarButton<T> = {
   id?: string;
   type: 'button';
@@ -116,6 +123,17 @@ export type FloatingToolbarInput<T> = {
 
 export type FloatingToolbarCustom<T> = {
   type: 'custom';
+  /**
+   * By default -- the floating toolbar supports navigating between
+   * items using arrow keys (to meet aria guidelines).
+   * In some cases the floating toolbar is being used to present
+   * non toolbar content -- such as the link editing experience.
+   * In these cases you can opt out of arrow navigation using the
+   * this property.
+   *
+   * @default false
+   */
+  disableArrowNavigation?: boolean;
   fallback: Array<FloatingToolbarFallbackItem<T>>;
   // No superset of all these types yet
   render: (
@@ -210,6 +228,7 @@ type FloatingToolbarExtensionsPlaceholder = {
  */
 export type FloatingToolbarFallbackItem<T> =
   | FloatingToolbarButton<T>
+  | FloatingToolbarCopyButton
   | FloatingToolbarDropdown<T>
   | FloatingToolbarSelect<T>
   | FloatingToolbarInput<T>
@@ -217,6 +236,7 @@ export type FloatingToolbarFallbackItem<T> =
 
 export type FloatingToolbarItem<T> =
   | FloatingToolbarButton<T>
+  | FloatingToolbarCopyButton
   | FloatingToolbarDropdown<T>
   | FloatingToolbarSelect<T>
   | FloatingToolbarInput<T>
@@ -236,6 +256,9 @@ export interface FloatingToolbarConfig {
   getDomRef?: (view: EditorView) => HTMLElement | undefined;
 
   visible?: boolean;
+  /**
+   * nodeType or list of `nodeType`s this floating toolbar should be shown for.
+   **/
   nodeType: NodeType | NodeType[];
   items:
     | Array<FloatingToolbarItem<Command>>
@@ -250,6 +273,7 @@ export interface FloatingToolbarConfig {
     editorView: EditorView,
     nextPos: Position,
   ) => Position;
+  scrollable?: boolean;
 }
 
 export type FloatingToolbarHandler = (

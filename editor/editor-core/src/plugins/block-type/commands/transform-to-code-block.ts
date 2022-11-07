@@ -1,39 +1,66 @@
 import { EditorState, Transaction, TextSelection } from 'prosemirror-state';
 import { mapSlice } from '../../../utils/slice';
-import { NodeType } from 'prosemirror-model';
+import { Fragment, NodeType } from 'prosemirror-model';
+import { timestampToString } from '@atlaskit/editor-common/utils';
 
 export function transformToCodeBlockAction(
   state: EditorState,
   start: number,
-  end: number,
   attrs?: any,
 ): Transaction {
-  if (!state.selection.empty) {
-    // Don't do anything, if there is something selected
-    return state.tr;
-  }
-
   const startOfCodeBlockText = state.selection.$from;
-  const endLinePosition = startOfCodeBlockText.end();
+  const endPosition = state.selection.empty
+    ? startOfCodeBlockText.end()
+    : state.selection.$to.pos;
   const startLinePosition = startOfCodeBlockText.start();
-  const parentStartPosition = startOfCodeBlockText.before();
+  //when cmd+A is used to select the content. start position should be 0.
+  const parentStartPosition =
+    startOfCodeBlockText.depth === 0 ? 0 : startOfCodeBlockText.before();
+  const contentSlice = state.doc.slice(startOfCodeBlockText.pos, endPosition);
 
-  const codeBlockSlice = mapSlice(
-    state.doc.slice(startOfCodeBlockText.pos, endLinePosition),
-    (node) => {
-      if (node.type === state.schema.nodes.hardBreak) {
-        return state.schema.text('\n');
-      }
+  const codeBlockSlice = mapSlice(contentSlice, (node, parent, index) => {
+    if (node.type === state.schema.nodes.hardBreak) {
+      return state.schema.text('\n');
+    }
 
-      if (node.isText) {
-        return node.mark([]);
-      } else if (node.isInline) {
-        return node.attrs.text ? state.schema.text(node.attrs.text) : null;
-      } else {
-        return node.content.childCount ? node.content : null;
+    if (node.isText) {
+      return node.mark([]);
+    }
+
+    if (node.isInline) {
+      // Convert dates
+      if (node.attrs.timestamp) {
+        return state.schema.text(timestampToString(node.attrs.timestamp, null));
       }
-    },
-  );
+      // Convert links
+      if (node.attrs.url) {
+        return state.schema.text(node.attrs.url);
+      }
+      return node.attrs.text ? state.schema.text(node.attrs.text) : null;
+    }
+
+    // if the current node is the last child of the Slice exit early to prevent
+    // adding additional line breaks
+    if (contentSlice.content.childCount - 1 === index) {
+      return node.content;
+    }
+
+    //useful to decide whether to append line breaks when the content has list items.
+    const isParentLastChild =
+      parent && contentSlice.content.childCount - 1 === index;
+
+    // add line breaks at the end of each paragraph to mimic layout of selected content
+    // do not add line breaks when the 'paragraph' parent is last child.
+    if (
+      node.content.childCount &&
+      node.type === state.schema.nodes.paragraph &&
+      !isParentLastChild
+    ) {
+      return node.content.append(Fragment.from(state.schema.text('\n\n')));
+    }
+
+    return node.content.childCount ? node.content : null;
+  });
 
   const tr = state.tr;
 
@@ -44,7 +71,7 @@ export function transformToCodeBlockAction(
   const codeBlockNode = codeBlock.createChecked(attrs, codeBlockSlice.content);
   tr.replaceWith(
     startMapped,
-    Math.min(endLinePosition, tr.doc.content.size),
+    Math.min(endPosition, tr.doc.content.size),
     codeBlockNode,
   );
 

@@ -1,5 +1,7 @@
+/** @jsx jsx */
 import React, { FunctionComponent } from 'react';
 
+import { jsx } from '@emotion/react';
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import Spinner from '@atlaskit/spinner';

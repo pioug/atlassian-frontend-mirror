@@ -9,9 +9,10 @@ import {
   tdEmpty,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { uuid } from '@atlaskit/adf-schema';
-import { TablePluginState } from '../../../../../plugins/table/types';
-import { mergeCells } from '../../../../../plugins/table/transforms';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { mergeCells } from '@atlaskit/editor-plugin-table/src/plugins/table/transforms';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

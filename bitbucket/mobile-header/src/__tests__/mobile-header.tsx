@@ -26,7 +26,7 @@ test('clicking hamburger button fires onNavigationOpen', () => {
       pageHeading=""
     />,
   );
-  wrapper.find(AkButton).simulate('click');
+  wrapper.find('button[type="button"]').simulate('click');
   expect(openSpy).toHaveBeenCalledTimes(1);
 });
 
@@ -152,7 +152,7 @@ test('renders the custom menu content if provided', () => {
     />,
   );
 
-  const button = wrapper.find(AkButton);
+  const button = wrapper.find('button[type="button"]');
   expect(button.length).toBe(1);
   expect(button.text()).toBe('Test');
   expect(wrapper.find(MenuIcon).length).toBe(0);

@@ -25,7 +25,7 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { TableCssClassName as ClassName } from '../../../plugins/table/types';
+import { TableCssClassName as ClassName } from '@atlaskit/editor-plugin-table/types';
 import { EditorProps } from '../../../types';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 

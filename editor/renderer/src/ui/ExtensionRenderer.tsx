@@ -13,6 +13,7 @@ import {
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
+import { Mark as PMMark } from 'prosemirror-model';
 
 export interface Props {
   type: 'extension' | 'inlineExtension' | 'bodiedExtension';
@@ -26,6 +27,7 @@ export interface Props {
   content?: any;
   layout?: ExtensionLayout;
   localId?: string;
+  marks?: PMMark[];
   children: ({ result }: { result?: JSX.Element | null }) => JSX.Element;
 }
 
@@ -70,7 +72,11 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
       text,
       type,
       localId,
+      marks,
     } = this.props;
+
+    const fragmentLocalId = marks?.find((m) => m.type.name === 'fragment')
+      ?.attrs?.localId;
 
     const node = {
       type,
@@ -79,6 +85,7 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
       parameters,
       content: content || text,
       localId,
+      fragmentLocalId,
     };
 
     let result = null;

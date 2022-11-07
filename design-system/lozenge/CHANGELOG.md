@@ -1,5 +1,17 @@
 # @atlaskit/lozenge
 
+## 11.3.0
+
+### Minor Changes
+
+- [`f97c945d57f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f97c945d57f) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
+### Patch Changes
+
+- [`7c6009de2f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c6009de2f1) - [ux] Updates the visual appearance to match the legacy light mode palette.
+- [`e35fc41dc33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e35fc41dc33) - Internal change to use updated primtive spacing prop values. No expected behaviour change.
+- Updated dependencies
+
 ## 11.2.5
 
 ### Patch Changes

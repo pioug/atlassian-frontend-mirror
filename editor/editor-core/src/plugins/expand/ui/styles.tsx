@@ -121,6 +121,7 @@ export const expandStyles = (props: ThemeProps) => css`
 
   .${expandClassNames.titleContainer} {
     ${sharedExpandStyles.titleContainerStyles(props)};
+    align-items: center;
     overflow: visible;
   }
 

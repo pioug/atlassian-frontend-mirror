@@ -5,8 +5,8 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/field-text",
     "@atlaskit/select",
-    "@atlaskit/spinner"
+    "@atlaskit/spinner",
+    "@atlaskit/textfield"
   ]
 }

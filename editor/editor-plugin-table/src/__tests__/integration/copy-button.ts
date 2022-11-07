@@ -1,6 +1,6 @@
 //import { runBlockNodeSelectionTestSuite } from '@atlaskit/editor-test-helpers/integration/selection';
 // import { _getCopyButtonTestSuite } from '@atlaskit/editor-core/src/plugins/copy-button/__tests__/integration/_getCopyButtonTestSuite';
-
+export {};
 test.todo('TODO: ED-15706 We disabled the copy button');
 // _getCopyButtonTestSuite({
 //   nodeName: 'Table',

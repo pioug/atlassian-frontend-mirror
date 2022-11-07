@@ -23,7 +23,10 @@ import {
 
 import { EditorProps } from '../../types';
 import { pluginKey } from '../../plugins/extension/plugin-key';
-import { flushPromises, waitForProvider } from '../__helpers/utils';
+import {
+  flushPromises,
+  waitForProvider,
+} from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { setEditingContextToContextPanel } from '../../plugins/extension/commands';
 import { getContextPanel } from '../../plugins/extension/context-panel';
 import { EditorActions, EditorContext } from '../..';

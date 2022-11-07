@@ -219,10 +219,8 @@ function getPunctuationRules() {
 }
 
 export default (featureFlags: FeatureFlags) =>
-  createPlugin(
-    'text-formatting:smart-input',
-    [...getProductRules(), ...getSymbolRules(), ...getPunctuationRules()],
-    {
-      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
-    },
-  );
+  createPlugin('text-formatting:smart-input', [
+    ...getProductRules(),
+    ...getSymbolRules(),
+    ...getPunctuationRules(),
+  ]);

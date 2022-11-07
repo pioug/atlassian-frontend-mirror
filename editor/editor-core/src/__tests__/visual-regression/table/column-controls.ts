@@ -55,9 +55,7 @@ describe('Table context menu: merge-split cells', () => {
     await initEditor(adf);
   });
 
-  // Skipping this test due to consistent failure in CI but passing locally
-  // Please fix the test and reinstate it as soon as possible
-  it.skip(`should render column controls for each column regardless of merged cells in the first row`, async () => {
+  it(`should render column controls for each column regardless of merged cells in the first row`, async () => {
     const from = getSelectorForTableCell({
       row: 1,
       cell: 1,

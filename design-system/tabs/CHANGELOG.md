@@ -1,5 +1,12 @@
 # @atlaskit/tabs
 
+## 13.3.4
+
+### Patch Changes
+
+- [`e35fc41dc33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e35fc41dc33) - Internal change to use updated primtive spacing prop values. No expected behaviour change.
+- Updated dependencies
+
 ## 13.3.3
 
 ### Patch Changes

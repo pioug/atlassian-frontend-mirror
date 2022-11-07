@@ -19,7 +19,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import rulePlugin from '../../../rule';
 import layoutPlugin from '../../../layout';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import clipboardPlugin from '../../index';
 import { sendClipboardAnalytics } from '../../pm-plugins/main';
 import { ACTION } from '../../../analytics/types/enums';
@@ -43,7 +43,7 @@ describe('clipboard plugin', () => {
     .add(rulePlugin)
     .add(layoutPlugin)
     .add([
-      tablePlugin,
+      tablesPlugin,
       {
         tableOptions: {
           allowNumberColumn: true,

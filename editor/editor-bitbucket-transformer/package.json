@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^70.1.0",
+    "@atlaskit/editor-common": "^70.2.0",
     "@babel/runtime": "^7.0.0",
     "prosemirror-markdown": "^1.4.2",
     "prosemirror-model": "1.14.3"
@@ -36,7 +36,7 @@
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/adf-schema": "^24.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^174.0.0",
+    "@atlaskit/editor-core": "^175.0.0",
     "@atlaskit/editor-test-helpers": "^17.2.0",
     "@atlaskit/emoji": "^66.0.0",
     "@atlaskit/smart-card": "^23.1.0",
@@ -50,7 +50,11 @@
   },
   "techstack": {
     "@repo/internal": {
-      "theming": "tokens"
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

@@ -85,7 +85,7 @@ test('defaultValue should be correctly set by final-form', () => {
     </Form>,
   );
 
-  wrapper.find(Button).simulate('submit');
+  wrapper.find('button').simulate('submit');
 
   expect(spy).toHaveBeenCalledWith(
     expect.objectContaining({ username: 'Joe Bloggs' }),
@@ -170,7 +170,7 @@ test('should show errors after submission', () => {
     </Form>,
   );
   expect(wrapper.find(ErrorMessage)).toHaveLength(0);
-  wrapper.find(Button).simulate('submit');
+  wrapper.find('button').simulate('submit');
   return Promise.resolve().then(() => {
     wrapper.update();
     expect(wrapper.find(ErrorMessage)).toHaveLength(1);
@@ -211,7 +211,7 @@ test('change in defaultValue should reset form field', () => {
     </WithState>,
   );
 
-  wrapper.find(Button).simulate('click');
+  wrapper.find('button').simulate('click');
 
   return Promise.resolve().then(() => {
     wrapper.update();
@@ -275,7 +275,7 @@ test('object identity change in defaultValue should not reset form field', async
   expect(wrapper.find(TextField).props()).toMatchObject({ value: 'newValue' });
 
   // Reset the default value to the same value (but with a different object identity)
-  wrapper.find(Button).simulate('click');
+  wrapper.find('button').simulate('click');
   await Promise.resolve();
   wrapper.update();
 
@@ -351,7 +351,7 @@ test('array element identity change in defaultValue should not reset form field'
   });
 
   // Reset the default value to the same value (but with different element identities)
-  wrapper.find(Button).simulate('click');
+  wrapper.find('button').simulate('click');
   await Promise.resolve();
   wrapper.update();
 
@@ -502,17 +502,17 @@ test('should indicate whether form is submitting', () => {
       )}
     </Form>,
   );
-  expect(wrapper.find(Button).text()).toBe('submit');
-  wrapper.find(Button).simulate('submit');
+  expect(wrapper.find('button').text()).toBe('submit');
+  wrapper.find('button').simulate('submit');
   return Promise.resolve()
     .then(() => {
       wrapper.setProps({});
-      expect(wrapper.find(Button).text()).toBe('submitting');
+      expect(wrapper.find('button').text()).toBe('submitting');
       complete();
     })
     .then(() => {
       wrapper.setProps({});
-      expect(wrapper.find(Button).text()).toBe('submit');
+      expect(wrapper.find('button').text()).toBe('submit');
     });
 });
 
@@ -629,7 +629,7 @@ test('should persist submit error if field value has changed since it was submit
     </Form>,
   );
   expect(wrapper.find(ErrorMessage)).toHaveLength(0);
-  wrapper.find(Button).simulate('click');
+  wrapper.find('button').simulate('click');
   return Promise.resolve().then(() => {
     wrapper.update();
     expect(wrapper.find(ErrorMessage)).toHaveLength(1);
@@ -1023,4 +1023,25 @@ test('should always show most recent validation result', (done) => {
     expect(queryByText('Too short')).toBeTruthy();
     done();
   });
+});
+
+test('should set elementAfterLabel with field when field is required', () => {
+  const wrapper = mount<typeof Form>(
+    <Form onSubmit={jest.fn()}>
+      {() => (
+        <Field
+          name="username"
+          id="username"
+          label="User name"
+          isRequired
+          elementAfterLabel="After label"
+          defaultValue=""
+        >
+          {({ fieldProps }) => <TextField {...fieldProps} />}
+        </Field>
+      )}
+    </Form>,
+  );
+
+  expect(wrapper.find(Field).text()).toEqual('User name*After label');
 });

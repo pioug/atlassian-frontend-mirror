@@ -402,9 +402,9 @@ describe('<Header />', () => {
         />,
       );
       el.update();
-      el.find('[data-testid="media-viewer-download-button"]')
-        .first()
-        .simulate('click');
+      el.find('button[data-testid="media-viewer-download-button"]').simulate(
+        'click',
+      );
       expect(
         (mediaClient.file.downloadBinary as jest.Mock).mock.calls[0][2],
       ).toEqual(collectionName);

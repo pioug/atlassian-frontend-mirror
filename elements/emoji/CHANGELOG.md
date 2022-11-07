@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 66.0.2
+
+### Patch Changes
+
+- [`cdf42c26e75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdf42c26e75) - Upgrade emotion library to use latest version 11
+- [`cb5bbf2cd8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb5bbf2cd8c) - Add testId to cancel upload button. No behaviour change.
+- [`d74d5065a25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d74d5065a25) - minor analytics update
+- Updated dependencies
+
 ## 66.0.1
 
 ### Patch Changes

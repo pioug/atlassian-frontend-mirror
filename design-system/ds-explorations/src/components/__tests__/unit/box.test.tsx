@@ -19,29 +19,26 @@ describe('Box component', () => {
   });
 
   describe('with SurfaceContext', () => {
-    it('should invert text color when box sets background', () => {
+    it('should respect text color when text sets its own color and bg is non-bold', () => {
       const { getByText } = render(
-        <Box backgroundColor={['brand.bold', '']}>
-          <Text>Text</Text>
+        <Box backgroundColor="information">
+          <Text color="color.text">Text</Text>
         </Box>,
       );
       const element = getByText('Text');
-      expect(element).toHaveStyleDeclaration(
-        'color',
-        token('color.text.inverse', 'var(--ds-co-fb)'),
-      );
+      expect(element).toHaveStyleDeclaration('color', token('color.text'));
     });
 
-    it('should respect text color when text sets its own color', () => {
+    it("should override text color when background won't meet contrast", () => {
       const { getByText } = render(
-        <Box backgroundColor={['brand.bold', '']}>
-          <Text color={['disabled', '']}>Text</Text>
+        <Box backgroundColor="brand.bold">
+          <Text color="disabled">Text</Text>
         </Box>,
       );
       const element = getByText('Text');
       expect(element).toHaveStyleDeclaration(
         'color',
-        token('color.text.disabled', 'var(--ds-co-fb)'),
+        token('color.text.inverse', '#FFFFFF'),
       );
     });
   });

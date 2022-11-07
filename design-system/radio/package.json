@@ -41,10 +41,10 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.3.0",
+    "@atlaskit/button": "^16.4.0",
     "@atlaskit/checkbox": "^12.4.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/form": "^8.6.0",
+    "@atlaskit/form": "^8.7.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

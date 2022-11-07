@@ -682,7 +682,7 @@ describe('provider unit tests', () => {
         },
       };
 
-      describe("should fail if can't syncup", () => {
+      describe("should fail if can't sync up", () => {
         beforeEach(() => {
           jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
         });
@@ -692,7 +692,9 @@ describe('provider unit tests', () => {
 
           await expect(
             provider.getFinalAcknowledgedState(),
-          ).rejects.toThrowError(new Error("Can't syncup with Collab Service"));
+          ).rejects.toThrowError(
+            new Error("Can't sync up with Collab Service"),
+          );
 
           expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
         });
@@ -710,14 +712,14 @@ describe('provider unit tests', () => {
           expect(onSyncUpErrorMock).toHaveBeenCalledWith({
             clientId: 'some-random-prosmirror-client-Id',
             lengthOfUnconfirmedSteps: 1,
-            maxRetries: 10,
-            tries: 11,
+            maxRetries: 30,
+            tries: 31,
             version: undefined,
           });
         });
       });
 
-      it('should return if it can syncup', async () => {
+      it('should return if it can sync up', async () => {
         let called = 0;
         jest
           .spyOn(provider as any, 'sendStepsFromCurrentState')
@@ -818,7 +820,9 @@ describe('provider unit tests', () => {
           attributes: {
             documentAri: 'ari:cloud:confluence:ABC:page/testpage',
             eventStatus: 'FAILURE',
-            error: new TypeError('Cannot convert undefined or null to object'),
+            error: new TypeError(
+              "Cannot read properties of undefined (reading 'forEach')",
+            ),
           },
         },
         undefined,

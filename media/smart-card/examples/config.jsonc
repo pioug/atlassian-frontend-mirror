@@ -5,14 +5,7 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/checkbox",
-    "@atlaskit/form",
-    "@atlaskit/inline-message",
-    "@atlaskit/page",
     "@atlaskit/radio",
-    "@atlaskit/table-tree",
-    "@atlaskit/textfield",
-    "brace",
-    "react-ace"
+    "@atlaskit/table-tree"
   ]
 }

@@ -1,6 +1,6 @@
 import React, { Ref, useEffect, useState } from 'react';
 
-import { ClassNames, keyframes, ObjectInterpolation } from '@emotion/core';
+import { ClassNames, CSSObject, keyframes } from '@emotion/react';
 
 import { prefersReducedMotion } from '../utils/accessibility';
 import { largeDurationMs } from '../utils/durations';
@@ -33,12 +33,12 @@ interface InternalKeyframesMotionProps extends KeyframesMotionProps {
   /**
    * CSS keyframes for the entering animation.
    */
-  enteringAnimation: ObjectInterpolation<undefined>;
+  enteringAnimation: CSSObject;
 
   /**
    * CSS keyframes for the exiting animation.
    */
-  exitingAnimation?: ObjectInterpolation<undefined>;
+  exitingAnimation?: CSSObject;
 
   /**
    * Duration in `ms`.

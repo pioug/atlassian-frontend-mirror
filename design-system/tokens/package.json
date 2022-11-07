@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.10.30",
+  "version": "0.10.31",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -65,18 +65,18 @@
     "@af/codegen": "*",
     "@atlaskit/avatar": "^21.1.0",
     "@atlaskit/badge": "^15.0.11",
-    "@atlaskit/button": "^16.3.0",
+    "@atlaskit/button": "^16.4.0",
     "@atlaskit/checkbox": "^12.4.0",
     "@atlaskit/code": "^14.4.0",
     "@atlaskit/docs": "^9.0.10",
     "@atlaskit/dropdown-menu": "^11.5.0",
-    "@atlaskit/ds-explorations": "^0.1.5",
+    "@atlaskit/ds-explorations": "^1.0.0",
     "@atlaskit/dynamic-table": "^14.8.0",
     "@atlaskit/empty-state": "^7.4.0",
     "@atlaskit/focus-ring": "^1.1.0",
     "@atlaskit/heading": "^0.1.16",
     "@atlaskit/icon": "^21.11.0",
-    "@atlaskit/lozenge": "^11.2.0",
+    "@atlaskit/lozenge": "^11.3.0",
     "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/tabs": "^13.3.0",
@@ -114,7 +114,9 @@
       "design-system": "v1",
       "ui-components": "lite-mode",
       "deprecation": "no-deprecated-imports",
-      "styling": "emotion"
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "homepage": "https://atlassian.design/components/tokens",

@@ -1,12 +1,35 @@
-import React, { KeyboardEvent, MouseEvent, useContext } from 'react';
+/** @jsx jsx */
+import { KeyboardEvent, MouseEvent, useContext, useLayoutEffect } from 'react';
+
+import { css, jsx } from '@emotion/react';
 
 import MenuGroup from '@atlaskit/menu/menu-group';
+import Spinner from '@atlaskit/spinner';
+import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { FocusableElement, MenuWrapperProps } from '../../types';
 import { FocusManagerContext } from '../components/focus-manager';
 import isCheckboxItem from '../utils/is-checkbox-item';
 import isRadioItem from '../utils/is-radio-item';
 
+const gridSize = gridSizeFn();
+const spinnerContainerStyles = css({
+  display: 'flex',
+  minWidth: `${gridSize * 20}px`,
+  padding: `${gridSize * 2.5}px`,
+  justifyContent: 'center',
+});
+const LoadingIndicator = ({
+  statusLabel = 'Loading',
+}: {
+  statusLabel: MenuWrapperProps['statusLabel'];
+}) => (
+  <div css={spinnerContainerStyles}>
+    <Spinner size="small" />
+    <VisuallyHidden role="status">{statusLabel}</VisuallyHidden>
+  </div>
+);
 /**
  *
  * MenuWrapper wraps all the menu items.
@@ -16,7 +39,11 @@ import isRadioItem from '../utils/is-radio-item';
  */
 const MenuWrapper = ({
   onClose,
+  onUpdate,
+  isLoading,
+  statusLabel,
   setInitialFocusRef,
+  children,
   ...props
 }: MenuWrapperProps) => {
   const { menuItemRefs } = useContext(FocusManagerContext);
@@ -39,10 +66,21 @@ const MenuWrapper = ({
     }
   };
 
+  // Using useEffect here causes a flicker.
+  // useLayoutEffect ensures that the update and render happen in the same
+  // rAF tick.
+  useLayoutEffect(() => {
+    onUpdate();
+  }, [isLoading, onUpdate]);
+
   setInitialFocusRef && setInitialFocusRef(menuItemRefs[0]);
 
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  return <MenuGroup role="menu" onClick={closeOnMenuItemClick} {...props} />;
+  return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+    <MenuGroup role="menu" onClick={closeOnMenuItemClick} {...props}>
+      {isLoading ? <LoadingIndicator statusLabel={statusLabel} /> : children}
+    </MenuGroup>
+  );
 };
 
 export default MenuWrapper;

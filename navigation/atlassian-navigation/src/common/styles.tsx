@@ -1,5 +1,3 @@
-import { NavigationTheme } from '../theme';
-
 import { CREATE_BREAKPOINT } from './constants';
 
 export const actionSectionDesktopCSS = {
@@ -13,9 +11,3 @@ export const actionSectionMobileCSS = {
     display: 'none !important',
   },
 };
-
-export const skeletonCSS = ({ mode: { skeleton } }: NavigationTheme) => ({
-  //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
-  opacity: 0.15,
-  ...skeleton,
-});

@@ -11,9 +11,10 @@ import {
   thEmpty,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../../../../plugins/table/types';
-import { containsHeaderColumn } from '../../../../../plugins/table/utils/nodes';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { containsHeaderColumn } from '@atlaskit/editor-plugin-table/src/plugins/table/utils/nodes';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 describe('table merging logic', () => {
   const createEditor = createEditorFactory<TablePluginState>();

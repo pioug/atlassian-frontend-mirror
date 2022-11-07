@@ -68,7 +68,7 @@ describe('ShareButton', () => {
       const wrapper: ReactWrapper<Props, {}, any> = mount(
         <ShareButton onClick={spiedOnClick} />,
       );
-      wrapper.find(Button).simulate('click');
+      wrapper.find('button').simulate('click');
       expect(spiedOnClick).toHaveBeenCalledTimes(1);
     });
   });

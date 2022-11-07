@@ -1,11 +1,13 @@
 import React from 'react';
+import { render } from '@testing-library/react';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import Emoji from '../../../../components/common/Emoji';
 import { spriteEmoji, imageEmoji } from '../../_test-data';
 import { commonSelectedStyles } from '../../../../components/common/styles';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import * as browserSupport from '../../../../util/browser-support';
+import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
+
+import '@testing-library/jest-dom/extend-expect';
 
 const mockedBrowserSupport = browserSupport as {
   isIntersectionObserverSupported: boolean;
@@ -129,13 +131,15 @@ describe('<Emoji />', () => {
       const result = await render(
         <Emoji emoji={imageEmoji} showDelete={true} />,
       );
-      const deleteBtn = result.getByTestId('emoji-delete-button');
+      const deleteBtn = result.getByTestId(RENDER_EMOJI_DELETE_BUTTON_TESTID);
       expect(deleteBtn).toBeDefined();
     });
 
     it('should not show delete button if showDelete is not passed in', async () => {
       const result = await render(<Emoji emoji={imageEmoji} />);
-      expect(result.queryByTestId('emoji-delete-button')).toBeNull();
+      expect(
+        result.queryByTestId(RENDER_EMOJI_DELETE_BUTTON_TESTID),
+      ).toBeNull();
     });
   });
 });

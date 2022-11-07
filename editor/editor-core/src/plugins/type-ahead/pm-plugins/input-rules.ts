@@ -42,7 +42,6 @@ export function inputRulePlugin(
 
   const plugin = createPlugin('type-ahead', rules, {
     allowInsertTextOnDocument: false,
-    useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
   });
 
   return plugin;

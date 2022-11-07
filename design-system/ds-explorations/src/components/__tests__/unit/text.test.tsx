@@ -10,6 +10,29 @@ describe('Text component', () => {
     expect(getByText('Text')).toBeInTheDocument();
   });
 
+  it('should not render redundant DOM nodes', () => {
+    const { getByTestId } = render(
+      <Text testId="test">
+        <Text>Text</Text>
+      </Text>,
+    );
+    expect(getByTestId('test')).toMatchInlineSnapshot(`
+      .emotion-0 {
+        box-sizing: border-box;
+        margin: 0px;
+        padding: 0px;
+        font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+      }
+
+      <span
+        class="emotion-0"
+        data-testid="test"
+      >
+        Text
+      </span>
+    `);
+  });
+
   it('should render with given test id', () => {
     const { getByTestId } = render(<Text testId="test">Text</Text>);
     expect(getByTestId('test')).toBeInTheDocument();

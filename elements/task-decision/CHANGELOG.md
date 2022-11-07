@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.5.2
+
+### Patch Changes
+
+- [`0915ecdd1db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0915ecdd1db) - Removed styled components from dev and peer dependencies
+
 ## 17.5.1
 
 ### Patch Changes

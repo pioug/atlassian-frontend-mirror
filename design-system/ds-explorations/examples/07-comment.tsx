@@ -17,9 +17,7 @@ const Date = ({ children }: any) => {
 };
 
 const EditIndicator = ({ hasBeenEdited }: any) => {
-  return hasBeenEdited ? (
-    <Text color={['subtlest', '#555']}>Edited</Text>
-  ) : null;
+  return hasBeenEdited ? <Text color="subtlest">Edited</Text> : null;
 };
 
 const CommentAction = ({ children }: any) => {
@@ -29,8 +27,8 @@ const CommentAction = ({ children }: any) => {
 export default () => {
   return (
     <Box>
-      <Stack gap="sp-50">
-        <Inline gap="sp-100" alignItems="center">
+      <Stack gap="scale.050">
+        <Inline gap="scale.100" alignItems="center">
           <Author>Jane Citizen</Author>
           <Lozenge>Author</Lozenge>
           <Date>Jun 15, 2022</Date>
@@ -43,7 +41,7 @@ export default () => {
           aliquip ex ea commodo consequat.
         </Text>
         <Box color="subtle">
-          <Inline gap="sp-100" divider="·">
+          <Inline gap="scale.100" divider="·">
             <CommentAction>Reply</CommentAction>
             <CommentAction>Edit</CommentAction>
             <CommentAction>Like</CommentAction>

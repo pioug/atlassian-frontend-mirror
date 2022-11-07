@@ -17,6 +17,7 @@ export interface EditorActionsOptions<T = any> {
   clear(): boolean;
   getValue(): Promise<T | JSONDocNode | undefined>;
   getNodeByLocalId(id: string): Node | undefined;
+  getNodeByFragmentLocalId(id: string): Node | undefined;
   getSelectedNode(): Node | undefined;
   replaceDocument(rawValue: any): boolean;
   replaceSelection(rawValue: Node | Object | string): boolean;

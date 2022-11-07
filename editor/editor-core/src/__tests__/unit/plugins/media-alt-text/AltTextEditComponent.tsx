@@ -8,11 +8,6 @@ jest.mock('prosemirror-history', () => ({
   redo: jest.fn(() => () => {}),
 }));
 
-jest.mock('prosemirror-inputrules', () => ({
-  ...jest.requireActual<Object>('prosemirror-inputrules'),
-  undoInputRule: () => jest.fn(),
-}));
-
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EditorView } from 'prosemirror-view';

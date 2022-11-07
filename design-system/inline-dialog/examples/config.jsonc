@@ -10,6 +10,7 @@
   ],
   "exampleDependencies": [
     "@atlaskit/datetime-picker",
+    "@atlaskit/modal-dialog",
     "@atlaskit/select",
     "react-lorem-component"
   ]

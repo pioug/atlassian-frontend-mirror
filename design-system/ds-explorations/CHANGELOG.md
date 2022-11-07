@@ -1,5 +1,27 @@
 # @atlaskit/ds-explorations
 
+## 1.0.0
+
+### Major Changes
+
+- [`30c6ec5a76f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30c6ec5a76f) - **Breaking Change**
+
+  The package has been moved to a v1 state. It is no less or more stable (see readme for more information) however this update is to ensure that the consumption of minor versions for the package in downstream dependencies is correctly resolved.
+
+  This update also includes changes to the way the `Text` component behaves with `Box`:
+
+  - Text will now remove redundant DOM elements if it detects that it is already in the context of a `Text` element. This will only occur if the Text element that is a candidate for removal does not apply any custom property.
+  - Text will also try to apply a color that is accessible if no user choice has been provided and the background of the surface causes an accessibility failure.
+
+### Minor Changes
+
+- [`664d3fe6586`](https://bitbucket.org/atlassian/atlassian-frontend/commits/664d3fe6586) - Use spacing tokens for all spacing-related props. Remove old SPACING_SCALE and GlobalSpacingToken.
+
+### Patch Changes
+
+- [`f5ae2702e35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5ae2702e35) - Box component now infers HTML attribute props from `as` prop.
+- [`7c6009de2f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c6009de2f1) - [ux] Updates the visual appearance to match the legacy light mode palette.
+
 ## 0.1.5
 
 ### Patch Changes

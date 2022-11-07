@@ -1,4 +1,5 @@
-import { css } from '@emotion/react';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/react';
 import React, { KeyboardEvent, FormEvent } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -322,7 +323,7 @@ class ExampleEditorComponent extends React.Component<
                   disabled={this.state.disabled}
                   defaultValue={doc}
                   contentComponents={
-                    <>
+                    <React.Fragment>
                       <BreadcrumbsMiscActions
                         appearance={this.state.appearance}
                         onFullWidthChange={this.setFullWidthMode}
@@ -337,7 +338,7 @@ class ExampleEditorComponent extends React.Component<
                           this.onKeyPressed(e, actions);
                         }}
                       />
-                    </>
+                    </React.Fragment>
                   }
                   primaryToolbarComponents={[
                     <SaveAndCancelButtons

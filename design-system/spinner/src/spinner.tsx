@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { css, jsx, keyframes } from '@emotion/core';
+import { css, jsx, keyframes } from '@emotion/react';
 
 import { DN500, DN900, N0, N500 } from '@atlaskit/theme/colors';
 import { useGlobalTheme } from '@atlaskit/theme/components';

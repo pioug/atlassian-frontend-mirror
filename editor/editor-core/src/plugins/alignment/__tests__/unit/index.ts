@@ -24,7 +24,7 @@ import { insertBlockType } from '../../../block-type/commands';
 import { toggleBulletList } from '../../../list/commands';
 
 import alignmentPlugin from '../../';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 import panelPlugin from '../../../panel';
 import listPlugin from '../../../list';
@@ -34,7 +34,7 @@ import { AlignmentPluginState } from '../../pm-plugins/types';
 
 const alignmentPreset = new Preset<LightEditorPlugin>()
   .add(alignmentPlugin)
-  .add(tablePlugin)
+  .add(tablesPlugin)
   .add(listPlugin)
   .add([codeBlockPlugin, { appearance: 'full-page' }])
   .add(blockTypePlugin)

@@ -1,27 +1,20 @@
-import {
-  getExampleUrl,
-  pageSelector,
-} from '@atlaskit/visual-regression/helper';
-import { sleep } from '@atlaskit/media-test-helpers';
-import { mediaMockQueryOptInFlag } from '@atlaskit/media-test-helpers/media-mock';
+import { getExampleUrl } from '@atlaskit/visual-regression/helper';
 
 function getURL(): string {
-  return (
-    getExampleUrl(
-      'media',
-      'media-card',
-      'inline-video-card',
-      global.__BASEURL__,
-    ) + `&${mediaMockQueryOptInFlag}`
+  return getExampleUrl(
+    'media',
+    'media-card',
+    'vr-inline-video-card',
+    global.__BASEURL__,
   );
 }
 
 async function setup(url: string) {
   const { page } = global;
   await page.goto(url);
-  await page.waitForSelector(pageSelector);
 
-  await sleep(500);
+  await page.waitForSelector('[data-testid="media-image"]');
+
   const image = await page.screenshot({
     clip: { x: 0, y: 72, width: 800, height: 354 },
   });

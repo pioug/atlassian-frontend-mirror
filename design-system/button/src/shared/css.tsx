@@ -1,4 +1,4 @@
-import { CSSObject } from '@emotion/core';
+import { css, CSSObject } from '@emotion/react';
 
 import {
   borderRadius as getBorderRadius,
@@ -246,24 +246,24 @@ export function getCss({
 }
 
 // inline-flex child
-export function getIconStyle({ spacing }: { spacing: Spacing }): CSSObject {
-  return {
-    alignSelf: 'center',
+export function getIconStyle({ spacing }: { spacing: Spacing }) {
+  return css({
     display: 'flex',
+    margin: spacing === 'none' ? 0 : innerMargin.icon,
+
     // icon size cannot grow and shrink
     flexGrow: 0,
     flexShrink: 0,
-
-    lineHeight: 0,
+    alignSelf: 'center',
     fontSize: 0,
+    lineHeight: 0,
     userSelect: 'none',
-    margin: spacing === 'none' ? 0 : innerMargin.icon,
-  };
+  });
 }
 
 // inline-flex child
-export function getContentStyle({ spacing }: { spacing: Spacing }): CSSObject {
-  return {
+export function getContentStyle({ spacing }: { spacing: Spacing }) {
+  return css({
     margin: spacing === 'none' ? 0 : innerMargin.content,
 
     // content can grow and shrink
@@ -274,18 +274,14 @@ export function getContentStyle({ spacing }: { spacing: Spacing }): CSSObject {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-  };
+  });
 }
 
-export function getFadingCss({
-  hasOverlay,
-}: {
-  hasOverlay: boolean;
-}): CSSObject {
-  return {
-    transition: 'opacity 0.3s',
+export function getFadingCss({ hasOverlay }: { hasOverlay: boolean }) {
+  return css({
     opacity: hasOverlay ? 0 : 1,
-  };
+    transition: 'opacity 0.3s',
+  });
 }
 
 export const overlayCss: CSSObject = {

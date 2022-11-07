@@ -5,7 +5,15 @@
  */
 {
   "testExamples": [
-    "00-basic-usage.tsx"
+    "00-basic-usage.tsx",
+    "01-layout-example.tsx",
+    "02-nested-grid-example.tsx",
+    "03-spacing-example.tsx",
+    "04-navigation-and-banner-integration.tsx",
+    "05-columns.tsx",
+    "06-fixed-layout.tsx",
+    "07-fluid-layout.tsx",
+    "08-edge-cases.tsx"
   ],
   "exampleDependencies": [
     "@atlaskit/banner",

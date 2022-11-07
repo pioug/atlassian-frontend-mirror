@@ -20,6 +20,8 @@ import {
   ScreenAttributes,
   filterFeatureFlagNames,
   filterFeatureFlagKeysAllProducts,
+  MediaTraceContext,
+  WithTraceContext,
 } from '@atlaskit/media-common';
 import {
   CreateUIAnalyticsEvent,
@@ -93,6 +95,7 @@ export type RenderFailedEventPayload = OperationalEventPayload<
   WithFileAttributes &
     WithPerformanceAttributes &
     WithSSRReliability &
+    WithTraceContext &
     FailureAttributes & {
       failReason: FailedErrorFailReason | 'failed-processing';
       error?: MediaClientErrorReason | 'nativeError';
@@ -106,13 +109,14 @@ export type RenderSucceededEventPayload = OperationalEventPayload<
   WithFileAttributes &
     WithPerformanceAttributes &
     WithSSRReliability &
-    SuccessAttributes,
+    SuccessAttributes &
+    WithTraceContext,
   'succeeded',
   'mediaCardRender'
 >;
 
 export type RenderCommencedEventPayload = OperationalEventPayload<
-  WithFileAttributes & WithPerformanceAttributes,
+  WithFileAttributes & WithPerformanceAttributes & WithTraceContext,
   'commenced',
   'mediaCardRender'
 >;
@@ -184,12 +188,19 @@ export const getRenderPreviewableCardPayload = (
 export const getRenderCommencedEventPayload = (
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
+  traceContext: MediaTraceContext,
 ): RenderCommencedEventPayload => {
   return {
     eventType: 'operational',
     action: 'commenced',
     actionSubject: 'mediaCardRender',
-    attributes: { fileAttributes, performanceAttributes },
+    attributes: {
+      fileAttributes,
+      performanceAttributes,
+      traceContext: {
+        traceId: traceContext.traceId,
+      },
+    },
   };
 };
 
@@ -197,6 +208,7 @@ export const getRenderSucceededEventPayload = (
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
   ssrReliability: SSRStatus,
+  traceContext: MediaTraceContext,
 ): RenderSucceededEventPayload => ({
   eventType: 'operational',
   action: 'succeeded',
@@ -206,6 +218,7 @@ export const getRenderSucceededEventPayload = (
     performanceAttributes,
     status: 'success',
     ssrReliability,
+    traceContext,
   },
 });
 
@@ -301,6 +314,7 @@ export const getRenderErrorEventPayload = (
   performanceAttributes: PerformanceAttributes,
   error: MediaCardError,
   ssrReliability: SSRStatus,
+  traceContext: MediaTraceContext,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: 'failed',
@@ -312,6 +326,7 @@ export const getRenderErrorEventPayload = (
     ...extractErrorInfo(error),
     request: getRenderErrorRequestMetadata(error),
     ssrReliability,
+    traceContext,
   },
 });
 
@@ -319,6 +334,7 @@ export const getRenderFailedFileStatusPayload = (
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
   ssrReliability: SSRStatus,
+  traceContext: MediaTraceContext,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: 'failed',
@@ -329,6 +345,7 @@ export const getRenderFailedFileStatusPayload = (
     status: 'fail',
     failReason: 'failed-processing',
     ssrReliability,
+    traceContext,
   },
 });
 

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item, { ItemGroup } from '@atlaskit/item';
 
 import DropList from '../../index';

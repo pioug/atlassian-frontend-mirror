@@ -3,7 +3,6 @@ import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/standard-button';
 import noop from '@atlaskit/ds-lib/noop';
 
 import DynamicTable, { DynamicTableStateless } from '../../../index';
@@ -563,7 +562,7 @@ test('should pass analytics event in setPage callback', () => {
   const wrapper = mount(
     <DynamicTable head={head} rows={rows} rowsPerPage={1} onSetPage={spy} />,
   );
-  wrapper.find(Pagination).find(Button).last().simulate('click');
+  wrapper.find(Pagination).find('[type="button"]').last().simulate('click');
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(
     expect.any(Number),

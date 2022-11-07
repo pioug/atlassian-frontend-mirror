@@ -76,6 +76,8 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   margin: 0;
 }
 
+
+
 .emotion-21,
 .emotion-21:hover,
 .emotion-21:active,
@@ -103,11 +105,11 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
-  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
   white-space: nowrap;
   background: none;
-  color: var(--ds-link,#0052CC) !important;
+  color: var(--ds-link, #0052CC)!important;
   cursor: pointer;
   height: 1.7142857142857142em;
   line-height: 1.7142857142857142em;
@@ -115,8 +117,8 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   vertical-align: middle;
   width: auto;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
   outline: none;
 }
@@ -134,9 +136,9 @@ exports[`RelatedArticles Should match snapshot 1`] = `
 }
 
 .emotion-20 {
+  opacity: 1;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
-  opacity: 1;
   margin: 0 2px;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;

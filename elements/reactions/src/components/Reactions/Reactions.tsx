@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { FormattedMessage } from 'react-intl-next';
 import { Analytics } from '../../analytics';

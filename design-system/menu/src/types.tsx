@@ -1,6 +1,6 @@
 import { ComponentType, ReactNode, Ref } from 'react';
 
-import { CSSObject } from '@emotion/core';
+import { CSSObject } from '@emotion/react';
 
 export interface RenderFunction<TProps = {}> {
   (Component: ComponentType | string, props: TProps): React.ReactNode;

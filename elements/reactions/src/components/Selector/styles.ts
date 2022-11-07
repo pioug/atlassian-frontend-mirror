@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, keyframes } from '@emotion/core';
+import { css, keyframes } from '@emotion/react';
 
 export const selectorStyle = css({
   boxSizing: 'border-box',

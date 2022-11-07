@@ -1,12 +1,12 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { ErrorPayload } from '../../types';
 import { fireAnalyticsEvent, triggerCollabAnalyticsEvent } from '../index';
+import { EVENT_ACTION, EVENT_STATUS, EVENT_SUBJECT } from '../../helpers/const';
+
 import {
-  ATTRIBUTES_PACKAGE,
-  EVENT_ACTION,
-  EVENT_STATUS,
-  EVENT_SUBJECT,
-} from '../../helpers/const';
+  name as packageName,
+  version as packageVersion,
+} from '../../version-wrapper';
 
 describe('Sending analytics', () => {
   let fakeAnalyticsWebClient: AnalyticsWebClient = {
@@ -103,7 +103,8 @@ describe('Sending analytics', () => {
         actionSubject: EVENT_SUBJECT,
         attributes: {
           collabService: 'ncs',
-          packageName: ATTRIBUTES_PACKAGE,
+          packageName,
+          packageVersion,
           eventStatus: EVENT_STATUS.SUCCESS,
           latency: 200.13,
           meetsSLO: true,
@@ -134,7 +135,8 @@ describe('Sending analytics', () => {
         actionSubject: EVENT_SUBJECT,
         attributes: {
           collabService: 'ncs',
-          packageName: ATTRIBUTES_PACKAGE,
+          packageName,
+          packageVersion,
           eventStatus: EVENT_STATUS.FAILURE,
           latency: 200.13,
           meetsSLO: true,

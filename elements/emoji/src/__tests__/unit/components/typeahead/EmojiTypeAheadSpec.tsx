@@ -279,7 +279,7 @@ describe('EmojiTypeAhead', () => {
 
     provider.recordSelection = () => {
       failureOccurred = true;
-      return Promise.reject();
+      return Promise.reject({ code: 403, reason: 'Forbidden' });
     };
 
     const item = getEmojiTypeAheadItemById(component, allEmojis[2].id);

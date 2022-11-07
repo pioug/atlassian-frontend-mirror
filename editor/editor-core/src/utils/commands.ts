@@ -10,12 +10,13 @@ import {
   ResolvedPos,
   MarkType,
   Mark,
-  Node as PmNode,
+  Node as PMNode,
   Fragment,
 } from 'prosemirror-model';
 import { transformSmartCharsMentionsAndEmojis } from '../plugins/text-formatting/commands/transform-to-code';
 import { GapCursorSelection } from '../plugins/selection/gap-cursor-selection';
 import { Command, HigherOrderCommand } from '../types/command';
+import { isEmptyParagraph } from './document';
 
 type Predicate = (state: EditorState, view?: EditorView) => boolean;
 
@@ -145,7 +146,7 @@ const toggleMarkInRange = (mark: Mark): Command => (state, dispatch) => {
   const tr = state.tr;
   if (state.selection instanceof CellSelection) {
     let markInRange = false;
-    const cells: { node: PmNode; pos: number }[] = [];
+    const cells: { node: PMNode; pos: number }[] = [];
     state.selection.forEachCell((cell, cellPos) => {
       cells.push({ node: cell, pos: cellPos });
       const from = cellPos;
@@ -331,6 +332,48 @@ const selectNode = (pos: number): Command => (state, dispatch) => {
   return true;
 };
 
+/**
+ * If the selection is empty, is inside a paragraph node and `canNextNodeMoveUp` is true then delete current paragraph
+ * and move the node below it up. The selection will be retained, to be placed in the moved node.
+ *
+ * @param canNextNodeMoveUp check if node directly after the selection is able to be brought up to selection
+ * @returns PM Command
+ */
+const deleteEmptyParagraphAndMoveBlockUp = (
+  canNextNodeMoveUp: (nextNode: PMNode) => boolean,
+): Command => {
+  return (state, dispatch, view) => {
+    const {
+      selection: {
+        $from: { pos, parent },
+        $head,
+        empty,
+      },
+      tr,
+      doc,
+    } = state;
+    const { $pos } = walkNextNode($head);
+    const nextPMNode = doc.nodeAt($pos.pos - 1);
+
+    if (
+      empty &&
+      nextPMNode &&
+      canNextNodeMoveUp(nextPMNode) &&
+      isEmptyParagraph(parent) &&
+      view?.endOfTextblock('right')
+    ) {
+      tr.deleteRange(pos - 1, pos + 1);
+
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
+    }
+
+    return false;
+  };
+};
+
 export {
   filter,
   isEmptySelectionAtStart,
@@ -345,6 +388,7 @@ export {
   walkPrevNode,
   insertContentDeleteRange,
   selectNode,
+  deleteEmptyParagraphAndMoveBlockUp,
 };
 export type {
   // https://github.com/typescript-eslint/typescript-eslint/issues/131

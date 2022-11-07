@@ -35,7 +35,7 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      UNSAFE_allowUndoRedoButtons: true,
+      allowUndoRedoButtons: true,
     });
 
     await page.click(editable);
@@ -57,7 +57,7 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      UNSAFE_allowUndoRedoButtons: true,
+      allowUndoRedoButtons: true,
     });
 
     await page.click(editable);
@@ -79,7 +79,7 @@ BrowserTestCase(
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: fullpage.appearance,
-      UNSAFE_allowUndoRedoButtons: true,
+      allowUndoRedoButtons: true,
     });
 
     await page.click(editable);

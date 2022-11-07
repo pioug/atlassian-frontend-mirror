@@ -47,13 +47,20 @@ describe('getCardPreviewFromBackend()', () => {
       mediaClient,
       'some-id',
       params,
+      'some-trace-id',
     );
     expect(cardPreview?.dataURI).toEqual(
       'mock result of URL.createObjectURL()',
     );
     expect(cardPreview.source).toEqual('remote');
     expect(cardPreview?.orientation).toEqual(1);
-    expect(mediaClient.getImage).toBeCalledWith('some-id', params);
+    expect(mediaClient.getImage).toBeCalledWith(
+      'some-id',
+      params,
+      undefined,
+      undefined,
+      'some-trace-id',
+    );
   });
 });
 

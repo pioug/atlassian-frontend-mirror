@@ -126,6 +126,7 @@ const Option = ({
           <Icon width={38} height={38} label={title} />
         </div>
       }
+      // @ts-ignore Overriding Menu styles is not supported
       css={getCustomStyles(selected, disabled)}
       description={description}
       testId={testId}

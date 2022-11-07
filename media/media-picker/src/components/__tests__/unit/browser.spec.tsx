@@ -67,7 +67,7 @@ describe('Browser', () => {
       (instance as any).browserRef.current,
       'click',
     );
-    browser.find(Button).simulate('click');
+    browser.find('button').simulate('click');
     expect(inputOnClick).toBeCalled();
   });
 

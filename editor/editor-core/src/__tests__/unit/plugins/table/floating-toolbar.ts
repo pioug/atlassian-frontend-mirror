@@ -1,4 +1,4 @@
-import { PluginConfig } from '../../../../plugins/table/types';
+import { PluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { setTextSelection } from '../../../../utils/selection';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
@@ -14,7 +14,7 @@ import {
   FloatingToolbarPluginState,
   pluginKey as floatingToolbarPluginKey,
 } from '../../../../plugins/floating-toolbar';
-import { setEditorFocus } from '../../../../plugins/table/commands';
+import { setEditorFocus } from '@atlaskit/editor-plugin-table/commands';
 import { EditorState } from 'prosemirror-state';
 
 describe('table floating toolbar', () => {

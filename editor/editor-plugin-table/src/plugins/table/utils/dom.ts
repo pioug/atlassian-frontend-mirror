@@ -1,5 +1,3 @@
-// import { containsClassName } from '@atlaskit/editor-core/src/utils';
-// import { closestElement } from '@atlaskit/editor-core/src/utils/dom';
 import {
   closestElement,
   containsClassName,

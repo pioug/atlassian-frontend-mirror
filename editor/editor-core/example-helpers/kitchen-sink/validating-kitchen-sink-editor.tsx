@@ -122,7 +122,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           quickInsert={{
             provider: this.quickInsertProviderPromise,
           }}
-          UNSAFE_allowUndoRedoButtons={true}
+          allowUndoRedoButtons={true}
           allowFragmentMark={true}
           allowTextColor={true}
           allowTables={{

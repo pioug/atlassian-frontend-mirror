@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Button from '@atlaskit/button/custom-theme-button';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
   Identifier,
@@ -90,7 +89,7 @@ describe('<MediaViewer />', () => {
     const { el, onClose } = createFixture([identifier], identifier);
 
     expect(el.find(CloseButtonWrapper)).toHaveLength(1);
-    el.find(CloseButtonWrapper).find(Button).simulate('click');
+    el.find(CloseButtonWrapper).find('button').simulate('click');
     expect(onClose).toHaveBeenCalled();
   });
 
@@ -119,7 +118,7 @@ describe('<MediaViewer />', () => {
       const { el, onEvent } = createFixture([identifier], identifier);
 
       expect(el.find(CloseButtonWrapper)).toHaveLength(1);
-      el.find(CloseButtonWrapper).find(Button).simulate('click');
+      el.find(CloseButtonWrapper).find('button').simulate('click');
       expect(onEvent).toHaveBeenCalled();
       const closeEvent: any =
         onEvent.mock.calls[onEvent.mock.calls.length - 1][0];

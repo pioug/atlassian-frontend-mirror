@@ -10,6 +10,7 @@ import {
 import textFormattingCursorPlugin from '../../../../plugins/text-formatting/pm-plugins/cursor';
 import { EditorView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 type HandleClick = (
   view: EditorView,
@@ -164,6 +165,51 @@ describe('text-formatting', () => {
             editorView.state.schema.marks.strong.create(),
           ]);
         });
+      });
+    });
+    describe('When pressing Cmd + Arrow', () => {
+      it('should move the cursor to the start of the paragraph for Cmd + ArrowLeft', () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              'simply dummy ',
+              code('code'),
+              ' {<>}of the printing and typesetting industry',
+            ),
+          ),
+        );
+        sendKeyToPm(editorView, 'Cmd-ArrowLeft');
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              '{<>}simply dummy ',
+              code('code'),
+              ' of the printing and typesetting industry',
+            ),
+          ),
+        );
+      });
+
+      it('should move the cursor to the end of the paragraph for Cmd + ArrowRight', () => {
+        const { editorView } = editor(
+          doc(
+            p(
+              'simply dummy {<>}',
+              code('code'),
+              ' of the printing and typesetting industry',
+            ),
+          ),
+        );
+        sendKeyToPm(editorView, 'Cmd-ArrowRight');
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              'simply dummy ',
+              code('code'),
+              ' of the printing and typesetting industry{<>}',
+            ),
+          ),
+        );
       });
     });
   });

@@ -18,7 +18,7 @@ import WidthEmitter from '../../ui/WidthEmitter';
 
 import { ClickAreaBlock } from '../../ui/Addon';
 import { scrollbarStyles } from '../../ui/styles';
-import { tableFullPageEditorStyles } from '../../plugins/table/ui/common-styles';
+import { tableFullPageEditorStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
 import AvatarsWithPluginState from '../../plugins/collab-edit/ui';
 import { EditorProps } from '../../types';
 import EditorActions from '../../actions';

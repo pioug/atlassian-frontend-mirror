@@ -11,7 +11,7 @@ import {
 
 import adf from './__fixtures__/default-table.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { TableCssClassName } from '../../../plugins/table/types';
+import { TableCssClassName } from '@atlaskit/editor-plugin-table/types';
 import { THEME_MODES } from '@atlaskit/theme/constants';
 
 describe('Table context menu: cells background', () => {

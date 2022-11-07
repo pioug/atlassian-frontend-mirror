@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.3.0
+
+### Minor Changes
+
+- [`a86726f0b16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a86726f0b16) - Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+
 ## 1.2.4
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import InlineExtension from '../../../../react/nodes/inlineExtension';
 import { RendererContext } from '../../../../react/types';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -54,7 +54,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
         },
       ],
     },
-    schema: defaultSchema,
+    schema: getSchemaBasedOnStage('stage0'),
   };
 
   it('should be able to fall back to default content', () => {
@@ -116,6 +116,11 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       'com.atlassian.fabric': extensionHandler,
     };
 
+    const fragmentLocalId = 'fragment-local-id';
+    const fragmentMark = rendererContext.schema!.marks.fragment.create({
+      localId: fragmentLocalId,
+    });
+
     const extension = mount(
       <InlineExtension
         providers={providerFactory}
@@ -124,6 +129,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
         extensionType="com.atlassian.fabric"
         extensionKey="react"
         localId="c145e554-f571-4208-a0f1-2170e1987722"
+        marks={[fragmentMark]}
       />,
     );
 
@@ -134,6 +140,7 @@ describe('Renderer - React/Nodes/InlineExtension', () => {
       parameters: undefined,
       content: undefined,
       localId: 'c145e554-f571-4208-a0f1-2170e1987722',
+      fragmentLocalId,
     });
 
     extension.unmount();

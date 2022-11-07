@@ -143,8 +143,8 @@ export const insertMediaSingleNode = (
   }
 
   const { state, dispatch } = view;
-  const grandParentType = state.selection.$from.node(-1)?.type;
-  const parentType = state.selection.$from.parent.type;
+  const grandParentNodeType = state.selection.$from.node(-1)?.type;
+  const parentNodeType = state.selection.$from.parent.type;
   const node = createMediaSingleNode(
     state.schema,
     collection,
@@ -162,7 +162,11 @@ export const insertMediaSingleNode = (
   // should split if media is valid content for the grandparent of the selected node
   // and the parent node is a paragraph
   if (
-    shouldSplitSelectedNodeOnNodeInsertion(parentType, grandParentType, node)
+    shouldSplitSelectedNodeOnNodeInsertion({
+      parentNodeType,
+      grandParentNodeType,
+      content: node,
+    })
   ) {
     insertNodesWithOptionalParagraph([node], { fileExtension, inputMethod })(
       state,

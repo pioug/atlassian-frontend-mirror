@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl-next';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { EmojiProvider, ResourcedEmoji, EmojiId } from '@atlaskit/emoji';
 import { Analytics } from '../../analytics';

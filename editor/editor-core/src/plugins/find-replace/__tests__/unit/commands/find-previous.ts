@@ -16,7 +16,7 @@ import {
 } from '../_utils';
 import { getPluginState } from '../../../plugin';
 import { TRIGGER_METHOD } from '../../../../analytics/types';
-import { flushPromises } from '../../../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 const containerElement = getContainerElement();
 const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(

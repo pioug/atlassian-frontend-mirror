@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { toEmojiId } from '../../util/type-helpers';
 import { EmojiDescription, OnEmojiEvent } from '../../types';
 import { leftClick } from '../../util/mouse';
+import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import {
   typeAheadItem,
@@ -12,7 +13,6 @@ import {
   typeAheadItemRow,
   typeaheadSelected,
 } from './styles';
-import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
 
 export interface Props {
   onMouseMove: OnEmojiEvent;

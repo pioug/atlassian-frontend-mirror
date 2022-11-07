@@ -4,7 +4,6 @@ import {
   createItemDownloader,
   ToolbarDownloadButton,
   ErrorViewDownloadButton,
-  DownloadButton,
 } from '../../../download';
 import React from 'react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -80,7 +79,9 @@ describe('download', () => {
           />
         </AnalyticsListener>,
       );
-      component.find(DownloadButton).simulate('click');
+      component
+        .find('button[data-testid="media-viewer-download-button"]')
+        .simulate('click');
       const [[{ payload }]] = spy.mock.calls;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(payload).toEqual({
@@ -117,7 +118,9 @@ describe('download', () => {
           mediaClient={mediaClient}
         />,
       );
-      component.find(DownloadButton).simulate('click');
+      component
+        .find('button[data-testid="media-viewer-download-button"]')
+        .simulate('click');
       expect(mediaClient.file.downloadBinary).toHaveBeenCalledWith(
         'some-id',
         'some-name',
@@ -143,7 +146,9 @@ describe('download', () => {
         />
       </AnalyticsListener>,
     );
-    component.find(DownloadButton).simulate('click');
+    component
+      .find('button[data-testid="media-viewer-download-button"]')
+      .simulate('click');
     const [[{ payload }]] = spy.mock.calls;
     expect(spy).toHaveBeenCalledTimes(1);
     expect(payload).toEqual({

@@ -1,7 +1,10 @@
 import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
-import { SPACING_SCALE } from '../src/constants';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import tokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-spacing';
+
+import { capitalize, tokenToStyle } from './utils';
 
 const spacingProperties = {
   width: {
@@ -30,6 +33,22 @@ const spacingProperties = {
   },
 } as const;
 
+type Token = {
+  name: string;
+  fallback: string;
+};
+
+const onlyScaleTokens = tokens.filter((token) =>
+  token.name.startsWith('spacing.scale.'),
+);
+
+const activeTokens = onlyScaleTokens.map(
+  (t): Token => ({
+    name: t.name,
+    fallback: t.value,
+  }),
+);
+
 export const createSpacingStylesFromTemplate = (
   spacingProperty: keyof typeof spacingProperties,
 ) => {
@@ -39,20 +58,31 @@ export const createSpacingStylesFromTemplate = (
 
   const { cssProperty } = spacingProperties[spacingProperty];
 
-  return prettier.format(
-    `
+  return (
+    prettier.format(
+      `
 const ${spacingProperty}Map = {
-  ${Object.keys(SPACING_SCALE)
-    .map((key) => {
-      return `'${key}': css({ ${cssProperty}: SPACING_SCALE['${key}'] })`;
+  ${activeTokens
+    .sort((a, b) => (a.name < b.name ? -1 : 1))
+    .map((token) => {
+      const propName = token.name.replace('spacing.', '');
+      return `'${propName}': ${tokenToStyle(
+        cssProperty,
+        token.name,
+        token.fallback,
+      )}`;
     })
     .join(',\n\t')}
 };`,
-    {
-      singleQuote: true,
-      trailingComma: 'all',
-      parser: 'typescript',
-      plugins: [parserTypeScript],
-    },
+      {
+        singleQuote: true,
+        trailingComma: 'all',
+        parser: 'typescript',
+        plugins: [parserTypeScript],
+      },
+    ) +
+    `\nexport type ${capitalize(
+      spacingProperty,
+    )} = keyof typeof ${spacingProperty}Map;\n`
   );
 };

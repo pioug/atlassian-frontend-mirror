@@ -35,10 +35,19 @@ export const EmojiPickerButton: React.FunctionComponent<{
   title?: string;
   onChange?: (emoji: EmojiId) => void;
   isSelected?: boolean;
+  mountPoint?: HTMLElement;
+  setDisableParentScroll?: (disable: boolean) => void;
 }> = (props) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
   const EmojiPickerWithListener = withOuterListeners(EmojiPicker);
+
+  React.useEffect(() => {
+    if (props.setDisableParentScroll) {
+      props.setDisableParentScroll(isPopupOpen);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPopupOpen]);
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
@@ -85,10 +94,18 @@ export const EmojiPickerButton: React.FunctionComponent<{
     return (
       <Popup
         target={buttonRef.current}
-        mountTo={buttonRef.current.parentElement!}
+        mountTo={
+          props.setDisableParentScroll
+            ? props.mountPoint
+            : buttonRef.current.parentElement!
+        }
         fitHeight={350}
         fitWidth={350}
         offset={[0, 10]}
+        // Confluence inline comment editor has z-index: 500
+        // if the toolbar is scrollable, this will be mounted in the root editor
+        // we need an index of > 500 to display over it
+        zIndex={props.setDisableParentScroll ? 600 : undefined}
       >
         <div css={emojiPickerWrapper}>
           <WithProviders

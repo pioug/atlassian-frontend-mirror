@@ -34,7 +34,7 @@ import datePlugin from '../../index';
 import quickInsertPlugin from '../../../quick-insert';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import featureFlagsContextPlugin from '../../../feature-flags-context';
 import { parseDateType } from '../../utils/formatParse';
@@ -55,7 +55,7 @@ describe('date plugin', () => {
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add(tablePlugin)
+        .add(tablesPlugin)
         .add([
           featureFlagsContextPlugin,
           { keyboardAccessibleDatepicker: true },

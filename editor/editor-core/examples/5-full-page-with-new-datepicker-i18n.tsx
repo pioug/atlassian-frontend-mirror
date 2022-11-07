@@ -24,22 +24,24 @@ export default class ExampleEditor extends React.Component<Props, State> {
         messages={messages}
       >
         <FullPageExample
-          allowHelpDialog
-          allowKeyboardAccessibleDatepicker={true}
-          primaryToolbarComponents={
-            <WithEditorActions
-              render={(actions) => (
-                <React.Fragment>
-                  <LanguagePicker
-                    languages={languages}
-                    locale={locale}
-                    onChange={this.loadLocale}
-                  />
-                  <SaveAndCancelButtons editorActions={actions} />
-                </React.Fragment>
-              )}
-            />
-          }
+          editorProps={{
+            allowHelpDialog: true,
+            allowKeyboardAccessibleDatepicker: true,
+            primaryToolbarComponents: (
+              <WithEditorActions
+                render={(actions) => (
+                  <React.Fragment>
+                    <LanguagePicker
+                      languages={languages}
+                      locale={locale}
+                      onChange={this.loadLocale}
+                    />
+                    <SaveAndCancelButtons editorActions={actions} />
+                  </React.Fragment>
+                )}
+              />
+            ),
+          }}
         />
       </IntlProvider>
     );

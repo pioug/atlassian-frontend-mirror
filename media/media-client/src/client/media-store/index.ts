@@ -5,7 +5,7 @@ import {
   MediaApiConfig,
   Auth,
 } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { MediaFeatureFlags, getRandomHex } from '@atlaskit/media-common';
 import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
 import { getArtifactUrl, MediaFileArtifacts } from '../../models/artifacts';
 import {
@@ -62,6 +62,14 @@ const extendImageParams = (
 const jsonHeaders = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
+};
+
+export const ZipkinHeaderKeys = {
+  traceId: 'x-b3-traceid',
+  spanId: 'x-b3-spanid',
+  parentSpanId: 'x-b3-parentspanid',
+  sampled: 'x-b3-sampled',
+  flags: 'x-b3-flags',
 };
 
 export class MediaStore {
@@ -367,14 +375,18 @@ export class MediaStore {
     params?: MediaStoreGetFileImageParams,
     controller?: AbortController,
     fetchMaxRes?: boolean,
+    traceId?: string,
   ): Promise<Blob> {
     // TODO add checkWebpSupport() back https://product-fabric.atlassian.net/browse/MPT-584
     const isWebpSupported = false;
-    let headers;
+    let headers = !!traceId
+      ? {
+          [ZipkinHeaderKeys.traceId]: traceId,
+          [ZipkinHeaderKeys.spanId]: getRandomHex(16),
+        }
+      : {};
     if (isWebpSupported) {
-      headers = {
-        accept: 'image/webp,image/*,*/*;q=0.8',
-      };
+      headers.accept = 'image/webp,image/*,*/*;q=0.8';
     }
 
     const metadata: RequestMetadata = {

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, memo, Ref } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 

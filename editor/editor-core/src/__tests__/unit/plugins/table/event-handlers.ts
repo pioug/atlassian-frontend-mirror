@@ -14,17 +14,18 @@ import {
   mediaGroup,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../../../plugins/table/types';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   handleMouseOver,
   handleMouseMove,
   handleClick,
-} from '../../../../plugins/table/event-handlers';
+} from '@atlaskit/editor-plugin-table/src/plugins/table/event-handlers';
 import {
   showInsertColumnButton,
   addResizeHandleDecorations,
-} from '../../../../plugins/table/commands';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+} from '@atlaskit/editor-plugin-table/commands';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 describe('table event handlers', () => {
   const createEditor = createEditorFactory<TablePluginState>();

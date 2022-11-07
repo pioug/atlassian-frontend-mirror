@@ -107,8 +107,7 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
   }
 
   renderSticky(button: JSX.Element, targetRef: Node, tableRef: Node) {
-    // const title = this.getTitle();
-    const title = 'TODO MISSING TITLE';
+    const title = this.getTitle();
 
     if (
       !(targetRef instanceof HTMLElement) ||
@@ -146,8 +145,7 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
       return null;
     }
 
-    // const title = this.getTitle();
-    const title = 'TODO MISSING TITLE';
+    const title = this.getTitle();
 
     return (
       <Popup

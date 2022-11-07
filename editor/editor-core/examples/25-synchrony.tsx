@@ -1,3 +1,4 @@
+import React from 'react';
 import { default as FullPageExample } from './5-full-page';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
@@ -8,8 +9,12 @@ export default function Example() {
     autoConnect: true,
   });
 
-  return FullPageExample({
-    defaultValue,
-    collabEditProvider,
-  });
+  return (
+    <FullPageExample
+      editorProps={{
+        defaultValue,
+        collabEditProvider,
+      }}
+    />
+  );
 }

@@ -158,15 +158,23 @@ function getCodeBlockRules(schema: Schema): InputRuleWrapper[] {
     eventType: EVENT_TYPE.TRACK,
   });
 
+  const validMatchLength = (match: RegExpExecArray) =>
+    match.length > 0 && match[0].length === 3;
+
   const threeTildeRule = createRule(
     /(?!\s)(`{3,})$/,
     (state, match, start, end) => {
+      if (!validMatchLength(match)) {
+        return null;
+      }
+
       const attributes: any = {};
       if (match[4]) {
         attributes.language = match[4];
       }
+
       if (isConvertableToCodeBlock(state)) {
-        return transformToCodeBlockAction(state, start, end, attributes);
+        return transformToCodeBlockAction(state, start, attributes);
       }
 
       const tr = state.tr;
@@ -181,6 +189,10 @@ function getCodeBlockRules(schema: Schema): InputRuleWrapper[] {
   const leftNodeReplacementThreeTildeRule = createRule(
     new RegExp(`((${leafNodeReplacementCharacter}\`{3,})|^\\s(\`{3,}))(\\S*)$`),
     (state, match, start, end) => {
+      if (!validMatchLength(match)) {
+        return null;
+      }
+
       const attributes: any = {};
       if (match[4]) {
         attributes.language = match[4];
@@ -227,7 +239,6 @@ export function inputRulePlugin(
   if (rules.length !== 0) {
     return createPlugin('block-type', rules, {
       isBlockNodeRule: true,
-      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
     });
   }
 

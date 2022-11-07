@@ -17,22 +17,24 @@
     "5-full-page-with-toolbar.tsx",
     "5-full-page-with-x-extensions.tsx",
     "5-full-page.tsx",
+    "99-testing-collaborative-editing-catchup.tsx",
     "99-testing.tsx",
     "99-vr-testing.tsx",
-    "99-wysiwyg-testing.tsx",
-    "99-testing-collaborative-editing-catchup.tsx"
+    "99-wysiwyg-testing.tsx"
   ],
   "exampleDependencies": [
     "@atlaskit/atlassian-navigation",
     "@atlaskit/breadcrumbs",
-    "@atlaskit/collab-provider",
     "@atlaskit/drawer",
     "@atlaskit/lozenge",
     "@atlaskit/page-layout",
     "@atlaskit/section-message",
     "@atlaskit/share",
     "@atlaskit/toggle",
-    "prettier",
-    "url-search-params"
+    "@atlaskit/ufo",
+    "@atlassian/link-picker-atlassian-plugin",
+    "@atlassian/link-picker-plugins",
+    "@atlassian/ufo",
+    "prettier"
   ]
 }

@@ -15,7 +15,5 @@
     "18-popup-select.tsx",
     "24-disabled.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/drawer"
-  ]
+  "exampleDependencies": []
 }

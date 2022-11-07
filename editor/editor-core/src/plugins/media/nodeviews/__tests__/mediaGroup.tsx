@@ -4,8 +4,9 @@ import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
-import { MediaProvider } from '../../pm-plugins/main';
+import { MediaProvider, stateKey } from '../../pm-plugins/main';
 import MediaGroup from '../mediaGroup';
+import { MediaPluginState } from '../../pm-plugins/types';
 
 export const createMediaProvider = async (): Promise<MediaProvider> =>
   ({} as MediaProvider);
@@ -47,6 +48,12 @@ jest.mock('../mediaNodeUpdater', () => ({
 }));
 
 describe('mediaGroup', () => {
+  beforeEach(() => {
+    const pluginState = {} as MediaPluginState;
+    pluginState.handleMediaGroupUpdate = jest.fn();
+    jest.spyOn(stateKey, 'getState').mockImplementation(() => pluginState);
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });

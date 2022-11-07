@@ -59,4 +59,27 @@ describe('Snapshot Test', () => {
     const popupImage = await page.screenshot();
     expect(popupImage).toMatchProdImageSnapshot();
   });
+
+  it('it should re-position menu after change in loading state', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dropdown-menu',
+      'testing-is-loading-reposition',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+    await page.waitForSelector(dropdownContent);
+
+    const dropdownIsLoading = await page.screenshot();
+    expect(dropdownIsLoading).toMatchProdImageSnapshot();
+
+    const button = "[data-testid='toggle']";
+    await page.click(button);
+
+    const dropdownHasLoaded = await page.screenshot();
+    expect(dropdownHasLoaded).toMatchProdImageSnapshot();
+  });
 });

@@ -11,12 +11,14 @@ import {
   WithProviders,
 } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import { ProsemirrorGetPosHandler } from '../../../../nodeviews/types';
 import { EditorAppearance } from '../../../../types/editor-appearance';
 import ExtensionComponent from './ExtensionComponent';
 
 export interface Props {
   editorView: EditorView;
   node: PMNode;
+  getPos: ProsemirrorGetPosHandler;
   providerFactory?: ProviderFactory;
   handleContentDOMRef: (node: HTMLElement | null) => void;
   extensionHandlers: ExtensionHandlers;
@@ -45,6 +47,7 @@ export default class Extension extends Component<Props, any> {
   private renderWithProvider = ({ extensionProvider }: Providers) => {
     const {
       node,
+      getPos,
       editorView,
       handleContentDOMRef,
       extensionHandlers,
@@ -56,6 +59,7 @@ export default class Extension extends Component<Props, any> {
       <ExtensionComponent
         editorView={editorView}
         node={node}
+        getPos={getPos}
         references={references}
         extensionProvider={extensionProvider}
         handleContentDOMRef={handleContentDOMRef}

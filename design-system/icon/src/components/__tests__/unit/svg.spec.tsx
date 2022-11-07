@@ -8,14 +8,20 @@ const testId = 'test';
 describe('@atlaskit/icon', () => {
   afterEach(cleanup);
   describe('SVG', () => {
-    [
-      { label: '', role: 'presentation' },
-      { label: 'test', role: 'img' },
-    ].forEach(({ label, role: expectedRole }) => {
-      it(`switches role with label ${label}`, () => {
-        const { getByTestId } = render(<SVG label={label} testId={testId} />);
-        expect(getByTestId(testId).getAttribute('role')).toEqual(expectedRole);
-      });
+    it(`has role="presentation" and no aria-label with label=""`, () => {
+      const { getByTestId } = render(<SVG label="" testId={testId} />);
+
+      const icon = getByTestId(testId);
+      expect(icon).toHaveAttribute('role', 'presentation');
+      expect(icon).not.toHaveAttribute('aria-label');
+    });
+
+    it(`has role="img" and aria-label with label="test"`, () => {
+      const { getByTestId } = render(<SVG label={'test'} testId={testId} />);
+
+      const icon = getByTestId(testId);
+      expect(icon).toHaveAttribute('role', 'img');
+      expect(icon).toHaveAttribute('aria-label', 'test');
     });
   });
 });

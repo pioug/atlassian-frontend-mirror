@@ -26,7 +26,8 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 
     static defaultProps = {
       validationState: 'default',
-      isInvalid: false,
+      // TODO: uncomment the next line when cleaning up validationState prop so it has a default value
+      // isInvalid: false,
       spacing: 'default',
       onClickPreventDefault: true,
       tabSelectsValue: false,
@@ -92,7 +93,12 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
           components={this.components}
           styles={mergeStyles(
             baseStyles<Option, IsMulti>(
-              validationState || (isInvalid ? 'error' : 'default'),
+              // This will cover both props for invalid state while giving priority to isInvalid. When cleaning up validationState, we can just keep the inner condition.
+              typeof isInvalid !== 'undefined'
+                ? isInvalid
+                  ? 'error'
+                  : 'default'
+                : validationState!,
               isCompact,
               this.props.appearance || 'default',
             ),

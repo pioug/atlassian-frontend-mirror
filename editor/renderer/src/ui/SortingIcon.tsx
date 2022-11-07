@@ -7,16 +7,7 @@ import { SortOrder } from '@atlaskit/editor-common/types';
 import { sortingIconMessages } from '../messages';
 import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { token } from '@atlaskit/tokens';
-
-// We use data url here because of this issue:
-// https://product-fabric.atlassian.net/browse/ED-8001
-// Remove this workaround if Firefox has fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1664350
-// TODO: Quality ticket: https://product-fabric.atlassian.net/browse/DSP-4136
-export const TableSortIconDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M-8-6h24v24H-8z"></path><path d="M3 8.509V1c0-.552.449-1 1-1 .552 0 1 .448 1 1V8.51l1.217-1.206a1.05 1.05 0 011.477 0 1.03 1.03 0 01.004 1.463l-.003.002-2.956 2.93a1.053 1.053 0 01-1.478 0L.305 8.767a1.03 1.03 0 01.001-1.464 1.05 1.05 0 011.477 0L3 8.508z" fill="#42526E"></path></g></svg>`,
-)}`;
-
-const TABLE_SORTING_ICON_CLASS = 'table-sorting-icon';
+import { RendererCssClassName } from '../consts';
 
 export enum StatusClassNames {
   ASC = 'sorting-icon-svg__asc',
@@ -25,8 +16,7 @@ export enum StatusClassNames {
   SORTING_NOT_ALLOWED = 'sorting-icon-svg__not-allowed',
 }
 
-// TODO: get design to check border
-const wrapperStyles = css`
+const buttonStyles = css`
   position: absolute;
   display: flex;
   height: 28px;
@@ -34,57 +24,108 @@ const wrapperStyles = css`
   margin: 6px;
   right: 0;
   top: 0;
-  border: 2px solid ${token('color.border.inverse', '#fff')};
+  border: 2px solid ${token('color.border', '#fff')};
   border-radius: ${gridSize() / 2}px;
-  background-color: ${token('color.background.neutral.subtle', N20)};
+  background-color: ${token('elevation.surface.overlay', N20)};
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   &:hover {
-    background-color: ${token('color.background.neutral.subtle.hovered', N30)};
+    background-color: ${token('elevation.surface.overlay.hovered', N30)};
   }
 
-  &.${StatusClassNames.SORTING_NOT_ALLOWED} {
+  &:active {
+    background-color: ${token(
+      'elevation.surface.overlay.pressed',
+      'rgba(179, 212, 255, 0.6)',
+    )};
+  }
+
+  &.${RendererCssClassName.SORTABLE_COLUMN_ICON}__not-allowed {
     cursor: not-allowed;
   }
 `;
 
-const tableSortingIconStyles = css`
+const iconWrapperStyles = css`
   width: 8px;
   height: 12px;
   transition: transform 0.3s cubic-bezier(0.15, 1, 0.3, 1);
   transform-origin: 50% 50%;
-  background-image: url(${TableSortIconDataUrl});
+  display: flex;
+  justify-content: center;
 
   &.${StatusClassNames.DESC} {
     transform: rotate(-180deg);
   }
 
-  &.${TABLE_SORTING_ICON_CLASS}-inactive {
+  &.${RendererCssClassName.SORTABLE_COLUMN_ICON}-inactive {
     opacity: 0.7;
   }
 `;
 
-const getClassName = (status?: SortOrder) => {
-  switch (status) {
+// The icon is created with CSS due to the following Firefox issue: https://product-fabric.atlassian.net/browse/ED-8001
+// The TL;DR is that svg's in tables mess up how HTML is copied in Firefox. Using a styled div instead solves the problem.
+// For this reason, svg's should be avoided in tables until this issue is fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1664350
+const iconStyles = css`
+  height: 100%;
+  width: 2px;
+  border-radius: 50px;
+  background: ${token('color.icon', '#42526E')};
+
+  &::before,
+  &::after {
+    background: ${token('color.icon', '#42526E')};
+    content: '';
+    height: 2px;
+    width: 6px;
+    position: absolute;
+    border-radius: 50px;
+  }
+
+  &::before {
+    transform: rotate(45deg) translate(3.4px, 8.5px);
+  }
+
+  &::after {
+    transform: rotate(-45deg) translate(-6.3px, 5.7px);
+  }
+`;
+
+const getIconClassName = (
+  isSortingAllowed: boolean,
+  sortOrdered?: SortOrder,
+) => {
+  const activated = sortOrdered !== SortOrder.NO_ORDER;
+  const activeStatusClass = `${RendererCssClassName.SORTABLE_COLUMN_ICON}-${
+    activated ? 'active' : 'inactive'
+  }`;
+
+  if (!isSortingAllowed) {
+    return `${StatusClassNames.SORTING_NOT_ALLOWED} ${activeStatusClass}`;
+  }
+
+  switch (sortOrdered) {
     case SortOrder.ASC:
-      return StatusClassNames.ASC;
+      return `${StatusClassNames.ASC} ${activeStatusClass}`;
     case SortOrder.DESC:
-      return StatusClassNames.DESC;
+      return `${StatusClassNames.DESC} ${activeStatusClass}`;
     default:
-      return StatusClassNames.NO_ORDER;
+      return `${StatusClassNames.NO_ORDER} ${activeStatusClass}`;
   }
 };
 
-type Props = {
+type SortingIconProps = {
   isSortingAllowed: boolean;
   sortOrdered?: SortOrder;
+  onClick: () => void;
+  onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
 } & WrappedComponentProps;
 
 const getTooltipTitle = (
   intl: IntlShape,
   isSortingAllowed: boolean,
-  status?: SortOrder,
+  sortOrdered?: SortOrder,
 ): string => {
   const {
     noOrderLabel,
@@ -97,7 +138,7 @@ const getTooltipTitle = (
     return intl.formatMessage(invalidLabel);
   }
 
-  switch (status) {
+  switch (sortOrdered) {
     case SortOrder.NO_ORDER:
       return intl.formatMessage(noOrderLabel);
     case SortOrder.ASC:
@@ -109,23 +150,52 @@ const getTooltipTitle = (
   return '';
 };
 
-const SortingIcon = ({ isSortingAllowed, sortOrdered, intl }: Props) => {
-  const activated = sortOrdered !== SortOrder.NO_ORDER;
-  const wrapperClassName = !isSortingAllowed
-    ? StatusClassNames.SORTING_NOT_ALLOWED
-    : '';
+const SortingIcon = ({
+  isSortingAllowed,
+  sortOrdered,
+  intl,
+  onClick,
+  onKeyDown,
+}: SortingIconProps) => {
+  const buttonClassName = `${RendererCssClassName.SORTABLE_COLUMN_ICON}${
+    isSortingAllowed
+      ? ''
+      : ` ${RendererCssClassName.SORTABLE_COLUMN_ICON}__not-allowed`
+  }`;
+
   const content = getTooltipTitle(intl, isSortingAllowed, sortOrdered);
+
+  const handleClick = () => {
+    if (isSortingAllowed) {
+      onClick();
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (isSortingAllowed) {
+      onKeyDown(event);
+    }
+  };
 
   return (
     <Tooltip delay={0} content={content} position="top">
-      <figure css={wrapperStyles} className={wrapperClassName}>
+      <div
+        css={buttonStyles}
+        className={buttonClassName}
+        role="button"
+        tabIndex={isSortingAllowed ? 0 : -1}
+        aria-label="sort column"
+        aria-disabled={!isSortingAllowed}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+      >
         <div
-          css={tableSortingIconStyles}
-          className={`${getClassName(
-            sortOrdered,
-          )} ${TABLE_SORTING_ICON_CLASS}-${activated ? 'active' : 'inactive'}`}
-        />
-      </figure>
+          css={iconWrapperStyles}
+          className={getIconClassName(isSortingAllowed, sortOrdered)}
+        >
+          <div css={iconStyles} />
+        </div>
+      </div>
     </Tooltip>
   );
 };

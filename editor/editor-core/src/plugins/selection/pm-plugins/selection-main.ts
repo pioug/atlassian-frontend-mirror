@@ -5,6 +5,7 @@ import { EditorView } from 'prosemirror-view';
 import { Dispatch } from '../../../event-dispatcher';
 import { DispatchAnalyticsEvent } from '../../analytics';
 
+import { SelectionActionTypes } from '../actions';
 import { createPluginState, getPluginState } from '../plugin-factory';
 import {
   selectionPluginKey,
@@ -12,14 +13,13 @@ import {
   SelectionPluginState,
 } from '../types';
 import {
-  getDecorations,
-  shouldRecalcDecorations,
-  getNodeSelectionAnalyticsPayload,
-  getRangeSelectionAnalyticsPayload,
   getAllSelectionAnalyticsPayload,
   getCellSelectionAnalyticsPayload,
+  getDecorations,
+  getNodeSelectionAnalyticsPayload,
+  getRangeSelectionAnalyticsPayload,
+  shouldRecalcDecorations,
 } from '../utils';
-import { SelectionActionTypes } from '../actions';
 
 export const getInitialState = (state: EditorState): SelectionPluginState => ({
   decorationSet: getDecorations(state.tr),
@@ -161,11 +161,16 @@ export const createPlugin = (
             (event.key === 'ArrowDown' || event.key === 'ArrowUp')
           ) {
             const { state } = editorView;
+            // If current depth is on the top most level, skip that
+            if (state.selection.$head.depth <= 0) {
+              return false;
+            }
+
             let pos;
             if (event.key === 'ArrowDown') {
               pos = state.selection.$head.after();
             } else {
-              pos = state.selection.$head.before() - 1;
+              pos = Math.max(state.selection.$head.before() - 1, 0);
               // block extensions only take up one position, dont need to get before()
               if (!editorView.nodeDOM(pos)) {
                 pos = state.doc.resolve(pos).before();

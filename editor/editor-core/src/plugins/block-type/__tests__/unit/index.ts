@@ -51,7 +51,7 @@ import { PluginKey } from 'prosemirror-state';
 import blockTypePlugin from '../../';
 import panelPlugin from '../../../panel';
 import codeBlockPlugin from '../../../code-block';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { CellSelection } from '@atlaskit/editor-tables';
 
 describe('block-type', () => {
@@ -72,7 +72,7 @@ describe('block-type', () => {
         .add(panelPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add(tablePlugin),
+        .add(tablesPlugin),
       pluginKey: blockTypePluginKey,
     });
   };
@@ -216,7 +216,7 @@ describe('block-type', () => {
       );
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(p('te'), code_block()(), p('xt')),
+        doc(p('te'), code_block()('xt')),
       );
     });
 

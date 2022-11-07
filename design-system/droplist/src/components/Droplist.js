@@ -9,6 +9,7 @@ import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Layer from '@atlaskit/layer';
 import Spinner from '@atlaskit/spinner';
 import { gridSize } from '@atlaskit/theme/constants';

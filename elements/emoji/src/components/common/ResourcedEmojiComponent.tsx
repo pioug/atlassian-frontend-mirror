@@ -104,9 +104,7 @@ export const ResourcedEmojiComponent: FC<Props> = ({
               metadata: {
                 reason: 'failed to find',
                 source: 'ResourcedEmojiComponent',
-                data: {
-                  emoji: { id: emojiId.id, shortName: emojiId.shortName },
-                },
+                emojiId: emojiId.id,
               },
             });
             sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
@@ -116,9 +114,7 @@ export const ResourcedEmojiComponent: FC<Props> = ({
                 metadata: {
                   reason: 'failed to find',
                   source: 'ResourcedEmojiComponent',
-                  data: {
-                    emoji: { id: emojiId.id, shortName: emojiId.shortName },
-                  },
+                  emojiId: emojiId.id,
                 },
               });
             }
@@ -130,9 +126,7 @@ export const ResourcedEmojiComponent: FC<Props> = ({
             metadata: {
               reason: 'failed to load',
               source: 'ResourcedEmojiComponent',
-              data: {
-                emoji: { id: emojiId.id, shortName: emojiId.shortName },
-              },
+              emojiId: emojiId.id,
             },
           });
         })
@@ -183,9 +177,7 @@ export const ResourcedEmojiComponent: FC<Props> = ({
       metadata: {
         reason: 'load error',
         source: 'ResourcedEmojiComponent',
-        data: {
-          emoji: { id: emojiId.id, shortName: emojiId.shortName },
-        },
+        emojiId: emojiId.id,
       },
     });
   };

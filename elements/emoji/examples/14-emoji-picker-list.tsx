@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import EmojiPickerList, {
   Props,
@@ -36,7 +36,7 @@ export default function Example() {
 
   return (
     <IntlProvider locale="en">
-      <div css={emojiPicker}>
+      <div css={emojiPicker()}>
         <EmojiPickerList {...(props as Props)} />
       </div>
     </IntlProvider>

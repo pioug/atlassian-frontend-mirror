@@ -157,8 +157,10 @@ const containerStyles = (styleProps: StyleProps) => {
       border-color 0.3s ${akEditorSwoopCubicBezier};
     padding: ${gridSize()}px;
 
-    // TODO: https://product-fabric.atlassian.net/browse/DSP-4152
     &:hover {
+      // TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
+      // This is because the default state already uses the same token and, as such, the hover style won't change anything.
+      // https://product-fabric.atlassian.net/browse/DSP-4152
       border: 1px solid
         ${themed({
           light: token('color.border', colors.N50A),
@@ -174,24 +176,23 @@ const containerStyles = (styleProps: StyleProps) => {
   `;
 };
 
-const contentStyles = (styleProps: StyleProps) => (
-  themeProps: ThemeProps,
-) => css`
-  padding-top: ${styleProps.expanded ? gridSize() : 0}px;
-  padding-right: ${gridSize()}px;
-  padding-left: ${gridSize() * 4 - gridSize() / 2}px;
-  display: flow-root;
+const contentStyles = (styleProps: StyleProps) => (themeProps: ThemeProps) =>
+  css`
+    padding-top: ${styleProps.expanded ? gridSize() : 0}px;
+    padding-right: ${gridSize()}px;
+    padding-left: ${gridSize() * 4 - gridSize() / 2}px;
+    display: flow-root;
 
-  // The follow rules inside @supports block are added as a part of ED-8893
-  // The fix is targeting mobile bridge on iOS 12 or below,
-  // We should consider remove this fix when we no longer support iOS 12
-  @supports not (display: flow-root) {
-    width: 100%;
-    box-sizing: border-box;
-  }
+    // The follow rules inside @supports block are added as a part of ED-8893
+    // The fix is targeting mobile bridge on iOS 12 or below,
+    // We should consider remove this fix when we no longer support iOS 12
+    @supports not (display: flow-root) {
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-  ${!styleProps.expanded
-    ? `
+    ${!styleProps.expanded
+      ? `
         .expand-content-wrapper, .nestedExpand-content-wrapper {
           /* We visually hide the content here to preserve the content during copy+paste */
           width: 100%;
@@ -203,8 +204,8 @@ const contentStyles = (styleProps: StyleProps) => (
           user-select: none;
         }
       `
-    : ''}
-`;
+      : ''}
+  `;
 
 const titleInputStyles = (props: ThemeProps) => css`
   outline: none;

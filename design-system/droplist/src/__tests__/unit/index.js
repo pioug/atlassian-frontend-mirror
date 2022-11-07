@@ -2,7 +2,9 @@ import React from 'react';
 
 import { mount, shallow } from 'enzyme';
 
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item, { ItemGroup } from '@atlaskit/item';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Layer from '@atlaskit/layer';
 import Spinner from '@atlaskit/spinner';
 

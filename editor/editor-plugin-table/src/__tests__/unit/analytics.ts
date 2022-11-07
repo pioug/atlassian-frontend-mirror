@@ -239,9 +239,8 @@ describe('Table analytic events', () => {
       );
 
       mergeCellsWithAnalytics(editorAnalyticsAPIFake)(
-        editorView.state,
-        editorView.dispatch,
-      );
+        INPUT_METHOD.CONTEXT_MENU,
+      )(editorView.state, editorView.dispatch);
     });
 
     it('should fire v3 analytics', () => {
@@ -273,7 +272,7 @@ describe('Table analytic events', () => {
         ),
       );
 
-      splitCellWithAnalytics(editorAnalyticsAPIFake)(
+      splitCellWithAnalytics(editorAnalyticsAPIFake)(INPUT_METHOD.CONTEXT_MENU)(
         editorView.state,
         editorView.dispatch,
       );
@@ -308,11 +307,11 @@ describe('Table analytic events', () => {
         ),
       );
 
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      setColorWithAnalytics(editorAnalyticsAPIFake)(B50)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      setColorWithAnalytics(editorAnalyticsAPIFake)(
+        INPUT_METHOD.CONTEXT_MENU,
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+        B50,
+      )(editorView.state, editorView.dispatch);
     });
 
     it('should fire v3 analytics', () => {

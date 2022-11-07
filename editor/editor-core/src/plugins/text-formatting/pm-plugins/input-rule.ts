@@ -5,7 +5,6 @@ import {
   createRule,
   ruleWithAnalytics,
 } from '../../../utils/input-rules';
-import { getFeatureFlags } from '../../feature-flags-context';
 import {
   leafNodeReplacementCharacter,
   InputRuleWrapper,
@@ -129,20 +128,6 @@ function addMark(
     const textSuffix = tr.doc.textBetween(mappedEnd - char.length, mappedEnd);
     if (textSuffix === char) {
       tr.delete(mappedEnd - char.length, mappedEnd);
-    }
-
-    const { useUnpredictableInputRule } = getFeatureFlags(state);
-    if (useUnpredictableInputRule) {
-      // THe unpredictable input rule is keeping the last char in the document
-      // for example: `lol` the second stick need to removed
-      if (char.length === 2) {
-        tr.delete(mappedEnd - 1, mappedEnd);
-      }
-
-      // And for range selection too
-      if (!tr.selection.empty) {
-        tr.deleteSelection();
-      }
     }
 
     if (textPrefix === char) {
@@ -350,9 +335,7 @@ export function inputRulePlugin(
   }
 
   if (rules.length !== 0) {
-    return createPlugin('text-formatting', rules, {
-      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
-    });
+    return createPlugin('text-formatting', rules);
   }
   return;
 }

@@ -7,5 +7,9 @@
   "testExamples": [
     "00-basic-usage.tsx",
     "03-blanket-with-children.tsx"
+  ],
+  "exampleDependencies": [
+    "@atlaskit/badge",
+    "@atlaskit/toggle"
   ]
 }

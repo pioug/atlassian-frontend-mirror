@@ -14,6 +14,7 @@ import {
   table,
   th,
   tr,
+  td,
   decisionItem,
   decisionList,
   layoutColumn,
@@ -27,6 +28,7 @@ import {
   blockquote,
   taskList,
   taskItem,
+  bodiedExtension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
@@ -40,18 +42,18 @@ import {
   handleParagraphBlockMarks,
   handlePasteLinkOnSelectedText,
   flattenNestedListInSlice,
-  insertIntoPanel,
   handlePasteIntoTaskOrDecisionOrPanel,
   handleExpandPasteInTable,
   handleRichText,
   handlePasteIntoCaption,
   handlePastePanelIntoList,
+  handleMarkdown,
 } from '../../handlers';
 import pastePlugin from '../../index';
 import hyperlinkPlugin from '../../../hyperlink';
 import textFormattingPlugin from '../../../text-formatting';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
@@ -60,6 +62,7 @@ import blockTypePlugin from '../../../block-type';
 import captionPlugin from '../../../caption';
 import mediaPlugin from '../../../media';
 import listPlugin from '../../../list';
+import extensionPlugin from '../../../extension';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -375,55 +378,6 @@ describe('handleRichText', () => {
       const flattenedSlice = flattenNestedListInSlice(pasteSlice);
       expect(flattenedSlice.eq(expectedSlice)).toBeTruthy();
     });
-
-    it('should copy list inside a panel accordingly', () => {
-      // prettier-ignore
-      const originalDoc = createEditorState(
-        doc(
-          panel()(
-            ul(
-              li(p('{<}a')),
-              li(p('b{>}'))
-            ),
-          ),
-        )
-      );
-      const { tr } = originalDoc;
-
-      // prettier-ignore
-      const pasteOriginState = createEditorState(
-        doc(
-          panel()(
-            ul(
-              li(p('{<}1')),
-              li(p('2{>}'))
-            ),
-          ),
-        )
-      );
-
-      const pasteSlice = pasteOriginState.doc.slice(
-        pasteOriginState.selection.from,
-        pasteOriginState.selection.to,
-        // @ts-ignore
-        true, // include parents
-      );
-
-      // prettier-ignore
-      const resultDoc = doc(
-        panel()(
-          ul(
-            li(p('1')),
-            li(p('2{<>}'))
-          ),
-        ),
-      )(defaultSchema);
-
-      const { panel: panelNode } = pasteOriginState.schema.nodes;
-
-      insertIntoPanel(tr, pasteSlice, panelNode);
-      expect(tr).toEqualDocumentAndSelection(resultDoc);
-    });
   });
 
   describe('pasting into a panel', () => {
@@ -450,6 +404,217 @@ describe('handleRichText', () => {
         pasteContent(editorView.state.schema).content,
         1,
         1,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+
+    it('should paste list inside panel', () => {
+      const destinationDocument = doc(
+        panel({ panelType: 'info' })(ul(li(p('{<}a')), li(p('b{>}')))),
+      );
+      const pasteContent = doc(
+        panel({ panelType: 'info' })(ul(li(p('{<}1')), li(p('2{>}')))),
+      );
+      const expectedDocument = doc(
+        panel({ panelType: 'info' })(ul(li(p('1')), li(p('2{<>}')))),
+      );
+
+      const createEditor = createProsemirrorEditorFactory();
+      const editor = (doc: any) => {
+        const preset = new Preset<LightEditorPlugin>()
+          .add([pastePlugin, {}])
+          .add(panelPlugin)
+          .add(listPlugin)
+          .add(blockTypePlugin);
+
+        return createEditor({
+          doc,
+          preset,
+        });
+      };
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        4,
+        4,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+  });
+
+  describe('pasting from an extension', () => {
+    const createEditor = createProsemirrorEditorFactory();
+
+    const editor = (doc: any) => {
+      const preset = new Preset<LightEditorPlugin>()
+        .add([pastePlugin, {}])
+        .add(tablesPlugin)
+        .add(listPlugin)
+        .add(extensionPlugin)
+        .add(panelPlugin);
+
+      return createEditor({
+        doc,
+        preset,
+      });
+    };
+
+    const openStart = 6;
+    const openEnd = 8;
+
+    it('should paste a nested bullet list from table inside extension into the table as expected', () => {
+      const destinationDocument = doc(
+        bodiedExtension({
+          extensionType: 'atlassian.com.editor',
+          extensionKey: 'fake.extension',
+          localId: 'local-uuid',
+          parameters: {},
+        })(table({ localId: 'local-uuid' })(tr(td()(p('{<>}'))))),
+      );
+
+      const pasteContent = bodiedExtension({
+        extensionType: 'atlassian.com.editor',
+        extensionKey: 'fake.extension',
+        localId: 'local-uuid',
+        parameters: {},
+      })(
+        table({ localId: 'local-uuid' })(
+          tr(td()(ul(li(p('testing'), ul(li(p('test'))))))),
+        ),
+      );
+
+      const expectedDocument = doc(
+        bodiedExtension({
+          extensionType: 'atlassian.com.editor',
+          extensionKey: 'fake.extension',
+          localId: 'local-uuid',
+          parameters: {},
+        })(
+          table({ localId: 'local-uuid' })(
+            tr(td()(ul(li(p('testing'), ul(li(p('test'))))))),
+          ),
+        ),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        openStart,
+        openEnd,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+
+    it('should paste a nested bullet list from table inside extension into a bullet list as expected', () => {
+      const destinationDocument = doc(ul(li(p('original text {<>}'))));
+
+      const pasteContent = bodiedExtension({
+        extensionType: 'atlassian.com.editor',
+        extensionKey: 'fake.extension',
+        localId: 'local-uuid',
+        parameters: {},
+      })(
+        table({ localId: 'local-uuid' })(
+          tr(td()(ul(li(p('testing'), ul(li(p('test'))))))),
+        ),
+      );
+
+      const expectedDocument = doc(
+        ul(li(p('original text testing'), ul(li(p('test'))))),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        openStart,
+        openEnd,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+
+    it('should paste a nested bullet list from table inside extension into a panel as expected', () => {
+      const destinationDocument = doc(panel()(p('{<>}')));
+
+      const pasteContent = bodiedExtension({
+        extensionType: 'atlassian.com.editor',
+        extensionKey: 'fake.extension',
+        localId: 'local-uuid',
+        parameters: {},
+      })(
+        table({ localId: 'local-uuid' })(
+          tr(td()(ul(li(p('testing'), ul(li(p('test'))))))),
+        ),
+      );
+
+      const expectedDocument = doc(
+        panel()(ul(li(p('testing'), ul(li(p('test')))))),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        openStart,
+        openEnd,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+
+    it('should paste a nested bullet list from a panel in a table inside extension into a bullet list as expected', () => {
+      const destinationDocument = bodiedExtension({
+        extensionType: 'atlassian.com.editor',
+        extensionKey: 'fake.extension',
+        localId: 'local-uuid',
+        parameters: {},
+      })(table({ localId: 'local-uuid' })(tr(td()(p('{<>}')))));
+
+      const pasteContent = bodiedExtension({
+        extensionType: 'atlassian.com.editor',
+        extensionKey: 'fake.extension',
+        localId: 'local-uuid',
+        parameters: {},
+      })(
+        table({ localId: 'local-uuid' })(
+          tr(td()(panel()(ul(li(p('testing'), ul(li(p('test')))))))),
+        ),
+      );
+
+      const expectedDocument = bodiedExtension({
+        extensionType: 'atlassian.com.editor',
+        extensionKey: 'fake.extension',
+        localId: 'local-uuid',
+        parameters: {},
+      })(
+        table({ localId: 'local-uuid' })(
+          tr(td()(ul(li(p('testing'), ul(li(p('test'))))))),
+        ),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        7,
+        9,
       );
       handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
@@ -876,7 +1041,7 @@ describe('handleExpand', () => {
         const editor = (doc: any) => {
           const preset = new Preset<LightEditorPlugin>()
             .add([pastePlugin, {}])
-            .add(tablePlugin)
+            .add(tablesPlugin)
             .add(expandPlugin)
             .add(layoutPlugin);
 
@@ -1639,6 +1804,44 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           editorView.state.tr.doc.check();
         }).not.toThrow();
       });
+    });
+  });
+});
+
+describe('handleMarkdown', () => {
+  describe('pasting into a table', () => {
+    it('should select in the same cell after pasting list', () => {
+      const createEditor = createProsemirrorEditorFactory();
+      const editor = (doc: any) => {
+        const preset = new Preset<LightEditorPlugin>()
+          .add([pastePlugin, {}])
+          .add(tablesPlugin)
+          .add(listPlugin);
+
+        return createEditor({
+          doc,
+          preset,
+        });
+      };
+
+      const destinationDocument = doc(
+        table({ localId: 'local-uuid' })(tr(td()(p('{<>}')), td()(p()))),
+      );
+      const { editorView } = editor(destinationDocument);
+
+      const pasteSlice = new Slice(
+        doc(ul(li(p('a')), li(p('b'))))(editorView.state.schema).content,
+        1,
+        1,
+      );
+      handleMarkdown(pasteSlice)(editorView.state, editorView.dispatch);
+
+      const expectedDocument = doc(
+        table({ localId: 'local-uuid' })(
+          tr(td()(ul(li(p('a')), li(p('b{<>}')))), td()(p())),
+        ),
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
     });
   });
 });

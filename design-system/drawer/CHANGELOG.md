@@ -1,5 +1,15 @@
 # @atlaskit/drawer
 
+## 7.4.0
+
+### Minor Changes
+
+- [`3d5675d420e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d5675d420e) - [ux] Prevents the background from being scrollable while a drawer is open.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.2
 
 ### Patch Changes

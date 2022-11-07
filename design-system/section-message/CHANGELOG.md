@@ -1,5 +1,13 @@
 # @atlaskit/section-message
 
+## 6.3.2
+
+### Patch Changes
+
+- [`7c6009de2f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c6009de2f1) - [ux] Updates the visual appearance to match the legacy light mode palette.
+- [`e35fc41dc33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e35fc41dc33) - Internal change to use updated primtive spacing prop values. No expected behaviour change.
+- Updated dependencies
+
 ## 6.3.1
 
 ### Patch Changes

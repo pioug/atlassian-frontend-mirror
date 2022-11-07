@@ -34,6 +34,7 @@ export interface Props {
   forcePlacement?: boolean;
   allowOutOfBounds?: boolean; // Allow to correct position elements inside table: https://product-fabric.atlassian.net/browse/ED-7191
   rect?: DOMRect;
+  style?: React.CSSProperties;
 }
 
 export interface State {
@@ -251,6 +252,7 @@ export default class Popup extends React.Component<Props, State> {
           position: 'absolute',
           zIndex: this.props.zIndex || akEditorFloatingPanelZIndex,
           ...position,
+          ...this.props.style,
         }}
         aria-label={this.props.ariaLabel || 'Popup'}
         // Indicates component is an editor pop. Required for focus handling in Message.tsx

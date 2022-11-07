@@ -33,6 +33,64 @@ Object {
 }
 `;
 
+exports[`paste.ts: paste code with new lines into code block. ensure up arrow is working 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "language": null,
+        "uniqueId": null,
+      },
+      "content": Array [
+        Object {
+          "text": "// Your First C++ Program
+
+#include <iostream>
+
+int main() {
+    std::cout << \\"Hello World!\\";
+    return 0;
+}
+",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`paste.ts: paste code with new lines into code block. ensure up arrow is working1 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "language": null,
+        "uniqueId": null,
+      },
+      "content": Array [
+        Object {
+          "text": "// Your First C++ Program
+
+#include <iostream>
+
+int main() {
+    std::cout << \\"Hello World!\\";
+    return 0;
+}
+",
+          "type": "text",
+        },
+      ],
+      "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`paste.ts: paste tests on fullpage editor: block node containing paragraph containing hardbreak and list 1`] = `
 Object {
   "content": Array [

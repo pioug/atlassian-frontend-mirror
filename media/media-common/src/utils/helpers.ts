@@ -33,6 +33,8 @@ export const matches = (srcObj: Object) => {
   };
 };
 
-const fakeConsole = { info: () => {}, log: () => {}, error: () => {} };
-export const getConsole = () =>
-  typeof console !== 'undefined' ? console : fakeConsole;
+export function getRandomHex(size: number) {
+  return [...Array(size)]
+    .map(() => Math.floor(Math.random() * 16).toString(16))
+    .join('');
+}

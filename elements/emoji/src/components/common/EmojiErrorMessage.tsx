@@ -1,10 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { FC } from 'react';
-import { Message } from '../../types';
+import { jsx, SerializedStyles } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
-import { SerializedStyles } from '@emotion/core';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
+import { Message } from '../../types';
 
 export interface Props {
   message: Message;

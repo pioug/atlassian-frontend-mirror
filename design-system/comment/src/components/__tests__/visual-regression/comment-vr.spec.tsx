@@ -18,7 +18,7 @@ describe('@atlaskit/comment', () => {
     // Wait for avatar to download
     await waitForLoadedImageElements(page, 3000);
     // Wait for lock icon and action buttons
-    await page.waitForSelector('span[role="presentation"] > svg');
+    await page.waitForSelector('span[aria-hidden="true"] > svg');
     await page.waitForSelector('button[type="button"]');
     const element = await page.waitForSelector('[data-testid="comment"]');
 

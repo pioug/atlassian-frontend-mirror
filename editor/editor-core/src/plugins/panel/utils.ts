@@ -31,10 +31,12 @@ export const panelAttrsToDom = (
     panelIconText,
   } = attrs;
   const isCustomPanel = panelType === PanelType.CUSTOM && allowCustomPanel;
-
-  const style =
-    panelColor && isCustomPanel ? `background-color: ${panelColor}` : '';
   const hasIcon = !isCustomPanel || !!panelIcon || !!panelIconId;
+
+  const style = [
+    `${panelColor && isCustomPanel ? `background-color: ${panelColor};` : ''}`,
+    `${hasIcon ? '' : 'padding: 12px;'}`,
+  ].join('');
 
   let panelAttrs: DomPanelAtrrs = {
     class: PanelSharedCssClassName.prefix,

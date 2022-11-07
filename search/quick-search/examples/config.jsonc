@@ -6,6 +6,7 @@
 {
   "exampleDependencies": [
     "@atlaskit/drawer",
+    "@atlaskit/icon",
     "@atlaskit/navigation"
   ]
 }

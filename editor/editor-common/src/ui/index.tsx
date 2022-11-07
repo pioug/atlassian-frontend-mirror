@@ -72,3 +72,4 @@ export {
   IntlErrorBoundary,
   REACT_INTL_ERROR_MESSAGE,
 } from './IntlErrorBoundary';
+export { default as IntlProviderIfMissingWrapper } from './IntlProviderIfMissingWrapper';

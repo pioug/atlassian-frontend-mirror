@@ -27,7 +27,7 @@ import {
   tableForBulkResizeWithNumberCol,
 } from './__fixtures__/resize-documents';
 import { tableWithMinWidthColumnsDocument } from './__fixtures__/table-with-min-width-columns-document';
-import { pluginKey as tableResizingPluginKey } from '@atlaskit/editor-core/src/plugins/table/pm-plugins/table-resizing';
+import { pluginKey as tableResizingPluginKey } from '../../plugins/table/pm-plugins/table-resizing';
 
 import {
   goToEditorTestingWDExample,

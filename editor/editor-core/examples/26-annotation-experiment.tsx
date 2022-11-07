@@ -167,16 +167,19 @@ export default class ExampleAnnotationExperiment extends React.Component<
         </div>
         <div style={{ flex: '80%' }}>
           <FullPageExample
-            defaultValue={exampleDocumentWithComments}
-            allowHelpDialog
             key={this.state.isDisallowOnWhiteSpaceEnabled ? 1 : 0}
-            annotationProviders={{
-              inlineComment: {
-                createComponent: ExampleCreateInlineCommentComponent,
-                viewComponent: ExampleViewInlineCommentComponent,
-                updateSubscriber: emitter,
-                getState: this.inlineCommentGetState,
-                disallowOnWhitespace: this.state.isDisallowOnWhiteSpaceEnabled,
+            editorProps={{
+              defaultValue: exampleDocumentWithComments,
+              allowHelpDialog: true,
+              annotationProviders: {
+                inlineComment: {
+                  createComponent: ExampleCreateInlineCommentComponent,
+                  viewComponent: ExampleViewInlineCommentComponent,
+                  updateSubscriber: emitter,
+                  getState: this.inlineCommentGetState,
+                  disallowOnWhitespace: this.state
+                    .isDisallowOnWhiteSpaceEnabled,
+                },
               },
             }}
           />

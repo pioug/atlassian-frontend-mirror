@@ -205,13 +205,6 @@ export type FeatureFlags = {
   extendFloatingToolbar?: boolean;
 
   /**
-   * Set editor to use the input rule with unpredictable undo results
-   * @see https://product-fabric.atlassian.net/browse/ED-12676
-   * @default true
-   */
-  useUnpredictableInputRule?: boolean;
-
-  /**
    * Show the avatar group as a plugin
    * @see https://product-fabric.atlassian.net/browse/CERN-747
    * @default false

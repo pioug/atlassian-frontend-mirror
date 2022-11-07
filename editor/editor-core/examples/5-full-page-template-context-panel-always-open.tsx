@@ -150,23 +150,25 @@ class EditorWithSidebar extends React.Component {
 
     return (
       <ExampleEditor
-        onChange={this.onChange}
-        defaultValue={defaultValue}
-        extensionProviders={(editorActions) => [
-          getExampleExtensionProviders(editorActions),
-        ]}
-        allowExtension={{ allowAutoSave: true }}
-        contextPanel={
-          <WithEditorActions
-            render={(actions) => (
-              <TemplatePanel
-                actions={actions}
-                defaultValue={defaultValue ? JSON.parse(defaultValue) : null}
-                ref={this.sidebar}
-              />
-            )}
-          />
-        }
+        editorProps={{
+          onChange: this.onChange,
+          defaultValue,
+          extensionProviders: (editorActions) => [
+            getExampleExtensionProviders(editorActions),
+          ],
+          allowExtension: { allowAutoSave: true },
+          contextPanel: (
+            <WithEditorActions
+              render={(actions) => (
+                <TemplatePanel
+                  actions={actions}
+                  defaultValue={defaultValue ? JSON.parse(defaultValue) : null}
+                  ref={this.sidebar}
+                />
+              )}
+            />
+          ),
+        }}
       />
     );
   }

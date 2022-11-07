@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { createSerializer, matchers } from '@emotion/jest';
+import { css, jsx } from '@emotion/react';
 import { fireEvent, render } from '@testing-library/react';
-import serializer, { matchers } from 'jest-emotion';
 import { HashRouter, Link } from 'react-router-dom';
 
 import type { CSSFn, CustomItemComponentProps } from '../../../types';
 import CustomItem from '../../custom-item';
 
-expect.addSnapshotSerializer(serializer);
+expect.addSnapshotSerializer(createSerializer());
 expect.extend(matchers);
 
 window.requestAnimationFrame = (cb) => {

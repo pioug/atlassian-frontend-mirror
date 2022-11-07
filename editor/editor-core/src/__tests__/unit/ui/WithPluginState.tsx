@@ -14,20 +14,7 @@ import {
 } from '../../../event-dispatcher';
 import EditorActions from '../../../actions';
 import EditorContext from '../../../ui/EditorContext';
-
-let mockUiTracking = {};
-
-jest.mock('../../../plugins/analytics/plugin-key', () => ({
-  analyticsPluginKey: {
-    getState() {
-      return {
-        performanceTracking: {
-          uiTracking: mockUiTracking,
-        },
-      };
-    },
-  },
-}));
+import { analyticsPluginKey } from '../../../plugins/analytics';
 
 describe(name, () => {
   const createEditor = createEditorFactory();
@@ -63,6 +50,31 @@ describe(name, () => {
     };
   };
 
+  const createAnalyticsPlugin = (state: any): EditorPlugin => {
+    return {
+      name: 'analytics',
+      pmPlugins() {
+        return [
+          {
+            name: 'analyticsPlugin',
+            plugin: () =>
+              new SafePlugin({
+                key: analyticsPluginKey,
+                state: {
+                  init() {
+                    return state;
+                  },
+                  apply() {
+                    return state;
+                  },
+                },
+              }),
+          },
+        ];
+      },
+    };
+  };
+
   let eventDispatcher: EventDispatcher;
   let dispatch: Dispatch;
 
@@ -76,7 +88,6 @@ describe(name, () => {
 
     eventDispatcher = new EventDispatcher();
     dispatch = createDispatch(eventDispatcher);
-    mockUiTracking = {};
   });
 
   describe('WithPluginState', () => {
@@ -251,22 +262,25 @@ describe(name, () => {
   });
 
   it('should not call performance.mark when disabled', () => {
-    mockUiTracking = { enabled: false };
     const plugin = createPlugin({}, pluginKey);
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
 
+    const analyticsPlugin = createAnalyticsPlugin({
+      performanceTracking: {
+        uiTracking: {
+          enabled: false,
+          samplingRate: 1,
+          slowThreshold: 0,
+        },
+      },
+    });
+
     const { editorView } = createEditor({
       doc: doc(p()),
-      editorPlugins: [plugin],
+      editorPlugins: [plugin, analyticsPlugin],
       editorProps: {
         allowAnalyticsGASV3: true,
-        performanceTracking: {
-          uiTracking: {
-            enabled: true,
-            samplingRate: 1,
-          },
-        },
       },
     });
 
@@ -296,22 +310,25 @@ describe(name, () => {
   });
 
   it('should call performance.mark twice with appropriate arguments', () => {
-    mockUiTracking = { enabled: true };
     const plugin = createPlugin({}, pluginKey);
     const key = (pluginKey as any).key;
     const mark = performance.mark as jest.Mock;
 
+    const analyticsPlugin = createAnalyticsPlugin({
+      performanceTracking: {
+        uiTracking: {
+          enabled: true,
+          samplingRate: 1,
+          slowThreshold: 0,
+        },
+      },
+    });
+
     const { editorView } = createEditor({
       doc: doc(p()),
-      editorPlugins: [plugin],
+      editorPlugins: [plugin, analyticsPlugin],
       editorProps: {
         allowAnalyticsGASV3: true,
-        performanceTracking: {
-          uiTracking: {
-            enabled: true,
-            samplingRate: 1,
-          },
-        },
       },
     });
 

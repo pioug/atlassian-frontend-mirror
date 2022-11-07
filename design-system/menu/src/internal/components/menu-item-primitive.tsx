@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
 
-import { ClassNames, css, jsx } from '@emotion/core';
+import { ClassNames, css, jsx } from '@emotion/react';
 
 import FocusRing from '@atlaskit/focus-ring';
 import { N20, N200, N30 } from '@atlaskit/theme/colors';

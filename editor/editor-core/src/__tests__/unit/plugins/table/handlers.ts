@@ -9,10 +9,12 @@ import {
   tdCursor,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../../../plugins/table/types';
-import { handleDocOrSelectionChanged } from '../../../../plugins/table/handlers';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
-import { defaultTableSelection } from '../../../../plugins/table/pm-plugins/default-table-selection';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { handleDocOrSelectionChanged } from '@atlaskit/editor-plugin-table/src/plugins/table/handlers';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { defaultTableSelection } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/default-table-selection';
 
 describe('table action handlers', () => {
   let editor: any;

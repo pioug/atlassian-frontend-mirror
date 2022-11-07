@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import AkButton from '@atlaskit/button/custom-theme-button';
-import Spinner from '@atlaskit/spinner';
 import { FC } from 'react';
 import { FormattedMessage } from 'react-intl-next';
+import { jsx } from '@emotion/react';
+import AkButton from '@atlaskit/button/custom-theme-button';
+import Spinner from '@atlaskit/spinner';
 import { messages } from '../i18n';
 import { buttonSpinner, uploadEmojiButton, uploadRetryButton } from './styles';
 

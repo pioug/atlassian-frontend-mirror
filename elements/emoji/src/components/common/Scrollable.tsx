@@ -1,9 +1,9 @@
 // FIXME - FAB-1732 looking at making a shared component for this
 
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import { MouseEventHandler, PureComponent, ReactNode, UIEvent } from 'react';
+import { jsx } from '@emotion/react';
 import { findDOMNode } from 'react-dom';
+import { MouseEventHandler, PureComponent, ReactNode, UIEvent } from 'react';
 import * as styles from './styles';
 
 export interface OnScroll {

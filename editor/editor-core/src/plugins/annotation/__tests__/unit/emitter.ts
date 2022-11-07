@@ -15,7 +15,7 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { inlineCommentPluginKey, getPluginState } from '../../utils';
 import { inlineCommentProvider } from '../_utils';
 import annotationPlugin, { AnnotationUpdateEmitter } from '../..';
-import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import analyticsPlugin from '../../../analytics/plugin';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {

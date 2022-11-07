@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../../../plugins/extension/plugin-key';
-import { flushPromises } from '../../../__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { setupConfigPanel } from '../../_setup-config-panel';
 
 // there are many warnings due to hooks usage and async code that will be solved with the next react update.

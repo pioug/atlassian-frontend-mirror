@@ -118,7 +118,7 @@ describe('mention: Team Highlight on TypeAhead', () => {
   describe('when the user clicks at the team highlight external link', () => {
     BrowserTestCase(
       'it should not close the typeahead popup',
-      {},
+      { skip: ['safari'] },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
 

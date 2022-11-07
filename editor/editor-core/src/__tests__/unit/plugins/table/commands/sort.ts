@@ -13,7 +13,8 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { EditorView } from 'prosemirror-view';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { sortByColumn } from '../../../../../plugins/table/commands/sort';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { sortByColumn } from '@atlaskit/editor-plugin-table/src/plugins/table/commands/sort';
 import { uuid } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 

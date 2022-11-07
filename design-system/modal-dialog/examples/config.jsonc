@@ -18,7 +18,6 @@
     "90-with-layered-components.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/inline-dialog",
     "react-beautiful-dnd"
   ]
 }

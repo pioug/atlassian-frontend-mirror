@@ -1,4 +1,3 @@
-import Button from '@atlaskit/button/standard-button';
 import { ReactWrapper } from 'enzyme';
 import EmojiActions from '../../../../components/common/EmojiActions';
 import { EmojiPreviewComponent } from '../../../../components/common/EmojiPreviewComponent';
@@ -10,7 +9,13 @@ export const findEmojiActionsSection = (component: ReactWrapper) =>
   component.update() && component.find(EmojiActions);
 
 export const findCustomEmojiButton = (component: ReactWrapper) =>
-  component.update() && component.find(Button);
+  component.update() &&
+  component
+    .find('[type="button"]')
+    .findWhere((node) => {
+      return node.type() !== undefined && node.text() === 'Add your own emoji';
+    })
+    .last();
 
 export const customEmojiButtonVisible = (component: ReactWrapper): boolean =>
   findCustomEmojiButton(component).length > 0;

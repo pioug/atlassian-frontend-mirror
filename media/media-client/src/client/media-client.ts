@@ -46,8 +46,15 @@ export class MediaClient {
     params?: MediaStoreGetFileImageParams,
     controller?: AbortController,
     fetchMaxRes?: boolean,
+    traceId?: string,
   ): Promise<Blob> {
-    return this.mediaStore.getImage(id, params, controller, fetchMaxRes);
+    return this.mediaStore.getImage(
+      id,
+      params,
+      controller,
+      fetchMaxRes,
+      traceId,
+    );
   }
 
   public getImageUrl(

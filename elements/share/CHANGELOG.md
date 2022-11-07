@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 3.5.5
+
+### Patch Changes
+
+- [`e4288af2ae8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4288af2ae8) - Add jsx pragma to fix @emotion/react styles not applying correctly
+- [`0915ecdd1db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0915ecdd1db) - Removed styled components from dev and peer dependencies
+- Updated dependencies
+
 ## 3.5.4
 
 ### Patch Changes

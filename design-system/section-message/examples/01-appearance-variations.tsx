@@ -9,12 +9,16 @@ import {
 import SectionMessage, { SectionMessageAction } from '../src';
 
 const Example = () => (
-  <Box testId="appearance-example" display="block" padding="sp-100">
-    <Stack gap="sp-200">
+  <Box testId="appearance-example" display="block" padding="scale.100">
+    <Stack gap="scale.200">
       <SectionMessage appearance="information" title="More">
-        <Stack gap="sp-100">
-          <Text>I count the steps from one end of my island to the other</Text>
-          <Text>It{"'"}s a hundred steps from where I sleep to the sea</Text>
+        <Stack gap="scale.100">
+          <Text as="p">
+            I count the steps from one end of my island to the other
+          </Text>
+          <Text as="p">
+            It{"'"}s a hundred steps from where I sleep to the sea
+          </Text>
         </Stack>
       </SectionMessage>
 
@@ -26,10 +30,12 @@ const Example = () => (
           </SectionMessageAction>
         }
       >
-        <Stack gap="sp-100">
-          <Text>And when I say I{"'"}ve learned all there is to know</Text>
-          <Text>Well there{"'"}s another little island lesson</Text>
-          <Text>Gramma Tala shows me</Text>
+        <Stack gap="scale.100">
+          <Text as="p">
+            And when I say I{"'"}ve learned all there is to know
+          </Text>
+          <Text as="p">Well there{"'"}s another little island lesson</Text>
+          <Text as="p">Gramma Tala shows me</Text>
         </Stack>
       </SectionMessage>
 
@@ -45,26 +51,26 @@ const Example = () => (
           <SectionMessageAction>Moana</SectionMessageAction>,
         ]}
       >
-        <Stack gap="sp-100">
-          <Text>I know where I am from the scent of the breeze</Text>
-          <Text>The ascent of the climb</Text>
-          <Text>From the tangle of the trees</Text>
+        <Stack gap="scale.100">
+          <Text as="p">I know where I am from the scent of the breeze</Text>
+          <Text as="p">The ascent of the climb</Text>
+          <Text as="p">From the tangle of the trees</Text>
         </Stack>
       </SectionMessage>
 
       <SectionMessage appearance="success">
-        <Stack gap="sp-100">
-          <Text>From the angle of the mountain</Text>
-          <Text>To the sand on our island shore</Text>
-          <Text>I{"'"}ve been here before</Text>
+        <Stack gap="scale.100">
+          <Text as="p">From the angle of the mountain</Text>
+          <Text as="p">To the sand on our island shore</Text>
+          <Text as="p">I{"'"}ve been here before</Text>
         </Stack>
       </SectionMessage>
 
       <SectionMessage appearance="discovery">
-        <Stack gap="sp-100">
-          <Text>From the angle of the mountain</Text>
-          <Text>To the sand on our island shore</Text>
-          <Text>I{"'"}ve been here before</Text>
+        <Stack gap="scale.100">
+          <Text as="p">From the angle of the mountain</Text>
+          <Text as="p">To the sand on our island shore</Text>
+          <Text as="p">I{"'"}ve been here before</Text>
         </Stack>
       </SectionMessage>
     </Stack>

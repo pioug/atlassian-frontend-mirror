@@ -28,7 +28,7 @@ describe('typeahead: undo redo', () => {
       appearance: fullpage.appearance,
       defaultValue: adf,
       allowTasksAndDecisions: true,
-      UNSAFE_allowUndoRedoButtons: true,
+      allowUndoRedoButtons: true,
     });
 
     // Set selection after the space at end

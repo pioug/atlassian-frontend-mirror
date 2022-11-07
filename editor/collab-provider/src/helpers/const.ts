@@ -1,6 +1,5 @@
 import { ErrorPayload } from '../types';
 
-export const ATTRIBUTES_PACKAGE = 'collabProvider';
 export const EVENT_SUBJECT = 'collab';
 export enum COLLAB_SERVICE {
   NCS = 'ncs',
@@ -13,6 +12,7 @@ export enum EVENT_ACTION {
   ADD_STEPS = 'addSteps',
   CONVERT_PM_TO_ADF = 'convertPMToADF',
   UPDATE_PARTICIPANTS = 'updateParticipants',
+  COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps',
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
@@ -31,4 +31,4 @@ export type AnalyticsEvent = {
   };
 };
 
-export const ACK_MAX_TRY = 10;
+export const ACK_MAX_TRY = 30;

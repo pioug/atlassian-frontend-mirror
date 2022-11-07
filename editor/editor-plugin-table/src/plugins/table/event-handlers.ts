@@ -23,7 +23,6 @@ import {
   isLastItemMediaGroup,
   setNodeSelection,
 } from '@atlaskit/editor-common/utils';
-// import { closestElement } from '@atlaskit/editor-core/src/utils/dom';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {

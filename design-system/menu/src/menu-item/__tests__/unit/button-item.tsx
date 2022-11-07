@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { createSerializer, matchers } from '@emotion/jest';
+import { css, jsx } from '@emotion/react';
 import { fireEvent, render } from '@testing-library/react';
-import serializer, { matchers } from 'jest-emotion';
 
 import noop from '@atlaskit/ds-lib/noop';
 
 import type { CSSFn } from '../../../types';
 import ButtonItem from '../../button-item';
 
-expect.addSnapshotSerializer(serializer);
+expect.addSnapshotSerializer(createSerializer());
 expect.extend(matchers);
 
 window.requestAnimationFrame = (cb) => {

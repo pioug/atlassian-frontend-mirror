@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/styles/use-emotion
 import styled, { css } from 'styled-components';
 
 import * as colors from '@atlaskit/theme/colors';

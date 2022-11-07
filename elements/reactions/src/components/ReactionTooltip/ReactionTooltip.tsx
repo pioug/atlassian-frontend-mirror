@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import { FormattedMessage } from 'react-intl-next';
 import { ReactionSummary } from '../../types';
@@ -62,7 +62,7 @@ export const ReactionTooltip: React.FC<ReactionTooltipProps> = ({
     <Tooltip
       content={content}
       position="bottom"
-      data-testid={RENDER_REACTIONTOOLTIP_TESTID}
+      testId={RENDER_REACTIONTOOLTIP_TESTID}
     >
       {React.Children.only(children)}
     </Tooltip>

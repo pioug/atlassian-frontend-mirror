@@ -75,7 +75,7 @@ export function createUrl(
 }
 
 export function withAuth(auth?: Auth) {
-  return (headers?: RequestHeaders): RequestHeaders | undefined => {
+  return (headers?: RequestHeaders): Record<string, string> | undefined => {
     if (auth) {
       return {
         ...(headers || {}),

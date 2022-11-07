@@ -5,7 +5,6 @@ import { EditorView } from 'prosemirror-view';
 
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import Button from '@atlaskit/button/standard-button';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -32,7 +31,7 @@ import featureFlagsPlugin from '../../../../../plugins/feature-flags-context';
 import blockTypePlugin from '../../../../../plugins/block-type';
 import panelPlugin from '../../../../../plugins/panel';
 import rulePlugin from '../../../../../plugins/rule';
-import tablePlugin from '../../../../../plugins/table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import statusPlugin from '../../../../../plugins/status';
 import expandPlugin from '../../../../../plugins/expand';
 import analyticsPlugin from '../../../../../plugins/analytics';
@@ -100,7 +99,7 @@ const getToolbarButton = (
   toolbarOption
     .find(ToolbarButton)
     .filterWhere((toolbarButton) => toolbarButton.find('Memo(Icon)').length > 0)
-    .find(Button);
+    .find('button');
 
 const getInsertMenuButton = (
   title: string,
@@ -172,7 +171,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         .add(layoutPlugin)
         .add(panelPlugin)
         .add(rulePlugin)
-        .add(tablePlugin)
+        .add(tablesPlugin)
         .add([statusPlugin, { menuDisabled: true }])
         .add(expandPlugin)
         .add(taskDecisionPlugin)

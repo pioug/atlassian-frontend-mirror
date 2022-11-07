@@ -1,7 +1,7 @@
 import { extension } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../../plugins/extension/plugin-key';
-import { flushPromises } from '../../__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { setupConfigPanel } from '../_setup-config-panel';
 import { Parameters } from '@atlaskit/editor-common/extensions';
 

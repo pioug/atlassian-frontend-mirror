@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ObjectInterpolation } from '@emotion/core';
+import { CSSObject } from '@emotion/react';
 
 import { AnimationCurve, easeIn, easeOut } from '../utils/curves';
 import { mediumDurationMs } from '../utils/durations';
@@ -12,7 +12,7 @@ export const slideInAnimation = (
   from: Direction,
   state: Transition,
   fade: Fade,
-): ObjectInterpolation<undefined> => {
+): CSSObject => {
   const initial = state === 'entering' ? '0%' : '100%';
   const end = state === 'entering' ? '100%' : '0%';
   const fromMap = {

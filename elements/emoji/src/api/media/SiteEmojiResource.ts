@@ -68,17 +68,14 @@ export default class SiteEmojiResource {
       const currentMediaPathURL = new URL(emoji.representation.mediaPath);
       const currentMediaPathPARAMS = currentMediaPathURL.searchParams;
       const readToken = await this.tokenManager.getToken('read');
-
       if (currentMediaPathPARAMS.get('token') !== readToken.jwt) {
         currentMediaPathPARAMS.set('token', readToken.jwt);
       }
       if (currentMediaPathPARAMS.get('client') !== readToken.clientId) {
         currentMediaPathPARAMS.set('client', readToken.clientId);
       }
-
       return currentMediaPathURL.toString();
     }
-
     throw Error('Emoji resource is not of type Media Representation');
   }
 

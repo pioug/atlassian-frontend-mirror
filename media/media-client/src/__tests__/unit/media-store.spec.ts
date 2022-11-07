@@ -28,6 +28,7 @@ import {
   resolveInitialAuth,
 } from '../../client/media-store/resolveAuth';
 import { Auth } from '@atlaskit/media-core';
+import { ZipkinHeaderKeys } from '../../client/media-store';
 
 const baseUrl = 'http://some-host';
 const clientId = 'some-client-id';
@@ -777,6 +778,38 @@ describe('MediaStore', () => {
             headers: {
               'X-Client-Id': clientId,
               Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+      });
+
+      it('should append traceId and spanId if traceId is passed', async () => {
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        await mediaStore.getImage(
+          '123',
+          {
+            mode: 'full-fit',
+            version: 2,
+            upscale: true,
+          },
+          undefined,
+          true,
+          'some-trace-id',
+        );
+
+        expect(fetchMock).toHaveBeenCalledWith(
+          `${baseUrl}/file/123/image?allowAnimated=true&height=4096&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&upscale=true&version=2&width=4096`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Client-Id': clientId,
+              Authorization: `Bearer ${token}`,
+              [ZipkinHeaderKeys.traceId]: 'some-trace-id',
+              [ZipkinHeaderKeys.spanId]: expect.any(String),
             },
           },
         );

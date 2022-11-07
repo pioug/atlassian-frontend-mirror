@@ -103,7 +103,7 @@ const toJSON = (node: PMNode): JSONNode => {
     obj.attrs = toJSONTableHeader(node).attrs;
   } else if (isExpand(node) || isNestedExpand(node)) {
     obj.attrs = expandToJSON(node).attrs;
-  } else if (Object.keys(node.attrs).length) {
+  } else if (node.attrs && Object.keys(node.attrs).length) {
     obj.attrs = node.attrs;
   }
 

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import Expand from '@atlaskit/icon/glyph/arrow-down';
 import Question from '@atlaskit/icon/glyph/question';

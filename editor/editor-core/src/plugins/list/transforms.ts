@@ -91,8 +91,29 @@ export function liftFollowingList(
   return tr;
 }
 
+export function liftNodeSelectionList(selection: Selection, tr: Transaction) {
+  const { from } = selection;
+  const { listItem } = tr.doc.type.schema.nodes;
+  const mappedPosition = tr.mapping.map(from);
+  const nodeAtPos = tr.doc.nodeAt(mappedPosition);
+
+  const start = tr.doc.resolve(mappedPosition);
+
+  if (start?.parent.type !== listItem) {
+    return tr;
+  }
+
+  const end = tr.doc.resolve(mappedPosition + (nodeAtPos?.nodeSize || 1));
+  const range = start.blockRange(end);
+  if (range) {
+    const liftTarget = getListLiftTarget(start);
+    tr.lift(range, liftTarget);
+  }
+  return tr;
+}
+
 // The function will list paragraphs in selection out to level 1 below root list.
-export function liftSelectionList(
+export function liftTextSelectionList(
   selection: Selection,
   tr: Transaction,
 ): Transaction {
@@ -294,6 +315,14 @@ export const splitIntoParagraphs = ({
   const { hardBreak, paragraph } = schema.nodes;
 
   fragment.forEach((node, i) => {
+    const isNodeValidContentForParagraph = schema.nodes.paragraph.validContent(
+      Fragment.from(node),
+    );
+
+    if (!isNodeValidContentForParagraph) {
+      paragraphs.push(node);
+      return;
+    }
     // ED-14725 Fixed the issue that it make duplicated line
     // when pasting <br /> from google docs.
     if (i === 0 && node.type === hardBreak) {

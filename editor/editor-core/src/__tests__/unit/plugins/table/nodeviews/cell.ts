@@ -22,12 +22,15 @@ import {
 import {
   TablePluginState,
   PluginConfig,
-} from '../../../../../plugins/table/types';
-import { mergeCells } from '../../../../../plugins/table/transforms';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
-import TableCellViews from '../../../../../plugins/table/nodeviews/tableCell';
+} from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { mergeCells } from '@atlaskit/editor-plugin-table/src/plugins/table/transforms';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import TableCellViews from '@atlaskit/editor-plugin-table/src/plugins/table/nodeviews/tableCell';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import * as domHelpers from '../../../../../plugins/table/pm-plugins/sticky-headers/nodeviews/dom';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import * as domHelpers from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/sticky-headers/nodeviews/dom';
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),

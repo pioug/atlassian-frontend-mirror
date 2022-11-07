@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::69de52e823ca2f200b8d0ad00824651a>>
+ * @codegen <<SignedSource::6170bd064c97b8b620bf5d2e9aad6b32>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -186,7 +186,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.6.0",
       "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
     },
-    "value": "#5E6C84"
+    "value": "#42526E"
   },
   "Color/Text/Subtlest": {
     "attributes": {
@@ -249,7 +249,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.0.15",
       "description": "Use for text to emphasize caution, such as in moved lozenges."
     },
-    "value": "#FF8B00"
+    "value": "#974F0C"
   },
   "Color/Text/Warning/Inverse": {
     "attributes": {
@@ -1068,7 +1068,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.6.0",
       "description": "The default background for neutral elements, such as default buttons."
     },
-    "value": "#091e42a"
+    "value": "#DFE1E6"
   },
   "Color/Background/Neutral/Default/Hovered": {
     "attributes": {
@@ -1158,7 +1158,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.6.0",
       "description": "Hovered state of color.background.brand.bold"
     },
-    "value": "#2684FF"
+    "value": "#0065FF"
   },
   "Color/Background/Brand/Bold/Pressed": {
     "attributes": {
@@ -1167,7 +1167,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.brand.bold"
     },
-    "value": "#0052CC"
+    "value": "#0747A6"
   },
   "Color/Background/Selected/Default/Default": {
     "attributes": {
@@ -1266,7 +1266,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.6.0",
       "description": "Hovered state of color.background.danger.bold"
     },
-    "value": "#FF7452"
+    "value": "#FF5630"
   },
   "Color/Background/Danger/Bold/Pressed": {
     "attributes": {
@@ -1275,7 +1275,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.danger.bold"
     },
-    "value": "#DE350B"
+    "value": "#BF2600"
   },
   "Color/Background/Warning/Default/Default": {
     "attributes": {
@@ -1311,7 +1311,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.6.0",
       "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
     },
-    "value": "#FF991F"
+    "value": "#FFAB00"
   },
   "Color/Background/Warning/Bold/Hovered": {
     "attributes": {
@@ -1329,7 +1329,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.6.0",
       "description": "Pressed state of color.background.warning.bold"
     },
-    "value": "#FF8B00"
+    "value": "#FF991F"
   },
   "Color/Background/Success/Default/Default": {
     "attributes": {
@@ -1554,7 +1554,7 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
       "introduced": "0.8.0",
       "description": "Use for the pulse or shimmer effect in skeleton loading states"
     },
-    "value": "#091e42a"
+    "value": "#091e420a"
   },
   "Color/Link/Default": {
     "attributes": {

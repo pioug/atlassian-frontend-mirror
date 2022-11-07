@@ -1,7 +1,6 @@
-import { waitUntil } from '@atlaskit/elements-test-helpers';
+import React, { Component } from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import React from 'react';
-import { Component } from 'react';
+import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { EmojiProvider } from '../../../../api/EmojiResource';
 import LoadingEmojiComponent, {
   Props,

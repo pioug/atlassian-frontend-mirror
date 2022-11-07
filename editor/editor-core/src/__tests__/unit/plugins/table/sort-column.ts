@@ -13,11 +13,11 @@ import {
 import {
   TablePluginState,
   PluginConfig,
-} from '../../../../plugins/table/types';
+} from '@atlaskit/editor-plugin-table/types';
 import { uuid } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
-import { sortByColumn } from '../../../../plugins/table/commands';
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+import { sortByColumn } from '@atlaskit/editor-plugin-table/commands';
+import { pluginKey as tablePluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

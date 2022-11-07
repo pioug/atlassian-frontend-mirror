@@ -10,7 +10,7 @@
     "30-themed-drawer-with-search.tsx"
   ],
   "exampleDependencies": [
-    "lodash",
-    "react-lorem-component"
+    "@atlaskit/menu",
+    "@atlaskit/modal-dialog"
   ]
 }

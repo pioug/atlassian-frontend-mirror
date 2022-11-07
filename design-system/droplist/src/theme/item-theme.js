@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { itemThemeNamespace } from '@atlaskit/item';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';

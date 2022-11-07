@@ -1,58 +1,77 @@
-import VideoSnapshot from 'video-snapshot';
-
-import {
-  Dimensions,
-  getVideoDimensionsFromBlob,
-} from '../../getVideoDimensionsFromBlob';
+import { getVideoDimensionsFromBlob } from '../../getVideoDimensionsFromBlob';
 
 describe('getVideoDimensionsFromBlob()', () => {
-  const defaultMockImplementation = (
-    opts: { dimensions?: Dimensions; err?: any } = {},
-  ) => async () => {
-    const { dimensions, err } = opts;
+  const setup = (
+    { videoWidth, videoHeight } = { videoWidth: 50, videoHeight: 100 },
+  ) => {
+    const videoFile = new File([''], 'video.mp4');
+    const createObjectURL = jest.fn().mockReturnValue('video-url');
+    const revokeObjectURL = jest.fn();
+    const addEventListener = jest
+      .fn()
+      .mockImplementation((eventName, callback) => {
+        if (eventName === 'loadedmetadata') {
+          callback();
+        }
+      });
+    const removeEventListener = jest.fn();
 
-    if (err) {
-      throw err;
-    }
+    const video: Partial<HTMLVideoElement> = {
+      addEventListener,
+      removeEventListener,
+      videoWidth,
+      videoHeight,
+    };
 
-    return dimensions || { width: 1, height: 1 };
-  };
+    const createElement = jest.fn().mockImplementation(() => {
+      return video;
+    });
 
-  const setup = (opts: { dimensions?: Dimensions; err?: any } = {}) => {
-    const snapshoterMock = new VideoSnapshot(new Blob());
+    global.URL.createObjectURL = createObjectURL;
+    global.URL.revokeObjectURL = revokeObjectURL;
+    global.document.createElement = createElement;
 
-    snapshoterMock.getDimensions = jest
-      .fn<Promise<Dimensions>, any[]>()
-      .mockImplementation(defaultMockImplementation(opts));
-    snapshoterMock.end = jest.fn();
-
-    return { snapshoterMock };
+    return {
+      video,
+      videoFile,
+      revokeObjectURL,
+      addEventListener,
+      removeEventListener,
+    };
   };
 
   it('should resolve video dimensions', async () => {
-    const { snapshoterMock } = setup({
-      dimensions: { width: 100, height: 100 },
+    const { videoFile } = setup({
+      videoWidth: 520,
+      videoHeight: 1100,
     });
 
-    expect.assertions(2);
-    const dimensions = await getVideoDimensionsFromBlob(
-      new Blob(),
-      snapshoterMock,
-    );
-    expect(dimensions).toMatchObject({ width: 100, height: 100 });
-    expect(snapshoterMock.end).toHaveBeenCalledTimes(1);
+    const dimensions = await getVideoDimensionsFromBlob(videoFile);
+    expect(dimensions).toMatchObject({ width: 520, height: 1100 });
   });
 
-  it('gracefully handle error from VideoSnapshot', async () => {
-    const { snapshoterMock } = setup({ err: new Error('unknown error') });
+  it('gracefully handle error loading video', async () => {
+    const { videoFile, addEventListener } = setup();
 
-    expect.assertions(3);
-    try {
-      await getVideoDimensionsFromBlob(new Blob(), snapshoterMock);
-    } catch (e) {
-      expect(e).toBeInstanceOf(Error);
-      expect((e as Error).message).toEqual('unknown error');
-      expect(snapshoterMock.end).toHaveBeenCalledTimes(1);
-    }
+    addEventListener.mockImplementation(
+      (eventName: string, callback: Function) => {
+        if (eventName === 'error') {
+          callback();
+        }
+      },
+    );
+
+    await expect(getVideoDimensionsFromBlob(videoFile)).rejects.toStrictEqual(
+      new Error('failed to load video'),
+    );
+  });
+
+  it('should clear everything once the get dimension is done', async () => {
+    const { videoFile, revokeObjectURL, removeEventListener } = setup();
+    await getVideoDimensionsFromBlob(videoFile);
+
+    expect(removeEventListener).toHaveBeenCalledTimes(1);
+    expect(revokeObjectURL).toHaveBeenCalledTimes(1);
+    expect(revokeObjectURL).toHaveBeenCalledWith('video-url');
   });
 });

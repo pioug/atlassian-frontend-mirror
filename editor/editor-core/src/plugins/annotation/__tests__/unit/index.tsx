@@ -36,7 +36,7 @@ import {
   ACTION_SUBJECT_ID,
   CONTENT_COMPONENT,
 } from '../../../analytics/types/enums';
-import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { AnnotationTestIds } from '../../types';
 import { RESOLVE_METHOD } from '../../../analytics/types/inline-comment-events';
 import * as commands from '../../commands/index';

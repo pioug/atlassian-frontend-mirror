@@ -24,7 +24,7 @@ import layoutPlugin from '../../../layout';
 import blockTypePlugin from '../../../block-type';
 import basePlugin from '../../../base';
 import widthPlugin from '../../../width';
-import tablesPlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import breakoutPlugin from '../../../breakout';
 import listPlugin from '../../../list';
 

@@ -1,5 +1,7 @@
-import { updateColgroup } from '../../../../../../../plugins/table/pm-plugins/table-resizing/utils/resize-state';
-import { ResizeState } from '../../../../../../../plugins/table/pm-plugins/table-resizing/utils/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { updateColgroup } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing/utils/resize-state';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { ResizeState } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing/utils/types';
 
 describe('table-resizing/utils/resize-state', () => {
   describe('#updateColgroup', () => {

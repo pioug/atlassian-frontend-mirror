@@ -5,7 +5,7 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
   color: {
     text: {
       '[default]': { value: 'N800' },
-      subtle: { value: 'N300' },
+      subtle: { value: 'N500' },
       subtlest: { value: 'N100' },
       inverse: { value: 'N0' },
       disabled: { value: 'N70' },
@@ -13,7 +13,7 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
       selected: { value: 'B400' },
       danger: { value: 'R400' },
       warning: {
-        '[default]': { value: 'Y500' },
+        '[default]': { value: 'O800' },
         inverse: { value: 'N800' },
       },
       success: { value: 'G500' },

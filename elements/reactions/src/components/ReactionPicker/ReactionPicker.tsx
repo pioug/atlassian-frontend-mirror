@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { EmojiId } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
@@ -31,6 +31,11 @@ import * as styles from './styles';
  * Test id for wrapper ReactionPicker div
  */
 export const RENDER_REACTIONPICKER_TESTID = 'reactionPicker-testid';
+
+/**
+ * Emoji Picker Controller Id for Accessibility Labels
+ */
+const PICKER_CONTROL_ID = 'emoji-picker';
 
 const popperModifiers: PopperProps<{}>['modifiers'] = [
   /**
@@ -176,7 +181,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
         UFO.PickerRender.abort({
           metadata: {
             emojiId: _id,
-            source: 'Reaction-Picker',
+            source: 'ReactionPicker',
             reason: 'close dialog',
           },
         });
@@ -270,6 +275,10 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
             {({ ref: popperRef }) => (
               // Render a button to open the <Selector /> panel
               <Trigger
+                ariaAttributes={{
+                  'aria-expanded': settings.isOpen,
+                  'aria-controls': PICKER_CONTROL_ID,
+                }}
                 ref={popperRef}
                 onClick={onTriggerClick}
                 miniMode={miniMode}
@@ -285,7 +294,11 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
                 <Fragment>
                   {/* Is the panel opened / hidden */}
                   {settings.isOpen && (
-                    <div style={{ zIndex: layers.layer(), ...style }} ref={ref}>
+                    <div
+                      id={PICKER_CONTROL_ID}
+                      style={{ zIndex: layers.layer(), ...style }}
+                      ref={ref}
+                    >
                       <div css={styles.popupStyle}>
                         {settings.showFullPicker ? (
                           <EmojiPicker

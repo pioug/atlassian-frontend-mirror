@@ -9,6 +9,7 @@ export interface ExtensionParams<T extends Parameters> {
   parameters?: T;
   content?: object | string; // This would be the original Atlassian Document Format
   localId?: string;
+  fragmentLocalId?: string;
 }
 
 export type ExtensionHandler<T extends Parameters = Parameters> = (

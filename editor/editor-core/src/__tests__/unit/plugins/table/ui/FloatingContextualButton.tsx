@@ -14,11 +14,12 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { TablePluginState } from '../../../../../plugins/table/types';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import FloatingContextualButton, {
   Props as FloatingContextualButtonProps,
   FloatingContextualButtonInner,
-} from '../../../../../plugins/table/ui/FloatingContextualButton';
+} from '@atlaskit/editor-plugin-table/src/plugins/table/ui/FloatingContextualButton';
 
 describe('Floating Contextual Button', () => {
   const createEditor = createEditorFactory<TablePluginState>();

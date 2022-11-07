@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import type { CSSProperties } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { N20A } from '@atlaskit/theme/colors';
@@ -128,7 +128,7 @@ const SkeletonItem = ({
           hasIcon && iconStyles,
           width ? customWidthStyles : defaultWidthStyles,
           // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-          cssFn(),
+          css(cssFn()),
         ]}
         data-testid={testId}
       />

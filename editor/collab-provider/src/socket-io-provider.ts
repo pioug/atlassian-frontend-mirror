@@ -16,6 +16,7 @@ export function createSocketIOSocket(
     reconnectionDelayMax: SOCKET_IO_OPTIONS.RECONNECTION_DELAY_MAX,
     reconnectionDelay: SOCKET_IO_OPTIONS.RECONNECTION_DELAY,
     randomizationFactor: SOCKET_IO_OPTIONS.RANDOMIZATION_FACTOR,
+    closeOnBeforeunload: false,
     withCredentials: true,
     transports: ['polling', 'websocket'],
     path: `/${pathname.split('/')[1]}/socket.io`,

@@ -1,7 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import PropTypes from 'prop-types';
-import AkButton from '@atlaskit/button/standard-button';
 import { Popup } from '@atlaskit/editor-common/ui';
 import ToolbarFeedback from '../../../ui/ToolbarFeedback';
 import { openFeedbackDialog } from '../../../plugins/feedback-dialog';
@@ -49,7 +48,7 @@ describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
     it('should trigger feedback button clicked analytics event when feedback icon clicked', () => {
       mountWithEditorActions();
 
-      toolbarOption.find(AkButton).simulate('click');
+      toolbarOption.find('button').simulate('click');
       expect(mockEventDispatcher.emit).toHaveBeenCalledWith(analyticsEventKey, {
         payload: {
           action: 'clicked',
@@ -64,7 +63,7 @@ describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
   it('should open opt out popup for bitbucket when feedback icon is clicked', () => {
     const toolbarOption = mount(<ToolbarFeedback product="bitbucket" />);
     expect(toolbarOption.find(Popup).length).toEqual(0);
-    toolbarOption.find(AkButton).simulate('click');
+    toolbarOption.find('button').simulate('click');
     expect(toolbarOption.find(Popup).length).toEqual(1);
     toolbarOption.unmount();
   });
@@ -76,7 +75,7 @@ describe('@atlaskit/editor-core/ui/ToolbarFeedback', () => {
         packageVersion: '1.1.1',
         labels: ['label1', 'label2'],
       });
-      toolbarOption.find(AkButton).simulate('click');
+      toolbarOption.find('button').simulate('click');
     });
 
     afterEach(() => {

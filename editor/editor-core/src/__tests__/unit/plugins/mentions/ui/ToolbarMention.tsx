@@ -23,7 +23,7 @@ const getToolbarMention = (editorView: EditorView) => {
 };
 const clickToolbarMention = (toolbarMention: ReactWrapper) => {
   return toolbarMention
-    .find(`[data-testid="${testId}"]`)
+    .find(`button[data-testid="${testId}"]`)
     .first()
     .simulate('click');
 };

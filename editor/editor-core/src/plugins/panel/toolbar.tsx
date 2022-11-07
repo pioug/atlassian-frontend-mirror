@@ -43,7 +43,6 @@ import {
 } from '../analytics';
 import { messages } from './message';
 import { EmojiId } from '@atlaskit/emoji/types';
-import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
 
 export const panelIconMap: {
   [key in Exclude<PanelType, PanelType.CUSTOM>]: EmojiInfo;
@@ -283,13 +282,16 @@ export const getToolbarItems = (
     }
   }
 
-  if (state && showCopyButton(state)) {
-    items.push(
-      {
-        type: 'separator',
-      },
-      getCopyButtonConfig(state, formatMessage, panelNodeType),
-    );
+  if (state) {
+    items.push({
+      type: 'copy-button',
+      items: [
+        {
+          type: 'separator',
+        },
+        { state, formatMessage, nodeType: panelNodeType },
+      ],
+    });
   }
 
   items.push(
@@ -359,6 +361,7 @@ export const getToolbarConfig = (
       getDomRef,
       nodeType,
       items,
+      scrollable: true,
     };
   }
   return;

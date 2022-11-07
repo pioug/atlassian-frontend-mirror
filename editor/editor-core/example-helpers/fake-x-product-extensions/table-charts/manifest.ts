@@ -3,10 +3,61 @@ import {
   Parameters,
   DynamicFieldDefinitions,
   FieldDefinition,
+  ToolbarItem,
 } from '@atlaskit/editor-common/extensions';
 import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { uuid } from '@atlaskit/adf-schema';
+
+const iconGraphBar = () => {
+  return import(
+    /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
+  ).then((mod) => mod.default);
+};
+
+let chartToolbarItem: ToolbarItem = {
+  key: 'item-1',
+  label: 'Insert chart object',
+  display: 'icon',
+  tooltip: 'This was added by the extension to the table node',
+  icon: iconGraphBar,
+  action: async (adf: ADFEntity, api: ExtensionAPI) => {
+    const localId: string = adf.attrs?.localId || '';
+    const existingFragmentMark = adf.marks?.find((m) => m.type === 'fragment');
+    let fragmentMarkLocalId = existingFragmentMark?.attrs?.localId;
+    if (!existingFragmentMark) {
+      fragmentMarkLocalId = uuid.generate();
+      api.doc.update(localId, ({ attrs, marks }) => ({
+        attrs,
+        marks: (marks ?? []).concat({
+          type: 'fragment',
+          attrs: { localId: fragmentMarkLocalId },
+        }),
+      }));
+    }
+    const chartADF: ADFEntity = {
+      type: 'extension',
+      attrs: {
+        extensionType: 'com.atlassian.forge',
+        extensionKey: 'awesome:list',
+        parameters: {
+          items: ['a', 'b', 'c', 'd'],
+        },
+      },
+      marks: [
+        {
+          type: 'dataConsumer',
+          attrs: {
+            sources: [fragmentMarkLocalId],
+          },
+        },
+      ],
+    };
+    api.doc.insertAfter(localId, chartADF, {
+      allowSelectionToNewNode: true,
+    });
+  },
+};
 
 const manifest: ExtensionManifest = {
   title: 'Extension with table toolbar items',
@@ -15,18 +66,9 @@ const manifest: ExtensionManifest = {
 
   description: 'Extension that adds toolbar items to a table',
   icons: {
-    '24': () =>
-      import(
-        /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
-      ).then((mod) => mod.default),
-    '48': () =>
-      import(
-        /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
-      ).then((mod) => mod.default),
-    '16': () =>
-      import(
-        /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
-      ).then((mod) => mod.default),
+    '24': iconGraphBar,
+    '48': iconGraphBar,
+    '16': iconGraphBar,
   },
 
   modules: {
@@ -34,10 +76,7 @@ const manifest: ExtensionManifest = {
       {
         key: 'item',
         title: 'Table chart',
-        icon: () =>
-          import(
-            /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
-          ).then((mod) => mod.default),
+        icon: iconGraphBar,
         action: {
           type: 'node',
           key: 'chart',
@@ -218,54 +257,7 @@ const manifest: ExtensionManifest = {
           nodeType: 'table',
         },
         toolbarItems: [
-          {
-            key: 'item-1',
-            label: 'Insert chart object',
-            display: 'icon',
-            tooltip: 'This was added by the extension to the table node',
-            icon: () =>
-              import(
-                /* webpackChunkName: "@atlaskit-internal_icon-graph-bar" */ '@atlaskit/icon/glyph/graph-bar'
-              ).then((mod) => mod.default),
-            action: async (adf: ADFEntity, api: ExtensionAPI) => {
-              const localId: string = adf.attrs?.localId || '';
-              const existingFragmentMark = adf.marks?.find(
-                (m) => m.type === 'fragment',
-              );
-              let fragmentMarkLocalId = existingFragmentMark?.attrs?.localId;
-              if (!existingFragmentMark) {
-                fragmentMarkLocalId = uuid.generate();
-                api.doc.update(localId, ({ attrs, marks }) => ({
-                  attrs,
-                  marks: (marks ?? []).concat({
-                    type: 'fragment',
-                    attrs: { localId: fragmentMarkLocalId },
-                  }),
-                }));
-              }
-              const chartADF: ADFEntity = {
-                type: 'extension',
-                attrs: {
-                  extensionType: 'com.atlassian.forge',
-                  extensionKey: 'awesome:list',
-                  parameters: {
-                    items: ['a', 'b', 'c', 'd'],
-                  },
-                },
-                marks: [
-                  {
-                    type: 'dataConsumer',
-                    attrs: {
-                      sources: [fragmentMarkLocalId],
-                    },
-                  },
-                ],
-              };
-              api.doc.insertAfter(localId, chartADF, {
-                allowSelectionToNewNode: true,
-              });
-            },
-          },
+          chartToolbarItem,
           {
             key: 'item-2',
             label: 'Hide data source',
@@ -332,6 +324,10 @@ const manifest: ExtensionManifest = {
                 /* webpackChunkName: "@atlaskit-internal_icon-editor-success" */ '@atlaskit/icon/glyph/editor/success'
               ).then((mod) => mod.default),
             action: () => Promise.resolve(),
+          },
+          {
+            ...chartToolbarItem,
+            key: 'item-6',
           },
         ],
       },

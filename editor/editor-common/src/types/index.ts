@@ -76,6 +76,7 @@ export type {
   AlignType,
   ConfirmDialogOptions,
   FloatingToolbarButton,
+  FloatingToolbarCopyButton,
   FloatingToolbarInput,
   FloatingToolbarCustom,
   FloatingToolbarListPicker,
@@ -90,6 +91,8 @@ export type {
   FloatingToolbarConfig,
   FloatingToolbarHandler,
 } from './floating-toolbar';
+
+export type { MarkOptions, NodeOptions } from './copy-button';
 
 export type { ContextPanelHandler } from './context-panel';
 

@@ -2,10 +2,14 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { GasPurePayload } from '@atlaskit/analytics-gas-types';
 import {
   AnalyticsEvent,
-  ATTRIBUTES_PACKAGE,
   EVENT_SUBJECT,
   COLLAB_SERVICE,
 } from '../helpers/const';
+
+import {
+  name as packageName,
+  version as packageVersion,
+} from '../version-wrapper';
 
 export const fireAnalyticsEvent = (
   analyticsClient?: AnalyticsWebClient,
@@ -43,7 +47,8 @@ export const triggerCollabAnalyticsEvent = (
     actionSubject: EVENT_SUBJECT,
     source: 'unknown',
     attributes: {
-      packageName: ATTRIBUTES_PACKAGE,
+      packageName,
+      packageVersion,
       collabService: COLLAB_SERVICE.NCS,
       ...analyticsEvent.attributes,
     },

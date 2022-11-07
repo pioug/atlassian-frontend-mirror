@@ -1,42 +1,58 @@
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { ShowMoreProps, ShowMore } from './ShowMore';
+import { fireEvent, screen } from '@testing-library/react';
+import { matchers } from '@emotion/jest';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+} from '../../__tests__/_testing-library';
+import { ShowMoreProps, ShowMore, RENDER_WRAPPER_TESTID } from './ShowMore';
+
+expect.extend(matchers);
 
 describe('@atlaskit/reactions/components/ShowMore', () => {
+  mockReactDomWarningGlobal();
+
   const renderShowMore = (props: ShowMoreProps) => <ShowMore {...props} />;
 
-  it('should trigger onClick', () => {
+  it('should trigger onClick', async () => {
     const onClick = jest.fn();
-    const showMore = mountWithIntl(renderShowMore({ onClick }));
 
-    showMore.find('button').simulate('mouseDown');
+    renderWithIntl(renderShowMore({ onClick }));
+    const btn = await screen.findByRole('button');
+    expect(btn).toBeInTheDocument();
+
+    fireEvent.mouseDown(btn);
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it('should add classNames', () => {
+  it('should add classNames', async () => {
     const className = {
       container: 'container-class',
       button: 'button-class',
     };
-    const showMore = mountWithIntl(renderShowMore({ className }));
+    renderWithIntl(renderShowMore({ className }));
+    const wrapper = await screen.findByTestId(RENDER_WRAPPER_TESTID);
+    expect(wrapper).toBeInTheDocument();
+    expect(wrapper.className).toContain('container-class');
 
-    expect(showMore.children().first().prop('className')).toContain(
-      'container-class',
-    );
-    expect(showMore.find('button').prop('className')).toContain('button-class');
+    const btn = await screen.findByRole('button');
+    expect(btn).toBeInTheDocument();
+    expect(btn.className).toContain('button-class');
   });
 
-  it('should add style', () => {
+  it('should add style', async () => {
     const style = {
       container: { display: 'flex' },
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       button: { backgroundColor: '#fff' },
     };
-    const showMore = mountWithIntl(renderShowMore({ style }));
+    renderWithIntl(renderShowMore({ style }));
+    const wrapper = await screen.findByTestId(RENDER_WRAPPER_TESTID);
+    expect(wrapper).toBeInTheDocument();
+    expect(wrapper).toHaveStyleRule('display', 'flex');
 
-    expect(showMore.children().first().prop('style')).toMatchObject(
-      style.container,
-    );
-    expect(showMore.find('button').prop('style')).toMatchObject(style.button);
+    const btn = await screen.findByRole('button');
+    expect(btn).toBeInTheDocument();
+    expect(btn).toHaveStyleRule('background-color', 'transparent');
   });
 });

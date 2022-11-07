@@ -103,7 +103,6 @@ export function inputRulePlugin(
   if (rules.length !== 0) {
     return createPlugin('rule', rules, {
       isBlockNodeRule: true,
-      useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
     });
   }
 

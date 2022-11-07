@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
 
-import { ClassNames, css, jsx, keyframes } from '@emotion/core';
+import { ClassNames, css, jsx, keyframes } from '@emotion/react';
 
 import { N20A, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

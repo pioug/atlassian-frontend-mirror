@@ -6,6 +6,7 @@
 {
   "testExamples": [
     "10-button.tsx",
+    "20-button-group.tsx",
     "30-appearances.tsx",
     "99-testing.tsx"
   ],

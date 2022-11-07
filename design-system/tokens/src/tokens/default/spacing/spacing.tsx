@@ -1,5 +1,6 @@
 import type { BaseToken } from '../../../palettes/spacing-scale';
 import type { AttributeSchema, SpacingTokenSchema } from '../../../types';
+
 const spacing: AttributeSchema<SpacingTokenSchema<BaseToken>> = {
   spacing: {
     scale: {

@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React, { useEffect, useCallback } from 'react';
+import { jsx } from '@emotion/react';
 import { MouseEvent, SyntheticEvent } from 'react';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import {
@@ -380,8 +380,8 @@ export const Emoji = (props: Props) => {
     ufoExperiences['emoji-rendered'].getInstance(emoji.id || emoji.shortName),
     SAMPLING_RATE_EMOJI_RENDERED_EXP,
     {
-      source: 'emoji',
-      emoji: emoji.shortName,
+      source: 'Emoji',
+      emojiId: emoji.id,
     },
   );
 

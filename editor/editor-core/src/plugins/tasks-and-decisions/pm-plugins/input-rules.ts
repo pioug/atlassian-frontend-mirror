@@ -130,7 +130,6 @@ export function inputRulePlugin(
 
   return createPlugin('tasks-and-decisions', rules, {
     isBlockNodeRule: true,
-    useUnpredictableInputRule: featureFlags.useUnpredictableInputRule,
   });
 }
 

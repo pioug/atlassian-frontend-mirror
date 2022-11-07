@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 

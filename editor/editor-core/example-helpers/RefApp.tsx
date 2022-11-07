@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';

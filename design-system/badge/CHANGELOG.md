@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 15.0.22
+
+### Patch Changes
+
+- [`936d6bccf4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/936d6bccf4f) - Update to emotion v11. No expected behaviour change.
+- [`e35fc41dc33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e35fc41dc33) - Internal change to use updated primtive spacing prop values. No expected behaviour change.
+- Updated dependencies
+
 ## 15.0.21
 
 ### Patch Changes

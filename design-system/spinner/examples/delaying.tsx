@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';

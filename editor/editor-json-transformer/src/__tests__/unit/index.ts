@@ -716,6 +716,22 @@ describe('JSONTransformer:', () => {
       });
     });
 
+    it('should encode text node without attrs', () => {
+      const textNode = confluenceSchema.text('text');
+
+      // ED-13997 there are text nodes without attrs in some prod issue
+      // Emulating the case
+      // @ts-ignore
+      delete textNode.attrs;
+
+      const expected = {
+        type: 'text',
+        text: 'text',
+      };
+
+      expect(transformer.encodeNode(textNode as PMNode)).toEqual(expected);
+    });
+
     describe('unsupported mark', () => {
       let markOverrideRuleFor: any;
       beforeEach(() => {

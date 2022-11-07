@@ -1,15 +1,10 @@
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
 import commonMessages from '../../messages';
-import {
-  FloatingToolbarHandler,
-  FloatingToolbarItem,
-} from '../floating-toolbar/types';
+import { FloatingToolbarHandler } from '../floating-toolbar/types';
 import { deleteExpand } from './commands';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { getPluginState } from './pm-plugins/plugin-factory';
-import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
-import { Command } from '../../types/command';
 
 export const getToolbarConfig: FloatingToolbarHandler = (
   state,
@@ -24,15 +19,19 @@ export const getToolbarConfig: FloatingToolbarHandler = (
       nodeType: [nestedExpand, expand],
       offset: [0, 6],
       items: [
-        ...(state && showCopyButton(state)
-          ? [
-              getCopyButtonConfig(state, formatMessage, [nestedExpand, expand]),
-              {
-                type: 'separator',
-              } as FloatingToolbarItem<Command>,
-            ]
-          : []),
-
+        {
+          type: 'copy-button',
+          items: [
+            {
+              state,
+              formatMessage,
+              nodeType: [nestedExpand, expand],
+            },
+            {
+              type: 'separator',
+            },
+          ],
+        },
         {
           id: 'editor.expand.delete',
           type: 'button',

@@ -15,14 +15,16 @@ import { selectRows } from '@atlaskit/editor-test-helpers/table';
 import { getSelectionRect, selectRow } from '@atlaskit/editor-tables/utils';
 import React from 'react';
 import { EditorProps, setTextSelection } from '../../../../../index';
-import { hoverRows } from '../../../../../plugins/table/commands';
+import { hoverRows } from '@atlaskit/editor-plugin-table/commands';
 import {
   TableCssClassName as ClassName,
   TablePluginState,
-} from '../../../../../plugins/table/types';
-import TableFloatingControls from '../../../../../plugins/table/ui/TableFloatingControls';
-import RowControls from '../../../../../plugins/table/ui/TableFloatingControls/RowControls';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
+} from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import TableFloatingControls from '@atlaskit/editor-plugin-table/src/plugins/table/ui/TableFloatingControls';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { RowControls } from '@atlaskit/editor-plugin-table/src/plugins/table/ui/TableFloatingControls/RowControls';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 import { ReactWrapper } from 'enzyme';
 
 const ControlsButton = `.${ClassName.CONTROLS_BUTTON}`;

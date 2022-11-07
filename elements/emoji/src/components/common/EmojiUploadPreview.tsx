@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import AkButton from '@atlaskit/button/custom-theme-button';
 import { PureComponent } from 'react';
+import { jsx } from '@emotion/react';
+import AkButton from '@atlaskit/button/custom-theme-button';
 import {
   FormattedMessage,
   injectIntl,
@@ -103,6 +103,7 @@ class EmojiUploadPreview extends PureComponent<
             appearance="subtle"
             isDisabled={uploading}
             css={cancelButton}
+            testId="cancel-upload-button"
           >
             <FormattedMessage {...messages.cancelLabel} />
           </AkButton>

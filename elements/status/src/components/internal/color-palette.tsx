@@ -31,7 +31,7 @@ const palette: [ColorType, string, string][] = [
   ],
   [
     'yellow',
-    token('color.background.warning', colors.Y75),
+    token('color.background.warning', colors.Y50),
     token('color.text.warning', colors.Y400),
   ],
   [

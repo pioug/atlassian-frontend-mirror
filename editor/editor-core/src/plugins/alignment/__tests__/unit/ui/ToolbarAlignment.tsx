@@ -53,7 +53,7 @@ describe('ToolbarAlignment', () => {
 
   it('should close menu when an option is clicked', () => {
     toolbarAlignment.find('button').simulate('click');
-    toolbarAlignment.find('.align-btn').at(1).simulate('click');
+    toolbarAlignment.find('.align-btn').at(1).find('button').simulate('click');
 
     expect(toolbarAlignment.find(BaseToolbarAlignment).state('isOpen')).toBe(
       false,

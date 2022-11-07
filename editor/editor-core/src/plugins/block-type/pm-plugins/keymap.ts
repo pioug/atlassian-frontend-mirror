@@ -1,5 +1,3 @@
-import { chainCommands } from 'prosemirror-commands';
-import { undoInputRule } from 'prosemirror-inputrules';
 import { redo, undo } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -11,10 +9,10 @@ import { FeatureFlags } from '../../../types/feature-flags';
 import {
   cleanUpAtTheStartOfDocument,
   insertBlockTypesWithAnalytics,
-} from '../../block-type/commands';
+} from '../commands';
+import { deleteEmptyParagraphAndMoveBlockUp } from '../../../utils/commands';
 import { INPUT_METHOD } from '../../analytics';
-
-const tryUndoInputRuleElseUndoHistory = chainCommands(undoInputRule, undo);
+import { isNodeAWrappingBlockNode } from '../utils';
 
 export default function keymapPlugin(
   schema: Schema,
@@ -43,17 +41,23 @@ export default function keymapPlugin(
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.undo.common!,
-    featureFlags.useUnpredictableInputRule
-      ? tryUndoInputRuleElseUndoHistory
-      : undo,
-    list,
-  );
+  keymaps.bindKeymapWithCommand(keymaps.undo.common!, undo, list);
 
   keymaps.bindKeymapWithCommand(
     keymaps.backspace.common!,
     cleanUpAtTheStartOfDocument,
+    list,
+  );
+
+  keymaps.bindKeymapWithCommand(
+    keymaps.deleteKey.common!,
+    deleteEmptyParagraphAndMoveBlockUp(isNodeAWrappingBlockNode),
+    list,
+  );
+
+  keymaps.bindKeymapWithCommand(
+    keymaps.forwardDelete.mac,
+    deleteEmptyParagraphAndMoveBlockUp(isNodeAWrappingBlockNode),
     list,
   );
 

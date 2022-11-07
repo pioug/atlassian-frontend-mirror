@@ -1,20 +1,19 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { PluginKey } from 'prosemirror-state';
+import { EditorState, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-//import { startMeasure, stopMeasure, analyticsEventKey } from '../utils';
-
-//import EditorActions from '../../actions';
-//import { EditorSharedConfig } from '../../labs/next/Editor';
-//import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
-//import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
-//import { analyticsEventKey } from '../utils';
-//import { analyticsPluginKey } from '../../plugins/analytics/plugin-key';
-//import { getParticipantsCount } from '../../plugins/collab-edit/get-participants-count';
-
-import type { EventDispatcher } from '../event-dispatcher';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  AnalyticsDispatch,
+  AnalyticsEventPayload,
+  EVENT_TYPE,
+} from '../analytics';
+import { createDispatch, EventDispatcher } from '../event-dispatcher';
+import { analyticsEventKey, startMeasure, stopMeasure } from '../utils';
+import { getParticipantsCount } from '../utils/collab';
 
 import type { NamedPluginKeys, NamedPluginStates, Writeable } from './types';
 
@@ -36,7 +35,7 @@ type ContextUpdateHandler = (
   eventDispatcher: EventDispatcher,
 ) => void;
 
-type EditorActionsPrivateAccess = {
+export type EditorActionsPrivateAccess = {
   _privateGetEditorView: () => EditorView;
   _privateGetEventDispatcher: () => EventDispatcher;
   _privateSubscribe: (cb: ContextUpdateHandler) => void;
@@ -93,7 +92,7 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
   private debounce: number | null = null;
   private notAppliedState = {};
   private isSubscribed = false;
-  //private callsCount = 0;
+  private callsCount = 0;
 
   static contextTypes = {
     editorActions: PropTypes.object,
@@ -177,50 +176,46 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
         : (fn: Function) => fn();
 
     this.debounce = debounce(() => {
-      // TODO: ED-15580
-      //const measure = `🦉${pluginName}::WithPluginState`;
-      //performanceOptions.trackingEnabled && startMeasure(measure);
-      //              () => {
-      //  performanceOptions.trackingEnabled &&
-      //    stopMeasure(measure, (duration) => {
-      //      // Each WithPluginState component will fire analytics event no more than once every `samplingLimit` times
-      //      if (
-      //        ++this.callsCount % performanceOptions.samplingRate === 0 &&
-      //        duration > performanceOptions.slowThreshold
-      //      ) {
-      //        const editorView = this.getEditorView();
-      //        this.dispatchAnalyticsEvent({
-      //          action: ACTION.WITH_PLUGIN_STATE_CALLED,
-      //          actionSubject: ACTION_SUBJECT.EDITOR,
-      //          eventType: EVENT_TYPE.OPERATIONAL,
-      //          attributes: {
-      //            plugin: pluginName,
-      //            duration,
-      //            participants: getParticipantsCount(
-      //              editorView && editorView.state,
-      //            ),
-      //          },
-      //        });
-      //      }
-      //    });
-      //}
-
-      this.setState(this.notAppliedState);
+      const measure = `🦉${pluginName}::WithPluginState`;
+      performanceOptions.trackingEnabled && startMeasure(measure);
+      this.setState(this.notAppliedState, () => {
+        performanceOptions.trackingEnabled &&
+          stopMeasure(measure, (duration) => {
+            // Each WithPluginState component will fire analytics event no more than once every `samplingLimit` times
+            if (
+              ++this.callsCount % performanceOptions.samplingRate === 0 &&
+              duration > performanceOptions.slowThreshold
+            ) {
+              const editorView = this.getEditorView();
+              this.dispatchAnalyticsEvent({
+                action: ACTION.WITH_PLUGIN_STATE_CALLED,
+                actionSubject: ACTION_SUBJECT.EDITOR,
+                eventType: EVENT_TYPE.OPERATIONAL,
+                attributes: {
+                  plugin: pluginName,
+                  duration,
+                  participants: getParticipantsCount(
+                    editorView && editorView.state,
+                  ),
+                },
+              });
+            }
+          });
+      });
       this.debounce = null;
       this.notAppliedState = {};
     });
   };
 
-  // TODO: ED-15580
-  //private dispatchAnalyticsEvent = (payload: AnalyticsEventPayload) => {
-  //  const eventDispatcher = this.getEventDispatcher();
-  //  if (eventDispatcher) {
-  //    const dispatch: AnalyticsDispatch = createDispatch(eventDispatcher);
-  //    dispatch(analyticsEventKey, {
-  //      payload,
-  //    });
-  //  }
-  //};
+  private dispatchAnalyticsEvent = (payload: AnalyticsEventPayload) => {
+    const eventDispatcher = this.getEventDispatcher();
+    if (eventDispatcher) {
+      const dispatch: AnalyticsDispatch = createDispatch(eventDispatcher);
+      dispatch(analyticsEventKey, {
+        payload,
+      });
+    }
+  };
 
   private getPluginsStates(
     plugins: P,
@@ -247,24 +242,28 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
     const plugins = props.plugins;
     const eventDispatcher = this.getEventDispatcher(props);
     const editorView = this.getEditorView(props);
-
     if (!eventDispatcher || !editorView || this.isSubscribed) {
       return;
     }
 
-    // TODO: ED-15580
-    //const analyticsPlugin = analyticsPluginKey.getState(editorView.state);
-    //const uiTracking =
-    //  analyticsPlugin && analyticsPlugin.performanceTracking
-    //    ? analyticsPlugin.performanceTracking.uiTracking || {}
-    //    : {};
-    //const trackingEnabled = uiTracking.enabled === true;
-    //const samplingRate = uiTracking.samplingRate || DEFAULT_SAMPLING_RATE;
-    //const slowThreshold = uiTracking.slowThreshold || DEFAULT_SLOW_THRESHOLD;
+    // TODO: ED-15663
+    // Please, do not copy or use this kind of code below
+    // @ts-ignore
+    const fakePluginKey = {
+      key: 'analyticsPlugin$',
+      getState: (state: EditorState) => {
+        return (state as any)['analyticsPlugin$'];
+      },
+    } as PluginKey;
 
-    const trackingEnabled = false;
-    const samplingRate = DEFAULT_SAMPLING_RATE;
-    const slowThreshold = DEFAULT_SLOW_THRESHOLD;
+    const analyticsPlugin = fakePluginKey.getState(editorView.state);
+    const uiTracking =
+      analyticsPlugin && analyticsPlugin.performanceTracking
+        ? analyticsPlugin.performanceTracking.uiTracking || {}
+        : {};
+    const trackingEnabled = uiTracking.enabled === true;
+    const samplingRate = uiTracking.samplingRate ?? DEFAULT_SAMPLING_RATE;
+    const slowThreshold = uiTracking.slowThreshold ?? DEFAULT_SLOW_THRESHOLD;
 
     this.isSubscribed = true;
 

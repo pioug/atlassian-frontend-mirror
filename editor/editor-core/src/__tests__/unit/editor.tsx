@@ -46,7 +46,6 @@ import { mount, shallow, ReactWrapper } from 'enzyme';
 import React from 'react';
 import Editor from '../../editor';
 import { EditorView } from 'prosemirror-view';
-import Button from '@atlaskit/button/custom-theme-button';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -77,7 +76,7 @@ import ReactEditorView, {
 } from '../../create-editor/ReactEditorView';
 import { EditorActions, EditorContext, MediaOptions } from '../..';
 import { asMock } from '@atlaskit/media-test-helpers';
-import { flushPromises } from '../__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
 
 import * as ActivityProviderModule from '@atlaskit/activity-provider';
@@ -124,11 +123,13 @@ describe(packageName, () => {
             <Editor onSave={handleSave} appearance="comment" />,
           );
 
-          const saveButton = wrapper.find(Button).findWhere((node) => {
-            return node.type() !== undefined && node.text() === 'Save';
-          });
+          const saveButton = wrapper
+            .find('[type="button"]')
+            .findWhere((node) => {
+              return node.type() !== undefined && node.text() === 'Save';
+            });
 
-          saveButton.first().simulate('click');
+          saveButton.last().simulate('click');
           expect(handleSave).toHaveBeenCalled();
         });
 
@@ -179,11 +180,13 @@ describe(packageName, () => {
             <Editor onCancel={cancelled} appearance="comment" />,
           );
 
-          const cancelButton = wrapper.find(Button).findWhere((node) => {
-            return node.type() !== undefined && node.text() === 'Cancel';
-          });
+          const cancelButton = wrapper
+            .find('[type="button"]')
+            .findWhere((node) => {
+              return node.type() !== undefined && node.text() === 'Cancel';
+            });
 
-          cancelButton.first().simulate('click');
+          cancelButton.last().simulate('click');
           expect(cancelled).toHaveBeenCalled();
         });
       });

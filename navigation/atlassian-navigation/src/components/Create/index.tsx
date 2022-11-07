@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';

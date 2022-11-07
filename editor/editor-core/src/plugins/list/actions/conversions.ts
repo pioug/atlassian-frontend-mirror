@@ -8,6 +8,7 @@ import {
 import { isListNode, joinSiblingLists } from '../utils/node';
 import { isEmptyParagraph } from '../../../utils';
 import { findFirstParentListNode } from '../utils/find';
+import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 
 export function convertListType({
   tr,
@@ -21,15 +22,23 @@ export function convertListType({
     selection: { $from, $to },
   } = tr;
 
-  const listRange = $from.blockRange($to, isListNode);
+  let listRange;
+  if (tr.selection instanceof GapCursorSelection) {
+    const nodeSize = $from.nodeAfter?.nodeSize || 1;
+    listRange = $from.blockRange($from.doc.resolve($from.pos + nodeSize));
+  } else {
+    listRange = $from.blockRange($to, isListNode);
+  }
+
   if (listRange) {
     return convertSelectedList({ tr, nextListNodeType });
   }
 
-  const nodeRangeAroundList = $from.blockRange($to);
+  let nodeRangeAroundList = $from.blockRange($to);
   if (!nodeRangeAroundList) {
     return;
   }
+
   const parentNode = nodeRangeAroundList.parent;
   const { startIndex, endIndex, depth } = nodeRangeAroundList;
 
@@ -73,7 +82,10 @@ export function convertListType({
         !isEmptyParagraph(currentNodeNotWrappedInList) &&
         (!node.type.isBlock || node.type.name === 'paragraph');
 
-      if (isNotAnEmptyParagraphAndIsParagraphOrLeafNode) {
+      if (
+        isNotAnEmptyParagraphAndIsParagraphOrLeafNode &&
+        nodeRangeAroundList
+      ) {
         const remainingNodeRange = new NodeRange(
           tr.doc.resolve(tr.mapping.map(pos)),
           tr.doc.resolve(
@@ -110,14 +122,19 @@ const convertSelectedList = ({
     selection: { from, to },
   } = tr;
 
+  const { codeBlock } = tr.doc.type.schema.nodes;
   // get the positions of all the leaf nodes within the selection
   const nodePositions = [];
-  if (selection instanceof TextSelection && selection.$cursor) {
+  if (
+    (selection instanceof TextSelection && selection.$cursor) ||
+    selection instanceof GapCursorSelection
+  ) {
     nodePositions.push(from);
   } else {
     // nodesBetween doesn't return leaf nodes that are outside of from and to
     tr.doc.nodesBetween(from, to, (node, pos) => {
-      if (!node.isLeaf) {
+      // isLeaf is false for empty codeBlock so adding additional check for childCount
+      if (!node.isLeaf && !(node.type === codeBlock && node.childCount === 0)) {
         return true;
       }
       nodePositions.push(pos);

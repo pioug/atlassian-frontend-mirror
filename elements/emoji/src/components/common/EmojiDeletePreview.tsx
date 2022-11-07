@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import AkButton from '@atlaskit/button/custom-theme-button';
 import { Component } from 'react';
+import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
+import AkButton from '@atlaskit/button/custom-theme-button';
 import { EmojiDescription } from '../../types';
 import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';

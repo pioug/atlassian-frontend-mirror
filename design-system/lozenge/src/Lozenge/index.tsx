@@ -1,34 +1,11 @@
+/* eslint-disable @atlassian/tangerine/import/entry-points */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 
 import React, { CSSProperties, memo, ReactNode } from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_BoxProps as BoxProps,
-  UNSAFE_SPACING_SCALE as SPACING_SCALE,
-  UNSAFE_Text as Text,
-  UNSAFE_TextProps as TextProps,
-} from '@atlaskit/ds-explorations';
-import {
-  B400,
-  B50,
-  B500,
-  G400,
-  G50,
-  G500,
-  N0,
-  N40,
-  N500,
-  N800,
-  P400,
-  P50,
-  P500,
-  R400,
-  R50,
-  R500,
-  Y500,
-  Y75,
-} from '@atlaskit/theme/colors';
+import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
+import Text, { TextProps } from '@atlaskit/ds-explorations/text';
+import { token } from '@atlaskit/tokens';
 
 export type ThemeAppearance =
   | 'default'
@@ -102,7 +79,7 @@ const Lozenge = memo(
         display="inlineFlex"
         backgroundColor={backgroundColors[appearanceStyle][appearanceType]}
         borderRadius="normal"
-        paddingInline="sp-50"
+        paddingInline="scale.050"
         position="static"
         testId={testId}
         UNSAFE_style={{
@@ -122,7 +99,11 @@ const Lozenge = memo(
           UNSAFE_style={{
             color: style.color,
             width: '100%',
-            maxWidth: `calc(${maxWidthValue} - ${SPACING_SCALE['sp-100']}px)`, // to negate paddingInline specified on Box above
+            // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+            maxWidth: `calc(${maxWidthValue} - ${token(
+              'spacing.scale.100',
+              '8px',
+            )})`, // to negate paddingInline specified on Box above
           }}
           testId={testId && `${testId}--text`}
         >
@@ -143,20 +124,20 @@ const backgroundColors: Record<
   Record<ThemeAppearance, BoxProps['backgroundColor']>
 > = {
   bold: {
-    default: ['neutral.bold', N500],
-    inprogress: ['information.bold', B400],
-    moved: ['warning.bold', Y500],
-    new: ['discovery.bold', P400],
-    removed: ['danger.bold', R400],
-    success: ['success.bold', G400],
+    default: 'neutral.bold',
+    inprogress: 'information.bold',
+    moved: 'warning.bold',
+    new: 'discovery.bold',
+    removed: 'danger.bold',
+    success: 'success.bold',
   },
   subtle: {
-    default: ['neutral', N40],
-    inprogress: ['information', B50],
-    moved: ['warning', Y75],
-    new: ['discovery', P50],
-    removed: ['danger', R50],
-    success: ['success', G50],
+    default: 'neutral',
+    inprogress: 'information',
+    moved: 'warning',
+    new: 'discovery',
+    removed: 'danger',
+    success: 'success',
   },
 };
 
@@ -165,19 +146,19 @@ const textColors: Record<
   Record<ThemeAppearance, TextProps['color']>
 > = {
   bold: {
-    default: ['inverse', N0],
-    inprogress: ['inverse', N0],
-    moved: ['warning.inverse', N800],
-    new: ['inverse', N0],
-    removed: ['inverse', N0],
-    success: ['inverse', N0],
+    default: 'inverse',
+    inprogress: 'inverse',
+    moved: 'warning.inverse',
+    new: 'inverse',
+    removed: 'inverse',
+    success: 'inverse',
   },
   subtle: {
-    default: ['color.text', N500],
-    inprogress: ['information', B500],
-    moved: ['warning', N800],
-    new: ['discovery', P500],
-    removed: ['danger', R500],
-    success: ['success', G500],
+    default: 'subtle',
+    inprogress: 'information',
+    moved: 'warning',
+    new: 'discovery',
+    removed: 'danger',
+    success: 'success',
   },
 };

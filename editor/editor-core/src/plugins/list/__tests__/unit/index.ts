@@ -28,7 +28,7 @@ import blockTypePlugin from '../../../block-type';
 import breakoutPlugin from '../../../breakout';
 import widthPlugin from '../../../width';
 import layoutPlugin from '../../../layout';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import mediaPlugin from '../../../media';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -46,7 +46,7 @@ describe('lists', () => {
       .add([breakoutPlugin, { allowBreakoutButton: true }])
       .add(widthPlugin)
       .add([layoutPlugin, { allowBreakout: true }])
-      .add(tablePlugin)
+      .add(tablesPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }]);
 
     return createEditor({

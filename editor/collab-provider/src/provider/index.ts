@@ -234,6 +234,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       return;
     }
 
+    startMeasure(MEASURE_NAME.ADD_STEPS);
+
     // Avoid reference issues using a
     // method outside of the provider
     // scope
@@ -382,6 +384,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         error.data.code === 'HEAD_VERSION_UPDATE_FAILED' ||
         error.data.code === 'VERSION_NUMBER_ALREADY_EXISTS'
       ) {
+        const measure = stopMeasure(MEASURE_NAME.ADD_STEPS);
         triggerCollabAnalyticsEvent(
           {
             eventAction: EVENT_ACTION.ADD_STEPS,
@@ -389,6 +392,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
               eventStatus: EVENT_STATUS.FAILURE,
               error,
               documentAri: this.config.documentAri,
+              latency: measure?.duration,
             },
           },
           this.analyticsClient,
@@ -452,14 +456,16 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     if (steps && steps.length) {
       const clientIds = steps.map(({ clientId }) => clientId);
       this.emit('data', { json: steps, version, userIds: clientIds });
-      // If steps can apply to local editor sucessfully, no need to accumulate the error counter.
+      // If steps can apply to local editor successfully, no need to accumulate the error counter.
       this.stepRejectCounter = 0;
+      const measure = stopMeasure(MEASURE_NAME.ADD_STEPS);
       triggerCollabAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.ADD_STEPS,
           attributes: {
             eventStatus: EVENT_STATUS.SUCCESS,
             documentAri: this.config.documentAri,
+            latency: measure?.duration,
           },
         },
         this.analyticsClient,
@@ -782,6 +788,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     let unconfirmedState = this.getUnconfirmedSteps();
 
     if (unconfirmedState && unconfirmedState.steps.length) {
+      startMeasure(MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS);
       // We use origins here as steps can be rebased. When steps are rebased a new step is created.
       // This means that we can not track if it has been removed from the unconfirmed array or not.
       // Origins points to the original transaction that the step was created in. This is never changed
@@ -792,7 +799,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
       while (!isLastTrConfirmed) {
         this.sendStepsFromCurrentState();
-        await sleep(500);
+
+        await sleep(1000);
 
         const nextUnconfirmedState = this.getUnconfirmedSteps();
         if (nextUnconfirmedState && nextUnconfirmedState.steps.length) {
@@ -814,9 +822,34 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
               version: getVersion(state),
             });
           }
-          throw new Error("Can't syncup with Collab Service");
+          const measure = stopMeasure(MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS);
+          triggerCollabAnalyticsEvent(
+            {
+              eventAction: EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS,
+              attributes: {
+                eventStatus: EVENT_STATUS.FAILURE,
+                latency: measure?.duration,
+                documentAri: this.config.documentAri,
+              },
+            },
+            this.analyticsClient,
+          );
+          throw new Error("Can't sync up with Collab Service");
         }
       }
+
+      const measure = stopMeasure(MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS);
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS,
+          attributes: {
+            eventStatus: EVENT_STATUS.SUCCESS,
+            latency: measure?.duration,
+            documentAri: this.config.documentAri,
+          },
+        },
+        this.analyticsClient,
+      );
     }
 
     const state = this.getState!();

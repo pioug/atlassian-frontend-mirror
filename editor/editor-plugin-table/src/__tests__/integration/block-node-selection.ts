@@ -1,3 +1,4 @@
+export {};
 it.todo('TODO: ED-15801 - Fix smart link async rendering integration test');
 // import { runBlockNodeSelectionTestSuite } from '@atlaskit/editor-test-helpers/integration/selection';
 //

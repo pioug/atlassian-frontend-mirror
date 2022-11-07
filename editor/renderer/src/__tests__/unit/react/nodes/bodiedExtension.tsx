@@ -4,7 +4,7 @@ import BodiedExtension from '../../../../react/nodes/bodiedExtension';
 
 import { RendererContext } from '../../../../react/types';
 import ReactSerializer from '../../../../react';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -74,7 +74,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
         },
       ],
     },
-    schema: defaultSchema,
+    schema: getSchemaBasedOnStage('stage0'),
   };
 
   const serializer = new ReactSerializer({});
@@ -146,6 +146,11 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
       'com.atlassian.fabric': extensionHandler,
     };
 
+    const fragmentLocalId = 'fragment-local-id';
+    const fragmentMark = rendererContext.schema!.marks.fragment.create({
+      localId: fragmentLocalId,
+    });
+
     const extension = mount(
       <BodiedExtension
         providers={providerFactory}
@@ -155,6 +160,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
         extensionType="com.atlassian.fabric"
         extensionKey="react"
         localId="c145e554-f571-4208-a0f1-2170e1987722"
+        marks={[fragmentMark]}
       />,
     );
 
@@ -165,6 +171,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
       parameters: undefined,
       content: undefined,
       localId: 'c145e554-f571-4208-a0f1-2170e1987722',
+      fragmentLocalId,
     });
 
     extension.unmount();

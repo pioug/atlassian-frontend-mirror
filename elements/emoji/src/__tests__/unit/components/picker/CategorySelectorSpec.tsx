@@ -1,7 +1,7 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { ReactWrapper } from 'enzyme';
 import React from 'react';
+import { ReactWrapper } from 'enzyme';
 import { messages } from '../../../../components/i18n';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import CategorySelector, {
   Props,

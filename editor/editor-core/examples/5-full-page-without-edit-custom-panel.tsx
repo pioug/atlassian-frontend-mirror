@@ -10,6 +10,14 @@ import { ThemeModes } from '@atlaskit/theme';
 const LIGHT_THEME = 'light',
   DARK_THEME = 'dark';
 
+const editorProps = {
+  defaultValue: exampleDocument,
+  allowPanel: {
+    allowCustomPanel: true,
+    allowCustomPanelEdit: false,
+  },
+};
+
 export default function Example() {
   const [themeMode, setThemeMode] = useState<ThemeModes>(LIGHT_THEME);
   const onThemeToggle = (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,15 +29,10 @@ export default function Example() {
       Dark Mode
     </label>
   );
+
   return (
     <DeprecatedThemeProvider mode={themeMode} provider={StyledThemeProvider}>
-      <FullPageExample
-        defaultValue={exampleDocument}
-        allowPanel={{
-          allowCustomPanel: true,
-          allowCustomPanelEdit: false,
-        }}
-      />
+      <FullPageExample editorProps={editorProps} />
       {toggleDarkMode}
     </DeprecatedThemeProvider>
   );

@@ -12,9 +12,10 @@ import {
   td,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../../../../plugins/table/types';
-import { copyPreviousRow } from '../../../../../plugins/table/utils/row-controls';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { copyPreviousRow } from '@atlaskit/editor-plugin-table/src/plugins/table/utils/row-controls';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

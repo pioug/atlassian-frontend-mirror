@@ -27,13 +27,6 @@ describe('Code block:', () => {
     await pressKey(page, ['ArrowDown', 'ArrowDown']); // Go to option "C"
     await pressKey(page, 'Enter');
     await page.click(codeBlockSelectors.floatingToolbar);
-
-    // snapshot only the specific menu elements that show language selection
-    await snapshot(page, undefined, codeBlockSelectors.floatingToolbar);
-    await snapshot(
-      page,
-      undefined,
-      codeBlockSelectors.floatingToolbarListPicker,
-    );
+    await snapshot(page);
   });
 });

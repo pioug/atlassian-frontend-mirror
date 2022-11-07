@@ -23,8 +23,6 @@ import {
   imageAlignmentMap,
 } from '../../../../ui/Resizer/utils';
 import { calcMediaPxWidth } from '../../utils/media-single';
-import { getPluginState } from '../../../table/pm-plugins/table-resizing/plugin-factory';
-import { ColumnResizingPluginState } from '../../../table/types';
 import { calculateSnapPoints } from '../../../../utils/rich-media-utils';
 
 type State = {
@@ -315,7 +313,6 @@ export default class ResizableMediaSingle extends React.Component<
       containerWidth,
       fullWidthMode,
       selected,
-      view: { state },
       children,
     } = this.props;
 
@@ -376,14 +373,6 @@ export default class ResizableMediaSingle extends React.Component<
           snapPoints={calculateSnapPoints(snapPointsProps)}
           scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
           highlights={this.highlights}
-          handleResizeStart={() => {
-            const columResizingPluginState:
-              | ColumnResizingPluginState
-              | undefined = getPluginState(state);
-            return columResizingPluginState
-              ? !columResizingPluginState.dragging
-              : true;
-          }}
           nodeType="media"
           dispatchAnalyticsEvent={this.props.dispatchAnalyticsEvent}
           // when cursor is located below a media with caption,

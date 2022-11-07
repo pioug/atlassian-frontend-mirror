@@ -10,7 +10,6 @@
  * TODO: https://product-fabric.atlassian.net/browse/ED-12714
  *
  */
-// import { Dispatch } from '../../../event-dispatcher';
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
@@ -19,7 +18,6 @@ import rafSchedule from 'raf-schd';
 
 import { uuid } from '@atlaskit/adf-schema';
 
-// import { stepAddsOneOf } from '../../../utils/step';
 import { stepAddsOneOf } from '@atlaskit/editor-common/utils';
 
 interface TableLocalIdPluginState {

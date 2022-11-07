@@ -11,8 +11,9 @@ import {
 } from '@atlaskit/analytics-next';
 import Portal from '@atlaskit/portal';
 
+import { defaultFocusLockSettings } from '../constants';
+
 import Blanket from './blanket';
-import FocusLock from './focus-lock';
 import DrawerPrimitive from './primitives';
 import { CloseTrigger, DrawerProps, DrawerWidth } from './types';
 
@@ -42,9 +43,7 @@ export class DrawerBase extends Component<
 > {
   static defaultProps = {
     width: 'narrow' as DrawerWidth,
-    isFocusLockEnabled: true,
-    shouldReturnFocus: true,
-    autoFocusFirstElem: false,
+    ...defaultFocusLockSettings,
   };
 
   state = {
@@ -134,26 +133,23 @@ export class DrawerBase extends Component<
           onBlanketClicked={this.handleBlanketClick}
           testId={testId && `${testId}--blanket`}
         />
-        <FocusLock
+        <DrawerPrimitive
+          testId={testId}
+          icon={icon}
+          in={isOpen}
+          onClose={this.handleBackButtonClick}
+          onCloseComplete={onCloseComplete}
+          onOpenComplete={onOpenComplete}
+          width={width}
+          shouldUnmountOnExit={shouldUnmountOnExit}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+          overrides={overrides}
           autoFocusFirstElem={autoFocusFirstElem}
           isFocusLockEnabled={isFocusLockEnabled}
           shouldReturnFocus={shouldReturnFocus}
         >
-          <DrawerPrimitive
-            testId={testId}
-            icon={icon}
-            in={isOpen}
-            onClose={this.handleBackButtonClick}
-            onCloseComplete={onCloseComplete}
-            onOpenComplete={onOpenComplete}
-            width={width}
-            shouldUnmountOnExit={shouldUnmountOnExit}
-            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-            overrides={overrides}
-          >
-            {children}
-          </DrawerPrimitive>
-        </FocusLock>
+          {children}
+        </DrawerPrimitive>
       </Portal>
     );
   }

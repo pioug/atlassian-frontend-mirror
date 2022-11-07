@@ -39,7 +39,14 @@ export const isWrappingPossible = (
   selection: Selection,
 ) => {
   const { $from, $to } = selection;
-  const range = $from.blockRange($to);
+
+  let range;
+  if (selection instanceof GapCursorSelection && $from.nodeAfter) {
+    const nodeSize = $from.nodeAfter.nodeSize || 1;
+    range = $from.blockRange($from.doc.resolve($from.pos + nodeSize));
+  } else {
+    range = $from.blockRange($to);
+  }
   if (!range) {
     return false;
   }

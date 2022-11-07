@@ -37,7 +37,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import analyticsPlugin from '../../../analytics';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import panelPlugin from '../../../panel';
-import tablePlugin from '../../../table';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import codeBlockPlugin from '../../../code-block';
@@ -159,7 +159,7 @@ describe('type-ahead', () => {
       .add(panelPlugin)
       .add(expandPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
-      .add(tablePlugin)
+      .add(tablesPlugin)
       .add(layoutPlugin);
 
     return createEditor({

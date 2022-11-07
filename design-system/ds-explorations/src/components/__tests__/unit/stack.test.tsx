@@ -9,7 +9,7 @@ describe('Stack component', () => {
 
   it('should render stack', () => {
     const { getByText } = render(
-      <Stack gap="sp-50">
+      <Stack gap="scale.050">
         <Text>1</Text>
         <Text>2</Text>
       </Stack>,
@@ -20,7 +20,7 @@ describe('Stack component', () => {
 
   it('should render with a given test id', () => {
     const { getByTestId } = render(
-      <Stack gap="sp-50" testId={testId}>
+      <Stack gap="scale.050" testId={testId}>
         <Text>1</Text>
         <Text>2</Text>
       </Stack>,

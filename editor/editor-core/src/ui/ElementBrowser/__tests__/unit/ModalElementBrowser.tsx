@@ -2,7 +2,6 @@ import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import ModalElementBrowser from '../../ModalElementBrowser';
-import Button from '@atlaskit/button/custom-theme-button';
 import { createIntl } from 'react-intl-next';
 import { messages } from '../../messages';
 
@@ -80,7 +79,7 @@ const getButtonWrapper = (
    */
 
   return wrapper
-    .find(Button)
+    .find(buttonId === 'help' ? 'a[href]' : 'button')
     .find({ 'data-testid': `ModalElementBrowser__${buttonId}-button` })
     .first();
 };

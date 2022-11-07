@@ -21,6 +21,7 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { TypeAheadHandler } from '@atlaskit/editor-core/src/plugins/type-ahead/types';
 import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
 import * as crossPlatformPromise from '../../../../cross-platform-promise';
+import { flushPromises } from '../../../../__tests__/__helpers/_flush-promises';
 
 jest.mock('../../../web-to-native');
 jest.mock('@atlaskit/editor-core', () => ({
@@ -285,6 +286,10 @@ describe('PageTitle Bridge', () => {
 });
 
 describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should initialise editorConfiguration with default configs when no configs are passed', () => {
     const expectedEditorConfig = new MobileEditorConfiguration();
 
@@ -319,9 +324,48 @@ describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
     );
   });
 
-  it('should have a setter method to set the onEditorConfigChanged handler', () => {
+  it('should have a setter method to set the onEditorConfigChanged handler', async () => {
+    // Mock some setup
+    const currentDocumentValue = {
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'Hello',
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'World!',
+            },
+          ],
+        },
+      ],
+    };
+
+    const getValuePromise = new Promise<any>((resolve) =>
+      resolve(currentDocumentValue),
+    );
+    jest
+      .spyOn(EditorActions.prototype, 'getValue')
+      .mockReturnValue(getValuePromise);
+
     const editorConfigChanged = jest.fn();
     let bridge: WebBridgeImpl = new WebBridgeImpl();
+    const replaceDocumentSpy = jest.spyOn(
+      bridge.editorActions,
+      'replaceDocument',
+    );
+
+    // Trigger config change
     const jsonConfig =
       '{ "enableQuickInsert": true,"selectionObserverEnabled": true,"allowCollabProvider": true}';
     const updatedConfig = new MobileEditorConfiguration(jsonConfig);
@@ -329,6 +373,12 @@ describe('Bridge with editorConfiguration and onEditorConfigChange', () => {
     bridge.configure(jsonConfig);
     expect(editorConfigChanged).toHaveBeenCalledTimes(1);
     expect(editorConfigChanged).toHaveBeenCalledWith(updatedConfig);
+
+    // Make sure replaceDocument() is called with current document value
+    // so the Editor reloads with new props.
+    await flushPromises();
+    expect(replaceDocumentSpy).toHaveBeenCalledTimes(1);
+    expect(replaceDocumentSpy).toHaveBeenCalledWith(currentDocumentValue);
   });
 
   it('should not call cloneAndUpdateConfig when editorConfigChanged is not set', () => {

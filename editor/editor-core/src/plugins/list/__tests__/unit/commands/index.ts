@@ -96,6 +96,14 @@ describe('lists plugin -> commands', () => {
         ),
       );
     });
+
+    it("should outdent a list when list item doesn't have visible content", () => {
+      const { editorView } = editor(doc(ol(li(p('text')), li(p('{<>} ')))));
+      enterKeyCommand(editorView.state, editorView.dispatch);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(ol(li(p('text'))), p(' ')),
+      );
+    });
   });
 
   describe('backspaceKeyCommand', () => {

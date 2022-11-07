@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { memo } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { N300 } from '@atlaskit/theme/colors';
@@ -46,7 +46,7 @@ const HeadingItem = memo(
         css={[
           headingStyles,
           // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-          cssFn(undefined),
+          css(cssFn(undefined)),
         ]}
         data-testid={testId}
         data-ds--menu--heading-item

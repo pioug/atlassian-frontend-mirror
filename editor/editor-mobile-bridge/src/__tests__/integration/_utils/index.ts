@@ -150,6 +150,3 @@ export async function setContent(
 }
 
 export const ENABLE_QUICK_INSERT = '{"enableQuickInsert":true}';
-export const USE_UNPREDICTABLE_INPUT_RULE =
-  '{"useUnpredictableInputRule":true}';
-export const USE_PREDICTABLE_INPUT_RULE = '{"useUnpredictableInputRule":false}';

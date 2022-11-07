@@ -1,5 +1,16 @@
 # @atlaskit/editor-mobile-bridge
 
+## 35.1.0
+
+### Minor Changes
+
+- [`72d44f7f681`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d44f7f681) - [ux] ED-15457: call replaceDocument() from mobile bridge to properly reload web Editor with all props taken into consideration
+
+### Patch Changes
+
+- [`8c16cb97a11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c16cb97a11) - ED-12676 cleanup useUnpredictableInputRule feature flag
+- Updated dependencies
+
 ## 35.0.11
 
 ### Patch Changes

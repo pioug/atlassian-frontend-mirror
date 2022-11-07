@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { forwardRef } from 'react';
 
-import { css, jsx, keyframes } from '@emotion/core';
+import { css, jsx, keyframes } from '@emotion/react';
 
 import { AtlassianIcon } from '@atlaskit/logo';
 import { B400, N0, N50A, N60A } from '@atlaskit/theme/colors';

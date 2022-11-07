@@ -6,7 +6,7 @@
 {
   "testExamples": [
     "dynamic-stages.tsx",
-    "progressTrackerDefault.tsx"
+    "progress-tracker-default.tsx"
   ],
   "exampleDependencies": [
     "react-router-dom"

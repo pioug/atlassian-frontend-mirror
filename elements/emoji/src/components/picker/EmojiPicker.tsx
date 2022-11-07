@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { ComponentClass, FC } from 'react';
+import { jsx } from '@emotion/react';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { ComponentClass, FC } from 'react';
 import { ufoExperiences } from '../../util/analytics';
 import { EmojiProvider } from '../../api/EmojiResource';
 import { OnEmojiEvent } from '../../types';
@@ -19,6 +19,7 @@ import {
 import { LoadingItem } from './EmojiPickerVirtualItems';
 import { emojiPicker } from './styles';
 import { UfoErrorBoundary } from '../common/UfoErrorBoundary';
+
 const emojiPickerModuleLoader = () =>
   import(
     /* webpackChunkName:"@atlaskit-internal_emojiPickerComponent" */ './EmojiPickerComponent'
@@ -75,7 +76,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
     ufoExperiences['emoji-picker-opened'].markFMP();
 
     return (
-      <div css={emojiPicker} ref={handlePickerRef}>
+      <div css={emojiPicker()} ref={handlePickerRef}>
         {item.renderItem()}
       </div>
     );

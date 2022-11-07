@@ -35,6 +35,7 @@ import {
   isText,
   isLinkMark,
   insideTableCell,
+  isInListItem,
 } from '../../utils';
 import { mapSlice } from '../../utils/slice';
 import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
@@ -96,6 +97,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
         panel,
         bulletList,
         orderedList,
+        listItem,
         expand,
         heading,
       },
@@ -114,12 +116,20 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
     const selectionIsPanel = hasParentNodeOfType([panel])(state.selection);
 
     // Some types of content should be handled by the default handler, not this function.
-    const sliceFirstNodeType = slice.content.firstChild?.type;
-    const sliceIsInvalid =
-      sliceFirstNodeType === bulletList ||
-      sliceFirstNodeType === orderedList ||
-      sliceFirstNodeType === expand ||
-      sliceFirstNodeType === heading;
+    // Check through slice content to see if it contains an invalid node.
+    let sliceIsInvalid = false;
+    slice.content.nodesBetween(0, slice.content.size, (node) => {
+      if (
+        node.type === bulletList ||
+        node.type === orderedList ||
+        node.type === expand ||
+        node.type === heading ||
+        node.type === listItem
+      ) {
+        sliceIsInvalid = true;
+      }
+    });
+
     // If the selection is a panel,
     // and the slice's first node is a paragraph
     // and it is not from a depth that would indicate it being from inside from another node (e.g. text from a decision)
@@ -684,12 +694,17 @@ export function handleMarkdown(
 ): Command {
   return (state, dispatch) => {
     const tr = closeHistory(state.tr);
+    const pastesFrom = typeof from === 'number' ? from : tr.selection.from;
 
     if (typeof from === 'number' && typeof to === 'number') {
       tr.replaceRange(from, to, markdownSlice);
     } else {
       tr.replaceSelection(markdownSlice);
     }
+
+    tr.setSelection(
+      TextSelection.near(tr.doc.resolve(pastesFrom + markdownSlice.size), -1),
+    );
 
     queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
     if (dispatch) {
@@ -863,30 +878,6 @@ export function flattenNestedListInSlice(slice: Slice) {
   return new Slice(contentWithFlattenedList, slice.openEnd, slice.openEnd);
 }
 
-export function insertIntoPanel(tr: Transaction, slice: Slice, panel: any) {
-  let panelParentOverCurrentSelection = findParentNodeOfType(panel)(
-    tr.selection,
-  );
-  if (
-    tr.selection.$from === tr.selection.$to &&
-    panelParentOverCurrentSelection &&
-    !panelParentOverCurrentSelection.node.textContent
-  ) {
-    tr = safeInsert(slice.content, tr.selection.$to.pos)(tr);
-    // set selection to end of inserted content
-    const panelNode = findParentNodeOfType(panel)(tr.selection);
-    if (panelNode) {
-      tr.setSelection(
-        TextSelection.near(
-          tr.doc.resolve(panelNode.pos + panelNode.node.nodeSize),
-        ),
-      );
-    }
-  } else {
-    tr.replaceSelection(slice);
-  }
-}
-
 export function handleRichText(slice: Slice): Command {
   return (state, dispatch) => {
     const { codeBlock, heading, paragraph, panel } = state.schema.nodes;
@@ -932,9 +923,13 @@ export function handleRichText(slice: Slice): Command {
     } else if (noNeedForSafeInsert) {
       tr.replaceSelection(slice);
     } else {
-      // need to scan the slice if there's a block node inside it
+      // need to scan the slice if there's a block node or list items inside it
       let doesBlockNodeExist = false;
+      let sliceHasList = false;
       slice.content.nodesBetween(0, slice.content.size, (node, start) => {
+        if (node.type === state.schema.nodes.listItem) {
+          sliceHasList = true;
+        }
         if (
           start >= slice.openStart &&
           start <= slice.content.size - slice.openEnd &&
@@ -945,9 +940,12 @@ export function handleRichText(slice: Slice): Command {
         }
       });
 
-      if (insideTableCell(state) && !doesBlockNodeExist) {
-        // bring back the old code for inline nodes
-        insertIntoPanel(tr, slice, panel);
+      if (
+        (insideTableCell(state) &&
+          (!doesBlockNodeExist || isInListItem(state))) ||
+        sliceHasList
+      ) {
+        tr.replaceSelection(slice);
       } else {
         // need safeInsert rather than replaceSelection, so that nodes aren't split in half
         // e.g. when pasting a layout into a table, replaceSelection splits the table in half and adds the layout in the middle

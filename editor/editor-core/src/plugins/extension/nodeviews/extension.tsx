@@ -4,11 +4,15 @@ import { Node as PmNode } from 'prosemirror-model';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorAppearance } from '../../../types/editor-appearance';
-import { ReactNodeView } from '../../../nodeviews';
+import {
+  ForwardRef,
+  getPosHandler,
+  ProsemirrorGetPosHandler,
+  ReactNodeView,
+} from '../../../nodeviews';
 import Extension from '../ui/Extension';
 import ExtensionNodeWrapper from '../ui/Extension/ExtensionNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { ForwardRef, getPosHandler } from '../../../nodeviews/';
 import { EventDispatcher } from '../../../event-dispatcher';
 
 interface ExtensionNodeViewOptions {
@@ -65,6 +69,13 @@ export class ExtensionNode extends ReactNodeView {
         <Extension
           editorView={this.view}
           node={this.node}
+          // The getPos arg is always a function when used with nodes
+          // the version of the types we use has a union with the type
+          // for marks.
+          // This has been fixed in later versions of the definitly typed
+          // types (and also in prosmirror-views inbuilt types).
+          // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/57384
+          getPos={this.getPos as ProsemirrorGetPosHandler}
           providerFactory={props.providerFactory}
           handleContentDOMRef={forwardRef}
           extensionHandlers={props.extensionHandlers}

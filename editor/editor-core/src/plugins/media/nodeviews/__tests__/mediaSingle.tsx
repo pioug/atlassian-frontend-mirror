@@ -8,7 +8,7 @@ import { ExternalMediaAttributes, MediaAttributes } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node as PMNode } from 'prosemirror-model';
 import MediaSingleNode from '../mediaSingle';
-import { flushPromises } from '../../../../__tests__/__helpers/utils';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { MediaPluginState } from '../../pm-plugins/types';
 import { fireEvent, render } from '@testing-library/react';
 import { NodeSelection, EditorState } from 'prosemirror-state';

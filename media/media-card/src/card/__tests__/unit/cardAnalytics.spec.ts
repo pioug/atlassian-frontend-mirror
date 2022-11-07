@@ -20,6 +20,7 @@ import {
   FileAttributes,
   ANALYTICS_MEDIA_CHANNEL,
   PerformanceAttributes,
+  MediaTraceContext,
 } from '@atlaskit/media-common';
 import {
   getRenderFailedFileStatusPayload,
@@ -44,6 +45,10 @@ const ssrReliability: SSRStatus = {
   server: { status: 'success' },
   client: { status: 'success' },
 };
+const traceContext: MediaTraceContext = {
+  traceId: 'some-trace-Id',
+  spanId: 'some-span-Id',
+};
 
 describe('fireOperationalEvent', () => {
   beforeEach(() => {
@@ -58,12 +63,15 @@ describe('fireOperationalEvent', () => {
       fileAttributes,
       performanceAttributes,
       ssrReliability,
+      undefined,
+      traceContext,
     );
 
     expect(getRenderFailedFileStatusPayload).toBeCalledWith(
       fileAttributes,
       performanceAttributes,
       ssrReliability,
+      traceContext,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-failed-payload');
     expect(event.fire).toBeCalledTimes(1);
@@ -79,6 +87,7 @@ describe('fireOperationalEvent', () => {
       performanceAttributes,
       ssrReliability,
       error,
+      traceContext,
     );
 
     expect(getRenderErrorEventPayload).toBeCalledWith(
@@ -86,6 +95,7 @@ describe('fireOperationalEvent', () => {
       performanceAttributes,
       error,
       ssrReliability,
+      traceContext,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-error-payload');
     expect(event.fire).toBeCalledTimes(1);
@@ -99,6 +109,8 @@ describe('fireOperationalEvent', () => {
       fileAttributes,
       performanceAttributes,
       ssrReliability,
+      undefined,
+      traceContext,
     );
 
     expect(getRenderErrorEventPayload).toBeCalledWith(
@@ -106,6 +118,7 @@ describe('fireOperationalEvent', () => {
       performanceAttributes,
       expect.any(Error),
       ssrReliability,
+      traceContext,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-error-payload');
     expect(event.fire).toBeCalledTimes(1);
@@ -119,12 +132,15 @@ describe('fireOperationalEvent', () => {
       fileAttributes,
       performanceAttributes,
       ssrReliability,
+      undefined,
+      traceContext,
     );
 
     expect(getRenderSucceededEventPayload).toBeCalledWith(
       fileAttributes,
       performanceAttributes,
       ssrReliability,
+      traceContext,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-suceeded-payload');
     expect(event.fire).toBeCalledTimes(1);
@@ -136,11 +152,13 @@ describe('fireOperationalEvent', () => {
       createAnalyticsEvent,
       fileAttributes,
       performanceAttributes,
+      traceContext,
     );
 
     expect(getRenderCommencedEventPayload).toBeCalledWith(
       fileAttributes,
       performanceAttributes,
+      traceContext,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-commenced-payload');
     expect(event.fire).toBeCalledTimes(1);

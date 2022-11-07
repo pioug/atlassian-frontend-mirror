@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@atlaskit/adf-utils": "^17.1.0",
-    "@atlaskit/button": "^16.3.0",
-    "@atlaskit/editor-common": "^70.1.0",
+    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/editor-common": "^70.2.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/modal-dialog": "^12.4.0",
     "@babel/runtime": "^7.0.0",
@@ -47,7 +47,11 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@repo/internal": {
-      "theming": "tokens"
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
     }
   }
 }

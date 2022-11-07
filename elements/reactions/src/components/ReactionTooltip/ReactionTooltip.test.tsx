@@ -1,10 +1,21 @@
 import React from 'react';
-import Tooltip from '@atlaskit/tooltip';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { act, fireEvent, screen } from '@testing-library/react';
 import { ReactionSummary } from '../../types';
-import { ReactionTooltip } from './ReactionTooltip';
+import { constants } from '../../shared';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+  useFakeTimers,
+} from '../../__tests__/_testing-library';
+import {
+  ReactionTooltip,
+  RENDER_REACTIONTOOLTIP_TESTID,
+} from './ReactionTooltip';
 
 describe('@atlaskit/reactions/components/ReactionTooltip', () => {
+  mockReactDomWarningGlobal();
+  useFakeTimers();
+
   /**
    * Demo reaction object with 7 users selecting it
    */
@@ -46,82 +57,130 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
     ],
   };
 
+  const RENDER_CONTENT_TESTID = 'test';
+
   const renderReactionTooltip = (
     reactionSummary = demoReaction,
     emojiName = 'emoji name',
     maxReactions = 5,
-  ) => (
-    <ReactionTooltip
-      reaction={reactionSummary}
-      emojiName={emojiName}
-      maxReactions={maxReactions}
-    >
-      <div id="content">content</div>
-    </ReactionTooltip>
-  );
-  it('should render tooltip', () => {
-    const wrapper = mountWithIntl(renderReactionTooltip());
-
-    expect(wrapper.find(Tooltip).prop('position')).toEqual('bottom');
-    const tooltipContent = mountWithIntl(
-      wrapper.find(Tooltip).prop('content') as any,
+  ) =>
+    renderWithIntl(
+      <ReactionTooltip
+        reaction={reactionSummary}
+        emojiName={emojiName}
+        maxReactions={maxReactions}
+      >
+        <div id="content" data-testid={RENDER_CONTENT_TESTID}>
+          content
+        </div>
+      </ReactionTooltip>,
     );
 
-    const tooltipLines = tooltipContent.find('li');
-    expect(tooltipLines).toHaveLength(7);
-    expect(tooltipLines.at(0).text()).toEqual('emoji name');
-    expect(tooltipLines.at(1).text()).toEqual('User 1');
-    expect(tooltipLines.at(2).text()).toEqual('User 2');
-    expect(tooltipLines.at(3).text()).toEqual('User 3');
-    expect(tooltipLines.at(4).text()).toEqual('User 4');
-    expect(tooltipLines.at(5).text()).toEqual('User 5');
-    expect(tooltipLines.at(6).text()).toEqual('and 2 others');
+  it('should render tooltip', async () => {
+    renderReactionTooltip();
+
+    const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+
+    // launch the hover over the tooltip to retrieve its content
+    const tooltipContainer = await screen.findByTestId(
+      `${RENDER_REACTIONTOOLTIP_TESTID}--container`,
+    );
+    expect(tooltipContainer).toBeInTheDocument();
+    // hover over the tooltip
+    act(() => {
+      fireEvent.mouseOver(item);
+      jest.runAllTimers();
+    });
+
+    const usersListWrapper = await screen.findByRole('tooltip');
+    expect(usersListWrapper).toBeInTheDocument();
+    expect(usersListWrapper).toHaveAttribute('data-placement', 'bottom');
+
+    const items = usersListWrapper.querySelectorAll('li');
+    expect(items.length).toEqual(constants.TOOLTIP_USERS_LIMIT + 2);
+    expect(items[0].textContent).toEqual('emoji name');
+    expect(items[1].textContent).toEqual('User 1');
+    expect(items[2].textContent).toEqual('User 2');
+    expect(items[3].textContent).toEqual('User 3');
+    expect(items[4].textContent).toEqual('User 4');
+    expect(items[5].textContent).toEqual('User 5');
+    expect(items[6].textContent).toEqual('and 2 others');
   });
 
-  it('should not render footer with fewer users than the limit', () => {
-    const wrapper = mountWithIntl(
-      renderReactionTooltip({
-        ...demoReaction,
-        users: demoReaction.users!.slice(0, 2),
-      }),
-    );
+  it('should not render footer with fewer users than the limit', async () => {
+    renderReactionTooltip({
+      ...demoReaction,
+      users: demoReaction.users!.slice(0, 2),
+    });
 
-    const tooltipContent = mountWithIntl(
-      wrapper.find(Tooltip).prop('content') as any,
-    );
+    const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
 
-    const tooltipLines = tooltipContent.find('li');
-    expect(tooltipLines).toHaveLength(3);
-    expect(tooltipLines.at(0).text()).toEqual('emoji name');
-    expect(tooltipLines.at(1).text()).toEqual('User 1');
-    expect(tooltipLines.at(2).text()).toEqual('User 2');
+    // launch the hover over the tooltip to retrieve its content
+    const tooltipContainer = await screen.findByTestId(
+      `${RENDER_REACTIONTOOLTIP_TESTID}--container`,
+    );
+    expect(tooltipContainer).toBeInTheDocument();
+    // hover over the tooltip
+    act(() => {
+      fireEvent.mouseOver(item);
+      jest.runAllTimers();
+    });
+
+    const usersListWrapper = await screen.findByRole('tooltip');
+    expect(usersListWrapper).toBeInTheDocument();
+    const items = usersListWrapper.querySelectorAll('li');
+    expect(items[0].textContent).toEqual('emoji name');
+    expect(items[1].textContent).toEqual('User 1');
+    expect(items[2].textContent).toEqual('User 2');
   });
 
-  it('test maximum reacted users list', () => {
-    const wrapper = mountWithIntl(
-      renderReactionTooltip(demoReaction, 'emoji name', 2),
+  it('test maximum reacted users list', async () => {
+    renderReactionTooltip(demoReaction, 'emoji name', 2);
+
+    const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+
+    // launch the hover over the tooltip to retrieve its content
+    const tooltipContainer = await screen.findByTestId(
+      `${RENDER_REACTIONTOOLTIP_TESTID}--container`,
     );
-    const tooltipContent = mountWithIntl(
-      wrapper.find(Tooltip).prop('content') as any,
-    );
-    const tooltipLines = tooltipContent.find('li');
-    expect(tooltipLines).toHaveLength(4);
-    expect(tooltipLines.at(0).text()).toEqual('emoji name');
-    expect(tooltipLines.at(1).text()).toEqual('User 1');
-    expect(tooltipLines.at(2).text()).toEqual('User 2');
-    expect(tooltipLines.at(3).text()).toEqual('and 5 others');
+    expect(tooltipContainer).toBeInTheDocument();
+    // hover over the tooltip
+    act(() => {
+      fireEvent.mouseOver(item);
+      jest.runAllTimers();
+    });
+
+    const usersListWrapper = await screen.findByRole('tooltip');
+    expect(usersListWrapper).toBeInTheDocument();
+    const items = usersListWrapper.querySelectorAll('li');
+    expect(items.length).toEqual(4);
+    expect(items[0].textContent).toEqual('emoji name');
+    expect(items[1].textContent).toEqual('User 1');
+    expect(items[2].textContent).toEqual('User 2');
+    expect(items[3].textContent).toEqual('and 5 others');
   });
 
-  it('should not render emoji name', () => {
-    const wrapper = mountWithIntl(renderReactionTooltip(demoReaction, ''));
+  it('should not render emoji name', async () => {
+    renderReactionTooltip(demoReaction, '');
 
-    const tooltipContent = mountWithIntl(
-      wrapper.find(Tooltip).prop('content') as any,
+    const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+
+    // launch the hover over the tooltip to retrieve its content
+    const tooltipContainer = await screen.findByTestId(
+      `${RENDER_REACTIONTOOLTIP_TESTID}--container`,
     );
+    expect(tooltipContainer).toBeInTheDocument();
+    // hover over the tooltip
+    act(() => {
+      fireEvent.mouseOver(item);
+      jest.runAllTimers();
+    });
 
-    const tooltipLines = tooltipContent.find('li');
-    expect(tooltipLines).toHaveLength(6);
-    expect(tooltipLines.at(0).text()).toEqual('User 1');
-    expect(tooltipLines.at(5).text()).toEqual('and 2 others');
+    const usersListWrapper = await screen.findByRole('tooltip');
+    expect(usersListWrapper).toBeInTheDocument();
+    const items = usersListWrapper.querySelectorAll('li');
+    expect(items.length).toEqual(constants.TOOLTIP_USERS_LIMIT + 1);
+    expect(items[0].textContent).toEqual('User 1');
+    expect(items[5].textContent).toEqual('and 2 others');
   });
 });

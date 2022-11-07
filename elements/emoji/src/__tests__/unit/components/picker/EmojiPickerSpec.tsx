@@ -1,6 +1,14 @@
+import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
+import { act } from '@testing-library/react';
+import { matchers } from '@emotion/jest';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
+import {
+  mockReactDomWarningGlobal,
+  renderWithIntl,
+} from '../../_testing-library';
+import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import Emoji, {
@@ -14,7 +22,9 @@ import CategorySelector, {
   sortCategories,
 } from '../../../../components/picker/CategorySelector';
 import ToneSelector from '../../../../components/common/ToneSelector';
-import { Props } from '../../../../components/picker/EmojiPicker';
+import EmojiPicker, {
+  Props as EmojiPickerProps,
+} from '../../../../components/picker/EmojiPicker';
 import EmojiPickerFooter from '../../../../components/picker/EmojiPickerFooter';
 import {
   customCategory,
@@ -46,14 +56,12 @@ import {
 import EmojiActions from '../../../../components/common/EmojiActions';
 import { ufoExperiences } from '../../../../util/analytics';
 import EmojiPickerComponent from '../../../../components/picker/EmojiPickerComponent';
-import { act } from '@testing-library/react';
-import { matchers } from '@emotion/jest';
 
 // Add the custom matchers provided by '@emotion/jest'
 expect.extend(matchers);
 
 describe('<EmojiPicker />', () => {
-  let onEvent: jest.SpyInstance;
+  let onEvent: jest.Mock;
 
   const pickerUFO = ufoExperiences['emoji-picker-opened'];
   const searchUFO = ufoExperiences['emoji-searched'];
@@ -72,10 +80,20 @@ describe('<EmojiPicker />', () => {
   const ufoEmojiRecordedSuccessSpy = jest.spyOn(emojiRecordUFO, 'success');
   const ufoEmojiRecordedFailureSpy = jest.spyOn(emojiRecordUFO, 'failure');
 
-  const getUpdatedList = (component: any) =>
-    component.update().find(VirtualList);
-
-  beforeEach(async () => {
+  mockReactDomWarningGlobal();
+  beforeEach(() => {
+    onEvent = jest.fn();
+    ufoPickerStartSpy.mockClear();
+    ufoPickerSuccessSpy.mockClear();
+    ufoPickerFailureSpy.mockClear();
+    ufoPickerAbortSpy.mockClear();
+    ufoPickerMarkFMPSpy.mockClear();
+    ufoSearchedStartSpy.mockClear();
+    ufoSearchedFailureSpy.mockClear();
+    ufoSearchedSuccessSpy.mockClear();
+    ufoEmojiRecordedStartSpy.mockClear();
+    ufoEmojiRecordedSuccessSpy.mockClear();
+    ufoEmojiRecordedFailureSpy.mockClear();
     onEvent = jest.fn();
     ufoPickerStartSpy.mockClear();
     ufoPickerSuccessSpy.mockClear();
@@ -89,6 +107,20 @@ describe('<EmojiPicker />', () => {
     ufoEmojiRecordedSuccessSpy.mockClear();
     ufoEmojiRecordedFailureSpy.mockClear();
   });
+
+  const renderEmojiPicker = (pickerProps: Partial<EmojiPickerProps> = {}) => {
+    return renderWithIntl(
+      <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
+        <EmojiPicker
+          emojiProvider={getEmojiResourcePromise()}
+          {...pickerProps}
+        />
+      </AnalyticsListener>,
+    );
+  };
+
+  const getUpdatedList = (component: any) =>
+    component.update().find(VirtualList);
 
   describe('analytics for component lifecycle', () => {
     it('should fire analytics when component unmounts', async () => {
@@ -167,6 +199,8 @@ describe('<EmojiPicker />', () => {
     });
 
     it('should adjust picker height if preview is shown', async () => {
+      renderEmojiPicker();
+
       const component = await helper.setupPickerWithoutToneSelector();
       const list = getUpdatedList(component);
 
@@ -178,7 +212,8 @@ describe('<EmojiPicker />', () => {
       const hoverButton = list.find(Emoji).at(0);
 
       act(() => {
-        hoverButton.simulate('mouseenter');
+        const btn = hoverButton.find({ role: 'button' }).last();
+        btn.simulate('mouseenter');
       });
       await waitUntil(() => helper.findEmojiPreview(component));
 
@@ -197,7 +232,10 @@ describe('<EmojiPicker />', () => {
           return Promise.resolve(result);
         },
       };
-      const component = await helper.setupPicker({} as Props, mockConfig);
+      const component = await helper.setupPicker(
+        {} as EmojiPickerProps,
+        mockConfig,
+      );
 
       await helper.showCategory(customCategory, component, customTitle);
 
@@ -226,7 +264,8 @@ describe('<EmojiPicker />', () => {
       const hoverButton = list.find(Emoji).at(0);
 
       act(() => {
-        hoverButton.simulate('mouseenter');
+        const btn = hoverButton.find({ role: 'button' }).last();
+        btn.simulate('mouseenter');
       });
       await waitUntil(() => helper.findEmojiPreview(component));
 
@@ -375,7 +414,7 @@ describe('<EmojiPicker />', () => {
           onSelection: (_emojiId, emoji) => {
             selection = emoji;
           },
-        } as Props,
+        } as EmojiPickerProps,
         undefined,
         onEvent,
       );
@@ -384,7 +423,8 @@ describe('<EmojiPicker />', () => {
       const hoverButton = () => list.find(Emoji).at(clickOffset);
       await waitUntil(() => hoverButton().exists());
       act(() => {
-        hoverButton().simulate('mousedown', helper.leftClick);
+        const btn = hoverButton().find({ role: 'button' }).last();
+        btn.simulate('mousedown', helper.leftClick);
       });
 
       await waitUntil(() => !!selection);
@@ -427,7 +467,7 @@ describe('<EmojiPicker />', () => {
             selection = emoji;
           },
           emojiProvider,
-        } as Props,
+        } as EmojiPickerProps,
         undefined,
         onEvent,
       );
@@ -436,13 +476,14 @@ describe('<EmojiPicker />', () => {
       const provider = await emojiProvider;
       provider.recordSelection = jest.fn().mockImplementation(() => {
         failureOccurred = true;
-        return Promise.reject(new Error('test'));
+        return Promise.reject({ code: 403, reason: 'Forbidden' });
       });
 
       const hoverButton = () => list.find(Emoji).at(clickOffset);
       await waitUntil(() => hoverButton().exists());
       act(() => {
-        hoverButton().simulate('mousedown', helper.leftClick);
+        const btn = hoverButton().find({ role: 'button' }).last();
+        btn.simulate('mousedown', helper.leftClick);
       });
 
       await waitUntil(() => failureOccurred);
@@ -470,12 +511,13 @@ describe('<EmojiPicker />', () => {
           selection = emoji;
         },
         emojiProvider: emojiResourcePromise,
-      } as Props);
+      } as EmojiPickerProps);
       const list = getUpdatedList(component);
       const hoverButton = () => list.find(Emoji).at(clickOffset);
       await waitUntil(() => hoverButton().exists());
       act(() => {
-        hoverButton().simulate('mousedown', helper.leftClick);
+        const btn = hoverButton().find({ role: 'button' }).last();
+        btn.simulate('mousedown', helper.leftClick);
       });
 
       await waitUntil(() => !!selection);
@@ -634,7 +676,8 @@ describe('<EmojiPicker />', () => {
       await waitUntil(() => helper.emojisVisible(component, list));
       const hoverButton = list.find(Emoji).at(0);
       act(() => {
-        hoverButton.simulate('mouseenter');
+        const btn = hoverButton.find({ role: 'button' }).last();
+        btn.simulate('mouseenter');
       });
 
       const emojiActions = component.find(EmojiActions);
@@ -648,7 +691,8 @@ describe('<EmojiPicker />', () => {
       await waitUntil(() => helper.emojisVisible(component, list));
       const hoverButton = helper.findEmoji(list).at(0);
       act(() => {
-        hoverButton.simulate('mouseenter');
+        const btn = hoverButton.find({ role: 'button' }).last();
+        btn.simulate('mouseenter');
       });
 
       const footer = component.find(EmojiPickerFooter);
@@ -665,7 +709,8 @@ describe('<EmojiPicker />', () => {
       await waitUntil(() => helper.emojisVisible(component, list));
       const hoverButton = list.find(Emoji).at(0);
       act(() => {
-        hoverButton.simulate('mouseenter');
+        const btn = hoverButton.find({ role: 'button' }).last();
+        btn.simulate('mouseenter');
       });
 
       const preview = component.find(EmojiActions);
@@ -716,13 +761,15 @@ describe('<EmojiPicker />', () => {
       await waitUntil(() => helper.emojisVisible(component, list));
       const hoverButton = list.find(Emoji).at(0);
       act(() => {
-        hoverButton.simulate('mouseenter');
+        const btn = hoverButton.find({ role: 'button' }).last();
+        btn.simulate('mouseenter');
       });
 
       const preview = component.find(EmojiActions);
       const toneEmoji = preview.find(EmojiButton);
       const toneSelectorOpener = toneEmoji.prop('onSelected');
       expect(toneSelectorOpener).toBeDefined();
+
       toneSelectorOpener!();
 
       await waitUntil(
@@ -735,11 +782,10 @@ describe('<EmojiPicker />', () => {
         }),
         'fabric-elements',
       );
-
       act(() => {
-        preview.simulate('mouseleave');
+        const wrapper = preview.find({ 'data-testid': 'emoji-actions' }).last();
+        wrapper.simulate('mouseleave');
       });
-
       expect(onEvent).toHaveBeenLastCalledWith(
         expect.objectContaining({
           payload: toneSelectorClosedEvent(),

@@ -1,6 +1,8 @@
+import React from 'react';
+import { act } from '@testing-library/react';
+import { mockReactDomWarningGlobal } from '../../_testing-library';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import React from 'react';
 import { EmojiProvider } from '../../../../api/EmojiResource';
 import { CachingMediaEmoji } from '../../../../components/common/CachingEmoji';
 import Emoji from '../../../../components/common/Emoji';
@@ -21,9 +23,10 @@ import {
   findEmojiPreview,
 } from '../picker/_emoji-picker-test-helpers';
 import { EmojiPreviewComponent } from '../../../../../src/components/common/EmojiPreviewComponent';
-import { act } from '@testing-library/react';
 
 describe('Media Emoji Handling across components', () => {
+  mockReactDomWarningGlobal();
+
   let emojiProvider: Promise<EmojiProvider>;
 
   beforeEach(() => {
@@ -73,7 +76,8 @@ describe('Media Emoji Handling across components', () => {
 
       act(() => {
         // Hover to force preview
-        emoji.simulate('mouseenter');
+        const img = emoji.find({ role: 'button' }).last();
+        img.simulate('mouseenter');
       });
       await waitUntil(() => findEmojiPreview(component));
 

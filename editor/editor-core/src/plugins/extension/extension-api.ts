@@ -3,6 +3,8 @@ import {
   TransformBefore,
   TransformAfter,
 } from '@atlaskit/editor-common/extensions';
+import { validator } from '@atlaskit/adf-utils/validator';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import {
   Node as PMNode,
@@ -81,6 +83,8 @@ const extensionAPICallPayload = (
 export const createExtensionAPI = (
   options: CreateExtensionAPIOptions,
 ): ExtensionAPI => {
+  const validate = validator();
+
   /**
    * Finds the node and its position by `localId`. Throws if the node could not be found.
    *
@@ -114,7 +118,9 @@ export const createExtensionAPI = (
       adf: ADFEntity,
       opt?: { allowSelectionToNewNode?: boolean },
     ) => {
-      if (typeof adf !== 'object' || Array.isArray(adf)) {
+      try {
+        validate(adf);
+      } catch (e) {
         throw new Error(`insertAfter(): Invalid ADF given.`);
       }
 
@@ -241,6 +247,7 @@ export const createExtensionAPI = (
         })),
       });
 
+      const { parent } = state.doc.resolve(pos);
       const ensureValidMark = (mark: ADFEntityMark) => {
         if (typeof mark !== 'object' || Array.isArray(mark)) {
           throw new Error(`update(): Invalid mark given.`);
@@ -252,9 +259,9 @@ export const createExtensionAPI = (
         if (!markType) {
           throw new Error(`update(): Invalid ADF mark type '${mark.type}'.`);
         }
-        if (!node.type.allowsMarkType(markType)) {
+        if (!parent.type.allowsMarkType(markType)) {
           throw new Error(
-            `update(): Node of type '${node.type.name}' does not allow marks of type '${mark.type}'.`,
+            `update(): Parent of type '${parent.type.name}' does not allow marks of type '${mark.type}'.`,
           );
         }
 
@@ -265,11 +272,15 @@ export const createExtensionAPI = (
         ?.map(ensureValidMark)
         .map(({ mark, attrs }) => mark.create(attrs));
 
-      // Validate if the new attributes result in a valid node.
-      // We're doing this by relying on `createChecked`, which validates attributes,
-      // and if we don't exit - we assume validity.
+      // Validate if the new attributes and marks result in a valid node and adf.
       try {
-        node.type.createChecked(changedValues.attrs, node.content, newMarks);
+        const newNode = node.type.createChecked(
+          changedValues.attrs,
+          node.content,
+          newMarks,
+        );
+        const newNodeAdf = new JSONTransformer().encodeNode(newNode);
+        validate(newNodeAdf);
       } catch (err) {
         throw new Error(
           `update(): The given ADFEntity cannot be inserted in the current position.\n${err}`,

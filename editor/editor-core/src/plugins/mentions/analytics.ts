@@ -27,6 +27,7 @@ export const buildAnalyticsPayload = (
   eventType: EventType,
   sessionId: string,
   otherAttributes = {},
+  tags: Array<string> = [],
 ): GasPayload => ({
   action,
   actionSubject,
@@ -38,6 +39,7 @@ export const buildAnalyticsPayload = (
     sessionId,
     ...otherAttributes,
   },
+  tags,
 });
 
 type QueryAttributes = Partial<{
@@ -141,6 +143,7 @@ export const buildTypeAheadInviteExposurePayload = (
       childObjectId,
       userRole,
     },
+    ['measurement', 'hasCustomAttributes'],
   );
 };
 

@@ -10,12 +10,17 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { Transformer } from '@atlaskit/editor-common/types';
 
 import {
-  doc,
-  taskList,
-  taskItem,
-  p,
   bodiedExtension,
+  doc,
   expand,
+  extension,
+  fragmentMark,
+  p,
+  taskItem,
+  taskList,
+  table,
+  tr,
+  td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('Editor Actions', () => {
@@ -123,6 +128,107 @@ Object {
       ['invalid id', 'invalid id', undefined],
     ])('%s', (_, id, expected) => {
       const result = editorAction.getNodeByLocalId(id);
+      expect(result && result.toJSON()).toEqual(expected);
+    });
+  });
+
+  describe('getNodesByFragmentLocalId()', () => {
+    const { editorView, eventDispatcher } = createEditorFactory()({
+      doc: doc(
+        fragmentMark({ localId: 'fragment-local-id-1' })(
+          table({ localId: 'table-local-id' })(tr(td()(p('11')))),
+        ),
+        fragmentMark({ localId: 'fragment-local-id-2' })(
+          extension({
+            localId: 'extension-local-id',
+            extensionKey: 'key-1',
+            extensionType: 'type-1',
+          })(),
+        ),
+      ),
+
+      editorProps: {
+        allowFragmentMark: true,
+        allowTables: true,
+        allowExtension: true,
+      },
+    });
+
+    const editorAction = EditorActions.from(editorView, eventDispatcher);
+
+    const item1 = {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        __autoSize: false,
+        localId: 'table-local-id',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 1,
+                rowspan: 1,
+                colwidth: null,
+                background: null,
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: '11',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      marks: [
+        {
+          type: 'fragment',
+          attrs: {
+            localId: 'fragment-local-id-1',
+            name: null,
+          },
+        },
+      ],
+    };
+
+    const item2 = {
+      type: 'extension',
+      attrs: {
+        extensionType: 'type-1',
+        extensionKey: 'key-1',
+        parameters: null,
+        text: null,
+        layout: 'default',
+        localId: 'extension-local-id',
+      },
+      marks: [
+        {
+          type: 'fragment',
+          attrs: {
+            localId: 'fragment-local-id-2',
+            name: null,
+          },
+        },
+      ],
+    };
+
+    it.each([
+      ['query 1 item', 'fragment-local-id-1', item1],
+      ['query 2 items', 'fragment-local-id-2', item2],
+      ['invalid id', 'invalid id', undefined],
+    ])('%s', (_, id, expected) => {
+      const result = editorAction.getNodeByFragmentLocalId(id);
       expect(result && result.toJSON()).toEqual(expected);
     });
   });

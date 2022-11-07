@@ -53,7 +53,10 @@
       ]
     },
     "@repo/internal": {
-      "deprecation": "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

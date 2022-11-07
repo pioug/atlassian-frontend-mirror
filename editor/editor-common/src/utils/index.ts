@@ -39,6 +39,8 @@ export {
   calcBreakoutWidth,
   calcWideWidth,
   breakoutConsts,
+  calculateBreakoutStyles,
+  calcBreakoutWidthPx,
 } from './breakout';
 
 export {
@@ -123,6 +125,11 @@ export { ZERO_WIDTH_SPACE, ZERO_WIDTH_JOINER } from './whitespace';
 export type { Diff } from './types';
 export { shouldForceTracking } from './should-force-tracking';
 export { getModeFromTheme } from './getModeFromTheme';
+export {
+  getPerformanceOptions,
+  startMeasureReactNodeViewRendered,
+  stopMeasureReactNodeViewRendered,
+} from './get-performance-options';
 export type { UserBrowserExtensionResults } from './browser-extensions';
 export { sniffUserBrowserExtensions } from './browser-extensions';
 export { RenderCountProfiler } from './profiler/render-count';
@@ -134,3 +141,8 @@ export { getShallowPropsDifference, getPropsDifference } from './compare-props';
 export type { ShallowPropsDifference, PropsDifference } from './compare-props';
 export { useComponentRenderTracking } from './performance/hooks/use-component-render-tracking';
 export type { UseComponentRenderTrackingArgs } from './performance/hooks/use-component-render-tracking';
+export { isOutdatedBrowser } from './outdated-browsers';
+
+export { isReferencedSource } from './referentiality';
+
+export { sendLogs } from './sendLogs';

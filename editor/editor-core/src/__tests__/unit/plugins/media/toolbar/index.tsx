@@ -156,7 +156,7 @@ describe('media', () => {
         allowAdvancedToolBarOptions: true,
       });
       expect(toolbar).toBeDefined();
-      expect(toolbar!.items.length).toEqual(11);
+      expect(getToolbarItems(toolbar!, editorView).length).toEqual(11);
     });
 
     it('should only render alignment and wrapping buttons in full page when resizing is enabled', () => {
@@ -167,7 +167,7 @@ describe('media', () => {
         allowAdvancedToolBarOptions: true,
       });
       expect(toolbar).toBeDefined();
-      expect(toolbar!.items.length).toEqual(8);
+      expect(getToolbarItems(toolbar!, editorView).length).toEqual(8);
     });
 
     it('should not render any layout buttons when in comment', () => {
@@ -178,7 +178,7 @@ describe('media', () => {
         allowAdvancedToolBarOptions: false,
       });
       expect(toolbar).toBeDefined();
-      expect(toolbar!.items.length).toEqual(1);
+      expect(getToolbarItems(toolbar!, editorView).length).toEqual(1);
     });
 
     it('should not render any layout buttons when inside a macro', () => {
@@ -196,7 +196,7 @@ describe('media', () => {
         allowAdvancedToolBarOptions: true,
       });
       expect(toolbar).toBeDefined();
-      expect(toolbar!.items.length).toEqual(1);
+      expect(getToolbarItems(toolbar!, editorView).length).toEqual(1);
     });
 
     it('should render layout buttons when inside columns', () => {
@@ -243,7 +243,7 @@ describe('media', () => {
         allowAdvancedToolBarOptions: true,
       });
       expect(toolbar).toBeDefined();
-      expect(toolbar!.items.length).toEqual(1);
+      expect(getToolbarItems(toolbar!, editorView).length).toEqual(1);
     });
 
     it('should render layout buttons when inside a table and allowResizingInTable is enabled', () => {
@@ -261,7 +261,7 @@ describe('media', () => {
         allowResizingInTables: true,
       });
       expect(toolbar).toBeDefined();
-      expect(toolbar!.items.length).toEqual(8);
+      expect(getToolbarItems(toolbar!, editorView).length).toEqual(8);
     });
 
     it('should not render layout buttons when inside a table and allowResizingInTable is disabled', () => {
@@ -274,7 +274,7 @@ describe('media', () => {
         allowAdvancedToolBarOptions: true,
       });
       expect(toolbar).toBeDefined();
-      expect(toolbar!.items.length).toEqual(1);
+      expect(getToolbarItems(toolbar!, editorView).length).toEqual(1);
     });
 
     it('deletes a media single', () => {

@@ -8,7 +8,6 @@ import {
 } from './types';
 
 import { getProductKeys } from './productKeys';
-import { getConsole } from '../utils/helpers';
 
 export const areEqualFeatureFlags = (
   ffA?: MediaFeatureFlags,
@@ -114,19 +113,6 @@ export function getMediaFeatureFlag<T = boolean>(
   }
   return (defaultMediaFeatureFlags[flagName] as unknown) as T;
 }
-
-/**
- * do a check for any localStorage overrides, warn user once only
- */
-Object.keys(defaultMediaFeatureFlags).forEach((flagName) => {
-  const localOverride = getLocalMediaFeatureFlag(flagName);
-  if (localOverride !== null) {
-    getConsole().info(
-      `%c* LOCAL * MediaFeatureFlag.${flagName} = ${localOverride}`,
-      'font-weight:bold;color:cyan',
-    );
-  }
-});
 
 export const useMemoizeFeatureFlags = (featureFlags?: MediaFeatureFlags) => {
   const ref = useRef<MediaFeatureFlags>();

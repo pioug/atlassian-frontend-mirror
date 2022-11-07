@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/date",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "Fabric Date React Components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,6 +38,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@emotion/styled": "^10.0.7",
     "@types/date-fns": "^2.6.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",

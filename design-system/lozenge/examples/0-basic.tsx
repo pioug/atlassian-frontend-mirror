@@ -19,9 +19,9 @@ const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 ];
 
 export default () => (
-  <Stack testId="test-container" gap="sp-400">
-    <Inline gap="sp-400">
-      <Stack gap="sp-100">
+  <Stack testId="test-container" gap="scale.400">
+    <Inline gap="scale.400">
+      <Stack gap="scale.100">
         <Text fontWeight="500">Subtle</Text>
         <>
           {APPEARANCES.map((a) => (
@@ -33,7 +33,7 @@ export default () => (
           ))}
         </>
       </Stack>
-      <Stack gap="sp-100">
+      <Stack gap="scale.100">
         <Text fontWeight="500">Bold</Text>
         <>
           {APPEARANCES.map((a) => (
@@ -47,7 +47,7 @@ export default () => (
       </Stack>
     </Inline>
 
-    <Stack gap="sp-100">
+    <Stack gap="scale.100">
       <Text fontWeight="500">Overflowed Lozenge</Text>
       <Box>
         <Lozenge testId="lozenge-truncated">
@@ -65,7 +65,7 @@ export default () => (
       </Box>
     </Stack>
 
-    <Stack gap="sp-100">
+    <Stack gap="scale.100">
       <Text fontWeight="500">Defaults</Text>
       <Box>
         <Lozenge maxWidth="none" testId="lozenge-defaults">

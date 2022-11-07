@@ -33,7 +33,7 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
   TablePluginState,
   PluginConfig,
-} from '../../../../plugins/table/types';
+} from '@atlaskit/editor-plugin-table/types';
 import {
   createTable,
   setEditorFocus,
@@ -41,19 +41,21 @@ import {
   toggleHeaderColumn,
   insertColumn,
   insertRow,
-} from '../../../../plugins/table/commands';
+} from '@atlaskit/editor-plugin-table/commands';
 import { setNodeSelection } from '../../../../utils';
 import { uuid } from '@atlaskit/adf-schema';
 import { uuid as tablesUuid } from '@atlaskit/editor-tables';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   checkIfNumberColumnEnabled,
   checkIfHeaderColumnEnabled,
   checkIfHeaderRowEnabled,
-} from '../../../../plugins/table/utils';
+} from '@atlaskit/editor-plugin-table/src/plugins/table/utils';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
-import { getPluginState } from '../../../../plugins/table/pm-plugins/plugin-factory';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { getPluginState } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';

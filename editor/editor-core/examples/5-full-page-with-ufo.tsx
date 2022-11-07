@@ -19,4 +19,8 @@ payloadPublisher.setup({
 });
 ufologger.enable();
 
-export default () => <FullPageExample featureFlags={{ ufo: true }} />;
+const editorProps = {
+  featureFlags: { ufo: true },
+};
+
+export default () => <FullPageExample editorProps={editorProps} />;

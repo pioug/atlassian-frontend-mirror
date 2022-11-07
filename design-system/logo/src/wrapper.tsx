@@ -77,7 +77,7 @@ const Wrapper = ({
         } as React.CSSProperties
       }
       aria-label={label ? label : undefined}
-      role={label ? 'img' : 'presentation'}
+      role={label ? 'img' : undefined}
       dangerouslySetInnerHTML={{
         __html: svg,
       }}

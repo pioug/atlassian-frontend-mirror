@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { useIntl } from 'react-intl-next';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import {
   EmojiId,
   OnEmojiEvent,

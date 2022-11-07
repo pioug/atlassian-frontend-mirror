@@ -3,10 +3,11 @@ jest.mock('../../../plugins/hyperlink');
 jest.mock('../../../plugins/placeholder');
 jest.mock('../../../plugins/selection');
 jest.mock('../../../plugins/code-block');
+jest.mock('@atlaskit/editor-plugin-table');
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 
 import {
   analyticsPlugin,
-  tablesPlugin,
   mediaPlugin,
   helpDialogPlugin,
   fakeTextCursorPlugin,

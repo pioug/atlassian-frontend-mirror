@@ -7,10 +7,12 @@ import {
   tdCursor,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../../../../plugins/table/types';
-import { whenTableInFocus } from '../../../../../plugins/table/event-handlers';
-import { setDragging } from '../../../../../plugins/table/pm-plugins/table-resizing/commands';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { whenTableInFocus } from '@atlaskit/editor-plugin-table/src/plugins/table/event-handlers';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { setDragging } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing/commands';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 
 describe('event-handlers', () => {
   let editor: any;

@@ -18,7 +18,8 @@ import { B50 } from '@atlaskit/theme/colors';
 import {
   TablePluginState,
   PluginConfig,
-} from '../../../../plugins/table/types';
+} from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   deleteTableWithAnalytics,
   emptyMultipleCellsWithAnalytics,
@@ -34,11 +35,13 @@ import {
   deleteRowsWithAnalytics,
   deleteColumnsWithAnalytics,
   deleteTableIfSelectedWithAnalytics,
-} from '../../../../plugins/table/commands-with-analytics';
+} from '@atlaskit/editor-plugin-table/src/plugins/table/commands-with-analytics';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
-import { handleCut } from '../../../../plugins/table/event-handlers';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
-import { replaceSelectedTable } from '../../../../plugins/table/transforms';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { handleCut } from '@atlaskit/editor-plugin-table/src/plugins/table/event-handlers';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { replaceSelectedTable } from '@atlaskit/editor-plugin-table/src/plugins/table/transforms';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const defaultTable = table()(

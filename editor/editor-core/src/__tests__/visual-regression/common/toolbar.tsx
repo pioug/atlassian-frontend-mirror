@@ -227,7 +227,7 @@ describe('Toolbar: Undo Redo', () => {
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
       editorProps: {
-        UNSAFE_allowUndoRedoButtons: true,
+        allowUndoRedoButtons: true,
       },
     });
   });
@@ -269,7 +269,7 @@ describe('Toolbar: Responsive toolbar', () => {
       appearance: Appearance.fullPage,
       viewport,
       editorProps: {
-        UNSAFE_allowUndoRedoButtons: true,
+        allowUndoRedoButtons: true,
         primaryToolbarIconBefore: <div></div>,
         featureFlags: { twoLineEditorToolbar: twoLineEditorToolbar },
         allowFindReplace: true,

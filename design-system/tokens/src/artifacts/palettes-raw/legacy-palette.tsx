@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::91ca2bc33315a9a910c7ca93bcb63936>>
+ * @codegen <<SignedSource::4413d3bf5e16367be3a572667916731e>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -376,6 +376,28 @@ const tokens = [
       "color",
       "palette",
       "Y500"
+    ]
+  },
+  {
+    "value": "#974F0C",
+    "attributes": {
+      "group": "palette",
+      "category": "orange"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#974F0C",
+      "attributes": {
+        "group": "palette",
+        "category": "orange"
+      }
+    },
+    "name": "color.palette.O800",
+    "path": [
+      "color",
+      "palette",
+      "O800"
     ]
   },
   {
@@ -1413,7 +1435,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#091e425",
+    "value": "#091e4205",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1421,7 +1443,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#091e425",
+      "value": "#091e4205",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1435,7 +1457,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#091e42a",
+    "value": "#091e420a",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1443,7 +1465,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "#091e42a",
+      "value": "#091e420a",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"

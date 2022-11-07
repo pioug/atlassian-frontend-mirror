@@ -27,7 +27,8 @@ import {
   tableForBulkResizeWithNumberCol,
 } from './__fixtures__/resize-documents';
 import { tableWithMinWidthColumnsDocument } from './__fixtures__/table-with-min-width-columns-document';
-import { pluginKey as tableResizingPluginKey } from '../../../plugins/table/pm-plugins/table-resizing';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { pluginKey as tableResizingPluginKey } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing';
 
 import {
   goToEditorTestingWDExample,

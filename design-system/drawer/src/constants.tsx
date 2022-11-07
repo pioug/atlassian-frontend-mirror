@@ -1,6 +1,6 @@
 import { easeOut } from '@atlaskit/motion/curves';
 
-import type { DrawerWidth } from './components/types';
+import type { DrawerWidth, FocusLockSettings } from './components/types';
 
 export const transitionDuration = '0.22s';
 export const transitionDurationMs = 220;
@@ -14,3 +14,9 @@ export const widths: DrawerWidth[] = [
 ];
 
 export const animationTimingFunction = () => easeOut;
+
+export const defaultFocusLockSettings: FocusLockSettings = {
+  isFocusLockEnabled: true,
+  shouldReturnFocus: true,
+  autoFocusFirstElem: false,
+};

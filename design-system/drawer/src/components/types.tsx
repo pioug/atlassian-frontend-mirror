@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode, SyntheticEvent } from 'react';
+import { ComponentType, ReactElement, ReactNode, SyntheticEvent } from 'react';
 
 import { CSSObject } from '@emotion/react';
 
@@ -107,14 +107,14 @@ export interface ContentProps extends React.HTMLProps<HTMLDivElement> {
 
 export type ContentCSSProps = Omit<ContentProps, 'cssFn'>;
 
-export interface DrawerPrimitiveProps extends BaseProps {
+export interface DrawerPrimitiveProps extends BaseProps, FocusLockSettings {
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   in: boolean;
   onClose: (event: SyntheticEvent<HTMLElement>) => void;
 }
 
 export type DrawerProps = BaseProps &
-  FocusLockProps &
+  FocusLockSettings &
   WithAnalyticsEventsProps & {
     /**
      * Callback function called while the drawer is displayed and `keydown` event is triggered.
@@ -136,23 +136,27 @@ export type DrawerProps = BaseProps &
     zIndex?: number;
   };
 
-export interface FocusLockProps {
+export interface FocusLockSettings {
   /**
    * Controls whether to focus the first tabbable element inside the focus lock.
    */
   autoFocusFirstElem?: boolean | (() => HTMLElement | null);
   /**
-   * Content inside the focus lock.
-   */
-  children?: ReactNode;
-  /**
-   *  Whether the focus lock is active or not.
+   * Whether the focus lock is active or not.
    */
   isFocusLockEnabled?: boolean;
   /**
    * Whether to return the focus to the previous active element on closing the drawer.
    */
   shouldReturnFocus?: boolean;
+}
+
+export interface FocusLockProps extends FocusLockSettings {
+  /**
+   * Content inside the focus lock.
+   * Must strictly be a ReactElement and it *must* be implemented to take a `ref` passed from `react-scrolllock` to enable Touch Scrolling.
+   */
+  children?: ReactElement;
 }
 
 /**

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Popup from '@atlaskit/popup';
 import Spinner from '@atlaskit/spinner';

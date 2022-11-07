@@ -9,6 +9,7 @@
     "1-long.tsx",
     "11-truncation.tsx",
     "12-themed.tsx",
+    "14-with-element-next-to-breadcrumbs.tsx",
     "4-icons.tsx",
     "5-with-markup.tsx",
     "7-many-in-container.tsx",

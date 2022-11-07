@@ -43,6 +43,8 @@ import {
 import { findNode } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
 import { IntlShape } from 'react-intl-next';
+import { getFeatureFlags } from '../feature-flags-context';
+import { processCopyButtonItems } from '../copy-button/toolbar';
 
 export type FloatingToolbarPluginState = Record<
   'getConfigWithNodeInfo',
@@ -232,7 +234,9 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
           }
 
           let customPositionCalculation;
-          const toolbarItems = Array.isArray(items) ? items : items(node);
+          const toolbarItems = processCopyButtonItems(editorView.state)(
+            Array.isArray(items) ? items : items(node),
+          );
 
           if (onPositionCalculated) {
             customPositionCalculation = (nextPos: Position): Position => {
@@ -250,6 +254,10 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
                 Function
               >)
             : undefined;
+
+          const scrollable =
+            getFeatureFlags(editorView.state).floatingToolbarCopyButton &&
+            config.scrollable;
 
           return (
             <ErrorBoundary
@@ -272,6 +280,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
                 boundariesElement={popupsBoundariesElement}
                 scrollableElement={popupsScrollableElement}
                 onPositionCalculated={customPositionCalculation}
+                style={scrollable ? { maxWidth: '100%' } : {}}
               >
                 <ToolbarLoader
                   target={targetRef}
@@ -287,6 +296,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
                   popupsScrollableElement={popupsScrollableElement}
                   dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                   extensionsProvider={extensionsState?.extensionProvider}
+                  scrollable={scrollable}
                 />
               </Popup>
 

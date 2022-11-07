@@ -11,9 +11,14 @@ describe('Logo component', () => {
   });
 
   describe('when it is unlabelled', () => {
-    it('should have a presentation role', () => {
-      const { getByRole } = render(<AtlassianLogo label="" />);
-      expect(getByRole('presentation')).toBeInTheDocument();
+    it('should have a no role', () => {
+      const testId = 'no-role';
+      const { getByTestId } = render(
+        <AtlassianLogo label="" testId={testId} />,
+      );
+
+      const wrapper = getByTestId(`${testId}--wrapper`);
+      expect(wrapper).not.toHaveAttribute('role');
     });
   });
 

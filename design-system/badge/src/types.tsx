@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react';
 
-type ThemeAppearance =
+export type ThemeAppearance =
   | 'added'
   | 'default'
   | 'important'

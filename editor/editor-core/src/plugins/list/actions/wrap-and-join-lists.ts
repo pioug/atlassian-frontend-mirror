@@ -6,6 +6,8 @@ import {
   canSplit,
 } from 'prosemirror-transform';
 import { autoJoinTr } from '../../../utils/prosemirror/autojoin';
+import { GapCursorSelection } from '../../selection/gap-cursor-selection';
+import { isWrappingPossible } from '../utils/selection';
 
 /**
  * Wraps the selection in a list with the given type. If this results in
@@ -27,7 +29,18 @@ export function wrapInListAndJoin(nodeType: NodeType, tr: Transaction) {
 export function wrapInList(listType: NodeType, attrs?: { [key: string]: any }) {
   return function (tr: Transaction) {
     const { $from, $to } = tr.selection;
-    let range = $from.blockRange($to);
+    let range;
+    if (
+      tr.selection instanceof GapCursorSelection &&
+      $from.nodeAfter &&
+      isWrappingPossible(listType, tr.selection)
+    ) {
+      const nodeSize = $from.nodeAfter.nodeSize || 1;
+      range = $from.blockRange($from.doc.resolve($from.pos + nodeSize));
+    } else {
+      range = $from.blockRange($to);
+    }
+
     let doJoin = false;
     let outerRange = range;
     if (!range) {

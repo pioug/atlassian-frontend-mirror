@@ -5,9 +5,7 @@ export const tokenToStyle = (
   token: string,
   fallback: string,
 ) => {
-  return `css({\n\t${prop}: token('${token}', ${
-    fallback.startsWith('#') ? `'${fallback}'` : fallback
-  })\n})`;
+  return `css({\n\t${prop}: token('${token}', '${fallback}')\n})`;
 };
 
 type BooleanCallback<T> = (args: T) => boolean;

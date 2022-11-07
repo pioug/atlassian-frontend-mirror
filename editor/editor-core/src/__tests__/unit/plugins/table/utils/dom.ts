@@ -1,7 +1,8 @@
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   getMousePositionHorizontalRelativeByElement,
   getMousePositionVerticalRelativeByElement,
-} from '../../../../../plugins/table/utils/dom';
+} from '@atlaskit/editor-plugin-table/src/plugins/table/utils/dom';
 
 describe('table plugin: utils/dom.js', () => {
   let element: HTMLElement;

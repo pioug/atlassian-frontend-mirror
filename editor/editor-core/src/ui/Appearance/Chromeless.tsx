@@ -90,7 +90,7 @@ export default class Editor extends React.Component<
           data-testid="chromeless-editor"
           ref={(ref: HTMLElement | null) => (this.containerElement = ref)}
         >
-          <ContentArea>
+          <ContentArea className="ak-editor-content-area">
             {customContentComponents}
             <PluginSlot
               editorView={editorView}

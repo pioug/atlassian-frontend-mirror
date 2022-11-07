@@ -24,13 +24,26 @@ import { ExtensionState } from './types';
 import { getSelectedExtension } from './utils';
 import { updateExtensionLayout, removeExtension } from './commands';
 import { pluginKey as macroPluginKey } from '../macro/plugin-key';
-import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
+import { isReferencedSource } from '@atlaskit/editor-common/utils';
 
 export const messages = defineMessages({
   edit: {
     id: 'fabric.editor.edit',
     defaultMessage: 'Edit',
     description: 'Edit the properties for this extension.',
+  },
+  confirmDeleteLinkedModalOKButton: {
+    id: 'fabric.editor.extension.confirmDeleteLinkedModalOKButton',
+    defaultMessage: 'Remove extension',
+    description:
+      'Action button label for confirm modal when deleting an extension linked to a data consumer.',
+  },
+  confirmDeleteLinkedModalMessage: {
+    id: 'fabric.editor.extension.confirmDeleteLinkedModalMessage',
+    defaultMessage:
+      'Removing this extension will break anything connected to it.',
+    description:
+      'Message for confirm modal when deleting a extension linked to an data consumer.',
   },
 });
 
@@ -158,6 +171,17 @@ export const getToolbarConfig = (
       breakoutEnabled,
     );
 
+    const extensionObj = getSelectedExtension(state, true);
+
+    // Check if we need to show confirm dialog for delete button
+    let confirmDialog;
+    if (isReferencedSource(state, extensionObj?.node)) {
+      confirmDialog = {
+        okButtonLabel: formatMessage(messages.confirmDeleteLinkedModalOKButton),
+        message: formatMessage(messages.confirmDeleteLinkedModalMessage),
+      };
+    }
+
     return {
       title: 'Extension floating controls',
       getDomRef: () => extensionState.element!.parentElement || undefined,
@@ -174,12 +198,17 @@ export const getToolbarConfig = (
           type: 'extensions-placeholder',
           separator: 'end',
         },
-        ...(state && showCopyButton(state)
-          ? [
-              getCopyButtonConfig(state, intl.formatMessage, nodeType),
-              { type: 'separator' } as FloatingToolbarItem<Command>,
-            ]
-          : []),
+        {
+          type: 'copy-button',
+          items: [
+            {
+              state,
+              formatMessage: intl.formatMessage,
+              nodeType,
+            },
+            { type: 'separator' },
+          ],
+        },
         {
           id: 'editor.extension.delete',
           type: 'button',
@@ -192,8 +221,10 @@ export const getToolbarConfig = (
           onBlur: hoverDecoration(nodeType, false),
           title: formatMessage(commonMessages.remove),
           tabIndex: null,
+          confirmDialog,
         },
       ],
+      scrollable: true,
     } as FloatingToolbarConfig;
   }
   return;

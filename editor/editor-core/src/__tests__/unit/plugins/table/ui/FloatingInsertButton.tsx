@@ -18,14 +18,16 @@ import { mount, ReactWrapper } from 'enzyme';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
-import { TablePluginState } from '../../../../../plugins/table/types';
+import { TablePluginState } from '@atlaskit/editor-plugin-table/types';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   FloatingInsertButton,
   Props as FloatingInsertButtonProps,
-} from '../../../../../plugins/table/ui/FloatingInsertButton';
-import InsertButton from '../../../../../plugins/table/ui/FloatingInsertButton/InsertButton';
+} from '@atlaskit/editor-plugin-table/src/plugins/table/ui/FloatingInsertButton';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import InsertButton from '@atlaskit/editor-plugin-table/src/plugins/table/ui/FloatingInsertButton/InsertButton';
 import safeUnmount from '../../../../__helpers/safeUnmount';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
+import { pluginKey } from '@atlaskit/editor-plugin-table/plugin-key';
 import * as prosemirrorUtils from 'prosemirror-utils';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {

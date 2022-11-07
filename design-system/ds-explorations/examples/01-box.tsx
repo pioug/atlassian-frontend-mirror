@@ -8,27 +8,24 @@ import {
   UNSAFE_Stack as Stack,
   UNSAFE_Text as Text,
 } from '../src';
-import { GlobalSpacingToken, SPACING_SCALE } from '../src/constants';
+import { spacingScale } from '../src/internal/spacing-scale';
 
 /**
  * Box permutations
  */
 export default () => {
   return (
-    <Stack gap="sp-400" alignItems="flexStart">
-      <Stack gap="sp-200" testId="box-with-background-and-paddingBlock">
+    <Stack gap="scale.400" alignItems="flexStart">
+      <Stack gap="scale.200" testId="box-with-background-and-paddingBlock">
         <Heading level="h600">paddingBlock</Heading>
-        <Inline gap="sp-200" alignItems="center">
-          {Object.keys(SPACING_SCALE).map((space) => (
+        <Inline gap="scale.200" alignItems="center">
+          {spacingScale.map((space) => (
             <Box
               key={space}
-              backgroundColor={['discovery.bold', 'purple']}
-              paddingBlock={space as GlobalSpacingToken}
+              backgroundColor="discovery.bold"
+              paddingBlock={space}
             >
-              <Box
-                backgroundColor={['elevation.surface', 'white']}
-                justifyContent="center"
-              >
+              <Box backgroundColor="elevation.surface" justifyContent="center">
                 <Text>{space}</Text>
               </Box>
             </Box>
@@ -36,19 +33,16 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="sp-200" testId="box-with-background-and-paddingInline">
+      <Stack gap="scale.200" testId="box-with-background-and-paddingInline">
         <Heading level="h600">paddingInline</Heading>
-        <Stack gap="sp-200" alignItems="center">
-          {Object.keys(SPACING_SCALE).map((space) => (
+        <Stack gap="scale.200" alignItems="center">
+          {spacingScale.map((space) => (
             <Box
               key={space}
-              backgroundColor={['discovery.bold', 'purple']}
-              paddingInline={space as GlobalSpacingToken}
+              backgroundColor="discovery.bold"
+              paddingInline={space}
             >
-              <Box
-                backgroundColor={['elevation.surface', 'white']}
-                justifyContent="center"
-              >
+              <Box backgroundColor="elevation.surface" justifyContent="center">
                 <Text>{space}</Text>
               </Box>
             </Box>
@@ -56,19 +50,12 @@ export default () => {
         </Stack>
       </Stack>
 
-      <Stack gap="sp-200" testId="box-with-background-and-padding">
+      <Stack gap="scale.200" testId="box-with-background-and-padding">
         <Heading level="h600">padding</Heading>
-        <Inline gap="sp-200" alignItems="center">
-          {Object.keys(SPACING_SCALE).map((space) => (
-            <Box
-              key={space}
-              backgroundColor={['discovery.bold', 'purple']}
-              padding={space as GlobalSpacingToken}
-            >
-              <Box
-                backgroundColor={['elevation.surface', 'white']}
-                justifyContent="center"
-              >
+        <Inline gap="scale.200" alignItems="center">
+          {spacingScale.map((space) => (
+            <Box key={space} backgroundColor="discovery.bold" padding={space}>
+              <Box backgroundColor="elevation.surface" justifyContent="center">
                 <Text>{space}</Text>
               </Box>
             </Box>
@@ -76,9 +63,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="sp-200" testId="box-with-backgroundColor">
+      <Stack gap="scale.200" testId="box-with-backgroundColor">
         <Heading level="h600">backgroundColor</Heading>
-        <Inline gap="sp-200" alignItems="center">
+        <Inline gap="scale.200" alignItems="center">
           {([
             'discovery.bold',
             'success.bold',
@@ -87,22 +74,18 @@ export default () => {
             'information.bold',
             'brand.bold',
           ] as const).map((bgColor) => (
-            <Box
-              key={bgColor}
-              backgroundColor={[bgColor, 'purple']}
-              padding={'sp-400'}
-            >
+            <Box key={bgColor} backgroundColor={bgColor} padding="scale.400">
               <Box justifyContent="center">
-                <Text color={['inverse', 'white']}>{bgColor}</Text>
+                <Text>{bgColor}</Text>
               </Box>
             </Box>
           ))}
         </Inline>
       </Stack>
 
-      <Stack gap="sp-200" testId="box-with-borderColor">
+      <Stack gap="scale.200" testId="box-with-borderColor">
         <Heading level="h600">borderColor</Heading>
-        <Inline gap="sp-200" alignItems="center">
+        <Inline gap="scale.200" alignItems="center">
           {([
             'discovery',
             'success',
@@ -113,14 +96,14 @@ export default () => {
           ] as const).map((borderColor) => (
             <Box
               key={borderColor}
-              backgroundColor={['neutral', 'grey']}
-              borderColor={[borderColor, 'purple']}
+              backgroundColor="neutral"
+              borderColor={borderColor}
               borderStyle="solid"
               borderWidth="2px"
-              padding={'sp-400'}
+              padding="scale.400"
             >
               <Box justifyContent="center">
-                <Text color={['color.text', 'black']}>{borderColor}</Text>
+                <Text color="color.text">{borderColor}</Text>
               </Box>
             </Box>
           ))}

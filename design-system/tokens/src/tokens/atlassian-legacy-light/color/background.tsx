@@ -29,7 +29,8 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
       },
       neutral: {
         '[default]': {
-          '[default]': { value: 'N20A' },
+          // this SHOULD be N20A but it creates a larger visual difference with lozenge / badge
+          '[default]': { value: 'N40' },
           hovered: { value: 'N30A' },
           pressed: { value: 'B75' },
         },
@@ -47,8 +48,8 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
       brand: {
         bold: {
           '[default]': { value: 'B400' },
-          hovered: { value: 'B200' },
-          pressed: { value: 'B400' },
+          hovered: { value: 'B300' },
+          pressed: { value: 'B500' },
         },
       },
       selected: {
@@ -71,8 +72,8 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
         },
         bold: {
           '[default]': { value: 'R400' },
-          hovered: { value: 'R200' },
-          pressed: { value: 'R400' },
+          hovered: { value: 'R300' },
+          pressed: { value: 'R500' },
         },
       },
       warning: {
@@ -82,9 +83,9 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
           pressed: { value: 'Y100' },
         },
         bold: {
-          '[default]': { value: 'Y400' },
+          '[default]': { value: 'Y300' },
           hovered: { value: 'Y200' },
-          pressed: { value: 'Y500' },
+          pressed: { value: 'Y400' },
         },
       },
       success: {

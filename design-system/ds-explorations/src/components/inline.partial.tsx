@@ -3,10 +3,10 @@ import { Children, forwardRef, Fragment, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { GlobalSpacingToken, SPACING_SCALE } from '../constants';
+import { token } from '@atlaskit/tokens';
 
 import Text from './text.partial';
-import { BasePrimitiveProps, NonTextChildren } from './types';
+import type { BasePrimitiveProps, NonTextChildren } from './types';
 
 interface InlineProps extends BasePrimitiveProps {
   /**
@@ -24,7 +24,7 @@ interface InlineProps extends BasePrimitiveProps {
   /**
    * Token representing gap between children.
    */
-  gap: GlobalSpacingToken;
+  gap: ColumnGap;
   /**
    * Renders a divider between children.
    * If a string is provided it will automatically be wrapped in a `<Text>` component.
@@ -92,7 +92,7 @@ const Inline = forwardRef<HTMLDivElement, InlineProps>(
 
     return (
       <div
-        style={{ ...UNSAFE_style }}
+        style={UNSAFE_style}
         css={[
           baseStyles,
           gap && columnGapMap[gap],
@@ -122,25 +122,52 @@ export default Inline;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7a985afa5e15ffd4f6f9c0db0e99ceb6>>
+ * @codegen <<SignedSource::cff5655983f2243060cade5b107d7762>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["columnGap"]
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::0c1fe9904b2ff2465a532b97ab76491e>>
  */
 const columnGapMap = {
-  'sp-0': css({ columnGap: SPACING_SCALE['sp-0'] }),
-  'sp-25': css({ columnGap: SPACING_SCALE['sp-25'] }),
-  'sp-50': css({ columnGap: SPACING_SCALE['sp-50'] }),
-  'sp-75': css({ columnGap: SPACING_SCALE['sp-75'] }),
-  'sp-100': css({ columnGap: SPACING_SCALE['sp-100'] }),
-  'sp-150': css({ columnGap: SPACING_SCALE['sp-150'] }),
-  'sp-200': css({ columnGap: SPACING_SCALE['sp-200'] }),
-  'sp-300': css({ columnGap: SPACING_SCALE['sp-300'] }),
-  'sp-400': css({ columnGap: SPACING_SCALE['sp-400'] }),
-  'sp-500': css({ columnGap: SPACING_SCALE['sp-500'] }),
-  'sp-600': css({ columnGap: SPACING_SCALE['sp-600'] }),
-  'sp-800': css({ columnGap: SPACING_SCALE['sp-800'] }),
+  'scale.0': css({
+    columnGap: token('spacing.scale.0', '0px'),
+  }),
+  'scale.025': css({
+    columnGap: token('spacing.scale.025', '2px'),
+  }),
+  'scale.050': css({
+    columnGap: token('spacing.scale.050', '4px'),
+  }),
+  'scale.075': css({
+    columnGap: token('spacing.scale.075', '6px'),
+  }),
+  'scale.100': css({
+    columnGap: token('spacing.scale.100', '8px'),
+  }),
+  'scale.150': css({
+    columnGap: token('spacing.scale.150', '12px'),
+  }),
+  'scale.200': css({
+    columnGap: token('spacing.scale.200', '16px'),
+  }),
+  'scale.250': css({
+    columnGap: token('spacing.scale.250', '20px'),
+  }),
+  'scale.300': css({
+    columnGap: token('spacing.scale.300', '24px'),
+  }),
+  'scale.400': css({
+    columnGap: token('spacing.scale.400', '32px'),
+  }),
+  'scale.500': css({
+    columnGap: token('spacing.scale.500', '40px'),
+  }),
+  'scale.600': css({
+    columnGap: token('spacing.scale.600', '48px'),
+  }),
 };
+
+export type ColumnGap = keyof typeof columnGapMap;
 
 /**
  * @codegenEnd

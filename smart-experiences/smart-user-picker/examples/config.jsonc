@@ -5,13 +5,8 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/analytics-next",
     "@atlaskit/button",
-    "@atlaskit/select",
     "@atlaskit/textfield",
-    "@atlaskit/theme",
-    "@atlaskit/user-picker",
-    "react-intl",
-    "react-intl-next"
+    "@atlaskit/theme"
   ]
 }

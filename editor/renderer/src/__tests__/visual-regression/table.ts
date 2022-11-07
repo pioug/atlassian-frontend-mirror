@@ -30,25 +30,6 @@ async function waitForTableWithCards(page: PuppeteerPage) {
   await page.waitForSelector(tableContainerSelector);
 }
 
-const waitForMinimumTableSize = (
-  page: PuppeteerPage,
-  width: number,
-  height: number,
-) =>
-  page.waitForFunction(
-    (selector: string, width: number, height: number) => {
-      const table = document.querySelector(selector);
-      if (table) {
-        const rect = table.getBoundingClientRect();
-        return rect.width >= width && rect.height >= height;
-      }
-    },
-    {},
-    tableContainerSelector,
-    width,
-    height,
-  );
-
 const initRenderer = async (
   page: PuppeteerPage,
   adf: any,
@@ -94,8 +75,7 @@ describe('Snapshot Test: Table scaling', () => {
       );
     });
 
-    // Unskip the test as part of this ticket https://product-fabric.atlassian.net/browse/DTR-574
-    it.skip(`should not overlap inline comments dialog`, async () => {
+    it(`should not overlap inline comments dialog`, async () => {
       await initRenderer(page, tableWithShadowAdf, mode);
       await waitForTableWithCards(page);
 
@@ -117,12 +97,7 @@ describe('Snapshot Test: Table scaling', () => {
     }
     `;
       await page.addStyleTag({ content: css });
-      // ED-10446: If we assume that the table is occasionally
-      // not given enough time to render and scale out to it's
-      // layout in the viewport, this should resolve flakiness.
-      // If instead, the tests fail with timeouts, then the
-      // issue has not been resolved.
-      await waitForMinimumTableSize(page, 750, 880);
+      await snapshot(page);
     });
 
     // TODO: https://product-fabric.atlassian.net/browse/ED-13527

@@ -50,9 +50,14 @@ export default class ExampleEditor extends React.Component<Props, State> {
       >
         <DeprecatedThemeProvider mode={theme} provider={StyledThemeProvider}>
           <FullPageExample
-            defaultValue={exampleDocument}
-            allowHelpDialog
-            allowPanel={{ allowCustomPanel: true, allowCustomPanelEdit: true }}
+            editorProps={{
+              defaultValue: exampleDocument,
+              allowHelpDialog: true,
+              allowPanel: {
+                allowCustomPanel: true,
+                allowCustomPanelEdit: true,
+              },
+            }}
             customPrimaryToolbarComponents={
               <LanguagePicker
                 languages={languages}

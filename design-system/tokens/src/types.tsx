@@ -8,6 +8,7 @@ export type Groups =
   | 'opacity'
   | 'spacing'
   | 'scale';
+
 export type ActiveTokenState = 'active';
 export type DeprecatedTokenState = 'deprecated';
 export type DeletedTokenState = 'deleted';

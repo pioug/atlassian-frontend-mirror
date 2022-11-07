@@ -2,11 +2,14 @@ import React from 'react';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { EmojiProvider } from '@atlaskit/emoji';
 import {
+  renderWithIntl,
+  mockReactDomWarningGlobal,
+} from '../../__tests__/_testing-library';
+import {
   ConnectedReactionsView,
   mapDispatchToPropsHelper,
   mapStateToPropsHelper,
 } from './ConnectedReactionsView';
-import { renderWithIntl } from '../../__tests__/_testing-library';
 import {
   Actions,
   ReactionStatus,
@@ -15,6 +18,8 @@ import {
 } from '../../types';
 
 describe('@atlaskit/reactions/containers/ConnectedReactionsView', () => {
+  mockReactDomWarningGlobal();
+
   const containerAri = 'container-ari';
   const ari = 'ari';
   const reactionKey = `${containerAri}|${ari}`;

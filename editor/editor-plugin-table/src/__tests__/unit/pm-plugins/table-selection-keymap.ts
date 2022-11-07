@@ -24,7 +24,7 @@ import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import codeBlockPlugin from '@atlaskit/editor-core/src/plugins/code-block';
 import tablePlugin from '../../../plugins/table';
-import { TablePluginState } from '../../../types';
+import { TablePluginState } from '../../../plugins/table/types';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { createEditorSelectionAPI } from '@atlaskit/editor-core/src/selection-api/api';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';

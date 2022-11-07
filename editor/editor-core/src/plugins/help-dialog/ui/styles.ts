@@ -6,6 +6,7 @@ import {
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
+import { N400 } from '@atlaskit/theme/colors';
 
 export const header = css`
   z-index: ${akEditorUnitZIndex};
@@ -32,7 +33,7 @@ export const footer = css`
 `;
 
 export const contentWrapper = css`
-  padding: 18px 20px;
+  padding: 20px 44px;
   border-bottom-right-radius: ${borderRadius()}px;
   overflow: auto;
   position: relative;
@@ -61,13 +62,12 @@ export const content = css`
   justify-content: space-between;
 `;
 
-export const columnLeft = css`
-  width: 44%;
-`;
-
-export const columnRight = css`
-  width: 44%;
-`;
+export const column = {
+  width: '44%',
+  '& > ul': {
+    padding: 0,
+  },
+};
 
 export const row = css`
   margin: 20px 0;
@@ -75,10 +75,24 @@ export const row = css`
   justify-content: space-between;
 `;
 
-export const title = css`
-  font-size: ${relativeFontSizeToBase16(18)};
-  font-weight: 400;
-`;
+export const dialogHeader = {
+  '&': {
+    fontSize: relativeFontSizeToBase16(24),
+    fontWeight: 400,
+    color: token('color.text.subtle', N400),
+    letterSpacing: 'normal',
+    lineHeight: 1.42857142857143,
+  },
+};
+export const title = {
+  '&': {
+    fontSize: relativeFontSizeToBase16(18),
+    fontWeight: 400,
+    color: token('color.text.subtle', N400),
+    letterSpacing: 'normal',
+    lineHeight: 1.42857142857143,
+  },
+};
 
 export const codeSm = css`
   background-color: ${token('color.background.neutral', colors.N20)};

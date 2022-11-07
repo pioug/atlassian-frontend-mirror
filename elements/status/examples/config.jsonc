@@ -8,8 +8,5 @@
     "00-simple-status.tsx",
     "01-status-picker.tsx"
   ],
-  "exampleDependencies": [
-    "react-intl",
-    "react-intl-next"
-  ]
+  "exampleDependencies": []
 }

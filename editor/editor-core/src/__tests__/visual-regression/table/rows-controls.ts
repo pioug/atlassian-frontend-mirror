@@ -10,7 +10,7 @@ import {
   initFullPageEditorWithAdf,
   initCommentEditorWithAdf,
   snapshot,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/table-with-merged-cells-on-first-column.adf.json';
 import defaultTableAdf from './__fixtures__/default-table.adf.json';
 

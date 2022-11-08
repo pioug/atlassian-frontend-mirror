@@ -8,7 +8,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { Appearance } from '../../visual-regression/_utils';
+import { Appearance } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 BrowserTestCase(
   `list: insert a media single inside a bullet list`,

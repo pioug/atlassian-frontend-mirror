@@ -8,7 +8,7 @@ import {
   initEditorWithAdf,
   Appearance,
   pmSelector,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { AnnotationTestIds } from '../../types';
 import * as highlightAdf from './../__fixtures__/highlight.adf.json';
 import { getState, selectorById } from '../_utils';

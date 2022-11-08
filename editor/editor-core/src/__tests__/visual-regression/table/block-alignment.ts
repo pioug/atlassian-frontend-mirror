@@ -4,7 +4,7 @@ import {
   initFullPageEditorWithAdf,
   initCommentEditorWithAdf,
   editorCommentContentSelector,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/table-with-blocks.adf.json';
 import {
   setTableLayout,

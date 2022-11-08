@@ -3,7 +3,7 @@ import {
   snapshot,
   Appearance,
   initEditorWithAdf,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import listsWithCodeBlocksADF from './__fixtures__/lists-with-codeblocks.adf.json';
 
 describe('Snapshot Test: lists', () => {

@@ -1,6 +1,9 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import longContent from './__fixtures__/long-content-adf.json';
 import { typeInEditorAtEndOfDocument } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';

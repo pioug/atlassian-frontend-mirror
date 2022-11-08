@@ -16,7 +16,7 @@ import {
   clickEditableContent,
   animationFrame,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
-import { snapshot } from '../../../../__tests__/visual-regression/_utils';
+import { snapshot } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 let page: PuppeteerPage;
 let url: string;

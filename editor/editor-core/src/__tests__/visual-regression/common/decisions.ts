@@ -1,4 +1,8 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import adf from './__fixtures__/decision-adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';

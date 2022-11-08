@@ -2,7 +2,7 @@ import {
   snapshot,
   initEditorWithAdf,
   Appearance,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
 import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 import { codeBlocks } from '../__fixtures__/code-blocks';

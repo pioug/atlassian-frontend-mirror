@@ -2,7 +2,7 @@ import {
   Appearance,
   initEditorWithAdf,
   snapshot,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/date-adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {

@@ -1,5 +1,8 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import {
+  snapshot,
+  initFullPageEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import * as wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
 import * as wrappedMediasNextToEachOtherAdf from './__fixtures__/wrapped-medias-next-to-each-other.adf.json';
 import * as wrappedInBlockMedia from './__fixtures__/wrapped-in-block-media.adf.json';

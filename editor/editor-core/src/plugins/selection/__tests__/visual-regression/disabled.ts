@@ -4,7 +4,7 @@ import {
   Appearance,
   updateEditorProps,
   snapshot,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 import { selectAtPos } from '@atlaskit/editor-test-helpers/page-objects/editor';
 

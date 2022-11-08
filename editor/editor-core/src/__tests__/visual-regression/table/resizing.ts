@@ -3,7 +3,7 @@ import {
   initFullPageEditorWithAdf,
   initEditorWithAdf,
   Appearance,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adfTableWithMergedCellsOnFirstRow from './__fixtures__/table-with-merged-cells-on-first-row.adf.json';
 import adfTableWithManyRows from './__fixtures__/table-with-many-rows.adf.json';
 import adfTableWithMergedCells from './__fixtures__/table-with-merged-cells.adf.json';

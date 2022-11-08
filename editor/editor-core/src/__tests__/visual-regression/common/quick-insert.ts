@@ -1,5 +1,9 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   typeInEditorAtEndOfDocument,
   selectors,

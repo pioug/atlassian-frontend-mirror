@@ -7,7 +7,7 @@ import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/edito
 import {
   snapshot,
   initFullPageEditorWithAdf,
-} from '../../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import mediaGroupAdf from './__fixtures__/mediaGroup.adf.json';
 import mediaGroupMultiFilesAdf from './__fixtures__/mediaGroupMultiFiles.adf.json';

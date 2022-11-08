@@ -2,7 +2,7 @@ import {
   snapshot,
   initEditorWithAdf,
   Appearance,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import { codeBlockSelectors } from '@atlaskit/editor-test-helpers/page-objects/code-block';
 import { basicCodeBlock } from '../__fixtures__/basic-code-block';

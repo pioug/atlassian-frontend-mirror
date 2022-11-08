@@ -1,4 +1,8 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { scrollToTable } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';

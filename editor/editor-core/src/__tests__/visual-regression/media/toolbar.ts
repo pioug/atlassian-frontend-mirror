@@ -1,4 +1,8 @@
-import { Appearance, initEditorWithAdf, snapshot } from '../_utils';
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   clickMediaInPosition,
   mediaImageSelector,

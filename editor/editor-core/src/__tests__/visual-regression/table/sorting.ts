@@ -4,7 +4,7 @@ import {
   Appearance,
   initFullPageEditorWithAdf,
   snapshot,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   PuppeteerPage,
   waitForTooltip,

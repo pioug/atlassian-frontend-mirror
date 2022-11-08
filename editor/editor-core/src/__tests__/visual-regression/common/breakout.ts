@@ -2,7 +2,7 @@ import {
   initFullPageEditorWithAdf,
   snapshot,
   updateEditorProps,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import adf from './__fixtures__/columns.adf.json';
 import layoutEmptyAdf from './__fixtures__/layout-empty.adf.json';

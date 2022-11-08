@@ -1,7 +1,10 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { selectElementWithText } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import {
+  snapshot,
+  initFullPageEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/table-with-paragraph.adf.json';
 
 describe('Focused table: fullpage', () => {

@@ -3,7 +3,7 @@ import {
   initEditorWithAdf,
   initFullPageEditorWithAdf,
   Appearance,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   getSelectorForTableCell,
   clickFirstCell,

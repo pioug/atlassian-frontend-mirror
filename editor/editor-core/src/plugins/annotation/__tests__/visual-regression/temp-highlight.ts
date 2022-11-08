@@ -14,7 +14,7 @@ import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
   initFullPageEditorWithAdf,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import * as tempHighlightAdf from './../__fixtures__/temp-highlight.adf.json';
 import { AnnotationTestIds } from '../../types';
 import { selectorById, getState } from '../_utils';

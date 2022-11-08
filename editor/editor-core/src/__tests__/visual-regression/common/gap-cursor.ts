@@ -1,4 +1,8 @@
-import { Appearance, initEditorWithAdf, snapshot } from '../_utils';
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import gapcursor from './__fixtures__/gap-cursor-adf.json';
 import gapCursorLayout from './__fixtures__/gap-cursor-layout-adf.json';
 import gapCursorTable from './__fixtures__/gap-cursor-table-adf.json';

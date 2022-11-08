@@ -1,4 +1,8 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 import adfWithMixedContent from './__fixtures__/content.adf.json';
 import adfWithNoBreakoutContent from './__fixtures__/content-nobreakout.adf.json';

@@ -218,6 +218,8 @@ export interface LinkingPlatformFeatureFlags {
   embedModalSize?: string;
   // (undocumented)
   showHoverPreview?: boolean;
+  // (undocumented)
+  useLinkPickerScrollingTabs?: boolean;
 }
 
 // @public @deprecated (undocumented)

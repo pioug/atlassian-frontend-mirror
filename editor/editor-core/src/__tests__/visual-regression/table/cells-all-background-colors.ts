@@ -1,6 +1,9 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 import adfAllColors from './__fixtures__/table-with-all-background-colors.adf.json';
 import { THEME_MODES } from '@atlaskit/theme/constants';

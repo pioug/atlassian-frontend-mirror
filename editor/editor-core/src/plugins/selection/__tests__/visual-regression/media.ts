@@ -10,7 +10,7 @@ import {
   snapshot,
   initEditorWithAdf,
   Appearance,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   waitForMediaToBeLoaded,

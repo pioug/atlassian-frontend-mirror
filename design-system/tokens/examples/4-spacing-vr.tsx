@@ -12,9 +12,6 @@ import {
 
 import { CSSToken, token } from '../src';
 
-// Theme mounted to the page as css files
-import '../css/atlassian-spacing.css';
-
 const ExampleSizeBox = ({ scaleToken }: { scaleToken: CSSToken }) => (
   <Box
     backgroundColor="brand.bold"
@@ -33,19 +30,20 @@ export default () => {
   }, []);
 
   return (
-    <div>
+    <div data-testid="spacing">
       <h1>Spacing scale</h1>
       <Inline gap="scale.100" alignItems="flexEnd">
-        <ExampleSizeBox scaleToken={token('spacing.scale.025')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.050')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.075')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.100')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.150')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.200')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.300')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.400')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.500')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.600')} />
+        {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
+        <ExampleSizeBox scaleToken={token('spacing.scale.025', '12px')} />
+        <ExampleSizeBox scaleToken={token('spacing.scale.050', '6px')} />
+        <ExampleSizeBox scaleToken={token('spacing.scale.075', '22px')} />
+        <ExampleSizeBox scaleToken={token('spacing.scale.100', '40px')} />
+        <ExampleSizeBox scaleToken={token('spacing.scale.150', '4rem')} />
+        <ExampleSizeBox scaleToken={token('spacing.scale.200', '32px')} />
+        <ExampleSizeBox scaleToken={token('spacing.scale.300', '12px')} />
+        <ExampleSizeBox scaleToken={token('spacing.scale.400', '2em')} />
+        <ExampleSizeBox scaleToken={token('spacing.scale.500', '52px')} />
+        <ExampleSizeBox scaleToken={token('spacing.scale.600', '0.5rem')} />
       </Inline>
     </div>
   );

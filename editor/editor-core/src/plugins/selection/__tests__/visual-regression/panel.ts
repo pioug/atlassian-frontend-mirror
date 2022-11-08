@@ -11,7 +11,7 @@ import {
   initEditorWithAdf,
   Appearance,
   retryUntil,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/mention';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import selectionPanelAdf from './__fixtures__/panel.adf.json';

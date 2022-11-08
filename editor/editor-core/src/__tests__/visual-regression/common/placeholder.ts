@@ -3,7 +3,7 @@ import {
   initEditorWithAdf,
   Appearance,
   editorSelector,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/noData-adf.json';
 import {
   clickToolbarMenu,

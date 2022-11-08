@@ -5,7 +5,7 @@ import {
   updateEditorProps,
   initEditorWithAdf,
   Appearance,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mixedContentAdf from './__fixtures__/mixed-content.adf.json';
 import layoutWithBreakoutAdf from './__fixtures__/layout-with-breakout.adf.json';

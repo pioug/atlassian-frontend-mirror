@@ -1,4 +1,8 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/breakout-table-in-expand.adf.json';
 import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';

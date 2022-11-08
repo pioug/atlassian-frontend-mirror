@@ -3,7 +3,10 @@ import {
   waitForNoTooltip,
 } from '@atlaskit/visual-regression/helper';
 
-import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
 import {
   waitForInlineCardSelection,

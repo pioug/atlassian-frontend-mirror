@@ -52,6 +52,7 @@ import {
 } from './styled';
 import { browser } from './browser';
 import Announcer from './announcer';
+import ScrollingTabList from '../scrolling-tabs';
 
 import LinkSearchList, { testIds as listTestIds } from './link-search-list';
 import LinkSearchError, {
@@ -124,6 +125,7 @@ export interface LinkPickerProps {
   component?: React.ComponentType<
     Partial<LinkPickerProps> & { children: React.ReactElement }
   >;
+  featureFlags?: Record<string, unknown>;
 }
 
 export interface PickerState {
@@ -187,6 +189,7 @@ function LinkPicker({
   plugins,
   url: initUrl,
   displayText: initDisplayText,
+  featureFlags,
 }: LinkPickerProps) {
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -433,6 +436,16 @@ function LinkPicker({
     </span>
   );
 
+  const tabList = (
+    <TabList>
+      {tabs.map(tab => (
+        <Tab key={tab.tabTitle} testId={testIds.tabItem}>
+          {tab.tabTitle}
+        </Tab>
+      ))}
+    </TabList>
+  );
+
   return (
     <form
       data-testid={testIds.linkPicker}
@@ -495,13 +508,11 @@ function LinkPicker({
                 selected={activeTab}
                 onChange={handleTabChange}
               >
-                <TabList>
-                  {tabs.map(tab => (
-                    <Tab key={tab.tabTitle} testId={testIds.tabItem}>
-                      {tab.tabTitle}
-                    </Tab>
-                  ))}
-                </TabList>
+                {featureFlags?.scrollingTabs ? (
+                  <ScrollingTabList>{tabList}</ScrollingTabList>
+                ) : (
+                  tabList
+                )}
               </Tabs>
               <TrackTabViewed activeTab={activeTab} />
             </div>

@@ -1,5 +1,9 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import defaultTableResizedWithOverflow from './__fixtures__/default-table-resized.adf.json';
 import defaultTableResizedWithoutOverflow from './__fixtures__/default-table-resized-no-overflow.adf.json';
 import defaultTable from './__fixtures__/default-table.adf.json';

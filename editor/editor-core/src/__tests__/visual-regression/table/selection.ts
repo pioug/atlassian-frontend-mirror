@@ -1,5 +1,8 @@
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import {
+  snapshot,
+  initFullPageEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import complexTableWithMergedCells from './__fixtures__/complex-table-with-merged-cells.adf.json';
 import lastColumnMergedTable from './__fixtures__/last-column-merged-table.adf.json';
 import tableWithNumberedColumn from './__fixtures__/table-with-numbered-column.adf.json';

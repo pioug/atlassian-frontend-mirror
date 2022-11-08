@@ -1,7 +1,11 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { selectElementWithText } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import tableAdf from './__fixtures__/table-headers-with-headings.adf.json';
 
 describe('Table headers with headings', () => {

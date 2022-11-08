@@ -9,7 +9,7 @@ import {
   editorSelector,
   initEditorWithAdf,
   Appearance,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 async function waitForCollabAvatars(page: PuppeteerPage) {
   // Wait for both editors (and their toolbars)

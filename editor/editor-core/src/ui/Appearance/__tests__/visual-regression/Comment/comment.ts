@@ -3,7 +3,7 @@ import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   initCommentEditorWithAdf,
   snapshot,
-} from '../../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { createDocumentWithParagraphs } from '../__fixtures/paragraph-content';
 
 describe('Comment', () => {

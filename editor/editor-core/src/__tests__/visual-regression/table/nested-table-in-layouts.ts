@@ -3,7 +3,10 @@ import {
   Device,
   ViewportSize,
 } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { toolbarMessages } from '../../../plugins/layout/toolbar-messages';

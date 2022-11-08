@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.12.0
+
+### Minor Changes
+
+- [`2ecb5e8a6d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ecb5e8a6d9) - [ux] introduce horizontal scrolling tabs
+
 ## 1.11.2
 
 ### Patch Changes

@@ -4,7 +4,11 @@ import {
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import mediaSingleVideoAdf from '../table/__fixtures__/mediasingle-video.adf.json';
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 

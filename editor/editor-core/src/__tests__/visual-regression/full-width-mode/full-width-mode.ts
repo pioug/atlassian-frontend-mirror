@@ -3,7 +3,7 @@ import {
   initEditorWithAdf,
   Appearance,
   mediaToFullyLoad,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adfWithMixedContent from './__fixtures__/mixed-content.adf.json';
 import adfWithMedia from './__fixtures__/content-with-media.adf.json';
 import adfWithBreakout from './__fixtures__/mixed-content-with-breakout.adf.json';

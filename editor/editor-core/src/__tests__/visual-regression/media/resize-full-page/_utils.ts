@@ -1,6 +1,9 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
-import { initFullPageEditorWithAdf, snapshot } from '../../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   getEditorWidth,
   animationFrame,

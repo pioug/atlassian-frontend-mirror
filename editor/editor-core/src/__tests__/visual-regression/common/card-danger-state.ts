@@ -12,7 +12,10 @@ import {
   waitForInlineCardSelection,
 } from '@atlaskit/media-integration-test-helpers';
 import cardSelectionAdf from './__fixtures__/card-selection-adf.json';
-import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 
 describe('Card danger states', () => {

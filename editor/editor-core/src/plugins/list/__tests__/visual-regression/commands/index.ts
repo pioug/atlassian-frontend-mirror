@@ -3,7 +3,7 @@ import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
   initFullPageEditorWithAdf,
-} from '../../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import textListADF from './__fixtures__/text-and-list.adf.json';
 
 async function initEditor(page: PuppeteerPage, adf: Object) {

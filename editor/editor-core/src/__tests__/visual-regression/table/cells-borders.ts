@@ -6,7 +6,7 @@ import {
   initFullPageEditorWithAdf,
   emulateSelectAll,
   pmSelector,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   tableSelectors,
   clickFirstCell,

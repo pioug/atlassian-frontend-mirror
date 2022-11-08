@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { IntlProvider } from 'react-intl-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import { ufologger } from '@atlaskit/ufo';
 
@@ -11,9 +12,11 @@ export function PageWrapper({ children }: WrapperProps) {
   ufologger.enable();
 
   return (
-    <div className="example" style={{ padding: 50 }}>
-      <IntlProvider locale="en">{children}</IntlProvider>
-    </div>
+    <SmartCardProvider featureFlags={{ useLinkPickerScrollingTabs: true }}>
+      <div className="example" style={{ padding: 50 }}>
+        <IntlProvider locale="en">{children}</IntlProvider>
+      </div>
+    </SmartCardProvider>
   );
 }
 

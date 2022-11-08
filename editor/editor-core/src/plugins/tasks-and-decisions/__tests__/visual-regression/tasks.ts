@@ -3,7 +3,7 @@ import {
   Appearance,
   initEditorWithAdf,
   snapshot,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import tasksAdf from '../__fixtures__/basic-tasks-adf.json';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 

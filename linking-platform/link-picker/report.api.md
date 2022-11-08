@@ -57,6 +57,8 @@ export interface LinkPickerProps {
     }
   >;
   displayText?: null | string;
+  // (undocumented)
+  featureFlags?: Record<string, unknown>;
   onCancel: () => void;
   onContentResize?: () => void;
   onSubmit: (

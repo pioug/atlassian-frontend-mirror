@@ -13,7 +13,7 @@ import {
   editorSelector,
   initEditorWithAdf,
   snapshot,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   clickToolbarMenu,
   mainToolbarSelector,

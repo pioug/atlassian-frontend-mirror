@@ -2,7 +2,7 @@ import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   initFullPageEditorWithAdf,
   snapshot,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 import * as adjacentDecisionsAdf from '../__fixtures__/adjacent-decisions-adf.json';
 

@@ -1,5 +1,9 @@
 import { PuppeteerElementHandle } from '@atlaskit/visual-regression/helper';
-import { snapshot, Appearance, initEditorWithAdf } from '../_utils';
+import {
+  snapshot,
+  Appearance,
+  initEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 import {
   waitForMediaToBeLoaded,

@@ -8,7 +8,10 @@ import {
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { contextPanelSelectors } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
-import { focusEditor, snapshot } from '../_utils';
+import {
+  focusEditor,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 

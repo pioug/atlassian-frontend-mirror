@@ -9,7 +9,7 @@ import {
   snapshot,
   initEditorWithAdf,
   Appearance,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   tableSelectors,
   clickFirstCell,

@@ -4,7 +4,7 @@ import {
   Appearance,
   editorSelector,
   pmSelector,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   PuppeteerPage,
   waitForLoadedBackgroundImages,

@@ -1,5 +1,9 @@
 import { waitForTooltip } from '@atlaskit/visual-regression/helper';
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/full-width-table.adf.json';
 import tableWithFirstColumnMerged from './__fixtures__/table-3x3-with-two-cells-merged-on-first-row.adf.json';
 import {

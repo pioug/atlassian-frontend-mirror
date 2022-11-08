@@ -5,7 +5,11 @@ import {
   ViewportSize,
 } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { traverse } from '@atlaskit/adf-utils/traverse';
 import smartLinksAdf from './__fixtures__/smart-link-nested-in-list.adf.json';

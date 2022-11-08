@@ -1,4 +1,8 @@
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import extensionFrame from './__fixtures__/extension-frame.adf.json';
 

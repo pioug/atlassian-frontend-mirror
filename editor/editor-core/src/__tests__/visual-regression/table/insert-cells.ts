@@ -1,6 +1,10 @@
 import { waitForTooltip } from '@atlaskit/visual-regression/helper';
 import adf from './__fixtures__/default-table.adf.json';
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import tableMergedColumnsADF from './__fixtures__/table-with-first-column-merged.json';
 import {
   insertRow,

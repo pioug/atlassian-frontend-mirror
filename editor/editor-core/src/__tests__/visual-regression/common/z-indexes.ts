@@ -1,5 +1,9 @@
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { initFullPageEditorWithAdf, snapshot, editorSelector } from '../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+  editorSelector,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   clickToolbarMenu,
   ToolbarMenuItem,

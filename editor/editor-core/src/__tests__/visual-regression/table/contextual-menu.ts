@@ -1,5 +1,8 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import {
+  snapshot,
+  initFullPageEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/default-table.adf.json';
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {

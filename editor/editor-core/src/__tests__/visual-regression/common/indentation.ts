@@ -1,6 +1,9 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import * as indentation from './__fixtures__/indentation-adf.json';
-import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import {
+  snapshot,
+  initFullPageEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 const firstParagraphSelector = '.ProseMirror p:nth-of-type(1)';

@@ -1,6 +1,7 @@
 import {
   disableAllAnimations,
   disableAllTransitions,
+  disableScrollBehavior,
   getExampleUrl,
   pageSelector,
   waitForTooltip,
@@ -25,6 +26,7 @@ export async function setup(url: string) {
   // disable animations in TextField
   await disableAllAnimations(page);
   await disableAllTransitions(page);
+  await disableScrollBehavior(page);
   return page;
 }
 
@@ -195,6 +197,74 @@ describe('link-picker', () => {
     const page = await setup(url);
 
     await page.click('#link-picker-tabs-1');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render tabs with multiple plugins and click forward arrow to see more tabs', async () => {
+    const url = getURL('vr-with-multiple-plugins');
+    const page = await setup(url);
+
+    await page.click('[data-test-id="forward"]');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render tabs with multiple plugins and click forward arrow to see more tabs', async () => {
+    const url = getURL('vr-with-multiple-plugins');
+    const page = await setup(url);
+
+    await page.click('[data-test-id="forward"]');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render tabs with multiple plugins and go forwards and backwards through arrow controls', async () => {
+    const url = getURL('vr-with-multiple-plugins');
+    const page = await setup(url);
+
+    await page.click('[data-test-id="forward"]');
+    await page.click('[data-test-id="back"]');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render tabs with multiple plugins and go forwards clicking the forward arrow until the end', async () => {
+    const url = getURL('vr-with-multiple-plugins');
+    const page = await setup(url);
+
+    await page.click('[data-test-id="forward"]');
+    await page.click('[data-test-id="forward"]');
+    await page.click('[data-test-id="forward"]');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render tabs with multiple plugins and click on overflowing tab', async () => {
+    const url = getURL('vr-with-multiple-plugins');
+    const page = await setup(url);
+
+    await page.click('#link-picker-tabs-4');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render tabs with multiple plugins and add more tabs', async () => {
+    const url = getURL('vr-with-multiple-plugins');
+    const page = await setup(url);
+
+    await page.click('[data-test-id="add-tab"]');
+
+    await page.click('[data-test-id="forward"]');
+    await page.click('[data-test-id="forward"]');
+    await page.click('[data-test-id="forward"]');
+    await page.click('[data-test-id="forward"]');
 
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();

@@ -8,7 +8,7 @@ import {
   initEditorWithAdf,
   snapshot,
   initFullPageEditorWithAdf,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import * as linkADf from './__fixtures__/mediasingle-and-media-with-link-mark.json';
 import {
   mediaResizeSelectors,

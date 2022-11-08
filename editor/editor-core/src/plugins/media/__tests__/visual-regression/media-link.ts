@@ -6,7 +6,7 @@ import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
   initFullPageEditorWithAdf,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';

@@ -26,7 +26,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/linking-common": "^1.9.0",
+    "@atlaskit/linking-common": "^1.10.0",
     "@babel/runtime": "^7.0.0",
     "async-retry": "^1.2.3",
     "dataloader": "^2.0.0",

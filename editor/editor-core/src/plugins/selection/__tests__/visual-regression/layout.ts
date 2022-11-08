@@ -8,7 +8,7 @@ import {
   Appearance,
   clickTopLeft,
   retryUntil,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { mentionSelectors } from '@atlaskit/editor-test-helpers/page-objects/mention';
 import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';

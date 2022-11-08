@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
@@ -189,17 +190,19 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
         const collabEdit = sessionId ? createCollabEdit(sessionId) : undefined;
 
         return (
-          <Editor
-            {...mapProvidersToProps(nonSerializableProps.providers, props)}
-            {...nonSerializableProps.providers}
-            insertMenuItems={customInsertMenuItems}
-            extensionHandlers={nonSerializableProps.extensionHandlers}
-            onEditorReady={onMount}
-            onChange={onChange}
-            onDestroy={onDestroy}
-            collabEdit={collabEdit}
-            dangerouslyAppendPlugins={dangerouslyAppendPlugins}
-          />
+          <IntlProvider locale="en">
+            <Editor
+              {...mapProvidersToProps(nonSerializableProps.providers, props)}
+              {...nonSerializableProps.providers}
+              insertMenuItems={customInsertMenuItems}
+              extensionHandlers={nonSerializableProps.extensionHandlers}
+              onEditorReady={onMount}
+              onChange={onChange}
+              onDestroy={onDestroy}
+              collabEdit={collabEdit}
+              dangerouslyAppendPlugins={dangerouslyAppendPlugins}
+            />
+          </IntlProvider>
         );
       };
       const editorContent = withCollab ? (

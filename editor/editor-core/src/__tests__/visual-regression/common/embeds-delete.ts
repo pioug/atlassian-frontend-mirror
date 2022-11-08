@@ -1,5 +1,8 @@
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import {
+  snapshot,
+  initFullPageEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/embeds-delete.adf.json';
 import { waitForResolvedEmbedCard } from '@atlaskit/media-integration-test-helpers';
 import { evaluateTeardownMockDate } from '@atlaskit/visual-regression/helper';

@@ -9,7 +9,11 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
-import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import {
+  snapshot,
+  initEditorWithAdf,
+  Appearance,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import mediaSingleInTableAdf from './__fixtures__/mediaSingle-in-table.adf.json';
 
 describe('Snapshot Test: Media', () => {

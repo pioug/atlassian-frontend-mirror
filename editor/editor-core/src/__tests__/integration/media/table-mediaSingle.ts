@@ -11,7 +11,7 @@ import {
 import {
   Appearance,
   editorCommentContentSelector,
-} from '../../visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
 const editors: { appearance: Appearance; snapshotSelector?: string }[] = [

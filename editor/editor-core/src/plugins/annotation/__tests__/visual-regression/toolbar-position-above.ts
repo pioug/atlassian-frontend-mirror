@@ -13,7 +13,7 @@ import {
 import {
   snapshot,
   initFullPageEditorWithAdf,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from '../__fixtures__/toolbar-position.adf.json';
 import adfWithTable from '../__fixtures__/toolbar-position-table.adf.json';
 import { annotationSelectors, getState } from '../_utils';

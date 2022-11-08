@@ -4,7 +4,7 @@ import {
   Appearance,
   snapshot,
   applyRemoteStep,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   clickFirstCell,
   grabAndMoveColumnResing,

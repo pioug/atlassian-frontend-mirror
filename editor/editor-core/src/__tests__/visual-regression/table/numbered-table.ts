@@ -8,7 +8,7 @@ import {
   initCommentEditorWithAdf,
   initFullPageEditorWithAdf,
   snapshot,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/numbered-table.adf.json';
 import tableWithContentAdf from './__fixtures__/numbered-table-with-content.adf.json';
 import multipleTablesAdf from './__fixtures__/numbered-table-multiple.adf.json';

@@ -5,7 +5,7 @@ import {
   initEditorWithAdf,
   editorCommentContentSelector,
   editorSelector,
-} from '../_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { EditorProps } from '../../../types';
 import {
   changeMediaLayout,

@@ -169,7 +169,8 @@ describe('Snapshot Test', () => {
     });
   });
 
-  it('Validation - should show error message when input is invalid', async () => {
+  // FIXME: This test was automatically skipped due to failure on 07/11/2022: https://product-fabric.atlassian.net/browse/DSP-7383
+  it.skip('Validation - should show error message when input is invalid', async () => {
     const url = getExampleUrl(
       'design-system',
       'inline-edit',

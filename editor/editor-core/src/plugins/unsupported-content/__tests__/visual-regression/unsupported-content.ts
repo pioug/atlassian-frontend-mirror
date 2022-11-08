@@ -7,7 +7,7 @@ import {
   snapshot,
   initEditorWithAdf,
   Appearance,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { unsupportedNodeSelectors } from '@atlaskit/editor-test-helpers/page-objects/unsupported';
 import { panelSelectors } from '@atlaskit/editor-test-helpers/page-objects/panel';
 import unsupportedBlockAdf from '../__fixtures__/unsupported-block-adf.json';

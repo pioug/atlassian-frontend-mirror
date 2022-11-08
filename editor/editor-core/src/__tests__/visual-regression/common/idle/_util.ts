@@ -1,5 +1,5 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { initFullPageEditorWithAdf } from '../../_utils';
+import { initFullPageEditorWithAdf } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { createAdf } from './_adf';
 import { THRESHOLD } from './_config';
 

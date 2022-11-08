@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.10.0
+
+### Minor Changes
+
+- [`99035cb130b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99035cb130b) - introduce useLinkPickerScrollingTabs feature flag
+
 ## 1.9.2
 
 ### Patch Changes

@@ -5,7 +5,10 @@ import {
   waitForElementCountTimeouts,
 } from '@atlaskit/visual-regression/helper';
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import {
+  snapshot,
+  initFullPageEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import adf from './__fixtures__/embed-card-layouts-adf.json';
 import containerADF from './__fixtures__/embed-containers.adf.json';
 import embedSeperatorADF from './__fixtures__/embed-card-inside-expand.adf.json';

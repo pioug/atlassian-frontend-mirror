@@ -3,7 +3,7 @@ import {
   snapshot,
   initEditorWithAdf,
   Appearance,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import adf from '../../../../__tests__/visual-regression/common/__fixtures__/with-content.json';
 

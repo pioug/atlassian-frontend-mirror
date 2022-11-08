@@ -1,6 +1,9 @@
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
-import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   PuppeteerPage,
   waitForLoadedBackgroundImages,

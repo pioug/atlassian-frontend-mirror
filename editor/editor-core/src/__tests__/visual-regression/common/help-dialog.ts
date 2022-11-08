@@ -1,5 +1,10 @@
 import { waitForTooltip } from '@atlaskit/visual-regression/helper';
-import { initEditorWithAdf, Appearance, snapshot, pmSelector } from '../_utils';
+import {
+  initEditorWithAdf,
+  Appearance,
+  snapshot,
+  pmSelector,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { helpDialogSelector } from '@atlaskit/editor-test-helpers/page-objects/help-dialog';
 
 describe('Help Dialog', () => {

@@ -5,7 +5,7 @@ import {
   Appearance,
   pmSelector,
   emulateSelectAll,
-} from '../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { selectAtPosWithProseMirror } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 import selectionKitchenSink1Adf from './__fixtures__/kitchen-sink-1.adf.json';

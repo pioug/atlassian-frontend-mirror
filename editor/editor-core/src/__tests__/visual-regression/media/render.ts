@@ -1,5 +1,8 @@
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { snapshot, initFullPageEditorWithAdf } from '../_utils';
+import {
+  snapshot,
+  initFullPageEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import * as layoutsAndWidths from './__fixtures__/layouts-and-widths-adf.json';
 import * as nestedMedia from './__fixtures__/nested-media.adf.json';
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';

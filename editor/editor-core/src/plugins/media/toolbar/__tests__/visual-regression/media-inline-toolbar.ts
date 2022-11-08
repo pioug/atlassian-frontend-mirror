@@ -5,7 +5,7 @@ import {
 import {
   snapshot,
   initFullPageEditorWithAdf,
-} from '../../../../../__tests__/visual-regression/_utils';
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import mediaInlineAdf from './__fixtures__/mediaInline.adf.json';
 
 describe('Media Inline Toolbar:', () => {

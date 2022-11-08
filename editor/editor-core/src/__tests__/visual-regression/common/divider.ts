@@ -4,7 +4,10 @@ import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 
 import * as adfWithDivider from './__fixtures__/divider.adf.json';
 
-import { initFullPageEditorWithAdf, snapshot } from '../_utils';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
 describe('Snapshot Test: Divider', () => {
   let page: PuppeteerPage;

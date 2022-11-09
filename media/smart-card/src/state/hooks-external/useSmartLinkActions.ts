@@ -1,9 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 import { useEffect, useMemo, useState } from 'react';
 import uuid from 'uuid';
-
-import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
-import { useFeatureFlag } from '@atlaskit/link-provider';
 import type { AnalyticsHandler, AnalyticsOrigin } from '../../utils/types';
 import type { CardInnerAppearance } from '../../view/Card/types';
 import { extractBlockProps as extractCardProps } from '../../extractors/block';
@@ -73,25 +70,15 @@ export function useSmartLinkActions({
   const linkAnalytics = useLinkAnalytics(url, analyticsHandler, id);
   const linkActions = useLinkActions(id, url, linkAnalytics);
 
-  // Actions do not have access to the react tree, so we need to obtain
-  // feature flags here where we still can access SmartLinkContext context
-  // and pass the flags down to the extractor. See PreviewAction.tsx for details.
-  const embedModalSize = useFeatureFlag('embedModalSize');
-
   useEffect(() => {
     if (!linkState.details) {
       return;
     }
 
-    const featureFlags = { embedModalSize } as Partial<
-      LinkingPlatformFeatureFlags
-    >;
-
     const cardProperties = extractCardProps(
       linkState.details.data as JsonLd.Data.BaseData,
       linkState.details.meta as JsonLd.Meta.BaseMeta,
       {
-        featureFlags,
         handleInvoke: (opts) => linkActions.invoke(opts, appearance),
         analytics: linkAnalytics,
         origin,
@@ -112,15 +99,7 @@ export function useSmartLinkActions({
     }));
 
     setActions(cardActions);
-  }, [
-    linkState,
-    linkActions,
-    linkAnalytics,
-    appearance,
-    platform,
-    embedModalSize,
-    origin,
-  ]);
+  }, [linkState, linkActions, linkAnalytics, appearance, platform, origin]);
 
   return actions;
 }

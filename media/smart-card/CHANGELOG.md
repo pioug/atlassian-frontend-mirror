@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 23.1.3
+
+### Patch Changes
+
+- [`558e0af2263`](https://bitbucket.org/atlassian/atlassian-frontend/commits/558e0af2263) - Embed Preview: Clean up experiment
+
+## 23.1.2
+
+### Patch Changes
+
+- [`5bdea3e4375`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bdea3e4375) - Re register card when redux store is recreated
+
 ## 23.1.1
 
 ### Patch Changes

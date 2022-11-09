@@ -1,11 +1,10 @@
-import React from 'react';
-import { useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { createStore, Reducer } from 'redux';
 import { JsonLd } from 'json-ld-types';
 import { CardPlatform, CardStore, getUrl } from '@atlaskit/linking-common';
 import {
-  LinkPreview,
   extractPreview,
+  LinkPreview,
 } from '@atlaskit/linking-common/extractors';
 import { cardReducer } from './reducers';
 import { SmartCardContext } from './state/context';
@@ -21,10 +20,20 @@ export function SmartCardProvider({
   featureFlags,
 }: CardProviderProps) {
   const parentContext = useContext(SmartCardContext);
+
+  const defaultInitialState = useMemo(() => {
+    return {};
+  }, []);
+  const { initialState } = storeOptions || {
+    initialState: defaultInitialState,
+  };
+
+  const store = useMemo(() => {
+    return createStore(cardReducer as Reducer<CardStore>, initialState);
+  }, [initialState]);
+
   const providerValue = useMemo(() => {
-    const { initialState } = storeOptions || { initialState: {} };
     const client = customClient || new CardClient();
-    const store = createStore(cardReducer as Reducer<CardStore>, initialState);
     const authFlow = customAuthFlow || 'oauth2';
 
     const getPreview = (
@@ -53,7 +62,7 @@ export function SmartCardProvider({
       },
       featureFlags,
     };
-  }, [storeOptions, customClient, customAuthFlow, renderers, featureFlags]);
+  }, [customClient, customAuthFlow, renderers, featureFlags, store]);
 
   return (
     <SmartCardContext.Provider value={parentContext || providerValue}>

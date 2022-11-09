@@ -110,7 +110,6 @@ describe('smart-card: card states, inline', () => {
       });
 
       it('should re-render when URL changes', async () => {
-        let resolvedView = null;
         const { getByText, rerender } = render(
           <IntlProvider locale="en">
             <Provider client={mockClient}>
@@ -118,7 +117,9 @@ describe('smart-card: card states, inline', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        const resolvedView = await waitForElement(() =>
+          getByText('I love cheese'),
+        );
         expect(resolvedView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -130,13 +131,12 @@ describe('smart-card: card states, inline', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        await waitForElement(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(2);
       });
 
-      it('should not re-render when appearance changes', async () => {
-        let resolvedView = null;
+      it('should re-render when store is destroyed', async () => {
         const { getByText, rerender } = render(
           <IntlProvider locale="en">
             <Provider client={mockClient}>
@@ -144,7 +144,36 @@ describe('smart-card: card states, inline', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        const resolvedView = await waitForElement(() =>
+          getByText('I love cheese'),
+        );
+        expect(resolvedView).toBeTruthy();
+        expect(mockFetch).toBeCalled();
+        expect(mockFetch).toBeCalledTimes(1);
+
+        rerender(
+          <IntlProvider locale="en">
+            <Provider client={mockClient} storeOptions={{ initialState: {} }}>
+              <Card appearance="inline" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
+        );
+        await waitForElement(() => getByText('I love cheese'));
+        expect(mockFetch).toBeCalled();
+        expect(mockFetch).toBeCalledTimes(2);
+      });
+
+      it('should not re-render when appearance changes', async () => {
+        const { getByText, rerender } = render(
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="inline" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
+        );
+        const resolvedView = await waitForElement(() =>
+          getByText('I love cheese'),
+        );
         expect(resolvedView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
@@ -156,7 +185,7 @@ describe('smart-card: card states, inline', () => {
             </Provider>
           </IntlProvider>,
         );
-        resolvedView = await waitForElement(() => getByText('I love cheese'));
+        await waitForElement(() => getByText('I love cheese'));
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });

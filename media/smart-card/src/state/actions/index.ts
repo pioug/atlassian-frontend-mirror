@@ -3,7 +3,6 @@ import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { JsonLd } from 'json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
-  ACTION_PENDING,
   ACTION_RESOLVED,
   ACTION_ERROR,
   ACTION_ERROR_FALLBACK,
@@ -12,6 +11,8 @@ import {
   cardAction,
   MetadataStatus,
   APIError,
+  CardState,
+  ACTION_RESOLVING,
 } from '@atlaskit/linking-common';
 import {
   getDefinitionId,
@@ -33,6 +34,7 @@ import { AnalyticsFacade } from '../analytics';
 import { getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { addMetadataToExperience } from '../analytics';
 import { CardInnerAppearance } from '../../view/Card/types';
+import { SmartLinkStatus } from '../../constants';
 
 export const useSmartCardActions = (
   id: string,
@@ -41,10 +43,12 @@ export const useSmartCardActions = (
 ) => {
   const { store, connections, config } = useSmartLinkContext();
   const { getState, dispatch } = store;
-  const { details, status, metadataStatus } = getState()[url] || {
-    status: 'pending',
-    details: undefined,
-  };
+  const { details, status, metadataStatus } =
+    getState()[url] ||
+    ({
+      status: SmartLinkStatus.Pending,
+      details: undefined,
+    } as CardState);
 
   const hasAuthFlowSupported = config.authFlow !== 'disabled';
   const hasData = !!(details && details.data);
@@ -222,7 +226,7 @@ export const useSmartCardActions = (
 
   const register = useCallback(() => {
     if (!details) {
-      dispatch(cardAction(ACTION_PENDING, { url }));
+      dispatch(cardAction(ACTION_RESOLVING, { url }));
       setMetadataStatus('pending');
     }
     return resolve();

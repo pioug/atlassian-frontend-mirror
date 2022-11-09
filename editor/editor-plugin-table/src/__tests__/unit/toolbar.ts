@@ -2,8 +2,12 @@ import {
   getToolbarMenuConfig,
   getToolbarCellOptionsConfig,
 } from '../../plugins/table/toolbar';
-import { ToolbarMenuConfig, ToolbarMenuState } from '../../plugins/table/types';
-import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import {
+  TablePluginState,
+  ToolbarMenuConfig,
+  ToolbarMenuState,
+} from '../../plugins/table/types';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,
@@ -19,6 +23,7 @@ import type {
 import { splitCell } from '@atlaskit/editor-tables/utils';
 import { canMergeCells } from '../../plugins/table/transforms';
 import { Rect } from '@atlaskit/editor-tables/table-map';
+import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 
 jest.mock('@atlaskit/editor-tables/utils');
 jest.mock('../../plugins/table/transforms');
@@ -131,7 +136,16 @@ describe('getToolbarMenuConfig', () => {
 });
 
 describe('getToolbarCellOptionsConfig', () => {
-  const state = createEditorState(doc(table()(row(td()(p('1{cursor}'))))));
+  const createEditor = createEditorFactory<TablePluginState>();
+  const {
+    editorView: { state },
+  } = createEditor({
+    doc: doc(table()(row(td()(p('1{cursor}'))))),
+    editorProps: {
+      allowTables: {},
+    },
+    pluginKey,
+  });
   const getEditorContainerWidth = () => ({ width: 500 });
 
   const formatMessage: (t: { id: string }) => string = (message) =>

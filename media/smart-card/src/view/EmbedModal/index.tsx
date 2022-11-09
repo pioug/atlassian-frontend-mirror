@@ -8,7 +8,6 @@ import { MAX_MODAL_SIZE, MIN_MODAL_SIZE } from './constants';
 import EmbedContent from './components/embed-content';
 import { EmbedModalProps, EmbedModalSize } from './types';
 import withErrorBoundary from './components/error-boundary';
-import withSizeExperiment from './components/size-experiment';
 import withAnalytics from './components/analytics';
 
 const toSize = (width: string) =>
@@ -29,7 +28,7 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   onViewActionClick,
   providerName,
   showModal,
-  size = EmbedModalSize.Small,
+  size = EmbedModalSize.Large,
   src,
   testId = 'smart-embed-preview-modal',
   title,
@@ -102,4 +101,4 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   );
 };
 
-export default withSizeExperiment(withAnalytics(withErrorBoundary(EmbedModal)));
+export default withAnalytics(withErrorBoundary(EmbedModal));

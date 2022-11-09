@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.6.5
+
+### Patch Changes
+
+- [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) - Consolidate In Product Help & Self-Help Experiences ownership
+
 ## 10.6.4
 
 ### Patch Changes

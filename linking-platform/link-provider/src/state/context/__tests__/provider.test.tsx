@@ -1,3 +1,5 @@
+import { CardProviderProps } from '../types';
+
 jest.mock('@atlaskit/linking-common/extractors', () => ({
   ...jest.requireActual<Object>('@atlaskit/linking-common/extractors'),
   extractPreview: () => 'some-link-preview',
@@ -94,5 +96,69 @@ describe('Provider', () => {
         <Context.Consumer>{fn}</Context.Consumer>
       </SmartCardProvider>,
     );
+  });
+
+  const initialState = {};
+  it.each<[string, Partial<CardProviderProps>, Partial<CardProviderProps>]>([
+    ['feature flags are', {}, { featureFlags: { showHoverPreview: false } }],
+    ['card client is', {}, { client: new CardClient() }],
+    ['auth flow is', {}, { authFlow: 'disabled' }],
+    ['renderers are', {}, { renderers: {} }],
+    [
+      'whole store options outside object reference is',
+      { storeOptions: { initialState } },
+      { storeOptions: { initialState } },
+    ],
+  ])(
+    'should not re-create store when %s updated',
+    (_, initialProviderProps, newProviderProps) => {
+      const fn = jest.fn();
+      const { rerender } = render(
+        <SmartCardProvider {...initialProviderProps}>
+          <Context.Consumer>{fn}</Context.Consumer>
+        </SmartCardProvider>,
+      );
+
+      expect(fn).toBeCalledTimes(1);
+
+      const { store } = fn.mock.calls[0][0] as CardContext;
+
+      rerender(
+        <SmartCardProvider {...newProviderProps}>
+          <Context.Consumer>{fn}</Context.Consumer>
+        </SmartCardProvider>,
+      );
+
+      expect(fn).toBeCalledTimes(2);
+
+      const { store: newStore } = fn.mock.calls[1][0] as CardContext;
+
+      expect(store).toBe(newStore);
+    },
+  );
+
+  it('should re-create redux store when initialState prop has updated', () => {
+    const fn = jest.fn();
+    const { rerender } = render(
+      <SmartCardProvider storeOptions={{ initialState }}>
+        <Context.Consumer>{fn}</Context.Consumer>
+      </SmartCardProvider>,
+    );
+
+    expect(fn).toBeCalledTimes(1);
+
+    const { store } = fn.mock.calls[0][0] as CardContext;
+
+    rerender(
+      <SmartCardProvider storeOptions={{ initialState: {} }}>
+        <Context.Consumer>{fn}</Context.Consumer>
+      </SmartCardProvider>,
+    );
+
+    expect(fn).toBeCalledTimes(2);
+
+    const { store: newStore } = fn.mock.calls[1][0] as CardContext;
+
+    expect(store).not.toBe(newStore);
   });
 });

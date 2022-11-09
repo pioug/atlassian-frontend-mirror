@@ -16,8 +16,6 @@ import { ResolvingView as BlockCardResolvingView } from './views/ResolvingView';
 import { UnauthorizedView as BlockCardUnauthorisedView } from './views/UnauthorizedView';
 import { ForbiddenView as BlockCardForbiddenView } from './views/ForbiddenView';
 import { ErroredView as BlockCardErroredView } from './views/ErroredView';
-import { useFeatureFlag } from '@atlaskit/link-provider';
-import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 
 export { default as PreviewAction } from './actions/PreviewAction';
 export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
@@ -50,21 +48,12 @@ export const BlockCard: FC<BlockCardProps> = ({
   platform,
   analytics,
 }) => {
-  // Actions do not have access to the react tree, so we need to obtain
-  // feature flags here where we still can access SmartLinkContext context
-  // and pass the flags down to the extractor. See PreviewAction.tsx for details.
-  const embedModalSize = useFeatureFlag('embedModalSize');
-  const featureFlags = { embedModalSize } as Partial<
-    LinkingPlatformFeatureFlags
-  >;
-
   const data =
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
   const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
   const extractorOpts: ExtractBlockOpts = {
     analytics,
     origin: 'smartLinkCard',
-    featureFlags,
     handleInvoke,
     extensionKey: getExtensionKey(details),
   };

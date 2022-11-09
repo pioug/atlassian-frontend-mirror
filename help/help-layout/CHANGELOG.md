@@ -1,5 +1,11 @@
 # @atlaskit/help-layout
 
+## 4.1.8
+
+### Patch Changes
+
+- [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) - Consolidate In Product Help & Self-Help Experiences ownership
+
 ## 4.1.7
 
 ### Patch Changes

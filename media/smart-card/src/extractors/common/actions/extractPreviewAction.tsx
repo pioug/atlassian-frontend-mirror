@@ -66,7 +66,6 @@ export const extractPreviewAction = ({
   platform,
   origin,
   source = 'block',
-  featureFlags,
   analytics,
 }: ExtractBlockOpts & {
   viewProps: BlockCardResolvedViewProps;
@@ -88,7 +87,6 @@ export const extractPreviewAction = ({
       ...metadata,
       analytics,
       origin,
-      featureFlags,
       testId,
       onDownloadActionClick: () => {
         handleInvoke(getInvokeOpts(key, 'DownloadAction'));

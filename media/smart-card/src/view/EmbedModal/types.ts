@@ -1,7 +1,5 @@
 import { ErrorInfo } from 'react';
 import { IconProps } from '../common/Icon';
-import { WithSizeExperimentProps } from './components/size-experiment/types';
-import { ModalProps } from '../common/Modal';
 import { WithAnalytics } from './components/analytics/types';
 
 export enum EmbedModalSize {
@@ -15,8 +13,6 @@ export type EmbedModalContext = {
 };
 
 export type EmbedModalProps = {
-  /* Label to be used for the close 'x' */
-  closeLabel?: string;
   /* A download link - if it is provided, the download button will be shown */
   download?: string;
   /* This should be the icon of the provider, which will be displayed to the left of the title */
@@ -55,7 +51,4 @@ export type EmbedModalProps = {
   url?: string;
 };
 
-export type EmbedModalWithExperimentProps = EmbedModalProps &
-  ModalProps &
-  WithSizeExperimentProps &
-  WithAnalytics;
+export type EmbedModalWithExperimentProps = EmbedModalProps & WithAnalytics;

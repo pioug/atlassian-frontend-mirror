@@ -1,5 +1,11 @@
 # @atlaskit/help-article
 
+## 4.0.33
+
+### Patch Changes
+
+- [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) - Consolidate In Product Help & Self-Help Experiences ownership
+
 ## 4.0.32
 
 ### Patch Changes

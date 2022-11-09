@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-article",
-  "version": "4.0.32",
+  "version": "4.0.33",
   "description": "A cross-product help-article component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "In Product Help",
+    "team": "Self-Help Experiences",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

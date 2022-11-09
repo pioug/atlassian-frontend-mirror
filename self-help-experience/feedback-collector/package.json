@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feedback-collector",
-  "version": "10.6.4",
+  "version": "10.6.5",
   "description": "A component that collects feedback across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Self-Help Experience",
+    "team": "Self-Help Experiences",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

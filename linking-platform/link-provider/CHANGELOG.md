@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.3.4
+
+### Patch Changes
+
+- [`f5cc6bde738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5cc6bde738) - Do not destroy redux store when unrelated props to SmartCardProvider change
+
 ## 1.3.3
 
 ### Patch Changes

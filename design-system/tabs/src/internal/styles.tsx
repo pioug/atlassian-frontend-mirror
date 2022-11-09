@@ -15,14 +15,25 @@ const tabLeftRightPadding = `${gridSize}px`;
 const tabTopBottomPadding = `${gridSize / 2}px`;
 const underlineHeight = '2px';
 
+const highContrastFocusStyles: CSSObject = {
+  outline: '1px solid',
+};
+
 // Required so the focus ring is visible in high contrast mode
 const highContrastFocusRing = {
   '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
-    '&:focus': {
-      outline: '1px solid',
+    '&:focus-visible': highContrastFocusStyles,
+    '@supports not selector(*:focus-visible)': {
+      '&:focus': highContrastFocusStyles,
     },
   },
 };
+
+const tabFocusStyles = (mode: ThemeModes): CSSObject => ({
+  boxShadow: `0 0 0 2px ${getTabPanelFocusColor(mode)} inset`,
+  borderRadius: borderRadius,
+  outline: 'none',
+});
 
 const getTabPanelStyles = (mode: ThemeModes): CSSObject => ({
   flexGrow: 1,
@@ -33,10 +44,9 @@ const getTabPanelStyles = (mode: ThemeModes): CSSObject => ({
   minHeight: '0%',
   display: 'flex',
   padding: `0 ${tabLeftRightPadding}`,
-  '&:focus': {
-    boxShadow: `0 0 0 2px ${getTabPanelFocusColor(mode)} inset`,
-    borderRadius: borderRadius,
-    outline: 'none',
+  '&:focus-visible': tabFocusStyles(mode),
+  '@supports not selector(*:focus-visible)': {
+    '&:focus': tabFocusStyles(mode),
   },
   ...highContrastFocusRing,
 });
@@ -77,6 +87,19 @@ export const getTabListStyles = (mode: ThemeModes): SerializedStyles =>
     },
   });
 
+const tabPanelFocusStyles = (mode: ThemeModes): CSSObject => {
+  const colors = getTabColors(mode);
+  return {
+    boxShadow: `0 0 0 2px ${colors.focusBorderColor} inset`,
+    borderRadius: borderRadius,
+    outline: 'none',
+    // Hide TabLine on focus
+    '&::after': {
+      opacity: 0,
+    },
+  };
+};
+
 export const getTabStyles = (mode: ThemeModes): CSSObject => {
   const colors = getTabColors(mode);
   return {
@@ -114,14 +137,9 @@ export const getTabStyles = (mode: ThemeModes): CSSObject => {
       },
     },
 
-    '&:focus': {
-      boxShadow: `0 0 0 2px ${colors.focusBorderColor} inset`,
-      borderRadius: borderRadius,
-      outline: 'none',
-      // Hide TabLine on focus
-      '&::after': {
-        opacity: 0,
-      },
+    '&:focus-visible': tabPanelFocusStyles(mode),
+    '@supports not selector(*:focus-visible)': {
+      '&:focus': tabPanelFocusStyles(mode),
     },
     ...highContrastFocusRing,
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/right-side-panel",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "A cross-product right-side-panel component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "In Product Help",
+    "team": "Self-Help Experiences",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

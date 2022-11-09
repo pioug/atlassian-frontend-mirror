@@ -1,7 +1,6 @@
 import React, { ErrorInfo } from 'react';
 import ReactDOM from 'react-dom';
 import { FormattedMessage, IntlProvider } from 'react-intl-next';
-import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 
 import { AnalyticsFacade } from '../../../state/analytics';
 import { EmbedModalWithExperimentProps } from '../../EmbedModal/types';
@@ -80,7 +79,6 @@ type PreviewInfo = {
   onDownloadActionClick?: () => void;
   onOpen?: () => void;
   onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
-  featureFlags?: Partial<LinkingPlatformFeatureFlags>;
   analytics: AnalyticsFacade;
   origin?: AnalyticsOrigin;
 };
@@ -92,11 +90,9 @@ export default ({ details, ...rest }: PreviewInfo): ActionProps => ({
     previewFunction({
       popupMountPointId: 'twp-editor-preview-iframe',
       providerName: 'Preview',
-      closeLabel: 'Close Preview',
       showModal: true,
       iframeName: 'twp-editor-preview-iframe',
       onClose: () => {},
-      metadata: { items: details || [] },
       ...rest,
     }),
 });

@@ -5,6 +5,7 @@ import { useSmartLinkConfig } from '../config';
 import { useSmartLinkAnalytics } from '../analytics';
 import { AnalyticsHandler } from '../../utils/types';
 import { useSmartLinkRenderers } from '../renderers';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 export function useSmartLink(
   id: string,
@@ -12,6 +13,7 @@ export function useSmartLink(
   dispatchAnalytics: AnalyticsHandler,
 ) {
   const state = useSmartLinkState(url);
+  const { store } = useSmartLinkContext();
   const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
   const actions = useSmartLinkActions(id, url, analytics);
   const config = useSmartLinkConfig();
@@ -25,7 +27,7 @@ export function useSmartLink(
   };
   // AFP-2511 TODO: Fix automatic suppressions below
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(register, [url]);
+  useEffect(register, [url, store]);
 
   // Provide the state and card actions to consumers.
   return {

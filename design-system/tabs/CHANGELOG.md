@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 13.3.5
+
+### Patch Changes
+
+- [`0637c50e226`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0637c50e226) - Updated Tabs compnent to prefer to use focus-visible over focus css selectors.
+
 ## 13.3.4
 
 ### Patch Changes

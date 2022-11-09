@@ -10,8 +10,6 @@ import { JsonLd } from 'json-ld-types';
 import { mocked } from 'ts-jest/utils';
 
 import { mocks } from '../../../utils/mocks';
-
-import { useFeatureFlag } from '@atlaskit/link-provider';
 import { useSmartCardState } from '../../store';
 import { useSmartLinkActions } from '../useSmartLinkActions';
 import { CardState } from '../../types';
@@ -129,16 +127,5 @@ describe(useSmartLinkActions.name, () => {
 
     result.current?.[1].invoke();
     expect(actionHandler).toHaveBeenCalledTimes(1);
-  });
-
-  it('calls preview action feature flag', () => {
-    const mockUseFeatureFlag = mocked(useFeatureFlag);
-    mockWithActions();
-
-    renderHook(() =>
-      useSmartLinkActions({ url, appearance, analyticsHandler: analytics }),
-    );
-
-    expect(mockUseFeatureFlag).toHaveBeenCalledWith('embedModalSize');
   });
 });

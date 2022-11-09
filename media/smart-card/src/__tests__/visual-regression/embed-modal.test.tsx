@@ -21,26 +21,14 @@ describe('EmbedModal', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('expands to max size', async () => {
+  it('reduces to min size', async () => {
     const { clip, page } = await render();
     await page.click('[data-testid="vr-test-resize-button"]');
     await page.waitForSelector(
       `[style*="--modal-dialog-width:${MAX_MODAL_SIZE};"]`,
+      { hidden: true },
     );
     const image = await page.screenshot({ clip });
     expect(image).toMatchProdImageSnapshot();
-  });
-
-  describe('with default size experiment', () => {
-    it.each([['control'], ['large'], ['small']])(
-      'renders modal with %s size',
-      async (size: string) => {
-        const { clip, page } = await render(
-          `vr-embed-modal-experiment-${size}`,
-        );
-        const image = await page.screenshot({ clip });
-        expect(image).toMatchProdImageSnapshot();
-      },
-    );
   });
 });

@@ -129,7 +129,7 @@ export function CardWithUrlContent({
   // Measures are sent relative to the first mark, matching what a user sees.
   useEffect(() => {
     measure.mark(id, state.status);
-    if (state.status !== 'pending') {
+    if (state.status !== 'pending' && state.status !== 'resolving') {
       measure.create(id, state.status);
       analytics.operational.instrument({
         id,

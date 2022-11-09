@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { waitFor, cleanup } from '@testing-library/react';
 
 let mockModalRender = jest.fn();
-jest.mock('../../../../view/common/Modal', () => ({
+jest.mock('../../../../view/EmbedModal', () => ({
   __esModule: true,
   default: (...args: any) => mockModalRender(...args),
 }));
@@ -41,9 +41,7 @@ describe('PreviewAction', () => {
     expect(mockModalRender).toBeCalledTimes(1);
     expect(mockModalRender).toBeCalledWith(
       {
-        closeLabel: 'Close Preview',
         iframeName: 'twp-editor-preview-iframe',
-        metadata: { items: [] },
         onClose: expect.any(Function),
         providerName: 'Preview',
         showModal: true,
@@ -63,7 +61,6 @@ describe('PreviewAction', () => {
           popupMountPointId: mockPopupMountPointId,
           onClose: mockOnClose,
           iframeName: 'my-iframe',
-          closeLabel: 'my-close-label',
           analytics: mockAnalytics,
         });
       }, []);

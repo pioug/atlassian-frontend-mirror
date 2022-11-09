@@ -81,7 +81,7 @@ describe('Smart Card: Actions', () => {
       expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
       expect(mockContext.store.dispatch).toHaveBeenCalledWith({
         payload: undefined,
-        type: 'pending',
+        type: 'resolving',
         url: 'https://some/url',
       });
       // Assert that we dispatch an action to update card state to fatally errored

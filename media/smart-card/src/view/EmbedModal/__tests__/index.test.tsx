@@ -8,7 +8,6 @@ import {
 } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
-import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 import { messages } from '../../../messages';
 import { MAX_MODAL_SIZE } from '../constants';
 import { AnalyticsFacade } from '../../../state/analytics';
@@ -39,7 +38,6 @@ describe('EmbedModal', () => {
       <IntlProvider locale="en">
         <EmbedModal
           analytics={mockAnalytics}
-          featureFlags={{ embedModalSize: 'small' }}
           iframeName="iframe-name"
           onClose={() => {}}
           showModal={true}
@@ -129,25 +127,7 @@ describe('EmbedModal', () => {
       const modal = await findByTestId(testId);
       const button = await findByTestId(`${testId}-resize-button`);
 
-      // Resize to maximum size
-      fireEvent.mouseOver(button);
-
-      // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
-      await waitFor(
-        () => {
-          expect(getByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
-        },
-        { timeout: 2000 },
-      );
-
-      const maxTooltip = await findByTestId(`${testId}-resize-tooltip`);
-      expect(maxTooltip.textContent).toBe(
-        messages.preview_max_size.defaultMessage,
-      );
-      await user.click(button);
-      expectModalMaxSize(modal);
-
-      // Resize to minimum size
+      // Resize to min size
       fireEvent.mouseOver(button);
 
       // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
@@ -164,6 +144,24 @@ describe('EmbedModal', () => {
       );
       await user.click(button);
       expectModalMinSize(modal);
+
+      // Resize to max size
+      fireEvent.mouseOver(button);
+
+      // the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
+      await waitFor(
+        () => {
+          expect(getByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
+        },
+        { timeout: 2000 },
+      );
+
+      const maxTooltip = await findByTestId(`${testId}-resize-tooltip`);
+      expect(maxTooltip.textContent).toBe(
+        messages.preview_max_size.defaultMessage,
+      );
+      await user.click(button);
+      expectModalMaxSize(modal);
     });
 
     describe('with url button', () => {
@@ -294,69 +292,6 @@ describe('EmbedModal', () => {
     expect(onOpenFailed).toHaveBeenCalledTimes(1);
   });
 
-  describe('with experiment', () => {
-    const embedModalComponentTestId = 'smart-embed-preview-modal';
-    const modalComponentTestId = 'smart-links-preview-modal';
-
-    it('return Modal component when feature flag is not available', async () => {
-      const { findByTestId } = renderEmbedModal({
-        featureFlags: undefined,
-        testId: undefined,
-      });
-      const modal = await findByTestId(modalComponentTestId);
-      expect(modal).toBeInTheDocument();
-    });
-
-    it('return Modal component when feature flag is off', async () => {
-      const { findByTestId } = renderEmbedModal({
-        featureFlags: {},
-        testId: undefined,
-      });
-      const modal = await findByTestId(modalComponentTestId);
-      expect(modal).toBeInTheDocument();
-    });
-
-    it('return Modal component when feature flag is control', async () => {
-      const { findByTestId } = renderEmbedModal({
-        featureFlags: { embedModalSize: 'control' },
-        testId: undefined,
-      });
-      const modal = await findByTestId(modalComponentTestId);
-      expect(modal).toBeInTheDocument();
-    });
-
-    it('return EmbedModal component with small size when feature flag is small', async () => {
-      const { findByTestId } = renderEmbedModal({
-        featureFlags: { embedModalSize: 'small' },
-        testId: undefined,
-      });
-      const modal = await findByTestId(embedModalComponentTestId);
-      expect(modal).toBeInTheDocument();
-      expectModalMinSize(modal);
-    });
-
-    it('return EmbedModal component when large size feature flag is large', async () => {
-      const { findByTestId } = renderEmbedModal({
-        featureFlags: { embedModalSize: 'large' },
-        testId: undefined,
-      });
-      const modal = await findByTestId(embedModalComponentTestId);
-      expect(modal).toBeInTheDocument();
-      expectModalMaxSize(modal);
-    });
-
-    it('return Modal component when feature flag has unexpected value', async () => {
-      const { findByTestId } = renderEmbedModal({
-        featureFlags: {
-          embedModalSize: '🇦🇺' as LinkingPlatformFeatureFlags['embedModalSize'],
-        },
-        testId: undefined,
-      });
-      const modal = await findByTestId(modalComponentTestId);
-      expect(modal).toBeInTheDocument();
-    });
-  });
-
   describe('with analytics', () => {
     const id = 'test-id';
     const location = 'test-location';
@@ -402,7 +337,7 @@ describe('EmbedModal', () => {
           packageName: '@atlaskit/smart-card',
           packageVersion: '999.9.9',
           resourceType: 'spaghetti-resource',
-          size: 'small',
+          size: 'large',
         },
         eventType: 'screen',
       });
@@ -490,7 +425,7 @@ describe('EmbedModal', () => {
           packageVersion: '999.9.9',
           previewTime: expect.any(Number),
           resourceType: 'spaghetti-resource',
-          size: 'small',
+          size: 'large',
         },
         eventType: 'ui',
       });
@@ -519,11 +454,11 @@ describe('EmbedModal', () => {
           destinationSubproduct: 'spaghetti-subproduct',
           extensionKey: 'spaghetti-key',
           location,
-          newSize: 'large',
+          newSize: 'small',
           origin: 'smartLinkCard',
           packageName: '@atlaskit/smart-card',
           packageVersion: '999.9.9',
-          previousSize: 'small',
+          previousSize: 'large',
           resourceType: 'spaghetti-resource',
         },
         eventType: 'ui',

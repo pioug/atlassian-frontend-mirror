@@ -126,12 +126,11 @@ describe('providers > editor', () => {
     const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
     await provider.resolve(url, 'inline', false);
     expect(mockFetch).toHaveBeenCalledWith(
-      expect.stringMatching(/.*?commerce-components-preview.*?\/providers/),
+      expect.stringMatching(/.*?pug\.jira-dev.*?\/providers/),
       expect.objectContaining({
         method: 'post',
         headers: expect.objectContaining({
-          Origin:
-            'https://commerce-components-preview.dev.atlassian.com/gateway/api',
+          Origin: 'https://pug.jira-dev.com/gateway/api',
         }),
       }),
     );
@@ -174,9 +173,7 @@ describe('providers > editor', () => {
     const url = 'https://site-without-pattern.com';
     await provider.findPattern(url);
     expect(mockFetch).toHaveBeenCalledWith(
-      expect.stringMatching(
-        /.*?commerce-components-preview.*?\/resolve\/batch/,
-      ),
+      expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
       expect.objectContaining({
         body: JSON.stringify([
           {

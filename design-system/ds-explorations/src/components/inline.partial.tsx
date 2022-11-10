@@ -122,11 +122,11 @@ export default Inline;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cff5655983f2243060cade5b107d7762>>
+ * @codegen <<SignedSource::2dd7c6b8450b1bbd1fb8fabf12fffa33>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["columnGap"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::0c1fe9904b2ff2465a532b97ab76491e>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::07ef29d58a2b23af8b098515466d7e22>>
  */
 const columnGapMap = {
   'scale.0': css({

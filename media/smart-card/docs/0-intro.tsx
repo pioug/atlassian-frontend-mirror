@@ -39,7 +39,7 @@ export default md`
 
   ## Examples
 
-  You must be logged in at [https://commerce-components-preview.dev.atlassian.com](https://commerce-components-preview.dev.atlassian.com) to load the examples.
+  You must be logged in at [https://pug.jira-dev.com](https://pug.jira-dev.com) to load the examples.
 
   ${(
     <Example

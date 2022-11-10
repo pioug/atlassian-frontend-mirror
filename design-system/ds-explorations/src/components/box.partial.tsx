@@ -279,11 +279,11 @@ const baseStyles = css({
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::620ef1f3b2d7a6f92e5052efb270b5eb>>
+ * @codegen <<SignedSource::2d25a493458fa1cefdafcd559404f2ec>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["padding", "paddingBlock", "paddingInline", "width", "height"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::0c1fe9904b2ff2465a532b97ab76491e>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::07ef29d58a2b23af8b098515466d7e22>>
  */
 const paddingMap = {
   'scale.0': css({
@@ -496,11 +496,11 @@ export type Height = keyof typeof heightMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::832d4f0a888302a4fd097946cd7c582c>>
+ * @codegen <<SignedSource::781636715c2bee941d6836a5a90fed5b>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["border", "background"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::0c1fe9904b2ff2465a532b97ab76491e>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::07ef29d58a2b23af8b098515466d7e22>>
  */
 const borderColorMap = {
   'color.border': css({

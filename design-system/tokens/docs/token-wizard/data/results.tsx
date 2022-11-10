@@ -476,7 +476,11 @@ const results: Results = {
     },
   },
   'shadow/overflow': {
-    suggestion: ['elevation.shadow.overflow'],
+    suggestion: [
+      'elevation.shadow.overflow',
+      'elevation.shadow.overflow.spread',
+      'elevation.shadow.overflow.perimeter',
+    ],
   },
 
   'border/colored/brand': {

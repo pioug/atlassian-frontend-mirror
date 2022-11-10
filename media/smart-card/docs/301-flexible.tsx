@@ -54,7 +54,7 @@ ${code`
 import { Card, Client, Provider, TitleBlock } from '@atlaskit/smart-card';
 
 // To use staging environment, you must be logged in at
-// https://commerce-components-preview.dev.atlassian.com
+// https://pug.jira-dev.com
 <Provider client={new Client('stg')}>
   <Card appearance="inline" url="https://www.atlassian.com/">
     <TitleBlock />

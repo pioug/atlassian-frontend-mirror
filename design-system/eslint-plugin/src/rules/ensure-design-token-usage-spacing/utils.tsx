@@ -55,7 +55,11 @@ export const isSpacingProperty = (prop: string) => {
 
 export const getValueFromShorthand = (str: unknown): any[] => {
   // If we want to filter out NaN just add .filter(Boolean)
-  return String(str).trim().split(' ').map(removePixelSuffix);
+  return String(str)
+    .trim()
+    .split(' ')
+    .filter((val) => val !== '')
+    .map(removePixelSuffix);
 };
 
 const isGridSize = (node: EslintNode): node is CallExpression =>
@@ -73,7 +77,15 @@ const isFontSizeSmall = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node.callee, 'Identifier') &&
   node.callee.name === 'fontSizeSmall';
 
-const getValueFromCallExpression = (node: EslintNode) => {
+const isToken = (node: EslintNode): node is CallExpression =>
+  isNodeOfType(node, 'CallExpression') &&
+  isNodeOfType(node.callee, 'Identifier') &&
+  node.callee.name === 'token';
+
+const getValueFromCallExpression = (
+  node: EslintNode,
+  context: Rule.RuleContext,
+) => {
   if (!isNodeOfType(node, 'CallExpression')) {
     return null;
   }
@@ -88,6 +100,26 @@ const getValueFromCallExpression = (node: EslintNode) => {
 
   if (isFontSizeSmall(node)) {
     return 11;
+  }
+
+  if (isToken(node)) {
+    const args = (node as CallExpression).arguments;
+    const call = `\${token(${args
+      .map((argNode) => {
+        if (isNodeOfType(argNode, 'Literal')) {
+          return argNode.raw;
+        }
+
+        if (isNodeOfType(argNode, 'Identifier')) {
+          return argNode.name;
+        }
+
+        if (isNodeOfType(argNode, 'MemberExpression')) {
+          return getValue(argNode, context);
+        }
+      })
+      .join(', ')})}`;
+    return call;
   }
 
   return null;
@@ -110,7 +142,7 @@ export const getValue = (
   }
 
   if (isNodeOfType(node, 'CallExpression')) {
-    return getValueFromCallExpression(node);
+    return getValueFromCallExpression(node, context);
   }
 
   if (isNodeOfType(node, 'Identifier')) {
@@ -297,4 +329,19 @@ export const isValidSpacingValue = (
 // convert line-height to lineHeight
 export const convertHyphenatedNameToCamelCase = (prop: string) => {
   return prop.replace(/-./g, (m) => m[1].toUpperCase());
+};
+
+/**
+ * @param node
+ * @returns The furthest parent node that is on the same line as the input node
+ */
+export const findParentNodeForLine = (node: Rule.Node): Rule.Node => {
+  if (!node.parent) {
+    return node;
+  }
+  if (node.loc?.start.line !== node.parent.loc?.start.line) {
+    return node;
+  } else {
+    return findParentNodeForLine(node.parent);
+  }
 };

@@ -5,7 +5,7 @@ import { BatchResponse, isSuccessfulResponse, request } from './client-utils';
 
 class JsonldEditorClient extends CardClient {
   private readonly resolveUrl: string =
-    'https://commerce-components-preview.dev.atlassian.com/gateway/api/object-resolver';
+    'https://pug.jira-dev.com/gateway/api/object-resolver';
   private readonly onFetch?: () => JsonLd.Response | undefined;
   private readonly onResolve?: (response: JsonLd.Response) => void;
   private readonly onError?: (error: Error) => void;

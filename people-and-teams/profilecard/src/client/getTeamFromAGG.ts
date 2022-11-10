@@ -27,7 +27,7 @@ export const extractIdFromAri = (ari: string) => {
 };
 
 export const idToAri = (teamId: string) => {
-  return `ari:cloud:teams::team/${teamId}`;
+  return `ari:cloud:identity::team/${teamId}`;
 };
 
 export const convertTeam = (result: AGGResult): Team => {

@@ -1,8 +1,7 @@
 import { EnvironmentsKeys } from '../types';
 
 const devBaseUrl = 'https://api-private.dev.atlassian.com';
-const stgBaseUrl =
-  'https://commerce-components-preview.dev.atlassian.com/gateway/api';
+const stgBaseUrl = 'https://pug.jira-dev.com/gateway/api';
 const prodBaseUrl = 'https://api-private.atlassian.com';
 
 export const BaseUrls = {

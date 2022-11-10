@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.13.1
+
+### Patch Changes
+
+- [`cc76eda3bc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc76eda3bc0) - Add support for template literals in ensure-design-token-usage-spacing
+
 ## 4.13.0
 
 ### Minor Changes

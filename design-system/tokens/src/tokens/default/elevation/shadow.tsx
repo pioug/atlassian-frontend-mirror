@@ -13,11 +13,31 @@ const shadow: AttributeSchema<ShadowTokenSchema<BaseToken>> = {
         },
       },
       overflow: {
-        attributes: {
-          group: 'shadow',
-          state: 'active',
-          introduced: '0.6.0',
-          description: `Use to create a shadow when content scrolls under other content.`,
+        '[default]': {
+          attributes: {
+            group: 'shadow',
+            state: 'active',
+            introduced: '0.6.0',
+            description: `Use to create a shadow when content scrolls under other content.`,
+          },
+        },
+        spread: {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            introduced: '0.10.32',
+            description:
+              'Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow.',
+          },
+        },
+        perimeter: {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            introduced: '0.10.32',
+            description:
+              'Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow.',
+          },
         },
       },
       overlay: {

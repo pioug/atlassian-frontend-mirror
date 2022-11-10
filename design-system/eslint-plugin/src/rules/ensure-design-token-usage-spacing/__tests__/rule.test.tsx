@@ -19,6 +19,14 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       padding: \`\${token('spacing.scale.100', '8px')} \${token('spacing.scale.100', '8px')}\`,
     });`,
     },
+    {
+      code: `const cssTemplateLiteral = css\`
+      color: pink;
+      div {
+        padding: \${token('spacing.scale.200', '16px')}
+        \${token('spacing.scale.300', '24px')};
+      }\`;`,
+    },
   ],
   invalid: [
     // just literals
@@ -371,20 +379,32 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     },
     // tagged TemplateLiteral
     {
-      code:
-        'const cssTemplateLiteral = css`color: red; padding: 12px; margin: 4px; row-gap: 2px`;',
+      code: 'const cssTemplateLiteral = css`color: red; padding: 16px 24px;`;',
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; padding: \${token('spacing.scale.200', '16px')} \${token('spacing.scale.300', '24px')};\`;`,
       errors: [
         {
           message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:12>>',
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
         },
         {
           message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<margin:4>>',
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:24>>',
+        },
+      ],
+    },
+    // tagged TemplateLiteral with nested styles
+    {
+      code:
+        'const cssTemplateLiteral = css`color: red; div { padding: 16px 24px; }`;',
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; div { padding: \${token('spacing.scale.200', '16px')} \${token('spacing.scale.300', '24px')}; }\`;`,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
         },
         {
           message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<rowGap:2>>',
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:24>>',
         },
       ],
     },
@@ -392,6 +412,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     {
       code:
         'const styledTemplateLiteral = styled.p`color: red; padding: 12px; margin: 4px; gap: 2px`;',
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.150', '12px')}; margin: 4px; gap: 2px\`;`,
       errors: [
         {
           message:
@@ -410,6 +431,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     {
       code:
         'const styledTemplateLiteral = styled.p`color: red; padding: 12px 8px 10px 9px;`;',
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px 8px 10px 9px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.150', '12px')} \${token('spacing.scale.100', '8px')} 10px 9px;\`;`,
       errors: [
         {
           message:
@@ -431,19 +453,14 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     },
     // identifier in template
     {
-      code: `const value = gridSize();const styledTemplateLiteral = styled.p\`color: red; padding: \${value}px; margin: 4px; gap: 2px\`;`,
+      code: `const value = gridSize();
+      const styledTemplateLiteral = styled.p\`color: red; padding: \${value}px;\`;`,
+      output: `const value = gridSize();
+      // TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.100', '8px')};\`;`,
       errors: [
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
-        },
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<margin:4>>',
-        },
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<gap:2>>',
         },
       ],
     },
@@ -477,6 +494,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     // callExpression in template
     {
       code: `const styledTemplateLiteral = styled.p\`color: red; padding: \${gridSize()}px; margin: 4px; gap: 2px\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.100', '8px')}; margin: 4px; gap: 2px\`;`,
       errors: [
         {
           message:
@@ -528,6 +546,30 @@ tester.run('ensure-design-token-usage-spacing', rule, {
               background: \${token('elevation.surface', colors.N0)};
               z-index: \${stickyHeaderBreadcrumbsZIndex};
               padding-left: \${stickyLineExtraLengthLeft}px;
+              margin-left: -\${stickyLineExtraLengthLeft}px;
+              padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
+              top: \${(props) => props.topOffset + extraTopOffset}px;
+          }
+      \`;
+      `,
+      output: `// @flow strict-local
+      import styled from 'styled-components';
+      import { colors } from '@atlaskit/theme';
+      import { token } from '@atlaskit/tokens';
+      import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
+
+      export const stickyLineExtraLengthLeft = gridSize;
+
+      export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
+
+      const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
+      // TODO Delete this comment after verifying spacing token -> previous value \`8px\`
+export const StickyWrapper = styled.div\`
+          @supports (position: sticky) or (position: -webkit-sticky) {
+              position: sticky;
+              background: \${token('elevation.surface', colors.N0)};
+              z-index: \${stickyHeaderBreadcrumbsZIndex};
+              padding-left: \${token('spacing.scale.100', '8px')};
               margin-left: -\${stickyLineExtraLengthLeft}px;
               padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
               top: \${(props) => props.topOffset + extraTopOffset}px;

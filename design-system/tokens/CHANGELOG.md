@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.32
+
+### Patch Changes
+
+- [`c8bd8ee1920`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8bd8ee1920) - Adds new shadow tokens, elevation.shadow.overflow.spread and elevation.shadow.overflow.perimeter, that can be applied in combination to replicate the overflow shadow when elevation.shadow.overflow is not technically feasible to implement.
+
 ## 0.10.31
 
 ### Patch Changes

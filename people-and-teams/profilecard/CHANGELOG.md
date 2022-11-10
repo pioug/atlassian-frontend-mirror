@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 17.2.5
+
+### Patch Changes
+
+- [`dbd0fa0aa5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbd0fa0aa5e) - Handle both new and legacy Team ARIs
+
 ## 17.2.4
 
 ### Patch Changes

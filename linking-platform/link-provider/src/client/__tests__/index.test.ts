@@ -79,9 +79,7 @@ describe('Smart Card: Client', () => {
     expect(mockRequest).toBeCalled();
     expect(mockRequest).toBeCalledWith(
       'post',
-      expect.stringMatching(
-        /.*?commerce-components-preview.*?\/resolve\/batch/,
-      ),
+      expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
       [
         {
           resourceUrl,

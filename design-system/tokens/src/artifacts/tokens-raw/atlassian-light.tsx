@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::47205df5ad0c00f62bcd307009504921>>
+ * @codegen <<SignedSource::5a654d8b889b7fca74b9184ff6687882>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -8198,10 +8198,10 @@ const tokens = [
         "radius": 8,
         "offset": {
           "x": 0,
-          "y": 8
+          "y": 0
         },
         "color": "#091E42",
-        "opacity": 0.08
+        "opacity": 0.16
       },
       {
         "radius": 1,
@@ -8227,10 +8227,10 @@ const tokens = [
           "radius": 8,
           "offset": {
             "x": 0,
-            "y": 8
+            "y": 0
           },
           "color": "Neutral1100",
-          "opacity": 0.08
+          "opacity": 0.16
         },
         {
           "radius": 1,
@@ -8243,11 +8243,66 @@ const tokens = [
         }
       ]
     },
-    "name": "elevation.shadow.overflow",
+    "name": "elevation.shadow.overflow.[default]",
     "path": [
       "elevation",
       "shadow",
-      "overflow"
+      "overflow",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.32",
+      "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
+    },
+    "value": "#091e4229",
+    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.32",
+        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
+      },
+      "value": "#091e4229"
+    },
+    "name": "elevation.shadow.overflow.spread",
+    "path": [
+      "elevation",
+      "shadow",
+      "overflow",
+      "spread"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.32",
+      "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
+    },
+    "value": "#091e421f",
+    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.32",
+        "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
+      },
+      "value": "#091e421f"
+    },
+    "name": "elevation.shadow.overflow.perimeter",
+    "path": [
+      "elevation",
+      "shadow",
+      "overflow",
+      "perimeter"
     ]
   },
   {

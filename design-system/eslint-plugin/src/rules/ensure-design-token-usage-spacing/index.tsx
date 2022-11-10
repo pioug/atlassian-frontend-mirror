@@ -48,6 +48,7 @@ function pixelValueToSpacingTokenNode(pixelValueString: string) {
 import {
   convertHyphenatedNameToCamelCase,
   emToPixels,
+  findParentNodeForLine,
   getValue,
   getValueFromShorthand,
   isSpacingProperty,
@@ -259,6 +260,8 @@ const rule: Rule.RuleModule = {
           return;
         }
 
+        const parentNode = findParentNodeForLine(node);
+
         const combinedString = node.quasi.quasis
           .map((q, i) => {
             return `${q.value.raw}${
@@ -268,6 +271,7 @@ const rule: Rule.RuleModule = {
             }`;
           })
           .join('');
+
         /**
          * Attempts to remove all non-essential words & characters from a style block.
          * Including selectors and queries
@@ -278,8 +282,16 @@ const rule: Rule.RuleModule = {
           .filter((line) => !line.trim().startsWith('@'))
           .join('\n')
           .replace(/\n/g, '')
-          .split(/;|{|}/)
-          .map((el) => el.trim() || '');
+          .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
+          .map((el) => el.trim() || '')
+          .filter(Boolean);
+
+        // Get font size
+        const fontSizeNode = cssProperties.find((style) => {
+          const [rawProperty, value] = style.split(':');
+          return /font-size/.test(rawProperty) ? value : null;
+        });
+        const fontSize = getValueFromShorthand(fontSizeNode)[0] as number;
 
         cssProperties.forEach((style) => {
           const [rawProperty, value] = style.split(':');
@@ -289,7 +301,8 @@ const rule: Rule.RuleModule = {
             return;
           }
 
-          if (!isValidSpacingValue(value)) {
+          // value is either NaN or it can't be resolved eg, em, 100% etc...
+          if (!isValidSpacingValue(value, fontSize)) {
             return context.report({
               node,
               messageId: 'noRawSpacingValues',
@@ -300,16 +313,81 @@ const rule: Rule.RuleModule = {
           }
 
           const values = getValueFromShorthand(value);
-          for (const val of values) {
-            // could be array of values e.g. padding: 8px 12px 3px
+
+          values.forEach((val, index) => {
+            if (
+              (!val && val !== 0) ||
+              !/padding|margin|gap/.test(rawProperty)
+            ) {
+              return;
+            }
+
+            const pixelValue = emToPixels(val, fontSize);
             context.report({
               node,
               messageId: 'noRawSpacingValues',
               data: {
-                payload: `${property}:${val}`,
+                payload: `${property}:${pixelValue}`,
               },
+              fix:
+                index === 0
+                  ? (fixer) => {
+                      const allResolvableValues = values.every(
+                        (value) => !Number.isNaN(emToPixels(value, fontSize)),
+                      );
+                      if (!allResolvableValues) {
+                        return null;
+                      }
+
+                      const replacementValue = values
+                        .map((value) => {
+                          const pixelValue = emToPixels(value, fontSize);
+                          const pixelValueString = `${pixelValue}px`;
+                          const tokenName =
+                            spacingValueToToken[pixelValueString];
+
+                          if (!tokenName) {
+                            return pixelValueString;
+                          }
+
+                          // ${token('...', '...')}
+                          const replacementSubValue =
+                            '${' +
+                            pixelValueToSpacingTokenNode(
+                              pixelValueString,
+                            ).toString() +
+                            '}';
+                          return replacementSubValue;
+                        })
+                        .join(' ');
+
+                      // get original source
+                      const textForSource = context
+                        .getSourceCode()
+                        .getText(node.quasi);
+
+                      // find `<property>: ...;` in original
+                      const searchRegExp = new RegExp(
+                        `${rawProperty}.+?;`,
+                        'g',
+                      );
+                      // replace property:val with new property:val
+                      const replacement = textForSource.replace(
+                        searchRegExp,
+                        `${rawProperty}: ${replacementValue};`,
+                      );
+
+                      return [
+                        fixer.insertTextBefore(
+                          parentNode,
+                          `// TODO Delete this comment after verifying spacing token -> previous value \`${value.trim()}\`\n`,
+                        ),
+                        fixer.replaceText(node.quasi, replacement),
+                      ];
+                    }
+                  : undefined,
             });
-          }
+          });
         });
       },
     };

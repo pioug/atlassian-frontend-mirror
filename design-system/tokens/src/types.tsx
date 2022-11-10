@@ -544,7 +544,11 @@ export interface ShadowTokenSchema<BaseToken> {
   elevation: {
     shadow: {
       raised: ShadowToken<BaseToken>;
-      overflow: ShadowToken<BaseToken>;
+      overflow: {
+        '[default]': ShadowToken<BaseToken>;
+        spread: PaintToken<BaseToken>;
+        perimeter: PaintToken<BaseToken>;
+      };
       overlay: ShadowToken<BaseToken>;
     };
   };

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::02e94c9602d30a3320fd9e00a1950a7c>>
+ * @codegen <<SignedSource::14b924918199fae4ec5e7515a026c3e8>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -180,6 +180,8 @@ export type ActiveTokens =
   | 'color.link.pressed'
   | 'elevation.shadow.raised'
   | 'elevation.shadow.overflow'
+  | 'elevation.shadow.overflow.spread'
+  | 'elevation.shadow.overflow.perimeter'
   | 'elevation.shadow.overlay'
   | 'elevation.surface'
   | 'elevation.surface.hovered'

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::39f5c50a16b92a67dcd34ffb038b73d2>>
+ * @codegen <<SignedSource::ac998ce60e638b25c6f248bb8a5ade05>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -179,7 +179,9 @@ export type InternalTokenIds =
   | 'color.link.[default]'
   | 'color.link.pressed'
   | 'elevation.shadow.raised'
-  | 'elevation.shadow.overflow'
+  | 'elevation.shadow.overflow.[default]'
+  | 'elevation.shadow.overflow.spread'
+  | 'elevation.shadow.overflow.perimeter'
   | 'elevation.shadow.overlay'
   | 'elevation.surface.[default].[default]'
   | 'elevation.surface.[default].hovered'

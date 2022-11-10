@@ -4,7 +4,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light spacing').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::128d2aed73e7128437a797c426204b37>>
+ * @codegen <<SignedSource::ef6186f17dafc7e13af4096ad3cf41bb>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -283,7 +283,9 @@ const defaultTokenValues = {
   'shadow.card': '0px 1px 1px #091E4240, 0px 0px 1px #091E424F',
   'shadow.overlay': '0px 8px 12px #091E4226, 0px 0px 1px #091E424F',
   'elevation.shadow.raised': '0px 1px 1px #091E4240, 0px 0px 1px #091E424F',
-  'elevation.shadow.overflow': '0px 8px 8px #091E4214, 0px 0px 1px #091E421F',
+  'elevation.shadow.overflow': '0px 0px 8px #091E4229, 0px 0px 1px #091E421F',
+  'elevation.shadow.overflow.spread': '#091e4229',
+  'elevation.shadow.overflow.perimeter': '#091e421f',
   'elevation.shadow.overlay': '0px 8px 12px #091E4226, 0px 0px 1px #091E424F',
   'elevation.surface': '#FFFFFF',
   'elevation.surface.hovered': '#F1F2F4',

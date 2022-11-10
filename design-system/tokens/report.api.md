@@ -298,6 +298,8 @@ type CSSTokenMap_2 = {
   'shadow.overlay': 'var(--ds-overlay)';
   'elevation.shadow.raised': 'var(--ds-shadow-raised)';
   'elevation.shadow.overflow': 'var(--ds-shadow-overflow)';
+  'elevation.shadow.overflow.spread': 'var(--ds-shadow-overflow-spread)';
+  'elevation.shadow.overflow.perimeter': 'var(--ds-shadow-overflow-perimeter)';
   'elevation.shadow.overlay': 'var(--ds-shadow-overlay)';
   'elevation.surface': 'var(--ds-surface)';
   'elevation.surface.hovered': 'var(--ds-surface-hovered)';
@@ -821,6 +823,8 @@ const tokens: {
   readonly 'shadow.overlay': '--ds-overlay';
   readonly 'elevation.shadow.raised': '--ds-shadow-raised';
   readonly 'elevation.shadow.overflow': '--ds-shadow-overflow';
+  readonly 'elevation.shadow.overflow.spread': '--ds-shadow-overflow-spread';
+  readonly 'elevation.shadow.overflow.perimeter': '--ds-shadow-overflow-perimeter';
   readonly 'elevation.shadow.overlay': '--ds-shadow-overlay';
   readonly 'elevation.surface': '--ds-surface';
   readonly 'elevation.surface.hovered': '--ds-surface-hovered';

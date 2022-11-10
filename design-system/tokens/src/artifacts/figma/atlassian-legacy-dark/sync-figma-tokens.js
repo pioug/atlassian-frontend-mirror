@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::da9be1d003c8792d957d0f11f7c8344d>>
+ * @codegen <<SignedSource::f26c27af411310ed1dd33d2a69bbee86>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -1613,7 +1613,7 @@ synchronizeFigmaTokens('AtlassianLegacyDark', {
       }
     ]
   },
-  "Elevation/Shadow/Overflow": {
+  "Elevation/Shadow/Overflow/Default": {
     "attributes": {
       "group": "shadow",
       "state": "active",
@@ -1640,6 +1640,24 @@ synchronizeFigmaTokens('AtlassianLegacyDark', {
         "opacity": 0.5
       }
     ]
+  },
+  "Elevation/Shadow/Overflow/Spread": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.32",
+      "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
+    },
+    "value": "#0304048f"
+  },
+  "Elevation/Shadow/Overflow/Perimeter": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.32",
+      "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
+    },
+    "value": "#03040480"
   },
   "Elevation/Shadow/Overlay": {
     "attributes": {

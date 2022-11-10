@@ -5,7 +5,7 @@ import {
   idToAri,
 } from '../../client/getTeamFromAGG';
 
-const ARI_PREFIX = 'ari:cloud:teams::team';
+const ARI_PREFIX = 'ari:cloud:identity::team';
 
 const teamId = '1234-5678-abcd-89ef';
 

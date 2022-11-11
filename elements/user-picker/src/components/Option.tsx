@@ -6,7 +6,15 @@ import AsyncExternalOption from './ExternalUserOption';
 import AsyncTeamOption from './TeamOption';
 import AsyncGroupOption from './GroupOption';
 import AsyncEmailOption from './EmailOption';
-import { isEmail, isTeam, isUser, isGroup, isExternalUser } from './utils';
+import AsyncCustomOption from './CustomOption';
+import {
+  isCustom,
+  isEmail,
+  isTeam,
+  isUser,
+  isGroup,
+  isExternalUser,
+} from './utils';
 import { isValidEmail } from './emailValidation';
 
 export type OptionProps = AkOptionProps & {
@@ -61,6 +69,10 @@ const dataOption = ({
 
   if (isGroup(data)) {
     return <AsyncGroupOption group={data} isSelected={isSelected} />;
+  }
+
+  if (isCustom(data)) {
+    return <AsyncCustomOption data={data} isSelected={isSelected} />;
   }
 
   return null;

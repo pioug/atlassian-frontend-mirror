@@ -126,6 +126,26 @@ events:
           description: componentStack from componentDidCatch info
           required: false
 
+  - searchResults shown (preQuerySearchResults):
+      type: ui
+      description: Fires when a user opens the Link Picker and the initial set of search results is shown. (Maximum rate 1 event/400ms)
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkPickerAnalyticsContext
+        resultCount:
+          type: number
+          description: the number of results shown to the user
+
+  - searchResults shown (postQuerySearchResults):
+      type: ui
+      description: Fires when a user triggers a Search of objects within the Link Picker and results are shown. (Maximum rate 1 event/400ms)
+      attributes:
+        <<: *PackageMetaDataContext
+        <<: *LinkPickerAnalyticsContext
+        resultCount:
+          type: number
+          description: the number of results shown to the user
+
   - resultsResolve failed:
       type: operational
       description: fired when a link picker plugin throws an error when attempting to resolve results

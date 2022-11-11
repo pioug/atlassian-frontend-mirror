@@ -10,7 +10,8 @@ import { Option } from '../../../components/Option';
 import { TeamOption } from '../../../components/TeamOption/main';
 import { UserOption } from '../../../components/UserOption';
 import { GroupOption } from '../../../components/GroupOption/main';
-import { Email, Team, User, Group, ExternalUser } from '../../../types';
+import { CustomOption } from '../../../components/CustomOption/main';
+import { Email, Team, User, Group, ExternalUser, Custom } from '../../../types';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
 
 // Helper to make <React.Suspense> and React.lazy() work with Enzyme
@@ -239,6 +240,41 @@ describe('Option', () => {
       expect(groupOption).toHaveLength(1);
       expect(groupOption.props()).toMatchObject({
         group,
+        isSelected: true,
+      });
+    });
+  });
+
+  describe('CustomOption', () => {
+    const custom: Custom = {
+      id: 'custom-123',
+      name: 'custom-options',
+      type: 'custom',
+    };
+
+    it('should render option with CustomOption', async () => {
+      const component = renderOption({
+        data: { data: custom, label: custom.name, value: custom.id },
+        isSelected: true,
+        selectProps,
+      });
+
+      component.find(AvatarItemOption);
+
+      await new Promise(setImmediate);
+      component.update();
+
+      const option = component.find(components.Option);
+      expect(option).toHaveLength(1);
+      expect(option.props()).toMatchObject({
+        data: { data: custom },
+        isSelected: true,
+      });
+
+      const customOption = component.find(CustomOption);
+      expect(customOption).toHaveLength(1);
+      expect(customOption.props()).toMatchObject({
+        data: custom,
         isSelected: true,
       });
     });

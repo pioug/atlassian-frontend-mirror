@@ -17,6 +17,7 @@ import {
 } from '../../../components/utils';
 import {
   EmailType,
+  Custom,
   Option,
   OptionData,
   Team,
@@ -85,12 +86,14 @@ const mockSessionId = (
 
 const ID_1 = '111111111111111111111111';
 const ID_2 = '111111111111111111111110';
+const ID_3 = '111111111111111111111112';
 const INVALID_ID_1 = 'invalid@id.com';
 const INVALID_ID_2 = 'Bob Ross';
 
 const OLD_AAID = '1234567:12345678-1234-1234-1234-123456789012';
 const TEAM_ID = '12345678-1234-1234-1234-123456789012';
-const GROUP_ID = '12345678-1234-1234-1234-123456789012';
+const GROUP_ID = '12345678-1234-1234-1234-123456789013';
+const CUSTOM_ID = '12345678-1234-1234-1234-123456789014';
 
 const getBasePicker = (
   BasePickerComponent: React.JSXElementConstructor<BaseUserPickerProps>,
@@ -150,6 +153,11 @@ describe('BaseUserPicker', () => {
       type: 'team',
     },
     {
+      id: CUSTOM_ID,
+      name: 'SlackChannel',
+      type: 'custom',
+    },
+    {
       id: INVALID_ID_1,
       name: 'hi@id.com',
       publicName: 'hi@id.com',
@@ -170,6 +178,15 @@ describe('BaseUserPicker', () => {
       publicName: 'cnalaar',
       isExternal: true,
       sources: ['google'],
+    },
+  ];
+
+  const customOptions: Custom[] = [
+    {
+      id: ID_3,
+      name: 'Aris Puddle',
+      type: 'custom',
+      analyticsType: 'experiment',
     },
   ];
 
@@ -1046,7 +1063,7 @@ describe('BaseUserPicker', () => {
       expect(preventDefault).toHaveBeenCalledTimes(0);
     });
 
-    describe('groups and teams', () => {
+    describe('groups, teams, and custom', () => {
       const teamOptions: Team[] = [
         {
           id: 'team-123',
@@ -1073,10 +1090,17 @@ describe('BaseUserPicker', () => {
       const selectableGroupOptions: Option[] = optionToSelectableOptions(
         groupOptions,
       );
+      const selectableCustomOptions: Option[] = optionToSelectableOptions(
+        customOptions,
+      );
 
-      const mixedOptions: OptionData[] = (options as OptionData[])
+      const mixedOptions: (OptionData | Custom)[] = (options as (
+        | OptionData
+        | Custom
+      )[])
         .concat(teamOptions)
-        .concat(groupOptions);
+        .concat(groupOptions)
+        .concat(customOptions);
 
       const selectableMixedOptions: Option[] = optionToSelectableOptions(
         mixedOptions,
@@ -1094,13 +1118,19 @@ describe('BaseUserPicker', () => {
         expect(select.prop('options')).toEqual(selectableGroupOptions);
       });
 
-      it('should render select with teams, groups, and users', () => {
+      it('should render select with only custom options', () => {
+        const component = shallowUserPicker({ options: customOptions });
+        const select = component.find(Select);
+        expect(select.prop('options')).toEqual(selectableCustomOptions);
+      });
+
+      it('should render select with teams, groups, custom, and users', () => {
         const component = shallowUserPicker({ options: mixedOptions });
         const select = component.find(Select);
         expect(select.prop('options')).toEqual(selectableMixedOptions);
       });
 
-      it('should be able to multi-select a mix of teams, groups, and users', () => {
+      it('should be able to multi-select a mix of teams, groups, custom, and users', () => {
         const onChange = jest.fn();
         const component = shallowUserPicker({
           options: mixedOptions,
@@ -1113,7 +1143,7 @@ describe('BaseUserPicker', () => {
         });
 
         expect(onChange).toHaveBeenCalledWith(
-          mixedOptions.slice(0, 6),
+          mixedOptions.slice(0, 8),
           'select-option',
         );
       });
@@ -1302,9 +1332,54 @@ describe('BaseUserPicker', () => {
                 position: -1,
                 numberOfResults: 0,
                 result: {
-                  id: '111111111111111111111110',
+                  id: ID_2,
                   type: 'external_user',
                   sources: ['google'],
+                },
+              },
+            }),
+          }),
+          'fabric-elements',
+        );
+      });
+
+      it('should trigger clicked event for custom option with analyticsEvent override', () => {
+        const input = component.find('input');
+        input.simulate('focus');
+        component.setProps({ customOptions });
+        input.simulate('keyDown', { keyCode: 40 });
+        input.simulate('keyDown', { keyCode: 40 });
+        input.simulate('keyDown', { keyCode: 40 });
+        input.simulate('keyDown', { keyCode: 38 });
+        component.find(Select).prop('onChange')(
+          optionToSelectableOption(customOptions[0]),
+          {
+            action: 'select-option',
+          },
+        );
+        expect(onEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            payload: expect.objectContaining({
+              action: 'clicked',
+              actionSubject: 'userPicker',
+              eventType: 'ui',
+              attributes: {
+                context: 'test',
+                sessionDuration: expect.any(Number),
+                packageName: '@atlaskit/user-picker',
+                packageVersion: expect.any(String),
+                journeyId: expect.any(String),
+                sessionId: expect.any(String),
+                queryLength: 0,
+                spaceInQuery: false,
+                pickerType: 'single',
+                upKeyCount: 1,
+                downKeyCount: 3,
+                position: -1,
+                numberOfResults: 0,
+                result: {
+                  id: ID_3,
+                  type: 'experiment',
                 },
               },
             }),
@@ -1753,6 +1828,7 @@ describe('BaseUserPicker', () => {
                   { id: OLD_AAID, type: 'user' },
                   { id: GROUP_ID, type: 'group' },
                   { id: TEAM_ID, type: 'team' },
+                  { id: CUSTOM_ID, type: 'custom' },
                   { id: null, type: 'user' },
                   { id: null, type: 'user' },
                 ]),

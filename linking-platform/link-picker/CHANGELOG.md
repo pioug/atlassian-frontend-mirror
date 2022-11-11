@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 1.13.1
+
+### Patch Changes
+
+- [`2933e4ddeb0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2933e4ddeb0) - Add searchResults shown analytic event for pre-query and post-query results
+
+## 1.13.0
+
+### Minor Changes
+
+- [`91bd9e3193c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91bd9e3193c) - add experimental support for UNSAFE_onActivation call for plugins
+
 ## 1.12.0
 
 ### Minor Changes

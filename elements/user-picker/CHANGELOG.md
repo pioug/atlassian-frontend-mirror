@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.6.0
+
+### Minor Changes
+
+- [`faf391ab64a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf391ab64a) - Implementing new CustomOption which will allow for a custom avatar
+
 ## 9.5.1
 
 ### Patch Changes

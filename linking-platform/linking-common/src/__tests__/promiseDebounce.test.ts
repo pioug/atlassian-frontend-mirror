@@ -1,21 +1,17 @@
-import sinon from 'sinon';
-
-import { flushPromises } from '@atlaskit/link-test-helpers';
+import { flushPromises, ManualPromise } from '@atlaskit/link-test-helpers';
 
 import { promiseDebounce } from '../promiseDebounce';
 
-const clock = sinon.useFakeTimers(
-  'setTimeout',
-  'clearTimeout',
-  'setInterval',
-  'clearInterval',
-  'Date',
-);
-
-jest.unmock('lodash/debounce');
-
 describe('promiseDebounce', () => {
-  it('should return a fn that returns a debounced/shared promise', async () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
+  it('should return a fn that returns a debounced promise', async () => {
     const debounceInterval = 200;
 
     const fn = (() => {
@@ -25,35 +21,25 @@ describe('promiseDebounce', () => {
 
     const debounced = promiseDebounce(fn, debounceInterval);
 
-    const a = debounced();
-    const b = debounced();
-    const c = debounced();
+    debounced();
 
     await flushPromises();
     expect(fn).toHaveBeenCalledTimes(0);
 
-    await flushPromises();
-    clock.tick(debounceInterval);
+    jest.advanceTimersByTime(debounceInterval);
 
     expect(fn).toHaveBeenCalledTimes(1);
-    await expect(a).resolves.toBe(1);
-    await expect(b).resolves.toBe(1);
-    await expect(c).resolves.toBe(1);
 
-    const d = debounced();
-    const e = debounced();
-    const f = debounced();
+    debounced();
+    debounced();
+    const result = debounced();
 
-    await flushPromises();
     expect(fn).toHaveBeenCalledTimes(1);
 
     await flushPromises();
-    clock.tick(debounceInterval);
-
+    jest.advanceTimersByTime(debounceInterval);
     expect(fn).toHaveBeenCalledTimes(2);
-    await expect(d).resolves.toBe(2);
-    await expect(e).resolves.toBe(2);
-    await expect(f).resolves.toBe(2);
+    await expect(result).resolves.toBe(2);
   });
 
   it('should handle the rejection error properly', async () => {
@@ -66,19 +52,45 @@ describe('promiseDebounce', () => {
 
     const debounced = promiseDebounce(fn, debounceInterval);
 
-    const a = debounced();
-    const b = debounced();
-    const c = debounced();
+    debounced();
+    debounced();
+    const result = debounced();
 
     await flushPromises();
     expect(fn).toHaveBeenCalledTimes(0);
 
     await flushPromises();
-    clock.tick(debounceInterval);
+    jest.advanceTimersByTime(debounceInterval);
 
     expect(fn).toHaveBeenCalledTimes(1);
-    await expect(a).rejects.toBe(1);
-    await expect(b).rejects.toBe(1);
-    await expect(c).rejects.toBe(1);
+    await expect(result).rejects.toBe(1);
+  });
+
+  it('promises should be independently executed (not share resolve value)', async () => {
+    const debounceInterval = 200;
+    const fn = jest.fn();
+    const debounced = promiseDebounce(fn, debounceInterval);
+    const promiseA = new ManualPromise(1);
+    const promiseB = new ManualPromise(2);
+
+    fn.mockReturnValueOnce(promiseA);
+    const a = debounced();
+    // Wait the debounce interval so that the cb will have executed
+    jest.advanceTimersByTime(debounceInterval);
+    expect(fn).toHaveBeenCalledTimes(1);
+
+    fn.mockReturnValueOnce(promiseB);
+    const b = debounced();
+    // Wait the debounce interval so the second cb will have executed
+    jest.advanceTimersByTime(debounceInterval);
+    expect(fn).toHaveBeenCalledTimes(2);
+
+    // By this stage both calls to debounce have been executed as they were spaced by the debounce interval, both promises are pending
+    // Release Promise A before B, expect that we both promises should resolve to their respective values
+    promiseA.resolve();
+    promiseB.resolve();
+
+    await expect(a).resolves.toBe(1);
+    await expect(b).resolves.toBe(2);
   });
 });

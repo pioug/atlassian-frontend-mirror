@@ -41,6 +41,7 @@ export interface LinkPickerPlugin {
   ) => AsyncGenerator<ResolveResult, ResolveResult> | Promise<ResolveResult>;
   tabKey?: string;
   tabTitle?: string;
+  UNSAFE_onActivation?: () => void;
 }
 
 // @public (undocumented)

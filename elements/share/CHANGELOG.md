@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 3.5.6
+
+### Patch Changes
+
+- [`faf391ab64a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf391ab64a) - Implementing new CustomOption which will allow for a custom avatar
+- Updated dependencies
+
 ## 3.5.5
 
 ### Patch Changes

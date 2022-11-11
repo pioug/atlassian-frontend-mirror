@@ -50,6 +50,29 @@ export type AtlaskitSelectValue = Array<Option_2> | Option_2 | null | undefined;
 type BoundariesElement = 'scrollParent' | 'viewport' | 'window' | HTMLElement;
 
 // @public (undocumented)
+export interface Custom extends OptionData {
+  // (undocumented)
+  analyticsType?: string;
+  // (undocumented)
+  avatarUrl?: string;
+  // (undocumented)
+  byline?: string;
+  // (undocumented)
+  highlight?: CustomHighlight;
+  // (undocumented)
+  type: 'custom';
+}
+
+// @public (undocumented)
+interface CustomHighlight {
+  // (undocumented)
+  name: HighlightRange[];
+}
+
+// @public (undocumented)
+export const CustomType = 'custom';
+
+// @public (undocumented)
 export type DefaultValue = OptionIdentifier | OptionIdentifier[] | Value;
 
 // @public (undocumented)
@@ -199,7 +222,7 @@ export interface OptionData {
   // (undocumented)
   name: string;
   // (undocumented)
-  type?: 'email' | 'group' | 'team' | 'user';
+  type?: 'custom' | 'email' | 'group' | 'team' | 'user';
 }
 
 // @public (undocumented)

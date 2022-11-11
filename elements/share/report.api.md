@@ -412,7 +412,7 @@ export type UserWithEmail = {
 
 // @public (undocumented)
 export type UserWithId = {
-  type: 'group' | 'team' | 'user';
+  type: 'custom' | 'group' | 'team' | 'user';
   id: string;
 };
 

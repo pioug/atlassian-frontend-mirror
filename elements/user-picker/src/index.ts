@@ -8,6 +8,7 @@ export { PopupUserPicker } from './components/PopupUserPicker';
 export { isEmail, isExternalUser, isTeam, isUser } from './components/utils';
 export {
   // Constants
+  CustomType,
   EmailType,
   GroupType,
   TeamType,
@@ -36,6 +37,7 @@ export type {
   UserPickerState,
   Value,
   // Interfaces
+  Custom,
   Email,
   Group,
   GroupHighlight,

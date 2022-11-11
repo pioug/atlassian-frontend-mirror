@@ -1,5 +1,5 @@
 export type UserWithId = {
-  type: 'user' | 'group' | 'team';
+  type: 'user' | 'group' | 'team' | 'custom';
   id: string;
 };
 

@@ -12,9 +12,11 @@ import { LinkPickerProps } from '../../';
 import { ANALYTICS_CHANNEL } from '../constants';
 import { normalizeUrl } from '../utils/url';
 
+type AnalyticsContextAttributesType = LinkPickerAnalyticsContextType;
+
 export type TrackAttribute = <K extends keyof LinkPickerAnalyticsContextType>(
   attribute: K,
-  value: LinkPickerAnalyticsContextType[K],
+  value: AnalyticsContextAttributesType[K],
 ) => void;
 
 interface AnalyticsContextType {
@@ -139,7 +141,10 @@ export function withLinkPickerAnalyticsContext<P>(
     const onEvent = useCallback(
       (event: UIAnalyticsEvent) => {
         event.update({
-          attributes: getAttributes(),
+          attributes: {
+            ...getAttributes(),
+            ...(event.payload.attributes ?? {}),
+          },
         });
       },
       [getAttributes],

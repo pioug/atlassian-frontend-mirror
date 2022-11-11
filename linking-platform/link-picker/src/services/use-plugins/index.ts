@@ -37,6 +37,13 @@ export function usePlugins(
 
   const activePlugin = plugins?.[activeTab];
 
+  // This useEffect block must be called before any other to ensure onActivation is fired at before resolve
+  useEffect(() => {
+    if (activePlugin && activePlugin.UNSAFE_onActivation) {
+      activePlugin.UNSAFE_onActivation();
+    }
+  }, [activePlugin]);
+
   useEffect(() => {
     if (!activePlugin) {
       return;

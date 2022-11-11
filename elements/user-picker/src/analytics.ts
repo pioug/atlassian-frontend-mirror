@@ -5,7 +5,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import versionJson from './version.json';
 import { Option, OptionData, UserPickerProps, UserPickerState } from './types';
-import { isExternalUser } from './components/utils';
+import { isCustom, isExternalUser } from './components/utils';
 
 const packageName = versionJson.name;
 const packageVersion = versionJson.version;
@@ -74,9 +74,14 @@ const optionData2Analytics = (option: OptionData) => {
       sources: option.sources,
       externalUserType: option.externalUserType,
     };
-  } else {
-    return validatedData;
   }
+  if (isCustom(option) && option.analyticsType) {
+    return {
+      ...validatedData,
+      type: option.analyticsType,
+    };
+  }
+  return validatedData;
 };
 const buildValueForAnalytics = (value?: Option[] | Option | null) => {
   if (value) {

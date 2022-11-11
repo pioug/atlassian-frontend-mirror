@@ -1,5 +1,15 @@
 # @atlaskit/util-data-test
 
+## 17.6.0
+
+### Minor Changes
+
+- [`faf391ab64a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faf391ab64a) - Implementing new CustomOption which will allow for a custom avatar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.5.7
 
 ### Patch Changes

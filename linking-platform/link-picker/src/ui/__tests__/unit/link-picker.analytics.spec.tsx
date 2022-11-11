@@ -1,13 +1,18 @@
 import React from 'react';
 import 'jest-extended';
 
-import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { ConcurrentExperience } from '@atlaskit/ufo';
+import {
+  ManualPromise,
+  renderWithIntl as render,
+} from '@atlaskit/link-test-helpers';
 import {
   MockLinkPickerPlugin,
+  MockLinkPickerPromisePlugin,
   mockedPluginData,
 } from '@atlaskit/link-test-helpers/link-picker';
 import { fireEvent } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
+import { screen, waitForElementToBeRemoved } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -17,8 +22,6 @@ import { LinkPicker, LinkPickerProps } from '../../..';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import { testIds } from '../../link-picker';
 import { PACKAGE_DATA as ROOT_CONTEXT } from '../..';
-
-import { ConcurrentExperience } from '@atlaskit/ufo';
 
 const mockUfoStart = jest.fn();
 const mockUfoSuccess = jest.fn();
@@ -36,6 +39,12 @@ jest.mock('@atlaskit/ufo', () => ({
       abort: mockUfoAbort,
     })),
   }),
+}));
+
+jest.mock('use-debounce', () => ({
+  __esModules: true,
+  ...jest.requireActual<Object>('use-debounce'),
+  useDebounce: <T extends unknown>(val: T) => [val],
 }));
 
 expect.extend({
@@ -533,9 +542,11 @@ describe('LinkPicker analytics', () => {
 
     describe('linkFieldContentInputSource', () => {
       let user: ReturnType<typeof userEvent.setup>;
+
       beforeEach(() => {
         user = userEvent.setup();
       });
+
       it('should be provided by the item if both item and plugin provide `meta.source`', async () => {
         const { spy, urlField } = setupWithPlugins({
           plugins: [
@@ -849,6 +860,199 @@ describe('LinkPicker analytics', () => {
             actionSubject: 'form',
             attributes: {
               tab: 'tabB',
+            },
+          },
+        });
+      });
+    });
+
+    describe('`searchResults shown` event', () => {
+      it('should fire `searchResults shown preQuerySearchResults` when items are displayed when there is no search term', async () => {
+        const { spy } = setupWithPlugins();
+
+        expect(await screen.findAllByTestId(testIds.searchResultItem));
+
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'shown',
+            eventType: 'ui',
+            actionSubject: 'searchResults',
+            actionSubjectId: 'preQuerySearchResults',
+            attributes: {
+              linkState: 'newLink',
+              displayTextFieldContent: null,
+              resultCount: 5,
+            },
+          },
+        });
+      });
+
+      it('should re-fire `searchResults shown preQuerySearchResults` when items are hidden and then re-shown', async () => {
+        const { spy, urlField } = setupWithPlugins();
+
+        // Pre-query shown
+        expect(await screen.findAllByTestId(testIds.searchResultItem));
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'shown',
+            actionSubject: 'searchResults',
+            actionSubjectId: 'preQuerySearchResults',
+          },
+        });
+
+        await user.type(await urlField(), 'https://www.atlassian.com');
+        // Results should hide as we have a URL in the field, not a search term
+        expect(
+          screen.queryByTestId(testIds.searchResultItem),
+        ).not.toBeInTheDocument();
+        spy.mockClear();
+        // Clear the url field to repopulate my "pre-query" results
+        await user.clear(await urlField());
+
+        // Pre-query shown
+        expect(await screen.findAllByTestId(testIds.searchResultItem));
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'shown',
+            eventType: 'ui',
+            actionSubject: 'searchResults',
+            actionSubjectId: 'preQuerySearchResults',
+            attributes: {
+              linkState: 'newLink',
+              displayTextFieldContent: null,
+              resultCount: 5,
+            },
+          },
+        });
+      });
+
+      it('should fire `searchResults shown postQuerySearchResults` when search results are loaded', async () => {
+        const promise = new ManualPromise([]);
+        const plugin = new MockLinkPickerPromisePlugin({
+          tabKey: 'plugin',
+          tabTitle: 'Plugin',
+          promise: promise,
+        });
+
+        const { spy, urlField } = setupWithPlugins({
+          plugins: [plugin],
+        });
+
+        spy.mockClear();
+
+        await user.type(await urlField(), 'x');
+
+        // Should be in a loading state
+        expect(
+          screen.queryByTestId(testIds.searchResultLoadingIndicator),
+        ).toBeInTheDocument();
+
+        // Should not yet have fired event
+        expect(spy).not.toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'shown',
+            actionSubject: 'searchResults',
+            actionSubjectId: 'postQuerySearchResults',
+          },
+        });
+
+        promise.resolve();
+
+        // Wait for loading to finish
+        await waitForElementToBeRemoved(() =>
+          screen.queryByTestId(testIds.searchResultLoadingIndicator),
+        );
+
+        // Post-query shown
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'shown',
+            eventType: 'ui',
+            actionSubject: 'searchResults',
+            actionSubjectId: 'postQuerySearchResults',
+            attributes: {
+              linkState: 'newLink',
+              displayTextFieldContent: null,
+              resultCount: 0,
+            },
+          },
+        });
+      });
+
+      it('should NOT fire `searchResults shown` when intermediate items are shown whilst loading more results', async () => {
+        const plugin = new MockLinkPickerPlugin();
+        const initialResults = jest.spyOn(plugin, 'getInitialResults');
+        const updatedResults = jest.spyOn(plugin, 'fetchUpdatedResults');
+
+        const { spy, urlField } = setupWithPlugins({
+          plugins: [plugin],
+        });
+
+        spy.mockClear();
+
+        const initialResultsPromise = new ManualPromise(
+          mockedPluginData.slice(0, 1),
+        );
+        initialResults.mockReturnValue(initialResultsPromise);
+        const updatedResultsPromise = new ManualPromise(
+          mockedPluginData.slice(0, 3),
+        );
+        updatedResults.mockReturnValue(updatedResultsPromise);
+
+        await user.type(await urlField(), 'dogs');
+
+        // Should be in a loading state with no results
+        expect(
+          screen.queryByTestId(testIds.searchResultItem),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByTestId(testIds.searchResultLoadingIndicator),
+        ).toBeInTheDocument();
+
+        // Not yet fired
+        expect(spy).not.toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'shown',
+            actionSubject: 'searchResults',
+          },
+        });
+
+        // Release initial results
+        initialResultsPromise.resolve();
+
+        // Should find single result loaded
+        expect(
+          await screen.findByTestId(testIds.searchResultItem),
+        ).toBeInTheDocument();
+
+        // Still not yet fired analytic
+        expect(spy).not.toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'shown',
+            actionSubject: 'searchResults',
+          },
+        });
+
+        // Release final results
+        updatedResultsPromise.resolve();
+
+        // Wait for loading to finish
+        await waitForElementToBeRemoved(() =>
+          screen.queryByTestId(testIds.searchResultLoadingIndicator),
+        );
+
+        // Post-query shown
+        expect(await screen.findAllByTestId(testIds.searchResultItem));
+        expect(spy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'shown',
+            eventType: 'ui',
+            actionSubject: 'searchResults',
+            actionSubjectId: 'postQuerySearchResults',
+            attributes: {
+              linkState: 'newLink',
+              displayTextFieldContent: null,
+              resultCount: 3,
             },
           },
         });

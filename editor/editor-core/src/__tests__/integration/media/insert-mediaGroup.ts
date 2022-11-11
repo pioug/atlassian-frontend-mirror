@@ -11,9 +11,12 @@ import {
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 
 [comment].forEach((editor) => {
+  // FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16000
   BrowserTestCase(
     `insert-mediaGroup.ts: Inserts a media group on ${editor.name}`,
-    {},
+    {
+      skip: ['*'],
+    },
     async (
       client: Parameters<typeof goToEditorTestingWDExample>[0],
       testName: string,

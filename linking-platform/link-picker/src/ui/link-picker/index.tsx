@@ -245,14 +245,17 @@ function LinkPicker({
         url: e.currentTarget.value,
       });
     },
-    [trackAttribute],
+    [dispatch, trackAttribute],
   );
 
-  const handleChangeText = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      displayText: e.currentTarget.value,
-    });
-  }, []);
+  const handleChangeText = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      dispatch({
+        displayText: e.currentTarget.value,
+      });
+    },
+    [dispatch],
+  );
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
@@ -297,14 +300,17 @@ function LinkPicker({
         });
       }
     },
-    [activeIndex, items, trackAttribute, activePlugin],
+    [dispatch, activeIndex, items, trackAttribute, activePlugin],
   );
 
-  const handleClear = useCallback((field: string) => {
-    dispatch({
-      [field]: '',
-    });
-  }, []);
+  const handleClear = useCallback(
+    (field: string) => {
+      dispatch({
+        [field]: '',
+      });
+    },
+    [dispatch],
+  );
 
   const handleUrlClear = useCallback(() => {
     trackAttribute('linkFieldContentInputSource', null);
@@ -318,7 +324,7 @@ function LinkPicker({
         activeIndex: index ?? -1,
       });
     },
-    [items],
+    [dispatch, items],
   );
 
   const handleMouseLeaveResultItem = useCallback(
@@ -331,7 +337,7 @@ function LinkPicker({
         });
       }
     },
-    [activeIndex, items],
+    [dispatch, activeIndex, items],
   );
 
   const handleInsert = useCallback(
@@ -401,7 +407,7 @@ function LinkPicker({
         invalidUrl: true,
       });
     },
-    [handleInsert, isSelectedItem, selectedItem, url],
+    [dispatch, handleInsert, isSelectedItem, selectedItem, url],
   );
 
   const handleTabChange = useCallback(

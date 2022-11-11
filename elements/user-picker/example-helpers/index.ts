@@ -1,6 +1,7 @@
 import {
   userPickerData,
   userPickerTeamData,
+  userPickerCustomData,
 } from '@atlaskit/util-data-test/user-picker';
 import { OptionData } from '../src/types';
 
@@ -24,7 +25,9 @@ const testOptions = isTesting()
   ? ssrExampleOptions
   : (userPickerDataWithAvatar as OptionData[]);
 
-export const exampleOptions = testOptions.concat(userPickerTeamData);
+export const exampleOptions = testOptions
+  .concat(userPickerTeamData)
+  .concat(userPickerCustomData);
 
 export const unassigned = { id: 'unassign', name: 'Unassigned' };
 export const assignToMe = { id: 'assign-me', name: 'Assign to me' };

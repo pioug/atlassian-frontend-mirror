@@ -79,8 +79,8 @@ export class MultiValue extends React.Component<Props> {
       isFocused: nextIsFocused,
     } = nextProps;
 
-    // We can ignore onRemove here because it is a anonymous function
-    // that will recreated every time but with the same implementation.
+    // We can ignore onRemove here because it is an anonymous function
+    // that will be recreated every time but with the same implementation.
     return (
       data !== nextData ||
       label !== nextLabel ||

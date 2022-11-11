@@ -3,6 +3,8 @@ import { ReactChild, ReactElement, ReactNode } from 'react';
 import {
   AtlaskitSelectValue,
   ExternalUser,
+  Custom,
+  CustomType,
   Email,
   EmailType,
   Option,
@@ -35,6 +37,9 @@ export const isGroup = (option: OptionData): option is Group =>
 
 export const isEmail = (option: OptionData): option is Email =>
   option.type === EmailType;
+
+export const isCustom = (option: OptionData): option is Custom =>
+  option.type === CustomType;
 
 export const isDefaultValuePopulated = (value?: DefaultValue) =>
   (value && !Array.isArray(value)) ||
@@ -138,7 +143,7 @@ export const callCallback = <U extends any[], R>(
 };
 
 export const getAvatarUrl = (optionData: OptionData) => {
-  if (isUser(optionData) || isTeam(optionData)) {
+  if (isUser(optionData) || isTeam(optionData) || isCustom(optionData)) {
     return optionData.avatarUrl;
   }
   return undefined;

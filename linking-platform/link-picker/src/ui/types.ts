@@ -59,6 +59,8 @@ export interface LinkPickerPlugin {
     /** The data source that provides all results provided by the plugin */
     source?: string;
   };
+  /** Callback for plugin activation */
+  UNSAFE_onActivation?: () => void;
 }
 
 export type LinkPickerPluginErrorFallback = (

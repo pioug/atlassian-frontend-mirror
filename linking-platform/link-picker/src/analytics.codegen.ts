@@ -3,7 +3,7 @@
  *
  * Generates analytics utilities from the package analytics spec yaml
  *
- * @codegen <<SignedSource::c0fb3bb39f50f3a7c35ebd90e8903280>>
+ * @codegen <<SignedSource::758b8a20cae1b6d410cecd4493453a21>>
  * @codegenCommand yarn workspace @atlaskit/link-picker run codegen-analytics
  */
 export type PackageMetaDataType = {
@@ -32,6 +32,12 @@ export type LinkPickerUnhandledErrorCaughtAttributesType = {
   error: string;
   componentStack: string | null;
 };
+export type SearchResultsShownPreQuerySearchResultsAttributesType = {
+  resultCount: number;
+};
+export type SearchResultsShownPostQuerySearchResultsAttributesType = {
+  resultCount: number;
+};
 export type ResultsResolveFailedAttributesType = {
   error: string;
 };
@@ -43,6 +49,8 @@ type AnalyticsEventAttributes = {
   'ui.textField.updated.displayTextField': TextFieldUpdatedDisplayTextFieldAttributesType;
   'ui.tab.viewed': TabViewedAttributesType;
   'ui.linkPicker.unhandledErrorCaught': LinkPickerUnhandledErrorCaughtAttributesType;
+  'ui.searchResults.shown.preQuerySearchResults': SearchResultsShownPreQuerySearchResultsAttributesType;
+  'ui.searchResults.shown.postQuerySearchResults': SearchResultsShownPostQuerySearchResultsAttributesType;
   'operational.resultsResolve.failed': ResultsResolveFailedAttributesType;
 };
 function createEventPayload<K extends keyof AnalyticsEventAttributes>(

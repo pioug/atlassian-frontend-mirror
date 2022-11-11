@@ -213,6 +213,10 @@ export interface GroupHighlight {
   name: HighlightRange[];
 }
 
+export interface CustomHighlight {
+  name: HighlightRange[];
+}
+
 export interface OptionData {
   avatarUrl?: any;
   fixed?: boolean;
@@ -220,7 +224,7 @@ export interface OptionData {
   isDisabled?: boolean;
   lozenge?: string | LozengeProps | ReactNode;
   name: string;
-  type?: 'user' | 'team' | 'email' | 'group';
+  type?: 'user' | 'team' | 'email' | 'group' | 'custom';
 }
 
 export const UserType = 'user';
@@ -288,12 +292,26 @@ export interface Group extends OptionData {
   highlight?: GroupHighlight;
   type: 'group';
 }
+
+/*
+ * Custom type created to facilitate experimentation
+ * without affecting other Option types
+ */
+export interface Custom extends OptionData {
+  avatarUrl?: string;
+  byline?: string;
+  highlight?: CustomHighlight;
+  analyticsType?: string;
+  type: 'custom';
+}
+
 export type Value = OptionData | OptionData[] | null | undefined;
 
 export type DefaultValue = Value | OptionIdentifier | OptionIdentifier[];
 export type OptionIdentifier = Pick<OptionData, 'id' | 'type' | 'isDisabled'>;
 
 export const EmailType = 'email';
+export const CustomType = 'custom';
 
 export interface Email extends OptionData {
   type: 'email';

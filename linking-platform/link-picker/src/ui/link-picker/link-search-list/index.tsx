@@ -19,6 +19,7 @@ import {
 import LinkSearchNoResults, {
   testIds as noResultsTestIds,
 } from './link-search-no-results';
+import { useTrackResultsShown } from './use-track-results-shown';
 
 export const messages = defineMessages({
   titleRecentlyViewed: {
@@ -93,6 +94,8 @@ const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
     const linkListTitle = hasSearchTerm
       ? messages.titleResults
       : messages.titleRecentlyViewed;
+
+    useTrackResultsShown(isLoading, items, hasSearchTerm);
 
     if (items?.length === 0) {
       return <LinkSearchNoResults />;

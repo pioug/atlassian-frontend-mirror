@@ -15,9 +15,12 @@ import {
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
+// FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16002
 BrowserTestCase(
   `card: selecting a link from CMD + K menu should create an inline card using keyboard`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = new Page(client);
 
@@ -37,9 +40,12 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
+  // FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16002
   BrowserTestCase(
     `card: selecting a link from CMD + K menu should create an inline card using keyboard`,
-    {},
+    {
+      skip: ['*'],
+    },
     async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(

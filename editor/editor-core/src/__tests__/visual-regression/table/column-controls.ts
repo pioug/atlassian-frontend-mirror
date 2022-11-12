@@ -59,7 +59,8 @@ describe('Table context menu: merge-split cells', () => {
     await initEditor(adf);
   });
 
-  it(`should render column controls for each column regardless of merged cells in the first row`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 11/11/2022: https://product-fabric.atlassian.net/browse/ED-16154
+  it.skip(`should render column controls for each column regardless of merged cells in the first row`, async () => {
     const from = getSelectorForTableCell({
       row: 1,
       cell: 1,

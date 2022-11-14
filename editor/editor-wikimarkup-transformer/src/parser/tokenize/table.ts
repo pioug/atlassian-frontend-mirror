@@ -79,20 +79,22 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
         continue;
       }
       case processState.LINE_BREAK: {
+        //ADFEXP-156 (Prevent table from closing on multiple line breaks and relying on | for closing of table)
         // If we encounter an empty line, we should end the table
-        const emptyLineMatch = substring.match(EMPTY_LINE_REGEXP);
-        if (emptyLineMatch) {
-          bufferToCells(
-            cellStyle,
-            buffer.join(''),
-            cellsBuffer,
-            schema,
-            ignoreTokenTypes,
-            context,
-          );
-          currentState = processState.END_TABLE;
-          continue;
-        }
+        // const emptyLineMatch = substring.match(EMPTY_LINE_REGEXP);
+        // if (emptyLineMatch) {
+        //   bufferToCells(
+        //     cellStyle,
+        //     buffer.join(''),
+        //     cellsBuffer,
+        //     schema,
+        //     ignoreTokenTypes,
+        //     context,
+        //   );
+        //   currentState = processState.END_TABLE;
+        //   continue;
+        // }
+
         // If we enconter a new row
         const cellMatch = substring.match(CELL_REGEXP);
         if (cellMatch) {

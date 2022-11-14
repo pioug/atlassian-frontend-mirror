@@ -400,7 +400,7 @@ type CSSTokenMap_3 = {
 // @public
 type Palettes = 'defaultPalette' | 'legacyPalette' | 'spacingScale';
 
-// @public (undocumented)
+// @public
 export const setGlobalTheme: (
   themeId: ThemeIds,
   shouldMatchSystem?: boolean,
@@ -460,7 +460,7 @@ export type Themes =
   | 'atlassian-light'
   | 'atlassian-spacing';
 
-// @public (undocumented)
+// @public
 export function token<T extends keyof Tokens>(
   path: T,
   fallback?: string,

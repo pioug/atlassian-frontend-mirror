@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::0516f3a053c57a82d1c09db45b7051d8>>
+ * @codegen <<SignedSource::ed4f12cd7b7dfee63d7dd4e804952066>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -15,7 +15,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Equates to `0`. Can be used for resetting default spacing styles."
     },
-    "value": "0px"
+    "value": "0"
   },
   "Spacing/Scale/100": {
     "attributes": {
@@ -28,7 +28,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px"
+    "value": "0.5rem"
   },
   "Spacing/Scale/150": {
     "attributes": {
@@ -43,7 +43,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px"
+    "value": "0.75rem"
   },
   "Spacing/Scale/200": {
     "attributes": {
@@ -58,7 +58,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px"
+    "value": "1rem"
   },
   "Spacing/Scale/250": {
     "attributes": {
@@ -73,7 +73,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px"
+    "value": "1.25rem"
   },
   "Spacing/Scale/300": {
     "attributes": {
@@ -89,7 +89,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px"
+    "value": "1.5rem"
   },
   "Spacing/Scale/400": {
     "attributes": {
@@ -107,7 +107,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px"
+    "value": "2rem"
   },
   "Spacing/Scale/500": {
     "attributes": {
@@ -125,7 +125,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px"
+    "value": "2.5rem"
   },
   "Spacing/Scale/600": {
     "attributes": {
@@ -134,7 +134,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px"
+    "value": "3rem"
   },
   "Spacing/Scale/025": {
     "attributes": {
@@ -147,7 +147,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Use for spacing in compact scenarios. The smallest value in our scale."
     },
-    "value": "2px"
+    "value": "0.125rem"
   },
   "Spacing/Scale/050": {
     "attributes": {
@@ -160,7 +160,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px"
+    "value": "0.25rem"
   },
   "Spacing/Scale/075": {
     "attributes": {
@@ -173,7 +173,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px"
+    "value": "0.375rem"
   },
   "Spacing/ScaleLinear/0": {
     "attributes": {
@@ -183,7 +183,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "0px"
+    "value": "0"
   },
   "Spacing/ScaleLinear/100": {
     "attributes": {
@@ -193,7 +193,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px"
+    "value": "0.125rem"
   },
   "Spacing/ScaleLinear/200": {
     "attributes": {
@@ -203,7 +203,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px"
+    "value": "0.25rem"
   },
   "Spacing/ScaleLinear/300": {
     "attributes": {
@@ -213,7 +213,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px"
+    "value": "0.375rem"
   },
   "Spacing/ScaleLinear/400": {
     "attributes": {
@@ -223,7 +223,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px"
+    "value": "0.5rem"
   },
   "Spacing/ScaleLinear/500": {
     "attributes": {
@@ -233,7 +233,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px"
+    "value": "0.75rem"
   },
   "Spacing/ScaleLinear/600": {
     "attributes": {
@@ -243,7 +243,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px"
+    "value": "1rem"
   },
   "Spacing/ScaleLinear/700": {
     "attributes": {
@@ -253,7 +253,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px"
+    "value": "1.25rem"
   },
   "Spacing/ScaleLinear/800": {
     "attributes": {
@@ -263,7 +263,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px"
+    "value": "1.5rem"
   },
   "Spacing/ScaleLinear/900": {
     "attributes": {
@@ -273,7 +273,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px"
+    "value": "2rem"
   },
   "Spacing/ScaleLinear/1000": {
     "attributes": {
@@ -283,7 +283,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px"
+    "value": "2.5rem"
   },
   "Spacing/ScaleLinear/1100": {
     "attributes": {
@@ -293,7 +293,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px"
+    "value": "3rem"
   },
   "Spacing/Pixel/0": {
     "attributes": {
@@ -303,7 +303,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "0px"
+    "value": "0"
   },
   "Spacing/Pixel/2": {
     "attributes": {
@@ -313,7 +313,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px"
+    "value": "0.125rem"
   },
   "Spacing/Pixel/4": {
     "attributes": {
@@ -323,7 +323,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px"
+    "value": "0.25rem"
   },
   "Spacing/Pixel/6": {
     "attributes": {
@@ -333,7 +333,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px"
+    "value": "0.375rem"
   },
   "Spacing/Pixel/8": {
     "attributes": {
@@ -343,7 +343,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px"
+    "value": "0.5rem"
   },
   "Spacing/Pixel/12": {
     "attributes": {
@@ -353,7 +353,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px"
+    "value": "0.75rem"
   },
   "Spacing/Pixel/16": {
     "attributes": {
@@ -363,7 +363,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px"
+    "value": "1rem"
   },
   "Spacing/Pixel/20": {
     "attributes": {
@@ -373,7 +373,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px"
+    "value": "1.25rem"
   },
   "Spacing/Pixel/24": {
     "attributes": {
@@ -383,7 +383,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px"
+    "value": "1.5rem"
   },
   "Spacing/Pixel/32": {
     "attributes": {
@@ -393,7 +393,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px"
+    "value": "2rem"
   },
   "Spacing/Pixel/40": {
     "attributes": {
@@ -403,7 +403,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px"
+    "value": "2.5rem"
   },
   "Spacing/Pixel/48": {
     "attributes": {
@@ -413,7 +413,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px"
+    "value": "3rem"
   },
   "Spacing/Size/None": {
     "attributes": {
@@ -423,7 +423,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "0px"
+    "value": "0"
   },
   "Spacing/Size/XxxxSmall": {
     "attributes": {
@@ -433,7 +433,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px"
+    "value": "0.125rem"
   },
   "Spacing/Size/XxxSmall": {
     "attributes": {
@@ -443,7 +443,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px"
+    "value": "0.25rem"
   },
   "Spacing/Size/XxSmall": {
     "attributes": {
@@ -453,7 +453,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px"
+    "value": "0.375rem"
   },
   "Spacing/Size/Xsmall": {
     "attributes": {
@@ -463,7 +463,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px"
+    "value": "0.5rem"
   },
   "Spacing/Size/Small": {
     "attributes": {
@@ -473,7 +473,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px"
+    "value": "0.75rem"
   },
   "Spacing/Size/Medium": {
     "attributes": {
@@ -483,7 +483,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px"
+    "value": "1rem"
   },
   "Spacing/Size/Large": {
     "attributes": {
@@ -493,7 +493,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px"
+    "value": "1.25rem"
   },
   "Spacing/Size/Xlarge": {
     "attributes": {
@@ -503,7 +503,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px"
+    "value": "1.5rem"
   },
   "Spacing/Size/Xxlarge": {
     "attributes": {
@@ -513,7 +513,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px"
+    "value": "2rem"
   },
   "Spacing/Size/Xxxlarge": {
     "attributes": {
@@ -523,7 +523,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px"
+    "value": "2.5rem"
   },
   "Spacing/Size/Xxxxlarge": {
     "attributes": {
@@ -533,7 +533,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px"
+    "value": "3rem"
   },
   "Spacing/Ecl/Element/2": {
     "attributes": {
@@ -543,7 +543,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px"
+    "value": "0.125rem"
   },
   "Spacing/Ecl/Element/4": {
     "attributes": {
@@ -553,7 +553,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px"
+    "value": "0.25rem"
   },
   "Spacing/Ecl/Element/6": {
     "attributes": {
@@ -563,7 +563,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px"
+    "value": "0.375rem"
   },
   "Spacing/Ecl/Element/8": {
     "attributes": {
@@ -573,7 +573,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px"
+    "value": "0.5rem"
   },
   "Spacing/Ecl/Container/12": {
     "attributes": {
@@ -583,7 +583,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px"
+    "value": "0.75rem"
   },
   "Spacing/Ecl/Container/16": {
     "attributes": {
@@ -593,7 +593,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px"
+    "value": "1rem"
   },
   "Spacing/Ecl/Container/20": {
     "attributes": {
@@ -603,7 +603,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px"
+    "value": "1.25rem"
   },
   "Spacing/Ecl/Container/24": {
     "attributes": {
@@ -613,7 +613,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px"
+    "value": "1.5rem"
   },
   "Spacing/Ecl/Layout/32": {
     "attributes": {
@@ -623,7 +623,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px"
+    "value": "2rem"
   },
   "Spacing/Ecl/Layout/40": {
     "attributes": {
@@ -633,7 +633,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px"
+    "value": "2.5rem"
   },
   "Spacing/Ecl/Layout/64": {
     "attributes": {
@@ -643,7 +643,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px"
+    "value": "3rem"
   },
   "Spacing/Ccc/Component/2": {
     "attributes": {
@@ -653,7 +653,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px"
+    "value": "0.125rem"
   },
   "Spacing/Ccc/Component/4": {
     "attributes": {
@@ -663,7 +663,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px"
+    "value": "0.25rem"
   },
   "Spacing/Ccc/Component/6": {
     "attributes": {
@@ -673,7 +673,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px"
+    "value": "0.375rem"
   },
   "Spacing/Ccc/Component/8": {
     "attributes": {
@@ -683,7 +683,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px"
+    "value": "0.5rem"
   },
   "Spacing/Ccc/Content/12": {
     "attributes": {
@@ -693,7 +693,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px"
+    "value": "0.75rem"
   },
   "Spacing/Ccc/Content/16": {
     "attributes": {
@@ -703,7 +703,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px"
+    "value": "1rem"
   },
   "Spacing/Ccc/Content/20": {
     "attributes": {
@@ -713,7 +713,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px"
+    "value": "1.25rem"
   },
   "Spacing/Ccc/Content/24": {
     "attributes": {
@@ -723,7 +723,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px"
+    "value": "1.5rem"
   },
   "Spacing/Ccc/Container/32": {
     "attributes": {
@@ -733,7 +733,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px"
+    "value": "2rem"
   },
   "Spacing/Ccc/Container/40": {
     "attributes": {
@@ -743,7 +743,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px"
+    "value": "2.5rem"
   },
   "Spacing/Ccc/Container/48": {
     "attributes": {
@@ -753,7 +753,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px"
+    "value": "3rem"
   },
   "Spacing/Gap/100": {
     "attributes": {
@@ -763,7 +763,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px"
+    "value": "0.5rem"
   },
   "Spacing/Gap/200": {
     "attributes": {
@@ -773,7 +773,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px"
+    "value": "1rem"
   },
   "Spacing/Gap/300": {
     "attributes": {
@@ -783,7 +783,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px"
+    "value": "1.5rem"
   },
   "Spacing/Inset/100": {
     "attributes": {
@@ -793,7 +793,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px"
+    "value": "0.5rem"
   },
   "Spacing/Inset/200": {
     "attributes": {
@@ -803,7 +803,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px"
+    "value": "1rem"
   },
   "Spacing/Inset/300": {
     "attributes": {
@@ -813,7 +813,7 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px"
+    "value": "1.5rem"
   }
 }, {
   "Spacing/ScaleLinear/0": "0",

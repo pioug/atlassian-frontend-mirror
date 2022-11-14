@@ -15,10 +15,11 @@ import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
+// Please unskip Firefox as part of https://product-fabric.atlassian.net/browse/ED-16150
 BrowserTestCase(
   'card: changing the link label of an embed link should convert it to a "dumb" link',
   {
-    skip: ['safari'],
+    skip: ['safari', 'firefox'],
   },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);

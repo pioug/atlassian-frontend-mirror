@@ -159,6 +159,10 @@ this is a new line text, not in the table`,
       ['should parse code', `|{code:javascript}foo{code}|`],
       ['should parse quote', `|{quote}foo{quote}|`],
       ['should parse anchor', `|{anchor}foo{anchor}|`],
+      [
+        'should parse table with multiple line breaks',
+        `|.\n\n{adf}{"type":"nestedExpand"}{adf}`,
+      ],
     ];
 
     for (const [testCaseDescription, markup] of testCases) {

@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::793a67883e95ec0747f552d058d507ac>>
+ * @codegen <<SignedSource::547d1937da33a0fc962c9a53dda5798a>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -1614,10 +1614,10 @@ synchronizeFigmaTokens('AtlassianLegacyLight', {
         "radius": 8,
         "offset": {
           "x": 0,
-          "y": 8
+          "y": 0
         },
         "color": "#091e423f",
-        "opacity": 0.08
+        "opacity": 0.16
       },
       {
         "radius": 1,

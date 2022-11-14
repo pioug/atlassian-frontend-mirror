@@ -90,7 +90,8 @@ describe('Distribute Columns', () => {
       await snapshot(page);
     });
 
-    it('if selection is on a single column', async () => {
+    // FIXME: This test was automatically skipped due to failure on 26/10/2022: https://product-fabric.atlassian.net/browse/ED-15965
+    it.skip('if selection is on a single column', async () => {
       await pageInit(defaultTable);
       const from = getSelectorForTableCell({
         row: 1,

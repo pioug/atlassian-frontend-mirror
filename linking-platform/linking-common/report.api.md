@@ -214,6 +214,7 @@ export interface InvokePayload<T> {
 
 // @public (undocumented)
 export interface LinkingPlatformFeatureFlags {
+  disableLinkPickerPopupPositioningFix?: boolean;
   // (undocumented)
   embedModalSize?: string;
   // (undocumented)

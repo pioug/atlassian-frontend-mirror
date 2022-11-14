@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c77b8e081a680fc7d09345ccbf50b290>>
+ * @codegen <<SignedSource::b0d439159f93f359af45f7a089c42516>>
  * @codegenCommand yarn build tokens
  */
 html[data-theme~="legacy-light"] {
@@ -279,7 +279,7 @@ html[data-theme~="legacy-light"] {
   --ds-card: 0px 1px 1px #FA11F240, 0px 0px 1px #FA11F24F;
   --ds-overlay: 0px 8px 12px #FA11F226, 0px 0px 1px #FA11F24F;
   --ds-shadow-raised: 0px 1px 1px #091e4240, 0px 0px 1px #091e424F;
-  --ds-shadow-overflow: 0px 8px 8px #091e4214, 0px 0px 1px #091e421F;
+  --ds-shadow-overflow: 0px 0px 8px #091e4229, 0px 0px 1px #091e421F;
   --ds-shadow-overflow-spread: #091e4229;
   --ds-shadow-overflow-perimeter: #091e421f;
   --ds-shadow-overlay: 0px 8px 12px #091e4226, 0px 0px 1px #091e424F;
@@ -576,7 +576,7 @@ html[data-theme~="legacy-light"] {
     --ds-card: 0px 1px 1px #FA11F240, 0px 0px 1px #FA11F24F;
     --ds-overlay: 0px 8px 12px #FA11F226, 0px 0px 1px #FA11F24F;
     --ds-shadow-raised: 0px 1px 1px #091e4240, 0px 0px 1px #091e424F;
-    --ds-shadow-overflow: 0px 8px 8px #091e4214, 0px 0px 1px #091e421F;
+    --ds-shadow-overflow: 0px 0px 8px #091e4229, 0px 0px 1px #091e421F;
     --ds-shadow-overflow-spread: #091e4229;
     --ds-shadow-overflow-perimeter: #091e421f;
     --ds-shadow-overlay: 0px 8px 12px #091e4226, 0px 0px 1px #091e424F;

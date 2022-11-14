@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.13.2
+
+### Patch Changes
+
+- [`1a7a2c87797`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a7a2c87797) - @atlaskit/eslint-plugin-design-system now maps values to rem based tokens
+
 ## 4.13.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 0.10.34
+
+### Patch Changes
+
+- [`10f2fea8f3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10f2fea8f3d) - Updated JSDoc descriptions for token() and setGlobalTheme()
+
+## 0.10.33
+
+### Patch Changes
+
+- [`7a7d1aedac0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a7d1aedac0) - Change pixels to rems for spacing tokens.
+
 ## 0.10.32
 
 ### Patch Changes

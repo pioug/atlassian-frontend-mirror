@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/container-picker",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "description": "A container picker",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -18,7 +18,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {
-      "name": "Container Picker"
+      "name": "Container Picker",
+      "deprecated": "This package has been deprecated."
     }
   },
   "dependencies": {
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
+    "@atlaskit/section-message": "^6.3.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",

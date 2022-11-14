@@ -58,7 +58,7 @@
   },
   "atlassian": {
     "releaseModel": "continuous",
-    "team": "UIP: Monorepo"
+    "team": "UIP: Test Foundations"
   },
   "scripts": {
     "ak-postbuild": "ls -d dist/* | xargs -n 1 cp -v -r src/json-data"

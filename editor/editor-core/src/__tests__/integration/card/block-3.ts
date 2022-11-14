@@ -13,9 +13,10 @@ import * as blockCardAdf from './_fixtures_/block-card.adf.json';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
+// Please unskip Firefox as part of https://product-fabric.atlassian.net/browse/ED-16150
 BrowserTestCase(
   'card: copy paste of link should work as expected in editor',
-  { skip: [] },
+  { skip: ['firefox'] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

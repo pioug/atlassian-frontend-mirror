@@ -22,73 +22,73 @@ const scale: SpacingScaleTokenSchema<ScaleValues> = {
   spacing: {
     scale: {
       Space0: {
-        value: '0px',
+        value: '0',
         attributes: {
           group: 'scale',
         },
       },
       Space025: {
-        value: '2px',
+        value: '0.125rem',
         attributes: {
           group: 'scale',
         },
       },
       Space050: {
-        value: '4px',
+        value: '0.25rem',
         attributes: {
           group: 'scale',
         },
       },
       Space075: {
-        value: '6px',
+        value: '0.375rem',
         attributes: {
           group: 'scale',
         },
       },
       Space100: {
-        value: '8px',
+        value: '0.5rem',
         attributes: {
           group: 'scale',
         },
       },
       Space150: {
-        value: '12px',
+        value: '0.75rem',
         attributes: {
           group: 'scale',
         },
       },
       Space200: {
-        value: '16px',
+        value: '1rem',
         attributes: {
           group: 'scale',
         },
       },
       Space250: {
-        value: '20px',
+        value: '1.25rem',
         attributes: {
           group: 'scale',
         },
       },
       Space300: {
-        value: '24px',
+        value: '1.5rem',
         attributes: {
           group: 'scale',
         },
       },
       Space400: {
-        value: '32px',
+        value: '2rem',
         attributes: {
           group: 'scale',
         },
       },
       Space500: {
-        value: '40px',
+        value: '2.5rem',
         attributes: {
           group: 'scale',
         },
       },
       Space600: {
-        value: '48px',
+        value: '3rem',
         attributes: {
           group: 'scale',
         },

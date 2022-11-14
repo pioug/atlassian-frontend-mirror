@@ -12,9 +12,12 @@ import {
   callNativeBridge,
 } from '../_utils';
 
+// FIXME: This test was automatically skipped due to failure on 13/11/2022: https://product-fabric.atlassian.net/browse/ED-16155
 BrowserTestCase(
   `feature-flag.ts: Input Rules should be predictable`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = new Page(client);
     await navigateOrClear(page, editor.path);

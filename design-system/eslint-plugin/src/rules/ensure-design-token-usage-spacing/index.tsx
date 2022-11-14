@@ -14,6 +14,27 @@ import spacingScale from '@atlaskit/tokens/spacing-raw';
 
 import { isDecendantOfGlobalToken } from '../utils/is-node';
 
+import {
+  convertHyphenatedNameToCamelCase,
+  emToPixels,
+  findParentNodeForLine,
+  getValue,
+  getValueFromShorthand,
+  isSpacingProperty,
+  isValidSpacingValue,
+  removePixelSuffix,
+} from './utils';
+
+const pixelsToRems = (pixelValueString: string) => {
+  const pixels = removePixelSuffix(pixelValueString);
+
+  if (pixels === '0' || pixels === 0) {
+    return pixels;
+  }
+
+  return `${Number(pixels) / 16}rem`;
+};
+
 /**
  * Currently we have a wide range of experimental spacing tokens that we are testing.
  * We only want transforms to apply to the stable scale values, not the rest.
@@ -33,27 +54,20 @@ const spacingValueToToken = Object.fromEntries(
  * ```
  */
 function pixelValueToSpacingTokenNode(pixelValueString: string) {
+  const remValueString = pixelsToRems(pixelValueString);
+  const token = spacingValueToToken[remValueString];
+
   return callExpression({
     callee: identifier({ name: 'token' }),
     arguments: [
       literal({
-        value: `'${spacingValueToToken[pixelValueString] ?? ''}'`,
+        value: `'${token ?? ''}'`,
       }),
       literal(`'${pixelValueString}'`),
     ],
     optional: false,
   });
 }
-
-import {
-  convertHyphenatedNameToCamelCase,
-  emToPixels,
-  findParentNodeForLine,
-  getValue,
-  getValueFromShorthand,
-  isSpacingProperty,
-  isValidSpacingValue,
-} from './utils';
 
 const rule: Rule.RuleModule = {
   meta: {
@@ -180,7 +194,8 @@ const rule: Rule.RuleModule = {
                 }
 
                 const pixelValueString = `${pixelValue}px`;
-                const tokenName = spacingValueToToken[pixelValueString];
+                const remValueString = pixelsToRems(pixelValueString);
+                const tokenName = spacingValueToToken[remValueString];
 
                 if (!tokenName) {
                   return null;
@@ -214,6 +229,7 @@ const rule: Rule.RuleModule = {
            */
           values.forEach((val, index) => {
             const pixelValue = emToPixels(val, fontSize);
+
             context.report({
               node,
               messageId: 'noRawSpacingValues',
@@ -343,8 +359,9 @@ const rule: Rule.RuleModule = {
                         .map((value) => {
                           const pixelValue = emToPixels(value, fontSize);
                           const pixelValueString = `${pixelValue}px`;
-                          const tokenName =
-                            spacingValueToToken[pixelValueString];
+                          const remValueString = pixelsToRems(pixelValueString);
+
+                          const tokenName = spacingValueToToken[remValueString];
 
                           if (!tokenName) {
                             return pixelValueString;

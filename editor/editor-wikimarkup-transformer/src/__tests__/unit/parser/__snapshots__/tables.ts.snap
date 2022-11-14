@@ -2463,6 +2463,57 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Tables macros should parse table with multiple line breaks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "text": ".",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+                Object {
+                  "attrs": Object {
+                    "__expanded": true,
+                    "title": "",
+                  },
+                  "type": "nestedExpand",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Tables should convert table with header column 1`] = `
 Object {
   "content": Array [

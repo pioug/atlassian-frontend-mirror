@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cebe4ed5e9e0dc70bed7437dafe3c98c>>
+ * @codegen <<SignedSource::e18ea502db6feafafab91d0838cfa797>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -8198,10 +8198,10 @@ const tokens = [
         "radius": 8,
         "offset": {
           "x": 0,
-          "y": 8
+          "y": 0
         },
         "color": "#091e423f",
-        "opacity": 0.08
+        "opacity": 0.16
       },
       {
         "radius": 1,
@@ -8227,10 +8227,10 @@ const tokens = [
           "radius": 8,
           "offset": {
             "x": 0,
-            "y": 8
+            "y": 0
           },
           "color": "N50A",
-          "opacity": 0.08
+          "opacity": 0.16
         },
         {
           "radius": 1,

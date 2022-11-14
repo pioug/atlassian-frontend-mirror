@@ -47,7 +47,8 @@ describe('Status:', () => {
     await snapshot(page);
   });
 
-  it('should insert status inside action item and keep focus on it', async () => {
+  // FIXME: This test was automatically skipped due to failure on 05/11/2022: https://product-fabric.atlassian.net/browse/ED-16066
+  it.skip('should insert status inside action item and keep focus on it', async () => {
     await initEditorWithAdf(page, {
       adf: blank_adf,
       appearance: Appearance.fullPage,

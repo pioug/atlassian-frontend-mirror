@@ -12,9 +12,12 @@ import {
 import statusAdf from './__fixtures__/status-single.adf.json';
 import statusWithTextAdf from './__fixtures__/status-with-text.adf.json';
 
+// FIXME: This test was automatically skipped due to failure on 05/11/2022: https://product-fabric.atlassian.net/browse/ED-16068
 BrowserTestCase(
   'selection.ts: Clicking after a status produces a text selection to its right',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

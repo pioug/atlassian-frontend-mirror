@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3c9107056e9324e57c042a3aafb4188c>>
+ * @codegen <<SignedSource::9a19af105c0ae551ba258897b3438626>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -11,7 +11,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Equates to `0`. Can be used for resetting default spacing styles."
     },
-    "value": "0px",
+    "value": "0",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -41,7 +41,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px",
+    "value": "0.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -77,7 +77,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px",
+    "value": "0.75rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -115,7 +115,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px",
+    "value": "1rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -153,7 +153,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px",
+    "value": "1.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -192,7 +192,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px",
+    "value": "1.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -234,7 +234,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px",
+    "value": "2rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -278,7 +278,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px",
+    "value": "2.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -313,7 +313,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px",
+    "value": "3rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -343,7 +343,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Use for spacing in compact scenarios. The smallest value in our scale."
     },
-    "value": "2px",
+    "value": "0.125rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -377,7 +377,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px",
+    "value": "0.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -411,7 +411,7 @@ const tokens = [
       "introduced": "0.10.16",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px",
+    "value": "0.375rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -442,7 +442,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "0px",
+    "value": "0",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -470,7 +470,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px",
+    "value": "0.125rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -498,7 +498,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px",
+    "value": "0.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -526,7 +526,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px",
+    "value": "0.375rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -554,7 +554,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px",
+    "value": "0.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -582,7 +582,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px",
+    "value": "0.75rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -610,7 +610,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px",
+    "value": "1rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -638,7 +638,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px",
+    "value": "1.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -666,7 +666,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px",
+    "value": "1.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -694,7 +694,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px",
+    "value": "2rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -722,7 +722,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px",
+    "value": "2.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -750,7 +750,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px",
+    "value": "3rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -778,7 +778,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "0px",
+    "value": "0",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -806,7 +806,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px",
+    "value": "0.125rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -834,7 +834,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px",
+    "value": "0.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -862,7 +862,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px",
+    "value": "0.375rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -890,7 +890,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px",
+    "value": "0.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -918,7 +918,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px",
+    "value": "0.75rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -946,7 +946,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px",
+    "value": "1rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -974,7 +974,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px",
+    "value": "1.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1002,7 +1002,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px",
+    "value": "1.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1030,7 +1030,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px",
+    "value": "2rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1058,7 +1058,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px",
+    "value": "2.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1086,7 +1086,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px",
+    "value": "3rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1114,7 +1114,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "0px",
+    "value": "0",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1142,7 +1142,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px",
+    "value": "0.125rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1170,7 +1170,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px",
+    "value": "0.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1198,7 +1198,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px",
+    "value": "0.375rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1226,7 +1226,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px",
+    "value": "0.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1254,7 +1254,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px",
+    "value": "0.75rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1282,7 +1282,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px",
+    "value": "1rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1310,7 +1310,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px",
+    "value": "1.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1338,7 +1338,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px",
+    "value": "1.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1366,7 +1366,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px",
+    "value": "2rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1394,7 +1394,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px",
+    "value": "2.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1422,7 +1422,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px",
+    "value": "3rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1450,7 +1450,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px",
+    "value": "0.125rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1479,7 +1479,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px",
+    "value": "0.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1508,7 +1508,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px",
+    "value": "0.375rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1537,7 +1537,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px",
+    "value": "0.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1566,7 +1566,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px",
+    "value": "0.75rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1595,7 +1595,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px",
+    "value": "1rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1624,7 +1624,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px",
+    "value": "1.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1653,7 +1653,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px",
+    "value": "1.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1682,7 +1682,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px",
+    "value": "2rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1711,7 +1711,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px",
+    "value": "2.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1740,7 +1740,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px",
+    "value": "3rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1769,7 +1769,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "2px",
+    "value": "0.125rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1798,7 +1798,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "4px",
+    "value": "0.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1827,7 +1827,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "6px",
+    "value": "0.375rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1856,7 +1856,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px",
+    "value": "0.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1885,7 +1885,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "12px",
+    "value": "0.75rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1914,7 +1914,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px",
+    "value": "1rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1943,7 +1943,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "20px",
+    "value": "1.25rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -1972,7 +1972,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px",
+    "value": "1.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -2001,7 +2001,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "32px",
+    "value": "2rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -2030,7 +2030,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "40px",
+    "value": "2.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -2059,7 +2059,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "48px",
+    "value": "3rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -2088,7 +2088,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px",
+    "value": "0.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -2116,7 +2116,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px",
+    "value": "1rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -2144,7 +2144,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px",
+    "value": "1.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -2172,7 +2172,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "8px",
+    "value": "0.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -2200,7 +2200,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "16px",
+    "value": "1rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {
@@ -2228,7 +2228,7 @@ const tokens = [
       "introduced": "0.10.28",
       "description": "Helpful guidance goes here"
     },
-    "value": "24px",
+    "value": "1.5rem",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
     "isSource": true,
     "original": {

@@ -1,5 +1,11 @@
 # @atlaskit/container-picker
 
+## 3.0.0
+
+### Major Changes
+
+- [`a70e2031ba7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a70e2031ba7) - Deprecating @atlaskit/container-picker. The package will be supported until 14/11/2022.
+
 ## 2.0.5
 
 ### Patch Changes

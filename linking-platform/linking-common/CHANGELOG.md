@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.11.0
+
+### Minor Changes
+
+- [`c64e78c6e45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c64e78c6e45) - Updates LinkingPlatformFeatureFlags type with disableLinkPickerPopupPositioningFix ff
+
 ## 1.10.1
 
 ### Patch Changes

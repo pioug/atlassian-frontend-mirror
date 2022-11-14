@@ -23,10 +23,10 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
     background: ${token('color.skeleton.subtle', '#f6f7f8')};
     background-image: linear-gradient(
       to right,
-      ${token('utility.UNSAFE_util.transparent', '#f6f7f8')} 0%,
+      transparent 0%,
       ${token('color.skeleton', '#edeef1')} 20%,
-      ${token('color.skeleton.subtle', '#f6f7f8')} 40%,
-      ${token('color.skeleton.subtle', '#f6f7f8')} 100%
+      transparent 40%,
+      transparent 100%
     );
     background-repeat: no-repeat;
     background-size: 280% 100%;

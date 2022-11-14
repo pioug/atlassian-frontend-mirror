@@ -16,8 +16,7 @@ import { selectors } from './_utils';
 
 BrowserTestCase(
   'paste-rich-text.ts: Paste rich text into panel',
-  // TODO Skipping temp. to land unrelated changes. Will bring back in the PR right after this.
-  { skip: ['safari', 'chrome', 'firefox'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

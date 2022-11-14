@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.9
+
+### Patch Changes
+
+- [`13721843343`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13721843343) - Added support for multiple hardbreaks inside a table
+
 ## 11.1.8
 
 ### Patch Changes

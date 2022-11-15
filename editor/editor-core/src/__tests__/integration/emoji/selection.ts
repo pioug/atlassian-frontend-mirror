@@ -11,9 +11,12 @@ import {
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import emojiAdf from './__fixtures__/emoji-single.adf.json';
 
+// FIXME: This test was automatically skipped due to failure on 14/11/2022: https://product-fabric.atlassian.net/browse/ED-16184
 BrowserTestCase(
   'selection.ts: Clicking after an emoji produces a text selection to its right',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

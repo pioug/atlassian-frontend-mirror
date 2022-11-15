@@ -31,6 +31,7 @@ export const mockWindowStorage = (
   for (const storageToMockElement of storageToMock) {
     Object.defineProperty(window, storageToMockElement, {
       value: { ...STORAGE_MOCK },
+      configurable: true,
     });
   }
 };

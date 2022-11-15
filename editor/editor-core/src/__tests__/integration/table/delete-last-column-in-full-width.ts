@@ -16,7 +16,7 @@ import {
 BrowserTestCase(
   'Delete last table column in full-width mode',
   // Only Chrome has logging support in BrowserStack now
-  { skip: ['*'] },
+  { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(
@@ -53,16 +53,15 @@ BrowserTestCase(
     await page.waitForVisible(deleteButtonSelector);
     await page.click(deleteButtonSelector);
 
-    // ED-15748: Test is not working on safari anymore
-    //await page.checkConsoleErrors({
-    //  ignoreErrors: [
-    //    /is potentially unsafe when doing server-side rendering\. Try changing it to/,
-    //  ],
-    //});
+    await page.checkConsoleErrors({
+      ignoreErrors: [
+        /is potentially unsafe when doing server-side rendering\. Try changing it to/,
+        /Warning: Cannot update a component/,
+        /Warning: An update to/,
+      ],
+    });
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );
-
-it.todo('ED-15748: Test is not working properly with checkConsoleErrors');

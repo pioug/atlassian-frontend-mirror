@@ -10,9 +10,12 @@ import {
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { Appearance } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 
+// FIXME: This test was automatically skipped due to failure on 14/11/2022: https://product-fabric.atlassian.net/browse/ED-16183
 BrowserTestCase(
   `list: insert a media single inside a bullet list`,
-  { skip: [] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

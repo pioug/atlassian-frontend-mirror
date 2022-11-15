@@ -11,17 +11,17 @@ const renderIcon: RatingRender = (props) => {
 };
 
 const expectIsVisuallyHidden = (element: HTMLElement) => {
-  expect(element).toHaveStyleDeclaration('border', '0 !important');
+  expect(element).toHaveStyleDeclaration('border', '0!important');
   expect(element).toHaveStyleDeclaration(
     'clip',
-    'rect(1px,1px,1px,1px) !important',
+    'rect(1px, 1px, 1px, 1px)!important',
   );
-  expect(element).toHaveStyleDeclaration('height', '1px !important');
-  expect(element).toHaveStyleDeclaration('overflow', 'hidden !important');
-  expect(element).toHaveStyleDeclaration('padding', '0 !important');
-  expect(element).toHaveStyleDeclaration('position', 'absolute !important');
-  expect(element).toHaveStyleDeclaration('width', '1px !important');
-  expect(element).toHaveStyleDeclaration('white-space', 'nowrap !important');
+  expect(element).toHaveStyleDeclaration('height', '1px!important');
+  expect(element).toHaveStyleDeclaration('overflow', 'hidden!important');
+  expect(element).toHaveStyleDeclaration('padding', '0!important');
+  expect(element).toHaveStyleDeclaration('position', 'absolute!important');
+  expect(element).toHaveStyleDeclaration('width', '1px!important');
+  expect(element).toHaveStyleDeclaration('white-space', 'nowrap!important');
 };
 
 describe('<Rating />', () => {

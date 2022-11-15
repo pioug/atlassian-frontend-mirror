@@ -77,6 +77,7 @@ export default () => {
               fontSize="14px"
               lineHeight="16px"
               fontWeight="500"
+              id="some-id"
             >
               Text with various props
             </Text>

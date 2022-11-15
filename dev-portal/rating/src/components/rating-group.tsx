@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { Children, cloneElement, Fragment, useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports

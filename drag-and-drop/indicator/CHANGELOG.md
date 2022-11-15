@@ -1,5 +1,18 @@
 # @atlaskit/drag-and-drop-indicator
 
+## 0.6.0
+
+### Minor Changes
+
+- [`9066b866ed1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9066b866ed1) - The `edge` prop on the box drop indicator `@atlaskit/drag-and-drop-indicator/box` was _previously_ **optional** and is _now_ **required**.
+
+  For the fastest possible applications, it is important that `<DropIndicator>` is only doing work when it needs to. Making `edge` **required** forces consumers to only render the `<DropIndicator>` when it is actually doing something. We are using the type system to ensure the fastest possible usage
+
+  ```diff
+  - <DropIndicator edge={closestEdge} />
+  + { closestEdge && <DropIndicator edge={closestEdge} /> }
+  ```
+
 ## 0.5.2
 
 ### Patch Changes

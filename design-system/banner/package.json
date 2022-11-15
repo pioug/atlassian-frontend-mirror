@@ -27,7 +27,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/ds-explorations": "^1.0.0",
+    "@atlaskit/ds-explorations": "^1.1.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",

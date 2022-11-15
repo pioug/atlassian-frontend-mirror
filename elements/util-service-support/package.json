@@ -16,7 +16,7 @@
   "atlassian": {
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
-    "team": "UIP: Monorepo"
+    "team": "UIP: Frontend Delivery"
   },
   "config": {
     "access": "public"

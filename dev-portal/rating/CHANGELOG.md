@@ -1,5 +1,17 @@
 # @atlaskit/rating
 
+## 0.2.51
+
+### Patch Changes
+
+- [`016d3039482`](https://bitbucket.org/atlassian/atlassian-frontend/commits/016d3039482) - Updates `@emotion/core` v10 to `@emotion/react` v11. There is no expected behavior change.
+
+## 0.2.50
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.49
 
 ### Patch Changes

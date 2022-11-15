@@ -7,6 +7,7 @@ description: An addon to display drag hitbox information on drop targets.
 import SectionMessage from '@atlaskit/section-message';
 import ClosestEdgeExample from '../../examples/constellation/closest-edge';
 import GapExample from '../../examples/constellation/gap';
+import ConditionalExample from '../../examples/constellation/conditional';
 
 This package provides a `<DropIndicator/>` component to draw drop indicators (lines) relative to box elements (eg `<Card/>`
 `)
@@ -35,6 +36,10 @@ Generally, you will want to add `position: relative` to the element you want to 
 Use `edge` to specify which edge of the drop target the drop indicator should be rendered on.
 
 <Example Component={ClosestEdgeExample} />
+
+In order to help people be successful with performance, we have made `edge` a *required* prop. This will force you to only render the indicator when it is relevant (minimising `react` and DOM nodes)
+
+<Example Component={ConditionalExample} />
 
 ## Gap
 

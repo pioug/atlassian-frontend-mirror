@@ -27,10 +27,7 @@ const adf = {
   ],
 };
 
-it.todo('ED-15748: Test is not working on safari anymore');
 runEscapeKeydownSuite({
   adf,
   openMenu: clickOnDate,
-  // ED-15748: see https://automate.browserstack.com/dashboard/v2/builds/a42442563c76a3e177dd7242fda3ee105d27c679
-  skip: ['*'],
 });

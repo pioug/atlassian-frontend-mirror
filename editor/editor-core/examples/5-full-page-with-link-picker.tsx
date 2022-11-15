@@ -3,6 +3,7 @@ import React from 'react';
 import { createSearchProvider, Scope } from '@atlassian/search-provider';
 import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin';
 import { useLinkPickerEditorProps } from '@atlassian/link-picker-plugins/editor';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 import { default as FullPageExample } from './5-full-page';
 
@@ -19,15 +20,27 @@ const atlassianPlugin = new AtlassianLinkPickerPlugin({
   activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
 });
 
-export default () => {
+const smartCardClient = new CardClient('staging');
+
+const FullPageWithLinkPicker = () => {
   const linkPicker = useLinkPickerEditorProps({
     plugins: [atlassianPlugin],
   });
 
   return (
     <FullPageExample
-      linking={{ linkPicker }}
-      featureFlags={{ 'lp-link-picker': true }}
+      editorProps={{
+        linking: { linkPicker },
+        featureFlags: { 'lp-link-picker': true },
+      }}
     />
+  );
+};
+
+export default () => {
+  return (
+    <SmartCardProvider client={smartCardClient}>
+      <FullPageWithLinkPicker />
+    </SmartCardProvider>
   );
 };

@@ -8,11 +8,13 @@ describe('local-storage', () => {
     Object.defineProperty(window, 'localStorage', {
       value: originalLocalStorage,
       writable: true,
+      configurable: true,
     });
 
     Object.defineProperty(window, 'sessionStorage', {
       value: originalSessionStorage,
       writable: true,
+      configurable: true,
     });
   });
 

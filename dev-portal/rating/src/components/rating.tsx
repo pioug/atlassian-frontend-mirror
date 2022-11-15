@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { forwardRef, Fragment, useCallback } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import { easeInOut, smallDurationMs } from '@atlaskit/motion';
 // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden

@@ -35,7 +35,7 @@
     "@atlaskit/button": "^16.4.0",
     "@atlaskit/empty-state": "^7.4.0",
     "@atlaskit/form": "^8.7.0",
-    "@atlaskit/frontend-utilities": "^2.0.0",
+    "@atlaskit/frontend-utilities": "^2.1.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/spinner": "^15.2.0",
     "@atlaskit/tabs": "^13.3.0",

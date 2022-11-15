@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { queryByAttribute, render } from '@testing-library/react';
 
 import { UNSAFE_Text as Text } from '../../../index';
 
@@ -36,6 +36,14 @@ describe('Text component', () => {
   it('should render with given test id', () => {
     const { getByTestId } = render(<Text testId="test">Text</Text>);
     expect(getByTestId('test')).toBeInTheDocument();
+  });
+
+  it('should render with id attribute', () => {
+    const id = 'some-id';
+    const { container } = render(<Text id={id}>Text</Text>);
+    const queryById = queryByAttribute.bind(null, 'id');
+    const component = queryById(container, id);
+    expect(component).toBeDefined();
   });
 
   describe('"as" prop behaviour', () => {

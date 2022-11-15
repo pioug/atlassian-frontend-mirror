@@ -90,7 +90,7 @@
 
 ### Patch Changes
 
-- Updated dependencies
+- Updated dependencies. This is not actually a breaking change. Major bump is because @atlaskit/link-provider was bumped with `minor`. Please, ignore this major bump.
 
 ## 173.0.1
 

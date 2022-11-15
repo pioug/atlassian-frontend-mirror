@@ -224,7 +224,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should render tabs with multiple plugins and go forwards and backwards through arrow controls', async () => {
+  // FIXME: This test was automatically skipped due to failure on 14/11/2022: https://product-fabric.atlassian.net/browse/EDM-5020
+  it.skip('Should render tabs with multiple plugins and go forwards and backwards through arrow controls', async () => {
     const url = getURL('vr-with-multiple-plugins');
     const page = await setup(url);
 

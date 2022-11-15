@@ -63,12 +63,7 @@ BrowserTestCase(
     await page.simulateUserDragAndDrop(left, top, left, top, 100);
 
     // Paste
-    // macos chrome needs a workaround for pasting rich text.
-    if (page.isBrowser('chrome') && page.isMacOSPlatform()) {
-      await page.keys(['Mod', 'v']);
-    } else {
-      await page.paste();
-    }
+    await page.paste();
 
     expect(
       await page.$eval(editable, getDocFromElement),

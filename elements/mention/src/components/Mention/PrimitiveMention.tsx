@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx, css } from '@emotion/react';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
 import type { Theme } from '@atlaskit/theme/types';
 import {

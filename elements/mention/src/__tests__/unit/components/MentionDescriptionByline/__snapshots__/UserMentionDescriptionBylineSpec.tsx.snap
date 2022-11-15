@@ -2,7 +2,7 @@
 
 exports[`User mention description should render User Mention description component 1`] = `
 .emotion-0 {
-  color: var(--ds-text-subtlest,#7A869A);
+  color: var(--ds-text-subtlest, #7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;

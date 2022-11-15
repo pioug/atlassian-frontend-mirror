@@ -4,7 +4,7 @@ exports[`Team mention description should not render Team Mention description com
 
 exports[`Team mention description should render Team Mention description component with less than 50 members, includes you 1`] = `
 .emotion-0 {
-  color: var(--ds-text-subtlest,#7A869A);
+  color: var(--ds-text-subtlest, #7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;
@@ -22,7 +22,7 @@ exports[`Team mention description should render Team Mention description compone
 
 exports[`Team mention description should render Team Mention description component with less than 50 members, not including you 1`] = `
 .emotion-0 {
-  color: var(--ds-text-subtlest,#7A869A);
+  color: var(--ds-text-subtlest, #7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;
@@ -40,7 +40,7 @@ exports[`Team mention description should render Team Mention description compone
 
 exports[`Team mention description should render Team Mention description component with more than 50 members, includes you 1`] = `
 .emotion-0 {
-  color: var(--ds-text-subtlest,#7A869A);
+  color: var(--ds-text-subtlest, #7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;
@@ -58,7 +58,7 @@ exports[`Team mention description should render Team Mention description compone
 
 exports[`Team mention description should render Team Mention description component with more than 50 members, not including you 1`] = `
 .emotion-0 {
-  color: var(--ds-text-subtlest,#7A869A);
+  color: var(--ds-text-subtlest, #7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;

@@ -39,7 +39,7 @@ export class MobileSmartCardClient extends Client {
      * This is called when an inlineCard | blockCard is loaded in the document
      * or from the renderer
      * Response from the native side should have the shape of ResolveResponse
-     * https://atlaskit.atlassian.com/packages/media/smart-card/docs/client
+     * https://atlaskit.atlassian.com/packages/linking-platform/smart-card/docs/client
      *
      */
     return createPromise('getResolvedLink', { url })

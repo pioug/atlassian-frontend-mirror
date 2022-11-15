@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.35
+
+### Patch Changes
+
+- [`44c1c98c87a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44c1c98c87a) - Export CSSTokenMap
+
 ## 0.10.34
 
 ### Patch Changes

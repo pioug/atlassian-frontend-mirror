@@ -27,6 +27,10 @@ export interface TextProps extends BasePrimitiveProps {
    */
   color?: TextColor;
   /**
+   * The HTML id attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id
+   */
+  id?: string;
+  /**
    * Font size https://developer.mozilla.org/en-US/docs/Web/CSS/font-size
    */
   fontSize?: FontSize;
@@ -162,6 +166,7 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     verticalAlign,
     testId,
     UNSAFE_style,
+    id,
   } = props;
   invariant(
     asAllowlist.includes(Component),
@@ -193,6 +198,7 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
         verticalAlign && verticalAlignMap[verticalAlign],
       ]}
       data-testid={testId}
+      id={id}
     >
       {children}
     </Component>

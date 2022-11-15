@@ -91,7 +91,7 @@ export function Example(doc?: string | Object) {
             card. Links pasted inside other elements (like lists, tables,
             panels) will be converted to a smaller, inline version of card. A
             gallery of available types of cards{' '}
-            <a href="/packages/media/smart-card/example/gallery">
+            <a href="/packages/linking-platform/smart-card/example/gallery">
               can be found here
             </a>
           </p>

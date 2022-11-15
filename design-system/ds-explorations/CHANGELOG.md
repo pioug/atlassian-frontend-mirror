@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.1.0
+
+### Minor Changes
+
+- [`93d75a4e289`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93d75a4e289) - Adding id prop for Text component so that element can be updated with id attribute. It's a way for an element to be uniquely identifiable for a range of reasons. For example: URL anchors, reference target for integrations and accessible label references.
+
 ## 1.0.0
 
 ### Major Changes

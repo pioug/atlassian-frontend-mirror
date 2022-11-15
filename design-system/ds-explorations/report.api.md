@@ -570,6 +570,7 @@ export interface UNSAFE_TextProps extends BasePrimitiveProps {
   color?: TextColor;
   fontSize?: FontSize;
   fontWeight?: FontWeight;
+  id?: string;
   lineHeight?: LineHeight;
   shouldTruncate?: boolean;
   textAlign?: TextAlign;

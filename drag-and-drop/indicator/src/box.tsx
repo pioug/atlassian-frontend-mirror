@@ -4,17 +4,27 @@ import type { CSSProperties } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
-import { line } from './internal/constants';
+import type { Edge } from '@atlaskit/drag-and-drop-hitbox/types';
 
-type Edge = 'top' | 'right' | 'bottom' | 'left';
+import { line } from './internal/constants';
 
 export type DropIndicatorProps = {
   /**
-   * The edge of the child to draw the drop indicator on. Use `null` to hide the indicator.
+   * The `edge` to draw a drop indicator on.
+   *
+   * `edge` is required as for the best possible performance
+   * outcome you should only render this component when it needs to do something
+   *
+   * @example {closestEdge && <DropIndicator edge={closestEdge} />}
    */
-  edge: Edge | null;
+  edge: Edge;
   /**
-   * The distance between draggable items. This should be a valid CSS length.
+   * `gap` allows you to position the drop indicator further away from the drop target.
+   * `gap` should be the distance between your drop targets
+   * a drop indicator will be rendered halfway between the drop targets
+   * (the drop indicator will be offset by half of the `gap`)
+   *
+   * `gap` should be a valid CSS length.
    * @example "8px"
    * @example "var(--gap)"
    */

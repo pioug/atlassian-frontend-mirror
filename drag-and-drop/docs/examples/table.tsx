@@ -249,7 +249,7 @@ const DraggableTableHeader = ({
   return (
     <th ref={ref} css={[tableHeaderStyles, tableHeaderStatusStyles[status]]}>
       {children}
-      <DropIndicator edge={closestEdge} />
+      {closestEdge && <DropIndicator edge={closestEdge} />}
     </th>
   );
 };

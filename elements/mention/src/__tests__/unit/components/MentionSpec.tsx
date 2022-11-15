@@ -76,36 +76,44 @@ describe('<Mention />', () => {
 
     it('should render a default lozenge if no accessLevel data and is not being mentioned', () => {
       const mention = mountWithIntl(<Mention {...mentionData} />);
-      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
-        MentionType.DEFAULT,
-      );
+      expect(
+        mention
+          .findWhere((component) => component.prop('mentionType'))
+          .prop('mentionType'),
+      ).toEqual(MentionType.DEFAULT);
     });
 
     it('should render a default lozenge if the user has CONTAINER permissions but is not being mentioned', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} accessLevel={'CONTAINER'} />,
       );
-      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
-        MentionType.DEFAULT,
-      );
+      expect(
+        mention
+          .findWhere((component) => component.prop('mentionType'))
+          .prop('mentionType'),
+      ).toEqual(MentionType.DEFAULT);
     });
 
     it('should add a highlighted lozenge if `isHighlighted` is set to true', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} isHighlighted={true} />,
       );
-      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
-        MentionType.SELF,
-      );
+      expect(
+        mention
+          .findWhere((component) => component.prop('mentionType') !== undefined)
+          .prop('mentionType'),
+      ).toEqual(MentionType.SELF);
     });
 
     it('should render a restricted style lozenge if the user has NONE permissions', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} accessLevel={'NONE'} />,
       );
-      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
-        MentionType.RESTRICTED,
-      );
+      expect(
+        mention
+          .findWhere((component) => component.prop('mentionType'))
+          .prop('mentionType'),
+      ).toEqual(MentionType.RESTRICTED);
     });
 
     it('should render a unrestricted style lozenge if the user has CONTAINER permissions', () => {
@@ -113,9 +121,11 @@ describe('<Mention />', () => {
         <Mention {...mentionData} accessLevel={'CONTAINER'} />,
       );
 
-      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
-        MentionType.DEFAULT,
-      );
+      expect(
+        mention
+          .findWhere((component) => component.prop('mentionType'))
+          .prop('mentionType'),
+      ).toEqual(MentionType.DEFAULT);
     });
 
     it('should render a unrestricted style lozenge if the user has CONTAINER permissions', () => {
@@ -123,9 +133,11 @@ describe('<Mention />', () => {
         <Mention {...mentionData} accessLevel={'APPLICATION'} />,
       );
 
-      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
-        MentionType.DEFAULT,
-      );
+      expect(
+        mention
+          .findWhere((component) => component.prop('mentionType'))
+          .prop('mentionType'),
+      ).toEqual(MentionType.DEFAULT);
     });
 
     it('should not display a tooltip if no accessLevel data', () => {
@@ -150,7 +162,10 @@ describe('<Mention />', () => {
     it('should dispatch onClick-event', () => {
       const spy = jest.fn();
       const mention = mountWithIntl(<Mention {...mentionData} onClick={spy} />);
-      mention.find(PrimitiveMention).simulate('click');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('click');
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenLastCalledWith(
         mentionData.id,
@@ -170,7 +185,10 @@ describe('<Mention />', () => {
           <Mention {...mentionData} accessLevel={'CONTAINER'} />
         </AnalyticsListenerNext>,
       );
-      mention.find(PrimitiveMention).simulate('click');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('click');
 
       expect(analyticsNextHandlerSpy).toHaveBeenCalled();
       expect(analyticsNextHandlerSpy).toHaveBeenCalledWith(
@@ -184,7 +202,10 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} onMouseEnter={spy} />,
       );
-      mention.find(PrimitiveMention).simulate('mouseenter');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('mouseenter');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,
@@ -198,7 +219,10 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} onMouseLeave={spy} />,
       );
-      mention.find(PrimitiveMention).simulate('mouseleave');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('mouseleave');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,
@@ -217,7 +241,10 @@ describe('<Mention />', () => {
           <Mention {...mentionData} accessLevel={'CONTAINER'} />
         </AnalyticsListenerNext>,
       );
-      mention.find(PrimitiveMention).simulate('mouseenter');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('mouseenter');
       jest.runTimersToTime(ANALYTICS_HOVER_DELAY);
 
       expect(analyticsNextHandlerSpy).toHaveBeenCalledWith(
@@ -236,9 +263,15 @@ describe('<Mention />', () => {
           <Mention {...mentionData} accessLevel={'CONTAINER'} />
         </AnalyticsListenerNext>,
       );
-      mention.find(PrimitiveMention).simulate('mouseenter');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('mouseenter');
       jest.runTimersToTime(ANALYTICS_HOVER_DELAY / 5);
-      mention.find(PrimitiveMention).simulate('mouseleave');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('mouseleave');
 
       // to make sure the clearTimeout removed the scheduled task
       jest.runTimersToTime(ANALYTICS_HOVER_DELAY);
@@ -411,7 +444,10 @@ describe('<Mention />', () => {
           onClick={spy}
         />,
       );
-      mention.find(PrimitiveMention).simulate('click');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('click');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,
@@ -430,7 +466,10 @@ describe('<Mention />', () => {
           onMouseEnter={spy}
         />,
       );
-      mention.find(PrimitiveMention).simulate('mouseenter');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('mouseenter');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,
@@ -448,7 +487,10 @@ describe('<Mention />', () => {
           onMouseLeave={spy}
         />,
       );
-      mention.find(PrimitiveMention).simulate('mouseleave');
+      mention
+        .findWhere((component) => component.prop('mentionType'))
+        .find('span')
+        .simulate('mouseleave');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,

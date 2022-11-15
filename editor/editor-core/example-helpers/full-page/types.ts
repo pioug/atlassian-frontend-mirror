@@ -15,8 +15,6 @@ export interface ExampleProps {
   ) => void;
   clickToEdit?: boolean;
   editorProps?: Partial<EditorProps>;
-  linking?: EditorProps['linking'];
-  featureFlags?: EditorProps['featureFlags'];
 }
 
 export interface ExampleRendererProps {

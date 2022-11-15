@@ -146,7 +146,9 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
           <Card item={item} key={item.itemId} />
         ))}
       </div>
-      <DropIndicator edge={closestEdge} gap={`${columnGap}px`} />
+      {closestEdge && (
+        <DropIndicator edge={closestEdge} gap={`${columnGap}px`} />
+      )}
     </div>
   );
 });

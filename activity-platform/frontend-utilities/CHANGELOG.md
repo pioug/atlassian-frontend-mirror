@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 2.1.0
+
+### Minor Changes
+
+- [`ea3bce7792d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea3bce7792d) - Defineproperty with configurable so it can be overwritten
+
 ## 2.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.13.3
+
+### Patch Changes
+
+- [`4793b01cfcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4793b01cfcc) - Add an optional `customTokens` configuration option for no-unsafe-design-token-usage
+
 ## 4.13.2
 
 ### Patch Changes

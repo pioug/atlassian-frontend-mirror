@@ -217,6 +217,13 @@ tester.run('no-unsafe-design-token-usage', rule, {
     `console.log(\`Removed \${text}.\`);`,
     `export const App = () => <SimpleTag text="Base Tag" testId="standard" />;`,
     `export const App = () => <Avatar src="0x400" />;`,
+    // Using UNSAFE_ignoreTokens -> ['trello.color.background.accent.lime.subtle']
+    {
+      options: [
+        { UNSAFE_ignoreTokens: ['trello.color.background.accent.lime.subtle'] },
+      ],
+      code: `token('trello.color.background.accent.lime.subtle')`,
+    },
   ],
   invalid: [
     {

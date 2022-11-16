@@ -13,6 +13,14 @@ import { isToken } from '../utils/is-token';
 
 type PluginConfig = {
   shouldEnforceFallbacks: boolean;
+  /**
+   * List of additional tokens that can be configured for the rule to accept.
+   * Provided as a workaround for teams who need custom tokens for migration purposes.
+   *
+   * Warning: tokens provided here will not trigger warnings, even if deprecated or deleted.
+   * Do not pass in the names of tokens from the @atlaskit/tokens package.
+   */
+  UNSAFE_ignoreTokens?: string[];
 };
 
 const defaultConfig: PluginConfig = {
@@ -62,6 +70,7 @@ token('color.background.blanket');
   },
   create(context) {
     const config: PluginConfig = context.options[0] || defaultConfig;
+    const UNSAFE_ignoreTokens = new Set(config.UNSAFE_ignoreTokens);
 
     return {
       'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]': (
@@ -208,7 +217,8 @@ token('color.background.blanket');
         if (
           typeof tokenKey !== 'string' ||
           (typeof tokenKey === 'string' &&
-            !tokens[tokenKey as keyof typeof tokens])
+            !tokens[tokenKey as keyof typeof tokens] &&
+            !UNSAFE_ignoreTokens.has(tokenKey))
         ) {
           context.report({
             messageId: 'invalidToken',

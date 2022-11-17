@@ -3,7 +3,7 @@ import { JsonLd } from 'json-ld-types';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { Card } from '../../src';
-import { mocks } from '../../src/utils/mocks';
+import { mocks } from '../utils/common';
 import type { CardAppearance } from '@atlaskit/linking-common';
 
 class ErroredClient extends CardClient {

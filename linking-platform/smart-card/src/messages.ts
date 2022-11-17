@@ -15,6 +15,8 @@ export type MessageKey =
   | 'connect_link_account_card'
   | 'connect_link_account_card_name'
   | 'connect_link_account_card_description'
+  | 'connect_unauthorised_account_action'
+  | 'connect_unauthorised_account_description'
   | 'could_not_load_link'
   | 'download'
   | 'invalid_permissions'
@@ -26,6 +28,7 @@ export type MessageKey =
   | 'created_on_absolute'
   | 'delete'
   | 'edit'
+  | 'learn_more_about_smart_links_security'
   | 'loading'
   | 'modified_by'
   | 'modified_on_relative'
@@ -158,6 +161,19 @@ export const messages: Messages = defineMessages({
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. Displayed in byline.',
   },
+  connect_unauthorised_account_action: {
+    id: 'fabric.linking.connect_unauthorised_account_action',
+    defaultMessage: 'Connect to {context}',
+    description:
+      'Shown on a button to connect user external account to their Atlassian account.',
+  },
+  connect_unauthorised_account_description: {
+    id: 'fabric.linking.connect_unauthorised_account_description',
+    defaultMessage:
+      'Connect {context} to Atlassian to view more details from your work and collaboration from one place.',
+    description:
+      'Shown when a user does not have access to a link, but can connect their external account to view the link on card view.',
+  },
   could_not_load_link: {
     id: 'fabric.linking.couldnt_load_link',
     defaultMessage: "We couldn't load this link for an unknown reason.",
@@ -216,6 +232,12 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.join_to_view',
     defaultMessage: 'Join {context} to view this issue',
     description: 'Allows the user join the product or service immediately',
+  },
+  learn_more_about_smart_links_security: {
+    id: 'fabric.linking.learn_more_about_smart_links_security',
+    defaultMessage: 'Learn more about smart link security and permissions.',
+    description:
+      'An anchor link to redirect user to a page about smart link security and permissions.',
   },
   loading: {
     id: 'fabric.linking.loading',

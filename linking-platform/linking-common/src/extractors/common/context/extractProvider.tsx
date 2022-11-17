@@ -5,13 +5,14 @@ import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { JsonLd } from 'json-ld-types';
 
-import { extractUrlFromIconJsonLd } from '../url';
+import { extractUrlFromIconJsonLd, extractUrlFromLinkJsonLd } from '../url';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 
 export interface LinkProvider {
   text: string;
   id?: string;
   icon?: React.ReactNode;
+  image?: string;
 }
 
 export const extractProvider = (
@@ -32,6 +33,7 @@ export const extractProvider = (
           text: generator.name,
           icon: extractProviderIcon(generator.icon, id),
           id,
+          image: extractProviderImage(generator.image),
         };
       }
     }
@@ -71,5 +73,21 @@ const extractProviderIcon = (
   }
   if (icon) {
     return extractUrlFromIconJsonLd(icon);
+  }
+};
+
+const extractProviderImage = (
+  image?: JsonLd.Primitives.Image | JsonLd.Primitives.Link,
+): string | undefined => {
+  if (image) {
+    if (typeof image === 'string') {
+      return image;
+    } else if (image['@type'] === 'Link') {
+      return extractUrlFromLinkJsonLd(image);
+    } else if (image['@type'] === 'Image') {
+      if (image.url) {
+        return extractUrlFromLinkJsonLd(image.url);
+      }
+    }
   }
 };

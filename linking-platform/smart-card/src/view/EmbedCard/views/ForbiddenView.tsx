@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { EmbedCardUnresolvedView, ButtonProps } from './UnresolvedView';
-import { LockImage } from '../../BlockCard/utils/constants';
+import { LockImage } from '../constants';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel, RequestAccessContextProps } from '../types';

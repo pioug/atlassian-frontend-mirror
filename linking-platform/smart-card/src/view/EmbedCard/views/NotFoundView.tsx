@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { EmbedCardUnresolvedView } from './UnresolvedView';
-import { NotFoundImage } from '../../BlockCard/utils/constants';
+import { NotFoundImage } from '../constants';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel } from '../types';

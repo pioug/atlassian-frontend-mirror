@@ -10,6 +10,8 @@ import { EmbedCardProps } from '../types';
 import { mockAnalytics } from '../../../utils/mocks';
 import { JsonLd } from 'json-ld-types';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { UnauthorisedImage } from '../constants';
+import { CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../../constants';
 
 const baseData: JsonLd.Response['data'] = {
   '@type': 'Object',
@@ -166,6 +168,101 @@ describe('EmbedCard view component', () => {
       const { getByTestId } = setup(cardState, expectedUrl);
       const forbiddenView = getByTestId('embed-card-forbidden-view');
       expect(forbiddenView).toBeTruthy();
+    });
+  });
+
+  describe('unauthorised embed', () => {
+    const expectedUrl = 'https://some.url';
+
+    const getUnauthorizedCardState = (
+      image?: JsonLd.Primitives.Image,
+    ): CardState => ({
+      status: 'unauthorized',
+      details: {
+        meta: {
+          access: 'unauthorized',
+          visibility: 'restricted',
+        },
+        data: {
+          ...baseData,
+          generator: {
+            '@type': 'Application',
+            name: '3P',
+            icon: {
+              '@type': 'Image',
+              url: 'https://some.icon.url',
+            },
+            ...(image ? { image } : {}),
+          },
+          url: expectedUrl,
+        },
+      },
+    });
+
+    it('renders unauthorised view with default image', () => {
+      const expectedImageUrl = UnauthorisedImage;
+      const cardState = getUnauthorizedCardState();
+      const { getByTestId } = setup(cardState, expectedUrl);
+      const unauthorizedView = getByTestId('embed-card-unauthorized-view');
+      expect(unauthorizedView).toBeTruthy();
+
+      const unauthorizedViewImage = getByTestId(
+        'embed-card-unauthorized-view-unresolved-image',
+      );
+      expect(unauthorizedViewImage.getAttribute('src')).toBe(expectedImageUrl);
+    });
+
+    it('renders unauthorised view with provider image', () => {
+      const expectedImageUrl = 'https://image-url';
+      const cardState = getUnauthorizedCardState({
+        '@type': 'Image',
+        url: expectedImageUrl,
+      });
+      const { getByTestId } = setup(cardState, expectedUrl);
+
+      const unauthorizedView = getByTestId('embed-card-unauthorized-view');
+      expect(unauthorizedView).toBeTruthy();
+
+      const unauthorizedViewImage = getByTestId(
+        'embed-card-unauthorized-view-unresolved-image',
+      );
+      expect(unauthorizedViewImage.getAttribute('src')).toBe(expectedImageUrl);
+    });
+
+    it('renders unauthorised view messages', () => {
+      const cardState = getUnauthorizedCardState(undefined);
+      const { getByTestId } = setup(cardState, expectedUrl);
+
+      const unauthorizedView = getByTestId('embed-card-unauthorized-view');
+      expect(unauthorizedView).toBeTruthy();
+
+      const title = getByTestId(
+        'embed-card-unauthorized-view-unresolved-title',
+      );
+      expect(title.textContent).toBe('Connect your 3P account');
+
+      const description = getByTestId(
+        'embed-card-unauthorized-view-unresolved-description',
+      );
+      expect(description.textContent).toBe(
+        'Connect 3P to Atlassian to view more details from your work and collaboration from one place. Learn more about smart link security and permissions.',
+      );
+
+      const action = getByTestId('button-connect-account');
+      expect(action.textContent).toBe('Connect to 3P');
+    });
+
+    it('renders learn more anchor', () => {
+      const cardState = getUnauthorizedCardState(undefined);
+      const { getByTestId } = setup(cardState, expectedUrl);
+
+      const unauthorizedView = getByTestId('embed-card-unauthorized-view');
+      expect(unauthorizedView).toBeTruthy();
+
+      const anchor = getByTestId('embed-card-unauthorized-view-learn-more');
+      expect(anchor.getAttribute('href')).toBe(
+        CONTENT_URL_SECURITY_AND_PERMISSIONS,
+      );
     });
   });
 });

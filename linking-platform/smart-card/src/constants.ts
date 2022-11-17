@@ -1,3 +1,6 @@
+export const CONTENT_URL_SECURITY_AND_PERMISSIONS =
+  'https://support.atlassian.com/confluence-cloud/docs/insert-links-and-anchors/#Smart-links';
+
 /**
  * The alignment of Flexible UI component.
  */

@@ -34,7 +34,7 @@ describe('Block Card', () => {
     const page = await setup(url);
     await page.waitForSelector('[data-testid="block-card-errored-view"]');
 
-    const image = await takeSnapshot(page, 600);
+    const image = await takeSnapshot(page, 620);
     expect(image).toMatchProdImageSnapshot();
   });
 });

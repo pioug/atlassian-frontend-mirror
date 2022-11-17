@@ -5,6 +5,7 @@ import {
   TEST_LINK,
   TEST_NAME,
   TEST_OBJECT,
+  TEST_IMAGE,
 } from '../../__mocks__/jsonld';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../constants';
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
@@ -52,7 +53,7 @@ describe('extractors.context.provider', () => {
         ...TEST_BASE_DATA,
         generator: { ...TEST_OBJECT, icon: undefined },
       }),
-    ).toEqual({ text: TEST_NAME });
+    ).toEqual({ text: TEST_NAME, image: TEST_URL });
   });
 
   it('returns generator with name, icon if object has name, icon', () => {
@@ -61,7 +62,7 @@ describe('extractors.context.provider', () => {
         ...TEST_BASE_DATA,
         generator: TEST_OBJECT,
       }),
-    ).toEqual({ text: TEST_NAME, icon: TEST_URL });
+    ).toEqual({ text: TEST_NAME, icon: TEST_URL, image: TEST_URL });
   });
 
   it('returns generator icon for Confluence', () => {
@@ -82,5 +83,31 @@ describe('extractors.context.provider', () => {
     expect(provider).toBeDefined();
     const { getByLabelText } = render(provider!.icon);
     expect(getByLabelText('Jira')).toBeDefined();
+  });
+
+  describe('with image', () => {
+    it('returns raw string', () => {
+      const provider = extractProvider({
+        ...TEST_BASE_DATA,
+        generator: { ...TEST_OBJECT, image: TEST_URL },
+      });
+      expect(provider?.image).toBe(TEST_URL);
+    });
+
+    it('returns image url from link', () => {
+      const provider = extractProvider({
+        ...TEST_BASE_DATA,
+        generator: { ...TEST_OBJECT, image: TEST_LINK },
+      });
+      expect(provider?.image).toBe(TEST_URL);
+    });
+
+    it('returns image url from image', () => {
+      const provider = extractProvider({
+        ...TEST_BASE_DATA,
+        generator: { ...TEST_OBJECT, image: TEST_IMAGE },
+      });
+      expect(provider?.image).toBe(TEST_URL);
+    });
   });
 });

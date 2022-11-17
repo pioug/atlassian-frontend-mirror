@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 23.3.1
+
+### Patch Changes
+
+- [`6533e448c53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6533e448c53) - [ux] Embed: Update unauthorised view text messages and use provider image if available
+- Updated dependencies
+
 ## 23.3.0
 
 ### Minor Changes

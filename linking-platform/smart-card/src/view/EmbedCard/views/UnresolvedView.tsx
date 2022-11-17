@@ -33,6 +33,7 @@ export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
   context,
   onClick,
   testId,
+  children,
 }) => {
   return (
     <div
@@ -49,6 +50,7 @@ export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
       <img
         src={image}
         css={{ height: gridSize(14), marginBottom: gridSize(4) }}
+        data-testid={`${testId}-unresolved-image`}
       />
       <span
         css={{
@@ -57,6 +59,7 @@ export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
           width: gridSize(50),
           textAlign: 'center',
         }}
+        data-testid={`${testId}-unresolved-title`}
       >
         <FormattedMessage {...messages[title]} values={{ context }} />
       </span>
@@ -68,8 +71,11 @@ export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
           width: gridSize(50),
           lineHeight: gridSize(3),
         }}
+        data-testid={`${testId}-unresolved-description`}
       >
-        <FormattedMessage {...messages[description]} values={{ context }} />
+        {children ?? (
+          <FormattedMessage {...messages[description]} values={{ context }} />
+        )}
       </span>
       {button && (
         <Button

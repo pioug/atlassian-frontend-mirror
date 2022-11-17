@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.12.0
+
+### Minor Changes
+
+- [`6533e448c53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6533e448c53) - [ux] Embed: Update unauthorised view text messages and use provider image if available
+
 ## 1.11.0
 
 ### Minor Changes

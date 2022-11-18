@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.4.0
+
+### Minor Changes
+
+- [`9e5a4003c80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e5a4003c80) - Update the error screen when embedded confluence iframe failed to load
+
 ## 1.3.4
 
 ### Patch Changes

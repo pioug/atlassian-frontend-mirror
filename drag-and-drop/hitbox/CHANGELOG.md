@@ -1,5 +1,61 @@
 # @atlaskit/drag-and-drop-hitbox
 
+## 0.3.0
+
+### Minor Changes
+
+- [`f004dadb4fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f004dadb4fc) - `reorderWithEdge` has changed API in order to more accurately reflect the values that are being passed in
+
+  ```diff
+  function reorderWithEdge<Value>(args: {
+      list: Value[];
+  -   edge: Edge | null;
+  +   // the reorder operation is based on what the closest edge of the target is
+  +   closestEdgeOfTarget: Edge | null;
+      startIndex: number;
+  -   finalIndex: number
+  +   // we are reordering relative to the target
+  +   indexOfTarget: number;
+      axis: 'vertical' | 'horizontal';
+  }): Value[];
+  ```
+
+  Adding new utility: `getReorderDestinationIndex`
+
+  When you are rendering _drop indicators_ (eg lines) between items in a list, it can be difficult to know what the `index` the dropped item should go into. The final `index` will depend on what the closest `Edge` is. `getReorderDestinationIndex` can give you the final `index` for a reordering operation, taking into account which `Edge` is closest
+
+  ```ts
+  import { getReorderDestinationIndex } from '@atlaskit/drag-and-drop-hitbox/util/get-reorder-destination-index';
+
+  // Dragging A on the left of B
+  // A should stay in the same spot
+  expect(
+    getReorderDestinationIndex({
+      // list: ['A', 'B', 'C'],
+      // move A to left of B
+      startIndex: 0,
+      indexOfTarget: 1,
+      closestEdgeOfTarget: 'left',
+      axis: 'horizontal',
+    }),
+    // results in no change: ['A', 'B', 'C']
+  ).toEqual(0);
+
+  // Dragging A on the right of B
+  // A should go after B
+  expect(
+    getReorderDestinationIndex({
+      // list: ['A', 'B', 'C'],
+      // move A to right of B
+      startIndex: 0,
+      indexOfTarget: 1,
+      closestEdgeOfTarget: 'right',
+      axis: 'horizontal',
+    }),
+    // A moved forward ['B', 'A', 'C']
+  ).toEqual(1);
+  ```
+
 ## 0.2.7
 
 ### Patch Changes

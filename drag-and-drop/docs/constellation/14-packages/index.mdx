@@ -30,7 +30,8 @@ Contains the essential pieces of the system, and is not tied to any JavaScript f
 Add _additional_ hitbox (impact) information to a _drop target_ when it is being dragged over.
 
 - `@atlaskit/drag-and-drop-hitbox/addon/closest-edge`: an _addon_ which attaches information about what edge (top, right, bottom, left) the users pointer is closest to
-- `@atlaskit/drag-and-drop-hitbox/util/reorder-with-edge`: a utility that assists with reordering arrays, taking into account edge information. It is similar to `@atlaskit/drag-and-drop/util/reorder`, but takes into account edges
+- `@atlaskit/drag-and-drop-hitbox/util/get-reorder-destination-index`: a utility that calculates final `index` in a list based on the closest target and closest edge
+- `@atlaskit/drag-and-drop-hitbox/util/reorder-with-edge`: Similar to `@atlaskit/drag-and-drop/util/reorder`, but takes into account edges
 - `@atlaskit/drag-and-drop-hitbox/types`: All base types from this package
 
 ## `@atlaskit/drag-and-drop-indicator`

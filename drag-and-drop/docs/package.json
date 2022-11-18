@@ -35,7 +35,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/drag-and-drop": "^0.8.0",
     "@atlaskit/drag-and-drop-autoscroll": "^0.1.0",
-    "@atlaskit/drag-and-drop-hitbox": "^0.2.0",
+    "@atlaskit/drag-and-drop-hitbox": "^0.3.0",
     "@atlaskit/drag-and-drop-indicator": "^0.6.0",
     "@atlaskit/focus-ring": "^1.1.0",
     "@atlaskit/icon": "^21.11.0",

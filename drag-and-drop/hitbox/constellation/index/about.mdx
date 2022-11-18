@@ -9,3 +9,115 @@ This package includes _addons_ and _utilities_ to extract additional information
 - [@atlasit/drag-and-drop-hitbox/closest-edge](/components/drag-and-drop/packages/hitbox/closest-edge) - detecting the closest edge (`"top", "right", "bottom", "left"`) for a _drop target_ being dragged over
 - Trees (_coming soon_)
 - `@atlasit/drag-and-drop-hitbox/types` - a way to import the types of this package without any implementation (includes the `Edge` type)
+
+## Addons
+
+### Closest edge
+
+The closest edge _addon_ is used to know what the closest edge (`"top", "right", "bottom", "left"`) is when dragging over a _drop target_. Knowing the closest edge can be helpful when doing reordering and moving operations. This addon leverages the fact that `getData()` is _repeatedly_ called throughout a drag and drop operation.
+
+`attachClosestEdge()` adds a unique `Symbol` to your _drop targets_ `data` object which allows for type safe lookups with `extractClosestEdge()`
+
+```ts
+type Edge = 'top' | 'right' | 'bottom' | 'left';
+```
+
+```ts
+import {
+  attachClosestEdge,
+  extractClosestEdge,
+  Edge,
+} from '@atlaskit/drag-and-drop-hitbox/closest-edge';
+
+dropTargetForElements({
+  element: myElement,
+  getData: ({ input, element }) => {
+    // your base data you want to attach to the drop target
+    const data = {
+      itemId: 'A',
+    };
+    // this will 'attach' the closest edge to your `data` object
+    return attachClosestEdge(data, {
+      input,
+      element,
+      // you can specify what edges you want to allow the user to be closest to
+      allowedEdges: ['top', 'bottom'],
+    });
+  },
+  onDrop: args => {
+    const closestEdgeOfTarget: Edge | null = extractClosestEdge(args.self.data);
+  },
+});
+```
+
+## Utilities
+
+### `getReorderDestinationIndex`
+
+When you are rendering _drop indicators_ (eg lines) between items in a list, it can be difficult to know what the `index` the dropped item should go into. The final `index` will depend on what the closest `Edge` is. `getReorderDestinationIndex` can give you the final `index` for a reordering operation, taking into account which `Edge` is closest
+
+```ts
+import { getReorderDestinationIndex } from '@atlaskit/drag-and-drop-hitbox/util/get-reorder-destination-index';
+
+// Dragging A on the left of B
+// A should stay in the same spot
+expect(
+  getReorderDestinationIndex({
+    // list: ['A', 'B', 'C'],
+    // move A to left of B
+    startIndex: 0,
+    indexOfTarget: 1,
+    closestEdgeOfTarget: 'left',
+    axis: 'horizontal',
+  }),
+  // results in no change: ['A', 'B', 'C']
+).toEqual(0);
+
+// Dragging A on the right of B
+// A should go after B
+expect(
+  getReorderDestinationIndex({
+    // list: ['A', 'B', 'C'],
+    // move A to right of B
+    startIndex: 0,
+    indexOfTarget: 1,
+    closestEdgeOfTarget: 'right',
+    axis: 'horizontal',
+  }),
+  // A moved forward ['B', 'A', 'C']
+).toEqual(1);
+```
+
+### `reorderWithEdge`
+
+Performances an array reorder operation that takes into account the closest `Edge`. `reorderWithEdge` uses `getReorderDestinationIndex` internally as well as `reorder` to reorder the array (`@atlaskit/drag-and-drop/util/reorder`)
+
+```ts
+import { reorderWithEdge } from '@atlaskit/drag-and-drop-hitbox/util/reorder-with-edge';
+
+// Dragging A on the left of B
+// A should stay in the same spot
+expect(
+  reorderWithEdge({
+    list: ['A', 'B', 'C'],
+    // move A to left of B
+    startIndex: 0,
+    indexOfTarget: 1,
+    closestEdgeOfTarget: 'left',
+    axis: 'horizontal',
+  }),
+  // results in no change
+).toEqual(['A', 'B', 'C']);
+
+// Dragging A on the right of B
+// A should go after B
+expect(
+  reorderWithEdge({
+    list: ['A', 'B', 'C'],
+    startIndex: 0,
+    indexOfTarget: 1,
+    closestEdgeOfTarget: 'right',
+    axis: 'horizontal',
+  }),
+).toEqual(['B', 'A', 'C']);
+```

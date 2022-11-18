@@ -45,16 +45,18 @@ export default function BoardExample() {
             );
 
             const target = location.current.dropTargets[0];
-            const finishIndex: number = data.orderedColumnIds.findIndex(
+            const indexOfTarget: number = data.orderedColumnIds.findIndex(
               id => id === target.data.columnId,
             );
-            const edge: Edge | null = extractClosestEdge(target.data);
+            const closestEdgeOfTarget: Edge | null = extractClosestEdge(
+              target.data,
+            );
 
             const updated = reorderWithEdge({
               list: data.orderedColumnIds,
               startIndex,
-              finishIndex,
-              edge,
+              indexOfTarget,
+              closestEdgeOfTarget,
               axis: 'horizontal',
             });
 
@@ -63,7 +65,7 @@ export default function BoardExample() {
               destinationIndex: updated.findIndex(
                 columnId => columnId === target.data.columnId,
               ),
-              edge,
+              closestEdgeOfTarget,
             });
 
             setData({ ...data, orderedColumnIds: updated });
@@ -94,8 +96,8 @@ export default function BoardExample() {
                 const updated = reorderWithEdge({
                   list: sourceColumn.items,
                   startIndex: itemIndex,
-                  finishIndex: sourceColumn.items.length - 1,
-                  edge: null,
+                  indexOfTarget: sourceColumn.items.length - 1,
+                  closestEdgeOfTarget: null,
                   axis: 'vertical',
                 });
                 const updatedMap = {
@@ -148,10 +150,10 @@ export default function BoardExample() {
               invariant(typeof destinationColumnId === 'string');
               const destinationColumn = data.columnMap[destinationColumnId];
 
-              const finishIndex = destinationColumn.items.findIndex(
+              const indexOfTarget = destinationColumn.items.findIndex(
                 item => item.itemId === destinationCardRecord.data.itemId,
               );
-              const edge: Edge | null = extractClosestEdge(
+              const closestEdgeOfTarget: Edge | null = extractClosestEdge(
                 destinationCardRecord.data,
               );
 
@@ -160,8 +162,8 @@ export default function BoardExample() {
                 const updated = reorderWithEdge({
                   list: sourceColumn.items,
                   startIndex: itemIndex,
-                  finishIndex,
-                  edge,
+                  indexOfTarget,
+                  closestEdgeOfTarget,
                   axis: 'vertical',
                 });
                 const updatedSourceColumn: ColumnType = {
@@ -175,7 +177,7 @@ export default function BoardExample() {
                 console.log('dropping relative to card in the same column', {
                   startIndex: itemIndex,
                   destinationIndex: updated.findIndex(i => i.itemId === itemId),
-                  edge,
+                  closestEdgeOfTarget,
                 });
                 setData({ ...data, columnMap: updatedMap });
                 return;
@@ -189,7 +191,9 @@ export default function BoardExample() {
               };
               const updated: Item[] = Array.from(destinationColumn.items);
               const destinationIndex =
-                edge === 'bottom' ? finishIndex + 1 : finishIndex;
+                closestEdgeOfTarget === 'bottom'
+                  ? indexOfTarget + 1
+                  : indexOfTarget;
               updated.splice(destinationIndex, 0, item);
 
               const updatedDestinationColumn: ColumnType = {
@@ -206,7 +210,7 @@ export default function BoardExample() {
                 destinationColumn: destinationColumn.columnId,
                 startIndex: itemIndex,
                 destinationIndex,
-                edge,
+                closestEdgeOfTarget,
               });
               setData({ ...data, columnMap: updatedMap });
             }

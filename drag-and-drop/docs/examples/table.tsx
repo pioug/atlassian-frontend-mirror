@@ -290,44 +290,48 @@ export default function Example() {
           }
 
           if (source.data.type === 'table-row') {
-            const edge = extractClosestEdge(target.data);
-            invariant(edge === 'top' || edge === 'bottom');
+            const closestEdgeOfTarget = extractClosestEdge(target.data);
+            invariant(
+              closestEdgeOfTarget === 'top' || closestEdgeOfTarget === 'bottom',
+            );
 
             setRows(rows => {
               const startIndex = rows.findIndex(
                 row => row.id === source.data.id,
               );
-              const finishIndex = rows.findIndex(
+              const indexOfTarget = rows.findIndex(
                 row => row.id === target.data.id,
               );
 
               return reorderWithEdge({
                 list: rows,
-                edge,
+                closestEdgeOfTarget,
                 startIndex,
-                finishIndex,
+                indexOfTarget,
                 axis: 'vertical',
               });
             });
           }
 
           if (source.data.type === 'table-header') {
-            const edge = extractClosestEdge(target.data);
-            invariant(edge === 'left' || edge === 'right');
+            const closestEdgeOfTarget = extractClosestEdge(target.data);
+            invariant(
+              closestEdgeOfTarget === 'left' || closestEdgeOfTarget === 'right',
+            );
 
             setColumns(columns => {
               const startIndex = columns.findIndex(
                 col => col.id === source.data.id,
               );
-              const finishIndex = columns.findIndex(
+              const indexOfTarget = columns.findIndex(
                 col => col.id === target.data.id,
               );
 
               return reorderWithEdge({
                 list: columns,
-                edge,
+                closestEdgeOfTarget,
                 startIndex,
-                finishIndex,
+                indexOfTarget,
                 axis: 'horizontal',
               });
             });

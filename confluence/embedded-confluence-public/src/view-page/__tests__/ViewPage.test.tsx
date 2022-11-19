@@ -1,6 +1,6 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render } from '@testing-library/react';
 
 import { ViewPage } from '../ViewPage';
 
@@ -31,39 +31,37 @@ afterEach(() => {
 });
 
 it('should use default locale to localize text by if no locale is provided', async () => {
-  const { findByText, getByTestId } = render(<ViewPage {...defaultProps} />);
+  render(<ViewPage {...defaultProps} />);
 
-  expect(await findByText('Powered by')).toBeInTheDocument();
+  expect(await screen.findByText('Powered by')).toBeInTheDocument();
 
-  expect(getByTestId('confluence-page-iframe')).toHaveAttribute(
+  expect(screen.getByTestId('confluence-page-iframe')).toHaveAttribute(
     'src',
     `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=en-US`,
   );
 });
 
 it('should localize text by locale provided by React prop', async () => {
-  const { findByText, getByTestId } = render(
-    <ViewPage {...defaultProps} locale="zh-CN" />,
-  );
+  render(<ViewPage {...defaultProps} locale="zh-CN" />);
 
-  expect(await findByText('技术支持：')).toBeInTheDocument();
+  expect(await screen.findByText('技术支持：')).toBeInTheDocument();
 
-  expect(getByTestId('confluence-page-iframe')).toHaveAttribute(
+  expect(screen.getByTestId('confluence-page-iframe')).toHaveAttribute(
     'src',
     `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh-CN`,
   );
 });
 
 it('should localize text by locale provided by IntlProvider', async () => {
-  const { findByText, getByTestId } = render(
+  render(
     <IntlProvider locale="zh-CN">
       <ViewPage {...defaultProps} />
     </IntlProvider>,
   );
 
-  expect(await findByText('技术支持：')).toBeInTheDocument();
+  expect(await screen.findByText('技术支持：')).toBeInTheDocument();
 
-  expect(getByTestId('confluence-page-iframe')).toHaveAttribute(
+  expect(screen.getByTestId('confluence-page-iframe')).toHaveAttribute(
     'src',
     `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh-CN`,
   );

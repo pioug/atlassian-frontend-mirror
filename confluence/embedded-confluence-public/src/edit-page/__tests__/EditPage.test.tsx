@@ -1,6 +1,6 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render } from '@testing-library/react';
 
 import { EditPage } from '../EditPage';
 
@@ -31,33 +31,31 @@ afterEach(() => {
 });
 
 it('should use default locale to localize text by if no locale is provided', async () => {
-  const { findByTestId } = render(<EditPage {...defaultProps} />);
+  render(<EditPage {...defaultProps} />);
 
-  expect(await findByTestId('confluence-page-iframe')).toHaveAttribute(
+  expect(await screen.findByTestId('confluence-page-iframe')).toHaveAttribute(
     'src',
     `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/edit-embed/123?parentProduct=test&parentProductContentContainerId=10000&locale=en-US`,
   );
 });
 
 it('should localize text by locale provided by React prop', async () => {
-  const { findByTestId } = render(
-    <EditPage {...defaultProps} locale="zh-CN" />,
-  );
+  render(<EditPage {...defaultProps} locale="zh-CN" />);
 
-  expect(await findByTestId('confluence-page-iframe')).toHaveAttribute(
+  expect(await screen.findByTestId('confluence-page-iframe')).toHaveAttribute(
     'src',
     `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/edit-embed/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh-CN`,
   );
 });
 
 it('should localize text by locale provided by IntlProvider', async () => {
-  const { findByTestId } = render(
+  render(
     <IntlProvider locale="zh-CN">
       <EditPage {...defaultProps} />
     </IntlProvider>,
   );
 
-  expect(await findByTestId('confluence-page-iframe')).toHaveAttribute(
+  expect(await screen.findByTestId('confluence-page-iframe')).toHaveAttribute(
     'src',
     `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/edit-embed/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh-CN`,
   );

@@ -49,17 +49,6 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [buttonActions, dropdownItemActions] = useMemo(() => {
-    const isMoreThenTwoItems = items.length > visibleButtonsNum;
-    const buttons = isMoreThenTwoItems
-      ? items.slice(0, visibleButtonsNum - 1)
-      : items;
-    const dropdownItems = isMoreThenTwoItems
-      ? items.slice(visibleButtonsNum - 1)
-      : [];
-    return [buttons, dropdownItems];
-  }, [items, visibleButtonsNum]);
-
   // Stop AK dropdown menu to propagate event on click.
   const onClick = useCallback((e) => e.stopPropagation(), []);
 
@@ -79,17 +68,45 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
     }
   }, [isOpen, onOpenChange]);
 
+  const renderableActions = items.filter((action) =>
+    renderActionItems([action]),
+  );
+
+  const [buttonActions, dropdownItemActions] = useMemo(() => {
+    const isMoreThenTwoItems =
+      renderableActions && renderableActions.length > visibleButtonsNum;
+    const buttons = isMoreThenTwoItems
+      ? renderableActions.slice(0, visibleButtonsNum - 1)
+      : renderableActions;
+    const dropdownItems = isMoreThenTwoItems
+      ? renderableActions.slice(visibleButtonsNum - 1)
+      : [];
+    return [buttons, dropdownItems];
+  }, [renderableActions, visibleButtonsNum]);
+
+  const dropdownMenuElement = renderActionItems(
+    dropdownItemActions,
+    size,
+    appearance,
+    true,
+    onActionClick,
+  );
+
+  const buttonGroupElement = renderActionItems(
+    buttonActions,
+    size,
+    appearance,
+    false,
+    onActionClick,
+  );
+
   return (
     <div css={styles} className="actions-button-group" onClick={onClick}>
       <ButtonGroup>
-        {renderActionItems(
-          buttonActions,
-          size,
-          appearance,
-          false,
-          onActionClick,
-        )}
-        {dropdownItemActions.length > 0 ? (
+        {buttonGroupElement}
+        {dropdownItemActions.length > 0 &&
+        dropdownMenuElement &&
+        dropdownMenuElement.length > 0 ? (
           <DropdownMenu
             isOpen={isOpen}
             onOpenChange={onOpenChange}
@@ -111,13 +128,7 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
             )}
             testId="action-group-dropdown"
           >
-            {renderActionItems(
-              dropdownItemActions,
-              size,
-              appearance,
-              true,
-              onActionClick,
-            )}
+            {dropdownMenuElement}
           </DropdownMenu>
         ) : null}
       </ButtonGroup>

@@ -63,7 +63,7 @@ const getServerActionProps = (
   };
 };
 
-const getActionsFromJsonLd = (
+export const getActionsFromJsonLd = (
   jsonLd: JsonLd.Data.BaseData,
 ): JsonLd.Primitives.Action[] => {
   let actions = jsonLd && jsonLd['schema:potentialAction'];

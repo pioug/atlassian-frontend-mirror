@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import React from 'react';
 import ImageLoader from 'react-render-image';
 import LinkIcon from '@atlaskit/icon/glyph/link';
@@ -14,15 +14,41 @@ export interface IconProps {
   defaultIcon?: React.ReactNode;
   /* A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests. */
   testId?: string;
+  /* A prop to determine whether the icon is a Flexible UI rendered Icon, used internally by Flexible UI and Hover Preview */
+  isFlexibleUi?: boolean;
 }
 
 export const blockCardIconImageClassName = 'block-card-icon-image';
+
+const getImageStyles = (isFlexibleUi: boolean) => {
+  if (isFlexibleUi) {
+    return;
+  }
+  return css`
+    height: ${gs(2)};
+    width: ${gs(2)};
+  `;
+};
+
+const getSpanStyles = (isFlexibleUi: boolean) => {
+  if (isFlexibleUi) {
+    return;
+  }
+  return css`
+    height: ${gs(2.5)};
+    width: ${gs(2)};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+};
 
 export const Icon = ({
   url,
   icon,
   defaultIcon,
   testId = 'block-card-icon',
+  isFlexibleUi = false,
 }: IconProps) => {
   const placeholder = defaultIcon || (
     <LinkIcon label="link" size="small" testId={`${testId}-default`} />
@@ -33,7 +59,7 @@ export const Icon = ({
       src={url}
       loaded={
         <img
-          css={{ height: gs(2), width: gs(2) }}
+          css={getImageStyles(isFlexibleUi)}
           src={url}
           data-testid={`${testId}-image`}
         />
@@ -44,13 +70,7 @@ export const Icon = ({
 
   return (
     <span
-      css={{
-        height: gs(2.5),
-        width: gs(2),
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+      css={getSpanStyles(isFlexibleUi)}
       data-testid={testId}
       className={blockCardIconImageClassName}
     >

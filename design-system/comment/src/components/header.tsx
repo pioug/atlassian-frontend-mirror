@@ -1,32 +1,15 @@
 /** @jsx jsx */
 import { FC, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
+import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
 import { N100A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const inlineBlockStyles = css({
-  display: 'inline-block',
-});
-
-const containerStyles = css({
-  display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value `gridSize()`
-  gap: token('spacing.scale.100', '8px'),
-});
-
-const restrictedContainerStyles = css({
-  display: 'flex',
-  alignItems: 'baseline',
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() / 2}px``
-  gap: token('spacing.scale.050', '4px'),
-  color: token('color.text.subtlest', N100A),
-});
-
-interface HeaderItemsProps {
+interface HeaderProps {
   author?: ReactNode;
   restrictedTo?: ReactNode;
   isSaving?: boolean;
@@ -39,20 +22,14 @@ interface HeaderItemsProps {
   headingLevel?: string;
 }
 
-const RestrictedTo: FC = ({ children }) => (
-  <div css={restrictedContainerStyles}>
-    &bull;
-    <LockFilledIcon label="" size="small" />
-    {children}
-  </div>
-);
-
 /**
  * __Header items__
  *
  * Comment header items.
+ *
+ * @internal
  */
-const HeaderItems: FC<HeaderItemsProps> = ({
+const Header: FC<HeaderProps> = ({
   author,
   edited,
   isError,
@@ -64,35 +41,45 @@ const HeaderItems: FC<HeaderItemsProps> = ({
   type,
   headingLevel,
 }) => {
-  const restrictedElement = restrictedTo ? (
-    <RestrictedTo>{restrictedTo}</RestrictedTo>
-  ) : null;
-
-  const items = [
-    author || null,
-    type ? <Lozenge testId={testId && `${testId}-type`}>{type}</Lozenge> : null,
-    time && !isSaving && !isError ? time : null,
-    edited || null,
-    isSaving ? savingText : null,
-    restrictedElement,
-  ]
-    .filter((item) => !!item)
-    .map((item, index) => (
-      <div css={inlineBlockStyles} key={index}>
-        {item}
-      </div>
-    )); // eslint-disable-line react/no-array-index-key
-
   const headingProps = headingLevel && {
     role: 'heading',
     'aria-level': Number(headingLevel),
   };
 
-  return items.length ? (
-    <div data-testid={testId} css={containerStyles} {...headingProps}>
-      {items}
-    </div>
+  const shouldRender =
+    author ||
+    time ||
+    restrictedTo ||
+    (isSaving && savingText) ||
+    edited ||
+    type;
+  return shouldRender ? (
+    <Inline alignItems="center" testId={testId} gap="scale.100">
+      {author && headingProps ? (
+        // eslint-disable-next-line @repo/internal/react/use-primitives
+        <span {...headingProps}>{author}</span>
+      ) : (
+        author
+      )}
+      {type && <Lozenge testId={testId && `${testId}-type`}>{type}</Lozenge>}
+      {time && !isSaving && !isError && time}
+      {edited || null}
+      {isSaving ? savingText : null}
+      {restrictedTo && (
+        <Inline
+          alignItems="center"
+          gap="scale.050"
+          UNSAFE_style={{ color: token('color.text.subtlest', N100A) }}
+        >
+          &bull;
+          <LockFilledIcon label="" size="small" />
+          {restrictedTo}
+        </Inline>
+      )}
+    </Inline>
   ) : null;
 };
 
-export default HeaderItems;
+Header.displayName = 'CommentHeader';
+
+export default Header;

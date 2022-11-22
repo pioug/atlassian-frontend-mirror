@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable @repo/internal/react/use-primitives */
+import React from 'react';
 
 import { mount, shallow } from 'enzyme';
 
@@ -9,7 +10,6 @@ describe('@atlaskit comments', () => {
     describe('exports', () => {
       it('the CommentField component', () => {
         expect(CommentField).not.toBe(undefined);
-        expect(new CommentField({})).toBeInstanceOf(Component);
       });
     });
 
@@ -17,7 +17,6 @@ describe('@atlaskit comments', () => {
       it('should be able to create a component', () => {
         const wrapper = shallow(<CommentField />);
         expect(wrapper).not.toBe(undefined);
-        expect(wrapper.instance()).toBeInstanceOf(Component);
       });
 
       describe('if href provided', () => {

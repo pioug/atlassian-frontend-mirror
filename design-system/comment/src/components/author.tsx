@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 import {
   createAndFireEvent,
@@ -13,7 +13,7 @@ import Field from './field';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-interface AuthorProps extends WithAnalyticsEventsProps {
+export interface AuthorProps extends WithAnalyticsEventsProps {
   /**
    * The name of the author.
    */
@@ -39,22 +39,27 @@ interface AuthorProps extends WithAnalyticsEventsProps {
   onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-class Author extends Component<AuthorProps> {
-  render() {
-    const { children, href, onClick, onFocus, onMouseOver } = this.props;
-    return (
-      <Field
-        hasAuthor
-        href={href}
-        onClick={onClick}
-        onFocus={onFocus}
-        onMouseOver={onMouseOver}
-      >
-        {children}
-      </Field>
-    );
-  }
-}
+const Author: FC<AuthorProps> = ({
+  children,
+  href,
+  onClick,
+  onFocus,
+  onMouseOver,
+}) => {
+  return (
+    <Field
+      hasAuthor
+      href={href}
+      onClick={onClick}
+      onFocus={onFocus}
+      onMouseOver={onMouseOver}
+    >
+      {children}
+    </Field>
+  );
+};
+
+Author.displayName = 'CommentAuthor';
 
 export { Author as CommentAuthorWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
@@ -68,7 +73,6 @@ export default withAnalyticsContext({
     onClick: createAndFireEventOnAtlaskit({
       action: 'clicked',
       actionSubject: 'commentAuthor',
-
       attributes: {
         componentName: 'commentAuthor',
         packageName,

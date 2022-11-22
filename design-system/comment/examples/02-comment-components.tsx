@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Stack from '@atlaskit/ds-explorations/stack';
+
 import {
   CommentAction,
   CommentAuthor,
@@ -8,26 +10,17 @@ import {
 } from '../src';
 
 export default () => (
-  <div>
-    <div>
-      <CommentAuthor href="/author">John Smith</CommentAuthor>
-    </div>
-
-    <div>
-      <CommentTime>30 August, 2016</CommentTime>
-    </div>
-    <div>
-      <CommentEdited>Edited</CommentEdited>
-    </div>
-    <div>
-      <CommentAction
-        onClick={(e: React.MouseEvent<HTMLElement>) => {
-          const element = e.target as HTMLElement;
-          return console.log(element.textContent);
-        }}
-      >
-        Like
-      </CommentAction>
-    </div>
-  </div>
+  <Stack gap="scale.100">
+    <CommentAuthor href="/author">John Smith</CommentAuthor>
+    <CommentTime>30 August, 2016</CommentTime>
+    <CommentEdited>Edited</CommentEdited>
+    <CommentAction
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
+        const element = e.target as HTMLElement;
+        return console.log(element.textContent);
+      }}
+    >
+      Like
+    </CommentAction>
+  </Stack>
 );

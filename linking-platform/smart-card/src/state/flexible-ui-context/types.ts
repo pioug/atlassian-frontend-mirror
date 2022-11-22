@@ -66,6 +66,28 @@ export type FlexibleUiDataContext = {
    * @see CreatedOn
    */
   createdOn?: string;
+
+  /**
+   * Contains data needed to show a preview action.
+   * @type PreviewActionData
+   * @see PreviewAction
+   */
+  previewAction?: PreviewActionData;
+
+  /**
+   * Contains data needed to show a view action.
+   * @type ViewActionData
+   * @see ViewAction
+   */
+  viewAction?: ViewActionData;
+
+  /**
+   * Contains data needed to show a download action.
+   * @type DownloadActionData
+   * @see DownloadAction
+   */
+  downloadAction?: DownloadActionData;
+
   /**
    * Contains the information about the latest commit in the repository
    */
@@ -165,4 +187,29 @@ export type Icon = {
 export type Media = {
   type: MediaType;
   url: string;
+};
+
+export type PreviewActionData = {
+  /* A download link - if it is provided, the download button will be shown */
+  downloadUrl?: string;
+  /* This should be the icon of the provider, which will be displayed to the left of the title */
+  linkIcon?: Icon;
+  /* Name of the provider, used in the link out to the document. */
+  providerName?: string;
+  /* URL used to load iframe */
+  src?: string;
+  /* The title of the document - this is displayed as a heading */
+  title?: string;
+  /* If you are not providing src, you should still provide a url, allowing people to access the page where the document is */
+  url?: string;
+};
+
+export type ViewActionData = {
+  /* A URL that will be navigated to upon clicking view actions */
+  viewUrl?: string;
+};
+
+export type DownloadActionData = {
+  /* A URL that will be download upon clicking download actions */
+  downloadUrl?: string;
 };

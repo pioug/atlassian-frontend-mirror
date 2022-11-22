@@ -66,6 +66,16 @@ describe('extractFlexibleUiContext', () => {
       commentCount: 24,
       subscriberCount: 21,
       provider: expectedConfluenceProvider,
+      previewAction: {
+        linkIcon: {
+          icon: 'FileType:Document',
+          label: 'Everything you need to know about ShipIt53!',
+        },
+        providerName: 'Confluence',
+        src: 'https://preview-url',
+        title: 'Everything you need to know about ShipIt53!',
+        url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+      },
     });
   });
 
@@ -84,6 +94,17 @@ describe('extractFlexibleUiContext', () => {
       commentCount: 7,
       subscriberCount: 17,
       provider: expectedConfluenceProvider,
+      previewAction: {
+        linkIcon: {
+          icon: 'FileType:Blog',
+          label:
+            'Announcing the winners of the Customer Fun Award for ShipIt 53',
+        },
+        providerName: 'Confluence',
+        src: 'https://preview-url',
+        title: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
+        url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
+      },
     });
   });
 
@@ -149,6 +170,17 @@ describe('extractFlexibleUiContext', () => {
       title: 'Linking Platform',
       url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
       provider: expectedJiraProvider,
+      previewAction: {
+        download: undefined,
+        linkIcon: {
+          label: 'Linking Platform',
+          url: 'https://icon-url',
+        },
+        providerName: 'Jira',
+        src: 'https://preview-url',
+        title: 'Linking Platform',
+        url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
+      },
     });
   });
 
@@ -170,6 +202,16 @@ describe('extractFlexibleUiContext', () => {
       provider: {
         url: 'https://icon-url',
         label: 'Figma',
+      },
+      previewAction: {
+        linkIcon: {
+          label: 'Figma',
+          url: 'https://icon-url',
+        },
+        providerName: 'Figma',
+        src: 'https://preview-url',
+        title: 'Flexible Links',
+        url: 'https://figma-url/Flexible-Links?node-id=node-id',
       },
     });
   });
@@ -194,6 +236,16 @@ describe('extractFlexibleUiContext', () => {
       provider: {
         url: 'https://icon-url',
         label: 'YouTube',
+      },
+      previewAction: {
+        linkIcon: {
+          label: 'YouTube',
+          url: 'https://icon-url',
+        },
+        providerName: 'YouTube',
+        src: 'https://preview-url',
+        title: 'The Atlassian Business Model',
+        url: 'https://youtube-url/watch?v=video-id',
       },
     });
   });

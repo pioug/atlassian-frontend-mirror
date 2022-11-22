@@ -1,6 +1,8 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React, { ReactNode, useState } from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import { Code } from '@atlaskit/code';
 
 import Comment, { CommentAuthor } from '../src';
 
@@ -37,11 +39,11 @@ export default () => {
             onChange={() => setIsRestricted(!isRestricted)}
             checked={isRestricted}
           />{' '}
-          Apply <code>shouldRenderNestedCommentsInline</code> to the 2nd and 4th
+          Apply <Code>shouldRenderNestedCommentsInline</Code> to the 2nd and 4th
           comments
         </label>
       </p>
-      <p>
+      <div>
         <ExampleComment>
           <ExampleComment shouldRenderNestedCommentsInline={isRestricted}>
             <ExampleComment>
@@ -51,7 +53,7 @@ export default () => {
             </ExampleComment>
           </ExampleComment>
         </ExampleComment>
-      </p>
+      </div>
     </div>
   );
 };

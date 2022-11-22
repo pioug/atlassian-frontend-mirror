@@ -78,10 +78,20 @@ export const unicornResponse = {
     endTime: '2022-07-31T00:00:00.000Z',
     image: preview,
     mediaType: 'text/plain',
+    preview: {
+      '@type': 'Link',
+      href: 'https://www.atlassian.com/',
+      'atlassian:supportedPlatforms': ['web'],
+    },
     name: 'A unicorn link response for Smart Links example.',
     'schema:commentCount': 22,
     'schema:dateCreated': '2022-01-21T10:25:11.676+1100',
     'schema:programmingLanguage': 'Javascript',
+    'atlassian:downloadUrl': '/favicon.ico',
+    'schema:potentialAction': [
+      { '@type': 'DownloadAction', name: 'Download' },
+      { '@type': 'ViewAction', name: 'View' },
+    ],
     summary:
       'This is a showcase of a link response that contains a vast amount of data. It is unlikely that a real link would have all these information. For example, a blog link would not have data for a pull request target branch.',
     tag: {

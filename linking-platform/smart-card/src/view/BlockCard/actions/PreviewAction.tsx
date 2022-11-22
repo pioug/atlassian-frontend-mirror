@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { FormattedMessage, IntlProvider } from 'react-intl-next';
 
 import { AnalyticsFacade } from '../../../state/analytics';
-import { EmbedModalWithExperimentProps } from '../../EmbedModal/types';
+import { EmbedModalProps } from '../../EmbedModal/types';
 import { ActionProps } from '../components/Action';
 import { IconProps } from '../../common/Icon';
 import { MetadataProps } from '../../common/Metadata';
 import { messages } from '../../../messages';
 import { AnalyticsOrigin } from '../../../utils/types';
 
-export interface PreviewFunctionArg extends EmbedModalWithExperimentProps {
+export interface PreviewFunctionArg extends EmbedModalProps {
   /* The id of a HTML element that will be used OR created to mount the modal from */
   popupMountPointId: string;
 }

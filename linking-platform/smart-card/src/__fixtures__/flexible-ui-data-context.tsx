@@ -42,6 +42,20 @@ const context: FlexibleUiDataContext = {
   targetBranch: 'master',
   title: 'Link title',
   url: 'https://www.link-url.com',
+  downloadAction: {
+    downloadUrl: 'https://www.link-url.com',
+  },
+  previewAction: {
+    downloadUrl: 'https://www.link-url.com',
+    providerName: 'dropbox-object-provider',
+    src: 'https://www.link-url.com',
+    title: 'embed title',
+    linkIcon: { url: 'Provider:Confluence' },
+    url: 'https://www.link-url.com',
+  },
+  viewAction: {
+    viewUrl: 'https://www.link-url.com',
+  },
 };
 
 export default context;

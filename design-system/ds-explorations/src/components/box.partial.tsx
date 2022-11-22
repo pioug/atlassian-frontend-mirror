@@ -6,6 +6,7 @@ import {
   FC,
   forwardRef,
   ReactElement,
+  ReactNode,
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
@@ -13,7 +14,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { SurfaceContext } from './surface-provider';
-import type { BasePrimitiveProps, NonTextChildren } from './types';
+import type { BasePrimitiveProps } from './types';
 
 type PropsToOmit = 'as' | 'className' | 'style';
 
@@ -32,7 +33,7 @@ type BoxPropsBase<T extends ElementType> = {
   /**
    * Elements to be rendered inside the Box.
    */
-  children?: NonTextChildren | boolean | null;
+  children?: ReactNode;
   /**
    * The HTML className attribute.
    *
@@ -89,11 +90,11 @@ type BoxPropsBase<T extends ElementType> = {
    */
   padding?: Padding;
   /**
-   * Token representing CSS `padding-block`.
+   * Token representing CSS `paddingBlock`.
    */
   paddingBlock?: PaddingBlock;
   /**
-   * Token representing CSS `padding-inline`.
+   * Token representing CSS `paddingInline`.
    */
   paddingInline?: PaddingInline;
   /**

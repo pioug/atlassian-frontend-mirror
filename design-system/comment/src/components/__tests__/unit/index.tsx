@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import { mount, shallow } from 'enzyme';
@@ -16,8 +17,7 @@ import Comment, {
   CommentLayout,
   CommentTime,
 } from '../../../index';
-import Content from '../../content';
-import HeaderItems from '../../header';
+import CommentHeader from '../../header';
 
 describe('@atlaskit comments', () => {
   describe('Comment', () => {
@@ -71,13 +71,13 @@ describe('@atlaskit comments', () => {
         it('should render the provided content in the correct container', () => {
           const content = <p>My sample content</p>;
           const wrapper = mount(<Comment avatar="" content={content} />);
-          expect(wrapper.find(Content).contains(content)).toBe(true);
+          expect(wrapper.find(Comment).contains(content)).toBe(true);
         });
 
         it('can render string content', () => {
           const textContent = 'My sample content';
           const wrapper = mount(<Comment avatar="" content={textContent} />);
-          expect(wrapper.find(Content).text()).toBe(textContent);
+          expect(wrapper.find(Comment).text()).toBe(textContent);
         });
       });
 
@@ -115,7 +115,7 @@ describe('@atlaskit comments', () => {
         it('should render a Lozenge with the type in the correct container', () => {
           const type = 'type';
           const wrapper = mount(<Comment avatar="" type={type} />);
-          expect(wrapper.find(HeaderItems).find(Lozenge).length).toBe(1);
+          expect(wrapper.find(CommentHeader).find(Lozenge).length).toBe(1);
         });
       });
 
@@ -172,13 +172,6 @@ describe('@atlaskit comments', () => {
             );
             expect(wrapper.find(CommentAction).length).toBe(0);
           });
-
-          it('should apply .optimistic-saving-content styles', () => {
-            const wrapper = mount(
-              <Comment avatar="" isSaving savingText="Saving..." />,
-            );
-            expect(wrapper.find(Content).prop('isDisabled')).toBe(true);
-          });
         });
 
         describe('if isSaving prop is not set', () => {
@@ -187,11 +180,6 @@ describe('@atlaskit comments', () => {
             expect(wrapper.text()).not.toEqual(
               expect.stringContaining('Saving...'),
             );
-          });
-
-          it('should not apply .optimistic-saving-content styles', () => {
-            const wrapper = mount(<Comment avatar="" savingText="Saving..." />);
-            expect(wrapper.find(Content).prop('isDisabled')).toBe(false);
           });
         });
       });
@@ -245,11 +233,6 @@ describe('@atlaskit comments', () => {
             expect(actionItems.find(Button).at(0).text()).toContain('Retry');
             expect(actionItems.find(Button).at(1).text()).toBe('Cancel');
           });
-
-          it('should apply .optimistic-saving-content styles', () => {
-            const wrapper = mount(<Comment avatar="" isError />);
-            expect(wrapper.find(Content).prop('isDisabled')).toBe(true);
-          });
         });
 
         describe('if isError prop is not set', () => {
@@ -260,25 +243,20 @@ describe('@atlaskit comments', () => {
             expect(wrapper.find(WarningIcon).length).toBe(0);
             expect(wrapper.find(CommentAction).length).toBe(0);
           });
-
-          it('should not apply .optimistic-saving-content styles', () => {
-            const wrapper = mount(<Comment avatar="" />);
-            expect(wrapper.find(Content).prop('isDisabled')).toBe(false);
-          });
         });
       });
 
       describe('headingLevel prop', () => {
         it('should add aria heading role and level', () => {
           const wrapper = mount(
-            <Comment avatar="" headingLevel="3" type="hello" />,
+            <Comment avatar="" headingLevel="3" type="hello" author="DDC" />,
           );
 
-          expect(wrapper.find(HeaderItems).prop('headingLevel')).toBe('3');
+          expect(wrapper.find(CommentHeader).prop('headingLevel')).toBe('3');
 
-          const divHeading = wrapper.find(HeaderItems).find('div').first();
-          expect(divHeading.prop('role')).toBe('heading');
-          expect(divHeading.prop('aria-level')).toBe(3);
+          const spanHeading = wrapper.find(CommentHeader).find('span').first();
+          expect(spanHeading.prop('role')).toBe('heading');
+          expect(spanHeading.prop('aria-level')).toBe(3);
         });
       });
 
@@ -294,13 +272,11 @@ describe('@atlaskit comments', () => {
               restrictedTo="atlassian-staff"
             />,
           );
-          const headerItems = wrapper.find(HeaderItems);
-          expect(headerItems.props().author).toBe('Mary');
-          expect(headerItems.props().restrictedTo).toBe('atlassian-staff');
-          expect(headerItems.props().type).toContain('Type');
-          expect(headerItems.find(CommentTime).text()).toContain(
-            '30 August, 2016',
-          );
+          const header = wrapper.find(CommentHeader);
+          expect(header.props().author).toBe('Mary');
+          expect(header.props().restrictedTo).toBe('atlassian-staff');
+          expect(header.props().type).toContain('Type');
+          expect(header.find(CommentTime).text()).toContain('30 August, 2016');
         });
 
         it('Should render in the order author, type, savingText, restrictedTo', () => {

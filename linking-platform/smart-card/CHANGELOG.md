@@ -1,5 +1,39 @@
 # @atlaskit/smart-card
 
+## 23.4.0
+
+### Minor Changes
+
+- [`a86403e5e0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a86403e5e0e) - [ux] This PR adds more actions for use in Flexible UI Smart Links. These are PreviewAction, ViewAction and DownloadAction, and correspond to their Block card counterparts.
+
+  These, unlike the existing actions, will only render when the data for them is available. Therefore, the onClick for these actions are optional.
+
+  Usage:
+
+  ```TSX
+  const actions = [
+    {
+      name: ActionName.PreviewAction,
+      onClick: () => console.log('Preview action!'), // will run in addition to normal Preview Action
+      ...options,
+    },
+    {
+      name: ActionName.ViewAction,
+      onClick: () => console.log('View action!'), // will run in addition to normal View Action
+      ...options,
+    },
+    {
+      name: ActionName.DownloadAction,
+      onClick: () => console.log('Download action!'), // will run in addition to normal Download Action
+      ...options,
+    },
+  ]
+
+  <Card>
+    <TitleBlock actions={actions}>
+  </Card>
+  ```
+
 ## 23.3.1
 
 ### Patch Changes

@@ -125,6 +125,9 @@ export enum ElementName {
 export enum ActionName {
   DeleteAction = 'DeleteAction',
   EditAction = 'EditAction',
+  PreviewAction = 'PreviewAction',
+  ViewAction = 'ViewAction',
+  DownloadAction = 'DownloadAction',
   CustomAction = 'CustomAction',
 }
 

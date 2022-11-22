@@ -1,12 +1,11 @@
 /** @jsx jsx */
-import { Children, forwardRef, Fragment, ReactNode } from 'react';
+import { Children, FC, forwardRef, Fragment, memo, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import Text from './text.partial';
-import type { BasePrimitiveProps, NonTextChildren } from './types';
+import type { BasePrimitiveProps } from './types';
 
 interface InlineProps extends BasePrimitiveProps {
   /**
@@ -33,7 +32,7 @@ interface InlineProps extends BasePrimitiveProps {
   /**
    * Elements to be rendered inside the Inline.
    */
-  children: NonTextChildren;
+  children: ReactNode;
 }
 
 type FlexAlignItems = keyof typeof flexAlignItemsMap;
@@ -66,54 +65,76 @@ const baseStyles = css({
   flexDirection: 'row',
 });
 
+const dividerStyles = css({
+  margin: '0 -2px',
+  color: token('color.text.subtle', '#42526E'),
+  pointerEvents: 'none',
+});
+
+const Divider: FC = ({ children }) => (
+  <span css={dividerStyles}>{children}</span>
+);
+
 /**
  * __Inline__
  *
  * Inline is a primitive component based on flexbox that manages the horizontal layout of direct children.
  * Renders a `div` by default.
  *
+ * @example
+ * ```tsx
+ * const App = () => (
+ *   <Inline gap="space.100">
+ *     <Button />
+ *     <Button />
+ *   </Inline>
+ * )
+ * ```
  */
-const Inline = forwardRef<HTMLDivElement, InlineProps>(
-  (
-    {
-      gap,
-      alignItems,
-      justifyContent,
-      flexWrap,
-      divider,
-      UNSAFE_style,
-      children,
-      testId,
-    },
-    ref,
-  ) => {
-    const dividerComponent =
-      typeof divider === 'string' ? <Text>{divider}</Text> : divider;
+const Inline = memo(
+  forwardRef<HTMLDivElement, InlineProps>(
+    (
+      {
+        gap,
+        alignItems,
+        justifyContent,
+        flexWrap,
+        divider,
+        UNSAFE_style,
+        children,
+        testId,
+      },
+      ref,
+    ) => {
+      const dividerComponent =
+        typeof divider === 'string' ? <Divider>{divider}</Divider> : divider;
+      const childrenArray = Children.toArray(children).filter(Boolean);
 
-    return (
-      <div
-        style={UNSAFE_style}
-        css={[
-          baseStyles,
-          gap && columnGapMap[gap],
-          alignItems && flexAlignItemsMap[alignItems],
-          justifyContent && flexJustifyContentMap[justifyContent],
-          flexWrap && flexWrapMap[flexWrap],
-        ]}
-        data-testid={testId}
-        ref={ref}
-      >
-        {Children.map(children, (child, index) => {
-          return (
-            <Fragment>
-              {divider && index > 0 ? dividerComponent : null}
-              {child}
-            </Fragment>
-          );
-        })}
-      </div>
-    );
-  },
+      return (
+        <div
+          style={UNSAFE_style}
+          css={[
+            baseStyles,
+            gap && columnGapMap[gap],
+            alignItems && flexAlignItemsMap[alignItems],
+            justifyContent && flexJustifyContentMap[justifyContent],
+            flexWrap && flexWrapMap[flexWrap],
+          ]}
+          data-testid={testId}
+          ref={ref}
+        >
+          {childrenArray.map((child, index) => {
+            return (
+              <Fragment key={index}>
+                {divider && index > 0 ? dividerComponent : null}
+                {child}
+              </Fragment>
+            );
+          })}
+        </div>
+      );
+    },
+  ),
 );
 
 Inline.displayName = 'Inline';

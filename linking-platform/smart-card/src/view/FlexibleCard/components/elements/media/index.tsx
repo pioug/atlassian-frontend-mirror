@@ -71,7 +71,7 @@ const Media: React.FC<MediaProps> = ({
     <div
       css={[styles, overrideCss]}
       data-smart-element={name}
-      data-smart-element-media
+      data-smart-element-media={type}
       data-testid={testId}
     >
       <ImageIcon

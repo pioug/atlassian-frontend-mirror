@@ -11,7 +11,7 @@ import {
   SnippetBlock,
   TitleBlock,
 } from '../../src';
-import { metadataElements } from './flexible-ui';
+import { actionNames, metadataElements } from './flexible-ui';
 
 /**
  * We are hacking flexible smart links styling here to display the information
@@ -105,7 +105,12 @@ const FlexibleDataView: React.FC<{ url?: string }> = ({ url }) => (
       <TitleBlock />
       <PreviewBlock />
       <SnippetBlock />
-      <FooterBlock />
+      <FooterBlock
+        actions={actionNames.map((name, idx) => ({
+          name,
+          onClick: () => {},
+        }))}
+      />
       <MetadataBlock primary={[{ name: 'ElementItem' as ElementName }]} />
       {metadataElements.map((name, idx) => (
         <MetadataBlock

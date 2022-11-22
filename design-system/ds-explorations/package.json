@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
   "license": "Apache-2.0",
   "atlassian": {
@@ -34,7 +34,9 @@
   "af:exports": {
     ".": "./src/index.tsx",
     "./box": "./src/components/box.partial.tsx",
-    "./text": "./src/components/text.partial.tsx"
+    "./text": "./src/components/text.partial.tsx",
+    "./stack": "./src/components/stack.partial.tsx",
+    "./inline": "./src/components/inline.partial.tsx"
   },
   "dependencies": {
     "@atlaskit/tokens": "^0.10.3",

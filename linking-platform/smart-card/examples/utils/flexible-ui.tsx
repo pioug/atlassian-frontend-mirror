@@ -11,6 +11,7 @@ import { ElementDisplaySchema } from '../../src/view/FlexibleCard/components/blo
 import {
   CustomActionItem,
   NamedActionItem,
+  NamedDataActionItem,
 } from '../../src/view/FlexibleCard/components/blocks/types';
 
 export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
@@ -75,6 +76,30 @@ export const makeDeleteActionItem = (
   ...options,
 });
 
+export const makePreviewActionItem = (
+  options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
+): NamedDataActionItem => ({
+  name: ActionName.PreviewAction,
+  onClick: () => console.log('Preview action!'),
+  ...options,
+});
+
+export const makeViewActionItem = (
+  options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
+): NamedDataActionItem => ({
+  name: ActionName.ViewAction,
+  onClick: () => console.log('View action!'),
+  ...options,
+});
+
+export const makeDownloadActionItem = (
+  options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
+): NamedDataActionItem => ({
+  name: ActionName.DownloadAction,
+  onClick: () => console.log('Download action!'),
+  ...options,
+});
+
 export const makeEditActionItem = (
   options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
 ): NamedActionItem => ({
@@ -113,3 +138,10 @@ export const metadataElements = Object.values(ElementName).filter(
     name !== ElementName.LinkIcon &&
     ElementDisplaySchema[name].includes('inline'),
 );
+
+export const actionNames: Exclude<
+  ActionName,
+  ActionName.CustomAction
+>[] = (Object.values(ActionName).filter(
+  (name) => name !== ActionName.CustomAction,
+) as unknown) as Exclude<ActionName, ActionName.CustomAction>[];

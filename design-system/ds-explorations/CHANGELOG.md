@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 1.2.0
+
+### Minor Changes
+
+- [`e6fb7598867`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6fb7598867) - Exposes additional public entrypoints for `Inline` and `Stack`.
+  Loosens the types of `children` for the `Inline`, `Stack` and `Box` as it was causing unexpected friction.
+
 ## 1.1.0
 
 ### Minor Changes

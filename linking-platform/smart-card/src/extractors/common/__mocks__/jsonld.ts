@@ -80,8 +80,14 @@ export const TEST_TASK: JsonLd.Data.Task = {
     schema: 'http://schema.org/',
   },
 };
+
 export const TEST_META_DATA: JsonLd.Meta.BaseMeta = {
   access: 'forbidden',
+  visibility: 'restricted',
+};
+
+export const TEST_RESOLVED_META_DATA: JsonLd.Meta.BaseMeta = {
+  access: 'granted',
   visibility: 'restricted',
 };
 
@@ -125,9 +131,26 @@ export const TEST_NO_ID_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] =
   name: 'delete',
 };
 
+export const TEST_VIEW_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] = {
+  '@type': 'ViewAction',
+  identifier: 'dropbox-object-provider',
+  name: 'view',
+};
+
 export const TEST_DOCUMENT_WITH_ACTIONS = {
   ...TEST_DOCUMENT,
   'schema:potentialAction': [TEST_DOWNLOAD_ACTION, TEST_ASSIGN_ACTION as any],
+};
+
+export const TEST_DOCUMENT_WITH_DOWNLOAD_ACTION = {
+  ...TEST_DOCUMENT,
+  'atlassian:downloadUrl': 'https://my.url.com',
+  'schema:potentialAction': [TEST_DOWNLOAD_ACTION],
+};
+
+export const TEST_DOCUMENT_WITH_VIEW_ACTION = {
+  ...TEST_DOCUMENT,
+  'schema:potentialAction': [TEST_VIEW_ACTION],
 };
 
 export const PREVIEW: JsonLd.Data.BaseData['preview'] = {

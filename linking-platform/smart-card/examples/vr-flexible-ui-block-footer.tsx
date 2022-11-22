@@ -10,14 +10,29 @@ import {
   getCardState,
   makeCustomActionItem,
   makeDeleteActionItem,
+  makeDownloadActionItem,
   makeEditActionItem,
+  makeViewActionItem,
 } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 import { ActionItem } from '../src';
 import PremiumIcon from '@atlaskit/icon/glyph/premium';
 
 const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {
-  const cardState = getCardState();
+  const actionData = {
+    preview: {
+      '@type': 'Link',
+      href: 'https://www.youtube.com/embed/tt5VPYoop5Y',
+      'atlassian:supportedPlatforms': ['web'],
+    },
+    'atlassian:downloadUrl':
+      'https://www.dropbox.com/s/0ebs1wkexeta5ml/Get%20Started%20with%20Dropbox.pdf?dl=1',
+    'schema:potentialAction': [
+      { '@type': 'DownloadAction', name: 'Download' },
+      { '@type': 'ViewAction', name: 'View' },
+    ],
+  };
+  const cardState = getCardState(actionData);
   return (
     <FlexibleCard cardState={cardState} ui={{ size }} url="link-url">
       <FooterBlock size={size} actions={actions} />
@@ -36,7 +51,7 @@ export default () => (
       makeDeleteActionItem(),
       makeEditActionItem(),
     ])}
-    <h5>With 3 Custom actions</h5>
+    <h5>With 3+ Custom actions</h5>
     {renderFooter(SmartLinkSize.Medium, [
       makeCustomActionItem(),
       makeDeleteActionItem(),
@@ -45,6 +60,8 @@ export default () => (
         testId: 'third-action-item',
         content: 'Magic!',
       }),
+      makeDownloadActionItem(),
+      makeViewActionItem(),
     ])}
     {Object.values(SmartLinkSize).map((size) => (
       <React.Fragment>

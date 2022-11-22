@@ -1,10 +1,14 @@
 import React, { FC } from 'react';
 
+import {
+  UNSAFE_Stack as Stack,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
+
 import type { CommentProps } from '../types';
 
-import Content from './content';
-import FooterItems from './footer';
-import HeaderItems from './header';
+import Footer from './footer';
+import Header from './header';
 import CommentLayout from './layout';
 
 /**
@@ -52,19 +56,6 @@ const Comment: FC<CommentProps> = ({
     isError,
     isSaving,
   };
-  const layoutContent = (
-    <div>
-      <HeaderItems testId={testId && `${testId}-header`} {...headerProps} />
-      <Content
-        testId={testId && `${testId}-content`}
-        isDisabled={isSaving || isError}
-      >
-        {content}
-      </Content>
-      <FooterItems testId={testId && `${testId}-footer`} {...footerProps} />
-      {afterContent}
-    </div>
-  );
 
   return (
     <CommentLayout
@@ -72,12 +63,29 @@ const Comment: FC<CommentProps> = ({
       shouldRenderNestedCommentsInline={shouldRenderNestedCommentsInline}
       id={id}
       avatar={avatar}
-      content={layoutContent}
+      content={
+        <Stack gap="scale.075">
+          <Stack gap="scale.050">
+            <Header testId={testId && `${testId}-header`} {...headerProps} />
+            <Text
+              as="div"
+              testId={testId && `${testId}-content`}
+              color={isSaving || isError ? 'disabled' : 'color.text'}
+            >
+              {content}
+            </Text>
+          </Stack>
+          <Footer testId={testId && `${testId}-footer`} {...footerProps} />
+          {afterContent}
+        </Stack>
+      }
       highlighted={highlighted}
     >
       {children}
     </CommentLayout>
   );
 };
+
+Comment.displayName = 'Comment';
 
 export default Comment;

@@ -21,6 +21,7 @@ import {
   makeDeleteActionItem,
 } from '../../../../../../../examples/utils/flexible-ui';
 import { NamedActionItem } from '../../types';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 describe('TitleBlock', () => {
   const testId = 'smart-block-title-resolved-view';
@@ -30,9 +31,11 @@ describe('TitleBlock', () => {
   const renderTitleBlock = (props?: TitleBlockProps) => {
     return render(
       <IntlProvider locale="en">
-        <FlexibleUiContext.Provider value={context}>
-          <TitleBlock status={SmartLinkStatus.Resolved} {...props} />
-        </FlexibleUiContext.Provider>
+        <SmartCardProvider>
+          <FlexibleUiContext.Provider value={context}>
+            <TitleBlock status={SmartLinkStatus.Resolved} {...props} />
+          </FlexibleUiContext.Provider>
+        </SmartCardProvider>
       </IntlProvider>,
     );
   };

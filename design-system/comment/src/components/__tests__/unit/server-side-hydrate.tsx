@@ -1,38 +1,29 @@
-import React from 'react';
+/** @jsx jsx */
+import noop from '@atlaskit/ds-lib/noop';
+import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-import ReactDOM from 'react-dom';
+const commentPath = require.resolve(
+  '../../../../examples/01-example-comment.tsx',
+);
 
-import __noop from '@atlaskit/ds-lib/noop';
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
-
-jest.spyOn(global.console, 'error').mockImplementation(__noop);
+jest.spyOn(global.console, 'error').mockImplementation(noop);
 
 afterEach(() => {
+  // Check cleanup
+  cleanup();
+  // reset mocks
   jest.resetAllMocks();
 });
 
-test('should ssr then hydrate comment correctly', async () => {
-  const [example] = await getExamplesFor('comment');
-  const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
-
+test('should ssr then hydrate nested styles correctly', async () => {
   const elem = document.createElement('div');
-  elem.innerHTML = await ssr(example.filePath);
+  const { html, styles } = await ssr(commentPath);
 
-  ReactDOM.hydrate(<Example />, elem);
-  // ignore warnings caused by emotion's server-side rendering approach
-  // @ts-ignore
+  elem.innerHTML = html;
+  hydrate(commentPath, elem, styles);
+
+  // No other errors from e.g. hydrate
   // eslint-disable-next-line no-console
-  const mockCalls = console.error.mock.calls.filter(
-    ([f, s]: [any, any]) =>
-      !(
-        f ===
-          'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
-        s === 'style'
-      ) &&
-      !f.includes(
-        'The pseudo class ":first-child" is potentially unsafe when doing server-side rendering',
-      ),
-  );
-
+  const mockCalls = (console.error as jest.Mock).mock.calls;
   expect(mockCalls.length).toBe(0);
 });

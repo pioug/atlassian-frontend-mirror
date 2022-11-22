@@ -5,12 +5,20 @@ import { SmartLinkSize, SmartLinkTheme } from '../../constants';
 import { CardAppearance } from '../../view/Card';
 import { OnResolveCallback } from '../Card/types';
 import { OnErrorCallback } from '../types';
+import { AnalyticsFacade } from '../../state/analytics';
 
 export type FlexibleCardProps = {
   /**
    * @internal A unique ID for a Smart Link.
    */
   id?: string;
+
+  /**
+   * An analytics facade object which will be used to send analytics.
+   * @internal
+   */
+  analytics?: AnalyticsFacade;
+
   /**
    * Determines the appearance of the Smart Link.
    * @internal

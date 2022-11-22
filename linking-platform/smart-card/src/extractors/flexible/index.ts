@@ -21,16 +21,19 @@ import {
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
 import {
   extractPersonCreatedBy,
-  extractLink,
   extractTitle,
   extractDateUpdated,
   extractDateCreated,
   LinkTypeCreated,
+  extractLink,
 } from '@atlaskit/linking-common/extractors';
 import extractPriority from './extract-priority';
 import extractProviderIcon from './icon/extract-provider-icon';
 import extractPreview from './extract-preview';
 import { extractLatestCommit } from './latest-commit';
+import { extractPreviewAction } from './actions/extract-preview-action';
+import { extractDownloadAction } from './actions/extract-download-action';
+import { extractViewAction } from './actions/extract-view-action';
 
 const extractFlexibleUiContext = (
   response?: JsonLd.Response,
@@ -52,6 +55,9 @@ const extractFlexibleUiContext = (
     createdBy: extractCreatedBy(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
     dueOn: extractDueOn(data),
+    previewAction: extractPreviewAction(response),
+    viewAction: extractViewAction(data),
+    downloadAction: extractDownloadAction(data),
     latestCommit: extractLatestCommit(data as JsonLd.Data.SourceCodeRepository),
     linkIcon: extractLinkIcon(response, renderers),
     modifiedBy: extractModifiedBy(data),

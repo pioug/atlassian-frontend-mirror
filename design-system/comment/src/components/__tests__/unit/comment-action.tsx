@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable @repo/internal/react/use-primitives */
+import React from 'react';
 
 import { mount, shallow } from 'enzyme';
 
@@ -6,8 +7,8 @@ import Button from '@atlaskit/button/custom-theme-button';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import CommentActionWithAnalytics, {
-  ActionItemProps,
   CommentActionWithoutAnalytics as CommentAction,
+  CommentActionItemProps,
 } from '../../action-item';
 
 describe('@atlaskit comments', () => {
@@ -15,7 +16,6 @@ describe('@atlaskit comments', () => {
     describe('exports', () => {
       it('the CommentAction component', () => {
         expect(CommentAction).not.toBe(undefined);
-        expect(new CommentAction({})).toBeInstanceOf(Component);
       });
     });
 
@@ -23,7 +23,6 @@ describe('@atlaskit comments', () => {
       it('should be able to create a component', () => {
         const wrapper = shallow(<CommentAction />);
         expect(wrapper).not.toBe(undefined);
-        expect(wrapper.instance()).toBeInstanceOf(Component);
       });
 
       it('should render a Button containing the children', () => {
@@ -34,13 +33,13 @@ describe('@atlaskit comments', () => {
       });
 
       it('should reflect onClick, onFocus, and onMouseOver to a wrapping element', () => {
-        const props: ActionItemProps = {
+        const props: CommentActionItemProps = {
           onClick: __noop,
           onFocus: __noop,
           onMouseOver: __noop,
         };
         const wrapper = shallow(<CommentAction {...props} />);
-        const Keys = Object.keys(props) as (keyof ActionItemProps)[];
+        const Keys = Object.keys(props) as (keyof CommentActionItemProps)[];
         Keys.forEach((propName) => {
           expect(wrapper.prop(propName)).toBe(props[propName]);
         });

@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 import {
   createAndFireEvent,
@@ -12,7 +12,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-export interface ActionItemProps extends WithAnalyticsEventsProps {
+export interface CommentActionItemProps extends WithAnalyticsEventsProps {
   /**
    * The content to render inside the action button.
    */
@@ -38,26 +38,27 @@ export interface ActionItemProps extends WithAnalyticsEventsProps {
   onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-class ActionItem extends Component<ActionItemProps> {
-  render() {
-    const { children, onClick, onFocus, onMouseOver, isDisabled } = this.props;
-    /* eslint-disable jsx-a11y/no-static-element-interactions */
-    return (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <span onClick={onClick} onFocus={onFocus} onMouseOver={onMouseOver}>
-        <Button
-          appearance="subtle-link"
-          spacing="none"
-          type="button"
-          isDisabled={isDisabled}
-        >
-          {children}
-        </Button>
-      </span>
-    );
-    /* eslint-enable jsx-a11y/no-static-element-interactions */
-  }
-}
+const ActionItem: FC<CommentActionItemProps> = ({
+  children,
+  onClick,
+  onFocus,
+  onMouseOver,
+  isDisabled,
+}) => {
+  return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @repo/internal/react/use-primitives
+    <span onClick={onClick} onFocus={onFocus} onMouseOver={onMouseOver}>
+      <Button
+        appearance="subtle-link"
+        spacing="none"
+        type="button"
+        isDisabled={isDisabled}
+      >
+        {children}
+      </Button>
+    </span>
+  );
+};
 
 export { ActionItem as CommentActionWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
@@ -71,7 +72,6 @@ export default withAnalyticsContext({
     onClick: createAndFireEventOnAtlaskit({
       action: 'clicked',
       actionSubject: 'commentAction',
-
       attributes: {
         componentName: 'commentAction',
         packageName,

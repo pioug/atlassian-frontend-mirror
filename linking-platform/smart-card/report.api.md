@@ -47,7 +47,10 @@ import { WithIntlProps } from 'react-intl-next';
 import { WrappedComponentProps } from 'react-intl-next';
 
 // @public (undocumented)
-export type ActionItem = CustomActionItem | NamedActionItem;
+export type ActionItem =
+  | CustomActionItem
+  | NamedActionItem
+  | NamedDataActionItem;
 
 // @public
 export enum ActionName {
@@ -56,7 +59,13 @@ export enum ActionName {
   // (undocumented)
   DeleteAction = 'DeleteAction',
   // (undocumented)
+  DownloadAction = 'DownloadAction',
+  // (undocumented)
   EditAction = 'EditAction',
+  // (undocumented)
+  PreviewAction = 'PreviewAction',
+  // (undocumented)
+  ViewAction = 'ViewAction',
 }
 
 // @public (undocumented)
@@ -140,6 +149,17 @@ type BaseActionItem = {
   hideIcon?: boolean;
   name: ActionName;
   onClick: () => any;
+  overrideCss?: SerializedStyles;
+  size?: SmartLinkSize;
+  testId?: string;
+};
+
+// @public
+type BaseDataActionItem = {
+  hideContent?: boolean;
+  hideIcon?: boolean;
+  name: ActionName;
+  onClick?: () => any;
   overrideCss?: SerializedStyles;
   size?: SmartLinkSize;
   testId?: string;
@@ -577,7 +597,15 @@ type ModifiedOn = {
 
 // @public
 type NamedActionItem = BaseActionItem & {
-  name: Exclude<ActionName, ActionName.CustomAction>;
+  name: ActionName.DeleteAction | ActionName.EditAction;
+};
+
+// @public
+type NamedDataActionItem = BaseDataActionItem & {
+  name:
+    | ActionName.DownloadAction
+    | ActionName.PreviewAction
+    | ActionName.ViewAction;
 };
 
 // @public (undocumented)

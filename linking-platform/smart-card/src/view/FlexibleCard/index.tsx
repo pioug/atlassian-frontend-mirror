@@ -3,7 +3,10 @@ import React, { useEffect } from 'react';
 import { FlexibleCardProps } from './types';
 import { SmartLinkStatus } from '../../constants';
 import Container from './components/container';
-import { FlexibleUiContext } from '../../state/flexible-ui-context';
+import {
+  FlexibleUiAnalyticsContext,
+  FlexibleUiContext,
+} from '../../state/flexible-ui-context';
 import { getContextByStatus, getRetryOptions } from './utils';
 
 /**
@@ -23,6 +26,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   url,
   onClick,
   testId,
+  analytics,
 }: React.PropsWithChildren<FlexibleCardProps>) => {
   const { status: cardType, details } = cardState;
   const status = cardType as SmartLinkStatus;
@@ -49,17 +53,19 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
     }
   }, [onError, onResolve, status, title, url]);
   return (
-    <FlexibleUiContext.Provider value={context}>
-      <Container
-        testId={testId}
-        {...ui}
-        onClick={onClick}
-        retry={retry}
-        status={status}
-      >
-        {children}
-      </Container>
-    </FlexibleUiContext.Provider>
+    <FlexibleUiAnalyticsContext.Provider value={analytics}>
+      <FlexibleUiContext.Provider value={context}>
+        <Container
+          testId={testId}
+          {...ui}
+          onClick={onClick}
+          retry={retry}
+          status={status}
+        >
+          {children}
+        </Container>
+      </FlexibleUiContext.Provider>
+    </FlexibleUiAnalyticsContext.Provider>
   );
 };
 

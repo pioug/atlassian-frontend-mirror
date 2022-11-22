@@ -49,6 +49,4 @@ export type EmbedModalProps = {
   title?: string;
   /* If you are not providing src, you should still provide a url, allowing people to access the page where the document is */
   url?: string;
-};
-
-export type EmbedModalWithExperimentProps = EmbedModalProps & WithAnalytics;
+} & WithAnalytics;

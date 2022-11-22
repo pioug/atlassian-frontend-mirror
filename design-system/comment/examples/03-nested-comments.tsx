@@ -1,26 +1,41 @@
 import React, { FC } from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
 
-import Comment, { CommentAuthor } from '../src';
+import Comment, { CommentAction, CommentAuthor } from '../src';
 
 import avatarImg from './utils/sample-avatar';
 
-const ExampleComment: FC = ({ children }) => (
+const ExampleComment: FC<{ isHighlighted?: boolean }> = ({
+  children,
+  isHighlighted,
+}) => (
   <Comment
+    highlighted={isHighlighted}
     avatar={<Avatar src={avatarImg} size="medium" />}
     author={<CommentAuthor href="/author">John Smith</CommentAuthor>}
-    content={<p>This comment is so generic it can be repeated</p>}
+    content={<Text>This comment is so generic it can be repeated</Text>}
+    actions={[
+      <CommentAction>Edit</CommentAction>,
+      <CommentAction>Delete</CommentAction>,
+    ]}
   >
     {children}
   </Comment>
 );
 
 export default () => (
-  <div>
-    <ExampleComment>
-      <ExampleComment />
-      <ExampleComment />
+  <Box display="block" padding="scale.200" testId="nested">
+    <ExampleComment isHighlighted>
+      <ExampleComment>
+        <ExampleComment />
+        <ExampleComment isHighlighted />
+        <ExampleComment />
+      </ExampleComment>
     </ExampleComment>
-  </div>
+  </Box>
 );

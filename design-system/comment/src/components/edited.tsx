@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Component, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -19,7 +19,7 @@ const editedContentStyles = css({
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-interface EditedProps extends WithAnalyticsEventsProps {
+export interface EditedProps extends WithAnalyticsEventsProps {
   /**
    * Content to render indicating that the comment has been edited.
    */
@@ -34,20 +34,16 @@ interface EditedProps extends WithAnalyticsEventsProps {
   onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-class Edited extends Component<EditedProps> {
-  render() {
-    const { children, onFocus, onMouseOver } = this.props;
-    return (
-      <span
-        css={editedContentStyles}
-        onFocus={onFocus}
-        onMouseOver={onMouseOver}
-      >
-        {children}
-      </span>
-    );
-  }
-}
+const Edited: FC<EditedProps> = ({ children, onFocus, onMouseOver }) => {
+  return (
+    // eslint-disable-next-line @repo/internal/react/use-primitives
+    <span css={editedContentStyles} onFocus={onFocus} onMouseOver={onMouseOver}>
+      {children}
+    </span>
+  );
+};
+
+Edited.displayName = 'Edited';
 
 export { Edited as CommentEditedWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');

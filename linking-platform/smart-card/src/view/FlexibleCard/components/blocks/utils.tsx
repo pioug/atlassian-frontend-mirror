@@ -123,7 +123,7 @@ const isElementDisplayValid = (
   return ElementDisplaySchema[name]?.includes(display) ?? false;
 };
 
-const isElementNull = (children: JSX.Element) => {
+const isJSXElementNull = (children: JSX.Element) => {
   return Boolean(children.type() === null);
 };
 
@@ -155,7 +155,7 @@ export const renderElementItems = (
       const typedProps = props as any;
       if (Element && isElementDisplayValid(name, display)) {
         const element = <Element key={idx} {...typedProps} />;
-        if (!isElementNull(element)) {
+        if (!isJSXElementNull(element)) {
           return [...acc, element];
         }
       }
@@ -175,7 +175,7 @@ export const renderActionItems = (
   appearance?: Appearance,
   asDropDownItems?: boolean,
   onActionItemClick?: () => void,
-): React.ReactNode | undefined => {
+): React.ReactElement[] | undefined => {
   const actions = items.reduce(
     (acc: React.ReactElement[], curr: ActionItem, idx: number) => {
       const { name, hideContent, hideIcon, onClick, ...props } = curr;
@@ -198,17 +198,20 @@ export const renderActionItems = (
             onClick();
           }
         };
-        return [
-          ...acc,
+        const action = (
           <Action
+            url={''}
             asDropDownItem={asDropDownItems}
             size={size}
             key={idx}
             appearance={appearance}
             onClick={handleOnClick}
             {...actionProps}
-          />,
-        ];
+          />
+        );
+        if (!isJSXElementNull(action)) {
+          return [...acc, action];
+        }
       }
       return acc;
     },

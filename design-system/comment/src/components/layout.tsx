@@ -3,73 +3,50 @@ import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Stack as Stack,
+} from '@atlaskit/ds-explorations';
 import { N20A } from '@atlaskit/theme/colors';
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { verticalPadding } from './constants';
-
-const gridSize = getGridSize();
-
-const avatarSectionStyles = css({
-  gridArea: 'avatar-area',
-});
+import AvatarSlot from './slots/avatar-slot';
+import ContentSlot from './slots/content-slot';
 
 const inlineCommentStyles = css({
-  gridTemplate: `
+  gridTemplateAreas: `
   "avatar-area comment-area"
-  "nested-comments-area nested-comments-area"
-  / auto 1fr`,
+  "nested-comments-area nested-comments-area"`,
 });
 
 const containerStyles = css({
   display: 'grid',
-  paddingTop: `${verticalPadding}px`,
   position: 'relative',
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize}px``
   gap: token('spacing.scale.100', '8px'),
-  gridTemplate: `"avatar-area comment-area" \
-    ". nested-comments-area"
-    / auto 1fr`,
-  /* We need both selectors as there is not a common wrapper component around
-  comments. We also provide isFirst as an escape hatch. */
-  '&:first-child, &:first-of-type': {
-    // TODO Delete this comment after verifying spacing token -> previous value `0`
-    paddingTop: token('spacing.scale.0', '0px'),
-  },
+  gridTemplateAreas: `"avatar-area comment-area" \
+    ". nested-comments-area"`,
+  gridTemplateColumns: 'auto 1fr',
 });
 
-const contentSectionStyles = css({
-  minWidth: 0,
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize / 4}px``
-  marginTop: token('spacing.scale.025', '2px'),
-  gridArea: 'comment-area',
-  wordWrap: 'break-word',
+const gridTemplateNoChildrenStyles = css({
+  gridTemplateAreas: `"avatar-area comment-area"`,
 });
 
-const highlightStyles = css({
-  width: '100%',
-  height: '100%',
-  padding: `${token('spacing.scale.100', '8px')} ${token(
-    'spacing.scale.100',
-    '8px',
-  )} ${token('spacing.scale.050', '4px')}`,
-  background: token('color.background.neutral', N20A),
+// if the background is appied on Box and tokens are not switched on it breaks.
+// This can be safely removed (and applied on Box) when tokens are on by default
+const highlightOverlayStyles = css({
+  backgroundColor: token('color.background.neutral', N20A),
   gridArea: '1 / 1 / 2 / 3',
+  inset: `calc(-1 * ${token('spacing.scale.100', '8px')})`,
   pointerEvents: 'none',
-  transform: `translate(-${gridSize}px, -${gridSize}px)`,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-  '[dir="rtl"] &': {
-    transform: `translate(${gridSize}px, -${gridSize}px)`,
-  },
 });
 
-const nestedCommentsContainerStyles = css({
-  marginTop: `${verticalPadding}px`,
+const stackOverrideStyles = {
   gridArea: 'nested-comments-area',
-});
+  paddingTop: token('spacing.scale.300', '24px'),
+} as React.CSSProperties;
 
-interface LayoutProps {
+export interface CommentLayoutProps {
   /**
    * The element to display as the Comment avatar - generally an Atlaskit Avatar
    */
@@ -102,12 +79,12 @@ interface LayoutProps {
 }
 
 /**
- * __Layout__
+ * __CommentLayout__
  *
  * The base layout for the comment component.
  *
  */
-const Layout: FC<LayoutProps> = ({
+const Layout: FC<CommentLayoutProps> = ({
   content,
   children,
   highlighted,
@@ -116,19 +93,34 @@ const Layout: FC<LayoutProps> = ({
   testId,
   avatar,
 }) => (
+  // eslint-disable-next-line @repo/internal/react/use-primitives
   <div
     css={[
       containerStyles,
       shouldRenderNestedCommentsInline && inlineCommentStyles,
+      !children && gridTemplateNoChildrenStyles,
     ]}
     data-testid={testId}
     id={id}
   >
-    {avatar && <div css={avatarSectionStyles}>{avatar}</div>}
-    <div css={contentSectionStyles}>{content}</div>
-    {children && <div css={nestedCommentsContainerStyles}>{children}</div>}
-    {highlighted && <div css={highlightStyles} />}
+    {avatar && <AvatarSlot>{avatar}</AvatarSlot>}
+    {content && <ContentSlot>{content}</ContentSlot>}
+    {children && (
+      <Stack gap="scale.400" UNSAFE_style={stackOverrideStyles}>
+        {children}
+      </Stack>
+    )}
+    {highlighted && (
+      <Box
+        display="block"
+        padding="scale.100"
+        position="absolute"
+        css={highlightOverlayStyles}
+      />
+    )}
   </div>
 );
+
+Layout.displayName = 'CommentLayout';
 
 export default Layout;

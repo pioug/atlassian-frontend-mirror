@@ -1,5 +1,6 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
-import { Component, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -30,39 +31,42 @@ const hasAuthorStyles = css({
   fontWeight: 500,
 });
 
-export default class CommentField extends Component<CommentFieldProps> {
-  render() {
-    const {
-      children,
-      hasAuthor,
-      href,
-      onClick,
-      onFocus,
-      onMouseOver,
-    } = this.props;
+/**
+ * __Field__
+ *
+ * A field appears in the comment header to add metadata to the comment.
+ *
+ * @internal
+ */
+const Field: FC<CommentFieldProps> = ({
+  children,
+  hasAuthor,
+  href,
+  onClick,
+  onFocus,
+  onMouseOver,
+}) => {
+  return href ? (
+    <a
+      href={href}
+      css={[textStyles, hasAuthor && hasAuthorStyles]}
+      onClick={onClick}
+      onFocus={onFocus}
+      onMouseOver={onMouseOver}
+    >
+      {children}
+    </a>
+  ) : (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    <span
+      css={[textStyles, hasAuthor && hasAuthorStyles]}
+      onClick={onClick}
+      onFocus={onFocus}
+      onMouseOver={onMouseOver}
+    >
+      {children}
+    </span>
+  );
+};
 
-    /* eslint-disable jsx-a11y/no-static-element-interactions */
-    return href ? (
-      <a
-        href={href}
-        css={[textStyles, hasAuthor && hasAuthorStyles]}
-        onClick={onClick}
-        onFocus={onFocus}
-        onMouseOver={onMouseOver}
-      >
-        {children}
-      </a>
-    ) : (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <span
-        css={[textStyles, hasAuthor && hasAuthorStyles]}
-        onClick={onClick}
-        onFocus={onFocus}
-        onMouseOver={onMouseOver}
-      >
-        {children}
-      </span>
-    );
-    /* eslint-enable jsx-a11y/no-static-element-interactions */
-  }
-}
+export default Field;

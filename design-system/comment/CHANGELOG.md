@@ -1,5 +1,23 @@
 # @atlaskit/comment
 
+## 10.7.0
+
+### Minor Changes
+
+- [`749a2ff3ddf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/749a2ff3ddf) - [ux] Visual changes to adjust the gutter whitespace between nested comments. This change is to better match the white space of other components in the Atlassian Design System. There is a second more subtle visual fix for comments that have no nesting. This was a regression introduced in v10.1.
+
+  Additionally, the heading role is now applied specifically on the author of the comment, rather than all nodes.
+
+  Other internal changes:
+
+  - All components are now functional components (previously class)
+  - Application of primitives for some internal styles
+  - Further application of spacing tokens for some internal styles
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.6.2
 
 ### Patch Changes

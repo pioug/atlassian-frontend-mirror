@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { forwardRef } from 'react';
+import { forwardRef, memo, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { BasePrimitiveProps, NonTextChildren } from './types';
+import { BasePrimitiveProps } from './types';
 
 interface StackProps extends BasePrimitiveProps {
   /**
@@ -27,7 +27,7 @@ interface StackProps extends BasePrimitiveProps {
   /**
    * Elements to be rendered inside the Stack.
    */
-  children: NonTextChildren;
+  children: ReactNode;
 }
 
 type FlexAlignItems = keyof typeof flexAlignItemsMap;
@@ -67,36 +67,38 @@ const baseStyles = css({
  * Renders a `div` by default.
  *
  */
-const Stack = forwardRef<HTMLDivElement, StackProps>(
-  (
-    {
-      gap,
-      alignItems,
-      justifyContent,
-      flexWrap,
-      children,
-      UNSAFE_style,
-      testId,
+const Stack = memo(
+  forwardRef<HTMLDivElement, StackProps>(
+    (
+      {
+        gap,
+        alignItems,
+        justifyContent,
+        flexWrap,
+        children,
+        UNSAFE_style,
+        testId,
+      },
+      ref,
+    ) => {
+      return (
+        <div
+          style={UNSAFE_style}
+          css={[
+            baseStyles,
+            gap && rowGapMap[gap],
+            alignItems && flexAlignItemsMap[alignItems],
+            justifyContent && flexJustifyContentMap[justifyContent],
+            flexWrap && flexWrapMap[flexWrap],
+          ]}
+          data-testid={testId}
+          ref={ref}
+        >
+          {children}
+        </div>
+      );
     },
-    ref,
-  ) => {
-    return (
-      <div
-        style={UNSAFE_style}
-        css={[
-          baseStyles,
-          gap && rowGapMap[gap],
-          alignItems && flexAlignItemsMap[alignItems],
-          justifyContent && flexJustifyContentMap[justifyContent],
-          flexWrap && flexWrapMap[flexWrap],
-        ]}
-        data-testid={testId}
-        ref={ref}
-      >
-        {children}
-      </div>
-    );
-  },
+  ),
 );
 
 Stack.displayName = 'Stack';

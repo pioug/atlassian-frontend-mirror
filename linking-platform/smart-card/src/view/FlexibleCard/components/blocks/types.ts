@@ -126,12 +126,70 @@ export type BaseActionItem = {
 };
 
 /**
- * This represents an action where Icon and Content are provided implicitly.
+ * Used to represent an Action which self-hydrates with data when passing props into Flexible UI.
+ */
+export type BaseDataActionItem = {
+  /**
+   * Determines whether the action should hide the text content of the button.
+   */
+  hideContent?: boolean;
+
+  /**
+   * Determines whether the action should hide the icon inside the button.
+   */
+  hideIcon?: boolean;
+
+  /**
+   * Determines the text and icon representation of the action, with exception
+   * to CustomAction.
+   */
+  name: ActionName;
+
+  /**
+   * Determines the onClick behaviour of the action. This is optional because
+   * the onClick functionality will be hydrated by the action by default.
+   */
+  onClick?: () => any;
+
+  /**
+   * Additional CSS properties on the Action.
+   */
+  overrideCss?: SerializedStyles;
+
+  /**
+   * Determines the size of the Action. Corresponds to an Action appearance.
+   */
+  size?: SmartLinkSize;
+
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique
+   * string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests
+   */
+  testId?: string;
+};
+
+/**
+ * This represents an action that will render based on the data provided from the Smart Link.
+ * Icon and Content are also provided implicitly.
+ * @example PreviewAction - by default will contain a fullscreen icon with the 'Preview'
+ * content if content and icon are not provided. This also will add a button that
+ * renders a preview modal when clicked.
+ */
+export type NamedDataActionItem = BaseDataActionItem & {
+  name:
+    | ActionName.PreviewAction
+    | ActionName.DownloadAction
+    | ActionName.ViewAction;
+};
+
+/**
+ * This represents an action that does not fetch data where Icon and Content are provided implicitly.
  * @example DeleteAction - by default will contain a cross icon with the
  * 'delete' content if content and icon are not provided.
  */
 export type NamedActionItem = BaseActionItem & {
-  name: Exclude<ActionName, ActionName.CustomAction>;
+  name: ActionName.DeleteAction | ActionName.EditAction;
 };
 
 /**
@@ -147,7 +205,10 @@ export type CustomActionItem = BaseActionItem & {
         Pick<ActionProps, 'tooltipMessage'>)
   );
 
-export type ActionItem = NamedActionItem | CustomActionItem;
+export type ActionItem =
+  | NamedActionItem
+  | NamedDataActionItem
+  | CustomActionItem;
 
 export type OnActionMenuOpenChangeOptions = {
   isOpen: boolean;

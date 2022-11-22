@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 import {
   createAndFireEvent,
@@ -13,7 +13,7 @@ import Field from './field';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-interface TimeProps extends WithAnalyticsEventsProps {
+export interface CommentTimeProps extends WithAnalyticsEventsProps {
   /**
    * The time of the comment.
    */
@@ -39,21 +39,26 @@ interface TimeProps extends WithAnalyticsEventsProps {
   onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-class Time extends Component<TimeProps> {
-  render() {
-    const { children, href, onClick, onFocus, onMouseOver } = this.props;
-    return (
-      <Field
-        href={href}
-        onClick={onClick}
-        onFocus={onFocus}
-        onMouseOver={onMouseOver}
-      >
-        {children}
-      </Field>
-    );
-  }
-}
+const Time: FC<CommentTimeProps> = ({
+  children,
+  href,
+  onClick,
+  onFocus,
+  onMouseOver,
+}) => {
+  return (
+    <Field
+      href={href}
+      onClick={onClick}
+      onFocus={onFocus}
+      onMouseOver={onMouseOver}
+    >
+      {children}
+    </Field>
+  );
+};
+
+Time.displayName = 'CommentTime';
 
 export { Time as CommentTimeWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');

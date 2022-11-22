@@ -1,5 +1,12 @@
 # @atlaskit/section-message
 
+## 6.3.3
+
+### Patch Changes
+
+- [`fad3820e125`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fad3820e125) - Internal adjustment to the way actions are laid out. No visual or API change.
+- Updated dependencies
+
 ## 6.3.2
 
 ### Patch Changes

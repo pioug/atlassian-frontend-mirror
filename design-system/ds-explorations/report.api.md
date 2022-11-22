@@ -14,8 +14,6 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-/// <reference types="react" />
-
 import { ComponentPropsWithoutRef } from 'react';
 import { ComponentPropsWithRef } from 'react';
 import type { CSSProperties } from 'react';
@@ -23,6 +21,7 @@ import { ElementType } from 'react';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
+import { MemoExoticComponent } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
@@ -161,7 +160,7 @@ type BoxComponent<T extends ElementType = 'div'> = (<
 // @public (undocumented)
 type BoxPropsBase<T extends ElementType> = {
   as?: T;
-  children?: NonTextChildren | boolean | null;
+  children?: ReactNode;
   className?: string;
   backgroundColor?: BackgroundColor;
   borderStyle?: BorderStyle;
@@ -351,7 +350,7 @@ const heightMap: {
 // @public (undocumented)
 interface InlineProps extends BasePrimitiveProps {
   alignItems?: FlexAlignItems_2;
-  children: NonTextChildren;
+  children: ReactNode;
   divider?: ReactNode;
   flexWrap?: FlexWrap;
   gap: ColumnGap;
@@ -382,9 +381,6 @@ const lineHeightMap: {
   '32px': SerializedStyles;
   '40px': SerializedStyles;
 };
-
-// @public (undocumented)
-type NonTextChildren = (JSX.Element | false | null)[] | JSX.Element;
 
 // @public (undocumented)
 type Overflow = keyof typeof overflowMap;
@@ -486,7 +482,7 @@ const rowGapMap: {
 // @public (undocumented)
 interface StackProps extends BasePrimitiveProps {
   alignItems?: FlexAlignItems_3;
-  children: NonTextChildren;
+  children: ReactNode;
   flexWrap?: FlexWrap_2;
   gap: RowGap;
   justifyContent?: FlexJustifyContent_3;
@@ -544,9 +540,9 @@ export type UNSAFE_BoxProps<T extends ElementType = 'div'> = Omit<
   BoxPropsBase<T>;
 
 // @public
-export const UNSAFE_Inline: ForwardRefExoticComponent<
+export const UNSAFE_Inline: MemoExoticComponent<ForwardRefExoticComponent<
   InlineProps & RefAttributes<HTMLDivElement>
->;
+>>;
 
 // @public (undocumented)
 export const UNSAFE_InteractionSurface: ({
@@ -556,9 +552,9 @@ export const UNSAFE_InteractionSurface: ({
 }: InteractionSurfaceProps) => jsx.JSX.Element;
 
 // @public
-export const UNSAFE_Stack: ForwardRefExoticComponent<
+export const UNSAFE_Stack: MemoExoticComponent<ForwardRefExoticComponent<
   StackProps & RefAttributes<HTMLDivElement>
->;
+>>;
 
 // @internal
 export const UNSAFE_Text: FC<UNSAFE_TextProps>;

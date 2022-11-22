@@ -73,8 +73,8 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
               <Inline
                 flexWrap="wrap"
                 testId={testId && `${testId}--actions`}
-                divider={<Text color="subtle">·</Text>}
-                gap="scale.075"
+                divider="·"
+                gap="scale.100"
               >
                 {actionsArray}
               </Inline>

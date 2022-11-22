@@ -7,6 +7,12 @@ import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../../messages';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import EditIcon from '@atlaskit/icon/glyph/edit';
+import PreviewAction from './action/preview-action';
+import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
+import ViewAction from './action/view-action';
+import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import DownloadAction from './action/download-action';
+import DownloadIcon from '@atlaskit/icon/glyph/download';
 
 const actionMappings: Record<
   ActionName,
@@ -34,6 +40,33 @@ const actionMappings: Record<
       tooltipMessage: <FormattedMessage {...messages.edit} />,
     },
   },
+  [ActionName.PreviewAction]: {
+    component: PreviewAction,
+    props: {
+      testId: 'smart-action-preview-action',
+      content: <FormattedMessage {...messages.preview} />,
+      icon: <VidFullScreenOnIcon label="Preview" />,
+      tooltipMessage: <FormattedMessage {...messages.preview} />,
+    },
+  },
+  [ActionName.ViewAction]: {
+    component: ViewAction,
+    props: {
+      testId: 'smart-action-view-action',
+      content: <FormattedMessage {...messages.view} />,
+      icon: <ShortcutIcon label="View" />,
+      tooltipMessage: <FormattedMessage {...messages.view} />,
+    },
+  },
+  [ActionName.DownloadAction]: {
+    component: DownloadAction,
+    props: {
+      testId: 'smart-action-download-action',
+      content: <FormattedMessage {...messages.download} />,
+      icon: <DownloadIcon label="Download" />,
+      tooltipMessage: <FormattedMessage {...messages.download} />,
+    },
+  },
 };
 
 const getContextKey = (name: ActionName) => {
@@ -55,8 +88,12 @@ const getActionData = (
 
   const data = context[contextKey as keyof typeof context];
   switch (actionName) {
-    default:
+    case ActionName.PreviewAction:
+    case ActionName.ViewAction:
+    case ActionName.DownloadAction:
       return data;
+    default:
+      return undefined;
   }
 };
 
@@ -73,7 +110,9 @@ export const createDataAction = <P extends {}>(
   return (overrides: P) => {
     const context = useContext(FlexibleUiContext);
     const data = getActionData(name, contextKey, context);
-    return <BaseAction {...props} {...data} {...overrides} />;
+    return data ? (
+      <BaseAction {...props} {...data} {...overrides} url={context?.url} />
+    ) : null;
   };
 };
 

@@ -36,11 +36,17 @@ describe('Unauthorised View', () => {
     const testUrl = 'http://unauthorised-test/';
     const { container } = render(
       <IntlProvider locale="en">
-        <InlineCardUnauthorizedView url={testUrl} onAuthorise={jest.fn()} />
+        <InlineCardUnauthorizedView
+          context="3P"
+          url={testUrl}
+          onAuthorise={jest.fn()}
+        />
       </IntlProvider>,
     );
 
-    expect(container.textContent).toEqual(`${testUrl} - Connect to preview`);
+    expect(container.textContent).toEqual(
+      `${testUrl} - Connect your 3P account`,
+    );
   });
 
   it('should not redirect user if they do not click on the authorize button', () => {

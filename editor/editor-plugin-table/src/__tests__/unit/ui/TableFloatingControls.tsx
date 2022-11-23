@@ -1,4 +1,5 @@
-import { shallow, mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 import React from 'react';
 
 import {
@@ -19,8 +20,6 @@ import {
 import { TablePluginState } from '../../../plugins/table/types';
 import { hoverTable } from '../../../plugins/table/commands';
 import TableFloatingControls from '../../../plugins/table/ui/TableFloatingControls';
-import { CornerControls } from '../../../plugins/table/ui/TableFloatingControls/CornerControls';
-import { RowControls } from '../../../plugins/table/ui/TableFloatingControls/RowControls';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { getDecorations } from '../../../plugins/table/pm-plugins/decorations/plugin';
 import tablePlugin from '../../../plugins/table-plugin';
@@ -43,14 +42,13 @@ describe('TableFloatingControls', () => {
       const { editorView } = editor(
         doc(p('text'), table()(tr(tdEmpty, tdEmpty, tdEmpty))),
       );
-      const floatingControls = mount(
+      const { container } = render(
         <TableFloatingControls
           editorView={editorView}
           getEditorFeatureFlags={fakeGetEditorFeatureFlags}
         />,
       );
-      expect(floatingControls.html()).toEqual(null);
-      floatingControls.unmount();
+      expect(container.innerHTML).toEqual('');
     });
   });
 
@@ -59,16 +57,21 @@ describe('TableFloatingControls', () => {
       const { editorView } = editor(
         doc(p('text'), table()(tr(tdEmpty, tdEmpty, tdEmpty))),
       );
-      const floatingControls = shallow(
-        <TableFloatingControls
-          tableRef={document.createElement('table')}
-          tableActive={true}
-          editorView={editorView}
-          getEditorFeatureFlags={fakeGetEditorFeatureFlags}
-        />,
+      const ref = editorView.dom.querySelector('table') || undefined;
+
+      render(
+        <IntlProvider locale="en">
+          <TableFloatingControls
+            tableRef={ref}
+            tableActive={true}
+            editorView={editorView}
+            getEditorFeatureFlags={fakeGetEditorFeatureFlags}
+          />
+        </IntlProvider>,
       );
-      expect(floatingControls.find(CornerControls).length).toEqual(1);
-      expect(floatingControls.find(RowControls).length).toEqual(1);
+
+      expect(screen.getByLabelText('Highlight row')).toBeTruthy();
+      expect(screen.getByLabelText('Highlight table')).toBeTruthy();
     });
   });
 

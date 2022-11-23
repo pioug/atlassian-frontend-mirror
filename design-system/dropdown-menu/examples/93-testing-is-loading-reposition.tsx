@@ -1,27 +1,15 @@
-/** @jsx jsx */
-
-import { useState } from 'react';
-
-import { css, jsx } from '@emotion/react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
-
-const centeredStyles = css({
-  display: 'flex',
-  width: '100vw',
-  height: '100vh',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '16px',
-});
 
 export default () => {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <div css={centeredStyles}>
+    <Inline gap="scale.200">
       <Button
         testId="toggle"
         onClick={() => setLoading((loadingState) => !loadingState)}
@@ -41,6 +29,6 @@ export default () => {
           <DropdownItem>Delete</DropdownItem>
         </DropdownItemGroup>
       </DropdownMenu>
-    </div>
+    </Inline>
   );
 };

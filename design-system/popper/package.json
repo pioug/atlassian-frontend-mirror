@@ -15,9 +15,8 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "disableProductCI": true,
-    "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "team": "UIP: Cycle Time Flex",
+    "releaseModel": "continuous",
     "website": {
       "name": "Popper",
       "category": "Components"

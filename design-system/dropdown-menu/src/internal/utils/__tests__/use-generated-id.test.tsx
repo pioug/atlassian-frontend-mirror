@@ -4,18 +4,18 @@ import { act, render } from '@testing-library/react';
 
 import useGeneratedId from '../use-generated-id';
 
-const ComponentWithId = ({ testId, id }: { testId: string; id?: string }) => {
+const ComponentWithId = ({ testId }: { testId: string }) => {
   const generatedId = useGeneratedId();
-  const [label, setLabel] = useState('a');
+  const [text, setText] = useState('a');
 
   return (
     <button
       data-testid={testId}
       id={generatedId}
-      onClick={() => setLabel(label + label)}
+      onClick={() => setText(text + text)}
       type="button"
     >
-      {label}
+      {text}
     </button>
   );
 };

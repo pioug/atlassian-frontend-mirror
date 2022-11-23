@@ -8,21 +8,15 @@ import DropdownMenu, {
 } from '../src';
 
 const DropdownMenuCheckbox = () => (
-  <div style={{ margin: '20px' }}>
-    <DropdownMenu
-      trigger="Choices"
-      onOpenChange={__noop}
-      testId="lite-mode-ddm"
-    >
-      <DropdownItemCheckboxGroup id="cities" title="Some cities">
-        <DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>
+  <DropdownMenu trigger="Choices" onOpenChange={__noop} testId="lite-mode-ddm">
+    <DropdownItemCheckboxGroup id="cities" title="Some cities">
+      <DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>
 
-        <DropdownItemCheckbox id="melbourne" defaultSelected>
-          Melbourne
-        </DropdownItemCheckbox>
-      </DropdownItemCheckboxGroup>
-    </DropdownMenu>
-  </div>
+      <DropdownItemCheckbox id="melbourne" defaultSelected>
+        Melbourne
+      </DropdownItemCheckbox>
+    </DropdownItemCheckboxGroup>
+  </DropdownMenu>
 );
 
 export default DropdownMenuCheckbox;

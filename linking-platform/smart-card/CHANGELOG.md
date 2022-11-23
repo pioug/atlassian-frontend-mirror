@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.4.1
+
+### Patch Changes
+
+- [`9dd78d9e76e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd78d9e76e) - [ux] Update button text on inline card unauthorised view to include provider name
+
 ## 23.4.0
 
 ### Minor Changes

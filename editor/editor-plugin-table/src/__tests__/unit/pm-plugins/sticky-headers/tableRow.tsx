@@ -409,11 +409,11 @@ describe('TableRowNodeView', () => {
           contentDOM={
             disableContentDomMock
               ? jest.fn()
-              : (wrapper: HTMLElement | null) => {
+              : (table: HTMLElement | null) => {
                   const node = editorView.dom.getElementsByTagName('table')[0];
 
-                  if (!wrapper?.firstChild) {
-                    wrapper?.appendChild(node);
+                  if (!table?.firstChild) {
+                    table?.appendChild(node);
                   }
                 }
           }
@@ -439,8 +439,8 @@ describe('TableRowNodeView', () => {
       expect(sentinelBottom).toBeTruthy();
     });
 
-    describe('updates sticky header state', () => {
-      it('top sentinel does nothing if the rootBounds has height 0', () => {
+    describe('updates sticky header', () => {
+      it('does not update sticky header if trigger is sentinel top in confluence preview mode', () => {
         renderTableComponent();
         const sentinelTop = screen.getByTestId('sticky-sentinel-top');
 
@@ -454,7 +454,7 @@ describe('TableRowNodeView', () => {
         expect(updateStickyState).not.toHaveBeenCalled();
       });
 
-      it('bottom sentinel does nothing if the rootBounds has height 0', () => {
+      it('does not update sticky header if trigger is sentinel bottom in confluence preview mode', () => {
         renderTableComponent();
         const sentinelBottom = screen.getByTestId('sticky-sentinel-bottom');
         triggerElementIntersect({
@@ -467,7 +467,7 @@ describe('TableRowNodeView', () => {
         expect(updateStickyState).not.toHaveBeenCalled();
       });
 
-      it('updates sticky header when top of sticky header sentinel leaves scroll area', () => {
+      it('updates sticky header when sentinel is below scroll area', () => {
         renderTableComponent();
         const sentinelTop = screen.getByTestId('sticky-sentinel-top');
 
@@ -502,7 +502,7 @@ describe('TableRowNodeView', () => {
         );
       });
 
-      it('updates sticky header when bottom of sticky header sentinel enters or leaves scroll area', () => {
+      it('updates sticky header when sentinel is above scroll area', () => {
         renderTableComponent();
         const sentinelBottom = screen.getByTestId('sticky-sentinel-bottom');
 

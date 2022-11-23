@@ -250,14 +250,12 @@ describe('smart-card: card states, inline', () => {
       describe('with auth services available', () => {
         it('inline: renders with connect flow', async () => {
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-          const { getByText, container } = render(
+          const { findByTestId, container } = render(
             <Provider client={mockClient}>
               <Card appearance="inline" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const unauthorizedLink = await waitForElement(() =>
-            getByText(/Connect to preview/),
-          );
+          const unauthorizedLink = await findByTestId('button-connect-account');
           const unauthorizedLinkButton = container.querySelector(
             '[type="button"]',
           );

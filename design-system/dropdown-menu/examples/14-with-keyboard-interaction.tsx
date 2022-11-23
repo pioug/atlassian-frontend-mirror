@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import ModalDialog, {
@@ -14,7 +14,7 @@ export default () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <div style={{ margin: '20px' }}>
+    <Fragment>
       <h2 style={{ margin: ' 0 0 20px' }}>
         Click dropdown button and try to open the modal using your keyboard.
       </h2>
@@ -69,6 +69,6 @@ export default () => {
           </ModalDialog>
         )}
       </ModalTransition>
-    </div>
+    </Fragment>
   );
 };

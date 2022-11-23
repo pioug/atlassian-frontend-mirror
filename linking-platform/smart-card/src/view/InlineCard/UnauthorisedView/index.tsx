@@ -15,6 +15,8 @@ export interface InlineCardUnauthorizedViewProps {
   url: string;
   /** The icon of the service (e.g. Dropbox/Asana/Google/etc) to display */
   icon?: React.ReactNode;
+  /** The name of the service (e.g. Dropbox/Asana/Google/etc) to display */
+  context?: string;
   /** The optional click handler */
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   /** What to do when a user hit "Try another account" button */
@@ -46,7 +48,7 @@ export class InlineCardUnauthorizedView extends React.Component<
   };
 
   renderMessage = () => {
-    const { onAuthorise, url } = this.props;
+    const { context, onAuthorise, url } = this.props;
     const link = <LinkAppearance>{url}</LinkAppearance>;
     return !onAuthorise ? (
       link
@@ -61,7 +63,10 @@ export class InlineCardUnauthorizedView extends React.Component<
           onClick={this.handleConnectAccount}
           testId="button-connect-account"
         >
-          <FormattedMessage {...messages.connect_link_account} />
+          <FormattedMessage
+            {...messages.connect_link_account_card_name}
+            values={{ context }}
+          />
         </Button>
       </>
     );

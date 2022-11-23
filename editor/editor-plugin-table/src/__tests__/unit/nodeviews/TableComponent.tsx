@@ -1,7 +1,6 @@
 import React from 'react';
-import { mount, ReactWrapper, shallow } from 'enzyme';
 import { replaceRaf } from 'raf-stub';
-
+import { render } from '@testing-library/react';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import tablePlugin from '../../../plugins/table-plugin';
 import {
@@ -13,7 +12,6 @@ import {
   tdEmpty,
   tdCursor,
   DocBuilder,
-  thEmpty,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { findTable, selectTable } from '@atlaskit/editor-tables/utils';
 import {
@@ -21,15 +19,10 @@ import {
   TablePluginState,
 } from '../../../plugins/table/types';
 import TableComponent from '../../../plugins/table/nodeviews/TableComponent';
-import { OverflowShadowsObserver } from '../../../plugins/table/nodeviews/OverflowShadowsObserver';
+
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { toggleNumberColumn } from '../../../plugins/table/commands';
-import {
-  pluginKey as stickyHeadersPluginKey,
-  StickyPluginState,
-} from '../../../plugins/table/pm-plugins/sticky-headers';
-import { tablesHaveDifferentColumnWidths } from '../../../plugins/table/utils/nodes';
 
 jest.mock('../../../plugins/table/utils/nodes', () =>
   Object.assign({}, jest.requireActual('../../../plugins/table/utils/nodes'), {
@@ -37,17 +30,12 @@ jest.mock('../../../plugins/table/utils/nodes', () =>
   }),
 );
 
-// with this jest will load mocked class from the relative __mocks__ folder
-jest.mock('../../../plugins/table/nodeviews/OverflowShadowsObserver');
-
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as any;
 
 describe('table -> nodeviews -> TableComponent.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
-  //
   const getEditorFeatureFlags = jest.fn();
-  //
   const editor = (
     doc: DocBuilder,
     featureFlags?: { [featureFlag: string]: string | boolean },
@@ -65,7 +53,6 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       pluginKey,
     });
   };
-  //
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -165,224 +152,30 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
 
       const tableF = findTable(view.state.selection);
       const getNode = () => tableF!.node;
-      const wrapper = shallow(
+      const { container } = render(
         <TableComponent
           view={view}
-          eventDispatcher={({ on: () => {} } as any) as EventDispatcher}
+          eventDispatcher={
+            ({ on: jest.fn(), off: jest.fn() } as unknown) as EventDispatcher
+          }
           // @ts-ignore
           containerWidth={{}}
-          // @ts-ignore
           getNode={getNode}
+          contentDOM={(contentElement: HTMLElement | null) => {
+            const node = view.dom.getElementsByTagName('table')[0];
+
+            if (!contentElement?.firstChild) {
+              contentElement?.appendChild(node);
+            }
+          }}
           getEditorFeatureFlags={getEditorFeatureFlags}
           {...props}
         />,
       );
-
-      expect(wrapper.hasClass(ClassName.WITH_CONTROLS)).toBe(expected);
-    });
-  });
-
-  describe('overflowShadowOptimization', () => {
-    let overflowShadowsConstructorSpy = jest.fn();
-    let updateStickyShadowsSpy = jest.fn();
-    let observeCellsSpy = jest.fn();
-    let disposeSpy = jest.fn();
-    beforeAll(() => {
-      (OverflowShadowsObserver as any).setMock('observeCells', observeCellsSpy);
-      (OverflowShadowsObserver as any).setMock('dispose', disposeSpy);
-      (OverflowShadowsObserver as any).setMock(
-        'updateStickyShadows',
-        updateStickyShadowsSpy,
+      const controlsContainer = container.querySelector(
+        `.${ClassName.WITH_CONTROLS}`,
       );
-      (OverflowShadowsObserver as any).setMock(
-        'constructor',
-        overflowShadowsConstructorSpy,
-      );
-    });
-
-    afterAll(() => {
-      (OverflowShadowsObserver as any).resetMocks();
-    });
-
-    let triggerDispatcherEvent: { [key: string]: any } = {};
-    const tablePos = 0;
-
-    function setupTable(tableOverflowShadowsOptimization: boolean = false) {
-      const editorData = editor(
-        doc(
-          table()(
-            tr(thEmpty, thEmpty, thEmpty),
-            tr(td()(p('{<>}text')), tdEmpty, tdEmpty),
-          ),
-        ),
-        {
-          tableOverflowShadowsOptimization,
-        },
-      );
-
-      const view = editorData.editorView;
-      const tableF = findTable(view.state.selection);
-
-      const getNode = () => view.state.doc.firstChild!;
-      const wrapper = mount(
-        <TableComponent
-          view={view}
-          eventDispatcher={
-            ({
-              on: (key: string, action: Function) => {
-                triggerDispatcherEvent[key] = action;
-              },
-              off: jest.fn(),
-            } as any) as EventDispatcher
-          }
-          // @ts-ignore
-          containerWidth={{}}
-          pluginState={{
-            pluginConfig: {
-              allowControls: false,
-            },
-          }}
-          getPos={() => tablePos}
-          getNode={getNode}
-          node={tableF!.node}
-          contentDOM={(wrapper: HTMLElement | null) => {
-            const node = view.dom.getElementsByTagName('table')[0];
-
-            if (!wrapper?.firstChild) {
-              wrapper?.appendChild(node);
-            }
-          }}
-          getEditorFeatureFlags={getEditorFeatureFlags}
-        />,
-      );
-
-      return { wrapper, view };
-    }
-
-    describe('with optimization on', () => {
-      let wrapper: ReactWrapper;
-      beforeEach(() => {
-        wrapper = setupTable(true).wrapper;
-      });
-
-      it('inits overflow shadows observer', () => {
-        const tableWrapperNode = wrapper
-          .find(`.${ClassName.TABLE_NODE_WRAPPER}`)
-          .getDOMNode();
-        const tableNode = tableWrapperNode.querySelector('table');
-        wrapper.setProps({});
-        expect(overflowShadowsConstructorSpy).toHaveBeenCalledWith(
-          expect.any(Function),
-          tableNode,
-          tableWrapperNode,
-        );
-      });
-
-      it('observes table cells on component update', () => {
-        expect(observeCellsSpy).not.toHaveBeenCalled();
-        wrapper.setProps({});
-        expect(observeCellsSpy).toHaveBeenCalledTimes(1);
-      });
-
-      it('updates sticky shadows on sticky state changed', () => {
-        const newStickyState: StickyPluginState = [
-          {
-            pos: tablePos + 1,
-            top: 0,
-            padding: 10,
-            sticky: true,
-          },
-        ];
-        triggerDispatcherEvent[(stickyHeadersPluginKey as any).key](
-          newStickyState,
-        );
-        expect(updateStickyShadowsSpy).toHaveBeenCalled();
-      });
-
-      it('disposes shadows observer on unmount', () => {
-        wrapper.setProps({});
-        wrapper.unmount();
-        expect(disposeSpy).toHaveBeenCalled();
-      });
-    });
-
-    describe('with optimization off', () => {
-      let wrapper: ReactWrapper;
-      beforeEach(() => {
-        wrapper = setupTable(false).wrapper;
-      });
-
-      it('does not init overflow shadows observer', () => {
-        wrapper.setProps({});
-        expect(overflowShadowsConstructorSpy).not.toHaveBeenCalled();
-      });
-    });
-  });
-
-  describe('when media fullscreen is changed', () => {
-    function setupTable(isMediaFullscreen: boolean) {
-      const editorData = editor(
-        doc(
-          table()(
-            tr(thEmpty, thEmpty, thEmpty),
-            tr(td()(p('{<>}text')), tdEmpty, tdEmpty),
-          ),
-        ),
-      );
-
-      const view = editorData.editorView;
-      const tableF = findTable(view.state.selection);
-      let triggerDispatcherEvent: { [key: string]: any } = {};
-      const getNode = () => view.state.doc.firstChild!;
-      const tablePos = 0;
-
-      const wrapper = mount(
-        <TableComponent
-          view={view}
-          eventDispatcher={
-            ({
-              on: (key: string, action: Function) => {
-                triggerDispatcherEvent[key] = action;
-              },
-              off: jest.fn(),
-            } as any) as EventDispatcher
-          }
-          // @ts-ignore
-          containerWidth={{}}
-          pluginState={{
-            pluginConfig: {
-              allowControls: false,
-            },
-          }}
-          getPos={() => tablePos}
-          getNode={getNode}
-          node={tableF!.node}
-          contentDOM={(wrapper: HTMLElement | null) => {
-            const node = view.dom.getElementsByTagName('table')[0];
-            if (!wrapper?.firstChild) {
-              wrapper?.appendChild(node);
-            }
-          }}
-          isMediaFullscreen={isMediaFullscreen}
-          allowColumnResizing={true}
-          getEditorFeatureFlags={getEditorFeatureFlags}
-        />,
-      );
-      return { wrapper, view };
-    }
-
-    it('when media is not fullscreen', () => {
-      const wrapper = setupTable(false).wrapper;
-      wrapper.setProps({});
-
-      expect(tablesHaveDifferentColumnWidths).toHaveBeenCalled();
-    });
-
-    it('when media is fullscreen', () => {
-      const wrapper = setupTable(true).wrapper;
-      wrapper.setProps({});
-
-      expect(tablesHaveDifferentColumnWidths).not.toHaveBeenCalled();
+      expect(!!controlsContainer).toBe(expected);
     });
   });
 });

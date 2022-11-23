@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.5.4
+
+### Patch Changes
+
+- [`a5fa14318a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5fa14318a8) - Improve examples and visual regression test coverage.
+
 ## 11.5.3
 
 ### Patch Changes

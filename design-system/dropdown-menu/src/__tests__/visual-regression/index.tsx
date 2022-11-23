@@ -8,14 +8,13 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl(
       'design-system',
       'dropdown-menu',
-      'default-dropdown-menu',
+      'testing',
       global.__BASEURL__,
     );
 
     const { page } = global;
 
     await loadPage(page, url);
-    await page.waitForSelector(dropdownContent);
 
     const dropdownImage = await page.screenshot();
     expect(dropdownImage).toMatchProdImageSnapshot();
@@ -56,8 +55,8 @@ describe('Snapshot Test', () => {
     await page.click(dropdownTrigger);
     await page.waitForSelector(dropdownContent);
 
-    const popupImage = await page.screenshot();
-    expect(popupImage).toMatchProdImageSnapshot();
+    const dropdownImage = await page.screenshot();
+    expect(dropdownImage).toMatchProdImageSnapshot();
   });
 
   it('it should re-position menu after change in loading state', async () => {

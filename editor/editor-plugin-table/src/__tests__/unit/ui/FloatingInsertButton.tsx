@@ -1,5 +1,4 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   table,
@@ -9,12 +8,12 @@ import {
   tr,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { render, screen } from '@testing-library/react';
 import {
   selectCell,
   selectColumns,
   selectRows,
 } from '@atlaskit/editor-test-helpers/table';
-import { mount, ReactWrapper } from 'enzyme';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
@@ -23,7 +22,6 @@ import {
   FloatingInsertButton,
   Props as FloatingInsertButtonProps,
 } from '../../../plugins/table/ui/FloatingInsertButton';
-import InsertButton from '../../../plugins/table/ui/FloatingInsertButton/InsertButton';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../../plugins/table-plugin';
 import * as prosemirrorUtils from 'prosemirror-utils';
@@ -34,33 +32,32 @@ import {
   EVENT_TYPE,
   CONTENT_COMPONENT,
 } from '@atlaskit/editor-common/analytics';
-import { createIntl, IntlShape } from 'react-intl-next';
+import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
+import { createIntl } from 'react-intl-next';
+import { setTableRef, setEditorFocus } from '../../../plugins/table/commands';
+import { IntlProvider } from 'react-intl-next';
 
 const getEditorContainerWidth = () => ({ width: 500 });
+const createEditor = createEditorFactory<TablePluginState>();
+const createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+
+const editor = (doc: DocBuilder) =>
+  createEditor({
+    doc,
+    editorProps: {
+      allowTables: false,
+      dangerouslyAppendPlugins: { __plugins: [tablePlugin()] },
+    },
+    pluginKey,
+  });
+
 describe('Floating Insert Button when findDomRefAtPos fails', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
-  let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      editorProps: {
-        allowTables: false,
-        dangerouslyAppendPlugins: { __plugins: [tablePlugin()] },
-      },
-      pluginKey,
-      createAnalyticsEvent,
-    });
-
-  let wrapper: ReactWrapper<FloatingInsertButtonProps>;
-  let editorView: EditorView;
+  let tableRef: HTMLTableElement | undefined;
+  let tableNode: prosemirrorUtils.ContentNodeWithPos | undefined;
+  let tableEditorView: EditorView;
 
   beforeEach(() => {
-    const mock = jest.spyOn(prosemirrorUtils, 'findDomRefAtPos');
-    mock.mockImplementation((pos, domAtPos) => {
-      throw new Error('Error message from mock');
-    });
-    ({ editorView } = editor(
+    const { editorView } = editor(
       doc(
         table()(
           tr(thEmpty, thEmpty, thEmpty),
@@ -68,38 +65,52 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
           tr(tdEmpty, tdEmpty, tdEmpty),
         ),
       ),
-    ));
+    );
 
-    const tableNode = findParentNodeOfTypeClosestToPos(
+    tableNode = findParentNodeOfTypeClosestToPos(
       editorView.state.selection.$from,
       editorView.state.schema.nodes.table,
     );
 
-    const intl = createIntl({ locale: 'en' });
+    const ref = editorView.dom.querySelector('table');
+    setEditorFocus(true)(editorView.state, editorView.dispatch);
+    setTableRef(ref!)(editorView.state, editorView.dispatch);
 
-    wrapper = mount(
-      <FloatingInsertButton
-        intl={intl}
-        tableRef={document.querySelector('table')!}
-        tableNode={tableNode && tableNode.node}
-        editorView={editorView}
-        dispatchAnalyticsEvent={createAnalyticsEvent}
-        getEditorContainerWidth={getEditorContainerWidth}
-      />,
-    );
+    tableRef = getPluginState(editorView.state).tableRef;
+    tableEditorView = editorView;
+
+    const mock = jest.spyOn(prosemirrorUtils, 'findDomRefAtPos');
+    mock.mockImplementation(() => {
+      throw new Error('Error message from mock');
+    });
   });
 
+  const intl = createIntl({ locale: 'en' });
+
+  const component = (props: FloatingInsertButtonProps) =>
+    render(
+      <IntlProvider locale="en">
+        <FloatingInsertButton
+          intl={intl}
+          tableRef={tableRef}
+          tableNode={tableNode && tableNode.node}
+          {...props}
+        />
+      </IntlProvider>,
+    );
+
   afterEach(() => {
-    wrapper.unmount();
     jest.restoreAllMocks();
   });
 
-  it('sends error analytics event after attempting to render for second column', () => {
-    // We need to set the props here, as by default insertColumnButtonIndex is undefined (in
-    // mountWithIntl()) and rendering halts when it's undefined
-    wrapper.setProps({
+  it('should send error analytics event', () => {
+    component({
       insertColumnButtonIndex: 1,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
+      dispatchAnalyticsEvent: createAnalyticsEvent,
     });
+
     expect(createAnalyticsEvent).toHaveBeenCalledTimes(1);
     expect(createAnalyticsEvent).toHaveBeenCalledWith({
       action: ACTION.ERRORED,
@@ -116,42 +127,40 @@ describe('Floating Insert Button when findDomRefAtPos fails', () => {
   });
 
   it('should not render insert button by default', () => {
-    expect(wrapper.find(InsertButton).length).toBe(0);
+    component({ editorView: tableEditorView, getEditorContainerWidth });
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 
   it("shouldn't render insert button for second column", () => {
-    wrapper.setProps({
+    component({
       insertColumnButtonIndex: 1,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
     });
-
-    expect(wrapper.find(InsertButton).length).toBe(0);
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 
   it("shouldn't render insert button for second row", () => {
-    wrapper.setProps({
+    component({
       insertRowButtonIndex: 1,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
     });
-
-    expect(wrapper.find(InsertButton).length).toBe(0);
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 });
+
 describe('Floating Insert Button', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createAnalyticsEvent = jest.fn(
+    () => ({ fire() {} } as UIAnalyticsEvent),
+  );
 
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      editorProps: { allowTables: true },
-      pluginKey,
-    });
-
-  let wrapper: ReactWrapper<FloatingInsertButtonProps>;
-  let editorView: EditorView;
-  let tableNode: ReturnType<typeof findParentNodeOfTypeClosestToPos>;
-  let intl: IntlShape;
+  let tableRef: HTMLTableElement | undefined;
+  let tableNode: prosemirrorUtils.ContentNodeWithPos | undefined;
+  let tableEditorView: EditorView;
 
   beforeEach(() => {
-    ({ editorView } = editor(
+    const { editorView } = editor(
       doc(
         table()(
           tr(thEmpty, thEmpty, thEmpty),
@@ -159,108 +168,131 @@ describe('Floating Insert Button', () => {
           tr(tdEmpty, tdEmpty, tdEmpty),
         ),
       ),
-    ));
+    );
 
     tableNode = findParentNodeOfTypeClosestToPos(
       editorView.state.selection.$from,
       editorView.state.schema.nodes.table,
     );
 
-    wrapper = (mountWithIntl(
-      <FloatingInsertButton
-        intl={intl}
-        tableRef={document.querySelector('table')!}
-        tableNode={tableNode && tableNode.node}
-        editorView={editorView}
-        getEditorContainerWidth={getEditorContainerWidth}
-      />,
-    ) as unknown) as ReactWrapper<FloatingInsertButtonProps>;
+    const ref = editorView.dom.querySelector('table');
+    setEditorFocus(true)(editorView.state, editorView.dispatch);
+    setTableRef(ref!)(editorView.state, editorView.dispatch);
+
+    tableRef = getPluginState(editorView.state).tableRef;
+    tableEditorView = editorView;
   });
 
-  afterEach(() => {
-    wrapper.unmount();
-  });
+  const intl = createIntl({ locale: 'en' });
 
-  it('should not render insert button by default', () => {
-    expect(wrapper.find(InsertButton).length).toBe(0);
+  const component = (props: FloatingInsertButtonProps) =>
+    render(
+      <IntlProvider locale="en">
+        <FloatingInsertButton
+          intl={intl}
+          tableRef={tableRef}
+          tableNode={tableNode && tableNode.node}
+          dispatchAnalyticsEvent={createAnalyticsEvent}
+          {...props}
+        />
+      </IntlProvider>,
+    );
+
+  it('should not render insert button with index', () => {
+    component({ editorView: tableEditorView, getEditorContainerWidth });
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 
   it('should render insert button for second column', () => {
-    wrapper.setProps({ insertColumnButtonIndex: 1 });
-    expect(wrapper.find(InsertButton).length).toBe(1);
+    component({
+      insertColumnButtonIndex: 1,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
+    });
+    expect(screen.getByLabelText('Popup')).toBeInTheDocument();
   });
 
   it('should render insert button for second row', () => {
-    wrapper.setProps({ insertRowButtonIndex: 1 });
-    expect(wrapper.find(InsertButton).length).toBe(1);
+    component({
+      insertRowButtonIndex: 1,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
+    });
+    expect(screen.getByLabelText('Popup')).toBeInTheDocument();
   });
 
   it('should not render insert button for first row when row header is enabled', () => {
-    wrapper.setProps({
+    component({
       insertRowButtonIndex: 0,
       isHeaderRowEnabled: true,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
     });
-
-    expect(wrapper.find(InsertButton).length).toBe(0);
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 
   it('should render insert button for first row when row header is disabled', () => {
-    wrapper.setProps({
+    component({
       insertRowButtonIndex: 0,
       isHeaderRowEnabled: false,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
     });
-
-    expect(wrapper.find(InsertButton).length).toBe(1);
+    expect(screen.getByLabelText('Popup')).toBeInTheDocument();
   });
 
-  it('should not render insert button for first col when column header is enabled', () => {
-    wrapper.setProps({
+  it('should no render insert button for first col when column header is enabled', () => {
+    component({
       insertColumnButtonIndex: 0,
       isHeaderColumnEnabled: true,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
     });
 
-    expect(wrapper.find(InsertButton).length).toBe(0);
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 
   it('should render insert button for first col when column header is disabled', () => {
-    wrapper.setProps({
+    component({
       insertColumnButtonIndex: 0,
       isHeaderColumnEnabled: false,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
     });
 
-    expect(wrapper.find(InsertButton).length).toBe(1);
+    expect(screen.getByLabelText('Popup')).toBeInTheDocument();
   });
 
   it('should render insert button when a single cell is selected', () => {
-    selectCell(1, 1)(editorView.state, editorView.dispatch);
-
-    wrapper.setProps({
+    selectCell(1, 1)(tableEditorView.state, tableEditorView.dispatch);
+    component({
       insertColumnButtonIndex: 0,
-      editorView,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
     });
-
-    expect(wrapper.find(InsertButton).length).toBe(1);
+    expect(screen.getByLabelText('Popup')).toBeInTheDocument();
   });
 
-  it('should not render insert button when a whole column is selected', () => {
-    selectColumns([1])(editorView.state, editorView.dispatch);
+  it('should no render insert button when a whole column is selected', () => {
+    selectColumns([1])(tableEditorView.state, tableEditorView.dispatch);
 
-    wrapper.setProps({
+    component({
       insertColumnButtonIndex: 0,
-      editorView,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
     });
-
-    expect(wrapper.find(InsertButton).length).toBe(0);
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 
-  it('should no render insert button when a whole row is selected', () => {
-    selectRows([1])(editorView.state, editorView.dispatch);
+  it('should not render insert button when a whole row is selected', () => {
+    selectRows([1])(tableEditorView.state, tableEditorView.dispatch);
 
-    wrapper.setProps({
+    component({
       insertRowButtonIndex: 0,
-      editorView,
+      editorView: tableEditorView,
+      getEditorContainerWidth,
     });
 
-    expect(wrapper.find(InsertButton).length).toBe(0);
+    expect(screen.queryByLabelText('Popup')).toBeFalsy();
   });
 });

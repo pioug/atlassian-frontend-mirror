@@ -26,11 +26,7 @@ import {
   hoverRows,
   hoverTable,
 } from '../../plugins/table/commands';
-import {
-  TableDecorations,
-  TableCssClassName as ClassName,
-  TablePluginState,
-} from '../../plugins/table/types';
+import { TableDecorations, TablePluginState } from '../../plugins/table/types';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { getDecorations } from '../../plugins/table/pm-plugins/decorations/plugin';
 import tablePlugin from '../../plugins/table-plugin';
@@ -130,51 +126,6 @@ describe('table hover selection plugin', () => {
             // selection spans 2 cells in the selected column (because we have 2 rows in the table)
             expect(decos).toHaveLength(2);
           });
-
-          it('should apply the hovered column class', () => {
-            hoverColumns([column])(editorView.state, editorView.dispatch);
-
-            const decos = getTableDecorations(
-              editorView,
-              getCellsInColumn(column)(editorView.state.selection)!,
-              TableDecorations.ALL_CONTROLS_HOVER,
-            );
-
-            decos.forEach((deco) => {
-              expect(deco).toEqual(
-                expect.objectContaining({
-                  type: expect.objectContaining({
-                    attrs: expect.objectContaining({
-                      class: expect.stringContaining(ClassName.HOVERED_COLUMN),
-                    }),
-                  }),
-                }),
-              );
-            });
-          });
-
-          it('can apply the danger class to the decoration', () => {
-            hoverColumns([column], true)(editorView.state, editorView.dispatch);
-
-            const decos = getTableDecorations(
-              editorView,
-              getCellsInColumn(column)(editorView.state.selection)!,
-              TableDecorations.ALL_CONTROLS_HOVER,
-            );
-
-            expect(decos).toHaveLength(2);
-            const expected = [
-              ClassName.HOVERED_CELL_IN_DANGER,
-              ClassName.HOVERED_COLUMN,
-            ];
-
-            decos.forEach((deco) => {
-              // @ts-ignore
-              expect(deco.type.attrs.class.split(' ')).toEqual(
-                expect.arrayContaining(expected),
-              );
-            });
-          });
         },
       );
     });
@@ -223,22 +174,6 @@ describe('table hover selection plugin', () => {
               TableDecorations.ALL_CONTROLS_HOVER,
             ),
           ).toHaveLength(2);
-        });
-
-        it('can apply the danger class to the decoration', () => {
-          hoverRows([row], true)(editorView.state, editorView.dispatch);
-          const cells = getCellsInRow(row)(editorView.state.selection)!;
-          const decos = getTableDecorations(
-            editorView,
-            cells,
-            TableDecorations.ALL_CONTROLS_HOVER,
-          );
-
-          expect(decos).toHaveLength(2);
-          decos.forEach((deco) => {
-            // @ts-ignore
-            expect(deco.type.attrs.class.split(' ')).toContain('danger');
-          });
         });
       });
     });

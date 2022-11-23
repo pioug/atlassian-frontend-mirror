@@ -17,31 +17,29 @@ const DropdownMenuCheckboxStateless = () => {
   };
 
   return (
-    <div style={{ margin: '20px' }}>
-      <DropdownMenu trigger="Choices" testId="lite-mode-ddm">
-        <DropdownItemCheckboxGroup id="cities" title="Some cities">
-          <DropdownItemCheckbox
-            id="sydney"
-            isSelected={selected.includes('sydney')}
-            onClick={() => {
-              selectOption('sydney');
-            }}
-          >
-            Sydney
-          </DropdownItemCheckbox>
+    <DropdownMenu trigger="Choices" testId="lite-mode-ddm">
+      <DropdownItemCheckboxGroup id="cities" title="Some cities">
+        <DropdownItemCheckbox
+          id="sydney"
+          isSelected={selected.includes('sydney')}
+          onClick={() => {
+            selectOption('sydney');
+          }}
+        >
+          Sydney
+        </DropdownItemCheckbox>
 
-          <DropdownItemCheckbox
-            id="melbourne"
-            isSelected={selected.includes('melbourne')}
-            onClick={() => {
-              selectOption('melbourne');
-            }}
-          >
-            Melbourne
-          </DropdownItemCheckbox>
-        </DropdownItemCheckboxGroup>
-      </DropdownMenu>
-    </div>
+        <DropdownItemCheckbox
+          id="melbourne"
+          isSelected={selected.includes('melbourne')}
+          onClick={() => {
+            selectOption('melbourne');
+          }}
+        >
+          Melbourne
+        </DropdownItemCheckbox>
+      </DropdownItemCheckboxGroup>
+    </DropdownMenu>
   );
 };
 

@@ -82,6 +82,7 @@ export const InlineCard: FC<InlineCardProps> = ({
       return (
         <InlineCardUnauthorizedView
           icon={provider && provider.icon}
+          context={provider && provider.text}
           url={url}
           isSelected={isSelected}
           onClick={handleFrameClick}

@@ -1,5 +1,6 @@
+import { render, screen, fireEvent } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   p,
@@ -17,35 +18,16 @@ import React from 'react';
 import type { EditorProps } from '@atlaskit/editor-core';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
 import { hoverRows } from '../../../plugins/table/commands';
-import {
-  TableCssClassName as ClassName,
-  TablePluginState,
-} from '../../../plugins/table/types';
+import { TablePluginState } from '../../../plugins/table/types';
 import TableFloatingControls from '../../../plugins/table/ui/TableFloatingControls';
 import { RowControls } from '../../../plugins/table/ui/TableFloatingControls/RowControls';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { ReactWrapper } from 'enzyme';
 import tablePlugin from '../../../plugins/table-plugin';
-
-const ControlsButton = `.${ClassName.CONTROLS_BUTTON}`;
-const RowControlsButtonWrap = `.${ClassName.ROW_CONTROLS_BUTTON_WRAP}`;
 
 describe('RowControls', () => {
   const createEditor = createEditorFactory<TablePluginState>();
   const fakeGetEditorFeatureFlags = jest.fn(() => ({}));
-  let floatingControls: ReactWrapper;
   let originalResizeObserver: any;
-
-  let triggerElementResize = (element: HTMLElement, height: number) => {
-    const entries = [
-      {
-        target: element,
-        contentRect: { height },
-      },
-    ];
-    resizeCallback(entries);
-  };
-  let resizeCallback: (entries: any[]) => {};
 
   beforeAll(() => {
     originalResizeObserver = (window as any).ResizeObserver;
@@ -54,7 +36,6 @@ describe('RowControls', () => {
     ) {
       this.disconnect = jest.fn();
       this.observe = jest.fn();
-      resizeCallback = callback;
     };
   });
 
@@ -63,9 +44,6 @@ describe('RowControls', () => {
   });
 
   afterEach(() => {
-    if (floatingControls && floatingControls.length) {
-      floatingControls.unmount();
-    }
     jest.clearAllMocks();
   });
 
@@ -92,52 +70,42 @@ describe('RowControls', () => {
           rows.push(tr(tdEmpty));
         }
         const { editorView } = editor(doc(p('text'), table()(...rows)));
-        floatingControls = mountWithIntl(
-          <TableFloatingControls
-            tableRef={document.querySelector('table')!}
-            tableActive={true}
-            editorView={editorView}
-            getEditorFeatureFlags={fakeGetEditorFeatureFlags}
-          />,
+        const ref = editorView.dom.querySelector('table') || undefined;
+
+        render(
+          <IntlProvider locale="en">
+            <TableFloatingControls
+              tableRef={ref}
+              tableActive
+              editorView={editorView}
+              getEditorFeatureFlags={fakeGetEditorFeatureFlags}
+            />
+          </IntlProvider>,
         );
-        expect(floatingControls.find(RowControlsButtonWrap)).toHaveLength(row);
+
+        const rowControlButtons = screen.getAllByLabelText('Highlight row');
+
+        expect(rowControlButtons).toHaveLength(row);
       });
     });
   });
 
   it('does not render rowControls if table is not active', () => {
     const { editorView } = editor(doc(p('text'), table()(tr(tdCursor))));
-    floatingControls = mountWithIntl(
-      <TableFloatingControls
-        tableRef={document.querySelector('table')!}
-        tableActive={false}
-        editorView={editorView}
-        getEditorFeatureFlags={fakeGetEditorFeatureFlags}
-      />,
-    );
-    expect(floatingControls.find(RowControlsButtonWrap)).toHaveLength(0);
-  });
+    const ref = editorView.dom.querySelector('table') || undefined;
 
-  describe('with tableRenderOptimization enabled', () => {
-    it('updates rowControls if table height changes', () => {
-      const { editorView } = editor(doc(table()(tr(tdCursor))), {
-        featureFlags: { tableRenderOptimization: true },
-      });
-      floatingControls = mountWithIntl(
+    render(
+      <IntlProvider locale="en">
         <TableFloatingControls
-          tableRef={document.querySelector('table')!}
-          tableActive={true}
+          tableRef={ref}
+          tableActive={false}
           editorView={editorView}
           getEditorFeatureFlags={fakeGetEditorFeatureFlags}
-        />,
-      );
-      const tableElement = editorView.domAtPos(1).node as HTMLElement;
-      triggerElementResize(tableElement, 10);
-      expect(floatingControls.state('tableHeight')).toBe(10);
-      tableElement.style.height = '100px';
-      triggerElementResize(tableElement, 100);
-      expect(floatingControls.state('tableHeight')).toBe(100);
-    });
+        />
+      </IntlProvider>,
+    );
+
+    expect(screen.queryByLabelText('Highlight row')).toBeFalsy();
   });
 
   [0, 1, 2].forEach((row) => {
@@ -153,13 +121,17 @@ describe('RowControls', () => {
           ),
         );
 
-        floatingControls = mountWithIntl(
-          <TableFloatingControls
-            tableRef={document.querySelector('table')!}
-            tableActive={true}
-            editorView={editorView}
-            getEditorFeatureFlags={fakeGetEditorFeatureFlags}
-          />,
+        const ref = editorView.dom.querySelector('table') || undefined;
+
+        render(
+          <IntlProvider locale="en">
+            <TableFloatingControls
+              tableRef={ref}
+              tableActive
+              editorView={editorView}
+              getEditorFeatureFlags={fakeGetEditorFeatureFlags}
+            />
+          </IntlProvider>,
         );
 
         // move to header row
@@ -167,24 +139,16 @@ describe('RowControls', () => {
         setTextSelection(editorView, nextPos);
 
         // now hover the row
-        floatingControls
-          .find(RowControlsButtonWrap)
-          .at(row)
-          .find('button')
-          .first()
-          .simulate('mouseover');
+        const rowControls = screen.getAllByLabelText('Highlight row');
+
+        fireEvent.mouseOver(rowControls[row]);
 
         // assert the cursor is still in same position
         expect(editorView.state.selection.$from.pos).toBe(nextPos);
         expect(editorView.state.selection.$to.pos).toBe(nextPos);
 
         // release the hover
-        floatingControls
-          .find(RowControlsButtonWrap)
-          .at(row)
-          .find('button')
-          .first()
-          .simulate('mouseout');
+        fireEvent.mouseOut(rowControls[row]);
 
         // assert the cursor is still in same position
         expect(editorView.state.selection.$from.pos).toBe(nextPos);
@@ -204,31 +168,37 @@ describe('RowControls', () => {
       ),
     );
 
-    floatingControls = mountWithIntl(
-      <RowControls
-        tableRef={document.querySelector('table')!}
-        editorView={editorView}
-        hoverRows={(rows, danger) => {
-          hoverRows(rows, danger)(editorView.state, editorView.dispatch);
-        }}
-        hoveredRows={[0, 1]}
-        isInDanger={true}
-        selectRow={(row) => {
-          editorView.dispatch(selectRow(row)(editorView.state.tr));
-        }}
-      />,
+    const ref = editorView.dom.querySelector('table') || undefined;
+
+    render(
+      <IntlProvider locale="en">
+        <RowControls
+          tableRef={ref!}
+          editorView={editorView}
+          hoverRows={(rows, danger) => {
+            hoverRows(rows, danger)(editorView.state, editorView.dispatch);
+          }}
+          hoveredRows={[0, 1]}
+          isInDanger={true}
+          selectRow={(row) => {
+            editorView.dispatch(selectRow(row)(editorView.state.tr));
+          }}
+        />
+      </IntlProvider>,
     );
 
-    floatingControls
-      .find(RowControlsButtonWrap)
+    const rowControls = screen.getAllByLabelText('Highlight row');
+    rowControls
       .slice(0, 2)
-      .forEach((buttonWrap) => {
-        expect(buttonWrap.hasClass('danger')).toBe(true);
-      });
+      .forEach((control) =>
+        expect(
+          control?.parentElement?.classList?.contains('danger'),
+        ).toBeTruthy(),
+      );
   });
 
   describe('row shift selection', () => {
-    it('should shift select rows after the currently selected row', () => {
+    it('should be able to shift + click to select rows after the currently selected row', () => {
       const { editorView } = editor(
         doc(
           table()(
@@ -241,29 +211,32 @@ describe('RowControls', () => {
       );
 
       selectRows([0])(editorView.state, editorView.dispatch);
-      floatingControls = mountWithIntl(
-        <RowControls
-          tableRef={document.querySelector('table')!}
-          editorView={editorView}
-          hoverRows={(rows, danger) => {
-            hoverRows(rows, danger)(editorView.state, editorView.dispatch);
-          }}
-          selectRow={(row, expand) => {
-            editorView.dispatch(selectRow(row, expand)(editorView.state.tr));
-          }}
-        />,
+
+      const ref = editorView.dom.querySelector('table');
+
+      render(
+        <IntlProvider locale="en">
+          <RowControls
+            tableRef={ref!}
+            editorView={editorView}
+            hoverRows={(rows, danger) => {
+              hoverRows(rows, danger)(editorView.state, editorView.dispatch);
+            }}
+            selectRow={(row, expand) => {
+              editorView.dispatch(selectRow(row, expand)(editorView.state.tr));
+            }}
+          />
+        </IntlProvider>,
       );
 
-      floatingControls
-        .find(ControlsButton)
-        .at(2)
-        .simulate('click', { shiftKey: true });
+      const rowControls = screen.getAllByLabelText('Highlight row');
+      fireEvent.click(rowControls[2], { shiftKey: true });
 
       const rect = getSelectionRect(editorView.state.selection);
       expect(rect).toEqual({ left: 0, top: 0, right: 3, bottom: 3 });
     });
 
-    it('should shift select row before the currently selected row', () => {
+    it('should be able to shift + click to select rows before the currently selected row', () => {
       const { editorView } = editor(
         doc(
           table()(
@@ -276,23 +249,26 @@ describe('RowControls', () => {
       );
 
       selectRows([2])(editorView.state, editorView.dispatch);
-      floatingControls = mountWithIntl(
-        <RowControls
-          tableRef={document.querySelector('table')!}
-          editorView={editorView}
-          hoverRows={(rows, danger) => {
-            hoverRows(rows, danger)(editorView.state, editorView.dispatch);
-          }}
-          selectRow={(row, expand) => {
-            editorView.dispatch(selectRow(row, expand)(editorView.state.tr));
-          }}
-        />,
+
+      const ref = editorView.dom.querySelector('table') || undefined;
+
+      render(
+        <IntlProvider locale="en">
+          <RowControls
+            tableRef={ref!}
+            editorView={editorView}
+            hoverRows={(rows, danger) => {
+              hoverRows(rows, danger)(editorView.state, editorView.dispatch);
+            }}
+            selectRow={(row, expand) => {
+              editorView.dispatch(selectRow(row, expand)(editorView.state.tr));
+            }}
+          />
+        </IntlProvider>,
       );
 
-      floatingControls
-        .find(ControlsButton)
-        .first()
-        .simulate('click', { shiftKey: true });
+      const rowControls = screen.getAllByLabelText('Highlight row');
+      fireEvent.click(rowControls[0], { shiftKey: true });
 
       const rect = getSelectionRect(editorView.state.selection);
       expect(rect).toEqual({ left: 0, top: 0, right: 3, bottom: 3 });

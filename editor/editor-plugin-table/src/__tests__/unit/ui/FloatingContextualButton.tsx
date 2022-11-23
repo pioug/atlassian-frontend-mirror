@@ -1,9 +1,10 @@
-import { ReactWrapper } from 'enzyme';
-import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
+import * as prosemirrorUtils from 'prosemirror-utils';
+import type { ContentNodeWithPos } from 'prosemirror-utils';
+import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   table,
@@ -17,26 +18,25 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { TablePluginState } from '../../../plugins/table/types';
 import FloatingContextualButton, {
   Props as FloatingContextualButtonProps,
-  FloatingContextualButtonInner,
 } from '../../../plugins/table/ui/FloatingContextualButton';
 import tablePlugin from '../../../plugins/table-plugin';
 
-describe('Floating Contextual Button', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
-  let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      editorProps: {
-        allowTables: false,
-        dangerouslyAppendPlugins: { __plugins: [tablePlugin()] },
-      },
-      createAnalyticsEvent,
-    });
+const createEditor = createEditorFactory<TablePluginState>();
+let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+const editor = (doc: DocBuilder) =>
+  createEditor({
+    doc,
+    editorProps: {
+      allowTables: false,
+      dangerouslyAppendPlugins: { __plugins: [tablePlugin()] },
+    },
+    createAnalyticsEvent,
+  });
 
-  let wrapper: ReactWrapper<FloatingContextualButtonProps>;
+describe('Floating Contextual Button', () => {
   let editorView: EditorView;
   let refs: { [name: string]: number };
+  let tableNode: ContentNodeWithPos | undefined;
 
   beforeEach(() => {
     ({ editorView, refs } = editor(
@@ -49,47 +49,44 @@ describe('Floating Contextual Button', () => {
       ),
     ));
 
-    const tableNode = findParentNodeOfTypeClosestToPos(
+    tableNode = prosemirrorUtils.findParentNodeOfTypeClosestToPos(
       editorView.state.selection.$from,
       editorView.state.schema.nodes.table,
     );
-
-    wrapper = mountWithIntl(
-      <FloatingContextualButton
-        editorView={editorView}
-        tableNode={tableNode && tableNode.node}
-        targetCellPosition={refs.firstCell}
-        dispatchAnalyticsEvent={createAnalyticsEvent}
-      />,
-    );
   });
 
+  const component = (props: FloatingContextualButtonProps) =>
+    render(
+      <IntlProvider locale="en">
+        <FloatingContextualButton
+          tableNode={tableNode && tableNode.node}
+          dispatchAnalyticsEvent={createAnalyticsEvent}
+          {...props}
+        />
+      </IntlProvider>,
+    );
+
   describe('when an error is thrown in the component', () => {
-    it('handles it gracefully', () => {
-      const buttonWrapper = wrapper.find(FloatingContextualButtonInner);
-      expect(() =>
-        buttonWrapper.simulateError(new Error('Oh no!')),
-      ).not.toThrow();
+    it('renders', () => {
+      component({
+        editorView,
+        targetCellPosition: refs.firstCell,
+      });
+
+      expect(screen.getByLabelText('Cell options')).toBeInTheDocument();
     });
 
     it('dispatches an analytics event', () => {
-      wrapper
-        .find(FloatingContextualButtonInner)
-        .simulateError(new Error('Oh no!'));
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'unhandledErrorCaught',
-        actionSubject: 'floatingContextualButton',
-        eventType: 'operational',
-        attributes: {
-          error: new Error('Oh no!'),
-          errorInfo: expect.objectContaining({
-            componentStack: expect.stringContaining(
-              'in FloatingContextualButton',
-            ),
-          }),
-          errorRethrown: false,
-        },
+      const mock = jest.spyOn(prosemirrorUtils, 'findDomRefAtPos');
+      mock.mockImplementation(() => {
+        throw new Error('Error message from mock');
       });
+      component({
+        editorView,
+        targetCellPosition: refs.firstCell,
+      });
+
+      expect(createAnalyticsEvent).toHaveBeenCalled();
     });
   });
 });

@@ -6,6 +6,7 @@ import {
   extractUrlFromLinkJsonLd,
 } from '@atlaskit/linking-common';
 const stringify = (obj: object) => JSON.stringify(obj, null, 2);
+import uuid from 'uuid';
 
 const initialJson = getDefaultResponse();
 const initialText = stringify(initialJson);
@@ -52,19 +53,14 @@ const JsonldEditor: React.FC<{
     (response: JsonLd.Response) => {
       setJson(response);
 
-      // Force change url to trigger provider to fetch json data.
-      // Performance isn't great but at least we are able to use CardWithUrl
-      // and able to show hover preview on inline card (without code change).
-      // We can remove this workaround if Provider can avoid action with empty
-      // `status` or inline and block card can render cardState without status
-      // and not throwing error, e.g. render fallback view.
-      setUrl(temporaryUrl);
-
       // Set new url from json response or fixed url. Url cannot be empty.
       const data = response?.data as JsonLd.Data.BaseData;
       const responseUrl =
         extractUrlFromLinkJsonLd(data?.url || temporaryUrl) || temporaryUrl;
-      setUrl(responseUrl);
+
+      // Adding an additional uuid param is a workaround for JSON Editor Input changes
+      // in order to set an unique url after each change and update a Smart Card example
+      setUrl(`${responseUrl}?uuid=${uuid()}`);
 
       // Keep track of last successful json
       prevJson.current = response;

@@ -59,9 +59,7 @@ export const getStyles = memoizeOne(
                 ? token('color.border.focused', css[':hover'].borderColor)
                 : token('color.border.focused', B100)
               : state.selectProps.subtle
-              ? state.selectProps.hoveringClearIndicator
-                ? token('color.icon.danger', R50)
-                : token('color.icon', N30)
+              ? 'transparent'
               : token('color.border.input', N40),
             backgroundColor:
               state.selectProps.subtle &&

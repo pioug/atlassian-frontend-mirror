@@ -1,5 +1,9 @@
 import { Rect } from '@atlaskit/editor-tables/table-map';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -14,7 +18,7 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { B50 } from '@atlaskit/theme/colors';
 
-import { TablePluginState, PluginConfig } from '../../plugins/table/types';
+import { PluginConfig } from '../../plugins/table/types';
 import {
   deleteTableWithAnalytics,
   emptyMultipleCellsWithAnalytics,
@@ -37,11 +41,15 @@ import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { replaceSelectedTable } from '../../plugins/table/transforms';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import tablePlugin from '../../plugins/table-plugin';
+import typeAheadPlugin from '@atlaskit/editor-core/src/plugins/type-ahead';
+import quickInsertPlugin from '@atlaskit/editor-core/src/plugins/quick-insert';
 
-const defaultTable = table()(
-  tr(thEmpty, thEmpty, thEmpty),
-  tr(tdEmpty, tdEmpty, tdEmpty),
-  tr(tdEmpty, tdEmpty, tdCursor),
+const defaultTableDoc = doc(
+  table()(
+    tr(thEmpty, thEmpty, thEmpty),
+    tr(tdEmpty, tdEmpty, tdEmpty),
+    tr(tdEmpty, tdEmpty, tdCursor),
+  ),
 );
 
 const secondRow: Rect = { left: 0, top: 1, bottom: 2, right: 3 };
@@ -57,7 +65,7 @@ describe('Table analytic events', () => {
     };
   });
 
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder) => {
     const tableOptions = {
@@ -69,20 +77,13 @@ describe('Table analytic events', () => {
 
     const _editor = createEditor({
       doc,
-      editorProps: {
-        allowTables: false,
-        allowAnalyticsGASV3: true,
-        appearance: 'full-page',
-        quickInsert: true,
-        dangerouslyAppendPlugins: {
-          __plugins: [
-            tablePlugin({
-              tableOptions,
-              editorAnalyticsAPI: editorAnalyticsAPIFake,
-            }),
-          ],
-        },
-      },
+      preset: new Preset<LightEditorPlugin>()
+        .add(typeAheadPlugin)
+        .add(quickInsertPlugin)
+        .add([
+          tablePlugin,
+          { tableOptions, editorAnalyticsAPI: editorAnalyticsAPIFake },
+        ]),
       pluginKey,
     });
 
@@ -108,7 +109,7 @@ describe('Table analytic events', () => {
 
   describe('table deleted', () => {
     beforeEach(() => {
-      const { editorView } = editor(doc(defaultTable));
+      const { editorView } = editor(defaultTableDoc);
       deleteTableWithAnalytics(editorAnalyticsAPIFake)(
         editorView.state,
         editorView.dispatch,
@@ -334,7 +335,7 @@ describe('Table analytic events', () => {
 
   describe('header row toggled', () => {
     beforeEach(() => {
-      const { editorView } = editor(defaultTable);
+      const { editorView } = editor(defaultTableDoc);
       toggleHeaderRowWithAnalytics(editorAnalyticsAPIFake)(
         editorView.state,
         editorView.dispatch,
@@ -358,7 +359,7 @@ describe('Table analytic events', () => {
 
   describe('header column toggled', () => {
     beforeEach(() => {
-      const { editorView } = editor(defaultTable);
+      const { editorView } = editor(defaultTableDoc);
       toggleHeaderColumnWithAnalytics(editorAnalyticsAPIFake)(
         editorView.state,
         editorView.dispatch,
@@ -382,7 +383,7 @@ describe('Table analytic events', () => {
 
   describe('number column toggled', () => {
     beforeEach(() => {
-      const { editorView } = editor(defaultTable);
+      const { editorView } = editor(defaultTableDoc);
       toggleNumberColumnWithAnalytics(editorAnalyticsAPIFake)(
         editorView.state,
         editorView.dispatch,
@@ -407,7 +408,7 @@ describe('Table analytic events', () => {
   describe('layout changed', () => {
     describe('normal', () => {
       it('should fire v3 analytics', () => {
-        const { editorView } = editor(defaultTable);
+        const { editorView } = editor(defaultTableDoc);
         toggleTableLayoutWithAnalytics(editorAnalyticsAPIFake)(
           editorView.state,
           editorView.dispatch,
@@ -536,7 +537,7 @@ describe('Table analytic events', () => {
   describe('row added', () => {
     describe('context menu', () => {
       beforeEach(() => {
-        const { editorView } = editor(defaultTable);
+        const { editorView } = editor(defaultTableDoc);
         insertRowWithAnalytics(editorAnalyticsAPIFake)(
           INPUT_METHOD.CONTEXT_MENU,
           {
@@ -565,7 +566,7 @@ describe('Table analytic events', () => {
     describe('keyboard', () => {
       describe('Tab', () => {
         beforeEach(() => {
-          const { editorView } = editor(defaultTable);
+          const { editorView } = editor(defaultTableDoc);
           sendKeyToPm(editorView, 'Tab');
         });
 
@@ -622,7 +623,7 @@ describe('Table analytic events', () => {
       return { width: 500 };
     };
     beforeEach(() => {
-      const { editorView } = editor(defaultTable);
+      const { editorView } = editor(defaultTableDoc);
       insertColumnWithAnalytics(
         getEditorContainerWidth,
         editorAnalyticsAPIFake,
@@ -651,7 +652,7 @@ describe('Table analytic events', () => {
 
   describe('row deleted', () => {
     beforeEach(() => {
-      const { editorView } = editor(defaultTable);
+      const { editorView } = editor(defaultTableDoc);
       deleteRowsWithAnalytics(editorAnalyticsAPIFake)(
         INPUT_METHOD.CONTEXT_MENU,
         secondRow,
@@ -678,7 +679,7 @@ describe('Table analytic events', () => {
 
   describe('column deleted', () => {
     beforeEach(() => {
-      const { editorView } = editor(defaultTable);
+      const { editorView } = editor(defaultTableDoc);
       deleteColumnsWithAnalytics(editorAnalyticsAPIFake)(
         INPUT_METHOD.CONTEXT_MENU,
         secondColumn,

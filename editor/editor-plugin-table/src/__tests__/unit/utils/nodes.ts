@@ -1,5 +1,9 @@
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -11,17 +15,17 @@ import {
   thEmpty,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../../plugins/table/types';
 import { containsHeaderColumn } from '../../../plugins/table/utils/nodes';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import tablePlugin from '../../../plugins/table-plugin';
 
 describe('table merging logic', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
-      editorProps: { allowTables: true },
+      preset: new Preset<LightEditorPlugin>().add(tablePlugin),
       pluginKey,
     });
 

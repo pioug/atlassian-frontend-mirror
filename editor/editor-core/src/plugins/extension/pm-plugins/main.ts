@@ -271,6 +271,7 @@ const createPlugin = (
     key: pluginKey,
     props: {
       nodeViews: {
+        // WARNING: referentiality-plugin also creates these nodeviews
         extension: ExtensionNodeView(
           portalProviderAPI,
           eventDispatcher,
@@ -278,6 +279,7 @@ const createPlugin = (
           extensionHandlers,
           extensionNodeViewOptions,
         ),
+        // WARNING: referentiality-plugin also creates these nodeviews
         bodiedExtension: ExtensionNodeView(
           portalProviderAPI,
           eventDispatcher,
@@ -285,6 +287,7 @@ const createPlugin = (
           extensionHandlers,
           extensionNodeViewOptions,
         ),
+        // WARNING: referentiality-plugin also creates these nodeviews
         inlineExtension: ExtensionNodeView(
           portalProviderAPI,
           eventDispatcher,

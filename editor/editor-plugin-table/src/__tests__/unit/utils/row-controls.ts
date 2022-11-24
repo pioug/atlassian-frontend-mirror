@@ -2,7 +2,11 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { uuid } from '@atlaskit/adf-schema';
 
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -12,9 +16,9 @@ import {
   td,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../../plugins/table/types';
 import { copyPreviousRow } from '../../../plugins/table/utils/row-controls';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import tablePlugin from '../../../plugins/table-plugin';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -27,11 +31,11 @@ describe('table plugin: utils/row-controls.js', () => {
     uuid.setStatic(false);
   });
 
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
-      editorProps: { allowTables: true },
+      preset: new Preset<LightEditorPlugin>().add(tablePlugin),
       pluginKey,
     });
 

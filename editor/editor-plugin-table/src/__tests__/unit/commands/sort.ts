@@ -1,4 +1,8 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -12,11 +16,14 @@ import {
   status,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { EditorView } from 'prosemirror-view';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { sortByColumn } from '../../../plugins/table/commands/sort';
 import { uuid } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import tablePlugin from '../../../plugins/table-plugin';
+import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
+import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
+import hyperlinkPlugin from '@atlaskit/editor-core/src/plugins/hyperlink';
+import datePlugin from '@atlaskit/editor-core/src/plugins/date';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -29,14 +36,13 @@ describe('Sort Table', () => {
     uuid.setStatic(false);
   });
 
-  const createEditor = createEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
   it('should test a basic table with heading', () => {
     const { editorView } = createEditor({
-      editorProps: {
-        dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin({ tableOptions: { allowHeaderRow: true } })],
-        },
-      },
+      preset: new Preset<LightEditorPlugin>().add([
+        tablePlugin,
+        { tableOptions: { allowHeaderRow: true } },
+      ]),
       doc: doc(
         table()(
           tr(th({})(p('Number{<>}'))),
@@ -62,11 +68,10 @@ describe('Sort Table', () => {
 
   it('should test a basic table descending', () => {
     const { editorView } = createEditor({
-      editorProps: {
-        dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin({ tableOptions: { allowHeaderRow: true } })],
-        },
-      },
+      preset: new Preset<LightEditorPlugin>().add([
+        tablePlugin,
+        { tableOptions: { allowHeaderRow: true } },
+      ]),
       doc: doc(
         table()(tr(td({})(p('2{<>}'))), tr(td({})(p('5'))), tr(td({})(p('4')))),
       ),
@@ -86,11 +91,10 @@ describe('Sort Table', () => {
 
   it('should test a basic table ascending', () => {
     const { editorView } = createEditor({
-      editorProps: {
-        dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin({ tableOptions: { allowHeaderRow: true } })],
-        },
-      },
+      preset: new Preset<LightEditorPlugin>().add([
+        tablePlugin,
+        { tableOptions: { allowHeaderRow: true } },
+      ]),
       doc: doc(
         table()(tr(td({})(p('2{<>}'))), tr(td({})(p('5'))), tr(td({})(p('4')))),
       ),
@@ -113,16 +117,12 @@ describe('Sort Table', () => {
 
     beforeEach(() => {
       ({ editorView } = createEditor({
-        editorProps: {
-          allowStatus: true,
-          allowDate: true,
-          dangerouslyAppendPlugins: {
-            __plugins: [
-              tablePlugin({ tableOptions: { allowHeaderRow: true } }),
-            ],
-          },
-          mentionProvider: Promise.resolve(mentionResourceProvider),
-        },
+        preset: new Preset<LightEditorPlugin>()
+          .add([tablePlugin, { tableOptions: { allowHeaderRow: true } }])
+          .add([statusPlugin, { menuDisabled: false }])
+          .add(mentionsPlugin)
+          .add(hyperlinkPlugin)
+          .add(datePlugin),
         doc: doc(
           table()(
             tr(th({})(p('Mixed{<>}'))),

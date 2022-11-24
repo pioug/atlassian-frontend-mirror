@@ -2,12 +2,12 @@ import {
   getToolbarMenuConfig,
   getToolbarCellOptionsConfig,
 } from '../../plugins/table/toolbar';
+import { ToolbarMenuConfig, ToolbarMenuState } from '../../plugins/table/types';
 import {
-  TablePluginState,
-  ToolbarMenuConfig,
-  ToolbarMenuState,
-} from '../../plugins/table/types';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -23,6 +23,7 @@ import type {
 import { splitCell } from '@atlaskit/editor-tables/utils';
 import { canMergeCells } from '../../plugins/table/transforms';
 import { Rect } from '@atlaskit/editor-tables/table-map';
+import tablePlugin from '../../plugins/table';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 
 jest.mock('@atlaskit/editor-tables/utils');
@@ -136,14 +137,12 @@ describe('getToolbarMenuConfig', () => {
 });
 
 describe('getToolbarCellOptionsConfig', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
   const {
     editorView: { state },
   } = createEditor({
     doc: doc(table()(row(td()(p('1{cursor}'))))),
-    editorProps: {
-      allowTables: {},
-    },
+    preset: new Preset<LightEditorPlugin>().add(tablePlugin),
     pluginKey,
   });
   const getEditorContainerWidth = () => ({ width: 500 });

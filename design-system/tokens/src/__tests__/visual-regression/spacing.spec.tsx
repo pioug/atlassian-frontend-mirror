@@ -14,8 +14,6 @@ describe('Spacing tokens', () => {
         'tokens',
         'spacing-vr',
         global.__BASEURL__,
-        // @ts-expect-error
-        // because we're not applying this to VRs in general right we get a type error for 'spacing'
         mode,
       );
 

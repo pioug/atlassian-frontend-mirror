@@ -4,7 +4,11 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   table,
@@ -15,22 +19,17 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { TablePluginState } from '../../../plugins/table/types';
 import FloatingContextualButton, {
   Props as FloatingContextualButtonProps,
 } from '../../../plugins/table/ui/FloatingContextualButton';
 import tablePlugin from '../../../plugins/table-plugin';
 
-const createEditor = createEditorFactory<TablePluginState>();
+const createEditor = createProsemirrorEditorFactory();
 let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
 const editor = (doc: DocBuilder) =>
   createEditor({
     doc,
-    editorProps: {
-      allowTables: false,
-      dangerouslyAppendPlugins: { __plugins: [tablePlugin()] },
-    },
-    createAnalyticsEvent,
+    preset: new Preset<LightEditorPlugin>().add(tablePlugin),
   });
 
 describe('Floating Contextual Button', () => {

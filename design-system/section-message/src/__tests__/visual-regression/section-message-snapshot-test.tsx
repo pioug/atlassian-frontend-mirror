@@ -17,12 +17,32 @@ describe('Snapshot Test', () => {
     jest.resetAllMocks();
   });
 
+  it.each(['light', 'dark', 'none', 'spacing'] as const)(
+    'section-message with tokens (%s) should match production example',
+    async (theme) => {
+      const url = getExampleUrl(
+        'design-system',
+        'section-message',
+        'appearance-variations',
+        global.__BASEURL__,
+        theme,
+      );
+      const { page } = global;
+      const selector = '[data-testid="appearance-example"]';
+
+      await loadPage(page, url);
+      await page.waitForSelector(selector);
+
+      const image = await takeElementScreenShot(page, selector);
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
+
   it('Basic should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'section-message',
       'basic-example',
-
       global.__BASEURL__,
     );
     const { page } = global;
@@ -40,7 +60,6 @@ describe('Snapshot Test', () => {
       'design-system',
       'section-message',
       'appearance-variations',
-
       global.__BASEURL__,
     );
     const { page } = global;
@@ -58,7 +77,6 @@ describe('Snapshot Test', () => {
       'design-system',
       'section-message',
       'theme',
-
       global.__BASEURL__,
     );
     const { page } = global;
@@ -118,7 +136,6 @@ describe('Snapshot Test', () => {
       'design-system',
       'section-message',
       'testing',
-
       global.__BASEURL__,
     );
     const { page } = global;

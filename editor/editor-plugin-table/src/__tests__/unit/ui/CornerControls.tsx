@@ -2,7 +2,11 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   table,
@@ -11,22 +15,18 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { TablePluginState } from '../../../plugins/table/types';
 import { CornerControls } from '../../../plugins/table/ui/TableFloatingControls/CornerControls';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../../plugins/table-plugin';
 
 describe('CornerControls', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
-      editorProps: {
-        allowTables: false,
-        dangerouslyAppendPlugins: { __plugins: [tablePlugin()] },
-      },
+      preset: new Preset<LightEditorPlugin>().add(tablePlugin),
       pluginKey,
     });
 

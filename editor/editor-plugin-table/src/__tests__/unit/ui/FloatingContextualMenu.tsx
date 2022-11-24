@@ -2,7 +2,11 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { EditorView } from 'prosemirror-view';
 import { IntlProvider } from 'react-intl-next';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -15,20 +19,16 @@ import {
 
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import FloatingContextualMenu from '../../../plugins/table/ui/FloatingContextualMenu';
-import { TablePluginState } from '../../../plugins/table/types';
 import tablePlugin from '../../../plugins/table-plugin';
 
 describe('FloatingContextualMenu', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
   describe('with right position in plugin state', () => {
     let editorView: EditorView;
     beforeEach(() => {
       ({ editorView } = createEditor({
         doc: doc(table()(tr(th()(p('')), th()(p(''))), tr(tdCursor, tdEmpty))),
-        editorProps: {
-          allowTables: false,
-          dangerouslyAppendPlugins: { __plugins: [tablePlugin()] },
-        },
+        preset: new Preset<LightEditorPlugin>().add(tablePlugin),
       }));
     });
 

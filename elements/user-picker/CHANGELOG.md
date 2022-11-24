@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.6.1
+
+### Patch Changes
+
+- [`8ad846932fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ad846932fc) - [ux] Fixes incorrect border colour displayed when hovering a user picker with subtle appearance applied.
+
 ## 9.6.0
 
 ### Minor Changes

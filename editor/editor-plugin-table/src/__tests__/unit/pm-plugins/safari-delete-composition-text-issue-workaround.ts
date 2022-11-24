@@ -1,4 +1,8 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   DocBuilder,
@@ -8,20 +12,19 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { TablePluginState } from '../../../plugins/table/types';
+import tablePlugin from '../../../plugins/table-plugin';
 
 describe('table/safari-delete-composition-text-issue-workaround', () => {
   let editor: any;
   beforeEach(() => {
-    const createEditor = createEditorFactory<TablePluginState>();
+    const createEditor = createProsemirrorEditorFactory();
     editor = (doc: DocBuilder) =>
       createEditor({
         doc,
-        editorProps: {
-          allowTables: {
-            allowColumnResizing: true,
-          },
-        },
+        preset: new Preset<LightEditorPlugin>().add([
+          tablePlugin,
+          { tableOptions: { allowColumnResizing: true } },
+        ]),
         pluginKey,
       });
   });

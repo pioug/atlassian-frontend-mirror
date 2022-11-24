@@ -1,6 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -15,17 +19,15 @@ import {
 import { selectRows } from '@atlaskit/editor-test-helpers/table';
 import { getSelectionRect, selectRow } from '@atlaskit/editor-tables/utils';
 import React from 'react';
-import type { EditorProps } from '@atlaskit/editor-core';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
 import { hoverRows } from '../../../plugins/table/commands';
-import { TablePluginState } from '../../../plugins/table/types';
 import TableFloatingControls from '../../../plugins/table/ui/TableFloatingControls';
 import { RowControls } from '../../../plugins/table/ui/TableFloatingControls/RowControls';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../../plugins/table-plugin';
 
 describe('RowControls', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
   const fakeGetEditorFeatureFlags = jest.fn(() => ({}));
   let originalResizeObserver: any;
 
@@ -47,17 +49,10 @@ describe('RowControls', () => {
     jest.clearAllMocks();
   });
 
-  const editor = (doc: DocBuilder, props?: EditorProps) => {
-    const { featureFlags } = props || {};
-    fakeGetEditorFeatureFlags.mockReturnValue(featureFlags || {});
-
+  const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
-      editorProps: {
-        allowTables: false,
-        dangerouslyAppendPlugins: { __plugins: [tablePlugin()] },
-        ...props,
-      },
+      preset: new Preset<LightEditorPlugin>().add(tablePlugin),
       pluginKey,
     });
   };

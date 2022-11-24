@@ -8,16 +8,22 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { removeColumnAt } from '@atlaskit/editor-tables/utils';
-import { TablePluginState, PluginConfig } from '../../plugins/table/types';
+import { PluginConfig } from '../../plugins/table/types';
 
 import { setResizeHandlePos } from '../../plugins/table/pm-plugins/table-resizing/commands';
 import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import tablePlugin from '../../plugins/table-plugin';
+import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
+
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('Tables with Collab editing', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
   const tableOptions = {
     allowNumberColumn: true,
     allowHeaderRow: true,
@@ -29,12 +35,9 @@ describe('Tables with Collab editing', () => {
   const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
-      editorProps: {
-        allowTables: false,
-        dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin({ tableOptions })],
-        },
-      },
+      preset: new Preset<LightEditorPlugin>()
+        .add([tablePlugin, { tableOptions }])
+        .add(widthPlugin),
       pluginKey: tablePluginKey,
     });
   };

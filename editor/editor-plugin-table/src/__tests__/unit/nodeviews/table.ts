@@ -1,5 +1,9 @@
 import { Node as PMNode } from 'prosemirror-model';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -11,39 +15,35 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TableAttributes } from '@atlaskit/adf-schema';
-import { TablePluginState } from '../../../plugins/table/types';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../../plugins/table';
 import TableView from '../../../plugins/table/nodeviews/table';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import type { EditorProps } from '@atlaskit/editor-core';
 import { EditorView } from 'prosemirror-view';
 import { hoverRows } from '../../../plugins/table/commands';
 
 describe('table -> nodeviews -> table.tsx', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
   const createTableNode = (attrs?: TableAttributes) => (...args: any) =>
     table(attrs)(...args)(defaultSchema);
 
-  const editor = (doc: DocBuilder, props?: EditorProps) =>
-    createEditor({
-      doc,
-      editorProps: {
-        allowTables: false,
-        dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin()],
-        },
-        ...props,
-      },
-      pluginKey,
-    });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   describe('TableView', () => {
     describe('with tableRenderOptimization', () => {
+      const editor = (doc: DocBuilder) =>
+        createEditor({
+          doc,
+          preset: new Preset<LightEditorPlugin>().add([
+            tablePlugin,
+            {
+              tableOptions: {},
+              getEditorFeatureFlags: () => ({
+                tableRenderOptimization: true,
+              }),
+            },
+          ]),
+          pluginKey,
+        });
+
       describe('on view update', () => {
         let tableNode: PMNode,
           tableNodeView: TableView,
@@ -58,9 +58,6 @@ describe('table -> nodeviews -> table.tsx', () => {
               p('text'),
               table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty)),
             ),
-            {
-              featureFlags: { tableRenderOptimization: true },
-            },
           );
           view = editorView;
           tableNodeView = new TableView({

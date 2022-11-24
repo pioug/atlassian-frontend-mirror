@@ -8,6 +8,25 @@ const tabs = "[data-testid='default']";
 const tab = `div[aria-controls="default-2-tab"]`;
 
 describe('Snapshot Test', () => {
+  it.each(['light', 'dark', 'none', 'spacing'] as const)(
+    'tabs with tokens (%s) should match production example',
+    async (theme) => {
+      const url = getExampleUrl(
+        'design-system',
+        'tabs',
+        'default-tabs',
+        global.__BASEURL__,
+        theme,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector('div[role="tablist"]');
+      await page.waitForSelector('div[role="tabpanel"]');
+      const tabsImage = await takeElementScreenShot(page, tabs);
+      expect(tabsImage).toMatchProdImageSnapshot();
+    },
+  );
+
   it(`Basic example should match prod`, async () => {
     const url = getExampleUrl(
       'design-system',

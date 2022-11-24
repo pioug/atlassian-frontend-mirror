@@ -1,4 +1,8 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -12,7 +16,6 @@ import {
   tdEmpty,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { EditorView } from 'prosemirror-view';
-import { TablePluginState } from '../../plugins/table/types';
 import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { redo, undo } from 'prosemirror-history';
 import { insertColumn } from '../../plugins/table/commands';
@@ -21,6 +24,7 @@ import { colsToRect } from '../../plugins/table/utils/table';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import clone from 'lodash/clone';
 import tablePlugin from '../../plugins/table';
+import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -46,7 +50,7 @@ const SHORTCUT_ADD_COLUMN_AFTER = (editorView: EditorView) =>
   sendKeyToPm(editorView, 'Ctrl-Alt-ArrowRight');
 
 describe('undo/redo with tables', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder) => {
     const tableOptions = {
       advanced: true,
@@ -54,12 +58,9 @@ describe('undo/redo with tables', () => {
     };
     return createEditor({
       doc,
-      editorProps: {
-        allowTables: false,
-        dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin({ tableOptions })],
-        },
-      },
+      preset: new Preset<LightEditorPlugin>()
+        .add([tablePlugin, { tableOptions }])
+        .add(widthPlugin),
       pluginKey: tablePluginKey,
     });
   };

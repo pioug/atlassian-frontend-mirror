@@ -1,4 +1,8 @@
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -8,21 +12,17 @@ import {
   th,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState, PluginConfig } from '../../plugins/table/types';
+import { PluginConfig } from '../../plugins/table/types';
 
 import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../plugins/table-plugin';
+
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('fix tables', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
   // @ts-ignore
   global['fetch'] = jest.fn();
-  const createAnalyticsEvent = jest.fn();
-
-  afterEach(() => {
-    createAnalyticsEvent.mockReset();
-  });
 
   const editor = (doc: DocBuilder) => {
     const tableOptions = {
@@ -35,18 +35,12 @@ describe('fix tables', () => {
 
     return createEditor({
       doc,
-      editorProps: {
-        dangerouslyAppendPlugins: {
-          __plugins: [
-            tablePlugin({
-              tableOptions,
-            }),
-          ],
-        },
-        allowAnalyticsGASV3: true,
-      },
+      attachTo: document.body,
+      preset: new Preset<LightEditorPlugin>().add([
+        tablePlugin,
+        { tableOptions },
+      ]),
       pluginKey: tablePluginKey,
-      createAnalyticsEvent,
     });
   };
 
@@ -92,7 +86,7 @@ describe('fix tables', () => {
     const TABLE_LOCAL_ID = 'test-table-2';
     const SPAN_VALUE = -2;
     it('should fire v3 analytics', () => {
-      editor(
+      const { dispatchAnalyticsEvent } = editor(
         doc(
           table({ localId: TABLE_LOCAL_ID })(
             tr(
@@ -105,7 +99,7 @@ describe('fix tables', () => {
         ),
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect(dispatchAnalyticsEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           action: 'invalidDocumentEncountered',
           actionSubject: 'editor',
@@ -125,7 +119,7 @@ describe('fix tables', () => {
     const TABLE_LOCAL_ID = 'test-table-3';
     const SPAN_VALUE = -2;
     it('should fire v3 analytics', () => {
-      editor(
+      const { dispatchAnalyticsEvent } = editor(
         doc(
           table({ localId: TABLE_LOCAL_ID })(
             tr(
@@ -138,7 +132,7 @@ describe('fix tables', () => {
         ),
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect(dispatchAnalyticsEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           action: 'invalidDocumentEncountered',
           actionSubject: 'editor',

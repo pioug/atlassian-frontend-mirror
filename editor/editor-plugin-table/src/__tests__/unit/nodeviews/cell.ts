@@ -2,7 +2,11 @@ import {
   setCellAttrs,
   findCellClosestToPos,
 } from '@atlaskit/editor-tables/utils';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
   p,
@@ -19,13 +23,14 @@ import {
   rgbToHex,
   uuid,
 } from '@atlaskit/adf-schema';
-import { TablePluginState, PluginConfig } from '../../../plugins/table/types';
+import { PluginConfig } from '../../../plugins/table/types';
 import { mergeCells } from '../../../plugins/table/transforms';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import TableCellViews from '../../../plugins/table/nodeviews/tableCell';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import * as domHelpers from '../../../plugins/table/pm-plugins/sticky-headers/nodeviews/dom';
 import tablePlugin from '../../../plugins/table-plugin';
+import undoRedoPlugin from '@atlaskit/editor-core/src/plugins/undo-redo';
 
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
@@ -36,18 +41,15 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 
 describe('table -> nodeviews -> tableCell.tsx', () => {
   const TABLE_LOCAL_ID = 'test-table-local-id';
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder, props?: PluginConfig) =>
     createEditor({
       doc,
-      editorProps: {
-        dangerouslyAppendPlugins: {
-          __plugins: [
-            tablePlugin({ tableOptions: { advanced: true, ...props } }),
-          ],
-        },
-      },
+      attachTo: document.body,
+      preset: new Preset<LightEditorPlugin>()
+        .add([tablePlugin, { tableOptions: { advanced: true, ...props } }])
+        .add(undoRedoPlugin),
       pluginKey,
     });
 

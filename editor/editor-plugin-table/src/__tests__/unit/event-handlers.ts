@@ -1,6 +1,5 @@
 import { MediaAttributes } from '@atlaskit/adf-schema';
 import { TextSelection } from 'prosemirror-state';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -19,7 +18,6 @@ import {
   mediaGroup,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../plugins/table/types';
 import {
   handleMouseOver,
   handleMouseMove,
@@ -36,6 +34,7 @@ import {
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import tablePlugin from '../../plugins/table-plugin';
+import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
 
 describe('table plugin: decorations', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -148,21 +147,19 @@ describe('table plugin: decorations', () => {
 });
 
 describe('table event handlers', () => {
-  const createEditor = createEditorFactory<TablePluginState>();
+  const createEditor = createProsemirrorEditorFactory();
   const fakeGetEditorFeatureFlags = () => ({});
   const editor = (doc: DocBuilder) =>
     createEditor({
       doc,
-      editorProps: {
-        allowTables: false,
-        media: {
+      attachTo: document.body,
+      preset: new Preset<LightEditorPlugin>().add(tablePlugin).add([
+        mediaPlugin,
+        {
           allowMediaSingle: true,
           allowMediaGroup: true,
         },
-        dangerouslyAppendPlugins: {
-          __plugins: [tablePlugin()],
-        },
-      },
+      ]),
       pluginKey,
     });
 

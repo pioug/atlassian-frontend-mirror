@@ -65,11 +65,6 @@ describe('getToolbarConfig', () => {
     return button;
   };
 
-  /**
-   * Use `createEditorFactory` here to enable referentiality as
-   * `createProsemirrorEditorFactory` has some issues with correctly mimicking
-   * old state for the unique localId plugin
-   */
   const createEditorFn = createProsemirrorEditorFactory();
   const createEditor = (doc: DocBuilder) => {
     const output = createEditorFn({

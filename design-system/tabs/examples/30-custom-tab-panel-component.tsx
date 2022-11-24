@@ -7,8 +7,11 @@ import { token } from '@atlaskit/tokens';
 import Tabs, { Tab, TabList, useTabPanel } from '../src';
 
 const customPanelStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `'20px'`
-  padding: token('spacing.scale.250', '20px'),
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '&&': {
+    padding: token('spacing.scale.250', '20px'),
+    flexDirection: 'column',
+  },
 });
 
 const CustomTabPanel = ({

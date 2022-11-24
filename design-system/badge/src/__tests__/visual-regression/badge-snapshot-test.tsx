@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 describe('@atlaskit/badge Snapshot Test', () => {
-  it.each(['light', 'dark', 'none'] as const)(
+  it.each(['light', 'dark', 'none', 'spacing'] as const)(
     'badge (%s) configurations should match production example',
     async (theme) => {
       const url = getExampleUrl(

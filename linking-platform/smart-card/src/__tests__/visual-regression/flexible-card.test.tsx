@@ -264,4 +264,13 @@ describe('Flexible Card', () => {
       expect(imageUnresolvedAction).toMatchProdImageSnapshot();
     });
   });
+
+  it('renders Unresolved views of FlexibleCard', async () => {
+    const url = getURL('vr-flexible-ui-block-card-errored-states');
+    const page = await setup(url);
+    await page.waitForSelector('[data-testid="smart-block-not-found-view"]');
+
+    const image = await takeSnapshot(page, 800);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

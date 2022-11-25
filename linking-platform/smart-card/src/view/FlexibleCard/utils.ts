@@ -10,6 +10,7 @@ import extractFlexibleLinkContext from '../../extractors/flexible';
 import { extractErrorIcon } from '../../extractors/flexible/icon';
 import { handleOnClick } from '../../utils';
 import { extractProvider } from '@atlaskit/linking-common/extractors';
+import extractProviderIcon from '../../extractors/flexible/icon/extract-provider-icon';
 
 export const getContextByStatus = (
   url: string,
@@ -30,7 +31,10 @@ export const getContextByStatus = (
     case SmartLinkStatus.Fallback:
     default:
       const linkIcon = extractErrorIcon(details, status);
-      return { linkIcon, title: url, url };
+      const provider = extractProviderIcon(
+        details?.data as JsonLd.Data.BaseData,
+      );
+      return { linkIcon, title: url, url, provider };
   }
 };
 

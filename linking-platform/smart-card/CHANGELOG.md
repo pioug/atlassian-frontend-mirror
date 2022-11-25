@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.4.2
+
+### Patch Changes
+
+- [`306c81c6551`](https://bitbucket.org/atlassian/atlassian-frontend/commits/306c81c6551) - [ux] Added unresolved views for a Flexible Block card. At the moment these views are not exposed, but they will be used when a Block Card is replaced with Flexible UI.
+
 ## 23.4.1
 
 ### Patch Changes

@@ -9,9 +9,8 @@ import {
   version as packageVersion,
 } from '../../version.json';
 
-export const createAndFireEventInElementsChannel = createAndFireEvent(
-  'fabric-elements',
-);
+export const createAndFireEventInElementsChannel =
+  createAndFireEvent('fabric-elements');
 
 const createEvent = (
   eventType: 'ui' | 'operational',
@@ -254,27 +253,26 @@ export const typeaheadRenderedEvent = (
   });
 
 // it's used in editor typeahead to fire success record analytics
-export const recordSelectionSucceededSli = (options?: {
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-}) => () => {
-  if (options && options.createAnalyticsEvent) {
-    createAndFireEvent('editor')(recordSucceeded('typeahead'))(
-      options.createAnalyticsEvent,
-    );
-  }
-};
+export const recordSelectionSucceededSli =
+  (options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) => () => {
+    if (options && options.createAnalyticsEvent) {
+      createAndFireEvent('editor')(recordSucceeded('typeahead'))(
+        options.createAnalyticsEvent,
+      );
+    }
+  };
 
 // it's used in editor typeahead to fire failure record analytics
-export const recordSelectionFailedSli = (options?: {
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-}) => (err: Error) => {
-  if (options && options.createAnalyticsEvent) {
-    createAndFireEvent('editor')(recordFailed('typeahead'))(
-      options.createAnalyticsEvent,
-    );
-  }
-  return Promise.reject(err);
-};
+export const recordSelectionFailedSli =
+  (options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) =>
+  (err: Error) => {
+    if (options && options.createAnalyticsEvent) {
+      createAndFireEvent('editor')(recordFailed('typeahead'))(
+        options.createAnalyticsEvent,
+      );
+    }
+    return Promise.reject(err);
+  };
 
 /**
  * Used for store failure metadata for analytics

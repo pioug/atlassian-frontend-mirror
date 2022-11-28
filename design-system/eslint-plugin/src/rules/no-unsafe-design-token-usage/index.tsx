@@ -73,25 +73,24 @@ token('color.background.blanket');
     const UNSAFE_ignoreTokens = new Set(config.UNSAFE_ignoreTokens);
 
     return {
-      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]': (
-        node: Rule.Node,
-      ) => {
-        if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
-          return;
-        }
+      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
+        (node: Rule.Node) => {
+          if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
+            return;
+          }
 
-        const value = node.quasi.quasis.map((q) => q.value.raw).join('');
-        const tokenKey = isToken(value, tokens);
+          const value = node.quasi.quasis.map((q) => q.value.raw).join('');
+          const tokenKey = isToken(value, tokens);
 
-        if (tokenKey) {
-          context.report({
-            messageId: 'directTokenUsage',
-            node,
-            data: { tokenKey },
-          });
-          return;
-        }
-      },
+          if (tokenKey) {
+            context.report({
+              messageId: 'directTokenUsage',
+              node,
+              data: { tokenKey },
+            });
+            return;
+          }
+        },
 
       'ObjectExpression > Property > Literal': (node: Rule.Node) => {
         if (node.type !== 'Literal') {

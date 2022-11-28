@@ -118,7 +118,7 @@ type BoxPropsBase<T extends ElementType> = {
 
 // Without this type annotation on Box we don't get autocomplete for props due to forwardRef types
 type BoxComponent<T extends ElementType = 'div'> = (<
-  T extends ElementType = 'div'
+  T extends ElementType = 'div',
 >(
   props: BoxProps<T>,
 ) => ReactElement | null) &

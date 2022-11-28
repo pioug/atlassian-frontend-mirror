@@ -53,8 +53,8 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
       return;
     }
 
-    const mediaClientConfig: MediaClientConfig = stateKey.getState(editorState)
-      ?.mediaClientConfig;
+    const mediaClientConfig: MediaClientConfig =
+      stateKey.getState(editorState)?.mediaClientConfig;
 
     if (!mediaClientConfig) {
       return;

@@ -7,7 +7,7 @@ export type EventPayloadMap<P> = {
 export type EventPayloadListener<
   M extends EventPayloadMap<P>,
   E extends keyof M,
-  P = any
+  P = any,
 > = (payload: M[E]) => void;
 
 export interface MediaViewedEventPayload {

@@ -131,7 +131,8 @@ export class EmojiResource
     undefined,
     SearchOptions
   >
-  implements EmojiProvider {
+  implements EmojiProvider
+{
   protected recordConfig?: ServiceConfig;
   protected emojiRepository?: EmojiRepository;
   protected lastQuery?: LastQuery;
@@ -227,8 +228,8 @@ export class EmojiResource
       // if config has singleEmojiApi then fetch single emoji
       const provider: EmojiLoaderConfig = {
         url: this.emojiProviderConfig.singleEmojiApi.getUrl(emojiId),
-        securityProvider: this.emojiProviderConfig.singleEmojiApi
-          .securityProvider,
+        securityProvider:
+          this.emojiProviderConfig.singleEmojiApi.securityProvider,
       };
       const loader = new EmojiLoader(provider);
       try {
@@ -382,9 +383,8 @@ export class EmojiResource
     emoji: EmojiDescription,
   ): Promise<EmojiDescription> {
     if (this.siteEmojiResource && isMediaRepresentation(emoji.representation)) {
-      const tokenisedMediaPath = await this.siteEmojiResource.generateTokenisedMediaURL(
-        emoji,
-      );
+      const tokenisedMediaPath =
+        await this.siteEmojiResource.generateTokenisedMediaURL(emoji);
       return {
         ...emoji,
         representation: {
@@ -615,7 +615,8 @@ export class EmojiResource
 
 export default class UploadingEmojiResource
   extends EmojiResource
-  implements UploadingEmojiProvider {
+  implements UploadingEmojiProvider
+{
   protected allowUpload: boolean;
 
   constructor(config: EmojiResourceConfig) {

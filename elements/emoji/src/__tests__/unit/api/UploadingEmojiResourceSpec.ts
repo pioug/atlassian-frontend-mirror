@@ -382,7 +382,8 @@ describe('helpers', () => {
 
   class TestUploadingEmojiProvider
     extends TestEmojiProvider
-    implements UploadingEmojiProvider {
+    implements UploadingEmojiProvider
+  {
     isUploadSupported = () => Promise.resolve(true);
     uploadCustomEmoji = (_upload: EmojiUpload) =>
       Promise.resolve(evilburnsEmoji);

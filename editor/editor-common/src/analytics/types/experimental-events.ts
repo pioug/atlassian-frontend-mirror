@@ -1,21 +1,17 @@
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import { TrackAEP } from './utils';
 
-type ExperimentalAEP<
-  Action,
-  ActionSubject,
-  ActionSubjectId,
-  Attributes
-> = TrackAEP<
-  Action,
-  ActionSubject,
-  ActionSubjectId,
-  Attributes & {
-    experiment: string;
-    experimentGroup: string;
-  },
-  undefined
->;
+type ExperimentalAEP<Action, ActionSubject, ActionSubjectId, Attributes> =
+  TrackAEP<
+    Action,
+    ActionSubject,
+    ActionSubjectId,
+    Attributes & {
+      experiment: string;
+      experimentGroup: string;
+    },
+    undefined
+  >;
 
 export interface TextColorSelectedAttr {
   color: string;

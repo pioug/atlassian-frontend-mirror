@@ -127,9 +127,9 @@ describe('Browser upload phases', () => {
           })),
         }),
     );
-    const onError: jest.MockedFunction<(
-      payload: UploadErrorEventPayload,
-    ) => void> = jest.fn();
+    const onError: jest.MockedFunction<
+      (payload: UploadErrorEventPayload) => void
+    > = jest.fn();
     const browser = mount(
       <Browser
         mediaClient={mediaClient}

@@ -21,8 +21,7 @@ const providers = {
     resolved: Promise.resolve(mentionResourceProvider),
     'resolved 2': Promise.resolve(
       new MentionResource({
-        url:
-          'https://pf-mentions-service.staging.atlassian.io/mentions/f7ebe2c0-0309-4687-b913-41d422f2110b',
+        url: 'https://pf-mentions-service.staging.atlassian.io/mentions/f7ebe2c0-0309-4687-b913-41d422f2110b',
         containerId: 'b0d035bd-9b98-4386-863b-07286c34dc14',
         productId: 'hipchat',
       }),

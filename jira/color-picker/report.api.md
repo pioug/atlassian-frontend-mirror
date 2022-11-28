@@ -81,9 +81,7 @@ export interface ColorPaletteMenuProps {
 }
 
 // @public (undocumented)
-export class ColorPaletteMenuWithoutAnalytics extends React_2.Component<
-  ColorPaletteMenuProps
-> {
+export class ColorPaletteMenuWithoutAnalytics extends React_2.Component<ColorPaletteMenuProps> {
   // (undocumented)
   changeAnalyticsCaller: () => UIAnalyticsEvent | undefined;
   // (undocumented)
@@ -114,9 +112,7 @@ export interface ColorPickerProps {
 }
 
 // @public (undocumented)
-export class ColorPickerWithoutAnalytics extends React_2.Component<
-  ColorPickerProps
-> {
+export class ColorPickerWithoutAnalytics extends React_2.Component<ColorPickerProps> {
   // (undocumented)
   changeAnalyticsCaller: () => UIAnalyticsEvent | undefined;
   // (undocumented)

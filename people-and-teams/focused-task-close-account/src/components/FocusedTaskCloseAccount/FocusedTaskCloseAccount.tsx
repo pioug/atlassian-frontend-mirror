@@ -49,13 +49,8 @@ export class FocusedTaskCloseAccount extends React.Component<Props, State> {
   };
 
   render() {
-    const {
-      isOpen,
-      onClose,
-      screens,
-      submitButton,
-      learnMoreLink,
-    } = this.props;
+    const { isOpen, onClose, screens, submitButton, learnMoreLink } =
+      this.props;
     const { currentScreenIdx } = this.state;
     return (
       <MessagesIntlProvider>

@@ -4,12 +4,8 @@ import mockEmojiProvider from './mockEmojiProvider';
 import { FetchProxy } from '../utils/fetch-proxy';
 
 export function createDefaultProviderFactory(fetchProxy: FetchProxy) {
-  const {
-    mediaProvider,
-    mentionProvider,
-    cardProvider,
-    taskDecisionProvider,
-  } = createEditorProviders(fetchProxy);
+  const { mediaProvider, mentionProvider, cardProvider, taskDecisionProvider } =
+    createEditorProviders(fetchProxy);
 
   return ProviderFactory.create({
     mediaProvider,

@@ -89,35 +89,34 @@ type PluginData = {
   schema: Schema;
   onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
 };
-export const createPMSchemaAndPlugins = (
-  preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
-) => (
-  pluginFactoryParams: Omit<LightPMPluginFactoryParams, 'schema'>,
-): PluginData => {
-  let editorPlugins: LightEditorPlugin[] = [];
-  if (!preset.has(basePlugin)) {
-    preset.add(basePlugin);
-  }
-  editorPlugins = preset.getEditorPlugins();
+export const createPMSchemaAndPlugins =
+  (preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>()) =>
+  (
+    pluginFactoryParams: Omit<LightPMPluginFactoryParams, 'schema'>,
+  ): PluginData => {
+    let editorPlugins: LightEditorPlugin[] = [];
+    if (!preset.has(basePlugin)) {
+      preset.add(basePlugin);
+    }
+    editorPlugins = preset.getEditorPlugins();
 
-  const editorConfig: LightEditorConfig = lightProcessPluginsList(
-    editorPlugins,
-  );
+    const editorConfig: LightEditorConfig =
+      lightProcessPluginsList(editorPlugins);
 
-  const schema = createSchema(editorConfig);
+    const schema = createSchema(editorConfig);
 
-  const plugins = editorConfig.plugins
-    .sort(sortByOrder('plugins'))
-    .map(({ plugin }) => plugin({ ...pluginFactoryParams, schema }))
-    .filter((plugin) => !!plugin) as Plugin[];
+    const plugins = editorConfig.plugins
+      .sort(sortByOrder('plugins'))
+      .map(({ plugin }) => plugin({ ...pluginFactoryParams, schema }))
+      .filter((plugin) => !!plugin) as Plugin[];
 
-  return {
-    plugins,
-    schema,
-    onEditorViewStateUpdatedCallbacks:
-      editorConfig.onEditorViewStateUpdatedCallbacks,
+    return {
+      plugins,
+      schema,
+      onEditorViewStateUpdatedCallbacks:
+        editorConfig.onEditorViewStateUpdatedCallbacks,
+    };
   };
-};
 
 export { PortalProviderAPI } from './ui/PortalProvider';
 export { EventDispatcher } from './event-dispatcher';

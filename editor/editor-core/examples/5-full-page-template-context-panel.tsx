@@ -38,8 +38,7 @@ type TemplateDefinition = {
 
 const templates: Array<TemplateDefinition> = new Array(20).fill({
   title: 'Decision',
-  desc:
-    'Use this template to effectively guide your team in making a descision.',
+  desc: 'Use this template to effectively guide your team in making a descision.',
   adf: decisionAdf,
 });
 

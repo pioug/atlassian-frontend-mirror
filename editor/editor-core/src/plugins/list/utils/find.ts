@@ -40,9 +40,7 @@ export function findFirstNestedList($pos: ResolvedPos): ResolvedPos | null {
   return $pos.doc.resolve(firstNestedListPosition);
 }
 
-export function findFirstParentListNode(
-  $pos: ResolvedPos,
-): {
+export function findFirstParentListNode($pos: ResolvedPos): {
   pos: number;
   node: PMNode;
 } | null {
@@ -67,20 +65,16 @@ export function findFirstParentListNode(
   return { node, pos: listNodePosition };
 }
 
-export function findFirstParentListItemNode(
-  $pos: ResolvedPos,
-): {
+export function findFirstParentListItemNode($pos: ResolvedPos): {
   pos: number;
   node: PMNode;
 } | null {
   const currentNode = $pos.doc.nodeAt($pos.pos);
 
-  const listItemNodePosition:
-    | ResolvedPos
-    | ContentNodeWithPos
-    | undefined = isListItemNode(currentNode)
-    ? $pos
-    : findParentNodeClosestToPos($pos, isListItemNode);
+  const listItemNodePosition: ResolvedPos | ContentNodeWithPos | undefined =
+    isListItemNode(currentNode)
+      ? $pos
+      : findParentNodeClosestToPos($pos, isListItemNode);
 
   if (!listItemNodePosition || listItemNodePosition.pos === null) {
     return null;

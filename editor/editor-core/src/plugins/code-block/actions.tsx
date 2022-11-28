@@ -33,40 +33,39 @@ export const removeCodeBlock: Command = (state, dispatch) => {
   return true;
 };
 
-export const changeLanguage = (language: string): Command => (
-  state,
-  dispatch,
-) => {
-  const { codeBlock } = state.schema.nodes;
-  const pos = pluginKey.getState(state)?.pos;
+export const changeLanguage =
+  (language: string): Command =>
+  (state, dispatch) => {
+    const { codeBlock } = state.schema.nodes;
+    const pos = pluginKey.getState(state)?.pos;
 
-  if (typeof pos !== 'number') {
-    return false;
-  }
+    if (typeof pos !== 'number') {
+      return false;
+    }
 
-  const tr = state.tr
-    .setNodeMarkup(pos, codeBlock, { language })
-    .setMeta('scrollIntoView', false);
+    const tr = state.tr
+      .setNodeMarkup(pos, codeBlock, { language })
+      .setMeta('scrollIntoView', false);
 
-  const selection = isNodeSelection(state.selection)
-    ? NodeSelection.create(tr.doc, pos)
-    : tr.selection;
+    const selection = isNodeSelection(state.selection)
+      ? NodeSelection.create(tr.doc, pos)
+      : tr.selection;
 
-  const result = tr.setSelection(selection);
+    const result = tr.setSelection(selection);
 
-  if (dispatch) {
-    dispatch(
-      addAnalytics(state, result, {
-        action: ACTION.LANGUAGE_SELECTED,
-        actionSubject: ACTION_SUBJECT.CODE_BLOCK,
-        attributes: { language },
-        eventType: EVENT_TYPE.TRACK,
-      }),
-    );
-  }
+    if (dispatch) {
+      dispatch(
+        addAnalytics(state, result, {
+          action: ACTION.LANGUAGE_SELECTED,
+          actionSubject: ACTION_SUBJECT.CODE_BLOCK,
+          attributes: { language },
+          eventType: EVENT_TYPE.TRACK,
+        }),
+      );
+    }
 
-  return true;
-};
+    return true;
+  };
 
 export const copyContentToClipboard: Command = (state, dispatch) => {
   const {

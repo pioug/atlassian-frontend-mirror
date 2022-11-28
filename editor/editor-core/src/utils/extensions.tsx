@@ -103,9 +103,8 @@ export async function combineQuickInsertProviders(
     QuickInsertProvider | Promise<QuickInsertProvider>
   >,
 ): Promise<QuickInsertProvider> {
-  const { invokeList } = combineProviders<QuickInsertProvider>(
-    quickInsertProviders,
-  );
+  const { invokeList } =
+    combineProviders<QuickInsertProvider>(quickInsertProviders);
 
   return {
     getItems() {

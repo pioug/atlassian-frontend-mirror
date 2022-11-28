@@ -206,42 +206,44 @@ export const getIndentCommand = (
     )(autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
   });
 
-const backspaceFrom = ($from: ResolvedPos): Command => (state, dispatch) => {
-  // previous was empty, just delete backwards
-  const taskBefore = $from.doc.resolve($from.before());
-  if (
-    taskBefore.nodeBefore &&
-    isActionOrDecisionItem(taskBefore.nodeBefore) &&
-    taskBefore.nodeBefore.nodeSize === 2
-  ) {
-    return false;
-  }
-
-  // if nested, just unindent
-  const { taskList, paragraph } = state.schema.nodes;
-  if ($from.node($from.depth - 2).type === taskList) {
-    return getUnindentCommand()(state, dispatch);
-  }
-
-  // bottom level, should "unwrap" taskItem contents into paragraph
-  // we achieve this by slicing the content out, and replacing
-  if (actionDecisionFollowsOrNothing($from)) {
-    if (dispatch) {
-      const taskContent = state.doc.slice($from.start(), $from.end()).content;
-
-      // might be end of document after
-      const slice = taskContent.size
-        ? paragraph.createChecked(undefined, taskContent)
-        : paragraph.createChecked();
-
-      dispatch(splitListItemWith(state.tr, slice, $from, true));
+const backspaceFrom =
+  ($from: ResolvedPos): Command =>
+  (state, dispatch) => {
+    // previous was empty, just delete backwards
+    const taskBefore = $from.doc.resolve($from.before());
+    if (
+      taskBefore.nodeBefore &&
+      isActionOrDecisionItem(taskBefore.nodeBefore) &&
+      taskBefore.nodeBefore.nodeSize === 2
+    ) {
+      return false;
     }
 
-    return true;
-  }
+    // if nested, just unindent
+    const { taskList, paragraph } = state.schema.nodes;
+    if ($from.node($from.depth - 2).type === taskList) {
+      return getUnindentCommand()(state, dispatch);
+    }
 
-  return false;
-};
+    // bottom level, should "unwrap" taskItem contents into paragraph
+    // we achieve this by slicing the content out, and replacing
+    if (actionDecisionFollowsOrNothing($from)) {
+      if (dispatch) {
+        const taskContent = state.doc.slice($from.start(), $from.end()).content;
+
+        // might be end of document after
+        const slice = taskContent.size
+          ? paragraph.createChecked(undefined, taskContent)
+          : paragraph.createChecked();
+
+        dispatch(splitListItemWith(state.tr, slice, $from, true));
+      }
+
+      return true;
+    }
+
+    return false;
+  };
 
 const backspace = filter(
   isEmptySelectionAtStart,

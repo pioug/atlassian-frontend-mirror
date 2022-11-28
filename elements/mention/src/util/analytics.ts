@@ -41,99 +41,97 @@ export enum Actions {
   FAILED = 'failed',
 }
 
-export const fireAnalyticsMentionTypeaheadEvent = (
-  props: WithAnalyticsEventsProps,
-) => (
-  action: string,
-  duration: number,
-  userIds: string[] = [],
-  query?: string,
-): void => {
-  if (props.createAnalyticsEvent) {
-    const eventPayload: GasPayload = {
+export const fireAnalyticsMentionTypeaheadEvent =
+  (props: WithAnalyticsEventsProps) =>
+  (
+    action: string,
+    duration: number,
+    userIds: string[] = [],
+    query?: string,
+  ): void => {
+    if (props.createAnalyticsEvent) {
+      const eventPayload: GasPayload = {
+        action,
+        actionSubject: ComponentNames.TYPEAHEAD,
+        attributes: {
+          packageName,
+          packageVersion,
+          componentName: ComponentNames.MENTION,
+          duration: Math.round(duration),
+          userIds,
+          queryLength: query ? query.length : 0,
+        },
+        eventType: OPERATIONAL_EVENT_TYPE,
+      };
+      const analyticsEvent: UIAnalyticsEvent =
+        props.createAnalyticsEvent(eventPayload);
+      analyticsEvent.fire(ELEMENTS_CHANNEL);
+    }
+  };
+
+export const fireAnalyticsTeamMentionHighlightEvent =
+  (createEvent: CreateUIAnalyticsEvent) =>
+  (
+    actionSubject: string,
+    action: string,
+    source: string,
+    actionSubjectId?: string,
+    viewedCount?: number,
+  ): void => {
+    if (createEvent) {
+      const eventPayload: GasPayload = {
+        action,
+        actionSubject,
+        actionSubjectId,
+        eventType: UI_EVENT_TYPE,
+        attributes: {
+          source,
+          packageName,
+          packageVersion,
+          componentName: ComponentNames.TEAM_MENTION_HIGHLIGHT,
+          viewedCount,
+        },
+      };
+      const analyticsEvent: UIAnalyticsEvent = createEvent(eventPayload);
+      analyticsEvent.fire(ELEMENTS_CHANNEL);
+    }
+  };
+
+export const fireAnalyticsMentionEvent =
+  (createEvent: CreateUIAnalyticsEvent) =>
+  (
+    actionSubject: string,
+    action: string,
+    text: string,
+    id: string,
+    accessLevel?: string,
+  ): UIAnalyticsEvent => {
+    const payload: GasPayload = {
       action,
-      actionSubject: ComponentNames.TYPEAHEAD,
+      actionSubject,
+      eventType: UI_EVENT_TYPE,
       attributes: {
         packageName,
         packageVersion,
         componentName: ComponentNames.MENTION,
-        duration: Math.round(duration),
-        userIds,
-        queryLength: query ? query.length : 0,
-      },
-      eventType: OPERATIONAL_EVENT_TYPE,
-    };
-    const analyticsEvent: UIAnalyticsEvent = props.createAnalyticsEvent(
-      eventPayload,
-    );
-    analyticsEvent.fire(ELEMENTS_CHANNEL);
-  }
-};
-
-export const fireAnalyticsTeamMentionHighlightEvent = (
-  createEvent: CreateUIAnalyticsEvent,
-) => (
-  actionSubject: string,
-  action: string,
-  source: string,
-  actionSubjectId?: string,
-  viewedCount?: number,
-): void => {
-  if (createEvent) {
-    const eventPayload: GasPayload = {
-      action,
-      actionSubject,
-      actionSubjectId,
-      eventType: UI_EVENT_TYPE,
-      attributes: {
-        source,
-        packageName,
-        packageVersion,
-        componentName: ComponentNames.TEAM_MENTION_HIGHLIGHT,
-        viewedCount,
+        accessLevel,
+        isSpecial: isSpecialMentionText(text),
+        userId: id,
       },
     };
-    const analyticsEvent: UIAnalyticsEvent = createEvent(eventPayload);
-    analyticsEvent.fire(ELEMENTS_CHANNEL);
-  }
-};
-
-export const fireAnalyticsMentionEvent = (
-  createEvent: CreateUIAnalyticsEvent,
-) => (
-  actionSubject: string,
-  action: string,
-  text: string,
-  id: string,
-  accessLevel?: string,
-): UIAnalyticsEvent => {
-  const payload: GasPayload = {
-    action,
-    actionSubject,
-    eventType: UI_EVENT_TYPE,
-    attributes: {
-      packageName,
-      packageVersion,
-      componentName: ComponentNames.MENTION,
-      accessLevel,
-      isSpecial: isSpecialMentionText(text),
-      userId: id,
-    },
+    const event = createEvent(payload);
+    event.fire(ELEMENTS_CHANNEL);
+    return event;
   };
-  const event = createEvent(payload);
-  event.fire(ELEMENTS_CHANNEL);
-  return event;
-};
 
-export const fireSliAnalyticsEvent = (props: WithAnalyticsEventsProps) => (
-  actionSubject: string,
-  action: string,
-): void => {
-  if (props.createAnalyticsEvent) {
-    const eventPayload = buildSliPayload(actionSubject, action);
-    props.createAnalyticsEvent(eventPayload).fire(ELEMENTS_CHANNEL);
-  }
-};
+export const fireSliAnalyticsEvent =
+  (props: WithAnalyticsEventsProps) =>
+  (actionSubject: string, action: string): void => {
+    if (props.createAnalyticsEvent) {
+      const eventPayload = buildSliPayload(actionSubject, action);
+      props.createAnalyticsEvent(eventPayload).fire(ELEMENTS_CHANNEL);
+    }
+  };
 
 export const buildSliPayload = (
   actionSubject: string,
@@ -156,48 +154,45 @@ export const buildSliPayload = (
   return eventPayload;
 };
 
-export const fireAnalyticsMentionHydrationEvent = (
-  props: WithAnalyticsEventsProps,
-) => (
-  action: string,
-  userId: string,
-  fromCache: boolean,
-  duration: number,
-): void => {
-  if (props.createAnalyticsEvent) {
-    const eventPayload: GasPayload = {
-      action,
-      actionSubject: ComponentNames.MENTION,
-      actionSubjectId: 'hydration',
-      attributes: {
-        packageName,
-        packageVersion,
-        componentName: ComponentNames.MENTION,
-        userId,
-        fromCache,
-        duration: Math.round(duration),
-      },
-      eventType: OPERATIONAL_EVENT_TYPE,
-    };
-    const analyticsEvent: UIAnalyticsEvent = props.createAnalyticsEvent(
-      eventPayload,
-    );
-    analyticsEvent.fire(ELEMENTS_CHANNEL);
-  }
-};
+export const fireAnalyticsMentionHydrationEvent =
+  (props: WithAnalyticsEventsProps) =>
+  (
+    action: string,
+    userId: string,
+    fromCache: boolean,
+    duration: number,
+  ): void => {
+    if (props.createAnalyticsEvent) {
+      const eventPayload: GasPayload = {
+        action,
+        actionSubject: ComponentNames.MENTION,
+        actionSubjectId: 'hydration',
+        attributes: {
+          packageName,
+          packageVersion,
+          componentName: ComponentNames.MENTION,
+          userId,
+          fromCache,
+          duration: Math.round(duration),
+        },
+        eventType: OPERATIONAL_EVENT_TYPE,
+      };
+      const analyticsEvent: UIAnalyticsEvent =
+        props.createAnalyticsEvent(eventPayload);
+      analyticsEvent.fire(ELEMENTS_CHANNEL);
+    }
+  };
 
 // OLD Analytics
 const MENTION_ANALYTICS_PREFIX = 'atlassian.fabric.mention';
 
-export const fireAnalytics = (firePrivateAnalyticsEvent?: Function) => (
-  eventName: string,
-  text: string,
-  accessLevel?: string,
-) => {
-  if (firePrivateAnalyticsEvent) {
-    firePrivateAnalyticsEvent(`${MENTION_ANALYTICS_PREFIX}.${eventName}`, {
-      accessLevel,
-      isSpecial: isSpecialMentionText(text),
-    });
-  }
-};
+export const fireAnalytics =
+  (firePrivateAnalyticsEvent?: Function) =>
+  (eventName: string, text: string, accessLevel?: string) => {
+    if (firePrivateAnalyticsEvent) {
+      firePrivateAnalyticsEvent(`${MENTION_ANALYTICS_PREFIX}.${eventName}`, {
+        accessLevel,
+        isSpecial: isSpecialMentionText(text),
+      });
+    }
+  };

@@ -430,12 +430,10 @@ describe('Snapshot Test: triple click selection', () => {
               : tableCell?.querySelector(expectedSelectionEndSelector);
             const selectionStartsInTableCell = tableCell?.contains(anchorNode);
             const selectionEndsInTableCell = tableCell?.contains(focusNode);
-            const selectionStartsInExpectedSelection = expectedSelectionStart?.contains(
-              anchorNode,
-            );
-            const selectionEndsInExpectedSelection = expectedSelectionEnd?.contains(
-              focusNode,
-            );
+            const selectionStartsInExpectedSelection =
+              expectedSelectionStart?.contains(anchorNode);
+            const selectionEndsInExpectedSelection =
+              expectedSelectionEnd?.contains(focusNode);
             return {
               type,
               selectionStartsInTableCell,

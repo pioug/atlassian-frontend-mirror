@@ -36,9 +36,8 @@ export const relevantFlags = {
 
 export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);
 
-export const LOGGED_FEATURE_FLAG_KEYS = filterFeatureFlagKeysAllProducts(
-  relevantFlags,
-);
+export const LOGGED_FEATURE_FLAG_KEYS =
+  filterFeatureFlagKeysAllProducts(relevantFlags);
 
 export function getFileAttributes(fileState?: FileState): FileAttributes {
   if (!fileState) {

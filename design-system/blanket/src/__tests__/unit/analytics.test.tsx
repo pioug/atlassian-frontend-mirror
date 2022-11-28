@@ -74,9 +74,8 @@ describe('Blanket', () => {
 
   it('should allow the addition of additional context', () => {
     const analyticsContext = { key: 'value' };
-    const { renderResult, onBlanketClicked, blanketClickedEventResult } = setup(
-      analyticsContext,
-    );
+    const { renderResult, onBlanketClicked, blanketClickedEventResult } =
+      setup(analyticsContext);
 
     fireEvent.click(renderResult.getByTestId('blanket'));
 

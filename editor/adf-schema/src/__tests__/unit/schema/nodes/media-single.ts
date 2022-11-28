@@ -121,8 +121,10 @@ describe(`${packageName}/schema mediaSingle node`, () => {
     const mediaSingleDom = toDOM(mediaSingleNode, schema)
       .firstChild as HTMLElement;
 
-    const parsedMediaSingle = fromHTML(mediaSingleDom.outerHTML, schema)
-      .firstChild;
+    const parsedMediaSingle = fromHTML(
+      mediaSingleDom.outerHTML,
+      schema,
+    ).firstChild;
 
     expect(parsedMediaSingle).toEqual(mediaSingleNode);
   });
@@ -140,8 +142,10 @@ describe(`${packageName}/schema mediaSingle node`, () => {
     const mediaSingleDom = toDOM(mediaSingleNode, schema)
       .firstChild as HTMLElement;
 
-    const parsedMediaSingle = fromHTML(mediaSingleDom.outerHTML, schema)
-      .firstChild;
+    const parsedMediaSingle = fromHTML(
+      mediaSingleDom.outerHTML,
+      schema,
+    ).firstChild;
 
     expect(parsedMediaSingle).toEqual(mediaSingleNode);
   });

@@ -36,7 +36,7 @@ import ReactNodeView from './ReactNodeView';
  */
 
 export class SelectionBasedNodeView<
-  P = ReactComponentProps
+  P = ReactComponentProps,
 > extends ReactNodeView<P> {
   private oldSelection: Selection;
   private selectionChangeState: ReactNodeViewState;

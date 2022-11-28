@@ -166,8 +166,7 @@ export const mockSSRResponse = {
     url: 'https://some.url',
     icon: {
       '@type': 'Image',
-      url:
-        'https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png',
+      url: 'https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png',
     },
   },
 };

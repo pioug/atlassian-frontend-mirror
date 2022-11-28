@@ -107,9 +107,9 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
           spec.props.content = { ...spec.props.content };
         }
 
-        spec.props.content.items = (spec.props.content.items as Array<
-          string | Array<string>
-        >)
+        spec.props.content.items = (
+          spec.props.content.items as Array<string | Array<string>>
+        )
           // ['inline'] => [['emoji', 'hr', ...]]
           // ['media'] => [['media']]
           .map((item) =>
@@ -255,10 +255,8 @@ const errorMessageFor = (type: string, message: string) =>
 
 const getUnsupportedOptions = (spec?: ValidatorSpec) => {
   if (spec && spec.props && spec.props.content) {
-    const {
-      allowUnsupportedBlock,
-      allowUnsupportedInline,
-    } = spec.props.content;
+    const { allowUnsupportedBlock, allowUnsupportedInline } =
+      spec.props.content;
     return { allowUnsupportedBlock, allowUnsupportedInline };
   }
   return {};
@@ -676,11 +674,8 @@ export function validator(
         );
       }
 
-      const {
-        hasUnsupportedAttrs,
-        redundantAttrs,
-        invalidAttrs,
-      } = validateAttributes(validatorSpec, prevEntity, prevEntity.attrs);
+      const { hasUnsupportedAttrs, redundantAttrs, invalidAttrs } =
+        validateAttributes(validatorSpec, prevEntity, prevEntity.attrs);
 
       if (hasUnsupportedAttrs) {
         if (isMark) {
@@ -1058,22 +1053,21 @@ export function validator(
             }
             return { valid: marksAreValid, entity: childEntity };
           };
-          const hasMultipleCombinationOfContentAllowed = !!contentValidatorSpec.isTupleLike;
+          const hasMultipleCombinationOfContentAllowed =
+            !!contentValidatorSpec.isTupleLike;
           if (hasMultipleCombinationOfContentAllowed) {
-            const {
-              entity: newChildEntity,
-              marksValidationOutput,
-            } = validateNode(
-              child,
-              errorCallback,
-              makeArray(
-                contentValidatorSpec.items[index] ||
-                  contentValidatorSpec.items[
-                    contentValidatorSpec.items.length - 1
-                  ],
-              ),
-              validatorSpec,
-            );
+            const { entity: newChildEntity, marksValidationOutput } =
+              validateNode(
+                child,
+                errorCallback,
+                makeArray(
+                  contentValidatorSpec.items[index] ||
+                    contentValidatorSpec.items[
+                      contentValidatorSpec.items.length - 1
+                    ],
+                ),
+                validatorSpec,
+              );
             const { entity } = validateChildMarks(
               newChildEntity,
               marksValidationOutput,

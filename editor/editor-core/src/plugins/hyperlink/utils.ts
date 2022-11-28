@@ -8,7 +8,8 @@ import {
 } from '@atlaskit/adf-schema';
 
 // Regular expression for a windows filepath in the format <DRIVE LETTER>:\<folder name>\
-export const FILEPATH_REGEXP = /([a-zA-Z]:|\\)([^\/:*?<>"|]+\\)?([^\/:*?<>"| ]+(?=\s?))?/gim;
+export const FILEPATH_REGEXP =
+  /([a-zA-Z]:|\\)([^\/:*?<>"|]+\\)?([^\/:*?<>"| ]+(?=\s?))?/gim;
 
 // Don't linkify if starts with $ or {
 export const DONTLINKIFY_REGEXP = /^(\$|{)/;

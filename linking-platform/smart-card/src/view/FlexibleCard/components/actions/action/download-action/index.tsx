@@ -5,14 +5,8 @@ import Action from '../index';
 const DownloadAction: React.FC<DownloadActionProps> = (
   props: DownloadActionProps,
 ) => {
-  const {
-    appearance,
-    asDropDownItem,
-    downloadUrl,
-    onClick,
-    testId,
-    url,
-  } = props;
+  const { appearance, asDropDownItem, downloadUrl, onClick, testId, url } =
+    props;
 
   if (downloadUrl && url) {
     const action = {

@@ -23,8 +23,9 @@ BrowserTestCase(
 
     await page.execute(() => {
       localStorage['folderUploads'] = true;
-      ((window as any)
-        .mediaMockControlsBackdoor as MediaMockControlsBackdoor).uploadFolderContainingFolderFromDrag();
+      (
+        (window as any).mediaMockControlsBackdoor as MediaMockControlsBackdoor
+      ).uploadFolderContainingFolderFromDrag();
     });
 
     expect(
@@ -45,8 +46,9 @@ BrowserTestCase(
 
     await page.execute(() => {
       localStorage['folderUploads'] = true;
-      ((window as any)
-        .mediaMockControlsBackdoor as MediaMockControlsBackdoor).uploadFolderFromDrag();
+      (
+        (window as any).mediaMockControlsBackdoor as MediaMockControlsBackdoor
+      ).uploadFolderFromDrag();
     });
 
     expect(
@@ -66,8 +68,9 @@ BrowserTestCase(
     const page = await goToFullPage(client);
 
     await page.execute(() => {
-      ((window as any)
-        .mediaMockControlsBackdoor as MediaMockControlsBackdoor).uploadImageFromDrag();
+      (
+        (window as any).mediaMockControlsBackdoor as MediaMockControlsBackdoor
+      ).uploadImageFromDrag();
     });
 
     expect(
@@ -91,8 +94,9 @@ BrowserTestCase(
     await page.clearEditor();
 
     await page.execute(() => {
-      ((window as any)
-        .mediaMockControlsBackdoor as MediaMockControlsBackdoor).uploadImageFromDrag();
+      (
+        (window as any).mediaMockControlsBackdoor as MediaMockControlsBackdoor
+      ).uploadImageFromDrag();
     });
 
     expect(
@@ -175,8 +179,9 @@ BrowserTestCase(
     await page.clearEditor();
 
     await page.execute(() => {
-      ((window as any)
-        .mediaMockControlsBackdoor as MediaMockControlsBackdoor).uploadImageFromDrag();
+      (
+        (window as any).mediaMockControlsBackdoor as MediaMockControlsBackdoor
+      ).uploadImageFromDrag();
     });
 
     expect(

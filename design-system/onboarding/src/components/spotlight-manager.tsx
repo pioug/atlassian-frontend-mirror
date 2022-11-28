@@ -15,9 +15,8 @@ import Blanket from '../styled/blanket';
 
 import { Fade } from './animation';
 
-const { Consumer: TargetConsumer, Provider: TargetProvider } = createContext<
-  any
->(undefined);
+const { Consumer: TargetConsumer, Provider: TargetProvider } =
+  createContext<any>(undefined);
 
 const SpotlightContext = createContext<{
   opened: () => void;
@@ -31,10 +30,8 @@ const SpotlightContext = createContext<{
   targets: {},
 });
 
-const {
-  Consumer: SpotlightStateConsumer,
-  Provider: SpotlightStateProvider,
-} = SpotlightContext;
+const { Consumer: SpotlightStateConsumer, Provider: SpotlightStateProvider } =
+  SpotlightContext;
 
 export { TargetConsumer };
 

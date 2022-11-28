@@ -22,9 +22,8 @@ export const downloadMedia = async (
   mediaPluginState: MediaPluginState,
 ): Promise<boolean> => {
   try {
-    const selectedNodeAttrs = getSelectedMediaContainerNodeAttrs(
-      mediaPluginState,
-    );
+    const selectedNodeAttrs =
+      getSelectedMediaContainerNodeAttrs(mediaPluginState);
     if (selectedNodeAttrs && mediaPluginState.mediaClientConfig) {
       const { id, collection = '' } = selectedNodeAttrs;
       const mediaClient = getMediaClient(mediaPluginState.mediaClientConfig);

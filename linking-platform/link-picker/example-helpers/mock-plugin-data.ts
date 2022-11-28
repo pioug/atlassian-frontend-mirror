@@ -34,12 +34,10 @@ const MOCK_DATA = {
             },
             '@type': ['schema:TextDigitalDocument', 'Object'],
             '@id': 'id:EXAMPLE1',
-            url:
-              'https://docs.google.com/document/d/EXAMPLE1/edit?usp=drivesdk',
+            url: 'https://docs.google.com/document/d/EXAMPLE1/edit?usp=drivesdk',
             icon: {
               '@type': 'Image',
-              url:
-                'https://drive-thirdparty.googleusercontent.com/32/type/application/vnd.google-apps.document',
+              url: 'https://drive-thirdparty.googleusercontent.com/32/type/application/vnd.google-apps.document',
             },
             image: {
               '@type': 'Image',
@@ -60,8 +58,7 @@ const MOCK_DATA = {
             'schema:commentCount': 0,
             preview: {
               '@type': 'Link',
-              href:
-                'https://docs.google.com/document/d/EXAMPLE/edit?usp=drivesdk&rm=minimal&output=embed',
+              href: 'https://docs.google.com/document/d/EXAMPLE/edit?usp=drivesdk&rm=minimal&output=embed',
               'atlassian:supportedPlatforms': ['web'],
             },
             generator: {
@@ -69,8 +66,7 @@ const MOCK_DATA = {
               name: 'Google Drive',
               icon: {
                 '@type': 'Image',
-                url:
-                  'https://developers.google.com/drive/images/drive_icon.png',
+                url: 'https://developers.google.com/drive/images/drive_icon.png',
               },
             },
           },
@@ -82,12 +78,10 @@ const MOCK_DATA = {
             },
             '@type': ['schema:PresentationDigitalDocument', 'Object'],
             '@id': 'id:EXAMPLE2',
-            url:
-              'https://docs.google.com/presentation/d/EXAMPLE2/edit?usp=drivesdk',
+            url: 'https://docs.google.com/presentation/d/EXAMPLE2/edit?usp=drivesdk',
             icon: {
               '@type': 'Image',
-              url:
-                'https://drive-thirdparty.googleusercontent.com/32/type/application/vnd.google-apps.presentation',
+              url: 'https://drive-thirdparty.googleusercontent.com/32/type/application/vnd.google-apps.presentation',
             },
             image: {
               '@type': 'Image',
@@ -104,8 +98,7 @@ const MOCK_DATA = {
             'schema:commentCount': 0,
             preview: {
               '@type': 'Link',
-              href:
-                'https://docs.google.com/presentation/d/EXAMPLE/preview?usp=drivesdk',
+              href: 'https://docs.google.com/presentation/d/EXAMPLE/preview?usp=drivesdk',
               'atlassian:supportedPlatforms': ['web'],
             },
             generator: {
@@ -113,8 +106,7 @@ const MOCK_DATA = {
               name: 'Google Drive',
               icon: {
                 '@type': 'Image',
-                url:
-                  'https://developers.google.com/drive/images/drive_icon.png',
+                url: 'https://developers.google.com/drive/images/drive_icon.png',
               },
             },
           },
@@ -126,12 +118,10 @@ const MOCK_DATA = {
             },
             '@type': ['schema:PresentationDigitalDocument', 'Object'],
             '@id': 'id:EXAMPLE3',
-            url:
-              'https://docs.google.com/presentation/d/EXAMPLE3/edit?usp=drivesdk',
+            url: 'https://docs.google.com/presentation/d/EXAMPLE3/edit?usp=drivesdk',
             icon: {
               '@type': 'Image',
-              url:
-                'https://drive-thirdparty.googleusercontent.com/32/type/application/vnd.google-apps.presentation',
+              url: 'https://drive-thirdparty.googleusercontent.com/32/type/application/vnd.google-apps.presentation',
             },
             image: {
               '@type': 'Image',
@@ -156,8 +146,7 @@ const MOCK_DATA = {
             'schema:commentCount': 0,
             preview: {
               '@type': 'Link',
-              href:
-                'https://docs.google.com/presentation/d/EXAMPLE/preview?usp=drivesdk',
+              href: 'https://docs.google.com/presentation/d/EXAMPLE/preview?usp=drivesdk',
               'atlassian:supportedPlatforms': ['web'],
             },
             generator: {
@@ -165,8 +154,7 @@ const MOCK_DATA = {
               name: 'Google Drive',
               icon: {
                 '@type': 'Image',
-                url:
-                  'https://developers.google.com/drive/images/drive_icon.png',
+                url: 'https://developers.google.com/drive/images/drive_icon.png',
               },
             },
           },
@@ -181,13 +169,11 @@ const MOCK_DATA = {
             url: 'https://drive.google.com/file/d/EXAMPLE4/view?usp=drivesdk',
             icon: {
               '@type': 'Image',
-              url:
-                'https://drive-thirdparty.googleusercontent.com/32/type/video/mp4',
+              url: 'https://drive-thirdparty.googleusercontent.com/32/type/video/mp4',
             },
             image: {
               '@type': 'Image',
-              url:
-                'https://lh6.googleusercontent.com/f5gPV8uWHnjY_OSL8_Wuq6tL9GVQGJGkYlP-YO8ojRm93GBns_J1MoIyb7tNiVi2LavhY8ZHxu88Rso=s500',
+              url: 'https://lh6.googleusercontent.com/f5gPV8uWHnjY_OSL8_Wuq6tL9GVQGJGkYlP-YO8ojRm93GBns_J1MoIyb7tNiVi2LavhY8ZHxu88Rso=s500',
             },
             name: 'Video.mp4',
             'atlassian:fileSize': '222178532',
@@ -209,8 +195,7 @@ const MOCK_DATA = {
             'schema:commentCount': 0,
             preview: {
               '@type': 'Link',
-              href:
-                'https://drive.google.com/file/d/EXAMPLE/preview?usp=drivesdk',
+              href: 'https://drive.google.com/file/d/EXAMPLE/preview?usp=drivesdk',
               'atlassian:supportedPlatforms': ['web'],
             },
             generator: {
@@ -218,8 +203,7 @@ const MOCK_DATA = {
               name: 'Google Drive',
               icon: {
                 '@type': 'Image',
-                url:
-                  'https://developers.google.com/drive/images/drive_icon.png',
+                url: 'https://developers.google.com/drive/images/drive_icon.png',
               },
             },
           },
@@ -234,13 +218,11 @@ const MOCK_DATA = {
             url: 'https://drive.google.com/file/d/EXAMPLE5/view?usp=drivesdk',
             icon: {
               '@type': 'Image',
-              url:
-                'https://drive-thirdparty.googleusercontent.com/32/type/video/mp4',
+              url: 'https://drive-thirdparty.googleusercontent.com/32/type/video/mp4',
             },
             image: {
               '@type': 'Image',
-              url:
-                'https://lh3.googleusercontent.com/DUMMY-67t7URzDc6Hsp44s44=s500',
+              url: 'https://lh3.googleusercontent.com/DUMMY-67t7URzDc6Hsp44s44=s500',
             },
             name: 'Some Training video.mp4',
             'atlassian:fileSize': '109865785',
@@ -262,8 +244,7 @@ const MOCK_DATA = {
             'schema:commentCount': 0,
             preview: {
               '@type': 'Link',
-              href:
-                'https://drive.google.com/file/d/EXAMPLE/preview?usp=drivesdk',
+              href: 'https://drive.google.com/file/d/EXAMPLE/preview?usp=drivesdk',
               'atlassian:supportedPlatforms': ['web'],
             },
             generator: {
@@ -271,8 +252,7 @@ const MOCK_DATA = {
               name: 'Google Drive',
               icon: {
                 '@type': 'Image',
-                url:
-                  'https://developers.google.com/drive/images/drive_icon.png',
+                url: 'https://developers.google.com/drive/images/drive_icon.png',
               },
             },
           },
@@ -284,8 +264,7 @@ const MOCK_DATA = {
           {
             displayName: 'Atlassian Links - Google Drive',
             key: 'gdrive',
-            url:
-              'https://id.stg.internal.atlassian.com/outboundAuth/start?containerId=DUMMY-ID-4&serviceKey=gdrive',
+            url: 'https://id.stg.internal.atlassian.com/outboundAuth/start?containerId=DUMMY-ID-4&serviceKey=gdrive',
             length: 1,
             version: '3.0.0',
             visibility: 'restricted',

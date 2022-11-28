@@ -10,9 +10,8 @@ export const extractMembers = (
     if (typeof members === 'string') {
       throw Error('Link[atlassian:members] must be an array or object.');
     } else if (members.hasOwnProperty('totalItems')) {
-      const collection = members as JsonLd.Primitives.Collection<
-        JsonLd.Primitives.Person
-      >;
+      const collection =
+        members as JsonLd.Primitives.Collection<JsonLd.Primitives.Person>;
       if (collection.items) {
         return (collection.items as JsonLd.Primitives.Person[])
           .map(member => extractPersonFromJsonLd(member))

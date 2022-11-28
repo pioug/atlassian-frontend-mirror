@@ -313,14 +313,12 @@ interface MediaInlineCardProps {
 }
 
 // @public (undocumented)
-type MediaInlineCardWithMediaClientConfigComponent = React_2.ComponentType<
-  MediaInlineCardWithMediaClientConfigProps
->;
+type MediaInlineCardWithMediaClientConfigComponent =
+  React_2.ComponentType<MediaInlineCardWithMediaClientConfigProps>;
 
 // @public (undocumented)
-type MediaInlineCardWithMediaClientConfigProps = WithMediaClientConfigProps<
-  MediaInlineCardProps
->;
+type MediaInlineCardWithMediaClientConfigProps =
+  WithMediaClientConfigProps<MediaInlineCardProps>;
 
 // @public (undocumented)
 export const newFileExperienceClassName = 'new-file-experience-wrapper';

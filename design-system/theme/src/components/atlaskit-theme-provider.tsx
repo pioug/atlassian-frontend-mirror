@@ -35,21 +35,22 @@ const themeFnMap: Record<ThemeModes, GetMode> = {
  * );
  * ```
  */
-const AtlaskitThemeProvider: FC<AKThemeProviderProps> = memo<
-  AKThemeProviderProps
->(({ mode = DEFAULT_THEME_MODE, background = bg, children }) => {
-  // background color is extracted here is it conditionally applied on the <body>
-  const themeObj = { theme: { mode } };
-  const backgroundColor = background(themeObj);
+const AtlaskitThemeProvider: FC<AKThemeProviderProps> =
+  memo<AKThemeProviderProps>(
+    ({ mode = DEFAULT_THEME_MODE, background = bg, children }) => {
+      // background color is extracted here is it conditionally applied on the <body>
+      const themeObj = { theme: { mode } };
+      const backgroundColor = background(themeObj);
 
-  useThemeResetStyles(backgroundColor);
-  return (
-    <Theme.Provider value={themeFnMap[mode]}>
-      <div className={`${mode}-${SELECTOR}`} style={{ backgroundColor }}>
-        {children}
-      </div>
-    </Theme.Provider>
+      useThemeResetStyles(backgroundColor);
+      return (
+        <Theme.Provider value={themeFnMap[mode]}>
+          <div className={`${mode}-${SELECTOR}`} style={{ backgroundColor }}>
+            {children}
+          </div>
+        </Theme.Provider>
+      );
+    },
   );
-});
 
 export default AtlaskitThemeProvider;

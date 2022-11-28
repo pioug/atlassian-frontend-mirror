@@ -85,7 +85,8 @@ export const factoryDecorations = ({
         // from the inside of the Editor
         // packages/editor/editor-core/src/ui/Addon/click-area-helper.ts
         typeaheadComponent.dataset.editorPopup = 'true';
-        typeaheadComponent.dataset.typeAhead = TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE;
+        typeaheadComponent.dataset.typeAhead =
+          TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE;
 
         typeaheadComponent.style.color = token('color.text.accent.blue', B400);
         typeaheadComponent.style.backgroundColor = 'transparent';

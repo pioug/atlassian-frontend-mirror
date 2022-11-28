@@ -24,12 +24,12 @@ export type TableMetaData =
       problem?: TableProblems;
     };
 
-export const setMeta = (meta: TableMetaData) => (
-  tr: Transaction,
-): Transaction => {
-  if ('problem' in meta) {
-    // Send analytics event whenever we encounter with a problem
-    fireAnalytics(meta);
-  }
-  return tr.setMeta(pluginKey, meta);
-};
+export const setMeta =
+  (meta: TableMetaData) =>
+  (tr: Transaction): Transaction => {
+    if ('problem' in meta) {
+      // Send analytics event whenever we encounter with a problem
+      fireAnalytics(meta);
+    }
+    return tr.setMeta(pluginKey, meta);
+  };

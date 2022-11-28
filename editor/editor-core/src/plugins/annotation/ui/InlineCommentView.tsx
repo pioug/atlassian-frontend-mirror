@@ -68,10 +68,8 @@ export function InlineCommentView({
   const { inlineComment: inlineCommentProvider } = providers;
   const { state, dispatch } = editorView;
 
-  const {
-    createComponent: CreateComponent,
-    viewComponent: ViewComponent,
-  } = inlineCommentProvider;
+  const { createComponent: CreateComponent, viewComponent: ViewComponent } =
+    inlineCommentProvider;
   const inlineCommentState = getPluginState(state);
   const { bookmark, selectedAnnotations, annotations } = inlineCommentState;
 

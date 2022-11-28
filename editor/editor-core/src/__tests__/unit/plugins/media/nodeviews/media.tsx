@@ -47,8 +47,7 @@ describe('nodeviews/media', () => {
 
   const mediaBlobNode = media({
     type: 'external',
-    url:
-      'blob:http://example.com/dd8bd6d8-cd55-0f42-a159-a3d04bd63ac4#media-blob-url=true&id=d4df0829-1215-41ec-a83f-412543d30025&collection=MediaServicesSample&contextId=DUMMY-OBJECT-ID&mimeType=image%2Fpng&name=image-20200623-053610.png&size=422247&width=680&height=382',
+    url: 'blob:http://example.com/dd8bd6d8-cd55-0f42-a159-a3d04bd63ac4#media-blob-url=true&id=d4df0829-1215-41ec-a83f-412543d30025&collection=MediaServicesSample&contextId=DUMMY-OBJECT-ID&mimeType=image%2Fpng&name=image-20200623-053610.png&size=422247&width=680&height=382',
   });
 
   beforeEach(() => {
@@ -117,7 +116,7 @@ describe('nodeviews/media', () => {
       featureFlags,
     };
 
-    wrapper = (mountWithIntl(
+    wrapper = mountWithIntl(
       <Media
         view={view}
         node={externalMediaNode()(defaultSchema)}
@@ -128,7 +127,7 @@ describe('nodeviews/media', () => {
         maxDimensions={cardDimensions}
         mediaOptions={mediaOptions}
       />,
-    ) as unknown) as ReactWrapper<MediaNodeProps>;
+    ) as unknown as ReactWrapper<MediaNodeProps>;
 
     expect(wrapper.find(Card).props().featureFlags).toEqual(featureFlags);
   });

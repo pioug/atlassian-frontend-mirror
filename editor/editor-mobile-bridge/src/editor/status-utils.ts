@@ -25,17 +25,16 @@ const getColorOptionsForMode = (themeMode: ThemeModes) => {
     : darkModeStatusColorPalette;
 };
 
-const changeColor = (status: StatusType, color: PaletteColor): Command => (
-  state,
-  dispatch,
-) => {
-  const newStatus = {
-    ...status,
-    color: color.label,
-  } as StatusType;
-  updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, newStatus)(state, dispatch);
-  return true;
-};
+const changeColor =
+  (status: StatusType, color: PaletteColor): Command =>
+  (state, dispatch) => {
+    const newStatus = {
+      ...status,
+      color: color.label,
+    } as StatusType;
+    updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, newStatus)(state, dispatch);
+    return true;
+  };
 
 const getDefaultColorValueForMode = (
   status: StatusType,
@@ -49,26 +48,30 @@ const getDefaultColorValueForMode = (
   return defaultColor ? defaultColor : undefined;
 };
 
-const onStatusTextChange = (
-  status: StatusType,
-  newStatusText: string,
-  showStatusPickerAt: number,
-): Command => (state, dispatch) => {
-  if (newStatusText === '') {
-    return removeStatus(showStatusPickerAt)(state, dispatch);
-  }
+const onStatusTextChange =
+  (
+    status: StatusType,
+    newStatusText: string,
+    showStatusPickerAt: number,
+  ): Command =>
+  (state, dispatch) => {
+    if (newStatusText === '') {
+      return removeStatus(showStatusPickerAt)(state, dispatch);
+    }
 
-  const newStatus = {
-    ...status,
-    text: newStatusText,
-  } as StatusType;
-  updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, newStatus)(state, dispatch);
-  return true;
-};
+    const newStatus = {
+      ...status,
+      text: newStatusText,
+    } as StatusType;
+    updateStatusWithAnalytics(INPUT_METHOD.TOOLBAR, newStatus)(state, dispatch);
+    return true;
+  };
 
-const onBlur = (value: string): Command => (state, dispatch) => {
-  return true;
-};
+const onBlur =
+  (value: string): Command =>
+  (state, dispatch) => {
+    return true;
+  };
 
 export const createInputToolbar = (
   status: StatusType,

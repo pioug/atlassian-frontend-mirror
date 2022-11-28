@@ -25,10 +25,8 @@ const AutoDismissFlag = (props: AutoDismissFlagProps) => {
   const { id, analyticsContext, onDismissed: onDismissedProp = noop } = props;
   const autoDismissTimer = useRef<number | null>(null);
 
-  const {
-    onDismissed: onDismissedFromFlagGroup,
-    isDismissAllowed,
-  } = useFlagGroup();
+  const { onDismissed: onDismissedFromFlagGroup, isDismissAllowed } =
+    useFlagGroup();
 
   const onDismissed = useCallback(
     (id: string | number, analyticsEvent: UIAnalyticsEvent) => {

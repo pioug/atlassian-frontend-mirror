@@ -85,10 +85,8 @@ describe('mentions: type-ahead', () => {
       const { state: editorState } = editorView;
       const { typeAheadHandlers } = getPluginState(editorState);
 
-      const {
-        getItems: mentionGetItems,
-        dismiss: mentionDismiss,
-      } = typeAheadHandlers[0];
+      const { getItems: mentionGetItems, dismiss: mentionDismiss } =
+        typeAheadHandlers[0];
 
       mentionGetItems({
         query: 'l',

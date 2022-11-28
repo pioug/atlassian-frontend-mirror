@@ -35,10 +35,10 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 }) {
   const numLines = (text || '').split('\n').length;
   const globalTheme = useGlobalTheme();
-  const theme = useMemo(() => getCodeBlockTheme(globalTheme, numLines), [
-    globalTheme,
-    numLines,
-  ]);
+  const theme = useMemo(
+    () => getCodeBlockTheme(globalTheme, numLines),
+    [globalTheme, numLines],
+  );
 
   const getStyles = useMemo(() => getCodeBlockStyles(theme), [theme]);
   const styles = useMemo(
@@ -57,9 +57,10 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
     [getHighlightStyles, highlightedLines],
   );
 
-  const language = useMemo(() => normalizeLanguage(providedLanguage), [
-    providedLanguage,
-  ]);
+  const language = useMemo(
+    () => normalizeLanguage(providedLanguage),
+    [providedLanguage],
+  );
 
   // https://product-fabric.atlassian.net/browse/DST-2472
   const languageToUse = text ? language : 'text';

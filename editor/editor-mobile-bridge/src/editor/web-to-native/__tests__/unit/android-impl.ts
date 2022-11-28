@@ -1,7 +1,7 @@
 import AndroidBridge from '../../android-impl';
 
 function createAndroidMockBridge(): [AndroidBridge, Window] {
-  const mockWindow = ({
+  const mockWindow = {
     lifecycleBridge: {
       editorReady: jest.fn(),
       editorDestroyed: jest.fn(),
@@ -71,7 +71,7 @@ function createAndroidMockBridge(): [AndroidBridge, Window] {
       onNodeSelected: jest.fn(),
       onNodeDeselected: jest.fn(),
     },
-  } as any) as Window;
+  } as any as Window;
   return [new AndroidBridge(mockWindow), mockWindow];
 }
 describe('Web To Native', () => {
@@ -120,20 +120,20 @@ describe('Web To Native', () => {
         });
 
         it('should not throw if lifeCycle bridge does not exist', function () {
-          const androidBridge = new AndroidBridge(({
+          const androidBridge = new AndroidBridge({
             lifecycleBridge: undefined,
             analyticsBridge: { trackEvent: jest.fn() },
-          } as any) as Window);
+          } as any as Window);
 
           expect(() => androidBridge.editorReady()).not.toThrow();
         });
 
         it('should send analytics event when lifecycleBridge does not exist', function () {
           const analyticsBridge = { trackEvent: jest.fn() };
-          const androidBridge = new AndroidBridge(({
+          const androidBridge = new AndroidBridge({
             lifecycleBridge: undefined,
             analyticsBridge,
-          } as any) as Window);
+          } as any as Window);
 
           androidBridge.editorReady();
 
@@ -180,20 +180,20 @@ describe('Web To Native', () => {
         });
 
         it('should not throw if lifeCycle bridge does not exist', function () {
-          const androidBridge = new AndroidBridge(({
+          const androidBridge = new AndroidBridge({
             lifecycleBridge: undefined,
             analyticsBridge: { trackEvent: jest.fn() },
-          } as any) as Window);
+          } as any as Window);
 
           expect(() => androidBridge.startWebBundle()).not.toThrow();
         });
 
         it('should send analytics event when lifecycleBridge does not exist', function () {
           const analyticsBridge = { trackEvent: jest.fn() };
-          const androidBridge = new AndroidBridge(({
+          const androidBridge = new AndroidBridge({
             lifecycleBridge: undefined,
             analyticsBridge,
-          } as any) as Window);
+          } as any as Window);
 
           androidBridge.startWebBundle();
 
@@ -237,10 +237,10 @@ describe('Web To Native', () => {
 
         it('should send analytics on error without bridge', () => {
           const analyticsBridge = { trackEvent: jest.fn() };
-          const androidBridge = new AndroidBridge(({
+          const androidBridge = new AndroidBridge({
             lifecycleBridge: undefined,
             analyticsBridge,
-          } as any) as Window);
+          } as any as Window);
 
           androidBridge.editorError(errorString);
 

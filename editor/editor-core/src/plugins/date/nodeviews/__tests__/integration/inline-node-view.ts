@@ -12,11 +12,9 @@ runInlineNodeViewTestSuite({
   multiLineNode: true,
   skipTests: {
     // TODO: Unskip via https://product-fabric.atlassian.net/browse/ED-15079
-    'Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position': [
-      'firefox',
-    ],
-    'Extend a selection to the end of the current line from the current position': [
-      'firefox',
-    ],
+    'Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position':
+      ['firefox'],
+    'Extend a selection to the end of the current line from the current position':
+      ['firefox'],
   },
 });

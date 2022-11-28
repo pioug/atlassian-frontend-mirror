@@ -81,7 +81,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
       this.renderOption(label)
     ) : (
       <FormattedMessage {...getAddEmailMessage(emailValidity)}>
-        {(label) => this.renderOption((label as unknown) as string)}
+        {(label) => this.renderOption(label as unknown as string)}
       </FormattedMessage>
     );
   }

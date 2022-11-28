@@ -39,8 +39,7 @@ const context = getContext({
   targetBranch: 'master',
   viewCount: 2,
   voteCount: 4,
-  url:
-    'https://atlaskit.atlassian.com/packages/linking-platform/smart-card/docs/flexible-ui',
+  url: 'https://atlaskit.atlassian.com/packages/linking-platform/smart-card/docs/flexible-ui',
   latestCommit: '64862f5',
 });
 

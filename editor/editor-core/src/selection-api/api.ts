@@ -17,18 +17,18 @@ export const createEditorSelectionAPI = (): EditorSelectionAPI => {
     getSelectionPluginState: (state: EditorState) => {
       return getSelectionPluginState(state);
     },
-    setSelectionRelativeToNode: ({ selectionRelativeToNode, selection }) => (
-      state: EditorState,
-    ) => {
-      let tr = state.tr;
-      const fakeDispatch = (_tr: Transaction) => {
-        tr = _tr;
-      };
-      setSelectionRelativeToNodeOriginalCommand(
-        selectionRelativeToNode,
-        selection,
-      )(state, fakeDispatch);
-      return tr;
-    },
+    setSelectionRelativeToNode:
+      ({ selectionRelativeToNode, selection }) =>
+      (state: EditorState) => {
+        let tr = state.tr;
+        const fakeDispatch = (_tr: Transaction) => {
+          tr = _tr;
+        };
+        setSelectionRelativeToNodeOriginalCommand(
+          selectionRelativeToNode,
+          selection,
+        )(state, fakeDispatch);
+        return tr;
+      },
   };
 };

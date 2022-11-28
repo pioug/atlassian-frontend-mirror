@@ -15,7 +15,7 @@ export type UploadServiceEventPayloadTypes = {
 };
 
 export type UploadServiceEventListener<
-  E extends keyof UploadServiceEventPayloadTypes
+  E extends keyof UploadServiceEventPayloadTypes,
 > = (payload: UploadServiceEventPayloadTypes[E]) => void;
 
 export const MAX_FILE_SIZE_FOR_PREVIEW = 10e6; // 10 MB

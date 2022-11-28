@@ -9,7 +9,7 @@ jest.mock('../../../mediaFeatureFlag-local', () => ({
 
 jest.spyOn(productKeys, 'getProductKeys').mockImplementation(
   () =>
-    (({
+    ({
       confluence: {
         'my-first-flag': 'conflu-my-first-flag',
         'my-second-flag': 'conflu-my-second-flag',
@@ -22,7 +22,7 @@ jest.spyOn(productKeys, 'getProductKeys').mockImplementation(
         'my-third-flag': 'jira-my-third-flag',
         'my-fourth-flag': 'jira-my-fourth-flag',
       },
-    } as unknown) as ProductKeys),
+    } as unknown as ProductKeys),
 );
 
 import {
@@ -201,12 +201,12 @@ describe('Media Feature Flags', () => {
   describe('filterFeatureFlagNames', () => {
     it('returns the flag names switched on', () => {
       expect(
-        filterFeatureFlagNames(({
+        filterFeatureFlagNames({
           'my-first-flag': true,
           'my-second-flag': false,
           'my-third-flag': true,
           'my-fourth-flag': false,
-        } as unknown) as RequiredMediaFeatureFlags),
+        } as unknown as RequiredMediaFeatureFlags),
       ).toEqual(['my-first-flag', 'my-third-flag']);
     });
   });
@@ -214,12 +214,12 @@ describe('Media Feature Flags', () => {
     it('returns the Confluence launch darkly flag names switched on', () => {
       expect(
         mapAndFilterFeatureFlagNames(
-          ({
+          {
             'my-first-flag': true,
             'my-second-flag': false,
             'my-third-flag': true,
             'my-fourth-flag': false,
-          } as unknown) as RequiredMediaFeatureFlags,
+          } as unknown as RequiredMediaFeatureFlags,
           'confluence',
         ),
       ).toEqual(['conflu-my-first-flag', 'conflu-my-third-flag']);
@@ -228,12 +228,12 @@ describe('Media Feature Flags', () => {
     it('returns the Jira launch darkly flag names switched on', () => {
       expect(
         mapAndFilterFeatureFlagNames(
-          ({
+          {
             'my-first-flag': true,
             'my-second-flag': false,
             'my-third-flag': true,
             'my-fourth-flag': false,
-          } as unknown) as RequiredMediaFeatureFlags,
+          } as unknown as RequiredMediaFeatureFlags,
           'jira',
         ),
       ).toEqual(['jira-my-first-flag', 'jira-my-third-flag']);
@@ -242,12 +242,12 @@ describe('Media Feature Flags', () => {
   describe('filterFeatureFlagNamesWithAllProducts', () => {
     it('returns all the launch darkly flag names switched on', () => {
       expect(
-        filterFeatureFlagKeysAllProducts(({
+        filterFeatureFlagKeysAllProducts({
           'my-first-flag': true,
           'my-second-flag': false,
           'my-third-flag': true,
           'my-fourth-flag': false,
-        } as unknown) as RequiredMediaFeatureFlags),
+        } as unknown as RequiredMediaFeatureFlags),
       ).toEqual([
         'conflu-my-first-flag',
         'jira-my-first-flag',

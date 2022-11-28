@@ -32,9 +32,7 @@ export interface InlineCardErroredViewProps {
   icon?: React.ReactNode;
 }
 
-export class InlineCardErroredView extends React.Component<
-  InlineCardErroredViewProps
-> {
+export class InlineCardErroredView extends React.Component<InlineCardErroredViewProps> {
   handleRetry = (event: React.MouseEvent<HTMLElement>) => {
     const { onRetry } = this.props;
     if (onRetry) {

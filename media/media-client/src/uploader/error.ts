@@ -10,9 +10,7 @@ export type UploaderErrorAttributes = {
     readonly occurrenceKey?: string;
   };
 };
-export class UploaderError extends BaseMediaClientError<
-  UploaderErrorAttributes
-> {
+export class UploaderError extends BaseMediaClientError<UploaderErrorAttributes> {
   constructor(
     readonly reason: UploaderErrorReason,
     readonly id: string,

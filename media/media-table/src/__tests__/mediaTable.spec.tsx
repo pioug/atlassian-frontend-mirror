@@ -337,8 +337,9 @@ describe('MediaTable', () => {
   it('should render empty table with no rows if table has no items', async () => {
     const { mediaTable } = await setup(true, { ...defaultProps, items: [] });
 
-    const rowLength = mediaTable.find(DynamicTableStateless).prop('rows')
-      .length;
+    const rowLength = mediaTable
+      .find(DynamicTableStateless)
+      .prop('rows').length;
     expect(rowLength).toEqual(0);
   });
 
@@ -408,8 +409,9 @@ describe('MediaTable', () => {
   it('should have same number of table rows as rows passed in', async () => {
     const { mediaTable } = await setup();
 
-    const tableLength = mediaTable.find(DynamicTableStateless).prop('rows')
-      .length;
+    const tableLength = mediaTable
+      .find(DynamicTableStateless)
+      .prop('rows').length;
 
     expect(tableLength).toEqual(2);
   });
@@ -421,8 +423,9 @@ describe('MediaTable', () => {
       totalItems: 5,
     });
 
-    const tableLength = mediaTable.find(DynamicTableStateless).prop('rows')
-      .length;
+    const tableLength = mediaTable
+      .find(DynamicTableStateless)
+      .prop('rows').length;
 
     expect(tableLength).toEqual(2);
   });

@@ -97,9 +97,8 @@ describe('hyperlink', () => {
         doc(p(a({ href: 'google.com' })('web{<>}site'))),
       );
       const { state } = editorView;
-      const { getConfigWithNodeInfo } = floatingToolbarPluginKey.getState(
-        state,
-      )!;
+      const { getConfigWithNodeInfo } =
+        floatingToolbarPluginKey.getState(state)!;
 
       expect(getConfigWithNodeInfo(state).config).toMatchObject({
         nodeType: [
@@ -117,9 +116,8 @@ describe('hyperlink', () => {
       );
 
       const { state } = editorView;
-      const { getConfigWithNodeInfo } = floatingToolbarPluginKey.getState(
-        state,
-      )!;
+      const { getConfigWithNodeInfo } =
+        floatingToolbarPluginKey.getState(state)!;
 
       expect(getConfigWithNodeInfo(state).config).toMatchObject({
         nodeType: expect.arrayContaining([

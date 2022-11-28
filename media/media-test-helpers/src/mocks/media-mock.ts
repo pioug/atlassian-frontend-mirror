@@ -39,11 +39,8 @@ export class MediaMock {
   constructor(readonly collections?: MockCollections) {}
 
   enable(config: MediaMockConfig = {}): void {
-    const {
-      isSlowServer,
-      urlsReturnErrorsTo,
-      mockRemoteUploadActivity,
-    } = config;
+    const { isSlowServer, urlsReturnErrorsTo, mockRemoteUploadActivity } =
+      config;
 
     if (!exenv.canUseDOM) {
       return;

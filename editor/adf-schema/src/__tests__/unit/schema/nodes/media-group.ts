@@ -59,8 +59,10 @@ describe(`${packageName}/schema mediaGroup node`, () => {
     const mediaGroupDom = toDOM(mediaGroupNode, schema)
       .firstChild as HTMLElement;
 
-    const parsedMediaGroup = fromHTML(mediaGroupDom.outerHTML, schema)
-      .firstChild;
+    const parsedMediaGroup = fromHTML(
+      mediaGroupDom.outerHTML,
+      schema,
+    ).firstChild;
 
     expect(parsedMediaGroup).toEqual(mediaGroupNode);
   });

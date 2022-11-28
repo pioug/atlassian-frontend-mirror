@@ -46,11 +46,11 @@ BrowserTestCase(
       inlineCardContentWrapperTop,
     } = await (page as any).browser.execute(
       (inlineCardContentWrapperElement: any) => {
-        const cardElement = inlineCardContentWrapperElement.querySelector(
-          '.card',
-        );
+        const cardElement =
+          inlineCardContentWrapperElement.querySelector('.card');
         const cardBoundingClientRect = cardElement.getBoundingClientRect();
-        const inlineCardContentWrapperBoundingClientRect = inlineCardContentWrapperElement.getBoundingClientRect();
+        const inlineCardContentWrapperBoundingClientRect =
+          inlineCardContentWrapperElement.getBoundingClientRect();
         return {
           cardHeight: cardBoundingClientRect.height,
           cardTop: cardBoundingClientRect.top,

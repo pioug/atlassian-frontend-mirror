@@ -44,16 +44,13 @@ export const Article: React.FC = () => {
     reloadHelpArticle,
     reloadWhatsNewArticle,
   } = useNavigationContext();
-  const {
-    onHelpArticleLoadingFailTryAgainButtonClick,
-  } = useHelpArticleContext();
+  const { onHelpArticleLoadingFailTryAgainButtonClick } =
+    useHelpArticleContext();
 
-  const [
-    skipArticleSlideInAnimation,
-    setSkipArticleSlideInAnimation,
-  ] = useState<boolean>(
-    articleId?.id !== '' || (history ? history.length : []) > 0,
-  );
+  const [skipArticleSlideInAnimation, setSkipArticleSlideInAnimation] =
+    useState<boolean>(
+      articleId?.id !== '' || (history ? history.length : []) > 0,
+    );
   const [showArticle, setShowArticle] = useState<boolean>(
     skipArticleSlideInAnimation,
   );

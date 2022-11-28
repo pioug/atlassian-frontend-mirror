@@ -164,9 +164,8 @@ describe('paste plugins', () => {
     attachTo?: HTMLElement,
   ) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
-    const emojiProvider = getEmojiResourceWithStandardAndAtlassianEmojis() as Promise<
-      EmojiProvider
-    >;
+    const emojiProvider =
+      getEmojiResourceWithStandardAndAtlassianEmojis() as Promise<EmojiProvider>;
     const mediaProvider = Promise.resolve({
       viewMediaClientConfig: getDefaultMediaClientConfig(),
     });
@@ -454,8 +453,7 @@ describe('paste plugins', () => {
                   type: 'external',
                   __external: true,
                   alt: 'Image result for cat',
-                  url:
-                    'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+                  url: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
                 })(),
               ),
             ),
@@ -940,8 +938,7 @@ describe('paste plugins', () => {
                       __external: true,
                       alt: '',
                       type: 'external',
-                      url:
-                        'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
+                      url: 'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
                     })(),
                   ),
                 ),
@@ -1083,8 +1080,7 @@ describe('paste plugins', () => {
       it('should preserve marks when pasting inline text into empty text selection', () => {
         const { editorView } = editor(doc(p(strong(em('this is {<>}')))));
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em text</p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em text</p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(p(strong(em('this is strong em text{<>}')))),
@@ -1101,8 +1097,7 @@ describe('paste plugins', () => {
           ),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>this is another</p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>this is another</p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(p(strong(em('this is another strong em text')))),
@@ -1120,8 +1115,7 @@ describe('paste plugins', () => {
           ),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1139,8 +1133,7 @@ describe('paste plugins', () => {
           doc(panel()(p(strong(em('this is a {<>}text'))))),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(panel()(p(strong(em('this is a strong em {<>}text'))))),
@@ -1152,8 +1145,7 @@ describe('paste plugins', () => {
           doc(h1(strong(em('this is a {<>}text')))),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(h1(strong(em('this is a strong em {<>}text')))),
@@ -1165,8 +1157,7 @@ describe('paste plugins', () => {
           doc(ol(li(p(strong(em('this is a {<>}text')))))),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(ol(li(p(strong(em('this is a strong em {<>}text')))))),
@@ -1179,8 +1170,7 @@ describe('paste plugins', () => {
           doc(panel()(p(strong(em('this is a {<>}text'))))),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'><a href='http://www.google.com'>www.google.com</a></p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'><a href='http://www.google.com'>www.google.com</a></p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1213,8 +1203,7 @@ describe('paste plugins', () => {
           doc(panel()(p(code('code line 1: {<>}')))),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'><a href='http://www.google.com'>www.google.com</a></p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'><a href='http://www.google.com'>www.google.com</a></p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(panel()(p(code('code line 1: www.google.com')))),
@@ -1267,8 +1256,7 @@ describe('paste plugins', () => {
           // which can affect subsequent tests
           await flushPromises();
           dispatchPasteEvent(editorView, {
-            html:
-              "<meta charset='utf-8'><p data-pm-slice='1 1 []'>modified </p>",
+            html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>modified </p>",
           });
           expect(editorView.state.doc).toEqualDocument(
             doc(
@@ -1286,8 +1274,7 @@ describe('paste plugins', () => {
           const { editorView } = editor(doc(p('this is a {<>}text')));
           await flushPromises();
           dispatchPasteEvent(editorView, {
-            html:
-              "<meta charset='utf-8'><p data-pm-slice='1 1 []'><span data-mark-type='annotation' data-mark-annotation-type='inlineComment' data-id='annotation-id' >annotated </span></p>",
+            html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'><span data-mark-type='annotation' data-mark-annotation-type='inlineComment' data-id='annotation-id' >annotated </span></p>",
           });
           expect(editorView.state.doc).toEqualDocument(
             doc(
@@ -1307,8 +1294,7 @@ describe('paste plugins', () => {
           const { editorView } = editor(doc(p('this is a {<>}text')));
           await flushPromises();
           dispatchPasteEvent(editorView, {
-            html:
-              "<meta charset='utf-8'><p data-pm-slice='1 1 []'><span data-mark-type='annotation' data-mark-annotation-type='inlineComment' data-id='nonexisting-annotation-id' >annotated </span></p>",
+            html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'><span data-mark-type='annotation' data-mark-annotation-type='inlineComment' data-id='nonexisting-annotation-id' >annotated </span></p>",
           });
           expect(editorView.state.doc).toEqualDocument(
             doc(p('this is a annotated text')),
@@ -1330,8 +1316,7 @@ describe('paste plugins', () => {
           // which can affect subsequent tests
           await flushPromises();
           dispatchPasteEvent(editorView, {
-            html:
-              "<meta charset='utf-8'><p data-pm-slice='1 1 []'><span data-mark-type='annotation' data-mark-annotation-type='inlineComment' data-id='annotation-id-2' >inner annotation </span></p>",
+            html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'><span data-mark-type='annotation' data-mark-annotation-type='inlineComment' data-id='annotation-id-2' >inner annotation </span></p>",
           });
           expect(editorView.state.doc).toEqualDocument(
             doc(
@@ -1364,8 +1349,7 @@ describe('paste plugins', () => {
       it('should preserve marks when pasting paragraphs into empty text selection', () => {
         const { editorView } = editor(doc(p(strong(em('this is {<>}')))));
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em text</p><p>this is another paragraph</p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em text</p><p>this is another paragraph</p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1385,8 +1369,7 @@ describe('paste plugins', () => {
           ),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>this is another</p><p>hello</p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>this is another</p><p>hello</p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1407,8 +1390,7 @@ describe('paste plugins', () => {
           ),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p><p>hello </p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p><p>hello </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1427,8 +1409,7 @@ describe('paste plugins', () => {
           doc(panel()(p(strong(em('this is a {<>}text'))))),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p><p>hello </p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p><p>hello </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1445,8 +1426,7 @@ describe('paste plugins', () => {
           doc(h1(strong(em('this is a {<>}text')))),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p><p>hello </p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p><p>hello </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1461,8 +1441,7 @@ describe('paste plugins', () => {
           doc(ol(li(p(strong(em('this is a {<>}text')))))),
         );
         dispatchPasteEvent(editorView, {
-          html:
-            "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p><p>hello </p>",
+          html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p><p>hello </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
@@ -1486,9 +1465,11 @@ describe('paste plugins', () => {
 
         const tr = dispatchSpy.mock.calls[0][0];
         expect(
-          (tr as Transaction & {
-            scrolledIntoView: boolean;
-          }).scrolledIntoView,
+          (
+            tr as Transaction & {
+              scrolledIntoView: boolean;
+            }
+          ).scrolledIntoView,
         ).toBe(true);
       });
     });
@@ -1631,8 +1612,7 @@ describe('paste plugins', () => {
       const { editorView } = editor(doc(p('{<>}')));
       dispatchPasteEvent(editorView, {
         plain: 'code line 1\ncode line 2\ncode line 3',
-        html:
-          '<pre data-qa="code-line">code line 1\ncode line 2</pre><pre data-qa="code-line">code line 3</pre>',
+        html: '<pre data-qa="code-line">code line 1\ncode line 2</pre><pre data-qa="code-line">code line 3</pre>',
       });
       expect(editorView.state.doc).toEqualDocument(
         doc(code_block()('code line 1\ncode line 2\ncode line 3'), p('')),
@@ -1643,8 +1623,7 @@ describe('paste plugins', () => {
       const { editorView } = editor(doc(p('{<>}')));
       dispatchPasteEvent(editorView, {
         plain: 'code line 1\ncode line 2\ncode line 3',
-        html:
-          '<pre>code line 1</pre><pre>code line 2</pre><pre>code line 3</pre>',
+        html: '<pre>code line 1</pre><pre>code line 2</pre><pre>code line 3</pre>',
       });
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -2076,9 +2055,9 @@ describe('paste plugins', () => {
           doc(p('{docStart}Hello world{<>}')),
           extensionProps({
             resolveBeforeMacros: ['jira'],
-            provider: Promise.resolve(({
+            provider: Promise.resolve({
               resolve: () => Promise.reject('error'),
-            } as unknown) as CardProvider),
+            } as unknown as CardProvider),
           }),
         );
 
@@ -2326,10 +2305,11 @@ describe('paste plugins', () => {
 
         const onlyTableHeadersAndCellsFromTinyMCEConfluence = `<meta charset="utf-8" /><th class="confluenceTh mceSelected">a</th><th class="confluenceTh mceSelected">b</th><th class="confluenceTh mceSelected">c</th><td class="confluenceTd mceSelected">d</td><td class="confluenceTd mceSelected">e</td><td class="confluenceTd mceSelected">f</td><td class="confluenceTd mceSelected">g</td><td class="confluenceTd mceSelected">h</td><td class="confluenceTd mceSelected">i</td>`;
         const onlyTableHeadersAndCellsWithIncompleteRowFromTinyMCEConfluence = `<meta charset="utf-8" /><th class="confluenceTh mceSelected">a</th><th class="confluenceTh mceSelected">b</th><th class="confluenceTh mceSelected">c</th><td class="confluenceTd mceSelected">d</td><td class="confluenceTd mceSelected">e</td><td class="confluenceTd mceSelected">f</td> <td class="confluenceTd mceSelected">g</td>`;
-        const onlyTableHeadersAndCellsFromTinyMCENonConfluence = onlyTableHeadersAndCellsFromTinyMCEConfluence.replace(
-          /confluenceTh|confluenceTd|confluenceTable/g,
-          '',
-        );
+        const onlyTableHeadersAndCellsFromTinyMCENonConfluence =
+          onlyTableHeadersAndCellsFromTinyMCEConfluence.replace(
+            /confluenceTh|confluenceTd|confluenceTable/g,
+            '',
+          );
         const onlyTableHeadersCellsDoubleHeaderRowFromTinyMCEConfluence = `<meta charset="utf-8" /><th class="confluenceTh">ha</th><th class="confluenceTh">ha</th><th class="confluenceTh">ha</th><th class="confluenceTh" colspan="1" width="">hb</th><th class="confluenceTh" colspan="1" width="">hb</th><th class="confluenceTh" colspan="1" width="">hb</th><td class="confluenceTd">a</td><td class="confluenceTd">a</td><td class="confluenceTd">a</td><td class="confluenceTd">b</td><td class="confluenceTd">b</td><td class="confluenceTd">b</td>`;
         const onlyTableCellsFromTinyMCEConfluence = `<meta charset="utf-8" /><td class="confluenceTd mceSelected">a</td><td class="confluenceTd mceSelected">a</td><td class="confluenceTd mceSelected" colspan="1" width="">a</td><td class="confluenceTd mceSelected">b</td><td class="confluenceTd mceSelected">b</td><td class="confluenceTd mceSelected" colspan="1" width="">b</td><td class="confluenceTd mceSelected">c</td><td class="confluenceTd mceSelected">c</td><td class="confluenceTd mceSelected" colspan="1" width="">c</td>`;
         const onlyTableHeadersAfterCellsFromTinyMCEConfluence = `<meta charset="utf-8" /><td class="confluenceTd mceSelected">a</td><th class="confluenceTd mceSelected">b</th><td class="confluenceTd mceSelected">c</td>`;
@@ -2415,8 +2395,7 @@ describe('paste plugins', () => {
                         __external: true,
                         alt: '',
                         type: 'external',
-                        url:
-                          'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
+                        url: 'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
                       })(),
                     ),
                   ),
@@ -2450,8 +2429,7 @@ describe('paste plugins', () => {
                         __external: true,
                         alt: '',
                         type: 'external',
-                        url:
-                          'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
+                        url: 'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
                       })(),
                     ),
                   ),
@@ -2467,8 +2445,7 @@ describe('paste plugins', () => {
                         __external: true,
                         alt: '',
                         type: 'external',
-                        url:
-                          'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
+                        url: 'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
                       })(),
                     ),
                   ),

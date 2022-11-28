@@ -104,10 +104,8 @@ export const getAllAnnotations = (doc: Node): string[] => {
  * verifies if annotation mark contains valid attributes
  */
 const validateAnnotationMark = (annotationMark: Mark): boolean => {
-  const {
-    id,
-    annotationType,
-  } = annotationMark.attrs as AnnotationMarkAttributes;
+  const { id, annotationType } =
+    annotationMark.attrs as AnnotationMarkAttributes;
   return validateAnnotationId(id) && validateAnnotationType(annotationType);
 
   function validateAnnotationId(id: string): boolean {

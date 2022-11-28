@@ -526,8 +526,9 @@ export class TableRowNodeView implements NodeView {
   shouldHeaderStick = (tree: TableDOMElements): boolean => {
     const { wrapper } = tree;
     const tableWrapperRect = wrapper.getBoundingClientRect();
-    const editorAreaRect = (this
-      .editorScrollableElement as HTMLElement).getBoundingClientRect();
+    const editorAreaRect = (
+      this.editorScrollableElement as HTMLElement
+    ).getBoundingClientRect();
 
     const stickyHeaderRect = this.contentDOM.getBoundingClientRect();
     const firstHeaderRow = !this.dom.previousElementSibling;

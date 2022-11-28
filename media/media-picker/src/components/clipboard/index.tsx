@@ -12,9 +12,8 @@ type ClipboardWithMediaClientConfigProps = WithMediaClientConfigProps<
     config?: ClipboardConfig;
   }
 >;
-type ClipboardWithMediaClientConfigComponent = React.ComponentType<
-  ClipboardWithMediaClientConfigProps
->;
+type ClipboardWithMediaClientConfigComponent =
+  React.ComponentType<ClipboardWithMediaClientConfigProps>;
 
 type State = {
   Clipboard?: ClipboardWithMediaClientConfigComponent;

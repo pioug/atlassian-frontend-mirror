@@ -35,7 +35,7 @@ describe('WorkerHasher', () => {
   });
 
   afterAll(() => {
-    ((uuidV4 as () => string) as jest.Mock<string>).mockClear();
+    (uuidV4 as () => string as jest.Mock<string>).mockClear();
   });
 
   it('should start 5 workers if 5 workers are specified in the constructor', () => {
@@ -67,10 +67,10 @@ describe('WorkerHasher', () => {
     );
 
     // We mock uuid.v4() call to generate unique ids for both blobs
-    ((uuidV4 as () => string) as jest.Mock<string>).mockReturnValueOnce(
+    (uuidV4 as () => string as jest.Mock<string>).mockReturnValueOnce(
       'my-first-id',
     );
-    ((uuidV4 as () => string) as jest.Mock<string>).mockReturnValueOnce(
+    (uuidV4 as () => string as jest.Mock<string>).mockReturnValueOnce(
       'my-second-id',
     );
 
@@ -128,7 +128,7 @@ describe('WorkerHasher', () => {
 
     const hasher = new WorkerHasher(1);
 
-    ((uuidV4 as () => string) as jest.Mock<string>).mockReturnValueOnce(
+    (uuidV4 as () => string as jest.Mock<string>).mockReturnValueOnce(
       'my-first-id',
     );
 

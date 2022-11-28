@@ -12,9 +12,9 @@ describe('<FilePreviewItem />', () => {
         attrs: { id: '1234', collection: 'collection-name' },
       }) as any,
     } as MediaPluginState;
-    const intl = ({
+    const intl = {
       formatMessage: jest.fn((message) => message.id),
-    } as unknown) as IntlShape;
+    } as unknown as IntlShape;
 
     const { getByTestId } = render(
       <FilePreviewItem mediaPluginState={mediaPluginState} intl={intl} />,

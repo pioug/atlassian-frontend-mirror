@@ -73,7 +73,7 @@ type ModifierList =
 export interface PopupSelectProps<
   Option = OptionType,
   IsMulti extends boolean = false,
-  Modifiers = ModifierList
+  Modifiers = ModifierList,
 > extends ReactSelectProps<Option, IsMulti> {
   /**
    * Defines whether the menu should close when selected. Defaults to "true"
@@ -171,7 +171,7 @@ const isEmpty = (obj: Object) => Object.keys(obj).length === 0;
 
 export default class PopupSelect<
   Option = OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > extends PureComponent<PopupSelectProps<Option, IsMulti>, State> {
   menuRef: HTMLElement | null = null;
   selectRef: Select<Option, IsMulti> | null = null;
@@ -413,32 +413,30 @@ export default class PopupSelect<
   // Refs
   // ==============================
 
-  resolveTargetRef = (popperRef: React.Ref<HTMLElement>) => (
-    ref: HTMLElement,
-  ) => {
-    // avoid thrashing fn calls
-    if (!this.targetRef && popperRef && ref) {
-      this.targetRef = ref;
+  resolveTargetRef =
+    (popperRef: React.Ref<HTMLElement>) => (ref: HTMLElement) => {
+      // avoid thrashing fn calls
+      if (!this.targetRef && popperRef && ref) {
+        this.targetRef = ref;
+
+        if (typeof popperRef === 'function') {
+          popperRef(ref);
+        } else {
+          (popperRef as React.MutableRefObject<HTMLElement>).current = ref;
+        }
+      }
+    };
+
+  resolveMenuRef =
+    (popperRef: React.Ref<HTMLElement>) => (ref: HTMLElement) => {
+      this.menuRef = ref;
 
       if (typeof popperRef === 'function') {
         popperRef(ref);
       } else {
         (popperRef as React.MutableRefObject<HTMLElement>).current = ref;
       }
-    }
-  };
-
-  resolveMenuRef = (popperRef: React.Ref<HTMLElement>) => (
-    ref: HTMLElement,
-  ) => {
-    this.menuRef = ref;
-
-    if (typeof popperRef === 'function') {
-      popperRef(ref);
-    } else {
-      (popperRef as React.MutableRefObject<HTMLElement>).current = ref;
-    }
-  };
+    };
 
   getSelectRef = (ref: Select<Option, IsMulti>) => {
     this.selectRef = ref;
@@ -494,12 +492,8 @@ export default class PopupSelect<
 
   renderSelect = () => {
     const { footer, maxMenuWidth, minMenuWidth, target, ...props } = this.props;
-    const {
-      focusLockEnabled,
-      isOpen,
-      mergedComponents,
-      mergedPopperProps,
-    } = this.state;
+    const { focusLockEnabled, isOpen, mergedComponents, mergedPopperProps } =
+      this.state;
     const showSearchControl = this.showSearchControl();
     const portalDestination = canUseDOM() ? document.body : null;
     const components = {

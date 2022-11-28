@@ -23,9 +23,10 @@ export const InviteToEditButton: React.FC<InviteToEditButtonProps> = (
 ) => {
   const { Component, onClick, selected, title } = props;
 
-  const iconBefore = React.useMemo(() => <InviteTeamIcon label={title} />, [
-    title,
-  ]);
+  const iconBefore = React.useMemo(
+    () => <InviteTeamIcon label={title} />,
+    [title],
+  );
 
   if (!Component && !onClick) {
     return null;

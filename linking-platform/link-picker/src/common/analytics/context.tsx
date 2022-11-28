@@ -58,7 +58,7 @@ const LinkPickerAnalyticsContext = React.createContext<AnalyticsContextType>({
  * This function continues to duplicate / assume logic that runs in the picker
  */
 const contextAttributesFromIntialProps = <
-  P extends Pick<LinkPickerProps, 'url' | 'displayText' | 'plugins'>
+  P extends Pick<LinkPickerProps, 'url' | 'displayText' | 'plugins'>,
 >(
   props: P,
 ) => {
@@ -80,9 +80,11 @@ const LinkPickerAnalytics = ({
 }: React.PropsWithChildren<{
   initialContext?: Partial<LinkPickerAnalyticsContextType>;
 }>) => {
-  const dataRef: React.MutableRefObject<LinkPickerAnalyticsContextType> = useRef<
-    LinkPickerAnalyticsContextType
-  >({ ...DEFAULT_CONTEXT_ATTRIBUTES, ...initialContext });
+  const dataRef: React.MutableRefObject<LinkPickerAnalyticsContextType> =
+    useRef<LinkPickerAnalyticsContextType>({
+      ...DEFAULT_CONTEXT_ATTRIBUTES,
+      ...initialContext,
+    });
 
   const methods = useMemo<AnalyticsContextType>(
     () => ({

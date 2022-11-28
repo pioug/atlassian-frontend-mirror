@@ -53,14 +53,8 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
   }
 
   render() {
-    const {
-      linkPickerOptions,
-      providerFactory,
-      url,
-      text,
-      view,
-      onSubmit,
-    } = this.props;
+    const { linkPickerOptions, providerFactory, url, text, view, onSubmit } =
+      this.props;
 
     return (
       <HyperlinkToolbar

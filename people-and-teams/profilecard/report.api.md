@@ -550,9 +550,7 @@ export interface Team {
 }
 
 // @public (undocumented)
-class TeamCentralCardClient extends CachingClient<
-  TeamCentralReportingLinesData
-> {
+class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData> {
   constructor(options: TeamCentralCardClientOptions);
   bypassOnFailure: boolean;
   // (undocumented)

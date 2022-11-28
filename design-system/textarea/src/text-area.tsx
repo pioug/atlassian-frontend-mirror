@@ -97,16 +97,17 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
     }
   };
 
-  const handleOnChange: React.ChangeEventHandler<HTMLTextAreaElement> = useCallback(
-    (e) => {
-      const el: HTMLTextAreaElement | null = ourRef.current;
-      if (resize === 'smart' && el) {
-        setSmartHeight(el);
-      }
-      onChange && onChange(e);
-    },
-    [onChange, resize],
-  );
+  const handleOnChange: React.ChangeEventHandler<HTMLTextAreaElement> =
+    useCallback(
+      (e) => {
+        const el: HTMLTextAreaElement | null = ourRef.current;
+        if (resize === 'smart' && el) {
+          setSmartHeight(el);
+        }
+        onChange && onChange(e);
+      },
+      [onChange, resize],
+    );
 
   const controlProps = {
     'data-invalid': isInvalid ? isInvalid : undefined,

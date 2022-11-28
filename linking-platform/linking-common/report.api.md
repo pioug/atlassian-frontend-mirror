@@ -249,7 +249,7 @@ export type MetadataStatus = 'errored' | 'pending' | 'resolved';
 // @public
 export function promiseDebounce<
   Args extends unknown[],
-  ResolveType extends unknown
+  ResolveType extends unknown,
 >(
   cb: (...args: Args) => Promise<ResolveType>,
   time: number,

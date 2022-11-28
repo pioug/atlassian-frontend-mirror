@@ -13,11 +13,9 @@ import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView'
 
 let mockOnClick: React.MouseEventHandler = jest.fn();
 const getResolvedProps = (overrides = {}): EmbedCardResolvedViewProps => ({
-  link:
-    'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
+  link: 'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
   preview: {
-    src:
-      'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
+    src: 'https://www.dropbox.com/sh/0isygvcskxbdwee/AADMfqcGx4XR15DeKnRo_YzHa?dl=0',
     aspectRatio: 0.6,
   },
   title: 'Smart Link Assets',
@@ -145,6 +143,17 @@ describe('EmbedCard Views', () => {
       const iframeEl = await container.querySelector('iframe');
       expect(iframeEl?.getAttribute('sandbox')).toBeNull();
     });
+
+    it('does not allow scrolling of content through wrapper', () => {
+      const props = getResolvedProps({ isTrusted: true });
+      const { getByTestId } = render(
+        <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
+      );
+      const view = getByTestId('embed-content-wrapper');
+      expect(
+        window.getComputedStyle(view).getPropertyValue('overflow'),
+      ).toEqual('hidden');
+    });
   });
 
   // Same as BlockCard
@@ -181,6 +190,17 @@ describe('EmbedCard Views', () => {
       expect(link).toBeTruthy();
       fireEvent.click(link!);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('allows scrolling of content', () => {
+      const props = getResolvedProps({ title: undefined });
+      const { getByTestId } = renderWithIntl(
+        <EmbedCardUnauthorisedView {...props} />,
+      );
+      const view = getByTestId('embed-content-wrapper');
+      expect(
+        window.getComputedStyle(view).getPropertyValue('overflow'),
+      ).toEqual('auto');
     });
   });
 
@@ -425,6 +445,17 @@ describe('EmbedCard Views', () => {
       const button = container.querySelector('[type="button"]');
       expect(button).toBeNull();
     });
+
+    it('allows scrolling of content', () => {
+      const props = getResolvedProps({ title: undefined });
+      const { getByTestId } = renderWithIntl(
+        <EmbedCardForbiddenView {...props} />,
+      );
+      const view = getByTestId('embed-content-wrapper');
+      expect(
+        window.getComputedStyle(view).getPropertyValue('overflow'),
+      ).toEqual('auto');
+    });
   });
 
   describe('view: not found', () => {
@@ -446,6 +477,17 @@ describe('EmbedCard Views', () => {
       expect(link).toBeTruthy();
       fireEvent.click(link!);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('allows scrolling of content', () => {
+      const props = getResolvedProps({ title: undefined });
+      const { getByTestId } = renderWithIntl(
+        <EmbedCardNotFoundView {...props} />,
+      );
+      const view = getByTestId('embed-content-wrapper');
+      expect(
+        window.getComputedStyle(view).getPropertyValue('overflow'),
+      ).toEqual('auto');
     });
   });
 

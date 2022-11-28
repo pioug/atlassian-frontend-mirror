@@ -107,11 +107,11 @@ export function getMediaFeatureFlag<T = boolean>(
     } catch (e) {}
   }
   if (featureFlags) {
-    return ((flagName in featureFlags
+    return (flagName in featureFlags
       ? featureFlags[flagName]
-      : defaultMediaFeatureFlags[flagName]) as unknown) as T;
+      : defaultMediaFeatureFlags[flagName]) as unknown as T;
   }
-  return (defaultMediaFeatureFlags[flagName] as unknown) as T;
+  return defaultMediaFeatureFlags[flagName] as unknown as T;
 }
 
 export const useMemoizeFeatureFlags = (featureFlags?: MediaFeatureFlags) => {

@@ -7,8 +7,7 @@ export const BitbucketFile = {
   '@id':
     'https://bitbucket.org/owner-name/repo-name/src/q1w2e3r4/server/package.json',
   '@type': ['schema:DigitalDocument', 'Document'],
-  url:
-    'https://bitbucket.org/owner-name/repo-name/src/q1w2e3r4/server/package.json',
+  url: 'https://bitbucket.org/owner-name/repo-name/src/q1w2e3r4/server/package.json',
   'atlassian:fileSize': 1483,
   'atlassian:isDeleted': false,
   context: {

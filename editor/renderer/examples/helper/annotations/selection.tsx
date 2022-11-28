@@ -148,8 +148,8 @@ const Component = (
   );
 };
 
-export const ExampleSelectionInlineComponent = (setNewDocument: Callback) => (
-  props: InlineCommentSelectionComponentProps,
-) => {
-  return <Component setNewDocument={setNewDocument} {...props} />;
-};
+export const ExampleSelectionInlineComponent =
+  (setNewDocument: Callback) =>
+  (props: InlineCommentSelectionComponentProps) => {
+    return <Component setNewDocument={setNewDocument} {...props} />;
+  };

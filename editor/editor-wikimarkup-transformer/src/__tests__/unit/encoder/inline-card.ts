@@ -23,8 +23,7 @@ describe('ADF => WikiMarkup - Inline Card', () => {
       p(
         'this is an dropbox inline card ',
         inlineCard({
-          url:
-            'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
+          url: 'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
         })(),
       ),
     )(defaultSchema);

@@ -11,8 +11,7 @@ const rule: Rule.RuleModule = {
       recommended: true,
     },
     messages: {
-      path:
-        "The '{{importSource}}' import is restricted from being used. {{customMessage}}",
+      path: "The '{{importSource}}' import is restricted from being used. {{customMessage}}",
     },
   },
   create(context) {

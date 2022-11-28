@@ -164,9 +164,8 @@ export const createExtensionAPI = (
       }
 
       // Analytics - tracking the api call
-      const apiCallPayload: AnalyticsEventPayload = extensionAPICallPayload(
-        'insertAfter',
-      );
+      const apiCallPayload: AnalyticsEventPayload =
+        extensionAPICallPayload('insertAfter');
       addAnalytics(state, tr, apiCallPayload);
 
       // Analytics - tracking node types added
@@ -216,9 +215,8 @@ export const createExtensionAPI = (
       const nodePos = ensureNodePosByLocalId(localId, { opName: 'scrollTo' });
 
       // Analytics - tracking the api call
-      const apiCallPayload: AnalyticsEventPayload = extensionAPICallPayload(
-        'scrollTo',
-      );
+      const apiCallPayload: AnalyticsEventPayload =
+        extensionAPICallPayload('scrollTo');
 
       const {
         editorView: { dispatch, state },
@@ -290,9 +288,8 @@ export const createExtensionAPI = (
       tr.setNodeMarkup(pos, undefined, changedValues.attrs, newMarks);
 
       // Analytics - tracking the api call
-      const apiCallPayload: AnalyticsEventPayload = extensionAPICallPayload(
-        'update',
-      );
+      const apiCallPayload: AnalyticsEventPayload =
+        extensionAPICallPayload('update');
       addAnalytics(state, tr, apiCallPayload);
 
       dispatch(tr);

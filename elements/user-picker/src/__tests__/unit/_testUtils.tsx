@@ -33,13 +33,14 @@ export const flushPromises = () => {
   return new Promise((resolve) => setImmediate(resolve));
 };
 
-export const createMockedSourceProvider = (
-  mockFetch: LoadUserSource,
-): React.ComponentType => ({ children }) => (
-  <ExusUserSourceProvider fetchUserSource={mockFetch}>
-    {children}
-  </ExusUserSourceProvider>
-);
+export const createMockedSourceProvider =
+  (mockFetch: LoadUserSource): React.ComponentType =>
+  ({ children }) =>
+    (
+      <ExusUserSourceProvider fetchUserSource={mockFetch}>
+        {children}
+      </ExusUserSourceProvider>
+    );
 
 export class MockConcurrentExperienceInstance extends UFOExperience {
   startSpy: jest.Mock;

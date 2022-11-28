@@ -17,7 +17,7 @@ export const isPlainObject = (x: unknown) =>
   typeof x === 'object' && x !== null && !Array.isArray(x);
 
 export const copy = <
-  T extends Record<string | number, any> = Record<string | number, any>
+  T extends Record<string | number, any> = Record<string | number, any>,
 >(
   source: Record<string | number, any>,
   dest: T,

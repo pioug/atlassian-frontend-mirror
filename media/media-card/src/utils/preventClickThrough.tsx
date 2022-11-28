@@ -25,10 +25,9 @@ export type CreatePreventClickThrough = <T>(
   onClick: () => void,
 ) => (event: React.MouseEvent<T, MouseEvent>) => void;
 
-export const createPreventClickThrough: CreatePreventClickThrough = (
-  onClick,
-) => (event) => {
-  event.stopPropagation();
-  event.preventDefault();
-  onClick();
-};
+export const createPreventClickThrough: CreatePreventClickThrough =
+  (onClick) => (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    onClick();
+  };

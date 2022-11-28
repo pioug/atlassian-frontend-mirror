@@ -12,5 +12,5 @@ export type MediaFileEventPayload<
     | 'loadFailed'
     | 'previewUnsupported'
     | 'zipEntryLoadSucceeded'
-    | 'zipEntryLoadFailed'
+    | 'zipEntryLoadFailed',
 > = OperationalEventPayload<Attributes, Action, 'mediaFile'>;

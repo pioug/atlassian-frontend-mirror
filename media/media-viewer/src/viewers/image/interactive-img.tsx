@@ -135,13 +135,8 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 
   render() {
     const { src, originalBinaryImageSrc, orientation, onError } = this.props;
-    const {
-      zoomLevel,
-      isHDAvailable,
-      isHDActive,
-      camera,
-      isDragging,
-    } = this.state;
+    const { zoomLevel, isHDAvailable, isHDActive, camera, isDragging } =
+      this.state;
 
     const canDrag = (camera && zoomLevel.value > camera.scaleToFit) || false;
     // We use style attr instead of SC prop for perf reasons

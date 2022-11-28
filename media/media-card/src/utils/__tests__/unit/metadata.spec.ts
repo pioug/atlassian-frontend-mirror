@@ -52,14 +52,8 @@ describe('getFileDetails', () => {
   });
 
   it(`should return details based on FileState`, () => {
-    const {
-      id,
-      name,
-      size,
-      mimeType,
-      createdAt,
-      mediaType,
-    } = processedFilestate;
+    const { id, name, size, mimeType, createdAt, mediaType } =
+      processedFilestate;
     expect(getFileDetails(fileIdentifier, processedFilestate)).toEqual(
       expect.objectContaining({
         id,

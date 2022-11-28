@@ -21,8 +21,11 @@ const ReadViewContainer = styled.div<Props>`
   line-height: ${(gridSize() * 2.5) / fontSize()};
   max-width: 100%;
   min-height: ${(gridSize() * 2.5) / fontSize()}em;
-  padding: ${(props) => (props.isCompact ? gridSize() / 2 : gridSize())}px
-    ${gridSize() - 2}px;
+  padding: ${(props) =>
+      props.isCompact
+        ? token('spacing.scale.050', '4px')
+        : token('spacing.scale.100', '8px')}
+    ${token('spacing.scale.075', '6px')};
   word-break: break-word;
 `;
 

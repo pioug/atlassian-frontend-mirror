@@ -148,9 +148,9 @@ describe('media alt text', () => {
     describe('via prosemirror history transaction', () => {
       it('does not set isAltTextEditorOpen to false', () => {
         getPluginState(view.state).isAltTextEditorOpen = true;
-        const historyKey = ({
+        const historyKey = {
           key: pmHistoryPluginKey,
-        } as unknown) as PluginKey;
+        } as unknown as PluginKey;
         const setSelectionTransaction = view.state.tr.setSelection(
           new GapCursorSelection(
             view.state.doc.resolve(refs.nextPos),

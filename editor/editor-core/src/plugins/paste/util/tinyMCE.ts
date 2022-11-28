@@ -45,8 +45,9 @@ const exactlyDivisible = (larger: number, smaller: number): boolean =>
 const getTableElementsInfo = (doc: Document) => {
   const cellCount = doc.querySelectorAll('td').length;
   const thCount = doc.querySelectorAll('th').length;
-  const mergedCellCount = doc.querySelectorAll('td[colspan]:not([colspan="1"])')
-    .length;
+  const mergedCellCount = doc.querySelectorAll(
+    'td[colspan]:not([colspan="1"])',
+  ).length;
   let hasThAfterTd = false;
   const thsAndCells = doc.querySelectorAll('th,td');
   for (let i = 0, cellFound = false; i < thsAndCells.length; i++) {
@@ -135,13 +136,8 @@ const fillIncompleteRowWithEmptyCells = (
  * headers exist.
  */
 export const tryReconstructTableRows = (doc: Document): string => {
-  let {
-    cellCount,
-    thCount,
-    mergedCellCount,
-    hasThAfterTd,
-    hasIncompleteRow,
-  } = getTableElementsInfo(doc);
+  let { cellCount, thCount, mergedCellCount, hasThAfterTd, hasIncompleteRow } =
+    getTableElementsInfo(doc);
 
   if (mergedCellCount || hasThAfterTd) {
     // bail out to avoid handling more complex table structures
@@ -199,9 +195,8 @@ export const tryRebuildCompleteTableHtml = (
 ): string | null => {
   // first we try wrapping the table elements with <table> and let DOMParser try to rebuild
   // a valid DOM tree. we also keep the non-wrapped table for comparison purposes.
-  const { nonTableWrappedDoc, tableWrappedDoc } = wrapWithTable(
-    incompleteTableHtml,
-  );
+  const { nonTableWrappedDoc, tableWrappedDoc } =
+    wrapWithTable(incompleteTableHtml);
 
   const didPreserveTableElements = Boolean(
     !nonTableWrappedDoc.body.querySelector('th, td') &&

@@ -184,8 +184,7 @@ describe('Convert positionFixed:boolean to strategy:"fixed"|"absolute"', () => {
 
 describe('Warn use of the `modifiers` prop', () => {
   check({
-    it:
-      'should add warning comment when using the modifier prop in `popperProps`',
+    it: 'should add warning comment when using the modifier prop in `popperProps`',
     original: `
       import { PopupSelect } from '@atlaskit/select';
 

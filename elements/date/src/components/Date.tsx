@@ -20,7 +20,7 @@ export type Props = {
 
 const isClickable = <
   P extends { onClick?: OnClick },
-  T extends P & { onClick: OnClick }
+  T extends P & { onClick: OnClick },
 >(
   props: P,
 ): props is T => !!props.onClick;

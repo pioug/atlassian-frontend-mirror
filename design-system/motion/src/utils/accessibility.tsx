@@ -25,9 +25,8 @@ export const isReducedMotion = (): boolean => {
  * preference changes at runtime.
  */
 export const useIsReducedMotion = (): boolean => {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
-    isReducedMotion,
-  );
+  const [prefersReducedMotion, setPrefersReducedMotion] =
+    useState(isReducedMotion);
 
   useEffect(() => {
     if (!isMatchMediaAvailable()) {

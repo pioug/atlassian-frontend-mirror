@@ -23,9 +23,7 @@ export interface InlineCardResolvingViewProps {
   withoutHover?: boolean;
 }
 
-export class InlineCardResolvingView extends React.Component<
-  InlineCardResolvingViewProps
-> {
+export class InlineCardResolvingView extends React.Component<InlineCardResolvingViewProps> {
   render() {
     const {
       url,

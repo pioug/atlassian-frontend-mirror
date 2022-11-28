@@ -1,7 +1,7 @@
 import { CypressType, InProductCommonTestCaseOpts } from '../../types';
 
 interface InProductTestCaseOpts<
-  TestCaseOpts extends InProductCommonTestCaseOpts = any
+  TestCaseOpts extends InProductCommonTestCaseOpts = any,
 > {
   id: string;
   title: string;

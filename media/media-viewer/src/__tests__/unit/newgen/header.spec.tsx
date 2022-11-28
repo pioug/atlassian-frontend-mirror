@@ -220,9 +220,8 @@ describe('<Header />', () => {
     describe('File collectionName', () => {
       it('shows the title when loaded', () => {
         const mediaClient = fakeMediaClient();
-        const fileStateSubscribable = createMediaSubscribable(
-          processedImageState,
-        );
+        const fileStateSubscribable =
+          createMediaSubscribable(processedImageState);
         asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
         const el = mountWithIntlContext(
           <Header

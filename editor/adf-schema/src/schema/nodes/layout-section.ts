@@ -34,16 +34,17 @@ export type LayoutSectionFullDefinition = LayoutSectionBaseDefinition & {
  * @stage 0
  * @name layoutSection_with_single_column_node
  */
-export type LayoutSectionWithSingleColumnDefinition = LayoutSectionBaseDefinition & {
-  type: 'layoutSection';
-  marks?: Array<BreakoutMarkDefinition>;
-  /**
-   * @minItems 1
-   * @maxItems 3
-   * @allowUnsupportedBlock true
-   */
-  content: Array<LayoutColumnDefinition>;
-};
+export type LayoutSectionWithSingleColumnDefinition =
+  LayoutSectionBaseDefinition & {
+    type: 'layoutSection';
+    marks?: Array<BreakoutMarkDefinition>;
+    /**
+     * @minItems 1
+     * @maxItems 3
+     * @allowUnsupportedBlock true
+     */
+    content: Array<LayoutColumnDefinition>;
+  };
 
 export type LayoutSectionDefinition =
   | LayoutSectionFullDefinition

@@ -54,9 +54,8 @@ function updateChildItems<T extends any>(
   const objectToChange = get(allItemsCopy, parentLocation);
   const baseChildrenOfObjectToChange =
     operation === 'UPDATE' ? [] : get(objectToChange, 'children', []);
-  (objectToChange as any).children = baseChildrenOfObjectToChange.concat(
-    newitems,
-  );
+  (objectToChange as any).children =
+    baseChildrenOfObjectToChange.concat(newitems);
 
   // Update cache
   newitems.forEach((item, index) => {

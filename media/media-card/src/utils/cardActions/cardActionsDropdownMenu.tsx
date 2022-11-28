@@ -60,9 +60,7 @@ const createDropdownItemWithAnalytics = (action: CardAction, index: number) => {
   );
 };
 
-export class CardActionsDropdownMenu extends Component<
-  CardActionsDropdownMenuProps
-> {
+export class CardActionsDropdownMenu extends Component<CardActionsDropdownMenuProps> {
   render(): JSX.Element | null {
     const { actions, triggerColor, onOpenChange, triggerVariant } = this.props;
 

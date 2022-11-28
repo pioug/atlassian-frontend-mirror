@@ -37,30 +37,30 @@ type Props = {
   providerFactory: ProviderFactory;
 };
 
-export const initialize = ({ options, providerFactory, view }: Props) => (
-  provider: CollabEditProvider,
-) => {
-  let cleanup: Cleanup | undefined;
-  const pluginState = pluginKey.getState(view.state);
+export const initialize =
+  ({ options, providerFactory, view }: Props) =>
+  (provider: CollabEditProvider) => {
+    let cleanup: Cleanup | undefined;
+    const pluginState = pluginKey.getState(view.state);
 
-  if (pluginState.isReady && cleanup) {
-    cleanup();
-  }
+    if (pluginState.isReady && cleanup) {
+      cleanup();
+    }
 
-  cleanup = subscribe(view, provider, options, providerFactory);
+    cleanup = subscribe(view, provider, options, providerFactory);
 
-  // Initialize provider
-  if (options.useNativePlugin) {
-    // ED-13912 For NCS we don't want to use memoizeOne because it causes
-    // infinite text while changing page-width
-    initNewCollab(provider, view, options.onSyncUpError);
-  } else {
-    /**
-     * We only want to initialise once, if we reload/reconfigure this plugin
-     * We dont want to re-init collab, it would break existing sessions
-     */
-    initCollabMemo(provider, view);
-  }
+    // Initialize provider
+    if (options.useNativePlugin) {
+      // ED-13912 For NCS we don't want to use memoizeOne because it causes
+      // infinite text while changing page-width
+      initNewCollab(provider, view, options.onSyncUpError);
+    } else {
+      /**
+       * We only want to initialise once, if we reload/reconfigure this plugin
+       * We dont want to re-init collab, it would break existing sessions
+       */
+      initCollabMemo(provider, view);
+    }
 
-  return cleanup;
-};
+    return cleanup;
+  };

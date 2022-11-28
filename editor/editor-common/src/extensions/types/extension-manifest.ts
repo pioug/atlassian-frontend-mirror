@@ -93,7 +93,7 @@ export type ExtensionModuleFieldTypeUser = {
 };
 
 export type ExtensionModuleFieldTypeFieldset<
-  T extends Parameters = Parameters
+  T extends Parameters = Parameters,
 > = {
   serializer?: Serializer<T>;
   deserializer?: Deserializer<T>;

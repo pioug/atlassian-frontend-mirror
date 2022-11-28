@@ -41,9 +41,7 @@ export type ExternalUserOptionProps = WithAnalyticsEventsProps & {
   isSelected: boolean;
 };
 
-class ExternalUserOptionImpl extends React.PureComponent<
-  ExternalUserOptionProps
-> {
+class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps> {
   render() {
     return (
       <ExternalAvatarItemOption

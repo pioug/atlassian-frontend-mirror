@@ -1,18 +1,18 @@
-/** @jsx jsx */
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/react';
-
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 import { Placement } from '../src/types';
 
-const gridStyles = css({
+const gridStyles: React.CSSProperties = {
   display: 'grid',
   height: '100vh',
   gridTemplateColumns: 'repeat(3, 1fr)',
-});
+};
 
 const ExampleDropdown = ({
   numItems = 3,
@@ -28,23 +28,23 @@ const ExampleDropdown = ({
     dropdownItems.push(<DropdownItem key={i}>Edit</DropdownItem>);
   }
   return (
-    <div>
+    <Box display="block">
       <Text as="p">{description}</Text>
       <DropdownMenu trigger={placement} defaultOpen placement={placement}>
         <DropdownItemGroup>{dropdownItems}</DropdownItemGroup>
       </DropdownMenu>
-    </div>
+    </Box>
   );
 };
 
 const DropdownMenuDefaultExample = () => {
   return (
-    <div css={gridStyles}>
+    <Box UNSAFE_style={gridStyles}>
       <ExampleDropdown
         description={
           <Fragment>
-            Auto relocating to <br />
-            ensure visibility
+            <Text as="p">Auto relocating to</Text>
+            <Text as="p">ensure visibility</Text>
           </Fragment>
         }
         placement="left-end"
@@ -56,8 +56,8 @@ const DropdownMenuDefaultExample = () => {
       <ExampleDropdown
         description={
           <Fragment>
-            Auto relocating to <br />
-            ensure visibility
+            <Text as="p">Auto relocating to</Text>
+            <Text as="p">ensure visibility</Text>
           </Fragment>
         }
         placement="right-end"
@@ -66,9 +66,8 @@ const DropdownMenuDefaultExample = () => {
       <ExampleDropdown
         description={
           <Fragment>
-            Natural right
-            <br />
-            behavior
+            <Text as="p">Natural right</Text>
+            <Text as="p">behavior</Text>
           </Fragment>
         }
         placement="right"
@@ -77,17 +76,16 @@ const DropdownMenuDefaultExample = () => {
         description="Natural bottom-end behavior"
         placement="bottom-end"
       />
-      <div>
+      <Box display="block">
         <ExampleDropdown placement="top" />
         <Text>Natural top behavior</Text>
-      </div>
+      </Box>
 
       <ExampleDropdown
         description={
           <Fragment>
-            Auto relocating to
-            <br />
-            ensure visibility
+            <Text as="p">Auto relocating to</Text>
+            <Text as="p">ensure visibility</Text>
           </Fragment>
         }
         placement="left-end"
@@ -101,7 +99,7 @@ const DropdownMenuDefaultExample = () => {
         description="auto places the popup on the side with the most space available"
         placement="auto"
       />
-    </div>
+    </Box>
   );
 };
 

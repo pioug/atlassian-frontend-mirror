@@ -109,12 +109,8 @@ export class Collection extends React.Component<Props, State> {
 
   private init(props: Props) {
     this.setState(initialState);
-    const {
-      collectionName,
-      mediaClient,
-      defaultSelectedItem,
-      pageSize,
-    } = props;
+    const { collectionName, mediaClient, defaultSelectedItem, pageSize } =
+      props;
     this.subscription = mediaClient.collection
       .getItems(collectionName, { limit: pageSize })
       .subscribe({
@@ -152,12 +148,8 @@ export class Collection extends React.Component<Props, State> {
   }
 
   private onNavigationChange = (item: Identifier) => {
-    const {
-      mediaClient,
-      collectionName,
-      pageSize,
-      onNavigationChange,
-    } = this.props;
+    const { mediaClient, collectionName, pageSize, onNavigationChange } =
+      this.props;
     this.setState({ item });
     if (this.shouldLoadNext(item)) {
       mediaClient.collection.loadNextPage(collectionName, {

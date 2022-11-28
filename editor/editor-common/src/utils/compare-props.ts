@@ -48,12 +48,12 @@ export const serializeValue = <T>(value: T[keyof T]) => {
   } else if (valueType === 'string' || valueType === 'number') {
     return value;
   } else if (valueType === 'symbol') {
-    return ((value as unknown) as symbol).toString();
+    return (value as unknown as symbol).toString();
   }
   // Calling toString of function returns whole function text with body.
   // So, just return function with name.
   else if (valueType === 'function') {
-    return `function:${((value as unknown) as Function).name}`;
+    return `function:${(value as unknown as Function).name}`;
   } else if (valueType === 'object') {
     return {
       type: 'object',

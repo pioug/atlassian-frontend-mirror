@@ -11,9 +11,7 @@ export type MediaStoreErrorAttributes = {
   readonly reason: MediaStoreErrorReason;
   readonly innerError?: Error;
 };
-export class MediaStoreError extends BaseMediaClientError<
-  MediaStoreErrorAttributes
-> {
+export class MediaStoreError extends BaseMediaClientError<MediaStoreErrorAttributes> {
   constructor(
     readonly reason: MediaStoreErrorReason,
     readonly innerError?: Error,

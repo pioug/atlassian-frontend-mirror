@@ -24,9 +24,7 @@ export interface IconAndTitleLayoutProps {
   testId?: string;
 }
 
-export class IconAndTitleLayout extends React.Component<
-  IconAndTitleLayoutProps
-> {
+export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps> {
   private renderAtlaskitIcon() {
     const { icon, emoji } = this.props;
 

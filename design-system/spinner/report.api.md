@@ -15,9 +15,11 @@ import { default as React_2 } from 'react';
 export type Appearance = 'inherit' | 'invert';
 
 // @public (undocumented)
-const _default: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
-  SpinnerProps & React_2.RefAttributes<SVGSVGElement>
->>;
+const _default: React_2.MemoExoticComponent<
+  React_2.ForwardRefExoticComponent<
+    SpinnerProps & React_2.RefAttributes<SVGSVGElement>
+  >
+>;
 export default _default;
 
 // @public (undocumented)

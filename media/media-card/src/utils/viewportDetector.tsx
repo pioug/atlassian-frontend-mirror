@@ -8,17 +8,17 @@ export type ViewportDetectorProps = {
 
 const ABS_VIEWPORT_ANCHOR_OFFSET_TOP = 900; //px
 
-const createIntersectionObserverCallback = (
-  onVisible: () => void,
-): IntersectionObserverCallback => (entries, observer) => {
-  for (let entry of entries) {
-    if (entry.isIntersecting) {
-      onVisible();
-      observer.disconnect();
-      break;
+const createIntersectionObserverCallback =
+  (onVisible: () => void): IntersectionObserverCallback =>
+  (entries, observer) => {
+    for (let entry of entries) {
+      if (entry.isIntersecting) {
+        onVisible();
+        observer.disconnect();
+        break;
+      }
     }
-  }
-};
+  };
 
 const ViewportObserver: React.FC<ViewportDetectorProps> = ({
   onVisible,

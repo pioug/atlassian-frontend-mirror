@@ -23,7 +23,8 @@ export enum EditorExperience {
 export const RELIABILITY_INTERVAL = 30000;
 
 type TypeOfEditorExperience = typeof EditorExperience;
-type ValueOfEditorExperience = TypeOfEditorExperience[keyof TypeOfEditorExperience];
+type ValueOfEditorExperience =
+  TypeOfEditorExperience[keyof TypeOfEditorExperience];
 
 export class ExperienceStore {
   private static stores: WeakMap<EditorView, ExperienceStore> = new WeakMap();

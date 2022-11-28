@@ -40,7 +40,7 @@ describe('Media Card SSR', () => {
     const html = ReactDOMServer.renderToString(
       <Card
         featureFlags={{ newCardExperience: true }}
-        mediaClient={(mediaClient as unknown) as MediaClient}
+        mediaClient={mediaClient as unknown as MediaClient}
         identifier={imageFileId}
         dimensions={dimensions}
         ssr={'server'}
@@ -71,7 +71,7 @@ describe('Media Card SSR', () => {
     const html = ReactDOMServer.renderToString(
       <Card
         featureFlags={{ newCardExperience: true }}
-        mediaClient={(mediaClient as unknown) as MediaClient}
+        mediaClient={mediaClient as unknown as MediaClient}
         identifier={imageFileId}
         dimensions={dimensions}
         ssr={'server'}

@@ -199,7 +199,7 @@ export type OperationalEventPayload<
   Attributes extends OperationalAttributes,
   Action extends string,
   ActionSubject extends string,
-  ActionSubjectId extends string = string
+  ActionSubjectId extends string = string,
 > = BaseEventPayload<Attributes> & {
   eventType: 'operational';
   action: Action;
@@ -245,7 +245,7 @@ export type ScreenAttributes =
 // @public (undocumented)
 export type ScreenEventPayload<
   Attributes extends ScreenAttributes,
-  ActionSubject extends string
+  ActionSubject extends string,
 > = BaseEventPayload<Attributes> & {
   eventType: 'screen';
   actionSubject: ActionSubject;
@@ -274,7 +274,7 @@ export type TrackEventPayload<
   Attributes extends TrackAttributes,
   Action extends string,
   ActionSubject extends string,
-  ActionSubjectId extends string = string
+  ActionSubjectId extends string = string,
 > = BaseEventPayload<Attributes> & {
   eventType: 'track';
   action: Action;
@@ -291,7 +291,7 @@ export type UIAttributes =
 export type UIEventPayload<
   Attributes extends UIAttributes,
   Action extends string,
-  ActionSubject extends string
+  ActionSubject extends string,
 > = BaseEventPayload<Attributes> & {
   eventType: 'ui';
   action: Action;
@@ -317,7 +317,7 @@ export const withMediaAnalyticsContext: (
   },
 ) => <
   Props extends WithMediaFeatureFlags,
-  Component extends React_2.ComponentType<Props>
+  Component extends React_2.ComponentType<Props>,
 >(
   WrappedComponent: React_2.JSXElementConstructor<Props> & Component,
 ) => React_2.ForwardRefExoticComponent<

@@ -62,8 +62,7 @@ class MockedMobileSmartCardClient extends MobileSmartCardClient {
           {
             displayName: 'github.com',
             key: 'default',
-            url:
-              'https://id.atlassian.com/outboundAuth/start?containerId=12e35df3-21ea-4225-bd53-7a6be9760507&serviceKey=default',
+            url: 'https://id.atlassian.com/outboundAuth/start?containerId=12e35df3-21ea-4225-bd53-7a6be9760507&serviceKey=default',
           },
         ],
         definitionId: 'c16ac6b8-6717-4d75-87ef-ff187a1aaaab',
@@ -152,10 +151,10 @@ const smartLinkADF = JSON.stringify({
  * `Warning: An update to CardWithUrlContent inside a test was not wrapped in act(...).`
  */
 describe('renderer bridge: links', () => {
-  const intlMock = ({
+  const intlMock = {
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
-  } as unknown) as IntlShape;
+  } as unknown as IntlShape;
   const rendererBridge = new RendererBridgeImplementation();
 
   beforeAll(() => {

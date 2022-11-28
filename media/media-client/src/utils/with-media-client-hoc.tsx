@@ -19,9 +19,8 @@ export const getMediaClient = (
   mediaClientConfig: MediaClientConfig,
   featureFlags?: MediaFeatureFlags,
 ): MediaClient => {
-  let mediaClient: MediaClient | undefined = mediaClientsMap.get(
-    mediaClientConfig,
-  );
+  let mediaClient: MediaClient | undefined =
+    mediaClientsMap.get(mediaClientConfig);
 
   if (!mediaClient) {
     mediaClient = new MediaClient(mediaClientConfig, featureFlags);
@@ -57,7 +56,7 @@ export type WithMediaClientFunction = <P extends WithMediaClient>(
 ) => React.ComponentType<WithMediaClientConfigProps<P>>;
 
 export const withMediaClient: WithMediaClientFunction = <
-  P extends WithMediaClient
+  P extends WithMediaClient,
 >(
   Component: React.ComponentType<P>,
   featureFlags?: MediaFeatureFlags,

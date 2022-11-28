@@ -10,7 +10,7 @@ import baseStyles from './styles';
 export default function createSelect(WrappedComponent: ComponentType<any>) {
   return class AtlaskitSelect<
     Option = OptionType,
-    IsMulti extends boolean = false
+    IsMulti extends boolean = false,
   > extends Component<SelectProps<Option, IsMulti>> {
     components: SelectComponentsConfig<Option, IsMulti> = {};
 

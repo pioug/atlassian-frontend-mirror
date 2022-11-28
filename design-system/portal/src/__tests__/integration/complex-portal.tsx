@@ -25,9 +25,9 @@ BrowserTestCase(
     await page.goto(urlPortal);
     await page.waitForSelector(openDialogButtonSelector);
     await page.hover(openDialogButtonSelector);
-    const tooltip = await (await page.$(tooltipPortalSelector)).$(
-      clickMeTooltipSelector,
-    );
+    const tooltip = await (
+      await page.$(tooltipPortalSelector)
+    ).$(clickMeTooltipSelector);
     await tooltip.waitForDisplayed();
     const isTooltipExisting = await tooltip.isExisting();
     const tooltipText = await tooltip.getText();
@@ -47,9 +47,9 @@ BrowserTestCase(
     await page.goto(urlPortal);
     await page.waitForSelector(openDialogButtonSelector);
     await page.click(openDialogButtonSelector);
-    const modal = await (await page.$(modalPortalSelector)).$(
-      parentModalDialogSelector,
-    );
+    const modal = await (
+      await page.$(modalPortalSelector)
+    ).$(parentModalDialogSelector);
     const modalHeader = await modal.$('[data-testid="modal--header"]');
     await modal.waitForDisplayed();
     const isModalExisting = await modal.isExisting();
@@ -71,9 +71,9 @@ BrowserTestCase(
     await page.waitForSelector(openDialogButtonSelector);
     await page.click(openDialogButtonSelector);
     await page.waitForSelector(modalPortalSelector);
-    const parentModal = await (await page.$(modalPortalSelector)).$(
-      parentModalDialogSelector,
-    );
+    const parentModal = await (
+      await page.$(modalPortalSelector)
+    ).$(parentModalDialogSelector);
     const showOnboardingButton = await parentModal.$(
       showOnboardingButtonSelector,
     );

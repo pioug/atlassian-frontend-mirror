@@ -194,9 +194,8 @@ describe('smart-card: unauthorized analytics', () => {
           () => getByTestId('unauthorizedCard2-unauthorized-view'),
           { timeout: 10000 },
         );
-        const unauthorizedLinkButton = container.querySelector(
-          '[type="button"]',
-        );
+        const unauthorizedLinkButton =
+          container.querySelector('[type="button"]');
         expect(unauthorizedLink).toBeTruthy();
         expect(unauthorizedLinkButton).toBeTruthy();
         expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');

@@ -21,7 +21,7 @@ import { IS_DEV, IS_TEST } from './utils';
  */
 export function sendToBridge<
   K extends CombinedBridgeNames,
-  EventName extends BridgeEventName<K>
+  EventName extends BridgeEventName<K>,
 >(bridgeName: K, eventName: EventName, props = {}) {
   if (window.webkit) {
     // iOS implementation

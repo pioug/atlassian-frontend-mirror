@@ -261,9 +261,8 @@ export class ListBuilder {
         this.lastList.children = [listItem];
       }
 
-      const nextItem = this.lastList.children[
-        this.lastList.children.length - 1
-      ];
+      const nextItem =
+        this.lastList.children[this.lastList.children.length - 1];
 
       nextItem.children = [
         {

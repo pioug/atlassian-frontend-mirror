@@ -82,15 +82,14 @@ const buttonToItem: (button: MenuItem) => BlockMenuItem = memoize(
   }),
 );
 
-const buttonToDropdownItem = memoizeOne((title: string): ((
-  button: MenuItem,
-) => BlockMenuItem) =>
-  memoize(
-    (button: MenuItem): BlockMenuItem => ({
-      ...button,
-      title: <ToolTipContent description={title} shortcutOverride="/" />,
-    }),
-  ),
+const buttonToDropdownItem = memoizeOne(
+  (title: string): ((button: MenuItem) => BlockMenuItem) =>
+    memoize(
+      (button: MenuItem): BlockMenuItem => ({
+        ...button,
+        title: <ToolTipContent description={title} shortcutOverride="/" />,
+      }),
+    ),
 );
 
 const createInsertBlockItems = (
@@ -330,9 +329,8 @@ const createInsertBlockItems = (
   const buttonItems = items.slice(0, numberOfButtons).map(buttonToItem);
 
   const remainingItems = items.slice(numberOfButtons);
-  const dropdownItems = (!isNewMenuEnabled
-    ? sortItems(remainingItems)
-    : remainingItems
+  const dropdownItems = (
+    !isNewMenuEnabled ? sortItems(remainingItems) : remainingItems
   ).map(buttonToDropdownItem(formatMessage(messages.insertMenu)));
 
   return [buttonItems, dropdownItems] as const;

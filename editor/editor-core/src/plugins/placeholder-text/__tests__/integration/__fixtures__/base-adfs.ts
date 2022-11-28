@@ -106,8 +106,7 @@ export const twoPlaceholdersInsideTableCells = {
                     {
                       type: 'placeholder',
                       attrs: {
-                        text:
-                          "e.g., How your team's work fits into the company's FY20 OKRs and business strategy",
+                        text: "e.g., How your team's work fits into the company's FY20 OKRs and business strategy",
                       },
                     },
                   ],
@@ -126,8 +125,7 @@ export const twoPlaceholdersInsideTableCells = {
       content: [
         {
           type: 'text',
-          text:
-            'Try initiate mention by typing @ on the placeholder text, it works only at second try…',
+          text: 'Try initiate mention by typing @ on the placeholder text, it works only at second try…',
         },
       ],
     },
@@ -238,8 +236,7 @@ export const onePlaceholderInsideTableCells = {
                     {
                       type: 'placeholder',
                       attrs: {
-                        text:
-                          "e.g., How your team's work fits into the company's FY20 OKRs and business strategy",
+                        text: "e.g., How your team's work fits into the company's FY20 OKRs and business strategy",
                       },
                     },
                   ],
@@ -258,8 +255,7 @@ export const onePlaceholderInsideTableCells = {
       content: [
         {
           type: 'text',
-          text:
-            'Try initiate mention by typing @ on the placeholder text, it works only at second try…',
+          text: 'Try initiate mention by typing @ on the placeholder text, it works only at second try…',
         },
       ],
     },

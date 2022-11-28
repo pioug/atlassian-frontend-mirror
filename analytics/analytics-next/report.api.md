@@ -108,9 +108,7 @@ export { AnalyticsReactContextInterface };
 type ChannelIdentifier = string;
 
 // @public (undocumented)
-export function cleanProps(
-  props: Record<string, any>,
-): {
+export function cleanProps(props: Record<string, any>): {
   [x: string]: any;
 };
 

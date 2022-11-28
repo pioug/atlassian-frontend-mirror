@@ -125,15 +125,8 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
   };
 
   private renderErrorContents = (): JSX.Element => {
-    const {
-      status,
-      error,
-      alt,
-      mediaName,
-      mediaType,
-      actions,
-      fileSize,
-    } = this.props;
+    const { status, error, alt, mediaName, mediaType, actions, fileSize } =
+      this.props;
 
     return (
       <React.Fragment>
@@ -172,14 +165,8 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
   };
 
   private renderUploadingCardOverlay = (): JSX.Element => {
-    const {
-      status,
-      mediaName,
-      mediaType,
-      dataURI,
-      selectable,
-      selected,
-    } = this.props;
+    const { status, mediaName, mediaType, dataURI, selectable, selected } =
+      this.props;
     const isPersistent = mediaType === 'doc' || !dataURI;
 
     return (
@@ -194,14 +181,8 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
   };
 
   private renderPlayButton = () => {
-    const {
-      status,
-      mediaItemType,
-      mediaType,
-      mimeType,
-      selectable,
-      dataURI,
-    } = this.props;
+    const { status, mediaItemType, mediaType, mimeType, selectable, dataURI } =
+      this.props;
 
     if (mediaType !== 'video') {
       return null;

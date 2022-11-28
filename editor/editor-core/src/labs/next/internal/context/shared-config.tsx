@@ -34,9 +34,8 @@ export type EditorSharedConfig = {
   onMount?: EditorProps['onMount'];
 };
 
-const EditorSharedConfigContext = React.createContext<EditorSharedConfig | null>(
-  null,
-);
+const EditorSharedConfigContext =
+  React.createContext<EditorSharedConfig | null>(null);
 
 export class EditorSharedConfigProvider extends React.Component<
   { value: EditorSharedConfig | null },

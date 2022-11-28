@@ -44,12 +44,12 @@ export const withInputFieldTracking = <
     onClear?: Function;
     onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   },
-  Field extends InputFields
+  Field extends InputFields,
 >(
   WrappedComponent: React.ComponentType<P>,
   field: Field,
   filterOnChangeEventAttrs: <
-    OnChangeAttributes extends Partial<LinkPickerAnalyticsContextType>
+    OnChangeAttributes extends Partial<LinkPickerAnalyticsContextType>,
   >(
     event: React.ChangeEvent<HTMLInputElement>,
     attributes: OnChangeAttributes,
@@ -63,9 +63,8 @@ export const withInputFieldTracking = <
     const { createAnalyticsEvent } = useAnalyticsEvents();
 
     // Ref to track if the value of the field has changed between focus and blur
-    const valueOnFocus: React.MutableRefObject<string | null> = useRef<string>(
-      null,
-    );
+    const valueOnFocus: React.MutableRefObject<string | null> =
+      useRef<string>(null);
 
     // Track the content and input method on every direct change to the input
     const handleOnChange: Required<P>['onChange'] = useCallback(
@@ -78,9 +77,8 @@ export const withInputFieldTracking = <
             [`${field}FieldContent`]: Boolean(event.currentTarget.value)
               ? 'text_string'
               : null,
-            [`${field}FieldContentInputMethod`]: getChangeEventInputMethodType(
-              event,
-            ),
+            [`${field}FieldContentInputMethod`]:
+              getChangeEventInputMethodType(event),
           }),
         );
         onChange?.(event);

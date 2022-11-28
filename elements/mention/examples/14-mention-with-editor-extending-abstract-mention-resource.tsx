@@ -44,7 +44,8 @@ export const resolveUser = async (
  */
 export class ExampleMentionResource
   extends AbstractMentionResource
-  implements ResolvingMentionProvider {
+  implements ResolvingMentionProvider
+{
   private config: MentionResourceConfig;
 
   productName?: string;

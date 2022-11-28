@@ -5,7 +5,10 @@ type Overflow = {
   overflowY: string;
 };
 
-const isEqual = (base: string) => (value: string): boolean => base === value;
+const isEqual =
+  (base: string) =>
+  (value: string): boolean =>
+    base === value;
 const isScroll = isEqual('scroll');
 const isAuto = isEqual('auto');
 const isEither = (overflow: Overflow, fn: (value: string) => boolean) =>

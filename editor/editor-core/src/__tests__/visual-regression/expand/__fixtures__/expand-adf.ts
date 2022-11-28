@@ -13,8 +13,7 @@ export const expandADF = (breakoutMode = 'default') => ({
           content: [
             {
               type: 'text',
-              text:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. ',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. ',
             },
             {
               type: 'mention',
@@ -621,8 +620,7 @@ export const wrappingMediaADF = {
                 type: 'external',
                 width: 320,
                 height: 320,
-                url:
-                  'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
+                url: 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
               },
             },
           ],
@@ -639,8 +637,7 @@ export const wrappingMediaADF = {
                 type: 'external',
                 width: 320,
                 height: 320,
-                url:
-                  'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
+                url: 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
               },
             },
           ],

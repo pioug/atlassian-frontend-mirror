@@ -59,21 +59,20 @@ class Decision extends ReactNodeView {
   }
 }
 
-export const decisionItemNodeView = (
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
-) => (node: any, view: any, getPos: getPosHandler): NodeView => {
-  const hasIntlContext = true;
-  return new Decision(
-    node,
-    view,
-    getPos,
-    portalProviderAPI,
-    eventDispatcher,
-    {},
-    undefined,
-    undefined,
-    undefined,
-    hasIntlContext,
-  ).init();
-};
+export const decisionItemNodeView =
+  (portalProviderAPI: PortalProviderAPI, eventDispatcher: EventDispatcher) =>
+  (node: any, view: any, getPos: getPosHandler): NodeView => {
+    const hasIntlContext = true;
+    return new Decision(
+      node,
+      view,
+      getPos,
+      portalProviderAPI,
+      eventDispatcher,
+      {},
+      undefined,
+      undefined,
+      undefined,
+      hasIntlContext,
+    ).init();
+  };

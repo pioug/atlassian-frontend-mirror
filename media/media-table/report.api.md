@@ -26,15 +26,17 @@ import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 import { WrappedComponentProps } from 'react-intl-next';
 
 // @public (undocumented)
-export const MediaTable: React_2.ComponentType<WithMediaClientConfigProps<
-  Omit<
-    React_2.PropsWithChildren<
-      WithIntlProps<MediaTableProps & WrappedComponentProps<'intl'>>
-    >,
-    keyof WithAnalyticsEventsProps
-  > &
-    React_2.RefAttributes<any>
->>;
+export const MediaTable: React_2.ComponentType<
+  WithMediaClientConfigProps<
+    Omit<
+      React_2.PropsWithChildren<
+        WithIntlProps<MediaTableProps & WrappedComponentProps<'intl'>>
+      >,
+      keyof WithAnalyticsEventsProps
+    > &
+      React_2.RefAttributes<any>
+  >
+>;
 
 // @public (undocumented)
 export interface MediaTableItem {

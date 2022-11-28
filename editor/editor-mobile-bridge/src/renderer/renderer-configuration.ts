@@ -7,7 +7,8 @@ interface RendererConfigurationProviding {
   isCustomPanelEnabled(): boolean;
 }
 export default class RendererConfiguration
-  implements RendererConfigurationProviding {
+  implements RendererConfigurationProviding
+{
   private locale: string;
   private disableActions: boolean;
   private disableMediaLinking: boolean;

@@ -148,39 +148,40 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
   );
 };
 
-const withSmartCard = <P extends BasicRendererProps>(
-  Component: React.ComponentType<P>,
-): React.FC<P & WithSmartCardClientProps> => ({
-  cardClient: smartCardClient,
-  ...props
-}: WithSmartCardClientProps) => {
-  // Temporarily opting out of the default oauth2 flow for phase 1 of Smart Links
-  // See https://product-fabric.atlassian.net/browse/FM-2149 for details.
-  const authFlow = 'disabled';
-  const renderCallback = useCallback(
-    (createAnalyticsEvent) => (
-      <SmartCardProvider client={smartCardClient} authFlow={authFlow}>
-        <Component
-          createAnalyticsEvent={createAnalyticsEvent}
-          {...(props as P)}
-        />
-      </SmartCardProvider>
-    ),
-    [props, smartCardClient],
-  );
+const withSmartCard =
+  <P extends BasicRendererProps>(
+    Component: React.ComponentType<P>,
+  ): React.FC<P & WithSmartCardClientProps> =>
+  ({ cardClient: smartCardClient, ...props }: WithSmartCardClientProps) => {
+    // Temporarily opting out of the default oauth2 flow for phase 1 of Smart Links
+    // See https://product-fabric.atlassian.net/browse/FM-2149 for details.
+    const authFlow = 'disabled';
+    const renderCallback = useCallback(
+      (createAnalyticsEvent) => (
+        <SmartCardProvider client={smartCardClient} authFlow={authFlow}>
+          <Component
+            createAnalyticsEvent={createAnalyticsEvent}
+            {...(props as P)}
+          />
+        </SmartCardProvider>
+      ),
+      [props, smartCardClient],
+    );
 
-  return <WithCreateAnalyticsEvent render={renderCallback} />;
-};
+    return <WithCreateAnalyticsEvent render={renderCallback} />;
+  };
 
-const withFabricAnalytics = <P extends MobileRendererProps>(
-  Component: React.ComponentType<P>,
-): React.FC<MobileRendererProps> => (props: MobileRendererProps) => {
-  return (
-    <FabricAnalyticsListeners client={rendererAnalyticsClient}>
-      <Component {...(props as P)} />
-    </FabricAnalyticsListeners>
-  );
-};
+const withFabricAnalytics =
+  <P extends MobileRendererProps>(
+    Component: React.ComponentType<P>,
+  ): React.FC<MobileRendererProps> =>
+  (props: MobileRendererProps) => {
+    return (
+      <FabricAnalyticsListeners client={rendererAnalyticsClient}>
+        <Component {...(props as P)} />
+      </FabricAnalyticsListeners>
+    );
+  };
 
 const ThemedBasicRenderer = withSystemTheme(
   BasicRenderer,

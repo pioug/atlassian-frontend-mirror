@@ -7,16 +7,14 @@ export type DownloadButtonClickedAttributes = WithFileAttributes & {
   fileProcessingStatus: FileStatus;
 };
 
-export type DownloadButtonClickedEventPayload = ButtonClickEventPayload<
-  DownloadButtonClickedAttributes
->;
+export type DownloadButtonClickedEventPayload =
+  ButtonClickEventPayload<DownloadButtonClickedAttributes>;
 
 export const createDownloadButtonClickedEvent = (
   fileState: FileState,
 ): DownloadButtonClickedEventPayload => {
-  const { fileId, fileMediatype, fileMimetype, fileSize } = getFileAttributes(
-    fileState,
-  );
+  const { fileId, fileMediatype, fileMimetype, fileSize } =
+    getFileAttributes(fileState);
   return {
     eventType: 'ui',
     action: 'clicked',

@@ -60,9 +60,8 @@ describe('<LegacyEmojiContextProvider />', () => {
     expect(result.getByText('context legacy')).not.toBeNull();
   });
   test('provides prop context if no legacy context is provided', () => {
-    const emojiProviderStub: sinon.SinonStubbedInstance<EmojiResource> = sinon.createStubInstance(
-      EmojiResource,
-    );
+    const emojiProviderStub: sinon.SinonStubbedInstance<EmojiResource> =
+      sinon.createStubInstance(EmojiResource);
 
     const result = render(
       <LegacyEmojiContextProvider
@@ -75,9 +74,8 @@ describe('<LegacyEmojiContextProvider />', () => {
     expect(result.getByText('context prop')).not.toBeNull();
   });
   test('preferences legacy context if legacy and prop context is provided', () => {
-    const emojiProviderStub: sinon.SinonStubbedInstance<EmojiResource> = sinon.createStubInstance(
-      EmojiResource,
-    );
+    const emojiProviderStub: sinon.SinonStubbedInstance<EmojiResource> =
+      sinon.createStubInstance(EmojiResource);
 
     const result = render(
       <MockLegacyContextProvider>

@@ -16,23 +16,23 @@ import { nativeCollabProviderPlugin } from './native-collab-provider-plugin';
 export { pluginKey };
 export type { CollabEditOptions };
 
-const providerBuilder: ProviderBuilder = (
-  collabEditProviderPromise: Promise<CollabEditProvider>,
-) => async (codeToExecute, onError?: (error: Error) => void) => {
-  try {
-    const provider = await collabEditProviderPromise;
-    if (provider) {
-      return codeToExecute(provider);
+const providerBuilder: ProviderBuilder =
+  (collabEditProviderPromise: Promise<CollabEditProvider>) =>
+  async (codeToExecute, onError?: (error: Error) => void) => {
+    try {
+      const provider = await collabEditProviderPromise;
+      if (provider) {
+        return codeToExecute(provider);
+      }
+    } catch (err) {
+      if (onError) {
+        onError(err as Error);
+      } else {
+        // eslint-disable-next-line no-console
+        console.error(err);
+      }
     }
-  } catch (err) {
-    if (onError) {
-      onError(err as Error);
-    } else {
-      // eslint-disable-next-line no-console
-      console.error(err);
-    }
-  }
-};
+  };
 
 const collabEditPlugin = (options: PrivateCollabEditOptions): EditorPlugin => {
   let providerResolver: (value: CollabEditProvider) => void = () => {};

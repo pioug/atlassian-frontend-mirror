@@ -28,9 +28,9 @@ export type FindReplaceToolbarButtonWithStateProps = {
   takeFullWidth?: boolean;
 };
 
-const FindReplaceToolbarButtonWithState: React.FunctionComponent<FindReplaceToolbarButtonWithStateProps> = (
-  props,
-) => {
+const FindReplaceToolbarButtonWithState: React.FunctionComponent<
+  FindReplaceToolbarButtonWithStateProps
+> = (props) => {
   const {
     popupsBoundariesElement,
     popupsMountPoint,

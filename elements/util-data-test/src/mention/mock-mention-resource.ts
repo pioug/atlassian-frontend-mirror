@@ -34,7 +34,8 @@ export interface MockMentionConfig {
 
 export class MockMentionResource
   extends AbstractMentionResource
-  implements ResolvingMentionProvider, TeamMentionProvider {
+  implements ResolvingMentionProvider, TeamMentionProvider
+{
   private config: MockMentionConfig;
   private lastReturnedSearch: number;
   private search: Search = new Search('id');

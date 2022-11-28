@@ -151,7 +151,7 @@ const borderWidthMap: {
 
 // @public (undocumented)
 type BoxComponent<T extends ElementType = 'div'> = (<
-  T extends ElementType = 'div'
+  T extends ElementType = 'div',
 >(
   props: UNSAFE_BoxProps<T>,
 ) => ReactElement | null) &
@@ -540,9 +540,9 @@ export type UNSAFE_BoxProps<T extends ElementType = 'div'> = Omit<
   BoxPropsBase<T>;
 
 // @public
-export const UNSAFE_Inline: MemoExoticComponent<ForwardRefExoticComponent<
-  InlineProps & RefAttributes<HTMLDivElement>
->>;
+export const UNSAFE_Inline: MemoExoticComponent<
+  ForwardRefExoticComponent<InlineProps & RefAttributes<HTMLDivElement>>
+>;
 
 // @public (undocumented)
 export const UNSAFE_InteractionSurface: ({
@@ -552,9 +552,9 @@ export const UNSAFE_InteractionSurface: ({
 }: InteractionSurfaceProps) => jsx.JSX.Element;
 
 // @public
-export const UNSAFE_Stack: MemoExoticComponent<ForwardRefExoticComponent<
-  StackProps & RefAttributes<HTMLDivElement>
->>;
+export const UNSAFE_Stack: MemoExoticComponent<
+  ForwardRefExoticComponent<StackProps & RefAttributes<HTMLDivElement>>
+>;
 
 // @internal
 export const UNSAFE_Text: FC<UNSAFE_TextProps>;

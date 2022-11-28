@@ -94,37 +94,38 @@ function ElementList({
   }, [createAnalyticsEvent]);
 
   const cellRenderer = useMemo(
-    () => ({
-      index,
-      key,
-      style,
-    }: {
-      index: number;
-      key: string | number;
-      style: object;
-    }) => {
-      if (items[index] == null) {
-        return;
-      }
+    () =>
+      ({
+        index,
+        key,
+        style,
+      }: {
+        index: number;
+        key: string | number;
+        style: object;
+      }) => {
+        if (items[index] == null) {
+          return;
+        }
 
-      return (
-        <div
-          style={style}
-          key={key}
-          className="element-item-wrapper"
-          css={elementItemWrapper}
-        >
-          <MemoizedElementItem
-            inlineMode={!fullMode}
-            index={index}
-            item={items[index]}
-            selected={selectedItemIndex === index}
-            focus={focusedItemIndex === index}
-            {...props}
-          />
-        </div>
-      );
-    },
+        return (
+          <div
+            style={style}
+            key={key}
+            className="element-item-wrapper"
+            css={elementItemWrapper}
+          >
+            <MemoizedElementItem
+              inlineMode={!fullMode}
+              index={index}
+              item={items[index]}
+              selected={selectedItemIndex === index}
+              focus={focusedItemIndex === index}
+              {...props}
+            />
+          </div>
+        );
+      },
     [items, fullMode, selectedItemIndex, focusedItemIndex, props],
   );
 

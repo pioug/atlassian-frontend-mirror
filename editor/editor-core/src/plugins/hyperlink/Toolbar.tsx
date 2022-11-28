@@ -123,196 +123,202 @@ const getSettingsButtonGroup = (
     : [];
 };
 
-export const getToolbarConfig = (
-  options?: HyperlinkPluginOptions,
-): FloatingToolbarHandler => (state, intl, providerFactory) => {
-  const { formatMessage } = intl;
-  const linkState: HyperlinkState | undefined = stateKey.getState(state);
+export const getToolbarConfig =
+  (options?: HyperlinkPluginOptions): FloatingToolbarHandler =>
+  (state, intl, providerFactory) => {
+    const { formatMessage } = intl;
+    const linkState: HyperlinkState | undefined = stateKey.getState(state);
 
-  if (linkState && linkState.activeLinkMark) {
-    const { activeLinkMark } = linkState;
+    if (linkState && linkState.activeLinkMark) {
+      const { activeLinkMark } = linkState;
 
-    const hyperLinkToolbar = {
-      title: 'Hyperlink floating controls',
-      nodeType: [
-        state.schema.nodes.text,
-        state.schema.nodes.paragraph,
-        state.schema.nodes.heading,
-        state.schema.nodes.taskItem,
-        state.schema.nodes.decisionItem,
-        state.schema.nodes.caption,
-      ].filter((nodeType) => !!nodeType), // Use only the node types existing in the schema ED-6745
-      align: 'left' as AlignType,
-      className: activeLinkMark.type.match('INSERT|EDIT_INSERTED')
-        ? 'hyperlink-floating-toolbar'
-        : '',
-    };
-    switch (activeLinkMark.type) {
-      case 'EDIT': {
-        const { pos, node } = activeLinkMark;
-        const linkMark = node.marks.filter(
-          (mark) => mark.type === state.schema.marks.link,
-        );
-        const link = linkMark[0] && (linkMark[0].attrs as LinkAttributes).href;
-        const isValidUrl = isSafeUrl(link);
-        const labelOpenLink = formatMessage(
-          isValidUrl
-            ? linkMessages.openLink
-            : linkToolbarCommonMessages.unableToOpenLink,
-        );
-        // TODO: ED-14403 investigate why these are not translating?
-        const labelUnlink = formatMessage(linkToolbarCommonMessages.unlink);
-        const editLink = formatMessage(linkToolbarCommonMessages.editLink);
-        let metadata = {
-          url: link,
-          title: '',
-        };
-        if (activeLinkMark.node.text) {
-          metadata.title = activeLinkMark.node.text;
-        }
-
-        return {
-          ...hyperLinkToolbar,
-          height: 32,
-          width: 250,
-          items: [
-            {
-              type: 'custom',
-              fallback: [],
-              render: (editorView) => {
-                return (
-                  <HyperlinkToolbarAppearance
-                    key="link-appearance"
-                    url={link}
-                    intl={intl}
-                    editorView={editorView}
-                    editorState={state}
-                    cardOptions={options?.cardOptions}
-                    providerFactory={providerFactory}
-                    platform={options?.platform}
-                  />
-                );
-              },
-            },
-            {
-              id: 'editor.link.edit',
-              type: 'button',
-              onClick: editInsertedLink(),
-              selected: false,
-              title: editLink,
-              showTitle: true,
-              metadata: metadata,
-            },
-            {
-              type: 'separator',
-            },
-            {
-              id: 'editor.link.openLink',
-              type: 'button',
-              disabled: !isValidUrl,
-              target: '_blank',
-              href: isValidUrl ? link : undefined,
-              onClick: visitHyperlink(),
-              selected: false,
-              title: labelOpenLink,
-              icon: OpenIcon,
-              className: 'hyperlink-open-link',
-              metadata: metadata,
-              tabIndex: null,
-            },
-            {
-              type: 'separator',
-            },
-            {
-              id: 'editor.link.unlink',
-              type: 'button',
-              onClick: removeLink(pos),
-              selected: false,
-              title: labelUnlink,
-              icon: UnlinkIcon,
-              tabIndex: null,
-            },
-            {
-              type: 'copy-button',
-              items: [
-                { type: 'separator' },
-                {
-                  state,
-                  formatMessage: formatMessage,
-                  markType: state.schema.marks.link,
-                },
-              ],
-            },
-            ...getSettingsButtonGroup(state, intl),
-          ],
-          scrollable: true,
-        };
-      }
-
-      case 'EDIT_INSERTED':
-      case 'INSERT': {
-        let link: string;
-
-        if (isEditLink(activeLinkMark) && activeLinkMark.node) {
-          const linkMark = activeLinkMark.node.marks.filter(
-            (mark: Mark) => mark.type === state.schema.marks.link,
+      const hyperLinkToolbar = {
+        title: 'Hyperlink floating controls',
+        nodeType: [
+          state.schema.nodes.text,
+          state.schema.nodes.paragraph,
+          state.schema.nodes.heading,
+          state.schema.nodes.taskItem,
+          state.schema.nodes.decisionItem,
+          state.schema.nodes.caption,
+        ].filter((nodeType) => !!nodeType), // Use only the node types existing in the schema ED-6745
+        align: 'left' as AlignType,
+        className: activeLinkMark.type.match('INSERT|EDIT_INSERTED')
+          ? 'hyperlink-floating-toolbar'
+          : '',
+      };
+      switch (activeLinkMark.type) {
+        case 'EDIT': {
+          const { pos, node } = activeLinkMark;
+          const linkMark = node.marks.filter(
+            (mark) => mark.type === state.schema.marks.link,
           );
-          link = linkMark[0] && linkMark[0].attrs.href;
-        }
-        const displayText = isEditLink(activeLinkMark)
-          ? getLinkText(activeLinkMark, state)
-          : linkState.activeText;
+          const link =
+            linkMark[0] && (linkMark[0].attrs as LinkAttributes).href;
+          const isValidUrl = isSafeUrl(link);
+          const labelOpenLink = formatMessage(
+            isValidUrl
+              ? linkMessages.openLink
+              : linkToolbarCommonMessages.unableToOpenLink,
+          );
+          // TODO: ED-14403 investigate why these are not translating?
+          const labelUnlink = formatMessage(linkToolbarCommonMessages.unlink);
+          const editLink = formatMessage(linkToolbarCommonMessages.editLink);
+          let metadata = {
+            url: link,
+            title: '',
+          };
+          if (activeLinkMark.node.text) {
+            metadata.title = activeLinkMark.node.text;
+          }
 
-        return {
-          ...hyperLinkToolbar,
-          height: RECENT_SEARCH_HEIGHT_IN_PX,
-          width: RECENT_SEARCH_WIDTH_IN_PX,
-          items: [
-            {
-              type: 'custom',
-              fallback: [],
-              disableArrowNavigation: true,
-              render: (
-                view?: EditorView,
-                idx?: number,
-              ): React.ReactElement | null => {
-                if (!view) {
-                  return null;
-                }
-                return (
-                  <HyperlinkAddToolbar
-                    view={view}
-                    key={idx}
-                    linkPickerOptions={options?.linkPicker}
-                    displayUrl={link}
-                    displayText={displayText || ''}
-                    providerFactory={providerFactory}
-                    onSubmit={(href, title = '', displayText, inputMethod) => {
-                      isEditLink(activeLinkMark)
-                        ? updateLink(
-                            href,
-                            displayText || title,
-                            activeLinkMark.pos,
-                          )(view.state, view.dispatch)
-                        : insertLinkWithAnalytics(
-                            inputMethod,
-                            activeLinkMark.from,
-                            activeLinkMark.to,
-                            href,
-                            title,
-                            displayText,
-                            !!options?.cardOptions?.provider,
-                          )(view.state, view.dispatch);
-                      view.focus();
-                    }}
-                  />
-                );
+          return {
+            ...hyperLinkToolbar,
+            height: 32,
+            width: 250,
+            items: [
+              {
+                type: 'custom',
+                fallback: [],
+                render: (editorView) => {
+                  return (
+                    <HyperlinkToolbarAppearance
+                      key="link-appearance"
+                      url={link}
+                      intl={intl}
+                      editorView={editorView}
+                      editorState={state}
+                      cardOptions={options?.cardOptions}
+                      providerFactory={providerFactory}
+                      platform={options?.platform}
+                    />
+                  );
+                },
               },
-            },
-          ],
-        };
+              {
+                id: 'editor.link.edit',
+                type: 'button',
+                onClick: editInsertedLink(),
+                selected: false,
+                title: editLink,
+                showTitle: true,
+                metadata: metadata,
+              },
+              {
+                type: 'separator',
+              },
+              {
+                id: 'editor.link.openLink',
+                type: 'button',
+                disabled: !isValidUrl,
+                target: '_blank',
+                href: isValidUrl ? link : undefined,
+                onClick: visitHyperlink(),
+                selected: false,
+                title: labelOpenLink,
+                icon: OpenIcon,
+                className: 'hyperlink-open-link',
+                metadata: metadata,
+                tabIndex: null,
+              },
+              {
+                type: 'separator',
+              },
+              {
+                id: 'editor.link.unlink',
+                type: 'button',
+                onClick: removeLink(pos),
+                selected: false,
+                title: labelUnlink,
+                icon: UnlinkIcon,
+                tabIndex: null,
+              },
+              {
+                type: 'copy-button',
+                items: [
+                  { type: 'separator' },
+                  {
+                    state,
+                    formatMessage: formatMessage,
+                    markType: state.schema.marks.link,
+                  },
+                ],
+              },
+              ...getSettingsButtonGroup(state, intl),
+            ],
+            scrollable: true,
+          };
+        }
+
+        case 'EDIT_INSERTED':
+        case 'INSERT': {
+          let link: string;
+
+          if (isEditLink(activeLinkMark) && activeLinkMark.node) {
+            const linkMark = activeLinkMark.node.marks.filter(
+              (mark: Mark) => mark.type === state.schema.marks.link,
+            );
+            link = linkMark[0] && linkMark[0].attrs.href;
+          }
+          const displayText = isEditLink(activeLinkMark)
+            ? getLinkText(activeLinkMark, state)
+            : linkState.activeText;
+
+          return {
+            ...hyperLinkToolbar,
+            height: RECENT_SEARCH_HEIGHT_IN_PX,
+            width: RECENT_SEARCH_WIDTH_IN_PX,
+            items: [
+              {
+                type: 'custom',
+                fallback: [],
+                disableArrowNavigation: true,
+                render: (
+                  view?: EditorView,
+                  idx?: number,
+                ): React.ReactElement | null => {
+                  if (!view) {
+                    return null;
+                  }
+                  return (
+                    <HyperlinkAddToolbar
+                      view={view}
+                      key={idx}
+                      linkPickerOptions={options?.linkPicker}
+                      displayUrl={link}
+                      displayText={displayText || ''}
+                      providerFactory={providerFactory}
+                      onSubmit={(
+                        href,
+                        title = '',
+                        displayText,
+                        inputMethod,
+                      ) => {
+                        isEditLink(activeLinkMark)
+                          ? updateLink(
+                              href,
+                              displayText || title,
+                              activeLinkMark.pos,
+                            )(view.state, view.dispatch)
+                          : insertLinkWithAnalytics(
+                              inputMethod,
+                              activeLinkMark.from,
+                              activeLinkMark.to,
+                              href,
+                              title,
+                              displayText,
+                              !!options?.cardOptions?.provider,
+                            )(view.state, view.dispatch);
+                        view.focus();
+                      }}
+                    />
+                  );
+                },
+              },
+            ],
+          };
+        }
       }
     }
-  }
-  return;
-};
+    return;
+  };

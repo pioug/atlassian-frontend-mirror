@@ -25,7 +25,7 @@ import type { TriggerProps } from '@atlaskit/popup/types';
 
 // @public (undocumented)
 export interface CustomTriggerProps<
-  TriggerElement extends HTMLElement = HTMLElement
+  TriggerElement extends HTMLElement = HTMLElement,
 > extends Omit<TriggerProps, 'ref'> {
   isSelected?: boolean;
   onClick?: (e: MouseEvent_2 | KeyboardEvent_2) => void;
@@ -127,7 +127,7 @@ export interface DropdownMenuGroupProps extends SectionProps_2 {}
 
 // @public (undocumented)
 export interface DropdownMenuProps<
-  TriggerElement extends HTMLElement = HTMLElement
+  TriggerElement extends HTMLElement = HTMLElement,
 > {
   appearance?: 'default' | 'tall';
   autoFocus?: boolean;

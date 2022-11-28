@@ -478,11 +478,7 @@ export const unsubscribeEvent: (
 ) => UFOGlobalEventStreamUnsubscribe;
 
 // @public (undocumented)
-export const untilAll: (
-  deps: UntilAllArgs,
-) => () => (
-  data: ExperienceData,
-) =>
+export const untilAll: (deps: UntilAllArgs) => () => (data: ExperienceData) =>
   | {
       done: boolean;
       state: UFOExperienceStateType;

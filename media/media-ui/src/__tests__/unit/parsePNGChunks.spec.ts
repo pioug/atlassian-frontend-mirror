@@ -5,26 +5,10 @@ describe('PNG Image Metadata', () => {
     const someDataArray = new Uint8Array(1);
     const iTXtDataArray = new Uint8Array([116, 0, 101, 0, 115, 0, 116, 0]);
     const pHYsDataArrayInMeters = new Uint8Array([
-      0,
-      0,
-      22,
-      37,
-      0,
-      0,
-      22,
-      37,
-      1,
+      0, 0, 22, 37, 0, 0, 22, 37, 1,
     ]);
     const pHYsDataArrayNotInMeters = new Uint8Array([
-      0,
-      0,
-      22,
-      37,
-      0,
-      0,
-      22,
-      37,
-      0,
+      0, 0, 22, 37, 0, 0, 22, 37, 0,
     ]);
     const chunks = [
       { name: 'IHDR', data: someDataArray },

@@ -75,6 +75,5 @@ export class ZoomControlsBase extends Component<
   }
 }
 
-export const ZoomControls: React.ComponentType<ZoomControlsProps> = withAnalyticsEvents(
-  {},
-)(injectIntl(ZoomControlsBase));
+export const ZoomControls: React.ComponentType<ZoomControlsProps> =
+  withAnalyticsEvents({})(injectIntl(ZoomControlsBase));

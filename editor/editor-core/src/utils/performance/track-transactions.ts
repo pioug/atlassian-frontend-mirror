@@ -54,18 +54,14 @@ export class TransactionTracker {
   }
 
   public shouldTrackTransaction(options: TransactionTracking): boolean {
-    const {
-      enabled: trackingEnabled,
-      samplingRate = DEFAULT_SAMPLING_RATE,
-    } = options;
+    const { enabled: trackingEnabled, samplingRate = DEFAULT_SAMPLING_RATE } =
+      options;
     return trackingEnabled && this.dispatchCallCounter === samplingRate;
   }
 
   public bumpDispatchCounter = (options: TransactionTracking) => {
-    const {
-      enabled: trackingEnabled,
-      samplingRate = DEFAULT_SAMPLING_RATE,
-    } = options;
+    const { enabled: trackingEnabled, samplingRate = DEFAULT_SAMPLING_RATE } =
+      options;
 
     if (trackingEnabled) {
       if (this.dispatchCallCounter >= samplingRate) {

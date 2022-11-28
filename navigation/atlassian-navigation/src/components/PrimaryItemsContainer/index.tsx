@@ -50,9 +50,8 @@ export const PrimaryItemsContainer = ({
   testId,
 }: PrimaryItemsContainerProps & { theme: NavigationTheme }) => {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
-  const { updateWidth, visibleItems, overflowItems } = useOverflowController(
-    items,
-  );
+  const { updateWidth, visibleItems, overflowItems } =
+    useOverflowController(items);
 
   const onMoreClick = useCallback(() => {
     setIsMoreOpen(!isMoreOpen);

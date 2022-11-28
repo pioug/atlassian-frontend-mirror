@@ -16,9 +16,8 @@ export function useQuickInsert(
   intl: IntlShape,
   isQuickInsertEnabled: boolean,
 ): EditorProps['quickInsert'] {
-  const [quickAllowList, setQuickAllowList] = React.useState<
-    allowListPayloadType
-  >(bridge.allowList);
+  const [quickAllowList, setQuickAllowList] =
+    React.useState<allowListPayloadType>(bridge.allowList);
 
   const quickInsertItems = React.useMemo(() => {
     if (bridge.editorView) {

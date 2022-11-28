@@ -18,9 +18,7 @@ interface LoadingContainerProps {
   testId?: string;
 }
 
-export default class LoadingContainer extends React.Component<
-  LoadingContainerProps
-> {
+export default class LoadingContainer extends React.Component<LoadingContainerProps> {
   static defaultProps = {
     isLoading: true,
     spinnerSize: LARGE,
@@ -28,13 +26,8 @@ export default class LoadingContainer extends React.Component<
   };
 
   render() {
-    const {
-      children,
-      isLoading,
-      spinnerSize,
-      contentsOpacity,
-      testId,
-    } = this.props;
+    const { children, isLoading, spinnerSize, contentsOpacity, testId } =
+      this.props;
 
     return (
       <Container>

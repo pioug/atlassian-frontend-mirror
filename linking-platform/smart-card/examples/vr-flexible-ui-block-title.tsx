@@ -79,8 +79,9 @@ const renderErroredView = (
   actions: ActionItem[] = [],
   hideRetry: boolean = false,
   size: SmartLinkSize = SmartLinkSize.Medium,
+  data = {},
 ) => {
-  const cardState = getCardState(undefined, meta, status);
+  const cardState = getCardState(data, meta, status);
   return (
     <FlexibleCard
       cardState={cardState}
@@ -156,8 +157,7 @@ export default () => (
       <div>
         {renderResolvedView({
           maxLines: 1,
-          text:
-            'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QBgRXhpZgAASUkqAAgAAAACADEBAgAHAAAAJgAAAGmHBAABAAAALgAAAAAAAABHb29nbGUAAAMAAJAHAAQAAAAwM==',
+          text: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QBgRXhpZgAASUkqAAgAAAACADEBAgAHAAAAJgAAAGmHBAABAAAALgAAAAAAAABHb29nbGUAAAMAAJAHAAQAAAAwM==',
         })}
       </div>
     </div>
@@ -236,7 +236,19 @@ export default () => (
           },
         ],
       },
-      [makeEditActionItem(), makeDeleteActionItem()],
+      [],
+      undefined,
+      undefined,
+      {
+        generator: {
+          '@type': 'Object',
+          name: 'Google',
+          icon: {
+            '@type': 'Image',
+            url: 'http://www.google.com/favicon.ico',
+          },
+        },
+      },
     )}
     {renderErroredView(
       'unauthorized',
@@ -251,7 +263,7 @@ export default () => (
           },
         ],
       },
-      [],
+      [makeEditActionItem(), makeDeleteActionItem()],
       true,
       SmartLinkSize.Small,
     )}

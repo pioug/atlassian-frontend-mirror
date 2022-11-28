@@ -14,15 +14,8 @@ export default class ItemGroup extends Component {
   };
 
   render() {
-    const {
-      children,
-      elemAfter,
-      isCompact,
-      title,
-      label,
-      innerRef,
-      role,
-    } = this.props;
+    const { children, elemAfter, isCompact, title, label, innerRef, role } =
+      this.props;
 
     const ariaLabel = (() => {
       if (label) {

@@ -7,8 +7,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1520',
     name: "FAB-1520 UI: Poor man's search",
     container: 'Fabric',
-    icon:
-      'https://hello.atlassian.net/secure/viewavatar?size=medium&avatarId=35551&avatarType=issuetype',
+    icon: 'https://hello.atlassian.net/secure/viewavatar?size=medium&avatarId=35551&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-25T05:21:01.112Z'),
     meta: {
@@ -21,8 +20,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1558',
     name: 'FAB-1558 Investigate the 25% empty experience problem',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T23:55:20.712Z'),
     meta: {
@@ -33,11 +31,9 @@ const data: LinkSearchListItemData[] = [
     objectId:
       'ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/18347',
     url: 'https://product-fabric.atlassian.net/browse/FAB-983',
-    name:
-      'FAB-983 P2 Integration plugin: do not cache Cloud ID in Vertigo world',
+    name: 'FAB-983 P2 Integration plugin: do not cache Cloud ID in Vertigo world',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
+    icon: 'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T23:30:54.633Z'),
     meta: {
@@ -50,8 +46,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-997',
     name: 'FAB-997 Investigate replacing experiment with navlinks plugin',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T23:29:08.924Z'),
     meta: {
@@ -64,8 +59,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1166',
     name: 'FAB-1166 Heading disable rules',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/epic.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/epic.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T05:54:44.729Z'),
     meta: {
@@ -78,8 +72,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1097',
     name: 'FAB-1097 Inline code disable rules',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/epic.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/epic.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-24T05:54:39.227Z'),
     meta: {
@@ -92,8 +85,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1335',
     name: "FAB-1335 Fetch Contributors' Avatar URLs using Atlassian ID",
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
+    icon: 'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-23T22:43:16.989Z'),
     meta: {
@@ -106,8 +98,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-386',
     name: 'FAB-386 Send MAU events for home',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-23T22:43:11.836Z'),
     meta: {
@@ -120,8 +111,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1262',
     name: 'FAB-1262 UI: Contributors',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
+    icon: 'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-22T03:53:03.44Z'),
     meta: {
@@ -131,12 +121,10 @@ const data: LinkSearchListItemData[] = [
   {
     objectId:
       'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/34996292',
-    url:
-      'https://product-fabric.atlassian.net/wiki/display/E/Atlassian+Editor+Keyboard+Shortcuts',
+    url: 'https://product-fabric.atlassian.net/wiki/display/E/Atlassian+Editor+Keyboard+Shortcuts',
     name: 'Atlassian Editor Keyboard Shortcuts',
     container: 'Editor',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-21T04:05:02.823Z'),
     meta: {
@@ -149,8 +137,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-716',
     name: 'FAB-716 Activity: Set redis parameters for session store',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-21T01:18:32.488Z'),
     meta: {
@@ -163,8 +150,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-986',
     name: 'FAB-986 Experiment: Refactor to use new scaffolding',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-21T01:17:44.873Z'),
     meta: {
@@ -177,8 +163,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1396',
     name: 'FAB-1396 Investigate how to run experiments against the homepage',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-21T00:25:08.564Z'),
     meta: {
@@ -188,12 +173,10 @@ const data: LinkSearchListItemData[] = [
   {
     objectId:
       'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/34996350',
-    url:
-      'https://product-fabric.atlassian.net/wiki/display/PRODUCT/Planning+-+2016-11-18',
+    url: 'https://product-fabric.atlassian.net/wiki/display/PRODUCT/Planning+-+2016-11-18',
     name: 'Planning - 2016-11-18',
     container: 'Fabric team',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-17T23:06:22.56Z'),
     meta: {
@@ -203,12 +186,10 @@ const data: LinkSearchListItemData[] = [
   {
     objectId:
       'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/6160400',
-    url:
-      'https://product-fabric.atlassian.net/wiki/display/H/Analytics+Events+Registry',
+    url: 'https://product-fabric.atlassian.net/wiki/display/H/Analytics+Events+Registry',
     name: 'Analytics Events Registry',
     container: 'Home',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-17T00:02:06.291Z'),
     meta: {
@@ -219,11 +200,9 @@ const data: LinkSearchListItemData[] = [
     objectId:
       'ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/19056',
     url: 'https://product-fabric.atlassian.net/browse/FAB-1135',
-    name:
-      "FAB-1135 Improve experience in Home if you haven't done anything in the last week -test",
+    name: "FAB-1135 Improve experience in Home if you haven't done anything in the last week -test",
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-16T00:11:43.139Z'),
     meta: {
@@ -236,8 +215,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1016',
     name: 'Wait until AID will be resolved on 1st analytics event',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
+    icon: 'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-15T03:03:24.527Z'),
     meta: {
@@ -250,8 +228,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1395',
     name: 'UI: Switch to sidebar layout',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-14T02:26:50.116Z'),
     meta: {
@@ -262,11 +239,9 @@ const data: LinkSearchListItemData[] = [
     objectId:
       'ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/20102',
     url: 'https://product-fabric.atlassian.net/browse/FAB-1418',
-    name:
-      'UI: Move from SASS to LESS to be able to consume shared styles from atlaskit',
+    name: 'UI: Move from SASS to LESS to be able to consume shared styles from atlaskit',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-14T02:26:45.814Z'),
     meta: {
@@ -279,8 +254,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1403',
     name: 'Remove legacy AID code',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-14T01:19:40.885Z'),
     meta: {
@@ -293,8 +267,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1415',
     name: 'UI: Cache appswitcher items in localstorage',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-10T06:35:57.461Z'),
     meta: {
@@ -307,8 +280,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/wiki/display/H/Atlaskit+in+home',
     name: 'Atlaskit in home',
     container: 'Home',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-09T03:22:01.503Z'),
     meta: {
@@ -321,8 +293,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1394',
     name: 'Investigate if we can switch to PROD AID for e2e testing in staging',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-08T00:54:20.91Z'),
     meta: {
@@ -333,11 +304,9 @@ const data: LinkSearchListItemData[] = [
     objectId:
       'ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/19819',
     url: 'https://product-fabric.atlassian.net/browse/FAB-1341',
-    name:
-      'Modify Atlassian home events to fire the same user has as the products',
+    name: 'Modify Atlassian home events to fire the same user has as the products',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-04T02:54:36.237Z'),
     meta: {
@@ -350,8 +319,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-982',
     name: 'UI: Unlock webpack version from beta22.',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-04T02:10:53.561Z'),
     meta: {
@@ -364,8 +332,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1195',
     name: 'Home icon shows in JIRA but not in Confluence',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
+    icon: 'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-03T05:36:42.106Z'),
     meta: {
@@ -378,8 +345,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1279',
     name: 'Error on homepage when not logged in to Confluence and JIRA',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
+    icon: 'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-03T02:52:27.715Z'),
     meta: {
@@ -392,8 +358,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-304',
     name: 'HW - Deployment to first customers',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/epic.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/epic.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-03T00:00:22.685Z'),
     meta: {
@@ -406,8 +371,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1314',
     name: 'Zipkin error: TraceKeys Bean not found',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
+    icon: 'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-02T23:52:00.036Z'),
     meta: {
@@ -420,8 +384,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1092',
     name: 'Investigate why Zipkin stopped reporting and fix it  ',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
+    icon: 'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-02T05:28:55.195Z'),
     meta: {
@@ -431,12 +394,10 @@ const data: LinkSearchListItemData[] = [
   {
     objectId:
       'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/14909530',
-    url:
-      'https://product-fabric.atlassian.net/wiki/display/H/View+service+logs+and+metrics',
+    url: 'https://product-fabric.atlassian.net/wiki/display/H/View+service+logs+and+metrics',
     name: 'View service logs and metrics',
     container: 'Home',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-02T03:47:54.642Z'),
     meta: {
@@ -449,8 +410,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1178',
     name: 'Create a Datadog timeboard',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-11-02T00:20:24.347Z'),
     meta: {
@@ -463,8 +423,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1249',
     name: 'UI: Client-side search',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-24T05:17:25.412Z'),
     meta: {
@@ -477,8 +436,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-207',
     name: 'Investigate how we do PubNub',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-24T01:19:20.482Z'),
     meta: {
@@ -488,12 +446,10 @@ const data: LinkSearchListItemData[] = [
   {
     objectId:
       'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/27525135',
-    url:
-      'https://product-fabric.atlassian.net/wiki/display/PRODUCT/Planning+-+2016-10-21',
+    url: 'https://product-fabric.atlassian.net/wiki/display/PRODUCT/Planning+-+2016-10-21',
     name: 'Planning - 2016-10-21',
     container: 'Fabric team',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-21T00:55:49.158Z'),
     meta: {
@@ -506,8 +462,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-744',
     name: 'Allow to pass timestamp for recent item to REST API',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-14T03:12:01.591Z'),
     meta: {
@@ -520,8 +475,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1147',
     name: "Don't fire error event if unauthenticated",
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
+    icon: 'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-14T02:14:01.567Z'),
     meta: {
@@ -531,12 +485,10 @@ const data: LinkSearchListItemData[] = [
   {
     objectId:
       'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/24117302',
-    url:
-      'https://product-fabric.atlassian.net/wiki/display/PRODUCT/Planning+-+2016-10-14',
+    url: 'https://product-fabric.atlassian.net/wiki/display/PRODUCT/Planning+-+2016-10-14',
     name: 'Planning - 2016-10-14',
     container: 'Fabric team',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-13T23:38:28.558Z'),
     meta: {
@@ -549,8 +501,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1194',
     name: 'UI: Move from npm to yarn',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-13T00:51:27.365Z'),
     meta: {
@@ -560,12 +511,10 @@ const data: LinkSearchListItemData[] = [
   {
     objectId:
       'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:blogpost/25035173',
-    url:
-      'https://product-fabric.atlassian.net/wiki/display/~drichard/2016/10/11/Trying+out+new+PagerDuty+escalation+policy',
+    url: 'https://product-fabric.atlassian.net/wiki/display/~drichard/2016/10/11/Trying+out+new+PagerDuty+escalation+policy',
     name: 'Trying out new PagerDuty escalation policy',
     container: 'David Richard',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-blogpost-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-blogpost-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-11T05:04:39.413Z'),
     meta: {
@@ -575,12 +524,10 @@ const data: LinkSearchListItemData[] = [
   {
     objectId:
       'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/25035143',
-    url:
-      'https://product-fabric.atlassian.net/wiki/display/H/PubNub+Integration+in+Home+and+Activity',
+    url: 'https://product-fabric.atlassian.net/wiki/display/H/PubNub+Integration+in+Home+and+Activity',
     name: 'PubNub Integration in Home and Activity',
     container: 'Home',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-11T03:21:51.021Z'),
     meta: {
@@ -593,8 +540,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1005',
     name: 'UI: Get cloud id and filter items by site',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-10T05:08:21.639Z'),
     meta: {
@@ -605,11 +551,9 @@ const data: LinkSearchListItemData[] = [
     objectId:
       'ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/18903',
     url: 'https://product-fabric.atlassian.net/browse/FAB-1069',
-    name:
-      'Add Hermant to the experiment to flush analytics queue in JIRA & Confluence as well',
+    name: 'Add Hermant to the experiment to flush analytics queue in JIRA & Confluence as well',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-09T23:49:03.872Z'),
     meta: {
@@ -622,8 +566,7 @@ const data: LinkSearchListItemData[] = [
     url: 'https://product-fabric.atlassian.net/browse/FAB-1071',
     name: 'Make sure all enrolled instances have the connect addon',
     container: 'Fabric',
-    icon:
-      'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
+    icon: 'https://product-fabric.atlassian.net/images/icons/issuetypes/story.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-05T05:49:14.404Z'),
     meta: {
@@ -633,12 +576,10 @@ const data: LinkSearchListItemData[] = [
   {
     objectId:
       'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/19333475',
-    url:
-      'https://product-fabric.atlassian.net/wiki/display/H/Home+opt-in+requests',
+    url: 'https://product-fabric.atlassian.net/wiki/display/H/Home+opt-in+requests',
     name: 'Home opt-in requests',
     container: 'Home',
-    icon:
-      'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
     iconAlt: 'test',
     lastViewedDate: new Date('2016-10-05T05:45:48.571Z'),
     meta: {

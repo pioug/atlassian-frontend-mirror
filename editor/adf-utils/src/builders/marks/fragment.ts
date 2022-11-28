@@ -9,15 +9,17 @@ import {
 import { applyMark } from '../utils/apply-mark';
 import { WithAppliedMark } from '../types';
 
-export const fragment = (attrs: FragmentAttributes) => (
-  maybeNode:
-    | TableDefinition
-    | ExtensionDefinition
-    | BodiedExtensionDefinition
-    | InlineExtensionDefinition,
-) => {
-  return applyMark<FragmentDefinition>(
-    { type: 'fragment', attrs },
-    maybeNode,
-  ) as WithAppliedMark<typeof maybeNode, FragmentDefinition>;
-};
+export const fragment =
+  (attrs: FragmentAttributes) =>
+  (
+    maybeNode:
+      | TableDefinition
+      | ExtensionDefinition
+      | BodiedExtensionDefinition
+      | InlineExtensionDefinition,
+  ) => {
+    return applyMark<FragmentDefinition>(
+      { type: 'fragment', attrs },
+      maybeNode,
+    ) as WithAppliedMark<typeof maybeNode, FragmentDefinition>;
+  };

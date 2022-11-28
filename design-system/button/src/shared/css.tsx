@@ -229,13 +229,14 @@ export function getCss({
     },
 
     // disabling hover and active color changes when there is an overlay, but the button is not disabled
-    '&[data-has-overlay="true"]:not([disabled]):hover, &[data-has-overlay="true"]:not([disabled]):active': {
-      ...getColors({
-        appearance,
-        key: isSelected ? 'selected' : 'default',
-        mode,
-      }),
-    },
+    '&[data-has-overlay="true"]:not([disabled]):hover, &[data-has-overlay="true"]:not([disabled]):active':
+      {
+        ...getColors({
+          appearance,
+          key: isSelected ? 'selected' : 'default',
+          mode,
+        }),
+      },
 
     '&::-moz-focus-inner': {
       border: 0,

@@ -28,9 +28,8 @@ export default (dispatchAnalyticsEvent: DispatchAnalyticsEvent) => {
           action: ACTION.DISCARDED_INVALID_STEPS_FROM_TRANSACTION,
           actionSubject: ACTION_SUBJECT.EDITOR,
           attributes: {
-            analyticsEventPayloads: getAnalyticsEventsFromTransaction(
-              transaction,
-            ),
+            analyticsEventPayloads:
+              getAnalyticsEventsFromTransaction(transaction),
           },
           eventType: EVENT_TYPE.OPERATIONAL,
         });

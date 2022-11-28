@@ -54,9 +54,7 @@ interface CustomProgressTrackerLinkProps {
   item: Stage;
 }
 
-class CustomProgressTrackerLink extends PureComponent<
-  CustomProgressTrackerLinkProps
-> {
+class CustomProgressTrackerLink extends PureComponent<CustomProgressTrackerLinkProps> {
   render() {
     const { href = '', label } = this.props.item;
     return (

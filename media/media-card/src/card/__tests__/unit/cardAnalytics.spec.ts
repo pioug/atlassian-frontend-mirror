@@ -34,13 +34,14 @@ import { MediaCardError } from '../../../errors';
 
 const event = { fire: jest.fn() };
 const createAnalyticsEventMock = jest.fn(() => event);
-const createAnalyticsEvent = (createAnalyticsEventMock as unknown) as CreateUIAnalyticsEvent;
-const fileAttributes = ({
+const createAnalyticsEvent =
+  createAnalyticsEventMock as unknown as CreateUIAnalyticsEvent;
+const fileAttributes = {
   some: 'file attributes',
-} as unknown) as FileAttributes;
-const performanceAttributes = ({
+} as unknown as FileAttributes;
+const performanceAttributes = {
   some: 'performance attributes',
-} as unknown) as PerformanceAttributes;
+} as unknown as PerformanceAttributes;
 const ssrReliability: SSRStatus = {
   server: { status: 'success' },
   client: { status: 'success' },

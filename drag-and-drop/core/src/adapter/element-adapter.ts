@@ -146,7 +146,7 @@ const adapter = makeAdapter<ElementDragType>({
     });
   },
   dispatchEventToSource: <
-    EventName extends keyof EventPayloadMap<ElementDragType>
+    EventName extends keyof EventPayloadMap<ElementDragType>,
   >({
     eventName,
     payload,
@@ -209,9 +209,7 @@ export function draggable(args: DraggableArgs): CleanupFn {
 export type ElementEventBasePayload = BaseEventPayload<ElementDragType>;
 export type ElementEventPayloadMap = EventPayloadMap<ElementDragType>;
 
-export type ElementDropTargetEventPayloadMap = DropTargetEventPayloadMap<
-  ElementDragType
->;
-export type ElementMonitorCanMonitorArgs = MonitorCanMonitorArgs<
-  ElementDragType
->;
+export type ElementDropTargetEventPayloadMap =
+  DropTargetEventPayloadMap<ElementDragType>;
+export type ElementMonitorCanMonitorArgs =
+  MonitorCanMonitorArgs<ElementDragType>;

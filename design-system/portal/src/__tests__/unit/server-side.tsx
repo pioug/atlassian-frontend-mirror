@@ -36,10 +36,8 @@ describe('server-side', () => {
       '@atlaskit/portal',
     );
 
-    const example:
-      | { filePath: string }
-      | undefined = examples.find(({ filePath }) =>
-      filePath.endsWith('3-basic-portal.tsx'),
+    const example: { filePath: string } | undefined = examples.find(
+      ({ filePath }) => filePath.endsWith('3-basic-portal.tsx'),
     );
     const Portal = require(example?.filePath ?? '').default;
     const elem = document.createElement('div');

@@ -21,7 +21,7 @@ const onUnmountListener = jest.fn();
 const createContainerSpy = jest.spyOn(domUtils, 'createContainer');
 
 const getElementByText = (text: string, elements: HTMLCollectionOf<Element>) =>
-  [...((elements as unknown) as Array<HTMLElement>)].find(
+  [...(elements as unknown as Array<HTMLElement>)].find(
     (e) => e.innerHTML.indexOf(text) > -1,
   );
 
@@ -137,9 +137,9 @@ describe('Portal container', () => {
         </Portal>
       </App>,
     );
-    const elements = (document.getElementsByClassName(
+    const elements = document.getElementsByClassName(
       'atlaskit-portal',
-    ) as unknown) as Array<HTMLElement>;
+    ) as unknown as Array<HTMLElement>;
     expect(elements).toHaveLength(1);
     expect(elements[0].style.getPropertyValue('z-index')).toBe('unset');
   });

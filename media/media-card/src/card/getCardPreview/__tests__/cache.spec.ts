@@ -8,7 +8,7 @@ const objectURLCache = {
   remove: jest.fn(),
 };
 const cache = new CardPreviewCacheImpl(
-  (objectURLCache as unknown) as ObjectURLCache,
+  objectURLCache as unknown as ObjectURLCache,
 );
 
 describe('CardPreviewCache', () => {

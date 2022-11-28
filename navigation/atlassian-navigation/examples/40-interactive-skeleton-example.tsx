@@ -38,13 +38,13 @@ const InteractiveSkeletonExample = () => {
   const { primary, secondary } = itemCounts;
   const [shouldShowSearch, setShouldShowSearch] = useState(true);
 
-  const setCounts = (key: string) => ({
-    target: { value },
-  }: ChangeEvent<HTMLInputElement>) =>
-    setItemCounts({
-      ...itemCounts,
-      [key]: parseInt(value),
-    });
+  const setCounts =
+    (key: string) =>
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
+      setItemCounts({
+        ...itemCounts,
+        [key]: parseInt(value),
+      });
 
   return (
     <Fragment>

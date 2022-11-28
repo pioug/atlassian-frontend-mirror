@@ -125,9 +125,8 @@ type PaletteValues =
   | 'DN10'
   | 'DN10A';
 
-export type BaseToken = keyof PaletteColorTokenSchema<
-  PaletteValues
->['color']['palette'];
+export type BaseToken =
+  keyof PaletteColorTokenSchema<PaletteValues>['color']['palette'];
 
 const palette: PaletteColorTokenSchema<PaletteValues> = {
   value: {

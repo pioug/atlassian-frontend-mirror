@@ -31,9 +31,9 @@ import { HeadingLevelsAndNormalText } from '../types';
 
 const MAX_HEADING_LEVEL = 6;
 
-function getHeadingLevel(
-  match: string[],
-): { level: HeadingLevelsAndNormalText } {
+function getHeadingLevel(match: string[]): {
+  level: HeadingLevelsAndNormalText;
+} {
   return {
     level: match[1].length as HeadingLevelsAndNormalText,
   };

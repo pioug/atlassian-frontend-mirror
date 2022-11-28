@@ -31,7 +31,9 @@ function mockCreatePromiseResolveValue(resolve: any) {
 }
 
 describe('createCollabProvider', () => {
-  let createPromise: jest.MockedFunction<typeof crossPlatformPromise.createPromise>;
+  let createPromise: jest.MockedFunction<
+    typeof crossPlatformPromise.createPromise
+  >;
   let Provider: jest.MockedClass<typeof collabProvider.Provider>;
   const originalWebkit = window.webkit;
 

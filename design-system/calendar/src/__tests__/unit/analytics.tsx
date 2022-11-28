@@ -66,12 +66,8 @@ describe('Calendar analytics', () => {
 
   describe('send change event to atlaskit/analytics', () => {
     it('when switched to previous month', () => {
-      const {
-        renderResult,
-        onChange,
-        onAnalyticsEvent,
-        changeEventResult,
-      } = setup();
+      const { renderResult, onChange, onAnalyticsEvent, changeEventResult } =
+        setup();
 
       const previousMonthButton = renderResult.getByTestId(
         'calendar--previous-month',
@@ -91,12 +87,8 @@ describe('Calendar analytics', () => {
     });
 
     it('when switched to next month', () => {
-      const {
-        renderResult,
-        onChange,
-        onAnalyticsEvent,
-        changeEventResult,
-      } = setup();
+      const { renderResult, onChange, onAnalyticsEvent, changeEventResult } =
+        setup();
 
       const nextMonthButton = renderResult.getByTestId('calendar--next-month');
 
@@ -116,12 +108,8 @@ describe('Calendar analytics', () => {
     cases(
       'when navigated using following keys',
       ({ key, code }: { key: string; code: string }) => {
-        const {
-          renderResult,
-          onChange,
-          onAnalyticsEvent,
-          changeEventResult,
-        } = setup();
+        const { renderResult, onChange, onAnalyticsEvent, changeEventResult } =
+          setup();
 
         fireEvent.keyDown(renderResult.container.firstChild as HTMLDivElement, {
           key,
@@ -200,12 +188,8 @@ describe('Calendar analytics', () => {
     cases(
       'when day is selected using following keys',
       ({ key, code }: { key: string; code: string }) => {
-        const {
-          renderResult,
-          onSelect,
-          onAnalyticsEvent,
-          selectEventResult,
-        } = setup();
+        const { renderResult, onSelect, onAnalyticsEvent, selectEventResult } =
+          setup();
 
         fireEvent.keyDown(renderResult.container.firstChild as HTMLDivElement, {
           key,
@@ -242,9 +226,8 @@ describe('Calendar analytics', () => {
 
     it('should allow the addition of additional context', () => {
       const analyticsContext = { key: 'value' };
-      const { renderResult, onChange, changeEventResult } = setup(
-        analyticsContext,
-      );
+      const { renderResult, onChange, changeEventResult } =
+        setup(analyticsContext);
 
       const nextMonthButton = renderResult.getByTestId('calendar--next-month');
 

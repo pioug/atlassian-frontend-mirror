@@ -155,10 +155,12 @@ describe('asExperiment', () => {
       const mockOptionsResolver = (
         experimentKey: string,
       ): EnrollmentOptions => {
-        return ({
-          myExperimentKey: mockOptions,
-          differentExperiment: 'this should not get returned',
-        } as any)[experimentKey];
+        return (
+          {
+            myExperimentKey: mockOptions,
+            differentExperiment: 'this should not get returned',
+          } as any
+        )[experimentKey];
       };
       const mockExperiments = {
         ...experiments,

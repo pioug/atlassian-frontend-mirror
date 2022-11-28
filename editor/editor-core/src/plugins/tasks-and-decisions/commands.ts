@@ -181,29 +181,31 @@ export const insertTaskDecisionAction = (
   return tr;
 };
 
-export const insertTaskDecisionCommand = (
-  listType: TaskDecisionListType,
-  inputMethod:
-    | INPUT_METHOD.FORMATTING
-    | INPUT_METHOD.QUICK_INSERT
-    | TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
-  addItem?: AddItemTransactionCreator,
-  listLocalId?: string,
-  itemLocalId?: string,
-): Command => (state, dispatch) => {
-  const tr = insertTaskDecisionAction(
-    state,
-    listType,
-    inputMethod,
-    addItem,
-    listLocalId,
-    itemLocalId,
-  );
-  if (dispatch) {
-    dispatch(tr);
-  }
-  return true;
-};
+export const insertTaskDecisionCommand =
+  (
+    listType: TaskDecisionListType,
+    inputMethod:
+      | INPUT_METHOD.FORMATTING
+      | INPUT_METHOD.QUICK_INSERT
+      | TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
+    addItem?: AddItemTransactionCreator,
+    listLocalId?: string,
+    itemLocalId?: string,
+  ): Command =>
+  (state, dispatch) => {
+    const tr = insertTaskDecisionAction(
+      state,
+      listType,
+      inputMethod,
+      addItem,
+      listLocalId,
+      itemLocalId,
+    );
+    if (dispatch) {
+      dispatch(tr);
+    }
+    return true;
+  };
 
 export const insertTaskDecisionWithAnalytics = (
   state: EditorState,
@@ -219,8 +221,8 @@ export const insertTaskDecisionWithAnalytics = (
   const { tr } = state;
   const { $to } = state.selection;
   const listNode = findParentNodeOfType(list)(state.selection);
-  const contextIdentifierProvider = taskDecisionStateKey.getState(state)
-    .contextIdentifierProvider;
+  const contextIdentifierProvider =
+    taskDecisionStateKey.getState(state).contextIdentifierProvider;
   const contextData = getContextData(contextIdentifierProvider);
   let insertTrCreator;
   let itemIdx;

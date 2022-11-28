@@ -56,20 +56,17 @@ export default class MentionWithProviders extends PureComponent<Props, State> {
   }
 
   render() {
-    const {
-      accessLevel,
-      eventHandlers,
-      id,
-      mentionProvider,
-      text,
-    } = this.props;
+    const { accessLevel, eventHandlers, id, mentionProvider, text } =
+      this.props;
 
     const { profilecardProvider } = this.state;
 
     const actionHandlers: MentionEventHandlers = {} as any;
-    (['onClick', 'onMouseEnter', 'onMouseLeave'] as Array<
-      keyof MentionEventHandlers
-    >).forEach((handler) => {
+    (
+      ['onClick', 'onMouseEnter', 'onMouseLeave'] as Array<
+        keyof MentionEventHandlers
+      >
+    ).forEach((handler) => {
       actionHandlers[handler] =
         (eventHandlers && eventHandlers[handler]) || noop;
     });

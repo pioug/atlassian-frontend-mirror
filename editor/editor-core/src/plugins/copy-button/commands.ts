@@ -93,84 +93,89 @@ export function removeMarkVisualFeedbackForCopyButtonCommand(
   return true;
 }
 
-export const createToolbarCopyCommandForNode = (
-  nodeType: NodeType | Array<NodeType>,
-): Command => (state, dispatch) => {
-  const { tr, schema } = state;
+export const createToolbarCopyCommandForNode =
+  (nodeType: NodeType | Array<NodeType>): Command =>
+  (state, dispatch) => {
+    const { tr, schema } = state;
 
-  // This command should only be triggered by the Copy button in the floating toolbar
-  // which is only visible when selection is inside the target node
-  let contentNodeWithPos = getSelectedNodeOrNodeParentByNodeType({
-    nodeType,
-    selection: tr.selection,
-  });
-  if (!contentNodeWithPos) {
-    return false;
-  }
-
-  const copyToClipboardTr = tr;
-  copyToClipboardTr.setMeta(copyButtonPluginKey, { copied: true });
-
-  const analyticsPayload = getAnalyticsPayload(state, ACTION.COPIED);
-  if (analyticsPayload) {
-    analyticsPayload.attributes.inputMethod = INPUT_METHOD.FLOATING_TB;
-    analyticsPayload.attributes.nodeType = contentNodeWithPos.node.type.name;
-    addAnalytics(state, copyToClipboardTr, analyticsPayload);
-  }
-  if (dispatch) {
-    // As calling copyHTMLToClipboard causes side effects -- we only run this when
-    // dispatch is provided -- as otherwise the consumer is only testing to see if
-    // the action is availble.
-    const domNode = toDOM(contentNodeWithPos.node, schema);
-    if (domNode) {
-      const div = document.createElement('div');
-      div.appendChild(domNode);
-
-      // if copying inline content
-      if (contentNodeWithPos.node.type.inlineContent) {
-        // The "1 1" refers to the start and end depth of the slice
-        // since we're copying the text inside a paragraph, it will always be 1 1
-        // https://github.com/ProseMirror/prosemirror-view/blob/master/src/clipboard.ts#L32
-        (div.firstChild as HTMLElement).setAttribute('data-pm-slice', '1 1 []');
-      } else {
-        // The "0 0" refers to the start and end depth of the slice
-        // since we're copying the block node only, it will always be 0 0
-        // https://github.com/ProseMirror/prosemirror-view/blob/master/src/clipboard.ts#L32
-        (div.firstChild as HTMLElement).setAttribute('data-pm-slice', '0 0 []');
-      }
-      copyHTMLToClipboard(div.innerHTML);
+    // This command should only be triggered by the Copy button in the floating toolbar
+    // which is only visible when selection is inside the target node
+    let contentNodeWithPos = getSelectedNodeOrNodeParentByNodeType({
+      nodeType,
+      selection: tr.selection,
+    });
+    if (!contentNodeWithPos) {
+      return false;
     }
-    copyToClipboardTr.setMeta('scrollIntoView', false);
-    dispatch(copyToClipboardTr);
-  }
 
-  return true;
-};
+    const copyToClipboardTr = tr;
+    copyToClipboardTr.setMeta(copyButtonPluginKey, { copied: true });
 
-export const resetCopiedState = (
-  nodeType: NodeType | Array<NodeType>,
-  onMouseLeave?: Command,
-): Command => (state, dispatch) => {
-  let customTr = state.tr;
+    const analyticsPayload = getAnalyticsPayload(state, ACTION.COPIED);
+    if (analyticsPayload) {
+      analyticsPayload.attributes.inputMethod = INPUT_METHOD.FLOATING_TB;
+      analyticsPayload.attributes.nodeType = contentNodeWithPos.node.type.name;
+      addAnalytics(state, copyToClipboardTr, analyticsPayload);
+    }
+    if (dispatch) {
+      // As calling copyHTMLToClipboard causes side effects -- we only run this when
+      // dispatch is provided -- as otherwise the consumer is only testing to see if
+      // the action is availble.
+      const domNode = toDOM(contentNodeWithPos.node, schema);
+      if (domNode) {
+        const div = document.createElement('div');
+        div.appendChild(domNode);
 
-  // Avoid multipe dispatch
-  // https://product-fabric.atlassian.net/wiki/spaces/E/pages/2241659456/All+about+dispatch+and+why+there+shouldn+t+be+multiple#How-do-I-avoid-them%3F
-  const customDispatch = (tr: Transaction) => {
-    customTr = tr;
+        // if copying inline content
+        if (contentNodeWithPos.node.type.inlineContent) {
+          // The "1 1" refers to the start and end depth of the slice
+          // since we're copying the text inside a paragraph, it will always be 1 1
+          // https://github.com/ProseMirror/prosemirror-view/blob/master/src/clipboard.ts#L32
+          (div.firstChild as HTMLElement).setAttribute(
+            'data-pm-slice',
+            '1 1 []',
+          );
+        } else {
+          // The "0 0" refers to the start and end depth of the slice
+          // since we're copying the block node only, it will always be 0 0
+          // https://github.com/ProseMirror/prosemirror-view/blob/master/src/clipboard.ts#L32
+          (div.firstChild as HTMLElement).setAttribute(
+            'data-pm-slice',
+            '0 0 []',
+          );
+        }
+        copyHTMLToClipboard(div.innerHTML);
+      }
+      copyToClipboardTr.setMeta('scrollIntoView', false);
+      dispatch(copyToClipboardTr);
+    }
+
+    return true;
   };
 
-  onMouseLeave
-    ? onMouseLeave(state, customDispatch)
-    : hoverDecoration(nodeType, false)(state, customDispatch);
+export const resetCopiedState =
+  (nodeType: NodeType | Array<NodeType>, onMouseLeave?: Command): Command =>
+  (state, dispatch) => {
+    let customTr = state.tr;
 
-  const copyButtonState = copyButtonPluginKey.getState(state);
-  if (copyButtonState?.copied) {
-    customTr.setMeta(copyButtonPluginKey, { copied: false });
-  }
+    // Avoid multipe dispatch
+    // https://product-fabric.atlassian.net/wiki/spaces/E/pages/2241659456/All+about+dispatch+and+why+there+shouldn+t+be+multiple#How-do-I-avoid-them%3F
+    const customDispatch = (tr: Transaction) => {
+      customTr = tr;
+    };
 
-  if (dispatch) {
-    dispatch(customTr);
-  }
+    onMouseLeave
+      ? onMouseLeave(state, customDispatch)
+      : hoverDecoration(nodeType, false)(state, customDispatch);
 
-  return true;
-};
+    const copyButtonState = copyButtonPluginKey.getState(state);
+    if (copyButtonState?.copied) {
+      customTr.setMeta(copyButtonPluginKey, { copied: false });
+    }
+
+    if (dispatch) {
+      dispatch(customTr);
+    }
+
+    return true;
+  };

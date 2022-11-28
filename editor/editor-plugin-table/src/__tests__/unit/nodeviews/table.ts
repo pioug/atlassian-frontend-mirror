@@ -24,8 +24,10 @@ import { hoverRows } from '../../../plugins/table/commands';
 
 describe('table -> nodeviews -> table.tsx', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const createTableNode = (attrs?: TableAttributes) => (...args: any) =>
-    table(attrs)(...args)(defaultSchema);
+  const createTableNode =
+    (attrs?: TableAttributes) =>
+    (...args: any) =>
+      table(attrs)(...args)(defaultSchema);
 
   describe('TableView', () => {
     describe('with tableRenderOptimization', () => {

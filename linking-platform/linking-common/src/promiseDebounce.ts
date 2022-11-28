@@ -7,7 +7,7 @@
  */
 export function promiseDebounce<
   Args extends unknown[],
-  ResolveType extends unknown
+  ResolveType extends unknown,
 >(cb: (...args: Args) => Promise<ResolveType>, time: number) {
   let timeoutId: ReturnType<typeof setTimeout>;
 

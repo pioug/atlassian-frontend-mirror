@@ -30,7 +30,8 @@ interface EditorConfig {
 }
 
 export default class MobileEditorConfiguration
-  implements EditorConfigurationProvider {
+  implements EditorConfigurationProvider
+{
   private editorAppearance: EditorAppearance = EditorAppearance.FULL;
   private mode: ThemeMode = 'light';
   private locale: string = navigator.language;

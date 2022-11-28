@@ -67,8 +67,7 @@ testRule({
       description: 'should accept tokens in multi-part properties',
     },
     {
-      code:
-        'background: linear-gradient(var(--ds-skeleton), var(--ds-skeleton-subtle));',
+      code: 'background: linear-gradient(var(--ds-skeleton), var(--ds-skeleton-subtle));',
       description: 'should accept tokens in linear-gradient',
     },
   ],

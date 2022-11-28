@@ -333,9 +333,7 @@ export const tableStyles = (props: ThemeProps) => css`
     }
 
     ${props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
-    ${OverflowShadow(
-      props,
-    )}
+    ${OverflowShadow(props)}
 
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
       height: 0; // stop overflow flash & set correct height in update-overflow-shadows.ts

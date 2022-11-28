@@ -15,11 +15,9 @@ runInlineNodeViewTestSuite({
   multiLineNode: false,
   // Tests sometimes flaking but work when tested manually in the browser
   skipTests: {
-    'No trailing spaces: Can move the selection down one line using down arrow key when in between [target] nodes': [
-      'firefox',
-    ],
-    'No trailing spaces: Extend a selection to the start of the current line from the current position': [
-      'firefox',
-    ],
+    'No trailing spaces: Can move the selection down one line using down arrow key when in between [target] nodes':
+      ['firefox'],
+    'No trailing spaces: Extend a selection to the start of the current line from the current position':
+      ['firefox'],
   },
 });

@@ -18,9 +18,10 @@ export default function BlockCard(props: {
   const { url, data, eventHandlers, portal, rendererAppearance } = props;
   const onClick = getCardClickHandler(eventHandlers, url);
 
-  const platform = useMemo(() => getPlatform(rendererAppearance), [
-    rendererAppearance,
-  ]);
+  const platform = useMemo(
+    () => getPlatform(rendererAppearance),
+    [rendererAppearance],
+  );
 
   const cardProps = { url, data, onClick, container: portal };
 

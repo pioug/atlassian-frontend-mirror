@@ -148,7 +148,8 @@ const checkEmoji = (
 };
 
 class MockOnProviderChange
-  implements OnProviderChange<EmojiSearchResult, any, undefined> {
+  implements OnProviderChange<EmojiSearchResult, any, undefined>
+{
   resultCalls: EmojiSearchResult[] = [];
   errorCalls: any[] = [];
   notReadyCalls: number = 0;

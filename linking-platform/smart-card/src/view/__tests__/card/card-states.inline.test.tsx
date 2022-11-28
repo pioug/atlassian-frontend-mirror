@@ -1,6 +1,7 @@
 jest.mock('react-lazily-render', () => (data: any) => data.content);
-jest.mock('react-transition-group/Transition', () => (data: any) =>
-  data.children,
+jest.mock(
+  'react-transition-group/Transition',
+  () => (data: any) => data.children,
 );
 jest.doMock('../../../utils/analytics/analytics');
 
@@ -203,9 +204,8 @@ describe('smart-card: card states, inline', () => {
           const forbiddenLink = await waitForElement(() =>
             getByText(/Restricted link/),
           );
-          const forbiddenLinkButton = container.querySelector(
-            '[type="button"]',
-          );
+          const forbiddenLinkButton =
+            container.querySelector('[type="button"]');
           expect(forbiddenLink).toBeTruthy();
           expect(forbiddenLinkButton).toBeTruthy();
           expect(forbiddenLinkButton!.innerHTML).toContain(
@@ -256,9 +256,8 @@ describe('smart-card: card states, inline', () => {
             </Provider>,
           );
           const unauthorizedLink = await findByTestId('button-connect-account');
-          const unauthorizedLinkButton = container.querySelector(
-            '[type="button"]',
-          );
+          const unauthorizedLinkButton =
+            container.querySelector('[type="button"]');
           expect(unauthorizedLink).toBeTruthy();
           expect(unauthorizedLinkButton).toBeTruthy();
           expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');

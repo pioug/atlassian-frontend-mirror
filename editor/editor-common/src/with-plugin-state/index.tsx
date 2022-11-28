@@ -136,21 +136,23 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
     );
   }
 
-  private handlePluginStateChange = (
-    propName: string,
-    pluginName: string,
-    performanceOptions: PerformanceOptions,
-    skipEqualityCheck?: boolean,
-  ) => (pluginState: any) => {
-    // skipEqualityCheck is being used for old plugins since they are mutating plugin state instead of creating a new one
-    if ((this.state as any)[propName] !== pluginState || skipEqualityCheck) {
-      this.updateState({
-        stateSubset: { [propName]: pluginState },
-        pluginName,
-        performanceOptions,
-      });
-    }
-  };
+  private handlePluginStateChange =
+    (
+      propName: string,
+      pluginName: string,
+      performanceOptions: PerformanceOptions,
+      skipEqualityCheck?: boolean,
+    ) =>
+    (pluginState: any) => {
+      // skipEqualityCheck is being used for old plugins since they are mutating plugin state instead of creating a new one
+      if ((this.state as any)[propName] !== pluginState || skipEqualityCheck) {
+        this.updateState({
+          stateSubset: { [propName]: pluginState },
+          pluginName,
+          performanceOptions,
+        });
+      }
+    };
 
   /**
    * Debounces setState calls in order to reduce number of re-renders caused by several plugin state changes.

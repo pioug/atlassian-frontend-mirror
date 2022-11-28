@@ -22,9 +22,7 @@ export interface MediaInlineCardLoadingViewProps {
   withoutHover?: boolean;
 }
 
-export class MediaInlineCardLoadingView extends React.Component<
-  MediaInlineCardLoadingViewProps
-> {
+export class MediaInlineCardLoadingView extends React.Component<MediaInlineCardLoadingViewProps> {
   render() {
     const {
       message,

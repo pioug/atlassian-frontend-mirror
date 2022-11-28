@@ -8,7 +8,7 @@ import { Field } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
 import {
   borderRadius as getBorderRadius,
-  gridSize,
+  // gridSize,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -22,7 +22,8 @@ const childStyles = css({
 });
 
 const containerStyles = css({
-  padding: `${gridSize() * 2}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize() * 2}px``
+  padding: token('spacing.scale.200', '16px'),
 });
 
 type BorderRadius = 'less' | 'same' | 'more';
@@ -56,9 +57,8 @@ const borderRadiusMap: { [key in BorderRadius]: SerializedStyles } = {
 
 export default function ModalWithCustomChild() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedBorderRadius, setSelectedBorderRadius] = useState<
-    BorderRadius
-  >('same');
+  const [selectedBorderRadius, setSelectedBorderRadius] =
+    useState<BorderRadius>('same');
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
 

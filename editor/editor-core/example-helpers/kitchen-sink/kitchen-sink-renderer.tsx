@@ -18,8 +18,8 @@ export interface KitchenSinkRendererProps {
   featureFlags: Record<string, boolean>;
 }
 
-export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererProps> = React.memo(
-  (props) => {
+export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererProps> =
+  React.memo((props) => {
     const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
 
     return (
@@ -50,5 +50,4 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
         </SmartCardProvider>
       </div>
     );
-  },
-);
+  });

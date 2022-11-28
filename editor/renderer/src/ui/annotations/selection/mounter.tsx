@@ -46,10 +46,8 @@ export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
       createAnalyticsEvent,
       generateIndexMatch,
     } = props;
-    const [
-      draftDocumentPosition,
-      setDraftDocumentPosition,
-    ] = useState<Position | null>();
+    const [draftDocumentPosition, setDraftDocumentPosition] =
+      useState<Position | null>();
 
     const actions = useContext(ActionsContext);
 
@@ -118,9 +116,8 @@ export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
         applyAnnotationDraftAt(documentPosition);
 
         if (createAnalyticsEvent) {
-          const uniqueAnnotationsInRange = actions.getAnnotationsByPosition(
-            range,
-          );
+          const uniqueAnnotationsInRange =
+            actions.getAnnotationsByPosition(range);
           createAnalyticsEvent({
             action: ACTION.OPENED,
             actionSubject: ACTION_SUBJECT.ANNOTATION,

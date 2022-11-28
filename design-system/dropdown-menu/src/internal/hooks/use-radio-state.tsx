@@ -19,9 +19,11 @@ function useRadioState({
   defaultSelected,
 }: RadioStateArgs): RadioStateValue {
   const { setGroupState, getGroupState } = useContext(SelectionStoreContext);
-  const { id: group, radioGroupState, selectRadioItem } = useContext(
-    RadioGroupContext,
-  );
+  const {
+    id: group,
+    radioGroupState,
+    selectRadioItem,
+  } = useContext(RadioGroupContext);
 
   const persistedIsSelected = radioGroupState[id];
 

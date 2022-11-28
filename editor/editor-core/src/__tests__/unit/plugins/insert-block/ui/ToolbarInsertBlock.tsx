@@ -702,9 +702,8 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         });
 
         it('should insert link', () => {
-          const linkMeta = dispatchSpy.mock.calls[0][0].getMeta(
-            hyperlinkPluginKey,
-          );
+          const linkMeta =
+            dispatchSpy.mock.calls[0][0].getMeta(hyperlinkPluginKey);
           expect(linkMeta.type).toEqual(LinkAction.SHOW_INSERT_TOOLBAR);
           dispatchSpy.mockRestore();
         });

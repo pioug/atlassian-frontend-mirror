@@ -99,12 +99,8 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   ]);
 
   const expandLeftSidebar = useCallback(() => {
-    const {
-      lastLeftSidebarWidth,
-      isResizing,
-      flyoutLockCount,
-      isFixed,
-    } = leftSidebarState;
+    const { lastLeftSidebarWidth, isResizing, flyoutLockCount, isFixed } =
+      leftSidebarState;
 
     if (isResizing) {
       return;

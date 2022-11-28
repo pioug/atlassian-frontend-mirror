@@ -7,10 +7,10 @@ describe('handleClickCommon', () => {
 
   beforeEach(() => {
     onClickMock = jest.fn();
-    eventMock = ({
+    eventMock = {
       stopPropagation: jest.fn(),
       preventDefault: jest.fn(),
-    } as unknown) as MouseEvent<HTMLElement>;
+    } as unknown as MouseEvent<HTMLElement>;
   });
 
   afterEach(() => {

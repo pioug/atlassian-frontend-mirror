@@ -72,9 +72,9 @@ const fireOperationalEvent = jest.spyOn(
   'fireOperationalEvent',
 );
 
-const createAnalyticsEvent = (jest.fn(() => ({
+const createAnalyticsEvent = jest.fn(() => ({
   fire: () => {},
-})) as unknown) as CreateUIAnalyticsEvent;
+})) as unknown as CreateUIAnalyticsEvent;
 
 const fakeObservable = (unsubscribe?: Function) => ({
   subscribe: jest.fn(() => ({ unsubscribe })),
@@ -527,16 +527,16 @@ describe('Media Card', () => {
 
   describe('Card State from File State', () => {
     it('should set Card State derived from File State', () => {
-      getCardStateFromFileState.mockReturnValueOnce(({
+      getCardStateFromFileState.mockReturnValueOnce({
         status: 'some-status',
         some: 'card-state',
-      } as unknown) as CardState);
+      } as unknown as CardState);
       createStateUpdater.mockReturnValueOnce(
         () =>
-          (({
+          ({
             status: 'some-updated-status',
             someUpdated: 'card-state',
-          } as unknown) as CardState),
+          } as unknown as CardState),
       );
       const observable = createMediaSubject();
       const mediaClient = fakeMediaClientWithObservable(observable);

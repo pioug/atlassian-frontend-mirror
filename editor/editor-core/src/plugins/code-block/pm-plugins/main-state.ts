@@ -12,18 +12,17 @@ export type CodeBlockState = {
 export const getPluginState = (state: EditorState): CodeBlockState =>
   pluginKey.getState(state);
 
-export const setPluginState = (stateProps: Object) => (
-  state: EditorState,
-  dispatch: CommandDispatch,
-): boolean => {
-  const pluginState = getPluginState(state);
-  dispatch(
-    state.tr.setMeta(pluginKey, {
-      ...pluginState,
-      ...stateProps,
-    }),
-  );
-  return true;
-};
+export const setPluginState =
+  (stateProps: Object) =>
+  (state: EditorState, dispatch: CommandDispatch): boolean => {
+    const pluginState = getPluginState(state);
+    dispatch(
+      state.tr.setMeta(pluginKey, {
+        ...pluginState,
+        ...stateProps,
+      }),
+    );
+    return true;
+  };
 
 export type CodeBlockStateSubscriber = (state: CodeBlockState) => any;

@@ -22,9 +22,8 @@ type WeekStartDayOption = {
 
 export default () => {
   const [locale, setLocale] = React.useState('ja-JP');
-  const [weekStartDay, setWeekStartDay] = React.useState<
-    DatePickerProps['weekStartDay']
-  >(0);
+  const [weekStartDay, setWeekStartDay] =
+    React.useState<DatePickerProps['weekStartDay']>(0);
 
   const handleLocaleChange = React.useCallback(
     (newLocale: Locale) => setLocale(newLocale.value),

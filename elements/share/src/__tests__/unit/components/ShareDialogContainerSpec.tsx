@@ -778,12 +778,12 @@ describe('ShareDialogContainer', () => {
       const wrapper = getWrapper({
         useUrlShortener: true,
       });
-      const updateShortCopyLink = (wrapper.instance().updateShortCopyLink = jest.fn(
-        wrapper.instance().updateShortCopyLink,
-      ));
-      const getUpToDateShortenedCopyLink = (wrapper.instance().getUpToDateShortenedCopyLink = jest.fn(
-        wrapper.instance().getUpToDateShortenedCopyLink,
-      ));
+      const updateShortCopyLink = (wrapper.instance().updateShortCopyLink =
+        jest.fn(wrapper.instance().updateShortCopyLink));
+      const getUpToDateShortenedCopyLink =
+        (wrapper.instance().getUpToDateShortenedCopyLink = jest.fn(
+          wrapper.instance().getUpToDateShortenedCopyLink,
+        ));
 
       expect(mockShortenerClient.shorten).not.toHaveBeenCalled();
       expect(wrapper.state().shortenedCopyLink).toBeNull();
@@ -819,12 +819,12 @@ describe('ShareDialogContainer', () => {
         useUrlShortener: true,
         urlShortenerClient: mockShortenerClient,
       });
-      const updateShortCopyLink = (wrapper.instance().updateShortCopyLink = jest.fn(
-        wrapper.instance().updateShortCopyLink,
-      ));
-      const getUpToDateShortenedCopyLink = (wrapper.instance().getUpToDateShortenedCopyLink = jest.fn(
-        wrapper.instance().getUpToDateShortenedCopyLink,
-      ));
+      const updateShortCopyLink = (wrapper.instance().updateShortCopyLink =
+        jest.fn(wrapper.instance().updateShortCopyLink));
+      const getUpToDateShortenedCopyLink =
+        (wrapper.instance().getUpToDateShortenedCopyLink = jest.fn(
+          wrapper.instance().getUpToDateShortenedCopyLink,
+        ));
 
       expect(mockShortenerClient.shorten).not.toHaveBeenCalled();
       expect(wrapper.state().shortenedCopyLink).toBeNull();
@@ -880,12 +880,12 @@ describe('ShareDialogContainer', () => {
         urlShortenerClient: mockShortenerClient,
         shareLink: undefined,
       });
-      const updateShortCopyLink = (wrapper.instance().updateShortCopyLink = jest.fn(
-        wrapper.instance().updateShortCopyLink,
-      ));
-      const getUpToDateShortenedCopyLink = (wrapper.instance().getUpToDateShortenedCopyLink = jest.fn(
-        wrapper.instance().getUpToDateShortenedCopyLink,
-      ));
+      const updateShortCopyLink = (wrapper.instance().updateShortCopyLink =
+        jest.fn(wrapper.instance().updateShortCopyLink));
+      const getUpToDateShortenedCopyLink =
+        (wrapper.instance().getUpToDateShortenedCopyLink = jest.fn(
+          wrapper.instance().getUpToDateShortenedCopyLink,
+        ));
 
       wrapper.instance().handleDialogOpen();
       expect(updateShortCopyLink).toHaveBeenCalledTimes(1);
@@ -936,12 +936,12 @@ describe('ShareDialogContainer', () => {
         urlShortenerClient: mockShortenerClient,
         shareLink: undefined,
       });
-      const updateShortCopyLink = (wrapper.instance().updateShortCopyLink = jest.fn(
-        wrapper.instance().updateShortCopyLink,
-      ));
-      const getUpToDateShortenedCopyLink = (wrapper.instance().getUpToDateShortenedCopyLink = jest.fn(
-        wrapper.instance().getUpToDateShortenedCopyLink,
-      ));
+      const updateShortCopyLink = (wrapper.instance().updateShortCopyLink =
+        jest.fn(wrapper.instance().updateShortCopyLink));
+      const getUpToDateShortenedCopyLink =
+        (wrapper.instance().getUpToDateShortenedCopyLink = jest.fn(
+          wrapper.instance().getUpToDateShortenedCopyLink,
+        ));
 
       wrapper.instance().handleDialogOpen();
       expect(updateShortCopyLink).toHaveBeenCalledTimes(1);

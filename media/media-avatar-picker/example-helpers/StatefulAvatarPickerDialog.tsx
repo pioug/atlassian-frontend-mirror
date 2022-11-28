@@ -107,10 +107,8 @@ export default class StatefulAvatarPickerDialog extends React.Component<
   }
 
   render() {
-    const {
-      imagePreviewSourceViaDataURIAPI,
-      imagePreviewSourceViaFileAPI,
-    } = this.state;
+    const { imagePreviewSourceViaDataURIAPI, imagePreviewSourceViaFileAPI } =
+      this.state;
 
     return (
       <div css={layoutStyles}>

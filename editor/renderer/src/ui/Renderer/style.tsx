@@ -339,416 +339,415 @@ const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
   `;
 };
 
-export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
-  theme: Theme,
-) => {
-  // This is required to be compatible with styled-components prop structure.
-  const themeProps = { theme };
+export const rendererStyles =
+  (wrapperProps: RendererWrapperProps) => (theme: Theme) => {
+    // This is required to be compatible with styled-components prop structure.
+    const themeProps = { theme };
 
-  return css`
-    font-size: ${editorFontSize(themeProps)}px;
-    line-height: 1.5rem;
-    color: ${themed({
-      light: token('color.text', colors.N800),
-      dark: token('color.text', '#B8C7E0'),
-    })(themeProps)};
-
-    .${RendererCssClassName.DOCUMENT}::after {
-      // we add a clearfix after ak-renderer-document in order to
-      // contain internal floats (such as media images that are "wrap-left")
-      // to just the renderer (and not spill outside of it)
-      content: '';
-      visibility: hidden;
-      display: block;
-      height: 0;
-      clear: both;
-    }
-
-    ${fullPageStyles(wrapperProps, themeProps)}
-    ${fullWidthStyles(wrapperProps)}
-
-    & h1 {
-      ${headingAnchorStyle('h1')}
-    }
-
-    & h2 {
-      ${headingAnchorStyle('h2')}
-    }
-
-    & h3 {
-      ${headingAnchorStyle('h3')}
-    }
-
-    & h4 {
-      ${headingAnchorStyle('h4')}
-    }
-
-    & h5 {
-      ${headingAnchorStyle('h5')}
-    }
-
-    & h6 {
-      ${headingAnchorStyle('h6')}
-    }
-
-    & span.akActionMark {
-      color: ${token('color.link', colors.B400)};
-      text-decoration: none;
-
-      &:hover {
-        color: ${token('color.link', colors.B300)};
-        text-decoration: underline;
-      }
-
-      &:active {
-        color: ${token('color.link.pressed', colors.B500)};
-      }
-    }
-
-    & span.akActionMark {
-      cursor: pointer;
-    }
-
-    & span[data-placeholder] {
-      color: ${colors.placeholderText(themeProps)};
-    }
-
-    ${whitespaceSharedStyles};
-    ${blockquoteSharedStyles};
-    ${headingsSharedStyles(themeProps)};
-    ${ruleSharedStyles(themeProps)};
-    ${paragraphSharedStyles};
-    ${listsSharedStyles};
-    ${indentationSharedStyles};
-    ${blockMarksSharedStyles};
-    ${codeMarkSharedStyles(themeProps)};
-    ${shadowSharedStyle};
-    ${dateSharedStyle};
-    ${textColorStyles};
-    ${tasksAndDecisionsStyles};
-    ${smartCardSharedStyles}
-
-    & .UnknownBlock {
-      font-family: ${fontFamily()};
-      font-size: ${relativeFontSizeToBase16(fontSize())};
-      font-weight: 400;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-
-    & span.date-node {
-      background: ${themed({
-        light: token('color.background.neutral', colors.N30A),
-        dark: token('color.background.neutral', colors.DN70),
-      })(themeProps)};
-      border-radius: ${borderRadius()}px;
+    return css`
+      font-size: ${editorFontSize(themeProps)}px;
+      line-height: 1.5rem;
       color: ${themed({
         light: token('color.text', colors.N800),
-        dark: token('color.text', colors.DN600),
+        dark: token('color.text', '#B8C7E0'),
       })(themeProps)};
-      padding: 2px 4px;
-      margin: 0 1px;
-      transition: background 0.3s;
-    }
 
-    & span.date-node-highlighted {
-      background: ${token('color.background.danger', colors.R50)};
-      color: ${token('color.text.danger', colors.R500)};
-    }
-
-    & .renderer-image {
-      max-width: 100%;
-      display: block;
-      margin: ${gridSize() * 3}px 0;
-    }
-
-    .${richMediaClassName}.rich-media-wrapped
-      + .${richMediaClassName}:not(.rich-media-wrapped) {
-      clear: both;
-    }
-
-    & .code-block,
-    & blockquote,
-    & hr,
-    & > div > div:not(.rich-media-wrapped),
-    .${richMediaClassName}.rich-media-wrapped
-      + .rich-media-wrapped
-      + *:not(.rich-media-wrapped),
-    .${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped),
-    .${richMediaClassName}.image-align-start,
-      .${richMediaClassName}.image-center,
-      .${richMediaClassName}.image-align-end {
-      clear: both;
-    }
-
-    & .rich-media-wrapped {
-      & + h1,
-      & + h2,
-      & + h3,
-      & + h4,
-      & + h5,
-      & + h6 {
-        margin-top: 8px;
+      .${RendererCssClassName.DOCUMENT}::after {
+        // we add a clearfix after ak-renderer-document in order to
+        // contain internal floats (such as media images that are "wrap-left")
+        // to just the renderer (and not spill outside of it)
+        content: '';
+        visibility: hidden;
+        display: block;
+        height: 0;
+        clear: both;
       }
-    }
 
-    ${alignedHeadingAnchorStyle(wrapperProps)}
-    /* plugin styles */
+      ${fullPageStyles(wrapperProps, themeProps)}
+      ${fullWidthStyles(wrapperProps)}
+
+    & h1 {
+        ${headingAnchorStyle('h1')}
+      }
+
+      & h2 {
+        ${headingAnchorStyle('h2')}
+      }
+
+      & h3 {
+        ${headingAnchorStyle('h3')}
+      }
+
+      & h4 {
+        ${headingAnchorStyle('h4')}
+      }
+
+      & h5 {
+        ${headingAnchorStyle('h5')}
+      }
+
+      & h6 {
+        ${headingAnchorStyle('h6')}
+      }
+
+      & span.akActionMark {
+        color: ${token('color.link', colors.B400)};
+        text-decoration: none;
+
+        &:hover {
+          color: ${token('color.link', colors.B300)};
+          text-decoration: underline;
+        }
+
+        &:active {
+          color: ${token('color.link.pressed', colors.B500)};
+        }
+      }
+
+      & span.akActionMark {
+        cursor: pointer;
+      }
+
+      & span[data-placeholder] {
+        color: ${colors.placeholderText(themeProps)};
+      }
+
+      ${whitespaceSharedStyles};
+      ${blockquoteSharedStyles};
+      ${headingsSharedStyles(themeProps)};
+      ${ruleSharedStyles(themeProps)};
+      ${paragraphSharedStyles};
+      ${listsSharedStyles};
+      ${indentationSharedStyles};
+      ${blockMarksSharedStyles};
+      ${codeMarkSharedStyles(themeProps)};
+      ${shadowSharedStyle};
+      ${dateSharedStyle};
+      ${textColorStyles};
+      ${tasksAndDecisionsStyles};
+      ${smartCardSharedStyles}
+
+      & .UnknownBlock {
+        font-family: ${fontFamily()};
+        font-size: ${relativeFontSizeToBase16(fontSize())};
+        font-weight: 400;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      & span.date-node {
+        background: ${themed({
+          light: token('color.background.neutral', colors.N30A),
+          dark: token('color.background.neutral', colors.DN70),
+        })(themeProps)};
+        border-radius: ${borderRadius()}px;
+        color: ${themed({
+          light: token('color.text', colors.N800),
+          dark: token('color.text', colors.DN600),
+        })(themeProps)};
+        padding: 2px 4px;
+        margin: 0 1px;
+        transition: background 0.3s;
+      }
+
+      & span.date-node-highlighted {
+        background: ${token('color.background.danger', colors.R50)};
+        color: ${token('color.text.danger', colors.R500)};
+      }
+
+      & .renderer-image {
+        max-width: 100%;
+        display: block;
+        margin: ${gridSize() * 3}px 0;
+      }
+
+      .${richMediaClassName}.rich-media-wrapped
+        + .${richMediaClassName}:not(.rich-media-wrapped) {
+        clear: both;
+      }
+
+      & .code-block,
+      & blockquote,
+      & hr,
+      & > div > div:not(.rich-media-wrapped),
+      .${richMediaClassName}.rich-media-wrapped
+        + .rich-media-wrapped
+        + *:not(.rich-media-wrapped),
+      .${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped),
+      .${richMediaClassName}.image-align-start,
+        .${richMediaClassName}.image-center,
+        .${richMediaClassName}.image-align-end {
+        clear: both;
+      }
+
+      & .rich-media-wrapped {
+        & + h1,
+        & + h2,
+        & + h3,
+        & + h4,
+        & + h5,
+        & + h6 {
+          margin-top: 8px;
+        }
+      }
+
+      ${alignedHeadingAnchorStyle(wrapperProps)}
+      /* plugin styles */
     ${mediaSingleSharedStyle} &
     div[class^='image-wrap-'] + div[class^='image-wrap-'] {
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    /* Breakout for tables and extensions */
-    .${RendererCssClassName.DOCUMENT} > {
-      * .${TableSharedCssClassName.TABLE_CONTAINER} {
-        width: 100% !important;
-        left: 0 !important;
+        margin-left: 0;
+        margin-right: 0;
       }
 
-      * .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
-        overflow-x: auto;
+      /* Breakout for tables and extensions */
+      .${RendererCssClassName.DOCUMENT} > {
+        * .${TableSharedCssClassName.TABLE_CONTAINER} {
+          width: 100% !important;
+          left: 0 !important;
+        }
+
+        * .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
+          overflow-x: auto;
+        }
+
+        & .${RendererCssClassName.EXTENSION}:first-child {
+          margin-top: 0;
+        }
       }
 
-      & .${RendererCssClassName.EXTENSION}:first-child {
-        margin-top: 0;
-      }
-    }
+      .${RendererCssClassName.DOCUMENT} {
+        .${RendererCssClassName.EXTENSION} {
+          margin-top: ${blockNodesVerticalMargin};
+        }
 
-    .${RendererCssClassName.DOCUMENT} {
-      .${RendererCssClassName.EXTENSION} {
-        margin-top: ${blockNodesVerticalMargin};
-      }
+        .${RendererCssClassName.EXTENSION_CENTER_ALIGN} {
+          margin-left: 50%;
+          transform: translateX(-50%);
+        }
 
-      .${RendererCssClassName.EXTENSION_CENTER_ALIGN} {
-        margin-left: 50%;
-        transform: translateX(-50%);
-      }
-
-      .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
-        overflow-x: auto;
-      }
-
-      .${shadowObserverClassNames.SHADOW_CONTAINER}
         .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
-        display: flex;
-      }
-    }
+          overflow-x: auto;
+        }
 
-    ${tableSharedStyle(themeProps)}
-
-    .${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER} {
-      z-index: 0;
-      transition: all 0.1s linear;
-      display: flex; /* needed to avoid position: fixed jumpiness in Chrome */
-
-      /** Shadow overrides */
-      &.${shadowClassNames.RIGHT_SHADOW}::after,
-        &.${shadowClassNames.LEFT_SHADOW}::before {
-        top: ${tableMarginTop - 1}px;
-        height: calc(100% - ${tableMarginTop}px);
-        z-index: ${akEditorStickyHeaderZIndex};
+        .${shadowObserverClassNames.SHADOW_CONTAINER}
+          .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
+          display: flex;
+        }
       }
 
-      &
-        .${shadowObserverClassNames.SENTINEL_LEFT},
+      ${tableSharedStyle(themeProps)}
+
+      .${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER} {
+        z-index: 0;
+        transition: all 0.1s linear;
+        display: flex; /* needed to avoid position: fixed jumpiness in Chrome */
+
+        /** Shadow overrides */
+        &.${shadowClassNames.RIGHT_SHADOW}::after,
+          &.${shadowClassNames.LEFT_SHADOW}::before {
+          top: ${tableMarginTop - 1}px;
+          height: calc(100% - ${tableMarginTop}px);
+          z-index: ${akEditorStickyHeaderZIndex};
+        }
+
         &
-        .${shadowObserverClassNames.SENTINEL_RIGHT} {
-        height: calc(100% - ${tableMarginTop}px);
-      }
+          .${shadowObserverClassNames.SENTINEL_LEFT},
+          &
+          .${shadowObserverClassNames.SENTINEL_RIGHT} {
+          height: calc(100% - ${tableMarginTop}px);
+        }
 
-      /**
+        /**
      * A hack for making all the <th /> heights equal in case some have shorter
      * content than others.
      *
      * This is done to make sort buttons fill entire <th />.
      */
-      table {
-        height: 1px; /* will be ignored */
-        ${tableSortableColumnStyle(wrapperProps)};
-        margin-left: 0;
-        margin-right: 0;
-      }
-
-      table tr:first-of-type {
-        height: 100%;
-
-        td,
-        th {
-          position: relative;
+        table {
+          height: 1px; /* will be ignored */
+          ${tableSortableColumnStyle(wrapperProps)};
+          margin-left: 0;
+          margin-right: 0;
         }
-      }
 
-      table[data-number-column='true'] {
-        .${RendererCssClassName.NUMBER_COLUMN} {
-          background-color: ${themed({
-            light: token('color.background.neutral', akEditorTableToolbar),
-            dark: token('color.background.neutral', akEditorTableToolbarDark),
-          })(themeProps)};
-          border-right: 1px solid
-            ${themed({
-              light: token('color.border', akEditorTableBorder),
-              dark: token('color.border', akEditorTableBorderDark),
+        table tr:first-of-type {
+          height: 100%;
+
+          td,
+          th {
+            position: relative;
+          }
+        }
+
+        table[data-number-column='true'] {
+          .${RendererCssClassName.NUMBER_COLUMN} {
+            background-color: ${themed({
+              light: token('color.background.neutral', akEditorTableToolbar),
+              dark: token('color.background.neutral', akEditorTableToolbarDark),
             })(themeProps)};
-          width: ${akEditorTableNumberColumnWidth}px;
-          text-align: center;
-          color: ${themed({
-            light: token('color.text.subtlest', colors.N200),
-            dark: token('color.text.subtlest', colors.DN400),
-          })(themeProps)};
-          font-size: ${relativeFontSizeToBase16(fontSize())};
-        }
+            border-right: 1px solid
+              ${themed({
+                light: token('color.border', akEditorTableBorder),
+                dark: token('color.border', akEditorTableBorderDark),
+              })(themeProps)};
+            width: ${akEditorTableNumberColumnWidth}px;
+            text-align: center;
+            color: ${themed({
+              light: token('color.text.subtlest', colors.N200),
+              dark: token('color.text.subtlest', colors.DN400),
+            })(themeProps)};
+            font-size: ${relativeFontSizeToBase16(fontSize())};
+          }
 
-        .fixed .${RendererCssClassName.NUMBER_COLUMN} {
-          border-right: 0px none;
+          .fixed .${RendererCssClassName.NUMBER_COLUMN} {
+            border-right: 0px none;
+          }
         }
       }
-    }
 
-    tr[data-header-row].fixed {
-      position: fixed !important;
-      display: flex;
-      overflow: hidden;
-      z-index: ${akEditorStickyHeaderZIndex};
+      tr[data-header-row].fixed {
+        position: fixed !important;
+        display: flex;
+        overflow: hidden;
+        z-index: ${akEditorStickyHeaderZIndex};
 
-      border-right: 1px solid
-        ${themed({
-          light: token('color.border', akEditorTableBorder),
-          dark: token('color.border', akEditorTableBorderDark),
-        })(themeProps)};
-      border-bottom: 1px solid
-        ${themed({
-          light: token('color.border', akEditorTableBorder),
-          dark: token('color.border', akEditorTableBorderDark),
-        })(themeProps)};
-
-      /* this is to compensate for the table border */
-      transform: translateX(-1px);
-    }
-
-    .sticky > th {
-      z-index: ${akEditorStickyHeaderZIndex};
-      position: sticky !important;
-      top: 0;
-    }
-
-    /* Make the number column header sticky */
-    .sticky > td {
-      position: sticky !important;
-      top: 0;
-    }
-
-    /* add border for position: sticky
-     and work around background-clip: padding-box
-     bug for FF causing box-shadow bug in Chrome */
-    .sticky th,
-    .sticky td {
-      box-shadow: 0px 1px
+        border-right: 1px solid
           ${themed({
             light: token('color.border', akEditorTableBorder),
             dark: token('color.border', akEditorTableBorderDark),
-          })(themeProps)},
-        0px -0.5px ${themed({
+          })(themeProps)};
+        border-bottom: 1px solid
+          ${themed({
             light: token('color.border', akEditorTableBorder),
             dark: token('color.border', akEditorTableBorderDark),
-          })(themeProps)},
-        inset -1px 0px ${themed({
-            light: token('color.border', akEditorTableToolbar),
-            dark: token('color.border', akEditorTableToolbarDark),
-          })(themeProps)},
-        0px -1px ${themed({
-            light: token('color.border', akEditorTableToolbar),
-            dark: token('color.border', akEditorTableToolbarDark),
           })(themeProps)};
-    }
 
-    /* this will remove jumpiness caused in Chrome for sticky headers */
-    .fixed + tr {
-      min-height: 0px;
-    }
+        /* this is to compensate for the table border */
+        transform: translateX(-1px);
+      }
 
-    /*
+      .sticky > th {
+        z-index: ${akEditorStickyHeaderZIndex};
+        position: sticky !important;
+        top: 0;
+      }
+
+      /* Make the number column header sticky */
+      .sticky > td {
+        position: sticky !important;
+        top: 0;
+      }
+
+      /* add border for position: sticky
+     and work around background-clip: padding-box
+     bug for FF causing box-shadow bug in Chrome */
+      .sticky th,
+      .sticky td {
+        box-shadow: 0px 1px
+            ${themed({
+              light: token('color.border', akEditorTableBorder),
+              dark: token('color.border', akEditorTableBorderDark),
+            })(themeProps)},
+          0px -0.5px ${themed({
+              light: token('color.border', akEditorTableBorder),
+              dark: token('color.border', akEditorTableBorderDark),
+            })(themeProps)},
+          inset -1px 0px ${themed({
+              light: token('color.border', akEditorTableToolbar),
+              dark: token('color.border', akEditorTableToolbarDark),
+            })(themeProps)},
+          0px -1px ${themed({
+              light: token('color.border', akEditorTableToolbar),
+              dark: token('color.border', akEditorTableToolbarDark),
+            })(themeProps)};
+      }
+
+      /* this will remove jumpiness caused in Chrome for sticky headers */
+      .fixed + tr {
+        min-height: 0px;
+      }
+
+      /*
    * We wrap CodeBlock in a grid to prevent it from overflowing the container of the renderer.
    * See ED-4159.
    */
-    & .code-block {
-      max-width: 100%;
-      /* -ms- properties are necessary until MS supports the latest version of the grid spec */
-      /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
-      display: -ms-grid;
-      display: grid;
-      -ms-grid-columns: auto 1fr;
-      /* stylelint-enable */
+      & .code-block {
+        max-width: 100%;
+        /* -ms- properties are necessary until MS supports the latest version of the grid spec */
+        /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-columns: auto 1fr;
+        /* stylelint-enable */
 
-      grid-template-columns: minmax(0, 1fr);
-      position: relative;
-      border-radius: ${borderRadius()}px;
+        grid-template-columns: minmax(0, 1fr);
+        position: relative;
+        border-radius: ${borderRadius()}px;
 
-      /*
+        /*
      * The overall renderer has word-wrap: break; which causes issues with
      * code block line numbers in Safari / iOS.
      */
-      word-wrap: normal;
+        word-wrap: normal;
 
-      & > span {
-        /* stylelint-disable value-no-vendor-prefix */
-        -ms-grid-row: 1;
-        -ms-grid-column: 2;
-        /* stylelint-enable */
-        grid-column: 1;
-      }
-    }
-
-    & .MediaGroup,
-    & .code-block {
-      margin-top: ${blockNodesVerticalMargin};
-
-      &:first-child {
-        margin-top: 0;
-      }
-
-      &:hover button.copy-to-clipboard,
-      .copy-to-clipboard:focus {
-        opacity: 1;
-        position: absolute;
-        height: 32px;
-        width: 32px;
-        right: 6px;
-        top: 4px;
-        padding: 2px;
-      }
-    }
-
-    ${getLightWeightCodeBlockStylesForRootRendererStyleSheet()}
-
-    ${columnLayoutSharedStyle};
-    & [data-layout-section] {
-      margin-top: ${gridSize() * 2.5}px;
-      & > div + div {
-        margin-left: ${gridSize() * 4}px;
-      }
-
-      @media screen and (max-width: ${gridMediumMaxWidth}px) {
-        & > div + div {
-          margin-left: 0;
+        & > span {
+          /* stylelint-disable value-no-vendor-prefix */
+          -ms-grid-row: 1;
+          -ms-grid-column: 2;
+          /* stylelint-enable */
+          grid-column: 1;
         }
       }
-    }
 
-    & li {
-      > .code-block {
-        margin: ${blockNodesVerticalMargin} 0 0 0;
-      }
-      > .code-block:first-child {
-        margin-top: 0;
+      & .MediaGroup,
+      & .code-block {
+        margin-top: ${blockNodesVerticalMargin};
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &:hover button.copy-to-clipboard,
+        .copy-to-clipboard:focus {
+          opacity: 1;
+          position: absolute;
+          height: 32px;
+          width: 32px;
+          right: 6px;
+          top: 4px;
+          padding: 2px;
+        }
       }
 
-      > div:last-of-type.code-block {
-        margin-bottom: ${blockNodesVerticalMargin};
+      ${getLightWeightCodeBlockStylesForRootRendererStyleSheet()}
+
+      ${columnLayoutSharedStyle};
+      & [data-layout-section] {
+        margin-top: ${gridSize() * 2.5}px;
+        & > div + div {
+          margin-left: ${gridSize() * 4}px;
+        }
+
+        @media screen and (max-width: ${gridMediumMaxWidth}px) {
+          & > div + div {
+            margin-left: 0;
+          }
+        }
       }
 
-      ${browser.safari ? codeBlockInListSafariFix : ''}
-    }
-  `;
-};
+      & li {
+        > .code-block {
+          margin: ${blockNodesVerticalMargin} 0 0 0;
+        }
+        > .code-block:first-child {
+          margin-top: 0;
+        }
+
+        > div:last-of-type.code-block {
+          margin-bottom: ${blockNodesVerticalMargin};
+        }
+
+        ${browser.safari ? codeBlockInListSafariFix : ''}
+      }
+    `;
+  };

@@ -22,8 +22,7 @@ export const tableHeaderOverflowCodeBlock = {
                   content: [
                     {
                       type: 'text',
-                      text:
-                        '                                                               ',
+                      text: '                                                               ',
                     },
                   ],
                 },

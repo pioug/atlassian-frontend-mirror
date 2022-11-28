@@ -23,10 +23,8 @@ let debouncedTaskToggle: number | null = null;
 export class MockTaskDecisionResource implements TaskDecisionProvider {
   private config?: MockTaskDecisionResourceConfig;
   private subscribers: Map<string, Handler[]> = new Map();
-  private cachedItems: Map<
-    string,
-    BaseItem<TaskState | DecisionState>
-  > = new Map();
+  private cachedItems: Map<string, BaseItem<TaskState | DecisionState>> =
+    new Map();
   private batchedKeys: Map<string, ObjectKey> = new Map();
 
   constructor(config?: MockTaskDecisionResourceConfig) {

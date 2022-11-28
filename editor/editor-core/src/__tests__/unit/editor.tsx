@@ -32,7 +32,7 @@ let mockStoreInstance: jest.Mock;
 jest.mock('@atlaskit/editor-common/ufo', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/ufo'),
   ExperienceStore: {
-    getInstance: mockStoreInstance = jest.fn(() => mockStore),
+    getInstance: (mockStoreInstance = jest.fn(() => mockStore)),
   },
 }));
 
@@ -87,9 +87,8 @@ const { ActivityResource } = jest.genMockFromModule<
 import * as EmojiModule from '@atlaskit/emoji';
 import { QuickInsertOptions } from '../../plugins/quick-insert/types';
 import { IntlProvider, WrappedComponentProps } from 'react-intl-next';
-const { EmojiResource } = jest.genMockFromModule<typeof EmojiModule>(
-  '@atlaskit/emoji',
-);
+const { EmojiResource } =
+  jest.genMockFromModule<typeof EmojiModule>('@atlaskit/emoji');
 
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { measureTTI as mockMeasureTTI } from '@atlaskit/editor-common/utils';
@@ -811,8 +810,9 @@ describe(packageName, () => {
             }
           />,
         );
-        const providerFactory = component.find(ReactEditorView).props()
-          .providerFactory;
+        const providerFactory = component
+          .find(ReactEditorView)
+          .props().providerFactory;
         return {
           component,
           activityProvider,

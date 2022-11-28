@@ -3,9 +3,9 @@ import {
   LayoutSectionDefinition,
 } from '@atlaskit/adf-schema';
 
-export const layoutSection = () => (
-  content: Array<LayoutColumnDefinition>,
-): LayoutSectionDefinition => ({
-  type: 'layoutSection',
-  content,
-});
+export const layoutSection =
+  () =>
+  (content: Array<LayoutColumnDefinition>): LayoutSectionDefinition => ({
+    type: 'layoutSection',
+    content,
+  });

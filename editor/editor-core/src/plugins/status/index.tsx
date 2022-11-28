@@ -60,9 +60,8 @@ const baseStatusPlugin = (options?: StatusPluginOptions): EditorPlugin => ({
             domAtPos,
           ) as HTMLElement;
 
-          const statusNode: any = editorView.state.doc.nodeAt(
-            showStatusPickerAt,
-          );
+          const statusNode: any =
+            editorView.state.doc.nodeAt(showStatusPickerAt);
 
           if (!statusNode || statusNode.type.name !== 'status') {
             return null;

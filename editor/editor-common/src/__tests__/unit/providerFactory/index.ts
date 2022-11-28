@@ -24,7 +24,7 @@ describe('ProviderFactory', () => {
       const spy = jest.spyOn((providerFactory as any).providers, 'set');
       providerFactory.setProvider(
         providerName1,
-        (provider as unknown) as ProviderType<typeof providerName1>,
+        provider as unknown as ProviderType<typeof providerName1>,
       );
 
       expect(spy).toHaveBeenCalled();
@@ -36,7 +36,7 @@ describe('ProviderFactory', () => {
       // set it initially
       providerFactory.setProvider(
         providerName1,
-        (provider as unknown) as ProviderType<typeof providerName1>,
+        provider as unknown as ProviderType<typeof providerName1>,
       );
 
       const spySet = jest.spyOn((providerFactory as any).providers, 'set');
@@ -60,7 +60,7 @@ describe('ProviderFactory', () => {
       );
       providerFactory.setProvider(
         providerName1,
-        (provider as unknown) as ProviderType<typeof providerName1>,
+        provider as unknown as ProviderType<typeof providerName1>,
       );
       providerFactory.setProvider(providerName1, undefined);
 
@@ -75,7 +75,7 @@ describe('ProviderFactory', () => {
       beforeEach(() => {
         providerFactory.setProvider(
           providerName1,
-          (provider as unknown) as ProviderType<typeof providerName1>,
+          provider as unknown as ProviderType<typeof providerName1>,
         );
       });
 
@@ -83,7 +83,7 @@ describe('ProviderFactory', () => {
         const spy = jest.spyOn((providerFactory as any).providers, 'set');
         providerFactory.setProvider(
           providerName1,
-          (provider as unknown) as ProviderType<typeof providerName1>,
+          provider as unknown as ProviderType<typeof providerName1>,
         );
 
         expect(spy).not.toHaveBeenCalled();
@@ -96,7 +96,7 @@ describe('ProviderFactory', () => {
         );
         providerFactory.setProvider(
           providerName1,
-          (provider as unknown) as ProviderType<typeof providerName1>,
+          provider as unknown as ProviderType<typeof providerName1>,
         );
 
         expect(spy).not.toHaveBeenCalled();
@@ -182,7 +182,7 @@ describe('ProviderFactory', () => {
     it('should trigger handler', () => {
       providerFactory.setProvider(
         providerName1,
-        (provider as unknown) as ProviderType<typeof providerName1>,
+        provider as unknown as ProviderType<typeof providerName1>,
       );
       providerFactory.subscribe(providerName1, handler1);
 
@@ -249,7 +249,7 @@ describe('ProviderFactory', () => {
       const providerFactory = new ProviderFactory();
       providerFactory.setProvider(
         providerName1,
-        (provider as unknown) as ProviderType<typeof providerName1>,
+        provider as unknown as ProviderType<typeof providerName1>,
       );
       providerFactory.subscribe(providerName1, handler1);
 

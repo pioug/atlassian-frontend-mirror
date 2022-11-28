@@ -33,9 +33,8 @@ export const exampleSelectionDebugger = () => {
                     const start = view.dom.querySelector<HTMLElement>(
                       '[data-type="start"]',
                     );
-                    const end = view.dom.querySelector<HTMLElement>(
-                      '[data-type="end"]',
-                    );
+                    const end =
+                      view.dom.querySelector<HTMLElement>('[data-type="end"]');
 
                     if (!start || !end) {
                       return;

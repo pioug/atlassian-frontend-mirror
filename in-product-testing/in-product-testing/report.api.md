@@ -36,7 +36,7 @@ export class InProductTestCase {
 
 // @public (undocumented)
 interface InProductTestCaseOpts<
-  TestCaseOpts extends InProductCommonTestCaseOpts = any
+  TestCaseOpts extends InProductCommonTestCaseOpts = any,
 > {
   // (undocumented)
   assertions: (cy: CypressType) => void;

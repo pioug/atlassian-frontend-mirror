@@ -19,17 +19,19 @@ import { RefAttributes } from 'react';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 // @public
-const Checkbox: MemoExoticComponent<ForwardRefExoticComponent<
-  Omit<
+const Checkbox: MemoExoticComponent<
+  ForwardRefExoticComponent<
     Omit<
-      InputHTMLAttributes<HTMLInputElement>,
-      'disabled' | 'required' | 'checked' | 'css'
-    >,
-    keyof OwnProps
-  > &
-    OwnProps &
-    RefAttributes<HTMLInputElement>
->>;
+      Omit<
+        InputHTMLAttributes<HTMLInputElement>,
+        'disabled' | 'required' | 'checked' | 'css'
+      >,
+      keyof OwnProps
+    > &
+      OwnProps &
+      RefAttributes<HTMLInputElement>
+  >
+>;
 export { Checkbox };
 export default Checkbox;
 

@@ -16,9 +16,7 @@ import {
 } from '../util/ufoExperiences';
 import { v4 as uuidv4 } from 'uuid';
 
-export class UserPickerWithoutAnalytics extends React.Component<
-  UserPickerProps
-> {
+export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps> {
   ufoId: string;
 
   constructor(props: UserPickerProps) {

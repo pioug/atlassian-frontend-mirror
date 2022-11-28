@@ -22,9 +22,8 @@ describe(`${packageName}/schema unsupportedInline node`, () => {
   });
 
   it('should encode unsupported inline nodes to html', () => {
-    const unsupportedInlineNode = schema.nodes.confluenceUnsupportedInline.create(
-      { cxhtml: 'foobar' },
-    );
+    const unsupportedInlineNode =
+      schema.nodes.confluenceUnsupportedInline.create({ cxhtml: 'foobar' });
     const domNode = toDOM(unsupportedInlineNode, schema)
       .firstChild as HTMLElement;
 

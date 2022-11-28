@@ -49,7 +49,7 @@ export async function mountRenderer(
         el.innerHTML = '';
       }
       // @ts-ignore
-      ((window as unknown) as WindowOverride).__mountRenderer(props, adf);
+      (window as unknown as WindowOverride).__mountRenderer(props, adf);
     },
     props as any,
     adf as any,

@@ -10,8 +10,7 @@ export const BitbucketSourceCodeReference = {
   'atlassian:commit': {
     '@id': '0304dd88274bcc4ccc737fff22481dbac3945874',
     '@type': 'atlassian:SourceCodeCommit',
-    url:
-      'https://bitbucket.org/tuser/test-repo/commits/0304dd88274bcc4ccc737fff22481dbac3945874',
+    url: 'https://bitbucket.org/tuser/test-repo/commits/0304dd88274bcc4ccc737fff22481dbac3945874',
   },
   'atlassian:updatedBy': {
     '@type': 'Person',
@@ -42,8 +41,7 @@ export const BitbucketSourceCodeReference = {
   },
   image: {
     '@type': 'Image',
-    url:
-      'https://bytebucket.org/ravatar/{0ea250c7-008d-4f87-9ec2-dc7c928bfdf6}?ts=default',
+    url: 'https://bytebucket.org/ravatar/{0ea250c7-008d-4f87-9ec2-dc7c928bfdf6}?ts=default',
   },
   name: 'branch-name',
   'schema:dateCreated': undefined,
@@ -63,8 +61,7 @@ export const GithubSourceCodeReference = {
   'atlassian:commit': {
     '@id': '216bbb3ec969788969b95defcc995af2ebafef91',
     '@type': 'atlassian:SourceCodeCommit',
-    url:
-      'https://github.com/tuser/test-repo/commit/216bbb3ec969788969b95defcc995af2ebafef91',
+    url: 'https://github.com/tuser/test-repo/commit/216bbb3ec969788969b95defcc995af2ebafef91',
   },
   'atlassian:updatedBy': {
     '@type': 'Person',

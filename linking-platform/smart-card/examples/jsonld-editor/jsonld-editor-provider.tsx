@@ -37,23 +37,23 @@ const JsonldEditorProvider: React.FC<Props> = ({
   );
 };
 
-const withJsonldEditorProvider = <P extends object>(
-  Component: React.ComponentType<P>,
-): React.FC<P & Props> => (props) => {
-  const { ari, json, onError, onResolve, url } = props;
-  const onFetch = useCallback(() => json, [json]);
+const withJsonldEditorProvider =
+  <P extends object>(Component: React.ComponentType<P>): React.FC<P & Props> =>
+  (props) => {
+    const { ari, json, onError, onResolve, url } = props;
+    const onFetch = useCallback(() => json, [json]);
 
-  return (
-    <JsonldEditorProvider
-      onError={onError}
-      onFetch={onFetch}
-      onResolve={onResolve}
-      url={url}
-      ari={ari}
-    >
-      <Component {...props} />
-    </JsonldEditorProvider>
-  );
-};
+    return (
+      <JsonldEditorProvider
+        onError={onError}
+        onFetch={onFetch}
+        onResolve={onResolve}
+        url={url}
+        ari={ari}
+      >
+        <Component {...props} />
+      </JsonldEditorProvider>
+    );
+  };
 
 export default withJsonldEditorProvider;

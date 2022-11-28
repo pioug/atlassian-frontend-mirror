@@ -139,7 +139,7 @@ class Example extends React.Component {
             <hr />
 
             <h4>Not found response</h4>
-            <Provider client={(notFoundClient as any) as Client}>
+            <Provider client={notFoundClient as any as Client}>
               <Card url="http://some.notfound.url" appearance="inline" />
             </Provider>
           </GridColumn>

@@ -208,95 +208,98 @@ export const getBaseCodeStyles = (theme: CodeTheme) => ({
  *
  * @param theme
  */
-export const getCodeBlockStyles = (theme: CodeBlockTheme) => (
-  highlightedStartText: string,
-  highlightedEndText: string,
-  hasLineNumbers?: boolean,
-): CSSObject => ({
-  // this is required to account for prismjs styles leaking into the codeblock
-  'code[class*="language-"], pre[class*="language-"], code': {
-    all: 'unset',
-    padding: hasLineNumbers ? `${SPACING}px 0` : SPACING,
-  },
-  display: 'flex',
-  lineHeight: CODE_LINE_HEIGHT,
-  overflowX: 'auto',
-  whiteSpace: 'pre',
-  ...getBaseCodeStyles(theme),
-  ...syntaxKeywordColors(theme),
-  // this is to account for SSR spacing issue once loaded in browser
-  '& .linenumber, .react-syntax-highlighter-line-number': lineNumberStyle(
-    theme,
-  ),
-  '& .linenumber': {
-    display: 'inline-block !important',
-  },
-  // these styles are for line highlighting
-  '& [data-ds--code--row]': {
-    display: 'block',
-    paddingRight: `${SPACING}px !important`,
-    marginRight: `-${SPACING}px`,
-  },
-  '& [data-ds--code--row--highlight]': {
-    background: `${theme.highlightedLineBgColor}`,
+export const getCodeBlockStyles =
+  (theme: CodeBlockTheme) =>
+  (
+    highlightedStartText: string,
+    highlightedEndText: string,
+    hasLineNumbers?: boolean,
+  ): CSSObject => ({
+    // this is required to account for prismjs styles leaking into the codeblock
+    'code[class*="language-"], pre[class*="language-"], code': {
+      all: 'unset',
+      padding: hasLineNumbers ? `${SPACING}px 0` : SPACING,
+    },
+    display: 'flex',
+    lineHeight: CODE_LINE_HEIGHT,
+    overflowX: 'auto',
+    whiteSpace: 'pre',
+    ...getBaseCodeStyles(theme),
+    ...syntaxKeywordColors(theme),
+    // this is to account for SSR spacing issue once loaded in browser
+    '& .linenumber, .react-syntax-highlighter-line-number':
+      lineNumberStyle(theme),
+    '& .linenumber': {
+      display: 'inline-block !important',
+    },
+    // these styles are for line highlighting
+    '& [data-ds--code--row]': {
+      display: 'block',
+      paddingRight: `${SPACING}px !important`,
+      marginRight: `-${SPACING}px`,
+    },
+    '& [data-ds--code--row--highlight]': {
+      background: `${theme.highlightedLineBgColor}`,
 
-    // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
-    '&::before, &::after': {
-      clipPath: 'inset(100%)',
-      clip: 'rect(1px, 1px, 1px, 1px)',
-      height: '1px',
-      overflow: 'hidden',
+      // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
+      '&::before, &::after': {
+        clipPath: 'inset(100%)',
+        clip: 'rect(1px, 1px, 1px, 1px)',
+        height: '1px',
+        overflow: 'hidden',
+        position: 'absolute',
+        whiteSpace: 'nowrap',
+        width: '1px',
+      },
+      '&::before': {
+        content: `", ${highlightedStartText}, "`,
+      },
+      '&::after': {
+        content: `", ${highlightedEndText}, "`,
+      },
+    },
+    '& [data-ds--code--row--highlight] .linenumber': {
+      borderLeft: `${HIGHLIGHT_BORDER_WIDTH} solid ${theme.highlightedLineBorderColor}`,
+      paddingLeft: `${SPACING / 2}px !important`,
+      position: 'relative',
+    },
+    // fill in space caused by parent border top
+    '& [data-ds--code--row--highlight] .linenumber::before': {
+      content: '""',
       position: 'absolute',
-      whiteSpace: 'nowrap',
-      width: '1px',
+      width: HIGHLIGHT_BORDER_WIDTH,
+      top: '-1px',
+      left: `-${HIGHLIGHT_BORDER_WIDTH}`,
+      borderTop: `1px solid ${theme.highlightedLineBorderColor}`,
     },
-    '&::before': {
-      content: `", ${highlightedStartText}, "`,
+    '[data-ds--code--row--highlight] + [data-ds--code--row]:not([data-ds--code--row--highlight]), [data-ds--code--row]:not([data-ds--code--row--highlight]) + [data-ds--code--row--highlight]':
+      {
+        borderTop: '1px dashed transparent',
+      },
+    '[data-ds--code--row--highlight]:last-child': {
+      borderBottom: '1px dashed transparent',
     },
-    '&::after': {
-      content: `", ${highlightedEndText}, "`,
-    },
-  },
-  '& [data-ds--code--row--highlight] .linenumber': {
-    borderLeft: `${HIGHLIGHT_BORDER_WIDTH} solid ${theme.highlightedLineBorderColor}`,
-    paddingLeft: `${SPACING / 2}px !important`,
-    position: 'relative',
-  },
-  // fill in space caused by parent border top
-  '& [data-ds--code--row--highlight] .linenumber::before': {
-    content: '""',
-    position: 'absolute',
-    width: HIGHLIGHT_BORDER_WIDTH,
-    top: '-1px',
-    left: `-${HIGHLIGHT_BORDER_WIDTH}`,
-    borderTop: `1px solid ${theme.highlightedLineBorderColor}`,
-  },
-  '[data-ds--code--row--highlight] + [data-ds--code--row]:not([data-ds--code--row--highlight]), [data-ds--code--row]:not([data-ds--code--row--highlight]) + [data-ds--code--row--highlight]': {
-    borderTop: '1px dashed transparent',
-  },
-  '[data-ds--code--row--highlight]:last-child': {
-    borderBottom: '1px dashed transparent',
-  },
-  '& code:first-of-type': {
-    paddingRight: `0px !important`,
-    backgroundImage: hasLineNumbers
-      ? `linear-gradient(to right, var(${VAR_CODE_LINE_NUMBER_BG_COLOR},${theme.lineNumberBgColor}), var(${VAR_CODE_LINE_NUMBER_BG_COLOR},${theme.lineNumberBgColor})
+    '& code:first-of-type': {
+      paddingRight: `0px !important`,
+      backgroundImage: hasLineNumbers
+        ? `linear-gradient(to right, var(${VAR_CODE_LINE_NUMBER_BG_COLOR},${theme.lineNumberBgColor}), var(${VAR_CODE_LINE_NUMBER_BG_COLOR},${theme.lineNumberBgColor})
     calc(${theme.lineNumberWidth} + ${LINE_NUMBER_GUTTER}px), transparent calc(${theme.lineNumberWidth} + ${LINE_NUMBER_GUTTER}px), transparent)`
-      : undefined,
-  },
-  // we need to use last-of-type because when Code is SSR'd
-  // 2 <code> elements are created and we don't want this style
-  // applied to the first one
-  '& code:last-of-type': {
-    paddingRight: `${SPACING}px !important`,
-    flex: '1 0 auto',
-  },
+        : undefined,
+    },
+    // we need to use last-of-type because when Code is SSR'd
+    // 2 <code> elements are created and we don't want this style
+    // applied to the first one
+    '& code:last-of-type': {
+      paddingRight: `${SPACING}px !important`,
+      flex: '1 0 auto',
+    },
 
-  // Prevents empty code blocks from vertically collapsing
-  'code > span:only-child:empty:before, code > span:only-child > span:only-child:empty:before': {
-    content: '" "',
-  },
-});
+    // Prevents empty code blocks from vertically collapsing
+    'code > span:only-child:empty:before, code > span:only-child > span:only-child:empty:before':
+      {
+        content: '" "',
+      },
+  });
 
 export const getCodeStyles = (
   globalTheme: Theme | { theme: Theme },

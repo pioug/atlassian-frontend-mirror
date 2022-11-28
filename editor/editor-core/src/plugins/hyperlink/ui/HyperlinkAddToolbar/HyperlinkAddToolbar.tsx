@@ -550,9 +550,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     const { items, selectedIndex } = this.state;
 
     if (items.length && selectedIndex > -1) {
-      const { name, container, lastUpdatedDate, lastViewedDate } = items[
-        selectedIndex
-      ];
+      const { name, container, lastUpdatedDate, lastViewedDate } =
+        items[selectedIndex];
 
       const date = transformTimeStamp(intl, lastViewedDate, lastUpdatedDate);
       return `${name}, ${container}, ${date?.pageAction} ${date?.dateString} ${
@@ -562,13 +561,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
   };
 
   render() {
-    const {
-      items,
-      isLoading,
-      selectedIndex,
-      displayUrl,
-      displayText,
-    } = this.state;
+    const { items, isLoading, selectedIndex, displayUrl, displayText } =
+      this.state;
     const {
       intl: { formatMessage },
       activityProvider,

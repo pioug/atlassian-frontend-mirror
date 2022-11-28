@@ -69,10 +69,8 @@ class HeadingAnchor extends React.PureComponent<
   };
 
   copyToClipboard = async (event: React.SyntheticEvent<HTMLElement>) => {
-    const {
-      copiedHeadingLinkToClipboard,
-      failedToCopyHeadingLink,
-    } = headingAnchorLinkMessages;
+    const { copiedHeadingLinkToClipboard, failedToCopyHeadingLink } =
+      headingAnchorLinkMessages;
     event.stopPropagation();
     try {
       await this.props.onCopyText();

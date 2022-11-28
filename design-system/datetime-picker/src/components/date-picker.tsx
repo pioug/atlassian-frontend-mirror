@@ -291,7 +291,7 @@ const datePickerDefaultProps = {
   disabled: [] as string[],
   disabledDateFilter: (_: string) => false,
   hideIcon: false,
-  icon: (CalendarIcon as unknown) as React.ComponentType<
+  icon: CalendarIcon as unknown as React.ComponentType<
     IndicatorProps<OptionType>
   >,
   id: '',

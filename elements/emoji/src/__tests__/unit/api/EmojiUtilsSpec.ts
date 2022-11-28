@@ -289,7 +289,8 @@ describe('EmojiUtils', () => {
           mediaApiToken,
         },
       };
-      const serviceRepresentation = mediaServiceEmoji.representation as ImageRepresentation;
+      const serviceRepresentation =
+        mediaServiceEmoji.representation as ImageRepresentation;
       expect(
         serviceRepresentation.imagePath.indexOf(mediaApiToken.url),
       ).toEqual(0);

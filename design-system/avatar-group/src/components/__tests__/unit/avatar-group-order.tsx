@@ -21,21 +21,17 @@ const generateData = (avatarCount: number) => {
   }));
 };
 
-const createAvatarAuditor = ({
-  onMount,
-  onUnmount,
-}: {
-  onMount: () => void;
-  onUnmount: () => void;
-}) => (props: AvatarProps) => {
-  useEffect(() => {
-    onMount();
+const createAvatarAuditor =
+  ({ onMount, onUnmount }: { onMount: () => void; onUnmount: () => void }) =>
+  (props: AvatarProps) => {
+    useEffect(() => {
+      onMount();
 
-    return () => onUnmount();
-  }, []); // [] forces the effect to only run once on mount/unmount.
+      return () => onUnmount();
+    }, []); // [] forces the effect to only run once on mount/unmount.
 
-  return <Avatar {...props} />;
-};
+    return <Avatar {...props} />;
+  };
 
 describe('avatar group re-ordering', () => {
   const rearrange = (data: Array<any>) => {

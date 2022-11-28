@@ -360,9 +360,8 @@ export const floatingToolbar = (
     providerFactory,
     allowMediaInline,
   } = options;
-  const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
-    state,
-  );
+  const mediaPluginState: MediaPluginState | undefined =
+    stateKey.getState(state);
   const mediaLinkingState: MediaLinkingState = getMediaLinkingState(state);
 
   if (!mediaPluginState) {

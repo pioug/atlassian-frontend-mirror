@@ -81,17 +81,19 @@ export default class MediaGroup extends PureComponent<
     } as MediaProps);
   }
 
-  onMediaClick = (
-    cardClickHandler: CardEventClickHandler,
-    child: ReactElement<MediaProps>,
-    surroundingItems: Identifier[],
-  ) => (event: CardEvent, analyticsEvent?: any) => {
-    const surroundings: CardSurroundings = {
-      collectionName: child.props.collection!,
-      list: surroundingItems,
+  onMediaClick =
+    (
+      cardClickHandler: CardEventClickHandler,
+      child: ReactElement<MediaProps>,
+      surroundingItems: Identifier[],
+    ) =>
+    (event: CardEvent, analyticsEvent?: any) => {
+      const surroundings: CardSurroundings = {
+        collectionName: child.props.collection!,
+        list: surroundingItems,
+      };
+      cardClickHandler(event, surroundings, analyticsEvent);
     };
-    cardClickHandler(event, surroundings, analyticsEvent);
-  };
 
   cloneFileCard(
     child: ReactElement<MediaProps>,

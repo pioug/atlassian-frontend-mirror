@@ -6,10 +6,10 @@ import {
 
 export type CodeBlockContent = TextDefinition & NoMark;
 
-export const codeBlock = (attrs: CodeBlockDefinition['attrs'] | undefined) => (
-  ...content: Array<CodeBlockContent>
-): CodeBlockDefinition => ({
-  type: 'codeBlock',
-  attrs,
-  content,
-});
+export const codeBlock =
+  (attrs: CodeBlockDefinition['attrs'] | undefined) =>
+  (...content: Array<CodeBlockContent>): CodeBlockDefinition => ({
+    type: 'codeBlock',
+    attrs,
+    content,
+  });

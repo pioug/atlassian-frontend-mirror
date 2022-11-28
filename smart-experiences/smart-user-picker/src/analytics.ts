@@ -27,9 +27,8 @@ export const startSession = (): UserPickerSession => ({
   lastKey: undefined,
 });
 
-export const createAndFireEventInElementsChannel = createAndFireEvent(
-  'fabric-elements',
-);
+export const createAndFireEventInElementsChannel =
+  createAndFireEvent('fabric-elements');
 
 const createEvent = (
   eventType: 'ui' | 'operational',

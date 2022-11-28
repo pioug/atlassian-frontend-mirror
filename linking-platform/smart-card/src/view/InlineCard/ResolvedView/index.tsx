@@ -31,9 +31,7 @@ export interface InlineCardResolvedViewProps {
   showHoverPreview?: boolean;
 }
 
-export class InlineCardResolvedView extends React.Component<
-  InlineCardResolvedViewProps
-> {
+export class InlineCardResolvedView extends React.Component<InlineCardResolvedViewProps> {
   renderLozenge() {
     const { lozenge } = this.props;
     if (!lozenge) {

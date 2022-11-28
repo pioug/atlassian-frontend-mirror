@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { InlineCardProps } from './types';
-import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
+import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { JsonLd } from 'json-ld-types';
 import { extractRequestAccessContext } from '../../extractors/common/context';
@@ -98,7 +98,7 @@ export const InlineCard: FC<InlineCardProps> = ({
       const providerForbidden = extractProvider(
         cardDetails as JsonLd.Data.BaseData,
       );
-      const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
+      const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
       const requestAccessContext = extractRequestAccessContext({
         jsonLd: cardMetadata,
         url,

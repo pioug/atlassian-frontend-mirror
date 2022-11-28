@@ -43,9 +43,8 @@ describe('type-ahead: multiple plugins', () => {
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
 
-    const emojiProvider = getEmojiResourceWithStandardAndAtlassianEmojis() as Promise<
-      EmojiProvider
-    >;
+    const emojiProvider =
+      getEmojiResourceWithStandardAndAtlassianEmojis() as Promise<EmojiProvider>;
     const providerFactory: ProviderFactory = ProviderFactory.create({
       emojiProvider,
       mentionProvider: Promise.resolve(mentionResourceProvider),

@@ -21,9 +21,9 @@ const toolbar = css`
   }
 `;
 
-export const ToolbarWithSizeDetector: React.FunctionComponent<ToolbarWithSizeDetectorProps> = (
-  props,
-) => {
+export const ToolbarWithSizeDetector: React.FunctionComponent<
+  ToolbarWithSizeDetectorProps
+> = (props) => {
   const ref = React.createRef<HTMLDivElement>();
   const [width, setWidth] = React.useState<number | undefined>(undefined);
   const elementWidth = useElementWidth(ref, {

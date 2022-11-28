@@ -29,10 +29,10 @@ export const useTrackResultsShown = (
   // Loading state IS a factor here because some tabs will
   // load intermediate results whilst loading additional results (Atlassian tab)
   // Considered to only have "shown" results once we are in a final state (no longer loading)
-  const finalItems = useMemo(() => (!isLoading ? items : null), [
-    isLoading,
-    items,
-  ]);
+  const finalItems = useMemo(
+    () => (!isLoading ? items : null),
+    [isLoading, items],
+  );
 
   // Because Atlassian tab resolves intermediate results on every keystroke (may never be loading)
   // Debounce the items so that we only consider the results to have been shown

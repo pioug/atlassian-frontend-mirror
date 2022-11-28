@@ -151,12 +151,12 @@ describe('extractFilePreviewStatus()', () => {
   });
 
   it(`should use file state's file size`, () => {
-    const dummyFileStateWithoutSize = ({
+    const dummyFileStateWithoutSize = {
       size: undefined,
-    } as unknown) as FileState;
-    const dummyFileStateWithSize = ({
+    } as unknown as FileState;
+    const dummyFileStateWithSize = {
       size: 1,
-    } as unknown) as FileState;
+    } as unknown as FileState;
 
     expect(
       extractFilePreviewStatus(

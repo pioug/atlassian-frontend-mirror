@@ -47,13 +47,9 @@ describe('MessageIcon component', () => {
 
     describe('label', () => {
       describe('default labels', () => {
-        ([
-          'connectivity',
-          'confirmation',
-          'info',
-          'warning',
-          'error',
-        ] as const).forEach((appearance) => {
+        (
+          ['connectivity', 'confirmation', 'info', 'warning', 'error'] as const
+        ).forEach((appearance) => {
           it(`should set defaultLabel for icon wiht type = ${appearance}`, () => {
             const { getByTestId } = render(
               <MessageIcon isOpen={false} appearance={appearance} />,

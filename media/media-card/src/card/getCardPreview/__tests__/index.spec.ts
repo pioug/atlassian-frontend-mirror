@@ -78,17 +78,18 @@ const imageUrlParams: MediaStoreGetFileImageParams = {
 };
 const event = { fire: jest.fn() };
 const createAnalyticsEventMock = jest.fn(() => event);
-const createAnalyticsEvent = (createAnalyticsEventMock as unknown) as CreateUIAnalyticsEvent;
+const createAnalyticsEvent =
+  createAnalyticsEventMock as unknown as CreateUIAnalyticsEvent;
 
 // filePreview and isRemotePreviewReady have to be set in their relevant tests
-const cardPreviewParams = ({
+const cardPreviewParams = {
   mediaClient: { thisIs: 'some-media-client' },
   id: 'some-id',
   dimensions: { width: '33', height: '44' },
   imageUrlParams,
   mediaBlobUrlAttrs,
   createAnalyticsEvent,
-} as unknown) as CardPreviewParams;
+} as unknown as CardPreviewParams;
 
 const fileIdentifier: FileIdentifier = {
   id: 'some-id',
@@ -98,9 +99,9 @@ const fileIdentifier: FileIdentifier = {
 };
 const defaultMode: ImageResizeMode = 'crop';
 
-const filePreview = ({
+const filePreview = {
   thisIs: 'some-file-preview',
-} as unknown) as FilePreview;
+} as unknown as FilePreview;
 
 const remoteFetchParams = [
   cardPreviewParams.mediaClient,

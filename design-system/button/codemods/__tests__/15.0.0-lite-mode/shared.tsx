@@ -47,8 +47,7 @@ import { check } from '../_framework';
       });
 
       check({
-        it:
-          'should fallback to a `DSButtonAppearance` type alias if the `Appearance` identifier name is unavailable',
+        it: 'should fallback to a `DSButtonAppearance` type alias if the `Appearance` identifier name is unavailable',
         transformer,
         original: `
           import { Appearance } from 'some-other-package';

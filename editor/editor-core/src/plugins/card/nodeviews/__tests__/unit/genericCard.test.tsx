@@ -27,7 +27,7 @@ describe('<GenericCard/>', () => {
   let commandMock: jest.Mock<ReturnType<Command>, Parameters<Command>>;
 
   beforeEach(() => {
-    mockEditorView = ({
+    mockEditorView = {
       state: {
         selection: {
           from: 0,
@@ -40,7 +40,7 @@ describe('<GenericCard/>', () => {
         },
       },
       dispatch: jest.fn(),
-    } as unknown) as EditorView;
+    } as unknown as EditorView;
     commandMock = jest.fn((state: EditorState) => true);
     mockChangeSelectedCardToLink.mockReturnValue(commandMock);
   });

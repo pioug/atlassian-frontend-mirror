@@ -310,9 +310,11 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                       Reload Editor
                     </Button>
 
-                    {(Object.keys(enabledFeatureNames) as Array<
-                      keyof typeof enabledFeatureNames
-                    >).map((key) => (
+                    {(
+                      Object.keys(enabledFeatureNames) as Array<
+                        keyof typeof enabledFeatureNames
+                      >
+                    ).map((key) => (
                       <Button
                         key={key}
                         onClick={() => this.toggleFeature(key)}

@@ -55,7 +55,7 @@ describe('Renderer - utils', () => {
   describe('findInTree', () => {
     it("doesn't run evaluate if top parent is reached", () => {
       const evaluate = jest.fn();
-      const elementA = ({ parentElement: undefined } as any) as HTMLElement;
+      const elementA = { parentElement: undefined } as any as HTMLElement;
 
       const result = findInTree(elementA, elementA, evaluate);
       expect(evaluate).toBeCalledTimes(0);
@@ -64,14 +64,14 @@ describe('Renderer - utils', () => {
 
     it('matches given element if it satisfies evaluate', () => {
       const evaluate = (element: any) => element.id === 2;
-      const elementA = ({
+      const elementA = {
         parentElement: undefined,
         id: 1,
-      } as any) as HTMLElement;
-      const elementB = ({
+      } as any as HTMLElement;
+      const elementB = {
         parentElement: elementA,
         id: 2,
-      } as any) as HTMLElement;
+      } as any as HTMLElement;
 
       const result = findInTree(elementB, elementA, evaluate);
       expect(result).toBe(true);
@@ -79,18 +79,18 @@ describe('Renderer - utils', () => {
 
     it("matches an element that isn't given and isn't the top if satisfies evaluate", () => {
       const evaluate = (element: any) => element.id === 2;
-      const elementA = ({
+      const elementA = {
         parentElement: undefined,
         id: 1,
-      } as any) as HTMLElement;
-      const elementB = ({
+      } as any as HTMLElement;
+      const elementB = {
         parentElement: elementA,
         id: 2,
-      } as any) as HTMLElement;
-      const elementC = ({
+      } as any as HTMLElement;
+      const elementC = {
         parentElement: elementB,
         id: 3,
-      } as any) as HTMLElement;
+      } as any as HTMLElement;
 
       const result = findInTree(elementC, elementA, evaluate);
       expect(result).toBe(true);
@@ -98,18 +98,18 @@ describe('Renderer - utils', () => {
 
     it('returns false if no elements satisfy evaluate', () => {
       const evaluate = (element: any) => element.id === 4;
-      const elementA = ({
+      const elementA = {
         parentElement: undefined,
         id: 1,
-      } as any) as HTMLElement;
-      const elementB = ({
+      } as any as HTMLElement;
+      const elementB = {
         parentElement: elementA,
         id: 2,
-      } as any) as HTMLElement;
-      const elementC = ({
+      } as any as HTMLElement;
+      const elementC = {
         parentElement: elementB,
         id: 3,
-      } as any) as HTMLElement;
+      } as any as HTMLElement;
 
       const result = findInTree(elementC, elementA, evaluate);
       expect(result).toBe(false);

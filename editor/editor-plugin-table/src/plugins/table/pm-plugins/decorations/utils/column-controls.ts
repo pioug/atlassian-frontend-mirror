@@ -65,16 +65,14 @@ const removeColumnControlsSelectedDecoration: DecorationTransformer = ({
 const hasColumnSelectedDecorations = (decorationSet: DecorationSet): boolean =>
   !!findColumnControlSelectedDecoration(decorationSet).length;
 
-export const maybeUpdateColumnControlsSelectedDecoration: DecorationTransformer = ({
-  decorationSet,
-  tr,
-}): DecorationSet => {
-  if (!hasColumnSelectedDecorations(decorationSet)) {
-    return decorationSet;
-  }
+export const maybeUpdateColumnControlsSelectedDecoration: DecorationTransformer =
+  ({ decorationSet, tr }): DecorationSet => {
+    if (!hasColumnSelectedDecorations(decorationSet)) {
+      return decorationSet;
+    }
 
-  return removeColumnControlsSelectedDecoration({ decorationSet, tr });
-};
+    return removeColumnControlsSelectedDecoration({ decorationSet, tr });
+  };
 
 export const buildColumnControlsDecorations: DecorationTransformer = ({
   decorationSet,

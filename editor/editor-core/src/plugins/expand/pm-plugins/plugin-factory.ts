@@ -4,8 +4,5 @@ import reducer from '../reducer';
 
 export const pluginKey = new PluginKey('expandPlugin');
 
-export const {
-  createPluginState,
-  createCommand,
-  getPluginState,
-} = pluginFactory(pluginKey, reducer);
+export const { createPluginState, createCommand, getPluginState } =
+  pluginFactory(pluginKey, reducer);

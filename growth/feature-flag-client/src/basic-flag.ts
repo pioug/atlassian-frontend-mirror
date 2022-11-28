@@ -86,7 +86,7 @@ export default class BasicFlag implements FlagWrapper {
 
     this.sendAutomaticExposure(
       this.flagKey,
-      (value as unknown) as FlagValue,
+      value as unknown as FlagValue,
       this.evaluationResult.explanation,
     );
 
@@ -108,7 +108,7 @@ export default class BasicFlag implements FlagWrapper {
     },
   ): EvaluationResult<T> {
     let result: EvaluationResult<T> = {
-      value: (this.flag.value as unknown) as T,
+      value: this.flag.value as unknown as T,
       explanation: this.flag.explanation,
       didFallbackToDefaultValue: false,
     };
@@ -123,7 +123,7 @@ export default class BasicFlag implements FlagWrapper {
       };
     } else if (
       oneOf !== undefined &&
-      !oneOf.includes((this.flag.value as unknown) as T)
+      !oneOf.includes(this.flag.value as unknown as T)
     ) {
       result.value = defaultValue;
       result.didFallbackToDefaultValue = true;

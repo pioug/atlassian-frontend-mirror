@@ -39,9 +39,8 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Example = () => {
   const [hasAsyncSources, setHasAsyncSources] = React.useState(true);
-  const [selectedSources, setSelectedSources] = React.useState<Option[]>(
-    sources,
-  );
+  const [selectedSources, setSelectedSources] =
+    React.useState<Option[]>(sources);
   const loadUserSource = useCallback(
     async (accountId: string) => {
       const randomFailure = Math.random() < 0.2;

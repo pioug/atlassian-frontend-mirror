@@ -33,9 +33,8 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
     analyticsProps: WithAnalyticsEventsProps = {},
   ) {
     this.client = client;
-    this.fireHydrationEvent = fireAnalyticsMentionHydrationEvent(
-      analyticsProps,
-    );
+    this.fireHydrationEvent =
+      fireAnalyticsMentionHydrationEvent(analyticsProps);
   }
 
   lookupName(id: string): Promise<MentionNameDetails> | MentionNameDetails {

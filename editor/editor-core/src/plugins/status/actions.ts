@@ -28,96 +28,97 @@ export const DEFAULT_STATUS: StatusType = {
   color: 'neutral',
 };
 
-export const createStatus = (showStatusPickerAtOffset = 0) => (
-  insert: (
-    node: Node | Object | string,
-    opts: { selectInlineNode: boolean },
-  ) => Transaction,
-  state: EditorState,
-): Transaction => {
-  const statusNode = state.schema.nodes.status.createChecked({
-    ...DEFAULT_STATUS,
-    localId: uuid.generate(),
-  });
-
-  const space = state.schema.text(' ');
-
-  const tr = insert(Fragment.from([statusNode, space]), {
-    selectInlineNode: true,
-  });
-  const showStatusPickerAt = tr.selection.from + showStatusPickerAtOffset;
-  return tr
-    .setSelection(NodeSelection.create(tr.doc, showStatusPickerAt))
-    .setMeta(pluginKey, {
-      showStatusPickerAt,
-      isNew: true,
+export const createStatus =
+  (showStatusPickerAtOffset = 0) =>
+  (
+    insert: (
+      node: Node | Object | string,
+      opts: { selectInlineNode: boolean },
+    ) => Transaction,
+    state: EditorState,
+  ): Transaction => {
+    const statusNode = state.schema.nodes.status.createChecked({
+      ...DEFAULT_STATUS,
+      localId: uuid.generate(),
     });
-};
 
-export const updateStatus = (status?: StatusType): Command => (
-  state,
-  dispatch,
-) => {
-  const { schema } = state;
+    const space = state.schema.text(' ');
 
-  const selectedStatus = status
-    ? Object.assign(status, {
-        text: status.text.trim(),
-        localId: status.localId || uuid.generate(),
-      })
-    : status;
-
-  const statusProps = {
-    ...DEFAULT_STATUS,
-    ...selectedStatus,
+    const tr = insert(Fragment.from([statusNode, space]), {
+      selectInlineNode: true,
+    });
+    const showStatusPickerAt = tr.selection.from + showStatusPickerAtOffset;
+    return tr
+      .setSelection(NodeSelection.create(tr.doc, showStatusPickerAt))
+      .setMeta(pluginKey, {
+        showStatusPickerAt,
+        isNew: true,
+      });
   };
 
-  let tr = state.tr;
-  const { showStatusPickerAt } = pluginKey.getState(state);
+export const updateStatus =
+  (status?: StatusType): Command =>
+  (state, dispatch) => {
+    const { schema } = state;
 
-  if (!showStatusPickerAt) {
-    // Same behaviour as quick insert (used in createStatus)
-    const statusNode = schema.nodes.status.createChecked(statusProps);
-    const fragment = Fragment.fromArray([statusNode, state.schema.text(' ')]);
+    const selectedStatus = status
+      ? Object.assign(status, {
+          text: status.text.trim(),
+          localId: status.localId || uuid.generate(),
+        })
+      : status;
 
-    const insertable = canInsert(tr.selection.$from, fragment);
-    if (!insertable) {
-      const parentSelection = NodeSelection.create(
-        tr.doc,
-        tr.selection.from - tr.selection.$anchor.parentOffset - 1,
-      );
-      tr.insert(parentSelection.to, fragment).setSelection(
-        NodeSelection.create(tr.doc, parentSelection.to + 1),
-      );
-    } else {
-      tr.insert(tr.selection.from, fragment).setSelection(
-        NodeSelection.create(tr.doc, tr.selection.from - fragment.size),
-      );
+    const statusProps = {
+      ...DEFAULT_STATUS,
+      ...selectedStatus,
+    };
+
+    let tr = state.tr;
+    const { showStatusPickerAt } = pluginKey.getState(state);
+
+    if (!showStatusPickerAt) {
+      // Same behaviour as quick insert (used in createStatus)
+      const statusNode = schema.nodes.status.createChecked(statusProps);
+      const fragment = Fragment.fromArray([statusNode, state.schema.text(' ')]);
+
+      const insertable = canInsert(tr.selection.$from, fragment);
+      if (!insertable) {
+        const parentSelection = NodeSelection.create(
+          tr.doc,
+          tr.selection.from - tr.selection.$anchor.parentOffset - 1,
+        );
+        tr.insert(parentSelection.to, fragment).setSelection(
+          NodeSelection.create(tr.doc, parentSelection.to + 1),
+        );
+      } else {
+        tr.insert(tr.selection.from, fragment).setSelection(
+          NodeSelection.create(tr.doc, tr.selection.from - fragment.size),
+        );
+      }
+      tr.setMeta(pluginKey, {
+        showStatusPickerAt: tr.selection.from,
+        isNew: true,
+      }).scrollIntoView();
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
     }
-    tr.setMeta(pluginKey, {
-      showStatusPickerAt: tr.selection.from,
-      isNew: true,
-    }).scrollIntoView();
-    if (dispatch) {
-      dispatch(tr);
+
+    if (state.doc.nodeAt(showStatusPickerAt)) {
+      tr.setNodeMarkup(showStatusPickerAt, schema.nodes.status, statusProps)
+        .setSelection(NodeSelection.create(tr.doc, showStatusPickerAt))
+        .setMeta(pluginKey, { showStatusPickerAt })
+        .scrollIntoView();
+
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
     }
-    return true;
-  }
 
-  if (state.doc.nodeAt(showStatusPickerAt)) {
-    tr.setNodeMarkup(showStatusPickerAt, schema.nodes.status, statusProps)
-      .setSelection(NodeSelection.create(tr.doc, showStatusPickerAt))
-      .setMeta(pluginKey, { showStatusPickerAt })
-      .scrollIntoView();
-
-    if (dispatch) {
-      dispatch(tr);
-    }
-    return true;
-  }
-
-  return false;
-};
+    return false;
+  };
 
 export const updateStatusWithAnalytics = (
   inputMethod: TOOLBAR_MENU_TYPE,
@@ -131,31 +132,29 @@ export const updateStatusWithAnalytics = (
     eventType: EVENT_TYPE.TRACK,
   })(updateStatus(status));
 
-export const setStatusPickerAt = (showStatusPickerAt: number | null) => (
-  state: EditorState,
-  dispatch: (tr: Transaction) => void,
-): boolean => {
-  dispatch(
-    state.tr.setMeta(pluginKey, {
-      showStatusPickerAt,
-      isNew: false,
-    }),
-  );
-  return true;
-};
+export const setStatusPickerAt =
+  (showStatusPickerAt: number | null) =>
+  (state: EditorState, dispatch: (tr: Transaction) => void): boolean => {
+    dispatch(
+      state.tr.setMeta(pluginKey, {
+        showStatusPickerAt,
+        isNew: false,
+      }),
+    );
+    return true;
+  };
 
-export const removeStatus = (showStatusPickerAt: number): Command => (
-  state,
-  dispatch,
-) => {
-  const tr = state.tr;
-  tr.replace(showStatusPickerAt, showStatusPickerAt + 1);
+export const removeStatus =
+  (showStatusPickerAt: number): Command =>
+  (state, dispatch) => {
+    const tr = state.tr;
+    tr.replace(showStatusPickerAt, showStatusPickerAt + 1);
 
-  if (dispatch) {
-    dispatch(tr);
-  }
-  return true;
-};
+    if (dispatch) {
+      dispatch(tr);
+    }
+    return true;
+  };
 
 export const commitStatusPicker = () => (editorView: EditorView) => {
   const { state, dispatch } = editorView;

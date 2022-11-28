@@ -86,17 +86,19 @@ export async function getAutoConvertPatternsFromModule<T>(
   return ([] as ExtensionAutoConvertHandler[]).concat(...items);
 }
 
-export const createAutoConverterRunner = (
-  autoConvertHandlers: ExtensionAutoConvertHandler[],
-): ExtensionAutoConvertHandler => (text: string) => {
-  for (const handler of autoConvertHandlers) {
-    const result = handler(text);
+export const createAutoConverterRunner =
+  (
+    autoConvertHandlers: ExtensionAutoConvertHandler[],
+  ): ExtensionAutoConvertHandler =>
+  (text: string) => {
+    for (const handler of autoConvertHandlers) {
+      const result = handler(text);
 
-    if (result) {
-      return result;
+      if (result) {
+        return result;
+      }
     }
-  }
-};
+  };
 
 export async function getExtensionAutoConvertersFromProvider(
   extensionProviderPromise: Promise<ExtensionProvider>,

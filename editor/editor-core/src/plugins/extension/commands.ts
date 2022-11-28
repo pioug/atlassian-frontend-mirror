@@ -21,7 +21,7 @@ export function updateState(state: Partial<ExtensionState>) {
 }
 
 export function setEditingContextToContextPanel<
-  T extends Parameters = Parameters
+  T extends Parameters = Parameters,
 >(
   processParametersBefore: TransformBefore<T>,
   processParametersAfter: TransformAfter<T>,

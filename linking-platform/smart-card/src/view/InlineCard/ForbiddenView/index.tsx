@@ -44,9 +44,7 @@ const FallbackForbiddenIcon = (
   </AKIconWrapper>
 );
 
-export class InlineCardForbiddenView extends React.Component<
-  InlineCardForbiddenViewProps
-> {
+export class InlineCardForbiddenView extends React.Component<InlineCardForbiddenViewProps> {
   handleRetry = (event: React.MouseEvent<HTMLElement>) => {
     const { onAuthorise } = this.props;
     event.preventDefault();
@@ -89,8 +87,8 @@ export class InlineCardForbiddenView extends React.Component<
   renderMessage = () => {
     const { url, onAuthorise } = this.props;
     const link = <LinkAppearance>{url}</LinkAppearance>;
-    const hasRequestAccessContextMessage = this.props?.requestAccessContext
-      ?.callToActionMessageKey;
+    const hasRequestAccessContextMessage =
+      this.props?.requestAccessContext?.callToActionMessageKey;
     return !onAuthorise && !hasRequestAccessContextMessage ? (
       link
     ) : (

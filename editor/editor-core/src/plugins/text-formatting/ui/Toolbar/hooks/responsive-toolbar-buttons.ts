@@ -30,9 +30,10 @@ export const useResponsiveIconTypeMenu = ({
   toolbarSize: ToolbarSize;
   responsivenessEnabled: boolean;
 }) => {
-  const iconTypeList = useMemo(() => ResponsiveCustomMenu[toolbarSize], [
-    toolbarSize,
-  ]);
+  const iconTypeList = useMemo(
+    () => ResponsiveCustomMenu[toolbarSize],
+    [toolbarSize],
+  );
 
   return responsivenessEnabled ? iconTypeList : DefaultButtonsMenu;
 };

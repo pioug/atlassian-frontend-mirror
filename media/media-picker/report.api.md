@@ -70,9 +70,8 @@ interface BrowserOwnProps {
 type BrowserProps = LocalUploadComponentBaseProps & BrowserOwnProps;
 
 // @public (undocumented)
-type BrowserWithMediaClientConfigComponent = React_2.ComponentType<
-  BrowserWithMediaClientConfigProps
->;
+type BrowserWithMediaClientConfigComponent =
+  React_2.ComponentType<BrowserWithMediaClientConfigProps>;
 
 // @public (undocumented)
 type BrowserWithMediaClientConfigProps = WithMediaClientConfigProps<
@@ -110,9 +109,8 @@ type ClipboardProps = LocalUploadComponentBaseProps & {
 };
 
 // @public (undocumented)
-type ClipboardWithMediaClientConfigComponent = React_2.ComponentType<
-  ClipboardWithMediaClientConfigProps
->;
+type ClipboardWithMediaClientConfigComponent =
+  React_2.ComponentType<ClipboardWithMediaClientConfigProps>;
 
 // @public (undocumented)
 type ClipboardWithMediaClientConfigProps = WithMediaClientConfigProps<
@@ -173,14 +171,12 @@ type DropzoneProps = LocalUploadComponentBaseProps & {
 };
 
 // @public (undocumented)
-type DropzoneWithMediaClientConfigComponent = React_2.ComponentType<
-  DropzoneWithMediaClientConfigProps
->;
+type DropzoneWithMediaClientConfigComponent =
+  React_2.ComponentType<DropzoneWithMediaClientConfigProps>;
 
 // @public (undocumented)
-type DropzoneWithMediaClientConfigProps = WithMediaClientConfigProps<
-  DropzoneProps
->;
+type DropzoneWithMediaClientConfigProps =
+  WithMediaClientConfigProps<DropzoneProps>;
 
 // @public (undocumented)
 export type ImagePreview = NonImagePreview & {
@@ -254,9 +250,8 @@ type MediaPickerAnalyticsErrorBoundaryProps = {
 };
 
 // @public (undocumented)
-type MediaPickerErrorBoundaryComponent = React_2.ComponentType<
-  MediaPickerAnalyticsErrorBoundaryProps
->;
+type MediaPickerErrorBoundaryComponent =
+  React_2.ComponentType<MediaPickerAnalyticsErrorBoundaryProps>;
 
 // @public (undocumented)
 export type NonImagePreview = {

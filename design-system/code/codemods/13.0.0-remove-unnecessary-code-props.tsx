@@ -35,21 +35,19 @@ function removeProps(
       jsxAttributeCollection.remove();
     }
 
-    const jsxSpreadIdentifierPropertyCollection = getJSXSpreadIdentifierAttributesByName(
-      j,
-      collection,
-      jsxElementPath,
-      propName,
-    );
+    const jsxSpreadIdentifierPropertyCollection =
+      getJSXSpreadIdentifierAttributesByName(
+        j,
+        collection,
+        jsxElementPath,
+        propName,
+      );
     if (jsxSpreadIdentifierPropertyCollection) {
       jsxSpreadIdentifierPropertyCollection.remove();
     }
 
-    const jsxSpreadExpressionPropertyCollection = getJSXSpreadObjectExpressionAttributesByName(
-      j,
-      jsxElementPath,
-      propName,
-    );
+    const jsxSpreadExpressionPropertyCollection =
+      getJSXSpreadObjectExpressionAttributesByName(j, jsxElementPath, propName);
     if (jsxSpreadExpressionPropertyCollection) {
       jsxSpreadExpressionPropertyCollection.remove();
     }

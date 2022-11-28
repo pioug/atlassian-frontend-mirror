@@ -20,7 +20,9 @@ export function msgToText(buffer: ArrayBuffer) {
     }
 
     if (msg.recipients) {
-      text += `\nTO:\t\t${(msg.recipients as Recipient[]) /* lib types are broken, need to override here */
+      text += `\nTO:\t\t${(
+        msg.recipients as Recipient[]
+      ) /* lib types are broken, need to override here */
         .map((recipient: Recipient) => `${recipient.name} <${recipient.email}>`)
         .join(', ')}`;
     }

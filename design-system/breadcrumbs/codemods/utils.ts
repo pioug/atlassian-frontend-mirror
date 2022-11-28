@@ -132,46 +132,48 @@ export function getSafeImportName({
   return isUsed ? fallbackName : desiredName;
 }
 
-export const createRenameJSXFunc = (
-  component: string,
-  from: string,
-  to: string,
-  fallback: string | undefined = undefined,
-) => (j: core.JSCodeshift, source: any) => {
-  const defaultSpecifier = getDefaultSpecifier(j, source, component);
+export const createRenameJSXFunc =
+  (
+    component: string,
+    from: string,
+    to: string,
+    fallback: string | undefined = undefined,
+  ) =>
+  (j: core.JSCodeshift, source: any) => {
+    const defaultSpecifier = getDefaultSpecifier(j, source, component);
 
-  const toName = fallback
-    ? getSafeImportName({
-        j,
-        base: source,
-        currentDefaultSpecifierName: defaultSpecifier,
-        desiredName: to,
-        fallbackName: fallback,
-      })
-    : to;
+    const toName = fallback
+      ? getSafeImportName({
+          j,
+          base: source,
+          currentDefaultSpecifierName: defaultSpecifier,
+          desiredName: to,
+          fallbackName: fallback,
+        })
+      : to;
 
-  source
-    .find(j.ImportDeclaration)
-    .filter(
-      (path: ASTPath<ImportDeclaration>) =>
-        path.node.source.value === component,
-    )
-    .find(j.ImportDefaultSpecifier)
-    .find(j.Identifier)
-    .filter((p: ASTPath<Identifier>) => (p.value && p.value.name) === from)
-    .forEach((path: ASTPath<ImportDeclaration>) => {
-      j(path).replaceWith(j.importDefaultSpecifier(j.identifier(toName)));
-    });
-
-  source.find(j.JSXElement).forEach((path: ASTPath<any>) => {
-    return !!j(path.node)
-      .find(j.JSXIdentifier)
-      .filter((identifier) => identifier.value.name === from)
-      .forEach((element) => {
-        j(element).replaceWith(j.jsxIdentifier(toName));
+    source
+      .find(j.ImportDeclaration)
+      .filter(
+        (path: ASTPath<ImportDeclaration>) =>
+          path.node.source.value === component,
+      )
+      .find(j.ImportDefaultSpecifier)
+      .find(j.Identifier)
+      .filter((p: ASTPath<Identifier>) => (p.value && p.value.name) === from)
+      .forEach((path: ASTPath<ImportDeclaration>) => {
+        j(path).replaceWith(j.importDefaultSpecifier(j.identifier(toName)));
       });
-  });
-};
+
+    source.find(j.JSXElement).forEach((path: ASTPath<any>) => {
+      return !!j(path.node)
+        .find(j.JSXIdentifier)
+        .filter((identifier) => identifier.value.name === from)
+        .forEach((element) => {
+          j(element).replaceWith(j.jsxIdentifier(toName));
+        });
+    });
+  };
 
 function hasVariableAssignment(
   j: core.JSCodeshift,
@@ -203,38 +205,43 @@ const debug = (component: string) => (j: core.JSCodeshift, source: any) => {
     });
 };
 
-const createRenameFuncFor = (component: string, from: string, to: string) => (
-  j: core.JSCodeshift,
-  source: any,
-) => {
-  const defaultSpecifier = getDefaultSpecifier(j, source, component);
+const createRenameFuncFor =
+  (component: string, from: string, to: string) =>
+  (j: core.JSCodeshift, source: any) => {
+    const defaultSpecifier = getDefaultSpecifier(j, source, component);
 
-  if (!defaultSpecifier) {
-    return;
-  }
+    if (!defaultSpecifier) {
+      return;
+    }
 
-  source
-    .findJSXElements(defaultSpecifier)
-    .forEach((element: ASTPath<JSXAttribute>) => {
-      getJSXAttributesByName(j, element, from).forEach((attribute) => {
-        j(attribute).replaceWith(
-          j.jsxAttribute(j.jsxIdentifier(to), attribute.node.value),
-        );
-      });
-    });
-
-  let variable = hasVariableAssignment(j, source, defaultSpecifier);
-  if (variable) {
-    variable.find(j.VariableDeclarator).forEach((declarator) => {
-      j(declarator)
-        .find(j.Identifier)
-        .filter((identifier) => identifier.name === 'id')
-        .forEach((ids) => {
-          findIdentifierAndReplaceAttribute(j, source, ids.node.name, from, to);
+    source
+      .findJSXElements(defaultSpecifier)
+      .forEach((element: ASTPath<JSXAttribute>) => {
+        getJSXAttributesByName(j, element, from).forEach((attribute) => {
+          j(attribute).replaceWith(
+            j.jsxAttribute(j.jsxIdentifier(to), attribute.node.value),
+          );
         });
-    });
-  }
-};
+      });
+
+    let variable = hasVariableAssignment(j, source, defaultSpecifier);
+    if (variable) {
+      variable.find(j.VariableDeclarator).forEach((declarator) => {
+        j(declarator)
+          .find(j.Identifier)
+          .filter((identifier) => identifier.name === 'id')
+          .forEach((ids) => {
+            findIdentifierAndReplaceAttribute(
+              j,
+              source,
+              ids.node.name,
+              from,
+              to,
+            );
+          });
+      });
+    }
+  };
 
 function hasJSXAttributesByName(
   j: core.JSCodeshift,
@@ -248,74 +255,73 @@ type AddingPorp = {
   prop: string;
   defaultValue: any;
 };
-const createAddingPropFor = (component: string, options: AddingPorp) => (
-  j: core.JSCodeshift,
-  source: any,
-) => {
-  const defaultSpecifier = getDefaultSpecifier(j, source, component);
+const createAddingPropFor =
+  (component: string, options: AddingPorp) =>
+  (j: core.JSCodeshift, source: any) => {
+    const defaultSpecifier = getDefaultSpecifier(j, source, component);
 
-  if (!defaultSpecifier) {
-    return;
-  }
+    if (!defaultSpecifier) {
+      return;
+    }
 
-  source
-    .findJSXElements(defaultSpecifier)
-    .forEach((element: ASTPath<JSXAttribute>) => {
-      const isPropExist = hasJSXAttributesByName(j, element, options.prop);
-      if (!isPropExist) {
-        const value = j.jsxExpressionContainer(
-          j.booleanLiteral(options.defaultValue),
-        );
-        const node = j.jsxAttribute(j.jsxIdentifier(options.prop), value);
-        j(element)
-          .find(j.JSXOpeningElement)
-          .forEach((e) => {
-            (e.node.attributes || []).push(node);
-          });
-      }
-    });
-};
-
-const createConvertFuncFor = (
-  component: string,
-  from: string,
-  to: string,
-  predicate?: (value: any) => boolean,
-) => (j: core.JSCodeshift, source: any) => {
-  const defaultSpecifier = getDefaultSpecifier(j, source, component);
-
-  if (!defaultSpecifier) {
-    return;
-  }
-
-  source
-    .findJSXElements(defaultSpecifier)
-    .forEach((element: ASTPath<JSXAttribute>) => {
-      getJSXAttributesByName(j, element, from).forEach((attribute) => {
-        const shouldConvert =
-          (predicate && predicate(attribute.node.value)) || false;
-        const node = j.jsxAttribute(j.jsxIdentifier(to));
-        if (shouldConvert) {
-          j(attribute).insertBefore(node);
+    source
+      .findJSXElements(defaultSpecifier)
+      .forEach((element: ASTPath<JSXAttribute>) => {
+        const isPropExist = hasJSXAttributesByName(j, element, options.prop);
+        if (!isPropExist) {
+          const value = j.jsxExpressionContainer(
+            j.booleanLiteral(options.defaultValue),
+          );
+          const node = j.jsxAttribute(j.jsxIdentifier(options.prop), value);
+          j(element)
+            .find(j.JSXOpeningElement)
+            .forEach((e) => {
+              (e.node.attributes || []).push(node);
+            });
         }
       });
-    });
-};
+  };
 
-export const elevateComponentToDefault = (
-  pkg: string,
-  innerElementName: string,
-) => (j: core.JSCodeshift, root: any) => {
-  const existingAlias: Nullable<string> =
-    root
-      .find(j.ImportDeclaration)
-      .filter(
-        (path: ASTPath<ImportDeclaration>) => path.node.source.value === pkg,
-      )
-      .find(j.ImportSpecifier)
-      .nodes()
-      .map(
-        (specifier: ImportSpecifier): Nullable<string> => {
+const createConvertFuncFor =
+  (
+    component: string,
+    from: string,
+    to: string,
+    predicate?: (value: any) => boolean,
+  ) =>
+  (j: core.JSCodeshift, source: any) => {
+    const defaultSpecifier = getDefaultSpecifier(j, source, component);
+
+    if (!defaultSpecifier) {
+      return;
+    }
+
+    source
+      .findJSXElements(defaultSpecifier)
+      .forEach((element: ASTPath<JSXAttribute>) => {
+        getJSXAttributesByName(j, element, from).forEach((attribute) => {
+          const shouldConvert =
+            (predicate && predicate(attribute.node.value)) || false;
+          const node = j.jsxAttribute(j.jsxIdentifier(to));
+          if (shouldConvert) {
+            j(attribute).insertBefore(node);
+          }
+        });
+      });
+  };
+
+export const elevateComponentToDefault =
+  (pkg: string, innerElementName: string) =>
+  (j: core.JSCodeshift, root: any) => {
+    const existingAlias: Nullable<string> =
+      root
+        .find(j.ImportDeclaration)
+        .filter(
+          (path: ASTPath<ImportDeclaration>) => path.node.source.value === pkg,
+        )
+        .find(j.ImportSpecifier)
+        .nodes()
+        .map((specifier: ImportSpecifier): Nullable<string> => {
           if (innerElementName !== specifier.imported.name) {
             return null;
           }
@@ -325,112 +331,110 @@ export const elevateComponentToDefault = (
           }
 
           return null;
-        },
+        })
+        .filter(Boolean)[0] || null;
+
+    root
+      .find(j.ImportDeclaration)
+      .filter(
+        (path: ASTPath<ImportDeclaration>) => path.node.source.value === pkg,
       )
-      .filter(Boolean)[0] || null;
+      .forEach((path: ASTPath<ImportDeclaration>) => {
+        const defaultSpecifier = (path.value.specifiers || []).filter(
+          (specifier) => specifier.type === 'ImportDefaultSpecifier',
+        );
 
-  root
-    .find(j.ImportDeclaration)
-    .filter(
-      (path: ASTPath<ImportDeclaration>) => path.node.source.value === pkg,
-    )
-    .forEach((path: ASTPath<ImportDeclaration>) => {
-      const defaultSpecifier = (path.value.specifiers || []).filter(
-        (specifier) => specifier.type === 'ImportDefaultSpecifier',
-      );
+        let otherSpecifier = (path.value.specifiers || []).filter(
+          (specifier) => specifier.type === 'ImportSpecifier',
+        );
 
-      let otherSpecifier = (path.value.specifiers || []).filter(
-        (specifier) => specifier.type === 'ImportSpecifier',
-      );
-
-      if (defaultSpecifier.length > 0) {
-        return;
-      }
-
-      const ds = otherSpecifier.find((s) =>
-        [innerElementName, existingAlias].includes(s.local?.name || null),
-      );
-      const ni = otherSpecifier.filter(
-        (s) =>
-          ![innerElementName, existingAlias].includes(s.local?.name || null),
-      );
-      const declaration = j.importDeclaration(
-        [j.importDefaultSpecifier(ds && ds.local), ...ni],
-        j.literal(pkg),
-      );
-
-      j(path).replaceWith(declaration);
-    });
-};
-
-const replaceImportStatementFor = (pkg: string, convertMap: any) => (
-  j: core.JSCodeshift,
-  root: any,
-) => {
-  root
-    .find(j.ImportDeclaration)
-    .filter(
-      (path: ASTPath<ImportDeclaration>) => path.node.source.value === pkg,
-    )
-    .forEach((path: ASTPath<ImportDeclaration>) => {
-      const defaultSpecifier = (path.value.specifiers || []).filter(
-        (specifier) => specifier.type === 'ImportDefaultSpecifier',
-      );
-
-      const defaultDeclarations = defaultSpecifier.map((s) => {
-        return j.importDeclaration([s], j.literal(convertMap['default']));
-      });
-
-      const otherSpecifier = (path.value.specifiers || []).filter(
-        (specifier) => specifier.type === 'ImportSpecifier',
-      );
-
-      j(path).replaceWith(defaultDeclarations);
-
-      const otherDeclarations = otherSpecifier.map((s) => {
-        const localName = s.local!.name;
-        if (convertMap[localName]) {
-          return j.importDeclaration([s], j.literal(convertMap[localName]));
-        } else {
-          return j.importDeclaration([s], j.literal(convertMap['*']));
+        if (defaultSpecifier.length > 0) {
+          return;
         }
+
+        const ds = otherSpecifier.find((s) =>
+          [innerElementName, existingAlias].includes(s.local?.name || null),
+        );
+        const ni = otherSpecifier.filter(
+          (s) =>
+            ![innerElementName, existingAlias].includes(s.local?.name || null),
+        );
+        const declaration = j.importDeclaration(
+          [j.importDefaultSpecifier(ds && ds.local), ...ni],
+          j.literal(pkg),
+        );
+
+        j(path).replaceWith(declaration);
       });
+  };
 
-      j(path).insertAfter(otherDeclarations);
-    });
-};
+const replaceImportStatementFor =
+  (pkg: string, convertMap: any) => (j: core.JSCodeshift, root: any) => {
+    root
+      .find(j.ImportDeclaration)
+      .filter(
+        (path: ASTPath<ImportDeclaration>) => path.node.source.value === pkg,
+      )
+      .forEach((path: ASTPath<ImportDeclaration>) => {
+        const defaultSpecifier = (path.value.specifiers || []).filter(
+          (specifier) => specifier.type === 'ImportDefaultSpecifier',
+        );
 
-const createRenameImportFor = (component: string, from: string, to: string) => (
-  j: core.JSCodeshift,
-  source: any,
-) => {
-  source
-    .find(j.ImportDeclaration)
-    .filter(
-      (path: ASTPath<ImportDeclaration>) =>
-        path.node.source.value === component,
-    )
-    .forEach((path: ASTPath<ImportDeclaration>) => {
-      j(path).replaceWith(
-        j.importDeclaration(path.value.specifiers, j.literal(to)),
-      );
-    });
-};
+        const defaultDeclarations = defaultSpecifier.map((s) => {
+          return j.importDeclaration([s], j.literal(convertMap['default']));
+        });
 
-const createTransformer = (
-  component: string,
-  migrates: { (j: core.JSCodeshift, source: any): void }[],
-) => (fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
-  const source = j(fileInfo.source);
+        const otherSpecifier = (path.value.specifiers || []).filter(
+          (specifier) => specifier.type === 'ImportSpecifier',
+        );
 
-  if (!hasImportDeclaration(j, source, component)) {
-    return fileInfo.source;
-  }
+        j(path).replaceWith(defaultDeclarations);
 
-  migrates.forEach((tf) => tf(j, source));
+        const otherDeclarations = otherSpecifier.map((s) => {
+          const localName = s.local!.name;
+          if (convertMap[localName]) {
+            return j.importDeclaration([s], j.literal(convertMap[localName]));
+          } else {
+            return j.importDeclaration([s], j.literal(convertMap['*']));
+          }
+        });
 
-  return source.toSource(options.printOptions || { quote: 'single' });
-};
+        j(path).insertAfter(otherDeclarations);
+      });
+  };
+
+const createRenameImportFor =
+  (component: string, from: string, to: string) =>
+  (j: core.JSCodeshift, source: any) => {
+    source
+      .find(j.ImportDeclaration)
+      .filter(
+        (path: ASTPath<ImportDeclaration>) =>
+          path.node.source.value === component,
+      )
+      .forEach((path: ASTPath<ImportDeclaration>) => {
+        j(path).replaceWith(
+          j.importDeclaration(path.value.specifiers, j.literal(to)),
+        );
+      });
+  };
+
+const createTransformer =
+  (
+    component: string,
+    migrates: { (j: core.JSCodeshift, source: any): void }[],
+  ) =>
+  (fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
+    const source = j(fileInfo.source);
+
+    if (!hasImportDeclaration(j, source, component)) {
+      return fileInfo.source;
+    }
+
+    migrates.forEach((tf) => tf(j, source));
+
+    return source.toSource(options.printOptions || { quote: 'single' });
+  };
 
 // not replacing newlines (which \s does)
 const spacesAndTabs: RegExp = /[ \t]{2,}/g;
@@ -515,30 +519,32 @@ export function addCommentToStartOfFile({
   });
 }
 
-const createRemoveFuncFor = (
-  component: string,
-  importName: string,
-  prop: string,
-  predicate: (j: core.JSCodeshift, element: ASTPath<any>) => boolean = () =>
-    true,
-  comment?: string,
-) => (j: core.JSCodeshift, source: Collection<Node>) => {
-  const specifier = getNamedSpecifier(j, source, component, importName);
+const createRemoveFuncFor =
+  (
+    component: string,
+    importName: string,
+    prop: string,
+    predicate: (j: core.JSCodeshift, element: ASTPath<any>) => boolean = () =>
+      true,
+    comment?: string,
+  ) =>
+  (j: core.JSCodeshift, source: Collection<Node>) => {
+    const specifier = getNamedSpecifier(j, source, component, importName);
 
-  if (!specifier) {
-    return;
-  }
-
-  source.findJSXElements(specifier).forEach((element) => {
-    if (predicate(j, element) && comment) {
-      addCommentToStartOfFile({ j, base: source, message: comment });
-    } else {
-      getJSXAttributesByName(j, element, prop).forEach((attribute) => {
-        j(attribute).remove();
-      });
+    if (!specifier) {
+      return;
     }
-  });
-};
+
+    source.findJSXElements(specifier).forEach((element) => {
+      if (predicate(j, element) && comment) {
+        addCommentToStartOfFile({ j, base: source, message: comment });
+      } else {
+        getJSXAttributesByName(j, element, prop).forEach((attribute) => {
+          j(attribute).remove();
+        });
+      }
+    });
+  };
 
 export {
   getDefaultSpecifier,

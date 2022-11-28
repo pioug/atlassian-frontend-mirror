@@ -92,10 +92,10 @@ afterEach(() => {
 describe('renderer bridge', () => {
   const createPromiseMock = jest.fn();
   let fetchProxy: FetchProxyUtils.FetchProxy;
-  const intlMock = ({
+  const intlMock = {
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
-  } as unknown) as IntlShape;
+  } as unknown as IntlShape;
   const initRenderer = (
     adf: string,
     allowAnnotations: boolean,

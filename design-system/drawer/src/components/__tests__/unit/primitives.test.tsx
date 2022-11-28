@@ -119,7 +119,7 @@ describe('Drawer primitive', () => {
 
     const handler = wrapper.find('IconButton').prop('onClick');
     if (handler) {
-      handler((event as unknown) as MouseEvent);
+      handler(event as unknown as MouseEvent);
     }
 
     const callsAfterIconClick = onClose.mock.calls;

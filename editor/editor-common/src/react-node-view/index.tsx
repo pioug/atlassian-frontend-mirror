@@ -27,7 +27,8 @@ import {
 } from './types';
 
 export default class ReactNodeView<P = ReactComponentProps>
-  implements NodeView {
+  implements NodeView
+{
   private domRef?: HTMLElement;
   private contentDOMWrapper?: Node;
   private reactComponent?: React.ComponentType<any>;
@@ -98,11 +99,8 @@ export default class ReactNodeView<P = ReactComponentProps>
     // difference between them and it kills the nodeView
     this.domRef.classList.add(`${this.node.type.name}View-content-wrap`);
 
-    const {
-      samplingRate,
-      slowThreshold,
-      trackingEnabled,
-    } = getPerformanceOptions(this.view);
+    const { samplingRate, slowThreshold, trackingEnabled } =
+      getPerformanceOptions(this.view);
 
     trackingEnabled &&
       startMeasureReactNodeViewRendered({ nodeTypeName: this.node.type.name });

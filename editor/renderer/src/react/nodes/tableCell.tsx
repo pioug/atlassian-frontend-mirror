@@ -49,11 +49,8 @@ const getSortOrderLabel = (
   intl: IntlShape,
   currentSortOrder?: SortOrder,
 ): string => {
-  const {
-    noneSortingLabel,
-    ascSortingLabel,
-    descSortingLabel,
-  } = tableCellMessages;
+  const { noneSortingLabel, ascSortingLabel, descSortingLabel } =
+    tableCellMessages;
   switch (currentSortOrder) {
     case SortOrder.NO_ORDER:
       return intl.formatMessage(noneSortingLabel);
@@ -193,12 +190,8 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
     };
 
     sort = () => {
-      const {
-        fireAnalyticsEvent,
-        onSorting,
-        columnIndex,
-        sortOrdered,
-      } = this.props;
+      const { fireAnalyticsEvent, onSorting, columnIndex, sortOrdered } =
+        this.props;
 
       if (onSorting && columnIndex != null) {
         const sortOrder = nextStatusOrder(sortOrdered);

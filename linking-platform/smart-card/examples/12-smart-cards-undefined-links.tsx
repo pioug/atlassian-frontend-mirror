@@ -18,8 +18,7 @@ class ConfluenceClient extends Client {
         },
         data: {
           '@type': ['Document', 'atlassian:UndefinedLink'],
-          url:
-            "https://pug.jira-dev.com/wiki/spaces/~760391763/&undefinedLink=page that doesn't exist yet",
+          url: "https://pug.jira-dev.com/wiki/spaces/~760391763/&undefinedLink=page that doesn't exist yet",
           name: "page that doesn't exist yet",
         },
       } as any);
@@ -31,8 +30,7 @@ class ConfluenceClient extends Client {
         },
         data: {
           '@type': ['Document', 'schema:TextDigitalDocument'],
-          url:
-            'https://pug.jira-dev.com/wiki/spaces/~760391763/pages/4619440736/test+1',
+          url: 'https://pug.jira-dev.com/wiki/spaces/~760391763/pages/4619440736/test+1',
           name: 'test 1',
         },
       } as ResolveResponse);

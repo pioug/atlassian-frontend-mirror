@@ -72,9 +72,8 @@ describe('Columns:', () => {
 
     // then we visually hide and disable the Editor
     await page.evaluate(() => {
-      const container = document.querySelector<HTMLDivElement>(
-        '#editor-container',
-      );
+      const container =
+        document.querySelector<HTMLDivElement>('#editor-container');
       container!.style.display = 'none';
     });
 
@@ -84,9 +83,8 @@ describe('Columns:', () => {
     await updateEditorProps(page, { disabled: false });
 
     await page.evaluate(() => {
-      const container = document.querySelector<HTMLDivElement>(
-        '#editor-container',
-      );
+      const container =
+        document.querySelector<HTMLDivElement>('#editor-container');
       container!.style.display = 'unset';
     });
 

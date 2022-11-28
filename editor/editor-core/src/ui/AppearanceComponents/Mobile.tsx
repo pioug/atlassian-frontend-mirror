@@ -64,12 +64,8 @@ export function MobileAppearance({
       let minHeight = 100;
       let currentIsExpanded = true; // isExpanded prop should always be true for Hybrid Editor
       if (mobileDimensions) {
-        const {
-          keyboardHeight,
-          windowHeight,
-          mobilePaddingTop,
-          isExpanded,
-        } = mobileDimensions;
+        const { keyboardHeight, windowHeight, mobilePaddingTop, isExpanded } =
+          mobileDimensions;
         /*
           We calculate the min-height based on the windowHeight - keyboardHeight - paddingTop.
           This is needed due to scrolling issues when there is no content to scroll (like, only having 1 paragraph),

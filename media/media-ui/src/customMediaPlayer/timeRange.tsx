@@ -56,7 +56,8 @@ export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
       return;
     }
 
-    this.wrapperElementWidth = this.wrapperElement.current.getBoundingClientRect().width;
+    this.wrapperElementWidth =
+      this.wrapperElement.current.getBoundingClientRect().width;
   };
 
   onMouseMove = (e: MouseEvent) => {

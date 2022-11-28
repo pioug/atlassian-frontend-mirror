@@ -16,7 +16,8 @@
 ```ts
 // @public (undocumented)
 export abstract class AbstractResource<Q, R, E, I, O>
-  implements Provider<Q, R, E, I, O> {
+  implements Provider<Q, R, E, I, O>
+{
   // (undocumented)
   abstract filter(query?: Q, options?: O): void;
   // (undocumented)

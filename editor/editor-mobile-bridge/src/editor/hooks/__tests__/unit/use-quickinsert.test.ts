@@ -24,10 +24,10 @@ jest.mock('@atlaskit/editor-core', () => ({
 }));
 
 describe('useQuickInsert Hook', () => {
-  const intlMock = ({
+  const intlMock = {
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
-  } as unknown) as IntlShape;
+  } as unknown as IntlShape;
 
   it('should not configure quick insert when isQuickInsertEnabled is false', () => {
     const bridge = new WebBridgeImpl();
@@ -76,10 +76,10 @@ describe('useQuickInsert Hook', () => {
         () => mockSomeQuickInsertItems,
       );
 
-      rerender(({
+      rerender({
         formatMessage: (messageDescriptor: any) =>
           messageDescriptor && messageDescriptor.defaultMessage,
-      } as unknown) as IntlShape);
+      } as unknown as IntlShape);
 
       expect(result.current).not.toBe(false);
       expect(result!.current).toStrictEqual({ provider: expect.any(Promise) });

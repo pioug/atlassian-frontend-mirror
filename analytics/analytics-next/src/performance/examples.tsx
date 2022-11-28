@@ -150,20 +150,19 @@ const createEventHandler = () => {
 
 const eventHandler = createEventHandler();
 
-const WithListener = (
-  Component: React.JSXElementConstructor<{ onClick: OnClickType }>,
-) => () => {
-  eventHandler.create();
+const WithListener =
+  (Component: React.JSXElementConstructor<{ onClick: OnClickType }>) => () => {
+    eventHandler.create();
 
-  const onEvent = eventHandler.onEvent;
-  const onClick: OnClickType = () => {};
+    const onEvent = eventHandler.onEvent;
+    const onClick: OnClickType = () => {};
 
-  return (
-    <AnalyticsListener channel="atlaskit" onEvent={onEvent}>
-      <Component onClick={onClick} />
-    </AnalyticsListener>
-  );
-};
+    return (
+      <AnalyticsListener channel="atlaskit" onEvent={onEvent}>
+        <Component onClick={onClick} />
+      </AnalyticsListener>
+    );
+  };
 
 const interactionTasks: PublicInteractionTask[] = [
   {

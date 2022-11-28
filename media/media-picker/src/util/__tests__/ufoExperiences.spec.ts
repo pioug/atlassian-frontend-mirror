@@ -60,9 +60,9 @@ describe('ufoExperience', () => {
     };
   });
 
-  (ConcurrentExperience as jest.MockedClass<
-    typeof ConcurrentExperience
-  >).mockImplementation(concurrentExperienceConstructor);
+  (
+    ConcurrentExperience as jest.MockedClass<typeof ConcurrentExperience>
+  ).mockImplementation(concurrentExperienceConstructor);
 
   beforeEach(() => {});
 

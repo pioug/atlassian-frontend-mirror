@@ -71,9 +71,10 @@ export default function EmbedCard(props: {
   const embedIframeRef = useRef(null);
   const onClick = getCardClickHandler(eventHandlers, url);
 
-  const platform = useMemo(() => getPlatform(rendererAppearance), [
-    rendererAppearance,
-  ]);
+  const platform = useMemo(
+    () => getPlatform(rendererAppearance),
+    [rendererAppearance],
+  );
   const cardProps = {
     url,
     data,

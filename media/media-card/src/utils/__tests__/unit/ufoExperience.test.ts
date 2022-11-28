@@ -67,9 +67,9 @@ describe('ufoExperience', () => {
     } as any;
   });
 
-  (ConcurrentExperience as jest.MockedClass<
-    typeof ConcurrentExperience
-  >).mockImplementation(mockConcurrentExperienceConstructor);
+  (
+    ConcurrentExperience as jest.MockedClass<typeof ConcurrentExperience>
+  ).mockImplementation(mockConcurrentExperienceConstructor);
 
   const ssrReliability: SSRStatus = {
     server: {

@@ -20,19 +20,16 @@ export const BitbucketRepository = {
     '@type': 'Application',
     icon: {
       '@type': 'Image',
-      url:
-        'https://d301sr5gafysq2.cloudfront.net/frontbucket/build-favicon-default.3b48bd21f29d.ico',
+      url: 'https://d301sr5gafysq2.cloudfront.net/frontbucket/build-favicon-default.3b48bd21f29d.ico',
     },
     name: 'Bitbucket',
   },
   icon: {
     '@type': 'Image',
-    url:
-      'https://d301sr5gafysq2.cloudfront.net/frontbucket/build-favicon-default.3b48bd21f29d.ico',
+    url: 'https://d301sr5gafysq2.cloudfront.net/frontbucket/build-favicon-default.3b48bd21f29d.ico',
   },
   image: {
-    url:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Arthur%2C_the_cat.jpg/1600px-Arthur%2C_the_cat.jpg',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Arthur%2C_the_cat.jpg/1600px-Arthur%2C_the_cat.jpg',
   },
   name: 'angular-react',
   'schema:dateCreated': '2018-01-23T15:08:40.834Z',

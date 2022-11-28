@@ -77,13 +77,28 @@ describe('LinkWrapper', () => {
 
 describe('Content', () => {
   it('should not allow overflow content to be visible (iframe contents should handle scrolling)', () => {
-    const element = mount(<Content isInteractive={false} />);
+    const element = mount(
+      <Content isInteractive={false} allowScrollBar={false} />,
+    );
     expect(element).toHaveStyleRule('overflow', 'hidden');
   });
 
   it('should not allow overflow content to be visible (on hover as well)', () => {
-    const element = mount(<Content isInteractive={true} />);
+    const element = mount(
+      <Content isInteractive={true} allowScrollBar={false} />,
+    );
     expect(element).toHaveStyleRule('overflow', 'hidden');
+  });
+
+  it('should allow overflow content to be visible when allowScrollBar is true', () => {
+    const interactiveElement = mount(
+      <Content isInteractive={true} allowScrollBar={true} />,
+    );
+    const nonInteractiveElement = mount(
+      <Content isInteractive={false} allowScrollBar={true} />,
+    );
+    expect(interactiveElement).toHaveStyleRule('overflow', 'auto');
+    expect(nonInteractiveElement).toHaveStyleRule('overflow', 'auto');
   });
 });
 

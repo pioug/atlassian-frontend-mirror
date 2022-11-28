@@ -177,8 +177,9 @@ describe('type-ahead', () => {
 
         editorView.dispatch(editorView.state.tr.insertText('LOL', 6));
 
-        const nextDecorationSet = getPluginState(editorView.state)
-          .decorationSet;
+        const nextDecorationSet = getPluginState(
+          editorView.state,
+        ).decorationSet;
         expect(oldDecorationSet).not.toEqual(nextDecorationSet);
       });
     });
@@ -193,8 +194,9 @@ describe('type-ahead', () => {
         tr.setSelection(new TextSelection(tr.doc.resolve(1)));
         editorView.dispatch(tr);
 
-        const nextDecorationSet = getPluginState(editorView.state)
-          .decorationSet;
+        const nextDecorationSet = getPluginState(
+          editorView.state,
+        ).decorationSet;
         expect(nextDecorationSet).toEqual(DecorationSet.empty);
       });
     });
@@ -210,8 +212,9 @@ describe('type-ahead', () => {
         tr.setSelection(new TextSelection(tr.doc.resolve(1)));
         editorView.dispatch(tr);
 
-        const nextDecorationSet = getPluginState(editorView.state)
-          .decorationSet;
+        const nextDecorationSet = getPluginState(
+          editorView.state,
+        ).decorationSet;
         expect(nextDecorationSet).toEqual(DecorationSet.empty);
       });
     });

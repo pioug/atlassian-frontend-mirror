@@ -265,8 +265,8 @@ export class ReactEditorView<T = {}> extends React.Component<
 
     // START TEMPORARY CODE ED-10584
     if (this.props.createAnalyticsEvent) {
-      (this.props
-        .createAnalyticsEvent as any).__queueAnalytics = this.featureFlags.queueAnalytics;
+      (this.props.createAnalyticsEvent as any).__queueAnalytics =
+        this.featureFlags.queueAnalytics;
     }
     // END TEMPORARY CODE ED-10584
 
@@ -686,10 +686,8 @@ export class ReactEditorView<T = {}> extends React.Component<
     }
 
     this.transactionTracker.bumpDispatchCounter(this.transactionTracking);
-    const {
-      startMeasure,
-      stopMeasure,
-    } = this.transactionTracker.getMeasureHelpers(this.transactionTracking);
+    const { startMeasure, stopMeasure } =
+      this.transactionTracker.getMeasureHelpers(this.transactionTracking);
     startMeasure(EVENT_NAME_DISPATCH_TRANSACTION);
 
     if (
@@ -715,10 +713,8 @@ export class ReactEditorView<T = {}> extends React.Component<
 
       // go ahead and update the state now we know the transaction is good
       startMeasure(EVENT_NAME_STATE_APPLY);
-      const {
-        state: editorState,
-        transactions,
-      } = this.view.state.applyTransaction(transaction);
+      const { state: editorState, transactions } =
+        this.view.state.applyTransaction(transaction);
       stopMeasure(EVENT_NAME_STATE_APPLY, (duration, startTime) => {
         this.experienceStore?.mark(
           EditorExperience.interaction,
@@ -812,9 +808,8 @@ export class ReactEditorView<T = {}> extends React.Component<
         actionSubject: ACTION_SUBJECT.EDITOR,
         eventType: EVENT_TYPE.OPERATIONAL,
         attributes: {
-          analyticsEventPayloads: getAnalyticsEventsFromTransaction(
-            transaction,
-          ),
+          analyticsEventPayloads:
+            getAnalyticsEventsFromTransaction(transaction),
           invalidNodes,
         },
       });
@@ -846,8 +841,9 @@ export class ReactEditorView<T = {}> extends React.Component<
     measureRender(
       measurements.PROSEMIRROR_RENDERED,
       ({ duration, startTime, distortedDuration }) => {
-        const proseMirrorRenderedTracking = this.props.editorProps
-          ?.performanceTracking?.proseMirrorRenderedTracking;
+        const proseMirrorRenderedTracking =
+          this.props.editorProps?.performanceTracking
+            ?.proseMirrorRenderedTracking;
 
         const forceSeverityTracking =
           typeof proseMirrorRenderedTracking === 'undefined' &&
@@ -1002,8 +998,9 @@ export class ReactEditorView<T = {}> extends React.Component<
   );
 
   render() {
-    const renderTracking = this.props.editorProps.performanceTracking
-      ?.renderTracking?.reactEditorView;
+    const renderTracking =
+      this.props.editorProps.performanceTracking?.renderTracking
+        ?.reactEditorView;
     const renderTrackingEnabled = renderTracking?.enabled;
     const useShallow = renderTracking?.useShallow;
 

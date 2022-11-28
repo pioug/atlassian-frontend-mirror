@@ -149,8 +149,7 @@ export const mockMediaComment: Comment = {
               type: 'media',
               attrs: {
                 type: 'external',
-                url:
-                  'https://upload.wikimedia.org/wikipedia/en/a/aa/Bart_Simpson_200px.png',
+                url: 'https://upload.wikimedia.org/wikipedia/en/a/aa/Bart_Simpson_200px.png',
               },
             },
           ],

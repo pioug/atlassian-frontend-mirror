@@ -23,13 +23,8 @@ export const panelAttrsToDom = (
   attrs: PanelAttributes,
   allowCustomPanel: boolean,
 ): DOMOutputSpec => {
-  const {
-    panelColor,
-    panelType,
-    panelIcon,
-    panelIconId,
-    panelIconText,
-  } = attrs;
+  const { panelColor, panelType, panelIcon, panelIconId, panelIconText } =
+    attrs;
   const isCustomPanel = panelType === PanelType.CUSTOM && allowCustomPanel;
   const hasIcon = !isCustomPanel || !!panelIcon || !!panelIconId;
 

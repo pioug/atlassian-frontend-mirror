@@ -140,49 +140,47 @@ export class MemoryReactionsStore implements Types.Store {
     );
   };
 
-  private optmisticUpdate = (
-    containerAri: string,
-    ari: string,
-    emojiId: string,
-  ) => (updater: Types.Updater<Types.ReactionSummary>) => {
-    this.withReadyReaction(
-      containerAri,
-      ari,
-    )((reactionState) => {
-      let found = false;
-      const reactions = reactionState.reactions.map((reaction) => {
-        if (reaction.emojiId === emojiId) {
-          found = true;
-          const updated = updater(reaction);
+  private optmisticUpdate =
+    (containerAri: string, ari: string, emojiId: string) =>
+    (updater: Types.Updater<Types.ReactionSummary>) => {
+      this.withReadyReaction(
+        containerAri,
+        ari,
+      )((reactionState) => {
+        let found = false;
+        const reactions = reactionState.reactions.map((reaction) => {
+          if (reaction.emojiId === emojiId) {
+            found = true;
+            const updated = updater(reaction);
+            if (updated) {
+              return {
+                ...updated,
+                optimisticallyUpdated: true,
+              };
+            }
+          }
+          return reaction;
+        });
+
+        if (!found) {
+          const updated = updater({
+            containerAri,
+            ari,
+            emojiId,
+            count: 0,
+            reacted: false,
+          });
           if (updated) {
-            return {
+            reactions.push({
               ...updated,
               optimisticallyUpdated: true,
-            };
+            });
           }
         }
-        return reaction;
+
+        return utils.readyState(reactions);
       });
-
-      if (!found) {
-        const updated = updater({
-          containerAri,
-          ari,
-          emojiId,
-          count: 0,
-          reacted: false,
-        });
-        if (updated) {
-          reactions.push({
-            ...updated,
-            optimisticallyUpdated: true,
-          });
-        }
-      }
-
-      return utils.readyState(reactions);
-    });
-  };
+    };
 
   /**
    * Utility function to help execute a callback to Reaction if its state is ready.

@@ -14,10 +14,9 @@ import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// Please unskip Firefox as part of https://product-fabric.atlassian.net/browse/ED-16150
 BrowserTestCase(
   'card: changing the link label of a block link should convert it to a "dumb" link',
-  { skip: ['safari', 'firefox'] },
+  {},
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -40,7 +39,8 @@ BrowserTestCase(
     // Clear the Link Label field before typing
     await page.clear('[data-testid="link-label"]');
     // Change the 'text to display' field to 'New heading' and press enter
-    await page.type('[data-testid="link-label"]', 'New heading\n');
+    await page.type('[data-testid="link-label"]', 'New heading');
+    await page.keys(['Enter']);
 
     expect(
       await page.$eval(editable, getDocFromElement),
@@ -48,11 +48,10 @@ BrowserTestCase(
   },
 );
 
-// unskip firefox https://product-fabric.atlassian.net/browse/EDM-4279
 describe('with feature flag: lp-link-picker', () => {
   BrowserTestCase(
     'card: changing the link label of a block link should convert it to a "dumb" link',
-    { skip: ['firefox', 'safari'] },
+    {},
     async (client: ClientType, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
 

@@ -12,9 +12,7 @@ export type archiveViewerState = {
   isErrored: boolean;
 };
 
-export default class ArchiveViewerLoader extends React.PureComponent<
-  ArchiveViewerProps
-> {
+export default class ArchiveViewerLoader extends React.PureComponent<ArchiveViewerProps> {
   static ArchiveViewer?: React.ComponentType<ArchiveViewerProps>;
   state: archiveViewerState = {
     ArchiveViewer: ArchiveViewerLoader.ArchiveViewer,

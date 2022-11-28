@@ -53,16 +53,16 @@ const shouldForceClose = (step: InsertTypeAheadStep | null): boolean => {
   return isInsertingItem || isUndoingDeletionRawQuery;
 };
 
-const createFindHandler = (typeAheadHandlers: Array<TypeAheadHandler>) => (
-  step: InsertTypeAheadStep | null,
-): TypeAheadHandler | null => {
-  if (!(step instanceof InsertTypeAheadStep)) {
-    return null;
-  }
-  const handler = typeAheadHandlers.find((h) => h.trigger === step.trigger);
+const createFindHandler =
+  (typeAheadHandlers: Array<TypeAheadHandler>) =>
+  (step: InsertTypeAheadStep | null): TypeAheadHandler | null => {
+    if (!(step instanceof InsertTypeAheadStep)) {
+      return null;
+    }
+    const handler = typeAheadHandlers.find((h) => h.trigger === step.trigger);
 
-  return handler || null;
-};
+    return handler || null;
+  };
 
 export const createReducer = ({
   typeAheadHandlers,

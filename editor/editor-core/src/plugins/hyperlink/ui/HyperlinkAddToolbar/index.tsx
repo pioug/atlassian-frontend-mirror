@@ -31,24 +31,18 @@ export interface Props {
 /**
  * Wraps around the editor's onSubmit handler so that the plugin can interface with the link picker
  */
-const onSubmitInterface = (
-  onSubmit: Props['onSubmit'],
-): LinkPickerProps['onSubmit'] => ({
-  url,
-  title,
-  displayText,
-  rawUrl,
-  meta,
-}) => {
-  onSubmit(
-    url,
-    title ?? rawUrl,
-    displayText || undefined,
-    meta.inputMethod === 'manual'
-      ? INPUT_METHOD.MANUAL
-      : INPUT_METHOD.TYPEAHEAD,
-  );
-};
+const onSubmitInterface =
+  (onSubmit: Props['onSubmit']): LinkPickerProps['onSubmit'] =>
+  ({ url, title, displayText, rawUrl, meta }) => {
+    onSubmit(
+      url,
+      title ?? rawUrl,
+      displayText || undefined,
+      meta.inputMethod === 'manual'
+        ? INPUT_METHOD.MANUAL
+        : INPUT_METHOD.TYPEAHEAD,
+    );
+  };
 
 export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
   render() {

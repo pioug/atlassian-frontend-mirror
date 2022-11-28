@@ -22,65 +22,67 @@ type Options = {
   onBeforeRegexMatch?: OnBeforeRegexMatch;
 };
 
-export const createInputEventHandler = ({
-  rules,
-  pluginKey,
-  allowInsertTextOnDocument,
-  onInputEvent,
-  onBeforeRegexMatch,
-}: Options): HandleInputEvent => ({ view, from, to, text }) => {
-  if (view.composing) {
-    return false;
-  }
-
-  const state = view.state;
-  const $from = state.doc.resolve(from);
-
-  if ($from.parent.type.spec.code) {
-    return false;
-  }
-  if (onInputEvent && !onInputEvent({ state, from, to })) {
-    return false;
-  }
-
-  const textBefore =
-    $from.parent.textBetween(
-      Math.max(0, $from.parentOffset - MAX_REGEX_MATCH),
-      $from.parentOffset,
-      undefined,
-      leafNodeReplacementCharacter,
-    ) + text;
-
-  const result = findMatchOnRules({
+export const createInputEventHandler =
+  ({
     rules,
-    textBefore,
-    from,
-    to,
-    state,
-  });
+    pluginKey,
+    allowInsertTextOnDocument,
+    onInputEvent,
+    onBeforeRegexMatch,
+  }: Options): HandleInputEvent =>
+  ({ view, from, to, text }) => {
+    if (view.composing) {
+      return false;
+    }
 
-  if (!result) {
-    return false;
-  }
+    const state = view.state;
+    const $from = state.doc.resolve(from);
 
-  const tr = allowInsertTextOnDocument
-    ? state.tr.insertText(text, from, to)
-    : state.tr;
-  tr.setMeta(TEXT_INPUT_RULE_TRANSACTION_KEY, true);
-  tr.setMeta(pluginKey, {
-    textInserted: text,
-    from: result.from,
-    to: result.to,
-    matchedRule: result.matchedRule,
-  } as InputRulePluginState);
+    if ($from.parent.type.spec.code) {
+      return false;
+    }
+    if (onInputEvent && !onInputEvent({ state, from, to })) {
+      return false;
+    }
 
-  if (onBeforeRegexMatch) {
-    onBeforeRegexMatch(tr);
-  }
+    const textBefore =
+      $from.parent.textBetween(
+        Math.max(0, $from.parentOffset - MAX_REGEX_MATCH),
+        $from.parentOffset,
+        undefined,
+        leafNodeReplacementCharacter,
+      ) + text;
 
-  view.dispatch(tr);
-  return true;
-};
+    const result = findMatchOnRules({
+      rules,
+      textBefore,
+      from,
+      to,
+      state,
+    });
+
+    if (!result) {
+      return false;
+    }
+
+    const tr = allowInsertTextOnDocument
+      ? state.tr.insertText(text, from, to)
+      : state.tr;
+    tr.setMeta(TEXT_INPUT_RULE_TRANSACTION_KEY, true);
+    tr.setMeta(pluginKey, {
+      textInserted: text,
+      from: result.from,
+      to: result.to,
+      matchedRule: result.matchedRule,
+    } as InputRulePluginState);
+
+    if (onBeforeRegexMatch) {
+      onBeforeRegexMatch(tr);
+    }
+
+    view.dispatch(tr);
+    return true;
+  };
 
 type FindMatchOnRulesProps = {
   rules: InputRuleWrapper[];

@@ -69,9 +69,10 @@ export const getStyles = (size: Size, mode: ThemeModes): CSSObject => {
       cursor: 'pointer',
     },
 
-    '&[data-disabled]:hover,&[data-disabled][data-checked]:hover,&[data-disabled]:not([data-checked]):hover': {
-      cursor: 'not-allowed',
-    },
+    '&[data-disabled]:hover,&[data-disabled][data-checked]:hover,&[data-disabled]:not([data-checked]):hover':
+      {
+        cursor: 'not-allowed',
+      },
 
     '&[data-checked]:hover': {
       backgroundColor: colors.backgroundColorCheckedHover,
@@ -87,9 +88,10 @@ export const getStyles = (size: Size, mode: ThemeModes): CSSObject => {
 
     color: colors.iconColorUnchecked,
 
-    '&[data-disabled], &[data-disabled][data-checked], &[data-disabled][data-checked]:hover': {
-      color: colors.iconColorDisabled,
-    },
+    '&[data-disabled], &[data-disabled][data-checked], &[data-disabled][data-checked]:hover':
+      {
+        color: colors.iconColorDisabled,
+      },
 
     // the input element underneath
     'input[type="checkbox"]': {

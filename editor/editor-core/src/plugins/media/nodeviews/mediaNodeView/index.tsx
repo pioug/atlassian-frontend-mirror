@@ -162,27 +162,29 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
   }
 }
 
-export const ReactMediaNode = (
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
-  providerFactory: ProviderFactory,
-  mediaOptions: MediaOptions = {},
-) => (node: PMNode, view: EditorView, getPos: getPosHandler) => {
-  const hasIntlContext = true;
-  return new MediaNodeView(
-    node,
-    view,
-    getPos,
-    portalProviderAPI,
-    eventDispatcher,
-    {
+export const ReactMediaNode =
+  (
+    portalProviderAPI: PortalProviderAPI,
+    eventDispatcher: EventDispatcher,
+    providerFactory: ProviderFactory,
+    mediaOptions: MediaOptions = {},
+  ) =>
+  (node: PMNode, view: EditorView, getPos: getPosHandler) => {
+    const hasIntlContext = true;
+    return new MediaNodeView(
+      node,
+      view,
+      getPos,
+      portalProviderAPI,
       eventDispatcher,
-      providerFactory,
-      mediaOptions,
-    },
-    undefined,
-    undefined,
-    undefined,
-    hasIntlContext,
-  ).init();
-};
+      {
+        eventDispatcher,
+        providerFactory,
+        mediaOptions,
+      },
+      undefined,
+      undefined,
+      undefined,
+      hasIntlContext,
+    ).init();
+  };

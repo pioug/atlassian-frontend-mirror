@@ -9,9 +9,8 @@ export type TaskItemsStateContext = [
 
 const defaultValue = [undefined, () => {}] as TaskItemsStateContext;
 
-export const TaskItemsFormatContext = React.createContext<
-  TaskItemsStateContext
->(defaultValue);
+export const TaskItemsFormatContext =
+  React.createContext<TaskItemsStateContext>(defaultValue);
 
 export type TaskItemsFormatReducerAction = boolean | undefined;
 

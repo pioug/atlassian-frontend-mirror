@@ -43,9 +43,9 @@ describe('Editor Actions', () => {
         />,
       );
 
-      const editorActions: EditorActions = (wrapper
-        .find(Editor)
-        .instance() as any).editorActions;
+      const editorActions: EditorActions = (
+        wrapper.find(Editor).instance() as any
+      ).editorActions;
 
       const view: EditorView = editorActions._privateGetEditorView()!;
 

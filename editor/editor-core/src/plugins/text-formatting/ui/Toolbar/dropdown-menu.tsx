@@ -18,56 +18,57 @@ type DropdownMenuProps = {
   popupsMountPoint?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
 };
-export const FormattingTextDropdownMenu: React.FC<DropdownMenuProps> = React.memo(
-  ({
-    editorView,
-    moreButtonLabel,
-    isReducedSpacing,
-    items,
-    hasFormattingActive,
-    popupsBoundariesElement,
-    popupsMountPoint,
-    popupsScrollableElement,
-  }) => {
-    const [isMenuOpen, toggleMenu, closeMenu] = useMenuState();
-    const group = useMemo(
-      () => [
-        {
-          items,
+export const FormattingTextDropdownMenu: React.FC<DropdownMenuProps> =
+  React.memo(
+    ({
+      editorView,
+      moreButtonLabel,
+      isReducedSpacing,
+      items,
+      hasFormattingActive,
+      popupsBoundariesElement,
+      popupsMountPoint,
+      popupsScrollableElement,
+    }) => {
+      const [isMenuOpen, toggleMenu, closeMenu] = useMenuState();
+      const group = useMemo(
+        () => [
+          {
+            items,
+          },
+        ],
+        [items],
+      );
+      const onItemActivated = useCallback(
+        ({ item }: { item: MenuIconItem }) => {
+          item.command(editorView.state, editorView.dispatch);
+          closeMenu();
         },
-      ],
-      [items],
-    );
-    const onItemActivated = useCallback(
-      ({ item }: { item: MenuIconItem }) => {
-        item.command(editorView.state, editorView.dispatch);
-        closeMenu();
-      },
-      [editorView.state, editorView.dispatch, closeMenu],
-    );
-    return (
-      <DropdownMenu
-        mountTo={popupsMountPoint}
-        onOpenChange={closeMenu}
-        boundariesElement={popupsBoundariesElement}
-        scrollableElement={popupsScrollableElement}
-        onItemActivated={onItemActivated}
-        isOpen={isMenuOpen}
-        items={group}
-        zIndex={akEditorMenuZIndex}
-        fitHeight={188}
-        fitWidth={136}
-        shouldUseDefaultRole
-      >
-        <MoreButton
-          isSelected={isMenuOpen || hasFormattingActive}
-          label={moreButtonLabel}
-          isReducedSpacing={isReducedSpacing}
-          isDisabled={false}
-          onClick={toggleMenu}
-          aria-expanded={isMenuOpen}
-        />
-      </DropdownMenu>
-    );
-  },
-);
+        [editorView.state, editorView.dispatch, closeMenu],
+      );
+      return (
+        <DropdownMenu
+          mountTo={popupsMountPoint}
+          onOpenChange={closeMenu}
+          boundariesElement={popupsBoundariesElement}
+          scrollableElement={popupsScrollableElement}
+          onItemActivated={onItemActivated}
+          isOpen={isMenuOpen}
+          items={group}
+          zIndex={akEditorMenuZIndex}
+          fitHeight={188}
+          fitWidth={136}
+          shouldUseDefaultRole
+        >
+          <MoreButton
+            isSelected={isMenuOpen || hasFormattingActive}
+            label={moreButtonLabel}
+            isReducedSpacing={isReducedSpacing}
+            isDisabled={false}
+            onClick={toggleMenu}
+            aria-expanded={isMenuOpen}
+          />
+        </DropdownMenu>
+      );
+    },
+  );

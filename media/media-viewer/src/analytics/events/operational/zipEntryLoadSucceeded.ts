@@ -25,13 +25,8 @@ export const createZipEntryLoadSucceededEvent = (
   fileState: FileState,
   zipEntry: ZipEntry,
 ): ZipEntryLoadSucceededEventPayload => {
-  const {
-    fileId,
-    fileMediatype,
-    fileMimetype,
-    fileSize,
-    fileStatus,
-  } = getFileAttributes(fileState);
+  const { fileId, fileMediatype, fileMimetype, fileSize, fileStatus } =
+    getFileAttributes(fileState);
   return {
     eventType: 'operational',
     actionSubject: 'mediaFile',

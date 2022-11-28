@@ -142,9 +142,7 @@ export interface MediaInlineNodeViewProps {
   providerFactory: ProviderFactory;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
-export class MediaInlineNodeView extends SelectionBasedNodeView<
-  MediaInlineNodeViewProps
-> {
+export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeViewProps> {
   createDomRef() {
     const domRef = document.createElement('span');
     domRef.contentEditable = 'false';
@@ -211,21 +209,23 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<
   }
 }
 
-export const ReactMediaInlineNode = (
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
-  providerFactory: ProviderFactory,
-  dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-) => (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
-  return new MediaInlineNodeView(
-    node,
-    view,
-    getPos,
-    portalProviderAPI,
-    eventDispatcher,
-    {
-      providerFactory,
-      dispatchAnalyticsEvent,
-    },
-  ).init();
-};
+export const ReactMediaInlineNode =
+  (
+    portalProviderAPI: PortalProviderAPI,
+    eventDispatcher: EventDispatcher,
+    providerFactory: ProviderFactory,
+    dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+  ) =>
+  (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
+    return new MediaInlineNodeView(
+      node,
+      view,
+      getPos,
+      portalProviderAPI,
+      eventDispatcher,
+      {
+        providerFactory,
+        dispatchAnalyticsEvent,
+      },
+    ).init();
+  };

@@ -31,17 +31,16 @@ export default <P>(providers: (P | Promise<P>)[]) => {
     );
   };
 
-  const createCallback = (methodName: keyof P, args?: any[]) => (
-    provider: P,
-  ) => {
-    const method = provider[methodName];
+  const createCallback =
+    (methodName: keyof P, args?: any[]) => (provider: P) => {
+      const method = provider[methodName];
 
-    if (typeof method === 'function') {
-      return method.apply(provider, args);
-    }
+      if (typeof method === 'function') {
+        return method.apply(provider, args);
+      }
 
-    throw new Error(`"${methodName}" isn't a function of the provider`);
-  };
+      throw new Error(`"${methodName}" isn't a function of the provider`);
+    };
 
   /**
    * Run a method from the provider which expects to return a single item

@@ -61,11 +61,12 @@ interface WhatsNewArticleProviderInterface
   ): Promise<whatsNewSearchResult>;
 }
 
-export const [useWhatsNewArticleContext, CtxProvider] = createCtx<
-  WhatsNewArticleContextInterface
->();
+export const [useWhatsNewArticleContext, CtxProvider] =
+  createCtx<WhatsNewArticleContextInterface>();
 
-export const WhatsNewArticleProvider: React.FC<WhatsNewArticleProviderInterface> = ({
+export const WhatsNewArticleProvider: React.FC<
+  WhatsNewArticleProviderInterface
+> = ({
   whatsNewGetNotificationProvider,
   onWhatsNewButtonClick,
   onSearchWhatsNewArticles,
@@ -79,14 +80,10 @@ export const WhatsNewArticleProvider: React.FC<WhatsNewArticleProviderInterface>
   const [whatsNewSearchType, setWhatsNewSearchType] = useState<
     WHATS_NEW_ITEM_TYPES | '' | undefined
   >(undefined);
-  const [
-    searchWhatsNewArticlesResult,
-    setSearchWhatsNewArticlesResult,
-  ] = useState<whatsNewSearchResult | null>(null);
-  const [
-    searchWhatsNewArticlesState,
-    setSearchWhatsNewArticlesState,
-  ] = useState<REQUEST_STATE>(REQUEST_STATE.done);
+  const [searchWhatsNewArticlesResult, setSearchWhatsNewArticlesResult] =
+    useState<whatsNewSearchResult | null>(null);
+  const [searchWhatsNewArticlesState, setSearchWhatsNewArticlesState] =
+    useState<REQUEST_STATE>(REQUEST_STATE.done);
 
   const searchWhatsNew = useCallback(
     async (

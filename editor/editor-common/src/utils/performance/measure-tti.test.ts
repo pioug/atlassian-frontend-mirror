@@ -30,10 +30,8 @@ describe('Measure TTI utility', () => {
 
   describe('Only 1 long task', () => {
     it('should return end time of the only long task', () => {
-      const [
-        trigger,
-        MockPerformanceObserver,
-      ] = createMockPerformanceObserver();
+      const [trigger, MockPerformanceObserver] =
+        createMockPerformanceObserver();
       const cb = jest.fn();
       const now = performance.now();
 
@@ -52,10 +50,8 @@ describe('Measure TTI utility', () => {
 
   describe('Multiple long tasks', () => {
     it('should return end time of the last long task no sufficient idle time', () => {
-      const [
-        trigger,
-        MockPerformanceObserver,
-      ] = createMockPerformanceObserver();
+      const [trigger, MockPerformanceObserver] =
+        createMockPerformanceObserver();
       const cb = jest.fn();
       const now = performance.now();
 
@@ -74,10 +70,8 @@ describe('Measure TTI utility', () => {
     });
 
     it('should return end time of a long task with sufficient idle time', () => {
-      const [
-        trigger,
-        MockPerformanceObserver,
-      ] = createMockPerformanceObserver();
+      const [trigger, MockPerformanceObserver] =
+        createMockPerformanceObserver();
       const cb = jest.fn();
       const now = performance.now();
 
@@ -98,10 +92,8 @@ describe('Measure TTI utility', () => {
 
   describe('Cancel', () => {
     it('should cancel tti measurements after `cancelAfter` time', () => {
-      const [
-        trigger,
-        MockPerformanceObserver,
-      ] = createMockPerformanceObserver();
+      const [trigger, MockPerformanceObserver] =
+        createMockPerformanceObserver();
       const cb = jest.fn();
       const now = performance.now();
 

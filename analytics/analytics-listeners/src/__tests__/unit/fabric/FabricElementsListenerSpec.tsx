@@ -20,9 +20,8 @@ import Logger from '../../../helpers/logger';
 import { AnalyticsWebClient, FabricChannel } from '../../../types';
 import { createLoggerMock } from '../../_testUtils';
 
-const DummyCompWithAttributesWithAnalytics = createComponentWithAttributesWithAnalytics(
-  FabricChannel.elements,
-);
+const DummyCompWithAttributesWithAnalytics =
+  createComponentWithAttributesWithAnalytics(FabricChannel.elements);
 
 const DummyElementsComp = createComponentWithAnalytics(FabricChannel.elements);
 const DummyTaggedElementsComp = createTaggedComponentWithAnalytics(
@@ -150,9 +149,8 @@ describe('<FabricElementsListener />', () => {
         }
       }
 
-      const DummyComponentWithAnalytics: React.ComponentType<{}> = withAnalyticsEvents(
-        {},
-      )(DummyComponent);
+      const DummyComponentWithAnalytics: React.ComponentType<{}> =
+        withAnalyticsEvents({})(DummyComponent);
 
       it('should fire event with source from the context', () => {
         const component = mount(

@@ -8,8 +8,7 @@ export const mediumSizeDoc = {
       content: [
         {
           type: 'text',
-          text:
-            "Maybe you've written an awesome new feature. You're about to ship it, but you realise now that you need to onboard users to your new feature.",
+          text: "Maybe you've written an awesome new feature. You're about to ship it, but you realise now that you need to onboard users to your new feature.",
         },
       ],
     },
@@ -48,8 +47,7 @@ export const mediumSizeDoc = {
       content: [
         {
           type: 'text',
-          text:
-            'Maybe you think the current way new users are onboarded into Confluence could use a bit of an update.',
+          text: 'Maybe you think the current way new users are onboarded into Confluence could use a bit of an update.',
         },
       ],
     },

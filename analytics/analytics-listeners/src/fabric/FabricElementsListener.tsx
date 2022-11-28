@@ -9,9 +9,7 @@ import { handleEvent } from './handle-event';
 
 export const ELEMENTS_TAG = 'fabricElements';
 
-export default class FabricElementsListener extends React.Component<
-  ListenerProps
-> {
+export default class FabricElementsListener extends React.Component<ListenerProps> {
   handleEventWrapper: UIAnalyticsEventHandler = (event) => {
     handleEvent(event, ELEMENTS_TAG, this.props.logger, this.props.client);
   };

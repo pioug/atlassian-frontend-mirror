@@ -11,10 +11,11 @@ export { isMediaClientError, getMediaClientErrorReason } from './helpers';
  * Base class for media errors
  */
 export abstract class BaseMediaClientError<
-    Attributes extends MediaClientErrorAttributes
+    Attributes extends MediaClientErrorAttributes,
   >
   extends Error
-  implements MediaClientError<Attributes> {
+  implements MediaClientError<Attributes>
+{
   constructor(readonly message: string) {
     super(message);
 

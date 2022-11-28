@@ -212,8 +212,7 @@ export const twoColFullWidthTableWithContent = {
                     },
                     {
                       type: 'text',
-                      text:
-                        '2. Paste a jira link in for the href and immediately close the bracket to complete the markdown',
+                      text: '2. Paste a jira link in for the href and immediately close the bracket to complete the markdown',
                     },
                   ],
                 },
@@ -229,8 +228,7 @@ export const twoColFullWidthTableWithContent = {
                     },
                     {
                       type: 'text',
-                      text:
-                        'markdown for URL works correctly? or smartcard overrides it?',
+                      text: 'markdown for URL works correctly? or smartcard overrides it?',
                     },
                   ],
                 },
@@ -246,8 +244,7 @@ export const twoColFullWidthTableWithContent = {
                     },
                     {
                       type: 'text',
-                      text:
-                        'Smartcard link for Jira is still being processed and is entered as the value for the markdown for the URL ',
+                      text: 'Smartcard link for Jira is still being processed and is entered as the value for the markdown for the URL ',
                     },
                     {
                       type: 'emoji',
@@ -262,8 +259,7 @@ export const twoColFullWidthTableWithContent = {
                     },
                     {
                       type: 'text',
-                      text:
-                        'URL ends up pointing to the confluence edit link but without a page ID so 404s',
+                      text: 'URL ends up pointing to the confluence edit link but without a page ID so 404s',
                     },
                   ],
                 },
@@ -302,8 +298,7 @@ export const twoColFullWidthTableWithContent = {
                   content: [
                     {
                       type: 'text',
-                      text:
-                        "Publishing somewhat big pages doesn't really provide any indication to the user that their page is actually being published and they're going to be navigated away",
+                      text: "Publishing somewhat big pages doesn't really provide any indication to the user that their page is actually being published and they're going to be navigated away",
                     },
                   ],
                 },

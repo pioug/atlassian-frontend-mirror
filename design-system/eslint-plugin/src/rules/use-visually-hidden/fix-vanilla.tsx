@@ -9,28 +9,27 @@ import {
 } from './constants';
 import { getFirstImport } from './utils';
 
-export default (source: SourceCode, node: Rule.Node) => (
-  fixer: Rule.RuleFixer,
-) => {
-  const fixes = [];
-  const importedNode = getFirstImport(source);
-  const visuallyHiddenNode = getImportedNodeBySource(
-    source,
-    VISUALLY_HIDDEN_SOURCE,
-  );
-
-  if (!importedNode) {
-    return [];
-  }
-
-  if (visuallyHiddenNode) {
-    fixes.push(
-      fixer.replaceText(node, visuallyHiddenNode.specifiers[0].local.name),
+export default (source: SourceCode, node: Rule.Node) =>
+  (fixer: Rule.RuleFixer) => {
+    const fixes = [];
+    const importedNode = getFirstImport(source);
+    const visuallyHiddenNode = getImportedNodeBySource(
+      source,
+      VISUALLY_HIDDEN_SOURCE,
     );
-  } else {
-    fixes.push(fixer.insertTextBefore(importedNode, VISUALLY_HIDDEN_IMPORT));
-    fixes.push(fixer.replaceText(node, IMPORT_NAME));
-  }
 
-  return fixes;
-};
+    if (!importedNode) {
+      return [];
+    }
+
+    if (visuallyHiddenNode) {
+      fixes.push(
+        fixer.replaceText(node, visuallyHiddenNode.specifiers[0].local.name),
+      );
+    } else {
+      fixes.push(fixer.insertTextBefore(importedNode, VISUALLY_HIDDEN_IMPORT));
+      fixes.push(fixer.replaceText(node, IMPORT_NAME));
+    }
+
+    return fixes;
+  };

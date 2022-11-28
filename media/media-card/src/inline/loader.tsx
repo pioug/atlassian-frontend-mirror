@@ -3,13 +3,11 @@ import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 import { MediaInlineCardProps } from './mediaInlineCard';
 
-export type MediaInlineCardWithMediaClientConfigProps = WithMediaClientConfigProps<
-  MediaInlineCardProps
->;
+export type MediaInlineCardWithMediaClientConfigProps =
+  WithMediaClientConfigProps<MediaInlineCardProps>;
 
-type MediaInlineCardWithMediaClientConfigComponent = React.ComponentType<
-  MediaInlineCardWithMediaClientConfigProps
->;
+type MediaInlineCardWithMediaClientConfigComponent =
+  React.ComponentType<MediaInlineCardWithMediaClientConfigProps>;
 
 type ErrorBoundaryComponent = React.ComponentType<{
   data?: { [k: string]: any };
@@ -38,21 +36,18 @@ export default class MediaInlineCardLoader extends React.PureComponent<
     this.isMounted = true;
     if (!this.state.MediaInlineCard) {
       try {
-        const [
-          mediaClient,
-          cardModule,
-          mediaCardErrorBoundaryModule,
-        ] = await Promise.all([
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
-          ),
-          import(
-            /* webpackChunkName: "@atlaskit-internal_inline-media-card" */ './mediaInlineCard'
-          ),
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-card-error-boundary" */ '../utils/media-card-analytics-error-boundary'
-          ),
-        ]);
+        const [mediaClient, cardModule, mediaCardErrorBoundaryModule] =
+          await Promise.all([
+            import(
+              /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+            ),
+            import(
+              /* webpackChunkName: "@atlaskit-internal_inline-media-card" */ './mediaInlineCard'
+            ),
+            import(
+              /* webpackChunkName: "@atlaskit-internal_media-card-error-boundary" */ '../utils/media-card-analytics-error-boundary'
+            ),
+          ]);
 
         MediaInlineCardLoader.MediaInlineCard = mediaClient.withMediaClient(
           cardModule.MediaInlineCard,

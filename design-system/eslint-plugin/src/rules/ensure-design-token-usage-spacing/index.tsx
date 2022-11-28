@@ -269,144 +269,145 @@ const rule: Rule.RuleModule = {
       // CSSTemplateLiteral and StyledTemplateLiteral
       // const cssTemplateLiteral = css`color: red; padding: 12px`;
       // const styledTemplateLiteral = styled.p`color: red; padding: 8px`;
-      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]': (
-        node: Rule.Node,
-      ) => {
-        if (node.type !== 'TaggedTemplateExpression') {
-          return;
-        }
-
-        const parentNode = findParentNodeForLine(node);
-
-        const combinedString = node.quasi.quasis
-          .map((q, i) => {
-            return `${q.value.raw}${
-              node.quasi.expressions[i]
-                ? getValue(node.quasi.expressions[i], context)
-                : ''
-            }`;
-          })
-          .join('');
-
-        /**
-         * Attempts to remove all non-essential words & characters from a style block.
-         * Including selectors and queries
-         * Adapted from ensure-design-token-usage
-         */
-        const cssProperties = combinedString
-          .split('\n')
-          .filter((line) => !line.trim().startsWith('@'))
-          .join('\n')
-          .replace(/\n/g, '')
-          .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
-          .map((el) => el.trim() || '')
-          .filter(Boolean);
-
-        // Get font size
-        const fontSizeNode = cssProperties.find((style) => {
-          const [rawProperty, value] = style.split(':');
-          return /font-size/.test(rawProperty) ? value : null;
-        });
-        const fontSize = getValueFromShorthand(fontSizeNode)[0] as number;
-
-        cssProperties.forEach((style) => {
-          const [rawProperty, value] = style.split(':');
-          const property = convertHyphenatedNameToCamelCase(rawProperty);
-
-          if (!isSpacingProperty(property)) {
+      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
+        (node: Rule.Node) => {
+          if (node.type !== 'TaggedTemplateExpression') {
             return;
           }
 
-          // value is either NaN or it can't be resolved eg, em, 100% etc...
-          if (!isValidSpacingValue(value, fontSize)) {
-            return context.report({
-              node,
-              messageId: 'noRawSpacingValues',
-              data: {
-                payload: `NaN:${value}`,
-              },
-            });
-          }
+          const parentNode = findParentNodeForLine(node);
 
-          const values = getValueFromShorthand(value);
+          const combinedString = node.quasi.quasis
+            .map((q, i) => {
+              return `${q.value.raw}${
+                node.quasi.expressions[i]
+                  ? getValue(node.quasi.expressions[i], context)
+                  : ''
+              }`;
+            })
+            .join('');
 
-          values.forEach((val, index) => {
-            if (
-              (!val && val !== 0) ||
-              !/padding|margin|gap/.test(rawProperty)
-            ) {
+          /**
+           * Attempts to remove all non-essential words & characters from a style block.
+           * Including selectors and queries
+           * Adapted from ensure-design-token-usage
+           */
+          const cssProperties = combinedString
+            .split('\n')
+            .filter((line) => !line.trim().startsWith('@'))
+            .join('\n')
+            .replace(/\n/g, '')
+            .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
+            .map((el) => el.trim() || '')
+            .filter(Boolean);
+
+          // Get font size
+          const fontSizeNode = cssProperties.find((style) => {
+            const [rawProperty, value] = style.split(':');
+            return /font-size/.test(rawProperty) ? value : null;
+          });
+          const fontSize = getValueFromShorthand(fontSizeNode)[0] as number;
+
+          cssProperties.forEach((style) => {
+            const [rawProperty, value] = style.split(':');
+            const property = convertHyphenatedNameToCamelCase(rawProperty);
+
+            if (!isSpacingProperty(property)) {
               return;
             }
 
-            const pixelValue = emToPixels(val, fontSize);
-            context.report({
-              node,
-              messageId: 'noRawSpacingValues',
-              data: {
-                payload: `${property}:${pixelValue}`,
-              },
-              fix:
-                index === 0
-                  ? (fixer) => {
-                      const allResolvableValues = values.every(
-                        (value) => !Number.isNaN(emToPixels(value, fontSize)),
-                      );
-                      if (!allResolvableValues) {
-                        return null;
+            // value is either NaN or it can't be resolved eg, em, 100% etc...
+            if (!isValidSpacingValue(value, fontSize)) {
+              return context.report({
+                node,
+                messageId: 'noRawSpacingValues',
+                data: {
+                  payload: `NaN:${value}`,
+                },
+              });
+            }
+
+            const values = getValueFromShorthand(value);
+
+            values.forEach((val, index) => {
+              if (
+                (!val && val !== 0) ||
+                !/padding|margin|gap/.test(rawProperty)
+              ) {
+                return;
+              }
+
+              const pixelValue = emToPixels(val, fontSize);
+              context.report({
+                node,
+                messageId: 'noRawSpacingValues',
+                data: {
+                  payload: `${property}:${pixelValue}`,
+                },
+                fix:
+                  index === 0
+                    ? (fixer) => {
+                        const allResolvableValues = values.every(
+                          (value) => !Number.isNaN(emToPixels(value, fontSize)),
+                        );
+                        if (!allResolvableValues) {
+                          return null;
+                        }
+
+                        const replacementValue = values
+                          .map((value) => {
+                            const pixelValue = emToPixels(value, fontSize);
+                            const pixelValueString = `${pixelValue}px`;
+                            const remValueString =
+                              pixelsToRems(pixelValueString);
+
+                            const tokenName =
+                              spacingValueToToken[remValueString];
+
+                            if (!tokenName) {
+                              return pixelValueString;
+                            }
+
+                            // ${token('...', '...')}
+                            const replacementSubValue =
+                              '${' +
+                              pixelValueToSpacingTokenNode(
+                                pixelValueString,
+                              ).toString() +
+                              '}';
+                            return replacementSubValue;
+                          })
+                          .join(' ');
+
+                        // get original source
+                        const textForSource = context
+                          .getSourceCode()
+                          .getText(node.quasi);
+
+                        // find `<property>: ...;` in original
+                        const searchRegExp = new RegExp(
+                          `${rawProperty}.+?;`,
+                          'g',
+                        );
+                        // replace property:val with new property:val
+                        const replacement = textForSource.replace(
+                          searchRegExp,
+                          `${rawProperty}: ${replacementValue};`,
+                        );
+
+                        return [
+                          fixer.insertTextBefore(
+                            parentNode,
+                            `// TODO Delete this comment after verifying spacing token -> previous value \`${value.trim()}\`\n`,
+                          ),
+                          fixer.replaceText(node.quasi, replacement),
+                        ];
                       }
-
-                      const replacementValue = values
-                        .map((value) => {
-                          const pixelValue = emToPixels(value, fontSize);
-                          const pixelValueString = `${pixelValue}px`;
-                          const remValueString = pixelsToRems(pixelValueString);
-
-                          const tokenName = spacingValueToToken[remValueString];
-
-                          if (!tokenName) {
-                            return pixelValueString;
-                          }
-
-                          // ${token('...', '...')}
-                          const replacementSubValue =
-                            '${' +
-                            pixelValueToSpacingTokenNode(
-                              pixelValueString,
-                            ).toString() +
-                            '}';
-                          return replacementSubValue;
-                        })
-                        .join(' ');
-
-                      // get original source
-                      const textForSource = context
-                        .getSourceCode()
-                        .getText(node.quasi);
-
-                      // find `<property>: ...;` in original
-                      const searchRegExp = new RegExp(
-                        `${rawProperty}.+?;`,
-                        'g',
-                      );
-                      // replace property:val with new property:val
-                      const replacement = textForSource.replace(
-                        searchRegExp,
-                        `${rawProperty}: ${replacementValue};`,
-                      );
-
-                      return [
-                        fixer.insertTextBefore(
-                          parentNode,
-                          `// TODO Delete this comment after verifying spacing token -> previous value \`${value.trim()}\`\n`,
-                        ),
-                        fixer.replaceText(node.quasi, replacement),
-                      ];
-                    }
-                  : undefined,
+                    : undefined,
+              });
             });
           });
-        });
-      },
+        },
     };
   },
 };

@@ -15,7 +15,7 @@ const chartExtensionKey = 'chart';
 
 function getConfluenceMobileMacroManifests<
   createPromiseType extends Function,
-  eventDispatcherType
+  eventDispatcherType,
 >(
   createPromise: createPromiseType,
   eventDispatcher: eventDispatcherType,
@@ -213,7 +213,7 @@ function getChartPlaceholderManifest(): ExtensionManifest {
 
 function getChartFallbackManifest<
   createPromiseType extends Function,
-  eventDispatcherType
+  eventDispatcherType,
 >(
   contentId: number,
   baseUrl: string,

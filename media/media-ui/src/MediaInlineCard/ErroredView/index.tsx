@@ -19,9 +19,7 @@ export interface MediaInlineCardErroredViewProps {
   icon?: React.ReactNode;
 }
 
-export class MediaInlineCardErroredView extends React.Component<
-  MediaInlineCardErroredViewProps
-> {
+export class MediaInlineCardErroredView extends React.Component<MediaInlineCardErroredViewProps> {
   renderMessage = () => {
     const { message } = this.props;
     const errorMessage = <NoLinkAppearance>{message}</NoLinkAppearance>;

@@ -11,16 +11,14 @@ export const TrelloBoard = {
     name: 'Trello',
     icon: {
       '@type': 'Image',
-      url:
-        'https://fd-assets.prod.atl-paas.net/image/logos/contrib/trello/icons/blue.svg',
+      url: 'https://fd-assets.prod.atl-paas.net/image/logos/contrib/trello/icons/blue.svg',
     },
   },
   '@type': 'atlassian:Project',
   url: 'https://project-url',
   icon: {
     '@type': 'Image',
-    url:
-      'https://fd-assets.prod.atl-paas.net/image/logos/contrib/trello/icons/neutral.svg',
+    url: 'https://fd-assets.prod.atl-paas.net/image/logos/contrib/trello/icons/neutral.svg',
   },
   'atlassian:isDeleted': false,
   'atlassian:member': {
@@ -51,8 +49,7 @@ export const TrelloCard = {
     name: 'Trello',
     icon: {
       '@type': 'Image',
-      url:
-        'https://fd-assets.prod.atl-paas.net/image/logos/contrib/trello/icons/blue.svg',
+      url: 'https://fd-assets.prod.atl-paas.net/image/logos/contrib/trello/icons/blue.svg',
     },
   },
   '@type': 'atlassian:Task',

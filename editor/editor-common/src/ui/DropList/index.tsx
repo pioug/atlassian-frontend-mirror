@@ -167,14 +167,8 @@ class DropList extends Component<Props> {
   };
 
   render() {
-    const {
-      children,
-      isOpen,
-      position,
-      trigger,
-      onPositioned,
-      testId,
-    } = this.props;
+    const { children, isOpen, position, trigger, onPositioned, testId } =
+      this.props;
 
     let layerContent = isOpen ? (
       <div

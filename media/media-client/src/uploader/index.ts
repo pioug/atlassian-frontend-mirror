@@ -37,36 +37,40 @@ const hashingFunction = async (blob: Blob): Promise<string> => {
   return hasher.hash(blob);
 };
 
-const createProbingFunction = (
-  store: MediaStore,
-  deferredUploadId: Promise<string>,
-  collectionName?: string,
-) => async (chunks: Chunk[]): Promise<boolean[]> => {
-  const response = await store.probeChunks(hashedChunks(chunks), {
-    collectionName,
-    uploadId: getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
-      ? await deferredUploadId
-      : undefined,
-  });
-  const results = response.data.results;
+const createProbingFunction =
+  (
+    store: MediaStore,
+    deferredUploadId: Promise<string>,
+    collectionName?: string,
+  ) =>
+  async (chunks: Chunk[]): Promise<boolean[]> => {
+    const response = await store.probeChunks(hashedChunks(chunks), {
+      collectionName,
+      uploadId: getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
+        ? await deferredUploadId
+        : undefined,
+    });
+    const results = response.data.results;
 
-  return (Object as any).values(results).map((result: any) => result.exists);
-};
+    return (Object as any).values(results).map((result: any) => result.exists);
+  };
 
-const createUploadingFunction = (
-  store: MediaStore,
-  deferredUploadId: Promise<string>,
-  collectionName?: string,
-) => async (chunk: Chunk) => {
-  const options = getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
-    ? { partNumber: chunk.partNumber, uploadId: await deferredUploadId }
-    : {};
+const createUploadingFunction =
+  (
+    store: MediaStore,
+    deferredUploadId: Promise<string>,
+    collectionName?: string,
+  ) =>
+  async (chunk: Chunk) => {
+    const options = getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
+      ? { partNumber: chunk.partNumber, uploadId: await deferredUploadId }
+      : {};
 
-  return await store.uploadChunk(chunk.hash, chunk.blob, {
-    collectionName,
-    ...options,
-  });
-};
+    return await store.uploadChunk(chunk.hash, chunk.blob, {
+      collectionName,
+      ...options,
+    });
+  };
 
 const createProcessingFunction = (
   store: MediaStore,

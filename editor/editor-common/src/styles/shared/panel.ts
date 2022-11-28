@@ -204,16 +204,15 @@ export const PanelSharedSelectors = {
   copyButton: `button[aria-label="Copy"]`,
 };
 
-const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
-  props: ThemeProps,
-) => {
-  const light = lightIconColor[panelType];
-  const dark = darkIconColor[panelType];
-  const color = themed({ light, dark })(props);
-  return `
+const iconDynamicStyles =
+  (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (props: ThemeProps) => {
+    const light = lightIconColor[panelType];
+    const dark = darkIconColor[panelType];
+    const color = themed({ light, dark })(props);
+    return `
     color: ${color};
   `;
-};
+  };
 
 export const getPanelTypeBackground = (
   panelType: Exclude<PanelType, PanelType.CUSTOM>,
@@ -225,19 +224,18 @@ export const getPanelTypeBackground = (
   return background || 'none';
 };
 
-const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
-  props: ThemeProps,
-) => {
-  const background = getPanelTypeBackground(panelType, props);
-  const text = themed({
-    light: 'inherit',
-    dark: darkPanelColors.TextColor,
-  })(props);
-  return `
+const mainDynamicStyles =
+  (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (props: ThemeProps) => {
+    const background = getPanelTypeBackground(panelType, props);
+    const text = themed({
+      light: 'inherit',
+      dark: darkPanelColors.TextColor,
+    })(props);
+    return `
     background-color: ${background};
     color: ${text};
   `;
-};
+  };
 
 export const panelSharedStylesWithoutPrefix = (props: ThemeProps) => css`
   border-radius: ${borderRadius()}px;

@@ -25,7 +25,8 @@ export class MockNonUploadingEmojiResource
     undefined,
     SearchOptions
   >
-  implements EmojiProvider {
+  implements EmojiProvider
+{
   protected emojiRepository: EmojiRepository;
   protected promiseBuilder: PromiseBuilder<any>;
   protected lastQuery: string = '';

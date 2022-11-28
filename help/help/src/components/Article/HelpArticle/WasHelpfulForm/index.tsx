@@ -70,17 +70,12 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
   const [feedbackReason, setFeedbackReason] = useState<string>('');
   const [feedbackReasonText, setFeedbackReasonText] = useState<string>('');
   const [contactMe, setContactMe] = useState<boolean>(false);
-  const [wasHelpfulFormSubmited, setWasHelpfulFormSubmited] = useState<boolean>(
-    false,
-  );
-  const [
-    wasHelpfulFormSubmitLoading,
-    setWasHelpfulFormSubmitLoading,
-  ] = useState<boolean>(false);
-  const [
-    wasHelpfulFormSubmitedFailed,
-    setWasHelpfulFormSubmitedFailed,
-  ] = useState<boolean>(false);
+  const [wasHelpfulFormSubmited, setWasHelpfulFormSubmited] =
+    useState<boolean>(false);
+  const [wasHelpfulFormSubmitLoading, setWasHelpfulFormSubmitLoading] =
+    useState<boolean>(false);
+  const [wasHelpfulFormSubmitedFailed, setWasHelpfulFormSubmitedFailed] =
+    useState<boolean>(false);
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
   const negativeFeedbackReason = [

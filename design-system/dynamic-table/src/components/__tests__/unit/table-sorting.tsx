@@ -9,20 +9,16 @@ interface StatefulCellProps {
   children?: ReactNode;
 }
 
-const createStatefulCell = ({
-  onMount,
-  onUnmount,
-}: {
-  onMount: () => void;
-  onUnmount: () => void;
-}) => (props: StatefulCellProps) => {
-  useEffect(() => {
-    onMount();
-    return () => onUnmount();
-  }, []);
+const createStatefulCell =
+  ({ onMount, onUnmount }: { onMount: () => void; onUnmount: () => void }) =>
+  (props: StatefulCellProps) => {
+    useEffect(() => {
+      onMount();
+      return () => onUnmount();
+    }, []);
 
-  return <div>{props.children}</div>;
-};
+    return <div>{props.children}</div>;
+  };
 
 const caption = 'Example issue with DynamicTable';
 const head = {

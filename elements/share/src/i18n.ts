@@ -42,8 +42,7 @@ export const messages = defineMessages({
     description: 'Generic placeholder for the user picker field in Share form.',
   },
   userPickerGenericExistingUserOnlyPlaceholder: {
-    id:
-      'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly',
+    id: 'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly',
     defaultMessage: 'Enter name, group or team',
     description:
       'Existing user only placeholder for the user picker field in Share form (emails are not an option).',
@@ -81,15 +80,13 @@ export const messages = defineMessages({
       'This message is used only for Jira product because Jira does not have Group concept.',
   },
   userPickerRequiredExistingUserOnlyMessage: {
-    id:
-      'fabric.elements.share.form.user-picker.validation.required.existingUserOnly',
+    id: 'fabric.elements.share.form.user-picker.validation.required.existingUserOnly',
     defaultMessage: 'Select at least one user, group or team.',
     description:
       'Required error message for the user picker field in Share form when email is not allowed.',
   },
   userPickerRequiredExistingUserOnlyMessageJira: {
-    id:
-      'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly',
+    id: 'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly',
     defaultMessage: 'Select at least one user or team.',
     description:
       'Required error message for the user picker field in Share form when email is not allowed. ' +

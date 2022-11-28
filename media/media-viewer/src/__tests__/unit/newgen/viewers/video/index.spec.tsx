@@ -84,7 +84,9 @@ async function setup(options: SetupOptions = {}) {
     authProvider: () => authPromise,
   });
 
-  const getArtifactURLResult: ReturnType<typeof mediaClient.file.getArtifactURL> =
+  const getArtifactURLResult: ReturnType<
+    typeof mediaClient.file.getArtifactURL
+  > =
     mockReturnGetArtifactURL ||
     Promise.resolve(
       'some-base-url/video_hd?client=some-client-id&token=some-token',

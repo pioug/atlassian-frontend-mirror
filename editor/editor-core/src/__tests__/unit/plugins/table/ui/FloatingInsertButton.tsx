@@ -165,7 +165,7 @@ describe('Floating Insert Button', () => {
       editorView.state.schema.nodes.table,
     );
 
-    wrapper = (mountWithIntl(
+    wrapper = mountWithIntl(
       <FloatingInsertButton
         intl={intl}
         tableRef={document.querySelector('table')!}
@@ -173,7 +173,7 @@ describe('Floating Insert Button', () => {
         editorView={editorView}
         getEditorContainerWidth={getEditorContainerWidth}
       />,
-    ) as unknown) as ReactWrapper<FloatingInsertButtonProps>;
+    ) as unknown as ReactWrapper<FloatingInsertButtonProps>;
   });
 
   afterEach(() => {

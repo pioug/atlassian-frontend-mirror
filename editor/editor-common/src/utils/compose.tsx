@@ -21,7 +21,7 @@ export function compose<
     ? (a: A) => ReturnType<F1>
     : FN extends [any, any, any, any, Func<infer A, any>]
     ? (a: A) => ReturnType<F1>
-    : Func<any, ReturnType<F1>> // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
+    : Func<any, ReturnType<F1>>, // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
 >(func: F1, ...funcs: FN): R {
   const allFuncs = [func, ...funcs];
   return function composed(raw: any) {

@@ -49,8 +49,7 @@ describe.skip('WikiMarkup Transformer', () => {
       doc(
         p(
           img({
-            src:
-              'http://localhost:8080/download/attachments/0/attachedpicture.jpg',
+            src: 'http://localhost:8080/download/attachments/0/attachedpicture.jpg',
           })(),
         ),
       ),
@@ -139,8 +138,7 @@ describe.skip('WikiMarkup Transformer', () => {
         p(
           '&nbsp;',
           img({
-            src:
-              'http://localhost:8080/download/attachments/0/19137-picture.jpg',
+            src: 'http://localhost:8080/download/attachments/0/19137-picture.jpg',
           })(),
         ),
       ),
@@ -159,8 +157,7 @@ describe.skip('WikiMarkup Transformer', () => {
         p(
           '&nbsp; ',
           img({
-            src:
-              'http://localhost:8080/download/attachments/0/19137-picture.jpg',
+            src: 'http://localhost:8080/download/attachments/0/19137-picture.jpg',
           })(),
         ),
       ),
@@ -179,8 +176,7 @@ describe.skip('WikiMarkup Transformer', () => {
         p(
           'inltokxyzkdtnhgnsbdfinltok',
           img({
-            src:
-              'http://localhost:8080/download/attachments/0/19137-picture.jpg',
+            src: 'http://localhost:8080/download/attachments/0/19137-picture.jpg',
           })(),
         ),
       ),
@@ -199,8 +195,7 @@ describe.skip('WikiMarkup Transformer', () => {
         p(
           'inltokxyzkdtnhgnsbdfinltok ',
           img({
-            src:
-              'http://localhost:8080/download/attachments/0/19137-picture.jpg',
+            src: 'http://localhost:8080/download/attachments/0/19137-picture.jpg',
           })(),
         ),
       ),

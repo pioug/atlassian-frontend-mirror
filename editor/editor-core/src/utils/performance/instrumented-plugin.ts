@@ -20,7 +20,7 @@ type InstrumentedPluginOptions = EditorProps['performanceTracking'] & {
 
 export class InstrumentedPlugin<
   PluginState,
-  NodeSchema extends Schema<any, any>
+  NodeSchema extends Schema<any, any>,
 > extends SafePlugin<PluginState, NodeSchema> {
   constructor(
     spec: SafePluginSpec,
@@ -57,18 +57,15 @@ export class InstrumentedPlugin<
               }),
             )
           : aTr;
-        const shouldTrackTransactions = transactionTracker?.shouldTrackTransaction(
-          transactionTracking,
-        );
+        const shouldTrackTransactions =
+          transactionTracker?.shouldTrackTransaction(transactionTracking);
 
         if (!shouldTrackTransactions || !transactionTracker) {
           return originalApply(tr, value, oldState, newState);
         }
 
-        const {
-          startMeasure,
-          stopMeasure,
-        } = transactionTracker.getMeasureHelpers(transactionTracking);
+        const { startMeasure, stopMeasure } =
+          transactionTracker.getMeasureHelpers(transactionTracking);
         const measure = `🦉${self.key}::apply`;
         startMeasure(measure);
         const result = originalApply(tr, value, oldState, newState);

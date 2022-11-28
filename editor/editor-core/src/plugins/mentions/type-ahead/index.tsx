@@ -57,32 +57,34 @@ const createInviteItem = ({
   mention: INVITE_ITEM_DESCRIPTION,
 });
 
-const withInviteItem = ({
-  mentionProvider,
-  firstQueryWithoutResults,
-  currentQuery,
-  onInviteItemMount,
-}: {
-  firstQueryWithoutResults: string;
-  currentQuery: string;
-  mentionProvider: MentionProvider;
-  onInviteItemMount: () => void;
-}) => (mentionItems: Array<TypeAheadItem>) => {
-  const inviteItem = createInviteItem({ mentionProvider, onInviteItemMount });
-  const keepInviteItem = shouldKeepInviteItem(
-    currentQuery,
+const withInviteItem =
+  ({
+    mentionProvider,
     firstQueryWithoutResults,
-  );
-  if (mentionItems.length === 0) {
-    return keepInviteItem ? [inviteItem] : [];
-  }
+    currentQuery,
+    onInviteItemMount,
+  }: {
+    firstQueryWithoutResults: string;
+    currentQuery: string;
+    mentionProvider: MentionProvider;
+    onInviteItemMount: () => void;
+  }) =>
+  (mentionItems: Array<TypeAheadItem>) => {
+    const inviteItem = createInviteItem({ mentionProvider, onInviteItemMount });
+    const keepInviteItem = shouldKeepInviteItem(
+      currentQuery,
+      firstQueryWithoutResults,
+    );
+    if (mentionItems.length === 0) {
+      return keepInviteItem ? [inviteItem] : [];
+    }
 
-  return [
-    ...mentionItems,
-    // invite item should be shown at the bottom
-    inviteItem,
-  ];
-};
+    return [
+      ...mentionItems,
+      // invite item should be shown at the bottom
+      inviteItem,
+    ];
+  };
 
 export const mentionToTypeaheadItem = (
   mention: MentionDescription,
@@ -105,7 +107,7 @@ export const mentionToTypeaheadItem = (
 };
 
 export function memoize<
-  ResultFn extends (mention: MentionDescription) => TypeAheadItem
+  ResultFn extends (mention: MentionDescription) => TypeAheadItem,
 >(fn: ResultFn): { call: ResultFn; clear(): void } {
   // Cache results here
   const seen = new Map<string, TypeAheadItem>();
@@ -132,51 +134,51 @@ export function memoize<
 
 const memoizedToItem = memoize(mentionToTypeaheadItem);
 
-const buildAndSendElementsTypeAheadAnalytics = (
-  fireEvent: FireElementsChannelEvent,
-) => ({
-  query,
-  mentions,
-  stats,
-}: {
-  query: string;
-  mentions: MentionDescription[];
-  stats?: MentionStats;
-}) => {
-  let duration: number = 0;
-  let userOrTeamIds: string[] | null = null;
-  let teams: TeamInfoAttrAnalytics[] | null = null;
-
-  if (!isTeamStats(stats)) {
-    // is from primary mention endpoint which could be just user mentions or user/team mentions
-    duration = stats && stats.duration;
-    teams = null;
-    userOrTeamIds = mentions.map((mention) => mention.id);
-  } else {
-    // is from dedicated team-only mention endpoint
-    duration = stats && stats.teamMentionDuration;
-    userOrTeamIds = null;
-    teams = mentions
-      .map((mention) =>
-        isTeamType(mention.userType)
-          ? {
-              teamId: mention.id,
-              includesYou: mention.context!.includesYou,
-              memberCount: mention.context!.memberCount,
-            }
-          : null,
-      )
-      .filter((m) => !!m) as TeamInfoAttrAnalytics[];
-  }
-
-  const payload = buildTypeAheadRenderedPayload(
-    duration,
-    userOrTeamIds,
+const buildAndSendElementsTypeAheadAnalytics =
+  (fireEvent: FireElementsChannelEvent) =>
+  ({
     query,
-    teams,
-  );
-  fireEvent(payload);
-};
+    mentions,
+    stats,
+  }: {
+    query: string;
+    mentions: MentionDescription[];
+    stats?: MentionStats;
+  }) => {
+    let duration: number = 0;
+    let userOrTeamIds: string[] | null = null;
+    let teams: TeamInfoAttrAnalytics[] | null = null;
+
+    if (!isTeamStats(stats)) {
+      // is from primary mention endpoint which could be just user mentions or user/team mentions
+      duration = stats && stats.duration;
+      teams = null;
+      userOrTeamIds = mentions.map((mention) => mention.id);
+    } else {
+      // is from dedicated team-only mention endpoint
+      duration = stats && stats.teamMentionDuration;
+      userOrTeamIds = null;
+      teams = mentions
+        .map((mention) =>
+          isTeamType(mention.userType)
+            ? {
+                teamId: mention.id,
+                includesYou: mention.context!.includesYou,
+                memberCount: mention.context!.memberCount,
+              }
+            : null,
+        )
+        .filter((m) => !!m) as TeamInfoAttrAnalytics[];
+    }
+
+    const payload = buildTypeAheadRenderedPayload(
+      duration,
+      userOrTeamIds,
+      query,
+      teams,
+    );
+    fireEvent(payload);
+  };
 
 const isTeamMentionProvider = (p: any): p is TeamMentionProvider =>
   !!(

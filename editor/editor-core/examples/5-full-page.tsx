@@ -151,27 +151,29 @@ export const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
 export const LOCALSTORAGE_defaultTitleKey =
   'fabric.editor.example.full-page.title';
 
-export const saveChanges = ({
-  editorActions,
-  setMode,
-}: {
-  editorActions?: EditorActions;
-  setMode?: (mode: boolean) => void;
-}) => async () => {
-  if (!editorActions) {
-    return;
-  }
+export const saveChanges =
+  ({
+    editorActions,
+    setMode,
+  }: {
+    editorActions?: EditorActions;
+    setMode?: (mode: boolean) => void;
+  }) =>
+  async () => {
+    if (!editorActions) {
+      return;
+    }
 
-  const value = await editorActions.getValue();
+    const value = await editorActions.getValue();
 
-  // eslint-disable-next-line no-console
-  console.log(value);
+    // eslint-disable-next-line no-console
+    console.log(value);
 
-  localStorage.setItem(LOCALSTORAGE_defaultDocKey, JSON.stringify(value));
-  if (setMode) {
-    setMode(false);
-  }
-};
+    localStorage.setItem(LOCALSTORAGE_defaultDocKey, JSON.stringify(value));
+    if (setMode) {
+      setMode(false);
+    }
+  };
 
 export const SaveAndCancelButtons = (props: {
   editorActions?: EditorActions;
@@ -498,13 +500,17 @@ export class ExampleEditorComponent extends React.Component<
                   bFreezeTracking: {
                     trackInteractionType: true,
                     trackSeverity: true,
-                    severityNormalThreshold: BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
-                    severityDegradedThreshold: BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD,
+                    severityNormalThreshold:
+                      BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
+                    severityDegradedThreshold:
+                      BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD,
                   },
                   proseMirrorRenderedTracking: {
                     trackSeverity: true,
-                    severityNormalThreshold: PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-                    severityDegradedThreshold: PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+                    severityNormalThreshold:
+                      PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+                    severityDegradedThreshold:
+                      PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
                   },
                   contentRetrievalTracking: {
                     enabled: true,

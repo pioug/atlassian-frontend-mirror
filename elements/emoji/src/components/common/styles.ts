@@ -54,10 +54,11 @@ export const emojiStyles = css({
   [`&.${commonSelectedStyles},&.${selectOnHoverStyles}:hover`]: {
     backgroundColor: akEmojiSelectedBackgroundColor,
   },
-  [`&.${commonSelectedStyles},&.${selectOnHoverStyles}:hover .${emojiDeleteButton}`]: {
-    // show delete button on hover
-    visibility: 'visible',
-  },
+  [`&.${commonSelectedStyles},&.${selectOnHoverStyles}:hover .${emojiDeleteButton}`]:
+    {
+      // show delete button on hover
+      visibility: 'visible',
+    },
   img: {
     display: 'block',
   },

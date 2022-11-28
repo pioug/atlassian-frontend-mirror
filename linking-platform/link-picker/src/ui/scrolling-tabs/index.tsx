@@ -41,9 +41,8 @@ const initialConditionalButtonsState: ConditionalButtons = {
 
 export const ScrollingTabList = (props: ScrollingTabListProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [conditionalButtons, setConditionalButtons] = useState<
-    ConditionalButtons
-  >(initialConditionalButtonsState);
+  const [conditionalButtons, setConditionalButtons] =
+    useState<ConditionalButtons>(initialConditionalButtonsState);
   const ghost = useMemo(() => createGhost(), []);
 
   const onTabClick = useCallback((e: Event) => {

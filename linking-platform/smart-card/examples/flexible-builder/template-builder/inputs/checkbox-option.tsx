@@ -20,11 +20,10 @@ const CheckboxOption = <T extends object>({
   template,
 }: Props<T>) => {
   const handleOnCheckboxChange = useCallback(
-    <T extends object>(...params: ChangeParams<T>) => (
-      e: React.SyntheticEvent<HTMLInputElement>,
-    ) => {
-      handleOnChange(...params, e.currentTarget.checked);
-    },
+    <T extends object>(...params: ChangeParams<T>) =>
+      (e: React.SyntheticEvent<HTMLInputElement>) => {
+        handleOnChange(...params, e.currentTarget.checked);
+      },
     [],
   );
 

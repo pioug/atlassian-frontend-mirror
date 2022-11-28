@@ -4,8 +4,9 @@ import { elementBrowserSelectors } from '@atlaskit/editor-test-helpers/page-obje
 const mockGetWidth = jest.fn();
 
 jest.mock('../../../hooks/use-container-width', () => {
-  const originalHook = jest.requireActual('../../../hooks/use-container-width')
-    .default;
+  const originalHook = jest.requireActual(
+    '../../../hooks/use-container-width',
+  ).default;
   return (...args: any) => ({
     ...originalHook(...args),
     containerWidth: mockGetWidth(),
@@ -259,11 +260,7 @@ describe('KeyboardNavigation for item listSize 10', () => {
         wrapper.update();
       });
 
-      const {
-        focusOnSearch,
-        selectedItemIndex,
-        focusedItemIndex,
-      } = wrapper
+      const { focusOnSearch, selectedItemIndex, focusedItemIndex } = wrapper
         .find(isMobile ? 'MobileBrowser' : 'DesktopBrowser')
         .props() as any;
 

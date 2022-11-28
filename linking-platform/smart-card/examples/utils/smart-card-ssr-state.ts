@@ -25,8 +25,7 @@ export const cardState: any = {
         name: 'Confluence',
       },
       '@type': ['Document', 'schema:TextDigitalDocument'],
-      url:
-        'https://pug.jira-dev.com/wiki/spaces/~986526081/pages/452399595559/This+is+an+example+of+a+page+with+an+emoji',
+      url: 'https://pug.jira-dev.com/wiki/spaces/~986526081/pages/452399595559/This+is+an+example+of+a+page+with+an+emoji',
       name: 'This is an example of a page with an emoji',
       'atlassian:state': 'current',
       summary: ' ',
@@ -35,8 +34,7 @@ export const cardState: any = {
       attributedTo: {
         '@type': 'Person',
         name: 'Samuel Xu',
-        icon:
-          'https://pug.jira-dev.com/wiki/aa-avatar/5c36c7dd13a8bb0b103988fe',
+        icon: 'https://pug.jira-dev.com/wiki/aa-avatar/5c36c7dd13a8bb0b103988fe',
       },
       'schema:commentCount': 0,
       'atlassian:reactCount': 0,
@@ -46,8 +44,7 @@ export const cardState: any = {
       },
       preview: {
         '@type': 'Link',
-        href:
-          'https://smart-links-cc-embed.prod.atl-paas.net/?hostname=pug.jira-dev.com&contentId=452399595559&parentProduct=smartlink&userId=5c36c7dd13a8bb0b103988fe&userInfo=atlassianAccount&spaceKey=%7E986526081',
+        href: 'https://smart-links-cc-embed.prod.atl-paas.net/?hostname=pug.jira-dev.com&contentId=452399595559&parentProduct=smartlink&userId=5c36c7dd13a8bb0b103988fe&userInfo=atlassianAccount&spaceKey=%7E986526081',
         'atlassian:supportedPlatforms': ['web'],
       },
     },

@@ -876,8 +876,7 @@ describe('BitbucketTransformer: serializer', () => {
 
       it('should serialise smart links', () => {
         const inlineCardDoc = inlineCard({
-          url:
-            'https://hello.atlassian.net/wiki/spaces/WPT/pages/442895750/Forge',
+          url: 'https://hello.atlassian.net/wiki/spaces/WPT/pages/442895750/Forge',
         })();
         expect(
           markdownSerializer.serialize(doc(p(inlineCardDoc))(defaultSchema)),

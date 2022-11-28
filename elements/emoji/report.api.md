@@ -305,7 +305,8 @@ export type EmojiRepresentation =
 // @public (undocumented)
 export class EmojiResource
   extends EmojiResource_2
-  implements UploadingEmojiProvider {
+  implements UploadingEmojiProvider
+{
   constructor(config: EmojiResourceConfig);
   // (undocumented)
   protected allowUpload: boolean;
@@ -329,7 +330,8 @@ class EmojiResource_2
     undefined,
     SearchOptions
   >
-  implements EmojiProvider {
+  implements EmojiProvider
+{
   constructor(config: EmojiResourceConfig);
   // (undocumented)
   protected activeLoaders: number;
@@ -610,7 +612,7 @@ interface LastQuery {
 // @public
 abstract class LoadingEmojiComponent<
   P extends Props_4,
-  S extends State
+  S extends State,
 > extends Component<P, S> {
   constructor(props: P, state: S);
   // (undocumented)

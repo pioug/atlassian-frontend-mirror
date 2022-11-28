@@ -62,13 +62,8 @@ const useRunSimulation = (
   ) => void,
   simulationSettings: UseSimulationSettingsOpts = {},
 ) => {
-  const {
-    identifier,
-    fileStateFactory,
-    dimensions,
-    resize,
-    updateIdentifier,
-  } = useSimulationSettings(simulationSettings);
+  const { identifier, fileStateFactory, dimensions, resize, updateIdentifier } =
+    useSimulationSettings(simulationSettings);
 
   useEffect(() => {
     simulation(fileStateFactory, { updateIdentifier, resize });
@@ -106,42 +101,44 @@ type CreateExampleOptions = {
   simulationSettings?: UseSimulationSettingsOpts;
   description?: string;
 };
-const createExample = (
-  title: string,
-  simulation: (
-    fileStateFactory: FileStateFactory,
-    utils: SimulationUtils,
-  ) => void,
-  { simulationSettings = {}, description }: CreateExampleOptions = {},
-): React.FC<Partial<CardProps>> => (props) => {
-  const { identifier, fileStateFactory, dimensions } = useRunSimulation(
-    simulation,
-    simulationSettings,
-  );
-  const fileState = useSubscribeToFileState(identifier, fileStateFactory);
+const createExample =
+  (
+    title: string,
+    simulation: (
+      fileStateFactory: FileStateFactory,
+      utils: SimulationUtils,
+    ) => void,
+    { simulationSettings = {}, description }: CreateExampleOptions = {},
+  ): React.FC<Partial<CardProps>> =>
+  (props) => {
+    const { identifier, fileStateFactory, dimensions } = useRunSimulation(
+      simulation,
+      simulationSettings,
+    );
+    const fileState = useSubscribeToFileState(identifier, fileStateFactory);
 
-  return (
-    <div
-      style={{
-        margin: 20,
-        width: defaultDimensions.width * 1.2,
-      }}
-    >
-      <h3>{title}</h3>
-      <h4 style={{ marginBottom: 5 }}>
-        File Status:{' '}
-        <span style={{ color: R500 }}>{fileState?.status || 'unknown'}</span>
-      </h4>
-      <Card
-        identifier={identifier}
-        mediaClient={fileStateFactory.mediaClient}
-        dimensions={dimensions}
-        {...props}
-      />
-      {description && <p>{description}</p>}
-    </div>
-  );
-};
+    return (
+      <div
+        style={{
+          margin: 20,
+          width: defaultDimensions.width * 1.2,
+        }}
+      >
+        <h3>{title}</h3>
+        <h4 style={{ marginBottom: 5 }}>
+          File Status:{' '}
+          <span style={{ color: R500 }}>{fileState?.status || 'unknown'}</span>
+        </h4>
+        <Card
+          identifier={identifier}
+          mediaClient={fileStateFactory.mediaClient}
+          dimensions={dimensions}
+          {...props}
+        />
+        {description && <p>{description}</p>}
+      </div>
+    );
+  };
 
 const simulateProcessing = async (
   factory: FileStateFactory,
@@ -352,23 +349,25 @@ const useSectionControls = () => {
   return { SectionControls, cardProps, key };
 };
 
-const createSection = (
-  title: string,
-  simulations: Array<React.ComponentType<Partial<CardProps>>>,
-) => () => {
-  const { key, SectionControls, cardProps } = useSectionControls();
-  return (
-    <>
-      <h2 style={{ marginBottom: 10 }}>{title}</h2>
-      <SectionControls />
-      <div key={key} style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {simulations.map((Simulation) => (
-          <Simulation {...cardProps} />
-        ))}
-      </div>
-    </>
-  );
-};
+const createSection =
+  (
+    title: string,
+    simulations: Array<React.ComponentType<Partial<CardProps>>>,
+  ) =>
+  () => {
+    const { key, SectionControls, cardProps } = useSectionControls();
+    return (
+      <>
+        <h2 style={{ marginBottom: 10 }}>{title}</h2>
+        <SectionControls />
+        <div key={key} style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {simulations.map((Simulation) => (
+            <Simulation {...cardProps} />
+          ))}
+        </div>
+      </>
+    );
+  };
 
 const FreshLoadSection = createSection('Fresh Load', [
   ManyProcessedWithPreview,

@@ -28,17 +28,16 @@ const createValidEmptyContent = (node: ADFEntity): ADFEntity[] => {
 
 const isEmpty = (node: ADFEntity) => node.content?.length === 0;
 
-const fixIfTableCellInvalidEmpty = (reportTransform: ReportTransform) => (
-  node: ADFEntity,
-) => {
-  if (isEmpty(node)) {
-    reportTransform();
-    return {
-      ...node,
-      content: createValidEmptyContent(node),
-    };
-  }
-};
+const fixIfTableCellInvalidEmpty =
+  (reportTransform: ReportTransform) => (node: ADFEntity) => {
+    if (isEmpty(node)) {
+      reportTransform();
+      return {
+        ...node,
+        content: createValidEmptyContent(node),
+      };
+    }
+  };
 
 const hasNonListItemChildren = (node: ADFEntity) =>
   node.content?.some((node) => node?.type !== 'listItem');
@@ -69,17 +68,16 @@ const tryCreateValidListItemWrappedChildren = (parentListNode: ADFEntity) => {
   });
 };
 
-const fixIfListParentWithInvalidListItemChildren = (
-  reportTransform: ReportTransform,
-) => (node: ADFEntity) => {
-  if (hasNonListItemChildren(node) || hasEmptyListItemChildren(node)) {
-    reportTransform();
-    return {
-      ...node,
-      content: tryCreateValidListItemWrappedChildren(node),
-    };
-  }
-};
+const fixIfListParentWithInvalidListItemChildren =
+  (reportTransform: ReportTransform) => (node: ADFEntity) => {
+    if (hasNonListItemChildren(node) || hasEmptyListItemChildren(node)) {
+      reportTransform();
+      return {
+        ...node,
+        content: tryCreateValidListItemWrappedChildren(node),
+      };
+    }
+  };
 
 const hasNonTableRowChildren = (node: ADFEntity) =>
   node.content?.some((node) => node?.type !== 'tableRow');
@@ -120,17 +118,16 @@ const hasEmptyTableRowChildren = (node: ADFEntity) =>
     (node) => node?.type === 'tableRow' && node?.content?.length === 0,
   );
 
-const fixIfTableParentWithInvalidTableRowChildren = (
-  reportTransform: ReportTransform,
-) => (node: ADFEntity) => {
-  if (hasEmptyTableRowChildren(node) || hasNonTableRowChildren(node)) {
-    reportTransform();
-    return {
-      ...node,
-      content: tryCreateValidTableRowWrappedChildren(node),
-    };
-  }
-};
+const fixIfTableParentWithInvalidTableRowChildren =
+  (reportTransform: ReportTransform) => (node: ADFEntity) => {
+    if (hasEmptyTableRowChildren(node) || hasNonTableRowChildren(node)) {
+      reportTransform();
+      return {
+        ...node,
+        content: tryCreateValidTableRowWrappedChildren(node),
+      };
+    }
+  };
 
 type ReportTransform = () => void;
 

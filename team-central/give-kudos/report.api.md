@@ -42,9 +42,9 @@ export interface GiveKudosDrawerProps {
 export const GiveKudosLauncher: (props: GiveKudosDrawerProps) => JSX.Element;
 
 // @public (undocumented)
-export const GiveKudosLauncherLazy: LazyExoticComponent<(
-  props: GiveKudosDrawerProps,
-) => JSX.Element>;
+export const GiveKudosLauncherLazy: LazyExoticComponent<
+  (props: GiveKudosDrawerProps) => JSX.Element
+>;
 
 // @public (undocumented)
 export interface KudosRecipient {

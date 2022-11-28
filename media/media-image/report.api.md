@@ -82,14 +82,12 @@ interface MediaImageState {
 }
 
 // @public (undocumented)
-type MediaImageWithMediaClientConfigComponent = React_2.ComponentType<
-  MediaImageWithMediaClientConfigProps
->;
+type MediaImageWithMediaClientConfigComponent =
+  React_2.ComponentType<MediaImageWithMediaClientConfigProps>;
 
 // @public (undocumented)
-type MediaImageWithMediaClientConfigProps = WithMediaClientConfigProps<
-  MediaImageInternalProps
->;
+type MediaImageWithMediaClientConfigProps =
+  WithMediaClientConfigProps<MediaImageInternalProps>;
 
 // (No @packageDocumentation comment for this package)
 ```

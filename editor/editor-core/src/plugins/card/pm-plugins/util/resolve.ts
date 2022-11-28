@@ -50,19 +50,17 @@ const updateCardType = (resolvedCard: CardAdf, options: CardOptions) => {
   }
 };
 
-const handleResolved = (
-  view: EditorView,
-  request: Request,
-  options: CardOptions,
-) => (resolvedCard: CardAdf) => {
-  updateCardType(resolvedCard, options);
-  replaceQueuedUrlWithCard(
-    request.url,
-    resolvedCard,
-    request.analyticsAction,
-  )(view.state, view.dispatch);
-  return resolvedCard;
-};
+const handleResolved =
+  (view: EditorView, request: Request, options: CardOptions) =>
+  (resolvedCard: CardAdf) => {
+    updateCardType(resolvedCard, options);
+    replaceQueuedUrlWithCard(
+      request.url,
+      resolvedCard,
+      request.analyticsAction,
+    )(view.state, view.dispatch);
+    return resolvedCard;
+  };
 
 const handleRejected = (view: EditorView, request: Request) => () => {
   handleFallbackWithAnalytics(request.url, request.source)(

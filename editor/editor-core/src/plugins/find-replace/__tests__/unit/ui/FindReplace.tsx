@@ -40,7 +40,7 @@ describe('FindReplace', () => {
         {...props}
       />,
     );
-    return (wrapper as unknown) as ReactWrapper<
+    return wrapper as unknown as ReactWrapper<
       FindReplaceProps & WrappedComponentProps
     >;
   };
@@ -264,11 +264,13 @@ describe('FindReplace', () => {
         });
 
         it('allows the input value to change while composing', () => {
-          const currentText = (findReplace
-            .find(Find)
-            .find(Textfield)
-            .find('input')
-            .getDOMNode() as HTMLInputElement).value;
+          const currentText = (
+            findReplace
+              .find(Find)
+              .find(Textfield)
+              .find('input')
+              .getDOMNode() as HTMLInputElement
+          ).value;
           expect(currentText).toBe('かようび');
         });
 

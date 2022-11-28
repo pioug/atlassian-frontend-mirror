@@ -15,14 +15,16 @@ import { MemoExoticComponent } from 'react';
 import { ReactNode } from 'react';
 
 // @public
-const Lozenge: MemoExoticComponent<({
-  children,
-  testId,
-  isBold,
-  appearance,
-  maxWidth,
-  style,
-}: LozengeProps) => jsx.JSX.Element>;
+const Lozenge: MemoExoticComponent<
+  ({
+    children,
+    testId,
+    isBold,
+    appearance,
+    maxWidth,
+    style,
+  }: LozengeProps) => jsx.JSX.Element
+>;
 export default Lozenge;
 
 // @public (undocumented)

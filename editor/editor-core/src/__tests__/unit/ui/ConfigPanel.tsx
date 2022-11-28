@@ -2458,12 +2458,10 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
                 expect(validate<string[]>(enumField, [])).toBe(
                   ValidationError.Required,
                 );
-                expect(
-                  validate<string[]>(enumField, ['0']),
-                ).toBe(undefined);
-                expect(
-                  validate<string[]>(enumField, ['false']),
-                ).toBe(undefined);
+                expect(validate<string[]>(enumField, ['0'])).toBe(undefined);
+                expect(validate<string[]>(enumField, ['false'])).toBe(
+                  undefined,
+                );
               });
             });
 

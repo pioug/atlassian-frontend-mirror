@@ -28,7 +28,8 @@ const MAX_QUERY_TEAMS = 20;
  */
 export default class TeamMentionResource
   extends MentionResource
-  implements TeamMentionProvider {
+  implements TeamMentionProvider
+{
   private readonly teamMentionConfig: TeamMentionResourceConfig;
   private lastSearchQuery?: string = '';
   private lastReturnedSearchTeam: number;
@@ -75,9 +76,8 @@ export default class TeamMentionResource
     const emptyQuery = '';
     const getUserPromise = super.remoteInitialState(contextIdentifier);
 
-    const queryParams: KeyValues = this.getQueryParamsOfTeamMentionConfig(
-      contextIdentifier,
-    );
+    const queryParams: KeyValues =
+      this.getQueryParamsOfTeamMentionConfig(contextIdentifier);
     const options = {
       path: 'bootstrap',
       queryParams,

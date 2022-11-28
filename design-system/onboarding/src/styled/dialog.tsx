@@ -30,10 +30,10 @@ const actionItemStyles = css({
  *
  * @internal
  */
-export const DialogImage: React.FC<React.ImgHTMLAttributes<
-  HTMLImageElement
+export const DialogImage: React.FC<
+  React.ImgHTMLAttributes<HTMLImageElement>
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
->> = ({ alt, ...props }) => <img css={imageStyles} alt={alt} {...props} />;
+> = ({ alt, ...props }) => <img css={imageStyles} alt={alt} {...props} />;
 
 /**
  * __Dialog action item container__

@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 
 import { N100, R400, R50, subtleHeading, text } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const Wrapper = styled.div`
   margin-top: ${gridSize}px;
@@ -25,10 +26,11 @@ const ChildrenWrapper = styled.div`
 export const Note = styled.p<{ size?: string }>`
   color: ${N100};
   font-size: ${(props) => (props.size === 'large' ? '1.15em' : '0.9rem')};
-  margin-top: ${gridSize() / 2}px;
-  margin-bottom: ${gridSize() * 2}px;
+  margin-top: ${token('spacing.scale.050', '4px')};
+  margin-bottom: ${token('spacing.scale.200', '16px')};
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Code = styled.code`
   background-color: ${R50};
   border-radius: 0.2em;
@@ -46,6 +48,7 @@ export const ShrinkWrap = styled(Gap)`
   height: ${gridSize() * 3}px;
   width: ${gridSize() * 3}px;
 `;
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Heading = styled.div`
   color: ${subtleHeading};
   display: flex;

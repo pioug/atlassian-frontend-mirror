@@ -330,8 +330,7 @@ export const AdfDocumentComplex = {
       content: [
         {
           type: 'text',
-          text:
-            'This is  a   text    with\tmultiple\t\tspaces \t\t\tand\t\t\t\ttabs.',
+          text: 'This is  a   text    with\tmultiple\t\tspaces \t\t\tand\t\t\t\ttabs.',
         },
       ],
     },
@@ -1015,13 +1014,11 @@ export const AdfDocumentComplex = {
       content: [
         {
           type: 'text',
-          text:
-            '// Create a map.\nfinal IntIntOpenHashMap map = new IntIntOpenHashMap();\nmap.put(1, 2);\nmap.put(2, 5);\nmap.put(3, 10);',
+          text: '// Create a map.\nfinal IntIntOpenHashMap map = new IntIntOpenHashMap();\nmap.put(1, 2);\nmap.put(2, 5);\nmap.put(3, 10);',
         },
         {
           type: 'text',
-          text:
-            '\nint count = map.forEach(new IntIntProcedure()\n{\n   int count;\n   public void apply(int key, int value)\n   {\n       if (value >= 5) count++;\n   }\n}).count;\nSystem.out.println("There are " + count + " values >= 5");',
+          text: '\nint count = map.forEach(new IntIntProcedure()\n{\n   int count;\n   public void apply(int key, int value)\n   {\n       if (value >= 5) count++;\n   }\n}).count;\nSystem.out.println("There are " + count + " values >= 5");',
         },
       ],
       attrs: {
@@ -1214,8 +1211,7 @@ export const AdfDocumentComplex = {
       content: [
         {
           type: 'text',
-          text:
-            '// Create a map.\nfinal IntIntOpenHashMap map = new IntIntOpenHashMap();\nmap.put(1, 2);\nmap.put(2, 5);\nmap.put(3, 10);',
+          text: '// Create a map.\nfinal IntIntOpenHashMap map = new IntIntOpenHashMap();\nmap.put(1, 2);\nmap.put(2, 5);\nmap.put(3, 10);',
         },
       ],
       attrs: {
@@ -1277,8 +1273,7 @@ export const AdfDocumentComplex = {
           content: [
             {
               type: 'text',
-              text:
-                'All that is gold does not glitter, not all those who wander are lost; The old that is strong does not wither, deep roots are not reached by the frost.',
+              text: 'All that is gold does not glitter, not all those who wander are lost; The old that is strong does not wither, deep roots are not reached by the frost.',
             },
           ],
         },
@@ -1287,8 +1282,7 @@ export const AdfDocumentComplex = {
           content: [
             {
               type: 'text',
-              text:
-                'From the ashes a fire shall be woken, a light from the shadows shall spring; Renewed shall be blade that was broken, the crownless again shall be king.',
+              text: 'From the ashes a fire shall be woken, a light from the shadows shall spring; Renewed shall be blade that was broken, the crownless again shall be king.',
             },
           ],
         },
@@ -1472,22 +1466,19 @@ export const AdfDocumentComplex = {
       content: [
         {
           type: 'text',
-          text:
-            'Do not use this image node; it may be removed at any time without notice.',
+          text: 'Do not use this image node; it may be removed at any time without notice.',
         },
         {
           type: 'image',
           attrs: {
-            src:
-              'https://www.google.com.au/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
+            src: 'https://www.google.com.au/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
             alt: 'Google Logo',
             title: 'Google!',
           },
         },
         {
           type: 'text',
-          text:
-            'Do not use this image node; it may be removed at any time without notice.',
+          text: 'Do not use this image node; it may be removed at any time without notice.',
         },
       ],
     },
@@ -2181,8 +2172,7 @@ export const AdfDocumentComplex = {
                                     {
                                       type: 'link',
                                       attrs: {
-                                        href:
-                                          'https://product-fabric.atlassian.net/browse/FAB-1520',
+                                        href: 'https://product-fabric.atlassian.net/browse/FAB-1520',
                                       },
                                     },
                                     {

@@ -27,13 +27,8 @@ export const createZipEntryLoadFailedEvent = (
   error: MediaViewerError,
   zipEntry?: ZipEntry,
 ): ZipEntryLoadFailedEventPayload => {
-  const {
-    fileId,
-    fileMediatype,
-    fileMimetype,
-    fileSize,
-    fileStatus,
-  } = getFileAttributes(fileState);
+  const { fileId, fileMediatype, fileMimetype, fileSize, fileStatus } =
+    getFileAttributes(fileState);
   return {
     eventType: 'operational',
     actionSubject: 'mediaFile',

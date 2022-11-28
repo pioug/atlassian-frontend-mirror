@@ -81,9 +81,10 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
   constructor(props: Props & WrappedComponentProps) {
     super(props);
-    this.optionsShownUfoExperienceInstance = smartUserPickerOptionsShownUfoExperience.getInstance(
-      props.inputId || props.fieldId,
-    );
+    this.optionsShownUfoExperienceInstance =
+      smartUserPickerOptionsShownUfoExperience.getInstance(
+        props.inputId || props.fieldId,
+      );
   }
 
   async componentDidMount() {

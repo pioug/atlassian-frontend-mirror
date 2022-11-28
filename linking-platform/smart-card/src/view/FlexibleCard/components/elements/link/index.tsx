@@ -68,9 +68,7 @@ const getAnchorStyles = (
       hasSpace ? 'break-word' : 'break-all',
     )}
     // Theme should be last to be spread because it contains override values
-    ${getThemeStyles(
-      theme,
-    )}
+    ${getThemeStyles(theme)}
   `;
 };
 

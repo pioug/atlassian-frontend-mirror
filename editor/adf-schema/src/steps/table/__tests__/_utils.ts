@@ -28,22 +28,21 @@ export const tdColorB = createCellColorB();
 export const tdColorC = createCellColorC();
 
 // Helper functions
-export const applyAndInvertTransaction = (doc: ProseMirrorNode) => (
-  transaction: Transaction,
-  editorState: EditorState,
-) => {
-  let localState = editorState;
-  const addColumnEndStep = transaction.steps[0];
+export const applyAndInvertTransaction =
+  (doc: ProseMirrorNode) =>
+  (transaction: Transaction, editorState: EditorState) => {
+    let localState = editorState;
+    const addColumnEndStep = transaction.steps[0];
 
-  // apply original transaction
-  localState = localState.apply(transaction);
+    // apply original transaction
+    localState = localState.apply(transaction);
 
-  const inverted = addColumnEndStep.invert(doc);
+    const inverted = addColumnEndStep.invert(doc);
 
-  // apply inverted step
-  localState = localState.apply(localState.tr.step(inverted));
-  return localState;
-};
+    // apply inverted step
+    localState = localState.apply(localState.tr.step(inverted));
+    return localState;
+  };
 
 export type CreateTransaction = (
   editorState: EditorState,
@@ -90,17 +89,15 @@ export const testHistory = (
 };
 
 // Factories
-export const addColumnAtFactory = (
-  ref: string,
-  column: number,
-): CreateTransaction => (editorState, refs) =>
-  editorState.tr.step(
-    AddColumnStep.create(editorState.doc, refs[ref], column, false),
-  );
-export const removeColumnAtFactory = (
-  ref: string,
-  column: number,
-): CreateTransaction => (editorState, refs) =>
-  editorState.tr.step(
-    AddColumnStep.create(editorState.doc, refs[ref], column, true),
-  );
+export const addColumnAtFactory =
+  (ref: string, column: number): CreateTransaction =>
+  (editorState, refs) =>
+    editorState.tr.step(
+      AddColumnStep.create(editorState.doc, refs[ref], column, false),
+    );
+export const removeColumnAtFactory =
+  (ref: string, column: number): CreateTransaction =>
+  (editorState, refs) =>
+    editorState.tr.step(
+      AddColumnStep.create(editorState.doc, refs[ref], column, true),
+    );

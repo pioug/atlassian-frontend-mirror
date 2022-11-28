@@ -93,13 +93,8 @@ export default class Comment extends React.Component<Props, State> {
 
   shouldComponentUpdate(nextProps: Props, nextState: State) {
     const { isEditing, isReplying } = this.state;
-    const {
-      isHighlighted,
-      portal,
-      comment,
-      maxCommentNesting,
-      renderEditor,
-    } = this.props;
+    const { isHighlighted, portal, comment, maxCommentNesting, renderEditor } =
+      this.props;
 
     let editorChanged = false;
     if (
@@ -516,13 +511,8 @@ export default class Comment extends React.Component<Props, State> {
   }
 
   private getActions() {
-    const {
-      comment,
-      user,
-      dataProviders,
-      objectId,
-      canModerateComment,
-    } = this.props;
+    const { comment, user, dataProviders, objectId, canModerateComment } =
+      this.props;
     const { isEditing } = this.state;
     const canReply = !!user && !isEditing && !comment.deleted;
 
@@ -618,12 +608,8 @@ export default class Comment extends React.Component<Props, State> {
   }
 
   render() {
-    const {
-      comment,
-      isHighlighted,
-      disableScrollTo,
-      maxCommentNesting,
-    } = this.props;
+    const { comment, isHighlighted, disableScrollTo, maxCommentNesting } =
+      this.props;
     const { createdBy, state: commentState, error } = comment;
     const errorProps: {
       actions?: any[];

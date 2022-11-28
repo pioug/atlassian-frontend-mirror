@@ -31,9 +31,10 @@ const MarkElement: React.FC<MarkElementProps> = ({
   const updateSubscriber = useInlineCommentSubscriberContext();
   const states = useContext(InlineCommentsStateContext);
   const hasFocus = useHasFocusEvent({ id, updateSubscriber });
-  const dataAttributesMemorized = useMemo(() => dataAttributes, [
-    dataAttributes,
-  ]);
+  const dataAttributesMemorized = useMemo(
+    () => dataAttributes,
+    [dataAttributes],
+  );
   const onClick = useCallback(
     (props: OnAnnotationClickPayload) => {
       if (!updateSubscriber) {

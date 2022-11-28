@@ -35,8 +35,7 @@ describe('MimeType Icon', () => {
     [
       { mime: 'application/pdf', name: '.pdf', icon: PdfDocumentIcon },
       {
-        mime:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         name: '.excel',
         icon: ExcelSpreadsheetIcon,
       },

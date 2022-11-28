@@ -61,13 +61,11 @@ const UNIQUE_BODY_BG_ID = 'ds--theme--ak-body-background';
  * @param backgroundColor The background color to be applied at the root level of the application
  */
 const useThemeResetStyles = (backgroundColor: string) => {
-  const stylesheet: MutableRefObject<HTMLStyleElement | null> = useRef<
-    HTMLStyleElement
-  >(null);
+  const stylesheet: MutableRefObject<HTMLStyleElement | null> =
+    useRef<HTMLStyleElement>(null);
 
-  const bgColorNode: MutableRefObject<HTMLStyleElement | null> = useRef<
-    HTMLStyleElement
-  >(null);
+  const bgColorNode: MutableRefObject<HTMLStyleElement | null> =
+    useRef<HTMLStyleElement>(null);
 
   useEffect(() => {
     const hasNode = document.getElementById(UNIQUE_INTERNAL_ID);

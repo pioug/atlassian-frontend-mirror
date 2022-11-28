@@ -28,23 +28,22 @@ export interface Props {
   editorView: EditorView;
 }
 
-const closeTypeAheadAndRunCommand = (editorView?: EditorView) => (
-  command: Command,
-) => {
-  if (!editorView) {
-    return;
-  }
-  const tool = createTypeAheadTools(editorView);
+const closeTypeAheadAndRunCommand =
+  (editorView?: EditorView) => (command: Command) => {
+    if (!editorView) {
+      return;
+    }
+    const tool = createTypeAheadTools(editorView);
 
-  if (tool.isOpen()) {
-    tool.close({
-      attachCommand: command,
-      insertCurrentQueryAsRawText: false,
-    });
-  } else {
-    command(editorView.state, editorView.dispatch);
-  }
-};
+    if (tool.isOpen()) {
+      tool.close({
+        attachCommand: command,
+        insertCurrentQueryAsRawText: false,
+      });
+    } else {
+      command(editorView.state, editorView.dispatch);
+    }
+  };
 const forceFocus = (editorView: EditorView) => (command: Command) => {
   closeTypeAheadAndRunCommand(editorView)(command);
 

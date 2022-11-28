@@ -59,9 +59,8 @@ type WithCardPreviewCacheAttributes = {
 
 export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);
 
-export const LOGGED_FEATURE_FLAG_KEYS = filterFeatureFlagKeysAllProducts(
-  relevantFlags,
-);
+export const LOGGED_FEATURE_FLAG_KEYS =
+  filterFeatureFlagKeysAllProducts(relevantFlags);
 
 export type FileUriFailReason = 'local-uri' | 'remote-uri' | `unknown-uri`;
 export type FailedErrorFailReason = MediaCardErrorPrimaryReason | 'nativeError';

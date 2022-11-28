@@ -11,9 +11,8 @@ import {
 const DummyElementsComponent = createComponentWithAnalytics(
   FabricChannel.elements,
 );
-const DummyElementsComponentWithAttributes = createComponentWithAttributesWithAnalytics(
-  FabricChannel.elements,
-);
+const DummyElementsComponentWithAttributes =
+  createComponentWithAttributesWithAnalytics(FabricChannel.elements);
 const DummyAtlaskitComponent = createComponentWithAnalytics(
   FabricChannel.atlaskit,
 );

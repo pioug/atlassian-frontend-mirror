@@ -29,14 +29,14 @@ export const defaultHasher: HashingFunction = (blob) => {
     .then(arrayBufferToHex);
 };
 
-export const blobToHashedBlob = (hasher: HashingFunction) => (
-  slicedBlob: SlicedBlob,
-): Promise<HashedBlob> =>
-  hasher(slicedBlob.blob).then((hash) => ({
-    blob: slicedBlob.blob,
-    hash: `${hash}-${slicedBlob.blob.size}`,
-    partNumber: slicedBlob.partNumber,
-  }));
+export const blobToHashedBlob =
+  (hasher: HashingFunction) =>
+  (slicedBlob: SlicedBlob): Promise<HashedBlob> =>
+    hasher(slicedBlob.blob).then((hash) => ({
+      blob: slicedBlob.blob,
+      hash: `${hash}-${slicedBlob.blob.size}`,
+      partNumber: slicedBlob.partNumber,
+    }));
 
 export const hashinator: Hashinator = (blobs$, { hasher, concurrency }) =>
   asyncMap(blobToHashedBlob(hasher || defaultHasher), concurrency)(blobs$);

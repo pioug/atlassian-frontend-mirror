@@ -125,113 +125,112 @@ export const getRowClassNames = (
   return classNames.join(' ');
 };
 
-export const copyPreviousRow = (schema: Schema) => (
-  insertNewRowIndex: number,
-) => (tr: Transaction) => {
-  const table = findTable(tr.selection);
-  if (!table) {
-    return tr;
-  }
-
-  const map = TableMap.get(table.node);
-  const copyPreviousRowIndex = insertNewRowIndex - 1;
-
-  if (insertNewRowIndex <= 0) {
-    throw Error(
-      `Row Index less or equal 0 isn't not allowed since there is not a previous to copy`,
-    );
-  }
-
-  if (insertNewRowIndex > map.height) {
-    return tr;
-  }
-
-  const tableNode = table.node;
-  const {
-    nodes: { tableRow },
-  } = schema;
-
-  const cellsInRow = map.cellsInRect({
-    left: 0,
-    right: map.width,
-    top: copyPreviousRowIndex,
-    bottom: copyPreviousRowIndex + 1,
-  });
-  const offsetIndexPosition = copyPreviousRowIndex * map.width;
-  const offsetNextLineIndexPosition = insertNewRowIndex * map.width;
-  const cellsPositionsInOriginalRow = map.map.slice(
-    offsetIndexPosition,
-    offsetIndexPosition + map.width,
-  );
-
-  const cellsPositionsInNextRow = map.map.slice(
-    offsetNextLineIndexPosition,
-    offsetNextLineIndexPosition + map.width,
-  );
-
-  let cells = [] as PMNode[];
-  let fixRowspans = [];
-  for (let i = 0; i < cellsPositionsInOriginalRow.length; ) {
-    const pos = cellsPositionsInOriginalRow[i];
-    const documentCellPos = pos + table.start;
-    const node = tr.doc.nodeAt(documentCellPos);
-    if (!node) {
-      continue;
-    }
-
-    const attributes = {
-      ...node.attrs,
-      colspan: 1,
-      rowspan: 1,
-    };
-
-    const newCell = node.type.createAndFill(attributes);
-
-    if (!newCell) {
+export const copyPreviousRow =
+  (schema: Schema) => (insertNewRowIndex: number) => (tr: Transaction) => {
+    const table = findTable(tr.selection);
+    if (!table) {
       return tr;
     }
 
-    if (cellsPositionsInNextRow.indexOf(pos) > -1) {
-      fixRowspans.push({ pos: documentCellPos, node });
-    } else if (cellsInRow.indexOf(pos) > -1) {
-      if (node.attrs.colspan > 1) {
-        const newCellWithColspanFixed = node.type.createAndFill({
-          ...attributes,
-          colspan: node.attrs.colspan,
-        });
+    const map = TableMap.get(table.node);
+    const copyPreviousRowIndex = insertNewRowIndex - 1;
 
-        if (!newCellWithColspanFixed) {
-          return tr;
-        }
-
-        cells.push(newCellWithColspanFixed);
-        i = i + node.attrs.colspan;
-
-        continue;
-      }
-      cells.push(newCell);
-    } else {
-      cells.push(newCell);
+    if (insertNewRowIndex <= 0) {
+      throw Error(
+        `Row Index less or equal 0 isn't not allowed since there is not a previous to copy`,
+      );
     }
 
-    i++;
-  }
+    if (insertNewRowIndex > map.height) {
+      return tr;
+    }
 
-  fixRowspans.forEach((cell) => {
-    tr.setNodeMarkup(cell.pos, undefined, {
-      ...cell.node.attrs,
-      rowspan: cell.node.attrs.rowspan + 1,
+    const tableNode = table.node;
+    const {
+      nodes: { tableRow },
+    } = schema;
+
+    const cellsInRow = map.cellsInRect({
+      left: 0,
+      right: map.width,
+      top: copyPreviousRowIndex,
+      bottom: copyPreviousRowIndex + 1,
     });
-  });
+    const offsetIndexPosition = copyPreviousRowIndex * map.width;
+    const offsetNextLineIndexPosition = insertNewRowIndex * map.width;
+    const cellsPositionsInOriginalRow = map.map.slice(
+      offsetIndexPosition,
+      offsetIndexPosition + map.width,
+    );
 
-  const cloneRow = tableNode.child(copyPreviousRowIndex);
-  let rowPos = table.start;
-  for (let i = 0; i < insertNewRowIndex; i++) {
-    rowPos += tableNode.child(i).nodeSize;
-  }
+    const cellsPositionsInNextRow = map.map.slice(
+      offsetNextLineIndexPosition,
+      offsetNextLineIndexPosition + map.width,
+    );
 
-  return safeInsert(
-    tableRow.createChecked(cloneRow.attrs, cells, cloneRow.marks),
-    rowPos,
-  )(tr);
-};
+    let cells = [] as PMNode[];
+    let fixRowspans = [];
+    for (let i = 0; i < cellsPositionsInOriginalRow.length; ) {
+      const pos = cellsPositionsInOriginalRow[i];
+      const documentCellPos = pos + table.start;
+      const node = tr.doc.nodeAt(documentCellPos);
+      if (!node) {
+        continue;
+      }
+
+      const attributes = {
+        ...node.attrs,
+        colspan: 1,
+        rowspan: 1,
+      };
+
+      const newCell = node.type.createAndFill(attributes);
+
+      if (!newCell) {
+        return tr;
+      }
+
+      if (cellsPositionsInNextRow.indexOf(pos) > -1) {
+        fixRowspans.push({ pos: documentCellPos, node });
+      } else if (cellsInRow.indexOf(pos) > -1) {
+        if (node.attrs.colspan > 1) {
+          const newCellWithColspanFixed = node.type.createAndFill({
+            ...attributes,
+            colspan: node.attrs.colspan,
+          });
+
+          if (!newCellWithColspanFixed) {
+            return tr;
+          }
+
+          cells.push(newCellWithColspanFixed);
+          i = i + node.attrs.colspan;
+
+          continue;
+        }
+        cells.push(newCell);
+      } else {
+        cells.push(newCell);
+      }
+
+      i++;
+    }
+
+    fixRowspans.forEach((cell) => {
+      tr.setNodeMarkup(cell.pos, undefined, {
+        ...cell.node.attrs,
+        rowspan: cell.node.attrs.rowspan + 1,
+      });
+    });
+
+    const cloneRow = tableNode.child(copyPreviousRowIndex);
+    let rowPos = table.start;
+    for (let i = 0; i < insertNewRowIndex; i++) {
+      rowPos += tableNode.child(i).nodeSize;
+    }
+
+    return safeInsert(
+      tableRow.createChecked(cloneRow.attrs, cells, cloneRow.marks),
+      rowPos,
+    )(tr);
+  };

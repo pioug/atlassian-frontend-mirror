@@ -21,8 +21,9 @@ describe('withMediaClient', () => {
         }),
     };
     const component = mount(<Wrapper mediaClientConfig={mediaClientConfig} />);
-    const mediaClient = component.find<WithMediaClient>(DummyComponent).props()
-      .mediaClient;
+    const mediaClient = component
+      .find<WithMediaClient>(DummyComponent)
+      .props().mediaClient;
     expect(mediaClient).not.toBeUndefined();
     expect(mediaClient.config).toEqual(mediaClientConfig);
   });
@@ -57,8 +58,9 @@ describe('withMediaClient', () => {
         identifier={{ mediaItemType: 'external-image', dataURI: 'hehe' }}
       />,
     );
-    const mediaClient = component.find<WithMediaClient>(DummyComponent).props()
-      .mediaClient;
+    const mediaClient = component
+      .find<WithMediaClient>(DummyComponent)
+      .props().mediaClient;
     expect(mediaClient).not.toBeUndefined();
     expect(await mediaClient.config.authProvider()).toEqual({
       clientId: '',

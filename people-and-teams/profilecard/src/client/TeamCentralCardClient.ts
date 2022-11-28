@@ -76,9 +76,7 @@ function hasTCWorkspace(config: ProfileClientOptions) {
 
 let isTCReadyPromiseMap: Map<string, Promise<boolean>> = new Map();
 
-class TeamCentralCardClient extends CachingClient<
-  TeamCentralReportingLinesData
-> {
+class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData> {
   options: TeamCentralCardClientOptions;
   /**
    * Simple circuit breaker to avoid making unnecessary calls to Team Central on auth failures

@@ -12,7 +12,7 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 export const SelectWithoutAnalytics = createSelect(Select);
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default (withAnalyticsContext({
+export default withAnalyticsContext({
   componentName: 'select',
   packageName,
   packageVersion,
@@ -28,4 +28,4 @@ export default (withAnalyticsContext({
       },
     }),
   })(SelectWithoutAnalytics),
-) as unknown) as ReturnType<typeof createSelect>;
+) as unknown as ReturnType<typeof createSelect>;

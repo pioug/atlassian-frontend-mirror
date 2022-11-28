@@ -29,9 +29,9 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     fakeDocumentPosition: Position = { from: 0, to: 10 },
     isAnnotationAllowed = true,
   ) => {
-    const wrapperDOM = { current: container } as React.RefObject<
-      HTMLDivElement
-    >;
+    const wrapperDOM = {
+      current: container,
+    } as React.RefObject<HTMLDivElement>;
     let onCreateCallback: Function = () => {};
     let applyDraftModeCallback: Function = () => {};
 
@@ -139,9 +139,8 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     describe('and when the document position changes', () => {
       it('should create the annotation in the previous draft position', () => {
         const fakeDocumentPosition = { from: 0, to: 10 };
-        const { onCreateCallback, applyDraftModeCallback } = renderMounter(
-          fakeDocumentPosition,
-        );
+        const { onCreateCallback, applyDraftModeCallback } =
+          renderMounter(fakeDocumentPosition);
 
         act(() => {
           applyDraftModeCallback();

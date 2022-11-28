@@ -100,8 +100,7 @@ export const GithubPullRequest = {
   'atlassian:isMerged': false,
   'atlassian:mergeCommit': {
     '@type': 'Link',
-    href:
-      'https://github.com/testuser/test-repo/commit/bbadd311a1eb5154ab7f43445adfa67e0810bfec',
+    href: 'https://github.com/testuser/test-repo/commit/bbadd311a1eb5154ab7f43445adfa67e0810bfec',
   },
   'atlassian:mergeDestination': {
     '@type': 'Link',

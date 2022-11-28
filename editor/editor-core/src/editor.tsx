@@ -190,7 +190,8 @@ export default class Editor extends React.Component<EditorProps, State> {
                 ttiFromInvocationSeverityDegradedThreshold,
               );
               ttiEvent.payload.attributes.ttiSeverity = ttiSeverity;
-              ttiEvent.payload.attributes.ttiFromInvocationSeverity = ttiFromInvocationSeverity;
+              ttiEvent.payload.attributes.ttiFromInvocationSeverity =
+                ttiFromInvocationSeverity;
             }
             fireAnalyticsEvent(this.createAnalyticsEvent)(ttiEvent);
           }
@@ -242,9 +243,8 @@ export default class Editor extends React.Component<EditorProps, State> {
       // quickInsert={Promise.resolve(consumerQuickInsert)} is one of the main reason behind this performance issue.
       (quickInsert && quickInsert !== prevProps.quickInsert)
     ) {
-      const extensionProvider = this.prepareExtensionProvider(
-        extensionProviders,
-      );
+      const extensionProvider =
+        this.prepareExtensionProvider(extensionProviders);
       const quickInsertProvider = this.prepareQuickInsertProvider(
         extensionProvider,
         quickInsert,
@@ -488,9 +488,11 @@ export default class Editor extends React.Component<EditorProps, State> {
       },
     };
 
-    (Object.keys(deprecatedProperties) as Array<
-      keyof typeof deprecatedProperties
-    >).forEach((property) => {
+    (
+      Object.keys(deprecatedProperties) as Array<
+        keyof typeof deprecatedProperties
+      >
+    ).forEach((property) => {
       if (props.hasOwnProperty(property)) {
         const meta: { type?: string; message?: string } =
           deprecatedProperties[property];
@@ -651,8 +653,8 @@ export default class Editor extends React.Component<EditorProps, State> {
     };
 
     const featureFlags = createFeatureFlagsFromProps(this.props);
-    const renderTracking = this.props.performanceTracking?.renderTracking
-      ?.editor;
+    const renderTracking =
+      this.props.performanceTracking?.renderTracking?.editor;
     const renderTrackingEnabled = renderTracking?.enabled;
     const useShallow = renderTracking?.useShallow;
 

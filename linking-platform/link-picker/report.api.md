@@ -25,9 +25,9 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 export type LinkInputType = 'manual' | 'typeAhead';
 
 // @public (undocumented)
-export const LinkPicker: React_2.MemoExoticComponent<(
-  props: LinkPickerProps,
-) => JSX.Element>;
+export const LinkPicker: React_2.MemoExoticComponent<
+  (props: LinkPickerProps) => JSX.Element
+>;
 
 // @public (undocumented)
 export interface LinkPickerPlugin {

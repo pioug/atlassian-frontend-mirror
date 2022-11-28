@@ -56,7 +56,7 @@ export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
         css={{
           fontSize: gridSize(2.5),
           marginBottom: gridSize(1.5),
-          width: gridSize(50),
+          maxWidth: gridSize(50),
           textAlign: 'center',
         }}
         data-testid={`${testId}-unresolved-title`}
@@ -68,7 +68,7 @@ export const EmbedCardUnresolvedView: FC<EmbedCardUnresolvedViewProps> = ({
           fontSize: fontSize(),
           marginBottom: gridSize(2.5),
           textAlign: 'center',
-          width: gridSize(50),
+          maxWidth: gridSize(50),
           lineHeight: gridSize(3),
         }}
         data-testid={`${testId}-unresolved-description`}

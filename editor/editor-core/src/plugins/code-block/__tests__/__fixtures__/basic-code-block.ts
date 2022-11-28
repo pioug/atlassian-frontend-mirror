@@ -10,8 +10,7 @@ export const basicCodeBlock = {
       content: [
         {
           type: 'text',
-          text:
-            "var a = 'b';\n\nfunction something() {\n  console.log('something!');\n}",
+          text: "var a = 'b';\n\nfunction something() {\n  console.log('something!');\n}",
         },
       ],
     },

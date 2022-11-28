@@ -160,10 +160,8 @@ export default async () => {
         window.setTimeout(() => resolve(null), 0);
       });
 
-      const {
-        expected,
-        actual,
-      } = await compareDecisionPanelHelpTextTranslatedToFR(page);
+      const { expected, actual } =
+        await compareDecisionPanelHelpTextTranslatedToFR(page);
 
       expect(expected).toEqual(actual);
     },

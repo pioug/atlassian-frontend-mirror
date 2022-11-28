@@ -62,280 +62,285 @@ const TABLE_BREAKOUT_NAME_MAPPING = {
 };
 
 // #region Analytics wrappers
-export const emptyMultipleCellsWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (
-  inputMethod:
-    | INPUT_METHOD.CONTEXT_MENU
-    | INPUT_METHOD.KEYBOARD
-    | INPUT_METHOD.FLOATING_TB,
-  targetCellPosition?: number,
-) =>
-  withEditorAnalyticsAPI(({ selection }) => {
-    const {
-      horizontalCells,
-      verticalCells,
-      totalRowCount,
-      totalColumnCount,
-    } = getSelectedCellInfo(selection);
-
-    return {
-      action: TABLE_ACTION.CLEARED,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      actionSubjectId: null,
-      attributes: {
-        inputMethod,
-        horizontalCells,
-        verticalCells,
-        totalRowCount,
-        totalColumnCount,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(editorAnalyticsAPI)(clearMultipleCells(targetCellPosition));
-
-export const mergeCellsWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
-) => (inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB) =>
-  withEditorAnalyticsAPI(({ selection }) => {
-    const {
-      horizontalCells,
-      verticalCells,
-      totalCells,
-      totalRowCount,
-      totalColumnCount,
-    } = getSelectedCellInfo(selection);
-
-    return {
-      action: TABLE_ACTION.MERGED,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      actionSubjectId: null,
-      attributes: {
-        inputMethod,
-        horizontalCells,
-        verticalCells,
-        totalCells,
-        totalRowCount,
-        totalColumnCount,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(editorAnalyticsAPI)((state, dispatch) => {
-    if (dispatch) {
-      dispatch(mergeCells(state.tr));
-    }
-    return true;
-  });
-
-export const splitCellWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB) =>
-  withEditorAnalyticsAPI(({ selection }) => {
-    const { totalRowCount, totalColumnCount } = getSelectedCellInfo(selection);
-    const cell = findCellClosestToPos(selection.$anchor);
-    if (cell) {
+export const emptyMultipleCellsWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.KEYBOARD
+      | INPUT_METHOD.FLOATING_TB,
+    targetCellPosition?: number,
+  ) =>
+    withEditorAnalyticsAPI(({ selection }) => {
       const {
-        rowspan: verticalCells,
-        colspan: horizontalCells,
-      } = cell.node.attrs;
+        horizontalCells,
+        verticalCells,
+        totalRowCount,
+        totalColumnCount,
+      } = getSelectedCellInfo(selection);
 
       return {
-        action: TABLE_ACTION.SPLIT,
+        action: TABLE_ACTION.CLEARED,
         actionSubject: ACTION_SUBJECT.TABLE,
         actionSubjectId: null,
         attributes: {
           inputMethod,
           horizontalCells,
           verticalCells,
-          totalCells: horizontalCells * verticalCells,
           totalRowCount,
           totalColumnCount,
         },
         eventType: EVENT_TYPE.TRACK,
       };
-    }
-    return;
-  })(editorAnalyticsAPI)(splitCell);
+    })(editorAnalyticsAPI)(clearMultipleCells(targetCellPosition));
 
-export const setColorWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (
-  inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
-  cellColor: string,
-  targetCellPosition?: number,
-) =>
-  withEditorAnalyticsAPI(({ selection }) => {
-    const {
-      horizontalCells,
-      verticalCells,
-      totalCells,
-      totalRowCount,
-      totalColumnCount,
-    } = getSelectedCellInfo(selection);
-
-    return {
-      action: TABLE_ACTION.COLORED,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      actionSubjectId: null,
-      attributes: {
-        inputMethod,
-        cellColor: (
-          tableBackgroundColorPalette.get(cellColor.toLowerCase()) || cellColor
-        ).toLowerCase(),
+export const mergeCellsWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined) =>
+  (inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB) =>
+    withEditorAnalyticsAPI(({ selection }) => {
+      const {
         horizontalCells,
         verticalCells,
         totalCells,
         totalRowCount,
         totalColumnCount,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(editorAnalyticsAPI)(
-    setMultipleCellAttrs({ background: cellColor }, targetCellPosition),
-  );
+      } = getSelectedCellInfo(selection);
 
-export const addRowAroundSelection = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (side: RowInsertPosition): Command => (state, dispatch) => {
-  const { selection } = state;
-  const isCellSelection = selection instanceof CellSelection;
-  const rect = isCellSelection
-    ? getSelectionRect(selection)
-    : findCellRectClosestToPos(selection.$from);
+      return {
+        action: TABLE_ACTION.MERGED,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        actionSubjectId: null,
+        attributes: {
+          inputMethod,
+          horizontalCells,
+          verticalCells,
+          totalCells,
+          totalRowCount,
+          totalColumnCount,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)((state, dispatch) => {
+      if (dispatch) {
+        dispatch(mergeCells(state.tr));
+      }
+      return true;
+    });
 
-  if (!rect) {
-    return false;
-  }
+export const splitCellWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB) =>
+    withEditorAnalyticsAPI(({ selection }) => {
+      const { totalRowCount, totalColumnCount } =
+        getSelectedCellInfo(selection);
+      const cell = findCellClosestToPos(selection.$anchor);
+      if (cell) {
+        const { rowspan: verticalCells, colspan: horizontalCells } =
+          cell.node.attrs;
 
-  const position =
-    isCellSelection && side === 'TOP' ? rect.top : rect.bottom - 1;
+        return {
+          action: TABLE_ACTION.SPLIT,
+          actionSubject: ACTION_SUBJECT.TABLE,
+          actionSubjectId: null,
+          attributes: {
+            inputMethod,
+            horizontalCells,
+            verticalCells,
+            totalCells: horizontalCells * verticalCells,
+            totalRowCount,
+            totalColumnCount,
+          },
+          eventType: EVENT_TYPE.TRACK,
+        };
+      }
+      return;
+    })(editorAnalyticsAPI)(splitCell);
 
-  const offset = side === 'BOTTOM' ? 1 : 0;
+export const setColorWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    cellColor: string,
+    targetCellPosition?: number,
+  ) =>
+    withEditorAnalyticsAPI(({ selection }) => {
+      const {
+        horizontalCells,
+        verticalCells,
+        totalCells,
+        totalRowCount,
+        totalColumnCount,
+      } = getSelectedCellInfo(selection);
 
-  return insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT, {
-    index: position + offset,
-    moveCursorToInsertedRow: false,
-  })(state, dispatch);
-};
-
-export const insertRowWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (inputMethod: InsertRowMethods, options: InsertRowOptions) =>
-  withEditorAnalyticsAPI((state) => {
-    const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
-      state.selection,
+      return {
+        action: TABLE_ACTION.COLORED,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        actionSubjectId: null,
+        attributes: {
+          inputMethod,
+          cellColor: (
+            tableBackgroundColorPalette.get(cellColor.toLowerCase()) ||
+            cellColor
+          ).toLowerCase(),
+          horizontalCells,
+          verticalCells,
+          totalCells,
+          totalRowCount,
+          totalColumnCount,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)(
+      setMultipleCellAttrs({ background: cellColor }, targetCellPosition),
     );
-    return {
-      action: TABLE_ACTION.ADDED_ROW,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      actionSubjectId: null,
-      attributes: {
-        inputMethod,
-        position: options.index,
-        totalRowCount,
-        totalColumnCount,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(editorAnalyticsAPI)(
-    insertRow(options.index, options.moveCursorToInsertedRow),
-  );
 
-export const insertColumnWithAnalytics = (
-  getEditorContainerWidth: GetEditorContainerWidth,
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (
-  inputMethod:
-    | INPUT_METHOD.CONTEXT_MENU
-    | INPUT_METHOD.BUTTON
-    | INPUT_METHOD.SHORTCUT
-    | INPUT_METHOD.FLOATING_TB,
-  position: number,
-) =>
-  withEditorAnalyticsAPI((state) => {
-    const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
-      state.selection,
-    );
-    return {
-      action: TABLE_ACTION.ADDED_COLUMN,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      actionSubjectId: null,
-      attributes: {
-        inputMethod,
-        position,
-        totalRowCount,
-        totalColumnCount,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(editorAnalyticsAPI)(insertColumn(getEditorContainerWidth)(position));
+export const addRowAroundSelection =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (side: RowInsertPosition): Command =>
+  (state, dispatch) => {
+    const { selection } = state;
+    const isCellSelection = selection instanceof CellSelection;
+    const rect = isCellSelection
+      ? getSelectionRect(selection)
+      : findCellRectClosestToPos(selection.$from);
 
-export const deleteRowsWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (
-  inputMethod:
-    | INPUT_METHOD.CONTEXT_MENU
-    | INPUT_METHOD.BUTTON
-    | INPUT_METHOD.FLOATING_TB,
-  rect: Rect,
-  isHeaderRowRequired: boolean,
-) =>
-  withEditorAnalyticsAPI(({ selection }) => {
-    const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
-
-    return {
-      action: TABLE_ACTION.DELETED_ROW,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      actionSubjectId: null,
-      attributes: {
-        inputMethod,
-        position: rect.top,
-        count: rect.bottom - rect.top,
-        totalRowCount,
-        totalColumnCount,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(editorAnalyticsAPI)((state, dispatch) => {
-    if (dispatch) {
-      dispatch(deleteRows(rect, isHeaderRowRequired)(state.tr));
+    if (!rect) {
+      return false;
     }
-    return true;
-  });
 
-export const deleteColumnsWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (
-  inputMethod:
-    | INPUT_METHOD.CONTEXT_MENU
-    | INPUT_METHOD.BUTTON
-    | INPUT_METHOD.FLOATING_TB,
-  rect: Rect,
-) =>
-  withEditorAnalyticsAPI(({ selection }) => {
-    const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
+    const position =
+      isCellSelection && side === 'TOP' ? rect.top : rect.bottom - 1;
 
-    return {
-      action: TABLE_ACTION.DELETED_COLUMN,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      actionSubjectId: null,
-      attributes: {
-        inputMethod,
-        position: rect.left,
-        count: rect.right - rect.left,
-        totalRowCount,
-        totalColumnCount,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(editorAnalyticsAPI)((state, dispatch) => {
-    if (dispatch) {
-      dispatch(
-        deleteColumns(rect, getAllowAddColumnCustomStep(state))(state.tr),
+    const offset = side === 'BOTTOM' ? 1 : 0;
+
+    return insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT, {
+      index: position + offset,
+      moveCursorToInsertedRow: false,
+    })(state, dispatch);
+  };
+
+export const insertRowWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (inputMethod: InsertRowMethods, options: InsertRowOptions) =>
+    withEditorAnalyticsAPI((state) => {
+      const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
+        state.selection,
       );
-    }
-    return true;
-  });
+      return {
+        action: TABLE_ACTION.ADDED_ROW,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        actionSubjectId: null,
+        attributes: {
+          inputMethod,
+          position: options.index,
+          totalRowCount,
+          totalColumnCount,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)(
+      insertRow(options.index, options.moveCursorToInsertedRow),
+    );
+
+export const insertColumnWithAnalytics =
+  (
+    getEditorContainerWidth: GetEditorContainerWidth,
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+  ) =>
+  (
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.BUTTON
+      | INPUT_METHOD.SHORTCUT
+      | INPUT_METHOD.FLOATING_TB,
+    position: number,
+  ) =>
+    withEditorAnalyticsAPI((state) => {
+      const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
+        state.selection,
+      );
+      return {
+        action: TABLE_ACTION.ADDED_COLUMN,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        actionSubjectId: null,
+        attributes: {
+          inputMethod,
+          position,
+          totalRowCount,
+          totalColumnCount,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)(insertColumn(getEditorContainerWidth)(position));
+
+export const deleteRowsWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.BUTTON
+      | INPUT_METHOD.FLOATING_TB,
+    rect: Rect,
+    isHeaderRowRequired: boolean,
+  ) =>
+    withEditorAnalyticsAPI(({ selection }) => {
+      const { totalRowCount, totalColumnCount } =
+        getSelectedTableInfo(selection);
+
+      return {
+        action: TABLE_ACTION.DELETED_ROW,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        actionSubjectId: null,
+        attributes: {
+          inputMethod,
+          position: rect.top,
+          count: rect.bottom - rect.top,
+          totalRowCount,
+          totalColumnCount,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)((state, dispatch) => {
+      if (dispatch) {
+        dispatch(deleteRows(rect, isHeaderRowRequired)(state.tr));
+      }
+      return true;
+    });
+
+export const deleteColumnsWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    inputMethod:
+      | INPUT_METHOD.CONTEXT_MENU
+      | INPUT_METHOD.BUTTON
+      | INPUT_METHOD.FLOATING_TB,
+    rect: Rect,
+  ) =>
+    withEditorAnalyticsAPI(({ selection }) => {
+      const { totalRowCount, totalColumnCount } =
+        getSelectedTableInfo(selection);
+
+      return {
+        action: TABLE_ACTION.DELETED_COLUMN,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        actionSubjectId: null,
+        attributes: {
+          inputMethod,
+          position: rect.left,
+          count: rect.right - rect.left,
+          totalRowCount,
+          totalColumnCount,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)((state, dispatch) => {
+      if (dispatch) {
+        dispatch(
+          deleteColumns(rect, getAllowAddColumnCustomStep(state))(state.tr),
+        );
+      }
+      return true;
+    });
 
 const getTableDeletedAnalytics = (
   selection: Selection,
@@ -361,12 +366,12 @@ export const deleteTableWithAnalytics = (
     getTableDeletedAnalytics(selection, INPUT_METHOD.FLOATING_TB),
   )(editorAnalyticsAPI)(deleteTable);
 
-export const deleteTableIfSelectedWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.KEYBOARD) =>
-  withEditorAnalyticsAPI(({ selection }) =>
-    getTableDeletedAnalytics(selection, inputMethod),
-  )(editorAnalyticsAPI)(deleteTableIfSelected);
+export const deleteTableIfSelectedWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.KEYBOARD) =>
+    withEditorAnalyticsAPI(({ selection }) =>
+      getTableDeletedAnalytics(selection, inputMethod),
+    )(editorAnalyticsAPI)(deleteTableIfSelected);
 
 export const toggleHeaderRowWithAnalytics = (
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
@@ -458,56 +463,56 @@ export const toggleTableLayoutWithAnalytics = (
     return;
   })(editorAnalyticsAPI)(toggleTableLayout);
 
-export const sortColumnWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (
-  inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
-  columnIndex: number,
-  sortOrder: SortOrder,
-) =>
-  withEditorAnalyticsAPI((state) => {
-    const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
-      state.selection,
-    );
-    return {
-      action: TABLE_ACTION.SORTED_COLUMN,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      attributes: {
-        inputMethod,
-        totalRowCount,
-        totalColumnCount,
-        position: columnIndex,
-        sortOrder,
-        mode: 'editor',
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(editorAnalyticsAPI)(sortByColumn(columnIndex, sortOrder));
+export const sortColumnWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    columnIndex: number,
+    sortOrder: SortOrder,
+  ) =>
+    withEditorAnalyticsAPI((state) => {
+      const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
+        state.selection,
+      );
+      return {
+        action: TABLE_ACTION.SORTED_COLUMN,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        attributes: {
+          inputMethod,
+          totalRowCount,
+          totalColumnCount,
+          position: columnIndex,
+          sortOrder,
+          mode: 'editor',
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)(sortByColumn(columnIndex, sortOrder));
 
-export const distributeColumnsWidthsWithAnalytics = (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) => (
-  inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
-  { resizeState, table, attributes }: ResizeStateWithAnalytics,
-) => {
-  return withEditorAnalyticsAPI(() => {
-    return {
-      action: TABLE_ACTION.DISTRIBUTED_COLUMNS_WIDTHS,
-      actionSubject: ACTION_SUBJECT.TABLE,
-      actionSubjectId: null,
-      attributes: {
-        inputMethod,
-        ...attributes,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    };
-  })(editorAnalyticsAPI)((state, dispatch) => {
-    if (dispatch) {
-      distributeColumnsWidths(resizeState, table)(state, dispatch);
-    }
-    return true;
-  });
-};
+export const distributeColumnsWidthsWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+    { resizeState, table, attributes }: ResizeStateWithAnalytics,
+  ) => {
+    return withEditorAnalyticsAPI(() => {
+      return {
+        action: TABLE_ACTION.DISTRIBUTED_COLUMNS_WIDTHS,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        actionSubjectId: null,
+        attributes: {
+          inputMethod,
+          ...attributes,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)((state, dispatch) => {
+      if (dispatch) {
+        distributeColumnsWidths(resizeState, table)(state, dispatch);
+      }
+      return true;
+    });
+  };
 
 export const wrapTableInExpandWithAnalytics = (
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,

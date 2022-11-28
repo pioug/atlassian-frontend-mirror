@@ -174,8 +174,7 @@ const demoTable = {
                         {
                           type: 'inlineCard',
                           attrs: {
-                            url:
-                              'https://app.box.com/s/2emx282bjxpzvwa5bcz428u6imbgmasg',
+                            url: 'https://app.box.com/s/2emx282bjxpzvwa5bcz428u6imbgmasg',
                           },
                         },
                       ],
@@ -191,8 +190,7 @@ const demoTable = {
                         {
                           type: 'inlineCard',
                           attrs: {
-                            url:
-                              'https://app.box.com/s/2emx282bjxpzvwa5bcz428u6imbgmasg',
+                            url: 'https://app.box.com/s/2emx282bjxpzvwa5bcz428u6imbgmasg',
                           },
                         },
                       ],
@@ -329,8 +327,7 @@ const exampleDocument = {
     {
       type: 'blockCard',
       attrs: {
-        url:
-          'https://pug.jira-dev.com/wiki/spaces/~kihlberg/pages/4210950327/Klaus+on+Leave+28th+of+June+to+28th+of+July',
+        url: 'https://pug.jira-dev.com/wiki/spaces/~kihlberg/pages/4210950327/Klaus+on+Leave+28th+of+June+to+28th+of+July',
       },
     },
     {
@@ -370,8 +367,7 @@ const exampleDocument = {
     {
       type: 'blockCard',
       attrs: {
-        url:
-          'https://docs.google.com/spreadsheets/d/168cPaeXw_2zbo6md4pGUdEmXzRsXRQmNP0712ID2TKA/edit?usp=sharing',
+        url: 'https://docs.google.com/spreadsheets/d/168cPaeXw_2zbo6md4pGUdEmXzRsXRQmNP0712ID2TKA/edit?usp=sharing',
       },
     },
     {
@@ -404,8 +400,7 @@ const exampleDocument = {
             {
               type: 'inlineCard',
               attrs: {
-                url:
-                  'https://docs.google.com/spreadsheets/d/168cPaeXw_2zbo6md4pGUdEmXzRsXRQmNP0712ID2TKA/edit?usp=sharing',
+                url: 'https://docs.google.com/spreadsheets/d/168cPaeXw_2zbo6md4pGUdEmXzRsXRQmNP0712ID2TKA/edit?usp=sharing',
               },
             },
           ],
@@ -423,8 +418,7 @@ const exampleDocument = {
         {
           type: 'inlineCard',
           attrs: {
-            url:
-              'https://docs.google.com/spreadsheets/d/168cPaeXw_2zbo6md4pGUdEmXzRsXRQmNP0712ID2TKA/edit?usp=sharing',
+            url: 'https://docs.google.com/spreadsheets/d/168cPaeXw_2zbo6md4pGUdEmXzRsXRQmNP0712ID2TKA/edit?usp=sharing',
           },
         },
         {
@@ -440,8 +434,7 @@ const exampleDocument = {
       content: [
         {
           type: 'text',
-          text:
-            'Here are some example URLs to get you started. You can copy and paste them back into the Editor - they will get converted into cards',
+          text: 'Here are some example URLs to get you started. You can copy and paste them back into the Editor - they will get converted into cards',
           marks: [
             {
               type: 'strong',
@@ -455,8 +448,7 @@ const exampleDocument = {
       content: [
         {
           type: 'text',
-          text:
-            'https://product-fabric.atlassian.net/wiki/spaces/FIL/blog/2018/10/04/782762723/Media+premium+storage',
+          text: 'https://product-fabric.atlassian.net/wiki/spaces/FIL/blog/2018/10/04/782762723/Media+premium+storage',
         },
       ],
     },
@@ -465,8 +457,7 @@ const exampleDocument = {
       content: [
         {
           type: 'text',
-          text:
-            'https://hello.atlassian.net/wiki/spaces/~achamas/blog/2018/08/22/273578928/How+robots+can+write+docs+better+than+you+-+FEF+Talk',
+          text: 'https://hello.atlassian.net/wiki/spaces/~achamas/blog/2018/08/22/273578928/How+robots+can+write+docs+better+than+you+-+FEF+Talk',
         },
       ],
     },
@@ -475,8 +466,7 @@ const exampleDocument = {
       content: [
         {
           type: 'text',
-          text:
-            'https://docs.google.com/document/d/1nXGwmxJuvQ8CdVQsGnRLOJOo7kJPqesmiBgvcaXD4Aw/edit',
+          text: 'https://docs.google.com/document/d/1nXGwmxJuvQ8CdVQsGnRLOJOo7kJPqesmiBgvcaXD4Aw/edit',
         },
       ],
     },
@@ -494,8 +484,7 @@ const exampleDocument = {
       content: [
         {
           type: 'text',
-          text:
-            'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
+          text: 'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
         },
       ],
     },

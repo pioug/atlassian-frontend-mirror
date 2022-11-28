@@ -9,7 +9,7 @@ import { combine, getDefaultInput, getRect } from './_util';
 describe('autoScroller', () => {
   replaceRaf();
 
-  const requestAnimationFrame = (window.requestAnimationFrame as any) as Stub;
+  const requestAnimationFrame = window.requestAnimationFrame as any as Stub;
   const maxScroll = config.maxPixelScroll;
   const scrollElement = jest.fn();
   const scrollWindow = jest.fn();

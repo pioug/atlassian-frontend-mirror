@@ -18,34 +18,33 @@ const ACTIONS = {
   SET_CONTEXT: 'SET_CONTEXT',
 };
 
-const setProvider = (provider: MentionProvider | undefined): Command => (
-  state,
-  dispatch,
-) => {
-  if (dispatch) {
-    dispatch(
-      state.tr.setMeta(mentionPluginKey, {
-        action: ACTIONS.SET_PROVIDER,
-        params: { provider },
-      }),
-    );
-  }
-  return true;
-};
+const setProvider =
+  (provider: MentionProvider | undefined): Command =>
+  (state, dispatch) => {
+    if (dispatch) {
+      dispatch(
+        state.tr.setMeta(mentionPluginKey, {
+          action: ACTIONS.SET_PROVIDER,
+          params: { provider },
+        }),
+      );
+    }
+    return true;
+  };
 
-export const setContext = (
-  context: ContextIdentifierProvider | undefined,
-): Command => (state, dispatch) => {
-  if (dispatch) {
-    dispatch(
-      state.tr.setMeta(mentionPluginKey, {
-        action: ACTIONS.SET_CONTEXT,
-        params: { context },
-      }),
-    );
-  }
-  return true;
-};
+export const setContext =
+  (context: ContextIdentifierProvider | undefined): Command =>
+  (state, dispatch) => {
+    if (dispatch) {
+      dispatch(
+        state.tr.setMeta(mentionPluginKey, {
+          action: ACTIONS.SET_CONTEXT,
+          params: { context },
+        }),
+      );
+    }
+    return true;
+  };
 
 export function createMentionPlugin(
   pmPluginFactoryParams: PMPluginFactoryParams,

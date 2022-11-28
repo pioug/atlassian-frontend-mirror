@@ -130,9 +130,8 @@ type AnnotationsWithClickTarget = Pick<
 export const useAnnotationClickEvent = (
   props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent'>,
 ): AnnotationsWithClickTarget => {
-  const [annotationClickEvent, setAnnotationClickEvent] = useState<
-    AnnotationsWithClickTarget
-  >(null);
+  const [annotationClickEvent, setAnnotationClickEvent] =
+    useState<AnnotationsWithClickTarget>(null);
   const { updateSubscriber, createAnalyticsEvent } = props;
 
   useLayoutEffect(() => {

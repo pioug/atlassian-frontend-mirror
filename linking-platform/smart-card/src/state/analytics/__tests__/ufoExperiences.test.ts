@@ -21,12 +21,11 @@ import type {
 } from '../ufoExperiences';
 
 describe('ufoExperience', () => {
-  const mockConcurrentExperience: jest.MockedClass<typeof ConcurrentExperience> = ConcurrentExperience as jest.MockedClass<
+  const mockConcurrentExperience: jest.MockedClass<
     typeof ConcurrentExperience
-  >;
-  const mockGetInstance: JestFunction<
-    ConcurrentExperience['getInstance']
-  > = jest.fn();
+  > = ConcurrentExperience as jest.MockedClass<typeof ConcurrentExperience>;
+  const mockGetInstance: JestFunction<ConcurrentExperience['getInstance']> =
+    jest.fn();
   const mockStart: jest.Mock = jest.fn();
   const mockAddMetadata: jest.Mock = jest.fn();
   const mockSuccess: jest.Mock = jest.fn();

@@ -166,9 +166,8 @@ const entryPointChangeRequests: EntryPointChangeRequest[] = [
   scrub,
 ];
 
-export const entryPointChangeMigrates = createMigratesFromEntryPointChangeRequests(
-  entryPointChangeRequests,
-);
+export const entryPointChangeMigrates =
+  createMigratesFromEntryPointChangeRequests(entryPointChangeRequests);
 
 const transformer = createTransformer(entryPointChangeMigrates);
 

@@ -22,15 +22,14 @@ const MetadataOption: React.FC<{
   template: BlockTemplate;
 }> = ({ label, name, onChange, propName, template }) => {
   const handleOnMetadataChange = useCallback(
-    (...params: ChangeParams<BlockTemplate>) => (
-      values: OptionsType<{ label: string; value: ElementName }>,
-    ) => {
-      const items = values.map((option: { value: ElementName }) => ({
-        name: option.value,
-      }));
+    (...params: ChangeParams<BlockTemplate>) =>
+      (values: OptionsType<{ label: string; value: ElementName }>) => {
+        const items = values.map((option: { value: ElementName }) => ({
+          name: option.value,
+        }));
 
-      handleOnChange<BlockTemplate>(...params, items);
-    },
+        handleOnChange<BlockTemplate>(...params, items);
+      },
     [],
   );
 

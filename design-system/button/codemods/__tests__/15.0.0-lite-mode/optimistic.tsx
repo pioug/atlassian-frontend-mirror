@@ -369,8 +369,7 @@ describe('Non exclusive JSX usage of <Button />', () => {
 
   check({
     transformer,
-    it:
-      'should use standard button if Button is used in JSX and also not in JSX',
+    it: 'should use standard button if Button is used in JSX and also not in JSX',
     original: `
       import React from 'react';
       import Button from './our-button';
@@ -419,8 +418,7 @@ describe('Non exclusive JSX usage of <Button />', () => {
 describe('Spreading props', () => {
   check({
     transformer,
-    it:
-      'should try to choose the right button if there are locally spread values (seperate object)',
+    it: 'should try to choose the right button if there are locally spread values (seperate object)',
     original: `
       import React from 'react';
       import Button from '@atlaskit/button';
@@ -451,8 +449,7 @@ describe('Spreading props', () => {
 
   check({
     transformer,
-    it:
-      'should try to choose the right button if there are locally spread values (inline object)',
+    it: 'should try to choose the right button if there are locally spread values (inline object)',
     original: `
       import React from 'react';
       import Button from '@atlaskit/button';
@@ -475,8 +472,7 @@ describe('Spreading props', () => {
 
   check({
     transformer,
-    it:
-      'should try to choose the right button if there are multiple local spread values',
+    it: 'should try to choose the right button if there are multiple local spread values',
     original: `
       import React from 'react';
       import Button from '@atlaskit/button';
@@ -513,8 +509,7 @@ describe('Spreading props', () => {
 
   check({
     transformer,
-    it:
-      'should try to choose the right button if there are locally spread values (custom theme button)',
+    it: 'should try to choose the right button if there are locally spread values (custom theme button)',
     original: `
       import React from 'react';
       import Button from '@atlaskit/button';
@@ -549,8 +544,7 @@ describe('Spreading props', () => {
 
   check({
     transformer,
-    it:
-      'should try to choose the right button if there is a spread value being mixed with a local values',
+    it: 'should try to choose the right button if there is a spread value being mixed with a local values',
     original: `
       import React from 'react';
       import Button from '@atlaskit/button';

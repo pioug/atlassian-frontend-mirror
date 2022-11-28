@@ -51,17 +51,15 @@ const generateFileName = (extension: string) => {
   return `${getRandomElem(fileNames)}.${extension}`;
 };
 
-const mediaTypesDetails: Record<
-  MediaType,
-  { ext: string; mimeType: string }
-> = {
-  image: { ext: 'png', mimeType: 'image/png' },
-  video: { ext: 'mp4', mimeType: 'video/mp4' },
-  doc: { ext: 'pdf', mimeType: 'application/pdf' },
-  unknown: { ext: 'unknown', mimeType: 'unknown' },
-  audio: { ext: 'mp3', mimeType: 'audio/mpeg' },
-  archive: { ext: 'zip', mimeType: 'application/zip' },
-};
+const mediaTypesDetails: Record<MediaType, { ext: string; mimeType: string }> =
+  {
+    image: { ext: 'png', mimeType: 'image/png' },
+    video: { ext: 'mp4', mimeType: 'video/mp4' },
+    doc: { ext: 'pdf', mimeType: 'application/pdf' },
+    unknown: { ext: 'unknown', mimeType: 'unknown' },
+    audio: { ext: 'mp3', mimeType: 'audio/mpeg' },
+    archive: { ext: 'zip', mimeType: 'application/zip' },
+  };
 const mediaTypes = Object.keys(mediaTypesDetails) as Array<MediaType>;
 
 const generateMediaTypeDetails = (mediaType: MediaType) => {

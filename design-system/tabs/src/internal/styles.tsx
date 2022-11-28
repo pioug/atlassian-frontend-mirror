@@ -21,12 +21,13 @@ const highContrastFocusStyles: CSSObject = {
 
 // Required so the focus ring is visible in high contrast mode
 const highContrastFocusRing = {
-  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
-    '&:focus-visible': highContrastFocusStyles,
-    '@supports not selector(*:focus-visible)': {
-      '&:focus': highContrastFocusStyles,
+  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)':
+    {
+      '&:focus-visible': highContrastFocusStyles,
+      '@supports not selector(*:focus-visible)': {
+        '&:focus': highContrastFocusStyles,
+      },
     },
-  },
 };
 
 const tabFocusStyles = (mode: ThemeModes): CSSObject => ({

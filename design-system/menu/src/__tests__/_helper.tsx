@@ -12,27 +12,26 @@ type Options = {
   };
 };
 
-const verifyElementIn = (url: string, options?: Options) => async (
-  selector: string,
-  interact?: () => Promise<void>,
-) => {
-  const { page } = global;
+const verifyElementIn =
+  (url: string, options?: Options) =>
+  async (selector: string, interact?: () => Promise<void>) => {
+    const { page } = global;
 
-  if (options?.viewport) {
-    await page.setViewport(options.viewport);
-  }
+    if (options?.viewport) {
+      await page.setViewport(options.viewport);
+    }
 
-  await loadPage(page, url);
-  await page.waitForSelector(selector);
+    await loadPage(page, url);
+    await page.waitForSelector(selector);
 
-  if (interact) {
-    await interact();
-  }
+    if (interact) {
+      await interact();
+    }
 
-  expect(
-    await takeElementScreenShot(page, selector),
-  ).toMatchProdImageSnapshot();
-};
+    expect(
+      await takeElementScreenShot(page, selector),
+    ).toMatchProdImageSnapshot();
+  };
 
 const hover = (selector: string): (() => Promise<void>) => {
   return async () => {

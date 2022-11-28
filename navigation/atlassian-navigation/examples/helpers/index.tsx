@@ -21,18 +21,20 @@ const AnalyticsLogger = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const withAnalyticsLogger = <Props extends Object>(
-  WrappedComponent: React.ComponentType<Props>,
-) => (props: Props) => (
-  <AnalyticsLogger>
-    <WrappedComponent {...props} />
-  </AnalyticsLogger>
-);
+export const withAnalyticsLogger =
+  <Props extends Object>(WrappedComponent: React.ComponentType<Props>) =>
+  (props: Props) =>
+    (
+      <AnalyticsLogger>
+        <WrappedComponent {...props} />
+      </AnalyticsLogger>
+    );
 
-export const withIntlProvider = <Props extends Object>(
-  WrappedComponent: React.ComponentType<Props>,
-) => (props: Props) => (
-  <IntlProvider locale="en">
-    <WrappedComponent {...props} />
-  </IntlProvider>
-);
+export const withIntlProvider =
+  <Props extends Object>(WrappedComponent: React.ComponentType<Props>) =>
+  (props: Props) =>
+    (
+      <IntlProvider locale="en">
+        <WrappedComponent {...props} />
+      </IntlProvider>
+    );

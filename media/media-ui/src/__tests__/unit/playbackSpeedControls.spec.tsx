@@ -21,9 +21,8 @@ describe('<PlaybackSpeedControls />', () => {
       />,
     );
 
-    const popupSelect = component.find<PopupSelectProps<OptionType>>(
-      PopupSelect,
-    );
+    const popupSelect =
+      component.find<PopupSelectProps<OptionType>>(PopupSelect);
 
     return {
       component,
@@ -125,9 +124,8 @@ describe('<PlaybackSpeedControls />', () => {
     component.find(WidthObserver).prop('setWidth')(250);
     component.update();
 
-    const popupSelect = component.find<PopupSelectProps<OptionType>>(
-      PopupSelect,
-    );
+    const popupSelect =
+      component.find<PopupSelectProps<OptionType>>(PopupSelect);
 
     expect(popupSelect.prop('maxMenuHeight')).toEqual(100);
   });

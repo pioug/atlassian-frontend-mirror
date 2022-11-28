@@ -70,7 +70,7 @@ describe('LinkToolbarAppearance', () => {
   };
   const getDropdownOptions = (toolbar: ShallowWrapper) => {
     const dropdown = toolbar.find(Dropdown);
-    const options = (dropdown.prop('options') as unknown) as {
+    const options = dropdown.prop('options') as unknown as {
       testId: string;
       onClick: (state: EditorState, dispath: Function) => void;
       selected: boolean;

@@ -72,8 +72,9 @@ describe('media-inline', () => {
       );
 
       const paragraphNodeSize = p('text')(editorView.state.schema).nodeSize;
-      const mediaInlineNodeSize = temporaryMediaInline(editorView.state.schema)
-        .nodeSize;
+      const mediaInlineNodeSize = temporaryMediaInline(
+        editorView.state.schema,
+      ).nodeSize;
       expect(editorView.state.selection.from).toEqual(
         paragraphNodeSize + mediaInlineNodeSize,
       );
@@ -321,8 +322,7 @@ describe('media-inline', () => {
           mediaSingle({ layout: 'center' })(
             media({
               type: 'external',
-              url:
-                'blob:http://localhost:9000/de35f964-a447-4465-b3f6-ecda383ecfbf#media-blob-url=true&id=260c4805-59dc-403e-a5ff-bcf14205dcb7&collection=MediaServicesSample&contextId=DUMMY-OBJECT-ID&mimeType=image%2Fjpeg&name=placeimg_640_480_animals%20(1).jpg&size=200779&height=480&width=640&alt=',
+              url: 'blob:http://localhost:9000/de35f964-a447-4465-b3f6-ecda383ecfbf#media-blob-url=true&id=260c4805-59dc-403e-a5ff-bcf14205dcb7&collection=MediaServicesSample&contextId=DUMMY-OBJECT-ID&mimeType=image%2Fjpeg&name=placeimg_640_480_animals%20(1).jpg&size=200779&height=480&width=640&alt=',
               alt: '',
               __external: true,
             })(),

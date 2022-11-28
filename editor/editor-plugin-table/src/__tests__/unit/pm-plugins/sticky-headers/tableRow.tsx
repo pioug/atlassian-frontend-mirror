@@ -361,10 +361,9 @@ describe('TableRowNodeView', () => {
     }
 
     function mockScrollPositions(tableRowDom: HTMLTableRowElement) {
-      const { tableWrapper, tableParent, scrollContainer } = getTableElements(
-        tableRowDom,
-      );
-      ((findOverflowScrollParent as unknown) as jest.SpyInstance).mockReturnValue(
+      const { tableWrapper, tableParent, scrollContainer } =
+        getTableElements(tableRowDom);
+      (findOverflowScrollParent as unknown as jest.SpyInstance).mockReturnValue(
         scrollContainer,
       );
 

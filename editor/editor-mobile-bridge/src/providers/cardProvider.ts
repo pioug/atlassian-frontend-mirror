@@ -56,7 +56,8 @@ let CardProvider = EditorMobileCardProvider;
 
 // Use mock providers when in development and using DummyBridge
 if (IS_DEV && IS_DUMMY) {
-  const confluenceUrlMatch = /https?\:\/\/[a-zA-Z0-9\-]+\.atlassian\.net\/wiki\//i;
+  const confluenceUrlMatch =
+    /https?\:\/\/[a-zA-Z0-9\-]+\.atlassian\.net\/wiki\//i;
 
   class ConfluenceCardProvider extends EditorCardProvider {
     /**

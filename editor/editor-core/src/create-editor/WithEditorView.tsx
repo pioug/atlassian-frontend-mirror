@@ -9,10 +9,9 @@ export interface WithEditorViewInternalProps {
 export const WithEditorView = <P extends WithEditorViewInternalProps>(
   WrappedComponent: ComponentType<P>,
 ): ComponentType<Omit<P, keyof WithEditorViewInternalProps>> => {
-  const _WithFeatureFlags: FunctionComponent<Omit<
-    P,
-    keyof WithEditorViewInternalProps
-  >> = (props) => {
+  const _WithFeatureFlags: FunctionComponent<
+    Omit<P, keyof WithEditorViewInternalProps>
+  > = (props) => {
     const { editorActions } = useEditorContext();
 
     return (

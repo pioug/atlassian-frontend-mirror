@@ -109,9 +109,8 @@ export const ArticleBody = (props: Props) => {
           />,
           iframeContainer,
           () => {
-            const iframeContainer: HTMLElement | null = document.getElementById(
-              IFRAME_CONTAINER_ID,
-            );
+            const iframeContainer: HTMLElement | null =
+              document.getElementById(IFRAME_CONTAINER_ID);
 
             if (iframeContainer) {
               const newIframe: Window = (frames as { [key: string]: any })[

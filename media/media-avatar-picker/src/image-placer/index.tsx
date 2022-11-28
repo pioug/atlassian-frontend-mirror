@@ -77,8 +77,10 @@ export const DEFAULT_ZOOM = 0;
 export const DEFAULT_ORIGIN_X = 0;
 export const DEFAULT_ORIGIN_Y = 0;
 export const DEFAULT_USE_CONSTRAINTS = true;
-export const DEFAULT_USE_CIRCULAR = false; /* whether or not to apply a circular margin to image while positioning */
-export const DEFAULT_USE_CIRCULAR_CLIP_WITH_ACTIONS = false; /* whether or not to apply a circular clip when rendering via actions */
+export const DEFAULT_USE_CIRCULAR =
+  false; /* whether or not to apply a circular margin to image while positioning */
+export const DEFAULT_USE_CIRCULAR_CLIP_WITH_ACTIONS =
+  false; /* whether or not to apply a circular clip when rendering via actions */
 export const DEFAULT_BACKGROUND_COLOR = 'transparent';
 
 export const defaultProps = {
@@ -412,11 +414,8 @@ export class ImagePlacer extends React.Component<
       containerRect,
       props,
     } = this;
-    const {
-      useConstraints,
-      useCircularClipWithActions,
-      backgroundColor,
-    } = props;
+    const { useConstraints, useCircularClipWithActions, backgroundColor } =
+      props;
     const viewInfo = {
       containerRect,
       imageBounds,

@@ -74,28 +74,23 @@ const getNoOptionsMessageDescriptor: GetNoOptionMessageDescriptor = (
   return messages.userPickerGenericNoOptionsMessage;
 };
 
-const getNoOptionsMessage = (
-  isPublicLink?: boolean,
-  allowEmail?: boolean,
-): GetNoOptionMessage => ({
-  inputValue,
-}: {
-  inputValue: string;
-}): GetNoOptionMessage =>
-  inputValue && inputValue.trim().length > 0
-    ? ((
-        <FormattedMessage
-          {...getNoOptionsMessageDescriptor(
-            isValidEmail(inputValue),
-            isPublicLink,
-            allowEmail,
-          )}
-          values={{
-            inputValue,
-          }}
-        />
-      ) as any)
-    : null;
+const getNoOptionsMessage =
+  (isPublicLink?: boolean, allowEmail?: boolean): GetNoOptionMessage =>
+  ({ inputValue }: { inputValue: string }): GetNoOptionMessage =>
+    inputValue && inputValue.trim().length > 0
+      ? ((
+          <FormattedMessage
+            {...getNoOptionsMessageDescriptor(
+              isValidEmail(inputValue),
+              isPublicLink,
+              allowEmail,
+            )}
+            values={{
+              inputValue,
+            }}
+          />
+        ) as any)
+      : null;
 
 const getPlaceHolderMessageDescriptor: GetPlaceHolderMessageDescriptor = (
   product: ProductName = 'confluence',
@@ -198,17 +193,18 @@ export class UserPickerFieldComponent extends React.Component<
       orgId,
     } = this.props;
 
-    const smartUserPickerProps: Partial<SmartUserPickerProps> = enableSmartUserPicker
-      ? {
-          productKey: product,
-          principalId: loggedInAccountId,
-          siteId: cloudId || '',
-          includeTeams: true,
-          includeGroups: true,
-          debounceTime: DEBOUNCE_MS,
-          orgId,
-        }
-      : {};
+    const smartUserPickerProps: Partial<SmartUserPickerProps> =
+      enableSmartUserPicker
+        ? {
+            productKey: product,
+            principalId: loggedInAccountId,
+            siteId: cloudId || '',
+            includeTeams: true,
+            includeGroups: true,
+            debounceTime: DEBOUNCE_MS,
+            orgId,
+          }
+        : {};
 
     const allowEmail = allowEmails(config);
 

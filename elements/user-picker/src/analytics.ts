@@ -10,8 +10,10 @@ import { isCustom, isExternalUser } from './components/utils';
 const packageName = versionJson.name;
 const packageVersion = versionJson.version;
 
-const UUID_REGEXP_TEAMS_GROUPS = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
-const UUID_REGEXP_OLD_AAID = /^[a-fA-F0-9]{1,8}:[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+const UUID_REGEXP_TEAMS_GROUPS =
+  /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+const UUID_REGEXP_OLD_AAID =
+  /^[a-fA-F0-9]{1,8}:[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
 const UUID_REGEXP_NEW_AAID = /^[a-fA-F0-9]{24,24}$/;
 
 export type UserPickerSession = {
@@ -32,9 +34,8 @@ export const startSession = (): UserPickerSession => ({
   lastKey: undefined,
 });
 
-export const createAndFireEventInElementsChannel = createAndFireEvent(
-  'fabric-elements',
-);
+export const createAndFireEventInElementsChannel =
+  createAndFireEvent('fabric-elements');
 
 const createEvent = (
   eventType: 'ui' | 'operational',

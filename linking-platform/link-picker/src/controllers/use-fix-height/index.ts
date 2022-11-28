@@ -2,9 +2,8 @@ import { useLayoutEffect, useRef } from 'react';
 
 const useFixHeight = (shouldFixHeight: boolean) => {
   const ref = useRef<HTMLDivElement>(null);
-  const currentHeight: React.MutableRefObject<number | null> = useRef<number>(
-    null,
-  );
+  const currentHeight: React.MutableRefObject<number | null> =
+    useRef<number>(null);
 
   useLayoutEffect(() => {
     if (ref.current) {

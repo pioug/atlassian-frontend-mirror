@@ -40,7 +40,7 @@ interface NestingItemOverrides extends Overrides {
 
 // Doesn't extend from ButtonItemProps because it blows ERT up.
 export interface NestingItemProps<
-  TCustomComponentProps = CustomItemComponentProps
+  TCustomComponentProps = CustomItemComponentProps,
 > {
   /**
    * A **unique identifier** for the nesting item.

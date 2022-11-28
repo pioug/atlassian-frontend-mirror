@@ -85,9 +85,10 @@ describe('createElement', () => {
     ])(
       'creates %s component from Badge element',
       async (elementName: ElementName, contextKey: string) => {
-        const expectedTextContent = context[
-          contextKey as EnumKeysAsString<FlexibleUiDataContext>
-        ]?.toString();
+        const expectedTextContent =
+          context[
+            contextKey as EnumKeysAsString<FlexibleUiDataContext>
+          ]?.toString();
         const Component = createElement(elementName);
         expect(Component).toBeDefined();
 

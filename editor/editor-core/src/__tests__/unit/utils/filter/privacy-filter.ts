@@ -119,7 +119,7 @@ describe(name, () => {
         };
         const providerFactory = ProviderFactory.create({
           mentionProvider: Promise.resolve(
-            (mockMentionProvider as any) as MentionProvider,
+            mockMentionProvider as any as MentionProvider,
           ),
         });
         sanitizeNodeForPrivacy(jsonDoc, providerFactory);

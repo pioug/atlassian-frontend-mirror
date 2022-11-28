@@ -200,7 +200,7 @@ describe('getToolbarCellOptionsConfig', () => {
   });
 
   it('should have enabled merge cells when multiple cells are selected', () => {
-    ((canMergeCells as Function) as jest.Mock<{}>).mockImplementation(
+    (canMergeCells as Function as jest.Mock<{}>).mockImplementation(
       () => () => true,
     );
     //
@@ -224,8 +224,8 @@ describe('getToolbarCellOptionsConfig', () => {
   });
 
   it('should have enabled split cell when cell can be splitted', () => {
-    ((splitCell as Function) as jest.Mock<{}>).mockImplementation(() => () =>
-      true,
+    (splitCell as Function as jest.Mock<{}>).mockImplementation(
+      () => () => true,
     );
     //
     const cellOptionsMenu = getToolbarCellOptionsConfig(

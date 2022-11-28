@@ -1,8 +1,10 @@
 /* eslint-disable no-useless-escape */
 import replaceImports from 'codesandboxer/dist/replaceImports';
 
-const cssResetRegexString = /((?:import|export)\s*['"\`])(..\/src\/index.less)(['"\`]\s*)/;
-const srcEntryPointRegexString = /((?:import|export)[^'"\`]*['"\`])((\.\.\/){1,}src\/)([^/]*['"\`]\s*)/;
+const cssResetRegexString =
+  /((?:import|export)\s*['"\`])(..\/src\/index.less)(['"\`]\s*)/;
+const srcEntryPointRegexString =
+  /((?:import|export)[^'"\`]*['"\`])((\.\.\/){1,}src\/)([^/]*['"\`]\s*)/;
 
 export default function replaceSrc(content /*: string*/, name /*: string*/) {
   let replacedCode = content;

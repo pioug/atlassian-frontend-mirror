@@ -77,11 +77,12 @@ describe('MediaImage', () => {
       altText,
       forceSyncDisplay,
     } = params;
-    const [imageDimentions, containerDimentions] = dimensionsMap[
-      isImageMoreLandscapyThanContainer
-        ? 'isImageMoreLandscapyThanContainer'
-        : 'isImageMorePortraityThanContainer'
-    ];
+    const [imageDimentions, containerDimentions] =
+      dimensionsMap[
+        isImageMoreLandscapyThanContainer
+          ? 'isImageMoreLandscapyThanContainer'
+          : 'isImageMorePortraityThanContainer'
+      ];
 
     const component = mount<MediaImageProps, MediaImageState>(
       <MediaImage

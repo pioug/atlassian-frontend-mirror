@@ -187,9 +187,8 @@ export const getNodesToDecorateFromSelection = (
       // selection styles. I couldn’t see a clear way to differentiate
       // without explicitly stating which nodes should be traversed
       // and which shouldn’t.
-      const isTopLevelNodeThatHasSelectionStyles = topLevelBlockNodesThatHaveSelectionStyles.includes(
-        node.type.name,
-      );
+      const isTopLevelNodeThatHasSelectionStyles =
+        topLevelBlockNodesThatHaveSelectionStyles.includes(node.type.name);
       // If the node is a top-level block node and completely sits within
       // the selection, we do not recurse it's children to prevent selection
       // styles being added to its child nodes. The expected behaviour
@@ -268,9 +267,11 @@ export function shouldRecalcDecorations({
       // There might not be old or new decorations if the node selection is for a text node
       // This wouldn't have happened intentionally, but we need to handle this case regardless
       if (oldDecorations.length > 0 && newDecorations.length > 0) {
-        return !(oldDecorations[0] as Decoration & {
-          eq: (other: Decoration) => boolean;
-        }).eq(newDecorations[0]);
+        return !(
+          oldDecorations[0] as Decoration & {
+            eq: (other: Decoration) => boolean;
+          }
+        ).eq(newDecorations[0]);
       }
       return !(oldDecorations.length === 0 && newDecorations.length === 0);
     }

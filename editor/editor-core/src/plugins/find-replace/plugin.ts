@@ -149,17 +149,14 @@ const handleDocChanged = (
   };
 };
 
-export const {
-  createCommand,
-  getPluginState,
-  createPluginState,
-} = pluginFactory(
-  findReplacePluginKey,
-  reducer(() => initialState),
-  {
-    onDocChanged: handleDocChanged,
-  },
-);
+export const { createCommand, getPluginState, createPluginState } =
+  pluginFactory(
+    findReplacePluginKey,
+    reducer(() => initialState),
+    {
+      onDocChanged: handleDocChanged,
+    },
+  );
 
 export const createPlugin = (dispatch: Dispatch) =>
   new SafePlugin({

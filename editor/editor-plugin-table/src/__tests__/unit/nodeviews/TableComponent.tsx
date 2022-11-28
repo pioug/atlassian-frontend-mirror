@@ -156,7 +156,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
         <TableComponent
           view={view}
           eventDispatcher={
-            ({ on: jest.fn(), off: jest.fn() } as unknown) as EventDispatcher
+            { on: jest.fn(), off: jest.fn() } as unknown as EventDispatcher
           }
           // @ts-ignore
           containerWidth={{}}

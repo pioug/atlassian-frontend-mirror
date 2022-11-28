@@ -280,7 +280,7 @@ export const exampleMediaFeatureFlags: MediaFeatureFlags;
 
 // @public (undocumented)
 export type ExpectConstructorToHaveBeenCalledWith = <
-  T extends new (...args: any[]) => any
+  T extends new (...args: any[]) => any,
 >(
   func: T,
   expectedArgs: ConstructorParameters<T>,
@@ -291,7 +291,7 @@ export const expectConstructorToHaveBeenCalledWith: ExpectConstructorToHaveBeenC
 
 // @public (undocumented)
 export type ExpectFunctionToHaveBeenCalledWith = <
-  T extends (...args: any[]) => any
+  T extends (...args: any[]) => any,
 >(
   func: T,
   expectedArgs: Parameters<T>,
@@ -770,7 +770,7 @@ export const mockLoadImageError: (errorMessage?: string) => void;
 export const mountWithIntlContext: <
   P,
   S,
-  C extends React_2.Component<P, S, any> = React_2.Component<P, S, any>
+  C extends React_2.Component<P, S, any> = React_2.Component<P, S, any>,
 >(
   node: React_2.ReactElement<
     P & WrappedComponentProps<'intl'>,
@@ -823,7 +823,7 @@ export const remoteImage =
 export const shallowWithIntlContext: <
   P,
   S,
-  C extends React_2.Component<P, S, any> = React_2.Component<P, S, any>
+  C extends React_2.Component<P, S, any> = React_2.Component<P, S, any>,
 >(
   node: React_2.ReactElement<
     P & WrappedComponentProps<'intl'>,

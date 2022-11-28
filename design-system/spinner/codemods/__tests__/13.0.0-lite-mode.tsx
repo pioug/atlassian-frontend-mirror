@@ -35,8 +35,7 @@ describe('Change `type SpinnerSizes` to `type Size`', () => {
   });
 
   check({
-    name:
-      'it should rename SpinnerSizes type to Size and not impact alias values',
+    name: 'it should rename SpinnerSizes type to Size and not impact alias values',
     original: `
       import Spinner, { SpinnerSizes as MySize } from '@atlaskit/spinner'
       import { Size, SpinnerSizes } from './some-other-file';

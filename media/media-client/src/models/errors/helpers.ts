@@ -2,9 +2,7 @@ export type { MediaClientError, MediaClientErrorReason } from './types';
 
 import { MediaClientError, MediaClientErrorReason } from './types';
 
-export function isMediaClientError(
-  error: any,
-): error is MediaClientError<{
+export function isMediaClientError(error: any): error is MediaClientError<{
   reason: MediaClientErrorReason;
 }> {
   return (

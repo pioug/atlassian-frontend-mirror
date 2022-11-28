@@ -1,7 +1,5 @@
-/** @jsx jsx */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/standard-button';
@@ -105,9 +103,10 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
   );
 
   const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
-  const fallbackPlacements = useMemo(() => getFallbackPlacements(placement), [
-    placement,
-  ]);
+  const fallbackPlacements = useMemo(
+    () => getFallbackPlacements(placement),
+    [placement],
+  );
 
   const handleTriggerClicked = useCallback(
     // TODO: event is an `any` and is being cast incorrectly

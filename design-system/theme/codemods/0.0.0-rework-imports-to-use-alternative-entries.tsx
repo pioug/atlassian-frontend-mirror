@@ -58,9 +58,8 @@ const typesPredicate = (specifier: any) =>
   typesImports.indexOf(specifier.imported.name) > -1;
 
 function getConstantsImport(j: any, path: any) {
-  const constantsSpecifierspath = path.value.specifiers.filter(
-    constantsPredicate,
-  );
+  const constantsSpecifierspath =
+    path.value.specifiers.filter(constantsPredicate);
 
   if (constantsSpecifierspath.length === 0) {
     return null;

@@ -17,8 +17,7 @@ const dataExamples = [
   },
   {
     bodyFormat: BODY_FORMAT_TYPES.html,
-    body:
-      '<p>before image</p> <img src="https://via.placeholder.com/600x600.png/" class="page-list__image" alt="LoremFlickr placeholder image"/> <p>after image</p>',
+    body: '<p>before image</p> <img src="https://via.placeholder.com/600x600.png/" class="page-list__image" alt="LoremFlickr placeholder image"/> <p>after image</p>',
   },
 ];
 

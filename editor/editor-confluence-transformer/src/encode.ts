@@ -440,8 +440,9 @@ export default function encode(node: PMNode, schema: Schema) {
   }
 
   function encodeUnsupported(node: PMNode) {
-    const domNode = parseCxhtml(node.attrs.cxhtml || '').querySelector('body')!
-      .firstChild;
+    const domNode = parseCxhtml(node.attrs.cxhtml || '').querySelector(
+      'body',
+    )!.firstChild;
     if (domNode) {
       return doc.importNode(domNode, true);
     }

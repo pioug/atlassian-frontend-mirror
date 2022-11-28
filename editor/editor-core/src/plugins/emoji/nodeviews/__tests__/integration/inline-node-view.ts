@@ -13,8 +13,7 @@ runInlineNodeViewTestSuite({
   multiLineNode: false,
   skipTests: {
     // Works when manually tested but sometimes flaky
-    'Extend a selection to the end of the current line from the current position': [
-      'firefox',
-    ],
+    'Extend a selection to the end of the current line from the current position':
+      ['firefox'],
   },
 });

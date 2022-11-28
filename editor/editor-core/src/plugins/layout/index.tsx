@@ -41,12 +41,8 @@ const layoutPlugin = (options: LayoutPluginOptions = {}): EditorPlugin => ({
   },
   pluginsOptions: {
     floatingToolbar(state, intl): FloatingToolbarConfig | undefined {
-      const {
-        pos,
-        allowBreakout,
-        addSidebarLayouts,
-        allowSingleColumnLayout,
-      } = pluginKey.getState(state) as LayoutState;
+      const { pos, allowBreakout, addSidebarLayouts, allowSingleColumnLayout } =
+        pluginKey.getState(state) as LayoutState;
       if (pos !== null) {
         return buildToolbar(
           state,

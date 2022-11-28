@@ -64,13 +64,11 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
   submitButtonLabel,
   cancelButtonLabel,
 }) => {
-  const [canBeContacted, setCanBeContacted] = useState<
-    FormFields['canBeContacted']
-  >(false);
+  const [canBeContacted, setCanBeContacted] =
+    useState<FormFields['canBeContacted']>(false);
   const [description, setDescription] = useState<FormFields['description']>('');
-  const [enrollInResearchGroup, setEnrollInResearchGroup] = useState<
-    FormFields['enrollInResearchGroup']
-  >(false);
+  const [enrollInResearchGroup, setEnrollInResearchGroup] =
+    useState<FormFields['enrollInResearchGroup']>(false);
   const [type, setType] = useState<FormFields['type']>('empty');
   const { formatMessage } = useIntl();
   const isTypeSelected = () => type !== 'empty';

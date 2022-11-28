@@ -22,24 +22,26 @@ import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 export type AppearanceType = 'default' | 'rounded';
 
 // @public (undocumented)
-const _default: MemoExoticComponent<ForwardRefExoticComponent<
-  Pick<
-    RemovableTagProps,
-    | 'appearance'
-    | 'color'
-    | 'text'
-    | 'testId'
-    | 'href'
-    | 'elemBefore'
-    | 'isRemovable'
-    | 'linkComponent'
-    | 'removeButtonLabel'
-    | 'onBeforeRemoveAction'
-    | 'onAfterRemoveAction'
-    | 'createAnalyticsEvent'
-  > &
-    RefAttributes<any>
->>;
+const _default: MemoExoticComponent<
+  ForwardRefExoticComponent<
+    Pick<
+      RemovableTagProps,
+      | 'appearance'
+      | 'color'
+      | 'text'
+      | 'testId'
+      | 'href'
+      | 'elemBefore'
+      | 'isRemovable'
+      | 'linkComponent'
+      | 'removeButtonLabel'
+      | 'onBeforeRemoveAction'
+      | 'onAfterRemoveAction'
+      | 'createAnalyticsEvent'
+    > &
+      RefAttributes<any>
+  >
+>;
 export { _default as RemovableTag };
 export default _default;
 
@@ -54,9 +56,9 @@ export interface RemovableTagProps
 }
 
 // @public (undocumented)
-export const SimpleTag: MemoExoticComponent<ForwardRefExoticComponent<
-  SimpleTagProps & RefAttributes<any>
->>;
+export const SimpleTag: MemoExoticComponent<
+  ForwardRefExoticComponent<SimpleTagProps & RefAttributes<any>>
+>;
 
 // @public (undocumented)
 export interface SimpleTagProps {

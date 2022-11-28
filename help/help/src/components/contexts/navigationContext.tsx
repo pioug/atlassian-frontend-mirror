@@ -52,9 +52,8 @@ interface NavigationContextInterface {
 
 const DEFAULT_ARTICLE_ID = { id: '', type: ARTICLE_TYPE.HELP_ARTICLE };
 
-export const [useNavigationContext, CtxProvider] = createCtx<
-  NavigationContextInterface
->();
+export const [useNavigationContext, CtxProvider] =
+  createCtx<NavigationContextInterface>();
 
 const getNewHistoryItem = (id: string, type: ARTICLE_TYPE) => {
   let uid = Math.floor(Math.random() * Math.pow(10, 17));
@@ -108,11 +107,10 @@ const getCurrentArticleItemSlim = (
 
       return currentArticleSlimData;
     } else if (type === ARTICLE_TYPE.WHATS_NEW) {
-      const {
-        description,
-        ...whatsNewArticleItemData
-      } = article as WhatsNewArticle;
-      const currentWhatsNewArticleSlimData: WhatsNewArticleItem = whatsNewArticleItemData;
+      const { description, ...whatsNewArticleItemData } =
+        article as WhatsNewArticle;
+      const currentWhatsNewArticleSlimData: WhatsNewArticleItem =
+        whatsNewArticleItemData;
 
       return currentWhatsNewArticleSlimData;
     }
@@ -164,9 +162,8 @@ const navigationReducer = (
   };
 
   if (action.type === 'newArticle' && action.payload) {
-    const {
-      payload: newArticleId,
-    }: navigationReducerAction<articleId> = action;
+    const { payload: newArticleId }: navigationReducerAction<articleId> =
+      action;
 
     if (isEqual(newArticleId, DEFAULT_ARTICLE_ID)) {
       newState = {
@@ -185,9 +182,8 @@ const navigationReducer = (
       };
     }
   } else if (action.type === 'addNewHistoryItem' && action.payload) {
-    const {
-      payload: newArticleId,
-    }: navigationReducerAction<articleId> = action;
+    const { payload: newArticleId }: navigationReducerAction<articleId> =
+      action;
 
     newState = {
       articleId: currentArticleId,
@@ -198,9 +194,8 @@ const navigationReducer = (
       view: getViewForArticleId(currentArticleId),
     };
   } else if (action.type === 'updateHistoryItem' && action.payload) {
-    const {
-      payload: HistoryItemUpdate,
-    }: navigationReducerAction<HistoryItem> = action;
+    const { payload: HistoryItemUpdate }: navigationReducerAction<HistoryItem> =
+      action;
     const index = currentHistory.findIndex(
       (historyItemTemp) => historyItemTemp.uid === HistoryItemUpdate.uid,
     );
@@ -236,9 +231,8 @@ const navigationReducer = (
       view: VIEW.DEFAULT_CONTENT,
     };
   } else if (action.type === 'updateArticleId' && action.payload) {
-    const {
-      payload: newArticleId,
-    }: navigationReducerAction<articleId> = action;
+    const { payload: newArticleId }: navigationReducerAction<articleId> =
+      action;
 
     newState = {
       articleId: newArticleId,
@@ -258,7 +252,9 @@ const navigationReducer = (
   return newState;
 };
 
-export const NavigationContextProvider: React.FC<NavigationProviderInterface> = ({
+export const NavigationContextProvider: React.FC<
+  NavigationProviderInterface
+> = ({
   navigationData = {
     articleId: DEFAULT_ARTICLE_ID,
     history: [],

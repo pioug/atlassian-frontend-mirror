@@ -133,9 +133,8 @@ export function createPlugin(
   if (!defaultPlaceholderText && !placeholderHints && !bracketPlaceholderText) {
     return;
   }
-  const getPlaceholderHintMessage = createGetPlaceholderHintMessage(
-    placeholderHints,
-  );
+  const getPlaceholderHintMessage =
+    createGetPlaceholderHintMessage(placeholderHints);
 
   return new SafePlugin<PlaceHolderState>({
     key: pluginKey,
@@ -175,9 +174,8 @@ export function createPlugin(
     },
     props: {
       decorations(editorState): DecorationSet | undefined {
-        const { hasPlaceholder, placeholderText, pos } = getPlaceholderState(
-          editorState,
-        );
+        const { hasPlaceholder, placeholderText, pos } =
+          getPlaceholderState(editorState);
 
         if (
           hasPlaceholder &&

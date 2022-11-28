@@ -104,7 +104,7 @@ export interface WithSortedPageRowsProps {
 
 // get one page of data in table, sorting all rows previously
 export default function withSortedPageRows<
-  WrappedComponentProps extends WithSortedPageRowsProps & TableProps
+  WrappedComponentProps extends WithSortedPageRowsProps & TableProps,
 >(WrappedComponent: React.ComponentType<WrappedComponentProps>) {
   return class WithSortedPageRows extends React.Component<
     Omit<WrappedComponentProps & TableProps, 'pageRows'>,

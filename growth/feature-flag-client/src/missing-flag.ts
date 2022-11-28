@@ -34,7 +34,7 @@ export default class MissingFlag implements FlagWrapper {
   private evaluate<T = FlagValue>(defaultValue: T) {
     this.sendAutomaticExposure(
       this.flagKey,
-      (defaultValue as unknown) as FlagValue,
+      defaultValue as unknown as FlagValue,
       MISSING_FLAG_EXPLANATION,
     );
     this.evaluationCount++;

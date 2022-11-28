@@ -16,6 +16,5 @@ export const handleAnalyticsEvent = (
   });
 };
 
-export const rendererAnalyticsClient: AnalyticsWebClient = analyticsBridgeClient(
-  handleAnalyticsEvent,
-);
+export const rendererAnalyticsClient: AnalyticsWebClient =
+  analyticsBridgeClient(handleAnalyticsEvent);

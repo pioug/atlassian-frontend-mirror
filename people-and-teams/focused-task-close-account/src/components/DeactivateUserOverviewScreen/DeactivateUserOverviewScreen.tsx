@@ -8,9 +8,7 @@ import * as Styled from './styled';
 import { DropdownList } from '../DropdownList';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 
-export class DeactivateUserOverviewScreen extends React.Component<
-  DeactivateUserOverviewScreenProps
-> {
+export class DeactivateUserOverviewScreen extends React.Component<DeactivateUserOverviewScreenProps> {
   static defaultProps: Partial<DeactivateUserOverviewScreenProps> = {
     isCurrentUser: false,
   };

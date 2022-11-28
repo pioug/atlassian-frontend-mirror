@@ -72,7 +72,7 @@ describe.skip('TableView', () => {
     // create the NodeView
     const node = table()(tr(tdCursor, tdEmpty, tdEmpty))(defaultSchema);
     const { editorView, portalProviderAPI } = editor(doc(p()));
-    const eventDispatcher = ({ on: () => {} } as unknown) as EventDispatcher;
+    const eventDispatcher = { on: () => {} } as unknown as EventDispatcher;
     const tableView = new TableView({
       node,
       allowColumnResizing: false,

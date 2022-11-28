@@ -18,9 +18,9 @@ import { RefAttributes } from 'react';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 // @public
-const Blanket: MemoExoticComponent<ForwardRefExoticComponent<
-  BlanketProps & RefAttributes<HTMLDivElement>
->>;
+const Blanket: MemoExoticComponent<
+  ForwardRefExoticComponent<BlanketProps & RefAttributes<HTMLDivElement>>
+>;
 export default Blanket;
 
 // @public (undocumented)

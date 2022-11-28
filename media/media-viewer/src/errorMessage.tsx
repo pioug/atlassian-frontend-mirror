@@ -53,10 +53,9 @@ const errorLoadingFileImage = (formatMessage: FormatMessageFn) => (
   />
 );
 
-export const errorReasonToMessages: Array<[
-  PrimaryErrorReason | SecondaryErrorReason,
-  MessageDescriptor,
-]> = [
+export const errorReasonToMessages: Array<
+  [PrimaryErrorReason | SecondaryErrorReason, MessageDescriptor]
+> = [
   ['serverRateLimited', i18nMessages.might_be_a_hiccup],
   ['invalidFileId', i18nMessages.item_not_found_in_list],
   [
@@ -124,7 +123,8 @@ export class ErrorMessage extends React.Component<
       if (Object.keys(rawPayload).includes('status')) {
         delete rawPayload['status'];
       }
-      const failMediaFileUfoExperiencePayload: UFOFailedEventPayload = rawPayload;
+      const failMediaFileUfoExperiencePayload: UFOFailedEventPayload =
+        rawPayload;
       failMediaFileUfoExperience(failMediaFileUfoExperiencePayload);
     }
   }
@@ -162,7 +162,6 @@ export class ErrorMessage extends React.Component<
   }
 }
 
-const ErroMsg: React.ComponentType<
-  Props & WithAnalyticsEventsProps
-> = withAnalyticsEvents()(injectIntl(ErrorMessage));
+const ErroMsg: React.ComponentType<Props & WithAnalyticsEventsProps> =
+  withAnalyticsEvents()(injectIntl(ErrorMessage));
 export default ErroMsg;

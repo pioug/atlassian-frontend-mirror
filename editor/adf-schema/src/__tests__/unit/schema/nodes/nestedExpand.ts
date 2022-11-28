@@ -55,13 +55,8 @@ describe(`${packageName}/schema nestedExpand node`, () => {
     });
 
     it('encodes and decodes to the same node', () => {
-      const {
-        paragraph,
-        nestedExpand,
-        table,
-        tableRow,
-        tableCell,
-      } = schema.nodes;
+      const { paragraph, nestedExpand, table, tableRow, tableCell } =
+        schema.nodes;
 
       const title = 'Homer Simpson';
       const content = paragraph.create(schema.text('hello'));

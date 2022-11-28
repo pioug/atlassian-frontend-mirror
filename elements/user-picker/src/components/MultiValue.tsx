@@ -100,7 +100,7 @@ export class MultiValue extends React.Component<Props> {
       ) : (
         <FormattedMessage {...messages.addEmail}>
           {(label) => (
-            <AddOptionAvatar isLozenge label={(label as unknown) as string} />
+            <AddOptionAvatar isLozenge label={label as unknown as string} />
           )}
         </FormattedMessage>
       );

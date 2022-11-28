@@ -127,7 +127,8 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
         await mediaNodeUpdater.updateContextId();
       }
 
-      const hasDifferentContextId = await mediaNodeUpdater.hasDifferentContextId();
+      const hasDifferentContextId =
+        await mediaNodeUpdater.hasDifferentContextId();
 
       if (hasDifferentContextId) {
         await mediaNodeUpdater.copyNode();
@@ -355,26 +356,28 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
   }
 }
 
-export const ReactMediaGroupNode = (
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
-  providerFactory: ProviderFactory,
-  mediaOptions: MediaOptions = {},
-) => (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
-  const hasIntlContext = true;
-  return new MediaGroupNodeView(
-    node,
-    view,
-    getPos,
-    portalProviderAPI,
-    eventDispatcher,
-    {
-      providerFactory,
-      mediaOptions,
-    },
-    undefined,
-    undefined,
-    undefined,
-    hasIntlContext,
-  ).init();
-};
+export const ReactMediaGroupNode =
+  (
+    portalProviderAPI: PortalProviderAPI,
+    eventDispatcher: EventDispatcher,
+    providerFactory: ProviderFactory,
+    mediaOptions: MediaOptions = {},
+  ) =>
+  (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
+    const hasIntlContext = true;
+    return new MediaGroupNodeView(
+      node,
+      view,
+      getPos,
+      portalProviderAPI,
+      eventDispatcher,
+      {
+        providerFactory,
+        mediaOptions,
+      },
+      undefined,
+      undefined,
+      undefined,
+      hasIntlContext,
+    ).init();
+  };

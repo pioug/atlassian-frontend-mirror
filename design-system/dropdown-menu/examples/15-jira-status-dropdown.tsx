@@ -1,36 +1,34 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import React from 'react';
 
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import Arrow from '@atlaskit/icon/glyph/arrow-right';
 import Lozenge from '@atlaskit/lozenge';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
-const jiraItemStyles = css({
-  display: 'flex',
+const jiraItemStyles: React.CSSProperties = {
   width: 105,
-  alignItems: 'center',
-});
+};
 
 export default () => (
   <DropdownMenu defaultOpen trigger="To do">
     <DropdownItemGroup>
       <DropdownItem
         elemAfter={
-          <div css={jiraItemStyles}>
+          <Box alignItems="center" UNSAFE_style={jiraItemStyles}>
             <Arrow label="" size="small" />
             <Lozenge appearance="inprogress">in progress</Lozenge>
-          </div>
+          </Box>
         }
       >
         Status project
       </DropdownItem>
       <DropdownItem
         elemAfter={
-          <div css={jiraItemStyles}>
+          <Box alignItems="center" UNSAFE_style={jiraItemStyles}>
             <Arrow label="" size="small" />
             <Lozenge appearance="success">Done</Lozenge>
-          </div>
+          </Box>
         }
       >
         Move to done

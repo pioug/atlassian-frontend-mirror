@@ -394,8 +394,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     },
     // tagged TemplateLiteral with nested styles
     {
-      code:
-        'const cssTemplateLiteral = css`color: red; div { padding: 16px 24px; }`;',
+      code: 'const cssTemplateLiteral = css`color: red; div { padding: 16px 24px; }`;',
       output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; div { padding: \${token('spacing.scale.200', '16px')} \${token('spacing.scale.300', '24px')}; }\`;`,
       errors: [
         {
@@ -410,8 +409,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     },
     // vanilla template
     {
-      code:
-        'const styledTemplateLiteral = styled.p`color: red; padding: 12px; margin: 4px; gap: 2px`;',
+      code: 'const styledTemplateLiteral = styled.p`color: red; padding: 12px; margin: 4px; gap: 2px`;',
       output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.150', '12px')}; margin: 4px; gap: 2px\`;`,
       errors: [
         {
@@ -429,8 +427,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       ],
     },
     {
-      code:
-        'const styledTemplateLiteral = styled.p`color: red; padding: 12px 8px 10px 9px;`;',
+      code: 'const styledTemplateLiteral = styled.p`color: red; padding: 12px 8px 10px 9px;`;',
       output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px 8px 10px 9px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.150', '12px')} \${token('spacing.scale.100', '8px')} 10px 9px;\`;`,
       errors: [
         {

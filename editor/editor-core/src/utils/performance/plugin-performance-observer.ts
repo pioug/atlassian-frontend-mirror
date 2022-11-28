@@ -16,9 +16,8 @@ export class PluginPerformanceObserver implements PerformanceObserver {
     0,
   ];
   private getPlugins: () => string[] = () => [];
-  private getOptions: () => Partial<
-    PluginPerformanceReportOptions
-  > = () => ({});
+  private getOptions: () => Partial<PluginPerformanceReportOptions> =
+    () => ({});
 
   private reportCount = 0;
   private simpleObserver = new SimpleMeasurementLogger();
@@ -38,9 +37,8 @@ export class PluginPerformanceObserver implements PerformanceObserver {
   }
 
   private get isSimpleTracking(): boolean {
-    const {
-      usePerformanceMarks = DEFAULT_USE_PERFORMANCE_MARK,
-    } = this.getOptions();
+    const { usePerformanceMarks = DEFAULT_USE_PERFORMANCE_MARK } =
+      this.getOptions();
     return !usePerformanceMarks;
   }
 

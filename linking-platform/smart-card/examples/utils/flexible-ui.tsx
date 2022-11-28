@@ -51,8 +51,7 @@ export const getCardState = (
       name: 'Confluence',
     },
     url: 'link-url',
-    name:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non elementum augue. Donec porttitor purus ut lacus blandit, quis hendrerit turpis pharetra. Etiam commodo lorem metus, eu eleifend tellus mattis sed. Suspendisse potenti. Duis metus quam, lacinia dapibus faucibus quis, laoreet quis turpis. Curabitur iaculis suscipit ligula ac commodo. Cras in metus enim. Duis sit amet turpis suscipit, ultricies odio sit amet, bibendum sem. Nunc consectetur diam vel elit pulvinar posuere. Maecenas neque mauris, tempor nec dolor nec, mollis laoreet nibh. Fusce mauris ante, scelerisque in tristique ut, ultrices sed eros. Cras imperdiet tellus nisl, in efficitur nibh rhoncus eget.',
+    name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non elementum augue. Donec porttitor purus ut lacus blandit, quis hendrerit turpis pharetra. Etiam commodo lorem metus, eu eleifend tellus mattis sed. Suspendisse potenti. Duis metus quam, lacinia dapibus faucibus quis, laoreet quis turpis. Curabitur iaculis suscipit ligula ac commodo. Cras in metus enim. Duis sit amet turpis suscipit, ultricies odio sit amet, bibendum sem. Nunc consectetur diam vel elit pulvinar posuere. Maecenas neque mauris, tempor nec dolor nec, mollis laoreet nibh. Fusce mauris ante, scelerisque in tristique ut, ultrices sed eros. Cras imperdiet tellus nisl, in efficitur nibh rhoncus eget.',
     ...data,
   }),
 });
@@ -139,9 +138,7 @@ export const metadataElements = Object.values(ElementName).filter(
     ElementDisplaySchema[name].includes('inline'),
 );
 
-export const actionNames: Exclude<
-  ActionName,
-  ActionName.CustomAction
->[] = (Object.values(ActionName).filter(
-  (name) => name !== ActionName.CustomAction,
-) as unknown) as Exclude<ActionName, ActionName.CustomAction>[];
+export const actionNames: Exclude<ActionName, ActionName.CustomAction>[] =
+  Object.values(ActionName).filter(
+    (name) => name !== ActionName.CustomAction,
+  ) as unknown as Exclude<ActionName, ActionName.CustomAction>[];

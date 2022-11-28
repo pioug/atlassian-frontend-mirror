@@ -13,9 +13,7 @@ export type FileFetcherErrorAttributes = {
     readonly occurrenceKey?: string;
   };
 };
-export class FileFetcherError extends BaseMediaClientError<
-  FileFetcherErrorAttributes
-> {
+export class FileFetcherError extends BaseMediaClientError<FileFetcherErrorAttributes> {
   constructor(
     readonly reason: FileFetcherErrorReason,
     readonly id: string,

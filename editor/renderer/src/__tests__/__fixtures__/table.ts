@@ -341,8 +341,7 @@ export const tableLayout = {
                       type: 'media',
                       attrs: {
                         type: 'external',
-                        url:
-                          'https://images.rapgenius.com/de451d5df22cb6e71e5a06101c1f979e.460x460x1.jpg',
+                        url: 'https://images.rapgenius.com/de451d5df22cb6e71e5a06101c1f979e.460x460x1.jpg',
                       },
                     },
                   ],

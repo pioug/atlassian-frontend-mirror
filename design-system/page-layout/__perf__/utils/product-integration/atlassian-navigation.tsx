@@ -71,14 +71,13 @@ const SettingsDrawer = () => {
   );
 };
 
-const buttonClick = (toLog: string) => (
-  e: MouseEvent<HTMLElement | HTMLAnchorElement>,
-) => {
-  if (e.ctrlKey || e.metaKey) {
-    return;
-  }
-  e.preventDefault();
-};
+const buttonClick =
+  (toLog: string) => (e: MouseEvent<HTMLElement | HTMLAnchorElement>) => {
+    if (e.ctrlKey || e.metaKey) {
+      return;
+    }
+    e.preventDefault();
+  };
 
 const primaryItems = [
   <PrimaryButton onClick={buttonClick('Projects')}>Projects</PrimaryButton>,

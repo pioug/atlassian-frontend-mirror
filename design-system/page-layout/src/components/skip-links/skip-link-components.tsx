@@ -152,35 +152,34 @@ const handleBlur = (event: ReactMouseEvent | ReactKeyboardEvent) => {
   event.target.removeEventListener('blur', handleBlur);
 };
 
-const focusTargetRef = (href: string) => (
-  event: ReactMouseEvent | ReactKeyboardEvent,
-) => {
-  event.preventDefault();
-  const targetRef = document.querySelector(href);
+const focusTargetRef =
+  (href: string) => (event: ReactMouseEvent | ReactKeyboardEvent) => {
+    event.preventDefault();
+    const targetRef = document.querySelector(href);
 
-  // @ts-ignore
-  const key = event.which || event.keycode;
-  // if it is a keypress and the key is not
-  // space or enter, just ignore it.
-  if (key && key !== 13 && key !== 32) {
-    return;
-  }
-
-  if (targetRef) {
-    targetRef.setAttribute('tabindex', '-1');
     // @ts-ignore
-    targetRef.addEventListener('blur', handleBlur);
-    // @ts-ignore
-    targetRef.focus();
-    document.activeElement &&
-      document.activeElement.scrollIntoView({
-        behavior: 'smooth',
-      });
-    window.scrollTo(0, 0);
-  }
+    const key = event.which || event.keycode;
+    // if it is a keypress and the key is not
+    // space or enter, just ignore it.
+    if (key && key !== 13 && key !== 32) {
+      return;
+    }
 
-  return false;
-};
+    if (targetRef) {
+      targetRef.setAttribute('tabindex', '-1');
+      // @ts-ignore
+      targetRef.addEventListener('blur', handleBlur);
+      // @ts-ignore
+      targetRef.focus();
+      document.activeElement &&
+        document.activeElement.scrollIntoView({
+          behavior: 'smooth',
+        });
+      window.scrollTo(0, 0);
+    }
+
+    return false;
+  };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SkipLink = ({

@@ -170,9 +170,10 @@ export class OverflowShadowsObserver {
     }px`;
     // Use getElementsByClassName here for a live node list to capture
     // sticky shadows
-    const liveRightShadows = this.wrapper?.parentElement?.getElementsByClassName(
-      `${ClassName.TABLE_RIGHT_SHADOW}`,
-    );
+    const liveRightShadows =
+      this.wrapper?.parentElement?.getElementsByClassName(
+        `${ClassName.TABLE_RIGHT_SHADOW}`,
+      );
     const liveLeftShadows = this.wrapper?.parentElement?.getElementsByClassName(
       `${ClassName.TABLE_LEFT_SHADOW}`,
     );

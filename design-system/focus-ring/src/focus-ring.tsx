@@ -28,11 +28,12 @@ const focusRingStyles = css({
   '@supports not selector(*:focus-visible)': {
     '&:focus': baseFocusOutsideStyles,
   },
-  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
-    '&:focus-visible': {
-      outline: '1px solid',
+  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)':
+    {
+      '&:focus-visible': {
+        outline: '1px solid',
+      },
     },
-  },
 });
 
 const insetFocusRingStyles = css({
@@ -40,12 +41,13 @@ const insetFocusRingStyles = css({
   '@supports not selector(*:focus-visible)': {
     '&:focus': baseInsetStyles,
   },
-  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
-    '&:focus-visible': {
-      outline: '1px solid',
-      outlineOffset: '-1px',
+  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)':
+    {
+      '&:focus-visible': {
+        outline: '1px solid',
+        outlineOffset: '-1px',
+      },
     },
-  },
 });
 
 /**

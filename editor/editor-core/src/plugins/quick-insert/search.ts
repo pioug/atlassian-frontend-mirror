@@ -33,40 +33,44 @@ export function find(
   return fuse.search(query).map((result) => result.item);
 }
 
-export const searchQuickInsertItems = (
-  quickInsertState: QuickInsertPluginState,
-  options?: QuickInsertPluginOptions,
-) => (query?: string, category?: string): QuickInsertItem[] => {
-  const defaultItems =
-    options && options.disableDefaultItems
-      ? []
-      : quickInsertState.lazyDefaultItems();
-  const providedItems = quickInsertState.providedItems;
+export const searchQuickInsertItems =
+  (
+    quickInsertState: QuickInsertPluginState,
+    options?: QuickInsertPluginOptions,
+  ) =>
+  (query?: string, category?: string): QuickInsertItem[] => {
+    const defaultItems =
+      options && options.disableDefaultItems
+        ? []
+        : quickInsertState.lazyDefaultItems();
+    const providedItems = quickInsertState.providedItems;
 
-  const items = providedItems
-    ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
-    : defaultItems;
+    const items = providedItems
+      ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
+      : defaultItems;
 
-  return find(
-    query || '',
-    category === 'all' || !category
-      ? items
-      : items.filter(
-          (item) => item.categories && item.categories.includes(category),
-        ),
-  );
-};
+    return find(
+      query || '',
+      category === 'all' || !category
+        ? items
+        : items.filter(
+            (item) => item.categories && item.categories.includes(category),
+          ),
+    );
+  };
 
-export const getFeaturedQuickInsertItems = (
-  { providedItems, lazyDefaultItems }: QuickInsertPluginState,
-  options?: QuickInsertPluginOptions,
-) => (): QuickInsertItem[] => {
-  const defaultItems =
-    options && options.disableDefaultItems ? [] : lazyDefaultItems();
+export const getFeaturedQuickInsertItems =
+  (
+    { providedItems, lazyDefaultItems }: QuickInsertPluginState,
+    options?: QuickInsertPluginOptions,
+  ) =>
+  (): QuickInsertItem[] => {
+    const defaultItems =
+      options && options.disableDefaultItems ? [] : lazyDefaultItems();
 
-  const items = providedItems
-    ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
-    : defaultItems;
+    const items = providedItems
+      ? dedupe([...defaultItems, ...providedItems], (item) => item.title)
+      : defaultItems;
 
-  return items.filter((item) => item.featured);
-};
+    return items.filter((item) => item.featured);
+  };

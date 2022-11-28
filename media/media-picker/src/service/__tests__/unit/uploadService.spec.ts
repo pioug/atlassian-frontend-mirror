@@ -95,7 +95,7 @@ describe('UploadService', () => {
     (getPreviewModule.getPreviewFromBlob as any).mockReturnValue(
       Promise.resolve(),
     );
-    ((uuidV4 as unknown) as jest.Mock<{}>)
+    (uuidV4 as unknown as jest.Mock<{}>)
       .mockReturnValueOnce('uuid1')
       .mockReturnValueOnce('uuid2')
       .mockReturnValueOnce('uuid3')

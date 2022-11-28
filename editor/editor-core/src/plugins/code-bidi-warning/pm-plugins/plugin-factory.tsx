@@ -21,13 +21,12 @@ export const { createPluginState, getPluginState } = pluginFactory(
         return pluginState;
       }
 
-      const newBidiWarningsDecorationSet = createBidiWarningsDecorationSetFromDoc(
-        {
+      const newBidiWarningsDecorationSet =
+        createBidiWarningsDecorationSetFromDoc({
           doc: tr.doc,
           codeBidiWarningLabel: pluginState.codeBidiWarningLabel,
           tooltipEnabled: pluginState.tooltipEnabled,
-        },
-      );
+        });
 
       return { ...pluginState, decorationSet: newBidiWarningsDecorationSet };
     },

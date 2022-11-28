@@ -78,8 +78,8 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
   }
 
   onConnectionChange = () => {
-    const isConnectedToUsersCollection = !this.state
-      .isConnectedToUsersCollection;
+    const isConnectedToUsersCollection =
+      !this.state.isConnectedToUsersCollection;
     this.setState({ isConnectedToUsersCollection });
   };
 
@@ -120,11 +120,8 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
   };
 
   render() {
-    const {
-      isConnectedToUsersCollection,
-      isActive,
-      isWindowFocused,
-    } = this.state;
+    const { isConnectedToUsersCollection, isActive, isWindowFocused } =
+      this.state;
 
     return (
       <UfoLoggerWrapper>

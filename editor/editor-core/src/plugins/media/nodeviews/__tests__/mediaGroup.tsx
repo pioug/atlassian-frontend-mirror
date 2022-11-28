@@ -15,12 +15,12 @@ export const getMediaGroupProps = () => ({
   view: {
     state: { selection: { $anchor: { pos: 1 }, $head: { pos: 5 } } },
   } as EditorView<any>,
-  node: ({
+  node: {
     nodeSize: 3,
     attrs: {},
     firstChild: { attrs: {} },
     forEach() {},
-  } as unknown) as PMNode<any>,
+  } as unknown as PMNode<any>,
   mediaProvider: createMediaProvider(),
   selected: null,
   getPos: jest.fn(),

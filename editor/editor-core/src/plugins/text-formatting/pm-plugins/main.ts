@@ -19,14 +19,8 @@ export type { TextFormattingState };
 const getTextFormattingState = (
   editorState: EditorState,
 ): TextFormattingState => {
-  const {
-    em,
-    code,
-    strike,
-    strong,
-    subsup,
-    underline,
-  } = editorState.schema.marks;
+  const { em, code, strike, strong, subsup, underline } =
+    editorState.schema.marks;
   const state: TextFormattingState = {};
 
   if (code) {

@@ -52,16 +52,17 @@ it('should notify a drop target when a draggable is being lifted inside of it', 
     sticky: false,
   };
   {
-    const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] = {
-      location: getInitialHistory([self]),
-      source: {
-        data: { hello: 'world' },
-        dragHandle: null,
-        element: element,
-      },
-      self,
-      nativeSetDragImage: expect.any(Function),
-    };
+    const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] =
+      {
+        location: getInitialHistory([self]),
+        source: {
+          data: { hello: 'world' },
+          dragHandle: null,
+          element: element,
+        },
+        self,
+        nativeSetDragImage: expect.any(Function),
+      };
     expect(onGenerateDragPreview).toHaveBeenCalledTimes(1);
     expect(onGenerateDragPreview).toHaveBeenCalledWith(expected);
     expect(onDragStart).not.toHaveBeenCalled();
@@ -286,30 +287,32 @@ it('should notify all drop target parents when a inner draggable is lifted', () 
     sticky: false,
   };
   {
-    const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] = {
-      location: getInitialHistory([parentRecord, grandParentRecord]),
-      source: {
-        data: { name: 'draggable' },
-        dragHandle: null,
-        element: element,
-      },
-      nativeSetDragImage: expect.any(Function),
-      self: parentRecord,
-    };
+    const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] =
+      {
+        location: getInitialHistory([parentRecord, grandParentRecord]),
+        source: {
+          data: { name: 'draggable' },
+          dragHandle: null,
+          element: element,
+        },
+        nativeSetDragImage: expect.any(Function),
+        self: parentRecord,
+      };
     expect(parentOnGenerateDragPreview).toHaveBeenCalledWith(expected);
     expect(parentOnGenerateDragPreview).toHaveBeenCalledTimes(1);
   }
   {
-    const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] = {
-      location: getInitialHistory([parentRecord, grandParentRecord]),
-      source: {
-        data: { name: 'draggable' },
-        dragHandle: null,
-        element: element,
-      },
-      nativeSetDragImage: expect.any(Function),
-      self: grandParentRecord,
-    };
+    const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] =
+      {
+        location: getInitialHistory([parentRecord, grandParentRecord]),
+        source: {
+          data: { name: 'draggable' },
+          dragHandle: null,
+          element: element,
+        },
+        nativeSetDragImage: expect.any(Function),
+        self: grandParentRecord,
+      };
     expect(grandParentOnGenerateDragPreview).toHaveBeenCalledWith(expected);
     expect(grandParentOnGenerateDragPreview).toHaveBeenCalledTimes(1);
   }

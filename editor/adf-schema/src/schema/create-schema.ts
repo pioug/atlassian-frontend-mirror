@@ -213,7 +213,7 @@ const marksInOrder: SchemaBuiltInItem[] = [
  */
 export function createSchema<
   N extends string = string,
-  M extends string = string
+  M extends string = string,
 >(config: SchemaConfig<N, M>): Schema<N, M> {
   const { customNodeSpecs, customMarkSpecs } = config;
   const nodesConfig = Object.keys(customNodeSpecs || {}).concat(config.nodes);

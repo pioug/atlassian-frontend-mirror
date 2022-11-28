@@ -127,7 +127,8 @@ class AbstractResource<Result> implements ResourceProvider<Result> {
 
 class AbstractMentionResource
   extends AbstractResource<MentionDescription[]>
-  implements MentionProvider {
+  implements MentionProvider
+{
   shouldHighlightMention(_mention: MentionDescription): boolean {
     return false;
   }
@@ -240,7 +241,8 @@ class AbstractMentionResource
  */
 export class MentionResource
   extends AbstractMentionResource
-  implements ResolvingMentionProvider {
+  implements ResolvingMentionProvider
+{
   private config: MentionResourceConfig;
   private lastReturnedSearch: number;
   private activeSearches: Set<string>;
@@ -387,9 +389,9 @@ export class MentionResource
   private clearContext(
     contextIdentifier: MentionContextIdentifier = {},
   ): MentionContextIdentifier {
-    return (Object.keys(contextIdentifier) as Array<
-      keyof MentionContextIdentifier
-    >)
+    return (
+      Object.keys(contextIdentifier) as Array<keyof MentionContextIdentifier>
+    )
       .filter((key) => contextIdentifier[key])
       .reduce(
         (context, key) => ({

@@ -21,26 +21,28 @@ import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 type Size = 'regular' | 'large';
 
 // @public
-const Toggle: MemoExoticComponent<ForwardRefExoticComponent<
-  Pick<
-    ToggleProps,
-    | 'size'
-    | 'isDisabled'
-    | 'id'
-    | 'name'
-    | 'value'
-    | 'onBlur'
-    | 'onChange'
-    | 'onFocus'
-    | 'testId'
-    | 'analyticsContext'
-    | 'defaultChecked'
-    | 'isChecked'
-    | 'label'
-    | 'createAnalyticsEvent'
-  > &
-    RefAttributes<HTMLInputElement>
->>;
+const Toggle: MemoExoticComponent<
+  ForwardRefExoticComponent<
+    Pick<
+      ToggleProps,
+      | 'size'
+      | 'isDisabled'
+      | 'id'
+      | 'name'
+      | 'value'
+      | 'onBlur'
+      | 'onChange'
+      | 'onFocus'
+      | 'testId'
+      | 'analyticsContext'
+      | 'defaultChecked'
+      | 'isChecked'
+      | 'label'
+      | 'createAnalyticsEvent'
+    > &
+      RefAttributes<HTMLInputElement>
+  >
+>;
 export default Toggle;
 
 // @public (undocumented)

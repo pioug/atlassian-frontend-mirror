@@ -86,14 +86,11 @@ const WysiwygRenderer = React.forwardRef<
 });
 
 export default function WysiwygTesting() {
-  const [{ ref: editorRef, props: editorProps }, __mountEditor] = useProps<
-    EditorProps
-  >();
+  const [{ ref: editorRef, props: editorProps }, __mountEditor] =
+    useProps<EditorProps>();
 
-  const [
-    { ref: rendererRef, props: rendererProps },
-    __mountRenderer,
-  ] = useProps<RendererProps>();
+  const [{ ref: rendererRef, props: rendererProps }, __mountRenderer] =
+    useProps<RendererProps>();
 
   const __mount = React.useCallback(
     (

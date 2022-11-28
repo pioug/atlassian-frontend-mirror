@@ -33,7 +33,7 @@ const mockPlugin = new Plugin({
   state: {
     init() {},
     apply(unsafeTr: Transaction | ReadonlyTransaction, pluginState: any) {
-      const tr = (unsafeTr as unknown) as Transaction;
+      const tr = unsafeTr as unknown as Transaction;
       const shouldBreak = tr.getMeta('mutateInApply');
       const shouldSetSelection = tr.getMeta('setSelectionInApply');
       const isAppendedTransaction = tr.getMeta('anAppendedTransaction');

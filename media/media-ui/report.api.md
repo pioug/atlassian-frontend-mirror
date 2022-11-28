@@ -464,9 +464,7 @@ export interface MediaImageState {
 }
 
 // @public (undocumented)
-export class MediaInlineCardErroredView extends React_2.Component<
-  MediaInlineCardErroredViewProps
-> {
+export class MediaInlineCardErroredView extends React_2.Component<MediaInlineCardErroredViewProps> {
   // (undocumented)
   render(): JSX.Element;
   // (undocumented)
@@ -484,9 +482,7 @@ export interface MediaInlineCardErroredViewProps {
 }
 
 // @public (undocumented)
-export class MediaInlineCardLoadedView extends React_2.Component<
-  MediaInlineCardLoadedViewProps
-> {
+export class MediaInlineCardLoadedView extends React_2.Component<MediaInlineCardLoadedViewProps> {
   // (undocumented)
   render(): JSX.Element;
 }
@@ -502,9 +498,7 @@ export interface MediaInlineCardLoadedViewProps {
 }
 
 // @public (undocumented)
-export class MediaInlineCardLoadingView extends React_2.Component<
-  MediaInlineCardLoadingViewProps
-> {
+export class MediaInlineCardLoadingView extends React_2.Component<MediaInlineCardLoadingViewProps> {
   // (undocumented)
   render(): JSX.Element;
 }

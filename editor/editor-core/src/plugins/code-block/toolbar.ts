@@ -42,104 +42,105 @@ export const messages = defineMessages({
 
 const languageList = createLanguageList(DEFAULT_LANGUAGES);
 
-export const getToolbarConfig = (
-  allowCopyToClipboard: boolean = false,
-): FloatingToolbarHandler => (state, { formatMessage }) => {
-  const codeBlockState: CodeBlockState | undefined = pluginKey.getState(state);
-  const pos = codeBlockState?.pos ?? null;
+export const getToolbarConfig =
+  (allowCopyToClipboard: boolean = false): FloatingToolbarHandler =>
+  (state, { formatMessage }) => {
+    const codeBlockState: CodeBlockState | undefined =
+      pluginKey.getState(state);
+    const pos = codeBlockState?.pos ?? null;
 
-  if (!codeBlockState || pos === null) {
-    return;
-  }
+    if (!codeBlockState || pos === null) {
+      return;
+    }
 
-  const node = state.doc.nodeAt(pos);
-  const nodeType = state.schema.nodes.codeBlock;
+    const node = state.doc.nodeAt(pos);
+    const nodeType = state.schema.nodes.codeBlock;
 
-  if (node?.type !== nodeType) {
-    return;
-  }
+    if (node?.type !== nodeType) {
+      return;
+    }
 
-  const language = node?.attrs?.language;
+    const language = node?.attrs?.language;
 
-  const options = languageList.map((lang) => ({
-    label: lang.name,
-    value: getLanguageIdentifier(lang),
-    alias: lang.alias,
-  }));
+    const options = languageList.map((lang) => ({
+      label: lang.name,
+      value: getLanguageIdentifier(lang),
+      alias: lang.alias,
+    }));
 
-  // If language is not undefined search for it in the value and then search in the aliases
-  const defaultValue = language
-    ? options.find((option) => option.value === language) ||
-      options.find((option) => option.alias.includes(language as never))
-    : null;
+    // If language is not undefined search for it in the value and then search in the aliases
+    const defaultValue = language
+      ? options.find((option) => option.value === language) ||
+        options.find((option) => option.alias.includes(language as never))
+      : null;
 
-  const languageSelect: FloatingToolbarListPicker<Command> = {
-    id: 'editor.codeBlock.languageOptions',
-    type: 'select',
-    selectType: 'list',
-    onChange: (option) => changeLanguage(option.value),
-    defaultValue,
-    placeholder: formatMessage(messages.selectLanguage),
-    options,
-    filterOption: languageListFilter,
+    const languageSelect: FloatingToolbarListPicker<Command> = {
+      id: 'editor.codeBlock.languageOptions',
+      type: 'select',
+      selectType: 'list',
+      onChange: (option) => changeLanguage(option.value),
+      defaultValue,
+      placeholder: formatMessage(messages.selectLanguage),
+      options,
+      filterOption: languageListFilter,
+    };
+
+    const separator: FloatingToolbarSeparator = {
+      type: 'separator',
+    };
+
+    const copyToClipboardItems = !allowCopyToClipboard
+      ? []
+      : ([
+          {
+            id: 'editor.codeBlock.copy',
+            type: 'button',
+            appearance: 'subtle',
+            icon: CopyIcon,
+            // note: copyContentToClipboard contains logic that also removes the
+            // visual feedback for the copy button
+            onClick: copyContentToClipboard,
+            title: formatMessage(
+              codeBlockState.contentCopied
+                ? codeBlockCopyButtonMessages.copiedCodeToClipboard
+                : codeBlockCopyButtonMessages.copyCodeToClipboard,
+            ),
+            onMouseEnter: provideVisualFeedbackForCopyButton,
+            // note: resetCopiedState contains logic that also removes the
+            // visual feedback for the copy button
+            onMouseLeave: resetCopiedState,
+            onFocus: provideVisualFeedbackForCopyButton,
+            onBlur: removeVisualFeedbackForCopyButton,
+            hideTooltipOnClick: false,
+            disabled: codeBlockState.isNodeSelected,
+            tabIndex: null,
+          },
+          separator,
+        ] as const);
+
+    const deleteButton: FloatingToolbarButton<Command> = {
+      id: 'editor.codeBlock.delete',
+      type: 'button',
+      appearance: 'danger',
+      icon: RemoveIcon,
+      onMouseEnter: hoverDecoration(nodeType, true),
+      onMouseLeave: hoverDecoration(nodeType, false),
+      onFocus: hoverDecoration(nodeType, true),
+      onBlur: hoverDecoration(nodeType, false),
+      onClick: removeCodeBlock,
+      title: formatMessage(commonMessages.remove),
+      tabIndex: null,
+    };
+
+    return {
+      title: 'CodeBlock floating controls',
+      getDomRef: (view) =>
+        findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
+      nodeType,
+      items: [languageSelect, separator, ...copyToClipboardItems, deleteButton],
+      scrollable: true,
+    };
   };
-
-  const separator: FloatingToolbarSeparator = {
-    type: 'separator',
-  };
-
-  const copyToClipboardItems = !allowCopyToClipboard
-    ? []
-    : ([
-        {
-          id: 'editor.codeBlock.copy',
-          type: 'button',
-          appearance: 'subtle',
-          icon: CopyIcon,
-          // note: copyContentToClipboard contains logic that also removes the
-          // visual feedback for the copy button
-          onClick: copyContentToClipboard,
-          title: formatMessage(
-            codeBlockState.contentCopied
-              ? codeBlockCopyButtonMessages.copiedCodeToClipboard
-              : codeBlockCopyButtonMessages.copyCodeToClipboard,
-          ),
-          onMouseEnter: provideVisualFeedbackForCopyButton,
-          // note: resetCopiedState contains logic that also removes the
-          // visual feedback for the copy button
-          onMouseLeave: resetCopiedState,
-          onFocus: provideVisualFeedbackForCopyButton,
-          onBlur: removeVisualFeedbackForCopyButton,
-          hideTooltipOnClick: false,
-          disabled: codeBlockState.isNodeSelected,
-          tabIndex: null,
-        },
-        separator,
-      ] as const);
-
-  const deleteButton: FloatingToolbarButton<Command> = {
-    id: 'editor.codeBlock.delete',
-    type: 'button',
-    appearance: 'danger',
-    icon: RemoveIcon,
-    onMouseEnter: hoverDecoration(nodeType, true),
-    onMouseLeave: hoverDecoration(nodeType, false),
-    onFocus: hoverDecoration(nodeType, true),
-    onBlur: hoverDecoration(nodeType, false),
-    onClick: removeCodeBlock,
-    title: formatMessage(commonMessages.remove),
-    tabIndex: null,
-  };
-
-  return {
-    title: 'CodeBlock floating controls',
-    getDomRef: (view) =>
-      findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
-    nodeType,
-    items: [languageSelect, separator, ...copyToClipboardItems, deleteButton],
-    scrollable: true,
-  };
-};
 
 /**
  * Filters language list based on both name and alias properties.

@@ -119,87 +119,91 @@ export const getToolbarItems = (
   ];
 
   if (isCustomPanelEnabled) {
-    const changeColor = (color: string): Command => (state, dispatch) => {
-      const panelNode = findPanel(state);
-      if (panelNode === undefined) {
-        return false;
-      }
-      let previousColor =
-        panelNode.node.attrs.panelColor ||
-        getPanelTypeBackground(panelNode.node.attrs.panelType);
+    const changeColor =
+      (color: string): Command =>
+      (state, dispatch) => {
+        const panelNode = findPanel(state);
+        if (panelNode === undefined) {
+          return false;
+        }
+        let previousColor =
+          panelNode.node.attrs.panelColor ||
+          getPanelTypeBackground(panelNode.node.attrs.panelType);
 
-      const emojiInfo = panelNode.node.attrs.panelType as Exclude<
-        PanelType,
-        PanelType.CUSTOM
-      >;
-      const panelEmoji = panelIconMap[emojiInfo];
-      const previousEmoji = panelEmoji
-        ? { emoji: panelEmoji.shortName, emojiId: panelEmoji.id }
-        : {};
-      if (previousColor === color) {
-        changePanelType(
-          PanelType.CUSTOM,
-          { color, ...previousEmoji },
-          isCustomPanelEnabled,
+        const emojiInfo = panelNode.node.attrs.panelType as Exclude<
+          PanelType,
+          PanelType.CUSTOM
+        >;
+        const panelEmoji = panelIconMap[emojiInfo];
+        const previousEmoji = panelEmoji
+          ? { emoji: panelEmoji.shortName, emojiId: panelEmoji.id }
+          : {};
+        if (previousColor === color) {
+          changePanelType(
+            PanelType.CUSTOM,
+            { color, ...previousEmoji },
+            isCustomPanelEnabled,
+          )(state, dispatch);
+          return false;
+        }
+        const payload: AnalyticsEventPayload = {
+          action: ACTION.CHANGED_BACKGROUND_COLOR,
+          actionSubject: ACTION_SUBJECT.PANEL,
+          actionSubjectId: ACTION_SUBJECT_ID.PANEL,
+          attributes: { newColor: color, previousColor: previousColor },
+          eventType: EVENT_TYPE.TRACK,
+        };
+
+        withAnalytics(payload)(
+          changePanelType(
+            PanelType.CUSTOM,
+            { color, ...previousEmoji },
+            isCustomPanelEnabled,
+          ),
         )(state, dispatch);
         return false;
-      }
-      const payload: AnalyticsEventPayload = {
-        action: ACTION.CHANGED_BACKGROUND_COLOR,
-        actionSubject: ACTION_SUBJECT.PANEL,
-        actionSubjectId: ACTION_SUBJECT_ID.PANEL,
-        attributes: { newColor: color, previousColor: previousColor },
-        eventType: EVENT_TYPE.TRACK,
       };
 
-      withAnalytics(payload)(
-        changePanelType(
-          PanelType.CUSTOM,
-          { color, ...previousEmoji },
-          isCustomPanelEnabled,
-        ),
-      )(state, dispatch);
-      return false;
-    };
-
-    const changeEmoji = (emoji: EmojiId): Command => (state, dispatch) => {
-      const panelNode = findPanel(state);
-      if (panelNode === undefined) {
-        return false;
-      }
-      let previousIcon = panelNode.node.attrs.panelIcon || '';
-      if (previousIcon === emoji.shortName) {
-        changePanelType(
-          PanelType.CUSTOM,
-          {
-            emoji: emoji.shortName,
-            emojiId: emoji.id,
-            emojiText: emoji.fallback,
-          },
-          true,
+    const changeEmoji =
+      (emoji: EmojiId): Command =>
+      (state, dispatch) => {
+        const panelNode = findPanel(state);
+        if (panelNode === undefined) {
+          return false;
+        }
+        let previousIcon = panelNode.node.attrs.panelIcon || '';
+        if (previousIcon === emoji.shortName) {
+          changePanelType(
+            PanelType.CUSTOM,
+            {
+              emoji: emoji.shortName,
+              emojiId: emoji.id,
+              emojiText: emoji.fallback,
+            },
+            true,
+          )(state, dispatch);
+          return false;
+        }
+        const payload: AnalyticsEventPayload = {
+          action: ACTION.CHANGED_ICON,
+          actionSubject: ACTION_SUBJECT.PANEL,
+          actionSubjectId: ACTION_SUBJECT_ID.PANEL,
+          attributes: { newIcon: emoji.shortName, previousIcon: previousIcon },
+          eventType: EVENT_TYPE.TRACK,
+        };
+        withAnalytics(payload)(
+          changePanelType(
+            PanelType.CUSTOM,
+            {
+              emoji: emoji.shortName,
+              emojiId: emoji.id,
+              emojiText: emoji.fallback,
+            },
+            true,
+          ),
         )(state, dispatch);
         return false;
-      }
-      const payload: AnalyticsEventPayload = {
-        action: ACTION.CHANGED_ICON,
-        actionSubject: ACTION_SUBJECT.PANEL,
-        actionSubjectId: ACTION_SUBJECT_ID.PANEL,
-        attributes: { newIcon: emoji.shortName, previousIcon: previousIcon },
-        eventType: EVENT_TYPE.TRACK,
       };
-      withAnalytics(payload)(
-        changePanelType(
-          PanelType.CUSTOM,
-          {
-            emoji: emoji.shortName,
-            emojiId: emoji.id,
-            emojiText: emoji.fallback,
-          },
-          true,
-        ),
-      )(state, dispatch);
-      return false;
-    };
 
     const removeEmoji = (): Command => (state, dispatch) => {
       const panelNode = findPanel(state);

@@ -4,9 +4,7 @@ import { DescriptionBylineProps } from './types';
 import { DescriptionBylineStyle } from './styles';
 import { messages } from '../i18n';
 
-export default class TeamMentionDescriptionByline extends React.PureComponent<
-  DescriptionBylineProps
-> {
+export default class TeamMentionDescriptionByline extends React.PureComponent<DescriptionBylineProps> {
   private renderByline = (memberCount: number, includesYou: boolean) => {
     if (includesYou) {
       if (memberCount > 50) {

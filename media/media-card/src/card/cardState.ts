@@ -5,16 +5,16 @@ import { MediaCardError } from '../errors';
 import { getCardStatus, isFinalCardStatus } from './getCardStatus';
 import { extractFilePreviewStatus } from './getCardPreview';
 
-export const createStateUpdater = (newState: Partial<CardState>) => (
-  prevState: CardState,
-): Pick<CardState, keyof CardState> => {
-  // Only override if previous status is non-final
-  // or new status is 'complete'
-  if (isFinalCardStatus(prevState.status) && newState.status !== 'complete') {
-    return prevState;
-  }
-  return { ...prevState, ...newState };
-};
+export const createStateUpdater =
+  (newState: Partial<CardState>) =>
+  (prevState: CardState): Pick<CardState, keyof CardState> => {
+    // Only override if previous status is non-final
+    // or new status is 'complete'
+    if (isFinalCardStatus(prevState.status) && newState.status !== 'complete') {
+      return prevState;
+    }
+    return { ...prevState, ...newState };
+  };
 
 export const getCardStateFromFileState = (
   fileState: FileState,

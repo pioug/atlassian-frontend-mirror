@@ -16,9 +16,9 @@ import {
 describe('MentionNameResolver', () => {
   let mentionNameResolver: MentionNameResolver;
   let mentionNameClientMock: MentionNameClient;
-  let lookupMentionNames: jest.Mock<(
-    ids: string[],
-  ) => Promise<MentionNameDetails[]>>;
+  let lookupMentionNames: jest.Mock<
+    (ids: string[]) => Promise<MentionNameDetails[]>
+  >;
 
   beforeEach(() => {
     lookupMentionNames = jest.fn();

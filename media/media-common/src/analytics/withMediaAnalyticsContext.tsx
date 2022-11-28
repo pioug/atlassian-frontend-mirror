@@ -33,56 +33,58 @@ const getFilteredFeatureFlags = (
  *
  * @see packages/analytics/analytics-next/src/hocs/withAnalyticsContext.tsx
  */
-export const withMediaAnalyticsContext = (
-  contextPublicAttributes: ContextPublicAttributes,
-  options: { filterFeatureFlags?: Array<keyof MediaFeatureFlags> } = {},
-) => <
-  Props extends ContextStaticProps,
-  Component extends React.ComponentType<Props>
->(
-  WrappedComponent: React.JSXElementConstructor<Props> & Component,
-): React.ForwardRefExoticComponent<
-  React.PropsWithoutRef<JSX.LibraryManagedAttributes<Component, Props>> &
-    React.RefAttributes<any>
-> => {
-  type WrappedProps = JSX.LibraryManagedAttributes<Component, Props>;
+export const withMediaAnalyticsContext =
+  (
+    contextPublicAttributes: ContextPublicAttributes,
+    options: { filterFeatureFlags?: Array<keyof MediaFeatureFlags> } = {},
+  ) =>
+  <
+    Props extends ContextStaticProps,
+    Component extends React.ComponentType<Props>,
+  >(
+    WrappedComponent: React.JSXElementConstructor<Props> & Component,
+  ): React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<JSX.LibraryManagedAttributes<Component, Props>> &
+      React.RefAttributes<any>
+  > => {
+    type WrappedProps = JSX.LibraryManagedAttributes<Component, Props>;
 
-  // forwardRef() allows passing React refs to the wrapped component WithMediaAnalyticsContext
-  const WithMediaAnalyticsContext = forwardRef<any, WrappedProps>(
-    (props, ref) => {
-      const { featureFlags } = props;
-      const { filterFeatureFlags } = options;
+    // forwardRef() allows passing React refs to the wrapped component WithMediaAnalyticsContext
+    const WithMediaAnalyticsContext = forwardRef<any, WrappedProps>(
+      (props, ref) => {
+        const { featureFlags } = props;
+        const { filterFeatureFlags } = options;
 
-      const contextData = useMemo<ContextData>(() => {
-        const filteredFlags =
-          filterFeatureFlags && featureFlags
-            ? getFilteredFeatureFlags(filterFeatureFlags, featureFlags)
-            : featureFlags;
+        const contextData = useMemo<ContextData>(() => {
+          const filteredFlags =
+            filterFeatureFlags && featureFlags
+              ? getFilteredFeatureFlags(filterFeatureFlags, featureFlags)
+              : featureFlags;
 
-        const contextPrivateAttributes: ContextPrivateAttributes = {
-          featureFlags: filteredFlags,
-        };
+          const contextPrivateAttributes: ContextPrivateAttributes = {
+            featureFlags: filteredFlags,
+          };
 
-        return {
-          ...contextPublicAttributes,
-          [MEDIA_CONTEXT]: {
-            ...contextPrivateAttributes,
-          },
-        };
-      }, [filterFeatureFlags, featureFlags]);
+          return {
+            ...contextPublicAttributes,
+            [MEDIA_CONTEXT]: {
+              ...contextPrivateAttributes,
+            },
+          };
+        }, [filterFeatureFlags, featureFlags]);
 
-      return (
-        <AnalyticsContext data={contextData}>
-          <WrappedComponent {...props} ref={ref} />
-        </AnalyticsContext>
-      );
-    },
-  );
+        return (
+          <AnalyticsContext data={contextData}>
+            <WrappedComponent {...props} ref={ref} />
+          </AnalyticsContext>
+        );
+      },
+    );
 
-  WithMediaAnalyticsContext.displayName = `WithMediaAnalyticsContext(${
-    // @ts-ignore displayName doesn't exist on type
-    WrappedComponent.displayName || WrappedComponent.name
-  })`;
+    WithMediaAnalyticsContext.displayName = `WithMediaAnalyticsContext(${
+      // @ts-ignore displayName doesn't exist on type
+      WrappedComponent.displayName || WrappedComponent.name
+    })`;
 
-  return WithMediaAnalyticsContext;
-};
+    return WithMediaAnalyticsContext;
+  };

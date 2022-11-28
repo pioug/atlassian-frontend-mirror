@@ -64,7 +64,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
     const quickInsertProvider = await extensionProviderToQuickInsertProvider(
       dummyExtensionProvider,
       {} as EditorActions,
-      (createAnalyticsEvent as unknown) as CreateUIAnalyticsEvent,
+      createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
     );
 
     const items = await quickInsertProvider.getItems();
@@ -111,8 +111,8 @@ describe('#extensionProviderToQuickInsertProvider', () => {
       const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
       const quickInsertProvider = await extensionProviderToQuickInsertProvider(
         dummyExtensionProvider,
-        ({ replaceSelection: () => {} } as unknown) as EditorActions,
-        (createAnalyticsEvent as unknown) as CreateUIAnalyticsEvent,
+        { replaceSelection: () => {} } as unknown as EditorActions,
+        createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
       );
 
       const items = await quickInsertProvider.getItems();

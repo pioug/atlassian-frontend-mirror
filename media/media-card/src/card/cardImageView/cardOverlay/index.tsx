@@ -85,14 +85,8 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
   }
 
   private get wrapperClassNames() {
-    const {
-      error,
-      noHover,
-      selectable,
-      selected,
-      mediaType,
-      persistent,
-    } = this.props;
+    const { error, noHover, selectable, selected, mediaType, persistent } =
+      this.props;
     const { isMenuExpanded } = this.state;
 
     return error

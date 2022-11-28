@@ -28,6 +28,7 @@ interface StyledProps {
   color: Color | string;
 }
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Target = styled.div<StyledProps>`
   background-color: ${(p) => color[p.color] || colors.primary};
   border-radius: 3px;
@@ -41,6 +42,7 @@ export const Target = styled.div<StyledProps>`
   user-select: none;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const BigTarget = styled.div<StyledProps>`
   background-color: ${(p) => color[p.color] || colors.primary};
   border-radius: 3px;

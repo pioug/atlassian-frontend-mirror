@@ -411,9 +411,8 @@ describe('module-helpers', () => {
           toolbarItems: [toolbarButton],
         } as ContextualToolbar;
 
-        const extensionButtonsMacro: ExtensionManifest = getTestExtensionButtonsMacro(
-          [contextualToolbar],
-        );
+        const extensionButtonsMacro: ExtensionManifest =
+          getTestExtensionButtonsMacro([contextualToolbar]);
 
         const fakeNode = {
           type: 'table',
@@ -499,9 +498,8 @@ describe('module-helpers', () => {
           toolbarItems: [toolbarItem],
         } as ContextualToolbar;
 
-        const extensionButtonsMacro: ExtensionManifest = getTestExtensionButtonsMacro(
-          [contextualToolbar],
-        );
+        const extensionButtonsMacro: ExtensionManifest =
+          getTestExtensionButtonsMacro([contextualToolbar]);
 
         const toolbarItems = getContextualToolbarItemsFromModule(
           [extensionButtonsMacro],
@@ -552,9 +550,8 @@ describe('module-helpers', () => {
         ] as ContextualToolbar[];
 
         jest.spyOn(global.console, 'error');
-        const extensionButtonsMacro: ExtensionManifest = getTestExtensionButtonsMacro(
-          contextualToolbars,
-        );
+        const extensionButtonsMacro: ExtensionManifest =
+          getTestExtensionButtonsMacro(contextualToolbars);
 
         const toolbarItems = getContextualToolbarItemsFromModule(
           [extensionButtonsMacro],

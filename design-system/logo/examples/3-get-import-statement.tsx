@@ -58,9 +58,11 @@ export default class GetPath extends Component<any, any> {
     const { selectedFile, selectedProduct } = this.state;
 
     const name = selectedProduct.value + selectedFile.value;
-    const OurComponent = (Logos as {
-      [key: string]: ComponentType<ConstantProps>;
-    })[name];
+    const OurComponent = (
+      Logos as {
+        [key: string]: ComponentType<ConstantProps>;
+      }
+    )[name];
 
     // There is no icon or wordmark file available for property logos
     const fileOptions: File[] = selectedProduct.isProperty

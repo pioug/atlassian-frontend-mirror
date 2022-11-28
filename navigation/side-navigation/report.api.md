@@ -168,7 +168,9 @@ export interface NestableNavigationContentProps {
 }
 
 // @public
-export const NestingItem: <TCustomComponentProps extends CustomItemComponentProps>(
+export const NestingItem: <
+  TCustomComponentProps extends CustomItemComponentProps,
+>(
   props: NestingItemProps<TCustomComponentProps> &
     Omit<TCustomComponentProps, keyof CustomItemComponentProps>,
 ) => JSX.Element;
@@ -185,7 +187,7 @@ interface NestingItemOverrides extends Overrides {
 
 // @public (undocumented)
 export interface NestingItemProps<
-  TCustomComponentProps = CustomItemComponentProps
+  TCustomComponentProps = CustomItemComponentProps,
 > {
   children: React_2.ReactNode;
   component?: React_2.ComponentType<TCustomComponentProps>;

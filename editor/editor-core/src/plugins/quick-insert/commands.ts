@@ -23,26 +23,25 @@ export const closeElementBrowserModal = (): Command => (state, dispatch) => {
 };
 
 // this method was adapted from the typeahed plugin so we respect the API for quick insert items
-export const insertItem = (item: QuickInsertItem): Command => (
-  state,
-  dispatch,
-) => {
-  const insert = (
-    maybeNode?: Node | Object | string | Fragment,
-    opts: { selectInlineNode?: boolean } = {},
-  ) => {
-    return insertSelectedItem(maybeNode, opts)(
-      state,
-      state.tr,
-      state.selection.head,
-    );
+export const insertItem =
+  (item: QuickInsertItem): Command =>
+  (state, dispatch) => {
+    const insert = (
+      maybeNode?: Node | Object | string | Fragment,
+      opts: { selectInlineNode?: boolean } = {},
+    ) => {
+      return insertSelectedItem(maybeNode, opts)(
+        state,
+        state.tr,
+        state.selection.head,
+      );
+    };
+
+    const tr = item.action(insert, state);
+
+    if (tr && dispatch) {
+      dispatch(tr);
+    }
+
+    return true;
   };
-
-  const tr = item.action(insert, state);
-
-  if (tr && dispatch) {
-    dispatch(tr);
-  }
-
-  return true;
-};

@@ -94,7 +94,8 @@ describe('Help', () => {
           }}
           helpArticle={{
             onGetHelpArticle: mockOnGetHelpArticle,
-            onHelpArticleLoadingFailTryAgainButtonClick: mockOnHelpArticleLoadingFailTryAgainButtonClick,
+            onHelpArticleLoadingFailTryAgainButtonClick:
+              mockOnHelpArticleLoadingFailTryAgainButtonClick,
             onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
             onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
           }}
@@ -132,7 +133,8 @@ describe('Help', () => {
           }}
           helpArticle={{
             onGetHelpArticle: mockOnGetHelpArticle,
-            onHelpArticleLoadingFailTryAgainButtonClick: mockOnHelpArticleLoadingFailTryAgainButtonClick,
+            onHelpArticleLoadingFailTryAgainButtonClick:
+              mockOnHelpArticleLoadingFailTryAgainButtonClick,
             onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
             onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
           }}
@@ -201,7 +203,8 @@ describe('Help', () => {
           }}
           helpArticle={{
             onGetHelpArticle: mockOnGetHelpArticle,
-            onHelpArticleLoadingFailTryAgainButtonClick: mockOnHelpArticleLoadingFailTryAgainButtonClick,
+            onHelpArticleLoadingFailTryAgainButtonClick:
+              mockOnHelpArticleLoadingFailTryAgainButtonClick,
             onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
             onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
           }}
@@ -239,7 +242,8 @@ describe('Help', () => {
           }}
           helpArticle={{
             onGetHelpArticle: mockOnGetHelpArticle,
-            onHelpArticleLoadingFailTryAgainButtonClick: mockOnHelpArticleLoadingFailTryAgainButtonClick,
+            onHelpArticleLoadingFailTryAgainButtonClick:
+              mockOnHelpArticleLoadingFailTryAgainButtonClick,
             onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
             onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
           }}

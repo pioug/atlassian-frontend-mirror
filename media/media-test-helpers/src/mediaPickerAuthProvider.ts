@@ -51,24 +51,23 @@ const requestAuthProvider = async (
   return response.json();
 };
 
-export const mediaPickerAuthProvider = (
-  authEnvironment: string = 'asap',
-  env?: MediaEnv,
-) => (context?: AuthContext) => {
-  const collectionName =
-    (context && context.collectionName) || defaultCollectionName;
-  authEnvironment = authEnvironment === 'asap' ? 'asap' : '';
-  const cacheKey = `${collectionName}:${authEnvironment}`;
+export const mediaPickerAuthProvider =
+  (authEnvironment: string = 'asap', env?: MediaEnv) =>
+  (context?: AuthContext) => {
+    const collectionName =
+      (context && context.collectionName) || defaultCollectionName;
+    authEnvironment = authEnvironment === 'asap' ? 'asap' : '';
+    const cacheKey = `${collectionName}:${authEnvironment}`;
 
-  if (!cachedAuths[cacheKey]) {
-    cachedAuths[cacheKey] = requestAuthProvider(
-      authEnvironment,
-      collectionName,
-      env,
-    );
-  }
-  return cachedAuths[cacheKey];
-};
+    if (!cachedAuths[cacheKey]) {
+      cachedAuths[cacheKey] = requestAuthProvider(
+        authEnvironment,
+        collectionName,
+        env,
+      );
+    }
+    return cachedAuths[cacheKey];
+  };
 
 export const defaultMediaPickerAuthProvider = () => (): Promise<Auth> => {
   const auth: Auth = {

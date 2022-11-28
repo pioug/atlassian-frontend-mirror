@@ -53,28 +53,30 @@ const editorSelectionAPI = {
     // IT IS DANGEROUS AND YOU WILL BREAK SOMETHING
     return (state as any)['selection$'];
   },
-  setSelectionRelativeToNode: ({
-    selectionRelativeToNode,
-    selection,
-  }: {
-    selectionRelativeToNode?: RelativeSelectionPos;
-    selection?: Selection | null;
-  }) => (state: EditorState) => {
-    const tr = state.tr;
-
-    // THE CODE BELOW IS REALLY WRONG
-    // DO NOT EVEN THINK TO USE THIS ANYWHERE ELSE
-    tr.setMeta('selection$', {
-      type: 'SET_RELATIVE_SELECTION',
+  setSelectionRelativeToNode:
+    ({
       selectionRelativeToNode,
-    });
+      selection,
+    }: {
+      selectionRelativeToNode?: RelativeSelectionPos;
+      selection?: Selection | null;
+    }) =>
+    (state: EditorState) => {
+      const tr = state.tr;
 
-    if (selection) {
-      tr.setSelection(selection);
-    }
+      // THE CODE BELOW IS REALLY WRONG
+      // DO NOT EVEN THINK TO USE THIS ANYWHERE ELSE
+      tr.setMeta('selection$', {
+        type: 'SET_RELATIVE_SELECTION',
+        selectionRelativeToNode,
+      });
 
-    return tr;
-  },
+      if (selection) {
+        tr.setSelection(selection);
+      }
+
+      return tr;
+    },
 };
 
 export default function EditorExampleForIntegrationTests({ clipboard = true }) {

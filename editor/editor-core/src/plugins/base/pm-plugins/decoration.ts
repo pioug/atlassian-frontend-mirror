@@ -13,61 +13,63 @@ export enum ACTIONS {
   DECORATION_REMOVE,
 }
 
-export const hoverDecoration = (
-  nodeType: NodeType | Array<NodeType>,
-  add: boolean,
-  className: string = 'danger',
-): Command => (state, dispatch) => {
-  let from: number | undefined;
-  let parentNode: Node | undefined;
+export const hoverDecoration =
+  (
+    nodeType: NodeType | Array<NodeType>,
+    add: boolean,
+    className: string = 'danger',
+  ): Command =>
+  (state, dispatch) => {
+    let from: number | undefined;
+    let parentNode: Node | undefined;
 
-  if (state.selection instanceof NodeSelection) {
-    const selectedNode = state.selection.node;
-    const nodeTypes = Array.isArray(nodeType) ? nodeType : [nodeType];
-    const isNodeTypeMatching = nodeTypes.indexOf(selectedNode.type) > -1;
-    // This adds danger styling if the selected node is the one that requires
-    // the decoration to be added, e.g. if a layout is selected and the user
-    // hovers over the layout's delete button.
-    if (isNodeTypeMatching) {
-      from = state.selection.from;
-      parentNode = selectedNode;
+    if (state.selection instanceof NodeSelection) {
+      const selectedNode = state.selection.node;
+      const nodeTypes = Array.isArray(nodeType) ? nodeType : [nodeType];
+      const isNodeTypeMatching = nodeTypes.indexOf(selectedNode.type) > -1;
+      // This adds danger styling if the selected node is the one that requires
+      // the decoration to be added, e.g. if a layout is selected and the user
+      // hovers over the layout's delete button.
+      if (isNodeTypeMatching) {
+        from = state.selection.from;
+        parentNode = selectedNode;
+      }
     }
-  }
 
-  // This adds danger styling if the selection is not a node selection, OR if
-  // the selected node is a child of the one that requires the decoration to
-  // be added, e.g. if a decision item is selected inside a layout and the
-  // user hovers over the layout's delete button.
-  const foundParentNode = findParentNodeOfType(nodeType)(state.selection);
-  if (from === undefined && foundParentNode) {
-    from = foundParentNode.pos;
-    parentNode = foundParentNode.node;
-  }
+    // This adds danger styling if the selection is not a node selection, OR if
+    // the selected node is a child of the one that requires the decoration to
+    // be added, e.g. if a decision item is selected inside a layout and the
+    // user hovers over the layout's delete button.
+    const foundParentNode = findParentNodeOfType(nodeType)(state.selection);
+    if (from === undefined && foundParentNode) {
+      from = foundParentNode.pos;
+      parentNode = foundParentNode.node;
+    }
 
-  // Note: can't use !from as from could be 0, which is falsy but valid
-  if (from === undefined || parentNode === undefined) {
-    return false;
-  }
+    // Note: can't use !from as from could be 0, which is falsy but valid
+    if (from === undefined || parentNode === undefined) {
+      return false;
+    }
 
-  if (dispatch) {
-    dispatch(
-      state.tr
-        .setMeta(decorationStateKey, {
-          action: add ? ACTIONS.DECORATION_ADD : ACTIONS.DECORATION_REMOVE,
-          data: Decoration.node(
-            from,
-            from + parentNode.nodeSize,
-            {
-              class: className,
-            },
-            { key: 'decorationNode' },
-          ),
-        })
-        .setMeta('addToHistory', false),
-    );
-  }
-  return true;
-};
+    if (dispatch) {
+      dispatch(
+        state.tr
+          .setMeta(decorationStateKey, {
+            action: add ? ACTIONS.DECORATION_ADD : ACTIONS.DECORATION_REMOVE,
+            data: Decoration.node(
+              from,
+              from + parentNode.nodeSize,
+              {
+                class: className,
+              },
+              { key: 'decorationNode' },
+            ),
+          })
+          .setMeta('addToHistory', false),
+      );
+    }
+    return true;
+  };
 
 export type DecorationState = {
   decoration?: Decoration;

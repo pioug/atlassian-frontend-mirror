@@ -46,7 +46,7 @@ const Footer: React.FC<FooterBlockProps> = (props: FooterBlockProps) => {
   } = props;
 
   return (
-    <div data-testid={testId}>
+    <>
       <Provider testId={`${testId}-provider`} overrideCss={providerStyles} />
       {actions && actions.length > 0 ? (
         <ElementGroup
@@ -59,7 +59,7 @@ const Footer: React.FC<FooterBlockProps> = (props: FooterBlockProps) => {
           <ActionGroup items={actions} appearance="default" />
         </ElementGroup>
       ) : null}
-    </div>
+    </>
   );
 };
 

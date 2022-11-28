@@ -47,8 +47,11 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
   name: 'media',
 
   nodes() {
-    const { allowMediaGroup = true, allowMediaSingle = false, featureFlags } =
-      options || {};
+    const {
+      allowMediaGroup = true,
+      allowMediaSingle = false,
+      featureFlags,
+    } = options || {};
 
     const captions = getMediaFeatureFlag('captions', featureFlags);
     const allowMediaInline = getMediaFeatureFlag('mediaInline', featureFlags);

@@ -350,10 +350,12 @@ export default class RendererDemo extends React.Component<
       props.allowCopyToClipboard = this.props.allowCopyToClipboard;
       props.allowPlaceholderText = this.props.allowPlaceholderText;
       props.allowCustomPanels = this.props.allowCustomPanels;
-      props.analyticsEventSeverityTracking = this.props.analyticsEventSeverityTracking;
+      props.analyticsEventSeverityTracking =
+        this.props.analyticsEventSeverityTracking;
       props.allowUgcScrubber = this.props.allowUgcScrubber;
       props.allowSelectAllTrap = this.props.allowSelectAllTrap;
-      props.unsupportedContentLevelsTracking = this.props.unsupportedContentLevelsTracking;
+      props.unsupportedContentLevelsTracking =
+        this.props.unsupportedContentLevelsTracking;
       props.media = this.props.mediaOptions;
       if (props.allowAnnotations) {
         props.annotationProvider = this.props.annotationProvider;

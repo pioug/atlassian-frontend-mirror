@@ -81,31 +81,31 @@ const hideToolbar = (state: EditorState, dispatch: CommandDispatch) => () => {
 };
 
 // Subscribe to updates from consumer
-const onResolve = (state: EditorState, dispatch: CommandDispatch) => (
-  annotationId: string,
-) => {
-  updateInlineCommentResolvedState(
-    { [annotationId]: true },
-    RESOLVE_METHOD.CONSUMER,
-  )(state, dispatch);
-};
+const onResolve =
+  (state: EditorState, dispatch: CommandDispatch) => (annotationId: string) => {
+    updateInlineCommentResolvedState(
+      { [annotationId]: true },
+      RESOLVE_METHOD.CONSUMER,
+    )(state, dispatch);
+  };
 
-const onUnResolve = (state: EditorState, dispatch: CommandDispatch) => (
-  annotationId: string,
-) => {
-  updateInlineCommentResolvedState({ [annotationId]: false })(state, dispatch);
-};
+const onUnResolve =
+  (state: EditorState, dispatch: CommandDispatch) => (annotationId: string) => {
+    updateInlineCommentResolvedState({ [annotationId]: false })(
+      state,
+      dispatch,
+    );
+  };
 
-const onMouseUp = (state: EditorState, dispatch: CommandDispatch) => (
-  e: Event,
-) => {
-  const {
-    mouseData: { isSelecting },
-  } = getPluginState(state);
-  if (isSelecting) {
-    updateMouseState({ isSelecting: false })(state, dispatch);
-  }
-};
+const onMouseUp =
+  (state: EditorState, dispatch: CommandDispatch) => (e: Event) => {
+    const {
+      mouseData: { isSelecting },
+    } = getPluginState(state);
+    if (isSelecting) {
+      updateMouseState({ isSelecting: false })(state, dispatch);
+    }
+  };
 
 const onSetVisibility = (view: EditorView) => (isVisible: boolean) => {
   const { state, dispatch } = view;

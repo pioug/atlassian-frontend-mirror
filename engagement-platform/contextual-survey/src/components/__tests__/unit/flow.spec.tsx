@@ -108,9 +108,8 @@ it('should allow a standard signup flow', async () => {
     getByText('Are you interested in participating in our research?'),
   ).toBeTruthy();
 
-  const signUp: HTMLElement | null = getByText('Yes, sign me up').closest(
-    'button',
-  );
+  const signUp: HTMLElement | null =
+    getByText('Yes, sign me up').closest('button');
   if (!signUp) {
     throw new Error('Unable to find signup button');
   }

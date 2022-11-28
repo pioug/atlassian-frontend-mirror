@@ -37,9 +37,7 @@ export const wrapperStyles = (props: WrapperProps) => css`
   ${rootStyles()}
   ${getShadowAttribute(props)}
   ${borderRadius}
-  ${getBackgroundColor(
-    props,
-  )}
+  ${getBackgroundColor(props)}
 
   line-height: normal;
   position: relative;

@@ -28,11 +28,10 @@ const TitleBlockBuilder: React.FC<BlockBuilderProps> = ({
   template,
 }) => {
   const handleOnTextChange = useCallback(
-    (...params: ChangeParams<BlockTemplate>) => (
-      e: React.SyntheticEvent<HTMLInputElement>,
-    ) => {
-      handleOnChange<BlockTemplate>(...params, e.currentTarget.value);
-    },
+    (...params: ChangeParams<BlockTemplate>) =>
+      (e: React.SyntheticEvent<HTMLInputElement>) => {
+        handleOnChange<BlockTemplate>(...params, e.currentTarget.value);
+      },
     [],
   );
   return (

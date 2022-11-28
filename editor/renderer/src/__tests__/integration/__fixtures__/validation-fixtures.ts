@@ -72,8 +72,7 @@ export const paragraphsWithMedia = {
         },
         {
           type: 'text',
-          text:
-            ' mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. ',
+          text: ' mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. ',
         },
       ],
     },
@@ -165,8 +164,7 @@ export const paragraphsWithMedia = {
         },
         {
           type: 'text',
-          text:
-            ' mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. ',
+          text: ' mi nisl, venenatis eget auctor vitae, venenatis quis lorem. Suspendisse maximus tortor vel dui tincidunt cursus. ',
         },
       ],
     },
@@ -263,8 +261,7 @@ export const paragraphWithInlineNodes = {
         },
         {
           type: 'text',
-          text:
-            ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
+          text: ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
         },
       ],
     },
@@ -350,8 +347,7 @@ export const paragraphWithInlineNodes = {
         },
         {
           type: 'text',
-          text:
-            ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
+          text: ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
         },
       ],
     },
@@ -438,8 +434,7 @@ export const paragraphWithInlineNodes = {
         },
         {
           type: 'text',
-          text:
-            '  Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
+          text: '  Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
         },
       ],
     },
@@ -528,8 +523,7 @@ export const paragraphWithoutInlineNodes = {
         },
         {
           type: 'text',
-          text:
-            ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
+          text: ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
         },
       ],
     },
@@ -607,8 +601,7 @@ export const paragraphWithoutInlineNodes = {
         },
         {
           type: 'text',
-          text:
-            ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
+          text: ' Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
         },
       ],
     },
@@ -686,8 +679,7 @@ export const paragraphWithoutInlineNodes = {
         },
         {
           type: 'text',
-          text:
-            '  Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
+          text: '  Suspendisse maximus tortor vel dui tincidunt venenatis eget auctor',
         },
       ],
     },

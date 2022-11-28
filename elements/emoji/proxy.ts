@@ -70,6 +70,7 @@ const getConfigByTargetEnvironment = () => {
   }
 };
 
-const proxyConfig: WebpackDevServer.Configuration['proxy'] = getConfigByTargetEnvironment();
+const proxyConfig: WebpackDevServer.Configuration['proxy'] =
+  getConfigByTargetEnvironment();
 
 export default proxyConfig;

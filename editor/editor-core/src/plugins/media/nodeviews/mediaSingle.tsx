@@ -145,7 +145,8 @@ export default class MediaSingleNode extends Component<
       await mediaNodeUpdater.updateContextId();
     }
 
-    const hasDifferentContextId = await mediaNodeUpdater.hasDifferentContextId();
+    const hasDifferentContextId =
+      await mediaNodeUpdater.hasDifferentContextId();
 
     if (hasDifferentContextId) {
       this.setState({ isCopying: true });
@@ -233,10 +234,8 @@ export default class MediaSingleNode extends Component<
       view,
     } = this.props;
 
-    const {
-      layout,
-      width: mediaSingleWidth,
-    } = node.attrs as RichMediaAttributes;
+    const { layout, width: mediaSingleWidth } =
+      node.attrs as RichMediaAttributes;
     const childNode = node.firstChild!;
     const attrs = childNode.attrs as MediaADFAttrs;
     let { width, height } = attrs;
@@ -523,31 +522,33 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
   }
 }
 
-export const ReactMediaSingleNode = (
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
-  providerFactory: ProviderFactory,
-  dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-  mediaOptions: MediaOptions = {},
-) => (node: PMNode, view: EditorView, getPos: getPosHandler) => {
-  const hasIntlContext = true;
-  return new MediaSingleNodeView(
-    node,
-    view,
-    getPos,
-    portalProviderAPI,
-    eventDispatcher,
-    {
+export const ReactMediaSingleNode =
+  (
+    portalProviderAPI: PortalProviderAPI,
+    eventDispatcher: EventDispatcher,
+    providerFactory: ProviderFactory,
+    dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+    mediaOptions: MediaOptions = {},
+  ) =>
+  (node: PMNode, view: EditorView, getPos: getPosHandler) => {
+    const hasIntlContext = true;
+    return new MediaSingleNodeView(
+      node,
+      view,
+      getPos,
+      portalProviderAPI,
       eventDispatcher,
-      fullWidthMode: mediaOptions.fullWidthEnabled,
-      providerFactory,
-      mediaOptions,
-      dispatchAnalyticsEvent,
-      isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
-    },
-    undefined,
-    undefined,
-    undefined,
-    hasIntlContext,
-  ).init();
-};
+      {
+        eventDispatcher,
+        fullWidthMode: mediaOptions.fullWidthEnabled,
+        providerFactory,
+        mediaOptions,
+        dispatchAnalyticsEvent,
+        isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
+      },
+      undefined,
+      undefined,
+      undefined,
+      hasIntlContext,
+    ).init();
+  };

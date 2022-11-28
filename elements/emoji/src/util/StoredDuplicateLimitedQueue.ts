@@ -21,7 +21,7 @@ export interface StoredQueueOptions extends QueueOptions {
  * supplied Storage and will also update the storage for every new item enqueued.
  */
 export default class StoredDuplicateLimitedQueue<
-  T
+  T,
 > extends DuplicateLimitedQueue<T> {
   private static readonly storageKey = 'lastUsed';
 

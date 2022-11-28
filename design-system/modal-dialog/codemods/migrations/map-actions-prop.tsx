@@ -87,8 +87,9 @@ export const mapActionsProp = (
     .forEach((element: ASTPath<JSXElement>) => {
       getJSXAttributesByName(j, element, ACTIONS_PROP_NAME).forEach(
         (attribute: ASTPath<JSXAttribute>) => {
-          const actionsPropValue = (attribute.node
-            .value as JSXExpressionContainer)?.expression;
+          const actionsPropValue = (
+            attribute.node.value as JSXExpressionContainer
+          )?.expression;
 
           if (
             !actionsPropValue ||
@@ -380,8 +381,9 @@ const findAppearanceInActions = (
        * If actions prop is declared as variable, and we can find the declaration
        * in the same file, we check if there's any appearance property set.
        */
-      const actionPropVariableValue = (actionsVariableDeclaration as any)?.nodes()[0]
-        .declarations[0]?.init;
+      const actionPropVariableValue = (
+        actionsVariableDeclaration as any
+      )?.nodes()[0].declarations[0]?.init;
 
       return checkAppearancePropertyExistence(actionPropVariableValue);
     }
@@ -419,7 +421,8 @@ const getVariableDeclarationByName = (
     .filter((variableDeclaration: ASTPath<VariableDeclaration>) => {
       return variableDeclaration.node.declarations.some(
         (variableDeclarator) => {
-          const variableDeclaratorTyped = variableDeclarator as VariableDeclarator;
+          const variableDeclaratorTyped =
+            variableDeclarator as VariableDeclarator;
           return (
             variableDeclaratorTyped.id.type === 'Identifier' &&
             variableDeclaratorTyped.id.name === variableName

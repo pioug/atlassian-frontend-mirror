@@ -205,13 +205,8 @@ export class CardViewBase extends React.Component<
       return this.renderFileNewExperience();
     }
 
-    const {
-      dimensions,
-      appearance,
-      onClick,
-      onMouseEnter,
-      testId,
-    } = this.props;
+    const { dimensions, appearance, onClick, onMouseEnter, testId } =
+      this.props;
 
     const wrapperDimensions = dimensions
       ? dimensions

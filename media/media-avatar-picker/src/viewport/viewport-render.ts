@@ -8,12 +8,8 @@ export const renderViewport = (
   canvas: HTMLCanvasElement = document.createElement('canvas'),
   outputSize?: number,
 ) => {
-  const {
-    visibleSourceBounds,
-    innerBounds,
-    itemSourceBounds,
-    orientation,
-  } = viewport;
+  const { visibleSourceBounds, innerBounds, itemSourceBounds, orientation } =
+    viewport;
   let sourceBounds = visibleSourceBounds;
 
   const { width, height } = innerBounds;

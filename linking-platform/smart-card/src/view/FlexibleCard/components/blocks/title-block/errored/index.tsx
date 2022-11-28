@@ -37,10 +37,7 @@ const getMessageStyles = (
     justify-content: flex-end;
     ${hasAction ? actionStyles : ''}
     ${sizeStyles}
-    ${getTruncateStyles(
-      1,
-      getLinkLineHeight(size),
-    )}
+    ${getTruncateStyles(1, getLinkLineHeight(size))}
     color: ${tokens.errorMessage};
     :focus {
       outline: ${tokens.focus} solid 2px;

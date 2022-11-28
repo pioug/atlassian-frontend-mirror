@@ -26,19 +26,19 @@ export interface TaskDecisionPluginState {
   contextIdentifierProvider?: ContextIdentifierProvider;
 }
 
-const setContextIdentifierProvider = (
-  provider: ContextIdentifierProvider | undefined,
-): Command => (state, dispatch) => {
-  if (dispatch) {
-    dispatch(
-      state.tr.setMeta(stateKey, {
-        action: ACTIONS.SET_CONTEXT_PROVIDER,
-        data: provider,
-      }),
-    );
-  }
-  return true;
-};
+const setContextIdentifierProvider =
+  (provider: ContextIdentifierProvider | undefined): Command =>
+  (state, dispatch) => {
+    if (dispatch) {
+      dispatch(
+        state.tr.setMeta(stateKey, {
+          action: ACTIONS.SET_CONTEXT_PROVIDER,
+          data: provider,
+        }),
+      );
+    }
+    return true;
+  };
 
 export function createPlugin(
   portalProviderAPI: PortalProviderAPI,
@@ -164,12 +164,8 @@ export function createPlugin(
 
         // Adds a unique id to a node
         nodesBetweenChanged(transaction, (node, pos) => {
-          const {
-            decisionList,
-            decisionItem,
-            taskList,
-            taskItem,
-          } = newState.schema.nodes;
+          const { decisionList, decisionItem, taskList, taskItem } =
+            newState.schema.nodes;
           if (
             !!node.type &&
             (node.type === decisionList ||

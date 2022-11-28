@@ -271,10 +271,8 @@ export class FilmstripView extends React.Component<
 
     // make sure the state has changed before we update state and notify the integrator
     // (otherwise, since this method() is called in componentDidUpdate() we'll recurse until the stack size is exceeded)
-    const {
-      bufferWidth: prevBufferWidth,
-      windowWidth: prevWindowWidth,
-    } = this.state;
+    const { bufferWidth: prevBufferWidth, windowWidth: prevWindowWidth } =
+      this.state;
 
     if (bufferWidth === prevBufferWidth && windowWidth === prevWindowWidth) {
       // NOTE: we're not checking here if childOffsets has changed... if the children change size but

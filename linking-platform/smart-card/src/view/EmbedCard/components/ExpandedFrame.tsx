@@ -28,9 +28,10 @@ export interface ExpandedFrameProps {
   onClick?: (evt: React.MouseEvent) => void;
   /** For testing purposes only */
   testId?: string;
-
   /** If dimensions of the card are to be inherited from the parent */
   inheritDimensions?: boolean;
+  /** To enable scrolling in use cases where the content will not have it's own scrollbar */
+  allowScrollBar?: boolean;
 }
 
 export const ExpandedFrame: FC<ExpandedFrameProps> = ({
@@ -47,6 +48,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   maxWidth,
   testId = 'expanded-frame',
   inheritDimensions,
+  allowScrollBar = false,
 }) => {
   const isInteractive = () =>
     !isPlaceholder && (Boolean(href) || Boolean(onClick));
@@ -67,7 +69,13 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
     </Header>
   );
   const renderContent = () => (
-    <Content isInteractive={isInteractive()}>{children}</Content>
+    <Content
+      data-testid="embed-content-wrapper"
+      allowScrollBar={allowScrollBar}
+      isInteractive={isInteractive()}
+    >
+      {children}
+    </Content>
   );
 
   if (!isPlaceholder && href) {

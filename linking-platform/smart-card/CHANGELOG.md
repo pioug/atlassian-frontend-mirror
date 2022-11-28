@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 23.4.5
+
+### Patch Changes
+
+- [`d2d705badea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2d705badea) - [ux] Small fix for the Footer Block that will be used in unresolved states of Block Card with Flexible UI.
+
+## 23.4.4
+
+### Patch Changes
+
+- [`655a52b4c06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/655a52b4c06) - [ux] Update Flex-UI unauthorised views to include provider name
+
+## 23.4.3
+
+### Patch Changes
+
+- [`85de18a2d79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85de18a2d79) - [ux] Enable text wrapping in contents of unresolved views and allow scrolling in when embed size is small.
+
 ## 23.4.2
 
 ### Patch Changes

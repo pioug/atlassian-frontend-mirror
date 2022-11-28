@@ -6,11 +6,12 @@ import styled from '@emotion/styled';
 import { SizeType } from '@atlaskit/avatar';
 import { N100, R400, R50, subtleHeading, text } from '@atlaskit/theme/colors';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const gridSize = getGridSize();
 
 const Wrapper = styled.div`
-  margin-top: ${gridSize}px;
+  margin-top: ${token('spacing.scale.100', '8px')};
 `;
 
 const ChildrenWrapper = styled.div`
@@ -19,17 +20,18 @@ const ChildrenWrapper = styled.div`
   display: flex;
 
   > * {
-    margin-right: ${gridSize}px;
+    margin-right: ${token('spacing.scale.100', '8px')};
   }
 `;
 
 export const Note = styled.p<{ size?: SizeType }>`
   color: ${N100};
   font-size: ${(props) => (props.size === 'large' ? '1.15em' : '0.9rem')};
-  margin-top: ${gridSize / 2}px;
-  margin-bottom: ${gridSize * 2}px;
+  margin-top: ${token('spacing.scale.050', '4px')};
+  margin-bottom: ${token('spacing.scale.200', '16px')};
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Code = styled.code`
   background-color: ${R50};
   border-radius: 0.2em;
@@ -40,13 +42,14 @@ export const Code = styled.code`
 `;
 
 export const Gap = styled.span`
-  margin-right: ${gridSize}px;
+  margin-right: ${token('spacing.scale.100', '8px')};
 `;
 
 export const Dot = styled(Gap)`
   height: ${gridSize * 3}px;
   width: ${gridSize * 3}px;
 `;
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Heading = styled.div`
   color: ${subtleHeading};
   display: flex;

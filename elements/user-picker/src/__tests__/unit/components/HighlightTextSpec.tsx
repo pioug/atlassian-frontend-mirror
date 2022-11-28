@@ -6,21 +6,22 @@ describe('HighlightText', () => {
   const shallowHighlightText = (props: Partial<Props> = {}) =>
     shallow(<HighlightText children="Some text" {...props} />);
 
-  const testTemplate = (props: Partial<Props> = {}) => (
-    expectedHtml: string | null,
-  ) => () => {
-    const component = shallowHighlightText(props);
+  const testTemplate =
+    (props: Partial<Props> = {}) =>
+    (expectedHtml: string | null) =>
+    () => {
+      const component = shallowHighlightText(props);
 
-    const html = component
-      .map((wrapper) => {
-        if (wrapper.html() === '') {
-          return wrapper.text();
-        }
-        return wrapper.html();
-      })
-      .reduce((a, b) => a + b);
-    expect(html).toEqual(expectedHtml);
-  };
+      const html = component
+        .map((wrapper) => {
+          if (wrapper.html() === '') {
+            return wrapper.text();
+          }
+          return wrapper.html();
+        })
+        .reduce((a, b) => a + b);
+      expect(html).toEqual(expectedHtml);
+    };
 
   describe('with no highlight object', () => {
     it('should render plain text', testTemplate()('Some text'));

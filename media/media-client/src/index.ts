@@ -257,11 +257,13 @@ export const getMediaTypeFromMimeType = _getMediaTypeFromMimeType;
 /**
  * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
  */
-export const isImageMimeTypeSupportedByBrowser = _isImageMimeTypeSupportedByBrowser;
+export const isImageMimeTypeSupportedByBrowser =
+  _isImageMimeTypeSupportedByBrowser;
 /**
  * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
  */
-export const isDocumentMimeTypeSupportedByBrowser = _isDocumentMimeTypeSupportedByBrowser;
+export const isDocumentMimeTypeSupportedByBrowser =
+  _isDocumentMimeTypeSupportedByBrowser;
 /**
  * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
  */
@@ -269,23 +271,28 @@ export const isMimeTypeSupportedByBrowser = _isMimeTypeSupportedByBrowser;
 /**
  * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
  */
-export const isImageMimeTypeSupportedByServer = _isImageMimeTypeSupportedByServer;
+export const isImageMimeTypeSupportedByServer =
+  _isImageMimeTypeSupportedByServer;
 /**
  * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
  */
-export const isDocumentMimeTypeSupportedByServer = _isDocumentMimeTypeSupportedByServer;
+export const isDocumentMimeTypeSupportedByServer =
+  _isDocumentMimeTypeSupportedByServer;
 /**
  * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
  */
-export const isAudioMimeTypeSupportedByServer = _isAudioMimeTypeSupportedByServer;
+export const isAudioMimeTypeSupportedByServer =
+  _isAudioMimeTypeSupportedByServer;
 /**
  * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
  */
-export const isVideoMimeTypeSupportedByServer = _isVideoMimeTypeSupportedByServer;
+export const isVideoMimeTypeSupportedByServer =
+  _isVideoMimeTypeSupportedByServer;
 /**
  * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
  */
-export const isUnknownMimeTypeSupportedByServer = _isUnknownMimeTypeSupportedByServer;
+export const isUnknownMimeTypeSupportedByServer =
+  _isUnknownMimeTypeSupportedByServer;
 /**
  * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
  */

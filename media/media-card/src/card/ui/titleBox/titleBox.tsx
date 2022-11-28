@@ -13,12 +13,13 @@ import {
   TitleBoxIcon,
 } from './titleBoxComponents';
 
-export const FormattedDate: React.ComponentType<FormattedDateProps> = injectIntl(
-  ({ timestamp, intl }: FormattedDateProps & WrappedComponentProps) => {
-    const { locale = 'en' } = intl || { locale: 'en' };
-    return <>{formatDate(timestamp, locale)}</>;
-  },
-);
+export const FormattedDate: React.ComponentType<FormattedDateProps> =
+  injectIntl(
+    ({ timestamp, intl }: FormattedDateProps & WrappedComponentProps) => {
+      const { locale = 'en' } = intl || { locale: 'en' };
+      return <>{formatDate(timestamp, locale)}</>;
+    },
+  );
 
 export const TitleBox = ({
   name,

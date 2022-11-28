@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 const flashTime = 700;
 
-export const flashAnimation = (keyframes({
+export const flashAnimation = keyframes({
   '0%': {
     backgroundColor: 'transparent',
   },
@@ -21,7 +21,7 @@ export const flashAnimation = (keyframes({
     backgroundColor: token('color.background.selected.pressed', B75),
     borderColor: token('color.border.selected', B300),
   },
-}) as unknown) as typeof keyframes;
+}) as unknown as typeof keyframes;
 
 export const containerStyle = css({
   width: '100%',

@@ -47,9 +47,8 @@ const TextInput = ({
   error,
   ...restProps
 }: TextInputProps) => {
-  const inputRef: MutableRefObject<HTMLInputElement | null> = useRef<
-    HTMLInputElement
-  >(null);
+  const inputRef: MutableRefObject<HTMLInputElement | null> =
+    useRef<HTMLInputElement>(null);
 
   const handleRef = useCallback(
     (input: HTMLInputElement | null) => {

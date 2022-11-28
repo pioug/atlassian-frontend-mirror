@@ -46,9 +46,8 @@ class BatchDecorations {
     if (!containerElement) {
       return;
     }
-    const pmElement = containerElement.querySelector<HTMLElement>(
-      '.ProseMirror',
-    );
+    const pmElement =
+      containerElement.querySelector<HTMLElement>('.ProseMirror');
     if (!pmElement) {
       return;
     }

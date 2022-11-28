@@ -59,9 +59,8 @@ export interface MediaViewerDataSource {
 }
 
 // @public (undocumented)
-type MediaViewerErrorBoundaryComponent = React_2.ComponentType<
-  MediaViewerAnalyticsErrorBoundaryProps
->;
+type MediaViewerErrorBoundaryComponent =
+  React_2.ComponentType<MediaViewerAnalyticsErrorBoundaryProps>;
 
 // @public (undocumented)
 export interface MediaViewerExtensions {
@@ -104,14 +103,12 @@ export interface MediaViewerProps {
 }
 
 // @public (undocumented)
-type MediaViewerWithMediaClientConfigComponent = React_2.ComponentType<
-  MediaViewerWithMediaClientConfigProps
->;
+type MediaViewerWithMediaClientConfigComponent =
+  React_2.ComponentType<MediaViewerWithMediaClientConfigProps>;
 
 // @public (undocumented)
-type MediaViewerWithMediaClientConfigProps = WithMediaClientConfigProps<
-  MediaViewerProps
->;
+type MediaViewerWithMediaClientConfigProps =
+  WithMediaClientConfigProps<MediaViewerProps>;
 
 // (No @packageDocumentation comment for this package)
 ```

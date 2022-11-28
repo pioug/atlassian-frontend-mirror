@@ -1,6 +1,7 @@
 jest.mock('react-lazily-render', () => (data: any) => data.content);
-jest.mock('react-transition-group/Transition', () => (data: any) =>
-  data.children,
+jest.mock(
+  'react-transition-group/Transition',
+  () => (data: any) => data.children,
 );
 jest.doMock('../../../utils/analytics/analytics');
 jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
@@ -684,11 +685,8 @@ describe('HoverCard', () => {
     };
 
     it('should render hover card correctly', async () => {
-      const {
-        findByTestId,
-        queryByTestId,
-        resolveFetch,
-      } = await setupWithSSR();
+      const { findByTestId, queryByTestId, resolveFetch } =
+        await setupWithSSR();
 
       await findByTestId('hover-card-loading-view');
       resolveFetch(mockConfluenceResponse);

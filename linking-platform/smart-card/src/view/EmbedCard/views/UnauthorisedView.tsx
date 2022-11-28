@@ -43,6 +43,7 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
       inheritDimensions={inheritDimensions}
       onClick={onClick}
       testId={testId}
+      allowScrollBar={true}
     >
       <EmbedCardUnresolvedView
         image={context?.image ?? UnauthorisedImage}

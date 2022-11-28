@@ -40,9 +40,8 @@ function createPlugin(options: AnalyticsPluginOptions) {
       },
       apply: (tr, pluginState, _, state) => {
         if (getFeatureFlags(state)?.catchAllTracking) {
-          const analyticsEventWithChannel = getAnalyticsEventsFromTransaction(
-            tr,
-          );
+          const analyticsEventWithChannel =
+            getAnalyticsEventsFromTransaction(tr);
           if (analyticsEventWithChannel.length > 0) {
             for (const { payload, channel } of analyticsEventWithChannel) {
               // Measures how much time it takes to update the DOM after each ProseMirror document update
@@ -124,9 +123,8 @@ const analyticsPlugin = (options: AnalyticsPluginOptions): EditorPlugin => ({
     }
 
     const { createAnalyticsEvent } = pluginState;
-    const undoAnaltyicsEventTransformer = generateUndoRedoInputSoucePayload(
-      originalTransaction,
-    );
+    const undoAnaltyicsEventTransformer =
+      generateUndoRedoInputSoucePayload(originalTransaction);
     steps.forEach(({ payload, channel }) => {
       const nextPayload = undoAnaltyicsEventTransformer(payload);
 

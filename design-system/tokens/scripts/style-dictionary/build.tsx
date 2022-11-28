@@ -82,7 +82,8 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
       'typescript/custom-token-names': formatterTSTokenNames as any,
       'typescript/custom-token-default-values': formatterTSTokenDefaults as any,
       'typescript/custom-token-types': formatterTSGeneratedTypes as any,
-      'typescript/custom-token-types-internal': formatterTSGeneratedTypesInternal as any,
+      'typescript/custom-token-types-internal':
+        formatterTSGeneratedTypesInternal as any,
       'figma/custom-figma': formatterFigma as any,
       'rename-mapper': formatterRenameMapper as any,
       raw: formatterRaw as any,

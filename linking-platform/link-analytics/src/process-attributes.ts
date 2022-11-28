@@ -3,9 +3,10 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { LinkDetails } from './types';
 
 const getSourceEvent = (payload: Record<string, unknown>): string | null => {
-  const base = (payload.eventName
-    ? [payload.eventName]
-    : [payload.actionSubject, payload.action]
+  const base = (
+    payload.eventName
+      ? [payload.eventName]
+      : [payload.actionSubject, payload.action]
   ).filter(Boolean);
 
   if (base.length) {

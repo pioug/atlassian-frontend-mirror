@@ -116,36 +116,38 @@ const getUpdateExtensionPromise = async (
   throw new Error('No update method available');
 };
 
-export const createExtensionProviderHandler = (view: EditorView) => async (
-  name: string,
-  provider?: Promise<ExtensionProvider>,
-) => {
-  if (name === 'extensionProvider' && provider) {
-    try {
-      const extensionProvider = await provider;
-      updateState({ extensionProvider })(view.state, view.dispatch);
-      await updateEditButton(view, extensionProvider);
-    } catch {
-      updateState({ extensionProvider: undefined })(view.state, view.dispatch);
+export const createExtensionProviderHandler =
+  (view: EditorView) =>
+  async (name: string, provider?: Promise<ExtensionProvider>) => {
+    if (name === 'extensionProvider' && provider) {
+      try {
+        const extensionProvider = await provider;
+        updateState({ extensionProvider })(view.state, view.dispatch);
+        await updateEditButton(view, extensionProvider);
+      } catch {
+        updateState({ extensionProvider: undefined })(
+          view.state,
+          view.dispatch,
+        );
+      }
     }
-  }
-};
+  };
 
-export const createContextIdentifierProviderHandler = (
-  view: EditorView,
-) => async (name: string, provider?: Promise<ContextIdentifierProvider>) => {
-  if (name === 'contextIdentifierProvider' && provider) {
-    try {
-      const contextIdentifierProvider = await provider;
-      updateState({ contextIdentifierProvider })(view.state, view.dispatch);
-    } catch {
-      updateState({ contextIdentifierProvider: undefined })(
-        view.state,
-        view.dispatch,
-      );
+export const createContextIdentifierProviderHandler =
+  (view: EditorView) =>
+  async (name: string, provider?: Promise<ContextIdentifierProvider>) => {
+    if (name === 'contextIdentifierProvider' && provider) {
+      try {
+        const contextIdentifierProvider = await provider;
+        updateState({ contextIdentifierProvider })(view.state, view.dispatch);
+      } catch {
+        updateState({ contextIdentifierProvider: undefined })(
+          view.state,
+          view.dispatch,
+        );
+      }
     }
-  }
-};
+  };
 
 const createPlugin = (
   dispatch: Dispatch,
@@ -171,12 +173,10 @@ const createPlugin = (
     state,
     view: (editorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);
-      const extensionProviderHandler = createExtensionProviderHandler(
-        editorView,
-      );
-      const contextIdentificationProviderHandler = createContextIdentifierProviderHandler(
-        editorView,
-      );
+      const extensionProviderHandler =
+        createExtensionProviderHandler(editorView);
+      const contextIdentificationProviderHandler =
+        createContextIdentifierProviderHandler(editorView);
 
       providerFactory.subscribe('extensionProvider', extensionProviderHandler);
       providerFactory.subscribe(
@@ -187,12 +187,8 @@ const createPlugin = (
       return {
         update: (view) => {
           const { state, dispatch } = view;
-          const {
-            element,
-            localId,
-            extensionProvider,
-            showContextPanel,
-          } = getPluginState(state);
+          const { element, localId, extensionProvider, showContextPanel } =
+            getPluginState(state);
 
           // This fetches the selected extension node, either by keyboard selection or click for all types of extensions
           const selectedExtension = getSelectedExtension(state, true);

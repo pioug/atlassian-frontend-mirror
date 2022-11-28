@@ -101,9 +101,10 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     });
   }, [analytics.ui, cardState.status]);
 
-  const extensionKey = useMemo(() => getExtensionKey(cardState.details), [
-    cardState.details,
-  ]);
+  const extensionKey = useMemo(
+    () => getExtensionKey(cardState.details),
+    [cardState.details],
+  );
 
   const onClick = useCallback(
     (event: React.MouseEvent | React.KeyboardEvent) => {

@@ -24,9 +24,8 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);
 
-export const LOGGED_FEATURE_FLAG_KEYS = filterFeatureFlagKeysAllProducts(
-  relevantFlags,
-);
+export const LOGGED_FEATURE_FLAG_KEYS =
+  filterFeatureFlagKeysAllProducts(relevantFlags);
 
 export function getPackageAttributes(
   componentName: ComponentName,

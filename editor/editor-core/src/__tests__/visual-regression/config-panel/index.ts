@@ -65,7 +65,11 @@ describe('Snapshot Test', () => {
     }, dateInputElement);
 
     // Clip the screenshot to just the date picker
-    const { top: y, left: x, width } = await getBoundingClientRect(
+    const {
+      top: y,
+      left: x,
+      width,
+    } = await getBoundingClientRect(
       page,
       `${extensionSelectors.configPanel} .field-wrapper-date`,
     );

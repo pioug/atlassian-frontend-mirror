@@ -76,8 +76,8 @@ const getAllIcons = async (): Promise<IconsList> => {
   return {
     first: {
       componentName: 'divider-icons',
-      component: ((() =>
-        'exported from @atlaskit/icon') as unknown) as ComponentType<any>,
+      component: (() =>
+        'exported from @atlaskit/icon') as unknown as ComponentType<any>,
       keywords: getKeywords(metadata),
       divider: true,
     },
@@ -101,9 +101,7 @@ const getAllIcons = async (): Promise<IconsList> => {
     third: {
       componentName: 'divider-file-type-icons',
       component: (() =>
-        'exported from @atlaskit/icon-file-type' as unknown) as ComponentType<
-        any
-      >,
+        'exported from @atlaskit/icon-file-type' as unknown) as ComponentType<any>,
       keywords: getKeywords(fileTypeIconMetadata),
       divider: true,
     },

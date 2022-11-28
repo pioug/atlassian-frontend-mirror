@@ -219,6 +219,7 @@ describe('dropdown menu', () => {
     it('should close the dropdown menu on outside click', () => {
       const { getByTestId, queryByTestId } = render(
         <>
+          {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
           <button data-testid="outside" type="button" />
           <DropdownMenu testId="ddm" trigger="click to open" />
         </>,
@@ -240,6 +241,7 @@ describe('dropdown menu', () => {
     it('should close the dropdown menu on outside click which has stopPropagation', () => {
       const { getByTestId, queryByTestId } = render(
         <>
+          {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
           <button
             data-testid="outside"
             type="button"
@@ -272,9 +274,8 @@ describe('dropdown menu', () => {
           </DropdownItemGroup>
         </DropdownMenu>,
       );
-      const ariaControls = getByTestId('dropdown--trigger').getAttribute(
-        'aria-controls',
-      );
+      const ariaControls =
+        getByTestId('dropdown--trigger').getAttribute('aria-controls');
       const popupId = getByTestId('dropdown--content').getAttribute('id');
 
       expect(ariaControls).toBe(popupId);
@@ -296,9 +297,8 @@ describe('dropdown menu', () => {
           </DropdownItemGroup>
         </DropdownMenu>,
       );
-      const ariaControls = getByTestId('dropdown--trigger').getAttribute(
-        'aria-controls',
-      );
+      const ariaControls =
+        getByTestId('dropdown--trigger').getAttribute('aria-controls');
       const popupId = getByTestId('dropdown--content').getAttribute('id');
 
       expect(ariaControls).toBe(popupId);

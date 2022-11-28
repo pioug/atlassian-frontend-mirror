@@ -1,13 +1,15 @@
 import { JsonLd } from 'json-ld-types';
 
-export const getEmptyJsonLd = (): JsonLd.Data.BaseData => ({
+const emptyData: JsonLd.Data.BaseData = {
   '@context': {
     '@vocab': 'https://www.w3.org/ns/activitystreams#',
     atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
     schema: 'http://schema.org/',
   },
   '@type': 'Object',
-});
+};
+
+export const getEmptyJsonLd = (): JsonLd.Data.BaseData => emptyData;
 
 export const getUnauthorizedJsonLd = (): JsonLd.Response => ({
   meta: {
@@ -16,12 +18,15 @@ export const getUnauthorizedJsonLd = (): JsonLd.Response => ({
     auth: [],
     definitionId: 'provider-not-found',
   },
-  data: {
-    '@context': {
-      '@vocab': 'https://www.w3.org/ns/activitystreams#',
-      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-      schema: 'http://schema.org/',
-    },
-    '@type': 'Object',
+  data: { ...emptyData },
+});
+
+export const getForbiddenJsonLd = (): JsonLd.Response => ({
+  meta: {
+    visibility: 'restricted',
+    access: 'forbidden',
+    auth: [],
+    definitionId: 'provider-not-found',
   },
+  data: { ...emptyData },
 });

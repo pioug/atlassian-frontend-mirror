@@ -159,18 +159,17 @@ export const ResourcedEmojiComponent: FC<Props> = ({
     fetchOrGetEmoji(emojiProvider, emojiId, optimistic);
   }, [emojiProvider, emojiId, optimistic]);
 
-  const emojiRenderState = useMemo<
-    ResourcedEmojiComponentRenderStatesEnum
-  >(() => {
-    if (!emoji && !loaded && !optimisticImageURL) {
-      return ResourcedEmojiComponentRenderStatesEnum.INITIAL;
-    } else if (!emoji && !loaded && optimisticImageURL) {
-      return ResourcedEmojiComponentRenderStatesEnum.OPTIMISTIC;
-    } else if (!emoji && loaded) {
-      return ResourcedEmojiComponentRenderStatesEnum.FALLBACK;
-    }
-    return ResourcedEmojiComponentRenderStatesEnum.EMOJI;
-  }, [emoji, loaded, optimisticImageURL]);
+  const emojiRenderState =
+    useMemo<ResourcedEmojiComponentRenderStatesEnum>(() => {
+      if (!emoji && !loaded && !optimisticImageURL) {
+        return ResourcedEmojiComponentRenderStatesEnum.INITIAL;
+      } else if (!emoji && !loaded && optimisticImageURL) {
+        return ResourcedEmojiComponentRenderStatesEnum.OPTIMISTIC;
+      } else if (!emoji && loaded) {
+        return ResourcedEmojiComponentRenderStatesEnum.FALLBACK;
+      }
+      return ResourcedEmojiComponentRenderStatesEnum.EMOJI;
+    }, [emoji, loaded, optimisticImageURL]);
 
   const handleOnLoadError = (emojiId: EmojiId) => {
     sampledUfoRenderedEmoji(emojiId).failure({

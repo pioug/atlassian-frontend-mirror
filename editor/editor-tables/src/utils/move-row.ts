@@ -148,39 +148,41 @@ import { isValidReorder, moveTableRow } from './reorder-utils';
 //   moveRow(x, y, options)(state.tr)
 // );
 // ```
-export const moveRow = (
-  originRowIndex: number,
-  targetRowIndex: number,
-  options = { tryToFit: false, direction: 0 },
-) => (tr: Transaction): Transaction => {
-  const table = findTable(tr.selection);
-  if (!table) {
-    return tr;
-  }
+export const moveRow =
+  (
+    originRowIndex: number,
+    targetRowIndex: number,
+    options = { tryToFit: false, direction: 0 },
+  ) =>
+  (tr: Transaction): Transaction => {
+    const table = findTable(tr.selection);
+    if (!table) {
+      return tr;
+    }
 
-  const originalRowRanges = getSelectionRangeInRow(originRowIndex)(tr);
-  const targetRowRanges = getSelectionRangeInRow(targetRowIndex)(tr);
-  const indexesOriginRow = originalRowRanges?.indexes || [];
-  const indexesTargetRow = targetRowRanges?.indexes || [];
+    const originalRowRanges = getSelectionRangeInRow(originRowIndex)(tr);
+    const targetRowRanges = getSelectionRangeInRow(targetRowIndex)(tr);
+    const indexesOriginRow = originalRowRanges?.indexes || [];
+    const indexesTargetRow = targetRowRanges?.indexes || [];
 
-  if (indexesOriginRow.includes(targetRowIndex)) {
-    return tr;
-  }
+    if (indexesOriginRow.includes(targetRowIndex)) {
+      return tr;
+    }
 
-  if (!options.tryToFit && indexesTargetRow.length > 1) {
-    isValidReorder(originRowIndex, targetRowIndex, indexesTargetRow, 'row');
-  }
+    if (!options.tryToFit && indexesTargetRow.length > 1) {
+      isValidReorder(originRowIndex, targetRowIndex, indexesTargetRow, 'row');
+    }
 
-  const newTable = moveTableRow(
-    table,
-    indexesOriginRow,
-    indexesTargetRow,
-    options.direction,
-  );
+    const newTable = moveTableRow(
+      table,
+      indexesOriginRow,
+      indexesTargetRow,
+      options.direction,
+    );
 
-  return cloneTr(tr).replaceWith(
-    table.pos,
-    table.pos + table.node.nodeSize,
-    newTable,
-  );
-};
+    return cloneTr(tr).replaceWith(
+      table.pos,
+      table.pos + table.node.nodeSize,
+      newTable,
+    );
+  };

@@ -370,126 +370,129 @@ const getClosestSelectionRect = (state: EditorState): Rect | undefined => {
     : findCellRectClosestToPos(selection.$from);
 };
 
-export const getToolbarConfig = (
-  getEditorContainerWidth: GetEditorContainerWidth,
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-  getEditorFeatureFlags: GetEditorFeatureFlags,
-) => (config: PluginConfig): FloatingToolbarHandler => (state, intl) => {
-  const tableObject = findTable(state.selection);
-  const pluginState = getPluginState(state);
-  const resizeState:
-    | ColumnResizingPluginState
-    | undefined = tableResizingPluginKey.getState(state);
-  if (tableObject && pluginState.editorHasFocus) {
-    const nodeType = state.schema.nodes.table;
-    const menu = getToolbarMenuConfig(
-      config,
-      pluginState,
-      intl,
-      editorAnalyticsAPI,
-    );
+export const getToolbarConfig =
+  (
+    getEditorContainerWidth: GetEditorContainerWidth,
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+    getEditorFeatureFlags: GetEditorFeatureFlags,
+  ) =>
+  (config: PluginConfig): FloatingToolbarHandler =>
+  (state, intl) => {
+    const tableObject = findTable(state.selection);
+    const pluginState = getPluginState(state);
+    const resizeState: ColumnResizingPluginState | undefined =
+      tableResizingPluginKey.getState(state);
+    if (tableObject && pluginState.editorHasFocus) {
+      const nodeType = state.schema.nodes.table;
+      const menu = getToolbarMenuConfig(
+        config,
+        pluginState,
+        intl,
+        editorAnalyticsAPI,
+      );
 
-    const { tableCellOptionsInFloatingToolbar } = getEditorFeatureFlags() || {};
-    const cellItems = getCellItems(
-      config,
-      state,
-      intl,
-      getEditorContainerWidth,
-      editorAnalyticsAPI,
-      tableCellOptionsInFloatingToolbar,
-    );
-    const colorPicker = getColorPicker(
-      state,
-      menu,
-      intl,
-      getEditorContainerWidth,
-      editorAnalyticsAPI,
-      tableCellOptionsInFloatingToolbar,
-    );
+      const { tableCellOptionsInFloatingToolbar } =
+        getEditorFeatureFlags() || {};
+      const cellItems = getCellItems(
+        config,
+        state,
+        intl,
+        getEditorContainerWidth,
+        editorAnalyticsAPI,
+        tableCellOptionsInFloatingToolbar,
+      );
+      const colorPicker = getColorPicker(
+        state,
+        menu,
+        intl,
+        getEditorContainerWidth,
+        editorAnalyticsAPI,
+        tableCellOptionsInFloatingToolbar,
+      );
 
-    // Check if we need to show confirm dialog for delete button
-    let confirmDialog;
-    const localId: string | undefined = tableObject.node.attrs.localId;
+      // Check if we need to show confirm dialog for delete button
+      let confirmDialog;
+      const localId: string | undefined = tableObject.node.attrs.localId;
 
-    if (localId && isReferencedSource(state, localId)) {
-      confirmDialog = {
-        okButtonLabel: intl.formatMessage(
-          tableMessages.confirmDeleteLinkedModalOKButton,
-        ),
-        message: intl.formatMessage(
-          tableMessages.confirmDeleteLinkedModalMessage,
-        ),
-      };
-    }
-
-    const getDomRef = (editorView: EditorView) => {
-      let element: HTMLElement | undefined;
-      const domAtPos = editorView.domAtPos.bind(editorView);
-      const parent = findParentDomRefOfType(
-        nodeType,
-        domAtPos,
-      )(state.selection);
-      if (parent) {
-        const tableRef =
-          (parent as HTMLElement).querySelector<HTMLTableElement>('table') ||
-          undefined;
-        if (tableRef) {
-          element =
-            closestElement(
-              tableRef,
-              `.${TableCssClassName.TABLE_NODE_WRAPPER}`,
-            ) || undefined;
-        }
+      if (localId && isReferencedSource(state, localId)) {
+        confirmDialog = {
+          okButtonLabel: intl.formatMessage(
+            tableMessages.confirmDeleteLinkedModalOKButton,
+          ),
+          message: intl.formatMessage(
+            tableMessages.confirmDeleteLinkedModalMessage,
+          ),
+        };
       }
 
-      return element;
-    };
+      const getDomRef = (editorView: EditorView) => {
+        let element: HTMLElement | undefined;
+        const domAtPos = editorView.domAtPos.bind(editorView);
+        const parent = findParentDomRefOfType(
+          nodeType,
+          domAtPos,
+        )(state.selection);
+        if (parent) {
+          const tableRef =
+            (parent as HTMLElement).querySelector<HTMLTableElement>('table') ||
+            undefined;
+          if (tableRef) {
+            element =
+              closestElement(
+                tableRef,
+                `.${TableCssClassName.TABLE_NODE_WRAPPER}`,
+              ) || undefined;
+          }
+        }
 
-    return {
-      title: 'Table floating controls',
-      getDomRef,
-      nodeType,
-      offset: [0, 3],
-      items: [
-        menu,
-        separator(menu.hidden),
-        ...cellItems,
-        ...colorPicker,
-        {
-          type: 'extensions-placeholder',
-          separator: 'end',
-        },
-        {
-          type: 'copy-button',
-          items: [
-            {
-              state,
-              formatMessage: intl.formatMessage,
-              nodeType,
-              onMouseEnter: hoverTable(false, true),
-              onMouseLeave: clearHoverSelection(),
-            },
-            { type: 'separator' },
-          ],
-        },
-        {
-          id: 'editor.table.delete',
-          type: 'button',
-          appearance: 'danger',
-          icon: RemoveIcon,
-          onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
-          disabled: !!resizeState && !!resizeState.dragging,
-          onMouseEnter: hoverTable(true),
-          onMouseLeave: clearHoverSelection(),
-          title: intl.formatMessage(commonMessages.remove),
-          confirmDialog,
-        },
-      ],
-      scrollable: true,
-    };
-  }
-  return;
-};
+        return element;
+      };
+
+      return {
+        title: 'Table floating controls',
+        getDomRef,
+        nodeType,
+        offset: [0, 3],
+        items: [
+          menu,
+          separator(menu.hidden),
+          ...cellItems,
+          ...colorPicker,
+          {
+            type: 'extensions-placeholder',
+            separator: 'end',
+          },
+          {
+            type: 'copy-button',
+            items: [
+              {
+                state,
+                formatMessage: intl.formatMessage,
+                nodeType,
+                onMouseEnter: hoverTable(false, true),
+                onMouseLeave: clearHoverSelection(),
+              },
+              { type: 'separator' },
+            ],
+          },
+          {
+            id: 'editor.table.delete',
+            type: 'button',
+            appearance: 'danger',
+            icon: RemoveIcon,
+            onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
+            disabled: !!resizeState && !!resizeState.dragging,
+            onMouseEnter: hoverTable(true),
+            onMouseLeave: clearHoverSelection(),
+            title: intl.formatMessage(commonMessages.remove),
+            confirmDialog,
+          },
+        ],
+        scrollable: true,
+      };
+    }
+    return;
+  };
 
 const separator = (hidden?: boolean): FloatingToolbarItem<Command> => {
   return {

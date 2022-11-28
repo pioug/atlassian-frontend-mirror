@@ -179,9 +179,8 @@ export const handleMouseOver = (
   }
   const { state, dispatch } = view;
   const target = mouseEvent.target;
-  const { insertColumnButtonIndex, insertRowButtonIndex } = getPluginState(
-    state,
-  );
+  const { insertColumnButtonIndex, insertRowButtonIndex } =
+    getPluginState(state);
 
   if (isInsertRowButton(target)) {
     const [startIndex, endIndex] = getColumnOrRowIndex(target);
@@ -276,9 +275,8 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
   }
 
   const { state, dispatch } = view;
-  const { insertColumnButtonIndex, insertRowButtonIndex } = getPluginState(
-    state,
-  );
+  const { insertColumnButtonIndex, insertRowButtonIndex } =
+    getPluginState(state);
 
   const target = event.target;
   if (isTableControlsButton(target)) {
@@ -296,99 +294,99 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
   return false;
 };
 
-export const handleMouseMove = (
-  getEditorFeatureFlags: GetEditorFeatureFlags,
-) => (
-  view: EditorView,
-  event: Event,
-  tableCellOptimization?: boolean,
-  elementContentRects?: ElementContentRects,
-) => {
-  if (!(event.target instanceof HTMLElement)) {
-    return false;
-  }
-  const element = event.target;
-
-  if (isColumnControlsDecorations(element)) {
-    const { state, dispatch } = view;
-    const { insertColumnButtonIndex } = getPluginState(state);
-    const [startIndex, endIndex] = getColumnOrRowIndex(element);
-
-    const positionColumn =
-      getMousePositionHorizontalRelativeByElement(
-        event as MouseEvent,
-        tableCellOptimization,
-        elementContentRects,
-      ) === 'right'
-        ? endIndex
-        : startIndex;
-
-    if (positionColumn !== insertColumnButtonIndex) {
-      return showInsertColumnButton(positionColumn)(state, dispatch);
+export const handleMouseMove =
+  (getEditorFeatureFlags: GetEditorFeatureFlags) =>
+  (
+    view: EditorView,
+    event: Event,
+    tableCellOptimization?: boolean,
+    elementContentRects?: ElementContentRects,
+  ) => {
+    if (!(event.target instanceof HTMLElement)) {
+      return false;
     }
-  }
+    const element = event.target;
 
-  if (isRowControlsButton(element)) {
-    const { state, dispatch } = view;
-    const { insertRowButtonIndex } = getPluginState(state);
-    const [startIndex, endIndex] = getColumnOrRowIndex(element);
-
-    const positionRow =
-      getMousePositionVerticalRelativeByElement(event as MouseEvent) ===
-      'bottom'
-        ? endIndex
-        : startIndex;
-
-    if (positionRow !== insertRowButtonIndex) {
-      return showInsertRowButton(positionRow)(state, dispatch);
-    }
-  }
-
-  const { mouseMoveOptimization } = getEditorFeatureFlags();
-  // we only want to allow mouseMoveOptimisation when tableCellOptimization is enabled
-  // because it relies on tableCell node view that is added  via tableCellOptimization
-  const useMouseMoveOptimisation =
-    tableCellOptimization && mouseMoveOptimization;
-
-  if (!isResizeHandleDecoration(element) && isCell(element)) {
-    const positionColumn = getMousePositionHorizontalRelativeByElement(
-      event as MouseEvent,
-      useMouseMoveOptimisation,
-      elementContentRects,
-      RESIZE_HANDLE_AREA_DECORATION_GAP,
-    );
-
-    if (positionColumn !== null) {
+    if (isColumnControlsDecorations(element)) {
       const { state, dispatch } = view;
-      const { resizeHandleColumnIndex } = getPluginState(state);
-      const tableCell = closestElement(
-        element,
-        'td, th',
-      ) as HTMLTableCellElement;
-      const cellStartPosition = view.posAtDOM(tableCell, 0);
-      const rect = findCellRectClosestToPos(
-        state.doc.resolve(cellStartPosition),
+      const { insertColumnButtonIndex } = getPluginState(state);
+      const [startIndex, endIndex] = getColumnOrRowIndex(element);
+
+      const positionColumn =
+        getMousePositionHorizontalRelativeByElement(
+          event as MouseEvent,
+          tableCellOptimization,
+          elementContentRects,
+        ) === 'right'
+          ? endIndex
+          : startIndex;
+
+      if (positionColumn !== insertColumnButtonIndex) {
+        return showInsertColumnButton(positionColumn)(state, dispatch);
+      }
+    }
+
+    if (isRowControlsButton(element)) {
+      const { state, dispatch } = view;
+      const { insertRowButtonIndex } = getPluginState(state);
+      const [startIndex, endIndex] = getColumnOrRowIndex(element);
+
+      const positionRow =
+        getMousePositionVerticalRelativeByElement(event as MouseEvent) ===
+        'bottom'
+          ? endIndex
+          : startIndex;
+
+      if (positionRow !== insertRowButtonIndex) {
+        return showInsertRowButton(positionRow)(state, dispatch);
+      }
+    }
+
+    const { mouseMoveOptimization } = getEditorFeatureFlags();
+    // we only want to allow mouseMoveOptimisation when tableCellOptimization is enabled
+    // because it relies on tableCell node view that is added  via tableCellOptimization
+    const useMouseMoveOptimisation =
+      tableCellOptimization && mouseMoveOptimization;
+
+    if (!isResizeHandleDecoration(element) && isCell(element)) {
+      const positionColumn = getMousePositionHorizontalRelativeByElement(
+        event as MouseEvent,
+        useMouseMoveOptimisation,
+        elementContentRects,
+        RESIZE_HANDLE_AREA_DECORATION_GAP,
       );
 
-      if (rect) {
-        const columnEndIndexTarget =
-          positionColumn === 'left' ? rect.left : rect.right;
+      if (positionColumn !== null) {
+        const { state, dispatch } = view;
+        const { resizeHandleColumnIndex } = getPluginState(state);
+        const tableCell = closestElement(
+          element,
+          'td, th',
+        ) as HTMLTableCellElement;
+        const cellStartPosition = view.posAtDOM(tableCell, 0);
+        const rect = findCellRectClosestToPos(
+          state.doc.resolve(cellStartPosition),
+        );
 
-        if (
-          columnEndIndexTarget !== resizeHandleColumnIndex ||
-          !hasResizeHandler({ target: element, columnEndIndexTarget })
-        ) {
-          return addResizeHandleDecorations(columnEndIndexTarget)(
-            state,
-            dispatch,
-          );
+        if (rect) {
+          const columnEndIndexTarget =
+            positionColumn === 'left' ? rect.left : rect.right;
+
+          if (
+            columnEndIndexTarget !== resizeHandleColumnIndex ||
+            !hasResizeHandler({ target: element, columnEndIndexTarget })
+          ) {
+            return addResizeHandleDecorations(columnEndIndexTarget)(
+              state,
+              dispatch,
+            );
+          }
         }
       }
     }
-  }
 
-  return false;
-};
+    return false;
+  };
 
 export function handleTripleClick(view: EditorView, pos: number) {
   const { state, dispatch } = view;
@@ -482,31 +480,33 @@ export const handleCut = (
   return tr;
 };
 
-export const whenTableInFocus = (
-  eventHandler: (
-    view: EditorView,
-    mouseEvent: Event,
-    tableCellOptimization?: boolean,
+export const whenTableInFocus =
+  (
+    eventHandler: (
+      view: EditorView,
+      mouseEvent: Event,
+      tableCellOptimization?: boolean,
+      elementContentRects?: ElementContentRects,
+    ) => boolean,
     elementContentRects?: ElementContentRects,
-  ) => boolean,
-  elementContentRects?: ElementContentRects,
-) => (view: EditorView, mouseEvent: Event): boolean => {
-  const tableResizePluginState = getResizePluginState(view.state);
-  const tablePluginState = getPluginState(view.state);
-  const isDragging =
-    tableResizePluginState && !!tableResizePluginState.dragging;
-  const hasTableNode = tablePluginState && tablePluginState.tableNode;
-  const tableCellOptimization =
-    tablePluginState?.pluginConfig?.tableCellOptimization;
+  ) =>
+  (view: EditorView, mouseEvent: Event): boolean => {
+    const tableResizePluginState = getResizePluginState(view.state);
+    const tablePluginState = getPluginState(view.state);
+    const isDragging =
+      tableResizePluginState && !!tableResizePluginState.dragging;
+    const hasTableNode = tablePluginState && tablePluginState.tableNode;
+    const tableCellOptimization =
+      tablePluginState?.pluginConfig?.tableCellOptimization;
 
-  if (!hasTableNode || isDragging) {
-    return false;
-  }
+    if (!hasTableNode || isDragging) {
+      return false;
+    }
 
-  return eventHandler(
-    view,
-    mouseEvent,
-    tableCellOptimization,
-    elementContentRects,
-  );
-};
+    return eventHandler(
+      view,
+      mouseEvent,
+      tableCellOptimization,
+      elementContentRects,
+    );
+  };

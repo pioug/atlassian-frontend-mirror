@@ -112,10 +112,10 @@ export function CardWithUrlContent({
       subproduct,
     ],
   );
-  const handleAuthorize = useCallback(() => actions.authorize(appearance), [
-    actions,
-    appearance,
-  ]);
+  const handleAuthorize = useCallback(
+    () => actions.authorize(appearance),
+    [actions, appearance],
+  );
   const handleRetry = useCallback(() => {
     actions.reload();
   }, [actions]);

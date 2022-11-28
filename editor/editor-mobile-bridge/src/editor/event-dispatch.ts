@@ -10,11 +10,10 @@ export enum EventTypes {
   SET_DOCUMENT_REFLOW_DETECTOR_STATUS = 'SET_DOCUMENT_REFLOW_DETECTOR_STATUS',
 }
 
-type GetPayload<
-  T extends EventTypes
-> = T extends EventTypes.SET_DOCUMENT_REFLOW_DETECTOR_STATUS
-  ? boolean
-  : allowListPayloadType;
+type GetPayload<T extends EventTypes> =
+  T extends EventTypes.SET_DOCUMENT_REFLOW_DETECTOR_STATUS
+    ? boolean
+    : allowListPayloadType;
 
 export class BridgeEventEmitter {
   private emitter: EventEmitter = new EventEmitter();

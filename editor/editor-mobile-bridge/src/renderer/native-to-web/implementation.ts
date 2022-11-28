@@ -41,7 +41,8 @@ class RendererMobileWebBridgeOverride extends WebBridge {
 
 class RendererBridgeImplementation
   extends RendererMobileWebBridgeOverride
-  implements RendererBridge {
+  implements RendererBridge
+{
   content: Serialized<JSONDocNode> = '';
   taskDecisionProvider?: Promise<TaskDecisionProviderImpl>;
   configuration: RendererConfiguration;

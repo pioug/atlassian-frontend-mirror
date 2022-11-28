@@ -292,9 +292,10 @@ describe('frozen editor', () => {
       it('adds metadata for slow input if threshold exceeded', () => {
         (getTimeSince as any).mockReturnValue(2000);
         rafCallback?.(1631497795504);
-        expect(
-          mockStore.addMetadata,
-        ).toHaveBeenCalledWith(EditorExperience.typing, { slowInput: true });
+        expect(mockStore.addMetadata).toHaveBeenCalledWith(
+          EditorExperience.typing,
+          { slowInput: true },
+        );
       });
     });
 

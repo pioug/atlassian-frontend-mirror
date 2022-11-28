@@ -723,7 +723,7 @@ export function compose<
     ? (a: A) => ReturnType<F1>
     : FN extends [any, any, any, any, Func<infer A, any>]
     ? (a: A) => ReturnType<F1>
-    : Func<any, ReturnType<F1>> // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
+    : Func<any, ReturnType<F1>>, // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
 >(func: F1, ...funcs: FN): R {
   const allFuncs = [func, ...funcs];
   return function composed(raw: any) {
@@ -743,14 +743,14 @@ export function pipe<F1 extends FuncN<any, any>>(
 // two function
 export function pipe<
   F1 extends FuncN<any, any>,
-  F2 extends Func<ReturnType<F1>, any>
+  F2 extends Func<ReturnType<F1>, any>,
 >(f1: F1, f2: F2): (...args: Parameters<F1>) => ReturnType<F2>;
 
 // three function
 export function pipe<
   F1 extends FuncN<any, any>,
   F2 extends Func<ReturnType<F1>, any>,
-  F3 extends Func<ReturnType<F2>, any>
+  F3 extends Func<ReturnType<F2>, any>,
 >(f1: F1, f2: F2, f3: F3): (...args: Parameters<F1>) => ReturnType<F3>;
 // If needed add more than 3 function
 // Generic
@@ -758,7 +758,7 @@ export function pipe<
   F1 extends FuncN<any, any>,
   F2 extends Func<ReturnType<F1>, any>,
   F3 extends Func<ReturnType<F2>, any>,
-  FN extends Array<Func<any, any>>
+  FN extends Array<Func<any, any>>,
 >(f1: F1, f2: F2, f3: F3, ...fn: FN): (...args: Parameters<F1>) => any;
 
 // rest
@@ -771,8 +771,10 @@ export function pipe(...fns: Function[]) {
     return fns[0];
   }
 
-  return fns.reduce((prevFn, nextFn) => (...args: any[]) =>
-    nextFn(prevFn(...args)),
+  return fns.reduce(
+    (prevFn, nextFn) =>
+      (...args: any[]) =>
+        nextFn(prevFn(...args)),
   );
 }
 

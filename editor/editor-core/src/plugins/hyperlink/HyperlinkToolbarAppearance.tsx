@@ -81,14 +81,8 @@ export class HyperlinkToolbarAppearance extends Component<
   }
 
   render() {
-    const {
-      url,
-      intl,
-      editorView,
-      editorState,
-      cardOptions,
-      platform,
-    } = this.props;
+    const { url, intl, editorView, editorState, cardOptions, platform } =
+      this.props;
     const { supportedUrlsMap } = this.state;
 
     if (!supportedUrlsMap.get(url)) {

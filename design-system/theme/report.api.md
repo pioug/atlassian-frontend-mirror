@@ -97,9 +97,7 @@ const codeBlock: ThemedValue<string>;
 export const codeFontFamily: () => string;
 
 // @public (undocumented)
-const colorPalette: (
-  palette?: colorPaletteType,
-) => {
+const colorPalette: (palette?: colorPaletteType) => {
   background: string;
   text: string;
 }[];
@@ -498,9 +496,7 @@ const green: ThemedValue<string>;
 export const gridSize: () => number;
 
 // @public (undocumented)
-const h100: (
-  props?: ThemeProps,
-) => {
+const h100: (props?: ThemeProps) => {
   color: 'var(--ds-text-subtlest)';
   fontWeight: number;
   marginTop: string;
@@ -510,9 +506,7 @@ const h100: (
 };
 
 // @public (undocumented)
-const h200: (
-  props?: ThemeProps,
-) => {
+const h200: (props?: ThemeProps) => {
   color: 'var(--ds-text-subtlest)';
   fontWeight: number;
   marginTop: string;
@@ -522,9 +516,7 @@ const h200: (
 };
 
 // @public (undocumented)
-const h300: (
-  props?: ThemeProps,
-) => {
+const h300: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: number;
   marginTop: string;
@@ -535,9 +527,7 @@ const h300: (
 };
 
 // @public (undocumented)
-const h400: (
-  props?: ThemeProps,
-) => {
+const h400: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: number;
   letterSpacing: string;
@@ -548,9 +538,7 @@ const h400: (
 };
 
 // @public (undocumented)
-const h500: (
-  props?: ThemeProps,
-) => {
+const h500: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: number;
   letterSpacing: string;
@@ -561,9 +549,7 @@ const h500: (
 };
 
 // @public (undocumented)
-const h600: (
-  props?: ThemeProps,
-) => {
+const h600: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: number;
   letterSpacing: string;
@@ -574,9 +560,7 @@ const h600: (
 };
 
 // @public (undocumented)
-const h700: (
-  props?: ThemeProps,
-) => {
+const h700: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: number;
   letterSpacing: string;
@@ -587,9 +571,7 @@ const h700: (
 };
 
 // @public (undocumented)
-const h800: (
-  props?: ThemeProps,
-) => {
+const h800: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: number;
   letterSpacing: string;
@@ -600,9 +582,7 @@ const h800: (
 };
 
 // @public (undocumented)
-const h900: (
-  props?: ThemeProps,
-) => {
+const h900: (props?: ThemeProps) => {
   color: 'var(--ds-text)';
   fontWeight: number;
   letterSpacing: string;

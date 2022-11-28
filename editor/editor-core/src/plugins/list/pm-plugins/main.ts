@@ -126,9 +126,11 @@ const handleSelectionChanged = (
   return pluginState;
 };
 
-const reducer = () => (state: ListState): ListState => {
-  return state;
-};
+const reducer =
+  () =>
+  (state: ListState): ListState => {
+    return state;
+  };
 
 const { getPluginState, createPluginState } = pluginFactory(
   listPluginKey,

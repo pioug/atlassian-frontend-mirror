@@ -177,9 +177,8 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
   const [uploadStatus, setUploadStatus] = useState(
     errorMessage ? UploadStatus.Error : UploadStatus.Waiting,
   );
-  const [chooseEmojiErrorMessage, setChooseEmojiErrorMessage] = useState<
-    MessageDescriptor
-  >();
+  const [chooseEmojiErrorMessage, setChooseEmojiErrorMessage] =
+    useState<MessageDescriptor>();
   const [name, setName] = useState(
     initialUploadName && sanitizeName(initialUploadName),
   );
@@ -253,16 +252,18 @@ const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
     setChooseEmojiErrorMessage(messages.emojiUploadFailed);
     cancelChooseFile();
   };
-  const onFileLoad = (file: File) => async (f: any): Promise<any> => {
-    try {
-      setFilename(file.name);
-      await ImageUtil.parseImage(f.target.result);
-      setPreviewImage(f.target.result);
-    } catch {
-      setChooseEmojiErrorMessage(messages.emojiInvalidImage);
-      cancelChooseFile();
-    }
-  };
+  const onFileLoad =
+    (file: File) =>
+    async (f: any): Promise<any> => {
+      try {
+        setFilename(file.name);
+        await ImageUtil.parseImage(f.target.result);
+        setPreviewImage(f.target.result);
+      } catch {
+        setChooseEmojiErrorMessage(messages.emojiInvalidImage);
+        cancelChooseFile();
+      }
+    };
   const cancelChooseFile = () => {
     setPreviewImage(undefined);
   };

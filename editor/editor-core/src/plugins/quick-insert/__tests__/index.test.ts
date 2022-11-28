@@ -5,10 +5,10 @@ import { IntlShape } from 'react-intl-next';
 import { EditorState } from 'prosemirror-state';
 
 describe('processItems', () => {
-  const intlMock = ({
+  const intlMock = {
     formatMessage: (messageDescriptor: any) =>
       messageDescriptor && messageDescriptor.defaultMessage,
-  } as unknown) as IntlShape;
+  } as unknown as IntlShape;
 
   const mockQuickInsertActionInsert = jest.fn();
   const mockEditorState = {} as EditorState;

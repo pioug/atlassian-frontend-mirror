@@ -53,9 +53,8 @@ const ProgressDots: FC<ProgressDotsProps> = ({
   values,
   onSelect,
 }) => {
-  const tablistRef: MutableRefObject<HTMLDivElement | null> = useRef<
-    HTMLDivElement
-  >(null);
+  const tablistRef: MutableRefObject<HTMLDivElement | null> =
+    useRef<HTMLDivElement>(null);
 
   const onSelectWithAnalytics = usePlatformLeafEventHandler({
     fn: onSelect || noop,
@@ -95,7 +94,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
       // call the consumer's select method and focus the applicable indicator
       if (onSelect) {
         onSelectWithAnalytics({
-          event: (event as unknown) as React.MouseEvent<HTMLButtonElement>,
+          event: event as unknown as React.MouseEvent<HTMLButtonElement>,
           index,
         });
       }

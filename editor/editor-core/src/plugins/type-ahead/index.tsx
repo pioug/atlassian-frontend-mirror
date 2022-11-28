@@ -231,9 +231,8 @@ const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => {
 
       const isANewHandler = oldTriggerHandler !== newTriggerHandler;
       if (oldTriggerHandler?.dismiss && isANewHandler) {
-        const typeAheadMessage = originalTransaction.getMeta(
-          typeAheadPluginKey,
-        );
+        const typeAheadMessage =
+          originalTransaction.getMeta(typeAheadPluginKey);
         const wasItemInserted =
           typeAheadMessage && typeAheadMessage.action === 'INSERT_RAW_QUERY';
 

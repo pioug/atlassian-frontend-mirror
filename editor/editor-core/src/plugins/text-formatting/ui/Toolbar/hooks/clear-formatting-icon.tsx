@@ -23,9 +23,10 @@ const clearFormattingToolbar = clearFormattingWithAnalytics(
 const useClearFormattingPluginState = (
   editorState: EditorState,
 ): ClearFormattingState | null => {
-  return useMemo(() => clearFormattingPluginKey.getState(editorState), [
-    editorState,
-  ]);
+  return useMemo(
+    () => clearFormattingPluginKey.getState(editorState),
+    [editorState],
+  );
 };
 
 export const useClearIcon = ({

@@ -49,12 +49,11 @@ describe('MediaNodeUpdater', () => {
     jest.spyOn(commands, 'updateMediaNodeAttrs').mockReturnValue(() => true);
     jest.spyOn(commands, 'replaceExternalMedia').mockReturnValue(() => true);
 
-    const contextIdentifierProvider: Promise<ContextIdentifierProvider> = Promise.resolve(
-      {
+    const contextIdentifierProvider: Promise<ContextIdentifierProvider> =
+      Promise.resolve({
         containerId: '',
         objectId: 'object-id',
-      },
-    );
+      });
     const viewMediaClientConfig = getDefaultMediaClientConfig();
     const authFromContext = Promise.resolve({
       clientId: 'auth-context-client-id',
@@ -321,8 +320,7 @@ describe('MediaNodeUpdater', () => {
     it('should use url params to copy file', async () => {
       const externalNode: any = {
         attrs: {
-          url:
-            'blob:http://localhost/blob_id#media-blob-url=true&id=file_id&collection=collection_name&contextId=context_id&width=10&height=20&mimeType=image%2Fjpeg&size=10&name=file_name',
+          url: 'blob:http://localhost/blob_id#media-blob-url=true&id=file_id&collection=collection_name&contextId=context_id&width=10&height=20&mimeType=image%2Fjpeg&size=10&name=file_name',
           type: 'external',
         },
       };

@@ -24,23 +24,15 @@ interface HelpContentInterface {
 
 export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
   const { homeContent, homeOptions } = useHomeContext();
-  const {
-    onSearchWhatsNewArticles,
-    onGetWhatsNewArticle,
-    productName,
-  } = useWhatsNewArticleContext();
-  const {
-    isOverlayVisible,
-    navigateBack,
-    canNavigateBack,
-    onClose,
-  } = useNavigationContext();
+  const { onSearchWhatsNewArticles, onGetWhatsNewArticle, productName } =
+    useWhatsNewArticleContext();
+  const { isOverlayVisible, navigateBack, canNavigateBack, onClose } =
+    useNavigationContext();
   const { onSearch } = useSearchContext();
   const { onBackButtonClick } = useHeaderContext();
 
-  const [isOverlayFullyVisible, setIsOverlayFullyVisible] = useState(
-    isOverlayVisible,
-  );
+  const [isOverlayFullyVisible, setIsOverlayFullyVisible] =
+    useState(isOverlayVisible);
 
   const handleOnBackButtonClick = useCallback(
     (

@@ -14,9 +14,8 @@ export type ScaleValues =
   | 'Space500'
   | 'Space600';
 
-export type BaseToken = keyof SpacingScaleTokenSchema<
-  ScaleValues
->['spacing']['scale'];
+export type BaseToken =
+  keyof SpacingScaleTokenSchema<ScaleValues>['spacing']['scale'];
 
 const scale: SpacingScaleTokenSchema<ScaleValues> = {
   spacing: {

@@ -33,7 +33,10 @@ export const isMarkExcluded = (
   return false;
 };
 
-const not = <T>(fn: (args: T) => boolean) => (arg: T) => !fn(arg);
+const not =
+  <T>(fn: (args: T) => boolean) =>
+  (arg: T) =>
+    !fn(arg);
 
 export const removeBlockMarks = (
   state: EditorState,

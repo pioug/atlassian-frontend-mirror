@@ -49,10 +49,8 @@ export function useEditor(
 function useCreateEditor(
   config: CreateEditorParams,
 ): [EditorSharedConfig | null, (ref: HTMLDivElement | null) => void] {
-  const [
-    editorSharedConfig,
-    setEditorSharedConfig,
-  ] = React.useState<EditorSharedConfig | null>(null);
+  const [editorSharedConfig, setEditorSharedConfig] =
+    React.useState<EditorSharedConfig | null>(null);
 
   return [
     editorSharedConfig,
@@ -148,13 +146,8 @@ export function useHandleEditorLifecycle(
   React.useEffect(() => {
     //#region Did mount
     if (editorSharedConfig) {
-      const {
-        onMount,
-        editorActions,
-        editorView,
-        eventDispatcher,
-        dispatch,
-      } = editorSharedConfig;
+      const { onMount, editorActions, editorView, eventDispatcher, dispatch } =
+        editorSharedConfig;
 
       editorActions._privateRegisterEditor(editorView, eventDispatcher);
 
@@ -187,12 +180,8 @@ export function useHandleEditorLifecycle(
         return;
       }
 
-      const {
-        eventDispatcher,
-        editorView,
-        onDestroy,
-        editorActions,
-      } = editorSharedConfig;
+      const { eventDispatcher, editorView, onDestroy, editorActions } =
+        editorSharedConfig;
 
       if (eventDispatcher) {
         eventDispatcher.destroy();

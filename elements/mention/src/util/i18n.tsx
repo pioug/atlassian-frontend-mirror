@@ -9,22 +9,22 @@ export type Formatter = (props: {
 
 type FormatterFactory = (messageDescriptor: MessageDescriptor) => Formatter;
 
-export const propFormatter: FormatterFactory = (
-  messageDescriptor: MessageDescriptor,
-) => ({
-  values,
-  children,
-}: {
-  values?: { [k: string]: string };
-  children?(props: string): React.ReactElement;
-}) => {
-  const { formatMessage } = useIntl();
-  const message = formatMessage(messageDescriptor, values);
-  if (typeof children === 'function') {
-    return children(message);
-  }
-  return <FormattedMessage values={values} {...messageDescriptor} />;
-};
+export const propFormatter: FormatterFactory =
+  (messageDescriptor: MessageDescriptor) =>
+  ({
+    values,
+    children,
+  }: {
+    values?: { [k: string]: string };
+    children?(props: string): React.ReactElement;
+  }) => {
+    const { formatMessage } = useIntl();
+    const message = formatMessage(messageDescriptor, values);
+    if (typeof children === 'function') {
+      return children(message);
+    }
+    return <FormattedMessage values={values} {...messageDescriptor} />;
+  };
 
 export const UnknownUserError = propFormatter(messages.unknownUserError);
 export const NoAccessWarning = propFormatter(messages.noAccessWarning);

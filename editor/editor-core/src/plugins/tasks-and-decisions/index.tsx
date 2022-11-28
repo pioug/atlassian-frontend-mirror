@@ -25,27 +25,29 @@ const taskDecisionToolbarGroup = css`
   display: flex;
 `;
 
-const addItem = (
-  insert: (node: PMNode) => Transaction,
-  listType: TaskDecisionListType,
-  schema: Schema,
-) => ({
-  listLocalId,
-  itemLocalId,
-}: {
-  listLocalId?: string;
-  itemLocalId?: string;
-}) => {
-  const { list, item } = getListTypes(listType, schema);
-  return insert(
-    list.createChecked(
-      { localId: listLocalId },
-      item.createChecked({
-        localId: itemLocalId,
-      }),
-    ),
-  );
-};
+const addItem =
+  (
+    insert: (node: PMNode) => Transaction,
+    listType: TaskDecisionListType,
+    schema: Schema,
+  ) =>
+  ({
+    listLocalId,
+    itemLocalId,
+  }: {
+    listLocalId?: string;
+    itemLocalId?: string;
+  }) => {
+    const { list, item } = getListTypes(listType, schema);
+    return insert(
+      list.createChecked(
+        { localId: listLocalId },
+        item.createChecked({
+          localId: itemLocalId,
+        }),
+      ),
+    );
+  };
 
 const tasksAndDecisionsPlugin = ({
   allowNestedTasks,

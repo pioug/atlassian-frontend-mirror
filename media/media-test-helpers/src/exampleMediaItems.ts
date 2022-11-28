@@ -239,33 +239,27 @@ export const genericFileDetails: FileDetails = {
   processingStatus: 'succeeded',
   artifacts: {
     'thumb_320.jpg': {
-      url:
-        '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/thumb_320.jpg/binary',
+      url: '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/thumb_320.jpg/binary',
       processingStatus: 'succeeded',
     },
     'thumb_large.jpg': {
-      url:
-        '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/thumb_320.jpg/binary',
+      url: '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/thumb_320.jpg/binary',
       processingStatus: 'succeeded',
     },
     'thumb_120.jpg': {
-      url:
-        '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/thumb_120.jpg/binary',
+      url: '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/thumb_120.jpg/binary',
       processingStatus: 'succeeded',
     },
     'thumb.jpg': {
-      url:
-        '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/thumb_120.jpg/binary',
+      url: '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/thumb_120.jpg/binary',
       processingStatus: 'succeeded',
     },
     'meta.json': {
-      url:
-        '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/meta.json/binary',
+      url: '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/meta.json/binary',
       processingStatus: 'succeeded',
     },
     'image.jpg': {
-      url:
-        '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/image.jpg/binary',
+      url: '/file/fd4c4672-323a-4b6c-8326-223169e2a13e/artifact/image.jpg/binary',
       processingStatus: 'succeeded',
     },
   },

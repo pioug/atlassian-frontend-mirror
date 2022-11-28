@@ -43,9 +43,8 @@ export function getScreenReaderText(
   intl: IntlShape,
 ): string | undefined {
   if (items.length && selectedIndex > -1) {
-    const { name, container, lastUpdatedDate, lastViewedDate } = items[
-      selectedIndex
-    ];
+    const { name, container, lastUpdatedDate, lastViewedDate } =
+      items[selectedIndex];
 
     const date = transformTimeStamp(intl, lastViewedDate, lastUpdatedDate);
     const formattedDate = [date?.pageAction, date?.dateString, date?.timeSince]

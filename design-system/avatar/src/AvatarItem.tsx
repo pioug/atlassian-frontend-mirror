@@ -31,6 +31,7 @@ const avatarItemStyles = css({
   // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize()}px``
   paddingLeft: token('spacing.scale.100', '8px'),
   flex: '1 1 100%',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   lineHeight: '1.4',
 });
 
@@ -131,7 +132,7 @@ const getStyles = (
     font-weight: normal;
     line-height: 1;
     outline: none;
-    margin: 0;
+    margin: ${token('spacing.scale.0', '0px')};
     padding: ${token('spacing.scale.050', '4px')};
     text-align: left;
     text-decoration: none;

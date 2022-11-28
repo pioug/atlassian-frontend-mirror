@@ -47,9 +47,8 @@ export interface SearchProviderInterface extends SearchSharedInterface {
   ): void;
 }
 
-export const [useSearchContext, CtxProvider] = createCtx<
-  SearchContextInterface
->();
+export const [useSearchContext, CtxProvider] =
+  createCtx<SearchContextInterface>();
 
 export const SearchContextProvider: React.FC<SearchProviderInterface> = ({
   onSearch,
@@ -66,9 +65,8 @@ export const SearchContextProvider: React.FC<SearchProviderInterface> = ({
   const [searchState, setSearchState] = useState<REQUEST_STATE>(
     REQUEST_STATE.done,
   );
-  const [searchResultsVisible, setSearchResultsVisible] = useState<boolean>(
-    false,
-  );
+  const [searchResultsVisible, setSearchResultsVisible] =
+    useState<boolean>(false);
 
   const doSearch = useCallback(
     async (value: string = '') => {

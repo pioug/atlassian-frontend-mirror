@@ -12,9 +12,7 @@ import * as Styled from './styled';
 import { DropdownList } from '../DropdownList';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 
-export class DeleteUserOverviewScreen extends React.Component<
-  DeleteUserOverviewScreenProps
-> {
+export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverviewScreenProps> {
   static defaultProps: Partial<DeleteUserOverviewScreenProps> = {
     isCurrentUser: false,
   };

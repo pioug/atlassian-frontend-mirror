@@ -118,13 +118,13 @@ describe('getRetryOptions', () => {
 
   describe('Forbidden status', () => {
     const response = (accessType?: string) =>
-      (({
+      ({
         meta: {
           access: 'forbidden',
           visibility: 'restricted',
           requestAccess: { accessType },
         },
-      } as unknown) as JsonLd.Response);
+      } as unknown as JsonLd.Response);
 
     it('return default retry option', () => {
       const retry = getRetryOptions(url, SmartLinkStatus.Forbidden, response());
@@ -194,7 +194,9 @@ describe('getRetryOptions', () => {
   it('returns retry option for Unauthorized status', () => {
     const retry = getRetryOptions(url, SmartLinkStatus.Unauthorized);
 
-    expect(retry).toEqual({ descriptor: messages.connect_link_account });
+    expect(retry).toEqual({
+      descriptor: messages.connect_link_account_card_name,
+    });
   });
 
   it('returns retry option for NotFound status', () => {

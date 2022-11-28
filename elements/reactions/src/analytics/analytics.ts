@@ -16,13 +16,12 @@ import { ReactionSummary, ReactionSource } from '../types';
 
 export type PreviousState = 'new' | 'existingNotReacted' | 'existingReacted';
 
-export const createAndFireEventInElementsChannel = createAndFireEvent(
-  'fabric-elements',
-);
+export const createAndFireEventInElementsChannel =
+  createAndFireEvent('fabric-elements');
 
 export const createAndFireSafe = <
   U extends any[],
-  T extends (...args: U) => AnalyticsEventPayload
+  T extends (...args: U) => AnalyticsEventPayload,
 >(
   createAnalyticsEvent: CreateUIAnalyticsEvent | void,
   creator: T,
@@ -33,22 +32,24 @@ export const createAndFireSafe = <
   }
 };
 
-const createPayload = (
-  action: string,
-  actionSubject: string,
-  eventType: EventType,
-  actionSubjectId?: string,
-) => (attributes: Record<string, any> = {}) => ({
-  action,
-  actionSubject,
-  eventType,
-  actionSubjectId,
-  attributes: {
-    ...attributes,
-    packageName,
-    packageVersion,
-  },
-});
+const createPayload =
+  (
+    action: string,
+    actionSubject: string,
+    eventType: EventType,
+    actionSubjectId?: string,
+  ) =>
+  (attributes: Record<string, any> = {}) => ({
+    action,
+    actionSubject,
+    eventType,
+    actionSubjectId,
+    attributes: {
+      ...attributes,
+      packageName,
+      packageVersion,
+    },
+  });
 
 const calculateDuration = (startTime?: number) =>
   startTime ? Date.now() - startTime : undefined;

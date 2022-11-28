@@ -54,10 +54,8 @@ class ExperimentController extends Component<Props, State> {
   }
 
   resolveEnrollmentForExperiment(experimentKey: ExperimentKey) {
-    const {
-      experimentEnrollmentConfig,
-      experimentEnrollmentOptions: options,
-    } = this.props;
+    const { experimentEnrollmentConfig, experimentEnrollmentOptions: options } =
+      this.props;
 
     const enrollmentResolver = experimentEnrollmentConfig[experimentKey];
 

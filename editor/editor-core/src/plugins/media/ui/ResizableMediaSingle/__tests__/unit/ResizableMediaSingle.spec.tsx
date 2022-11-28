@@ -143,8 +143,7 @@ describe('<ResizableMediaSingle />', () => {
     );
 
     expect(resizableMediaSingle.find(Resizer).prop('snapPoints')).toEqual([
-      329.8333333333333,
-      362,
+      329.8333333333333, 362,
     ]);
   });
 

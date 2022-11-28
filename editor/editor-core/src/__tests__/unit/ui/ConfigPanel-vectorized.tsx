@@ -545,13 +545,13 @@ describe('ConfigPanel', () => {
         extensionProvider: createProvider(
           [
             ...(fields || []),
-            ({
+            {
               type,
               name: 'azerty',
               label: 'My test field',
               ...rest,
               ...attributes,
-            } as unknown) as FieldDefinition,
+            } as unknown as FieldDefinition,
           ],
           manifest,
         ),

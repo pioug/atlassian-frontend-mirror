@@ -14,9 +14,8 @@ interface HeaderSharedInterface {
   ): void;
 }
 
-export const [useHeaderContext, CtxProvider] = createCtx<
-  HeaderSharedInterface
->();
+export const [useHeaderContext, CtxProvider] =
+  createCtx<HeaderSharedInterface>();
 
 export const HeaderContextProvider: React.FC<HeaderSharedInterface> = ({
   onCloseButtonClick,

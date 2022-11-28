@@ -914,14 +914,8 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       shouldOpenMediaViewer,
     } = this.props;
     const { mediaItemType } = identifier;
-    const {
-      status,
-      progress,
-      cardPreview,
-      error,
-      cardRef,
-      isCardVisible,
-    } = this.state;
+    const { status, progress, cardPreview, error, cardRef, isCardVisible } =
+      this.state;
     const { metadata } = this;
     const { onCardViewClick, onDisplayImage, actions, onMouseEnter } = this;
 
@@ -1053,23 +1047,24 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   };
 }
 
-export const Card: React.ComponentType<CardBaseProps> = withMediaAnalyticsContext(
-  {
-    packageVersion,
-    packageName,
-    componentName: 'mediaCard',
-    component: 'mediaCard',
-  },
-  {
-    filterFeatureFlags: LOGGED_FEATURE_FLAGS,
-  },
-)(
-  withAnalyticsEvents()(
-    injectIntl(
-      CardBase as React.ComponentType<CardBaseProps & WrappedComponentProps>,
-      {
-        enforceContext: false,
-      },
+export const Card: React.ComponentType<CardBaseProps> =
+  withMediaAnalyticsContext(
+    {
+      packageVersion,
+      packageName,
+      componentName: 'mediaCard',
+      component: 'mediaCard',
+    },
+    {
+      filterFeatureFlags: LOGGED_FEATURE_FLAGS,
+    },
+  )(
+    withAnalyticsEvents()(
+      injectIntl(
+        CardBase as React.ComponentType<CardBaseProps & WrappedComponentProps>,
+        {
+          enforceContext: false,
+        },
+      ),
     ),
-  ),
-);
+  );

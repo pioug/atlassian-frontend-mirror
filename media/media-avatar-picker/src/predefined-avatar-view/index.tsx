@@ -44,12 +44,8 @@ export class PredefinedAvatarView extends PureComponent<
   };
 
   render() {
-    const {
-      avatars,
-      selectedAvatar,
-      onGoBack,
-      predefinedAvatarsText,
-    } = this.props;
+    const { avatars, selectedAvatar, onGoBack, predefinedAvatarsText } =
+      this.props;
     const cards = avatars.map((avatar, idx) => {
       const elementKey = `predefined-avatar-${idx}`;
       return (

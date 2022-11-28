@@ -80,12 +80,13 @@ const checkboxStyles = css({
     '--checkbox-border-color': 'var(--local-border-active)',
     '--checkbox-tick-color': 'var(--local-tick-active)',
   },
-  '&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg': {
-    '--checkbox-background-color': 'var(--local-background-disabled)',
-    '--checkbox-border-color': 'var(--local-border-disabled)',
-    cursor: 'not-allowed',
-    pointerEvents: 'none',
-  },
+  '&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg':
+    {
+      '--checkbox-background-color': 'var(--local-background-disabled)',
+      '--checkbox-border-color': 'var(--local-border-disabled)',
+      cursor: 'not-allowed',
+      pointerEvents: 'none',
+    },
   '&:disabled:checked + svg': {
     '--checkbox-tick-color': 'var(--local-tick-disabled)',
   },
@@ -113,11 +114,12 @@ const checkboxStyles = css({
       '--checkbox-border-color': 'Highlight',
     },
 
-    '&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg': {
-      '--checkbox-background-color': 'Canvas',
-      '--checkbox-border-color': 'GrayText',
-      '--checkbox-tick-color': 'GrayText',
-    },
+    '&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg':
+      {
+        '--checkbox-background-color': 'Canvas',
+        '--checkbox-border-color': 'GrayText',
+        '--checkbox-tick-color': 'GrayText',
+      },
   },
 });
 /* eslint-enable @repo/internal/styles/no-nested-styles */

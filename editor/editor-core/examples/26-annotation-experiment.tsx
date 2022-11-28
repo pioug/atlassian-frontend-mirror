@@ -177,8 +177,8 @@ export default class ExampleAnnotationExperiment extends React.Component<
                   viewComponent: ExampleViewInlineCommentComponent,
                   updateSubscriber: emitter,
                   getState: this.inlineCommentGetState,
-                  disallowOnWhitespace: this.state
-                    .isDisallowOnWhiteSpaceEnabled,
+                  disallowOnWhitespace:
+                    this.state.isDisallowOnWhiteSpaceEnabled,
                 },
               },
             }}

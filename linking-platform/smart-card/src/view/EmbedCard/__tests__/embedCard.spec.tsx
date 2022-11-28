@@ -24,9 +24,8 @@ const baseData: JsonLd.Response['data'] = {
 
 const setup = (cardState: CardState, url: string) => {
   const handleFrameClickMock = jest.fn();
-  const onResolveMock: JestFunction<
-    Required<EmbedCardProps>['onResolve']
-  > = jest.fn();
+  const onResolveMock: JestFunction<Required<EmbedCardProps>['onResolve']> =
+    jest.fn();
   const ref = React.createRef<HTMLIFrameElement>();
 
   const { getByTestId, getByText, queryByTestId } = renderWithIntl(
@@ -240,6 +239,7 @@ describe('EmbedCard view component', () => {
         'embed-card-unauthorized-view-unresolved-title',
       );
       expect(title.textContent).toBe('Connect your 3P account');
+      expect(title).toHaveStyle('max-width: 400px');
 
       const description = getByTestId(
         'embed-card-unauthorized-view-unresolved-description',
@@ -247,6 +247,7 @@ describe('EmbedCard view component', () => {
       expect(description.textContent).toBe(
         'Connect 3P to Atlassian to view more details from your work and collaboration from one place. Learn more about smart link security and permissions.',
       );
+      expect(description).toHaveStyle('max-width: 400px');
 
       const action = getByTestId('button-connect-account');
       expect(action.textContent).toBe('Connect to 3P');

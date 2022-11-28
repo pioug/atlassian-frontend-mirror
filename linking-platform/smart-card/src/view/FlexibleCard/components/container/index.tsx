@@ -79,12 +79,8 @@ export const getContainerStyles = (
   position: relative;
   ${hideBackground ? '' : `background-color: ${tokens.background};`}
   ${hidePadding ? '' : `padding: ${getPadding(size)};`}
-  ${hideElevation
-    ? ''
-    : elevationStyles}
-  ${clickableContainer
-    ? clickableContainerStyles
-    : ''}
+  ${hideElevation ? '' : elevationStyles}
+  ${clickableContainer ? clickableContainerStyles : ''}
   &:hover ~ .actions-button-group {
     opacity: 1;
   }

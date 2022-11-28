@@ -10,17 +10,7 @@ describe('ZoomLevel', () => {
   it('should sort zoom levels correctly', () => {
     const zoomLevel = new ZoomLevel(2);
     expect(zoomLevel.zoomLevels).toEqual([
-      0.12,
-      0.24,
-      0.48,
-      0.96,
-      1,
-      2,
-      3,
-      4,
-      8,
-      12,
-      16,
+      0.12, 0.24, 0.48, 0.96, 1, 2, 3, 4, 8, 12, 16,
     ]);
   });
 

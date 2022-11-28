@@ -23,9 +23,10 @@ export interface HashedBlob extends SlicedBlob {
 }
 
 export interface Hashinator {
-  (blobs$: Observable<SlicedBlob>, options: HashinatorOptions): Observable<
-    HashedBlob
-  >;
+  (
+    blobs$: Observable<SlicedBlob>,
+    options: HashinatorOptions,
+  ): Observable<HashedBlob>;
 }
 
 export interface ProbedBlob extends HashedBlob {

@@ -3,7 +3,7 @@ import { JsonLd } from 'json-ld-types';
 
 import { EmbedCardProps } from './types';
 import { extractEmbedProps } from '../../extractors/embed';
-import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
+import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { extractBlockProps } from '../../extractors/block';
 import { getExtensionKey } from '../../state/helpers';
@@ -117,7 +117,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           onError({ url, status });
         }
         const forbiddenViewProps = extractEmbedProps(data, meta, platform);
-        const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
+        const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
         const requestAccessContext = extractRequestAccessContext({
           jsonLd: cardMetadata,
           url,

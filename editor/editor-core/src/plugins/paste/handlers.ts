@@ -152,9 +152,8 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
 
     const selectionMarks = selection.$head.marks();
 
-    const textFormattingState: TextFormattingState = textFormattingPluginKey.getState(
-      state,
-    );
+    const textFormattingState: TextFormattingState =
+      textFormattingPluginKey.getState(state);
 
     if (
       selection instanceof TextSelection &&
@@ -362,9 +361,8 @@ export function handlePastePreservingMarks(slice: Slice): Command {
       return false;
     }
 
-    const textFormattingState: TextFormattingState = textFormattingPluginKey.getState(
-      state,
-    );
+    const textFormattingState: TextFormattingState =
+      textFormattingPluginKey.getState(state);
 
     // special case for codeMark: will preserve mark only if codeMark is currently active
     // won't preserve mark if cursor is on the edge on the mark (namely inactive)
@@ -985,20 +983,19 @@ export function handlePasteIntoCaption(slice: Slice): Command {
   };
 }
 
-export const handleSelectedTable = (slice: Slice): Command => (
-  state,
-  dispatch,
-) => {
-  let tr = replaceSelectedTable(state, slice);
+export const handleSelectedTable =
+  (slice: Slice): Command =>
+  (state, dispatch) => {
+    let tr = replaceSelectedTable(state, slice);
 
-  // add analytics after replacing selected table
-  tr = addReplaceSelectedTableAnalytics(state, tr);
+    // add analytics after replacing selected table
+    tr = addReplaceSelectedTableAnalytics(state, tr);
 
-  if (tr.docChanged) {
-    if (dispatch) {
-      dispatch(tr);
+    if (tr.docChanged) {
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
     }
-    return true;
-  }
-  return false;
-};
+    return false;
+  };

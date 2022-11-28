@@ -31,7 +31,7 @@ function nodeWithIntlProp(node: ReactElement<any>) {
 export const mountWithIntlContext = <
   P,
   S,
-  C extends Component<P, S> = Component<P, S>
+  C extends Component<P, S> = Component<P, S>,
 >(
   node: ReactElement<P & WrappedComponentProps>,
   { context = {}, childContextTypes = {}, ...additionalOptions } = {},
@@ -50,7 +50,7 @@ export const mountWithIntlContext = <
 export const shallowWithIntlContext = <
   P,
   S,
-  C extends Component<P, S> = Component<P, S>
+  C extends Component<P, S> = Component<P, S>,
 >(
   node: ReactElement<P & WrappedComponentProps>,
   { context = {}, ...additionalOptions } = {},

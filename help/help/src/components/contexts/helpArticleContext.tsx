@@ -29,11 +29,12 @@ export interface HelpArticleContextInterface {
   ): Promise<boolean>;
 }
 
-export const [useHelpArticleContext, CtxProvider] = createCtx<
-  HelpArticleContextInterface
->();
+export const [useHelpArticleContext, CtxProvider] =
+  createCtx<HelpArticleContextInterface>();
 
-export const HelpArticleContextProvider: React.FC<HelpArticleContextInterface> = ({
+export const HelpArticleContextProvider: React.FC<
+  HelpArticleContextInterface
+> = ({
   onGetHelpArticle,
   onHelpArticleLoadingFailTryAgainButtonClick,
   onWasHelpfulYesButtonClick,

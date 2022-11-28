@@ -84,7 +84,7 @@ export type ResolvedEditorState<T = any> = {
   stepVersion: number;
 };
 export interface CollabEditProvider<
-  Events extends CollabEventData = CollabEventData
+  Events extends CollabEventData = CollabEventData,
 > {
   initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: depecrate this
 

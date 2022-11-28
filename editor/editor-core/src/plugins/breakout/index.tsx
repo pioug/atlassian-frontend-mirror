@@ -43,7 +43,7 @@ class BreakoutView {
     dom.appendChild(contentDOM);
 
     this.dom = dom;
-    this.mark = (mark as any) as BreakoutPMMark;
+    this.mark = mark as any as BreakoutPMMark;
     this.view = view;
     this.contentDOM = contentDOM;
     this.eventDispatcher = eventDispatcher;

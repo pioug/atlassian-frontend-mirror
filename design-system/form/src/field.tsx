@@ -54,7 +54,7 @@ type SupportedElements =
 
 export interface FieldProps<
   FieldValue,
-  Element extends SupportedElements = HTMLInputElement
+  Element extends SupportedElements = HTMLInputElement,
 > {
   id: string;
   isRequired: boolean;
@@ -86,7 +86,7 @@ export interface Meta {
 
 export interface FieldComponentProps<
   FieldValue,
-  Element extends SupportedElements
+  Element extends SupportedElements,
 > {
   /**
    * Content to render in the field. This is a function that is called with props for the field component and other information about the field.
@@ -205,7 +205,7 @@ function isShallowEqual<FieldValue>(
 
 export default function Field<
   FieldValue = string,
-  Element extends SupportedElements = HTMLInputElement
+  Element extends SupportedElements = HTMLInputElement,
 >(props: FieldComponentProps<FieldValue, Element>) {
   const registerField = useContext(FormContext);
   const isDisabled = useContext(IsDisabledContext) || props.isDisabled || false;

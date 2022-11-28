@@ -27,13 +27,12 @@ describe('createFileDataLoader', () => {
   const setup = () => {
     const mediaClient = fakeMediaClient();
 
-    const itemsResponse: Promise<MediaStoreResponse<
-      ItemsPayload
-    >> = Promise.resolve({
-      data: {
-        items: [],
-      },
-    });
+    const itemsResponse: Promise<MediaStoreResponse<ItemsPayload>> =
+      Promise.resolve({
+        data: {
+          items: [],
+        },
+      });
 
     const mediaStore = {
       ...mediaClient.mediaStore,

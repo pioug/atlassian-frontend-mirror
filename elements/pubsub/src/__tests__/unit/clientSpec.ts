@@ -186,9 +186,9 @@ describe('Client', () => {
           client.leave(['ari:cloud:platform::site/666']).then(() => {
             expect(protocol.subscribe).toHaveBeenCalledTimes(1);
 
-            const lastCall = (fetchMock.lastCall(
+            const lastCall = fetchMock.lastCall(
               `${baseUrl}/subscribe`,
-            ) as any) as [Request, undefined];
+            ) as any as [Request, undefined];
             expect(lastCall).toBeDefined();
 
             return lastCall[0].json().then((body) => {

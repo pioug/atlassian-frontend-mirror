@@ -248,14 +248,12 @@ class TimePicker extends React.Component<TimePickerProps, State> {
   };
 
   getOptions(): Array<Option> {
-    return this.props.times.map(
-      (time: string): Option => {
-        return {
-          label: this.formatTime(time),
-          value: time,
-        };
-      },
-    );
+    return this.props.times.map((time: string): Option => {
+      return {
+        label: this.formatTime(time),
+        value: time,
+      };
+    });
   }
 
   onChange = (v: { value: string } | null, action?: ActionMeta): void => {

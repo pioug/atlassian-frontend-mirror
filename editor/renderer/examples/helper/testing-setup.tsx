@@ -153,9 +153,8 @@ export function createRendererWindowBindings(
      */
     const setMode = enableClickToEdit
       ? (mode: boolean) => {
-          const rendererContainer = document.getElementById(
-            'renderer-container',
-          );
+          const rendererContainer =
+            document.getElementById('renderer-container');
           if (!rendererContainer) {
             return;
           }

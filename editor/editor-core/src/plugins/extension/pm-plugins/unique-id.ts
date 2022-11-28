@@ -13,11 +13,8 @@ const createPlugin = () =>
       const tr = newState.tr;
       const selectionBookmark = tr.selection.getBookmark();
       let modified = false;
-      const {
-        extension,
-        bodiedExtension,
-        inlineExtension,
-      } = newState.schema.nodes;
+      const { extension, bodiedExtension, inlineExtension } =
+        newState.schema.nodes;
 
       const extensionTypes = new Set([
         extension,

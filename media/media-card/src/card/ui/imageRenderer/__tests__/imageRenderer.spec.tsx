@@ -61,12 +61,12 @@ describe('ImageRenderer', () => {
 
     const onload = mediaImage.prop('onImageLoad');
     expect(onload).toBeInstanceOf(Function);
-    ((onload as unknown) as Function)();
+    (onload as unknown as Function)();
     expect(onImageLoad).toBeCalledWith(cardPreview);
 
     const onerror = mediaImage.prop('onImageError');
     expect(onerror).toBeInstanceOf(Function);
-    ((onerror as unknown) as Function)();
+    (onerror as unknown as Function)();
     expect(onImageError).toBeCalledWith(cardPreview);
   });
 

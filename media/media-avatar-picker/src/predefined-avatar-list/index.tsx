@@ -51,12 +51,8 @@ export class PredefinedAvatarList extends PureComponent<
   }
 
   render() {
-    const {
-      avatars,
-      selectedAvatar,
-      onShowMore,
-      onAvatarSelected,
-    } = this.props;
+    const { avatars, selectedAvatar, onShowMore, onAvatarSelected } =
+      this.props;
     return (
       <div css={predefinedAvatarsWrapperStyles} id="predefined-avatar-wrapper">
         <AvatarList

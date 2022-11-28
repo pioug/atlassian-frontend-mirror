@@ -17,10 +17,8 @@ import {
   getNewIndentLevel,
 } from '../../../../plugins/indentation/commands/utils';
 
-const {
-  getIndentCommand: indent,
-  getOutdentCommand: outdent,
-} = indentationCommands;
+const { getIndentCommand: indent, getOutdentCommand: outdent } =
+  indentationCommands;
 
 describe('indentation', () => {
   const createEditor = createEditorFactory();

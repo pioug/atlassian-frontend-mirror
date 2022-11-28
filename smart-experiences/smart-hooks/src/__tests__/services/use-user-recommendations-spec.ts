@@ -71,14 +71,14 @@ describe('useUserRecommendations hook', () => {
     usersFetchedUfoSuccessMock = jest.fn();
     usersFetchedUfoFailMock = jest.fn();
     usersFetchedUfoAbortMock = jest.fn();
-    (UsersFetchedUfoExperienceInstanceMock.getInstance as jest.Mock).mockReturnValue(
-      {
-        start: usersFetchedUfoStartMock,
-        success: usersFetchedUfoSuccessMock,
-        failure: usersFetchedUfoFailMock,
-        abort: usersFetchedUfoAbortMock,
-      },
-    );
+    (
+      UsersFetchedUfoExperienceInstanceMock.getInstance as jest.Mock
+    ).mockReturnValue({
+      start: usersFetchedUfoStartMock,
+      success: usersFetchedUfoSuccessMock,
+      failure: usersFetchedUfoFailMock,
+      abort: usersFetchedUfoAbortMock,
+    });
   });
 
   afterEach(() => {

@@ -23,11 +23,12 @@ export interface RelatedArticlesContextInterface {
   ) => void;
 }
 
-export const [useRelatedArticlesContext, CtxProvider] = createCtx<
-  RelatedArticlesContextInterface
->();
+export const [useRelatedArticlesContext, CtxProvider] =
+  createCtx<RelatedArticlesContextInterface>();
 
-export const RelatedArticlesContextProvider: React.FC<RelatedArticlesContextInterface> = ({
+export const RelatedArticlesContextProvider: React.FC<
+  RelatedArticlesContextInterface
+> = ({
   routeGroup,
   routeName,
   onGetRelatedArticles,

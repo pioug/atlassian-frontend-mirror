@@ -19,8 +19,10 @@ import { transformSliceForMedia } from '../../../../plugins/media/utils/media-si
 
 const removeRef = (node: Node) =>
   Node.fromJSON(node.type.schema, node.toJSON());
-const fragment = (...args: any) => (schema: Schema) =>
-  Fragment.from(args.map((i: any) => removeRef(i(schema))));
+const fragment =
+  (...args: any) =>
+  (schema: Schema) =>
+    Fragment.from(args.map((i: any) => removeRef(i(schema))));
 
 describe('Media plugin', () => {
   describe('#transformSliceForMedia', () => {

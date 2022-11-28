@@ -133,44 +133,47 @@ import { isValidReorder, moveTableColumn } from './reorder-utils';
 //   moveColumn(x, y, options)(state.tr)
 // );
 // ```
-export const moveColumn = (
-  originColumnIndex: number,
-  targetColumnIndex: number,
-  options = { tryToFit: false, direction: 0 },
-) => (tr: Transaction): Transaction => {
-  const table = findTable(tr.selection);
-  if (!table) {
-    return tr;
-  }
+export const moveColumn =
+  (
+    originColumnIndex: number,
+    targetColumnIndex: number,
+    options = { tryToFit: false, direction: 0 },
+  ) =>
+  (tr: Transaction): Transaction => {
+    const table = findTable(tr.selection);
+    if (!table) {
+      return tr;
+    }
 
-  const originalColumnRanges = getSelectionRangeInColumn(originColumnIndex)(tr);
-  const targetColumnRanges = getSelectionRangeInColumn(targetColumnIndex)(tr);
-  const indexesOriginColumn = originalColumnRanges?.indexes ?? [];
-  const indexesTargetColumn = targetColumnRanges?.indexes ?? [];
+    const originalColumnRanges =
+      getSelectionRangeInColumn(originColumnIndex)(tr);
+    const targetColumnRanges = getSelectionRangeInColumn(targetColumnIndex)(tr);
+    const indexesOriginColumn = originalColumnRanges?.indexes ?? [];
+    const indexesTargetColumn = targetColumnRanges?.indexes ?? [];
 
-  if (indexesOriginColumn.includes(targetColumnIndex)) {
-    return tr;
-  }
+    if (indexesOriginColumn.includes(targetColumnIndex)) {
+      return tr;
+    }
 
-  if (!options.tryToFit && indexesTargetColumn.length > 1) {
-    isValidReorder(
-      originColumnIndex,
-      targetColumnIndex,
+    if (!options.tryToFit && indexesTargetColumn.length > 1) {
+      isValidReorder(
+        originColumnIndex,
+        targetColumnIndex,
+        indexesTargetColumn,
+        'column',
+      );
+    }
+
+    const newTable = moveTableColumn(
+      table,
+      indexesOriginColumn,
       indexesTargetColumn,
-      'column',
+      options.direction,
     );
-  }
 
-  const newTable = moveTableColumn(
-    table,
-    indexesOriginColumn,
-    indexesTargetColumn,
-    options.direction,
-  );
-
-  return cloneTr(tr).replaceWith(
-    table.pos,
-    table.pos + table.node.nodeSize,
-    newTable,
-  );
-};
+    return cloneTr(tr).replaceWith(
+      table.pos,
+      table.pos + table.node.nodeSize,
+      newTable,
+    );
+  };

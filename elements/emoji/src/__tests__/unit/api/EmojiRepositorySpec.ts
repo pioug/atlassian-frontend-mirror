@@ -32,8 +32,7 @@ const cowboy: EmojiDescription = {
   order: 10103,
   representation: {
     sprite: {
-      url:
-        'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/6ba7377a-fbd4-4efe-8dbc-f025cfb40c2b/32x32/people.png',
+      url: 'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/6ba7377a-fbd4-4efe-8dbc-f025cfb40c2b/32x32/people.png',
       row: 23,
       column: 25,
       height: 782,
@@ -57,8 +56,7 @@ const siteTest: EmojiDescription = {
   category: customCategory,
   representation: {
     sprite: {
-      url:
-        'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/6ba7377a-fbd4-4efe-8dbc-f025cfb40c2b/32x32/people.png',
+      url: 'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/6ba7377a-fbd4-4efe-8dbc-f025cfb40c2b/32x32/people.png',
       row: 23,
       column: 25,
       height: 782,
@@ -82,8 +80,7 @@ const atlassianTest: EmojiDescription = {
   category: 'SYMBOL',
   representation: {
     sprite: {
-      url:
-        'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/6ba7377a-fbd4-4efe-8dbc-f025cfb40c2b/32x32/people.png',
+      url: 'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/6ba7377a-fbd4-4efe-8dbc-f025cfb40c2b/32x32/people.png',
       row: 23,
       column: 25,
       height: 782,
@@ -107,8 +104,7 @@ const standardTest: EmojiDescription = {
   category: 'SYMBOL',
   representation: {
     sprite: {
-      url:
-        'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/6ba7377a-fbd4-4efe-8dbc-f025cfb40c2b/32x32/people.png',
+      url: 'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/6ba7377a-fbd4-4efe-8dbc-f025cfb40c2b/32x32/people.png',
       row: 23,
       column: 25,
       height: 782,
@@ -132,8 +128,7 @@ const allNumberTest: EmojiDescription = {
   category: 'NATURE',
   representation: {
     sprite: {
-      url:
-        'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/551c9814-1d37-4573-819d-afab3afeaf32/32x32/nature.png',
+      url: 'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/551c9814-1d37-4573-819d-afab3afeaf32/32x32/nature.png',
       row: 23,
       column: 25,
       height: 782,
@@ -157,8 +152,7 @@ const frequentTest: EmojiDescription = {
   category: 'FREQUENT',
   representation: {
     sprite: {
-      url:
-        'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/551c9814-1d37-4573-819d-afab3afeaf32/32x32/nature.png',
+      url: 'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/551c9814-1d37-4573-819d-afab3afeaf32/32x32/nature.png',
       row: 23,
       column: 25,
       height: 782,
@@ -410,8 +404,8 @@ describe('EmojiRepository', () => {
         );
         done();
       } else {
-        const result: EmojiDescription[] = emojiRepository.search(':hear')
-          .emojis;
+        const result: EmojiDescription[] =
+          emojiRepository.search(':hear').emojis;
         let heartIndex = result.indexOf(heart);
         let greenHeartIndex = result.indexOf(greenHeart);
 
@@ -423,8 +417,8 @@ describe('EmojiRepository', () => {
 
         // usage is recorded asynchronously so give it a chance to happen by running the asserts with window.setTimeout
         window.setTimeout(() => {
-          const nextResult: EmojiDescription[] = emojiRepository.search(':hear')
-            .emojis;
+          const nextResult: EmojiDescription[] =
+            emojiRepository.search(':hear').emojis;
           heartIndex = nextResult.indexOf(heart);
           greenHeartIndex = nextResult.indexOf(greenHeart);
 
@@ -433,9 +427,8 @@ describe('EmojiRepository', () => {
           expect(greenHeartIndex < heartIndex).toEqual(true);
 
           // exact matching shortname should come above usage
-          const exactMatchResult: EmojiDescription[] = emojiRepository.search(
-            ':heart:',
-          ).emojis;
+          const exactMatchResult: EmojiDescription[] =
+            emojiRepository.search(':heart:').emojis;
           expect(
             exactMatchResult.indexOf(heart) <
               exactMatchResult.indexOf(greenHeart),
@@ -471,8 +464,9 @@ describe('EmojiRepository', () => {
     });
 
     it('options - limit ignored if missing', () => {
-      const emojis = emojiRepository.search('', { sort: SearchSort.None })
-        .emojis;
+      const emojis = emojiRepository.search('', {
+        sort: SearchSort.None,
+      }).emojis;
       checkOrder(searchableEmojis, emojis);
     });
 

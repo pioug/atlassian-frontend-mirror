@@ -73,9 +73,11 @@ export type BaseProps = Combine<
 >;
 
 // @public
-const Button: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
-  ButtonProps & React_2.RefAttributes<HTMLElement>
->>;
+const Button: React_2.MemoExoticComponent<
+  React_2.ForwardRefExoticComponent<
+    ButtonProps & React_2.RefAttributes<HTMLElement>
+  >
+>;
 export default Button;
 
 // @public (undocumented)
@@ -97,11 +99,13 @@ export interface ButtonProps extends BaseProps {}
 type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
 // @public
-export const CustomThemeButton: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
-  Omit<BaseProps, 'overlay'> &
-    CustomThemeButtonOwnProps &
-    React_2.RefAttributes<HTMLElement>
->>;
+export const CustomThemeButton: React_2.MemoExoticComponent<
+  React_2.ForwardRefExoticComponent<
+    Omit<BaseProps, 'overlay'> &
+      CustomThemeButtonOwnProps &
+      React_2.RefAttributes<HTMLElement>
+  >
+>;
 
 // @public (undocumented)
 export type CustomThemeButtonOwnProps = {

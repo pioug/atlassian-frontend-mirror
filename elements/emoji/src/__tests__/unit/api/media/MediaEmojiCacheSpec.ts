@@ -197,16 +197,14 @@ describe('MediaEmojiCache', () => {
         .stub(BrowserCacheStrategy, 'supported')
         .returns(Promise.resolve(true));
       const cache = new TestMediaEmojiCache();
-      const optimisticRenderingPromise = cache.optimisticRendering(
-        mediaEmojiImagePath,
-      );
+      const optimisticRenderingPromise =
+        cache.optimisticRendering(mediaEmojiImagePath);
       if (isPromise(optimisticRenderingPromise)) {
         return optimisticRenderingPromise.then((optimistic) => {
           expect(optimistic).toEqual(true);
           expect(optimisticRenderingStub.callCount).toEqual(1);
-          const optimisticRendering = cache.optimisticRendering(
-            mediaEmojiImagePath,
-          );
+          const optimisticRendering =
+            cache.optimisticRendering(mediaEmojiImagePath);
           if (isPromise(optimisticRendering)) {
             expect(false);
             return;

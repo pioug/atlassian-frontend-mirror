@@ -9,7 +9,8 @@ import {
 } from './types';
 
 export default class DefaultExtensionProvider<T = Parameters>
-  implements ExtensionProvider<T> {
+  implements ExtensionProvider<T>
+{
   private manifestsPromise: Promise<ExtensionManifest<T>[]>;
   private autoConvertHandlers?: ExtensionAutoConvertHandler[];
 

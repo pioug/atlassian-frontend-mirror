@@ -47,8 +47,7 @@ describe('card', () => {
           cards: [],
           requests: [
             {
-              url:
-                'https://www.atlassian.com/s/7xr7xdqto7trhvr/Media%20picker.sketch?dl=0',
+              url: 'https://www.atlassian.com/s/7xr7xdqto7trhvr/Media%20picker.sketch?dl=0',
               pos: 1,
               appearance: 'inline',
               compareLinkText: true,
@@ -159,8 +158,7 @@ describe('card', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             blockCard({
-              url:
-                'https://www.dropbox.com/s/maz65d0qxp87qli/Video%20MP4%20%28440x868%29.mp4?dl=0',
+              url: 'https://www.dropbox.com/s/maz65d0qxp87qli/Video%20MP4%20%28440x868%29.mp4?dl=0',
             })(),
           ),
         );
@@ -221,8 +219,7 @@ describe('card', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             embedCard({
-              url:
-                'https://drive.google.com/file/d/1Y5S4AYkoLjseAiSCdsjgYd6LjWOS1qtA/view?usp=sharing',
+              url: 'https://drive.google.com/file/d/1Y5S4AYkoLjseAiSCdsjgYd6LjWOS1qtA/view?usp=sharing',
               layout: 'center',
               width: 50,
             })(),
@@ -249,8 +246,7 @@ describe('card', () => {
             blockquote(
               p(
                 inlineCard({
-                  url:
-                    'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing',
+                  url: 'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing',
                 })(),
               ),
             ),
@@ -276,8 +272,7 @@ describe('card', () => {
           doc(
             p(
               inlineCard({
-                url:
-                  'https://product-fabric.atlassian.net/wiki/spaces/ADF/pages/729155214/ADF+Change+23%3A+Image+Captions',
+                url: 'https://product-fabric.atlassian.net/wiki/spaces/ADF/pages/729155214/ADF+Change+23%3A+Image+Captions',
               })(),
             ),
           ),

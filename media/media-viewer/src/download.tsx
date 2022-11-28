@@ -46,15 +46,13 @@ export function DownloadButton({
   return <MediaButton {...rest} onClick={onClick} />;
 }
 
-export const createItemDownloader = (
-  file: FileState,
-  mediaClient: MediaClient,
-  collectionName?: string,
-) => () => {
-  const id = file.id;
-  const name = !isErrorFileState(file) ? file.name : undefined;
-  return mediaClient.file.downloadBinary(id, name, collectionName);
-};
+export const createItemDownloader =
+  (file: FileState, mediaClient: MediaClient, collectionName?: string) =>
+  () => {
+    const id = file.id;
+    const name = !isErrorFileState(file) ? file.name : undefined;
+    return mediaClient.file.downloadBinary(id, name, collectionName);
+  };
 
 export type ErrorViewDownloadButtonProps = {
   fileState: FileState;

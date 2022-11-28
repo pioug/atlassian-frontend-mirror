@@ -32,8 +32,7 @@ const testCases: {
   waitForSelector: string;
 }[] = [
   {
-    test:
-      'when text and part of simple table and text outside is selected, should still paste table',
+    test: 'when text and part of simple table and text outside is selected, should still paste table',
     adf: documentWithTextAndSimpleTable,
     selection: { anchor: 1, head: 57 },
     selectToPaste: (page: Page) =>
@@ -42,8 +41,7 @@ const testCases: {
     skipBrowsers: [],
   },
   {
-    test:
-      'when text and part of complex table and text outside is selected, should still paste table',
+    test: 'when text and part of complex table and text outside is selected, should still paste table',
     adf: documentWithTextAndComplexTable,
     selection: { anchor: 1, head: 173 },
     selectToPaste: (page: Page) =>
@@ -52,8 +50,7 @@ const testCases: {
     skipBrowsers: [],
   },
   {
-    test:
-      'when part of simple table and text outside is selected, should still paste table',
+    test: 'when part of simple table and text outside is selected, should still paste table',
     adf: documentWithSimpleTableAndText,
     selection: { anchor: 24, head: 57 },
     selectToPaste: (page: Page) =>
@@ -62,8 +59,7 @@ const testCases: {
     skipBrowsers: [],
   },
   {
-    test:
-      'when part of complex table and text outside the table is selected, should still paste table',
+    test: 'when part of complex table and text outside the table is selected, should still paste table',
     adf: documentWithComplexTableAndText,
     skipBrowsers: [],
     selectToPaste: (page: Page) =>
@@ -72,8 +68,7 @@ const testCases: {
     selection: { anchor: 82, head: 198 },
   },
   {
-    test:
-      "when selecting multiple paragraphs in a table cell, shouldn't paste table",
+    test: "when selecting multiple paragraphs in a table cell, shouldn't paste table",
     adf: documentWithParagraphsInTableCell,
     selection: { anchor: 18, head: 40 },
     selectToPaste: (page: Page) =>
@@ -82,8 +77,7 @@ const testCases: {
     skipBrowsers: [],
   },
   {
-    test:
-      'when selecting multiple paragraphs in a table cell and paste in another cell, should paste only paragraphs',
+    test: 'when selecting multiple paragraphs in a table cell and paste in another cell, should paste only paragraphs',
     adf: documentWithParagraphsInTableCell,
     selection: { anchor: 18, head: 40 },
     selectToPaste: (page: Page) =>

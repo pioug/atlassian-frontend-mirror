@@ -85,21 +85,22 @@ const InsertMenu = ({
   );
 
   const getItems = useCallback(
-    (quickInsertState: QuickInsertPluginState) => (
-      query?: string,
-      category?: string,
-    ) => {
-      let result;
-      if (query) {
-        result = searchQuickInsertItems(quickInsertState, {})(query, category);
-      } else {
-        result = quickInsertDropdownItems.concat(
-          getFeaturedQuickInsertItems(quickInsertState, {})(),
-        ) as QuickInsertItem[];
-      }
-      setItemCount(result.length);
-      return result;
-    },
+    (quickInsertState: QuickInsertPluginState) =>
+      (query?: string, category?: string) => {
+        let result;
+        if (query) {
+          result = searchQuickInsertItems(quickInsertState, {})(
+            query,
+            category,
+          );
+        } else {
+          result = quickInsertDropdownItems.concat(
+            getFeaturedQuickInsertItems(quickInsertState, {})(),
+          ) as QuickInsertItem[];
+        }
+        setItemCount(result.length);
+        return result;
+      },
     [quickInsertDropdownItems],
   );
 
@@ -159,16 +160,18 @@ const getSvgIconForItem = ({
 }: SvgGetterParams): ReactElement | undefined => {
   type IconType = { [key: string]: ComponentClass<{ label: string }> };
 
-  const Icon = ({
-    codeblock: IconCode,
-    panel: IconPanel,
-    blockquote: IconQuote,
-    decision: IconDecision,
-    horizontalrule: IconDivider,
-    expand: IconExpand,
-    date: IconDate,
-    status: IconStatus,
-  } as IconType)[name];
+  const Icon = (
+    {
+      codeblock: IconCode,
+      panel: IconPanel,
+      blockquote: IconQuote,
+      decision: IconDecision,
+      horizontalrule: IconDivider,
+      expand: IconExpand,
+      date: IconDate,
+      status: IconStatus,
+    } as IconType
+  )[name];
 
   return Icon ? <Icon label="" /> : undefined;
 };

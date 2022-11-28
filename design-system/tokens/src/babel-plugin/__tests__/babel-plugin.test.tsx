@@ -20,34 +20,33 @@ jest.mock('../../artifacts/token-default-values', () => ({
   },
 }));
 
-const transform = (
-  shouldUseAutoFallback = false,
-  transformTemplateLiterals = false,
-) => (code: TemplateStringsArray | string): string => {
-  const plugins: any = [
-    [
-      babelPlugin,
-      {
-        shouldUseAutoFallback: shouldUseAutoFallback,
-      },
-    ],
-  ];
-  if (transformTemplateLiterals) {
-    plugins.push('@babel/plugin-transform-template-literals');
-  }
+const transform =
+  (shouldUseAutoFallback = false, transformTemplateLiterals = false) =>
+  (code: TemplateStringsArray | string): string => {
+    const plugins: any = [
+      [
+        babelPlugin,
+        {
+          shouldUseAutoFallback: shouldUseAutoFallback,
+        },
+      ],
+    ];
+    if (transformTemplateLiterals) {
+      plugins.push('@babel/plugin-transform-template-literals');
+    }
 
-  const result = transformSync(typeof code === 'string' ? code : code[0], {
-    configFile: false,
-    babelrc: false,
-    plugins: plugins,
-  });
+    const result = transformSync(typeof code === 'string' ? code : code[0], {
+      configFile: false,
+      babelrc: false,
+      plugins: plugins,
+    });
 
-  if (!result?.code) {
-    throw new Error();
-  }
+    if (!result?.code) {
+      throw new Error();
+    }
 
-  return result.code;
-};
+    return result.code;
+  };
 
 describe('Tokens Babel Plugin', () => {
   it('converts 1-argument usage correctly when shouldUseAutoFallback set to false', () => {

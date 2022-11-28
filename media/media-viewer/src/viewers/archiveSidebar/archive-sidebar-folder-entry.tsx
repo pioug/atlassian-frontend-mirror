@@ -33,9 +33,7 @@ export interface ArchiveSidebarFolderProps {
   onError: (error: ArchiveViewerError, entry?: ZipEntry) => void;
 }
 
-export class ArchiveSidebarFolderEntry extends React.Component<
-  ArchiveSidebarFolderProps
-> {
+export class ArchiveSidebarFolderEntry extends React.Component<ArchiveSidebarFolderProps> {
   renderEntry = (entry: ZipEntry) => {
     const { root, onEntrySelected } = this.props;
     const onClick = () => onEntrySelected(entry);

@@ -51,7 +51,7 @@ describe('resolveAuth', () => {
   // This test is verifying if the consumer bypassed TS checks and managed to provide
   // an Auth provider that actually does not resolve an Auth object.
   it('should throw emptyAuth error if provider resolves undefined', async () => {
-    const provider = ((async () => {}) as unknown) as AuthProvider;
+    const provider = (async () => {}) as unknown as AuthProvider;
     try {
       await resolveAuth(provider);
     } catch (e) {

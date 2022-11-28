@@ -56,46 +56,46 @@ const analyticsHandler = (actionName: string, props?: {}) =>
   console.log(actionName, props);
 
 const LOCALSTORAGE_defaultTitleKey = 'fabric.editor.example.full-page.title';
-const createSaveAndCancelButtons = (collectionName: string) => (props: {
-  editorActions?: EditorActions;
-}) => (
-  <ButtonGroup>
-    <Button
-      tabIndex={-1}
-      appearance="primary"
-      onClick={() => {
-        if (!props.editorActions) {
-          return;
-        }
+const createSaveAndCancelButtons =
+  (collectionName: string) => (props: { editorActions?: EditorActions }) =>
+    (
+      <ButtonGroup>
+        <Button
+          tabIndex={-1}
+          appearance="primary"
+          onClick={() => {
+            if (!props.editorActions) {
+              return;
+            }
 
-        props.editorActions.getValue().then((value) => {
-          // eslint-disable-next-line no-console
-          console.log(value);
-          localStorage.setItem(
-            getLocalStorageKey(collectionName),
-            JSON.stringify(value),
-          );
-        });
-      }}
-    >
-      Publish
-    </Button>
-    <Button
-      tabIndex={-1}
-      appearance="subtle"
-      onClick={() => {
-        if (!props.editorActions) {
-          return;
-        }
-        props.editorActions.clear();
-        localStorage.removeItem(getLocalStorageKey(collectionName));
-        localStorage.removeItem(LOCALSTORAGE_defaultTitleKey);
-      }}
-    >
-      Close
-    </Button>
-  </ButtonGroup>
-);
+            props.editorActions.getValue().then((value) => {
+              // eslint-disable-next-line no-console
+              console.log(value);
+              localStorage.setItem(
+                getLocalStorageKey(collectionName),
+                JSON.stringify(value),
+              );
+            });
+          }}
+        >
+          Publish
+        </Button>
+        <Button
+          tabIndex={-1}
+          appearance="subtle"
+          onClick={() => {
+            if (!props.editorActions) {
+              return;
+            }
+            props.editorActions.clear();
+            localStorage.removeItem(getLocalStorageKey(collectionName));
+            localStorage.removeItem(LOCALSTORAGE_defaultTitleKey);
+          }}
+        >
+          Close
+        </Button>
+      </ButtonGroup>
+    );
 
 export type State = {
   disabled: boolean;

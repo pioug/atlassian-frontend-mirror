@@ -36,66 +36,64 @@ export const findCreateNodeHandler = ({
 type InsertContentProps = {
   editorPlugins: EditorPlugin[];
 } & InsertNodeConfig;
-export const handleInsertContent = ({
-  node,
-  options,
-  editorPlugins,
-}: InsertContentProps) => (tr: Transaction): boolean => {
-  // TODO: ED-14676 - Probably, we should use the options.insertAt here
-  const position = tr.selection;
-  const createNodeHandler = findCreateNodeHandler({ node, editorPlugins });
-  const nodeName: string | null = typeof node === 'string' ? node : null;
+export const handleInsertContent =
+  ({ node, options, editorPlugins }: InsertContentProps) =>
+  (tr: Transaction): boolean => {
+    // TODO: ED-14676 - Probably, we should use the options.insertAt here
+    const position = tr.selection;
+    const createNodeHandler = findCreateNodeHandler({ node, editorPlugins });
+    const nodeName: string | null = typeof node === 'string' ? node : null;
 
-  //  TODO: ED-14676 Once we fix the coupled table code issue (ED-15503) we should enable this API to insert any ProseMirror Node
-  //  if (node instanceof PMNode || node instanceof Fragment) {
-  //    insertProseMirrorContent({
-  //      tr,
-  //      node,
-  //      position,
-  //      selectNodeInserted: options.selectNodeInserted,
-  //    });
-  //  } else
+    //  TODO: ED-14676 Once we fix the coupled table code issue (ED-15503) we should enable this API to insert any ProseMirror Node
+    //  if (node instanceof PMNode || node instanceof Fragment) {
+    //    insertProseMirrorContent({
+    //      tr,
+    //      node,
+    //      position,
+    //      selectNodeInserted: options.selectNodeInserted,
+    //    });
+    //  } else
 
-  if (nodeName && createNodeHandler) {
-    const nodeOverride: PMNode | Fragment = createNodeHandler({
-      nodeName,
-      schema: tr.doc.type.schema,
-    });
+    if (nodeName && createNodeHandler) {
+      const nodeOverride: PMNode | Fragment = createNodeHandler({
+        nodeName,
+        schema: tr.doc.type.schema,
+      });
 
-    insertProseMirrorContent({
-      tr,
-      node: nodeOverride,
-      position,
-      selectNodeInserted: options.selectNodeInserted,
-    });
-  } else if (nodeName) {
-    const nodeType = tr.doc.type.schema.nodes[nodeName];
-    if (!nodeType) {
+      insertProseMirrorContent({
+        tr,
+        node: nodeOverride,
+        position,
+        selectNodeInserted: options.selectNodeInserted,
+      });
+    } else if (nodeName) {
+      const nodeType = tr.doc.type.schema.nodes[nodeName];
+      if (!nodeType) {
+        return false;
+      }
+
+      insertProseMirrorContent({
+        tr,
+        node: nodeType.createAndFill(),
+        position,
+        selectNodeInserted: options.selectNodeInserted,
+      });
+    } else {
       return false;
     }
 
-    insertProseMirrorContent({
-      tr,
-      node: nodeType.createAndFill(),
-      position,
-      selectNodeInserted: options.selectNodeInserted,
-    });
-  } else {
-    return false;
-  }
+    // TODO: ED-14676  Implement the attachPluginMessage behavior
+    // if (editorPluginHandler?.nodes && options.attachPluginMessage) {
+    //   const pluginKey = editorPluginHandler
+    //     .nodes()
+    //     .find((nodeConfig) => nodeConfig.name === nodeName)?.pluginKey;
 
-  // TODO: ED-14676  Implement the attachPluginMessage behavior
-  // if (editorPluginHandler?.nodes && options.attachPluginMessage) {
-  //   const pluginKey = editorPluginHandler
-  //     .nodes()
-  //     .find((nodeConfig) => nodeConfig.name === nodeName)?.pluginKey;
+    //   if (pluginKey) {
+    //     tr.setMeta(pluginKey, options.attachPluginMessage);
+    //   }
+    // }
 
-  //   if (pluginKey) {
-  //     tr.setMeta(pluginKey, options.attachPluginMessage);
-  //   }
-  // }
+    tr.scrollIntoView();
 
-  tr.scrollIntoView();
-
-  return true;
-};
+    return true;
+  };

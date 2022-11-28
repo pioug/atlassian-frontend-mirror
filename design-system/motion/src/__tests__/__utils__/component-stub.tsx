@@ -46,7 +46,8 @@ export const ComponentStub = React.forwardRef(
           if (typeof ref === 'function') {
             ref(element);
           } else {
-            (ref as React.MutableRefObject<HTMLElement | null>).current = element;
+            (ref as React.MutableRefObject<HTMLElement | null>).current =
+              element;
           }
         }}
       />

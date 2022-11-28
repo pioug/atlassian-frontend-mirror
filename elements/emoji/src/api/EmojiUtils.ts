@@ -95,15 +95,8 @@ export const denormaliseServiceRepresentation = (
     meta &&
     meta.spriteSheets
   ) {
-    const {
-      height,
-      width,
-      x,
-      y,
-      xIndex,
-      yIndex,
-      spriteRef,
-    } = representation as SpriteServiceRepresentation;
+    const { height, width, x, y, xIndex, yIndex, spriteRef } =
+      representation as SpriteServiceRepresentation;
     const spriteSheet = meta.spriteSheets[spriteRef];
     if (spriteSheet) {
       return {
@@ -153,20 +146,18 @@ export const denormaliseSkinEmoji = (
   const skinEmoji: EmojiServiceDescription[] = emoji.skinVariations;
   const baseId = emoji.id;
 
-  return skinEmoji.map(
-    (skin): EmojiVariationDescription => {
-      const { representation, altRepresentations, ...other } = skin;
-      return {
-        baseId: baseId,
-        representation: denormaliseServiceRepresentation(representation, meta),
-        altRepresentation: denormaliseServiceAltRepresentation(
-          altRepresentations,
-          meta,
-        ),
-        ...other,
-      };
-    },
-  );
+  return skinEmoji.map((skin): EmojiVariationDescription => {
+    const { representation, altRepresentations, ...other } = skin;
+    return {
+      baseId: baseId,
+      representation: denormaliseServiceRepresentation(representation, meta),
+      altRepresentation: denormaliseServiceAltRepresentation(
+        altRepresentations,
+        meta,
+      ),
+      ...other,
+    };
+  });
 };
 
 /**

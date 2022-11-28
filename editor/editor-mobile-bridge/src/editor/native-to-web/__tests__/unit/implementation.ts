@@ -68,14 +68,14 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 }));
 
 const createMockCollabProvider = () => {
-  return ({
+  return {
     setTitle: jest.fn(),
     on: jest.fn(),
     off: jest.fn(),
     getFinalAcknowledgedState: jest.fn(() => ({
       stepVersion: 100,
     })),
-  } as unknown) as CollabProvider;
+  } as unknown as CollabProvider;
 };
 
 class MockMobileUpload {
@@ -134,9 +134,7 @@ describe('Collab Web Bridge', () => {
     let toNativeBridge: jest.Mocked<NativeBridge>;
 
     beforeEach(async () => {
-      ({ toNativeBridge } = ((await import(
-        '../../../web-to-native'
-      )) as any) as {
+      ({ toNativeBridge } = (await import('../../../web-to-native')) as any as {
         toNativeBridge: jest.Mocked<NativeBridge>;
       });
     });
@@ -463,7 +461,7 @@ describe('replaceContent', () => {
   };
 
   beforeEach(async () => {
-    ({ toNativeBridge } = ((await import('../../../web-to-native')) as any) as {
+    ({ toNativeBridge } = (await import('../../../web-to-native')) as any as {
       toNativeBridge: jest.Mocked<NativeBridge>;
     });
     jest

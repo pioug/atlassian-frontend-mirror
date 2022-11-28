@@ -9,9 +9,8 @@ import { CardLoading } from '../utils/lightCards/cardLoading';
 import type { CardBaseProps } from './card';
 import type { MediaCardAnalyticsErrorBoundaryProps } from '../utils/media-card-analytics-error-boundary';
 
-export type CardWithMediaClientConfigProps = WithMediaClientConfigProps<
-  CardBaseProps
->;
+export type CardWithMediaClientConfigProps =
+  WithMediaClientConfigProps<CardBaseProps>;
 
 const MediaCardContext = React.createContext({});
 

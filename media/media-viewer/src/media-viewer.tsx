@@ -203,18 +203,19 @@ export class MediaViewerComponent extends React.Component<
   }
 }
 
-export const MediaViewer: React.ComponentType<Props> = withMediaAnalyticsContext(
-  {
-    packageName,
-    packageVersion,
-    component,
-    componentName,
-  },
-  {
-    filterFeatureFlags: LOGGED_FEATURE_FLAGS,
-  },
-)(
-  withAnalyticsEvents()(
-    injectIntl(MediaViewerComponent, { enforceContext: false }),
-  ),
-);
+export const MediaViewer: React.ComponentType<Props> =
+  withMediaAnalyticsContext(
+    {
+      packageName,
+      packageVersion,
+      component,
+      componentName,
+    },
+    {
+      filterFeatureFlags: LOGGED_FEATURE_FLAGS,
+    },
+  )(
+    withAnalyticsEvents()(
+      injectIntl(MediaViewerComponent, { enforceContext: false }),
+    ),
+  );

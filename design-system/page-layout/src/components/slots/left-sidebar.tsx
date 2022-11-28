@@ -67,9 +67,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   const mouseOverEventRef = useRef<(event: MouseEvent) => void | null>();
   const leftSideBarRef = useRef(null);
 
-  const { leftSidebarState, setLeftSidebarState } = useContext(
-    SidebarResizeContext,
-  );
+  const { leftSidebarState, setLeftSidebarState } =
+    useContext(SidebarResizeContext);
   const {
     isFlyoutOpen,
     isResizing,

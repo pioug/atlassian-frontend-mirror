@@ -73,8 +73,7 @@ describe('#createPasteAnalyticsPayload()', () => {
           plainTextPasteLinkification,
         });
         dispatchPasteEvent(editorView, {
-          html:
-            'https://news.ycombinator.com/item?id=29219042 news.ycombinator.com some random text https://news.ycombinator.com/item?id=29217810 www.google.com arstnaorset arosent',
+          html: 'https://news.ycombinator.com/item?id=29219042 news.ycombinator.com some random text https://news.ycombinator.com/item?id=29217810 www.google.com arstnaorset arosent',
         });
 
         expect(createAnalyticsEvent).toBeCalledWith(
@@ -285,8 +284,7 @@ describe('#createPasteAnalyticsPayload()', () => {
           plainTextPasteLinkification,
         });
         dispatchPasteEvent(editorView, {
-          html:
-            'https://news.ycombinator.com/item?id=29219042 news.ycombinator.com some random text https://news.ycombinator.com/item?id=29217810 www.google.com arstnaorset arosent',
+          html: 'https://news.ycombinator.com/item?id=29219042 news.ycombinator.com some random text https://news.ycombinator.com/item?id=29217810 www.google.com arstnaorset arosent',
         });
 
         expect(createAnalyticsEvent).toBeCalledWith(

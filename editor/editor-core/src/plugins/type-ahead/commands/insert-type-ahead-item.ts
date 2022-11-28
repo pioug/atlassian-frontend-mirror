@@ -54,61 +54,60 @@ type CreateInsertCallbackProps = {
   textInserted: string;
   selectedIndex: number;
 };
-const createInsertCallback = ({
-  editorState: state,
-  handler,
-  query,
-  mode,
-  wasInsertedBySpace,
-  selectedIndex,
-  textStartPosition,
-  textInserted,
-}: CreateInsertCallbackProps): TypeAheadInsert => (
-  maybeNode,
-  opts = {},
-): Transaction => {
-  const { tr } = state;
-  const position = {
-    start: textStartPosition,
-    end: textStartPosition + (wasInsertedBySpace ? textInserted.length : 0),
-  };
-
-  const node = validateNode({ schema: state.schema, maybeNode });
-  if (!node) {
-    closeTypeAhead(tr);
-    // In this kind of situation we need to
-    // delete the raw text query
-    tr.delete(position.start, position.end);
-    return tr;
-  }
-
-  node instanceof PMNode && node.isBlock
-    ? insertBlockNode({
-        node,
-        tr,
-        position,
-      })
-    : insertInlineNodeOrFragment({
-        maybeFragment: node,
-        tr,
-        position,
-        selectInlineNode: Boolean(opts.selectInlineNode),
-      });
-
-  closeHistory(tr);
-  if (wasInsertedBySpace) {
-    return tr;
-  }
-
-  const config = {
-    stage: InsertTypeAheadStages.INSERTING_ITEM,
+const createInsertCallback =
+  ({
+    editorState: state,
+    handler,
     query,
+    mode,
+    wasInsertedBySpace,
     selectedIndex,
-    trigger: handler.trigger,
+    textStartPosition,
+    textInserted,
+  }: CreateInsertCallbackProps): TypeAheadInsert =>
+  (maybeNode, opts = {}): Transaction => {
+    const { tr } = state;
+    const position = {
+      start: textStartPosition,
+      end: textStartPosition + (wasInsertedBySpace ? textInserted.length : 0),
+    };
+
+    const node = validateNode({ schema: state.schema, maybeNode });
+    if (!node) {
+      closeTypeAhead(tr);
+      // In this kind of situation we need to
+      // delete the raw text query
+      tr.delete(position.start, position.end);
+      return tr;
+    }
+
+    node instanceof PMNode && node.isBlock
+      ? insertBlockNode({
+          node,
+          tr,
+          position,
+        })
+      : insertInlineNodeOrFragment({
+          maybeFragment: node,
+          tr,
+          position,
+          selectInlineNode: Boolean(opts.selectInlineNode),
+        });
+
+    closeHistory(tr);
+    if (wasInsertedBySpace) {
+      return tr;
+    }
+
+    const config = {
+      stage: InsertTypeAheadStages.INSERTING_ITEM,
+      query,
+      selectedIndex,
+      trigger: handler.trigger,
+    };
+    tr.step(new InsertTypeAheadStep(config));
+    return tr;
   };
-  tr.step(new InsertTypeAheadStep(config));
-  return tr;
-};
 
 type Position = {
   start: number;
@@ -161,107 +160,103 @@ type Props = {
   sourceListItem: Array<TypeAheadItem>;
   query: string;
 };
-export const insertTypeAheadItem = (view: EditorView) => ({
-  item,
-  handler,
-  mode,
-  query,
-  sourceListItem,
-}: Props) => {
-  const pluginState = getPluginState(view.state);
-  if (!pluginState) {
-    return;
-  }
-
-  const stats = (pluginState.stats || new StatsModifier()).serialize();
-  const meta = {
-    mode,
-    query,
-    stats,
-    sourceListItem,
-  };
-
-  const { tr } = view.state;
-
-  const trigger = handler.trigger;
-  let text = `${trigger}${query}`;
-  if (mode === SelectItemMode.SPACE) {
-    text = text.trim().concat(' ');
-  }
-
-  const selectedIndex = Math.max(sourceListItem.indexOf(item), 0);
-  const wasInsertedBySpace = mode === SelectItemMode.SPACE;
-  const {
-    selection: { from: textStartPosition },
-  } = tr;
-
-  const insertItem = (newEditorSate: EditorState): Transaction | false => {
-    const insertCallback = createInsertCallback({
-      editorState: newEditorSate,
-      query,
-      mode,
-      handler,
-      wasInsertedBySpace,
-      selectedIndex,
-      textInserted: text,
-      textStartPosition,
-    });
-
-    let wasInsertCallbackCalled = false;
-    // Some wierd plugins doesn't call the insert item callback
-    // For example, the link quick insert item
-    // For those cases we need to make sure we are closing the typeahead
-    const proxyHandler: ProxyHandler<typeof insertCallback> = {
-      apply: function (target, _thisContext, argumentsList) {
-        wasInsertCallbackCalled = true;
-        return target(...argumentsList);
-      },
-    };
-    const insertCallbackProxy = new Proxy(insertCallback, proxyHandler);
-    const nextTr = handler.selectItem(
-      newEditorSate,
-      item,
-      insertCallbackProxy,
-      meta,
-    );
-
-    if (!wasInsertCallbackCalled && nextTr) {
-      closeHistory(nextTr);
-
-      // In some cases we need to re-open the typeahead
-      // e.g.: addign mentions from the quick insert
-      //
-      // Today, the QuickInsert API doesn't have a tool
-      // to help on this. So the code below will close the typeahead
-      // only if there is no previous metadata about typeahead in the
-      // next transaction
-      if (!nextTr.getMeta(pluginKey)) {
-        closeTypeAhead(nextTr);
-      }
+export const insertTypeAheadItem =
+  (view: EditorView) =>
+  ({ item, handler, mode, query, sourceListItem }: Props) => {
+    const pluginState = getPluginState(view.state);
+    if (!pluginState) {
+      return;
     }
 
-    return nextTr;
-  };
-
-  const position = {
-    start: tr.selection.from,
-    end: tr.selection.from + text.length,
-  };
-
-  tr.setMeta(pluginKey, {
-    action: ACTIONS.INSERT_RAW_QUERY,
-    params: createDeleteRawTextCallback({
-      wasInsertedBySpace,
-      selectedIndex,
-      insertItem,
-      position,
+    const stats = (pluginState.stats || new StatsModifier()).serialize();
+    const meta = {
+      mode,
       query,
-      trigger,
-    }),
-  });
-  tr.insertText(text);
-  closeHistory(tr);
+      stats,
+      sourceListItem,
+    };
 
-  view.dispatch(tr);
-  view.focus();
-};
+    const { tr } = view.state;
+
+    const trigger = handler.trigger;
+    let text = `${trigger}${query}`;
+    if (mode === SelectItemMode.SPACE) {
+      text = text.trim().concat(' ');
+    }
+
+    const selectedIndex = Math.max(sourceListItem.indexOf(item), 0);
+    const wasInsertedBySpace = mode === SelectItemMode.SPACE;
+    const {
+      selection: { from: textStartPosition },
+    } = tr;
+
+    const insertItem = (newEditorSate: EditorState): Transaction | false => {
+      const insertCallback = createInsertCallback({
+        editorState: newEditorSate,
+        query,
+        mode,
+        handler,
+        wasInsertedBySpace,
+        selectedIndex,
+        textInserted: text,
+        textStartPosition,
+      });
+
+      let wasInsertCallbackCalled = false;
+      // Some wierd plugins doesn't call the insert item callback
+      // For example, the link quick insert item
+      // For those cases we need to make sure we are closing the typeahead
+      const proxyHandler: ProxyHandler<typeof insertCallback> = {
+        apply: function (target, _thisContext, argumentsList) {
+          wasInsertCallbackCalled = true;
+          return target(...argumentsList);
+        },
+      };
+      const insertCallbackProxy = new Proxy(insertCallback, proxyHandler);
+      const nextTr = handler.selectItem(
+        newEditorSate,
+        item,
+        insertCallbackProxy,
+        meta,
+      );
+
+      if (!wasInsertCallbackCalled && nextTr) {
+        closeHistory(nextTr);
+
+        // In some cases we need to re-open the typeahead
+        // e.g.: addign mentions from the quick insert
+        //
+        // Today, the QuickInsert API doesn't have a tool
+        // to help on this. So the code below will close the typeahead
+        // only if there is no previous metadata about typeahead in the
+        // next transaction
+        if (!nextTr.getMeta(pluginKey)) {
+          closeTypeAhead(nextTr);
+        }
+      }
+
+      return nextTr;
+    };
+
+    const position = {
+      start: tr.selection.from,
+      end: tr.selection.from + text.length,
+    };
+
+    tr.setMeta(pluginKey, {
+      action: ACTIONS.INSERT_RAW_QUERY,
+      params: createDeleteRawTextCallback({
+        wasInsertedBySpace,
+        selectedIndex,
+        insertItem,
+        position,
+        query,
+        trigger,
+      }),
+    });
+    tr.insertText(text);
+    closeHistory(tr);
+
+    view.dispatch(tr);
+    view.focus();
+  };

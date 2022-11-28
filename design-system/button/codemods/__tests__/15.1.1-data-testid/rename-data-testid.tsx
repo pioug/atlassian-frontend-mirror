@@ -135,8 +135,7 @@ check({
 
 check({
   transformer,
-  it:
-    'should add a warning when both the testId and data-testid props are being used',
+  it: 'should add a warning when both the testId and data-testid props are being used',
   original: `
     import StandardButton from '@atlaskit/button';
 

@@ -43,10 +43,10 @@ const BlockBuilderContainer: React.FC<{
 }> = ({ children, name, onRemove, position, removable = true }) => {
   const [open, setOpen] = useState<boolean>(false);
   const handleExpand = useCallback(() => setOpen(!open), [open]);
-  const handleOnRemove = useCallback(() => onRemove(position), [
-    onRemove,
-    position,
-  ]);
+  const handleOnRemove = useCallback(
+    () => onRemove(position),
+    [onRemove, position],
+  );
 
   return (
     <div css={containerStyles}>

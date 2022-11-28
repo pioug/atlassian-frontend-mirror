@@ -21,7 +21,7 @@ export function makeAdapter<DragType extends AllDragTypes>({
   mount: (api: AdapterAPI<DragType>) => CleanupFn;
   defaultDropEffect: DragType['defaultDropEffect'];
   dispatchEventToSource?: <
-    EventName extends keyof EventPayloadMap<DragType>
+    EventName extends keyof EventPayloadMap<DragType>,
   >(args: {
     eventName: EventName;
     payload: EventPayloadMap<DragType>[EventName];
@@ -34,7 +34,7 @@ export function makeAdapter<DragType extends AllDragTypes>({
   });
 
   function dispatchEvent<
-    EventName extends keyof EventPayloadMap<DragType>
+    EventName extends keyof EventPayloadMap<DragType>,
   >(args: {
     eventName: EventName;
     payload: EventPayloadMap<DragType>[EventName];

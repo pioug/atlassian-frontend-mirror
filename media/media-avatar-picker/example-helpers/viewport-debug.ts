@@ -18,9 +18,8 @@ interface Pos {
 
 export class ViewportDebugger {
   private viewport: Viewport;
-  private navigationCanvas: HTMLCanvasElement = document.createElement(
-    'canvas',
-  );
+  private navigationCanvas: HTMLCanvasElement =
+    document.createElement('canvas');
   private previewCanvas: HTMLCanvasElement = document.createElement('canvas');
   private previousItemBounds: Bounds = new Bounds(0, 0, 0, 0);
   public imageElement?: HTMLImageElement;
@@ -36,12 +35,8 @@ export class ViewportDebugger {
   }
 
   initCanvas() {
-    const {
-      previewCanvas,
-      navigationCanvasPos,
-      previewCanvasPos,
-      viewport,
-    } = this;
+    const { previewCanvas, navigationCanvasPos, previewCanvasPos, viewport } =
+      this;
     const { innerBounds } = viewport;
     previewCanvas.width = innerBounds.width;
     previewCanvas.height = innerBounds.height;

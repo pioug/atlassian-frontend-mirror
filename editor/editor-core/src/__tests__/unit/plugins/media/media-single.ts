@@ -179,11 +179,13 @@ describe('media-single', () => {
       it('inserts multiple mediaSingle nodes into the document', () => {
         const { editorView } = editor(doc(p('text{<>}hello')));
 
-        ([
-          createMediaState(temporaryFileId),
-          createMediaState(temporaryFileId + '1'),
-          createMediaState(temporaryFileId + '2'),
-        ] as Array<MediaState>).forEach((state) =>
+        (
+          [
+            createMediaState(temporaryFileId),
+            createMediaState(temporaryFileId + '1'),
+            createMediaState(temporaryFileId + '2'),
+          ] as Array<MediaState>
+        ).forEach((state) =>
           insertMediaSingleNode(
             editorView,
             state,
@@ -452,8 +454,7 @@ describe('media-single', () => {
         mediaSingle({ layout: 'center' })(
           media({
             type: 'external',
-            url:
-              'blob:http://localhost:9000/cd1d250b-3436-4e88-895d-01f712146540#media-blob-url=true&id=6cb9b2e5-108f-4adc-bade-8d862f9aa2de&collection=MediaServicesSample&contextId=DUMMY-OBJECT-ID&mimeType=image%2Fpng&name=image-20200205-235344.png&size=119473',
+            url: 'blob:http://localhost:9000/cd1d250b-3436-4e88-895d-01f712146540#media-blob-url=true&id=6cb9b2e5-108f-4adc-bade-8d862f9aa2de&collection=MediaServicesSample&contextId=DUMMY-OBJECT-ID&mimeType=image%2Fpng&name=image-20200205-235344.png&size=119473',
             alt: '',
             __external: true,
           })(),

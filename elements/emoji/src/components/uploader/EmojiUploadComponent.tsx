@@ -33,9 +33,8 @@ export interface Props {
 
 const EmojiUploadComponent: FC<Props> = (props) => {
   const { emojiProvider, createAnalyticsEvent, onUploaderRef } = props;
-  const [uploadErrorMessage, setUploadErrorMessage] = useState<
-    MessageDescriptor
-  >();
+  const [uploadErrorMessage, setUploadErrorMessage] =
+    useState<MessageDescriptor>();
 
   useEffect(() => {
     if (supportsUploadFeature(emojiProvider)) {

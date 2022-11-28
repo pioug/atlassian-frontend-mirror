@@ -178,9 +178,10 @@ const buildRegex = (char: ValidAutoformatChars) => {
 
   // Single X - https://regex101.com/r/McT3yq/14/
   // Double X - https://regex101.com/r/pQUgjx/1/
-  const baseRegex = '^X(?=[^X\\s]).*?[^\\sX]X(?=[\\sOBJECT_REPLACEMENT_CHARACTER]COMBINATIONS|$)'
-    .replace('OBJECT_REPLACEMENT_CHARACTER', leafNodeReplacementCharacter)
-    .replace('COMBINATIONS', combinations ? `|${combinations}` : '');
+  const baseRegex =
+    '^X(?=[^X\\s]).*?[^\\sX]X(?=[\\sOBJECT_REPLACEMENT_CHARACTER]COMBINATIONS|$)'
+      .replace('OBJECT_REPLACEMENT_CHARACTER', leafNodeReplacementCharacter)
+      .replace('COMBINATIONS', combinations ? `|${combinations}` : '');
 
   const replacedRegex = String.prototype.hasOwnProperty('replaceAll')
     ? (baseRegex as any).replaceAll('X', escapedChar)

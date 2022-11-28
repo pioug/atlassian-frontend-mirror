@@ -112,11 +112,10 @@ const ModalDialog = (props: ModalDialogProps) => {
     onCloseComplete,
   });
 
-  const modalDialogContext = useMemo(() => ({ testId, titleId, onClose }), [
-    testId,
-    titleId,
-    onClose,
-  ]);
+  const modalDialogContext = useMemo(
+    () => ({ testId, titleId, onClose }),
+    [testId, titleId, onClose],
+  );
 
   return (
     <Positioner

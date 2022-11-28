@@ -62,7 +62,8 @@ export default class RendererActions
   implements
     RendererActionsOptions,
     AnnotationsRendererActionsOptions,
-    PositionRendererActionsOptions {
+    PositionRendererActionsOptions
+{
   // This is our psuedo feature flag for now
   // This module can only be used when wrapped with
   // the <RendererContext> component for now.

@@ -16,21 +16,20 @@ import {
 import { stateKey } from './plugin-key';
 
 type DOMHandlerPredicate = (e: Event) => boolean;
-const createDOMHandler = (pred: DOMHandlerPredicate, eventName: string) => (
-  view: EditorView,
-  event: Event,
-) => {
-  if (!pred(event)) {
-    return false;
-  }
+const createDOMHandler =
+  (pred: DOMHandlerPredicate, eventName: string) =>
+  (view: EditorView, event: Event) => {
+    if (!pred(event)) {
+      return false;
+    }
 
-  event.preventDefault();
-  event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
 
-  startImageUpload(event)(view.state, view.dispatch);
+    startImageUpload(event)(view.state, view.dispatch);
 
-  return true;
-};
+    return true;
+  };
 
 const getNewActiveUpload = (
   tr: ReadonlyTransaction,
@@ -107,14 +106,12 @@ export const createPlugin = ({
       return {
         update(view, prevState) {
           const { state: editorState } = view;
-          const currentState: ImageUploadPluginState = stateKey.getState(
-            editorState,
-          )!;
+          const currentState: ImageUploadPluginState =
+            stateKey.getState(editorState)!;
 
           // if we've add a new upload to the state, execute the uploadHandler
-          const oldState: ImageUploadPluginState = stateKey.getState(
-            prevState,
-          )!;
+          const oldState: ImageUploadPluginState =
+            stateKey.getState(prevState)!;
           if (
             currentState.activeUpload !== oldState.activeUpload &&
             currentState.activeUpload &&

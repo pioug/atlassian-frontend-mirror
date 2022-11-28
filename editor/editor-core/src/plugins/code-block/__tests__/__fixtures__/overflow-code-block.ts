@@ -8,8 +8,7 @@ export const overflowCodeBlock = {
       content: [
         {
           type: 'text',
-          text:
-            '                                                               ',
+          text: '                                                               ',
         },
       ],
     },

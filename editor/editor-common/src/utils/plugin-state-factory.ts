@@ -87,7 +87,7 @@ type SafePlugin<PluginState, Action, InitialState extends PluginState> = {
 export function pluginFactory<
   PluginState,
   Action,
-  InitialState extends PluginState
+  InitialState extends PluginState,
 >(
   pluginKey: PluginKey,
   reducer: Reducer<PluginState, Action>,

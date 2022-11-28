@@ -22,20 +22,22 @@ function hasImportDeclaration(
   return Boolean(imports.length);
 }
 
-export const createTransformer = (
-  packageName: string,
-  migrations: { (j: core.JSCodeshift, source: Collection<any>): void }[],
-) => (fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
-  const source = j(fileInfo.source);
+export const createTransformer =
+  (
+    packageName: string,
+    migrations: { (j: core.JSCodeshift, source: Collection<any>): void }[],
+  ) =>
+  (fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
+    const source = j(fileInfo.source);
 
-  if (!hasImportDeclaration(j, source, packageName)) {
-    return fileInfo.source;
-  }
+    if (!hasImportDeclaration(j, source, packageName)) {
+      return fileInfo.source;
+    }
 
-  migrations.forEach((transform) => transform(j, source));
+    migrations.forEach((transform) => transform(j, source));
 
-  return source.toSource(options.printOptions || { quote: 'single' });
-};
+    return source.toSource(options.printOptions || { quote: 'single' });
+  };
 
 /**
  * Finds import from a particular path/package matching a particular name.

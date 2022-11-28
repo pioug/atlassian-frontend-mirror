@@ -17,9 +17,8 @@ describe('UnsupportedMark Override Rule', () => {
     ];
     marksWhichAllowOverride.forEach((markType) => {
       it(`should return true for ${markType} mark`, () => {
-        const overrideRule = markOverrideRuleFor(
-          markType,
-        ).canOverrideUnsupportedMark();
+        const overrideRule =
+          markOverrideRuleFor(markType).canOverrideUnsupportedMark();
         expect(overrideRule).toBe(true);
       });
     });
@@ -27,9 +26,8 @@ describe('UnsupportedMark Override Rule', () => {
 
   it('should return false as default behaviour when a mark does not have a rule defined', () => {
     const markType = 'some';
-    const overrideRule = markOverrideRuleFor(
-      markType,
-    ).canOverrideUnsupportedMark();
+    const overrideRule =
+      markOverrideRuleFor(markType).canOverrideUnsupportedMark();
     expect(overrideRule).toBe(false);
   });
 });

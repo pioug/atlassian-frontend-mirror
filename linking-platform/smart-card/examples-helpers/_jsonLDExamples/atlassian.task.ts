@@ -229,8 +229,7 @@ const generateJiraTask = (
     {
       '@type': 'Person',
       image: 'https://avatars2.githubusercontent.com/u/15986691?v=4',
-      name:
-        'https://storybird.s3.amazonaws.com/artwork/PaulMcDougall/full/cheese.jpeg',
+      name: 'https://storybird.s3.amazonaws.com/artwork/PaulMcDougall/full/cheese.jpeg',
     },
     {
       '@type': 'Person',
@@ -255,8 +254,7 @@ const generateJiraTask = (
   generator: {
     '@type': 'Application',
     '@id': 'https://www.atlassian.com/#Jira',
-    icon:
-      'https://product-fabric.atlassian.net/s/tmq6us/b/15/4b814c568b5302d1d1376067007f07c2/_/favicon-software.ico',
+    icon: 'https://product-fabric.atlassian.net/s/tmq6us/b/15/4b814c568b5302d1d1376067007f07c2/_/favicon-software.ico',
     name: 'Jira',
   },
   'atlassian:isCompleted': false,
@@ -271,8 +269,7 @@ const generateJiraTask = (
   tag: taskTag,
   'atlassian:taskStatus': {
     '@type': 'Link',
-    href:
-      'https://jira.atlassian.com/projects/MAC/issues/?filter=allopenissues',
+    href: 'https://jira.atlassian.com/projects/MAC/issues/?filter=allopenissues',
     name: 'open',
   },
 });

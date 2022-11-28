@@ -1,7 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ExpandedFrame } from '../../../components/ExpandedFrame';
-import { Wrapper, LinkWrapper, IconWrapper, TextWrapper } from '../../styled';
+import {
+  Wrapper,
+  LinkWrapper,
+  IconWrapper,
+  TextWrapper,
+  Content,
+} from '../../styled';
 
 describe('ExpandedFrame', () => {
   it('should render as a link when there is a href', () => {
@@ -68,5 +74,20 @@ describe('ExpandedFrame', () => {
       <ExpandedFrame isPlaceholder={false} onClick={jest.fn()} />,
     );
     expect(element.first().prop('isInteractive')).toBeTruthy();
+  });
+
+  it('should not allow scrolling when allowScrolling is undefined', () => {
+    const element = shallow(<ExpandedFrame />);
+    expect(element.find(Content).prop('allowScrollBar')).toBeFalsy();
+  });
+
+  it('should not allow scrolling when allowScrolling is false', () => {
+    const element = shallow(<ExpandedFrame allowScrollBar={false} />);
+    expect(element.find(Content).prop('allowScrollBar')).toBeFalsy();
+  });
+
+  it('should allow scrolling when allowScrolling is true', () => {
+    const element = shallow(<ExpandedFrame allowScrollBar={true} />);
+    expect(element.find(Content).prop('allowScrollBar')).toBeTruthy();
   });
 });

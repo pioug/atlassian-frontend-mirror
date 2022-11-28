@@ -68,9 +68,7 @@ type CommonResultProps = {
 };
 
 // @public
-export class ContainerResult extends React_2.PureComponent<
-  ContainerResultProps
-> {
+export class ContainerResult extends React_2.PureComponent<ContainerResultProps> {
   // (undocumented)
   getAvatar: () => {};
   // (undocumented)

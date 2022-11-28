@@ -52,11 +52,8 @@ class EmojiPickerListSearch extends PureComponent<
   private saveInputSelection() {
     this.inputSelection = undefined;
     if (this.inputRef) {
-      const {
-        selectionStart,
-        selectionEnd,
-        selectionDirection,
-      } = this.inputRef;
+      const { selectionStart, selectionEnd, selectionDirection } =
+        this.inputRef;
       if (selectionStart && selectionEnd && selectionDirection) {
         this.inputSelection = {
           selectionStart,
@@ -74,11 +71,8 @@ class EmojiPickerListSearch extends PureComponent<
       this.inputRef &&
       this.inputRef.setSelectionRange
     ) {
-      const {
-        selectionStart,
-        selectionEnd,
-        selectionDirection,
-      } = this.inputSelection;
+      const { selectionStart, selectionEnd, selectionDirection } =
+        this.inputSelection;
       this.inputRef.setSelectionRange(
         selectionStart,
         selectionEnd,

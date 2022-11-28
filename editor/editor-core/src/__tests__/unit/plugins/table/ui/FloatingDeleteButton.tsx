@@ -54,13 +54,13 @@ describe('Floating Delete Button', () => {
       ),
     ));
 
-    wrapper = (mountWithIntl(
+    wrapper = mountWithIntl(
       <FloatingDeleteButton
         tableRef={document.querySelector('table')!}
         editorView={editorView}
         selection={editorView.state.selection}
       />,
-    ) as unknown) as ReactWrapper<FloatingDeleteButtonProps>;
+    ) as unknown as ReactWrapper<FloatingDeleteButtonProps>;
   });
 
   afterEach(() => {

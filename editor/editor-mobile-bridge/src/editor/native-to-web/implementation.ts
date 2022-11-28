@@ -122,23 +122,22 @@ type Command = (
 ) => boolean;
 export type EditorConfigChange = (config: MobileEditorConfiguration) => void;
 
-const closeTypeAheadAndRunCommand = (editorView?: EditorView) => (
-  command: Command,
-) => {
-  if (!editorView) {
-    return;
-  }
-  const tool = createTypeAheadTools(editorView);
+const closeTypeAheadAndRunCommand =
+  (editorView?: EditorView) => (command: Command) => {
+    if (!editorView) {
+      return;
+    }
+    const tool = createTypeAheadTools(editorView);
 
-  if (tool && tool.isOpen()) {
-    tool.close({
-      attachCommand: command,
-      insertCurrentQueryAsRawText: false,
-    });
-  } else {
-    command(editorView.state, editorView.dispatch);
-  }
-};
+    if (tool && tool.isOpen()) {
+      tool.close({
+        attachCommand: command,
+        insertCurrentQueryAsRawText: false,
+      });
+    } else {
+      command(editorView.state, editorView.dispatch);
+    }
+  };
 
 const closeTypeAheadAndUndo = (editorView?: EditorView) => {
   return closeTypeAheadAndRunCommand(editorView)(pmHistoryUndo);
@@ -149,7 +148,8 @@ const closeTypeAheadAndRedo = (editorView?: EditorView) => {
 
 export default class WebBridgeImpl
   extends WebBridge
-  implements NativeToWebBridge {
+  implements NativeToWebBridge
+{
   textFormatBridgeState: TextFormattingState | null = null;
   statusBridgeState: StatusState | null = null;
   blockFormatBridgeState: BlockTypeState | null = null;
@@ -160,9 +160,8 @@ export default class WebBridgeImpl
   editorActions: EditorActions = new EditorActions();
   mediaPicker: CustomMediaPicker | undefined;
   mediaMap: Map<string, Function> = new Map();
-  quickInsertItems: DeferredValue<QuickInsertItem[]> = createDeferred<
-    QuickInsertItem[]
-  >();
+  quickInsertItems: DeferredValue<QuickInsertItem[]> =
+    createDeferred<QuickInsertItem[]>();
   collabSocket: CollabSocket | null = null;
   lifecycle: LifecycleImpl = new LifecycleImpl();
   eventEmitter: BridgeEventEmitter = new BridgeEventEmitter();

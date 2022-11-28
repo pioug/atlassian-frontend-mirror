@@ -50,10 +50,8 @@ describe('collab-edit: send-transaction.ts', () => {
   describe('when the transaction is not coming from scaleTable', () => {
     it('should call the provider send function', () => {
       const transaction = oldEditorState.tr.insertText('123');
-      const {
-        state: newEditorState,
-        transactions,
-      } = oldEditorState.applyTransaction(transaction);
+      const { state: newEditorState, transactions } =
+        oldEditorState.applyTransaction(transaction);
 
       sendTransaction({
         originalTransaction: transaction,
@@ -72,10 +70,8 @@ describe('collab-edit: send-transaction.ts', () => {
       const transaction = oldEditorState.tr
         .insertText('123')
         .setMeta('scaleTable', true);
-      const {
-        state: newEditorState,
-        transactions,
-      } = oldEditorState.applyTransaction(transaction);
+      const { state: newEditorState, transactions } =
+        oldEditorState.applyTransaction(transaction);
       useNativePlugin = false;
 
       sendTransaction({
@@ -93,10 +89,8 @@ describe('collab-edit: send-transaction.ts', () => {
   describe('when the transaction has an appendedTransaction', () => {
     it('should send if the appendedTransaction changes the doc', () => {
       const transaction = oldEditorState.tr;
-      const {
-        state: newEditorState,
-        transactions,
-      } = oldEditorState.applyTransaction(transaction);
+      const { state: newEditorState, transactions } =
+        oldEditorState.applyTransaction(transaction);
 
       transactions.push(oldEditorState.tr.insertText('123'));
 
@@ -116,10 +110,8 @@ describe('collab-edit: send-transaction.ts', () => {
     it('should always send the current state as the last parameter to the send function', () => {
       const transaction = oldEditorState.tr;
       transaction.insertText('LOL');
-      const {
-        state: newEditorState,
-        transactions,
-      } = oldEditorState.applyTransaction(transaction);
+      const { state: newEditorState, transactions } =
+        oldEditorState.applyTransaction(transaction);
 
       sendTransaction({
         originalTransaction: transaction,
@@ -139,10 +131,8 @@ describe('collab-edit: send-transaction.ts', () => {
     describe('and when the transaction is not changing the document', () => {
       it('should call the send function', () => {
         const transaction = oldEditorState.tr;
-        const {
-          state: newEditorState,
-          transactions,
-        } = oldEditorState.applyTransaction(transaction);
+        const { state: newEditorState, transactions } =
+          oldEditorState.applyTransaction(transaction);
 
         sendTransaction({
           originalTransaction: transaction,
@@ -160,10 +150,8 @@ describe('collab-edit: send-transaction.ts', () => {
       it('should call the send function', () => {
         const transaction = oldEditorState.tr;
         transaction.setMeta('isRemote', true);
-        const {
-          state: newEditorState,
-          transactions,
-        } = oldEditorState.applyTransaction(transaction);
+        const { state: newEditorState, transactions } =
+          oldEditorState.applyTransaction(transaction);
 
         sendTransaction({
           originalTransaction: transaction,

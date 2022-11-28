@@ -60,10 +60,10 @@ function createIndentationCommandWithAnalytics({
   inputMethod: IndentationInputMethod;
 }): Command {
   // Create a new getAttrs function to record the changes
-  const {
-    getAttrs,
-    getAndResetAttrsChanges,
-  } = getAttrsWithChangesRecorder(getNewIndentationAttrs, { direction });
+  const { getAttrs, getAndResetAttrsChanges } = getAttrsWithChangesRecorder(
+    getNewIndentationAttrs,
+    { direction },
+  );
 
   // Use new getAttrs wrapper
   const indentationCommand = createIndentationCommand(getAttrs);

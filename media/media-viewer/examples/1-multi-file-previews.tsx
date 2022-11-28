@@ -151,17 +151,15 @@ export default class Example extends React.Component<{}, State> {
     });
   };
 
-  private openCollection = (
-    identifier: Identifier,
-    collectionName: string,
-  ) => () => {
-    this.setState({
-      selected: {
-        dataSource: { collectionName },
-        identifier,
-      },
-    });
-  };
+  private openCollection =
+    (identifier: Identifier, collectionName: string) => () => {
+      this.setState({
+        selected: {
+          dataSource: { collectionName },
+          identifier,
+        },
+      });
+    };
 
   private openNotFound = () => {
     this.setState({

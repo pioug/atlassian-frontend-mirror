@@ -222,128 +222,130 @@ const buildAlignmentOptions = (
   );
 };
 
-const generateToolbarItems = (
-  state: EditorState,
-  intl: IntlShape,
-  providerFactory: ProviderFactory,
-  cardOptions: CardOptions,
-  platform?: CardPlatform,
-  linkPicker?: LinkPickerOptions,
-) => (node: Node): Array<FloatingToolbarItem<Command>> => {
-  const { url } = titleUrlPairFromNode(node);
-  let metadata = {};
-  if (url && !isSafeUrl(url)) {
-    return [];
-  } else {
-    const { title } = displayInfoForCard(node, findCardInfo(state));
-    metadata = {
-      url: url,
-      title: title,
-    };
-  }
+const generateToolbarItems =
+  (
+    state: EditorState,
+    intl: IntlShape,
+    providerFactory: ProviderFactory,
+    cardOptions: CardOptions,
+    platform?: CardPlatform,
+    linkPicker?: LinkPickerOptions,
+  ) =>
+  (node: Node): Array<FloatingToolbarItem<Command>> => {
+    const { url } = titleUrlPairFromNode(node);
+    let metadata = {};
+    if (url && !isSafeUrl(url)) {
+      return [];
+    } else {
+      const { title } = displayInfoForCard(node, findCardInfo(state));
+      metadata = {
+        url: url,
+        title: title,
+      };
+    }
 
-  const pluginState: CardPluginState = pluginKey.getState(state);
+    const pluginState: CardPluginState = pluginKey.getState(state);
 
-  const currentAppearance = appearanceForNodeType(node.type);
+    const currentAppearance = appearanceForNodeType(node.type);
 
-  /* mobile builds toolbar natively using toolbarItems */
-  if (pluginState.showLinkingToolbar && platform !== 'mobile') {
-    return [
-      buildEditLinkToolbar({
-        providerFactory,
-        linkPicker,
-        node,
-      }),
-    ];
-  } else {
-    const { inlineCard } = state.schema.nodes;
-    const toolbarItems: Array<FloatingToolbarItem<Command>> = [
-      {
-        id: 'editor.link.edit',
-        type: 'button',
-        selected: false,
-        metadata: metadata,
-        title: intl.formatMessage(linkToolbarMessages.editLink),
-        showTitle: true,
-        testId: 'link-toolbar-edit-link-button',
-        onClick: editLink,
-      },
-      { type: 'separator' },
-      {
-        id: 'editor.link.openLink',
-        type: 'button',
-        icon: OpenIcon,
-        metadata: metadata,
-        className: 'hyperlink-open-link',
-        title: intl.formatMessage(linkMessages.openLink),
-        onClick: visitCardLink,
-      },
-      { type: 'separator' },
-      ...getUnlinkButtonGroup(state, intl, node, inlineCard),
-      {
-        type: 'copy-button',
-        items: [
-          {
-            state,
-            formatMessage: intl.formatMessage,
-            nodeType: node.type,
-          },
-          { type: 'separator' },
-        ],
-      },
-      ...getSettingsButtonGroup(state, intl),
-      {
-        id: 'editor.link.delete',
-        type: 'button',
-        appearance: 'danger',
-        icon: RemoveIcon,
-        onMouseEnter: hoverDecoration(node.type, true),
-        onMouseLeave: hoverDecoration(node.type, false),
-        onFocus: hoverDecoration(node.type, true),
-        onBlur: hoverDecoration(node.type, false),
-        title: intl.formatMessage(commonMessages.remove),
-        onClick: removeCard,
-      },
-    ];
+    /* mobile builds toolbar natively using toolbarItems */
+    if (pluginState.showLinkingToolbar && platform !== 'mobile') {
+      return [
+        buildEditLinkToolbar({
+          providerFactory,
+          linkPicker,
+          node,
+        }),
+      ];
+    } else {
+      const { inlineCard } = state.schema.nodes;
+      const toolbarItems: Array<FloatingToolbarItem<Command>> = [
+        {
+          id: 'editor.link.edit',
+          type: 'button',
+          selected: false,
+          metadata: metadata,
+          title: intl.formatMessage(linkToolbarMessages.editLink),
+          showTitle: true,
+          testId: 'link-toolbar-edit-link-button',
+          onClick: editLink,
+        },
+        { type: 'separator' },
+        {
+          id: 'editor.link.openLink',
+          type: 'button',
+          icon: OpenIcon,
+          metadata: metadata,
+          className: 'hyperlink-open-link',
+          title: intl.formatMessage(linkMessages.openLink),
+          onClick: visitCardLink,
+        },
+        { type: 'separator' },
+        ...getUnlinkButtonGroup(state, intl, node, inlineCard),
+        {
+          type: 'copy-button',
+          items: [
+            {
+              state,
+              formatMessage: intl.formatMessage,
+              nodeType: node.type,
+            },
+            { type: 'separator' },
+          ],
+        },
+        ...getSettingsButtonGroup(state, intl),
+        {
+          id: 'editor.link.delete',
+          type: 'button',
+          appearance: 'danger',
+          icon: RemoveIcon,
+          onMouseEnter: hoverDecoration(node.type, true),
+          onMouseLeave: hoverDecoration(node.type, false),
+          onFocus: hoverDecoration(node.type, true),
+          onBlur: hoverDecoration(node.type, false),
+          title: intl.formatMessage(commonMessages.remove),
+          onClick: removeCard,
+        },
+      ];
 
-    if (currentAppearance === 'embed') {
-      const alignmentOptions = buildAlignmentOptions(state, intl);
-      if (alignmentOptions.length) {
-        alignmentOptions.push({
-          type: 'separator',
-        });
+      if (currentAppearance === 'embed') {
+        const alignmentOptions = buildAlignmentOptions(state, intl);
+        if (alignmentOptions.length) {
+          alignmentOptions.push({
+            type: 'separator',
+          });
+        }
+        toolbarItems.unshift(...alignmentOptions);
       }
-      toolbarItems.unshift(...alignmentOptions);
-    }
-    const { allowBlockCards, allowEmbeds } = cardOptions;
+      const { allowBlockCards, allowEmbeds } = cardOptions;
 
-    if ((allowBlockCards || allowEmbeds) && currentAppearance) {
-      toolbarItems.unshift(
-        {
-          type: 'custom',
-          fallback: [],
-          render: (editorView) => (
-            <LinkToolbarAppearance
-              key="link-appearance"
-              url={url}
-              intl={intl}
-              currentAppearance={currentAppearance}
-              editorView={editorView}
-              editorState={state}
-              allowEmbeds={allowEmbeds}
-              platform={platform}
-            />
-          ),
-        },
-        {
-          type: 'separator',
-        },
-      );
-    }
+      if ((allowBlockCards || allowEmbeds) && currentAppearance) {
+        toolbarItems.unshift(
+          {
+            type: 'custom',
+            fallback: [],
+            render: (editorView) => (
+              <LinkToolbarAppearance
+                key="link-appearance"
+                url={url}
+                intl={intl}
+                currentAppearance={currentAppearance}
+                editorView={editorView}
+                editorState={state}
+                allowEmbeds={allowEmbeds}
+                platform={platform}
+              />
+            ),
+          },
+          {
+            type: 'separator',
+          },
+        );
+      }
 
-    return toolbarItems;
-  }
-};
+      return toolbarItems;
+    }
+  };
 
 const getUnlinkButtonGroup = (
   state: EditorState<any>,

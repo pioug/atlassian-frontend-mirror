@@ -108,16 +108,12 @@ describe('@atlaskit/tree - utils/flat-tree', () => {
         describe('lower level', () => {
           it('moves to the top of the list', () => {
             expect(getDestinationPath(flatComplexTree, 4, 13)).toEqual([
-              6,
-              2,
-              0,
+              6, 2, 0,
             ]);
           });
           it('moves to the middle of the list', () => {
             expect(getDestinationPath(flatComplexTree, 4, 14)).toEqual([
-              6,
-              2,
-              1,
+              6, 2, 1,
             ]);
           });
           it('moves to the end of the list', () => {
@@ -162,8 +158,7 @@ describe('@atlaskit/tree - utils/flat-tree', () => {
           });
           it('moves to the end of the list with level 2 (explicitly staying same level)', () => {
             expect(getDestinationPath(flatComplexTree, 12, 7, 2)).toEqual([
-              2,
-              4,
+              2, 4,
             ]);
           });
           it('moves to the end of the list with level 1 (moving left)', () => {
@@ -174,16 +169,12 @@ describe('@atlaskit/tree - utils/flat-tree', () => {
         describe('lower level', () => {
           it('moves to the top of the list', () => {
             expect(getDestinationPath(flatComplexTree, 18, 14)).toEqual([
-              6,
-              2,
-              0,
+              6, 2, 0,
             ]);
           });
           it('moves to the middle of the list', () => {
             expect(getDestinationPath(flatComplexTree, 18, 15)).toEqual([
-              6,
-              2,
-              1,
+              6, 2, 1,
             ]);
           });
           it('moves to the end of the list', () => {
@@ -191,9 +182,7 @@ describe('@atlaskit/tree - utils/flat-tree', () => {
           });
           it('moves to the end of the list with level 3 (moving right)', () => {
             expect(getDestinationPath(flatComplexTree, 18, 17, 3)).toEqual([
-              6,
-              2,
-              3,
+              6, 2, 3,
             ]);
           });
         });

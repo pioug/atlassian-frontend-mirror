@@ -7,7 +7,7 @@ export type EventPayloadMap<P = any> = {
 export type EventPayloadListener<
   M extends EventPayloadMap<P>,
   E extends keyof M,
-  P = any
+  P = any,
 > = (payload: M[E]) => void;
 
 export interface EventEmitter<M extends EventPayloadMap<P>, P = any> {
@@ -28,7 +28,8 @@ export interface EventEmitter<M extends EventPayloadMap<P>, P = any> {
 }
 
 export class GenericEventEmitter<M extends EventPayloadMap<P>, P = any>
-  implements EventEmitter<M> {
+  implements EventEmitter<M>
+{
   private readonly emitter = new EventEmitter2({
     wildcard: true,
   }) as EventEmitter<M, P>;

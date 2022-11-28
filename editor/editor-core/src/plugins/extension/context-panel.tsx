@@ -34,118 +34,118 @@ const areParametersEqual = (
   return firstParameters === secondParameters;
 };
 
-export const getContextPanel = (allowAutoSave?: boolean) => (
-  state: EditorState,
-) => {
-  const nodeWithPos = getSelectedExtension(state, true);
+export const getContextPanel =
+  (allowAutoSave?: boolean) => (state: EditorState) => {
+    const nodeWithPos = getSelectedExtension(state, true);
 
-  // Adding checks to bail out early
-  if (!nodeWithPos) {
-    return;
-  }
+    // Adding checks to bail out early
+    if (!nodeWithPos) {
+      return;
+    }
 
-  const extensionState = getPluginState(state);
-  const {
-    autoSaveResolve,
-    autoSaveReject,
-    showContextPanel,
-    extensionProvider,
-    processParametersBefore,
-    processParametersAfter,
-  } = extensionState;
+    const extensionState = getPluginState(state);
+    const {
+      autoSaveResolve,
+      autoSaveReject,
+      showContextPanel,
+      extensionProvider,
+      processParametersBefore,
+      processParametersAfter,
+    } = extensionState;
 
-  if (
-    extensionState &&
-    showContextPanel &&
-    extensionProvider &&
-    processParametersAfter
-  ) {
-    const { extensionType, extensionKey, parameters } = nodeWithPos.node.attrs;
-    const [extKey, nodeKey] = getExtensionKeyAndNodeKey(
-      extensionKey,
-      extensionType,
-    );
+    if (
+      extensionState &&
+      showContextPanel &&
+      extensionProvider &&
+      processParametersAfter
+    ) {
+      const { extensionType, extensionKey, parameters } =
+        nodeWithPos.node.attrs;
+      const [extKey, nodeKey] = getExtensionKeyAndNodeKey(
+        extensionKey,
+        extensionType,
+      );
 
-    const configParams = processParametersBefore
-      ? processParametersBefore(parameters || {})
-      : parameters;
+      const configParams = processParametersBefore
+        ? processParametersBefore(parameters || {})
+        : parameters;
 
-    return (
-      <SaveIndicator duration={5000} visible={allowAutoSave}>
-        {({ onSaveStarted, onSaveEnded }) => {
-          return (
-            <WithEditorActions
-              render={(actions) => {
-                const editorView = actions._privateGetEditorView();
+      return (
+        <SaveIndicator duration={5000} visible={allowAutoSave}>
+          {({ onSaveStarted, onSaveEnded }) => {
+            return (
+              <WithEditorActions
+                render={(actions) => {
+                  const editorView = actions._privateGetEditorView();
 
-                if (!editorView) {
-                  return null;
-                }
+                  if (!editorView) {
+                    return null;
+                  }
 
-                return (
-                  <ConfigPanelLoader
-                    showHeader
-                    closeOnEsc
-                    extensionType={extensionType}
-                    extensionKey={extKey}
-                    nodeKey={nodeKey}
-                    extensionParameters={parameters}
-                    parameters={configParams}
-                    extensionProvider={extensionProvider}
-                    autoSave={allowAutoSave}
-                    autoSaveTrigger={autoSaveResolve}
-                    autoSaveReject={autoSaveReject}
-                    onChange={async (updatedParameters) => {
-                      await onChangeAction(
-                        editorView,
-                        updatedParameters,
-                        parameters,
-                        nodeWithPos,
-                        onSaveStarted,
-                      );
-                      onSaveEnded();
+                  return (
+                    <ConfigPanelLoader
+                      showHeader
+                      closeOnEsc
+                      extensionType={extensionType}
+                      extensionKey={extKey}
+                      nodeKey={nodeKey}
+                      extensionParameters={parameters}
+                      parameters={configParams}
+                      extensionProvider={extensionProvider}
+                      autoSave={allowAutoSave}
+                      autoSaveTrigger={autoSaveResolve}
+                      autoSaveReject={autoSaveReject}
+                      onChange={async (updatedParameters) => {
+                        await onChangeAction(
+                          editorView,
+                          updatedParameters,
+                          parameters,
+                          nodeWithPos,
+                          onSaveStarted,
+                        );
+                        onSaveEnded();
 
-                      if (autoSaveResolve) {
-                        autoSaveResolve();
-                      }
-                      if (!allowAutoSave) {
+                        if (autoSaveResolve) {
+                          autoSaveResolve();
+                        }
+                        if (!allowAutoSave) {
+                          clearEditingContext(
+                            editorView.state,
+                            editorView.dispatch,
+                          );
+                        }
+                      }}
+                      onCancel={async () => {
+                        if (allowAutoSave) {
+                          try {
+                            await new Promise<void>((resolve, reject) => {
+                              forceAutoSave(resolve, reject)(
+                                editorView.state,
+                                editorView.dispatch,
+                              );
+                            });
+                          } catch (e) {
+                            // Even if the save failed, we should proceed with closing the panel
+                            // eslint-disable-next-line no-console
+                            console.error(`Autosave failed with error`, e);
+                          }
+                        }
+
                         clearEditingContext(
                           editorView.state,
                           editorView.dispatch,
                         );
-                      }
-                    }}
-                    onCancel={async () => {
-                      if (allowAutoSave) {
-                        try {
-                          await new Promise<void>((resolve, reject) => {
-                            forceAutoSave(resolve, reject)(
-                              editorView.state,
-                              editorView.dispatch,
-                            );
-                          });
-                        } catch (e) {
-                          // Even if the save failed, we should proceed with closing the panel
-                          // eslint-disable-next-line no-console
-                          console.error(`Autosave failed with error`, e);
-                        }
-                      }
-
-                      clearEditingContext(
-                        editorView.state,
-                        editorView.dispatch,
-                      );
-                    }}
-                  />
-                );
-              }}
-            />
-          );
-        }}
-      </SaveIndicator>
-    );
-  }
-};
+                      }}
+                    />
+                  );
+                }}
+              />
+            );
+          }}
+        </SaveIndicator>
+      );
+    }
+  };
 
 export async function onChangeAction(
   editorView: EditorView,

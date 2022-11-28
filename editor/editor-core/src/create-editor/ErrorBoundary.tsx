@@ -94,7 +94,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
     const attributes: ErrorEventAttributes = {
       product,
       browserInfo,
-      error: (error as any) as Error,
+      error: error as any as Error,
       errorInfo,
       errorId: sharedId,
       browserExtensions: this.browserExtensions,

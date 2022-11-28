@@ -58,9 +58,8 @@ export class Client implements ActionablePubSubClient {
       protocols = [new PubNubProtocol(this.featureFlags)];
     }
 
-    this.subscribeBaseRequest.clientInfo.capabilities = this.registerProtocols(
-      protocols,
-    );
+    this.subscribeBaseRequest.clientInfo.capabilities =
+      this.registerProtocols(protocols);
   }
 
   on(event: string, listener: OnEvent): PubSubClient {

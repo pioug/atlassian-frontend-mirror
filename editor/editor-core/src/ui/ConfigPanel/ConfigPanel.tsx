@@ -134,9 +134,8 @@ const WithOnFieldChange: FunctionComponent<{
   handleSubmit: (parameters: Parameters) => void;
   children: (onFieldChange: OnFieldChange) => ReactElement;
 }> = ({ getState, autoSave, handleSubmit, children }) => {
-  const getStateRef = useRef<
-    () => { values: Parameters; errors: ValidationErrors }
-  >(getState);
+  const getStateRef =
+    useRef<() => { values: Parameters; errors: ValidationErrors }>(getState);
 
   useEffect(() => {
     getStateRef.current = getState;
@@ -232,12 +231,8 @@ class ConfigPanel extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const {
-      parameters,
-      fields,
-      autoSaveTrigger,
-      extensionManifest,
-    } = this.props;
+    const { parameters, fields, autoSaveTrigger, extensionManifest } =
+      this.props;
 
     if (
       (parameters && parameters !== prevProps.parameters) ||
@@ -451,9 +446,8 @@ class ConfigPanel extends React.Component<Props, State> {
     if (firstVisibleField) {
       // if it was a fieldset, go deeper trying to locate the field
       if (firstVisibleField.type === 'fieldset') {
-        const firstVisibleFieldWithinFieldset = firstVisibleField.fields.find(
-          nonHidden,
-        );
+        const firstVisibleFieldWithinFieldset =
+          firstVisibleField.fields.find(nonHidden);
 
         newFirstVisibleFieldName =
           firstVisibleFieldWithinFieldset &&
@@ -483,11 +477,8 @@ class ConfigPanel extends React.Component<Props, State> {
     }
 
     const { autoSave, errorMessage, fields, isLoading, onCancel } = this.props;
-    const {
-      currentParameters,
-      hasParsedParameters,
-      firstVisibleFieldName,
-    } = this.state;
+    const { currentParameters, hasParsedParameters, firstVisibleFieldName } =
+      this.state;
     const { handleSubmit, handleKeyDown } = this;
 
     return (

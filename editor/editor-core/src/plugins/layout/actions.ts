@@ -298,40 +298,39 @@ export function forceSectionToPresetLayout(
   );
 }
 
-export const setPresetLayout = (layout: PresetLayout): Command => (
-  state,
-  dispatch,
-) => {
-  const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
-  if (selectedLayout === layout || pos === null) {
-    return false;
-  }
-
-  const node = state.doc.nodeAt(pos);
-  if (!node) {
-    return false;
-  }
-
-  let tr = forceSectionToPresetLayout(state, node, pos, layout);
-  if (tr) {
-    tr = addAnalytics(state, tr, {
-      action: ACTION.CHANGED_LAYOUT,
-      actionSubject: ACTION_SUBJECT.LAYOUT,
-      attributes: {
-        previousLayout: formatLayoutName(<PresetLayout>selectedLayout),
-        newLayout: formatLayoutName(layout),
-      },
-      eventType: EVENT_TYPE.TRACK,
-    });
-    tr.setMeta('scrollIntoView', false);
-    if (dispatch) {
-      dispatch(tr);
+export const setPresetLayout =
+  (layout: PresetLayout): Command =>
+  (state, dispatch) => {
+    const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
+    if (selectedLayout === layout || pos === null) {
+      return false;
     }
-    return true;
-  }
 
-  return false;
-};
+    const node = state.doc.nodeAt(pos);
+    if (!node) {
+      return false;
+    }
+
+    let tr = forceSectionToPresetLayout(state, node, pos, layout);
+    if (tr) {
+      tr = addAnalytics(state, tr, {
+        action: ACTION.CHANGED_LAYOUT,
+        actionSubject: ACTION_SUBJECT.LAYOUT,
+        attributes: {
+          previousLayout: formatLayoutName(<PresetLayout>selectedLayout),
+          newLayout: formatLayoutName(layout),
+        },
+        eventType: EVENT_TYPE.TRACK,
+      });
+      tr.setMeta('scrollIntoView', false);
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
+    }
+
+    return false;
+  };
 
 function layoutNeedChanges(node: Node): boolean {
   return !getPresetLayout(node);

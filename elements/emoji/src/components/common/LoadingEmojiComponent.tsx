@@ -22,7 +22,7 @@ export interface State {
  */
 export default abstract class LoadingEmojiComponent<
   P extends Props,
-  S extends State
+  S extends State,
 > extends Component<P, S> {
   private isUnmounted: boolean = false;
 
@@ -74,7 +74,7 @@ export default abstract class LoadingEmojiComponent<
     T extends State & {
       asyncLoadedComponent: ComponentType<any>;
       loadedEmojiProvider: EmojiProvider;
-    }
+    },
   >(
     state: State,
   ): state is T => !!state.asyncLoadedComponent && !!state.loadedEmojiProvider;

@@ -141,26 +141,34 @@ const createScenarios = (): Scenarios => {
     ];
   };
   return {
-    'media-single-server': ([
-      { mode: 'single' },
-      { mode: 'single', throwError: 'getImageUrlSync' },
-      { mode: 'single', throwError: 'dataURI' },
-    ] as const).map(createScenario),
-    'media-single-hydration': ([
-      { mode: 'single', hydrate: true },
-      { mode: 'single', hydrate: true, throwError: 'getImageUrlSync' },
-      { mode: 'single', hydrate: true, throwError: 'dataURI' },
-    ] as const).map(createScenario),
-    'media-group-server': ([
-      { mode: 'group' },
-      { mode: 'group', throwError: 'getImageUrlSync' },
-      { mode: 'group', throwError: 'dataURI' },
-    ] as const).map(createScenario),
-    'media-group-hydration': ([
-      { mode: 'group', hydrate: true },
-      { mode: 'group', hydrate: true, throwError: 'getImageUrlSync' },
-      { mode: 'group', hydrate: true, throwError: 'dataURI' },
-    ] as const).map(createScenario),
+    'media-single-server': (
+      [
+        { mode: 'single' },
+        { mode: 'single', throwError: 'getImageUrlSync' },
+        { mode: 'single', throwError: 'dataURI' },
+      ] as const
+    ).map(createScenario),
+    'media-single-hydration': (
+      [
+        { mode: 'single', hydrate: true },
+        { mode: 'single', hydrate: true, throwError: 'getImageUrlSync' },
+        { mode: 'single', hydrate: true, throwError: 'dataURI' },
+      ] as const
+    ).map(createScenario),
+    'media-group-server': (
+      [
+        { mode: 'group' },
+        { mode: 'group', throwError: 'getImageUrlSync' },
+        { mode: 'group', throwError: 'dataURI' },
+      ] as const
+    ).map(createScenario),
+    'media-group-hydration': (
+      [
+        { mode: 'group', hydrate: true },
+        { mode: 'group', hydrate: true, throwError: 'getImageUrlSync' },
+        { mode: 'group', hydrate: true, throwError: 'dataURI' },
+      ] as const
+    ).map(createScenario),
   };
 };
 

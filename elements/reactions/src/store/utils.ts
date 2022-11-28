@@ -64,15 +64,14 @@ export const removeOne = (reaction: ReactionSummary): ReactionSummary => ({
   reacted: false,
 });
 
-export const updateByEmojiId = (
-  emojiId: string,
-  updater: Updater<ReactionSummary> | ReactionSummary,
-) => (reaction: ReactionSummary) =>
-  reaction.emojiId === emojiId
-    ? updater instanceof Function
-      ? updater(reaction)
-      : updater
-    : reaction;
+export const updateByEmojiId =
+  (emojiId: string, updater: Updater<ReactionSummary> | ReactionSummary) =>
+  (reaction: ReactionSummary) =>
+    reaction.emojiId === emojiId
+      ? updater instanceof Function
+        ? updater(reaction)
+        : updater
+      : reaction;
 
 export const getReactionsSortFunction = (reactions?: ReactionSummary[]) =>
   reactions && reactions.length

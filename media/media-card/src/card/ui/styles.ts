@@ -45,10 +45,8 @@ export const getWrapperDimensions = (
   appearance?: CardAppearance,
 ) => {
   const { width, height } = dimensions || {};
-  const {
-    width: defaultWidth,
-    height: defaultHeight,
-  } = getDefaultCardDimensions(appearance);
+  const { width: defaultWidth, height: defaultHeight } =
+    getDefaultCardDimensions(appearance);
   return `
     width: ${getCSSUnitValue(width || defaultWidth)};
     max-width: 100%;

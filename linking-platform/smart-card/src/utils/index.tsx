@@ -260,13 +260,12 @@ export const getIframeSandboxAttribute = (isTrusted: boolean) =>
   isTrusted
     ? undefined
     : 'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts';
-export const handleOnClick = (handler: Function) => (
-  e: React.BaseSyntheticEvent,
-) => {
-  e.preventDefault();
-  e.stopPropagation();
-  handler();
-};
+export const handleOnClick =
+  (handler: Function) => (e: React.BaseSyntheticEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handler();
+  };
 
 export const isIntersectionObserverSupported = () =>
   typeof IntersectionObserver !== 'undefined';

@@ -271,25 +271,27 @@ export default class EmojiPickerVirtualList extends PureComponent<
     return categoryToGroupMap;
   };
 
-  private groupByCategory = (currentUser?: User) => (
-    categoryToGroupMap: CategoryKeyToGroup,
-    emoji: EmojiDescription,
-  ): CategoryKeyToGroup => {
-    this.addToCategoryMap(
-      categoryToGroupMap,
-      emoji,
-      emoji.category as CategoryId,
-    );
-    // separate user emojis
-    if (
-      emoji.category === customCategory &&
-      currentUser &&
-      emoji.creatorUserId === currentUser.id
-    ) {
-      this.addToCategoryMap(categoryToGroupMap, emoji, 'USER_CUSTOM');
-    }
-    return categoryToGroupMap;
-  };
+  private groupByCategory =
+    (currentUser?: User) =>
+    (
+      categoryToGroupMap: CategoryKeyToGroup,
+      emoji: EmojiDescription,
+    ): CategoryKeyToGroup => {
+      this.addToCategoryMap(
+        categoryToGroupMap,
+        emoji,
+        emoji.category as CategoryId,
+      );
+      // separate user emojis
+      if (
+        emoji.category === customCategory &&
+        currentUser &&
+        emoji.creatorUserId === currentUser.id
+      ) {
+        this.addToCategoryMap(categoryToGroupMap, emoji, 'USER_CUSTOM');
+      }
+      return categoryToGroupMap;
+    };
 
   private buildEmojiGroupedByCategory = (
     emojis: EmojiDescription[],
@@ -300,9 +302,9 @@ export default class EmojiPickerVirtualList extends PureComponent<
       {} as CategoryKeyToGroup,
     );
 
-    this.allEmojiGroups = (Object.keys(
-      categoryToGroupMap,
-    ) as CategoryGroupKey[])
+    this.allEmojiGroups = (
+      Object.keys(categoryToGroupMap) as CategoryGroupKey[]
+    )
       .map((key: CategoryGroupKey) => categoryToGroupMap[key])
       .map((group) => {
         if (group.category !== 'FREQUENT') {

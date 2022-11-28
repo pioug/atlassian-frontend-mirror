@@ -43,7 +43,7 @@ describe('inlineCard', () => {
 
   beforeEach(() => {
     mockFindOverflowScrollParent = jest.fn();
-    mockEditorView = ({
+    mockEditorView = {
       state: {
         selection: {
           from: 0,
@@ -56,7 +56,7 @@ describe('inlineCard', () => {
         },
       },
       dispatch: jest.fn(),
-    } as unknown) as EditorView;
+    } as unknown as EditorView;
     mockSmartCardRender.mockImplementation((props) => {
       props.onResolve({
         title: 'my-title',

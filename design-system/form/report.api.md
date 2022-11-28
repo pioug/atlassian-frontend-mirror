@@ -51,7 +51,7 @@ export const ErrorMessage: React_2.FC<MessageProps>;
 // @public (undocumented)
 export function Field<
   FieldValue = string,
-  Element extends SupportedElements = HTMLInputElement
+  Element extends SupportedElements = HTMLInputElement,
 >(props: FieldComponentProps<FieldValue, Element>): jsx.JSX.Element;
 
 // @public (undocumented)
@@ -84,7 +84,7 @@ interface FieldComponentProps<FieldValue, Element extends SupportedElements> {
 // @public (undocumented)
 export interface FieldProps<
   FieldValue,
-  Element extends SupportedElements = HTMLInputElement
+  Element extends SupportedElements = HTMLInputElement,
 > {
   // (undocumented)
   'aria-invalid': 'true' | 'false';

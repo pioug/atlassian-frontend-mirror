@@ -199,9 +199,8 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
           floatingToolbarData,
           extensionsState,
         }) => {
-          const configWithNodeInfo = floatingToolbarState?.getConfigWithNodeInfo(
-            editorView.state,
-          );
+          const configWithNodeInfo =
+            floatingToolbarState?.getConfigWithNodeInfo(editorView.state);
           if (
             !configWithNodeInfo ||
             !configWithNodeInfo.config ||
@@ -250,9 +249,9 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
           // Confirm dialog
           const { confirmDialogForItem } = floatingToolbarData || {};
           const confirmButtonItem = confirmDialogForItem
-            ? (toolbarItems[confirmDialogForItem] as FloatingToolbarButton<
-                Function
-              >)
+            ? (toolbarItems[
+                confirmDialogForItem
+              ] as FloatingToolbarButton<Function>)
             : undefined;
 
           const scrollable =
@@ -355,12 +354,8 @@ function floatingToolbarPluginFactory(options: {
   dispatch: Dispatch<FloatingToolbarPluginState>;
   providerFactory: ProviderFactory;
 }) {
-  const {
-    floatingToolbarHandlers,
-    dispatch,
-    providerFactory,
-    getIntl,
-  } = options;
+  const { floatingToolbarHandlers, dispatch, providerFactory, getIntl } =
+    options;
   const intl = getIntl();
   const getConfigWithNodeInfo = (editorState: EditorState) => {
     const activeConfigs = floatingToolbarHandlers

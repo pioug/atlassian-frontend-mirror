@@ -97,12 +97,12 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
         onFocus={onFocus}
         ref={ref}
         style={
-          ({
+          {
             [CSS_THEME_BACKGROUND]: themedBackground(theme),
             [CSS_THEME_COLOR]: themedColor(theme),
             [CSS_THEME_BOX_SHADOW]: themedBoxShadow(theme),
             ...style,
-          } as unknown) as React.CSSProperties
+          } as unknown as React.CSSProperties
         }
       >
         {children}

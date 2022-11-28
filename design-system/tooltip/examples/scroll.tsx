@@ -23,13 +23,13 @@ interface StyledProps {
 const Parent = styled.div<StyledProps>`
   background-color: ${token('elevation.surface.sunken', N20)};
   border-radius: 5px;
-  margin-bottom: 8px;
+  margin-bottom: ${token('spacing.scale.100', '8px')};
   height: 64px;
-  padding: 8px;
+  padding: ${token('spacing.scale.100', '8px')};
   ${(p) => direction[p.scroll]}: scroll;
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: ${token('spacing.scale.0', '0px')};
   }
 `;
 const Shim = styled.div<StyledProps>`

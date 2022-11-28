@@ -56,9 +56,11 @@ const disabledAccountDesc = (
   const date = statusModifiedDate ? new Date(statusModifiedDate * 1000) : null;
   const relativeDateKey = relativeDate(date);
 
-  const msgKey = (relativeDateKey
-    ? `${status}AccountDescMsgHasDate${relativeDateKey}`
-    : `${status}AccountDescMsgNoDate`) as keyof typeof messages;
+  const msgKey = (
+    relativeDateKey
+      ? `${status}AccountDescMsgHasDate${relativeDateKey}`
+      : `${status}AccountDescMsgNoDate`
+  ) as keyof typeof messages;
 
   const secondSentence = <FormattedMessage {...messages[msgKey]} />;
 

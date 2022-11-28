@@ -127,15 +127,14 @@ class PanelNodeView {
   }
 }
 
-export const getPanelNodeView = (
-  pluginOptions: PanelPluginOptions,
-  providerFactory?: ProviderFactory,
-) => (node: any, view: EditorView, getPos: getPosHandler): PanelNodeView => {
-  return new PanelNodeView(
-    node,
-    view,
-    getPos as getPosHandlerNode,
-    pluginOptions,
-    providerFactory,
-  );
-};
+export const getPanelNodeView =
+  (pluginOptions: PanelPluginOptions, providerFactory?: ProviderFactory) =>
+  (node: any, view: EditorView, getPos: getPosHandler): PanelNodeView => {
+    return new PanelNodeView(
+      node,
+      view,
+      getPos as getPosHandlerNode,
+      pluginOptions,
+      providerFactory,
+    );
+  };

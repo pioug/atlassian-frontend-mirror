@@ -67,9 +67,10 @@ describe('withMediaAnalyticsContext()', () => {
       analyticsEventPayload,
     );
 
-    const MediaComponentFiringAnalyticsEventWithContext = withMediaAnalyticsContext(
-      someContextData,
-    )(MediaComponentFiringAnalyticsEvent);
+    const MediaComponentFiringAnalyticsEventWithContext =
+      withMediaAnalyticsContext(someContextData)(
+        MediaComponentFiringAnalyticsEvent,
+      );
 
     mount(
       <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
@@ -112,12 +113,10 @@ describe('withMediaAnalyticsContext()', () => {
       analyticsEventPayload,
     );
 
-    const MediaComponentFiringAnalyticsEventWithContext = withMediaAnalyticsContext(
-      someContextData,
-      {
+    const MediaComponentFiringAnalyticsEventWithContext =
+      withMediaAnalyticsContext(someContextData, {
         filterFeatureFlags: Object.keys(filteredFlags) as any,
-      },
-    )(MediaComponentFiringAnalyticsEvent);
+      })(MediaComponentFiringAnalyticsEvent);
 
     mount(
       <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
@@ -156,9 +155,8 @@ describe('withMediaAnalyticsContext()', () => {
       ),
     );
 
-    const WrappedFancyButton = withMediaAnalyticsContext(someContextData)(
-      FancyButton,
-    );
+    const WrappedFancyButton =
+      withMediaAnalyticsContext(someContextData)(FancyButton);
 
     const wrapper = mount(<WrappedFancyButton ref={someRef} />);
 

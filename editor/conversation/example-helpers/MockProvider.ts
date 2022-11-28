@@ -56,9 +56,9 @@ const RESPONSE_MESSAGES = {
 
 export const getDataProviderFactory = (onlyInclude: string[] = []) => {
   const dataProviderFactory = new ProviderFactory();
-  (Object.keys(MockDataProviders) as Array<
-    keyof typeof MockDataProviders
-  >).forEach((provider) => {
+  (
+    Object.keys(MockDataProviders) as Array<keyof typeof MockDataProviders>
+  ).forEach((provider) => {
     if (onlyInclude.length === 0 || onlyInclude.indexOf(provider) !== -1) {
       dataProviderFactory.setProvider(provider, MockDataProviders[provider]);
     }

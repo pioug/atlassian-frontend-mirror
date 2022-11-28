@@ -265,12 +265,8 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
   highlights = (newWidth: number, snapPoints: number[]) => {
     const snapWidth = snapTo(newWidth, snapPoints);
-    const {
-      layoutColumn,
-      table,
-      expand,
-      nestedExpand,
-    } = this.props.view.state.schema.nodes;
+    const { layoutColumn, table, expand, nestedExpand } =
+      this.props.view.state.schema.nodes;
 
     if (
       this.$pos &&
@@ -364,13 +360,8 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
   }
 
   render() {
-    const {
-      layout,
-      pctWidth,
-      containerWidth,
-      fullWidthMode,
-      children,
-    } = this.props;
+    const { layout, pctWidth, containerWidth, fullWidthMode, children } =
+      this.props;
 
     const initialWidth =
       this.calcPxWidth() - akEditorMediaResizeHandlerPaddingWide;

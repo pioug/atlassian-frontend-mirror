@@ -168,8 +168,7 @@ BrowserTestCase(
     featureFlags: {},
   },
   {
-    test:
-      'Should stack columns to the right and go to overflow with overflowShadowsOptimisation',
+    test: 'Should stack columns to the right and go to overflow with overflowShadowsOptimisation',
     featureFlags: {
       tableOverflowShadowsOptimization: true,
     },

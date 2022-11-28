@@ -126,9 +126,7 @@ interface Config {
   // (undocumented)
   documentAri: string;
   // (undocumented)
-  getUser?(
-    userId: string,
-  ): Promise<
+  getUser?(userId: string): Promise<
     Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & {
       userId: string;
     }

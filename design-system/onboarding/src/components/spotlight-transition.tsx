@@ -19,13 +19,12 @@ interface SpotlightTransitionContextModel {
   onExited: () => void;
 }
 
-const SpotlightTransitionContext = createContext<
-  SpotlightTransitionContextModel
->({
-  isOpen: true,
+const SpotlightTransitionContext =
+  createContext<SpotlightTransitionContextModel>({
+    isOpen: true,
 
-  onExited: noop,
-});
+    onExited: noop,
+  });
 
 // checks if children exist and are truthy
 const hasChildren = (children: ReactNode) =>

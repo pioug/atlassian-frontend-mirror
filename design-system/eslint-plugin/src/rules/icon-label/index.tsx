@@ -98,8 +98,7 @@ const rule: Rule.RuleModule = {
               const hasOtherDefinedLabel: boolean =
                 !!node.children.length || !!findProp(node, 'aria-label');
 
-              const expression = (prop.value
-                .expression as unknown) as JSXElement;
+              const expression = prop.value.expression as unknown as JSXElement;
               if (
                 expression.type !== 'JSXElement' ||
                 expression.openingElement.name.type !== 'JSXIdentifier'

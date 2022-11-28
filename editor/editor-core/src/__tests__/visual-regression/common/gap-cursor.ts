@@ -153,12 +153,8 @@ describe('Gap cursor: selection', () => {
   it('should not break selection when the users drag finishes outside the doc', async () => {
     const rect = await page.evaluate((selector: string) => {
       const element = document.querySelector(selector)!;
-      const {
-        x,
-        y,
-        width,
-        height,
-      } = element.getBoundingClientRect() as DOMRect;
+      const { x, y, width, height } =
+        element.getBoundingClientRect() as DOMRect;
       return { left: x, top: y, width, height, id: element.id };
     }, `${selectors.editor} p`);
 

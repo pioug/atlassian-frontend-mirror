@@ -554,27 +554,23 @@ export class CustomMediaPlayerBase extends Component<
     }
   };
 
-  private getMediaButtonClickHandler = (
-    action: Action,
-    buttonType: string,
-  ) => () => {
-    action();
-    this.createAndFireUIEvent('mediaButtonClick', buttonType);
-  };
+  private getMediaButtonClickHandler =
+    (action: Action, buttonType: string) => () => {
+      action();
+      this.createAndFireUIEvent('mediaButtonClick', buttonType);
+    };
 
-  private getKeyboardShortcutHandler = (
-    action: Action,
-    shortcutType: string,
-  ) => () => {
-    const { showControls } = this.props;
-    action();
+  private getKeyboardShortcutHandler =
+    (action: Action, shortcutType: string) => () => {
+      const { showControls } = this.props;
+      action();
 
-    if (showControls) {
-      showControls();
-    }
+      if (showControls) {
+        showControls();
+      }
 
-    this.createAndFireUIEvent('shortcutPress', shortcutType);
-  };
+      this.createAndFireUIEvent('shortcutPress', shortcutType);
+    };
 
   private createAndFireUIEvent(
     eventType: CustomMediaPlayerUIEvent,
@@ -752,13 +748,8 @@ export class CustomMediaPlayerBase extends Component<
             this.setActions(actions);
             //Video State(either prop or variable) is ReadOnly
             this.videoState = videoState;
-            const {
-              status,
-              currentTime,
-              buffered,
-              duration,
-              isLoading,
-            } = videoState;
+            const { status, currentTime, buffered, duration, isLoading } =
+              videoState;
             const { playerSize } = this.state;
             const isPlaying = status === 'playing';
 

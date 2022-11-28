@@ -4,7 +4,7 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { ElementSelection } from './element-selection';
 
 export const useSelectAllTrap = <
-  T extends HTMLElement
+  T extends HTMLElement,
 >(): React.MutableRefObject<T | null> => {
   const { fireAnalyticsEvent } = React.useContext(AnalyticsContext);
   const ref = React.useRef<T | null>(null);

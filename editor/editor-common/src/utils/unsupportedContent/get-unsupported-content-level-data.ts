@@ -123,9 +123,8 @@ export const getUnsupportedContentLevelData = (
   validDocument: ADFEntity,
   customThresholds: UnsupportedContentLevelsTracking['thresholds'],
 ) => {
-  const { unsupportedNodes, supportedNodes } = countSupportedUnsupportedNodes(
-    validDocument,
-  );
+  const { unsupportedNodes, supportedNodes } =
+    countSupportedUnsupportedNodes(validDocument);
   const thresholds = buildUnsupportedContentLevelThresholds(customThresholds);
   const percentage = Math.round(
     (unsupportedNodes / (unsupportedNodes + supportedNodes)) * 100,

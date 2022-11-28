@@ -71,9 +71,8 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({
     label: '',
   };
 
-  const [selectedOption, setSelectedOption] = useState<SelectOption>(
-    SELECT_EMPTY_VALUE,
-  );
+  const [selectedOption, setSelectedOption] =
+    useState<SelectOption>(SELECT_EMPTY_VALUE);
 
   const handleOnShowMoreButtonClick = useCallback(() => {
     if (searchWhatsNewArticlesResult && onSearchWhatsNewArticles) {
@@ -192,12 +191,16 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({
                       value={selectedOption}
                       onChange={(option) => {
                         if (onSearchWhatsNewArticles) {
-                          const selectedOptionValue = (option as {
-                            value: string;
-                          }).value as WHATS_NEW_ITEM_TYPES | '';
-                          const selectedOptionLabel = (option as {
-                            label: string;
-                          }).label as string;
+                          const selectedOptionValue = (
+                            option as {
+                              value: string;
+                            }
+                          ).value as WHATS_NEW_ITEM_TYPES | '';
+                          const selectedOptionLabel = (
+                            option as {
+                              label: string;
+                            }
+                          ).label as string;
                           setSelectedOption({
                             value: selectedOptionValue,
                             label: selectedOptionLabel,

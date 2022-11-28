@@ -63,30 +63,30 @@ function removeRow(
 }
 
 // Returns a new transaction that removes a row at index `rowIndex`. If there is only one row left, it will remove the entire table.
-export const removeRowAt = (rowIndex: number) => (
-  tr: Transaction,
-): Transaction => {
-  const table = findTable(tr.selection);
-  if (table) {
-    const map = TableMap.get(table.node);
-    if (rowIndex === 0 && map.height === 1) {
-      return removeTable(tr);
-    } else if (rowIndex >= 0 && rowIndex <= map.height) {
-      removeRow(
-        tr,
-        {
-          map,
-          tableStart: table.start,
-          table: table.node,
-        },
-        rowIndex,
-      );
-      return cloneTr(tr);
+export const removeRowAt =
+  (rowIndex: number) =>
+  (tr: Transaction): Transaction => {
+    const table = findTable(tr.selection);
+    if (table) {
+      const map = TableMap.get(table.node);
+      if (rowIndex === 0 && map.height === 1) {
+        return removeTable(tr);
+      } else if (rowIndex >= 0 && rowIndex <= map.height) {
+        removeRow(
+          tr,
+          {
+            map,
+            tableStart: table.start,
+            table: table.node,
+          },
+          rowIndex,
+        );
+        return cloneTr(tr);
+      }
     }
-  }
 
-  return tr;
-};
+    return tr;
+  };
 
 // Returns a new transaction that removes selected rows.
 export const removeSelectedRows = (tr: Transaction): Transaction => {
@@ -133,12 +133,12 @@ export const removeSelectedRows = (tr: Transaction): Transaction => {
 };
 
 // Returns a new transaction that removes a row closest to a given `$pos`.
-export const removeRowClosestToPos = ($pos: ResolvedPos) => (
-  tr: Transaction,
-): Transaction => {
-  const rect = findCellRectClosestToPos($pos);
-  if (rect) {
-    return removeRowAt(rect.top)(setTextSelection($pos.pos)(tr));
-  }
-  return tr;
-};
+export const removeRowClosestToPos =
+  ($pos: ResolvedPos) =>
+  (tr: Transaction): Transaction => {
+    const rect = findCellRectClosestToPos($pos);
+    if (rect) {
+      return removeRowAt(rect.top)(setTextSelection($pos.pos)(tr));
+    }
+    return tr;
+  };

@@ -1,6 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Stack as Stack,
+} from '@atlaskit/ds-explorations';
+import Heading from '@atlaskit/heading';
 import ModalDialog, {
   ModalBody,
   ModalHeader,
@@ -14,28 +19,30 @@ export default () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <Fragment>
-      <h2 style={{ margin: ' 0 0 20px' }}>
+    <Stack gap="scale.250">
+      <Heading level="h700">
         Click dropdown button and try to open the modal using your keyboard.
-      </h2>
+      </Heading>
 
-      <DropdownMenu
-        trigger="Open dropdown"
-        testId="dropdown"
-        onOpenChange={(e) => console.log('dropdown opened', e)}
-      >
-        <DropdownItemGroup>
-          <DropdownItem
-            onClick={(e: React.MouseEvent | React.KeyboardEvent) => {
-              e.preventDefault();
+      <Box>
+        <DropdownMenu
+          trigger="Open dropdown"
+          testId="dropdown"
+          onOpenChange={(e) => console.log('dropdown opened', e)}
+        >
+          <DropdownItemGroup>
+            <DropdownItem
+              onClick={(e: React.MouseEvent | React.KeyboardEvent) => {
+                e.preventDefault();
 
-              setModalOpen(true);
-            }}
-          >
-            Open modal
-          </DropdownItem>
-        </DropdownItemGroup>
-      </DropdownMenu>
+                setModalOpen(true);
+              }}
+            >
+              Open modal
+            </DropdownItem>
+          </DropdownItemGroup>
+        </DropdownMenu>
+      </Box>
 
       <ModalTransition>
         {isModalOpen && (
@@ -45,7 +52,7 @@ export default () => {
             </ModalHeader>
 
             <ModalBody>
-              <div style={{ padding: '20px 0' }}>
+              <Box paddingBlock="scale.250">
                 <Button onClick={() => setModalOpen(false)}>Close modal</Button>
                 <DropdownMenu
                   trigger="Open dropdown"
@@ -64,11 +71,11 @@ export default () => {
                     </DropdownItem>
                   </DropdownItemGroup>
                 </DropdownMenu>
-              </div>
+              </Box>
             </ModalBody>
           </ModalDialog>
         )}
       </ModalTransition>
-    </Fragment>
+    </Stack>
   );
 };

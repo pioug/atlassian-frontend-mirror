@@ -91,25 +91,17 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${placeholderStyles}
   ${codeBlockStyles(props)}
 
-  ${blocktypeStyles(
-    props,
-  )}
-  ${textFormattingStyles(
-    props,
-  )}
+  ${blocktypeStyles(props)}
+  ${textFormattingStyles(props)}
   ${textColorStyles}
   ${listsStyles}
-  ${ruleStyles(
-    props,
-  )}
+  ${ruleStyles(props)}
   ${mediaStyles}
   ${layoutStyles}
   ${telepointerStyle}
   ${gapCursorStyles};
   ${tableStyles(props)}
-  ${panelStyles(
-    props,
-  )}
+  ${panelStyles(props)}
   ${fakeCursorStyles}
   ${mentionsStyles}
   ${emojiStyles}
@@ -119,15 +111,11 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${blockMarksSharedStyles}
   ${dateSharedStyle}
   ${extensionStyles}
-  ${expandStyles(
-    props,
-  )}
+  ${expandStyles(props)}
   ${findReplaceStyles}
   ${taskDecisionStyles}
   ${statusStyles}
-  ${annotationSharedStyles(
-    props,
-  )}
+  ${annotationSharedStyles(props)}
   ${smartCardStyles}
   ${smartCardSharedStyles}
   ${dateStyles}

@@ -244,12 +244,8 @@ describe('CollectionFetcher', () => {
     });
 
     it('should append new items', async (done) => {
-      const {
-        collectionFetcher,
-        getCollectionItems,
-        newItem,
-        contents,
-      } = setup();
+      const { collectionFetcher, getCollectionItems, newItem, contents } =
+        setup();
 
       collectionFetcher.getItems(RECENTS_COLLECTION).subscribe({
         async next(items) {

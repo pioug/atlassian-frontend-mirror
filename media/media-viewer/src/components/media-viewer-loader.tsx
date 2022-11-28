@@ -5,17 +5,14 @@ import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 import { MediaViewerProps } from './types';
 import { MediaViewerAnalyticsErrorBoundaryProps } from './media-viewer-analytics-error-boundary';
 
-export type MediaViewerWithMediaClientConfigProps = WithMediaClientConfigProps<
-  MediaViewerProps
->;
+export type MediaViewerWithMediaClientConfigProps =
+  WithMediaClientConfigProps<MediaViewerProps>;
 
-type MediaViewerWithMediaClientConfigComponent = React.ComponentType<
-  MediaViewerWithMediaClientConfigProps
->;
+type MediaViewerWithMediaClientConfigComponent =
+  React.ComponentType<MediaViewerWithMediaClientConfigProps>;
 
-type MediaViewerErrorBoundaryComponent = React.ComponentType<
-  MediaViewerAnalyticsErrorBoundaryProps
->;
+type MediaViewerErrorBoundaryComponent =
+  React.ComponentType<MediaViewerAnalyticsErrorBoundaryProps>;
 
 export interface AsyncMediaViewerState {
   MediaViewer?: MediaViewerWithMediaClientConfigComponent;
@@ -39,21 +36,18 @@ export default class AsyncMediaViewer extends React.PureComponent<
   async UNSAFE_componentWillMount() {
     if (!this.state.MediaViewer || !this.state.MediaViewerErrorBoundary) {
       try {
-        const [
-          mediaClient,
-          mediaViewerModule,
-          mediaViewerErrorBoundaryModule,
-        ] = await Promise.all([
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
-          ),
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-viewer" */ './media-viewer'
-          ),
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-picker-error-boundary" */ './media-viewer-analytics-error-boundary'
-          ),
-        ]);
+        const [mediaClient, mediaViewerModule, mediaViewerErrorBoundaryModule] =
+          await Promise.all([
+            import(
+              /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+            ),
+            import(
+              /* webpackChunkName: "@atlaskit-internal_media-viewer" */ './media-viewer'
+            ),
+            import(
+              /* webpackChunkName: "@atlaskit-internal_media-picker-error-boundary" */ './media-viewer-analytics-error-boundary'
+            ),
+          ]);
 
         const MediaViewerWithClient = mediaClient.withMediaClient(
           mediaViewerModule.MediaViewer,

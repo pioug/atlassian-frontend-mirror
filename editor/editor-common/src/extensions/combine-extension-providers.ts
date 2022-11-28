@@ -9,9 +9,8 @@ import { ExtensionKey, ExtensionProvider, ExtensionType } from './types';
 export default (
   extensionProviders: (ExtensionProvider | Promise<ExtensionProvider>)[],
 ): ExtensionProvider => {
-  const { invokeSingle, invokeList } = combineProviders<ExtensionProvider>(
-    extensionProviders,
-  );
+  const { invokeSingle, invokeList } =
+    combineProviders<ExtensionProvider>(extensionProviders);
 
   return {
     getExtensions() {

@@ -12,13 +12,11 @@ export type MediaImageLoaderProps = MediaImageWithMediaClientConfigProps &
     children: (props: MediaImageLoaderChildrenProps) => ReactNode;
   };
 
-export type MediaImageWithMediaClientConfigProps = WithMediaClientConfigProps<
-  MediaImageInternalProps
->;
+export type MediaImageWithMediaClientConfigProps =
+  WithMediaClientConfigProps<MediaImageInternalProps>;
 
-type MediaImageWithMediaClientConfigComponent = React.ComponentType<
-  MediaImageWithMediaClientConfigProps
->;
+type MediaImageWithMediaClientConfigComponent =
+  React.ComponentType<MediaImageWithMediaClientConfigProps>;
 
 export interface AsyncMediaImageState {
   MediaImage?: MediaImageWithMediaClientConfigComponent;

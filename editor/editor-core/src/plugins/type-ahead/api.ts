@@ -26,24 +26,25 @@ import type { Command } from '../../types/command';
 type CommonProps = {
   editorView: EditorView;
 };
-const open = ({ editorView }: CommonProps) => (
-  itemType: TypeAheadAvailableNodes,
-) => (inputMethod: TypeAheadInputMethod) => {
-  const { state } = editorView;
+const open =
+  ({ editorView }: CommonProps) =>
+  (itemType: TypeAheadAvailableNodes) =>
+  (inputMethod: TypeAheadInputMethod) => {
+    const { state } = editorView;
 
-  const handler = findHandler(itemType, state);
-  if (!handler) {
-    return false;
-  }
+    const handler = findHandler(itemType, state);
+    if (!handler) {
+      return false;
+    }
 
-  const { tr } = state;
+    const { tr } = state;
 
-  openTypeAheadAtCursor({ triggerHandler: handler, inputMethod })(tr);
+    openTypeAheadAtCursor({ triggerHandler: handler, inputMethod })(tr);
 
-  editorView.dispatch(tr);
+    editorView.dispatch(tr);
 
-  return true;
-};
+    return true;
+  };
 
 type CloseOptions = {
   insertCurrentQueryAsRawText: boolean;
@@ -52,173 +53,179 @@ type CloseOptions = {
 const defaultCloseOptions: CloseOptions = {
   insertCurrentQueryAsRawText: false,
 };
-const close = ({ editorView }: CommonProps) => (
-  options: CloseOptions = defaultCloseOptions,
-) => {
-  const { state } = editorView;
-  const currentQuery = getTypeAheadQuery(editorView.state);
+const close =
+  ({ editorView }: CommonProps) =>
+  (options: CloseOptions = defaultCloseOptions) => {
+    const { state } = editorView;
+    const currentQuery = getTypeAheadQuery(editorView.state);
 
-  let tr = state.tr;
-  if (options.attachCommand) {
-    const fakeDispatch = (customTr: Transaction) => {
-      tr = customTr;
-    };
+    let tr = state.tr;
+    if (options.attachCommand) {
+      const fakeDispatch = (customTr: Transaction) => {
+        tr = customTr;
+      };
 
-    options.attachCommand(state, fakeDispatch);
-  }
-
-  closeTypeAhead(tr);
-
-  if (
-    options.insertCurrentQueryAsRawText &&
-    currentQuery &&
-    currentQuery.length > 0
-  ) {
-    const handler = getTypeAheadHandler(state);
-    const text = handler.trigger.concat(currentQuery);
-    tr.replaceSelectionWith(state.schema.text(text));
-  }
-
-  editorView.dispatch(tr);
-
-  if (!editorView.hasFocus()) {
-    editorView.focus();
-  }
-
-  return true;
-};
-
-const search = ({ editorView }: CommonProps) => (
-  itemType: TypeAheadAvailableNodes,
-) => (query: string = '') => {
-  const { state } = editorView;
-
-  const handler = findHandler(itemType, state);
-  if (!handler) {
-    throw new Error(
-      `Handler not found, did you load the ${itemType} plugin properly`,
-    );
-  }
-
-  open({ editorView })(itemType)(INPUT_METHOD.KEYBOARD);
-  updateQuery(query)(editorView.state, editorView.dispatch);
-
-  const lastQuery = { current: query };
-  const last = handler.getItems({ query, editorState: state }).then((items) => {
-    if (!handler.forceSelect) {
-      return items;
+      options.attachCommand(state, fakeDispatch);
     }
 
-    const forceSelectedItem = handler.forceSelect({
-      items,
-      query,
-      editorState: state,
-    });
+    closeTypeAhead(tr);
 
-    if (!forceSelectedItem) {
-      return items;
+    if (
+      options.insertCurrentQueryAsRawText &&
+      currentQuery &&
+      currentQuery.length > 0
+    ) {
+      const handler = getTypeAheadHandler(state);
+      const text = handler.trigger.concat(currentQuery);
+      tr.replaceSelectionWith(state.schema.text(text));
     }
 
-    insertTypeAheadItem(editorView)({
-      handler,
-      item: forceSelectedItem,
-      query,
-      mode: SelectItemMode.SELECTED,
-      sourceListItem: items,
-    });
-  });
-  const results = { last };
+    editorView.dispatch(tr);
 
-  return {
-    type: (appendValue: string) => {
-      if (!appendValue) {
-        return;
-      }
+    if (!editorView.hasFocus()) {
+      editorView.focus();
+    }
 
-      lastQuery.current += appendValue;
-      updateQuery(lastQuery.current)(editorView.state, editorView.dispatch);
-      const promise = handler.getItems({
-        query: lastQuery.current,
-        editorState: state,
-      });
-      results.last = promise;
-      return promise;
-    },
-    result: () => results.last,
-    close: close({ editorView }),
-    insert: ({ index, mode }: { index: number; mode?: SelectItemMode }) => {
-      return results.last.then((result) => {
-        const item = result ? result[index] : null;
-        if (result && item) {
-          insertTypeAheadItem(editorView)({
-            handler,
-            item,
-            query,
-            mode: mode || SelectItemMode.SELECTED,
-            sourceListItem: result,
-          });
-        }
-      });
-    },
+    return true;
   };
-};
+
+const search =
+  ({ editorView }: CommonProps) =>
+  (itemType: TypeAheadAvailableNodes) =>
+  (query: string = '') => {
+    const { state } = editorView;
+
+    const handler = findHandler(itemType, state);
+    if (!handler) {
+      throw new Error(
+        `Handler not found, did you load the ${itemType} plugin properly`,
+      );
+    }
+
+    open({ editorView })(itemType)(INPUT_METHOD.KEYBOARD);
+    updateQuery(query)(editorView.state, editorView.dispatch);
+
+    const lastQuery = { current: query };
+    const last = handler
+      .getItems({ query, editorState: state })
+      .then((items) => {
+        if (!handler.forceSelect) {
+          return items;
+        }
+
+        const forceSelectedItem = handler.forceSelect({
+          items,
+          query,
+          editorState: state,
+        });
+
+        if (!forceSelectedItem) {
+          return items;
+        }
+
+        insertTypeAheadItem(editorView)({
+          handler,
+          item: forceSelectedItem,
+          query,
+          mode: SelectItemMode.SELECTED,
+          sourceListItem: items,
+        });
+      });
+    const results = { last };
+
+    return {
+      type: (appendValue: string) => {
+        if (!appendValue) {
+          return;
+        }
+
+        lastQuery.current += appendValue;
+        updateQuery(lastQuery.current)(editorView.state, editorView.dispatch);
+        const promise = handler.getItems({
+          query: lastQuery.current,
+          editorState: state,
+        });
+        results.last = promise;
+        return promise;
+      },
+      result: () => results.last,
+      close: close({ editorView }),
+      insert: ({ index, mode }: { index: number; mode?: SelectItemMode }) => {
+        return results.last.then((result) => {
+          const item = result ? result[index] : null;
+          if (result && item) {
+            insertTypeAheadItem(editorView)({
+              handler,
+              item,
+              query,
+              mode: mode || SelectItemMode.SELECTED,
+              sourceListItem: result,
+            });
+          }
+        });
+      },
+    };
+  };
 
 type InsertItemProps = {
   contentItem: TypeAheadItem;
   query: string;
   sourceListItem: TypeAheadItem[];
 };
-const insertItem = ({ editorView }: CommonProps) => (
-  itemType: TypeAheadAvailableNodes,
-) => ({ contentItem, query, sourceListItem }: InsertItemProps) => {
-  const { state } = editorView;
+const insertItem =
+  ({ editorView }: CommonProps) =>
+  (itemType: TypeAheadAvailableNodes) =>
+  ({ contentItem, query, sourceListItem }: InsertItemProps) => {
+    const { state } = editorView;
 
-  const handler = findHandler(itemType, state);
-  if (!handler) {
-    return false;
-  }
+    const handler = findHandler(itemType, state);
+    if (!handler) {
+      return false;
+    }
 
-  insertTypeAheadItem(editorView)({
-    handler,
-    item: contentItem,
-    mode: SelectItemMode.SELECTED,
-    query,
-    sourceListItem,
-  });
-  return true;
-};
+    insertTypeAheadItem(editorView)({
+      handler,
+      item: contentItem,
+      mode: SelectItemMode.SELECTED,
+      query,
+      sourceListItem,
+    });
+    return true;
+  };
 
-const isOpen = ({ editorView }: CommonProps) => ():
-  | TypeAheadHandler
-  | false => {
-  if (!isTypeAheadOpen(editorView.state)) {
-    return false;
-  }
+const isOpen =
+  ({ editorView }: CommonProps) =>
+  (): TypeAheadHandler | false => {
+    if (!isTypeAheadOpen(editorView.state)) {
+      return false;
+    }
 
-  const handler = getTypeAheadHandler(editorView.state);
-  if (!handler) {
-    return false;
-  }
+    const handler = getTypeAheadHandler(editorView.state);
+    if (!handler) {
+      return false;
+    }
 
-  return handler;
-};
+    return handler;
+  };
 
-const currentQuery = ({ editorView }: CommonProps) => (): string => {
-  return getTypeAheadQuery(editorView.state);
-};
+const currentQuery =
+  ({ editorView }: CommonProps) =>
+  (): string => {
+    return getTypeAheadQuery(editorView.state);
+  };
 
-const find = ({ editorView }: CommonProps) => (
-  trigger: string,
-): TypeAheadHandler | null => {
-  const { state: editorState } = editorView;
-  const handler = findHandlerByTrigger({ trigger, editorState });
+const find =
+  ({ editorView }: CommonProps) =>
+  (trigger: string): TypeAheadHandler | null => {
+    const { state: editorState } = editorView;
+    const handler = findHandlerByTrigger({ trigger, editorState });
 
-  if (!handler) {
-    return null;
-  }
+    if (!handler) {
+      return null;
+    }
 
-  return handler;
-};
+    return handler;
+  };
 
 // This is an internal tool to be used inside of others Editor Plugins
 // We shouldn't public export this method.

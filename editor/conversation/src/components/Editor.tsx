@@ -82,7 +82,9 @@ const Container: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
   }
 `;
 
-const AvatarSection: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
+const AvatarSection: React.ComponentClass<
+  React.HTMLAttributes<{}>
+> = styled.div`
   /* stylelint-disable value-no-vendor-prefix */
   -ms-grid-row: 1;
   -ms-grid-column: 1;
@@ -91,7 +93,9 @@ const AvatarSection: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div
   margin-right: 8px;
 `;
 
-const EditorSection: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
+const EditorSection: React.ComponentClass<
+  React.HTMLAttributes<{}>
+> = styled.div`
   /* stylelint-disable value-no-vendor-prefix */
   -ms-grid-row: 1;
   -ms-grid-column: 2;

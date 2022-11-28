@@ -58,22 +58,24 @@ const getChannel = (config: Config = testChannelConfig): Channel => {
   return channel;
 };
 
-const getExpectValidEventHandler = (channel: Channel) => (
-  expectedEventName: string,
-): void => {
-  const eventHandler = (channel.getSocket() as any).events.get(
-    expectedEventName,
-  );
+const getExpectValidEventHandler =
+  (channel: Channel) =>
+  (expectedEventName: string): void => {
+    const eventHandler = (channel.getSocket() as any).events.get(
+      expectedEventName,
+    );
 
-  // Try/catch here to print the expectedEventName with reason in
-  // the error, otherwise when tests fail, it is hard to know why
-  try {
-    expect(eventHandler).toBeDefined();
-    expect(eventHandler).toBeInstanceOf(Function);
-  } catch (err) {
-    throw new Error(`${expectedEventName} is not a valid EventHandler: ${err}`);
-  }
-};
+    // Try/catch here to print the expectedEventName with reason in
+    // the error, otherwise when tests fail, it is hard to know why
+    try {
+      expect(eventHandler).toBeDefined();
+      expect(eventHandler).toBeInstanceOf(Function);
+    } catch (err) {
+      throw new Error(
+        `${expectedEventName} is not a valid EventHandler: ${err}`,
+      );
+    }
+  };
 
 describe('Channel unit tests', () => {
   beforeEach(() => {
@@ -481,9 +483,7 @@ describe('Channel unit tests', () => {
       });
 
       expect(createSocketMock).toHaveBeenCalledTimes(1);
-      expect(
-        createSocketMock,
-      ).toHaveBeenCalledWith(
+      expect(createSocketMock).toHaveBeenCalledWith(
         'http://dummy-url:6666/session/ari:cloud:confluence:ABC:page/testpage',
         expect.any(Function),
         { product: 'confluence' },
@@ -504,8 +504,7 @@ describe('Channel unit tests', () => {
 
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy).toHaveBeenCalledWith(expect.any(Object), {
-        path:
-          'document/ari%3Acloud%3Aconfluence%3AABC%3Apage%2Ftestpage/catchup',
+        path: 'document/ari%3Acloud%3Aconfluence%3AABC%3Apage%2Ftestpage/catchup',
         queryParams: {
           version: 1,
         },

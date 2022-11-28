@@ -15,6 +15,8 @@ export interface PresenceBulk {
   stateMetadata?: string;
 }
 
-export const validPresenceData: PresenceValidInfo = require('../json-data/presence-valid-info.json') as PresenceValidInfo;
+export const validPresenceData: PresenceValidInfo =
+  require('../json-data/presence-valid-info.json') as PresenceValidInfo;
 
-export const invalidPresenceData: PresenceValidInfo = require('../json-data/presence-invalid-info.json') as PresenceValidInfo;
+export const invalidPresenceData: PresenceValidInfo =
+  require('../json-data/presence-invalid-info.json') as PresenceValidInfo;

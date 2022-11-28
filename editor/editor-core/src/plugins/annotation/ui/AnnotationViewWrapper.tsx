@@ -7,9 +7,7 @@ export type AnnotationViewWrapperProps = {
   annotationText?: string;
 };
 
-export class AnnotationViewWrapper extends React.PureComponent<
-  AnnotationViewWrapperProps
-> {
+export class AnnotationViewWrapper extends React.PureComponent<AnnotationViewWrapperProps> {
   componentDidMount() {
     const { onViewed } = this.props;
     if (onViewed) {

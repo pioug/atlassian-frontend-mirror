@@ -18,7 +18,8 @@ export interface UploadEventEmitter {
 
 export class UploadComponent<M extends UploadEventPayloadMap>
   extends GenericEventEmitter<M>
-  implements UploadEventEmitter {
+  implements UploadEventEmitter
+{
   emitPluginItemsInserted(selectedPluginItems: SelectedItem[]): void {
     const payload: PluginItemPayload[] = selectedPluginItems.map((item) => {
       return {

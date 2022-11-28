@@ -134,11 +134,10 @@ export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 export const editorFontSize = ({ theme }: { theme: EditorTheme }) =>
   theme && theme.baseFontSize ? theme.baseFontSize : defaultFontSize();
 
-export const relativeSize = (multiplier: number) => ({
-  theme,
-}: {
-  theme: EditorTheme;
-}) => editorFontSize({ theme }) * multiplier;
+export const relativeSize =
+  (multiplier: number) =>
+  ({ theme }: { theme: EditorTheme }) =>
+    editorFontSize({ theme }) * multiplier;
 
 export const relativeFontSizeToBase16 = (px: number | string) => {
   if (typeof px === 'string') {

@@ -71,9 +71,8 @@ export const createClipboardSerializer = (
     oldSerializer.marks,
   );
 
-  const originalSerializeFragment = newSerializer.serializeFragment.bind(
-    newSerializer,
-  );
+  const originalSerializeFragment =
+    newSerializer.serializeFragment.bind(newSerializer);
 
   newSerializer.serializeFragment = (
     content: Fragment,
@@ -155,9 +154,8 @@ export const getAnalyticsPayload = (
     getCellSelectionAnalyticsPayload(state);
 
   if (selectionAnalyticsPayload) {
-    const {
-      actionSubjectId: selectionActionSubjectId,
-    } = selectionAnalyticsPayload;
+    const { actionSubjectId: selectionActionSubjectId } =
+      selectionAnalyticsPayload;
 
     let content: string[] = [];
     switch (selectionActionSubjectId) {
@@ -175,9 +173,8 @@ export const getAnalyticsPayload = (
         content.push('all');
         break;
       case ACTION_SUBJECT_ID.CELL: {
-        const {
-          selectedCells,
-        } = (selectionAnalyticsPayload as SelectCellAEP).attributes!;
+        const { selectedCells } = (selectionAnalyticsPayload as SelectCellAEP)
+          .attributes!;
         content.push(...Array(selectedCells).fill('tableCell'));
         break;
       }

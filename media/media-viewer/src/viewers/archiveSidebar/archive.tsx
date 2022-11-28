@@ -182,25 +182,27 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
     );
   };
 
-  private onViewerError = (
-    primaryErrorReason: ArchiveViewerErrorReason,
-    selectedArchiveEntry: ZipEntry,
-  ) => (error?: Error) =>
-    error && isMediaViewerError(error)
-      ? this.onError(
-          new ArchiveViewerError(
-            primaryErrorReason,
-            error.secondaryError,
-            selectedArchiveEntry,
-          ),
-        )
-      : this.onError(
-          new ArchiveViewerError(
-            primaryErrorReason,
-            error,
-            selectedArchiveEntry,
-          ),
-        );
+  private onViewerError =
+    (
+      primaryErrorReason: ArchiveViewerErrorReason,
+      selectedArchiveEntry: ZipEntry,
+    ) =>
+    (error?: Error) =>
+      error && isMediaViewerError(error)
+        ? this.onError(
+            new ArchiveViewerError(
+              primaryErrorReason,
+              error.secondaryError,
+              selectedArchiveEntry,
+            ),
+          )
+        : this.onError(
+            new ArchiveViewerError(
+              primaryErrorReason,
+              error,
+              selectedArchiveEntry,
+            ),
+          );
 
   private onSidebarLoaded = () => {
     this.setState({

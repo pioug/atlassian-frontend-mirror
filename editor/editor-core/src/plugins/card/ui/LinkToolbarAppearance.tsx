@@ -40,14 +40,8 @@ export class LinkToolbarAppearance extends React.Component<
   };
 
   renderDropdown = (view?: EditorView, cardContext?: CardContext) => {
-    const {
-      url,
-      intl,
-      currentAppearance,
-      editorState,
-      allowEmbeds,
-      platform,
-    } = this.props;
+    const { url, intl, currentAppearance, editorState, allowEmbeds, platform } =
+      this.props;
     const preview =
       allowEmbeds &&
       cardContext &&

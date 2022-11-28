@@ -70,8 +70,7 @@ describe.skip('WikiMarkup Transformer', () => {
       doc(
         p(
           img({
-            src:
-              'http://example.com/?%3Cfont+color%3D%22%22%3Einsection%3C%2Ffont%3E',
+            src: 'http://example.com/?%3Cfont+color%3D%22%22%3Einsection%3C%2Ffont%3E',
           })(),
         ),
       ),
@@ -473,8 +472,7 @@ describe.skip('WikiMarkup Transformer', () => {
       doc(
         p(
           link({
-            href:
-              'http://a.b.com/c?url=http://a.b.com/rest?gadget=http://a.b.com/gadgets&container=atlassian',
+            href: 'http://a.b.com/c?url=http://a.b.com/rest?gadget=http://a.b.com/gadgets&container=atlassian',
           })(
             'http://a.b.com/c?url=http://a.b.com/rest?gadget=http://a.b.com/gadgets&amp;container=atlassian',
           ),

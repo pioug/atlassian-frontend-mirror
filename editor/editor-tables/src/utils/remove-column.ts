@@ -48,30 +48,30 @@ function removeColumn(
 }
 
 // Returns a new transaction that removes a column at index `columnIndex`. If there is only one column left, it will remove the entire table.
-export const removeColumnAt = (columnIndex: number) => (
-  tr: Transaction,
-): Transaction => {
-  const table = findTable(tr.selection);
-  if (table) {
-    const map = TableMap.get(table.node);
-    if (columnIndex === 0 && map.width === 1) {
-      return removeTable(tr);
-    } else if (columnIndex >= 0 && columnIndex <= map.width) {
-      removeColumn(
-        tr,
-        {
-          map,
-          tableStart: table.start,
-          table: table.node,
-        },
-        columnIndex,
-      );
-      return cloneTr(tr);
+export const removeColumnAt =
+  (columnIndex: number) =>
+  (tr: Transaction): Transaction => {
+    const table = findTable(tr.selection);
+    if (table) {
+      const map = TableMap.get(table.node);
+      if (columnIndex === 0 && map.width === 1) {
+        return removeTable(tr);
+      } else if (columnIndex >= 0 && columnIndex <= map.width) {
+        removeColumn(
+          tr,
+          {
+            map,
+            tableStart: table.start,
+            table: table.node,
+          },
+          columnIndex,
+        );
+        return cloneTr(tr);
+      }
     }
-  }
 
-  return tr;
-};
+    return tr;
+  };
 
 // Returns a new transaction that removes selected columns.
 export const removeSelectedColumns = (tr: Transaction): Transaction => {
@@ -117,12 +117,12 @@ export const removeSelectedColumns = (tr: Transaction): Transaction => {
 };
 
 // Returns a new transaction that removes a column closest to a given `$pos`.
-export const removeColumnClosestToPos = ($pos: ResolvedPos) => (
-  tr: Transaction,
-): Transaction => {
-  const rect = findCellRectClosestToPos($pos);
-  if (rect) {
-    return removeColumnAt(rect.left)(setTextSelection($pos.pos)(tr));
-  }
-  return tr;
-};
+export const removeColumnClosestToPos =
+  ($pos: ResolvedPos) =>
+  (tr: Transaction): Transaction => {
+    const rect = findCellRectClosestToPos($pos);
+    if (rect) {
+      return removeColumnAt(rect.left)(setTextSelection($pos.pos)(tr));
+    }
+    return tr;
+  };

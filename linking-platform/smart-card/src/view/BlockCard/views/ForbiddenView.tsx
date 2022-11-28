@@ -57,10 +57,8 @@ export const ForbiddenView = ({
   const handleClick = (event: MouseEvent<HTMLElement>) =>
     handleClickCommon(event, onClick);
 
-  const {
-    action,
-    descriptiveMessageKey = 'invalid_permissions_description',
-  } = requestAccessContext;
+  const { action, descriptiveMessageKey = 'invalid_permissions_description' } =
+    requestAccessContext;
 
   const items = action ? [...actions, action] : actions;
 

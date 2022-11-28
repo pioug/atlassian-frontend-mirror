@@ -708,8 +708,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
                     {
                       type: 'link',
                       attrs: {
-                        href:
-                          'https://product-fabric.atlassian.net/browse/FAB-997',
+                        href: 'https://product-fabric.atlassian.net/browse/FAB-997',
                       },
                     },
                   ],
@@ -779,8 +778,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
                     placeholder: [
                       {
                         data: {
-                          url:
-                            '//pug.jira-dev.com/wiki/plugins/servlet/confluence/placeholder/macro?definition=e2V4cGFuZH0&locale=en_GB&version=2',
+                          url: '//pug.jira-dev.com/wiki/plugins/servlet/confluence/placeholder/macro?definition=e2V4cGFuZH0&locale=en_GB&version=2',
                         },
                         type: 'image',
                       },
@@ -930,8 +928,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
                     originalValue: {
                       type: 'link',
                       attrs: {
-                        href:
-                          'https://product-fabric.atlassian.net/browse/FAB-983',
+                        href: 'https://product-fabric.atlassian.net/browse/FAB-983',
                         redundantAttribute: 'redundantAttributeValue',
                       },
                     },

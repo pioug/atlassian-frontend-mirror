@@ -139,9 +139,9 @@ describe('linking', () => {
 
       const items = (toolbarConfig && toolbarConfig.items) || [];
 
-      const settingsItemIndex = (items as FloatingToolbarItem<
-        Command
-      >[]).findIndex((item: any) => item.id === 'editor.link.settings');
+      const settingsItemIndex = (
+        items as FloatingToolbarItem<Command>[]
+      ).findIndex((item: any) => item.id === 'editor.link.settings');
 
       // Ensure settings button is the last item in toolbar
       expect(items.length - 1).toEqual(settingsItemIndex);

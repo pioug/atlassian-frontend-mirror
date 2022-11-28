@@ -55,12 +55,8 @@ interface FieldDefsPromiseResolverProps {
 const FieldDefinitionsPromiseResolver = (
   props: FieldDefsPromiseResolverProps,
 ) => {
-  const {
-    extensionManifest,
-    nodeKey,
-    extensionParameters,
-    setErrorMessage,
-  } = props;
+  const { extensionManifest, nodeKey, extensionParameters, setErrorMessage } =
+    props;
 
   const [fields, setFields] = useState<FieldDefinition[] | undefined>(
     undefined,
@@ -131,11 +127,10 @@ export default function FieldsLoader({
 }: PublicProps) {
   const [extensionManifest] = useStateFromPromise<
     ExtensionManifest | undefined
-  >(() => extensionProvider.getExtension(extensionType, extensionKey), [
-    extensionProvider,
-    extensionType,
-    extensionKey,
-  ]);
+  >(
+    () => extensionProvider.getExtension(extensionType, extensionKey),
+    [extensionProvider, extensionType, extensionKey],
+  );
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

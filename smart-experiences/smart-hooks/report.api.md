@@ -29,9 +29,7 @@ export const transformRecommendationsToOptions: (
 ) => OptionData[];
 
 // @public (undocumented)
-export const useUserRecommendations: (
-  props: UseUserRecommendationsProps,
-) => {
+export const useUserRecommendations: (props: UseUserRecommendationsProps) => {
   recommendations:
     | UserSearchItem[]
     | {

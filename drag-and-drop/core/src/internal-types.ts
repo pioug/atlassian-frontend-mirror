@@ -38,7 +38,7 @@ export type Serializable = {
 export type InternalDragType<
   Key extends string,
   DefaultDropEffect extends DataTransfer['dropEffect'],
-  Payload extends Record<string, unknown>
+  Payload extends Record<string, unknown>,
 > = {
   key: Key;
   defaultDropEffect: DefaultDropEffect;
@@ -49,7 +49,7 @@ export type InternalDragType<
 export type ExternalDragType<
   Key extends string,
   DefaultDropEffect extends DataTransfer['dropEffect'],
-  Payload extends Record<string, unknown>
+  Payload extends Record<string, unknown>,
 > = {
   key: Key;
   startedFrom: 'external';
@@ -57,20 +57,19 @@ export type ExternalDragType<
   payload: Payload;
 };
 
-export type DragInterface<
-  DragType extends AllDragTypes
-> = DragType extends ExternalDragType<
-  string,
-  DataTransfer['dropEffect'],
-  Record<string, unknown>
->
-  ? // External drag types might need to refresh their source
-    // during the `"drop"` event
-    // `event.dataTransfer?.items` is only available in `"drop"`
-    Omit<DragType, 'defaultDropEffect'> & {
-      getDropPayload?: (event: DragEvent) => DragType['payload'];
-    }
-  : Omit<DragType, 'defaultDropEffect'>;
+export type DragInterface<DragType extends AllDragTypes> =
+  DragType extends ExternalDragType<
+    string,
+    DataTransfer['dropEffect'],
+    Record<string, unknown>
+  >
+    ? // External drag types might need to refresh their source
+      // during the `"drop"` event
+      // `event.dataTransfer?.items` is only available in `"drop"`
+      Omit<DragType, 'defaultDropEffect'> & {
+        getDropPayload?: (event: DragEvent) => DragType['payload'];
+      }
+    : Omit<DragType, 'defaultDropEffect'>;
 
 export type AllDragTypes =
   | InternalDragType<
@@ -247,9 +246,7 @@ export type DropTargetLocalizedData = {
  * Mapping event names to the payloads for those events
  */
 export type DropTargetEventPayloadMap<DragType extends AllDragTypes> = {
-  [EventName in keyof EventPayloadMap<DragType>]: EventPayloadMap<
-    DragType
-  >[EventName] &
+  [EventName in keyof EventPayloadMap<DragType>]: EventPayloadMap<DragType>[EventName] &
     DropTargetLocalizedData;
 } & {
   /**

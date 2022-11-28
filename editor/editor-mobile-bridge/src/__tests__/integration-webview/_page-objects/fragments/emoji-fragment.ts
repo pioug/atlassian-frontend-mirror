@@ -26,9 +26,9 @@ export const isEmojiBackgroundImageLoaded = (page: Page, selector: string) =>
     await page.waitForSelector(selector);
     const { loaded } = await page.executeAsync(
       (nodeSelector, done) => {
-        const url = (document.querySelector(
-          nodeSelector,
-        ) as HTMLElement)?.style.backgroundImage
+        const url = (
+          document.querySelector(nodeSelector) as HTMLElement
+        )?.style.backgroundImage
           .replace('url("', '')
           .replace('")', '');
 

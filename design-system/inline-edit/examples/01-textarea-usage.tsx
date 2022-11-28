@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 import TextArea from '@atlaskit/textarea';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
@@ -13,7 +14,8 @@ const textAreaLineHeightFactor = 2.5;
 const ReadViewContainer = styled.div`
   line-height: ${(gridSize() * textAreaLineHeightFactor) / fontSize()};
   min-height: ${gridSize() * textAreaLineHeightFactor * minRows}px;
-  padding: ${gridSize() - 2}px ${gridSize() - 2}px;
+  padding: ${token('spacing.scale.075', '6px')}
+    ${token('spacing.scale.075', '6px')};
   word-break: break-word;
 `;
 

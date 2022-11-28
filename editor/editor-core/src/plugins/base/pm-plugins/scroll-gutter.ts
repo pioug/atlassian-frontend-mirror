@@ -264,9 +264,8 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
             return;
           }
           // Determine whether we need to consider Keyboard Height
-          const mobileDimensionsPluginState = getMobileDimensionsPluginState(
-            state,
-          );
+          const mobileDimensionsPluginState =
+            getMobileDimensionsPluginState(state);
           const viewportHeight =
             scrollElement.offsetHeight -
             (mobileDimensionsPluginState &&

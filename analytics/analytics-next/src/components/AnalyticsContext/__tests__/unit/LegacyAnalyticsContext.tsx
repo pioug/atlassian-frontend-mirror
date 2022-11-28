@@ -71,10 +71,8 @@ const FakeModernConsumerButton = memo(() => {
   const renderCounter = useRenderCounter();
 
   const onClick = useCallback(() => {
-    const {
-      getAtlaskitAnalyticsContext,
-      getAtlaskitAnalyticsEventHandlers,
-    } = analyticsContext;
+    const { getAtlaskitAnalyticsContext, getAtlaskitAnalyticsEventHandlers } =
+      analyticsContext;
 
     const context = getAtlaskitAnalyticsContext();
     getAtlaskitAnalyticsEventHandlers().forEach((handler) => handler(context));

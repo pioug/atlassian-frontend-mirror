@@ -76,9 +76,14 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
-      "ui-components": "lite-mode",
+      "ui-components": [
+        "primitives",
+        "lite-mode"
+      ],
       "design-system": "v1",
-      "design-tokens": "spacing",
+      "design-tokens": [
+        "spacing"
+      ],
       "styling": [
         "static",
         "emotion"

@@ -102,19 +102,18 @@ describe('Mobile MediaProvider', () => {
       baseUrl: '/',
     };
 
-    mockAuthProvider = jest.fn<AuthProvider, any>(() => () =>
-      Promise.resolve(testMediaAuth),
+    mockAuthProvider = jest.fn<AuthProvider, any>(
+      () => () => Promise.resolve(testMediaAuth),
     );
     const mediaClientConfig: MediaClientConfig = {
       authProvider: mockAuthProvider as any,
     };
     mediaClient = fakeMediaClient();
     asMockReturnValue(getMediaClient, mediaClient);
-    asMock(
-      withMediaClient,
-    ).mockImplementation((Component: React.ComponentType) => (props: any) => (
-      <Component {...props} mediaClient={mediaClient} />
-    ));
+    asMock(withMediaClient).mockImplementation(
+      (Component: React.ComponentType) => (props: any) =>
+        <Component {...props} mediaClient={mediaClient} />,
+    );
 
     asMockReturnValue(
       mediaClient.file.getFileState,

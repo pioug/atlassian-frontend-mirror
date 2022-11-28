@@ -18,30 +18,32 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 // @public (undocumented)
-const Breadcrumbs: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
-  Pick<
-    BreadcrumbsProps,
-    | 'testId'
-    | 'label'
-    | 'children'
-    | 'analyticsContext'
-    | 'isExpanded'
-    | 'defaultExpanded'
-    | 'maxItems'
-    | 'onExpand'
-    | 'itemsBeforeCollapse'
-    | 'itemsAfterCollapse'
-    | 'ellipsisLabel'
-    | 'createAnalyticsEvent'
-  > &
-    React_2.RefAttributes<any>
->>;
+const Breadcrumbs: React_2.MemoExoticComponent<
+  React_2.ForwardRefExoticComponent<
+    Pick<
+      BreadcrumbsProps,
+      | 'testId'
+      | 'label'
+      | 'children'
+      | 'analyticsContext'
+      | 'isExpanded'
+      | 'defaultExpanded'
+      | 'maxItems'
+      | 'onExpand'
+      | 'itemsBeforeCollapse'
+      | 'itemsAfterCollapse'
+      | 'ellipsisLabel'
+      | 'createAnalyticsEvent'
+    > &
+      React_2.RefAttributes<any>
+  >
+>;
 export default Breadcrumbs;
 
 // @public (undocumented)
-export const BreadcrumbsItem: MemoExoticComponent<(
-  props: BreadcrumbsItemProps,
-) => jsx.JSX.Element>;
+export const BreadcrumbsItem: MemoExoticComponent<
+  (props: BreadcrumbsItemProps) => jsx.JSX.Element
+>;
 
 // @public (undocumented)
 interface BreadcrumbsItemProps extends WithAnalyticsEventsProps {

@@ -32,19 +32,17 @@ describe('ExternalUserOption', () => {
 
   // Check for text within some HTML that ignores it being split across nodes
   // eg. <div>jbeleren<span>@email.com</span></div>
-  const hasTextIgnoringHtml = (matchingText: string) => (
-    content: string,
-    node: Element | null,
-  ) => {
-    const hasText = (node: Element | null) =>
-      node?.textContent === matchingText;
-    const nodeHasText = hasText(node);
-    const childrenDontHaveText = Array.from(node!.children).every(
-      (child) => !hasText(child),
-    );
+  const hasTextIgnoringHtml =
+    (matchingText: string) => (content: string, node: Element | null) => {
+      const hasText = (node: Element | null) =>
+        node?.textContent === matchingText;
+      const nodeHasText = hasText(node);
+      const childrenDontHaveText = Array.from(node!.children).every(
+        (child) => !hasText(child),
+      );
 
-    return nodeHasText && childrenDontHaveText;
-  };
+      return nodeHasText && childrenDontHaveText;
+    };
 
   it('should name, email and avatar', () => {
     const { getByText, getByAltText } = render(

@@ -378,9 +378,9 @@ describe('<Mention />', () => {
         name: 'resolved name',
         status: MentionNameStatus.OK,
       };
-      ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockReturnValue(
-        resolvedProps,
-      );
+      (
+        mentionNameResolver.lookupName as any as jest.SpyInstance
+      ).mockReturnValue(resolvedProps);
       const mentionProps = {
         id: '1',
         text: '',
@@ -396,7 +396,7 @@ describe('<Mention />', () => {
         `@${resolvedProps.name}`,
       );
       expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
-      ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockClear();
+      (mentionNameResolver.lookupName as any as jest.SpyInstance).mockClear();
       mention.setProps({ ...mentionData });
       expect(mention.find(Mention).first().text()).toEqual(mentionData.text);
       expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(0);
@@ -508,13 +508,13 @@ describe('<Mention />', () => {
             mentionProvider={resolvingMentionProvider}
           />,
         );
-        ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockReturnValue(
-          {
-            id: '123',
-            name: 'cheese',
-            status: MentionNameStatus.OK,
-          },
-        );
+        (
+          mentionNameResolver.lookupName as any as jest.SpyInstance
+        ).mockReturnValue({
+          id: '123',
+          name: 'cheese',
+          status: MentionNameStatus.OK,
+        });
         setImmediate(() => {
           expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
           expect(mention.find(Mention).first().text()).toEqual('@cheese');
@@ -530,12 +530,12 @@ describe('<Mention />', () => {
             mentionProvider={resolvingMentionProvider}
           />,
         );
-        ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockReturnValue(
-          {
-            id: mentionData.id,
-            status: MentionNameStatus.UNKNOWN,
-          },
-        );
+        (
+          mentionNameResolver.lookupName as any as jest.SpyInstance
+        ).mockReturnValue({
+          id: mentionData.id,
+          status: MentionNameStatus.UNKNOWN,
+        });
         setImmediate(() => {
           expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
           expect(mention.find(Mention).first().text()).toEqual(
@@ -553,12 +553,12 @@ describe('<Mention />', () => {
             mentionProvider={resolvingMentionProvider}
           />,
         );
-        ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockReturnValue(
-          {
-            id: mentionData.id,
-            status: MentionNameStatus.SERVICE_ERROR,
-          },
-        );
+        (
+          mentionNameResolver.lookupName as any as jest.SpyInstance
+        ).mockReturnValue({
+          id: mentionData.id,
+          status: MentionNameStatus.SERVICE_ERROR,
+        });
         setImmediate(() => {
           expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
           expect(mention.find(Mention).first().text()).toEqual(
@@ -576,7 +576,9 @@ describe('<Mention />', () => {
             mentionProvider={resolvingMentionProvider}
           />,
         );
-        ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockReturnValue(
+        (
+          mentionNameResolver.lookupName as any as jest.SpyInstance
+        ).mockReturnValue(
           Promise.resolve({
             id: mentionData.id,
             name: 'bacon',
@@ -598,7 +600,9 @@ describe('<Mention />', () => {
             mentionProvider={resolvingMentionProvider}
           />,
         );
-        ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockReturnValue(
+        (
+          mentionNameResolver.lookupName as any as jest.SpyInstance
+        ).mockReturnValue(
           Promise.resolve({
             id: mentionData.id,
             status: MentionNameStatus.UNKNOWN,
@@ -621,7 +625,9 @@ describe('<Mention />', () => {
             mentionProvider={resolvingMentionProvider}
           />,
         );
-        ((mentionNameResolver.lookupName as any) as jest.SpyInstance).mockReturnValue(
+        (
+          mentionNameResolver.lookupName as any as jest.SpyInstance
+        ).mockReturnValue(
           Promise.resolve({
             id: mentionData.id,
             status: MentionNameStatus.SERVICE_ERROR,

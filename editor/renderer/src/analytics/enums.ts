@@ -51,16 +51,11 @@ export enum ACTION_SUBJECT_ID {
   INLINE_COMMENT = 'inlineComment',
 }
 
-export type AEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  EventType
-> = {
-  action: Action;
-  actionSubject: ActionSubject;
-  actionSubjectId?: ActionSubjectID;
-  attributes?: Attributes;
-  eventType: EventType;
-};
+export type AEP<Action, ActionSubject, ActionSubjectID, Attributes, EventType> =
+  {
+    action: Action;
+    actionSubject: ActionSubject;
+    actionSubjectId?: ActionSubjectID;
+    attributes?: Attributes;
+    eventType: EventType;
+  };

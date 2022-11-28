@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { Block } from '../examples-util/helpers';
 import Avatar from '../src';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const DivPresence = styled.div`
   align-items: center;
   background-color: ${token(

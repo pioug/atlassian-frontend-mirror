@@ -161,6 +161,6 @@ export class PlaybackSpeedControls extends Component<
   }
 }
 
-export default injectIntl(PlaybackSpeedControls) as React.FC<
-  PlaybackSpeedControlsProps
->;
+export default injectIntl(
+  PlaybackSpeedControls,
+) as React.FC<PlaybackSpeedControlsProps>;

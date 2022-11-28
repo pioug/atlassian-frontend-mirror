@@ -640,9 +640,8 @@ describe('EmojiTypeAhead', () => {
     } as Props).then((component) =>
       waitUntil(() => doneLoading(component)).then(() => {
         expect(itemsVisibleCount(component) === 1).toEqual(true);
-        const typeaheadEmoji = getSelectedEmojiTypeAheadItem(component).prop(
-          'emoji',
-        );
+        const typeaheadEmoji =
+          getSelectedEmojiTypeAheadItem(component).prop('emoji');
         expect(typeaheadEmoji.shortName).toEqual(':raised_hand:');
       }),
     );
@@ -658,9 +657,8 @@ describe('EmojiTypeAhead', () => {
     }).then((component) =>
       waitUntil(() => doneLoading(component)).then(() => {
         expect(itemsVisibleCount(component) === 1).toEqual(true);
-        const typeaheadEmoji = getSelectedEmojiTypeAheadItem(component).prop(
-          'emoji',
-        );
+        const typeaheadEmoji =
+          getSelectedEmojiTypeAheadItem(component).prop('emoji');
         expect(typeaheadEmoji.shortName).toEqual(':raised_hand::skin-tone-2:');
       }),
     );
@@ -682,9 +680,8 @@ describe('EmojiTypeAhead', () => {
     }).then((component) =>
       waitUntil(() => doneLoading(component)).then(() => {
         expect(itemsVisibleCount(component) === 1).toEqual(true);
-        const typeaheadEmoji = getSelectedEmojiTypeAheadItem(component).prop(
-          'emoji',
-        );
+        const typeaheadEmoji =
+          getSelectedEmojiTypeAheadItem(component).prop('emoji');
         expect(typeaheadEmoji.shortName).toEqual(':raised_hand::skin-tone-6:');
         const item = getEmojiTypeAheadItemById(component, '270b-1f3ff');
         item.simulate('mousedown', leftClick);

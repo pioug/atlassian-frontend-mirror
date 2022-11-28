@@ -71,9 +71,7 @@ export type ReferenceEntity = {
 };
 
 // DEPRECATED
-export type ParametersGetter<
-  T extends Parameters = Parameters
-> = TransformBefore<T>;
-export type AsyncParametersGetter<
-  T extends Parameters = Parameters
-> = TransformAfter<T>;
+export type ParametersGetter<T extends Parameters = Parameters> =
+  TransformBefore<T>;
+export type AsyncParametersGetter<T extends Parameters = Parameters> =
+  TransformAfter<T>;

@@ -11,9 +11,9 @@ export const getEventKey = ({
   actionSubject,
   actionSubjectId,
 }: EventSpec) => {
-  return ([type, actionSubject, action, actionSubjectId].filter(
-    Boolean,
-  ) as string[]).join('.');
+  return (
+    [type, actionSubject, action, actionSubjectId].filter(Boolean) as string[]
+  ).join('.');
 };
 
 const getEventPayloadTypeName = ({
@@ -84,9 +84,8 @@ export const generateSource = (spec: NormalizedSpec): string => {
     ),
   );
 
-  const createEventPayloadIdentifier = ts.factory.createIdentifier(
-    'createEventPayload',
-  );
+  const createEventPayloadIdentifier =
+    ts.factory.createIdentifier('createEventPayload');
 
   const eventKeyIdentifier = ts.factory.createIdentifier('eventKey');
   const attributesIdentifier = ts.factory.createIdentifier('attributes');

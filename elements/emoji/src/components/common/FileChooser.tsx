@@ -12,14 +12,8 @@ export interface Props {
 }
 
 const FileChooser: FC<Props> = (props) => {
-  const {
-    accept,
-    ariaDescribedBy,
-    isDisabled,
-    label,
-    onChange,
-    onClick,
-  } = props;
+  const { accept, ariaDescribedBy, isDisabled, label, onChange, onClick } =
+    props;
   const filePickerRef = useRef<HTMLInputElement>(null);
 
   const handleOnChooseFile = () => {

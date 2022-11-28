@@ -99,10 +99,10 @@ export class DrawerBase extends Component<
     const { isOpen, onKeyDown } = this.props;
 
     if (event.key === 'Escape' && isOpen) {
-      this.handleClose((event as unknown) as React.KeyboardEvent, 'escKey');
+      this.handleClose(event as unknown as React.KeyboardEvent, 'escKey');
     }
     if (onKeyDown) {
-      onKeyDown((event as unknown) as React.KeyboardEvent);
+      onKeyDown(event as unknown as React.KeyboardEvent);
     }
   };
 

@@ -21,7 +21,8 @@ import { WithIntlProps } from 'react-intl-next';
 // @public (undocumented)
 export class AbstractMentionResource
   extends AbstractResource<MentionDescription[]>
-  implements MentionProvider {
+  implements MentionProvider
+{
   // (undocumented)
   filter(query?: string): void;
   // (undocumented)
@@ -55,7 +56,8 @@ export class AbstractMentionResource
 // @public (undocumented)
 export class AbstractPresenceResource
   extends AbstractResource<PresenceMap>
-  implements PresenceProvider {
+  implements PresenceProvider
+{
   // (undocumented)
   protected notifyListeners(presences: PresenceMap): void;
   // (undocumented)
@@ -115,7 +117,7 @@ export class ContextMentionResource implements MentionProvider {
       | 'shouldHighlightMention'
       | 'isFiltering'
       | 'subscribe'
-      | 'unsubscribe'
+      | 'unsubscribe',
   >(
     f: K,
   ) => MentionProvider[K];
@@ -127,7 +129,7 @@ export class ContextMentionResource implements MentionProvider {
       | 'shouldHighlightMention'
       | 'isFiltering'
       | 'subscribe'
-      | 'unsubscribe'
+      | 'unsubscribe',
   >(
     f: K,
     declaredArgs: number,
@@ -491,7 +493,8 @@ export interface MentionProvider
 // @public
 export class MentionResource
   extends AbstractMentionResource
-  implements ResolvingMentionProvider {
+  implements ResolvingMentionProvider
+{
   constructor(config: MentionResourceConfig);
   // (undocumented)
   cacheMentionName(id: string, mentionName: string): void;
@@ -1022,7 +1025,8 @@ interface TeamMentionProvider extends MentionProvider {
 // @public
 export class TeamMentionResource
   extends MentionResource
-  implements TeamMentionProvider {
+  implements TeamMentionProvider
+{
   constructor(
     userMentionConfig: MentionResourceConfig,
     teamMentionConfig: TeamMentionResourceConfig,

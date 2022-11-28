@@ -137,10 +137,8 @@ describe('SiteEmojiResource', () => {
       const uploadPromise = siteEmojiResource
         .uploadEmoji(upload)
         .then((emoji) => {
-          const {
-            altRepresentations,
-            ...serviceEmoji
-          } = serviceResponse.emojis[0];
+          const { altRepresentations, ...serviceEmoji } =
+            serviceResponse.emojis[0];
           expect(emoji).toEqual({
             ...serviceEmoji,
             representation: {

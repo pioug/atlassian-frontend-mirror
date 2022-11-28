@@ -31,10 +31,10 @@ describe('renderer bridge', () => {
     fetchProxy.enable();
     createPromiseMock.mockReset();
     rendererBridge = new RendererBridgeImplementation();
-    intlMock = ({
+    intlMock = {
       formatMessage: (messageDescriptor: any) =>
         messageDescriptor && messageDescriptor.defaultMessage,
-    } as unknown) as IntlShape;
+    } as unknown as IntlShape;
   });
 
   afterEach(() => {
@@ -104,7 +104,7 @@ describe('renderer bridge', () => {
     let sendToBridge: jest.Mocked<typeof originalSendToBridge>;
 
     beforeEach(async () => {
-      ({ sendToBridge } = ((await import('../../../bridge-utils')) as any) as {
+      ({ sendToBridge } = (await import('../../../bridge-utils')) as any as {
         sendToBridge: jest.Mocked<typeof originalSendToBridge>;
       });
     });

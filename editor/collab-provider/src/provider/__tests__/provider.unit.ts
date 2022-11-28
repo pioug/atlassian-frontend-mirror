@@ -557,8 +557,7 @@ describe('provider unit tests', () => {
         data: {
           status: 403,
           code: 'INSUFFICIENT_EDITING_PERMISSION',
-          meta:
-            'The user does not have sufficient permission to collab editing the resource',
+          meta: 'The user does not have sufficient permission to collab editing the resource',
         },
         message: 'No permission!',
       };

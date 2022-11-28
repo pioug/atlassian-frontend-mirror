@@ -9,31 +9,28 @@ import {
 import { getCursor, isEmptyNode, pipe } from '../../../utils';
 import { CommandDispatch } from '../../../types';
 
-const deleteCurrentItem = ($from: ResolvedPos) => (
-  tr: Transaction,
-): Transaction => {
-  return tr.delete($from.before($from.depth), $from.after($from.depth));
-};
+const deleteCurrentItem =
+  ($from: ResolvedPos) =>
+  (tr: Transaction): Transaction => {
+    return tr.delete($from.before($from.depth), $from.after($from.depth));
+  };
 
-const setTextSelection = (pos: number) => (tr: Transaction): Transaction => {
-  const newSelection = Selection.findFrom(tr.doc.resolve(pos), -1, true);
-  if (newSelection) {
-    tr.setSelection(newSelection);
-  }
-  return tr;
-};
+const setTextSelection =
+  (pos: number) =>
+  (tr: Transaction): Transaction => {
+    const newSelection = Selection.findFrom(tr.doc.resolve(pos), -1, true);
+    if (newSelection) {
+      tr.setSelection(newSelection);
+    }
+    return tr;
+  };
 
 export function keymapPlugin(schema: Schema): SafePlugin | undefined {
   return keymap({
     Backspace: (state: EditorState, dispatch: CommandDispatch) => {
       const $cursor = getCursor(state.selection);
-      const {
-        paragraph,
-        codeBlock,
-        listItem,
-        table,
-        layoutColumn,
-      } = state.schema.nodes;
+      const { paragraph, codeBlock, listItem, table, layoutColumn } =
+        state.schema.nodes;
       if (!$cursor || $cursor.parent.type !== codeBlock) {
         return false;
       }

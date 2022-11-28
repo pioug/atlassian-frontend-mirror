@@ -38,8 +38,7 @@ export const mockUserSearchData = [
   },
   {
     id: '12312412',
-    name:
-      "Dude with long name and time that doesn't seem to stop and should overflow",
+    name: "Dude with long name and time that doesn't seem to stop and should overflow",
     mentionName:
       "Dudewithlongnamethatdoesn'tseemtostopandshouldoverflowwithtime",
     presence: {

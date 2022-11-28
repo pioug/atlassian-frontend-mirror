@@ -436,20 +436,16 @@ describe('TeamProfileCardTrigger', () => {
 
       jest.useFakeTimers();
 
-      const {
-        findByTestId,
-        findByText,
-        getByTestId,
-        getByText,
-      } = renderWithIntl(
-        <TeamProfileCardTrigger
-          {...defaultProps}
-          resourceClient={resourceClient as ProfileClient}
-          trigger="click"
-        >
-          <span data-testid="test-inner-trigger">This is the trigger</span>
-        </TeamProfileCardTrigger>,
-      );
+      const { findByTestId, findByText, getByTestId, getByText } =
+        renderWithIntl(
+          <TeamProfileCardTrigger
+            {...defaultProps}
+            resourceClient={resourceClient as ProfileClient}
+            trigger="click"
+          >
+            <span data-testid="test-inner-trigger">This is the trigger</span>
+          </TeamProfileCardTrigger>,
+        );
 
       getTeamProfile.mockImplementationOnce(() => {
         return Promise.reject('Error');

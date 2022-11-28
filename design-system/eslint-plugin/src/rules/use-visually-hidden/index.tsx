@@ -187,37 +187,36 @@ const rule: Rule.RuleModule = {
         }
       },
 
-      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]': (
-        node: Rule.Node,
-      ) => {
-        if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
-          return;
-        }
+      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
+        (node: Rule.Node) => {
+          if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
+            return;
+          }
 
-        const templateString = node.quasi.quasis
-          .map((q) => q.value.raw)
-          .join('');
-        const styleEntries = makeTemplateLiteralIntoEntries(templateString);
+          const templateString = node.quasi.quasis
+            .map((q) => q.value.raw)
+            .join('');
+          const styleEntries = makeTemplateLiteralIntoEntries(templateString);
 
-        if (!styleEntries) {
-          return;
-        }
+          if (!styleEntries) {
+            return;
+          }
 
-        const count = countMatchingKeyValues(
-          styleEntries.map(([key, value]) => ({ key, value })),
-        );
+          const count = countMatchingKeyValues(
+            styleEntries.map(([key, value]) => ({ key, value })),
+          );
 
-        if (count > 0.8) {
-          return context.report({
-            node,
-            messageId: 'suggestion',
-            fix:
-              node.tag.type !== 'Identifier'
-                ? fixVanilla(source, node)
-                : undefined,
-          });
-        }
-      },
+          if (count > 0.8) {
+            return context.report({
+              node,
+              messageId: 'suggestion',
+              fix:
+                node.tag.type !== 'Identifier'
+                  ? fixVanilla(source, node)
+                  : undefined,
+            });
+          }
+        },
     };
   },
 };

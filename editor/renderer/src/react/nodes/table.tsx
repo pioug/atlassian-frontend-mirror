@@ -292,7 +292,8 @@ export class TableContainer extends React.Component<
       return;
     }
 
-    this.stickyWrapperRef.current.scrollLeft = this.wrapperRef.current.scrollLeft;
+    this.stickyWrapperRef.current.scrollLeft =
+      this.wrapperRef.current.scrollLeft;
   };
 
   get pinTop() {

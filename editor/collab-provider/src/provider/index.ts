@@ -186,8 +186,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
     this.onSyncUpError = onSyncUpError || noop;
 
-    this.clientId = (getState().plugins.find((p: any) => p.key === 'collab$')!
-      .spec as any).config.clientID;
+    this.clientId = (
+      getState().plugins.find((p: any) => p.key === 'collab$')!.spec as any
+    ).config.clientID;
 
     if (!this.isChannelInitialized) {
       this.initializeChannel();
@@ -613,9 +614,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       return;
     }
     const { getUser } = this.config;
-    const { name = '', email = '', avatar = '' } = await (getUser
-      ? getUser(userId)
-      : getParticipant(userId));
+    const {
+      name = '',
+      email = '',
+      avatar = '',
+    } = await (getUser ? getUser(userId) : getParticipant(userId));
 
     const isNewParticipant = !this.participants.has(sessionId);
     if (isNewParticipant) {

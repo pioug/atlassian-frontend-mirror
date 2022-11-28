@@ -3,10 +3,10 @@ import {
   NonNestableBlockContent,
 } from '@atlaskit/adf-schema';
 
-export const bodiedExtension = (attrs: BodiedExtensionDefinition['attrs']) => (
-  ...content: Array<NonNestableBlockContent>
-): BodiedExtensionDefinition => ({
-  type: 'bodiedExtension',
-  attrs,
-  content,
-});
+export const bodiedExtension =
+  (attrs: BodiedExtensionDefinition['attrs']) =>
+  (...content: Array<NonNestableBlockContent>): BodiedExtensionDefinition => ({
+    type: 'bodiedExtension',
+    attrs,
+    content,
+  });

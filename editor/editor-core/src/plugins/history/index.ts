@@ -47,9 +47,8 @@ const createPlugin = (dispatch: Dispatch) =>
 
         const canUndo = pmHistoryPluginState.done.eventCount > 0;
         const canRedo = pmHistoryPluginState.undone.eventCount > 0;
-        const { canUndo: prevCanUndo, canRedo: prevCanRedo } = getPluginState(
-          newState,
-        );
+        const { canUndo: prevCanUndo, canRedo: prevCanRedo } =
+          getPluginState(newState);
 
         if (canUndo !== prevCanUndo || canRedo !== prevCanRedo) {
           const action = {

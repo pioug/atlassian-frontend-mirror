@@ -24,11 +24,10 @@ const SelectOption = <T extends object>({
   template,
 }: Props<T>) => {
   const handleOnSelectChange = useCallback(
-    <T extends object>(...params: ChangeParams<T>) => (
-      option: { label: string; value: T[keyof T] } | null,
-    ) => {
-      handleOnChange(...params, option?.value);
-    },
+    <T extends object>(...params: ChangeParams<T>) =>
+      (option: { label: string; value: T[keyof T] } | null) => {
+        handleOnChange(...params, option?.value);
+      },
     [],
   );
 

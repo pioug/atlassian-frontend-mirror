@@ -8,17 +8,17 @@ jest.mock('../../getImageDimensionsFromBlob');
 jest.mock('../../getVideoDimensionsFromBlob');
 
 describe('getDimensionsFromBlob()', () => {
-  const defaultMockImplementation = (
-    opts: { dimensions?: Dimensions; err?: any } = {},
-  ) => async () => {
-    const { dimensions, err } = opts;
+  const defaultMockImplementation =
+    (opts: { dimensions?: Dimensions; err?: any } = {}) =>
+    async () => {
+      const { dimensions, err } = opts;
 
-    if (err) {
-      throw err;
-    }
+      if (err) {
+        throw err;
+      }
 
-    return dimensions || { width: 1, height: 1 };
-  };
+      return dimensions || { width: 1, height: 1 };
+    };
 
   afterEach(() => {
     jest.resetAllMocks();

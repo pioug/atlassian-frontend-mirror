@@ -47,33 +47,35 @@ const convertFixedCoordinatesToAbsolutePositioning = (
   };
 };
 
-export const handlePositionCalculatedWith = (
-  offsetParent: HTMLElement,
-  node: Node,
-  getCurrentFixedCoordinates: () => any,
-) => (position: {
-  top?: number;
-  left?: number;
-  bottom?: number;
-  right?: number;
-}) => {
-  if (!offsetParent) {
-    return position;
-  }
+export const handlePositionCalculatedWith =
+  (
+    offsetParent: HTMLElement,
+    node: Node,
+    getCurrentFixedCoordinates: () => any,
+  ) =>
+  (position: {
+    top?: number;
+    left?: number;
+    bottom?: number;
+    right?: number;
+  }) => {
+    if (!offsetParent) {
+      return position;
+    }
 
-  const target = getNearestNonTextNode(node)!;
-  const cursorHeight = getCursorHeightFrom(target);
-  const fixedCoordinates = getCurrentFixedCoordinates();
+    const target = getNearestNonTextNode(node)!;
+    const cursorHeight = getCursorHeightFrom(target);
+    const fixedCoordinates = getCurrentFixedCoordinates();
 
-  const absoluteCoordinates = convertFixedCoordinatesToAbsolutePositioning(
-    fixedCoordinates,
-    offsetParent,
-    cursorHeight,
-  );
-  return {
-    left: position.left ? absoluteCoordinates.left : undefined,
-    right: position.right ? absoluteCoordinates.right : undefined,
-    top: position.top ? absoluteCoordinates.top : undefined,
-    bottom: position.bottom ? absoluteCoordinates.bottom : undefined,
+    const absoluteCoordinates = convertFixedCoordinatesToAbsolutePositioning(
+      fixedCoordinates,
+      offsetParent,
+      cursorHeight,
+    );
+    return {
+      left: position.left ? absoluteCoordinates.left : undefined,
+      right: position.right ? absoluteCoordinates.right : undefined,
+      top: position.top ? absoluteCoordinates.top : undefined,
+      bottom: position.bottom ? absoluteCoordinates.bottom : undefined,
+    };
   };
-};

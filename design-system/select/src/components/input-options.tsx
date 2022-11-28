@@ -193,7 +193,7 @@ interface OptionState {
 
 class ControlOption<
   Option = OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > extends Component<OptionProps<Option, IsMulti>, OptionState> {
   state: OptionState = { isActive: false };
 
@@ -204,14 +204,8 @@ class ControlOption<
   onMouseLeave = () => this.setState({ isActive: false });
 
   render() {
-    const {
-      getStyles,
-      Icon,
-      children,
-      innerProps,
-      innerRef,
-      ...rest
-    } = this.props;
+    const { getStyles, Icon, children, innerProps, innerRef, ...rest } =
+      this.props;
 
     // prop assignment
     const props = {

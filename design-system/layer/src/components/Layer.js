@@ -101,12 +101,8 @@ export default class Layer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { onFlippedChange, onPositioned } = this.props;
-    const {
-      flipped,
-      actualPosition,
-      originalPosition,
-      hasExtractedStyles,
-    } = this.state;
+    const { flipped, actualPosition, originalPosition, hasExtractedStyles } =
+      this.state;
 
     if (prevState.flipped !== flipped && onFlippedChange) {
       onFlippedChange({ flipped, actualPosition, originalPosition });

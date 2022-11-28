@@ -12,9 +12,8 @@ type BrowserWithMediaClientConfigProps = WithMediaClientConfigProps<
   }
 >;
 
-type BrowserWithMediaClientConfigComponent = React.ComponentType<
-  BrowserWithMediaClientConfigProps
->;
+type BrowserWithMediaClientConfigComponent =
+  React.ComponentType<BrowserWithMediaClientConfigProps>;
 
 type State = {
   Browser?: BrowserWithMediaClientConfigComponent;

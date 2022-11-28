@@ -66,14 +66,16 @@ export default () => {
       <Stack gap="scale.200" testId="box-with-backgroundColor">
         <Heading level="h600">backgroundColor</Heading>
         <Inline gap="scale.200" alignItems="center">
-          {([
-            'discovery.bold',
-            'success.bold',
-            'warning.bold',
-            'danger.bold',
-            'information.bold',
-            'brand.bold',
-          ] as const).map((bgColor) => (
+          {(
+            [
+              'discovery.bold',
+              'success.bold',
+              'warning.bold',
+              'danger.bold',
+              'information.bold',
+              'brand.bold',
+            ] as const
+          ).map((bgColor) => (
             <Box key={bgColor} backgroundColor={bgColor} padding="scale.400">
               <Box justifyContent="center">
                 <Text>{bgColor}</Text>
@@ -86,14 +88,16 @@ export default () => {
       <Stack gap="scale.200" testId="box-with-borderColor">
         <Heading level="h600">borderColor</Heading>
         <Inline gap="scale.200" alignItems="center">
-          {([
-            'discovery',
-            'success',
-            'warning',
-            'danger',
-            'information',
-            'brand',
-          ] as const).map((borderColor) => (
+          {(
+            [
+              'discovery',
+              'success',
+              'warning',
+              'danger',
+              'information',
+              'brand',
+            ] as const
+          ).map((borderColor) => (
             <Box
               key={borderColor}
               backgroundColor="neutral"

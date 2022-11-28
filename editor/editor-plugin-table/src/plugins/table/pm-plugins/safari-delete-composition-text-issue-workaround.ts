@@ -12,9 +12,10 @@ interface SafariDeleteCompositionTextIssueWorkaroundPluginState {
   decorations: DecorationSet;
 }
 
-export const tableSafariDeleteCompositionTextIssueWorkaroundKey = new PluginKey<
-  SafariDeleteCompositionTextIssueWorkaroundPluginState
->('tableSafariDeleteCompositionTextIssueWorkaround');
+export const tableSafariDeleteCompositionTextIssueWorkaroundKey =
+  new PluginKey<SafariDeleteCompositionTextIssueWorkaroundPluginState>(
+    'tableSafariDeleteCompositionTextIssueWorkaround',
+  );
 
 export const createPlugin = () => {
   return new SafePlugin<SafariDeleteCompositionTextIssueWorkaroundPluginState>({
@@ -73,12 +74,8 @@ export const createPlugin = () => {
             return false;
           }
           const range = selection.getRangeAt(0);
-          const {
-            startContainer,
-            endContainer,
-            endOffset,
-            startOffset,
-          } = range;
+          const { startContainer, endContainer, endOffset, startOffset } =
+            range;
           /**
            * On Safari when composition text is deleted, it deletes any empty elements it finds up the dom tree. Prosemirror can sometimes be confused by this
            * and will think that we meant to delete those elements. This fix forces the resulting node to not be empty.

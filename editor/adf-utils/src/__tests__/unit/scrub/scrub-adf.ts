@@ -78,8 +78,7 @@ describe('scrubAdf', () => {
                 {
                   type: 'link',
                   attrs: {
-                    href:
-                      'https://hello.atlassian.net/wiki/spaces/ET/pages/968692273?3975379868',
+                    href: 'https://hello.atlassian.net/wiki/spaces/ET/pages/968692273?3975379868',
                   },
                 },
               ],

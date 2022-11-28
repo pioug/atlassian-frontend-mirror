@@ -142,56 +142,58 @@ const applyMarkOnRange = (
   return tr;
 };
 
-const toggleMarkInRange = (mark: Mark): Command => (state, dispatch) => {
-  const tr = state.tr;
-  if (state.selection instanceof CellSelection) {
-    let markInRange = false;
-    const cells: { node: PMNode; pos: number }[] = [];
-    state.selection.forEachCell((cell, cellPos) => {
-      cells.push({ node: cell, pos: cellPos });
-      const from = cellPos;
-      const to = cellPos + cell.nodeSize;
-      if (!markInRange) {
-        markInRange = state.doc.rangeHasMark(
-          from,
-          to,
-          (mark as unknown) as MarkType,
-        );
+const toggleMarkInRange =
+  (mark: Mark): Command =>
+  (state, dispatch) => {
+    const tr = state.tr;
+    if (state.selection instanceof CellSelection) {
+      let markInRange = false;
+      const cells: { node: PMNode; pos: number }[] = [];
+      state.selection.forEachCell((cell, cellPos) => {
+        cells.push({ node: cell, pos: cellPos });
+        const from = cellPos;
+        const to = cellPos + cell.nodeSize;
+        if (!markInRange) {
+          markInRange = state.doc.rangeHasMark(
+            from,
+            to,
+            mark as unknown as MarkType,
+          );
+        }
+      });
+
+      for (let i = cells.length - 1; i >= 0; i--) {
+        const cell = cells[i];
+        const from = cell.pos;
+        const to = from + cell.node.nodeSize;
+
+        applyMarkOnRange(from, to, markInRange, mark, tr);
       }
-    });
+    } else {
+      const { $from, $to } = state.selection;
+      // The type for `rangeHasMark` only accepts a `MarkType` as a third param,
+      // Yet the internals use a method that exists on both MarkType and Mark (one checks attributes the other doesnt)
+      // For example, with our subsup mark: We use the same mark with different attributes to convert
+      // different formatting but when using `MarkType.isInSet(marks)` it returns true for both.
+      // Calling `Mark.isInSet(marks)` compares attributes as well.
+      const markInRange = state.doc.rangeHasMark(
+        $from.pos,
+        $to.pos,
+        mark as unknown as MarkType,
+      );
 
-    for (let i = cells.length - 1; i >= 0; i--) {
-      const cell = cells[i];
-      const from = cell.pos;
-      const to = from + cell.node.nodeSize;
-
-      applyMarkOnRange(from, to, markInRange, mark, tr);
+      applyMarkOnRange($from.pos, $to.pos, markInRange, mark, tr);
     }
-  } else {
-    const { $from, $to } = state.selection;
-    // The type for `rangeHasMark` only accepts a `MarkType` as a third param,
-    // Yet the internals use a method that exists on both MarkType and Mark (one checks attributes the other doesnt)
-    // For example, with our subsup mark: We use the same mark with different attributes to convert
-    // different formatting but when using `MarkType.isInSet(marks)` it returns true for both.
-    // Calling `Mark.isInSet(marks)` compares attributes as well.
-    const markInRange = state.doc.rangeHasMark(
-      $from.pos,
-      $to.pos,
-      (mark as unknown) as MarkType,
-    );
 
-    applyMarkOnRange($from.pos, $to.pos, markInRange, mark, tr);
-  }
-
-  if (tr.docChanged) {
-    if (dispatch) {
-      dispatch(tr);
+    if (tr.docChanged) {
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
     }
-    return true;
-  }
 
-  return false;
-};
+    return false;
+  };
 
 /**
  * A wrapper over the default toggleMark, except when we have a selection
@@ -199,47 +201,44 @@ const toggleMarkInRange = (mark: Mark): Command => (state, dispatch) => {
  * @param markType
  * @param attrs
  */
-const toggleMark = (
-  markType: MarkType,
-  attrs?: { [key: string]: any },
-): Command => (state, dispatch) => {
-  const mark = markType.create(attrs);
+const toggleMark =
+  (markType: MarkType, attrs?: { [key: string]: any }): Command =>
+  (state, dispatch) => {
+    const mark = markType.create(attrs);
 
-  // For cursor selections we can use the default behaviour.
-  if (state.selection instanceof TextSelection && state.selection.$cursor) {
-    const tr = state.tr;
-    if (mark.isInSet(state.storedMarks || state.selection.$cursor.marks())) {
-      tr.removeStoredMark(mark);
-    } else {
-      tr.addStoredMark(mark);
-    }
+    // For cursor selections we can use the default behaviour.
+    if (state.selection instanceof TextSelection && state.selection.$cursor) {
+      const tr = state.tr;
+      if (mark.isInSet(state.storedMarks || state.selection.$cursor.marks())) {
+        tr.removeStoredMark(mark);
+      } else {
+        tr.addStoredMark(mark);
+      }
 
-    if (dispatch) {
-      dispatch(tr);
-      return true;
-    }
-
-    return false;
-  }
-
-  return toggleMarkInRange(mark)(state, dispatch);
-};
-
-const withScrollIntoView: HigherOrderCommand = (command: Command): Command => (
-  state,
-  dispatch,
-  view,
-) =>
-  command(
-    state,
-    (tr) => {
-      tr.scrollIntoView();
       if (dispatch) {
         dispatch(tr);
+        return true;
       }
-    },
-    view,
-  );
+
+      return false;
+    }
+
+    return toggleMarkInRange(mark)(state, dispatch);
+  };
+
+const withScrollIntoView: HigherOrderCommand =
+  (command: Command): Command =>
+  (state, dispatch, view) =>
+    command(
+      state,
+      (tr) => {
+        tr.scrollIntoView();
+        if (dispatch) {
+          dispatch(tr);
+        }
+      },
+      view,
+    );
 
 export type WalkNode = {
   $pos: ResolvedPos;
@@ -325,12 +324,16 @@ const insertContentDeleteRange = (
   tr.setSelection(new TextSelection(getSelectionResolvedPos(tr)));
 };
 
-const selectNode = (pos: number): Command => (state, dispatch) => {
-  if (dispatch) {
-    dispatch(state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))));
-  }
-  return true;
-};
+const selectNode =
+  (pos: number): Command =>
+  (state, dispatch) => {
+    if (dispatch) {
+      dispatch(
+        state.tr.setSelection(new NodeSelection(state.doc.resolve(pos))),
+      );
+    }
+    return true;
+  };
 
 /**
  * If the selection is empty, is inside a paragraph node and `canNextNodeMoveUp` is true then delete current paragraph

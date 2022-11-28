@@ -61,9 +61,9 @@ export function acNameToEmoji(acName: NameToEmoji) {
 export function emojiIdToAcName(emojiId: string) {
   const filterEmojis = (acName: keyof typeof acNameToEmojiMap) =>
     acNameToEmojiMap[acName] ? acNameToEmojiMap[acName][0] === emojiId : false;
-  return (Object.keys(acNameToEmojiMap) as Array<
-    keyof typeof acNameToEmoji
-  >).filter(filterEmojis)[0];
+  return (
+    Object.keys(acNameToEmojiMap) as Array<keyof typeof acNameToEmoji>
+  ).filter(filterEmojis)[0];
 }
 
 export function acShortcutToEmoji(hipchatEmoticonShortName: string) {

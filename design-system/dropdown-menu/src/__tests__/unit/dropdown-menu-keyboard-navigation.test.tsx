@@ -10,7 +10,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 describe('dropdown menu keyboard navigation', () => {
   // requestAnimationFrame is replaced by raf-stub
   replaceRaf();
-  const requestAnimationFrame = (window.requestAnimationFrame as unknown) as Stub;
+  const requestAnimationFrame = window.requestAnimationFrame as unknown as Stub;
 
   afterAll(() => {
     requestAnimationFrame.reset();

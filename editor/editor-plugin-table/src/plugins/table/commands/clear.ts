@@ -11,39 +11,40 @@ import { Command } from '@atlaskit/editor-common/types';
 // #endregion
 
 // #region Commands
-export const clearMultipleCells = (targetCellPosition?: number): Command => (
-  state,
-  dispatch,
-) => {
-  let cursorPos: number | undefined;
-  let { tr } = state;
+export const clearMultipleCells =
+  (targetCellPosition?: number): Command =>
+  (state, dispatch) => {
+    let cursorPos: number | undefined;
+    let { tr } = state;
 
-  if (isSelectionType(tr.selection, 'cell')) {
-    const selection = (tr.selection as any) as CellSelection;
-    selection.forEachCell((_node, pos) => {
-      const $pos = tr.doc.resolve(tr.mapping.map(pos + 1));
-      tr = emptyCell(findCellClosestToPos($pos)!, state.schema)(tr);
-    });
-    cursorPos = selection.$headCell.pos;
-  } else if (targetCellPosition) {
-    const cell = findCellClosestToPos(tr.doc.resolve(targetCellPosition + 1))!;
-    tr = emptyCell(cell, state.schema)(tr);
-    cursorPos = cell.pos;
-  }
-  if (tr.docChanged && cursorPos) {
-    const $pos = tr.doc.resolve(tr.mapping.map(cursorPos));
-    const textSelection = Selection.findFrom($pos, 1, true);
-    if (textSelection) {
-      tr.setSelection(textSelection);
+    if (isSelectionType(tr.selection, 'cell')) {
+      const selection = tr.selection as any as CellSelection;
+      selection.forEachCell((_node, pos) => {
+        const $pos = tr.doc.resolve(tr.mapping.map(pos + 1));
+        tr = emptyCell(findCellClosestToPos($pos)!, state.schema)(tr);
+      });
+      cursorPos = selection.$headCell.pos;
+    } else if (targetCellPosition) {
+      const cell = findCellClosestToPos(
+        tr.doc.resolve(targetCellPosition + 1),
+      )!;
+      tr = emptyCell(cell, state.schema)(tr);
+      cursorPos = cell.pos;
     }
+    if (tr.docChanged && cursorPos) {
+      const $pos = tr.doc.resolve(tr.mapping.map(cursorPos));
+      const textSelection = Selection.findFrom($pos, 1, true);
+      if (textSelection) {
+        tr.setSelection(textSelection);
+      }
 
-    if (dispatch) {
-      dispatch(tr);
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
     }
-    return true;
-  }
-  return false;
-};
+    return false;
+  };
 
 export const clearSelection: Command = (state, dispatch) => {
   if (dispatch) {

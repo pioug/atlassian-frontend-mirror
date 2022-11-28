@@ -89,8 +89,9 @@ export class Renderer extends PureComponent<RendererProps> {
     this.id = uuid();
     startMeasure(`Renderer Render Time: ${this.id}`);
 
-    const featureFlags = this.featureFlags(this.props.featureFlags)
-      .featureFlags;
+    const featureFlags = this.featureFlags(
+      this.props.featureFlags,
+    ).featureFlags;
 
     if (featureFlags?.rendererTtiTracking) {
       measureTTI((tti, ttiFromInvocation, canceled) => {
@@ -255,11 +256,10 @@ export class Renderer extends PureComponent<RendererProps> {
 
   private featureFlags = memoizeOne(
     (featureFlags: RendererProps['featureFlags']) => {
-      const normalizedFeatureFlags = normalizeFeatureFlags<
-        NormalizedObjectFeatureFlags
-      >(featureFlags, {
-        objectFlagKeys: ['rendererRenderTracking'],
-      });
+      const normalizedFeatureFlags =
+        normalizeFeatureFlags<NormalizedObjectFeatureFlags>(featureFlags, {
+          objectFlagKeys: ['rendererRenderTracking'],
+        });
       return {
         featureFlags: normalizedFeatureFlags,
       };
@@ -376,7 +376,7 @@ export class Renderer extends PureComponent<RendererProps> {
       // a table cell, but the browser incorrectly moves the selection start or end into
       // a different table cell, we manually set the selection back to within the original
       // table cell the user intended to target
-      this.handleMouseTripleClickInTables((event as unknown) as MouseEvent);
+      this.handleMouseTripleClickInTables(event as unknown as MouseEvent);
 
       if (!this.props.eventHandlers?.onUnhandledClick) {
         return;

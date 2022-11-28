@@ -2,27 +2,30 @@ import styled, { css } from 'styled-components';
 import { N60A } from '@atlaskit/theme/colors';
 import { getThemeStyle, themeNamespace } from '../util/theme';
 
-const getItemState = (stateName) => ({ theme }) => {
-  const stateStyles = getThemeStyle(theme[themeNamespace], stateName);
-  return css`
-    background-color: ${stateStyles.background};
-    color: ${stateStyles.text};
-    fill: ${stateStyles.background};
-    text-decoration: none;
-
-    &:focus {
+const getItemState =
+  (stateName) =>
+  ({ theme }) => {
+    const stateStyles = getThemeStyle(theme[themeNamespace], stateName);
+    return css`
+      background-color: ${stateStyles.background};
       color: ${stateStyles.text};
-    }
-  `;
-};
+      fill: ${stateStyles.background};
+      text-decoration: none;
+
+      &:focus {
+        color: ${stateStyles.text};
+      }
+    `;
+  };
 
 const getPadding = ({ isCompact, theme, description }) => {
   const paddingKey = isCompact ? 'compact' : 'default';
-  const { bottom = 0, left = 0, right = 0, top = 0 } = getThemeStyle(
-    theme[themeNamespace],
-    paddingKey,
-    'padding',
-  );
+  const {
+    bottom = 0,
+    left = 0,
+    right = 0,
+    top = 0,
+  } = getThemeStyle(theme[themeNamespace], paddingKey, 'padding');
 
   let adjustedTop = typeof top === 'function' ? top() : top;
   let adjustedBottom = typeof bottom === 'function' ? bottom() : bottom;
@@ -72,9 +75,7 @@ const getInteractiveStyles = ({
 }) => {
   if (isDragging) {
     return css`
-      ${getItemState(
-        'dragging',
-      )} box-shadow: 0 4px 8px -2px ${N60A},
+      ${getItemState('dragging')} box-shadow: 0 4px 8px -2px ${N60A},
         0 0 1px ${N60A};
     `;
   }

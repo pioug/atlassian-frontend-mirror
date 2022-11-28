@@ -50,30 +50,32 @@ function createWithColorAnalytics(
   });
 }
 
-export const changeColor = (color: string): Command => (state, dispatch) => {
-  const { textColor } = state.schema.marks;
-  if (textColor) {
-    const pluginState = pluginKey.getState(state);
-    const activeColor = getActiveColor(state);
+export const changeColor =
+  (color: string): Command =>
+  (state, dispatch) => {
+    const { textColor } = state.schema.marks;
+    if (textColor) {
+      const pluginState = pluginKey.getState(state);
+      const activeColor = getActiveColor(state);
 
-    const withColorAnalytics = createWithColorAnalytics(
-      color,
-      activeColor,
-      // palette is a subset of paletteExpanded
-      pluginState.paletteExpanded || pluginState.palette,
-    );
+      const withColorAnalytics = createWithColorAnalytics(
+        color,
+        activeColor,
+        // palette is a subset of paletteExpanded
+        pluginState.paletteExpanded || pluginState.palette,
+      );
 
-    if (pluginState.disabled) {
-      return false;
-    }
+      if (pluginState.disabled) {
+        return false;
+      }
 
-    if (color === pluginState.defaultColor) {
-      withColorAnalytics(removeColor())(state, dispatch);
+      if (color === pluginState.defaultColor) {
+        withColorAnalytics(removeColor())(state, dispatch);
+        return true;
+      }
+
+      withColorAnalytics(toggleColor(color))(state, dispatch);
       return true;
     }
-
-    withColorAnalytics(toggleColor(color))(state, dispatch);
-    return true;
-  }
-  return false;
-};
+    return false;
+  };

@@ -127,12 +127,8 @@ const getTooltipTitle = (
   isSortingAllowed: boolean,
   sortOrdered?: SortOrder,
 ): string => {
-  const {
-    noOrderLabel,
-    ascOrderLabel,
-    descOrderLabel,
-    invalidLabel,
-  } = sortingIconMessages;
+  const { noOrderLabel, ascOrderLabel, descOrderLabel, invalidLabel } =
+    sortingIconMessages;
 
   if (!isSortingAllowed) {
     return intl.formatMessage(invalidLabel);

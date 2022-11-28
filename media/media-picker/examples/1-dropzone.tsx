@@ -56,11 +56,8 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
   };
 
   renderDragZone = () => {
-    const {
-      isConnectedToUsersCollection,
-      isActive,
-      dropzoneContainer,
-    } = this.state;
+    const { isConnectedToUsersCollection, isActive, dropzoneContainer } =
+      this.state;
 
     if (!isActive || !dropzoneContainer) {
       return null;
@@ -106,8 +103,8 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
   };
 
   onConnectionChange = () => {
-    const isConnectedToUsersCollection = !this.state
-      .isConnectedToUsersCollection;
+    const isConnectedToUsersCollection =
+      !this.state.isConnectedToUsersCollection;
     this.setState({ isConnectedToUsersCollection });
   };
 

@@ -60,14 +60,15 @@ describe('macro plugin -> commands -> insert macro from provider', () => {
       },
     });
 
-    const macroNode = editorView.state.schema.nodes.bodiedExtension.createChecked(
-      {
-        layout: 'full-width',
-        extensionKey: 'com.fake',
-        extensionType: 'com.fake',
-      },
-      editorView.state.schema.nodes.paragraph.createChecked(),
-    );
+    const macroNode =
+      editorView.state.schema.nodes.bodiedExtension.createChecked(
+        {
+          layout: 'full-width',
+          extensionKey: 'com.fake',
+          extensionType: 'com.fake',
+        },
+        editorView.state.schema.nodes.paragraph.createChecked(),
+      );
 
     await insertMacroFromMacroBrowser(macroProvider, macroNode)(editorView);
 

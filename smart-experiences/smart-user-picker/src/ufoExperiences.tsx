@@ -18,14 +18,12 @@ export const smartUserPickerRenderedUfoExperience = new ConcurrentExperience(
   },
 );
 
-export const smartUserPickerOptionsShownUfoExperience = new ConcurrentExperience(
-  'smart-user-picker-options-shown',
-  {
+export const smartUserPickerOptionsShownUfoExperience =
+  new ConcurrentExperience('smart-user-picker-options-shown', {
     platform: { component: COMPONENT_NAME },
     type: ExperienceTypes.Operation,
     performanceType: ExperiencePerformanceTypes.InlineResult,
-  },
-);
+  });
 
 export const useUFOConcurrentExperience = (
   experience: ConcurrentExperience,

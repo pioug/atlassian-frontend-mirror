@@ -365,7 +365,8 @@ describe('MediaClient', () => {
             );
             const uploadableFileUpfrontIds = mockUploadFile.mock
               .calls[0][2] as UploadableFileUpfrontIds;
-            const actualUploadId = await uploadableFileUpfrontIds.deferredUploadId;
+            const actualUploadId =
+              await uploadableFileUpfrontIds.deferredUploadId;
             expect(actualUploadId).toEqual('some-upload-id');
             subscription.unsubscribe();
             done();

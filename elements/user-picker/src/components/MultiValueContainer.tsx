@@ -101,7 +101,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
       return (
         <FormattedMessage {...messages.addMore}>
           {(addMore) => {
-            let addMoreMessages: string | string[] = (addMore as unknown) as
+            let addMoreMessages: string | string[] = addMore as unknown as
               | string
               | string[];
             if (addMore && typeof addMore === 'string') {

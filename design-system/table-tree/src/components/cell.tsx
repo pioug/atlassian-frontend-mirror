@@ -26,14 +26,8 @@ export interface CellProps {
 
 class Cell extends Component<CellProps> {
   render() {
-    const {
-      children,
-      singleLine,
-      indentLevel,
-      width,
-      className,
-      ...props
-    } = this.props;
+    const { children, singleLine, indentLevel, width, className, ...props } =
+      this.props;
     return (
       <CommonCell
         role="gridcell"

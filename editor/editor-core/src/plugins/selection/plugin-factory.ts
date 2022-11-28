@@ -54,11 +54,8 @@ const handleSelectionChanged = (
   return pluginState;
 };
 
-export const {
-  createCommand,
-  getPluginState,
-  createPluginState,
-} = pluginFactory(selectionPluginKey, reducer, {
-  onDocChanged: handleDocChanged,
-  onSelectionChanged: handleSelectionChanged,
-});
+export const { createCommand, getPluginState, createPluginState } =
+  pluginFactory(selectionPluginKey, reducer, {
+    onDocChanged: handleDocChanged,
+    onSelectionChanged: handleSelectionChanged,
+  });

@@ -105,10 +105,8 @@ class FakeLegacyConsumer extends PureComponent<{}> {
   }
 
   onClick = () => {
-    const {
-      getAtlaskitAnalyticsContext,
-      getAtlaskitAnalyticsEventHandlers,
-    } = this.context;
+    const { getAtlaskitAnalyticsContext, getAtlaskitAnalyticsEventHandlers } =
+      this.context;
     const analyticsEvent = new UIAnalyticsEvent({
       context: getAtlaskitAnalyticsContext(),
       handlers: getAtlaskitAnalyticsEventHandlers(),

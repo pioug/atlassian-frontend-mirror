@@ -9,14 +9,12 @@ import { useLoadAnnotations } from './hooks/use-load-annotations';
 import { useAnnotationStateByTypeEvent } from './hooks/use-events';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-const LoadAnnotations: React.FC<Record<
-  'adfDocument',
-  JSONDocNode
->> = React.memo(({ adfDocument }) => {
-  useLoadAnnotations({ adfDocument });
+const LoadAnnotations: React.FC<Record<'adfDocument', JSONDocNode>> =
+  React.memo(({ adfDocument }) => {
+    useLoadAnnotations({ adfDocument });
 
-  return null;
-});
+    return null;
+  });
 
 export const AnnotationsWrapper: React.FC<AnnotationsWrapperProps> = (
   props,

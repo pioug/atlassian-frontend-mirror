@@ -6,15 +6,13 @@ const dropboxDefinitionId = 'dropbox';
 const serviceAuth = {
   key: 'default',
   displayName: 'Google',
-  url:
-    'https://outbound-auth-flow.ap-southeast-2.dev.atl-paas.net/start?containerId=f4d9cdf9-9977-4c40-a4d2-968a4986ade0&serviceKey=default',
+  url: 'https://outbound-auth-flow.ap-southeast-2.dev.atl-paas.net/start?containerId=f4d9cdf9-9977-4c40-a4d2-968a4986ade0&serviceKey=default',
 };
 
 const generator = {
   name: 'Google Drive',
   icon: {
-    url:
-      'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico',
+    url: 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico',
   },
 };
 

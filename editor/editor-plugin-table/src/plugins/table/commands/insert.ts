@@ -57,109 +57,109 @@ export function addColumnAt(getEditorContainerWidth: GetEditorContainerWidth) {
 
 // :: (EditorState, dispatch: ?(tr: Transaction)) → bool
 // Command to add a column before the column with the selection.
-export const addColumnBefore = (
-  getEditorContainerWidth: GetEditorContainerWidth,
-): Command => (state, dispatch, view) => {
-  const table = findTable(state.selection);
-  if (!table) {
-    return false;
-  }
-  if (dispatch) {
-    let rect = selectedRect(state);
-    dispatch(
-      addColumnAt(getEditorContainerWidth)(
-        rect.left,
-        getAllowAddColumnCustomStep(state),
-        view,
-      )(state.tr),
-    );
-  }
-  return true;
-};
+export const addColumnBefore =
+  (getEditorContainerWidth: GetEditorContainerWidth): Command =>
+  (state, dispatch, view) => {
+    const table = findTable(state.selection);
+    if (!table) {
+      return false;
+    }
+    if (dispatch) {
+      let rect = selectedRect(state);
+      dispatch(
+        addColumnAt(getEditorContainerWidth)(
+          rect.left,
+          getAllowAddColumnCustomStep(state),
+          view,
+        )(state.tr),
+      );
+    }
+    return true;
+  };
 
 // :: (EditorState, dispatch: ?(tr: Transaction)) → bool
 // Command to add a column after the column with the selection.
-export const addColumnAfter = (
-  getEditorContainerWidth: GetEditorContainerWidth,
-): Command => (state, dispatch, view) => {
-  const table = findTable(state.selection);
-  if (!table) {
-    return false;
-  }
-  if (dispatch) {
-    let rect = selectedRect(state);
-    dispatch(
-      addColumnAt(getEditorContainerWidth)(
-        rect.right,
-        getAllowAddColumnCustomStep(state),
-        view,
-      )(state.tr),
-    );
-  }
-  return true;
-};
+export const addColumnAfter =
+  (getEditorContainerWidth: GetEditorContainerWidth): Command =>
+  (state, dispatch, view) => {
+    const table = findTable(state.selection);
+    if (!table) {
+      return false;
+    }
+    if (dispatch) {
+      let rect = selectedRect(state);
+      dispatch(
+        addColumnAt(getEditorContainerWidth)(
+          rect.right,
+          getAllowAddColumnCustomStep(state),
+          view,
+        )(state.tr),
+      );
+    }
+    return true;
+  };
 
 // #region Commands
-export const insertColumn = (
-  getEditorContainerWidth: GetEditorContainerWidth,
-) => (column: number): Command => (state, dispatch, view) => {
-  let tr = addColumnAt(getEditorContainerWidth)(
-    column,
-    getAllowAddColumnCustomStep(state),
-    view,
-  )(state.tr);
-  const table = findTable(tr.selection);
-  if (!table) {
-    return false;
-  }
-  // move the cursor to the newly created column
-  const pos = TableMap.get(table.node).positionAt(0, column, table.node);
+export const insertColumn =
+  (getEditorContainerWidth: GetEditorContainerWidth) =>
+  (column: number): Command =>
+  (state, dispatch, view) => {
+    let tr = addColumnAt(getEditorContainerWidth)(
+      column,
+      getAllowAddColumnCustomStep(state),
+      view,
+    )(state.tr);
+    const table = findTable(tr.selection);
+    if (!table) {
+      return false;
+    }
+    // move the cursor to the newly created column
+    const pos = TableMap.get(table.node).positionAt(0, column, table.node);
 
-  if (dispatch) {
-    dispatch(
-      tr.setSelection(Selection.near(tr.doc.resolve(table.start + pos))),
-    );
-  }
-  return true;
-};
+    if (dispatch) {
+      dispatch(
+        tr.setSelection(Selection.near(tr.doc.resolve(table.start + pos))),
+      );
+    }
+    return true;
+  };
 
-export const insertRow = (
-  row: number,
-  moveCursorToTheNewRow: boolean,
-): Command => (state, dispatch) => {
-  // Don't clone the header row
-  const headerRowEnabled = checkIfHeaderRowEnabled(state.selection);
-  const clonePreviousRow =
-    (headerRowEnabled && row > 1) || (!headerRowEnabled && row > 0);
+export const insertRow =
+  (row: number, moveCursorToTheNewRow: boolean): Command =>
+  (state, dispatch) => {
+    // Don't clone the header row
+    const headerRowEnabled = checkIfHeaderRowEnabled(state.selection);
+    const clonePreviousRow =
+      (headerRowEnabled && row > 1) || (!headerRowEnabled && row > 0);
 
-  // When the table have header row
-  // we should not add row on the position zero
-  if (row === 0 && headerRowEnabled) {
-    return false;
-  }
-
-  const tr = clonePreviousRow
-    ? copyPreviousRow(state.schema)(row)(state.tr)
-    : addRowAt(row)(state.tr);
-
-  const table = findTable(tr.selection);
-  if (!table) {
-    return false;
-  }
-  if (dispatch) {
-    const { selection } = state;
-    if (moveCursorToTheNewRow) {
-      // move the cursor to the newly created row
-      const pos = TableMap.get(table.node).positionAt(row, 0, table.node);
-      tr.setSelection(Selection.near(tr.doc.resolve(table.start + pos)));
-    } else {
-      tr.setSelection(selection.map(tr.doc, tr.mapping));
+    // When the table have header row
+    // we should not add row on the position zero
+    if (row === 0 && headerRowEnabled) {
+      return false;
     }
 
-    dispatch(tr);
-  }
-  return true;
-};
+    const tr = clonePreviousRow
+      ? copyPreviousRow(state.schema)(row)(state.tr)
+      : addRowAt(row)(state.tr);
+
+    const table = findTable(tr.selection);
+    if (!table) {
+      return false;
+    }
+    if (dispatch) {
+      const { selection } = state;
+      if (moveCursorToTheNewRow) {
+        // move the cursor to the newly created row
+        const pos = TableMap.get(table.node).positionAt(row, 0, table.node);
+        tr.setSelection(Selection.near(tr.doc.resolve(table.start + pos)));
+      } else {
+        tr.setSelection(selection.map(tr.doc, tr.mapping));
+      }
+
+      dispatch(tr);
+    }
+    return true;
+  };
 
 export const createTable = (): Command => (state, dispatch) => {
   const table = createTableNode({

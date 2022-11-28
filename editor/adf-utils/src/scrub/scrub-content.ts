@@ -107,12 +107,11 @@ export const scrubLink = (
 };
 
 const scrubObj = (nodeType: string, attrsObj: Object) => {
-  const entries: Array<[string, any]> = Object.entries(
-    attrsObj,
-  ).map(([key, value]) =>
-    BYPASS_ATTR_LIST[nodeType]?.includes(key)
-      ? [key, value]
-      : [key, scrubAttrs(nodeType, value)],
+  const entries: Array<[string, any]> = Object.entries(attrsObj).map(
+    ([key, value]) =>
+      BYPASS_ATTR_LIST[nodeType]?.includes(key)
+        ? [key, value]
+        : [key, scrubAttrs(nodeType, value)],
   );
 
   return fromEntries(entries);

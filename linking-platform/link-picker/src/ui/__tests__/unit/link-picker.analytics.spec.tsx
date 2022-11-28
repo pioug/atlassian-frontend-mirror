@@ -468,7 +468,9 @@ describe('LinkPicker analytics', () => {
       const { spy } = setupWithPlugins();
 
       await user.click(
-        (await screen.findAllByTestId(testIds.searchResultItem))[0],
+        (
+          await screen.findAllByTestId(testIds.searchResultItem)
+        )[0],
       );
 
       // Should not have fired a text field update

@@ -17,9 +17,7 @@ export interface MediaInlineCardLoadedViewProps {
   titlePrefix?: React.ReactNode;
 }
 
-export class MediaInlineCardLoadedView extends React.Component<
-  MediaInlineCardLoadedViewProps
-> {
+export class MediaInlineCardLoadedView extends React.Component<MediaInlineCardLoadedViewProps> {
   render() {
     const {
       title = '',

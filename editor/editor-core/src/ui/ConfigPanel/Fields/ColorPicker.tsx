@@ -74,14 +74,8 @@ interface Props {
 }
 
 const ColorPicker = (props: Props) => {
-  const {
-    name,
-    title,
-    currentColor,
-    colorPalette,
-    onChange,
-    onFieldChange,
-  } = props;
+  const { name, title, currentColor, colorPalette, onChange, onFieldChange } =
+    props;
 
   const onColorChange = (color: PaletteColor) => {
     const colorValue = color.value;

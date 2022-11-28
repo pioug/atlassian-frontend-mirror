@@ -198,9 +198,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   componentDidUpdate(prevProps: ComponentProps) {
     const { getNode, isMediaFullscreen, allowColumnResizing } = this.props;
 
-    const {
-      tableOverflowShadowsOptimization,
-    } = this.props.getEditorFeatureFlags();
+    const { tableOverflowShadowsOptimization } =
+      this.props.getEditorFeatureFlags();
 
     if (!tableOverflowShadowsOptimization) {
       this.updateShadows();
@@ -281,9 +280,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   };
 
   onStickyState = (state: StickyPluginState) => {
-    const {
-      tableOverflowShadowsOptimization,
-    } = this.props.getEditorFeatureFlags();
+    const { tableOverflowShadowsOptimization } =
+      this.props.getEditorFeatureFlags();
 
     const pos = this.props.getPos();
     if (!isValidPosition(pos, this.props.view.state)) {
@@ -507,9 +505,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       }
     }
 
-    const {
-      tableOverflowShadowsOptimization,
-    } = this.props.getEditorFeatureFlags();
+    const { tableOverflowShadowsOptimization } =
+      this.props.getEditorFeatureFlags();
 
     if (!tableOverflowShadowsOptimization) {
       this.updateShadows();

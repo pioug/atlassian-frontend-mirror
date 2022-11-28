@@ -30,9 +30,9 @@ describe('Selectors', () => {
     });
 
     it('should return all comments directly under parentId', () => {
-      expect(
-        getComments(state, 'mock-conversation', 'mock-comment-1'),
-      ).toEqual([mockReplyComment]);
+      expect(getComments(state, 'mock-conversation', 'mock-comment-1')).toEqual(
+        [mockReplyComment],
+      );
     });
   });
 });

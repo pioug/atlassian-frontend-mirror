@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import memoizeOne from 'memoize-one';
 
 function useFunctionUsageTracking<
-  InputFunctionType extends (...any: any) => any
+  InputFunctionType extends (...any: any) => any,
 >(trackedFunction: InputFunctionType) {
   const [isUsed, setIsUsed] = useState(false);
 

@@ -37,11 +37,8 @@ export default class MyComponent extends Component<{}, State> {
   };
 
   render() {
-    const {
-      datePickerValue,
-      timePickerValue,
-      dateTimePickerValue,
-    } = this.state;
+    const { datePickerValue, timePickerValue, dateTimePickerValue } =
+      this.state;
 
     return (
       <div>

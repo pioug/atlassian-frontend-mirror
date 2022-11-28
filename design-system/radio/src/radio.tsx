@@ -140,12 +140,13 @@ const radioStyles = css({
     '--radio-border-color': 'var(--local-invalid)',
   },
 
-  '&:disabled, &:disabled:hover, &:disabled:focus, &:disabled:active, &:disabled[data-invalid]': {
-    cursor: 'not-allowed',
-    '--radio-background-color': 'var(--local-background-disabled)',
-    '--radio-border-color': 'var(--local-border-disabled)',
-    '--radio-dot-color': 'var(--local-dot-disabled)',
-  },
+  '&:disabled, &:disabled:hover, &:disabled:focus, &:disabled:active, &:disabled[data-invalid]':
+    {
+      cursor: 'not-allowed',
+      '--radio-background-color': 'var(--local-background-disabled)',
+      '--radio-border-color': 'var(--local-border-disabled)',
+      '--radio-dot-color': 'var(--local-dot-disabled)',
+    },
   '&:checked:disabled': {
     '--radio-border-color': 'transparent', // TODO: Investigate token solution
   },

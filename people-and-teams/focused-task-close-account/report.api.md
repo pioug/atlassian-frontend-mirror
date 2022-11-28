@@ -13,9 +13,7 @@ import { MessageDescriptor } from 'react-intl-next';
 import { default as React_2 } from 'react';
 
 // @public (undocumented)
-export class DeactivateUserOverviewScreen extends React_2.Component<
-  DeactivateUserOverviewScreenProps
-> {
+export class DeactivateUserOverviewScreen extends React_2.Component<DeactivateUserOverviewScreenProps> {
   // (undocumented)
   static defaultProps: Partial<DeactivateUserOverviewScreenProps>;
   // (undocumented)
@@ -82,9 +80,7 @@ interface DeleteUserContentPreviewScreenState {
 }
 
 // @public (undocumented)
-export class DeleteUserOverviewScreen extends React_2.Component<
-  DeleteUserOverviewScreenProps
-> {
+export class DeleteUserOverviewScreen extends React_2.Component<DeleteUserOverviewScreenProps> {
   // (undocumented)
   static defaultProps: Partial<DeleteUserOverviewScreenProps>;
   // (undocumented)

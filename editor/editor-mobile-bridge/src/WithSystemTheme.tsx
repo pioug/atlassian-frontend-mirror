@@ -35,14 +35,16 @@ const WithSystemTheme: React.FunctionComponent<
   );
 };
 
-export const withSystemTheme = <P extends object>(
-  Component: React.ComponentType<P>,
-  enableLightDarkTheming?: boolean,
-): React.FC<P> => (props) => {
-  const mode = enableLightDarkTheming ? useSystemTheme() : 'light';
-  return (
-    <WithSystemTheme mode={mode}>
-      <Component {...(props as P)} />
-    </WithSystemTheme>
-  );
-};
+export const withSystemTheme =
+  <P extends object>(
+    Component: React.ComponentType<P>,
+    enableLightDarkTheming?: boolean,
+  ): React.FC<P> =>
+  (props) => {
+    const mode = enableLightDarkTheming ? useSystemTheme() : 'light';
+    return (
+      <WithSystemTheme mode={mode}>
+        <Component {...(props as P)} />
+      </WithSystemTheme>
+    );
+  };

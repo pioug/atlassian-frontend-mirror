@@ -45,8 +45,9 @@ describe('InactivityDetector', () => {
 
   it('should give moseMovement resetting function as part of showControlsRegister call', () => {
     const { component } = setup();
-    const activityActivationFunction = component.find(DummyChild).props()
-      .showControls;
+    const activityActivationFunction = component
+      .find(DummyChild)
+      .props().showControls;
 
     // Controls are visible in the beginning
     expect(component.state('controlsAreVisible')).toBeTruthy();

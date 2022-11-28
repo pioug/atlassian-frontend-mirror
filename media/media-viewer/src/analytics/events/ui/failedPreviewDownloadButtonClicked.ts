@@ -8,22 +8,21 @@ import {
   MediaViewerError,
 } from '../../../errors';
 
-export type FailedPreviewDownloadButtonClickedAttributes = WithFileAttributes & {
-  fileProcessingStatus: FileStatus;
-  failReason: PrimaryErrorReason;
-};
+export type FailedPreviewDownloadButtonClickedAttributes =
+  WithFileAttributes & {
+    fileProcessingStatus: FileStatus;
+    failReason: PrimaryErrorReason;
+  };
 
-export type FailedPreviewDownloadButtonClickedEventPayload = ButtonClickEventPayload<
-  FailedPreviewDownloadButtonClickedAttributes
->;
+export type FailedPreviewDownloadButtonClickedEventPayload =
+  ButtonClickEventPayload<FailedPreviewDownloadButtonClickedAttributes>;
 
 export const createFailedPreviewDownloadButtonClickedEvent = (
   fileState: FileState,
   error: MediaViewerError,
 ): FailedPreviewDownloadButtonClickedEventPayload => {
-  const { fileId, fileMediatype, fileMimetype, fileSize } = getFileAttributes(
-    fileState,
-  );
+  const { fileId, fileMediatype, fileMimetype, fileSize } =
+    getFileAttributes(fileState);
   return {
     eventType: 'ui',
     action: 'clicked',

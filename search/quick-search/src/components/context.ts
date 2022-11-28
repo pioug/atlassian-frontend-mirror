@@ -30,6 +30,5 @@ const defaultState: ResultContextType = {
 };
 
 export const ResultContext = React.createContext(defaultState);
-export const SelectedResultIdContext = React.createContext<SelectedResultId>(
-  null,
-);
+export const SelectedResultIdContext =
+  React.createContext<SelectedResultId>(null);

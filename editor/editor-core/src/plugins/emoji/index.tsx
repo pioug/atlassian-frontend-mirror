@@ -60,7 +60,7 @@ export function memoize<
   ResultFn extends (
     emoji: EmojiDescription,
     emojiProvider?: EmojiProvider,
-  ) => TypeAheadItem
+  ) => TypeAheadItem,
 >(fn: ResultFn): { call: ResultFn; clear(): void } {
   // Cache results here
   const seen = new Map<string, TypeAheadItem>();
@@ -258,35 +258,33 @@ export const ACTIONS = {
   SET_ASCII_MAP: 'SET_ASCII_MAP',
 };
 
-const setAsciiMap = (asciiMap: Map<string, EmojiDescription>): Command => (
-  state,
-  dispatch,
-) => {
-  if (dispatch) {
-    dispatch(
-      state.tr.setMeta(emojiPluginKey, {
-        action: ACTIONS.SET_ASCII_MAP,
-        params: { asciiMap },
-      }),
-    );
-  }
-  return true;
-};
+const setAsciiMap =
+  (asciiMap: Map<string, EmojiDescription>): Command =>
+  (state, dispatch) => {
+    if (dispatch) {
+      dispatch(
+        state.tr.setMeta(emojiPluginKey, {
+          action: ACTIONS.SET_ASCII_MAP,
+          params: { asciiMap },
+        }),
+      );
+    }
+    return true;
+  };
 
-export const setProvider = (provider?: EmojiProvider): Command => (
-  state,
-  dispatch,
-) => {
-  if (dispatch) {
-    dispatch(
-      state.tr.setMeta(emojiPluginKey, {
-        action: ACTIONS.SET_PROVIDER,
-        params: { provider },
-      }),
-    );
-  }
-  return true;
-};
+export const setProvider =
+  (provider?: EmojiProvider): Command =>
+  (state, dispatch) => {
+    if (dispatch) {
+      dispatch(
+        state.tr.setMeta(emojiPluginKey, {
+          action: ACTIONS.SET_PROVIDER,
+          params: { provider },
+        }),
+      );
+    }
+    return true;
+  };
 
 export const emojiPluginKey = new PluginKey<EmojiPluginState>('emojiPlugin');
 

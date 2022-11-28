@@ -7,9 +7,8 @@ import type { BackgroundColor } from './box.partial';
  *
  * A surface context provides context information on the current background (if set).
  */
-export const SurfaceContext = createContext<BackgroundColor>(
-  'elevation.surface',
-);
+export const SurfaceContext =
+  createContext<BackgroundColor>('elevation.surface');
 
 /**
  * __useSurface__

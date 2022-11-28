@@ -82,10 +82,8 @@ export default function BoardExample() {
           // dropping on a card in a column
           if (location.current.dropTargets.length === 2) {
             // need to insert into correct position
-            const [
-              destinationItemRecord,
-              destinationColumnRecord,
-            ] = location.current.dropTargets;
+            const [destinationItemRecord, destinationColumnRecord] =
+              location.current.dropTargets;
             const destinationItemId = destinationItemRecord.data.itemId;
             invariant(typeof destinationItemId === 'string');
             const destinationId = destinationColumnRecord.data.columnId;
@@ -268,10 +266,8 @@ export default function BoardExample() {
 
             // dropping in a column (relative to a card)
             if (location.current.dropTargets.length === 2) {
-              const [
-                destinationCardRecord,
-                destinationColumnRecord,
-              ] = location.current.dropTargets;
+              const [destinationCardRecord, destinationColumnRecord] =
+                location.current.dropTargets;
               const destinationColumnId = destinationColumnRecord.data.columnId;
               invariant(typeof destinationColumnId === 'string');
               const destinationColumn = data.columnMap[destinationColumnId];

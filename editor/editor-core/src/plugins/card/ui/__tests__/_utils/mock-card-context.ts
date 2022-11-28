@@ -40,7 +40,7 @@ export class MockCardContextAdapter extends React.PureComponent<
   }
 }
 
-export const cardContext = ({
+export const cardContext = {
   Provider: {},
   Consumer: {},
   value: {
@@ -54,7 +54,7 @@ export const cardContext = ({
       replaceReducer: jest.fn(),
     },
   },
-} as unknown) as ContextWrapper<CardContextType | undefined>;
+} as unknown as ContextWrapper<CardContextType | undefined>;
 
 /**
  * Sets the SmartCardContext to return a value when calling the `getPreview` extractor

@@ -16,9 +16,8 @@ const NavigationExample = () => {
   const announcementBannerRef = useRef<HTMLDivElement>(null);
 
   const [isErrorBannerOpen, setIsErrorBannerOpen] = useState(false);
-  const [isAnnouncementBannerOpen, setIsAnnouncementBannerOpen] = useState(
-    false,
-  );
+  const [isAnnouncementBannerOpen, setIsAnnouncementBannerOpen] =
+    useState(false);
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {

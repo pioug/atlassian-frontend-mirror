@@ -202,16 +202,17 @@ describe('media', () => {
     let linkToolbarAppearance: ReactElement<LinkingToolbarProps> | undefined;
 
     if (toolbar?.items) {
-      const customLinkingToolbar = (toolbar.items as FloatingToolbarItem<
-        Command
-      >[]).find((item) => item.type === 'custom') as FloatingToolbarCustom<
-        Command
-      >;
+      const customLinkingToolbar = (
+        toolbar.items as FloatingToolbarItem<Command>[]
+      ).find(
+        (item) => item.type === 'custom',
+      ) as FloatingToolbarCustom<Command>;
 
       linkToolbarAppearance = customLinkingToolbar
-        ? (customLinkingToolbar.render(editorView, 1) as ReactElement<
-            LinkingToolbarProps
-          >)
+        ? (customLinkingToolbar.render(
+            editorView,
+            1,
+          ) as ReactElement<LinkingToolbarProps>)
         : undefined;
     }
 
@@ -254,9 +255,9 @@ describe('media', () => {
       (item) => item.type === 'custom',
     ) as FloatingToolbarCustom<Command>;
 
-    const linkingToolbar = (mountWithIntl(
+    const linkingToolbar = mountWithIntl(
       linkingToolbarComponent.render(editorView) as ReactElement<any>,
-    ) as unknown) as ReactWrapper<LinkAddToolbarProps>;
+    ) as unknown as ReactWrapper<LinkAddToolbarProps>;
 
     const linkingToolbarReactTestingLibrary = render(
       <IntlProvider locale="en">
@@ -471,13 +472,10 @@ describe('media', () => {
 
             describe('with link input via selection', () => {
               it('should allow invalid url', () => {
-                const {
-                  linkingToolbarReactTestingLibrary,
-                } = clickOnToolbarButton(toolbarWrapper, 'add', [recentItem1]);
-                const {
-                  getByPlaceholderText,
-                  queryByText,
-                } = linkingToolbarReactTestingLibrary;
+                const { linkingToolbarReactTestingLibrary } =
+                  clickOnToolbarButton(toolbarWrapper, 'add', [recentItem1]);
+                const { getByPlaceholderText, queryByText } =
+                  linkingToolbarReactTestingLibrary;
 
                 const inputText = recentItem1.name.substr(0, 1);
                 let input = getByPlaceholderText(

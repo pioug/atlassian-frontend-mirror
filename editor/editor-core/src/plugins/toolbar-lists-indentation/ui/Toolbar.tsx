@@ -35,9 +35,10 @@ export function Toolbar(props: ToolbarProps) {
   const labelUnorderedList = formatMessage(messages.unorderedList);
   const labelOrderedList = formatMessage(messages.orderedList);
 
-  const handleOnItemActivated = (buttonName: ButtonName) => (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-  ) => onItemActivated({ editorView: props.editorView, buttonName });
+  const handleOnItemActivated =
+    (buttonName: ButtonName) =>
+    (event: React.MouseEvent<HTMLElement, MouseEvent>) =>
+      onItemActivated({ editorView: props.editorView, buttonName });
 
   return (
     <span css={buttonGroupStyle}>

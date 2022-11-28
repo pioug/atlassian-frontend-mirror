@@ -137,7 +137,8 @@ describe('combine-extension-providers', () => {
       new DefaultExtensionProvider([forgeWithAutoConvert, forgeMehhExtension]),
     ]);
 
-    const autoConvertHandlers = await combinedExtensionProviderWithAutoConvert.getAutoConverter();
+    const autoConvertHandlers =
+      await combinedExtensionProviderWithAutoConvert.getAutoConverter();
     const autoConvertRunner = createAutoConverterRunner(autoConvertHandlers);
 
     [

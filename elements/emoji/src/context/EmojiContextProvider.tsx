@@ -9,9 +9,10 @@ export const EmojiContextProvider: FC<EmojiContextProviderType> = ({
   children,
   emojiContextValue,
 }) => {
-  const memoizedEmojiContextValue = useMemo(() => emojiContextValue, [
-    emojiContextValue,
-  ]);
+  const memoizedEmojiContextValue = useMemo(
+    () => emojiContextValue,
+    [emojiContextValue],
+  );
 
   useEffect(() => {
     // trigger emoji fetching

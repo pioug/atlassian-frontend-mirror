@@ -36,26 +36,26 @@ const contextPanel = css`
   overflow-y: auto;
 `;
 
-const createFakeContextPanel = (
-  extensionProvider: ExtensionProvider,
-) => (props: { title: string; nodeKey: string }) => {
-  return (
-    <div css={contextPanelWrapper}>
-      <h3>{props.title}</h3>
-      <div css={contextPanel}>
-        <ConfigPanel
-          showHeader
-          extensionProvider={extensionProvider}
-          extensionKey="examples"
-          extensionType="twp.editor.example"
-          nodeKey={props.nodeKey}
-          onChange={noop}
-          onCancel={noop}
-        />
+const createFakeContextPanel =
+  (extensionProvider: ExtensionProvider) =>
+  (props: { title: string; nodeKey: string }) => {
+    return (
+      <div css={contextPanelWrapper}>
+        <h3>{props.title}</h3>
+        <div css={contextPanel}>
+          <ConfigPanel
+            showHeader
+            extensionProvider={extensionProvider}
+            extensionKey="examples"
+            extensionType="twp.editor.example"
+            nodeKey={props.nodeKey}
+            onChange={noop}
+            onCancel={noop}
+          />
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 const exampleManifest: ExtensionManifest = {
   title: 'Editor example',
@@ -148,9 +148,10 @@ const FakeContextPanelWithoutDescription = createFakeContextPanel(
   new DefaultExtensionProvider([manifestWithoutDescription]),
 );
 
-const FakeContextPanelWithoutDescriptionOrDocumentation = createFakeContextPanel(
-  new DefaultExtensionProvider([manifestWithoutDescriptionOrDocumentation]),
-);
+const FakeContextPanelWithoutDescriptionOrDocumentation =
+  createFakeContextPanel(
+    new DefaultExtensionProvider([manifestWithoutDescriptionOrDocumentation]),
+  );
 
 const FakeContextPanelWithoutDocumentation = createFakeContextPanel(
   new DefaultExtensionProvider([manifestWithoutDocumentation]),
@@ -160,11 +161,12 @@ const FakeContextPanelWithoutSummaryAndDocumentation = createFakeContextPanel(
   new DefaultExtensionProvider([manifestWithoutSummaryAndDocumentation]),
 );
 
-const FakeContextPanelWithoutSummaryAndDescriptionAndDocumentation = createFakeContextPanel(
-  new DefaultExtensionProvider([
-    manifestWithoutSummaryAndDescriptionAndDocumentation,
-  ]),
-);
+const FakeContextPanelWithoutSummaryAndDescriptionAndDocumentation =
+  createFakeContextPanel(
+    new DefaultExtensionProvider([
+      manifestWithoutSummaryAndDescriptionAndDocumentation,
+    ]),
+  );
 
 const noop = () => {};
 

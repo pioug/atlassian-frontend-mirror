@@ -99,12 +99,8 @@ export class AvatarPickerDialog extends PureComponent<
   exportCroppedImage = (outputSize?: number) => '';
 
   onSaveClick = () => {
-    const {
-      onImagePicked,
-      onImagePickedDataURI,
-      onAvatarPicked,
-      outputSize,
-    } = this.props;
+    const { onImagePicked, onImagePickedDataURI, onAvatarPicked, outputSize } =
+      this.props;
     const { selectedImage, selectedAvatar } = this.state;
 
     if (selectedImage) {
@@ -257,12 +253,8 @@ export class AvatarPickerDialog extends PureComponent<
 
   renderBody() {
     const { avatars, isLoading, predefinedAvatarsText } = this.props;
-    const {
-      mode,
-      selectedImageSource,
-      selectedAvatar,
-      errorMessage,
-    } = this.state;
+    const { mode, selectedImageSource, selectedAvatar, errorMessage } =
+      this.state;
 
     switch (mode) {
       case Mode.Cropping:

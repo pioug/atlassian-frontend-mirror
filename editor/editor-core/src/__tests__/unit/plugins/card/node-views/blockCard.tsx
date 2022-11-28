@@ -48,7 +48,7 @@ describe('blockCard', () => {
 
   beforeEach(() => {
     mockFindOverflowScrollParent = jest.fn();
-    mockEditorView = ({
+    mockEditorView = {
       state: {
         selection: {
           from: 0,
@@ -61,7 +61,7 @@ describe('blockCard', () => {
         },
       },
       dispatch: jest.fn(),
-    } as unknown) as EditorView;
+    } as unknown as EditorView;
   });
 
   afterEach(() => {

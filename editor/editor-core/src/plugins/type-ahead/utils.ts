@@ -123,28 +123,27 @@ type MoveSelectedIndexProps = {
   editorView: EditorView;
   direction: 'next' | 'previous';
 };
-export const moveSelectedIndex = ({
-  editorView,
-  direction,
-}: MoveSelectedIndexProps) => () => {
-  const typeAheadState = getPluginState(editorView.state);
-  if (!typeAheadState) {
-    return;
-  }
-  const { selectedIndex, items } = typeAheadState;
-  const stats =
-    typeAheadState.stats instanceof StatsModifier
-      ? typeAheadState.stats
-      : new StatsModifier();
+export const moveSelectedIndex =
+  ({ editorView, direction }: MoveSelectedIndexProps) =>
+  () => {
+    const typeAheadState = getPluginState(editorView.state);
+    if (!typeAheadState) {
+      return;
+    }
+    const { selectedIndex, items } = typeAheadState;
+    const stats =
+      typeAheadState.stats instanceof StatsModifier
+        ? typeAheadState.stats
+        : new StatsModifier();
 
-  let nextIndex;
-  if (direction === 'next') {
-    stats.increaseArrowDown();
-    nextIndex = selectedIndex >= items.length - 1 ? 0 : selectedIndex + 1;
-  } else {
-    stats.increaseArrowUp();
-    nextIndex = selectedIndex === 0 ? items.length - 1 : selectedIndex - 1;
-  }
+    let nextIndex;
+    if (direction === 'next') {
+      stats.increaseArrowDown();
+      nextIndex = selectedIndex >= items.length - 1 ? 0 : selectedIndex + 1;
+    } else {
+      stats.increaseArrowUp();
+      nextIndex = selectedIndex === 0 ? items.length - 1 : selectedIndex - 1;
+    }
 
-  updateSelectedIndex(nextIndex)(editorView.state, editorView.dispatch);
-};
+    updateSelectedIndex(nextIndex)(editorView.state, editorView.dispatch);
+  };

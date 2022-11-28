@@ -389,17 +389,16 @@ export class ToolbarInsertBlock extends React.PureComponent<
     return true;
   };
 
-  private insertTaskDecision = (
-    name: 'action' | 'decision',
-    inputMethod: TOOLBAR_MENU_TYPE,
-  ) => (): boolean => {
-    const {
-      editorView: { state, dispatch },
-    } = this.props;
-    const listType = name === 'action' ? 'taskList' : 'decisionList';
+  private insertTaskDecision =
+    (name: 'action' | 'decision', inputMethod: TOOLBAR_MENU_TYPE) =>
+    (): boolean => {
+      const {
+        editorView: { state, dispatch },
+      } = this.props;
+      const listType = name === 'action' ? 'taskList' : 'decisionList';
 
-    return insertTaskDecisionCommand(listType, inputMethod)(state, dispatch);
-  };
+      return insertTaskDecisionCommand(listType, inputMethod)(state, dispatch);
+    };
 
   private insertHorizontalRule = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
     const {
@@ -446,12 +445,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
     item: any;
     inputMethod: TOOLBAR_MENU_TYPE;
   }): void => {
-    const {
-      editorView,
-      editorActions,
-      handleImageUpload,
-      expandEnabled,
-    } = this.props;
+    const { editorView, editorActions, handleImageUpload, expandEnabled } =
+      this.props;
 
     // need to do this before inserting nodes so scrollIntoView works properly
     if (!editorView.hasFocus()) {

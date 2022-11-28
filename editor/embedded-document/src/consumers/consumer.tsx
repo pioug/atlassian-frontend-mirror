@@ -5,7 +5,7 @@ import { Actions, Context, State } from '../context/context';
 export interface Props<
   PropsFromState extends {},
   PropsFromActions extends {},
-  RenderProps extends {}
+  RenderProps extends {},
 > {
   stateMapper?: (state: State) => PropsFromState;
   actionsMapper?: (actions: Actions) => PropsFromActions;
@@ -24,7 +24,7 @@ export interface ConsumerProps<A, V, R> {
 export class Consumer<
   PropsFromState extends {},
   PropsFromActions extends {},
-  RenderProps extends {}
+  RenderProps extends {},
 > extends PureComponent<Props<PropsFromState, PropsFromActions, RenderProps>> {
   private previousActions: Actions | undefined;
   private propsFromActions: PropsFromActions | undefined;

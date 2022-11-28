@@ -743,14 +743,13 @@ export interface DeprecatedTokenSchema<BaseToken> {
 export type ElevationTokenSchema<BaseToken> = SurfaceTokenSchema<BaseToken> &
   ShadowTokenSchema<BaseToken>;
 
-export type ColorTokenSchema<BaseToken> = BackgroundColorTokenSchema<
-  BaseToken
-> &
-  BorderColorTokenSchema<BaseToken> &
-  IconColorTokenSchema<BaseToken> &
-  TextColorTokenSchema<BaseToken> &
-  AccentColorTokenSchema<BaseToken> &
-  UtilTokenSchema<BaseToken>;
+export type ColorTokenSchema<BaseToken> =
+  BackgroundColorTokenSchema<BaseToken> &
+    BorderColorTokenSchema<BaseToken> &
+    IconColorTokenSchema<BaseToken> &
+    TextColorTokenSchema<BaseToken> &
+    AccentColorTokenSchema<BaseToken> &
+    UtilTokenSchema<BaseToken>;
 
 export type TokenSchema<BaseToken> = ColorTokenSchema<BaseToken> &
   ElevationTokenSchema<BaseToken>;

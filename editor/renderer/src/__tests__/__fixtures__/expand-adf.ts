@@ -33,8 +33,7 @@ export const expandADF = (breakoutMode = 'default', title = 'Cool cheese') => ({
           content: [
             {
               type: 'text',
-              text:
-                'Port-salut blue castello fromage. Monterey jack cut the cheese manchego taleggio emmental cheese strings cheese and wine swiss. Cheese triangles cauliflower cheese emmental cheddar say cheese who moved my cheese say cheese manchego. Feta.',
+              text: 'Port-salut blue castello fromage. Monterey jack cut the cheese manchego taleggio emmental cheese strings cheese and wine swiss. Cheese triangles cauliflower cheese emmental cheddar say cheese who moved my cheese say cheese manchego. Feta.',
             },
           ],
         },
@@ -90,8 +89,7 @@ export const expandADF = (breakoutMode = 'default', title = 'Cool cheese') => ({
                           content: [
                             {
                               type: 'text',
-                              text:
-                                "Hard cheese cheese and wine the big cheese. Airedale roquefort croque monsieur edam cheesy grin cheesy feet emmental ricotta. Say cheese swiss melted cheese babybel port-salut fromage when the cheese comes out everybody's happy stinking bishop.",
+                              text: "Hard cheese cheese and wine the big cheese. Airedale roquefort croque monsieur edam cheesy grin cheesy feet emmental ricotta. Say cheese swiss melted cheese babybel port-salut fromage when the cheese comes out everybody's happy stinking bishop.",
                             },
                           ],
                         },

@@ -43,8 +43,9 @@ export default class NotificationLogClient implements NotificationLogProvider {
       },
     };
 
-    return utils.requestService(this.serviceConfig, mergedOptions) as Promise<
-      NotificationCountResponse
-    >;
+    return utils.requestService(
+      this.serviceConfig,
+      mergedOptions,
+    ) as Promise<NotificationCountResponse>;
   }
 }

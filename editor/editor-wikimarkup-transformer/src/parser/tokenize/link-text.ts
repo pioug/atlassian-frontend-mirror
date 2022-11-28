@@ -3,7 +3,8 @@ import { decode } from '../utils/url';
 import { Token, TokenParser } from './';
 
 // the regex should exclude the period and exclamation mark as the last character
-export const LINK_TEXT_REGEXP = /^((?:(?:https?|ftps?):\/\/)|irc:\/\/|mailto:)([\w?!~^\/\\#$%&'()*+,\-.\/:;<=@]*[\w~^\/\\#$%&'()*+,\-\/:;<=@])/i;
+export const LINK_TEXT_REGEXP =
+  /^((?:(?:https?|ftps?):\/\/)|irc:\/\/|mailto:)([\w?!~^\/\\#$%&'()*+,\-.\/:;<=@]*[\w~^\/\\#$%&'()*+,\-\/:;<=@])/i;
 
 export const linkText: TokenParser = ({ input, position, schema }) => {
   let match = input.substring(position).match(LINK_TEXT_REGEXP);

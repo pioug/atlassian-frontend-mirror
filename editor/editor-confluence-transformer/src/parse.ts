@@ -102,11 +102,10 @@ function converter(
   // All unsupported content is wrapped in an `unsupportedInline` node. Wrapping
   // `unsupportedInline` inside `paragraph` where appropriate is handled when
   // the content is inserted into a parent.
-  const unsupportedInline = schema.nodes.confluenceUnsupportedInline.createChecked(
-    {
+  const unsupportedInline =
+    schema.nodes.confluenceUnsupportedInline.createChecked({
       cxhtml: encodeCxhtml(node),
-    },
-  );
+    });
 
   // marks and nodes
   if (node instanceof Element) {

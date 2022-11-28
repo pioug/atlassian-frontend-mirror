@@ -14,9 +14,7 @@ interface ManagedPaginationProps {
   testId?: string;
 }
 
-export default class ManagedPagination extends React.Component<
-  ManagedPaginationProps
-> {
+export default class ManagedPagination extends React.Component<ManagedPaginationProps> {
   onChange = (
     _event: any,
     newValue: any,

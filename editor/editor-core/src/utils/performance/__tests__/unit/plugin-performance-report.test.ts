@@ -175,12 +175,10 @@ describe('PluginPerformanceReport.prototype.withEntryList', () => {
   it('updates the slowPlugins field', () => {
     const fastSeries = [0.1, 0.15, 0.1, 0.01, 0.1, 0.1, 0.1];
     const slowSeries = [0.1, 0.15, 0.1, 0.01, 1, 3, 30];
-    const fastEntryList = MockPerformanceObserverEntryList.fromSeries(
-      fastSeries,
-    );
-    const slowEntryList = MockPerformanceObserverEntryList.fromSeries(
-      slowSeries,
-    );
+    const fastEntryList =
+      MockPerformanceObserverEntryList.fromSeries(fastSeries);
+    const slowEntryList =
+      MockPerformanceObserverEntryList.fromSeries(slowSeries);
 
     const entry = MockPerformanceEntry.fromSeries(slowSeries);
 

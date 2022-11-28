@@ -36,9 +36,10 @@ const EditLink: React.FC<{
     [showEditLink],
   );
 
-  const onShowJsonldClick = useCallback(() => setShowJsonld(!showJsonld), [
-    showJsonld,
-  ]);
+  const onShowJsonldClick = useCallback(
+    () => setShowJsonld(!showJsonld),
+    [showJsonld],
+  );
 
   return (
     <React.Fragment>

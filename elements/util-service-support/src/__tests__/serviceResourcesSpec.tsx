@@ -30,7 +30,8 @@ class TestResource extends AbstractResource<
 }
 
 class TestOnProviderChange
-  implements OnProviderChange<string[], string, string> {
+  implements OnProviderChange<string[], string, string>
+{
   result = sinon.stub();
   error = sinon.stub();
   info = sinon.stub();
@@ -38,7 +39,8 @@ class TestOnProviderChange
 }
 
 class MinimalTestOnProviderChange
-  implements OnProviderChange<string[], string, string> {
+  implements OnProviderChange<string[], string, string>
+{
   result = sinon.stub();
 }
 

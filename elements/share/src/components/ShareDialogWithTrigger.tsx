@@ -341,12 +341,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   };
 
   handleCopyLink = () => {
-    const {
-      copyLinkOrigin,
-      shareContentType,
-      isPublicLink,
-      shareAri,
-    } = this.props;
+    const { copyLinkOrigin, shareContentType, isPublicLink, shareAri } =
+      this.props;
     this.createAndFireEvent(
       copyLinkButtonClicked(
         this.start,
@@ -596,6 +592,5 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   }
 }
 
-export const ShareDialogWithTrigger: React.ComponentType<ShareDialogWithTriggerProps> = withAnalyticsEvents()(
-  injectIntl(ShareDialogWithTriggerInternal),
-);
+export const ShareDialogWithTrigger: React.ComponentType<ShareDialogWithTriggerProps> =
+  withAnalyticsEvents()(injectIntl(ShareDialogWithTriggerInternal));

@@ -43,8 +43,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Whether the Item should attempt to gain browser focus when mounted',
-                    raw:
-                      '* Whether the Item should attempt to gain browser focus when mounted ',
+                    raw: '* Whether the Item should attempt to gain browser focus when mounted ',
                   },
                 ],
                 default: { kind: 'boolean', value: false },
@@ -81,8 +80,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Secondary text to be shown underneath the main content.',
-                    raw:
-                      '* Secondary text to be shown underneath the main content. ',
+                    raw: '* Secondary text to be shown underneath the main content. ',
                   },
                 ],
                 default: { kind: 'string', value: '' },
@@ -166,8 +164,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       ' Drag and drop props provided by react-beautiful-dnd. Please do not use\nthis unless using react-beautiful-dnd',
-                    raw:
-                      '* Drag and drop props provided by react-beautiful-dnd. Please do not use\n   * this unless using react-beautiful-dnd ',
+                    raw: '* Drag and drop props provided by react-beautiful-dnd. Please do not use\n   * this unless using react-beautiful-dnd ',
                   },
                 ],
               },
@@ -190,8 +187,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       ' Content to be shown after the main content. Shown to the right of content (or to the left\nin RTL mode).',
-                    raw:
-                      '* Content to be shown after the main content. Shown to the right of content (or to the left\n   * in RTL mode). ',
+                    raw: '* Content to be shown after the main content. Shown to the right of content (or to the left\n   * in RTL mode). ',
                   },
                 ],
               },
@@ -214,8 +210,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       ' Content to be shown before the main content. Shown to the left of content (or to the right\nin RTL mode).',
-                    raw:
-                      '* Content to be shown before the main content. Shown to the left of content (or to the right\n   * in RTL mode). ',
+                    raw: '* Content to be shown before the main content. Shown to the left of content (or to the right\n   * in RTL mode). ',
                   },
                 ],
               },
@@ -229,8 +224,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Link that the user will be redirected to when the item is clicked. If omitted, a\nnon-hyperlink component will be rendered.',
-                    raw:
-                      '* Link that the user will be redirected to when the item is clicked. If omitted, a\n   *  non-hyperlink component will be rendered. ',
+                    raw: '* Link that the user will be redirected to when the item is clicked. If omitted, a\n   *  non-hyperlink component will be rendered. ',
                   },
                 ],
               },
@@ -244,8 +238,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Causes the item to be rendered with reduced spacing.',
-                    raw:
-                      '* Causes the item to be rendered with reduced spacing. ',
+                    raw: '* Causes the item to be rendered with reduced spacing. ',
                   },
                 ],
                 default: { kind: 'boolean', value: false },
@@ -260,8 +253,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Causes the item to appear in a disabled state and click behaviours will not be triggered.',
-                    raw:
-                      '* Causes the item to appear in a disabled state and click behaviours will not be triggered. ',
+                    raw: '* Causes the item to appear in a disabled state and click behaviours will not be triggered. ',
                   },
                 ],
                 default: { kind: 'boolean', value: false },
@@ -276,8 +268,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Used to apply correct dragging styles when also using react-beautiful-dnd.',
-                    raw:
-                      '* Used to apply correct dragging styles when also using react-beautiful-dnd. ',
+                    raw: '* Used to apply correct dragging styles when also using react-beautiful-dnd. ',
                   },
                 ],
               },
@@ -291,8 +282,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Causes the item to still be rendered, but with `display: none` applied.',
-                    raw:
-                      '* Causes the item to still be rendered, but with `display: none` applied. ',
+                    raw: '* Causes the item to still be rendered, but with `display: none` applied. ',
                   },
                 ],
                 default: { kind: 'boolean', value: false },
@@ -307,8 +297,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Causes the item to appear with a persistent selected background state.',
-                    raw:
-                      '* Causes the item to appear with a persistent selected background state. ',
+                    raw: '* Causes the item to appear with a persistent selected background state. ',
                   },
                 ],
               },
@@ -325,8 +314,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       ' Optional function to be used for rendering links. Receives `href` and possibly `target`\nas props.',
-                    raw:
-                      '* Optional function to be used for rendering links. Receives `href` and possibly `target`\n   * as props. ',
+                    raw: '* Optional function to be used for rendering links. Receives `href` and possibly `target`\n   * as props. ',
                   },
                 ],
               },
@@ -343,8 +331,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Function to be called when the item is clicked, Receives the MouseEvent.',
-                    raw:
-                      '* Function to be called when the item is clicked, Receives the MouseEvent. ',
+                    raw: '* Function to be called when the item is clicked, Receives the MouseEvent. ',
                   },
                 ],
               },
@@ -361,8 +348,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       ' Function to be called when the item is pressed with a keyboard,\nReceives the KeyboardEvent.',
-                    raw:
-                      '* Function to be called when the item is pressed with a keyboard,\n   * Receives the KeyboardEvent. ',
+                    raw: '* Function to be called when the item is pressed with a keyboard,\n   * Receives the KeyboardEvent. ',
                   },
                 ],
               },
@@ -408,8 +394,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Allows the role attribute of the item to be altered from it\'s default of\n`role="button"`',
-                    raw:
-                      '* Allows the role attribute of the item to be altered from it\'s default of\n   *  `role="button"` ',
+                    raw: '* Allows the role attribute of the item to be altered from it\'s default of\n   *  `role="button"` ',
                   },
                 ],
                 default: { kind: 'string', value: 'button' },
@@ -424,8 +409,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Allows the `children` content to break onto a new line, rather than truncating the\ncontent.',
-                    raw:
-                      '* Allows the `children` content to break onto a new line, rather than truncating the\n   *  content. ',
+                    raw: '* Allows the `children` content to break onto a new line, rather than truncating the\n   *  content. ',
                   },
                 ],
                 default: { kind: 'boolean', value: false },
@@ -453,8 +437,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Standard browser title to be displayed on the item when hovered.',
-                    raw:
-                      '* Standard browser title to be displayed on the item when hovered. ',
+                    raw: '* Standard browser title to be displayed on the item when hovered. ',
                   },
                 ],
               },
@@ -509,8 +492,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Causes the group title to be rendered with reduced spacing.',
-                    raw:
-                      '* Causes the group title to be rendered with reduced spacing. ',
+                    raw: '* Causes the group title to be rendered with reduced spacing. ',
                   },
                 ],
               },
@@ -532,8 +514,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                   {
                     type: 'commentBlock',
                     value: 'Optional heading text to be shown above the items.',
-                    raw:
-                      '* Optional heading text to be shown above the items. ',
+                    raw: '* Optional heading text to be shown above the items. ',
                   },
                 ],
               },
@@ -578,8 +559,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'A function that returns the DOM ref created by the group',
-                    raw:
-                      '* A function that returns the DOM ref created by the group ',
+                    raw: '* A function that returns the DOM ref created by the group ',
                   },
                 ],
               },
@@ -593,8 +573,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Accessibility role to be applied to the root component',
-                    raw:
-                      '* Accessibility role to be applied to the root component ',
+                    raw: '* Accessibility role to be applied to the root component ',
                   },
                 ],
                 default: { kind: 'string', value: 'group' },
@@ -618,8 +597,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Accessibility label - if not provided the title will be used if available',
-                    raw:
-                      '* Accessibility label - if not provided the title will be used if available ',
+                    raw: '* Accessibility label - if not provided the title will be used if available ',
                   },
                 ],
               },
@@ -674,8 +652,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Causes the group title to be rendered with reduced spacing.',
-                    raw:
-                      '* Causes the group title to be rendered with reduced spacing. ',
+                    raw: '* Causes the group title to be rendered with reduced spacing. ',
                   },
                 ],
               },
@@ -697,8 +674,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                   {
                     type: 'commentBlock',
                     value: 'Optional heading text to be shown above the items.',
-                    raw:
-                      '* Optional heading text to be shown above the items. ',
+                    raw: '* Optional heading text to be shown above the items. ',
                   },
                 ],
               },
@@ -743,8 +719,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'A function that returns the DOM ref created by the group',
-                    raw:
-                      '* A function that returns the DOM ref created by the group ',
+                    raw: '* A function that returns the DOM ref created by the group ',
                   },
                 ],
               },
@@ -758,8 +733,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Accessibility role to be applied to the root component',
-                    raw:
-                      '* Accessibility role to be applied to the root component ',
+                    raw: '* Accessibility role to be applied to the root component ',
                   },
                 ],
                 default: { kind: 'string', value: 'group' },
@@ -783,8 +757,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Accessibility label - if not provided the title will be used if available',
-                    raw:
-                      '* Accessibility label - if not provided the title will be used if available ',
+                    raw: '* Accessibility label - if not provided the title will be used if available ',
                   },
                 ],
               },
@@ -839,8 +812,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Causes the group title to be rendered with reduced spacing.',
-                    raw:
-                      '* Causes the group title to be rendered with reduced spacing. ',
+                    raw: '* Causes the group title to be rendered with reduced spacing. ',
                   },
                 ],
               },
@@ -862,8 +834,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                   {
                     type: 'commentBlock',
                     value: 'Optional heading text to be shown above the items.',
-                    raw:
-                      '* Optional heading text to be shown above the items. ',
+                    raw: '* Optional heading text to be shown above the items. ',
                   },
                 ],
               },
@@ -908,8 +879,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'A function that returns the DOM ref created by the group',
-                    raw:
-                      '* A function that returns the DOM ref created by the group ',
+                    raw: '* A function that returns the DOM ref created by the group ',
                   },
                 ],
               },
@@ -923,8 +893,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Accessibility role to be applied to the root component',
-                    raw:
-                      '* Accessibility role to be applied to the root component ',
+                    raw: '* Accessibility role to be applied to the root component ',
                   },
                 ],
                 default: { kind: 'string', value: 'group' },
@@ -948,8 +917,7 @@ Item is generally a layout component, concerned with visual presentation of the 
                     type: 'commentBlock',
                     value:
                       'Accessibility label - if not provided the title will be used if available',
-                    raw:
-                      '* Accessibility label - if not provided the title will be used if available ',
+                    raw: '* Accessibility label - if not provided the title will be used if available ',
                   },
                 ],
               },

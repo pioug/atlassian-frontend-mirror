@@ -40,9 +40,9 @@ export interface BaseItemProps {
 }
 
 // @public
-export const ButtonItem: MemoExoticComponent<ForwardRefExoticComponent<
-  ButtonItemProps & RefAttributes<HTMLElement>
->>;
+export const ButtonItem: MemoExoticComponent<
+  ForwardRefExoticComponent<ButtonItemProps & RefAttributes<HTMLElement>>
+>;
 
 // @public (undocumented)
 export interface ButtonItemProps extends BaseItemProps {
@@ -75,7 +75,7 @@ export interface CustomItemComponentProps {
 
 // @public (undocumented)
 export interface CustomItemProps<
-  TCustomComponentProps = CustomItemComponentProps
+  TCustomComponentProps = CustomItemComponentProps,
 > extends BaseItemProps {
   component?: React.ComponentType<TCustomComponentProps>;
 }
@@ -94,13 +94,15 @@ interface CustomItemTypeGenericHackProps {
 export type Dimension = string | number;
 
 // @public
-export const HeadingItem: MemoExoticComponent<({
-  children,
-  testId,
-  id,
-  cssFn,
-  ...rest
-}: HeadingItemProps) => jsx.JSX.Element>;
+export const HeadingItem: MemoExoticComponent<
+  ({
+    children,
+    testId,
+    id,
+    cssFn,
+    ...rest
+  }: HeadingItemProps) => jsx.JSX.Element
+>;
 
 // @public (undocumented)
 export interface HeadingItemProps {
@@ -118,9 +120,9 @@ export type ItemState = {
 };
 
 // @public
-export const LinkItem: MemoExoticComponent<ForwardRefExoticComponent<
-  LinkItemProps & RefAttributes<HTMLElement>
->>;
+export const LinkItem: MemoExoticComponent<
+  ForwardRefExoticComponent<LinkItemProps & RefAttributes<HTMLElement>>
+>;
 
 // @public (undocumented)
 export interface LinkItemProps extends BaseItemProps {

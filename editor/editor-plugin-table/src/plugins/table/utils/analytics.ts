@@ -33,9 +33,8 @@ export function getSelectedCellInfo(selection: Selection) {
   let verticalCells = 1;
   let totalCells = 1;
 
-  const { table, map, totalRowCount, totalColumnCount } = getSelectedTableInfo(
-    selection,
-  );
+  const { table, map, totalRowCount, totalColumnCount } =
+    getSelectedTableInfo(selection);
 
   if (table && map) {
     const rect = getSelectionRect(selection);
@@ -55,27 +54,27 @@ export function getSelectedCellInfo(selection: Selection) {
   };
 }
 
-export const withEditorAnalyticsAPI = (
-  payload: AnalyticsEventPayload | AnalyticsEventPayloadCallback,
-) => (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-): HigherOrderCommand => {
-  return (command) => (state, dispatch, view) =>
-    command(
-      state,
-      (tr) => {
-        const dynamicPayload =
-          payload instanceof Function ? payload(state) : payload;
+export const withEditorAnalyticsAPI =
+  (payload: AnalyticsEventPayload | AnalyticsEventPayloadCallback) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+  ): HigherOrderCommand => {
+    return (command) => (state, dispatch, view) =>
+      command(
+        state,
+        (tr) => {
+          const dynamicPayload =
+            payload instanceof Function ? payload(state) : payload;
 
-        if (dynamicPayload) {
-          editorAnalyticsAPI?.attachAnalyticsEvent(dynamicPayload)(tr);
-        }
+          if (dynamicPayload) {
+            editorAnalyticsAPI?.attachAnalyticsEvent(dynamicPayload)(tr);
+          }
 
-        if (dispatch) {
-          dispatch(tr);
-        }
-        return true;
-      },
-      view,
-    );
-};
+          if (dispatch) {
+            dispatch(tr);
+          }
+          return true;
+        },
+        view,
+      );
+  };

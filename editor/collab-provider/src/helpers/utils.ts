@@ -1,18 +1,17 @@
 import type { ProductInformation } from '../types';
 
-export const createLogger = (prefix: string, color: string = 'blue') => (
-  msg: string,
-  data: any = null,
-) => {
-  if ((window as any).COLLAB_PROVIDER_LOGGER) {
-    // eslint-disable-next-line no-console
-    console.log(
-      `%cCollab-${prefix}: ${msg}`,
-      `color: ${color}; font-weight: bold`,
-      data,
-    );
-  }
-};
+export const createLogger =
+  (prefix: string, color: string = 'blue') =>
+  (msg: string, data: any = null) => {
+    if ((window as any).COLLAB_PROVIDER_LOGGER) {
+      // eslint-disable-next-line no-console
+      console.log(
+        `%cCollab-${prefix}: ${msg}`,
+        `color: ${color}; font-weight: bold`,
+        data,
+      );
+    }
+  };
 
 const logger = createLogger('Helper:util', 'black');
 

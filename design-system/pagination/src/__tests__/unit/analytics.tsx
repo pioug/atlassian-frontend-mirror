@@ -46,12 +46,8 @@ describe('Pagination analytics', () => {
 
   describe('send change event to atlaskit/analytics', () => {
     it('when clicked on any page', () => {
-      const {
-        renderResult,
-        onChange,
-        onAnalyticsEvent,
-        changeEventResult,
-      } = setupPaginationWithAnalyticsContext();
+      const { renderResult, onChange, onAnalyticsEvent, changeEventResult } =
+        setupPaginationWithAnalyticsContext();
 
       fireEvent.click(renderResult.getByText('2'));
 
@@ -68,12 +64,8 @@ describe('Pagination analytics', () => {
     });
 
     it('when navigated forwards and backwards', () => {
-      const {
-        renderResult,
-        onChange,
-        onAnalyticsEvent,
-        changeEventResult,
-      } = setupPaginationWithAnalyticsContext();
+      const { renderResult, onChange, onAnalyticsEvent, changeEventResult } =
+        setupPaginationWithAnalyticsContext();
 
       fireEvent.click(renderResult.getByLabelText('next'));
       fireEvent.click(renderResult.getByLabelText('previous'));
@@ -109,11 +101,8 @@ describe('Pagination analytics', () => {
 
     it('should allow the addition of additional context', () => {
       const analyticsContext = { key: 'value' };
-      const {
-        renderResult,
-        onChange,
-        changeEventResult,
-      } = setupPaginationWithAnalyticsContext(analyticsContext);
+      const { renderResult, onChange, changeEventResult } =
+        setupPaginationWithAnalyticsContext(analyticsContext);
 
       fireEvent.click(renderResult.getByText('2'));
 

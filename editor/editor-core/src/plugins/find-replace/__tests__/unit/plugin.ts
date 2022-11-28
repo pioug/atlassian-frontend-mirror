@@ -50,10 +50,12 @@ describe('find/replace plugin', () => {
     prevDecorations = getPluginState(editorView.state).decorationSet.find();
   };
 
-  const positionMap = (increment = 0) => (decoration: Decoration) => ({
-    from: decoration.from += increment,
-    to: decoration.to += increment,
-  });
+  const positionMap =
+    (increment = 0) =>
+    (decoration: Decoration) => ({
+      from: (decoration.from += increment),
+      to: (decoration.to += increment),
+    });
 
   const initEditor = (doc: DocBuilder) => {
     // blockTypePlugin includes the keyboard shortcut for undo which we need

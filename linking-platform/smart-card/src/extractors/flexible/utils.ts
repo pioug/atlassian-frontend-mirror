@@ -21,7 +21,7 @@ const extractValue = <TData extends JsonLd.Data.BaseData, TResult>(
   data: JsonLd.Data.BaseData,
   key: keyof TData,
 ): TResult | undefined => {
-  return ((data as TData)?.[key] as unknown) as TResult;
+  return (data as TData)?.[key] as unknown as TResult;
 };
 
 export const extractCommentCount = (data: JsonLd.Data.BaseData) =>

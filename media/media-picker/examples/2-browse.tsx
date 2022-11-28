@@ -108,12 +108,8 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
   };
 
   render() {
-    const {
-      collectionName,
-      authEnvironment,
-      mediaClient,
-      browseConfig,
-    } = this.state;
+    const { collectionName, authEnvironment, mediaClient, browseConfig } =
+      this.state;
     if (!browseConfig || !mediaClient) {
       return null;
     }

@@ -191,10 +191,8 @@ describe('InteractiveImg', () => {
       oldZoomLevel,
     );
 
-    const {
-      zoomLevel: actualZoomLevel,
-      camera: actualCamera,
-    } = component.state();
+    const { zoomLevel: actualZoomLevel, camera: actualCamera } =
+      component.state();
     expect(actualCamera).not.toBeUndefined();
     expect(actualCamera!.viewport).toEqual(newViewport);
     expect(actualZoomLevel.value).toEqual(expectedZoomLevel.value);

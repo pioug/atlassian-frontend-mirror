@@ -14,17 +14,17 @@ describe('Smart Card: Actions', () => {
   let dispatchAnalytics: jest.Mock;
   let mockContext: CardContext;
   const mockFetchData = (response: Promise<JsonLd.Response | undefined>) => {
-    let deferrable: Promise<JsonLd.Response | undefined> = Promise.resolve(
-      undefined,
-    );
+    let deferrable: Promise<JsonLd.Response | undefined> =
+      Promise.resolve(undefined);
 
     const fn = async () => {
       deferrable = Promise.resolve(response);
       return response;
     };
 
-    (mockContext.connections.client
-      .fetchData as jest.Mock).mockImplementationOnce(fn);
+    (
+      mockContext.connections.client.fetchData as jest.Mock
+    ).mockImplementationOnce(fn);
 
     return {
       promise: deferrable,

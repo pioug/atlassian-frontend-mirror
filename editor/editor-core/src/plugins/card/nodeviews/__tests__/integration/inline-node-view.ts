@@ -20,8 +20,7 @@ runInlineNodeViewTestSuite({
   multiLineNode: true,
   customBeforeEach,
   skipTests: {
-    'Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position': [
-      'firefox',
-    ],
+    'Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position':
+      ['firefox'],
   },
 });

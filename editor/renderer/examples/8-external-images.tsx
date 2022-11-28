@@ -12,8 +12,7 @@ const document = {
           type: 'media',
           attrs: {
             type: 'external',
-            url:
-              'https://atlassian.design/uploads/guidelines/brand/personality/Artboard-1.png',
+            url: 'https://atlassian.design/uploads/guidelines/brand/personality/Artboard-1.png',
           },
         },
       ],

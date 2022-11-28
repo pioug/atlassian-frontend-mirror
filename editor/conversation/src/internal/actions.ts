@@ -27,107 +27,113 @@ export const CREATE_CONVERSATION_ERROR = 'createConversationError';
 
 export type SuccessHandler = (id: string) => void;
 
-export const addComment = (
-  conversationId: string,
-  parentId: string,
-  value: any,
-  localId: string | undefined = undefined,
-  provider: ResourceProvider,
-  onSuccess?: SuccessHandler,
-) => async () => {
-  const { commentId } = await provider.addComment(
-    conversationId,
-    parentId,
-    value,
-    localId,
-  );
+export const addComment =
+  (
+    conversationId: string,
+    parentId: string,
+    value: any,
+    localId: string | undefined = undefined,
+    provider: ResourceProvider,
+    onSuccess?: SuccessHandler,
+  ) =>
+  async () => {
+    const { commentId } = await provider.addComment(
+      conversationId,
+      parentId,
+      value,
+      localId,
+    );
 
-  if (typeof onSuccess === 'function') {
-    onSuccess(commentId);
-  }
-};
+    if (typeof onSuccess === 'function') {
+      onSuccess(commentId);
+    }
+  };
 
-export const updateComment = (
-  conversationId: string,
-  commentId: string,
-  value: any,
-  provider: ResourceProvider,
-  onSuccess?: SuccessHandler,
-) => async () => {
-  await provider.updateComment(conversationId, commentId, value);
+export const updateComment =
+  (
+    conversationId: string,
+    commentId: string,
+    value: any,
+    provider: ResourceProvider,
+    onSuccess?: SuccessHandler,
+  ) =>
+  async () => {
+    await provider.updateComment(conversationId, commentId, value);
 
-  if (typeof onSuccess === 'function') {
-    onSuccess(commentId);
-  }
-};
+    if (typeof onSuccess === 'function') {
+      onSuccess(commentId);
+    }
+  };
 
-export const deleteComment = (
-  conversationId: string,
-  commentId: string,
-  provider: ResourceProvider,
-  onSuccess?: SuccessHandler,
-) => async () => {
-  await provider.deleteComment(conversationId, commentId);
+export const deleteComment =
+  (
+    conversationId: string,
+    commentId: string,
+    provider: ResourceProvider,
+    onSuccess?: SuccessHandler,
+  ) =>
+  async () => {
+    await provider.deleteComment(conversationId, commentId);
 
-  if (typeof onSuccess === 'function') {
-    onSuccess(commentId);
-  }
-};
+    if (typeof onSuccess === 'function') {
+      onSuccess(commentId);
+    }
+  };
 
-export const revertComment = (
-  conversationId: string,
-  commentId: string,
-  provider: ResourceProvider,
-) => async () => {
-  provider.revertComment(conversationId, commentId);
-};
+export const revertComment =
+  (conversationId: string, commentId: string, provider: ResourceProvider) =>
+  async () => {
+    provider.revertComment(conversationId, commentId);
+  };
 
-export const updateUser = (
-  user: User,
-  provider: ResourceProvider,
-) => async () => {
-  provider.updateUser(user);
-};
+export const updateUser =
+  (user: User, provider: ResourceProvider) => async () => {
+    provider.updateUser(user);
+  };
 
-export const createConversation = (
-  localId: string,
-  value: any,
-  meta: any,
-  provider: ResourceProvider,
-  objectId: string,
-  containerId?: string,
-  onSuccess?: SuccessHandler,
-) => async () => {
-  const { conversationId } = await provider.create(
-    localId,
-    value,
-    meta,
-    objectId,
-    containerId,
-  );
+export const createConversation =
+  (
+    localId: string,
+    value: any,
+    meta: any,
+    provider: ResourceProvider,
+    objectId: string,
+    containerId?: string,
+    onSuccess?: SuccessHandler,
+  ) =>
+  async () => {
+    const { conversationId } = await provider.create(
+      localId,
+      value,
+      meta,
+      objectId,
+      containerId,
+    );
 
-  if (typeof onSuccess === 'function') {
-    onSuccess(conversationId);
-  }
-};
+    if (typeof onSuccess === 'function') {
+      onSuccess(conversationId);
+    }
+  };
 
-export const saveDraft = (
-  isLocal: boolean,
-  value: any,
-  conversationId: string,
-  commentId: string | undefined,
-  meta: any,
-  provider: ResourceProvider,
-  objectId: string,
-  containerId?: string,
-) => async () => {
-  provider.saveDraft(
-    isLocal,
-    value,
-    conversationId,
-    commentId,
-    meta,
-    objectId,
-    containerId,
-  );
-};
+export const saveDraft =
+  (
+    isLocal: boolean,
+    value: any,
+    conversationId: string,
+    commentId: string | undefined,
+    meta: any,
+    provider: ResourceProvider,
+    objectId: string,
+    containerId?: string,
+  ) =>
+  async () => {
+    provider.saveDraft(
+      isLocal,
+      value,
+      conversationId,
+      commentId,
+      meta,
+      objectId,
+      containerId,
+    );
+  };

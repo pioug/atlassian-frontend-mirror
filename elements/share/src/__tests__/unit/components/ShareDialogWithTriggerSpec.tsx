@@ -62,14 +62,13 @@ jest.mock('react-intl-next', () => {
     FormattedMessage: (descriptor: any) => (
       <span>{descriptor.defaultMessage}</span>
     ),
-    injectIntl: (Node: any) => (props: any) => (
-      <Node {...props} intl={mockIntl} />
-    ),
+    injectIntl: (Node: any) => (props: any) =>
+      <Node {...props} intl={mockIntl} />,
   };
 });
 
 const mockIntlProps: WrappedComponentProps = {
-  intl: ({ formatMessage: mockFormatMessage } as unknown) as IntlShape,
+  intl: { formatMessage: mockFormatMessage } as unknown as IntlShape,
 };
 
 const renderDialogContent = (wrapper: any) => {
@@ -214,9 +213,8 @@ describe('ShareDialogWithTrigger', () => {
       const shareDialogWithTriggerInternal = wrapper.find(
         ShareDialogWithTriggerInternal,
       );
-      let {
-        isDialogOpen,
-      }: Partial<ShareDialogWithTriggerStates> = shareDialogWithTriggerInternal.state();
+      let { isDialogOpen }: Partial<ShareDialogWithTriggerStates> =
+        shareDialogWithTriggerInternal.state();
       expect(isDialogOpen).toEqual(false);
       expect(shareDialogWithTriggerInternal.find(Popup).prop('isOpen')).toEqual(
         isDialogOpen,
@@ -443,16 +441,20 @@ describe('ShareDialogWithTrigger', () => {
       expect(mockRenderCustomTriggerButton).toHaveBeenCalledTimes(1);
       expect(mockRenderCustomTriggerButton).toHaveBeenCalledWith(
         {
-          error: (wrapper
-            .find(ShareDialogWithTriggerInternal)
-            .state() as ShareDialogWithTriggerStates).shareError,
+          error: (
+            wrapper
+              .find(ShareDialogWithTriggerInternal)
+              .state() as ShareDialogWithTriggerStates
+          ).shareError,
           isDisabled: Boolean(wrapper.props().isDisabled),
-          isSelected: (wrapper
-            .find(ShareDialogWithTriggerInternal)
-            .state() as ShareDialogWithTriggerStates).isDialogOpen,
-          onClick: (wrapper
-            .find(ShareDialogWithTriggerInternal)
-            .instance() as any).onTriggerClick,
+          isSelected: (
+            wrapper
+              .find(ShareDialogWithTriggerInternal)
+              .state() as ShareDialogWithTriggerStates
+          ).isDialogOpen,
+          onClick: (
+            wrapper.find(ShareDialogWithTriggerInternal).instance() as any
+          ).onTriggerClick,
         },
         {
           'aria-controls': undefined,
@@ -940,16 +942,20 @@ describe('ShareDialogWithTrigger', () => {
         triggerButtonStyle: 'icon-only',
       });
       expect(
-        (wrapper
-          .find(ShareDialogWithTriggerInternal)
-          .find(Aktooltip)
-          .props() as any).content,
+        (
+          wrapper
+            .find(ShareDialogWithTriggerInternal)
+            .find(Aktooltip)
+            .props() as any
+        ).content,
       ).toEqual('Share');
       expect(
-        (wrapper
-          .find(ShareDialogWithTriggerInternal)
-          .find(Aktooltip)
-          .props() as any).position,
+        (
+          wrapper
+            .find(ShareDialogWithTriggerInternal)
+            .find(Aktooltip)
+            .props() as any
+        ).position,
       ).toEqual('top');
 
       const customTooltipText = 'Custom Share';
@@ -961,16 +967,20 @@ describe('ShareDialogWithTrigger', () => {
       });
 
       expect(
-        (wrapper
-          .find(ShareDialogWithTriggerInternal)
-          .find(Aktooltip)
-          .props() as any).content,
+        (
+          wrapper
+            .find(ShareDialogWithTriggerInternal)
+            .find(Aktooltip)
+            .props() as any
+        ).content,
       ).toEqual('Custom Share');
       expect(
-        (wrapper
-          .find(ShareDialogWithTriggerInternal)
-          .find(Aktooltip)
-          .props() as any).position,
+        (
+          wrapper
+            .find(ShareDialogWithTriggerInternal)
+            .find(Aktooltip)
+            .props() as any
+        ).position,
       ).toEqual('mouse');
     });
   });

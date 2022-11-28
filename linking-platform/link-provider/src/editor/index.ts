@@ -143,13 +143,14 @@ export class EditorCardProvider implements CardProvider {
       );
 
       if (allMatchedLabeledAppearances.length > 0) {
-        const longestMatchedLabeledAppearance = allMatchedLabeledAppearances.reduce(
-          (previousLabeledAppearance, currentLabeledAppearance) =>
-            previousLabeledAppearance.urlSegment.length >
-            currentLabeledAppearance.urlSegment.length
-              ? previousLabeledAppearance
-              : currentLabeledAppearance,
-        );
+        const longestMatchedLabeledAppearance =
+          allMatchedLabeledAppearances.reduce(
+            (previousLabeledAppearance, currentLabeledAppearance) =>
+              previousLabeledAppearance.urlSegment.length >
+              currentLabeledAppearance.urlSegment.length
+                ? previousLabeledAppearance
+                : currentLabeledAppearance,
+          );
         return longestMatchedLabeledAppearance.appearance;
       }
 

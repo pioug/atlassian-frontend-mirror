@@ -37,9 +37,7 @@ const FallbackUnauthorizedIcon = (
   </AKIconWrapper>
 );
 
-export class InlineCardUnauthorizedView extends React.Component<
-  InlineCardUnauthorizedViewProps
-> {
+export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauthorizedViewProps> {
   handleConnectAccount = (event: React.MouseEvent<HTMLElement>) => {
     const { onAuthorise } = this.props;
     event.preventDefault();

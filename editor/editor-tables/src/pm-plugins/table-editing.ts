@@ -41,7 +41,7 @@ export function tableEditing({
         return null;
       },
       apply(unsafeTr: Transaction | ReadonlyTransaction, cur: PluginState) {
-        const tr = (unsafeTr as unknown) as ReadonlyTransaction;
+        const tr = unsafeTr as unknown as ReadonlyTransaction;
         const set = tr.getMeta(tableEditingKey);
         if (set != null) {
           return set === -1 ? null : set;

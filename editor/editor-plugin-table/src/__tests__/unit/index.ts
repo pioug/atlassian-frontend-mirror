@@ -450,8 +450,8 @@ describe('table plugin', () => {
             );
 
             editorView.dispatch(selectColumn(column)(editorView.state.tr));
-            const selection = (editorView.state
-              .selection as any) as CellSelection;
+            const selection = editorView.state
+              .selection as any as CellSelection;
             const tableNode = selection.$anchorCell.node(-1);
             const map = TableMap.get(tableNode);
             const start = selection.$anchorCell.start(-1);
@@ -476,8 +476,8 @@ describe('table plugin', () => {
             );
 
             editorView.dispatch(selectRow(row)(editorView.state.tr));
-            const selection = (editorView.state
-              .selection as any) as CellSelection;
+            const selection = editorView.state
+              .selection as any as CellSelection;
             const anchor = selection.$anchorCell.index(-1);
             const head = selection.$headCell.index(-1);
             expect(anchor).toEqual(row);
@@ -496,7 +496,7 @@ describe('table plugin', () => {
       );
 
       editorView.dispatch(selectTable(editorView.state.tr));
-      const selection = (editorView.state.selection as any) as CellSelection;
+      const selection = editorView.state.selection as any as CellSelection;
       expect(selection.isRowSelection()).toEqual(true);
       expect(selection.isColSelection()).toEqual(true);
     });

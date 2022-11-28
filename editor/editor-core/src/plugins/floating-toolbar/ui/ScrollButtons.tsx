@@ -41,17 +41,13 @@ export default ({ intl, scrollContainerRef, node, disabled }: Props) => {
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   const items = Array.from(
-    (scrollContainerRef.current?.firstChild?.childNodes as NodeListOf<
-      HTMLElement
-    >) || {},
+    (scrollContainerRef.current?.firstChild
+      ?.childNodes as NodeListOf<HTMLElement>) || {},
   );
 
   const scheduledSetCanScroll = rafSchedule(() => {
-    const {
-      scrollLeft,
-      scrollWidth,
-      offsetWidth,
-    } = scrollContainerRef.current!;
+    const { scrollLeft, scrollWidth, offsetWidth } =
+      scrollContainerRef.current!;
     setCanScrollLeft(scrollLeft > 0);
     setCanScrollRight(scrollLeft + offsetWidth < scrollWidth - 1); // -1 to account for half pixel
   });
@@ -131,8 +127,9 @@ export default ({ intl, scrollContainerRef, node, disabled }: Props) => {
   const resizeObserver = new ResizeObserver((t) => {
     const widthNeededToShowAllItems =
       scrollContainerRef.current?.scrollWidth || 0;
-    const availableSpace = (scrollContainerRef.current
-      ?.parentNode as HTMLElement)?.offsetWidth;
+    const availableSpace = (
+      scrollContainerRef.current?.parentNode as HTMLElement
+    )?.offsetWidth;
 
     if (availableSpace >= widthNeededToShowAllItems) {
       setNeedScroll(false);

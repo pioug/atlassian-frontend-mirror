@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import {
   getFreeToUseAvatarImage,
@@ -12,7 +13,7 @@ import {
 import AvatarGroup from '../../src';
 
 const ButtonGroup = styled.div`
-  margin: 8px;
+  margin: ${token('spacing.scale.100', '8px')};
   text-align: center;
 `;
 

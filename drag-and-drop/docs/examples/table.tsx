@@ -35,24 +35,25 @@ const tableStyles = css({
 
 type DraggableStatus = 'idle' | 'preview' | 'dragging';
 
-const tableRowStatusStyles: Partial<Record<
-  DraggableStatus,
-  SerializedStyles
->> = {
-  idle: css({
-    ':hover': {
+const tableRowStatusStyles: Partial<Record<DraggableStatus, SerializedStyles>> =
+  {
+    idle: css({
+      ':hover': {
+        background: token(
+          'color.background.neutral.subtle.hovered',
+          '#091E420F',
+        ),
+      },
+    }),
+    preview: css({
+      background: token('elevation.surface.overlay', '#FFF'),
+      boxShadow: token('elevation.shadow.overlay', 'none'),
+    }),
+    dragging: css({
       background: token('color.background.neutral.subtle.hovered', '#091E420F'),
-    },
-  }),
-  preview: css({
-    background: token('elevation.surface.overlay', '#FFF'),
-    boxShadow: token('elevation.shadow.overlay', 'none'),
-  }),
-  dragging: css({
-    background: token('color.background.neutral.subtle.hovered', '#091E420F'),
-    opacity: 0.5,
-  }),
-};
+      opacity: 0.5,
+    }),
+  };
 
 /**
  * Because we cannot render arbitrary elements inside of a `<tr />` element,
@@ -167,10 +168,9 @@ const tableHeaderStyles = css({
   background: token('color.background.neutral', '#091e420f'),
 });
 
-const tableHeaderStatusStyles: Partial<Record<
-  DraggableStatus,
-  SerializedStyles
->> = {
+const tableHeaderStatusStyles: Partial<
+  Record<DraggableStatus, SerializedStyles>
+> = {
   idle: css({
     ':hover': {
       background: token('color.background.neutral.hovered', '#091E4224'),

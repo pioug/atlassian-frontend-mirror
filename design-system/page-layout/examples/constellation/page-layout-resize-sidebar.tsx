@@ -39,11 +39,8 @@ type SlotName =
   | 'PageLayout';
 
 const ExpandKeyboardShortcut: FC = () => {
-  const {
-    isLeftSidebarCollapsed,
-    expandLeftSidebar,
-    collapseLeftSidebar,
-  } = usePageLayoutResize();
+  const { isLeftSidebarCollapsed, expandLeftSidebar, collapseLeftSidebar } =
+    usePageLayoutResize();
 
   const toggleSidebarCollapse = useCallback(() => {
     if (isLeftSidebarCollapsed) {

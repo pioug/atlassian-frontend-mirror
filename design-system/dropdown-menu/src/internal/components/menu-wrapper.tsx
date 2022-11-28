@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Spinner from '@atlaskit/spinner';
-import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { FocusableElement, MenuWrapperProps } from '../../types';
@@ -13,18 +13,19 @@ import { FocusManagerContext } from '../components/focus-manager';
 import isCheckboxItem from '../utils/is-checkbox-item';
 import isRadioItem from '../utils/is-radio-item';
 
-const gridSize = gridSizeFn();
 const spinnerContainerStyles = css({
   display: 'flex',
-  minWidth: `${gridSize * 20}px`,
-  padding: `${gridSize * 2.5}px`,
+  minWidth: '160px',
+  padding: token('spacing.scale.250', '20px'),
   justifyContent: 'center',
 });
+
 const LoadingIndicator = ({
   statusLabel = 'Loading',
 }: {
   statusLabel: MenuWrapperProps['statusLabel'];
 }) => (
+  // eslint-disable-next-line @repo/internal/react/use-primitives
   <div css={spinnerContainerStyles}>
     <Spinner size="small" />
     <VisuallyHidden role="status">{statusLabel}</VisuallyHidden>
@@ -58,7 +59,7 @@ const MenuWrapper = ({
     );
 
     // Close menu if the click is triggered from a MenuItem or
-    // its decendant. Don't close the menu if the click is triggered
+    // its descendant. Don't close the menu if the click is triggered
     // from a MenuItemRadio or MenuItemCheckbox so that the user can
     // select multiple items.
     if (isTargetMenuItemOrDecendant && onClose) {

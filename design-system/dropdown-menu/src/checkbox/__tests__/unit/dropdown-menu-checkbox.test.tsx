@@ -49,9 +49,9 @@ describe('DropdownMenu with checkbox as item', () => {
       expect(getByText('Sydney')).toBeInTheDocument();
       expect(getByText('Melbourne')).toBeInTheDocument();
 
-      let checkboxes = (
-        (await findAllByRole('menuitemcheckbox')) || []
-      ).map((x) => x.getAttribute('aria-checked'));
+      let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map(
+        (x) => x.getAttribute('aria-checked'),
+      );
       expect(checkboxes).toEqual(['false', 'false']);
 
       const melbourne = getByText('Melbourne');
@@ -86,9 +86,9 @@ describe('DropdownMenu with checkbox as item', () => {
       expect(getByText('Sydney')).toBeInTheDocument();
       expect(getByText('Melbourne')).toBeInTheDocument();
 
-      let checkboxes = (
-        (await findAllByRole('menuitemcheckbox')) || []
-      ).map((x) => x.getAttribute('aria-checked'));
+      let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map(
+        (x) => x.getAttribute('aria-checked'),
+      );
       expect(checkboxes).toEqual(['false', 'false']);
 
       const sydney = getByText('Sydney');
@@ -131,9 +131,9 @@ describe('DropdownMenu with checkbox as item', () => {
       expect(getByText('Sydney')).toBeInTheDocument();
       expect(getByText('Melbourne')).toBeInTheDocument();
 
-      let checkboxes = (
-        (await findAllByRole('menuitemcheckbox')) || []
-      ).map((x) => x.getAttribute('aria-checked'));
+      let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map(
+        (x) => x.getAttribute('aria-checked'),
+      );
       expect(checkboxes).toEqual(['true', 'false']);
 
       const sydney = getByText('Sydney');
@@ -170,9 +170,9 @@ describe('DropdownMenu with checkbox as item', () => {
       expect(getByText('Sydney')).toBeInTheDocument();
       expect(getByText('Melbourne')).toBeInTheDocument();
 
-      let checkboxes = (
-        (await findAllByRole('menuitemcheckbox')) || []
-      ).map((x) => x.getAttribute('aria-checked'));
+      let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map(
+        (x) => x.getAttribute('aria-checked'),
+      );
       expect(checkboxes).toEqual(['true', 'false']);
 
       const sydney = getByText('Sydney');

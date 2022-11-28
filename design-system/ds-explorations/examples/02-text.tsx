@@ -43,15 +43,9 @@ export default () => {
             Line height
           </Heading>
           <Inline gap="scale.200" testId="line-heights" alignItems="center">
-            {([
-              '12px',
-              '16px',
-              '20px',
-              '24px',
-              '28px',
-              '32px',
-              '40px',
-            ] as const).map((lineHeight) => (
+            {(
+              ['12px', '16px', '20px', '24px', '28px', '32px', '40px'] as const
+            ).map((lineHeight) => (
               <Box
                 key={lineHeight}
                 display="inlineFlex"

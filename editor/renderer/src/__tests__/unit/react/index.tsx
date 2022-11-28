@@ -408,14 +408,12 @@ describe('Renderer - ReactSerializer', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
           const reactSerializer = new ReactSerializer({});
 
-          const {
-            componentWrapper,
-            rootWrapper: reactDoc,
-          } = mountWithIntlReturnWrappers(
-            reactSerializer.serializeFragment(
-              schema.nodeFromJSON(expandWithMedia).content,
-            ) as any,
-          );
+          const { componentWrapper, rootWrapper: reactDoc } =
+            mountWithIntlReturnWrappers(
+              reactSerializer.serializeFragment(
+                schema.nodeFromJSON(expandWithMedia).content,
+              ) as any,
+            );
 
           await nextTick();
           componentWrapper.update();
@@ -441,14 +439,12 @@ describe('Renderer - ReactSerializer', () => {
           });
           const reactSerializer = new ReactSerializer({});
 
-          const {
-            rootWrapper: reactDoc,
-            componentWrapper,
-          } = mountWithIntlReturnWrappers(
-            reactSerializer.serializeFragment(
-              schemaWithUnsupportedNodes.nodeFromJSON(tableWithMedia).content,
-            ) as any,
-          );
+          const { rootWrapper: reactDoc, componentWrapper } =
+            mountWithIntlReturnWrappers(
+              reactSerializer.serializeFragment(
+                schemaWithUnsupportedNodes.nodeFromJSON(tableWithMedia).content,
+              ) as any,
+            );
 
           await nextTick();
           await nextTick();
@@ -464,14 +460,12 @@ describe('Renderer - ReactSerializer', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
           const reactSerializer = new ReactSerializer({});
 
-          const {
-            rootWrapper: reactDoc,
-            componentWrapper,
-          } = mountWithIntlReturnWrappers(
-            reactSerializer.serializeFragment(
-              schema.nodeFromJSON(nestedExpandWithMedia).content,
-            ) as any,
-          );
+          const { rootWrapper: reactDoc, componentWrapper } =
+            mountWithIntlReturnWrappers(
+              reactSerializer.serializeFragment(
+                schema.nodeFromJSON(nestedExpandWithMedia).content,
+              ) as any,
+            );
 
           await nextTick();
           await nextTick();
@@ -486,14 +480,12 @@ describe('Renderer - ReactSerializer', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
           const reactSerializer = new ReactSerializer({});
 
-          const {
-            rootWrapper: reactDoc,
-            componentWrapper,
-          } = mountWithIntlReturnWrappers(
-            reactSerializer.serializeFragment(
-              schema.nodeFromJSON(layoutWithMedia).content,
-            ) as any,
-          );
+          const { rootWrapper: reactDoc, componentWrapper } =
+            mountWithIntlReturnWrappers(
+              reactSerializer.serializeFragment(
+                schema.nodeFromJSON(layoutWithMedia).content,
+              ) as any,
+            );
 
           await nextTick();
           await nextTick();
@@ -511,14 +503,12 @@ describe('Renderer - ReactSerializer', () => {
           shouldOpenMediaViewer: false,
         });
 
-        const {
-          rootWrapper: reactDoc,
-          componentWrapper,
-        } = mountWithIntlReturnWrappers(
-          reactSerializer.serializeFragment(
-            schema.nodeFromJSON(mediaGroupFragment).content,
-          ) as any,
-        );
+        const { rootWrapper: reactDoc, componentWrapper } =
+          mountWithIntlReturnWrappers(
+            reactSerializer.serializeFragment(
+              schema.nodeFromJSON(mediaGroupFragment).content,
+            ) as any,
+          );
 
         // Media under media group takes 2 ticks to render.
         await nextTick();
@@ -548,14 +538,12 @@ describe('Renderer - ReactSerializer', () => {
           shouldOpenMediaViewer: true,
         });
 
-        const {
-          rootWrapper: reactDoc,
-          componentWrapper,
-        } = mountWithIntlReturnWrappers(
-          reactSerializer.serializeFragment(
-            schema.nodeFromJSON(mediaGroupFragment).content,
-          ) as any,
-        );
+        const { rootWrapper: reactDoc, componentWrapper } =
+          mountWithIntlReturnWrappers(
+            reactSerializer.serializeFragment(
+              schema.nodeFromJSON(mediaGroupFragment).content,
+            ) as any,
+          );
 
         // Media under media group takes 2 ticks to render.
         await nextTick();
@@ -583,14 +571,12 @@ describe('Renderer - ReactSerializer', () => {
       it('media node has shouldOpenMediaViewer set to undefined when parent is not mediaSingle', async () => {
         const reactSerializer = new ReactSerializer({});
 
-        const {
-          rootWrapper: reactDoc,
-          componentWrapper,
-        } = mountWithIntlReturnWrappers(
-          reactSerializer.serializeFragment(
-            schema.nodeFromJSON(mediaGroupFragment).content,
-          ) as any,
-        );
+        const { rootWrapper: reactDoc, componentWrapper } =
+          mountWithIntlReturnWrappers(
+            reactSerializer.serializeFragment(
+              schema.nodeFromJSON(mediaGroupFragment).content,
+            ) as any,
+          );
 
         await nextTick();
         await nextTick();

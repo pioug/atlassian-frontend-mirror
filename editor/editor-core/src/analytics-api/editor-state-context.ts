@@ -10,9 +10,10 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findParentNode } from 'prosemirror-utils';
 import { NodeSelection } from 'prosemirror-state';
 
-export function getSelectionType(
-  state: EditorState,
-): { type: SELECTION_TYPE; position?: SELECTION_POSITION } {
+export function getSelectionType(state: EditorState): {
+  type: SELECTION_TYPE;
+  position?: SELECTION_POSITION;
+} {
   const { selection } = state;
   let type: SELECTION_TYPE;
   let position: SELECTION_POSITION | undefined;

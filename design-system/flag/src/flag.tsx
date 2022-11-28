@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 import {
   borderRadius,
-  gridSize as getGridSize,
+  //gridSize as getGridSize,
   layers,
 } from '@atlaskit/theme/constants';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -35,8 +35,9 @@ const analyticsAttributes = {
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-const gridSize = getGridSize();
-const doubleGridSize = gridSize * 2;
+// NOT USED
+// const gridSize = getGridSize();
+// const doubleGridSize = gridSize * 2;
 
 const titleGroupStyles = css({
   display: 'flex',
@@ -45,7 +46,8 @@ const titleGroupStyles = css({
 
 const iconTitleStyles = css({
   display: 'flex',
-  paddingTop: `${gridSize / 2}px`,
+  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize / 2}px``
+  paddingTop: token('spacing.scale.050', '4px'),
   alignItems: 'start',
   flex: 1,
 });
@@ -53,7 +55,8 @@ const iconTitleStyles = css({
 const flagHeaderStyles = css({
   boxSizing: 'border-box',
   width: '100%',
-  padding: doubleGridSize,
+  // TODO Delete this comment after verifying spacing token -> previous value `doubleGridSize`
+  padding: token('spacing.scale.200', '16px'),
   borderRadius: borderRadius(),
 });
 
@@ -92,10 +95,8 @@ const Flag = (props: FlagProps) => {
     analyticsContext,
   } = props;
 
-  const {
-    onDismissed: onDismissedFromFlagGroup,
-    isDismissAllowed,
-  } = useFlagGroup();
+  const { onDismissed: onDismissedFromFlagGroup, isDismissAllowed } =
+    useFlagGroup();
 
   const onDismissed = useCallback(
     (id: string | number, analyticsEvent: UIAnalyticsEvent) => {

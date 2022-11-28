@@ -24,9 +24,7 @@ export const EDITOR_TAG = 'editor';
 // @deprecated ED-9043 Can be safely removed once all editor products consume a release that uses the new tag.
 export const LEGACY_EDITOR_TAG = 'fabricEditor';
 
-export default class FabricEditorListener extends React.Component<
-  ListenerProps
-> {
+export default class FabricEditorListener extends React.Component<ListenerProps> {
   handleEventWrapper: UIAnalyticsEventHandler = (event) => {
     handleEvent(
       event,

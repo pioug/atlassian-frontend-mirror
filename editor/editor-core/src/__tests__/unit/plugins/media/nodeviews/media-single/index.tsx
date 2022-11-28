@@ -157,10 +157,10 @@ describe('nodeviews/mediaSingle', () => {
       objectId: '',
     });
     providerFactory = ProviderFactory.create({ mediaProvider });
-    pluginState = ({
+    pluginState = {
       getMediaNodeStateStatus: () => 'ready',
       getMediaNodeState: () => {
-        return ({ state: 'ready' } as any) as MediaState;
+        return { state: 'ready' } as any as MediaState;
       },
       mediaNodes: [],
       options: {
@@ -173,7 +173,7 @@ describe('nodeviews/mediaSingle', () => {
       updateMediaNodeAttrs: jest.fn(),
       isMobileUploadCompleted: () => undefined,
       addPendingTask: jest.fn(),
-    } as any) as MediaPluginState;
+    } as any as MediaPluginState;
 
     getDimensions = (wrapper: ReactWrapper) => (): Promise<any> => {
       if ((wrapper.props() as any).node.firstChild.attrs.type === 'external') {

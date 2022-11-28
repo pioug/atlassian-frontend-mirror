@@ -156,10 +156,8 @@ describe('WrapperTypeAhead', () => {
   });
 
   it('Enter should close the popup and insert item into the document', async () => {
-    const {
-      triggerHandler,
-      resolvedItems,
-    } = await createTriggerHandlerFromItems(items);
+    const { triggerHandler, resolvedItems } =
+      await createTriggerHandlerFromItems(items);
 
     const { getByRole, queryByRole } = renderWrapperTypeAhead({
       triggerHandler,
@@ -179,10 +177,8 @@ describe('WrapperTypeAhead', () => {
   });
 
   it('Enter should insert selected item into the document after navigating using Up and Down', async () => {
-    const {
-      triggerHandler,
-      resolvedItems,
-    } = await createTriggerHandlerFromItems(items);
+    const { triggerHandler, resolvedItems } =
+      await createTriggerHandlerFromItems(items);
 
     const { getByRole } = renderWrapperTypeAhead({
       triggerHandler,
@@ -277,10 +273,8 @@ describe('WrapperTypeAhead', () => {
 
   describe('when an undo/redo operation happens after the insert item', () => {
     beforeEach(async () => {
-      const {
-        triggerHandler,
-        resolvedItems,
-      } = await createTriggerHandlerFromItems(items);
+      const { triggerHandler, resolvedItems } =
+        await createTriggerHandlerFromItems(items);
 
       const { getByRole } = renderWrapperTypeAhead({
         triggerHandler,
@@ -328,10 +322,8 @@ describe('WrapperTypeAhead', () => {
   describe('selectedIndex and arrow navigation', () => {
     let inputQuery: HTMLElement;
     beforeEach(async () => {
-      const {
-        triggerHandler,
-        resolvedItems,
-      } = await createTriggerHandlerFromItems(items);
+      const { triggerHandler, resolvedItems } =
+        await createTriggerHandlerFromItems(items);
 
       const { getByRole } = renderWrapperTypeAhead({
         triggerHandler,
@@ -386,10 +378,8 @@ describe('WrapperTypeAhead', () => {
     let inputQuery: HTMLElement;
     let editorViewFocusSpy: jest.SpyInstance;
     beforeEach(async () => {
-      const {
-        triggerHandler,
-        resolvedItems,
-      } = await createTriggerHandlerFromItems(items);
+      const { triggerHandler, resolvedItems } =
+        await createTriggerHandlerFromItems(items);
 
       const { getByRole } = renderWrapperTypeAhead({
         triggerHandler,

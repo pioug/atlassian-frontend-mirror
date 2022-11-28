@@ -484,9 +484,9 @@ describe('MemoryReactionsStore', () => {
 
       it('should not call adaptor when detailed reaction data failed to be fetched', async () => {
         const response = Promise.resolve(new Error('delete error'));
-        (fakeClient.getDetailedReaction as jest.Mock<
-          any
-        >).mockRejectedValueOnce(response);
+        (
+          fakeClient.getDetailedReaction as jest.Mock<any>
+        ).mockRejectedValueOnce(response);
 
         store.getDetailedReaction(containerAri, ari, '1f44d');
 

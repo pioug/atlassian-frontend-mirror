@@ -41,9 +41,8 @@ describe('ExperimentController', () => {
     ).toBeFalsy();
 
     // call resolver
-    const resolverPromise = getExperimentValueForReceiverCall(
-      0,
-    ).enrollmentResolver();
+    const resolverPromise =
+      getExperimentValueForReceiverCall(0).enrollmentResolver();
     expect(mockExperimentResolver).toBeCalled();
 
     // it should not call the resolver again and should return the same promise that the previous
@@ -96,10 +95,8 @@ describe('ExperimentController', () => {
       </ExperimentController>,
     );
 
-    const {
-      experiments: receivedExperiments,
-      options: receivedOptions,
-    } = mockContextReceiver.mock.calls[0][0];
+    const { experiments: receivedExperiments, options: receivedOptions } =
+      mockContextReceiver.mock.calls[0][0];
 
     expect(receivedExperiments.myExperimentKey).toHaveProperty(
       'enrollmentResolver',

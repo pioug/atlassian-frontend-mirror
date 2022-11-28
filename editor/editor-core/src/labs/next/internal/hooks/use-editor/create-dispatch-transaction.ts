@@ -55,9 +55,8 @@ export function createDispatchTransaction(
           actionSubject: ACTION_SUBJECT.EDITOR,
           eventType: EVENT_TYPE.OPERATIONAL,
           attributes: {
-            analyticsEventPayloads: getAnalyticsEventsFromTransaction(
-              transaction,
-            ),
+            analyticsEventPayloads:
+              getAnalyticsEventsFromTransaction(transaction),
             invalidNodes,
           },
         });

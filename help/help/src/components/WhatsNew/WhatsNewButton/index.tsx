@@ -28,10 +28,8 @@ interface WhatsNewButtonProps {
 export const WhatsNewButton: React.FC<
   WrappedComponentProps & WhatsNewButtonProps
 > = ({ productName, intl: { formatMessage } }) => {
-  const {
-    onWhatsNewButtonClick,
-    whatsNewGetNotificationProvider,
-  } = useWhatsNewArticleContext();
+  const { onWhatsNewButtonClick, whatsNewGetNotificationProvider } =
+    useWhatsNewArticleContext();
   const { openArticle } = useNavigationContext();
 
   const handleOnButtonClick = useCallback(

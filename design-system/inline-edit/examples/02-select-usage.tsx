@@ -6,6 +6,7 @@ import Select, { ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
@@ -15,7 +16,8 @@ const ReadViewContainer = styled.div`
   height: ${(gridSize() * 2.5) / fontSize()}em;
   line-height: ${(gridSize() * 2.5) / fontSize()};
   max-width: 100%;
-  padding: ${gridSize()}px ${gridSize() - 2}px;
+  padding: ${token('spacing.scale.100', '8px')}
+    ${token('spacing.scale.075', '6px')};
 `;
 
 const EditViewContainer = styled.div`

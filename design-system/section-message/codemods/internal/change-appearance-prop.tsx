@@ -52,13 +52,12 @@ export const changeAppearanceProp = (
               else if (expression.type !== 'JSXEmptyExpression') {
                 const mappingValue = j.memberExpression(
                   j.objectExpression(
-                    Object.entries(
-                      APPEARANCE_OLD_TO_NEW_MAPPING,
-                    ).map(([key, value]) =>
-                      j.objectProperty(
-                        j.identifier(key),
-                        j.stringLiteral(value),
-                      ),
+                    Object.entries(APPEARANCE_OLD_TO_NEW_MAPPING).map(
+                      ([key, value]) =>
+                        j.objectProperty(
+                          j.identifier(key),
+                          j.stringLiteral(value),
+                        ),
                     ),
                   ),
                   expression,

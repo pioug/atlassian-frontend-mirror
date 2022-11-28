@@ -309,14 +309,8 @@ export default class Conversation extends React.PureComponent<Props, State> {
   };
 
   private handleEditorChange = (value: any, commentId?: string) => {
-    const {
-      id,
-      localId,
-      onEditorChange,
-      meta,
-      objectId,
-      containerId,
-    } = this.props;
+    const { id, localId, onEditorChange, meta, objectId, containerId } =
+      this.props;
 
     if (onEditorChange) {
       const isLocal = !id;

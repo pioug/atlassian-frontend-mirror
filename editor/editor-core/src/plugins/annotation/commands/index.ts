@@ -43,40 +43,39 @@ export const clearDirtyMark = (): Command =>
     type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK,
   });
 
-export const removeInlineCommentNearSelection = (id: string): Command => (
-  state,
-  dispatch,
-): boolean => {
-  const {
-    tr,
-    selection: { $from },
-  } = state;
-  const { annotation: annotationMarkType } = state.schema.marks;
+export const removeInlineCommentNearSelection =
+  (id: string): Command =>
+  (state, dispatch): boolean => {
+    const {
+      tr,
+      selection: { $from },
+    } = state;
+    const { annotation: annotationMarkType } = state.schema.marks;
 
-  const hasAnnotation = $from
-    .marks()
-    .some((mark) => mark.type === annotationMarkType);
+    const hasAnnotation = $from
+      .marks()
+      .some((mark) => mark.type === annotationMarkType);
 
-  if (!hasAnnotation) {
-    return false;
-  }
+    if (!hasAnnotation) {
+      return false;
+    }
 
-  // just remove entire mark from around the node
-  tr.removeMark(
-    $from.start(),
-    $from.end(),
-    annotationMarkType.create({
-      id,
-      type: AnnotationTypes.INLINE_COMMENT,
-    }),
-  );
+    // just remove entire mark from around the node
+    tr.removeMark(
+      $from.start(),
+      $from.end(),
+      annotationMarkType.create({
+        id,
+        type: AnnotationTypes.INLINE_COMMENT,
+      }),
+    );
 
-  if (dispatch) {
-    dispatch(tr);
-  }
+    if (dispatch) {
+      dispatch(tr);
+    }
 
-  return true;
-};
+    return true;
+  };
 
 const getDraftCommandAction: (
   drafting: boolean,
@@ -139,22 +138,24 @@ export const updateMouseState = (mouseData: InlineCommentMouseData): Command =>
     data: { mouseData },
   });
 
-export const createAnnotation = (
-  id: string,
-  annotationType: AnnotationTypes = AnnotationTypes.INLINE_COMMENT,
-): Command => (state, dispatch) => {
-  // don't try to add if there are is no temp highlight bookmarked
-  const { bookmark } = getPluginState(state) || {};
-  if (!bookmark || !dispatch) {
+export const createAnnotation =
+  (
+    id: string,
+    annotationType: AnnotationTypes = AnnotationTypes.INLINE_COMMENT,
+  ): Command =>
+  (state, dispatch) => {
+    // don't try to add if there are is no temp highlight bookmarked
+    const { bookmark } = getPluginState(state) || {};
+    if (!bookmark || !dispatch) {
+      return false;
+    }
+
+    if (annotationType === AnnotationTypes.INLINE_COMMENT) {
+      return addInlineComment(id)(state, dispatch);
+    }
+
     return false;
-  }
-
-  if (annotationType === AnnotationTypes.INLINE_COMMENT) {
-    return addInlineComment(id)(state, dispatch);
-  }
-
-  return false;
-};
+  };
 
 export const setInlineCommentsVisibility = (isVisible: boolean): Command => {
   return createCommand({

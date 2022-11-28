@@ -141,77 +141,75 @@ export function addCommentBefore({
   });
 }
 
-export const createRemoveFuncFor = (
-  component: string,
-  prop: string,
-  comment?: string,
-) => (j: core.JSCodeshift, source: Collection<Node>) => {
-  const defaultSpecifier = getDefaultSpecifier(j, source, component);
+export const createRemoveFuncFor =
+  (component: string, prop: string, comment?: string) =>
+  (j: core.JSCodeshift, source: Collection<Node>) => {
+    const defaultSpecifier = getDefaultSpecifier(j, source, component);
 
-  if (!defaultSpecifier) {
-    return;
-  }
+    if (!defaultSpecifier) {
+      return;
+    }
 
-  source.findJSXElements(defaultSpecifier).forEach((element) => {
-    getJSXAttributesByName(j, element, prop).forEach((attribute) => {
-      j(attribute).remove();
-      if (comment) {
-        addCommentToStartOfFile({ j, base: source, message: comment });
-      }
+    source.findJSXElements(defaultSpecifier).forEach((element) => {
+      getJSXAttributesByName(j, element, prop).forEach((attribute) => {
+        j(attribute).remove();
+        if (comment) {
+          addCommentToStartOfFile({ j, base: source, message: comment });
+        }
+      });
     });
-  });
-};
+  };
 
-export const flattenCertainChildPropsAsProp = (
-  component: string,
-  propName: string,
-  childProps: string[],
-) => (j: core.JSCodeshift, source: Collection<Node>) => {
-  const defaultSpecifier = getDefaultSpecifier(j, source, component);
-  if (!defaultSpecifier) {
-    return;
-  }
-  source.findJSXElements(defaultSpecifier).forEach((element) => {
-    getJSXAttributesByName(j, element, propName).forEach((attribute) => {
-      j(attribute)
-        .find(j.JSXExpressionContainer)
-        .find(j.ObjectExpression)
-        .forEach((objectExpression) => {
-          objectExpression.node.properties.forEach((property) => {
-            childProps.forEach((childProp) => {
-              if (
-                property.type === 'ObjectProperty' &&
-                property.key.type === 'Identifier' &&
-                property.key.name === childProp &&
-                element.node.openingElement.attributes
-              ) {
-                element.node.openingElement.attributes.push(
-                  j.jsxAttribute(
-                    j.jsxIdentifier(childProp),
-                    j.jsxExpressionContainer(
-                      property.value as ObjectExpression,
+export const flattenCertainChildPropsAsProp =
+  (component: string, propName: string, childProps: string[]) =>
+  (j: core.JSCodeshift, source: Collection<Node>) => {
+    const defaultSpecifier = getDefaultSpecifier(j, source, component);
+    if (!defaultSpecifier) {
+      return;
+    }
+    source.findJSXElements(defaultSpecifier).forEach((element) => {
+      getJSXAttributesByName(j, element, propName).forEach((attribute) => {
+        j(attribute)
+          .find(j.JSXExpressionContainer)
+          .find(j.ObjectExpression)
+          .forEach((objectExpression) => {
+            objectExpression.node.properties.forEach((property) => {
+              childProps.forEach((childProp) => {
+                if (
+                  property.type === 'ObjectProperty' &&
+                  property.key.type === 'Identifier' &&
+                  property.key.name === childProp &&
+                  element.node.openingElement.attributes
+                ) {
+                  element.node.openingElement.attributes.push(
+                    j.jsxAttribute(
+                      j.jsxIdentifier(childProp),
+                      j.jsxExpressionContainer(
+                        property.value as ObjectExpression,
+                      ),
                     ),
-                  ),
-                );
-              }
+                  );
+                }
+              });
             });
           });
-        });
+      });
     });
-  });
-};
+  };
 
-export const createTransformer = (
-  component: string,
-  migrates: { (j: core.JSCodeshift, source: Collection<Node>): void }[],
-) => (fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
-  const source: Collection<Node> = j(fileInfo.source);
+export const createTransformer =
+  (
+    component: string,
+    migrates: { (j: core.JSCodeshift, source: Collection<Node>): void }[],
+  ) =>
+  (fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
+    const source: Collection<Node> = j(fileInfo.source);
 
-  if (!hasImportDeclaration(j, source, component)) {
-    return fileInfo.source;
-  }
+    if (!hasImportDeclaration(j, source, component)) {
+      return fileInfo.source;
+    }
 
-  migrates.forEach((tf) => tf(j, source));
+    migrates.forEach((tf) => tf(j, source));
 
-  return source.toSource(options.printOptions || { quote: 'single' });
-};
+    return source.toSource(options.printOptions || { quote: 'single' });
+  };

@@ -82,9 +82,7 @@ class FeedbackCollector extends Component<Props> {
   // (undocumented)
   getDescription(formValues: FormFields): FieldValueType;
   // (undocumented)
-  getEmailAndAtlassianID(
-    formValues: FormFields,
-  ): Promise<{
+  getEmailAndAtlassianID(formValues: FormFields): Promise<{
     email: any;
     aaidOrHash: any;
   }>;

@@ -32,11 +32,8 @@ export const EmbedCardForbiddenView: FC<EmbedCardForbiddenViewProps> = ({
     />
   );
 
-  const {
-    descriptiveMessageKey,
-    callToActionMessageKey,
-    action,
-  } = requestAccessContext;
+  const { descriptiveMessageKey, callToActionMessageKey, action } =
+    requestAccessContext;
   const onEmbedCardClick = action?.promise ?? onAuthorise;
   let showButton: boolean = true;
   /**
@@ -68,6 +65,7 @@ export const EmbedCardForbiddenView: FC<EmbedCardForbiddenViewProps> = ({
       inheritDimensions={inheritDimensions}
       onClick={onClick}
       testId={testId}
+      allowScrollBar={true}
     >
       <EmbedCardUnresolvedView
         image={LockImage}

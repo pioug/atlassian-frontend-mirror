@@ -1284,9 +1284,9 @@ describe('Card', () => {
       jest.clearAllMocks();
     });
 
-    const createAnalyticsEvent = (jest.fn(() => ({
+    const createAnalyticsEvent = jest.fn(() => ({
       fire: () => {},
-    })) as unknown) as CreateUIAnalyticsEvent;
+    })) as unknown as CreateUIAnalyticsEvent;
 
     it('should attach package attributes to Analytics Context', () => {
       const mediaClient = fakeMediaClient();
@@ -1511,10 +1511,10 @@ describe('Card', () => {
           createAnalyticsEvent,
         });
         const fileState: FileState = defaultFileState;
-        const params = ({
+        const params = {
           cardPreview: 'some-card-preview',
           error: 'some-error',
-        } as unknown) as CardState;
+        } as unknown as CardState;
 
         component.setState({ fileState, ...params });
 

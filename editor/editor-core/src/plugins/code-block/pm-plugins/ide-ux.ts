@@ -66,10 +66,8 @@ export default new SafePlugin({
 
         // Automatically add closing quote when user types a starting quote
         if (shouldAutoCloseQuote(beforeText, afterText)) {
-          const {
-            left: leftQuote,
-            right: rightQuote,
-          } = getAutoClosingQuoteInfo(beforeText + text, afterText);
+          const { left: leftQuote, right: rightQuote } =
+            getAutoClosingQuoteInfo(beforeText + text, afterText);
           if (leftQuote && rightQuote) {
             const quotePair = state.schema.text(text + rightQuote);
             let tr = state.tr.replaceWith(from, to, quotePair);

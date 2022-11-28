@@ -377,12 +377,13 @@ export class ContextualMenu extends Component<
         this.toggleOpen();
         break;
       case 'distribute_columns':
-        const newResizeStateWithAnalytics = getNewResizeStateFromSelectedColumns(
-          selectionRect,
-          state,
-          editorView.domAtPos.bind(editorView),
-          getEditorContainerWidth,
-        );
+        const newResizeStateWithAnalytics =
+          getNewResizeStateFromSelectedColumns(
+            selectionRect,
+            state,
+            editorView.domAtPos.bind(editorView),
+            getEditorContainerWidth,
+          );
 
         if (newResizeStateWithAnalytics) {
           distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI)(

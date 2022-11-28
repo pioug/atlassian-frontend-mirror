@@ -19,9 +19,8 @@ describe('transformNodesMissingContent', () => {
         ['bulletList', bulletListInvalidEmptyAdf],
         ['orderedList', orderedListInvalidEmptyAdf],
       ])('should create valid filler content for %s', (_, adf) => {
-        let { isTransformed, transformedAdf } = transformNodesMissingContent(
-          adf,
-        );
+        let { isTransformed, transformedAdf } =
+          transformNodesMissingContent(adf);
         expect(isTransformed).toEqual(true);
         expect(transformedAdf).toMatchSnapshot();
       });
@@ -32,9 +31,8 @@ describe('transformNodesMissingContent', () => {
         ['bulletList with text', bulletListWithTextInvalidAdf],
         ['orderedList with text', orderedListWithTextInvalidAdf],
       ])('should create valid listItem nodes for %s', (_, adf) => {
-        let { isTransformed, transformedAdf } = transformNodesMissingContent(
-          adf,
-        );
+        let { isTransformed, transformedAdf } =
+          transformNodesMissingContent(adf);
         expect(isTransformed).toEqual(true);
         expect(transformedAdf).toMatchSnapshot();
       });
@@ -42,9 +40,8 @@ describe('transformNodesMissingContent', () => {
 
     describe('when complex lists are valid', () => {
       it('should not transform any content, transformedAdf should be unchanged', () => {
-        let { isTransformed, transformedAdf } = transformNodesMissingContent(
-          complexListsValidAdf,
-        );
+        let { isTransformed, transformedAdf } =
+          transformNodesMissingContent(complexListsValidAdf);
         expect(isTransformed).toEqual(false);
         expect(transformedAdf).toEqual(complexListsValidAdf);
       });
@@ -62,9 +59,8 @@ describe('transformNodesMissingContent', () => {
         ['tableCell', tableCellInvalidEmptyAdf],
         ['tableCell (with attributes)', tableCellWithAttrsInvalidEmptyAdf],
       ])('should create valid filler content for %s', (_, adf) => {
-        let { isTransformed, transformedAdf } = transformNodesMissingContent(
-          adf,
-        );
+        let { isTransformed, transformedAdf } =
+          transformNodesMissingContent(adf);
         expect(isTransformed).toEqual(true);
         expect(transformedAdf).toMatchSnapshot();
       });
@@ -74,9 +70,8 @@ describe('transformNodesMissingContent', () => {
       it.each([['table with text', tableWithTextInvalidAdf]])(
         'should create valid tableRow nodes for %s',
         (_, adf) => {
-          let { isTransformed, transformedAdf } = transformNodesMissingContent(
-            adf,
-          );
+          let { isTransformed, transformedAdf } =
+            transformNodesMissingContent(adf);
           expect(isTransformed).toEqual(true);
           expect(transformedAdf).toMatchSnapshot();
         },
@@ -85,9 +80,8 @@ describe('transformNodesMissingContent', () => {
 
     describe('when complex table is valid', () => {
       it('should not transform any content, transformedAdf should be unchanged', () => {
-        let { isTransformed, transformedAdf } = transformNodesMissingContent(
-          complexTableValidAdf,
-        );
+        let { isTransformed, transformedAdf } =
+          transformNodesMissingContent(complexTableValidAdf);
         expect(isTransformed).toEqual(false);
         expect(transformedAdf).toEqual(complexTableValidAdf);
       });

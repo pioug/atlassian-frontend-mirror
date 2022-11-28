@@ -83,7 +83,7 @@ describe('collab-edit: utils', () => {
 
       let tr = editorView.state.tr;
       // testing inside the document
-      const posInsideDoc = getValidPos((tr as any) as ReadonlyTransaction, 12);
+      const posInsideDoc = getValidPos(tr as any as ReadonlyTransaction, 12);
       expect(posInsideDoc).toEqual(12);
       expect(posInsideDoc < tr.doc.nodeSize - 2).toBe(true);
     });
@@ -100,7 +100,7 @@ describe('collab-edit: utils', () => {
 
       let tr = editorView.state.tr;
       // if the position is outside the document it should point to the end position of the doc.
-      expect(getValidPos((tr as any) as ReadonlyTransaction, 100)).toEqual(
+      expect(getValidPos(tr as any as ReadonlyTransaction, 100)).toEqual(
         tr.doc.nodeSize - 2,
       );
     });

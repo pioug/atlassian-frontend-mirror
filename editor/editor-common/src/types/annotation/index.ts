@@ -93,14 +93,11 @@ interface AnnotationTypeProvider<Type> {
   allowDraftMode?: boolean;
 }
 
-export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
-  AnnotationTypes.INLINE_COMMENT
-> & {
-  selectionComponent?: React.ComponentType<
-    InlineCommentSelectionComponentProps
-  >;
-  viewComponent?: React.ComponentType<InlineCommentViewComponentProps>;
-};
+export type InlineCommentAnnotationProvider =
+  AnnotationTypeProvider<AnnotationTypes.INLINE_COMMENT> & {
+    selectionComponent?: React.ComponentType<InlineCommentSelectionComponentProps>;
+    viewComponent?: React.ComponentType<InlineCommentViewComponentProps>;
+  };
 
 export type AnnotationProviders = {
   inlineComment: InlineCommentAnnotationProvider;

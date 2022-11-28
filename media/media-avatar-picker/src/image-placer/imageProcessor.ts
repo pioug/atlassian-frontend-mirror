@@ -200,9 +200,8 @@ export function renderImageAtCurrentView(
       } else {
         /* draw imageBounds as is inside container size */
         const { naturalWidth, naturalHeight } = imageElement;
-        const { left, top, width, height } = imageBounds.relativeTo(
-          visibleBounds,
-        );
+        const { left, top, width, height } =
+          imageBounds.relativeTo(visibleBounds);
 
         context.drawImage(
           imageElement,

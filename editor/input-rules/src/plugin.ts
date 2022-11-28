@@ -56,10 +56,8 @@ export function createInputRulePlugin(
         tr.getMeta(pluginKey),
       );
 
-      const pluginState:
-        | InputRulePluginState
-        | undefined
-        | null = transactionWithInputRuleMeta?.getMeta(pluginKey);
+      const pluginState: InputRulePluginState | undefined | null =
+        transactionWithInputRuleMeta?.getMeta(pluginKey);
 
       if (!pluginState || !transactionWithInputRuleMeta) {
         return null;

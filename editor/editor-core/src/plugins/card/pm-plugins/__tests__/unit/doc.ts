@@ -92,7 +92,8 @@ describe('card', () => {
 
   beforeEach(() => {
     editor = (doc: DocBuilder) => {
-      createAnalyticsEvent = (createAnalyticsEventMock() as unknown) as CreateUIAnalyticsEvent;
+      createAnalyticsEvent =
+        createAnalyticsEventMock() as unknown as CreateUIAnalyticsEvent;
       const editorWrapper = createEditor({
         doc,
         editorProps: {
@@ -498,8 +499,7 @@ describe('card', () => {
             p(
               'hello have a link ',
               a({
-                href:
-                  'https://www.atlassian.com/s/7xr7xdqto7trhvr/Media%20picker.sketch?dl=0',
+                href: 'https://www.atlassian.com/s/7xr7xdqto7trhvr/Media%20picker.sketch?dl=0',
               })(
                 '{<>}https://www.atlassian.com/s/7xr7xdqto7trhvr/Media%20picker.sketch?dl=0',
               ),
@@ -533,8 +533,7 @@ describe('card', () => {
             p(
               'hello have a link ',
               a({
-                href:
-                  'https://www.atlassian.com/s/7xr7xdqto7trhvr/Media%20picker.sketch?dl=0',
+                href: 'https://www.atlassian.com/s/7xr7xdqto7trhvr/Media%20picker.sketch?dl=0',
               })(
                 '{<>}https://www.atlassian.com/s/7xr7xdqto7trhvr/Media picker.sketch?dl=0',
               ),
@@ -1190,7 +1189,8 @@ describe('card', () => {
       });
       it('feature flag should be correctly passed to analytics event', function () {
         editor = (doc: DocBuilder) => {
-          createAnalyticsEvent = (createAnalyticsEventMock() as unknown) as CreateUIAnalyticsEvent;
+          createAnalyticsEvent =
+            createAnalyticsEventMock() as unknown as CreateUIAnalyticsEvent;
           const editorWrapper = createEditor({
             doc,
             editorProps: {

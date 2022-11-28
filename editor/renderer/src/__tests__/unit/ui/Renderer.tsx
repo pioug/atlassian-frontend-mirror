@@ -428,9 +428,8 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 
     describe('renderer reRendered tracking (render count)', () => {
       describe('when rendererRenderTracking is enabled', () => {
-        const {
-          expectAnalyticsEventAfterNthRenders,
-        } = setupMultipleRendersTestHelper();
+        const { expectAnalyticsEventAfterNthRenders } =
+          setupMultipleRendersTestHelper();
 
         const renderTrackingEnabled = {
           ['renderer-render-tracking']: JSON.stringify({

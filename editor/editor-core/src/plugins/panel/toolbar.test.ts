@@ -137,12 +137,11 @@ describe('getToolbarItems', () => {
         PanelType.CUSTOM,
       );
 
-      const removeEmojiButton:
-        | FloatingToolbarButton<any>
-        | undefined = toolbarItems.find(
-        (item) =>
-          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
-      ) as FloatingToolbarButton<any>;
+      const removeEmojiButton: FloatingToolbarButton<any> | undefined =
+        toolbarItems.find(
+          (item) =>
+            item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+        ) as FloatingToolbarButton<any>;
 
       const result = removeEmojiButton.title;
 
@@ -229,12 +228,11 @@ describe('getToolbarItems', () => {
     );
 
     it(`should call changePanelType when clicked on hide emoji`, () => {
-      const removeEmojiButton:
-        | FloatingToolbarButton<any>
-        | undefined = itemsWithCustomPanelEnabled.find(
-        (item) =>
-          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
-      ) as FloatingToolbarButton<any>;
+      const removeEmojiButton: FloatingToolbarButton<any> | undefined =
+        itemsWithCustomPanelEnabled.find(
+          (item) =>
+            item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+        ) as FloatingToolbarButton<any>;
 
       removeEmojiButton!.onClick(editorView.state);
 
@@ -259,12 +257,11 @@ describe('getToolbarItems', () => {
         providerFactory,
         PanelType.CUSTOM,
       );
-      const removeEmojiButton:
-        | FloatingToolbarButton<any>
-        | undefined = toolbarItems.find(
-        (item) =>
-          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
-      ) as FloatingToolbarButton<any>;
+      const removeEmojiButton: FloatingToolbarButton<any> | undefined =
+        toolbarItems.find(
+          (item) =>
+            item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+        ) as FloatingToolbarButton<any>;
       changePanelTypespy.mockClear();
 
       removeEmojiButton!.onClick(editorView.state);
@@ -283,12 +280,11 @@ describe('getToolbarItems', () => {
         '#ABF5D1',
         '',
       );
-      const removeEmojiButton:
-        | FloatingToolbarButton<any>
-        | undefined = toolbarItems.find(
-        (item) =>
-          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
-      ) as FloatingToolbarButton<any>;
+      const removeEmojiButton: FloatingToolbarButton<any> | undefined =
+        toolbarItems.find(
+          (item) =>
+            item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+        ) as FloatingToolbarButton<any>;
 
       expect(removeEmojiButton.disabled).toBe(true);
     });
@@ -304,12 +300,11 @@ describe('getToolbarItems', () => {
         '#ABF5D1',
         ':smiley:',
       );
-      const removeEmojiButton:
-        | FloatingToolbarButton<any>
-        | undefined = toolbarItems.find(
-        (item) =>
-          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
-      ) as FloatingToolbarButton<any>;
+      const removeEmojiButton: FloatingToolbarButton<any> | undefined =
+        toolbarItems.find(
+          (item) =>
+            item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+        ) as FloatingToolbarButton<any>;
 
       expect(removeEmojiButton.disabled).toBe(false);
     });
@@ -325,12 +320,11 @@ describe('getToolbarItems', () => {
         undefined,
         'info',
       );
-      const removeEmojiButton:
-        | FloatingToolbarButton<any>
-        | undefined = toolbarItems.find(
-        (item) =>
-          item.type === 'button' && item.id === 'editor.panel.removeEmoji',
-      ) as FloatingToolbarButton<any>;
+      const removeEmojiButton: FloatingToolbarButton<any> | undefined =
+        toolbarItems.find(
+          (item) =>
+            item.type === 'button' && item.id === 'editor.panel.removeEmoji',
+        ) as FloatingToolbarButton<any>;
 
       expect(removeEmojiButton.disabled).toBe(false);
     });

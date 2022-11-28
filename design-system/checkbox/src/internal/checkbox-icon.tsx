@@ -38,10 +38,10 @@ const CheckboxIcon = memo<{
   isIndeterminate: boolean;
   isChecked: boolean;
 }>(({ size, isIndeterminate, isChecked }) => {
-  const icon = useMemo(() => getIcon(isIndeterminate, isChecked), [
-    isIndeterminate,
-    isChecked,
-  ]);
+  const icon = useMemo(
+    () => getIcon(isIndeterminate, isChecked),
+    [isIndeterminate, isChecked],
+  );
 
   return (
     <PrimitiveSVGIcon

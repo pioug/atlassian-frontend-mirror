@@ -31,9 +31,8 @@ export const FilePreviewItem: FC<FilePreviewProps> = ({
       const dataSource: MediaViewerDataSource = {
         list: [],
       };
-      const selectedNodeAttrs = getSelectedMediaContainerNodeAttrs(
-        mediaPluginState,
-      );
+      const selectedNodeAttrs =
+        getSelectedMediaContainerNodeAttrs(mediaPluginState);
       if (selectedNodeAttrs && mediaPluginState.mediaClientConfig) {
         const { id, collection = '' } = selectedNodeAttrs;
         const identifier: FileIdentifier = {

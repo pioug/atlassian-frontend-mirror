@@ -57,88 +57,87 @@ const ActionOption: React.FC<{
   }, []);
 
   const handleOnHideIconChange = useCallback(
-    (...params: ChangeParams<BlockTemplate>) => (
-      e: React.SyntheticEvent<HTMLInputElement>,
-    ) => {
-      const isChecked = e.currentTarget.checked;
-      setHideIcon(isChecked);
+    (...params: ChangeParams<BlockTemplate>) =>
+      (e: React.SyntheticEvent<HTMLInputElement>) => {
+        const isChecked = e.currentTarget.checked;
+        setHideIcon(isChecked);
 
-      const arr = actions.map((action: ActionProp) => {
-        const { icon, hideIcon, ...rest } = action;
-        if (!isChecked) {
-          const isCustom = action.name === ActionName.CustomAction;
-          return {
-            ...rest,
-            ...(isCustom && { icon: icon || getCustomActionIcon() }),
-          };
-        }
-        return { ...rest, hideIcon: true };
-      });
-      handleOnChange<BlockTemplate>(...params, arr);
-    },
+        const arr = actions.map((action: ActionProp) => {
+          const { icon, hideIcon, ...rest } = action;
+          if (!isChecked) {
+            const isCustom = action.name === ActionName.CustomAction;
+            return {
+              ...rest,
+              ...(isCustom && { icon: icon || getCustomActionIcon() }),
+            };
+          }
+          return { ...rest, hideIcon: true };
+        });
+        handleOnChange<BlockTemplate>(...params, arr);
+      },
     [actions],
   );
 
   const handleOnHideContentChange = useCallback(
-    (...params: ChangeParams<BlockTemplate>) => (
-      e: React.SyntheticEvent<HTMLInputElement>,
-    ) => {
-      const isChecked = e.currentTarget.checked;
-      setHideContent(isChecked);
+    (...params: ChangeParams<BlockTemplate>) =>
+      (e: React.SyntheticEvent<HTMLInputElement>) => {
+        const isChecked = e.currentTarget.checked;
+        setHideContent(isChecked);
 
-      const arr = actions.map((action: ActionProp) => {
-        if (!isChecked) {
-          const { hideContent, content, ...rest } = action;
-          const isCustom = action.name === ActionName.CustomAction;
-          return {
-            ...rest,
-            ...(isCustom && { content: content || 'Custom' }),
-          };
-        }
-        return { ...action, hideContent: true };
-      });
-      handleOnChange<BlockTemplate>(...params, arr);
-    },
+        const arr = actions.map((action: ActionProp) => {
+          if (!isChecked) {
+            const { hideContent, content, ...rest } = action;
+            const isCustom = action.name === ActionName.CustomAction;
+            return {
+              ...rest,
+              ...(isCustom && { content: content || 'Custom' }),
+            };
+          }
+          return { ...action, hideContent: true };
+        });
+        handleOnChange<BlockTemplate>(...params, arr);
+      },
     [actions],
   );
 
   const handleOnAddClick = useCallback(
-    (...params: ChangeParams<BlockTemplate>) => () => {
-      if (actionName) {
-        const isCustom = actionName === ActionName.CustomAction;
-        const action = {
-          name: actionName,
-          onClick: () => {},
-          ...(hideIcon && { hideIcon }),
-          ...(hideContent && { hideContent }),
-          ...(isCustom && !hideContent && { content: 'Custom' }),
-          ...(isCustom && !hideIcon && { icon: getCustomActionIcon() }),
-        };
-        const arr = [...actions, action];
-        handleOnChange<BlockTemplate>(...params, arr);
-      }
-    },
+    (...params: ChangeParams<BlockTemplate>) =>
+      () => {
+        if (actionName) {
+          const isCustom = actionName === ActionName.CustomAction;
+          const action = {
+            name: actionName,
+            onClick: () => {},
+            ...(hideIcon && { hideIcon }),
+            ...(hideContent && { hideContent }),
+            ...(isCustom && !hideContent && { content: 'Custom' }),
+            ...(isCustom && !hideIcon && { icon: getCustomActionIcon() }),
+          };
+          const arr = [...actions, action];
+          handleOnChange<BlockTemplate>(...params, arr);
+        }
+      },
     [actionName, hideIcon, hideContent, actions],
   );
 
   const handleOnDeleteClick = useCallback(
-    (idx: number, ...params: ChangeParams<BlockTemplate>) => () => {
-      const arr = Array.from(actions);
-      arr.splice(idx, 1);
-      handleOnChange<BlockTemplate>(...params, arr);
-    },
+    (idx: number, ...params: ChangeParams<BlockTemplate>) =>
+      () => {
+        const arr = Array.from(actions);
+        arr.splice(idx, 1);
+        handleOnChange<BlockTemplate>(...params, arr);
+      },
     [actions],
   );
 
   const handleOnActionNameChange = useCallback(
-    (idx: number, ...params: ChangeParams<BlockTemplate>) => (
-      e: React.SyntheticEvent<HTMLInputElement>,
-    ) => {
-      const arr = actions.map((action: ActionProp, i: number) =>
-        idx === i ? { ...action, content: e.currentTarget.value } : action,
-      );
-      handleOnChange<BlockTemplate>(...params, arr);
-    },
+    (idx: number, ...params: ChangeParams<BlockTemplate>) =>
+      (e: React.SyntheticEvent<HTMLInputElement>) => {
+        const arr = actions.map((action: ActionProp, i: number) =>
+          idx === i ? { ...action, content: e.currentTarget.value } : action,
+        );
+        handleOnChange<BlockTemplate>(...params, arr);
+      },
     [actions],
   );
 

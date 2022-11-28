@@ -6,9 +6,7 @@ export type MediaPickerAnalyticsErrorBoundaryProps = {
   data?: { [k: string]: any };
 };
 
-export default class MediaPickerAnalyticsErrorBoundary extends React.Component<
-  MediaPickerAnalyticsErrorBoundaryProps
-> {
+export default class MediaPickerAnalyticsErrorBoundary extends React.Component<MediaPickerAnalyticsErrorBoundaryProps> {
   static displayName = 'MediaPickerAnalyticsErrorBoundary';
 
   render() {

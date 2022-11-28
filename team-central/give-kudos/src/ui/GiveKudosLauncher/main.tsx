@@ -48,13 +48,8 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   const intl = useIntl();
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const {
-    addFlag,
-    teamCentralBaseUrl,
-    analyticsSource,
-    onClose,
-    testId,
-  } = props;
+  const { addFlag, teamCentralBaseUrl, analyticsSource, onClose, testId } =
+    props;
 
   const shouldBlockTransition = useCallback(
     (e: Event & { returnValue: any }) => {

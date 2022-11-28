@@ -54,12 +54,8 @@ describe('combine-providers', () => {
       providerC,
     ]);
 
-    expect(
-      await invokeSingle<string>('getItem', ['a']),
-    ).toBe('a');
-    expect(
-      await invokeSingle<string>('getItem', ['k']),
-    ).toBe('k');
+    expect(await invokeSingle<string>('getItem', ['a'])).toBe('a');
+    expect(await invokeSingle<string>('getItem', ['k'])).toBe('k');
   });
 
   test('should throw if no providers are provided', async () => {

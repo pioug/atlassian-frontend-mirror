@@ -55,9 +55,8 @@ const TokenWizardModalBody = ({
   params: Record<string, resultID | boolean | string>;
   removeParamsInUrl: () => void;
 }) => {
-  const [currentQuestionId, setCurrentQuestionId] = useState<questionID>(
-    'root',
-  );
+  const [currentQuestionId, setCurrentQuestionId] =
+    useState<questionID>('root');
   const [path, setPath] = useState<[Path] | []>([]);
   const [resultId, setResultId] = useState<resultID | ''>('');
 

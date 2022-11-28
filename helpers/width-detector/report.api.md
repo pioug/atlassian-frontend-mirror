@@ -64,9 +64,9 @@ class WidthDetector extends React_2.Component<Props, State> {
 export default WidthDetector;
 
 // @public
-export const WidthObserver: React_2.MemoExoticComponent<(
-  props: WidthObserverProps,
-) => JSX.Element>;
+export const WidthObserver: React_2.MemoExoticComponent<
+  (props: WidthObserverProps) => JSX.Element
+>;
 
 // @public (undocumented)
 type WidthObserverProps = {

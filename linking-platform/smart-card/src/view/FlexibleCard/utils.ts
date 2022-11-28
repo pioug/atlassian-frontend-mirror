@@ -2,7 +2,7 @@ import { JsonLd } from 'json-ld-types';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { RetryOptions } from './types';
 import { SmartLinkStatus } from '../../constants';
-import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
+import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractRequestAccessContext } from '../../extractors/common/context';
 import { MessageKey, messages } from '../../messages';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
@@ -62,12 +62,13 @@ export const getRetryOptions = (
   details?: JsonLd.Response,
   onAuthorize?: (() => void) | undefined,
 ): RetryOptions | undefined => {
+  const data = (details && details.data) || getEmptyJsonLd();
+  const provider = extractProvider(data as JsonLd.Data.BaseData);
+  const context = provider?.text;
+  const values = context ? { context } : undefined;
   switch (status) {
     case SmartLinkStatus.Forbidden:
-      const data = (details && details.data) || getEmptyJsonLd();
-      const meta = details?.meta ?? getUnauthorizedJsonLd().meta;
-      const provider = extractProvider(data as JsonLd.Data.BaseData);
-      const context = provider?.text;
+      const meta = details?.meta ?? getForbiddenJsonLd().meta;
       const access = extractRequestAccessContext({
         jsonLd: meta,
         url,
@@ -75,14 +76,14 @@ export const getRetryOptions = (
       });
       const messageKey = getForbiddenMessageKey(meta);
       const descriptor = messages[messageKey as MessageKey];
-      const values = context ? { context } : undefined;
       const retry = onAuthorize || access?.action?.promise;
       const onClick = retry ? handleOnClick(retry) : undefined;
       return { descriptor, onClick, values };
     case SmartLinkStatus.Unauthorized:
       return {
-        descriptor: messages.connect_link_account,
+        descriptor: messages.connect_link_account_card_name,
         onClick: onAuthorize ? handleOnClick(onAuthorize) : undefined,
+        values,
       };
     case SmartLinkStatus.NotFound:
       return { descriptor: messages.cannot_find_link };

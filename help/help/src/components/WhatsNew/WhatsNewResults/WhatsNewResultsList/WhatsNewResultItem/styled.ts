@@ -9,49 +9,48 @@ type WhatsNewResultListItemWrapperProps = {
   styles: any;
 };
 
-export const WhatsNewResultListItemWrapper = styled.a<
-  WhatsNewResultListItemWrapperProps
->(
-  {
-    position: `relative`,
-    boxSizing: `border-box`,
-    padding: `${gridSize()}px`,
-    display: `block`,
-    textDecoration: `none`,
-    cursor: `pointer`,
-    color: `${token('color.text.subtlest', colors.N200)}`,
-    backgroundColor: `${token('color.background.neutral.subtle', colors.N0)}`,
-    borderRadius: `3px`,
-
-    '&:hover, &:focus, &:visited, &:active': {
+export const WhatsNewResultListItemWrapper =
+  styled.a<WhatsNewResultListItemWrapperProps>(
+    {
+      position: `relative`,
+      boxSizing: `border-box`,
+      padding: `${gridSize()}px`,
+      display: `block`,
       textDecoration: `none`,
-      outline: `none`,
-      outlineOffset: `none`,
-    },
+      cursor: `pointer`,
+      color: `${token('color.text.subtlest', colors.N200)}`,
+      backgroundColor: `${token('color.background.neutral.subtle', colors.N0)}`,
+      borderRadius: `3px`,
 
-    '&:focus': {
-      boxShadow: `${token(
-        'color.border.focused',
-        colors.B100,
-      )} 0px 0px 0px 2px inset`,
-    },
+      '&:hover, &:focus, &:visited, &:active': {
+        textDecoration: `none`,
+        outline: `none`,
+        outlineOffset: `none`,
+      },
 
-    '&:hover': {
-      backgroundColor: `${token(
-        'color.background.neutral.subtle.hovered',
-        colors.N30,
-      )}`,
-    },
+      '&:focus': {
+        boxShadow: `${token(
+          'color.border.focused',
+          colors.B100,
+        )} 0px 0px 0px 2px inset`,
+      },
 
-    '&:active': {
-      backgroundColor: `${token(
-        'color.background.neutral.subtle.pressed',
-        colors.B50,
-      )}`,
+      '&:hover': {
+        backgroundColor: `${token(
+          'color.background.neutral.subtle.hovered',
+          colors.N30,
+        )}`,
+      },
+
+      '&:active': {
+        backgroundColor: `${token(
+          'color.background.neutral.subtle.pressed',
+          colors.B50,
+        )}`,
+      },
     },
-  },
-  (props: any) => props.styles,
-);
+    (props: any) => props.styles,
+  );
 
 export const WhatsNewResultListItemTitleContainer = styled.div`
   width: 100%;

@@ -562,19 +562,17 @@ export function changeImportFor({
       .filter((path) => path.node.source.value === oldPackagePath)
       .find(j.ImportSpecifier)
       .nodes()
-      .map(
-        (specifier): Nullable<string> => {
-          if (specifier.imported.name !== currentName) {
-            return null;
-          }
-          // If aliased: return the alias
-          if (specifier.local && specifier.local.name !== currentName) {
-            return specifier.local.name;
-          }
-
+      .map((specifier): Nullable<string> => {
+        if (specifier.imported.name !== currentName) {
           return null;
-        },
-      )
+        }
+        // If aliased: return the alias
+        if (specifier.local && specifier.local.name !== currentName) {
+          return specifier.local.name;
+        }
+
+        return null;
+      })
       .filter(Boolean)[0] || null;
 
   base

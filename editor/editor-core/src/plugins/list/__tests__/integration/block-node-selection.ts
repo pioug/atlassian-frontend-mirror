@@ -21,15 +21,10 @@ runBlockNodeSelectionTestSuite({
     ],
   },
   skipTests: {
-    'Extend a selection from end of the document to the start when [block-node] is the first node': [
-      'safari',
-      'chrome',
-    ],
-    'Click and drag from the end to start of the document to select [block-node] when [block-node] is the first node': [
-      'safari',
-      'chrome',
-      'firefox',
-    ],
+    'Extend a selection from end of the document to the start when [block-node] is the first node':
+      ['safari', 'chrome'],
+    'Click and drag from the end to start of the document to select [block-node] when [block-node] is the first node':
+      ['safari', 'chrome', 'firefox'],
   },
 });
 
@@ -52,9 +47,8 @@ runBlockNodeSelectionTestSuite({
     ],
   },
   skipTests: {
-    'Click and drag from the end to start of the document to select [block-node] when [block-node] is the first node': [
-      'safari',
-    ],
+    'Click and drag from the end to start of the document to select [block-node] when [block-node] is the first node':
+      ['safari'],
   },
 });
 
@@ -78,8 +72,7 @@ runBlockNodeSelectionTestSuite({
   },
 
   skipTests: {
-    'Click and drag from the end to start of the document to select [block-node] when [block-node] is the first node': [
-      'safari',
-    ],
+    'Click and drag from the end to start of the document to select [block-node] when [block-node] is the first node':
+      ['safari'],
   },
 });

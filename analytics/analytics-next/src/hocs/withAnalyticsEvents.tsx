@@ -14,41 +14,40 @@ export interface WithAnalyticsEventsProps {
   ref?: React.Ref<any>;
 }
 
-const withAnalyticsEvents = (createEventMap: CreateEventMap = {}) => <
-  Props extends WithAnalyticsEventsProps,
-  Component
->(
-  WrappedComponent: React.JSXElementConstructor<Props> & Component,
-) => {
-  type WrappedProps = JSX.LibraryManagedAttributes<
-    Component,
-    Omit<Props, keyof WithAnalyticsEventsProps>
-  >;
+const withAnalyticsEvents =
+  (createEventMap: CreateEventMap = {}) =>
+  <Props extends WithAnalyticsEventsProps, Component>(
+    WrappedComponent: React.JSXElementConstructor<Props> & Component,
+  ) => {
+    type WrappedProps = JSX.LibraryManagedAttributes<
+      Component,
+      Omit<Props, keyof WithAnalyticsEventsProps>
+    >;
 
-  const WithAnalyticsEvents = forwardRef<any, WrappedProps>((props, ref) => {
-    const { patchedEventProps } = usePatchedProps<WrappedProps>(
-      createEventMap,
-      props,
-    );
-    const { createAnalyticsEvent } = useAnalyticsEvents();
+    const WithAnalyticsEvents = forwardRef<any, WrappedProps>((props, ref) => {
+      const { patchedEventProps } = usePatchedProps<WrappedProps>(
+        createEventMap,
+        props,
+      );
+      const { createAnalyticsEvent } = useAnalyticsEvents();
 
-    return (
-      <WrappedComponent
-        {...(props as any)}
-        {...patchedEventProps}
-        createAnalyticsEvent={createAnalyticsEvent}
-        ref={ref}
-      />
-    );
-  });
+      return (
+        <WrappedComponent
+          {...(props as any)}
+          {...patchedEventProps}
+          createAnalyticsEvent={createAnalyticsEvent}
+          ref={ref}
+        />
+      );
+    });
 
-  // @ts-ignore
-  WithAnalyticsEvents.displayName = `WithAnalyticsEvents(${
-    // @ts-ignore disneyName doesn't exist on type
-    WrappedComponent.displayName || WrappedComponent.name
-  })`;
+    // @ts-ignore
+    WithAnalyticsEvents.displayName = `WithAnalyticsEvents(${
+      // @ts-ignore disneyName doesn't exist on type
+      WrappedComponent.displayName || WrappedComponent.name
+    })`;
 
-  return WithAnalyticsEvents;
-};
+    return WithAnalyticsEvents;
+  };
 
 export default withAnalyticsEvents;

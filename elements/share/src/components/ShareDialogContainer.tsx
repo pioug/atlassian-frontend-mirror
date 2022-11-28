@@ -60,12 +60,10 @@ export type State = {
   shortenedCopyLinkData?: ShortenRequest;
 };
 
-const memoizedFormatCopyLink: (
-  origin: OriginTracing,
-  link: string,
-) => string = memoizeOne((origin: OriginTracing, link: string): string =>
-  origin.addToUrl(link),
-);
+const memoizedFormatCopyLink: (origin: OriginTracing, link: string) => string =
+  memoizeOne((origin: OriginTracing, link: string): string =>
+    origin.addToUrl(link),
+  );
 
 function getCurrentPageUrl(): string {
   return window.location.href;
@@ -180,13 +178,8 @@ export class ShareDialogContainerInternal extends React.Component<
 
   handleSubmitShare = ({ users, comment }: ShareData): Promise<void> => {
     const shareLink = this.getFormShareLink();
-    const {
-      productId,
-      shareAri,
-      shareContentType,
-      shareTitle,
-      shareeAction,
-    } = this.props;
+    const { productId, shareAri, shareContentType, shareTitle, shareeAction } =
+      this.props;
     const content: Content = {
       ari: shareAri,
       link: shareLink,
@@ -280,28 +273,29 @@ export class ShareDialogContainerInternal extends React.Component<
 
   getUpToDateShortenedCopyLink: (
     data: ShortenRequest,
-  ) => Promise<string | null> = memoizeOne((data: ShortenRequest): Promise<
-    string | null
-  > => {
-    this._lastUrlShorteningWasTooSlow = false;
-    this._urlShorteningRequestCounter++;
+  ) => Promise<string | null> = memoizeOne(
+    (data: ShortenRequest): Promise<string | null> => {
+      this._lastUrlShorteningWasTooSlow = false;
+      this._urlShorteningRequestCounter++;
 
-    this.createAndFireEvent(shortUrlRequested());
+      this.createAndFireEvent(shortUrlRequested());
 
-    const start = Date.now();
-    return this.urlShortenerClient
-      .shorten(data)
-      .then((response) => {
-        this.createAndFireEvent(
-          shortUrlGenerated(start, this._lastUrlShorteningWasTooSlow),
-        );
-        return response.shortUrl;
-      })
-      .catch(() => {
-        this.createAndFireEvent(errorEncountered('urlShortening'));
-        return null;
-      });
-  }, deepEqual);
+      const start = Date.now();
+      return this.urlShortenerClient
+        .shorten(data)
+        .then((response) => {
+          this.createAndFireEvent(
+            shortUrlGenerated(start, this._lastUrlShorteningWasTooSlow),
+          );
+          return response.shortUrl;
+        })
+        .catch(() => {
+          this.createAndFireEvent(errorEncountered('urlShortening'));
+          return null;
+        });
+    },
+    deepEqual,
+  );
 
   getRawLink(): string {
     const { shareLink } = this.props;

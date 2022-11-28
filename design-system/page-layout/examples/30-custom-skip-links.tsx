@@ -21,8 +21,9 @@ import { SlotLabel, SlotWrapper } from './common';
 
 const baseId = 'list-example';
 const ListExample = () => {
-  const skipLinkCount = document.querySelectorAll('[data-skip-link-wrapper] a')
-    .length;
+  const skipLinkCount = document.querySelectorAll(
+    '[data-skip-link-wrapper] a',
+  ).length;
   const [id, setId] = useState(baseId);
   const [position, setPosition] = useState(2);
   useCustomSkipLink(id, 'List example', position);

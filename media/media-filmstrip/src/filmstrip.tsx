@@ -49,12 +49,8 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
     this.setState({ animate, offset });
 
   private renderCards() {
-    const {
-      items,
-      mediaClientConfig,
-      shouldOpenMediaViewer,
-      featureFlags,
-    } = this.props;
+    const { items, mediaClientConfig, shouldOpenMediaViewer, featureFlags } =
+      this.props;
 
     const mediaViewerDataSource = shouldOpenMediaViewer
       ? { list: items.map((item) => item.identifier) }

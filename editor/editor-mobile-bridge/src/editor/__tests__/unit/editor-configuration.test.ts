@@ -151,9 +151,8 @@ describe('Editor Configuration', () => {
     const originalEditorConfig = new MobileEditorConfiguration(
       '{"mode": "dark", "enableQuickInsert": true}',
     );
-    const newEditorConfig = originalEditorConfig.cloneAndUpdateConfig(
-      newConfig,
-    );
+    const newEditorConfig =
+      originalEditorConfig.cloneAndUpdateConfig(newConfig);
 
     expect(newEditorConfig.getMode()).toEqual('light');
     expect(newEditorConfig.getLocale()).toEqual('zh');
@@ -166,9 +165,8 @@ describe('Editor Configuration', () => {
     const newConfig =
       '{"locale":"zh", "mode": "dark", "enableQuickInsert": true}';
     const originalEditorConfig = new MobileEditorConfiguration();
-    const newEditorConfig = originalEditorConfig.cloneAndUpdateConfig(
-      newConfig,
-    );
+    const newEditorConfig =
+      originalEditorConfig.cloneAndUpdateConfig(newConfig);
 
     expect(newEditorConfig.getMode()).toEqual('dark');
     expect(newEditorConfig.getLocale()).toEqual('zh');

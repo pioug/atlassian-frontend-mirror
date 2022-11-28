@@ -151,8 +151,7 @@ import {
                     type: 'commentBlock',
                     value:
                       ' Function called to get the key/values used to extend event data.\nOccurs after event data has been extended with `data`.',
-                    raw:
-                      '* Function called to get the key/values used to extend event data.\n   Occurs after event data has been extended with `data`. ',
+                    raw: '* Function called to get the key/values used to extend event data.\n   Occurs after event data has been extended with `data`. ',
                   },
                 ],
               },
@@ -183,8 +182,7 @@ import {
                     type: 'commentBlock',
                     value:
                       "String, regex, or function filter to limit what events are extended\nbased on event name. String filters use exact matching unless they end\nwith a '.', in which case a partial match on the beginning of the event\nname will be used.",
-                    raw:
-                      "* String, regex, or function filter to limit what events are extended\n  based on event name. String filters use exact matching unless they end\n  with a '.', in which case a partial match on the beginning of the event\n  name will be used.\n  ",
+                    raw: "* String, regex, or function filter to limit what events are extended\n  based on event name. String filters use exact matching unless they end\n  with a '.', in which case a partial match on the beginning of the event\n  name will be used.\n  ",
                   },
                 ],
                 default: { kind: 'string', value: '*' },
@@ -209,8 +207,7 @@ import {
                 type: 'commentBlock',
                 value:
                   'he Decorator component extends analytics event data for any events fired by\nits descendents, then passes the event up the hierarchy',
-                raw:
-                  ' The Decorator component extends analytics event data for any events fired by\nits descendents, then passes the event up the hierarchy ',
+                raw: ' The Decorator component extends analytics event data for any events fired by\nits descendents, then passes the event up the hierarchy ',
               },
             ],
             referenceIdName: 'Props',
@@ -278,8 +275,7 @@ import {
                     type: 'commentBlock',
                     value:
                       ' Function called when an event has been triggered within this\nlistener.',
-                    raw:
-                      '* Function called when an event has been triggered within this\n   listener. ',
+                    raw: '* Function called when an event has been triggered within this\n   listener. ',
                   },
                 ],
               },
@@ -310,8 +306,7 @@ import {
                     type: 'commentBlock',
                     value:
                       "String, regex, or function filter to limit what events call\n`onEvent` based on event name. String filters use exact matching\nunless they end with a '.', in which case a partial match on the beginning\nof the event name will be used.",
-                    raw:
-                      "* String, regex, or function filter to limit what events call\n  `onEvent` based on event name. String filters use exact matching\n  unless they end with a '.', in which case a partial match on the beginning\n  of the event name will be used. ",
+                    raw: "* String, regex, or function filter to limit what events call\n  `onEvent` based on event name. String filters use exact matching\n  unless they end with a '.', in which case a partial match on the beginning\n  of the event name will be used. ",
                   },
                 ],
                 default: { kind: 'string', value: '*' },
@@ -326,8 +321,7 @@ import {
                     type: 'commentBlock',
                     value:
                       'Sets wether to call `onEvent` for private or public events.',
-                    raw:
-                      '* Sets wether to call `onEvent` for private or public events. ',
+                    raw: '* Sets wether to call `onEvent` for private or public events. ',
                   },
                 ],
                 default: { kind: 'boolean', value: false },
@@ -338,8 +332,7 @@ import {
                 type: 'commentBlock',
                 value:
                   'The Listener component is responsible for calling its `onEvent` handler when a\nchild component fires an analytics event, and passing the event up the hierarchy',
-                raw:
-                  '\nThe Listener component is responsible for calling its `onEvent` handler when a\nchild component fires an analytics event, and passing the event up the hierarchy\n',
+                raw: '\nThe Listener component is responsible for calling its `onEvent` handler when a\nchild component fires an analytics event, and passing the event up the hierarchy\n',
               },
             ],
             referenceIdName: 'Props',

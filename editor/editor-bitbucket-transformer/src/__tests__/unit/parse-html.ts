@@ -130,8 +130,7 @@ describe('BitbucketTransformer: parser', () => {
         doc(
           p(
             inlineCard({
-              url:
-                'https://hello.atlassian.net/wiki/spaces/WPT/pages/442895750/Forge',
+              url: 'https://hello.atlassian.net/wiki/spaces/WPT/pages/442895750/Forge',
             })(),
           ),
         ),

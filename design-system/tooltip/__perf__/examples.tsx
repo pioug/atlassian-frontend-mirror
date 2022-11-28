@@ -31,9 +31,8 @@ const interactionTasks: PublicInteractionTask[] = [
       container,
       controls,
     }: InteractionTaskArgs): Promise<void> => {
-      const element: HTMLElement | null = container.querySelector(
-        '#tooltip-reference',
-      );
+      const element: HTMLElement | null =
+        container.querySelector('#tooltip-reference');
       if (!element) {
         throw new Error('no div found');
       }

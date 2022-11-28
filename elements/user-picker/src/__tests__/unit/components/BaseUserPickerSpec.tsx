@@ -39,9 +39,8 @@ jest.mock('react-intl-next', () => {
     FormattedMessage: (descriptor: any) => (
       <span>{descriptor.defaultMessage}</span>
     ),
-    injectIntl: (Node: any) => (props: any) => (
-      <Node {...props} intl={mockIntl} />
-    ),
+    injectIntl: (Node: any) => (props: any) =>
+      <Node {...props} intl={mockIntl} />,
   };
 });
 
@@ -95,18 +94,19 @@ const TEAM_ID = '12345678-1234-1234-1234-123456789012';
 const GROUP_ID = '12345678-1234-1234-1234-123456789013';
 const CUSTOM_ID = '12345678-1234-1234-1234-123456789014';
 
-const getBasePicker = (
-  BasePickerComponent: React.JSXElementConstructor<BaseUserPickerProps>,
-) => (props: Partial<BaseUserPickerProps> = {}) => (
-  <BasePickerComponent
-    fieldId="test"
-    SelectComponent={Select}
-    styles={{}}
-    components={getComponents(props.isMulti)}
-    width="100%"
-    {...props}
-  />
-);
+const getBasePicker =
+  (BasePickerComponent: React.JSXElementConstructor<BaseUserPickerProps>) =>
+  (props: Partial<BaseUserPickerProps> = {}) =>
+    (
+      <BasePickerComponent
+        fieldId="test"
+        SelectComponent={Select}
+        styles={{}}
+        components={getComponents(props.isMulti)}
+        width="100%"
+        {...props}
+      />
+    );
 
 const getBasePickerWithoutAnalytics = getBasePicker(
   BaseUserPickerWithoutAnalytics,
@@ -1084,27 +1084,22 @@ describe('BaseUserPicker', () => {
         { id: 'group-111', name: 'groups-that-group-groups', type: 'group' },
       ];
 
-      const selectableTeamOptions: Option[] = optionToSelectableOptions(
-        teamOptions,
-      );
-      const selectableGroupOptions: Option[] = optionToSelectableOptions(
-        groupOptions,
-      );
-      const selectableCustomOptions: Option[] = optionToSelectableOptions(
-        customOptions,
-      );
+      const selectableTeamOptions: Option[] =
+        optionToSelectableOptions(teamOptions);
+      const selectableGroupOptions: Option[] =
+        optionToSelectableOptions(groupOptions);
+      const selectableCustomOptions: Option[] =
+        optionToSelectableOptions(customOptions);
 
-      const mixedOptions: (OptionData | Custom)[] = (options as (
-        | OptionData
-        | Custom
-      )[])
+      const mixedOptions: (OptionData | Custom)[] = (
+        options as (OptionData | Custom)[]
+      )
         .concat(teamOptions)
         .concat(groupOptions)
         .concat(customOptions);
 
-      const selectableMixedOptions: Option[] = optionToSelectableOptions(
-        mixedOptions,
-      );
+      const selectableMixedOptions: Option[] =
+        optionToSelectableOptions(mixedOptions);
 
       it('should render select with only teams', () => {
         const component = shallowUserPicker({ options: teamOptions });

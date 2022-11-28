@@ -222,94 +222,95 @@ export function addToImport({
     });
 }
 
-export const createRenameFuncFor = (
-  component: string,
-  importName: string,
-  from: string,
-  to: string,
-) => (j: core.JSCodeshift, source: Collection<Node>) => {
-  const specifier = getNamedSpecifier(j, source, component, importName);
+export const createRenameFuncFor =
+  (component: string, importName: string, from: string, to: string) =>
+  (j: core.JSCodeshift, source: Collection<Node>) => {
+    const specifier = getNamedSpecifier(j, source, component, importName);
 
-  if (!specifier) {
-    return;
-  }
+    if (!specifier) {
+      return;
+    }
 
-  source.findJSXElements(specifier).forEach((element) => {
-    getJSXAttributesByName(j, element, from).forEach((attribute) => {
-      j(attribute).replaceWith(
-        j.jsxAttribute(j.jsxIdentifier(to), attribute.node.value),
-      );
+    source.findJSXElements(specifier).forEach((element) => {
+      getJSXAttributesByName(j, element, from).forEach((attribute) => {
+        j(attribute).replaceWith(
+          j.jsxAttribute(j.jsxIdentifier(to), attribute.node.value),
+        );
+      });
     });
-  });
 
-  let variable = hasVariableAssignment(j, source, specifier);
-  if (variable) {
-    variable.find(j.VariableDeclarator).forEach((declarator) => {
-      j(declarator)
-        .find(j.Identifier)
-        .filter((identifier) => identifier.name === 'id')
-        .forEach((ids) => {
-          findIdentifierAndReplaceAttribute(j, source, ids.node.name, from, to);
-        });
+    let variable = hasVariableAssignment(j, source, specifier);
+    if (variable) {
+      variable.find(j.VariableDeclarator).forEach((declarator) => {
+        j(declarator)
+          .find(j.Identifier)
+          .filter((identifier) => identifier.name === 'id')
+          .forEach((ids) => {
+            findIdentifierAndReplaceAttribute(
+              j,
+              source,
+              ids.node.name,
+              from,
+              to,
+            );
+          });
+      });
+    }
+  };
+
+export const createRemoveFuncFor =
+  (component: string, importName: string, prop: string, comment?: string) =>
+  (j: core.JSCodeshift, source: Collection<Node>) => {
+    const specifier = getNamedSpecifier(j, source, component, importName);
+
+    if (!specifier) {
+      return;
+    }
+
+    source.findJSXElements(specifier).forEach((element) => {
+      getJSXAttributesByName(j, element, prop).forEach((attribute) => {
+        j(attribute).remove();
+        if (comment) {
+          addCommentToStartOfFile({ j, base: source, message: comment });
+        }
+      });
     });
-  }
-};
+  };
 
-export const createRemoveFuncFor = (
-  component: string,
-  importName: string,
-  prop: string,
-  comment?: string,
-) => (j: core.JSCodeshift, source: Collection<Node>) => {
-  const specifier = getNamedSpecifier(j, source, component, importName);
+export const createRenameImportFor =
+  ({
+    componentName,
+    newComponentName,
+    oldPackagePath,
+    newPackagePath,
+  }: {
+    componentName: string;
+    newComponentName?: string;
+    oldPackagePath: string;
+    newPackagePath: string;
+  }) =>
+  (j: core.JSCodeshift, source: Collection<Node>) => {
+    const isUsingName: boolean =
+      source
+        .find(j.ImportDeclaration)
+        .filter((path) => path.node.source.value === oldPackagePath)
+        .find(j.ImportSpecifier)
+        .nodes()
+        .filter(
+          (specifier) =>
+            specifier.imported && specifier.imported.name === componentName,
+        ).length > 0;
+    if (!isUsingName) {
+      return;
+    }
 
-  if (!specifier) {
-    return;
-  }
-
-  source.findJSXElements(specifier).forEach((element) => {
-    getJSXAttributesByName(j, element, prop).forEach((attribute) => {
-      j(attribute).remove();
-      if (comment) {
-        addCommentToStartOfFile({ j, base: source, message: comment });
-      }
-    });
-  });
-};
-
-export const createRenameImportFor = ({
-  componentName,
-  newComponentName,
-  oldPackagePath,
-  newPackagePath,
-}: {
-  componentName: string;
-  newComponentName?: string;
-  oldPackagePath: string;
-  newPackagePath: string;
-}) => (j: core.JSCodeshift, source: Collection<Node>) => {
-  const isUsingName: boolean =
-    source
-      .find(j.ImportDeclaration)
-      .filter((path) => path.node.source.value === oldPackagePath)
-      .find(j.ImportSpecifier)
-      .nodes()
-      .filter(
-        (specifier) =>
-          specifier.imported && specifier.imported.name === componentName,
-      ).length > 0;
-  if (!isUsingName) {
-    return;
-  }
-
-  const existingAlias: Nullable<string> =
-    source
-      .find(j.ImportDeclaration)
-      .filter((path) => path.node.source.value === oldPackagePath)
-      .find(j.ImportSpecifier)
-      .nodes()
-      .map(
-        (specifier): Nullable<string> => {
+    const existingAlias: Nullable<string> =
+      source
+        .find(j.ImportDeclaration)
+        .filter((path) => path.node.source.value === oldPackagePath)
+        .find(j.ImportSpecifier)
+        .nodes()
+        .map((specifier): Nullable<string> => {
           if (specifier.imported && specifier.imported.name !== componentName) {
             return null;
           }
@@ -319,81 +320,81 @@ export const createRenameImportFor = ({
           }
 
           return null;
-        },
-      )
-      .filter(Boolean)[0] || null;
+        })
+        .filter(Boolean)[0] || null;
 
-  // Check to see if need to create new package path
-  // Try create an import declaration just before the old import
-  tryCreateImport({
-    j,
-    base: source,
-    relativeToPackage: oldPackagePath,
-    packageName: newPackagePath,
-  });
+    // Check to see if need to create new package path
+    // Try create an import declaration just before the old import
+    tryCreateImport({
+      j,
+      base: source,
+      relativeToPackage: oldPackagePath,
+      packageName: newPackagePath,
+    });
 
-  const newSpecifier: ImportSpecifier | ImportDefaultSpecifier = (() => {
-    // If there's a new name use that
-    if (newComponentName) {
-      return j.importSpecifier(
-        j.identifier(newComponentName),
-        j.identifier(newComponentName),
-      );
-    }
+    const newSpecifier: ImportSpecifier | ImportDefaultSpecifier = (() => {
+      // If there's a new name use that
+      if (newComponentName) {
+        return j.importSpecifier(
+          j.identifier(newComponentName),
+          j.identifier(newComponentName),
+        );
+      }
 
-    if (existingAlias) {
+      if (existingAlias) {
+        return j.importSpecifier(
+          j.identifier(componentName),
+          j.identifier(existingAlias),
+        );
+      }
+
+      // Add specifier
       return j.importSpecifier(
         j.identifier(componentName),
-        j.identifier(existingAlias),
+        j.identifier(componentName),
       );
+    })();
+
+    addToImport({
+      j,
+      base: source,
+      importSpecifier: newSpecifier,
+      packageName: newPackagePath,
+    });
+
+    // Remove old path
+    source
+      .find(j.ImportDeclaration)
+      .filter((path) => path.node.source.value === oldPackagePath)
+      .remove();
+  };
+
+export const createRemoveImportsFor =
+  ({
+    importsToRemove,
+    packagePath,
+    comment,
+  }: {
+    importsToRemove: string[];
+    packagePath: string;
+    comment: string;
+  }) =>
+  (j: core.JSCodeshift, source: Collection<Node>) => {
+    const isUsingName: boolean =
+      source
+        .find(j.ImportDeclaration)
+        .filter((path) => path.node.source.value === packagePath).length > 0;
+    if (!isUsingName) {
+      return;
     }
 
-    // Add specifier
-    return j.importSpecifier(
-      j.identifier(componentName),
-      j.identifier(componentName),
-    );
-  })();
-
-  addToImport({
-    j,
-    base: source,
-    importSpecifier: newSpecifier,
-    packageName: newPackagePath,
-  });
-
-  // Remove old path
-  source
-    .find(j.ImportDeclaration)
-    .filter((path) => path.node.source.value === oldPackagePath)
-    .remove();
-};
-
-export const createRemoveImportsFor = ({
-  importsToRemove,
-  packagePath,
-  comment,
-}: {
-  importsToRemove: string[];
-  packagePath: string;
-  comment: string;
-}) => (j: core.JSCodeshift, source: Collection<Node>) => {
-  const isUsingName: boolean =
-    source
-      .find(j.ImportDeclaration)
-      .filter((path) => path.node.source.value === packagePath).length > 0;
-  if (!isUsingName) {
-    return;
-  }
-
-  const existingAlias: Nullable<string> =
-    source
-      .find(j.ImportDeclaration)
-      .filter((path) => path.node.source.value === packagePath)
-      .find(j.ImportSpecifier)
-      .nodes()
-      .map(
-        (specifier): Nullable<string> => {
+    const existingAlias: Nullable<string> =
+      source
+        .find(j.ImportDeclaration)
+        .filter((path) => path.node.source.value === packagePath)
+        .find(j.ImportSpecifier)
+        .nodes()
+        .map((specifier): Nullable<string> => {
           if (!importsToRemove.includes(specifier.imported.name)) {
             return null;
           }
@@ -406,54 +407,55 @@ export const createRemoveImportsFor = ({
           }
 
           return null;
-        },
-      )
-      .filter(Boolean)[0] || null;
+        })
+        .filter(Boolean)[0] || null;
 
-  // Remove imports
-  source
-    .find(j.ImportDeclaration)
-    .filter((path) => path.node.source.value === packagePath)
-    .find(j.ImportSpecifier)
-    .find(j.Identifier)
-    .filter((identifier) => {
-      if (
-        importsToRemove.includes(identifier.value.name) ||
-        identifier.value.name === existingAlias
-      ) {
-        addCommentToStartOfFile({ j, base: source, message: comment });
-        return true;
-      }
-      return false;
-    })
-    .remove();
-
-  // Remove entire import if it is empty
-  const isEmptyImport =
+    // Remove imports
     source
       .find(j.ImportDeclaration)
       .filter((path) => path.node.source.value === packagePath)
       .find(j.ImportSpecifier)
-      .find(j.Identifier).length === 0;
-  if (isEmptyImport) {
-    source
-      .find(j.ImportDeclaration)
-      .filter((path) => path.node.source.value === packagePath)
+      .find(j.Identifier)
+      .filter((identifier) => {
+        if (
+          importsToRemove.includes(identifier.value.name) ||
+          identifier.value.name === existingAlias
+        ) {
+          addCommentToStartOfFile({ j, base: source, message: comment });
+          return true;
+        }
+        return false;
+      })
       .remove();
-  }
-};
 
-export const createTransformer = (
-  component: string,
-  migrates: { (j: core.JSCodeshift, source: Collection<Node>): void }[],
-) => (fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
-  const source: Collection<Node> = j(fileInfo.source);
+    // Remove entire import if it is empty
+    const isEmptyImport =
+      source
+        .find(j.ImportDeclaration)
+        .filter((path) => path.node.source.value === packagePath)
+        .find(j.ImportSpecifier)
+        .find(j.Identifier).length === 0;
+    if (isEmptyImport) {
+      source
+        .find(j.ImportDeclaration)
+        .filter((path) => path.node.source.value === packagePath)
+        .remove();
+    }
+  };
 
-  if (!hasImportDeclaration(j, source, component)) {
-    return fileInfo.source;
-  }
+export const createTransformer =
+  (
+    component: string,
+    migrates: { (j: core.JSCodeshift, source: Collection<Node>): void }[],
+  ) =>
+  (fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
+    const source: Collection<Node> = j(fileInfo.source);
 
-  migrates.forEach((tf) => tf(j, source));
+    if (!hasImportDeclaration(j, source, component)) {
+      return fileInfo.source;
+    }
 
-  return source.toSource(options.printOptions || { quote: 'single' });
-};
+    migrates.forEach((tf) => tf(j, source));
+
+    return source.toSource(options.printOptions || { quote: 'single' });
+  };

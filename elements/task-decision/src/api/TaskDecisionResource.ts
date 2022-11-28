@@ -144,10 +144,8 @@ export class ItemStateManager {
   private serviceConfig: TaskDecisionResourceConfig;
   private subscribers: Map<string, Handler[]> = new Map();
   private trackedObjectKeys: Map<string, ObjectKey> = new Map();
-  private cachedItems: Map<
-    string,
-    BaseItem<TaskState | DecisionState>
-  > = new Map();
+  private cachedItems: Map<string, BaseItem<TaskState | DecisionState>> =
+    new Map();
   private batchedKeys: Map<string, ObjectKey> = new Map();
 
   constructor(serviceConfig: TaskDecisionResourceConfig) {

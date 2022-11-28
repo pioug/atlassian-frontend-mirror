@@ -37,6 +37,7 @@ export const EmbedCardNotFoundView: FC<EmbedCardNotFoundViewProps> = ({
       inheritDimensions={inheritDimensions}
       onClick={onClick}
       testId={testId}
+      allowScrollBar={true}
     >
       <EmbedCardUnresolvedView
         image={NotFoundImage}

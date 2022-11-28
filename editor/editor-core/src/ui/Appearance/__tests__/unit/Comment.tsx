@@ -134,10 +134,8 @@ describe('comment editor', () => {
       const mediaPluginState = getMediaPluginState(editorView.state);
       expect(mediaPluginState.mediaOptions).toBeDefined();
 
-      const {
-        allowAdvancedToolBarOptions,
-        alignLeftOnInsert,
-      } = mediaPluginState.mediaOptions as MediaOptions;
+      const { allowAdvancedToolBarOptions, alignLeftOnInsert } =
+        mediaPluginState.mediaOptions as MediaOptions;
       expect(alignLeftOnInsert).toBe(true);
       expect(allowAdvancedToolBarOptions).toBe(true);
     });

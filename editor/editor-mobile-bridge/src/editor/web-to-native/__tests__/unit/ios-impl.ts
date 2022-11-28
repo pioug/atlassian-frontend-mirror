@@ -27,9 +27,9 @@ function createiOSMockBridge(): [IosBridge, Window] {
       toolbarBridge: { postMessage: jest.fn() },
     },
   };
-  const mockWindow = ({
+  const mockWindow = {
     webkit,
-  } as any) as Window;
+  } as any as Window;
   return [new IosBridge(mockWindow), mockWindow];
 }
 describe('Web To Native', () => {
@@ -83,28 +83,28 @@ describe('Web To Native', () => {
         });
 
         it('should not throw if lifeCycle bridge does not exist', function () {
-          const iosBridge = new IosBridge(({
+          const iosBridge = new IosBridge({
             webkit: {
               messageHandlers: {
                 lifecycleBridge: undefined,
                 analyticsBridge: { postMessage: jest.fn() },
               },
             },
-          } as any) as Window);
+          } as any as Window);
 
           expect(() => iosBridge.editorReady()).not.toThrow();
         });
 
         it('should send analytics event when lifecycleBridge does not exist', function () {
           const analyticsBridge = { postMessage: jest.fn() };
-          const iosBridge = new IosBridge(({
+          const iosBridge = new IosBridge({
             webkit: {
               messageHandlers: {
                 lifecycleBridge: undefined,
                 analyticsBridge,
               },
             },
-          } as any) as Window);
+          } as any as Window);
 
           iosBridge.editorReady();
 
@@ -157,28 +157,28 @@ describe('Web To Native', () => {
         });
 
         it('should not throw if lifeCycle bridge does not exist', function () {
-          const iosBridge = new IosBridge(({
+          const iosBridge = new IosBridge({
             webkit: {
               messageHandlers: {
                 lifecycleBridge: undefined,
                 analyticsBridge: { postMessage: jest.fn() },
               },
             },
-          } as any) as Window);
+          } as any as Window);
 
           expect(() => iosBridge.startWebBundle()).not.toThrow();
         });
 
         it('should send analytics event when lifecycleBridge does not exist', function () {
           const analyticsBridge = { postMessage: jest.fn() };
-          const iosBridge = new IosBridge(({
+          const iosBridge = new IosBridge({
             webkit: {
               messageHandlers: {
                 lifecycleBridge: undefined,
                 analyticsBridge,
               },
             },
-          } as any) as Window);
+          } as any as Window);
 
           iosBridge.startWebBundle();
 
@@ -230,14 +230,14 @@ describe('Web To Native', () => {
 
         it('should send analytics on error without bridge', () => {
           const analyticsBridge = { postMessage: jest.fn() };
-          const iosBridge = new IosBridge(({
+          const iosBridge = new IosBridge({
             webkit: {
               messageHandlers: {
                 lifecycleBridge: undefined,
                 analyticsBridge,
               },
             },
-          } as any) as Window);
+          } as any as Window);
 
           iosBridge.editorError(errorString);
 

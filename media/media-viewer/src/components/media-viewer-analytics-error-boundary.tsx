@@ -6,9 +6,7 @@ export type MediaViewerAnalyticsErrorBoundaryProps = {
   data?: { [k: string]: any };
 };
 
-export default class MediaViewerAnalyticsErrorBoundary extends React.Component<
-  MediaViewerAnalyticsErrorBoundaryProps
-> {
+export default class MediaViewerAnalyticsErrorBoundary extends React.Component<MediaViewerAnalyticsErrorBoundaryProps> {
   static displayName = 'MediaViewerAnalyticsErrorBoundary';
 
   render() {

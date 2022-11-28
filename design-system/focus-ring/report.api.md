@@ -36,9 +36,7 @@ export interface FocusRingProps {
 export type FocusState = 'on' | 'off';
 
 // @public
-export const useFocusRing: (
-  initialState?: FocusState,
-) => {
+export const useFocusRing: (initialState?: FocusState) => {
   readonly focusState: 'on' | 'off';
   readonly focusProps: FocusEventHandlers;
 };

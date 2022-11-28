@@ -191,32 +191,31 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         }
       },
 
-      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]': (
-        node: Rule.Node,
-      ) => {
-        if (node.type !== 'TaggedTemplateExpression') {
-          return;
-        }
-
-        const value = node.quasi.quasis.map((q) => q.value.raw).join('');
-
-        /**
-         * Attempts to remove all non-essential words & characters from a style block.
-         * Including selectors, queries and property names, leaving only values
-         * This is necessary to avoid cases where a property might have a color in its name ie. "white-space"
-         */
-        const cssProperties = value
-          .replace(/\n/g, '')
-          .split(/;|{|}/)
-          .map((el) => el.trim().split(':').pop() || '');
-
-        cssProperties.forEach((property) => {
-          if (includesHardCodedColor(property)) {
-            context.report({ messageId: 'hardCodedColor', node });
+      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
+        (node: Rule.Node) => {
+          if (node.type !== 'TaggedTemplateExpression') {
             return;
           }
-        });
-      },
+
+          const value = node.quasi.quasis.map((q) => q.value.raw).join('');
+
+          /**
+           * Attempts to remove all non-essential words & characters from a style block.
+           * Including selectors, queries and property names, leaving only values
+           * This is necessary to avoid cases where a property might have a color in its name ie. "white-space"
+           */
+          const cssProperties = value
+            .replace(/\n/g, '')
+            .split(/;|{|}/)
+            .map((el) => el.trim().split(':').pop() || '');
+
+          cssProperties.forEach((property) => {
+            if (includesHardCodedColor(property)) {
+              context.report({ messageId: 'hardCodedColor', node });
+              return;
+            }
+          });
+        },
 
       'ObjectExpression > Property > Literal': (node: Rule.Node) => {
         if (node.type !== 'Literal' || typeof node.value !== 'string') {

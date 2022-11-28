@@ -204,6 +204,7 @@ export const TextWrapper = styled.div`
 
 export interface ContentProps {
   isInteractive: boolean;
+  allowScrollBar: boolean;
 }
 
 // NB: `overflow` is kept as `hidden` since
@@ -212,15 +213,11 @@ export interface ContentProps {
 export const Content = styled.div`
   ${borderRadius}
   ${cardShadow}
-  background-color: ${token(
-    'elevation.surface.raised',
-    'white',
-  )};
+  background-color: ${token('elevation.surface.raised', 'white')};
   position: absolute;
   z-index: 1;
   width: 100%;
   top: ${gridSize(4)};
-  overflow: hidden;
   height: calc(100% - ${gridSize(4)});
   transition: box-shadow 0.3s;
 
@@ -249,6 +246,9 @@ export const Content = styled.div`
       return '';
     }
   }};
+
+  ${({ allowScrollBar }: ContentProps) =>
+    allowScrollBar ? 'overflow: auto;' : 'overflow: hidden;'}
 `;
 
 export interface ImageProps {

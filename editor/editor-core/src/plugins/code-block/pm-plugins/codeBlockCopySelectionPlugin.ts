@@ -32,10 +32,8 @@ function getSelectionDecorationStartAndEnd({
     return { decorationStartAndEnd: undefined };
   }
 
-  const decorationStartAndEnd: CodeBlockCopySelectionPluginState['decorationStartAndEnd'] = [
-    codeBlockNode.start,
-    codeBlockNode.start + codeBlockNode.node.nodeSize,
-  ];
+  const decorationStartAndEnd: CodeBlockCopySelectionPluginState['decorationStartAndEnd'] =
+    [codeBlockNode.start, codeBlockNode.start + codeBlockNode.node.nodeSize];
 
   return { decorationStartAndEnd };
 }
@@ -83,9 +81,8 @@ export function codeBlockCopySelectionPlugin() {
     props: {
       decorations(state) {
         if (copySelectionPluginKey.getState(state).decorationStartAndEnd) {
-          const [start, end] = copySelectionPluginKey.getState(
-            state,
-          ).decorationStartAndEnd;
+          const [start, end] =
+            copySelectionPluginKey.getState(state).decorationStartAndEnd;
 
           return DecorationSet.create(state.doc, [
             Decoration.inline(start, end, {

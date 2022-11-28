@@ -270,9 +270,8 @@ export class FileFetcherImpl implements FileFetcher {
     url: string,
     collection?: string,
   ): Promise<ExternalUploadPayload> {
-    const uploadableFileUpfrontIds = this.generateUploadableFileUpfrontIds(
-      collection,
-    );
+    const uploadableFileUpfrontIds =
+      this.generateUploadableFileUpfrontIds(collection);
     const { id, occurrenceKey } = uploadableFileUpfrontIds;
     const subject = createMediaSubject<FileState>();
 
@@ -355,9 +354,8 @@ export class FileFetcherImpl implements FileFetcher {
     } = file;
 
     if (!uploadableFileUpfrontIds) {
-      uploadableFileUpfrontIds = this.generateUploadableFileUpfrontIds(
-        collection,
-      );
+      uploadableFileUpfrontIds =
+        this.generateUploadableFileUpfrontIds(collection);
     }
 
     const id = uploadableFileUpfrontIds.id;

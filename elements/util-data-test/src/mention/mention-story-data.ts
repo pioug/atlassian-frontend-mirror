@@ -86,8 +86,7 @@ export const mentions = [
   },
   {
     id: '12312412',
-    name:
-      "Dude with long name and time that doesn't seem to stop and should overflow",
+    name: "Dude with long name and time that doesn't seem to stop and should overflow",
     mentionName:
       "Dudewithlongnamethatdoesn'tseemtostopandshouldoverflowwithtime",
     presence: {
@@ -190,23 +189,21 @@ export const mentionResourceProviderWithResolver2 = new MentionResource({
   mentionNameResolver: createMockMentionNameResolver(),
 });
 
-export const mentionResourceProviderWithInfoHints = new MentionResourceWithInfoHints(
-  {
+export const mentionResourceProviderWithInfoHints =
+  new MentionResourceWithInfoHints({
     minWait: 10,
     maxWait: 25,
-  },
-);
+  });
 
-export const mentionResourceProviderWithTeamMentionHighlight = new MentionResource(
-  {
+export const mentionResourceProviderWithTeamMentionHighlight =
+  new MentionResource({
     minWait: 10,
     maxWait: 25,
     enableTeamMentionHighlight: true,
-  },
-);
+  });
 
-export const mentionResourceProviderWithInviteFromMentionExperiment = new MentionResource(
-  {
+export const mentionResourceProviderWithInviteFromMentionExperiment =
+  new MentionResource({
     minWait: 10,
     maxWait: 25,
     enableTeamMentionHighlight: true,
@@ -214,5 +211,4 @@ export const mentionResourceProviderWithInviteFromMentionExperiment = new Mentio
     productName: 'confluence',
     shouldEnableInvite: true,
     userRole: 'admin',
-  },
-);
+  });

@@ -11,8 +11,7 @@ export const cardState: any = {
         {
           key: 'bitbucket',
           displayName: 'Atlassian Links - Bitbucket',
-          url:
-            'https://id.stg.internal.atlassian.com/outboundAuth/start?containerId=4d6a1ee9-20b3-492f-a0b6-3bab6c763a8e_3f823978-fbc9-4baa-95e2-1b4c89a73027&serviceKey=bitbucket',
+          url: 'https://id.stg.internal.atlassian.com/outboundAuth/start?containerId=4d6a1ee9-20b3-492f-a0b6-3bab6c763a8e_3f823978-fbc9-4baa-95e2-1b4c89a73027&serviceKey=bitbucket',
         },
       ],
       definitionId: 'a2d59c5a-952f-4996-8cf6-1d0ad318731a',
@@ -41,32 +40,27 @@ export const cardState: any = {
         name: 'Bitbucket',
         icon: {
           '@type': 'Image',
-          url:
-            'https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png',
+          url: 'https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png',
         },
       },
       icon: {
         '@type': 'Image',
-        url:
-          'https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png',
+        url: 'https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png',
       },
       name: 'Normalise package config',
       summary: '',
       'atlassian:mergeSource': {
         '@type': 'Link',
-        href:
-          'https://bitbucket.org/atlassian/incredible-monorepo/branch/normalise-package-config',
+        href: 'https://bitbucket.org/atlassian/incredible-monorepo/branch/normalise-package-config',
       },
       'atlassian:mergeDestination': {
         '@type': 'Link',
-        href:
-          'https://bitbucket.org/atlassian/incredible-monorepo/branch/master',
+        href: 'https://bitbucket.org/atlassian/incredible-monorepo/branch/master',
       },
       updated: '2019-12-12T03:40:43.420Z',
       'atlassian:mergeCommit': {
         '@type': 'Link',
-        href:
-          'https://bitbucket.org/atlassian/incredible-monorepo/commits/56139bbc3793',
+        href: 'https://bitbucket.org/atlassian/incredible-monorepo/commits/56139bbc3793',
       },
       'atlassian:internalId': '42',
       'atlassian:isMerged': true,

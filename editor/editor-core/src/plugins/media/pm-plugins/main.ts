@@ -189,8 +189,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         const viewMediaClientConfig = this.mediaProvider.viewMediaClientConfig;
 
         if (viewMediaClientConfig) {
-          (this
-            .mediaProvider as MediaProvider).viewMediaClientConfig = viewMediaClientConfig;
+          (this.mediaProvider as MediaProvider).viewMediaClientConfig =
+            viewMediaClientConfig;
         }
       }
 
@@ -854,9 +854,9 @@ export const createPlugin = (
         return false;
       },
       handleClick: (_editorView, _pos, event: MouseEvent) => {
-        const clickedInsideCaptionPlaceholder = (event.target as HTMLElement)?.closest(
-          `[data-id="${CAPTION_PLACEHOLDER_ID}"]`,
-        );
+        const clickedInsideCaptionPlaceholder = (
+          event.target as HTMLElement
+        )?.closest(`[data-id="${CAPTION_PLACEHOLDER_ID}"]`);
 
         // Workaround for Chrome given a regression introduced in prosemirror-view@1.18.6
         // Returning true prevents that updateSelection() is getting called in the commit below:

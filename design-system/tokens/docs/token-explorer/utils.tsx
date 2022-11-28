@@ -7,7 +7,7 @@ import type { TokenGroup } from './grouped-tokens';
 import type { TransformedTokenGrouped, TransformedTokenMerged } from './types';
 
 export const filterTokens = <
-  T extends TransformedTokenGrouped | TransformedTokenMerged
+  T extends TransformedTokenGrouped | TransformedTokenMerged,
 >(
   list: Array<T>,
   filters: {

@@ -48,8 +48,8 @@ export interface KitchenSinkControlsProps {
   onScrubToggle(enabled: boolean): void;
 }
 
-export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsProps> = React.memo(
-  (props) => {
+export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsProps> =
+  React.memo((props) => {
     const {
       adfEnabled,
       editorEnabled,
@@ -84,10 +84,10 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
       [errorsEnabled, onErrorToggle],
     );
 
-    const onAdfToggleCb = React.useCallback(() => onAdfToggle(!adfEnabled), [
-      adfEnabled,
-      onAdfToggle,
-    ]);
+    const onAdfToggleCb = React.useCallback(
+      () => onAdfToggle(!adfEnabled),
+      [adfEnabled, onAdfToggle],
+    );
 
     return (
       <div css={controls}>
@@ -170,5 +170,4 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
         </div>
       </div>
     );
-  },
-);
+  });

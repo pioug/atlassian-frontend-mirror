@@ -10,9 +10,7 @@ export type MobileUploadErrorAttributes = {
     readonly occurrenceKey?: string;
   };
 };
-export class MobileUploadError extends BaseMediaClientError<
-  MobileUploadErrorAttributes
-> {
+export class MobileUploadError extends BaseMediaClientError<MobileUploadErrorAttributes> {
   constructor(
     readonly reason: MobileUploadErrorReason,
     readonly id: string,

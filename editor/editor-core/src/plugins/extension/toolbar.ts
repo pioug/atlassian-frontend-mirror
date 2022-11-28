@@ -146,86 +146,88 @@ const editButton = (
   ];
 };
 
-export const getToolbarConfig = (
-  breakoutEnabled: boolean = true,
-): FloatingToolbarHandler => (state, intl) => {
-  const { formatMessage } = intl;
-  const extensionState = getPluginState(state);
+export const getToolbarConfig =
+  (breakoutEnabled: boolean = true): FloatingToolbarHandler =>
+  (state, intl) => {
+    const { formatMessage } = intl;
+    const extensionState = getPluginState(state);
 
-  if (
-    extensionState &&
-    !extensionState.showContextPanel &&
-    extensionState.element
-  ) {
-    const nodeType = [
-      state.schema.nodes.extension,
-      state.schema.nodes.inlineExtension,
-      state.schema.nodes.bodiedExtension,
-    ];
+    if (
+      extensionState &&
+      !extensionState.showContextPanel &&
+      extensionState.element
+    ) {
+      const nodeType = [
+        state.schema.nodes.extension,
+        state.schema.nodes.inlineExtension,
+        state.schema.nodes.bodiedExtension,
+      ];
 
-    const editButtonArray = editButton(formatMessage, extensionState);
-    const breakoutButtonArray = breakoutOptions(
-      state,
-      formatMessage,
-      extensionState,
-      breakoutEnabled,
-    );
+      const editButtonArray = editButton(formatMessage, extensionState);
+      const breakoutButtonArray = breakoutOptions(
+        state,
+        formatMessage,
+        extensionState,
+        breakoutEnabled,
+      );
 
-    const extensionObj = getSelectedExtension(state, true);
+      const extensionObj = getSelectedExtension(state, true);
 
-    // Check if we need to show confirm dialog for delete button
-    let confirmDialog;
-    if (isReferencedSource(state, extensionObj?.node)) {
-      confirmDialog = {
-        okButtonLabel: formatMessage(messages.confirmDeleteLinkedModalOKButton),
-        message: formatMessage(messages.confirmDeleteLinkedModalMessage),
-      };
+      // Check if we need to show confirm dialog for delete button
+      let confirmDialog;
+      if (isReferencedSource(state, extensionObj?.node)) {
+        confirmDialog = {
+          okButtonLabel: formatMessage(
+            messages.confirmDeleteLinkedModalOKButton,
+          ),
+          message: formatMessage(messages.confirmDeleteLinkedModalMessage),
+        };
+      }
+
+      return {
+        title: 'Extension floating controls',
+        getDomRef: () => extensionState.element!.parentElement || undefined,
+        nodeType,
+        items: [
+          ...editButtonArray,
+          ...breakoutButtonArray,
+          {
+            type: 'separator',
+            hidden:
+              editButtonArray.length === 0 && breakoutButtonArray.length === 0,
+          },
+          {
+            type: 'extensions-placeholder',
+            separator: 'end',
+          },
+          {
+            type: 'copy-button',
+            items: [
+              {
+                state,
+                formatMessage: intl.formatMessage,
+                nodeType,
+              },
+              { type: 'separator' },
+            ],
+          },
+          {
+            id: 'editor.extension.delete',
+            type: 'button',
+            icon: RemoveIcon,
+            appearance: 'danger',
+            onClick: removeExtension(),
+            onMouseEnter: hoverDecoration(nodeType, true),
+            onMouseLeave: hoverDecoration(nodeType, false),
+            onFocus: hoverDecoration(nodeType, true),
+            onBlur: hoverDecoration(nodeType, false),
+            title: formatMessage(commonMessages.remove),
+            tabIndex: null,
+            confirmDialog,
+          },
+        ],
+        scrollable: true,
+      } as FloatingToolbarConfig;
     }
-
-    return {
-      title: 'Extension floating controls',
-      getDomRef: () => extensionState.element!.parentElement || undefined,
-      nodeType,
-      items: [
-        ...editButtonArray,
-        ...breakoutButtonArray,
-        {
-          type: 'separator',
-          hidden:
-            editButtonArray.length === 0 && breakoutButtonArray.length === 0,
-        },
-        {
-          type: 'extensions-placeholder',
-          separator: 'end',
-        },
-        {
-          type: 'copy-button',
-          items: [
-            {
-              state,
-              formatMessage: intl.formatMessage,
-              nodeType,
-            },
-            { type: 'separator' },
-          ],
-        },
-        {
-          id: 'editor.extension.delete',
-          type: 'button',
-          icon: RemoveIcon,
-          appearance: 'danger',
-          onClick: removeExtension(),
-          onMouseEnter: hoverDecoration(nodeType, true),
-          onMouseLeave: hoverDecoration(nodeType, false),
-          onFocus: hoverDecoration(nodeType, true),
-          onBlur: hoverDecoration(nodeType, false),
-          title: formatMessage(commonMessages.remove),
-          tabIndex: null,
-          confirmDialog,
-        },
-      ],
-      scrollable: true,
-    } as FloatingToolbarConfig;
-  }
-  return;
-};
+    return;
+  };

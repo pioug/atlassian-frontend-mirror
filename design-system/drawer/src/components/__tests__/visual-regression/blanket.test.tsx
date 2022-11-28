@@ -126,9 +126,8 @@ describe('Blanket', () => {
 
         await page.evaluate(
           (blanketSelector: string, timeStamp: number) => {
-            const blanket = document.querySelector<HTMLElement>(
-              blanketSelector,
-            );
+            const blanket =
+              document.querySelector<HTMLElement>(blanketSelector);
             if (blanket === null) {
               throw new Error('blanket not found');
             }
@@ -142,7 +141,8 @@ describe('Blanket', () => {
               );
             }
 
-            const blanketChild = blanket.firstElementChild as HTMLElement | null;
+            const blanketChild =
+              blanket.firstElementChild as HTMLElement | null;
             if (blanketChild === null) {
               throw new Error('blanket child should not be null');
             }

@@ -1018,13 +1018,10 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should fire clicked event when pause button is clicked', () => {
-      const {
-        triggerPlay,
-        getPlayPauseButton,
-        getUIAnalyticsEventDetails,
-      } = setup({
-        isAutoPlay: false,
-      });
+      const { triggerPlay, getPlayPauseButton, getUIAnalyticsEventDetails } =
+        setup({
+          isAutoPlay: false,
+        });
 
       triggerPlay();
 
@@ -1367,11 +1364,8 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should fire press event when skip backward is activated by pressing left key', () => {
-      const {
-        getUIAnalyticsEventDetails,
-        triggerFullscreen,
-        triggerKeydown,
-      } = setup();
+      const { getUIAnalyticsEventDetails, triggerFullscreen, triggerKeydown } =
+        setup();
       triggerFullscreen();
       triggerKeydown(keyCodes.leftArrow);
 
@@ -1393,11 +1387,8 @@ describe('<CustomMediaPlayer />', () => {
     });
 
     it('should fire press event when skip forward is activated by pressing right key', () => {
-      const {
-        getUIAnalyticsEventDetails,
-        triggerFullscreen,
-        triggerKeydown,
-      } = setup();
+      const { getUIAnalyticsEventDetails, triggerFullscreen, triggerKeydown } =
+        setup();
       triggerFullscreen();
       triggerKeydown(keyCodes.rightArrow);
 

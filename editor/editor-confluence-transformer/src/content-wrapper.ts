@@ -23,11 +23,10 @@ export const docContentWrapper = (
   const blockContent: PMNode[] = [];
   content.forEach((node: PMNode) => {
     if (node.type === schema.nodes.confluenceUnsupportedInline) {
-      const unsupportedBlock: PMNode = schema.nodes.confluenceUnsupportedBlock.createChecked(
-        {
+      const unsupportedBlock: PMNode =
+        schema.nodes.confluenceUnsupportedBlock.createChecked({
           cxhtml: node.attrs.cxhtml,
-        },
-      );
+        });
       blockContent.push(unsupportedBlock);
       return;
     }
@@ -183,11 +182,10 @@ export const ensureInline = (
     // We replace an non-inline node with UnsupportedInline node
     const originalNode =
       convertedNodesReverted.get(node) || convertedNodesReverted.get(content);
-    const unsupportedInline: PMNode = schema.nodes.confluenceUnsupportedInline.createChecked(
-      {
+    const unsupportedInline: PMNode =
+      schema.nodes.confluenceUnsupportedInline.createChecked({
         cxhtml: originalNode ? encodeCxhtml(originalNode) : '',
-      },
-    );
+      });
     result.push(unsupportedInline);
   });
   return Fragment.fromArray(result);
@@ -237,11 +235,10 @@ export function ensureBlock(
   const defaultConvertInvalid = (node: PMNode) => {
     const originalNode =
       convertedNodesReverted.get(node) || convertedNodesReverted.get(content);
-    const unsupportedBlock: PMNode = schema.nodes.confluenceUnsupportedBlock.createChecked(
-      {
+    const unsupportedBlock: PMNode =
+      schema.nodes.confluenceUnsupportedBlock.createChecked({
         cxhtml: originalNode ? encodeCxhtml(originalNode) : '',
-      },
-    );
+      });
     return unsupportedBlock;
   };
 

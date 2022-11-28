@@ -59,8 +59,7 @@ const initialExample = {
                 },
                 {
                   type: 'text',
-                  text:
-                    ': Instrument key performance metrics and improve typing speed in the editor.',
+                  text: ': Instrument key performance metrics and improve typing speed in the editor.',
                   marks: [
                     {
                       type: 'annotation',
@@ -92,8 +91,7 @@ const initialExample = {
                 },
                 {
                   type: 'text',
-                  text:
-                    ' Remove invisible barriers by enabling more content to be placed ',
+                  text: ' Remove invisible barriers by enabling more content to be placed ',
                 },
                 {
                   type: 'text',

@@ -118,9 +118,8 @@ type PaletteValues =
   | 'Neutral1000'
   | 'Neutral1100';
 
-export type BaseToken = keyof PaletteColorTokenSchema<
-  PaletteValues
->['color']['palette'];
+export type BaseToken =
+  keyof PaletteColorTokenSchema<PaletteValues>['color']['palette'];
 
 const palette: PaletteColorTokenSchema<PaletteValues> = {
   value: {

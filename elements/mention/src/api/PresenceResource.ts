@@ -76,7 +76,8 @@ export interface PresenceProvider extends ResourceProvider<PresenceMap> {
 
 class AbstractPresenceResource
   extends AbstractResource<PresenceMap>
-  implements PresenceProvider {
+  implements PresenceProvider
+{
   refreshPresence(userIds: string[]): void {
     throw new Error(`not yet implemented.\nParams: userIds=${userIds}`);
   }

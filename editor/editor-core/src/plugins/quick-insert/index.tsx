@@ -59,9 +59,8 @@ const quickInsertPlugin = (
       trigger: '/',
       headless: options ? options.headless : undefined,
       getItems({ query, editorState }) {
-        const quickInsertState: QuickInsertPluginState = pluginKey.getState(
-          editorState,
-        );
+        const quickInsertState: QuickInsertPluginState =
+          pluginKey.getState(editorState);
 
         return Promise.resolve(
           searchQuickInsertItems(quickInsertState, options)(query),
@@ -132,14 +131,14 @@ const extendQuickInsertAction = (
   });
 };
 
-const setProviderState = (
-  providerState: Partial<QuickInsertPluginState>,
-): Command => (state, dispatch) => {
-  if (dispatch) {
-    dispatch(state.tr.setMeta(pluginKey, providerState));
-  }
-  return true;
-};
+const setProviderState =
+  (providerState: Partial<QuickInsertPluginState>): Command =>
+  (state, dispatch) => {
+    if (dispatch) {
+      dispatch(state.tr.setMeta(pluginKey, providerState));
+    }
+    return true;
+  };
 
 function quickInsertPluginFactory(
   quickInsertItems: Array<QuickInsertHandler>,

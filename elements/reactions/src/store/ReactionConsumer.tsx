@@ -36,7 +36,7 @@ export type ReactionConsumerState = { store?: Store };
  */
 export class ReactionConsumer<
   PropsFromState,
-  PropsFromActions
+  PropsFromActions,
 > extends React.PureComponent<
   ReactioConsumerProps<PropsFromState, PropsFromActions>,
   ReactionConsumerState

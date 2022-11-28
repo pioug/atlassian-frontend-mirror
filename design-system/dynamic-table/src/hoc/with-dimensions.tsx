@@ -14,7 +14,7 @@ export interface WithDimensionsProps {
 
 // Compute height and width of wrapped component before ranking
 export default function withDimensions<
-  WrappedComponentProps extends WithDimensionsProps
+  WrappedComponentProps extends WithDimensionsProps,
 >(
   WrappedComponent: React.ComponentType<WrappedComponentProps>,
 ): React.ComponentClass<

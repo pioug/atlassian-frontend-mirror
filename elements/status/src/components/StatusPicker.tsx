@@ -33,13 +33,8 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
   };
 
   render() {
-    const {
-      text,
-      selectedColor,
-      onColorClick,
-      onColorHover,
-      intl,
-    } = this.props;
+    const { text, selectedColor, onColorClick, onColorHover, intl } =
+      this.props;
 
     // Using <React.Fragment> instead of [] to workaround Enzyme
     // (https://github.com/airbnb/enzyme/issues/1149)

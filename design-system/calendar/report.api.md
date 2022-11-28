@@ -23,43 +23,45 @@ import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 type ArrowKeys = 'left' | 'up' | 'right' | 'down';
 
 // @public
-const Calendar: MemoExoticComponent<ForwardRefExoticComponent<
-  Pick<
-    CalendarProps,
-    | 'style'
-    | 'disabled'
-    | 'year'
-    | 'previousMonthLabel'
-    | 'nextMonthLabel'
-    | 'mode'
-    | 'testId'
-    | 'className'
-    | 'tabIndex'
-    | 'onFocus'
-    | 'onBlur'
-    | 'onChange'
-    | 'onSelect'
-    | 'selected'
-    | 'analyticsContext'
-    | 'day'
-    | 'month'
-    | 'defaultDay'
-    | 'defaultMonth'
-    | 'defaultYear'
-    | 'today'
-    | 'defaultSelected'
-    | 'previouslySelected'
-    | 'defaultPreviouslySelected'
-    | 'weekStartDay'
-    | 'disabledDateFilter'
-    | 'minDate'
-    | 'maxDate'
-    | 'locale'
-    | 'calendarRef'
-    | 'createAnalyticsEvent'
-  > &
-    RefAttributes<HTMLDivElement>
->>;
+const Calendar: MemoExoticComponent<
+  ForwardRefExoticComponent<
+    Pick<
+      CalendarProps,
+      | 'style'
+      | 'disabled'
+      | 'year'
+      | 'previousMonthLabel'
+      | 'nextMonthLabel'
+      | 'mode'
+      | 'testId'
+      | 'className'
+      | 'tabIndex'
+      | 'onFocus'
+      | 'onBlur'
+      | 'onChange'
+      | 'onSelect'
+      | 'selected'
+      | 'analyticsContext'
+      | 'day'
+      | 'month'
+      | 'defaultDay'
+      | 'defaultMonth'
+      | 'defaultYear'
+      | 'today'
+      | 'defaultSelected'
+      | 'previouslySelected'
+      | 'defaultPreviouslySelected'
+      | 'weekStartDay'
+      | 'disabledDateFilter'
+      | 'minDate'
+      | 'maxDate'
+      | 'locale'
+      | 'calendarRef'
+      | 'createAnalyticsEvent'
+    > &
+      RefAttributes<HTMLDivElement>
+  >
+>;
 export default Calendar;
 
 // @public (undocumented)

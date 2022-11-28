@@ -481,15 +481,8 @@ export class JIRATransformer implements Transformer<string> {
     mediaNode: PMNode,
     defaultDisplayType = 'thumbnail',
   ) {
-    const {
-      id,
-      type,
-      collection,
-      __fileName,
-      __displayType,
-      width,
-      height,
-    } = mediaNode.attrs;
+    const { id, type, collection, __fileName, __displayType, width, height } =
+      mediaNode.attrs;
     // Order of dataset matters in IE Edge, please keep the current order
     domNode.setAttribute(
       'data-attachment-type',

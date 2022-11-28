@@ -14,7 +14,8 @@ import { MockEmojiResourceConfig, UploadDetail } from './types';
 
 export class MockEmojiResource
   extends MockNonUploadingEmojiResource
-  implements UploadingEmojiProvider {
+  implements UploadingEmojiProvider
+{
   private uploads: UploadDetail[] = [];
   private uploadSupported: boolean;
   private uploadError?: string;

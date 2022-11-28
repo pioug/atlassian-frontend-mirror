@@ -27,9 +27,9 @@ const customMd = md.customize({
   },
 });
 
-const withCustomStyles = (tag: Function) => (
-  strings: TemplateStringsArray,
-  ...args: React.ReactNode[]
-) => <div css={styles}>{tag(strings, ...args)}</div>;
+const withCustomStyles =
+  (tag: Function) =>
+  (strings: TemplateStringsArray, ...args: React.ReactNode[]) =>
+    <div css={styles}>{tag(strings, ...args)}</div>;
 
 export default withCustomStyles(customMd);

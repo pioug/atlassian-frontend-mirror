@@ -1233,9 +1233,9 @@ describe('<LinkPicker />', () => {
     });
 
     it('should render a customized root component', async () => {
-      const CustomRootComponent: React.ComponentType<Partial<
-        LinkPickerProps
-      >> = ({ children }) => {
+      const CustomRootComponent: React.ComponentType<
+        Partial<LinkPickerProps>
+      > = ({ children }) => {
         return <div data-testid="custom-test-id">{children}</div>;
       };
       setupLinkPicker({

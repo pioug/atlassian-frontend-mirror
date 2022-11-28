@@ -26,7 +26,7 @@ describe('History Fetcher', () => {
 
     // @ts-ignore
     historyFetcher = new HistoryFetcher({
-      pubNubClient: (mockPubNub as any) as Pubnub,
+      pubNubClient: mockPubNub as any as Pubnub,
       messageHandler: messageHandlerSpy,
       tooMuchHistoryHandler: tooMuchHistoryHandlerSpy,
     });

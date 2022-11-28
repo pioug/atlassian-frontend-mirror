@@ -204,9 +204,9 @@ const emptyDocumentInnerHtml = mountEditorWithAdfDoc({
 }).editorView.dom.innerHTML;
 
 describe('editor loading adf', () => {
-  const validAdfFileTestCases = getAdfReferenceFileNameAndContents(
-    'valid',
-  ).map(({ name, adfDoc }) => [name, adfDoc]);
+  const validAdfFileTestCases = getAdfReferenceFileNameAndContents('valid').map(
+    ({ name, adfDoc }) => [name, adfDoc],
+  );
 
   it.each(validAdfFileTestCases)(
     `should load valid adf document: %s`,
@@ -237,16 +237,15 @@ describe('editor loading adf', () => {
     },
   );
 
-  const invalidAdfFileTestCasesLoadableWithUnsupported = getAdfReferenceFileNameAndContents(
-    'invalid',
-  )
-    .filter(
-      ({ name }) =>
-        !invalidReferenceAdfLoadableWithoutUnsupported.includes(name) &&
-        !invalidReferenceAdfUnloadable.includes(name) &&
-        !invalidReferenceAdfEmptyDocument.includes(name),
-    )
-    .map(({ name, adfDoc }) => [name, adfDoc]);
+  const invalidAdfFileTestCasesLoadableWithUnsupported =
+    getAdfReferenceFileNameAndContents('invalid')
+      .filter(
+        ({ name }) =>
+          !invalidReferenceAdfLoadableWithoutUnsupported.includes(name) &&
+          !invalidReferenceAdfUnloadable.includes(name) &&
+          !invalidReferenceAdfEmptyDocument.includes(name),
+      )
+      .map(({ name, adfDoc }) => [name, adfDoc]);
 
   it.each(invalidAdfFileTestCasesLoadableWithUnsupported)(
     `should load some invalid adf document where it replaces unsupported nodes: %s`,
@@ -259,13 +258,12 @@ describe('editor loading adf', () => {
     },
   );
 
-  const invalidAdfFileTestCasesLoadableWithoutUnsupported = getAdfReferenceFileNameAndContents(
-    'invalid',
-  )
-    .filter(({ name }) =>
-      invalidReferenceAdfLoadableWithoutUnsupported.includes(name),
-    )
-    .map(({ name, adfDoc }) => [name, adfDoc]);
+  const invalidAdfFileTestCasesLoadableWithoutUnsupported =
+    getAdfReferenceFileNameAndContents('invalid')
+      .filter(({ name }) =>
+        invalidReferenceAdfLoadableWithoutUnsupported.includes(name),
+      )
+      .map(({ name, adfDoc }) => [name, adfDoc]);
 
   it.each(invalidAdfFileTestCasesLoadableWithoutUnsupported)(
     `should load some invalid adf document where it does not replace unsupported nodes: %s`,
@@ -306,11 +304,10 @@ describe('editor loading adf', () => {
     },
   );
 
-  const invalidAdfFileTestCasesEmptyDocument = getAdfReferenceFileNameAndContents(
-    'invalid',
-  )
-    .filter(({ name }) => invalidReferenceAdfEmptyDocument.includes(name))
-    .map(({ name, adfDoc }) => [name, adfDoc]);
+  const invalidAdfFileTestCasesEmptyDocument =
+    getAdfReferenceFileNameAndContents('invalid')
+      .filter(({ name }) => invalidReferenceAdfEmptyDocument.includes(name))
+      .map(({ name, adfDoc }) => [name, adfDoc]);
 
   it.each(invalidAdfFileTestCasesEmptyDocument)(
     `should load invalid empty adf documents: %s`,

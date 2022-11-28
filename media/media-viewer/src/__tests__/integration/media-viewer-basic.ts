@@ -59,8 +59,7 @@ BrowserTestCase(
 
     await executeTimes(3, () => mediaViewer.navigateNext());
     await mediaViewer.validateMediaCard({
-      name:
-        'https://wac-cdn.atlassian.com/dam/jcr:616e6748-ad8c-48d9-ae93-e49019ed5259/Atlassian-horizontal-blue-rgb.svg',
+      name: 'https://wac-cdn.atlassian.com/dam/jcr:616e6748-ad8c-48d9-ae93-e49019ed5259/Atlassian-horizontal-blue-rgb.svg',
       size: null,
       type: 'image',
       icon: 'image',

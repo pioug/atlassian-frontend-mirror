@@ -106,11 +106,12 @@ export const TEST_CURRENT_DOCUMENT: JsonLd.Data.Document = {
   'schema:potentialAction': [],
   'atlassian:state': 'current',
 };
-export const TEST_DOWNLOAD_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] = {
-  '@type': 'DownloadAction',
-  '@id': 'download',
-  identifier: 'dropbox-object-provider',
-};
+export const TEST_DOWNLOAD_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] =
+  {
+    '@type': 'DownloadAction',
+    '@id': 'download',
+    identifier: 'dropbox-object-provider',
+  };
 
 export const TEST_UNDEFINED_LINK: JsonLd.Data.UndefinedLinkDocument = {
   ...TEST_DOCUMENT,
@@ -118,24 +119,27 @@ export const TEST_UNDEFINED_LINK: JsonLd.Data.UndefinedLinkDocument = {
   'atlassian:visitUrl': TEST_VISIT_URL,
 };
 
-export const TEST_ASSIGN_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] = {
-  '@type': 'AssignAction',
-  '@id': 'assign',
-  identifier: 'dropbox-object-provider',
-  name: 'assign',
-};
+export const TEST_ASSIGN_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] =
+  {
+    '@type': 'AssignAction',
+    '@id': 'assign',
+    identifier: 'dropbox-object-provider',
+    name: 'assign',
+  };
 
-export const TEST_NO_ID_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] = {
-  '@type': 'DeleteAction',
-  identifier: 'dropbox-object-provider',
-  name: 'delete',
-};
+export const TEST_NO_ID_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] =
+  {
+    '@type': 'DeleteAction',
+    identifier: 'dropbox-object-provider',
+    name: 'delete',
+  };
 
-export const TEST_VIEW_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] = {
-  '@type': 'ViewAction',
-  identifier: 'dropbox-object-provider',
-  name: 'view',
-};
+export const TEST_VIEW_ACTION: JsonLd.Data.BaseData['schema:potentialAction'] =
+  {
+    '@type': 'ViewAction',
+    identifier: 'dropbox-object-provider',
+    name: 'view',
+  };
 
 export const TEST_DOCUMENT_WITH_ACTIONS = {
   ...TEST_DOCUMENT,

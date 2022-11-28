@@ -30,9 +30,8 @@ export function getSelectedCellInfo(selection: Selection) {
   let verticalCells = 1;
   let totalCells = 1;
 
-  const { table, map, totalRowCount, totalColumnCount } = getSelectedTableInfo(
-    selection,
-  );
+  const { table, map, totalRowCount, totalColumnCount } =
+    getSelectedTableInfo(selection);
 
   if (table && map) {
     const rect = getSelectionRect(selection);

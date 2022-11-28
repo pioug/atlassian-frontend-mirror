@@ -169,9 +169,11 @@ export const removeDecorationsFromSet = (
   decorationSet = decorationSet.remove(
     decorationsToRemove.map((decoration) =>
       // copy exists but isn't on the type definition
-      (decoration as Decoration & {
-        copy: (from: number, to: number) => Decoration;
-      }).copy(decoration.from, decoration.to),
+      (
+        decoration as Decoration & {
+          copy: (from: number, to: number) => Decoration;
+        }
+      ).copy(decoration.from, decoration.to),
     ),
   );
   const newDecorations = decorationSet.find();

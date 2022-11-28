@@ -295,9 +295,9 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         it('should attach a listener at the document selection change event', () => {
           jest.spyOn(document, 'addEventListener');
 
-          const fakeRef = { current: rendererDOM } as React.RefObject<
-            HTMLDivElement
-          >;
+          const fakeRef = {
+            current: rendererDOM,
+          } as React.RefObject<HTMLDivElement>;
           expect(document.addEventListener).toHaveBeenCalledTimes(0);
           act(() => {
             render(
@@ -320,9 +320,9 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         it('should remove should the listener from the document selection change event', () => {
           jest.spyOn(document, 'removeEventListener');
 
-          const fakeRef = { current: rendererDOM } as React.RefObject<
-            HTMLDivElement
-          >;
+          const fakeRef = {
+            current: rendererDOM,
+          } as React.RefObject<HTMLDivElement>;
           expect(document.removeEventListener).toHaveBeenCalledTimes(0);
           act(() => {
             render(

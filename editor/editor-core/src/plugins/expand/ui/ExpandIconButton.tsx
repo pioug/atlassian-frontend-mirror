@@ -23,9 +23,7 @@ interface ExpandIconButtonWithLabelProps extends ExpandIconButtonProps {
 }
 
 export const withTooltip = (WrapperComponent: React.ElementType) => {
-  return class WithSortableColumn extends React.Component<
-    ExpandIconButtonWithLabelProps
-  > {
+  return class WithSortableColumn extends React.Component<ExpandIconButtonWithLabelProps> {
     constructor(props: ExpandIconButtonWithLabelProps) {
       super(props);
     }

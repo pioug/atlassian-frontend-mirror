@@ -30,10 +30,12 @@ export const simplePalette = [
   },
 ];
 
-export const extendedPalette = (simplePalette as {
-  label: string;
-  value: string;
-}[]).concat([
+export const extendedPalette = (
+  simplePalette as {
+    label: string;
+    value: string;
+  }[]
+).concat([
   {
     label: 'Dark Purple',
     value: colors.P400,

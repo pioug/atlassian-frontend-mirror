@@ -112,12 +112,8 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
   }
 
   render() {
-    const {
-      handleOnClick,
-      handleOnMouseEnter,
-      handleOnMouseLeave,
-      props,
-    } = this;
+    const { handleOnClick, handleOnMouseEnter, handleOnMouseLeave, props } =
+      this;
     const { text, id, accessLevel } = props;
     const mentionType: MentionType = this.getMentionType();
 

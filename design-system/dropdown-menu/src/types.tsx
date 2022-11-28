@@ -47,7 +47,7 @@ export type Behaviors =
   | 'menuitemradio';
 
 export interface CustomTriggerProps<
-  TriggerElement extends HTMLElement = HTMLElement
+  TriggerElement extends HTMLElement = HTMLElement,
 > extends Omit<TriggerProps, 'ref'> {
   /**
    * Ref that should be applied to the trigger. This is used to calculate the menu position.
@@ -91,7 +91,7 @@ export interface MenuWrapperProps extends MenuGroupProps {
 export interface DropdownMenuGroupProps extends SectionProps {}
 
 export interface DropdownMenuProps<
-  TriggerElement extends HTMLElement = HTMLElement
+  TriggerElement extends HTMLElement = HTMLElement,
 > {
   /**
    * Controls the appearance of the menu.

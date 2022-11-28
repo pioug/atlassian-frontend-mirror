@@ -10,8 +10,8 @@ export interface KitchenSinkToolbarProps {
   loadLocale(locale: string): void;
 }
 
-export const KitchenSinkToolbar: React.StatelessComponent<KitchenSinkToolbarProps> = React.memo(
-  (props) => {
+export const KitchenSinkToolbar: React.StatelessComponent<KitchenSinkToolbarProps> =
+  React.memo((props) => {
     return (
       <React.Fragment>
         <LanguagePicker
@@ -22,5 +22,4 @@ export const KitchenSinkToolbar: React.StatelessComponent<KitchenSinkToolbarProp
         <SaveAndCancelButtons editorActions={props.actions} />
       </React.Fragment>
     );
-  },
-);
+  });

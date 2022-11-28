@@ -38,7 +38,7 @@ export type LocalUploadComponentBaseProps = {
 
 export class LocalUploadComponentReact<
   Props extends LocalUploadComponentBaseProps,
-  M extends UploadEventPayloadMap = UploadEventPayloadMap
+  M extends UploadEventPayloadMap = UploadEventPayloadMap,
 > extends Component<Props, {}> {
   protected readonly uploadService: UploadService;
   protected uploadComponent = new UploadComponent();

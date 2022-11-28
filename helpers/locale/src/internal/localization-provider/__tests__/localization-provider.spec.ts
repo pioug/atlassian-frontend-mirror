@@ -24,9 +24,9 @@ expect.extend({
 
 const origDateTimeFormat = Intl.DateTimeFormat;
 const mockIntlDateTimeFormat = (mockedReturn: any) => {
-  Intl.DateTimeFormat = (jest.fn(
+  Intl.DateTimeFormat = jest.fn(
     () => mockedReturn,
-  ) as unknown) as typeof Intl.DateTimeFormat;
+  ) as unknown as typeof Intl.DateTimeFormat;
 };
 
 describe('LocalizationProvider', () => {

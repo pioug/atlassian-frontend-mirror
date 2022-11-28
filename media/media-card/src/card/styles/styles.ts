@@ -26,9 +26,7 @@ export const wrapperStyles = ({
 }: WrapperProps) => css`
   ${breakpointStyles({ breakpointSize })}
   ${getWrapperHeight(dimensions)}
-      ${getWrapperWidth(
-    dimensions,
-  )}
+      ${getWrapperWidth(dimensions)}
   cursor: ${shouldUsePointerCursor ? 'pointer' : 'default'};
 `;
 

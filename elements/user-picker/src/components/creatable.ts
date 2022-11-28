@@ -9,10 +9,10 @@ import { isEmail } from './utils';
 
 const validOption: EmailValidationResponse[] = ['VALID', 'POTENTIAL'];
 
-const isValidNewOption = (
-  isValidEmail: EmailValidator = defaultIsValidEmail,
-) => (inputValue?: string) =>
-  inputValue && validOption.includes(isValidEmail(inputValue));
+const isValidNewOption =
+  (isValidEmail: EmailValidator = defaultIsValidEmail) =>
+  (inputValue?: string) =>
+    inputValue && validOption.includes(isValidEmail(inputValue));
 
 const getNewOptionData = (inputValue: string): Option => ({
   label: inputValue,
@@ -31,14 +31,14 @@ const formatCreateLabel = (inputText?: string) => {
   return '';
 };
 
-const isOptionDisabled = (
-  isValidEmail: EmailValidator = defaultIsValidEmail,
-) => (option: Option): boolean => {
-  if (isEmail(option.data)) {
-    return isValidEmail(option.data.id) !== 'VALID';
-  }
-  return !!option.isDisabled;
-};
+const isOptionDisabled =
+  (isValidEmail: EmailValidator = defaultIsValidEmail) =>
+  (option: Option): boolean => {
+    if (isEmail(option.data)) {
+      return isValidEmail(option.data.id) !== 'VALID';
+    }
+    return !!option.isDisabled;
+  };
 
 function creatableProps(isValidEmail?: EmailValidator) {
   return {
@@ -52,6 +52,5 @@ function creatableProps(isValidEmail?: EmailValidator) {
 }
 
 // ignoring the 'clear' memoizeOne function object property
-export const getCreatableProps: typeof creatableProps = memoizeOne(
-  creatableProps,
-);
+export const getCreatableProps: typeof creatableProps =
+  memoizeOne(creatableProps);

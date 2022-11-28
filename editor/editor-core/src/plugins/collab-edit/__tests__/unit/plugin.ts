@@ -50,7 +50,7 @@ describe('collab-edit: plugin', () => {
   };
 
   const collabEditProviderPromise = Promise.resolve(
-    (providerMock as unknown) as CollabEditProvider,
+    providerMock as unknown as CollabEditProvider,
   );
   let providerFactory: ProviderFactory;
   let editorView: EditorView;

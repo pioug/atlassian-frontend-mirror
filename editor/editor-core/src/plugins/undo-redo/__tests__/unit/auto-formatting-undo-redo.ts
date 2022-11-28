@@ -1151,9 +1151,8 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
         describe(`after ${scenario} auto formatting was applied`, () => {
           describe('when undo is called', () => {
             it(`should restore the document with the ${scenario} as plain text [match first undo]`, () => {
-              const { validateCurrentDocument, insert, undo } = editor(
-                initialDocument,
-              );
+              const { validateCurrentDocument, insert, undo } =
+                editor(initialDocument);
 
               insert(text);
               undo();
@@ -1163,9 +1162,8 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
 
             describe('when redo is called', () => {
               it(`should add the ${scenario} autoformatting back [match autoformat]`, () => {
-                const { validateCurrentDocument, insert, undo, redo } = editor(
-                  initialDocument,
-                );
+                const { validateCurrentDocument, insert, undo, redo } =
+                  editor(initialDocument);
                 insert(text);
                 undo();
                 redo();
@@ -1175,9 +1173,8 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
 
             describe('when undo is called one more time', () => {
               it(`should revert the document to its original format (before the ${scenario} was applied.[match second undo])`, () => {
-                const { validateCurrentDocument, insert, undo } = editor(
-                  initialDocument,
-                );
+                const { validateCurrentDocument, insert, undo } =
+                  editor(initialDocument);
                 insert(text);
                 undo();
                 undo();
@@ -1186,12 +1183,8 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
 
               describe('when redo is called after double undo', () => {
                 it(`should revert the document to the ${scenario} as plain text [match first undo]`, () => {
-                  const {
-                    validateCurrentDocument,
-                    insert,
-                    undo,
-                    redo,
-                  } = editor(initialDocument);
+                  const { validateCurrentDocument, insert, undo, redo } =
+                    editor(initialDocument);
                   insert(text);
                   undo();
                   undo();

@@ -26,7 +26,7 @@ export type BaseState<Content> = {
 export abstract class BaseViewer<
   Content,
   Props extends BaseProps,
-  State extends BaseState<Content> = BaseState<Content>
+  State extends BaseState<Content> = BaseState<Content>,
 > extends React.Component<Props, State> {
   state = this.getInitialState();
 

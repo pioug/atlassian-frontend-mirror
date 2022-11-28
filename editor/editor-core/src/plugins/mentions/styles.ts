@@ -22,10 +22,7 @@ export const mentionsStyles = css`
 
       /* need to specify dark text colour because personal mentions
          (in dark blue) have white text by default */
-      color: ${token(
-        'color.text.subtle',
-        N500,
-      )};
+      color: ${token('color.text.subtle', N500)};
     }
   }
 

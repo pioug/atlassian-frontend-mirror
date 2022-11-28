@@ -19,8 +19,10 @@ import {
   resetShouldIgnoreFollowingMutations,
 } from '../../../actions';
 
-const codeBlock = (attrs?: {}) => (...args: any) =>
-  code_block(attrs)(...args)(defaultSchema);
+const codeBlock =
+  (attrs?: {}) =>
+  (...args: any) =>
+    code_block(attrs)(...args)(defaultSchema);
 
 const createCodeBlockNodeview = (node: RefsNode) => {
   const { editorView } = createProsemirrorEditorFactory()({
@@ -39,9 +41,7 @@ describe('Code Block - NodeView', () => {
   });
 
   afterEach(() => {
-    ((window.requestAnimationFrame as any) as jest.SpyInstance<
-      any
-    >).mockClear();
+    (window.requestAnimationFrame as any as jest.SpyInstance<any>).mockClear();
   });
 
   describe('on initial render', () => {

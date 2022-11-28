@@ -247,9 +247,8 @@ describe('Image Placer Image Processing', () => {
         false,
         'some-bg-color',
       );
-      const { left, top, width, height } = imageBounds.relativeTo(
-        visibleBounds,
-      );
+      const { left, top, width, height } =
+        imageBounds.relativeTo(visibleBounds);
       expect(mocks.drawImage).toHaveBeenCalledWith(
         mocks.mockImage,
         0,

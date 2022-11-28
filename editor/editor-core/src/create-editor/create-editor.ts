@@ -15,9 +15,9 @@ export function sortByRank(a: { rank: number }, b: { rank: number }): number {
   return a.rank - b.rank;
 }
 
-export function fixExcludes(marks: {
+export function fixExcludes(marks: { [key: string]: MarkSpec }): {
   [key: string]: MarkSpec;
-}): { [key: string]: MarkSpec } {
+} {
   const markKeys = Object.keys(marks);
   const markGroups = new Set(markKeys.map((mark) => marks[mark].group));
 

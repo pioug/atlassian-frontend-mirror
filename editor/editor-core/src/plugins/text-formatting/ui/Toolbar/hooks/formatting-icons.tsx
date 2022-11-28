@@ -139,42 +139,48 @@ const IconsMarkSchema: Record<IconTypes, string> = {
   [IconTypes.subscript]: 'subsup',
 };
 
-const buildMenuIconState = (iconMark: IconTypes) => ({
-  schema,
-  textFormattingPluginState,
-}: Pick<
-  BuildIconProps,
-  'schema' | 'textFormattingPluginState'
->): MenuIconState => {
-  const hasPluginState = Boolean(textFormattingPluginState);
-  const markSchema = IconsMarkSchema[iconMark];
-  const hasSchemaMark = Boolean(schema.marks[markSchema]);
+const buildMenuIconState =
+  (iconMark: IconTypes) =>
+  ({
+    schema,
+    textFormattingPluginState,
+  }: Pick<
+    BuildIconProps,
+    'schema' | 'textFormattingPluginState'
+  >): MenuIconState => {
+    const hasPluginState = Boolean(textFormattingPluginState);
+    const markSchema = IconsMarkSchema[iconMark];
+    const hasSchemaMark = Boolean(schema.marks[markSchema]);
 
-  if (!hasPluginState) {
+    if (!hasPluginState) {
+      return {
+        isActive: false,
+        isDisabled: true,
+        isHidden: false,
+        hasSchemaMark,
+      };
+    }
+
+    const isActive =
+      textFormattingPluginState[
+        `${iconMark}Active` as keyof TextFormattingState
+      ];
+    const isDisabled =
+      textFormattingPluginState[
+        `${iconMark}Disabled` as keyof TextFormattingState
+      ];
+    const isHidden =
+      textFormattingPluginState[
+        `${iconMark}Hidden` as keyof TextFormattingState
+      ];
+
     return {
-      isActive: false,
-      isDisabled: true,
-      isHidden: false,
+      isActive: Boolean(isActive),
+      isDisabled: Boolean(isDisabled),
+      isHidden: Boolean(isHidden),
       hasSchemaMark,
     };
-  }
-
-  const isActive =
-    textFormattingPluginState[`${iconMark}Active` as keyof TextFormattingState];
-  const isDisabled =
-    textFormattingPluginState[
-      `${iconMark}Disabled` as keyof TextFormattingState
-    ];
-  const isHidden =
-    textFormattingPluginState[`${iconMark}Hidden` as keyof TextFormattingState];
-
-  return {
-    isActive: Boolean(isActive),
-    isDisabled: Boolean(isDisabled),
-    isHidden: Boolean(isHidden),
-    hasSchemaMark,
   };
-};
 
 const buildIcon = (iconMark: IconTypes) => {
   const getState = buildMenuIconState(iconMark);
@@ -203,10 +209,10 @@ const buildIcon = (iconMark: IconTypes) => {
     );
     const shouldRenderIcon = hasSchemaMark && !isHidden;
 
-    return useMemo(() => (shouldRenderIcon ? iconComponent : null), [
-      shouldRenderIcon,
-      iconComponent,
-    ]);
+    return useMemo(
+      () => (shouldRenderIcon ? iconComponent : null),
+      [shouldRenderIcon, iconComponent],
+    );
   };
 };
 

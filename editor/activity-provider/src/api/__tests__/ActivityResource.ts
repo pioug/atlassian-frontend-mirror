@@ -18,12 +18,10 @@ const getMockRecentResponse = (): ActivityResponse => ({
         viewed: {
           nodes: [
             {
-              id:
-                'YXJpOmNsb3VkOmFjdGl2aXR5OkRVTU1ZLTE1OGM4MjA0LWZmM2ItNDdjMi1hZGJiLWEwOTA2Y2NjNzIyYjppdGVtLzE3MzM3MGZjNmJlYWRiNDI1YjYyMTJjZmQ5NjM4YWViZWRkMTUzMWUxZGU=',
+              id: 'YXJpOmNsb3VkOmFjdGl2aXR5OkRVTU1ZLTE1OGM4MjA0LWZmM2ItNDdjMi1hZGJiLWEwOTA2Y2NjNzIyYjppdGVtLzE3MzM3MGZjNmJlYWRiNDI1YjYyMTJjZmQ5NjM4YWViZWRkMTUzMWUxZGU=',
               timestamp: '2020-06-24T01:15:39.680Z',
               object: {
-                id:
-                  'YXJpOmNsb3VkOmNvbmZsdWVuY2U6RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJiOmNvbnRlbnQvMTQ1NjgzNDI5MQ==',
+                id: 'YXJpOmNsb3VkOmNvbmZsdWVuY2U6RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJiOmNvbnRlbnQvMTQ1NjgzNDI5MQ==',
                 localResourceId: '159894',
                 name: 'recent item 1',
                 type: 'ISSUE',
@@ -34,15 +32,13 @@ const getMockRecentResponse = (): ActivityResponse => ({
                   'https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype',
                 containers: [
                   {
-                    id:
-                      'RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJi',
+                    id: 'RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJi',
                     name: null,
                     type: 'SITE',
                     product: 'JIRA_SOFTWARE',
                   },
                   {
-                    id:
-                      'YXJpOmNsb3VkOmppcmE6RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJiOnByb2plY3QvMTMwNTU=',
+                    id: 'YXJpOmNsb3VkOmppcmE6RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJiOnByb2plY3QvMTMwNTU=',
                     name: 'Editor Media',
                     type: 'PROJECT',
                     product: 'JIRA_SOFTWARE',
@@ -51,12 +47,10 @@ const getMockRecentResponse = (): ActivityResponse => ({
               },
             },
             {
-              id:
-                'YXJpOmNsb3VkOmFjdGl2aXR5OkRVTU1ZLTE1OGM4MjA0LWZmM2ItNDdjMi1hZGJiLWEwOTA2Y2NjNzIyYjppdGVtLzE3MmUzZTA5MTNkMWJkYzE5NTgyMTU1ZTc5MmVhZDk2ZGQ4YzM1ZWE5NDc=',
+              id: 'YXJpOmNsb3VkOmFjdGl2aXR5OkRVTU1ZLTE1OGM4MjA0LWZmM2ItNDdjMi1hZGJiLWEwOTA2Y2NjNzIyYjppdGVtLzE3MmUzZTA5MTNkMWJkYzE5NTgyMTU1ZTc5MmVhZDk2ZGQ4YzM1ZWE5NDc=',
               timestamp: '2020-06-24T01:10:44.797Z',
               object: {
-                id:
-                  'YXJpOmNsb3VkOmppcmE6RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJiOmlzc3VlLzE1OTk0MQ==',
+                id: 'YXJpOmNsb3VkOmppcmE6RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJiOmlzc3VlLzE1OTk0MQ==',
                 localResourceId: '159941',
                 name: 'recent item 2',
                 type: 'longIssue' as any,
@@ -67,15 +61,13 @@ const getMockRecentResponse = (): ActivityResponse => ({
                   'https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype',
                 containers: [
                   {
-                    id:
-                      'RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJi',
+                    id: 'RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJi',
                     name: null,
                     type: 'SITE',
                     product: 'JIRA_SOFTWARE',
                   },
                   {
-                    id:
-                      'YXJpOmNsb3VkOmppcmE6RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJiOnByb2plY3QvMTMwNTU=',
+                    id: 'YXJpOmNsb3VkOmppcmE6RFVNTVktMTU4YzgyMDQtZmYzYi00N2MyLWFkYmItYTA5MDZjY2M3MjJiOnByb2plY3QvMTMwNTU=',
                     name: '',
                     type: 'PROJECT',
                     product: 'JIRA_SOFTWARE',

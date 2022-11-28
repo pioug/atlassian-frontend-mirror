@@ -6,9 +6,7 @@ export type MediaCardAnalyticsErrorBoundaryProps = {
   data?: { [k: string]: any };
 };
 
-export default class MediaCardAnalyticsErrorBoundary extends React.Component<
-  MediaCardAnalyticsErrorBoundaryProps
-> {
+export default class MediaCardAnalyticsErrorBoundary extends React.Component<MediaCardAnalyticsErrorBoundaryProps> {
   static displayName = 'MediaCardAnalyticsErrorBoundary';
 
   render() {

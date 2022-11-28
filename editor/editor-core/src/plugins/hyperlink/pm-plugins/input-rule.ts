@@ -26,7 +26,7 @@ export function createLinkInputRule(
       if (state.doc.rangeHasMark(start, end, schema.marks.link)) {
         return null;
       }
-      const link = (match as unknown) as Match;
+      const link = match as unknown as Match;
       const url = normalizeUrl(link.url);
       const markType = schema.mark('link', { href: url });
 

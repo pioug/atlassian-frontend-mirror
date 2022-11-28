@@ -10,9 +10,9 @@ export interface KitchenSinkAdfInputProps {
   onChange?(e: React.ChangeEvent): void;
 }
 
-export const KitchenSinkAdfInput: React.StatelessComponent<KitchenSinkAdfInputProps> = (
-  props,
-) => {
+export const KitchenSinkAdfInput: React.StatelessComponent<
+  KitchenSinkAdfInputProps
+> = (props) => {
   return (
     <div css={inputForm}>
       <div css={inputPadding}>

@@ -18,8 +18,10 @@ const fakeDropboxFile: DropboxFile = {
 };
 
 const callAction = (appKey: string, canMountinIframe: boolean = false) =>
-  (getManifest({ appKey, canMountinIframe }).modules.quickInsert![0]
-    .action as () => Promise<any>)();
+  (
+    getManifest({ appKey, canMountinIframe }).modules.quickInsert![0]
+      .action as () => Promise<any>
+  )();
 
 describe('dropbox extension manifest', () => {
   beforeEach(async () => {

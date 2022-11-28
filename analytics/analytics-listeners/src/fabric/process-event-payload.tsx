@@ -12,18 +12,17 @@ import merge from 'lodash/merge';
 import { ELEMENTS_TAG } from './FabricElementsListener';
 import { EDITOR_TAG } from './FabricEditorListener';
 
-const extractFieldsFromContext = (fieldsToPick: string[]) => (
-  contexts: Record<string, any>[],
-) =>
-  contexts
-    .map((ctx) =>
-      fieldsToPick.reduce(
-        (result, key) =>
-          ctx[key] ? merge(result, { [key]: ctx[key] }) : result,
-        {},
-      ),
-    )
-    .reduce((result, item) => merge(result, item), {});
+const extractFieldsFromContext =
+  (fieldsToPick: string[]) => (contexts: Record<string, any>[]) =>
+    contexts
+      .map((ctx) =>
+        fieldsToPick.reduce(
+          (result, key) =>
+            ctx[key] ? merge(result, { [key]: ctx[key] }) : result,
+          {},
+        ),
+      )
+      .reduce((result, item) => merge(result, item), {});
 
 const fieldExtractor = (contextKey: string) =>
   extractFieldsFromContext([
@@ -57,10 +56,8 @@ const updatePayloadWithContext = (
   }
 
   const contextKey = getContextKey(primaryTag) || 'attributes';
-  const {
-    [contextKey]: attributes,
-    ...fields
-  }: Record<string, any> = fieldExtractor(contextKey)(event.context);
+  const { [contextKey]: attributes, ...fields }: Record<string, any> =
+    fieldExtractor(contextKey)(event.context);
 
   if (attributes) {
     event.payload.attributes = merge(

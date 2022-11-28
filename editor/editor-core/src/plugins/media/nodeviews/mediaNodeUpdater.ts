@@ -328,16 +328,8 @@ export class MediaNodeUpdater {
       return;
     }
     const currentCollectionName = mediaProvider.uploadParams.collection;
-    const {
-      contextId,
-      id,
-      collection,
-      height,
-      width,
-      mimeType,
-      name,
-      size,
-    } = mediaAttrs;
+    const { contextId, id, collection, height, width, mimeType, name, size } =
+      mediaAttrs;
     const uploadMediaClientConfig = mediaProvider.uploadMediaClientConfig;
     if (
       !uploadMediaClientConfig ||

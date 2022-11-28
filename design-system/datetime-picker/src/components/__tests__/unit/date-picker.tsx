@@ -19,11 +19,9 @@ describe('DatePicker', () => {
       <DatePicker onChange={onChangeSpy} />,
     );
 
-    datePickerWrapper
-      .instance()
-      .onSelectInput({ target: { value: '06/08/2018' } } as React.ChangeEvent<
-        HTMLInputElement
-      >);
+    datePickerWrapper.instance().onSelectInput({
+      target: { value: '06/08/2018' },
+    } as React.ChangeEvent<HTMLInputElement>);
 
     const input = datePickerWrapper.find('input').first();
     input.simulate('keyDown', event);
@@ -191,11 +189,9 @@ describe('DatePicker', () => {
       />,
     );
 
-    datePickerWrapper
-      .instance()
-      .onSelectInput({ target: { value: 'asdf' } } as React.ChangeEvent<
-        HTMLInputElement
-      >);
+    datePickerWrapper.instance().onSelectInput({
+      target: { value: 'asdf' },
+    } as React.ChangeEvent<HTMLInputElement>);
     datePickerWrapper
       .find('input')
       .first()
@@ -230,11 +226,9 @@ describe('DatePicker', () => {
       />,
     );
 
-    datePickerWrapper
-      .instance()
-      .onSelectInput({ target: { value: '01/02/18' } } as React.ChangeEvent<
-        HTMLInputElement
-      >);
+    datePickerWrapper.instance().onSelectInput({
+      target: { value: '01/02/18' },
+    } as React.ChangeEvent<HTMLInputElement>);
     datePickerWrapper
       .find('input')
       .first()

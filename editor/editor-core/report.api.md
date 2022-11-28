@@ -517,9 +517,7 @@ export class ContextPanel extends React_2.Component<Props_4> {
 }
 
 // @public (undocumented)
-export const createQuickInsertTools: (
-  editorView: EditorView,
-) => {
+export const createQuickInsertTools: (editorView: EditorView) => {
   getItems: (
     query: string,
     options?: QuickInsertPluginOptions | undefined,
@@ -529,16 +527,12 @@ export const createQuickInsertTools: (
 export { createTable };
 
 // @public (undocumented)
-export const createTypeAheadTools: (
-  editorView: EditorView,
-) => {
+export const createTypeAheadTools: (editorView: EditorView) => {
   isOpen: () => TypeAheadHandler | false;
   currentQuery: () => string;
   close: (options?: CloseOptions) => boolean;
   openMention: (inputMethod: TypeAheadInputMethod) => boolean;
-  searchMention: (
-    query?: string,
-  ) => {
+  searchMention: (query?: string) => {
     type: (appendValue: string) => Promise<TypeAheadItem_2[]> | undefined;
     result: () => Promise<TypeAheadItem_2[] | undefined>;
     close: (options?: CloseOptions) => boolean;
@@ -551,9 +545,7 @@ export const createTypeAheadTools: (
     }) => Promise<void>;
   };
   openQuickInsert: (inputMethod: TypeAheadInputMethod) => boolean;
-  searchQuickInsert: (
-    query?: string,
-  ) => {
+  searchQuickInsert: (query?: string) => {
     type: (appendValue: string) => Promise<TypeAheadItem_2[]> | undefined;
     result: () => Promise<TypeAheadItem_2[] | undefined>;
     close: (options?: CloseOptions) => boolean;
@@ -566,9 +558,7 @@ export const createTypeAheadTools: (
     }) => Promise<void>;
   };
   openEmoji: (inputMethod: TypeAheadInputMethod) => boolean;
-  searchEmoji: (
-    query?: string,
-  ) => {
+  searchEmoji: (query?: string) => {
     type: (appendValue: string) => Promise<TypeAheadItem_2[]> | undefined;
     result: () => Promise<TypeAheadItem_2[] | undefined>;
     close: (options?: CloseOptions) => boolean;

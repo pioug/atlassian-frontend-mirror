@@ -202,11 +202,8 @@ export class FloatingInsertButton extends React.Component<
   }
 
   private getCellPosition(type: 'column' | 'row'): number | null {
-    const {
-      tableNode,
-      insertColumnButtonIndex,
-      insertRowButtonIndex,
-    } = this.props;
+    const { tableNode, insertColumnButtonIndex, insertRowButtonIndex } =
+      this.props;
     const tableMap = TableMap.get(tableNode!);
 
     if (type === 'column') {

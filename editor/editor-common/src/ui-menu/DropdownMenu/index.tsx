@@ -82,9 +82,8 @@ const buttonStyles = (isActive?: boolean) => (theme: ThemeProps) => {
   }
 };
 
-const DropListWithOutsideListeners: any = withReactEditorViewOuterListeners(
-  DropList,
-);
+const DropListWithOutsideListeners: any =
+  withReactEditorViewOuterListeners(DropList);
 
 /**
  * Wrapper around @atlaskit/droplist which uses Popup and Portal to render

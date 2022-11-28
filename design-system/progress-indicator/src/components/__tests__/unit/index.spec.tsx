@@ -62,12 +62,12 @@ describe('Progress Indicator', () => {
   describe('selectedIndex property', () => {
     it('should return a "selected" <Indicator* /> at the correct index', () => {
       const wrapper = mount(<StubComponent />);
-      expect(
-        wrapper.find(PresentationalIndicator).at(1).prop('style'),
-      ).toEqual({ backgroundColor: 'var(--ds-background-neutral, #C1C7D0)' });
-      expect(
-        wrapper.find(PresentationalIndicator).at(0).prop('style'),
-      ).toEqual({ backgroundColor: 'var(--ds-icon, #091E42)' });
+      expect(wrapper.find(PresentationalIndicator).at(1).prop('style')).toEqual(
+        { backgroundColor: 'var(--ds-background-neutral, #C1C7D0)' },
+      );
+      expect(wrapper.find(PresentationalIndicator).at(0).prop('style')).toEqual(
+        { backgroundColor: 'var(--ds-icon, #091E42)' },
+      );
     });
   });
 });

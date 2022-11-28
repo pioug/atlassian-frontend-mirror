@@ -134,12 +134,8 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
   }
 
   renderPopup(button: JSX.Element) {
-    const {
-      mountPoint,
-      boundariesElement,
-      scrollableElement,
-      targetRef,
-    } = this.props;
+    const { mountPoint, boundariesElement, scrollableElement, targetRef } =
+      this.props;
 
     if (!targetRef) {
       return null;

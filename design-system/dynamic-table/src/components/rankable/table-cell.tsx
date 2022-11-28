@@ -17,14 +17,8 @@ export class RankableTableCell extends React.Component<
   {}
 > {
   render() {
-    const {
-      cell,
-      head,
-      isFixedSize,
-      isRanking,
-      refWidth,
-      innerRef,
-    } = this.props;
+    const { cell, head, isFixedSize, isRanking, refWidth, innerRef } =
+      this.props;
     const { content, ...restCellProps } = cell;
     const { shouldTruncate, width }: HeadCellType =
       head || ({} as HeadCellType);

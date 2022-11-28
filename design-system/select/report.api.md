@@ -259,7 +259,7 @@ export { components };
 // @public (undocumented)
 export type ControlProps<
   OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = ControlProps_2<OptionType, IsMulti>;
 
 // @public (undocumented)
@@ -483,7 +483,7 @@ type defaultModifiers = 'offset' | 'preventOverflow';
 // @public (undocumented)
 export type FormatOptionLabelMeta<
   OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = FormatOptionLabelMeta_2<OptionType, IsMulti>;
 
 // @public (undocumented)
@@ -505,13 +505,13 @@ export { GroupType };
 // @public (undocumented)
 export type IndicatorComponentType<
   OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = IndicatorComponentType_2<OptionType, IsMulti>;
 
 // @public (undocumented)
 export type IndicatorProps<
   OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = IndicatorProps_2<OptionType, IsMulti>;
 
 // @public (undocumented)
@@ -526,13 +526,13 @@ export { makeCreatableSelect };
 // @public (undocumented)
 export type MenuListComponentProps<
   OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = MenuListComponentProps_2<OptionType, IsMulti>;
 
 // @public (undocumented)
 export type MenuProps<
   OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = MenuProps_2<OptionType, IsMulti>;
 
 export { mergeStyles };
@@ -552,7 +552,7 @@ type ModifierList =
 // @public (undocumented)
 export interface OptionProps<
   Option = OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > extends OptionProps_2<Option, IsMulti> {
   // (undocumented)
   [key: string]: any;
@@ -594,7 +594,7 @@ type PopperPropsNoChildren<Modifiers> = Omit<
 // @public (undocumented)
 export class PopupSelect<
   Option = OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > extends PureComponent<PopupSelectProps<Option, IsMulti>, State> {
   close: (
     options?:
@@ -701,7 +701,7 @@ export class PopupSelect<
 export interface PopupSelectProps<
   Option = OptionType,
   IsMulti extends boolean = false,
-  Modifiers = ModifierList
+  Modifiers = ModifierList,
 > extends Props<Option, IsMulti> {
   closeMenuOnSelect?: boolean;
   // (undocumented)
@@ -751,7 +751,7 @@ export const RadioSelect: ({
 // @public (undocumented)
 export type SelectComponentsConfig<
   OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = SelectComponentsConfig_2<OptionType, IsMulti>;
 
 // @public (undocumented)
@@ -877,7 +877,7 @@ interface State<Modifiers = string> {
 // @public (undocumented)
 export type StylesConfig<
   Option = OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = StylesConfig_2<Option, IsMulti>;
 
 // @public (undocumented)
@@ -886,13 +886,13 @@ type ValidationState = 'default' | 'error' | 'success';
 // @public (undocumented)
 export type ValueContainerProps<
   OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = ValueContainerProps_2<OptionType, IsMulti>;
 
 // @public (undocumented)
 export type ValueType<
   OptionType,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 > = ValueType_2<OptionType, IsMulti>;
 
 // (No @packageDocumentation comment for this package)

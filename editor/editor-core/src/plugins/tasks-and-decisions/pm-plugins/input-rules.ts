@@ -49,58 +49,53 @@ const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
   );
 };
 
-const addItem = (start: number, end: number): AddItemTransactionCreator => ({
-  tr,
-  state,
-  list,
-  item,
-  listLocalId,
-  itemLocalId,
-}) => {
-  const {
-    selection: { $from },
-    schema,
-  } = state;
-  const { hardBreak } = schema.nodes;
+const addItem =
+  (start: number, end: number): AddItemTransactionCreator =>
+  ({ tr, state, list, item, listLocalId, itemLocalId }) => {
+    const {
+      selection: { $from },
+      schema,
+    } = state;
+    const { hardBreak } = schema.nodes;
 
-  const content = $from.node($from.depth).content;
-  let shouldBreakNode = false;
-  content.forEach((node, offset) => {
-    if (node.type === hardBreak && offset < start) {
-      shouldBreakNode = true;
-    }
-  });
+    const content = $from.node($from.depth).content;
+    let shouldBreakNode = false;
+    content.forEach((node, offset) => {
+      if (node.type === hardBreak && offset < start) {
+        shouldBreakNode = true;
+      }
+    });
 
-  if (!shouldBreakNode) {
-    tr.replaceRangeWith(
-      $from.before(),
-      $from.after(),
-      list.create({ localId: listLocalId }, [
-        item.create({ localId: itemLocalId }, content),
-      ]),
-    )
-      .delete(start + 1, end + 1)
-      .setSelection(new TextSelection(tr.doc.resolve(start + 1)));
-  } else {
-    const depthAdjustment = changeInDepth($from, tr.selection.$from);
-    tr.split($from.pos)
-      .setSelection(new NodeSelection(tr.doc.resolve($from.pos + 1)))
-      .replaceSelectionWith(
+    if (!shouldBreakNode) {
+      tr.replaceRangeWith(
+        $from.before(),
+        $from.after(),
         list.create({ localId: listLocalId }, [
-          item.create(
-            { localId: itemLocalId },
-            // TODO: [ts30] handle void and null properly
-            (tr.doc.nodeAt($from.pos + 1) as Node).content,
-          ),
+          item.create({ localId: itemLocalId }, content),
         ]),
       )
-      .setSelection(
-        new TextSelection(tr.doc.resolve($from.pos + depthAdjustment)),
-      )
-      .delete(start, end + 1);
-  }
-  return tr;
-};
+        .delete(start + 1, end + 1)
+        .setSelection(new TextSelection(tr.doc.resolve(start + 1)));
+    } else {
+      const depthAdjustment = changeInDepth($from, tr.selection.$from);
+      tr.split($from.pos)
+        .setSelection(new NodeSelection(tr.doc.resolve($from.pos + 1)))
+        .replaceSelectionWith(
+          list.create({ localId: listLocalId }, [
+            item.create(
+              { localId: itemLocalId },
+              // TODO: [ts30] handle void and null properly
+              (tr.doc.nodeAt($from.pos + 1) as Node).content,
+            ),
+          ]),
+        )
+        .setSelection(
+          new TextSelection(tr.doc.resolve($from.pos + depthAdjustment)),
+        )
+        .delete(start, end + 1);
+    }
+    return tr;
+  };
 
 export function inputRulePlugin(
   schema: Schema,

@@ -27,11 +27,8 @@ const createPlugin: PMPluginFactory = (
   pmPluginFactoryParams: PMPluginFactoryParams,
 ) => {
   const hasIntlContext = true;
-  const {
-    portalProviderAPI,
-    eventDispatcher,
-    dispatchAnalyticsEvent,
-  } = pmPluginFactoryParams;
+  const { portalProviderAPI, eventDispatcher, dispatchAnalyticsEvent } =
+    pmPluginFactoryParams;
   return new SafePlugin({
     key: pluginKey,
     props: {

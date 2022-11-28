@@ -5,10 +5,10 @@ import { EntityType } from '@atlaskit/smart-common';
 import transformRecommendationsToOptions from '../../utils/transform-recommendations-to-options';
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
-const mockIntl: IntlShape = ({
+const mockIntl: IntlShape = {
   formatMessage: mockFormatMessage,
   defaultLocale: 'en',
-} as unknown) as IntlShape;
+} as unknown as IntlShape;
 
 const mockServerUserWorkspaceMember = {
   id: 'id-user',

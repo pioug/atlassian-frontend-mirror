@@ -169,7 +169,8 @@ describe('Calendar', () => {
       const { renderResult, props } = setup();
 
       const selectedDayElement = getDayElement(renderResult, '8');
-      const nextUnselectedDayElement = selectedDayElement.nextSibling as HTMLTableDataCellElement;
+      const nextUnselectedDayElement =
+        selectedDayElement.nextSibling as HTMLTableDataCellElement;
 
       expect(nextUnselectedDayElement).toHaveAttribute(
         'aria-selected',

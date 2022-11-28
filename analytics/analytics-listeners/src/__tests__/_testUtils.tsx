@@ -13,15 +13,13 @@ export const createLoggerMock = (): Logger =>
     error: jest.fn(),
   } as Logger);
 
-export const createAnalyticsContexts = (contexts: any[]) => ({
-  children,
-}: {
-  children: React.ReactNode;
-}) =>
-  contexts
-    .slice(0)
-    .reverse()
-    .reduce(
-      (prev, curr) => <AnalyticsContext data={curr}>{prev}</AnalyticsContext>,
-      children,
-    );
+export const createAnalyticsContexts =
+  (contexts: any[]) =>
+  ({ children }: { children: React.ReactNode }) =>
+    contexts
+      .slice(0)
+      .reverse()
+      .reduce(
+        (prev, curr) => <AnalyticsContext data={curr}>{prev}</AnalyticsContext>,
+        children,
+      );

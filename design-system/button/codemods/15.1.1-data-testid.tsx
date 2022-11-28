@@ -87,20 +87,18 @@ export function getNamedImportName({
       .filter((path) => path.node.source.value === importPath)
       .find(j.ImportSpecifier)
       .nodes()
-      .map(
-        (specifier): Nullable<string> => {
-          if (specifier.imported.name === originalName) {
-            // aliased
-            if (specifier.local) {
-              return specifier.local.name;
-            }
-            // not aliased
-            return originalName;
+      .map((specifier): Nullable<string> => {
+        if (specifier.imported.name === originalName) {
+          // aliased
+          if (specifier.local) {
+            return specifier.local.name;
           }
+          // not aliased
+          return originalName;
+        }
 
-          return null;
-        },
-      )
+        return null;
+      })
       .filter(Boolean)[0] || null;
   return name;
 }

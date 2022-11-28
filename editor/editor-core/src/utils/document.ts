@@ -401,24 +401,24 @@ export const getStepRange = (
  * Find the farthest node given a condition
  * @param predicate Function to check the node
  */
-export const findFarthestParentNode = (predicate: (node: Node) => boolean) => (
-  $pos: ResolvedPos,
-): ContentNodeWithPos | null => {
-  let candidate: ContentNodeWithPos | null = null;
+export const findFarthestParentNode =
+  (predicate: (node: Node) => boolean) =>
+  ($pos: ResolvedPos): ContentNodeWithPos | null => {
+    let candidate: ContentNodeWithPos | null = null;
 
-  for (let i = $pos.depth; i > 0; i--) {
-    const node = $pos.node(i);
-    if (predicate(node)) {
-      candidate = {
-        pos: i > 0 ? $pos.before(i) : 0,
-        start: $pos.start(i),
-        depth: i,
-        node,
-      };
+    for (let i = $pos.depth; i > 0; i--) {
+      const node = $pos.node(i);
+      if (predicate(node)) {
+        candidate = {
+          pos: i > 0 ? $pos.before(i) : 0,
+          start: $pos.start(i),
+          depth: i,
+          node,
+        };
+      }
     }
-  }
-  return candidate;
-};
+    return candidate;
+  };
 
 export const isSelectionEndOfParagraph = (state: EditorState): boolean =>
   state.selection.$to.parent.type === state.schema.nodes.paragraph &&

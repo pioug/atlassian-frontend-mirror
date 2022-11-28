@@ -41,27 +41,16 @@ export const newFileExperienceWrapperStyles = ({
   position: relative;
   font-family: ${fontFamily()};
   ${getWrapperDimensions(dimensions, appearance)}
-  ${displayBackground
-    ? `background-color: ${N20};`
-    : ''}
+  ${displayBackground ? `background-color: ${N20};` : ''}
     ${borderRadius}
-    ${getCursorStyle(
-    mediaCardCursor,
-  )}
-    ${getWrapperShadow(
-    disableOverlay,
-    selected,
-  )}
+    ${getCursorStyle(mediaCardCursor)}
+    ${getWrapperShadow(disableOverlay, selected)}
   ${generateResponsiveStyles(breakpoint)};
   ${hideNativeBrowserTextSelectionStyles}
 
   /* We use classnames from here exceptionally to be able to handle styles when the Card is on hover */
-    ${getClickablePlayButtonStyles(
-    isPlayButtonClickable,
-  )}
-    ${getSelectableTickBoxStyles(
-    isTickBoxSelectable,
-  )}
+    ${getClickablePlayButtonStyles(isPlayButtonClickable)}
+    ${getSelectableTickBoxStyles(isTickBoxSelectable)}
     &:hover .${blanketClassName} {
     ${fixedBlanketStyles}
   }

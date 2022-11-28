@@ -46,10 +46,11 @@ export type Artifacts = {
 
 // @public
 abstract class BaseMediaClientError<
-    Attributes extends MediaClientErrorAttributes
+    Attributes extends MediaClientErrorAttributes,
   >
   extends Error
-  implements MediaClientError<Attributes> {
+  implements MediaClientError<Attributes>
+{
   constructor(message: string);
   // (undocumented)
   abstract get attributes(): Attributes;
@@ -195,7 +196,7 @@ type ErrorObserver<T> = PartialObserver<T> &
 export type EventPayloadListener<
   M extends EventPayloadMap<P>,
   E extends keyof M,
-  P = any
+  P = any,
 > = (payload: M[E]) => void;
 
 // @public (undocumented)
@@ -292,9 +293,7 @@ export interface FileFetcher {
 }
 
 // @public (undocumented)
-export class FileFetcherError extends BaseMediaClientError<
-  FileFetcherErrorAttributes
-> {
+export class FileFetcherError extends BaseMediaClientError<FileFetcherErrorAttributes> {
   constructor(
     reason: FileFetcherErrorReason,
     id: string,
@@ -591,9 +590,7 @@ export const isImageRepresentationReady: (fileState: FileState) => boolean;
 export const isMediaBlobUrl: (url: string) => boolean;
 
 // @public (undocumented)
-export function isMediaClientError(
-  error: any,
-): error is MediaClientError<{
+export function isMediaClientError(error: any): error is MediaClientError<{
   reason: MediaClientErrorReason;
 }>;
 
@@ -1090,9 +1087,7 @@ export type MediaStoreCreateFileParams = {
 };
 
 // @public (undocumented)
-export class MediaStoreError extends BaseMediaClientError<
-  MediaStoreErrorAttributes
-> {
+export class MediaStoreError extends BaseMediaClientError<MediaStoreErrorAttributes> {
   constructor(reason: MediaStoreErrorReason, innerError?: Error | undefined);
   // (undocumented)
   get attributes(): {

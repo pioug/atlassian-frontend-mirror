@@ -931,9 +931,9 @@ describe('Media plugin', () => {
             media(mediaData)(),
           );
           clickEvent = {
-            event: ({
+            event: {
               stopPropagation: jest.fn(),
-            } as unknown) as React.MouseEvent<HTMLElement>,
+            } as unknown as React.MouseEvent<HTMLElement>,
             mediaItemDetails: {} as FileDetails,
           };
         });
@@ -1017,10 +1017,10 @@ describe('Media plugin', () => {
             media(mediaData)(),
           );
           shiftClickEvent = {
-            event: ({
+            event: {
               shiftKey: true,
               stopPropagation: jest.fn(),
-            } as unknown) as React.MouseEvent<HTMLElement>,
+            } as unknown as React.MouseEvent<HTMLElement>,
             mediaItemDetails: {} as FileDetails,
           };
         });

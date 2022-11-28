@@ -43,7 +43,8 @@ beforeAll(() => {
 
 describe('mentionTypeahead', () => {
   const createEditor = createEditorFactory();
-  const sessionIdRegex = /^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i;
+  const sessionIdRegex =
+    /^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i;
   const expectedActionSubject = 'mentionTypeahead';
   const contextIdentifiers = {
     containerId: 'container-id',
@@ -81,101 +82,98 @@ describe('mentionTypeahead', () => {
    * @param test Test case function to be passed to Jest
    * @return Promise resolving with the return value of the test.
    */
-  const withMentionQuery = (
-    query: string,
-    test: TestExecutor,
-    options?: any,
-  ) => async (...args: any[]) => {
-    const { event, createAnalyticsEvent } = analyticsMocks();
-    const mentionNameResolver: MentionNameResolver = {
-      cacheName: jest.fn(),
-      lookupName: jest.fn(),
-    };
-    let editorProps: EditorProps = {
-      quickInsert: true,
-    };
-    let mentionProviderConfig: MockMentionConfig = {};
-    if (options && options.sanitizePrivateContent) {
-      editorProps = {
-        ...editorProps,
-        collabEdit: {},
-        sanitizePrivateContent: true,
-        mention: {
-          insertDisplayName:
-            options.mention?.insertDisplayName ??
-            options.mentionInsertDisplayName,
-        },
+  const withMentionQuery =
+    (query: string, test: TestExecutor, options?: any) =>
+    async (...args: any[]) => {
+      const { event, createAnalyticsEvent } = analyticsMocks();
+      const mentionNameResolver: MentionNameResolver = {
+        cacheName: jest.fn(),
+        lookupName: jest.fn(),
       };
-      mentionProviderConfig = {
-        mentionNameResolver,
+      let editorProps: EditorProps = {
+        quickInsert: true,
       };
-    }
+      let mentionProviderConfig: MockMentionConfig = {};
+      if (options && options.sanitizePrivateContent) {
+        editorProps = {
+          ...editorProps,
+          collabEdit: {},
+          sanitizePrivateContent: true,
+          mention: {
+            insertDisplayName:
+              options.mention?.insertDisplayName ??
+              options.mentionInsertDisplayName,
+          },
+        };
+        mentionProviderConfig = {
+          mentionNameResolver,
+        };
+      }
 
-    if (options && options.mentionConfig) {
-      mentionProviderConfig = {
-        ...mentionProviderConfig,
-        ...options.mentionConfig,
-      };
-    }
+      if (options && options.mentionConfig) {
+        mentionProviderConfig = {
+          ...mentionProviderConfig,
+          ...options.mentionConfig,
+        };
+      }
 
-    if (
-      options &&
-      (options.mentionInsertDisplayName || options.mention?.insertDisplayName)
-    ) {
-      editorProps = {
-        ...editorProps,
-        mention: {
-          insertDisplayName:
-            options.mention?.insertDisplayName ??
-            options.mentionInsertDisplayName,
-        },
-      };
-    }
+      if (
+        options &&
+        (options.mentionInsertDisplayName || options.mention?.insertDisplayName)
+      ) {
+        editorProps = {
+          ...editorProps,
+          mention: {
+            insertDisplayName:
+              options.mention?.insertDisplayName ??
+              options.mentionInsertDisplayName,
+          },
+        };
+      }
 
-    if (options && options.mention?.HighlightComponent) {
-      editorProps = {
-        ...editorProps,
-        mention: {
-          HighlightComponent: options.mention.HighlightComponent,
-        },
-      };
-    }
+      if (options && options.mention?.HighlightComponent) {
+        editorProps = {
+          ...editorProps,
+          mention: {
+            HighlightComponent: options.mention.HighlightComponent,
+          },
+        };
+      }
 
-    const { editorView, sel, mentionProvider, typeAheadTool } = await editor(
-      {
-        createAnalyticsEvent,
-      },
-      editorProps,
-      mentionProviderConfig,
-    );
-
-    initializeCollab(editorView);
-
-    return await Promise.resolve(
-      test(
+      const { editorView, sel, mentionProvider, typeAheadTool } = await editor(
         {
-          editorView,
-          sel,
-          mentionProvider,
           createAnalyticsEvent,
-          event,
-          mockMentionNameResolver: mentionNameResolver,
-          mentionData: [],
-          typeAheadTool,
-          query,
         },
-        ...args,
-      ),
-    );
-  };
+        editorProps,
+        mentionProviderConfig,
+      );
 
-  const searchResultTypeAhead = (typeAheadTool: TypeAheadTool) => (
-    query: string,
-  ) => {
-    const searching = typeAheadTool.searchMention(query);
-    jest.runAllTimers();
-    return searching;
-  };
+      initializeCollab(editorView);
+
+      return await Promise.resolve(
+        test(
+          {
+            editorView,
+            sel,
+            mentionProvider,
+            createAnalyticsEvent,
+            event,
+            mockMentionNameResolver: mentionNameResolver,
+            mentionData: [],
+            typeAheadTool,
+            query,
+          },
+          ...args,
+        ),
+      );
+    };
+
+  const searchResultTypeAhead =
+    (typeAheadTool: TypeAheadTool) => (query: string) => {
+      const searching = typeAheadTool.searchMention(query);
+      jest.runAllTimers();
+      return searching;
+    };
   /**
    * Sets the editor up to be used in the test suite, using default options
    * relevant to all tests.

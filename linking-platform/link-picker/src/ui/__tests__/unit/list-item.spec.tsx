@@ -29,8 +29,7 @@ describe('<LinkSearchListItem />', () => {
     name: 'Atlassian Home Page',
     url: 'https://atlassian.com',
     iconAlt: 'Confluence Page',
-    icon:
-      'https://home-static.us-east-1.staging.public.atl-paas.net/confluence-page-icon.svg',
+    icon: 'https://home-static.us-east-1.staging.public.atl-paas.net/confluence-page-icon.svg',
     container: 'Jira',
     lastViewedDate: new Date('2019-12-27T01:00+0000'),
     lastUpdatedDate: new Date('2019-12-20T01:00+0000'),

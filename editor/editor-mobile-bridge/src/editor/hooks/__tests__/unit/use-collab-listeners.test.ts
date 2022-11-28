@@ -9,10 +9,10 @@ describe('setup', () => {
     const onMock = jest.fn();
     const offMock = jest.fn();
 
-    const provider = ({
+    const provider = {
       on: onMock,
       off: offMock,
-    } as unknown) as CollabProvider;
+    } as unknown as CollabProvider;
 
     const bridge = new WebBridgeImpl();
     const { rerender, waitFor } = renderHook<
@@ -48,10 +48,10 @@ describe('pageTitle', () => {
   it('should call updateTitle when provider fires metadata:change', async () => {
     const onMock = jest.fn();
 
-    const provider = ({
+    const provider = {
       on: onMock,
       off: jest.fn(),
-    } as unknown) as CollabProvider;
+    } as unknown as CollabProvider;
 
     const bridge = new WebBridgeImpl();
     const updateTitleSpy = jest.spyOn(toNativeBridge, 'updateTitle');
@@ -76,9 +76,9 @@ describe('onCollabError', () => {
   it('should call onCollabError when provider fires error', async () => {
     const onMock = jest.fn();
 
-    const provider = ({
+    const provider = {
       on: onMock,
-    } as unknown) as CollabProvider;
+    } as unknown as CollabProvider;
 
     const bridge = new WebBridgeImpl();
     const onCollabErrorSpy = jest.spyOn(toNativeBridge, 'onCollabError');

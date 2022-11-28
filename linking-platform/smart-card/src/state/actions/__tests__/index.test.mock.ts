@@ -5,11 +5,11 @@ jest.mock('react', () => ({
 }));
 
 // eslint-disable-next-line no-global-assign
-performance = ({
+performance = {
   mark: jest.fn(),
   measure: jest.fn(),
   clearMarks: jest.fn(),
-} as unknown) as Performance;
+} as unknown as Performance;
 
 jest.doMock('../../../utils/analytics/analytics');
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({

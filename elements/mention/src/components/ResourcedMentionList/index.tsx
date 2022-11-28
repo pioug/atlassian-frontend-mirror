@@ -248,7 +248,8 @@ export class ResourcedMentionListWithoutAnalytics extends React.PureComponent<
   private mentionsHighlight = () => {
     const { mentions } = this.state;
     const { isTeamMentionHighlightEnabled, createTeamPath } = this.props;
-    const enabledViaLocalStorage = TeamMentionHighlightController.isHighlightEnabled();
+    const enabledViaLocalStorage =
+      TeamMentionHighlightController.isHighlightEnabled();
 
     const shouldShow =
       enabledViaLocalStorage &&

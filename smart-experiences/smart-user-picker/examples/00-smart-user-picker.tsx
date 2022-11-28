@@ -341,9 +341,9 @@ const SmartUserPickerCustomizableExample = () => {
                   ...state,
                   confluenceAttributes: {
                     ...state.confluenceAttributes,
-                    isEntitledConfluenceExternalCollaborator: !state
-                      .confluenceAttributes
-                      .isEntitledConfluenceExternalCollaborator,
+                    isEntitledConfluenceExternalCollaborator:
+                      !state.confluenceAttributes
+                        .isEntitledConfluenceExternalCollaborator,
                   },
                 });
               }}

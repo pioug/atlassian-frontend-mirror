@@ -30,8 +30,8 @@ const DropDownButtonIcon: React.StatelessComponent<{
   </span>
 ));
 
-export const DropDownButton: React.StatelessComponent<DropDownButtonProps> = React.memo(
-  (props) => (
+export const DropDownButton: React.StatelessComponent<DropDownButtonProps> =
+  React.memo((props) => (
     <ToolbarButton
       ref={props.handleRef}
       selected={props.selected}
@@ -44,5 +44,4 @@ export const DropDownButton: React.StatelessComponent<DropDownButtonProps> = Rea
       iconBefore={<DropDownButtonIcon label="" />}
       title={<ToolTipContent description={props.label} shortcutOverride="/" />}
     />
-  ),
-);
+  ));

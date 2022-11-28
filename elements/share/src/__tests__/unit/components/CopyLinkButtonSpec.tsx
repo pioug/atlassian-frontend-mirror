@@ -30,9 +30,8 @@ jest.mock('react-intl-next', () => {
     FormattedMessage: (descriptor: any) => (
       <span>{descriptor.defaultMessage}</span>
     ),
-    injectIntl: (Node: any) => (props: any) => (
-      <Node {...props} intl={mockIntl} />
-    ),
+    injectIntl: (Node: any) => (props: any) =>
+      <Node {...props} intl={mockIntl} />,
   };
 });
 

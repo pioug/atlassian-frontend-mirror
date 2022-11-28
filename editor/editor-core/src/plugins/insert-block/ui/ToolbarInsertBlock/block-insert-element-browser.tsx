@@ -23,9 +23,9 @@ export interface BlockInsertElementBrowserProps {
   togglePlusMenuVisibility(): void;
 }
 
-export const BlockInsertElementBrowser: React.FC<BlockInsertElementBrowserProps> = (
-  props,
-) => {
+export const BlockInsertElementBrowser: React.FC<
+  BlockInsertElementBrowserProps
+> = (props) => {
   return (
     <>
       {props.open && (

@@ -13,9 +13,8 @@ export type PreviewUnsupportedEventPayload = MediaFileEventPayload<
 export const createPreviewUnsupportedEvent = (
   fileState: FileState,
 ): PreviewUnsupportedEventPayload => {
-  const { fileId, fileMediatype, fileMimetype, fileSize } = getFileAttributes(
-    fileState,
-  );
+  const { fileId, fileMediatype, fileMimetype, fileSize } =
+    getFileAttributes(fileState);
   return {
     eventType: 'operational',
     actionSubject: 'mediaFile',

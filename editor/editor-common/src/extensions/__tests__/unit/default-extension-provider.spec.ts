@@ -93,7 +93,8 @@ describe('default-extension-provider', () => {
       confluenceAmazingMacroWithAutoConvert,
     ]);
 
-    const autoConvertHandlers = await extensionProviderWithAutoConvert.getAutoConverter();
+    const autoConvertHandlers =
+      await extensionProviderWithAutoConvert.getAutoConverter();
 
     const runner = createAutoConverterRunner(autoConvertHandlers);
 
@@ -118,42 +119,44 @@ describe('default-extension-provider', () => {
   });
 
   test('should be able to pass a pre defined auto convert handler to the provider, this can be used for performance reasons or to support legacy converters', async () => {
-    const extensionProviderWithCustomAutoConvertHandler = new DefaultExtensionProvider(
-      [confluenceAwesomeMacro, confluenceAmazingMacro],
-      [
-        (url: string) => {
-          if (url.startsWith('http://jira-legacy-macro/jira-roadmap')) {
-            return {
-              type: 'extension',
-              attrs: {
-                extensionType: 'confluence.macro',
-                extensionKey: 'jira-roadmap',
-                text: 'Jira Roadmap',
-                parameters: {
-                  url,
+    const extensionProviderWithCustomAutoConvertHandler =
+      new DefaultExtensionProvider(
+        [confluenceAwesomeMacro, confluenceAmazingMacro],
+        [
+          (url: string) => {
+            if (url.startsWith('http://jira-legacy-macro/jira-roadmap')) {
+              return {
+                type: 'extension',
+                attrs: {
+                  extensionType: 'confluence.macro',
+                  extensionKey: 'jira-roadmap',
+                  text: 'Jira Roadmap',
+                  parameters: {
+                    url,
+                  },
                 },
-              },
-            };
-          }
-        },
-        (url: string) => {
-          if (url.startsWith('http://jira-legacy-macro/jira-issue')) {
-            return {
-              type: 'extension',
-              attrs: {
-                extensionType: 'confluence.macro',
-                extensionKey: 'jira-issue',
-                text: 'Jira Roadmap',
-                parameters: {
-                  url,
+              };
+            }
+          },
+          (url: string) => {
+            if (url.startsWith('http://jira-legacy-macro/jira-issue')) {
+              return {
+                type: 'extension',
+                attrs: {
+                  extensionType: 'confluence.macro',
+                  extensionKey: 'jira-issue',
+                  text: 'Jira Roadmap',
+                  parameters: {
+                    url,
+                  },
                 },
-              },
-            };
-          }
-        },
-      ],
-    );
-    const autoConvertHandlers = await extensionProviderWithCustomAutoConvertHandler.getAutoConverter();
+              };
+            }
+          },
+        ],
+      );
+    const autoConvertHandlers =
+      await extensionProviderWithCustomAutoConvertHandler.getAutoConverter();
 
     const runner = createAutoConverterRunner(autoConvertHandlers);
 

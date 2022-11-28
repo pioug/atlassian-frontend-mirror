@@ -359,13 +359,8 @@ const deletePreviousEmptyListItem: Command = (state, dispatch) => {
 
 const joinToPreviousListItem: Command = (state, dispatch) => {
   const { $from } = state.selection;
-  const {
-    paragraph,
-    listItem,
-    codeBlock,
-    bulletList,
-    orderedList,
-  } = state.schema.nodes;
+  const { paragraph, listItem, codeBlock, bulletList, orderedList } =
+    state.schema.nodes;
   const isGapCursorShown = state.selection instanceof GapCursorSelection;
   const $cutPos = isGapCursorShown ? state.doc.resolve($from.pos + 1) : $from;
   let $cut = findCutBefore($cutPos);

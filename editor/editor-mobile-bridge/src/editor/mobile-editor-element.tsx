@@ -155,11 +155,8 @@ export function MobileEditor(props: MobileEditorProps) {
     [bridge, editorConfiguration],
   );
 
-  const {
-    handleEditorReady,
-    handleEditorDestroyed,
-    editorReady,
-  } = useEditorLifecycle(bridge, mediaOptions);
+  const { handleEditorReady, handleEditorDestroyed, editorReady } =
+    useEditorLifecycle(bridge, mediaOptions);
 
   usePluginListeners(editorReady, editorConfiguration, bridge);
   useToolbarSubscription(editorReady, editorConfiguration, bridge, intl);
@@ -202,7 +199,8 @@ export function MobileEditor(props: MobileEditorProps) {
   type Flags = { [key: string]: string | boolean };
   const extendedFeatureFlags: Flags = {
     ...featureFlags,
-    tableCellOptionsInFloatingToolbar: editorConfiguration.isTableCellOptionsInFloatingToolbar(),
+    tableCellOptionsInFloatingToolbar:
+      editorConfiguration.isTableCellOptionsInFloatingToolbar(),
     enableViewUpdateSubscription: true,
   };
 

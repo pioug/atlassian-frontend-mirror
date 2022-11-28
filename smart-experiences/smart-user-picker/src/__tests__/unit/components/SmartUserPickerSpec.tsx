@@ -1324,12 +1324,13 @@ describe('SmartUserPicker', () => {
         const wrapper = smartUserPickerWrapper({
           prefetch: true,
           onError: async (error, request) => {
-            return [
-              { id: 'fallback-user-1', name: 'Fallback User 1' },
-            ].filter((user) =>
-              request.query
-                ? user.name.toLowerCase().includes(request.query.toLowerCase())
-                : true,
+            return [{ id: 'fallback-user-1', name: 'Fallback User 1' }].filter(
+              (user) =>
+                request.query
+                  ? user.name
+                      .toLowerCase()
+                      .includes(request.query.toLowerCase())
+                  : true,
             );
           },
         });

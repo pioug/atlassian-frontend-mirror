@@ -217,8 +217,8 @@ export default class Example extends React.Component<Props, State> {
                   useNativePlugin: true,
                   provider: Promise.resolve(collabProvider),
                   inviteToEditHandler: this.inviteToEditHandler,
-                  isInviteToEditButtonSelected: this.state
-                    .isInviteToEditButtonSelected,
+                  isInviteToEditButtonSelected:
+                    this.state.isInviteToEditButtonSelected,
                 }}
                 placeholder="Write something..."
                 shouldFocus={false}

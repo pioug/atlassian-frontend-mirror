@@ -59,8 +59,7 @@ describe('shouldReplaceLink()', () => {
   it('returns true for link with encoded spaces in url and text', () => {
     const link = cleanOne(
       a({
-        href:
-          'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
+        href: 'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
       })(
         'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
       ),
@@ -72,8 +71,7 @@ describe('shouldReplaceLink()', () => {
   it('returns true for link with url encoded spaces, text unencoded', () => {
     const link = cleanOne(
       a({
-        href:
-          'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
+        href: 'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
       })(
         'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get Started with Dropbox.pdf?dl=0',
       ),
@@ -85,8 +83,7 @@ describe('shouldReplaceLink()', () => {
   it('returns true for link with text encoded spaces, url unencoded', () => {
     const link = cleanOne(
       a({
-        href:
-          'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get Started with Dropbox.pdf?dl=0',
+        href: 'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get Started with Dropbox.pdf?dl=0',
       })(
         'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0',
       ),
@@ -110,8 +107,7 @@ describe('shouldReplaceLink()', () => {
   it('returns true for link which ends with a full stop', () => {
     const link = cleanOne(
       a({
-        href:
-          'https://pug.jira-dev.com/wiki/spaces/~896045072/pages/4554883643/title.',
+        href: 'https://pug.jira-dev.com/wiki/spaces/~896045072/pages/4554883643/title.',
       })(
         'https://pug.jira-dev.com/wiki/spaces/~896045072/pages/4554883643/title.',
       ),

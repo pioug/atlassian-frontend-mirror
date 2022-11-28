@@ -44,9 +44,9 @@ describe('useStateFromPromise', () => {
   });
 
   it('should set the state when the promise resolves', async () => {
-    expect(
-      (testRenderer!.toJSON() as ReactTestRendererJSON)!.children,
-    ).toEqual(['waiting']);
+    expect((testRenderer!.toJSON() as ReactTestRendererJSON)!.children).toEqual(
+      ['waiting'],
+    );
 
     asyncOperation.invokeResolve('hey');
 
@@ -56,9 +56,9 @@ describe('useStateFromPromise', () => {
       jest.runAllTimers();
     });
 
-    expect(
-      (testRenderer!.toJSON() as ReactTestRendererJSON)!.children,
-    ).toEqual(['hey']);
+    expect((testRenderer!.toJSON() as ReactTestRendererJSON)!.children).toEqual(
+      ['hey'],
+    );
 
     testRenderer!.unmount();
   });

@@ -3,7 +3,7 @@ import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
 import { getExtensionKey } from '../../state/helpers';
 import { extractBlockProps } from '../../extractors/block';
-import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
+import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { ExtractBlockOpts } from '../../extractors/block/types';
 import { extractRequestAccessContext } from '../../extractors/common/context';
 import { CardLinkView } from '../LinkView';
@@ -111,7 +111,7 @@ export const BlockCard: FC<BlockCardProps> = ({
       }
 
       const forbiddenViewProps = extractBlockProps(data, meta, extractorOpts);
-      const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
+      const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
       const requestAccessContext = extractRequestAccessContext({
         jsonLd: cardMetadata,
         url,

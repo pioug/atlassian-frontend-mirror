@@ -28,9 +28,7 @@ const imageFile: MediaFile = {
   type: 'image/jpg',
 };
 
-class DummyLocalUploadComponent extends LocalUploadComponentReact<
-  LocalUploadComponentBaseProps
-> {
+class DummyLocalUploadComponent extends LocalUploadComponentReact<LocalUploadComponentBaseProps> {
   constructor(props: LocalUploadComponentBaseProps) {
     super(props, 'browser');
   }
@@ -82,7 +80,8 @@ describe('LocalUploadReact', () => {
       />,
     );
 
-    localUploadComponentInstance = localUploadComponent.instance() as DummyLocalUploadComponent;
+    localUploadComponentInstance =
+      localUploadComponent.instance() as DummyLocalUploadComponent;
     uploadComponent = (localUploadComponentInstance as any).uploadComponent;
   });
 

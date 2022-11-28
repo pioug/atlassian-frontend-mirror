@@ -18,9 +18,7 @@ import { NodeSpec } from 'prosemirror-model';
 import { Schema } from 'prosemirror-model';
 
 // @public (undocumented)
-export function acNameToEmoji(
-  acName: NameToEmoji,
-): {
+export function acNameToEmoji(acName: NameToEmoji): {
   id: string;
   shortName: string;
   text: string;
@@ -53,9 +51,7 @@ const acNameToEmojiMap: {
 };
 
 // @public (undocumented)
-export function acShortcutToEmoji(
-  hipchatEmoticonShortName: string,
-): {
+export function acShortcutToEmoji(hipchatEmoticonShortName: string): {
   id: string;
   shortName: string;
   text: string;
@@ -305,9 +301,7 @@ export type CodeBlockBaseDefinition = {
 export type CodeBlockDefinition = CodeBlockBaseDefinition & NoMark;
 
 // @public (undocumented)
-export const codeBlockToJSON: (
-  node: Node_2,
-) => {
+export const codeBlockToJSON: (node: Node_2) => {
   attrs: Record<string, any>;
 };
 
@@ -371,7 +365,7 @@ export const copyPrivateMediaAttributes: (
 // @public
 export function createSchema<
   N extends string = string,
-  M extends string = string
+  M extends string = string,
 >(config: SchemaConfig<N, M>): Schema<N, M>;
 
 // @public (undocumented)
@@ -395,9 +389,7 @@ export interface DataConsumerDefinition {
 type DataConsumerSource = string;
 
 // @public
-export const dataConsumerToJSON: (
-  mark: Mark,
-) => {
+export const dataConsumerToJSON: (mark: Mark) => {
   type: string;
   attrs: {
     [key: string]: any;
@@ -545,9 +537,7 @@ interface ExpandBaseDefinition {
 export type ExpandDefinition = ExpandBaseDefinition & NoMark;
 
 // @public (undocumented)
-export const expandToJSON: (
-  node: Node_2,
-) => {
+export const expandToJSON: (node: Node_2) => {
   attrs: {
     [key: string]: any;
   };
@@ -629,9 +619,7 @@ export interface FragmentDefinition {
 }
 
 // @public (undocumented)
-export const fragmentToJSON: (
-  mark: Mark,
-) => {
+export const fragmentToJSON: (mark: Mark) => {
   type: string;
   attrs: {
     name?: any;
@@ -882,11 +870,12 @@ export type LayoutSectionFullDefinition = LayoutSectionBaseDefinition & {
 };
 
 // @public
-export type LayoutSectionWithSingleColumnDefinition = LayoutSectionBaseDefinition & {
-  type: 'layoutSection';
-  marks?: Array<BreakoutMarkDefinition>;
-  content: Array<LayoutColumnDefinition>;
-};
+export type LayoutSectionWithSingleColumnDefinition =
+  LayoutSectionBaseDefinition & {
+    type: 'layoutSection';
+    marks?: Array<BreakoutMarkDefinition>;
+    content: Array<LayoutColumnDefinition>;
+  };
 
 // @public (undocumented)
 export const link: MarkSpec;
@@ -921,9 +910,7 @@ export const linkify: LinkifyIt.LinkifyIt;
 export const linkifyMatch: (text: string) => Match[];
 
 // @public (undocumented)
-export const linkToJSON: (
-  mark: Mark,
-) => {
+export const linkToJSON: (mark: Mark) => {
   type: string;
   attrs: Record<string, string>;
 };
@@ -1098,9 +1085,7 @@ type MediaSingleFullDefinition = MediaSingleBaseDefinition &
   MediaSingleFullContent;
 
 // @public (undocumented)
-export const mediaSingleToJSON: (
-  node: Node_2,
-) => {
+export const mediaSingleToJSON: (node: Node_2) => {
   attrs: any;
 };
 
@@ -1112,9 +1097,7 @@ type MediaSingleWithCaptionDefinition = MediaSingleBaseDefinition &
   MediaCaptionContent;
 
 // @public (undocumented)
-export const mediaToJSON: (
-  node: Node_2,
-) => {
+export const mediaToJSON: (node: Node_2) => {
   attrs: Record<string, any>;
 };
 
@@ -1145,9 +1128,7 @@ export interface MentionDefinition {
 }
 
 // @public (undocumented)
-export const mentionToJSON: (
-  node: Node_2,
-) => {
+export const mentionToJSON: (node: Node_2) => {
   attrs: {
     [key: string]: any;
   };
@@ -1646,9 +1627,7 @@ export interface TableRowDefinition {
 }
 
 // @public (undocumented)
-export const tableToJSON: (
-  node: Node_2,
-) => {
+export const tableToJSON: (node: Node_2) => {
   attrs: {
     [key: string]: any;
   };
@@ -1749,16 +1728,12 @@ export interface TextDefinition {
 }
 
 // @public (undocumented)
-export const toJSONTableCell: (
-  node: Node_2,
-) => {
+export const toJSONTableCell: (node: Node_2) => {
   attrs: Record<string, any>;
 };
 
 // @public (undocumented)
-export const toJSONTableHeader: (
-  node: Node_2,
-) => {
+export const toJSONTableHeader: (node: Node_2) => {
   attrs: Record<string, any>;
 };
 

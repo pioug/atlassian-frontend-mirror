@@ -199,32 +199,30 @@ export const insertMediaSingleNode = (
   return true;
 };
 
-export const createMediaSingleNode = (
-  schema: Schema,
-  collection: string,
-  alignLeftOnInsert?: boolean,
-) => (mediaState: MediaSingleState) => {
-  const { id, dimensions, contextId, scaleFactor = 1 } = mediaState;
-  const { width, height } = dimensions || {
-    height: undefined,
-    width: undefined,
+export const createMediaSingleNode =
+  (schema: Schema, collection: string, alignLeftOnInsert?: boolean) =>
+  (mediaState: MediaSingleState) => {
+    const { id, dimensions, contextId, scaleFactor = 1 } = mediaState;
+    const { width, height } = dimensions || {
+      height: undefined,
+      width: undefined,
+    };
+    const { media, mediaSingle } = schema.nodes;
+
+    const mediaNode = media.create({
+      id,
+      type: 'file',
+      collection,
+      contextId,
+      width: width && Math.round(width / scaleFactor),
+      height: height && Math.round(height / scaleFactor),
+    });
+
+    const mediaSingleAttrs = alignLeftOnInsert ? { layout: 'align-start' } : {};
+
+    copyOptionalAttrsFromMediaState(mediaState, mediaNode);
+    return mediaSingle.createChecked(mediaSingleAttrs, mediaNode);
   };
-  const { media, mediaSingle } = schema.nodes;
-
-  const mediaNode = media.create({
-    id,
-    type: 'file',
-    collection,
-    contextId,
-    width: width && Math.round(width / scaleFactor),
-    height: height && Math.round(height / scaleFactor),
-  });
-
-  const mediaSingleAttrs = alignLeftOnInsert ? { layout: 'align-start' } : {};
-
-  copyOptionalAttrsFromMediaState(mediaState, mediaNode);
-  return mediaSingle.createChecked(mediaSingleAttrs, mediaNode);
-};
 
 export function transformSliceForMedia(slice: Slice, schema: Schema) {
   const {

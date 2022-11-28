@@ -47,14 +47,12 @@ const array = (...args: any): Node[] => args.map((i: any) => i(defaultSchema));
 const fragment = (...args: any) =>
   Fragment.from(args.map((i: any) => i(defaultSchema)));
 
-const selectCell = (cell: {
-  pos: number;
-  start: number;
-  node: ProsemirrorNode;
-}) => (tr: Transaction) => {
-  const $anchor = tr.doc.resolve(cell.pos);
-  return tr.setSelection(new CellSelection($anchor, $anchor) as any);
-};
+const selectCell =
+  (cell: { pos: number; start: number; node: ProsemirrorNode }) =>
+  (tr: Transaction) => {
+    const $anchor = tr.doc.resolve(cell.pos);
+    return tr.setSelection(new CellSelection($anchor, $anchor) as any);
+  };
 
 const copySelectionAndPasteAtPos = ({
   editorView,

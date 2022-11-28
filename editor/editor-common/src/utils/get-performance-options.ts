@@ -18,9 +18,7 @@ let nodeViewRenderedEventsCounter = 0;
 const DEFAULT_SAMPLING_RATE = 100;
 const DEFAULT_SLOW_THRESHOLD = 7;
 
-export function getPerformanceOptions(
-  view: EditorView,
-): {
+export function getPerformanceOptions(view: EditorView): {
   trackingEnabled: boolean;
   samplingRate: number;
   slowThreshold: number;

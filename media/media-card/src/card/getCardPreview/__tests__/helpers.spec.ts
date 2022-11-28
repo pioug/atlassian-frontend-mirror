@@ -13,9 +13,9 @@ import { takeSnapshot } from '../../../utils/videoSnapshot';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 
 describe('getCardPreviewFromBackend()', () => {
-  const mediaClient = ({
+  const mediaClient = {
     getImage: jest.fn(() => 'some-blob'),
-  } as unknown) as MediaClient;
+  } as unknown as MediaClient;
 
   const params = {
     width: 33,

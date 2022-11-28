@@ -56,9 +56,8 @@ export const list: TokenParser = ({ input, position, schema, context }) => {
             const remainingAfterSymbol = input.substring(
               index + rulerMatch[0].length,
             );
-            const emptyLineMatch = remainingAfterSymbol.match(
-              EMPTY_LINE_REGEXP,
-            );
+            const emptyLineMatch =
+              remainingAfterSymbol.match(EMPTY_LINE_REGEXP);
 
             // If this is an empty line skip to the buffering step rather than match as a list element
             if (emptyLineMatch) {

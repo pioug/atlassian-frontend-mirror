@@ -13,9 +13,9 @@ import { FilePreviewStatus } from '../../../types';
 
 const extractFilePreviewStatus = jest
   .spyOn(filePreviewStatusModule, 'extractFilePreviewStatus')
-  .mockReturnValue(({
+  .mockReturnValue({
     some: 'file-preview-status',
-  } as unknown) as FilePreviewStatus);
+  } as unknown as FilePreviewStatus);
 
 const isFinalCardStatus = jest
   .spyOn(getCardStatusModule, 'isFinalCardStatus')
@@ -92,10 +92,10 @@ describe('getCardStateFromFileState', () => {
   });
 
   it('should return state containing the file state plus the resulting card status', () => {
-    const fileState = ({
+    const fileState = {
       some: 'file-state',
       status: 'some-status',
-    } as unknown) as FileState;
+    } as unknown as FileState;
     const featureFlags = { some: 'feature-flags' } as MediaFeatureFlags;
     const cardState = getCardStateFromFileState(fileState, false, featureFlags);
     expect(cardState).toEqual(

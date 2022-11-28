@@ -213,7 +213,7 @@ describe('ExtensionsPlaceholder', () => {
       .fn()
       .mockImplementation(() =>
         Promise.resolve(
-          ((editorView.state.doc.firstChild as unknown) as ADFEntity) ||
+          (editorView.state.doc.firstChild as unknown as ADFEntity) ||
             undefined,
         ),
       );

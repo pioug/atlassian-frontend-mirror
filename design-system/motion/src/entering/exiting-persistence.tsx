@@ -226,9 +226,10 @@ const ExitingPersistence: React.FC<ExitingPersistenceProps> = memo(
       // Let's update previous children so we have it available next render.
       previousChildren.current = children;
 
-      return (exitThenEnter
-        ? persistedChildren.current
-        : spliceNewElementsIntoPrevious(children, persistedChildren.current)
+      return (
+        exitThenEnter
+          ? persistedChildren.current
+          : spliceNewElementsIntoPrevious(children, persistedChildren.current)
       ).map((child) => {
         // eslint-disable-next-line @repo/internal/react/no-children-properties-access
         const currentChild = childrenObj[child.key];

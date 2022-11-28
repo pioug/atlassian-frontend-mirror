@@ -829,12 +829,10 @@ export const useSmartLinkAnalytics = (
     [commonAttributes, dispatchAnalytics],
   );
 
-  return useMemo(() => ({ ui, operational, track, screen }), [
-    ui,
-    operational,
-    track,
-    screen,
-  ]);
+  return useMemo(
+    () => ({ ui, operational, track, screen }),
+    [ui, operational, track, screen],
+  );
 };
 
 export type AnalyticsFacade = ReturnType<typeof useSmartLinkAnalytics>;

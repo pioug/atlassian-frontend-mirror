@@ -111,9 +111,8 @@ const Example: React.FC = () => {
   const [changeStatus, setChangeStatus] = useState<string>('');
   const [featureRolloutDates, setFeatureRolloutDates] = useState<string>('');
   const [releaseNoteFlags, setReleaseNoteFlags] = useState<string>('');
-  const [releaseNoteFlagOffValues, setReleaseNoteFlagOffValues] = useState<
-    string
-  >('');
+  const [releaseNoteFlagOffValues, setReleaseNoteFlagOffValues] =
+    useState<string>('');
 
   const [showComponent, setShowComponent] = useState<boolean>(true);
   const [algoliaParameters, setAlgoliaParameters] = useState({
@@ -191,9 +190,8 @@ const Example: React.FC = () => {
         .map((value) => `"${value}"`);
     }
     if (releaseNoteFlagOffValues) {
-      filterConfig.releaseNoteFlagOffValues = releaseNoteFlagOffValues.split(
-        ',',
-      );
+      filterConfig.releaseNoteFlagOffValues =
+        releaseNoteFlagOffValues.split(',');
     }
 
     if (filter !== '') {
@@ -767,10 +765,13 @@ const Example: React.FC = () => {
                     footer={Footer}
                     helpArticle={{
                       onGetHelpArticle: getArticleById,
-                      onHelpArticleLoadingFailTryAgainButtonClick: handleOnHelpArticleLoadingFailTryAgainButtonClick,
+                      onHelpArticleLoadingFailTryAgainButtonClick:
+                        handleOnHelpArticleLoadingFailTryAgainButtonClick,
                       onWasHelpfulSubmit: handleOnWasHelpfulSubmit,
-                      onWasHelpfulYesButtonClick: handleOnWasHelpfulYesButtonClick,
-                      onWasHelpfulNoButtonClick: handleOnWasHelpfulNoButtonClick,
+                      onWasHelpfulYesButtonClick:
+                        handleOnWasHelpfulYesButtonClick,
+                      onWasHelpfulNoButtonClick:
+                        handleOnWasHelpfulNoButtonClick,
                     }}
                     navigation={{
                       navigationData,
@@ -788,19 +789,22 @@ const Example: React.FC = () => {
                       routeGroup: routeGroup,
                       routeName: routeName,
                       onGetRelatedArticles: getRelatedArticles,
-                      onRelatedArticlesShowMoreClick: handleOnRelatedArticlesShowMoreClick,
-                      onRelatedArticlesListItemClick: handleOnRelatedArticlesListItemClick,
+                      onRelatedArticlesShowMoreClick:
+                        handleOnRelatedArticlesShowMoreClick,
+                      onRelatedArticlesListItemClick:
+                        handleOnRelatedArticlesListItemClick,
                     }}
                     whatsNew={{
-                      whatsNewGetNotificationProvider: Promise.resolve(
-                        notificationsClient,
-                      ),
+                      whatsNewGetNotificationProvider:
+                        Promise.resolve(notificationsClient),
                       productName: 'Jira',
                       onWhatsNewButtonClick: handleOnWhatsNewButtonClick,
-                      onSearchWhatsNewShowMoreClick: handleOnSearchWhatsNewShowMoreClick,
+                      onSearchWhatsNewShowMoreClick:
+                        handleOnSearchWhatsNewShowMoreClick,
                       onSearchWhatsNewArticles: onSearchWhatsNewArticles,
                       onGetWhatsNewArticle: getWhatsNewArticle,
-                      onWhatsNewResultItemClick: handleOnWhatsNewResultItemClick,
+                      onWhatsNewResultItemClick:
+                        handleOnWhatsNewResultItemClick,
                     }}
                     header={{
                       onCloseButtonClick: handleOnCloseButtonClick,

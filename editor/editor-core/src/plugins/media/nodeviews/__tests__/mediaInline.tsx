@@ -38,11 +38,11 @@ export const mediaInlineProps: MediaInlineProps = {
   }),
   node: { attrs: {}, firstChild: { attrs: {} } } as PMNode<any>,
   mediaProvider: createMediaProvider(),
-  mediaPluginState: ({
+  mediaPluginState: {
     handleMediaNodeMount: jest.fn(),
     handleMediaNodeUnmount: jest.fn(),
     addPendingTask: jest.fn(),
-  } as unknown) as MediaPluginState,
+  } as unknown as MediaPluginState,
   isSelected: true,
   getPos: jest.fn(() => 0),
   dispatchAnalyticsEvent: jest.fn(),

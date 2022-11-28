@@ -66,14 +66,8 @@ export default class Document extends Component<Props> {
   }
 
   render() {
-    const {
-      doc,
-      isLoading,
-      hasError,
-      mode,
-      editorProps,
-      rendererProps,
-    } = this.props;
+    const { doc, isLoading, hasError, mode, editorProps, rendererProps } =
+      this.props;
 
     if (hasError) {
       return <div>Something went wrong 😔</div>;

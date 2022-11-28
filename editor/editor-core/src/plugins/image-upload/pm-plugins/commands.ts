@@ -27,17 +27,15 @@ export const insertExternalImage: (
   return true;
 };
 
-export const startImageUpload: (event?: Event) => Command = (event) => (
-  state,
-  dispatch,
-) => {
-  const pluginState: ImageUploadPluginState = stateKey.getState(state);
-  if (!pluginState.enabled) {
-    return false;
-  }
+export const startImageUpload: (event?: Event) => Command =
+  (event) => (state, dispatch) => {
+    const pluginState: ImageUploadPluginState = stateKey.getState(state);
+    if (!pluginState.enabled) {
+      return false;
+    }
 
-  if (dispatch) {
-    dispatch(startUpload(event)(state.tr));
-  }
-  return true;
-};
+    if (dispatch) {
+      dispatch(startUpload(event)(state.tr));
+    }
+    return true;
+  };

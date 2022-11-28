@@ -177,7 +177,7 @@ const getStyles = (
     box-shadow: 0 0 0 ${BORDER_WIDTH}px ${borderColor};
     border: none;
     margin: ${BORDER_WIDTH}px;
-    padding: 0;
+    padding: ${token('spacing.scale.0', '0px')};
 
     /* Added font-size and font-family styles to fix alignment issue in firefox for interactive button avatar */
     font-size: inherit;
@@ -185,8 +185,8 @@ const getStyles = (
 
     &::-moz-focus-inner {
       border: 0;
-      margin: 0;
-      padding: 0;
+      margin: ${token('spacing.scale.0', '0px')};
+      padding: ${token('spacing.scale.0', '0px')};
     }
 
     &::after {

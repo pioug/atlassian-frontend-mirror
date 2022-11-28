@@ -71,12 +71,8 @@ export default class MyComponent extends Component<{}, State> {
   };
 
   render() {
-    const {
-      dateTimePickerValue,
-      isModalOpen,
-      textAbove,
-      textBelow,
-    } = this.state;
+    const { dateTimePickerValue, isModalOpen, textAbove, textBelow } =
+      this.state;
     return (
       <div>
         <p style={{ paddingBottom: 10 }}>

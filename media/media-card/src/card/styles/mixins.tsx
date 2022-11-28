@@ -69,7 +69,7 @@ export interface WithAppearanceProps {
   appearance?: CardAppearance;
 }
 
-export const withAppearance = (
-  styleMap: { [key in CardAppearance]?: string },
-) => ({ appearance }: WithAppearanceProps) =>
-  (appearance && styleMap[appearance]) || '';
+export const withAppearance =
+  (styleMap: { [key in CardAppearance]?: string }) =>
+  ({ appearance }: WithAppearanceProps) =>
+    (appearance && styleMap[appearance]) || '';

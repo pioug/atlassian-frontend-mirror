@@ -187,7 +187,7 @@ export const fakeFactory: any = (
 export const waitFor = (time = 1) =>
   new Promise((res) => setTimeout(res, time));
 
-export const mockAnalytics = ({
+export const mockAnalytics = {
   ui: {
     buttonClickedEvent: () => {},
     modalClosedEvent: () => {},
@@ -199,4 +199,4 @@ export const mockAnalytics = ({
   screen: {
     modalViewedEvent: () => {},
   },
-} as unknown) as AnalyticsFacade;
+} as unknown as AnalyticsFacade;

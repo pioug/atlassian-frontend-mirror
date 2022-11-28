@@ -3,16 +3,13 @@ import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 import { DropzoneProps } from './dropzone';
 import { MediaPickerAnalyticsErrorBoundaryProps } from '../media-picker-analytics-error-boundary';
 
-export type DropzoneWithMediaClientConfigProps = WithMediaClientConfigProps<
-  DropzoneProps
->;
-type DropzoneWithMediaClientConfigComponent = React.ComponentType<
-  DropzoneWithMediaClientConfigProps
->;
+export type DropzoneWithMediaClientConfigProps =
+  WithMediaClientConfigProps<DropzoneProps>;
+type DropzoneWithMediaClientConfigComponent =
+  React.ComponentType<DropzoneWithMediaClientConfigProps>;
 
-type MediaPickerErrorBoundaryComponent = React.ComponentType<
-  MediaPickerAnalyticsErrorBoundaryProps
->;
+type MediaPickerErrorBoundaryComponent =
+  React.ComponentType<MediaPickerAnalyticsErrorBoundaryProps>;
 
 export type State = {
   Dropzone?: DropzoneWithMediaClientConfigComponent;
@@ -35,21 +32,18 @@ export class DropzoneLoader extends React.PureComponent<
   async UNSAFE_componentWillMount() {
     if (!this.state.Dropzone || !this.state.MediaPickerErrorBoundary) {
       try {
-        const [
-          mediaClient,
-          dropzoneModule,
-          mediaPickerErrorBoundaryModule,
-        ] = await Promise.all([
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
-          ),
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-dropzone" */ './dropzone'
-          ),
-          import(
-            /* webpackChunkName: "@atlaskit-internal_media-picker-error-boundary" */ '../media-picker-analytics-error-boundary'
-          ),
-        ]);
+        const [mediaClient, dropzoneModule, mediaPickerErrorBoundaryModule] =
+          await Promise.all([
+            import(
+              /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
+            ),
+            import(
+              /* webpackChunkName: "@atlaskit-internal_media-dropzone" */ './dropzone'
+            ),
+            import(
+              /* webpackChunkName: "@atlaskit-internal_media-picker-error-boundary" */ '../media-picker-analytics-error-boundary'
+            ),
+          ]);
 
         DropzoneLoader.Dropzone = mediaClient.withMediaClient(
           dropzoneModule.Dropzone,

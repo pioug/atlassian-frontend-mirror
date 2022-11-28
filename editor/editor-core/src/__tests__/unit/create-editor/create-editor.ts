@@ -73,11 +73,11 @@ describe(name, () => {
             {
               name: 'mocked',
               plugin: () =>
-                (({
+                ({
                   spec: {},
                   props: {},
                   getState() {},
-                } as unknown) as SafePlugin),
+                } as unknown as SafePlugin),
             },
           ],
         };

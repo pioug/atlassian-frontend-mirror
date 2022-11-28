@@ -53,11 +53,11 @@ describe('AltTextEditComponent', () => {
 
   const mockView = jest.fn(
     () =>
-      (({
+      ({
         state: { plugins: [] },
         dispatch: jest.fn(),
         someProp: jest.fn(),
-      } as { state: {}; dispatch: Function }) as EditorView),
+      } as { state: {}; dispatch: Function } as EditorView),
   );
   const view = new mockView();
 
@@ -69,9 +69,7 @@ describe('AltTextEditComponent', () => {
       eventType: EVENT_TYPE.TRACK,
     };
 
-    function setupWrapper(
-      value: string,
-    ): {
+    function setupWrapper(value: string): {
       view: EditorView<any>;
       wrapper: ReactWrapper<WrappedComponentProps, any, any>;
     } {

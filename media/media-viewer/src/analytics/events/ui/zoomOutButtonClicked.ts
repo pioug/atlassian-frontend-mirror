@@ -1,11 +1,10 @@
 import { ButtonClickEventPayload } from './_clickedButton';
 import { ZoomButtonClickAttributes } from './zoomInButtonClicked';
 
-export type ZoomOutButtonClickEventPayload = ButtonClickEventPayload<
-  ZoomButtonClickAttributes
-> & {
-  actionSubjectId: 'zoomOut';
-};
+export type ZoomOutButtonClickEventPayload =
+  ButtonClickEventPayload<ZoomButtonClickAttributes> & {
+    actionSubjectId: 'zoomOut';
+  };
 
 export function createZoomOutButtonClickedEvent(
   zoomScale: number,

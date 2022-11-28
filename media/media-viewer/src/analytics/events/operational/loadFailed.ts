@@ -19,9 +19,8 @@ export const createLoadFailedEvent = (
   error: MediaViewerError,
   fileState?: FileState,
 ): LoadFailedEventPayload => {
-  const { fileMediatype, fileMimetype, fileSize } = getFileAttributes(
-    fileState,
-  );
+  const { fileMediatype, fileMimetype, fileSize } =
+    getFileAttributes(fileState);
   return {
     eventType: 'operational',
     actionSubject: 'mediaFile',

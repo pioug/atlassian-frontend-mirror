@@ -128,17 +128,14 @@ type PasteBaseAEP<Action, Attributes, NonPrivacySafeAttributes> = TrackAEP<
   NonPrivacySafeAttributes
 >;
 
-type PasteBaseOperationalAEP<
-  Action,
-  Attributes,
-  NonPrivacySafeAttributes
-> = OperationalAEP<
-  Action,
-  ACTION_SUBJECT.EDITOR,
-  PASTE_ACTION_SUBJECT_ID,
-  Attributes,
-  NonPrivacySafeAttributes
->;
+type PasteBaseOperationalAEP<Action, Attributes, NonPrivacySafeAttributes> =
+  OperationalAEP<
+    Action,
+    ACTION_SUBJECT.EDITOR,
+    PASTE_ACTION_SUBJECT_ID,
+    Attributes,
+    NonPrivacySafeAttributes
+  >;
 
 type PasteAEP = PasteBaseAEP<
   ACTION.PASTED,

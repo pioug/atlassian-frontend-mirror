@@ -12,18 +12,19 @@ import {
 
 jest.mock(
   'react-render-image',
-  () => ({ src, loading, loaded, errored }: any) => {
-    switch (src) {
-      case 'src-loading':
-        return loading;
-      case 'src-loaded':
-        return loaded;
-      case 'src-error':
-        return errored;
-      default:
-        return <span>{src}</span>;
-    }
-  },
+  () =>
+    ({ src, loading, loaded, errored }: any) => {
+      switch (src) {
+        case 'src-loading':
+          return loading;
+        case 'src-loaded':
+          return loaded;
+        case 'src-error':
+          return errored;
+        default:
+          return <span>{src}</span>;
+      }
+    },
 );
 
 describe('Element: Icon', () => {

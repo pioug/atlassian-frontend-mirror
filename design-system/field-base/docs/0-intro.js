@@ -78,8 +78,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                     type: 'commentBlock',
                     value:
                       'controls the appearance of the field.\nsubtle shows styling on hover.\nnone hides all field styling.',
-                    raw:
-                      '*\n   * controls the appearance of the field.\n   * subtle shows styling on hover.\n   * none hides all field styling.\n   ',
+                    raw: '*\n   * controls the appearance of the field.\n   * subtle shows styling on hover.\n   * none hides all field styling.\n   ',
                   },
                 ],
               },
@@ -124,8 +123,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                     type: 'commentBlock',
                     value:
                       'message to show on the dialog when isInvalid and isDialogOpen  are true',
-                    raw:
-                      '* message to show on the dialog when isInvalid and isDialogOpen  are true ',
+                    raw: '* message to show on the dialog when isInvalid and isDialogOpen  are true ',
                   },
                 ],
               },
@@ -178,8 +176,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                     type: 'commentBlock',
                     value:
                       'whether the fit the field to the enclosing container',
-                    raw:
-                      '* whether the fit the field to the enclosing container ',
+                    raw: '* whether the fit the field to the enclosing container ',
                   },
                 ],
               },
@@ -193,8 +190,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                     type: 'commentBlock',
                     value:
                       'set the field as invalid, triggering style and message',
-                    raw:
-                      '* set the field as invalid, triggering style and message ',
+                    raw: '* set the field as invalid, triggering style and message ',
                   },
                 ],
               },
@@ -292,8 +288,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                   {
                     type: 'commentBlock',
                     value: 'handler for the onBlur event on the dialog element',
-                    raw:
-                      '* handler for the onBlur event on the dialog element ',
+                    raw: '* handler for the onBlur event on the dialog element ',
                   },
                 ],
               },
@@ -372,8 +367,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                     type: 'commentBlock',
                     value:
                       'whether to call the onBlur handler inside componentDidUpdate',
-                    raw:
-                      '* whether to call the onBlur handler inside componentDidUpdate ',
+                    raw: '* whether to call the onBlur handler inside componentDidUpdate ',
                   },
                 ],
               },
@@ -387,8 +381,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                     type: 'commentBlock',
                     value:
                       'the maximum width of the field-base in pixels. Don\'t include the "px".',
-                    raw:
-                      '* the maximum width of the field-base in pixels. Don\'t include the "px". ',
+                    raw: '* the maximum width of the field-base in pixels. Don\'t include the "px". ',
                   },
                 ],
               },
@@ -402,8 +395,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                     type: 'commentBlock',
                     value:
                       'Hide the validation message and style. This is used by <Field> to disable Validation display handling by FieldBase',
-                    raw:
-                      '* Hide the validation message and style. This is used by <Field> to disable Validation display handling by FieldBase\n   ',
+                    raw: '* Hide the validation message and style. This is used by <Field> to disable Validation display handling by FieldBase\n   ',
                   },
                 ],
               },
@@ -457,8 +449,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'controls the appearance of the field.\nsubtle shows styling on hover.\nnone hides all field styling.',
-                     raw:
-                       '*\n   * controls the appearance of the field.\n   * subtle shows styling on hover.\n   * none hides all field styling.\n   ',
+                     raw: '*\n   * controls the appearance of the field.\n   * subtle shows styling on hover.\n   * none hides all field styling.\n   ',
                    },
                  ],
                  default: { kind: 'string', value: 'standard' },
@@ -504,8 +495,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'message to show on the dialog when isInvalid and isDialogOpen  are true',
-                     raw:
-                       '* message to show on the dialog when isInvalid and isDialogOpen  are true ',
+                     raw: '* message to show on the dialog when isInvalid and isDialogOpen  are true ',
                    },
                  ],
                  default: { kind: 'string', value: '' },
@@ -519,8 +509,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                    {
                      type: 'commentBlock',
                      value: 'applies compact styling, making the field smaller',
-                     raw:
-                       '* applies compact styling, making the field smaller ',
+                     raw: '* applies compact styling, making the field smaller ',
                    },
                  ],
                  default: { kind: 'boolean', value: false },
@@ -563,8 +552,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'whether the fit the field to the enclosing container',
-                     raw:
-                       '* whether the fit the field to the enclosing container ',
+                     raw: '* whether the fit the field to the enclosing container ',
                    },
                  ],
                  default: { kind: 'boolean', value: false },
@@ -579,8 +567,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'set the field as invalid, triggering style and message',
-                     raw:
-                       '* set the field as invalid, triggering style and message ',
+                     raw: '* set the field as invalid, triggering style and message ',
                    },
                  ],
                  default: { kind: 'boolean', value: false },
@@ -655,8 +642,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                    {
                      type: 'commentBlock',
                      value: 'handler for the onBlur event on the field element',
-                     raw:
-                       '* handler for the onBlur event on the field element ',
+                     raw: '* handler for the onBlur event on the field element ',
                    },
                  ],
                },
@@ -676,8 +662,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'handler for the onBlur event on the dialog element',
-                     raw:
-                       '* handler for the onBlur event on the dialog element ',
+                     raw: '* handler for the onBlur event on the dialog element ',
                    },
                  ],
                  default: {
@@ -704,8 +689,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                    {
                      type: 'commentBlock',
                      value: 'handler for the click event on the dialog element',
-                     raw:
-                       '* handler for the click event on the dialog element ',
+                     raw: '* handler for the click event on the dialog element ',
                    },
                  ],
                  default: {
@@ -732,8 +716,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                    {
                      type: 'commentBlock',
                      value: 'handler for the focus event on the dialog element',
-                     raw:
-                       '* handler for the focus event on the dialog element ',
+                     raw: '* handler for the focus event on the dialog element ',
                    },
                  ],
                  default: {
@@ -774,8 +757,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'whether to call the onBlur handler inside componentDidUpdate',
-                     raw:
-                       '* whether to call the onBlur handler inside componentDidUpdate ',
+                     raw: '* whether to call the onBlur handler inside componentDidUpdate ',
                    },
                  ],
                  default: { kind: 'boolean', value: false },
@@ -790,8 +772,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'the maximum width of the field-base in pixels. Don\'t include the "px".',
-                     raw:
-                       '* the maximum width of the field-base in pixels. Don\'t include the "px". ',
+                     raw: '* the maximum width of the field-base in pixels. Don\'t include the "px". ',
                    },
                  ],
                },
@@ -805,8 +786,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'Hide the validation message and style. This is used by <Field> to disable Validation display handling by FieldBase',
-                     raw:
-                       '* Hide the validation message and style. This is used by <Field> to disable Validation display handling by FieldBase\n   ',
+                     raw: '* Hide the validation message and style. This is used by <Field> to disable Validation display handling by FieldBase\n   ',
                    },
                  ],
                  default: { kind: 'boolean', value: false },
@@ -821,8 +801,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'apply styling based on whether the field is focused',
-                     raw:
-                       '* apply styling based on whether the field is focused ',
+                     raw: '* apply styling based on whether the field is focused ',
                    },
                  ],
                  default: { kind: 'boolean', value: false },
@@ -901,8 +880,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'show a style indicating that the label is for a required field',
-                     raw:
-                       '* show a style indicating that the label is for a required field ',
+                     raw: '* show a style indicating that the label is for a required field ',
                    },
                  ],
                },
@@ -916,8 +894,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'Sets whether the disabled style is applied to the label',
-                     raw:
-                       '* Sets whether the disabled style is applied to the label ',
+                     raw: '* Sets whether the disabled style is applied to the label ',
                    },
                  ],
                },
@@ -953,8 +930,7 @@ FieldBase components *will* work by themselves, but are really meant to be exten
                      type: 'commentBlock',
                      value:
                        'any children to render, displayed underneath the label',
-                     raw:
-                       '* any children to render, displayed underneath the label ',
+                     raw: '* any children to render, displayed underneath the label ',
                    },
                  ],
                },

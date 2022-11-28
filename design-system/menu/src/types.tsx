@@ -327,7 +327,7 @@ export interface CustomItemComponentProps {
 }
 
 export interface CustomItemProps<
-  TCustomComponentProps = CustomItemComponentProps
+  TCustomComponentProps = CustomItemComponentProps,
 > extends MenuItemProps {
   // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**

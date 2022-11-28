@@ -177,9 +177,11 @@ describe('FileFetcher', () => {
     };
   };
 
-  const MockMediaStoreConstructor = (jest.genMockFromModule(
-    '../../client/media-store',
-  ) as typeof MediaStoreModule)['MediaStore'];
+  const MockMediaStoreConstructor = (
+    jest.genMockFromModule(
+      '../../client/media-store',
+    ) as typeof MediaStoreModule
+  )['MediaStore'];
 
   const createMockMediaStore = (authProvider: AuthProvider) =>
     new MockMediaStoreConstructor({
@@ -1143,11 +1145,8 @@ describe('FileFetcher', () => {
 
   describe('upload()', () => {
     it('should populate cache before upload finishes', async () => {
-      const {
-        fileFetcher,
-        createUploadableFile,
-        uploadFileUpfrontIds,
-      } = setup();
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       fileFetcher.upload(
         createUploadableFile('logo.png', 'image/png'),
@@ -1177,11 +1176,8 @@ describe('FileFetcher', () => {
     });
 
     it('should be abortable', async () => {
-      const {
-        fileFetcher,
-        createUploadableFile,
-        uploadFileUpfrontIds,
-      } = setup();
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       const uploadController = new UploadController();
 
@@ -1238,11 +1234,8 @@ describe('FileFetcher', () => {
     });
 
     it('should set preview on cache for that file', async () => {
-      const {
-        fileFetcher,
-        createUploadableFile,
-        uploadFileUpfrontIds,
-      } = setup();
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       fileFetcher.upload(
         createUploadableFile('logo.png', 'image/png'),
@@ -1271,11 +1264,8 @@ describe('FileFetcher', () => {
     });
 
     it('should set the right mediaType', async () => {
-      const {
-        fileFetcher,
-        createUploadableFile,
-        uploadFileUpfrontIds,
-      } = setup();
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       fileFetcher.upload(
         createUploadableFile('logo.png', 'image/png'),
@@ -1299,11 +1289,8 @@ describe('FileFetcher', () => {
     });
 
     it('should emit @atlaskit/chunkinator errors through ReplaySubject', async () => {
-      const {
-        fileFetcher,
-        createUploadableFile,
-        uploadFileUpfrontIds,
-      } = setup();
+      const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } =
+        setup();
 
       const error = new Error('chunkinator any kind of error');
 

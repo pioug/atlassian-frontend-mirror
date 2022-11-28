@@ -167,13 +167,8 @@ export default class Tree extends Component<Props, State> {
       draggedItemId === flatItem.item.id &&
       (this.dragState.destination || this.dragState.combine)
     ) {
-      const {
-        source,
-        destination,
-        combine,
-        horizontalLevel,
-        mode,
-      } = this.dragState;
+      const { source, destination, combine, horizontalLevel, mode } =
+        this.dragState;
       // We only update the path when it's dragged by keyboard or drop is animated
       if (mode === 'SNAP' || snapshot.isDropAnimating) {
         if (destination) {
@@ -284,21 +279,20 @@ export default class Tree extends Component<Props, State> {
     );
   };
 
-  renderDraggableItem = (flatItem: FlattenedItem) => (
-    provided: DraggableProvided,
-    snapshot: DraggableStateSnapshot,
-  ) => {
-    const currentPath: Path = this.calculateEffectivePath(flatItem, snapshot);
-    if (snapshot.isDropAnimating) {
-      this.onDropAnimating();
-    }
-    return this.renderTreeItem({
-      flatItem,
-      path: currentPath,
-      provided,
-      snapshot,
-    });
-  };
+  renderDraggableItem =
+    (flatItem: FlattenedItem) =>
+    (provided: DraggableProvided, snapshot: DraggableStateSnapshot) => {
+      const currentPath: Path = this.calculateEffectivePath(flatItem, snapshot);
+      if (snapshot.isDropAnimating) {
+        this.onDropAnimating();
+      }
+      return this.renderTreeItem({
+        flatItem,
+        path: currentPath,
+        provided,
+        snapshot,
+      });
+    };
 
   renderTreeItem = ({
     flatItem,
@@ -344,9 +338,8 @@ export default class Tree extends Component<Props, State> {
           ignoreContainerClipping
         >
           {(provided: DroppableProvided) => {
-            const finalProvided: DroppableProvided = this.patchDroppableProvided(
-              provided,
-            );
+            const finalProvided: DroppableProvided =
+              this.patchDroppableProvided(provided);
             return (
               <div
                 ref={finalProvided.innerRef}

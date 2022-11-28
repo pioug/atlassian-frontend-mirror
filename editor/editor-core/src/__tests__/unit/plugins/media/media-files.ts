@@ -90,8 +90,9 @@ describe('media-files', () => {
       );
 
       const paragraphNodeSize = p('text')(editorView.state.schema).nodeSize;
-      const mediaGroupNodeSize = temporaryMediaGroup(editorView.state.schema)
-        .nodeSize;
+      const mediaGroupNodeSize = temporaryMediaGroup(
+        editorView.state.schema,
+      ).nodeSize;
       expect(editorView.state.selection.from).toEqual(
         paragraphNodeSize + mediaGroupNodeSize + 1,
       );
@@ -160,8 +161,9 @@ describe('media-files', () => {
         const { editorView } = editor(doc(p('te{<>}xt')));
 
         const paragraphNodeSize = p('te')(editorView.state.schema).nodeSize;
-        const mediaGroupNodeSize = temporaryMediaGroup(editorView.state.schema)
-          .nodeSize;
+        const mediaGroupNodeSize = temporaryMediaGroup(
+          editorView.state.schema,
+        ).nodeSize;
 
         insertMediaGroupNode(
           editorView,

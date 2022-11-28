@@ -25,18 +25,22 @@ test('DeleteUserOverviewScreen', () => {
 
 describe('selectAdminOrSelfCopy', () => {
   test('selects admin copy if delete candidate is not current user', () => {
-    const selectAdminOrSelfCopy = (render({
-      deactivateUserHandler: () => {},
-      isCurrentUser: false,
-    }).instance() as DeleteUserOverviewScreen).selectAdminOrSelfCopy;
+    const selectAdminOrSelfCopy = (
+      render({
+        deactivateUserHandler: () => {},
+        isCurrentUser: false,
+      }).instance() as DeleteUserOverviewScreen
+    ).selectAdminOrSelfCopy;
     expect(selectAdminOrSelfCopy('admin' as any, 'self' as any)).toBe('admin');
   });
 
   test('selects self copy if delete candidate is current user', () => {
-    const selectAdminOrSelfCopy = (render({
-      deactivateUserHandler: () => {},
-      isCurrentUser: true,
-    }).instance() as DeleteUserOverviewScreen).selectAdminOrSelfCopy;
+    const selectAdminOrSelfCopy = (
+      render({
+        deactivateUserHandler: () => {},
+        isCurrentUser: true,
+      }).instance() as DeleteUserOverviewScreen
+    ).selectAdminOrSelfCopy;
     expect(selectAdminOrSelfCopy('admin' as any, 'self' as any)).toBe('self');
   });
 });

@@ -117,9 +117,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       inputValue: props.search || '',
       resolving: false,
     };
-    this.optionsShownUfoExperienceInstance = userPickerOptionsShownUfoExperience.getInstance(
-      uuidv4(),
-    );
+    this.optionsShownUfoExperienceInstance =
+      userPickerOptionsShownUfoExperience.getInstance(uuidv4());
   }
 
   private getSessionId = () =>

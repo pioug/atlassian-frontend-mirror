@@ -89,9 +89,8 @@ describe('Annotation view component', () => {
         </ProvidersContext.Provider>
       </RendererContext.Provider>,
     );
-    const deleteAnnotationPropMethod: InlineCommentViewComponentProps['deleteAnnotation'] = wrapper
-      .find('DummyComponent')
-      .prop('deleteAnnotation');
+    const deleteAnnotationPropMethod: InlineCommentViewComponentProps['deleteAnnotation'] =
+      wrapper.find('DummyComponent').prop('deleteAnnotation');
     const result = deleteAnnotationPropMethod({
       id: 'annotation-id',
       type: AnnotationTypes.INLINE_COMMENT,

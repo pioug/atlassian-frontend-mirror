@@ -30,9 +30,8 @@ describe('@atlaskit/editor-common table utils', () => {
     });
 
     test('should get the correct array of widths from a table with merge cell', () => {
-      const tableMergeResizedFromSchema = schema.nodeFromJSON(
-        tableMergeResized,
-      );
+      const tableMergeResizedFromSchema =
+        schema.nodeFromJSON(tableMergeResized);
       const colWidths = calcTableColumnWidths(
         tableMergeResizedFromSchema.firstChild!,
       );

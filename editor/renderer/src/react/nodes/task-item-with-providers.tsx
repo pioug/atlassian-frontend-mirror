@@ -56,12 +56,8 @@ export default class TaskItemWithProviders extends Component<Props, State> {
   }
 
   render() {
-    const {
-      contextIdentifierProvider,
-      objectAri,
-      isRenderer,
-      ...otherProps
-    } = this.props;
+    const { contextIdentifierProvider, objectAri, isRenderer, ...otherProps } =
+      this.props;
     const resolvedObjectId =
       (this.state.resolvedContextProvider &&
         this.state.resolvedContextProvider.objectId) ||

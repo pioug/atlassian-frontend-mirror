@@ -86,7 +86,7 @@ export type OperationalEventPayload<
   Attributes extends OperationalAttributes,
   Action extends string,
   ActionSubject extends string,
-  ActionSubjectId extends string = string
+  ActionSubjectId extends string = string,
 > = BaseEventPayload<Attributes> & {
   eventType: 'operational';
   action: Action;
@@ -104,7 +104,7 @@ export type UIAttributes =
 export type UIEventPayload<
   Attributes extends UIAttributes,
   Action extends string,
-  ActionSubject extends string
+  ActionSubject extends string,
 > = BaseEventPayload<Attributes> & {
   eventType: 'ui';
   action: Action;
@@ -121,7 +121,7 @@ export type ScreenAttributes =
 
 export type ScreenEventPayload<
   Attributes extends ScreenAttributes,
-  ActionSubject extends string
+  ActionSubject extends string,
 > = BaseEventPayload<Attributes> & {
   eventType: 'screen';
   // TODO BMPT-1130: evaluate if we can use actionSubject only (duplicate), at the cost of a breaking change
@@ -140,7 +140,7 @@ export type TrackEventPayload<
   Attributes extends TrackAttributes,
   Action extends string,
   ActionSubject extends string,
-  ActionSubjectId extends string = string
+  ActionSubjectId extends string = string,
 > = BaseEventPayload<Attributes> & {
   eventType: 'track';
   action: Action;

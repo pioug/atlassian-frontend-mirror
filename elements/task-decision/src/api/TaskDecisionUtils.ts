@@ -7,13 +7,8 @@ import {
 } from '../types';
 
 export const convertServiceTaskToTask = (serviceTask: ServiceTask): Task => {
-  const {
-    creationDate,
-    lastUpdateDate,
-    creatorId,
-    lastUpdaterId,
-    ...other
-  } = serviceTask;
+  const { creationDate, lastUpdateDate, creatorId, lastUpdaterId, ...other } =
+    serviceTask;
 
   return {
     creationDate: (creationDate && new Date(creationDate)) || undefined,

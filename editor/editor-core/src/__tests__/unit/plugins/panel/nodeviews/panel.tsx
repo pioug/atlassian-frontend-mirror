@@ -33,7 +33,7 @@ describe('Panel - NodeView', () => {
   const renderEmojiSpy = jest.fn();
   let providerFactory: ProviderFactory;
   const emojiProvider = getTestEmojiResource();
-  ((ResourcedEmoji as unknown) as jest.Mock).mockImplementation(() => {
+  (ResourcedEmoji as unknown as jest.Mock).mockImplementation(() => {
     return {
       render: renderEmojiSpy,
     };
@@ -245,9 +245,11 @@ describe('Panel - NodeView', () => {
     it('renders panel icon as NOT content-editable element', () => {
       const { panelElement } = setupEditor(true, true, testDocWithPanel);
       expect(
-        (panelElement.querySelector(
-          `.${PanelSharedCssClassName.icon}`,
-        ) as HTMLElement).contentEditable,
+        (
+          panelElement.querySelector(
+            `.${PanelSharedCssClassName.icon}`,
+          ) as HTMLElement
+        ).contentEditable,
       ).toEqual('false');
     });
   });

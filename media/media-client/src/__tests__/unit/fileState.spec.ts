@@ -138,22 +138,22 @@ describe('isImageRepresentationReady()', () => {
 describe('isPreviewableFileState()', () => {
   it('should return true if the input has defined preview attribute', () => {
     expect(
-      isPreviewableFileState(({
+      isPreviewableFileState({
         preview: 'some-preview',
-      } as unknown) as FileState),
+      } as unknown as FileState),
     ).toBe(true);
   });
 
   it('should return false if the input has nullish preview attribute', () => {
     expect(
-      isPreviewableFileState(({
+      isPreviewableFileState({
         preview: undefined,
-      } as unknown) as FileState),
+      } as unknown as FileState),
     );
     expect(
-      isPreviewableFileState(({
+      isPreviewableFileState({
         preview: null,
-      } as unknown) as FileState),
+      } as unknown as FileState),
     ).toBe(false);
   });
 });

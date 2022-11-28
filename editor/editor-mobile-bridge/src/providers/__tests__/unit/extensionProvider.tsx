@@ -19,7 +19,9 @@ function mockCreatePromiseResolveValue(resolve: any) {
 }
 
 describe('createExtensionProvider', () => {
-  let createPromise: jest.MockedFunction<typeof crossPlatformPromise.createPromise>;
+  let createPromise: jest.MockedFunction<
+    typeof crossPlatformPromise.createPromise
+  >;
 
   beforeEach(() => {
     ({ createPromise } = require('../../../cross-platform-promise'));

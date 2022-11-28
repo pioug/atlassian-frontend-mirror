@@ -90,98 +90,93 @@ export const isMediaNode = (pos: number, state: EditorState) => {
   return node && ['media', 'mediaInline'].includes(node.type.name);
 };
 
-export const updateAllMediaNodesAttrs = (
-  id: string,
-  attrs: object,
-  isMediaSingle: boolean,
-): Command => (state, dispatch) => {
-  const mediaPluginState: MediaPluginState = mediaPluginKey.getState(state);
+export const updateAllMediaNodesAttrs =
+  (id: string, attrs: object, isMediaSingle: boolean): Command =>
+  (state, dispatch) => {
+    const mediaPluginState: MediaPluginState = mediaPluginKey.getState(state);
 
-  let mediaNodes: MediaNodeWithPosHandler[];
-  if (isMediaSingle) {
-    mediaNodes = findAllMediaSingleNodes(mediaPluginState, id);
-  } else {
-    const mediaGroupNode = findMediaNode(mediaPluginState, id, isMediaSingle);
-    mediaNodes = mediaGroupNode ? [mediaGroupNode] : [];
-  }
+    let mediaNodes: MediaNodeWithPosHandler[];
+    if (isMediaSingle) {
+      mediaNodes = findAllMediaSingleNodes(mediaPluginState, id);
+    } else {
+      const mediaGroupNode = findMediaNode(mediaPluginState, id, isMediaSingle);
+      mediaNodes = mediaGroupNode ? [mediaGroupNode] : [];
+    }
 
-  const validMediaNodePositions: number[] = mediaNodes.reduce<number[]>(
-    (acc, { getPos }) => {
-      const pos = getPos();
-      if (typeof pos === 'number' && !isMediaNode(pos, state)) {
+    const validMediaNodePositions: number[] = mediaNodes.reduce<number[]>(
+      (acc, { getPos }) => {
+        const pos = getPos();
+        if (typeof pos === 'number' && !isMediaNode(pos, state)) {
+          return acc;
+        }
+
+        acc.push(pos);
         return acc;
-      }
+      },
+      [],
+    );
 
-      acc.push(pos);
-      return acc;
-    },
-    [],
-  );
+    if (validMediaNodePositions.length === 0) {
+      return false;
+    }
 
-  if (validMediaNodePositions.length === 0) {
-    return false;
-  }
+    const tr = state.tr;
+    validMediaNodePositions.forEach((pos) =>
+      tr.step(new SetAttrsStep(pos, attrs)),
+    );
 
-  const tr = state.tr;
-  validMediaNodePositions.forEach((pos) =>
-    tr.step(new SetAttrsStep(pos, attrs)),
-  );
+    tr.setMeta('addToHistory', false);
 
-  tr.setMeta('addToHistory', false);
+    if (dispatch) {
+      dispatch(tr);
+    }
+    return true;
+  };
+export const updateMediaNodeAttrs =
+  (id: string, attrs: object, isMediaSingle: boolean): Command =>
+  (state, dispatch) => {
+    const mediaPluginState: MediaPluginState = mediaPluginKey.getState(state);
 
-  if (dispatch) {
-    dispatch(tr);
-  }
-  return true;
-};
-export const updateMediaNodeAttrs = (
-  id: string,
-  attrs: object,
-  isMediaSingle: boolean,
-): Command => (state, dispatch) => {
-  const mediaPluginState: MediaPluginState = mediaPluginKey.getState(state);
+    const mediaNodeWithPos = findMediaNode(mediaPluginState, id, isMediaSingle);
 
-  const mediaNodeWithPos = findMediaNode(mediaPluginState, id, isMediaSingle);
+    if (!mediaNodeWithPos) {
+      return false;
+    }
 
-  if (!mediaNodeWithPos) {
-    return false;
-  }
+    const tr = state.tr;
+    const pos = mediaNodeWithPos.getPos();
 
-  const tr = state.tr;
-  const pos = mediaNodeWithPos.getPos();
+    if (!isMediaNode(pos, state)) {
+      return false;
+    }
 
-  if (!isMediaNode(pos, state)) {
-    return false;
-  }
+    tr.step(new SetAttrsStep(pos, attrs)).setMeta('addToHistory', false);
+    if (dispatch) {
+      dispatch(tr);
+    }
+    return true;
+  };
 
-  tr.step(new SetAttrsStep(pos, attrs)).setMeta('addToHistory', false);
-  if (dispatch) {
-    dispatch(tr);
-  }
-  return true;
-};
+export const replaceExternalMedia =
+  (pos: number, attrs: object): Command =>
+  (state, dispatch) => {
+    const tr = state.tr;
 
-export const replaceExternalMedia = (pos: number, attrs: object): Command => (
-  state,
-  dispatch,
-) => {
-  const tr = state.tr;
+    const node = tr.doc.nodeAt(pos);
+    if (!node || node.type.name !== 'media') {
+      return false;
+    }
 
-  const node = tr.doc.nodeAt(pos);
-  if (!node || node.type.name !== 'media') {
-    return false;
-  }
+    tr.step(
+      new SetAttrsStep(pos, {
+        type: 'file',
+        url: null,
+        ...attrs,
+      }),
+    ).setMeta('addToHistory', false);
 
-  tr.step(
-    new SetAttrsStep(pos, {
-      type: 'file',
-      url: null,
-      ...attrs,
-    }),
-  ).setMeta('addToHistory', false);
-
-  if (dispatch) {
-    dispatch(tr);
-  }
-  return true;
-};
+    if (dispatch) {
+      dispatch(tr);
+    }
+    return true;
+  };

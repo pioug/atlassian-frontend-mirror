@@ -90,13 +90,8 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       loading,
       forceSyncDisplay,
     } = this.props;
-    const {
-      parentWidth,
-      parentHeight,
-      imgWidth,
-      imgHeight,
-      isImageLoaded,
-    } = this.state;
+    const { parentWidth, parentHeight, imgWidth, imgHeight, isImageLoaded } =
+      this.state;
 
     const parentRatio = parentWidth / parentHeight;
     let imgRatio = imgWidth / imgHeight;

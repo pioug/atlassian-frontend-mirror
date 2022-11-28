@@ -13,10 +13,9 @@ import * as blockCardAdf from './_fixtures_/block-card.adf.json';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// Please unskip Firefox as part of https://product-fabric.atlassian.net/browse/ED-16150
 BrowserTestCase(
   'card: copy paste of link should work as expected in editor',
-  { skip: ['firefox'] },
+  {},
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -39,12 +38,15 @@ BrowserTestCase(
     await page.copy();
     // Type some text.
     await page.keys(['ArrowRight']);
-    await page.type(editable, '\nhave another one\n');
+    await page.keys(['Enter']);
+    await page.type(editable, 'have another one');
+    await page.keys(['Enter']);
     // Paste into same session - there should be two now.
     await page.paste();
     // Type some more text.
     await page.keys(['ArrowRight']);
-    await page.type(editable, '\nnow you have two!');
+    await page.keys(['Enter']);
+    await page.type(editable, 'now you have two!');
 
     expect(
       await page.$eval(editable, getDocFromElement),

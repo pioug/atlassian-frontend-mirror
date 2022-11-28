@@ -84,8 +84,11 @@ describe('extractProviderIcon', () => {
       ['JsonLd.Primitives.Image (string)', jsonldImage],
       ['JsonLd.Primitives.Image (LinkModel)', jsonldImageLinkModel],
     ])('returns icon url from %s', (_, icon) => {
-      const { icon: actualIcon, label, url } =
-        extractProviderIcon(getData({ icon })) || {};
+      const {
+        icon: actualIcon,
+        label,
+        url,
+      } = extractProviderIcon(getData({ icon })) || {};
 
       expect(actualIcon).toBeUndefined();
       expect(label).toBeUndefined();

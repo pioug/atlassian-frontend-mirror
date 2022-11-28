@@ -7,13 +7,14 @@ type AEP<
   Attributes,
   NonPrivacySafeAttributes,
   EventType,
-  ImplicitAttributes extends {} = {}
+  ImplicitAttributes extends {} = {},
 > = {
   action: Action;
   actionSubject: ActionSubject;
   actionSubjectId?: ActionSubjectID;
-  attributes?: Attributes &
-    { [key in keyof ImplicitAttributes]?: ImplicitAttributes[key] };
+  attributes?: Attributes & {
+    [key in keyof ImplicitAttributes]?: ImplicitAttributes[key];
+  };
   eventType: EventType;
   nonPrivacySafeAttributes?: NonPrivacySafeAttributes;
 };
@@ -23,7 +24,7 @@ export type UIAEP<
   ActionSubject,
   ActionSubjectID,
   Attributes,
-  NonPrivacySafeAttributes
+  NonPrivacySafeAttributes,
 > = AEP<
   Action,
   ActionSubject,
@@ -39,7 +40,7 @@ export type TrackAEP<
   ActionSubjectID,
   Attributes,
   NonPrivacySafeAttributes,
-  ImplicitAttributes extends {} = {}
+  ImplicitAttributes extends {} = {},
 > = AEP<
   Action,
   ActionSubject,
@@ -55,7 +56,7 @@ export type OperationalAEP<
   ActionSubject,
   ActionSubjectID,
   Attributes,
-  NonPrivacySafeAttributes
+  NonPrivacySafeAttributes,
 > = AEP<
   Action,
   ActionSubject,
@@ -69,7 +70,7 @@ export type OperationalExposureAEP<
   Action,
   ActionSubject,
   ActionSubjectID,
-  Attributes
+  Attributes,
 > = OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes, {}> & {
   source?: string;
   tags?: string[];
@@ -80,7 +81,7 @@ export type OperationalAEPWithObjectId<
   ActionSubject,
   ActionSubjectID,
   Attributes,
-  NonPrivacySafeAttributes
+  NonPrivacySafeAttributes,
 > = OperationalAEP<
   Action,
   ActionSubject,
@@ -94,7 +95,7 @@ export type ScreenAEP<
   ActionSubject,
   ActionSubjectID,
   Attributes,
-  NonPrivacySafeAttributes
+  NonPrivacySafeAttributes,
 > = AEP<
   Action,
   ActionSubject,
@@ -136,15 +137,12 @@ interface NonRequiredAttributes {
   selectionPosition?: SELECTION_POSITION;
 }
 
-export type InsertAEP<
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes
-> = TrackAEP<
-  ACTION.INSERTED,
-  ACTION_SUBJECT.DOCUMENT,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-  NonRequiredAttributes
->;
+export type InsertAEP<ActionSubjectID, Attributes, NonPrivacySafeAttributes> =
+  TrackAEP<
+    ACTION.INSERTED,
+    ACTION_SUBJECT.DOCUMENT,
+    ActionSubjectID,
+    Attributes,
+    NonPrivacySafeAttributes,
+    NonRequiredAttributes
+  >;

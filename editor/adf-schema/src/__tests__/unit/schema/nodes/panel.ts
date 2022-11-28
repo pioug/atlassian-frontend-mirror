@@ -77,8 +77,7 @@ describe(`${packageName}/schema panel node `, () => {
       },
       {
         subject: 'icon and color',
-        html:
-          '<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33" data-panel-icon-id="1f603" data-panel-icon-text="😃"><p>testing</p></div>',
+        html: '<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33" data-panel-icon-id="1f603" data-panel-icon-text="😃"><p>testing</p></div>',
         expected: {
           panelType: 'custom',
           panelColor: '#33FF33',
@@ -129,8 +128,7 @@ describe(`${packageName}/schema panel node `, () => {
       },
       {
         subject: 'icon and color',
-        html:
-          '<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33"><p>testing</p></div>',
+        html: '<div data-panel-type="custom" data-panel-icon=":smiley:" data-panel-color="#33FF33"><p>testing</p></div>',
         expected: {
           panelType: 'info',
           panelColor: null,

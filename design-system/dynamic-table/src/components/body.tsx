@@ -16,13 +16,8 @@ interface BodyProps extends WithSortedPageRowsProps {
 
 class Body extends React.Component<BodyProps, {}> {
   render() {
-    const {
-      pageRows,
-      head,
-      isFixedSize,
-      highlightedRowIndex,
-      testId,
-    } = this.props;
+    const { pageRows, head, isFixedSize, highlightedRowIndex, testId } =
+      this.props;
 
     return (
       <tbody data-testid={testId && `${testId}--body`}>

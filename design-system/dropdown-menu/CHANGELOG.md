@@ -4,6 +4,12 @@
 
 ### Patch Changes
 
+- [`ab6ea02a97e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab6ea02a97e) - Align internal implementation with current linting rules. There should be no change for consumers.
+
+## 11.5.4
+
+### Patch Changes
+
 - [`a5fa14318a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5fa14318a8) - Improve examples and visual regression test coverage.
 
 ## 11.5.3

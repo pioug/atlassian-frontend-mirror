@@ -238,25 +238,26 @@ export class Channel extends Emitter<ChannelEvent> {
 
   async fetchCatchup(fromVersion: number): Promise<CatchupResponse> {
     try {
-      const { doc, version, stepMaps, metadata } = await utils.requestService<
-        any
-      >(this.config, {
-        path: `document/${encodeURIComponent(this.config.documentAri)}/catchup`,
-        queryParams: {
-          version: fromVersion,
-        },
-        requestInit: {
-          headers: {
-            ...(this.config.permissionTokenRefresh
-              ? {
-                  'x-token': await this.config.permissionTokenRefresh(),
-                }
-              : {}),
-            'x-product': getProduct(this.config.productInfo),
-            'x-subproduct': getSubProduct(this.config.productInfo),
+      const { doc, version, stepMaps, metadata } =
+        await utils.requestService<any>(this.config, {
+          path: `document/${encodeURIComponent(
+            this.config.documentAri,
+          )}/catchup`,
+          queryParams: {
+            version: fromVersion,
           },
-        },
-      });
+          requestInit: {
+            headers: {
+              ...(this.config.permissionTokenRefresh
+                ? {
+                    'x-token': await this.config.permissionTokenRefresh(),
+                  }
+                : {}),
+              'x-product': getProduct(this.config.productInfo),
+              'x-subproduct': getSubProduct(this.config.productInfo),
+            },
+          },
+        });
       return {
         doc,
         version,

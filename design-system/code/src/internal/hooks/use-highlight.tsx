@@ -8,12 +8,14 @@ const getLineStyleObject = (
   lineNumber: number,
   testId?: string,
 ): HTMLProps<HTMLElement> => {
-  return (testId
-    ? {
-        'data-testid': `${testId}-line-${lineNumber}`,
-        ...DEFAULT_LINE_EL_ATTR_OBJ,
-      }
-    : DEFAULT_LINE_EL_ATTR_OBJ) as HTMLProps<HTMLElement>;
+  return (
+    testId
+      ? {
+          'data-testid': `${testId}-line-${lineNumber}`,
+          ...DEFAULT_LINE_EL_ATTR_OBJ,
+        }
+      : DEFAULT_LINE_EL_ATTR_OBJ
+  ) as HTMLProps<HTMLElement>;
 };
 
 export const useHighlightLines = ({

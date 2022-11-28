@@ -15,10 +15,10 @@ export default function useLocale({
   const l10n = useMemo(() => createLocalizationProvider(locale), [locale]);
 
   const monthsLong = useMemo(() => l10n.getMonthsLong(), [l10n]);
-  const daysShort = useMemo(() => l10n.getDaysShort(weekStartDay), [
-    l10n,
-    weekStartDay,
-  ]);
+  const daysShort = useMemo(
+    () => l10n.getDaysShort(weekStartDay),
+    [l10n, weekStartDay],
+  );
 
   return {
     monthsLong,

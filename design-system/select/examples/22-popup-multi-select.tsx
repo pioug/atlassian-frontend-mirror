@@ -53,12 +53,8 @@ class MultiPopupSelectExample extends Component<{}, State> {
   };
 
   render() {
-    const {
-      placeholder,
-      valuesString,
-      values,
-      controlShouldRenderValue,
-    } = this.state;
+    const { placeholder, valuesString, values, controlShouldRenderValue } =
+      this.state;
     return (
       <div>
         <Checkbox

@@ -51,10 +51,8 @@ export function getVerticalPlacement(
     ? 0
     : boundariesClientRect.top;
 
-  const {
-    top: targetTop,
-    height: targetHeight,
-  } = target.getBoundingClientRect();
+  const { top: targetTop, height: targetHeight } =
+    target.getBoundingClientRect();
   const spaceAbove = targetTop - (boundariesTop - boundariesElement.scrollTop);
   const spaceBelow =
     boundariesTop + boundariesHeight - (targetTop + targetHeight);
@@ -88,14 +86,10 @@ export function getHorizontalPlacement(
     target = target.parentElement!;
   }
 
-  const {
-    left: targetLeft,
-    width: targetWidth,
-  } = target.getBoundingClientRect();
-  const {
-    left: boundariesLeft,
-    width: boundariesWidth,
-  } = boundariesElement.getBoundingClientRect();
+  const { left: targetLeft, width: targetWidth } =
+    target.getBoundingClientRect();
+  const { left: boundariesLeft, width: boundariesWidth } =
+    boundariesElement.getBoundingClientRect();
   const spaceLeft = targetLeft - boundariesLeft + targetWidth;
   const spaceRight = boundariesLeft + boundariesWidth - targetLeft;
   if (alignX && spaceLeft > fitWidth && spaceRight > fitWidth) {

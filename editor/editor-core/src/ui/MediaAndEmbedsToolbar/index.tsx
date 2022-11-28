@@ -98,9 +98,8 @@ const makeAlign = (layout: MediaSingleLayout, nodeType: NodeType): Command => {
       return false;
     }
 
-    const widthPluginState:
-      | WidthPluginState
-      | undefined = widthPluginKey.getState(state);
+    const widthPluginState: WidthPluginState | undefined =
+      widthPluginKey.getState(state);
 
     if (!node || node.type !== nodeType || !widthPluginState) {
       return false;

@@ -79,11 +79,8 @@ export class UploadServiceImpl implements UploadService {
 
     const creationDate = Date.now();
 
-    const {
-      userMediaClient,
-      tenantMediaClient,
-      shouldCopyFileToRecents,
-    } = this;
+    const { userMediaClient, tenantMediaClient, shouldCopyFileToRecents } =
+      this;
     const mediaClient = shouldCopyFileToRecents
       ? tenantMediaClient
       : userMediaClient;

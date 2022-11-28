@@ -9,7 +9,7 @@ const CustomComponent: React.FC<CustomItemComponentProps> = ({
   children,
   ...props
 }) => {
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @repo/internal/react/use-primitives
   return <a {...props}>{children}</a>;
 };
 

@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.1.2
+
+### Patch Changes
+
+- [`47f0e63c935`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f0e63c935) - Internal changes to apply spacing tokens. This should be a no-op change.
+
 ## 21.1.1
 
 ### Patch Changes

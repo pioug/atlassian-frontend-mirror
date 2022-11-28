@@ -76,93 +76,98 @@ function replaceLinksToCards(
   return $pos.node($pos.depth - 1).type.name;
 }
 
-export const replaceQueuedUrlWithCard = (
-  url: string,
-  cardData: CardAdf,
-  analyticsAction?: ACTION,
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
-): Command => (editorState, dispatch) => {
-  const state = pluginKey.getState(editorState) as CardPluginState | undefined;
-  if (!state) {
-    return false;
-  }
+export const replaceQueuedUrlWithCard =
+  (
+    url: string,
+    cardData: CardAdf,
+    analyticsAction?: ACTION,
+    createAnalyticsEvent?: CreateUIAnalyticsEvent,
+  ): Command =>
+  (editorState, dispatch) => {
+    const state = pluginKey.getState(editorState) as
+      | CardPluginState
+      | undefined;
+    if (!state) {
+      return false;
+    }
 
-  // find the requests for this URL
-  const requests = state.requests.filter((req) => req.url === url);
+    // find the requests for this URL
+    const requests = state.requests.filter((req) => req.url === url);
 
-  // try to transform response to ADF
-  const schema: Schema = editorState.schema;
-  const cardAdf = processRawValue(schema, cardData);
+    // try to transform response to ADF
+    const schema: Schema = editorState.schema;
+    const cardAdf = processRawValue(schema, cardData);
 
-  let tr = editorState.tr;
+    let tr = editorState.tr;
 
-  if (cardAdf) {
-    // Should prevent any other node than cards? [inlineCard, blockCard].includes(cardAdf.type)
-    const nodeContexts: Array<string | undefined> = requests
-      .map((request) => replaceLinksToCards(tr, cardAdf, schema, request))
-      .filter((context) => !!context); // context exist
+    if (cardAdf) {
+      // Should prevent any other node than cards? [inlineCard, blockCard].includes(cardAdf.type)
+      const nodeContexts: Array<string | undefined> = requests
+        .map((request) => replaceLinksToCards(tr, cardAdf, schema, request))
+        .filter((context) => !!context); // context exist
 
-    // Send analytics information
-    if (nodeContexts.length) {
-      const nodeContext = nodeContexts.every(
-        (context) => context === nodeContexts[0],
-      )
-        ? nodeContexts[0]
-        : 'mixed';
+      // Send analytics information
+      if (nodeContexts.length) {
+        const nodeContext = nodeContexts.every(
+          (context) => context === nodeContexts[0],
+        )
+          ? nodeContexts[0]
+          : 'mixed';
 
-      /** For block links v1, default to inline links */
-      const nodeType = 'inlineCard';
-      const [, , domainName] = url.split('/');
+        /** For block links v1, default to inline links */
+        const nodeType = 'inlineCard';
+        const [, , domainName] = url.split('/');
 
-      if (state.smartLinkEvents) {
-        state.smartLinkEvents.insertSmartLink(
-          domainName,
-          'inline',
-          state.createAnalyticsEvent,
-        );
-      }
-      addAnalytics(editorState, tr, {
-        action: (analyticsAction as any) || ACTION.INSERTED,
-        actionSubject: ACTION_SUBJECT.DOCUMENT,
-        actionSubjectId: ACTION_SUBJECT_ID.SMART_LINK,
-        eventType: EVENT_TYPE.TRACK,
-        attributes: {
-          inputMethod:
-            requests[0]
-              .source /* TODO: what if each request has a different source?
+        if (state.smartLinkEvents) {
+          state.smartLinkEvents.insertSmartLink(
+            domainName,
+            'inline',
+            state.createAnalyticsEvent,
+          );
+        }
+        addAnalytics(editorState, tr, {
+          action: (analyticsAction as any) || ACTION.INSERTED,
+          actionSubject: ACTION_SUBJECT.DOCUMENT,
+          actionSubjectId: ACTION_SUBJECT_ID.SMART_LINK,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            inputMethod:
+              requests[0]
+                .source /* TODO: what if each request has a different source?
                          unlikely, but need to define behaviour.
 
                          ignore analytics event? take first? provide 'mixed' as well?*/,
-          nodeType,
-          nodeContext: nodeContext as SmartLinkNodeContext,
-          domainName,
-          fromCurrentDomain: isFromCurrentDomain(url),
-        },
-      });
+            nodeType,
+            nodeContext: nodeContext as SmartLinkNodeContext,
+            domainName,
+            fromCurrentDomain: isFromCurrentDomain(url),
+          },
+        });
+      }
     }
-  }
 
-  if (dispatch) {
-    dispatch(resolveCard(url)(closeHistory(tr)));
-  }
-  return true;
-};
+    if (dispatch) {
+      dispatch(resolveCard(url)(closeHistory(tr)));
+    }
+    return true;
+  };
 
-export const handleFallbackWithAnalytics = (
-  url: string,
-  source: InputMethodInsertLink,
-): Command => (editorState, dispatch) => {
-  const state = pluginKey.getState(editorState) as CardPluginState | undefined;
-  if (!state) {
-    return false;
-  }
-  const tr = editorState.tr;
-  addAnalytics(editorState, tr, getLinkCreationAnalyticsEvent(source, url));
-  if (dispatch) {
-    dispatch(resolveCard(url)(tr));
-  }
-  return true;
-};
+export const handleFallbackWithAnalytics =
+  (url: string, source: InputMethodInsertLink): Command =>
+  (editorState, dispatch) => {
+    const state = pluginKey.getState(editorState) as
+      | CardPluginState
+      | undefined;
+    if (!state) {
+      return false;
+    }
+    const tr = editorState.tr;
+    addAnalytics(editorState, tr, getLinkCreationAnalyticsEvent(source, url));
+    if (dispatch) {
+      dispatch(resolveCard(url)(tr));
+    }
+    return true;
+  };
 
 export const queueCardsFromChangedTr = (
   state: EditorState,
@@ -234,93 +239,99 @@ export const convertHyperlinkToSmartCard = (
   return queueCards(requests)(state.tr);
 };
 
-export const changeSelectedCardToLink = (
-  text?: string,
-  href?: string,
-  sendAnalytics?: boolean,
-  node?: Node,
-  pos?: number,
-): Command => (state, dispatch) => {
-  let tr;
-  if (node && pos) {
-    tr = cardNodeToLinkWithTransaction(state, text, href, node, pos);
-  } else {
-    tr = cardToLinkWithTransaction(state, text, href);
-  }
-  const selectedNode =
-    state.selection instanceof NodeSelection && state.selection.node;
+export const changeSelectedCardToLink =
+  (
+    text?: string,
+    href?: string,
+    sendAnalytics?: boolean,
+    node?: Node,
+    pos?: number,
+  ): Command =>
+  (state, dispatch) => {
+    let tr;
+    if (node && pos) {
+      tr = cardNodeToLinkWithTransaction(state, text, href, node, pos);
+    } else {
+      tr = cardToLinkWithTransaction(state, text, href);
+    }
+    const selectedNode =
+      state.selection instanceof NodeSelection && state.selection.node;
 
-  if (sendAnalytics) {
-    if (selectedNode) {
-      const { viewChangingExperimentToolbarStyle } = getFeatureFlags(state);
+    if (sendAnalytics) {
+      if (selectedNode) {
+        const { viewChangingExperimentToolbarStyle } = getFeatureFlags(state);
+        addAnalytics(state, tr, {
+          action: ACTION.CHANGED_TYPE,
+          actionSubject: ACTION_SUBJECT.SMART_LINK,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            newType: SMART_LINK_TYPE.URL,
+            previousType: appearanceForNodeType(selectedNode.type),
+            featureFlag: viewChangingExperimentToolbarStyle || 'noChange',
+          },
+        } as AnalyticsEventPayload);
+      }
+    }
+
+    if (dispatch) {
+      dispatch(tr.scrollIntoView());
+    }
+
+    return true;
+  };
+
+export const changeSelectedCardToLinkFallback =
+  (
+    text?: string,
+    href?: string,
+    sendAnalytics?: boolean,
+    node?: Node,
+    pos?: number,
+  ): Command =>
+  (state, dispatch) => {
+    let tr;
+    if (node && pos) {
+      tr = cardNodeToLinkWithTransaction(state, text, href, node, pos);
+    } else {
+      tr = cardToLinkWithTransaction(state, text, href);
+    }
+    if (sendAnalytics) {
       addAnalytics(state, tr, {
-        action: ACTION.CHANGED_TYPE,
+        action: ACTION.ERRORED,
         actionSubject: ACTION_SUBJECT.SMART_LINK,
-        eventType: EVENT_TYPE.TRACK,
+        eventType: EVENT_TYPE.OPERATIONAL,
         attributes: {
-          newType: SMART_LINK_TYPE.URL,
-          previousType: appearanceForNodeType(selectedNode.type),
-          featureFlag: viewChangingExperimentToolbarStyle || 'noChange',
+          error: 'Smart card falling back to link.',
         },
       } as AnalyticsEventPayload);
     }
-  }
 
-  if (dispatch) {
-    dispatch(tr.scrollIntoView());
-  }
+    if (dispatch) {
+      dispatch(tr.scrollIntoView());
+    }
 
-  return true;
-};
+    return true;
+  };
 
-export const changeSelectedCardToLinkFallback = (
-  text?: string,
-  href?: string,
-  sendAnalytics?: boolean,
-  node?: Node,
-  pos?: number,
-): Command => (state, dispatch) => {
-  let tr;
-  if (node && pos) {
-    tr = cardNodeToLinkWithTransaction(state, text, href, node, pos);
-  } else {
-    tr = cardToLinkWithTransaction(state, text, href);
-  }
-  if (sendAnalytics) {
-    addAnalytics(state, tr, {
-      action: ACTION.ERRORED,
-      actionSubject: ACTION_SUBJECT.SMART_LINK,
-      eventType: EVENT_TYPE.OPERATIONAL,
-      attributes: {
-        error: 'Smart card falling back to link.',
-      },
-    } as AnalyticsEventPayload);
-  }
+export const updateCard =
+  (href: string): Command =>
+  (state, dispatch) => {
+    const selectedNode =
+      state.selection instanceof NodeSelection && state.selection.node;
+    if (!selectedNode) {
+      return false;
+    }
 
-  if (dispatch) {
-    dispatch(tr.scrollIntoView());
-  }
+    const tr = cardToLinkWithTransaction(state, href, href);
 
-  return true;
-};
+    queueCardsFromChangedTr(state, tr, INPUT_METHOD.MANUAL);
 
-export const updateCard = (href: string): Command => (state, dispatch) => {
-  const selectedNode =
-    state.selection instanceof NodeSelection && state.selection.node;
-  if (!selectedNode) {
-    return false;
-  }
+    if (dispatch) {
+      dispatch(tr.scrollIntoView());
+    }
 
-  const tr = cardToLinkWithTransaction(state, href, href);
-
-  queueCardsFromChangedTr(state, tr, INPUT_METHOD.MANUAL);
-
-  if (dispatch) {
-    dispatch(tr.scrollIntoView());
-  }
-
-  return true;
-};
+    return true;
+  };
 
 function cardToLinkWithTransaction(
   state: EditorState<any>,
@@ -357,30 +368,29 @@ function cardNodeToLinkWithTransaction(
   );
 }
 
-export const changeSelectedCardToText = (text: string): Command => (
-  state,
-  dispatch,
-) => {
-  const selectedNode =
-    state.selection instanceof NodeSelection && state.selection.node;
-  if (!selectedNode) {
-    return false;
-  }
+export const changeSelectedCardToText =
+  (text: string): Command =>
+  (state, dispatch) => {
+    const selectedNode =
+      state.selection instanceof NodeSelection && state.selection.node;
+    if (!selectedNode) {
+      return false;
+    }
 
-  const tr = state.tr.replaceSelectionWith(state.schema.text(text), false);
+    const tr = state.tr.replaceSelectionWith(state.schema.text(text), false);
 
-  if (dispatch) {
-    dispatch(
-      addAnalytics(
-        state,
-        tr.scrollIntoView(),
-        unlinkPayload(ACTION_SUBJECT_ID.CARD_INLINE) as UnlinkToolbarAEP,
-      ),
-    );
-  }
+    if (dispatch) {
+      dispatch(
+        addAnalytics(
+          state,
+          tr.scrollIntoView(),
+          unlinkPayload(ACTION_SUBJECT_ID.CARD_INLINE) as UnlinkToolbarAEP,
+        ),
+      );
+    }
 
-  return true;
-};
+    return true;
+  };
 
 export const setSelectedCardAppearance: (
   appearance: CardAppearance,

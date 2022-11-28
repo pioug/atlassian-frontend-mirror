@@ -92,8 +92,7 @@ describe.skip('WikiMarkup Transformer', () => {
       doc(
         p(
           link({
-            href:
-              'http://localhost:8080/manager/install?path=\\\\[path]&war=file:///path/to/directory',
+            href: 'http://localhost:8080/manager/install?path=\\\\[path]&war=file:///path/to/directory',
           })(
             'http://localhost:8080/manager/install?path=\\\\[path]&war=file:///path/to/directory',
           ),
@@ -112,8 +111,7 @@ describe.skip('WikiMarkup Transformer', () => {
       doc(
         p(
           link({
-            href:
-              'http://atlassian.com/software/DownloadSoftware.action?name=confluence',
+            href: 'http://atlassian.com/software/DownloadSoftware.action?name=confluence',
           })(
             'http://atlassian.com/software/DownloadSoftware.action?name=confluence',
           ),

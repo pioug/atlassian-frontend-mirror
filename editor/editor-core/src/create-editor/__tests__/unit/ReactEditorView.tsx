@@ -1336,8 +1336,10 @@ describe('@atlaskit/editor-core', () => {
               performanceTracking: {
                 proseMirrorRenderedTracking: {
                   trackSeverity: true,
-                  severityNormalThreshold: PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-                  severityDegradedThreshold: PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+                  severityNormalThreshold:
+                    PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+                  severityDegradedThreshold:
+                    PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
                 },
               },
             }}

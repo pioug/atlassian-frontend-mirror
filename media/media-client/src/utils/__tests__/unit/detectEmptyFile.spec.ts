@@ -9,9 +9,9 @@ describe('Detect Empty Files', () => {
 
   describe('isEmptyFile()', () => {
     // note: this case is necessary to simulate the real world shape returned from empty file.
-    const emptyFileDetails = ({
+    const emptyFileDetails = {
       createdAt: NOW,
-    } as unknown) as MediaCollectionItemFullDetails;
+    } as unknown as MediaCollectionItemFullDetails;
 
     it('should detect empty file if hours since createdAt greater than tolerance', () => {
       expect(

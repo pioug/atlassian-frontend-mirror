@@ -36,9 +36,8 @@ export const generateSearchproviderMockResults = (
       }),
     );
 
-export const searchProviderMockResults: QuickSearchResult[] = generateSearchproviderMockResults(
-  RECENT_SEARCH_LIST_SIZE,
-);
+export const searchProviderMockResults: QuickSearchResult[] =
+  generateSearchproviderMockResults(RECENT_SEARCH_LIST_SIZE);
 
 export const searchProviderMock = searchProviderFactory(
   searchProviderMockResults,
@@ -59,9 +58,8 @@ export const generateActivityProviderMockResults = (numberOfItems: number) =>
       }),
     );
 
-export const activityProviderMockResults: ActivityItem[] = generateActivityProviderMockResults(
-  RECENT_SEARCH_LIST_SIZE,
-);
+export const activityProviderMockResults: ActivityItem[] =
+  generateActivityProviderMockResults(RECENT_SEARCH_LIST_SIZE);
 
 /**
  * Provides sample data for this suite of tests.

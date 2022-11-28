@@ -192,13 +192,8 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
   }
 
   renderControls() {
-    const {
-      containerWidth,
-      offset,
-      minOffset,
-      maxOffset,
-      children,
-    } = this.state;
+    const { containerWidth, offset, minOffset, maxOffset, children } =
+      this.state;
     return (
       <div>
         <ControlLabel>Offset: </ControlLabel>

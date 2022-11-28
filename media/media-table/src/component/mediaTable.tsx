@@ -111,27 +111,25 @@ export class MediaTable extends Component<
     return cellValues;
   };
 
-  private onDownloadClick = (identifier: FileIdentifier) => (
-    event: React.MouseEvent<HTMLElement>,
-  ) => {
-    const { id, collectionName } = identifier;
-    event.stopPropagation();
-    const { mediaClient } = this.props;
-    const { fileInfoState } = this.state;
-    const nameInfo = fileInfoState.get(id);
-    mediaClient.file.downloadBinary(
-      id,
-      nameInfo ? nameInfo.fileName : '',
-      collectionName,
-    );
-  };
+  private onDownloadClick =
+    (identifier: FileIdentifier) => (event: React.MouseEvent<HTMLElement>) => {
+      const { id, collectionName } = identifier;
+      event.stopPropagation();
+      const { mediaClient } = this.props;
+      const { fileInfoState } = this.state;
+      const nameInfo = fileInfoState.get(id);
+      mediaClient.file.downloadBinary(
+        id,
+        nameInfo ? nameInfo.fileName : '',
+        collectionName,
+      );
+    };
 
-  private onPreviewClick = (identifier: FileIdentifier) => (
-    event: React.MouseEvent<HTMLElement>,
-  ) => {
-    event.stopPropagation();
-    this.openPreview(identifier);
-  };
+  private onPreviewClick =
+    (identifier: FileIdentifier) => (event: React.MouseEvent<HTMLElement>) => {
+      event.stopPropagation();
+      this.openPreview(identifier);
+    };
 
   private onSort = (data: OnSortData) => {
     const { onSort } = this.props;
@@ -185,11 +183,8 @@ export class MediaTable extends Component<
       highlightedRowIndex,
     } = this.props;
 
-    const {
-      validItemsPerPage,
-      validPageNumber,
-      validTotalItems,
-    } = getValidTableProps(items.length, itemsPerPage, pageNumber, totalItems);
+    const { validItemsPerPage, validPageNumber, validTotalItems } =
+      getValidTableProps(items.length, itemsPerPage, pageNumber, totalItems);
 
     const rowsPerPage =
       validTotalItems <= validItemsPerPage ? undefined : validItemsPerPage;
@@ -246,27 +241,24 @@ export class MediaTable extends Component<
     }
   };
 
-  private onRowClick = (
-    identifier: FileIdentifier,
-    data: RowData,
-    index: number,
-  ) => () => {
-    const { createAnalyticsEvent, onRowClick } = this.props;
+  private onRowClick =
+    (identifier: FileIdentifier, data: RowData, index: number) => () => {
+      const { createAnalyticsEvent, onRowClick } = this.props;
 
-    const ev = createAnalyticsEvent({
-      eventType: 'ui',
-      action: 'clicked',
-      actionSubject: 'mediaFile',
-      actionSubjectId: 'mediaFileRow',
-    });
-    ev.fire(ANALYTICS_MEDIA_CHANNEL);
+      const ev = createAnalyticsEvent({
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'mediaFile',
+        actionSubjectId: 'mediaFileRow',
+      });
+      ev.fire(ANALYTICS_MEDIA_CHANNEL);
 
-    const shouldPreventDefaultRowClick = onRowClick?.(data, index);
+      const shouldPreventDefaultRowClick = onRowClick?.(data, index);
 
-    if (!shouldPreventDefaultRowClick) {
-      this.openPreview(identifier);
-    }
-  };
+      if (!shouldPreventDefaultRowClick) {
+        this.openPreview(identifier);
+      }
+    };
 
   private safeSetState = (state: Partial<MediaTableState>) => {
     if (this.hasBeenMounted) {

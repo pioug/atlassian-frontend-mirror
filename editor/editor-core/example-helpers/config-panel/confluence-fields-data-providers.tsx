@@ -5,41 +5,43 @@ import PageIcon from '@atlaskit/icon/glyph/page';
 import PersonIcon from '@atlaskit/icon/glyph/person';
 import { Option, Parameters } from '@atlaskit/editor-common/extensions';
 
-const createCustomFieldResolver = (items: Option[], lazyItems?: Option[]) => (
-  searchTerm?: string,
-  defaultValue?: string[] | string,
-  _parameters?: Parameters,
-): Promise<Option[]> => {
-  const filter = (term?: string | string[], items?: Option[]): Option[] => {
-    if (!Array.isArray(items)) {
-      return [];
-    }
-
-    const filterByTerm = (term?: string): Option[] => {
-      if (!term) {
-        return items;
+const createCustomFieldResolver =
+  (items: Option[], lazyItems?: Option[]) =>
+  (
+    searchTerm?: string,
+    defaultValue?: string[] | string,
+    _parameters?: Parameters,
+  ): Promise<Option[]> => {
+    const filter = (term?: string | string[], items?: Option[]): Option[] => {
+      if (!Array.isArray(items)) {
+        return [];
       }
-      return items.filter(
-        (item) =>
-          item.label.search(new RegExp(term, 'i')) !== -1 ||
-          item.value.search(new RegExp(term, 'i')) !== -1,
-      );
+
+      const filterByTerm = (term?: string): Option[] => {
+        if (!term) {
+          return items;
+        }
+        return items.filter(
+          (item) =>
+            item.label.search(new RegExp(term, 'i')) !== -1 ||
+            item.value.search(new RegExp(term, 'i')) !== -1,
+        );
+      };
+
+      if (Array.isArray(term)) {
+        return ([] as Option[]).concat(...term.map(filterByTerm));
+      }
+      return filterByTerm(term);
     };
 
-    if (Array.isArray(term)) {
-      return ([] as Option[]).concat(...term.map(filterByTerm));
+    if (searchTerm) {
+      return Promise.resolve(filter(searchTerm, items));
     }
-    return filterByTerm(term);
+    if (defaultValue) {
+      return Promise.resolve([...items, ...filter(defaultValue, lazyItems)]);
+    }
+    return Promise.resolve(items);
   };
-
-  if (searchTerm) {
-    return Promise.resolve(filter(searchTerm, items));
-  }
-  if (defaultValue) {
-    return Promise.resolve([...items, ...filter(defaultValue, lazyItems)]);
-  }
-  return Promise.resolve(items);
-};
 
 export const mockFieldResolver = createCustomFieldResolver([
   {

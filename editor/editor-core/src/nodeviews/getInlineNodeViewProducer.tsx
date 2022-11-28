@@ -94,11 +94,8 @@ function createNodeView<ExtraComponentProps>({
     );
   }
 
-  const {
-    samplingRate,
-    slowThreshold,
-    trackingEnabled,
-  } = getPerformanceOptions(nodeViewParams.view);
+  const { samplingRate, slowThreshold, trackingEnabled } =
+    getPerformanceOptions(nodeViewParams.view);
 
   trackingEnabled &&
     startMeasureReactNodeViewRendered({ nodeTypeName: currentNode.type.name });

@@ -160,16 +160,12 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
         return;
       }
       const target: HTMLElement = anchorElement;
-      const {
-        top: targetTop,
-        height: targetHeight,
-      } = target.getBoundingClientRect();
+      const { top: targetTop, height: targetHeight } =
+        target.getBoundingClientRect();
 
       const boundariesElement: HTMLElement = document.body;
-      const {
-        height: boundariesHeight,
-        top: boundariesTop,
-      } = boundariesElement.getBoundingClientRect();
+      const { height: boundariesHeight, top: boundariesTop } =
+        boundariesElement.getBoundingClientRect();
 
       // Calculating the space above and space below our decoration
       const spaceAbove =

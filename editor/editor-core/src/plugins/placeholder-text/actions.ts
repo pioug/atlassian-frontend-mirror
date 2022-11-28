@@ -18,20 +18,19 @@ export const showPlaceholderFloatingToolbar = (
   return true;
 };
 
-export const insertPlaceholderTextAtSelection = (value: string) => (
-  state: EditorState,
-  dispatch: (tr: Transaction) => void,
-): boolean => {
-  dispatch(
-    state.tr
-      .replaceSelectionWith(
-        state.schema.nodes.placeholder.createChecked({ text: value }),
-      )
-      .setMeta(pluginKey, { showInsertPanelAt: null })
-      .scrollIntoView(),
-  );
-  return true;
-};
+export const insertPlaceholderTextAtSelection =
+  (value: string) =>
+  (state: EditorState, dispatch: (tr: Transaction) => void): boolean => {
+    dispatch(
+      state.tr
+        .replaceSelectionWith(
+          state.schema.nodes.placeholder.createChecked({ text: value }),
+        )
+        .setMeta(pluginKey, { showInsertPanelAt: null })
+        .scrollIntoView(),
+    );
+    return true;
+  };
 
 export const hidePlaceholderFloatingToolbar = (
   state: EditorState,

@@ -43,10 +43,8 @@ const TabList = (props: TabListProps) => {
 
   const selectTabByIndex = useCallback(
     (index: number) => {
-      const newSelectedNode:
-        | HTMLElement
-        | undefined
-        | null = ref.current?.querySelector(`[id='${tabsId}-${index}']`);
+      const newSelectedNode: HTMLElement | undefined | null =
+        ref.current?.querySelector(`[id='${tabsId}-${index}']`);
 
       if (newSelectedNode) {
         newSelectedNode.focus();

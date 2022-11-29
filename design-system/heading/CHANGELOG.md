@@ -1,5 +1,16 @@
 # @atlaskit/heading
 
+## 1.0.0
+
+### Major Changes
+
+- [`7d92ed50264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d92ed50264) - [ux] This package is still considered to be in an experimental state and is discouraged for use in production. The major is to simplify consumption and versioning in product.
+
+  Other changes:
+
+  - Introduction of a `HeadingContext` provider to aid with creating the right semantic structure for headings.
+  - Migrated internals to use `@compiled/react` from `@emotion/react`.
+
 ## 0.1.18
 
 ### Patch Changes

@@ -80,6 +80,9 @@ describe('<LoadingItems />', () => {
           onNest: __noop,
           onUnNest: __noop,
           stack: [],
+          childIds: jest
+            .spyOn(React, 'useRef')
+            .mockReturnValue({ current: new Set<string>() }) as any,
         }}
       >
         {markup()}

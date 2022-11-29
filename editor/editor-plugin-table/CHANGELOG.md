@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 0.1.1
+
+### Patch Changes
+
+- [`2ce5df13885`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ce5df13885) - [ux] Prevent cursor selection from being reset when delete button is clicked
+  The fix ensures that when removing a row or column via the delete button, the cursor will stay within the table.
+  Reference https://discuss.prosemirror.net/t/setting-selection-to-newly-inserted-text-node/3615/6
+
 ## 0.1.0
 
 ### Minor Changes

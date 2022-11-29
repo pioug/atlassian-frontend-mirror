@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 1.4.0
+
+### Minor Changes
+
+- [`5c065ba2010`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c065ba2010) - Improve state management to allow detection of invalid stack state. Add prop `onUnknownNest` to allow handling of invalid stack state.
+
 ## 1.3.1
 
 ### Patch Changes

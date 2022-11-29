@@ -7,6 +7,7 @@ import { ExitingPersistence } from '@atlaskit/motion';
 
 import { GoBackItem as GoBackButton } from '../Item';
 import { default as NestingItem } from '../NestingItem';
+import { useChildIds } from '../utils/hooks';
 
 import { NestedContext } from './context';
 import { NestingMotion } from './nesting-motion';
@@ -57,6 +58,12 @@ export interface NestableNavigationContentProps {
   onChange?: (stack: string[]) => void;
 
   /**
+   * Called when a nesting id that does not exist among `<NestingItem>`s is pushed to the stack. Use this callback to be notified when there is an undefined nesting state.
+   * Provides you with the stack which led to the undefined state, with the top of the stack (last item in array) being the invalid item.
+   */
+  onUnknownNest?: (stack: string[]) => void;
+
+  /**
    * Custom overrides for the composed components.
    *
    *   @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
@@ -101,8 +108,15 @@ const nestingRootStyles = css({
  */
 const NestableNavigationContent = (props: NestableNavigationContentProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const { children, testId, overrides, initialStack, onChange, stack } = props;
-
+  const {
+    children,
+    testId,
+    overrides,
+    initialStack,
+    onChange,
+    onUnknownNest,
+    stack,
+  } = props;
   const [committedStack, setCommittedStack] = useState(
     stack || initialStack || [],
   );
@@ -115,10 +129,15 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
       ? overrides.GoBackItem.render
       : (props: {}) => <GoBackButton {...props}>Go back</GoBackButton>;
 
+  const { childIdsRef } = useChildIds(
+    currentStackId,
+    committedStack,
+    onUnknownNest,
+  );
+
   const onNestHandler = useCallback(
     (layerId: string) => {
       onChange && onChange(committedStack.concat(layerId));
-
       if (controlledStack) {
         // We are in controlled mode - ignore the steps.
         return;
@@ -198,13 +217,15 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
       onNest: onNestHandler,
       onUnNest: onUnNestHandler,
       parentId: ROOT_ID,
+      childIds: childIdsRef,
     }),
     [
-      onNestHandler,
-      onUnNestHandler,
+      currentStackId,
       backButton,
       committedStack,
-      currentStackId,
+      onNestHandler,
+      onUnNestHandler,
+      childIdsRef,
     ],
   );
 

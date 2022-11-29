@@ -14,7 +14,7 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate example component correctly', async () => {
-  const [example] = await getExamplesFor('heading');
+  const [example] = await getExamplesFor('@atlaskit/heading');
   const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
 
   const elem = document.createElement('div');

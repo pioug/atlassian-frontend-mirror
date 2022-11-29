@@ -652,7 +652,10 @@ class DatePicker extends Component<DatePickerProps, State> {
 
     const { styles: selectStyles = {} } = selectProps;
     const disabledStyle: CSSProperties = isDisabled
-      ? { pointerEvents: 'none' }
+      ? {
+          pointerEvents: 'none',
+          color: token('color.icon.disabled', 'inherit'),
+        }
       : {};
 
     const calendarProps = {

@@ -9,10 +9,10 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { selectColumns, selectRows } from '@atlaskit/editor-test-helpers/table';
-import { selectTable } from '@atlaskit/editor-tables/utils';
+import { selectTable, getCellsInColumn } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import {
   TablePluginState,
@@ -132,6 +132,34 @@ describe('Floating Delete Button', () => {
       component({ selection: editorView.state.selection, editorView });
 
       expect(screen.getAllByLabelText('Delete row').length).toBe(1);
+    });
+  });
+  describe('when deleting with the delete button', () => {
+    describe('Columns', () => {
+      it('should move cursor within the table after delete', () => {
+        selectColumns([0, 1])(editorView.state, editorView.dispatch);
+        component({ selection: editorView.state.selection, editorView });
+        const { tr } = editorView.state;
+        const { pos } = getCellsInColumn(2)(tr.selection)![2];
+        const lastCellPos = tr.doc.resolve(pos).pos + 1;
+        fireEvent.click(screen.getByLabelText('Delete column'));
+        expect(editorView.state.selection.from).toBeLessThanOrEqual(
+          lastCellPos,
+        );
+      });
+    });
+    describe('Rows', () => {
+      it('should move cursor within the table after delete', () => {
+        selectRows([0, 1])(editorView.state, editorView.dispatch);
+        component({ selection: editorView.state.selection, editorView });
+        const { tr } = editorView.state;
+        const { pos } = getCellsInColumn(2)(tr.selection)![2];
+        const lastCellPos = tr.doc.resolve(pos).pos + 1;
+        fireEvent.click(screen.getByLabelText('Delete row'));
+        expect(editorView.state.selection.from).toBeLessThanOrEqual(
+          lastCellPos,
+        );
+      });
     });
   });
 });

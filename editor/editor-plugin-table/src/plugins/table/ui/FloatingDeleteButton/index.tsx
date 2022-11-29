@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, SyntheticEvent } from 'react';
 
 import { Selection } from 'prosemirror-state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -263,7 +263,8 @@ class FloatingDeleteButton extends Component<Props, State> {
    * @private
    * @memberof FloatingDeleteButton
    */
-  private handleClick = () => {
+  private handleClick = (event: SyntheticEvent) => {
+    event.preventDefault();
     const { editorAnalyticsAPI } = this.props;
     let { state, dispatch } = this.props.editorView;
     const {

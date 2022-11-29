@@ -21,6 +21,7 @@ import {
   NestedContext,
   useNestedContext,
 } from '../NestableNavigationContent/context';
+import { useChildIdsEffect } from '../utils/hooks';
 
 import { nestingItemStyle } from './styles';
 
@@ -160,6 +161,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
     onUnNest,
     backButton: contextualBackButton,
     stack,
+    childIds,
   } = useNestedContext();
 
   const mergedStyles = overrideStyleFunction(nestingItemStyle, cssFn);
@@ -184,9 +186,14 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
       onUnNest,
       backButton,
       parentId: id,
+      childIds,
     }),
+    // childIds shouldn't change as it's a ref
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [onNest, onUnNest, backButton, stack, id, currentStackId],
   );
+
+  useChildIdsEffect(childIds, id);
 
   const isNormalClick = (e: MouseEvent) =>
     !(e.button || e.metaKey || e.altKey || e.ctrlKey || e.shiftKey);

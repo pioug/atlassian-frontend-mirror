@@ -15,6 +15,9 @@ describe('<NestingItem />', () => {
     onUnNest: jest.fn(),
     stack: [],
     parentId: ROOT_ID,
+    childIds: jest
+      .spyOn(React, 'useRef')
+      .mockReturnValue({ current: new Set<string>() }) as any,
   };
 
   it('should render a title string as the button item when closed', () => {

@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.17
+
+### Patch Changes
+
+- [`0d36e8cc329`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d36e8cc329) - Fix release notes implementation in the "Help-with-Algolia" example
+
 ## 7.1.16
 
 ### Patch Changes

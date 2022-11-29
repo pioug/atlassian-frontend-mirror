@@ -22,6 +22,17 @@ const Heading: FC<HeadingProps>;
 export default Heading;
 
 // @public (undocumented)
+interface HeadingContextProps {
+  value?: HeadingElement;
+}
+
+// @public
+export const HeadingContextProvider: FC<HeadingContextProps>;
+
+// @public (undocumented)
+type HeadingElement = 1 | 2 | 3 | 4 | 5 | 6;
+
+// @public (undocumented)
 export type HeadingProps = {
   testId?: string;
   children: ReactNode;

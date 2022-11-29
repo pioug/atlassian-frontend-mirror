@@ -45,18 +45,17 @@ export const useContentPlatformApi = () => {
 
     const graphqlRequest = JSON.stringify({
       query: `
-        query {
-          releaseNotes(${filterValue}${after}${first},orderBy: "rolloutDate") {
+        query getReleaseNotes {
+          releaseNotes(${filterValue}${after}${first},orderBy: "featureRolloutDate") {
             edges {
               releaseNote: node {
-                releaseNoteId
-                fdIssueLink
-                fdIssueKey
-                title
-                description
-                changeStatus {label}
-                changeType {label}
-                featureRolloutDate
+                  title
+                  changeTargetSchedule
+                  changeStatus {label}
+                  changeType {label}
+                  featureRolloutDate
+                  fdIssueLink
+                  releaseNoteId
               }
             }
             pageInfo {

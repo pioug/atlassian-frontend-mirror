@@ -19,6 +19,9 @@ describe('Item', () => {
     onUnNest: jest.fn(),
     stack: [],
     parentId: ROOT_ID,
+    childIds: jest
+      .spyOn(React, 'useRef')
+      .mockReturnValue({ current: new Set<string>() }) as any,
   };
 
   it('should render a ButtonItem when contained in an active nested view', () => {

@@ -1,13 +1,12 @@
 /** @jsx jsx */
 import { FC } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import { N0, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { useHeadingElement } from './heading-context';
 import type { HeadingProps } from './types';
-import { lh } from './utils';
 
 // https://atlassian.design/foundations/typography
 const levelMap = {
@@ -24,57 +23,58 @@ const levelMap = {
 } as const;
 
 const headingResetStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
+  marginTop: token('spacing.scale.0', '0px'),
+  marginBottom: token('spacing.scale.0', '0px'),
+  color: token('color.text', '#172B4D'),
 });
 
 const h900Styles = css({
-  fontSize: 35,
+  fontSize: '35px',
   fontWeight: 500,
   letterSpacing: '-0.01em',
-  lineHeight: lh(35, 40),
+  lineHeight: '40px',
 });
 
 const h800Styles = css({
-  fontSize: 29,
+  fontSize: '29px',
   fontWeight: 600,
   letterSpacing: '-0.01em',
-  lineHeight: lh(29, 32),
+  lineHeight: '32px',
 });
 
 const h700Styles = css({
   fontSize: 24,
   fontWeight: 500,
   letterSpacing: '-0.01em',
-  lineHeight: lh(24, 28),
+  lineHeight: '28px',
 });
 
 const h600Styles = css({
   fontSize: 20,
   fontWeight: 500,
   letterSpacing: '-0.008em',
-  lineHeight: lh(20, 24),
+  lineHeight: '24px',
 });
 
 const h500Styles = css({
   fontSize: 16,
   fontWeight: 600,
   letterSpacing: '-0.006em',
-  lineHeight: lh(16, 20),
+  lineHeight: '20px',
 });
 
 const h400Styles = css({
   fontSize: 14,
   fontWeight: 600,
   letterSpacing: '-0.003em',
-  lineHeight: lh(14, 16),
+  lineHeight: '16px',
 });
 
 const h300Styles = css({
   fontSize: 12,
   fontWeight: 600,
   letterSpacing: 0,
-  lineHeight: lh(12, 16),
+  lineHeight: '16px',
   textTransform: 'uppercase',
 });
 
@@ -82,39 +82,23 @@ const h200Styles = css({
   fontSize: 12,
   fontWeight: 600,
   letterSpacing: 0,
-  lineHeight: lh(12, 16),
+  lineHeight: '16px',
 });
 
 const h100Styles = css({
   fontSize: 11,
   fontWeight: 700,
   letterSpacing: 0,
-  lineHeight: lh(11, 16),
+  lineHeight: '16px',
 });
 
-const styleMap = {
-  h900: h900Styles,
-  h800: h800Styles,
-  h700: h700Styles,
-  h600: h600Styles,
-  h500: h500Styles,
-  h400: h400Styles,
-  h300: h300Styles,
-  h200: h200Styles,
-  h100: h100Styles,
-} as const;
+const inverseStyles = css({
+  color: token('color.text.inverse', '#FFF'),
+});
 
-const colorStyleMap = {
-  default: css({
-    color: token('color.text', N800),
-  }),
-  inverse: css({
-    color: token('color.text.inverse', N0),
-  }),
-  subtlest: css({
-    color: token('color.text.subtlest', N200),
-  }),
-};
+const subtlestStyles = css({
+  color: token('color.text.subtlest', '#6B778C'),
+});
 
 /**
  * __Heading__
@@ -143,19 +127,36 @@ const Heading: FC<HeadingProps> = ({
     throw new Error('`as` prop should be a string.');
   }
 
-  const Markup = as || levelMap[level];
+  const hLevel = useHeadingElement();
+  /**
+   * Order here is important, we for now apply
+   * 1. user choice
+   * 2. inferred a11y level
+   * 3. default final fallback
+   */
+  const Markup = as || (hLevel && `h${hLevel}`) || levelMap[level];
   const isSubtleHeading = level === 'h200' || level === 'h100';
 
   return (
     <Markup
       id={id}
       data-testid={testId}
+      // @ts-ignore
+      // Resolved by https://github.com/atlassian-labs/compiled/pull/1321
       css={[
         headingResetStyles,
-        styleMap[level],
-        color === 'inverse' && colorStyleMap.inverse,
-        color === 'default' && isSubtleHeading && colorStyleMap.subtlest,
-        color === 'default' && !isSubtleHeading && colorStyleMap.default,
+        // This can be refactored when @compiled supports style maps
+        level === 'h100' && h100Styles,
+        level === 'h200' && h200Styles,
+        level === 'h300' && h300Styles,
+        level === 'h400' && h400Styles,
+        level === 'h500' && h500Styles,
+        level === 'h600' && h600Styles,
+        level === 'h700' && h700Styles,
+        level === 'h800' && h800Styles,
+        level === 'h900' && h900Styles,
+        color === 'inverse' && inverseStyles,
+        color === 'default' && isSubtleHeading && subtlestStyles,
       ]}
     >
       {children}

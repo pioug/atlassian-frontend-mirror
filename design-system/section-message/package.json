@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/section-message",
-  "version": "6.3.3",
+  "version": "6.3.4",
   "description": "A section message is used to alert users to a particular section of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
     "@atlaskit/button": "^16.4.0",
     "@atlaskit/codemod-utils": "^4.1.0",
     "@atlaskit/ds-explorations": "^1.2.0",
-    "@atlaskit/heading": "^0.1.13",
+    "@atlaskit/heading": "^1.0.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.10.0",

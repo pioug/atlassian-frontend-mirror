@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.3.1
+
+### Patch Changes
+
+- [`051095c0d82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/051095c0d82) - [ux] Changed the Date Picker controller icon to use `color.icon.disabled` token when in disabled state.
+
 ## 12.3.0
 
 ### Minor Changes

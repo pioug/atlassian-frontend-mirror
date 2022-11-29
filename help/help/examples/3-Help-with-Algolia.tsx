@@ -542,7 +542,7 @@ const Example: React.FC = () => {
                 margin: '0px',
               }}
             >
-              Related Articles
+              Release Notes
             </h2>
             <ButtonsWrapper>
               <ButtonGroup>

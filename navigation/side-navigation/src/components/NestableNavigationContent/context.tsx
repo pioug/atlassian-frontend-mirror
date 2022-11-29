@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, MutableRefObject, useContext } from 'react';
 
 interface NestedContext {
   currentStackId: string;
@@ -7,6 +7,7 @@ interface NestedContext {
   stack: string[];
   parentId: string;
   backButton?: React.ReactNode;
+  childIds: MutableRefObject<Set<string>>;
 }
 
 /**

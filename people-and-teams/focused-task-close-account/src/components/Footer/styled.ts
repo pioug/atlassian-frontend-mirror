@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import gridSizeTimes from '../../util/gridSizeTimes';
 
 export const FooterOuter = styled.div`

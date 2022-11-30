@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.2
 
 ### Patch Changes

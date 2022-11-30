@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.11.1",
+  "version": "21.11.2",
   "description": "An icon is a visual representation of a command, device, directory, or common action.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.2.0",
-    "@atlaskit/tokens": "^0.10.0",
+    "@atlaskit/tokens": "^0.11.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

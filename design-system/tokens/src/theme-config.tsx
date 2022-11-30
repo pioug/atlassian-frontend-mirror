@@ -12,7 +12,8 @@ export type Themes =
   | 'atlassian-dark'
   | 'atlassian-legacy-light'
   | 'atlassian-legacy-dark'
-  | 'atlassian-spacing';
+  | 'atlassian-spacing'
+  | 'atlassian-typography';
 export type ThemeFileNames = Themes;
 
 /**
@@ -41,14 +42,19 @@ export type ThemeIds =
   | 'dark'
   | 'legacy-light'
   | 'legacy-dark'
-  | 'spacing';
+  | 'spacing'
+  | 'typography';
 
 /**
  * Palettes: The set of base tokens a given theme may be populated with.
  * For example: legacy light & dark themes use the "legacyPalette" containing colors from our
  * previous color set.
  */
-export type Palettes = 'defaultPalette' | 'legacyPalette' | 'spacingScale';
+export type Palettes =
+  | 'defaultPalette'
+  | 'legacyPalette'
+  | 'spacingScale'
+  | 'typographyPalette';
 
 /**
  * ThemeConfig: the source of truth for all theme meta-data.
@@ -65,6 +71,9 @@ interface ThemeConfig {
       }
     | {
         type: 'spacing';
+      }
+    | {
+        type: 'typography';
       };
 }
 
@@ -111,6 +120,14 @@ const themeConfig: Record<Themes, ThemeConfig> = {
     palette: 'spacingScale',
     attributes: {
       type: 'spacing',
+    },
+  },
+  'atlassian-typography': {
+    id: 'typography',
+    displayName: 'Atlassian Typography',
+    palette: 'typographyPalette',
+    attributes: {
+      type: 'typography',
     },
   },
 };

@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.7.0
 
 ### Minor Changes

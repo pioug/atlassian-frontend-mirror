@@ -3,7 +3,6 @@ import { Children, cloneElement, FC } from 'react';
 
 import { ClassNames, css, jsx } from '@emotion/react';
 
-import { B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { FocusRingProps } from './types';
@@ -11,16 +10,18 @@ import type { FocusRingProps } from './types';
 const BORDER_WIDTH = 2;
 
 const baseFocusOutsideStyles = css({
-  outline: `${BORDER_WIDTH}px solid ${token('color.border.focused', B100)}`,
+  outline: `${BORDER_WIDTH}px solid ${token(
+    'color.border.focused',
+    '#4C9AFF',
+  )}`,
   outlineOffset: BORDER_WIDTH,
 });
 
 const baseInsetStyles = css({
-  boxShadow: `inset 0px 0px 0px ${BORDER_WIDTH}px ${token(
-    'color.border.focused',
-    B100,
-  )}`,
-  outline: 'none',
+  outlineColor: token('color.border.focused', '#4C9AFF'),
+  outlineOffset: -BORDER_WIDTH,
+  outlineStyle: 'solid',
+  outlineWidth: BORDER_WIDTH,
 });
 
 const focusRingStyles = css({

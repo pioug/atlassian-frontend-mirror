@@ -17,7 +17,7 @@ async function waitForAnnouncementBannerVisible(page: PuppeteerPage) {
 }
 
 describe('@atlaskit/banner visual regression', () => {
-  it.each(['none', 'light', 'dark', 'spacing'] as const)(
+  it.each(['none', 'light', 'dark'] as const)(
     'Announcement banner example should match production example (tokens %s)',
     async (token) => {
       const url = getExampleUrl(
@@ -35,7 +35,7 @@ describe('@atlaskit/banner visual regression', () => {
     },
   );
 
-  it.each(['none', 'light', 'dark', 'spacing'] as const)(
+  it.each(['none', 'light', 'dark'] as const)(
     'basic-usage example should match production example (tokens %s)',
     async (token) => {
       const url = getExampleUrl(

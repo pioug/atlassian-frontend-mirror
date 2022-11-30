@@ -1,7 +1,7 @@
 import type { BaseToken } from '../../../palettes/palette';
 import type { AttributeSchema, SurfaceTokenSchema } from '../../../types';
 
-const shadow: AttributeSchema<SurfaceTokenSchema<BaseToken>> = {
+const surface: AttributeSchema<SurfaceTokenSchema<BaseToken>> = {
   elevation: {
     surface: {
       '[default]': {
@@ -96,4 +96,4 @@ const shadow: AttributeSchema<SurfaceTokenSchema<BaseToken>> = {
   },
 };
 
-export default shadow;
+export default surface;

@@ -1,5 +1,17 @@
 # @atlaskit/focus-ring
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.0
+
+### Minor Changes
+
+- [`71bf011db22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71bf011db22) - Focus ring inset styles are now applied via outline - consistent with offset styles.
+
 ## 1.1.0
 
 ### Minor Changes

@@ -1,10 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * Token names mapped to their value in the default Atlassian themes ('light spacing').
+ * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::ef6186f17dafc7e13af4096ad3cf41bb>>
+ * @codegen <<SignedSource::59114010c9c11270dd28c9a285bed33a>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {

@@ -37,7 +37,11 @@ export const cssVariableFormatter: Format['formatter'] = ({
       tokens.push({ ...token, name: tokenName });
     });
 
-  let output = `html[${THEME_DATA_ATTRIBUTE}~="${theme.id}"] {\n`;
+  let output =
+    theme.attributes.type === 'spacing' ||
+    theme.attributes.type === 'typography'
+      ? `:root {\n`
+      : `html[${THEME_DATA_ATTRIBUTE}~="${theme.id}"] {\n`;
 
   tokens.forEach((token) => {
     output += `  ${token.name}: ${token.value};\n`;

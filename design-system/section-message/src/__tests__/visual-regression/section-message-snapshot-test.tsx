@@ -17,7 +17,7 @@ describe('Snapshot Test', () => {
     jest.resetAllMocks();
   });
 
-  it.each(['light', 'dark', 'none', 'spacing'] as const)(
+  it.each(['light', 'dark', 'none'] as const)(
     'section-message with tokens (%s) should match production example',
     async (theme) => {
       const url = getExampleUrl(

@@ -1,8 +1,6 @@
 // TODO: remove this once ESLint rule has been fixed
 /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
 /** @jsx jsx */
-import { useEffect } from 'react';
-
 import { jsx } from '@emotion/react';
 
 import {
@@ -24,11 +22,6 @@ const ExampleSizeBox = ({ scaleToken }: { scaleToken: CSSToken }) => (
 );
 
 export default () => {
-  useEffect(() => {
-    const element = document.documentElement;
-    element.setAttribute('data-spacing-theme', 'spacing');
-  }, []);
-
   return (
     <div data-testid="spacing">
       <h1>Spacing scale</h1>

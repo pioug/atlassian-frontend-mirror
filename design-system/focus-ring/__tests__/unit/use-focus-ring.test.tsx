@@ -44,14 +44,14 @@ describe('Focus Ring', () => {
 
     expect(focusHook.focusState).toEqual('off');
     act(() => {
-      // @ts-ignore
+      // @ts-expect-error
       focusHook.focusProps.onFocus();
     });
 
     expect(focusHook.focusState).toEqual('on');
 
     act(() => {
-      // @ts-ignore
+      // @ts-expect-error
       focusHook.focusProps.onBlur();
     });
     expect(focusHook.focusState).toEqual('off');

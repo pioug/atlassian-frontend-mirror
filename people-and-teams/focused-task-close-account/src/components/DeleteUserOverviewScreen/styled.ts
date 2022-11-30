@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { B500, B200 } from '@atlaskit/theme/colors';
 import { h700 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';

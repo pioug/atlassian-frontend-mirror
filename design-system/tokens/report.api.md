@@ -18,7 +18,7 @@
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
 // @public (undocumented)
-type CSSTokenMap = CSSTokenMap_2 & CSSTokenMap_3;
+type CSSTokenMap = CSSTokenMap_2 & CSSTokenMap_3 & CSSTokenMap_4;
 
 // @public (undocumented)
 type CSSTokenMap_2 = {
@@ -397,8 +397,36 @@ type CSSTokenMap_3 = {
   'spacing.inset.300': 'var(--ds-inset-300)';
 };
 
+// @public (undocumented)
+type CSSTokenMap_4 = {
+  'font.family.sans': 'var(--ds-font-family-sans)';
+  'font.family.monospace': 'var(--ds-font-family-monospace)';
+  'font.size.100': 'var(--ds-font-size-100)';
+  'font.size.200': 'var(--ds-font-size-200)';
+  'font.size.300': 'var(--ds-font-size-300)';
+  'font.size.400': 'var(--ds-font-size-400)';
+  'font.size.500': 'var(--ds-font-size-500)';
+  'font.size.600': 'var(--ds-font-size-600)';
+  'font.size.050': 'var(--ds-font-size-050)';
+  'font.size.075': 'var(--ds-font-size-075)';
+  'font.weight.regular': 'var(--ds-font-weight-regular)';
+  'font.weight.medium': 'var(--ds-font-weight-medium)';
+  'font.weight.semibold': 'var(--ds-font-weight-semibold)';
+  'font.weight.bold': 'var(--ds-font-weight-bold)';
+  'font.lineHeight.100': 'var(--ds-font-lineHeight-100)';
+  'font.lineHeight.200': 'var(--ds-font-lineHeight-200)';
+  'font.lineHeight.300': 'var(--ds-font-lineHeight-300)';
+  'font.lineHeight.400': 'var(--ds-font-lineHeight-400)';
+  'font.lineHeight.500': 'var(--ds-font-lineHeight-500)';
+  'font.lineHeight.600': 'var(--ds-font-lineHeight-600)';
+};
+
 // @public
-type Palettes = 'defaultPalette' | 'legacyPalette' | 'spacingScale';
+type Palettes =
+  | 'defaultPalette'
+  | 'legacyPalette'
+  | 'spacingScale'
+  | 'typographyPalette';
 
 // @public
 export const setGlobalTheme: (
@@ -419,6 +447,9 @@ interface ThemeConfig {
       }
     | {
         type: 'spacing';
+      }
+    | {
+        type: 'typography';
       };
   // (undocumented)
   displayName: string;
@@ -437,7 +468,8 @@ export type ThemeIds =
   | 'legacy-dark'
   | 'legacy-light'
   | 'light'
-  | 'spacing';
+  | 'spacing'
+  | 'typography';
 
 // @public
 export class ThemeMutationObserver {
@@ -458,7 +490,8 @@ export type Themes =
   | 'atlassian-legacy-dark'
   | 'atlassian-legacy-light'
   | 'atlassian-light'
-  | 'atlassian-spacing';
+  | 'atlassian-spacing'
+  | 'atlassian-typography';
 
 // @public
 export function token<T extends keyof Tokens>(
@@ -471,6 +504,26 @@ type Tokens = typeof tokens;
 
 // @public (undocumented)
 const tokens: {
+  readonly 'font.family.sans': '--ds-font-family-sans';
+  readonly 'font.family.monospace': '--ds-font-family-monospace';
+  readonly 'font.size.100': '--ds-font-size-100';
+  readonly 'font.size.200': '--ds-font-size-200';
+  readonly 'font.size.300': '--ds-font-size-300';
+  readonly 'font.size.400': '--ds-font-size-400';
+  readonly 'font.size.500': '--ds-font-size-500';
+  readonly 'font.size.600': '--ds-font-size-600';
+  readonly 'font.size.050': '--ds-font-size-050';
+  readonly 'font.size.075': '--ds-font-size-075';
+  readonly 'font.weight.regular': '--ds-font-weight-regular';
+  readonly 'font.weight.medium': '--ds-font-weight-medium';
+  readonly 'font.weight.semibold': '--ds-font-weight-semibold';
+  readonly 'font.weight.bold': '--ds-font-weight-bold';
+  readonly 'font.lineHeight.100': '--ds-font-lineHeight-100';
+  readonly 'font.lineHeight.200': '--ds-font-lineHeight-200';
+  readonly 'font.lineHeight.300': '--ds-font-lineHeight-300';
+  readonly 'font.lineHeight.400': '--ds-font-lineHeight-400';
+  readonly 'font.lineHeight.500': '--ds-font-lineHeight-500';
+  readonly 'font.lineHeight.600': '--ds-font-lineHeight-600';
   readonly 'spacing.scale.0': '--ds-scale-0';
   readonly 'spacing.scale.100': '--ds-scale-100';
   readonly 'spacing.scale.150': '--ds-scale-150';

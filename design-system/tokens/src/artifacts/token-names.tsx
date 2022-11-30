@@ -8,14 +8,19 @@ import {
   CSSTokenMap as AtlassianSpacingCSSTokenMap,
   default as atlassianSpacingTokenNames,
 } from './typescript/atlassian-spacing-token-names';
+import {
+  CSSTokenMap as AtlassianTypographyCSSTokenMap,
+  default as atlassianTypographyTokenNames,
+} from './typescript/atlassian-typography-token-names';
 
 const tokens = {
   ...atlassianLightTokenNames,
   ...atlassianSpacingTokenNames,
+  ...atlassianTypographyTokenNames,
 } as const;
 
 export type CSSTokenMap = AtlassianLightCSSTokenMap &
-  AtlassianSpacingCSSTokenMap;
+  AtlassianSpacingCSSTokenMap & AtlassianTypographyCSSTokenMap;
 
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 

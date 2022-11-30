@@ -276,6 +276,14 @@ describe('formatter', () => {
               group: 'scale',
             },
           },
+          {
+            value: '11px',
+            name: 'fontSize.FontSize050',
+            path: ['fontSize', 'FontSize050'],
+            attributes: {
+              group: 'scale',
+            },
+          },
         ],
       },
       options: {
@@ -284,8 +292,9 @@ describe('formatter', () => {
     } as any);
 
     expect(result).toMatchInlineSnapshot(`
-      "html[data-theme~=\\"spacing\\"] {
+      ":root {
         --ds-scale-Space0: 0;
+        --ds-FontSize050: 11px;
       }
       "
     `);

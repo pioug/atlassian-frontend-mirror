@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.7.0
 
 ### Minor Changes

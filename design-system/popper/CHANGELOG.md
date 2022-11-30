@@ -1,5 +1,16 @@
 # @atlaskit/popper
 
+## 5.2.11
+
+### Patch Changes
+
+- [`dc53dc3201b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc53dc3201b) - Add 'productPushConsumption' as a new optional field in package.json.
+
+  _Note_:
+  We want to track the information if the package was moved from the pull into the push model in the product.
+  Hence, we extended the `package.json` file by adding a new field e.g.: "atlassian.productPushConsumption": ["jira"]
+  This field is optional.
+
 ## 5.2.10
 
 ### Patch Changes

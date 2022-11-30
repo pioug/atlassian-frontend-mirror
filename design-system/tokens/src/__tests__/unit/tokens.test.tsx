@@ -74,6 +74,7 @@ describe('tokens', () => {
         (result) =>
           result.isDirectory() &&
           result.name !== 'atlassian-spacing' &&
+          result.name !== 'atlassian-typography' &&
           result.name !== 'default',
       )
       .map((result) => result.name);

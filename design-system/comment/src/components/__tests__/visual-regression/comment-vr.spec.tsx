@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 describe('@atlaskit/comment', () => {
-  it.each(['dark', 'light', 'none', 'spacing'] as const)(
+  it.each(['dark', 'light', 'none'] as const)(
     'Comment example should match production example (%s)',
     async (mode) => {
       const url = getExampleUrl(

@@ -8,7 +8,7 @@ exports[`isOpen snapshot 1`] = `
     onClose={[MockFunction]}
     width="full"
   >
-    <styled.div>
+    <Styled(div)>
       a
       <Footer
         currentScreenIdx={0}
@@ -37,7 +37,7 @@ exports[`isOpen snapshot 1`] = `
           />
         }
       />
-    </styled.div>
+    </Styled(div)>
   </WithAnalyticsContext(WithAnalyticsEvents(DrawerBase))>
 </injectIntl(MessagesIntlProvider)>
 `;

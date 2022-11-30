@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 1.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.12.1
+
+### Patch Changes
+
+- [`efa366b6ed6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa366b6ed6) - Upgrade json-ld-types from 3.1.0 to 3.2.0
+
 ## 1.12.0
 
 ### Minor Changes

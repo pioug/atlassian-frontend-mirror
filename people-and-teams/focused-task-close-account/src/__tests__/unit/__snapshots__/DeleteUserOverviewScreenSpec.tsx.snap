@@ -2,14 +2,14 @@
 
 exports[`DeleteUserOverviewScreen 1`] = `
 <injectIntl(MessagesIntlProvider)>
-  <styled.div>
-    <styled.div>
+  <Styled(div)>
+    <Styled(div)>
       <MemoizedFormattedMessage
         defaultMessage="Delete account"
         description="Heading for the screen that explains what happens when an admin deletes a user's account"
         id="focused-task-close-account.delete-account.overview.heading.admin"
       />
-    </styled.div>
+    </Styled(div)>
     <MemoizedFormattedMessage
       defaultMessage="You're about to delete the account of:"
       description="First line for the screen when the user is about to delete their own account"
@@ -30,7 +30,7 @@ exports[`DeleteUserOverviewScreen 1`] = `
       description="A paragraph explaining that the admin is about to delete another user"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.admin"
     />
-    <styled.ul>
+    <Styled(ul)>
       <li>
         <MemoizedFormattedMessage
           defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. They currently have access to: "
@@ -67,10 +67,10 @@ exports[`DeleteUserOverviewScreen 1`] = `
             }
           }
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
-              <styled.div>
+              <Styled(div)>
                 <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
@@ -107,7 +107,7 @@ exports[`DeleteUserOverviewScreen 1`] = `
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin"
                   tagName="p"
                 />
-              </styled.div>
+              </Styled(div)>
             }
             placement="auto-start"
           >
@@ -116,7 +116,7 @@ exports[`DeleteUserOverviewScreen 1`] = `
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -124,7 +124,7 @@ exports[`DeleteUserOverviewScreen 1`] = `
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -140,7 +140,7 @@ exports[`DeleteUserOverviewScreen 1`] = `
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -148,7 +148,7 @@ exports[`DeleteUserOverviewScreen 1`] = `
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.admin"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -164,10 +164,10 @@ exports[`DeleteUserOverviewScreen 1`] = `
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
-    </styled.ul>
-    <styled.div>
+    </Styled(ul)>
+    <Styled(div)>
       <SectionMessage
         appearance="warning"
       >
@@ -190,21 +190,21 @@ exports[`DeleteUserOverviewScreen 1`] = `
           </CustomThemeButton>
         </p>
       </SectionMessage>
-    </styled.div>
-  </styled.div>
+    </Styled(div)>
+  </Styled(div)>
 </injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`accessibleSites display text displayed is different when no accessibleSites prop is passed 1`] = `
 <injectIntl(MessagesIntlProvider)>
-  <styled.div>
-    <styled.div>
+  <Styled(div)>
+    <Styled(div)>
       <MemoizedFormattedMessage
         defaultMessage="Delete account"
         description="Heading for the screen that explains what happens when an admin deletes a user's account"
         id="focused-task-close-account.delete-account.overview.heading.admin"
       />
-    </styled.div>
+    </Styled(div)>
     <MemoizedFormattedMessage
       defaultMessage="You're about to delete the account of:"
       description="First line for the screen when the user is about to delete their own account"
@@ -225,7 +225,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
       description="A paragraph explaining that the admin is about to delete another user"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.admin"
     />
-    <styled.ul>
+    <Styled(ul)>
       <li>
         <MemoizedFormattedMessage
           defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. Currently, they don’t have access to any, except services like Community and Marketplace. "
@@ -250,10 +250,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             }
           }
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
-              <styled.div>
+              <Styled(div)>
                 <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
@@ -290,7 +290,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin"
                   tagName="p"
                 />
-              </styled.div>
+              </Styled(div)>
             }
             placement="auto-start"
           >
@@ -299,7 +299,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -307,7 +307,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -323,7 +323,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -331,7 +331,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.admin"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -347,10 +347,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
-    </styled.ul>
-    <styled.div>
+    </Styled(ul)>
+    <Styled(div)>
       <SectionMessage
         appearance="warning"
       >
@@ -373,21 +373,21 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           </CustomThemeButton>
         </p>
       </SectionMessage>
-    </styled.div>
-  </styled.div>
+    </Styled(div)>
+  </Styled(div)>
 </injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`accessibleSites display text displayed is different when no accessibleSites prop is passed for current user 1`] = `
 <injectIntl(MessagesIntlProvider)>
-  <styled.div>
-    <styled.div>
+  <Styled(div)>
+    <Styled(div)>
       <MemoizedFormattedMessage
         defaultMessage="Delete your account"
         description="Heading for the screen that explains what happens when a user's account is deleted"
         id="focused-task-close-account.delete-account.overview.heading.self"
       />
-    </styled.div>
+    </Styled(div)>
     <MemoizedFormattedMessage
       defaultMessage="You're about to delete your account:"
       description="First line for the screen when the admin is about to delete another user"
@@ -408,7 +408,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
       description="A paragraph explaining that user is about to delete their own account"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.self"
     />
-    <styled.ul>
+    <Styled(ul)>
       <li>
         <MemoizedFormattedMessage
           defaultMessage="You'll <b>immediately lose access</b> to all Atlassian account services. Currently, you don’t have access to any, except services like Community and Marketplace."
@@ -433,10 +433,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             }
           }
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
-              <styled.div>
+              <Styled(div)>
                 <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
@@ -473,7 +473,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.self"
                   tagName="p"
                 />
-              </styled.div>
+              </Styled(div)>
             }
             placement="auto-start"
           >
@@ -482,7 +482,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -490,7 +490,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.self"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -506,7 +506,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -514,7 +514,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.self"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -530,10 +530,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
-    </styled.ul>
-    <styled.div>
+    </Styled(ul)>
+    <Styled(div)>
       <SectionMessage
         appearance="warning"
       >
@@ -556,21 +556,21 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           </CustomThemeButton>
         </p>
       </SectionMessage>
-    </styled.div>
-  </styled.div>
+    </Styled(div)>
+  </Styled(div)>
 </injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`deactivateUserHandler display warning section is not displayed if the deactivateUserHandler prop is not passed 1`] = `
 <injectIntl(MessagesIntlProvider)>
-  <styled.div>
-    <styled.div>
+  <Styled(div)>
+    <Styled(div)>
       <MemoizedFormattedMessage
         defaultMessage="Delete account"
         description="Heading for the screen that explains what happens when an admin deletes a user's account"
         id="focused-task-close-account.delete-account.overview.heading.admin"
       />
-    </styled.div>
+    </Styled(div)>
     <MemoizedFormattedMessage
       defaultMessage="You're about to delete the account of:"
       description="First line for the screen when the user is about to delete their own account"
@@ -591,7 +591,7 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
       description="A paragraph explaining that the admin is about to delete another user"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.admin"
     />
-    <styled.ul>
+    <Styled(ul)>
       <li>
         <MemoizedFormattedMessage
           defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. They currently have access to: "
@@ -628,10 +628,10 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
             }
           }
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
-              <styled.div>
+              <Styled(div)>
                 <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
@@ -668,7 +668,7 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin"
                   tagName="p"
                 />
-              </styled.div>
+              </Styled(div)>
             }
             placement="auto-start"
           >
@@ -677,7 +677,7 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -685,7 +685,7 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -701,7 +701,7 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -709,7 +709,7 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.admin"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -725,23 +725,23 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
-    </styled.ul>
-  </styled.div>
+    </Styled(ul)>
+  </Styled(div)>
 </injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`delete screen display content is different when user is deactivated 1`] = `
 <injectIntl(MessagesIntlProvider)>
-  <styled.div>
-    <styled.div>
+  <Styled(div)>
+    <Styled(div)>
       <MemoizedFormattedMessage
         defaultMessage="Delete account"
         description="Heading for the screen that explains what happens when an admin deletes a user's account"
         id="focused-task-close-account.delete-account.overview.heading.admin"
       />
-    </styled.div>
+    </Styled(div)>
     <MemoizedFormattedMessage
       defaultMessage="You're about to delete the account of:"
       description="First line for the screen when the user is about to delete their own account"
@@ -762,7 +762,7 @@ exports[`delete screen display content is different when user is deactivated 1`]
       description="A paragraph explaining that the admin is about to delete another user"
       id="focused-task-close-account.delete-account.overview.paragraph.about-to-delete.admin"
     />
-    <styled.ul>
+    <Styled(ul)>
       <li>
         <MemoizedFormattedMessage
           defaultMessage="We'll <b>delete their personal data</b>, such as their full name and email address, from Atlassian account services within 30 days, except in a few cases where required for legitimate business or legal purposes. "
@@ -774,10 +774,10 @@ exports[`delete screen display content is different when user is deactivated 1`]
             }
           }
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
-              <styled.div>
+              <Styled(div)>
                 <Memo(MemoizedFormattedMessage)
                   defaultMessage="We keep personal data for limited periods when we have legitimate business or legal purposes. Some examples include:"
                   description="Text elaborating on the note that some personal data is required to be saved from deletion for legal purposes."
@@ -814,7 +814,7 @@ exports[`delete screen display content is different when user is deactivated 1`]
                   id="focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.p3.admin"
                   tagName="p"
                 />
-              </styled.div>
+              </Styled(div)>
             }
             placement="auto-start"
           >
@@ -823,7 +823,7 @@ exports[`delete screen display content is different when user is deactivated 1`]
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -831,7 +831,7 @@ exports[`delete screen display content is different when user is deactivated 1`]
           description="A note explaining that about apps storing personal data"
           id="focused-task-close-account.delete-account.overview.paragraph.list-of-apps-with-personal-data.admin"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -847,7 +847,7 @@ exports[`delete screen display content is different when user is deactivated 1`]
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -855,7 +855,7 @@ exports[`delete screen display content is different when user is deactivated 1`]
           description="A paragraph explaining that although the user's details will be deleted, content they have created will remain."
           id="focused-task-close-account.delete-account.overview.paragraph.content-created.admin"
         />
-        <styled.span>
+        <Styled(span)>
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
@@ -871,10 +871,10 @@ exports[`delete screen display content is different when user is deactivated 1`]
               size="small"
             />
           </StatefulInlineDialog>
-        </styled.span>
+        </Styled(span)>
       </li>
-    </styled.ul>
-    <styled.div>
+    </Styled(ul)>
+    <Styled(div)>
       <SectionMessage
         appearance="warning"
       >
@@ -884,7 +884,7 @@ exports[`delete screen display content is different when user is deactivated 1`]
           id="focused-task-close-account.delete-account.overview.warning-section.deactivated.body"
         />
       </SectionMessage>
-    </styled.div>
-  </styled.div>
+    </Styled(div)>
+  </Styled(div)>
 </injectIntl(MessagesIntlProvider)>
 `;

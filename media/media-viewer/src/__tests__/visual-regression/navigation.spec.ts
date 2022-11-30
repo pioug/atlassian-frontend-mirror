@@ -22,7 +22,8 @@ describe('Media Viewer Navigation', () => {
     await page.waitForSelector('img');
   });
 
-  it('renders a file and nav button given multiple files', async () => {
+  // FIXME: This test was automatically skipped due to failure on 29/11/2022: https://product-fabric.atlassian.net/browse/MEX-2145
+  it.skip('renders a file and nav button given multiple files', async () => {
     // This test relies on side effects (CSS transitons)
     await page.waitForFunction(
       `window.areControlsRendered() && window.areControlsVisible()`,

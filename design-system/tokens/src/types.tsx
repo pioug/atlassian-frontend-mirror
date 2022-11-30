@@ -7,7 +7,11 @@ export type Groups =
   | 'palette'
   | 'opacity'
   | 'spacing'
-  | 'scale';
+  | 'scale'
+  | 'fontSize'
+  | 'fontWeight'
+  | 'fontFamily'
+  | 'lineHeight';
 
 export type ActiveTokenState = 'active';
 export type DeprecatedTokenState = 'deprecated';
@@ -149,6 +153,19 @@ export type OpacityToken = DesignToken<string, 'opacity'>;
 
 export type SpacingToken<BaseToken> = DesignToken<BaseToken, 'spacing'>;
 
+export type FontSizeToken<BaseToken> = DesignToken<BaseToken, 'fontSize'>;
+
+export type FontWeightToken<BaseToken> = DesignToken<BaseToken, 'fontWeight'>;
+
+export type FontFamilyToken<BaseToken> = DesignToken<BaseToken, 'fontFamily'>;
+
+export type LineHeightToken<BaseToken> = DesignToken<BaseToken, 'lineHeight'>;
+
+export type TypographyToken<BaseToken> = DesignToken<
+  BaseToken,
+  'fontSize' | 'fontWeight' | 'fontFamily' | 'lineHeight'
+>;
+
 export type RawToken = DesignToken<string, 'raw'>;
 
 export interface ScaleToken extends BaseToken<string, 'scale'> {
@@ -173,6 +190,22 @@ export interface SpacingScaleTokenSchema<ScaleValues extends string> {
   spacing: {
     scale: Record<ScaleValues, ScaleToken>;
   };
+}
+
+export interface FontSizeScaleTokenSchema<ScaleValues extends string> {
+  fontSize: Record<ScaleValues, ScaleToken>;
+}
+
+export interface FontWeightScaleTokenSchema<ScaleValues extends string> {
+  fontWeight: Record<ScaleValues, ScaleToken>;
+}
+
+export interface FontFamilyPaletteTokenSchema<ScaleValues extends string> {
+  fontFamily: Record<ScaleValues, ScaleToken>;
+}
+
+export interface LineHeightScaleTokenSchema<ScaleValues extends string> {
+  lineHeight: Record<ScaleValues, ScaleToken>;
 }
 
 export interface BackgroundColorTokenSchema<BaseToken> {
@@ -859,6 +892,54 @@ export interface SpacingTokenSchema<BaseToken> {
       100: { value: 'Space100' };
       200: { value: 'Space200' };
       300: { value: 'Space300' };
+    };
+  };
+}
+
+export interface FontSizeTokenSchema<BaseToken> {
+  font: {
+    size: {
+      '050': TypographyToken<BaseToken>;
+      '075': TypographyToken<BaseToken>;
+      '100': TypographyToken<BaseToken>;
+      '200': TypographyToken<BaseToken>;
+      '300': TypographyToken<BaseToken>;
+      '400': TypographyToken<BaseToken>;
+      '500': TypographyToken<BaseToken>;
+      '600': TypographyToken<BaseToken>;
+    };
+  };
+}
+
+export interface FontWeightTokenSchema<BaseToken> {
+  font: {
+    weight: {
+      regular: TypographyToken<BaseToken>;
+      medium: TypographyToken<BaseToken>;
+      semibold: TypographyToken<BaseToken>;
+      bold: TypographyToken<BaseToken>;
+    };
+  };
+}
+
+export interface FontFamilyTokenSchema<BaseToken> {
+  font: {
+    family: {
+      sans: TypographyToken<BaseToken>;
+      monospace: TypographyToken<BaseToken>;
+    };
+  };
+}
+
+export interface LineHeightTokenSchema<BaseToken> {
+  font: {
+    lineHeight: {
+      '100': TypographyToken<BaseToken>;
+      '200': TypographyToken<BaseToken>;
+      '300': TypographyToken<BaseToken>;
+      '400': TypographyToken<BaseToken>;
+      '500': TypographyToken<BaseToken>;
+      '600': TypographyToken<BaseToken>;
     };
   };
 }

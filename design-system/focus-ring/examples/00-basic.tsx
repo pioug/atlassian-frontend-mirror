@@ -6,15 +6,17 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
 import FocusRing from '../src';
 
-const stylesStyles = css({
+const baseStyles = css({
   display: 'block',
-  margin: '10px 0',
+  margin: '12px 0',
   padding: 8,
   border: 'none',
   borderRadius: '3px',
+  font: 'inherit',
 });
 
 const stackStyles = css({
@@ -38,15 +40,18 @@ export default () => {
     <div data-testid="outerDiv" css={stackStyles}>
       <Button>AK Button</Button>
       <FocusRing>
-        <button type="button" ref={buttonRef} css={stylesStyles}>
+        <button type="button" ref={buttonRef} css={baseStyles}>
           Native Button
         </button>
       </FocusRing>
       <Textfield placeholder="AK Textfield" />
       <FocusRing isInset>
         <input
+          style={{
+            border: `2px solid ${token('color.border', 'grey')}`,
+          }}
           data-testid="input"
-          css={stylesStyles}
+          css={baseStyles}
           placeholder="Native Textfield"
         />
       </FocusRing>

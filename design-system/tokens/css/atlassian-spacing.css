@@ -1,9 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::88ea3bf90a796e599a76cabb794f9fc0>>
+ * @codegen <<SignedSource::8e6cd2970a142e04a52f6072452d0283>>
  * @codegenCommand yarn build tokens
  */
-html[data-theme~="spacing"] {
+:root {
   --ds-scale-0: 0;
   --ds-scale-100: 0.5rem;
   --ds-scale-150: 0.75rem;

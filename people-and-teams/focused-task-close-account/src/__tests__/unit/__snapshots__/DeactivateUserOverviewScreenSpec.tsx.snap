@@ -2,14 +2,14 @@
 
 exports[`DeactivateUserOverviewScreen 1`] = `
 <injectIntl(MessagesIntlProvider)>
-  <styled.div>
-    <styled.div>
+  <Styled(div)>
+    <Styled(div)>
       <MemoizedFormattedMessage
         defaultMessage="Deactivate account"
         description="Heading for the screen that explains what happens when an admin deactivates a user's account"
         id="focused-task-close-account.deactivate-account.overview.heading.admin"
       />
-    </styled.div>
+    </Styled(div)>
     <MemoizedFormattedMessage
       defaultMessage="You're about to deactivate the user account of:"
       description="First line for the screen when the admin is about to deactivate another user"
@@ -30,7 +30,7 @@ exports[`DeactivateUserOverviewScreen 1`] = `
       description="A paragraph explaining that the admin is about to deactivate another user"
       id="focused-task-close-account.deactivate-account.overview.paragraph.about-to-deactivate.admin"
     />
-    <styled.ul>
+    <Styled(ul)>
       <li>
         <MemoizedFormattedMessage
           defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. They currently have access to: "
@@ -44,7 +44,7 @@ exports[`DeactivateUserOverviewScreen 1`] = `
             }
           }
         />
-        <styled.div>
+        <Styled(div)>
           <DropdownList
             accessibleSites={
               Array [
@@ -56,7 +56,7 @@ exports[`DeactivateUserOverviewScreen 1`] = `
               ]
             }
           />
-        </styled.div>
+        </Styled(div)>
       </li>
       <li>
         <MemoizedFormattedMessage
@@ -72,27 +72,27 @@ exports[`DeactivateUserOverviewScreen 1`] = `
           id="focused-task-close-account.deactivate-account.overview.paragraph.billing.admin"
         />
       </li>
-    </styled.ul>
+    </Styled(ul)>
     <MemoizedFormattedMessage
       defaultMessage="You can reactivate the account at any time."
       description="First line for the screen when the admin is about to deactivate another user"
       id="focused-task-close-account.deactivate-account.overview.last.line.admin"
       tagName="p"
     />
-  </styled.div>
+  </Styled(div)>
 </injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`accessibleSites display text displayed is different when no accessibleSites prop is passed 1`] = `
 <injectIntl(MessagesIntlProvider)>
-  <styled.div>
-    <styled.div>
+  <Styled(div)>
+    <Styled(div)>
       <MemoizedFormattedMessage
         defaultMessage="Deactivate account"
         description="Heading for the screen that explains what happens when an admin deactivates a user's account"
         id="focused-task-close-account.deactivate-account.overview.heading.admin"
       />
-    </styled.div>
+    </Styled(div)>
     <MemoizedFormattedMessage
       defaultMessage="You're about to deactivate the user account of:"
       description="First line for the screen when the admin is about to deactivate another user"
@@ -113,7 +113,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
       description="A paragraph explaining that the admin is about to deactivate another user"
       id="focused-task-close-account.deactivate-account.overview.paragraph.about-to-deactivate.admin"
     />
-    <styled.ul>
+    <Styled(ul)>
       <li>
         <MemoizedFormattedMessage
           defaultMessage="{fullName} will <b>immediately lose access</b> to all Atlassian account services. Currently, they don’t have access to any, except services like Community and Marketplace. "
@@ -141,27 +141,27 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           id="focused-task-close-account.deactivate-account.overview.paragraph.billing.admin"
         />
       </li>
-    </styled.ul>
+    </Styled(ul)>
     <MemoizedFormattedMessage
       defaultMessage="You can reactivate the account at any time."
       description="First line for the screen when the admin is about to deactivate another user"
       id="focused-task-close-account.deactivate-account.overview.last.line.admin"
       tagName="p"
     />
-  </styled.div>
+  </Styled(div)>
 </injectIntl(MessagesIntlProvider)>
 `;
 
 exports[`accessibleSites display text displayed is different when no accessibleSites prop is passed for current user 1`] = `
 <injectIntl(MessagesIntlProvider)>
-  <styled.div>
-    <styled.div>
+  <Styled(div)>
+    <Styled(div)>
       <MemoizedFormattedMessage
         defaultMessage="Deactivate account"
         description="Heading for the screen that explains what happens when a user's account is deactivated"
         id="focused-task-close-account.deactivate-account.overview.heading.self"
       />
-    </styled.div>
+    </Styled(div)>
     <MemoizedFormattedMessage
       defaultMessage="You're about to deactivate the user account of:"
       description="First line for the screen when the user is about to deactivate self"
@@ -182,7 +182,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
       description="A paragraph explaining that user is about to deactivate their own account"
       id="focused-task-close-account.deactivate-account.overview.paragraph.about-to-deactivate.self"
     />
-    <styled.ul>
+    <Styled(ul)>
       <li>
         <MemoizedFormattedMessage
           defaultMessage="You'll <b>immediately lose access</b> to all Atlassian account services. Currently, you don’t have access to any, except services like Community and Marketplace."
@@ -210,13 +210,13 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           id="focused-task-close-account.deactivate-account.overview.paragraph.billing.self"
         />
       </li>
-    </styled.ul>
+    </Styled(ul)>
     <MemoizedFormattedMessage
       defaultMessage="You can reactivate the account at any time."
       description="First line for the screen when the user is about to deactivate self"
       id="focused-task-close-account.deactivate-account.overview.last.line.self"
       tagName="p"
     />
-  </styled.div>
+  </Styled(div)>
 </injectIntl(MessagesIntlProvider)>
 `;

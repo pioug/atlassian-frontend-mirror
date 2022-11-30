@@ -6,6 +6,7 @@ import type {
   RawToken,
   ShadowToken,
   SpacingToken,
+  TypographyToken,
 } from '../../../src/types';
 import { getTokenId } from '../../../src/utils/token-ids';
 
@@ -24,6 +25,7 @@ const transform = (palette: Record<string, any>): Transform => {
         | PaintToken<any>
         | ShadowToken<any>
         | SpacingToken<any>
+        | TypographyToken<any>
         | OpacityToken
         | RawToken;
 
@@ -80,6 +82,26 @@ const transform = (palette: Record<string, any>): Transform => {
       if (originalToken.attributes.group === 'spacing') {
         const value = originalToken.value;
         return palette.spacing.scale[value].value;
+      }
+
+      if (originalToken.attributes.group === 'fontSize') {
+        const value = originalToken.value;
+        return palette.typography.fontSize[value].value;
+      }
+
+      if (originalToken.attributes.group === 'fontWeight') {
+        const value = originalToken.value;
+        return palette.typography.fontWeight[value].value;
+      }
+
+      if (originalToken.attributes.group === 'fontFamily') {
+        const value = originalToken.value;
+        return palette.typography.fontFamily[value].value;
+      }
+
+      if (originalToken.attributes.group === 'lineHeight') {
+        const value = originalToken.value;
+        return palette.typography.lineHeight[value].value;
       }
     },
   };

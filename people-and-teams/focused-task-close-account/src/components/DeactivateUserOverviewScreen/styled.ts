@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { h700 } from '@atlaskit/theme/typography';
 import gridSizeTimes from '../../util/gridSizeTimes';
 

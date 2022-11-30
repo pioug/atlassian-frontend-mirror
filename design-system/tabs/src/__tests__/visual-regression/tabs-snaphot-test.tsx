@@ -8,7 +8,7 @@ const tabs = "[data-testid='default']";
 const tab = `div[aria-controls="default-2-tab"]`;
 
 describe('Snapshot Test', () => {
-  it.each(['light', 'dark', 'none', 'spacing'] as const)(
+  it.each(['light', 'dark', 'none'] as const)(
     'tabs with tokens (%s) should match production example',
     async (theme) => {
       const url = getExampleUrl(

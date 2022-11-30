@@ -8,6 +8,7 @@ import { DEFAULT_THEME } from '../../src/constants';
 import legacyPalette from '../../src/palettes/legacy-palette';
 import defaultPalette from '../../src/palettes/palette';
 import spacingScale from '../../src/palettes/spacing-scale';
+import typographyPalette from '../../src/palettes/typography';
 import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
 
 import formatterCSSVariables from './formatters/css-variables';
@@ -31,6 +32,8 @@ const getPalette = (paletteId: Palettes) => {
   switch (paletteId) {
     case 'spacingScale':
       return spacingScale;
+    case 'typographyPalette':
+      return typographyPalette;
     case 'legacyPalette':
       return legacyPalette;
     case 'defaultPalette':
@@ -57,7 +60,9 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
     },
   ];
 
-  if (DEFAULT_THEME.includes(themeConfig[themeName].id)) {
+  const defaultThemes = [...DEFAULT_THEME, 'spacing', 'typography'];
+
+  if (defaultThemes.includes(themeConfig[themeName].id)) {
     typescriptFiles.push({
       format: 'typescript/custom-token-default-values',
       destination: `${themeName}-token-default-values.tsx`,

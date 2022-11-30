@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test', () => {
-  it.each(['dark', 'light', 'none', 'spacing'] as const)(
+  it.each(['dark', 'light', 'none'] as const)(
     'Lozenge (%s) basic example should match production example',
     async (theme) => {
       const url = getExampleUrl(

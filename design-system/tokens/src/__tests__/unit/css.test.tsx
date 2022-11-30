@@ -1,5 +1,14 @@
 import fs from 'fs';
 
+const colorThemes = [
+  'atlassian-dark.css',
+  'atlassian-legacy-dark.css',
+  'atlassian-legacy-light.css',
+  'atlassian-light.css',
+];
+
+const nonColorThemes = ['atlassian-spacing.css', 'atlassian-typography.css'];
+
 describe('generated CSS', () => {
   const getCSSFileNames = () => fs.readdirSync(`${__dirname}/../../../css`);
   const getCSSFile = (name: string) =>
@@ -8,23 +17,29 @@ describe('generated CSS', () => {
   it('should place css in the root css folder', () => {
     const names = getCSSFileNames();
 
-    expect(names).toEqual([
-      'atlassian-dark.css',
-      'atlassian-legacy-dark.css',
-      'atlassian-legacy-light.css',
-      'atlassian-light.css',
-      'atlassian-spacing.css',
-    ]);
+    expect(names).toEqual([...colorThemes, ...nonColorThemes]);
   });
 
-  it('should place all themes on the theme attribute', () => {
-    getCSSFileNames().forEach((name) => {
-      const css = getCSSFile(name);
+  it('should place color themes on the theme attribute', () => {
+    getCSSFileNames()
+      .filter((filename) => colorThemes.includes(filename))
+      .forEach((name) => {
+        const css = getCSSFile(name);
 
-      expect(css).toMatch(
-        /\nhtml\[data-theme~="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
-      );
-    });
+        expect(css).toMatch(
+          /\nhtml\[data-theme~="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
+        );
+      });
+  });
+
+  it('should place spacing and typography themes on the root', () => {
+    getCSSFileNames()
+      .filter((filename) => nonColorThemes.includes(filename))
+      .forEach((name) => {
+        const css = getCSSFile(name);
+
+        expect(css).toMatch(/\n:root {\n/);
+      });
   });
 
   it('should not have any unexpected values found in the CSS', () => {

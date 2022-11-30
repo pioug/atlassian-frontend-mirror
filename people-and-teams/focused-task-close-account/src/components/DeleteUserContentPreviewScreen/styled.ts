@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { B50, B400, N50A, N60A } from '@atlaskit/theme/colors';
 import { h700 } from '@atlaskit/theme/typography';

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { fontSize } from '@atlaskit/theme/constants';
 import { h500 } from '@atlaskit/theme/typography';
 import { N200 } from '@atlaskit/theme/colors';

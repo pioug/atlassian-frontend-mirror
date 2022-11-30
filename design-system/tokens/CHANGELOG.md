@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 0.11.0
+
+### Minor Changes
+
+- [`65222c75362`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65222c75362) - - Adds experimental typography tokens for font size, font weight, font family, and line height. These are not intended for public consumption yet.
+  - Adds a new init entry point for easily importing all theme CSS files (currently light, dark, spacing, and typography).
+  - Spacing and typography tokens are now added to the `:root` rather than requiring a `data-theme` attribute.
+  - Removes 'spacing' from the default theme.
+
 ## 0.10.35
 
 ### Patch Changes

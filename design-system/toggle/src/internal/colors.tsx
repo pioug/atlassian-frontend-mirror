@@ -55,13 +55,13 @@ const colorMap = {
 
     borderColorFocus: token('color.border.focused', B100),
 
-    iconColorChecked: token('color.text.inverse', N0),
-    iconColorDisabled: token('color.text.disabled', N70),
-    iconColorUnchecked: token('color.text.inverse', N0),
+    iconColorChecked: token('color.icon.inverse', N0),
+    iconColorDisabled: token('color.icon.disabled', N70),
+    iconColorUnchecked: token('color.icon.inverse', N0),
 
-    handleBackgroundColor: token('elevation.surface', N0),
-    handleBackgroundColorChecked: token('elevation.surface', N0),
-    handleBackgroundColorDisabled: token('color.text.disabled', N0),
+    handleBackgroundColor: token('color.icon.inverse', N0),
+    handleBackgroundColorChecked: token('color.icon.inverse', N0),
+    handleBackgroundColorDisabled: token('color.icon.inverse', N0),
   },
   dark: {
     backgroundColorChecked: token('color.background.success.bold', G300),
@@ -80,13 +80,13 @@ const colorMap = {
 
     borderColorFocus: token('color.border.focused', B75),
 
-    iconColorChecked: token('color.text.inverse', DN30),
-    iconColorDisabled: token('color.text.disabled', DN30),
-    iconColorUnchecked: token('color.text.inverse', DN600),
+    iconColorChecked: token('color.icon.inverse', DN30),
+    iconColorDisabled: token('color.icon.disabled', DN30),
+    iconColorUnchecked: token('color.icon.inverse', DN600),
 
-    handleBackgroundColor: token('elevation.surface', DN600),
-    handleBackgroundColorChecked: token('elevation.surface', DN0),
-    handleBackgroundColorDisabled: token('color.text.disabled', DN0),
+    handleBackgroundColor: token('color.icon.inverse', DN600),
+    handleBackgroundColorChecked: token('color.icon.inverse', DN0),
+    handleBackgroundColorDisabled: token('color.icon.inverse', DN0),
   },
 };
 

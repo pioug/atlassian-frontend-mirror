@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.5.4
+
+### Patch Changes
+
+- [`73237f2e62e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73237f2e62e) - [ux] Fix token usages on toggle icon and handle background.
+
 ## 12.5.3
 
 ### Patch Changes

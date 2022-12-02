@@ -3,13 +3,15 @@ import React, { useContext } from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import {
+  MediaPlacement,
   SmartLinkSize,
   SmartLinkStatus,
   SmartLinkTheme,
 } from '../../../../constants';
-import { ContainerProps } from './types';
+import { ChildrenOptions, ContainerProps } from './types';
 import {
   isFlexibleUiBlock,
+  isFlexibleUiPreviewBlock,
   isFlexibleUiTitleBlock,
 } from '../../../../utils/flexible';
 import { RetryOptions } from '../../types';
@@ -18,6 +20,7 @@ import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import LayeredLink from './layered-link';
 import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { TitleBlockProps } from '../blocks/title-block/types';
+import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
 
 const elevationStyles: SerializedStyles = css`
   border: 1px solid transparent;
@@ -64,31 +67,89 @@ const clickableContainerStyles = css`
   }
 `;
 
+const getContainerPaddingStyles = (
+  size: SmartLinkSize,
+  hidePadding: boolean,
+  childrenOptions: ChildrenOptions,
+) => {
+  const padding = hidePadding ? '0rem' : getPadding(size);
+  const gap = getGap(size);
+  const { previewOnLeft, previewOnRight } = childrenOptions;
+
+  return css`
+    // Set variables for PreviewBlock to use.
+    --container-padding: ${padding};
+    --container-gap-left: ${previewOnLeft ? gap : padding};
+    --container-gap-right: ${previewOnRight ? gap : padding};
+    --preview-block-width: 30%;
+
+    padding: ${padding};
+    ${previewOnLeft
+      ? `padding-left: calc(var(--preview-block-width) + ${gap});`
+      : ''}
+    ${previewOnRight
+      ? `padding-right: calc(var(--preview-block-width) + ${gap});`
+      : ''}
+  `;
+};
+
+const getChildrenOptions = (
+  children: React.ReactNode,
+  context?: FlexibleUiDataContext,
+): ChildrenOptions => {
+  let options: ChildrenOptions = {};
+  if (isFlexUiPreviewPresent(context)) {
+    React.Children.map(children, (child) => {
+      if (React.isValidElement(child)) {
+        if (isFlexibleUiPreviewBlock(child)) {
+          const { placement } = child.props;
+          if (placement === MediaPlacement.Left) {
+            options.previewOnLeft = true;
+          }
+          if (placement === MediaPlacement.Right) {
+            options.previewOnRight = true;
+          }
+        }
+      }
+    });
+  }
+  return options;
+};
+
 export const getContainerStyles = (
   size: SmartLinkSize,
   hideBackground: boolean,
   hideElevation: boolean,
   hidePadding: boolean,
   clickableContainer: boolean,
-): SerializedStyles => css`
-  display: flex;
-  gap: ${getGap(size)} 0;
-  flex-direction: column;
-  min-width: 0;
-  overflow-x: hidden;
-  position: relative;
-  ${hideBackground ? '' : `background-color: ${tokens.background};`}
-  ${hidePadding ? '' : `padding: ${getPadding(size)};`}
-  ${hideElevation ? '' : elevationStyles}
-  ${clickableContainer ? clickableContainerStyles : ''}
-  &:hover ~ .actions-button-group {
-    opacity: 1;
-  }
-  a:focus,
-  .has-action:focus {
-    outline-offset: -2px;
-  }
-`;
+  childrenOptions: ChildrenOptions,
+): SerializedStyles => {
+  const paddingCss = getContainerPaddingStyles(
+    size,
+    hidePadding,
+    childrenOptions,
+  );
+
+  return css`
+    display: flex;
+    gap: ${getGap(size)} 0;
+    flex-direction: column;
+    min-width: 0;
+    overflow-x: hidden;
+    position: relative;
+    ${hideBackground ? '' : `background-color: ${tokens.background};`}
+    ${paddingCss}
+    ${hideElevation ? '' : elevationStyles}
+    ${clickableContainer ? clickableContainerStyles : ''}
+    &:hover ~ .actions-button-group {
+      opacity: 1;
+    }
+    a:focus,
+    .has-action:focus {
+      outline-offset: -2px;
+    }
+  `;
+};
 
 const renderChildren = (
   children: React.ReactNode,
@@ -168,6 +229,7 @@ const Container: React.FC<ContainerProps> = ({
   theme = SmartLinkTheme.Link,
 }) => {
   const context = useContext(FlexibleUiContext);
+  const childrenOptions = getChildrenOptions(children, context);
 
   return (
     <div
@@ -177,6 +239,7 @@ const Container: React.FC<ContainerProps> = ({
         hideElevation,
         hidePadding,
         clickableContainer,
+        childrenOptions,
       )}
       data-smart-link-container
       data-testid={testId}

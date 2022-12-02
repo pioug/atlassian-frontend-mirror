@@ -9,4 +9,8 @@ export interface LinkingPlatformFeatureFlags {
    * @atlaskit/link-picker-plugins/editor
    */
   disableLinkPickerPopupPositioningFix?: boolean;
+  /**
+   * Decide whether to render a Flexible UI Card view instead of the older Block Card view when rendering Block Card Smart Links.
+   */
+  enableFlexibleBlockCard?: boolean;
 }

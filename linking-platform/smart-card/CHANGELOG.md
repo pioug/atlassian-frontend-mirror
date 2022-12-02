@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 23.5.0
+
+### Minor Changes
+
+- [`9dd3377f9bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd3377f9bb) - [ux] This adds support for the new Flexible UI Block Card, added behind a feature flag "useFlexibleBlockCard"
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.4.8
+
+### Patch Changes
+
+- [`ca2b5b1a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca2b5b1a999) - [ux] fix Safari opening downloads in the same tab
+
 ## 23.4.7
 
 ### Patch Changes

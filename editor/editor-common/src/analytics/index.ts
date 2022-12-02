@@ -108,5 +108,13 @@ export type {
   UnlinkToolbarAEP,
   ViewedCreateLinkInlineDialogAEP,
   FireAnalyticsCallback,
+  InitialiseFragmentMarksAEP,
+  ConnectedNodesAEP,
+  DisconnectedSourceAEP,
+  DisconnectedTargetAEP,
+  GotConnectionsAEP,
+  UpdatedFragmentMarkNameAEP,
+  UpdatedSourceAEP,
+  UpdatedTargetAEP,
 } from './types';
 export type { EditorAnalyticsAPI } from './api';

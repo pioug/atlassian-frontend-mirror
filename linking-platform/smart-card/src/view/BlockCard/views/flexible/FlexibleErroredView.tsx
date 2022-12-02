@@ -5,7 +5,7 @@ import { messages } from '../../../../messages';
 import { token } from '@atlaskit/tokens';
 import { R300 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import Footer from '../../components/flexible/footer';
+import BlockCardFooter from '../../components/flexible/footer';
 import { RetryAction } from '../../actions/flexible/RetryAction';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { CustomBlock } from '../../../FlexibleCard/components/blocks';
@@ -60,7 +60,7 @@ const FlexibleErroredView = ({
         />
       </CustomBlock>
       <CustomBlock>
-        <Footer actions={actions} status={status} />
+        <BlockCardFooter actions={actions} status={status} />
       </CustomBlock>
     </FlexibleCard>
   );

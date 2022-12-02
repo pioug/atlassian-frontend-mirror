@@ -62,6 +62,7 @@ const Media: React.FC<MediaProps> = ({
   testId = 'smart-element-media',
   type,
   url,
+  onLoad,
   onError,
 }) => {
   if (!type || !url) {
@@ -78,6 +79,7 @@ const Media: React.FC<MediaProps> = ({
         testId={`${testId}-image`}
         url={url}
         onError={onError}
+        onLoad={onLoad}
         defaultIcon={null}
       />
     </div>

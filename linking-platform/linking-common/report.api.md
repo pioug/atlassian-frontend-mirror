@@ -217,6 +217,7 @@ export interface LinkingPlatformFeatureFlags {
   disableLinkPickerPopupPositioningFix?: boolean;
   // (undocumented)
   embedModalSize?: string;
+  enableFlexibleBlockCard?: boolean;
   // (undocumented)
   showHoverPreview?: boolean;
   // (undocumented)

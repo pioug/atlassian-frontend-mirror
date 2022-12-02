@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.13.0
+
+### Minor Changes
+
+- [`9dd3377f9bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dd3377f9bb) - [ux] This adds support for the new Flexible UI Block Card, added behind a feature flag "useFlexibleBlockCard"
+
 ## 1.12.2
 
 ### Patch Changes

@@ -23,6 +23,46 @@ ${(
   />
 )}
 
+### Left and Right Placement
+
+You can also define whether you'd like your Preview Block to sit
+left or right of the Flexible Smart Link content. This will scale to 30% of the
+width of the card.
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/preview-block-placement').default
+    }
+    source={require('!!raw-loader!../../../examples/content/preview-block-placement')}
+  />
+)}
+
+### Ignore Container Padding
+In addition to defining the left or right placement of the Preview Block, you can
+also define whether you'd like to remove the padding for the block. This can help
+in situations where there is a focus on the content of the Preview Block.
+This works regardless of placement (normal, left and right) of the card.
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/preview-block-ignore-padding').default
+    }
+    source={require('!!raw-loader!../../../examples/content/preview-block-ignore-padding')}
+  />
+)}
+
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/preview-block-placement').default
+    }
+    source={require('!!raw-loader!../../../examples/content/preview-block-placement')}
+  />
+)}
+
 ### Sizing
 
 As a Flexible Smart Links block, a preview block inherits and allow sizing override.

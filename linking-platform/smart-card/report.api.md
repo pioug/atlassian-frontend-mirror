@@ -571,6 +571,14 @@ type LinkIcon = {
 // @public (undocumented)
 export const loadingPlaceholderClassName = 'smart-link-loading-placeholder';
 
+// @public (undocumented)
+export enum MediaPlacement {
+  // (undocumented)
+  Left = 'left',
+  // (undocumented)
+  Right = 'right',
+}
+
 // @public
 export const MetadataBlock: React_2.FC<MetadataBlockProps>;
 
@@ -636,7 +644,9 @@ export const PreviewBlock: React_2.FC<PreviewBlockProps>;
 
 // @public (undocumented)
 type PreviewBlockProps = {
+  ignoreContainerPadding?: boolean;
   onError?: () => void;
+  placement?: MediaPlacement;
 } & BlockProps;
 
 // @public (undocumented)

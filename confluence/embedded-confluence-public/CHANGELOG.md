@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.4.1
+
+### Patch Changes
+
+- [`3387a13de43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3387a13de43) - removed typo from edit component
+
 ## 1.4.0
 
 ### Minor Changes

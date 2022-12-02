@@ -138,3 +138,14 @@ export type {
   NodeCount,
   PluginPerformanceReportData,
 } from './performance-report';
+
+export type {
+  InitialiseFragmentMarksAEP,
+  ConnectedNodesAEP,
+  DisconnectedSourceAEP,
+  DisconnectedTargetAEP,
+  GotConnectionsAEP,
+  UpdatedFragmentMarkNameAEP,
+  UpdatedSourceAEP,
+  UpdatedTargetAEP,
+} from './referentiality-events';

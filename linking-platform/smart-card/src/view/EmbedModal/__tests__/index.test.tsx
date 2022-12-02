@@ -250,8 +250,9 @@ describe('EmbedModal', () => {
 
       it('triggers download action callback when clicking download button', async () => {
         const onDownloadActionClick = jest.fn();
+        const url = 'https://download-url';
         const { getByTestId, findByTestId } = renderEmbedModal({
-          download: 'https://download-url',
+          download: url,
           onDownloadActionClick,
         });
         const button = await findByTestId(`${testId}-download-button`);
@@ -270,6 +271,9 @@ describe('EmbedModal', () => {
 
         const tooltip = await findByTestId(`${testId}-download-tooltip`);
         expect(tooltip.textContent).toBe(messages.download.defaultMessage);
+
+        expect(button.getAttribute('target')).toEqual('_blank');
+        expect(button.getAttribute('href')).toEqual(url);
 
         await user.click(button);
         expect(onDownloadActionClick).toHaveBeenCalledTimes(1);

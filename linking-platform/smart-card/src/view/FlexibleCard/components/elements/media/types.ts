@@ -17,4 +17,6 @@ export type MediaProps = ElementProps & {
    * @internal
    */
   onError?: () => void;
+
+  onLoad?: () => void;
 };

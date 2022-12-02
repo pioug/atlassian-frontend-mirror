@@ -40,6 +40,7 @@ const LinkInfo: React.FC<LinkInfoProps> = ({
           }
           onClick={onDownloadButtonClick}
           testId={`${testId}-download`}
+          target="_blank"
         />
       );
     }

@@ -12,6 +12,7 @@ const ImageIcon: React.FC<ImageIconProps> = ({
   testId,
   url,
   onError,
+  onLoad,
 }) => (
   <ImageLoader
     src={url}
@@ -19,6 +20,7 @@ const ImageIcon: React.FC<ImageIconProps> = ({
     loaded={<img src={url} data-testid={`${testId}-image`} />}
     errored={defaultIcon}
     onError={onError}
+    onLoad={onLoad}
   />
 );
 

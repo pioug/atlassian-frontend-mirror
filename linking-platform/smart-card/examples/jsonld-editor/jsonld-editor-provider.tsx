@@ -5,7 +5,11 @@ import { JsonLd } from 'json-ld-types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import JsonldEditorClient from './jsonld-editor-client';
 
-const featureFlags = { embedModalSize: 'large', showHoverPreview: true };
+const featureFlags = {
+  embedModalSize: 'large',
+  showHoverPreview: true,
+  enableFlexibleBlockCard: true,
+};
 
 type Props = {
   json?: JsonLd.Response;

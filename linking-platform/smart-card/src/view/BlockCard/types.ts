@@ -25,4 +25,5 @@ export type BlockCardProps = {
   renderers?: CardProviderRenderers;
   platform?: CardPlatform;
   analytics: AnalyticsFacade;
+  enableFlexibleBlockCard?: boolean;
 };

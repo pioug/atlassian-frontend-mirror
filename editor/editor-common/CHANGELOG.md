@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 70.3.0
+
+### Minor Changes
+
+- [`a9cc5c4241b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9cc5c4241b) - ED-15936 add and export new analytic events for editor-referentiality
+
 ## 70.2.1
 
 ### Patch Changes

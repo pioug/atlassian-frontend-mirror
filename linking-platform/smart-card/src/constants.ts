@@ -214,3 +214,8 @@ export enum IconType {
 export enum MediaType {
   Image = 'image',
 }
+
+export enum MediaPlacement {
+  Left = 'left',
+  Right = 'right',
+}

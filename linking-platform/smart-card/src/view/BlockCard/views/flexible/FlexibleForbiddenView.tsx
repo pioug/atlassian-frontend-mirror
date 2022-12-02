@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 import { R300 } from '@atlaskit/theme/colors';
 import { messages } from '../../../../messages';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
-import Footer from '../../components/flexible/footer';
+import BlockCardFooter from '../../components/flexible/footer';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { ForbiddenAction } from '../../actions/flexible/ForbiddenAction';
 import Text from '../../../FlexibleCard/components/elements/text';
@@ -62,7 +62,7 @@ const FlexibleForbiddenView = ({
         />
       </CustomBlock>
       <CustomBlock>
-        <Footer actions={actions} status={status} />
+        <BlockCardFooter actions={actions} status={status} />
       </CustomBlock>
     </FlexibleCard>
   );

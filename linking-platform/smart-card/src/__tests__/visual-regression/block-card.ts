@@ -29,12 +29,12 @@ describe('Block Card', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('shows unresolved views', async () => {
-    const url = getURL('vr-block-card-unresolved-views');
+  it('shows flexible views', async () => {
+    const url = getURL('vr-block-card-flexible-views');
     const page = await setup(url);
-    await page.waitForSelector('[data-testid="block-card-errored-view"]');
+    await page.waitForSelector('[data-testid="smart-block-resolved-view"]');
 
-    const image = await takeSnapshot(page, 620);
+    const image = await takeSnapshot(page, 1080);
     expect(image).toMatchProdImageSnapshot();
   });
 });

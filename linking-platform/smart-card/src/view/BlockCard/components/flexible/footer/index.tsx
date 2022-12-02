@@ -38,7 +38,9 @@ const providerStyles = css`
  * @see CustomBlock
  * @param props are the data required for the block, such as actions to be displayed.
  */
-const Footer: React.FC<FooterBlockProps> = (props: FooterBlockProps) => {
+const BlockCardFooter: React.FC<FooterBlockProps> = (
+  props: FooterBlockProps,
+) => {
   const {
     actions,
     size = SmartLinkSize.Medium,
@@ -63,4 +65,4 @@ const Footer: React.FC<FooterBlockProps> = (props: FooterBlockProps) => {
   );
 };
 
-export default Footer;
+export default BlockCardFooter;

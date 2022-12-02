@@ -4,11 +4,13 @@ import {
   isFlexibleUiBlock,
   isFlexibleUiCard,
   isFlexibleUiElement,
+  isFlexibleUiPreviewBlock,
   isFlexibleUiTitleBlock,
 } from '../flexible';
 import { Title } from '../../view/FlexibleCard/components/elements';
 import Block from '../../view/FlexibleCard/components/blocks/block';
 import {
+  PreviewBlock,
   SnippetBlock,
   TitleBlock,
 } from '../../view/FlexibleCard/components/blocks';
@@ -94,6 +96,26 @@ describe('isFlexibleUiTitleBlock', () => {
 
   it('return false if node is invalid', () => {
     const isBlock = isFlexibleUiTitleBlock('This is a text.');
+
+    expect(isBlock).toBeFalsy();
+  });
+});
+
+describe('isFlexibleUiPreviewBlock', () => {
+  it('returns true if React.Node is Flexible UI preview block', () => {
+    const isBlock = isFlexibleUiPreviewBlock(<PreviewBlock />);
+
+    expect(isBlock).toBeTruthy();
+  });
+
+  it('returns false if React.Node is not Flexible UI block', () => {
+    const isBlock = isFlexibleUiPreviewBlock(<div></div>);
+
+    expect(isBlock).toBeFalsy();
+  });
+
+  it('return false if node is invalid', () => {
+    const isBlock = isFlexibleUiPreviewBlock('This is a text.');
 
     expect(isBlock).toBeFalsy();
   });

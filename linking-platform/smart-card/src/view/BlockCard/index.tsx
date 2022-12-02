@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+/** @jsx jsx */
+import { FC } from 'react';
 import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
 import { getExtensionKey } from '../../state/helpers';
@@ -16,6 +17,13 @@ import { ResolvingView as BlockCardResolvingView } from './views/ResolvingView';
 import { UnauthorizedView as BlockCardUnauthorisedView } from './views/UnauthorizedView';
 import { ForbiddenView as BlockCardForbiddenView } from './views/ForbiddenView';
 import { ErroredView as BlockCardErroredView } from './views/ErroredView';
+import FlexibleResolvedView from './views/flexible/FlexibleResolvedView';
+import FlexibleUnauthorisedView from './views/flexible/FlexibleUnauthorisedView';
+import FlexibleNotFoundView from './views/flexible/FlexibleNotFoundView';
+import FlexibleErroredView from './views/flexible/FlexibleErroredView';
+import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
+import { tokens } from '../../utils/token';
+import { css, jsx } from '@emotion/react';
 
 export { default as PreviewAction } from './actions/PreviewAction';
 export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
@@ -31,9 +39,15 @@ export {
   BlockCardNotFoundView,
 };
 
+const flexibleBlockCardElevationStyle = css`
+  border-radius: 1.5px;
+  box-shadow: ${tokens.elevation};
+  margin: 2px;
+`;
+
 export const BlockCard: FC<BlockCardProps> = ({
   url,
-  cardState: { status, details },
+  cardState,
   authFlow,
   handleAuthorize,
   handleErrorRetry,
@@ -47,7 +61,9 @@ export const BlockCard: FC<BlockCardProps> = ({
   showActions,
   platform,
   analytics,
+  enableFlexibleBlockCard,
 }) => {
+  const { status, details } = cardState;
   const data =
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
   const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
@@ -57,6 +73,66 @@ export const BlockCard: FC<BlockCardProps> = ({
     handleInvoke,
     extensionKey: getExtensionKey(details),
   };
+
+  if (enableFlexibleBlockCard) {
+    const ui = { hideElevation: true };
+    const flexibleProps = {
+      cardState,
+      url,
+      testId,
+      onError,
+      renderers,
+      ui,
+    };
+
+    switch (status) {
+      case 'pending':
+      case 'resolving':
+      case 'resolved':
+        return (
+          <div css={flexibleBlockCardElevationStyle}>
+            <FlexibleResolvedView {...flexibleProps} />
+          </div>
+        );
+      case 'unauthorized':
+        return (
+          <div css={flexibleBlockCardElevationStyle}>
+            <FlexibleUnauthorisedView
+              {...flexibleProps}
+              onAuthorize={handleAuthorize}
+            />
+          </div>
+        );
+      case 'forbidden':
+        return (
+          <div css={flexibleBlockCardElevationStyle}>
+            <FlexibleForbiddenView
+              {...flexibleProps}
+              onAuthorize={handleAuthorize}
+            />
+          </div>
+        );
+      case 'not_found':
+        return (
+          <div css={flexibleBlockCardElevationStyle}>
+            <FlexibleNotFoundView
+              {...flexibleProps}
+              onAuthorize={handleAuthorize}
+            />
+          </div>
+        );
+      case 'fallback':
+      case 'errored':
+        return (
+          <div css={flexibleBlockCardElevationStyle}>
+            <FlexibleErroredView
+              {...flexibleProps}
+              onAuthorize={handleAuthorize}
+            />
+          </div>
+        );
+    }
+  }
 
   switch (status) {
     case 'pending':

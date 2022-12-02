@@ -5,7 +5,7 @@ import { messages } from '../../../../messages';
 import Text from '../../../FlexibleCard/components/elements/text';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
-import Footer from '../../components/flexible/footer';
+import BlockCardFooter from '../../components/flexible/footer';
 import { CustomBlock } from '../../../FlexibleCard/components/blocks';
 import { SmartLinkStatus } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
@@ -15,7 +15,7 @@ import { FlexibleBlockCardProps } from './types';
  * It should have a "Connect" button that will allow a user to connect their account and view the block card.
  *
  * @see SmartLinkStatus
- * @see UnauthorisedViewProps
+ * @see FlexibleCardProps
  */
 const FlexibleUnauthorisedView = ({
   cardState,
@@ -57,7 +57,7 @@ const FlexibleUnauthorisedView = ({
         />
       </CustomBlock>
       <CustomBlock>
-        <Footer actions={actions} status={status} />
+        <BlockCardFooter actions={actions} status={status} />
       </CustomBlock>
     </FlexibleCard>
   );

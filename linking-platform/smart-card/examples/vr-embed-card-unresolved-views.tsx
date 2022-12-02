@@ -4,7 +4,7 @@ import { JsonLd } from 'json-ld-types';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
 import { VRTestWrapper } from './utils/vr-test';
-import UnresolvedViewTest from './utils/vr-unresolved-views';
+import UnresolvedViewTest from './utils/vr-block-flexible-views';
 import { mocks } from './utils/common';
 import { Card } from '../src';
 import { iconGoogleDrive } from './images';

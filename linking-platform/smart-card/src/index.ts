@@ -49,6 +49,7 @@ export { loadingPlaceholderClassName } from './view/CardWithUrl/component-lazy/L
 export {
   ActionName,
   ElementName,
+  MediaPlacement,
   SmartLinkDirection,
   SmartLinkPosition,
   SmartLinkSize,

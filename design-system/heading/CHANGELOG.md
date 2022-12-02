@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.0.2
+
+### Patch Changes
+
+- [`95fdae34c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95fdae34c94) - Revert experimental change to `@compiled/react` from `@emotion/react`.
+
 ## 1.0.1
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import { JsonLd } from 'json-ld-types';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { Card } from '../../src';
-import { mocks } from '../utils/common';
+import { mocks } from './common';
 import type { CardAppearance } from '@atlaskit/linking-common';
 
 class ErroredClient extends CardClient {
@@ -30,8 +30,11 @@ class UnAuthClient extends CardClient {
   }
 }
 
-const renderCard = (client: CardClient, appearance: CardAppearance) => (
-  <SmartCardProvider client={client}>
+export const renderCard = (client: CardClient, appearance: CardAppearance) => (
+  <SmartCardProvider
+    client={client}
+    featureFlags={{ enableFlexibleBlockCard: true }}
+  >
     <Card url="https://some.url" appearance={appearance} />
   </SmartCardProvider>
 );

@@ -20,6 +20,8 @@ export enum ACTION {
   CLICKED = 'clicked',
   CLOSED = 'closed',
   COMMITTED = 'committed',
+  /** used in @atlassian/editor-referentiality */
+  CONNECTED_NODES = 'connectedNodes',
   CONVERTED = 'converted',
   COPIED = 'copied',
   CUT = 'cut',
@@ -27,6 +29,10 @@ export enum ACTION {
   DECREMENTED = 'decremented',
   DELETED = 'deleted',
   DISCARDED_INVALID_STEPS_FROM_TRANSACTION = 'discardedInvalidStepsFromTransaction',
+  /** used in @atlassian/editor-referentiality */
+  DISCONNECTED_SOURCE = 'disconnectedSource',
+  /** used in @atlassian/editor-referentiality */
+  DISCONNECTED_TARGET = 'disconnectedTarget',
   DISMISSED = 'dismissed',
   DISPATCHED_INVALID_TRANSACTION = 'dispatchedInvalidTransaction',
   DISPATCHED_VALID_TRANSACTION = 'dispatchedValidTransaction',
@@ -50,11 +56,15 @@ export enum ACTION {
   INCREMENTED = 'incremented',
   INDENTED = 'indented',
   INITIALISED = 'initialised',
+  /** used in @atlassian/editor-referentiality */
+  INITIALISED_FRAGMENT_MARK = 'initialisedFragmentMark',
   INPUT_PERF_SAMPLING = 'inputPerfSampling',
   INPUT_PERF_SAMPLING_AVG = 'inputPerfSamplingAvg',
   INSERTED = 'inserted',
   INVALID_DOCUMENT_ENCOUNTERED = 'invalidDocumentEncountered',
   INVOKED = 'invoked',
+  /** used in @atlassian/editor-referentiality */
+  GOT_CONNECTIONS = 'gotConnections',
   LANGUAGE_SELECTED = 'languageSelected',
   LIST_ITEM_JOINED = 'listItemJoined',
   MATCHED = 'matched',
@@ -91,6 +101,12 @@ export enum ACTION {
   UNLINK = 'unlinked',
   UNSUPPORTED_CONTENT_ENCOUNTERED = 'unsupportedContentEncountered',
   UPDATED = 'updated',
+  /** used in @atlassian/editor-referentiality */
+  UPDATED_FRAGMENT_MARK_NAME = 'updatedFragmentMarkName',
+  /** used in @atlassian/editor-referentiality */
+  UPDATED_SOURCE = 'updatedSource',
+  /** used in @atlassian/editor-referentiality */
+  UPDATED_TARGET = 'updatedTarget',
   UPLOAD_EXTERNAL_FAIL = 'uploadExternalFailed',
   VIEWED = 'viewed',
   VISITED = 'visited',
@@ -230,7 +246,7 @@ export enum ACTION_SUBJECT_ID {
   FORMAT_SUB = 'subscript',
   FORMAT_SUPER = 'superscript',
   FORMAT_UNDERLINE = 'underline',
-  FRAGMENT_MARKS = 'fragmentMarks',
+  FRAGMENT_MARK = 'fragmentMark',
   GOTO_SMART_LINK_SETTINGS = 'goToSmartLinkSettings',
   HELP_QUICK_INSERT = 'helpQuickInsert',
   HYPERLINK = 'hyperlink',

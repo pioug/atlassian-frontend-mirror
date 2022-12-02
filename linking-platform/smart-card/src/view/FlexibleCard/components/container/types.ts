@@ -26,3 +26,8 @@ export type ContainerProps = FlexibleUiOptions & {
    */
   testId?: string;
 };
+
+export type ChildrenOptions = {
+  previewOnLeft?: boolean;
+  previewOnRight?: boolean;
+};

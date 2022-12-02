@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.11.1
+
+### Patch Changes
+
+- [`9307ebb86d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9307ebb86d8) - Revert addition of init entry point in favor of an upcoming solution.
+
 ## 0.11.0
 
 ### Minor Changes

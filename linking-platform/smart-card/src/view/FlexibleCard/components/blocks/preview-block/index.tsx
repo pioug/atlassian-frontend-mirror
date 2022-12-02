@@ -1,9 +1,10 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 
 import { PreviewBlockProps } from './types';
 import { SmartLinkStatus } from '../../../../../constants';
-import Block from '../block';
-import { Preview } from '../../elements';
+import PreviewBlockResolvedView from './resolved';
 
 /**
  * Represents a PreviewBlock, which typically contains media or other large format content.
@@ -14,17 +15,13 @@ import { Preview } from '../../elements';
 const PreviewBlock: React.FC<PreviewBlockProps> = ({
   status = SmartLinkStatus.Fallback,
   testId = 'smart-block-preview',
-  onError,
   ...blockProps
 }) => {
   if (status !== SmartLinkStatus.Resolved) {
     return null;
   }
-  return (
-    <Block {...blockProps} testId={`${testId}-resolved-view`}>
-      <Preview onError={onError} />
-    </Block>
-  );
+
+  return <PreviewBlockResolvedView {...blockProps} testId={testId} />;
 };
 
 export default PreviewBlock;

@@ -8,7 +8,6 @@ const getNodeValue = (node: Rule.Node): string | null => {
       return typeof node.value === 'string' ? node.value : null;
     case 'CallExpression':
       return node.callee.type === 'Identifier' ? node.callee.name : null;
-    // @ts-expect-error
     case 'JSXAttribute':
       // @ts-expect-error
       return node.value?.type === 'Literal' ? node.value.value : null;

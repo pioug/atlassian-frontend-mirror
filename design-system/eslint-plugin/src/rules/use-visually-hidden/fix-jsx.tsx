@@ -23,7 +23,7 @@ export default (source: SourceCode, node: Rule.Node) =>
       return [];
     }
 
-    const jsxOpeningElement = closestOfType(node, 'JSXOpeningElement') as any;
+    const jsxOpeningElement = closestOfType(node, 'JSXOpeningElement')!;
 
     if (visuallyHiddenNode) {
       fixes.push(

@@ -92,7 +92,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block-preview');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 1000);
+      const image = await takeSnapshot(page, 6650);
 
       expect(image).toMatchProdImageSnapshot();
     });

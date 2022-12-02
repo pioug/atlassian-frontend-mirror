@@ -3,4 +3,5 @@ export type ImageIconProps = {
   testId?: string;
   url: string;
   onError?: () => void;
+  onLoad?: () => void;
 };

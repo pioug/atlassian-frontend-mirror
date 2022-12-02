@@ -104,6 +104,33 @@ export const unicornResponse = {
   },
 };
 
+export const minimumResponse = {
+  meta: {
+    visibility: 'public',
+    access: 'granted',
+    auth: [],
+    definitionId: 'd1',
+    key: 'object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@type': ['Object', 'atlassian:Task'],
+    generator: {
+      '@type': 'Application',
+      '@id': 'https://www.atlassian.com/#Confluence',
+      name: 'Confluence',
+    },
+    name: 'A small link response for Smart Links example.',
+    summary:
+      'This is a showcase of a link response that contains a small amount of data.',
+    url,
+  },
+};
+
 export const response1 = {
   meta: {
     visibility: 'public',

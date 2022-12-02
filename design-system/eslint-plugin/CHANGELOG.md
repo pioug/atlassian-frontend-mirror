@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.13.5
+
+### Patch Changes
+
+- [`fd903efd5f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd903efd5f8) - Dependency bump of `eslint-codemod-utils`.
+
 ## 4.13.4
 
 ### Patch Changes

@@ -13,54 +13,54 @@ import { token } from '../src';
 const fontSizes = [
   {
     name: 'font.size.050',
-    token: token('font.size.050', '11px'),
+    token: token('font.size.050', '35px'),
   },
   {
     name: 'font.size.075',
-    token: token('font.size.075', '12px'),
+    token: token('font.size.075', '29px'),
   },
   {
     name: 'font.size.100',
-    token: token('font.size.100', '14px'),
+    token: token('font.size.100', '24px'),
   },
   {
     name: 'font.size.200',
-    token: token('font.size.200', '16px'),
+    token: token('font.size.200', '20px'),
   },
   {
     name: 'font.size.300',
-    token: token('font.size.300', '20px'),
+    token: token('font.size.300', '16px'),
   },
   {
     name: 'font.size.400',
-    token: token('font.size.400', '24px'),
+    token: token('font.size.400', '14px'),
   },
   {
     name: 'font.size.500',
-    token: token('font.size.500', '29px'),
+    token: token('font.size.500', '12px'),
   },
   {
     name: 'font.size.600',
-    token: token('font.size.600', '35px'),
+    token: token('font.size.600', '11px'),
   },
 ];
 
 const fontWeights = [
   {
     name: 'font.weight.regular',
-    token: token('font.weight.regular', '400'),
+    token: token('font.weight.regular', '700'),
   },
   {
     name: 'font.weight.medium',
-    token: token('font.weight.medium', '500'),
+    token: token('font.weight.medium', '600'),
   },
   {
     name: 'font.weight.semibold',
-    token: token('font.weight.semibold', '600'),
+    token: token('font.weight.semibold', '500'),
   },
   {
     name: 'font.weight.bold',
-    token: token('font.weight.bold', '700'),
+    token: token('font.weight.bold', '400'),
   },
 ];
 

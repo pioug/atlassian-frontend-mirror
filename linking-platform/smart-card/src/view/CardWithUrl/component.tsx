@@ -69,6 +69,10 @@ export function CardWithUrlContent({
     showHoverPreview = Boolean(showHoverPreviewFlag);
   }
 
+  const enableFlexibleBlockCardFlag = Boolean(
+    useFeatureFlag('enableFlexibleBlockCard'),
+  );
+
   // Setup UI handlers.
   const handleClick = useCallback(
     (event: MouseEvent | KeyboardEvent) => {
@@ -245,6 +249,7 @@ export function CardWithUrlContent({
           testId={testId}
           showActions={showActions}
           platform={platform}
+          enableFlexibleBlockCard={enableFlexibleBlockCardFlag}
         />
       );
     case 'embed':

@@ -1,5 +1,11 @@
 # @atlaskit/panel
 
+## 0.8.0
+
+### Minor Changes
+
+- [`9faed843194`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9faed843194) - Add i18n to panel.
+
 ## 0.6.0
 
 ### Minor Changes

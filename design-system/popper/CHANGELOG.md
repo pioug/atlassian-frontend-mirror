@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.3.0
+
+### Minor Changes
+
+- [`6d5881c30a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d5881c30a4) - Introducing in-product testing entrypoints to popper.
+
 ## 5.2.11
 
 ### Patch Changes

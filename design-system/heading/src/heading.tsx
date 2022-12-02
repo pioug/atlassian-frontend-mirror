@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 

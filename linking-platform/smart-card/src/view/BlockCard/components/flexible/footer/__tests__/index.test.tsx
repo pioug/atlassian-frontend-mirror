@@ -5,7 +5,7 @@ import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { render } from '@testing-library/react';
 import { FooterBlockProps } from '../../../../../FlexibleCard/components/blocks/footer-block/types';
 import { IntlProvider } from 'react-intl-next';
-import Footer from '../index';
+import BlockCardFooter from '../index';
 import { ActionItem } from '../../../../../FlexibleCard/components/blocks/types';
 import userEvent from '@testing-library/user-event';
 
@@ -15,7 +15,7 @@ describe('Footer', () => {
     return render(
       <IntlProvider locale="en">
         <FlexibleUiContext.Provider value={context}>
-          <Footer status={props?.status} {...props} />
+          <BlockCardFooter status={props?.status} {...props} />
         </FlexibleUiContext.Provider>
       </IntlProvider>,
     );

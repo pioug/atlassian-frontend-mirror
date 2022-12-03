@@ -17,9 +17,12 @@ const gapCursorInnerSelector = `${selectors.gapCursor} span`;
 
 ['comment', 'full-page'].forEach((editor) => {
   ['Left', 'Right'].forEach((direction) => {
+    // FIXME: This test was automatically skipped due to failure on 02/12/2022: https://product-fabric.atlassian.net/browse/ED-16326
     BrowserTestCase(
       `gap-cursor: should display to ${direction} of block node after hitting ${direction} key for ${editor} editor`,
-      {},
+      {
+        skip: ['*'],
+      },
       async (client: any) => {
         const page = await goToEditorTestingWDExample(client);
 

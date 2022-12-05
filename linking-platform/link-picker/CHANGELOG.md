@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.13.3
+
+### Patch Changes
+
+- [`b4ed4bb728b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4ed4bb728b) - EDM-4923: link picker display text label has been changed from Link description to Link display text
+
 ## 1.13.2
 
 ### Patch Changes

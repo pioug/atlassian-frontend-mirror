@@ -1,12 +1,11 @@
-/**  @jsx jsx */
-import { forwardRef, memo, SyntheticEvent } from 'react';
-
-import { css, jsx } from '@emotion/react';
+import React, { forwardRef, memo, SyntheticEvent } from 'react';
 
 import {
   UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
+import Box from '@atlaskit/ds-explorations/box';
+import Inline from '@atlaskit/ds-explorations/inline';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
@@ -29,10 +28,6 @@ interface OnChangeData {
   event: SyntheticEvent;
   selectedPageIndex: number;
 }
-
-const navStyles = css({
-  display: 'flex',
-});
 
 function InnerPagination<T>(
   {
@@ -100,54 +95,56 @@ function InnerPagination<T>(
   };
 
   return (
-    <nav
-      data-testid={testId}
-      css={navStyles}
-      style={style}
+    <Box
+      testId={testId}
+      UNSAFE_style={style}
       ref={ref}
       aria-label={label}
+      as="nav"
     >
-      <Navigator
-        key="left-navigator"
-        component={components!.Previous}
-        onClick={(event: SyntheticEvent) =>
-          onChangeWithAnalytics({
-            event,
-            selectedPageIndex: selectedIndexValue - 1,
-          })
-        }
-        isDisabled={selectedIndexValue === 0}
-        iconBefore={<ChevronLeftLargeIcon label="" />}
-        aria-label={previousLabel}
-        pages={pages}
-        testId={testId && `${testId}--left-navigator`}
-      />
-      {collapseRange(
-        pages,
-        selectedIndexValue,
-        {
-          max: max!,
-          ellipsis: renderEllipsis!,
-          transform,
-        },
-        testId,
-      )}
-      <Navigator
-        key="right-navigator"
-        component={components!.Next}
-        onClick={(event: SyntheticEvent) =>
-          onChangeWithAnalytics({
-            event,
-            selectedPageIndex: selectedIndexValue + 1,
-          })
-        }
-        isDisabled={selectedIndexValue === pages.length - 1}
-        iconBefore={<ChevronRightLargeIcon label="" />}
-        aria-label={nextLabel}
-        pages={pages}
-        testId={testId && `${testId}--right-navigator`}
-      />
-    </nav>
+      <Inline gap="scale.0" alignItems="center">
+        <Navigator
+          key="left-navigator"
+          component={components!.Previous}
+          onClick={(event: SyntheticEvent) =>
+            onChangeWithAnalytics({
+              event,
+              selectedPageIndex: selectedIndexValue - 1,
+            })
+          }
+          isDisabled={selectedIndexValue === 0}
+          iconBefore={<ChevronLeftLargeIcon label="" />}
+          aria-label={previousLabel}
+          pages={pages}
+          testId={testId && `${testId}--left-navigator`}
+        />
+        {collapseRange(
+          pages,
+          selectedIndexValue,
+          {
+            max: max!,
+            ellipsis: renderEllipsis!,
+            transform,
+          },
+          testId,
+        )}
+        <Navigator
+          key="right-navigator"
+          component={components!.Next}
+          onClick={(event: SyntheticEvent) =>
+            onChangeWithAnalytics({
+              event,
+              selectedPageIndex: selectedIndexValue + 1,
+            })
+          }
+          isDisabled={selectedIndexValue === pages.length - 1}
+          iconBefore={<ChevronRightLargeIcon label="" />}
+          aria-label={nextLabel}
+          pages={pages}
+          testId={testId && `${testId}--right-navigator`}
+        />
+      </Inline>
+    </Box>
   );
 }
 

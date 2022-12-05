@@ -140,8 +140,7 @@ describe('Hyperlink', () => {
 
   describe('hyperlink menu with Link Picker Options and ff:lp-link-picker', () => {
     describe('edit link', () => {
-      // FIXME: This test was automatically skipped due to failure on 16/09/2022: https://product-fabric.atlassian.net/browse/ED-15668
-      it.skip('displays correctly when link matches display text', async () => {
+      it('displays correctly when link matches display text', async () => {
         await initEditorWithAdf(page, {
           appearance: Appearance.fullPage,
           adf: hyperlinkAdf,
@@ -157,8 +156,7 @@ describe('Hyperlink', () => {
         await page.click(hyperlinkSelectors.editLinkBtn);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 16/09/2022: https://product-fabric.atlassian.net/browse/ED-15669
-      it.skip('displays correctly when link is different to display text', async () => {
+      it('displays correctly when link is different to display text', async () => {
         await initEditorWithAdf(page, {
           appearance: Appearance.fullPage,
           adf: hyperlinkWithTextAdf,
@@ -176,8 +174,7 @@ describe('Hyperlink', () => {
     });
 
     describe('insert link', () => {
-      // FIXME: This test was automatically skipped due to failure on 16/09/2022: https://product-fabric.atlassian.net/browse/ED-15670
-      it.skip('displays correctly when inside a caption node', async () => {
+      it('displays correctly when inside a caption node', async () => {
         await initEditorWithAdf(page, {
           appearance: Appearance.fullPage,
           adf: mediaWithCaptionAdf,

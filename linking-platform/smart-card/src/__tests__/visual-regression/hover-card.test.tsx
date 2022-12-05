@@ -95,4 +95,26 @@ describe('Hover Card', () => {
       expect(image).toMatchProdImageSnapshot(snapshotOptions);
     });
   });
+
+  it('shows actionable element experiment', async () => {
+    const height = 300;
+
+    const url = getURL('vr-hover-cards-element-action-experiment');
+    const page = await setup(url);
+
+    await page.setViewport({
+      width: 800,
+      height: height,
+    });
+
+    await page.waitForSelector('[data-testid="inline-card-resolved-view"]');
+    await page.hover('[data-testid="inline-card-resolved-view"]');
+    await page.waitForSelector('[data-testid="hover-card"]');
+    await page.waitForSelector(
+      '[data-testid="authorgroup-metadata-element--avatar-0--image"]',
+    );
+
+    const image = await takeSnapshot(page, height);
+    expect(image).toMatchProdImageSnapshot(snapshotOptions);
+  });
 });

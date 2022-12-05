@@ -52,6 +52,11 @@ export default () => (
       </HorizontalWrapper>
       <h5>Override CSS</h5>
       <State appearance="moved" overrideCss={overrideCss} text="override" />
+      <h5>Experiment (DO NOT USE)</h5>
+      <div>
+        <State text="medium" /> <State text="medium" onClick={() => {}} />
+      </div>
+      <br />
     </FlexibleUiContext.Provider>
   </VRTestWrapper>
 );

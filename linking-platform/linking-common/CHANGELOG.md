@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.14.0
+
+### Minor Changes
+
+- [`1070e536838`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1070e536838) - [ux] Hover Preview: Add experiment for actionable element
+
 ## 1.13.0
 
 ### Minor Changes

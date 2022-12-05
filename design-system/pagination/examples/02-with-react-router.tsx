@@ -2,7 +2,8 @@ import React from 'react';
 
 import { HashRouter, Link, Route, Switch } from 'react-router-dom';
 
-import { token } from '@atlaskit/tokens';
+import Box from '@atlaskit/ds-explorations/box';
+import Heading from '@atlaskit/heading';
 
 import Pagination from '../src';
 
@@ -22,22 +23,22 @@ const PAGES = [
 ];
 
 const Dashboard = () => (
-  <div>
-    <h1>Dashboard</h1>
+  <Box flexDirection="column">
+    <Heading level="h800">Dashboard</Heading>
     <PaginationWithSelectPage pageSelected={0} />
-  </div>
+  </Box>
 );
 const About = () => (
-  <div>
-    <h1>About page</h1>
+  <Box flexDirection="column">
+    <Heading level="h800">About page</Heading>
     <PaginationWithSelectPage pageSelected={1} />
-  </div>
+  </Box>
 );
 const Contact = () => (
-  <div>
-    <h1>Contact page</h1>
+  <Box flexDirection="column">
+    <Heading level="h800">Contact page</Heading>
     <PaginationWithSelectPage pageSelected={2} />
-  </div>
+  </Box>
 );
 
 interface LinkProps {
@@ -49,7 +50,13 @@ interface LinkProps {
 }
 
 function renderLink(pageType: string, selectedIndex: number) {
-  return function PageItem({ isDisabled, page, pages, ...rest }: LinkProps) {
+  return function PageItem({
+    isDisabled,
+    page,
+    pages,
+    style,
+    ...rest
+  }: LinkProps) {
     let href;
     if (pageType === 'page') {
       href = page.href;
@@ -59,18 +66,10 @@ function renderLink(pageType: string, selectedIndex: number) {
       href =
         selectedIndex < pages.length - 1 ? pages[selectedIndex + 1].href : '';
     }
-    // We need this styling on the navigator since when using icons as children we need extra padding
-    const style =
-      pageType === 'page'
-        ? undefined
-        : {
-            paddingLeft: token('spacing.scale.050', '4px'),
-            paddingRight: token('spacing.scale.050', '4px'),
-          };
     return isDisabled ? (
-      <div {...rest} style={style} />
+      <Box UNSAFE_style={style} {...rest} />
     ) : (
-      <Link {...rest} style={style} to={href} />
+      <Link style={style} {...rest} to={href} />
     );
   };
 }
@@ -80,10 +79,9 @@ const PaginationWithSelectPage = ({
 }: {
   pageSelected: number;
 }) => (
-  <div style={{ marginTop: token('spacing.scale.300', '24px') }}>
+  <Box paddingBlock="scale.300">
     <Pagination
       testId="pagination"
-      style={{ marginTop: '24px' }}
       getPageLabel={(page: any) =>
         typeof page === 'object' ? page.label : page
       }
@@ -95,7 +93,7 @@ const PaginationWithSelectPage = ({
         Next: renderLink('next', pageSelected),
       }}
     />
-  </div>
+  </Box>
 );
 
 export default function WithReactRouterLink() {

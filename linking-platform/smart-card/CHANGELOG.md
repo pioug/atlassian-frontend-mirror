@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 23.5.2
+
+### Patch Changes
+
+- [`0b8bfb1a2d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b8bfb1a2d9) - Force http call (and not use cache) when reload action is called
+- Updated dependencies
+
+## 23.5.1
+
+### Patch Changes
+
+- [`1070e536838`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1070e536838) - [ux] Hover Preview: Add experiment for actionable element
+- Updated dependencies
+
 ## 23.5.0
 
 ### Minor Changes

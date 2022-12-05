@@ -52,7 +52,7 @@ export class CardClient implements CardClient_2 {
   // (undocumented)
   fetchAvailableSearchProviders(): Promise<SearchProviderInfo[]>;
   // (undocumented)
-  fetchData(url: string): Promise<JsonLd.Response>;
+  fetchData(url: string, force?: boolean): Promise<JsonLd.Response>;
   // (undocumented)
   postData(data: InvokePayload<InvokeRequest>): Promise<JsonLd.Response>;
   // (undocumented)

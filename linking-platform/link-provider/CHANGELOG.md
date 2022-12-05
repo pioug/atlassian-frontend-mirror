@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.3.6
+
+### Patch Changes
+
+- [`10a8469cb13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10a8469cb13) - Add `force` optional second parameter to `fetchData` method of `CardClient` class.
+
 ## 1.3.5
 
 ### Patch Changes

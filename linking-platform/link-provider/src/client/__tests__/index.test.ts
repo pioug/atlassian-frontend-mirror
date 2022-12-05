@@ -735,6 +735,44 @@ describe('Smart Card Client with url caching', () => {
     expect(unauthSecondResponse).toBe(mocks.unauthorized);
   });
 
+  it('should make second call for the same url when response is successful if force flag is set', async () => {
+    mockRequest.mockImplementation(mockRequestFn);
+    const client = new SmartCardClient();
+
+    const firstSuccessResponse = await client.fetchData(
+      `${hostname}/first/success`,
+      true,
+    );
+
+    const firstSuccessSecondResponse = await client.fetchData(
+      `${hostname}/first/success`,
+      true,
+    );
+
+    expect(firstSuccessResponse).toBe(mocks.success);
+    expect(firstSuccessSecondResponse).toBe(mocks.success);
+
+    expect(mockRequest).toBeCalledTimes(2);
+    expect(mockRequest.mock.calls[0]).toEqual([
+      'post',
+      expectedDefaultResolveBatchUrl,
+      [
+        {
+          resourceUrl: `${hostname}/first/success`,
+        },
+      ],
+    ]);
+    expect(mockRequest.mock.calls[1]).toEqual([
+      'post',
+      expectedDefaultResolveBatchUrl,
+      [
+        {
+          resourceUrl: `${hostname}/first/success`,
+        },
+      ],
+    ]);
+  });
+
   it('should have limited cache', async () => {
     mockRequest.mockImplementation(mockRequestFn);
     const client = new SmartCardClient();

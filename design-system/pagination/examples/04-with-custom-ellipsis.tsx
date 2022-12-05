@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import Stack from '@atlaskit/ds-explorations/stack';
+import Text from '@atlaskit/ds-explorations/text';
 import SectionMessage from '@atlaskit/section-message';
 
 import Pagination from '../src';
 
-export default function CustomEllipisExample() {
+export default function CustomEllipsisExample() {
   const [maxPageSize, setMaxPageSize] = useState(7);
 
   const handleEllipsisCLick = () => setMaxPageSize(10);
 
   return (
-    <>
-      <div style={{ marginBottom: '10px' }}>
-        <SectionMessage title="Using the example">
-          <p>Please click on the ellipsis to expand the Pagination</p>
-        </SectionMessage>
-      </div>
+    <Stack gap="scale.150">
+      <SectionMessage title="Using the example">
+        <Text as="p">
+          Please click on the ellipsis to expand the Pagination
+        </Text>
+      </SectionMessage>
       <Pagination
         testId="pagination"
         renderEllipsis={({ key }: { key: string }) => (
@@ -26,12 +28,12 @@ export default function CustomEllipisExample() {
             key={key}
             aria-label="expand"
           >
-            ...
+            ···
           </Button>
         )}
         max={maxPageSize}
         pages={[...Array(10)].map((_, i) => i + 1)}
       />
-    </>
+    </Stack>
   );
 }

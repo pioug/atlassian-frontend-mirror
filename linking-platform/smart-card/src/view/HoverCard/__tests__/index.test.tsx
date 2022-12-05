@@ -19,7 +19,7 @@ import React from 'react';
 import { fireEvent, render, cleanup, waitFor } from '@testing-library/react';
 import { fakeFactory } from '../../../utils/mocks';
 import { CardClient } from '@atlaskit/link-provider';
-import { Provider } from '../../..';
+import { Provider, ProviderProps } from '../../..';
 import * as analytics from '../../../utils/analytics/analytics';
 import { Card } from '../../Card';
 import { IntlProvider } from 'react-intl-next';
@@ -31,6 +31,7 @@ import {
   mockBaseResponseWithErrorPreview,
   mockBaseResponseWithDownload,
   mockSSRResponse,
+  mockActionableElementResponse,
 } from './__mocks__/mocks';
 import * as HoverCardComponent from '../components/HoverCardComponent';
 
@@ -39,14 +40,17 @@ describe('HoverCard', () => {
   let mockFetch: jest.Mock;
   let mockUrl: string;
 
-  const setup = async (mock: any = mockConfluenceResponse) => {
+  const setup = async (
+    mock: any = mockConfluenceResponse,
+    featureFlags?: ProviderProps['featureFlags'],
+  ) => {
     mockFetch = jest.fn(() => Promise.resolve(mock));
     mockClient = new (fakeFactory(mockFetch))();
     mockUrl = 'https://some.url';
 
     const { queryByTestId, findByTestId } = render(
       <IntlProvider locale="en">
-        <Provider client={mockClient}>
+        <Provider client={mockClient} featureFlags={featureFlags}>
           <Card appearance="inline" url={mockUrl} showHoverPreview={true} />
         </Provider>
       </IntlProvider>,
@@ -727,6 +731,50 @@ describe('HoverCard', () => {
       expect(titleBlock.textContent?.trim()).toBe('I am a fan of cheese');
       expect(snippetBlock.textContent).toBe('');
       expect(footerBlock.textContent?.trim()).toBe('');
+    });
+  });
+
+  describe('Actionable element experiment', () => {
+    it('shows actionable element', async () => {
+      const { findByTestId, queryByTestId } = await setup(
+        mockActionableElementResponse,
+        {
+          enableActionableElement: true,
+        },
+      );
+      jest.runAllTimers();
+      await findByTestId('smart-block-title-resolved-view');
+      await findByTestId('smart-block-metadata-resolved-view');
+
+      expect(queryByTestId('state-metadata-element-lozenge')).not.toBeNull();
+      expect(queryByTestId('state-metadata-element-action')).not.toBeNull();
+    });
+
+    it('does not show actionable element when feature flag is false', async () => {
+      const { findByTestId, queryByTestId } = await setup(
+        mockActionableElementResponse,
+        {
+          enableActionableElement: false,
+        },
+      );
+      jest.runAllTimers();
+      await findByTestId('smart-block-title-resolved-view');
+      await findByTestId('smart-block-metadata-resolved-view');
+
+      expect(queryByTestId('state-metadata-element-lozenge')).not.toBeNull();
+      expect(queryByTestId('state-metadata-element-action')).toBeNull();
+    });
+
+    it('does not show actionable element when feature flag is not defined', async () => {
+      const { findByTestId, queryByTestId } = await setup(
+        mockActionableElementResponse,
+      );
+      jest.runAllTimers();
+      await findByTestId('smart-block-title-resolved-view');
+      await findByTestId('smart-block-metadata-resolved-view');
+
+      expect(queryByTestId('state-metadata-element-lozenge')).not.toBeNull();
+      expect(queryByTestId('state-metadata-element-action')).toBeNull();
     });
   });
 });

@@ -176,13 +176,16 @@ export default class CardClient implements CardClientInterface {
     }
   }
 
-  public async fetchData(url: string): Promise<JsonLd.Response> {
+  public async fetchData(
+    url: string,
+    force?: boolean,
+  ): Promise<JsonLd.Response> {
     const hostname = new URL(url).hostname;
     const loader = this.getLoader(hostname);
     let responsePromise: Promise<SuccessResponse | ErrorResponse> | undefined;
 
     responsePromise = urlResponsePromiseCache.get(url);
-    if (!responsePromise) {
+    if (!responsePromise || force) {
       responsePromise = loader.load(url);
       urlResponsePromiseCache.put(url, responsePromise);
     }

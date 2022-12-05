@@ -1,5 +1,13 @@
 # @atlaskit/pagination
 
+## 14.2.4
+
+### Patch Changes
+
+- [`87991a69644`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87991a69644) - - Remove @atlaskit/tokens as a dependency.
+  - Remove @emotion/react as a dependency.
+  - Remove padding on navigator button in favor of default button sizing.
+
 ## 14.2.3
 
 ### Patch Changes

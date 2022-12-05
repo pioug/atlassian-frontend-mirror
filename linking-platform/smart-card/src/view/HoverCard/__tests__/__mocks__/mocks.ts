@@ -170,3 +170,40 @@ export const mockSSRResponse = {
     },
   },
 };
+
+export const mockActionableElementResponse = {
+  meta: {
+    auth: [],
+    definitionId: 'jira-object-provider',
+    product: 'jira',
+    visibility: 'restricted',
+    access: 'granted',
+    resourceType: 'issue',
+    key: 'jira-object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    generator: {
+      '@type': 'Application',
+      '@id': 'https://www.atlassian.com/#Jira',
+      name: 'Jira',
+    },
+    '@type': ['atlassian:Task', 'Object'],
+    'atlassian:subscriberCount': 1,
+    tag: {
+      '@type': 'Object',
+      name: 'In Progress',
+      appearance: 'inprogress',
+    },
+    preview: {
+      '@type': 'Link',
+      href: 'https://preview-link',
+      'atlassian:supportedPlatforms': ['web'],
+    },
+    url: 'https://product-fabric.atlassian.net/browse/EDM-5128',
+  },
+};

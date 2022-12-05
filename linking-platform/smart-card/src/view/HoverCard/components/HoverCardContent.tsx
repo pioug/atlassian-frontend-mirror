@@ -1,3 +1,4 @@
+import { useFeatureFlag } from '@atlaskit/link-provider';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { extractType } from '@atlaskit/linking-common/extractors';
 import { JsonLd } from 'json-ld-types';
@@ -34,7 +35,11 @@ import {
   hiddenSnippetStyles,
 } from '../styled';
 import { HoverCardContentProps } from '../types';
-import { getSimulatedMetadata, SMART_CARD_ANALYTICS_DISPLAY } from '../utils';
+import {
+  toActionableMetadata,
+  getSimulatedMetadata,
+  SMART_CARD_ANALYTICS_DISPLAY,
+} from '../utils';
 import HoverCardLoadingView from './HoverCardLoadingView';
 import SnippetOrPreview from './SnippetOrPreview';
 
@@ -87,6 +92,8 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   renderers,
   url,
 }) => {
+  const showActionableElement = useFeatureFlag('enableActionableElement');
+
   const actions = useSmartCardActions(id, url, analytics);
   useEffect(() => {
     actions.loadMetadata();
@@ -131,11 +138,27 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   );
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;
-  const types = data ? extractType(data) : undefined;
-  //TODO: EDM-3224 deleted simulated and use real JsonLd
-  const { primary, secondary, subtitle } = extractMetadata(
-    getSimulatedMetadata(extensionKey, types),
-  );
+  const { primary, secondary, subtitle } = useMemo(() => {
+    const types = data ? extractType(data) : undefined;
+    //TODO: EDM-3224 deleted simulated and use real JsonLd
+    const metadata = extractMetadata(getSimulatedMetadata(extensionKey, types));
+
+    const primary = showActionableElement
+      ? toActionableMetadata(
+          onActionClick,
+          extensionKey,
+          types,
+          cardActions,
+          metadata.primary,
+        )
+      : metadata.primary;
+
+    return {
+      primary,
+      secondary: metadata.secondary,
+      subtitle: metadata.subtitle,
+    };
+  }, [cardActions, data, extensionKey, onActionClick, showActionableElement]);
 
   const titleMaxLines = subtitle && subtitle.length > 0 ? 1 : 2;
 

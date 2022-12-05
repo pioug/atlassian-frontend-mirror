@@ -188,12 +188,12 @@ export const useSmartCardActions = (
       isReloading = false,
       isMetadataRequest = false,
     ) => {
-      // Request JSON-LD data for the card from ORS, iff it has extended
+      // Request JSON-LD data for the card from ORS, if it has extended
       // its cache lifespan OR there is no data for it currently. Once the data
       // has come back asynchronously, dispatch the resolved action for the card.
       if (isReloading || !hasData || isMetadataRequest) {
         return connections.client
-          .fetchData(resourceUrl)
+          .fetchData(resourceUrl, isReloading)
           .then((response) =>
             handleResolvedLinkResponse(
               resourceUrl,

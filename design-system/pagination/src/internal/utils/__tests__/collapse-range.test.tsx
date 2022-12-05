@@ -4,6 +4,8 @@ describe('#collapseRange', () => {
   const ellipsis = jest.fn(({ key }) => key);
   const transform = jest.fn((p: any) => p);
 
+  beforeEach(jest.clearAllMocks);
+
   it('should not throw', () => {
     expect(() => {
       collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2, {
@@ -26,52 +28,87 @@ describe('#collapseRange', () => {
   });
 
   it('should show ellipsis in start', () => {
-    const pages = collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8], 7, {
-      max: 7,
-      ellipsis,
-      transform,
-    });
-    const initialEllipsis = 'elipses-1';
+    const pages = collapseRange<number>(
+      [1, 2, 3, 4, 5, 6, 7, 8],
+      7,
+      {
+        max: 7,
+        ellipsis,
+        transform,
+      },
+      'pagination',
+    );
+    const initialEllipsis = 'ellipsis-1';
 
     expect(pages).toEqual([1, initialEllipsis, 4, 5, 6, 7, 8]);
-    expect(ellipsis).toHaveBeenCalledWith({ key: initialEllipsis });
+    expect(ellipsis).toHaveBeenCalledWith({
+      key: initialEllipsis,
+      testId: 'pagination-ellipsis',
+    });
   });
 
   it('should show ellipsis in last', () => {
-    const pages = collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8], 0, {
-      max: 7,
-      ellipsis,
-      transform,
-    });
-    const endEllipsis = 'elipses-1';
+    const pages = collapseRange<number>(
+      [1, 2, 3, 4, 5, 6, 7, 8],
+      0,
+      {
+        max: 7,
+        ellipsis,
+        transform,
+      },
+      'pagination',
+    );
+    const endEllipsis = 'ellipsis-1';
 
     expect(pages).toEqual([1, 2, 3, 4, 5, endEllipsis, 8]);
-    expect(ellipsis).toHaveBeenCalledWith({ key: endEllipsis });
+    expect(ellipsis).toHaveBeenCalledWith({
+      key: endEllipsis,
+      testId: 'pagination-ellipsis',
+    });
   });
 
   it('should not show ellipsis in last, if there is only one element need to collapse', () => {
-    const pages = collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8], 4, {
-      max: 7,
-      ellipsis,
-      transform,
-    });
-    const startEllipsis = 'elipses-1';
+    const pages = collapseRange<number>(
+      [1, 2, 3, 4, 5, 6, 7, 8],
+      4,
+      {
+        max: 7,
+        ellipsis,
+        transform,
+      },
+      'pagination',
+    );
+    const startEllipsis = 'ellipsis-1';
 
     expect(pages).toEqual([1, startEllipsis, 4, 5, 6, 7, 8]);
-    expect(ellipsis).toHaveBeenCalledWith({ key: startEllipsis });
+    expect(ellipsis).toHaveBeenCalledWith({
+      key: startEllipsis,
+      testId: 'pagination-ellipsis',
+    });
   });
 
   it('should show ellipsis in start and end', () => {
-    const pages = collapseRange<number>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4, {
-      max: 7,
-      ellipsis,
-      transform,
-    });
-    const initialEllipsis = 'elipses-1';
-    const endEllipsis = 'elipses-2';
+    const pages = collapseRange<number>(
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      4,
+      {
+        max: 7,
+        ellipsis,
+        transform,
+      },
+      'pagination',
+    );
+    const initialEllipsis = 'ellipsis-1';
+    const endEllipsis = 'ellipsis-2';
 
     expect(pages).toEqual([1, initialEllipsis, 4, 5, 6, endEllipsis, 10]);
-    expect(ellipsis).toHaveBeenNthCalledWith(1, { key: initialEllipsis });
-    expect(ellipsis).toHaveBeenNthCalledWith(2, { key: endEllipsis });
+    expect(ellipsis).toHaveBeenNthCalledWith(1, {
+      key: initialEllipsis,
+      testId: 'pagination-ellipsis',
+    });
+    expect(ellipsis).toHaveBeenNthCalledWith(2, {
+      key: endEllipsis,
+      testId: 'pagination-ellipsis',
+    });
   });
 });

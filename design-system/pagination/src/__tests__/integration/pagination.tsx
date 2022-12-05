@@ -5,10 +5,10 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 const urlPagination = getExampleUrl('design-system', 'pagination', 'basic');
 
 const pageBtnSelector = 'button[page]';
-const pageTextSelector = '#examples > p';
+const pageTextSelector = '[data-testid=description]';
 const nextPageBtnSelector = 'button[aria-label="next"]';
 const previousPageBtnSelector = 'button[aria-label="previous"]';
-const ellipsisSelector = '#examples > nav > span';
+const ellipsisSelector = '[data-testid=pagination-ellipsis-text]';
 
 BrowserTestCase(
   'A user will be able to change page by clicking page number button',
@@ -17,15 +17,16 @@ BrowserTestCase(
     const paginationPage = new Page(client);
     await paginationPage.goto(urlPagination);
 
-    const pageButtons = await paginationPage.$$(pageBtnSelector);
-
-    for (const button of pageButtons) {
+    for (let index = 1; index < 10; index++) {
+      const pageSelector = `button[data-testid=pagination--page-${index}]`;
+      const button = await paginationPage.$(pageSelector);
       await button.click();
+
       const elm = await paginationPage.$(pageTextSelector);
       const pageText = await elm.getText();
       const pageNo = await button.getAttribute('page');
 
-      expect(pageText).toEqual(`selected page from onChange hook: ${pageNo}`);
+      expect(pageText).toBe(`selected page from onChange hook: ${pageNo}`);
     }
   },
 );
@@ -41,7 +42,7 @@ BrowserTestCase(
     const elm = await paginationPage.$(pageTextSelector);
     const pageText = await elm.getText();
 
-    expect(pageText).toEqual('selected page from onChange hook: 2');
+    expect(pageText).toBe('selected page from onChange hook: 2');
   },
 );
 
@@ -58,7 +59,7 @@ BrowserTestCase(
     const elm = await paginationPage.$(pageTextSelector);
     const pageText = await elm.getText();
 
-    expect(pageText).toEqual('selected page from onChange hook: 2');
+    expect(pageText).toBe('selected page from onChange hook: 2');
   },
 );
 
@@ -72,18 +73,18 @@ BrowserTestCase(
     await page5.click();
     const pageButtons = await paginationPage.$$(pageBtnSelector);
 
-    expect(pageButtons.length).toEqual(5);
+    expect(pageButtons.length).toBe(5);
 
     const ellipsis = await paginationPage.$$(ellipsisSelector);
 
-    expect(ellipsis.length).toEqual(2);
+    expect(ellipsis.length).toBe(2);
 
     const startingEllipsisText = await ellipsis[0].getText();
 
-    expect(startingEllipsisText).toEqual('...');
+    expect(startingEllipsisText).toBe('...');
 
     const endingEllipsisText = await ellipsis[1].getText();
 
-    expect(endingEllipsisText).toEqual('...');
+    expect(endingEllipsisText).toBe('...');
   },
 );

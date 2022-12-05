@@ -10,6 +10,10 @@ export interface LinkingPlatformFeatureFlags {
    */
   disableLinkPickerPopupPositioningFix?: boolean;
   /**
+   * Enable an experiment on clickable State element on Hover Preview for Jira issue link.
+   */
+  enableActionableElement?: boolean;
+  /**
    * Decide whether to render a Flexible UI Card view instead of the older Block Card view when rendering Block Card Smart Links.
    */
   enableFlexibleBlockCard?: boolean;

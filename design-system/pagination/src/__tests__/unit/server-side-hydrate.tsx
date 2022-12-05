@@ -1,36 +1,26 @@
-import React from 'react';
+import noop from '@atlaskit/ds-lib/noop';
+import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-import ReactDOM from 'react-dom';
-import waitForExpect from 'wait-for-expect';
+const commentPath = require.resolve('../../../examples/01-basic.tsx');
 
-import __noop from '@atlaskit/ds-lib/noop';
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
-
-jest.spyOn(global.console, 'error').mockImplementation(__noop);
+jest.spyOn(global.console, 'error').mockImplementation(noop);
 
 afterEach(() => {
+  // Check cleanup
+  cleanup();
+  // reset mocks
   jest.resetAllMocks();
 });
 
 test('should ssr then hydrate pagination correctly', async () => {
-  const [example] = await getExamplesFor('@atlaskit/pagination');
-  const Example = require(example.filePath).default;
-
   const elem = document.createElement('div');
-  elem.innerHTML = await ssr(example.filePath);
+  const { html, styles } = await ssr(commentPath);
 
-  await waitForExpect(() => {
-    ReactDOM.hydrate(<Example />, elem);
-    // ignore warnings caused by emotion's server-side rendering approach
-    // eslint-disable-next-line no-console
-    const mockCalls = (console.error as jest.Mock).mock.calls.filter(
-      ([f, s]) =>
-        !(
-          f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
-          s === 'style'
-        ),
-    );
-    expect(mockCalls.length).toBe(0);
-  });
+  elem.innerHTML = html;
+  hydrate(commentPath, elem, styles);
+
+  // No other errors from e.g. hydrate
+  // eslint-disable-next-line no-console
+  const mockCalls = (console.error as jest.Mock).mock.calls;
+  expect(mockCalls.length).toBe(0);
 });

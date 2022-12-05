@@ -1,28 +1,22 @@
-/**  @jsx jsx */
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
-import { css, jsx } from '@emotion/react';
-
-import { token } from '@atlaskit/tokens';
+import Box from '@atlaskit/ds-explorations/box';
+import Text from '@atlaskit/ds-explorations/text';
 
 export type EllipsisProp = {
   key: string;
+  testId?: string;
 };
 
-const ellipsisStyles = css({
-  display: 'inline-flex',
-  padding: `${token('spacing.scale.0', '0px')} ${token(
-    'spacing.scale.100',
-    '8px',
-  )}`,
-  alignItems: 'center',
-  textAlign: 'center',
-});
-
-export default function renderEllipsis({ key }: EllipsisProp): ReactElement {
+export default function renderEllipsis({
+  key,
+  testId,
+}: EllipsisProp): ReactElement {
   return (
-    <span key={key} css={ellipsisStyles}>
-      ...
-    </span>
+    <Box as="span" testId={testId} key={key} paddingInline="scale.100">
+      <Text testId={`${testId}-text`} verticalAlign="middle">
+        ...
+      </Text>
+    </Box>
   );
 }

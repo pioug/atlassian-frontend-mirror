@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 1.2.2
+
+### Patch Changes
+
+- [`1dec7b39f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dec7b39f7b) - - Children are only iterated over when divider prop is passed. There should be no behaviour change.
+  - Add `user-select: none;` to divider.
+
 ## 1.2.1
 
 ### Patch Changes

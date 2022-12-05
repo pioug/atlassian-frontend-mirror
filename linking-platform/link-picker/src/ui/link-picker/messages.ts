@@ -52,18 +52,18 @@ export const formMessages = defineMessages({
 export const linkTextMessages = defineMessages({
   linkTextLabel: {
     id: 'fabric.linkPicker.linkTextLabel',
-    defaultMessage: 'Add a description (optional)',
-    description: 'Label for the link description input',
+    defaultMessage: 'Display text (optional)',
+    description: 'Label for the link display input',
   },
   linkTextAriaLabel: {
     id: 'fabric.linkPicker.linkTextAriaLabel',
-    defaultMessage: 'Link description',
-    description: 'Aria label for the link description input',
+    defaultMessage: 'Link display text',
+    description: 'Aria label for the link display input',
   },
   linkTextPlaceholder: {
     id: 'fabric.linkPicker.linkTextPlaceholder',
-    defaultMessage: 'Give this link a title or description',
-    description: 'Placeholder text for the link description input',
+    defaultMessage: 'Text to display',
+    description: 'Placeholder text for the link display input',
   },
   clearLinkText: {
     id: 'fabric.linkPicker.clearLinkText',

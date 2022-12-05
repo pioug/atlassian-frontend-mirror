@@ -56,7 +56,10 @@ describe('Smart Card: Actions', () => {
       const actions = useSmartCardActions(id, url, analytics);
       await actions.register();
 
-      expect(mockContext.connections.client.fetchData).toBeCalledWith(url);
+      expect(mockContext.connections.client.fetchData).toBeCalledWith(
+        url,
+        false,
+      );
     });
   });
 
@@ -77,6 +80,7 @@ describe('Smart Card: Actions', () => {
 
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
+        false,
       );
       expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
       expect(mockContext.store.dispatch).toHaveBeenCalledWith({
@@ -111,6 +115,26 @@ describe('Smart Card: Actions', () => {
           url: 'https://some/url',
           payload: mocks.success,
         }),
+      );
+    });
+
+    it('should call fetch with force flag when reload API invoked', async () => {
+      const deferrable = mockFetchData(Promise.resolve(mocks.success));
+      mockState({
+        status: 'resolved',
+        details: mocks.success,
+      });
+
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+      const actions = useSmartCardActions(id, url, analytics);
+
+      actions.reload();
+      await deferrable.promise;
+      await deferrable.flush();
+
+      expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+        url,
+        true,
       );
     });
 
@@ -157,6 +181,7 @@ describe('Smart Card: Actions', () => {
 
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
+        false,
       );
       expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
       expect(mockContext.store.dispatch).toHaveBeenCalledWith({
@@ -202,6 +227,7 @@ describe('Smart Card: Actions', () => {
 
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
+        false,
       );
       expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
       expect(mockContext.store.dispatch).nthCalledWith(3, {
@@ -237,6 +263,7 @@ describe('Smart Card: Actions', () => {
 
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
+        false,
       );
       expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
       expect(mockContext.store.dispatch).nthCalledWith(3, {
@@ -263,6 +290,7 @@ describe('Smart Card: Actions', () => {
       const promise = actions.register();
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
+        false,
       );
       await expect(promise).rejects.toBeInstanceOf(Error);
       await expect(promise).rejects.toHaveProperty('kind', 'fatal');
@@ -299,6 +327,7 @@ describe('Smart Card: Actions', () => {
 
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
+        false,
       );
       expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
       expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
@@ -339,6 +368,7 @@ describe('Smart Card: Actions', () => {
         await expect(promise).resolves.toBeUndefined();
         expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
           url,
+          false,
         );
         expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
         expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
@@ -375,6 +405,7 @@ describe('Smart Card: Actions', () => {
         await expect(promise).resolves.toBeUndefined();
         expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
           url,
+          false,
         );
         expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
         expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
@@ -404,6 +435,7 @@ describe('Smart Card: Actions', () => {
       await expect(promise).resolves.toBeUndefined();
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
+        false,
       );
       expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
       expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {

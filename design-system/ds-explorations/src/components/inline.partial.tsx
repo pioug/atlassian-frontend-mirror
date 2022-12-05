@@ -69,6 +69,7 @@ const dividerStyles = css({
   margin: '0 -2px',
   color: token('color.text.subtle', '#42526E'),
   pointerEvents: 'none',
+  userSelect: 'none',
 });
 
 const Divider: FC = ({ children }) => (
@@ -101,14 +102,26 @@ const Inline = memo(
         flexWrap,
         divider,
         UNSAFE_style,
-        children,
+        children: rawChildren,
         testId,
       },
       ref,
     ) => {
       const dividerComponent =
         typeof divider === 'string' ? <Divider>{divider}</Divider> : divider;
-      const childrenArray = Children.toArray(children).filter(Boolean);
+
+      const children = divider
+        ? Children.toArray(rawChildren)
+            .filter(Boolean)
+            .map((child, index) => {
+              return (
+                <Fragment key={index}>
+                  {divider && index > 0 ? dividerComponent : null}
+                  {child}
+                </Fragment>
+              );
+            })
+        : rawChildren;
 
       return (
         <div
@@ -123,14 +136,7 @@ const Inline = memo(
           data-testid={testId}
           ref={ref}
         >
-          {childrenArray.map((child, index) => {
-            return (
-              <Fragment key={index}>
-                {divider && index > 0 ? dividerComponent : null}
-                {child}
-              </Fragment>
-            );
-          })}
+          {children}
         </div>
       );
     },

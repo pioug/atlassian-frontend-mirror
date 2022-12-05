@@ -1,5 +1,9 @@
 import React, { SyntheticEvent, useState } from 'react';
 
+import { Code } from '@atlaskit/code';
+import Stack from '@atlaskit/ds-explorations/stack';
+import Text from '@atlaskit/ds-explorations/text';
+
 import Pagination from '../src';
 
 const PAGES = [...Array(10)].map((_, i) => ({
@@ -19,19 +23,24 @@ export default function ComplexDataExample() {
   const getLabel = ({ label }: any) => label;
 
   return (
-    <>
+    <Stack gap="scale.150">
       <Pagination
         testId="pagination"
         pages={PAGES}
         onChange={handleChange}
         getPageLabel={getLabel}
       />
-      <p>Received onChange event:</p>
-      <pre>
-        label: {onChangeEvent.label}
-        <br />
-        href: {onChangeEvent.href}
-      </pre>
-    </>
+      <Text as="p">Received onChange event:</Text>
+      <Code>
+        {JSON.stringify(
+          {
+            label: onChangeEvent.label,
+            href: onChangeEvent.href,
+          },
+          null,
+          2,
+        )}
+      </Code>
+    </Stack>
   );
 }

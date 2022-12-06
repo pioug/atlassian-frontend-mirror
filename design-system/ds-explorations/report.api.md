@@ -191,6 +191,7 @@ const columnGapMap: {
   'scale.050': SerializedStyles;
   'scale.075': SerializedStyles;
   'scale.100': SerializedStyles;
+  'scale.1000': SerializedStyles;
   'scale.150': SerializedStyles;
   'scale.200': SerializedStyles;
   'scale.250': SerializedStyles;
@@ -198,6 +199,7 @@ const columnGapMap: {
   'scale.400': SerializedStyles;
   'scale.500': SerializedStyles;
   'scale.600': SerializedStyles;
+  'scale.800': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -211,7 +213,7 @@ const displayMap: {
   inlineFlex: SerializedStyles;
 };
 
-// @public (undocumented)
+// @public
 type FlexAlignItems = keyof typeof flexAlignItemsMap;
 
 // @public (undocumented)
@@ -248,7 +250,7 @@ const flexAlignItemsMap_3: {
   end: SerializedStyles;
 };
 
-// @public (undocumented)
+// @public
 type FlexDirection = keyof typeof flexDirectionMap;
 
 // @public (undocumented)
@@ -257,7 +259,7 @@ const flexDirectionMap: {
   row: SerializedStyles;
 };
 
-// @public (undocumented)
+// @public
 type FlexJustifyContent = keyof typeof flexJustifyContentMap;
 
 // @public (undocumented)
@@ -333,18 +335,14 @@ type Height = keyof typeof heightMap;
 
 // @public (undocumented)
 const heightMap: {
-  'scale.0': SerializedStyles;
-  'scale.025': SerializedStyles;
-  'scale.050': SerializedStyles;
-  'scale.075': SerializedStyles;
-  'scale.100': SerializedStyles;
-  'scale.150': SerializedStyles;
-  'scale.200': SerializedStyles;
-  'scale.250': SerializedStyles;
-  'scale.300': SerializedStyles;
-  'scale.400': SerializedStyles;
-  'scale.500': SerializedStyles;
-  'scale.600': SerializedStyles;
+  '100%': SerializedStyles;
+  'size.100': SerializedStyles;
+  'size.1000': SerializedStyles;
+  'size.200': SerializedStyles;
+  'size.300': SerializedStyles;
+  'size.400': SerializedStyles;
+  'size.500': SerializedStyles;
+  'size.600': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -403,6 +401,7 @@ const paddingBlockMap: {
   'scale.050': SerializedStyles;
   'scale.075': SerializedStyles;
   'scale.100': SerializedStyles;
+  'scale.1000': SerializedStyles;
   'scale.150': SerializedStyles;
   'scale.200': SerializedStyles;
   'scale.250': SerializedStyles;
@@ -410,6 +409,7 @@ const paddingBlockMap: {
   'scale.400': SerializedStyles;
   'scale.500': SerializedStyles;
   'scale.600': SerializedStyles;
+  'scale.800': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -422,6 +422,7 @@ const paddingInlineMap: {
   'scale.050': SerializedStyles;
   'scale.075': SerializedStyles;
   'scale.100': SerializedStyles;
+  'scale.1000': SerializedStyles;
   'scale.150': SerializedStyles;
   'scale.200': SerializedStyles;
   'scale.250': SerializedStyles;
@@ -429,6 +430,7 @@ const paddingInlineMap: {
   'scale.400': SerializedStyles;
   'scale.500': SerializedStyles;
   'scale.600': SerializedStyles;
+  'scale.800': SerializedStyles;
 };
 
 // @public
@@ -438,6 +440,7 @@ const paddingMap: {
   'scale.050': SerializedStyles;
   'scale.075': SerializedStyles;
   'scale.100': SerializedStyles;
+  'scale.1000': SerializedStyles;
   'scale.150': SerializedStyles;
   'scale.200': SerializedStyles;
   'scale.250': SerializedStyles;
@@ -445,6 +448,7 @@ const paddingMap: {
   'scale.400': SerializedStyles;
   'scale.500': SerializedStyles;
   'scale.600': SerializedStyles;
+  'scale.800': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -470,6 +474,7 @@ const rowGapMap: {
   'scale.050': SerializedStyles;
   'scale.075': SerializedStyles;
   'scale.100': SerializedStyles;
+  'scale.1000': SerializedStyles;
   'scale.150': SerializedStyles;
   'scale.200': SerializedStyles;
   'scale.250': SerializedStyles;
@@ -477,6 +482,7 @@ const rowGapMap: {
   'scale.400': SerializedStyles;
   'scale.500': SerializedStyles;
   'scale.600': SerializedStyles;
+  'scale.800': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -587,20 +593,16 @@ const verticalAlignMap: {
 // @public (undocumented)
 type Width = keyof typeof widthMap;
 
-// @public (undocumented)
+// @public
 const widthMap: {
-  'scale.0': SerializedStyles;
-  'scale.025': SerializedStyles;
-  'scale.050': SerializedStyles;
-  'scale.075': SerializedStyles;
-  'scale.100': SerializedStyles;
-  'scale.150': SerializedStyles;
-  'scale.200': SerializedStyles;
-  'scale.250': SerializedStyles;
-  'scale.300': SerializedStyles;
-  'scale.400': SerializedStyles;
-  'scale.500': SerializedStyles;
-  'scale.600': SerializedStyles;
+  '100%': SerializedStyles;
+  'size.100': SerializedStyles;
+  'size.1000': SerializedStyles;
+  'size.200': SerializedStyles;
+  'size.300': SerializedStyles;
+  'size.400': SerializedStyles;
+  'size.500': SerializedStyles;
+  'size.600': SerializedStyles;
 };
 
 // (No @packageDocumentation comment for this package)

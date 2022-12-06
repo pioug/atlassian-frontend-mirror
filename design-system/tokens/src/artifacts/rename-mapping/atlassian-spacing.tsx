@@ -12,7 +12,7 @@
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::96edd04d9850fc284b2e4b66f4c91d07>>
+ * @codegen <<SignedSource::fb30c9ee91e6f244c04349f684b451e1>>
  * @codegenCommand yarn build tokens
  */
 import tokens from '../token-names';
@@ -82,66 +82,6 @@ const renameMapper: RenameMap[] = [
   },
   {
     "path": "spacing.scaleLinear.1100",
-    "state": "experimental",
-    "replacement": "48px"
-  },
-  {
-    "path": "spacing.pixel.0",
-    "state": "experimental",
-    "replacement": "0"
-  },
-  {
-    "path": "spacing.pixel.2",
-    "state": "experimental",
-    "replacement": "2px"
-  },
-  {
-    "path": "spacing.pixel.4",
-    "state": "experimental",
-    "replacement": "4px"
-  },
-  {
-    "path": "spacing.pixel.6",
-    "state": "experimental",
-    "replacement": "6px"
-  },
-  {
-    "path": "spacing.pixel.8",
-    "state": "experimental",
-    "replacement": "8px"
-  },
-  {
-    "path": "spacing.pixel.12",
-    "state": "experimental",
-    "replacement": "12px"
-  },
-  {
-    "path": "spacing.pixel.16",
-    "state": "experimental",
-    "replacement": "16px"
-  },
-  {
-    "path": "spacing.pixel.20",
-    "state": "experimental",
-    "replacement": "20px"
-  },
-  {
-    "path": "spacing.pixel.24",
-    "state": "experimental",
-    "replacement": "24px"
-  },
-  {
-    "path": "spacing.pixel.32",
-    "state": "experimental",
-    "replacement": "32px"
-  },
-  {
-    "path": "spacing.pixel.40",
-    "state": "experimental",
-    "replacement": "40px"
-  },
-  {
-    "path": "spacing.pixel.48",
     "state": "experimental",
     "replacement": "48px"
   },

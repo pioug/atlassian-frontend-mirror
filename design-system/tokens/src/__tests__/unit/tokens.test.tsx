@@ -1,6 +1,12 @@
 import fs from 'fs';
 
 import tokens from '../../artifacts/token-names';
+import type { Themes } from '../../index';
+import themeConfig from '../../theme-config';
+
+const extensionThemes = Object.keys(themeConfig).filter(
+  (fileName) => themeConfig[fileName as Themes].attributes.extends,
+);
 
 describe('tokens', () => {
   /**
@@ -75,7 +81,8 @@ describe('tokens', () => {
           result.isDirectory() &&
           result.name !== 'atlassian-spacing' &&
           result.name !== 'atlassian-typography' &&
-          result.name !== 'default',
+          result.name !== 'default' &&
+          !extensionThemes.includes(result.name),
       )
       .map((result) => result.name);
     let snapshot: string[];
@@ -99,7 +106,10 @@ describe('tokens', () => {
   it('should ensure all token files have the same shape', () => {
     const themes = fs
       .readdirSync(`${__dirname}/../../tokens`, { withFileTypes: true })
-      .filter((result) => result.isDirectory())
+      .filter(
+        (result) =>
+          result.isDirectory() && !extensionThemes.includes(result.name),
+      )
       .map((result) => result.name);
     const tokens: Record<string, any> = {};
 

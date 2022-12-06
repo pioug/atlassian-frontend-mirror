@@ -42,6 +42,24 @@ const getPalette = (paletteId: Palettes) => {
   }
 };
 
+/**
+ * Recursively find all base themes that the theme extends.
+ */
+const getBaseThemes = (themeName: ThemeFileNames): string[] => {
+  let baseTheme;
+  if (themeConfig[themeName].attributes.extends) {
+    baseTheme = Object.entries(themeConfig).find(
+      ([, { id }]) => id === themeConfig[themeName].attributes.extends,
+    )?.[0];
+  }
+
+  const furtherExtensions = baseTheme
+    ? getBaseThemes(baseTheme as ThemeFileNames)
+    : [];
+
+  return baseTheme ? [baseTheme, ...furtherExtensions] : [];
+};
+
 const createThemeConfig = (themeName: ThemeFileNames): Config => {
   // Optionally generate the default token mapping if the current theme
   // is the default one
@@ -60,9 +78,12 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
     },
   ];
 
-  const defaultThemes = [...DEFAULT_THEME, 'spacing', 'typography'];
+  /**
+   * Get all base themes that this theme extends.
+   */
+  const baseThemes = getBaseThemes(themeName);
 
-  if (defaultThemes.includes(themeConfig[themeName].id)) {
+  if (DEFAULT_THEME.includes(themeConfig[themeName].id)) {
     typescriptFiles.push({
       format: 'typescript/custom-token-default-values',
       destination: `${themeName}-token-default-values.tsx`,
@@ -99,7 +120,12 @@ const createThemeConfig = (themeName: ThemeFileNames): Config => {
       'box-shadow/custom-figma': boxShadowTransform(palette),
     },
     source: [path.join(THEME_INPUT_DIR, `${themeName}/**/*.tsx`)],
-    include: [path.join(THEME_INPUT_DIR, 'default/**/*.tsx')],
+    include: [
+      ...baseThemes.map((baseTheme) =>
+        path.join(THEME_INPUT_DIR, `${baseTheme}/**/*.tsx`),
+      ),
+      path.join(THEME_INPUT_DIR, 'default/**/*.tsx'),
+    ],
     platforms: {
       figma: {
         transforms: ['name/custom-dot', 'color/custom-palette'],

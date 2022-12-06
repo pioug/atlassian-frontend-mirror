@@ -1,5 +1,12 @@
 # @atlaskit/banner
 
+## 12.0.4
+
+### Patch Changes
+
+- [`ace7aad3603`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ace7aad3603) - Visual fix to padding on banner container to match grid system. This affects the height of the banner (previously 52px => now 48px). There is no expected behavior change.
+- Updated dependencies
+
 ## 12.0.3
 
 ### Patch Changes

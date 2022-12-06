@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.5.0
+
+### Minor Changes
+
+- [`6b184b6ecdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b184b6ecdd) - State management for Storage access and Login flow for EP. This feature is gated by the login-dev-only allow feature
+
 ## 1.4.1
 
 ### Patch Changes

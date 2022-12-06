@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import Range from '@atlaskit/range';
 import Select from '@atlaskit/select';
 import { PopupUserPicker } from '../src';
+import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { IntlProvider } from 'react-intl-next';
 
 export const MenuPlaceholder = styled.div`
@@ -195,18 +196,25 @@ const Example = () => {
         </OptionsContainer>
 
         <PopupContainer>
-          <PopupUserPicker
-            popupTitle="Assignee"
-            fieldId="example"
-            target={({ ref }) => {
-              return <button ref={ref}>Target</button>;
-            }}
-            width={200}
-            placement={state.placement.value}
-            shouldFlip={true}
-            offset={[state.xOffset, state.yOffset]}
-            boundariesElement={state.boundariesElement.value}
-          />
+          <ExampleWrapper>
+            {({ options, onInputChange, onSelection }) => (
+              <PopupUserPicker
+                popupTitle="Assignee"
+                fieldId="example"
+                target={({ ref }) => {
+                  return <button ref={ref}>Target</button>;
+                }}
+                width={200}
+                placement={state.placement.value}
+                shouldFlip={true}
+                offset={[state.xOffset, state.yOffset]}
+                boundariesElement={state.boundariesElement.value}
+                options={options}
+                onInputChange={onInputChange}
+                onSelection={onSelection}
+              />
+            )}
+          </ExampleWrapper>
         </PopupContainer>
       </Container>
     </IntlProvider>

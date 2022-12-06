@@ -27,16 +27,18 @@ export default () => {
       <h1>Spacing scale</h1>
       <Inline gap="scale.100" alignItems="flexEnd">
         {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
-        <ExampleSizeBox scaleToken={token('spacing.scale.025', '12px')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.050', '6px')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.075', '22px')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.100', '40px')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.150', '4rem')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.200', '32px')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.300', '12px')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.400', '2em')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.500', '52px')} />
-        <ExampleSizeBox scaleToken={token('spacing.scale.600', '0.5rem')} />
+        <ExampleSizeBox scaleToken={token('space.025', '12px')} />
+        <ExampleSizeBox scaleToken={token('space.050', '6px')} />
+        <ExampleSizeBox scaleToken={token('space.075', '22px')} />
+        <ExampleSizeBox scaleToken={token('space.100', '40px')} />
+        <ExampleSizeBox scaleToken={token('space.150', '4rem')} />
+        <ExampleSizeBox scaleToken={token('space.200', '32px')} />
+        <ExampleSizeBox scaleToken={token('space.300', '12px')} />
+        <ExampleSizeBox scaleToken={token('space.400', '2em')} />
+        <ExampleSizeBox scaleToken={token('space.500', '52px')} />
+        <ExampleSizeBox scaleToken={token('space.600', '0.5rem')} />
+        <ExampleSizeBox scaleToken={token('space.800', '0.5rem')} />
+        <ExampleSizeBox scaleToken={token('space.1000', '0.5rem')} />
       </Inline>
     </div>
   );

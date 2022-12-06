@@ -333,7 +333,12 @@ function createTableHeader(pmNode: PMNode, schema: Schema): PMNode {
     !hasAnyOfMarks(pmNode, ['strong', 'code'])
   ) {
     return pmNode.mark([...pmNode.marks, mark]);
-  } else if (pmNode.childCount > 0 && pmNode.firstChild && pmNode.child(0)) {
+  } else if (
+    pmNode.childCount > 0 &&
+    pmNode.firstChild &&
+    pmNode.child(0) &&
+    pmNode.type.name !== 'codeBlock'
+  ) {
     const jsonNode = traverseJsonNodeAndAddMarks(
       pmNode.toJSON(),
       'strong',

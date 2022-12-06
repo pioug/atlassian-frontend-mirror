@@ -1,4 +1,5 @@
-import { InternalTokenIds } from './artifacts/types-internal';
+import type { InternalTokenIds } from './artifacts/types-internal';
+import type { SpacingPaletteToken } from './palettes/spacing-scale';
 
 export type Groups =
   | 'raw'
@@ -75,6 +76,8 @@ export interface DesignToken<TValue, Group extends Groups>
         group: Group;
         description: string;
         introduced: string;
+        // specific to spacing values
+        pixelValue?: Group extends 'spacing' ? string : never;
         suggest?: string[]; // optionally provide values that you want ESLint to suggest replacing
       }
     | {
@@ -115,8 +118,19 @@ type DeepOmit<T extends any, K extends PropertyKey> = Omit<
   K
 >;
 
+type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
+
 // Recursively strips out attributes from schema
 export type ValueSchema<Schema extends object> = DeepOmit<Schema, 'attributes'>;
+
+// Recursively strips out all token values from schema
+export type ExtendedValueSchema<Schema extends object> = DeepPartial<
+  ValueSchema<Schema>
+>;
 
 // Recursively strips out values from schema
 export type AttributeSchema<Schema extends object> = DeepOmit<Schema, 'value'>;
@@ -150,15 +164,10 @@ export type ShadowToken<BaseToken> = DesignToken<
 >;
 
 export type OpacityToken = DesignToken<string, 'opacity'>;
-
-export type SpacingToken<BaseToken> = DesignToken<BaseToken, 'spacing'>;
-
+export type SpacingToken = DesignToken<SpacingPaletteToken, 'spacing'>;
 export type FontSizeToken<BaseToken> = DesignToken<BaseToken, 'fontSize'>;
-
 export type FontWeightToken<BaseToken> = DesignToken<BaseToken, 'fontWeight'>;
-
 export type FontFamilyToken<BaseToken> = DesignToken<BaseToken, 'fontFamily'>;
-
 export type LineHeightToken<BaseToken> = DesignToken<BaseToken, 'lineHeight'>;
 
 export type TypographyToken<BaseToken> = DesignToken<
@@ -187,6 +196,7 @@ export interface PaletteColorTokenSchema<PaletteValues extends string> {
 }
 
 export interface SpacingScaleTokenSchema<ScaleValues extends string> {
+  space: Record<ScaleValues, ScaleToken>;
   spacing: {
     scale: Record<ScaleValues, ScaleToken>;
   };
@@ -787,111 +797,115 @@ export type ColorTokenSchema<BaseToken> =
 export type TokenSchema<BaseToken> = ColorTokenSchema<BaseToken> &
   ElevationTokenSchema<BaseToken>;
 
-export interface SpacingTokenSchema<BaseToken> {
+export interface SpacingTokenSchema {
+  space: {
+    '0': SpacingToken;
+    '025': SpacingToken;
+    '050': SpacingToken;
+    '075': SpacingToken;
+    '100': SpacingToken;
+    '150': SpacingToken;
+    '200': SpacingToken;
+    '250': SpacingToken;
+    '300': SpacingToken;
+    '400': SpacingToken;
+    '500': SpacingToken;
+    '600': SpacingToken;
+    '800': SpacingToken;
+    '1000': SpacingToken;
+  };
   spacing: {
     scale: {
-      '0': SpacingToken<BaseToken>;
-      '025': SpacingToken<BaseToken>;
-      '050': SpacingToken<BaseToken>;
-      '075': SpacingToken<BaseToken>;
-      '100': SpacingToken<BaseToken>;
-      '150': SpacingToken<BaseToken>;
-      '200': SpacingToken<BaseToken>;
-      '250': SpacingToken<BaseToken>;
-      '300': SpacingToken<BaseToken>;
-      '400': SpacingToken<BaseToken>;
-      '500': SpacingToken<BaseToken>;
-      '600': SpacingToken<BaseToken>;
+      '0': SpacingToken;
+      '025': SpacingToken;
+      '050': SpacingToken;
+      '075': SpacingToken;
+      '100': SpacingToken;
+      '150': SpacingToken;
+      '200': SpacingToken;
+      '250': SpacingToken;
+      '300': SpacingToken;
+      '400': SpacingToken;
+      '500': SpacingToken;
+      '600': SpacingToken;
+      '800': SpacingToken;
+      '1000': SpacingToken;
     };
     scaleLinear: {
-      '0': SpacingToken<BaseToken>;
-      '100': SpacingToken<BaseToken>;
-      '200': SpacingToken<BaseToken>;
-      '300': SpacingToken<BaseToken>;
-      '400': SpacingToken<BaseToken>;
-      '500': SpacingToken<BaseToken>;
-      '600': SpacingToken<BaseToken>;
-      '700': SpacingToken<BaseToken>;
-      '800': SpacingToken<BaseToken>;
-      '900': SpacingToken<BaseToken>;
-      '1000': SpacingToken<BaseToken>;
-      '1100': SpacingToken<BaseToken>;
-    };
-    pixel: {
-      '0': SpacingToken<BaseToken>;
-      '2': SpacingToken<BaseToken>;
-      '4': SpacingToken<BaseToken>;
-      '6': SpacingToken<BaseToken>;
-      '8': SpacingToken<BaseToken>;
-      '12': SpacingToken<BaseToken>;
-      '16': SpacingToken<BaseToken>;
-      '20': SpacingToken<BaseToken>;
-      '24': SpacingToken<BaseToken>;
-      '32': SpacingToken<BaseToken>;
-      '40': SpacingToken<BaseToken>;
-      '48': SpacingToken<BaseToken>;
+      '0': SpacingToken;
+      '100': SpacingToken;
+      '200': SpacingToken;
+      '300': SpacingToken;
+      '400': SpacingToken;
+      '500': SpacingToken;
+      '600': SpacingToken;
+      '700': SpacingToken;
+      '800': SpacingToken;
+      '900': SpacingToken;
+      '1000': SpacingToken;
+      '1100': SpacingToken;
     };
     size: {
-      none: SpacingToken<BaseToken>;
-      xxxxSmall: SpacingToken<BaseToken>;
-      xxxSmall: SpacingToken<BaseToken>;
-      xxSmall: SpacingToken<BaseToken>;
-      xsmall: SpacingToken<BaseToken>;
-      small: SpacingToken<BaseToken>;
-      medium: SpacingToken<BaseToken>;
-      large: SpacingToken<BaseToken>;
-      xlarge: SpacingToken<BaseToken>;
-      xxlarge: SpacingToken<BaseToken>;
-      xxxlarge: SpacingToken<BaseToken>;
-      xxxxlarge: SpacingToken<BaseToken>;
+      none: SpacingToken;
+      xxxxSmall: SpacingToken;
+      xxxSmall: SpacingToken;
+      xxSmall: SpacingToken;
+      xsmall: SpacingToken;
+      small: SpacingToken;
+      medium: SpacingToken;
+      large: SpacingToken;
+      xlarge: SpacingToken;
+      xxlarge: SpacingToken;
+      xxxlarge: SpacingToken;
+      xxxxlarge: SpacingToken;
     };
     ecl: {
       element: {
-        '2': SpacingToken<BaseToken>;
-        '4': SpacingToken<BaseToken>;
-        '6': SpacingToken<BaseToken>;
-        '8': SpacingToken<BaseToken>;
+        '2': SpacingToken;
+        '4': SpacingToken;
+        '6': SpacingToken;
+        '8': SpacingToken;
       };
       container: {
-        '12': SpacingToken<BaseToken>;
-        '16': SpacingToken<BaseToken>;
-        '20': SpacingToken<BaseToken>;
-        '24': SpacingToken<BaseToken>;
+        '12': SpacingToken;
+        '16': SpacingToken;
+        '20': SpacingToken;
+        '24': SpacingToken;
       };
       layout: {
-        '32': SpacingToken<BaseToken>;
-        '40': SpacingToken<BaseToken>;
-        '64': SpacingToken<BaseToken>;
+        '32': SpacingToken;
+        '40': SpacingToken;
+        '64': SpacingToken;
       };
     };
     ccc: {
       component: {
-        '2': SpacingToken<BaseToken>;
-        '4': SpacingToken<BaseToken>;
-        '6': SpacingToken<BaseToken>;
-        '8': SpacingToken<BaseToken>;
+        '2': SpacingToken;
+        '4': SpacingToken;
+        '6': SpacingToken;
+        '8': SpacingToken;
       };
       content: {
-        '12': SpacingToken<BaseToken>;
-        '16': SpacingToken<BaseToken>;
-        '20': SpacingToken<BaseToken>;
-        '24': SpacingToken<BaseToken>;
+        '12': SpacingToken;
+        '16': SpacingToken;
+        '20': SpacingToken;
+        '24': SpacingToken;
       };
       container: {
-        '32': SpacingToken<BaseToken>;
-        '40': SpacingToken<BaseToken>;
-        '48': SpacingToken<BaseToken>;
+        '32': SpacingToken;
+        '40': SpacingToken;
+        '48': SpacingToken;
       };
     };
     gap: {
-      100: { value: 'Space100' };
-      200: { value: 'Space200' };
-      300: { value: 'Space300' };
+      '100': { value: 'Space100' };
+      '200': { value: 'Space200' };
+      '300': { value: 'Space300' };
     };
     inset: {
-      100: { value: 'Space100' };
-      200: { value: 'Space200' };
-      300: { value: 'Space300' };
+      '100': { value: 'Space100' };
+      '200': { value: 'Space200' };
+      '300': { value: 'Space300' };
     };
   };
 }

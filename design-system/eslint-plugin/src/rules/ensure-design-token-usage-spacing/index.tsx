@@ -22,18 +22,7 @@ import {
   getValueFromShorthand,
   isSpacingProperty,
   isValidSpacingValue,
-  removePixelSuffix,
 } from './utils';
-
-const pixelsToRems = (pixelValueString: string) => {
-  const pixels = removePixelSuffix(pixelValueString);
-
-  if (pixels === '0' || pixels === 0) {
-    return pixels;
-  }
-
-  return `${Number(pixels) / 16}rem`;
-};
 
 /**
  * Currently we have a wide range of experimental spacing tokens that we are testing.
@@ -41,10 +30,10 @@ const pixelsToRems = (pixelValueString: string) => {
  * This could be removed in the future.
  */
 const onlyScaleTokens = spacingScale.filter((token) =>
-  token.name.startsWith('spacing.scale.'),
+  token.name.startsWith('space.'),
 );
 const spacingValueToToken = Object.fromEntries(
-  onlyScaleTokens.map((token) => [token.value, token.name]),
+  onlyScaleTokens.map((token) => [token.attributes['pixelValue'], token.name]),
 );
 
 /**
@@ -54,8 +43,7 @@ const spacingValueToToken = Object.fromEntries(
  * ```
  */
 function pixelValueToSpacingTokenNode(pixelValueString: string) {
-  const remValueString = pixelsToRems(pixelValueString);
-  const token = spacingValueToToken[remValueString];
+  const token = spacingValueToToken[pixelValueString];
 
   return callExpression({
     callee: identifier({ name: 'token' }),
@@ -194,8 +182,7 @@ const rule: Rule.RuleModule = {
                 }
 
                 const pixelValueString = `${pixelValue}px`;
-                const remValueString = pixelsToRems(pixelValueString);
-                const tokenName = spacingValueToToken[remValueString];
+                const tokenName = spacingValueToToken[pixelValueString];
 
                 if (!tokenName) {
                   return null;
@@ -358,11 +345,8 @@ const rule: Rule.RuleModule = {
                           .map((value) => {
                             const pixelValue = emToPixels(value, fontSize);
                             const pixelValueString = `${pixelValue}px`;
-                            const remValueString =
-                              pixelsToRems(pixelValueString);
-
                             const tokenName =
-                              spacingValueToToken[remValueString];
+                              spacingValueToToken[pixelValueString];
 
                             if (!tokenName) {
                               return pixelValueString;

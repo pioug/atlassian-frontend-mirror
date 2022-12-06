@@ -4,10 +4,24 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::6774c0c721b46e66ada20e02efc078c0>>
+ * @codegen <<SignedSource::58e461c6792689bbf53af618a63e94d0>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
+  'space.0': '0',
+  'space.100': '0.5rem',
+  'space.150': '0.75rem',
+  'space.200': '1rem',
+  'space.250': '1.25rem',
+  'space.300': '1.5rem',
+  'space.400': '2rem',
+  'space.500': '2.5rem',
+  'space.600': '3rem',
+  'space.800': '4rem',
+  'space.1000': '5rem',
+  'space.025': '0.125rem',
+  'space.050': '0.25rem',
+  'space.075': '0.375rem',
   'spacing.scale.0': '0',
   'spacing.scale.100': '0.5rem',
   'spacing.scale.150': '0.75rem',
@@ -17,6 +31,8 @@ const defaultTokenValues = {
   'spacing.scale.400': '2rem',
   'spacing.scale.500': '2.5rem',
   'spacing.scale.600': '3rem',
+  'spacing.scale.800': '4rem',
+  'spacing.scale.1000': '5rem',
   'spacing.scale.025': '0.125rem',
   'spacing.scale.050': '0.25rem',
   'spacing.scale.075': '0.375rem',
@@ -32,18 +48,6 @@ const defaultTokenValues = {
   'spacing.scaleLinear.900': '2rem',
   'spacing.scaleLinear.1000': '2.5rem',
   'spacing.scaleLinear.1100': '3rem',
-  'spacing.pixel.0': '0',
-  'spacing.pixel.2': '0.125rem',
-  'spacing.pixel.4': '0.25rem',
-  'spacing.pixel.6': '0.375rem',
-  'spacing.pixel.8': '0.5rem',
-  'spacing.pixel.12': '0.75rem',
-  'spacing.pixel.16': '1rem',
-  'spacing.pixel.20': '1.25rem',
-  'spacing.pixel.24': '1.5rem',
-  'spacing.pixel.32': '2rem',
-  'spacing.pixel.40': '2.5rem',
-  'spacing.pixel.48': '3rem',
   'spacing.size.none': '0',
   'spacing.size.xxxxSmall': '0.125rem',
   'spacing.size.xxxSmall': '0.25rem',

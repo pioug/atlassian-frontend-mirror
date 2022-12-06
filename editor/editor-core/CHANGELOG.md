@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 175.0.2
+
+### Patch Changes
+
+- [`560af4b794c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/560af4b794c) - Preventing ReactEditorView declaration file from being generated with cypress types by changing the shape of the interface.
+
 ## 175.0.1
 
 ### Patch Changes

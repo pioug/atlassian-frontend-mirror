@@ -1,9 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * Some artifact
+ * Internal codegen of the spacing scale values. Only used for internal examples.
  *
- * @codegen <<SignedSource::caecb926afa82b027fba396074de5c2c>>
+ * @codegen <<SignedSource::d351e41acd06f256fb46554409694f31>>
  * @codegenCommand yarn codegen-styles
  */
 export const spacingScale = [
@@ -19,4 +19,6 @@ export const spacingScale = [
   'scale.400',
   'scale.500',
   'scale.600',
+  'scale.800',
+  'scale.1000',
 ] as const;

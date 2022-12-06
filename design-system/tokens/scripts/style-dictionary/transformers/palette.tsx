@@ -24,7 +24,7 @@ const transform = (palette: Record<string, any>): Transform => {
       const originalToken = token.original as
         | PaintToken<any>
         | ShadowToken<any>
-        | SpacingToken<any>
+        | SpacingToken
         | TypographyToken<any>
         | OpacityToken
         | RawToken;

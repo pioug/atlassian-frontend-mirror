@@ -107,7 +107,7 @@ export default Stack;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5d82d50cdeb38664c4c45d02608e447d>>
+ * @codegen <<SignedSource::2b10240c217de584b627a7e2f56d11a0>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["rowGap"]
@@ -115,40 +115,46 @@ export default Stack;
  */
 const rowGapMap = {
   'scale.0': css({
-    rowGap: token('spacing.scale.0', '0px'),
+    rowGap: token('space.0', '0px'),
   }),
   'scale.025': css({
-    rowGap: token('spacing.scale.025', '2px'),
+    rowGap: token('space.025', '2px'),
   }),
   'scale.050': css({
-    rowGap: token('spacing.scale.050', '4px'),
+    rowGap: token('space.050', '4px'),
   }),
   'scale.075': css({
-    rowGap: token('spacing.scale.075', '6px'),
+    rowGap: token('space.075', '6px'),
   }),
   'scale.100': css({
-    rowGap: token('spacing.scale.100', '8px'),
+    rowGap: token('space.100', '8px'),
+  }),
+  'scale.1000': css({
+    rowGap: token('space.1000', '80px'),
   }),
   'scale.150': css({
-    rowGap: token('spacing.scale.150', '12px'),
+    rowGap: token('space.150', '12px'),
   }),
   'scale.200': css({
-    rowGap: token('spacing.scale.200', '16px'),
+    rowGap: token('space.200', '16px'),
   }),
   'scale.250': css({
-    rowGap: token('spacing.scale.250', '20px'),
+    rowGap: token('space.250', '20px'),
   }),
   'scale.300': css({
-    rowGap: token('spacing.scale.300', '24px'),
+    rowGap: token('space.300', '24px'),
   }),
   'scale.400': css({
-    rowGap: token('spacing.scale.400', '32px'),
+    rowGap: token('space.400', '32px'),
   }),
   'scale.500': css({
-    rowGap: token('spacing.scale.500', '40px'),
+    rowGap: token('space.500', '40px'),
   }),
   'scale.600': css({
-    rowGap: token('spacing.scale.600', '48px'),
+    rowGap: token('space.600', '48px'),
+  }),
+  'scale.800': css({
+    rowGap: token('space.800', '64px'),
   }),
 };
 

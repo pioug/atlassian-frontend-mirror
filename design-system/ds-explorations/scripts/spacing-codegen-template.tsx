@@ -1,18 +1,11 @@
 import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import tokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-spacing';
+import tokens from '@atlaskit/tokens/spacing-raw';
 
 import { capitalize, tokenToStyle } from './utils';
 
 const spacingProperties = {
-  width: {
-    cssProperty: 'width',
-  },
-  height: {
-    cssProperty: 'height',
-  },
   padding: {
     cssProperty: 'padding',
   },
@@ -33,21 +26,14 @@ const spacingProperties = {
   },
 } as const;
 
-type Token = {
-  name: string;
-  fallback: string;
-};
-
 const onlyScaleTokens = tokens.filter((token) =>
-  token.name.startsWith('spacing.scale.'),
+  token.name.startsWith('space.'),
 );
 
-const activeTokens = onlyScaleTokens.map(
-  (t): Token => ({
-    name: t.name,
-    fallback: t.value,
-  }),
-);
+const activeTokens = onlyScaleTokens.map((t) => ({
+  name: t.name,
+  fallback: t.attributes.pixelValue!,
+}));
 
 export const createSpacingStylesFromTemplate = (
   spacingProperty: keyof typeof spacingProperties,
@@ -65,7 +51,8 @@ const ${spacingProperty}Map = {
   ${activeTokens
     .sort((a, b) => (a.name < b.name ? -1 : 1))
     .map((token) => {
-      const propName = token.name.replace('spacing.', '');
+      // TODO change this when we want to cut a major on the package
+      const propName = token.name.replace('space.', 'scale.');
       return `'${propName}': ${tokenToStyle(
         cssProperty,
         token.name,

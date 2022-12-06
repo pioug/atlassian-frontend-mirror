@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.11.2
+
+### Patch Changes
+
+- [`81e34736aa0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81e34736aa0) - [ux] Introduces additional token set `space.*`. These tokens match the behavior of `spacing.scale.*`. Also introduces two additional base tokens, `Space800` and `Space1000`.
+
 ## 0.11.1
 
 ### Patch Changes

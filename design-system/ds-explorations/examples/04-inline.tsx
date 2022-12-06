@@ -9,9 +9,9 @@ import {
 } from '../src';
 import { spacingScale } from '../src/internal/spacing-scale';
 
-const flexAlignItems = ['center', 'baseline', 'flexStart', 'flexEnd'];
-const flexJustifyContent = ['center', 'flexStart', 'flexEnd'];
-const flexWrap = ['wrap'];
+const flexAlignItems = ['center', 'baseline', 'flexStart', 'flexEnd'] as const;
+const flexJustifyContent = ['center', 'flexStart', 'flexEnd'] as const;
+const flexWrap = ['wrap'] as const;
 
 /**
  * Inline permutations
@@ -46,9 +46,8 @@ export default () => {
           {flexAlignItems.map((alignItemsValue) => (
             <Stack key={alignItemsValue} gap="scale.300">
               <Heading level="h500">{alignItemsValue}</Heading>
-
               <Box backgroundColor="neutral" UNSAFE_style={{ height: '100px' }}>
-                <Inline gap="scale.200" alignItems={alignItemsValue as any}>
+                <Inline gap="scale.200" alignItems={alignItemsValue}>
                   <Box padding="scale.100" backgroundColor="success.bold" />
                   <Box padding="scale.100" backgroundColor="success.bold" />
                   <Box padding="scale.100" backgroundColor="success.bold" />
@@ -57,7 +56,6 @@ export default () => {
             </Stack>
           ))}
         </Inline>
-
         <Heading level="h600">justifyContent</Heading>
         <Inline gap="scale.400">
           {flexJustifyContent.map((justifyContentValue) => (
@@ -69,10 +67,7 @@ export default () => {
                 backgroundColor="neutral"
                 UNSAFE_style={{ width: '140px' }}
               >
-                <Inline
-                  gap="scale.200"
-                  justifyContent={justifyContentValue as any}
-                >
+                <Inline gap="scale.200" justifyContent={justifyContentValue}>
                   <Box padding="scale.100" backgroundColor="success.bold" />
                   <Box padding="scale.100" backgroundColor="success.bold" />
                   <Box padding="scale.100" backgroundColor="success.bold" />
@@ -88,7 +83,6 @@ export default () => {
           {flexWrap.map((flexWrapValue) => (
             <Stack key={flexWrapValue} gap="scale.300">
               <Heading level="h500">{flexWrapValue}</Heading>
-
               <Box backgroundColor="neutral" UNSAFE_style={{ width: '50px' }}>
                 <Inline gap="scale.200" flexWrap={flexWrapValue as any}>
                   <Box padding="scale.100" backgroundColor="success.bold" />

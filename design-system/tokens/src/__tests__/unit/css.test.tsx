@@ -1,13 +1,19 @@
 import fs from 'fs';
 
-const colorThemes = [
-  'atlassian-dark.css',
-  'atlassian-legacy-dark.css',
-  'atlassian-legacy-light.css',
-  'atlassian-light.css',
-];
+import type { Themes } from '../../index';
+import themeConfig from '../../theme-config';
 
-const nonColorThemes = ['atlassian-spacing.css', 'atlassian-typography.css'];
+const colorThemes = Object.keys(themeConfig)
+  .filter(
+    (fileName) => themeConfig[fileName as Themes].attributes.type === 'color',
+  )
+  .map((themeName) => `${themeName}.css`);
+
+const nonColorThemes = Object.keys(themeConfig)
+  .filter(
+    (fileName) => themeConfig[fileName as Themes].attributes.type !== 'color',
+  )
+  .map((themeName) => `${themeName}.css`);
 
 describe('generated CSS', () => {
   const getCSSFileNames = () => fs.readdirSync(`${__dirname}/../../../css`);
@@ -17,7 +23,9 @@ describe('generated CSS', () => {
   it('should place css in the root css folder', () => {
     const names = getCSSFileNames();
 
-    expect(names).toEqual([...colorThemes, ...nonColorThemes]);
+    Object.keys(themeConfig).forEach((theme) => {
+      expect(names).toContain(`${theme}.css`);
+    });
   });
 
   it('should place color themes on the theme attribute', () => {

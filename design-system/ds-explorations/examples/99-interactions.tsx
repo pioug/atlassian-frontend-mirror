@@ -35,7 +35,7 @@ const fieldsetStyles = css({
 
 export default () => {
   return (
-    <Box width="scale.600" padding="scale.100" testId="all">
+    <Box width="size.500" padding="scale.100" testId="all">
       <Stack gap="scale.200">
         <Heading level="h400">Current ADS Buttons</Heading>
         <Inline gap="scale.200">

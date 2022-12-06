@@ -6,6 +6,7 @@ import { createPartialSignedArtifact, createSignedArtifact } from '@af/codegen';
 
 import { createColorStylesFromTemplate } from './color-codegen-template';
 import { createColorMapTemplate } from './color-map-template';
+import { createDimensionStylesFromTemplate } from './dimension-codegen-template';
 import { createInteractionStylesFromTemplate } from './interaction-codegen';
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 import { createSpacingScaleTemplate } from './spacing-scale-template';
@@ -30,7 +31,7 @@ writeFile(
   createSignedArtifact(
     createSpacingScaleTemplate(),
     'yarn codegen-styles',
-    'Some artifact',
+    'Internal codegen of the spacing scale values. Only used for internal examples.',
   ),
 ).then(() => console.log('spacing-scale.tsx written!'));
 
@@ -98,6 +99,28 @@ Promise.all(
         id: 'interactions',
         absoluteFilePath: targetPath,
         dependencies: [tokensDependencyPath],
+      },
+    );
+
+    return writeFile(targetPath, source).then(() =>
+      console.log(`${targetPath} written!`),
+    );
+  })
+  .then(() => {
+    const targetPath = join(
+      __dirname,
+      '../',
+      'src',
+      'components',
+      'box.partial.tsx',
+    );
+
+    const source = createPartialSignedArtifact(
+      (options) => options.map(createDimensionStylesFromTemplate).join('\n'),
+      'yarn codegen-styles',
+      {
+        id: 'dimensions',
+        absoluteFilePath: targetPath,
       },
     );
 

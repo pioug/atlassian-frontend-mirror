@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.3.0
+
+### Minor Changes
+
+- [`7d6e345cd63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d6e345cd63) - Bump to account for bump in `@atlaskit/tokens`.
+
 ## 1.2.2
 
 ### Patch Changes

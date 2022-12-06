@@ -170,6 +170,14 @@ export function shouldReconfigureState(
   );
 }
 
+interface CreateEditorStateOptions {
+  props: EditorViewProps;
+  context: EditorReactContext;
+  doc?: string | Object | PMNode;
+  resetting?: boolean;
+  selectionAtStart?: boolean;
+}
+
 export class ReactEditorView<T = {}> extends React.Component<
   EditorViewProps & WrappedComponentProps & T,
   {},
@@ -539,13 +547,7 @@ export class ReactEditorView<T = {}> extends React.Component<
     return builtinPlugins;
   }
 
-  createEditorState = (options: {
-    props: EditorViewProps;
-    context: EditorReactContext;
-    doc?: string | Object | PMNode;
-    resetting?: boolean;
-    selectionAtStart?: boolean;
-  }) => {
+  createEditorState = (options: CreateEditorStateOptions) => {
     let schema;
     if (this.view) {
       if (options.resetting) {

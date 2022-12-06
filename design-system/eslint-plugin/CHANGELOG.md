@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.13.6
+
+### Patch Changes
+
+- [`0518a6ab41d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0518a6ab41d) - Changes behavior of `ensure-design-token-usage-spacing` to fallback to px instead of rems when a fix is applied.
+
 ## 4.13.5
 
 ### Patch Changes

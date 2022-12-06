@@ -149,7 +149,7 @@ export default Inline;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2dd7c6b8450b1bbd1fb8fabf12fffa33>>
+ * @codegen <<SignedSource::76168a57c8f10c9f325865d2189aa0ff>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["columnGap"]
@@ -157,40 +157,46 @@ export default Inline;
  */
 const columnGapMap = {
   'scale.0': css({
-    columnGap: token('spacing.scale.0', '0px'),
+    columnGap: token('space.0', '0px'),
   }),
   'scale.025': css({
-    columnGap: token('spacing.scale.025', '2px'),
+    columnGap: token('space.025', '2px'),
   }),
   'scale.050': css({
-    columnGap: token('spacing.scale.050', '4px'),
+    columnGap: token('space.050', '4px'),
   }),
   'scale.075': css({
-    columnGap: token('spacing.scale.075', '6px'),
+    columnGap: token('space.075', '6px'),
   }),
   'scale.100': css({
-    columnGap: token('spacing.scale.100', '8px'),
+    columnGap: token('space.100', '8px'),
+  }),
+  'scale.1000': css({
+    columnGap: token('space.1000', '80px'),
   }),
   'scale.150': css({
-    columnGap: token('spacing.scale.150', '12px'),
+    columnGap: token('space.150', '12px'),
   }),
   'scale.200': css({
-    columnGap: token('spacing.scale.200', '16px'),
+    columnGap: token('space.200', '16px'),
   }),
   'scale.250': css({
-    columnGap: token('spacing.scale.250', '20px'),
+    columnGap: token('space.250', '20px'),
   }),
   'scale.300': css({
-    columnGap: token('spacing.scale.300', '24px'),
+    columnGap: token('space.300', '24px'),
   }),
   'scale.400': css({
-    columnGap: token('spacing.scale.400', '32px'),
+    columnGap: token('space.400', '32px'),
   }),
   'scale.500': css({
-    columnGap: token('spacing.scale.500', '40px'),
+    columnGap: token('space.500', '40px'),
   }),
   'scale.600': css({
-    columnGap: token('spacing.scale.600', '48px'),
+    columnGap: token('space.600', '48px'),
+  }),
+  'scale.800': css({
+    columnGap: token('space.800', '64px'),
   }),
 };
 

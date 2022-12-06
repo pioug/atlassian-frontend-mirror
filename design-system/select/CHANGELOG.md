@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 15.7.7
+
+### Patch Changes
+
+- [`8048ae661df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8048ae661df) - [ux] Fixed bug where consumers extending the styles of PopupSelect would not receive the correct base styles in their custom styles functions.
+
 ## 15.7.6
 
 ### Patch Changes

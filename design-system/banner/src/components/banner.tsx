@@ -103,14 +103,13 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
       <Box
         display="block"
         backgroundColor={backgroundColors[appearanceType]}
-        paddingInline="scale.150"
+        padding="scale.150"
         testId={testId}
         ref={ref}
         {...accessibilityProps}
         UNSAFE_style={{
-          paddingBlock: '14px', // TODO: Revist design and use a spacing token
           overflow: 'hidden',
-          maxHeight: '52px',
+          maxHeight: '48px',
         }}
         css={nestedLinkStyles}
       >
@@ -119,8 +118,8 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
             <Box
               as="span"
               display="inline"
-              width="scale.300"
-              height="scale.300" // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
+              width="size.200"
+              height="size.200" // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
               UNSAFE_style={{
                 fill: tokenBackgroundColors[appearanceType],
                 color: tokenTextColors[appearanceType],
@@ -134,11 +133,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
             fontWeight="500"
             lineHeight="24px"
             color={textColors[appearanceType]}
-            UNSAFE_style={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
+            shouldTruncate
           >
             {children}
           </Text>

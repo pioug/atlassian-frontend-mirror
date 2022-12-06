@@ -1,21 +1,14 @@
 import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import tokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-spacing';
+import tokens from '@atlaskit/tokens/spacing-raw';
 
 const onlyScaleTokens = tokens.filter((token) =>
   token.name.startsWith('spacing.scale.'),
 );
 
-type Token = {
-  name: string;
-};
-
 const activeTokens = onlyScaleTokens.map(
-  (t): Token => ({
-    name: t.name,
-  }),
+  (t) => `'${t.name.replace('spacing.', '')}'`,
 );
 
 export const createSpacingScaleTemplate = () => {
@@ -23,10 +16,10 @@ export const createSpacingScaleTemplate = () => {
     `
 export const spacingScale = [
   ${activeTokens
-    .sort((a, b) => (a.name < b.name ? -1 : 1))
-    .map((token) => {
-      const propName = token.name.replace('spacing.', '');
-      return `'${propName}'`;
+    .sort((a, b) => {
+      const spaceValueA = Number(a.match(/(\d+)/)![0]);
+      const spaceValueB = Number(b.match(/(\d+)/)![0]);
+      return spaceValueA < spaceValueB ? -1 : 1;
     })
     .join(',\n\t')}
 ] as const;`,

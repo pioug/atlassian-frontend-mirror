@@ -68,14 +68,17 @@ type BoxPropsBase<T extends ElementType> = {
   borderRadius?: BorderRadius;
   /**
    * Defines the main axis direction.
+   * @deprecated
    */
   flexDirection?: FlexDirection;
   /**
    * Used to align children along the cross axis.
+   * @deprecated
    */
   alignItems?: FlexAlignItems;
   /**
    * Used to align children along the main axis.
+   * @deprecated
    */
   justifyContent?: FlexJustifyContent;
   /**
@@ -99,10 +102,12 @@ type BoxPropsBase<T extends ElementType> = {
   paddingInline?: PaddingInline;
   /**
    * Token representing width.
+   * @experimental The existing tokens will be replaced to better reflect dimensions.
    */
   width?: Width;
   /**
    * Token representing height.
+   * @experimental The existing tokens will be replaced to better reflect dimensions.
    */
   height?: Height;
   /**
@@ -231,12 +236,18 @@ const borderRadiusMap = {
   badge: css({ borderRadius: '8px' }),
 };
 
+/**
+ * @experimental - this is likely to be removed
+ */
 type FlexDirection = keyof typeof flexDirectionMap;
 const flexDirectionMap = {
   column: css({ flexDirection: 'column' }),
   row: css({ flexDirection: 'row' }),
 };
 
+/**
+ * @experimental - this is likely to be removed
+ */
 type FlexAlignItems = keyof typeof flexAlignItemsMap;
 const flexAlignItemsMap = {
   center: css({ alignItems: 'center' }),
@@ -245,6 +256,9 @@ const flexAlignItemsMap = {
   flexEnd: css({ alignItems: 'flex-end' }),
 };
 
+/**
+ * @experimental - this is likely to be removed
+ */
 type FlexJustifyContent = keyof typeof flexJustifyContentMap;
 const flexJustifyContentMap = {
   center: css({ justifyContent: 'center' }),
@@ -280,48 +294,91 @@ const baseStyles = css({
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2d25a493458fa1cefdafcd559404f2ec>>
+ * @codegen <<SignedSource::327e769aaa3da9422a919a0ca9490070>>
+ * @codegenId dimensions
+ * @codegenCommand yarn codegen-styles
+ * @codegenParams ["width", "height"]
+ */
+const widthMap = {
+  '100%': css({ width: '100%' }),
+  'size.100': css({ width: '16px' }),
+  'size.1000': css({ width: '192px' }),
+  'size.200': css({ width: '24px' }),
+  'size.300': css({ width: '32px' }),
+  'size.400': css({ width: '40px' }),
+  'size.500': css({ width: '48px' }),
+  'size.600': css({ width: '96px' }),
+};
+
+export type Width = keyof typeof widthMap;
+
+const heightMap = {
+  '100%': css({ height: '100%' }),
+  'size.100': css({ height: '16px' }),
+  'size.1000': css({ height: '192px' }),
+  'size.200': css({ height: '24px' }),
+  'size.300': css({ height: '32px' }),
+  'size.400': css({ height: '40px' }),
+  'size.500': css({ height: '48px' }),
+  'size.600': css({ height: '96px' }),
+};
+
+export type Height = keyof typeof heightMap;
+
+/**
+ * @codegenEnd
+ */
+
+/**
+ * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::41980a62e387c13a99802814a0f33d26>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
- * @codegenParams ["padding", "paddingBlock", "paddingInline", "width", "height"]
+ * @codegenParams ["padding", "paddingBlock", "paddingInline"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::07ef29d58a2b23af8b098515466d7e22>>
  */
 const paddingMap = {
   'scale.0': css({
-    padding: token('spacing.scale.0', '0px'),
+    padding: token('space.0', '0px'),
   }),
   'scale.025': css({
-    padding: token('spacing.scale.025', '2px'),
+    padding: token('space.025', '2px'),
   }),
   'scale.050': css({
-    padding: token('spacing.scale.050', '4px'),
+    padding: token('space.050', '4px'),
   }),
   'scale.075': css({
-    padding: token('spacing.scale.075', '6px'),
+    padding: token('space.075', '6px'),
   }),
   'scale.100': css({
-    padding: token('spacing.scale.100', '8px'),
+    padding: token('space.100', '8px'),
+  }),
+  'scale.1000': css({
+    padding: token('space.1000', '80px'),
   }),
   'scale.150': css({
-    padding: token('spacing.scale.150', '12px'),
+    padding: token('space.150', '12px'),
   }),
   'scale.200': css({
-    padding: token('spacing.scale.200', '16px'),
+    padding: token('space.200', '16px'),
   }),
   'scale.250': css({
-    padding: token('spacing.scale.250', '20px'),
+    padding: token('space.250', '20px'),
   }),
   'scale.300': css({
-    padding: token('spacing.scale.300', '24px'),
+    padding: token('space.300', '24px'),
   }),
   'scale.400': css({
-    padding: token('spacing.scale.400', '32px'),
+    padding: token('space.400', '32px'),
   }),
   'scale.500': css({
-    padding: token('spacing.scale.500', '40px'),
+    padding: token('space.500', '40px'),
   }),
   'scale.600': css({
-    padding: token('spacing.scale.600', '48px'),
+    padding: token('space.600', '48px'),
+  }),
+  'scale.800': css({
+    padding: token('space.800', '64px'),
   }),
 };
 
@@ -329,40 +386,46 @@ export type Padding = keyof typeof paddingMap;
 
 const paddingBlockMap = {
   'scale.0': css({
-    paddingBlock: token('spacing.scale.0', '0px'),
+    paddingBlock: token('space.0', '0px'),
   }),
   'scale.025': css({
-    paddingBlock: token('spacing.scale.025', '2px'),
+    paddingBlock: token('space.025', '2px'),
   }),
   'scale.050': css({
-    paddingBlock: token('spacing.scale.050', '4px'),
+    paddingBlock: token('space.050', '4px'),
   }),
   'scale.075': css({
-    paddingBlock: token('spacing.scale.075', '6px'),
+    paddingBlock: token('space.075', '6px'),
   }),
   'scale.100': css({
-    paddingBlock: token('spacing.scale.100', '8px'),
+    paddingBlock: token('space.100', '8px'),
+  }),
+  'scale.1000': css({
+    paddingBlock: token('space.1000', '80px'),
   }),
   'scale.150': css({
-    paddingBlock: token('spacing.scale.150', '12px'),
+    paddingBlock: token('space.150', '12px'),
   }),
   'scale.200': css({
-    paddingBlock: token('spacing.scale.200', '16px'),
+    paddingBlock: token('space.200', '16px'),
   }),
   'scale.250': css({
-    paddingBlock: token('spacing.scale.250', '20px'),
+    paddingBlock: token('space.250', '20px'),
   }),
   'scale.300': css({
-    paddingBlock: token('spacing.scale.300', '24px'),
+    paddingBlock: token('space.300', '24px'),
   }),
   'scale.400': css({
-    paddingBlock: token('spacing.scale.400', '32px'),
+    paddingBlock: token('space.400', '32px'),
   }),
   'scale.500': css({
-    paddingBlock: token('spacing.scale.500', '40px'),
+    paddingBlock: token('space.500', '40px'),
   }),
   'scale.600': css({
-    paddingBlock: token('spacing.scale.600', '48px'),
+    paddingBlock: token('space.600', '48px'),
+  }),
+  'scale.800': css({
+    paddingBlock: token('space.800', '64px'),
   }),
 };
 
@@ -370,126 +433,50 @@ export type PaddingBlock = keyof typeof paddingBlockMap;
 
 const paddingInlineMap = {
   'scale.0': css({
-    paddingInline: token('spacing.scale.0', '0px'),
+    paddingInline: token('space.0', '0px'),
   }),
   'scale.025': css({
-    paddingInline: token('spacing.scale.025', '2px'),
+    paddingInline: token('space.025', '2px'),
   }),
   'scale.050': css({
-    paddingInline: token('spacing.scale.050', '4px'),
+    paddingInline: token('space.050', '4px'),
   }),
   'scale.075': css({
-    paddingInline: token('spacing.scale.075', '6px'),
+    paddingInline: token('space.075', '6px'),
   }),
   'scale.100': css({
-    paddingInline: token('spacing.scale.100', '8px'),
+    paddingInline: token('space.100', '8px'),
+  }),
+  'scale.1000': css({
+    paddingInline: token('space.1000', '80px'),
   }),
   'scale.150': css({
-    paddingInline: token('spacing.scale.150', '12px'),
+    paddingInline: token('space.150', '12px'),
   }),
   'scale.200': css({
-    paddingInline: token('spacing.scale.200', '16px'),
+    paddingInline: token('space.200', '16px'),
   }),
   'scale.250': css({
-    paddingInline: token('spacing.scale.250', '20px'),
+    paddingInline: token('space.250', '20px'),
   }),
   'scale.300': css({
-    paddingInline: token('spacing.scale.300', '24px'),
+    paddingInline: token('space.300', '24px'),
   }),
   'scale.400': css({
-    paddingInline: token('spacing.scale.400', '32px'),
+    paddingInline: token('space.400', '32px'),
   }),
   'scale.500': css({
-    paddingInline: token('spacing.scale.500', '40px'),
+    paddingInline: token('space.500', '40px'),
   }),
   'scale.600': css({
-    paddingInline: token('spacing.scale.600', '48px'),
+    paddingInline: token('space.600', '48px'),
+  }),
+  'scale.800': css({
+    paddingInline: token('space.800', '64px'),
   }),
 };
 
 export type PaddingInline = keyof typeof paddingInlineMap;
-
-const widthMap = {
-  'scale.0': css({
-    width: token('spacing.scale.0', '0px'),
-  }),
-  'scale.025': css({
-    width: token('spacing.scale.025', '2px'),
-  }),
-  'scale.050': css({
-    width: token('spacing.scale.050', '4px'),
-  }),
-  'scale.075': css({
-    width: token('spacing.scale.075', '6px'),
-  }),
-  'scale.100': css({
-    width: token('spacing.scale.100', '8px'),
-  }),
-  'scale.150': css({
-    width: token('spacing.scale.150', '12px'),
-  }),
-  'scale.200': css({
-    width: token('spacing.scale.200', '16px'),
-  }),
-  'scale.250': css({
-    width: token('spacing.scale.250', '20px'),
-  }),
-  'scale.300': css({
-    width: token('spacing.scale.300', '24px'),
-  }),
-  'scale.400': css({
-    width: token('spacing.scale.400', '32px'),
-  }),
-  'scale.500': css({
-    width: token('spacing.scale.500', '40px'),
-  }),
-  'scale.600': css({
-    width: token('spacing.scale.600', '48px'),
-  }),
-};
-
-export type Width = keyof typeof widthMap;
-
-const heightMap = {
-  'scale.0': css({
-    height: token('spacing.scale.0', '0px'),
-  }),
-  'scale.025': css({
-    height: token('spacing.scale.025', '2px'),
-  }),
-  'scale.050': css({
-    height: token('spacing.scale.050', '4px'),
-  }),
-  'scale.075': css({
-    height: token('spacing.scale.075', '6px'),
-  }),
-  'scale.100': css({
-    height: token('spacing.scale.100', '8px'),
-  }),
-  'scale.150': css({
-    height: token('spacing.scale.150', '12px'),
-  }),
-  'scale.200': css({
-    height: token('spacing.scale.200', '16px'),
-  }),
-  'scale.250': css({
-    height: token('spacing.scale.250', '20px'),
-  }),
-  'scale.300': css({
-    height: token('spacing.scale.300', '24px'),
-  }),
-  'scale.400': css({
-    height: token('spacing.scale.400', '32px'),
-  }),
-  'scale.500': css({
-    height: token('spacing.scale.500', '40px'),
-  }),
-  'scale.600': css({
-    height: token('spacing.scale.600', '48px'),
-  }),
-};
-
-export type Height = keyof typeof heightMap;
 
 /**
  * @codegenEnd

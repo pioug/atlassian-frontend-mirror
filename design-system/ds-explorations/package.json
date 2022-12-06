@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
   "license": "Apache-2.0",
   "atlassian": {
@@ -14,7 +14,7 @@
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "scripts": {
-    "ak-postbuild": "cd ../../../ && yarn build @af/codegen && cd packages/design-system/ds-explorations && yarn codegen-styles",
+    "ak-postbuild": "cd ../../../ && yarn build @af/codegen && yarn build @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
     "codegen-styles": "ts-node --project ../../../tsconfig.node.json ./scripts/codegen-styles",
     "prepare": "yarn ak-postbuild"
   },

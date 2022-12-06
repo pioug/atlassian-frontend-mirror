@@ -3,11 +3,201 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::ed4f12cd7b7dfee63d7dd4e804952066>>
+ * @codegen <<SignedSource::77d0c28a0bd3453312f8e03994adbf28>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
 synchronizeFigmaTokens('AtlassianSpacing', {
+  "Space/0": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "introduced": "0.12.0",
+      "pixelValue": "0px",
+      "description": "Equates to `0`. Can be used for resetting default spacing styles."
+    },
+    "value": "0"
+  },
+  "Space/100": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "7px",
+        "9px"
+      ],
+      "introduced": "0.12.0",
+      "pixelValue": "8px",
+      "description": "Use for gutter spacing."
+    },
+    "value": "0.5rem"
+  },
+  "Space/150": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "10px",
+        "11px",
+        "13px",
+        "14px"
+      ],
+      "introduced": "0.12.0",
+      "pixelValue": "12px",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "0.75rem"
+  },
+  "Space/200": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "14px",
+        "15px",
+        "17px",
+        "18px"
+      ],
+      "introduced": "0.12.0",
+      "pixelValue": "16px",
+      "description": "Use for gutter spacing."
+    },
+    "value": "1rem"
+  },
+  "Space/250": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "19px",
+        "21px",
+        "22px",
+        "23px"
+      ],
+      "introduced": "0.12.0",
+      "pixelValue": "20px",
+      "description": "Use for gutter spacing."
+    },
+    "value": "1.25rem"
+  },
+  "Space/300": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "23px",
+        "25px",
+        "26px",
+        "27px",
+        "28px"
+      ],
+      "introduced": "0.12.0",
+      "pixelValue": "24px",
+      "description": "Use for gutter spacing."
+    },
+    "value": "1.5rem"
+  },
+  "Space/400": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "28px",
+        "29px",
+        "30px",
+        "31px",
+        "33px",
+        "34px",
+        "35px"
+      ],
+      "introduced": "0.12.0",
+      "pixelValue": "32px",
+      "description": "Use for gutter spacing."
+    },
+    "value": "2rem"
+  },
+  "Space/500": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "introduced": "0.12.0",
+      "pixelValue": "40px",
+      "description": "Use for larger layout-specific spacing."
+    },
+    "value": "2.5rem"
+  },
+  "Space/600": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "introduced": "0.12.0",
+      "pixelValue": "48px",
+      "description": "Use for larger layout-specific spacing."
+    },
+    "value": "3rem"
+  },
+  "Space/800": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "introduced": "0.12.0",
+      "pixelValue": "64px",
+      "description": "Use for larger layout-specific spacing."
+    },
+    "value": "4rem"
+  },
+  "Space/1000": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "introduced": "0.12.0",
+      "pixelValue": "80px",
+      "description": "Use for larger layout-specific spacing."
+    },
+    "value": "5rem"
+  },
+  "Space/025": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "1px",
+        "3px"
+      ],
+      "introduced": "0.12.0",
+      "pixelValue": "2px",
+      "description": "Use for spacing in compact scenarios. The smallest value in our scale."
+    },
+    "value": "0.125rem"
+  },
+  "Space/050": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "3px",
+        "5px"
+      ],
+      "introduced": "0.12.0",
+      "pixelValue": "4px",
+      "description": "Use for spacing in compact scenarios."
+    },
+    "value": "0.25rem"
+  },
+  "Space/075": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "suggest": [
+        "5px",
+        "7px"
+      ],
+      "introduced": "0.12.0",
+      "pixelValue": "6px",
+      "description": "Use for spacing in compact scenarios."
+    },
+    "value": "0.375rem"
+  },
   "Spacing/Scale/0": {
     "attributes": {
       "group": "spacing",
@@ -135,6 +325,26 @@ synchronizeFigmaTokens('AtlassianSpacing', {
       "description": "Helpful guidance goes here"
     },
     "value": "3rem"
+  },
+  "Spacing/Scale/800": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "introduced": "0.12.0",
+      "pixelValue": "",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "4rem"
+  },
+  "Spacing/Scale/1000": {
+    "attributes": {
+      "group": "spacing",
+      "state": "active",
+      "introduced": "0.12.0",
+      "pixelValue": "80px",
+      "description": "Helpful guidance goes here"
+    },
+    "value": "5rem"
   },
   "Spacing/Scale/025": {
     "attributes": {
@@ -286,126 +496,6 @@ synchronizeFigmaTokens('AtlassianSpacing', {
     "value": "2.5rem"
   },
   "Spacing/ScaleLinear/1100": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "48px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "3rem"
-  },
-  "Spacing/Pixel/0": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "0",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "0"
-  },
-  "Spacing/Pixel/2": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "2px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "0.125rem"
-  },
-  "Spacing/Pixel/4": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "4px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "0.25rem"
-  },
-  "Spacing/Pixel/6": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "6px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "0.375rem"
-  },
-  "Spacing/Pixel/8": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "8px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "0.5rem"
-  },
-  "Spacing/Pixel/12": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "12px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "0.75rem"
-  },
-  "Spacing/Pixel/16": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "16px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "1rem"
-  },
-  "Spacing/Pixel/20": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "20px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "1.25rem"
-  },
-  "Spacing/Pixel/24": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "24px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "1.5rem"
-  },
-  "Spacing/Pixel/32": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "32px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "2rem"
-  },
-  "Spacing/Pixel/40": {
-    "attributes": {
-      "group": "spacing",
-      "state": "experimental",
-      "replacement": "40px",
-      "introduced": "0.10.28",
-      "description": "Helpful guidance goes here"
-    },
-    "value": "2.5rem"
-  },
-  "Spacing/Pixel/48": {
     "attributes": {
       "group": "spacing",
       "state": "experimental",
@@ -828,18 +918,6 @@ synchronizeFigmaTokens('AtlassianSpacing', {
   "Spacing/ScaleLinear/900": "32px",
   "Spacing/ScaleLinear/1000": "40px",
   "Spacing/ScaleLinear/1100": "48px",
-  "Spacing/Pixel/0": "0",
-  "Spacing/Pixel/2": "2px",
-  "Spacing/Pixel/4": "4px",
-  "Spacing/Pixel/6": "6px",
-  "Spacing/Pixel/8": "8px",
-  "Spacing/Pixel/12": "12px",
-  "Spacing/Pixel/16": "16px",
-  "Spacing/Pixel/20": "20px",
-  "Spacing/Pixel/24": "24px",
-  "Spacing/Pixel/32": "32px",
-  "Spacing/Pixel/40": "40px",
-  "Spacing/Pixel/48": "48px",
   "Spacing/Size/None": "0",
   "Spacing/Size/XxxxSmall": "2px",
   "Spacing/Size/XxxSmall": "4px",

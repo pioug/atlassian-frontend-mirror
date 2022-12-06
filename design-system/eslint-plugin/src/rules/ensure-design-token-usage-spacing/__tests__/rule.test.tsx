@@ -9,22 +9,22 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       })`,
     },
     {
-      code: `const styles = css({ padding: token('spacing.scale.100', '8px') })`,
+      code: `const styles = css({ padding: token('space.100', '8px') })`,
     },
     {
-      code: `const styles = css({ gap: token('spacing.scale.100', '8px') })`,
+      code: `const styles = css({ gap: token('space.100', '8px') })`,
     },
     {
       code: `const someValue = 8;\nconst styles = css({
-      padding: \`\${token('spacing.scale.100', '8px')} \${token('spacing.scale.100', '8px')}\`,
+      padding: \`\${token('space.100', '8px')} \${token('space.100', '8px')}\`,
     });`,
     },
     {
       code: `const cssTemplateLiteral = css\`
       color: pink;
       div {
-        padding: \${token('spacing.scale.200', '16px')}
-        \${token('spacing.scale.300', '24px')};
+        padding: \${token('space.200', '16px')}
+        \${token('space.300', '24px')};
       }\`;`,
     },
   ],
@@ -37,9 +37,9 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       })`,
       output: `const styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
-        padding: token('spacing.scale.100', '8px'),
+        padding: token('space.100', '8px'),
         // TODO Delete this comment after verifying spacing token -> previous value \`'12px'\`
-        margin: token('spacing.scale.150', '12px'),
+        margin: token('space.150', '12px'),
       })`,
       errors: [
         { messageId: 'noRawSpacingValues' },
@@ -54,9 +54,9 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       })`,
       output: `const styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`8\`
-        padding: token('spacing.scale.100', '8px'),
+        padding: token('space.100', '8px'),
         // TODO Delete this comment after verifying spacing token -> previous value \`'12px'\`
-        margin: token('spacing.scale.150', '12px'),
+        margin: token('space.150', '12px'),
       })`,
       errors: [
         { messageId: 'noRawSpacingValues' },
@@ -91,7 +91,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       })`,
       output: `const styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`gridSize()\`
-        padding: token('spacing.scale.100', '8px'),
+        padding: token('space.100', '8px'),
       })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
     },
@@ -116,7 +116,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       output: `const styles = css({
         fontSize: 8,
         // TODO Delete this comment after verifying spacing token -> previous value \`'1em'\`
-        padding: token('spacing.scale.100', '8px'), // should be 8
+        padding: token('space.100', '8px'), // should be 8
       })`,
       errors: [
         {
@@ -136,7 +136,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       })`,
       output: `const styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`0\`
-        padding: token('spacing.scale.0', '0px'),
+        padding: token('space.0', '0px'),
       })`,
       errors: [
         {
@@ -167,12 +167,13 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       })`,
       output: `const styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`gridSize()\`
-        padding: token('spacing.scale.100', '8px'),
+        padding: token('space.100', '8px'),
         // TODO Delete this comment after verifying spacing token -> previous value \`gridSize() * 5\`
-        margin: token('spacing.scale.500', '40px'),
+        margin: token('space.500', '40px'),
         // TODO Delete this comment after verifying spacing token -> previous value \`\`\${gridSize()}px\`\`
-        gap: token('spacing.scale.100', '8px'),
-        marginBottom: \`\${gridSize() * 10}px\`,
+        gap: token('space.100', '8px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`\`\${gridSize() * 10}px\`\`
+        marginBottom: token('space.1000', '80px'),
       })`,
       errors: [
         {
@@ -199,7 +200,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         padding: '8px 12px',
       });`,
       output: `const styles = css({
-        padding: \`\${token('spacing.scale.100', '8px')} \${token('spacing.scale.150', '12px')}\`,
+        padding: \`\${token('space.100', '8px')} \${token('space.150', '12px')}\`,
       });`,
       errors: [
         {
@@ -218,7 +219,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         padding: \`8px 12px\`,
       });`,
       output: `const styles = css({
-        padding: \`\${token('spacing.scale.100', '8px')} \${token('spacing.scale.150', '12px')}\`,
+        padding: \`\${token('space.100', '8px')} \${token('space.150', '12px')}\`,
       });`,
       errors: [
         {
@@ -266,7 +267,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         padding: \`\${someValue}px 12px\`,
       });`,
       output: `const someValue = 8;\nconst styles = css({
-        padding: \`\${token('spacing.scale.100', '8px')} \${token('spacing.scale.150', '12px')}\`,
+        padding: \`\${token('space.100', '8px')} \${token('space.150', '12px')}\`,
       });`,
       errors: [
         {
@@ -284,7 +285,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         padding: \`\${someValue}px \${someValue}px\`,
       });`,
       output: `const someValue = 8;\nconst styles = css({
-        padding: \`\${token('spacing.scale.100', '8px')} \${token('spacing.scale.100', '8px')}\`,
+        padding: \`\${token('space.100', '8px')} \${token('space.100', '8px')}\`,
       });`,
       errors: [
         {
@@ -304,7 +305,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       });`,
       output: `const padding = 8;\nconst styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`padding\`
-        padding: token('spacing.scale.100', '8px'),
+        padding: token('space.100', '8px'),
       });`,
       errors: [
         {
@@ -320,7 +321,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       });`,
       output: `const someValue = 8;\nconst styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`someValue\`
-        padding: token('spacing.scale.100', '8px'),
+        padding: token('space.100', '8px'),
       });`,
       errors: [
         {
@@ -352,7 +353,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         padding: '0 0',
       });`,
       output: `const styles = css({
-        padding: \`\${token('spacing.scale.0', '0px')} \${token('spacing.scale.0', '0px')}\`,
+        padding: \`\${token('space.0', '0px')} \${token('space.0', '0px')}\`,
       });`,
       errors: [
         {
@@ -380,7 +381,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     // tagged TemplateLiteral
     {
       code: 'const cssTemplateLiteral = css`color: red; padding: 16px 24px;`;',
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; padding: \${token('spacing.scale.200', '16px')} \${token('spacing.scale.300', '24px')};\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; padding: \${token('space.200', '16px')} \${token('space.300', '24px')};\`;`,
       errors: [
         {
           message:
@@ -395,7 +396,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     // tagged TemplateLiteral with nested styles
     {
       code: 'const cssTemplateLiteral = css`color: red; div { padding: 16px 24px; }`;',
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; div { padding: \${token('spacing.scale.200', '16px')} \${token('spacing.scale.300', '24px')}; }\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; div { padding: \${token('space.200', '16px')} \${token('space.300', '24px')}; }\`;`,
       errors: [
         {
           message:
@@ -410,7 +411,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     // vanilla template
     {
       code: 'const styledTemplateLiteral = styled.p`color: red; padding: 12px; margin: 4px; gap: 2px`;',
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.150', '12px')}; margin: 4px; gap: 2px\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150', '12px')}; margin: 4px; gap: 2px\`;`,
       errors: [
         {
           message:
@@ -428,7 +429,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     },
     {
       code: 'const styledTemplateLiteral = styled.p`color: red; padding: 12px 8px 10px 9px;`;',
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px 8px 10px 9px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.150', '12px')} \${token('spacing.scale.100', '8px')} 10px 9px;\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`12px 8px 10px 9px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150', '12px')} \${token('space.100', '8px')} 10px 9px;\`;`,
       errors: [
         {
           message:
@@ -453,7 +454,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       code: `const value = gridSize();
       const styledTemplateLiteral = styled.p\`color: red; padding: \${value}px;\`;`,
       output: `const value = gridSize();
-      // TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.100', '8px')};\`;`,
+      // TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')};\`;`,
       errors: [
         {
           message:
@@ -474,7 +475,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         position: 'relative',
         ':before': {
           display: 'inline-flex',
-          padding: \`\${token('spacing.scale.0', '0px')} \${token('spacing.scale.050', '4px')}\`,
+          padding: \`\${token('space.0', '0px')} \${token('space.050', '4px')}\`,
         },
       });`,
       errors: [
@@ -491,7 +492,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
     // callExpression in template
     {
       code: `const styledTemplateLiteral = styled.p\`color: red; padding: \${gridSize()}px; margin: 4px; gap: 2px\`;`,
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('spacing.scale.100', '8px')}; margin: 4px; gap: 2px\`;`,
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')}; margin: 4px; gap: 2px\`;`,
       errors: [
         {
           message:
@@ -566,7 +567,7 @@ export const StickyWrapper = styled.div\`
               position: sticky;
               background: \${token('elevation.surface', colors.N0)};
               z-index: \${stickyHeaderBreadcrumbsZIndex};
-              padding-left: \${token('spacing.scale.100', '8px')};
+              padding-left: \${token('space.100', '8px')};
               margin-left: -\${stickyLineExtraLengthLeft}px;
               padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
               top: \${(props) => props.topOffset + extraTopOffset}px;

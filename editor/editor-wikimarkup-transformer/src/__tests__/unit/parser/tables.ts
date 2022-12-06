@@ -126,6 +126,21 @@ this is a new line text, not in the table`,
             - multiple
             - items`,
     ],
+    [
+      'ADFEXP-191 Should not add the strong marks to table header if they are noformat ',
+      `||{noformat}
+      Hello World. {noformat}||Header 1||Header 2||
+       ||Header Column 1|Cell 1|Cell 2|
+       ||Header Column 2|Cell 3|Cell 4|`,
+    ],
+    [
+      'ADFEXP-191 Should not add the strong marks to table header if they are code:json ',
+      '|| {code:json}{"key":"value"}{code}|',
+    ],
+    [
+      'ADFEXP-191 Should not add the strong marks to table header if they are JavaScript Code ',
+      '|| {code:js}let example = "value"{code}|',
+    ],
   ];
 
   const context = {

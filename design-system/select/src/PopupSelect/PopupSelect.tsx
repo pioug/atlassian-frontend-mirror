@@ -532,7 +532,7 @@ export default class PopupSelect<
                     ref={this.getSelectRef}
                     {...props}
                     isSearchable={showSearchControl}
-                    styles={{ ...this.defaultStyles, ...props.styles }}
+                    styles={mergeStyles(this.defaultStyles, props.styles || {})}
                     maxMenuHeight={this.getMaxHeight()}
                     components={components as Partial<SelectComponents>}
                     onChange={this.handleSelectChange}

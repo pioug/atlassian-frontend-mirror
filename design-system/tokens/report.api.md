@@ -319,6 +319,20 @@ type CSSTokenMap_2 = {
 
 // @public (undocumented)
 type CSSTokenMap_3 = {
+  'space.0': 'var(--ds-space-0)';
+  'space.100': 'var(--ds-space-100)';
+  'space.150': 'var(--ds-space-150)';
+  'space.200': 'var(--ds-space-200)';
+  'space.250': 'var(--ds-space-250)';
+  'space.300': 'var(--ds-space-300)';
+  'space.400': 'var(--ds-space-400)';
+  'space.500': 'var(--ds-space-500)';
+  'space.600': 'var(--ds-space-600)';
+  'space.800': 'var(--ds-space-800)';
+  'space.1000': 'var(--ds-space-1000)';
+  'space.025': 'var(--ds-space-025)';
+  'space.050': 'var(--ds-space-050)';
+  'space.075': 'var(--ds-space-075)';
   'spacing.scale.0': 'var(--ds-scale-0)';
   'spacing.scale.100': 'var(--ds-scale-100)';
   'spacing.scale.150': 'var(--ds-scale-150)';
@@ -328,6 +342,8 @@ type CSSTokenMap_3 = {
   'spacing.scale.400': 'var(--ds-scale-400)';
   'spacing.scale.500': 'var(--ds-scale-500)';
   'spacing.scale.600': 'var(--ds-scale-600)';
+  'spacing.scale.800': 'var(--ds-scale-800)';
+  'spacing.scale.1000': 'var(--ds-scale-1000)';
   'spacing.scale.025': 'var(--ds-scale-025)';
   'spacing.scale.050': 'var(--ds-scale-050)';
   'spacing.scale.075': 'var(--ds-scale-075)';
@@ -343,18 +359,6 @@ type CSSTokenMap_3 = {
   'spacing.scaleLinear.900': 'var(--ds-scaleLinear-900)';
   'spacing.scaleLinear.1000': 'var(--ds-scaleLinear-1000)';
   'spacing.scaleLinear.1100': 'var(--ds-scaleLinear-1100)';
-  'spacing.pixel.0': 'var(--ds-pixel-0)';
-  'spacing.pixel.2': 'var(--ds-pixel-2)';
-  'spacing.pixel.4': 'var(--ds-pixel-4)';
-  'spacing.pixel.6': 'var(--ds-pixel-6)';
-  'spacing.pixel.8': 'var(--ds-pixel-8)';
-  'spacing.pixel.12': 'var(--ds-pixel-12)';
-  'spacing.pixel.16': 'var(--ds-pixel-16)';
-  'spacing.pixel.20': 'var(--ds-pixel-20)';
-  'spacing.pixel.24': 'var(--ds-pixel-24)';
-  'spacing.pixel.32': 'var(--ds-pixel-32)';
-  'spacing.pixel.40': 'var(--ds-pixel-40)';
-  'spacing.pixel.48': 'var(--ds-pixel-48)';
   'spacing.size.none': 'var(--ds-size-none)';
   'spacing.size.xxxxSmall': 'var(--ds-size-xxxxSmall)';
   'spacing.size.xxxSmall': 'var(--ds-size-xxxSmall)';
@@ -422,6 +426,9 @@ type CSSTokenMap_4 = {
 };
 
 // @public
+type ExtensionThemeId = ThemeIds;
+
+// @public
 type Palettes =
   | 'defaultPalette'
   | 'legacyPalette'
@@ -440,7 +447,7 @@ type ThemeColorModes = 'dark' | 'light';
 // @public
 interface ThemeConfig {
   // (undocumented)
-  attributes:
+  attributes: (
     | {
         type: 'color';
         mode: ThemeColorModes;
@@ -450,7 +457,10 @@ interface ThemeConfig {
       }
     | {
         type: 'typography';
-      };
+      }
+  ) & {
+    extends?: ExtensionThemeId;
+  };
   // (undocumented)
   displayName: string;
   // (undocumented)
@@ -524,6 +534,20 @@ const tokens: {
   readonly 'font.lineHeight.400': '--ds-font-lineHeight-400';
   readonly 'font.lineHeight.500': '--ds-font-lineHeight-500';
   readonly 'font.lineHeight.600': '--ds-font-lineHeight-600';
+  readonly 'space.0': '--ds-space-0';
+  readonly 'space.100': '--ds-space-100';
+  readonly 'space.150': '--ds-space-150';
+  readonly 'space.200': '--ds-space-200';
+  readonly 'space.250': '--ds-space-250';
+  readonly 'space.300': '--ds-space-300';
+  readonly 'space.400': '--ds-space-400';
+  readonly 'space.500': '--ds-space-500';
+  readonly 'space.600': '--ds-space-600';
+  readonly 'space.800': '--ds-space-800';
+  readonly 'space.1000': '--ds-space-1000';
+  readonly 'space.025': '--ds-space-025';
+  readonly 'space.050': '--ds-space-050';
+  readonly 'space.075': '--ds-space-075';
   readonly 'spacing.scale.0': '--ds-scale-0';
   readonly 'spacing.scale.100': '--ds-scale-100';
   readonly 'spacing.scale.150': '--ds-scale-150';
@@ -533,6 +557,8 @@ const tokens: {
   readonly 'spacing.scale.400': '--ds-scale-400';
   readonly 'spacing.scale.500': '--ds-scale-500';
   readonly 'spacing.scale.600': '--ds-scale-600';
+  readonly 'spacing.scale.800': '--ds-scale-800';
+  readonly 'spacing.scale.1000': '--ds-scale-1000';
   readonly 'spacing.scale.025': '--ds-scale-025';
   readonly 'spacing.scale.050': '--ds-scale-050';
   readonly 'spacing.scale.075': '--ds-scale-075';
@@ -548,18 +574,6 @@ const tokens: {
   readonly 'spacing.scaleLinear.900': '--ds-scaleLinear-900';
   readonly 'spacing.scaleLinear.1000': '--ds-scaleLinear-1000';
   readonly 'spacing.scaleLinear.1100': '--ds-scaleLinear-1100';
-  readonly 'spacing.pixel.0': '--ds-pixel-0';
-  readonly 'spacing.pixel.2': '--ds-pixel-2';
-  readonly 'spacing.pixel.4': '--ds-pixel-4';
-  readonly 'spacing.pixel.6': '--ds-pixel-6';
-  readonly 'spacing.pixel.8': '--ds-pixel-8';
-  readonly 'spacing.pixel.12': '--ds-pixel-12';
-  readonly 'spacing.pixel.16': '--ds-pixel-16';
-  readonly 'spacing.pixel.20': '--ds-pixel-20';
-  readonly 'spacing.pixel.24': '--ds-pixel-24';
-  readonly 'spacing.pixel.32': '--ds-pixel-32';
-  readonly 'spacing.pixel.40': '--ds-pixel-40';
-  readonly 'spacing.pixel.48': '--ds-pixel-48';
   readonly 'spacing.size.none': '--ds-size-none';
   readonly 'spacing.size.xxxxSmall': '--ds-size-xxxxSmall';
   readonly 'spacing.size.xxxSmall': '--ds-size-xxxSmall';

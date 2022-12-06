@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.10
+
+### Patch Changes
+
+- [`6eb39a91ca0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6eb39a91ca0) - Fixed ADF parsing issue related to codeblock inside table header
+
 ## 11.1.9
 
 ### Patch Changes

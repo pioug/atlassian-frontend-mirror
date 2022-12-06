@@ -46,6 +46,13 @@ export type ThemeIds =
   | 'typography';
 
 /**
+ * Theme to use a base. This will create the theme as
+ * an extension with all token values marked as optional
+ * to allow tokens to be overridden as required.
+ */
+export type ExtensionThemeId = ThemeIds;
+
+/**
  * Palettes: The set of base tokens a given theme may be populated with.
  * For example: legacy light & dark themes use the "legacyPalette" containing colors from our
  * previous color set.
@@ -64,7 +71,7 @@ interface ThemeConfig {
   id: ThemeIds;
   displayName: string;
   palette: Palettes;
-  attributes:
+  attributes: (
     | {
         type: 'color';
         mode: ThemeColorModes;
@@ -74,7 +81,10 @@ interface ThemeConfig {
       }
     | {
         type: 'typography';
-      };
+      }
+  ) & {
+    extends?: ExtensionThemeId;
+  };
 }
 
 const themeConfig: Record<Themes, ThemeConfig> = {

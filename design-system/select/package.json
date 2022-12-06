@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "15.7.6",
+  "version": "15.7.7",
   "description": "Select allows users to make a single selection or multiple selections from a list of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

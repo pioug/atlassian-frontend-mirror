@@ -2,8 +2,8 @@ import { CypressType, InProductTestCase } from '@atlaskit/in-product-testing';
 
 import { BasePopperPageObject } from '../page-objects/base-popper';
 
-export const popperRendersWithPositionFixedTestCase = (
-  elementSelector: keyof HTMLElementTagNameMap,
+export const popperRendersTestCase = (
+  elementSelector: keyof HTMLElementTagNameMap | string,
 ) =>
   new InProductTestCase({
     title: 'Popped container renders with position fixed',

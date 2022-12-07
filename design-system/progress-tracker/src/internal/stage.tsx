@@ -5,7 +5,8 @@ import { CSSProperties, PureComponent } from 'react';
 import { css, jsx } from '@emotion/react';
 import { CSSTransition } from 'react-transition-group';
 
-import { fontSize } from '@atlaskit/theme/constants';
+import Box from '@atlaskit/ds-explorations/box';
+import Text from '@atlaskit/ds-explorations/text';
 import { token } from '@atlaskit/tokens';
 
 import ProgressBar from './bar';
@@ -27,24 +28,15 @@ interface State {
   oldPercentageComplete: number;
 }
 
-const containerStyles = css({
-  width: '100%',
-  position: 'relative',
-});
-
 const listItemStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
   margin: token('spacing.scale.0', '0px'),
   overflowWrap: 'break-word',
 });
 
 const titleStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginTop: LABEL_TOP_SPACING,
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  marginRight: 'auto',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  marginLeft: 'auto',
-  fontSize: fontSize(),
   lineHeight: '16px',
   textAlign: 'center',
   '&.fade-appear': {
@@ -108,22 +100,24 @@ export default class ProgressTrackerStage extends PureComponent<
     } = this.props;
 
     const ariaCurrent = item.status === 'current' ? 'step' : 'false';
+
+    const listInlineStyles = {
+      [varTransitionSpeed]: `${transitionSpeed}ms`,
+      [varTransitionDelay]: `${transitionDelay}ms`,
+      [varTransitionEasing]: transitionEasing,
+      [varMarkerColor]: this.state.oldMarkerColor,
+      [varBackgroundColor]: getMarkerColor(item.status),
+    } as CSSProperties;
+
     return (
+      // eslint-disable-next-line @repo/internal/react/use-primitives
       <li
         data-testid={testId}
-        style={
-          {
-            [varTransitionSpeed]: `${transitionSpeed}ms`,
-            [varTransitionDelay]: `${transitionDelay}ms`,
-            [varTransitionEasing]: transitionEasing,
-            [varMarkerColor]: this.state.oldMarkerColor,
-            [varBackgroundColor]: getMarkerColor(item.status),
-          } as CSSProperties
-        }
+        style={listInlineStyles}
         css={listItemStyles}
         aria-current={ariaCurrent}
       >
-        <div css={containerStyles}>
+        <Box display="block" UNSAFE_style={{ width: '100%' }}>
           <CSSTransition
             appear
             in={this.state.transitioning}
@@ -152,20 +146,20 @@ export default class ProgressTrackerStage extends PureComponent<
             timeout={transitionDelay + transitionSpeed}
             classNames="fade"
           >
-            <div
-              css={titleStyles}
-              data-testid={testId && `${testId}-title`}
-              style={
-                {
-                  color: getTextColor(item.status),
-                  fontWeight: getFontWeight(item.status),
-                } as CSSProperties
-              }
-            >
-              {this.shouldShowLink() ? render.link({ item }) : item.label}
+            {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
+            <div css={titleStyles}>
+              <Text
+                fontSize="14px"
+                lineHeight="16px"
+                testId={testId && `${testId}-title`}
+                color={getTextColor(item.status)}
+                fontWeight={getFontWeight(item.status)}
+              >
+                {this.shouldShowLink() ? render.link({ item }) : item.label}
+              </Text>
             </div>
           </CSSTransition>
-        </div>
+        </Box>
       </li>
     );
   }

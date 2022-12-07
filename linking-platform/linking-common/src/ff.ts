@@ -17,4 +17,11 @@ export interface LinkingPlatformFeatureFlags {
    * Decide whether to render a Flexible UI Card view instead of the older Block Card view when rendering Block Card Smart Links.
    */
   enableFlexibleBlockCard?: boolean;
+
+  /**
+   * This flag determines if an authentication tooltip should appear over an unauthorised smart link when a user
+   * hovers over it.
+   * The allowed values are: 'control', 'experiment', 'off'
+   */
+  showAuthTooltip?: string;
 }

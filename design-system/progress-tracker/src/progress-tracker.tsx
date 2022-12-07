@@ -1,12 +1,12 @@
 /* eslint-disable @repo/internal/styles/no-nested-styles */
 /** @jsx jsx */
-import { CSSProperties, PureComponent } from 'react';
+import { PureComponent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { defaultGridSize, spacing } from './constants';
+import { spacing } from './constants';
 import {
   ANIMATION_EASE_OUT,
   LINEAR_TRANSITION_SPEED,
@@ -27,13 +27,11 @@ const containerStyles = css({
   width: '100%',
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   margin: '0 auto',
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
   padding: token('spacing.scale.0', '0px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   gap: `var(${varSpacing})`,
   listStyleType: 'none',
   '&&': {
-    // TODO Delete this comment after verifying spacing token -> previous value `40`
     marginTop: token('spacing.scale.500', '40px'),
   },
 });
@@ -164,16 +162,17 @@ export default class ProgressTracker extends PureComponent<
       );
     });
 
+    const listInlineStyles = {
+      gridTemplateColumns: `repeat(${items.length}, 1fr)`,
+      [varSpacing]: spacing[this.props.spacing],
+      maxWidth: 8 * 10 * items.length * 2,
+    };
+
     return (
+      // eslint-disable-next-line @repo/internal/react/use-primitives
       <ul
         data-testid={testId}
-        style={
-          {
-            gridTemplateColumns: `repeat(${items.length}, 1fr)`,
-            [varSpacing]: `${spacing[this.props.spacing]}px`,
-            maxWidth: defaultGridSize * 10 * items.length * 2,
-          } as CSSProperties
-        }
+        style={listInlineStyles}
         css={containerStyles}
         aria-label={label}
       >

@@ -29,6 +29,22 @@ describe('Hover Card', () => {
     return page;
   };
 
+  const renderUnauthorisedHoverCard = async (height: number = 500) => {
+    const url = getURL('vr-unauthorised-hover-cards');
+    const page = await setup(url);
+
+    await page.setViewport({
+      width: 500,
+      height: height,
+    });
+
+    await page.waitForSelector('[data-testid="inline-card-unauthorized-view"]');
+    await page.hover('[data-testid="inline-card-unauthorized-view"]');
+    await page.waitForSelector('[data-testid="hover-card-unauthorised-view"]');
+
+    return page;
+  };
+
   const renderHoverCardWithSSR = async () => {
     const url = getURL('vr-hover-cards-ssr');
     const page = await setup(url);
@@ -92,6 +108,23 @@ describe('Hover Card', () => {
       await page.waitForSelector('[data-testid="hover-card"]');
 
       const image = await takeSnapshot(page, 150);
+      expect(image).toMatchProdImageSnapshot(snapshotOptions);
+    });
+
+    it('should render an unauthorised tooltip in case the smart link is unauthorised', async () => {
+      const height = 360;
+
+      const page = await renderUnauthorisedHoverCard(height);
+
+      await page.waitForSelector('[data-testid="smart-element-icon-image"]');
+      await page.waitForSelector(
+        '[data-testid="unauthorised-view-content-learn-more"]',
+      );
+      await page.waitForSelector(
+        '[data-testid="smart-action-tooltip--container"]',
+      );
+
+      const image = await takeSnapshot(page, height);
       expect(image).toMatchProdImageSnapshot(snapshotOptions);
     });
   });

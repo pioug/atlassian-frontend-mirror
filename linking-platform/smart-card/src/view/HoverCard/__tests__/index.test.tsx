@@ -93,7 +93,9 @@ describe('HoverCard', () => {
     //trim because the icons are causing new lines in the textContent
     expect(titleBlock.textContent?.trim()).toBe('I love cheese');
     expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-    expect(footerBlock.textContent?.trim()).toBe('ConfluenceCommentPreview');
+    expect(footerBlock.textContent?.trim()).toBe(
+      'ConfluenceCommentFull screen view',
+    );
   });
 
   it('should render preview instead of snippet when preview data is available', async () => {
@@ -269,7 +271,7 @@ describe('HoverCard', () => {
     const previewButton = await findByTestId('preview-content');
 
     expect(commentButton.textContent).toBe('Comment');
-    expect(previewButton.textContent).toBe('Preview');
+    expect(previewButton.textContent).toBe('Full screen view');
   });
 
   it('should open preview modal after clicking preview button', async () => {
@@ -291,6 +293,22 @@ describe('HoverCard', () => {
     const openButton = await findByTestId('hover-card-open-button');
 
     expect(openButton).toBeTruthy();
+  });
+
+  it('should show tooltip on hover card open button', async () => {
+    const mockOpen = jest.fn();
+    // @ts-ignore
+    global.open = mockOpen;
+    const { findByTestId } = await setup();
+    jest.runAllTimers();
+
+    const content = await findByTestId('smart-block-title-resolved-view');
+    const openButton = await findByTestId('hover-card-open-button');
+    fireEvent.mouseOver(openButton);
+    const tooltip = await findByTestId('hover-card-open-button-tooltip');
+
+    expect(content).toBeTruthy();
+    expect(tooltip.textContent).toBe('Open link in a new tab');
   });
 
   it('should open url in a new tab after clicking open button', async () => {
@@ -709,7 +727,9 @@ describe('HoverCard', () => {
       //trim because the icons are causing new lines in the textContent
       expect(titleBlock.textContent?.trim()).toBe('I love cheese');
       expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-      expect(footerBlock.textContent?.trim()).toBe('ConfluenceCommentPreview');
+      expect(footerBlock.textContent?.trim()).toBe(
+        'ConfluenceCommentFull screen view',
+      );
     });
 
     it('should fall back to default path if fetch fails', async () => {

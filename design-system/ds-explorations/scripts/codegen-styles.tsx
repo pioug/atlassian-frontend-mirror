@@ -12,8 +12,11 @@ import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 import { createSpacingScaleTemplate } from './spacing-scale-template';
 
 const colorMapOutputFolder = join(__dirname, '../', 'src', 'internal');
-const tokensDependencyPath = require.resolve(
+const colorTokensDependencyPath = require.resolve(
   '../../tokens/src/artifacts/tokens-raw/atlassian-light',
+);
+const spacingTokensDependencyPath = require.resolve(
+  '../../tokens/src/artifacts/tokens-raw/atlassian-spacing',
 );
 
 writeFile(
@@ -21,7 +24,7 @@ writeFile(
   createSignedArtifact(createColorMapTemplate(), 'yarn codegen-styles', {
     description:
       'The color map is used to map a background color token to a matching text color that will meet contrast.',
-    dependencies: [tokensDependencyPath],
+    dependencies: [colorTokensDependencyPath],
     outputFolder: colorMapOutputFolder,
   }),
 ).then(() => console.log(join(colorMapOutputFolder, 'color-map.tsx')));
@@ -47,7 +50,7 @@ Promise.all(
         {
           id: 'colors',
           absoluteFilePath: targetPath,
-          dependencies: [tokensDependencyPath],
+          dependencies: [colorTokensDependencyPath],
         },
       );
 
@@ -73,7 +76,7 @@ Promise.all(
           {
             id: 'spacing',
             absoluteFilePath: targetPath,
-            dependencies: [tokensDependencyPath],
+            dependencies: [spacingTokensDependencyPath],
           },
         );
 
@@ -98,7 +101,7 @@ Promise.all(
       {
         id: 'interactions',
         absoluteFilePath: targetPath,
-        dependencies: [tokensDependencyPath],
+        dependencies: [colorTokensDependencyPath],
       },
     );
 

@@ -22,7 +22,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { API, Entry, show, Source } from './internal/tooltip-manager';
 import useUniqueId from './internal/use-unique-id';
 import TooltipContainer from './TooltipContainer';
-import { TooltipProps } from './types';
+import { TooltipProps, TriggerProps } from './types';
 import { getMousePosition } from './utilities';
 
 const tooltipZIndex = layers.tooltip();
@@ -364,18 +364,23 @@ function Tooltip({
 
   const tooltipId = useUniqueId('tooltip', shouldRenderTooltipContainer);
 
-  const tooltipTriggerProps = {
+  const tooltipTriggerProps: TriggerProps = {
     onMouseOver,
     onMouseOut,
     onMouseMove,
-    onClick,
     onMouseDown,
+    onClick,
     onFocus,
     onBlur,
     ref: setRef,
     'aria-describedby': tooltipId,
-    'data-testid': testId ? `${testId}--container` : undefined,
   };
+
+  // Don't set `data-testid` unless it's defined, as it's not in the interface.
+  if (testId) {
+    // @ts-expect-error - Adding `data-testid` to the TriggerProps interface breaks Buttons.
+    tooltipTriggerProps['data-testid'] = `${testId}--container`;
+  }
 
   return (
     <React.Fragment>

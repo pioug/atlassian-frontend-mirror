@@ -1,5 +1,11 @@
 # @atlaskit/progress-tracker
 
+## 8.4.0
+
+### Minor Changes
+
+- [`eb709e1fde3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb709e1fde3) - [ux] Apply spacing tokens and primitive components. Reduce padding between stage labels and progress bar by 4px - overall height of component is therefore also 4px shorter.
+
 ## 8.3.4
 
 ### Patch Changes

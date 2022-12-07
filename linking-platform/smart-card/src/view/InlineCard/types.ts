@@ -16,4 +16,5 @@ export type InlineCardProps = {
   inlinePreloaderStyle?: InlinePreloaderStyle;
   renderers?: CardProviderRenderers;
   showHoverPreview?: boolean;
+  showAuthTooltip?: boolean;
 };

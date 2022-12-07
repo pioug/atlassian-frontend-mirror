@@ -36,6 +36,7 @@ export type MessageKey =
   | 'more_actions'
   | 'not_found_title'
   | 'not_found_description'
+  | 'open_link_in_a_new_tab'
   | 'preview'
   | 'preview_close'
   | 'preview_max_size'
@@ -276,9 +277,14 @@ export const messages: Messages = defineMessages({
     defaultMessage: "Uh oh. We can't find this link!",
     description: 'Error case for when a provided link is not found',
   },
+  open_link_in_a_new_tab: {
+    id: 'fabric.linking.open_link_in_a_new_tab',
+    defaultMessage: 'Open link in a new tab',
+    description: 'Click to open link in a new tab',
+  },
   preview: {
     id: 'fabric.linking.preview',
-    defaultMessage: 'Preview',
+    defaultMessage: 'Full screen view',
     description:
       'Click to view a richer view of your content, without needing to navigate to it.',
   },

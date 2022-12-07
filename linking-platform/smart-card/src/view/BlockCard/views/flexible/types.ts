@@ -3,6 +3,7 @@ import { OnErrorCallback } from '../../../types';
 import { FlexibleUiOptions } from '../../../FlexibleCard/types';
 import { OnResolveCallback } from '../../../Card/types';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
+import { AnalyticsFacade } from '../../../../state/analytics';
 
 export type FlexibleBlockCardProps = {
   /**
@@ -57,6 +58,16 @@ export type FlexibleBlockCardProps = {
    * @see FlexibleUiOptions
    */
   ui?: FlexibleUiOptions;
+
+  /**
+   * A unique id for this Smart Link instance, used for analytics.
+   */
+  id?: string;
+
+  /**
+   * An AnalyticsFacade object used for calling analytics.
+   */
+  analytics: AnalyticsFacade;
 
   /**
    * Determines the URL of the Smart Link.

@@ -6,19 +6,19 @@ import { CardState } from '@atlaskit/linking-common';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { AnalyticsHandler } from '../../utils/types';
 import { ReactElement } from 'react';
-import { TitleBlockProps } from '../FlexibleCard/components/blocks/title-block/types';
-import { FlexibleCardProps } from '../FlexibleCard/types';
 import { JsonLd } from 'json-ld-types';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
   id?: string;
   url: string;
   children: ReactElement;
+  onAuthorize?: () => void;
 }
 
 export interface HoverCardComponentProps extends HoverCardProps {
   analyticsHandler: AnalyticsHandler;
   analytics: AnalyticsFacade;
+  onAuthorize?: () => void;
 }
 
 export type PreviewDisplay = 'card' | 'embed';
@@ -39,11 +39,7 @@ export type HoverCardContentProps = {
   onActionClick: (actionId: string) => void;
   onResolve: () => void;
   url: string;
-};
-
-export type HoverCardLoadingViewProps = {
-  flexibleCardProps: FlexibleCardProps;
-  titleBlockProps: TitleBlockProps;
+  onAuthorize?: () => void;
 };
 
 export type SnippetOrPreviewProps = {

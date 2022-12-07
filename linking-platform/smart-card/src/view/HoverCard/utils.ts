@@ -135,7 +135,7 @@ export const toActionableMetadata = (
                 if (onActionClick) {
                   onActionClick(previewAction.id);
                 }
-                return previewAction.invoke();
+                return previewAction.invoke({ isReloadRequired: true });
               },
             }
           : elementItem,

@@ -71,7 +71,7 @@ const ExampleToolbar = () => {
     <ExampleToolbarWrapper>
       {actions.map((action) => (
         <Tooltip content={action.text}>
-          <ExampleToolbarItem key={action.id} onClick={action.invoke}>
+          <ExampleToolbarItem key={action.id} onClick={() => action.invoke()}>
             {idToIcon[action.id] ?? action.id}
           </ExampleToolbarItem>
         </Tooltip>

@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.15.0
+
+### Minor Changes
+
+- [`1f55d430d9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f55d430d9a) - [ux] A new flag 'showAuthTooltip' is added that indicates if an authentication tooltip should show up on a hover over unauthorized smart links.
+
 ## 1.14.0
 
 ### Minor Changes

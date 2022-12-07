@@ -14,5 +14,5 @@ export type InvokeServerOpts = InvokeOpts<ServerActionOpts> & {
 };
 export interface ClientActionOpts {
   type: string;
-  promise: () => Promise<void>;
+  promise: <T>(opts?: T) => Promise<void>;
 }

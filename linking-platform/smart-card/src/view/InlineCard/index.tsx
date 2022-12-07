@@ -33,6 +33,7 @@ export const InlineCard: FC<InlineCardProps> = ({
   testId,
   inlinePreloaderStyle,
   showHoverPreview,
+  showAuthTooltip,
 }) => {
   const { status, details } = cardState;
   const cardDetails = (details && details.data) || getEmptyJsonLd();
@@ -88,6 +89,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           onClick={handleFrameClick}
           onAuthorise={handleAuthorize}
           testId={testIdWithStatus}
+          showAuthTooltip={showAuthTooltip}
         />
       );
     case 'forbidden':

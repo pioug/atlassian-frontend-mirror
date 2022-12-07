@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import Button from '@atlaskit/button';
+import Box from '@atlaskit/ds-explorations/box';
+
 import { ProgressTracker, Stage, Stages } from '../src';
 
 const items: Stages = [
@@ -190,21 +193,13 @@ class ProgressExample extends Component<{}, State> {
 
   render() {
     return (
-      <div>
+      <Box display="block">
         <ProgressTracker items={this.state.items} />
-        <button type="button" onClick={() => this.next()}>
-          Next
-        </button>
-        <button type="button" onClick={() => this.prev()}>
-          Prev
-        </button>
-        <button type="button" onClick={() => this.reset()}>
-          Reset
-        </button>
-        <button type="button" onClick={() => this.completeAll()}>
-          completeAll
-        </button>
-      </div>
+        <Button onClick={() => this.next()}>Next</Button>
+        <Button onClick={() => this.prev()}>Prev</Button>
+        <Button onClick={() => this.reset()}>Reset</Button>
+        <Button onClick={() => this.completeAll()}>completeAll</Button>
+      </Box>
     );
   }
 }

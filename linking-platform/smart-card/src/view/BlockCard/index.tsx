@@ -46,6 +46,7 @@ const flexibleBlockCardElevationStyle = css`
 `;
 
 export const BlockCard: FC<BlockCardProps> = ({
+  id,
   url,
   cardState,
   authFlow,
@@ -77,12 +78,14 @@ export const BlockCard: FC<BlockCardProps> = ({
   if (enableFlexibleBlockCard) {
     const ui = { hideElevation: true };
     const flexibleProps = {
+      id,
       cardState,
       url,
       testId,
       onError,
       renderers,
       ui,
+      analytics,
     };
 
     switch (status) {

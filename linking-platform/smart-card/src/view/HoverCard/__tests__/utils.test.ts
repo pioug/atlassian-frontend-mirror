@@ -56,7 +56,9 @@ describe('toActionableMetadata', () => {
       state?.onClick();
 
       expect(onActionClick).toHaveBeenNthCalledWith(1, 'preview-content');
-      expect(jiraCardActions[0].invoke).toHaveBeenCalledTimes(1);
+      expect(jiraCardActions[0].invoke).toHaveBeenNthCalledWith(1, {
+        isReloadRequired: true,
+      });
     });
 
     it('does not change the order of element item', () => {

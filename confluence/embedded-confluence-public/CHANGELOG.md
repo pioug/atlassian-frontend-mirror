@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.5.1
+
+### Patch Changes
+
+- [`eab6a3a2f4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eab6a3a2f4d) - package size optimization
+
 ## 1.5.0
 
 ### Minor Changes

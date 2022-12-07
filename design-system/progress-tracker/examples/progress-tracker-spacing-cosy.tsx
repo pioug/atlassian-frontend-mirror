@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Box from '@atlaskit/ds-explorations/box';
+
 import { ProgressTracker, Stages } from '../src';
 
 const items: Stages = [
@@ -48,7 +50,7 @@ const items: Stages = [
 ];
 
 export default () => (
-  <div style={{ maxWidth: 600, margin: 'auto' }}>
+  <Box UNSAFE_style={{ maxWidth: 600, margin: 'auto' }}>
     <ProgressTracker items={items} spacing="cosy" />
-  </div>
+  </Box>
 );

@@ -12,3 +12,4 @@ dist/cjs/
 dist/es2019/
 dist/esm/
 scripts/
+report.api.md

@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import type { CSSProperties } from 'react';
-
 import { css, jsx } from '@emotion/react';
 
 import { B300 } from '@atlaskit/theme/colors';
@@ -30,7 +28,7 @@ const progressBarStyles = css({
   backgroundColor: token('color.background.brand.bold', B300),
   borderBottomRightRadius: PROGRESS_BAR_HEIGHT,
   borderTopRightRadius: PROGRESS_BAR_HEIGHT,
-  transform: `translate(0, -${LABEL_TOP_SPACING}px)`,
+  transform: `translate(0, calc(-1 * ${LABEL_TOP_SPACING}))`,
   transition: `width var(${varTransitionSpeed}) var(${varTransitionEasing})`,
   transitionDelay: `var(${varTransitionDelay})`,
 });
@@ -42,15 +40,14 @@ const progressBarStyles = css({
  *
  */
 const ProgressBar = ({ percentageComplete, testId }: StageBarProps) => (
+  // eslint-disable-next-line @repo/internal/react/use-primitives
   <div
     data-testid={testId}
-    style={
-      {
-        width: `calc(${percentageComplete}% + ${
-          percentageComplete / 100
-        } * calc(var(${varSpacing}, ${spacing.cosy}px) + ${HALF_GRID_SIZE}px))`,
-      } as CSSProperties
-    }
+    style={{
+      width: `calc(${percentageComplete}% + ${
+        percentageComplete / 100
+      } * calc(var(${varSpacing}, ${spacing.cosy}) + ${HALF_GRID_SIZE}))`,
+    }}
     css={progressBarStyles}
   />
 );

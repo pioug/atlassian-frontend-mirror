@@ -9,6 +9,7 @@ import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButton, LinkAppearance } from '../styled';
+import { HoverCard } from '../../HoverCard';
 
 export interface InlineCardUnauthorizedViewProps {
   /** The url to display */
@@ -25,6 +26,8 @@ export interface InlineCardUnauthorizedViewProps {
   isSelected?: boolean;
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+  /** A flag that determines is a tooltip should show up on hover over the unauthorised link */
+  showAuthTooltip?: boolean;
 }
 
 const FallbackUnauthorizedIcon = (
@@ -77,8 +80,10 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
       onClick,
       isSelected,
       testId = 'inline-card-unauthorized-view',
+      showAuthTooltip = false,
     } = this.props;
-    return (
+
+    const inlineCardUnauthenticatedView = (
       <Frame
         testId={testId}
         link={url}
@@ -92,5 +97,15 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
         />
       </Frame>
     );
+
+    if (showAuthTooltip) {
+      return (
+        <HoverCard url={url} onAuthorize={this.props.onAuthorise}>
+          {inlineCardUnauthenticatedView}
+        </HoverCard>
+      );
+    }
+
+    return inlineCardUnauthenticatedView;
   }
 }

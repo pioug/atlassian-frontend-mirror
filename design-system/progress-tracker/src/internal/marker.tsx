@@ -21,7 +21,7 @@ const progressMarkerStyles = css({
   left: '50%',
   backgroundColor: `var(${varBackgroundColor})`,
   borderRadius: PROGRESS_BAR_HEIGHT,
-  transform: `translate(-50%, -${LABEL_TOP_SPACING}px)`,
+  transform: `translate(-50%, calc(-1 * ${LABEL_TOP_SPACING}))`,
   transition: `opacity var(${varTransitionSpeed}) var(${varTransitionEasing}), background-color var(${varTransitionSpeed}) var(${varTransitionEasing})`,
   transitionDelay: `var(${varTransitionDelay})`,
   '&.fade-appear': {
@@ -44,6 +44,8 @@ const progressMarkerStyles = css({
  * Similar to `@atlaskit/progress-indicator`, a small visual circle marker
  */
 const ProgressMarker: FC<{ testId?: string }> = ({ testId }) => (
+  // too many props that would go in UNSAFE_style + css transition prop having issues
+  // eslint-disable-next-line @repo/internal/react/use-primitives
   <div data-testid={testId} css={progressMarkerStyles} />
 );
 

@@ -45,7 +45,7 @@ const actionMappings: Record<
     props: {
       testId: 'smart-action-preview-action',
       content: <FormattedMessage {...messages.preview} />,
-      icon: <VidFullScreenOnIcon label="Preview" />,
+      icon: <VidFullScreenOnIcon label="Full screen view" />,
       tooltipMessage: <FormattedMessage {...messages.preview} />,
     },
   },

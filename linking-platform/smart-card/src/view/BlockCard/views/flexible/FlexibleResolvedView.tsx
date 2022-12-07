@@ -14,6 +14,7 @@ import {
   SmartLinkPosition,
 } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
+import uuid from 'uuid';
 
 /**
  * This view represents a Block card that has an 'Resolved' status.
@@ -21,12 +22,14 @@ import { FlexibleBlockCardProps } from './types';
  * @see FlexibleCardProps
  */
 const FlexibleResolvedView = ({
+  id,
   cardState,
   onClick,
   onError,
   testId = 'smart-block-resolved-view',
   ui,
   url,
+  analytics,
 }: FlexibleBlockCardProps) => {
   const [isPreviewBlockErrored, setIsPreviewBlockErrored] =
     useState<boolean>(false);
@@ -34,6 +37,8 @@ const FlexibleResolvedView = ({
   useEffect(() => {
     setIsPreviewBlockErrored(false);
   }, [url, cardState]);
+
+  const [analyticsId] = useState(() => (id ? id : uuid()));
 
   return (
     <FlexibleCard
@@ -83,9 +88,39 @@ const FlexibleResolvedView = ({
       ) : null}
       <FooterBlock
         actions={[
-          { name: ActionName.PreviewAction },
-          { name: ActionName.ViewAction },
-          { name: ActionName.DownloadAction },
+          {
+            name: ActionName.PreviewAction,
+            hideIcon: true,
+            onClick: () => {
+              analytics.operational.invokeSucceededEvent({
+                id: analyticsId,
+                actionType: 'preview',
+                display: 'block',
+              });
+            },
+          },
+          {
+            name: ActionName.ViewAction,
+            hideIcon: true,
+            onClick: () => {
+              analytics.operational.invokeSucceededEvent({
+                id: analyticsId,
+                actionType: 'view',
+                display: 'block',
+              });
+            },
+          },
+          {
+            name: ActionName.DownloadAction,
+            hideIcon: true,
+            onClick: () => {
+              analytics.operational.invokeSucceededEvent({
+                id: analyticsId,
+                actionType: 'download',
+                display: 'block',
+              });
+            },
+          },
         ]}
       />
     </FlexibleCard>

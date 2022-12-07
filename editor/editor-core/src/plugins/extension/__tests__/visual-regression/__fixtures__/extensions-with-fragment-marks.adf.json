@@ -1,0 +1,345 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.forge",
+        "extensionKey": "awesome:question",
+        "parameters": {},
+        "layout": "default",
+        "localId": "cad6e285-b6d4-4327-baff-bfc0018a99a4"
+      }
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.forge",
+        "extensionKey": "awesome:question",
+        "parameters": {},
+        "layout": "default",
+        "localId": "7369ef05-58a1-421d-8c28-8ac74e6bd92d"
+      }
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.forge",
+        "extensionKey": "awesome:question",
+        "parameters": {},
+        "layout": "default",
+        "localId": "6eb3e1d2-8f92-40ee-be80-2e1a335d75dd"
+      },
+      "marks": [
+        {
+          "type": "fragment",
+          "attrs": {
+            "localId": "f21a9998-ec9f-4336-8f86-b18a6534610e",
+            "name": "Test Name 2"
+          }
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.forge",
+        "extensionKey": "awesome:question",
+        "parameters": {},
+        "layout": "default",
+        "localId": "b2a1f565-1e71-45de-ac85-302061804213"
+      },
+      "marks": [
+        {
+          "type": "fragment",
+          "attrs": {
+            "localId": "e4e7e6a6-eb38-48da-8dfb-4c5e106f2a18",
+            "name": "Test Name 2"
+          }
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.forge",
+        "extensionKey": "awesome:question",
+        "parameters": {},
+        "layout": "default",
+        "localId": "01ffe59e-76f4-46b4-bcfe-0f2d3e4f15e6"
+      },
+      "marks": [
+        {
+          "type": "fragment",
+          "attrs": {
+            "localId": "e9235214-85b3-4cbe-92dc-4efdde36f8dd",
+            "name": "Test Name 4"
+          }
+        },
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "b"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.forge",
+        "extensionKey": "awesome:question",
+        "parameters": {},
+        "layout": "default",
+        "localId": "68d516da-a78a-4bde-8bdc-2072b51666e4"
+      },
+      "marks": [
+        {
+          "type": "fragment",
+          "attrs": {
+            "localId": "b7bc838a-ebec-4e9f-ba21-6d3daf35191c",
+            "name": "Test Name 4"
+          }
+        },
+        {
+          "type": "dataConsumer",
+          "attrs": {
+            "sources": [
+              "b"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "765dc647-0477-4c8f-a44a-daa8bd27a0a0"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Extension",
+                      "marks": [
+                        {
+                          "type": "strong"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Extension with fragment mark",
+                      "marks": [
+                        {
+                          "type": "strong"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Extension with fragment and dataConsumer marks",
+                      "marks": [
+                        {
+                          "type": "strong"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "extension",
+                  "attrs": {
+                    "extensionType": "com.atlassian.forge",
+                    "extensionKey": "awesome:question",
+                    "parameters": {},
+                    "layout": "default",
+                    "localId": "0e99e2c8-1975-484a-a716-07013bd8144a"
+                  }
+                },
+                {
+                  "type": "extension",
+                  "attrs": {
+                    "extensionType": "com.atlassian.forge",
+                    "extensionKey": "awesome:question",
+                    "parameters": {},
+                    "layout": "default",
+                    "localId": "51f3dc7a-aeea-4a03-a3d0-d257534dbd42"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "extension",
+                  "attrs": {
+                    "extensionType": "com.atlassian.forge",
+                    "extensionKey": "awesome:question",
+                    "parameters": {},
+                    "layout": "default",
+                    "localId": "df21bf48-18b8-448e-b618-998033b4e358"
+                  },
+                  "marks": [
+                    {
+                      "type": "fragment",
+                      "attrs": {
+                        "localId": "d",
+                        "name": "Test Name 2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "extension",
+                  "attrs": {
+                    "extensionType": "com.atlassian.forge",
+                    "extensionKey": "awesome:question",
+                    "parameters": {},
+                    "layout": "default",
+                    "localId": "3af2cb93-382d-46e4-bc69-5e6edae95fa7"
+                  },
+                  "marks": [
+                    {
+                      "type": "fragment",
+                      "attrs": {
+                        "localId": "8fe0b52f-9b8d-4586-a02f-73d5422446ad",
+                        "name": "Test Name 2"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "extension",
+                  "attrs": {
+                    "extensionType": "com.atlassian.forge",
+                    "extensionKey": "awesome:question",
+                    "parameters": {},
+                    "layout": "default",
+                    "localId": "31750104-54c3-426e-8e3f-5058c4fdae20"
+                  },
+                  "marks": [
+                    {
+                      "type": "fragment",
+                      "attrs": {
+                        "localId": "q",
+                        "name": "Test Name 4"
+                      }
+                    },
+                    {
+                      "type": "dataConsumer",
+                      "attrs": {
+                        "sources": [
+                          "b"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "extension",
+                  "attrs": {
+                    "extensionType": "com.atlassian.forge",
+                    "extensionKey": "awesome:question",
+                    "parameters": {},
+                    "layout": "default",
+                    "localId": "c84536ae-22a9-4000-bc72-a3d31b9b753f"
+                  },
+                  "marks": [
+                    {
+                      "type": "fragment",
+                      "attrs": {
+                        "localId": "6d8dfe90-0c3c-4c66-81d6-2b60f8d6b74c",
+                        "name": "Test Name 4"
+                      }
+                    },
+                    {
+                      "type": "dataConsumer",
+                      "attrs": {
+                        "sources": [
+                          "b"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "marks": [
+        {
+          "type": "fragment",
+          "attrs": {
+            "localId": "b",
+            "name": "Table Test"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

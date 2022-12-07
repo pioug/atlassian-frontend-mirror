@@ -77,7 +77,7 @@
     "@atlaskit/mention": "^21.0.0",
     "@atlaskit/menu": "^1.4.0",
     "@atlaskit/profilecard": "^17.2.0",
-    "@atlaskit/smart-card": "^23.5.0",
+    "@atlaskit/smart-card": "^23.6.0",
     "@atlaskit/smart-user-picker": "^6.0.0",
     "@atlaskit/task-decision": "^17.5.0",
     "@atlaskit/theme": "^12.2.0",

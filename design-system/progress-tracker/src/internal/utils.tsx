@@ -1,4 +1,5 @@
-import { B300, N300, N70, N800 } from '@atlaskit/theme/colors';
+import { TextColor } from '@atlaskit/ds-explorations/text';
+import { B300, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { Status } from '../types';
@@ -18,16 +19,16 @@ export const getMarkerColor = (status: Status) => {
   }
 };
 
-export const getTextColor = (status: Status) => {
+export const getTextColor = (status: Status): TextColor | undefined => {
   switch (status) {
     case 'unvisited':
-      return token('color.text.subtlest', N300);
+      return 'subtlest';
     case 'current':
-      return token('color.text.brand', B300);
+      return 'brand';
     case 'visited':
-      return token('color.text', N800);
+      return 'color.text';
     case 'disabled':
-      return token('color.text.disabled', N70);
+      return 'disabled';
     default:
       return;
   }

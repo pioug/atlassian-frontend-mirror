@@ -1,5 +1,39 @@
 # @atlaskit/smart-card
 
+## 23.6.4
+
+### Patch Changes
+
+- [`e402b41fc94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e402b41fc94) - [ux] This change removes the icons on flexible block card actions, and also adds analytics for each of the flexible block card actions to maintain parity with the older block card.
+
+## 23.6.3
+
+### Patch Changes
+
+- [`b3c2a297df4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3c2a297df4) - Hover Preview: Actionable element experiment: Reload link after embed view modal is closed
+
+## 23.6.2
+
+### Patch Changes
+
+- [`ac756b23886`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac756b23886) - Added tooltip for open link in new tab button in hover card
+
+## 23.6.1
+
+### Patch Changes
+
+- [`55429f504d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55429f504d6) - [ux] Change the 'Preview' button text to 'Full screen view' with a matching icon
+
+## 23.6.0
+
+### Minor Changes
+
+- [`3626f0cc5c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3626f0cc5c0) - [ux] An unauthorised view was implemented for Hover Card. It will show up if the link is in 'unauthorized' state and it will offer a way for a user to connect their account.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.5.2
 
 ### Patch Changes

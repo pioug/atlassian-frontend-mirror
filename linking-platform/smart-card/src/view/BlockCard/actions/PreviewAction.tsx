@@ -86,13 +86,14 @@ type PreviewInfo = {
 export default ({ details, ...rest }: PreviewInfo): ActionProps => ({
   id: 'preview-content',
   text: <FormattedMessage {...messages.preview} />,
-  promise: () =>
+  promise: (props) =>
     previewFunction({
       popupMountPointId: 'twp-editor-preview-iframe',
       providerName: 'Preview',
       showModal: true,
       iframeName: 'twp-editor-preview-iframe',
       onClose: () => {},
+      ...props,
       ...rest,
     }),
 });

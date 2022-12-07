@@ -18,7 +18,7 @@ export const CARD_GAP_PX = 10;
 const blockGap = '0.5rem';
 const elementGap = '0.5rem';
 
-const separatorCss = css`
+export const separatorCss = css`
   [data-separator] + [data-separator]:before {
     margin-right: ${elementGap};
   }
@@ -53,52 +53,6 @@ export const titleBlockCss = css`
       }
     }
   }
-`;
-
-export const metadataBlockCss = css`
-  gap: 0px;
-
-  /* primary element group */
-  [data-smart-element-group]:nth-of-type(1) {
-    flex-grow: 7;
-
-    // a separator between text-based element
-    ${separatorCss}
-
-    /* horizontal spacing between elements in group */
-    > span {
-      margin-right: ${elementGap};
-    }
-  }
-  /* secondary element group */
-  [data-smart-element-group]:nth-of-type(2) {
-    flex-grow: 3;
-    /* horizontal spacing between elements in group */
-    > span {
-      margin-left: ${elementGap};
-    }
-  }
-`;
-
-export const footerBlockCss = css`
-  padding-top: 0.25rem;
-`;
-
-export const loadingViewContainer = css`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const skeletonContainer = css`
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-  align-items: center;
-`;
-
-export const hiddenSnippetStyles = css`
-  visibility: hidden;
-  position: absolute;
 `;
 
 export const getTransitionStyles = (snippetHeight: number) => css`

@@ -33,4 +33,31 @@ describe('extractPreviewAction', () => {
       type: 'client',
     });
   });
+
+  it('returns preview action with experiment parameter', () => {
+    const handleInvoke = jest.fn();
+    const opts = {
+      analytics: mockAnalytics,
+      handleInvoke,
+      extensionKey: 'mock-extension-key',
+      source: 'block' as const,
+    };
+    const action = extractPreviewAction({
+      ...opts,
+      viewProps: { icon: {} },
+      jsonLd: mocks.success.data as JsonLd.Data.BaseData,
+    });
+    action?.promise({ isReloadRequired: true });
+
+    expect(handleInvoke).toHaveBeenLastCalledWith({
+      action: {
+        promise: expect.any(Function),
+        type: 'PreviewAction',
+      },
+      isReloadRequired: true,
+      key: 'mock-extension-key',
+      source: 'block',
+      type: 'client',
+    });
+  });
 });

@@ -54,4 +54,46 @@ export const extensionStyles = css`
     width: 100%;
     max-width: 100%; // ensure width can't go over 100%;
   }
+
+  [data-mark-type='fragment'] {
+    & > .extensionView-content-wrap,
+    & > .bodiedExtensionView-content-wrap {
+      margin: ${blockNodesVerticalMargin} 0;
+    }
+
+    & > [data-mark-type='dataConsumer'] {
+      & > .extensionView-content-wrap,
+      & > .bodiedExtensionView-content-wrap {
+        margin: ${blockNodesVerticalMargin} 0;
+      }
+    }
+
+    &:first-child {
+      & > .extensionView-content-wrap,
+      & > .bodiedExtensionView-content-wrap {
+        margin-top: 0;
+      }
+
+      & > [data-mark-type='dataConsumer'] {
+        & > .extensionView-content-wrap,
+        & > .bodiedExtensionView-content-wrap {
+          margin-top: 0;
+        }
+      }
+    }
+
+    &:nth-last-of-type(-n + 2):not(:first-of-type) {
+      & > .extensionView-content-wrap,
+      & > .bodiedExtensionView-content-wrap {
+        margin-bottom: 0;
+      }
+
+      & > [data-mark-type='dataConsumer'] {
+        & > .extensionView-content-wrap,
+        & > .bodiedExtensionView-content-wrap {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
 `;

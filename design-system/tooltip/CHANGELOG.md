@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.6.3
+
+### Patch Changes
+
+- [`4fd77eaf22b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fd77eaf22b) - Align TriggerProps with the actual output, and make data-testid explicit
+
 ## 17.6.2
 
 ### Patch Changes

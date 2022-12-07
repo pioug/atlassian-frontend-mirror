@@ -1,15 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import LoadingSkeleton from '../../FlexibleCard/components/common/loading-skeleton';
-import FlexibleCard from '../../FlexibleCard';
-import { TitleBlock } from '../../FlexibleCard/components/blocks';
-import { HoverCardLoadingViewProps } from '../types';
-import {
-  CARD_WIDTH_REM,
-  loadingViewContainer,
-  skeletonContainer,
-} from '../styled';
+import LoadingSkeleton from '../../../../FlexibleCard/components/common/loading-skeleton';
+import FlexibleCard from '../../../../FlexibleCard';
+import { TitleBlock } from '../../../../FlexibleCard/components/blocks';
+import { HoverCardLoadingViewProps } from './types';
+import { CARD_WIDTH_REM } from '../../../styled';
+import { loadingViewContainer, skeletonContainer } from './styled';
 
 const HoverCardLoadingView: React.FC<HoverCardLoadingViewProps> = ({
   flexibleCardProps,

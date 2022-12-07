@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^2.1.0",
-    "@atlaskit/popper": "^5.3.0",
+    "@atlaskit/popper": "^5.4.0",
     "@atlaskit/portal": "^4.0.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.11.0",

@@ -1,26 +1,13 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import Box from '@atlaskit/ds-explorations/box';
+import Inline from '@atlaskit/ds-explorations/inline';
+import Stack from '@atlaskit/ds-explorations/stack';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right';
 
 import { ProgressTracker, Stages } from '../src';
-
-const css = `
-  .steppers {
-    border-bottom: 1px solid;
-    padding-bottom: 10px;
-    padding-top: 10px;
-  }
-  .container {
-    padding-bottom: 10px;
-    padding-top: 10px;
-  }
-  .button {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-`;
 
 function createTrackerItems(stages: number, currentStage: number): Stages {
   let resultItems: Stages = [];
@@ -54,10 +41,9 @@ export default () => {
   const [itemsNumber, setItemsNumber] = useState(3);
   const [currentStage, setCurrentStage] = useState(0);
   return (
-    <>
-      <style>{css}</style>
+    <Stack gap="scale.100">
       <Tracker itemsNumber={itemsNumber} currentStage={currentStage} />
-      <div className="steppers">
+      <Box UNSAFE_style={{ borderBottom: '1px solid' }}>
         <Button
           className="button"
           onClick={() => {
@@ -86,8 +72,9 @@ export default () => {
         >
           Next Step
         </Button>
-      </div>
-      <div className="container">
+      </Box>
+
+      <Inline gap="scale.100">
         <Button
           testId="button--add"
           className="button"
@@ -105,7 +92,7 @@ export default () => {
         >
           Remove Stage
         </Button>
-      </div>
-    </>
+      </Inline>
+    </Stack>
   );
 };

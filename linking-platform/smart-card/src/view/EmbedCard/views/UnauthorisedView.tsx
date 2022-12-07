@@ -1,12 +1,10 @@
 import React, { FC } from 'react';
-import { FormattedMessage } from 'react-intl-next';
 import { EmbedCardUnresolvedView } from './UnresolvedView';
 import { UnauthorisedImage } from '../constants';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel } from '../types';
-import { messages } from '../../../messages';
-import { CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../../constants';
+import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
 
 export interface EmbedCardUnauthorisedViewProps {
   context?: ContextViewModel;
@@ -58,19 +56,7 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
         onClick={onAuthorise}
         testId={testId}
       >
-        <FormattedMessage
-          {...messages.connect_unauthorised_account_description}
-          values={{ context: context?.text }}
-        />{' '}
-        <a
-          href={CONTENT_URL_SECURITY_AND_PERMISSIONS}
-          target="_blank"
-          data-testid={`${testId}-learn-more`}
-        >
-          <FormattedMessage
-            {...messages.learn_more_about_smart_links_security}
-          />
-        </a>
+        <UnauthorisedViewContent providerName={context?.text} testId={testId} />
       </EmbedCardUnresolvedView>
     </ExpandedFrame>
   );

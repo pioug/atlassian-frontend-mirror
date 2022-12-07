@@ -17,6 +17,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   url,
   analyticsHandler,
   analytics,
+  onAuthorize,
 }) => {
   const delay = 300;
   const [isOpen, setIsOpen] = React.useState(false);
@@ -135,6 +136,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
             onResolve={update}
             renderers={renderers}
             url={url}
+            onAuthorize={onAuthorize}
           />
         </div>
       )}

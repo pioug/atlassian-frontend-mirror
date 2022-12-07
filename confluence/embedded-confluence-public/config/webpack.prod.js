@@ -10,7 +10,7 @@ const commonConfig = require('./webpack.common');
 const indexPath = path.resolve(__dirname, '../src/index.ts');
 
 const baseConfig = merge(commonConfig, {
-  mode: 'none',
+  mode: 'production',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -31,9 +31,6 @@ module.exports = async () => {
           addDefaultEntries: true,
         })),
       },
-    },
-    optimization: {
-      minimize: true,
     },
   });
 };

@@ -6,6 +6,7 @@ import FlexibleResolvedView from '../src/view/BlockCard/views/flexible/FlexibleR
 import { CardClient } from '@atlaskit/link-provider';
 import { minimumResponse, unicornResponse } from './content/example-responses';
 import { getJsonLdResponse } from './utils/flexible-ui';
+import { AnalyticsFacade } from '../src/state/analytics/useSmartLinkAnalytics';
 
 class MinimumResolvedCustomClient extends CardClient {
   fetchData(url: string) {
@@ -23,17 +24,25 @@ class MaximumResolvedCustomClient extends CardClient {
   }
 }
 
-export default () => (
-  <VRTestWrapper title="Block card Flexible views">
-    <BlockCardViewTest appearance="block" />
+export default () => {
+  const mockAnalytics = {} as AnalyticsFacade;
 
-    <h4>Resolved (minimal data)</h4>
-    {renderCard(new MinimumResolvedCustomClient(), 'block')}
+  return (
+    <VRTestWrapper title="Block card Flexible views">
+      <BlockCardViewTest appearance="block" />
 
-    <h4>Resolved (maximum data)</h4>
-    {renderCard(new MaximumResolvedCustomClient(), 'block')}
+      <h4>Resolved (minimal data)</h4>
+      {renderCard(new MinimumResolvedCustomClient(), 'block')}
 
-    <h4>Resolving</h4>
-    <FlexibleResolvedView cardState={{ status: 'resolving' }} url="some-url" />
-  </VRTestWrapper>
-);
+      <h4>Resolved (maximum data)</h4>
+      {renderCard(new MaximumResolvedCustomClient(), 'block')}
+
+      <h4>Resolving</h4>
+      <FlexibleResolvedView
+        cardState={{ status: 'resolving' }}
+        url="some-url"
+        analytics={mockAnalytics}
+      />
+    </VRTestWrapper>
+  );
+};

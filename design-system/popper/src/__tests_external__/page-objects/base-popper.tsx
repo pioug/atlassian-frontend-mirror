@@ -8,7 +8,9 @@ export class BasePopperPageObject extends InProductTestPageObject {
     super(cy);
   }
 
-  public assertPopperStyle = (elementSelector: keyof HTMLElementTagNameMap) => {
+  public assertPopperStyle = (
+    elementSelector: keyof HTMLElementTagNameMap | string,
+  ) => {
     return this.cy.get(elementSelector).should('be.visbile');
   };
 }

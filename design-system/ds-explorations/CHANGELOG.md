@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.3.1
+
+### Patch Changes
+
+- [`04f01205c6b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04f01205c6b) - Applies rem instead of pixels as spacing tokens fallbacks. This should have no visual or behavioural change.
+
 ## 1.3.0
 
 ### Minor Changes

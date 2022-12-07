@@ -1,1 +1,1 @@
-export { popperRendersWithPositionFixedTestCase } from './__tests_external__';
+export { popperRendersTestCase } from './__tests_external__';

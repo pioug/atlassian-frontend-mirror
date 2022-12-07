@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.4.0
+
+### Minor Changes
+
+- [`cd2800156bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd2800156bd) - Updates to in-product testing interface. The change switches popperRendersWithPositionFixedTestCase to popperRendersTestCase.
+
 ## 5.3.0
 
 ### Minor Changes

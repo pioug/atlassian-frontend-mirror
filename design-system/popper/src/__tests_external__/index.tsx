@@ -1,1 +1,1 @@
-export { popperRendersWithPositionFixedTestCase } from './test-cases/popper';
+export { popperRendersTestCase } from './test-cases/popper';

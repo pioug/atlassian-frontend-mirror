@@ -69,6 +69,10 @@ export function CardWithUrlContent({
     showHoverPreview = Boolean(showHoverPreviewFlag);
   }
 
+  const showAuthTooltipValue = useFeatureFlag('showAuthTooltip');
+  const showAuthTooltip =
+    !!showAuthTooltipValue && showAuthTooltipValue === 'experiment';
+
   const enableFlexibleBlockCardFlag = Boolean(
     useFeatureFlag('enableFlexibleBlockCard'),
   );
@@ -228,6 +232,7 @@ export function CardWithUrlContent({
           testId={testId}
           inlinePreloaderStyle={inlinePreloaderStyle}
           showHoverPreview={showHoverPreview}
+          showAuthTooltip={showAuthTooltip}
         />
       );
     case 'block':

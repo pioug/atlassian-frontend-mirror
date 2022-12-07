@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 175.0.3
+
+### Patch Changes
+
+- [`c1d2045d68f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1d2045d68f) - [ux] Fix margins for extensions with fragment marks
+
 ## 175.0.2
 
 ### Patch Changes

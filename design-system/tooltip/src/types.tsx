@@ -11,11 +11,13 @@ export type PositionType = PositionTypeBase | 'mouse';
 export interface TriggerProps {
   onMouseOver: (event: React.MouseEvent<HTMLElement>) => void;
   onMouseOut: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseMove: ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
   onMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
   onFocus: (event: React.FocusEvent<HTMLElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLElement>) => void;
   ref: (node: HTMLElement | null) => void;
+  'aria-describedby': string | undefined;
 }
 
 export interface TooltipProps {

@@ -219,6 +219,7 @@ export interface LinkingPlatformFeatureFlags {
   embedModalSize?: string;
   enableActionableElement?: boolean;
   enableFlexibleBlockCard?: boolean;
+  showAuthTooltip?: string;
   // (undocumented)
   showHoverPreview?: boolean;
   // (undocumented)

@@ -32,12 +32,14 @@ const updateLastCellElement =
     );
 
 export const buildColumnResizingDecorations =
-  (columnEndIndex: number): DecorationTransformer =>
+  (rowEndIndex: number, columnEndIndex: number): DecorationTransformer =>
   ({ tr, decorationSet }): DecorationSet => {
     const [columnResizesDecorations, lastCellElementsDecorations] =
       columnEndIndex < 0
         ? emptyDecorations
-        : createResizeHandleDecoration(tr, { right: columnEndIndex });
+        : createResizeHandleDecoration(tr, rowEndIndex, {
+            right: columnEndIndex,
+          });
 
     return composeDecorations([
       updateColumnResizeHandle(columnResizesDecorations),

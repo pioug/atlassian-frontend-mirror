@@ -34,7 +34,8 @@ describe('@atlaskit/page', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should display banners correctly', async () => {
+  // FIXME: This test was automatically skipped due to failure on 07/12/2022: https://product-fabric.atlassian.net/browse/DSP-7823
+  it.skip('should display banners correctly', async () => {
     const url = getExampleUrl(
       'design-system',
       'page',

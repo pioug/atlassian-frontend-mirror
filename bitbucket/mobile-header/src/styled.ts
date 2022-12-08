@@ -1,4 +1,5 @@
-import styled, { css, keyframes } from 'styled-components';
+import { css, keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
 
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -53,7 +54,9 @@ export const MobilePageHeader = styled.header`
   height: ${mobileHeaderHeight}px;
 `;
 
-export const MobilePageHeaderContent = styled.div`
+export const MobilePageHeaderContent = styled.div<{
+  topOffset: number | undefined;
+}>`
   align-items: center;
   background-color: ${themed({ light: colors.N20, dark: colors.DN10 })};
   box-sizing: border-box;

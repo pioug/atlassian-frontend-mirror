@@ -5,8 +5,7 @@ import { jsx } from '@emotion/react';
 import {
   DragDropContext,
   Draggable,
-  DraggableProvidedDraggableProps,
-  DraggableProvidedDragHandleProps,
+  DraggableProvided,
   Droppable,
 } from 'react-beautiful-dnd';
 
@@ -29,8 +28,8 @@ import SampleHeader from './common/sample-header';
 
 interface RenderDraggableProps {
   ref: Ref<any>;
-  dragHandleProps: DraggableProvidedDragHandleProps | null;
-  draggableProps: DraggableProvidedDraggableProps | null;
+  dragHandleProps: DraggableProvided['dragHandleProps'];
+  draggableProps: DraggableProvided['draggableProps'];
 }
 
 interface CustomDraggable {

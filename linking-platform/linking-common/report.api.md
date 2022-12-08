@@ -222,6 +222,7 @@ export interface LinkingPlatformFeatureFlags {
   showAuthTooltip?: string;
   // (undocumented)
   showHoverPreview?: boolean;
+  useLinkPickerAtlassianTabs?: boolean;
   // (undocumented)
   useLinkPickerScrollingTabs?: boolean;
 }

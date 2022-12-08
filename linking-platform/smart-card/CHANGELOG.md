@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.6.5
+
+### Patch Changes
+
+- [`0540b6c16a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0540b6c16a4) - Hover Preview: Update action experiment analytics
+
 ## 23.6.4
 
 ### Patch Changes

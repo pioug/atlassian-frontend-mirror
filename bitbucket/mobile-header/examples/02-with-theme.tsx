@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import styled, {
-  ThemeProvider as StyledThemeProvider,
-} from 'styled-components';
+import { ThemeProvider as StyledThemeProvider } from '@emotion/react';
+import styled from '@emotion/styled';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';

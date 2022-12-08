@@ -90,6 +90,7 @@ export const setTableRef = (ref?: HTMLTableElement) =>
           isHeaderRowEnabled: checkIfHeaderRowEnabled(state.selection),
           isHeaderColumnEnabled: checkIfHeaderColumnEnabled(state.selection),
           decorationSet,
+          resizeHandleRowIndex: undefined,
           resizeHandleColumnIndex: undefined,
         },
       };
@@ -434,7 +435,10 @@ export const hideInsertColumnOrRowButton = () =>
     (tr) => tr.setMeta('addToHistory', false),
   );
 
-export const addResizeHandleDecorations = (columnIndex: number) =>
+export const addResizeHandleDecorations = (
+  rowIndex: number,
+  columnIndex: number,
+) =>
   createCommand(
     (state) => {
       const tableNode = findTable(state.selection);
@@ -449,10 +453,14 @@ export const addResizeHandleDecorations = (columnIndex: number) =>
       return {
         type: 'ADD_RESIZE_HANDLE_DECORATIONS',
         data: {
-          decorationSet: buildColumnResizingDecorations(columnIndex)({
+          decorationSet: buildColumnResizingDecorations(
+            rowIndex,
+            columnIndex,
+          )({
             tr: state.tr,
             decorationSet: getDecorations(state),
           }),
+          resizeHandleRowIndex: rowIndex,
           resizeHandleColumnIndex: columnIndex,
         },
       };

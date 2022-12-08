@@ -116,6 +116,7 @@ export interface TablePluginState {
   isFullWidthModeEnabled?: boolean;
   layout?: TableLayout;
   ordering?: TableColumnOrdering;
+  resizeHandleRowIndex?: number;
   resizeHandleColumnIndex?: number;
   tableCellOptimization?: boolean;
   // for table wrap/collapse
@@ -172,7 +173,11 @@ export type TablePluginAction =
     }
   | {
       type: 'ADD_RESIZE_HANDLE_DECORATIONS';
-      data: { decorationSet: DecorationSet; resizeHandleColumnIndex: number };
+      data: {
+        decorationSet: DecorationSet;
+        resizeHandleRowIndex: number;
+        resizeHandleColumnIndex: number;
+      };
     }
   | { type: 'CLEAR_HOVER_SELECTION'; data: { decorationSet: DecorationSet } }
   | { type: 'SHOW_RESIZE_HANDLE_LINE'; data: { decorationSet: DecorationSet } }
@@ -302,6 +307,7 @@ export const TableCssClassName = {
   LAST_ITEM_IN_CELL: `${tablePrefixSelector}-last-item-in-cell`,
 
   WITH_RESIZE_LINE: `${tablePrefixSelector}-column-resize-line`,
+  WITH_RESIZE_LINE_LAST_COLUMN: `${tablePrefixSelector}-column-resize-line-last-column`,
 };
 
 export interface ToolbarMenuConfig {

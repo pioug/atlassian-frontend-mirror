@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.13.7
+
+### Patch Changes
+
+- [`41ac6cadd32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41ac6cadd32) - Adds support to the ensure-design-token-usage-spacing rule for replacing typography values with tokens
+
 ## 4.13.6
 
 ### Patch Changes

@@ -80,12 +80,14 @@ export default (
         ...pluginState,
         ...action.data,
         resizeHandleColumnIndex: undefined,
+        resizeHandleRowIndex: undefined,
       };
 
     case 'ADD_RESIZE_HANDLE_DECORATIONS':
       if (
         action.data.resizeHandleColumnIndex ===
-        pluginState.resizeHandleColumnIndex
+          pluginState.resizeHandleColumnIndex &&
+        action.data.resizeHandleRowIndex === pluginState.resizeHandleRowIndex
       ) {
         return pluginState;
       }

@@ -24,6 +24,7 @@ type Tokens = typeof tokens;
  *     backgroundColor: token('elevation.surface.raised', N0),
  *     boxShadow: token('elevation.shadow.raised', `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`),
  *     padding: token('spacing.scale.100', '8px'),
+ *     fontWeight: token('font.weight.regular', '400'),
  *   }}
  * />
  * ```

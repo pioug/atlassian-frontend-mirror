@@ -39,3 +39,5 @@ export const ComposedLinkPicker = memo((props: LinkPickerProps) => (
     </LinkPickerSessionProvider>
   </AnalyticsContext>
 ));
+
+export default ComposedLinkPicker;

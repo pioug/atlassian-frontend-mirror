@@ -12,7 +12,12 @@ export function PageWrapper({ children }: WrapperProps) {
   ufologger.enable();
 
   return (
-    <SmartCardProvider featureFlags={{ useLinkPickerScrollingTabs: true }}>
+    <SmartCardProvider
+      featureFlags={{
+        useLinkPickerScrollingTabs: true,
+        useLinkPickerAtlassianTabs: true,
+      }}
+    >
       <div className="example" style={{ padding: 50 }}>
         <IntlProvider locale="en">{children}</IntlProvider>
       </div>

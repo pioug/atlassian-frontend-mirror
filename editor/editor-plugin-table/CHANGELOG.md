@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 0.2.0
+
+### Minor Changes
+
+- [`efac742b6c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efac742b6c3) - Removed extra column resize handlers
+
 ## 0.1.2
 
 ### Patch Changes

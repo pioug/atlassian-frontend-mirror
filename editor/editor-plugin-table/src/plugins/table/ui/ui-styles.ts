@@ -28,7 +28,6 @@ import {
   tableCellDeleteColor,
   tableBorderDeleteColor,
   tableToolbarDeleteColor,
-  lineMarkerOffsetFromColumnControls,
   lineMarkerSize,
   columnControlsDecorationHeight,
   columnControlsZIndex,
@@ -211,13 +210,6 @@ export const columnControlsLineMarker = (props: ThemeProps) => css`
     tr:first-of-type
     th {
     position: relative;
-
-    &::before {
-      content: ' ';
-      ${Marker(props)};
-      top: -${tableToolbarSize + lineMarkerOffsetFromColumnControls}px;
-      right: -${lineMarkerSize / 2}px;
-    }
   }
 `;
 
@@ -320,6 +312,18 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
     top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
     height: ${columnControlsDecorationHeight}px;
 
+    &::before {
+      content: ' ';
+      background-color: ${tableBorderColor(props)};
+      position: absolute;
+      height: ${lineMarkerSize}px;
+      width: ${lineMarkerSize}px;
+      border-radius: 50%;
+      pointer-events: none;
+      top: 2px;
+      right: -1px;
+    }
+
     &::after {
       content: ' ';
 
@@ -339,6 +343,18 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
       `,
       )}
     }
+  }
+
+  div.${ClassName.WITH_CONTROLS}>.${ClassName.ROW_CONTROLS_WRAPPER}::after {
+    content: ' ';
+    background-color: ${tableBorderColor(props)};
+    position: absolute;
+    height: ${lineMarkerSize}px;
+    width: ${lineMarkerSize}px;
+    border-radius: 50%;
+    pointer-events: none;
+    top: -${tableToolbarSize + tableCellBorderWidth}px;
+    right: -1px;
   }
 
   .${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
@@ -431,17 +447,48 @@ export const resizeHandle = css`
       z-index: ${resizeHandlerZIndex};
     }
 
-    td.${ClassName.WITH_RESIZE_LINE}, th.${ClassName.WITH_RESIZE_LINE} {
-      .${ClassName.RESIZE_HANDLE_DECORATION}::after {
-        content: ' ';
-        right: ${(resizeHandlerAreaWidth - resizeLineWidth) / 2}px;
-        position: absolute;
-        width: ${resizeLineWidth}px;
-        height: calc(100% + 1px);
-        background-color: ${tableBorderSelectedColor};
-        z-index: ${columnControlsZIndex * 2};
-        top: 0;
-      }
+    td.${ClassName.WITH_RESIZE_LINE}::before {
+      content: ' ';
+      position: absolute;
+      left: -2px;
+      top: -1px;
+      width: ${resizeLineWidth}px;
+      height: calc(100% + 2px);
+      background-color: ${tableBorderSelectedColor};
+      z-index: ${columnControlsZIndex * 2};
+    }
+
+    th.${ClassName.WITH_RESIZE_LINE}::before {
+      content: ' ';
+      left: -2px;
+      position: absolute;
+      width: ${resizeLineWidth}px;
+      height: calc(100% + ${tableToolbarSize + tableCellBorderWidth}px);
+      background-color: ${tableBorderSelectedColor};
+      z-index: ${columnControlsZIndex * 2};
+      top: -${tableToolbarSize + tableCellBorderWidth}px;
+    }
+
+    td.${ClassName.WITH_RESIZE_LINE_LAST_COLUMN}::before {
+      content: ' ';
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      width: ${resizeLineWidth}px;
+      height: calc(100% + 2px);
+      background-color: ${tableBorderSelectedColor};
+      z-index: ${columnControlsZIndex * 2};
+    }
+
+    th.${ClassName.WITH_RESIZE_LINE_LAST_COLUMN}::before {
+      content: ' ';
+      right: -1px;
+      position: absolute;
+      width: ${resizeLineWidth}px;
+      height: calc(100% + ${tableToolbarSize + tableCellBorderWidth}px);
+      background-color: ${tableBorderSelectedColor};
+      z-index: ${columnControlsZIndex * 2};
+      top: -${tableToolbarSize + tableCellBorderWidth}px;
     }
 
     table

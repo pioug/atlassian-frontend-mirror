@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.16.0
+
+### Minor Changes
+
+- [`3cbd9b63e96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cbd9b63e96) - [ux] Added search for 1P tabs
+
 ## 1.15.0
 
 ### Minor Changes

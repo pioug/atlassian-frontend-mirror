@@ -39,6 +39,7 @@ const uiActionSubjectIds: Record<string, string> = {
   DownloadAction: 'downloadDocument',
   PreviewAction: 'invokePreviewScreen',
   ViewAction: 'shortcutGoToLink',
+  StatusAction: 'issueStatusUpdate',
 };
 
 export class SmartLinkEvents {

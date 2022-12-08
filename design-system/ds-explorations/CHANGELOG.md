@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.3.2
+
+### Patch Changes
+
+- [`f824dcfff6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f824dcfff6e) - Internal changes to satisfy various lint warnings & errors
+
 ## 1.3.1
 
 ### Patch Changes

@@ -34,14 +34,30 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       code: `const styles = css({
         padding: '8px',
         margin: '12px',
+        fontWeight: 400,
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+        fontSize: '20px',
+        lineHeight: '24px',
       })`,
       output: `const styles = css({
         // TODO Delete this comment after verifying spacing token -> previous value \`'8px'\`
         padding: token('space.100', '8px'),
         // TODO Delete this comment after verifying spacing token -> previous value \`'12px'\`
         margin: token('space.150', '12px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`400\`
+        fontWeight: token('font.weight.regular', '400'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`"-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"\`
+        fontFamily: token('font.family.sans', \"-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\"),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'20px'\`
+        fontSize: token('font.size.300', '20px'),
+        // TODO Delete this comment after verifying spacing token -> previous value \`'24px'\`
+        lineHeight: token('font.lineHeight.300', '24px'),
       })`,
       errors: [
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
+        { messageId: 'noRawSpacingValues' },
         { messageId: 'noRawSpacingValues' },
         { messageId: 'noRawSpacingValues' },
       ],
@@ -100,12 +116,11 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       code: `const styles = css({
         fontSize: fontSize(),
       })`,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontSize:14>>',
-        },
-      ],
+      output: `const styles = css({
+        // TODO Delete this comment after verifying spacing token -> previous value \`fontSize()\`
+        fontSize: token('font.size.100', '14px'),
+      })`,
+      errors: [{ messageId: 'noRawSpacingValues' }],
     },
     // em
     {
@@ -378,7 +393,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         },
       ],
     },
-    // tagged TemplateLiteral
+    // tagged TemplateLiteral padding
     {
       code: 'const cssTemplateLiteral = css`color: red; padding: 16px 24px;`;',
       output: `// TODO Delete this comment after verifying spacing token -> previous value \`16px 24px\`\nconst cssTemplateLiteral = css\`color: red; padding: \${token('space.200', '16px')} \${token('space.300', '24px')};\`;`,
@@ -390,6 +405,46 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:24>>',
+        },
+      ],
+    },
+    // tagged TemplateLiteral font-weight
+    {
+      code: 'const cssTemplateLiteral = css`color: red; font-weight: 400;`;',
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`400\`\nconst cssTemplateLiteral = css\`color: red; font-weight: \${token('font.weight.regular', '400')};\`;`,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontWeight:400>>',
+        },
+      ],
+    },
+    // tagged TemplateLiteral line-height
+    {
+      code: 'const cssTemplateLiteral = css`color: red; line-height: 24px;`;',
+      output: `// TODO Delete this comment after verifying spacing token -> previous value \`24px\`\nconst cssTemplateLiteral = css\`color: red; line-height: \${token('font.lineHeight.300', '24px')};\`;`,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<lineHeight:24>>',
+        },
+      ],
+    },
+    // tagged TemplateLiteral font-family
+    {
+      code: `
+    const cssTemplateLiteral = css\`
+      color: red;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;\`;
+    `,
+      output: `
+    // TODO Delete this comment after verifying spacing token -> previous value \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\nconst cssTemplateLiteral = css\`
+      color: red;
+      font-family: \${token('font.family.sans', "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif")};\`;
+    `,
+      errors: [
+        {
+          message: `The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontFamily: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif>>`,
         },
       ],
     },

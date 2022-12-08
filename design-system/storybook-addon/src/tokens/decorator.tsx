@@ -17,8 +17,8 @@ const splitColumnStyles: CSSProperties = {
   height: '100vh',
   overflow: 'auto',
   padding: '10px',
-  background: token('color.background.default'),
-  color: token('color.text.highEmphasis'),
+  background: token('elevation.surface', 'white'),
+  color: token('color.text', '#172B4D'),
 };
 
 const stackColumnStyles: CSSProperties = {
@@ -28,8 +28,8 @@ const stackColumnStyles: CSSProperties = {
   height: '50%',
   overflow: 'auto',
   padding: '10px',
-  background: token('color.background.default'),
-  color: token('color.text.highEmphasis'),
+  background: token('elevation.surface', 'white'),
+  color: token('color.text', '#172B4D'),
 };
 
 /**

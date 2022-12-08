@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { code, Example, md, Props, DevPreviewWarning } from '@atlaskit/docs';
+import {
+  code,
+  Example,
+  md,
+  Props,
+  AtlassianInternalWarning,
+} from '@atlaskit/docs';
 
 export default md`
-
-  ${(<DevPreviewWarning />)}
+${(<AtlassianInternalWarning />)}
 
   The Standalone Link Picker component allows users to insert relevant links without having to leave their current context.
 
@@ -34,11 +39,20 @@ export default md`
   )
 `}
 
+${(
+  <Props
+    shouldCollapseProps
+    heading="Props"
+    props={require('!!extract-react-types-loader!../src/ui')}
+  />
+)}
+
   <br/>
 
   ## Plugins
 
-  When plugins are provided, the link picker is designed to surface your most recently visited/viewed items as well as supplying a mechanism to search for the link you want to insert without leaving your context.
+  Plugins provide an interface to provide additional functionality to the link picker.
+  Currently plugins give the link picker the ability to surface your most recently visited/viewed items as well as supplying a mechanism to search for the link you want to insert without leaving your context.
 
   <br/>
 
@@ -107,13 +121,6 @@ export default md`
       Component={require('../examples/10-forge-plugins').default}
       title="Example"
       source={require('!!raw-loader!../examples/10-forge-plugins')}
-    />
-  )}
-
-  ${(
-    <Props
-      heading="LinkPicker Props"
-      props={require('!!extract-react-types-loader!../src')}
     />
   )}
 `;

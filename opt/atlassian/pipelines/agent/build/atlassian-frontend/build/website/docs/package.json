@@ -11,7 +11,7 @@
   "atlaskit:src": "src/index.js",
   "author": "Atlassian Pty Ltd",
   "atlassian": {
-    "team": "UIP: Monorepo"
+    "team": "UIP: Dev Life Cycle"
   },
   "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
   "dependencies": {

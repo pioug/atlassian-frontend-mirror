@@ -1,5 +1,11 @@
 # @atlaskit/storybook-addon-design-system
 
+## 0.3.6
+
+### Patch Changes
+
+- [`f824dcfff6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f824dcfff6e) - Internal changes to satisfy various lint warnings & errors
+
 ## 0.3.5
 
 ### Patch Changes

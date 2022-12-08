@@ -55,7 +55,6 @@ import {
   getMousePositionHorizontalRelativeByElement,
   getMousePositionVerticalRelativeByElement,
   getSelectedCellInfo,
-  hasResizeHandler,
   isCell,
   isColumnControlsDecorations,
   isCornerButton,
@@ -358,7 +357,8 @@ export const handleMouseMove =
 
       if (positionColumn !== null) {
         const { state, dispatch } = view;
-        const { resizeHandleColumnIndex } = getPluginState(state);
+        const { resizeHandleColumnIndex, resizeHandleRowIndex } =
+          getPluginState(state);
         const tableCell = closestElement(
           element,
           'td, th',
@@ -372,14 +372,16 @@ export const handleMouseMove =
           const columnEndIndexTarget =
             positionColumn === 'left' ? rect.left : rect.right;
 
+          const rowIndexTarget = rect.top;
+
           if (
             columnEndIndexTarget !== resizeHandleColumnIndex ||
-            !hasResizeHandler({ target: element, columnEndIndexTarget })
+            rowIndexTarget !== resizeHandleRowIndex
           ) {
-            return addResizeHandleDecorations(columnEndIndexTarget)(
-              state,
-              dispatch,
-            );
+            return addResizeHandleDecorations(
+              rowIndexTarget,
+              columnEndIndexTarget,
+            )(state, dispatch);
           }
         }
       }

@@ -1,6 +1,13 @@
 import type { Rule, Scope } from 'eslint';
 import { CallExpression, EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
+const typographyProperties = [
+  'fontSize',
+  'fontWeight',
+  'fontFamily',
+  'lineHeight',
+];
+
 const properties = [
   'padding',
   'paddingBlock',
@@ -15,8 +22,7 @@ const properties = [
   'marginBottom',
   'margin',
   'gap',
-  'fontSize',
-  'lineHeight',
+  ...typographyProperties,
   // 'width', re-enable later
   // 'height', re-enable later
   'rowGap',
@@ -49,11 +55,20 @@ export function findIdentifierInParentScope({
   return null;
 }
 
-export const isSpacingProperty = (prop: string) => {
-  return properties.includes(prop);
+export const isSpacingProperty = (propertyName: string) => {
+  return properties.includes(propertyName);
+};
+
+export const isTypographyProperty = (propertyName: string) => {
+  return typographyProperties.includes(propertyName);
 };
 
 export const getValueFromShorthand = (str: unknown): any[] => {
+  const valueString = String(str);
+  const fontFamily = /(sans-serif$)|(monospace$)/;
+  if (fontFamily.test(valueString)) {
+    return [valueString];
+  }
   // If we want to filter out NaN just add .filter(Boolean)
   return String(str)
     .trim()
@@ -76,6 +91,17 @@ const isFontSizeSmall = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node, 'CallExpression') &&
   isNodeOfType(node.callee, 'Identifier') &&
   node.callee.name === 'fontSizeSmall';
+
+const isFontFamily = (node: EslintNode): node is CallExpression =>
+  isNodeOfType(node, 'CallExpression') &&
+  isNodeOfType(node.callee, 'Identifier') &&
+  (node.callee.name === 'fontFamily' || node.callee.name === 'getFontFamily');
+
+const isCodeFontFamily = (node: EslintNode): node is CallExpression =>
+  isNodeOfType(node, 'CallExpression') &&
+  isNodeOfType(node.callee, 'Identifier') &&
+  (node.callee.name === 'codeFontFamily' ||
+    node.callee.name === 'getCodeFontFamily');
 
 const isToken = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node, 'CallExpression') &&
@@ -100,6 +126,14 @@ const getValueFromCallExpression = (
 
   if (isFontSizeSmall(node)) {
     return 11;
+  }
+
+  if (isFontFamily(node)) {
+    return `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`;
+  }
+
+  if (isCodeFontFamily(node)) {
+    return `'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace`;
   }
 
   if (isToken(node)) {

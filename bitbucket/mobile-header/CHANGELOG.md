@@ -1,5 +1,11 @@
 # @atlaskit/mobile-header
 
+## 6.0.0
+
+### Major Changes
+
+- [`16f5b6bdaee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16f5b6bdaee) - Peer Dependencies have changed due to the migration from styled-components to @emotion v11.
+
 ## 5.0.12
 
 ### Patch Changes

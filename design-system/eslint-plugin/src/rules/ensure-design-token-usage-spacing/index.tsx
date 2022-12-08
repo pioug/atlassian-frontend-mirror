@@ -11,6 +11,7 @@ import {
 } from 'eslint-codemod-utils';
 
 import spacingScale from '@atlaskit/tokens/spacing-raw';
+import typographyTokens from '@atlaskit/tokens/typography-raw';
 
 import { isDecendantOfGlobalToken } from '../utils/is-node';
 
@@ -21,6 +22,7 @@ import {
   getValue,
   getValueFromShorthand,
   isSpacingProperty,
+  isTypographyProperty,
   isValidSpacingValue,
 } from './utils';
 
@@ -36,14 +38,43 @@ const spacingValueToToken = Object.fromEntries(
   onlyScaleTokens.map((token) => [token.attributes['pixelValue'], token.name]),
 );
 
+const typographyValueToToken = Object.fromEntries(
+  typographyTokens.map((currentToken) => {
+    // Group tokens by property name (e.g. fontSize, fontFamily, lineHeight)
+    // This allows us to look up values specific to a property
+    // (so as not to mix tokens with overlapping values e.g. font size and line height both have tokens for 16px)
+    const tokenGroup = currentToken.attributes.group;
+    return [
+      tokenGroup,
+      Object.fromEntries(
+        typographyTokens
+          .map((token) =>
+            token.attributes.group === tokenGroup
+              ? [token.value.replaceAll(`"`, `'`), token.name]
+              : [],
+          )
+          .filter((token) => token.length),
+      ),
+    ];
+  }),
+);
+
 /**
+ * Returns a token node for a given value including fallbacks.
+ * @param propertyName camelCase CSS property
+ * @param value string representing pixel value, or font family, or number representing font weight
  * @example
  * ```
- * '8px' => token('spacing.scale.100', '8px')
+ * propertyName: padding, value: '8px' => token('spacing.scale.100', '8px')
+ * propertyName: fontWeight, value: 400 => token('font.weight.regular', '400')
  * ```
  */
-function pixelValueToSpacingTokenNode(pixelValueString: string) {
-  const token = spacingValueToToken[pixelValueString];
+function getTokenNodeForValue(propertyName: string, value: string) {
+  const token = isTypographyProperty(propertyName)
+    ? typographyValueToToken[propertyName][value]
+    : spacingValueToToken[value];
+  const fallbackValue =
+    propertyName === 'fontFamily' ? `"${value}"` : `'${value}'`;
 
   return callExpression({
     callee: identifier({ name: 'token' }),
@@ -51,7 +82,7 @@ function pixelValueToSpacingTokenNode(pixelValueString: string) {
       literal({
         value: `'${token ?? ''}'`,
       }),
-      literal(`'${pixelValueString}'`),
+      literal(fallbackValue),
     ],
     optional: false,
   });
@@ -151,6 +182,9 @@ const rule: Rule.RuleModule = {
             return;
           }
 
+          const propertyName = (node.key as Identifier).name;
+          const isFontFamily = /fontFamily/.test(propertyName);
+
           const value = getValue(node.value, context);
 
           // value is either NaN or it can't be resolved eg, em, 100% etc...
@@ -167,26 +201,41 @@ const rule: Rule.RuleModule = {
           const values = Array.isArray(value) ? value : [value];
 
           // value is a single value so we can apply a more robust approach to our fix
-          if (values.length === 1) {
+          // treat fontFamily as having one value
+          if (values.length === 1 || isFontFamily) {
             const [value] = values;
-            const pixelValue = emToPixels(value, fontSize);
+            const pixelValue = isFontFamily
+              ? value
+              : emToPixels(value, fontSize);
             return context.report({
               node,
               messageId: 'noRawSpacingValues',
               data: {
-                payload: `${(node.key as Identifier).name}:${pixelValue}`,
+                payload: `${propertyName}:${pixelValue}`,
               },
               fix: (fixer) => {
-                if (!/padding|margin|gap/.test((node.key as Identifier).name)) {
+                if (!isSpacingProperty(propertyName)) {
                   return null;
                 }
 
                 const pixelValueString = `${pixelValue}px`;
-                const tokenName = spacingValueToToken[pixelValueString];
+
+                const lookupValue = /fontWeight|fontFamily/.test(propertyName)
+                  ? pixelValue
+                  : pixelValueString;
+
+                const tokenName = isTypographyProperty(propertyName)
+                  ? typographyValueToToken[propertyName][lookupValue]
+                  : spacingValueToToken[lookupValue];
 
                 if (!tokenName) {
                   return null;
                 }
+
+                const replacementValue = getTokenNodeForValue(
+                  propertyName,
+                  lookupValue,
+                );
 
                 return [
                   fixer.insertTextBefore(
@@ -199,7 +248,7 @@ const rule: Rule.RuleModule = {
                     node,
                     property({
                       ...node,
-                      value: pixelValueToSpacingTokenNode(pixelValueString),
+                      value: replacementValue,
                     }).toString(),
                   ),
                 ];
@@ -221,7 +270,7 @@ const rule: Rule.RuleModule = {
               node,
               messageId: 'noRawSpacingValues',
               data: {
-                payload: `${(node.key as Identifier).name}:${pixelValue}`,
+                payload: `${propertyName}:${pixelValue}`,
               },
               fix:
                 index === 0
@@ -238,7 +287,8 @@ const rule: Rule.RuleModule = {
                           .map((value) => {
                             const pixelValue = emToPixels(value, fontSize);
                             const pixelValueString = `${pixelValue}px`;
-                            return `\${${pixelValueToSpacingTokenNode(
+                            return `\${${getTokenNodeForValue(
+                              propertyName,
                               pixelValueString,
                             )}}`;
                           })
@@ -297,9 +347,9 @@ const rule: Rule.RuleModule = {
 
           cssProperties.forEach((style) => {
             const [rawProperty, value] = style.split(':');
-            const property = convertHyphenatedNameToCamelCase(rawProperty);
+            const propertyName = convertHyphenatedNameToCamelCase(rawProperty);
 
-            if (!isSpacingProperty(property)) {
+            if (!isSpacingProperty(propertyName)) {
               return;
             }
 
@@ -317,19 +367,18 @@ const rule: Rule.RuleModule = {
             const values = getValueFromShorthand(value);
 
             values.forEach((val, index) => {
-              if (
-                (!val && val !== 0) ||
-                !/padding|margin|gap/.test(rawProperty)
-              ) {
+              if ((!val && val !== 0) || !isSpacingProperty(propertyName)) {
                 return;
               }
 
-              const pixelValue = emToPixels(val, fontSize);
+              const isFontFamily = /fontFamily/.test(propertyName);
+              const pixelValue = isFontFamily ? val : emToPixels(val, fontSize);
+
               context.report({
                 node,
                 messageId: 'noRawSpacingValues',
                 data: {
-                  payload: `${property}:${pixelValue}`,
+                  payload: `${propertyName}:${pixelValue}`,
                 },
                 fix:
                   index === 0
@@ -337,28 +386,45 @@ const rule: Rule.RuleModule = {
                         const allResolvableValues = values.every(
                           (value) => !Number.isNaN(emToPixels(value, fontSize)),
                         );
+
                         if (!allResolvableValues) {
                           return null;
                         }
 
                         const replacementValue = values
                           .map((value) => {
-                            const pixelValue = emToPixels(value, fontSize);
+                            const propertyValue =
+                              typeof value === 'string' ? value.trim() : value;
+
+                            const pixelValue = isFontFamily
+                              ? propertyValue
+                              : emToPixels(propertyValue, fontSize);
                             const pixelValueString = `${pixelValue}px`;
-                            const tokenName =
-                              spacingValueToToken[pixelValueString];
+
+                            const lookupValue = /fontWeight|fontFamily/.test(
+                              propertyName,
+                            )
+                              ? pixelValue
+                              : pixelValueString;
+
+                            const tokenName = isTypographyProperty(propertyName)
+                              ? typographyValueToToken[propertyName][
+                                  lookupValue
+                                ]
+                              : spacingValueToToken[lookupValue];
 
                             if (!tokenName) {
                               return pixelValueString;
                             }
 
+                            const replacementTokenValue = getTokenNodeForValue(
+                              propertyName,
+                              lookupValue,
+                            );
+
                             // ${token('...', '...')}
                             const replacementSubValue =
-                              '${' +
-                              pixelValueToSpacingTokenNode(
-                                pixelValueString,
-                              ).toString() +
-                              '}';
+                              '${' + replacementTokenValue.toString() + '}';
                             return replacementSubValue;
                           })
                           .join(' ');

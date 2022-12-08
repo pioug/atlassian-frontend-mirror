@@ -66,17 +66,18 @@ describe('tables: column resizing decorations', () => {
 
   describe('#buildColumnResizingDecorations', () => {
     describe.each([
-      [-1, TableDecorations.COLUMN_RESIZING_HANDLE, 0],
-      [0, TableDecorations.COLUMN_RESIZING_HANDLE, 0],
-      [1, TableDecorations.COLUMN_RESIZING_HANDLE, 1],
+      [0, -1, TableDecorations.COLUMN_RESIZING_HANDLE, 0],
+      [0, 0, TableDecorations.COLUMN_RESIZING_HANDLE, 0],
+      [0, 1, TableDecorations.COLUMN_RESIZING_HANDLE, 1],
     ])(
       'when columnEndIndex is %i',
-      (columnEndIndex, decorationKey, expectedDecorations) => {
+      (rowEndIndex, columnEndIndex, decorationKey, expectedDecorations) => {
         it(`should return a decorationSet with ${expectedDecorations} ${decorationKey} type`, () => {
           const {
             editorView: { state },
           } = editor(doc(table()(tr(tdCursor, tdEmpty))));
           const nextDecorationSet = buildColumnResizingDecorations(
+            rowEndIndex,
             columnEndIndex,
           )({
             decorationSet: DecorationSet.empty,

@@ -14,6 +14,7 @@ describe('getToken', () => {
   it('returns a token', () => {
     // TS: Function should have specific return type.
     // CSS prefix has to be hardcoded as template literal types not supported
+    // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
     const testToken: 'var(--ds-background-brand-bold)' = token(
       'color.background.brand.bold',
     );
@@ -31,6 +32,7 @@ describe('getToken', () => {
 
   it('should log error when token is not found', () => {
     // @ts-expect-error
+    // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
     const result = token('this-token-does-not-exist');
     expect(result).toEqual('var(--ds-UNSAFE_util-MISSING_TOKEN)');
     // eslint-disable-next-line no-console
@@ -41,6 +43,7 @@ describe('getToken', () => {
 
   it('should log error and use fallback when token is not found', () => {
     // @ts-expect-error
+    // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
     const result = token('this-token-does-not-exist', '#FFF');
     expect(result).toEqual('var(--ds-UNSAFE_util-MISSING_TOKEN, #FFF)');
     // eslint-disable-next-line no-console
@@ -49,7 +52,7 @@ describe('getToken', () => {
     );
   });
 
-  describe('on production environemnt', () => {
+  describe('on production environment', () => {
     let nodeEnv: string | undefined = '';
     beforeEach(() => {
       nodeEnv = process.env.NODE_ENV;
@@ -61,11 +64,13 @@ describe('getToken', () => {
     });
 
     it('returns correct css for non-existing token with fallback', () => {
+      // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
       const testToken = token('some.non.existing.token' as any, '#000');
       expect(testToken).toEqual(`var(${TOKEN_NOT_FOUND_CSS_VAR}, #000)`);
     });
 
     it('returns correct css for non-existing token without fallback', () => {
+      // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
       const testToken = token('some.non.existing.token' as any);
       expect(testToken).toEqual(`var(${TOKEN_NOT_FOUND_CSS_VAR})`);
     });

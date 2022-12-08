@@ -291,6 +291,7 @@ const makeArray = (n: number) => Array.from(Array(n).keys());
  */
 export const createResizeHandleDecoration = (
   tr: Transaction | ReadonlyTransaction,
+  rowIndexTarget: number,
   columnEndIndexTarget: Omit<CellColumnPositioning, 'left'>,
 ): [Decoration[], Decoration[]] => {
   const emptyResult: [Decoration[], Decoration[]] = [[], []];
@@ -360,6 +361,10 @@ export const createResizeHandleDecoration = (
 
   for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
     const seen: { [key: number]: boolean } = {};
+
+    if (rowIndex !== rowIndexTarget) {
+      continue;
+    }
 
     for (let columnIndex = 0; columnIndex < map.width; columnIndex++) {
       const cellPosition = map.map[map.width * rowIndex + columnIndex];
@@ -456,16 +461,24 @@ export const createColumnLineResize = (
     return [];
   }
 
-  const columnIndex = cellColumnPositioning.right - 1;
+  let columnIndex = cellColumnPositioning.right;
   const map = TableMap.get(table.node);
+
+  const isLastColumn = columnIndex === map.width;
+  if (isLastColumn) {
+    columnIndex -= 1;
+  }
+  const decorationClassName = isLastColumn
+    ? ClassName.WITH_RESIZE_LINE_LAST_COLUMN
+    : ClassName.WITH_RESIZE_LINE;
 
   const cellPositions = makeArray(map.height)
     .map((rowIndex) => map.map[map.width * rowIndex + columnIndex])
     .filter((cellPosition, rowIndex) => {
-      if (columnIndex === map.width) {
+      if (isLastColumn) {
         return true; // If is the last column no filter applied
       }
-      const nextPosition = map.map[map.width * rowIndex + columnIndex + 1];
+      const nextPosition = map.map[map.width * rowIndex + columnIndex - 1];
       return cellPosition !== nextPosition; // Removed it if next position is merged
     });
 
@@ -484,7 +497,7 @@ export const createColumnLineResize = (
         cell.pos,
         cell.pos + cell.node.nodeSize,
         {
-          class: ClassName.WITH_RESIZE_LINE,
+          class: decorationClassName,
         },
         {
           key: `${TableDecorations.COLUMN_RESIZING_HANDLE_LINE}_${cellColumnPositioning.right}_${index}`,

@@ -1,26 +1,26 @@
-import React, { SyntheticEvent, useState, useMemo } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
-import {
-  AtlassianLinkPickerPlugin,
-  Scope,
-} from '@atlassian/link-picker-atlassian-plugin';
-import { useForgeSearchProviders } from '@atlassian/link-picker-plugins';
-import { mockEndpoints as mockRecentsEndPoints } from '@atlassian/recent-work-client/mocks';
+import { useLinkPickerPlugins } from '@atlassian/link-picker-plugins';
 
 import { LinkPicker, LinkPickerProps } from '../src';
 import { PageHeader, PageWrapper } from '../example-helpers/common';
-import { mockPluginEndpoints } from '../example-helpers/mock-plugin-endpoints';
-import mockRecentData from '../example-helpers/mock-recents-data';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 
 const smartCardClient = new CardClient('staging');
 
-mockPluginEndpoints();
-mockRecentsEndPoints(undefined, undefined, mockRecentData);
+// mockPluginEndpoints();
+// mockRecentsEndPoints(undefined, undefined, mockRecentData);
+
+const LINK_PICKER_PLUGINS_CONFIG = {
+  product: 'Confluence',
+  activityClientEndpoint: 'https://start.stg.atlassian.com/gateway/api/graphql',
+  aggregatorUrl: 'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
+  cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
+};
 
 function ForgePlugins() {
   const [link, setLink] = useState<OnSubmitPayload>({
@@ -48,20 +48,7 @@ function ForgePlugins() {
 
   const handleCancel = () => setIsLinkPickerVisible(false);
 
-  const forgePlugins = useForgeSearchProviders();
-  const plugins = useMemo(
-    () => [
-      new AtlassianLinkPickerPlugin({
-        cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
-        scope: Scope.ConfluencePageBlog,
-        aggregatorUrl:
-          'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
-        activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
-      }),
-      ...forgePlugins,
-    ],
-    [forgePlugins],
-  );
+  const plugins = useLinkPickerPlugins(LINK_PICKER_PLUGINS_CONFIG);
 
   const linkPicker = isLinkPickerVisible && (
     <LinkPicker
@@ -93,7 +80,13 @@ function ForgePlugins() {
 
 export default function ForgePluginsWrapper() {
   return (
-    <SmartCardProvider client={smartCardClient}>
+    <SmartCardProvider
+      client={smartCardClient}
+      featureFlags={{
+        useLinkPickerScrollingTabs: true,
+        useLinkPickerAtlassianTabs: true,
+      }}
+    >
       <ForgePlugins />
     </SmartCardProvider>
   );

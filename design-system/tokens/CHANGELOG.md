@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 0.11.4
+
+### Patch Changes
+
+- [`39c4b520ef3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39c4b520ef3) - - Adds `typography-raw` entry point for easy access.
+
+## 0.11.3
+
+### Patch Changes
+
+- [`f824dcfff6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f824dcfff6e) - Internal changes to satisfy various lint warnings & errors
+
 ## 0.11.2
 
 ### Patch Changes

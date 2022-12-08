@@ -394,18 +394,6 @@ export const tableStyles = (props: ThemeProps) => css`
         `,
         )};
       }
-
-      .${ClassName.CORNER_CONTROLS_INSERT_COLUMN_MARKER} {
-        position: relative;
-
-        ${InsertMarker(
-          props,
-          `
-          right: -1px;
-          top: -12px;
-        `,
-        )};
-      }
     }
 
     .${ClassName.CORNER_CONTROLS}.sticky {

@@ -12,7 +12,8 @@
     "scripts"
   ],
   "compilerOptions": {
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "lib": ["ES2021.String"]
   },
   "ts-node": {
     // It is faster to skip typechecking.

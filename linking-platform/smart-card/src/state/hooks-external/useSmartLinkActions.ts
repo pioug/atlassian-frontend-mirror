@@ -89,6 +89,7 @@ export function useSmartLinkActions({
       ) {
         // Reload when embed preview modal close
         const { promise } = opts.action;
+        opts.action.type = 'StatusAction';
         opts.action.promise = () => promise({ onClose: reload });
       }
 

@@ -28,7 +28,7 @@ const fieldsetStyles = css({
     borderColor: token('color.border.danger', 'red'),
   },
   ':focus, :focus-within': {
-    backgroundColor: token('color.background.input'),
+    backgroundColor: token('color.background.input', '#FAFBFC'),
     borderColor: token('color.border.focused', 'blue'),
   },
 });

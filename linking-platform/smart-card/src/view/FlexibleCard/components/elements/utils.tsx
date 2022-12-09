@@ -33,6 +33,10 @@ const elementMappings: Record<
     props: { icon: IconType.Attachment },
   },
   [ElementName.AuthorGroup]: { component: AvatarGroup },
+  [ElementName.ChecklistProgress]: {
+    component: Badge,
+    props: { icon: IconType.CheckItem },
+  },
   [ElementName.CollaboratorGroup]: { component: AvatarGroup },
   [ElementName.CommentCount]: {
     component: Badge,
@@ -109,6 +113,7 @@ const getData = (
     case ElementName.CollaboratorGroup:
       return toAvatarGroupProps(data as AvatarItemProps[]);
     case ElementName.AttachmentCount:
+    case ElementName.ChecklistProgress:
     case ElementName.CommentCount:
     case ElementName.ViewCount:
     case ElementName.ReactCount:

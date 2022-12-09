@@ -1,44 +1,56 @@
-export {};
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import {
+  snapshot,
+  initFullPageEditorWithAdf,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import tableWith100ListItemsADF from './__fixtures__/table-with-100-numbered-list-items.json';
+import {
+  scrollToBottom,
+  scrollToElement,
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 
-// import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-// import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-// import {
-//   snapshot,
-//   initFullPageEditorWithAdf,
-// } from '../../../../__tests__/visual-regression/_utils';
-// import tableWith100ListItemsADF from './__fixtures__/table-with-100-numbered-list-items.json';
-// import {
-//   scrollToBottom,
-//   scrollToElement,
-// } from '../../../../__tests__/__helpers/page-objects/_editor';
+async function initEditor(page: PuppeteerPage, adf: Object) {
+  await initFullPageEditorWithAdf(
+    page,
+    adf,
+    Device.LaptopMDPI,
+    undefined,
+    {},
+    undefined,
+    undefined,
+    true,
+    false,
+    undefined,
+    {
+      group: 'editor',
+      packageName: 'editor-plugin-table',
+      exampleName: 'testing',
+    },
+  );
+}
 
-// async function initEditor(page: PuppeteerPage, adf: Object) {
-//   await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI, undefined, {});
-// }
+describe('Snapshot Test: Table', () => {
+  let page: PuppeteerPage;
 
-it.skip('TODO: restore vr `packages/editor/editor-plugin-table/src/plugins/table/__tests__/visual-regression/index.ts`', () => {});
+  beforeAll(async () => {
+    page = global.page;
+  });
 
-// describe('Snapshot Test: Table', () => {
-//   let page: PuppeteerPage;
+  describe('numbered list', () => {
+    it('should not overflow table cell, when there are more than 100 ordered list items', async () => {
+      await initEditor(page, tableWith100ListItemsADF);
 
-//   beforeEach(() => {
-//     page = global.page;
-//   });
+      // initial elements
+      await snapshot(page);
 
-//   describe('numbered list', () => {
-//     it('should not overflow table cell, when there are more than 100 ordered list items', async () => {
-//       await initEditor(page, tableWith100ListItemsADF);
+      // 100th elements
+      await scrollToElement(page, 'ol > li:nth-of-type(120)');
+      await snapshot(page);
 
-//       // initial elements
-//       await snapshot(page);
-
-//       // 100th elements
-//       await scrollToElement(page, 'ol > li:nth-of-type(120)');
-//       await snapshot(page);
-
-//       // 1000th elements
-//       await scrollToBottom(page);
-//       await snapshot(page);
-//     });
-//   });
-// });
+      // 1000th elements
+      await scrollToBottom(page);
+      await snapshot(page);
+    });
+  });
+});

@@ -65,6 +65,13 @@ const spacingProperties = [
   'scroll-padding-block-end',
 ];
 
+const typographyProperties = [
+  'font-size',
+  'font-weight',
+  'font-family',
+  'line-height',
+];
+
 export const isFunction = (node: Node): node is FunctionNode =>
   node.type === 'function';
 
@@ -74,4 +81,8 @@ export const isVar = (node: FunctionNode): boolean => node.value === 'var';
 
 export const isSpacingRule = (prop: string): boolean => {
   return spacingProperties.includes(prop);
+};
+
+export const isTypographyRule = (prop: string): boolean => {
+  return typographyProperties.includes(prop);
 };

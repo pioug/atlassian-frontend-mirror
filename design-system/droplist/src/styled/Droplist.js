@@ -4,17 +4,23 @@ import styled, { css } from 'styled-components';
 import { backgroundOnLayer, N50A, N60A } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 
+export const getDefaultMaxHeight = () => {
+  const heightWithoutPadding = 17;
+  const verticalPadding = gridSize();
+  const height = heightWithoutPadding + verticalPadding * 2;
+  const defaultMaxHeight = 9.5 * height + verticalPadding / 2;
+
+  return defaultMaxHeight;
+};
+
 /* When dropdown contains more than 9 elements (droplist items, droplist groups),
  * it should have scroll and cut off half of the 10th item to indicate that there are more
  * items then are seen. This was previously calculated by mapping over children, but with
  * the current composed API it is simpler to just assume 9 items. */
 const getMaxHeight = ({ isTall, maxHeight }) => {
   if (maxHeight) return `${maxHeight}px`;
+  const defaultMaxHeight = getDefaultMaxHeight();
 
-  const heightWithoutPadding = 17;
-  const verticalPadding = gridSize();
-  const height = heightWithoutPadding + verticalPadding * 2;
-  const defaultMaxHeight = 9.5 * height + verticalPadding / 2;
   return isTall ? '90vh' : `${defaultMaxHeight}px`;
 };
 

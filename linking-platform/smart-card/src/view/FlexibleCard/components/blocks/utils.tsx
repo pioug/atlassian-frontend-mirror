@@ -23,6 +23,7 @@ export const ElementDisplaySchema: Record<
 > = {
   [ElementName.AttachmentCount]: ['inline'],
   [ElementName.AuthorGroup]: ['inline'],
+  [ElementName.ChecklistProgress]: ['inline'],
   [ElementName.CollaboratorGroup]: ['inline'],
   [ElementName.CommentCount]: ['inline'],
   [ElementName.ViewCount]: ['inline'],

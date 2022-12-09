@@ -27,6 +27,13 @@ export const AuthorGroup = createElement<AvatarGroupProps>(
   ElementName.AuthorGroup,
 );
 /**
+ * Creates a Checklist Badge element using the data from ChecklistProgress in the Flexible UI Context.
+ * @see Badge
+ */
+export const ChecklistProgress = createElement<BadgeProps>(
+  ElementName.ChecklistProgress,
+);
+/**
  * An AvatarGroup element using the data from CollaboratorGroup in the Flexible UI Context.
  * @see AvatarGroup
  */

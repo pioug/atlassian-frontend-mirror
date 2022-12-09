@@ -78,7 +78,6 @@ class TransformerPanels extends React.PureComponent<Props, State> {
               allowHeaderRow: true,
               allowHeaderColumn: true,
               permittedLayouts: 'all',
-              stickToolbarToBottom: true,
             }}
             contentTransformerProvider={(schema) =>
               new WikiMarkupTransformer(schema)

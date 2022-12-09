@@ -1,12 +1,15 @@
-import React, { MouseEvent } from 'react';
+import React from 'react';
 
-import { waitFor } from '@testing-library/dom';
-import { render, waitForElementToBeRemoved } from '@testing-library/react';
-import { mount } from 'enzyme';
-
-import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 
 import DrawerPrimitive from '../../primitives';
+import { widths } from '../../primitives/drawer-wrapper';
 import { DrawerWidth } from '../../types';
 
 const DrawerContent = () => (
@@ -23,35 +26,39 @@ describe('Drawer primitive', () => {
   };
 
   it('should render given icon in large size if exists', () => {
-    const props = { ...commonProps, icon: () => <span>Icon</span> };
-    const wrapper = mount(
+    const Icon = (props: { size: string }) => {
+      return <span data-size={props.size}>Icon</span>;
+    };
+    const props = { ...commonProps, icon: Icon };
+    render(
       <DrawerPrimitive {...props}>
         <DrawerContent />
       </DrawerPrimitive>,
     );
-    expect((wrapper.find(props.icon).props() as any).size).toBe('large');
+
+    expect(screen.getByText('Icon')).toHaveAttribute('data-size', 'large');
   });
 
   it('should render arrow left if icon prop does NOT exist', () => {
     const props = { ...commonProps };
-    const wrapper = mount(
+    render(
       <DrawerPrimitive {...props}>
         <DrawerContent />
       </DrawerPrimitive>,
     );
 
-    expect(wrapper.find(ArrowLeft).length).toBe(1);
+    expect(screen.getByLabelText('Close drawer')).toBeInTheDocument();
   });
 
   it('should unmount the node if receives shouldUnmountOnExit prop', async () => {
     const props = { ...commonProps, shouldUnmountOnExit: true };
 
-    const { getByTestId, queryByTestId, rerender } = render(
+    const { rerender } = render(
       <DrawerPrimitive {...props}>
         <DrawerContent />
       </DrawerPrimitive>,
     );
-    expect(getByTestId('test')).toBeInTheDocument();
+    expect(screen.getByTestId('test')).toBeInTheDocument();
 
     rerender(
       <DrawerPrimitive {...props} in={false}>
@@ -59,7 +66,9 @@ describe('Drawer primitive', () => {
       </DrawerPrimitive>,
     );
 
-    await waitFor(() => expect(queryByTestId('test')).not.toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.queryByTestId('test')).not.toBeInTheDocument(),
+    );
   });
 
   /**
@@ -78,12 +87,12 @@ describe('Drawer primitive', () => {
     const onCloseComplete = jest.fn();
     const props = { ...commonProps, onCloseComplete };
 
-    const { getByTestId, rerender } = render(
+    const { rerender } = render(
       <DrawerPrimitive {...props}>
         <DrawerContent />
       </DrawerPrimitive>,
     );
-    expect(getByTestId('test')).toBeInTheDocument();
+    expect(screen.getByTestId('test')).toBeInTheDocument();
 
     rerender(
       <DrawerPrimitive {...props} in={false}>
@@ -92,42 +101,35 @@ describe('Drawer primitive', () => {
     );
 
     await waitFor(() => expect(onCloseComplete).toHaveBeenCalled());
-    expect(getByTestId('test')).toBeInTheDocument();
+    expect(screen.getByTestId('test')).toBeInTheDocument();
   });
 
   it('should render with medium width', () => {
     const props = { ...commonProps, width: 'medium' as DrawerWidth };
-    const wrapper = mount(
+    render(
       <DrawerPrimitive {...props}>
         <DrawerContent />
       </DrawerPrimitive>,
     );
-    expect(wrapper.find(DrawerPrimitive).props().width).toBe('medium');
+    const drawerWrapper = screen.getByTestId('test');
+    expect(drawerWrapper).toHaveStyle(`width: ${widths.medium}px`);
   });
 
   it('should call onClose when the icon is clicked', () => {
     const onClose = jest.fn();
     const props = { ...commonProps, onClose };
-    const wrapper = mount(
+    render(
       <DrawerPrimitive {...props}>
         <DrawerContent />
       </DrawerPrimitive>,
     );
 
-    const event = { target: 'button' };
-    const callsBeforeIconClick = Array.prototype.concat(onClose.mock.calls);
+    expect(onClose).not.toHaveBeenCalled();
 
-    const handler = wrapper.find('IconButton').prop('onClick');
-    if (handler) {
-      handler(event as unknown as MouseEvent);
-    }
+    const iconButton = screen.getByRole('button', { name: 'Close drawer' });
+    fireEvent.click(iconButton);
 
-    const callsAfterIconClick = onClose.mock.calls;
-
-    expect({ callsBeforeIconClick, callsAfterIconClick }).toEqual({
-      callsBeforeIconClick: [],
-      callsAfterIconClick: [[event]],
-    });
+    expect(onClose).toHaveBeenCalled();
   });
 
   it('should call onCloseComplete when the Slide has exited', async () => {
@@ -139,7 +141,7 @@ describe('Drawer primitive', () => {
       shouldUnmountOnExit: true,
     };
 
-    const { queryByTestId, rerender } = render(
+    const { rerender } = render(
       <DrawerPrimitive {...props} in>
         <DrawerContent />
       </DrawerPrimitive>,
@@ -153,7 +155,7 @@ describe('Drawer primitive', () => {
       </DrawerPrimitive>,
     );
 
-    await waitForElementToBeRemoved(() => queryByTestId(props.testId));
+    await waitForElementToBeRemoved(() => screen.queryByTestId(props.testId));
     expect(onCloseComplete).toHaveBeenCalledTimes(1);
     expect(onCloseComplete).toHaveBeenCalledWith(null);
   });
@@ -163,12 +165,12 @@ describe('Drawer primitive', () => {
 
     const onOpenComplete = jest.fn();
     const props = { ...commonProps, in: true, onOpenComplete };
-    const { getByTestId } = render(
+    render(
       <DrawerPrimitive {...props}>
         <DrawerContent />
       </DrawerPrimitive>,
     );
-    const drawer = getByTestId('test');
+    const drawer = screen.getByTestId('test');
 
     expect(onOpenComplete).toHaveBeenCalledTimes(0);
 
@@ -189,29 +191,29 @@ describe('Drawer primitive', () => {
    */
   describe('works with our DrawerWrapper ref hack', () => {
     it('should render only two children nodes: Sidebar and Content', async () => {
-      const { getByTestId } = render(
+      render(
         <DrawerPrimitive {...commonProps}>
           <DrawerContent />
         </DrawerPrimitive>,
       );
-      const drawer = getByTestId('test');
+      const drawer = screen.getByTestId('test');
 
       expect(drawer.childNodes).toHaveLength(2);
 
       // Sidebar content:
       expect(drawer.childNodes[0]).toContainElement(
-        getByTestId('DrawerPrimitiveSidebarCloseButton'),
+        screen.getByTestId('DrawerPrimitiveSidebarCloseButton'),
       );
 
       // Content:
       expect(drawer.childNodes[1]).toHaveTextContent('Drawer contents');
       expect(drawer.childNodes[1]).toContainElement(
-        getByTestId('DrawerContents'),
+        screen.getByTestId('DrawerContents'),
       );
     });
 
     it('with both overrides, should render only two children nodes: Sidebar and Content', async () => {
-      const { getByTestId } = render(
+      render(
         <DrawerPrimitive
           {...commonProps}
           // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides -- Testing the functionality even if it's deprecated
@@ -232,19 +234,19 @@ describe('Drawer primitive', () => {
         </DrawerPrimitive>,
       );
 
-      const drawer = getByTestId('test');
+      const drawer = screen.getByTestId('test');
       expect(drawer.childNodes).toHaveLength(2);
 
       // Sidebar content:
       expect(drawer.childNodes[0]).toHaveTextContent('Override sidebar');
       expect(drawer.childNodes[0]).toContainElement(
-        getByTestId('override-sidebar'),
+        screen.getByTestId('override-sidebar'),
       );
 
       // Content:
       expect(drawer.childNodes[1]).toHaveTextContent('Override content');
       expect(drawer.childNodes[1]).toContainElement(
-        getByTestId('override-content'),
+        screen.getByTestId('override-content'),
       );
     });
 
@@ -257,7 +259,7 @@ describe('Drawer primitive', () => {
     ] as const)(
       'with overriding %p to return `null` you only get one child node',
       (override, validTestId) => {
-        const { getByTestId } = render(
+        render(
           <DrawerPrimitive
             {...commonProps}
             // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides -- Testing the functionality even if it's deprecated
@@ -279,11 +281,13 @@ describe('Drawer primitive', () => {
           </DrawerPrimitive>,
         );
 
-        const drawer = getByTestId('test');
+        const drawer = screen.getByTestId('test');
         expect(drawer.childNodes).toHaveLength(1);
 
         expect(drawer.childNodes[0]).toHaveTextContent(/Override/);
-        expect(drawer.childNodes[0]).toContainElement(getByTestId(validTestId));
+        expect(drawer.childNodes[0]).toContainElement(
+          screen.getByTestId(validTestId),
+        );
       },
     );
   });
@@ -314,13 +318,13 @@ describe('Drawer primitive', () => {
             },
           },
         };
-        const { getByTestId } = render(
+        render(
           <DrawerPrimitive {...props}>
             <DrawerContent />
           </DrawerPrimitive>,
         );
 
-        expect(getByTestId(testId)).toBeInTheDocument();
+        expect(screen.getByTestId(testId)).toBeInTheDocument();
       });
 
       it(`should be able to override the style of the ${name} component by providing a cssFn override`, () => {

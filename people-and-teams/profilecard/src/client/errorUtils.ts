@@ -1,6 +1,13 @@
 import { GraphQLError } from './graphqlUtils';
 
-const IGNORED_ERRORS = ['NotPermitted', 'Gone'];
+const IGNORED_ERRORS = [
+  // Error categories from pf-directory
+  'NotPermitted',
+  'Gone',
+  // Error categories from AGG
+  'TEAMS_FORBIDDEN',
+  'TEAMS_TEAM_DELETED',
+];
 
 function isIgnoredError(error: GraphQLError): boolean {
   return !!error && IGNORED_ERRORS.includes(error.reason);

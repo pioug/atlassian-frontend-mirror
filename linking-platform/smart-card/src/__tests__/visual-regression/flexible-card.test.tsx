@@ -139,6 +139,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-lozenge');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-lozenge"]');
+      await page.hover('[data-testid="vr-test-lozenge-action-experiment"]');
       const image = await takeSnapshot(page, 230);
 
       expect(image).toMatchProdImageSnapshot();
@@ -271,6 +272,22 @@ describe('Flexible Card', () => {
     await page.waitForSelector('[data-testid="smart-block-not-found-view"]');
 
     const image = await takeSnapshot(page, 800);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('renders variants of Forbidden views of Block Card with Flexible UI', async () => {
+    const url = getURL('vr-flexible-block-card-variants-of-forbidden-views');
+    const page = await setup(url);
+    await page.waitForSelector('[data-testid="default-forbidden-view"]');
+    await page.waitForSelector('[data-testid="direct-access-forbidden-view"]');
+    await page.waitForSelector('[data-testid="request-access-forbidden-view"]');
+    await page.waitForSelector(
+      '[data-testid="pending-request-forbidden-view"]',
+    );
+    await page.waitForSelector('[data-testid="forbidden-forbidden-view"]');
+    await page.waitForSelector('[data-testid="denied-request-forbidden-view"]');
+
+    const image = await takeSnapshot(page, 1000);
     expect(image).toMatchProdImageSnapshot();
   });
 });

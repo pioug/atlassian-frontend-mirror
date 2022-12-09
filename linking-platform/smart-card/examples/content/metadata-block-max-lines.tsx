@@ -8,6 +8,7 @@ export default () => (
       primary={[
         { name: ElementName.AttachmentCount },
         { name: ElementName.AuthorGroup },
+        { name: ElementName.ChecklistProgress },
         { name: ElementName.CreatedBy },
         { name: ElementName.CreatedOn },
         { name: ElementName.CollaboratorGroup },
@@ -23,6 +24,7 @@ export default () => (
         // Repeat
         { name: ElementName.AttachmentCount },
         { name: ElementName.AuthorGroup },
+        { name: ElementName.ChecklistProgress },
         { name: ElementName.CreatedBy },
         { name: ElementName.CreatedOn },
         { name: ElementName.CollaboratorGroup },

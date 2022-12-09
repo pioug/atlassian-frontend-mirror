@@ -220,6 +220,7 @@ export type OnActionMenuOpenChangeOptions = {
 export type ElementItemProps =
   | AttachmentCount
   | AuthorGroup
+  | ChecklistProgress
   | CollaboratorGroup
   | CommentCount
   | CreatedBy
@@ -256,6 +257,13 @@ export type AttachmentCount = {
  */
 export type AuthorGroup = {
   name: ElementName.AuthorGroup;
+};
+/**
+ * Represents the props available for an ChecklistProgress element.
+ * @see ChecklistProgress
+ */
+export type ChecklistProgress = {
+  name: ElementName.ChecklistProgress;
 };
 /**
  * Represents the props available for an CollaboratorGroup element.

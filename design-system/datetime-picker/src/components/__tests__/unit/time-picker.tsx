@@ -1,23 +1,67 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
-import { mount } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
 import moment from 'moment';
+
+import { CreatableSelect, OptionsType } from '@atlaskit/select';
 
 import { TimePickerWithoutAnalytics as TimePicker } from '../../time-picker';
 
-describe('TimePicker', () => {
-  it('should render the time in a custom timeFormat', () => {
-    const { getByTestId } = render(
-      <TimePicker value="12:00" timeFormat="HH--mm--SSS" testId="test" />,
-    );
-    const container = getByTestId('test--container');
+jest.mock('@atlaskit/select', () => {
+  const actual = jest.requireActual('@atlaskit/select');
 
-    expect(container.innerText).toEqual('12--00--000');
+  return {
+    __esModule: true,
+    ...actual,
+    CreatableSelect: jest.fn(),
+  };
+});
+
+describe('TimePicker', () => {
+  beforeEach(() => {
+    (CreatableSelect as unknown as jest.Mock).mockImplementation((props) => {
+      const options: OptionsType = props.options || [];
+
+      return (
+        <>
+          <button
+            type="button"
+            // @ts-ignore hack to pass data from tests
+            onClick={(event) => props.onCreateOption(event.target.value)}
+          >
+            Create Item
+          </button>
+          <select
+            value={props.value}
+            onChange={(event) => props.onChange(event.target, 'select-option')}
+            onFocus={props.onFocus}
+            onBlur={props.onBlur}
+            data-testid={props.testId}
+          >
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </>
+      );
+    });
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('should render the time in a custom timeFormat', () => {
+    render(<TimePicker value="12:00" timeFormat="HH--mm--SSS" testId="test" />);
+    const container = screen.getByTestId('test--container');
+
+    expect(container).toHaveTextContent('12--00--000');
   });
 
   it('should render a customized display label', () => {
-    const timePickerWrapper = mount<TimePicker>(
+    render(
       <TimePicker
         formatDisplayLabel={(time: string) =>
           time === '12:00' ? 'midday' : time
@@ -25,14 +69,13 @@ describe('TimePicker', () => {
         value="12:00"
       />,
     );
-    const label = timePickerWrapper.text();
-
-    expect(label).toEqual('midday');
+    const label = screen.queryByText('midday');
+    expect(label).toBeInTheDocument();
   });
 
   it('should call custom parseInputValue - AM', () => {
     const onChangeSpy = jest.fn();
-    const timePickerWrapper = mount<TimePicker>(
+    render(
       <TimePicker
         timeIsEditable
         onChange={onChangeSpy}
@@ -40,40 +83,62 @@ describe('TimePicker', () => {
       />,
     );
 
-    timePickerWrapper.instance().onCreateOption('asdf');
+    const createButton = screen.getByRole('button', {
+      name: 'Create Item',
+    });
+    fireEvent.click(createButton, {
+      target: {
+        value: 'asdf', // our custom parseInputValue ignores this
+      },
+    });
 
     expect(onChangeSpy).toBeCalledWith('01:15');
   });
 
   it('should call default parseInputValue', () => {
     const onChangeSpy = jest.fn();
-    const timePickerWrapper = mount<TimePicker>(
-      <TimePicker timeIsEditable onChange={onChangeSpy} />,
-    );
+    render(<TimePicker timeIsEditable onChange={onChangeSpy} />);
 
-    timePickerWrapper.instance().onCreateOption('01:30');
+    const createButton = screen.getByRole('button', {
+      name: 'Create Item',
+    });
+    fireEvent.click(createButton, {
+      target: {
+        value: '01:30',
+      },
+    });
 
     expect(onChangeSpy).toBeCalledWith('01:30');
   });
 
   it('should return AM time with default parseInputValue', () => {
     const onChangeSpy = jest.fn();
-    const timePickerWrapper = mount<TimePicker>(
-      <TimePicker timeIsEditable onChange={onChangeSpy} />,
-    );
+    render(<TimePicker timeIsEditable onChange={onChangeSpy} />);
 
-    timePickerWrapper.instance().onCreateOption('1:44am');
+    const createButton = screen.getByRole('button', {
+      name: 'Create Item',
+    });
+    fireEvent.click(createButton, {
+      target: {
+        value: '01:44am',
+      },
+    });
 
     expect(onChangeSpy).toBeCalledWith('01:44');
   });
 
   it('should return PM time with default parseInputValue', () => {
     const onChangeSpy = jest.fn();
-    const timePickerWrapper = mount<TimePicker>(
-      <TimePicker timeIsEditable onChange={onChangeSpy} />,
-    );
+    render(<TimePicker timeIsEditable onChange={onChangeSpy} />);
 
-    timePickerWrapper.instance().onCreateOption('3:32pm');
+    const createButton = screen.getByRole('button', {
+      name: 'Create Item',
+    });
+    fireEvent.click(createButton, {
+      target: {
+        value: '3:32pm',
+      },
+    });
 
     expect(onChangeSpy).toBeCalledWith('15:32');
   });
@@ -83,7 +148,7 @@ describe('TimePicker', () => {
     const onParseInputValueSpy = jest
       .fn()
       .mockReturnValue(moment('3:32pm', 'h:mma').toDate());
-    const timePickerWrapper = mount<TimePicker>(
+    render(
       <TimePicker
         timeIsEditable
         onChange={onChangeSpy}
@@ -91,7 +156,14 @@ describe('TimePicker', () => {
       />,
     );
 
-    timePickerWrapper.instance().onCreateOption('3:32pm');
+    const createButton = screen.getByRole('button', {
+      name: 'Create Item',
+    });
+    fireEvent.click(createButton, {
+      target: {
+        value: '3:32pm',
+      },
+    });
 
     expect(onParseInputValueSpy).toBeCalledWith('3:32pm', 'h:mma');
     expect(onChangeSpy).toBeCalledWith('15:32');
@@ -102,7 +174,7 @@ describe('TimePicker', () => {
     const onParseInputValueSpy = jest
       .fn()
       .mockReturnValue(moment('3:32pm', 'h:mma').toDate());
-    const timePickerWrapper = mount<TimePicker>(
+    render(
       <TimePicker
         timeIsEditable
         onChange={onChangeSpy}
@@ -111,7 +183,14 @@ describe('TimePicker', () => {
       />,
     );
 
-    timePickerWrapper.instance().onCreateOption('3:32pm');
+    const createButton = screen.getByRole('button', {
+      name: 'Create Item',
+    });
+    fireEvent.click(createButton, {
+      target: {
+        value: '3:32pm',
+      },
+    });
 
     expect(onParseInputValueSpy).toBeCalledWith('3:32pm', 'HH--mm:A');
     expect(onChangeSpy).toBeCalledWith('15:32');
@@ -119,11 +198,9 @@ describe('TimePicker', () => {
 
   it('should clear the value if the backspace key is pressed', () => {
     const onChangeSpy = jest.fn();
-    const timePickerWrapper = render(
-      <TimePicker value="15:32" onChange={onChangeSpy} />,
-    );
+    render(<TimePicker value="15:32" onChange={onChangeSpy} />);
 
-    const selectInput = timePickerWrapper.getByDisplayValue('');
+    const selectInput = screen.getByDisplayValue('');
     fireEvent.keyDown(selectInput, { key: 'Backspace', keyCode: 8 });
 
     expect(onChangeSpy).toBeCalledWith('');
@@ -131,11 +208,9 @@ describe('TimePicker', () => {
 
   it('should clear the value if the delete key is pressed', () => {
     const onChangeSpy = jest.fn();
-    const timePickerWrapper = render(
-      <TimePicker value="15:32" onChange={onChangeSpy} />,
-    );
+    render(<TimePicker value="15:32" onChange={onChangeSpy} />);
 
-    const selectInput = timePickerWrapper.getByDisplayValue('');
+    const selectInput = screen.getByDisplayValue('');
     fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
 
     expect(onChangeSpy).toBeCalledWith('');
@@ -143,11 +218,9 @@ describe('TimePicker', () => {
 
   it('should clear the value if the clear button is pressed and the menu should stay closed', () => {
     const onChangeSpy = jest.fn();
-    const timePickerWrapper = render(
-      <TimePicker value="15:32" onChange={onChangeSpy} testId="test" />,
-    );
+    render(<TimePicker value="15:32" onChange={onChangeSpy} testId="test" />);
 
-    const clearButton = timePickerWrapper.getByLabelText('clear').parentElement;
+    const clearButton = screen.getByLabelText('clear').parentElement;
     if (!clearButton) {
       throw new Error('Expected button to be non-null');
     }
@@ -158,13 +231,13 @@ describe('TimePicker', () => {
 
     expect(onChangeSpy).toBeCalledWith('');
     expect(
-      timePickerWrapper.queryByTestId(`test--popper--container`),
-    ).toBeNull();
+      screen.queryByTestId(`test--popper--container`),
+    ).not.toBeInTheDocument();
   });
 
   it('should clear the value and leave the menu open if the clear button is pressed while menu is open', () => {
     const onChangeSpy = jest.fn();
-    const timePickerWrapper = render(
+    render(
       <TimePicker
         value={'15:32'}
         onChange={onChangeSpy}
@@ -173,7 +246,7 @@ describe('TimePicker', () => {
       />,
     );
 
-    const clearButton = timePickerWrapper.getByLabelText('clear').parentElement;
+    const clearButton = screen.getByLabelText('clear').parentElement;
     if (!clearButton) {
       throw new Error('Expected button to be non-null');
     }
@@ -183,8 +256,6 @@ describe('TimePicker', () => {
     fireEvent.mouseDown(clearButton);
 
     expect(onChangeSpy).toBeCalledWith('');
-    expect(
-      timePickerWrapper.queryByTestId('test--popper--container'),
-    ).not.toBeNull();
+    expect(screen.queryByTestId('test--popper--container')).toBeInTheDocument();
   });
 });

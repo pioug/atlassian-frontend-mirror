@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 0.3.12
+
+### Patch Changes
+
+- [`a09fcfdc702`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a09fcfdc702) - Adds support for typography tokens to ensure-design-token-usage rule.
+
 ## 0.3.11
 
 ### Patch Changes

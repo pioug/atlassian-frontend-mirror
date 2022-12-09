@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 17.2.7
+
+### Patch Changes
+
+- [`7bb86e9484c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7bb86e9484c) - Transform errors from AGG and ignore 403(TEAMS_FORBIDDEN) and 410(TEAMS_TEAM_DELETED) errors for SLO failure
+
 ## 17.2.6
 
 ### Patch Changes

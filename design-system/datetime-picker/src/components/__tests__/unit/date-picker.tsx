@@ -1,51 +1,48 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 // eslint-disable-next-line no-restricted-imports
 import { format, parseISO } from 'date-fns';
-import { mount, shallow } from 'enzyme';
-
-import Select from '@atlaskit/select';
 
 import { DatePickerWithoutAnalytics as DatePicker } from '../../date-picker';
 import { convertTokens } from '../../utils';
 
 describe('DatePicker', () => {
   it('should call onChange only once when a date is selected and enter is pressed', () => {
-    const event = { key: 'Enter', preventDefault: jest.fn() };
     const onChangeSpy = jest.fn();
+    render(<DatePicker onChange={onChangeSpy} testId="test" />);
 
-    const datePickerWrapper = mount<DatePicker>(
-      <DatePicker onChange={onChangeSpy} />,
-    );
+    const input = screen.getByTestId('test--input');
+    fireEvent.input(input, {
+      target: {
+        value: '06/08/2018',
+      },
+    });
+    expect(onChangeSpy).not.toBeCalled();
 
-    datePickerWrapper.instance().onSelectInput({
-      target: { value: '06/08/2018' },
-    } as React.ChangeEvent<HTMLInputElement>);
-
-    const input = datePickerWrapper.find('input').first();
-    input.simulate('keyDown', event);
-
+    fireEvent.keyDown(input, {
+      key: 'Enter',
+    });
     expect(onChangeSpy).toBeCalledWith('2018-06-08');
 
-    input.simulate('keyDown', event);
-
+    fireEvent.keyDown(input, {
+      key: 'Enter',
+    });
+    // don't trigger when its closed
     expect(onChangeSpy).toBeCalledTimes(1);
-    expect(event.preventDefault).toBeCalledTimes(1);
   });
+
   it('should format the date using the default format', () => {
     const dateValue = new Date('06/08/2018').toISOString();
-    const { getByTestId } = render(
-      <DatePicker value={dateValue} testId="test" />,
-    );
-    const container = getByTestId('test--container');
+    render(<DatePicker value={dateValue} testId="test" />);
 
-    expect(container.innerText).toEqual('6/8/2018');
+    const container = screen.getByTestId('test--container');
+    expect(container).toHaveTextContent('6/8/2018');
   });
 
   it('should manually format the display label', () => {
     const dateValue = new Date('06/08/2018').toISOString();
-    const { getByTestId } = render(
+    render(
       <DatePicker
         formatDisplayLabel={() => 'hello world'}
         value={dateValue}
@@ -53,14 +50,14 @@ describe('DatePicker', () => {
       />,
     );
 
-    const container = getByTestId('test--container');
+    const container = screen.getByTestId('test--container');
 
-    expect(container.innerText).toEqual('hello world');
+    expect(container).toHaveTextContent('hello world');
   });
 
   it('should manually format the display label using the default dateFormat', () => {
     const dateValue = new Date('06/08/2018').toISOString();
-    const { getByTestId } = render(
+    render(
       <DatePicker
         formatDisplayLabel={(date, dateFormat) =>
           format(parseISO(date), convertTokens(dateFormat))
@@ -70,14 +67,14 @@ describe('DatePicker', () => {
       />,
     );
 
-    const container = getByTestId('test--container');
+    const container = screen.getByTestId('test--container');
 
-    expect(container.innerText).toEqual('2018/06/08');
+    expect(container).toHaveTextContent('2018/06/08');
   });
 
   it('should manually format the display label using custom dateFormat', () => {
     const dateValue = new Date('06/08/2018').toISOString();
-    const { getByTestId } = render(
+    render(
       <DatePicker
         formatDisplayLabel={(date, dateFormat) =>
           format(parseISO(date), convertTokens(dateFormat))
@@ -88,25 +85,23 @@ describe('DatePicker', () => {
       />,
     );
 
-    const container = getByTestId('test--container');
+    const container = screen.getByTestId('test--container');
 
-    expect(container.innerText).toEqual('June/08');
+    expect(container).toHaveTextContent('June/08');
   });
 
   it('should correctly render values in a custom format', () => {
     const dateValue = new Date('06/08/2018').toISOString();
-    const { getByTestId } = render(
-      <DatePicker dateFormat="MMMM/DD" value={dateValue} testId="test" />,
-    );
+    render(<DatePicker dateFormat="MMMM/DD" value={dateValue} testId="test" />);
 
-    const container = getByTestId('test--container');
+    const container = screen.getByTestId('test--container');
 
-    expect(container.innerText).toEqual('June/08');
+    expect(container).toHaveTextContent('June/08');
   });
 
   it('should correctly render values in a complex custom format', () => {
     const dateValue = new Date('06/08/2018').toISOString();
-    const { getByTestId } = render(
+    render(
       <DatePicker
         dateFormat="DDDo---dddd---YYYY---hh:mm:ss"
         value={dateValue}
@@ -114,28 +109,31 @@ describe('DatePicker', () => {
       />,
     );
 
-    const container = getByTestId('test--container');
+    const container = screen.getByTestId('test--container');
 
-    expect(container.innerText).toEqual('159th---Friday---2018---12:00:00');
+    expect(container).toHaveTextContent('159th---Friday---2018---12:00:00');
   });
 
   it('should call onChange when a new date is selected', () => {
     const onChangeSpy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <DatePicker value={'2018-08-06'} onChange={onChangeSpy} testId="test" />,
     );
+    fireEvent.click(screen.getByTestId('test--container'));
 
-    fireEvent.click(getByTestId('test--container'));
-    fireEvent.click(
-      getByTestId('test--calendar--selected-day').nextElementSibling!,
-    );
+    const days = screen.getAllByRole('gridcell');
+    const selectedDay = screen.getByTestId('test--calendar--selected-day');
+    const selectedIndex = days.findIndex((day) => day === selectedDay);
+    const nextDay = days[selectedIndex + 1];
+
+    fireEvent.click(nextDay);
 
     expect(onChangeSpy).toBeCalledWith('2018-08-07');
   });
 
   it('should call onChange when a new date is selected with custom format', () => {
     const onChangeSpy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <DatePicker
         value={'2018-08-06'}
         dateFormat="DDDo-dddd-YYYY"
@@ -144,17 +142,20 @@ describe('DatePicker', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--container'));
-    fireEvent.click(
-      getByTestId('test--calendar--selected-day').nextElementSibling!,
-    );
+    fireEvent.click(screen.getByTestId('test--container'));
+    const days = screen.getAllByRole('gridcell');
+    const selectedDay = screen.getByTestId('test--calendar--selected-day');
+    const selectedIndex = days.findIndex((day) => day === selectedDay);
+    const nextDay = days[selectedIndex + 1];
+
+    fireEvent.click(nextDay);
 
     expect(onChangeSpy).toBeCalledWith('2018-08-07');
   });
 
   it('should not call onChange when clicking disabled dates', () => {
     const onChangeSpy = jest.fn();
-    const { getByTestId, getByText } = render(
+    render(
       <DatePicker
         value={'2018-08-06'}
         disabled={['2018-08-16']}
@@ -163,76 +164,87 @@ describe('DatePicker', () => {
       />,
     );
 
-    fireEvent.click(getByTestId('test--container'));
-    fireEvent.click(getByText('16'));
+    fireEvent.click(screen.getByTestId('test--container'));
+    fireEvent.click(screen.getByText('16'));
     expect(onChangeSpy).not.toHaveBeenCalled();
-  });
-
-  it('onCalendarChange if the iso date is greater than the last day of the month, focus the last day of the month instead', () => {
-    const date = '2018-02-31';
-    const fallbackDate = '2018-02-28';
-    const datePickerWrapper = mount<DatePicker>(<DatePicker />);
-    datePickerWrapper.instance().onCalendarChange({ iso: date });
-    datePickerWrapper.update();
-    expect(datePickerWrapper.instance().state.view).toEqual(fallbackDate);
   });
 
   it('supplying a custom parseInputValue prop, produces the expected result', () => {
     const parseInputValue = () => new Date('01/01/1970');
     const onChangeSpy = jest.fn();
     const expectedResult = '1970-01-01';
-    const datePickerWrapper = mount<DatePicker>(
+    render(
       <DatePicker
         id="customDatePicker-ParseInputValue"
         onChange={onChangeSpy}
         parseInputValue={parseInputValue}
+        testId="test"
       />,
     );
 
-    datePickerWrapper.instance().onSelectInput({
-      target: { value: 'asdf' },
-    } as React.ChangeEvent<HTMLInputElement>);
-    datePickerWrapper
-      .find('input')
-      .first()
-      .simulate('keyDown', { key: 'Enter' });
+    const input = screen.getByTestId('test--input');
+    fireEvent.input(input, {
+      target: {
+        value: 'asdf', // our custom parseInputValue ignores this
+      },
+    });
+
+    fireEvent.keyDown(input, {
+      key: 'Enter',
+    });
 
     expect(onChangeSpy).toBeCalledWith(expectedResult);
   });
 
   it('focused calendar date is reset on open', () => {
-    const value = '1970-01-01';
-    const datePickerWrapper = shallow(<DatePicker value={value} />);
+    const { rerender } = render(
+      <DatePicker value="1970-01-01" testId="test" />,
+    );
+    fireEvent.click(screen.getByTestId('test--container'));
 
-    datePickerWrapper.find(Select).simulate('focus');
+    const calendarGrid = screen.getByRole('grid', {
+      name: 'calendar',
+    });
+    expect(calendarGrid).toHaveAccessibleDescription(
+      expect.stringContaining('Jan 01 1970'),
+    );
 
-    expect(datePickerWrapper.state('view')).toEqual(value);
+    rerender(<DatePicker value="1990-02-02" testId="test" />);
+    // date doesn't update without focus
+    expect(calendarGrid).toHaveAccessibleDescription(
+      expect.stringContaining('Jan 01 1970'),
+    );
 
-    const nextValue = '1990-02-02';
-
-    datePickerWrapper.setProps({ value: nextValue });
-    datePickerWrapper.find(Select).simulate('focus');
-
-    expect(datePickerWrapper.state('view')).toEqual(nextValue);
+    const select = screen.getByRole('textbox');
+    fireEvent.focus(select);
+    // date update after focus
+    expect(calendarGrid).toHaveAccessibleDescription(
+      expect.stringContaining('Feb 02 1990'),
+    );
   });
 
   it('default parseInputValue parses valid dates to the expected value', () => {
     const onChangeSpy = jest.fn();
     const expectedResult = '2018-01-02';
-    const datePickerWrapper = mount<DatePicker>(
+    render(
       <DatePicker
         id="defaultDatePicker-ParseInputValue"
         onChange={onChangeSpy}
+        testId="test"
       />,
     );
 
-    datePickerWrapper.instance().onSelectInput({
-      target: { value: '01/02/18' },
-    } as React.ChangeEvent<HTMLInputElement>);
-    datePickerWrapper
-      .find('input')
-      .first()
-      .simulate('keyDown', { key: 'Enter' });
+    const input = screen.getByTestId('test--input');
+    fireEvent.input(input, {
+      target: {
+        value: '01/02/18',
+      },
+    });
+    expect(onChangeSpy).not.toBeCalled();
+
+    fireEvent.keyDown(input, {
+      key: 'Enter',
+    });
 
     expect(onChangeSpy).toBeCalledWith(expectedResult);
   });
@@ -241,11 +253,11 @@ describe('DatePicker', () => {
     const dateValue = new Date('06/08/2018').toISOString();
     const onChangeSpy = jest.fn();
     const testId = 'clear--test';
-    const datePickerWrapper = render(
+    render(
       <DatePicker value={dateValue} onChange={onChangeSpy} testId={testId} />,
     );
 
-    const selectInput = datePickerWrapper.getByDisplayValue('');
+    const selectInput = screen.getByDisplayValue('');
     fireEvent.keyDown(selectInput, { key: 'Backspace', keyCode: 8 });
 
     expect(onChangeSpy).toBeCalledWith('');
@@ -254,11 +266,9 @@ describe('DatePicker', () => {
   it('pressing the Delete key to empty the input should clear the value', () => {
     const dateValue = new Date('06/08/2018').toISOString();
     const onChangeSpy = jest.fn();
-    const datePickerWrapper = render(
-      <DatePicker value={dateValue} onChange={onChangeSpy} />,
-    );
+    render(<DatePicker value={dateValue} onChange={onChangeSpy} />);
 
-    const selectInput = datePickerWrapper.getByDisplayValue('');
+    const selectInput = screen.getByDisplayValue('');
     fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
 
     expect(onChangeSpy).toBeCalledWith('');
@@ -268,10 +278,10 @@ describe('DatePicker', () => {
     const dateValue = new Date('06/08/2018').toISOString();
     const onChangeSpy = jest.fn();
     const testId = 'clear--test';
-    const datePickerWrapper = render(
+    render(
       <DatePicker value={dateValue} onChange={onChangeSpy} testId={testId} />,
     );
-    const clearButton = datePickerWrapper.getByLabelText('clear').parentElement;
+    const clearButton = screen.getByLabelText('clear').parentElement;
     if (!clearButton) {
       throw new Error('Expected button to be non-null');
     }
@@ -281,16 +291,14 @@ describe('DatePicker', () => {
     fireEvent.mouseDown(clearButton);
 
     expect(onChangeSpy).toBeCalledWith('');
-    expect(
-      datePickerWrapper.queryByTestId(`${testId}--popper--container`),
-    ).toBeNull();
+    expect(screen.queryByTestId(`${testId}--popper--container`)).toBeNull();
   });
 
   it('pressing the clear button while menu is open should clear the value and leave the menu open', () => {
     const dateValue = new Date('06/08/2018').toISOString();
     const onChangeSpy = jest.fn();
     const testId = 'clear--test';
-    const datePickerWrapper = render(
+    render(
       <DatePicker
         value={dateValue}
         onChange={onChangeSpy}
@@ -299,7 +307,7 @@ describe('DatePicker', () => {
       />,
     );
 
-    const clearButton = datePickerWrapper.getByLabelText('clear').parentElement;
+    const clearButton = screen.getByLabelText('clear').parentElement;
     if (!clearButton) {
       throw new Error('Expected button to be non-null');
     }
@@ -309,8 +317,6 @@ describe('DatePicker', () => {
     fireEvent.mouseDown(clearButton);
 
     expect(onChangeSpy).toBeCalledWith('');
-    expect(
-      datePickerWrapper.queryByTestId(`${testId}--popper--container`),
-    ).not.toBeNull();
+    expect(screen.queryByTestId(`${testId}--popper--container`)).not.toBeNull();
   });
 });

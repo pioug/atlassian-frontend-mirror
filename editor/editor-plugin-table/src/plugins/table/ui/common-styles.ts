@@ -67,6 +67,13 @@ import { token } from '@atlaskit/tokens';
 
 const cornerControlHeight = tableToolbarSize + 1;
 
+/*
+  compensating for half of the insert column button
+  that is aligned to the right edge initially on hover of the top right column control when table overflown,
+  its center should be aligned with the edge
+*/
+const insertColumnButtonOffset = tableInsertColumnButtonSize / 2;
+
 const rangeSelectionStyles = `
 .${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} table tbody tr {
   th,td {
@@ -280,7 +287,7 @@ export const tableStyles = (props: ThemeProps) => css`
     /* add a little bit so the scroll lines up with the table */
     .${ClassName.TABLE_STICKY} tr.sticky::after {
       content: ' ';
-      width: 1px;
+      width: ${insertColumnButtonOffset + 1}px;
     }
 
     /* To fix jumpiness caused in Chrome Browsers for sticky headers */
@@ -580,6 +587,12 @@ export const tableStyles = (props: ThemeProps) => css`
     /* Table */
     .${ClassName.TABLE_NODE_WRAPPER} > table {
       table-layout: fixed;
+      white-space: normal;
+      border-top: none;
+
+      > tbody > tr {
+        white-space: pre-wrap;
+      }
 
       .${ClassName.COLUMN_CONTROLS_DECORATIONS} + * {
         margin-top: 0;
@@ -664,13 +677,8 @@ export const tableStyles = (props: ThemeProps) => css`
       left: -${tableToolbarSize}px;
     }
     .${ClassName.TABLE_NODE_WRAPPER} {
-      /*
-      compensating for half of the insert column button
-      that is aligned to the right edge initially on hover of the top right column control when table overflown,
-      its center should be aligned with the edge
-       */
-      padding-right: ${tableInsertColumnButtonSize / 2}px;
-      margin-right: -${tableInsertColumnButtonSize / 2}px;
+      padding-right: ${insertColumnButtonOffset}px;
+      margin-right: -${insertColumnButtonOffset}px;
       padding-bottom: ${tableScrollbarOffset}px;
       margin-bottom: -${tableScrollbarOffset}px;
       /* fixes gap cursor height */

@@ -62,6 +62,10 @@ export const unicornResponse = {
     'atlassian:state': 'draft',
     'atlassian:subscriberCount': 45,
     'atlassian:attachmentCount': 11,
+    'atlassian:checkItems': {
+      checkedItems: 4,
+      totalItems: 6,
+    },
     'atlassian:updatedBy': { '@type': 'Person', icon: avatar2, name: 'Steve' },
     'atlassian:viewCount': 120,
     'atlassian:voteCount': 38,

@@ -54,7 +54,12 @@ export default () => (
       <State appearance="moved" overrideCss={overrideCss} text="override" />
       <h5>Experiment (DO NOT USE)</h5>
       <div>
-        <State text="medium" /> <State text="medium" onClick={() => {}} />
+        <State text="medium" onClick={() => {}} />{' '}
+        <State
+          text="medium"
+          onClick={() => {}}
+          testId="vr-test-lozenge-action-experiment"
+        />
       </div>
       <br />
     </FlexibleUiContext.Provider>

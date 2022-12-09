@@ -7,6 +7,7 @@ export default () => (
     <MetadataBlock
       secondary={[
         { name: ElementName.AttachmentCount },
+        { name: ElementName.ChecklistProgress },
         { name: ElementName.SubscriberCount },
         { name: ElementName.CommentCount },
         { name: ElementName.Priority },

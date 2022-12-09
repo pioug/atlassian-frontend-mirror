@@ -6,6 +6,7 @@ import { extractLozenge } from '../common/lozenge';
 import { extractLinkIcon } from './icon';
 import {
   extractAttachmentCount,
+  extractChecklistProgress,
   extractCommentCount,
   extractCreatedBy,
   extractModifiedBy,
@@ -52,6 +53,7 @@ const extractFlexibleUiContext = (
     viewCount: extractViewCount(data),
     reactCount: extractReactCount(data),
     voteCount: extractVoteCount(data),
+    checklistProgress: extractChecklistProgress(data),
     createdBy: extractCreatedBy(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
     dueOn: extractDueOn(data),

@@ -97,7 +97,6 @@ export class ExampleEditor extends React.Component<Props> {
                     allowHeaderRow: true,
                     allowHeaderColumn: true,
                     permittedLayouts: 'all',
-                    stickToolbarToBottom: true,
                   }}
                   allowJiraIssue={true}
                   allowPanel={true}

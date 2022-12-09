@@ -10,7 +10,7 @@ const plugin = path.resolve(__dirname, '../../../../index.tsx');
 testRule({
   plugins: [plugin],
   ruleName,
-  config: { color: false, spacing: false },
+  config: { color: false, spacing: false, typography: false },
   accept: [
     {
       code: 'color: red; margin: 10px;',
@@ -23,15 +23,16 @@ testRule({
 testRule({
   plugins: [plugin],
   ruleName,
-  config: { color: true, spacing: true },
+  config: { color: true, spacing: true, typography: true },
   reject: [
     {
-      code: 'margin: 10px; background-color: #FFFFFF;',
+      code: 'margin: 10px; background-color: #FFFFFF; font-size: 12px;',
       description:
         'reports for all relevant rule violations when multiple are enabled',
       warnings: [
         { message: messages.noHardcodedSpacing },
         { message: messages.noHardcodedColors },
+        { message: messages.noHardcodedTypography },
       ],
     },
   ],
@@ -227,5 +228,53 @@ testRule({
     //   code: 'gap: calc(var(--ds-scale-300) + var(--ds-scale-300));',
     //   description: 'How should we handle calculations on tokens?',
     // },
+  ],
+});
+
+testRule({
+  plugins: [plugin],
+  ruleName,
+  config: { typography: true },
+  accept: [
+    {
+      code: 'font-size: var(--ds-font-size-100, 12px);',
+      description:
+        'should accept typography token values with px values as fallbacks',
+    },
+    {
+      code: 'font-weight: var(--ds-font-weight-regular, 400);',
+      description:
+        'should accept typography token values with number values as fallbacks',
+    },
+    {
+      // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+      code: `line-height: ${token('font.lineHeight.300', '24px')};`,
+      description: 'should accept spacing token values via calls to token()',
+    },
+    {
+      code: 'z-index: 1;',
+      description: 'should accept length values for non-spacing css rules',
+    },
+    {
+      code: 'display: var(--display-type);',
+      description: 'should accept css variables for non spacing related rules',
+    },
+  ],
+  reject: [
+    {
+      code: 'font-size: var(--ds-font-123);',
+      description: 'should reject invalid CSS variables in typography rules',
+      warnings: [{ message: messages.noHardcodedTypography }],
+    },
+    {
+      code: 'font-weight: 400;',
+      description: 'should reject non-token values in typography rules',
+      warnings: [{ message: messages.noHardcodedTypography }],
+    },
+    {
+      code: 'font-size: 10;',
+      description: 'should reject non-token values in typography rules',
+      warnings: [{ message: messages.noHardcodedTypography }],
+    },
   ],
 });

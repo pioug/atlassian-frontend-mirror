@@ -6,7 +6,7 @@ export default customMd`
 
 ### Attachments
 
-A \`AttachmentCount\` element shows the number of subscribers on the link resource.
+An \`AttachmentCount\` element shows the number of attachments on the link resource.
 Its data is mapped to \`atlassian:attachmentCount\` from a link resolver.
 
 
@@ -35,6 +35,25 @@ ${(
 )}
 
 Use \`size\` to override block sizing on author group.
+
+
+
+### Checklist Progress
+
+A \`ChecklistProgress\` element shows the number of completed check list items over the 
+total number of checklist items on the link resource.
+Its data is mapped to \`atlassian:checkItems\` from a link resolver.
+
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/element-checklist-progress').default
+    }
+    source={require('!!raw-loader!../../../examples/content/element-checklist-progress')}
+  />
+)}
+
 
 ### Collaborators
 

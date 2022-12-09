@@ -67,7 +67,6 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                       allowHeaderRow: true,
                       allowHeaderColumn: true,
                       permittedLayouts: 'all',
-                      stickToolbarToBottom: true,
                     }}
                     allowDate={true}
                     media={{

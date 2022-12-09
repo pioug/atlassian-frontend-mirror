@@ -19,6 +19,11 @@ export type FlexibleUiDataContext = {
    */
   authorGroup?: LinkPerson[];
   /**
+   * A string displaying progress on a checklist
+   * @see ChecklistProgress
+   */
+  checklistProgress?: string;
+  /**
    * An array containing a @type {LinkPerson} used to populate the CollaboratorGroup element.
    * @see CollaboratorGroup
    */

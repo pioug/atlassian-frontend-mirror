@@ -10,6 +10,7 @@ import {
 } from '../../common/__mocks__/jsonld';
 import {
   extractAttachmentCount,
+  extractChecklistProgress,
   extractCommentCount,
   extractCreatedBy,
   extractDueOn,
@@ -32,6 +33,24 @@ describe('extractAttachmentCount', () => {
     } as JsonLd.Data.BaseData);
     expect(value).toBeDefined();
     expect(value).toBe(3);
+  });
+});
+
+describe('extractChecklistProgress', () => {
+  it('returns undefined when no atlassian:checkItems present', () => {
+    expect(extractChecklistProgress(TEST_BASE_DATA)).toBe(undefined);
+  });
+
+  it('returns progress when atlassian:checkItems present', () => {
+    const value = extractChecklistProgress({
+      ...TEST_BASE_DATA,
+      'atlassian:checkItems': {
+        checkedItems: '2',
+        totalItems: '7',
+      },
+    } as JsonLd.Data.BaseData);
+    expect(value).toBeDefined();
+    expect(value).toBe('2/7');
   });
 });
 

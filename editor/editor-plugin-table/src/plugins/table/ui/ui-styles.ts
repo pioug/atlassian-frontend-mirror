@@ -38,7 +38,6 @@ import {
   tableToolbarSize,
   tableInsertColumnButtonSize,
   tableDeleteButtonSize,
-  tableControlsSpacing,
 } from './consts';
 
 import { TableCssClassName as ClassName } from '../types';
@@ -271,11 +270,6 @@ export const OverflowShadow = (props: ThemeProps) => css`
     }
     .${ClassName.TABLE_LEFT_SHADOW} {
       border-left: 1px solid ${tableBorderColor(props)};
-    }
-  }
-  .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} {
-    .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
-      top: ${tableControlsSpacing}px;
     }
   }
 `;

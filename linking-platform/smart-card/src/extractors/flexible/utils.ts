@@ -92,3 +92,18 @@ export const extractTargetBranch = (
   data: JsonLd.Data.SourceCodePullRequest,
 ): string | undefined =>
   extractLinkName(data['atlassian:mergeDestination'] as JsonLd.Primitives.Link);
+
+type LinkChecklistProgressType =
+  | JsonLd.Data.Document
+  | JsonLd.Data.Task
+  | JsonLd.Data.TaskType
+  | JsonLd.Data.Project;
+export const extractChecklistProgress = (data: JsonLd.Data.BaseData) => {
+  const checkItemsObj = extractValue<
+    LinkChecklistProgressType,
+    LinkChecklistProgressType['atlassian:checkItems']
+  >(data, 'atlassian:checkItems');
+  return checkItemsObj
+    ? `${checkItemsObj.checkedItems}/${checkItemsObj.totalItems}`
+    : undefined;
+};

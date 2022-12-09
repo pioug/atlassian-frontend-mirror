@@ -95,6 +95,7 @@ export enum SmartLinkWidth {
 export enum ElementName {
   AttachmentCount = 'AttachmentCount',
   AuthorGroup = 'AuthorGroup',
+  ChecklistProgress = 'ChecklistProgress',
   CollaboratorGroup = 'CollaboratorGroup',
   CommentCount = 'CommentCount',
   CreatedBy = 'CreatedBy',
@@ -189,6 +190,7 @@ export enum IconType {
 
   // Badge
   Attachment = 'Badge:Attachment',
+  CheckItem = 'Badge:Task',
   Comment = 'Badge:Comment',
   View = 'Badge:View',
   React = 'Badge:React',

@@ -66,6 +66,10 @@ export const TrelloCard = {
   summary:
     'Cras ut nisi vitae lectus sagittis mattis. Curabitur a urna feugiat, laoreet enim ac, lobortis diam.',
   'atlassian:attachmentCount': 2,
+  'atlassian:checkItems': {
+    checkedItems: 2,
+    totalItems: 3,
+  },
   'atlassian:commentCount': 11,
   'atlassian:reactCount': 3,
   startTime: '2018-07-10T15:00:32Z',

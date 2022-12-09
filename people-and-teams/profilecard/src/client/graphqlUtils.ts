@@ -52,8 +52,13 @@ export function graphqlQuery<D>(
     .then((response) => response.json())
     .then((json) => {
       if (json.errors) {
+        // We need to handle responses from pf-directory and AGG
         return Promise.reject({
-          reason: json.errors[0]?.category || 'default',
+          reason:
+            json.errors[0]?.category ||
+            json.errors[0]?.extensions?.classification ||
+            'default',
+          code: json.errors[0]?.extensions?.statusCode,
         });
       }
 

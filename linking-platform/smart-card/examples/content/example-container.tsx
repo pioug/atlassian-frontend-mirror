@@ -16,6 +16,7 @@ const nextMonth = new Date().setDate(today.getMonth() + 1);
 const context = getContext({
   attachmentCount: 3,
   authorGroup: [{ name: 'Aliza', src: avatar3 }],
+  checklistProgress: '4/6',
   collaboratorGroup: [
     { name: 'Steve', src: avatar2 },
     { name: 'Angie', src: avatar1 },

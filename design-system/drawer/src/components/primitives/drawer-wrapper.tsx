@@ -13,7 +13,7 @@ import { DrawerPrimitiveProps, Widths } from '../types';
 
 import usePreventProgrammaticScroll from './hooks/use-prevent-programmatic-scroll';
 
-const widths: Widths = {
+export const widths: Widths = {
   full: '100vw',
   extended: '95vw',
   narrow: 45 * gridSize(),

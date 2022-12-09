@@ -3,6 +3,7 @@ import { IconType, MediaType } from '../constants';
 
 const context: FlexibleUiDataContext = {
   attachmentCount: 3,
+  checklistProgress: '4/7',
   commentCount: 10,
   viewCount: 21,
   reactCount: 31,

@@ -76,6 +76,7 @@ describe('createElement', () => {
     });
 
     it.each([
+      [ElementName.ChecklistProgress, 'checklistProgress'],
       [ElementName.CommentCount, 'commentCount'],
       [ElementName.ViewCount, 'viewCount'],
       [ElementName.ReactCount, 'reactCount'],
@@ -171,6 +172,7 @@ describe('createElement', () => {
   describe('when data is not available', () => {
     it.each([
       [ElementName.AuthorGroup, 'authorGroup'],
+      [ElementName.ChecklistProgress, 'checklistProgress'],
       [ElementName.CollaboratorGroup, 'collaboratorGroup'],
       [ElementName.CommentCount, 'commentCount'],
       [ElementName.ViewCount, 'viewCount'],

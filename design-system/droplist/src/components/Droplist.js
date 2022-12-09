@@ -168,7 +168,7 @@ class Droplist extends Component {
       >
         {isLoading ? (
           <SpinnerContainer>
-            <Spinner size="small" />
+            <Spinner size="small" testId={testId && `${testId}--spinner`} />
           </SpinnerContainer>
         ) : (
           <ThemeProvider theme={itemTheme}>

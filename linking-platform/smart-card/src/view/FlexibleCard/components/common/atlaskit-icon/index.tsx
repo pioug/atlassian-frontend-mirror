@@ -72,6 +72,7 @@ const importIconMapper: {
 
   // Badge
   [IconType.Attachment]: () => import(/* webpackChunkName: "glyphAttachment" */ '@atlaskit/icon/glyph/attachment'),
+  [IconType.CheckItem]: () => import(/* webpackChunkName: "glyphAttachment" */ '@atlaskit/icon/glyph/task'),
   [IconType.Comment]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/comment'),
   [IconType.View]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/watch'),
   [IconType.React]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/like'),

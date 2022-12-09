@@ -17,7 +17,6 @@ export default function Example() {
           allowHeaderRow: true,
           allowHeaderColumn: true,
           permittedLayouts: 'all',
-          stickToolbarToBottom: true,
         },
       }}
     />

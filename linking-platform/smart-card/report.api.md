@@ -315,6 +315,11 @@ export interface CardProps extends WithAnalyticsEventsProps {
 
 export { CardType };
 
+// @public
+type ChecklistProgress = {
+  name: ElementName.ChecklistProgress;
+};
+
 export { Client };
 
 // @public
@@ -407,6 +412,7 @@ export type ElementItem = {
 type ElementItemProps =
   | AttachmentCount
   | AuthorGroup
+  | ChecklistProgress
   | CollaboratorGroup
   | CommentCount
   | CreatedBy
@@ -436,6 +442,8 @@ export enum ElementName {
   AttachmentCount = 'AttachmentCount',
   // (undocumented)
   AuthorGroup = 'AuthorGroup',
+  // (undocumented)
+  ChecklistProgress = 'ChecklistProgress',
   // (undocumented)
   CollaboratorGroup = 'CollaboratorGroup',
   // (undocumented)

@@ -46,7 +46,6 @@ export interface PluginConfig {
   allowAddColumnWithCustomStep?: boolean;
   allowCollapse?: boolean;
   isHeaderRowRequired?: boolean;
-  stickToolbarToBottom?: boolean;
   permittedLayouts?: PermittedLayoutsDescriptor;
   allowControls?: boolean;
   stickyHeaders?: boolean;

@@ -1,5 +1,11 @@
 # @atlaskit/droplist
 
+## 11.0.10
+
+### Patch Changes
+
+- [`4fca286baaf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fca286baaf) - - add testId to droplist spinner.
+
 ## 11.0.9
 
 ### Patch Changes

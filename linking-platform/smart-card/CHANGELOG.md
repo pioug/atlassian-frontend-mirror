@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 23.7.0
+
+### Minor Changes
+
+- [`3cae92db2b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cae92db2b6) - [ux] Introduces ChecklistProgress element, adds to Trello Hover Cards
+
+## 23.6.7
+
+### Patch Changes
+
+- [`9110a0daf0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9110a0daf0e) - [ux] Added support of different forbidden views for Block Card with Flexible UI
+
+## 23.6.6
+
+### Patch Changes
+
+- [`b86cebed4a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b86cebed4a3) - Hover Preview: Update actionable element hover state
+
 ## 23.6.5
 
 ### Patch Changes

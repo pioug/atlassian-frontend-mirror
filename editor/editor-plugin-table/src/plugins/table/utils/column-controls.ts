@@ -195,7 +195,7 @@ export const colWidthsForRow = (
   if (copyTarget) {
     // either from the first row while it's still in the table
     const cellInfos = maphElem(copyTarget, (cell) => ({
-      width: cell.offsetWidth,
+      width: cell.getBoundingClientRect().width,
       colspan: Number(cell.getAttribute('colspan') || 1),
       colwidth: cell.dataset.colwidth,
     }));

@@ -13,6 +13,7 @@ export default () => (
         { name: ElementName.SubscriberCount },
         { name: ElementName.CommentCount },
         { name: ElementName.AttachmentCount },
+        { name: ElementName.ChecklistProgress },
         { name: ElementName.Priority },
         { name: ElementName.State },
       ]}

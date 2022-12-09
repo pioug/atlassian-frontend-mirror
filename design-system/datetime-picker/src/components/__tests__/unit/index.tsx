@@ -1,32 +1,9 @@
-import React from 'react';
-
-import { shallow } from 'enzyme';
-import toJson from 'enzyme-to-json';
-
-import {
-  DropdownIndicator,
-  EmptyClearIndicator,
-  formatDateTimeZoneIntoIso,
-} from '../../../internal';
+import { formatDateTimeZoneIntoIso } from '../../../internal';
 import {
   convertTo24hrTime,
   isValid,
   removeSpacer,
 } from '../../../internal/parse-time';
-
-test('EmptyClearIndicator', () => {
-  expect(EmptyClearIndicator).toBe(null);
-});
-
-test('DropdownIndicator', () => {
-  const Icon = () => <i>V</i>;
-  const wrapper = shallow(
-    // @ts-ignore
-    <DropdownIndicator selectProps={{ dropdownIndicatorIcon: Icon }} />,
-  ).dive();
-
-  expect(toJson(wrapper)).toMatchSnapshot();
-});
 
 // ParseTime
 const correctTimes = [

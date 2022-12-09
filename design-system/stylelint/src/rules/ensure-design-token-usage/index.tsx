@@ -2,13 +2,19 @@ import valueParser, { Node } from 'postcss-value-parser';
 import stylelint from 'stylelint';
 
 import { isColorFunction, isHexColor, isNamedColor } from '../../utils/colors';
-import { isFunction, isSpacingRule, isVar } from '../../utils/rules';
+import {
+  isFunction,
+  isSpacingRule,
+  isTypographyRule,
+  isVar,
+} from '../../utils/rules';
 import { isLengthOrPercentage } from '../../utils/spacing';
 import { isToken } from '../../utils/tokens';
 
 const defaultIsEnabled = {
   color: true,
   spacing: false,
+  typography: false,
 };
 
 export const ruleName = 'design-system/ensure-design-token-usage';
@@ -16,7 +22,9 @@ export const messages = stylelint.utils.ruleMessages(ruleName, {
   noHardcodedColors:
     'Colors should be sourced from the global theme using design token CSS variables.',
   noHardcodedSpacing:
-    'Spacing should be sourced from the global theme using design token CSS variables.',
+    'Spacing values should be sourced from the global theme using design token CSS variables.',
+  noHardcodedTypography:
+    'Typography values should be sourced from the global theme using design token CSS variables.',
   noNonTokenVars: 'CSS variables should be wrapped in a design token.',
 });
 
@@ -38,6 +46,7 @@ export default stylelint.createPlugin(
         possible: {
           color: [true, false],
           spacing: [true, false],
+          typography: [true, false],
         },
       });
 
@@ -86,46 +95,86 @@ export default stylelint.createPlugin(
           }
 
           if (isEnabled.spacing) {
-            // Rule was not a gap, margin, padding, etc
-            if (!isSpacingRule(decl.prop)) {
-              return;
-            }
+            // Rule is gap, margin, padding, etc
+            if (isSpacingRule(decl.prop)) {
+              if (isFunction(node) && isVar(node)) {
+                // A valid token was used, exit
+                if (isToken(node.nodes[0])) {
+                  return false;
+                }
 
-            if (isFunction(node) && isVar(node)) {
-              // A valid token was used, exit
-              if (isToken(node.nodes[0])) {
+                // A variable that isn't a token was used in a spacing rule
+                stylelint.utils.report({
+                  message: messages.noHardcodedSpacing,
+                  node: decl,
+                  word: node.value,
+                  result,
+                  ruleName,
+                });
+
                 return false;
               }
 
-              // A variable that isn't a token was used in a color rule
-              stylelint.utils.report({
-                message: messages.noHardcodedSpacing,
-                node: decl,
-                word: node.value,
-                result,
-                ruleName,
-              });
+              /**
+               * Report on px, cm, in, etc
+               * This is necessary because we walk multiple types of nodes.
+               * So we need to first check whether it's a value that's a length
+               * or percentage so we don't report on other types of nodes like
+               * 'prop'.
+               */
+              if (isLengthOrPercentage(node.value)) {
+                stylelint.utils.report({
+                  message: messages.noHardcodedSpacing,
+                  node: decl,
+                  word: node.value,
+                  result,
+                  ruleName,
+                });
 
-              return false;
+                return false;
+              }
             }
+          }
 
-            /**
-             * Report on px, cm, in, etc
-             * This is necessary because we walk multiple types of nodes.
-             * So we need to first check whether it's a value that's a length
-             * or percentage so we don't report on other types of nodes like
-             * 'prop'.
-             */
-            if (isLengthOrPercentage(node.value)) {
-              stylelint.utils.report({
-                message: messages.noHardcodedSpacing,
-                node: decl,
-                word: node.value,
-                result,
-                ruleName,
-              });
+          if (isEnabled.typography) {
+            // Rule is font-size, line-height, etc
+            if (isTypographyRule(decl.prop)) {
+              if (isFunction(node) && isVar(node)) {
+                // A valid token was used, exit
+                if (isToken(node.nodes[0])) {
+                  return false;
+                }
 
-              return false;
+                // A variable that isn't a token was used in a spacing rule
+                stylelint.utils.report({
+                  message: messages.noHardcodedTypography,
+                  node: decl,
+                  word: node.value,
+                  result,
+                  ruleName,
+                });
+
+                return false;
+              }
+
+              /**
+               * Report on px, cm, in, etc
+               * This is necessary because we walk multiple types of nodes.
+               * So we need to first check whether it's a value that's a length
+               * or percentage so we don't report on other types of nodes like
+               * 'prop'.
+               */
+              if (isLengthOrPercentage(node.value)) {
+                stylelint.utils.report({
+                  message: messages.noHardcodedTypography,
+                  node: decl,
+                  word: node.value,
+                  result,
+                  ruleName,
+                });
+
+                return false;
+              }
             }
           }
         });

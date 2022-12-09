@@ -9,7 +9,6 @@ export const pluginConfig = (config: PluginConfig = {}) => {
         allowHeaderRow: true,
         allowMergeCells: true,
         allowNumberColumn: true,
-        stickToolbarToBottom: true,
         permittedLayouts: 'all' as PermittedLayoutsDescriptor,
         allowControls: true,
         ...config,

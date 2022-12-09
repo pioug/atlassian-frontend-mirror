@@ -1,16 +1,13 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item, { ItemGroup } from '@atlaskit/item';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Layer from '@atlaskit/layer';
-import Spinner from '@atlaskit/spinner';
 
 import { DroplistWithoutAnalytics as Droplist } from '../../components/Droplist';
 import DroplistWithAnalytics from '../../index';
-import { Content, Trigger } from '../../styled/Droplist';
+import { getDefaultMaxHeight } from '../../styled/Droplist';
 
 jest.mock('popper.js', () => {
   const PopperJS = jest.requireActual('popper.js');
@@ -28,150 +25,148 @@ jest.mock('popper.js', () => {
 });
 
 const itemsList = (
-  <ItemGroup heading="test1">
+  <ItemGroup label="test--item--group">
     <Item>Some text</Item>
   </ItemGroup>
 );
 
 describe('@atlaskit/droplist - core', () => {
   it('should be possible to create a component', () => {
-    expect(shallow(<Droplist>test</Droplist>)).not.toBe(undefined);
+    const { container } = render(<Droplist />);
+    expect(container).not.toBeEmptyDOMElement();
   });
 
-  describe('render', () => {
-    let wrapper;
+  it('should render correctly', () => {
+    render(
+      <Droplist trigger="test trigger" isOpen maxHeight={100} testId="test">
+        {itemsList}
+      </Droplist>,
+    );
 
-    beforeEach(() => {
-      wrapper = mount(
-        <Droplist trigger="text" isOpen maxHeight={100}>
-          {itemsList}
-        </Droplist>,
-      );
+    const content = screen.getByTestId('test--content');
+    const trigger = screen.getByText('test trigger');
+    const itemGroup = screen.getByRole('group', {
+      name: 'test--item--group',
     });
-
-    it('should render Layer component', () => {
-      const layer = wrapper.find(Layer);
-      // Check that layer received our content
-      expect(layer.find(ItemGroup).length).toBe(1);
-      expect(layer.find(Trigger).length).toBe(1);
-    });
-
-    it('should pass required properties to Layer', () => {
-      const layer = wrapper.find(Layer);
-      expect(layer.prop('offset')).toBe('0, 8px');
-      expect(layer.prop('position')).toBe('bottom left');
-      expect(layer.prop('autoFlip')).toBe(wrapper.props().shouldFlip);
-      expect(layer.prop('boundariesElement')).toBe('viewport');
-      expect(layer.prop('content')).not.toBe(undefined);
-    });
-
-    it('should render dropdown list content with height of maxHeight', () => {
-      expect(wrapper.find(Content).at(0).prop('maxHeight')).toBe(100);
-    });
-
-    it('should render droplist content', () => {
-      // We passed a group as content so we should be able to find one
-      expect(wrapper.find(ItemGroup).length).toBe(1);
-    });
-
-    it('should render trigger', () => {
-      const triggerWrapper = wrapper.find(Trigger);
-      expect(triggerWrapper.text()).toBe('text');
-    });
+    expect(content).toBeInTheDocument();
+    expect(trigger).toBeInTheDocument();
+    expect(itemGroup).toBeInTheDocument();
   });
 
   describe('max height (appearance prop)', () => {
     it('should constrain max height on content by default', () => {
-      expect(
-        mount(<Droplist isOpen />)
-          .find(Content)
-          .prop('isTall'),
-      ).toBe(false);
+      render(<Droplist isOpen testId="test" />);
+
+      const expectedHeight = getDefaultMaxHeight();
+      const content = screen.getByTestId('test--content');
+      expect(content).toHaveStyle(`max-height: ${expectedHeight}px`);
     });
+
     it('should not set max height if appearance = tall', () => {
-      expect(
-        mount(<Droplist isOpen appearance="tall" />)
-          .find(Content)
-          .prop('isTall'),
-      ).toBe(true);
+      render(<Droplist isOpen appearance="tall" testId="test" />);
+
+      const content = screen.getByTestId('test--content');
+      expect(content).toHaveStyle('max-height: 90vh');
     });
   });
 
   describe('onOpenChange', () => {
     it('should be open when the isOpen property set to true', () => {
-      const wrapper = mount(<Droplist trigger="text">{itemsList}</Droplist>);
-      const hasItemGroup = () => wrapper.find(ItemGroup).length === 1;
-      const isContentVisible = () => wrapper.find(Content).length === 1;
+      const { rerender } = render(
+        <Droplist testId="test">{itemsList}</Droplist>,
+      );
 
-      expect(hasItemGroup()).toBe(false);
-      expect(isContentVisible()).toBe(false);
+      const getContent = () => screen.queryByTestId('test--content');
+      const getItemGroup = () =>
+        screen.queryByRole('group', {
+          name: 'test--item--group',
+        });
 
-      wrapper.setProps({ isOpen: true });
-      expect(hasItemGroup()).toBe(true);
-      expect(isContentVisible()).toBe(true);
+      expect(getContent()).not.toBeInTheDocument();
+      expect(getItemGroup()).not.toBeInTheDocument();
+
+      rerender(
+        <Droplist isOpen testId="test">
+          {itemsList}
+        </Droplist>,
+      );
+
+      expect(getContent()).toBeInTheDocument();
+      expect(getItemGroup()).toBeInTheDocument();
     });
 
-    it('should not call onOpenChange when closed', () => {
+    it('should not call onOpenChange when Escape key pressed if already closed', () => {
       const onOpenSpy = jest.fn();
-      mount(
+      render(
         <Droplist trigger="text" isOpen={false} onOpenChange={onOpenSpy}>
           {itemsList}
         </Droplist>,
       );
 
-      const event = new KeyboardEvent('keydown', {
+      fireEvent.keyDown(document, {
         key: 'Escape',
       });
-      document.dispatchEvent(event);
 
       expect(onOpenSpy).not.toHaveBeenCalled();
     });
 
     it('should set isOpen property to false when Escape key pressed', () => {
       const onOpenSpy = jest.fn();
-      mount(
+      render(
         <Droplist trigger="text" isOpen onOpenChange={onOpenSpy}>
           {itemsList}
         </Droplist>,
       );
 
-      const event = new KeyboardEvent('keydown', {
+      fireEvent.keyDown(document, {
         key: 'Escape',
       });
-      document.dispatchEvent(event);
-      expect(onOpenSpy).toHaveBeenCalledWith({ isOpen: false, event });
+      expect(onOpenSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ isOpen: false }),
+      );
     });
 
     it('should set isOpen property to false when Esc key pressed (emulating IE/Edge)', () => {
       const onOpenSpy = jest.fn();
-      mount(
+      render(
         <Droplist trigger="text" isOpen onOpenChange={onOpenSpy}>
           {itemsList}
         </Droplist>,
       );
 
-      const event = new KeyboardEvent('keydown', {
+      fireEvent.keyDown(document, {
         key: 'Esc',
       });
-      document.dispatchEvent(event);
-      expect(onOpenSpy).toHaveBeenCalledWith({ isOpen: false, event });
+      expect(onOpenSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ isOpen: false }),
+      );
     });
   });
 
   describe('loading', () => {
     it('should show a Spinner (and no Groups) when it is loading and open', () => {
-      const wrapper = mount(
-        <Droplist isLoading isOpen>
+      render(
+        <Droplist isLoading isOpen testId="test">
           {itemsList}
         </Droplist>,
       );
-      expect(wrapper.find(Spinner).length).toBe(1);
-      expect(wrapper.find(ItemGroup).length).toBe(0);
+      const spinner = screen.getByTestId('test--spinner');
+      expect(spinner).toBeInTheDocument();
+
+      const itemGroup = screen.queryByRole('group', {
+        name: 'test--item--group',
+      });
+      expect(itemGroup).not.toBeInTheDocument();
     });
 
     it('should not show a Spinner when it is loading but not open', () => {
-      const wrapper = mount(<Droplist isLoading>{itemsList}</Droplist>);
-      expect(wrapper.find(Spinner).length).toBe(0);
+      render(
+        <Droplist isLoading testId="test">
+          {itemsList}
+        </Droplist>,
+      );
+      const spinner = screen.queryByTestId('test--spinner');
+      expect(spinner).not.toBeInTheDocument();
     });
   });
 });
@@ -181,13 +176,14 @@ describe('DroplistWithAnalytics', () => {
     jest.spyOn(global.console, 'warn');
     jest.spyOn(global.console, 'error');
   });
+
   afterEach(() => {
     global.console.warn.mockRestore();
     global.console.error.mockRestore();
   });
 
-  it('should mount without errors', () => {
-    mount(<DroplistWithAnalytics />);
+  it('should render without errors', () => {
+    render(<DroplistWithAnalytics />);
     /* eslint-disable no-console */
     expect(console.warn).not.toHaveBeenCalled();
     expect(console.error).not.toHaveBeenCalled();

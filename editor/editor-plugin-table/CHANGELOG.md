@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 0.2.1
+
+### Patch Changes
+
+- [`9ae762b0920`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ae762b0920) - removing unused prop 'stickToolbarToBottom'
+- [`f240c3eb761`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f240c3eb761) - [ux] Prevent cursor selection from being reset when delete button is clicked
+
+  The fix ensures that when removing a row or column via the delete button, the cursor will stay within the table.
+
+  Reference https://discuss.prosemirror.net/t/setting-selection-to-newly-inserted-text-node/3615/6
+
+- [`0708f3901cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0708f3901cd) - [ux] This change fixes a bug where the shadows at the bottom left and right of the table extend too far when horizontal scroll and sticky header are active.
+- [`aa502f7cc6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa502f7cc6f) - [ux] Fix misalignment between active sticky header and the rest of the table when user has scrolled horizontally
+- [`3c75d643fb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c75d643fb2) - [ux] This change addresses a bug that occurs when the sticky header is active and there is misalignment between the row height for the leftmost grey column and the rest of the table. This change contains CSS changes that change the top margin of the table when sticky header is active, the white space of the table, and the top border of the table.
+
 ## 0.2.0
 
 ### Minor Changes

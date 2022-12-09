@@ -67,6 +67,7 @@ export const getSimulatedMetadata = (
             ElementName.ReactCount,
             ElementName.CommentCount,
             ElementName.AttachmentCount,
+            ElementName.ChecklistProgress,
           ],
           subtitle: [],
         },

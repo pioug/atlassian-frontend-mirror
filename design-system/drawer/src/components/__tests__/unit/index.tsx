@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { act, render } from '@testing-library/react';
-import { mount } from 'enzyme';
 
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 
@@ -264,28 +263,29 @@ describe('Drawer Transitions', () => {
   // this funtionality is currently broken and
   // will be fixed by https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6444
   it.skip('should NOT retain Drawer contents by default', () => {
-    const wrapper = mount(
+    render(
       <Drawer isOpen width="wide">
         <code>Drawer contents</code>
       </Drawer>,
     );
 
-    expect(
-      (wrapper.find('Slide').find('Transition').props() as any).unmountOnExit,
-    ).toBeTruthy();
+    // TODO: rewrite assertion with RTL once functionality is fixed.
+    // expect(
+    //   (wrapper.find('Slide').find('Transition').props() as any).unmountOnExit,
+    // ).toBeTruthy();
   });
 
   // this funtionality is currently broken and
   // will be fixed by https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6444
   it.skip('should retain Drawer contents when shouldUnmountOnExit is passed', () => {
-    const wrapper = mount(
+    render(
       <Drawer isOpen width="wide" shouldUnmountOnExit={false}>
         <code>Drawer contents</code>
       </Drawer>,
     );
 
-    expect(
-      (wrapper.find('Slide').find('Transition').props() as any).unmountOnExit,
-    ).toBeFalsy();
+    // expect(
+    //   (wrapper.find('Slide').find('Transition').props() as any).unmountOnExit,
+    // ).toBeFalsy();
   });
 });

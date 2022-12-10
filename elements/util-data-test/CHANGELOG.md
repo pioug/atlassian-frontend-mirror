@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 17.6.2
+
+### Patch Changes
+
+- [`e6fd2041cf5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6fd2041cf5) - Bump to @emotion v11
+
 ## 17.6.1
 
 ### Patch Changes

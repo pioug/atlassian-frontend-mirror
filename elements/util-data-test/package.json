@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/util-data-test",
-  "version": "17.6.1",
+  "version": "17.6.2",
   "description": "Shared test and story data",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -78,7 +78,7 @@
     "@atlaskit/user-picker": "^9.6.0",
     "@atlaskit/util-service-support": "^6.1.0",
     "@babel/runtime": "^7.0.0",
-    "@emotion/core": "^10.0.9",
+    "@emotion/react": "^11.7.1",
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",
     "uuid": "^3.1.0"

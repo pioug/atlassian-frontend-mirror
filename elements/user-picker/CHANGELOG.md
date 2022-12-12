@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.6.3
+
+### Patch Changes
+
+- [`d4e917e03fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4e917e03fd) - Bump to @emotion v11
+
 ## 9.6.2
 
 ### Patch Changes

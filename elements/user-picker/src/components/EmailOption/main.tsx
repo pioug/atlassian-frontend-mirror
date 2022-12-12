@@ -3,7 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { Email } from '../../types';
 import { AddOptionAvatar } from '../AddOptionAvatar';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';

@@ -34,7 +34,7 @@ describe('Block Card', () => {
     const page = await setup(url);
     await page.waitForSelector('[data-testid="smart-block-resolved-view"]');
 
-    const image = await takeSnapshot(page, 1080);
+    const image = await takeSnapshot(page, 1100);
     expect(image).toMatchProdImageSnapshot();
   });
 });

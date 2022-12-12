@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { components, ValueContainerProps } from '@atlaskit/select';
 import { SizeableAvatar } from './SizeableAvatar';
 import { BORDER_PADDING } from './styles';

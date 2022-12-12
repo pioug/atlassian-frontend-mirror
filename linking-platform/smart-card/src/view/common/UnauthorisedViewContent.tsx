@@ -27,10 +27,16 @@ const UnauthorisedViewContent = ({
   testId = 'unauthorised-view-content',
 }: UnauthorisedViewContentProps) => (
   <>
-    <FormattedMessage
-      {...messages.connect_unauthorised_account_description}
-      values={{ context: providerName }}
-    />{' '}
+    {providerName ? (
+      <FormattedMessage
+        {...messages.connect_unauthorised_account_description}
+        values={{ context: providerName }}
+      />
+    ) : (
+      <FormattedMessage
+        {...messages.connect_unauthorised_account_description_no_provider}
+      />
+    )}{' '}
     <a
       href={CONTENT_URL_SECURITY_AND_PERMISSIONS}
       target="_blank"

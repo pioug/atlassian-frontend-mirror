@@ -423,6 +423,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
           trigger={(triggerProps) => this.renderTrigger(triggerProps)}
           zIndex={layers.modal()}
           shouldFlip
+          autoFocus={this.props.trigger !== 'hover' && !this.openedByHover}
         />
       </ErrorBoundary>
     );

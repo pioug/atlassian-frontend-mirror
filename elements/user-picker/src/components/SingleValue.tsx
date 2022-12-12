@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { AvatarItem } from '@atlaskit/avatar';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { Option } from '../types';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl } from './utils';

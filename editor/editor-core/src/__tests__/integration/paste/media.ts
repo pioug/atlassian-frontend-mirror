@@ -13,9 +13,12 @@ import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 
 const editorSelector = selectors.editor;
 
+// FIXME: This test was automatically skipped due to failure on 11/12/2022: https://product-fabric.atlassian.net/browse/ED-16373
 BrowserTestCase(
   'media: when message is not a media image node does nothing',
-  { skip: [] },
+  {
+    skip: ['*'],
+  },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

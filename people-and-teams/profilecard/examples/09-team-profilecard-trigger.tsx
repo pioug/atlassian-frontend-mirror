@@ -63,6 +63,10 @@ export const Section = styled.div`
   }
 `;
 
+export const BlankSpace = styled.div`
+  height: 800px;
+`;
+
 const Container = styled.div`
   border: 1px solid ${token('color.border', '#ccc')};
   border-radius: 3px;
@@ -156,7 +160,7 @@ export default function Example() {
     <ExampleWrapper>
       <MainStage>
         <Section>
-          <input value="Value" type="text" />
+          <input type="text" />
           <Container>
             <h4>Profilecard triggered by hover</h4>
             <span>
@@ -242,6 +246,40 @@ export default function Example() {
           }}
           currentValue={numActions}
         />
+        <BlankSpace>Scroll down to test focus behaviour</BlankSpace>
+        <Section>
+          <Container>
+            <h4>Extras at the bottom of the page to test focus bouncing</h4>
+            <span>
+              <TeamProfilecardTrigger
+                {...defaultProps}
+                actions={defaultProps.actions.slice(0, numActions)}
+                trigger="hover"
+                viewingUserId={viewerId}
+              >
+                <strong>Hover team</strong>
+              </TeamProfilecardTrigger>{' '}
+              |||{' '}
+              <TeamProfilecardTrigger
+                {...defaultProps}
+                actions={defaultProps.actions.slice(0, numActions)}
+                trigger="click"
+                viewingUserId={viewerId}
+              >
+                <strong>Click team</strong>
+              </TeamProfilecardTrigger>{' '}
+              |||{' '}
+              <TeamProfilecardTrigger
+                {...defaultProps}
+                actions={defaultProps.actions.slice(0, numActions)}
+                trigger="hover-click"
+                viewingUserId={viewerId}
+              >
+                <strong>Hover/click team</strong>
+              </TeamProfilecardTrigger>
+            </span>
+          </Container>
+        </Section>
       </MainStage>
     </ExampleWrapper>
   );

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

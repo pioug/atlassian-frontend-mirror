@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { ReactNode } from 'react';
 import { gridSize } from '@atlaskit/theme/constants';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import Lozenge from '@atlaskit/lozenge';
 import { token } from '@atlaskit/tokens';
 

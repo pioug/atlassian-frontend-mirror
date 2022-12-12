@@ -3,7 +3,7 @@ import EmailIcon from '@atlaskit/icon/glyph/email';
 import { N40, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React from 'react';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 const getEmailAvatarWrapperStyle = (isLozenge?: boolean) => {
   const padding = isLozenge ? 0 : 4;

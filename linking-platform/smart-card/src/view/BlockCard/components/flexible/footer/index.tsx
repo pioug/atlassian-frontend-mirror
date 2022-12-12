@@ -9,7 +9,7 @@ import {
   SmartLinkWidth,
 } from '../../../../../constants';
 import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
-import { FooterBlockProps } from '../../../../FlexibleCard/components/blocks/footer-block/types';
+import { BlockCardFooterProps } from './types';
 
 const getActionGroupStyles = (
   size: SmartLinkSize,
@@ -38,13 +38,14 @@ const providerStyles = css`
  * @see CustomBlock
  * @param props are the data required for the block, such as actions to be displayed.
  */
-const BlockCardFooter: React.FC<FooterBlockProps> = (
-  props: FooterBlockProps,
+const BlockCardFooter: React.FC<BlockCardFooterProps> = (
+  props: BlockCardFooterProps,
 ) => {
   const {
     actions,
     size = SmartLinkSize.Medium,
     testId = 'smart-block-card-footer',
+    actionGroupAppearance = 'default',
   } = props;
 
   return (
@@ -58,7 +59,7 @@ const BlockCardFooter: React.FC<FooterBlockProps> = (
           overrideCss={getActionGroupStyles(size)}
           width={SmartLinkWidth.Flexible}
         >
-          <ActionGroup items={actions} appearance="default" />
+          <ActionGroup items={actions} appearance={actionGroupAppearance} />
         </ElementGroup>
       ) : null}
     </>

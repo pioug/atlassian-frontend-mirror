@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { useCallback, useState } from 'react';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import { N50, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

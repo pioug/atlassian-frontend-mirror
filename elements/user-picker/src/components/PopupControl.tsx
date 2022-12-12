@@ -4,7 +4,7 @@ import { themed } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 import { gridSize } from '@atlaskit/theme/constants';
 import { components, ControlProps } from '@atlaskit/select';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { N200, DN90 } from '@atlaskit/theme/colors';
 
 const spacing = gridSize();

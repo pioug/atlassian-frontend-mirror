@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.7.1
+
+### Patch Changes
+
+- [`33e0b942925`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33e0b942925) - [ux] Flexible Card: Update unauthorised view text messages and connect button
+
 ## 23.7.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { AtlassianIcon, ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import Spinner from '@atlaskit/spinner/spinner';

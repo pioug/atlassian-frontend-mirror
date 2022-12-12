@@ -1,14 +1,25 @@
 import React, { useMemo } from 'react';
 import FlexibleCard from '../../../FlexibleCard';
-import TitleBlock from '../../../FlexibleCard/components/blocks/title-block';
-import { messages } from '../../../../messages';
-import Text from '../../../FlexibleCard/components/elements/text';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
 import BlockCardFooter from '../../components/flexible/footer';
-import { CustomBlock } from '../../../FlexibleCard/components/blocks';
+import {
+  CustomBlock,
+  TitleBlock,
+} from '../../../FlexibleCard/components/blocks';
 import { SmartLinkStatus } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
+import { extractProvider } from '@atlaskit/linking-common/extractors';
+import { JsonLd } from 'json-ld-types';
+import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
+import { css } from '@emotion/react';
+import { tokens } from '../../../../utils/token';
+
+const contentStyles = css`
+  color: ${tokens.text};
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+`;
 
 /**
  * This view represents a Block card that has an 'Unauthorized' status .
@@ -19,7 +30,6 @@ import { FlexibleBlockCardProps } from './types';
  */
 const FlexibleUnauthorisedView = ({
   cardState,
-  providerName = '',
   onAuthorize,
   onClick,
   onError,
@@ -27,11 +37,11 @@ const FlexibleUnauthorisedView = ({
   ui,
   url,
 }: FlexibleBlockCardProps) => {
-  const status = cardState.status as SmartLinkStatus;
-
+  const data = cardState.details?.data as JsonLd.Data.BaseData;
+  const providerName = extractProvider(data)?.text;
   const actions = useMemo<ActionItem[]>(
-    () => (onAuthorize ? [AuthorizeAction(onAuthorize)] : []),
-    [onAuthorize],
+    () => (onAuthorize ? [AuthorizeAction(onAuthorize, providerName)] : []),
+    [onAuthorize, providerName],
   );
 
   return (
@@ -46,18 +56,17 @@ const FlexibleUnauthorisedView = ({
       url={url}
     >
       <TitleBlock hideRetry={true} />
-      <CustomBlock>
-        <Text
-          message={{
-            descriptor: messages.connect_link_account_card_description,
-            values: {
-              context: providerName,
-            },
-          }}
-        />
+      <CustomBlock overrideCss={contentStyles} testId={`${testId}-content`}>
+        <div>
+          <UnauthorisedViewContent providerName={providerName} />
+        </div>
       </CustomBlock>
       <CustomBlock>
-        <BlockCardFooter actions={actions} status={status} />
+        <BlockCardFooter
+          actions={actions}
+          status={SmartLinkStatus.Unauthorized}
+          actionGroupAppearance="primary"
+        />
       </CustomBlock>
     </FlexibleCard>
   );

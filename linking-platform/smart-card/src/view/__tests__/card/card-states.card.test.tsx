@@ -237,12 +237,19 @@ describe('smart-card: card states, block', () => {
       describe('with authFlow explicitly disabled', () => {
         it('block: renders as blue link', async () => {
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-          const { getByText } = render(
+          const { getByTestId } = render(
             <Provider client={mockClient} authFlow="disabled">
-              <Card appearance="block" url={mockUrl} onError={mockOnError} />
+              <Card
+                testId="disabled-authFlow-card"
+                appearance="block"
+                url={mockUrl}
+                onError={mockOnError}
+              />
             </Provider>,
           );
-          const dumbLink = await waitFor(() => getByText(mockUrl));
+          const dumbLink = await waitFor(() =>
+            getByTestId('disabled-authFlow-card-fallback'),
+          );
           expect(dumbLink).toBeTruthy();
           expect(mockFetch).toBeCalled();
           expect(mockFetch).toBeCalledTimes(1);

@@ -2,7 +2,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { components, OptionType } from '@atlaskit/select';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { SizeableAvatar } from './SizeableAvatar';
 import { messages } from './i18n';

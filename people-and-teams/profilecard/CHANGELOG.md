@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 17.3.0
+
+### Minor Changes
+
+- [`b2ef0c20138`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2ef0c20138) - [ux] Don't shift focus when triggering user or team profilecard via hover
+
 ## 17.2.7
 
 ### Patch Changes

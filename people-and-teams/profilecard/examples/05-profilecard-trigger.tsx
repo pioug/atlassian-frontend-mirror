@@ -31,6 +31,10 @@ export const Section = styled.div`
   }
 `;
 
+export const BlankSpace = styled.div`
+  height: 800px;
+`;
+
 const defaultProps = {
   cloudId: 'DUMMY-10ae0bf3-157e-43f7-be45-f1bb13b39048',
   resourceClient: mockClient,
@@ -44,6 +48,9 @@ export default function Example() {
       <MainStage>
         <Section>
           <h4>Profilecard triggered by hover</h4>
+          <p>
+            Input for testing with focus <input type="text" />
+          </p>
           <span>
             Lorem ipsum{' '}
             <ProfileCardTrigger
@@ -160,6 +167,39 @@ export default function Example() {
             </ProfileCardTrigger>{' '}
             dolor sit amet
           </span>
+        </Section>
+
+        <BlankSpace>Scroll down to test focus behaviour</BlankSpace>
+
+        <Section>
+          <ProfileCardTrigger
+            {...defaultProps}
+            userId="1"
+            actions={[
+              {
+                label: 'View profile',
+                id: 'view-profile',
+                callback: () => {},
+              },
+            ]}
+          >
+            <strong>Hover me.</strong>
+          </ProfileCardTrigger>{' '}
+          |||{' '}
+          <ProfileCardTrigger
+            {...defaultProps}
+            userId="1"
+            trigger="click"
+            actions={[
+              {
+                label: 'View profile',
+                id: 'view-profile',
+                callback: () => {},
+              },
+            ]}
+          >
+            <strong>Click me.</strong>
+          </ProfileCardTrigger>
         </Section>
       </MainStage>
     </ExampleWrapper>

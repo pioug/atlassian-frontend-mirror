@@ -72,7 +72,7 @@ export type TitleBlockProps = {
   retry?: RetryOptions;
 
   /**
-   * This option determins whenever we show any of the links and messages on the right side of the block,
+   * This option determines whenever we show any of the links and messages on the right side of the block,
    * like "connect to preview" or "Can't find link" or "Restricted link, try another account" etc.
    * Default is false.
    */

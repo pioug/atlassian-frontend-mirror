@@ -98,3 +98,32 @@ describe('FF overrides', () => {
     expect(getBooleanFF('my-invalid-pre-defined-flag')).toBe(false);
   });
 });
+
+describe('tests support', function () {
+  beforeEach(() => {
+    delete process.env.ENABLE_PLATFORM_FF;
+    delete process.env.STORYBOOK_ENABLE_PLATFORM_FF;
+  });
+
+  it('should always return true when getting a FF value while running tests with "ENABLE_PLATFORM_FF" environment flag', () => {
+    // given
+    process.env.ENABLE_PLATFORM_FF = 'true';
+
+    // when
+    const { getBooleanFF } = loadApi();
+
+    //then
+    expect(getBooleanFF('my-platform-feature-flag')).toBe(true);
+  });
+
+  it('should always return true when getting a FF value while running tests with "STORYBOOK_ENABLE_PLATFORM_FF" environment flag', () => {
+    // given
+    process.env.STORYBOOK_ENABLE_PLATFORM_FF = 'true';
+
+    // when
+    const { getBooleanFF } = loadApi();
+
+    //then
+    expect(getBooleanFF('my-platform-feature-flag')).toBe(true);
+  });
+});

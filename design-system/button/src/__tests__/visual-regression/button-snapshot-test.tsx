@@ -1,6 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
+  takeElementScreenShot,
   waitForElementCount,
 } from '@atlaskit/visual-regression/helper';
 
@@ -21,7 +22,38 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('ButtonGroup appearance should match snapshot', async () => {
+  it('focus should match snapshot', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'button',
+      'button-focus',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    // Wait for page content
+    const image = await takeElementScreenShot(page, '[data-testid="button"]');
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('other configurations should match snapshot', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'button',
+      'more-options',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    // Wait for page content
+    const image = await takeElementScreenShot(
+      page,
+      '[data-testid="combinations"]',
+    );
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should not show a gap for empty/null items', async () => {
     const url = getExampleUrl(
       'design-system',
       'button',

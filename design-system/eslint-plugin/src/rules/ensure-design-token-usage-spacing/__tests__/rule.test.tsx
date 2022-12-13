@@ -505,18 +505,18 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       ],
     },
     // identifier in template
-    {
-      code: `const value = gridSize();
-      const styledTemplateLiteral = styled.p\`color: red; padding: \${value}px;\`;`,
-      output: `const value = gridSize();
-      // TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')};\`;`,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
-        },
-      ],
-    },
+    // {
+    //   code: `const value = gridSize();
+    //   const styledTemplateLiteral = styled.p\`color: red; padding: \${value}px;\`;`,
+    //   output: `const value = gridSize();
+    //   // TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')};\`;`,
+    //   errors: [
+    //     {
+    //       message:
+    //         'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+    //     },
+    //   ],
+    // },
     // nested object
     {
       code: `const decoration = css({
@@ -545,24 +545,24 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       ],
     },
     // callExpression in template
-    {
-      code: `const styledTemplateLiteral = styled.p\`color: red; padding: \${gridSize()}px; margin: 4px; gap: 2px\`;`,
-      output: `// TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')}; margin: 4px; gap: 2px\`;`,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
-        },
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<margin:4>>',
-        },
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<gap:2>>',
-        },
-      ],
-    },
+    // {
+    //   code: `const styledTemplateLiteral = styled.p\`color: red; padding: \${gridSize()}px; margin: 4px; gap: 2px\`;`,
+    //   output: `// TODO Delete this comment after verifying spacing token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')}; margin: 4px; gap: 2px\`;`,
+    //   errors: [
+    //     {
+    //       message:
+    //         'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+    //     },
+    //     {
+    //       message:
+    //         'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<margin:4>>',
+    //     },
+    //     {
+    //       message:
+    //         'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<gap:2>>',
+    //     },
+    //   ],
+    // },
     // vh and vw
     {
       code: `const styles = css({
@@ -581,68 +581,176 @@ tester.run('ensure-design-token-usage-spacing', rule, {
       ],
     },
     {
-      // FROM JIRA
-      code: `// @flow strict-local
-      import styled from 'styled-components';
-      import { colors } from '@atlaskit/theme';
-      import { token } from '@atlaskit/tokens';
-      import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
-
-      export const stickyLineExtraLengthLeft = gridSize;
-
-      export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
-
-      const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
-      export const StickyWrapper = styled.div\`
-          @supports (position: sticky) or (position: -webkit-sticky) {
-              position: sticky;
-              background: \${token('elevation.surface', colors.N0)};
-              z-index: \${stickyHeaderBreadcrumbsZIndex};
-              padding-left: \${stickyLineExtraLengthLeft}px;
-              margin-left: -\${stickyLineExtraLengthLeft}px;
-              padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
-              top: \${(props) => props.topOffset + extraTopOffset}px;
-          }
-      \`;
+      code: `
+styled.div\`
+  padding: 0px;
+  .subitem {
+    padding-left: 16px;
+  }
+\`
       `,
-      output: `// @flow strict-local
-      import styled from 'styled-components';
-      import { colors } from '@atlaskit/theme';
-      import { token } from '@atlaskit/tokens';
-      import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
-
-      export const stickyLineExtraLengthLeft = gridSize;
-
-      export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
-
-      const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
-      // TODO Delete this comment after verifying spacing token -> previous value \`8px\`
-export const StickyWrapper = styled.div\`
-          @supports (position: sticky) or (position: -webkit-sticky) {
-              position: sticky;
-              background: \${token('elevation.surface', colors.N0)};
-              z-index: \${stickyHeaderBreadcrumbsZIndex};
-              padding-left: \${token('space.100', '8px')};
-              margin-left: -\${stickyLineExtraLengthLeft}px;
-              padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
-              top: \${(props) => props.topOffset + extraTopOffset}px;
-          }
-      \`;
+      output: `
+// TODO Delete this comment after verifying spacing token -> previous value \`0px\`
+styled.div\`
+  padding: \${token('space.0', '0px')};
+  .subitem {
+    padding-left: 16px;
+  }
+\`
       `,
       errors: [
         {
           message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:8>>',
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:0>>',
         },
         {
           message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<marginLeft:-8>>',
-        },
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingTop:1>>',
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:16>>',
         },
       ],
     },
+    {
+      code: `
+styled.div\`
+  padding: \${token('space.0', '0px')};
+  .subitem {
+    padding-left: 16px;
+  }
+\`
+      `,
+      output: `
+// TODO Delete this comment after verifying spacing token -> previous value \`16px\`
+styled.div\`
+  padding: \${token('space.0', '0px')};
+  .subitem {
+    padding-left: \${token('space.200', '16px')};
+  }
+\`
+      `,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:16>>',
+        },
+      ],
+    },
+    {
+      code: `
+styled.div\`
+  padding: \${token('space.0', '0px')};
+  .subitem {
+    padding: 16px;
+  }
+\`
+      `,
+      output: `
+// TODO Delete this comment after verifying spacing token -> previous value \`16px\`
+styled.div\`
+  padding: \${token('space.0', '0px')};
+  .subitem {
+    padding: \${token('space.200', '16px')};
+  }
+\`
+      `,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+        },
+      ],
+    },
+    {
+      code: `
+styled.div\`
+  padding: \${token('space.0', '0px')};
+  .subitem {
+    padding: 0 16px;
+  }
+\`
+      `,
+      output: `
+// TODO Delete this comment after verifying spacing token -> previous value \`0 16px\`
+styled.div\`
+  padding: \${token('space.0', '0px')};
+  .subitem {
+    padding: \${token('space.0', '0px')} \${token('space.200', '16px')};
+  }
+\`
+      `,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:0>>',
+        },
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+        },
+      ],
+    },
+    //     {
+    //       // FROM JIRA
+    //       code: `// @flow strict-local
+    //       import styled from 'styled-components';
+    //       import { colors } from '@atlaskit/theme';
+    //       import { token } from '@atlaskit/tokens';
+    //       import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
+
+    //       export const stickyLineExtraLengthLeft = gridSize;
+
+    //       export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
+
+    //       const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
+    //       export const StickyWrapper = styled.div\`
+    //           @supports (position: sticky) or (position: -webkit-sticky) {
+    //               position: sticky;
+    //               background: \${token('elevation.surface', colors.N0)};
+    //               z-index: \${stickyHeaderBreadcrumbsZIndex};
+    //               padding-left: \${stickyLineExtraLengthLeft}px;
+    //               margin-left: -\${stickyLineExtraLengthLeft}px;
+    //               padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
+    //               top: \${(props) => props.topOffset + extraTopOffset}px;
+    //           }
+    //       \`;
+    //       `,
+    //       output: `// @flow strict-local
+    //       import styled from 'styled-components';
+    //       import { colors } from '@atlaskit/theme';
+    //       import { token } from '@atlaskit/tokens';
+    //       import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
+
+    //       export const stickyLineExtraLengthLeft = gridSize;
+
+    //       export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
+
+    //       const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
+    //       // TODO Delete this comment after verifying spacing token -> previous value \`8px\`
+    // export const StickyWrapper = styled.div\`
+    //           @supports (position: sticky) or (position: -webkit-sticky) {
+    //               position: sticky;
+    //               background: \${token('elevation.surface', colors.N0)};
+    //               z-index: \${stickyHeaderBreadcrumbsZIndex};
+    //               padding-left: \${token('space.100', '8px')};
+    //               margin-left: -\${stickyLineExtraLengthLeft}px;
+    //               padding-top: \${-extraTopOffset}px; /* not to cut out button border etc. because of negative extraTopOffset */
+    //               top: \${(props) => props.topOffset + extraTopOffset}px;
+    //           }
+    //       \`;
+    //       `,
+    //       errors: [
+    //         {
+    //           message:
+    //             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:8>>',
+    //         },
+    //         {
+    //           message:
+    //             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<marginLeft:-8>>',
+    //         },
+    //         {
+    //           message:
+    //             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingTop:1>>',
+    //         },
+    //       ],
+    //     },
   ],
 });

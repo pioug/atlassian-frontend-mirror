@@ -1,4 +1,4 @@
-const TESTS_MODE = process?.env?.NODE_ENV === 'test' ?? false;
+export const TESTS_MODE = process?.env?.NODE_ENV === 'test' ?? false;
 
 const DEBUG_MODE = !TESTS_MODE && process?.env?.NODE_ENV !== 'production';
 

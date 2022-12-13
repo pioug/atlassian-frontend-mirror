@@ -29,7 +29,7 @@ export type MessageKey =
   | 'created_on_absolute'
   | 'delete'
   | 'edit'
-  | 'learn_more_about_smart_links_security'
+  | 'learn_more_about_smart_links'
   | 'loading'
   | 'modified_by'
   | 'modified_on_relative'
@@ -242,11 +242,10 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Join {context} to view this issue',
     description: 'Allows the user join the product or service immediately',
   },
-  learn_more_about_smart_links_security: {
-    id: 'fabric.linking.learn_more_about_smart_links_security',
-    defaultMessage: 'Learn more about smart link security and permissions.',
-    description:
-      'An anchor link to redirect user to a page about smart link security and permissions.',
+  learn_more_about_smart_links: {
+    id: 'fabric.linking.learn_more_about_smart_links',
+    defaultMessage: 'Learn more about Smart Links.',
+    description: 'An anchor link to redirect user to a page about Smart Links.',
   },
   loading: {
     id: 'fabric.linking.loading',

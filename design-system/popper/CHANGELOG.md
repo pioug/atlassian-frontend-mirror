@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.4.1
+
+### Patch Changes
+
+- [`211c04b1c96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/211c04b1c96) - Fixes in-product testing typos causing assert errors
+
 ## 5.4.0
 
 ### Minor Changes

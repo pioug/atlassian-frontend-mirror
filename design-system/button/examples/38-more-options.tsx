@@ -58,286 +58,278 @@ const CustomComponent = React.forwardRef<HTMLDivElement, {}>((props, ref) => (
 const BuildStory = (props: ButtonProps) => {
   const { appearance } = props;
   return (
-    <div css={{ padding: '10px' }}>
-      <div
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '70%',
-        }}
-      >
-        <div css={styles.sample}>
-          <Button appearance={appearance}>Create Issue</Button>
-          <span>no extra attrs</span>
-        </div>
+    <div data-testid="combinations" css={{ padding: '10px' }}>
+      <div css={styles.sample}>
+        <Button appearance={appearance}>Create Issue</Button>
+        <span>no extra attrs</span>
+      </div>
 
-        <div css={styles.sample}>
-          <Button appearance={appearance} href="//www.atlassian.com">
-            Create Issue
-          </Button>
-          <span>with href attribute</span>
-        </div>
+      <div css={styles.sample}>
+        <Button appearance={appearance} href="//www.atlassian.com">
+          Create Issue
+        </Button>
+        <span>with href attribute</span>
+      </div>
 
-        <div css={styles.sample}>
-          <Button appearance={appearance} href="//www.atlassian.com">
-            Create Issue
-          </Button>
-          <span>with href attribute + no target</span>
-        </div>
+      <div css={styles.sample}>
+        <Button appearance={appearance} href="//www.atlassian.com">
+          Create Issue
+        </Button>
+        <span>with href attribute + no target</span>
+      </div>
 
-        <div css={styles.sample}>
-          <span>
-            text
-            <Button
-              appearance={appearance}
-              onClick={() => console.log('clicking the Component')}
-            >
-              Create Issue
-            </Button>
-            text
-          </span>
-          <span>click event + text alignment check</span>
-        </div>
-
-        <div css={styles.sample}>
+      <div css={styles.sample}>
+        <span>
+          text
           <Button
             appearance={appearance}
-            isDisabled
             onClick={() => console.log('clicking the Component')}
           >
-            Disabled Option
+            Create Issue
           </Button>
-          <span>disabled</span>
-        </div>
+          text
+        </span>
+        <span>click event + text alignment check</span>
+      </div>
 
-        <div css={styles.sample}>
+      <div css={styles.sample}>
+        <Button
+          appearance={appearance}
+          isDisabled
+          onClick={() => console.log('clicking the Component')}
+        >
+          Disabled Option
+        </Button>
+        <span>disabled</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button
+          appearance={appearance}
+          isDisabled
+          onClick={() => console.log('clicking the Component')}
+          href="//www.atlassian.com"
+          target="_blank"
+        >
+          Go to Site
+        </Button>
+        <span>disabled + href + target</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button appearance={appearance} component={CustomComponent}>
+          With a custom component
+        </Button>
+      </div>
+
+      <div css={styles.sample}>
+        <Button
+          appearance={appearance}
+          css={[styles.purpleBorder, styles.pinkBg]}
+        >
+          Custom classes with crazy colors
+        </Button>
+        <span>custom classes</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button appearance={appearance} css={styles.truncated}>
+          Truncated text which is very long and has many words to demonstrate
+          truncation
+        </Button>
+        <span>truncated</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button appearance={appearance} isSelected>
+          Selected
+        </Button>
+        <span>selected</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button appearance={appearance} iconBefore={<Page label="" />}>
+          Comment
+        </Button>
+        <span>button + text with page icon</span>
+      </div>
+
+      <div css={styles.sample}>
+        <span>
+          text
           <Button
             appearance={appearance}
-            isDisabled
-            onClick={() => console.log('clicking the Component')}
-            href="//www.atlassian.com"
-            target="_blank"
+            iconBefore={<Question label="">Question</Question>}
           >
-            Go to Site
+            Info
           </Button>
-          <span>disabled + href + target</span>
-        </div>
+          text
+        </span>
+        <span>button + text with question icon + text alignment check</span>
+      </div>
 
-        <div css={styles.sample}>
-          <Button appearance={appearance} component={CustomComponent}>
-            With a custom component
-          </Button>
-        </div>
-
-        <div css={styles.sample}>
-          <Button
-            appearance={appearance}
-            css={[styles.purpleBorder, styles.pinkBg]}
-          >
-            Custom classes with crazy colors
-          </Button>
-          <span>custom classes</span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button appearance={appearance} css={styles.truncated}>
-            Truncated text which is very long and has many words to demonstrate
-            truncation
-          </Button>
-          <span>truncated</span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button appearance={appearance} isSelected>
-            Selected
-          </Button>
-          <span>selected</span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button appearance={appearance} iconBefore={<Page label="" />}>
-            Comment
-          </Button>
-          <span>button + text with page icon</span>
-        </div>
-
-        <div css={styles.sample}>
-          <span>
-            text
-            <Button
-              appearance={appearance}
-              iconBefore={<Question label="">Question</Question>}
-            >
-              Info
-            </Button>
-            text
-          </span>
-          <span>button + text with question icon + text alignment check</span>
-        </div>
-
-        <div css={styles.sample}>
-          <span>
-            text
-            <Button
-              appearance={appearance}
-              isSelected
-              iconAfter={<Calendar label="" />}
-            >
-              Pick Date
-            </Button>
-            text
-          </span>
-          <span>
-            button + text with calendar icon + text alignment check + selected
-          </span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button appearance={appearance} iconAfter={<Expand label="" />}>
-            Show Options
-          </Button>
-          <span>button + text with expand icon</span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button
-            appearance={appearance}
-            href="//www.atlassian.com"
-            iconBefore={<Page label="page icon" />}
-          />
-          <span>button with Page icon + href</span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button
-            appearance={appearance}
-            href="//www.atlassian.com"
-            target="_blank"
-            iconBefore={<Expand label="expand icon" />}
-          />
-          <span>button with icons + href + target</span>
-        </div>
-
-        <div css={styles.sample}>
-          <span>
-            text
-            <Button
-              appearance={appearance}
-              iconBefore={<Calendar label="calendar icon" />}
-            />
-            text
-          </span>
-          <span>button with Calendar icon + text alignment check</span>
-        </div>
-
-        <div css={styles.sample}>
+      <div css={styles.sample}>
+        <span>
+          text
           <Button
             appearance={appearance}
             isSelected
-            iconBefore={<Question label="question icon">Question</Question>}
+            iconAfter={<Calendar label="" />}
+          >
+            Pick Date
+          </Button>
+          text
+        </span>
+        <span>
+          button + text with calendar icon + text alignment check + selected
+        </span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button appearance={appearance} iconAfter={<Expand label="" />}>
+          Show Options
+        </Button>
+        <span>button + text with expand icon</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button
+          appearance={appearance}
+          href="//www.atlassian.com"
+          iconBefore={<Page label="page icon" />}
+        />
+        <span>button with Page icon + href</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button
+          appearance={appearance}
+          href="//www.atlassian.com"
+          target="_blank"
+          iconBefore={<Expand label="expand icon" />}
+        />
+        <span>button with icons + href + target</span>
+      </div>
+
+      <div css={styles.sample}>
+        <span>
+          text
+          <Button
+            appearance={appearance}
+            iconBefore={<Calendar label="calendar icon" />}
           />
-          <span>button with Question icon + selected</span>
-        </div>
+          text
+        </span>
+        <span>button with Calendar icon + text alignment check</span>
+      </div>
 
-        <div css={styles.sample}>
-          <div css={styles.buttonContainer}>
-            <Button appearance={appearance} spacing="none">
-              1
-            </Button>
-            <Button appearance={appearance} spacing="compact">
-              1
-            </Button>
-            <Button appearance={appearance}>1</Button>
-          </div>
-          <span>Button with small text</span>
-        </div>
+      <div css={styles.sample}>
+        <Button
+          appearance={appearance}
+          isSelected
+          iconBefore={<Question label="question icon">Question</Question>}
+        />
+        <span>button with Question icon + selected</span>
+      </div>
 
-        <div css={styles.sample}>
-          <div css={styles.buttonContainer}>
-            <Button
-              appearance={appearance}
-              spacing="none"
-              iconBefore={<Unlink label="unlink icon">unlink</Unlink>}
-            />
-            <Button
-              appearance={appearance}
-              spacing="none"
-              isSelected
-              iconBefore={<Unlink label="unlink icon">unlink selected</Unlink>}
-            />
-            <Button
-              appearance={appearance}
-              spacing="none"
-              iconBefore={<Open label="open icon">open</Open>}
-            />
-            <Button
-              appearance={appearance}
-              spacing="none"
-              isSelected
-              iconBefore={<Open label="open icon">open selected</Open>}
-            />
-          </div>
-          <span>button with icons, no spacing &amp; selected</span>
-        </div>
-
-        <div css={styles.sample}>
+      <div css={styles.sample}>
+        <div css={styles.buttonContainer}>
+          <Button appearance={appearance} spacing="none">
+            1
+          </Button>
           <Button appearance={appearance} spacing="compact">
-            Create Issue
+            1
           </Button>
+          <Button appearance={appearance}>1</Button>
+        </div>
+        <span>Button with small text</span>
+      </div>
+
+      <div css={styles.sample}>
+        <div css={styles.buttonContainer}>
           <Button
             appearance={appearance}
-            spacing="compact"
-            iconBefore={<Page label="">create issue</Page>}
-          >
-            Create Issue
-          </Button>
-          <span>compact</span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button
-            appearance={appearance}
-            onClick={() => console.log('clicking the Component')}
-            spacing="compact"
-            isDisabled
-          >
-            Disabled Option
-          </Button>
-          <span>compact + disabled</span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button appearance={appearance} spacing="compact" isSelected>
-            Selected Option
-          </Button>
-          <span>compact + selected</span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button appearance={appearance} shouldFitContainer>
-            Create Issue
-          </Button>
-          <span>shouldFitContainer</span>
-        </div>
-
-        <div css={styles.sample}>
-          <Button
-            appearance={appearance}
-            iconBefore={<Page label="" />}
-            shouldFitContainer
-          >
-            Comment
-          </Button>
-          <span>shouldFitContainer with page icon</span>
-        </div>
-        <div css={styles.sample}>
-          <Button
-            appearance={appearance}
-            iconBefore={<Page label="page icon" />}
-            shouldFitContainer
+            spacing="none"
+            iconBefore={<Unlink label="unlink icon">unlink</Unlink>}
           />
-          <span>shouldFitContainer icon only</span>
+          <Button
+            appearance={appearance}
+            spacing="none"
+            isSelected
+            iconBefore={<Unlink label="unlink icon">unlink selected</Unlink>}
+          />
+          <Button
+            appearance={appearance}
+            spacing="none"
+            iconBefore={<Open label="open icon">open</Open>}
+          />
+          <Button
+            appearance={appearance}
+            spacing="none"
+            isSelected
+            iconBefore={<Open label="open icon">open selected</Open>}
+          />
         </div>
+        <span>button with icons, no spacing &amp; selected</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button appearance={appearance} spacing="compact">
+          Create Issue
+        </Button>
+        <Button
+          appearance={appearance}
+          spacing="compact"
+          iconBefore={<Page label="">create issue</Page>}
+        >
+          Create Issue
+        </Button>
+        <span>compact</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button
+          appearance={appearance}
+          onClick={() => console.log('clicking the Component')}
+          spacing="compact"
+          isDisabled
+        >
+          Disabled Option
+        </Button>
+        <span>compact + disabled</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button appearance={appearance} spacing="compact" isSelected>
+          Selected Option
+        </Button>
+        <span>compact + selected</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button appearance={appearance} shouldFitContainer>
+          Create Issue
+        </Button>
+        <span>shouldFitContainer</span>
+      </div>
+
+      <div css={styles.sample}>
+        <Button
+          appearance={appearance}
+          iconBefore={<Page label="" />}
+          shouldFitContainer
+        >
+          Comment
+        </Button>
+        <span>shouldFitContainer with page icon</span>
+      </div>
+      <div css={styles.sample}>
+        <Button
+          appearance={appearance}
+          iconBefore={<Page label="page icon" />}
+          shouldFitContainer
+        />
+        <span>shouldFitContainer icon only</span>
       </div>
     </div>
   );

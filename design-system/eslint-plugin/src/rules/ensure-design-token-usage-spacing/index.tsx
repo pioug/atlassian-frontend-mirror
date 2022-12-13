@@ -1,3 +1,4 @@
+/* eslint-disable @atlassian/tangerine/import/entry-points */
 import type { Rule } from 'eslint';
 import {
   callExpression,
@@ -131,7 +132,7 @@ const rule: Rule.RuleModule = {
         });
 
         const fontSizeValue = getValue(
-          // @ts-ignore
+          // @ts-expect-error
           isNodeOfType(fontSizeNode, 'Property') && fontSizeNode.value,
           context,
         );
@@ -435,15 +436,16 @@ const rule: Rule.RuleModule = {
                           .getText(node.quasi);
 
                         // find `<property>: ...;` in original
-                        const searchRegExp = new RegExp(
-                          `${rawProperty}.+?;`,
-                          'g',
-                        );
+                        const searchRegExp = new RegExp(style, 'g');
                         // replace property:val with new property:val
                         const replacement = textForSource.replace(
-                          searchRegExp,
-                          `${rawProperty}: ${replacementValue};`,
+                          searchRegExp, //  padding: ${gridSize()}px;
+                          `${rawProperty}: ${replacementValue}`,
                         );
+
+                        if (!replacement) {
+                          return [];
+                        }
 
                         return [
                           fixer.insertTextBefore(

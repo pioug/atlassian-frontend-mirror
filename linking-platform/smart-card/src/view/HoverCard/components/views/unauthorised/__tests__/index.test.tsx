@@ -68,7 +68,7 @@ describe('Unauthorised Hover Card', () => {
     expect(iconElement).toBeTruthy();
     expect(titleElement.textContent).toBe('Connect your Google account');
     expect(mainContentElement.textContent).toBe(
-      'Connect Google to Atlassian to view more details from your work and collaboration from one place. Learn more about smart link security and permissions.',
+      'Connect Google to Atlassian to view more details from your work and collaboration from one place. Learn more about Smart Links.',
     );
     expect(buttonElement.textContent).toBe('Connect to Google');
   });

@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.7.2
+
+### Patch Changes
+
+- [`ee1c940ea18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee1c940ea18) - Update unauth message across all Smart Card appearances
+
 ## 23.7.1
 
 ### Patch Changes

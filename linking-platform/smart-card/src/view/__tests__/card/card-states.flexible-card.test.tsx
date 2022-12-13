@@ -60,7 +60,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
       );
       expect(unauthorizedContent).toBeTruthy();
       expect(unauthorizedContent.textContent).toBe(
-        'Connect to Atlassian to view more details from your work and collaboration from one place. Learn more about smart link security and permissions.',
+        'Connect to Atlassian to view more details from your work and collaboration from one place. Learn more about Smart Links.',
       );
 
       const providerImage = queryByTestId(
@@ -143,7 +143,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
       );
       expect(unauthorizedContent).toBeTruthy();
       expect(unauthorizedContent.textContent).toBe(
-        'Connect Google to Atlassian to view more details from your work and collaboration from one place. Learn more about smart link security and permissions.',
+        'Connect Google to Atlassian to view more details from your work and collaboration from one place. Learn more about Smart Links.',
       );
 
       const providerImage = getByTestId(

@@ -1,5 +1,17 @@
 # @atlaskit/platform-feature-flags
 
+## 0.0.4
+
+### Patch Changes
+
+- [`d446d03215b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d446d03215b) - Add storybook enviornment variable for setting all platform feature flags to be true
+
+## 0.0.3
+
+### Patch Changes
+
+- [`f366312e13a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f366312e13a) - Add support for toggling on all the Platform Feature Flags when running unit tests
+
 ## 0.0.2
 
 ### Patch Changes

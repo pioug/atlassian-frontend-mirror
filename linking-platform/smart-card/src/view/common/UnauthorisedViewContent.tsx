@@ -42,7 +42,7 @@ const UnauthorisedViewContent = ({
       target="_blank"
       data-testid={`${testId}-learn-more`}
     >
-      <FormattedMessage {...messages.learn_more_about_smart_links_security} />
+      <FormattedMessage {...messages.learn_more_about_smart_links} />
     </a>
   </>
 );

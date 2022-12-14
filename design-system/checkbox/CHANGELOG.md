@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.4.2
+
+### Patch Changes
+
+- [`ed1b0fd2c2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed1b0fd2c2d) - [ux] Removes redundant whitespace from checkbox when no visual label is applied - eg when an aria-label or id is used instead.
+
 ## 12.4.1
 
 ### Patch Changes

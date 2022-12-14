@@ -44,6 +44,27 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  it('Should render component without display text field', async () => {
+    const url = getURL('vr-hide-display-text');
+    const page = await setup(url);
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render component without display text field with results', async () => {
+    const url = getURL('vr-hide-display-text-with-plugin');
+    const page = await setup(url);
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render component without display text field with plugins', async () => {
+    const url = getURL('vr-hide-display-text-with-multiple-plugins');
+    const page = await setup(url);
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('Should render component to edit a link', async () => {
     const url = getURL('vr-edit-link');
     const page = await setup(url);
@@ -203,8 +224,7 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 09/11/2022: https://product-fabric.atlassian.net/browse/EDM-4975
-  it.skip('Should render tabs with multiple plugins and click forward arrow to see more tabs', async () => {
+  it('Should render tabs with multiple plugins and click forward arrow to see more tabs', async () => {
     const url = getURL('vr-with-multiple-plugins');
     const page = await setup(url);
 

@@ -125,6 +125,8 @@ export interface LinkPickerProps {
   component?: React.ComponentType<
     Partial<LinkPickerProps> & { children: React.ReactElement }
   >;
+  /** Hides the link picker display text field if set to true. */
+  hideDisplayText?: boolean;
   featureFlags?: Record<string, unknown>;
 }
 
@@ -189,6 +191,7 @@ function LinkPicker({
   plugins,
   url: initUrl,
   displayText: initDisplayText,
+  hideDisplayText,
   featureFlags,
 }: LinkPickerProps) {
   const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -491,19 +494,21 @@ function LinkPicker({
         onKeyDown={handleKeyDown}
         onChange={handleChangeUrl}
       />
-      <DisplayTextInputField
-        autoComplete="off"
-        name="displayText"
-        testId={testIds.textInputField}
-        value={displayText}
-        label={intl.formatMessage(linkTextMessages.linkTextLabel)}
-        placeholder={intl.formatMessage(linkTextMessages.linkTextPlaceholder)}
-        clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
-        aria-label={intl.formatMessage(linkTextMessages.linkTextAriaLabel)}
-        onClear={handleClear}
-        onKeyDown={handleKeyDown}
-        onChange={handleChangeText}
-      />
+      {!hideDisplayText && (
+        <DisplayTextInputField
+          autoComplete="off"
+          name="displayText"
+          testId={testIds.textInputField}
+          value={displayText}
+          label={intl.formatMessage(linkTextMessages.linkTextLabel)}
+          placeholder={intl.formatMessage(linkTextMessages.linkTextPlaceholder)}
+          clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
+          aria-label={intl.formatMessage(linkTextMessages.linkTextAriaLabel)}
+          onClear={handleClear}
+          onKeyDown={handleKeyDown}
+          onChange={handleChangeText}
+        />
+      )}
       {isActivePlugin && !!queryState && (
         <Fragment>
           {tabs.length > 0 && (

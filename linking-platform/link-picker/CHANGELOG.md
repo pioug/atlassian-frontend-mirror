@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.15.0
+
+### Minor Changes
+
+- [`b7ace618362`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7ace618362) - [ux] EDM-3578: adding a prop hideDisplayText for link picker to allow support that stops rendering of the display text field in link picker if prop is set to true.
+
 ## 1.14.0
 
 ### Minor Changes

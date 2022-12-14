@@ -12,13 +12,16 @@ import theme from './theme';
 
 const labelStyles = css({
   display: 'grid',
-  gap: '0 4px',
   gridAutoColumns: '1fr',
   gridAutoRows: 'min-content',
-  gridTemplateColumns: 'min-content auto',
   color: token('color.text', N900),
   cursor: 'default',
-  fontFamily: fontFamily,
+  fontFamily: token('font.family.sans', fontFamily),
+});
+
+const textLabelLayoutStyles = css({
+  gap: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
+  gridTemplateColumns: 'min-content auto',
 });
 
 const disabledStyles = css({
@@ -94,6 +97,7 @@ export default function Label({
   isDisabled,
   testId,
   onClick,
+  label,
   id,
 }: LabelProps) {
   const { mode } = useGlobalTheme();
@@ -103,6 +107,7 @@ export default function Label({
     <label
       css={[
         labelStyles,
+        label && textLabelLayoutStyles,
         isDisabled && disabledStyles,
         mode === 'light' && themeStyles.light,
         mode === 'dark' && themeStyles.dark,

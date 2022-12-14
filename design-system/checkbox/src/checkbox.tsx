@@ -14,6 +14,7 @@ import { css, jsx } from '@emotion/react';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { token } from '@atlaskit/tokens';
 
 import { CheckboxIcon, Label, LabelText, RequiredIndicator } from './internal';
 import type { CheckboxProps } from './types';
@@ -22,7 +23,7 @@ import type { CheckboxProps } from './types';
 const checkboxStyles = css({
   width: '100%',
   height: '100%',
-  margin: 0,
+  margin: token('space.0', '0px'),
   appearance: 'none',
   border: 'none',
   gridArea: '1 / 1 / 2 / 2',
@@ -188,6 +189,7 @@ const Checkbox = memo(
     return (
       <Label
         isDisabled={isDisabled}
+        label={label as string}
         id={rest.id ? `${rest.id}-label` : undefined}
         testId={testId && `${testId}--checkbox-label`}
       >

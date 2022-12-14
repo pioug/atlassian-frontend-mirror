@@ -4,10 +4,8 @@ import { css, jsx } from '@emotion/react';
 import { R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { gridSize } from './constants';
-
 const requiredIndicatorStyles = css({
-  paddingLeft: gridSize * 0.25,
+  paddingLeft: token('space.025', '2px'),
   color: token('color.text.danger', R500),
 });
 

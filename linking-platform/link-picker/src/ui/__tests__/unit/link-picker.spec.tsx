@@ -342,6 +342,43 @@ describe('<LinkPicker />', () => {
       );
     });
 
+    describe('with hide display text', () => {
+      it('should not be visible', async () => {
+        const { testIds } = setupLinkPicker({
+          hideDisplayText: true,
+        });
+
+        expect(screen.queryByTestId(testIds.textInputField)).toBeNull();
+      });
+
+      it('should submit with existing display text', async () => {
+        const { testIds, onSubmitMock } = setupLinkPicker({
+          hideDisplayText: true,
+          displayText: 'Atlassian',
+        });
+
+        await user.type(
+          screen.getByTestId(testIds.urlInputField),
+          'www.atlassian.com',
+        );
+        fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+
+        expect(onSubmitMock).toHaveBeenCalledTimes(1);
+        expect(onSubmitMock).toHaveBeenCalledWith(
+          {
+            url: 'http://www.atlassian.com',
+            title: null,
+            displayText: 'Atlassian',
+            rawUrl: 'www.atlassian.com',
+            meta: {
+              inputMethod: 'manual',
+            },
+          },
+          expect.any(UIAnalyticsEvent),
+        );
+      });
+    });
+
     describe('onContentResize', () => {
       /**
        * Two calls to onContentResize are expected on setup,

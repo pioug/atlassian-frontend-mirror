@@ -24,7 +24,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/link-picker": "^1.14.0",
+    "@atlaskit/link-picker": "^1.15.0",
     "@babel/runtime": "^7.0.0",
     "@testing-library/react": "^12.1.5",
     "react-intl-next": "npm:react-intl@^5.18.1"

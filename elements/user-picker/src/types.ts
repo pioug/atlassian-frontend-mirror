@@ -242,6 +242,7 @@ export interface ExternalUser extends User {
   externalUserType?: 'crossSite' | 'thirdParty';
   requiresSourceHydration?: boolean;
   sources: UserSource[];
+  hasProductAccess?: boolean;
 }
 
 export interface User extends OptionData {

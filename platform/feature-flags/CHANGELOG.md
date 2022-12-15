@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.0.5
+
+### Patch Changes
+
+- [`1f19e1fe8c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f19e1fe8c9) - Fix running unit tests and Storybook when Platform FF are enabled
+
 ## 0.0.4
 
 ### Patch Changes

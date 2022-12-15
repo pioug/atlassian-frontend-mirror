@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -41,6 +41,7 @@ export default function Image({
   ...props
 }: ImageProps) {
   const imgRef = useRef<HTMLImageElement>(null);
+  const [colorMode, setColorMode] = useState('');
   const theme = useThemeObserver();
 
   useEffect(() => {
@@ -55,9 +56,18 @@ export default function Image({
     }
   }, [src, srcDark, theme]);
 
+  /**
+   * TODO: Remove the following once useThemeObserver reports `color-mode`
+   */
+  useEffect(() => {
+    setColorMode(
+      document.documentElement.getAttribute('data-color-mode') || '',
+    );
+  }, [theme, setColorMode]);
+
   return (
     <picture>
-      {srcDark && (
+      {srcDark && colorMode === 'auto' && (
         <source srcSet={srcDark} media="(prefers-color-scheme: dark)" />
       )}
       <img

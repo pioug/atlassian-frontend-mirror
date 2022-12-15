@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.7.0
+
+### Minor Changes
+
+- [`f1bb023364d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1bb023364d) - Add optional field `hasProductAccess` to `ExternalUser`.
+
 ## 9.6.3
 
 ### Patch Changes

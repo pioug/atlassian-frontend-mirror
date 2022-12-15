@@ -1,4 +1,4 @@
-import { debug, TESTS_MODE } from './debug';
+import { debug } from './debug';
 
 type FeatureFlagRegistry = Record<string, boolean>;
 
@@ -58,7 +58,7 @@ const store = new Proxy(registry, {
   },
 
   get(target, key: string): boolean | undefined {
-    if (TESTS_MODE && IN_TESTS_ENABLE_PLATFORM_FF) {
+    if (IN_TESTS_ENABLE_PLATFORM_FF) {
       debug(
         '[%s]: The feature flags were enabled while running tests. The flag "%s" will be always enabled.',
         pkgName,

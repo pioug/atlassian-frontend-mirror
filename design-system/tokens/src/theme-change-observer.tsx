@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { COLOR_MODE_ATTRIBUTE } from './constants';
+import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
 import { ThemeIds } from './theme-config';
 
 const getGlobalTheme = (): ThemeIds | null =>
@@ -37,7 +37,7 @@ export class ThemeMutationObserver {
     }
 
     this.observer.observe(document.documentElement, {
-      attributeFilter: [COLOR_MODE_ATTRIBUTE],
+      attributeFilter: [THEME_DATA_ATTRIBUTE],
     });
   }
 

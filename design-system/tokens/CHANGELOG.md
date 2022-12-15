@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.11.5
+
+### Patch Changes
+
+- [`bcef9745338`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcef9745338) - useThemeObserver now exclusively watches `data-theme` instead of `data-color-mode` to ensure all changes to the theme attr trigger an event. Previously, if a theme moved from light theme, which had a mode="light", to another theme such as legacy-light with the same mode, no event will be triggered.
+
 ## 0.11.4
 
 ### Patch Changes

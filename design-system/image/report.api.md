@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -38,3 +39,15 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

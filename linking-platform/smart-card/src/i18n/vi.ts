@@ -24,6 +24,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Kết nối tài khoản {context} của bạn',
   'fabric.linking.connect_to': 'Kết nối với {name}',
+  'fabric.linking.connect_unauthorised_account_action': 'Kết nối với {context}',
   'fabric.linking.couldnt_load_link':
     'Chúng tôi không thể tải đường liên kết này vì một lý do không xác định.',
   'fabric.linking.create_on_absolute': 'Đã tạo vào {context}',
@@ -39,6 +40,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bạn cần có quyền truy cập hoặc thử một tài khoản khác để xem bản xem trước này.',
   'fabric.linking.join_to_view': 'Tham gia {context} để xem vấn đề này',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Tìm hiểu thêm về các quyền và bảo mật liên kết thông minh',
   'fabric.linking.loading': 'Đang tải...',
   'fabric.linking.modified_on_absolute': 'Đã cập nhật trên {context}',
   'fabric.linking.modified_on_relative': 'Đã cập nhật {context}',
@@ -47,9 +50,13 @@ export default {
     'Chúng tôi không thể tìm thấy đường liên kết này. Hãy kiểm tra url và thử chỉnh sửa hoặc dán lại.',
   'fabric.linking.not_found_title':
     'Ôi! Chúng tôi không thể tìm thấy liên kết này!',
+  'fabric.linking.open_link_in_a_new_tab': 'Mở liên kết trong tab mới',
   'fabric.linking.pending_request':
     'Đang chờ xử lý yêu cầu quyền truy cập của bạn',
-  'fabric.linking.preview': 'Xem trước',
+  'fabric.linking.preview': 'Chế độ xem toàn màn hình',
+  'fabric.linking.preview_close': 'Đóng bản xem trước',
+  'fabric.linking.preview_max_size': 'Xem toàn màn hình',
+  'fabric.linking.preview_min_size': 'Đóng toàn màn hình',
   'fabric.linking.priority_blocker': 'Trở ngại',
   'fabric.linking.priority_critical': 'Rất cao',
   'fabric.linking.priority_high': 'Cao',

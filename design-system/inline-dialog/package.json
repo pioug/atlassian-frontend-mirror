@@ -22,12 +22,14 @@
     "website": {
       "name": "Inline dialog",
       "status": {
-        "type": "Intent to deprecate",
+        "type": "intent-to-deprecate",
         "description": "We are planning on deprecating Inline dialog. We recommend using the Popup component instead.",
-        "action": {
-          "text": "View Popup documentation",
-          "link": "https://atlassian.design/components/popup/examples"
-        }
+        "actions": [
+          {
+            "text": "View Popup documentation",
+            "href": "https://atlassian.design/components/popup/examples"
+          }
+        ]
       },
       "category": "Components"
     }

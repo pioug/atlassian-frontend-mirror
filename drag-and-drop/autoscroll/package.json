@@ -14,7 +14,9 @@
     "website": {
       "name": "Auto scroll",
       "category": "Libraries",
-      "draft": true
+      "status": {
+        "type": "alpha"
+      }
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

@@ -25,6 +25,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Połącz konto {context}',
   'fabric.linking.connect_to': 'Połącz z {name}',
+  'fabric.linking.connect_unauthorised_account_action': 'Połącz z {context}',
   'fabric.linking.couldnt_load_link':
     'Z nieznanego powodu nie udało się wczytać tego łącza.',
   'fabric.linking.create_on_absolute': 'Utworzono {context}',
@@ -48,9 +49,13 @@ export default {
   'fabric.linking.not_found_description':
     'Nie udało się znaleźć łącza. Sprawdź adres url i spróbuj go edytować lub wkleić ponownie.',
   'fabric.linking.not_found_title': 'Niestety. Nie można znaleźć tego łącza!',
+  'fabric.linking.open_link_in_a_new_tab': 'Otwórz łącze na nowej karcie',
   'fabric.linking.pending_request':
     'Twój wniosek o dostęp oczekuje na rozpatrzenie',
-  'fabric.linking.preview': 'Podgląd',
+  'fabric.linking.preview': 'Widok pełnoekranowy',
+  'fabric.linking.preview_close': 'Zamknij podgląd',
+  'fabric.linking.preview_max_size': 'Wyświetl na pełnym ekranie',
+  'fabric.linking.preview_min_size': 'Zamknij widok pełnoekranowy',
   'fabric.linking.priority_blocker': 'Bloker',
   'fabric.linking.priority_critical': 'Krytyczny',
   'fabric.linking.priority_high': 'Wysoki',

@@ -4,11 +4,15 @@ import { FC } from 'react';
 import { jsx } from '@emotion/react';
 
 type TableProps = {
+  /**
+   * A `testId` prop is a unique string that appears as a data attribute `data-testid`
+   * in the rendered code, serving as a hook for automated tests.
+   */
   testId?: string;
   /**
    * Accessible description of the table data.
    *
-   * @see https://www.w3.org/WAI/EO/Drafts/tutorials/tables/summary/
+   * @see 'https://www.w3.org/WAI/EO/Drafts/tutorials/tables/summary/'
    */
   summary?: string;
 };

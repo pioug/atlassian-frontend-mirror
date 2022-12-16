@@ -4,7 +4,7 @@ import { getDefaultResponse } from './utils';
 import { BatchResponse, isSuccessfulResponse, request } from './client-utils';
 
 class JsonldEditorClient extends CardClient {
-  private readonly resolveUrl: string =
+  private readonly orsBaseURL: string =
     'https://pug.jira-dev.com/gateway/api/object-resolver';
   private readonly onFetch?: () => JsonLd.Response | undefined;
   private readonly onResolve?: (response: JsonLd.Response) => void;
@@ -44,7 +44,7 @@ class JsonldEditorClient extends CardClient {
     // Fetch with ari context
     if (this.ari) {
       const data = [{ resourceUrl: url, context: this.ari }];
-      return request('post', `${this.resolveUrl}/resolve/batch`, data)
+      return request('post', `${this.orsBaseURL}/resolve/batch`, data)
         .then((resolvedUrls: BatchResponse = []) => {
           const response = resolvedUrls[0];
           if (!isSuccessfulResponse(response)) {

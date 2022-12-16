@@ -24,6 +24,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     '{context} hesabınızı bağlayın',
   'fabric.linking.connect_to': '{name} hesabını bağlan',
+  'fabric.linking.connect_unauthorised_account_action':
+    '{context} hesabını bağlayın',
   'fabric.linking.couldnt_load_link':
     'Bilinmeyen bir nedenden dolayı bu bağlantıyı yükleyemedik.',
   'fabric.linking.create_on_absolute': '{context} tarihinde oluşturuldu',
@@ -47,8 +49,12 @@ export default {
   'fabric.linking.not_found_description':
     "Bağlantıyı bulamadık. URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
   'fabric.linking.not_found_title': 'Hay aksi! Bu bağlantıyı bulamadık!',
+  'fabric.linking.open_link_in_a_new_tab': 'Bağlantıyı yeni sekmede aç',
   'fabric.linking.pending_request': 'Erişim talebiniz beklemede',
-  'fabric.linking.preview': 'Önizleme',
+  'fabric.linking.preview': 'Tam ekran görünümü',
+  'fabric.linking.preview_close': 'Önizlemeyi kapat',
+  'fabric.linking.preview_max_size': 'Tam ekran görüntüle',
+  'fabric.linking.preview_min_size': 'Tam ekranı kapat',
   'fabric.linking.priority_blocker': 'Engelleyici',
   'fabric.linking.priority_critical': 'Çok önemli',
   'fabric.linking.priority_high': 'Yüksek',

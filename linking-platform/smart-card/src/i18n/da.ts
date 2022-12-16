@@ -24,6 +24,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Forbind din {context}-konto',
   'fabric.linking.connect_to': 'Forbind til {name}',
+  'fabric.linking.connect_unauthorised_account_action': 'Forbind til {context}',
   'fabric.linking.couldnt_load_link':
     'Af en ukendt årsag kunne vi ikke indlæse dette link.',
   'fabric.linking.create_on_absolute': 'Oprettet {context}',
@@ -39,6 +40,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
   'fabric.linking.join_to_view': 'Deltag i {context} for at se denne sag',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Få mere at vide om Smart Link-sikkerhed og -tilladelser.',
   'fabric.linking.loading': 'Indlæser ...',
   'fabric.linking.modified_on_absolute': 'Opdateret {context}',
   'fabric.linking.modified_on_relative': 'Opdateret: {context}',
@@ -46,9 +49,13 @@ export default {
   'fabric.linking.not_found_description':
     'Vi kunne ikke finde linket. Kontrollér og rediger URL-adressen, eller indsæt den igen.',
   'fabric.linking.not_found_title': 'Ups. Vi kan ikke finde dette link!',
+  'fabric.linking.open_link_in_a_new_tab': 'Åbn link i en ny fane',
   'fabric.linking.pending_request':
     'Din anmodning om adgang afventer behandling',
-  'fabric.linking.preview': 'Vis',
+  'fabric.linking.preview': 'Fuldskærmsvisning',
+  'fabric.linking.preview_close': 'Luk forhåndsvisning',
+  'fabric.linking.preview_max_size': 'Vis fuld skærm',
+  'fabric.linking.preview_min_size': 'Luk fuld skærm',
   'fabric.linking.priority_blocker': 'Blokering',
   'fabric.linking.priority_critical': 'Kritisk',
   'fabric.linking.priority_high': 'Høj',

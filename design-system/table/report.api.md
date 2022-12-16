@@ -59,7 +59,6 @@ interface CellProps {
   name: string;
   // (undocumented)
   onClick?: React.MouseEventHandler;
-  // (undocumented)
   testId?: string;
 }
 

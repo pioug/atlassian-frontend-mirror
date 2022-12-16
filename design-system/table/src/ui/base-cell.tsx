@@ -9,10 +9,28 @@ import Inline from '@atlaskit/ds-explorations/inline';
 import { token } from '@atlaskit/tokens';
 
 export type BaseCellProps = {
+  /**
+   * Horizontal alignment of content.
+   */
   align?: keyof typeof alignMap;
+  /**
+   * Whether the cell should render as a `td` or `th` element.
+   */
   as?: 'td' | 'th';
+  /**
+   * Same behavior as the HTML attribute.
+   *
+   * @see 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attr-scope'
+   */
   scope?: 'col' | 'row';
+  /**
+   * A `testId` prop is a unique string that appears as a data attribute `data-testid`
+   * in the rendered code, serving as a hook for automated tests.
+   */
   testId?: string;
+  /**
+   * Content of the cell.
+   */
   children?: ReactNode;
 } & Pick<
   BoxProps,

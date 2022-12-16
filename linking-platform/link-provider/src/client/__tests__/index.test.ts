@@ -549,8 +549,10 @@ describe('Smart Card: Client', () => {
 
     it('fails silently when prefetching data (stops prefetching) with exponential backoff for an errored URL which recovers with fetch flow', async () => {
       // We place one successful mock at the start to represent the calling
-      // of `client.fetchData()` and it succeeding.
-      mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+      // of `client.fetchData()` and it succeeding
+      // Note, that by successful we mean == not an error. We use unauthorized specifically to avoid
+      // response being cached by `urlResponsePromiseCache`, but still be registered in `resolvedCache`.
+      mockRequest.mockImplementationOnce(async () => [unauthorizedResponse]);
       // Then, we setup our prefetchers, with the last link failing to resolve,
       // even after retrying with backoff.
       mockRequest.mockImplementationOnce(async () => [
@@ -568,7 +570,7 @@ describe('Smart Card: Client', () => {
 
       // Kickoff a proper fetch of the URL.
       const fetchResponse = await client.fetchData(`${hostname}/3`);
-      expect(fetchResponse).toEqual(mocks.success);
+      expect(fetchResponse).toEqual(mocks.unauthorized);
 
       // Then, start prefetching - we should only prefetch once (simulating a user scrolling
       // through a page very quickly) - after which we should stop trying to prefetch with
@@ -872,6 +874,50 @@ describe('Smart Card Client with url caching', () => {
       },
     ]);
     expect(successResponsePromise).toBe(mocks.success);
+  });
+
+  it('should use cache between prefetchData and fetchData calls', async () => {
+    let delayedPromiseResolve1: Function = () => {};
+    let delayedPromiseResolve2: Function = () => {};
+
+    const delayedPromise1 = new Promise(resolve => {
+      delayedPromiseResolve1 = resolve;
+    });
+    const delayedPromise2 = new Promise(resolve => {
+      delayedPromiseResolve2 = resolve;
+    });
+
+    mockRequest.mockReturnValueOnce(delayedPromise1);
+    mockRequest.mockReturnValueOnce(delayedPromise2);
+
+    const client = new SmartCardClient();
+
+    const firstSuccessResponsePromise = client.fetchData(
+      `${hostname}/first/success`,
+    );
+
+    await flushPromises();
+
+    const secondSuccessResponsePromise = client.prefetchData(
+      `${hostname}/first/success`,
+    );
+
+    delayedPromiseResolve1([successfulResponse]);
+
+    const firstSuccessResponse = await firstSuccessResponsePromise;
+
+    delayedPromiseResolve2([successfulResponse]);
+
+    const secondSuccessResponse = await secondSuccessResponsePromise;
+
+    expect(mockRequest).toBeCalledTimes(1);
+    expect(mockRequest).toBeCalledWith('post', expectedDefaultResolveBatchUrl, [
+      {
+        resourceUrl: `${hostname}/first/success`,
+      },
+    ]);
+    expect(firstSuccessResponse).toBe(mocks.success);
+    expect(secondSuccessResponse).toBe(mocks.success);
   });
 });
 

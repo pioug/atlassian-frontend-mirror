@@ -12,7 +12,9 @@
     "website": {
       "name": "Drag and drop",
       "category": "Libraries",
-      "draft": true
+      "status": {
+        "type": "alpha"
+      }
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

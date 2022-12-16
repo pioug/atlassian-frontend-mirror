@@ -24,6 +24,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Koble til {context}-kontoen din',
   'fabric.linking.connect_to': 'Koble til {name}',
+  'fabric.linking.connect_unauthorised_account_action': 'Koble til {context}',
   'fabric.linking.couldnt_load_link':
     'Vi kan ikke laste inn denne koblingen av ukjent grunn.',
   'fabric.linking.create_on_absolute': 'Opprettet {context}',
@@ -46,9 +47,13 @@ export default {
   'fabric.linking.not_found_description':
     'Vi finner ikke koblingen. Sjekk URL-en og prøv å redigere den, eller lim inn på nytt.',
   'fabric.linking.not_found_title': 'Oi sann. VI finner ikke denne koblingen.',
+  'fabric.linking.open_link_in_a_new_tab': 'Åpne kobling i en ny fane',
   'fabric.linking.pending_request':
     'Avventer svar på forespørselen din om tilgang',
-  'fabric.linking.preview': 'Forhåndsvisning',
+  'fabric.linking.preview': 'Fullskjermvisning',
+  'fabric.linking.preview_close': 'Lukk forhåndsvisning',
+  'fabric.linking.preview_max_size': 'Vis fullskjerm',
+  'fabric.linking.preview_min_size': 'Lukk fullskjerm',
   'fabric.linking.priority_blocker': 'Blokkering',
   'fabric.linking.priority_critical': 'Kritisk',
   'fabric.linking.priority_high': 'Høy',

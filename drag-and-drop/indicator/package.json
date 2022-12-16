@@ -9,7 +9,9 @@
     "website": {
       "name": "Drop indicator",
       "category": "Libraries",
-      "draft": true
+      "status": {
+        "type": "alpha"
+      }
     }
   },
   "publishConfig": {

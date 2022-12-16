@@ -23,6 +23,7 @@ export default {
     '이 링크의 미리 보기를 표시하려면 {context} 계정을 연결하세요.',
   'fabric.linking.connect_link_account_card_view_name': '{context} 계정 연결',
   'fabric.linking.connect_to': '{name}에 연결',
+  'fabric.linking.connect_unauthorised_account_action': '{context}에 연결',
   'fabric.linking.couldnt_load_link':
     '알 수 없는 이유로 인해 이 링크를 로드할 수 없습니다.',
   'fabric.linking.create_on_absolute': '{context}에 만듦',
@@ -38,6 +39,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     '이 미리 보기를 확인하려면 액세스를 요청하거나 다른 계정으로 시도해야 합니다.',
   'fabric.linking.join_to_view': '{context}에 참여하여 이 이슈 보기',
+  'fabric.linking.learn_more_about_smart_links_security':
+    '스마트 링크 보안 및 권한에 대해 자세히 알아보세요.',
   'fabric.linking.loading': '로드 중...',
   'fabric.linking.modified_on_absolute': '{context}에 업데이트',
   'fabric.linking.modified_on_relative': '{context}에 업데이트',
@@ -45,8 +48,12 @@ export default {
   'fabric.linking.not_found_description':
     '링크를 찾을 수 없습니다. URL을 확인하고 편집하거나 다시 붙여넣으세요.',
   'fabric.linking.not_found_title': '죄송합니다. 이 링크를 찾을 수 없습니다.',
+  'fabric.linking.open_link_in_a_new_tab': '새 탭에서 링크 열기',
   'fabric.linking.pending_request': '액세스 요청이 보류 중입니다',
-  'fabric.linking.preview': '미리 보기',
+  'fabric.linking.preview': '전체 화면 보기',
+  'fabric.linking.preview_close': '미리 보기 닫기',
+  'fabric.linking.preview_max_size': '전체 화면 보기',
+  'fabric.linking.preview_min_size': '전체 화면 닫기',
   'fabric.linking.priority_blocker': '블로커',
   'fabric.linking.priority_critical': '중요',
   'fabric.linking.priority_high': '높음',

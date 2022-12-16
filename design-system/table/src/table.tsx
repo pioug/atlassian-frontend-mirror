@@ -9,6 +9,10 @@ import { SortKey, TableProvider } from './hooks/use-table';
 import * as Primitives from './ui';
 
 export type TableProps<ItemType extends object = {}> = {
+  /**
+   * A `testId` prop is a unique string that appears as a data attribute `data-testid`
+   * in the rendered code, serving as a hook for automated tests.
+   */
   testId?: string;
   /**
    * default sort key to be applied. If unspecified will use default ordering

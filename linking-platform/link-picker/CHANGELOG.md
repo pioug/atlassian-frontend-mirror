@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.15.1
+
+### Patch Changes
+
+- [`4a83c28f27b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a83c28f27b) - Add support for inline SVGs in ListItem by converting them to Base64 images
+
 ## 1.15.0
 
 ### Minor Changes

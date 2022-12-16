@@ -24,6 +24,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Connetti il tuo account {context}',
   'fabric.linking.connect_to': 'Collegati a {name}',
+  'fabric.linking.connect_unauthorised_account_action': 'Connetti a {context}',
   'fabric.linking.couldnt_load_link':
     'Non è stato possibile caricare questo link per un motivo sconosciuto.',
   'fabric.linking.create_on_absolute': 'Creazione: {context}',
@@ -40,6 +41,8 @@ export default {
     "Per visualizzare quest'anteprima devi richiedere l'accesso o provare con un altro account.",
   'fabric.linking.join_to_view':
     'Unisciti a {context} per visualizzare questo ticket',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Scopri di più sulla sicurezza e sulle autorizzazioni degli Smart Link.',
   'fabric.linking.loading': 'Caricamento in corso...',
   'fabric.linking.modified_on_absolute': 'Aggiornato il {context}',
   'fabric.linking.modified_on_relative': 'Aggiornamento: {context}',
@@ -47,8 +50,12 @@ export default {
   'fabric.linking.not_found_description':
     "Non è stato possibile trovare il link. Controlla l'URL e prova a modificarlo o a incollarlo di nuovo.",
   'fabric.linking.not_found_title': 'Errore. Impossibile trovare questo link.',
+  'fabric.linking.open_link_in_a_new_tab': 'Apri link in una nuova scheda',
   'fabric.linking.pending_request': 'La tua richiesta di accesso è in sospeso',
-  'fabric.linking.preview': 'Anteprima',
+  'fabric.linking.preview': 'Visualizzazione a schermo intero',
+  'fabric.linking.preview_close': "Chiudi l'anteprima",
+  'fabric.linking.preview_max_size': 'Visualizza a schermo intero',
+  'fabric.linking.preview_min_size': 'Esci da schermo intero',
   'fabric.linking.priority_blocker': 'Bloccante',
   'fabric.linking.priority_critical': 'Critico',
   'fabric.linking.priority_high': 'Alta',

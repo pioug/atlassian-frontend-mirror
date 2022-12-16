@@ -25,6 +25,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Verbinden Sie Ihr {context}-Konto',
   'fabric.linking.connect_to': 'Mit {name} verbinden',
+  'fabric.linking.connect_unauthorised_account_action':
+    'Mit {context} verbinden',
   'fabric.linking.couldnt_load_link':
     'Dieser Link konnte aus unbekannten Gründen nicht geladen werden.',
   'fabric.linking.create_on_absolute': 'Erstellt am: {context}',
@@ -49,8 +51,12 @@ export default {
     'Der Link konnte nicht gefunden werden. Überprüfen Sie die URL und versuchen Sie die Bearbeitung oder das Einfügen erneut.',
   'fabric.linking.not_found_title':
     'Oh! Diese Verknüpfung konnte nicht gefunden werden!',
+  'fabric.linking.open_link_in_a_new_tab': 'Link in neuer Registerkarte öffnen',
   'fabric.linking.pending_request': 'Ihre Zugriffsanfrage ist ausstehend.',
-  'fabric.linking.preview': 'Vorschau',
+  'fabric.linking.preview': 'Vollbildansicht',
+  'fabric.linking.preview_close': 'Vorschau beenden',
+  'fabric.linking.preview_max_size': 'Vollbildansicht anzeigen',
+  'fabric.linking.preview_min_size': 'Vollbildansicht beenden',
   'fabric.linking.priority_blocker': 'Blocker',
   'fabric.linking.priority_critical': 'Kritisch',
   'fabric.linking.priority_high': 'Hoch',

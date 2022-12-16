@@ -25,6 +25,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Conecta tu cuenta de {context}',
   'fabric.linking.connect_to': 'Conectarse a {name}',
+  'fabric.linking.connect_unauthorised_account_action':
+    'Conectarse a {context}',
   'fabric.linking.couldnt_load_link':
     'Por algún motivo que desconocemos, no hemos podido cargar este enlace.',
   'fabric.linking.create_on_absolute': 'Creación: {context}',
@@ -48,7 +50,10 @@ export default {
     'No hemos encontrado el enlace. Comprueba la URL y prueba a editarla, o pégala de nuevo.',
   'fabric.linking.not_found_title': '¡Vaya! No encontramos este enlace',
   'fabric.linking.pending_request': 'Tu solicitud de acceso está pendiente',
-  'fabric.linking.preview': 'Vista previa',
+  'fabric.linking.preview': 'Vista de pantalla completa',
+  'fabric.linking.preview_close': 'Cerrar vista previa',
+  'fabric.linking.preview_max_size': 'Ver a pantalla completa',
+  'fabric.linking.preview_min_size': 'Cerrar pantalla completa',
   'fabric.linking.priority_blocker': 'Impedimento',
   'fabric.linking.priority_critical': 'Crítica',
   'fabric.linking.priority_high': 'Alta',

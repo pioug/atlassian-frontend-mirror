@@ -14,7 +14,10 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Image",
-      "category": "Components"
+      "category": "Components",
+      "status": {
+        "type": "beta"
+      }
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

@@ -24,6 +24,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Connectez votre compte {context}',
   'fabric.linking.connect_to': 'Se connecter à {name}',
+  'fabric.linking.connect_unauthorised_account_action':
+    'Se connecter à {context}',
   'fabric.linking.couldnt_load_link':
     'Impossible de charger ce lien pour une raison inconnue.',
   'fabric.linking.create_on_absolute': 'Créé : {context}',
@@ -39,6 +41,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "Vous devrez demander l'accès ou essayer un autre compte pour afficher cet aperçu.",
   'fabric.linking.join_to_view': 'Rejoignez {context} pour consulter ce ticket',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'En savoir plus sur la sécurité et les autorisations des Smart Links',
   'fabric.linking.loading': 'Chargement en cours…',
   'fabric.linking.modified_on_absolute': 'Mise à jour : {context}',
   'fabric.linking.modified_on_relative': 'Mise à jour : {context}',
@@ -46,8 +50,13 @@ export default {
   'fabric.linking.not_found_description':
     "Lien introuvable. Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
   'fabric.linking.not_found_title': 'Oups, ce lien est introuvable !',
+  'fabric.linking.open_link_in_a_new_tab':
+    'Ouvrir le lien dans un nouvel onglet',
   'fabric.linking.pending_request': "Votre demande d'accès est en attente",
-  'fabric.linking.preview': 'Afficher un aperçu',
+  'fabric.linking.preview': 'Affichage plein écran',
+  'fabric.linking.preview_close': "Fermer l'aperçu",
+  'fabric.linking.preview_max_size': 'Afficher le mode Plein écran',
+  'fabric.linking.preview_min_size': 'Fermer le mode Plein écran',
   'fabric.linking.priority_blocker': 'Bloqueur',
   'fabric.linking.priority_critical': 'Critique',
   'fabric.linking.priority_high': 'Élevée',

@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -279,6 +280,7 @@ const flexJustifyContentMap: {
 const flexJustifyContentMap_2: {
   center: SerializedStyles;
   flexStart: SerializedStyles;
+  'space-between': SerializedStyles;
   flexEnd: SerializedStyles;
   start: SerializedStyles;
   end: SerializedStyles;
@@ -609,3 +611,15 @@ const widthMap: {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

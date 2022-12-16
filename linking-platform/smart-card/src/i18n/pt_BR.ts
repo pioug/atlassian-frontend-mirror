@@ -24,6 +24,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Conectar a conta do {context}',
   'fabric.linking.connect_to': 'Conectar-se ao {name}',
+  'fabric.linking.connect_unauthorised_account_action': 'Conectar ao {context}',
   'fabric.linking.couldnt_load_link':
     'Não foi possível carregar esse link por um motivo desconhecido.',
   'fabric.linking.create_on_absolute': 'Data de criação em {context}',
@@ -39,6 +40,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Você precisa solicitar o acesso ou tentar usar outra conta para poder visualizar.',
   'fabric.linking.join_to_view': 'Entre em {context} para ver esse item',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Saiba mais sobre a segurança e as permissões do Smart Link.',
   'fabric.linking.loading': 'Carregando...',
   'fabric.linking.modified_on_absolute': 'Atualizado em {context}',
   'fabric.linking.modified_on_relative': 'Atualizado em {context}',
@@ -47,8 +50,12 @@ export default {
     'Não foi possível encontrar o link. Verifique a URL e tente editar ou colar de novo.',
   'fabric.linking.not_found_title':
     'Ah, não! Não foi possível encontrar o link.',
+  'fabric.linking.open_link_in_a_new_tab': 'Abrir link em uma nova guia',
   'fabric.linking.pending_request': 'A solicitação de acesso está pendente',
-  'fabric.linking.preview': 'Pré-visualizar',
+  'fabric.linking.preview': 'Visualização em tela cheia',
+  'fabric.linking.preview_close': 'Fechar pré-visualização',
+  'fabric.linking.preview_max_size': 'Exibir em tela cheia',
+  'fabric.linking.preview_min_size': 'Fechar tela cheia',
   'fabric.linking.priority_blocker': 'Gravíssima',
   'fabric.linking.priority_critical': 'Crítica',
   'fabric.linking.priority_high': 'Alta',

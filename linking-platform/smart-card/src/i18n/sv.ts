@@ -24,6 +24,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Anslut ditt {context}-konto',
   'fabric.linking.connect_to': 'Anslut till {name}',
+  'fabric.linking.connect_unauthorised_account_action': 'Anslut till {context}',
   'fabric.linking.couldnt_load_link':
     'Vi kunde inte läsa in den här länken av okänd anledning.',
   'fabric.linking.create_on_absolute': 'Skapades {context}',
@@ -39,6 +40,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
   'fabric.linking.join_to_view': 'Anslut till {context} för att visa ärendet',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Läs mer om Smart Link-säkerhet och -behörigheter.',
   'fabric.linking.loading': 'Läser in ...',
   'fabric.linking.modified_on_absolute': 'Uppdaterades {context}',
   'fabric.linking.modified_on_relative': 'Uppdaterades {context}',
@@ -46,8 +49,12 @@ export default {
   'fabric.linking.not_found_description':
     'Vi kunde inte hitta länken. Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
   'fabric.linking.not_found_title': 'Oj då. Vi kan inte hitta den här länken!',
+  'fabric.linking.open_link_in_a_new_tab': 'Öppna länk i en ny flik',
   'fabric.linking.pending_request': 'Din åtkomstförfrågan väntar på svar',
-  'fabric.linking.preview': 'Förhandsgranska',
+  'fabric.linking.preview': 'Helskärmsvy',
+  'fabric.linking.preview_close': 'Stäng förhandsvisning',
+  'fabric.linking.preview_max_size': 'Visa helskärm',
+  'fabric.linking.preview_min_size': 'Stäng helskärm',
   'fabric.linking.priority_blocker': 'Blockerare',
   'fabric.linking.priority_critical': 'Kritisk',
   'fabric.linking.priority_high': 'Hög',

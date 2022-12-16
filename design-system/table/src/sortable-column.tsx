@@ -18,6 +18,10 @@ export interface CellProps {
    * Unique key used for sorting table data by this column
    */
   name: string;
+  /**
+   * A `testId` prop is a unique string that appears as a data attribute `data-testid`
+   * in the rendered code, serving as a hook for automated tests.
+   */
   testId?: string;
   onClick?: React.MouseEventHandler;
 }

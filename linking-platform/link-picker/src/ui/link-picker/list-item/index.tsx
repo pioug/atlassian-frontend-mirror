@@ -99,6 +99,14 @@ const formatDate = (date: ListItemTimeStamp) => {
     .join(' ');
 };
 
+const isSVG = (icon: string) =>
+  icon.startsWith('<svg') && icon.endsWith('</svg>');
+
+const base64SVG = (icon: string) =>
+  `data:image/svg+xml;base64,${Buffer.from(icon).toString('base64')}`;
+
+const testId = 'link-search-list-item-icon';
+
 const ListItemIcon = (props: {
   item: LinkSearchListItemData;
   intl: IntlShape;
@@ -117,14 +125,18 @@ const ListItemIcon = (props: {
 
     return (
       <span css={itemIconStyles}>
-        <Glyph alt={alt} />
+        <Glyph alt={alt} data-testid={testId} />
       </span>
     );
   }
-
   return (
     <span css={itemIconStyles}>
-      <img src={icon} alt={alt} css={imgStyles} />
+      <img
+        data-testid={testId}
+        src={isSVG(icon) ? base64SVG(icon) : icon}
+        alt={alt}
+        css={imgStyles}
+      />
     </span>
   );
 };

@@ -24,6 +24,9 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Connect your {context} account',
   'fabric.linking.connect_to': 'Connect to {name}',
+  'fabric.linking.connect_unauthorized_account_action': 'Connect to {context}',
+  'fabric.linking.connect_unauthorized_account_description':
+    'Connect to Atlassian to view more details from your work and collaboration from one place.',
   'fabric.linking.couldnt_load_link':
     "We couldn't load this link for an unknown reason.",
   'fabric.linking.create_on_absolute': 'Created on {context}',
@@ -39,6 +42,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "You'll need to request access or try a different account to view this preview.",
   'fabric.linking.join_to_view': 'Join {context} to view this issue',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Learn more about smart link security and permissions.',
   'fabric.linking.loading': 'Loading...',
   'fabric.linking.modified_on_absolute': 'Updated on {context}',
   'fabric.linking.modified_on_relative': 'Updated {context}',
@@ -46,8 +51,12 @@ export default {
   'fabric.linking.not_found_description':
     "We couldn't find the link. Check the url and try editing or paste again.",
   'fabric.linking.not_found_title': "Uh oh. We can't find this link!",
+  'fabric.linking.open_link_in_a_new_tab': 'Open link in a new tab',
   'fabric.linking.pending_request': 'Your access request is pending',
-  'fabric.linking.preview': 'Preview',
+  'fabric.linking.preview': 'Full screen view',
+  'fabric.linking.preview_close': 'Close preview',
+  'fabric.linking.preview_max_size': 'View full screen',
+  'fabric.linking.preview_min_size': 'Close full screen',
   'fabric.linking.priority_blocker': 'Blocker',
   'fabric.linking.priority_critical': 'Critical',
   'fabric.linking.priority_high': 'High',

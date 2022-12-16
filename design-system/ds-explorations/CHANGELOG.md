@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.4.0
+
+### Minor Changes
+
+- [`7f886c0aa18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f886c0aa18) - The `Inline` component now allows children to be justified 'space-between'.
+
 ## 1.3.2
 
 ### Patch Changes

@@ -133,53 +133,7 @@ export default class CardClient implements CardClientInterface {
     return this.loadersByDomain[hostname];
   }
 
-  public async prefetchData(url: string): Promise<JsonLd.Response | undefined> {
-    // 1. Queue the URL as part of a dataloader batch.
-    const hostname = new URL(url).hostname;
-    const loader = this.getLoader(hostname);
-    const response = await loader.load(url);
-
-    if (isSuccessfulResponse(response)) {
-      // 2. If the URL resolves, send it back.
-      return response.body;
-    } else {
-      try {
-        // 3. If the URL does not resolve, retry it with exponential backoff.
-        // This is done so that we avoid the scenario where users are unable to
-        // see a resolved Smart Link, when their expectation is to be able to.
-        const retriedResponse = await retry(async () => {
-          // We check if the link has resolved in the cache and stop trying if so.
-          // We do this by triggering an error that the link has already been resolved.
-          // This cascades <retryCount> times after which it is handled like a normal
-          // 'error', returning `undefined`.
-          if (!this.resolvedCache[url]) {
-            const response = await loader.load(url);
-            if (isSuccessfulResponse(response)) {
-              return response;
-            } else {
-              throw new Error('Retry for URL failed');
-            }
-          } else {
-            // Short-circuit each of the retries, as described above.
-            throw new Error('Retry unneeded - link has been resolved.');
-          }
-        }, this.retryConfig);
-        // Trigger callback after successful backoff.
-        return retriedResponse.body;
-      } catch (err) {
-        // Do nothing in the case of an error - prefetching
-        // failures should be silent. Once a link is visible,
-        // it will be re-fetched anyhow, in which case a
-        // user-facing error is required.
-        return undefined;
-      }
-    }
-  }
-
-  public async fetchData(
-    url: string,
-    force?: boolean,
-  ): Promise<JsonLd.Response> {
+  private async resolveUrl(url: string, force: boolean = false) {
     const hostname = new URL(url).hostname;
     const loader = this.getLoader(hostname);
     let responsePromise: Promise<SuccessResponse | ErrorResponse> | undefined;
@@ -208,8 +162,59 @@ export default class CardClient implements CardClientInterface {
       urlResponsePromiseCache.remove(url);
     }
 
+    return response;
+  }
+
+  public async prefetchData(url: string): Promise<JsonLd.Response | undefined> {
+    // 1. Queue the URL as part of a dataloader batch.
+    const response = await this.resolveUrl(url, false);
+
+    if (isSuccessfulResponse(response)) {
+      // 2. If the URL resolves, send it back.
+      return response.body;
+    } else {
+      try {
+        // 3. If the URL does not resolve, retry it with exponential backoff.
+        // This is done so that we avoid the scenario where users are unable to
+        // see a resolved Smart Link, when their expectation is to be able to.
+        const retriedResponse = await retry(async () => {
+          // We check if the link has resolved in the cache and stop trying if so.
+          // We do this by triggering an error that the link has already been resolved.
+          // This cascades <retryCount> times after which it is handled like a normal
+          // 'error', returning `undefined`.
+          if (!this.resolvedCache[url]) {
+            const response = await this.resolveUrl(url, false);
+            if (isSuccessfulResponse(response)) {
+              return response;
+            } else {
+              throw new Error('Retry for URL failed');
+            }
+          } else {
+            // Short-circuit each of the retries, as described above.
+            throw new Error('Retry unneeded - link has been resolved.');
+          }
+        }, this.retryConfig);
+
+        // Trigger callback after successful backoff.
+        return retriedResponse.body;
+      } catch (err) {
+        // Do nothing in the case of an error - prefetching
+        // failures should be silent. Once a link is visible,
+        // it will be re-fetched anyhow, in which case a
+        // user-facing error is required.
+        return undefined;
+      }
+    }
+  }
+
+  public async fetchData(
+    url: string,
+    force?: boolean,
+  ): Promise<JsonLd.Response> {
+    const response = await this.resolveUrl(url, force);
+
     if (!isSuccessfulResponse(response)) {
-      throw this.mapErrorResponse(response, hostname);
+      throw this.mapErrorResponse(response, new URL(url).hostname);
     }
     // Set a flag in the `resolvedCache` for this URL. The intent of this is
     // to ensure that the exponential backoff method in `prefetchData` does

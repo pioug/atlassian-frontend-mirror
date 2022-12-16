@@ -24,6 +24,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Yhdistä {context}-tilisi',
   'fabric.linking.connect_to': 'Yhdistä kohteeseen {name}',
+  'fabric.linking.connect_unauthorised_account_action':
+    'Yhdistä kohteeseen {context}',
   'fabric.linking.couldnt_load_link':
     'Tämän linkin lataaminen epäonnistui tuntemattomasta syystä.',
   'fabric.linking.create_on_absolute': 'Luotiin {context}',
@@ -40,6 +42,8 @@ export default {
     'Pyydä käyttöoikeus tai käytä toista tiliä, jos haluat nähdä tämän esikatselun.',
   'fabric.linking.join_to_view':
     'Liity palveluun {context} niin voit tarkastella asiaa',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Lue lisää Smart Link -tietoturvasta ja käyttöoikeuksista.',
   'fabric.linking.loading': 'Ladataan...',
   'fabric.linking.modified_on_absolute': 'Päivitetty {context}',
   'fabric.linking.modified_on_relative': 'Päivitetty {context}',
@@ -47,8 +51,12 @@ export default {
   'fabric.linking.not_found_description':
     'Linkkiä ei löytynyt. Tarkista URL-osoite ja muokkaa tai liitä uudelleen.',
   'fabric.linking.not_found_title': 'Oho. Emme löydä tätä linkkiä!',
+  'fabric.linking.open_link_in_a_new_tab': 'Avaa linkki uudessa välilehdessä',
   'fabric.linking.pending_request': 'Käyttöoikeuspyyntösi on vireillä',
-  'fabric.linking.preview': 'Esikatselu',
+  'fabric.linking.preview': 'Koko näytön näkymä',
+  'fabric.linking.preview_close': 'Sulje esikatselu',
+  'fabric.linking.preview_max_size': 'Näytä koko näytöllä',
+  'fabric.linking.preview_min_size': 'Sulje koko näytön tila',
   'fabric.linking.priority_blocker': 'Esto',
   'fabric.linking.priority_critical': 'Kriittinen',
   'fabric.linking.priority_high': 'Korkea',

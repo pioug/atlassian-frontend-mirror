@@ -15,7 +15,9 @@
     "website": {
       "name": "Table",
       "category": "Components",
-      "draft": true
+      "status": {
+        "type": "alpha"
+      }
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -32,7 +34,7 @@
   "dependencies": {
     "@atlaskit/button": "^16.4.1",
     "@atlaskit/checkbox": "^12.4.1",
-    "@atlaskit/ds-explorations": "^1.3.2",
+    "@atlaskit/ds-explorations": "^1.4.0",
     "@atlaskit/ds-lib": "^2.1.2",
     "@atlaskit/focus-ring": "^1.2.1",
     "@atlaskit/icon": "^21.11.2",

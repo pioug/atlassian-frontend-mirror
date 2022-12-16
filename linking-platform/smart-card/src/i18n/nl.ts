@@ -24,6 +24,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Koppel je {context}-account',
   'fabric.linking.connect_to': 'Met {name} verbinden',
+  'fabric.linking.connect_unauthorised_account_action':
+    'Met {context} koppelen',
   'fabric.linking.couldnt_load_link':
     'Om een onbekende reden konden we deze link niet laden.',
   'fabric.linking.create_on_absolute': 'Aangemaakt op {context}',
@@ -40,6 +42,8 @@ export default {
     'Je moet om toegang vragen of een ander account proberen om deze voorvertoning te bekijken.',
   'fabric.linking.join_to_view':
     'Word lid van {context} om deze issue te bekijken',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Meer informatie over Smart Link-beveiliging en -rechten.',
   'fabric.linking.loading': 'Laden...',
   'fabric.linking.modified_on_absolute': 'Bijgewerkt op {context}',
   'fabric.linking.modified_on_relative': 'Bijgewerkt: {context}',
@@ -47,8 +51,12 @@ export default {
   'fabric.linking.not_found_description':
     'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
   'fabric.linking.not_found_title': 'Oh-oh. We kunnen deze link niet vinden.',
+  'fabric.linking.open_link_in_a_new_tab': 'Open de link in een nieuw tabblad',
   'fabric.linking.pending_request': 'Je toegangsaanvraag wordt behandeld.',
-  'fabric.linking.preview': 'Voorvertoning',
+  'fabric.linking.preview': 'Volledig schermweergave',
+  'fabric.linking.preview_close': 'Voorbeeldweergave sluiten',
+  'fabric.linking.preview_max_size': 'Volledig scherm openen',
+  'fabric.linking.preview_min_size': 'Volledig scherm sluiten',
   'fabric.linking.priority_blocker': 'Blocker',
   'fabric.linking.priority_critical': 'Kritiek',
   'fabric.linking.priority_high': 'Hoog',

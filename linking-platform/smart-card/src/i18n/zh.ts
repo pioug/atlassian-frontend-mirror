@@ -24,6 +24,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     '连接您的 {context} 帐户',
   'fabric.linking.connect_to': '连接到 {name}',
+  'fabric.linking.connect_unauthorised_account_action': '连接到 {context}',
   'fabric.linking.couldnt_load_link': '由于未知原因，无法加载此链接。',
   'fabric.linking.create_on_absolute': '创建时间：{context}',
   'fabric.linking.create_on_relative': '创建时间：{context}',
@@ -45,8 +46,12 @@ export default {
   'fabric.linking.not_found_description':
     '未找到此链接。请检查 URL，然后尝试编辑或重新粘贴。',
   'fabric.linking.not_found_title': '噢。找不到此链接！',
+  'fabric.linking.open_link_in_a_new_tab': '在新选项卡中打开链接',
   'fabric.linking.pending_request': '您的访问请求正等待处理',
-  'fabric.linking.preview': '预览',
+  'fabric.linking.preview': '全屏视图',
+  'fabric.linking.preview_close': '关闭预览',
+  'fabric.linking.preview_max_size': '全屏查看',
+  'fabric.linking.preview_min_size': '关闭全屏',
   'fabric.linking.priority_blocker': '紧急',
   'fabric.linking.priority_critical': '严重',
   'fabric.linking.priority_high': '高',

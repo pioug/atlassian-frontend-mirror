@@ -49,6 +49,7 @@ type FlexJustifyContent = keyof typeof flexJustifyContentMap;
 const flexJustifyContentMap = {
   center: css({ justifyContent: 'center' }),
   flexStart: css({ justifyContent: 'flex-start' }),
+  'space-between': css({ justifyContent: 'space-between' }),
   flexEnd: css({ justifyContent: 'flex-end' }),
   start: css({ justifyContent: 'start' }),
   end: css({ justifyContent: 'end' }),

@@ -24,6 +24,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'ご使用の {context} アカウントを接続',
   'fabric.linking.connect_to': '{name} に接続',
+  'fabric.linking.connect_unauthorised_account_action': '{context} に接続',
   'fabric.linking.couldnt_load_link':
     '不明な理由によって、このリンクを読み込めませんでした。',
   'fabric.linking.create_on_absolute': '作成日: {context}',
@@ -39,6 +40,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
   'fabric.linking.join_to_view': '{context}に参加してこの課題を見る',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Smart Link のセキュリティと権限に関する詳細についてご確認ください。',
   'fabric.linking.loading': '読み込み中…',
   'fabric.linking.modified_on_absolute': '更新日: {context}',
   'fabric.linking.modified_on_relative': '更新日: {context}',
@@ -47,17 +50,21 @@ export default {
     'リンクが見つかりませんでした。URL を確認して編集するか、もう一度貼り付けてください。',
   'fabric.linking.not_found_title':
     '申し訳ありません。リンクが見つかりません。',
+  'fabric.linking.open_link_in_a_new_tab': 'リンクを新しいタブで開く',
   'fabric.linking.pending_request': 'アクセス リクエストは保留中です。',
-  'fabric.linking.preview': 'プレビュー',
-  'fabric.linking.priority_blocker': '高',
-  'fabric.linking.priority_critical': '最高',
+  'fabric.linking.preview': '全画面表示',
+  'fabric.linking.preview_close': 'プレビューを閉じる',
+  'fabric.linking.preview_max_size': '全画面表示',
+  'fabric.linking.preview_min_size': '全画面表示を閉じる',
+  'fabric.linking.priority_blocker': 'ブロッカー',
+  'fabric.linking.priority_critical': '重度',
   'fabric.linking.priority_high': '高',
   'fabric.linking.priority_highest': '最高',
   'fabric.linking.priority_low': '低',
   'fabric.linking.priority_lowest': '最低',
-  'fabric.linking.priority_major': '中',
+  'fabric.linking.priority_major': '重大',
   'fabric.linking.priority_medium': '中',
-  'fabric.linking.priority_minor': '低',
+  'fabric.linking.priority_minor': '中度',
   'fabric.linking.priority_trivial': '最低',
   'fabric.linking.priority_undefined': '未定義',
   'fabric.linking.request_access': 'アクセスをリクエスト',

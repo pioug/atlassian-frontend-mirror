@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { Fragment, useCallback, useMemo } from 'react';
 
 import { Placement, VirtualElement } from '@popperjs/core';
 import {
@@ -7,6 +7,8 @@ import {
   PopperProps,
   Popper as ReactPopper,
 } from 'react-popper';
+
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export { placements } from '@popperjs/core';
 // Export types from PopperJS / React Popper
@@ -82,7 +84,13 @@ const constantModifiers: ModifierProps = [
 function defaultChildrenFn() {
   return null;
 }
+
 const defaultOffset: Offset = [0, 8];
+
+let siblingElement: JSX.Element | null = null;
+if (getBooleanFF('uip.popper.flex-team')) {
+  siblingElement = <em hidden data-flex="Hello from UIP"></em>;
+}
 
 export function Popper<CustomModifiers>({
   children = defaultChildrenFn,
@@ -118,6 +126,18 @@ export function Popper<CustomModifiers>({
     return [...internalModifiers, ...modifiers];
   }, [internalModifiers, modifiers]);
 
+  const wrappedChildren = useCallback(
+    (childrenProps) => {
+      return (
+        <Fragment>
+          {siblingElement}
+          {children(childrenProps)}
+        </Fragment>
+      );
+    },
+    [children],
+  );
+
   return (
     <ReactPopper
       modifiers={mergedModifiers}
@@ -125,7 +145,7 @@ export function Popper<CustomModifiers>({
       strategy={strategy}
       referenceElement={referenceElement}
     >
-      {children}
+      {wrappedChildren}
     </ReactPopper>
   );
 }

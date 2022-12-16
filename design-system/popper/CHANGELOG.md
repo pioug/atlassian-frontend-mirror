@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.4.2
+
+### Patch Changes
+
+- [`03a51e8100d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03a51e8100d) - Introduces a hidden, dummy html element to validate that our new deployment pipeline is working end-to-end.
+
 ## 5.4.1
 
 ### Patch Changes

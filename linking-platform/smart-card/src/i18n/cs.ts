@@ -25,6 +25,7 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Připojte svůj účet {context}',
   'fabric.linking.connect_to': 'Připojit k {name}',
+  'fabric.linking.connect_unauthorised_account_action': 'Připojit k: {context}',
   'fabric.linking.couldnt_load_link':
     'Tento odkaz se z neznámého důvodu nepodařilo načíst.',
   'fabric.linking.create_on_absolute': 'Vytvořeno: {context}',
@@ -48,8 +49,12 @@ export default {
   'fabric.linking.not_found_description':
     'Odkaz se nepodařilo najít. Zkontrolujte adresu URL a zkuste ji upravit nebo vložit znovu.',
   'fabric.linking.not_found_title': 'Jejda. Tento odkaz se nepodařilo najít.',
+  'fabric.linking.open_link_in_a_new_tab': 'Otevřít odkaz na nové kartě',
   'fabric.linking.pending_request': 'Vaše žádost o přístup čeká na vyřízení.',
-  'fabric.linking.preview': 'Náhled',
+  'fabric.linking.preview': 'Zobrazení na celou obrazovku',
+  'fabric.linking.preview_close': 'Zavřít náhled',
+  'fabric.linking.preview_max_size': 'Zobrazit na celé obrazovce',
+  'fabric.linking.preview_min_size': 'Zavřít zobrazení na celé obrazovce',
   'fabric.linking.priority_blocker': 'Blokující',
   'fabric.linking.priority_critical': 'Kritická',
   'fabric.linking.priority_high': 'Vysoká',

@@ -24,6 +24,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Підключіть обліковий запис {context}',
   'fabric.linking.connect_to': 'Підключення до {name}',
+  'fabric.linking.connect_unauthorised_account_action':
+    'Підключитися до {context}',
   'fabric.linking.couldnt_load_link': 'Не вдалося завантажити це посилання.',
   'fabric.linking.create_on_absolute': 'Створено {context}',
   'fabric.linking.create_on_relative': 'Створено {context}',
@@ -46,8 +48,12 @@ export default {
   'fabric.linking.not_found_description':
     'Не вдалося знайти посилання. Перевірте URL-адресу й спробуйте її відредагувати або вставити знову.',
   'fabric.linking.not_found_title': 'Ой! Не вдається знайти це посилання.',
+  'fabric.linking.open_link_in_a_new_tab': 'Відкрити посилання в новій вкладці',
   'fabric.linking.pending_request': 'Запит на надання доступу в очікуванні',
-  'fabric.linking.preview': 'Попередній перегляд',
+  'fabric.linking.preview': 'Повноекранне подання',
+  'fabric.linking.preview_close': 'Закрити вікно попереднього перегляду',
+  'fabric.linking.preview_max_size': 'Відкрити в повноекранному режимі',
+  'fabric.linking.preview_min_size': 'Вийти з повноекранного режиму',
   'fabric.linking.priority_blocker': 'Блокувальний',
   'fabric.linking.priority_critical': 'Критичний',
   'fabric.linking.priority_high': 'Високий',

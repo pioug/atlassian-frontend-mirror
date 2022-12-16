@@ -41,8 +41,18 @@ const bodyRowStyles = css({
 });
 
 interface TRProps {
+  /**
+   * A `testId` prop is a unique string that appears as a data attribute `data-testid`
+   * in the rendered code, serving as a hook for automated tests.
+   */
   testId?: string;
+  /**
+   * If the row has programatic selection applied.
+   */
   isSelected?: boolean;
+  /**
+   * Adjust the behavior of the element depending on whether the row is in the `THead` or in the `TBody`.
+   */
   isBodyRow?: boolean;
 }
 

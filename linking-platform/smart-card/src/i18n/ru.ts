@@ -24,6 +24,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Подключите свой аккаунт {context}',
   'fabric.linking.connect_to': 'Подключить к {name}',
+  'fabric.linking.connect_unauthorised_account_action':
+    'Подключиться к {context}',
   'fabric.linking.couldnt_load_link':
     'По неизвестной причине не удалось загрузить ссылку.',
   'fabric.linking.create_on_absolute': 'Создано: {context}',
@@ -40,6 +42,8 @@ export default {
     'Для предварительного просмотра этого элемента запросите право доступа или попробуйте воспользоваться другим аккаунтом.',
   'fabric.linking.join_to_view':
     'Для просмотра этой задачи выполните подключение к {context}',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'Подробнее о безопасности ссылок Smart Link и правах доступа.',
   'fabric.linking.loading': 'Загрузка…',
   'fabric.linking.modified_on_absolute': 'Обновлено {context}',
   'fabric.linking.modified_on_relative': 'Обновлено: {context}',
@@ -47,8 +51,12 @@ export default {
   'fabric.linking.not_found_description':
     'Не удалось найти ссылку. Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
   'fabric.linking.not_found_title': 'К сожалению, не удалось найти эту ссылку.',
+  'fabric.linking.open_link_in_a_new_tab': 'Открыть ссылку в новой вкладке',
   'fabric.linking.pending_request': 'Ваш запрос на доступ ожидает рассмотрения',
-  'fabric.linking.preview': 'Предпросмотр',
+  'fabric.linking.preview': 'Полноэкранный режим',
+  'fabric.linking.preview_close': 'Закрыть предварительный просмотр',
+  'fabric.linking.preview_max_size': 'На весь экран',
+  'fabric.linking.preview_min_size': 'Выйти из полноэкранного режима',
   'fabric.linking.priority_blocker': 'Блокер',
   'fabric.linking.priority_critical': 'Критический',
   'fabric.linking.priority_high': 'Высокий',

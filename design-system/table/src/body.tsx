@@ -10,7 +10,7 @@ import { useTable } from './hooks/use-table';
 import { TableBodyProvider } from './hooks/use-table-body';
 import * as Primitives from './ui';
 
-type BodyProps<Item extends object> =
+export type BodyProps<Item extends object> =
   | {
       rows: Item[];
       // eslint-disable-next-line no-unused-vars

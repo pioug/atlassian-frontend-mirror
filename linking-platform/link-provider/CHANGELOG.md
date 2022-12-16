@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.3.7
+
+### Patch Changes
+
+- [`21ec93500f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21ec93500f6) - Use same promise/response cache layer for both `fetchData` and `prefetchData` methods of `CardClient`
+
 ## 1.3.6
 
 ### Patch Changes

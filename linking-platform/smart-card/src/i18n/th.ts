@@ -24,6 +24,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'เชื่อมต่อบัญชี {context} ของคุณ',
   'fabric.linking.connect_to': 'เชื่อมต่อกับ {name}',
+  'fabric.linking.connect_unauthorised_account_action':
+    'เชื่อมต่อกับ {context}',
   'fabric.linking.couldnt_load_link':
     'เราไม่สามารถโหลดลิงก์นี้ได้ด้วยเหตุผลที่ไม่อาจทราบได้',
   'fabric.linking.create_on_absolute': 'สร้างเมื่อ {context}',
@@ -39,6 +41,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'คุณอาจจำเป็นต้องร้องขอสิทธิ์การเข้าถึงหรือลองบัญชีอื่นเพื่อดูการแสดงตัวอย่างนี้',
   'fabric.linking.join_to_view': 'เข้าร่วม {context} เพื่อดูปัญหานี้',
+  'fabric.linking.learn_more_about_smart_links_security':
+    'เรียนรู้เพิ่มเติมเกี่ยวกับความปลอดภัย Smart Link และการอนุญาต',
   'fabric.linking.loading': 'กำลังโหลด...',
   'fabric.linking.modified_on_absolute': 'อัปเดตแล้วเมื่อ {context}',
   'fabric.linking.modified_on_relative': 'อัปเดต {context} แล้ว',
@@ -46,8 +50,12 @@ export default {
   'fabric.linking.not_found_description':
     'เราไม่พบลิงก์ ตรวจสอบ URL และลองแก้ไขหรือวางอีกครั้ง',
   'fabric.linking.not_found_title': 'โอ๊ะ โอ เราไม่พบลิงก์นี้!',
+  'fabric.linking.open_link_in_a_new_tab': 'เปิดลิงก์ในแถบใหม่',
   'fabric.linking.pending_request': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
-  'fabric.linking.preview': 'แสดงตัวอย่าง',
+  'fabric.linking.preview': 'มุมมองแบบเต็มหน้าจอ',
+  'fabric.linking.preview_close': 'ปิดการแสดงตัวอย่าง',
+  'fabric.linking.preview_max_size': 'ดูหน้าจอแบบเต็ม',
+  'fabric.linking.preview_min_size': 'ปิดหน้าจอแบบเต็ม',
   'fabric.linking.priority_blocker': 'ตัวบล็อก',
   'fabric.linking.priority_critical': 'วิกฤต',
   'fabric.linking.priority_high': 'สูง',

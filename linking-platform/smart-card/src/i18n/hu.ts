@@ -24,6 +24,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Kapcsold össze a fiókodat: {context}',
   'fabric.linking.connect_to': 'Csatlakozás ehhez: {name}',
+  'fabric.linking.connect_unauthorised_account_action':
+    'Csatlakozás ehhez: {context}',
   'fabric.linking.couldnt_load_link':
     'Ismeretlen okból nem tudtuk betölteni ezt a linket.',
   'fabric.linking.create_on_absolute': 'Létrehozva ekkor: {context}',
@@ -47,8 +49,12 @@ export default {
   'fabric.linking.not_found_description':
     'Nem találtuk meg a linket. Ellenőrizd az URL-címet, és próbáld meg módosítani, vagy másold be újra.',
   'fabric.linking.not_found_title': 'Hoppá. Nem találjuk ezt a linket!',
+  'fabric.linking.open_link_in_a_new_tab': 'Link megnyitása új lapon',
   'fabric.linking.pending_request': 'A hozzáférési kérelmed függőben van',
-  'fabric.linking.preview': 'Előnézet',
+  'fabric.linking.preview': 'Teljes képernyős nézet',
+  'fabric.linking.preview_close': 'Előnézet bezárása',
+  'fabric.linking.preview_max_size': 'Megtekintés teljes képernyőn',
+  'fabric.linking.preview_min_size': 'Teljes képernyő bezárása',
   'fabric.linking.priority_blocker': 'Blokkoló',
   'fabric.linking.priority_critical': 'Kritikus',
   'fabric.linking.priority_high': 'Magas',

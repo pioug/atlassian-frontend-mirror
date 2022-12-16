@@ -21,7 +21,9 @@
     "website": {
       "name": "Core",
       "category": "Libraries",
-      "draft": true
+      "status": {
+        "type": "alpha"
+      }
     }
   },
   "af:exports": {

@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.6.0
+
+### Minor Changes
+
+- [`5335d7264c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5335d7264c1) - This change introduces a hash property to the edit, view, and page component so that Embedded Confluence recognizes the appended anchor link parameter when linking to a selected portion of a Confluence page.
+
 ## 1.5.1
 
 ### Patch Changes

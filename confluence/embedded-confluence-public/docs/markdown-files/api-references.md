@@ -142,21 +142,25 @@ There are two different types of `allowedFeatures` depending on the components.
 
 `allowedFeatures` provides a list of names of all EP features for 3rd parties. If provided, only features included in the list will be enabled, features not in the list will be disabled. `[]` will disable all features. `'all'` will enable all features. If not provided, default features will be enabled.
 
-A list of features for `ViewPage`:
+#### A list of features for `ViewPage`:
 
-- `'byline-contributors'` - **on by default**: To show/hide the contributors information, this includes contributor name and avatars
-- `'byline-extensions'` - **on by default**: To show/hide the byline extensions, this includes page read time, load time, comments count and people viewed count
-- `'page-comments'` - **on by default**: To show/hide the page comments block
-- `'page-reactions'` - **on by default**: To show/hide the page emoji reactions
-- `'delete'` - To show/hide the "Delete" menu item within the "Ellipsis" icon. If set to true, the "Delete" menu item will only show if user has delete permission.
-- `'edit'` - To show/hide the "Edit" pencil icon. If set to true, the edit icon will show if user has edit permission. To handle navigation when user clicks on the edit icon, please use `navigationPolicy`.
-- `'inline-comments'` - To show/hide inline comments and highlight button to create inline comments and Jira issues.
-- `'sticky-header'` - To show/hide sticky header.
+| Name                | Description                                                                                                                                                                                      |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| byline-contributors | **(ON BY DEFAULT)** To show/hide the contributors information, this includes contributor name and avatars.                                                                                       |
+| byline-extensions   | **(ON BY DEFAULT)** To show/hide the byline extension.                                                                                                                                           |
+| page-comments       | **(ON BY DEFAULT)** To show/hide the page comments block.                                                                                                                                        |
+| page-reactions      | **(ON BY DEFAULT)** To show/hide the page emoji reactions.                                                                                                                                       |
+| delete              | To show/hide the "Delete" menu item within the "Ellipsis" icon. If set to true, the "Delete" menu item will only show if user has delete permission.                                             |
+| edit                | To show/hide the "Edit" pencil icon. If set to true, the edit icon will show if user has edit permission. To handle navigation when user clicks on the edit icon, please use `navigationPolicy`. |
+| inline-comments     | To show/hide inline comments and highlight button to create inline comments and Jira issues.                                                                                                     |
+| sticky-header       | To show/hide sticky header.                                                                                                                                                                      |
 
-A list of features for `EditPage`:
+#### A list of features for `EditPage`:
 
-- `'delete-draft'` - To show/hide the "Delete unpublished draft" or "Revert to last published version" menu item within the "Ellipsis" icon depending on if a document has already been published or not. To handle navigation after a user deletes/reverts a page, please listen for the experience tracker event: `"taskSuccess"`of `"edit-page/revert-draft"`. If no navigation is defined by 3rd party, by default no navigation will occur and will remain on the same page after a page has been deleted/reverted. Thus please make sure some navigation is defined.
-- `'template-browser'` - To show/hide template browser in the edit page. If included, an empty edit page will show a template browser sidebar, and the ellipsis menu will include a dropdown option "Templates" to toggle the sidebar.
+| Name             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| delete-draft     | To show/hide the "Delete unpublished draft" or "Revert to last published version" menu item within the "Ellipsis" icon depending on if a document has already been published or not. To handle navigation after a user deletes/reverts a page, please listen for the experience tracker event: `"taskSuccess"`of `"edit-page/revert-draft"`. If no navigation is defined by 3rd party, by default no navigation will occur and will remain on the same page after a page has been deleted/reverted. Thus please make sure some navigation is defined. |
+| template-browser | To show/hide template browser in the edit page. If included, an empty edit page will show a template browser sidebar, and the ellipsis menu will include a dropdown option "Templates" to toggle the sidebar.                                                                                                                                                                                                                                                                                                                                         |
 
 ### `allowedFeatures` example
 
@@ -233,7 +237,7 @@ const MyComponent = props => {
 ```jsx
 import { IntlProvider } from 'react-intl';
 
-import { ViewPage } from '@atlassian/embedded-confluence';
+import { ViewPage } from '@atlaskit/embedded-confluence';
 
 const App = props => {
   return (
@@ -252,7 +256,7 @@ const App = props => {
 2. Pass `locale` as React prop
 
 ```jsx
-import { ViewPage } from '@atlassian/embedded-confluence';
+import { ViewPage } from '@atlaskit/embedded-confluence';
 
 const App = props => {
   return (

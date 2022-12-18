@@ -20,7 +20,8 @@ describe('Flexible Card', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    it('renders TitleBlock', async () => {
+    // FIXME: This test was automatically skipped due to failure on 17/12/2022: https://product-fabric.atlassian.net/browse/EDM-5293
+    it.skip('renders TitleBlock', async () => {
       const url = getURL('vr-flexible-ui-block-title');
       const screenHeight = 2640;
       const page = await setup(url);

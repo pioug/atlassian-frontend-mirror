@@ -9,6 +9,7 @@ export type TableContext<T, K extends keyof T = keyof T> = {
   isSelectable?: boolean;
   sortKey: SortKey<K>;
   sortDirection?: SortDirection;
+  sortFn?: (a: T, b: T) => number;
   setSortState: (key: SortKey<K>) => void;
 };
 
@@ -17,6 +18,7 @@ function generateContext<T extends object>(): Context<TableContext<T>> {
     isSelectable: false,
     sortKey: 'unset' as const,
     setSortState: __noop,
+    sortFn: () => 0,
   } as TableContext<T>);
 }
 

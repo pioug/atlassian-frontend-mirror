@@ -17,6 +17,11 @@ const plugins = [
     tabKey: 'tab2',
     tabTitle: 'Unstable',
   }),
+  new UnstableMockLinkPickerPlugin({
+    tabKey: 'tab3',
+    tabTitle: 'Unauth',
+    errorFallback: (error, retry) => null,
+  }),
 ];
 
 export default function VrHandlePluginError() {

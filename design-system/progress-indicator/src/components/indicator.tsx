@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import type { HTMLAttributes } from 'react';
 
@@ -25,7 +26,6 @@ const commonStyles = css({
 });
 
 const buttonStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
   padding: token('spacing.scale.0', '0px'),
   border: 0,
   cursor: 'pointer',

@@ -7,3 +7,4 @@ export type {
   LinkSearchListItemData,
   LinkPickerPluginErrorFallback,
 } from './ui/types';
+export { UnauthenticatedError } from './common/utils/errors';

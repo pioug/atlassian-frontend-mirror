@@ -19,17 +19,18 @@ type THeadProps = {
 };
 
 const THead: FC<THeadProps> = ({ actions, children }) => {
-  const table = useTable();
+  const { isSelectable } = useTable();
   const [state, { setAll, removeAll }] = useSelection();
-  const isChecked = state.allChecked || state.anyChecked;
 
-  if (!table.isSelectable) {
+  if (!isSelectable) {
     return (
       <Primitives.THead>
         <Primitives.TR isBodyRow={false}>{children}</Primitives.TR>
       </Primitives.THead>
     );
   }
+
+  const isChecked = state.allChecked || state.anyChecked;
 
   return (
     <Primitives.THead>

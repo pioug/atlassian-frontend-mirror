@@ -3,6 +3,7 @@ import {
   LinkPickerPluginErrorFallback,
   LinkPickerState,
   LinkSearchListItemData,
+  UnauthenticatedError,
 } from '@atlaskit/link-picker';
 
 import pluginData from './mock-plugin-data';
@@ -110,6 +111,12 @@ export class UnstableMockLinkPickerPlugin implements LinkPickerPlugin {
   private loadResults(_query: string): Promise<LinkSearchListItemData[]> {
     if (!this.hasThrown) {
       this.hasThrown = true;
+
+      // When an errorFallback is provided treat it as an unAuthenticated error
+      if (this.errorFallback) {
+        throw new UnauthenticatedError('iconUrl', 'authUrl', 'Please connect!');
+      }
+
       throw new Error('Unstable plugin error');
     }
 

@@ -1,5 +1,12 @@
 # @atlaskit/link-test-helpers
 
+## 2.0.1
+
+### Patch Changes
+
+- [`41d0c413ea1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41d0c413ea1) - Update `UnstableMockLinkPickerPlugin` every time errorFallback is provided will be treated as `UnauthenticatedError`
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

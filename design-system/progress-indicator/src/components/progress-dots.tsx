@@ -8,10 +8,12 @@ import React, {
   useRef,
 } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import Box from '@atlaskit/ds-explorations/box';
+import Inline from '@atlaskit/ds-explorations/inline';
 import noop from '@atlaskit/ds-lib/noop';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
@@ -19,8 +21,8 @@ import type { ProgressDotsProps } from '../types';
 
 import { getBgColor } from './appearances';
 import {
+  progressIndicatorGapMap,
   sizes,
-  spacingDivision,
   varDotsMargin,
   varDotsSize,
 } from './constants';
@@ -28,12 +30,6 @@ import { ButtonIndicator, PresentationalIndicator } from './indicator';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-const containerStyles = css({
-  display: 'flex',
-  justifyContent: 'center',
-  gap: `var(${varDotsMargin})`,
-});
 
 /**
  * __ProgressDots__
@@ -63,6 +59,8 @@ const ProgressDots: FC<ProgressDotsProps> = ({
     packageName,
     packageVersion,
   });
+
+  const [inlineGapValue, rawGapValue] = progressIndicatorGapMap[gutter][size];
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -120,47 +118,51 @@ const ProgressDots: FC<ProgressDotsProps> = ({
   const theme = useGlobalTheme();
 
   return (
-    <div
-      data-testid={testId}
-      css={containerStyles}
-      style={
+    <Box
+      UNSAFE_style={
         {
           [varDotsSize]: `${sizes[size]}px`,
-          [varDotsMargin]: `${sizes[size] / spacingDivision[gutter]}px`,
+          [varDotsMargin]: rawGapValue,
         } as CSSProperties
       }
-      ref={(r) => {
-        tablistRef.current = r;
-      }}
       role="tablist"
     >
-      {values.map((_, index) => {
-        const isSelected = selectedIndex === index;
-        const tabId = `${ariaLabel}${index}`;
-        const panelId = `${ariaControls}${index}`;
-        const backgroundColor = getBgColor(appearance, isSelected)({ theme });
+      <Inline
+        testId={testId}
+        ref={(r: HTMLDivElement) => {
+          tablistRef.current = r;
+        }}
+        justifyContent="center"
+        gap={inlineGapValue}
+      >
+        {values.map((_, index) => {
+          const isSelected = selectedIndex === index;
+          const tabId = `${ariaLabel}${index}`;
+          const panelId = `${ariaControls}${index}`;
+          const backgroundColor = getBgColor(appearance, isSelected)({ theme });
 
-        return onSelect ? (
-          <ButtonIndicator
-            key={index}
-            style={{ backgroundColor }}
-            aria-controls={panelId}
-            aria-label={tabId}
-            aria-selected={isSelected}
-            id={tabId}
-            onClick={(event) => onSelectWithAnalytics({ event, index })}
-            tabIndex={isSelected ? 0 : -1}
-            data-testid={testId && `${testId}-ind-${index}`}
-          />
-        ) : (
-          <PresentationalIndicator
-            data-testid={testId && `${testId}-ind-${index}`}
-            key={index}
-            style={{ backgroundColor }}
-          />
-        );
-      })}
-    </div>
+          return onSelect ? (
+            <ButtonIndicator
+              key={index}
+              style={{ backgroundColor }}
+              aria-controls={panelId}
+              aria-label={tabId}
+              aria-selected={isSelected}
+              id={tabId}
+              onClick={(event) => onSelectWithAnalytics({ event, index })}
+              tabIndex={isSelected ? 0 : -1}
+              data-testid={testId && `${testId}-ind-${index}`}
+            />
+          ) : (
+            <PresentationalIndicator
+              data-testid={testId && `${testId}-ind-${index}`}
+              key={index}
+              style={{ backgroundColor }}
+            />
+          );
+        })}
+      </Inline>
+    </Box>
   );
 };
 

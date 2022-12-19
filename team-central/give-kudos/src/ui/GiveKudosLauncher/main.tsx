@@ -1,13 +1,9 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+/**  @jsx jsx */
 
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+import { css, jsx } from '@emotion/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
@@ -29,13 +25,28 @@ import { token } from '@atlaskit/tokens';
 import messages from '../../messages';
 import { GiveKudosDrawerProps } from '../../types';
 
-import { SidebarContainer } from './styled';
+const iframeStyles = css({
+  border: 0,
+});
 
-const GiveKudosDrawerWrapper = styled.div`
-  > Drawer > iframe {
-    border: 0;
-  }
-`;
+const sidebarDivStyles = css({
+  position: 'absolute',
+  margin: '16px 0 0 16px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const sidebarButtonStyles = css({
+  padding: 0,
+  width: '32px',
+  height: '32px',
+  display: 'flex',
+  alignItems: 'center',
+  background: 0,
+  borderRadius: '50%',
+  lineHeight: 1,
+});
 
 const ANALYTICS_CHANNEL = 'atlas';
 
@@ -184,6 +195,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
         height="100%"
         frameBorder="0"
         allow="camera;microphone"
+        css={iframeStyles}
       />
     );
   };
@@ -194,11 +206,11 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 
   const renderSidebar = () => {
     return (
-      <SidebarContainer>
-        <Button onClick={handleCloseDrawerClicked}>
+      <div css={sidebarDivStyles}>
+        <Button onClick={handleCloseDrawerClicked} css={sidebarButtonStyles}>
           <ArrowLeft label="Close drawer" />
         </Button>
-      </SidebarContainer>
+      </div>
     );
   };
 
@@ -237,7 +249,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 
   return (
     <Portal zIndex={layers.modal()}>
-      <GiveKudosDrawerWrapper data-testid={testId}>
+      <div data-testid={testId}>
         <ModalTransition>
           {isCloseConfirmModalOpen && (
             <Modal onClose={closeWarningModal} width="small">
@@ -273,7 +285,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
           )}
         </ModalTransition>
         {renderDrawer}
-      </GiveKudosDrawerWrapper>
+      </div>
     </Portal>
   );
 };

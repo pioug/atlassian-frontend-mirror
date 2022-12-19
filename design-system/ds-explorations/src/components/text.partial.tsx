@@ -11,7 +11,7 @@ import surfaceColorMap from '../internal/color-map';
 import { useSurface } from './surface-provider';
 import type { BasePrimitiveProps } from './types';
 
-const asAllowlist = ['span', 'div', 'p'] as const;
+const asAllowlist = ['span', 'div', 'p', 'strong'] as const;
 type AsElement = typeof asAllowlist[number];
 export interface TextProps extends BasePrimitiveProps {
   /**

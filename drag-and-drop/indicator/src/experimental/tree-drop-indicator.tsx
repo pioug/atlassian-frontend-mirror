@@ -10,10 +10,28 @@ import Terminal from '../internal/terminal';
 
 export type DropIndicatorProps = {
   children: (props: { className?: string }) => ReactNode;
+  /**
+   * The `edge` to draw a drop indicator on.
+   *
+   * `edge` is required as for the best possible performance
+   * outcome you should only render this component when it needs to do something
+   *
+   * @example {closestEdge && <DropIndicator edge={closestEdge} />}
+   */
   edge: Edge | null;
-  gap?: number;
+  /**
+   * `gap` allows you to position the drop indicator further away from the drop target.
+   * `gap` should be the distance between your drop targets
+   * a drop indicator will be rendered halfway between the drop targets
+   * (the drop indicator will be offset by half of the `gap`)
+   *
+   * `gap` should be a valid CSS length.
+   * @example "8px"
+   * @example "var(--gap)"
+   */
+  gap?: string;
   hasTerminal?: boolean;
-  inset?: number;
+  inset?: string;
 };
 
 // TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
@@ -30,15 +48,15 @@ export type DropIndicatorProps = {
 export function DropIndicator({
   children,
   edge,
-  gap = 0,
+  gap = '0px',
   hasTerminal = false,
-  inset = 0,
+  inset = '0px',
 }: DropIndicatorProps) {
   /**
    * To clearly communicate the resting place of a draggable item during a drag operation,
    * the drop indicator should be positioned half way between draggable items.
    */
-  const offset = -0.5 * (gap + line.thickness);
+  const offset = `calc(-0.5 * (${gap} + ${line.thickness}px))`;
 
   return (
     <Terminal edge={edge}>
@@ -51,8 +69,8 @@ export function DropIndicator({
                   // side effect: adding 'position:relative' to element
                   // this is needed to support drawing the line with `position:absolute`
                   position: 'relative',
-                  [cssVar.offset]: `${offset}px`,
-                  [cssVar.inset]: `${inset}px`,
+                  [cssVar.offset]: offset,
+                  [cssVar.inset]: inset,
                 });
 
                 return children({

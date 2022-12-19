@@ -1,17 +1,22 @@
 import React, { createContext, FC, useContext } from 'react';
 
-import useSelectionReducer from './use-selectable';
+import useSelectionReducer, {
+  defaultSelectableState,
+  SelectableActions,
+  SelectableState,
+} from './use-selectable';
 
-const SelectionContext = createContext<ReturnType<typeof useSelectionReducer>>([
-  {
-    checked: [],
-    allChecked: false,
-    anyChecked: false,
-    maxChecked: 0,
-    selectionStart: -1,
-    previousSelection: [],
-  },
-  {} as any,
+type SelectionContext = [
+  SelectableState,
+  /**
+   * Context actions will be undefined without a `SelectionProvider` mounted.
+   */
+  SelectableActions | Partial<SelectableActions>,
+];
+
+const SelectionContext = createContext<SelectionContext>([
+  defaultSelectableState,
+  {},
 ]);
 
 /**

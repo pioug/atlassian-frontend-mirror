@@ -313,4 +313,14 @@ describe('link-picker', () => {
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Should hide footer buttons when user is unauthenticated to active Plugin', async () => {
+    const url = getURL('vr-handle-plugin-error');
+    const page = await setup(url);
+
+    await page.click('#link-picker-tabs-2');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

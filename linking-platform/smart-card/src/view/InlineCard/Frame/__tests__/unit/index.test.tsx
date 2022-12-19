@@ -1,12 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Frame } from '../..';
-import { Wrapper } from '../../styled';
+import { WrapperSpan, WrapperAnchor } from '../../styled';
 
 describe('Frame', () => {
   it('should not render interactive props when the frame is not clickable', () => {
     const element = mount(<Frame />);
-    expect(element.find(Wrapper).props()).not.toEqual(
+    expect(element.find(WrapperSpan).props()).not.toEqual(
       expect.objectContaining({
         isInteractive: true,
         tabIndex: 0,
@@ -23,7 +23,7 @@ describe('Frame', () => {
         }}
       />,
     );
-    expect(element.find(Wrapper).props()).toEqual(
+    expect(element.find(WrapperAnchor).props()).toEqual(
       expect.objectContaining({
         isInteractive: true,
         tabIndex: 0,

@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 1.0.0
+
+### Major Changes
+
+- [`e4c65882fae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4c65882fae) - Migrating from styled-components to emotion to fix VULN-1026121
+
 ## 0.8.1
 
 ### Patch Changes

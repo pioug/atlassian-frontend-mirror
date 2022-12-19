@@ -196,6 +196,72 @@ describe('dropdown menu keyboard navigation', () => {
     expect(getByText('Move').closest('button')).toHaveFocus();
   });
 
+  it('should skip over disabled items while keyboard navigating', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem isDisabled>First</DropdownItem>
+          <DropdownItem>Second</DropdownItem>
+          <DropdownItem isDisabled={true}>Skip this</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+          <DropdownItem>Second Last</DropdownItem>
+          <DropdownItem isDisabled>Last</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+    openDropdownWithClick(getByTestId('dropdown--trigger'));
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+
+    requestAnimationFrame.step();
+
+    expect(getByText('Delete').closest('button')).toHaveFocus();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_UP,
+        code: KEY_UP,
+      });
+    });
+    requestAnimationFrame.step();
+
+    expect(getByText('Second').closest('button')).toHaveFocus();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_END,
+        code: KEY_END,
+      });
+    });
+    requestAnimationFrame.step();
+
+    expect(getByText('Second Last').closest('button')).toHaveFocus();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_HOME,
+        code: KEY_HOME,
+      });
+    });
+    requestAnimationFrame.step();
+
+    expect(getByText('Second').closest('button')).toHaveFocus();
+  });
+
   it('should focus the first element on pressing the HOME arrow', () => {
     const triggerText = 'click me to open';
 

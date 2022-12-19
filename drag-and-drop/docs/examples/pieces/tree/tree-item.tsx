@@ -60,6 +60,7 @@ const TreeItem = ({
   }, [nestingLevel]);
 
   const edge = closestEdge === 'child' ? 'bottom' : closestEdge;
+  // Note: we could be using CSS variables here rather than numbers
   const inset = nestingLevel * childInset;
   const dropIndicatorInset =
     closestEdge === 'child' ? inset + childInset : inset;
@@ -116,7 +117,7 @@ const TreeItem = ({
   const Component = hasChildren ? TreeItemGroup : TreeItemLeaf;
 
   return (
-    <DropIndicator hasTerminal edge={edge} inset={dropIndicatorInset}>
+    <DropIndicator hasTerminal edge={edge} inset={`${dropIndicatorInset}px`}>
       {({ className }) => (
         <Component
           className={className}

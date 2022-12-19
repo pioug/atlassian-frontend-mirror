@@ -162,6 +162,12 @@ function getTokenImportScope(
     return undefined;
   }
 
+  if (binding.path.parent && t.isImportDeclaration(binding.path.parent)) {
+    if (binding.path.parent.source.value !== '@atlaskit/tokens') {
+      return undefined;
+    }
+  }
+
   return getNonAliasedImportName(binding.path.node) === 'token'
     ? binding.scope
     : undefined;

@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.7.3
+
+### Patch Changes
+
+- [`b795ce86cf7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b795ce86cf7) - split single underline into two for unauthorized inline smart links
+
 ## 23.7.2
 
 ### Patch Changes

@@ -118,19 +118,19 @@ describe('mention: Team Highlight on TypeAhead', () => {
   describe('when the user clicks at the team highlight external link', () => {
     BrowserTestCase(
       'it should not close the typeahead popup',
-      { skip: ['safari'] },
+      {},
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
 
         await mentionSearch(page, '');
         await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
 
-        const titlePage = await page.title();
+        const allHandles = await page.getWindowHandles();
 
         await page.waitForVisible(MENTION_HIGHLIGHT_LINK);
         await page.click(MENTION_HIGHLIGHT_LINK);
 
-        await page.switchWindow(titlePage);
+        await page.switchToWindow(allHandles[0]);
 
         const isPopupVisible = await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
         expect(isPopupVisible).toBeTruthy();

@@ -58,7 +58,10 @@ describe('smart-card: unauthorized analytics', () => {
       );
 
       const unauthorizedLink = await waitFor(
-        () => getByTestId('unauthorizedCard1-unauthorized-view'),
+        () =>
+          getByTestId(
+            'unauthorizedCard1-unauthorized-view',
+          ).getElementsByTagName('a')[0],
 
         { timeout: 10000 },
       );

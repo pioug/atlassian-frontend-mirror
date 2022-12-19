@@ -8,12 +8,7 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';
 import { messages } from '../../../messages';
 import { FormattedMessage } from 'react-intl-next';
-import {
-  LinkAppearance,
-  IconStyledButton,
-  LowercaseAppearance,
-  NoLinkAppearance,
-} from '../styled';
+import { IconStyledButton, LowercaseAppearance } from '../styled';
 
 export interface InlineCardErroredViewProps {
   /** The url to display */
@@ -42,17 +37,14 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
     }
   };
 
-  renderMessage = () => {
-    const { onRetry, url, message } = this.props;
-    const link = <LinkAppearance>{url}</LinkAppearance>;
-    const errorMessage = <NoLinkAppearance>{message}</NoLinkAppearance>;
+  renderRightSide = () => {
+    const { onRetry, message } = this.props;
     return !onRetry ? (
-      <>
-        {link} - {errorMessage}
-      </>
+      message
     ) : (
       <>
-        {link} - {errorMessage},&nbsp;
+        {message}
+        {', '}
         <Button
           spacing="none"
           appearance="subtle-link"
@@ -80,12 +72,7 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
       icon,
     } = this.props;
     return (
-      <Frame
-        testId={testId}
-        link={url}
-        onClick={onClick}
-        isSelected={isSelected}
-      >
+      <Frame testId={testId} isSelected={isSelected}>
         <IconAndTitleLayout
           icon={
             icon || (
@@ -98,7 +85,10 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
               </AKIconWrapper>
             )
           }
-          title={this.renderMessage()}
+          link={url}
+          title={url}
+          onClick={onClick}
+          rightSide={this.renderRightSide()}
         />
       </Frame>
     );

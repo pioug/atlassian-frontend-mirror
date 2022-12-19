@@ -242,4 +242,16 @@ const getStyles = css => css\`
           \`;"
       `);
   });
+
+  it('Ignores token functions from other packages', () => {
+    const actual = transform()`
+      import { token } from 'foobar';
+      token('test-token');
+    `;
+
+    expect(actual).toMatchInlineSnapshot(`
+      "import { token } from 'foobar';
+      token('test-token');"
+    `);
+  });
 });

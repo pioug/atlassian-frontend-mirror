@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.5.0
+
+### Minor Changes
+
+- [`c146611a18c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c146611a18c) - [ux] Migrate progress-indicator package to use spacing primitives to control spacing in both component and examples. Spacing values have been slightly updated depending on indicator size and spacing properties
+
 ## 1.4.0
 
 ### Minor Changes

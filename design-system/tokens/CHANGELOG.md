@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.11.6
+
+### Patch Changes
+
+- [`3d46e550157`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d46e550157) - Fixes a bug with the tokens-babel-plugin where it was transforming token functions which were imported from modules other than the @atlaskit/tokens package.
+
 ## 0.11.5
 
 ### Patch Changes

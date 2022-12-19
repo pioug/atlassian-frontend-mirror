@@ -12,7 +12,7 @@ import { DropIndicator } from '../../src/experimental/tree-drop-indicator';
 type TreeItemProps = {
   children: ReactNode;
   edge?: Edge;
-  gap?: number;
+  gap?: string;
 };
 
 const itemStyles = css({
@@ -38,12 +38,11 @@ const TreeItem = ({ children, edge: edgeProp, gap }: TreeItemProps) => {
   const isInset = edgeProp === 'child';
   const edge = isInset ? 'bottom' : edgeProp;
 
+  // TODO: calc `inset` from `--grid`
   return (
     <DropIndicator
       hasTerminal
-      inset={isInset ? 32 : 0}
-      // TODO: fix me
-      // @ts-ignore
+      inset={isInset ? `32px` : `0px`}
       edge={edge ?? null}
       gap={gap}
     >

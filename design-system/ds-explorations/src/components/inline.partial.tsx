@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { BasePrimitiveProps } from './types';
 
-interface InlineProps extends BasePrimitiveProps {
+export interface InlineProps extends BasePrimitiveProps {
   /**
    * Used to align children along the cross axis.
    */

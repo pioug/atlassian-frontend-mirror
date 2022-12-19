@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-test-helpers",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Collection of test helpers used in linking platform examples and specs",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -24,7 +24,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/link-picker": "^1.15.0",
+    "@atlaskit/link-picker": "^1.16.0",
     "@babel/runtime": "^7.0.0",
     "@testing-library/react": "^12.1.5",
     "react-intl-next": "npm:react-intl@^5.18.1"

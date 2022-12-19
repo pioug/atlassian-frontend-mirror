@@ -8,7 +8,7 @@ import { messages } from '../../../messages';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { IconStyledButton, LinkAppearance } from '../styled';
+import { IconStyledButton } from '../styled';
 import { HoverCard } from '../../HoverCard';
 
 export interface InlineCardUnauthorizedViewProps {
@@ -48,29 +48,22 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
     return onAuthorise!();
   };
 
-  renderMessage = () => {
-    const { context, onAuthorise, url } = this.props;
-    const link = <LinkAppearance>{url}</LinkAppearance>;
-    return !onAuthorise ? (
-      link
-    ) : (
-      <>
-        {link}
-        {' - '}
-        <Button
-          spacing="none"
-          appearance="subtle-link"
-          component={IconStyledButton}
-          onClick={this.handleConnectAccount}
-          testId="button-connect-account"
-        >
-          <FormattedMessage
-            {...messages.connect_link_account_card_name}
-            values={{ context }}
-          />
-        </Button>
-      </>
-    );
+  renderRightSide = () => {
+    const { onAuthorise, context } = this.props;
+    return onAuthorise ? (
+      <Button
+        spacing="none"
+        appearance="subtle-link"
+        component={IconStyledButton}
+        onClick={this.handleConnectAccount}
+        testId="button-connect-account"
+      >
+        <FormattedMessage
+          {...messages.connect_link_account_card_name}
+          values={{ context }}
+        />
+      </Button>
+    ) : undefined;
   };
 
   render() {
@@ -84,15 +77,13 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
     } = this.props;
 
     const inlineCardUnauthenticatedView = (
-      <Frame
-        testId={testId}
-        link={url}
-        onClick={onClick}
-        isSelected={isSelected}
-      >
+      <Frame testId={testId} isSelected={isSelected}>
         <IconAndTitleLayout
           icon={icon ? icon : FallbackUnauthorizedIcon}
-          title={this.renderMessage()}
+          title={url}
+          link={url}
+          rightSide={this.renderRightSide()}
+          onClick={onClick}
           titleColor={token('color.text.subtle', N500)}
         />
       </Frame>

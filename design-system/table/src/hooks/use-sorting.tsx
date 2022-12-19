@@ -38,9 +38,25 @@ export const useSorting = <ItemType extends object>(
     [toggleSortDirection],
   );
 
+  const sortFn = useCallback(
+    (rowA: ItemType, rowB: ItemType) => {
+      if (localSortKey === 'unset') {
+        return 0;
+      }
+
+      const ascendingComparator =
+        rowA[localSortKey] < rowB[localSortKey] ? -1 : 1;
+      return localSortDirection === 'ascending'
+        ? ascendingComparator
+        : -ascendingComparator;
+    },
+    [localSortDirection, localSortKey],
+  );
+
   return {
     sortKey: localSortKey,
     sortDirection: localSortDirection,
     setSortState,
+    sortFn,
   };
 };

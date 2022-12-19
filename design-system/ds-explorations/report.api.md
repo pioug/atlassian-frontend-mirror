@@ -29,7 +29,7 @@ import { RefAttributes } from 'react';
 import { SerializedStyles } from '@emotion/react';
 
 // @public (undocumented)
-const asAllowlist: readonly ['span', 'div', 'p'];
+const asAllowlist: readonly ['span', 'div', 'p', 'strong'];
 
 // @public (undocumented)
 type AsElement = typeof asAllowlist[number];
@@ -348,16 +348,6 @@ const heightMap: {
 };
 
 // @public (undocumented)
-interface InlineProps extends BasePrimitiveProps {
-  alignItems?: FlexAlignItems_2;
-  children: ReactNode;
-  divider?: ReactNode;
-  flexWrap?: FlexWrap;
-  gap: ColumnGap;
-  justifyContent?: FlexJustifyContent_2;
-}
-
-// @public (undocumented)
 type InteractionBackgroundColor = keyof typeof backgroundHoverColorMap;
 
 // @public (undocumented)
@@ -488,15 +478,6 @@ const rowGapMap: {
 };
 
 // @public (undocumented)
-interface StackProps extends BasePrimitiveProps {
-  alignItems?: FlexAlignItems_3;
-  children: ReactNode;
-  flexWrap?: FlexWrap_2;
-  gap: RowGap;
-  justifyContent?: FlexJustifyContent_3;
-}
-
-// @public (undocumented)
 type TextAlign = keyof typeof textAlignMap;
 
 // @public (undocumented)
@@ -549,8 +530,18 @@ export type UNSAFE_BoxProps<T extends ElementType = 'div'> = Omit<
 
 // @public
 export const UNSAFE_Inline: MemoExoticComponent<
-  ForwardRefExoticComponent<InlineProps & RefAttributes<HTMLDivElement>>
+  ForwardRefExoticComponent<UNSAFE_InlineProps & RefAttributes<HTMLDivElement>>
 >;
+
+// @public (undocumented)
+export interface UNSAFE_InlineProps extends BasePrimitiveProps {
+  alignItems?: FlexAlignItems_2;
+  children: ReactNode;
+  divider?: ReactNode;
+  flexWrap?: FlexWrap;
+  gap: ColumnGap;
+  justifyContent?: FlexJustifyContent_2;
+}
 
 // @public (undocumented)
 export const UNSAFE_InteractionSurface: ({
@@ -561,8 +552,17 @@ export const UNSAFE_InteractionSurface: ({
 
 // @public
 export const UNSAFE_Stack: MemoExoticComponent<
-  ForwardRefExoticComponent<StackProps & RefAttributes<HTMLDivElement>>
+  ForwardRefExoticComponent<UNSAFE_StackProps & RefAttributes<HTMLDivElement>>
 >;
+
+// @public (undocumented)
+export interface UNSAFE_StackProps extends BasePrimitiveProps {
+  alignItems?: FlexAlignItems_3;
+  children: ReactNode;
+  flexWrap?: FlexWrap_2;
+  gap: RowGap;
+  justifyContent?: FlexJustifyContent_3;
+}
 
 // @internal
 export const UNSAFE_Text: FC<UNSAFE_TextProps>;

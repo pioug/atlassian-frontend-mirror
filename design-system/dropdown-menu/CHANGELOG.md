@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.5.6
+
+### Patch Changes
+
+- [`6ae8910147b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ae8910147b) - [ux] Allow users to navigate past disabled menu items with arrow keys
+
 ## 11.5.5
 
 ### Patch Changes

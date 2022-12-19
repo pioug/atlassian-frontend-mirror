@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ChangeEventHandler, FC, memo, useCallback } from 'react';
+import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -10,14 +10,17 @@ import { useRowId } from './hooks/use-row-id';
 import * as Primitives from './ui';
 
 const SelectableCell: FC = () => {
-  const [state, { toggleSelection }] = useSelection();
-  const idx = useRowId();
-  const isChecked = state.allChecked || state.checked.includes(idx!);
+  const [{ allChecked, checked }, { toggleSelection }] = useSelection();
+  const idx = useRowId()!;
+
+  const isChecked = useMemo(
+    () => allChecked || checked.includes(idx),
+    [allChecked, checked, idx],
+  );
 
   const onChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    e => toggleSelection(idx!, (e.nativeEvent as PointerEvent).shiftKey),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [idx],
+    e => toggleSelection?.(idx, (e.nativeEvent as PointerEvent).shiftKey),
+    [idx, toggleSelection],
   );
 
   return (

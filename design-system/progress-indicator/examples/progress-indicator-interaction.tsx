@@ -1,25 +1,21 @@
 /* eslint-disable @repo/internal/react/no-class-components */
-/** @jsx jsx */
-import { Component, FC } from 'react';
-
-import { css, jsx } from '@emotion/react';
+import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { token } from '@atlaskit/tokens';
+import Box from '@atlaskit/ds-explorations/box';
+import Inline from '@atlaskit/ds-explorations/inline';
 
 import { ProgressIndicator } from '../src';
 
-const footerStyles = css({
-  display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
-  margin: token('spacing.scale.200', '16px'),
-  alignItems: 'center',
-  justifyContent: 'space-between',
-});
-
-const Footer: FC = ({ children }) => (
-  <footer css={footerStyles}>{children}</footer>
-);
+const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  return (
+    <Inline gap="scale.100" justifyContent="space-between" alignItems="center">
+      {children}
+    </Inline>
+  );
+};
 
 interface ExampleProps {
   selectedIndex: number;
@@ -68,23 +64,25 @@ class Example extends Component<ExampleProps, State> {
     const { values } = this.props;
     const { selectedIndex } = this.state;
     return (
-      <Footer>
-        <Button isDisabled={selectedIndex === 0} onClick={this.handlePrev}>
-          Prev
-        </Button>
-        <ProgressIndicator
-          onSelect={this.handleSelect}
-          selectedIndex={selectedIndex}
-          values={values}
-          size="default"
-        />
-        <Button
-          isDisabled={selectedIndex === values.length - 1}
-          onClick={this.handleNext}
-        >
-          Next
-        </Button>
-      </Footer>
+      <Box paddingInline="scale.200" paddingBlock="scale.200" display="block">
+        <SpreadInlineLayout>
+          <Button isDisabled={selectedIndex === 0} onClick={this.handlePrev}>
+            Prev
+          </Button>
+          <ProgressIndicator
+            onSelect={this.handleSelect}
+            selectedIndex={selectedIndex}
+            values={values}
+            size="default"
+          />
+          <Button
+            isDisabled={selectedIndex === values.length - 1}
+            onClick={this.handleNext}
+          >
+            Next
+          </Button>
+        </SpreadInlineLayout>
+      </Box>
     );
   }
 }

@@ -1,5 +1,13 @@
 # @atlaskit/drag-and-drop-indicator
 
+## 0.7.0
+
+### Minor Changes
+
+- [`ace261c5753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ace261c5753) - For the experimental tree drop indicator, we have changed the `gap` and `inset` from `number` to `string` to align with our `Box` line indicator.
+
+  Note: consumers should not be using the _experimental_ tree drop indicator in production. We are exposing this work in progress component for internal experimentation purposes.
+
 ## 0.6.2
 
 ### Patch Changes

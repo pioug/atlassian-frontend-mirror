@@ -1,13 +1,12 @@
 import React, { MouseEvent, useCallback } from 'react';
 import { useGlobalTheme } from '@atlaskit/theme/components';
-import { Wrapper } from './styled';
+import { WrapperAnchor, WrapperSpan } from './styled';
 
 export interface FrameViewProps {
   /** A flag that determines whether the card is selected in edit mode. */
   isSelected?: boolean;
   /** A flag that determines whether the card needs a backgorund or not */
   withoutBackground?: boolean;
-  withoutHover?: boolean;
   children?: React.ReactNode;
   link?: string;
   /** The optional click handler */
@@ -24,7 +23,6 @@ export const Frame: React.FC<FrameViewProps> = (props) => {
     onClick,
     link,
     withoutBackground,
-    withoutHover,
     testId,
     className,
   } = props;
@@ -55,6 +53,9 @@ export const Frame: React.FC<FrameViewProps> = (props) => {
   );
   const isInteractive = Boolean(onClick);
 
+  // Depending on whenever Frame was given onClick or link itself we display span or anchor elements
+  const Wrapper = link || onClick ? WrapperAnchor : WrapperSpan;
+
   // TODO Theming doesn't work right now in editor. Required React context does not trickle down atm.
   //  It will be worked as part of https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-154
   return (
@@ -62,7 +63,6 @@ export const Frame: React.FC<FrameViewProps> = (props) => {
       theme={useGlobalTheme()}
       href={link}
       withoutBackground={withoutBackground}
-      withoutHover={withoutHover}
       isSelected={isSelected}
       isInteractive={isInteractive}
       tabIndex={isInteractive ? 0 : undefined}

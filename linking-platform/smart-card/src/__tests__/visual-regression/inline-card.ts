@@ -34,4 +34,42 @@ describe('Inline Card', () => {
     const image = await takeSnapshot(page, 300);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  const unresolvedViews = ['errored', 'forbidden', 'not-found', 'unauthorized'];
+
+  it.each(unresolvedViews)(
+    'renders correctly when hovering over url in %s view',
+    async (status: string) => {
+      const url = getURL('vr-inline-card-unresolved-views');
+      const page = await setup(url);
+      const selector = `[data-testid="inline-card-${status}-view"]`;
+      await page.waitForSelector(selector);
+      await page.hover(selector);
+
+      const image = await takeSnapshot(page, 300);
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
+
+  it('renders correctly when hovering over connect another account', async () => {
+    const url = getURL('vr-inline-card-unresolved-views');
+    const page = await setup(url);
+    const selector = `[data-testid="button-connect-other-account"]`;
+    await page.waitForSelector(selector);
+    await page.hover(selector);
+
+    const image = await takeSnapshot(page, 300);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('renders correctly when hovering over connect account', async () => {
+    const url = getURL('vr-inline-card-unresolved-views');
+    const page = await setup(url);
+    const selector = `[data-testid="button-connect-account"]`;
+    await page.waitForSelector(selector);
+    await page.hover(selector);
+
+    const image = await takeSnapshot(page, 300);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

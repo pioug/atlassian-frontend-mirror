@@ -1,10 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+import { memo } from 'react';
 import { useIntl, defineMessages } from 'react-intl-next';
 import Button, { ButtonGroup } from '@atlaskit/button';
 
 import { formFooterStyles } from './styled';
-import { memo } from 'react';
+import { checkSubmitDisabled } from './utils';
+import { LinkPickerState, LinkSearchListItemData } from '../../types';
+import { UnauthenticatedError } from '../../../common/utils/errors';
 
 const messages = defineMessages({
   cancelButton: {
@@ -30,12 +33,30 @@ export const testIds = {
 } as const;
 
 interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
+  isLoading: boolean;
+  error: unknown | null;
+  state: LinkPickerState | null;
+  items: LinkSearchListItemData[] | null;
   isEditing?: boolean;
   onCancel?: () => void;
 }
 
-const FormFooter = ({ isEditing, onCancel, ...restProps }: FormFooterProps) => {
+const FormFooter = ({
+  isLoading,
+  error,
+  state,
+  items,
+  isEditing,
+  onCancel,
+  ...restProps
+}: FormFooterProps) => {
   const intl = useIntl();
+
+  if (error && error instanceof UnauthenticatedError) {
+    return null;
+  }
+
+  const isSubmitDisabled = checkSubmitDisabled(isLoading, error, state, items);
 
   const insertButtonMsg = isEditing
     ? messages.saveButton
@@ -55,6 +76,7 @@ const FormFooter = ({ isEditing, onCancel, ...restProps }: FormFooterProps) => {
           type="submit"
           appearance="primary"
           testId={testIds.insertButton}
+          isDisabled={isSubmitDisabled}
         >
           {intl.formatMessage(insertButtonMsg)}
         </Button>

@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.16.0
+
+### Minor Changes
+
+- [`e409fa726a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e409fa726a9) - [ux] Disable the insert button when Link picker shows an error and hide buttons when user is unauthenticated to the active 3P tab
+
 ## 1.15.1
 
 ### Patch Changes

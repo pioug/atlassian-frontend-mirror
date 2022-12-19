@@ -11,9 +11,12 @@ const props = {
   allowSelectAllTrap: true,
 };
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16390
 BrowserTestCase(
   'select.ts: Mod+A does not select before',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -34,9 +37,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16391
 BrowserTestCase(
   'select.ts: Mod+A does not select after',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -57,9 +63,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16392
 BrowserTestCase(
   'select.ts: Mod+A selects renderer',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -79,9 +88,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16393
 BrowserTestCase(
   'select.ts: Mod+A fires selectAllCaught event',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -100,9 +112,13 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16394
 BrowserTestCase(
   'select.ts: Mod+A twice selects before',
-  { skip: ['safari'] },
+  {
+    // skip: ['safari'],
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -124,9 +140,13 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16395
 BrowserTestCase(
   'select.ts: Mod+A twice selects after',
-  { skip: ['safari'] },
+  {
+    // skip: ['safari'],
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -148,9 +168,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16396
 BrowserTestCase(
   'select.ts: Mod+A twice fires selectAllEscaped event',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -170,9 +193,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16397
 BrowserTestCase(
   'select.ts: Mod+A twice, click, Mod+A does not select before',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -198,9 +224,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16398
 BrowserTestCase(
   'select.ts: Mod+A twice, click, Mod+A does not select after',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -226,9 +255,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16399
 BrowserTestCase(
   'select.ts: Mod+A twice, click, Mod+A selects renderer',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);

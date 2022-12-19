@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -16,6 +17,7 @@
 ```ts
 /// <reference types="react" />
 
+import { jsx } from '@emotion/react';
 import { LazyExoticComponent } from 'react';
 
 // @public (undocumented)
@@ -39,11 +41,13 @@ export interface GiveKudosDrawerProps {
 }
 
 // @public (undocumented)
-export const GiveKudosLauncher: (props: GiveKudosDrawerProps) => JSX.Element;
+export const GiveKudosLauncher: (
+  props: GiveKudosDrawerProps,
+) => jsx.JSX.Element;
 
 // @public (undocumented)
 export const GiveKudosLauncherLazy: LazyExoticComponent<
-  (props: GiveKudosDrawerProps) => JSX.Element
+  (props: GiveKudosDrawerProps) => jsx
 >;
 
 // @public (undocumented)
@@ -66,3 +70,15 @@ export enum KudosType {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

@@ -12,12 +12,11 @@ import {
 import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
 import { themed } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
-import { TitleWrapperClassName } from '../IconAndTitleLayout/styled';
 
 export interface WrapperProps {
+  href?: string;
   isSelected?: boolean;
   isInteractive?: boolean;
-  withoutHover?: boolean;
   withoutBackground?: boolean;
 }
 
@@ -36,7 +35,6 @@ const selected = `
 const isInteractive = ({ isInteractive }: WrapperProps) => {
   if (isInteractive) {
     return `
-      cursor: pointer;
       :hover {
         background-color: ${themed({
           light: token('color.background.neutral.subtle.hovered', N20),
@@ -45,18 +43,15 @@ const isInteractive = ({ isInteractive }: WrapperProps) => {
             BACKGROUND_COLOR_DARK,
           ),
         })};
-        text-decoration: none;
       }
       :active {
         background-color: ${themed({
           light: token('color.background.selected', B50),
           dark: token('color.background.selected', BACKGROUND_COLOR_DARK),
         })};
-        text-decoration: none;
       }
       :focus {
         ${selected}
-        text-decoration: none;
       }
     `;
   } else {
@@ -72,16 +67,6 @@ const isSelected = ({ isSelected }: WrapperProps) => {
   }
 };
 
-const withoutHover = ({ withoutHover }: WrapperProps) => {
-  return withoutHover
-    ? `
-    &:hover {
-      text-decoration: none;
-    }
-  `
-    : '';
-};
-
 /*
   Inline smart cards should have the following layout:
   ------------------------------------
@@ -94,26 +79,26 @@ const withoutHover = ({ withoutHover }: WrapperProps) => {
 // NB: `padding` consistent with @mentions.
 // NB: `display: inline` required for `box-decoration-break` to work.
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
-export const Wrapper = styled.a<WrapperProps>`
+const baseWrapperStyle = (props: WrapperProps) => `
   line-height: 16px;
   padding: 1px 0.24em 2px 0.24em;
-  ${(props) =>
-    props.withoutBackground ? `padding-left: 0; margin-left:-2px;` : ''}
+  ${props.withoutBackground ? `padding-left: 0; margin-left:-2px;` : ''}
   display: inline;
   box-decoration-break: clone;
   border-radius: ${akBorderRadius()}px;
   color: ${themed({
     light: token('color.link', B400),
     dark: token('color.link', '#4794FF'),
-  })};
-  background-color: ${(props) =>
+  })(props)};
+  background-color: ${
     props.withoutBackground
       ? ''
       : themed({
           light: token('elevation.surface.raised', 'white'),
           dark: token('elevation.surface.raised', BACKGROUND_COLOR_DARK),
-        })};
-  ${(props) =>
+        })(props)
+  };
+  ${
     props.withoutBackground
       ? ''
       : themed({
@@ -125,15 +110,21 @@ export const Wrapper = styled.a<WrapperProps>`
             'elevation.shadow.raised',
             `0 1px 1px ${DN50A}, 0 0 1px 1px ${DN40A}`,
           )};`,
-        })}
-  ${(props) => isInteractive(props)}
-  ${(props) => isSelected(props)};
-  ${(props) => withoutHover(props)}
+        })(props)
+  }
+  ${isSelected(props)};
   transition: 0.1s all ease-in-out;
   -moz-user-select: none;
-
-  &:hover span.${TitleWrapperClassName} {
-    text-decoration: ${({ withoutHover }) =>
-      withoutHover ? 'none' : 'underline'};
-  }
 `;
+
+export const WrapperAnchor = styled.a<WrapperProps>`
+  ${baseWrapperStyle}
+  ${isInteractive}
+`;
+WrapperAnchor.displayName = 'WrapperAnchor';
+
+export const WrapperSpan = styled.span<WrapperProps>`
+  ${baseWrapperStyle}
+`;
+
+WrapperSpan.displayName = 'WrapperSpan';

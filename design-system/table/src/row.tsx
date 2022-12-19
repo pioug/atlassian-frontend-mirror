@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -29,19 +29,21 @@ const Row: FC<RowProps> = memo(({ children, testId }) => {
   // To ensure valid nesting
   useTableBody();
   // to access table state
-  const table = useTable();
-  const [selectionState] = useSelection();
+  const { isSelectable } = useTable();
+  const [{ allChecked, checked }] = useSelection();
   const rowId = useRowId();
 
-  if (!table.isSelectable) {
-    return <Primitives.TR testId={testId}>{children}</Primitives.TR>;
-  }
+  const isSelected = useMemo(() => {
+    if (!isSelectable) {
+      return undefined;
+    }
 
-  const isChecked =
-    selectionState.allChecked || selectionState.checked.includes(rowId!);
+    return allChecked || checked.includes(rowId!);
+  }, [allChecked, checked, isSelectable, rowId]);
+
   return (
-    <Primitives.TR isSelected={!!isChecked} testId={testId}>
-      <SelectableCell />
+    <Primitives.TR isSelected={isSelected} testId={testId}>
+      {isSelectable && <SelectableCell />}
       {children}
     </Primitives.TR>
   );

@@ -11,6 +11,7 @@ import {
   TitleWrapperClassName,
 } from './styled';
 import LinkIcon from '@atlaskit/icon/glyph/link';
+import { LinkAppearance, NoLinkAppearance } from '../styled';
 
 export interface IconAndTitleLayoutProps {
   emoji?: React.ReactNode;
@@ -22,6 +23,9 @@ export interface IconAndTitleLayoutProps {
   children?: React.ReactNode;
   defaultIcon?: React.ReactNode;
   testId?: string;
+  link?: string;
+  rightSide?: React.ReactNode;
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 }
 
 export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps> {
@@ -92,32 +96,77 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
     return image || placeholder;
   }
 
+  handleClick = (event: React.MouseEvent) => {
+    const { onClick } = this.props;
+    if (onClick) {
+      event.preventDefault();
+      event.stopPropagation();
+      onClick(event);
+    }
+  };
+
+  handleKeyPress = (event: React.KeyboardEvent<HTMLAnchorElement>) => {
+    const { onClick } = this.props;
+    if (event.key !== ' ' && event.key !== 'Enter') {
+      return;
+    }
+    if (onClick) {
+      event.preventDefault();
+      event.stopPropagation();
+      onClick(event);
+    }
+  };
+
   render() {
     const {
       children,
       title,
       titleColor,
       titleTextColor,
+      link,
+      rightSide,
       testId = 'inline-card-icon-and-title',
     } = this.props;
+
+    const titlePart = (
+      <>
+        <IconPositionWrapper>
+          {children || (
+            <>
+              <IconEmptyWrapper />
+              {this.renderIcon(testId)}
+            </>
+          )}
+        </IconPositionWrapper>
+        <TitleWrapper
+          style={{ color: titleTextColor }}
+          className={TitleWrapperClassName}
+        >
+          {title}
+        </TitleWrapper>
+      </>
+    );
 
     return (
       <>
         <IconTitleWrapper style={{ color: titleColor }}>
-          <IconPositionWrapper>
-            {children || (
-              <>
-                <IconEmptyWrapper />
-                {this.renderIcon(testId)}
-              </>
-            )}
-          </IconPositionWrapper>
-          <TitleWrapper
-            style={{ color: titleTextColor }}
-            className={TitleWrapperClassName}
-          >
-            {title}
-          </TitleWrapper>
+          {link ? (
+            <LinkAppearance
+              href={link}
+              onClick={this.handleClick}
+              onKeyPress={this.handleKeyPress}
+            >
+              {titlePart}
+            </LinkAppearance>
+          ) : (
+            titlePart
+          )}
+          {rightSide ? (
+            <NoLinkAppearance>
+              {' - '}
+              {rightSide}
+            </NoLinkAppearance>
+          ) : null}
         </IconTitleWrapper>
       </>
     );

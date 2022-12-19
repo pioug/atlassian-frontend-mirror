@@ -1,6 +1,6 @@
 import { useCallback, useReducer } from 'react';
 
-type State = {
+export type SelectableState = {
   /**
    * The localised ids that have been checked.
    */
@@ -30,7 +30,14 @@ type State = {
   previousSelection: number[];
 };
 
-const defaultState: State = {
+export type SelectableActions = {
+  setAll: () => void;
+  removeAll: () => void;
+  toggleSelection: (id: number, shiftHeld: boolean) => void;
+  setMax: (max: number) => void;
+};
+
+export const defaultSelectableState: SelectableState = {
   checked: [],
   allChecked: false,
   anyChecked: false,
@@ -67,7 +74,13 @@ const arrayFromRange = (from: number, to: number) => {
 };
 
 function reducer(
-  { checked, anyChecked, maxChecked, selectionStart, previousSelection }: State,
+  {
+    checked,
+    anyChecked,
+    maxChecked,
+    selectionStart,
+    previousSelection,
+  }: SelectableState,
   action: Action,
 ) {
   switch (action.type) {
@@ -143,15 +156,8 @@ function reducer(
   }
 }
 
-const initialiseState = (): State => {
-  return {
-    ...defaultState,
-    checked: [] as number[],
-  };
-};
-
-function useSelectable() {
-  const [state, dispatch] = useReducer(reducer, initialiseState());
+function useSelectable(): [SelectableState, SelectableActions] {
+  const [state, dispatch] = useReducer(reducer, defaultSelectableState);
 
   const toggleSelection = useCallback((id: number, shiftHeld: boolean) => {
     dispatch({
@@ -172,7 +178,7 @@ function useSelectable() {
     dispatch({ type: 'set_max', value: max });
   }, []);
 
-  return [state, { setAll, removeAll, toggleSelection, setMax }] as const;
+  return [state, { setAll, removeAll, toggleSelection, setMax }];
 }
 
 export default useSelectable;

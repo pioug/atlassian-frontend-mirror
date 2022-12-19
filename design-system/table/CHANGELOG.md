@@ -1,5 +1,11 @@
 # @atlaskit/table
 
+## 0.1.1
+
+### Patch Changes
+
+- [`7d3f2c3c117`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d3f2c3c117) - Iterate on typings and component performance
+
 ## 0.1.0
 
 ### Minor Changes

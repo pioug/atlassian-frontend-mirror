@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 0.2.2
+
+### Patch Changes
+
+- [`b68f5ae3b64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b68f5ae3b64) - [ED-16384] Add sideEffects false
+
 ## 0.2.1
 
 ### Patch Changes

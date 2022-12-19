@@ -9,3 +9,4 @@ export { TH } from './th';
 export { SelectableCell } from './selectable-cell';
 export { THead } from './thead';
 export { BulkActionOverlay } from './bulk-action-overlay';
+export { SortIcon } from './sort-icon';

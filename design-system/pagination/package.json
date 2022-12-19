@@ -32,7 +32,7 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^16.4.0",
     "@atlaskit/codemod-utils": "^4.1.0",
-    "@atlaskit/ds-explorations": "^1.4.0",
+    "@atlaskit/ds-explorations": "^1.5.0",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/icon": "^21.11.0",
     "@babel/runtime": "^7.0.0",

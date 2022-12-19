@@ -1,20 +1,18 @@
-import React, { useCallback, useState } from 'react';
+/**  @jsx jsx */
 
+import { useCallback, useState } from 'react';
+
+import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
-import styled from 'styled-components';
 
 import Button from '@atlaskit/button/standard-button';
 import Flag, { FlagGroup, FlagProps } from '@atlaskit/flag';
 
 import { GiveKudosLauncher } from '../src';
 
-export const Wrap = styled.div`
-  margin-bottom: 20px;
-`;
-
-export const MainStage = styled.div`
-  margin: 16px;
-`;
+const buttonWrapperStyles = css({
+  margin: '16px',
+});
 
 export default function Example() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,25 +39,23 @@ export default function Example() {
 
   return (
     <IntlProvider key={'en'} locale={'en'}>
-      <MainStage>
-        <Wrap>
-          <Button onClick={openGiveKudos}>Give Kudos</Button>
-        </Wrap>
-        <GiveKudosLauncher
-          testId={'giveKudosLauncher'}
-          isOpen={isOpen}
-          onClose={kudosClosed}
-          analyticsSource={'test'}
-          teamCentralBaseUrl={'http://localhost:3000'}
-          cloudId={'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5'}
-          addFlag={addFlag}
-        />
-        <FlagGroup onDismissed={dismissFlag}>
-          {flags.map(flag => (
-            <Flag {...flag} />
-          ))}
-        </FlagGroup>
-      </MainStage>
+      <div css={buttonWrapperStyles}>
+        <Button onClick={openGiveKudos}>Give Kudos</Button>
+      </div>
+      <GiveKudosLauncher
+        testId={'giveKudosLauncher'}
+        isOpen={isOpen}
+        onClose={kudosClosed}
+        analyticsSource={'test'}
+        teamCentralBaseUrl={'http://localhost:3000'}
+        cloudId={'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5'}
+        addFlag={addFlag}
+      />
+      <FlagGroup onDismissed={dismissFlag}>
+        {flags.map(flag => (
+          <Flag {...flag} />
+        ))}
+      </FlagGroup>
     </IntlProvider>
   );
 }

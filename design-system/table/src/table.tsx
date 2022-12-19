@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ReactElement } from 'react';
+import { ReactElement, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -46,17 +46,22 @@ function Table<ItemType extends object = object>({
     sortKey: localSortKey,
     sortDirection,
     setSortState,
+    sortFn,
   } = useSorting(sortKey);
 
+  const tableProviderState = useMemo(
+    () => ({
+      isSelectable,
+      sortKey: localSortKey,
+      sortDirection: sortDirection,
+      setSortState,
+      sortFn,
+    }),
+    [isSelectable, localSortKey, setSortState, sortDirection, sortFn],
+  );
+
   return (
-    <TableProvider<ItemType>
-      state={{
-        isSelectable,
-        sortKey: localSortKey,
-        sortDirection: sortDirection,
-        setSortState,
-      }}
-    >
+    <TableProvider<ItemType> state={tableProviderState}>
       <Primitives.Table testId={testId}>
         {isSelectable ? (
           <SelectionProvider>{children}</SelectionProvider>

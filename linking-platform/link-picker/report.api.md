@@ -117,6 +117,17 @@ interface ResolveResult {
   data: LinkSearchListItemData[];
 }
 
+// @public (undocumented)
+export class UnauthenticatedError extends Error {
+  constructor(iconUrl: string, authUrl: string, description: string);
+  // (undocumented)
+  authUrl: string;
+  // (undocumented)
+  description: string;
+  // (undocumented)
+  iconUrl: string;
+}
+
 // (No @packageDocumentation comment for this package)
 ```
 

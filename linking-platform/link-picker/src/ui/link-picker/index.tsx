@@ -548,9 +548,13 @@ function LinkPicker({
         </Fragment>
       )}
       <FormFooter
-        css={!queryState || !plugins?.length ? formFooterMargin : undefined}
+        error={error}
+        items={items}
+        state={queryState}
+        isLoading={isLoading}
         isEditing={isEditing}
         onCancel={onCancel}
+        css={!queryState || !plugins?.length ? formFooterMargin : undefined}
       />
     </form>
   );

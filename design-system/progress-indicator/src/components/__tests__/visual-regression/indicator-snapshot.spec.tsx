@@ -9,7 +9,7 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl(
       'design-system',
       'progress-indicator',
-      'progress-indicator-default-size',
+      'progress-indicator-size-spacing',
       global.__BASEURL__,
     );
     const { page } = global;

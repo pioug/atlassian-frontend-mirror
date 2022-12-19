@@ -1094,6 +1094,84 @@ describe('<LinkPicker />', () => {
       expect(screen.queryByTestId(testIds.emptyResultPage)).toBeNull();
     });
 
+    it('should not disable the Insert button if search returns no results for a valid URL', async () => {
+      const resultPromise = Promise.resolve({
+        value: { data: [] },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin(
+        Array(20).fill(resultPromise),
+      );
+      const { testIds } = setupWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
+
+      await user.type(
+        screen.getByTestId(testIds.urlInputField),
+        'atlassian.com',
+      );
+
+      const insertButton = await screen.findByTestId(testIds.insertButton);
+      expect(insertButton).not.toHaveAttribute('disabled');
+    });
+
+    it('should disable the Insert button if search returns no results', async () => {
+      const resultPromise = Promise.resolve({
+        value: { data: [] },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin(
+        Array(20).fill(resultPromise),
+      );
+      const { testIds } = setupWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
+
+      await asyncAct(() => resultPromise);
+
+      await user.type(screen.getByTestId(testIds.urlInputField), 'xyz');
+
+      const insertButton = await screen.findByTestId(testIds.insertButton);
+      expect(insertButton).toHaveAttribute('disabled');
+    });
+
+    it('should disable the Insert button when loading results', async () => {
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 3) },
+        done: false,
+      });
+      const updatedResultPromise = new ManualPromise({
+        value: { data: mockedPluginData.slice(0, 2) },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([
+        initialResultPromise,
+        updatedResultPromise,
+      ]);
+      const { testIds } = setupWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
+
+      await asyncAct(() => initialResultPromise);
+
+      const insertButton = await screen.findByTestId(testIds.insertButton);
+      expect(insertButton).toHaveAttribute('disabled');
+
+      expect(
+        screen.getByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeInTheDocument();
+
+      await asyncAct(() => updatedResultPromise.resolve());
+
+      expect(insertButton).not.toHaveAttribute('disabled');
+      expect(
+        screen.queryByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeNull();
+    });
+
     describe('Tab UI', () => {
       it('should render the Tab UI if there were multiple plugins with tabTitle available', async () => {
         const plugin1 = new MockLinkPickerPromisePlugin({
@@ -1258,6 +1336,47 @@ describe('<LinkPicker />', () => {
         expect(
           await screen.findByTestId(testIds.searchError),
         ).toBeInTheDocument();
+      });
+
+      it('should hide footer buttons when plugin throws unauthentication errors', async () => {
+        const plugins = [
+          new UnstableMockLinkPickerPlugin({
+            tabKey: 'tab1',
+            tabTitle: 'Unstable',
+            errorFallback: (error, retry) => null,
+          }),
+        ];
+
+        const { testIds } = setupWithGenericPlugin({
+          plugins,
+        });
+
+        await screen.findByTestId(testIds.linkPicker);
+
+        expect(
+          screen.queryByTestId(testIds.insertButton),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByTestId(testIds.cancelButton),
+        ).not.toBeInTheDocument();
+      });
+
+      it('should disable buttons when plugin throws a search error', async () => {
+        const plugins = [
+          new UnstableMockLinkPickerPlugin({
+            tabKey: 'tab1',
+            tabTitle: 'Unstable',
+          }),
+        ];
+
+        const { testIds } = setupWithGenericPlugin({
+          plugins,
+        });
+
+        await screen.findByTestId(testIds.linkPicker);
+        const insertButton = await screen.findByTestId(testIds.insertButton);
+        expect(insertButton).toBeInTheDocument();
+        expect(insertButton).toHaveAttribute('disabled');
       });
     });
   });

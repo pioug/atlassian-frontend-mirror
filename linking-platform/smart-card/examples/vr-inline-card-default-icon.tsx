@@ -8,6 +8,7 @@ export default () => (
   <VRTestCase title="Inline card with default icon">
     {() => (
       <InlineCardResolvedView
+        link={'some-url'}
         isSelected={false}
         icon={'broken-url'}
         title="Smart Links - Designs"

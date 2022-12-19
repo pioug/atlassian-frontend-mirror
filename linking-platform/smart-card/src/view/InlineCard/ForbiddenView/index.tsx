@@ -8,11 +8,7 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';
 import { messages } from '../../../messages';
 import { FormattedMessage } from 'react-intl-next';
-import {
-  IconStyledButton,
-  LowercaseAppearance,
-  LinkAppearance,
-} from '../styled';
+import { IconStyledButton, LowercaseAppearance } from '../styled';
 import { RequestAccessContextProps } from '../../types';
 
 export interface InlineCardForbiddenViewProps {
@@ -84,28 +80,22 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
     );
   };
 
-  renderMessage = () => {
-    const { url, onAuthorise } = this.props;
-    const link = <LinkAppearance>{url}</LinkAppearance>;
+  renderRightSide = () => {
+    const { onAuthorise } = this.props;
     const hasRequestAccessContextMessage =
       this.props?.requestAccessContext?.callToActionMessageKey;
-    return !onAuthorise && !hasRequestAccessContextMessage ? (
-      link
-    ) : (
-      <>
-        {link}
-        {' - '}
-        <Button
-          spacing="none"
-          appearance="subtle-link"
-          onClick={this.handleRetry}
-          component={IconStyledButton}
-          testId="button-connect-other-account"
-        >
-          {this.renderForbiddenAccessMessage()}
-        </Button>
-      </>
-    );
+
+    return onAuthorise || hasRequestAccessContextMessage ? (
+      <Button
+        spacing="none"
+        appearance="subtle-link"
+        onClick={this.handleRetry}
+        component={IconStyledButton}
+        testId="button-connect-other-account"
+      >
+        {this.renderForbiddenAccessMessage()}
+      </Button>
+    ) : null;
   };
 
   render() {
@@ -117,15 +107,13 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
       testId = 'inline-card-forbidden-view',
     } = this.props;
     return (
-      <Frame
-        testId={testId}
-        link={url}
-        onClick={onClick}
-        isSelected={isSelected}
-      >
+      <Frame testId={testId} isSelected={isSelected}>
         <IconAndTitleLayout
           icon={icon ? icon : FallbackForbiddenIcon}
-          title={this.renderMessage()}
+          link={url}
+          title={url}
+          onClick={onClick}
+          rightSide={this.renderRightSide()}
           titleColor={token('color.text.subtle', N500)}
         />
       </Frame>

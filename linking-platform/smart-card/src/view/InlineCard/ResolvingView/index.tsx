@@ -20,7 +20,6 @@ export interface InlineCardResolvingViewProps {
   /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
   titleTextColor?: string;
-  withoutHover?: boolean;
 }
 
 export class InlineCardResolvingView extends React.Component<InlineCardResolvingViewProps> {
@@ -32,13 +31,11 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
       inlinePreloaderStyle,
       testId = 'inline-card-resolving-view',
       titleTextColor,
-      withoutHover,
     } = this.props;
     if (inlinePreloaderStyle === 'on-right-without-skeleton') {
       return (
         <Frame
           withoutBackground={true}
-          withoutHover={withoutHover}
           testId={testId}
           onClick={onClick}
           isSelected={isSelected}
@@ -55,13 +52,12 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
       );
     } else {
       return (
-        <Frame
-          testId={testId}
-          onClick={onClick}
-          isSelected={isSelected}
-          withoutHover={withoutHover}
-        >
-          <IconAndTitleLayout title={url} titleTextColor={titleTextColor}>
+        <Frame testId={testId} onClick={onClick} isSelected={isSelected}>
+          <IconAndTitleLayout
+            link={url}
+            title={url}
+            titleTextColor={titleTextColor}
+          >
             <SpinnerWrapper className="inline-resolving-spinner">
               <Spinner size={14} />
             </SpinnerWrapper>

@@ -1,17 +1,15 @@
 /* eslint-disable no-unused-vars */
 /** @jsx jsx */
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
-import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
-import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useTable } from './hooks/use-table';
-import { TH } from './ui';
+import { SortIcon, TH } from './ui';
 
 export interface CellProps {
   /**
@@ -74,19 +72,11 @@ const SortableColumn: FC<CellProps> = ({
     return sortingMessages.unsorted.string;
   };
 
-  const getSortIcon = () => {
-    if (sortKey === name) {
-      switch (sortDirection) {
-        case undefined:
-          return undefined;
-        case 'ascending':
-          return <ArrowUpIcon size="small" label="" primaryColor="inherit" />;
-        case 'descending':
-          return <ArrowDownIcon size="small" label="" primaryColor="inherit" />;
-      }
-    }
-    return undefined;
-  };
+  const updateSortState = useCallback(
+    // @ts-expect-error: TODO: Our `name` typing is off; refer to `SortKey`
+    () => setSortState(name),
+    [setSortState, name],
+  );
 
   return (
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
@@ -96,10 +86,9 @@ const SortableColumn: FC<CellProps> = ({
           <Button
             spacing="compact"
             appearance="subtle"
-            iconAfter={getSortIcon()}
+            iconAfter={<SortIcon name={name} />}
             {...tooltipProps}
-            // @ts-expect-error
-            onClick={() => setSortState(name)}
+            onClick={updateSortState}
             css={overrideStyles}
           >
             {children}

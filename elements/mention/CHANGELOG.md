@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 21.0.11
+
+### Patch Changes
+
+- [`f14b977abd5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f14b977abd5) - Bump query-string to ^v7.1.3
+
 ## 21.0.10
 
 ### Patch Changes

@@ -1,5 +1,6 @@
-import React from 'react';
-import { PureComponent } from 'react';
+/** @jsx jsx */
+import { PureComponent, MouseEvent } from 'react';
+import { css, jsx } from '@emotion/react';
 import Lozenge, { ThemeAppearance } from '@atlaskit/lozenge';
 import {
   WithAnalyticsEventsProps,
@@ -27,6 +28,23 @@ const colorToLozengeAppearanceMap: { [K in Color]: ThemeAppearance } = {
 const DEFAULT_APPEARANCE = 'default';
 const MAX_WIDTH = 200;
 
+/**
+ * This is to account for a bug in android chromium and should be removed
+ * when the editor fixes its focus handling with respect to Status.
+ *
+ * See DSP-7701 for additional context.
+ */
+const inlineBlockStyles = css({
+  '& > *': {
+    display: 'inline-block !important',
+  },
+});
+
+// eg. Version/4.0 Chrome/95.0.4638.50
+const isAndroidChromium =
+  typeof window !== 'undefined' &&
+  /Version\/.* Chrome\/.*/.test(window.navigator.userAgent);
+
 export interface OwnProps {
   text: string;
   color: Color;
@@ -44,11 +62,11 @@ class StatusInternal extends PureComponent<Props, any> {
 
   private hoverStartTime: number = 0;
 
-  private handleMouseEnter = (_e: React.MouseEvent<HTMLSpanElement>) => {
+  private handleMouseEnter = (_e: MouseEvent<HTMLSpanElement>) => {
     this.hoverStartTime = Date.now();
   };
 
-  private handleMouseLeave = (_e: React.MouseEvent<HTMLSpanElement>) => {
+  private handleMouseLeave = (_e: MouseEvent<HTMLSpanElement>) => {
     const { onHover } = this.props;
     const delay = Date.now() - this.hoverStartTime;
 
@@ -72,6 +90,7 @@ class StatusInternal extends PureComponent<Props, any> {
     // Note: ommitted data-local-id attribute to avoid copying/pasting the same localId
     return (
       <span
+        css={isAndroidChromium ? inlineBlockStyles : undefined}
         className="status-lozenge-span"
         onClick={onClick}
         onMouseEnter={this.handleMouseEnter}

@@ -16,5 +16,35 @@ describe('Snapshot Test', () => {
       const image = await page.screenshot();
       expect(image).toMatchProdImageSnapshot();
     });
+
+    it(`Loading state example should match prod (${theme})`, async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'table-tree',
+        'vr-loading',
+        global.__BASEURL__,
+        theme,
+      );
+      const { page } = global;
+      await loadPage(page, url, { disabledSideEffects: { animation: true } });
+      await page.waitForSelector('div[role="treegrid"]');
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it(`Nested loading state example should match prod (${theme})`, async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'table-tree',
+        'vr-loading-nested',
+        global.__BASEURL__,
+        theme,
+      );
+      const { page } = global;
+      await loadPage(page, url, { disabledSideEffects: { animation: true } });
+      await page.waitForSelector('div[role="treegrid"]');
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    });
   });
 });

@@ -378,6 +378,7 @@ type Overflow = keyof typeof overflowMap;
 // @public (undocumented)
 const overflowMap: {
   auto: SerializedStyles;
+  hidden: SerializedStyles;
 };
 
 // @public (undocumented)

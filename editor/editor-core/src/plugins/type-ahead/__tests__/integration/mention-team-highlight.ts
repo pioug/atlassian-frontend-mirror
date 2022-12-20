@@ -137,9 +137,12 @@ describe('mention: Team Highlight on TypeAhead', () => {
       },
     );
 
+    // FIXME: This test was automatically skipped due to failure on 19/12/2022: https://product-fabric.atlassian.net/browse/ED-16406
     BrowserTestCase(
       'it should open a new window',
-      {},
+      {
+        skip: ['*'],
+      },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
 

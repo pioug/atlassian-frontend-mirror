@@ -65,7 +65,7 @@ const Lozenge = memo(
     isBold = false,
     appearance = 'default',
     maxWidth = 200,
-    style = {},
+    style,
   }: LozengeProps) => {
     const appearanceStyle = isBold ? 'bold' : 'subtle';
     const appearanceType =
@@ -82,14 +82,13 @@ const Lozenge = memo(
         paddingInline="scale.050"
         position="static"
         testId={testId}
+        overflow="hidden"
         UNSAFE_style={{
-          backgroundColor: style.backgroundColor,
-          verticalAlign: 'baseline',
+          backgroundColor: style?.backgroundColor,
           maxWidth: '100%',
         }}
       >
         <Text
-          as="span"
           fontSize="11px"
           fontWeight="700"
           lineHeight="16px"
@@ -97,13 +96,9 @@ const Lozenge = memo(
           color={textColors[appearanceStyle][appearanceType]}
           shouldTruncate
           UNSAFE_style={{
-            color: style.color,
-            width: '100%',
-            // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-            maxWidth: `calc(${maxWidthValue} - ${token(
-              'spacing.scale.100',
-              '8px',
-            )})`, // to negate paddingInline specified on Box above
+            color: style?.color,
+            // to negate paddingInline specified on Box above
+            maxWidth: `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
           }}
           testId={testId && `${testId}--text`}
         >

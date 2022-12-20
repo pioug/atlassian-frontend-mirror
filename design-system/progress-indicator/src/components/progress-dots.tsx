@@ -125,6 +125,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
           [varDotsMargin]: rawGapValue,
         } as CSSProperties
       }
+      display="block"
       role="tablist"
     >
       <Inline

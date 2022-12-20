@@ -1,5 +1,11 @@
 # @atlaskit/image
 
+## 1.0.0
+
+### Major Changes
+
+- [`bc74a5feb7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc74a5feb7d) - This package is no longer experimental and the API is considered stable. Version contains no changes what so ever.
+
 ## 0.2.1
 
 ### Patch Changes

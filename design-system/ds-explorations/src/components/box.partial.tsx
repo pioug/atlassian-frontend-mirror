@@ -284,6 +284,7 @@ const positionMap = {
 type Overflow = keyof typeof overflowMap;
 const overflowMap = {
   auto: css({ overflow: 'auto' }),
+  hidden: css({ overflow: 'hidden' }),
 };
 
 const baseStyles = css({

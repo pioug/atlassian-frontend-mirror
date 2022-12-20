@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.2.1
+
+### Patch Changes
+
+- [`403e0d2d291`](https://bitbucket.org/atlassian/atlassian-frontend/commits/403e0d2d291) - ED-16246 fix prevent @types/prosemirror-commands @types/prosemirror-keymap updating to incompatible version.
+
 ## 2.2.0
 
 ### Minor Changes

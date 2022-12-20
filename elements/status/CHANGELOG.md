@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 1.2.2
+
+### Patch Changes
+
+- [`5d2eeac35f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d2eeac35f7) - Fixes a browser specific bug that occurred in android chromium that led to the component losing focus unexpectedly when selected for editing.
+
 ## 1.2.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.4.1
+
+### Patch Changes
+
+- [`767258f2c53`](https://bitbucket.org/atlassian/atlassian-frontend/commits/767258f2c53) - Set main container of progress indicator as display block instead of flex given display flex is now set on the direct child of the main container
+
 ## 9.4.0
 
 ### Minor Changes

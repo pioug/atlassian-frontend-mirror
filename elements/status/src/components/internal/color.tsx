@@ -58,7 +58,6 @@ export default class Color extends PureComponent<ColorProps> {
       value,
       setRef,
     } = this.props;
-    const borderStyle = `1px solid ${borderColor}`;
     return (
       <span css={buttonWrapperStyles}>
         <FormattedMessage
@@ -81,7 +80,7 @@ export default class Color extends PureComponent<ColorProps> {
               aria-pressed={isSelected}
               style={{
                 backgroundColor: backgroundColor || 'transparent',
-                border: borderStyle,
+                borderColor,
               }}
               ref={setRef}
             >

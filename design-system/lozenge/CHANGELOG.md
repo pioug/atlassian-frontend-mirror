@@ -1,5 +1,16 @@
 # @atlaskit/lozenge
 
+## 11.3.2
+
+### Patch Changes
+
+- [`25e09731caa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25e09731caa) - Fixes:
+
+  - Removes `vertical-align: baseline` from Lozenge which was being applied incorrectly.
+  - Removes a default prop which was causing unintended re-renders.
+
+- Updated dependencies
+
 ## 11.3.1
 
 ### Patch Changes

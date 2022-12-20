@@ -32,7 +32,7 @@
   "dependencies": {
     "@atlaskit/button": "^16.4.0",
     "@atlaskit/codemod-utils": "^4.1.0",
-    "@atlaskit/ds-explorations": "^1.5.0",
+    "@atlaskit/ds-explorations": "^1.6.0",
     "@atlaskit/heading": "^1.0.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/theme": "^12.2.0",

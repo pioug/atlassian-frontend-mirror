@@ -67,7 +67,7 @@ describe('Status', () => {
     // This may lead to the screen reader will announce the status twice
     // for the screen reader users.
     const component = mountWithIntl(<Status text="In progress" color="blue" />);
-    const span = component.find('span[className="status-lozenge-span"]');
+    const span = component.find('span[className~="status-lozenge-span"]');
 
     expect(span.prop('title')).toBeUndefined();
   });
@@ -92,7 +92,7 @@ describe('Status', () => {
       <Status text="TODO" color="blue" style="subtle" />,
     );
 
-    const span = component.find('span[className="status-lozenge-span"]');
+    const span = component.find('span[className~="status-lozenge-span"]');
     expect(span.prop('data-node-type')).toBe('status');
     expect(span.prop('data-style')).toBe('subtle');
     expect(span.prop('data-color')).toBe('blue');
@@ -138,7 +138,7 @@ describe('Status', () => {
 
       dateNowStub.mockReturnValue(now);
       const lozengeContainer = component.find(
-        'span[className="status-lozenge-span"]',
+        'span[className~="status-lozenge-span"]',
       );
 
       lozengeContainer.simulate('mouseenter');
@@ -159,7 +159,7 @@ describe('Status', () => {
       const component = createStatus('456', onClick, jest.fn());
 
       const lozengeContainer = component.find(
-        'span[className="status-lozenge-span"]',
+        'span[className~="status-lozenge-span"]',
       );
       lozengeContainer.simulate('click');
 

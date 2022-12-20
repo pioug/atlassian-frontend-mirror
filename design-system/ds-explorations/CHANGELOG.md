@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.6.0
+
+### Minor Changes
+
+- [`9f9498aafb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f9498aafb1) - [ux] Box API introduces `hidden` for `overflow` prop.
+
 ## 1.5.0
 
 ### Minor Changes

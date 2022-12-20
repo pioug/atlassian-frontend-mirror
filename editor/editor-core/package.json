@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "175.0.4",
+  "version": "175.0.5",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -86,10 +86,10 @@
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@types/prosemirror-collab": "^1.1.1",
-    "@types/prosemirror-commands": "^1.0.1",
+    "@types/prosemirror-commands": "1.0.1",
     "@types/prosemirror-history": "^1.0.1",
     "@types/prosemirror-inputrules": "^1.0.3",
-    "@types/prosemirror-keymap": "^1.0.1",
+    "@types/prosemirror-keymap": "1.0.1",
     "@types/prosemirror-model": "^1.11.0",
     "@types/prosemirror-state": "^1.2.0",
     "@types/prosemirror-transform": "^1.1.0",

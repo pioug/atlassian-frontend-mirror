@@ -9,7 +9,7 @@ import { messages } from './i18n';
 import { getAvatarUrl, isEmail, isGroup } from './utils';
 import { Option, UserPickerProps } from '../types';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
-import { MultiValueProps } from '@atlaskit/select/types';
+import { MultiValueProps } from '@atlaskit/select';
 
 export const scrollToValue = (
   valueContainer: HTMLDivElement,

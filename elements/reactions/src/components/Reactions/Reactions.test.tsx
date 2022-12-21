@@ -1,10 +1,8 @@
 import React from 'react';
-import { fireEvent, screen } from '@testing-library/react';
-import { ReactWrapper } from 'enzyme';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { act, fireEvent, screen, within } from '@testing-library/react';
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   getReactionSummary,
   ari,
@@ -12,29 +10,76 @@ import {
 } from '../../MockReactionsClient';
 import {
   mockReactDomWarningGlobal,
+  mockResetUFOInstance,
   renderWithIntl,
   useFakeTimers,
 } from '../../__tests__/_testing-library';
+import type { FakeUFOInstance } from '../../__tests__/_testing-library';
 import { constants, i18n } from '../../shared';
 import {
   QuickReactionEmojiSummary,
   ReactionStatus,
   ReactionSummary,
 } from '../../types';
-import { ReactionPicker } from '../ReactionPicker';
+import { RENDER_REACTIONPICKER_TESTID } from '../ReactionPicker';
 import { RENDER_REACTION_TESTID } from '../Reaction';
-import { ReactionsProps, Reactions, getTooltip } from './Reactions';
+import {
+  ReactionsProps,
+  Reactions,
+  getTooltip,
+  RENDER_VIEWALL_REACTED_USERS_DIALOG,
+  ufoExperiences,
+} from './Reactions';
+import { RENDER_MODAL_TESTID } from '../ReactionDialog/ReactionsDialog';
+import { RENDER_SELECTOR_TESTID } from '../Selector';
+import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
 
 describe('@atlaskit/reactions/components/Reactions', () => {
   const mockOnReactionsClick = jest.fn();
   const mockOnSelection = jest.fn();
   const mockLoadReaction = jest.fn();
 
-  mockReactDomWarningGlobal();
+  const fakeOpenDialogUFOExperience: FakeUFOInstance = {
+    start: jest.fn(),
+    success: jest.fn(),
+    failure: jest.fn(),
+    abort: jest.fn(),
+    addMetadata: jest.fn(),
+  };
+
+  const fakeCloseDialogUFOExperience: FakeUFOInstance = {
+    start: jest.fn(),
+    success: jest.fn(),
+    failure: jest.fn(),
+    abort: jest.fn(),
+    addMetadata: jest.fn(),
+  };
+
+  const fakeSelectedReactionChangeInsideDialogUFOExperience: FakeUFOInstance = {
+    start: jest.fn(),
+    success: jest.fn(),
+    failure: jest.fn(),
+    abort: jest.fn(),
+    addMetadata: jest.fn(),
+  };
+  mockReactDomWarningGlobal(() => {
+    // Mock the experiences for all dialog UfoExperience instances
+    ufoExperiences.openDialog = fakeOpenDialogUFOExperience as any;
+    ufoExperiences.closeDialog = fakeCloseDialogUFOExperience as any;
+    ufoExperiences.selectedReactionChangeInsideDialog =
+      fakeSelectedReactionChangeInsideDialogUFOExperience as any;
+  });
   useFakeTimers(() => {
     mockOnReactionsClick.mockClear();
     mockOnSelection.mockClear();
     mockLoadReaction.mockClear();
+
+    // dialog opening UFO experience mock reset
+    mockResetUFOInstance(fakeOpenDialogUFOExperience);
+    // dialog close UFO experience mock reset
+    mockResetUFOInstance(fakeCloseDialogUFOExperience);
+    // changed Reaction inside dialog UFO experience mock reset
+    mockResetUFOInstance(fakeSelectedReactionChangeInsideDialogUFOExperience);
   });
 
   /**
@@ -54,17 +99,22 @@ describe('@atlaskit/reactions/components/Reactions', () => {
   };
   const status = ReactionStatus.ready;
 
-  const renderReactions = (extraProps: Partial<ReactionsProps> = {}) => {
+  const renderReactions = (
+    extraProps: Partial<ReactionsProps> = {},
+    onEvent: (event: UIAnalyticsEvent, channel?: string) => void = () => {},
+  ) => {
     return renderWithIntl(
-      <Reactions
-        emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
-        reactions={reactions}
-        status={status}
-        onReactionClick={mockOnReactionsClick}
-        onSelection={mockOnSelection}
-        loadReaction={mockLoadReaction}
-        {...extraProps}
-      />,
+      <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
+        <Reactions
+          emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+          reactions={reactions}
+          status={status}
+          onReactionClick={mockOnReactionsClick}
+          onSelection={mockOnSelection}
+          loadReaction={mockLoadReaction}
+          {...extraProps}
+        />
+      </AnalyticsListener>,
     );
   };
 
@@ -75,7 +125,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
       RENDER_REACTION_TESTID,
     );
     expect(reactionButtons.length).toEqual(reactions.length);
-    fireEvent.mouseUp(reactionButtons[0]);
+    fireEvent.click(reactionButtons[0]);
     expect(mockOnReactionsClick).toHaveBeenCalled();
   });
 
@@ -117,6 +167,92 @@ describe('@atlaskit/reactions/components/Reactions', () => {
       RENDER_REACTION_TESTID,
     );
     expect(reactionButtons.length).toEqual(0);
+  });
+
+  it('should not show see who reacted button if allowUserDialog is disabled', async () => {
+    renderReactions({
+      reactions,
+      allowUserDialog: false,
+    });
+    const seeWhoReactedButton = await screen.queryByTestId(
+      RENDER_VIEWALL_REACTED_USERS_DIALOG,
+    );
+    expect(seeWhoReactedButton).not.toBeInTheDocument();
+  });
+
+  it('should open reactions users dialog if allowUserDialog is enabled and see who reacted button is clicked', async () => {
+    const onDialogOpenCallback = jest.fn();
+    const onDialogCloseCallback = jest.fn();
+    const onDialogSelectReactionCallback = jest.fn();
+    renderReactions({
+      reactions,
+      allowUserDialog: true,
+      onDialogOpenCallback,
+      onDialogCloseCallback,
+      onDialogSelectReactionCallback,
+    });
+
+    const seeWhoReactedButton = await screen.findByTestId(
+      RENDER_VIEWALL_REACTED_USERS_DIALOG,
+    );
+
+    // click see who reacted button
+    act(() => {
+      fireEvent.click(seeWhoReactedButton);
+    });
+
+    const reactionDialog = await screen.getByTestId(RENDER_MODAL_TESTID);
+
+    // get reaction tab from reactions dialog
+    const modalBody = await screen.getByTestId('render-reactions-modal--body');
+    const reactionToClick = within(modalBody).getByTestId(reactions[1].emojiId);
+    const reactionTabToClick = within(reactionToClick).getByRole('tab');
+    // click a different reaction tab
+    act(() => {
+      fireEvent.click(reactionTabToClick);
+    });
+
+    // get close button in reactions dialog
+    const modalFooter = await screen.getByTestId(
+      'render-reactions-modal--footer',
+    );
+    const closeBtn = within(modalFooter).getByText('Close');
+    // click close button in reactions dialog
+    act(() => {
+      fireEvent.click(closeBtn);
+    });
+
+    expect(reactionDialog).not.toBeUndefined();
+    expect(seeWhoReactedButton).toBeDefined();
+    expect(onDialogOpenCallback).toBeCalledWith(reactions[0].emojiId, 'button');
+    expect(onDialogCloseCallback).toBeCalled();
+    expect(onDialogSelectReactionCallback).toBeCalledWith(
+      reactions[1].emojiId,
+      expect.any(UIAnalyticsEvent),
+    );
+
+    expect(fakeOpenDialogUFOExperience.success).toBeCalledWith({
+      metadata: {
+        emojiId: reactions[0].emojiId,
+        source: 'Reactions',
+        reason: 'Opening all reactions dialog link successfully',
+      },
+    });
+    expect(
+      fakeSelectedReactionChangeInsideDialogUFOExperience.success,
+    ).toBeCalledWith({
+      metadata: {
+        emojiId: reactions[1].emojiId,
+        source: 'Reactions',
+        reason: 'Selected Emoji changed',
+      },
+    });
+    expect(fakeCloseDialogUFOExperience.success).toBeCalledWith({
+      metadata: {
+        source: 'Reactions',
+        reason: 'Closing reactions dialog successfully',
+      },
+    });
   });
 
   describe('getTooltip', () => {
@@ -166,38 +302,11 @@ describe('@atlaskit/reactions/components/Reactions', () => {
   });
 
   describe('with analytics', () => {
-    const onEvent = jest.fn();
-    const TestComponent = (props: Partial<ReactionsProps>) => (
-      <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
-        <Reactions
-          emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
-          reactions={[
-            getReactionSummary(':fire:', 1, true),
-            getReactionSummary(':thumbsup:', 9, false),
-          ]}
-          allowAllEmojis
-          status={ReactionStatus.loading}
-          onReactionClick={() => {}}
-          onSelection={() => {}}
-          loadReaction={() => {}}
-          {...props}
-        />
-      </AnalyticsListener>
-    );
+    it('should trigger render', async () => {
+      const mockOnEvent = jest.fn();
+      renderReactions({}, mockOnEvent);
 
-    let component: ReactWrapper<ReactionsProps>;
-
-    beforeEach(() => {
-      component = mountWithIntl(<TestComponent />);
-      component.setProps({ status: ReactionStatus.ready });
-    });
-
-    afterEach(() => {
-      onEvent.mockClear();
-    });
-
-    it('should trigger render', () => {
-      expect(onEvent).toHaveBeenCalledWith(
+      expect(mockOnEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: expect.objectContaining({
             action: 'rendered',
@@ -215,12 +324,20 @@ describe('@atlaskit/reactions/components/Reactions', () => {
     });
 
     describe('with ReactionPicker open', () => {
-      beforeEach(() => {
-        component.find('[type="button"]').last().simulate('click');
-      });
+      it('should trigger clicked for Reaction Picker Button', async () => {
+        const mockOnEvent = jest.fn();
+        renderReactions({}, mockOnEvent);
 
-      it('should trigger clicked for Reaction Picker Button', () => {
-        expect(onEvent).toHaveBeenCalledWith(
+        const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
+        expect(picker).toBeInTheDocument();
+
+        const pickerButton = within(picker).getByRole('button');
+        expect(pickerButton).toBeInTheDocument();
+        // click to open the reaction picker
+        act(() => {
+          fireEvent.click(pickerButton);
+        });
+        expect(mockOnEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             payload: expect.objectContaining({
               action: 'clicked',
@@ -237,14 +354,24 @@ describe('@atlaskit/reactions/components/Reactions', () => {
         );
       });
 
-      it('should trigger cancelled for ReactionPicker', () => {
-        const onCancel = component.find(ReactionPicker).prop('onCancel');
-        expect(onCancel).toBeDefined();
-        if (onCancel) {
-          onCancel();
-        }
+      it('should trigger cancelled for ReactionPicker', async () => {
+        const mockOnEvent = jest.fn();
+        renderReactions({}, mockOnEvent);
 
-        expect(onEvent).toHaveBeenCalledWith(
+        // triggger the picker button to show
+        const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
+        expect(picker).toBeInTheDocument();
+        const pickerButton = within(picker).getByRole('button');
+        expect(pickerButton).toBeInTheDocument();
+        // click to open the reaction picker
+        act(() => {
+          fireEvent.click(pickerButton);
+        });
+        // close the reaction picker by click it again
+        act(() => {
+          fireEvent.click(pickerButton);
+        });
+        expect(mockOnEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             payload: expect.objectContaining({
               action: 'cancelled',
@@ -261,97 +388,152 @@ describe('@atlaskit/reactions/components/Reactions', () => {
         );
       });
 
-      it('should trigger clicked for new emoji', () => {
-        component.find(ReactionPicker).prop('onSelection')(
-          'emoji-1',
-          'quickSelector',
-        );
+      it('should trigger clicked for new emoji', async () => {
+        const mockOnEvent = jest.fn();
+        renderReactions({}, mockOnEvent);
 
-        expect(onEvent).toHaveBeenCalledWith(
+        // triggger the picker button to show
+        const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
+        expect(picker).toBeInTheDocument();
+        const pickerButton = within(picker).getByRole('button');
+        expect(pickerButton).toBeInTheDocument();
+        // click to open the reaction picker
+        act(() => {
+          fireEvent.click(pickerButton);
+        });
+
+        // render the selectors list insider <ReactionPicker />
+        const selectors = await within(picker).findAllByTestId(
+          RENDER_SELECTOR_TESTID,
+        );
+        expect(selectors.length).toBeGreaterThan(1);
+        expect(selectors[1]).toBeInTheDocument();
+
+        // pick the button inside the list of emojis to select
+        const selectedButton = within(selectors[1]).getByRole('button');
+        expect(selectedButton).toBeInTheDocument();
+
+        act(() => {
+          fireEvent.click(selectedButton);
+        });
+
+        act(() => {
+          jest.runOnlyPendingTimers();
+        });
+        expect(mockOnEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             payload: expect.objectContaining({
               action: 'clicked',
               actionSubject: 'reactionPicker',
-              actionSubjectId: 'emoji',
               eventType: 'ui',
-              attributes: {
+              attributes: expect.objectContaining({
                 duration: expect.any(Number),
-                emojiId: 'emoji-1',
+                emojiId: constants.DefaultReactions[1].id,
                 previousState: 'new',
                 source: 'quickSelector',
                 packageName: '@atlaskit/reactions',
                 packageVersion: expect.any(String),
-              },
+              }),
             }),
           }),
           'fabric-elements',
         );
       });
 
-      it('should trigger clicked for existing emoji', () => {
-        component.find(ReactionPicker).prop('onSelection')(
-          '1f44d',
-          'quickSelector',
-        );
+      it('should trigger clicked for existing emoji', async () => {
+        const mockOnEvent = jest.fn();
+        renderReactions({}, mockOnEvent);
 
-        expect(onEvent).toHaveBeenCalledWith(
+        // triggger the picker button to show
+        const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
+        expect(picker).toBeInTheDocument();
+        const pickerButton = within(picker).getByRole('button');
+        expect(pickerButton).toBeInTheDocument();
+        // click to open the reaction picker
+        act(() => {
+          fireEvent.click(pickerButton);
+        });
+
+        // render the selectors list insider <ReactionPicker />
+        const selectors = await within(picker).findAllByTestId(
+          RENDER_SELECTOR_TESTID,
+        );
+        expect(selectors.length).toBeGreaterThan(1);
+        expect(selectors[0]).toBeInTheDocument();
+
+        // pick the button inside the list of emojis to select
+        const selectedButton = within(selectors[0]).getByRole('button');
+        expect(selectedButton).toBeInTheDocument();
+
+        act(() => {
+          fireEvent.click(selectedButton);
+        });
+
+        act(() => {
+          jest.runOnlyPendingTimers();
+        });
+
+        expect(mockOnEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             payload: expect.objectContaining({
               action: 'clicked',
               actionSubject: 'reactionPicker',
-              actionSubjectId: 'emoji',
               eventType: 'ui',
-              attributes: {
+              attributes: expect.objectContaining({
                 duration: expect.any(Number),
-                emojiId: '1f44d',
+                emojiId: constants.DefaultReactions[0].id,
                 previousState: 'existingNotReacted',
                 source: 'quickSelector',
                 packageName: '@atlaskit/reactions',
                 packageVersion: expect.any(String),
-              },
+              }),
             }),
           }),
           'fabric-elements',
         );
       });
 
-      it('should trigger clicked for existing reacted emoji', () => {
-        component.find(ReactionPicker).prop('onSelection')(
-          '1f525',
-          'quickSelector',
+      it('should trigger clicked from emojiPicker', async () => {
+        const mockOnEvent = jest.fn();
+        const { container } = renderReactions(
+          { allowAllEmojis: true },
+          mockOnEvent,
         );
 
-        return Promise.resolve().then(() => {
-          expect(onEvent).toHaveBeenCalledWith(
-            expect.objectContaining({
-              payload: expect.objectContaining({
-                action: 'clicked',
-                actionSubject: 'reactionPicker',
-                actionSubjectId: 'emoji',
-                eventType: 'ui',
-                attributes: {
-                  duration: expect.any(Number),
-                  emojiId: '1f525',
-                  previousState: 'existingReacted',
-                  source: 'quickSelector',
-                  packageName: '@atlaskit/reactions',
-                  packageVersion: expect.any(String),
-                },
-              }),
-            }),
-            'fabric-elements',
-          );
+        const wrapper = container.querySelector('div.miniMode');
+        expect(wrapper).toBeDefined();
+
+        // triggger the picker button to show
+        const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
+        expect(picker).toBeInTheDocument();
+        const pickerButton = within(picker).getByRole('button');
+        expect(pickerButton).toBeInTheDocument();
+        // click to open the reaction picker
+        act(() => {
+          fireEvent.click(pickerButton);
         });
-      });
 
-      it('should trigger clicked from emojiPicker', () => {
-        const onShowMore = component.find(ReactionPicker).prop('onShowMore');
-        expect(onShowMore).toBeDefined();
-        if (onShowMore) {
-          onShowMore();
-        }
+        // render the selectors list insider <ReactionPicker />
+        const selectors = await within(picker).findAllByTestId(
+          RENDER_SELECTOR_TESTID,
+        );
+        expect(selectors.length).toBeGreaterThan(1);
+        expect(selectors[0]).toBeInTheDocument();
 
-        expect(onEvent).toHaveBeenCalledWith(
+        // pick the button inside the list of emojis to select
+        const selectedButton = within(selectors[0]).getByRole('button');
+        expect(selectedButton).toBeInTheDocument();
+
+        const showMoreButton = await screen.findByTestId(
+          RENDER_SHOWMORE_TESTID,
+        );
+        expect(showMoreButton).toBeInTheDocument();
+
+        act(() => {
+          fireEvent.mouseDown(showMoreButton);
+        });
+
+        expect(mockOnEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             payload: expect.objectContaining({
               action: 'clicked',
@@ -360,31 +542,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
               eventType: 'ui',
               attributes: {
                 duration: expect.any(Number),
-                packageName: '@atlaskit/reactions',
-                packageVersion: expect.any(String),
-              },
-            }),
-          }),
-          'fabric-elements',
-        );
-
-        component.find(ReactionPicker).prop('onSelection')(
-          '1f525',
-          'emojiPicker',
-        );
-
-        expect(onEvent).toHaveBeenCalledWith(
-          expect.objectContaining({
-            payload: expect.objectContaining({
-              action: 'clicked',
-              actionSubject: 'reactionPicker',
-              actionSubjectId: 'emoji',
-              eventType: 'ui',
-              attributes: {
-                duration: expect.any(Number),
-                emojiId: '1f525',
-                previousState: 'existingReacted',
-                source: 'emojiPicker',
                 packageName: '@atlaskit/reactions',
                 packageVersion: expect.any(String),
               },

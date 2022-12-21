@@ -53,7 +53,7 @@ export default class TableCellNodeView implements NodeView {
     }
   }
 
-  private updateNodeView(node: Node): boolean {
+  private updateNodeView(node: Node) {
     if (this.node.type !== node.type) {
       return false;
     }

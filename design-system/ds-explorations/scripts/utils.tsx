@@ -3,9 +3,31 @@ import type { CSSProperties } from 'react';
 export const tokenToStyle = (
   prop: keyof CSSProperties,
   token: string,
-  fallback: string,
+  fallback: string | ShadowDefintion,
 ) => {
+  if (Array.isArray(fallback)) {
+    fallback = constructShadow(fallback);
+  }
   return `css({\n\t${prop}: token('${token}', '${fallback}')\n})`;
+};
+
+export type ShadowDefintion = Array<{
+  radius: number;
+  offset: {
+    x: number;
+    y: number;
+  };
+  color: string;
+  opacity: number;
+}>;
+
+const constructShadow = (shadowObject: ShadowDefintion) => {
+  return shadowObject
+    .map(
+      (shadow) =>
+        `${shadow.offset.x}px ${shadow.offset.y}px ${shadow.radius}px ${shadow.color}`,
+    )
+    .join(', ');
 };
 
 type BooleanCallback<T> = (args: T) => boolean;

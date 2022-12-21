@@ -1,14 +1,18 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
 import {
   copyToClipboard,
   editable,
+  fullpage,
   getDocFromElement,
-  gotoEditor,
-  insertMentionUsingClick,
   insertBlockMenuItem,
+  insertMentionUsingClick,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+import {
+  goToEditorTestingWDExample,
+  mountEditor,
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 
 export const loadActionButton = '[aria-label="Action item"]';
 const TYPE_AHEAD_MENU_LIST = `[aria-label="Popup"] [role="listbox"]`;
@@ -16,17 +20,25 @@ const TYPE_AHEAD_MENU_LIST = `[aria-label="Popup"] [role="listbox"]`;
 /*
  * Safari adds special characters that end up in the snapshot
  */
+
 BrowserTestCase(
   'task-decision-2.ts: can paste rich text into an action',
   {},
   async (client: any, testName: string) => {
-    const browser = new Page(client);
+    const page = new WebdriverPage(client);
+
     await copyToClipboard(
-      browser,
+      page,
       '<p>this is a link <a href="http://www.google.com">www.google.com</a></p><p>more elements with some <strong>format</strong></p><p>some addition<em> formatting</em></p>',
       'html',
     );
-    await gotoEditor(browser);
+
+    const browser = await goToEditorTestingWDExample(client);
+    await mountEditor(browser, {
+      appearance: fullpage.appearance,
+      allowPanel: true,
+    });
+
     await browser.waitFor(editable);
     await browser.type(editable, '[] ');
     await browser.waitForSelector('div[data-node-type="actionList"]');
@@ -40,12 +52,18 @@ BrowserTestCase(
   'task-decision-2.ts: can paste plain text into an action',
   {},
   async (client: any, testName: string) => {
-    const browser = new Page(client);
+    const page = new WebdriverPage(client);
     await copyToClipboard(
-      browser,
+      page,
       'this is a link http://www.google.com more elements with some **format** some addition *formatting*',
     );
-    await gotoEditor(browser);
+
+    const browser = await goToEditorTestingWDExample(client);
+    await mountEditor(browser, {
+      appearance: fullpage.appearance,
+      allowPanel: true,
+    });
+
     await browser.waitFor(editable);
     await browser.type(editable, '[] ');
     await browser.waitForSelector('div[data-node-type="actionList"]');
@@ -57,11 +75,15 @@ BrowserTestCase(
 
 BrowserTestCase(
   'task-decision-2.ts: can type into decision',
-  // TODO: safari skipped due to flakines in pipelines - please fix
-  { skip: ['safari'] },
+  {},
   async (client: any, testName: string) => {
-    const browser = new Page(client);
-    await gotoEditor(browser);
+    const browser = await goToEditorTestingWDExample(client);
+    await mountEditor(browser, {
+      appearance: fullpage.appearance,
+      allowPanel: true,
+    });
+
+    await browser.waitForSelector('button[aria-label="Action item"]');
     await browser.click(loadActionButton);
     await browser.waitForSelector(
       'div[data-node-type="actionList"] span + div',
@@ -77,8 +99,12 @@ BrowserTestCase(
   'task-decision-2.ts: can insert mention into an action using click',
   {},
   async (client: any, testName: string) => {
-    const browser = new Page(client);
-    await gotoEditor(browser);
+    const browser = await goToEditorTestingWDExample(client);
+    await mountEditor(browser, {
+      appearance: fullpage.appearance,
+      allowPanel: true,
+    });
+
     await browser.waitFor(editable);
     await browser.type(editable, '[] ');
     await browser.waitForSelector('div[data-node-type="actionList"]');
@@ -92,8 +118,12 @@ BrowserTestCase(
   'task-decision-2.ts: joins actions regardless of insert method',
   {},
   async (client: any, testName: string) => {
-    const browser = new Page(client);
-    await gotoEditor(browser);
+    const browser = await goToEditorTestingWDExample(client);
+    await mountEditor(browser, {
+      appearance: fullpage.appearance,
+      allowPanel: true,
+    });
+
     await browser.waitFor(editable);
     // Insert an action via menu
     await insertBlockMenuItem(browser, 'Action item', undefined, true);
@@ -120,8 +150,12 @@ BrowserTestCase(
   'task-decision-2.ts: inserts new action item via typeahead on the same level as the previous action item even when it was empty',
   {},
   async (client: any, testName: string) => {
-    const browser = new Page(client);
-    await gotoEditor(browser);
+    const browser = await goToEditorTestingWDExample(client);
+    await mountEditor(browser, {
+      appearance: fullpage.appearance,
+      allowPanel: true,
+    });
+
     await browser.waitFor(editable);
     // Create a non-empty action item
     await insertBlockMenuItem(browser, 'Action item', undefined, true);

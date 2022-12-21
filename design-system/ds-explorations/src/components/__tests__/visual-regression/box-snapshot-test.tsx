@@ -11,6 +11,8 @@ describe('Box', () => {
     'background-and-padding',
     'background-and-paddingBlock',
     'background-and-paddingInline',
+    'shadow',
+    'layer',
   ].forEach((selector) => {
     it(`example with ${selector} should match snapshot`, async () => {
       const url = getExampleUrl(

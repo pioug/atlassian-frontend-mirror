@@ -1,4 +1,4 @@
-import { ResolvedPos, Mark, Node, Slice } from 'prosemirror-model';
+import { ResolvedPos, Mark, Node, Slice, Schema } from 'prosemirror-model';
 import {
   EditorState,
   Selection,
@@ -17,7 +17,7 @@ import {
   AnnotationTypes,
 } from '@atlaskit/adf-schema';
 import { AnnotationInfo, AnnotationSelectionType } from './types';
-import { sum } from '../../utils';
+import { isText, isParagraph, sum } from '../../utils';
 import { InlineCommentPluginState } from './pm-plugins/types';
 import {
   ACTION_SUBJECT,
@@ -307,7 +307,10 @@ export const isSelectionValid = (
     return AnnotationSelectionType.DISABLED;
   }
 
-  if (disallowOnWhitespace && hasInvalidWhitespaceNode(selection)) {
+  if (
+    disallowOnWhitespace &&
+    hasInvalidWhitespaceNode(selection, state.schema)
+  ) {
     return AnnotationSelectionType.INVALID;
   }
 
@@ -360,12 +363,16 @@ function isEmptyTextSelection(
  */
 export function hasInvalidWhitespaceNode(
   selection: TextSelection | AllSelection,
+  schema: Schema,
 ) {
   let foundInvalidWhitespace = false;
 
   const content = selection.content().content;
 
   content.descendants((node) => {
+    if (isText(node, schema)) {
+      return false;
+    }
     if (node.textContent.trim() === '') {
       // Trailing new lines do not result in the annotation spanning into
       // the trailing new line so can be ignored when looking for invalid
@@ -376,7 +383,7 @@ export function hasInvalidWhitespaceNode(
         // and there are multiple nodes
         !node.eq(content.firstChild!) &&
         // and it is a paragraph node
-        node.type.name === 'paragraph';
+        isParagraph(node, schema);
 
       if (!nodeIsTrailingNewLine) {
         foundInvalidWhitespace = true;

@@ -33,7 +33,7 @@ export const shrinkColumn = (
   selectedColumns?: number[],
 ): ResizeState => {
   // can't shrink if columns don't exist
-  if (!state.cols[colIndex] || !state.cols[colIndex + 1]) {
+  if (!state.cols[colIndex]) {
     return state;
   }
   // try to shrink dragging column by giving from the column to the right first

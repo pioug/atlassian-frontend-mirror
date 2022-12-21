@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 14.4.3
+
+### Patch Changes
+
+- [`f1765efdca6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f1765efdca6) - [ux] Fix bug that caused misalignment of Code Block content which contain a mixture of spaces and tabs
+
 ## 14.4.2
 
 ### Patch Changes

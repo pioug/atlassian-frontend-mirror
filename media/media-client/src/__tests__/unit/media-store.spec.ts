@@ -28,7 +28,17 @@ import {
   resolveInitialAuth,
 } from '../../client/media-store/resolveAuth';
 import { Auth } from '@atlaskit/media-core';
-import { ZipkinHeaderKeys } from '../../client/media-store';
+import * as requestModule from '../../utils/request';
+
+const requestModuleMock = jest.spyOn(requestModule, 'request');
+
+export const ZipkinHeaderKeys = {
+  traceId: 'x-b3-traceid',
+  spanId: 'x-b3-spanid',
+  parentSpanId: 'x-b3-parentspanid',
+  sampled: 'x-b3-sampled',
+  flags: 'x-b3-flags',
+};
 
 const baseUrl = 'http://some-host';
 const clientId = 'some-client-id';
@@ -201,11 +211,49 @@ describe('MediaStore', () => {
 
         expect.assertions(1);
       });
+
+      it('calls request with traceContext', async () => {
+        const createUpTo = 1;
+        const data: MediaUpload[] = [
+          { id: 'some-upload-id', created: 123, expires: 456 },
+        ];
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        await mediaStore.createUpload(createUpTo, undefined, {
+          traceId: 'test-trace-id',
+        });
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/upload`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            endpoint: '/upload',
+            headers: { Accept: 'application/json' },
+            method: 'POST',
+            params: { createUpTo: 1 },
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
+        );
+      });
     });
 
     describe('uploadChunk', () => {
       const testUploadId = 'test-upload-id';
       const testPartNumber = 191;
+      const etag = 'some-etag';
+      const blob = new Blob(['some-blob']);
 
       it.each([
         ['', undefined, undefined],
@@ -220,9 +268,6 @@ describe('MediaStore', () => {
         'should PUT to /chunk/:etag endpoint with correct query %s',
 
         async (query, uploadId, partNumber) => {
-          const etag = 'some-etag';
-          const blob = new Blob(['some-blob']);
-
           fetchMock.once('', {
             status: 201,
             statusText: 'Created',
@@ -246,6 +291,53 @@ describe('MediaStore', () => {
           );
         },
       );
+
+      it('calls request with traceContext', async () => {
+        const data: MediaUpload[] = [
+          { id: 'some-upload-id', created: 123, expires: 456 },
+        ];
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+        });
+        await mediaStore.uploadChunk(
+          etag,
+          blob,
+          {
+            uploadId: testUploadId,
+            partNumber: testPartNumber,
+          },
+          {
+            traceId: 'test-trace-id',
+          },
+        );
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/chunk/some-etag`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            /**
+             * tests would not pass is left as
+             * body: {} */
+            body: expect.any(Object),
+            clientOptions: undefined,
+            endpoint: '/chunk/{etag}',
+            headers: undefined,
+            method: 'PUT',
+            params: { partNumber: 191, uploadId: 'test-upload-id' },
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
+        );
+      });
     });
 
     describe('probeChunks', () => {
@@ -320,6 +412,55 @@ describe('MediaStore', () => {
         }
 
         expect.assertions(1);
+      });
+
+      it('calls request with traceContext', async () => {
+        const etag = 'some-etag';
+        const chunks = [etag];
+        const data: MediaChunksProbe = {
+          results: {
+            [etag]: {
+              exists: true,
+            },
+          },
+        };
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 200,
+          statusText: 'Ok',
+        });
+
+        await mediaStore.probeChunks(
+          chunks,
+          { uploadId: 'test-upload-id' },
+          {
+            traceId: 'test-trace-id',
+          },
+        );
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/chunk/probe`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            clientOptions: undefined,
+            endpoint: '/chunk/probe',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            params: { uploadId: 'test-upload-id' },
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
+        );
       });
     });
 
@@ -409,6 +550,70 @@ describe('MediaStore', () => {
 
         expect.assertions(1);
       });
+
+      it('calls request with traceContext', async () => {
+        const body = {
+          uploadId: 'some-upload-id',
+          name: 'some-name',
+          mimeType: 'application/pdf',
+          conditions: {
+            hash: 'sha1:da39a3ee5e6b4b0d3255bfef95601890afd80709',
+            size: 42,
+          },
+        };
+        const params = {
+          collection: 'some-collection',
+          occurrenceKey: 'some-occurrence-key',
+          expireAfter: 123,
+          replaceFileId: 'some-replace-file-id',
+          skipConversions: true,
+        };
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        await mediaStore.createFileFromUpload(body, params, {
+          traceId: 'test-trace-id',
+        });
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 200,
+          statusText: 'Ok',
+        });
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/file/upload`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            body: '{"uploadId":"some-upload-id","name":"some-name","mimeType":"application/pdf","conditions":{"hash":"sha1:da39a3ee5e6b4b0d3255bfef95601890afd80709","size":42}}',
+            clientOptions: undefined,
+            endpoint: '/file/upload',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            params: {
+              collection: 'some-collection',
+              expireAfter: 123,
+              occurrenceKey: 'some-occurrence-key',
+              replaceFileId: 'some-replace-file-id',
+              skipConversions: true,
+            },
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
+        );
+      });
     });
 
     describe('getFile', () => {
@@ -474,6 +679,43 @@ describe('MediaStore', () => {
 
         expect.assertions(1);
       });
+
+      it('calls request with traceContext', async () => {
+        const collectionName = 'some-collection-name';
+        const fileId = 'faee2a3a-f37d-11e4-aae2-3c15c2c70ce6';
+        const params: MediaStoreGetFileParams = {
+          collection: collectionName,
+        };
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 200,
+          statusText: 'Ok',
+        });
+
+        await mediaStore.getFile(fileId, params, { traceId: 'test-trace-id' });
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/file/faee2a3a-f37d-11e4-aae2-3c15c2c70ce6`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            body: undefined,
+            clientOptions: undefined,
+            endpoint: '/file/{fileId}',
+            headers: undefined,
+            method: 'GET',
+            params: { collection: 'some-collection-name' },
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
+        );
+      });
     });
 
     describe('appendChunksToUpload', () => {
@@ -507,6 +749,52 @@ describe('MediaStore', () => {
             },
             body: JSON.stringify(body),
           },
+        );
+      });
+
+      it('calls request with traceContext', async () => {
+        const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
+        const body = {
+          chunks: [
+            '0675a983536736a69f835438bcf8629e044f190d-4096',
+            'e6295a0966535d295582670afeeb14059969d359-209',
+          ],
+          hash: 'sha1:b0edf951dd0c86f80d989e20b9dc3060c53d66a6',
+          offset: 0,
+        };
+
+        fetchMock.once('', {
+          status: 200,
+          statusText: 'Ok',
+        });
+
+        await mediaStore.appendChunksToUpload(uploadId, body, undefined, {
+          traceId: 'test-trace-id',
+        });
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/upload/29c49470-adac-4b16-82ec-301340c7b16a/chunks`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            body: '{"chunks":["0675a983536736a69f835438bcf8629e044f190d-4096","e6295a0966535d295582670afeeb14059969d359-209"],"hash":"sha1:b0edf951dd0c86f80d989e20b9dc3060c53d66a6","offset":0}',
+            clientOptions: undefined,
+            endpoint: '/upload/{uploadId}/chunks',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            method: 'PUT',
+            params: undefined,
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
         );
       });
     });
@@ -601,6 +889,59 @@ describe('MediaStore', () => {
         // We want to exclude all files without size. Contents contains 3 files, 2 of them empty, so we only care about the first one
         expect(response.data.contents).toHaveLength(1);
         expect(response.data.contents).toEqual([data.contents[0]]);
+      });
+
+      it('calls request with traceContext', async () => {
+        const collectionName = 'some-collection-name';
+        const data: MediaCollectionItems = {
+          nextInclusiveStartKey: '121',
+          contents: [],
+        };
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        await mediaStore.getCollectionItems(
+          collectionName,
+          {
+            limit: 10,
+            details: 'full',
+            inclusiveStartKey: 'some-inclusive-start-key',
+            sortDirection: 'desc',
+          },
+          {
+            traceId: 'test-trace-id',
+          },
+        );
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/collection/some-collection-name/items`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            body: undefined,
+            clientOptions: undefined,
+            endpoint: '/collection/{collectionName}/items',
+            headers: { Accept: 'application/json' },
+            method: 'GET',
+            params: {
+              details: 'full',
+              inclusiveStartKey: 'some-inclusive-start-key',
+              limit: 10,
+              sortDirection: 'desc',
+            },
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
+        );
       });
     });
 
@@ -722,6 +1063,50 @@ describe('MediaStore', () => {
 
         expect.assertions(1);
       });
+
+      it('calls request with traceContext', async () => {
+        const data: TouchedFiles = {
+          created: [createdTouchedFile1, createdTouchedFile2],
+        };
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        const body: MediaStoreTouchFileBody = {
+          descriptors: [descriptor1, descriptor2],
+        };
+
+        await mediaStore.touchFiles(body, params, {
+          traceId: 'test-trace-id',
+        });
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/upload/createWithFiles`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            body: '{"descriptors":[{"fileId":"some-file-id"},{"fileId":"some-other-file-id","occurrenceKey":"some-occurrence-key","collection":"some-collection","deletable":false,"expireAfter":42}]}',
+            clientOptions: undefined,
+            endpoint: '/upload/createWithFiles',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            params: undefined,
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
+        );
+      });
     });
 
     describe('getFileImageURL', () => {
@@ -783,7 +1168,7 @@ describe('MediaStore', () => {
         );
       });
 
-      it('should append traceId and spanId if traceId is passed', async () => {
+      it('calls request with traceContext', async () => {
         fetchMock.once(JSON.stringify({ data }), {
           status: 201,
           statusText: 'Created',
@@ -798,20 +1183,35 @@ describe('MediaStore', () => {
           },
           undefined,
           true,
-          'some-trace-id',
+          { traceId: 'test-trace-id' },
         );
 
-        expect(fetchMock).toHaveBeenCalledWith(
-          `${baseUrl}/file/123/image?allowAnimated=true&height=4096&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&upscale=true&version=2&width=4096`,
-          {
-            method: 'GET',
-            headers: {
-              'X-Client-Id': clientId,
-              Authorization: `Bearer ${token}`,
-              [ZipkinHeaderKeys.traceId]: 'some-trace-id',
-              [ZipkinHeaderKeys.spanId]: expect.any(String),
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/file/123/image`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
             },
-          },
+            endpoint: '/file/{fileId}/image',
+            headers: {},
+            method: 'GET',
+            params: {
+              allowAnimated: true,
+              height: 4096,
+              'max-age': FILE_CACHE_MAX_AGE,
+              mode: 'full-fit',
+              upscale: true,
+              version: 2,
+              width: 4096,
+            },
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
         );
       });
 
@@ -955,6 +1355,63 @@ describe('MediaStore', () => {
         });
       });
 
+      it('calls request with traceContext', async () => {
+        const items = ['1', '2'];
+        const data: ItemsPayload[] = [
+          {
+            items: [
+              {
+                id: '1',
+                collection: 'collection-1',
+                type: 'file',
+                details: {
+                  artifacts: {} as any,
+                  mediaType: 'image',
+                  mimeType: 'png',
+                  name: 'file-1',
+                  processingStatus: 'succeeded',
+                  size: 1,
+                  representations: {},
+                },
+              },
+            ],
+          },
+        ];
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 200,
+          statusText: 'Ok',
+        });
+
+        await mediaStore.getItems(items, 'collection-1', {
+          traceId: 'test-trace-id',
+        });
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/items`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            body: '{"descriptors":[{"type":"file","id":"1","collection":"collection-1"},{"type":"file","id":"2","collection":"collection-1"}]}',
+            clientOptions: undefined,
+            endpoint: '/items',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            params: undefined,
+            traceContext: {
+              traceId: 'test-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
+        );
+      });
+
       it('should fail if response is malformed JSON', async () => {
         const items = ['1', '2'];
 
@@ -1013,6 +1470,50 @@ describe('MediaStore', () => {
               Authorization: `Bearer ${token}`,
             },
           },
+        );
+      });
+
+      it('calls request with traceContext', async () => {
+        const data: ImageMetadata = {
+          pending: false,
+          original: {
+            height: 10,
+            width: 10,
+            url: 'some-preview',
+          },
+        };
+
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 200,
+          statusText: 'Ok',
+        });
+
+        await mediaStore.getImageMetadata(
+          '123',
+          {},
+          { traceId: 'some-trace-id' },
+        );
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/file/123/image/metadata`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            body: undefined,
+            clientOptions: undefined,
+            endpoint: '/file/{fileId}/image/metadata',
+            headers: undefined,
+            method: 'GET',
+            params: {},
+            traceContext: {
+              traceId: 'some-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
         );
       });
 
@@ -1164,6 +1665,46 @@ describe('MediaStore', () => {
             },
             body: JSON.stringify(body),
           },
+        );
+      });
+
+      it('calls request with traceContext', async () => {
+        fetchMock.once(JSON.stringify({ data }), {
+          status: 201,
+          statusText: 'Created',
+        });
+
+        await mediaStore.copyFileWithToken(body, params, {
+          traceId: 'some-trace-id',
+        });
+
+        expect(requestModuleMock).toBeCalledWith(
+          `${baseUrl}/file/copy/withToken`,
+          expect.objectContaining({
+            auth: {
+              baseUrl: 'http://some-host',
+              clientId: 'some-client-id',
+              token: 'some-token',
+            },
+            body: '{"sourceFile":{"id":"some-id","owner":{"id":"owner-id","token":"some-token","baseUrl":"http://some-host"},"collection":"some-collection"}}',
+            clientOptions: undefined,
+            endpoint: '/file/copy/withToken',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            params: {
+              collection: 'some-collection',
+              occurrenceKey: 'some-occurrence-key',
+              replaceFileId: 'some-replace-file-id',
+            },
+            traceContext: {
+              traceId: 'some-trace-id',
+              spanId: expect.any(String),
+            },
+          }),
+          undefined,
         );
       });
 

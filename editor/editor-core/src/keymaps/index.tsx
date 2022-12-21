@@ -61,7 +61,6 @@ export {
   altPaste,
   find,
   alignLeft,
-  alignRight,
   tooltip,
   ToolTipContent,
   findKeymapByDescription,

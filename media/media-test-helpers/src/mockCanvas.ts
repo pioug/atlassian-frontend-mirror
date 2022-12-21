@@ -1,3 +1,7 @@
+import getJest from './getJest';
+
+const jest = getJest();
+
 export function mockCanvas(width: number = 0, height: number = 0) {
   const context: Partial<CanvasRenderingContext2D> = {
     translate: jest.fn(),

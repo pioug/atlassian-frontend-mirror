@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useState,
   useLayoutEffect,
+  useRef,
 } from 'react';
 import { css, jsx } from '@emotion/react';
 import { EditorView, DecorationSet } from 'prosemirror-view';
@@ -16,12 +17,20 @@ import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N0, N60A, N50A } from '@atlaskit/theme/colors';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics';
-import { TYPE_AHEAD_POPUP_CONTENT_CLASS } from '../constants';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  FireAnalyticsCallback,
+} from '@atlaskit/editor-common/analytics';
+import {
+  CloseSelectionOptions,
+  TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE,
+  TYPE_AHEAD_POPUP_CONTENT_CLASS,
+} from '../constants';
 
 import { TypeAheadList } from './TypeAheadList';
 import type { TypeAheadHandler, TypeAheadItem, OnSelectItem } from '../types';
-import type { FireAnalyticsCallback } from '../../analytics/fire-analytics-event';
 import { ITEM_PADDING } from './TypeAheadListItem';
 import { token } from '@atlaskit/tokens';
 
@@ -56,6 +65,11 @@ type TypeAheadPopupProps = {
   decorationSet: DecorationSet;
   isEmptyQuery: boolean;
   onItemInsert: (mode: SelectItemMode, index: number) => void;
+  cancel: (params: {
+    setSelectionAt: CloseSelectionOptions;
+    addPrefixTrigger: boolean;
+    forceFocusOnEditor: boolean;
+  }) => void;
 };
 
 type HighlightProps = {
@@ -67,9 +81,7 @@ const Highlight: React.FC<HighlightProps> = ({ state, triggerHandler }) => {
     return null;
   }
 
-  const highlight = triggerHandler.getHighlight(state);
-
-  return highlight;
+  return triggerHandler.getHighlight(state);
 };
 
 const OFFSET = [0, 8];
@@ -87,7 +99,12 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
       onItemInsert,
       fireAnalyticsCallback,
       isEmptyQuery,
+      cancel,
     } = props;
+
+    const ref = useRef<HTMLDivElement>(
+      null,
+    ) as React.MutableRefObject<HTMLDivElement>;
 
     const startTime = useMemo(
       () => performance.now(),
@@ -223,6 +240,40 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
       getFitHeight,
     ]);
 
+    useLayoutEffect(() => {
+      const focusOut = (event: FocusEvent) => {
+        const { relatedTarget } = event;
+
+        // Given the user is changing the focus
+        // When the target is inside the TypeAhead Popup
+        // Then the popup should stay open
+        if (
+          relatedTarget instanceof HTMLElement &&
+          relatedTarget.closest &&
+          (relatedTarget.closest(`.${TYPE_AHEAD_POPUP_CONTENT_CLASS}`) ||
+            relatedTarget.closest(
+              `[data-type-ahead="${TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE}"]`,
+            ))
+        ) {
+          return;
+        }
+
+        if (!(window.getSelection()?.type === 'Range')) {
+          return;
+        }
+        cancel({
+          addPrefixTrigger: true,
+          setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
+          forceFocusOnEditor: false,
+        });
+      };
+      const { current: element } = ref;
+      element?.addEventListener('focusout', focusOut);
+      return () => {
+        element?.removeEventListener('focusout', focusOut);
+      };
+    }, [ref, cancel]);
+
     return (
       <Popup
         zIndex={akEditorFloatingDialogZIndex}
@@ -238,6 +289,7 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
           css={typeAheadContent}
           tabIndex={0}
           className={TYPE_AHEAD_POPUP_CONTENT_CLASS}
+          ref={ref}
         >
           <Highlight state={editorView.state} triggerHandler={triggerHandler} />
           <TypeAheadList

@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { B200 } from '@atlaskit/theme/colors';
 import { css } from '@emotion/react';
@@ -10,7 +11,10 @@ const avatarImageStyles = (props: AvatarImageProps) => css`
   border-radius: ${borderRadius()};
   cursor: pointer;
   ${props.isSelected
-    ? ` box-shadow: 0px 0px 0px 1px white, 0px 0px 0px 3px ${B200}; `
+    ? ` box-shadow: 0px 0px 0px 1px ${token(
+        'color.border.inverse',
+        'white',
+      )}, 0px 0px 0px 3px ${token('color.border.selected', B200)}; `
     : ''};
 `;
 

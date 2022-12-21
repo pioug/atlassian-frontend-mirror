@@ -1,9 +1,6 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
-import React from 'react';
 
-import { IndicatorProps } from '@atlaskit/select';
-
-export const EmptyClearIndicator = null;
+export const EmptyComponent = () => null;
 
 // This date was chosen to clearly show date and time formats (day > 12)
 // e.g. 18/02/1993 vs. 2/18/1993 and 1:00 PM vs 13:00
@@ -37,13 +34,6 @@ export const defaultDateFormat = 'YYYY/MM/DD';
 export function padToTwo(number: number) {
   return number <= 99 ? `0${number}`.slice(-2) : `${number}`;
 }
-
-export const DropdownIndicator = (props: IndicatorProps<any>) => {
-  // Wanted to use React.Component<{}> but that was having issues
-  // https://github.com/basarat/typescript-book/blob/master/docs/jsx/react.md#react-jsx-tip-accept-a-component-that-can-act-on-props-and-be-rendered-using-jsx
-  const Icon = props.selectProps.dropdownIndicatorIcon;
-  return Icon ? <Icon /> : null;
-};
 
 export function formatDateTimeZoneIntoIso(
   date: string,

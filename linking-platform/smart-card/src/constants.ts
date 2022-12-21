@@ -221,3 +221,12 @@ export enum MediaPlacement {
   Left = 'left',
   Right = 'right',
 }
+
+export enum CardDisplay {
+  Inline = 'inline',
+  Block = 'block',
+  Embed = 'embed',
+  EmbedPreview = 'embedPreview',
+  Flexible = 'flexible',
+  HoverCardPreview = 'hoverCardPreview',
+}

@@ -1,5 +1,6 @@
 import {
   PuppeteerPage,
+  PuppeteerWaitForOptions,
   waitForElementCount,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
@@ -16,11 +17,13 @@ export const selectors = {
 export const waitForAllMedia = async (
   page: PuppeteerPage,
   mediaItemsNum: number,
+  waitOptions?: PuppeteerWaitForOptions,
 ) => {
   await waitForElementCount(
     page,
     '[data-testid="media-file-card-view"][data-test-status="complete"]',
     mediaItemsNum,
+    waitOptions,
   );
   // FIXME These tests were flakey in the Puppeteer v10 Upgrade
   await waitForLoadedImageElements(page, 5000);

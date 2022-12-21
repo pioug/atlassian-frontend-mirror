@@ -12,6 +12,7 @@ describe('Color', () => {
         onClick={jest.fn()}
         backgroundColor={'backgroundColor'}
         borderColor={'borderColor'}
+        iconColor={'iconColor'}
       />,
     );
 
@@ -25,6 +26,7 @@ describe('Color', () => {
         onClick={jest.fn()}
         backgroundColor={'backgroundColor'}
         borderColor={'borderColor'}
+        iconColor={'iconColor'}
         isSelected={true}
       />,
     );
@@ -39,6 +41,7 @@ describe('Color', () => {
         onClick={jest.fn()}
         backgroundColor={'backgroundColor'}
         borderColor={'borderColor'}
+        iconColor={'iconColor'}
         isSelected={false}
       />,
     );
@@ -54,6 +57,7 @@ describe('Color', () => {
         value={value}
         onClick={onClick}
         backgroundColor={'backgroundColor'}
+        iconColor={'iconColor'}
         borderColor={'borderColor'}
         isSelected={false}
       />,
@@ -87,6 +91,7 @@ describe('Color', () => {
           onClick={jest.fn()}
           onHover={onHover}
           backgroundColor={'backgroundColor'}
+          iconColor={'iconColor'}
           borderColor={'borderColor'}
           isSelected={false}
         />,

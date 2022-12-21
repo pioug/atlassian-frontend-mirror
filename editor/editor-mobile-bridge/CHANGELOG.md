@@ -1,5 +1,26 @@
 # @atlaskit/editor-mobile-bridge
 
+## 35.1.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.1.39
+
+### Patch Changes
+
+- [`81ed0d4231d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81ed0d4231d) - [ED-15853] Add feature flags for the restart numbered lists project. These include:
+
+  - restartNumberedLists: Allow numbered lists to start from any number greater than 0, not just 1
+  - listNumberContinuity: Allow lists to continue their numbering when split by other nodes
+
+  We will be encapsulating all dev work under these flags.
+
+  These flags are for development purposes only, please don't turn these on. Only feature leads can turn these on.
+
+- Updated dependencies
+
 ## 35.1.38
 
 ### Patch Changes

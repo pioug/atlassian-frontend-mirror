@@ -50,7 +50,7 @@ describe('paste paragraph edge cases', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([pastePlugin, { plainTextPasteLinkification: true }])
+        .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)
         .add(listPlugin)

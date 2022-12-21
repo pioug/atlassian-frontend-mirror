@@ -13,6 +13,7 @@ import {
   invokeFailedEvent,
   invokeSucceededEvent,
   screenAuthPopupEvent,
+  trackAppAccountAuthStarted,
   trackAppAccountConnected,
   uiActionClickedEvent,
   uiAuthAlternateAccountEvent,
@@ -22,6 +23,7 @@ import {
   uiHoverCardDismissedEvent,
   uiHoverCardOpenLinkClickedEvent,
   uiHoverCardViewedEvent,
+  uiLearnMoreLinkClickedEvent,
   uiRenderFailedEvent,
   uiRenderSuccessEvent,
 } from '../../utils/analytics';
@@ -486,6 +488,7 @@ export const useSmartLinkAnalytics = (
         destinationProduct,
         destinationSubproduct,
         location,
+        status,
       }: UiHoverCardViewedEventProps) =>
         dispatchAnalytics(
           applyCommonAttributes(
@@ -499,6 +502,7 @@ export const useSmartLinkAnalytics = (
               destinationSubproduct,
               location,
               previewInvokeMethod,
+              status,
             }),
             commonAttributes,
           ),
@@ -508,7 +512,7 @@ export const useSmartLinkAnalytics = (
        * @param hoverDisplay Whether the hover preview was displayed as a card or embed.
        * @param hoverTime The duration that the user hovered over a Smart Link before the preview was dismissed.
        * @param definitionId The definitionId of the Smart Link resolver invoked.
-       * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+       * @param extensionKey The extensionKey of the Smart Link resolver invoked.
        * @param previewInvokeMethod How the preview was triggered.
        * @returns
        */
@@ -523,6 +527,7 @@ export const useSmartLinkAnalytics = (
         destinationProduct,
         destinationSubproduct,
         location,
+        status,
       }: UiHoverCardDismissedEventProps) =>
         dispatchAnalytics(
           applyCommonAttributes(
@@ -537,7 +542,21 @@ export const useSmartLinkAnalytics = (
               destinationSubproduct,
               location,
               previewInvokeMethod,
+              status,
             }),
+            commonAttributes,
+          ),
+        ),
+
+      /**
+       * Fires an event that signifies that a "Learn More" link was clicked on an unauthenticated card
+       * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+       * @param location The location where a link is displayed (jiraWebLinks, confluencePages etc)
+       */
+      learnMoreClickedEvent: () =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            uiLearnMoreLinkClickedEvent(),
             commonAttributes,
           ),
         ),
@@ -742,7 +761,7 @@ export const useSmartLinkAnalytics = (
   const track = useMemo(
     () => ({
       /**
-       * This fires an event which represents a user starting the Smart Link connect account process.
+       * This fires an event which represents a user connecting their account to view a Smart Link.
        * @param definitionId The definitionId of the Smart Link resolver invoked.
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        * @returns
@@ -764,6 +783,27 @@ export const useSmartLinkAnalytics = (
               resourceType,
               destinationProduct,
               destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
+        ),
+
+      /**
+       * This fires an event which represents a user starting the Smart Link connect account process.
+       * @param location a location where the Smart Link auth action was initiated.
+       * @param extensionKey The extensionKey of the Smart Link resolver invoked.
+       * @returns
+       */
+      appAccountAuthStarted: ({
+        extensionKey,
+        location,
+      }: TrackAppAccountConnectedProps) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            trackAppAccountAuthStarted({
+              ...commonAttributes,
+              extensionKey,
               location,
             }),
             commonAttributes,

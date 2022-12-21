@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { N50A } from '@atlaskit/theme/colors';
 
@@ -6,13 +7,13 @@ export interface MutableCardContainerProps {
 }
 
 export const filmstripContainerStyles = css`
-  border: 1px dotted ${N50A};
+  border: 1px dotted ${token('color.border', N50A)};
   margin-top: 10px;
   margin-bottom: 10px;
 `;
 
 export const filmstripWrapperStyles = css`
-  border: 1px solid #ccc;
+  border: 1px solid ${token('color.border', '#ccc')};
   width: 800px;
   margin-bottom: 20px;
 `;
@@ -24,7 +25,7 @@ export const storyWrapperStyles = css`
 
 export const separatorStyles = css`
   margin: 1em 0;
-  border: 1px solid #ccc;
+  border: 1px solid ${token('color.border', '#ccc')};
 `;
 
 export const controlLabelStyles = css`
@@ -52,5 +53,8 @@ export const editableBoxStyles = ({ grow }: BoxProps) => css`
 export const pureComponentBoxStyles = css`
   width: 250px;
   height: 100px;
-  background-color: lightgreen;
+  background-color: ${token(
+    'color.background.accent.green.subtle',
+    'lightgreen',
+  )};
 `;

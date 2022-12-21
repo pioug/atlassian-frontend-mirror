@@ -125,21 +125,19 @@ describe('Snapshot Test: Media', () => {
 
   describe('resize', () => {
     devices.forEach((device) => {
-      // Flakey. Skipping to unblock Weasel release, but unskip it in this follow up ticket: MEX-1042.
-      it.skip(`should correctly render for ${device}`, async () => {
+      it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, resizeAdf, device);
-        await waitForAllMedia(page, 17);
+        await waitForAllMedia(page, 17, { visible: true, timeout: 6000 });
         await snapshotRenderer();
       });
     });
   });
 
-  // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/ED-13718
-  describe.skip('layout', () => {
+  describe('layout', () => {
     devices.forEach((device) => {
       it(`should correctly render for ${device}`, async () => {
         await initRenderer(page, layoutAdf, device);
-        await waitForAllMedia(page, 16);
+        await waitForAllMedia(page, 16, { visible: true, timeout: 6000 });
         await snapshotRenderer();
       });
     });
@@ -166,17 +164,15 @@ describe('Snapshot Test: Media', () => {
       await snapshotRenderer();
     });
 
-    // FIXME: This test was automatically skipped due to failure on 9/20/2021: https://product-fabric.atlassian.net/browse/ED-13788
-    it.skip('should render 2 media items in 1 line when wrapped with text in between', async () => {
+    it('should render 2 media items in 1 line when wrapped with text in between', async () => {
       await initRenderer(page, wrappedMediaTextAdf);
-      await waitForAllMedia(page, 2);
+      await waitForAllMedia(page, 2, { visible: true, timeout: 6000 });
       await snapshotRenderer();
     });
 
-    // FIXME: This test was automatically skipped due to failure on 02/08/2022: https://product-fabric.atlassian.net/browse/ED-15367
-    it.skip('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
+    it('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
       await initRenderer(page, wrappedMediaTextSplitAdf);
-      await waitForAllMedia(page, 2);
+      await waitForAllMedia(page, 2, { visible: true, timeout: 6000 });
       await snapshotRenderer({
         height: 1000,
         width: 1000,

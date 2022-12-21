@@ -98,13 +98,14 @@ export const ExtensionsPlaceholder = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const nodeAdf = React.useMemo(() => nodeToJSON(node), [node]);
   const extensionItems = React.useMemo(() => {
     return getContextualToolbarItemsFromModule(
       extensions,
-      nodeToJSON(node),
+      nodeAdf,
       createExtensionAPI({ editorView }),
     );
-  }, [extensions, node, editorView]);
+  }, [extensions, nodeAdf, editorView]);
 
   if (!extensionItems.length) {
     return null;

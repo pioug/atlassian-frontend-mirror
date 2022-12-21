@@ -9,6 +9,7 @@ import {
 } from '../models/media';
 import { MediaStore, MediaStoreGetCollectionItemsParams } from './media-store';
 import { fromObservable, MediaSubscribable } from '../utils/mediaSubscribable';
+import { MediaTraceContext } from '@atlaskit/media-common';
 
 export interface MediaCollectionFileItemDetails extends FileDetails {
   occurrenceKey: string;
@@ -88,6 +89,7 @@ export class CollectionFetcher {
   getItems(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
+    traceContext?: MediaTraceContext,
   ): MediaSubscribable<MediaCollectionItem[]> {
     if (!collectionCache[collectionName]) {
       collectionCache[collectionName] = createCacheEntry();
@@ -96,10 +98,14 @@ export class CollectionFetcher {
     const subject = collection.subject;
 
     this.mediaStore
-      .getCollectionItems(collectionName, {
-        ...params,
-        details: 'full',
-      })
+      .getCollectionItems(
+        collectionName,
+        {
+          ...params,
+          details: 'full',
+        },
+        traceContext,
+      )
       .then((items) => {
         const { contents, nextInclusiveStartKey } = items.data;
 
@@ -115,11 +121,17 @@ export class CollectionFetcher {
     return fromObservable(subject);
   }
 
-  async removeFile(id: string, collectionName: string, occurrenceKey?: string) {
+  async removeFile(
+    id: string,
+    collectionName: string,
+    occurrenceKey?: string,
+    traceContext?: MediaTraceContext,
+  ) {
     await this.mediaStore.removeCollectionFile(
       id,
       collectionName,
       occurrenceKey,
+      traceContext,
     );
     this.removeFromCache(id, collectionName);
     const collection = collectionCache[collectionName];
@@ -129,6 +141,7 @@ export class CollectionFetcher {
   async loadNextPage(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
+    traceContext?: MediaTraceContext,
   ) {
     const collection = collectionCache[collectionName];
     const isLoading = collection ? collection.isLoadingNextPage : false;
@@ -144,11 +157,15 @@ export class CollectionFetcher {
       items: currentItems,
       subject,
     } = collectionCache[collectionName];
-    const response = await this.mediaStore.getCollectionItems(collectionName, {
-      ...params,
-      inclusiveStartKey,
-      details: 'full',
-    });
+    const response = await this.mediaStore.getCollectionItems(
+      collectionName,
+      {
+        ...params,
+        inclusiveStartKey,
+        details: 'full',
+      },
+      traceContext,
+    );
     const { contents, nextInclusiveStartKey } = response.data;
     this.populateCache(contents);
     const newItems = response.data.contents;

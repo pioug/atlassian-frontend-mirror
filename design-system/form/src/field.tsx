@@ -207,11 +207,23 @@ export default function Field<
   FieldValue = string,
   Element extends SupportedElements = HTMLInputElement,
 >(props: FieldComponentProps<FieldValue, Element>) {
-  const registerField = useContext(FormContext);
+  const { registerField, getCurrentValue } = useContext(FormContext);
   const isDisabled = useContext(IsDisabledContext) || props.isDisabled || false;
   const defaultValue = isFunction<FieldValue | undefined>(props.defaultValue)
     ? props.defaultValue()
     : props.defaultValue;
+
+  const latestPropsRef = usePreviousRef(props);
+
+  /**
+   * HACK: defaultValue can potentially be an array or object which cannot be
+   * passed directly into a `useEffect` dependency array, since it will trigger
+   * the hook every time.
+   */
+  const isDefaultValueChanged = !isShallowEqual(
+    latestPropsRef.current.defaultValue,
+    props.defaultValue,
+  );
 
   const [state, setState] = useState<State<FieldValue, Element>>({
     fieldProps: {
@@ -223,9 +235,15 @@ export default function Field<
        * prop types defined defaultValue as required, so inside the component it was not
        * valid for defaultValue to be undefined. We need to suppress the error
        * after changing defaultValue to explictly be an optional prop.
+       * If default value has changed we are using new default value.
+       * Otherwise we need to check if we already have value for this field
+       * (because we are using changing key prop to re-run field level validation, and that
+       * cause the component re-mounting) to not override the actual value with the default value.
        */
       // @ts-ignore
-      value: defaultValue,
+      value: isDefaultValueChanged
+        ? defaultValue
+        : getCurrentValue(props.name) ?? defaultValue,
     },
     error: undefined,
     valid: false,
@@ -242,18 +260,7 @@ export default function Field<
     },
   });
 
-  const latestPropsRef = usePreviousRef(props);
   const latestStateRef = usePreviousRef(state);
-
-  /**
-   * HACK: defaultValue can potentially be an array or object which cannot be
-   * passed directly into a `useEffect` dependency array, since it will trigger
-   * the hook every time.
-   */
-  const hasDefaultValueChanged = isShallowEqual(
-    latestPropsRef.current.defaultValue,
-    props.defaultValue,
-  );
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
@@ -281,8 +288,20 @@ export default function Field<
 
     const unregister = registerField<FieldValue>(
       latestPropsRef.current.name,
+      /**
+       * Similar as for setting initial state value.
+       * Additionally we are checking if the default value is a function,
+       * it is used in checkbox fields, where fields with same name and
+       * defaultIsChecked should create array of values. In this situation we can't
+       * override the default value on re-registering, but also we don't need to change
+       * the key prop to re-run validation.
+       */
       // @ts-ignore
-      latestPropsRef.current.defaultValue,
+      isDefaultValueChanged ||
+        // @ts-ignore
+        isFunction(latestPropsRef.current.defaultValue)
+        ? latestPropsRef.current.defaultValue
+        : latestStateRef.current.fieldProps.value,
       (fieldState) => {
         /**
          * Do not update dirtySinceLastSubmit until submission has finished.
@@ -399,7 +418,7 @@ export default function Field<
     latestStateRef,
     registerField,
     props.name,
-    hasDefaultValueChanged,
+    isDefaultValueChanged,
   ]);
 
   const fieldId = useMemo(

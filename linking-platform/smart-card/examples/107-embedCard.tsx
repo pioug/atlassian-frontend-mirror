@@ -5,6 +5,7 @@ import { EmbedCardUnauthorisedView } from '../src/view/EmbedCard/views/Unauthori
 import { EmbedCardForbiddenView } from '../src/view/EmbedCard/views/ForbiddenView';
 import { EmbedCardNotFoundView } from '../src/view/EmbedCard/views/NotFoundView';
 import { IntlProvider } from 'react-intl-next';
+import { mockAnalytics } from '../src/utils/mocks';
 
 const previewUrl = 'https://www.youtube.com/embed/uhHyh55n5l0';
 const preview = { src: previewUrl };
@@ -52,6 +53,7 @@ export default () => {
         <div style={cardWrapperStyles}>
           EmbedCardUnauthorisedView
           <EmbedCardUnauthorisedView
+            analytics={mockAnalytics}
             link={previewUrl}
             isSelected={isSelected}
             context={{

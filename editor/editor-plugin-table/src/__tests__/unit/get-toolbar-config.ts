@@ -46,6 +46,7 @@ describe('getToolbarConfig', () => {
       getEditorContainerWidth,
       editorAnalyticsAPIFake,
       getEditorFeatureFlags,
+      () => editorView,
     )({})(state, { formatMessage } as any, {} as any)!;
     //
     expect(config).not.toBeUndefined();

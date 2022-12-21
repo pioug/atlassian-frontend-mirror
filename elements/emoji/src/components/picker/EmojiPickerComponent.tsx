@@ -18,7 +18,11 @@ import {
   OnEmojiProviderChange,
   supportsUploadFeature,
 } from '../../api/EmojiResource';
-import { customCategory, frequentCategory } from '../../util/constants';
+import {
+  customCategory,
+  defaultEmojiPickerSize,
+  frequentCategory,
+} from '../../util/constants';
 import {
   containsEmojiId,
   isPromise /*, isEmojiIdEqual, isEmojiLoaded*/,
@@ -32,6 +36,7 @@ import {
   OnEmojiEvent,
   OptionalEmojiDescription,
   OptionalEmojiDescriptionWithVariations,
+  PickerSize,
   SearchOptions,
   SearchSort,
   ToneSelection,
@@ -92,6 +97,7 @@ export interface Props {
    */
   hideToneSelector?: boolean;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  size?: PickerSize;
 }
 
 const EmojiPickerComponent = ({
@@ -100,6 +106,7 @@ const EmojiPickerComponent = ({
   onPickerRef,
   hideToneSelector,
   createAnalyticsEvent,
+  size = defaultEmojiPickerSize,
 }: Props) => {
   const [filteredEmojis, setFilteredEmojis] = useState<EmojiDescription[]>([]);
   const [searchEmojis, setSearchEmojis] = useState<EmojiDescription[]>([]);
@@ -662,7 +669,7 @@ const EmojiPickerComponent = ({
   return (
     <LegacyEmojiContextProvider emojiContextValue={emojiContextValue}>
       <div
-        css={emojiPicker(showPreview)}
+        css={emojiPicker(showPreview, size)}
         ref={onPickerRef}
         data-emoji-picker-container
       >
@@ -698,6 +705,7 @@ const EmojiPickerComponent = ({
           onCloseDelete={onCloseDelete}
           onFileChooserClicked={onFileChooserClicked}
           onOpenUpload={onOpenUpload}
+          size={size}
         />
         {showPreview && <EmojiPickerFooter selectedEmoji={selectedEmoji} />}
       </div>

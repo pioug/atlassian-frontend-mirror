@@ -36,7 +36,7 @@ export const MimeTypeIcon = ({
     );
   }
 
-  // no correponding mimetype icon/label was found.
+  // no corresponding mimetype icon/label was found.
   // Hence, return a mediatype (image/doc/audio/video/unknown) icon
   return <MediaTypeIcon testId={testId} type={mediaType} size={size} />;
 };

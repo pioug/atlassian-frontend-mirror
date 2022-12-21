@@ -11,6 +11,8 @@ import orderedListWithTextInvalidAdf from './__fixtures__/ordered-list-with-text
 import tableWithTextInvalidAdf from './__fixtures__/table-with-text-invalid-adf.json';
 import complexTableValidAdf from './__fixtures__/complex-table-valid-adf.json';
 import complexListsValidAdf from './__fixtures__/complex-lists-valid-adf.json';
+import mediaSingleInvalidEmptyContent from './__fixtures__/mediasingle-invalid-empty-content-adf.json';
+import mediaSingleInvalidNullContent from './__fixtures__/mediasingle-invalid-null-content-adf.json';
 
 describe('transformNodesMissingContent', () => {
   describe('lists', () => {
@@ -84,6 +86,20 @@ describe('transformNodesMissingContent', () => {
           transformNodesMissingContent(complexTableValidAdf);
         expect(isTransformed).toEqual(false);
         expect(transformedAdf).toEqual(complexTableValidAdf);
+      });
+    });
+  });
+
+  describe('mediaSingle', () => {
+    describe('is removed when has no children', () => {
+      it.each([
+        ['when content is an empty array', mediaSingleInvalidEmptyContent],
+        ['when content is null', mediaSingleInvalidNullContent],
+      ])('%s', (_, adf) => {
+        let { isTransformed, transformedAdf } =
+          transformNodesMissingContent(adf);
+        expect(isTransformed).toEqual(true);
+        expect(transformedAdf).toMatchSnapshot();
       });
     });
   });

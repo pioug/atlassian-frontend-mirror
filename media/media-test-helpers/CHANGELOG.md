@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 30.0.6
+
+### Patch Changes
+
+- [`c59fd9d42f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c59fd9d42f8) - Fix warnings due to jest being defined in non-test environments.
+- Updated dependencies
+
 ## 30.0.5
 
 ### Patch Changes

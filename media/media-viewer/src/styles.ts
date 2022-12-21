@@ -1,14 +1,16 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { css } from '@emotion/react';
 import { MediaType } from '@atlaskit/media-client';
 import { layers, borderRadius } from '@atlaskit/theme/constants';
-import { DN30, DN50, DN400, N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { ellipsis, hideControlsClassName } from '@atlaskit/media-ui';
 import { ArchiveSideBarWidth } from './viewers/archiveSidebar/styles';
 
 const overlayZindex = layers.modal() + 10;
 const sidebarWidth = 416;
 
-export const blanketColor = DN30;
+export const blanketColor = '#22272B';
+export const headerAndSidebarBackgroundColor = '#101214';
 
 export const blanketStyles = css`
   position: fixed;
@@ -21,15 +23,29 @@ export const blanketStyles = css`
   display: flex;
 `;
 
-export const headerWrapperStyles = css`
+export type HeaderWrapperProps = {
+  isArchiveSideBarVisible: boolean;
+};
+
+export const headerWrapperStyles = ({
+  isArchiveSideBarVisible,
+}: HeaderWrapperProps) => css`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 98px;
   opacity: 0.85;
-  background-image: linear-gradient(to bottom, #0e1624, rgba(14, 22, 36, 0));
-  color: #b8c7e0;
+  background: linear-gradient(
+      to bottom,
+      ${headerAndSidebarBackgroundColor},
+      rgba(14, 22, 36, 0)
+    )
+    no-repeat;
+  background-position: ${isArchiveSideBarVisible
+    ? `${ArchiveSideBarWidth}px 0`
+    : '0'};
+  color: #c7d1db;
   font-weight: 500;
   padding-top: 15px;
   padding: 24px;
@@ -80,7 +96,11 @@ export const zoomWrapperStyles = css`
   position: absolute;
   bottom: 0;
   height: 98px;
-  background-image: linear-gradient(to top, #0e1624, rgba(14, 22, 36, 0));
+  background-image: linear-gradient(
+    to top,
+    ${headerAndSidebarBackgroundColor},
+    rgba(14, 22, 36, 0)
+  );
   opacity: 0.85;
   pointer-events: none;
 `;
@@ -102,7 +122,7 @@ export const zoomLevelIndicatorStyles = css`
   position: absolute;
   right: 24px;
   bottom: 22px;
-  color: #b8c7e0;
+  color: #c7d1db;
   pointer-events: all;
 `;
 
@@ -120,7 +140,7 @@ export const hdIconWrapperStyles = css`
 
 export const errorMessageWrapperStyles = css`
   text-align: center;
-  color: #b8c7e0;
+  color: #c7d1db;
   p {
     line-height: 100%;
   }
@@ -151,17 +171,26 @@ export const pdfWrapperStyles = css`
 
 export const arrowStyles = css`
   cursor: pointer;
+
+  svg {
+    filter: drop-shadow(0px 1px 1px rgb(9 30 66 / 25%))
+      drop-shadow(0px 0px 1px rgb(9 30 66 / 31%));
+  }
+
   && button {
     height: inherit;
     background: none;
-  }
-  > span {
-    color: rgba(27, 38, 56, 0.5);
-    fill: #9fb0cc;
-    filter: drop-shadow(1px 1px 1px rgba(27, 38, 56, 0.2));
 
     &:hover {
-      color: #fff;
+      svg {
+        color: #b6c2cf;
+      }
+    }
+
+    &:active {
+      svg {
+        color: #c7d1db;
+      }
     }
   }
 `;
@@ -173,10 +202,16 @@ const arrowWrapperStyles = css`
   padding: 20px;
 `;
 
-export const leftWrapperStyles = css`
+export type LeftWrapperProps = {
+  isArchiveSideBarVisible: boolean;
+};
+
+export const leftWrapperStyles = ({
+  isArchiveSideBarVisible,
+}: LeftWrapperProps) => css`
   ${arrowWrapperStyles}
   text-align: left;
-  left: 0;
+  left: ${isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px` : '0'};
 `;
 
 export const rightWrapperStyles = css`
@@ -257,7 +292,7 @@ export const metadataFileNameStyles = css`
 `;
 
 export const metadataSubTextStyles = css`
-  color: ${DN400};
+  color: #c7d1db;
   ${ellipsis()};
 `;
 
@@ -330,7 +365,10 @@ export const downloadButtonWrapperStyles = css`
   text-align: center;
 
   button {
-    font-weight: bold;
+    &:hover,
+    &:active {
+      color: #161a1d !important;
+    }
   }
 `;
 
@@ -349,8 +387,11 @@ export const sidebarWrapperStyles = css`
   width: ${sidebarWidth}px;
   height: 100vh;
   overflow: hidden auto;
-  background-color: ${DN50};
-  color: ${N0};
+  background-color: ${token(
+    'elevation.surface',
+    headerAndSidebarBackgroundColor,
+  )};
+  color: ${token('color.text', '#c7d1db')};
 `;
 
 export const spinnerWrapperStyles = css`
@@ -358,12 +399,6 @@ export const spinnerWrapperStyles = css`
   justify-content: center;
   align-items: center;
   height: 100%;
-`;
-
-export const errorReasonTipStyles = css`
-  font-size: 10pt;
-  margin: 10px 0 40px 0;
-  color: ${DN400};
 `;
 
 export const formattedMessageWrapperStyles = css``;

@@ -24,7 +24,7 @@ describe(`${packageName}/schema textColor mark`, () => {
       schema.marks.textColor.create(testColorObj1),
     ]);
     expect(toHTML(node, schema)).toEqual(
-      `<span class=\"fabric-text-color-mark\" style=\"--custom-text-color: ${testColorObj1.color}\" data-text-custom-color=\"#97a0af\">foo</span>`,
+      `<span class=\"fabric-text-color-mark\" style=\"--custom-palette-color: var(--ds-icon-accent-gray, #97A0AF)\" data-text-custom-color=\"#97a0af\">foo</span>`,
     );
   });
 
@@ -34,7 +34,7 @@ describe(`${packageName}/schema textColor mark`, () => {
       schema.marks.textColor.create(testColorObj2),
     ]);
     expect(toHTML(node, schema)).toEqual(
-      `<span class=\"fabric-text-color-mark\" style=\"--custom-text-color: ${testColorObj2.color}\" data-text-custom-color=\"#97A0AF\">foo</span>`,
+      `<span class=\"fabric-text-color-mark\" style=\"--custom-palette-color: var(--ds-icon-accent-gray, #97A0AF)\" data-text-custom-color=\"#97A0AF\">foo</span>`,
     );
   });
 });

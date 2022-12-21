@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { generateResponsiveStyles } from '../progressBar/styles';
 import { Breakpoint } from '../common';
@@ -35,7 +36,7 @@ export const loadingRateLimitedTextWrapperStyles = ({
 }: StyledTextProps) => css`
   margin-top: 10px;
   overflow: hidden;
-  color: ${N300};
+  color: ${token('color.text.subtlest', N300)};
   display: block;
   width: 100%;
   text-align: center;

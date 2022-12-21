@@ -10,9 +10,9 @@ runBlockNodeSelectionTestSuite({
 
   skipTests: {
     'Extend selection down one line to select [block-node] with shift + arrow down':
-      ['safari', 'chrome'],
+      ['safari', 'chrome', 'firefox'],
     'Extend selection up one line to select [block-node] with shift + arrow up':
-      ['safari', 'chrome'],
+      ['safari', 'chrome', 'firefox'],
     'Extend selection right two characters to select [block-node] from line above with shift + arrow right':
       ['chrome'],
     'Extend selection left two characters to select [block-node] from line below with shift + arrow left':

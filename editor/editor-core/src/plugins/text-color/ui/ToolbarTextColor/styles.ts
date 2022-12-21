@@ -30,6 +30,8 @@ const createSteppedRainbow = (colors: string[]) => {
     `;
 };
 
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4137
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const rainbow = createSteppedRainbow([
   colors.P300,
   colors.T300,
@@ -43,6 +45,7 @@ const disabledRainbow = createSteppedRainbow([
   colors.N40,
   colors.N60,
 ]);
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 export const textColorIconWrapper = css`
   position: relative;

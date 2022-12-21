@@ -44,7 +44,6 @@ const testNames = [
   'No trailing spaces: Can extend the selection one line up with shift + arrow up',
   'No trailing spaces: Can extend the selection one line down with shift + arrow down',
   'No trailing spaces: Can insert text directly after the last node view in the same paragraph',
-  'Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position',
   'Multiline [target] no trailing spaces: Can insert text directly after the last node view in the same paragraph',
 ] as const;
 
@@ -116,7 +115,7 @@ export async function runInlineNodeViewTestSuite({
 
     describe(`[${nodeName}] with trailing spaces`, () => {
       testCaseName =
-        'Extend a selection to the end of the current line from the current position';
+        'Extend a selection to the start of the current line from the current position';
       BrowserTestCase(
         testCaseName,
         {
@@ -129,6 +128,7 @@ export async function runInlineNodeViewTestSuite({
             adf: JSON.stringify(buildAdfTrailingSpaces({ node })),
           });
           await keyboardSelectLineFromLineEnd(page);
+          await page.waitForSelector('.ak-editor-selected-node ');
           await expectToMatchSelection(page, {
             type: 'text',
             anchor: 7,
@@ -151,6 +151,7 @@ export async function runInlineNodeViewTestSuite({
             adf: JSON.stringify(buildAdfTrailingSpaces({ node })),
           });
           await keyboardSelectLineFromLineStart(page);
+          await page.waitForSelector('.ak-editor-selected-node ');
           await expectToMatchSelection(page, {
             type: 'text',
             anchor: 1,
@@ -699,34 +700,6 @@ export async function runInlineNodeViewTestSuite({
     if (multiLineNode) {
       // Skipped test in all browsers as it was flaking, however behaviour is as expected when tetsing manually in browser
       describe(`Multiline [${nodeName}] with no trailing spaces`, () => {
-        testCaseName =
-          'Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position';
-        BrowserTestCase(
-          testCaseName,
-          {
-            skip: ['chrome', 'firefox', 'safari'],
-          },
-          async (client: BrowserObject) => {
-            const page = await initEditor({
-              client,
-              selection: { anchor: 7, head: 7 },
-              adf: JSON.stringify(buildAdfMultiline({ node })),
-            });
-
-            await keyboardSelectLineFromLineEnd(page);
-
-            // Currently, the behaviour for multiline inline node views is to
-            // select the last node. This needs to be fixed eventually
-            // but for now we just want to test that all multiline inline
-            // node views have the same behaviour.
-            await expectToMatchSelection(page, {
-              type: 'text',
-              anchor: 7,
-              head: 6,
-            });
-          },
-        );
-
         testCaseName =
           'Multiline [target] no trailing spaces: Can insert text directly after the last node view in the same paragraph';
         BrowserTestCase(

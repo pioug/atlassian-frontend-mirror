@@ -27,7 +27,6 @@ import {
   ERROR_MESSAGE_METADATA,
 } from './constants';
 
-import { CardAppearance } from '../../view/Card';
 import { InvokeServerOpts, InvokeClientOpts } from '../../model/invoke-opts';
 import * as measure from '../../utils/performance';
 import { AnalyticsFacade } from '../analytics';
@@ -252,7 +251,7 @@ export const useSmartCardActions = (
   }, [metadataStatus, resolve, setMetadataStatus, url]);
 
   const authorize = useCallback(
-    (appearance: CardAppearance) => {
+    (appearance: CardInnerAppearance) => {
       const definitionId = getDefinitionId(details);
       const extensionKey = getExtensionKey(details);
       const services = getServices(details);

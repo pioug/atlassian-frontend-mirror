@@ -13,6 +13,7 @@ import {
   generateFilesFromTestData,
   MockFile,
 } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
 import { wideImage } from '../example-helpers/assets/wide-image';
 import {
   MainWrapper,
@@ -125,6 +126,7 @@ export default class Example extends React.Component<{}, State> {
                   {
                     mediaItemType: 'external-image',
                     dataURI:
+                      /* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
                       'https://wac-cdn.atlassian.com/dam/jcr:616e6748-ad8c-48d9-ae93-e49019ed5259/Atlassian-horizontal-blue-rgb.svg',
                   },
                 ]),
@@ -195,7 +197,12 @@ const Sidebar = (props: SidebarProps) => {
         <Button
           onClick={actions.close}
           aria-label="Close panel"
-          iconBefore={<ArrowRightIcon primaryColor="white" label="return" />}
+          iconBefore={
+            <ArrowRightIcon
+              primaryColor={token('color.icon', 'white')}
+              label=""
+            />
+          }
         />
       </MVSidebarHeader>
       {renderFileState()}

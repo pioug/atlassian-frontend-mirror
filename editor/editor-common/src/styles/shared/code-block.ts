@@ -27,6 +27,7 @@ export const CodeBlockSharedCssClassName = {
   CODEBLOCK_CONTAINER: 'code-block',
   CODEBLOCK_START: 'code-block--start',
   CODEBLOCK_END: 'code-block--end',
+  CODEBLOCK_CONTENT_WRAPPER: 'code-block-content-wrapper',
   CODEBLOCK_LINE_NUMBER_GUTTER: 'line-number-gutter',
   CODEBLOCK_CONTENT: 'code-content',
   DS_CODEBLOCK: '[data-ds--code--code-block]',
@@ -35,32 +36,17 @@ export const CodeBlockSharedCssClassName = {
 export const codeBlockSharedStyles = (props: ThemeProps) => css`
   .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
     position: relative;
-    background-color: ${themed({
-      light: token('color.background.neutral', N20),
-      dark: token('color.background.neutral', DN50),
-    })(props)};
+    background-color: ${token('elevation.surface.raised', 'transparent')};
     border-radius: ${borderRadius()}px;
-    counter-reset: line;
-    display: flex;
-    overflow-x: auto;
-
-    background-image: ${overflowShadow({
-      // TODO: https://product-fabric.atlassian.net/browse/DSP-4118
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      background: themed({ light: N20, dark: DN50 })(props),
-      width: '8px',
-    })};
+    margin: ${blockNodesVerticalMargin} 0 0 0;
+    font-family: ${akEditorCodeFontFamily};
+    min-width: ${akEditorTableCellMinWidth}px;
+    cursor: pointer;
 
     --ds--code--bg-color: transparent;
 
-    background-repeat: no-repeat;
-    background-attachment: local, scroll, scroll;
-    background-size: 8px 100%, 8px 100%, 8px 100%;
-    background-position: 100% 0, 100% 0, 0 0;
-    font-family: ${akEditorCodeFontFamily};
-    margin: ${blockNodesVerticalMargin} 0 0 0;
-    min-width: ${akEditorTableCellMinWidth}px;
-    cursor: pointer;
+    /* This is necessary to allow for arrow key navigation in/out of code blocks in Firefox. */
+    white-space: normal;
 
     .${CodeBlockSharedCssClassName.CODEBLOCK_START} {
       position: absolute;
@@ -78,6 +64,36 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
       right: 0px;
     }
 
+    .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {
+      background-color: ${themed({
+        light: token('color.background.neutral', N20),
+        dark: token('color.background.neutral', DN50),
+      })(props)};
+      display: flex;
+      border-radius: ${borderRadius()}px;
+      width: 100%;
+      counter-reset: line;
+      overflow-x: auto;
+
+      background-image: ${overflowShadow({
+        // TODO: https://product-fabric.atlassian.net/browse/DSP-4118
+        background: themed({
+          light: token('color.background.neutral', N20),
+          dark: token('color.background.neutral', DN50),
+        })(props),
+        width: '8px',
+      })};
+
+      background-repeat: no-repeat;
+      background-attachment: local, local, local, local, scroll, scroll;
+      background-size: 8px 100%, 8px 100%, 8px 100%, 8px 100%, 8px 100%,
+        8px 100%;
+      background-position: 0 0, 0 0, 100% 0, 100% 0, 100% 0, 0 0;
+
+      /* Be careful if refactoring this; it is needed to keep arrow key navigation in Firefox consistent with other browsers. */
+      overflow-y: hidden;
+    }
+
     .${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
       flex-shrink: 0;
       text-align: right;
@@ -86,6 +102,7 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
         dark: token('color.background.neutral', DN20),
       })(props)};
       padding: ${gridSize()}px;
+      position: relative;
 
       span {
         display: block;

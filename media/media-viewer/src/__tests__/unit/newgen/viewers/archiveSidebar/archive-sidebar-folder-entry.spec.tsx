@@ -148,6 +148,149 @@ describe('ArchiveSidebarFolderEntry', () => {
     expect(el.find(DownloadIcon)).toHaveLength(3);
     expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
   });
+
+  it('should render Items when all root directory entry is not available', () => {
+    const props = {
+      entries: {
+        file1: {
+          name: 'folder1/file1',
+          isDirectory: false,
+        } as ZipEntry,
+        file2: {
+          name: 'folder1/file2',
+          isDirectory: false,
+        } as ZipEntry,
+        file3: {
+          name: 'folder2/file3',
+          isDirectory: false,
+        } as ZipEntry,
+      },
+      root: '',
+    };
+    const el = mountBaseComponent(props);
+    expect(el.find(ButtonItem)).toHaveLength(2);
+    expect(el.find(MediaTypeIcon)).toHaveLength(0);
+    expect(el.find(Folder24Icon)).toHaveLength(2);
+    expect(el.find(DownloadIcon)).toHaveLength(0);
+    expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+  });
+
+  it('should render Items when all root directory entry is not available and only one file is under the root', () => {
+    const props = {
+      entries: {
+        file1: {
+          name: 'folder1/file1',
+          isDirectory: false,
+        } as ZipEntry,
+        file2: {
+          name: 'folder1/file2',
+          isDirectory: false,
+        } as ZipEntry,
+        file3: {
+          name: 'file3',
+          isDirectory: false,
+        } as ZipEntry,
+      },
+      root: '',
+    };
+    const el = mountBaseComponent(props);
+    expect(el.find(ButtonItem)).toHaveLength(2);
+    expect(el.find(MediaTypeIcon)).toHaveLength(1);
+    expect(el.find(Folder24Icon)).toHaveLength(1);
+    expect(el.find(DownloadIcon)).toHaveLength(1);
+    expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+  });
+
+  it('should render Items when some root directory entres are not available', () => {
+    const props = {
+      entries: {
+        folder1: {
+          name: 'folder1/',
+          isDirectory: true,
+        } as ZipEntry,
+        file1: {
+          name: 'folder1/file1',
+          isDirectory: false,
+        } as ZipEntry,
+        file2: {
+          name: 'folder2/file2',
+          isDirectory: false,
+        } as ZipEntry,
+        file3: {
+          name: 'file3',
+          isDirectory: false,
+        } as ZipEntry,
+      },
+      root: '',
+    };
+    const el = mountBaseComponent(props);
+    expect(el.find(ButtonItem)).toHaveLength(3);
+    expect(el.find(MediaTypeIcon)).toHaveLength(1);
+    expect(el.find(Folder24Icon)).toHaveLength(2);
+    expect(el.find(DownloadIcon)).toHaveLength(1);
+    expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+  });
+
+  it('should render Items when some entries are private files', () => {
+    const props = {
+      entries: {
+        folder1: {
+          name: 'folder1/',
+          isDirectory: true,
+        } as ZipEntry,
+        file1: {
+          name: 'folder1/file1',
+          isDirectory: false,
+        } as ZipEntry,
+        file2: {
+          name: '__MACOSX/file2',
+          isDirectory: false,
+        } as ZipEntry,
+        file3: {
+          name: 'file3',
+          isDirectory: false,
+        } as ZipEntry,
+        file4: {
+          name: '.DS_Store',
+          isDirectory: false,
+        } as ZipEntry,
+      },
+      root: '',
+    };
+    const el = mountBaseComponent(props);
+    expect(el.find(ButtonItem)).toHaveLength(2);
+    expect(el.find(MediaTypeIcon)).toHaveLength(1);
+    expect(el.find(Folder24Icon)).toHaveLength(1);
+    expect(el.find(DownloadIcon)).toHaveLength(1);
+    expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+  });
+
+  it('should render Items when root is one level deeper', () => {
+    const props = {
+      entries: {
+        folder1: {
+          name: 'folder1/',
+          isDirectory: true,
+        } as ZipEntry,
+        file1: {
+          name: 'folder1/file1',
+          isDirectory: false,
+        } as ZipEntry,
+        file2: {
+          name: 'file2',
+          isDirectory: false,
+        } as ZipEntry,
+      },
+      root: 'folder1/',
+    };
+    const el = mountBaseComponent(props);
+    expect(el.find(ButtonItem)).toHaveLength(1);
+    expect(el.find(MediaTypeIcon)).toHaveLength(1);
+    expect(el.find(Folder24Icon)).toHaveLength(0);
+    expect(el.find(DownloadIcon)).toHaveLength(1);
+    expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+  });
+
   it('ArchiveSidebarFileEntryWrapper should have name as entry key', () => {
     const props = {
       entries: {

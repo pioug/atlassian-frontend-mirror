@@ -7,7 +7,12 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { DecorationSet, EditorView } from 'prosemirror-view';
 import { TextSelection, Transaction, EditorState } from 'prosemirror-state';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+  DocBuilder,
+  doc,
+  p,
+  panel,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import { undo, redo } from 'prosemirror-history';
 import {
@@ -16,7 +21,7 @@ import {
 } from '@atlaskit/adf-schema/steps';
 import typeAheadPlugin from '../..';
 import { EditorPlugin } from '../../../../types/editor-plugin';
-import { getPluginState } from '../../utils';
+import { getPluginState, isTypeAheadOpen } from '../../utils';
 import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
@@ -36,6 +41,7 @@ import type {
 } from '../../types';
 import { closeTypeAhead } from '../../transforms/close-type-ahead';
 import { insertTypeAheadItem } from '../../commands/insert-type-ahead-item';
+import panelPlugin from '../../../panel';
 
 let _queueMicrotask: any;
 beforeAll(() => {
@@ -57,6 +63,7 @@ const items: TypeAheadItem[] = [
     title: 'Earth 42',
   },
 ];
+
 describe('type-ahead', () => {
   const TRIGGER = 'X';
   const QUERY = 'Eart';
@@ -112,6 +119,7 @@ describe('type-ahead', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add(fakePlugin)
+      .add(panelPlugin)
       .add([typeAheadPlugin, { createAnalyticsEvent }]);
 
     return createEditor({
@@ -221,6 +229,129 @@ describe('type-ahead', () => {
   });
 
   describe('triggerHandler', () => {
+    describe('inside a right-side gap cursor', () => {
+      describe('after an empty panel', () => {
+        /** Editor state */
+        let editorState: EditorState;
+
+        beforeEach(() => {
+          const { editorView } = editor(doc(panel()(p('')), '{<|gap>}'));
+          insertText(editorView, TRIGGER);
+          editorState = editorView.state;
+        });
+
+        it('should open a typeahead pop-up', () => {
+          expect(isTypeAheadOpen(editorState)).toBe(true);
+        });
+
+        it('should insert an empty paragraph after the panel and move the selection into it', () => {
+          expect(editorState).toEqualDocumentAndSelection(
+            doc(panel()(p('')), p('{<>}')),
+          );
+        });
+      });
+
+      describe('after an info panel with text', () => {
+        /** Editor state */
+        let editorState: EditorState;
+
+        beforeEach(() => {
+          const { editorView } = editor(
+            doc(panel({ panelType: 'info' })(p('12345')), '{<|gap>}'),
+          );
+          insertText(editorView, TRIGGER);
+          editorState = editorView.state;
+        });
+
+        it('should open a typeahead pop-up', () => {
+          expect(isTypeAheadOpen(editorState)).toBe(true);
+        });
+
+        it('should insert an empty paragraph after the panel and move the selection into it', () => {
+          expect(editorState).toEqualDocumentAndSelection(
+            doc(panel({ panelType: 'info' })(p('12345')), p('{<>}')),
+          );
+        });
+      });
+    });
+
+    describe('inside a left-side gap cursor', () => {
+      describe('before an empty panel', () => {
+        /** Editor state */
+        let editorState: EditorState;
+
+        beforeEach(() => {
+          const { editorView } = editor(doc('{<|gap>}', panel()(p(''))));
+          insertText(editorView, TRIGGER);
+          editorState = editorView.state;
+        });
+
+        it('should open a typeahead pop-up', () => {
+          expect(isTypeAheadOpen(editorState)).toBe(true);
+        });
+
+        it('should insert an empty paragraph before the panel and move the selection into it', () => {
+          expect(editorState).toEqualDocumentAndSelection(
+            doc(p('{<>}'), panel()(p(''))),
+          );
+        });
+      });
+
+      describe('before an info panel with text', () => {
+        /** Editor state */
+        let editorState: EditorState;
+
+        beforeEach(() => {
+          const { editorView } = editor(
+            doc('{<|gap>}', panel({ panelType: 'info' })(p('12345'))),
+          );
+          insertText(editorView, TRIGGER);
+          editorState = editorView.state;
+        });
+
+        it('should open a typeahead pop-up', () => {
+          expect(isTypeAheadOpen(editorState)).toBe(true);
+        });
+
+        it('should insert an empty paragraph before the panel and move the selection into it', () => {
+          expect(editorState).toEqualDocumentAndSelection(
+            doc(p('{<>}'), panel({ panelType: 'info' })(p('12345'))),
+          );
+        });
+      });
+
+      describe('between two panels', () => {
+        /** Editor state */
+        let editorState: EditorState;
+
+        beforeEach(() => {
+          const { editorView } = editor(
+            doc(
+              panel({ panelType: 'info' })(p('hello')),
+              '{<|gap>}',
+              panel({ panelType: 'info' })(p('world')),
+            ),
+          );
+          insertText(editorView, TRIGGER);
+          editorState = editorView.state;
+        });
+
+        it('should open a typeahead pop-up', () => {
+          expect(isTypeAheadOpen(editorState)).toBe(true);
+        });
+
+        it('should insert an empty paragraph between the panels and move the selection into it', () => {
+          expect(editorState).toEqualDocumentAndSelection(
+            doc(
+              panel({ panelType: 'info' })(p('hello')),
+              p('{<>}'),
+              panel({ panelType: 'info' })(p('world')),
+            ),
+          );
+        });
+      });
+    });
+
     describe('when it opens', () => {
       it('should set the handler data in the state', () => {
         const { editorView } = editor(doc(p('{<>}')));
@@ -374,7 +505,7 @@ describe('type-ahead', () => {
         );
       });
 
-      it('should re-create the plugin state to open the typeahead with the right selected index', () => {
+      it('should re-create the plugin state to open the typeahead with selected index set to -1', () => {
         const pluginState = getPluginState(editorView.state);
 
         expect(pluginState).toEqual(
@@ -382,7 +513,7 @@ describe('type-ahead', () => {
             query: QUERY,
             triggerHandler: typeAheadHandler,
             decorationElement: expect.any(HTMLElement),
-            selectedIndex: 1,
+            selectedIndex: -1, // selectedIndex is purposefully set to -1 to prevent typeahead menu item from getting focus.
           }),
         );
       });

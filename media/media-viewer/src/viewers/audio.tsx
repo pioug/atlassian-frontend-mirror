@@ -41,7 +41,13 @@ export type State = BaseState<string> & {
 
 const defaultCover = (
   <DefaultCoverWrapper>
-    <AudioIcon label="cover" size="xlarge" primaryColor={blanketColor} />
+    <AudioIcon
+      label="cover"
+      size="xlarge"
+      primaryColor={blanketColor}
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+      secondaryColor="#9FADBC"
+    />
   </DefaultCoverWrapper>
 );
 

@@ -14,6 +14,7 @@ interface ShowMoreButtonProps {
 
 class ShowMoreButton extends PureComponent<ShowMoreButtonProps, {}> {
   render() {
+    // TODO: refactor this button to not use custom - component reverts to square shape when hovered
     return (
       <Button
         className="show-more-button"

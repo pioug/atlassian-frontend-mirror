@@ -143,6 +143,15 @@ export const createReactionHoveredEvent = (startTime?: number) =>
     duration: calculateDuration(startTime),
   });
 
+export const createReactionFocusedEvent = (startTime?: number) =>
+  createPayload(
+    'focused',
+    'existingReaction',
+    UI_EVENT_TYPE,
+  )({
+    duration: calculateDuration(startTime),
+  });
+
 export const createReactionClickedEvent = (added: boolean, emojiId: string) =>
   createPayload(
     'clicked',

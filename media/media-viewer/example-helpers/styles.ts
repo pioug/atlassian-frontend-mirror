@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 
 export const containerStyles = css`
   display: flex;
@@ -21,7 +22,7 @@ export const mVSidebarStyles = css`
   overflow: auto;
 
   h2 {
-    color: white;
+    color: ${token('color.text', '#c7d1db')};
     margin-bottom: 16px;
   }
 

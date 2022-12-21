@@ -124,7 +124,6 @@ const Example = () => {
                 }
                 name="placement"
                 placeholder="Placement"
-                width={500}
               />
             </SelectContainer>
           </OptionContainer>
@@ -146,7 +145,6 @@ const Example = () => {
                 }
                 name="placement"
                 placeholder="Placement"
-                width={500}
               />
             </SelectContainer>
           </OptionContainer>

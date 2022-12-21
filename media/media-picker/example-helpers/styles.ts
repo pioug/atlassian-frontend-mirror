@@ -11,6 +11,7 @@ export const popupContainerStyles = css`
   overflow: scroll;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const popupHeaderStyles = css`
   border-bottom: 1px solid #ccc;
   margin-bottom: 15px;
@@ -28,6 +29,7 @@ export const previewImageWrapperStyles = css`
   margin-right: 15px;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const infoWrapperStyles = css`
   position: absolute;
   width: 160px;
@@ -95,6 +97,7 @@ export const clipboardContainerStyles = ({
   border: ${isWindowFocused ? `1px dashed gray` : `1px dashed transparent`};
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const infoContainerStyles = css`
   position: absolute;
   top: 0;

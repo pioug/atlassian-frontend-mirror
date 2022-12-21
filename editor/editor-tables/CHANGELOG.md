@@ -1,5 +1,12 @@
 # @atlaskit/editor-tables
 
+## 2.2.2
+
+### Patch Changes
+
+- [`47f1f76cb80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f1f76cb80) - Add selectTableClosestToPos function
+- [`755d7bf5c2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/755d7bf5c2a) - [ux] ED-12527 Prevents editor-tables handleMouseDown() from creating a cell selection when right clicking in a table cell.
+
 ## 2.2.1
 
 ### Patch Changes

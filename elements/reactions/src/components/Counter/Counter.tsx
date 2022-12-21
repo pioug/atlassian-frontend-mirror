@@ -8,7 +8,8 @@ import {
 } from '@atlaskit/motion';
 // eslint-disable-next-line @atlaskit/design-system/no-banned-imports
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
-import { constants } from '../../shared';
+
+import { utils } from '../../shared';
 
 import * as styles from './styles';
 
@@ -54,34 +55,30 @@ export interface CounterProps {
   animationDuration?: number;
 }
 
-export const getLabel = (
-  value: number,
-  overLimitLabel?: string,
-  limit?: number,
-) => {
-  // Check if reached limit
-  if (limit && value >= limit) {
-    return overLimitLabel || '';
-  } else if (value === 0) {
-    return '';
-  } else {
-    return value.toString();
-  }
-};
-
 /**
  * Display reaction count next to the emoji button
  */
 export const Counter: React.FC<CounterProps> = ({
   highlight = false,
-  limit = constants.DEFAULT_REACTION_TOP_LIMIT,
-  overLimitLabel = constants.DEFAULT_OVER_THE_LIMIT_REACTION_LABEL,
+  limit,
+  overLimitLabel,
   className,
   value,
   animationDuration = mediumDurationMs,
 }) => {
+  const getLabel = (value: number) => {
+    // Check if reached limit
+    if (limit && overLimitLabel && value >= limit) {
+      return overLimitLabel || '';
+    } else if (value === 0) {
+      return '';
+    } else {
+      return utils.formatLargeNumber(value);
+    }
+  };
+
   const previousValue = usePreviousValue(value);
-  const label = getLabel(value, overLimitLabel, limit);
+  const label = getLabel(value);
   const increase = previousValue ? previousValue < value : false;
 
   return (

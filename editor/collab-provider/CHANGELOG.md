@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 7.7.0
+
+### Minor Changes
+
+- [`fa0da169cce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa0da169cce) - Introducing namespace status update: lock & unlock events
+- [`eaada7441d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaada7441d0) - ESS-2853 Add metrics for page recovery events
+- [`6319cd08784`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6319cd08784) - add page restoration event handler
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.6.3
 
 ### Patch Changes

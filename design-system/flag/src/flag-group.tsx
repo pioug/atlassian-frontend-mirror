@@ -10,6 +10,7 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import { easeIn, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import noop from '@atlaskit/ds-lib/noop';
@@ -71,7 +72,6 @@ export function useFlagGroup() {
 // that causes a broken transition
 const baseStyles = css({
   width: flagWidth,
-  position: 'absolute',
   bottom: 0,
   transition: `transform ${flagAnimationTime}ms ease-in-out`,
   '@media (max-width: 560px)': {
@@ -107,7 +107,6 @@ const dismissAllowedStyles = css({
 });
 
 const flagGroupContainerStyles = css({
-  position: 'fixed',
   zIndex: layers.flag(),
   bottom: flagBottom,
   left: flagLeft,
@@ -158,10 +157,13 @@ const FlagGroup = (props: FlagGroupProps) => {
               duration={flagAnimationTime}
               animationTimingFunction={() => easeIn}
             >
-              {(props) => (
-                <div
-                  {...props}
+              {({ className, ref }) => (
+                <Box
+                  display="block"
+                  position="absolute"
                   css={[baseStyles, isDismissAllowed && dismissAllowedStyles]}
+                  className={className}
+                  ref={ref}
                 >
                   <FlagGroupContext.Provider
                     value={
@@ -173,7 +175,7 @@ const FlagGroup = (props: FlagGroupProps) => {
                   >
                     {flag}
                   </FlagGroupContext.Provider>
-                </div>
+                </Box>
               )}
             </SlideIn>
           );
@@ -183,7 +185,12 @@ const FlagGroup = (props: FlagGroupProps) => {
 
   return (
     <Portal zIndex={layers.flag()}>
-      <div id={id} css={flagGroupContainerStyles}>
+      <Box
+        display="block"
+        position="fixed"
+        id={id}
+        css={flagGroupContainerStyles}
+      >
         {hasFlags ? (
           <VisuallyHidden>
             <LabelTag>{label}</LabelTag>
@@ -193,7 +200,7 @@ const FlagGroup = (props: FlagGroupProps) => {
         <ExitingPersistence appear={false}>
           {renderChildren()}
         </ExitingPersistence>
-      </div>
+      </Box>
     </Portal>
   );
 };

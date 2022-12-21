@@ -28,6 +28,8 @@ export interface InlineCardUnauthorizedViewProps {
   testId?: string;
   /** A flag that determines is a tooltip should show up on hover over the unauthorised link */
   showAuthTooltip?: boolean;
+  /** A smart link id that may be used in analytics */
+  id?: string;
 }
 
 const FallbackUnauthorizedIcon = (
@@ -91,7 +93,11 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
 
     if (showAuthTooltip) {
       return (
-        <HoverCard url={url} onAuthorize={this.props.onAuthorise}>
+        <HoverCard
+          url={url}
+          onAuthorize={this.props.onAuthorise}
+          id={this.props.id}
+        >
           {inlineCardUnauthenticatedView}
         </HoverCard>
       );

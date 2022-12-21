@@ -1,19 +1,19 @@
 /* eslint-disable @repo/internal/styles/no-nested-styles */
 /** @jsx jsx */
-import type { ComponentType, CSSProperties } from 'react';
+import { ComponentType, CSSProperties, FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';
+import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
-import type { ThemeModes } from '@atlaskit/theme/types';
 
 import { DEFAULT_APPEARANCE } from './constants';
 import {
-  getActionBackground,
-  getActionColor,
-  getFlagFocusRingColor,
+  flagFocusRingColor,
+  actionBackgroundColor,
+  actionTextColor,
 } from './theme';
 import type { ActionsType, AppearanceTypes } from './types';
 
@@ -21,35 +21,13 @@ type FlagActionsProps = {
   appearance: AppearanceTypes;
   actions: ActionsType;
   linkComponent?: ComponentType<CustomThemeButtonProps>;
-  mode: ThemeModes;
   testId?: string;
 };
 
 const gridSize = getGridSize();
-const separatorWidth = gridSize * 2;
-const defaultAppearanceTranslate = gridSize / 4;
-
-const separatorStyles = css({
-  display: 'inline-block',
-  width: separatorWidth,
-  textAlign: 'center',
-});
-
-const actionContainerStyles = css({
-  display: 'flex',
-  paddingTop: gridSize,
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  transform: `translateX(-${defaultAppearanceTranslate}px)`,
-});
-
-const boldActionContainerStyles = css({
-  transform: 0 as any,
-});
 
 const buttonStyles = css({
   '&&, a&&': {
-    marginLeft: 0,
     padding: `0 ${gridSize}px !important`,
     background: `var(--bg-color)`,
     color: `var(--color) !important`,
@@ -63,24 +41,17 @@ const buttonStyles = css({
   },
 });
 
-const appeanceNormalButtonStyles = css({
+const appearanceNormalButtonStyles = css({
   '&&, a&&': {
     padding: '0 !important',
   },
 });
 
-const isBoldButtonStyles = css({
-  '&&, a&&': {
-    marginRight: gridSize,
-  },
-});
-
-const FlagActions = (props: FlagActionsProps) => {
+const FlagActions: FC<FlagActionsProps> = (props) => {
   const {
     appearance = DEFAULT_APPEARANCE,
     actions = [],
     linkComponent,
-    mode,
     testId,
   } = props;
   if (!actions.length) {
@@ -90,18 +61,15 @@ const FlagActions = (props: FlagActionsProps) => {
   const isBold = appearance !== DEFAULT_APPEARANCE;
 
   return (
-    <div
-      css={[actionContainerStyles, isBold && boldActionContainerStyles]}
-      data-testid={testId && `${testId}-actions`}
+    <Inline
+      gap="scale.100"
+      flexWrap="wrap"
+      alignItems="center"
+      divider={isBold ? null : '·'}
+      UNSAFE_style={isBold ? undefined : { transform: `translateX(-2px)` }}
+      testId={testId && `${testId}-actions`}
     >
-      {actions.map((action, index) => [
-        index && !isBold ? (
-          <div css={separatorStyles} key={index + 0.5}>
-            ·
-          </div>
-        ) : (
-          ''
-        ),
+      {actions.map((action, index) => (
         <Button
           onClick={action.onClick}
           href={action.href}
@@ -113,21 +81,20 @@ const FlagActions = (props: FlagActionsProps) => {
           key={index}
           style={
             {
-              '--color': getActionColor(appearance, mode),
-              '--bg-color': getActionBackground(appearance, mode),
-              '--focus-color': getFlagFocusRingColor(appearance, mode),
+              '--color': actionTextColor[appearance],
+              '--bg-color': actionBackgroundColor[appearance],
+              '--focus-color': flagFocusRingColor[appearance],
             } as CSSProperties
           }
           css={[
             buttonStyles,
-            isBold && isBoldButtonStyles,
-            appearance === 'normal' && appeanceNormalButtonStyles,
+            appearance === 'normal' && appearanceNormalButtonStyles,
           ]}
         >
           {action.content}
-        </Button>,
-      ])}
-    </div>
+        </Button>
+      ))}
+    </Inline>
   );
 };
 

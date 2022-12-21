@@ -52,8 +52,6 @@ export default function SelectField({
               fieldProps.onChange(value);
               onFieldChange(name, true);
             }}
-            // @see DST-2386 & ED-12503
-            enableAnimation={false}
             // add type cast to avoid adding a "IsMulti" generic prop (TODO: ED-12072)
             isMulti={(field.isMultiple || false) as false}
             options={field.items || []}

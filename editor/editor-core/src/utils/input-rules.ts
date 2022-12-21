@@ -1,19 +1,18 @@
-import type { NodeType, Node as PMNode } from 'prosemirror-model';
-import { canJoin, findWrapping } from 'prosemirror-transform';
-import { closeHistory } from 'prosemirror-history';
-import { Mark as PMMark } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, Transaction, TextSelection } from 'prosemirror-state';
-
-import { addAnalytics } from '../plugins/analytics/utils';
-
-import { AnalyticsEventPayload } from '../plugins/analytics/types';
+import { closeHistory } from 'prosemirror-history';
+import type { Node as PMNode, NodeType } from 'prosemirror-model';
+import { Mark as PMMark } from 'prosemirror-model';
+import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
+import { canJoin, findWrapping } from 'prosemirror-transform';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import {
   createInputRulePlugin,
-  InputRuleWrapper,
   InputRuleHandler,
+  InputRuleWrapper,
   OnInputEvent,
 } from '@atlaskit/prosemirror-input-rules';
+import { addAnalytics } from '../plugins/analytics';
+import { AnalyticsEventPayload } from '../plugins/analytics/types';
 
 type GetPayload =
   | AnalyticsEventPayload
@@ -103,7 +102,8 @@ export const createPlugin = (
 
     if (
       $from.parent.type.spec.code ||
-      !(state.selection instanceof TextSelection) ||
+      (!(state.selection instanceof TextSelection) &&
+        !(state.selection instanceof GapCursorSelection)) ||
       hasUnsupportedMarks(state, from, to, unsupportedMarks) ||
       (isBlockNodeRule &&
         isCursorInsideUnsupportedMarks(state, unsupportedMarks))

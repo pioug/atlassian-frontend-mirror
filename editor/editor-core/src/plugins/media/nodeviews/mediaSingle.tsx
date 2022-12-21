@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Component } from 'react';
+import React, { Component, MouseEvent } from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, Decoration } from 'prosemirror-view';
 import {
@@ -36,7 +36,10 @@ import { createDisplayGrid } from '../../../plugins/grid';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { MediaOptions } from '../types';
-import { stateKey as mediaPluginKey } from '../pm-plugins/main';
+import {
+  stateKey as mediaPluginKey,
+  MEDIA_CONTENT_WRAP_CLASS_NAME,
+} from '../pm-plugins/main';
 import { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { DispatchAnalyticsEvent } from '../../analytics';
@@ -78,6 +81,9 @@ export default class MediaSingleNode extends Component<
     viewMediaClientConfig: undefined,
     isCopying: false,
   };
+
+  mediaSingleWrapperRef = React.createRef<HTMLDivElement>();
+  captionPlaceHolderRef = React.createRef<HTMLSpanElement>();
 
   createMediaNodeUpdater = (props: MediaSingleNodeProps): MediaNodeUpdater => {
     const node = this.props.node.firstChild;
@@ -223,6 +229,20 @@ export default class MediaSingleNode extends Component<
     return dispatch(tr);
   };
 
+  // Workaound for iOS 16 Caption selection issue
+  // @see https://product-fabric.atlassian.net/browse/MEX-2012
+  onMediaSingleClicked = (event: MouseEvent) => {
+    if (!browser.ios) {
+      return;
+    }
+
+    if (this.mediaSingleWrapperRef.current !== event.target) {
+      return;
+    }
+
+    this.captionPlaceHolderRef.current?.click();
+  };
+
   render() {
     const {
       selected,
@@ -301,10 +321,18 @@ export default class MediaSingleNode extends Component<
       state.selection instanceof NodeSelection;
 
     const MediaChildren = (
-      <figure css={figureWrapper} className={MediaSingleNodeSelector}>
+      <figure
+        ref={this.mediaSingleWrapperRef}
+        css={figureWrapper}
+        className={MediaSingleNodeSelector}
+        onClick={this.onMediaSingleClicked}
+      >
         <div ref={this.props.forwardRef} />
         {shouldShowPlaceholder && (
-          <CaptionPlaceholder onClick={this.clickPlaceholder} />
+          <CaptionPlaceholder
+            ref={this.captionPlaceHolderRef}
+            onClick={this.clickPlaceholder}
+          />
         )}
       </figure>
     );
@@ -389,7 +417,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 
   getContentDOM() {
     const dom = document.createElement('div');
-    dom.classList.add(`media-content-wrap`);
+    dom.classList.add(MEDIA_CONTENT_WRAP_CLASS_NAME);
     return { dom };
   }
 

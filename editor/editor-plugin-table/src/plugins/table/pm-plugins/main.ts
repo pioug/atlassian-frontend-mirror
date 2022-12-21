@@ -125,34 +125,32 @@ export const createPlugin = (
       })
     : undefined;
 
-  const tableCellNodeview = pluginConfig.tableCellOptimization
-    ? {
-        tableCell: (
-          node: ProseMirrorNode,
-          view: EditorView,
-          getPos: getPosHandler,
-        ) =>
-          new TableCellNodeView(
-            node,
-            view,
-            getPos,
-            getEditorFeatureFlags,
-            observer,
-          ),
-        tableHeader: (
-          node: ProseMirrorNode,
-          view: EditorView,
-          getPos: getPosHandler,
-        ) =>
-          new TableCellNodeView(
-            node,
-            view,
-            getPos,
-            getEditorFeatureFlags,
-            observer,
-          ),
-      }
-    : {};
+  const tableCellNodeview = {
+    tableCell: (
+      node: ProseMirrorNode,
+      view: EditorView,
+      getPos: getPosHandler,
+    ) =>
+      new TableCellNodeView(
+        node,
+        view,
+        getPos,
+        getEditorFeatureFlags,
+        observer,
+      ),
+    tableHeader: (
+      node: ProseMirrorNode,
+      view: EditorView,
+      getPos: getPosHandler,
+    ) =>
+      new TableCellNodeView(
+        node,
+        view,
+        getPos,
+        getEditorFeatureFlags,
+        observer,
+      ),
+  };
 
   // Used to prevent invalid table cell spans being reported more than once per editor/document
   const invalidTableIds: string[] = [];

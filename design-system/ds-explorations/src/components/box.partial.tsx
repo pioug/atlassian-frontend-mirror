@@ -13,14 +13,14 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { Layer, LAYERS } from '../constants';
+
 import { SurfaceContext } from './surface-provider';
 import type { BasePrimitiveProps } from './types';
 
-type PropsToOmit = 'as' | 'className' | 'style';
-
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   ComponentPropsWithoutRef<T>,
-  PropsToOmit
+  'as' | 'className' | 'style'
 > &
   BasePrimitiveProps &
   BoxPropsBase<T>;
@@ -51,6 +51,10 @@ type BoxPropsBase<T extends ElementType> = {
    */
   backgroundColor?: BackgroundColor;
   /**
+   * Token representing shadow with a fallback
+   */
+  shadow?: Shadow;
+  /**
    * Defines border style.
    */
   borderStyle?: BorderStyle;
@@ -66,6 +70,10 @@ type BoxPropsBase<T extends ElementType> = {
    * Defines border radius.
    */
   borderRadius?: BorderRadius;
+  /**
+   * Used for providing a z-index.
+   */
+  layer?: Layer;
   /**
    * Defines the main axis direction.
    * @deprecated
@@ -152,6 +160,8 @@ export const Box: BoxComponent = forwardRef(
       borderStyle,
       borderWidth,
       borderRadius,
+      shadow,
+      layer,
       padding,
       paddingBlock,
       paddingInline,
@@ -187,6 +197,8 @@ export const Box: BoxComponent = forwardRef(
           borderStyle && borderStyleMap[borderStyle],
           borderWidth && borderWidthMap[borderWidth],
           borderRadius && borderRadiusMap[borderRadius],
+          shadow && shadowMap[shadow],
+          layer && layerMap[layer],
           flexDirection && flexDirectionMap[flexDirection],
           overflow && overflowMap[overflow],
           width && widthMap[width],
@@ -254,6 +266,8 @@ const flexAlignItemsMap = {
   baseline: css({ alignItems: 'baseline' }),
   flexStart: css({ alignItems: 'flex-start' }),
   flexEnd: css({ alignItems: 'flex-end' }),
+  start: css({ alignItems: 'start' }),
+  end: css({ alignItems: 'end' }),
 };
 
 /**
@@ -264,6 +278,8 @@ const flexJustifyContentMap = {
   center: css({ justifyContent: 'center' }),
   flexStart: css({ justifyContent: 'flex-start' }),
   flexEnd: css({ justifyContent: 'flex-end' }),
+  start: css({ alignItems: 'start' }),
+  end: css({ alignItems: 'end' }),
 };
 
 type Display = keyof typeof displayMap;
@@ -277,6 +293,7 @@ const displayMap = {
 type Position = keyof typeof positionMap;
 const positionMap = {
   absolute: css({ position: 'absolute' }),
+  fixed: css({ position: 'fixed' }),
   relative: css({ position: 'relative' }),
   static: css({ position: 'static' }),
 };
@@ -485,10 +502,10 @@ export type PaddingInline = keyof typeof paddingInlineMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::781636715c2bee941d6836a5a90fed5b>>
+ * @codegen <<SignedSource::f8adab4246a66543cd1350e53abf9293>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
- * @codegenParams ["border", "background"]
+ * @codegenParams ["border", "background", "shadow"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::07ef29d58a2b23af8b098515466d7e22>>
  */
 const borderColorMap = {
@@ -531,7 +548,7 @@ const borderColorMap = {
   information: css({
     borderColor: token('color.border.information', '#0065FF'),
   }),
-};
+} as const;
 
 export type BorderColor = keyof typeof borderColorMap;
 
@@ -614,9 +631,61 @@ const backgroundColorMap = {
   'elevation.surface.overlay': css({
     backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
   }),
-};
+} as const;
 
 export type BackgroundColor = keyof typeof backgroundColorMap;
+
+const shadowMap = {
+  raised: css({
+    boxShadow: token(
+      'elevation.shadow.raised',
+      '0px 1px 1px #091e423f, 0px 0px 1px #091e4221',
+    ),
+  }),
+  overflow: css({
+    boxShadow: token(
+      'elevation.shadow.overflow',
+      '0px 0px 8px #091e423f, 0px 0px 1px #091e424f',
+    ),
+  }),
+  'overflow.spread': css({
+    boxShadow: token('elevation.shadow.overflow.spread', '#091e4229'),
+  }),
+  'overflow.perimeter': css({
+    boxShadow: token('elevation.shadow.overflow.perimeter', '#091e421f'),
+  }),
+  overlay: css({
+    boxShadow: token(
+      'elevation.shadow.overlay',
+      '0px 8px 12px #091e423f, 0px 0px 1px #091e424f',
+    ),
+  }),
+} as const;
+
+export type Shadow = keyof typeof shadowMap;
+
+/**
+ * @codegenEnd
+ */
+
+/**
+ * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::bacbea271b30ec7d2f61306c9a8a9e63>>
+ * @codegenId misc
+ * @codegenCommand yarn codegen-styles
+ * @codegenParams ["layer"]
+ */
+const layerMap = {
+  card: css({ zIndex: LAYERS['card'] }),
+  navigation: css({ zIndex: LAYERS['navigation'] }),
+  dialog: css({ zIndex: LAYERS['dialog'] }),
+  layer: css({ zIndex: LAYERS['layer'] }),
+  blanket: css({ zIndex: LAYERS['blanket'] }),
+  modal: css({ zIndex: LAYERS['modal'] }),
+  flag: css({ zIndex: LAYERS['flag'] }),
+  spotlight: css({ zIndex: LAYERS['spotlight'] }),
+  tooltip: css({ zIndex: LAYERS['tooltip'] }),
+};
 
 /**
  * @codegenEnd

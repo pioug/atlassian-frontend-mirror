@@ -202,7 +202,6 @@ describe('paste plugins', () => {
     const pasteOptions: PastePluginOptions = (pluginsOptions &&
       pluginsOptions.paste) || {
       cardOptions: {},
-      plainTextPasteLinkification: false,
     };
     const tableOptions = (pluginsOptions && pluginsOptions.table) || {};
     const wrapper = createEditor({
@@ -298,7 +297,6 @@ describe('paste plugins', () => {
           const { editorView } = editor(doc(p('this is {<>}')), {
             paste: {
               sanitizePrivateContent: true,
-              plainTextPasteLinkification: false,
             },
           });
           dispatchPasteEvent(editorView, {
@@ -319,7 +317,6 @@ describe('paste plugins', () => {
           const { editorView } = editor(doc(p('this is {<>}')), {
             paste: {
               sanitizePrivateContent: false,
-              plainTextPasteLinkification: false,
             },
           });
           dispatchPasteEvent(editorView, {
@@ -552,7 +549,7 @@ describe('paste plugins', () => {
         const { editorView } = editor(
           doc(blockquote(p(strong('Paste here {<>}')))),
         );
-        const blockquoteHtmlMarked = `<meta charset='utf-8'><p data-pm-slice="1 1 [&quot;blockquote&quot;,{}]"><span class="fabric-text-color-mark" style="--custom-text-color: #ff991f" data-text-custom-color="#ff991f">copy me</span></p>`;
+        const blockquoteHtmlMarked = `<meta charset='utf-8'><p data-pm-slice="1 1 [&quot;blockquote&quot;,{}]"><span class="fabric-text-color-mark" style="--custom-palette-color: var(--ds-icon-accent-orange, #FF991F)" data-text-custom-color="#ff991f">copy me</span></p>`;
         dispatchPasteEvent(editorView, { html: blockquoteHtmlMarked });
         expect(editorView.state.doc).toEqualDocument(
           doc(blockquote(p(strong('Paste here copy me')))),
@@ -1908,7 +1905,6 @@ describe('paste plugins', () => {
     const extensionProps = (cardOptions: CardOptions = {}): PluginsOptions => {
       return {
         paste: {
-          plainTextPasteLinkification: false,
           cardOptions: {
             provider: Promise.resolve(providerWrapper.provider),
             ...cardOptions,

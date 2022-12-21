@@ -9,7 +9,7 @@ describe('Renderer - React/Marks/TextColor', () => {
     wrapper = render(
       <TextColor
         dataAttributes={{ 'data-renderer-mark': true }}
-        color="#ff0000"
+        color="#bf2600"
       >
         This is a red text
       </TextColor>,
@@ -25,7 +25,7 @@ describe('Renderer - React/Marks/TextColor', () => {
     const mark = await wrapper.getByText('This is a red text');
 
     expect(mark.outerHTML).toEqual(
-      `<span data-renderer-mark=\"true\" data-text-custom-color=\"#ff0000\" class=\"fabric-text-color-mark\" style=\"--custom-text-color: #ff0000;\">This is a red text</span>`,
+      `<span data-renderer-mark=\"true\" data-text-custom-color=\"#bf2600\" class=\"fabric-text-color-mark\" style=\"--custom-palette-color: var(--ds-text-accent-red, #BF2600);\">This is a red text</span>`,
     );
   });
 });

@@ -1,25 +1,24 @@
 export { components, createFilter, mergeStyles } from 'react-select';
-export { makeAsyncSelect } from 'react-select/async';
-export { makeCreatableSelect } from 'react-select/creatable';
+export { useAsync } from 'react-select/async';
+export { useCreatable } from 'react-select/creatable';
 
 export { CheckboxOption, RadioOption } from './components/input-options';
 
-export { default, SelectWithoutAnalytics } from './Select';
-export { default as AsyncSelect } from './AsyncSelect';
+export { default, SelectWithoutAnalytics } from './entry-points/select';
+export { default as AsyncSelect } from './entry-points/async-select';
+export { default as CreatableSelect } from './entry-points/creatable-select';
+export { default as AsyncCreatableSelect } from './entry-points/async-creatable-select';
+
 export { default as CheckboxSelect } from './CheckboxSelect';
 export { default as CountrySelect } from './CountrySelect';
 export { default as RadioSelect } from './RadioSelect';
-export { default as CreatableSelect } from './CreatableSelect';
-export { default as AsyncCreatableSelect } from './AsyncCreatableSelect';
 export { default as PopupSelect } from './PopupSelect';
-export type { PopupSelectProps } from './PopupSelect';
+export type { PopupSelectProps, ModifierList } from './PopupSelect';
 
 export type {
   ActionMeta,
   ControlProps,
   FormatOptionLabelMeta,
-  IndicatorComponentType,
-  IndicatorProps,
   InputActionMeta,
   InputProps,
   MenuProps,
@@ -34,4 +33,26 @@ export type {
   ValueType,
   GroupedOptionsType,
   GroupType,
+  // Types replacing indicatorProps
+  ClearIndicatorProps,
+  DropdownIndicatorProps,
+  IndicatorSeparatorProps,
+  LoadingIndicatorProps,
+  // we have found usages of the types below in AF and other repos,
+  // Since we are migrating to declarative entry points `deprecatedAutoEntryPoints=false`
+  // we need to include these types here.
+  MultiValueProps,
+  ReactSelectProps,
+  SingleValueProps,
+  NoticeProps,
+  ValidationState,
+  GroupProps,
+  AsyncSelectProps,
 } from './types';
+
+/**
+ * Types not exported on the public API, didn't find usages in sourcegraph
+ *
+ * CreatableSelectProps,
+ * PlaceholderProps,
+ */

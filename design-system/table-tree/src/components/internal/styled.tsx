@@ -7,6 +7,7 @@ import { N30, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const iconColor = token('color.text', N800);
+export const indentBase = token('space.300', '25px');
 
 const treeRowContainerStyles = css({
   display: 'flex',
@@ -23,7 +24,8 @@ export const TreeRowContainer: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
 
 const commonChevronContainerStyles = css({
   display: 'flex',
-  marginLeft: -25,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  marginLeft: `calc(${indentBase} * -1)`,
   position: 'absolute',
   top: 7,
   alignItems: 'center',
@@ -54,10 +56,12 @@ export const ChevronIconContainer: FC<HTMLAttributes<HTMLSpanElement>> = (
 
 const loadingItemContainerStyles = css({
   width: '100%',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingTop: 5,
 });
 
 const paddingLeftStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingLeft: '50%',
 });
 

@@ -11,6 +11,7 @@ export interface Props {
   onItemActivated?: (attrs: any) => void;
   onMouseEnter?: (attrs: any) => void;
   onMouseLeave?: (attrs: any) => void;
+  keyDownHandlerContext?: KeyDownHandlerContext;
   fitWidth?: number;
   fitHeight?: number;
   offset?: Array<number>;
@@ -19,8 +20,14 @@ export interface Props {
     items: MenuItem[];
   }>;
   shouldUseDefaultRole?: boolean;
+  disableArrowKeyNavigation?: boolean;
 }
 
+export interface KeyDownHandlerContext {
+  handleArrowRight: () => void;
+  handleArrowLeft: () => void;
+  handleTab: () => void;
+}
 export interface MenuItem {
   key?: string;
   content: string | React.ReactChild | React.ReactFragment;

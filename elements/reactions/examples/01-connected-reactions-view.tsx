@@ -175,6 +175,92 @@ export default () => {
               />
             }
           />
+          {/* Example 8 */}
+          <Example
+            title={
+              '"ConnectedReactionsView" with large emoji picker, emojiPickerSize could be small, medium or large (default to medium).'
+            }
+            body={
+              <ConnectedReactionsView
+                store={store}
+                containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
+                ari={`${ExampleConstants.AriPrefix}7`}
+                emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+                emojiPickerSize="large"
+                allowAllEmojis
+              />
+            }
+          />
+
+          <hr />
+
+          <strong
+            style={{
+              fontSize: '14px',
+              marginLeft: '10px',
+              textDecoration: 'underline',
+            }}
+          >
+            "allowUserDialog" prop - enables a link within the reaction tooltip
+            to show a full user list associated with all reactions
+          </strong>
+
+          {/* Example 9 */}
+          <Example
+            title={'Connected reactions with reactions dialog enabled'}
+            body={
+              <ConnectedReactionsView
+                store={store}
+                containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
+                ari={`${ExampleConstants.AriPrefix}1`}
+                emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+                allowUserDialog
+              />
+            }
+          />
+
+          <hr />
+
+          <strong
+            style={{
+              fontSize: '14px',
+              marginLeft: '10px',
+              textDecoration: 'underline',
+            }}
+          >
+            "allowUserDialog" prop with callbacks - enables a link within the
+            reaction tooltip to show a full user list associated with all
+            reactions with event callbacks shown
+          </strong>
+
+          {/* Example 10 */}
+          <Example
+            title={
+              'Connected reactions with reactions dialog enabled and callbacks shown as alert dialogs'
+            }
+            body={
+              <ConnectedReactionsView
+                store={store}
+                containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
+                ari={`${ExampleConstants.AriPrefix}1`}
+                emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+                allowUserDialog
+                onDialogCloseCallback={(e, event) => {
+                  alert(`onDialogCloseCallback event`);
+                }}
+                onDialogOpenCallback={(emojiId, source) => {
+                  alert(
+                    `onDialogOpenCallback event with emojiId = ${emojiId}, source = ${source}`,
+                  );
+                }}
+                onDialogSelectReactionCallback={(emojiId, event) => {
+                  alert(
+                    `onDialogSelectReactionCallback event with emojiId = ${emojiId}`,
+                  );
+                }}
+              />
+            }
+          />
         </>
       )}
     </ExampleWrapper>

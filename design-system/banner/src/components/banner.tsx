@@ -103,12 +103,12 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
       <Box
         display="block"
         backgroundColor={backgroundColors[appearanceType]}
+        overflow="hidden"
         padding="scale.150"
         testId={testId}
         ref={ref}
         {...accessibilityProps}
         UNSAFE_style={{
-          overflow: 'hidden',
           maxHeight: '48px',
         }}
         css={nestedLinkStyles}

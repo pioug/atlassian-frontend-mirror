@@ -1,138 +1,124 @@
 /** @jsx jsx */
-import { SyntheticEvent, useState } from 'react';
+import { ReactElement, SyntheticEvent, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
 import noop from '@atlaskit/ds-lib/noop';
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import Tick from '@atlaskit/icon/glyph/check-circle';
+import Error from '@atlaskit/icon/glyph/error';
+import Warning from '@atlaskit/icon/glyph/warning';
 import { RadioGroup } from '@atlaskit/radio';
 import Spinner from '@atlaskit/spinner';
-import { G400, R400, Y200 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
+import { G300, G400, R300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { FlagGroup } from '../src';
 import { AppearanceArray, AppearanceTypes } from '../src/types';
 
-const boldAppearanceNames = AppearanceArray.filter((val) => val !== 'normal');
-
-type boldAppearanceItem = {
-  name: string;
-  value: AppearanceTypes;
-  label: string;
+type Appearances<Keys extends AppearanceTypes> = {
+  [K in Keys]: { description?: string; title: string; actions?: any[] };
 };
 
-const boldAppearanceItems: Array<boldAppearanceItem> = boldAppearanceNames.map(
-  (val) => ({
-    name: val,
-    value: val,
-    label: val,
-  }),
-);
+const appearances: Appearances<AppearanceTypes> = {
+  normal: {
+    description: 'We cannot log in at the moment, please try again soon.',
+    title: 'Welcome to the jungle',
+  },
+  error: {
+    description: 'You need to take action, something has gone terribly wrong!',
+    title: 'We are having issues',
+  },
+  info: {
+    title: 'Connecting...',
+  },
+  success: {
+    title: 'Connected',
+  },
+  warning: {
+    title: 'Trying again...',
+    actions: [{ content: 'Good luck!', onClick: noop }],
+  },
+};
 
-const iconStyles = css({
-  width: gridSize() * 3,
-  height: gridSize() * 3,
+const appearanceTypes = AppearanceArray;
+
+const appearanceOptions = appearanceTypes.map((appearance) => {
+  return {
+    label: appearance,
+    name: appearance,
+    value: appearance,
+  };
 });
+
+const iconMap = (key: string) => {
+  const icons: { [key: string]: ReactElement } = {
+    normal: (
+      <Tick label="Success" primaryColor={token('color.icon.success', G300)} />
+    ),
+    info: (
+      <Box width="size.300" height="size.300">
+        <Spinner size="small" appearance="invert" />
+      </Box>
+    ),
+    success: (
+      <Tick
+        label="Success"
+        secondaryColor={token('color.background.success.bold', G400)}
+      />
+    ),
+    warning: (
+      <Warning
+        label="Warning"
+        secondaryColor={token('color.background.warning.bold', Y300)}
+      />
+    ),
+    error: (
+      <Error
+        label="Error"
+        secondaryColor={token('color.background.danger.bold', R300)}
+      />
+    ),
+  };
+
+  return key ? icons[key] : icons;
+};
+
+const getIcon = (key: string) => {
+  return iconMap(key) as ReactElement;
+};
 
 const ConnectionDemo = () => {
   const [appearance, setAppearance] = useState<AppearanceTypes>(
-    boldAppearanceNames[0],
+    appearanceTypes[0],
   );
 
-  const getTitle = (): string => {
-    switch (appearance) {
-      case 'error':
-        return 'We are having issues';
-      case 'info':
-        return 'Connecting...';
-      case 'success':
-        return 'Connected';
-      case 'warning':
-        return 'Trying again...';
-      default:
-        return '';
-    }
-  };
-
-  const getIcon = () => {
-    switch (appearance) {
-      case 'error':
-        return (
-          <ErrorIcon
-            label="Error"
-            secondaryColor={token('color.background.danger.bold', R400)}
-          />
-        );
-      case 'info':
-        // We wrap the Spinner in a div the same height as a standard Icon, to avoid
-        // the flag height jumping when Flag.appearance is changed.
-        return (
-          <div css={iconStyles}>
-            <Spinner size="small" appearance="invert" />
-          </div>
-        );
-      case 'success':
-        return (
-          <SuccessIcon
-            label="Success"
-            secondaryColor={token('color.background.success.bold', G400)}
-          />
-        );
-      case 'warning':
-        return (
-          <WarningIcon
-            label="Warning"
-            secondaryColor={token('color.background.warning.bold', Y200)}
-          />
-        );
-      default:
-        return (
-          <SuccessIcon
-            label=""
-            secondaryColor={token('color.background.success.bold', G400)}
-          />
-        );
-    }
-  };
-
-  const getDescription = () => {
-    if (appearance === 'error') {
-      return 'We cannot log in at the moment, please try again soon.';
-    }
-    return undefined;
-  };
-
-  const getActions = () => {
-    if (appearance === 'warning') {
-      return [{ content: 'Good luck!', onClick: noop }];
-    }
-    return undefined;
-  };
-
   return (
-    <div>
+    <Box display="block">
       <FlagGroup>
         <Flag
           appearance={appearance}
-          icon={getIcon()}
-          title={getTitle()}
-          description={getDescription()}
-          actions={getActions()}
+          icon={getIcon(appearance)}
+          title={appearances[appearance].title}
+          description={appearances[appearance].description}
+          actions={appearances[appearance].actions}
           id="fake-flag"
         />
       </FlagGroup>
-      <p>This story shows the transition between various flag appearances.</p>
+      <Text as="p">
+        This story shows the transition between various flag appearances.
+      </Text>
       <RadioGroup
-        options={boldAppearanceItems}
+        options={appearanceOptions}
         onChange={(e: SyntheticEvent<HTMLInputElement>) => {
           setAppearance(e.currentTarget.value as AppearanceTypes);
         }}
-        defaultValue={boldAppearanceNames[0]}
+        defaultValue={appearanceTypes[0]}
       />
-    </div>
+    </Box>
   );
 };
 

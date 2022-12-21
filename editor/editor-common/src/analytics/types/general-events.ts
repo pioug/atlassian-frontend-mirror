@@ -450,6 +450,14 @@ type NodesMissingContentTransformedAEP = OperationalAEP<
   undefined
 >;
 
+type InvalidMediaContentTransformedAEP = OperationalAEP<
+  ACTION.INVALID_MEDIA_CONTENT_TRANSFORMED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  undefined,
+  undefined
+>;
+
 export type GeneralEventPayload<T = void> =
   | AnnotateButtonAEP
   | AnnotationAEP
@@ -487,4 +495,5 @@ export type GeneralEventPayload<T = void> =
   | IndentationMarksTransformedAEP
   | NodesMissingContentTransformedAEP
   | InvalidProsemirrorDocumentErrorAEP
-  | DocumentProcessingErrorAEP;
+  | DocumentProcessingErrorAEP
+  | InvalidMediaContentTransformedAEP;

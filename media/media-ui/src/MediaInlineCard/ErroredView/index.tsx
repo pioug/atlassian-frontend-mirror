@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { R300 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
@@ -39,7 +40,11 @@ export class MediaInlineCardErroredView extends React.Component<MediaInlineCardE
           icon={
             icon || (
               <AKIconWrapper>
-                <WarningIcon label="error" size="small" primaryColor={R300} />
+                <WarningIcon
+                  label="error"
+                  size="small"
+                  primaryColor={token('color.icon.danger', R300)}
+                />
               </AKIconWrapper>
             )
           }

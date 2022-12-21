@@ -13,7 +13,7 @@ import {
   createUrl,
   fetchRetry,
   createProcessFetchResponse,
-  withAuth,
+  extendHeaders,
 } from './helpers';
 
 export async function request(
@@ -29,6 +29,7 @@ export async function request(
     headers,
     body,
     clientOptions = {},
+    traceContext,
   } = options;
   const { retryOptions } = clientOptions;
   const metadata: RequestMetadata = { method, endpoint };
@@ -38,7 +39,7 @@ export async function request(
     fetch(createUrl(url, { params }), {
       method,
       body,
-      headers: withAuth(auth)(headers),
+      headers: extendHeaders(headers, auth, traceContext),
       signal: controller && controller.signal,
     }).then(createProcessFetchResponse(metadata));
 

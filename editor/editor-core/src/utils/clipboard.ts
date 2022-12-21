@@ -42,17 +42,24 @@ export const copyToClipboard = async (textToCopy: string) => {
   }
 };
 
-export const copyHTMLToClipboard = async (htmlToCopy: string) => {
+export const copyHTMLToClipboard = async (
+  elementToCopy: HTMLElement,
+  plainTextToCopy?: string,
+) => {
   // @ts-ignore
   if (isClipboardApiSupported() && typeof ClipboardItem !== 'undefined') {
     try {
-      const blobInput = new Blob([htmlToCopy], {
-        type: 'text/html',
+      const data = new ClipboardItem({
+        'text/plain': new Blob([plainTextToCopy || elementToCopy.innerText], {
+          type: 'text/plain',
+        }),
+        'text/html': new Blob([elementToCopy.innerHTML], {
+          type: 'text/html',
+        }),
       });
+
       // @ts-ignore
-      const data = [new ClipboardItem({ 'text/html': blobInput })];
-      // @ts-ignore
-      navigator.clipboard.write(data);
+      await navigator.clipboard.write([data]);
     } catch (error) {
       throw new Error('Clipboard api is not supported');
     }
@@ -61,7 +68,8 @@ export const copyHTMLToClipboard = async (htmlToCopy: string) => {
     // Hence of use of this polyfill
     const Clipboard: typeof ClipboardPolyfill = clipboard as any;
     const dt = new Clipboard.DT();
-    dt.setData('text/html', htmlToCopy);
+    dt.setData('text/plain', plainTextToCopy || elementToCopy.innerText);
+    dt.setData('text/html', elementToCopy.innerHTML);
     Clipboard.write(dt);
   }
 };

@@ -110,8 +110,9 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
     if (!isHDAvailable) {
       return null;
     }
-
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     const hdPrimaryColor = isHDActivating ? B75 : isHDActive ? B200 : DN400;
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     const hdSecondaryColor = isHDActive && !isHDActivating ? N0 : DN60;
     const testId = isHDActivating
       ? 'hd-activating'

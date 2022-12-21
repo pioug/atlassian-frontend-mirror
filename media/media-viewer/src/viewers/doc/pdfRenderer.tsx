@@ -13,6 +13,7 @@ import { MediaViewerError } from '../../errors';
 import { ZoomLevel } from '../../domain/zoomLevel';
 
 export const pdfViewerClassName = 'pdfViewer';
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const globalStyles = css`
   .${pdfViewerClassName} {
     margin-top: 64px;
@@ -79,6 +80,7 @@ const globalStyles = css`
   }
 `;
 /* eslint-enable no-unused-expressions */
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/'; // TODO: use web workers instead of fake worker.
 

@@ -6,7 +6,7 @@
  *
  *
  */
-import React from 'react';
+import React, { useCallback } from 'react';
 import { EditorPlugin } from '../../types/editor-plugin';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
@@ -35,6 +35,7 @@ import {
   fireAnalyticsEvent,
   FireAnalyticsCallback,
 } from '../analytics';
+import { CloseSelectionOptions } from './constants';
 
 export type TypeAheadPluginOptions = {
   isMobile?: boolean;
@@ -59,7 +60,7 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
       query,
     } = typeAheadState;
 
-    const [onItemInsert, , onItemMatch] = useItemInsert(
+    const [onItemInsert, onTextInsert, onItemMatch] = useItemInsert(
       triggerHandler!,
       editorView,
       items,
@@ -79,6 +80,24 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
         });
       },
       [onItemInsert, query],
+    );
+
+    const cancel = useCallback(
+      ({
+        setSelectionAt,
+        addPrefixTrigger,
+        forceFocusOnEditor,
+      }: {
+        setSelectionAt: CloseSelectionOptions;
+        addPrefixTrigger: boolean;
+        forceFocusOnEditor: boolean;
+      }) => {
+        const fullQuery = addPrefixTrigger
+          ? `${triggerHandler?.trigger}${query}`
+          : query;
+        onTextInsert({ forceFocusOnEditor, setSelectionAt, text: fullQuery });
+      },
+      [triggerHandler, onTextInsert, query],
     );
 
     React.useEffect(() => {
@@ -125,6 +144,7 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
         onItemInsert={insertItem}
         decorationSet={decorationSet}
         isEmptyQuery={!query}
+        cancel={cancel}
       />
     );
   },
@@ -150,7 +170,7 @@ const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => {
 
     marks() {
       // We need to keep this to make sure
-      // All documents with typeahead marks will be loaded normaly
+      // All documents with typeahead marks will be loaded normally
       return [{ name: 'typeAheadQuery', mark: typeAheadQuery }];
     },
 

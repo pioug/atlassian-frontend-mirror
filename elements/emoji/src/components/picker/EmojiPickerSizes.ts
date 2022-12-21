@@ -1,7 +1,7 @@
-import { emojiPickerWidth } from '../../util/constants';
+import { emojiPickerListHeight, emojiPickerWidth } from '../../util/constants';
 
 export const sizes = {
-  listHeight: 208,
+  listHeight: emojiPickerListHeight,
   listWidth: emojiPickerWidth,
   searchHeight: 52, // 32px height + 10px padding top/bottom
   categoryHeadingHeight: 30, // 20px height + 5px padding top/bottom

@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 17.1.5
+
+### Patch Changes
+
+- [`17014a9004c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17014a9004c) - [ux] ED-15632 preprocess invalid media adf to avoid empty mediaSingle node and duplicated captions and media inside mediaSingle.The document will be transformed for this cases and validation error not thrown.When mediaSingle with empty content is encountered - it will be removed.When mediaSingle with duplicated captions or media nodes is encountered - duplicate captions or media nodes will be removed, prioritising removal of nodes with empty content first.
+
 ## 17.1.4
 
 ### Patch Changes

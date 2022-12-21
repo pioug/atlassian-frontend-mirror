@@ -1,5 +1,19 @@
 # @atlaskit/table-tree
 
+## 9.2.5
+
+### Patch Changes
+
+- [`25348ec8a74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25348ec8a74) - Updated to use spacing and typography tokens. With spacing tokens enabled, padding inside cells has changed slightly from 10px vertical to 8px vertical, and from 25px inline to 24px inline. No visual changes without tokens enabled.
+
+## 9.2.4
+
+### Patch Changes
+
+- [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
+  Update commerce-ui entrypoints that caused a pipeline issue.
+- Updated dependencies
+
 ## 9.2.3
 
 ### Patch Changes

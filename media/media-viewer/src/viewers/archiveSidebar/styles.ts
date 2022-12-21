@@ -1,6 +1,7 @@
 import { css, keyframes } from '@emotion/react';
 import { gridSize } from '@atlaskit/theme/constants';
-import { DN10, DN500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+import { DN500 } from '@atlaskit/theme/colors';
 
 export const ArchiveSideBarWidth = 300;
 
@@ -12,8 +13,7 @@ export const archiveItemViewerWrapperStyles = css`
 
 export const archiveSideBarStyles = css`
   padding: 22px 20px 20px 20px;
-  /** TODO [BMPT-370] Use new bg color after ThemeProvider is removed */
-  background-color: rgba(14, 22, 36);
+  background-color: ${token('elevation.surface', '#101214')};
   position: absolute;
   left: 0;
   top: 0;
@@ -47,11 +47,22 @@ export const archiveDownloadButtonWrapperStyles = css`
   border: none;
   border-radius: 3px;
   background-color: transparent;
+  color: ${token('color.icon', '#9FADBC')};
 
   &:hover {
     cursor: pointer;
-    background-color: #253a5f;
-    /** TODO [BMPT-370] Use new color after ThemeProvider is removed */
+    background-color: ${token(
+      'color.background.neutral.subtle.hovered',
+      '#A1BDD914',
+    )};
+  }
+
+  &:active {
+    cursor: pointer;
+    background-color: ${token(
+      'color.background.neutral.subtle.pressed',
+      '#A6C5E229',
+    )};
   }
 `;
 
@@ -86,7 +97,7 @@ export const separatorStyles = css`
   border-radius: 1px;
   height: 2px;
   margin: ${(gridSize() * 5 - 2) / 2}px 0;
-  background-color: rgb(36, 50, 76);
+  background-color: ${token('color.border', '#A6C5E229')};
   flex-shrink: 0;
 `;
 
@@ -109,16 +120,25 @@ export const sidebarHeaderEntryStyles = css`
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: 1.14286;
-  color: ${DN500};
+  color: ${token('color.text', DN500)};
 `;
 
-/** TODO Replace background colors of item with theme from @atlaskit/tokens once ready*/
 export const itemStyle = {
-  backgroundColor: `${DN10}`,
-  fill: `${DN10}`,
-  color: `${DN500}`,
+  backgroundColor: `${token('color.background.neutral.subtle', '#101214')}`,
+  fill: `${token('color.icon.success', '#101214')}`,
+  color: `${token('color.text', DN500)}`,
   ':hover': {
-    backgroundColor: '#253a5f',
-    color: `${DN500}`,
+    backgroundColor: `${token(
+      'color.background.neutral.subtle.hovered',
+      '#A1BDD914',
+    )}`,
+    color: `${token('color.text', DN500)}`,
+  },
+  ':active': {
+    backgroundColor: `${token(
+      'color.background.neutral.subtle.pressed',
+      '#A6C5E229',
+    )}`,
+    color: `${token('color.text', DN500)}`,
   },
 };

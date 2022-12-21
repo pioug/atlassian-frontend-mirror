@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transformInvalidMediaContent mediaSingle with duplicated captions and one empty 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": 33.33333333333333,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "collection": "contentId-0000000000",
+            "height": 400,
+            "id": "00000000-0000-0000-0000-0000000000",
+            "occurrenceKey": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "text": "caption 1",
+              "type": "text",
+            },
+          ],
+          "type": "caption",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`transformInvalidMediaContent mediaSingle with duplicated media 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": 33.33333333333333,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "collection": "contentId-0000000001",
+            "height": 400,
+            "id": "00000000-0000-0000-0000-0000000001",
+            "occurrenceKey": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`transformInvalidMediaContent mediaSingle with duplicated media and captions 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": 33.33333333333333,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "collection": "contentId-0000000001",
+            "height": 400,
+            "id": "00000000-0000-0000-0000-0000000001",
+            "occurrenceKey": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "text": "caption 2",
+              "type": "text",
+            },
+          ],
+          "type": "caption",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`transformInvalidMediaContent mediaSingle with duplicated nonempty captions 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": 33.33333333333333,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "collection": "contentId-0000000000",
+            "height": 400,
+            "id": "00000000-0000-0000-0000-0000000000",
+            "occurrenceKey": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "text": "caption 2",
+              "type": "text",
+            },
+          ],
+          "type": "caption",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`transformInvalidMediaContent mediaSingle with multiple empty and one non-empty caption 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "layout": "center",
+        "width": 33.33333333333333,
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "collection": "contentId-0000000000",
+            "height": 400,
+            "id": "00000000-0000-0000-0000-0000000000",
+            "occurrenceKey": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "text": "caption 1",
+              "type": "text",
+            },
+          ],
+          "type": "caption",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+}
+`;

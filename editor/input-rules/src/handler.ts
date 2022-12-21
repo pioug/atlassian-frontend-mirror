@@ -1,5 +1,7 @@
 import type { EditorState, PluginKey, Transaction } from 'prosemirror-state';
 
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+
 import {
   leafNodeReplacementCharacter,
   MAX_REGEX_MATCH,
@@ -105,7 +107,18 @@ function findMatchOnRules({
 }: FindMatchOnRulesProps): RuleMatchedResult | null {
   for (let i = 0; i < rules.length; i++) {
     const rule = rules[i];
-    const match = rule.match.exec(textBefore);
+
+    // Some plugins like Typeahead require a whitespace before a trigger character.
+    // We want them to fire inside a gap cursor. Yet, a gap cursor is not considered a whitespace,
+    // and `textBefore` contains the text in the previous block before the gap cursor.
+    // Here is a workaround: if we inside a gap cursor, match the input rule only against the last typed character
+    // (which may be a typeahead trigger) and ignore the rest.
+    const matchString: string =
+      state.selection instanceof GapCursorSelection
+        ? textBefore.at(-1) ?? ''
+        : textBefore;
+
+    const match = rule.match.exec(matchString);
     if (!match) {
       continue;
     }

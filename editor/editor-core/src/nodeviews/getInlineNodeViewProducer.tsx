@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { NodeView, EditorProps, EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
@@ -207,6 +209,7 @@ function getPortalChildren<ExtraComponentProps>({
     //  within inline node view Components however would require a sizable
     //  refactor. A test suite to catch any instances of this is ideal however
     //  the refactor required is currently out of scope for https://product-fabric.atlassian.net/browse/ED-14176
+
     return (
       <ErrorBoundary
         component={ACTION_SUBJECT.REACT_NODE_VIEW}
@@ -216,15 +219,20 @@ function getPortalChildren<ExtraComponentProps>({
         }
         dispatchAnalyticsEvent={dispatchAnalyticsEvent}
       >
-        <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
-        {ZERO_WIDTH_SPACE}
+        <span aria-hidden="true" className={`zeroWidthSpaceContainer`}>
+          <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
+          {ZERO_WIDTH_SPACE}
+        </span>
         <Component
           view={nodeViewParams.view}
           getPos={nodeViewParams.getPos}
           node={currentNode}
           {...extraComponentProps}
         />
-        <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
+        <span
+          aria-hidden="true"
+          className={`${inlineNodeViewClassname}AddZeroWidthSpace`}
+        />
       </ErrorBoundary>
     );
   };

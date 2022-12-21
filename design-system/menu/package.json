@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@atlaskit/avatar": "^21.1.0",
-    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/icon-file-type": "^6.0.0",

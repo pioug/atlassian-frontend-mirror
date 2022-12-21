@@ -4,6 +4,7 @@ import React from 'react';
 import { MouseEvent, Component, ReactNode } from 'react';
 import cx from 'classnames';
 
+import { token } from '@atlaskit/tokens';
 import { MediaType } from '@atlaskit/media-client';
 import TickIcon from '@atlaskit/icon/glyph/check';
 import { Ellipsify } from '@atlaskit/media-ui';
@@ -113,7 +114,9 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
     } = this.props;
 
     const titleText = resolveTitleText(cardStatus, mediaName, error, selected);
-    const menuTriggerColor = !persistent ? 'white' : undefined;
+    const menuTriggerColor = !persistent
+      ? token('color.icon.inverse', 'white')
+      : undefined;
 
     return (
       <Overlay

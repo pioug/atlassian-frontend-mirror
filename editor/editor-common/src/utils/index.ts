@@ -97,7 +97,10 @@ export type {
   UnsupportedContentLevelsTracking,
 } from './analytics';
 export { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
-export { measureRender } from './performance/measure-render';
+export {
+  getDistortedDurationMonitor,
+  measureRender,
+} from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
 export {
   measureTTI,

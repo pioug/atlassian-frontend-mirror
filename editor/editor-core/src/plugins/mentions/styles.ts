@@ -29,6 +29,7 @@ export const mentionsStyles = css`
   .danger {
     .${MentionSharedCssClassName.MENTION_CONTAINER}.${akEditorSelectedNodeClassName}
       > span
+      > span
       > span {
       box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
       background-color: ${token(
@@ -36,7 +37,7 @@ export const mentionsStyles = css`
         akEditorDeleteBackgroundWithOpacity,
       )};
     }
-    .${MentionSharedCssClassName.MENTION_CONTAINER} > span > span {
+    .${MentionSharedCssClassName.MENTION_CONTAINER} > span > span > span {
       background-color: ${token('color.background.neutral', N30A)};
       color: ${token('color.text.subtle', N500)};
     }

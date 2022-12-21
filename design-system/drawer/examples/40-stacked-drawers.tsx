@@ -55,16 +55,6 @@ export default class DrawersExample extends Component<{}, State> {
   render() {
     return (
       <div css={spacingStyles}>
-        <div css={spacingStyles}>
-          <Drawer
-            onClose={this.onNestedClose}
-            onCloseComplete={this.onNestedCloseComplete}
-            isOpen={this.state.isNestedDrawerOpen}
-            width="full"
-          >
-            <code>Nested Drawer contents</code>
-          </Drawer>
-        </div>
         <Drawer
           onClose={this.onClose}
           onCloseComplete={this.onCloseComplete}
@@ -80,6 +70,16 @@ export default class DrawersExample extends Component<{}, State> {
             >
               Open Nested drawer
             </Button>
+          </div>
+          <div css={spacingStyles}>
+            <Drawer
+              onClose={this.onNestedClose}
+              onCloseComplete={this.onNestedCloseComplete}
+              isOpen={this.state.isNestedDrawerOpen}
+              width="extended"
+            >
+              <code>Nested Drawer contents</code>
+            </Drawer>
           </div>
         </Drawer>
         <Button id="open-drawer" type="button" onClick={this.openDrawer}>

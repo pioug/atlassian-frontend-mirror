@@ -351,7 +351,7 @@ describe('Table analytic events', () => {
           ),
         ),
       );
-
+      /* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
       setColorWithAnalytics(editorAnalyticsAPIFake)(inputMethod, B50)(
         editorView.state,
         editorView.dispatch,

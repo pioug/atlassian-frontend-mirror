@@ -188,6 +188,8 @@ export interface UploadingEmojiProvider extends EmojiProvider {
 
 export type RelativePosition = 'above' | 'below' | 'auto';
 
+export type PickerSize = 'small' | 'medium' | 'large';
+
 export interface Styles {
   [index: string]: any;
 }

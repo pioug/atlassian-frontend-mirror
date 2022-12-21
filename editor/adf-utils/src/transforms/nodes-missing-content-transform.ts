@@ -2,6 +2,7 @@ import { traverse } from '../traverse/traverse';
 import { ADFEntity } from '../types';
 import { tableRow, tableCell, paragraph, listItem } from '../builders';
 import type { TableCellDefinition, TextDefinition } from '@atlaskit/adf-schema';
+import { isEmpty } from './helpers';
 
 const getMaxColumnsCountForTable = (tableNode: ADFEntity): number => {
   let colsInRow = 1;
@@ -25,8 +26,6 @@ const createValidEmptyContent = (node: ADFEntity): ADFEntity[] => {
       return [];
   }
 };
-
-const isEmpty = (node: ADFEntity) => node.content?.length === 0;
 
 const fixIfTableCellInvalidEmpty =
   (reportTransform: ReportTransform) => (node: ADFEntity) => {
@@ -129,6 +128,14 @@ const fixIfTableParentWithInvalidTableRowChildren =
     }
   };
 
+const removeMediaSingleWithNoContent =
+  (reportTransform: ReportTransform) => (node: ADFEntity) => {
+    if (isEmpty(node)) {
+      reportTransform();
+      return false;
+    }
+  };
+
 type ReportTransform = () => void;
 
 interface TransformNodesMissingContentResult {
@@ -153,6 +160,7 @@ export const transformNodesMissingContent = (
     bulletList: fixIfListParentWithInvalidListItemChildren(reportTransform),
     orderedList: fixIfListParentWithInvalidListItemChildren(reportTransform),
     table: fixIfTableParentWithInvalidTableRowChildren(reportTransform),
+    mediaSingle: removeMediaSingleWithNoContent(reportTransform),
   }) as ADFEntity;
 
   return {

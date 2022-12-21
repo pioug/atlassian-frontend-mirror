@@ -1,5 +1,19 @@
 # @atlaskit/media-table
 
+## 14.1.0
+
+### Minor Changes
+
+- [`2c1a0c45a0b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c1a0c45a0b) - [ux] Instrumented `@atlaskit/media-table` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`7fc3932cc78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fc3932cc78) - [ux] Removed hover and focus state styling as the base component applies those already.
+- Updated dependencies
+
 ## 14.0.0
 
 ### Major Changes

@@ -96,12 +96,14 @@ export type UiRenderFailedEventProps = CommonEventProps & {
 export type UiHoverCardViewedEventProps = CommonEventProps & {
   previewDisplay: PreviewDisplay;
   previewInvokeMethod?: PreviewInvokeMethod;
+  status: CardType;
 };
 
 export type UiHoverCardDismissedEventProps = CommonEventProps & {
   previewDisplay: PreviewDisplay;
   hoverTime: number;
   previewInvokeMethod?: PreviewInvokeMethod;
+  status: CardType;
 };
 
 export type UiHoverCardOpenLinkClickedEventProps = CommonEventProps & {

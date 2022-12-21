@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { css } from '@emotion/react';
 // @ts-ignore: unused variable
 // prettier-ignore

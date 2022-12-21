@@ -2,8 +2,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import Select from '@atlaskit/select';
-import type { ValueType } from '@atlaskit/select/types';
+import Select, { ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
 import Form, {

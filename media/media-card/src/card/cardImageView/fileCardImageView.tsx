@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
-import React from 'react';
-import { Component, ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react';
+import { token } from '@atlaskit/tokens';
 import {
   MediaItemType,
   MediaType,
@@ -292,7 +292,10 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
             </div>
             <div css={cardActionsWrapperStyles}>
               {actions ? (
-                <CardActions actions={actions} triggerColor="white" />
+                <CardActions
+                  actions={actions}
+                  triggerColor={token('color.icon.inverse', 'white')}
+                />
               ) : null}
             </div>
           </div>

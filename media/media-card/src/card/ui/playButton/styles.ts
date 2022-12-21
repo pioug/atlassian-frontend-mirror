@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { N0, N90A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const playButtonClassName = 'media-card-play-button';
 
@@ -24,7 +25,7 @@ export const playButtonWrapperStyles = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${N0};
+  color: ${token('color.icon.inverse', N0)};
   span {
     position: absolute;
   }
@@ -36,6 +37,6 @@ export const backgroundStyles = css`
   position: absolute;
   width: ${discSize}px;
   height: ${discSize}px;
-  background: ${N90A};
+  background: ${token('color.background.neutral.bold', N90A)};
   border-radius: 100%;
 `;

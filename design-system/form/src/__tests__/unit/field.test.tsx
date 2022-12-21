@@ -1045,3 +1045,126 @@ test('should set elementAfterLabel with field when field is required', () => {
 
   expect(wrapper.find(Field).text()).toEqual('User name*After label');
 });
+
+test('changed key should re-validate the form', () => {
+  const validate = jest.fn();
+  const { getByTestId } = render(
+    <WithState defaultState="1">
+      {(isRequired, setIsRequired) => (
+        <>
+          <Form onSubmit={jest.fn()}>
+            {({ formProps }) => (
+              <form {...formProps}>
+                <Field
+                  name="test123"
+                  key={isRequired === 'required' ? 1 : 0}
+                  isRequired={isRequired === 'required'}
+                  validate={validate}
+                >
+                  {({ fieldProps, error }) => (
+                    <>
+                      <TextField {...fieldProps} />
+                      {error && (
+                        <ErrorMessage>
+                          There is a problem with this field
+                        </ErrorMessage>
+                      )}
+                    </>
+                  )}
+                </Field>
+                <Button type="submit">Submit</Button>
+              </form>
+            )}
+          </Form>
+          <Button
+            testId="SetRequiredButton"
+            onClick={() =>
+              setIsRequired(isRequired === 'required' ? '' : 'required')
+            }
+          >
+            Change key
+          </Button>
+        </>
+      )}
+    </WithState>,
+  );
+  const setRequiredButton = getByTestId('SetRequiredButton');
+
+  expect(validate).toBeCalledTimes(1);
+
+  // Change if the field is required
+  act(() => {
+    fireEvent.click(setRequiredButton);
+  });
+
+  expect(validate).toBeCalledTimes(2);
+});
+
+test('re-mounting caused by changed key should not reset form field', () => {
+  const { getByTestId } = render(
+    <WithState defaultState="1">
+      {(key, setKey) => (
+        <>
+          <Form onSubmit={jest.fn()}>
+            {({ formProps }) => (
+              <form {...formProps}>
+                <Field
+                  name="test123"
+                  defaultValue="default value"
+                  key={key}
+                  validate={(value = '') =>
+                    value.length < 1 ? 'too short' : undefined
+                  }
+                >
+                  {({ fieldProps, error }) => (
+                    <>
+                      <TextField {...fieldProps} testId="TextField" />
+                      {error && (
+                        <ErrorMessage>
+                          There is a problem with this field
+                        </ErrorMessage>
+                      )}
+                    </>
+                  )}
+                </Field>
+                <Button type="submit">Submit</Button>
+              </form>
+            )}
+          </Form>
+          <Button
+            testId="ChangeKeyButton"
+            onClick={() => setKey('' + (+key + 1))}
+          >
+            Change key
+          </Button>
+        </>
+      )}
+    </WithState>,
+  );
+  const textField = getByTestId('TextField');
+  const button = getByTestId('ChangeKeyButton');
+
+  // Start with the defaultValue
+  expect(textField).toHaveAttribute('value', 'default value');
+
+  // Change the field's value
+  act(() => {
+    fireEvent.change(textField, { target: { value: 'changed value' } });
+  });
+
+  expect(textField).toHaveAttribute('value', 'changed value');
+
+  // Change the key prop
+  act(() => {
+    fireEvent.click(button);
+  });
+
+  expect(textField).toHaveAttribute('value', 'changed value');
+
+  // Change key prop again (to exclude case when value was removed with second click)
+  act(() => {
+    fireEvent.click(button);
+  });
+
+  expect(textField).toHaveAttribute('value', 'changed value');
+});

@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { gridSize } from '@atlaskit/theme/constants';
 export const GRID_SIZE = gridSize();
 

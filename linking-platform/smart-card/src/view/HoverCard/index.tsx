@@ -11,7 +11,7 @@ import { useSmartLinkAnalytics } from '../../state/analytics';
 import { fireSmartLinkEvent } from '../../utils/analytics';
 import { HoverCardComponent } from './components/HoverCardComponent';
 import { HoverCardProps } from './types';
-import { SMART_CARD_ANALYTICS_DISPLAY } from './utils';
+import { CardDisplay } from '../../constants';
 
 const HoverCardWithErrorBoundary: FC<HoverCardProps> = (props) => {
   const { url, id, children, createAnalyticsEvent } = props;
@@ -26,7 +26,7 @@ const HoverCardWithErrorBoundary: FC<HoverCardProps> = (props) => {
   const onError = useCallback(
     (error, info) => {
       analytics.ui.renderFailedEvent({
-        display: SMART_CARD_ANALYTICS_DISPLAY,
+        display: CardDisplay.HoverCardPreview,
         id,
         error,
         errorInfo: info,
@@ -50,4 +50,7 @@ const HoverCardWithErrorBoundary: FC<HoverCardProps> = (props) => {
 
 export const HoverCard = withAnalyticsContext({
   source: 'smartLinkPreviewHoverCard',
+  attributes: {
+    display: CardDisplay.HoverCardPreview,
+  },
 })(withAnalyticsEvents()(HoverCardWithErrorBoundary));

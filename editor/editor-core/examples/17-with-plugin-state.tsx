@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /* eslint-disable no-console */
 
 import React from 'react';

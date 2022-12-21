@@ -15,7 +15,7 @@ export const InlineNodeViewSharedStyles = css`
     white-space: nowrap;
     /* Then reset to the Editor default so we don't interfere
     with any component styling. */
-    & > * {
+    & > *:not(span[aria-hidden='true'].zeroWidthSpaceContainer) {
       white-space: pre-wrap;
     }
   }

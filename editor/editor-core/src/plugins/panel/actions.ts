@@ -17,7 +17,7 @@ import {
 } from '../analytics';
 import { findPanel } from './utils';
 import { PanelOptions } from './pm-plugins/main';
-import { getPanelTypeBackground } from '@atlaskit/editor-common/panel';
+import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 
@@ -73,7 +73,9 @@ export const changePanelType =
 
     if (allowCustomPanel) {
       let previousColor =
-        panelNode.node.attrs.panelColor || getPanelTypeBackground(previousType);
+        panelNode.node.attrs.panelType === 'custom'
+          ? panelNode.node.attrs.panelColor || 'none'
+          : getPanelTypeBackgroundNoTokens(previousType);
       let previousIcon = panelNode.node.attrs.panelIcon;
       let previousIconId = panelNode.node.attrs.panelIconId;
       let previousIconText = panelNode.node.attrs.panelIconText;

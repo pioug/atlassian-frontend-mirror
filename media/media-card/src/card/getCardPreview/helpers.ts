@@ -5,7 +5,10 @@ import {
   MediaStoreGetFileImageParams,
   MediaType,
 } from '@atlaskit/media-client';
-import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
+import {
+  getMediaTypeFromMimeType,
+  MediaTraceContext,
+} from '@atlaskit/media-common';
 import { getOrientation } from '@atlaskit/media-ui';
 import { LocalPreviewError, RemotePreviewError } from '../../errors';
 import { CardPreview } from '../../types';
@@ -86,7 +89,7 @@ export const getCardPreviewFromBackend = async (
   mediaClient: MediaClient,
   id: string,
   params: MediaStoreGetFileImageParams,
-  traceId?: string,
+  traceContext?: MediaTraceContext,
 ): Promise<CardPreview> => {
   try {
     const blob = await mediaClient.getImage(
@@ -94,7 +97,7 @@ export const getCardPreviewFromBackend = async (
       params,
       undefined,
       undefined,
-      traceId,
+      traceContext,
     );
     return {
       dataURI: URL.createObjectURL(blob),

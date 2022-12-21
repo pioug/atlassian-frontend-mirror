@@ -7,21 +7,25 @@ import { AnalyticsFacade } from '../../../../state/analytics';
 
 export type FlexibleBlockCardProps = {
   /**
+   * An AnalyticsFacade object used for calling analytics.
+   */
+  analytics: AnalyticsFacade;
+
+  /**
    * Determines the status and data of the Smart Link.
    * @internal
    */
   cardState: CardState;
 
   /**
-   * function to be called after a flexible card has rendered its resolved state
+   * Provides the extensionKey of a Smart Link resolver invoked.
    */
-  onResolve?: OnResolveCallback;
+  extensionKey?: string;
 
   /**
-   * Any additional renderers required by Flexible UI. Currently used by icon
-   * to render Emoji.
+   * A unique id for this Smart Link instance, used for analytics.
    */
-  renderers?: CardProviderRenderers;
+  id?: string;
 
   /**
    * An additional action that can be performed when link is not resolved, e.g.
@@ -42,6 +46,17 @@ export type FlexibleBlockCardProps = {
   onError?: OnErrorCallback;
 
   /**
+   * function to be called after a flexible card has rendered its resolved state
+   */
+  onResolve?: OnResolveCallback;
+
+  /**
+   * Any additional renderers required by Flexible UI. Currently used by icon
+   * to render Emoji.
+   */
+  renderers?: CardProviderRenderers;
+
+  /**
    * A name of the provider, needed to specify to user which account has to be connected
    */
   providerName?: string;
@@ -58,16 +73,6 @@ export type FlexibleBlockCardProps = {
    * @see FlexibleUiOptions
    */
   ui?: FlexibleUiOptions;
-
-  /**
-   * A unique id for this Smart Link instance, used for analytics.
-   */
-  id?: string;
-
-  /**
-   * An AnalyticsFacade object used for calling analytics.
-   */
-  analytics: AnalyticsFacade;
 
   /**
    * Determines the URL of the Smart Link.

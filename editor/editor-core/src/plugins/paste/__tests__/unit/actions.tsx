@@ -70,7 +70,7 @@ describe('action paste handler', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([pastePlugin, { plainTextPasteLinkification: false }])
+        .add([pastePlugin, {}])
         .add([tasksAndDecisionsPlugin])
         .add(blockTypePlugin)
         .add(captionPlugin)

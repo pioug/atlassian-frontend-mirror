@@ -32,9 +32,13 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { tableFloatingCellButtonStyles } from './styles';
+import {
+  tableFloatingCellButtonStyles,
+  tableFloatingCellButtonSelectedStyles,
+} from './styles';
 import { Node as PMNode } from 'prosemirror-model';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 export interface Props {
   editorView: EditorView;
@@ -103,7 +107,13 @@ export class FloatingContextualButtonInner extends React.Component<
     const labelCellOptions = formatMessage(messages.cellOptions);
 
     const button = (
-      <div css={tableFloatingCellButtonStyles}>
+      <div
+        css={(theme: ThemeProps) => [
+          tableFloatingCellButtonStyles({ theme }),
+          isContextualMenuOpen &&
+            tableFloatingCellButtonSelectedStyles({ theme }),
+        ]}
+      >
         <ToolbarButton
           className={ClassName.CONTEXTUAL_MENU_BUTTON}
           selected={isContextualMenuOpen}

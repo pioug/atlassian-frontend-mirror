@@ -96,7 +96,6 @@ export function createPlugin(
   schema: Schema,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   dispatch: Dispatch,
-  plainTextPasteLinkification?: boolean,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
   providerFactory?: ProviderFactory,
@@ -268,10 +267,7 @@ export function createPlugin(
 
         slice = handleParagraphBlockMarks(state, slice);
 
-        const plainTextPasteSlice =
-          plainTextPasteLinkification === true
-            ? linkifyContent(state.schema)(slice)
-            : slice;
+        const plainTextPasteSlice = linkifyContent(state.schema)(slice);
 
         if (
           handlePasteAsPlainTextWithAnalytics(view, event, plainTextPasteSlice)(

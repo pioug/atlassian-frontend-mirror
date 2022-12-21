@@ -39,3 +39,63 @@ const isEqualEmojiId = (a: EmojiId | string, b: EmojiId | string): boolean => {
 const isEmojiId = (item: EmojiId | string): item is EmojiId => {
   return (item as EmojiId).id !== undefined;
 };
+
+export const formatStringWithDecimal = (
+  value: string,
+  decimalPlaces: number,
+) => {
+  const decimalIndex = value.indexOf('.');
+
+  if (decimalIndex === -1) {
+    // Integers with trailing 0s will have no decimal (Ex. 18000, 7700000, 500)
+    return value.substring(0, value.length);
+  }
+
+  if (decimalPlaces === 0) {
+    // Return an integer value
+    return value.substring(0, decimalIndex);
+  }
+
+  return value.substring(0, decimalIndex + decimalPlaces + 1);
+};
+
+/**
+ * Truncates numbers >= 1000 to shorthand representations with a maximum of one decimal point.
+ * If the first decimal number is a zero then it's also truncated.
+ * (Ex: 9085 will return 9K, 787555 will return 787.5M)
+ */
+export const formatLargeNumber = (value: number) => {
+  // 999M+
+  const maxLimit = 999999999;
+  const thounsandSeparator = 1000;
+  const millionSeparator = 1000 * 1000;
+  const valueInK = value / thounsandSeparator;
+  const valueInM = value / millionSeparator;
+
+  if (value > maxLimit) {
+    return '999.9M+';
+  }
+
+  if (value >= 1000000) {
+    // determine the decimal breakpoints by length and check its value
+    // 1234567 -> 1.234567 and decimal value is 2
+    const numDigits = value.toString().length;
+    const decimalIndexValue = valueInM.toString().charAt(numDigits - 5);
+
+    return decimalIndexValue === '0'
+      ? formatStringWithDecimal(valueInM.toString(), 0) + 'M'
+      : formatStringWithDecimal(valueInM.toString(), 1) + 'M';
+  }
+
+  if (value >= 1000) {
+    const numDigits = value.toString().length;
+    const decimalIndexValue = valueInK.toString().charAt(numDigits - 2);
+
+    return decimalIndexValue === '0'
+      ? formatStringWithDecimal(valueInK.toString(), 0) + 'K'
+      : formatStringWithDecimal(valueInK.toString(), 1) + 'K';
+  }
+
+  // <999
+  return value.toString();
+};

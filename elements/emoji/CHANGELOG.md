@@ -1,5 +1,16 @@
 # @atlaskit/emoji
 
+## 66.1.0
+
+### Minor Changes
+
+- [`cde71051978`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cde71051978) - [ux] Provide size options for emoji picker, including `small`, `medium`, and `large`. Make `medium` size for emoji picker by default, which will enlarge emoji picker to show more emojis.
+
+### Patch Changes
+
+- [`1324afa6676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1324afa6676) - Add autofocus for emoji picker inside requestAnimationFrame
+- Updated dependencies
+
 ## 66.0.3
 
 ### Patch Changes

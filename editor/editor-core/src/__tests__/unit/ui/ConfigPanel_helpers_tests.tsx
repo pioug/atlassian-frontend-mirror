@@ -40,7 +40,8 @@ describe('resolveOption', () => {
     );
   });
 
-  it('supports asynchronous loading of options', async () => {
+  // TODO: https://product-fabric.atlassian.net/browse/DSP-7209
+  it.skip('supports asynchronous loading of options', async () => {
     const OPTION = asOption('bar');
     const spy = jest.fn();
     const wrapper = await mount(

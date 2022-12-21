@@ -39,6 +39,7 @@ describe('TypeAheadPopup', () => {
   const fireAnalyticsCallback = jest.fn();
   const setSelectedItem = jest.fn();
   const onItemInsert = jest.fn();
+  const cancel = jest.fn();
   const triggerHandler: TypeAheadHandler = {
     id: TypeAheadAvailableNodes.QUICK_INSERT,
     trigger: '/',
@@ -74,6 +75,7 @@ describe('TypeAheadPopup', () => {
           isEmptyQuery={Boolean(isEmptyQuery)}
           onItemInsert={onItemInsert}
           anchorElement={ref}
+          cancel={cancel}
         />
       </IntlProvider>,
     );
@@ -151,6 +153,7 @@ describe('TypeAheadPopup', () => {
                   isEmptyQuery={isEmptyQuery}
                   onItemInsert={onItemInsert}
                   anchorElement={ref}
+                  cancel={cancel}
                 />
               </IntlProvider>,
             );
@@ -183,6 +186,7 @@ describe('TypeAheadPopup', () => {
                   isEmptyQuery={isEmptyQuery}
                   onItemInsert={onItemInsert}
                   anchorElement={ref}
+                  cancel={cancel}
                 />
               </IntlProvider>,
             );
@@ -223,6 +227,7 @@ describe('TypeAheadPopup', () => {
                 isEmptyQuery={isEmptyQuery}
                 onItemInsert={onItemInsert}
                 anchorElement={ref}
+                cancel={cancel}
               />
             </IntlProvider>,
           );

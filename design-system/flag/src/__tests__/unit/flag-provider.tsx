@@ -1,3 +1,4 @@
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import noop from '@atlaskit/ds-lib/noop';
 import React from 'react';
 
@@ -30,17 +31,16 @@ const Consumer: React.FC<Partial<CreateFlagArgs>> = (props) => {
       id: getUniqueId(),
       title: 'title',
       description: 'description',
-      icon: <div></div>,
+      icon: <Box />,
       testId: 'flag',
       ...props,
     });
   };
   return (
-    <>
-      <button type="button" onClick={show}>
-        show
-      </button>
-    </>
+    // eslint-disable-next-line @repo/internal/react/use-primitives
+    <button type="button" onClick={show}>
+      show
+    </button>
   );
 };
 
@@ -106,11 +106,11 @@ describe('flags-renderer', () => {
     act(() => {
       showFlag({
         title: 'title1',
-        icon: <div></div>,
+        icon: <Box />,
       });
       showFlag({
         title: 'title2',
-        icon: <div></div>,
+        icon: <Box />,
       });
     });
     expect(queryAllByText(/title/)).toHaveLength(2);
@@ -134,12 +134,12 @@ describe('flags-renderer', () => {
       dismissFirstFlag = showFlag({
         id: 'id1',
         title: 'title1',
-        icon: <div></div>,
+        icon: <Box />,
       });
       showFlag({
         id: 'id2',
         title: 'title2',
-        icon: <div></div>,
+        icon: <Box />,
       });
     });
     act(() => {
@@ -164,11 +164,11 @@ describe('flags-renderer', () => {
     act(() => {
       showFlag({
         title: 'title1',
-        icon: <div></div>,
+        icon: <Box />,
       });
       const dismissFlag = showFlag({
         title: 'title2',
-        icon: <div></div>,
+        icon: <Box />,
       });
       dismissFlag();
     });
@@ -192,12 +192,12 @@ describe('flags-renderer', () => {
       showFlag({
         id: 'duplicate-id',
         title: 'title1',
-        icon: <div></div>,
+        icon: <Box />,
       });
       showFlag({
         id: 'duplicate-id',
         title: 'title2',
-        icon: <div></div>,
+        icon: <Box />,
       });
     });
     expect(queryAllByText(/title/)).toHaveLength(1);

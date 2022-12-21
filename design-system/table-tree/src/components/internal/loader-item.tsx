@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Spinner from '@atlaskit/spinner';
 
 import CommonCell from './common-cell';
-import { LoaderItemContainer, TreeRowContainer } from './styled';
+import { indentBase, LoaderItemContainer, TreeRowContainer } from './styled';
 
 interface LoaderItemProps {
   depth: number;
@@ -43,9 +43,9 @@ export default class LoaderItem extends Component<LoaderItemProps, any> {
     const { phase } = this.state;
     return phase === 'loading' ? (
       <TreeRowContainer>
-        <CommonCell indent={`${25 * depth}px`} width="100%">
+        <CommonCell indent={`calc(${indentBase} * ${depth})`} width="100%">
           <LoaderItemContainer isRoot={depth === 1}>
-            <Spinner size="small" />
+            <Spinner size="small" testId="table-tree-spinner" />
           </LoaderItemContainer>
         </CommonCell>
       </TreeRowContainer>

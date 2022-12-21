@@ -11,6 +11,7 @@ import Modal, {
 import Tooltip from '@atlaskit/tooltip';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const IconExplorerLink = styled.a`
   &,
@@ -25,7 +26,7 @@ const IconExplorerLink = styled.a`
     line-height: 0;
   }
   &:hover {
-    background: ${N30A};
+    background: ${token('color.background.neutral.hovered', N30A)};
   }
 `;
 

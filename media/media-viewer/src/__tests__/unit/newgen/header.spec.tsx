@@ -70,20 +70,21 @@ const processedArchiveState: FileState = {
 };
 
 describe('<Header />', () => {
-  it('passes isArchiveSideBarVisible as true if media type is archive', () => {
+  it('set isArchiveSideBarVisible state to true if media type is archive', () => {
     const mediaClient = fakeMediaClient();
     asMock(mediaClient.file.getFileState).mockReturnValue(
       createMediaSubscribable(processedArchiveState),
     );
+    const onSetArchiveSideBarVisible = jest.fn();
     const el = mountWithIntlContext(
       <Header
         intl={fakeIntl}
         mediaClient={mediaClient}
         identifier={identifier}
+        onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
       />,
     );
-    const headerWrapper = el.find(HeaderWrapper);
-    expect(headerWrapper.prop('isArchiveSideBarVisible')).toBeTruthy();
+    expect(el.prop('onSetArchiveSideBarVisible')).toBeCalled();
   });
   it('passes isArchiveSideBarVisible as false if media type is not archive', () => {
     const mediaClient = fakeMediaClient();

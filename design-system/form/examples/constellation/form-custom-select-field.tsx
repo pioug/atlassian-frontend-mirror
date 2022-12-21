@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import Select, { components } from '@atlaskit/select';
-import type {
+import Select, {
+  components,
   OptionProps,
   SingleValueProps,
   ValueType,
-} from '@atlaskit/select/types';
+} from '@atlaskit/select';
 
 import Form, { ErrorMessage, Field, FormFooter } from '../../src';
 

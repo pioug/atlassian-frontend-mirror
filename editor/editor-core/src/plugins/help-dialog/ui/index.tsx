@@ -334,7 +334,6 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(alignmentMessages.alignRight),
     type: 'alignment',
-    keymap: () => keymaps.alignRight,
   },
 ];
 const shortcutNamesWithoutKeymap: string[] = [

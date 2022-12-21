@@ -113,6 +113,60 @@ export default () => {
           ))}
         </Inline>
       </Stack>
+
+      <Stack gap="scale.200" testId="box-with-shadow">
+        <Heading level="h600">shadow</Heading>
+        <Inline gap="scale.200" alignItems="center">
+          {(['raised', 'overflow', 'overlay'] as const).map((shadow) => (
+            <Box
+              key={shadow}
+              backgroundColor="elevation.surface"
+              shadow={shadow}
+              padding="scale.400"
+            >
+              <Box justifyContent="center">
+                <Text color="color.text">{shadow}</Text>
+              </Box>
+            </Box>
+          ))}
+        </Inline>
+      </Stack>
+
+      <Stack gap="scale.200" testId="box-with-layer">
+        <Heading level="h600">layer</Heading>
+        <Box alignItems="center" UNSAFE_style={{ width: 800, height: 650 }}>
+          {(
+            [
+              'card',
+              'navigation',
+              'dialog',
+              'layer',
+              'blanket',
+              'modal',
+              'flag',
+              'spotlight',
+              'tooltip',
+            ] as const
+          ).map((layer, index) => (
+            <Box
+              key={layer}
+              backgroundColor="elevation.surface"
+              layer={layer}
+              shadow="overlay"
+              padding="scale.400"
+              position="absolute"
+              UNSAFE_style={{
+                top: index * 64,
+                left: index * 64,
+              }}
+            >
+              <Box justifyContent="center">
+                <Text color="color.text">{layer}</Text>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+      </Stack>
     </Stack>
   );
 };

@@ -69,6 +69,7 @@ import {
 } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
+import { MediaTraceContext } from '@atlaskit/media-common';
 
 export type {
   FileFetcherErrorAttributes,
@@ -110,15 +111,18 @@ export interface FileFetcher {
   touchFiles(
     descriptors: TouchFileDescriptor[],
     collection?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<TouchedFiles>;
   upload(
     file: UploadableFile,
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
+    traceContext?: MediaTraceContext,
   ): MediaSubscribable<FileState>;
   uploadExternal(
     url: string,
     collection?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<ExternalUploadPayload>;
   downloadBinary(
     id: string,
@@ -130,6 +134,7 @@ export interface FileFetcher {
     source: CopySourceFile,
     destination: CopyDestination,
     options?: CopyFileOptions,
+    traceContext?: MediaTraceContext,
   ): Promise<MediaFile>;
   getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
 }
@@ -186,6 +191,7 @@ export class FileFetcherImpl implements FileFetcher {
     return this.mediaStore.getFileBinaryURL(id, collectionName);
   }
 
+  // TODO: ----- ADD TICKET TO PASS TRACE ID to this.dataloader.load
   private createDownloadFileStream = (
     id: string,
     collectionName?: string,
@@ -237,14 +243,16 @@ export class FileFetcherImpl implements FileFetcher {
   public touchFiles(
     descriptors: TouchFileDescriptor[],
     collection?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<TouchedFiles> {
     return this.mediaStore
-      .touchFiles({ descriptors }, { collection })
+      .touchFiles({ descriptors }, { collection }, traceContext)
       .then(({ data }) => data);
   }
 
   private generateUploadableFileUpfrontIds(
     collection?: string,
+    traceContext?: MediaTraceContext,
   ): UploadableFileUpfrontIds {
     const id = uuid();
     const occurrenceKey = uuid();
@@ -257,6 +265,7 @@ export class FileFetcherImpl implements FileFetcher {
     const deferredUploadId = this.touchFiles(
       [touchFileDescriptor],
       collection,
+      traceContext,
     ).then((touchedFiles) => touchedFiles.created[0].uploadId);
 
     return {
@@ -269,9 +278,12 @@ export class FileFetcherImpl implements FileFetcher {
   async uploadExternal(
     url: string,
     collection?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<ExternalUploadPayload> {
-    const uploadableFileUpfrontIds =
-      this.generateUploadableFileUpfrontIds(collection);
+    const uploadableFileUpfrontIds = this.generateUploadableFileUpfrontIds(
+      collection,
+      traceContext,
+    );
     const { id, occurrenceKey } = uploadableFileUpfrontIds;
     const subject = createMediaSubject<FileState>();
 
@@ -329,7 +341,7 @@ export class FileFetcherImpl implements FileFetcher {
         preview,
       });
       // we don't want to wait for the file to be upload
-      this.upload(file, undefined, uploadableFileUpfrontIds);
+      this.upload(file, undefined, uploadableFileUpfrontIds, traceContext);
       const dimensions = await getDimensionsFromBlob(mediaType, blob);
       resolve({
         dimensions,
@@ -342,6 +354,7 @@ export class FileFetcherImpl implements FileFetcher {
     file: UploadableFile,
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
+    traceContext?: MediaTraceContext,
   ): MediaSubscribable<FileState> {
     if (typeof file.content === 'string') {
       file.content = convertBase64ToBlob(file.content);
@@ -354,8 +367,10 @@ export class FileFetcherImpl implements FileFetcher {
     } = file;
 
     if (!uploadableFileUpfrontIds) {
-      uploadableFileUpfrontIds =
-        this.generateUploadableFileUpfrontIds(collection);
+      uploadableFileUpfrontIds = this.generateUploadableFileUpfrontIds(
+        collection,
+        traceContext,
+      );
     }
 
     const id = uploadableFileUpfrontIds.id;
@@ -442,6 +457,7 @@ export class FileFetcherImpl implements FileFetcher {
         onUploadFinish,
         onProgress,
       },
+      traceContext,
     );
 
     getFileStreamsCache().set(id, subject);
@@ -462,6 +478,7 @@ export class FileFetcherImpl implements FileFetcher {
     return fromObservable(subject);
   }
 
+  // TODO: ----- ADD TICKET
   public async downloadBinary(
     id: string,
     name: string = 'download',
@@ -481,6 +498,7 @@ export class FileFetcherImpl implements FileFetcher {
     source: CopySourceFile,
     destination: CopyDestination,
     options: CopyFileOptions = {},
+    traceContext?: MediaTraceContext,
   ): Promise<MediaFile> {
     const { authProvider, collection: sourceCollection, id } = source;
     const {
@@ -520,6 +538,7 @@ export class FileFetcherImpl implements FileFetcher {
       const { data: copiedFile } = await mediaStore.copyFileWithToken(
         body,
         params,
+        traceContext,
       );
 
       // if we were passed a "mimeType", we propagate it into copiedFileWithMimeType

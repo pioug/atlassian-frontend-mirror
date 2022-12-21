@@ -4,20 +4,21 @@ import { CardInnerAppearance } from '../view/Card/types';
 // Types of analytics have been defined in the minimum event spec here:
 // https://hello.atlassian.net/wiki/spaces/PData/pages/367398441/Minimum+Event+Spec+-+Smart+Links
 export type AnalyticsAction =
-  | 'resolved'
-  | 'unresolved'
-  | 'connectSucceeded'
-  | 'connectFailed'
-  | 'connected'
+  | 'authStarted'
   | 'clicked'
   | 'closed'
-  | 'renderFailed'
-  | 'renderWithStatus'
-  | 'renderSuccess'
-  | 'inserted'
-  | 'viewed'
+  | 'connected'
+  | 'connectFailed'
+  | 'connectSucceeded'
+  | 'created'
   | 'dismissed'
-  | 'created';
+  | 'inserted'
+  | 'renderFailed'
+  | 'renderSuccess'
+  | 'renderWithStatus'
+  | 'resolved'
+  | 'viewed'
+  | 'unresolved';
 
 export type AnalyticsActionSubject =
   | 'smartLink'

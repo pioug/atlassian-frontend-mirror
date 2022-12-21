@@ -1,64 +1,30 @@
 module.exports = {
+  rules: {
+    'import/no-restricted-paths': [
+      'warn',
+      {
+        zones: [
+          {
+            target: 'packages/editor/editor-core/src/**/*',
+            from: `packages/editor/editor-core/src/plugins/*/!(types)*`,
+            message:
+              '[ELR101] Avoid importing dependencies from editor plugins. Move shared code to a common location. https://developer.atlassian.com/cloud/framework/atlassian-frontend/editor/lint#elr101',
+          },
+          {
+            target: 'packages/editor/editor-core/src/**/*',
+            from: `packages/editor/editor-core/src/plugins/*/!(types)**/*`,
+            message:
+              '[ELR101] Avoid importing dependencies from editor plugins. Move shared code to a common location. https://developer.atlassian.com/cloud/framework/atlassian-frontend/editor/lint#elr101',
+          },
+        ],
+      },
+    ],
+  },
   overrides: [
     {
-      // Temporary override to apply tokens lint rules to a subset of editor packages
-      // TODO remove in https://product-fabric.atlassian.net/browse/DSP-4001
-      files: [
-        './src/keymaps/index.tsx',
-        './src/labs/next/full-page.tsx',
-        './src/plugins/alignment/**/*',
-        './src/plugins/block-type/**/*',
-        './src/plugins/breakout/**/*',
-        './src/plugins/card/**/*',
-        './src/plugins/code-block/**/*',
-        './src/plugins/collab-edit/**/*',
-        './src/plugins/date/**/*',
-        './src/plugins/emoji/**/*',
-        './src/plugins/expand/**/*',
-        './src/plugins/extension/**/*',
-        './src/plugins/fake-text-cursor/**/*',
-        './src/plugins/find-replace/**/*',
-        './src/plugins/floating-toolbar/**/*',
-        './src/plugins/grid/**/*',
-        './src/plugins/help-dialog/**/*',
-        './src/plugins/hyperlink/**/*',
-        './src/plugins/jira-issue/**/*',
-        './src/plugins/layout/**/*',
-        './src/plugins/media/**/*',
-        './src/plugins/mentions/**/*',
-        './src/plugins/panel/**/*',
-        './src/plugins/placeholder-text/**/*',
-        './src/plugins/placeholder/**/*',
-        './src/plugins/status/**/*',
-        './src/plugins/table/**/*',
-        './src/plugins/type-ahead/**/*',
-        './src/ui/Addon/**/*',
-        './src/ui/Appearance/**/*',
-        './src/ui/ChromeCollapsed/**/*',
-        './src/ui/ConfigPanel/**/*',
-        './src/ui/ContentStyles/**/*',
-        './src/ui/ContextPanel/**/*',
-        './src/ui/DropdownMenu/**/*',
-        './src/ui/ElementBrowser/**/*',
-        './src/ui/ElementBrowser/**/*',
-        './src/ui/FloatingToolbar/**/*',
-        './src/ui/LinkSearch/**/*',
-        './src/ui/PanelTextInput/**/*',
-        './src/ui/Separator/**/*',
-        './src/ui/styles.ts',
-        './src/ui/ToolbarFeedback/**/*',
-        './src/ui/WithFlash/**/*',
-      ],
+      files: ['**/__tests__/**/*.{js,ts,tsx}', 'examples/**/*.{js,ts,tsx}'],
       rules: {
-        '@atlaskit/design-system/ensure-design-token-usage': [
-          'error',
-          { shouldEnforceFallbacks: true },
-        ],
-        '@atlaskit/design-system/no-unsafe-design-token-usage': [
-          'error',
-          { shouldEnforceFallbacks: true },
-        ],
-        '@atlaskit/design-system/no-deprecated-design-token-usage': ['warn'],
+        'import/no-restricted-paths': ['off'],
       },
     },
   ],

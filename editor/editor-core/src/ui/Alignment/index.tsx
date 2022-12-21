@@ -8,7 +8,7 @@ import { IconMap } from '../../plugins/alignment/ui/ToolbarAlignment/icon-map';
 import AlignmentButton from './AlignmentButton';
 import { alignmentMessages } from './messages';
 import { alignmentWrapper } from './styles';
-import { Keymap, alignLeft, alignRight } from '../../keymaps';
+import { Keymap, alignLeft } from '../../keymaps';
 
 export interface Props {
   selectedAlignment?: string;
@@ -26,7 +26,7 @@ const alignmentOptions: Array<{
     title: alignmentMessages.alignCenter,
     value: 'center',
   },
-  { title: alignmentMessages.alignRight, shortcut: alignRight, value: 'end' },
+  { title: alignmentMessages.alignRight, value: 'end' },
 ];
 
 class Alignment extends PureComponent<Props & WrappedComponentProps> {

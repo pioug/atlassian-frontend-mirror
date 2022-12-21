@@ -34,10 +34,12 @@ export const Option = (props: OptionProps<Color>) => {
     selectProps: { checkMarkColor, onOptionKeyDown, isTabbing },
     isFocused,
     isSelected,
+    innerProps,
   } = props;
 
   return (
-    <ColorCardWrapper {...props.innerProps}>
+    // @ts-expect-error - known issue: https://github.com/mui/material-ui/issues/13921. TS treats styled components to be different from HTMLDivElement
+    <ColorCardWrapper {...innerProps}>
       <ColorCard
         label={label}
         value={value}

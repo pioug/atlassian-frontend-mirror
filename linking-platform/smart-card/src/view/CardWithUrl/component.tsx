@@ -23,6 +23,7 @@ import { EmbedCard } from '../EmbedCard';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';
 import { APIError } from '../..';
+import { CardDisplay } from '../../constants';
 
 export function CardWithUrlContent({
   id,
@@ -92,7 +93,7 @@ export function CardWithUrlContent({
       const isModifierKeyPressed = isSpecialEvent(event);
       analytics.ui.cardClickedEvent({
         id,
-        display: isFlexibleUi ? 'flexible' : appearance,
+        display: isFlexibleUi ? CardDisplay.Flexible : appearance,
         status: state.status,
         definitionId,
         extensionKey,

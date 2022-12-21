@@ -38,7 +38,7 @@ const mimeTypes: { mime: string; name: string }[] = [
   },
   {
     mime: 'application/vnd.google-apps.spreadsheet',
-    name: '.goole-sheets',
+    name: '.google-sheets',
   },
   { mime: 'application/vnd.google-apps.form', name: '.google-form' },
   { mime: 'text/csv', name: '.csv' },

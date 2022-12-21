@@ -30,6 +30,9 @@ import {
   customCategory,
   customTitle,
   defaultCategories,
+  defaultEmojiPickerSize,
+  emojiPickerHeight,
+  emojiPickerHeightWithPreview,
   frequentCategory,
   selectedToneStorageKey,
 } from '../../../../util/constants';
@@ -56,6 +59,7 @@ import {
 import EmojiActions from '../../../../components/common/EmojiActions';
 import { ufoExperiences } from '../../../../util/analytics';
 import EmojiPickerComponent from '../../../../components/picker/EmojiPickerComponent';
+import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
 
 // Add the custom matchers provided by '@emotion/jest'
 expect.extend(matchers);
@@ -206,7 +210,12 @@ describe('<EmojiPicker />', () => {
 
       // Preview should not be displayed
       const picker = component.find(EmojiPickerComponent);
-      expect(picker).toHaveStyleRule('height', '295px');
+      expect(picker).toHaveStyleRule(
+        'height',
+        emojiPickerHeight +
+          emojiPickerHeightOffset(defaultEmojiPickerSize) +
+          'px',
+      );
 
       await waitUntil(() => helper.emojisVisible(component, list));
       const hoverButton = list.find(Emoji).at(0);
@@ -219,7 +228,12 @@ describe('<EmojiPicker />', () => {
 
       // Preview should be displayed and the height of the picker adjusted
       const pickerWithPreview = component.find(EmojiPickerComponent);
-      expect(pickerWithPreview).toHaveStyleRule('height', '348px');
+      expect(pickerWithPreview).toHaveStyleRule(
+        'height',
+        emojiPickerHeightWithPreview +
+          emojiPickerHeightOffset(defaultEmojiPickerSize) +
+          'px',
+      );
     });
 
     it('media emoji should render placeholder while loading', async () => {

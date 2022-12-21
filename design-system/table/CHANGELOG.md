@@ -1,5 +1,11 @@
 # @atlaskit/table
 
+## 0.1.2
+
+### Patch Changes
+
+- [`d2c17ae6f14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2c17ae6f14) - Adds the `width` prop to '@atlaskit/table' header elements.
+
 ## 0.1.1
 
 ### Patch Changes

@@ -96,7 +96,7 @@ class EmojiPickerListSearch extends PureComponent<
       if (typeof window === 'undefined') {
         return;
       }
-      window.setTimeout(this.focusInput);
+      window.requestAnimationFrame(this.focusInput);
     }
   };
 

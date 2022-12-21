@@ -1,58 +1,79 @@
 import React from 'react';
+import { renderHook } from '@testing-library/react-hooks';
 import '../../../../../__mocks__/intersection-observer.mock';
 import { IntlProvider } from 'react-intl-next';
+import { render } from '@testing-library/react';
+import { useSmartLinkAnalytics } from '../../../../../../';
+import { AnalyticsFacade } from '../../../../../../state/analytics';
+import HoverCardUnauthorisedView from '../index';
+import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
+import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
+import { mocks } from '../../../../../../utils/mocks';
 import { mockUnauthorisedResponse } from '../../../../__tests__/__mocks__/mocks';
-import { fireEvent, render } from '@testing-library/react';
-import { fakeFactory } from '../../../../../../utils/mocks';
-import { Card } from '../../../../../Card';
-import { Provider } from '../../../../../../';
-import { CardClient } from '@atlaskit/link-provider';
+
+jest.mock('@atlaskit/link-provider', () => ({
+  useSmartLinkContext: () => ({
+    ...mockGetContext(),
+    store: {
+      getState: () => ({ 'test-url': mocks.analytics }),
+      dispatch: jest.fn(),
+    },
+    connections: {
+      client: {
+        fetchData: jest.fn(() => Promise.resolve(mockUnauthorisedResponse)),
+      },
+    },
+    config: {
+      authFlow: 'disabled',
+    },
+  }),
+}));
 
 describe('Unauthorised Hover Card', () => {
-  let mockClient: CardClient;
-  let mockFetch: jest.Mock;
   let mockUrl: string;
 
-  const setup = async () => {
-    mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
-    mockClient = new (fakeFactory(mockFetch))();
-    mockUrl = 'https://some.url';
+  const id = 'unauthorized-test-id';
+  const location = 'unauthorized-test-location';
+  const dispatchAnalytics = jest.fn();
+  let analyticsEvents: AnalyticsFacade;
 
+  beforeEach(() => {
+    const { result } = renderHook(() =>
+      useSmartLinkAnalytics('test-url', dispatchAnalytics, id, location),
+    );
+    analyticsEvents = result.current;
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  const setUpHoverCard = async () => {
     const { queryByTestId, findByTestId, debug } = render(
       <IntlProvider locale="en">
-        <Provider
-          client={mockClient}
-          featureFlags={{ showAuthTooltip: 'experiment' }}
-        >
-          <Card appearance="inline" url={mockUrl} showHoverPreview={true} />
-        </Provider>
+        <HoverCardUnauthorisedView
+          analytics={analyticsEvents}
+          url={mockUrl}
+          extensionKey={'google-object-provider'}
+          id={'123'}
+          flexibleCardProps={{
+            cardState: getCardState(
+              { ...mockUnauthorisedResponse.data, url: mockUrl },
+              mockUnauthorisedResponse.meta,
+              'unauthorized',
+            ),
+            children: {},
+            url: mockUrl,
+          }}
+        />
       </IntlProvider>,
     );
 
-    const element = await findByTestId('inline-card-unauthorized-view');
-
-    jest.useFakeTimers();
-    jest
-      .spyOn(Date, 'now')
-      .mockImplementation(() => new Date('April 1, 2022 00:00:00').getTime());
-
-    fireEvent.mouseEnter(element);
-
-    return { findByTestId, queryByTestId, element, debug };
+    return { queryByTestId, findByTestId, debug };
   };
 
-  it('renders Unauthorised hover card', async () => {
-    const { findByTestId } = await setup();
-    jest.runAllTimers();
-    const unauthorisedHoverCard = await findByTestId(
-      'hover-card-unauthorised-view',
-    );
-
-    expect(unauthorisedHoverCard).toBeTruthy();
-  });
-
   it('renders Unauthorised hover card content', async () => {
-    const { findByTestId } = await setup();
+    const { findByTestId } = await setUpHoverCard();
     jest.runAllTimers();
     const iconElement = await findByTestId('smart-element-icon');
     const titleElement = await findByTestId(
@@ -74,7 +95,7 @@ describe('Unauthorised Hover Card', () => {
   });
 
   it('"learn more" link should have a correct url', async () => {
-    const { findByTestId } = await setup();
+    const { findByTestId } = await setUpHoverCard();
     jest.runAllTimers();
 
     const learnMoreLink = await findByTestId(

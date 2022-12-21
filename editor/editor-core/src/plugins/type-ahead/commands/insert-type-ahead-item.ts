@@ -59,7 +59,6 @@ const createInsertCallback =
     editorState: state,
     handler,
     query,
-    mode,
     wasInsertedBySpace,
     selectedIndex,
     textStartPosition,
@@ -184,7 +183,9 @@ export const insertTypeAheadItem =
       text = text.trim().concat(' ');
     }
 
-    const selectedIndex = Math.max(sourceListItem.indexOf(item), 0);
+    // We want to always persist selectedIndex as -1 upon selecting an item from typeahead
+    // in order to retain exist focus behaviour when undoing
+    const selectedIndex = -1;
     const wasInsertedBySpace = mode === SelectItemMode.SPACE;
     const {
       selection: { from: textStartPosition },

@@ -110,6 +110,7 @@ export const buildEditLinkToolbar = ({
   return {
     type: 'custom',
     fallback: [],
+    disableArrowNavigation: true,
     render: (view, idx) => {
       if (!view || !providerFactory) {
         return null;

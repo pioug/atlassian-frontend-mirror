@@ -33,7 +33,7 @@ describe('code-block: WYSIWYG', () => {
     });
 
     await expect($editorElement).toMatchVisually($rendererElement, {
-      threshold: 0.02,
+      threshold: 0.03,
     });
   });
 
@@ -45,7 +45,7 @@ describe('code-block: WYSIWYG', () => {
     });
 
     await expect($editorElement).toMatchVisually($rendererElement, {
-      threshold: 0.45,
+      threshold: 0.47,
     });
   });
 
@@ -69,7 +69,7 @@ describe('code-block: WYSIWYG', () => {
     });
 
     await expect($editorElement).toMatchVisually($rendererElement, {
-      threshold: 0.02,
+      threshold: 0.03,
     });
   });
 

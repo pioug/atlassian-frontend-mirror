@@ -1,6 +1,8 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { css } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 export const overflowShadow = ({
   background,
   width,
@@ -8,10 +10,28 @@ export const overflowShadow = ({
   background: string;
   width: string;
 }) => css`
+/* shadow cover left */
+  linear-gradient(
+    to right,
+    ${background} ${width},
+    transparent ${width}
+  ),
+/* shadow cover background left */
+  linear-gradient(
+    to right,
+    ${token('elevation.surface.raised', 'transparent')} ${width},
+    transparent ${width}
+  ),
 /* shadow cover right */
   linear-gradient(
     to left,
     ${background} ${width},
+    transparent ${width}
+  ),
+/* shadow cover background right */
+  linear-gradient(
+    to left,
+    ${token('elevation.surface.raised', 'transparent')} ${width},
     transparent ${width}
   ),
 /* overflow shadow right */

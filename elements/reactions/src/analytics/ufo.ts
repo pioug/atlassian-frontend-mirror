@@ -40,6 +40,9 @@ export enum ExperienceName {
   REACTION_ADDED = 'reaction-added',
   REACTION_REMOVED = 'reaction-removed',
   REACTION_DETAILS_FETCHED = 'reaction-details-fetched',
+  REACTION_DIALOG_OPENED = 'reaction-dialog-opened',
+  REACTION_DIALOG_CLOSED = 'reaction-dialog-closed',
+  REACTION_DIALOG_SELECTED_REACTION_CHANGED = 'reaction-dialog-selected-reaction-changed',
 }
 
 /**
@@ -49,6 +52,7 @@ export enum ComponentName {
   PICKER_RENDERED = 'reactions-picker',
   REACTIONS = 'reactions-list',
   REACTION_ITEM = 'reaction-item',
+  REACTION_DIALOG = 'reaction-dialog',
 }
 
 /**
@@ -82,6 +86,42 @@ export const ReactionsAdd = new ConcurrentExperience(
   ExperienceName.REACTION_ADDED,
   createExperienceConfig(
     ComponentName.REACTIONS,
+    ExperienceTypes.Experience,
+    ExperiencePerformanceTypes.InlineResult,
+  ),
+);
+
+/**
+ * Expeirence when a reaction dialog is opened
+ */
+export const ReactionDialogOpened = new UFOExperience(
+  ExperienceName.REACTION_DIALOG_OPENED,
+  createExperienceConfig(
+    ComponentName.REACTION_DIALOG,
+    ExperienceTypes.Experience,
+    ExperiencePerformanceTypes.InlineResult,
+  ),
+);
+
+/**
+ * Experience when a reaction dialog is closed
+ */
+export const ReactionDialogClosed = new UFOExperience(
+  ExperienceName.REACTION_DIALOG_CLOSED,
+  createExperienceConfig(
+    ComponentName.REACTION_DIALOG,
+    ExperienceTypes.Experience,
+    ExperiencePerformanceTypes.InlineResult,
+  ),
+);
+
+/**
+ * Experience when a reaction changed/fetched from inside the modal dialog
+ */
+export const ReactionDialogSelectedReactionChanged = new UFOExperience(
+  ExperienceName.REACTION_DIALOG_SELECTED_REACTION_CHANGED,
+  createExperienceConfig(
+    ComponentName.REACTION_DIALOG,
     ExperienceTypes.Experience,
     ExperiencePerformanceTypes.InlineResult,
   ),

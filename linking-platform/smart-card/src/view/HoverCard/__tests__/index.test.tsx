@@ -13,10 +13,17 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
       return null;
   }
 });
+jest.mock('@atlaskit/analytics-next', () => ({
+  ...jest.requireActual('@atlaskit/analytics-next'),
+  withAnalyticsContext: jest.fn(() =>
+    jest.requireActual('@atlaskit/analytics-next').withAnalyticsContext(),
+  ),
+}));
 
 import '../../__mocks__/intersection-observer.mock';
 import React from 'react';
 import { fireEvent, render, cleanup, waitFor } from '@testing-library/react';
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { fakeFactory } from '../../../utils/mocks';
 import { CardClient } from '@atlaskit/link-provider';
 import { Provider, ProviderProps } from '../../..';
@@ -32,6 +39,7 @@ import {
   mockBaseResponseWithDownload,
   mockSSRResponse,
   mockActionableElementResponse,
+  mockUnauthorisedResponse,
 } from './__mocks__/mocks';
 import * as HoverCardComponent from '../components/HoverCardComponent';
 
@@ -43,6 +51,7 @@ describe('HoverCard', () => {
   const setup = async (
     mock: any = mockConfluenceResponse,
     featureFlags?: ProviderProps['featureFlags'],
+    testId = 'inline-card-resolved-view',
   ) => {
     mockFetch = jest.fn(() => Promise.resolve(mock));
     mockClient = new (fakeFactory(mockFetch))();
@@ -56,7 +65,7 @@ describe('HoverCard', () => {
       </IntlProvider>,
     );
 
-    const element = await findByTestId('inline-card-resolved-view');
+    const element = await findByTestId(testId);
     jest.useFakeTimers();
     jest
       .spyOn(Date, 'now')
@@ -79,6 +88,19 @@ describe('HoverCard', () => {
     const hoverCard = await findByTestId('hover-card');
 
     expect(hoverCard).toBeTruthy();
+  });
+
+  it('has correct data passed in the analytics context', async () => {
+    const { findByTestId } = await setup();
+    jest.runAllTimers();
+    await findByTestId('hover-card');
+    expect(withAnalyticsContext).toHaveBeenCalledTimes(2);
+    expect(withAnalyticsContext).toHaveBeenNthCalledWith(2, {
+      attributes: {
+        display: 'hoverCardPreview',
+      },
+      source: 'smartLinkPreviewHoverCard',
+    });
   });
 
   it('renders hover card blocks', async () => {
@@ -349,6 +371,7 @@ describe('HoverCard', () => {
           packageVersion: '999.9.9',
           previewDisplay: 'card',
           previewInvokeMethod: 'mouse_hover',
+          status: 'resolved',
         },
         eventType: 'ui',
       });
@@ -379,6 +402,7 @@ describe('HoverCard', () => {
           packageVersion: '999.9.9',
           previewDisplay: 'card',
           previewInvokeMethod: 'mouse_hover',
+          status: 'resolved',
         },
         eventType: 'ui',
       });
@@ -400,7 +424,7 @@ describe('HoverCard', () => {
           id: expect.any(String),
           componentName: 'smart-cards',
           definitionId: 'd1',
-          display: 'flexible',
+          display: 'hoverCardPreview',
           extensionKey: 'confluence-object-provider',
           packageName: '@atlaskit/smart-card',
           packageVersion: '999.9.9',
@@ -428,7 +452,7 @@ describe('HoverCard', () => {
         attributes: {
           componentName: 'smart-cards',
           definitionId: 'd1',
-          display: 'flexible',
+          display: 'hoverCardPreview',
           extensionKey: 'confluence-object-provider',
           id: expect.any(String),
           isModifierKeyPressed: false,
@@ -490,7 +514,7 @@ describe('HoverCard', () => {
         attributes: {
           actionType: 'PreviewAction',
           componentName: 'smart-cards',
-          display: 'flexible',
+          display: 'hoverCardPreview',
           definitionId: 'd1',
           id: expect.any(String),
           extensionKey: 'test-object-provider',
@@ -513,6 +537,7 @@ describe('HoverCard', () => {
           packageVersion: '999.9.9',
           previewDisplay: 'card',
           previewInvokeMethod: 'mouse_hover',
+          status: 'resolved',
         },
         eventType: 'ui',
       });
@@ -536,7 +561,7 @@ describe('HoverCard', () => {
         attributes: {
           actionType: 'DownloadAction',
           componentName: 'smart-cards',
-          display: 'flexible',
+          display: 'hoverCardPreview',
           id: expect.any(String),
           definitionId: 'd1',
           extensionKey: 'test-object-provider',
@@ -571,7 +596,7 @@ describe('HoverCard', () => {
           componentName: 'smart-cards',
           error: new Error('something happened'),
           errorInfo: expect.any(Object),
-          display: 'flexible',
+          display: 'hoverCardPreview',
           definitionId: 'd1',
           extensionKey: 'confluence-object-provider',
           id: expect.any(String),
@@ -795,6 +820,90 @@ describe('HoverCard', () => {
 
       expect(queryByTestId('state-metadata-element-lozenge')).not.toBeNull();
       expect(queryByTestId('state-metadata-element-action')).toBeNull();
+    });
+  });
+
+  describe('Unauthorized Hover Card', () => {
+    it('renders Unauthorised hover card', async () => {
+      const { findByTestId } = await setup(
+        mockUnauthorisedResponse,
+        { showAuthTooltip: 'experiment' },
+        'inline-card-unauthorized-view',
+      );
+      jest.runAllTimers();
+      const unauthorisedHoverCard = await findByTestId(
+        'hover-card-unauthorised-view',
+      );
+
+      expect(unauthorisedHoverCard).toBeTruthy();
+    });
+
+    it('should fire viewed event when hover card is opened', async () => {
+      const mock = jest.spyOn(analytics, 'uiHoverCardViewedEvent');
+
+      const { findByTestId } = await setup(
+        mockUnauthorisedResponse,
+        { showAuthTooltip: 'experiment' },
+        'inline-card-unauthorized-view',
+      );
+      jest.runAllTimers();
+
+      //wait for card to be resolved
+      await findByTestId('hover-card-unauthorised-view');
+      expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledTimes(1);
+      expect(mock.mock.results[0].value).toEqual({
+        action: 'viewed',
+        actionSubject: 'hoverCard',
+        attributes: {
+          componentName: 'smart-cards',
+          definitionId: '440fdd47-25ac-4ac2-851f-1b7526365ade',
+          id: expect.any(String),
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+          previewDisplay: 'card',
+          previewInvokeMethod: 'mouse_hover',
+          status: 'unauthorized',
+          extensionKey: 'google-object-provider',
+          resourceType: 'file',
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should fire dismissed event when hover card is opened then closed', async () => {
+      const mock = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
+
+      const { queryByTestId, findByTestId, element } = await setup(
+        mockUnauthorisedResponse,
+        { showAuthTooltip: 'experiment' },
+        'inline-card-unauthorized-view',
+      );
+      jest.runAllTimers();
+      // wait for card to be resolved
+      await findByTestId('hover-card-unauthorised-view');
+      fireEvent.mouseLeave(element);
+      jest.runAllTimers();
+      expect(queryByTestId('hover-card')).toBeNull();
+
+      expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
+      expect(mock.mock.results[0].value).toEqual({
+        action: 'dismissed',
+        actionSubject: 'hoverCard',
+        attributes: {
+          componentName: 'smart-cards',
+          definitionId: '440fdd47-25ac-4ac2-851f-1b7526365ade',
+          id: expect.any(String),
+          extensionKey: 'google-object-provider',
+          hoverTime: 0,
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+          previewDisplay: 'card',
+          previewInvokeMethod: 'mouse_hover',
+          status: 'unauthorized',
+          resourceType: 'file',
+        },
+        eventType: 'ui',
+      });
     });
   });
 });

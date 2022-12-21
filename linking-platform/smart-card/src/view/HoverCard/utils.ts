@@ -3,8 +3,6 @@ import { ElementName } from '../../constants';
 import { LinkAction } from '../../state/hooks-external/useSmartLinkActions';
 import { ElementItem } from '../FlexibleCard/components/blocks/types';
 
-export const SMART_CARD_ANALYTICS_DISPLAY = 'flexible';
-
 export const getSimulatedMetadata = (
   extensionKey: string = '',
   types: JsonLd.Primitives.ObjectType[] = [],

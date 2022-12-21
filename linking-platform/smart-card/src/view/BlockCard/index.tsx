@@ -68,11 +68,12 @@ export const BlockCard: FC<BlockCardProps> = ({
   const data =
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
   const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
+  const extensionKey = getExtensionKey(details);
   const extractorOpts: ExtractBlockOpts = {
     analytics,
     origin: 'smartLinkCard',
     handleInvoke,
-    extensionKey: getExtensionKey(details),
+    extensionKey,
   };
 
   if (enableFlexibleBlockCard) {
@@ -86,6 +87,7 @@ export const BlockCard: FC<BlockCardProps> = ({
       renderers,
       ui,
       analytics,
+      extensionKey,
     };
 
     switch (status) {

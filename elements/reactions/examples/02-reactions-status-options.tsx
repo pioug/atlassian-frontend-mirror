@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl-next';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { Reactions } from '../src';
-import { mockData } from '../src/MockReactionsClient';
+import { simpleMockData } from '../src/MockReactionsClient';
 import { Example, Constants as ExampleConstants } from './utils';
 import { ReactionStatus } from '../src/types';
 
@@ -11,7 +11,7 @@ export default () => {
   const containerAri = `${ExampleConstants.ContainerAriPrefix}1`;
   const ari = `${ExampleConstants.AriPrefix}1`;
   const emojiProvider = getEmojiResource() as Promise<EmojiProvider>;
-  const reactions = mockData[`${containerAri}|${ari}`];
+  const reactions = simpleMockData[`${containerAri}|${ari}`];
   const loadReaction = () => {};
   const onSelection = () => {};
   const onReactionClick = () => {};
@@ -96,6 +96,12 @@ export default () => {
               loadReaction={loadReaction}
               onSelection={onSelection}
               onReactionClick={onReactionClick}
+              getReactionDetails={(emojiId) =>
+                console.log('get reaction details of ', emojiId)
+              }
+              onReactionHover={(emojiId) =>
+                console.log('[deprecated] reaction hovered', emojiId)
+              }
               allowAllEmojis
             />
           </IntlProvider>

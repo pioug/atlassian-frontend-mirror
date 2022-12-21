@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { EditorState, Selection, TextSelection } from 'prosemirror-state';
 import { EditorView, Decoration, DecorationSet } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
@@ -21,6 +20,8 @@ export interface Color {
   selection: string;
 }
 
+// TODO: https://product-fabric.atlassian.net/browse/DSP-7269
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const colors: Color[] = [
   themeColors.R100,
   themeColors.R300,
@@ -47,6 +48,7 @@ export const colors: Color[] = [
   solid,
   selection: hexToRgba(solid, 0.2)!,
 }));
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 export const getAvatarColor = (str: string) => {
   let hash = 0;

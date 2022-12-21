@@ -1,15 +1,16 @@
 import {
   EditorState,
+  NodeSelection,
   Selection,
   TextSelection,
-  NodeSelection,
   Transaction,
 } from 'prosemirror-state';
-import { removeNodeBefore, findDomRefAtPos } from 'prosemirror-utils';
+import { ResolvedPos } from 'prosemirror-model';
+import { findDomRefAtPos, removeNodeBefore } from 'prosemirror-utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { Direction, isBackward, isForward } from './direction';
 import { GapCursorSelection, Side } from './selection';
-import { isTextBlockNearPos, getMediaNearPos } from './utils';
+import { getMediaNearPos, isTextBlockNearPos } from './utils';
 import { isValidTargetNode } from './utils/is-valid-target-node';
 import { Command } from '../../../types';
 import {
@@ -17,6 +18,7 @@ import {
   atTheEndOfDoc,
 } from '../../../utils/prosemirror/position';
 import { gapCursorPluginKey } from '../pm-plugins/gap-cursor-plugin-key';
+import { isPositionNearTableRow } from '../../../utils/table';
 
 type MapDirection = { [name in Direction]: number };
 const mapDirection: MapDirection = {
@@ -88,13 +90,39 @@ export type DirectionString =
   | 'forward'
   | 'backward';
 
+export const shouldSkipGapCursor = (
+  direction: Direction,
+  state: EditorState,
+  $pos: ResolvedPos,
+) => {
+  const { doc, schema } = state;
+  switch (direction) {
+    case Direction.UP:
+      if (atTheBeginningOfDoc(state)) {
+        return false;
+      }
+      return (
+        isPositionNearTableRow($pos, schema, 'before') ||
+        isTextBlockNearPos(doc, schema, $pos, -1)
+      );
+    case Direction.DOWN:
+      return (
+        atTheEndOfDoc(state) ||
+        isTextBlockNearPos(doc, schema, $pos, 1) ||
+        isPositionNearTableRow($pos, schema, 'after')
+      );
+    default:
+      return false;
+  }
+};
+
 export const arrow =
   (
     dir: Direction,
     endOfTextblock?: (dir: DirectionString, state?: EditorState) => boolean,
   ): Command =>
   (state, dispatch, view) => {
-    const { doc, schema, selection, tr } = state;
+    const { doc, selection, tr } = state;
 
     let $pos = isBackward(dir) ? selection.$from : selection.$to;
     let mustMove = selection.empty;
@@ -110,15 +138,10 @@ export const arrow =
       }
 
       // UP/DOWN jumps to the nearest texblock skipping gapcursor whenever possible
-      if (
-        (dir === Direction.UP &&
-          !atTheBeginningOfDoc(state) &&
-          isTextBlockNearPos(doc, schema, $pos, -1)) ||
-        (dir === Direction.DOWN &&
-          (atTheEndOfDoc(state) || isTextBlockNearPos(doc, schema, $pos, 1)))
-      ) {
+      if (shouldSkipGapCursor(dir, state, $pos)) {
         return false;
       }
+
       // otherwise resolve previous/next position
       $pos = doc.resolve(isBackward(dir) ? $pos.before() : $pos.after());
       mustMove = false;

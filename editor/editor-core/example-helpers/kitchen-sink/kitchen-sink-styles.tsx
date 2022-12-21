@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { N50, background, N30 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { css } from '@emotion/react';
@@ -26,14 +27,22 @@ export const controls = css`
     margin-bottom: 0.5em;
   }
 
-  button {
-    margin-left: 1em;
-  }
-
   .theme-select {
     margin-left: 1em;
     width: 140px;
   }
+`;
+
+export const kitchenSinkControl = css`
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  margin-right: 0.5em;
+`;
+
+export const appearanceControl = css`
+  width: 240px;
 `;
 
 export const column = ({ narrow }: { narrow?: boolean }) => css`

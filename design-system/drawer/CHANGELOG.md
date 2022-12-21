@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.4.2
+
+### Patch Changes
+
+- [`5bd499c254f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bd499c254f) - Fix zIndex stacking of internal Blanket component during css transition
+
 ## 7.4.1
 
 ### Patch Changes

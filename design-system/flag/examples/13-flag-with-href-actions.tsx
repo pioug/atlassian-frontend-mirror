@@ -1,5 +1,6 @@
-import React, { Fragment, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
+import { UNSAFE_Stack as Stack } from '@atlaskit/ds-explorations';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
@@ -90,19 +91,17 @@ const flagVariants: Array<FlagVariant> = [
 ];
 
 export default () => (
-  <Fragment>
+  <Stack gap="scale.100">
     {flagVariants.map((flag: FlagVariant) => (
-      <div key={flag.appearance} style={{ marginBottom: '10px' }}>
-        <Flag
-          appearance={flag.appearance}
-          actions={FlagActions}
-          description={flag.description}
-          icon={flag.icon}
-          id="1"
-          key="1"
-          title={flag.title}
-        />
-      </div>
+      <Flag
+        appearance={flag.appearance}
+        actions={FlagActions}
+        description={flag.description}
+        icon={flag.icon}
+        id="1"
+        key={flag.appearance}
+        title={flag.title}
+      />
     ))}
-  </Fragment>
+  </Stack>
 );

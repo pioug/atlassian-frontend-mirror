@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-test-helpers",
-  "version": "30.0.5",
+  "version": "30.0.6",
   "description": "Collection of test helpers used in media component stories and specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -19,16 +19,17 @@
     "releaseModel": "scheduled"
   },
   "dependencies": {
-    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/button": "^16.5.0",
     "@atlaskit/checkbox": "^12.4.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/locale": "^2.1.0",
-    "@atlaskit/media-client": "^18.1.0",
+    "@atlaskit/media-client": "^19.0.0",
     "@atlaskit/media-common": "^2.17.0",
     "@atlaskit/media-core": "^34.0.0",
-    "@atlaskit/media-ui": "^22.1.0",
+    "@atlaskit/media-ui": "^22.2.0",
     "@atlaskit/popup": "^1.5.0",
     "@atlaskit/textfield": "^5.3.0",
+    "@atlaskit/tokens": "^0.11.1",
     "@atlaskit/tooltip": "^17.6.0",
     "@atlaskit/ufo": "^0.1.0",
     "@babel/runtime": "^7.0.0",
@@ -67,5 +68,10 @@
     "./mockData": "./src/utils/mockData.ts",
     ".": "./src/index.tsx"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "techstack": {
+    "@repo/internal": {
+      "theming": "tokens"
+    }
+  }
 }

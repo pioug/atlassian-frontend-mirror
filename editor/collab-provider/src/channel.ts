@@ -14,6 +14,7 @@ import type {
   PresencePayload,
   Metadata,
   ErrorPayload,
+  NamespaceStatus,
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import {
@@ -135,6 +136,12 @@ export class Channel extends Emitter<ChannelEvent> {
     this.socket.on('metadata:changed', (payload: Metadata) => {
       this.emit('metadata:changed', payload);
     });
+
+    // ESS-2916 namespace status event - lock/unlock
+    this.socket.on('status', (data: NamespaceStatus) => {
+      this.emit('status', data);
+    });
+
     this.socket.on('disconnect', async (reason: string) => {
       this.connected = false;
       logger(`disconnect reason: ${reason}`);
@@ -225,6 +232,15 @@ export class Channel extends Emitter<ChannelEvent> {
         const { doc, version, userId, metadata }: InitPayload = data;
         this.initialized = true;
         this.emit('init', {
+          doc,
+          version,
+          userId,
+          metadata,
+        });
+      } else {
+        // Page is been just restored, need to fix all the participants as well.
+        const { doc, version, userId, metadata }: InitPayload = data;
+        this.emit('restore', {
           doc,
           version,
           userId,

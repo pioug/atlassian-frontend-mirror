@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import FlexibleCard from '../../../FlexibleCard';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
@@ -29,7 +29,9 @@ const contentStyles = css`
  * @see FlexibleCardProps
  */
 const FlexibleUnauthorisedView = ({
+  analytics,
   cardState,
+  extensionKey = '',
   onAuthorize,
   onClick,
   onError,
@@ -39,9 +41,20 @@ const FlexibleUnauthorisedView = ({
 }: FlexibleBlockCardProps) => {
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const providerName = extractProvider(data)?.text;
+
+  const handleAuthorize = useCallback(() => {
+    if (onAuthorize) {
+      analytics.track.appAccountAuthStarted({
+        extensionKey,
+      });
+
+      onAuthorize();
+    }
+  }, [onAuthorize, extensionKey, analytics.track]);
+
   const actions = useMemo<ActionItem[]>(
-    () => (onAuthorize ? [AuthorizeAction(onAuthorize, providerName)] : []),
-    [onAuthorize, providerName],
+    () => (onAuthorize ? [AuthorizeAction(handleAuthorize, providerName)] : []),
+    [handleAuthorize, onAuthorize, providerName],
   );
 
   return (
@@ -58,7 +71,11 @@ const FlexibleUnauthorisedView = ({
       <TitleBlock hideRetry={true} />
       <CustomBlock overrideCss={contentStyles} testId={`${testId}-content`}>
         <div>
-          <UnauthorisedViewContent providerName={providerName} />
+          <UnauthorisedViewContent
+            providerName={providerName}
+            analytics={analytics}
+            testId={testId}
+          />
         </div>
       </CustomBlock>
       <CustomBlock>

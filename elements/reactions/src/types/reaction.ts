@@ -1,9 +1,20 @@
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { User } from './User';
 
 /**
  * Collection of reactions as object (key is unique id from containerAri and ari combined)
  */
 export type Reactions = Record<string, ReactionSummary[]>;
+
+/**
+ * Event handler when reactions dialog selected emoji is clicked
+ * @param emojiId selected emoji
+ * @param analyticsEvent Optional analytics event emitted from @atlaskit/tabs component
+ */
+export type onDialogSelectReactionChange = (
+  emojiId: string,
+  analyticsEvent: UIAnalyticsEvent,
+) => void;
 
 /**
  * MetaData for Reaction object
@@ -69,12 +80,22 @@ export type ReactionClick = (
 
 /**
  * Event handler for when the user hovers with the mouse on the reaction
- * @param reaction reaction object
+ * @param emojiId id of emoji
  * @param event (Optional) custom DOM event handler callback
  */
 export type ReactionMouseEnter = (
-  reaction: ReactionSummary,
+  emojiId: string,
   event?: React.MouseEvent<any>,
+) => void;
+
+/**
+ * Event handler for when the user focused on the reaction
+ * @param emojiId id of emoji
+ * @param event (Optional) custom DOM event handler callback
+ */
+export type ReactionFocused = (
+  emojiId: string,
+  event?: React.FocusEvent<any>,
 ) => void;
 
 /**

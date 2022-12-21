@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import { N0 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
@@ -18,6 +19,11 @@ export interface Props {
   borderColor: string;
   checkMarkColor?: string;
   autoFocus?: boolean;
+  /**
+   * When set to true -- the presentation of colors in the
+   * palette will use design tokens when available.
+   */
+  useDesignTokens: boolean;
 }
 
 class Color extends PureComponent<Props> {
@@ -34,8 +40,12 @@ class Color extends PureComponent<Props> {
       /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
       checkMarkColor = N0,
       /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
+      useDesignTokens,
     } = this.props;
 
+    const colorStyle = useDesignTokens
+      ? hexToEditorTextPaletteColor(value)
+      : value;
     return (
       <Tooltip content={label}>
         <span css={buttonWrapperStyle}>
@@ -49,7 +59,7 @@ class Color extends PureComponent<Props> {
             tabIndex={tabIndex}
             className={`${isSelected ? 'selected' : ''}`}
             style={{
-              backgroundColor: value || 'transparent',
+              backgroundColor: colorStyle || 'transparent',
               border: `1px solid ${borderColor}`,
             }}
             autoFocus={autoFocus}

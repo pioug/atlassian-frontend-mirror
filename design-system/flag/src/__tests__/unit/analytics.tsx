@@ -4,6 +4,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 
 import { FlagProps } from '../../types';
 import Flag from '../../flag';
@@ -29,7 +30,7 @@ function WithBoth({
         <FlagGroup onDismissed={onDismissed}>
           <Flag
             testId="flag"
-            icon={<div />}
+            icon={<Box />}
             id="flag"
             title="flag"
             {...flagProps}
@@ -200,7 +201,7 @@ it('should allow the addition of additional context', () => {
       <AnalyticsListener onEvent={onEvent} channel={'atlaskit'}>
         <Flag
           testId="flag"
-          icon={<div />}
+          icon={<Box />}
           id="flag"
           title="flag"
           analyticsContext={analyticsContext}
@@ -250,7 +251,7 @@ it('should not error if there is no analytics provider', () => {
   const { getByTestId } = render(
     <Flag
       testId="flag"
-      icon={<div />}
+      icon={<Box />}
       id="flag"
       title="flag"
       onFocus={jest.fn()}

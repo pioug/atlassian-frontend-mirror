@@ -1,5 +1,6 @@
 export {
   getPanelTypeBackground,
+  getPanelTypeBackgroundNoTokens,
   darkPanelColors,
   getPanelDarkColor,
   panelSharedStyles,

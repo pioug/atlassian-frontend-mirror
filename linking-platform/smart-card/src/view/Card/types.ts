@@ -5,7 +5,11 @@ import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { InlinePreloaderStyle, OnErrorCallback } from '../types';
 
 export type { CardAppearance, CardPlatform };
-export type CardInnerAppearance = CardAppearance | 'preview' | 'flexible';
+export type CardInnerAppearance =
+  | CardAppearance
+  | 'embedPreview'
+  | 'flexible'
+  | 'hoverCardPreview';
 
 export type OnResolveCallback = (data: {
   url?: string;

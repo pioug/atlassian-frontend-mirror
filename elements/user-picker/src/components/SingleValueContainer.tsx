@@ -9,6 +9,7 @@ import { User, Option } from '../types';
 const placeholderIconContainer = css({
   paddingLeft: `${BORDER_PADDING}px`,
   lineHeight: 0,
+  gridArea: '1/1/2/2',
 });
 
 const showUserAvatar = (inputValue?: string, value?: Option<User>) =>

@@ -27,6 +27,8 @@ interface EditorConfig {
   allowCustomPanelEdit?: boolean;
   allowMediaInline?: boolean;
   tableCellOptionsInFloatingToolbar?: boolean;
+  restartNumberedLists?: boolean;
+  listNumberContinuity?: boolean;
 }
 
 export default class MobileEditorConfiguration
@@ -42,6 +44,8 @@ export default class MobileEditorConfiguration
   private allowCustomPanel: boolean = false;
   private allowCustomPanelEdit: boolean = false;
   private tableCellOptionsInFloatingToolbar: boolean = false;
+  private restartNumberedLists: boolean = false;
+  private listNumberContinuity: boolean = false;
 
   constructor(editorConfig?: string) {
     if (editorConfig) {
@@ -81,6 +85,14 @@ export default class MobileEditorConfiguration
       config.tableCellOptionsInFloatingToolbar !== undefined
         ? config.tableCellOptionsInFloatingToolbar
         : this.tableCellOptionsInFloatingToolbar;
+    this.restartNumberedLists =
+      config.restartNumberedLists !== undefined
+        ? config.restartNumberedLists
+        : this.restartNumberedLists;
+    this.listNumberContinuity =
+      config.listNumberContinuity !== undefined
+        ? config.listNumberContinuity
+        : this.listNumberContinuity;
   }
 
   getEditorAppearance(): EditorAppearance {
@@ -133,6 +145,14 @@ export default class MobileEditorConfiguration
 
   isTableCellOptionsInFloatingToolbar(): boolean {
     return this.tableCellOptionsInFloatingToolbar;
+  }
+
+  isRestartNumberedListsEnabled(): boolean {
+    return this.restartNumberedLists;
+  }
+
+  isListNumberContinuityEnabled(): boolean {
+    return this.listNumberContinuity;
   }
 
   // We need to retain the previous configuration flags as `locale` and `mode` can be configured

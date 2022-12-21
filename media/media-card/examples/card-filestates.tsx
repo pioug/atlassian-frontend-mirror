@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { token } from '@atlaskit/tokens';
 import { MediaType, FileState, FileIdentifier } from '@atlaskit/media-client';
 import {
   FileStateFactory,
@@ -127,7 +128,9 @@ const createExample =
         <h3>{title}</h3>
         <h4 style={{ marginBottom: 5 }}>
           File Status:{' '}
-          <span style={{ color: R500 }}>{fileState?.status || 'unknown'}</span>
+          <span style={{ color: token('color.text.danger', R500) }}>
+            {fileState?.status || 'unknown'}
+          </span>
         </h4>
         <Card
           identifier={identifier}

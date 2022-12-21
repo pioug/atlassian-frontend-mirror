@@ -80,7 +80,7 @@ exports[`@atlaskit/design-system-explorations bg styles are generated correctly 
   'elevation.surface.overlay': css({
     backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
   }),
-};
+} as const;
 
 export type BackgroundColor = keyof typeof backgroundColorMap;
 "
@@ -127,7 +127,7 @@ exports[`@atlaskit/design-system-explorations border styles are generated correc
   information: css({
     borderColor: token('color.border.information', '#0065FF'),
   }),
-};
+} as const;
 
 export type BorderColor = keyof typeof borderColorMap;
 "
@@ -353,7 +353,7 @@ exports[`@atlaskit/design-system-explorations text styles are generated correctl
   information: css({
     color: token('color.text.information', '#0052CC'),
   }),
-};
+} as const;
 
 export type TextColor = keyof typeof textColorMap;
 "

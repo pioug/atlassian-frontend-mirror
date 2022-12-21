@@ -1,5 +1,26 @@
 # @atlaskit/media-ui
 
+## 22.2.0
+
+### Minor Changes
+
+- [`6de3a9494a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6de3a9494a8) - [ux] Instrumented `@atlaskit/media-card` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+- [`3b86aedf4cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b86aedf4cf) - Instrumented `@atlaskit/media-ui` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
+  Update commerce-ui entrypoints that caused a pipeline issue.
+- [`7c8727e3cb0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c8727e3cb0) - [ux] Updated color usages in MediaButton and CustomMediaPlayer to use new colors from the new color palette.
+- Updated dependencies
+
 ## 22.1.3
 
 ### Patch Changes

@@ -154,23 +154,6 @@ describe('Feature Flags from Props', () => {
     });
   });
 
-  describe('plain text linkification', () => {
-    it('should default plainTextLinkification to false if no feature flag is defined', () => {
-      const flags = createFeatureFlagsFromProps({
-        featureFlags: {},
-      });
-      expect(flags.plainTextPasteLinkification).toBe(false);
-    });
-    it('should set plainTextLinkification to true feature flag is defined', () => {
-      const flags = createFeatureFlagsFromProps({
-        featureFlags: {
-          plainTextPasteLinkification: true,
-        },
-      });
-      expect(flags.plainTextPasteLinkification).toBe(true);
-    });
-  });
-
   describe('find/replace', () => {
     it('should set findReplace to true if allowFindReplace prop is true', () => {
       const flags = createFeatureFlagsFromProps({
@@ -507,6 +490,87 @@ describe('Feature Flags from Props', () => {
       ).toEqual(
         expect.objectContaining({
           floatingToolbarLinkSettingsButton: undefined,
+        }),
+      );
+    });
+  });
+
+  describe('restartNumberedLists', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            restartNumberedLists: true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          restartNumberedLists: true,
+        }),
+      );
+    });
+    it('should default to false if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          restartNumberedLists: false,
+        }),
+      );
+    });
+  });
+
+  describe('listNumberContinuity', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            listNumberContinuity: true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          listNumberContinuity: true,
+        }),
+      );
+    });
+    it('should default to false if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          listNumberContinuity: false,
+        }),
+      );
+    });
+  });
+
+  describe('restartNumberedListsToolbar', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            restartNumberedListsToolbar: true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          restartNumberedListsToolbar: true,
+        }),
+      );
+    });
+    it('should default to false if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          restartNumberedListsToolbar: false,
         }),
       );
     });

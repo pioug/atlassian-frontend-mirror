@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import CommonCell from './internal/common-cell';
 import OverflowContainer from './internal/overflow-container';
+import { indentBase } from './internal/styled';
 import withColumnWidth from './internal/with-column-width';
 
 export interface CellProps {
@@ -31,7 +32,9 @@ class Cell extends Component<CellProps> {
     return (
       <CommonCell
         role="gridcell"
-        indent={indentLevel ? `${25 * indentLevel}px` : undefined}
+        indent={
+          indentLevel ? `calc(${indentBase} * ${indentLevel})` : undefined
+        }
         width={width}
         className={className}
         {...props}

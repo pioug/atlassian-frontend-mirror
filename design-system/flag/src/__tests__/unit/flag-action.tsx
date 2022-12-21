@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { AppearanceTypes, FlagProps } from '../../types';
@@ -10,7 +11,7 @@ import Flag from '../../flag';
 describe('actions prop', () => {
   const generateFlag = (extraProps: Partial<FlagProps>) => (
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <Flag id="" icon={<div />} title="Flag" {...extraProps} />
+    <Flag id="" icon={<Box />} title="Flag" {...extraProps} />
   );
 
   it('actions with normal appearance should be rendered with dots', () => {

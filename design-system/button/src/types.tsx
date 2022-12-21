@@ -108,6 +108,12 @@ export type BaseOwnProps = {
     | React.ElementType;
 
   /**
+   * An optional name used to identify this component to press listeners. E.g. interaction tracing
+   * @see https://hello.atlassian.net/wiki/spaces/UFO/pages/2010358949/UFO+Integration+into+Design+System+components
+   */
+  interactionName?: string;
+
+  /**
    * Additional information to be included in the `context` of analytics events that come from button
    */
   analyticsContext?: Record<string, any>;

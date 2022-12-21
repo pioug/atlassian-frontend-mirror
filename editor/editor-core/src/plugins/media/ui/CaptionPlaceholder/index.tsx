@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { FormattedMessage } from 'react-intl-next';
@@ -18,15 +19,18 @@ const placeholder = css`
 
 export const CAPTION_PLACEHOLDER_ID = 'caption-placeholder';
 
-export default ({ onClick }: { onClick: () => void }) => {
-  return (
-    <span
-      css={placeholder}
-      onClick={onClick}
-      data-id={CAPTION_PLACEHOLDER_ID}
-      data-testid="caption-placeholder"
-    >
-      <FormattedMessage {...messages.placeholder} />
-    </span>
-  );
-};
+export default React.forwardRef<HTMLSpanElement, { onClick: () => void }>(
+  ({ onClick }, ref) => {
+    return (
+      <span
+        ref={ref}
+        css={placeholder}
+        onClick={onClick}
+        data-id={CAPTION_PLACEHOLDER_ID}
+        data-testid="caption-placeholder"
+      >
+        <FormattedMessage {...messages.placeholder} />
+      </span>
+    );
+  },
+);

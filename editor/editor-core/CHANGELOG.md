@@ -1,5 +1,75 @@
 # @atlaskit/editor-core
 
+## 176.0.0
+
+### Major Changes
+
+- [`2df5ab17c10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2df5ab17c10) - DSP-6459: Adds a background to code blocks in the editor to remove transparency. E.g. prevents table cell background colors from affecting code blocks. Also modifies code blocks in table headers to have a border instead of a different color when design tokens are enabled.
+
+### Minor Changes
+
+- [`e657779ba39`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e657779ba39) - [ux] ED-15877 Added plain text fallback when using the copy button. When copying links, the url would be the plain text fallback. This also resolves ED-15955: copy button does not work on Android
+- [`2e7d2c81d2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e7d2c81d2f) - EDM-3626 Remove plain text paste linkification feature flag
+  the feature flag will not exist anymore so this cannot be enabled/disabled
+  plain text containing URLs will always be 'linkified' using shift-cmd-v/shift-ctrl-v
+
+### Patch Changes
+
+- [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
+  Update commerce-ui entrypoints that caused a pipeline issue.
+- [`1a798ec6296`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a798ec6296) - ED-15425 Adds table row check when using up arrow in table
+- [`352f2b5a90f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/352f2b5a90f) - ED-15984 fix sticky toolbar on JIRA
+- [`25617fe0633`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25617fe0633) - [ux] ED-16010 this updates the text color picker to use design tokens when available.
+- [`9f597c3c697`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f597c3c697) - ED-14996 allow start/end line selection when cursor is next to an inline comment
+- [`94f8a899d36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94f8a899d36) - [ED-15851] Add feature flags for the restart numbered lists project. These include:
+
+  - restartNumberedLists: Allow numbered lists to start from any number greater than 0, not just 1
+  - listNumberContinuity: Allow lists to continue their numbering when split by other nodes
+  - restartNumberedListsToolbar: Show a toolbar for users to restart the numbering of a list
+
+  We will be encapsulating all dev work under these flags.
+
+  These flags are for development purposes only, please don't turn these on. Only feature leads can turn these on.
+
+- [`c472a1eed2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c472a1eed2f) - DSP-3443 Updates tokens used for floating buttons; updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [`01472b73d72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01472b73d72) - DSP-4815 - Adds design tokens to non-custom panels. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [`7a1a5d392ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a1a5d392ef) - [ux][ed-15366] remove right align shortcut as it was interfering with default browser activity
+- [`9995644eec0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9995644eec0) - [ux] ED-16095: Resolve a bug where the codeblock floating toolbar disappeared on selecting a language from the dropdown menu. (Add getter paths for atlaskit/select refs that safely work for both react-select v5 and v4 scenarios).
+- [`8a11811caca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a11811caca) - ED-15298 clean up table cell optimisation
+- [`10a6576545e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10a6576545e) - [ED-16104] To fix a regression caused by [ED-15947] The arrow key behaviour is unexpected when we open find and replace button.
+- [`be6ac35db24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be6ac35db24) - [ED-15485 & ED-15486] changes to make emojis and mention nodes screen reader compatible (only the ones which are rendered in the editor - toolbar and typeahead emojis are out of scope)
+- [`0606572f9b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0606572f9b8) - [ux] ED-15348 docs(changeset): ED-15348 Fix a bug preventing typeahead actions to be fired from a gap cursor. Typing a typeahead trigger key (/, : or @) should pop-up a typeahead menu. However, if the current selection is inside a gap cursor, the trigger character is inserted and the pop-up menu doesn't open. This changeset fixes that.
+- [`e143a0cc82e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e143a0cc82e) - [ED-15851] Adjust set up of feature flags for the restart numbered lists project so that they work for mobile.
+- [`b80e36ad1fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b80e36ad1fb) - ED-15290 adds padding bottom to chromeless editor
+- [`6a9d0618b08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a9d0618b08) - Fix bug on safari where the caret briefly appears in the middle of a mention after autocompleting a mention.
+- [`e3f86801895`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3f86801895) - To Focus the last typeahead list item when up arrow key is pressed [ED-15805]
+- [`d5fd6da78ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5fd6da78ab) - To add arrow key navigation for the main toolbar items and menu items [ED-15497]
+
+  To make the editor main toolbar items accessible using left and right arrow keys.
+  The menus are expandable using Space or Enter key, once the menus are expanded the options are accessible using up/down arrow keys.
+  'Esc' key closes the menus and focuses the toolbar item.
+
+- [`1b489f87e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b489f87e1e) - Removed unused prop 'stickToolbarToBottom' from editor-core
+- [`46561872fb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46561872fb9) - ED-16357 To restore default keyboard navigation in emoji popup in main toolbar
+- [`9176a182f13`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9176a182f13) - [MEX-2012] Fix iOS 16 introduced regression in media single selection
+- [`7bf4281949a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7bf4281949a) - ED-15704 - Fix missing hover inducators on Delete column and Delete row under table floating toolbar context menu
+- [`e55b07b8fcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e55b07b8fcd) - fix whole media caption is removed if delete emoji in it
+- [`e5792780377`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5792780377) - don't encode PM node twice when rendering table toolbar
+- [`db75d733f3c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db75d733f3c) - [ux] DSP-4354 - Adds design tokens for code snippet deletion hover state. Adds overlay for code snippet gutter to create a more saturated color for the deletion hover state. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [`c80ef2d3bd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c80ef2d3bd0) - [ux] Allow tabbing past the save indicator
+- [`3a66592edd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a66592edd7) - [ED-16104] To fix a regression caused by [ED-15947] The arrow key behaviour is unexpected when we open find and replace button.
+- [`17014a9004c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17014a9004c) - [ux] ED-15632 preprocess invalid media adf to avoid empty mediaSingle node and duplicated captions and media inside mediaSingle.The document will be transformed for this cases and validation error not thrown.When mediaSingle with empty content is encountered - it will be removed.When mediaSingle with duplicated captions or media nodes is encountered - duplicate captions or media nodes will be removed, prioritising removal of nodes with empty content first.
+- [`8cc8e807222`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc8e807222) - DSP-4001 - Removes custom eslint rule for design token usage to follow a standard design token tech stack.
+- [`c2510fa261f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2510fa261f) - [ux] ED-15961 [ux] Updates the presentation of text color to use dark and light mode colors when those modes are enabled
+- [`0724b5e6562`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0724b5e6562) - Fixed typeahead behaviour after undoing insertion.
+- [`9116ae65eaf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9116ae65eaf) - [ux] ED-15345 fix annotation should work with leading and trailing whitespace across mark
+- [`28e25520771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28e25520771) - [ED-16264] changes made to fix a regression caused in ED-15483 and ED-15497 , The arrow key navigation in 'Edit Link' 'Alt Text' popup and 'cell options' popup of table is hijacked incorrectly. post this fix the arrow key navigation behaviour should be deafult in these two popups
+- [`84254f9842e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84254f9842e) - ED-14828 Make sure typeahead does not show when it is at the beginning of the slash command
+- [`47dfcc04652`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47dfcc04652) - ED-15703 - Minor change on floating toolbar to allow z-index value to be passed as parameter
+- [`58365aae521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58365aae521) - [ux] Refactor messages on tooltip of media toolbar item and media slash commend result to show video as an explicit upload option.
+- [`3354633aa75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3354633aa75) - Modified quick insert menu items such that they are read according to content design by screen readers.
+- Updated dependencies
+
 ## 175.0.5
 
 ### Patch Changes

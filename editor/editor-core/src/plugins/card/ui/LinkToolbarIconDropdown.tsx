@@ -101,8 +101,8 @@ export interface IconDropdownOptionProps {
   testId?: string;
   tooltipContent?: string | null;
 }
-
-const OptionRoot = (props: OptionRootProps) => <div {...props} tabIndex={0} />;
+//tabindex is -1 as the menu options should be focusable explicitly only by arrow keys.
+const OptionRoot = (props: OptionRootProps) => <div {...props} tabIndex={-1} />;
 
 const Option = ({
   title,

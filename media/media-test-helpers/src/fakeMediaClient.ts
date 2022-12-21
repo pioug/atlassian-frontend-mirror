@@ -5,6 +5,10 @@ import { MediaClient } from '@atlaskit/media-client';
 
 import { asMock } from './jestHelpers';
 
+import getJest from './getJest';
+
+const jest = getJest<any, unknown>();
+
 export const getDefaultMediaClientConfig = (): MediaClientConfig => ({
   authProvider: jest.fn().mockReturnValue(
     Promise.resolve({

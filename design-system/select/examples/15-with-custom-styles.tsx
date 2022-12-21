@@ -1,14 +1,12 @@
 import React from 'react';
-import Select, { StylesConfig } from '../src';
+import Select, { OptionType, StylesConfig } from '../src';
 
 const customStyles: StylesConfig = {
-  container(styles) {
-    return { ...styles, width: '50%' };
-  },
+  container: (styles) => ({ ...styles, width: '50%' }),
 };
 
 const SingleExample = () => (
-  <Select
+  <Select<OptionType>
     options={[
       { label: 'Adelaide', value: 'adelaide' },
       { label: 'Brisbane', value: 'brisbane' },

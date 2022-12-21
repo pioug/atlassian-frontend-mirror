@@ -43,6 +43,7 @@ export interface ColorProps {
   onHover?: (value: ColorType) => void;
   backgroundColor: string;
   borderColor: string;
+  iconColor: string;
   setRef?: (value: HTMLButtonElement) => HTMLButtonElement;
 }
 
@@ -55,6 +56,7 @@ export default class Color extends PureComponent<ColorProps> {
       backgroundColor,
       isSelected,
       borderColor,
+      iconColor,
       value,
       setRef,
     } = this.props;
@@ -86,7 +88,7 @@ export default class Color extends PureComponent<ColorProps> {
             >
               {isSelected && (
                 <EditorDoneIcon
-                  primaryColor={borderColor}
+                  primaryColor={iconColor}
                   label={labels[0] as string}
                 />
               )}

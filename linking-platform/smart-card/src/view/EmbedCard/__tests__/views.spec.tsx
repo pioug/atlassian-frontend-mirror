@@ -10,6 +10,13 @@ import { EmbedCardForbiddenView } from '../views/ForbiddenView';
 import { EmbedCardNotFoundView } from '../views/NotFoundView';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';
+import { mockAnalytics, mocks } from '../../../utils/mocks';
+
+jest.mock('@atlaskit/link-provider', () => ({
+  useSmartLinkContext: () => ({
+    store: { getState: () => ({ 'test-url': mocks.analytics }) },
+  }),
+}));
 
 let mockOnClick: React.MouseEventHandler = jest.fn();
 const getResolvedProps = (overrides = {}): EmbedCardResolvedViewProps => ({
@@ -170,7 +177,7 @@ describe('EmbedCard Views', () => {
   describe('view: unauthorised', () => {
     it('renders view', () => {
       const { getByTestId, getByText } = renderWithIntl(
-        <EmbedCardUnauthorisedView link="" />,
+        <EmbedCardUnauthorisedView link="" analytics={mockAnalytics} />,
       );
       const view = getByTestId('embed-card-unauthorized-view');
       const message = getByText(/Connect your.*account/);
@@ -182,7 +189,7 @@ describe('EmbedCard Views', () => {
     it('clicking on link should have no side-effects', () => {
       const props = getResolvedProps({ title: undefined });
       const { getByTestId } = renderWithIntl(
-        <EmbedCardUnauthorisedView {...props} />,
+        <EmbedCardUnauthorisedView {...props} analytics={mockAnalytics} />,
       );
       const view = getByTestId('embed-card-unauthorized-view');
       const link = view.querySelector('a');
@@ -195,7 +202,7 @@ describe('EmbedCard Views', () => {
     it('allows scrolling of content', () => {
       const props = getResolvedProps({ title: undefined });
       const { getByTestId } = renderWithIntl(
-        <EmbedCardUnauthorisedView {...props} />,
+        <EmbedCardUnauthorisedView {...props} analytics={mockAnalytics} />,
       );
       const view = getByTestId('embed-content-wrapper');
       expect(

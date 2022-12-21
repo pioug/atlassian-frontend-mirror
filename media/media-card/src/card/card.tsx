@@ -397,7 +397,6 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   private getCardPreviewParams = (
     identifier: FileIdentifier,
     fileState: FileState,
-    traceContext: MediaTraceContext,
   ): CardPreviewParams => {
     const { isBannedLocalPreview } = this.state;
     const { id } = identifier;
@@ -416,7 +415,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       mediaBlobUrlAttrs: this.getMediaBlobUrlAttrs(identifier, fileState),
       createAnalyticsEvent,
       featureFlags: this.props.featureFlags,
-      traceId: traceContext.traceId,
+      traceContext: this.traceContext,
     };
   };
 
@@ -458,11 +457,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     fileState: FileState,
   ) => {
     try {
-      const params = this.getCardPreviewParams(
-        identifier,
-        fileState,
-        this.traceContext,
-      );
+      const params = this.getCardPreviewParams(identifier, fileState);
       const cardPreview = await getCardPreview(params);
       this.safeSetState({ cardPreview });
     } catch (e) {

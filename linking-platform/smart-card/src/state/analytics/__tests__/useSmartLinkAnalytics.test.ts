@@ -2,6 +2,7 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import { useSmartLinkAnalytics } from '../useSmartLinkAnalytics';
 import { mocks } from '../../../utils/mocks';
+import { CardDisplay } from '../../../constants';
 
 jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({
@@ -19,7 +20,7 @@ describe('useSmartLinkAnalytics', () => {
     );
     result.current.ui.cardClickedEvent({
       id: 'test-id',
-      display: 'flexible',
+      display: CardDisplay.Flexible,
       status: 'resolved',
     });
     expect(mockedAnalyticsHandler).toBeCalled();

@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.8.0
+
+### Minor Changes
+
+- [`f2d39d67a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2d39d67a70) - Fixed the issue where field's value was reset on the component re-mount.
+
 ## 8.7.1
 
 ### Patch Changes

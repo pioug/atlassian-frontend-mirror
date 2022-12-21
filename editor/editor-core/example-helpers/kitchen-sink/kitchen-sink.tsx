@@ -102,6 +102,7 @@ export type KitchenSinkState = {
   scrubContent: boolean;
   waitingToValidate: boolean;
   theme: Theme;
+  sanitizePrivateContent: boolean;
 
   warning?: ADFUrl.Message;
   positionDebuggerEnabled?: boolean;
@@ -240,6 +241,7 @@ export class KitchenSink extends React.Component<
     showErrors: false,
     waitingToValidate: false,
     scrubContent: this.params.get('scrub') === 'true',
+    sanitizePrivateContent: false,
     theme: getInitialTheme(),
     positionDebuggerEnabled: false,
   };
@@ -298,6 +300,11 @@ export class KitchenSink extends React.Component<
 
   private onScrubToggle = (scrubContent: boolean) => {
     this.setState({ scrubContent });
+  };
+
+  private onSanitizePrivateContent = (sanitizePrivateContent: boolean) => {
+    this.setState({ sanitizePrivateContent });
+    this.props.actions.replaceDocument('', false);
   };
 
   private onErrorToggle = (showErrors: boolean) => {
@@ -457,6 +464,7 @@ export class KitchenSink extends React.Component<
             themeOptions={themeOptions}
             validating={this.state.waitingToValidate}
             vertical={this.state.vertical}
+            sanitizePrivateContent={this.state.sanitizePrivateContent}
             onAppearanceChange={this.onAppeareanceChange}
             onLoadDocument={this.loadDocument}
             onFullWidthChange={this.toggleFullWidthMode}
@@ -467,6 +475,7 @@ export class KitchenSink extends React.Component<
             onAdfToggle={this.onAdfToggle}
             onCopyLink={this.onCopyLink}
             onScrubToggle={this.onScrubToggle}
+            onSanitizePrivateContent={this.onSanitizePrivateContent}
           />
           <div css={container({ vertical: this.state.vertical, root: true })}>
             <div
@@ -481,6 +490,7 @@ export class KitchenSink extends React.Component<
                 popupMountPoint={this.popupMountPoint}
                 theme={this.state.theme}
                 adf={this.state.adf}
+                sanitizePrivateContent={this.state.sanitizePrivateContent}
                 setPopupRef={this.setPopupRef}
                 onDocumentChanged={this.onDocumentChanged}
                 onDocumentValidated={this.onDocumentValidated}

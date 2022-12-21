@@ -10,6 +10,10 @@ import { token } from '@atlaskit/tokens';
 
 export type BaseCellProps = {
   /**
+   * A percentage of pixel width of the table to apply to a column.
+   */
+  width?: string;
+  /**
    * Horizontal alignment of content.
    */
   align?: keyof typeof alignMap;
@@ -72,6 +76,7 @@ export const BaseCell = forwardRef<HTMLTableCellElement, BaseCellProps>(
       paddingInline = 'scale.200',
       backgroundColor,
       scope,
+      width,
       className,
     },
     ref,
@@ -86,6 +91,7 @@ export const BaseCell = forwardRef<HTMLTableCellElement, BaseCellProps>(
       as={as}
       testId={testId}
       className={className}
+      UNSAFE_style={width ? { width } : undefined}
     >
       <Inline justifyContent={alignMap[align]} gap="scale.0">
         {children}

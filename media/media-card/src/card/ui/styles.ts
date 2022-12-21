@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 import { borderRadius } from '@atlaskit/media-ui';
 import { N60A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { akEditorSelectedBoxShadow } from '@atlaskit/editor-shared-styles/consts';
 
 import { CardDimensions, CardAppearance } from '../../types';
@@ -62,7 +63,10 @@ export const getWrapperShadow = (
   selected: boolean,
 ) => {
   const withOverlayShadow = !disableOverlay
-    ? `0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`
+    ? `${token(
+        'elevation.shadow.raised',
+        `0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`,
+      )}`
     : '';
 
   const selectedShadow = selected ? akEditorSelectedBoxShadow : '';

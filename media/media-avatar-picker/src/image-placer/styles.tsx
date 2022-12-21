@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { ImgHTMLAttributes, HTMLAttributes } from 'react';
 
@@ -36,8 +37,8 @@ export const imagePlacerWrapperStyles = (props: ColorProps) => css`
 `;
 
 export const imagePlacerErrorWrapperStyles = css`
-  background-color: ${R500};
-  color: white;
+  background-color: ${token('color.background.danger.bold', R500)};
+  color: ${token('color.text.inverse', 'white')};
   width: 100%;
   height: 100%;
   text-align: center;
@@ -101,14 +102,14 @@ export const marginWrapperSquareStyles = ({
   size,
 }: MarginWrapperProps) => css`
   position: absolute;
-  border: 1px dotted white;
   left: 0;
   top: 0;
   border-style: solid;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: ${token('elevation.surface.overlay', 'rgba(255, 255, 255)')};
   border-width: ${size}px;
   width: ${width}px;
   height: ${height}px;
+  opacity: ${token('opacity.disabled', '0.3')};
 `;
 
 export const marginWrapperCircleStyles = ({
@@ -132,6 +133,7 @@ export const marginWrapperCircleStyles = ({
     width: ${width}px;
     height: ${height}px;
     box-shadow: 0px 0px 0px ${Math.max(width, height)}px
-      rgba(255, 255, 255, 0.3);
+      ${token('elevation.surface.overlay', 'rgba(255, 255, 255)')};
+    opacity: ${token('opacity.disabled', '0.3')};
   }
 `;

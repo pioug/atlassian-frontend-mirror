@@ -1,4 +1,5 @@
 import React from 'react';
+import { token } from '@atlaskit/tokens';
 import { ReactNode } from 'react';
 import { ModalSpinner } from '@atlaskit/media-ui';
 
@@ -49,7 +50,10 @@ export default class AsyncAvatarPickerDialog extends React.PureComponent<
 
       return (
         <ModalSpinner
-          blankedColor="rgba(255, 255, 255, 0.53)"
+          blankedColor={`${token(
+            'color.blanket',
+            'rgba(255, 255, 255, 0.53)',
+          )}`}
           invertSpinnerColor={false}
         />
       );

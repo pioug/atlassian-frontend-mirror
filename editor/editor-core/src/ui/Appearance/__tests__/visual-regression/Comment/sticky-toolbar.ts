@@ -1,5 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 import {
   initCommentEditorWithAdf,
   snapshot,
@@ -59,13 +60,12 @@ describe('Comment with sticky toolbar', () => {
     });
 
     test('with scroll', async () => {
-      await initCommentEditorWithAdf(
-        page,
-        createDocumentWithParagraphs(10),
-        undefined,
-        undefined,
-        { useStickyToolbar: true },
-      );
+      const url = getExampleUrl('editor', 'editor-core', 'jira-clone');
+      const { page } = global;
+
+      await loadPage(page, url);
+      await page.waitForSelector('div[data-testid="ak-editor-main-toolbar"]');
+
       await clickEditableContent(page);
       await scrollToBottom(page);
       await animationFrame(page);

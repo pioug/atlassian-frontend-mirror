@@ -1,5 +1,21 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
+import { borderRadius } from '@atlaskit/theme/constants';
+
+import {
+  emojiPickerBorderColor,
+  emojiPickerBoxShadow,
+} from '../../util/shared-styles';
+
+import { emojiSprite, placeholder, emojiNodeStyles } from '../common/styles';
+
+import {
+  defaultEmojiPickerSize,
+  emojiPickerHeight,
+  emojiPickerHeightWithPreview,
+  emojiPickerMinHeight,
+  emojiPickerWidth,
+} from '../../util/constants';
 import {
   B200,
   B300,
@@ -10,21 +26,15 @@ import {
   N50,
   N900,
 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
-import {
-  emojiPickerBorderColor,
-  emojiPickerBoxShadow,
-} from '../../util/shared-styles';
-import { emojiSprite, placeholder, emojiNodeStyles } from '../common/styles';
-import {
-  emojiPickerHeight,
-  emojiPickerHeightWithPreview,
-  emojiPickerWidth,
-} from '../../util/constants';
+import { PickerSize } from '../../types';
+import { emojiPickerHeightOffset } from './utils';
 
 // Level 1 - picker
-
-export const emojiPicker = (hasPreview?: boolean) => {
+export const emojiPicker = (
+  hasPreview?: boolean,
+  size: PickerSize = defaultEmojiPickerSize,
+) => {
+  const heightOffset = emojiPickerHeightOffset(size);
   return css({
     display: 'flex',
     flexDirection: 'column',
@@ -34,11 +44,15 @@ export const emojiPicker = (hasPreview?: boolean) => {
     borderRadius: `${borderRadius()}px`,
     boxShadow: emojiPickerBoxShadow,
     height: `${
-      hasPreview ? emojiPickerHeightWithPreview : emojiPickerHeight
+      hasPreview
+        ? emojiPickerHeightWithPreview + heightOffset
+        : emojiPickerHeight + heightOffset
     }px`,
     width: `${emojiPickerWidth}px`,
     marginBottom: '8px',
     minWidth: `${emojiPickerWidth}px`,
+    minHeight: `${emojiPickerMinHeight + heightOffset}px`,
+    maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
   });
 };
 

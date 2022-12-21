@@ -1,8 +1,8 @@
 import React, { ReactElement, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import InfoIcon from '@atlaskit/icon/glyph/info';
-import { gridSize } from '@atlaskit/theme/constants';
 
 import Flag, { FlagGroup } from '../src';
 
@@ -22,14 +22,12 @@ const ProgrammaticFlagDismissExample = () => {
   };
 
   return (
-    <div>
-      <p style={{ padding: `${gridSize() * 2}px` }}>
-        <Button appearance="primary" onClick={dismissFlag}>
-          Dismiss the Flag
-        </Button>
-      </p>
+    <Box>
+      <Button appearance="primary" onClick={dismissFlag}>
+        Dismiss the Flag
+      </Button>
       <FlagGroup>{flags}</FlagGroup>
-    </div>
+    </Box>
   );
 };
 

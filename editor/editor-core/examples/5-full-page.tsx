@@ -533,6 +533,7 @@ export class ExampleEditorComponent extends React.Component<
                 }}
                 {...editorProps}
                 featureFlags={{
+                  tableCellOptionsInFloatingToolbar: true,
                   ...editorProps.featureFlags,
                   // Enabling to catch during dev by default
                   'safer-dispatched-transactions': true,
@@ -746,7 +747,6 @@ export function FullPageExample(props: ExampleProps) {
     stickyHeadersOptimization: true,
     tableOverflowShadowsOptimization: true,
     maxUnsafeChromeSpellcheckingVersion: 100,
-    plainTextPasteLinkification: true,
     'view-changing-experiment-toolbar-style': 'newDropdown',
   };
 

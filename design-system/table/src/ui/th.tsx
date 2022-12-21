@@ -17,6 +17,7 @@ export const TH: FC<THProps> = ({
   align,
   scope,
   backgroundColor,
+  width,
 }) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <BaseCell
@@ -24,6 +25,7 @@ export const TH: FC<THProps> = ({
     testId={testId}
     align={align}
     scope={scope}
+    width={width}
     backgroundColor={backgroundColor}
   >
     {children}

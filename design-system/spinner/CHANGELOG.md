@@ -1,5 +1,15 @@
 # @atlaskit/spinner
 
+## 15.3.0
+
+### Minor Changes
+
+- [`94909536ed2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94909536ed2) - Enable Spinner to be able to hold during an interaction
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.1
 
 ### Patch Changes

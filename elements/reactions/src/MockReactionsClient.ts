@@ -8,12 +8,15 @@ export const getReactionSummary: (
   shortName: string,
   count: number,
   reacted: boolean,
-) => ReactionSummary = (shortName, count, reacted) => {
+  extendedReactions?: boolean,
+) => ReactionSummary = (shortName, count, reacted, extendedReactions) => {
+  const getReactionsByShortName = extendedReactions
+    ? constants.ExtendedReactionsByShortName.get(shortName)
+    : constants.DefaultReactionsByShortName.get(shortName);
   return {
     ari,
     containerAri,
-    emojiId: (constants.DefaultReactionsByShortName.get(shortName) as EmojiId)
-      .id!,
+    emojiId: (getReactionsByShortName as EmojiId).id!,
     count,
     reacted,
   };
@@ -22,6 +25,9 @@ export const getReactionSummary: (
 export const getUser = (id: string, displayName: string) => ({
   id,
   displayName,
+  profilePicture: {
+    path: 'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
+  },
 });
 
 const getReactionKey = (containerAri: string, ari: string): string => {
@@ -40,9 +46,13 @@ const defaultUsers = [
   getUser('severington', 'Ste Everington'),
   getUser('sguillope', 'Sylvain Guillope'),
   getUser('alunnon', 'Alex Lunnon'),
+  getUser('bsmith', 'Bob Smith'),
+  getUser('jdoe', 'Jane Doe'),
+  getUser('mhomes', 'Mary Homes'),
+  getUser('ckent', 'Clark Kent'),
 ];
 
-export const mockData: {
+export const simpleMockData: {
   [key: string]: ReactionSummary[];
 } = {
   [getReactionKey(containerAri, ari)]: [
@@ -53,14 +63,37 @@ export const mockData: {
   ],
 };
 
+const extendedMockData: {
+  [key: string]: ReactionSummary[];
+} = {
+  [getReactionKey(containerAri, ari)]: [
+    getReactionSummary(':fire:', 1, true, true),
+    getReactionSummary(':thumbsup:', 999, false, true),
+    getReactionSummary(':astonished:', 9, false, true),
+    getReactionSummary(':heart:', 99, false, true),
+    getReactionSummary(':thinking:', 10, false, true),
+    getReactionSummary(':clap:', 99, false, true),
+    getReactionSummary(':thumbsdown:', 2, false, true),
+    getReactionSummary(':bulb:', 16, false, true),
+    getReactionSummary(':star:', 9999, false, true),
+    getReactionSummary(':green_heart:', 9, false, true),
+    getReactionSummary(':blue_heart:', 8392, false, true),
+    getReactionSummary(':broken_heart:', 1, false, true),
+    getReactionSummary(':grinning:', 10601, false, true),
+    getReactionSummary(':slight_smile:', 99, false, true),
+  ],
+};
+
 /**
  * Mocked version of the client to fetch user information
  */
 export class MockReactionsClient implements Client {
   private delay: number;
+  private mockData: { [key: string]: ReactionSummary[] };
 
-  constructor(delay = 0) {
+  constructor(delay = 0, showExtendedReactions = false) {
     this.delay = delay;
+    this.mockData = showExtendedReactions ? extendedMockData : simpleMockData;
   }
 
   private delayPromise = () =>
@@ -70,7 +103,7 @@ export class MockReactionsClient implements Client {
     await this.delayPromise();
     return aris.reduce((results, ari) => {
       const reactionKey = getReactionKey(containerAri, ari);
-      results[ari] = mockData[reactionKey] || [];
+      results[ari] = this.mockData[reactionKey] || [];
       return results;
     }, {} as Reactions);
   }
@@ -82,7 +115,7 @@ export class MockReactionsClient implements Client {
   ): Promise<ReactionSummary> {
     await this.delayPromise();
     const reactionKey = `${containerAri}|${ari}`;
-    const reactionsMockData = mockData[reactionKey];
+    const reactionsMockData = this.mockData[reactionKey];
     if (reactionsMockData) {
       const reaction = reactionsMockData.find(
         (reaction_1) => reaction_1.emojiId === emojiId,
@@ -119,9 +152,9 @@ export class MockReactionsClient implements Client {
     await this.delayPromise();
     const reactionKey = getReactionKey(containerAri, ari);
     let found = false;
-    const reactionsMockData = mockData[reactionKey];
+    const reactionsMockData = this.mockData[reactionKey];
     if (reactionsMockData) {
-      mockData[reactionKey] = reactionsMockData.map((reaction) => {
+      this.mockData[reactionKey] = reactionsMockData.map((reaction) => {
         if (reaction.emojiId === emojiId) {
           found = true;
           return {
@@ -134,7 +167,7 @@ export class MockReactionsClient implements Client {
       });
     }
     if (!found) {
-      mockData[reactionKey] = [
+      this.mockData[reactionKey] = [
         ...(reactionsMockData ? reactionsMockData : []),
         {
           containerAri,
@@ -145,7 +178,7 @@ export class MockReactionsClient implements Client {
         },
       ];
     }
-    return mockData[reactionKey];
+    return this.mockData[reactionKey];
   }
 
   async deleteReaction(
@@ -155,7 +188,7 @@ export class MockReactionsClient implements Client {
   ): Promise<ReactionSummary[]> {
     await this.delayPromise();
     const reactionKey = getReactionKey(containerAri, ari);
-    mockData[reactionKey] = mockData[reactionKey]
+    this.mockData[reactionKey] = this.mockData[reactionKey]
       .map((reaction) => {
         if (reaction.emojiId === emojiId) {
           if (reaction.count === 1) {
@@ -170,6 +203,6 @@ export class MockReactionsClient implements Client {
         return reaction;
       })
       .filter((reaction_1) => !!reaction_1) as ReactionSummary[];
-    return mockData[reactionKey];
+    return this.mockData[reactionKey];
   }
 }

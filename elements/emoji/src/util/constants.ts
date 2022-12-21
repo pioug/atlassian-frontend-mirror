@@ -19,8 +19,18 @@ export const MAX_ORDINAL = 100000;
 export const defaultEmojiHeight = 20;
 
 export const emojiPickerWidth = 350;
+
+export const sizeGap = 80;
+
+export const defaultEmojiPickerSize = 'medium';
+
+export const emojiPickerMinHeight = 260;
 export const emojiPickerHeight = 295;
-export const emojiPickerHeightWithPreview = 348;
+export const emojiPickerListHeight = emojiPickerHeight - 58; // picker height - actions height
+
+export const emojiPickerPreviewHeight = 54;
+export const emojiPickerHeightWithPreview =
+  emojiPickerHeight + emojiPickerPreviewHeight;
 
 export const localStoragePrefix = 'fabric.emoji';
 export const selectedToneStorageKey = `${localStoragePrefix}.selectedTone`;

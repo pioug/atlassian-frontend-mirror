@@ -150,7 +150,12 @@ export function handleTripleClick(view: EditorView, pos: number): boolean {
 
 export function handleMouseDown(view: EditorView, event: Event): boolean {
   const startEvent = event as MouseEvent;
-  if (startEvent.ctrlKey || startEvent.metaKey) {
+  // Prevent right clicks from making a cell selection https://product-fabric.atlassian.net/browse/ED-12527
+  if (
+    startEvent.ctrlKey ||
+    startEvent.metaKey ||
+    startEvent.button === 2 // right mouse click
+  ) {
     return false;
   }
 
@@ -190,6 +195,7 @@ export function handleMouseDown(view: EditorView, event: Event): boolean {
         return false;
       }
     }
+
     const selection = new CellSelection($selectionAnchor, $head);
     if (starting || !view.state.selection.eq(selection)) {
       const tr = view.state.tr.setSelection(selection);

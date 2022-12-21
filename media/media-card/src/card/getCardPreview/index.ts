@@ -12,6 +12,7 @@ import {
   MediaFeatureFlags,
   isMimeTypeSupportedByBrowser,
   SSR,
+  MediaTraceContext,
 } from '@atlaskit/media-common';
 import { ImageResizeMode } from '@atlaskit/media-client';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -71,7 +72,7 @@ export type CardPreviewParams = {
   mediaBlobUrlAttrs?: MediaBlobUrlAttrs;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   featureFlags?: MediaFeatureFlags;
-  traceId?: string;
+  traceContext?: MediaTraceContext;
 };
 
 const extendAndCachePreview = (
@@ -127,7 +128,7 @@ export const getCardPreview = async ({
   mediaBlobUrlAttrs,
   createAnalyticsEvent,
   featureFlags,
-  traceId,
+  traceContext,
 }: CardPreviewParams): Promise<CardPreview> => {
   const mode = imageUrlParams.mode;
   const cachedPreview = cardPreviewCache.get(id, mode);
@@ -197,7 +198,7 @@ export const getCardPreview = async ({
     dimensions,
     imageUrlParams,
     mediaBlobUrlAttrs,
-    traceId,
+    traceContext,
   );
   if (getMediaFeatureFlag('memoryCacheLogging', featureFlags)) {
     createAnalyticsEvent &&
@@ -304,13 +305,13 @@ export const fetchAndCacheRemotePreview = async (
   dimensions: CardDimensions,
   params: MediaStoreGetFileImageParams,
   mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
-  traceId?: string,
+  traceContext?: MediaTraceContext,
 ) => {
   const remotePreview = await getCardPreviewFromBackend(
     mediaClient,
     id,
     params,
-    traceId,
+    traceContext,
   );
   return extendAndCachePreview(
     id,

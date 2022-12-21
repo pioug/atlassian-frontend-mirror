@@ -30,4 +30,9 @@ export type SpinnerProps = {
    * serving as a hook for automated tests.
    */
   testId?: string;
+
+  /**
+   * An optional interactionName used to identify when this component is holding an interaction
+   */
+  interactionName?: string;
 };

@@ -7,6 +7,7 @@ export type {
   Store as ReactionsStore,
   StorePropInput,
   State,
+  onDialogSelectReactionChange,
 } from './types';
 export { constants } from './shared';
 export { Reaction, ReactionPicker, Reactions } from './components';

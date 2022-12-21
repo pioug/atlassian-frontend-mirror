@@ -22,6 +22,7 @@ import {
   stopMeasure,
   shouldForceTracking,
   measureTTI,
+  getDistortedDurationMonitor,
   browser,
 } from '@atlaskit/editor-common/utils';
 
@@ -80,6 +81,14 @@ export class Renderer extends PureComponent<RendererProps> {
   private editorRef: React.RefObject<HTMLDivElement>;
   private mouseDownSelection?: string;
   private id?: string;
+  /**
+   * This is used in measuring the Renderer Mount time and is then
+   * deleted once that measurement occurs.
+   */
+  private renderedMeasurementDistortedDurationMonitor?: {
+    distortedDuration: boolean;
+    cleanup: () => void;
+  } = getDistortedDurationMonitor();
 
   constructor(props: RendererProps) {
     super(props);
@@ -165,6 +174,9 @@ export class Renderer extends PureComponent<RendererProps> {
           attributes: {
             platform: PLATFORM.WEB,
             duration,
+            distortedDuration:
+              this.renderedMeasurementDistortedDurationMonitor!
+                .distortedDuration,
             ttfb: getResponseEndTime(),
             nodes: reduce<Record<string, number>>(
               this.props.document,
@@ -178,6 +190,8 @@ export class Renderer extends PureComponent<RendererProps> {
           },
           eventType: EVENT_TYPE.OPERATIONAL,
         });
+        this.renderedMeasurementDistortedDurationMonitor!.cleanup();
+        delete this.renderedMeasurementDistortedDurationMonitor;
       });
       this.anchorLinkAnalytics();
     });

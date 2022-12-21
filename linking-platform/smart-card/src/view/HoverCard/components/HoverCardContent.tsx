@@ -4,6 +4,7 @@ import { JsonLd } from 'json-ld-types';
 import React, { useCallback, useMemo } from 'react';
 import {
   ActionName,
+  CardDisplay,
   SmartLinkPosition,
   SmartLinkSize,
 } from '../../../constants';
@@ -19,7 +20,7 @@ import {
 import { FlexibleCardProps } from '../../FlexibleCard/types';
 import { flexibleUiOptions, titleBlockCss } from '../styled';
 import { HoverCardContentProps } from '../types';
-import { getSimulatedMetadata, SMART_CARD_ANALYTICS_DISPLAY } from '../utils';
+import { getSimulatedMetadata } from '../utils';
 import HoverCardLoadingView from './views/resolving';
 import HoverCardUnauthorisedView from './views/unauthorised';
 import HoverCardResolvedView from './views/resolved';
@@ -55,7 +56,6 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   onResolve,
   renderers,
   url,
-  onAuthorize,
 }) => {
   const extensionKey = useMemo(
     () => getExtensionKey(cardState.details),
@@ -67,7 +67,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
       const isModifierKeyPressed = isSpecialEvent(event);
       analytics.ui.cardClickedEvent({
         id,
-        display: SMART_CARD_ANALYTICS_DISPLAY,
+        display: CardDisplay.HoverCardPreview,
         status: cardState.status,
         isModifierKeyPressed,
         actionSubjectId: 'titleGoToLink',
@@ -120,8 +120,11 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   if (cardState.status === 'unauthorized') {
     return (
       <HoverCardUnauthorisedView
+        analytics={analytics}
+        extensionKey={extensionKey}
+        id={id}
         flexibleCardProps={flexibleCardProps}
-        onAuthorize={onAuthorize}
+        url={url}
       />
     );
   }

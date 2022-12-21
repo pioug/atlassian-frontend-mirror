@@ -9,7 +9,7 @@ import {
   CustomItemComponentProps,
   MenuGroup,
 } from '@atlaskit/menu';
-import { DN600, DN80, N70, N900 } from '@atlaskit/theme/colors';
+import { B100, DN600, DN80, N70, N900 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
@@ -18,8 +18,10 @@ import Tooltip, { PositionType } from '@atlaskit/tooltip';
 import { withReactEditorViewOuterListeners } from '../../ui-react';
 import DropList from '../../ui/DropList';
 import Popup from '../../ui/Popup';
+import { MenuArrowKeyNavigationProvider } from '../MenuArrowKeyNavigationProvider';
 
 import { MenuItem, Props, State } from './types';
+
 export type { MenuItem } from './types';
 
 const wrapper = css`
@@ -27,6 +29,11 @@ const wrapper = css`
   & > div > div {
     display: flex;
   }
+`;
+
+const focusedMenuItemStyle = css`
+  box-shadow: inset 0px 0px 0px 2px ${token('color.border.focused', B100)};
+  outline: none;
 `;
 
 const buttonStyles = (isActive?: boolean) => (theme: ThemeProps) => {
@@ -40,6 +47,13 @@ const buttonStyles = (isActive?: boolean) => (theme: ThemeProps) => {
       > span:active {
         background: ${token('color.background.selected', '#6c798f')};
         color: ${token('color.text', '#fff')};
+      }
+      :focus > span[aria-disabled='false'] {
+        ${focusedMenuItemStyle};
+      }
+      :focus-visible,
+      :focus-visible > span[aria-disabled='false'] {
+        outline: none;
       }
     `;
   } else {
@@ -78,7 +92,14 @@ const buttonStyles = (isActive?: boolean) => (theme: ThemeProps) => {
           dark: token('color.text.disabled', DN80),
         })(theme)};
       }
-    `;
+      :focus > span[aria-disabled='false'] {
+        ${focusedMenuItemStyle};
+      }
+      :focus-visible,
+      :focus-visible > span[aria-disabled='false'] {
+        outline: none;
+      }
+    `; // The deafut focus-visible style is removed to ensure consistency across browsers
   }
 };
 
@@ -110,6 +131,11 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
     }
   };
 
+  private handleCloseandFocus = () => {
+    this.handleClose();
+    this.state.target?.querySelector('button')?.focus();
+  };
+
   private handleClose = () => {
     if (this.props.onOpenChange) {
       this.props.onOpenChange({ isOpen: false });
@@ -129,6 +155,8 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
       isOpen,
       zIndex,
       shouldUseDefaultRole,
+      disableArrowKeyNavigation,
+      keyDownHandlerContext,
     } = this.props;
 
     return (
@@ -143,35 +171,43 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
         zIndex={zIndex || akEditorFloatingPanelZIndex}
         offset={offset}
       >
-        <DropListWithOutsideListeners
-          isOpen={true}
-          appearance="tall"
-          position={popupPlacement.join(' ')}
-          shouldFlip={false}
-          shouldFitContainer={true}
-          isTriggerNotTabbable={true}
-          handleClickOutside={this.handleClose}
-          handleEscapeKeydown={this.handleClose}
+        <MenuArrowKeyNavigationProvider
+          disableArrowKeyNavigation={disableArrowKeyNavigation}
+          handleClose={this.handleCloseandFocus}
+          keyDownHandlerContext={keyDownHandlerContext}
+          closeonTab={true}
         >
-          <div style={{ height: 0, minWidth: fitWidth || 0 }} />
-          {items.map((group, index) => (
-            <MenuGroup
-              key={index}
-              role={shouldUseDefaultRole ? 'group' : 'menu'}
-            >
-              {group.items.map((item) => (
-                <DropdownMenuItem
-                  key={item.key ?? String(item.content)}
-                  item={item}
-                  onItemActivated={this.props.onItemActivated}
-                  shouldUseDefaultRole={this.props.shouldUseDefaultRole}
-                  onMouseEnter={this.props.onMouseEnter}
-                  onMouseLeave={this.props.onMouseLeave}
-                />
-              ))}
-            </MenuGroup>
-          ))}
-        </DropListWithOutsideListeners>
+          <DropListWithOutsideListeners
+            isOpen={true}
+            appearance="tall"
+            position={popupPlacement.join(' ')}
+            shouldFlip={false}
+            shouldFitContainer={true}
+            isTriggerNotTabbable={true}
+            handleClickOutside={this.handleClose}
+            handleEscapeKeydown={this.handleCloseandFocus}
+            targetRef={this.state.target}
+          >
+            <div style={{ height: 0, minWidth: fitWidth || 0 }} />
+            {items.map((group, index) => (
+              <MenuGroup
+                key={index}
+                role={shouldUseDefaultRole ? 'group' : 'menu'}
+              >
+                {group.items.map((item) => (
+                  <DropdownMenuItem
+                    key={item.key ?? String(item.content)}
+                    item={item}
+                    onItemActivated={this.props.onItemActivated}
+                    shouldUseDefaultRole={this.props.shouldUseDefaultRole}
+                    onMouseEnter={this.props.onMouseEnter}
+                    onMouseLeave={this.props.onMouseLeave}
+                  />
+                ))}
+              </MenuGroup>
+            ))}
+          </DropListWithOutsideListeners>
+        </MenuArrowKeyNavigationProvider>
       </Popup>
     );
   }
@@ -224,7 +260,10 @@ function DropdownMenuItem({
   }
 
   const dropListItem = (
-    <div css={(theme: ThemeProps) => buttonStyles(item.isActive)({ theme })}>
+    <div
+      css={(theme: ThemeProps) => buttonStyles(item.isActive)({ theme })}
+      tabIndex={-1}
+    >
       <CustomItem
         item={item}
         key={item.key ?? String(item.content)}

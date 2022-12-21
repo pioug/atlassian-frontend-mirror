@@ -1,7 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4118
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4153
 
 import { css } from '@emotion/react';
 
@@ -15,6 +14,7 @@ import {
 import {
   akEditorBreakoutPadding,
   akEditorFullWidthLayoutWidth,
+  akEditorSelectedNodeClassName,
   akEditorTableBorder,
   akEditorTableBorderDark,
   akEditorTableNumberColumnWidth,
@@ -31,6 +31,8 @@ import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import browser from '../../utils/browser';
+
+import { CodeBlockSharedCssClassName } from './code-block';
 
 export const tableMarginTop = 24;
 export const tableMarginBottom = 16;
@@ -164,23 +166,37 @@ const tableSharedStyle = (props: ThemeProps) => css`
 
         /* only apply this styling to codeblocks in default background headercells */
         /* TODO this needs to be overhauled as it relies on unsafe selectors */
-        &:not([style]) {
-          .code-block {
-            background-image: ${overflowShadow({
-              background: themed({
-                light: 'rgb(235, 237, 240)',
-                dark: 'rgb(36, 47, 66)',
-              })(props),
-              width: `${gridSize()}px`,
-            })};
-            background-attachment: local, scroll, scroll;
-            background-position: 100% 0, 100% 0, 0 0;
+        &:not([style]):not(.danger) {
+          .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}:not(.danger) {
             background-color: ${themed({
-              light: token('color.background.neutral', 'rgb(235, 237, 240)'),
-              dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
+              light: token('elevation.surface.raised', 'rgb(235, 237, 240)'),
+              dark: token('elevation.surface.raised', 'rgb(36, 47, 66)'),
             })(props)};
 
-            .line-number-gutter {
+            :not(.${akEditorSelectedNodeClassName}) {
+              box-shadow: 0px 0px 0px 1px
+                ${token('color.border', 'transparent')};
+            }
+
+            .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {
+              background-image: ${overflowShadow({
+                background: themed({
+                  light: token(
+                    'color.background.neutral',
+                    'rgb(235, 237, 240)',
+                  ),
+                  dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
+                })(props),
+                width: `${gridSize()}px`,
+              })};
+
+              background-color: ${themed({
+                light: token('color.background.neutral', 'rgb(235, 237, 240)'),
+                dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
+              })(props)};
+            }
+
+            .${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
               background-color: ${themed({
                 light: token('color.background.neutral', 'rgb(226, 229, 233)'),
                 dark: token('color.background.neutral', DN20),
@@ -191,8 +207,11 @@ const tableSharedStyle = (props: ThemeProps) => css`
             > [data-ds--code--code-block] {
               background-image: ${overflowShadow({
                 background: themed({
-                  light: 'rgb(235, 237, 240)',
-                  dark: 'rgb(36, 47, 66)',
+                  light: token(
+                    'color.background.neutral',
+                    'rgb(235, 237, 240)',
+                  ),
+                  dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
                 })(props),
                 width: `${gridSize()}px`,
               })}!important;

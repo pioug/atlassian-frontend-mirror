@@ -23,6 +23,7 @@ export interface FileIconProps {
   testId?: string;
   type?: MediaType;
   size?: 'small' | 'large';
+  className?: string;
 }
 
 export const IconWrapper = styled.div`

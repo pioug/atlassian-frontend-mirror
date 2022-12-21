@@ -1,6 +1,6 @@
 import { EventEmitter2 } from 'eventemitter2';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { MediaFeatureFlags, MediaTraceContext } from '@atlaskit/media-common';
 import {
   MediaStore,
   MediaStoreGetFileImageParams,
@@ -46,14 +46,14 @@ export class MediaClient {
     params?: MediaStoreGetFileImageParams,
     controller?: AbortController,
     fetchMaxRes?: boolean,
-    traceId?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<Blob> {
     return this.mediaStore.getImage(
       id,
       params,
       controller,
       fetchMaxRes,
-      traceId,
+      traceContext,
     );
   }
 

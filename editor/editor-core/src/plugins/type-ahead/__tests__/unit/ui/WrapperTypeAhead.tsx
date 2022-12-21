@@ -10,6 +10,7 @@ import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertActionInsert } from '../../../../quick-insert/types';
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 import type { TypeAheadHandler } from '../../../types';
 import { WrapperTypeAhead } from '../../../ui/WrapperTypeAhead';
@@ -229,12 +230,9 @@ describe('WrapperTypeAhead', () => {
 
         const inputQuery = getByRole('combobox');
         act(() => {
-          // There is no way to test a true contenteditable event with jsdom
-          // so we are faking it
           fireEvent.change(inputQuery, {
-            target: { innerHTML: 'l' },
+            target: { value: 'l' },
           });
-          fireEvent.keyUp(inputQuery, { key: 'l' });
         });
 
         expect(forceSelect).toHaveBeenCalledTimes(1);
@@ -259,7 +257,7 @@ describe('WrapperTypeAhead', () => {
           // There is no way to test a true contenteditable event with jsdom
           // so we are faking it
           fireEvent.change(inputQuery, {
-            target: { innerHTML: 'l' },
+            target: { value: 'l' },
           });
           fireEvent.keyUp(inputQuery, { key: 'l' });
         });
@@ -289,7 +287,7 @@ describe('WrapperTypeAhead', () => {
         // There is no way to test a true contenteditable event with jsdom
         // so we are faking it
         fireEvent.change(inputQuery, {
-          target: { innerHTML: 'Ea' },
+          target: { value: 'Ea' },
         });
         fireEvent.keyUp(inputQuery, { key: 'Ea' });
       });
@@ -316,6 +314,43 @@ describe('WrapperTypeAhead', () => {
           doc(p('Hello Earth{<>}')),
         );
       });
+    });
+  });
+
+  describe('when typing an insert query', () => {
+    beforeEach(async () => {
+      const { triggerHandler, resolvedItems } =
+        await createTriggerHandlerFromItems(items);
+
+      const { getByRole } = renderWrapperTypeAhead({
+        triggerHandler,
+        editorView,
+        anchorElement: container!,
+      });
+
+      await resolvedItems;
+
+      const inputQuery = getByRole('combobox');
+      act(() => {
+        // There is no way to test a true contenteditable event with jsdom
+        // so we are faking it
+        fireEvent.change(inputQuery, {
+          target: { value: 'Ea' },
+        });
+        fireEvent.keyUp(inputQuery, { key: 'Ea' });
+      });
+    });
+
+    describe('on pressing special keys', () => {
+      it.each(['Mod+Left', 'Home'])(
+        'should exit the typeahead',
+        async (key) => {
+          sendKeyToPm(editorView, key);
+          expect(editorView.state).toEqualDocumentAndSelection(
+            doc(p('Hello {<>}')),
+          );
+        },
+      );
     });
   });
 
@@ -346,12 +381,12 @@ describe('WrapperTypeAhead', () => {
       });
     });
 
-    describe('when arrow up is pressed at the index  -1', () => {
+    describe('when arrow up is pressed at the index -1', () => {
       it('should set the selectedIndex to the last item', async () => {
         fireKeyDown(inputQuery, ['ArrowUp']);
 
         const pluginState = getPluginState(editorView.state);
-        expect(pluginState.selectedIndex).toBe(-1);
+        expect(pluginState.selectedIndex).toBe(2);
       });
     });
 

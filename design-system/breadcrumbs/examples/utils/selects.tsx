@@ -1,8 +1,14 @@
 import React, { FC } from 'react';
 
-import Select, { OptionType, StylesConfig, ValueType } from '@atlaskit/select';
+import Select, {
+  ActionMeta,
+  OptionsType,
+  OptionType,
+  StylesConfig,
+  ValueType,
+} from '@atlaskit/select';
 
-const styles: StylesConfig = {
+const styles: StylesConfig<OptionType> = {
   container: (base) => ({
     ...base,
     margin: '8px',
@@ -11,7 +17,7 @@ const styles: StylesConfig = {
   }),
 };
 
-const options = [
+const options: OptionsType = [
   { label: '0', value: 0 },
   { label: '1', value: 1 },
   { label: '2', value: 2 },
@@ -27,7 +33,7 @@ const options = [
 ];
 
 interface BeforeItemsSelectProps {
-  onChange: (option: ValueType<OptionType>) => void;
+  onChange: (newValue: ValueType<OptionType>, _actionMeta: ActionMeta) => void;
 }
 
 const BeforeItemsSelect: FC<BeforeItemsSelectProps> = ({ onChange }) => (

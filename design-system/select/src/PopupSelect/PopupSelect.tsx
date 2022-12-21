@@ -1,7 +1,12 @@
 import React, { PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
-import Select, { components as RSComponents, mergeStyles } from 'react-select';
+import Select, {
+  components as RSComponents,
+  mergeStyles,
+  GroupBase,
+} from 'react-select';
+import BaseSelect from 'react-select/base';
 import { uid } from 'react-uid';
 import {
   Manager,
@@ -20,7 +25,6 @@ import { token } from '@atlaskit/tokens';
 import { MenuDialog, DummyControl, defaultComponents } from './components';
 import baseStyles from '../styles';
 import {
-  GroupType,
   OptionType,
   ActionMeta,
   ReactSelectProps,
@@ -58,7 +62,7 @@ interface PopupSelectTriggerProps {
   'aria-controls'?: string;
 }
 
-type ModifierList =
+export type ModifierList =
   | 'offset'
   | 'computeStyles'
   | 'preventOverflow'
@@ -67,9 +71,8 @@ type ModifierList =
   | 'popperOffsets'
   | 'arrow'
   | 'hide'
-  // Line below to be removed [https://product-fabric.atlassian.net/browse/DSP-6093]
-  | string;
-
+  | 'eventListeners'
+  | 'applyStyles';
 export interface PopupSelectProps<
   Option = OptionType,
   IsMulti extends boolean = false,
@@ -129,12 +132,13 @@ export interface PopupSelectProps<
   ) => ReactNode;
   isOpen?: boolean;
   defaultIsOpen?: boolean;
-  /* The prop indicates if the component has a compacted look */
+  /** The prop indicates if the component has a compacted look */
   spacing?: string;
-  /* @deprecated Use isInvalid instead. The state of validation if used in a form */
+  /** @deprecated Use isInvalid instead. The state of validation if used in a form */
   validationState?: ValidationState;
-  /* This prop indicates if the component is in an error state */
+  /** This prop indicates if the component is in an error state */
   isInvalid?: boolean;
+  testId?: string;
 }
 
 interface State<Modifiers = string> {
@@ -172,9 +176,10 @@ const isEmpty = (obj: Object) => Object.keys(obj).length === 0;
 export default class PopupSelect<
   Option = OptionType,
   IsMulti extends boolean = false,
-> extends PureComponent<PopupSelectProps<Option, IsMulti>, State> {
+  Modifiers = ModifierList,
+> extends PureComponent<PopupSelectProps<Option, IsMulti, Modifiers>, State> {
   menuRef: HTMLElement | null = null;
-  selectRef: Select<Option, IsMulti> | null = null;
+  selectRef: BaseSelect<Option, IsMulti> | null = null;
   targetRef: HTMLElement | null = null;
   unbindWindowClick: UnbindFn | null = null;
   unbindWindowKeydown: UnbindFn | null = null;
@@ -269,7 +274,7 @@ export default class PopupSelect<
     this.unbindWindowKeydown = null;
   }
 
-  componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti>) {
+  componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti, Modifiers>) {
     const { isOpen } = this.props;
 
     if (prevProps.isOpen !== isOpen) {
@@ -292,8 +297,9 @@ export default class PopupSelect<
         break;
       default:
     }
-    if (this.props.handleKeyDown) {
-      this.props.handleKeyDown(event);
+    if (this.props.onKeyDown) {
+      /* @ts-ignore - updating type of event React.KeyboardEvent effects the unbindWindowsKeyDown listener. Check if this can be fixed once the component gets refactor to functional */
+      this.props.onKeyDown(event);
     }
   };
 
@@ -347,21 +353,21 @@ export default class PopupSelect<
    * @param options.controlOverride  - Force the popup to open when it's open state is being controlled
    */
   open = (options?: { controlOverride?: boolean }) => {
-    const { onOpen } = this.props;
+    const { onMenuOpen } = this.props;
 
     if (!options?.controlOverride && this.isOpenControlled) {
       // Prevent popup opening if it's open state is already being controlled
       return;
     }
 
-    if (onOpen) {
-      onOpen();
+    if (onMenuOpen) {
+      onMenuOpen();
     }
 
     this.setState({ isOpen: true });
 
     if (this.selectRef) {
-      this.selectRef.select.openMenu('first'); // HACK
+      this.selectRef.openMenu('first');
     }
 
     if (typeof window === 'undefined') {
@@ -380,15 +386,11 @@ export default class PopupSelect<
    * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
    */
   close = (options?: { controlOverride?: boolean }) => {
-    const { onClose, onMenuClose } = this.props;
+    const { onMenuClose } = this.props;
 
     if (!options?.controlOverride && this.isOpenControlled) {
       // Prevent popup closing if it's open state is already being controlled
       return;
-    }
-
-    if (onClose) {
-      onClose();
     }
 
     if (onMenuClose) {
@@ -438,7 +440,7 @@ export default class PopupSelect<
       }
     };
 
-  getSelectRef = (ref: Select<Option, IsMulti>) => {
+  getSelectRef = (ref: BaseSelect<Option, IsMulti>) => {
     this.selectRef = ref;
   };
 
@@ -451,9 +453,9 @@ export default class PopupSelect<
     const { options } = this.props;
     let count = 0;
 
-    options!.forEach((groupOrOption: Option | GroupType<Option>) => {
-      if ((groupOrOption as GroupType<Option>).options) {
-        (groupOrOption as GroupType<Option>).options.forEach(() => count++);
+    options!.forEach((groupOrOption: Option | GroupBase<Option>) => {
+      if ((groupOrOption as GroupBase<Option>).options) {
+        (groupOrOption as GroupBase<Option>).options.forEach(() => count++);
       } else {
         count++;
       }
@@ -472,10 +474,9 @@ export default class PopupSelect<
     // subtract the control height to maintain consistency
     const showSearchControl = this.showSearchControl();
 
-    const { controlRef } = this.selectRef.select;
-
-    // @ts-ignore React-select provides incomplete types for controlRef
-    const offsetHeight = showSearchControl ? controlRef.offsetHeight : 0;
+    const { controlRef } = this.selectRef;
+    const offsetHeight =
+      showSearchControl && controlRef ? controlRef.offsetHeight : 0;
     const maxHeight = maxMenuHeight! - offsetHeight;
 
     return maxHeight;

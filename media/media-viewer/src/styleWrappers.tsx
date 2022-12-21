@@ -20,6 +20,7 @@ import {
   contentWrapperStyles,
   customAudioPlayerWrapperStyles,
   customVideoPlayerWrapperStyles,
+  defaultCoverWrapperStyles,
   downloadButtonWrapperStyles,
   errorImageStyles,
   errorMessageWrapperStyles,
@@ -71,14 +72,24 @@ export const Blanket = ({
   </div>
 );
 
+type HeaderWrapperProps = {
+  isArchiveSideBarVisible: boolean;
+};
+
 export const HeaderWrapper = ({
   className,
   children,
-}: ClassName & Children) => (
-  <div css={headerWrapperStyles} className={className}>
-    {children}
-  </div>
-);
+  isArchiveSideBarVisible,
+}: ClassName & Children & HeaderWrapperProps) => {
+  return (
+    <div
+      css={headerWrapperStyles({ isArchiveSideBarVisible })}
+      className={className}
+    >
+      {children}
+    </div>
+  );
+};
 
 HeaderWrapper.displayName = 'HeaderWrapper';
 
@@ -188,8 +199,15 @@ export const Arrow = ({ className, children }: ClassName & Children) => (
   </span>
 );
 
-export const LeftWrapper = ({ children }: Children) => (
-  <div css={leftWrapperStyles}>{children}</div>
+export type LeftWrapperProps = {
+  isArchiveSideBarVisible: boolean;
+};
+
+export const LeftWrapper = ({
+  children,
+  isArchiveSideBarVisible,
+}: Children & LeftWrapperProps) => (
+  <div css={leftWrapperStyles({ isArchiveSideBarVisible })}>{children}</div>
 );
 
 export const RightWrapper = ({ children }: Children) => (
@@ -384,7 +402,7 @@ export const AudioCover = ({ src, alt }: AudioCoverProps) => (
 );
 
 export const DefaultCoverWrapper = ({ children }: Children) => (
-  <div css={downloadButtonWrapperStyles}>{children}</div>
+  <div css={defaultCoverWrapperStyles}>{children}</div>
 );
 
 export const DownloadButtonWrapper = ({ children }: Children) => (

@@ -16,6 +16,18 @@ import { token } from '@atlaskit/tokens';
 import { codeBlockClassNames } from './ui/class-names';
 import { codeBlockSharedStyles } from '@atlaskit/editor-common/styles';
 
+const GutterDangerOverlay = () => css`
+  &::after {
+    height: 100%;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 24px;
+    background-color: ${token('color.blanket.danger', 'none')};
+  }
+`;
+
 export const codeBlockStyles = (props: ThemeProps) => css`
   .ProseMirror {
     ${codeBlockSharedStyles(props)}
@@ -42,16 +54,18 @@ export const codeBlockStyles = (props: ThemeProps) => css`
 
   /* Danger when top level node */
   .ProseMirror .danger.code-block {
-    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
+    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
+      ${token('color.border.danger', akEditorDeleteBorder)};
 
     .${codeBlockClassNames.gutter} {
-      background-color: ${token('color.blanket.danger', R75)};
+      background-color: ${token('color.background.danger', R75)};
       color: ${token('color.text.danger', akEditorDeleteIconColor)};
+      ${GutterDangerOverlay()};
     }
 
     .${codeBlockClassNames.content} {
       background-color: ${token(
-        'color.background.danger',
+        'color.blanket.danger',
         akEditorDeleteBackground,
       )};
     }
@@ -61,15 +75,16 @@ export const codeBlockStyles = (props: ThemeProps) => css`
   .ProseMirror .danger .code-block {
     .${codeBlockClassNames.gutter} {
       background-color: ${token(
-        'color.blanket.danger',
+        'color.background.danger',
         'rgba(255, 143, 115, 0.5)',
       )};
       color: ${token('color.text.danger', akEditorDeleteIconColor)};
+      ${GutterDangerOverlay()};
     }
 
     .${codeBlockClassNames.content} {
       background-color: ${token(
-        'color.background.danger',
+        'color.blanket.danger',
         'rgba(255, 189, 173, 0.5)',
       )};
     }

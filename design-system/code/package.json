@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "14.4.2",
+  "version": "14.4.3",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/section-message": "^6.3.0",

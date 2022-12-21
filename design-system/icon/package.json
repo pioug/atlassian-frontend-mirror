@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
-    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.1.1",
     "@atlaskit/dynamic-table": "^14.8.0",

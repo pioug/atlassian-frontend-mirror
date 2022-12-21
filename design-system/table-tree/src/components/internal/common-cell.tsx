@@ -6,15 +6,20 @@ import { css, jsx } from '@emotion/react';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { indentBase } from './styled';
+
 const commonStyles = css({
   display: 'flex',
   boxSizing: 'border-box',
   minHeight: 40,
-  padding: '10px 25px 10px var(--indent, 25px)',
+  padding: `${token('space.100', '10px')} ${indentBase} ${token(
+    'space.100',
+    '10px',
+  )} var(--indent, ${indentBase})`,
   position: 'relative',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   color: token('color.text', N800),
-  lineHeight: '20px',
+  lineHeight: token('font.lineHeight.200', '20px'),
 });
 
 interface CommonCellProps {

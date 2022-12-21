@@ -8,6 +8,7 @@ import { createColorStylesFromTemplate } from './color-codegen-template';
 import { createColorMapTemplate } from './color-map-template';
 import { createDimensionStylesFromTemplate } from './dimension-codegen-template';
 import { createInteractionStylesFromTemplate } from './interaction-codegen';
+import { createStylesFromTemplate } from './misc-codegen-template';
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 import { createSpacingScaleTemplate } from './spacing-scale-template';
 
@@ -78,6 +79,24 @@ Promise.all(
             absoluteFilePath: targetPath,
             dependencies: [spacingTokensDependencyPath],
           },
+        );
+
+        return writeFile(targetPath, source).then(() =>
+          console.log(`${targetPath} written!`),
+        );
+      }),
+    );
+  })
+  .then(() => {
+    // generate other values
+    return Promise.all(
+      [{ target: 'box.partial.tsx' }].map(({ target }) => {
+        const targetPath = join(__dirname, '../', 'src', 'components', target);
+
+        const source = createPartialSignedArtifact(
+          (options) => options.map(createStylesFromTemplate).join('\n'),
+          'yarn codegen-styles',
+          { id: 'misc', absoluteFilePath: targetPath },
         );
 
         return writeFile(targetPath, source).then(() =>

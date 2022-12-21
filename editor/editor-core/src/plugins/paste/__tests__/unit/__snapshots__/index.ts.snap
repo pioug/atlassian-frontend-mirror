@@ -1,84 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Paste plugin With plainTextPasteLinkification FF disabled cmd+shift+v content with link pastes plain text and doesn't create hyperlink 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "export interface PasteContent https://www.google.com some more content",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`Paste plugin With plainTextPasteLinkification FF disabled cmd+shift+v content with link preserves current formatting when pasting, doesn't create hyperlink (ie. removes formatting, applies active formatting) 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "type": "strong",
-            },
-          ],
-          "text": "export interface PasteContent https://www.google.com some more content",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`Paste plugin With plainTextPasteLinkification FF disabled cmd+shift+v content without any links pastes plain text (ie. removes formatting from pasted content) 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "export interface PasteContent",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`Paste plugin With plainTextPasteLinkification FF disabled cmd+shift+v content without any links preserves current formatting when pasting (ie. removes formatting, applies active formatting) 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "type": "strong",
-            },
-          ],
-          "text": "export interface PasteContent",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`Paste plugin With plainTextPasteLinkification FF enabled cmd+shift+v content with link pastes plain text but creates hyperlink (ie. removes formatting from pasted content) 1`] = `
+exports[`Paste plugin With plain text link pasting cmd+shift+v content with link pastes plain text but creates hyperlink (ie. removes formatting from pasted content) 1`] = `
 Object {
   "content": Array [
     Object {
@@ -112,7 +34,7 @@ Object {
 }
 `;
 
-exports[`Paste plugin With plainTextPasteLinkification FF enabled cmd+shift+v content with link preserves current formatting when pasting, creates hyperlink (ie. removes formatting, applies active formatting) 1`] = `
+exports[`Paste plugin With plain text link pasting cmd+shift+v content with link preserves current formatting when pasting, creates hyperlink (ie. removes formatting, applies active formatting) 1`] = `
 Object {
   "content": Array [
     Object {
@@ -159,7 +81,7 @@ Object {
 }
 `;
 
-exports[`Paste plugin With plainTextPasteLinkification FF enabled cmd+shift+v content without any links pastes plain text (ie. removes formatting from pasted content) 1`] = `
+exports[`Paste plugin With plain text link pasting cmd+shift+v content without any links pastes plain text (ie. removes formatting from pasted content) 1`] = `
 Object {
   "content": Array [
     Object {
@@ -176,7 +98,7 @@ Object {
 }
 `;
 
-exports[`Paste plugin With plainTextPasteLinkification FF enabled cmd+shift+v content without any links preserves current formatting when pasting (ie. removes formatting, applies active formatting) 1`] = `
+exports[`Paste plugin With plain text link pasting cmd+shift+v content without any links preserves current formatting when pasting (ie. removes formatting, applies active formatting) 1`] = `
 Object {
   "content": Array [
     Object {

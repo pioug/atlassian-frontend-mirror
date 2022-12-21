@@ -1,17 +1,26 @@
 import { FlexibleCardProps } from '../../../../FlexibleCard/types';
+import { AnalyticsFacade } from '../../../../../state/analytics';
 
 export type HoverCardUnauthorisedProps = {
+  /**
+   * An AnalyticsFacade object used for calling analytics.
+   */
+  analytics: AnalyticsFacade;
+
+  /**
+   * Provides the extensionKey of a Smart Link resolver invoked.
+   */
+  extensionKey?: string;
+
   /**
    * Data required for rendering a Flexible Card
    */
   flexibleCardProps: FlexibleCardProps;
 
   /**
-   * A function that determines an additional action that can be performed on an unauthorised link, e.g.
-   * connecting an account to gain access.
-   * @internal
+   *  A unique ID for a Smart Link.
    */
-  onAuthorize?: () => void;
+  id?: string;
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique
@@ -19,4 +28,9 @@ export type HoverCardUnauthorisedProps = {
    * serving as a hook for automated tests
    */
   testId?: string;
+
+  /**
+   * The url that we were trying to resolve and that has the 'unauthorized' state for the current user
+   */
+  url: string;
 };

@@ -63,11 +63,15 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
     reactionSummary = demoReaction,
     emojiName = 'emoji name',
     maxReactions = 5,
+    allowUserDialog: boolean = false,
+    handleUserListClick: (emojiId: string) => void = () => {},
   ) =>
     renderWithIntl(
       <ReactionTooltip
         reaction={reactionSummary}
         emojiName={emojiName}
+        handleUserListClick={handleUserListClick}
+        allowUserDialog={allowUserDialog}
         maxReactions={maxReactions}
       >
         <div id="content" data-testid={RENDER_CONTENT_TESTID}>
@@ -182,5 +186,81 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
     expect(items.length).toEqual(constants.TOOLTIP_USERS_LIMIT + 1);
     expect(items[0].textContent).toEqual('User 1');
     expect(items[5].textContent).toEqual('and 2 others');
+  });
+
+  it('should call the click handler if the dialog prop is enabled', async () => {
+    const mockClick = jest.fn();
+
+    renderReactionTooltip(
+      { ...demoReaction, users: demoReaction.users!.slice(0, 2) },
+      'emoji name',
+      5,
+      true,
+      mockClick,
+    );
+
+    const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+
+    // launch the hover over the tooltip to retrieve its content
+    const tooltipContainer = await screen.findByTestId(
+      `${RENDER_REACTIONTOOLTIP_TESTID}--container`,
+    );
+    expect(tooltipContainer).toBeInTheDocument();
+    // hover over the tooltip
+    act(() => {
+      fireEvent.mouseOver(item);
+      jest.runAllTimers();
+    });
+
+    const usersListWrapper = await screen.findByRole('tooltip');
+    expect(usersListWrapper).toBeInTheDocument();
+
+    const items = usersListWrapper.querySelectorAll('li');
+    expect(items[0].textContent).toEqual('emoji name');
+    expect(items[1].textContent).toEqual('User 1');
+    expect(items[2].textContent).toEqual('User 2');
+
+    const moreInfo = items[3];
+    expect(items[3].textContent).toEqual('More info');
+
+    fireEvent.click(moreInfo);
+
+    expect(mockClick).toHaveBeenCalled();
+  });
+
+  it('should not call the click handler if the dialog prop is not enabled', async () => {
+    const mockClick = jest.fn();
+
+    renderReactionTooltip(
+      { ...demoReaction, users: demoReaction.users!.slice(0, 2) },
+      'emoji name',
+      5,
+      false,
+      mockClick,
+    );
+
+    const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+
+    // launch the hover over the tooltip to retrieve its content
+    const tooltipContainer = await screen.findByTestId(
+      `${RENDER_REACTIONTOOLTIP_TESTID}--container`,
+    );
+    expect(tooltipContainer).toBeInTheDocument();
+    // hover over the tooltip
+    act(() => {
+      fireEvent.mouseOver(item);
+      jest.runAllTimers();
+    });
+
+    const usersListWrapper = await screen.findByRole('tooltip');
+    expect(usersListWrapper).toBeInTheDocument();
+
+    const items = usersListWrapper.querySelectorAll('li');
+    const moreInfo = items[3];
+    expect(items[3].textContent).not.toEqual('More info');
+
+    fireEvent.click(moreInfo);
+
+    expect(mockClick).not.toHaveBeenCalled();
   });
 });

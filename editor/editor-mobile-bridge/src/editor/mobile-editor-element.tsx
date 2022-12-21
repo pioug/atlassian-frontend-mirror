@@ -201,6 +201,8 @@ export function MobileEditor(props: MobileEditorProps) {
     ...featureFlags,
     tableCellOptionsInFloatingToolbar:
       editorConfiguration.isTableCellOptionsInFloatingToolbar(),
+    restartNumberedLists: editorConfiguration.isRestartNumberedListsEnabled(),
+    listNumberContinuity: editorConfiguration.isListNumberContinuityEnabled(),
     enableViewUpdateSubscription: true,
   };
 

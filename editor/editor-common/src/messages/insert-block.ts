@@ -21,13 +21,18 @@ export const toolbarInsertBlockMessages = defineMessages({
     defaultMessage: 'Insert a link',
     description: 'Insert a hyperlink',
   },
-  filesAndImages: {
-    id: 'fabric.editor.filesAndImages',
-    defaultMessage: 'Files & images',
-    description: 'Insert one or more files or images',
+  mediaFiles: {
+    id: 'fabric.editor.mediaFiles',
+    defaultMessage: 'Image, video, or file',
+    description: 'Insert one or more files, videos or images',
   },
-  filesAndImagesDescription: {
-    id: 'fabric.editor.filesAndImages.description',
+  addMediaFiles: {
+    id: 'fabric.editor.addMediaFiles',
+    defaultMessage: 'Add image, video, or file',
+    description: 'Insert one or more files, videos or images',
+  },
+  mediaFilesDescription: {
+    id: 'fabric.editor.mediaFiles.description',
     defaultMessage: 'Add images and other files to your page',
     description: 'Insert one or more files or images',
   },

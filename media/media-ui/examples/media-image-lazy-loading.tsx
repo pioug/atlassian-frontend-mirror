@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import React, { CSSProperties } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import Page from '@atlaskit/page';
@@ -7,7 +8,7 @@ import { MediaImage } from '../src';
 
 const paddingBoxStyle: CSSProperties = {
   height: '110vh',
-  background: '#eee',
+  background: token('color.background.neutral', '#eee'),
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -15,7 +16,7 @@ const paddingBoxStyle: CSSProperties = {
 const imageBoxStyle: CSSProperties = {
   position: 'relative',
   height: '20rem',
-  border: '1px solid black',
+  border: `1px solid ${token('color.border', 'black')}`,
 };
 
 export default () => {

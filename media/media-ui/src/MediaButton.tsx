@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+// Keep Media buttons to use static colors from the new color palette to support the hybrid
+// theming in media viewer https://product-fabric.atlassian.net/browse/DSP-6067
 import React, { RefObject } from 'react';
 import { ButtonProps } from '@atlaskit/button/types';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -6,17 +9,6 @@ import {
   Appearance,
   ThemeProps,
 } from '@atlaskit/button/types';
-import {
-  DN60,
-  B75,
-  DN400,
-  B400,
-  DN100,
-  B100,
-  B200,
-  DN70,
-  DN30,
-} from '@atlaskit/theme/colors';
 
 type MediaButtonAppearance = Appearance;
 
@@ -28,31 +20,37 @@ const buttonTheme = {
   default: {
     background: {
       default: { light: 'transparent' },
-      hover: { light: DN60 },
-      active: { light: B75 },
+      hover: { light: '#a1bdd914' },
+      active: { light: '#a6c5e229' },
     },
     boxShadowColor: {
-      focus: { light: B75 },
+      focus: { light: '#85b8ff' },
     },
     color: {
-      default: { light: DN400 },
-      hover: { light: DN400 },
-      active: { light: B400 },
-      disabled: { light: DN100 },
+      default: { light: '#c7d1db' },
+      hover: { light: '#c7d1db' },
+      active: { light: '#c7d1db' },
+      disabled: { light: '#bfdbf847' },
+      focus: { light: '#c7d1db' },
     },
   },
   primary: {
     background: {
-      default: { light: B100 },
-      hover: { light: B75 },
-      active: { light: B200 },
-      disabled: { light: DN70 },
+      default: { light: '#579dff' },
+      hover: { light: '#85b8ff' },
+      active: { light: '#cce0ff' },
+      disabled: { light: '#bcd6f00a' },
     },
     boxShadowColor: {
-      focus: { light: B75 },
+      focus: { light: '#85b8ff' },
     },
     color: {
-      default: { light: DN30 },
+      default: { light: '#161a1d' },
+    },
+  },
+  selected: {
+    color: {
+      default: { light: 'red' },
     },
   },
 };

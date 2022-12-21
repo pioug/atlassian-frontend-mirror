@@ -5,7 +5,11 @@ import {
   MediaApiConfig,
   Auth,
 } from '@atlaskit/media-core';
-import { MediaFeatureFlags, getRandomHex } from '@atlaskit/media-common';
+import {
+  getRandomHex,
+  MediaFeatureFlags,
+  MediaTraceContext,
+} from '@atlaskit/media-common';
 import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
 import { getArtifactUrl, MediaFileArtifacts } from '../../models/artifacts';
 import {
@@ -64,14 +68,6 @@ const jsonHeaders = {
   'Content-Type': 'application/json',
 };
 
-export const ZipkinHeaderKeys = {
-  traceId: 'x-b3-traceid',
-  spanId: 'x-b3-spanid',
-  parentSpanId: 'x-b3-parentspanid',
-  sampled: 'x-b3-sampled',
-  flags: 'x-b3-flags',
-};
-
 export class MediaStore {
   constructor(
     private readonly config: MediaApiConfig,
@@ -81,6 +77,7 @@ export class MediaStore {
   async getCollectionItems(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
+    traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaCollectionItems>> {
     const metadata: RequestMetadata = {
       method: 'GET',
@@ -97,6 +94,7 @@ export class MediaStore {
       headers: {
         Accept: 'application/json',
       },
+      traceContext,
     };
 
     const response = await this.request(
@@ -128,6 +126,7 @@ export class MediaStore {
     id: string,
     collectionName: string,
     occurrenceKey?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<void> {
     const metadata: RequestMetadata = {
       method: 'PUT',
@@ -155,6 +154,7 @@ export class MediaStore {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
+      traceContext,
     };
 
     await this.request(`/collection/${collectionName}`, options);
@@ -163,6 +163,7 @@ export class MediaStore {
   createUpload(
     createUpTo: number = 1,
     collectionName?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaUpload[]>> {
     const metadata: RequestMetadata = {
       method: 'POST',
@@ -178,6 +179,7 @@ export class MediaStore {
       headers: {
         Accept: 'application/json',
       },
+      traceContext,
     };
 
     return this.request(`/upload`, options).then(
@@ -197,6 +199,7 @@ export class MediaStore {
       uploadId?: string;
       partNumber?: number;
     } = {},
+    traceContext?: MediaTraceContext,
   ): Promise<void> {
     const metadata: RequestMetadata = {
       method: 'PUT',
@@ -208,6 +211,7 @@ export class MediaStore {
       params: { uploadId, partNumber },
       authContext: { collectionName },
       body: blob,
+      traceContext,
     };
 
     await this.request(`/chunk/${etag}`, options);
@@ -222,6 +226,7 @@ export class MediaStore {
       collectionName?: string;
       uploadId?: string;
     } = {},
+    traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaChunksProbe>> {
     const metadata: RequestMetadata = {
       method: 'POST',
@@ -236,6 +241,7 @@ export class MediaStore {
       body: JSON.stringify({
         chunks,
       }),
+      traceContext,
     };
 
     return this.request(`/chunk/probe`, options).then(
@@ -246,6 +252,7 @@ export class MediaStore {
   createFileFromUpload(
     body: MediaStoreCreateFileFromUploadBody,
     params: MediaStoreCreateFileFromUploadParams = {},
+    traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaFile>> {
     const metadata: RequestMetadata = {
       method: 'POST',
@@ -258,6 +265,7 @@ export class MediaStore {
       params,
       headers: jsonHeaders,
       body: JSON.stringify(body),
+      traceContext,
     };
 
     return this.request('/file/upload', options).then(
@@ -268,6 +276,7 @@ export class MediaStore {
   touchFiles(
     body: MediaStoreTouchFileBody,
     params: MediaStoreTouchFileParams = {},
+    traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<TouchedFiles>> {
     const metadata: RequestMetadata = {
       method: 'POST',
@@ -279,6 +288,7 @@ export class MediaStore {
       authContext: { collectionName: params.collection },
       headers: jsonHeaders,
       body: JSON.stringify(body),
+      traceContext,
     };
 
     return this.request('/upload/createWithFiles', options).then(
@@ -289,6 +299,7 @@ export class MediaStore {
   getFile(
     fileId: string,
     params: MediaStoreGetFileParams = {},
+    traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaFile>> {
     const metadata: RequestMetadata = {
       method: 'GET',
@@ -299,6 +310,7 @@ export class MediaStore {
       ...metadata,
       authContext: { collectionName: params.collection },
       params,
+      traceContext,
     };
 
     return this.request(`/file/${fileId}`, options).then(
@@ -315,6 +327,7 @@ export class MediaStore {
     return this.createFileImageURL(id, auth, params);
   }
 
+  // TODO Create ticket in case Trace Id can be supported through query params
   getFileImageURLSync(
     id: string,
     params?: MediaStoreGetFileImageParams,
@@ -375,16 +388,11 @@ export class MediaStore {
     params?: MediaStoreGetFileImageParams,
     controller?: AbortController,
     fetchMaxRes?: boolean,
-    traceId?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<Blob> {
     // TODO add checkWebpSupport() back https://product-fabric.atlassian.net/browse/MPT-584
     const isWebpSupported = false;
-    let headers = !!traceId
-      ? {
-          [ZipkinHeaderKeys.traceId]: traceId,
-          [ZipkinHeaderKeys.spanId]: getRandomHex(16),
-        }
-      : {};
+    const headers: RequestHeaders = {};
     if (isWebpSupported) {
       headers.accept = 'image/webp,image/*,*/*;q=0.8';
     }
@@ -399,6 +407,7 @@ export class MediaStore {
       authContext: { collectionName: params && params.collection },
       params: extendImageParams(params, fetchMaxRes),
       headers,
+      traceContext,
     };
 
     return this.request(`/file/${id}/image`, options, controller).then(
@@ -409,6 +418,7 @@ export class MediaStore {
   async getItems(
     ids: string[],
     collectionName?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<ItemsPayload>> {
     const descriptors = ids.map((id) => ({
       type: 'file',
@@ -426,6 +436,7 @@ export class MediaStore {
       authContext: { collectionName },
       headers: jsonHeaders,
       body: JSON.stringify({ descriptors }),
+      traceContext,
     };
 
     return this.request('/items', options).then(
@@ -436,6 +447,7 @@ export class MediaStore {
   async getImageMetadata(
     id: string,
     params?: MediaStoreGetFileImageParams,
+    traceContext?: MediaTraceContext,
   ): Promise<{ metadata: ImageMetadata }> {
     const metadata: RequestMetadata = {
       method: 'GET',
@@ -446,6 +458,7 @@ export class MediaStore {
       ...metadata,
       authContext: { collectionName: params && params.collection },
       params,
+      traceContext,
     };
 
     return this.request(`/file/${id}/image/metadata`, options).then(
@@ -457,6 +470,7 @@ export class MediaStore {
     uploadId: string,
     body: AppendChunksToUploadRequestBody,
     collectionName?: string,
+    traceContext?: MediaTraceContext,
   ): Promise<void> {
     const metadata: RequestMetadata = {
       method: 'PUT',
@@ -468,6 +482,7 @@ export class MediaStore {
       authContext: { collectionName },
       headers: jsonHeaders,
       body: JSON.stringify(body),
+      traceContext,
     };
 
     await this.request(`/upload/${uploadId}/chunks`, options);
@@ -476,6 +491,7 @@ export class MediaStore {
   copyFileWithToken(
     body: MediaStoreCopyFileWithTokenBody,
     params: MediaStoreCopyFileWithTokenParams,
+    traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaFile>> {
     const metadata: RequestMetadata = {
       method: 'POST',
@@ -488,6 +504,7 @@ export class MediaStore {
       params, // Contains collection name to write to
       headers: jsonHeaders,
       body: JSON.stringify(body), // Contains collection name to read from
+      traceContext,
     };
 
     return this.request('/file/copy/withToken', options).then(
@@ -512,8 +529,16 @@ export class MediaStore {
       headers,
       body,
       clientOptions,
+      traceContext,
     } = options;
     const auth = await this.resolveAuth(authContext);
+    const extendedTraceContext = traceContext
+      ? {
+          ...traceContext,
+          spanId: traceContext?.spanId || getRandomHex(16),
+        }
+      : undefined;
+
     const response = await request(
       `${auth.baseUrl}${path}`,
       {
@@ -524,6 +549,7 @@ export class MediaStore {
         headers,
         body,
         clientOptions,
+        traceContext: extendedTraceContext,
       },
       controller,
     );
@@ -607,6 +633,7 @@ export type MediaStoreRequestOptions = RequestMetadata & {
   readonly headers?: RequestHeaders;
   readonly body?: any;
   readonly clientOptions?: ClientOptions;
+  readonly traceContext?: MediaTraceContext;
 };
 
 export type MediaStoreCreateFileFromUploadParams = {

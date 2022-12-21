@@ -40,12 +40,12 @@ exports[`Avatar Picker Styles image-navigator DragZone is dropping file 1`] = `
   border-radius: 100%;
   -webkit-transition: background-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   transition: background-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-  background-color: #ddecfe;
+  background-color: var(--ds-background-information-hovered, #ddecfe);
 }
 
 .emotion-0::after {
   content: '';
-  border: 2px dashed #d0d6d0;
+  border: 2px dashed var(--ds-border, #d0d6d0);
   border-radius: 100%;
   position: absolute;
   top: 0;
@@ -57,7 +57,7 @@ exports[`Avatar Picker Styles image-navigator DragZone is dropping file 1`] = `
 }
 
 .emotion-0:after {
-  border-color: #0e56c4;
+  border-color: var(--ds-border-information, #0e56c4);
   -webkit-animation: animation-0 8s linear infinite;
   animation: animation-0 8s linear infinite;
 }
@@ -95,7 +95,7 @@ exports[`Avatar Picker Styles image-navigator DragZone is not dropping file 1`] 
 
 .emotion-0::after {
   content: '';
-  border: 2px dashed #d0d6d0;
+  border: 2px dashed var(--ds-border, #d0d6d0);
   border-radius: 100%;
   position: absolute;
   top: 0;

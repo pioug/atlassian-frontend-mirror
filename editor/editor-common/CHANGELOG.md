@@ -1,5 +1,49 @@
 # @atlaskit/editor-common
 
+## 71.0.0
+
+### Major Changes
+
+- [`2df5ab17c10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2df5ab17c10) - DSP-6459: Adds a background to code blocks in the editor to remove transparency. E.g. prevents table cell background colors from affecting code blocks. Also modifies code blocks in table headers to have a border instead of a different color when design tokens are enabled.
+
+### Minor Changes
+
+- [`2e7d2c81d2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e7d2c81d2f) - EDM-3626 Remove plain text paste linkification feature flag
+  the feature flag will not exist anymore so this cannot be enabled/disabled
+  plain text containing URLs will always be 'linkified' using shift-cmd-v/shift-ctrl-v
+
+### Patch Changes
+
+- [`25617fe0633`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25617fe0633) - [ux] ED-16010 this updates the text color picker to use design tokens when available.
+- [`94f8a899d36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94f8a899d36) - [ED-15851] Add feature flags for the restart numbered lists project. These include:
+
+  - restartNumberedLists: Allow numbered lists to start from any number greater than 0, not just 1
+  - listNumberContinuity: Allow lists to continue their numbering when split by other nodes
+  - restartNumberedListsToolbar: Show a toolbar for users to restart the numbering of a list
+
+  We will be encapsulating all dev work under these flags.
+
+  These flags are for development purposes only, please don't turn these on. Only feature leads can turn these on.
+
+- [`01472b73d72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01472b73d72) - DSP-4815 - Adds design tokens to non-custom panels. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [`7a1a5d392ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a1a5d392ef) - [ux][ed-15366] remove right align shortcut as it was interfering with default browser activity
+- [`d5fd6da78ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5fd6da78ab) - To add arrow key navigation for the main toolbar items and menu items [ED-15497]
+
+  To make the editor main toolbar items accessible using left and right arrow keys.
+  The menus are expandable using Space or Enter key, once the menus are expanded the options are accessible using up/down arrow keys.
+  'Esc' key closes the menus and focuses the toolbar item.
+
+- [`34f8542468b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34f8542468b) - [ED-12592] Updates the renderer rendered measurement to indicate when the measurement is distorted. Re uses distorted measurement identification logic from other render measurements.
+- [`7bf4281949a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7bf4281949a) - ED-15704 - Fix missing hover inducators on Delete column and Delete row under table floating toolbar context menu
+- [`977ac74443c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/977ac74443c) - DSP-7235: Fixes issue with overflow shadows on code blocks due to layered transparent colors.
+- [`3a66592edd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a66592edd7) - [ED-16104] To fix a regression caused by [ED-15947] The arrow key behaviour is unexpected when we open find and replace button.
+- [`17014a9004c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17014a9004c) - [ux] ED-15632 preprocess invalid media adf to avoid empty mediaSingle node and duplicated captions and media inside mediaSingle.The document will be transformed for this cases and validation error not thrown.When mediaSingle with empty content is encountered - it will be removed.When mediaSingle with duplicated captions or media nodes is encountered - duplicate captions or media nodes will be removed, prioritising removal of nodes with empty content first.
+- [`c2510fa261f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2510fa261f) - [ux] ED-15961 [ux] Updates the presentation of text color to use dark and light mode colors when those modes are enabled
+- [`47dfcc04652`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47dfcc04652) - ED-15703 - Minor change on floating toolbar to allow z-index value to be passed as parameter
+- [`70fce47a47b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70fce47a47b) - DSP-2423: Adds design token to the background color of tooltip keyboard shortcut styles.
+- [`58365aae521`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58365aae521) - [ux] Refactor messages on tooltip of media toolbar item and media slash commend result to show video as an explicit upload option.
+- Updated dependencies
+
 ## 70.3.0
 
 ### Minor Changes

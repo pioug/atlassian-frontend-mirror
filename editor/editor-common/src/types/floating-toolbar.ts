@@ -23,6 +23,9 @@ export interface DropdownOptionT<T> {
   id?: string;
   title: string;
   onClick: T;
+  onMouseOver?: T;
+  onMouseEnter?: T;
+  onMouseLeave?: T;
   selected?: boolean;
   disabled?: boolean;
   hidden?: boolean;
@@ -267,6 +270,7 @@ export interface FloatingToolbarConfig {
   className?: string;
   height?: number;
   width?: number;
+  zIndex?: number;
   offset?: [number, number];
   forcePlacement?: boolean;
   onPositionCalculated?: (

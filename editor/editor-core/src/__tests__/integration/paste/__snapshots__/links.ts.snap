@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`links.ts: pasting a link while holding shift creates plain (non-inline card) link when plainTextPasteLinkification FF enabled 1`] = `
+exports[`links.ts: pasting a link while holding shift creates plain (non-inline card) link 1`] = `
 Object {
   "content": Array [
     Object {
@@ -30,24 +30,7 @@ Object {
 }
 `;
 
-exports[`links.ts: pasting a link while holding shift doesn't create a link when plainTextPasteLinkification FF disabled 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "hello have a link https://www.atlassian.com",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`links.ts: pasting multiple links while holding shift creates non inline-card links when plainTextPasteLinkification FF enabled 1`] = `
+exports[`links.ts: pasting multiple links while holding shift creates non inline-card links 1`] = `
 Object {
   "content": Array [
     Object {

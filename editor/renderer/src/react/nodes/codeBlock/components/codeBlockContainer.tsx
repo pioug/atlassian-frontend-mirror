@@ -14,21 +14,29 @@ import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 import CopyButton from '../../codeBlockCopyButton';
 import { Props as CodeBlockProps } from '../codeBlock';
+import { token } from '@atlaskit/tokens';
 
 // TODO: Quality ticket https://product-fabric.atlassian.net/browse/DSP-4118
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const codeBlockStyleOverrides = (props?: ThemeProps) =>
   css`
     tab-size: 4;
+    background-color: ${themed({
+      light: token('elevation.surface.raised', N20),
+      dark: token('elevation.surface.raised', DN50),
+    })(props)};
+
     ${CodeBlockSharedCssClassName.DS_CODEBLOCK} {
       font-size: ${relativeFontSizeToBase16(fontSize())};
       line-height: 1.5rem;
       background-image: ${overflowShadow({
-        background: themed({ light: N20, dark: DN50 })(props),
+        background: themed({
+          light: token('color.background.neutral', N20),
+          dark: token('color.background.neutral', DN50),
+        })(props),
         width: `${gridSize()}px`,
       })};
-      background-attachment: local, scroll, scroll;
-      background-position: 100% 0, 100% 0, 0 0;
+      background-attachment: local, local, local, local, scroll, scroll;
+      background-position: 0 0, 0 0, 100% 0, 100% 0, 100% 0, 0 0;
     }
   `;
 

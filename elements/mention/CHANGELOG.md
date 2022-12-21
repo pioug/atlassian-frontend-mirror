@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 21.0.12
+
+### Patch Changes
+
+- [`136542df4cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/136542df4cf) - Changes restricted mention border color token to bold version and text color token to default one for better accessibility. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- Updated dependencies
+
 ## 21.0.11
 
 ### Patch Changes

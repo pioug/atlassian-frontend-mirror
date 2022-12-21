@@ -133,8 +133,6 @@ export function getDefaultPresetOptionsFromEditorProps(
     paste: {
       cardOptions,
       sanitizePrivateContent: props.sanitizePrivateContent,
-      plainTextPasteLinkification:
-        props.featureFlags?.plainTextPasteLinkification === true,
     },
     base: {
       allowInlineCursorTarget: !isMobile,
@@ -435,7 +433,6 @@ export default function createPluginsList(
         breakoutEnabled:
           props.appearance === 'full-page' &&
           extensionConfig.allowBreakout !== false,
-        stickToolbarToBottom: extensionConfig.stickToolbarToBottom,
         allowAutoSave: extensionConfig.allowAutoSave,
         extensionHandlers: props.extensionHandlers,
         useLongPressSelection: false,

@@ -67,6 +67,49 @@ describe('MediaClient', () => {
     };
   };
 
+  it('masks mediaStore.getImage method', () => {
+    const { mediaClient } = setup();
+    (mediaClient.mediaStore.getImage as jest.Mock).mockReturnValue(
+      'some-image',
+    );
+
+    const fileId = 'some-id';
+    const params = {
+      allowAnimated: true,
+      collection: 'some-collection',
+      width: 1200,
+      height: 900,
+      mode: 'full-fit' as const,
+      upscale: true,
+      'max-age': 1000,
+    };
+
+    const abortController = new AbortController();
+
+    const traceContext = {
+      traceId: 'some-trace-id',
+      spanId: 'some-span-id',
+    };
+
+    const result = mediaClient.getImage(
+      fileId,
+      params,
+      abortController,
+      true,
+      traceContext,
+    );
+
+    expect(mediaClient.mediaStore.getImage).toBeCalledWith(
+      fileId,
+      params,
+      abortController,
+      true,
+      traceContext,
+    );
+
+    expect(result).toBe('some-image');
+  });
+
   describe('.file.getFileState()', () => {
     it('should fetch the file if it doesnt exist locally', (done) => {
       const { id, mediaClient } = setup();
@@ -312,6 +355,7 @@ describe('MediaClient', () => {
                 onProgress: expect.any(Function),
                 onUploadFinish: expect.any(Function),
               }),
+              undefined,
             );
             done();
           },
@@ -362,6 +406,7 @@ describe('MediaClient', () => {
               {
                 collection: 'some-collection',
               },
+              undefined,
             );
             const uploadableFileUpfrontIds = mockUploadFile.mock
               .calls[0][2] as UploadableFileUpfrontIds;

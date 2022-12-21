@@ -14,6 +14,7 @@ import {
 } from '../example-helpers/stylesWrapper';
 import { uploadFile, MediaStore, UploadableFileUpfrontIds } from '../src';
 import { UploadableFile, UploadFileCallbacks } from '../src/uploader';
+import { getRandomHex } from '@atlaskit/media-common';
 
 type UploaderExampleProps = {};
 export interface UploaderExampleState {
@@ -22,6 +23,7 @@ export interface UploaderExampleState {
   fileURL?: string;
   fileMetadata?: any;
   error?: any;
+  traceId?: string;
 }
 
 const store = new MediaStore({
@@ -36,15 +38,15 @@ class UploaderExample extends Component<
     uploadingProgress: 0,
   };
 
-  fetchFile = (id: string) => {
-    store.getFile(id).then(async (response) => {
+  fetchFile = (id: string, traceId: string) => {
+    store.getFile(id, undefined, { traceId }).then(async (response) => {
       const fileMetadata = response.data;
       const { processingStatus } = fileMetadata;
 
       this.setState({ processingStatus });
 
       if (processingStatus === 'pending') {
-        window.setTimeout(() => this.fetchFile(id), 1000);
+        window.setTimeout(() => this.fetchFile(id, traceId), 1000);
       } else {
         const fileURL = await store.getFileImageURL(id);
 
@@ -57,7 +59,8 @@ class UploaderExample extends Component<
   };
 
   render() {
-    const { fileURL, uploadingProgress, processingStatus } = this.state;
+    const { fileURL, uploadingProgress, processingStatus, traceId } =
+      this.state;
 
     return (
       <Wrapper>
@@ -73,6 +76,7 @@ class UploaderExample extends Component<
             <progress value={uploadingProgress} max="1" />
           </div>
           <div>Processing status: {processingStatus}</div>
+          <div>TraceId: {traceId}</div>
           <div>
             {fileURL ? <ImagePreview src={fileURL} alt="preview" /> : null}
           </div>
@@ -131,13 +135,19 @@ class UploaderExample extends Component<
       authProvider: defaultMediaPickerAuthProvider(),
     });
     const fileId = uuid();
-    const deferredTouchedFiles = mediaStore.touchFiles({
-      descriptors: [
-        {
-          fileId,
-        },
-      ],
-    });
+    const traceId = getRandomHex(16);
+    this.setState({ traceId });
+    const deferredTouchedFiles = mediaStore.touchFiles(
+      {
+        descriptors: [
+          {
+            fileId,
+          },
+        ],
+      },
+      {},
+      { traceId },
+    );
     const deferredUploadId = deferredTouchedFiles.then(
       (touchedFiles) => touchedFiles.data.created[0].uploadId,
     );
@@ -149,10 +159,16 @@ class UploaderExample extends Component<
     const callbacks: UploadFileCallbacks = {
       onProgress: this.onProgress,
       onUploadFinish: (error) =>
-        error ? this.onError(error) : this.fetchFile(fileId),
+        error ? this.onError(error) : this.fetchFile(fileId, traceId),
     };
 
-    uploadFile(uploadableFile, mediaStore, uploadableFileUpfrontIds, callbacks);
+    uploadFile(
+      uploadableFile,
+      mediaStore,
+      uploadableFileUpfrontIds,
+      callbacks,
+      { traceId },
+    );
   }
 }
 

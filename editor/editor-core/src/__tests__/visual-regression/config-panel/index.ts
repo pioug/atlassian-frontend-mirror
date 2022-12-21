@@ -31,12 +31,20 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 28/07/2022: https://product-fabric.atlassian.net/browse/ED-15322
-  it.skip('should display select options with icons correctly', async () => {
+  it('should display select options with icons correctly', async () => {
     const iconSelectSelector = 'div[id^="enum-select-icon"]';
     const page = await goToConfigPanelWithParameters();
 
     await page.click(iconSelectSelector);
+
+    // Wait for avatar icon
+    const avatarIconSelector1 =
+      'div[id^="enum-select-icon"] div[class*="MenuList"] > div:nth-child(1) span[class*="AvatarImage"] > span > svg';
+    await page.waitForSelector(avatarIconSelector1);
+    const avatarIconSelector2 =
+      'div[id^="enum-select-icon"] div[class*="MenuList"] > div:nth-child(2) span[class*="AvatarImage"] > span > svg';
+    await page.waitForSelector(avatarIconSelector2);
+
     const iconSelectDropDownSelector =
       'div[id^="enum-select-icon"] div[class*="MenuList"]';
     const image = await takeElementScreenShot(page, iconSelectDropDownSelector);

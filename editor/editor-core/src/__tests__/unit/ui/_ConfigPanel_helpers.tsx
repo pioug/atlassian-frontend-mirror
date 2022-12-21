@@ -71,17 +71,16 @@ function getSelect(wrapper: any) {
 }
 
 export async function resolveOption(wrapper: any, label: string) {
-  getSelect(wrapper).simulate('focus');
-  getSelect(wrapper)
-    .instance()
-    .handleInputChange({
-      currentTarget: {
-        value: label,
-      },
-    });
+  const selectWrapper = getSelect(wrapper);
+  selectWrapper.simulate('focus');
+  selectWrapper.instance().handleInputChange({
+    currentTarget: {
+      value: label,
+    },
+  });
 
-  wrapper.update();
-  return await selectOption(wrapper, label);
+  selectWrapper.update();
+  return await selectOption(selectWrapper, label);
 }
 
 export async function selectLoaded(wrapper: any) {

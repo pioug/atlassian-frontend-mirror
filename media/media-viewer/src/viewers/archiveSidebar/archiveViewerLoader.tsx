@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { DN30 } from '@atlaskit/theme/colors';
 import ModalSpinner from '@atlaskit/media-ui/modalSpinner';
 
 import { ArchiveViewerProps } from './types';
 import ErrorMessage from '../../errorMessage';
 import { MediaViewerError } from '../../errors';
+import { headerAndSidebarBackgroundColor } from '../../styles';
 
 export type archiveViewerState = {
   ArchiveViewer?: React.ComponentType<ArchiveViewerProps>;
@@ -51,7 +51,12 @@ export default class ArchiveViewerLoader extends React.PureComponent<ArchiveView
     if (ArchiveViewer) {
       return <ArchiveViewer {...this.props} />;
     } else {
-      return <ModalSpinner blankedColor={DN30} invertSpinnerColor={true} />;
+      return (
+        <ModalSpinner
+          blankedColor={headerAndSidebarBackgroundColor}
+          invertSpinnerColor={false}
+        />
+      );
     }
   }
 }

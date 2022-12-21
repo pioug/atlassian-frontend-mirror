@@ -1,4 +1,4 @@
-import { components, ValueContainerProps } from '@atlaskit/select';
+import { components, MultiValueProps } from '@atlaskit/select';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl-next';
@@ -11,7 +11,7 @@ export type State = {
   previousValueSize: number;
 };
 
-type Props = ValueContainerProps<Option<User>[], true> & {
+type Props = MultiValueProps<Option<User>[], true> & {
   innerProps?: ValueContainerInnerProps;
 };
 

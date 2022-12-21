@@ -458,6 +458,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => {
         defaultGetEditorContainerWidth,
         options?.editorAnalyticsAPI,
         options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
+        () => editorViewRef.current,
       )(pluginConfig(options?.tableOptions)),
     },
   };

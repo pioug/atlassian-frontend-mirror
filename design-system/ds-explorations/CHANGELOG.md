@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.6.1
+
+### Patch Changes
+
+- [`f7b2dbd6eba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7b2dbd6eba) - Add fontWeight 600 to Text. Add justifyContent spaceBetween to Inline. Add overflow hidden, position fixed, and start/end flex values to Box. Add shadow and layer props to Box.
+
 ## 1.6.0
 
 ### Minor Changes

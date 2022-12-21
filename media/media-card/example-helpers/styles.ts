@@ -1,8 +1,9 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 
 export const editableCardOptionsStyles = css`
   padding: 20px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid ${token('color.border', '#ccc')};
   max-width: 700px;
 `;
 
@@ -22,7 +23,10 @@ export const editableCardContentStyles = css`
   border: 2px dashed;
   margin: 0 10px 50px 10px;
   overflow: hidden;
-  background: antiquewhite;
+  background: ${token(
+    'color.background.accent.orange.subtlest',
+    'antiquewhite',
+  )};
   box-sizing: border-box;
 `;
 
@@ -40,7 +44,7 @@ export const cardDimensionsWrapperStyles = css`
   display: flex;
 
   > div {
-    border: 1px solid;
+    border: 1px solid ${token('color.border.bold', 'black')};
     margin: 5px;
     padding: 5px;
     border-radius: 3px;
@@ -55,7 +59,7 @@ export const cardPreviewWrapperStyles = css`
 `;
 
 export const cardWrapperStyles = css`
-  border: 1px solid;
+  border: 1px solid ${token('color.border.bold', 'black')};
   padding: 10px;
   margin: 5px;
   flex-direction: column;
@@ -82,7 +86,7 @@ export const externalIdentifierWrapperStyles = css`
 
 export const inlineCardVideoWrapperItemStyles = css`
   padding: 10px;
-  border: 1px solid;
+  border: 1px solid ${token('color.border.bold', 'black')};
   margin: 10px;
 `;
 
@@ -110,6 +114,6 @@ export const mediaInlineTableStyles = css`
   width: 800px;
   tr,
   td {
-    border: 1px solid #ddd;
+    border: 1px solid ${token('color.border', '#ddd')};
   }
 `;

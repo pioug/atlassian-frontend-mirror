@@ -13,6 +13,7 @@ export {
   invokeFailedEvent,
   connectSucceededEvent,
   connectFailedEvent,
+  trackAppAccountAuthStarted,
   trackAppAccountConnected,
   uiAuthEvent,
   uiAuthAlternateAccountEvent,
@@ -25,6 +26,7 @@ export {
   uiHoverCardViewedEvent,
   uiHoverCardDismissedEvent,
   uiHoverCardOpenLinkClickedEvent,
+  uiLearnMoreLinkClickedEvent,
 } from './analytics';
 
 export const instrumentEvent = ({

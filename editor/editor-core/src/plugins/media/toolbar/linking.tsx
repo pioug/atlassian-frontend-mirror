@@ -56,6 +56,7 @@ export const getLinkingToolbar = (
           {
             type: 'custom',
             fallback: [],
+            disableArrowNavigation: true,
             render: (view, idx) => {
               if (!view || !providerFactory) {
                 return null;

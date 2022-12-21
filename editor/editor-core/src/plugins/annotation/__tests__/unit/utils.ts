@@ -42,6 +42,7 @@ import {
 import { AnnotationInfo, AnnotationSelectionType } from '../../types';
 
 import annotationPlugin from '../..';
+import { textFormattingPlugin } from '../../../';
 import emojiPlugin from '../../../emoji';
 import { inlineCommentProvider } from '../_utils';
 import mediaPlugin from '../../../media';
@@ -60,6 +61,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
     annotationPlugin,
     { inlineComment: { ...inlineCommentProvider, disallowOnWhitespace: true } },
   ])
+  .add(textFormattingPlugin)
   .add(emojiPlugin)
   .add(panelPlugin)
   .add([codeBlockPlugin, { appearance: 'full-page' }])
@@ -362,9 +364,12 @@ describe('annotation', () => {
     ])('%s', (_, inputDoc, expected) => {
       const { editorView } = editor(inputDoc);
 
-      expect(hasInvalidWhitespaceNode(editorView.state.selection)).toBe(
-        expected,
-      );
+      expect(
+        hasInvalidWhitespaceNode(
+          editorView.state.selection,
+          editorView.state.schema,
+        ),
+      ).toBe(expected);
     });
   });
 
@@ -411,6 +416,40 @@ describe('annotation', () => {
           'text',
           doc(p('{<}Corsair smartly{>}')),
           AnnotationSelectionType.VALID,
+        ],
+        [
+          'text with mark prepend whitespace',
+          doc(p('{<}Corsair smartly ', strike('hello'), ' {>}')),
+          AnnotationSelectionType.VALID,
+        ],
+        [
+          'text with mark append whitespace',
+          doc(p('{<} ', strike('hello'), '{>}')),
+          AnnotationSelectionType.VALID,
+        ],
+        [
+          'emoji{<}  {>}emoji',
+          doc(
+            p(
+              emoji({ shortName: ':smiley:' })(),
+              '{<}  {>}',
+              emoji({ shortName: ':smiley:' })(),
+            ),
+          ),
+          AnnotationSelectionType.INVALID,
+        ],
+        [
+          '{<}emoji  emoji{>}',
+          doc(
+            p(
+              '{<}',
+              emoji({ shortName: ':smiley:' })(),
+              '  ',
+              emoji({ shortName: ':smiley:' })(),
+              '{>}',
+            ),
+          ),
+          AnnotationSelectionType.DISABLED,
         ],
         [
           'inline node',

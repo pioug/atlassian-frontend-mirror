@@ -22,6 +22,7 @@ import type {
   TelepointerPayload,
   CollabEvents,
   CollabInitPayload,
+  NamespaceStatus,
 } from '../types';
 
 import { createLogger, getParticipant, sleep } from '../helpers/utils';
@@ -101,6 +102,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private analyticsClient?: AnalyticsWebClient;
   private isChannelInitialized: boolean = false;
 
+  // To keep track of the namespace event changes from the server.
+  private isNamespaceLocked: boolean = false;
+
   // Fires analytics to editor when collab editor cannot sync up
   private onSyncUpError?: SyncUpErrorFunction;
 
@@ -153,6 +157,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           metadata,
         });
       })
+      .on('restore', this.onRestore.bind(this))
       .on('steps:added', this.onStepsAdded.bind(this))
       .on('participant:telepointer', this.onParticipantTelepointer.bind(this))
       .on('presence:joined', this.onPresenceJoined.bind(this))
@@ -162,6 +167,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       .on('metadata:changed', this.onMetadataChanged.bind(this))
       .on('disconnect', this.onDisconnected.bind(this))
       .on('error', this.onErrorHandled.bind(this))
+      .on('status', this.onNamespaceStatusChanged.bind(this))
       .connect();
   };
 
@@ -229,6 +235,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     if (!sendable) {
       return;
     }
+    if (this.isNamespaceLocked) {
+      logger('The document is temporary locked');
+      return;
+    }
 
     const { steps } = sendable;
     if (!steps || !steps.length) {
@@ -248,6 +258,42 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       version,
     });
   }
+
+  // Triggered when page recovery has emitted an 'init' event on a page client is currently connected to.
+  private onRestore = ({ doc, version, metadata }: CollabInitPayload) => {
+    // Preseve the unconfirmed steps to prevent data loss.
+    const { steps: unconfirmedSteps } = this.getUnconfirmedSteps() || {
+      steps: [],
+    };
+
+    // Reset the editor,
+    //  - Repalce the document, keep in sync with the server
+    //  - Repalce the version number, so editor is in sync with NCS server and can commit new changes.
+    //  - Repalce the metadata
+    //  - Reserve the cursore position, in case a cursor jump.
+    this.updateDocumentWithMetadata({
+      doc,
+      version,
+      metadata,
+      reserveCursor: true,
+    });
+
+    triggerCollabAnalyticsEvent(
+      {
+        eventAction: EVENT_ACTION.REINITIALISE_DOCUMENT,
+        attributes: {
+          numUnconfirmedSteps: unconfirmedSteps.length,
+          documentAri: this.config.documentAri,
+        },
+      },
+      this.analyticsClient,
+    );
+
+    // Re-apply the unconfirmed steps, not 100% of them can be applied, if document is changed significantly.
+    if (unconfirmedSteps.length > 0) {
+      this.applyLocalsteps(unconfirmedSteps);
+    }
+  };
 
   /**
    * Called when we receive steps from the service
@@ -833,6 +879,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
                 eventStatus: EVENT_STATUS.FAILURE,
                 latency: measure?.duration,
                 documentAri: this.config.documentAri,
+                // upon failure, emit the number of unconfirmed steps we attempted to sync
+                numUnconfirmedSteps: nextUnconfirmedState?.steps.length,
               },
             },
             this.analyticsClient,
@@ -849,6 +897,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
             eventStatus: EVENT_STATUS.SUCCESS,
             latency: measure?.duration,
             documentAri: this.config.documentAri,
+            // upon success, emit the total number of unconfirmed steps we synced
+            numUnconfirmedSteps: unconfirmedState.steps.length,
           },
         },
         this.analyticsClient,
@@ -904,4 +954,32 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     this.channel.disconnect();
     return this;
   }
+
+  /**
+   * ESS-2916 namespace status event- lock/unlock
+   */
+
+  private onNamespaceStatusChanged = async (data: NamespaceStatus) => {
+    const { isLocked, waitTimeInMs, timestamp } = data;
+    const start = Date.now();
+    logger(`Received a namespace status changed event `, { data });
+    if (isLocked && waitTimeInMs) {
+      this.isNamespaceLocked = true;
+      logger(`Received a namespace status change event `, {
+        isLocked,
+      });
+
+      // To protect the collab editing process from locked out due to BE
+      setTimeout(() => {
+        logger(`The namespace lock has expired`, {
+          waitTime: Date.now() - start,
+          timestamp,
+        });
+        this.isNamespaceLocked = false;
+      }, waitTimeInMs);
+      return;
+    }
+    this.isNamespaceLocked = false;
+    logger(`The page lock has expired`);
+  };
 }

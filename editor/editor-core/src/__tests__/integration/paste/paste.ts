@@ -190,58 +190,6 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
-  'paste.ts: decision item copied from renderer and pasted',
-  // TODO: Unskip Firefox via https://product-fabric.atlassian.net/browse/ED-15079
-  // TODO: Chrome skipped due to being flaky in pipelines - please fix
-  // TODO: Safari skipped due to @testing-library upgrade
-  { skip: ['firefox', 'chrome', 'safari'] },
-  async (client: WebdriverIO.BrowserObject, testName: string) => {
-    let page = new WebdriverPage(client);
-    let url = getExampleUrl(
-      'editor',
-      'renderer',
-      'testing',
-      // @ts-ignore
-      global.__BASEURL__,
-    );
-
-    await page.goto(url);
-    await page.maximizeWindow();
-
-    const rendererMounted = await mountRenderer(
-      page,
-      { withRendererActions: true },
-      documentWithDecision,
-    );
-
-    // Only run the test assertions when the example is available.
-    // When unavailable, gracefully pass the test to avoid blocking CI.
-    if (rendererMounted) {
-      const selectorStart = 'p';
-      const selectorEnd = 'h3';
-      const decisionListSelector = 'ol[data-node-type="decisionList"]';
-
-      await page.waitForSelector(selectorStart);
-      await page.waitForSelector(selectorEnd);
-      await page.waitForSelector(decisionListSelector);
-      await page.simulateUserSelection(selectorStart, selectorEnd);
-      await page.copy();
-
-      page = await goToEditorTestingWDExample(client);
-      await mountEditor(page, {
-        appearance: fullpage.appearance,
-      });
-
-      await page.paste();
-      await page.waitForSelector(decisionListSelector);
-
-      const doc = await page.$eval(editorSelector, getDocFromElement);
-      expect(doc).toMatchCustomDocSnapshot(testName);
-    }
-  },
-);
-
-BrowserTestCase(
   'paste.ts: code block copied from renderer and pasted',
   {},
   async (client: WebdriverIO.BrowserObject, testName: string) => {
@@ -261,188 +209,6 @@ BrowserTestCase(
 
     const doc = await page.$eval(editorSelector, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
-  },
-);
-
-BrowserTestCase(
-  'paste.ts: paste code with new lines into code block. ensure up arrow is working',
-  // skip safari this test is for windows only
-  // firefox skipped due to flaky copy paste https://product-fabric.atlassian.net/browse/ED-15079
-  { skip: ['safari', 'firefox'] },
-  async (client: WebdriverIO.BrowserObject, testName: string) => {
-    const page = await goToEditorTestingWDExample(client);
-
-    const text =
-      '// Your First C++ Program\r\n\r\n#include <iostream>\r\n\r\nint main() {\r\n    std::cout << "Hello World!";\r\n    return 0;\r\n}\r\n';
-    await copyAsPlainText(page, text);
-
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      defaultValue: JSON.stringify(documentWithCodeBlock),
-    });
-
-    await page.paste();
-
-    const doc = await page.$eval(editorSelector, getDocFromElement);
-    expect(doc).toMatchCustomDocSnapshot(testName);
-
-    await page.keys([
-      'ArrowUp',
-      'ArrowUp',
-      'ArrowUp',
-      'ArrowUp',
-      'ArrowUp',
-      'ArrowUp',
-      'ArrowUp',
-      'ArrowUp',
-    ]);
-
-    await page.keys(['a']);
-    expect(doc).toMatchCustomDocSnapshot(testName + '1');
-  },
-);
-
-BrowserTestCase(
-  'paste.ts: inline card copied from renderer and pasted',
-  /* NOTE: https://product-fabric.atlassian.net/browse/EDM-1249
-    This test is to ensure that that we test this scenario,
-    previously we had this bug in Firefox where it doubles up the items when pasting
-  */
-  /**
-   * Notes that Chrome on MacOS will fail this test because we are using ['Shift', 'Insert'] in page.paste()
-   * which would actually paste the text.
-   */
-  // TODO: All browsers skipped due to failing in pipelines - please fix
-  { skip: ['chrome', 'safari', 'firefox'] },
-  async (client: WebdriverIO.BrowserObject, testName: string) => {
-    let page = new WebdriverPage(client);
-    let url = getExampleUrl(
-      'editor',
-      'renderer',
-      'testing',
-      // @ts-ignore
-      global.__BASEURL__,
-    );
-
-    await page.goto(url);
-    await page.maximizeWindow();
-
-    const cardProviderPromise = Promise.resolve(
-      new ConfluenceCardProvider('prod'),
-    );
-
-    const rendererMounted = await mountRenderer(
-      page,
-      {
-        withRendererActions: true,
-        smartLinks: {
-          provider: cardProviderPromise,
-          allowBlockCards: true,
-        },
-      },
-      documentWithInlineCard,
-    );
-
-    // Only run the test assertions when the example is available.
-    // When unavailable, gracefully pass the test to avoid blocking CI.
-    if (rendererMounted) {
-      const selectorStart = 'p[data-renderer-start-pos]';
-      const selectorEnd = 'p[data-renderer-start-pos]';
-      const inlineCardSelector = 'a[data-testid="inline-card-resolved-view"]';
-
-      await page.waitForSelector(selectorStart);
-      await page.waitForSelector(selectorEnd);
-      await page.waitForSelector(inlineCardSelector);
-      await page.simulateUserSelection(selectorStart, selectorEnd);
-      await page.copy();
-
-      page = await goToEditorTestingWDExample(client);
-      await mountEditor(page, {
-        appearance: fullpage.appearance,
-        smartLinks: {
-          provider: cardProviderPromise,
-          allowBlockCards: true,
-        },
-      });
-
-      await page.paste();
-      await page.waitForSelector(inlineCardSelector);
-
-      const doc = await page.$eval(editorSelector, getDocFromElement);
-      expect(doc).toMatchCustomDocSnapshot(testName);
-    }
-  },
-);
-
-// enable this test case for firefox: https://product-fabric.atlassian.net/browse/ED-15270
-BrowserTestCase(
-  'paste.ts: media inline card copied from renderer and pasted',
-  // TODO: All browsers skipped due to failing in pipelines - please fix
-  { skip: ['chrome', 'safari', 'firefox'] },
-  async (client: WebdriverIO.BrowserObject, testName: string) => {
-    let page = new WebdriverPage(client);
-    let url = getExampleUrl(
-      'editor',
-      'renderer',
-      'testing',
-      // @ts-ignore
-      global.__BASEURL__,
-    );
-
-    await page.goto(url);
-    await page.maximizeWindow();
-
-    const rendererMounted = await mountRenderer(
-      page,
-      {
-        withRendererActions: true,
-      },
-      documentWithMediaInlineCard,
-    );
-
-    if (rendererMounted) {
-      const selectorStart = 'p[data-renderer-start-pos]';
-      const selectorEnd = 'h3';
-      const mediaInlineCardSelector =
-        '[data-testid="media-inline-card-loaded-view"]';
-
-      await page.waitForSelector(selectorStart);
-      await page.waitForSelector(selectorEnd);
-      await page.waitForSelector(mediaInlineCardSelector, { timeout: 10000 });
-      await page.simulateUserSelection(selectorStart, selectorEnd);
-      await page.copy();
-
-      page = await goToEditorTestingWDExample(client);
-      await mountEditor(page, {
-        appearance: fullpage.appearance,
-        media: {
-          featureFlags: {
-            mediaInline: true,
-          },
-        },
-      });
-
-      await page.paste();
-      await page.waitForSelector(mediaInlineCardSelector, { timeout: 1000 });
-
-      const collectionMatcher = expect.objectContaining({
-        content: expect.arrayContaining([
-          expect.objectContaining({
-            content: expect.arrayContaining([
-              expect.objectContaining({
-                attrs: expect.objectContaining({
-                  collection: 'MediaServicesSample',
-                }),
-              }),
-            ]),
-          }),
-        ]),
-      });
-
-      const doc = await page.$eval(editorSelector, getDocFromElement);
-      expect(doc).toEqual(collectionMatcher);
-      expect(doc).toMatchCustomDocSnapshot(testName);
-    }
   },
 );
 
@@ -495,3 +261,244 @@ BrowserTestCase(
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );
+
+BrowserTestCase(
+  'paste.ts: paste code with new lines into code block. ensure up arrow is working',
+  // skip safari this test is for windows only
+  // firefox skipped due to flaky copy paste https://product-fabric.atlassian.net/browse/ED-15079
+  { skip: ['safari', 'firefox'] },
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    const text =
+      '// Your First C++ Program\r\n\r\n#include <iostream>\r\n\r\nint main() {\r\n    std::cout << "Hello World!";\r\n    return 0;\r\n}\r\n';
+    await copyAsPlainText(page, text);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: JSON.stringify(documentWithCodeBlock),
+    });
+
+    await page.paste();
+
+    const doc = await page.$eval(editorSelector, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+
+    await page.keys([
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowUp',
+    ]);
+
+    await page.keys(['a']);
+    expect(doc).toMatchCustomDocSnapshot(testName + '1');
+  },
+);
+
+describe('copied from the renderer and pasted into the editor', () => {
+  BrowserTestCase(
+    'paste.ts: decision item copied from renderer and pasted',
+    // TODO: Firefox skipped due to: https://product-fabric.atlassian.net/servicedesk/customer/portal/99/DTR-858?created=true
+    { skip: ['firefox'] },
+    async (client: WebdriverIO.BrowserObject, testName: string) => {
+      let page = new WebdriverPage(client);
+      let url = getExampleUrl(
+        'editor',
+        'renderer',
+        'testing',
+        // @ts-ignore
+        global.__BASEURL__,
+      );
+
+      await page.goto(url);
+      await page.maximizeWindow();
+
+      const rendererMounted = await mountRenderer(
+        page,
+        { withRendererActions: true },
+        documentWithDecision,
+      );
+
+      // Only run the test assertions when the example is available.
+      // When unavailable, gracefully pass the test to avoid blocking CI.
+      if (rendererMounted) {
+        const selectorStart = 'p';
+        const selectorEnd = 'h3';
+        // Make sure the second decision item is rendered so it can be copied
+        const decisionListSelector = `[data-node-type="decisionList"] li:nth-of-type(2)`;
+
+        await page.waitForElementCount('[data-decision-state="DECIDED"]', 2);
+        await page.waitUntilContainsText(decisionListSelector, 'Decision 2');
+
+        await page.waitForSelector(selectorStart);
+        await page.waitForSelector(selectorEnd);
+        await page.simulateUserSelection(selectorStart, selectorEnd);
+
+        await page.copy();
+
+        const editorPage = await goToEditorTestingWDExample(client);
+        await mountEditor(editorPage, {
+          appearance: fullpage.appearance,
+          allowTasksAndDecisions: true,
+        });
+
+        await editorPage.paste();
+        await editorPage.waitForSelector(decisionListSelector, {
+          timeout: 10000,
+        });
+
+        const doc = await editorPage.$eval(editorSelector, getDocFromElement);
+        expect(doc).toMatchCustomDocSnapshot(testName);
+      }
+    },
+  );
+
+  BrowserTestCase(
+    'paste.ts: inline card copied from renderer and pasted',
+    /* NOTE: https://product-fabric.atlassian.net/browse/EDM-1249
+    This test is to ensure that that we test this scenario,
+    previously we had this bug in Firefox where it doubles up the items when pasting
+  */
+    /**
+     * Notes that Chrome on MacOS will fail this test because we are using ['Shift', 'Insert'] in page.paste()
+     * which would actually paste the text.
+     */
+    { skip: [] },
+    async (client: WebdriverIO.BrowserObject, testName: string) => {
+      let page = new WebdriverPage(client);
+      let url = getExampleUrl(
+        'editor',
+        'renderer',
+        'testing',
+        // @ts-ignore
+        global.__BASEURL__,
+      );
+
+      await page.goto(url);
+      await page.maximizeWindow();
+
+      const cardProviderPromise = Promise.resolve(
+        new ConfluenceCardProvider('prod'),
+      );
+
+      const rendererMounted = await mountRenderer(
+        page,
+        {
+          withRendererActions: true,
+          smartLinks: {
+            provider: cardProviderPromise,
+            allowBlockCards: true,
+          },
+        },
+        documentWithInlineCard,
+      );
+
+      // Only run the test assertions when the example is available.
+      // When unavailable, gracefully pass the test to avoid blocking CI.
+      if (rendererMounted) {
+        const selectorStart = 'p[data-renderer-start-pos]';
+        const selectorEnd = 'p[data-renderer-start-pos]';
+        const inlineCardSelector = 'a[data-testid="inline-card-resolved-view"]';
+
+        await page.waitForSelector(inlineCardSelector, { timeout: 10000 });
+        await page.waitForSelector(selectorStart);
+        await page.waitForSelector(selectorEnd);
+        await page.simulateUserSelection(selectorStart, selectorEnd);
+        await page.copy();
+
+        const editor = await goToEditorTestingWDExample(client);
+        await mountEditor(editor, {
+          appearance: fullpage.appearance,
+          smartLinks: {
+            provider: cardProviderPromise,
+            allowBlockCards: true,
+          },
+        });
+
+        await editor.paste();
+        await editor.waitForSelector(inlineCardSelector);
+
+        const doc = await editor.$eval(editorSelector, getDocFromElement);
+        expect(doc).toMatchCustomDocSnapshot(testName);
+      }
+    },
+  );
+
+  BrowserTestCase(
+    'paste.ts: media inline card copied from renderer and pasted',
+    // TODO: additional text is pasted in safari & chrome: https://product-fabric.atlassian.net/browse/EDM-4739
+    { skip: ['chrome', 'safari'] },
+    async (client: WebdriverIO.BrowserObject, testName: string) => {
+      let page = new WebdriverPage(client);
+      let url = getExampleUrl(
+        'editor',
+        'renderer',
+        'testing',
+        // @ts-ignore
+        global.__BASEURL__,
+      );
+
+      await page.goto(url);
+      await page.maximizeWindow();
+
+      const rendererMounted = await mountRenderer(
+        page,
+        {
+          withRendererActions: true,
+        },
+        documentWithMediaInlineCard,
+      );
+
+      if (rendererMounted) {
+        const selectorStart = 'p[data-renderer-start-pos]';
+        const selectorEnd = 'h3';
+        const mediaInlineCardSelector =
+          '[data-testid="media-inline-card-loaded-view"]';
+
+        await page.waitForSelector(mediaInlineCardSelector, { timeout: 10000 });
+        await page.waitForSelector(selectorStart);
+        await page.waitForSelector(selectorEnd);
+        await page.simulateUserSelection(selectorStart, selectorEnd);
+        await page.copy();
+
+        const editor = await goToEditorTestingWDExample(client);
+        await mountEditor(editor, {
+          appearance: fullpage.appearance,
+          media: {
+            featureFlags: {
+              mediaInline: true,
+            },
+          },
+        });
+
+        await editor.paste();
+        await editor.waitForSelector(mediaInlineCardSelector, {
+          timeout: 10000,
+        });
+
+        const collectionMatcher = expect.objectContaining({
+          content: expect.arrayContaining([
+            expect.objectContaining({
+              content: expect.arrayContaining([
+                expect.objectContaining({
+                  attrs: expect.objectContaining({
+                    collection: 'MediaServicesSample',
+                  }),
+                }),
+              ]),
+            }),
+          ]),
+        });
+
+        const doc = await page.$eval(editorSelector, getDocFromElement);
+        expect(doc).toEqual(collectionMatcher);
+        expect(doc).toMatchCustomDocSnapshot(testName);
+      }
+    },
+  );
+});

@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-input-rules
 
+## 2.1.9
+
+### Patch Changes
+
+- [`0606572f9b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0606572f9b8) - [ux] ED-15348 docs(changeset): ED-15348 Fix a bug preventing typeahead actions to be fired from a gap cursor. Typing a typeahead trigger key (/, : or @) should pop-up a typeahead menu. However, if the current selection is inside a gap cursor, the trigger character is inserted and the pop-up menu doesn't open. This changeset fixes that.
+- Updated dependencies
+
 ## 2.1.8
 
 ### Patch Changes

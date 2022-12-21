@@ -1,6 +1,8 @@
 import { AvatarItem } from '@atlaskit/avatar';
 import { shallow } from 'enzyme';
+import noop from 'lodash/noop';
 import React from 'react';
+import { Props } from '../../../components/SingleValue';
 import { SingleValue } from '../../../components/SingleValue';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 
@@ -22,7 +24,27 @@ describe('SingleValue', () => {
   };
 
   const shallowSingleValue = (props = {}) =>
-    shallow(<SingleValue data={data} selectProps={selectProps} {...props} />);
+    shallow(
+      <SingleValue
+        children={null}
+        hasValue={false}
+        isMulti={false}
+        isRtl={false}
+        innerProps={noop as Props['innerProps']}
+        getStyles={noop as Props['getStyles']}
+        setValue={noop}
+        isDisabled={false}
+        clearValue={noop}
+        cx={noop as Props['cx']}
+        getValue={noop as Props['getValue']}
+        options={[]}
+        selectOption={noop}
+        theme={{} as Props['theme']}
+        data={data as Props['data']}
+        selectProps={selectProps as unknown as Props['selectProps']}
+        {...props}
+      />,
+    );
 
   it('should render SingleValue', () => {
     const component = shallowSingleValue();

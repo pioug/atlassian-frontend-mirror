@@ -6,7 +6,7 @@ import type {
   OptionProps,
   SingleValueProps,
   ValueType,
-} from '@atlaskit/select/types';
+} from '@atlaskit/select';
 
 interface OptionType {
   label: string;

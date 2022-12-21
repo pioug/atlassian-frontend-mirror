@@ -22,9 +22,11 @@ import {
 import { ArchiveViewerError } from '../../errors';
 import { itemStyle } from './styles';
 
+type Entries = { [key: string]: ZipEntry };
+
 export interface ArchiveSidebarFolderProps {
   root: string;
-  entries: { [key: string]: ZipEntry };
+  entries: Entries;
   onEntrySelected: (selectedEntry: ZipEntry) => void;
   hideHeader?: boolean;
   name?: string;
@@ -83,29 +85,43 @@ export class ArchiveSidebarFolderEntry extends React.Component<ArchiveSidebarFol
     }
   };
 
-  private isDirectChild(root: string, entry: ZipEntry) {
-    return (
-      entry.name.startsWith(root) &&
-      entry.name.replace(root, '').match(/^[^/]+\/?$/g)
-    );
-  }
-
   private formatName(root: string, name: string) {
     return name.replace(root, '');
   }
 
+  private renderSidebarContent(root: string, entries: Entries) {
+    const navItems = new Map<string, ZipEntry>();
+
+    for (const value of Object.values(entries)) {
+      const { name } = value;
+      if (!name.startsWith(root) || isMacPrivateFile(name)) {
+        continue;
+      }
+
+      const paths = name.replace(root, '').split('/').filter(Boolean);
+
+      if (paths.length > 1) {
+        if (!navItems.has(paths[0])) {
+          navItems.set(paths[0], {
+            name: `${root}${paths[0]}/`,
+            isDirectory: true,
+          } as ZipEntry);
+        }
+      } else if (paths.length === 1) {
+        navItems.set(paths[0], value);
+      }
+    }
+
+    return Array.from(navItems.values()).map(this.renderEntry);
+  }
+
   render() {
     const { root, entries } = this.props;
-    const entriesContent = Object.values(entries)
-      .filter((entry) => this.isDirectChild(root, entry))
-      .filter((entry) => !isMacPrivateFile(entry.name))
-      .map(this.renderEntry);
 
-    const archiveSidebarFolder = (
+    return (
       <ArchiveSidebarFolderWrapper>
-        {entriesContent}
+        {this.renderSidebarContent(root, entries)}
       </ArchiveSidebarFolderWrapper>
     );
-    return archiveSidebarFolder;
   }
 }

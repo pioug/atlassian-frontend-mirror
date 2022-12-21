@@ -12,16 +12,18 @@ import {
 } from '../../types';
 import { Counter } from '../Counter';
 import { FlashAnimation } from '../FlashAnimation';
-import { ReactionTooltip } from '../ReactionTooltip';
+import { ReactionTooltip, ReactionTooltipProps } from '../ReactionTooltip';
 import { i18n, utils } from '../../shared';
 import * as styles from './styles';
+import { ReactionFocused } from '../../types/reaction';
 
 /**
  * Test id for Reaction item wrapper div
  */
 export const RENDER_REACTION_TESTID = 'render_reaction_wrapper';
 
-export interface ReactionProps {
+export interface ReactionProps
+  extends Pick<ReactionTooltipProps, 'allowUserDialog'> {
   /**
    * Data for the reaction
    */
@@ -43,9 +45,17 @@ export interface ReactionProps {
    */
   onMouseEnter?: ReactionMouseEnter;
   /**
+   * Optional event when focused the reaction
+   */
+  onFocused?: ReactionFocused;
+  /**
    * Show custom animation or render as standard without animation (defaults to false)
    */
   flash?: boolean;
+  /**
+   * Optional function when the user wants to see more users in a modal
+   */
+  handleUserListClick?: (emojiId: string) => void;
 }
 
 /**
@@ -55,14 +65,21 @@ export const Reaction: React.FC<ReactionProps> = ({
   emojiProvider,
   onClick,
   reaction,
-  onMouseEnter,
+  onMouseEnter = () => {},
+  onFocused = () => {},
   className,
   flash = false,
+  handleUserListClick = () => {},
+  allowUserDialog,
 }) => {
-  const emojiId: EmojiId = { id: reaction.emojiId, shortName: '' };
+  const intl = useIntl();
   const hoverStart = useRef<number>();
+  const focusStart = useRef<number>();
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const [emojiName, setEmojiName] = useState<string>();
+  const [isTooltipEnabled, setIsTooltipEnabled] = useState(true);
+
+  const emojiId: EmojiId = { id: reaction.emojiId, shortName: '' };
 
   // TODO: Extract the flow to a custom hook to retrieve emoji detailed description from an id using a custom hook. This will benefit a better optimization instead of the emojiProvider resolving everytime.
   // Also optimize in future version to fetch in batch several emojiIds
@@ -76,7 +93,7 @@ export const Reaction: React.FC<ReactionProps> = ({
     })();
   }, [emojiProvider, reaction.emojiId]);
 
-  const handleMouseUp = useCallback(
+  const handleClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
       if (utils.isLeftClick(event)) {
@@ -96,25 +113,49 @@ export const Reaction: React.FC<ReactionProps> = ({
   const handleMouseEnter = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
+      setIsTooltipEnabled(true);
+      if (!reaction.users || !reaction.users.length) {
+        focusStart.current = Date.now();
+      }
+      Analytics.createAndFireSafe(
+        createAnalyticsEvent,
+        Analytics.createReactionHoveredEvent,
+        focusStart.current,
+      );
+      onMouseEnter(reaction.emojiId, event);
+    },
+    [createAnalyticsEvent, reaction, onMouseEnter],
+  );
+
+  const handleFocused = useCallback(
+    (event: React.FocusEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      setIsTooltipEnabled(true);
       if (!reaction.users || !reaction.users.length) {
         hoverStart.current = Date.now();
       }
       Analytics.createAndFireSafe(
         createAnalyticsEvent,
-        Analytics.createReactionHoveredEvent,
+        Analytics.createReactionFocusedEvent,
         hoverStart.current,
       );
-      if (onMouseEnter) {
-        onMouseEnter(reaction, event);
-      }
+      onFocused(reaction.emojiId, event);
     },
-    [createAnalyticsEvent, reaction, onMouseEnter],
+    [createAnalyticsEvent, reaction, onFocused],
   );
 
-  const intl = useIntl();
-
+  const handleOpenReactionsDialog = (emojiId: string) => {
+    handleUserListClick(emojiId);
+    setIsTooltipEnabled(false);
+  };
   return (
-    <ReactionTooltip emojiName={emojiName} reaction={reaction}>
+    <ReactionTooltip
+      emojiName={emojiName}
+      reaction={reaction}
+      handleUserListClick={handleOpenReactionsDialog}
+      allowUserDialog={allowUserDialog}
+      isEnabled={isTooltipEnabled}
+    >
       <button
         className={className}
         css={[styles.reactionStyle, reaction.reacted && styles.reactedStyle]}
@@ -124,8 +165,10 @@ export const Reaction: React.FC<ReactionProps> = ({
         type="button"
         data-emoji-id={reaction.emojiId}
         data-testid={RENDER_REACTION_TESTID}
-        onMouseUp={handleMouseUp}
+        onClick={handleClick}
         onMouseEnter={handleMouseEnter}
+        onFocus={handleFocused}
+        data-emoji-button-id={reaction.emojiId}
       >
         <FlashAnimation flash={flash} css={styles.flashStyle}>
           <div

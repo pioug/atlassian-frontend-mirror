@@ -3,8 +3,10 @@ import { Client, ReactionStatus } from '../types';
 import { Analytics as AnalyticsModule } from '../analytics';
 import {
   mockReactDomWarningGlobal,
+  mockResetUFOInstance,
   useFakeTimers,
 } from '../__tests__/_testing-library';
+import type { FakeUFOInstance } from '../__tests__/_testing-library';
 import {
   ari,
   containerAri,
@@ -44,17 +46,6 @@ const createSafeRejectedPromise = (error: any) => {
     }),
   };
 };
-
-/**
- * Custom type for simulate the UFOExperience main methods
- */
-interface FakeUFOInstance {
-  start: jest.Mock;
-  success: jest.Mock;
-  failure: jest.Mock;
-  abort: jest.Mock;
-  addMetadata: jest.Mock;
-}
 
 describe('MemoryReactionsStore', () => {
   const fakeCreateAnalyticsEvent = jest.fn();
@@ -115,17 +106,6 @@ describe('MemoryReactionsStore', () => {
     ufoExperiences.fetchDetails.getInstance = jest.fn(
       () => fakeFetchDetailsUFOInstance as any,
     );
-  };
-
-  /**
-   * Jest mock reset for all different methods of a UfoExperience object
-   * @param instance given instance to reset
-   */
-  const mockResetUFOInstance = (instance: FakeUFOInstance) => {
-    instance.start.mockReset();
-    instance.abort.mockReset();
-    instance.failure.mockReset();
-    instance.success.mockReset();
   };
 
   let store: MemoryReactionsStore;

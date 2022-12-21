@@ -144,9 +144,12 @@ export class ToolbarInsertBlock extends React.PureComponent<
     });
   };
 
-  private togglePlusMenuVisibility = () => {
+  private togglePlusMenuVisibility = (event?: KeyboardEvent) => {
     const { isPlusMenuOpen } = this.state;
     this.onOpenChange({ isPlusMenuOpen: !isPlusMenuOpen });
+    if (event?.key === 'Escape') {
+      (this.plusButtonRef || this.dropdownButtonRef)?.focus();
+    }
   };
 
   private toggleEmojiPicker = (
@@ -175,6 +178,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 
   private handleEmojiPressEscape = () => {
     this.toggleEmojiPicker(INPUT_METHOD.KEYBOARD);
+    this.emojiButtonRef?.focus();
   };
 
   private handleEmojiClickOutside = (e: MouseEvent) => {
@@ -289,7 +293,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
             items={this.state.dropdownItems}
             onRef={this.handleDropDownButtonRef}
             onPlusButtonRef={this.handlePlusButtonRef}
-            onClick={this.togglePlusMenuVisibility}
+            onClick={this.handleClick}
             onItemActivated={this.insertInsertMenuItem}
             onInsert={this.insertInsertMenuItem as OnInsert}
             onOpenChange={this.onOpenChange}
@@ -303,6 +307,10 @@ export class ToolbarInsertBlock extends React.PureComponent<
       </span>
     );
   }
+
+  private handleClick = () => {
+    this.togglePlusMenuVisibility();
+  };
 
   private toggleLinkPanel = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
     const { editorView } = this.props;

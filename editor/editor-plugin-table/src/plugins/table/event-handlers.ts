@@ -63,6 +63,7 @@ import {
   isRowControlsButton,
   isTableControlsButton,
   isTableContainerOrWrapper,
+  hasResizeHandler,
 } from './utils';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
@@ -298,7 +299,6 @@ export const handleMouseMove =
   (
     view: EditorView,
     event: Event,
-    tableCellOptimization?: boolean,
     elementContentRects?: ElementContentRects,
   ) => {
     if (!(event.target instanceof HTMLElement)) {
@@ -314,7 +314,7 @@ export const handleMouseMove =
       const positionColumn =
         getMousePositionHorizontalRelativeByElement(
           event as MouseEvent,
-          tableCellOptimization,
+          false,
           elementContentRects,
         ) === 'right'
           ? endIndex
@@ -342,15 +342,11 @@ export const handleMouseMove =
     }
 
     const { mouseMoveOptimization } = getEditorFeatureFlags();
-    // we only want to allow mouseMoveOptimisation when tableCellOptimization is enabled
-    // because it relies on tableCell node view that is added  via tableCellOptimization
-    const useMouseMoveOptimisation =
-      tableCellOptimization && mouseMoveOptimization;
 
     if (!isResizeHandleDecoration(element) && isCell(element)) {
       const positionColumn = getMousePositionHorizontalRelativeByElement(
         event as MouseEvent,
-        useMouseMoveOptimisation,
+        mouseMoveOptimization,
         elementContentRects,
         RESIZE_HANDLE_AREA_DECORATION_GAP,
       );
@@ -376,7 +372,8 @@ export const handleMouseMove =
 
           if (
             columnEndIndexTarget !== resizeHandleColumnIndex ||
-            rowIndexTarget !== resizeHandleRowIndex
+            rowIndexTarget !== resizeHandleRowIndex ||
+            !hasResizeHandler({ target: element, columnEndIndexTarget })
           ) {
             return addResizeHandleDecorations(
               rowIndexTarget,
@@ -487,7 +484,6 @@ export const whenTableInFocus =
     eventHandler: (
       view: EditorView,
       mouseEvent: Event,
-      tableCellOptimization?: boolean,
       elementContentRects?: ElementContentRects,
     ) => boolean,
     elementContentRects?: ElementContentRects,
@@ -498,17 +494,10 @@ export const whenTableInFocus =
     const isDragging =
       tableResizePluginState && !!tableResizePluginState.dragging;
     const hasTableNode = tablePluginState && tablePluginState.tableNode;
-    const tableCellOptimization =
-      tablePluginState?.pluginConfig?.tableCellOptimization;
 
     if (!hasTableNode || isDragging) {
       return false;
     }
 
-    return eventHandler(
-      view,
-      mouseEvent,
-      tableCellOptimization,
-      elementContentRects,
-    );
+    return eventHandler(view, mouseEvent, elementContentRects);
   };

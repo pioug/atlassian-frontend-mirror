@@ -358,7 +358,8 @@ describe('LinkToolbarAppearance', () => {
 
       // Floating toolbar dropdown trigger does not receive focus by default.
       screen.queryByTestId('link-toolbar-appearance-button')?.focus();
-      await user.tab();
+      await user.keyboard('{space}');
+      await user.keyboard('{arrowdown}');
       const urlButton = queryForButtonByLabel('URL');
       expect(urlButton).toHaveFocus();
       fireEvent.keyDown(urlButton!, {
@@ -388,9 +389,9 @@ describe('LinkToolbarAppearance', () => {
       // Floating toolbar dropdown trigger does not receive focus by default.
       screen.queryByTestId('link-toolbar-appearance-button')?.focus();
       const cardButton = queryForButtonByLabel('Card');
-      await user.tab();
-      await user.tab(); // :)
-      await user.tab();
+      await user.keyboard('{arrowdown}');
+      await user.keyboard('{arrowdown}'); // :)
+      await user.keyboard('{arrowdown}');
       expect(cardButton).toHaveFocus();
       fireEvent.keyDown(cardButton!, {
         key: 'Enter',
@@ -416,7 +417,8 @@ describe('LinkToolbarAppearance', () => {
 
       // Floating toolbar dropdown trigger does not receive focus by default
       screen.queryByTestId('link-toolbar-appearance-button')?.focus();
-      await user.tab();
+      await user.keyboard('{space}');
+      await user.keyboard('{arrowdown}');
       const urlButton = queryForButtonByLabel('URL');
       expect(urlButton).toHaveFocus();
       fireEvent.keyDown(urlButton!, {
@@ -446,9 +448,9 @@ describe('LinkToolbarAppearance', () => {
       // Floating toolbar dropdown trigger does not receive focus by default.
       screen.queryByTestId('link-toolbar-appearance-button')?.focus();
       const cardButton = queryForButtonByLabel('Card');
-      await user.tab();
-      await user.tab(); // :)
-      await user.tab();
+      await user.keyboard('{arrowdown}');
+      await user.keyboard('{arrowdown}'); // :)
+      await user.keyboard('{arrowdown}');
       expect(cardButton).toHaveFocus();
       fireEvent.keyDown(cardButton!, {
         key: 'Space',

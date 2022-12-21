@@ -1,5 +1,16 @@
 # @atlaskit/button
 
+## 16.5.0
+
+### Minor Changes
+
+- [`71799e16ae6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71799e16ae6) - Introduce InteractionContext to @atlaskit/button
+
+### Patch Changes
+
+- [`3c76f243e7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c76f243e7f) - InteractionContext is nullable
+- Updated dependencies
+
 ## 16.4.1
 
 ### Patch Changes

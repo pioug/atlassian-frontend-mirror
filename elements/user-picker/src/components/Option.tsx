@@ -29,6 +29,7 @@ export type OptionProps = AkOptionProps & {
 };
 
 const defaultOption = ({ data: { data }, isSelected, status }: OptionProps) => (
+  // @ts-expect-error - <UserOption> expects `data` to be of User interface, but data is OptionData interface by default. Check if the `user` props in UserOption should also accept OptionData or refactor this file to accept generics
   <UserOption user={data} status={status} isSelected={isSelected} />
 );
 

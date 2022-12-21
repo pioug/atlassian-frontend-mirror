@@ -2,6 +2,8 @@ import React from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+
 import Flag from '../../flag';
 
 describe('Flag Expander', () => {
@@ -18,7 +20,7 @@ describe('Flag Expander', () => {
     const { queryByText, getByTestId } = render(
       <Flag
         id=""
-        icon={<div />}
+        icon={<Box />}
         title="Flag"
         appearance="info"
         description="Hi!"
@@ -51,7 +53,7 @@ describe('Flag Expander', () => {
     const { getByTestId } = render(
       <Flag
         id=""
-        icon={<div />}
+        icon={<Box />}
         title="Flag"
         appearance="info"
         description="Hi!"
@@ -68,7 +70,7 @@ describe('Flag Expander', () => {
     const { getByTestId } = render(
       <Flag
         id=""
-        icon={<div />}
+        icon={<Box />}
         title="Flag"
         appearance="info"
         description="Hi!"

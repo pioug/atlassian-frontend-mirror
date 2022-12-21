@@ -63,11 +63,7 @@ export const Trigger = React.forwardRef(
     };
 
     return (
-      <Tooltip
-        testId={RENDER_TOOLTIP_TRIGGER_TESTID}
-        content={tooltipContent}
-        position="top"
-      >
+      <Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
         <Button
           css={styles.triggerStyle({ miniMode, disabled })}
           appearance="subtle"

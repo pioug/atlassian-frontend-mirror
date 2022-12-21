@@ -21,10 +21,12 @@ import {
 
 import tablePlugin from '../../../../plugins/table';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
-import { TextSelection, NodeSelection } from 'prosemirror-state';
+import { TextSelection, NodeSelection, EditorState } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import widthPlugin from '@atlaskit/editor-core/src/plugins/width';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { akEditorFullPageMaxWidth } from '@atlaskit/editor-shared-styles/consts';
 
 describe('table-resizing/event-handlers', () => {
   const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
@@ -57,18 +59,7 @@ describe('table-resizing/event-handlers', () => {
         doc(table()(tr(td()(p('1')), td()(p('2')), td()(p('3{<>}'))))),
       );
 
-      setResizeHandlePos(12)(view.state, view.dispatch);
-
-      const mousedownEvent = new MouseEvent('mousedown', {
-        clientX: 150,
-      });
-
-      view.dom.dispatchEvent(mousedownEvent);
-
-      const mouseupEvent = new MouseEvent('mouseup', {
-        clientX: 250,
-      });
-      window.dispatchEvent(mouseupEvent);
+      resizeColumn(view, 12, 150, 250);
 
       expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -85,6 +76,50 @@ describe('table-resizing/event-handlers', () => {
       );
     });
 
+    it('should shrink last column until table is no longer overflowing', async () => {
+      const { editorView: view } = editor(
+        doc(table()(tr(td()(p('1')), td()(p('2')), td()(p('3{<>}'))))),
+      );
+
+      // Increase column to overflow
+      resizeColumn(view, 7, 50, 500);
+
+      expect(getTotalTableWidth(view.state as EditorState)).toBeGreaterThan(
+        akEditorFullPageMaxWidth,
+      );
+
+      resizeColumn(view, 12, 3000, 700);
+
+      // No matter how large we try to resize the result should equal the width (within 1 pt)
+      expect(getTotalTableWidth(view.state as EditorState)).toBeLessThanOrEqual(
+        akEditorFullPageMaxWidth,
+      );
+      expect(
+        getTotalTableWidth(view.state as EditorState),
+      ).toBeGreaterThanOrEqual(akEditorFullPageMaxWidth - 1);
+    });
+
+    it('should not resize the last column to grow', async () => {
+      const { editorView: view } = editor(
+        doc(table()(tr(td()(p('1')), td()(p('2')), td()(p('3{<>}'))))),
+      );
+
+      // Increase column to overflow
+      resizeColumn(view, 7, 50, 500);
+
+      const overflowingTableWidth = getTotalTableWidth(
+        view.state as EditorState,
+      );
+      expect(overflowingTableWidth).toBeGreaterThan(akEditorFullPageMaxWidth);
+
+      resizeColumn(view, 12, 400, 3000);
+
+      // Width should be unchanged
+      expect(getTotalTableWidth(view.state as EditorState)).toBe(
+        overflowingTableWidth,
+      );
+    });
+
     it('should restore text selection after replacing the table', async () => {
       const { editorView: view } = editor(
         doc(table()(tr(td()(p('1')), td()(p('2')), td()(p('3{<>}'))))),
@@ -94,15 +129,7 @@ describe('table-resizing/event-handlers', () => {
       expect(currentSelection instanceof TextSelection).toBeTruthy();
       expect(currentSelection.$cursor.pos).toBe(15);
 
-      setResizeHandlePos(12)(view.state, view.dispatch);
-      const mousedownEvent = new MouseEvent('mousedown', {
-        clientX: 150,
-      });
-      view.dom.dispatchEvent(mousedownEvent);
-      const mouseupEvent = new MouseEvent('mouseup', {
-        clientX: 250,
-      });
-      window.dispatchEvent(mouseupEvent);
+      resizeColumn(view, 12, 150, 250);
 
       expect(currentSelection instanceof TextSelection).toBeTruthy();
       expect(currentSelection.$cursor.pos).toBe(15);
@@ -118,17 +145,41 @@ describe('table-resizing/event-handlers', () => {
       view.dispatch(_tr);
       expect(view.state.tr.selection.node.type.name).toBe('panel');
 
-      setResizeHandlePos(13)(view.state, view.dispatch);
-      const mousedownEvent = new MouseEvent('mousedown', {
-        clientX: 150,
-      });
-      view.dom.dispatchEvent(mousedownEvent);
-      const mouseupEvent = new MouseEvent('mouseup', {
-        clientX: 250,
-      });
-      window.dispatchEvent(mouseupEvent);
+      resizeColumn(view, 13, 150, 250);
 
       expect(view.state.tr.selection.node.type.name).toBe('panel');
     });
   });
 });
+
+function getTotalTableWidth(state: EditorState) {
+  let totalWidth = 0;
+  state.doc.descendants((node) => {
+    if (node.type.name === 'tableCell') {
+      totalWidth += node.attrs.colwidth[0];
+      return false;
+    }
+    return true;
+  });
+  return totalWidth;
+}
+
+function resizeColumn(
+  view: EditorView,
+  pos: number,
+  start: number,
+  end: number,
+) {
+  setResizeHandlePos(pos)(view.state, view.dispatch);
+
+  const firstmousedownEvent = new MouseEvent('mousedown', {
+    clientX: start,
+  });
+
+  view.dom.dispatchEvent(firstmousedownEvent);
+
+  const firstmouseupEvent = new MouseEvent('mouseup', {
+    clientX: end,
+  });
+  window.dispatchEvent(firstmouseupEvent);
+}

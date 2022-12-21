@@ -62,7 +62,9 @@ describe('DateTimePicker', () => {
       return (
         <select
           value={props.value}
-          onChange={(event) => props.onChange(event.target, 'select-option')}
+          onChange={(event) =>
+            props.onChange(event.target.value, 'select-option')
+          }
           onFocus={props.onFocus}
           onBlur={props.onBlur}
           data-testid={props.testId}

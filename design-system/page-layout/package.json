@@ -43,7 +43,7 @@
   "devDependencies": {
     "@atlaskit/atlassian-navigation": "^2.3.0",
     "@atlaskit/atlassian-notifications": "^0.3.0",
-    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^7.4.0",
     "@atlaskit/icon": "*",

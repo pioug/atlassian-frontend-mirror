@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-table
 
+## 0.2.4
+
+### Patch Changes
+
+- [`49588ece345`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49588ece345) - Fixed regression where resize line would not show up for selected cell
+
+## 0.2.3
+
+### Patch Changes
+
+- [`c472a1eed2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c472a1eed2f) - DSP-3443 Updates tokens used for floating buttons; updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [`47f1f76cb80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f1f76cb80) - Fix table delete button hover bug
+- [`8a11811caca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a11811caca) - ED-15298 clean up table cell optimisation
+- [`2c992c530da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c992c530da) - DSP-5929 - Adds design tokens to table column and row button background color. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [`dc699dd58ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc699dd58ce) - DSP-4461 - Updates the selected, hover and danger state colors for table row and column buttons to subtler color versions. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [`0a781873466`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a781873466) - ED-15702: Add check on distribute columns option when table resizing
+- [`7bf4281949a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7bf4281949a) - ED-15704 - Fix missing hover inducators on Delete column and Delete row under table floating toolbar context menu
+- [`de571f84591`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de571f84591) - [ux] ED-15705: added tooltip for sorting back in when table contains merged cell
+- [`28e25520771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28e25520771) - [ED-16264] changes made to fix a regression caused in ED-15483 and ED-15497 , The arrow key navigation in 'Edit Link' 'Alt Text' popup and 'cell options' popup of table is hijacked incorrectly. post this fix the arrow key navigation behaviour should be deafult in these two popups
+- [`359c6e79403`](https://bitbucket.org/atlassian/atlassian-frontend/commits/359c6e79403) - [ux] Fixed regression where last column of a table was unable to be resized to recover from an overflow state.
+- [`47dfcc04652`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47dfcc04652) - ED-15703 - Minor change on floating toolbar to allow z-index value to be passed as parameter
+- [`92547defc70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92547defc70) - [ux] ED-15795 Fixed an issue where table cells would retain table header design after a split operation. This occurs when tableCellOptimization and stickyHeaders are enabled on for tables
+- [`66783618ce5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66783618ce5) - DSP-7200 - Adds design tokens to background color for non-custom color cell. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [`95c94af3911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95c94af3911) - [ux] Fix table danger styles persisting when table in not in selection
+- Updated dependencies
+
 ## 0.2.2
 
 ### Patch Changes

@@ -43,6 +43,7 @@ type RendererRenderedAEP = AEP<
   {
     platform: PLATFORM.WEB;
     duration: number;
+    distortedDuration: boolean;
     ttfb?: number;
     nodes: Record<string, number>;
     severity?: SEVERITY;

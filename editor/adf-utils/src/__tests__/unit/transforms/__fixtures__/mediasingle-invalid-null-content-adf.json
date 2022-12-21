@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "full-width"
+      },
+      "content": null
+    }
+  ]
+}

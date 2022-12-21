@@ -145,3 +145,31 @@ export const tableWithPlaceholders = {
     },
   ],
 };
+
+/** An info panel with empty paragraphs before and after */
+export const infoPanel = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [],
+    },
+    {
+      type: 'panel',
+      attrs: {
+        panelType: 'info',
+      },
+      content: [
+        {
+          type: 'paragraph',
+          content: [],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};

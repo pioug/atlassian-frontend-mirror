@@ -150,8 +150,8 @@ const createInsertBlockItems = (
   if (mediaSupported && mediaUploadsEnabled) {
     items.push(
       media({
-        content: formatMessage(messages.filesAndImages),
-        tooltipDescription: formatMessage(messages.filesAndImagesDescription),
+        content: formatMessage(messages.addMediaFiles),
+        tooltipDescription: formatMessage(messages.mediaFilesDescription),
         disabled: false,
       }),
     );

@@ -52,6 +52,8 @@ import { MediaTaskManager } from './mediaTaskManager';
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
 
+export const MEDIA_CONTENT_WRAP_CLASS_NAME = 'media-content-wrap';
+
 const createDropPlaceholder = (intl: IntlShape, allowDropLine?: boolean) => {
   const dropPlaceholder = document.createElement('div');
   const createElement = React.createElement;
@@ -861,9 +863,22 @@ export const createPlugin = (
         // Workaround for Chrome given a regression introduced in prosemirror-view@1.18.6
         // Returning true prevents that updateSelection() is getting called in the commit below:
         // @see https://github.com/ProseMirror/prosemirror-view/compare/1.18.5...1.18.6
-        return Boolean(
-          (browser.chrome || browser.safari) && clickedInsideCaptionPlaceholder,
-        );
+        if (
+          (browser.chrome || browser.safari) &&
+          clickedInsideCaptionPlaceholder
+        ) {
+          return true;
+        }
+
+        // Workaound for iOS 16 Caption selection issue
+        // @see https://product-fabric.atlassian.net/browse/MEX-2012
+        if (browser.ios) {
+          return !!(event.target as HTMLElement)?.closest(
+            `[class="${MEDIA_CONTENT_WRAP_CLASS_NAME}"]`,
+          );
+        }
+
+        return false;
       },
     },
   });

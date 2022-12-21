@@ -7,6 +7,7 @@ import { ModalSpinner } from '@atlaskit/media-ui';
 import AsyncMediaViewer, {
   MediaViewerWithMediaClientConfigProps,
   AsyncMediaViewerState,
+  AsyncMediaViewer as OriginalAsyncMediaViewer,
 } from '../../components/media-viewer-loader';
 
 const mediaClient = fakeMediaClient();
@@ -48,7 +49,9 @@ describe('Async Media Viewer Loader', () => {
         wrapper.find(ModalSpinner).prop('invertSpinnerColor'),
       ).toBeTruthy();
 
-      expect(wrapper.state().MediaViewer).toBeUndefined();
+      expect(
+        wrapper.find(OriginalAsyncMediaViewer).state().MediaViewer,
+      ).toBeUndefined();
     });
   });
   describe('When the async import for Error Boundary returns with error', () => {
@@ -74,7 +77,9 @@ describe('Async Media Viewer Loader', () => {
         wrapper.find(ModalSpinner).prop('invertSpinnerColor'),
       ).toBeTruthy();
 
-      expect(wrapper.state().MediaViewer).toBeUndefined();
+      expect(
+        wrapper.find(OriginalAsyncMediaViewer).state().MediaViewer,
+      ).toBeUndefined();
     });
   });
 
@@ -98,7 +103,9 @@ describe('Async Media Viewer Loader', () => {
       await nextTick();
       await nextTick();
 
-      expect(wrapper.state().MediaViewer).toBeDefined();
+      expect(
+        wrapper.find(OriginalAsyncMediaViewer).state().MediaViewer,
+      ).toBeDefined();
     });
 
     it('should render Error boundary component', async () => {

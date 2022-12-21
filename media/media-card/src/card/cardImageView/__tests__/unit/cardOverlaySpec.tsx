@@ -91,7 +91,9 @@ describe('CardOverlay', () => {
 
   it('should pass triggerColor "white" to Menu component when overlay is NOT persistent', () => {
     card = shallow(<CardOverlay cardStatus="complete" persistent={false} />);
-    expect(card.find(CardActionsView).props().triggerColor).toEqual('white');
+    expect(card.find(CardActionsView).props().triggerColor).toEqual(
+      'var(--ds-icon-inverse, white)',
+    );
   });
 
   it('should pass triggerColor as "undefined" to Menu component when overlay is persistent', () => {

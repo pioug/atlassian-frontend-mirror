@@ -13,7 +13,10 @@ import type {
 import { validator } from '@atlaskit/adf-utils/validator';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { mentionResourceProviderWithTeamMentionHighlight } from '@atlaskit/util-data-test/mention-story-data';
+import {
+  mentionResourceProviderWithResolver,
+  mentionResourceProviderWithTeamMentionHighlight,
+} from '@atlaskit/util-data-test/mention-story-data';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import Editor from '../../src/editor';
@@ -35,6 +38,7 @@ export type ValidatingKitchenSinkEditorProps = {
   appearance: EditorAppearance;
   adf?: object;
   disabled?: boolean;
+  sanitizePrivateContent?: boolean;
   primaryToolbarComponents: React.ReactElement<any>;
   popupMountPoint?: HTMLElement;
   validationTimeout?: number;
@@ -65,7 +69,6 @@ const EMPTY: EditorPlugin[] = [];
 //   allowNumberColumn: true,
 //   allowControls: true,
 //   permittedLayouts: 'all' as any,
-//   stickToolbarToBottom: true,
 //   // Sticky headers don't demonstrate well with the kitchen sink wrapper
 //   stickyHeaders: false,
 //   // stickyHeaders: true,
@@ -113,6 +116,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
       primaryToolbarComponents,
       popupMountPoint,
       extensionProviders,
+      sanitizePrivateContent,
     } = this.props;
 
     return (
@@ -159,8 +163,11 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           codeBlock={{ allowCopyToClipboard: true, appearance }}
           {...providers}
           mentionProvider={Promise.resolve(
-            mentionResourceProviderWithTeamMentionHighlight,
+            sanitizePrivateContent ?? false
+              ? mentionResourceProviderWithResolver
+              : mentionResourceProviderWithTeamMentionHighlight,
           )} // enable highlight only for kitchen sink example
+          sanitizePrivateContent={sanitizePrivateContent ?? false}
           media={{
             provider: mediaProvider,
             allowMediaSingle: true,
@@ -189,6 +196,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             ...this.props.featureFlags,
             // Enabling to catch during dev by default
             'safer-dispatched-transactions': true,
+            'floating-toolbar-copy-button': true,
           }}
           dangerouslyAppendPlugins={{
             __plugins: this.props.editorPlugins ?? EMPTY,

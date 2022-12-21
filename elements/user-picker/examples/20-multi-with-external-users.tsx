@@ -91,7 +91,6 @@ const Example = () => {
             onChange={(options) => setSelectedSources(options as Option[])}
             defaultValue={selectedSources}
             isMulti
-            width={150}
           />
         </InputWrapper>
       </>

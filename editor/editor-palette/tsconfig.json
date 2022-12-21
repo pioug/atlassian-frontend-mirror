@@ -1,0 +1,13 @@
+{
+  "extends": "../../../tsconfig.json",
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": [
+    "./src/tokens-workaround.d.ts"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./"
+  }
+}

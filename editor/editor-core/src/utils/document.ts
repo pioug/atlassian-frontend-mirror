@@ -12,6 +12,7 @@ import {
   transformDedupeMarks,
   transformNodesMissingContent,
   transformIndentationMarks,
+  transformInvalidMediaContent,
 } from '@atlaskit/adf-utils/transforms';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
@@ -293,6 +294,18 @@ export function processRawValue(
     if (isTransformed && dispatchAnalyticsEvent) {
       dispatchAnalyticsEvent({
         action: ACTION.INDENTATION_MARKS_TRANSFORMED,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+    }
+
+    ({ transformedAdf, isTransformed } = transformInvalidMediaContent(
+      transformedAdf as ADFEntity,
+    ));
+
+    if (isTransformed && dispatchAnalyticsEvent) {
+      dispatchAnalyticsEvent({
+        action: ACTION.INVALID_MEDIA_CONTENT_TRANSFORMED,
         actionSubject: ACTION_SUBJECT.EDITOR,
         eventType: EVENT_TYPE.OPERATIONAL,
       });

@@ -1,71 +1,32 @@
 /** @jsx jsx */
-import { useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
-import { useGlobalTheme } from '@atlaskit/theme/components';
 import {
-  borderRadius,
-  //gridSize as getGridSize,
-  layers,
-} from '@atlaskit/theme/constants';
+  UNSAFE_Box as Box,
+  UNSAFE_Inline as Inline,
+  UNSAFE_Stack as Stack,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import { token } from '@atlaskit/tokens';
 import noop from '@atlaskit/ds-lib/noop';
 import FocusRing from '@atlaskit/focus-ring';
 
 import { DEFAULT_APPEARANCE } from './constants';
-import {
-  flagBorderColor,
-  flagShadowColor,
-  getFlagBackgroundColor,
-  getFlagTextColor,
-  getFlagIconColor,
-} from './theme';
+import { flagTextColor, flagBackgroundColor, flagIconColor } from './theme';
 import type { FlagProps } from './types';
 
 import Actions from './flag-actions';
 import { useFlagGroup } from './flag-group';
-import { Title, Description, Expander, DismissButton } from './internal';
+import { Expander, DismissButton } from './internal';
 
 const analyticsAttributes = {
   componentName: 'flag',
   packageName: process.env._PACKAGE_NAME_ as string,
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
-
-// NOT USED
-// const gridSize = getGridSize();
-// const doubleGridSize = gridSize * 2;
-
-const titleGroupStyles = css({
-  display: 'flex',
-  alignItems: 'start',
-});
-
-const iconTitleStyles = css({
-  display: 'flex',
-  // TODO Delete this comment after verifying spacing token -> previous value ``${gridSize / 2}px``
-  paddingTop: token('spacing.scale.050', '4px'),
-  alignItems: 'start',
-  flex: 1,
-});
-
-const flagHeaderStyles = css({
-  boxSizing: 'border-box',
-  width: '100%',
-  // TODO Delete this comment after verifying spacing token -> previous value `doubleGridSize`
-  padding: token('spacing.scale.200', '16px'),
-  borderRadius: borderRadius(),
-});
-
-const flagContainerStyles = css({
-  width: '100%',
-  zIndex: layers.flag(),
-  borderRadius: borderRadius(),
-  transition: 'background-color 200ms',
-});
 
 /**
  * __Flag__
@@ -77,7 +38,7 @@ const flagContainerStyles = css({
  * - [Code](https://atlassian.design/components/flag/code)
  * - [Usage](https://atlassian.design/components/flag/usage)
  */
-const Flag = (props: FlagProps) => {
+const Flag: FC<FlagProps> = (props) => {
   const {
     actions = [],
     appearance = DEFAULT_APPEARANCE,
@@ -155,75 +116,96 @@ const Flag = (props: FlagProps) => {
     onBlur: onBlurAnalytics,
   };
 
-  let boxShadowValue = `0 20px 32px -8px ${flagShadowColor}`;
-  if (!isBold) {
-    boxShadowValue = `0 0 1px ${flagBorderColor}, ${boxShadowValue}`;
-  }
-  const boxShadow = token('elevation.shadow.overlay', boxShadowValue);
-
-  const { mode } = useGlobalTheme();
-
-  const textColor = getFlagTextColor(appearance, mode);
-  const iconColor = getFlagIconColor(appearance, mode);
+  const textColor = flagTextColor[appearance];
+  const iconColor = flagIconColor[appearance];
   const isDismissable = isBold || isDismissAllowed;
+  const shouldRenderGap =
+    (!isBold && (description || actions.length)) || isExpanded;
 
   return (
-    <div
-      style={{
-        color: textColor,
-        backgroundColor: getFlagBackgroundColor(appearance, mode),
-        boxShadow,
-      }}
-      css={flagContainerStyles}
-      role="alert"
-      data-testid={testId}
-      {...autoDismissProps}
-    >
-      <FocusRing>
-        <div
-          css={flagHeaderStyles}
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-          tabIndex={0}
-        >
-          <div style={{ color: iconColor }} css={titleGroupStyles}>
-            <div css={iconTitleStyles}>
-              {icon}
-              <Title color={textColor}>{title}</Title>
-            </div>
-            {isDismissable
-              ? !(isBold && !description && !actions.length) && (
-                  <DismissButton
-                    testId={testId}
-                    appearance={appearance}
-                    isBold={isBold}
-                    isExpanded={isExpanded}
-                    onClick={isBold ? toggleExpand : buttonActionCallback}
-                  />
-                )
-              : null}
-          </div>
-          {/* Normal appearance can't be expanded so isExpanded is always true */}
-          <Expander isExpanded={!isBold || isExpanded} testId={testId}>
-            {description && (
-              <Description
-                testId={testId && `${testId}-description`}
-                color={textColor}
-                isBold={isBold}
-              >
-                {description}
-              </Description>
-            )}
-            <Actions
-              actions={actions}
-              appearance={appearance}
-              linkComponent={linkComponent}
-              testId={testId}
-              mode={mode}
-            />
-          </Expander>
-        </div>
-      </FocusRing>
-    </div>
+    <FocusRing>
+      <Box
+        display="block"
+        backgroundColor={flagBackgroundColor[appearance]}
+        shadow="overlay"
+        padding="scale.200"
+        borderRadius="normal"
+        overflow="hidden"
+        layer="flag"
+        UNSAFE_style={{
+          width: '100%',
+          transition: 'background-color 200ms',
+        }}
+        role="alert"
+        tabIndex={0}
+        testId={testId}
+        {...autoDismissProps}
+      >
+        <Inline gap="scale.200">
+          <Box
+            alignItems="start"
+            UNSAFE_style={{ color: iconColor, flexShrink: 0 }}
+          >
+            {icon}
+          </Box>
+          <Stack
+            gap={shouldRenderGap ? 'scale.100' : 'scale.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
+            UNSAFE_style={{
+              flexGrow: 1,
+              transition: `gap 0.3s`,
+            }}
+          >
+            <Inline gap="scale.100" justifyContent="spaceBetween">
+              <Box display="block" UNSAFE_style={{ paddingTop: 2 }}>
+                <Text
+                  color={textColor}
+                  fontWeight="600"
+                  UNSAFE_style={{
+                    overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
+                  }}
+                >
+                  {title}
+                </Text>
+              </Box>
+              {isDismissable
+                ? !(isBold && !description && !actions.length) && (
+                    <DismissButton
+                      testId={testId}
+                      appearance={appearance}
+                      isBold={isBold}
+                      isExpanded={isExpanded}
+                      onClick={isBold ? toggleExpand : buttonActionCallback}
+                    />
+                  )
+                : null}
+            </Inline>
+            {/* Normal appearance can't be expanded so isExpanded is always true */}
+            <Expander isExpanded={!isBold || isExpanded} testId={testId}>
+              {description && (
+                <Text
+                  as="div"
+                  color={textColor}
+                  UNSAFE_style={{
+                    maxHeight: 100, // height is defined as 5 lines maximum by design
+                    overflow: 'auto',
+                    overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
+                  }}
+                  testId={testId && `${testId}-description`}
+                >
+                  {description}
+                </Text>
+              )}
+              <Actions
+                actions={actions}
+                appearance={appearance}
+                linkComponent={linkComponent}
+                testId={testId}
+              />
+            </Expander>
+          </Stack>
+        </Inline>
+      </Box>
+    </FocusRing>
   );
 };
 

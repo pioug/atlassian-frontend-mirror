@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 1.2.3
+
+### Patch Changes
+
+- [`a6900fd8727`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6900fd8727) - DSP-6671 - Separates icon and border color and adds semantic tokens to status color palette. Updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+
 ## 1.2.2
 
 ### Patch Changes

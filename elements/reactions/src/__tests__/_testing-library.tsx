@@ -1,5 +1,10 @@
 import React, { ReactElement } from 'react';
-import { render, RenderOptions, RenderResult } from '@testing-library/react';
+import {
+  act,
+  render,
+  RenderOptions,
+  RenderResult,
+} from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 const IntlWrapper: React.FC<{ locale?: string }> = ({
@@ -50,6 +55,30 @@ export function mockReactDomWarningGlobal(
     onAfterAllCallback();
   });
 }
+
+/**
+ * Custom type for simulate the UFOExperience main methods
+ */
+export interface FakeUFOInstance {
+  start: jest.Mock;
+  success: jest.Mock;
+  failure: jest.Mock;
+  abort: jest.Mock;
+  addMetadata: jest.Mock;
+}
+
+/**
+ * Jest mock reset for all different methods of a UfoExperience object
+ * @param instance given instance to reset
+ */
+export const mockResetUFOInstance = (instance: FakeUFOInstance) => {
+  act(() => {
+    instance.start.mockReset();
+    instance.abort.mockReset();
+    instance.failure.mockReset();
+    instance.success.mockReset();
+  });
+};
 
 /**
  * Apply usage of fake timers when required.

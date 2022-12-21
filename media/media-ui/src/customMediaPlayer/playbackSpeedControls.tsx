@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+// Keep PlaybackSpeedControls to use static colors from the new color palette to support the hybrid
+// theming in media viewer https://product-fabric.atlassian.net/browse/DSP-6067
 import React from 'react';
 import { Component } from 'react';
 import {
@@ -6,8 +9,9 @@ import {
   StylesConfig,
   ValueType,
   GroupedOptionsType,
+  ActionMeta,
 } from '@atlaskit/select';
-import { B200, N900, N0, N600 } from '@atlaskit/theme/colors';
+import { N600 } from '@atlaskit/theme/colors';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
 import {
   FormattedMessage,
@@ -37,7 +41,10 @@ export class PlaybackSpeedControls extends Component<
   state: PlaybackSpeedControlsState = {
     popupHeight: 255,
   };
-  private onPlaybackSpeedChange = (option: ValueType<OptionType>) => {
+  private onPlaybackSpeedChange = (
+    option: ValueType<OptionType>,
+    _actionMeta: ActionMeta<OptionType>,
+  ) => {
     const { onPlaybackSpeedChange } = this.props;
     if (!option) {
       return;
@@ -49,6 +56,7 @@ export class PlaybackSpeedControls extends Component<
 
   private speedOptions: () => GroupedOptionsType<OptionType> = () => [
     {
+      // @ts-ignore: FormattedMessage is returning an Element which is a type mismatch with what OptionType wants. This can be fix by using 'intl' object once this packages gets refactor later.
       label: <FormattedMessage {...messages.playbackSpeed} />,
       options: [
         { label: '0.75x', value: 0.75 },
@@ -60,15 +68,31 @@ export class PlaybackSpeedControls extends Component<
     },
   ];
 
-  private popupCustomStyles: StylesConfig = {
-    container: (styles) => ({ ...styles, backgroundColor: N900 }),
+  private popupCustomStyles: StylesConfig<OptionType> = {
+    container: (styles) => ({
+      ...styles,
+      backgroundColor: '#22272b',
+      boxShadow:
+        'inset 0px 0px 0px 1px #bcd6f00a,0px 8px 12px #0304045c,0px 0px 1px #03040480',
+    }),
     // added these overrides to keep the look of the current design
     // however this does not benefit from the DS a11y changes
     menuList: (styles) => ({ ...styles, padding: '4px 0px' }),
     option: (styles, { isFocused, isSelected }) => ({
       ...styles,
-      color: isSelected ? N0 : 'inherit',
-      backgroundColor: isSelected ? B200 : isFocused ? N600 : N900,
+      color: isSelected ? '#579dff' : 'inherit',
+      backgroundColor: isSelected
+        ? '#082145'
+        : isFocused
+        ? '#a1bdd914'
+        : '#22272b',
+      ':active': {
+        backgroundColor: '#a6c5e229',
+      },
+    }),
+    groupHeading: (styles) => ({
+      ...styles,
+      color: '#9fadbc',
     }),
   };
 

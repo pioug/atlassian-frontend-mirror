@@ -25,36 +25,67 @@ export interface ReactionTooltipProps {
    * Optional Max users to show in the displayed tooltip (defaults to 5)
    */
   maxReactions?: number;
+  /**
+   * Optional function when the user wants to see more users in a modal
+   */
+  handleUserListClick?: (emojiId: string) => void;
+  /**
+   * Optional flag to show reactions dialog (defaults to false)
+   */
+  allowUserDialog?: boolean;
+  /**
+   * Optional flag for enabling tooltip (defaults to true)
+   */
+  isEnabled?: boolean;
 }
 
 export const ReactionTooltip: React.FC<ReactionTooltipProps> = ({
-  emojiName,
   children,
+  emojiName,
+  reaction: { users = [], emojiId = '' },
   maxReactions = constants.TOOLTIP_USERS_LIMIT,
-  reaction: { users = [] },
+  handleUserListClick,
+  allowUserDialog = false,
+  isEnabled = true,
 }) => {
   /**
    * Render list of users in the tooltip box
    */
   const content =
-    !users || users.length === 0 ? null : (
-      <div css={styles.tooltipStyle}>
+    !users || users.length === 0 || !isEnabled ? null : (
+      <div css={styles.tooltipStyle} tabIndex={0}>
         <ul>
           {emojiName ? <li css={styles.emojiNameStyle}>{emojiName}</li> : null}
-          {users.slice(0, maxReactions).map((user, index) => {
-            return <li key={index}>{user.displayName}</li>;
+          {users.slice(0, maxReactions).map((user) => {
+            return <li key={user.id}>{user.displayName}</li>;
           })}
           {/* If count of reactions higher then given threshold then render custom message */}
-          {users.length > maxReactions ? (
-            <li css={styles.footerStyle}>
+
+          <li
+            css={
+              allowUserDialog
+                ? [styles.footerStyle, styles.underlineStyle]
+                : styles.footerStyle
+            }
+            onClick={() => {
+              if (allowUserDialog && handleUserListClick) {
+                handleUserListClick(emojiId);
+              }
+            }}
+          >
+            {users.length > maxReactions ? (
               <FormattedMessage
                 {...i18n.messages.otherUsers}
                 values={{
                   count: users.length - maxReactions,
                 }}
               />
-            </li>
-          ) : null}
+            ) : (
+              allowUserDialog && (
+                <FormattedMessage {...i18n.messages.moreInfo} />
+              )
+            )}
+          </li>
         </ul>
       </div>
     );

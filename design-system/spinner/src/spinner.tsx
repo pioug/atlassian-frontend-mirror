@@ -1,8 +1,13 @@
 /** @jsx jsx */
-import React from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect as useRealLayoutEffect,
+} from 'react';
 
 import { css, jsx, keyframes } from '@emotion/react';
 
+import InteractionContext from '@atlaskit/interaction-context';
 import { DN500, DN900, N0, N500 } from '@atlaskit/theme/colors';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
@@ -93,6 +98,16 @@ const circleStyles = css({
   },
 });
 
+/**
+ * `useLayoutEffect` is being used in SSR safe form. On the server, this work doesn’t need to run.
+ * `useEffect` is used in-place, because `useEffect` is not run on the server and it matches types
+ * which makes things simpler than doing an `isServer` check or a `null` check.
+ *
+ * @see https://hello.atlassian.net/wiki/spaces/DST/pages/2081696628/DSTDACI-010+-+Interaction+Tracing+hooks+in+DS+components
+ */
+const useLayoutEffect =
+  typeof window === 'undefined' ? useEffect : useRealLayoutEffect;
+
 export default React.memo(
   React.forwardRef<SVGSVGElement, SpinnerProps>(function Spinner(
     {
@@ -100,6 +115,7 @@ export default React.memo(
       appearance = 'inherit',
       delay = 0,
       size: providedSize = 'medium',
+      interactionName,
     }: SpinnerProps,
     ref,
   ) {
@@ -115,6 +131,13 @@ export default React.memo(
       mode,
       appearance,
     });
+
+    const context = useContext(InteractionContext);
+    useLayoutEffect(() => {
+      if (context != null) {
+        return context.hold(interactionName);
+      }
+    }, [context, interactionName]);
 
     /**
      * The Spinner animation uses a combination of two

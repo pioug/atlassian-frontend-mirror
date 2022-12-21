@@ -54,6 +54,7 @@ export default () => {
           const createWidget = (side: 'left' | 'right') => {
             const node = document.createElement('span');
             node.contentEditable = 'true';
+            node.setAttribute('aria-hidden', 'true');
             node.appendChild(document.createTextNode(ZERO_WIDTH_SPACE));
             node.className = 'cursor-target';
 

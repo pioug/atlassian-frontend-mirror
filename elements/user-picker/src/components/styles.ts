@@ -1,4 +1,3 @@
-import { AVATAR_SIZES, BORDER_WIDTH } from '@atlaskit/avatar';
 import {
   B100,
   N0,
@@ -12,13 +11,11 @@ import {
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import memoizeOne from 'memoize-one';
-import { getAvatarSize } from './utils';
 import { mergeStyles, StylesConfig } from '@atlaskit/select';
 
 export const BORDER_PADDING = 6;
 export const AVATAR_PADDING = 6;
 export const INDICATOR_WIDTH = 39;
-const TOTAL_PADDING_TAG_TO_CONTAINER = 10;
 const TAG_MARGIN_WIDTH = 4;
 
 export const getStyles = memoizeOne(
@@ -80,7 +77,6 @@ export const getStyles = memoizeOne(
           minHeight: isCompact ? 'none' : 44,
           /* IE 11 needs to set height explicitly to be vertical align when being in not compact mode */
           height: isCompact || isMulti ? '100%' : 44,
-          alignItems: 'stretch',
           maxWidth: '100%',
         };
       },
@@ -117,26 +113,18 @@ export const getStyles = memoizeOne(
 
         return {
           ...css,
-          paddingTop: isCompact
-            ? 0
-            : TOTAL_PADDING_TAG_TO_CONTAINER - TAG_MARGIN_WIDTH,
-          paddingBottom: isCompact
-            ? 0
-            : TOTAL_PADDING_TAG_TO_CONTAINER - TAG_MARGIN_WIDTH,
-          flexGrow: 1,
+          gridTemplateColumns: 'auto 1fr',
+          paddingTop: isCompact ? 0 : `${BORDER_PADDING}px`,
+          paddingBottom: isCompact ? 0 : `${BORDER_PADDING}px`,
           paddingLeft: isMulti ? BORDER_PADDING : 0,
-          display: 'flex',
-          flexDirection: 'row',
           overflowX: 'hidden',
           overflowY: 'auto',
-          flexWrap: state.selectProps.isMulti ? 'wrap' : 'nowrap',
           scrollbarWidth: 'none',
           maxHeight: state.selectProps.maxPickerHeight || '100%',
           '::-webkit-scrollbar': {
             width: 0,
             background: 'transparent',
           },
-          position: 'relative',
         };
       },
       multiValue: (css: any) => ({
@@ -155,8 +143,6 @@ export const getStyles = memoizeOne(
         cursor: 'pointer',
       }),
       placeholder: (css: any, state: any) => {
-        const avatarSize = getAvatarSize(state.selectProps.appearance);
-
         // fix styling in IE 11: when the position is absolute and `left` prop is not defined,
         // IE and other browsers auto calculate value of "left" prop differently,
         // so we want to explicitly set value for the `left` property
@@ -166,33 +152,32 @@ export const getStyles = memoizeOne(
 
         return {
           ...css,
-          paddingLeft: state.selectProps.isMulti
-            ? 'none'
-            : AVATAR_PADDING + 2 * BORDER_WIDTH + AVATAR_SIZES[avatarSize],
+          gridArea: '1/2/2/3',
+          paddingLeft: state.selectProps.isMulti ? 0 : `${BORDER_PADDING}px`,
           /* Margin left right of 2px set by default */
+          // margin: `0 ${BORDER_PADDING}px`,
           margin: 0,
-          display: 'block',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
-          maxWidth: '100%',
         };
       },
       option: (css: any) => ({
         ...css,
         overflow: 'hidden',
       }),
-      input: ({ margin, ...css }: any) => ({
+      input: (css: any, state: any) => ({
         ...css,
-        display: 'flex',
-        alignSelf: 'center',
+        gridArea: '1/2/2/3',
+        gridTemplateColumns:
+          isMulti && state.placeholder ? '0 123px' : css.gridTemplateColumns,
         /* Necessary to make input height and tag height the same. */
-        marginBottom: TAG_MARGIN_WIDTH,
-        marginTop: TAG_MARGIN_WIDTH,
+        margin: `${TAG_MARGIN_WIDTH}px 0`,
         /* Padding top and bottom of 2 is set by default. */
         paddingTop: 0,
         paddingBottom: 0,
-        paddingLeft: isMulti ? 0 : AVATAR_PADDING,
+
+        paddingLeft: state.selectProps.isMulti ? 0 : `${BORDER_PADDING}px`,
         '& input::placeholder': {
           /* Chrome, Firefox, Opera, Safari 10.1+ */
           color: token('color.text.subtlest', N100),
@@ -202,6 +187,11 @@ export const getStyles = memoizeOne(
           /* Internet Explorer 10-11 */
           color: token('color.text.subtlest', N100),
         },
+      }),
+      singleValue: (css: any) => ({
+        ...css,
+        margin: 0,
+        gridArea: '1/2/2/3',
       }),
     };
 
@@ -213,31 +203,5 @@ export const getPopupStyles = memoizeOne(
   (width: string | number, flip?: boolean, isMulti?: boolean) =>
     ({
       ...getStyles(width, isMulti),
-      container: (css: any) => ({
-        ...css,
-        display: flip ? 'flex' : 'block',
-        flexDirection: 'column-reverse',
-      }),
-      // there is not any avatar on the left of the placeholder
-      placeholder: (css: any, state: any) => {
-        const avatarSize = getAvatarSize(state.selectProps.appearance);
-        if (css.position === 'absolute' && !css.left) {
-          css.left = `${BORDER_PADDING}px`;
-        }
-        return {
-          ...css,
-          paddingTop: 2,
-          paddingLeft: isMulti
-            ? 'none'
-            : AVATAR_PADDING + 2 * BORDER_WIDTH + AVATAR_SIZES[avatarSize],
-          paddingRight: INDICATOR_WIDTH,
-          display: 'block',
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          maxWidth: '100%',
-          margin: 0,
-        };
-      },
     } as StylesConfig),
 );

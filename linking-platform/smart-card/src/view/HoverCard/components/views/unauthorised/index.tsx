@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { JsonLd } from 'json-ld-types';
 import FlexibleCard from '../../../../FlexibleCard';
@@ -18,34 +18,46 @@ import {
 import UnauthorisedViewContent from '../../../../common/UnauthorisedViewContent';
 import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
 import { LinkIcon } from '../../../../FlexibleCard/components/elements';
-import { ActionName } from '../../../../../constants';
+import { ActionName, CardDisplay } from '../../../../../constants';
+import { useSmartCardActions } from '../../../../../state/actions';
 
 const HoverCardUnauthorisedView: React.FC<HoverCardUnauthorisedProps> = ({
+  analytics,
+  extensionKey,
+  id = '',
   flexibleCardProps,
   testId = 'hover-card-unauthorised-view',
-  onAuthorize,
+  url,
 }) => {
   const { cardState } = flexibleCardProps;
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const providerName = extractProvider(data)?.text;
+  const { authorize } = useSmartCardActions(id, url, analytics);
+
+  const handleAuthorize = useCallback(() => {
+    if (authorize) {
+      analytics.track.appAccountAuthStarted({
+        extensionKey,
+      });
+
+      authorize(CardDisplay.HoverCardPreview);
+    }
+  }, [authorize, extensionKey, analytics.track]);
 
   const actions = useMemo<ActionItem[]>(
-    () =>
-      onAuthorize
-        ? [
-            {
-              name: ActionName.CustomAction,
-              content: (
-                <FormattedMessage
-                  {...messages.connect_unauthorised_account_action}
-                  values={{ context: providerName }}
-                />
-              ),
-              onClick: onAuthorize,
-            } as CustomActionItem,
-          ]
-        : [],
-    [onAuthorize, providerName],
+    () => [
+      {
+        name: ActionName.CustomAction,
+        content: (
+          <FormattedMessage
+            {...messages.connect_unauthorised_account_action}
+            values={{ context: providerName }}
+          />
+        ),
+        onClick: handleAuthorize,
+      } as CustomActionItem,
+    ],
+    [handleAuthorize, providerName],
   );
 
   return (
@@ -59,7 +71,10 @@ const HoverCardUnauthorisedView: React.FC<HoverCardUnauthorisedProps> = ({
       </CustomBlock>
       <CustomBlock overrideCss={mainTextStyles} testId={`${testId}-content`}>
         <div>
-          <UnauthorisedViewContent providerName={providerName} />
+          <UnauthorisedViewContent
+            providerName={providerName}
+            analytics={analytics}
+          />
         </div>
       </CustomBlock>
       <CustomBlock

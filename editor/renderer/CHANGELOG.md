@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 104.0.0
+
+### Major Changes
+
+- [`2df5ab17c10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2df5ab17c10) - DSP-6459: Adds a background to code blocks in the editor to remove transparency. E.g. prevents table cell background colors from affecting code blocks. Also modifies code blocks in table headers to have a border instead of a different color when design tokens are enabled.
+
+### Patch Changes
+
+- [`c472a1eed2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c472a1eed2f) - DSP-3443 Updates tokens used for floating buttons; updated appearances only visible in applications configured to use the new Tokens API (currently in alpha).
+- [`34f8542468b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34f8542468b) - [ED-12592] Updates the renderer rendered measurement to indicate when the measurement is distorted. Re uses distorted measurement identification logic from other render measurements.
+- [`977ac74443c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/977ac74443c) - DSP-7235: Fixes issue with overflow shadows on code blocks due to layered transparent colors.
+- [`c2510fa261f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2510fa261f) - [ux] ED-15961 [ux] Updates the presentation of text color to use dark and light mode colors when those modes are enabled
+- Updated dependencies
+
 ## 103.0.2
 
 ### Patch Changes

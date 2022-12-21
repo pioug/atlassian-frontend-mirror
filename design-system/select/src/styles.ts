@@ -276,22 +276,17 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         ? token('color.text.selected', 'hsl(0, 0%, 20%)')
         : token('color.text', 'hsl(0, 0%, 20%)'),
     }),
-    multiValueLabel: (css, { isFocused }) => ({
+    multiValueLabel: (css) => ({
       ...css,
       padding: '2px',
       color: 'inherit',
       paddingRight: '2px',
     }),
-    multiValueRemove: (
-      css,
-      {
-        // @ts-ignore: missing in @types/react-select
-        isFocused,
-      },
-    ) => ({
+    multiValueRemove: (css, { isFocused }) => ({
       ...css,
-      backgroundColor:
-        isFocused && token('utility.UNSAFE_util.transparent', R75),
+      backgroundColor: isFocused
+        ? token('utility.UNSAFE_util.transparent', R75)
+        : undefined,
       fill: isFocused
         ? token('color.text.selected', '#000')
         : token('color.text', '#000'),

@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { EmojiId } from '@atlaskit/emoji/types';
+import { EmojiId, PickerSize } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import {
@@ -106,6 +106,10 @@ export interface ReactionPickerProps
    * Optional event handler when the custom emoji picker icon is selected
    */
   onShowMore?: () => void;
+  /**
+   * Optional emoji picker size to control the size of emoji picker
+   */
+  emojiPickerSize?: PickerSize;
 }
 
 /**
@@ -121,10 +125,11 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
       allowAllEmojis,
       disabled,
       pickerQuickReactionEmojiIds,
-      onShowMore,
-      onOpen,
-      onCancel,
+      onShowMore = () => {},
+      onOpen = () => {},
+      onCancel = () => {},
       tooltipContent = <FormattedMessage {...i18n.messages.addReaction} />,
+      emojiPickerSize,
     } = props;
     /**
      * Container <div /> reference (used by custom hook to detect click outside)
@@ -155,9 +160,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
     useClickAway(
       wrapperRef,
       () => {
-        if (onCancel) {
-          onCancel();
-        }
+        onCancel();
         close();
       },
       'click',
@@ -200,9 +203,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
           isOpen: true,
           showFullPicker: true,
         });
-        if (onShowMore) {
-          onShowMore();
-        }
+        onShowMore();
       },
       [onShowMore],
     );
@@ -241,9 +242,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
           Array.isArray(pickerQuickReactionEmojiIds) &&
           pickerQuickReactionEmojiIds.length === 0,
       });
-      if (onOpen) {
-        onOpen();
-      }
+      onOpen();
       // ufo reactions picker opened success
       UFO.PickerRender.success();
     };
@@ -267,7 +266,6 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
       <div
         className={wrapperClassName}
         css={styles.pickerStyle}
-        ref={wrapperRef}
         data-testid={RENDER_REACTIONPICKER_TESTID}
       >
         <Manager>
@@ -299,11 +297,12 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
                       style={{ zIndex: layers.layer(), ...style }}
                       ref={ref}
                     >
-                      <div css={styles.popupStyle}>
+                      <div css={styles.popupStyle} ref={wrapperRef}>
                         {settings.showFullPicker ? (
                           <EmojiPicker
                             emojiProvider={emojiProvider}
                             onSelection={onEmojiSelected}
+                            size={emojiPickerSize}
                           />
                         ) : (
                           <div css={styles.contentStyle}>

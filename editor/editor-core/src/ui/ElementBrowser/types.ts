@@ -4,6 +4,8 @@ import { Transaction } from 'prosemirror-state';
 import { BlockMenuItem } from '../../plugins/insert-block/ui/ToolbarInsertBlock/create-items';
 import { MenuItem } from '../DropdownMenu/types';
 
+type SimpleEventHandler<T> = (event?: T) => void;
+
 export type Category = {
   title: string;
   name: string;
@@ -28,7 +30,7 @@ export type IntlMessage = {
 export interface InsertMenuProps {
   dropdownItems: BlockMenuItem[];
   editorView: EditorView;
-  toggleVisiblity: () => void;
+  toggleVisiblity: SimpleEventHandler<MouseEvent | KeyboardEvent>;
   onInsert: OnInsert;
 }
 

@@ -161,6 +161,7 @@ export function shouldReconfigureState(
     'persistScrollGutter',
     'allowUndoRedoButtons',
     'placeholder',
+    'sanitizePrivateContent',
     ...mobileProperties,
   ];
 

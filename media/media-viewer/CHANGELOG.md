@@ -1,5 +1,18 @@
 # @atlaskit/media-viewer
 
+## 47.2.0
+
+### Minor Changes
+
+- [`0213586e12e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0213586e12e) - [ux] Instrumented '@atlaskit/media-viewer' with the new theming package, `@atlaskit/tokens`, and updated the lightbox experience to use new colors from the new color palette.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha). These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`75a4a904bcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75a4a904bcb) - fix archive sidebar content if some directory entries are missing
+- Updated dependencies
+
 ## 47.1.2
 
 ### Patch Changes

@@ -5,13 +5,6 @@ import { token } from '@atlaskit/tokens';
 export { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 export { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 
-// TODO ED-15449 delete this style when deleting editor-core table
-export const cellColourPreviewStyles = (selectedColor: string) => css`
-  &::before {
-    background: ${selectedColor};
-  }
-`;
-
 export const buttonGroupStyle = css`
   display: inline-flex;
   align-items: center;

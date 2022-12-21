@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { WithSamplingUFOExperience } from '@atlaskit/emoji';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
@@ -19,16 +18,18 @@ import {
 } from '../../types';
 
 export interface ConnectedReactionsViewProps
-  extends Pick<ReactionsProps, 'quickReactionEmojis'>,
+  extends Pick<
+      ReactionsProps,
+      | 'quickReactionEmojis'
+      | 'onDialogOpenCallback'
+      | 'onDialogCloseCallback'
+      | 'onDialogSelectReactionCallback'
+      | 'allowUserDialog'
+      | 'allowAllEmojis'
+      | 'emojiProvider'
+      | 'emojiPickerSize'
+    >,
     Pick<ReactionPickerProps, 'pickerQuickReactionEmojiIds'> {
-  /**
-   * Provider for loading emojis
-   */
-  emojiProvider: Promise<EmojiProvider>;
-  /**
-   * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
-   */
-  allowAllEmojis?: boolean;
   /**
    * Wrapper id for reactions list
    */
@@ -54,7 +55,7 @@ type StateProps = Pick<ReactionsProps, 'reactions' | 'status' | 'flash'>;
  */
 type DispatchProps = Pick<
   ReactionsProps,
-  'onReactionHover' | 'onReactionClick' | 'onSelection' | 'loadReaction'
+  'getReactionDetails' | 'onReactionClick' | 'onSelection' | 'loadReaction'
 >;
 
 /**
@@ -102,7 +103,7 @@ export const mapDispatchToPropsHelper = (
     onReactionClick: (emojiId: string) => {
       actions.toggleReaction(containerAri, ari, emojiId);
     },
-    onReactionHover: (emojiId: string) => {
+    getReactionDetails: (emojiId: string) => {
       actions.getDetailedReaction(containerAri, ari, emojiId);
     },
     onSelection: (emojiId: string) => {
@@ -114,7 +115,7 @@ export const mapDispatchToPropsHelper = (
 export const ConnectedReactionsView: React.FC<ConnectedReactionsViewProps> = (
   props,
 ) => {
-  const { ari, containerAri, store } = props;
+  const { ari, containerAri, store, ...rest } = props;
   /**
    * Reference to the <Reactions /> component instance mandatory props
    */
@@ -218,8 +219,8 @@ export const ConnectedReactionsView: React.FC<ConnectedReactionsViewProps> = (
       >
         {stateData && dispatchData ? (
           <Reactions
-            key={`${props.containerAri}|${props.ari}`}
-            {...props}
+            key={`${containerAri}|${ari}`}
+            {...rest}
             {...dispatchData}
             {...stateData}
           />

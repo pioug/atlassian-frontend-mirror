@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css } from '@emotion/react';
-import { B50, B75, B300, N20, N40, N400 } from '@atlaskit/theme/colors';
+import { B50, B75, B300, N20, N40, N400, B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -21,7 +21,6 @@ export const emojiStyle = css({
 });
 
 export const reactionStyle = css({
-  outline: 'none',
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-start',
@@ -39,6 +38,13 @@ export const reactionStyle = css({
   '&:hover': {
     background: `${token('color.background.neutral.subtle.hovered', N20)}`,
   },
+  '&:focus': {
+    boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+    // background, box-shadow
+    transitionDuration: '0s, 0.2s',
+    // disabling browser focus outline
+    outline: 'none',
+  },
 });
 
 export const reactedStyle = css({
@@ -54,6 +60,7 @@ export const flashHeight = akHeight - 2; // height without the 1px border
 export const flashStyle = css({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'center',
   borderRadius: '10px',
   height: `${flashHeight}px`,
 });

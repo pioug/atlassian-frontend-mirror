@@ -1,0 +1,1 @@
+# @atlaskit/editor-palette

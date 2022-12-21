@@ -13,6 +13,7 @@ export enum EVENT_ACTION {
   CONVERT_PM_TO_ADF = 'convertPMToADF',
   UPDATE_PARTICIPANTS = 'updateParticipants',
   COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps',
+  REINITIALISE_DOCUMENT = 'reinitialiseDocument',
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
@@ -28,6 +29,7 @@ export type AnalyticsEvent = {
     latency?: number;
     error?: ErrorPayload;
     participants?: number;
+    numUnconfirmedSteps?: number;
   };
 };
 

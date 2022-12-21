@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { spaceAtEnd } from './__fixtures__/base-adfs';
-import { doc, p, h1, h4 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, h1, h5 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('typeahead: up & down arrow navigation', () => {
   const startEditor = async (client: any, adf: any): Promise<WebDriverPage> => {
@@ -95,33 +95,22 @@ describe('typeahead: up & down arrow navigation', () => {
     );
   });
 
-  describe('when cursor is inside of query and arrow up is used with CLICK to select', () => {
+  describe('when cursor is inside of query and arrow up is used with ENTER to select', () => {
     BrowserTestCase(
       'it navigates to the last typeahead search result',
       { skip: [] },
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
         await setProseMirrorTextSelection(page, { anchor: 1, head: 1 });
-
-        const title = 'he';
+        const title = 'heading';
         await page.keys(['X', 'Space']);
         await quickInsert(page, title, false);
         await sendArrowUpKey(page, { numTimes: 1 });
-        await sendArrowDownKey(page, { numTimes: 2 });
-        const elem = await page.$$(
-          `[aria-label="Popup"] [role="listbox"] [role="option"][aria-selected="true"]`,
-        );
-        const attr = await elem[0].getAttribute('aria-label');
-        expect(attr).toEqual('Heading 4');
-        await elem[0].click();
-        await page.waitForElementCount('h4', 1);
-        await page.click('h4');
+        await page.keys('Enter');
         await page.keys('X');
-
         const jsonDocument = await page.$eval(editable, getDocFromElement);
-
         const pmDocument = Node.fromJSON(sampleSchema, jsonDocument);
-        const expectedDocument = doc(p('X  '), h4('X'));
+        const expectedDocument = doc(p('X  '), h5('X'));
         expect(pmDocument).toEqualDocument(expectedDocument);
       },
     );

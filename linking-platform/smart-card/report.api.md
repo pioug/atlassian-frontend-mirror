@@ -85,6 +85,7 @@ type ActionProps = {
 
 // @public (undocumented)
 export type AnalyticsAction =
+  | 'authStarted'
   | 'clicked'
   | 'closed'
   | 'connectFailed'
@@ -262,7 +263,11 @@ export { CardAppearance };
 export { CardContext };
 
 // @public (undocumented)
-type CardInnerAppearance = 'flexible' | 'preview' | CardAppearance;
+type CardInnerAppearance =
+  | 'embedPreview'
+  | 'flexible'
+  | 'hoverCardPreview'
+  | CardAppearance;
 
 export { CardPlatform };
 
@@ -880,6 +885,7 @@ type UiHoverCardDismissedEventProps = CommonEventProps & {
   previewDisplay: PreviewDisplay;
   hoverTime: number;
   previewInvokeMethod?: PreviewInvokeMethod;
+  status: CardType;
 };
 
 // @public (undocumented)
@@ -892,6 +898,7 @@ type UiHoverCardOpenLinkClickedEventProps = CommonEventProps & {
 type UiHoverCardViewedEventProps = CommonEventProps & {
   previewDisplay: PreviewDisplay;
   previewInvokeMethod?: PreviewInvokeMethod;
+  status: CardType;
 };
 
 // @public (undocumented)
@@ -1018,6 +1025,7 @@ export const useSmartLinkAnalytics: (
       destinationProduct,
       destinationSubproduct,
       location,
+      status,
     }: UiHoverCardViewedEventProps) => void;
     hoverCardDismissedEvent: ({
       id,
@@ -1030,7 +1038,9 @@ export const useSmartLinkAnalytics: (
       destinationProduct,
       destinationSubproduct,
       location,
+      status,
     }: UiHoverCardDismissedEventProps) => void;
+    learnMoreClickedEvent: () => void;
   };
   operational: {
     invokeSucceededEvent: ({
@@ -1094,6 +1104,10 @@ export const useSmartLinkAnalytics: (
       resourceType,
       destinationProduct,
       destinationSubproduct,
+      location,
+    }: TrackAppAccountConnectedProps) => void;
+    appAccountAuthStarted: ({
+      extensionKey,
       location,
     }: TrackAppAccountConnectedProps) => void;
   };

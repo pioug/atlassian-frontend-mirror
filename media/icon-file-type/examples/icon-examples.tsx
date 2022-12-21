@@ -1,6 +1,7 @@
 import React from 'react';
-import Theme from '@atlaskit/theme/components';
-import { background } from '@atlaskit/theme/colors';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { token } from '@atlaskit/tokens';
+import { DN30 } from '@atlaskit/theme/colors';
 
 import metadata from '../src/metadata';
 
@@ -55,28 +56,28 @@ export default function IconExamples() {
         </div>
       </div>
 
-      <Theme.Provider value={() => ({ mode: 'dark' })}>
-        <div
-          style={{ backgroundColor: background({ theme: { mode: 'dark' } }) }}
-          data-testid="dark-root"
-        >
-          <div>
-            {icons16.map((Icon, index) => (
-              <Icon key={index} />
-            ))}
-          </div>
-          <div>
-            {icons24.map((Icon, index) => (
-              <Icon key={index} />
-            ))}
-          </div>
-          <div>
-            {icons48.map((Icon, index) => (
-              <Icon key={index} />
-            ))}
-          </div>
+      <div
+        style={{
+          backgroundColor: token('elevation.surface', DN30),
+        }}
+        data-testid="dark-root"
+      >
+        <div>
+          {icons16.map((Icon, index) => (
+            <Icon key={index} />
+          ))}
         </div>
-      </Theme.Provider>
+        <div>
+          {icons24.map((Icon, index) => (
+            <Icon key={index} />
+          ))}
+        </div>
+        <div>
+          {icons48.map((Icon, index) => (
+            <Icon key={index} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -224,6 +224,7 @@ export const getCodeBlockStyles =
     lineHeight: CODE_LINE_HEIGHT,
     overflowX: 'auto',
     whiteSpace: 'pre',
+    direction: 'ltr',
     ...getBaseCodeStyles(theme),
     ...syntaxKeywordColors(theme),
     // this is to account for SSR spacing issue once loaded in browser
@@ -231,6 +232,7 @@ export const getCodeBlockStyles =
       lineNumberStyle(theme),
     '& .linenumber': {
       display: 'inline-block !important',
+      float: 'left',
     },
     // these styles are for line highlighting
     '& [data-ds--code--row]': {

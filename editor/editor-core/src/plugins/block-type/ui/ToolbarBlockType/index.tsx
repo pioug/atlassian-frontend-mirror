@@ -16,6 +16,7 @@ import {
 import { tooltip, findKeymapByDescription } from '../../../../keymaps';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { BlockTypeButton } from './blocktype-button';
+import { EditorView } from 'prosemirror-view';
 
 export type DropdownItem = MenuItem & {
   value: BlockType;
@@ -29,6 +30,7 @@ export interface Props {
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
+  editorView?: EditorView;
   setBlockType: (type: string) => void;
 }
 

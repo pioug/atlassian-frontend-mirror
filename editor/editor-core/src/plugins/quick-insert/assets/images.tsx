@@ -1,3 +1,5 @@
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4138
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 export default function IconImages() {

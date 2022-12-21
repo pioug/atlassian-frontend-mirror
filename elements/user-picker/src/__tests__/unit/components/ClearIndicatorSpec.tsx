@@ -38,14 +38,16 @@ describe('ClearIndicator', () => {
     const clearValue = jest.fn();
     const component = renderClearIndicator({
       clearValue,
-      selectProps: { isFocused: true },
+      selectProps: {
+        isFocused: true,
+      },
     });
 
     const { onMouseDown } = component
       .find(components.ClearIndicator!)
       .prop('innerProps');
 
-    onMouseDown();
+    onMouseDown({ stopPropagation: jest.fn() });
 
     expect(clearValue).toHaveBeenCalledTimes(1);
   });
@@ -53,7 +55,9 @@ describe('ClearIndicator', () => {
   it('should call stopPropagation if not focused', () => {
     const component = renderClearIndicator({
       clearValue: jest.fn(),
-      selectProps: { isFocused: false },
+      selectProps: {
+        isFocused: false,
+      },
     });
 
     const { onMouseDown } = component
@@ -67,7 +71,9 @@ describe('ClearIndicator', () => {
   it('should not call stopPropagation if focused', () => {
     const component = renderClearIndicator({
       clearValue: jest.fn(),
-      selectProps: { isFocused: true },
+      selectProps: {
+        isFocused: true,
+      },
     });
 
     const { onMouseDown } = component

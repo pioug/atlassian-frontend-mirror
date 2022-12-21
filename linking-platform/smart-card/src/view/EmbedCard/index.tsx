@@ -40,6 +40,8 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
     const data =
       ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
     const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
+    const extensionKey = getExtensionKey(details);
+
     switch (status) {
       case 'pending':
       case 'resolving':
@@ -86,7 +88,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
             analytics,
             origin: 'smartLinkEmbed',
             handleInvoke,
-            extensionKey: getExtensionKey(details),
+            extensionKey,
           });
           return (
             <BlockCardResolvedView
@@ -110,6 +112,9 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
             onAuthorise={handleAuthorize}
             inheritDimensions={inheritDimensions}
             onClick={handleFrameClick}
+            analytics={analytics}
+            extensionKey={extensionKey}
+            testId={testId}
           />
         );
       case 'forbidden':

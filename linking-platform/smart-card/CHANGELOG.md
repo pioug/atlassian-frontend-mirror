@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.8.0
+
+### Minor Changes
+
+- [`d739aa7120c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d739aa7120c) - [ux] Analytics is added for Unauthorised view of Hover Card & to Unauthorised view of an Embed card & to Unauthorised view of a Block Card
+
 ## 23.7.3
 
 ### Patch Changes

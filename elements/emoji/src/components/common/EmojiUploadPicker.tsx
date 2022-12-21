@@ -16,6 +16,8 @@ import {
   WrappedComponentProps,
 } from 'react-intl-next';
 import TextField from '@atlaskit/textfield';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import AkButton from '@atlaskit/button/standard-button';
 
 import { EmojiUpload, Message } from '../../types';
 import * as ImageUtil from '../../util/image';
@@ -26,9 +28,11 @@ import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
 import {
+  closeEmojiUploadButton,
   emojiChooseFileErrorMessage,
   emojiUpload,
   emojiUploadBottom,
+  emojiUploadTop,
   uploadChooseFileBrowse,
   uploadChooseFileEmojiName,
   uploadChooseFileMessage,
@@ -109,10 +113,26 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = (props) => {
 
   return (
     <div css={emojiUpload}>
-      <div css={uploadChooseFileMessage}>
-        <FormattedMessage {...messages.addCustomEmojiLabel}>
-          {(message) => <h5>{message}</h5>}
-        </FormattedMessage>
+      <div css={emojiUploadTop}>
+        <span css={uploadChooseFileMessage}>
+          <FormattedMessage {...messages.addCustomEmojiLabel}>
+            {(message) => <h5>{message}</h5>}
+          </FormattedMessage>
+        </span>
+        <div css={closeEmojiUploadButton}>
+          <AkButton
+            onClick={onUploadCancelled}
+            aria-describedby={formatMessage(messages.cancelLabel)}
+            appearance="subtle"
+            spacing="none"
+            shouldFitContainer={true}
+          >
+            <CrossIcon
+              size="small"
+              label={formatMessage(messages.cancelLabel)}
+            />
+          </AkButton>
+        </div>
       </div>
       <div css={uploadChooseFileRow}>
         <span css={uploadChooseFileEmojiName}>

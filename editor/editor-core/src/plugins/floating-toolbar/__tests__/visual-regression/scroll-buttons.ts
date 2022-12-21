@@ -25,9 +25,12 @@ import {
 import { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import type { EditorProps } from '../../../../types';
 
+import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+
 const dropdownListSelector =
   '[aria-label="Popup"] [data-role="droplistContent"]';
-const colourPickerPopupSelector = '[aria-label="Popup"] [role="radiogroup"]';
+const colourPickerPopupSelector =
+  '[aria-label="Color picker popup"] [role="radiogroup"]';
 
 interface InitOptions {
   appearance?: Appearance;
@@ -90,20 +93,20 @@ describe('Floating toolbars:', () => {
 
     it('should render scroll buttons', async () => {});
 
-    it.skip('should render dropdown at the correct position and scroll buttons disabled when dropdown is opened', async () => {
+    it('should render dropdown at the correct position and scroll buttons disabled when dropdown is opened', async () => {
       await clickTableOptions(page);
       await page.waitForSelector(
         `[aria-label="${floatingTableControlsAriaLabel}"] ${dropdownListSelector}`,
       );
     });
 
-    it.skip('should scroll to the right when scroll right button is clicked', async () => {
+    it('should scroll to the right when scroll right button is clicked', async () => {
       await page.click('button[aria-label="Scroll right"]');
       // wait for scroll to finish
       await page.waitForTimeout(200);
     });
 
-    it.skip('should render colour picker at the correct position and scroll buttons disabled when dropdown is opened', async () => {
+    it('should render colour picker at the correct position and scroll buttons disabled when dropdown is opened', async () => {
       await clickCellBackgroundInFloatingToolbar(page);
       await waitForTooltip(page, tableSelectors.cellBackgroundText);
       await page.waitForSelector(colourPickerPopupSelector);
@@ -138,9 +141,12 @@ describe('Floating toolbars:', () => {
           panelSelectors.floatingToolbar,
         );
         await openEmojiPopupInFloatingToolbar(page);
+        await waitForEmojisToLoad(page);
+        await waitForTooltip(page);
         await snapshot(page);
 
         await openColorPopupInFloatingToolbar(page);
+        await waitForTooltip(page);
         await snapshot(page);
       },
     );

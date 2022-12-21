@@ -18,6 +18,7 @@ import {
   PresencePayload,
   StepsPayload,
   ProductInformation,
+  NamespaceStatus,
 } from '../../types';
 import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
@@ -44,6 +45,7 @@ const allExpectedEventNames: string[] = [
   'metadata:changed',
   'disconnect',
   'error',
+  'status',
 ];
 
 const testChannelConfig: Config = {
@@ -428,6 +430,30 @@ describe('Channel unit tests', () => {
     });
   });
 
+  it('should handle receiving restore event from server', (done) => {
+    const channel = getChannel();
+    (channel as any).initialized = true;
+    const mockRestoreData = {
+      doc: {},
+      version: 1,
+      userId: 'abc',
+      metadata: { a: 1 },
+    };
+
+    channel.on('restore', (data: any) => {
+      try {
+        expect(data).toEqual(mockRestoreData);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+    channel.getSocket()!.emit('data', <any>{
+      type: 'initial',
+      ...mockRestoreData,
+    });
+  });
+
   it('should send x-token when making catchup call if tokenRefresh exist', async () => {
     const permissionTokenRefresh = jest
       .fn()
@@ -461,6 +487,53 @@ describe('Channel unit tests', () => {
         },
       },
     });
+  });
+
+  it('should handle receiving namespace lock status event from server', (done) => {
+    const channel = getChannel();
+
+    channel.on('status', (data: NamespaceStatus) => {
+      try {
+        expect(data).toEqual({
+          isLocked: true,
+          waitTimeInMs: 10000,
+          documentAri: 'mocked-documentARI',
+          timestamp: 234562345623653,
+        } as NamespaceStatus);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
+    channel.getSocket()!.emit('status', {
+      isLocked: true,
+      waitTimeInMs: 10000,
+      documentAri: 'mocked-documentARI',
+      timestamp: 234562345623653,
+    } as NamespaceStatus);
+  });
+  it('should handle receiving namespace unlock status event from server', (done) => {
+    const channel = getChannel();
+
+    channel.on('status', (data: NamespaceStatus) => {
+      try {
+        expect(data).toEqual({
+          isLocked: false,
+          documentAri: 'mocked-documentARI',
+          timestamp: 234562345623653,
+        } as NamespaceStatus);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
+    channel.getSocket()!.emit('status', {
+      isLocked: false,
+      documentAri: 'mocked-documentARI',
+      timestamp: 234562345623653,
+    } as NamespaceStatus);
   });
 
   describe('Product information headers', () => {

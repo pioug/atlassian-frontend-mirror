@@ -16,6 +16,8 @@ export interface WithOutsideClickProps {
   handleClickOutside?: SimpleEventHandler<MouseEvent>;
   handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
   handleEnterKeydown?: SimpleEventHandler<KeyboardEvent>;
+  targetRef?: any;
+  closeonTab?: boolean;
 }
 
 class WithOutsideClick extends PureComponent<
@@ -32,11 +34,12 @@ class WithOutsideClick extends PureComponent<
     }
 
     if (this.props.handleEscapeKeydown) {
-      (this.props.editorRef?.current || document).addEventListener(
-        'keydown',
-        this.handleKeydown as any,
-        false,
-      );
+      //Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
+      (
+        this.props.editorRef?.current ||
+        this.props.targetRef ||
+        document
+      ).addEventListener('keydown', this.handleKeydown as any, false);
     }
   }
 
@@ -46,11 +49,11 @@ class WithOutsideClick extends PureComponent<
     }
 
     if (this.props.handleEscapeKeydown) {
-      (this.props.editorRef?.current || document).removeEventListener(
-        'keydown',
-        this.handleKeydown as any,
-        false,
-      );
+      (
+        this.props.editorRef?.current ||
+        this.props.targetRef ||
+        document
+      ).removeEventListener('keydown', this.handleKeydown as any, false);
     }
   }
 
@@ -65,6 +68,10 @@ class WithOutsideClick extends PureComponent<
     ) {
       if (this.props.handleClickOutside) {
         this.props.handleClickOutside(evt);
+        //When the menus are closed by clicking outside the focus is set on editor.
+        if (!this.props.editorView?.hasFocus()) {
+          this.props.editorView?.focus();
+        }
       }
     }
   };
@@ -78,14 +85,17 @@ class WithOutsideClick extends PureComponent<
       evt.stopPropagation();
 
       this.props.handleEscapeKeydown(evt);
-
-      if (!this.props.editorView?.hasFocus()) {
-        this.props.editorView?.focus();
-      }
-
+      //on 'Esc', Focus is handled in 'handleEscapeKeydown'.
       return false;
     } else if (evt.code === 'Enter' && this.props.handleEnterKeydown) {
       this.props.handleEnterKeydown(evt);
+    } else if (
+      evt.code === 'Tab' &&
+      this.props.handleEscapeKeydown &&
+      this.props.closeonTab
+    ) {
+      //The menus should be closed when the tab is pressed as it takes the focus out of the menu
+      this.props.handleEscapeKeydown(evt);
     }
   };
 
@@ -109,6 +119,7 @@ export default function withReactEditorViewOuterListeners<P>(
     handleClickOutside,
     handleEnterKeydown,
     handleEscapeKeydown,
+    closeonTab,
     ...props
   }) => {
     const isActiveComponent = hasIsOpen(props) ? props.isOpen : true;
@@ -118,10 +129,12 @@ export default function withReactEditorViewOuterListeners<P>(
           <WithOutsideClick
             editorView={editorView}
             editorRef={editorRef}
+            targetRef={props.targetRef}
             isActiveComponent={isActiveComponent}
             handleClickOutside={handleClickOutside}
             handleEnterKeydown={handleEnterKeydown}
             handleEscapeKeydown={handleEscapeKeydown}
+            closeonTab={closeonTab}
           >
             <Component {...(props as P)} />
           </WithOutsideClick>

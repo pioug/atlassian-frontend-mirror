@@ -110,6 +110,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
           }}
           fitWidth={352}
           zIndex={stackBelowOtherEditorFloatingPanels}
+          disableArrowKeyNavigation={true}
           trigger={
             <ToolbarButton
               buttonId={TOOLBAR_BUTTON.FIND_REPLACE}

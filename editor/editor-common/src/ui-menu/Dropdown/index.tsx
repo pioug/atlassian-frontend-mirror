@@ -3,6 +3,8 @@ import React, { PureComponent } from 'react';
 import { withReactEditorViewOuterListeners } from '../../ui-react';
 import DropdownList, { OpenChangedEvent } from '../../ui/DropList';
 import Popup from '../../ui/Popup';
+import { KeyDownHandlerContext } from '../DropdownMenu/types';
+import { MenuArrowKeyNavigationProvider } from '../MenuArrowKeyNavigationProvider';
 
 export interface Props {
   mountTo?: HTMLElement;
@@ -14,6 +16,8 @@ export interface Props {
   fitWidth?: number;
   fitHeight?: number;
   zIndex?: number;
+  disableArrowKeyNavigation?: boolean;
+  keyDownHandlerContext?: KeyDownHandlerContext;
 }
 
 export interface State {
@@ -55,8 +59,9 @@ export class Dropdown extends PureComponent<Props, State> {
       fitHeight,
       fitWidth,
       zIndex,
+      disableArrowKeyNavigation,
+      keyDownHandlerContext,
     } = this.props;
-
     return (
       <Popup
         target={target}
@@ -68,16 +73,25 @@ export class Dropdown extends PureComponent<Props, State> {
         fitWidth={fitWidth}
         zIndex={zIndex}
       >
-        <div style={{ height: 0, minWidth: fitWidth || 0 }}>
-          <DropdownList
-            isOpen={true}
-            onOpenChange={onOpenChange}
-            position={popupPlacement.join(' ')}
-            shouldFitContainer={true}
-          >
-            {children}
-          </DropdownList>
-        </div>
+        <MenuArrowKeyNavigationProvider
+          disableArrowKeyNavigation={disableArrowKeyNavigation}
+          keyDownHandlerContext={keyDownHandlerContext}
+          closeonTab={true}
+          handleClose={(event) =>
+            onOpenChange && onOpenChange({ isOpen: false, event })
+          }
+        >
+          <div style={{ height: 0, minWidth: fitWidth || 0 }}>
+            <DropdownList
+              isOpen={true}
+              onOpenChange={onOpenChange}
+              position={popupPlacement.join(' ')}
+              shouldFitContainer={true}
+            >
+              {children}
+            </DropdownList>
+          </div>
+        </MenuArrowKeyNavigationProvider>
       </Popup>
     );
   }

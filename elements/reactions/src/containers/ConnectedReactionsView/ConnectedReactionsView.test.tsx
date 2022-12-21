@@ -121,8 +121,8 @@ describe('@atlaskit/reactions/containers/ConnectedReactionsView', () => {
       );
     });
 
-    it('should call getDetailedReaction onReactionHover', () => {
-      mapDispatchToPropsHelper(actions, containerAri, ari).onReactionHover(
+    it('should call getDetailedReaction on getReactionDetails', () => {
+      mapDispatchToPropsHelper(actions, containerAri, ari).getReactionDetails(
         'emojiA',
       );
 

@@ -134,28 +134,37 @@ describe('CollectionFetcher', () => {
       });
     });
 
-    it('should make request with given options', (done) => {
+    it('should mediaStore.getCollectionItems given options', async (done) => {
       const { collectionFetcher, getCollectionItems } = setup();
 
-      collectionFetcher
-        .getItems(RECENTS_COLLECTION, {
+      const observable = collectionFetcher.getItems(
+        RECENTS_COLLECTION,
+        {
           limit: 1,
           sortDirection: 'asc',
-        })
-        .subscribe({
-          next() {
-            expect(getCollectionItems).toHaveBeenCalledTimes(1);
-            expect(getCollectionItems).toHaveBeenCalledWith(
-              RECENTS_COLLECTION,
-              {
-                details: 'full',
-                limit: 1,
-                sortDirection: 'asc',
-              },
-            );
-            done();
-          },
-        });
+        },
+        { traceId: 'test-trace-id' },
+      );
+
+      await nextTick();
+
+      observable.subscribe({
+        next() {
+          expect(getCollectionItems).toHaveBeenCalledTimes(1);
+          expect(getCollectionItems).toHaveBeenCalledWith(
+            RECENTS_COLLECTION,
+            {
+              details: 'full',
+              limit: 1,
+              sortDirection: 'asc',
+            },
+            { traceId: 'test-trace-id' },
+          );
+          done();
+        },
+      });
+
+      expect.assertions(2);
     });
 
     it('should update nextInclusiveStartKey every time', async (done) => {
@@ -204,6 +213,51 @@ describe('CollectionFetcher', () => {
   });
 
   describe('loadNextPage()', () => {
+    it('should call mediaStore.getCollectionItems', async (done) => {
+      const { collectionFetcher, getCollectionItems } = setup();
+
+      collectionCache['some-collection-name'] = {
+        items: [
+          {
+            id: 'some-id',
+            insertedAt: 42,
+            occurrenceKey: '',
+            details: {} as MediaCollectionItemDetails,
+          },
+        ],
+        nextInclusiveStartKey: 'new-key',
+        subject: new ReplaySubject<MediaCollectionItem[]>(1),
+        isLoadingNextPage: false,
+      };
+
+      await collectionFetcher.loadNextPage(
+        'some-collection-name',
+        {
+          details: 'full',
+          limit: 1,
+          sortDirection: 'asc',
+        },
+        {
+          traceId: 'test-trace-id',
+        },
+      );
+
+      await nextTick();
+
+      expect(getCollectionItems).toBeCalledWith(
+        'some-collection-name',
+        {
+          details: 'full',
+          limit: 1,
+          sortDirection: 'asc',
+          inclusiveStartKey: 'new-key',
+        },
+        { traceId: 'test-trace-id' },
+      );
+
+      done();
+    });
+
     it('should update nextInclusiveStartKey', async (done) => {
       const { collectionFetcher, getCollectionItems, contents } = setup();
 
@@ -218,7 +272,9 @@ describe('CollectionFetcher', () => {
             }),
           );
 
-          await collectionFetcher.loadNextPage(RECENTS_COLLECTION);
+          await collectionFetcher.loadNextPage(RECENTS_COLLECTION, undefined, {
+            traceId: 'test-trace-id',
+          });
 
           expect(collectionCache.recents.nextInclusiveStartKey).toEqual(
             'new-key',
@@ -306,12 +362,18 @@ describe('CollectionFetcher', () => {
         'some-id',
         'some-collection-name',
         'some-occurrence-key',
+        {
+          traceId: 'test-trace-id',
+        },
       );
 
       expect(removeCollectionFile).toHaveBeenCalledWith(
         'some-id',
         'some-collection-name',
         'some-occurrence-key',
+        {
+          traceId: 'test-trace-id',
+        },
       );
     });
 

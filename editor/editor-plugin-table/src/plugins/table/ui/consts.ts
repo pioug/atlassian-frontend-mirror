@@ -1,13 +1,13 @@
 import {
   B200,
   B300,
-  N0,
   N20,
   R400,
   R75,
   DN400,
   N200,
   DN30,
+  N0,
 } from '@atlaskit/theme/colors';
 import {
   tableCellBorderWidth,
@@ -34,11 +34,13 @@ import { themed } from '@atlaskit/theme/components';
 
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4135
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const tableCellBackgroundColor = themed({ light: N0, dark: DN30 });
-
+export const tableCellBackgroundColor = themed({
+  light: token('elevation.surface', N0),
+  dark: token('elevation.surface', DN30),
+});
 export const tableToolbarColor = themed({
-  light: akEditorTableToolbar,
-  dark: akEditorTableToolbarDark,
+  light: token('color.background.neutral.subtle', akEditorTableToolbar),
+  dark: token('color.background.neutral.subtle', akEditorTableToolbarDark),
 });
 export const tableTextColor = themed({
   light: token('color.text.subtlest', N200),

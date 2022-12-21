@@ -90,6 +90,7 @@ export const InlineCard: FC<InlineCardProps> = ({
           onAuthorise={handleAuthorize}
           testId={testIdWithStatus}
           showAuthTooltip={showAuthTooltip}
+          id={id}
         />
       );
     case 'forbidden':

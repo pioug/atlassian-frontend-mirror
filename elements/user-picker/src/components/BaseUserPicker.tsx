@@ -126,7 +126,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 
   private withSelectRef = (callback: (selectRef: any) => void) => () => {
     if (this.selectRef) {
-      callback(this.selectRef.select.select);
+      callback(this.selectRef);
     }
   };
 

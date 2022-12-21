@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { cities } from '../common/data';
-import { AsyncSelect } from '../../src';
+import { AsyncSelect, OptionsType } from '../../src';
 
 interface State {
   inputValue: string;
@@ -12,7 +12,7 @@ const filterCities = (inputValue: string) =>
   );
 
 const promiseOptions = (inputValue: string) =>
-  new Promise((resolve) => {
+  new Promise<OptionsType>((resolve) => {
     setTimeout(() => {
       resolve(filterCities(inputValue));
     }, 1000);

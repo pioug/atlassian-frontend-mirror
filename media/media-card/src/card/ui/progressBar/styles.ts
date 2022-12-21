@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { borderRadius } from '@atlaskit/media-ui';
 import { rgba } from '../../styles/mixins';
-import { N0, N400 } from '@atlaskit/theme/colors';
+import { N0 } from '@atlaskit/theme/colors';
 import { Breakpoint, getTitleBoxHeight, responsiveSettings } from '../common';
 import { StyledBarProps } from './types';
 
@@ -31,6 +31,7 @@ export function generateResponsiveStyles(
   `;
 }
 
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const getStyledBarStylesBasedOnProps = ({
   progress,
   breakpoint,
@@ -51,12 +52,13 @@ box-sizing: border-box;
   content: '';
   width: ${progress}%;
   height: 100%;
-  background-color: ${N400};
+  background-color: #44546F;
   ${borderRadius}
   display: block;
 }
 ${generateResponsiveStyles(breakpoint, positionBottom, showOnTop)}
 `;
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 export const styledBarStyles = (props: StyledBarProps) => {
   return css`

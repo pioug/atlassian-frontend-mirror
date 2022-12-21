@@ -1,6 +1,42 @@
 import { isPerformanceAPIAvailable } from './is-performance-api-available';
 
 /**
+ * Monitors if a pages enters a visibility state which will lead to
+ * distorted duration measurements (where the measurement uses the
+ * requestAnimationFrame api).
+ */
+export function getDistortedDurationMonitor() {
+  // If an editor is rendered when the document is not visible -- the callback passed to
+  // requestAnimationFrame will not fire until the document becomes visible again.
+  //
+  // For the purposes of using performance measurement -- this behaviour means the events
+  // which have been fired in the background are not useful -- and lead to other events
+  // being hard to draw conclusions from.
+  //
+  // To mitigate this -- we detect this state -- and fire a seperate callback when the
+  // measurement has occured when the render was in the backgroun
+  let distortedDuration = document.visibilityState !== 'visible';
+
+  function handleVisibilityChange() {
+    if (document.visibilityState !== 'visible') {
+      distortedDuration = true;
+    }
+  }
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+
+  return {
+    distortedDuration,
+    /**
+     * Cleans up the document visibility event listener
+     */
+    cleanup() {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    },
+  };
+}
+
+/**
  * Measures time it takes to render a frame including -> style, paint, layout and composition.
  *
  * How does it work:
@@ -56,29 +92,12 @@ export function measureRender(
 
   performance.mark(startMark);
 
-  // If an editor is rendered when the document is not visible -- the callback passed to
-  // requestAnimationFrame will not fire until the document becomes visible again.
-  //
-  // For the purposes of using performance measurement -- this behaviour means the events
-  // which have been fired in the background are not useful -- and lead to other events
-  // being hard to draw conclusions from.
-  //
-  // To mitigate this -- we detect this state -- and fire a seperate callback when the
-  // measurement has occured when the render was in the backgroun
-  let distortedDuration = document.visibilityState !== 'visible';
-
-  function handleVisibilityChange() {
-    if (document.visibilityState !== 'visible') {
-      distortedDuration = true;
-    }
-  }
-
-  document.addEventListener('visibilitychange', handleVisibilityChange);
+  let distortedDurationMonitor = getDistortedDurationMonitor();
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       performance.mark(endMark);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      distortedDurationMonitor.cleanup();
       const duration = performance.now() - startTime;
 
       try {
@@ -86,16 +105,24 @@ export function measureRender(
         const entry = performance.getEntriesByName(measureName).pop();
 
         if (!entry) {
-          onMeasureComplete({ duration, startTime, distortedDuration });
+          onMeasureComplete({
+            duration,
+            startTime,
+            distortedDuration: distortedDurationMonitor.distortedDuration,
+          });
         } else {
           onMeasureComplete({
             duration: entry.duration,
             startTime: entry.startTime,
-            distortedDuration,
+            distortedDuration: distortedDurationMonitor.distortedDuration,
           });
         }
       } catch (e) {
-        onMeasureComplete({ duration, startTime, distortedDuration });
+        onMeasureComplete({
+          duration,
+          startTime,
+          distortedDuration: distortedDurationMonitor.distortedDuration,
+        });
       }
 
       performance.clearMeasures(measureName);

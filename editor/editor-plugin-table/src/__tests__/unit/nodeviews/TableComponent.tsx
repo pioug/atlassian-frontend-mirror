@@ -1,7 +1,11 @@
 import React from 'react';
 import { replaceRaf } from 'raf-stub';
+import { TextSelection } from 'prosemirror-state';
+
+import { Command } from '@atlaskit/editor-common/types';
 import { render } from '@testing-library/react';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { selectTableClosestToPos } from '@atlaskit/editor-tables/src/utils/select-nodes';
 import tablePlugin from '../../../plugins/table-plugin';
 import {
   doc,
@@ -12,8 +16,13 @@ import {
   tdEmpty,
   tdCursor,
   DocBuilder,
+  thEmpty,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { findTable, selectTable } from '@atlaskit/editor-tables/utils';
+import {
+  findTable,
+  findTableClosestToPos,
+  selectTable,
+} from '@atlaskit/editor-tables/utils';
 import {
   TableCssClassName as ClassName,
   TablePluginState,
@@ -22,11 +31,21 @@ import TableComponent from '../../../plugins/table/nodeviews/TableComponent';
 
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { toggleNumberColumn } from '../../../plugins/table/commands';
+import * as commands from '../../../plugins/table/commands';
+import {
+  toggleNumberColumn,
+  hoverTable,
+} from '../../../plugins/table/commands';
 
 jest.mock('../../../plugins/table/utils/nodes', () =>
   Object.assign({}, jest.requireActual('../../../plugins/table/utils/nodes'), {
     tablesHaveDifferentColumnWidths: jest.fn(),
+  }),
+);
+
+jest.mock('../../../plugins/table/commands', () =>
+  Object.assign({}, jest.requireActual('../../../plugins/table/commands'), {
+    clearHoverSelection: jest.fn(),
   }),
 );
 
@@ -57,8 +76,8 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
     jest.clearAllMocks();
   });
 
-  describe('when the table is selected', () => {
-    it('should add table selected css class', () => {
+  describe('when a table is selected', () => {
+    it('should add table selected css class to the selected table', () => {
       const { editorView } = editor(
         doc(p('text'), table()(tr(tdEmpty, tdEmpty, tdCursor))),
         {
@@ -77,6 +96,129 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
       expect(
         tableContainer!.classList.contains(ClassName.TABLE_SELECTED),
       ).toBeTruthy();
+    });
+
+    it('should not clear the editor state hover selection when changing selection to another table', () => {
+      const clearHoverSelectionSpy = jest
+        .spyOn(commands, 'clearHoverSelection')
+        .mockImplementation(() => (() => {}) as any as Command);
+
+      const { editorView } = editor(
+        doc(
+          p('text'),
+          table()(tr(thEmpty, thEmpty, thEmpty)),
+          table()(tr(thEmpty, thEmpty, thEmpty)),
+        ),
+      );
+      const { state, dispatch } = editorView;
+
+      const isInDanger = true;
+      hoverTable(isInDanger)(state, dispatch);
+
+      const selectSecondTableTr = selectTableClosestToPos(
+        state.tr,
+        state.doc.resolve(26),
+      );
+      dispatch(selectSecondTableTr);
+      const secondTable = findTableClosestToPos(state.doc.resolve(26));
+
+      const selectFirstTableTr = selectTableClosestToPos(
+        state.tr,
+        state.doc.resolve(8),
+      );
+      dispatch(selectFirstTableTr);
+      const firstTable = findTableClosestToPos(state.doc.resolve(8));
+
+      const getTableNode = (index: number) => () =>
+        index === 1 ? firstTable!.node : secondTable!.node;
+
+      render(
+        <div>
+          <TableComponent
+            view={editorView}
+            eventDispatcher={
+              { on: () => {}, off: () => {} } as any as EventDispatcher
+            }
+            // @ts-ignore
+            containerWidth={{}}
+            // @ts-ignore
+            getNode={getTableNode(1)}
+            getEditorFeatureFlags={getEditorFeatureFlags}
+            allowControls
+            contentDOM={(wrapper: HTMLElement | null) => {
+              const node = editorView.dom.getElementsByTagName('table')[0];
+              if (!wrapper?.firstChild) {
+                wrapper?.appendChild(node);
+              }
+            }}
+          />
+          <TableComponent
+            view={editorView}
+            eventDispatcher={
+              { on: () => {}, off: () => {} } as any as EventDispatcher
+            }
+            // @ts-ignore
+            containerWidth={{}}
+            // @ts-ignore
+            getNode={getTableNode(2)}
+            getEditorFeatureFlags={getEditorFeatureFlags}
+            allowControls
+            contentDOM={(wrapper: HTMLElement | null) => {
+              const node = editorView.dom.getElementsByTagName('table')[0];
+              if (!wrapper?.firstChild) {
+                wrapper?.appendChild(node);
+              }
+            }}
+          />
+          ,
+        </div>,
+      );
+      expect(clearHoverSelectionSpy).not.toBeCalled();
+    });
+  });
+
+  describe('when there are no tables in selection', () => {
+    it('clears the editor state hover selection if the editor state is in danger flag is set', () => {
+      const clearHoverSelectionSpy = jest
+        .spyOn(commands, 'clearHoverSelection')
+        .mockImplementation(() => (() => {}) as any as Command);
+
+      const { editorView } = editor(
+        doc(p('text'), table()(tr(thEmpty, thEmpty, thEmpty))),
+      );
+      const { state, dispatch } = editorView;
+
+      const isInDanger = true;
+      hoverTable(isInDanger)(state, dispatch);
+      dispatch(selectTable(state.tr));
+
+      const tableF = findTable(state.selection);
+      const getNode = () => tableF!.node;
+
+      const newTr = state.tr.setSelection(TextSelection.create(state.doc, 0));
+      dispatch(newTr);
+
+      render(
+        <TableComponent
+          view={editorView}
+          eventDispatcher={
+            { on: () => {}, off: () => {} } as any as EventDispatcher
+          }
+          // @ts-ignore
+          containerWidth={{}}
+          // @ts-ignore
+          getNode={getNode}
+          getEditorFeatureFlags={getEditorFeatureFlags}
+          allowControls
+          contentDOM={(wrapper: HTMLElement | null) => {
+            const node = editorView.dom.getElementsByTagName('table')[0];
+            if (!wrapper?.firstChild) {
+              wrapper?.appendChild(node);
+            }
+          }}
+        />,
+      );
+      expect(clearHoverSelectionSpy).toBeCalledTimes(1);
     });
   });
 

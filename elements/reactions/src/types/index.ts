@@ -12,6 +12,7 @@ export type {
   Reactions,
   ReactionClick,
   ReactionMouseEnter,
+  onDialogSelectReactionChange,
 } from './reaction';
 export type { Client, Request } from './client';
 export type { Updater } from './Updater';

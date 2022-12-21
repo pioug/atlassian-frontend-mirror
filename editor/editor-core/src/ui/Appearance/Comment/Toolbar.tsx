@@ -65,7 +65,7 @@ const StickyToolbar: React.FC<StickyToolbarProps> = (props) => {
         mainToolbarWrapperStyle,
         stickyToolbarWrapperStyle,
         css`
-          top: ${top};
+          top: ${top}px;
         `,
       ]}
       data-testid="ak-editor-main-toolbar"

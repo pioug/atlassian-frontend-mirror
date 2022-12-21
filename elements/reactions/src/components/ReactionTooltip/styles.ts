@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { N90 } from '@atlaskit/theme/colors';
+import { N90, N800, N0 } from '@atlaskit/theme/colors';
 
 export const verticalMargin = 5;
 
@@ -34,4 +34,13 @@ export const emojiNameStyle = css({
 export const footerStyle = css({
   color: token('color.text.inverse', N90),
   fontWeight: 300,
+});
+
+export const underlineStyle = css({
+  cursor: 'pointer',
+  textDecoration: 'underline',
+  ':hover': {
+    backgroundColor: token('color.background.neutral.bold', N800),
+    color: token('color.text.inverse', N0),
+  },
 });

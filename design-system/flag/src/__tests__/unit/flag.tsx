@@ -2,6 +2,10 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { FlagProps } from '../../types';
@@ -11,7 +15,7 @@ import FlagGroup from '../../flag-group';
 describe('Flag', () => {
   const generateFlag = (extraProps?: Partial<FlagProps>) => (
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <Flag id="" icon={<div />} title="Flag" {...extraProps} />
+    <Flag id="" icon={<Box />} title="Flag" {...extraProps} />
   );
 
   describe('description prop', () => {
@@ -39,11 +43,12 @@ describe('Flag', () => {
       const { queryByTestId } = render(
         generateFlag({
           description: (
-            <span data-testid="description-jsx">
+            <Text testId="description-jsx">
               Check this
+              {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
               <a href="https://google.com">link</a>
               out
-            </span>
+            </Text>
           ),
           testId: 'flag-test',
         }),

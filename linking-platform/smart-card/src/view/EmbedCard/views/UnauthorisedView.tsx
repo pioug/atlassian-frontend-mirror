@@ -1,12 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { EmbedCardUnresolvedView } from './UnresolvedView';
 import { UnauthorisedImage } from '../constants';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel } from '../types';
 import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
+import { AnalyticsFacade } from '../../../state/analytics';
 
 export interface EmbedCardUnauthorisedViewProps {
+  analytics: AnalyticsFacade;
   context?: ContextViewModel;
   link: string;
   isSelected?: boolean;
@@ -14,9 +16,11 @@ export interface EmbedCardUnauthorisedViewProps {
   onAuthorise?: () => void;
   inheritDimensions?: boolean;
   onClick?: (evt: React.MouseEvent) => void;
+  extensionKey?: string;
 }
 
 export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
+  analytics,
   link,
   context,
   isSelected,
@@ -24,12 +28,23 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
   onAuthorise,
   inheritDimensions,
   onClick,
+  extensionKey,
 }) => {
   const icon = context && context.icon && (
     <ImageIcon
       src={typeof context.icon === 'string' ? context.icon : undefined}
     />
   );
+
+  const handleOnAuthorizeClick = useCallback(() => {
+    if (onAuthorise) {
+      analytics.track.appAccountAuthStarted({
+        extensionKey: extensionKey,
+      });
+
+      onAuthorise();
+    }
+  }, [onAuthorise, analytics.track, extensionKey]);
 
   return (
     <ExpandedFrame
@@ -53,10 +68,14 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
           text: 'connect_unauthorised_account_action',
           testId: 'connect-account',
         }}
-        onClick={onAuthorise}
+        onClick={handleOnAuthorizeClick}
         testId={testId}
       >
-        <UnauthorisedViewContent providerName={context?.text} testId={testId} />
+        <UnauthorisedViewContent
+          analytics={analytics}
+          providerName={context?.text}
+          testId={testId}
+        />
       </EmbedCardUnresolvedView>
     </ExpandedFrame>
   );

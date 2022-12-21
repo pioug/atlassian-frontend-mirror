@@ -11,10 +11,10 @@ import withColumnWidth from './internal/with-column-width';
 
 const headerStyles = css({
   color: token('color.text.subtle', N300),
-  fontSize: 12,
-  fontWeight: 'bold',
+  fontSize: token('font.size.075', '12px'),
+  fontWeight: token('font.weight.bold', 'bold'),
   letterSpacing: -0.1,
-  lineHeight: '1.67',
+  lineHeight: token('font.lineHeight.200', '20px'),
 });
 
 class Header extends Component<any> {

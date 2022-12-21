@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 12.0.5
+
+### Patch Changes
+
+- [`f7b2dbd6eba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7b2dbd6eba) - Replace truncation styles with new Text `shouldTruncate` prop. No change in behaviour.
+
 ## 12.0.4
 
 ### Patch Changes

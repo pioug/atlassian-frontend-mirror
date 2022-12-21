@@ -1,4 +1,5 @@
 import { Auth } from '@atlaskit/media-core';
+import type { MediaTraceContext } from '@atlaskit/media-common';
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -26,6 +27,7 @@ export type RequestMetadata = {
 
 export type RequestOptions = RequestMetadata & {
   readonly auth?: Auth;
+  readonly traceContext?: Required<MediaTraceContext>;
   readonly params?: RequestParams;
   readonly headers?: RequestHeaders;
   readonly body?: any;

@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 import { responsiveSettings, getTitleBoxHeight, Breakpoint } from '../common';
 import { N0 } from '@atlaskit/theme/colors';
 import { rgba } from '../../styles/mixins';
@@ -27,9 +28,12 @@ export const titleBoxWrapperStyles = ({
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: ${rgba(
-    titleBoxBgColor && HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : N0,
-    0.8,
+  background-color: ${token(
+    'elevation.surface',
+    rgba(
+      titleBoxBgColor && HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : N0,
+      0.8,
+    ),
   )};
   color: inherit;
   cursor: inherit;

@@ -38,7 +38,7 @@ describe('close history', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add(blockTypePlugin)
-        .add([pastePlugin, { plainTextPasteLinkification: true }])
+        .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add(betterTypeHistoryPlugin)
         .add(panelPlugin)

@@ -22,7 +22,7 @@ describe('Table context menu: merge-split cells', () => {
     page = global.page;
   });
 
-  describe('with table cell optimization on', () => {
+  describe('with table cell optimization and sticky headers enabled', () => {
     beforeEach(async () => {
       await initFullPageEditorWithAdf(page, adf, undefined, undefined, {
         allowTables: {
@@ -34,19 +34,27 @@ describe('Table context menu: merge-split cells', () => {
       await clickFirstCell(page);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 30/09/2022: https://product-fabric.atlassian.net/browse/ED-15751
-    it.skip('ensures table looks ok after merging cells and undo', async () => {
+    it('ensures table looks ok after merging cells in first column and undo', async () => {
       const from = getSelectorForTableCell({
         row: 1,
         cell: 1,
       });
-      const to = getSelectorForTableCell({ row: 2, cell: 1 });
+      const to = getSelectorForTableCell({ row: 2, cell: 3 });
       await mergeCells(page, from, to);
       await snapshot(page);
       // undo the merge
       // Meta key doesnt work here
       await pressKeyCombo(page, ['Control', 'KeyZ']);
       await snapshot(page);
+    });
+
+    it('ensures table looks ok after merging and splitting cells in second column', async () => {
+      const firstCell = getSelectorForTableCell({
+        row: 1,
+        cell: 2,
+      });
+      let lastCell = getSelectorForTableCell({ row: 3, cell: 2 });
+      await tableMergeAndSplitCells(firstCell, lastCell);
     });
   });
 
@@ -72,7 +80,8 @@ describe('Table context menu: merge-split cells', () => {
       await clickFirstCell(page, true);
     });
 
-    it(`for row`, async () => {
+    // expect first column cells to become table header cells after split
+    it(`for first column`, async () => {
       const firstCell = getSelectorForTableCell({
         row: 1,
         cell: 1,
@@ -81,7 +90,16 @@ describe('Table context menu: merge-split cells', () => {
       await tableMergeAndSplitCells(firstCell, lastCell);
     });
 
-    it(`for column`, async () => {
+    it(`for second column`, async () => {
+      const firstCell = getSelectorForTableCell({
+        row: 1,
+        cell: 2,
+      });
+      let lastCell = getSelectorForTableCell({ row: 3, cell: 2 });
+      await tableMergeAndSplitCells(firstCell, lastCell);
+    });
+
+    it(`for row`, async () => {
       const firstCell = getSelectorForTableCell({ row: 2, cell: 1 });
       const lastCell = getSelectorForTableCell({ row: 2, cell: 3 });
       await tableMergeAndSplitCells(firstCell, lastCell);

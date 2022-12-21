@@ -17,4 +17,10 @@ export const messages = defineMessages({
     defaultMessage: 'Mention',
     description: 'icon label to describe the mention icon',
   },
+  mentionsNodeLabel: {
+    id: 'fabric.editor.mentionNode.label',
+    defaultMessage: 'Tagged user',
+    description:
+      'Label to indicate mention node to Screen reader users, that preceeds with user name ex: "Tagged user @XXX',
+  },
 });

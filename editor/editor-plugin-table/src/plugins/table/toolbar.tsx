@@ -7,6 +7,7 @@ import commonMessages from '@atlaskit/editor-common/messages';
 import type {
   Command,
   CommandDispatch,
+  DropdownOptionT,
   FloatingToolbarDropdown,
   FloatingToolbarHandler,
   FloatingToolbarItem,
@@ -15,7 +16,12 @@ import type {
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
-import { clearHoverSelection, hoverTable } from './commands';
+import {
+  clearHoverSelection,
+  hoverTable,
+  hoverColumns,
+  hoverRows,
+} from './commands';
 import {
   deleteTableWithAnalytics,
   toggleHeaderColumnWithAnalytics,
@@ -43,7 +49,11 @@ import {
   PluginConfig,
   TableCssClassName,
 } from './types';
-import { getMergedCellsPositions } from './utils';
+import {
+  getMergedCellsPositions,
+  getSelectedColumnIndexes,
+  getSelectedRowIndexes,
+} from './utils';
 import { isReferencedSource } from './utils/referentiality';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
@@ -76,6 +86,7 @@ import {
   cellBackgroundColorPalette,
   DEFAULT_BORDER_COLOR,
 } from '@atlaskit/editor-common/ui-color';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 
 export const messages = defineMessages({
   tableOptions: {
@@ -157,6 +168,7 @@ export const getToolbarMenuConfig = (
 // with native widgets. It's enabled via a plugin config.
 export const getToolbarCellOptionsConfig = (
   editorState: EditorState,
+  editorView: EditorView | undefined | null,
   initialSelectionRect: Rect,
   { formatMessage }: ToolbarMenuContext,
   getEditorContainerWidth: GetEditorContainerWidth,
@@ -167,7 +179,7 @@ export const getToolbarCellOptionsConfig = (
   const numberOfRows = bottom - top;
   const pluginState = getPluginState(editorState);
 
-  const options = [
+  const options: DropdownOptionT<Command>[] = [
     {
       id: 'editor.table.insertColumn',
       title: formatMessage(tableMessages.insertColumn),
@@ -227,6 +239,18 @@ export const getToolbarCellOptionsConfig = (
         }
         return true;
       },
+      onMouseOver: (state: EditorState, dispatch?: CommandDispatch) => {
+        const selectionRect = getClosestSelectionRect(state);
+        if (selectionRect) {
+          hoverColumns(getSelectedColumnIndexes(selectionRect), true)(
+            state,
+            dispatch,
+          );
+          return true;
+        }
+        return false;
+      },
+      onMouseLeave: clearHoverSelection(),
       selected: false,
       disabled: false,
     },
@@ -246,6 +270,18 @@ export const getToolbarCellOptionsConfig = (
         }
         return true;
       },
+      onMouseOver: (state: EditorState, dispatch?: CommandDispatch) => {
+        const selectionRect = getClosestSelectionRect(state);
+        if (selectionRect) {
+          hoverRows(getSelectedRowIndexes(selectionRect), true)(
+            state,
+            dispatch,
+          );
+          return true;
+        }
+        return false;
+      },
+      onMouseLeave: clearHoverSelection(),
       selected: false,
       disabled: false,
     },
@@ -270,16 +306,17 @@ export const getToolbarCellOptionsConfig = (
   ];
 
   if (pluginState?.pluginConfig?.allowDistributeColumns) {
-    const distributeColumnWidths: Command = (state, dispatch, view) => {
-      const newResizeStateWithAnalytics = view
-        ? getNewResizeStateFromSelectedColumns(
-            initialSelectionRect,
-            editorState,
-            view.domAtPos.bind(view),
-            getEditorContainerWidth,
-          )
-        : undefined;
+    const newResizeStateWithAnalytics = editorView
+      ? getNewResizeStateFromSelectedColumns(
+          initialSelectionRect,
+          editorState,
+          editorView.domAtPos.bind(editorView),
+          getEditorContainerWidth,
+        )
+      : undefined;
+    const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
 
+    const distributeColumnWidths: Command = (state, dispatch) => {
       if (newResizeStateWithAnalytics) {
         distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.FLOATING_TB,
@@ -295,13 +332,16 @@ export const getToolbarCellOptionsConfig = (
       title: formatMessage(ContextualMenuMessages.distributeColumns),
       onClick: distributeColumnWidths,
       selected: false,
-      disabled: numberOfColumns <= 1,
+      disabled: !wouldChange,
     });
   }
 
   if (pluginState?.pluginConfig?.allowColumnSorting) {
     const hasMergedCellsInTable =
       getMergedCellsPositions(editorState.tr).length > 0;
+    const warning = hasMergedCellsInTable
+      ? formatMessage(ContextualMenuMessages.canNotSortTable)
+      : undefined;
 
     options.push({
       id: 'editor.table.sortColumnAsc',
@@ -316,6 +356,7 @@ export const getToolbarCellOptionsConfig = (
       },
       selected: false,
       disabled: hasMergedCellsInTable,
+      tooltip: warning,
     });
 
     options.push({
@@ -331,6 +372,7 @@ export const getToolbarCellOptionsConfig = (
       },
       selected: false,
       disabled: hasMergedCellsInTable,
+      tooltip: warning,
     });
   }
 
@@ -375,6 +417,7 @@ export const getToolbarConfig =
     getEditorContainerWidth: GetEditorContainerWidth,
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
     getEditorFeatureFlags: GetEditorFeatureFlags,
+    getEditorView: () => EditorView | null,
   ) =>
   (config: PluginConfig): FloatingToolbarHandler =>
   (state, intl) => {
@@ -396,6 +439,7 @@ export const getToolbarConfig =
       const cellItems = getCellItems(
         config,
         state,
+        getEditorView(),
         intl,
         getEditorContainerWidth,
         editorAnalyticsAPI,
@@ -453,6 +497,7 @@ export const getToolbarConfig =
         getDomRef,
         nodeType,
         offset: [0, 3],
+        zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
         items: [
           menu,
           separator(menu.hidden),
@@ -504,6 +549,7 @@ const separator = (hidden?: boolean): FloatingToolbarItem<Command> => {
 const getCellItems = (
   pluginConfig: PluginConfig,
   state: EditorState,
+  view: EditorView | null,
   { formatMessage }: ToolbarMenuContext,
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
@@ -517,6 +563,7 @@ const getCellItems = (
     if (initialSelectionRect) {
       const cellOptions = getToolbarCellOptionsConfig(
         state,
+        view,
         initialSelectionRect,
         { formatMessage },
         getEditorContainerWidth,

@@ -24,14 +24,14 @@ import Select, {
   OptionType,
   SelectComponentsConfig,
   SelectProps,
+  ValueType,
 } from '@atlaskit/select';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import {
   defaultTimeFormat,
   defaultTimes,
-  DropdownIndicator,
-  EmptyClearIndicator,
+  EmptyComponent,
   placeholderDatetime,
 } from '../internal';
 import FixedLayer from '../internal/fixed-layer';
@@ -256,8 +256,12 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     });
   }
 
-  onChange = (v: { value: string } | null, action?: ActionMeta): void => {
-    const value = v ? v.value : '';
+  onChange = (
+    newValue: ValueType<OptionType> | string,
+    action?: ActionMeta<OptionType>,
+  ): void => {
+    const rawValue = newValue ? (newValue as OptionType).value || newValue : '';
+    const value = rawValue.toString();
     let changedState: {} = { value };
 
     if (action && action.action === 'clear') {
@@ -274,7 +278,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
   /**
    * Only allow custom times if timeIsEditable prop is true
    */
-  onCreateOption = (inputValue: any): void => {
+  onCreateOption = (inputValue: string): void => {
     if (this.props.timeIsEditable) {
       const { parseInputValue, timeFormat } = this.props;
 
@@ -401,15 +405,14 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       spacing,
       testId,
       isInvalid,
+      timeIsEditable,
     } = this.props;
     const ICON_PADDING = 2;
 
     const { value = '', isOpen } = this.getSafeState();
 
     const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
-    const SelectComponent = this.props.timeIsEditable
-      ? CreatableSelect
-      : Select;
+    const SelectComponent = timeIsEditable ? CreatableSelect : Select;
 
     const labelAndValue = value && {
       label: this.formatTime(value),
@@ -417,12 +420,10 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     };
 
     const selectComponents: SelectComponentsConfig<OptionType> = {
-      DropdownIndicator,
+      DropdownIndicator: EmptyComponent,
       Menu: FixedLayerMenu,
+      ...(hideIcon && { ClearIndicator: EmptyComponent }),
     };
-    if (hideIcon) {
-      selectComponents.ClearIndicator = EmptyClearIndicator;
-    }
 
     const renderIconContainer = Boolean(!hideIcon && value);
 
@@ -481,6 +482,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
           styles={mergedStyles}
           value={labelAndValue}
           spacing={spacing}
+          // @ts-ignore caused by prop not part of @atlaskit/select
           fixedLayerRef={this.containerRef}
           isInvalid={isInvalid}
           testId={testId}

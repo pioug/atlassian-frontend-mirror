@@ -1,5 +1,6 @@
 // Simple component which wraps stories and creates a styled list out of it
 import React from 'react';
+import { token } from '@atlaskit/tokens';
 import { Component, ReactNode, CSSProperties } from 'react';
 
 interface UnitStyle {
@@ -28,9 +29,9 @@ const styles: {
       margin: '10px',
     },
     stateTitle: {
-      borderBottom: '1px solid #ccc',
+      borderBottom: `1px solid ${token('color.border', '#ccc')}`,
       marginBottom: '7px',
-      color: '#606369',
+      color: token('color.text', '#606369'),
       width: '100%',
       textTransform: 'capitalize',
     },
@@ -51,9 +52,9 @@ const styles: {
       margin: '10px',
     },
     stateTitle: {
-      borderBottom: '1px solid #ccc',
+      borderBottom: `1px solid ${token('color.border', '#ccc')}`,
       marginBottom: '7px',
-      color: '#606369',
+      color: token('color.text', '#606369'),
       width: '100%',
       textTransform: 'capitalize',
     },

@@ -8,7 +8,7 @@ import { useSmartCardState as useLinkState } from '../../../state/store';
 import HoverCardContent from '../components/HoverCardContent';
 import { HoverCardContainer, CARD_GAP_PX } from '../styled';
 import { HoverCardComponentProps } from '../types';
-import { SMART_CARD_ANALYTICS_DISPLAY } from '../utils';
+import { CardDisplay } from '../../../constants';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
@@ -17,7 +17,6 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   url,
   analyticsHandler,
   analytics,
-  onAuthorize,
 }) => {
   const delay = 300;
   const [isOpen, setIsOpen] = React.useState(false);
@@ -30,6 +29,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
   const renderers = useSmartLinkRenderers();
   const linkState = useLinkState(url);
+  const linkStatus = linkState.status;
   const hoverDisplay = 'card';
   const invokeMethod = 'mouse_hover';
 
@@ -51,10 +51,11 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         previewDisplay: 'card',
         hoverTime,
         previewInvokeMethod: 'mouse_hover',
+        status: linkStatus,
       });
     }
     setIsOpen(false);
-  }, [analytics.ui, isOpen]);
+  }, [analytics.ui, isOpen, linkStatus]);
 
   const initHideCard = useCallback(() => {
     if (fadeInTimeoutId.current) {
@@ -77,6 +78,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
           analytics.ui.hoverCardViewedEvent({
             previewDisplay: hoverDisplay,
             previewInvokeMethod: invokeMethod,
+            status: linkStatus,
           });
         }
         //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
@@ -90,12 +92,12 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         setIsOpen(true);
       }, delay);
     },
-    [isOpen, setMousePosition, analytics.ui],
+    [isOpen, setMousePosition, analytics.ui, linkStatus],
   );
 
   const linkActions = useSmartLinkActions({
     url,
-    appearance: SMART_CARD_ANALYTICS_DISPLAY,
+    appearance: CardDisplay.HoverCardPreview,
     analyticsHandler,
     origin: 'smartLinkPreviewHoverCard',
   });
@@ -136,7 +138,6 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
             onResolve={update}
             renderers={renderers}
             url={url}
-            onAuthorize={onAuthorize}
           />
         </div>
       )}

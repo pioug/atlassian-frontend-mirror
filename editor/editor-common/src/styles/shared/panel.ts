@@ -1,7 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4066
-
 import { css } from '@emotion/react';
 
 import { PanelType } from '@atlaskit/adf-schema';
@@ -15,8 +11,20 @@ import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
+
+const tokenPanelColor = {
+  info: 'color.background.information',
+  note: 'color.background.discovery',
+  tip: 'color.background.success',
+  success: 'color.background.success',
+  warning: 'color.background.warning',
+  error: 'color.background.danger',
+} as const;
 
 const lightPanelColor = {
+  // TODO: https://product-fabric.atlassian.net/browse/DSP-4066
+  /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
   info: colors.B50,
   note: colors.P50,
   tip: colors.G50,
@@ -27,7 +35,7 @@ const lightPanelColor = {
 
 export const darkPanelColors = {
   // standard panels
-  info: '#0C294F',
+  info: `#0C294F`,
   error: `#441C13`,
   warning: `#413001`,
   tip: `#052E21`,
@@ -101,23 +109,24 @@ export const darkPanelColors = {
 
   TextColor: '#D9DDE3',
 };
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 const lightIconColor = {
-  info: colors.B400,
-  note: colors.P400,
-  tip: colors.G400,
-  success: colors.G400,
-  warning: colors.Y400,
-  error: colors.R400,
+  info: token('color.icon.information', colors.B400),
+  note: token('color.icon.discovery', colors.P400),
+  tip: token('color.icon.success', colors.G400),
+  success: token('color.icon.success', colors.G400),
+  warning: token('color.icon.warning', colors.Y400),
+  error: token('color.icon.danger', colors.R400),
 };
 
 const darkIconColor = {
-  info: colors.B100,
-  note: colors.P100,
-  tip: colors.G200,
-  success: colors.G200,
-  warning: colors.Y100,
-  error: colors.R200,
+  info: token('color.icon.information', colors.B100),
+  note: token('color.icon.discovery', colors.P100),
+  tip: token('color.icon.success', colors.G200),
+  success: token('color.icon.success', colors.G200),
+  warning: token('color.icon.warning', colors.Y100),
+  error: token('color.icon.danger', colors.R200),
 };
 
 // New custom icons are a little smaller than predefined icons.
@@ -126,6 +135,8 @@ const panelEmojiSpriteVerticalAlignment =
   -(gridSize() * 3 - akEditorCustomIconSize) / 2;
 const panelEmojiImageVerticalAlignment = panelEmojiSpriteVerticalAlignment - 1;
 
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4066
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const panelDarkModeColors = [
   [colors.B50, darkPanelColors.B1200S],
   [colors.B75, darkPanelColors.B900],
@@ -214,12 +225,26 @@ const iconDynamicStyles =
   `;
   };
 
-export const getPanelTypeBackground = (
+// Provides the color without tokens, used when converting to a custom panel
+export const getPanelTypeBackgroundNoTokens = (
   panelType: Exclude<PanelType, PanelType.CUSTOM>,
   props: ThemeProps = {},
 ): string => {
   const light = lightPanelColor[panelType];
   const dark = darkPanelColors[panelType];
+  const background = themed({ light, dark })(props);
+  return background || 'none';
+};
+
+export const getPanelTypeBackground = (
+  panelType: Exclude<PanelType, PanelType.CUSTOM>,
+  props: ThemeProps = {},
+): string => {
+  // TODO: https://product-fabric.atlassian.net/browse/DSP-4066
+  /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
+  const light = token(tokenPanelColor[panelType], lightPanelColor[panelType]);
+  const dark = token(tokenPanelColor[panelType], darkPanelColors[panelType]);
+  /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
   const background = themed({ light, dark })(props);
   return background || 'none';
 };

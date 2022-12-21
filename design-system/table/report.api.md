@@ -30,6 +30,7 @@ const alignMap: {
 
 // @public (undocumented)
 type BaseCellProps = {
+  width?: string;
   align?: keyof typeof alignMap;
   as?: 'td' | 'th';
   scope?: 'col' | 'row';

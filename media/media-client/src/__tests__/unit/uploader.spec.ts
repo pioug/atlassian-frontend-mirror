@@ -110,32 +110,39 @@ describe('Uploader', () => {
     expect(ChunkinatorMock.mock.calls[0][0]).toEqual('file-content');
   });
 
-  it('should use provided file name, collection names and occurrence key when creating the file', (done) => {
+  it('should use provided file name, collection names, occurrence key and trace context when creating the file', (done) => {
     const { mediaStore, ChunkinatorMock, createFileFromUpload } = setup();
 
     ChunkinatorMock.mockImplementation(() =>
       from(Promise.resolve([probedBlob])),
     );
 
-    uploadFile(file, mediaStore as MediaStore, uploadableFileUpfrontIds, {
-      onProgress: jest.fn(),
-      onUploadFinish: () => {
-        expect(createFileFromUpload).toHaveBeenCalledTimes(1);
-        expect(createFileFromUpload).toBeCalledWith(
-          {
-            uploadId: 'some-upload-id',
-            name: 'file-name',
-            mimeType: 'file-mime-type',
-          },
-          {
-            occurrenceKey: 'some-occurrence-key',
-            collection: 'file-collection',
-            replaceFileId: 'some-file-id',
-          },
-        );
-        done();
+    uploadFile(
+      file,
+      mediaStore as MediaStore,
+      uploadableFileUpfrontIds,
+      {
+        onProgress: jest.fn(),
+        onUploadFinish: () => {
+          expect(createFileFromUpload).toHaveBeenCalledTimes(1);
+          expect(createFileFromUpload).toBeCalledWith(
+            {
+              uploadId: 'some-upload-id',
+              name: 'file-name',
+              mimeType: 'file-mime-type',
+            },
+            {
+              occurrenceKey: 'some-occurrence-key',
+              collection: 'file-collection',
+              replaceFileId: 'some-file-id',
+            },
+            { traceId: 'some-trace-id', spanId: 'some-span-id' },
+          );
+          done();
+        },
       },
-    });
+      { traceId: 'some-trace-id', spanId: 'some-span-id' },
+    );
 
     expect.assertions(2);
   });
@@ -153,6 +160,7 @@ describe('Uploader', () => {
           onProgress,
           onUploadFinish: (err) => (err ? reject(err) : resolve()),
         },
+        { traceId: 'some-trace-id', spanId: 'some-span-id' },
       );
     });
 
@@ -164,6 +172,11 @@ describe('Uploader', () => {
       '3',
     ]);
     expect(appendChunksToUpload.mock.calls[0][1].offset).toEqual(0);
+    expect(appendChunksToUpload.mock.calls[0][3]).toEqual({
+      traceId: 'some-trace-id',
+      spanId: 'some-span-id',
+    });
+
     expect(appendChunksToUpload.mock.calls[1][0]).toEqual('some-upload-id');
     expect(appendChunksToUpload.mock.calls[1][1].chunks).toEqual([
       '4',
@@ -171,6 +184,10 @@ describe('Uploader', () => {
       '6',
     ]);
     expect(appendChunksToUpload.mock.calls[1][1].offset).toEqual(3);
+    expect(appendChunksToUpload.mock.calls[1][3]).toEqual({
+      traceId: 'some-trace-id',
+      spanId: 'some-span-id',
+    });
   });
 
   it('should call onProgress with the upload percentage', async () => {

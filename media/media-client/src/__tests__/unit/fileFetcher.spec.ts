@@ -137,6 +137,24 @@ describe('FileFetcher', () => {
     );
 
     const mediaClient = fakeMediaClient();
+    const touchFiles = asMockFunctionResolvedValue(
+      mediaClient.mediaStore.touchFiles,
+      {
+        data: {
+          created: [
+            {
+              fileId: '1',
+              uploadId: '1',
+            },
+            {
+              fileId: '2',
+              uploadId: '2',
+            },
+          ],
+        },
+      },
+    );
+
     const mediaStore = {
       ...mediaClient.mediaStore,
       getFileBinaryURL: asMockFunctionResolvedValue(
@@ -148,6 +166,7 @@ describe('FileFetcher', () => {
           items,
         },
       }),
+      touchFiles,
     } as jest.Mocked<MediaStore>;
 
     const fileFetcher = new FileFetcherImpl(mediaStore);
@@ -200,6 +219,42 @@ describe('FileFetcher', () => {
 
   describe('downloadBinary()', () => {
     let appendChild: jest.SpyInstance<any>;
+
+    describe('touchFiles', () => {
+      it('masks mediaStore touchFiles', () => {
+        const { mediaStore, fileFetcher } = setup();
+
+        const descriptors = [
+          {
+            fileId: 'id-1',
+            collection: 'collection-1',
+            occurrenceKey: 'occ-1',
+            expireAfter: 100,
+            deletable: true,
+          },
+          {
+            fileId: 'id-2',
+            collection: 'collection-2',
+            occurrenceKey: 'occ-2',
+            expireAfter: 200,
+            deletable: false,
+          },
+        ];
+
+        const traceContext = {
+          traceId: 'some-trace-id',
+          spanId: 'some-span-id',
+        };
+
+        fileFetcher.touchFiles(descriptors, 'some-collection', traceContext);
+
+        expect(mediaStore.touchFiles).toHaveBeenCalledWith(
+          { descriptors },
+          { collection: 'some-collection' },
+          traceContext,
+        );
+      });
+    });
 
     describe('with normal browser', () => {
       beforeEach(() => {
@@ -557,6 +612,7 @@ describe('FileFetcher', () => {
         {
           collection: RECENTS_COLLECTION,
         },
+        undefined,
       ]);
     });
 
@@ -1087,10 +1143,32 @@ describe('FileFetcher', () => {
 
       expect(
         (fileFetcher as any).generateUploadableFileUpfrontIds,
-      ).toBeCalledWith(collection);
+      ).toBeCalledWith(collection, undefined);
       expect(uploadSpy.mock.calls[0][0]).toEqual(
         expect.objectContaining({ collection }),
       );
+    });
+
+    it('should pass trace context to generateUploadableFileUpfrontIds', async () => {
+      const { fileFetcher } = setup();
+      const uploadSpy = jest.spyOn(fileFetcher, 'upload');
+      const collection = 'destination-collection';
+
+      const traceContext = {
+        traceId: 'some-trace-id',
+        spanId: 'some-span-id',
+      };
+
+      await fileFetcher.uploadExternal(url, collection, traceContext);
+
+      expect(
+        (fileFetcher as any).generateUploadableFileUpfrontIds,
+      ).toBeCalledWith(collection, traceContext);
+
+      expect(uploadSpy.mock.calls[0][0]).toEqual(
+        expect.objectContaining({ collection }),
+      );
+      expect(uploadSpy.mock.calls[0][3]).toEqual(traceContext);
     });
 
     it('should extract the name from the url', async () => {
@@ -1391,6 +1469,29 @@ describe('FileFetcher', () => {
         expect(mediaStore.getItems).toHaveBeenCalledTimes(0);
         done();
       });
+    });
+
+    it('should pass trace context to generateUploadableFileUpfrontIds and uploadFile', async () => {
+      const { fileFetcher, createUploadableFile } = setup();
+      asMock(uploadFile).mockClear();
+      const collection = 'destination-collection';
+
+      const traceContext = {
+        traceId: 'some-trace-id',
+        spanId: 'some-span-id',
+      };
+
+      await fileFetcher.upload(
+        createUploadableFile('image.jpg', 'image/jpeg', collection), // doesn't require remote preview
+        undefined,
+        undefined,
+        traceContext,
+      );
+
+      expect(
+        (fileFetcher as any).generateUploadableFileUpfrontIds,
+      ).toBeCalledWith(collection, traceContext);
+      expect(asMock(uploadFile).mock.calls[0][4]).toBe(traceContext);
     });
   });
 

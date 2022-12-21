@@ -120,7 +120,7 @@ export default class Dropdown extends Component<Props, State> {
         scrollableElement={scrollableElement}
         isOpen={isOpen}
         handleClickOutside={this.hide}
-        handleEscapeKeydown={this.hide}
+        handleEscapeKeydown={this.hideonEsc}
         fitWidth={fitWidth + fitTolerance}
         fitHeight={fitHeight + fitTolerance}
         trigger={trigger}
@@ -150,6 +150,16 @@ export default class Dropdown extends Component<Props, State> {
 
   private hide = () => {
     this.setState({ isOpen: false });
+  };
+
+  private hideonEsc = () => {
+    this.hide();
+    //Focus the trigger button only on Escape
+    (
+      document.querySelector(
+        `[data-testid=${this.props.buttonTestId}]`,
+      ) as HTMLElement
+    )?.focus();
   };
 
   componentDidUpdate(prevProps: Props, prevState: State) {

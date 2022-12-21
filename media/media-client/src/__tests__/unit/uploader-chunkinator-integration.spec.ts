@@ -96,6 +96,7 @@ describe('Uploader', () => {
               collection: 'some-collection',
               replaceFileId: 'some-file-id',
             },
+            undefined,
           );
           done();
         },
@@ -131,6 +132,7 @@ describe('Uploader', () => {
               collection: 'some-collection',
               replaceFileId: 'some-file-id',
             },
+            undefined,
           );
           done();
         },

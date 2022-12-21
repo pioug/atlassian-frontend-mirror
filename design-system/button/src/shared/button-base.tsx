@@ -1,11 +1,17 @@
 /** @jsx jsx */
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 
 import { css, CSSObject, jsx, SerializedStyles } from '@emotion/react';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import {
+  UIAnalyticsEvent,
+  usePlatformLeafEventHandler,
+} from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+import type { InteractionContextType } from '@atlaskit/interaction-context';
+// eslint-disable-next-line no-duplicate-imports
+import InteractionContext from '@atlaskit/interaction-context';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -52,6 +58,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
       // else default to anchor if there is a href, and button if there is no href
       component: Component = href ? 'a' : 'button',
       testId,
+      interactionName,
       // I don't think this should be in button, but for now it is
       analyticsContext,
       ...rest
@@ -81,8 +88,23 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
     // Cross browser auto focusing is pretty broken, so we are doing it ourselves
     useAutoFocus(ourRef, autoFocus);
 
+    const interactionContext = useContext<InteractionContextType | null>(
+      InteractionContext,
+    );
+    const handleClick = useCallback(
+      (
+        e: React.MouseEvent<HTMLElement, MouseEvent>,
+        analyticsEvent: UIAnalyticsEvent,
+      ) => {
+        interactionContext &&
+          interactionContext.tracePress(interactionName, e.timeStamp);
+        providedOnClick(e, analyticsEvent);
+      },
+      [providedOnClick, interactionContext, interactionName],
+    );
+
     const onClick = usePlatformLeafEventHandler({
-      fn: providedOnClick,
+      fn: handleClick,
       action: 'clicked',
       componentName: 'button',
       packageName: process.env._PACKAGE_NAME_ as string,

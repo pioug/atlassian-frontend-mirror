@@ -3,6 +3,8 @@ import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 import {
   snapshot,
   initFullPageEditorWithAdf,
+  emulateSelectAll,
+  pmSelector,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import textListADF from './__fixtures__/text-and-list.adf.json';
 
@@ -18,14 +20,14 @@ describe('Snapshot Test: list commands', () => {
   });
 
   describe('when all text are selected and toggled', () => {
-    // FIXME: This test was automatically skipped due to failure on 01/08/2022: https://product-fabric.atlassian.net/browse/ED-15364
-    it.skip('should convert all text to list', async () => {
+    it('should convert all text to list', async () => {
       await initEditor(page, textListADF);
 
+      await page.waitForSelector(pmSelector);
+
       // select all through keyboard
-      await page.focus('div[aria-label="Main content area"]');
-      await page.keyboard.down('Control');
-      await page.keyboard.press('A');
+      await page.focus(pmSelector);
+      await emulateSelectAll(page);
 
       await page.click('#editor-toolbar__bulletList');
 

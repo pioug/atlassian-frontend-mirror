@@ -1,5 +1,6 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import styled from '@emotion/styled';
-import { R300, N60 } from '@atlaskit/theme/colors';
+import { R300 } from '@atlaskit/theme/colors';
 
 export interface MutedIndicatorProps {
   isMuted: boolean;
@@ -59,7 +60,7 @@ export const TimeWrapper = styled.div`
 `;
 
 export const CurrentTime = styled.div`
-  color: #a4b4cb;
+  color: #c7d1db;
   user-select: none;
   margin-right: 10px;
   white-space: nowrap;
@@ -74,13 +75,13 @@ export const TimeLine = styled.div`
   height: 2px;
   transition-delay: 1s;
   transition: all 0.1s;
-  background-color: #5d646f;
+  background-color: #596773;
   border-radius: 5px;
   position: relative;
 `;
 
 export const CurrentTimeLine = styled.div`
-  background-color: #3383ff;
+  background-color: #05c;
   border-radius: inherit;
   height: inherit;
   position: absolute;
@@ -109,7 +110,7 @@ export const Thumb = styled.div`
 `;
 
 export const BufferedTime = styled.div`
-  background-color: #aeb1b7;
+  background-color: #8696a7;
   height: inherit;
   border-radius: inherit;
   width: 0;
@@ -124,7 +125,7 @@ export const RightControls = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
-  color: ${N60};
+  color: '#c7d1db';
 `;
 
 export const ControlsWrapper = styled.div`
@@ -132,7 +133,7 @@ export const ControlsWrapper = styled.div`
   left: 0;
   width: 100%;
   height: auto;
-  background: linear-gradient(to top, #0e1624, rgba(14, 22, 36, 0));
+  background: linear-gradient(to top, #101214, rgba(14, 22, 36, 0));
   position: absolute;
 `;
 
@@ -143,7 +144,7 @@ export const VolumeToggleWrapper = styled.div`
   button {
     width: 36px !important;
     color: ${({ isMuted }: MutedIndicatorProps) =>
-      isMuted ? `${R300} !important;` : ''};
+      isMuted ? `#EF5C48 !important;` : ''};
   }
 `;
 

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import React from 'react';
 

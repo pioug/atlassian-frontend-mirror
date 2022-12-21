@@ -47,7 +47,7 @@ describe('getCardPreviewFromBackend()', () => {
       mediaClient,
       'some-id',
       params,
-      'some-trace-id',
+      { traceId: 'some-trace-id' },
     );
     expect(cardPreview?.dataURI).toEqual(
       'mock result of URL.createObjectURL()',
@@ -59,7 +59,7 @@ describe('getCardPreviewFromBackend()', () => {
       params,
       undefined,
       undefined,
-      'some-trace-id',
+      { traceId: 'some-trace-id' },
     );
   });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { useState, ReactNode } from 'react';
 import Loadable from 'react-loadable';
 

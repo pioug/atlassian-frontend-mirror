@@ -46,7 +46,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/focus-ring": "^1.2.0",
     "@atlaskit/logo": "^13.10.0",

@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { N400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import type { Command } from '../types/command';
 import { browser } from '../utils';
@@ -114,7 +115,6 @@ export const altPaste = makeKeyMapWithCommon('Paste', 'Mod-Shift-v');
 export const find = makeKeyMapWithCommon('Find', 'Mod-f');
 
 export const alignLeft = makeKeyMapWithCommon('Align Left', 'Mod-Shift-l');
-export const alignRight = makeKeyMapWithCommon('Align Right', 'Mod-Shift-r');
 
 const arrowKeysMap: Record<string, string> = {
   // for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
@@ -124,12 +124,11 @@ const arrowKeysMap: Record<string, string> = {
   ARROWDOWN: '\u2193',
 };
 
-// TOOD: https://product-fabric.atlassian.net/browse/DSP-4460
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const tooltipShortcutStyle = css`
   border-radius: 2px;
-  background-color: ${N400};
+  background-color: ${token('color.background.inverse.subtle', N400)};
   padding: 0 2px;
+
   /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
   /* stylelint-disable-next-line */
   label: tooltip-shortcut;

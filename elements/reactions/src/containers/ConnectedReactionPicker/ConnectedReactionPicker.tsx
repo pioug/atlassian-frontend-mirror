@@ -10,10 +10,6 @@ import { StorePropInput } from '../../types';
 export interface ConnectedReactionPickerProps
   extends Omit<ReactionPickerProps, 'onSelection'> {
   /**
-   * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
-   */
-  allowAllEmojis?: boolean;
-  /**
    * Wrapper id for reactions list
    */
   containerAri: string;
@@ -35,14 +31,15 @@ export interface ConnectedReactionPickerProps
 export const ConnectedReactionPicker: React.FC<ConnectedReactionPickerProps> = (
   props,
 ) => {
+  const { store, containerAri, ari } = props;
   /**
    * callback event when an emoji item is selected
    * @param emojiId unique id for the reaction emoji
    */
   const onSelection = (emojiId: string) => {
     (async () => {
-      const _store = await Promise.resolve(props.store);
-      _store.addReaction(props.containerAri, props.ari, emojiId);
+      const _store = await Promise.resolve(store);
+      _store.addReaction(containerAri, ari, emojiId);
     })();
   };
 

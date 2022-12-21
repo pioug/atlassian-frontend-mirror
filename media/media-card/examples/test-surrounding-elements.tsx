@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { token } from '@atlaskit/tokens';
 import {
   createFileDetails,
   createIdentifier,
@@ -51,7 +52,7 @@ export default () => {
             top: '50%',
             left: '50%',
             fontSize: '3rem',
-            backgroundColor: 'white',
+            backgroundColor: token('elevation.surface.overlay', 'white'),
             padding: '3rem',
           }}
           onClick={() => setClickCount(clickCount + 1)}

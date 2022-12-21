@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 import { absolute, borderRadius, size } from '@atlaskit/media-ui';
 import { GlobalThemeTokens, themed } from '@atlaskit/theme/components';
 import { N20, DN50, N0 } from '@atlaskit/theme/colors';
@@ -29,7 +30,10 @@ const getBackgroundColor = (props: WrapperProps) => {
   return `background: ${
     mediaType === 'image'
       ? 'transparent'
-      : themed({ light: N20, dark: DN50 })(props)
+      : themed({
+          light: token('color.background.neutral', N20),
+          dark: token('color.background.neutral', DN50),
+        })(props)
   };`;
 };
 
@@ -70,7 +74,7 @@ export const playIconWrapperStyles = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: ${token('color.icon.inverse', 'white')};
 
   /* we want to override default icon size and hover state */
   &:hover > * {
@@ -80,7 +84,10 @@ export const playIconWrapperStyles = css`
 `;
 
 export const playIconBackgroundStyles = css`
-  background: rgba(23, 43, 77, 0.7);
+  background: ${token(
+    'color.background.neutral.bold',
+    'rgba(23, 43, 77, 0.7)',
+  )};
   border-radius: 100%;
   padding: 10px;
   display: flex;
@@ -104,13 +111,13 @@ export const overlayStyles = css`
   ${absolute()}
   ${size()}
   border-radius: inherit;
-  background-color: rgba(9, 30, 66, 0.5);
+  background-color: ${token('color.blanket', 'rgba(9, 30, 66, 0.5)')};
 `;
 
 export const titleStyles = css`
   ${absolute()} width: 100%;
   padding: 8px;
-  color: ${N0};
+  color: ${token('color.text.inverse', N0)};
   font-size: 12px;
   line-height: 18px;
   word-wrap: break-word;
@@ -122,8 +129,9 @@ export const bodyStyles = css`
   bottom: 0;
   width: 100%;
   padding: 8px;
-  color: ${N0};
+  color: ${token('color.text.inverse', N0)};
 `;
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 export const progressWrapperStyles = css`
   flex-grow: 1;

@@ -320,6 +320,28 @@ describe('mobile editor element', () => {
 
       expect(mockedIsTableCellOptionsInFloatingToolbar).toBeCalled();
     });
+
+    it('should have called isRestartNumberedListsEnabled', () => {
+      const mockedIsRestartNumberedListsEnabled = jest.spyOn(
+        MobileEditorConfiguration.prototype,
+        'isRestartNumberedListsEnabled',
+      );
+
+      initEditor();
+
+      expect(mockedIsRestartNumberedListsEnabled).toBeCalled();
+    });
+
+    it('should have called isListNumberContinuityEnabled', () => {
+      const mockedIsListNumberContinuityEnabled = jest.spyOn(
+        MobileEditorConfiguration.prototype,
+        'isListNumberContinuityEnabled',
+      );
+
+      initEditor();
+
+      expect(mockedIsListNumberContinuityEnabled).toBeCalled();
+    });
   });
 
   describe('Mobile Editor on change content', () => {

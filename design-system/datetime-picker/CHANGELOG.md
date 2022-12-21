@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 12.3.3
+
+### Patch Changes
+
+- [`cb8f8e76d25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8f8e76d25) - Update types for react-select and @atlaskit/select upgrade
+  Update commerce-ui entrypoints that caused a pipeline issue.
+- Updated dependencies
+
 ## 12.3.2
 
 ### Patch Changes

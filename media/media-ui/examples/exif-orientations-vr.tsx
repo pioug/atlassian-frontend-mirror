@@ -12,6 +12,7 @@ import {
   orientation_7,
   orientation_8,
 } from '../example-helpers/exif-dataUri';
+import { token } from '@atlaskit/tokens';
 
 const LONG = 80;
 const SHORT = 60;
@@ -38,13 +39,13 @@ const ItemWrapper = styled.div`
 
   img {
     image-rendering: pixelated;
-    border: 1px solid #fff;
+    border: 1px solid ${token('color.border.inverse', '#fff')};
   }
 `;
 
 const OuterBorder = styled.div`
   position: absolute;
-  background-color: #ccc;
+  background-color: ${token('color.border', '#ccc')};
   left: -5px;
   top: -5px;
   width: calc(100% + 10px);

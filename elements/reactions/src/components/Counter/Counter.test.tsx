@@ -6,7 +6,6 @@ import {
   renderWithIntl,
   useFakeTimers,
 } from '../../__tests__/_testing-library';
-import { constants } from '../../shared';
 import {
   Counter,
   RENDER_COUNTER_TESTID,
@@ -34,14 +33,30 @@ describe('@atlaskit/reactions/components/Counter', () => {
     expect(labelWrapper.textContent).toEqual(value.toString());
   });
 
-  it('should render over limit label', async () => {
-    const value = 1000;
-    renderCounter({ value });
-    const labelWrapper = await screen.findByTestId(RENDER_LABEL_TESTID);
-    expect(labelWrapper).toBeInTheDocument();
-    expect(labelWrapper.textContent).toEqual(
-      constants.DEFAULT_OVER_THE_LIMIT_REACTION_LABEL,
-    );
+  it('should render each number breakpoint', () => {
+    renderCounter({ value: 100 });
+    const count1 = screen.getByText('100');
+    expect(count1).toBeDefined();
+
+    renderCounter({ value: 1000 });
+    const count2 = screen.getByText('1K');
+    expect(count2).toBeDefined();
+
+    renderCounter({ value: 1476 });
+    const count3 = screen.getByText('1.4K');
+    expect(count3).toBeDefined();
+
+    renderCounter({ value: 18000 });
+    const count4 = screen.getByText('18K');
+    expect(count4).toBeDefined();
+
+    renderCounter({ value: 987576 });
+    const count5 = screen.getByText('987.5K');
+    expect(count5).toBeDefined();
+
+    renderCounter({ value: 77777777 });
+    const count6 = screen.getByText('77.7M');
+    expect(count6).toBeDefined();
   });
 
   it('should render using custom limit and label', async () => {

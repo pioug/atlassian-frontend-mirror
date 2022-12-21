@@ -476,13 +476,6 @@ export function stringRepeat(text: string, length: number): string {
   return result;
 }
 
-/**
- * A replacement for `Array.from` until it becomes widely implemented.
- */
-export function arrayFrom(obj: any): any[] {
-  return Array.prototype.slice.call(obj);
-}
-
 /*
  * From Modernizr
  * Returns the kind of transitionevent available for the element

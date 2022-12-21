@@ -1,0 +1,11 @@
+# @atlaskit/interaction-context
+
+## 2.0.0
+
+### Major Changes
+
+- [`bf3e9dfd711`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf3e9dfd711) - Create a interaction context for tracking experience
+
+### Patch Changes
+
+- [`94909536ed2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94909536ed2) - Enable Spinner to be able to hold during an interaction

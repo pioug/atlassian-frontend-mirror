@@ -93,6 +93,7 @@ export enum ACTION {
   DEDUPE_MARKS_TRANSFORMED = 'dedupeMarksTransformed',
   NODES_MISSING_CONTENT_TRANSFORMED = 'nodesMissingContentTransformed',
   INDENTATION_MARKS_TRANSFORMED = 'indentationMarksTransformed',
+  INVALID_MEDIA_CONTENT_TRANSFORMED = 'invalidMediaContentTransformed',
   TOGGLE_EXPAND = 'toggleExpand',
   TRANSACTION_DISPATCHED = 'transactionDispatched',
   TRANSACTION_MUTATED_AFTER_DISPATCH = 'transactionMutatedAfterDispatched',

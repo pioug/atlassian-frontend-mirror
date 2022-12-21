@@ -58,6 +58,7 @@ export type Props = {
   readonly onSidebarButtonClick?: () => void;
   readonly isSidebarVisible?: boolean;
   readonly featureFlags?: MediaFeatureFlags;
+  readonly onSetArchiveSideBarVisible?: (isVisible: boolean) => void;
 };
 
 export type State = {
@@ -93,7 +94,7 @@ export class Header extends React.Component<
 
   private init(props: Props) {
     this.setState(initialState, () => {
-      const { mediaClient, identifier } = props;
+      const { mediaClient, identifier, onSetArchiveSideBarVisible } = props;
 
       if (isExternalImageIdentifier(identifier)) {
         const { name = identifier.dataURI } = identifier;
@@ -121,6 +122,14 @@ export class Header extends React.Component<
         })
         .subscribe({
           next: (file) => {
+            if (
+              !isErrorFileState(file) &&
+              file.mediaType === 'archive' &&
+              onSetArchiveSideBarVisible
+            ) {
+              onSetArchiveSideBarVisible(true);
+            }
+
             this.setState({
               item: Outcome.successful(file),
             });

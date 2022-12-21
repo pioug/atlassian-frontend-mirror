@@ -140,3 +140,55 @@ describe('should render the quick insert menu and visible focus style should app
     await snapshot(page);
   });
 });
+
+describe('should render the quick insert menu and up and down arrow key should focus the last item of the list', () => {
+  let page: PuppeteerPage;
+  beforeEach(async () => {
+    page = global.page;
+  });
+
+  it('- Emoji Menu', async () => {
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport: { width: 800, height: 800 },
+    });
+    await typeInEditorAtEndOfDocument(page, ':');
+    await waitForTypeAheadMenu(page);
+    await waitForMenuIconsToLoad(page, 6, '.emoji-common-emoji-sprite');
+    await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
+    await pressKey(page, ['ArrowUp']);
+    await snapshot(page);
+    await pressKey(page, ['ArrowDown']);
+    await snapshot(page);
+  });
+
+  it('- Mentions Menu', async () => {
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport: { width: 800, height: 800 },
+    });
+    await typeInEditorAtEndOfDocument(page, '@');
+    await waitForTypeAheadMenu(page);
+    await waitForMenuIconsToLoad(page, 6, 'img');
+    await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
+    await pressKey(page, ['ArrowUp']);
+    await snapshot(page);
+    await pressKey(page, ['ArrowDown']);
+    await snapshot(page);
+  });
+
+  it('- General Menu', async () => {
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport: { width: 800, height: 800 },
+    });
+    await typeInEditorAtEndOfDocument(page, '/');
+    await waitForTypeAheadMenu(page);
+    await waitForMenuIconsToLoad(page, 6, 'svg');
+    await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
+    await pressKey(page, ['ArrowUp']);
+    await snapshot(page);
+    await pressKey(page, ['ArrowDown']);
+    await snapshot(page);
+  });
+});

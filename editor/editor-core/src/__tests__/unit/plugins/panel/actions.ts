@@ -174,7 +174,7 @@ describe('panel actions', () => {
           panel({
             panelType: PanelType.CUSTOM,
             panelIcon: 'frown',
-            panelColor: '#DEEBFF',
+            panelColor: 'var(--ds-background-information, #DEEBFF)',
           })(p('text')),
         );
         const { editorView } = editor(
@@ -193,7 +193,7 @@ describe('panel actions', () => {
           panel({
             panelType: PanelType.INFO,
             panelIcon: 'frown',
-            panelColor: '#DEEBFF',
+            panelColor: 'var(--ds-background-information, #DEEBFF)',
           })(p('text')),
         );
 
@@ -205,7 +205,7 @@ describe('panel actions', () => {
           panel({
             panelType: PanelType.CUSTOM,
             panelIcon: 'frown',
-            panelColor: '#DEEBFF',
+            panelColor: 'var(--ds-background-information, #DEEBFF)',
           })(p('text')),
         );
         const { editorView } = editor(

@@ -103,7 +103,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
     expect(emojiButton).toBeInTheDocument();
 
     act(() => {
-      fireEvent.mouseUp(emojiButton);
+      fireEvent.click(emojiButton);
     });
     expect(onClickSpy).toHaveBeenCalled();
   });
@@ -163,7 +163,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 
       // Click the Reaction emoji button
       act(() => {
-        fireEvent.mouseUp(btn);
+        fireEvent.click(btn);
       });
       expect(onEventSpy).toHaveBeenCalledWith(
         expect.objectContaining({

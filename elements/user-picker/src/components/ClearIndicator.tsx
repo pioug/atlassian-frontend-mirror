@@ -1,5 +1,5 @@
 import React from 'react';
-import { components, IndicatorProps } from '@atlaskit/select';
+import { components, ClearIndicatorProps } from '@atlaskit/select';
 
 const AsyncTooltip = React.lazy(() =>
   import(
@@ -11,14 +11,16 @@ const AsyncTooltip = React.lazy(() =>
   }),
 );
 
-export class ClearIndicator extends React.PureComponent<IndicatorProps<any>> {
+export class ClearIndicator extends React.PureComponent<
+  ClearIndicatorProps<any>
+> {
   private handleMouseDown = (event: React.MouseEvent) => {
     if (event && event.type === 'mousedown' && event.button !== 0) {
       return;
     }
-    this.props.clearValue();
     // Prevent focus when clear on blurred state
-    const { selectProps } = this.props;
+    const { clearValue, selectProps } = this.props;
+    clearValue();
     if (selectProps && !selectProps.isFocused) {
       event.stopPropagation();
     }

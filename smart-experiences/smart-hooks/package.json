@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@atlaskit/analytics-viewer": "^0.4.5",
-    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/smart-hooks": "*",
     "@atlaskit/ssr": "*",

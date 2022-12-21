@@ -2,6 +2,8 @@ import React from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+
 import { AutoDismissFlag, FlagGroup } from '../../index';
 import { AutoDismissFlagProps } from '../../types';
 import { AUTO_DISMISS_SECONDS } from '../../auto-dismiss-flag';
@@ -11,7 +13,7 @@ describe('Auto dismiss flag', () => {
   const generateAutoDismissFlag = (
     extraProps?: Partial<AutoDismissFlagProps>,
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  ) => <AutoDismissFlag id="" icon={<div />} title="Flag" {...extraProps} />;
+  ) => <AutoDismissFlag id="" icon={<Box />} title="Flag" {...extraProps} />;
 
   describe('AutoDismissFlag', () => {
     it('should render a <Flag />', () => {
@@ -185,18 +187,18 @@ describe('Auto dismiss flag', () => {
         // render two autodismiss flags wrapped inside of another component
         const { rerender } = render(
           <FlagGroup onDismissed={onDismissedSpy}>
-            <div>
+            <Box>
               {generateAutoDismissFlag({
                 id: '0',
                 onDismissed: onDismissedFirstFlagSpy,
               })}
-            </div>
-            <div>
+            </Box>
+            <Box>
               {generateAutoDismissFlag({
                 id: '1',
                 onDismissed: onDismissedSecondFlagSpy,
               })}
-            </div>
+            </Box>
           </FlagGroup>,
         );
 
@@ -208,12 +210,12 @@ describe('Auto dismiss flag', () => {
 
         rerender(
           <FlagGroup>
-            <div>
+            <Box>
               {generateAutoDismissFlag({
                 id: '1',
                 onDismissed: onDismissedSecondFlagSpy,
               })}
-            </div>
+            </Box>
           </FlagGroup>,
         );
       });

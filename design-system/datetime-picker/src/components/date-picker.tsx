@@ -21,11 +21,9 @@ import {
 } from '@atlaskit/locale';
 import Select, {
   ActionMeta,
-  IndicatorComponentType,
-  IndicatorProps,
+  DropdownIndicatorProps,
   mergeStyles,
   OptionType,
-  SelectComponentsConfig,
   ValueType,
 } from '@atlaskit/select';
 import { N20, N50A, N60A } from '@atlaskit/theme/colors';
@@ -34,7 +32,7 @@ import { token } from '@atlaskit/tokens';
 
 import {
   defaultDateFormat,
-  EmptyClearIndicator,
+  EmptyComponent,
   padToTwo,
   placeholderDatetime,
 } from '../internal';
@@ -90,7 +88,7 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
   /**
    * The icon shown in the picker.
    */
-  icon?: IndicatorComponentType<OptionType>;
+  icon?: React.ComponentType<DropdownIndicatorProps<OptionType>>;
   /**
    * The id of the field. Currently, react-select transforms this to have a `react-select-` prefix, and an `--input` suffix when applied to the input. For example, the id `my-input` would be transformed to `react-select-my-input--input`.
    *
@@ -292,7 +290,7 @@ const datePickerDefaultProps = {
   disabledDateFilter: (_: string) => false,
   hideIcon: false,
   icon: CalendarIcon as unknown as React.ComponentType<
-    IndicatorProps<OptionType>
+    DropdownIndicatorProps<OptionType>
   >,
   id: '',
   innerProps: {},
@@ -639,16 +637,14 @@ class DatePicker extends Component<DatePickerProps, State> {
 
     const showClearIndicator = Boolean((value || inputValue) && !hideIcon);
 
-    const dropDownIcon: IndicatorComponentType<OptionType> | null =
+    const dropDownIcon =
       appearance === 'subtle' || hideIcon || showClearIndicator ? null : icon;
 
-    const selectComponents: SelectComponentsConfig<OptionType> = {
+    const selectComponents = {
       DropdownIndicator: dropDownIcon,
       Menu,
+      ...(!showClearIndicator && { ClearIndicator: EmptyComponent }),
     };
-    if (!showClearIndicator) {
-      selectComponents.ClearIndicator = EmptyClearIndicator;
-    }
 
     const { styles: selectStyles = {} } = selectProps;
     const disabledStyle: CSSProperties = isDisabled

@@ -39,32 +39,32 @@ type BackgroundColor = keyof typeof backgroundColorMap;
 
 // @public (undocumented)
 const backgroundColorMap: {
-  disabled: SerializedStyles;
-  'inverse.subtle': SerializedStyles;
-  input: SerializedStyles;
-  neutral: SerializedStyles;
-  'neutral.subtle': SerializedStyles;
-  'neutral.bold': SerializedStyles;
-  'brand.bold': SerializedStyles;
-  selected: SerializedStyles;
-  'selected.bold': SerializedStyles;
-  danger: SerializedStyles;
-  'danger.bold': SerializedStyles;
-  warning: SerializedStyles;
-  'warning.bold': SerializedStyles;
-  success: SerializedStyles;
-  'success.bold': SerializedStyles;
-  discovery: SerializedStyles;
-  'discovery.bold': SerializedStyles;
-  information: SerializedStyles;
-  'information.bold': SerializedStyles;
-  'color.blanket': SerializedStyles;
-  'color.blanket.selected': SerializedStyles;
-  'color.blanket.danger': SerializedStyles;
-  'elevation.surface': SerializedStyles;
-  'elevation.surface.sunken': SerializedStyles;
-  'elevation.surface.raised': SerializedStyles;
-  'elevation.surface.overlay': SerializedStyles;
+  readonly disabled: SerializedStyles;
+  readonly 'inverse.subtle': SerializedStyles;
+  readonly input: SerializedStyles;
+  readonly neutral: SerializedStyles;
+  readonly 'neutral.subtle': SerializedStyles;
+  readonly 'neutral.bold': SerializedStyles;
+  readonly 'brand.bold': SerializedStyles;
+  readonly selected: SerializedStyles;
+  readonly 'selected.bold': SerializedStyles;
+  readonly danger: SerializedStyles;
+  readonly 'danger.bold': SerializedStyles;
+  readonly warning: SerializedStyles;
+  readonly 'warning.bold': SerializedStyles;
+  readonly success: SerializedStyles;
+  readonly 'success.bold': SerializedStyles;
+  readonly discovery: SerializedStyles;
+  readonly 'discovery.bold': SerializedStyles;
+  readonly information: SerializedStyles;
+  readonly 'information.bold': SerializedStyles;
+  readonly 'color.blanket': SerializedStyles;
+  readonly 'color.blanket.selected': SerializedStyles;
+  readonly 'color.blanket.danger': SerializedStyles;
+  readonly 'elevation.surface': SerializedStyles;
+  readonly 'elevation.surface.sunken': SerializedStyles;
+  readonly 'elevation.surface.raised': SerializedStyles;
+  readonly 'elevation.surface.overlay': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -103,19 +103,19 @@ type BorderColor = keyof typeof borderColorMap;
 
 // @public
 const borderColorMap: {
-  'color.border': SerializedStyles;
-  bold: SerializedStyles;
-  inverse: SerializedStyles;
-  focused: SerializedStyles;
-  input: SerializedStyles;
-  disabled: SerializedStyles;
-  brand: SerializedStyles;
-  selected: SerializedStyles;
-  danger: SerializedStyles;
-  warning: SerializedStyles;
-  success: SerializedStyles;
-  discovery: SerializedStyles;
-  information: SerializedStyles;
+  readonly 'color.border': SerializedStyles;
+  readonly bold: SerializedStyles;
+  readonly inverse: SerializedStyles;
+  readonly focused: SerializedStyles;
+  readonly input: SerializedStyles;
+  readonly disabled: SerializedStyles;
+  readonly brand: SerializedStyles;
+  readonly selected: SerializedStyles;
+  readonly danger: SerializedStyles;
+  readonly warning: SerializedStyles;
+  readonly success: SerializedStyles;
+  readonly discovery: SerializedStyles;
+  readonly information: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -164,10 +164,12 @@ type BoxPropsBase<T extends ElementType> = {
   children?: ReactNode;
   className?: string;
   backgroundColor?: BackgroundColor;
+  shadow?: Shadow;
   borderStyle?: BorderStyle;
   borderWidth?: BorderWidth;
   borderColor?: BorderColor;
   borderRadius?: BorderRadius;
+  layer?: Layer;
   flexDirection?: FlexDirection;
   alignItems?: FlexAlignItems;
   justifyContent?: FlexJustifyContent;
@@ -229,6 +231,8 @@ const flexAlignItemsMap: {
   baseline: SerializedStyles;
   flexStart: SerializedStyles;
   flexEnd: SerializedStyles;
+  start: SerializedStyles;
+  end: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -274,6 +278,8 @@ const flexJustifyContentMap: {
   center: SerializedStyles;
   flexStart: SerializedStyles;
   flexEnd: SerializedStyles;
+  start: SerializedStyles;
+  end: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -284,6 +290,7 @@ const flexJustifyContentMap_2: {
   flexEnd: SerializedStyles;
   start: SerializedStyles;
   end: SerializedStyles;
+  spaceBetween: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -357,6 +364,22 @@ interface InteractionSurfaceProps extends BasePrimitiveProps {
   // (undocumented)
   children: ReactNode;
 }
+
+// @public (undocumented)
+type Layer = keyof typeof LAYERS;
+
+// @public (undocumented)
+const LAYERS: {
+  readonly card: 100;
+  readonly navigation: 200;
+  readonly dialog: 300;
+  readonly layer: 400;
+  readonly blanket: 500;
+  readonly modal: 510;
+  readonly flag: 600;
+  readonly spotlight: 700;
+  readonly tooltip: 800;
+};
 
 // @public (undocumented)
 type LineHeight = keyof typeof lineHeightMap;
@@ -450,12 +473,10 @@ type Position = keyof typeof positionMap;
 // @public (undocumented)
 const positionMap: {
   absolute: SerializedStyles;
+  fixed: SerializedStyles;
   relative: SerializedStyles;
   static: SerializedStyles;
 };
-
-// @public (undocumented)
-type PropsToOmit = 'as' | 'className' | 'style';
 
 // @public (undocumented)
 type RowGap = keyof typeof rowGapMap;
@@ -479,6 +500,18 @@ const rowGapMap: {
 };
 
 // @public (undocumented)
+type Shadow = keyof typeof shadowMap;
+
+// @public (undocumented)
+const shadowMap: {
+  readonly raised: SerializedStyles;
+  readonly overflow: SerializedStyles;
+  readonly 'overflow.spread': SerializedStyles;
+  readonly 'overflow.perimeter': SerializedStyles;
+  readonly overlay: SerializedStyles;
+};
+
+// @public (undocumented)
 type TextAlign = keyof typeof textAlignMap;
 
 // @public (undocumented)
@@ -493,19 +526,19 @@ type TextColor = keyof typeof textColorMap;
 
 // @public
 const textColorMap: {
-  'color.text': SerializedStyles;
-  subtle: SerializedStyles;
-  subtlest: SerializedStyles;
-  disabled: SerializedStyles;
-  inverse: SerializedStyles;
-  brand: SerializedStyles;
-  selected: SerializedStyles;
-  danger: SerializedStyles;
-  warning: SerializedStyles;
-  'warning.inverse': SerializedStyles;
-  success: SerializedStyles;
-  discovery: SerializedStyles;
-  information: SerializedStyles;
+  readonly 'color.text': SerializedStyles;
+  readonly subtle: SerializedStyles;
+  readonly subtlest: SerializedStyles;
+  readonly disabled: SerializedStyles;
+  readonly inverse: SerializedStyles;
+  readonly brand: SerializedStyles;
+  readonly selected: SerializedStyles;
+  readonly danger: SerializedStyles;
+  readonly warning: SerializedStyles;
+  readonly 'warning.inverse': SerializedStyles;
+  readonly success: SerializedStyles;
+  readonly discovery: SerializedStyles;
+  readonly information: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -524,7 +557,7 @@ export const UNSAFE_Box: BoxComponent;
 // @public (undocumented)
 export type UNSAFE_BoxProps<T extends ElementType = 'div'> = Omit<
   ComponentPropsWithoutRef<T>,
-  PropsToOmit
+  'as' | 'className' | 'style'
 > &
   BasePrimitiveProps &
   BoxPropsBase<T>;

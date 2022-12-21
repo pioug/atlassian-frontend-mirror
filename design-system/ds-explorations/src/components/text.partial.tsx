@@ -218,7 +218,7 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3d4d694e49f72e72f83ec28c1feafb76>>
+ * @codegen <<SignedSource::920426feace841166c6f4ffdc49ae26d>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
@@ -264,7 +264,7 @@ const textColorMap = {
   information: css({
     color: token('color.text.information', '#0052CC'),
   }),
-};
+} as const;
 
 export type TextColor = keyof typeof textColorMap;
 

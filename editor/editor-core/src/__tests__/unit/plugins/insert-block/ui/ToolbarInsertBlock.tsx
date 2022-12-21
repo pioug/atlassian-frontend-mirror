@@ -309,7 +309,9 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
             insertMenuItems: customItems,
           });
           const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-          expect(items.items.map((item) => item.content)).toEqual(expected);
+          expect(
+            items.items.map((item: { content: any }) => item.content),
+          ).toEqual(expected);
         });
 
         it('should sort alphabetically with non-macro items at end', () => {
@@ -336,7 +338,9 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
             insertMenuItems: customItemsWithMacros,
           });
           const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-          expect(items.items.map((item) => item.content)).toEqual(sortedItems);
+          expect(
+            items.items.map((item: { content: any }) => item.content),
+          ).toEqual(sortedItems);
         });
 
         it('macro browser should always be last item if there is no slash-onboarding', () => {
@@ -363,7 +367,9 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
             insertMenuItems: customItems,
           });
           const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-          expect(items.items.map((item) => item.content)).toEqual(sortedItems);
+          expect(
+            items.items.map((item: { content: any }) => item.content),
+          ).toEqual(sortedItems);
         });
 
         it('slash onboarding should always be last item', () => {
@@ -390,7 +396,9 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
             insertMenuItems: customItems,
           });
           const items = toolbarOption.find(DropdownMenu).prop('items')[0];
-          expect(items.items.map((item) => item.content)).toEqual(sortedItems);
+          expect(
+            items.items.map((item: { content: any }) => item.content),
+          ).toEqual(sortedItems);
         });
 
         it('should render a DropDown', () => {
@@ -675,7 +683,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
             onShowMediaPicker: onShowMediaPickerSpy,
           });
           menu.clickButton(
-            messages.filesAndImages.defaultMessage,
+            messages.addMediaFiles.defaultMessage,
             toolbarOption,
           );
         });

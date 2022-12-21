@@ -16,8 +16,6 @@ interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
   allowAutoSave?: boolean;
   breakoutEnabled?: boolean;
   extensionHandlers?: ExtensionHandlers;
-  // TODO: Remove this @see ED-8585
-  stickToolbarToBottom?: boolean;
   appearance?: EditorAppearance;
 }
 

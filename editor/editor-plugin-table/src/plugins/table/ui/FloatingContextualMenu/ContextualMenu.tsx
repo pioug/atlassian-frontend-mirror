@@ -159,6 +159,9 @@ export class ContextualMenu extends Component<
       >
         <DropdownMenu
           mountTo={mountPoint}
+          //This needs be removed when the a11y is completely handled
+          //Disabling key navigation now as it works only partially
+          disableArrowKeyNavigation={true}
           items={items}
           isOpen={isOpen}
           onOpenChange={this.handleOpenChange}

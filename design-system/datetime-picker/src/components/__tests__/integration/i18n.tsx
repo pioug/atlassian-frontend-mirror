@@ -9,13 +9,13 @@ const urlI18nDateTimePicker = getExampleUrl(
 );
 
 const timePicker = '[data-testid="time-picker--container"]';
-const timePickerInput = '.time-picker--select__input input';
+const timePickerInput = '.time-picker--select__input';
 const timePickerMenu = '.time-picker--select__menu-list';
 const timePickerValue = '.time-picker--select__value-container > div';
 
 const calendarMenu = '[aria-label="calendar"]';
 const dateTimePicker = '[data-testid="datetime-picker--datepicker--container"]';
-const dateTimePickerInput = '.date-picker--select__input input';
+const dateTimePickerInput = '.date-picker--select__input';
 const dateTimePickerValue = '.date-picker--select__single-value';
 
 BrowserTestCase(

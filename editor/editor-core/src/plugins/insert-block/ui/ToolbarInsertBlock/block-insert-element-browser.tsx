@@ -6,6 +6,8 @@ import { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
 import { OnInsert } from '../../../../ui/ElementBrowser/types';
 
+type SimpleEventHandler<T> = (event?: T) => void;
+
 export interface BlockInsertElementBrowserProps {
   disabled: boolean;
   editorView: EditorView;
@@ -20,7 +22,7 @@ export interface BlockInsertElementBrowserProps {
   onRef(el: HTMLElement): void;
   onClick: React.MouseEventHandler;
   onInsert: OnInsert;
-  togglePlusMenuVisibility(): void;
+  togglePlusMenuVisibility: SimpleEventHandler<MouseEvent | KeyboardEvent>;
 }
 
 export const BlockInsertElementBrowser: React.FC<

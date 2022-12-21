@@ -2,7 +2,11 @@
 import React, { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
-import { customCategory, userCustomTitle } from '../../util/constants';
+import {
+  customCategory,
+  defaultEmojiPickerSize,
+  userCustomTitle,
+} from '../../util/constants';
 import {
   EmojiDescription,
   EmojiDescriptionWithVariations,
@@ -12,6 +16,7 @@ import {
   OnEmojiEvent,
   OnToneSelected,
   OnToneSelectorCancelled,
+  PickerSize,
   ToneSelection,
   User,
 } from '../../types';
@@ -34,6 +39,7 @@ import EmojiActions from '../common/EmojiActions';
 import { OnUploadEmoji } from '../common/EmojiUploadPicker';
 import { OnDeleteEmoji } from '../common/EmojiDeletePreview';
 import { emojiPickerList, virtualList } from './styles';
+import { emojiPickerHeightOffset } from './utils';
 
 /**
  * Test id for wrapper Emoji Picker List div
@@ -73,6 +79,7 @@ export interface Props {
   onCloseDelete: () => void;
   onFileChooserClicked?: () => void;
   onOpenUpload: () => void;
+  size?: PickerSize;
 }
 
 export interface State {}
@@ -104,6 +111,7 @@ export default class EmojiPickerVirtualList extends PureComponent<
     onEmojiDelete: () => {},
     onCategoryActivated: () => {},
     onSearch: () => {},
+    size: defaultEmojiPickerSize,
   };
 
   private allEmojiGroups!: EmojiGroup[];
@@ -380,6 +388,7 @@ export default class EmojiPickerVirtualList extends PureComponent<
       onDeleteEmoji,
       onFileChooserClicked,
       onOpenUpload,
+      size = defaultEmojiPickerSize,
     } = this.props;
 
     return (
@@ -409,7 +418,7 @@ export default class EmojiPickerVirtualList extends PureComponent<
         />
         <VirtualList
           ref="list"
-          height={sizes.listHeight}
+          height={sizes.listHeight + emojiPickerHeightOffset(size)}
           overscanRowCount={5}
           rowCount={this.virtualItems.length}
           rowHeight={this.rowSize}

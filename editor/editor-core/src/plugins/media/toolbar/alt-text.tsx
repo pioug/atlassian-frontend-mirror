@@ -42,6 +42,7 @@ export const altTextEditComponent = (
   return {
     type: 'custom',
     fallback: [],
+    disableArrowNavigation: true,
     render: (view?: EditorView, idx?: number) => {
       if (!view) {
         return null;

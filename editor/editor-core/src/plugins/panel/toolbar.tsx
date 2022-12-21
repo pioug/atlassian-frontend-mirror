@@ -24,7 +24,7 @@ import { NodeType } from 'prosemirror-model';
 import { Command } from '../../types';
 import { panelBackgroundPalette } from '../../ui/ColorPalette/Palettes/panelBackgroundPalette';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { getPanelTypeBackground } from '@atlaskit/editor-common/panel';
+import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 import { findPanel } from './utils';
 import { EditorView } from 'prosemirror-view';
 import { findDomRefAtPos } from 'prosemirror-utils';
@@ -127,8 +127,9 @@ export const getToolbarItems = (
           return false;
         }
         let previousColor =
-          panelNode.node.attrs.panelColor ||
-          getPanelTypeBackground(panelNode.node.attrs.panelType);
+          panelNode.node.attrs.panelType === 'custom'
+            ? panelNode.node.attrs.panelColor || 'none'
+            : getPanelTypeBackgroundNoTokens(panelNode.node.attrs.panelType);
 
         const emojiInfo = panelNode.node.attrs.panelType as Exclude<
           PanelType,
@@ -232,8 +233,8 @@ export const getToolbarItems = (
 
     const panelColor =
       activePanelType === PanelType.CUSTOM
-        ? activePanelColor || getPanelTypeBackground(PanelType.INFO)
-        : getPanelTypeBackground(
+        ? activePanelColor || getPanelTypeBackgroundNoTokens(PanelType.INFO)
+        : getPanelTypeBackgroundNoTokens(
             activePanelType as Exclude<PanelType, PanelType.CUSTOM>,
           );
 

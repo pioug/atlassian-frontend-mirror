@@ -16,6 +16,7 @@ export interface KitchenSinkEditorProps {
   actions: EditorActions;
   adf: any;
   disabled: boolean;
+  sanitizePrivateContent: boolean;
   appearance: EditorAppearance;
   extensionProviders: EditorProps['extensionProviders'];
   popupMountPoint: HTMLElement | null | undefined;
@@ -50,6 +51,7 @@ export const KitchenSinkEditor: React.StatelessComponent<KitchenSinkEditorProps>
           adf={props.adf}
           disabled={props.disabled}
           appearance={props.appearance}
+          sanitizePrivateContent={props.sanitizePrivateContent}
           popupMountPoint={props.popupMountPoint || undefined}
           onDocumentChanged={props.onDocumentChanged}
           onDocumentValidated={props.onDocumentValidated}

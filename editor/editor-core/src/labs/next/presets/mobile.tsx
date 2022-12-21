@@ -54,9 +54,7 @@ export function useMobilePreset({
   const mediaProvider = useProvider('mediaProvider');
   const [preset] = useDefaultPreset({
     featureFlags,
-    paste: {
-      plainTextPasteLinkification: featureFlags?.plainTextPasteLinkification,
-    },
+    paste: {},
   });
 
   preset.add([

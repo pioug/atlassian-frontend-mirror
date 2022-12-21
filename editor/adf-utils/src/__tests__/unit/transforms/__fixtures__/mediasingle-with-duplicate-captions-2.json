@@ -1,0 +1,35 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33333333333333,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "00000000-0000-0000-0000-0000000000",
+            "occurrenceKey": null,
+            "collection": "contentId-0000000000",
+            "height": 400
+          }
+        },
+        {
+          "type": "caption",
+          "content": [
+            { "type": "text", "text": "caption 1" }
+          ]
+        },
+        {
+          "type": "caption",
+          "content": [
+            { "type": "text", "text": "caption 2" }
+          ]
+        }
+      ]
+    }
+  ]
+}

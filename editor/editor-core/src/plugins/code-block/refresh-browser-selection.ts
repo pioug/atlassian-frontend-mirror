@@ -33,3 +33,4 @@ const refreshBrowserSelectionOnChange = (
 };
 
 export default refreshBrowserSelectionOnChange;
+export { refreshBrowserSelection };

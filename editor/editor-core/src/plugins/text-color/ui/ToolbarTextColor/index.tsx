@@ -75,6 +75,7 @@ export interface Props {
 interface HandleOpenChangeData {
   isOpen: boolean;
   logCloseEvent: boolean;
+  event?: KeyboardEvent | MouseEvent;
 }
 
 export class ToolbarTextColor extends React.Component<
@@ -84,6 +85,7 @@ export class ToolbarTextColor extends React.Component<
   state: State = {
     isOpen: false,
   };
+  private toolbarItemRef = React.createRef<HTMLElement>();
 
   changeColor = (color: string) =>
     commands.changeColor(color)(
@@ -128,9 +130,11 @@ export class ToolbarTextColor extends React.Component<
           scrollableElement={popupsScrollableElement}
           isOpen={isOpen && !pluginState.disabled}
           handleClickOutside={this.hide}
-          handleEscapeKeydown={this.hide}
+          handleEscapeKeydown={this.hideonEsc}
           zIndex={akEditorMenuZIndex}
           fitWidth={fitWidth}
+          onOpenChange={this.onOpenChange}
+          closeonTab={true}
           trigger={
             <ToolbarButton
               buttonId={TOOLBAR_BUTTON.TEXT_COLOR}
@@ -142,6 +146,7 @@ export class ToolbarTextColor extends React.Component<
               aria-haspopup
               title={labelTextColor}
               onClick={this.toggleOpen}
+              ref={this.toolbarItemRef}
               iconBefore={
                 <div css={triggerWrapperStyles}>
                   <div css={textColorIconWrapper}>
@@ -170,6 +175,7 @@ export class ToolbarTextColor extends React.Component<
                 this.changeTextColor(color, pluginState.disabled)
               }
               selectedColor={pluginState.color}
+              textPalette={true}
             />
           </div>
         </Dropdown>
@@ -177,6 +183,14 @@ export class ToolbarTextColor extends React.Component<
       </span>
     );
   }
+
+  private onOpenChange = (attrs: any) => {
+    this.handleOpenChange({
+      isOpen: attrs.isOpen,
+      logCloseEvent: true,
+      event: attrs.event,
+    });
+  };
 
   private changeTextColor = (color: string, disabled?: boolean) => {
     if (!disabled) {
@@ -203,7 +217,9 @@ export class ToolbarTextColor extends React.Component<
         isOpen: false,
         logCloseEvent: false,
       });
-      return this.changeColor(color);
+      this.changeColor(color);
+      //To set the focus on the textcolor button when the menu is closed by 'Esc' only to meet aria guidelines
+      this.props.editorView?.focus();
     }
 
     return false;
@@ -216,6 +232,7 @@ export class ToolbarTextColor extends React.Component<
   private handleOpenChange = ({
     isOpen,
     logCloseEvent,
+    event,
   }: HandleOpenChangeData) => {
     this.setState({
       isOpen,
@@ -227,6 +244,9 @@ export class ToolbarTextColor extends React.Component<
           noSelect: isOpen === false,
         }),
       );
+    }
+    if (!isOpen && event instanceof KeyboardEvent && event?.key === 'Escape') {
+      this.toolbarItemRef?.current?.focus();
     }
   };
 
@@ -241,7 +261,15 @@ export class ToolbarTextColor extends React.Component<
       );
 
       this.setState({ isOpen: false });
+      if (e instanceof KeyboardEvent && e.key === 'Escape') {
+        this.toolbarItemRef?.current?.focus();
+      }
     }
+  };
+
+  private hideonEsc = (e: MouseEvent | KeyboardEvent) => {
+    this.hide(e);
+    this.toolbarItemRef?.current?.focus();
   };
 
   private getCommonAnalyticsAttributes() {

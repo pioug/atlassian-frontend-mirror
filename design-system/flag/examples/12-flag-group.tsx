@@ -1,6 +1,7 @@
 import React, { ReactElement, ReactNode, useState, useCallback } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import noop from '@atlaskit/ds-lib/noop';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
@@ -92,7 +93,7 @@ const FlagGroupExample = () => {
   );
 
   return (
-    <div>
+    <Box>
       <FlagGroup onDismissed={dismissFlag}>
         {flags.map((flag) => (
           <Flag
@@ -111,7 +112,7 @@ const FlagGroupExample = () => {
         ))}
       </FlagGroup>
       <Button onClick={addFlag}>Add Flag</Button>
-    </div>
+    </Box>
   );
 };
 

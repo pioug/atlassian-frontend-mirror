@@ -25,6 +25,9 @@ export default md`
   1. [ReactionServiceClient](/packages/elements/reactions/docs/reaction-service-client)
   1. [EmojiResource](https://atlaskit.atlassian.com/packages/elements/emoji/docs/resourced-emoji)
 
+  The guide to supporting GraphQL can be found here:
+  * [Graphql Support](/packages/elements/reactions/docs/graphql-support)
+
   ## Usage
 
   For each of these components, first import the following in your React app as follows:

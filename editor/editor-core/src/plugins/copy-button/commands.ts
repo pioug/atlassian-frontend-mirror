@@ -33,7 +33,13 @@ export function createToolbarCopyCommandForMark(markType: MarkType): Command {
         // https://github.com/ProseMirror/prosemirror-view/blob/master/src/clipboard.ts#L32
         (div.firstChild as HTMLElement).setAttribute('data-pm-slice', '1 1 []');
 
-        copyHTMLToClipboard(div.innerHTML);
+        // If we're copying a hyperlink, we'd copy the url as the fallback plain text
+        const linkUrl = (domNode as HTMLElement).getAttribute('href');
+
+        copyHTMLToClipboard(
+          div,
+          markType.name === 'link' && linkUrl ? linkUrl : undefined,
+        );
       }
 
       const copyToClipboardTr = state.tr;
@@ -144,7 +150,7 @@ export const createToolbarCopyCommandForNode =
             '0 0 []',
           );
         }
-        copyHTMLToClipboard(div.innerHTML);
+        copyHTMLToClipboard(div);
       }
       copyToClipboardTr.setMeta('scrollIntoView', false);
       dispatch(copyToClipboardTr);

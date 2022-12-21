@@ -10,6 +10,7 @@ import { expandClassNames } from '../ui/class-names';
 import { deleteExpand, focusTitle } from '../commands';
 import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
 import { RelativeSelectionPos } from '../../selection/types';
+import { isPositionNearTableRow } from '../../../utils/table';
 
 const isExpandNode = (node: PMNode) => {
   return node?.type.name === 'expand' || node?.type.name === 'nestedExpand';
@@ -125,8 +126,18 @@ export function expandKeymap(): SafePlugin {
       }
 
       const { $from } = state.selection;
+
       if (editorView.endOfTextblock('up')) {
         const expand = findExpand(state);
+
+        // Moving UP in a table should move the cursor to the row above
+        // however when an expand is in a table cell to the left of the
+        // current table cell, arrow UP moves the cursor to the left
+        // see ED-15425
+        if (isPositionNearTableRow($from, schema, 'before') && !expand) {
+          return false;
+        }
+
         const prevCursorPos = Math.max($from.pos - $from.parentOffset - 1, 0);
         // move cursor from expand's content to its title
         if (expand && expand.start === prevCursorPos) {

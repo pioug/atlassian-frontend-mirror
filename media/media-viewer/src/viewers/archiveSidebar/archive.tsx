@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { unzip, ZipInfo, ZipEntry, HTTPRangeReader, Reader } from 'unzipit';
 import { FormattedMessage } from 'react-intl-next';
@@ -8,6 +9,7 @@ import {
   getLanguageType,
   isCodeViewerItem,
 } from '@atlaskit/media-ui/codeViewer';
+
 import { Outcome } from '../../domain';
 import {
   CustomVideoPlayerWrapper,
@@ -338,6 +340,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
                     label="cover"
                     size="xlarge"
                     primaryColor={blanketColor}
+                    secondaryColor="#9FADBC"
                   />
                 </DefaultCoverWrapper>
                 <CustomAudioPlayerWrapper>

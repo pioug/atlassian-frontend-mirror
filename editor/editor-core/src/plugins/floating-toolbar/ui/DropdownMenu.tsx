@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
 import { gridSize } from '@atlaskit/theme/constants';
 import { B400 } from '@atlaskit/theme/colors';
-import { ButtonItem } from '@atlaskit/menu';
+import { ButtonItem, ButtonItemProps } from '@atlaskit/menu';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
 import { DropdownOptionT } from './types';
@@ -44,6 +44,18 @@ export interface Props {
   showSelected?: boolean;
 }
 
+// Extend the ButtonItem component type to allow mouse events to be accepted from the Typescript check
+export interface DropdownButtonItemProps extends ButtonItemProps {
+  onMouseEnter?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+  onMouseOver?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+  onMouseLeave?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+}
+const DropdownButtonItem: React.MemoExoticComponent<
+  React.ForwardRefExoticComponent<
+    DropdownButtonItemProps & React.RefAttributes<HTMLElement>
+  >
+> = ButtonItem as any;
+
 class Dropdown extends Component<Props & WrappedComponentProps> {
   render() {
     const { hide, dispatchCommand, items, intl } = this.props;
@@ -53,7 +65,7 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
           .filter((item) => !item.hidden)
           .map((item, idx) => {
             const itemContent = (
-              <ButtonItem
+              <DropdownButtonItem
                 key={idx}
                 iconBefore={this.renderSelected(item, intl)}
                 iconAfter={item.elemAfter}
@@ -72,9 +84,27 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
                 onMouseDown={(e) => {
                   e.preventDefault();
                 }}
+                onMouseOver={(e) => {
+                  if (item.onMouseOver) {
+                    e.preventDefault();
+                    dispatchCommand(item.onMouseOver);
+                  }
+                }}
+                onMouseEnter={(e) => {
+                  if (item.onMouseEnter) {
+                    e.preventDefault();
+                    dispatchCommand(item.onMouseEnter);
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (item.onMouseLeave) {
+                    e.preventDefault();
+                    dispatchCommand(item.onMouseLeave);
+                  }
+                }}
               >
                 {item.title}
-              </ButtonItem>
+              </DropdownButtonItem>
             );
 
             if (item.tooltip) {

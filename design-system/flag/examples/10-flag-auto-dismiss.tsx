@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G400, N0, N500, R400, Y200 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { AutoDismissFlag, FlagGroup } from '../src';
@@ -44,12 +44,10 @@ const AutoDismissExample = () => {
   useEffect(addFlag, []);
 
   return (
-    <div>
-      <p style={{ padding: `${gridSize() * 2}px` }}>
-        <Button appearance="primary" onClick={addFlag}>
-          Add another Flag
-        </Button>
-      </p>
+    <Box>
+      <Button appearance="primary" onClick={addFlag}>
+        Add another Flag
+      </Button>
       <FlagGroup onDismissed={handleDismiss}>
         {flags.map((flagId) => {
           const appearance = appearances[flagId % appearances.length];
@@ -71,7 +69,7 @@ const AutoDismissExample = () => {
           );
         })}
       </FlagGroup>
-    </div>
+    </Box>
   );
 };
 

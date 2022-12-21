@@ -152,12 +152,21 @@ export type ErrorPayload = {
   };
 };
 
+// ESS-2916 Type def for namespace status - lock/unlock
+export type NamespaceStatus = {
+  isLocked: boolean;
+  timestamp: number;
+  // waitTimeInMs is set when the isLocked bool set to true. Otherwise, it is null
+  waitTimeInMs?: number;
+};
+
 export type ChannelEvent = {
   connected: {
     sid: string;
     initialized: boolean;
   };
   init: InitPayload;
+  restore: InitPayload;
   reconnected: null;
   'presence:joined': PresencePayload;
   presence: PresencePayload;
@@ -169,6 +178,7 @@ export type ChannelEvent = {
   'metadata:changed': Metadata;
   error: ErrorPayload;
   disconnect: { reason: string };
+  status: NamespaceStatus;
 };
 
 export interface CatchupResponse {

@@ -14,34 +14,46 @@ import {
   isPressed,
   not,
   pick,
+  ShadowDefintion,
   tokenToStyle,
 } from './utils';
 
 type Token = {
   token: string;
-  fallback: string;
+  fallback: string | ShadowDefintion;
 };
 
 // NB: Fallback CSS variables can be deleted when tokens are no longer behind a feature flag
-const colors = {
+const tokenStyles = {
   text: {
+    objectName: 'textColor',
     prefix: 'color.text.',
     cssProperty: 'color',
-    filterFn: <T extends Token>(t: T) => t.token.startsWith(colors.text.prefix),
+    filterFn: <T extends Token>(t: T) =>
+      t.token.startsWith(tokenStyles.text.prefix),
   },
   background: {
+    objectName: 'backgroundColor',
     prefix: 'color.background.',
     cssProperty: 'backgroundColor',
     filterFn: <T extends Token>(t: T) =>
-      t.token.startsWith(colors.background.prefix) ||
+      t.token.startsWith(tokenStyles.background.prefix) ||
       t.token.startsWith('elevation.surface') ||
       t.token.startsWith('color.blanket'),
   },
   border: {
+    objectName: 'borderColor',
     prefix: 'color.border.',
     cssProperty: 'borderColor',
     filterFn: <T extends Token>(t: T) =>
-      t.token.startsWith(colors.border.prefix),
+      t.token.startsWith(tokenStyles.border.prefix),
+  },
+  shadow: {
+    objectName: 'shadow',
+    prefix: 'elevation.shadow.',
+    cssProperty: 'boxShadow',
+    filterFn: <T extends Token>(t: T) =>
+      t.token.startsWith(tokenStyles.shadow.prefix),
   },
 } as const;
 
@@ -55,7 +67,7 @@ const activeTokens = bothTokens
   .map(
     ([t, legacy]): Token => ({
       token: t.name,
-      fallback: legacy.value as string,
+      fallback: legacy.value as string | ShadowDefintion,
     }),
   )
   .filter(compose(pick('token'), not(isAccent)))
@@ -63,18 +75,19 @@ const activeTokens = bothTokens
   .filter(compose(pick('token'), not(isHovered)));
 
 export const createColorStylesFromTemplate = (
-  colorProperty: keyof typeof colors,
+  colorProperty: keyof typeof tokenStyles,
 ) => {
-  if (!colors[colorProperty]) {
+  if (!tokenStyles[colorProperty]) {
     throw new Error(`[codegen] Unknown option found "${colorProperty}"`);
   }
 
-  const { prefix, cssProperty, filterFn } = colors[colorProperty];
+  const { prefix, cssProperty, filterFn, objectName } =
+    tokenStyles[colorProperty];
 
   return (
     prettier.format(
       `
-const ${colorProperty}ColorMap = {
+const ${objectName}Map = {
   ${activeTokens
     .filter(filterFn)
     // @ts-ignore
@@ -85,7 +98,7 @@ const ${colorProperty}ColorMap = {
       return `'${propName}': ${tokenToStyle(cssProperty, t.token, t.fallback)}`;
     })
     .join(',\n\t')}
-};`,
+} as const;`,
       {
         singleQuote: true,
         parser: 'typescript',
@@ -93,8 +106,6 @@ const ${colorProperty}ColorMap = {
         plugins: [parserTypeScript],
       },
     ) +
-    `\nexport type ${capitalize(
-      colorProperty,
-    )}Color = keyof typeof ${colorProperty}ColorMap;\n`
+    `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
   );
 };

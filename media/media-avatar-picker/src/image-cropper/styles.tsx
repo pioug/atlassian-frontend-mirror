@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 
 import { borderRadius } from '@atlaskit/theme/constants';
@@ -42,7 +43,9 @@ const maskStyles = css`
   bottom: ${CONTAINER_PADDING}px;
   left: ${CONTAINER_PADDING}px;
   right: ${CONTAINER_PADDING}px;
-  box-shadow: 0 0 0 100px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 100px
+    ${token('elevation.surface.overlay', 'rgba(255, 255, 255)')};
+  opacity: ${token('opacity.disabled', '0.5')};
 `;
 
 export const rectMaskStyles = css`
@@ -84,6 +87,6 @@ export const removeImageButtonStyles = css`
   }
 
   &:hover {
-    background-color: ${N50A};
+    background-color: ${token('color.background.neutral.hovered', N50A)};
   }
 `;

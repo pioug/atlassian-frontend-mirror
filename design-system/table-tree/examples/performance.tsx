@@ -150,8 +150,8 @@ export default class extends PureComponent {
             <div>Tree children per item:</div>
             <div style={{ width: '90px', margin: '0 20px 0 10px' }}>
               <Select
-                hasAutocomplete={false}
-                shouldFocus={false}
+                autoFocus={false}
+                menuPosition="fixed"
                 options={childCountOptions}
                 onChange={this.handleItemsCountChange as any}
                 value={this.state.selectedChildCountOption}

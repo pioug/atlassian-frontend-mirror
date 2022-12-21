@@ -1,7 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import { N40 } from '@atlaskit/theme/colors';
 import EditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import Button from '@atlaskit/button/custom-theme-button';
 import { messages } from '@atlaskit/media-ui';
@@ -45,9 +44,6 @@ const MediaPreviewButton = (props: Props & WrappedComponentProps) => {
         buttonStyles: {
           ...current(themeProps).buttonStyles,
           minWidth: 'max-content',
-          '&:hover': {
-            background: N40,
-          },
         },
         spinnerStyles: current(themeProps).spinnerStyles,
       })}

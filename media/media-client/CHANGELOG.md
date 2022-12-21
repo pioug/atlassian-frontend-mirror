@@ -1,5 +1,15 @@
 # @atlaskit/media-client
 
+## 19.0.0
+
+### Major Changes
+
+- [`5eb06146a4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eb06146a4e) - Added support traceContext to be supplied to all request endpoint points.
+
+### Patch Changes
+
+- [`358de54a124`](https://bitbucket.org/atlassian/atlassian-frontend/commits/358de54a124) - Allow collection-fetcher endpoints to pass traceContext
+
 ## 18.1.0
 
 ### Minor Changes

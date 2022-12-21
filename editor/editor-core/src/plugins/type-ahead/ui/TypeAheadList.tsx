@@ -185,6 +185,13 @@ const TypeAheadListComponent = React.memo(
           defaultHeight: LIST_ITEM_ESTIMATED_HEIGHT,
         }),
       );
+      // When query is updated, sometimes the scroll position of the menu is not at the top
+      // Scrolling back to top for consistency
+      requestAnimationFrame(() => {
+        if (listContainerRef.current?.firstChild) {
+          (listContainerRef.current.firstChild as HTMLElement).scrollTo(0, 0);
+        }
+      });
     }, [items]);
 
     useLayoutEffect(() => {
@@ -210,21 +217,12 @@ const TypeAheadListComponent = React.memo(
         if (isNavigationKey(event)) {
           switch (event.key) {
             case 'ArrowDown':
-              if (selectedIndex === items.length - 1) {
-                event.stopPropagation();
-              } else {
-                selectNextItem();
-              }
+              selectNextItem();
               event.preventDefault();
               break;
 
             case 'ArrowUp':
-              if (selectedIndex === 0) {
-                //To set focus on target element when up arrow is pressed on first option of list
-                focusTargetElement();
-              } else {
-                selectPreviousItem();
-              }
+              selectPreviousItem();
               event.preventDefault();
               break;
 
@@ -303,7 +301,7 @@ const TypeAheadListComponent = React.memo(
 
     const menuGroupId =
       decorationElement
-        .querySelector<HTMLSpanElement>(`[role='combobox']`)
+        .querySelector<HTMLInputElement>(`[role='combobox']`)
         ?.getAttribute('aria-controls') || TYPE_AHEAD_DECORATION_ELEMENT_ID;
 
     return (

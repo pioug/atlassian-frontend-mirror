@@ -44,12 +44,12 @@ const mentionStyle = {
   [MentionType.RESTRICTED]: {
     background: 'transparent',
     borderColor: themed({
-      light: token('color.border', N500),
-      dark: token('color.border', DN80),
+      light: token('color.border.bold', N500),
+      dark: token('color.border.bold', DN80),
     }),
     text: themed({
-      light: token('color.text.disabled', N500),
-      dark: token('color.text.disabled', DN100),
+      light: token('color.text', N500),
+      dark: token('color.text', DN100),
     }),
     hoveredBackground: 'transparent',
     pressedBackground: 'transparent',

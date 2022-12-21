@@ -1,5 +1,31 @@
 # @atlaskit/reactions
 
+## 22.0.0
+
+### Major Changes
+
+- [`0617b7ef2aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0617b7ef2aa) - [ux]
+  Created a new prop, allowUserDialog, that enables an actionable tooltip link to see
+  a detailed breakdown of reacted users. The reactions dialog shows the complete user list for
+  the currently selected reaction, as well as, the user list for all other reactions. Can tab or click through the reactions list to see all reactions and user lists.
+
+  Allow handling of numbers up to 999M and truncate them accordingly.
+  1000 => 1K, 1,500 => 1.5K, 1,000,000 => 1M
+
+### Minor Changes
+
+- [`cf558ddee28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf558ddee28) - [ux] add see who reacted button to view all reacted users in a modal, and make reactions more friendly to keyboard users
+- [`4f5ecac139f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f5ecac139f) - [ux] Provide `emojiPickerSize` option for reaction picker, including `small`, `medium`, and `large`. Emoji picker will be `medium` size by default, which will show more emojis.
+
+### Patch Changes
+
+- [`7cfd0383741`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cfd0383741) - Add UFO metrics for the Reactions Dialog
+- [`ac2824857ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac2824857ec) - Reactionspicker - fix onClose event gets triggered on each click inside document
+- [`f84d560bdbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f84d560bdbd) - make onReactionHover depreacted so it's backwards compatible
+- [`99b7758e403`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99b7758e403) - support pluralization for reactions count message in reactions dialog
+- [`b1e9279b174`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1e9279b174) - Fixing the closing animation for Reactions dialog window
+- Updated dependencies
+
 ## 21.8.1
 
 ### Patch Changes

@@ -47,11 +47,11 @@ const userMentionConfig = {
 const providers = {
   mentionProvider: {
     resolved: Promise.resolve(mentionResourceProvider),
-    external: Promise.resolve(new MentionResource(userMentionConfig)),
+    external: Promise.resolve(() => new MentionResource(userMentionConfig)),
     pending: pendingPromise,
     rejected: rejectedPromise,
     teamMentionResource: Promise.resolve(
-      new TeamMentionResource(userMentionConfig, teamMentionConfig),
+      () => new TeamMentionResource(userMentionConfig, teamMentionConfig),
     ),
     undefined: undefined,
   },
@@ -61,17 +61,18 @@ const providers = {
       currentUser,
     }),
     external: Promise.resolve(
-      new EmojiResource({
-        providers: [
-          {
-            url: 'https://api-private.stg.atlassian.com/emoji/standard',
-          },
-          {
-            url: `https://api-private.stg.atlassian.com/emoji/${testCloudId}/site`,
-          },
-        ],
-        allowUpload: true,
-      }),
+      () =>
+        new EmojiResource({
+          providers: [
+            {
+              url: 'https://api-private.stg.atlassian.com/emoji/standard',
+            },
+            {
+              url: `https://api-private.stg.atlassian.com/emoji/${testCloudId}/site`,
+            },
+          ],
+          allowUpload: true,
+        }),
     ),
     pending: pendingPromise,
     rejected: rejectedPromise,

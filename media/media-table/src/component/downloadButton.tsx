@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
@@ -44,7 +45,7 @@ const MediaDownloadButton = (props: Props & WrappedComponentProps) => {
           ...current(themeProps).buttonStyles,
           minWidth: 'max-content',
           '&:hover': {
-            background: N40,
+            background: token('color.background.neutral.hovered', N40),
           },
         },
         spinnerStyles: current(themeProps).spinnerStyles,

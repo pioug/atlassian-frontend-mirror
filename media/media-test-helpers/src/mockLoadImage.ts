@@ -1,3 +1,7 @@
+import getJest from './getJest';
+
+const jest = getJest();
+
 let getOrientationMock: jest.Mock | Promise<number>;
 let loadImageMock: jest.Mock | Promise<{}>;
 

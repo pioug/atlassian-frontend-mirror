@@ -18,7 +18,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 // serialising nodes into plain text.
 
 BrowserTestCase(
-  `links.ts: pasting a link while holding shift creates plain (non-inline card) link when plainTextPasteLinkification FF enabled`,
+  `links.ts: pasting a link while holding shift creates plain (non-inline card) link`,
   {
     // browser.performActions() (used for "chording" Ctrl & Shift) doesn't exist in chrome. See
     // .plainTextPaste().
@@ -33,9 +33,6 @@ BrowserTestCase(
     page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
-      featureFlags: {
-        plainTextPasteLinkification: true,
-      },
     });
 
     // Type some text into the paragraph first
@@ -50,38 +47,7 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
-  `links.ts: pasting a link while holding shift doesn't create a link when plainTextPasteLinkification FF disabled`,
-  {
-    // browser.performActions() (used for "chording" Ctrl & Shift) doesn't exist in chrome.
-    skip: ['safari', 'chrome'],
-  },
-  async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
-    let page = new Page(client);
-
-    // Copy stuff to clipboard
-    await copyToClipboard(page, 'https://www.atlassian.com');
-
-    page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, {
-      appearance: 'full-page',
-      featureFlags: {
-        plainTextPasteLinkification: false,
-      },
-    });
-
-    // Type some text into the paragraph first
-    await page.type(editable, 'hello have a link ');
-
-    // Paste the link
-    await page.paste('plain');
-
-    const doc = await page.$eval(editable, getDocFromElement);
-    expect(doc).toMatchCustomDocSnapshot(testName);
-  },
-);
-
-BrowserTestCase(
-  `links.ts: pasting multiple links while holding shift creates non inline-card links when plainTextPasteLinkification FF enabled`,
+  `links.ts: pasting multiple links while holding shift creates non inline-card links`,
   {
     // browser.performActions() (used for "chording" Ctrl & Shift) doesn't exist in chrome.
     skip: ['safari', 'chrome'],
@@ -98,9 +64,6 @@ BrowserTestCase(
     page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
       appearance: 'full-page',
-      featureFlags: {
-        plainTextPasteLinkification: true,
-      },
     });
 
     // Type some text into the paragraph first

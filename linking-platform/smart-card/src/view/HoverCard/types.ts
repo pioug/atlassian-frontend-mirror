@@ -18,7 +18,6 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 export interface HoverCardComponentProps extends HoverCardProps {
   analyticsHandler: AnalyticsHandler;
   analytics: AnalyticsFacade;
-  onAuthorize?: () => void;
 }
 
 export type PreviewDisplay = 'card' | 'embed';
@@ -39,7 +38,6 @@ export type HoverCardContentProps = {
   onActionClick: (actionId: string) => void;
   onResolve: () => void;
   url: string;
-  onAuthorize?: () => void;
 };
 
 export type SnippetOrPreviewProps = {

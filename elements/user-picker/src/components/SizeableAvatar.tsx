@@ -2,12 +2,12 @@ import Avatar from '@atlaskit/avatar';
 import React from 'react';
 import { getAvatarSize } from './utils';
 
-export class Props {
-  appearance!: string;
+export type Props = {
+  appearance: string;
   src?: string;
   name?: string;
   presence?: string;
-}
+};
 
 export class SizeableAvatar extends React.PureComponent<Props> {
   render() {

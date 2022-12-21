@@ -5,6 +5,7 @@ import {
   EmbedModalSize,
 } from '../../types';
 import { WithAnalytics } from './types';
+import { CardDisplay } from '../../../../constants';
 
 const getResizeFrom = (size?: EmbedModalSize): EmbedModalSize =>
   size === EmbedModalSize.Small ? EmbedModalSize.Large : EmbedModalSize.Small;
@@ -29,7 +30,7 @@ const withAnalytics =
 
         analytics.ui.renderSuccessEvent({
           status: 'resolved',
-          display: 'preview',
+          display: CardDisplay.EmbedPreview,
         });
 
         if (onOpen) {
@@ -42,7 +43,7 @@ const withAnalytics =
     const handleOnOpenFailed = useCallback(
       (error: Error, errorInfo: ErrorInfo) => {
         analytics.ui.renderFailedEvent({
-          display: 'preview',
+          display: CardDisplay.EmbedPreview,
           error,
           errorInfo,
         });

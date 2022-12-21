@@ -1,5 +1,11 @@
 # @atlaskit/locale
 
+## 2.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.5
 
 ### Patch Changes

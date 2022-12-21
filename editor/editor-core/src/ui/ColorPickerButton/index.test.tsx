@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 // AFP-2532 TODO: Fix automatic suppressions below

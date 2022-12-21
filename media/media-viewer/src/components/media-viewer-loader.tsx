@@ -1,9 +1,11 @@
 import React from 'react';
 import { ModalSpinner } from '@atlaskit/media-ui';
-import * as colors from '@atlaskit/theme/colors';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
+
 import { MediaViewerProps } from './types';
 import { MediaViewerAnalyticsErrorBoundaryProps } from './media-viewer-analytics-error-boundary';
+import { headerAndSidebarBackgroundColor } from '../styles';
+import withThemeObserverHOC from '../viewers/useThemeObserverHoc';
 
 export type MediaViewerWithMediaClientConfigProps =
   WithMediaClientConfigProps<MediaViewerProps>;
@@ -19,8 +21,9 @@ export interface AsyncMediaViewerState {
   MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
 }
 
-export default class AsyncMediaViewer extends React.PureComponent<
-  MediaViewerWithMediaClientConfigProps & AsyncMediaViewerState,
+export class AsyncMediaViewer extends React.PureComponent<
+  MediaViewerWithMediaClientConfigProps &
+    AsyncMediaViewerState & { theme: 'light' | 'dark' | 'none' },
   AsyncMediaViewerState
 > {
   static displayName = 'AsyncMediaViewer';
@@ -67,10 +70,14 @@ export default class AsyncMediaViewer extends React.PureComponent<
   }
 
   render() {
+    const { theme } = this.props;
     const { MediaViewer, MediaViewerErrorBoundary } = this.state;
     if (!MediaViewer || !MediaViewerErrorBoundary) {
       return (
-        <ModalSpinner blankedColor={colors.DN30} invertSpinnerColor={true} />
+        <ModalSpinner
+          blankedColor={headerAndSidebarBackgroundColor}
+          invertSpinnerColor={theme !== 'dark'}
+        />
       );
     }
 
@@ -81,3 +88,5 @@ export default class AsyncMediaViewer extends React.PureComponent<
     );
   }
 }
+
+export default withThemeObserverHOC(AsyncMediaViewer);

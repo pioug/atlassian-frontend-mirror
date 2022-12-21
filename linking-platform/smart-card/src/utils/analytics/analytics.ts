@@ -243,6 +243,20 @@ export const trackAppAccountConnected = ({
   },
 });
 
+export const trackAppAccountAuthStarted = ({
+  extensionKey,
+  location,
+}: TrackAppAccountConnectedProps): AnalyticsPayload => ({
+  action: 'authStarted',
+  actionSubject: 'applicationAccount',
+  eventType: 'track',
+  attributes: {
+    ...context,
+    extensionKey,
+    location,
+  },
+});
+
 export const uiAuthEvent = ({
   definitionId,
   extensionKey,
@@ -446,6 +460,7 @@ export const uiHoverCardViewedEvent = ({
   destinationSubproduct,
   location,
   previewInvokeMethod,
+  status,
 }: UiHoverCardViewedEventProps): AnalyticsPayload => ({
   action: 'viewed',
   actionSubject: 'hoverCard',
@@ -460,6 +475,7 @@ export const uiHoverCardViewedEvent = ({
     destinationSubproduct,
     location,
     previewInvokeMethod,
+    status,
   },
 });
 
@@ -473,6 +489,7 @@ export const uiHoverCardDismissedEvent = ({
   destinationSubproduct,
   location,
   previewInvokeMethod,
+  status,
 }: UiHoverCardDismissedEventProps): AnalyticsPayload => ({
   action: 'dismissed',
   actionSubject: 'hoverCard',
@@ -488,6 +505,7 @@ export const uiHoverCardDismissedEvent = ({
     destinationSubproduct,
     location,
     previewInvokeMethod,
+    status,
   },
 });
 
@@ -515,5 +533,15 @@ export const uiHoverCardOpenLinkClickedEvent = ({
     destinationSubproduct,
     location,
     previewInvokeMethod,
+  },
+});
+
+export const uiLearnMoreLinkClickedEvent = (): AnalyticsPayload => ({
+  action: 'clicked',
+  actionSubject: 'button',
+  actionSubjectId: 'learnMore',
+  eventType: 'ui',
+  attributes: {
+    ...context,
   },
 });

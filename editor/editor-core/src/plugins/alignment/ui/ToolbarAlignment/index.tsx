@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ToolbarButton from '../../../../ui/ToolbarButton';
-import Dropdown from '../../../../ui/Dropdown';
+import Dropdown, { OpenChangedEvent } from '../../../../ui/Dropdown';
 import Alignment from '../../../../ui/Alignment';
 import { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
 import {
@@ -35,6 +35,7 @@ export class AlignmentToolbar extends React.Component<
   State
 > {
   static displayName = 'AlignmentToolbar';
+  private toolbarItemRef = React.createRef<HTMLElement>();
 
   state: State = {
     isOpen: false,
@@ -61,10 +62,14 @@ export class AlignmentToolbar extends React.Component<
           boundariesElement={popupsBoundariesElement}
           scrollableElement={popupsScrollableElement}
           isOpen={isOpen}
-          handleClickOutside={this.hide}
-          handleEscapeKeydown={this.hide}
+          handleClickOutside={(event: MouseEvent) =>
+            this.hide({ isOpen: false, event })
+          }
+          handleEscapeKeydown={this.hideonEsc}
+          onOpenChange={this.hide}
           fitWidth={112}
           fitHeight={80}
+          closeonTab={true}
           trigger={
             <ToolbarButton
               spacing={isReducedSpacing ? 'none' : 'default'}
@@ -84,6 +89,7 @@ export class AlignmentToolbar extends React.Component<
                   </span>
                 </div>
               }
+              ref={this.toolbarItemRef}
             />
           }
         >
@@ -110,10 +116,22 @@ export class AlignmentToolbar extends React.Component<
     this.setState({ isOpen });
   };
 
-  private hide = () => {
+  private hide = (attrs?: OpenChangedEvent) => {
     if (this.state.isOpen) {
       this.setState({ isOpen: false });
+      if (
+        attrs?.event instanceof KeyboardEvent &&
+        attrs.event.key === 'Escape'
+      ) {
+        this.toolbarItemRef?.current?.focus();
+      }
     }
+  };
+
+  private hideonEsc = () => {
+    this.hide();
+    //To set the focus on the textcolor button when the menu is closed by 'Esc' only (aria guidelines)
+    this.toolbarItemRef?.current?.focus();
   };
 }
 

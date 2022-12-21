@@ -1,9 +1,16 @@
 import React, { Component, ComponentType } from 'react';
-import Select, { mergeStyles } from 'react-select';
+import { mergeStyles } from 'react-select';
+import BaseSelect from 'react-select/base';
 import memoizeOne from 'memoize-one';
 import isEqual from 'react-fast-compare';
 
-import { SelectProps, SelectComponentsConfig, OptionType } from './types';
+import {
+  SelectProps,
+  SelectComponentsConfig,
+  OptionType,
+  AsyncSelectProps,
+  CreatableSelectProps,
+} from './types';
 import * as defaultComponents from './components';
 import baseStyles from './styles';
 
@@ -11,10 +18,14 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
   return class AtlaskitSelect<
     Option = OptionType,
     IsMulti extends boolean = false,
-  > extends Component<SelectProps<Option, IsMulti>> {
+  > extends Component<
+    | SelectProps<Option, IsMulti>
+    | AsyncSelectProps<Option, IsMulti>
+    | CreatableSelectProps<Option, IsMulti>
+  > {
     components: SelectComponentsConfig<Option, IsMulti> = {};
 
-    select: Select<Option> | null = null;
+    select: BaseSelect | null = null;
 
     constructor(props: SelectProps<Option, IsMulti>) {
       super(props);
@@ -58,17 +69,8 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
       }
     }
 
-    onSelectRef = (ref: Select<Option>) => {
+    onSelectRef = (ref: BaseSelect) => {
       this.select = ref;
-
-      const { innerRef } = this.props;
-
-      if (typeof innerRef === 'object') {
-        innerRef.current = ref;
-      }
-      if (typeof innerRef === 'function') {
-        innerRef(ref);
-      }
     };
 
     render() {

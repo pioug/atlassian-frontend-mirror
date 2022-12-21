@@ -41,8 +41,7 @@ describe('Emoji', () => {
       await page.click(emojiSelectors.standard);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 25/07/2022: https://product-fabric.atlassian.net/browse/ED-15304
-    it.skip('displays custom emoji as selected', async () => {
+    it('displays custom emoji as selected', async () => {
       await page.click(emojiSelectors.custom);
     });
   });

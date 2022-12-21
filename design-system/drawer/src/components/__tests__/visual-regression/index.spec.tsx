@@ -83,4 +83,21 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('should have the correct end state in cases where the page content zindex could conflict', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'drawer',
+      'drawer-stacking-contexts',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+    const button = `#open-drawer`;
+    await waitForSidebar(page, button);
+
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

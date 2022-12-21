@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { ExtensionComponentProps } from '@atlaskit/editor-common/extensions';
 import { ReactRenderer } from '@atlaskit/renderer';

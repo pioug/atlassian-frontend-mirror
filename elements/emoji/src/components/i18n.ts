@@ -155,7 +155,6 @@ export const messages = defineMessages({
     defaultMessage: 'All uploads',
     description: 'All uploads in the custom category',
   },
-
   deleteEmojiFailed: {
     id: 'fabric.emoji.error.delete.failed',
     defaultMessage: 'Remove failed',

@@ -31,12 +31,15 @@ const colorPickerButtonWrapper = css`
 `;
 
 // Control the size of color picker buttons and preview
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4134
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const colorPickerWrapper = css`
   border-radius: ${borderRadius()}px;
   background-color: white;
   box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
   padding: 8px 0px;
 `;
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 type Props = WithAnalyticsEventsProps & {
   currentColor?: string;

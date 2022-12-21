@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css, keyframes } from '@emotion/react';
 import { N300 } from '@atlaskit/theme/colors';
 
@@ -23,7 +24,7 @@ const getStylesBasedOnProps = ({
   opacity: 1;
   font-weight: 450;
   ${reducedFont ? 'font-size: 0.7em;' : ''}
-  color: ${N300};
+  color: ${token('color.text.subtlest', N300)};
   text-align: center;
   ${animated ? animatedStyles : ''}
   margin-bottom: -1em;

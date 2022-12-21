@@ -1,8 +1,21 @@
 import React from 'react';
 
 import { code, Example, md } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
+
+const CDNWarning = () => (
+  <SectionMessage title="Usage in production environments" appearance="warning">
+    <p>
+      We recommend for this package to be <b>bundled</b> with your application,
+      rather than relying on third-party CDN. If using a CDN, make sure its
+      uptime requirements meet your application needs.
+    </p>
+  </SectionMessage>
+);
 
 export default md`
+
+${(<CDNWarning />)}
 
 This package exports a CSS file which provides a minimal reset along with base styles for many HTML elements. It is meant to be used as a basis for all styling to be built upon.
 
@@ -10,7 +23,7 @@ This package exports a CSS file which provides a minimal reset along with base s
 
 Please include the stylesheet bundle available in css-reset package.
 
-*css-reset* should be the first stylesheet on your page, that is, all the other stylesheet should be included after css-reset*
+\`css-reset\` should be the first stylesheet on your page, that is, all the other stylesheet should be included after css-reset.
 
 ${code`
 <!DOCTYPE html>

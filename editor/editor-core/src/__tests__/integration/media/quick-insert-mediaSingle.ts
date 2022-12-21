@@ -70,7 +70,7 @@ import { selectors } from '../../../plugins/panel/__tests__/integration/_utils';
       await page.click(editable);
       await setup(page);
 
-      await quickInsert(page, 'Files & images');
+      await quickInsert(page, 'Image, video, or file');
       await insertMedia(page);
 
       const doc = await page.$eval(editable, getDocFromElement);

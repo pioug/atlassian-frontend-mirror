@@ -131,7 +131,7 @@ export const emojiButton = css({
 
   '&>span': {
     borderRadius: `${borderRadius()}px`,
-    padding: '8px',
+    padding: '6px',
 
     // Scale sprite to fit regardless of default emoji size
     [`&>.${emojiSprite}`]: {
@@ -247,10 +247,20 @@ export const emojiUpload = css({
   justifyContent: 'space-around',
 });
 
+export const emojiUploadTop = css({
+  paddingBottom: '7px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+  fontSize: '12px',
+});
+
 export const uploadChooseFileMessage = css({
   color: token('color.text.subtle', N300),
-  fontSize: '12px',
-  paddingBottom: '7px',
+});
+
+export const closeEmojiUploadButton = css({
+  display: 'flex',
 });
 
 export const emojiUploadBottom = css({
@@ -260,6 +270,7 @@ export const emojiUploadBottom = css({
 export const uploadChooseFileRow = css({
   display: 'flex',
   justifyContent: 'space-between',
+  paddingBottom: '7px',
 });
 
 export const uploadChooseFileEmojiName = css({

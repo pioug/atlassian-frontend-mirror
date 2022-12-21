@@ -12,6 +12,7 @@ import {
   PreviewAction,
 } from '../../../view/BlockCard';
 import { ExtractBlockOpts } from '../../block/types';
+import { CardDisplay } from '../../../constants';
 
 const getMetadataFromJsonLd = (
   jsonLd: JsonLd.Data.BaseData,
@@ -50,7 +51,7 @@ const getInvokeOpts = (
   // the actions on the preview state are invoked from the
   // preview card. Hence, we have a `source` for distinguishing
   // between the two.
-  source: source || 'preview',
+  source: source || CardDisplay.EmbedPreview,
   action: {
     type: action,
     promise: () => Promise.resolve(),

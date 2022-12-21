@@ -13,6 +13,8 @@ import { shortcutStyle } from '../../../ui/styles';
 import type { TypeAheadItem } from '../types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { token } from '@atlaskit/tokens';
+import { useIntl } from 'react-intl-next';
+import { typeAheadListMessages } from '../messages';
 
 export const ICON_HEIGHT = 40;
 export const ICON_WIDTH = 40;
@@ -41,7 +43,6 @@ const itemBody = css`
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  line-height: 1.4;
 `;
 
 const itemText = (theme: ThemeProps) => css`
@@ -50,10 +51,13 @@ const itemText = (theme: ThemeProps) => css`
     light: token('color.text', N800),
     dark: token('color.text', DN600),
   })(theme)};
+  .item-title {
+    line-height: 1.4;
+  }
   .item-description {
-    font-size: ${relativeFontSizeToBase16(11.67)};
+    font-size: ${relativeFontSizeToBase16(12)};
     color: ${token('color.text.subtlest', N200)};
-    margin-top: 4px;
+    margin-top: 3px;
   }
 `;
 
@@ -106,6 +110,30 @@ type TypeAheadListItemProps = {
   selectedIndex: number;
   onItemClick: (mode: SelectItemMode, index: number) => void;
 };
+
+const AssistiveText = ({
+  title,
+  description,
+  shortcut,
+}: {
+  title: string;
+  description?: string;
+  shortcut?: string;
+}) => {
+  const intl = useIntl();
+  const descriptionText = description
+    ? ` ${intl.formatMessage(
+        typeAheadListMessages.descriptionLabel,
+      )} ${description}.`
+    : '';
+  const shortcutText = shortcut
+    ? ` ${intl.formatMessage(typeAheadListMessages.shortcutLabel)} ${shortcut}.`
+    : '';
+  return (
+    <span className="assistive">{`${title}. ${descriptionText} ${shortcutText}`}</span>
+  );
+};
+
 export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
   item,
   itemsLength,
@@ -201,18 +229,25 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
         aria-setsize={itemsLength}
         role="option"
         ref={buttonItemRef}
-        description={item.description}
       >
-        <div css={itemBody}>
+        <div aria-hidden={true}>
           <div css={itemText}>
-            <div className="item-title">{item.title}</div>
-          </div>
-          <div css={itemAfter}>
-            {item.keyshortcut && (
-              <div css={shortcutStyle}>{item.keyshortcut}</div>
-            )}
+            <div css={itemBody}>
+              <div className="item-title">{item.title}</div>
+              <div css={itemAfter}>
+                {item.keyshortcut && (
+                  <div css={shortcutStyle}>{item.keyshortcut}</div>
+                )}
+              </div>
+            </div>
+            <div className="item-description">{item.description}</div>
           </div>
         </div>
+        <AssistiveText
+          title={item.title}
+          description={item.description}
+          shortcut={item.keyshortcut}
+        />
       </ButtonItem>
     </span>
   );

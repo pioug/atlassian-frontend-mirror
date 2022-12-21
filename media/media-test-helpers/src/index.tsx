@@ -1,4 +1,3 @@
-import './jest_check';
 export { StoryBookAuthProvider } from './authProvider';
 export {
   fakeMediaClient,

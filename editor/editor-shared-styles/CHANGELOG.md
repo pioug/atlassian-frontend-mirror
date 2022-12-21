@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.2.3
+
+### Patch Changes
+
+- [`977ac74443c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/977ac74443c) - DSP-7235: Fixes issue with overflow shadows on code blocks due to layered transparent colors.
+
 ## 2.2.2
 
 ### Patch Changes

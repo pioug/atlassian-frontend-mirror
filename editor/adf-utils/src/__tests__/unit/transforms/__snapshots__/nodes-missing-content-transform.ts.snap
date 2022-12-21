@@ -102,6 +102,22 @@ Object {
 }
 `;
 
+exports[`transformNodesMissingContent mediaSingle is removed when has no children when content is an empty array 1`] = `
+Object {
+  "content": Array [],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+exports[`transformNodesMissingContent mediaSingle is removed when has no children when content is null 1`] = `
+Object {
+  "content": Array [],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
 exports[`transformNodesMissingContent tables when nodes are invalidly empty should create valid filler content for tableCell (with attributes) 1`] = `
 Object {
   "content": Array [

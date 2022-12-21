@@ -1,4 +1,8 @@
+import getJest from './getJest';
+
 declare var global: any;
+
+const jest = getJest();
 
 class MockFileReader {
   loadEvent = () => {};

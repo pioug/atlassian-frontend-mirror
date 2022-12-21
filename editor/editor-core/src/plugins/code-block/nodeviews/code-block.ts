@@ -14,19 +14,23 @@ const toDOM = (node: Node) =>
     'div',
     { class: 'code-block' },
     ['div', { class: codeBlockClassNames.start, contenteditable: 'false' }],
-    ['div', { class: codeBlockClassNames.gutter, contenteditable: 'false' }],
     [
       'div',
-      { class: codeBlockClassNames.content },
+      { class: codeBlockClassNames.contentWrapper },
+      ['div', { class: codeBlockClassNames.gutter, contenteditable: 'false' }],
       [
-        'code',
-        {
-          'data-language': node.attrs.language || '',
-          spellcheck: 'false',
-          contenteditable: 'true',
-          'data-testid': 'code-block--code',
-        },
-        0,
+        'div',
+        { class: codeBlockClassNames.content },
+        [
+          'code',
+          {
+            'data-language': node.attrs.language || '',
+            spellcheck: 'false',
+            contenteditable: 'true',
+            'data-testid': 'code-block--code',
+          },
+          0,
+        ],
       ],
     ],
     ['div', { class: codeBlockClassNames.end, contenteditable: 'false' }],
@@ -56,7 +60,8 @@ export class CodeBlockView {
 
   updateDOMAndSelection(savedInnerHTML: string, newCursorPosition: number) {
     if (this.dom?.childNodes && this.dom.childNodes.length > 1) {
-      const contentView = this.dom.childNodes[1];
+      const contentWrapper = this.dom.childNodes[1];
+      const contentView = contentWrapper?.childNodes[1];
 
       if (contentView?.childNodes?.length > 0) {
         const codeElement = contentView.firstChild as HTMLElement;
@@ -79,7 +84,9 @@ export class CodeBlockView {
 
   coalesceDOMElements() {
     if (this.dom?.childNodes && this.dom.childNodes.length > 1) {
-      const contentView = this.dom.childNodes[1];
+      const contentWrapper = this.dom.childNodes[1];
+      const contentView = contentWrapper?.childNodes[1];
+
       if (contentView?.childNodes && contentView.childNodes.length > 1) {
         let savedInnerHTML = '';
         while (contentView.childNodes.length > 1) {

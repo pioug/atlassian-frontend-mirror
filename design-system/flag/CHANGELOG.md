@@ -1,5 +1,25 @@
 # @atlaskit/flag
 
+## 15.0.0
+
+### Major Changes
+
+- [`f7b2dbd6eba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7b2dbd6eba) - BREAKING CHANGE: We have removed support for legacy light and dark themes. Previously, Flag used the `useGlobalTheme` hook to detect 'light' or 'dark' modes and apply suitable styles accordingly. This functionality has been removed in favor of supporting token-based light and dark themes as well as including fallbacks for non-token environments.
+
+  Other changes include:
+
+  - Flag shadow is now the same across normal and bold flags and has been made consistent with overlay shadows in other components.
+  - Dismiss button is better aligned within the Flag and has a more consistent hit target.
+  - Flag icon is better aligned with content.
+  - Internal change to the way styles are applied.
+
+### Patch Changes
+
+- [`a1af6f8bb99`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1af6f8bb99) - Fixes a regression that could cause Flag description or actions to display incorrectly or not at all.
+- [`373f54c8212`](https://bitbucket.org/atlassian/atlassian-frontend/commits/373f54c8212) - Fixed an issue where Flag title or description could overflow its container if a single word exceeded the length of the container (for example, long filenames).
+- [`bbd4e296a68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bbd4e296a68) - Fixes a regression that could cause Flag description or actions to display incorrectly or not at all.
+- Updated dependencies
+
 ## 14.7.3
 
 ### Patch Changes

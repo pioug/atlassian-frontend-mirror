@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -12,20 +13,26 @@ export const exampleWrapperStyles = css`
   align-items: center;
 
   .${ROW_HIGHLIGHT_CLASSNAME} {
-    background-color: ${colors.Y50};
+    background-color: ${token('color.background.warning', colors.Y50)};
 
     &:hover {
-      background-color: ${colors.Y75};
+      background-color: ${token(
+        'color.background.warning.hovered',
+        colors.Y75,
+      )};
     }
   }
 `;
 
 export const greenOnHoverStyles = css`
-  background-color: red;
+  background-color: ${token('color.background.danger.bold', 'red')};
   height: 8px;
   width: 8px;
 
   .${ROW_CLASSNAME}:hover & {
-    background-color: green;
+    background-color: ${token(
+      'color.background.success.bold.hovered',
+      'green',
+    )};
   }
 `;

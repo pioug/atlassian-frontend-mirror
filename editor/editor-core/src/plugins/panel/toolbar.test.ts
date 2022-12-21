@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
@@ -210,6 +209,7 @@ describe('getToolbarItems', () => {
         );
         (colorPickerConfig as FloatingToolbarColorPicker<any>)!.onChange({
           label: 'Mintie',
+          /* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
           value: G75,
           border: DEFAULT_BORDER_COLOR,
         })(editorView.state);
@@ -218,6 +218,7 @@ describe('getToolbarItems', () => {
         expect(changePanelTypespy).toBeCalledWith(
           PanelType.CUSTOM,
           {
+            /* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
             color: G75,
             emoji: emojiInfo.shortName,
             emojiId: emojiInfo.id,

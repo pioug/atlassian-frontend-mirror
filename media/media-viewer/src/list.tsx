@@ -29,12 +29,14 @@ export type Props = Readonly<
 export type State = {
   selectedItem: Identifier;
   previewCount: number;
+  isArchiveSideBarVisible: boolean;
 };
 
 export class List extends React.Component<Props, State> {
   state: State = {
     selectedItem: this.props.defaultSelectedItem,
     previewCount: 0,
+    isArchiveSideBarVisible: false,
   };
 
   render() {
@@ -54,11 +56,14 @@ export class List extends React.Component<Props, State> {
       contextId,
       featureFlags,
     } = this.props;
-    const { selectedItem } = this.state;
+    const { selectedItem, isArchiveSideBarVisible } = this.state;
 
     return (
       <ListWrapper>
-        <HeaderWrapper className={hideControlsClassName}>
+        <HeaderWrapper
+          className={hideControlsClassName}
+          isArchiveSideBarVisible={isArchiveSideBarVisible}
+        >
           <Header
             mediaClient={mediaClient}
             identifier={selectedItem}
@@ -67,6 +72,9 @@ export class List extends React.Component<Props, State> {
             onSidebarButtonClick={onSidebarButtonClick}
             isSidebarVisible={isSidebarVisible}
             featureFlags={featureFlags}
+            onSetArchiveSideBarVisible={(isVisible: boolean) =>
+              this.setState({ isArchiveSideBarVisible: isVisible })
+            }
           />
         </HeaderWrapper>
         <ItemViewer
@@ -82,6 +90,7 @@ export class List extends React.Component<Props, State> {
           items={items}
           selectedItem={selectedItem}
           onChange={this.onNavigationChange}
+          isArchiveSideBarVisible={isArchiveSideBarVisible}
         />
       </ListWrapper>
     );

@@ -51,7 +51,7 @@ const FlexibleNotFoundView = ({
           message={{
             descriptor: messages.not_found_description,
           }}
-          testId={testId}
+          testId={`${testId}-message`}
         />
       </CustomBlock>
       <CustomBlock>

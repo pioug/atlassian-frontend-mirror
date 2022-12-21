@@ -1,10 +1,14 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { transition } from '../../styles';
 import { N90A } from '@atlaskit/theme/colors';
 
 export const blanketClassName = 'media-card-blanket';
 
-export const fixedBlanketStyles = `background-color: ${N90A};`;
+export const fixedBlanketStyles = `background-color: ${token(
+  'color.blanket',
+  N90A,
+)};`;
 
 export const blanketStyles = (isFixed?: boolean) => css`
   ${transition()}

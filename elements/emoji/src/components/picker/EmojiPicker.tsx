@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { ufoExperiences } from '../../util/analytics';
 import { EmojiProvider } from '../../api/EmojiResource';
-import { OnEmojiEvent } from '../../types';
+import { OnEmojiEvent, PickerSize } from '../../types';
 import LoadingEmojiComponent, {
   Props as LoadingProps,
   State as LoadingState,
@@ -19,6 +19,7 @@ import {
 import { LoadingItem } from './EmojiPickerVirtualItems';
 import { emojiPicker } from './styles';
 import { UfoErrorBoundary } from '../common/UfoErrorBoundary';
+import { defaultEmojiPickerSize } from '../../util/constants';
 
 const emojiPickerModuleLoader = () =>
   import(
@@ -41,6 +42,10 @@ export interface Props extends LoadingProps {
    * Flag to disable tone selector.
    */
   hideToneSelector?: boolean;
+  /**
+   * Size of Emoji Picker. default value is 'medium'.
+   */
+  size?: PickerSize;
 }
 
 export class EmojiPickerInternal extends LoadingEmojiComponent<
@@ -50,6 +55,11 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
   // state initialised with static component to prevent
   // rerender when the module has already been loaded
   static AsyncLoadedComponent?: FC<ComponentProps>;
+
+  static defaultProps = {
+    size: defaultEmojiPickerSize,
+  };
+
   state = {
     asyncLoadedComponent: EmojiPickerInternal.AsyncLoadedComponent,
   };

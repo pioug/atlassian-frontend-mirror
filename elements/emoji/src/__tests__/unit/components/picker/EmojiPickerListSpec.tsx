@@ -10,7 +10,10 @@ import EmojiPickerList, {
   RENDER_EMOJI_PICKER_LIST_TESTID,
 } from '../../../../components/picker/EmojiPickerList';
 import { messages } from '../../../../components/i18n';
-import { deleteEmojiLabel } from '../../../../util/constants';
+import {
+  defaultEmojiPickerSize,
+  deleteEmojiLabel,
+} from '../../../../util/constants';
 import { EmojiDescription } from '../../../../types';
 import {
   mockReactDomWarningGlobal,
@@ -42,6 +45,7 @@ describe('<EmojiPickerList />', () => {
     onCloseDelete: () => {},
     onOpenUpload: () => {},
     emojis,
+    size: defaultEmojiPickerSize,
   };
 
   const renderEmojiPickerList = (

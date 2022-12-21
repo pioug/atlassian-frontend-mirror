@@ -4,6 +4,7 @@ import { Node as PmNode } from 'prosemirror-model';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 import {
   calcTableWidth,
@@ -19,7 +20,7 @@ import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import { parsePx } from '@atlaskit/editor-common/utils';
 
-import { autoSizeTable } from '../commands';
+import { autoSizeTable, clearHoverSelection } from '../commands';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import {
   findStickyHeaderForTable,
@@ -196,7 +197,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   componentDidUpdate(prevProps: ComponentProps) {
-    const { getNode, isMediaFullscreen, allowColumnResizing } = this.props;
+    const { view, getNode, isMediaFullscreen, allowColumnResizing } =
+      this.props;
+    const { isInDanger } = getPluginState(view.state);
+    const table = findTable(view.state.selection);
+
+    if (isInDanger && !table) {
+      clearHoverSelection()(view.state, view.dispatch);
+    }
 
     const { tableOverflowShadowsOptimization } =
       this.props.getEditorFeatureFlags();

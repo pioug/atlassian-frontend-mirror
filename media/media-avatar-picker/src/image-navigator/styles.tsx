@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css, keyframes } from '@emotion/react';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N200 } from '@atlaskit/theme/colors';
@@ -42,7 +43,7 @@ export const sliderContainerStyles = css`
     box-sizing: content-box;
     padding: 0;
   }
-  background-color: #fff;
+  background-color: ${token('elevation.surface.overlay', '#fff')};
 `;
 
 export const fileInputStyles = css`
@@ -58,7 +59,7 @@ export const imageUploaderStyles = css`
 `;
 
 const droppingAnimation = css`
-  border-color: #0e56c4;
+  border-color: ${token('color.border.information', '#0e56c4')};
   animation: ${spin} 8s linear infinite;
 `;
 
@@ -68,12 +69,15 @@ export interface DragZoneProps {
 }
 
 const getBorder = (showBorder: boolean) =>
-  `${showBorder ? '2px dashed #d0d6d0' : 'none'}`;
+  `${showBorder ? `2px dashed ${token('color.border', '#d0d6d0')}` : 'none'}`;
 
 const getDroppingAnimation = (isDroppingFile: boolean) =>
   isDroppingFile
     ? css`
-        background-color: #ddecfe;
+        background-color: ${token(
+          'color.background.information.hovered',
+          '#ddecfe',
+        )};
 
         &:after {
           ${droppingAnimation}
@@ -127,7 +131,7 @@ export interface DragZoneTextProps {
 
 export const dragZoneTextStyles = (props: DragZoneTextProps) => css`
   text-align: center;
-  color: ${N200};
+  color: ${token('color.text.subtlest', N200)};
   ${getWidth(props.isFullSize)};
 `;
 

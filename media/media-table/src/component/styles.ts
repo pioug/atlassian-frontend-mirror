@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { N20 } from '@atlaskit/theme/colors';
 
 export const nameCellWrapperStyles = css`
   display: flex;
@@ -22,11 +21,6 @@ export const truncateWrapperStyles = css`
 export const mediaTableWrapperStyles = css`
   tr {
     cursor: pointer;
-
-    &:hover,
-    &:focus {
-      background: ${N20};
-    }
 
     td:empty {
       padding: 0;

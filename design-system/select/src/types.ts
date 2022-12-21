@@ -1,30 +1,33 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
   Props as ReactSelectProps,
-  FormatOptionLabelMeta as RSFormatOptionLabelMeta,
-  ValueType as RSValueType,
+  FormatOptionLabelMeta,
+  OnChangeValue as RSValueType,
   ActionMeta as RSActionMeta,
-  GroupTypeBase as GroupType,
-  OptionsType as RSOptionsType,
+  GroupBase as GroupType,
+  Options as RSOptionsType,
   SelectComponentsConfig as RSSelectComponentsConfig,
-  IndicatorComponentType as RSIndicatorComponentType,
   StylesConfig as RSStylesConfig,
-  InputActionMeta as RSInputActionMeta,
-  IndicatorProps as RSIndicatorProps,
+  InputActionMeta,
+  ClearIndicatorProps,
+  DropdownIndicatorProps,
+  IndicatorSeparatorProps,
+  LoadingIndicatorProps,
+  NoticeProps,
   ControlProps as RSControlProps,
   GroupProps as RSGroupProps,
   InputProps,
   MenuProps as RSMenuProps,
-  MenuListComponentProps as RSMenuListComponentProps,
+  MenuListProps as RSMenuListComponentProps,
   MultiValueProps,
   OptionProps as ReactSelectOptionProps,
   PlaceholderProps as RSPlaceholderProps,
   SingleValueProps,
   ValueContainerProps as RSValueContainerProps,
-  GroupedOptionsType,
 } from 'react-select';
 
-import { AsyncProps as ReactAsyncSelectProps } from 'react-select/async';
+import { AsyncProps } from 'react-select/async';
+import { CreatableProps } from 'react-select/creatable';
 
 export type ValidationState = 'default' | 'error' | 'success';
 export interface OptionType {
@@ -42,7 +45,6 @@ export interface OptionProps<
   [key: string]: any;
   Icon?: React.ComponentType<{
     label: string;
-    // label?: string;
     size?: 'small' | 'medium' | 'large' | 'xlarge';
     onClick?: (e: MouseEvent) => void;
     primaryColor?: string;
@@ -53,47 +55,42 @@ export interface OptionProps<
   isSelected: boolean;
 }
 
-export interface SelectProps<OptionType, IsMulti extends boolean = false>
-  extends ReactSelectProps<OptionType, IsMulti>,
-    WithAnalyticsEventsProps {
-  /* This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
+interface CustomSelectProps extends WithAnalyticsEventsProps {
+  /** This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
   spacing?: 'compact' | 'default';
-  /* @deprecated Use isInvalid instead. The state of validation if used in a form.  */
+  /** @deprecated Use isInvalid instead. The state of validation if used in a form.  */
   validationState?: ValidationState;
-  /* This prop affects the backgroundColor and border of the Select field. 'subtle' makes these transparent while 'none' removes them completely */
+  /** This prop affects the backgroundColor and border of the Select field. 'subtle' makes these transparent while 'none' removes them completely */
   appearance?: 'default' | 'subtle' | 'none';
-  /* This prop indicates if the component is in an error state */
+  /** This prop indicates if the component is in an error state */
   isInvalid?: boolean;
+  /** Prop for testing */
+  testId?: string;
 }
+
+export interface SelectProps<Option, IsMulti extends boolean = false>
+  extends ReactSelectProps<Option, IsMulti>,
+    CustomSelectProps {}
+
+export interface AsyncSelectProps<Option, IsMulti extends boolean = false>
+  extends AsyncProps<Option, IsMulti, GroupType<Option>>,
+    CustomSelectProps {}
+
+export interface CreatableSelectProps<Option, IsMulti extends boolean = false>
+  extends CreatableProps<Option, IsMulti, GroupType<Option>>,
+    CustomSelectProps {}
 
 export type ActionMeta<Option = OptionType> = RSActionMeta<Option>;
 
-export type InputActionMeta = RSInputActionMeta;
-
 export type ControlProps<
-  OptionType,
+  Option,
   IsMulti extends boolean = false,
-> = RSControlProps<OptionType, IsMulti>;
+> = RSControlProps<Option, IsMulti>;
 
-export type FormatOptionLabelMeta<
-  OptionType,
-  IsMulti extends boolean = false,
-> = RSFormatOptionLabelMeta<OptionType, IsMulti>;
-
-export type IndicatorProps<
-  OptionType,
-  IsMulti extends boolean = false,
-> = RSIndicatorProps<OptionType, IsMulti>;
-
-export type IndicatorComponentType<
-  OptionType,
-  IsMulti extends boolean = false,
-> = RSIndicatorComponentType<OptionType, IsMulti>;
-
-export type ValueType<
-  OptionType,
-  IsMulti extends boolean = false,
-> = RSValueType<OptionType, IsMulti>;
+export type ValueType<Option, IsMulti extends boolean = false> = RSValueType<
+  Option,
+  IsMulti
+>;
 
 export type StylesConfig<
   Option = OptionType,
@@ -101,41 +98,58 @@ export type StylesConfig<
 > = RSStylesConfig<Option, IsMulti>;
 
 export type SelectComponentsConfig<
-  OptionType,
+  Option,
   IsMulti extends boolean = false,
-> = RSSelectComponentsConfig<OptionType, IsMulti>;
+> = RSSelectComponentsConfig<Option, IsMulti, GroupType<Option>>;
 
-export type GroupProps<
-  OptionType,
-  IsMulti extends boolean = false,
-> = RSGroupProps<OptionType, IsMulti>;
+export type GroupProps<Option, IsMulti extends boolean = false> = RSGroupProps<
+  Option,
+  IsMulti
+>;
 
-export type MenuProps<
-  OptionType,
-  IsMulti extends boolean = false,
-> = RSMenuProps<OptionType, IsMulti>;
+export type MenuProps<Option, IsMulti extends boolean = false> = RSMenuProps<
+  Option,
+  IsMulti
+>;
 
 export type MenuListComponentProps<
-  OptionType,
+  Option,
   IsMulti extends boolean = false,
-> = RSMenuListComponentProps<OptionType, IsMulti>;
+> = RSMenuListComponentProps<Option, IsMulti>;
 
 export type PlaceholderProps<
-  OptionType,
+  Option,
   IsMulti extends boolean = false,
-> = RSPlaceholderProps<OptionType, IsMulti>;
+> = RSPlaceholderProps<Option, IsMulti>;
 
 export type ValueContainerProps<
-  OptionType,
+  Option,
   IsMulti extends boolean = false,
-> = RSValueContainerProps<OptionType, IsMulti>;
+> = RSValueContainerProps<Option, IsMulti>;
+
+export type GroupedOptionsType<Option> = ReadonlyArray<GroupType<Option>>;
 
 export type {
+  FormatOptionLabelMeta,
+  InputActionMeta,
   GroupType,
   InputProps,
   MultiValueProps,
-  ReactAsyncSelectProps,
   ReactSelectProps,
   SingleValueProps,
-  GroupedOptionsType,
+  ClearIndicatorProps,
+  DropdownIndicatorProps,
+  IndicatorSeparatorProps,
+  LoadingIndicatorProps,
+  NoticeProps,
 };
+
+declare module 'react-select/dist/declarations/src/Select' {
+  export interface Props<
+    Option,
+    IsMulti extends boolean,
+    Group extends GroupType<Option>,
+  > {
+    [key: string]: any;
+  }
+}

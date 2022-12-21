@@ -8,6 +8,8 @@ import {
 } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { MentionEventHandlers } from '@atlaskit/editor-common/ui';
+import { browser } from '@atlaskit/editor-common/utils';
+import { refreshBrowserSelection } from '../../../code-block/refresh-browser-selection';
 
 export interface MentionProps {
   id: string;
@@ -25,6 +27,16 @@ export default class Mention extends PureComponent<MentionProps, {}> {
   constructor(props: MentionProps) {
     super(props);
     this.providerFactory = props.providers || new ProviderFactory();
+  }
+
+  componentDidMount() {
+    // Workaround an issue where the selection is not updated immediately after adding
+    // a mention when "sanitizePrivateContent" is enabled in the editor on safari.
+    // This affects both insertion and paste behaviour it is applied to the component.
+    // https://product-fabric.atlassian.net/browse/ED-14859
+    if (browser.safari) {
+      setTimeout(refreshBrowserSelection, 0);
+    }
   }
 
   componentWillUnmount() {

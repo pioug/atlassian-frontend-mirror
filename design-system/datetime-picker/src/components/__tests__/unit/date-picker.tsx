@@ -215,7 +215,7 @@ describe('DatePicker', () => {
       expect.stringContaining('Jan 01 1970'),
     );
 
-    const select = screen.getByRole('textbox');
+    const select = screen.getByRole('combobox');
     fireEvent.focus(select);
     // date update after focus
     expect(calendarGrid).toHaveAccessibleDescription(

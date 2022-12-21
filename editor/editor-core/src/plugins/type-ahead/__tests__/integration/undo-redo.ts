@@ -57,7 +57,7 @@ describe('typeahead: undo redo', () => {
     );
   });
 
-  describe('when undone rigth after open the typeahead', () => {
+  describe('when undone right after open the typeahead', () => {
     BrowserTestCase(
       'it should not add the raw trigger in the document',
       // That is sad but I need to skip safari because the 'undo'
@@ -97,7 +97,7 @@ describe('typeahead: undo redo', () => {
 
         await page.keys(['A', 'B', 'C', ' ']);
 
-        const title = 'Action';
+        const title = 'Act';
         await quickInsert(page, title, false);
         await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
 
@@ -141,7 +141,7 @@ describe('typeahead: undo redo', () => {
         await page.undo();
         await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
 
-        const query = await page.getText(TYPE_AHEAD_SEARCH_BOX);
+        const query = await page.getValue(TYPE_AHEAD_SEARCH_BOX);
         expect(query).toEqual(title);
       },
     );
@@ -294,7 +294,7 @@ describe('typeahead: undo redo', () => {
 
             await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
 
-            const query = await page.getText(TYPE_AHEAD_SEARCH_BOX);
+            const query = await page.getValue(TYPE_AHEAD_SEARCH_BOX);
             expect(query).toEqual(title);
           },
         );

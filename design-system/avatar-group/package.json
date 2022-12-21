@@ -41,11 +41,11 @@
   },
   "devDependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/button": "^16.5.0",
     "@atlaskit/code": "^14.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.1.1",
-    "@atlaskit/form": "^8.7.0",
+    "@atlaskit/form": "^8.8.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/section-message": "^6.3.0",

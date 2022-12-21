@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 24.0.3
+
+### Patch Changes
+
+- [`c2510fa261f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2510fa261f) - [ux] ED-15961 [ux] Updates the presentation of text color to use dark and light mode colors when those modes are enabled
+- Updated dependencies
+
 ## 24.0.2
 
 ### Patch Changes

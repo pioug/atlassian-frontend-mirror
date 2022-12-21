@@ -1,9 +1,9 @@
 import { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { EditorView, Decoration, DecorationSet } from 'prosemirror-view';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { AnnotationNodeView } from '../nodeviews';
+import { AnnotationNodeView, getAnnotationViewClassname } from '../nodeviews';
 import {
   updateInlineCommentResolvedState,
   updateMouseState,
@@ -191,6 +191,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
             getPos,
             portalProviderAPI,
             eventDispatcher,
+            // resolved
           ).init(),
       },
       handleDOMEvents: {
@@ -203,8 +204,43 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         },
       },
       decorations(state) {
-        const { draftDecorationSet } = getPluginState(state);
-        return draftDecorationSet;
+        // highlight comments, depending on state
+        const {
+          draftDecorationSet,
+          annotations,
+          selectedAnnotations,
+          isVisible,
+        } = getPluginState(state);
+
+        let decorations = draftDecorationSet ?? DecorationSet.empty;
+        const focusDecorations: Decoration[] = [];
+
+        state.doc.descendants((node, pos) => {
+          node.marks
+            .filter((mark) => mark.type === state.schema.marks.annotation)
+            .forEach((mark) => {
+              const isSelected = selectedAnnotations.some(
+                (selectedAnnotation) => selectedAnnotation.id === mark.attrs.id,
+              );
+              const isUnresolved = annotations[mark.attrs.id] === false;
+
+              if (isVisible) {
+                focusDecorations.push(
+                  Decoration.inline(pos, pos + node.nodeSize, {
+                    class: `${getAnnotationViewClassname(
+                      isUnresolved,
+                      isSelected,
+                    )} ${isUnresolved}`,
+                    nodeName: 'span',
+                  }),
+                );
+              }
+            });
+        });
+
+        decorations = decorations.add(state.doc, focusDecorations);
+
+        return decorations;
       },
     },
   });

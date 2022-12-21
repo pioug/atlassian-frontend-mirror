@@ -30,6 +30,7 @@ import { EditorActions } from '../../..';
 import { ContextPanelConsumer } from '../../ContextPanel/context';
 import { FeatureFlags } from '../../../types/feature-flags';
 import messages from './messages';
+import { ToolbarArrowKeyNavigationProvider } from '../../ToolbarArrowKeyNavigationProvider';
 
 export interface FullPageToolbarProps {
   appearance?: EditorAppearance;
@@ -138,33 +139,35 @@ export const EditorToolbar: React.FunctionComponent<
   return (
     <ContextPanelConsumer>
       {({ width: contextPanelWidth }) => (
-        <div
-          css={mainToolbarStyle(
-            props.showKeyline || contextPanelWidth > 0,
-            !!props.featureFlags?.twoLineEditorToolbar,
-          )}
-          data-testid="ak-editor-main-toolbar"
-        >
+        <ToolbarArrowKeyNavigationProvider editorView={props.editorView}>
           <div
-            css={mainToolbarFirstChildStyle(
+            css={mainToolbarStyle(
+              props.showKeyline || contextPanelWidth > 0,
               !!props.featureFlags?.twoLineEditorToolbar,
             )}
-            role="toolbar"
-            aria-label={props.intl.formatMessage(messages.toolbarLabel)}
+            data-testid="ak-editor-main-toolbar"
           >
-            {shouldSplitToolbar ? customToolbar : nonCustomToolbar}
+            <div
+              css={mainToolbarFirstChildStyle(
+                !!props.featureFlags?.twoLineEditorToolbar,
+              )}
+              role="toolbar"
+              aria-label={props.intl.formatMessage(messages.toolbarLabel)}
+            >
+              {shouldSplitToolbar ? customToolbar : nonCustomToolbar}
+            </div>
+            <div
+              css={mainToolbarSecondChildStyle(
+                !!props.featureFlags?.twoLineEditorToolbar,
+              )}
+              data-testid={'avatar-group-outside-plugin'}
+              role="region"
+              aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
+            >
+              {shouldSplitToolbar ? nonCustomToolbar : customToolbar}
+            </div>
           </div>
-          <div
-            css={mainToolbarSecondChildStyle(
-              !!props.featureFlags?.twoLineEditorToolbar,
-            )}
-            data-testid={'avatar-group-outside-plugin'}
-            role="region"
-            aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
-          >
-            {shouldSplitToolbar ? nonCustomToolbar : customToolbar}
-          </div>
-        </div>
+        </ToolbarArrowKeyNavigationProvider>
       )}
     </ContextPanelConsumer>
   );

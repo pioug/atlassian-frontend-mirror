@@ -151,12 +151,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : false,
     ),
 
-    plainTextPasteLinkification: Boolean(
-      typeof props.featureFlags?.plainTextPasteLinkification === 'boolean'
-        ? !!props.featureFlags?.plainTextPasteLinkification
-        : false,
-    ),
-
     collabAvatarScroll: Boolean(
       typeof props.featureFlags?.collabAvatarScroll === 'boolean'
         ? !!props.featureFlags?.collabAvatarScroll
@@ -236,5 +230,19 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : undefined,
 
     disableSpellcheckByBrowser: getSpellCheck(props.featureFlags!),
+
+    // Including fallback to props.featureFlags so that mobile feature flags
+    // are included (they are not kebab cased)
+    restartNumberedLists:
+      normalizedFeatureFlags.restartNumberedLists === true ||
+      props.featureFlags?.restartNumberedLists === true,
+
+    listNumberContinuity:
+      normalizedFeatureFlags.listNumberContinuity === true ||
+      props.featureFlags?.listNumberContinuity === true,
+
+    restartNumberedListsToolbar:
+      normalizedFeatureFlags.restartNumberedListsToolbar === true ||
+      props.featureFlags?.restartNumberedListsToolbar === true,
   };
 }

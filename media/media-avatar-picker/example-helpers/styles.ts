@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 import { checkeredBg } from '../src/image-placer/styles';
 export const labelStyles = css`
   display: block;
@@ -14,24 +15,14 @@ export const labelStyles = css`
   }
 `;
 export const exportedImageStyles = css`
-  border: 1px solid #ccc;
+  border: 1px solid ${token('color.border', '#ccc')};
 `;
+
 export const exportedImageWrapperStyles = css`
   display: inline-block;
   background: url('${checkeredBg}');
   margin-top: 20px;
   position: relative;
-
-  p {
-    position: absolute;
-    top: -18px;
-    left: 0px;
-    margin-top: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
-    color: blue;
-  }
 `;
 
 export const layoutStyles = css`

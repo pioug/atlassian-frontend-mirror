@@ -159,12 +159,10 @@ function CustomSelect({
                   // for isDirty
                   onFieldChange(name, true);
                 }}
-                // @see DST-2386 & ED-12503
-                enableAnimation={false}
                 // add type cast to avoid adding a "IsMulti" generic prop (TODO: ED-12072)
                 isMulti={(isMultiple || false) as false}
                 isClearable={true}
-                isValidNewOption={(value: string) => isCreatable && value}
+                isValidNewOption={(value: string) => !!(isCreatable && value)}
                 validationState={error ? 'error' : 'default'}
                 defaultOptions={defaultOptions}
                 formatCreateLabel={(value: string) => formatCreateLabel(value)}

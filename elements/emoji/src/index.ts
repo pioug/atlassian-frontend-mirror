@@ -130,6 +130,7 @@ export type {
   SpriteSheets,
   Styles,
   User,
+  PickerSize,
 } from './types';
 
 export default EmojiPicker;

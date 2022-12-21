@@ -1,10 +1,24 @@
 /** @jsx jsx */
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { jsx } from '@emotion/react';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { FormattedMessage } from 'react-intl-next';
-import { Analytics } from '../../analytics';
+import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
+  KeyboardOrMouseEvent,
+  ModalTransition,
+  OnCloseHandler,
+} from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button';
+import Tooltip from '@atlaskit/tooltip';
+import { Analytics, UFO } from '../../analytics';
+import {
+  onDialogSelectReactionChange,
   ReactionStatus,
   ReactionClick,
   ReactionSummary,
@@ -12,19 +26,47 @@ import {
   QuickReactionEmojiSummary,
 } from '../../types';
 import { i18n } from '../../shared';
-import { Reaction } from '../Reaction';
+import { Reaction, ReactionProps } from '../Reaction';
+import { ReactionsDialog } from '../ReactionDialog';
 import { ReactionPicker, ReactionPickerProps } from '../ReactionPicker';
 import { SelectorProps } from '../Selector';
 import * as styles from './styles';
 
 /**
+ * Set of all available UFO experiences relating to reactions dialog
+ */
+export const ufoExperiences = {
+  /**
+   * Expeirence when a reaction dialog is opened
+   */
+  openDialog: UFO.ReactionDialogOpened,
+  /**
+   * Experience when a reaction dialog is closed
+   */
+  closeDialog: UFO.ReactionDialogClosed,
+  /**
+   * Experience when a reaction changed/fetched from inside the modal dialog
+   */
+  selectedReactionChangeInsideDialog: UFO.ReactionDialogSelectedReactionChanged,
+};
+
+/**
  * Test id for wrapper Reactions div
  */
 export const RENDER_REACTIONS_TESTID = 'render-reactions';
+/**
+ * Test id for the view all reacted user to trigger the dialog
+ */
+export const RENDER_VIEWALL_REACTED_USERS_DIALOG =
+  'viewall-reacted-users-dialog';
 
 export interface ReactionsProps
-  extends Pick<ReactionPickerProps, 'allowAllEmojis' | 'emojiProvider'>,
-    Pick<SelectorProps, 'pickerQuickReactionEmojiIds'> {
+  extends Pick<
+      ReactionPickerProps,
+      'allowAllEmojis' | 'emojiProvider' | 'emojiPickerSize'
+    >,
+    Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
+    Pick<ReactionProps, 'allowUserDialog'> {
   /**
    * event handler to fetching the reactions
    */
@@ -38,7 +80,7 @@ export interface ReactionsProps
    */
   reactions?: ReactionSummary[];
   /**
-   * Condition for the reaction list status while been fetched
+   * Condition for the reaction list status while being fetched
    */
   status: ReactionStatus;
   /**
@@ -50,8 +92,12 @@ export interface ReactionsProps
    */
   flash?: Record<string, boolean>;
   /**
-   * Optional event when the mouse cursor hovers over the reaction
-   * @param emojiId hovered reaction emoji id
+   * Optional event to get reaction details for an emoji
+   * @param emojiId current reaction emoji id
+   */
+  getReactionDetails?: (emojiId: string) => void;
+  /**
+   * @deprecated use getReactionDetails instead
    */
   onReactionHover?: (emojiId: string) => void;
   /**
@@ -59,9 +105,21 @@ export interface ReactionsProps
    */
   errorMessage?: string;
   /**
-   * quickReactionEmojis are emojis that will be shown in the the primary view even if the reaction count is zero
+   * quickReactionEmojiIds are emojis that will be shown in the the primary view even if the reaction count is zero
    */
   quickReactionEmojis?: QuickReactionEmojiSummary;
+  /**
+   * Optional callback function called when opening reactions dialog
+   */
+  onDialogOpenCallback?: (emojiId: string, source?: string) => void;
+  /**
+   * Optional callback function called when closing reactions dialog
+   */
+  onDialogCloseCallback?: OnCloseHandler;
+  /**
+   * Optional callback function called when selecting a reaction in reactions dialog
+   */
+  onDialogSelectReactionCallback?: onDialogSelectReactionChange;
 }
 
 /**
@@ -95,21 +153,24 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
     loadReaction,
     quickReactionEmojis,
     pickerQuickReactionEmojiIds,
-    onReactionHover,
+    getReactionDetails = () => {},
+    onReactionHover = () => {},
     onSelection,
     reactions = [],
     emojiProvider,
     allowAllEmojis,
     onReactionClick,
+    allowUserDialog,
+    onDialogOpenCallback = () => {},
+    onDialogCloseCallback = () => {},
+    onDialogSelectReactionCallback = () => {},
+    emojiPickerSize = 'medium',
   }) => {
+    const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
     const { createAnalyticsEvent } = useAnalyticsEvents();
 
     let openTime = useRef<number>();
     let renderTime = useRef<number>();
-
-    if (status !== ReactionStatus.ready) {
-      renderTime.current = Date.now();
-    }
 
     useEffect(() => {
       if (status === ReactionStatus.notLoaded) {
@@ -118,21 +179,32 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
     }, [status, loadReaction]);
 
     useEffect(() => {
-      if (status === ReactionStatus.ready && renderTime.current) {
+      if (status !== ReactionStatus.ready) {
+        renderTime.current = Date.now();
+      } else {
         Analytics.createAndFireSafe(
           createAnalyticsEvent,
           Analytics.createReactionsRenderedEvent,
-          renderTime.current,
+          renderTime.current ?? Date.now(), //renderTime.current can be null during unit test cases
         );
         renderTime.current = undefined;
       }
     }, [createAnalyticsEvent, status]);
 
-    const handleReactionMouseEnter = (summary: ReactionSummary) => {
-      if (onReactionHover) {
-        onReactionHover(summary.emojiId);
-      }
-    };
+    const handleReactionMouseEnter = useCallback(
+      (emojiId: string) => {
+        getReactionDetails(emojiId);
+        onReactionHover(emojiId);
+      },
+      [getReactionDetails, onReactionHover],
+    );
+
+    const handleReactionFocused = useCallback(
+      (emojiId: string) => {
+        getReactionDetails(emojiId);
+      },
+      [getReactionDetails],
+    );
 
     const handlePickerOpen = useCallback(() => {
       openTime.current = Date.now();
@@ -177,6 +249,88 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
     );
 
     /**
+     * event handler to open selected reaction from tooltip
+     * @param emojiId selected emoji id
+     */
+    const handleOpenReactionsDialog = (emojiId: string) => {
+      // ufo start opening reaction dialog
+      ufoExperiences.openDialog.start();
+
+      setSelectedEmojiId(emojiId);
+      onDialogOpenCallback(emojiId, 'tooltip');
+
+      // ufo opening reaction dialog success
+      ufoExperiences.openDialog.success({
+        metadata: {
+          emojiId: emojiId,
+          source: 'Reactions',
+          reason: 'Opening dialog from emoji tooltip link successfully',
+        },
+      });
+    };
+
+    /**
+     * Event handler to oepn all reactions link button
+     */
+    const handleOpenAllReactionsDialog = () => {
+      // ufo start opening reaction dialog
+      ufoExperiences.openDialog.start();
+
+      const emojiId = reactions[0].emojiId;
+      getReactionDetails(emojiId);
+      setSelectedEmojiId(emojiId);
+      onDialogOpenCallback(emojiId, 'button');
+
+      // ufo opening reaction dialog success
+      ufoExperiences.openDialog.success({
+        metadata: {
+          emojiId: emojiId,
+          source: 'Reactions',
+          reason: 'Opening all reactions dialog link successfully',
+        },
+      });
+    };
+
+    const handleCloseReactionsDialog: OnCloseHandler = (
+      e: KeyboardOrMouseEvent,
+      analyticsEvent: UIAnalyticsEvent,
+    ) => {
+      // ufo closing opening reaction dialog
+      ufoExperiences.closeDialog.start();
+
+      setSelectedEmojiId('');
+      onDialogCloseCallback(e, analyticsEvent);
+
+      // ufo closing reaction dialog success
+      ufoExperiences.closeDialog.success({
+        metadata: {
+          source: 'Reactions',
+          reason: 'Closing reactions dialog successfully',
+        },
+      });
+    };
+
+    const handleSelectReactionInDialog = (
+      emojiId: string,
+      analyticsEvent: UIAnalyticsEvent,
+    ) => {
+      // ufo selected reaction inside the modal dialog
+      ufoExperiences.selectedReactionChangeInsideDialog.start();
+
+      handleReactionMouseEnter(emojiId);
+      onDialogSelectReactionCallback(emojiId, analyticsEvent);
+
+      // ufo selected reaction inside the modal dialog success
+      ufoExperiences.selectedReactionChangeInsideDialog.success({
+        metadata: {
+          emojiId: emojiId,
+          source: 'Reactions',
+          reason: 'Selected Emoji changed',
+        },
+      });
+    };
+
+    /**
      * Get the reactions that we want to render are any reactions with a count greater than zero as well as any default emoji not already shown
      */
     const memorizedReactions = useMemo(() => {
@@ -217,7 +371,10 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
             emojiProvider={emojiProvider}
             onClick={onReactionClick}
             onMouseEnter={handleReactionMouseEnter}
+            onFocused={handleReactionFocused}
             flash={flash[reaction.emojiId]}
+            handleUserListClick={handleOpenReactionsDialog}
+            allowUserDialog={allowUserDialog}
           />
         ))}
         <ReactionPicker
@@ -232,7 +389,37 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
           onCancel={handleOnCancel}
           onShowMore={handleOnMore}
           tooltipContent={getTooltip(status, errorMessage)}
+          emojiPickerSize={emojiPickerSize}
         />
+        {allowUserDialog && reactions.length > 0 && (
+          <Tooltip
+            content={
+              <FormattedMessage {...i18n.messages.seeWhoReactedTooltip} />
+            }
+            hideTooltipOnClick
+          >
+            <Button
+              appearance="subtle-link"
+              onClick={handleOpenAllReactionsDialog}
+              css={styles.seeWhoReacted}
+              testId={RENDER_VIEWALL_REACTED_USERS_DIALOG}
+            >
+              <FormattedMessage {...i18n.messages.seeWhoReacted} />
+            </Button>
+          </Tooltip>
+        )}
+        {/* https://atlassian.design/components/modal-dialog/examples#default */}
+        <ModalTransition>
+          {!!selectedEmojiId && (
+            <ReactionsDialog
+              selectedEmojiId={selectedEmojiId}
+              reactions={memorizedReactions}
+              emojiProvider={emojiProvider}
+              handleCloseReactionsDialog={handleCloseReactionsDialog}
+              handleSelectReaction={handleSelectReactionInDialog}
+            />
+          )}
+        </ModalTransition>
       </div>
     );
   },

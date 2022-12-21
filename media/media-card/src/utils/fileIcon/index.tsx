@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import { MediaType } from '@atlaskit/media-client';
-import { MediaTypeIcon } from '../mediaTypeIcon';
+import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { fileTypeIconStyles } from './styles';
 
 export interface FileIconProps {

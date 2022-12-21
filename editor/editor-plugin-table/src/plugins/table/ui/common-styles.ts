@@ -427,7 +427,10 @@ export const tableStyles = (props: ThemeProps) => css`
     }
     .active .${ClassName.CONTROLS_CORNER_BUTTON} {
       border-color: ${tableBorderSelectedColor};
-      background: ${tableToolbarSelectedColor};
+      background: ${token(
+        'color.background.selected',
+        tableToolbarSelectedColor,
+      )};
     }
 
     .${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
@@ -441,14 +444,17 @@ export const tableStyles = (props: ThemeProps) => css`
 
     :not(.${ClassName.IS_RESIZING}) .${ClassName.CONTROLS_CORNER_BUTTON}:hover {
       border-color: ${tableBorderSelectedColor};
-      background: ${tableToolbarSelectedColor};
+      background: ${token(
+        'color.background.selected',
+        tableToolbarSelectedColor,
+      )};
       cursor: pointer;
     }
 
     :not(.${ClassName.IS_RESIZING})
       .${ClassName.CONTROLS_CORNER_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER} {
       border-color: ${tableBorderDeleteColor};
-      background: ${tableToolbarDeleteColor};
+      background: ${token('color.background.danger', tableToolbarDeleteColor)};
     }
 
     /* Row controls */
@@ -555,10 +561,13 @@ export const tableStyles = (props: ThemeProps) => css`
         .${ClassName.NUMBERED_COLUMN_BUTTON}.active {
           border-bottom: 1px solid ${tableBorderSelectedColor};
           border-color: ${tableBorderSelectedColor};
-          background-color: ${tableToolbarSelectedColor};
+          background-color: ${token(
+            'color.background.selected',
+            tableToolbarSelectedColor,
+          )};
           position: relative;
           z-index: ${akEditorUnitZIndex};
-          color: ${token('color.text.inverse', N0)};
+          color: ${token('color.text.selected', N0)};
         }
       }
     }
@@ -569,16 +578,22 @@ export const tableStyles = (props: ThemeProps) => css`
       .${ClassName.NUMBERED_COLUMN_BUTTON}:hover {
         border-bottom: 1px solid ${tableBorderSelectedColor};
         border-color: ${tableBorderSelectedColor};
-        background-color: ${tableToolbarSelectedColor};
+        background-color: ${token(
+          'color.background.selected',
+          tableToolbarSelectedColor,
+        )};
         position: relative;
         z-index: ${akEditorUnitZIndex};
-        color: ${token('color.text.inverse', N0)};
+        color: ${token('color.text.selected', N0)};
       }
       .${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER} {
-        background-color: ${tableToolbarDeleteColor};
+        background-color: ${token(
+          'color.background.danger',
+          tableToolbarDeleteColor,
+        )};
         border: 1px solid ${tableBorderDeleteColor};
         border-left: 0;
-        color: ${token('color.text.inverse', R500)};
+        color: ${token('color.text.danger', R500)};
         position: relative;
         z-index: ${akEditorUnitZIndex};
       }

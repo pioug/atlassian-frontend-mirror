@@ -28,20 +28,14 @@ describe('#createPasteAnalyticsPayload()', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const editor = (
-    doc: DocBuilder,
-    { plainTextPasteLinkification }: { plainTextPasteLinkification: boolean },
-  ) => {
+  const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
-      featureFlags: {
-        plainTextPasteLinkification,
-      },
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add(hyperlinkPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([pastePlugin, { plainTextPasteLinkification }])
+        .add([pastePlugin, {}])
         .add(blockTypePlugin)
         .add(textFormattingPlugin)
         .add(basePlugin),
@@ -49,13 +43,10 @@ describe('#createPasteAnalyticsPayload()', () => {
     });
   };
 
-  describe('plainTextPasteLinkification FF enabled', () => {
-    const plainTextPasteLinkification = true;
+  describe('plain text link pasting', () => {
     describe('normal paste', () => {
-      it('should count no links in pasted contennt when no links present', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+      it('should count no links in pasted content when no links present', () => {
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(editorView, {
           html: 'this is just some text without any links',
         });
@@ -69,9 +60,7 @@ describe('#createPasteAnalyticsPayload()', () => {
         );
       });
       it('should count 4 links in pasted content', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(editorView, {
           html: 'https://news.ycombinator.com/item?id=29219042 news.ycombinator.com some random text https://news.ycombinator.com/item?id=29217810 www.google.com arstnaorset arosent',
         });
@@ -95,9 +84,7 @@ describe('#createPasteAnalyticsPayload()', () => {
     });
     describe('plain text paste', () => {
       it('should count no links in plain text pasted contennt when no links present', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(
           editorView,
           {
@@ -115,9 +102,7 @@ describe('#createPasteAnalyticsPayload()', () => {
         );
       });
       it('should count 4 links in plain text pasted content', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(
           editorView,
           {
@@ -136,9 +121,7 @@ describe('#createPasteAnalyticsPayload()', () => {
         );
       });
       it('should count no links if links are part of a windows filepath', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(
           editorView,
           {
@@ -156,9 +139,7 @@ describe('#createPasteAnalyticsPayload()', () => {
         );
       });
       it('should count no links if links are part of a windows network filepath', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(
           editorView,
           {
@@ -176,9 +157,7 @@ describe('#createPasteAnalyticsPayload()', () => {
         );
       });
       it('should count one link when all others are part of a windows filepath amongst other text', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(
           editorView,
           {
@@ -197,9 +176,7 @@ describe('#createPasteAnalyticsPayload()', () => {
         );
       });
       it('should count one link when all others are part of a windows network filepath amongst other text', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(
           editorView,
           {
@@ -218,9 +195,7 @@ describe('#createPasteAnalyticsPayload()', () => {
         );
       });
       it('should count no links if links are part of a unix filepath or network filepath', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(
           editorView,
           {
@@ -238,9 +213,7 @@ describe('#createPasteAnalyticsPayload()', () => {
         );
       });
       it('should count one link when all others are part of a unix filepath amongst other text', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
+        const { editorView } = editor(doc(p('{<>}')));
         dispatchPasteEvent(
           editorView,
           {
@@ -260,100 +233,9 @@ describe('#createPasteAnalyticsPayload()', () => {
     });
   });
 
-  describe('plainTextPasteLinkification FF disabled', () => {
-    const plainTextPasteLinkification = false;
-    describe('normal paste', () => {
-      it('should count no links in pasted contennt when no links present', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
-        dispatchPasteEvent(editorView, {
-          html: 'this is just some text without any links',
-        });
-
-        expect(createAnalyticsEvent).toBeCalledWith(
-          expect.objectContaining({
-            attributes: expect.objectContaining({
-              linksInPasteCount: 0,
-            }),
-          }),
-        );
-      });
-      it('should count 4 links in pasted content', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
-        dispatchPasteEvent(editorView, {
-          html: 'https://news.ycombinator.com/item?id=29219042 news.ycombinator.com some random text https://news.ycombinator.com/item?id=29217810 www.google.com arstnaorset arosent',
-        });
-
-        expect(createAnalyticsEvent).toBeCalledWith(
-          expect.objectContaining({
-            attributes: expect.objectContaining({
-              linksInPasteCount: 4,
-            }),
-            nonPrivacySafeAttributes: expect.objectContaining({
-              linkDomain: [
-                'news.ycombinator.com',
-                'news.ycombinator.com',
-                'news.ycombinator.com',
-                'google.com',
-              ],
-            }),
-          }),
-        );
-      });
-    });
-    describe('plain text paste', () => {
-      it('should count no links in plain text pasted content when no links present', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
-        dispatchPasteEvent(
-          editorView,
-          {
-            plain: 'this is just some text without any links',
-          },
-          { shift: true },
-        );
-
-        expect(createAnalyticsEvent).toBeCalledWith(
-          expect.objectContaining({
-            attributes: expect.objectContaining({
-              linksInPasteCount: 0,
-            }),
-          }),
-        );
-      });
-      it('should count no links in plain text pasted content when plain text paste FF disabled', () => {
-        const { editorView } = editor(doc(p('{<>}')), {
-          plainTextPasteLinkification,
-        });
-        dispatchPasteEvent(
-          editorView,
-          {
-            plain:
-              'https://news.ycombinator.com/item?id=29219042 news.ycombinator.com some random text https://news.ycombinator.com/item?id=29217810 www.google.com arstnaorset arosent',
-          },
-          { shift: true },
-        );
-
-        expect(createAnalyticsEvent).toBeCalledWith(
-          expect.objectContaining({
-            attributes: expect.objectContaining({
-              linksInPasteCount: 0,
-            }),
-          }),
-        );
-      });
-    });
-  });
-
   describe('Plain text paste', () => {
     it('should paste correct number of slashes', () => {
-      const { editorView } = editor(doc(p('{<>}')), {
-        plainTextPasteLinkification: false,
-      });
+      const { editorView } = editor(doc(p('{<>}')));
 
       const pasteContent =
         '\\ test \\ \n' +

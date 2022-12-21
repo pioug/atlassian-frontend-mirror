@@ -53,6 +53,7 @@ const flexJustifyContentMap = {
   flexEnd: css({ justifyContent: 'flex-end' }),
   start: css({ justifyContent: 'start' }),
   end: css({ justifyContent: 'end' }),
+  spaceBetween: css({ justifyContent: 'space-between' }),
 };
 
 type FlexWrap = keyof typeof flexWrapMap;

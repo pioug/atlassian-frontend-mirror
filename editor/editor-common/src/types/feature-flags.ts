@@ -272,13 +272,6 @@ export type FeatureFlags = {
   saferDispatchedTransactions?: boolean;
 
   /**
-   * Create non-smart hyperlinks on plain text paste (Cmd/Ctrl+Shift+v)
-   * @see https://product-fabric.atlassian.net/browse/EDM-2492
-   * @default false
-   */
-  plainTextPasteLinkification?: boolean;
-
-  /**
    * @description
    * Enable new collab service
    * @see https://product-fabric.atlassian.net/browse/ED-14097
@@ -376,6 +369,36 @@ export type FeatureFlags = {
    * @default null
    */
   floatingToolbarLinkSettingsButton?: string;
+
+  /**
+   * @description
+   * Allow numbered lists to start from any number greater than 0, not just 1
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3257270398/MAKE+PP+Restart+Numbered+Lists
+   * @see https://product-fabric.atlassian.net/browse/ED-15210
+   * @default false
+   */
+  restartNumberedLists?: boolean;
+
+  /**
+   * @description
+   * Allow lists to continue their numbering when split by other nodes
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3257270398/MAKE+PP+Restart+Numbered+Lists
+   * @see https://product-fabric.atlassian.net/browse/ED-15210
+   * @default false
+   */
+  listNumberContinuity?: boolean;
+
+  /**
+   * @description
+   * Show a toolbar for users to restart the numbering of a list
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3257270398/MAKE+PP+Restart+Numbered+Lists
+   * @see https://product-fabric.atlassian.net/browse/ED-15210
+   * @default false
+   */
+  restartNumberedListsToolbar?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

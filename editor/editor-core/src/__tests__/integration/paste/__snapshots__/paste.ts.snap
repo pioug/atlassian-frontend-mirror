@@ -33,6 +33,145 @@ Object {
 }
 `;
 
+exports[`paste.ts: decision item copied from renderer and pasted 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "xx",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "DECIDED",
+          },
+          "content": Array [
+            Object {
+              "text": "Decision 1",
+              "type": "text",
+            },
+          ],
+          "type": "decisionItem",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "DECIDED",
+          },
+          "content": Array [
+            Object {
+              "text": "Decision 2",
+              "type": "text",
+            },
+          ],
+          "type": "decisionItem",
+        },
+      ],
+      "type": "decisionList",
+    },
+    Object {
+      "attrs": Object {
+        "level": 3,
+      },
+      "content": Array [
+        Object {
+          "text": "h3",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`paste.ts: inline card copied from renderer and pasted 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is an inline card",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "data": null,
+            "url": "https://inlineCardTestUrl",
+          },
+          "type": "inlineCard",
+        },
+        Object {
+          "text": ". This is end of sentence.",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`paste.ts: media inline card copied from renderer and pasted 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is an media inline card",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "image/jpeg",
+            "__fileName": "tall_image.jpeg",
+            "__fileSize": 58705,
+            "alt": "",
+            "collection": "MediaServicesSample",
+            "height": null,
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "mediaInline",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "level": 3,
+      },
+      "content": Array [
+        Object {
+          "text": "h3",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`paste.ts: paste code with new lines into code block. ensure up arrow is working 1`] = `
 Object {
   "content": Array [
@@ -227,40 +366,6 @@ Object {
 }
 `;
 
-exports[`paste.ts: paste tests on fullpage editor: hyperlink 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "This is the ",
-          "type": "text",
-        },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
-                "__confluenceMetadata": null,
-                "href": "https://www.atlassian.com",
-              },
-              "type": "link",
-            },
-          ],
-          "text": "selected text",
-          "type": "text",
-        },
-        Object {
-          "text": " here",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
 exports[`paste.ts: paste tests on fullpage editor: ordered list 1`] = `
 Object {
   "content": Array [
@@ -387,60 +492,6 @@ Object {
       "content": Array [
         Object {
           "text": "This text is plain.",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`paste.ts: paste tests on fullpage editor: plain text with leading and trailing whitespaces and newlines 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "  text with 2 leading whitespaces",
-          "type": "text",
-        },
-        Object {
-          "type": "hardBreak",
-        },
-        Object {
-          "text": "  text with 2 leading and trailing whitespaces  ",
-          "type": "text",
-        },
-        Object {
-          "type": "hardBreak",
-        },
-        Object {
-          "text": "text with 2 trailing whitespaces  ",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "text": "  text with leading tab and 2 trailing whitespaces  ",
-          "type": "text",
-        },
-        Object {
-          "type": "hardBreak",
-        },
-        Object {
-          "text": "  text with leading and trailing tab  ",
-          "type": "text",
-        },
-        Object {
-          "type": "hardBreak",
-        },
-        Object {
-          "text": "text with 2 trailing whitespaces  ",
           "type": "text",
         },
       ],

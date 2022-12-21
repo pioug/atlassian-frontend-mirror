@@ -36,11 +36,11 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.4.0",
+    "@atlaskit/button": "^16.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/section-message": "^6.3.0",
-    "@atlaskit/spinner": "^15.2.0",
+    "@atlaskit/spinner": "^15.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.6.0",
     "@atlaskit/visual-regression": "*",

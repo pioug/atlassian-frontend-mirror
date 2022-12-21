@@ -120,7 +120,10 @@ export const HeaderButton = (props: ThemeProps, cssString?: string) => css`
 
   .active .${ClassName.CONTROLS_BUTTON} {
     color: ${token('color.icon.inverse', N0)};
-    background-color: ${tableToolbarSelectedColor};
+    background-color: ${token(
+      'color.background.selected',
+      tableToolbarSelectedColor,
+    )};
     border-color: ${tableBorderSelectedColor};
   }
 `;
@@ -128,7 +131,10 @@ export const HeaderButton = (props: ThemeProps, cssString?: string) => css`
 export const HeaderButtonHover = () => css`
   .${ClassName.CONTROLS_BUTTON}:hover {
     color: ${token('color.icon.inverse', N0)};
-    background-color: ${tableToolbarSelectedColor};
+    background-color: ${token(
+      'color.background.selected',
+      tableToolbarSelectedColor,
+    )};
     border-color: ${tableBorderSelectedColor};
     cursor: pointer;
   }
@@ -136,7 +142,10 @@ export const HeaderButtonHover = () => css`
 
 export const HeaderButtonDanger = () => css`
   .${ClassName.HOVERED_CELL_IN_DANGER} .${ClassName.CONTROLS_BUTTON} {
-    background-color: ${tableToolbarDeleteColor};
+    background-color: ${token(
+      'color.background.danger',
+      tableToolbarDeleteColor,
+    )};
     border-color: ${tableBorderDeleteColor};
     position: relative;
     z-index: ${akEditorUnitZIndex};
@@ -291,7 +300,10 @@ const columnHeaderButton = (props: ThemeProps, cssString?: string) => css`
 
 const columnHeaderButtonSelected = css`
   color: ${token('color.text.inverse', N0)};
-  background-color: ${tableToolbarSelectedColor};
+  background-color: ${token(
+    'color.background.selected',
+    tableToolbarSelectedColor,
+  )};
   border-color: ${tableBorderSelectedColor};
   z-index: ${columnControlsSelectedZIndex};
 `;
@@ -370,7 +382,10 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
 
       &.${ClassName.HOVERED_CELL_IN_DANGER}
         .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-        background-color: ${tableToolbarDeleteColor};
+        background-color: ${token(
+          'color.background.danger',
+          tableToolbarDeleteColor,
+        )};
         border: 1px solid ${tableBorderDeleteColor};
         border-bottom: none;
         z-index: ${akEditorUnitZIndex * 100};

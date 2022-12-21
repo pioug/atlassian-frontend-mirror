@@ -17,6 +17,9 @@ import SelectPopupModalExample from '../../examples/constellation/select-popup-i
 import SelectAppearanceDefault from '../../examples/constellation/select-appearance-default';
 import SelectAppearanceSubtle from '../../examples/constellation/select-appearance-subtle';
 import SelectAppearanceNone from '../../examples/constellation/select-appearance-none';
+import SelectIndicatorsClear from '../../examples/constellation/select-indicators-clear';
+import SelectIndicatorsDropdown from '../../examples/constellation/select-indicators-dropdown';
+import SelectIndicatorsLoading from '../../examples/constellation/select-indicators-loading';
 
 ## Single select
 
@@ -117,3 +120,30 @@ Use `AsyncCreatableSelect` to allow users to create new options asynchronously.
 For example, execute async calls before creating the option.
 
 <Example Component={SelectAsyncCreatable} packageName="@atlaskit/select" />
+
+## Customization
+
+The following components are customizable and switchable:
+
+### ClearIndicator
+
+The indicator is presented to clear the values from a multi-select. The default component is a cross. The indicator will not render when:
+
+1. `isClearable` is false, or `isMulti` is false and `isClearable` is undefined
+2. the select is disabled
+3. the select has no value
+4. the select is loading
+
+<Example Component={SelectIndicatorsClear} packageName="@atlaskit/select" />
+
+### DropdownIndicator
+
+The indicator for opening the `Select` is designed to indicate to users that this is a `Select` component. By default, it is a chevron pointed down, but in this example we have replaced it with an emoji.
+
+<Example Component={SelectIndicatorsDropdown} packageName="@atlaskit/select" />
+
+### LoadingIndicator
+
+Loading indicator to be displayed in the Indicators Container when isLoading is true.
+
+<Example Component={SelectIndicatorsLoading} packageName="@atlaskit/select" />

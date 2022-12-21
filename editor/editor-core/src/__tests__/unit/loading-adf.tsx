@@ -187,6 +187,8 @@ const invalidReferenceAdfUnloadable = [
   'invalid/listItem-with-list-as-first-child.json',
   'invalid/table-with-nested-table.json',
   'invalid/table-without-cells.json',
+  'invalid/mediaSingle-with-empty-attrs.json',
+  'invalid/mediaSingle-with-empty-content.json',
 ];
 
 const invalidReferenceAdfEmptyDocument = ['invalid/doc-without-version.json'];

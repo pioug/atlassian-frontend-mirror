@@ -21,6 +21,7 @@ export interface Props {
   width?: number;
   filterOption?: ((option: SelectOption, rawInput: string) => boolean) | null;
   setDisableParentScroll?: (disable: boolean) => void;
+  ariaLabel?: string;
 }
 
 export default function Search(props: Props) {
@@ -31,8 +32,15 @@ export default function Search(props: Props) {
     () => ({
       container: (base: any) => ({ ...base, width }),
       menuPortal: (base: any) => {
+        // ED:16095: We add two possible getter paths for safely reaching into the underlying
+        // react-select element. We first try a getter that conforms with react-select v5 APIs,
+        // Failing that, we try a getter consistent with react-select v4 APIs. (We
+        // handle both as consumers may control the time of the actual dependency version
+        // cutover).
         const controlWrapper =
-          selectRef?.current?.select.select.controlRef.parentNode;
+          selectRef?.current?.select?.controlRef?.parentNode ||
+          selectRef?.current?.select?.select?.controlRef?.parentNode;
+
         const menuPortalStyles =
           controlWrapper && props.setDisableParentScroll
             ? {
@@ -79,6 +87,7 @@ export default function Search(props: Props) {
       menuPortalTarget={props.mountPoint}
       onMenuOpen={onMenuOpen}
       onMenuClose={onMenuClose}
+      aria-label={props.ariaLabel}
     />
   );
 }

@@ -449,7 +449,7 @@ describe('FileCardImageView', () => {
     expect(card.find(CardActions)).toHaveLength(1);
     expectToEqual(card.find(CardActions).props(), {
       actions: actions!,
-      triggerColor: 'white',
+      triggerColor: 'var(--ds-icon-inverse, white)',
     });
   });
 

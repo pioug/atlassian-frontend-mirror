@@ -219,6 +219,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
             className = '',
             height,
             width,
+            zIndex,
             offset = [0, 12],
             forcePlacement,
             onPositionCalculated,
@@ -275,6 +276,7 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
                 fitWidth={width}
                 alignX={align}
                 stick={true}
+                zIndex={zIndex}
                 mountTo={popupsMountPoint}
                 boundariesElement={popupsBoundariesElement}
                 scrollableElement={popupsScrollableElement}

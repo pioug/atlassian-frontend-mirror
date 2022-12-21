@@ -3,6 +3,7 @@ import React, {
   ReactNode,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -30,13 +31,23 @@ type RegisterField = <FieldValue>(
   config: FieldConfig<FieldValue>,
 ) => Unsubscribe;
 
+type GetCurrentValue = <FormValues>(
+  name: string,
+) => FormValues[keyof FormValues] | undefined;
+
 /**
  * __Form context__
  *
  * A form context creates a context for the field values and allows them to be accessed by the children.
  */
-export const FormContext = createContext<RegisterField>(function () {
-  return () => {};
+export const FormContext = createContext<{
+  registerField: RegisterField;
+  getCurrentValue: GetCurrentValue;
+}>({
+  registerField: function () {
+    return () => {};
+  },
+  getCurrentValue: () => undefined,
 });
 
 /**
@@ -199,8 +210,24 @@ export default function Form<FormValues extends Record<string, any> = {}>(
   const { isDisabled = false, children } = props;
   const { dirty, submitting } = state;
 
+  /**
+   * This method is needed in FormContext to use it on the field level
+   * to check the current value of the field in case of the component re-mounting.
+   */
+  const getCurrentValue: GetCurrentValue = useCallback(
+    (name) => {
+      const formState = form.getState();
+      return formState?.values[name] || undefined;
+    },
+    [form],
+  );
+
+  const FormContextValue = useMemo(() => {
+    return { registerField, getCurrentValue };
+  }, [registerField, getCurrentValue]);
+
   return (
-    <FormContext.Provider value={registerField}>
+    <FormContext.Provider value={FormContextValue}>
       <IsDisabledContext.Provider value={isDisabled}>
         {children({
           formProps: {

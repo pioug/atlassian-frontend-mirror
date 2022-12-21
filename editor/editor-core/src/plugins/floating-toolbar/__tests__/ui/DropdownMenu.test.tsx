@@ -4,6 +4,7 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ButtonItem } from '@atlaskit/menu';
 import DropdownMenu from '../../ui/DropdownMenu';
 import { DropdownOptionT } from '../../ui/types';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 describe('<DropdownMenu />', () => {
   it('should wrap item inside a <Tooltip /> when tooltip option is present', () => {
@@ -34,5 +35,49 @@ describe('<DropdownMenu />', () => {
     expect(
       dropdownMenu.find(Tooltip).find(ButtonItem).prop('children'),
     ).toEqual('item with tooltip');
+  });
+
+  it('should trigger mouse events when mouse interact with the menu item', async () => {
+    const dispatchCommand = (command: Function) => {
+      return command();
+    };
+    const mockMouseEnter = jest.fn();
+    const mockMouseOver = jest.fn();
+    const mockMouseLeave = jest.fn();
+
+    const menuItemTestId = 'test-menu-item';
+    const items: Array<DropdownOptionT<Function>> = [
+      {
+        testId: menuItemTestId,
+        onClick: jest.fn(),
+        onMouseEnter: mockMouseEnter,
+        onMouseOver: mockMouseOver,
+        onMouseLeave: mockMouseLeave,
+        title: 'Test Menu Item',
+      },
+    ];
+
+    const dropdownMenu = mountWithIntl(
+      <DropdownMenu
+        hide={jest.fn().mockReturnValue(false)}
+        dispatchCommand={dispatchCommand}
+        items={items}
+      />,
+    );
+    await flushPromises();
+
+    const menuItem = dropdownMenu.find(
+      `button[data-testid="${menuItemTestId}"]`,
+    );
+    expect(menuItem).toHaveLength(1);
+
+    menuItem.simulate('mouseenter');
+    expect(mockMouseEnter).toHaveBeenCalledTimes(1);
+
+    menuItem.simulate('mouseover');
+    expect(mockMouseOver).toHaveBeenCalledTimes(1);
+
+    menuItem.simulate('mouseleave');
+    expect(mockMouseLeave).toHaveBeenCalledTimes(1);
   });
 });

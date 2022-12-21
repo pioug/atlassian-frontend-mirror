@@ -31,7 +31,7 @@ const providerStyles = css`
 `;
 
 /**
- * This Components is a footer that is used in a Block Card with Flexible UI.
+ * This Component is a footer that is used in a Block Card with Flexible UI.
  * It contains a provider icon if provider is present and an actions list if one is passed.
  * To be shown as a part of Flexible UI, needs to be wrapped inside of a CustomBlock
  *

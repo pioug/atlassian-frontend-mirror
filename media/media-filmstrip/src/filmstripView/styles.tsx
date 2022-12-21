@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { N20, N40, B400, B50 } from '@atlaskit/theme/colors';
 
@@ -44,26 +45,29 @@ export const arrowWrapperStyles = css`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: ${N20};
+  background-color: ${token('elevation.surface.overlay', N20)};
   border-radius: 100%;
   display: flex;
   cursor: pointer;
   transition: opacity 0.3s;
-  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.6);
-  color: black;
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    '0 1px 6px 0 rgba(0, 0, 0, 0.6)',
+  )};
+  color: ${token('color.icon', 'black')};
   width: 30px;
   height: 30px;
   justify-content: center;
   opacity: 0;
 
   &:hover {
-    color: black;
-    background-color: ${N40};
+    color: ${token('color.text.subtle', 'black')};
+    background-color: ${token('elevation.surface.overlay.hovered', N40)};
   }
 
   &:active {
-    color: ${B400};
-    background-color: ${B50};
+    color: ${token('color.text.selected', B400)};
+    background-color: ${token('color.background.selected', B50)};
   }
 
   svg {
@@ -93,7 +97,7 @@ export const shadowStyles = css`
   height: 100%;
   top: 0;
   width: 2px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: ${token('color.border', 'rgba(0, 0, 0, 0.2)')};
 `;
 
 export const shadowLeftStyles = css`

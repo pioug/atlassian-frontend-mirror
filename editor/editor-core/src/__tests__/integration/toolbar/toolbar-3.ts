@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   getDocFromElement,

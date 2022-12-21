@@ -7,37 +7,47 @@ import { css, jsx } from '@emotion/react';
 import { Color as ColorType } from '../Status';
 import Color from './color';
 
-// color value, label, background, borderColor
-const palette: [ColorType, string, string][] = [
+const palette: [
+  colorValue: ColorType,
+  backgroundColor: string,
+  borderColor: string,
+  iconColor: string,
+][] = [
   [
     'neutral',
     token('color.background.neutral', colors.N40),
-    token('color.text', colors.N400),
+    token('color.border.bold', colors.N400),
+    token('color.icon', colors.N400),
   ],
   [
     'purple',
     token('color.background.discovery', colors.P50),
-    token('color.text.discovery', colors.P400),
+    token('color.border.discovery', colors.P400),
+    token('color.icon.discovery', colors.P400),
   ],
   [
     'blue',
     token('color.background.information', colors.B50),
-    token('color.text.information', colors.B400),
+    token('color.border.information', colors.B400),
+    token('color.icon.information', colors.B400),
   ],
   [
     'red',
     token('color.background.danger', colors.R50),
-    token('color.text.danger', colors.R400),
+    token('color.border.danger', colors.R400),
+    token('color.icon.danger', colors.R400),
   ],
   [
     'yellow',
     token('color.background.warning', colors.Y50),
-    token('color.text.warning', colors.Y400),
+    token('color.border.warning', colors.Y400),
+    token('color.icon.warning', colors.Y400),
   ],
   [
     'green',
     token('color.background.success', colors.G50),
-    token('color.text.success', colors.G400),
+    token('color.border.success', colors.G400),
+    token('color.icon.success', colors.G400),
   ],
 ];
 
@@ -132,21 +142,24 @@ export default ({
       style={{ maxWidth: cols * 32 }}
       onKeyDown={memoizedHandleKeyDown}
     >
-      {palette.map(([colorValue, backgroundColor, borderColor], i) => {
-        return (
-          <Color
-            key={colorValue}
-            value={colorValue}
-            backgroundColor={backgroundColor}
-            borderColor={borderColor}
-            onClick={onClick}
-            onHover={onHover}
-            isSelected={colorValue === selectedColor}
-            tabIndex={colorValue === selectedColor ? 0 : -1}
-            setRef={(el) => (colorRefs.current[i] = el)}
-          />
-        );
-      })}
+      {palette.map(
+        ([colorValue, backgroundColor, borderColor, iconColor], i) => {
+          return (
+            <Color
+              key={colorValue}
+              value={colorValue}
+              backgroundColor={backgroundColor}
+              borderColor={borderColor}
+              iconColor={iconColor}
+              onClick={onClick}
+              onHover={onHover}
+              isSelected={colorValue === selectedColor}
+              tabIndex={colorValue === selectedColor ? 0 : -1}
+              setRef={(el) => (colorRefs.current[i] = el)}
+            />
+          );
+        },
+      )}
     </div>
   );
 };

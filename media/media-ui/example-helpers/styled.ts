@@ -1,3 +1,5 @@
+import { token } from '@atlaskit/tokens';
+import { N900 } from '@atlaskit/theme/colors';
 import styled from '@emotion/styled';
 
 export const InputWrapper = styled.div`
@@ -16,7 +18,7 @@ export const PreviewInfo = styled.pre`
 
 export const PreviewItem = styled.li`
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid ${token('color.border', '#ccc')};
   padding: 10px;
   overflow: auto;
   max-height: 600px;
@@ -27,8 +29,8 @@ export const PreviewItem = styled.li`
 export const Code = styled.code`
   padding: 5px;
   border-radius: 5px;
-  background-color: #ccc;
-  color: white;
+  background-color: ${token('color.background.inverse.subtle', '#0002')};
+  color: ${token('color.text', N900)};
   font-size: 80%;
 `;
 

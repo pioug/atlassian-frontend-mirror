@@ -90,6 +90,7 @@ export default () => {
                   containerAri={`${Constants.ContainerAriPrefix}1`}
                   ari={`${Constants.AriPrefix}1`}
                   emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+                  allowUserDialog
                 />
               </div>
             </div>

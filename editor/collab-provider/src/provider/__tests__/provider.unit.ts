@@ -22,14 +22,12 @@ jest.mock('../../channel', () => {
 
   function Channel(config: any) {
     return {
-      getSocket: () => ({
-        emit: (event: string, ...args: any[]) => {
-          const handler = events.get(event);
-          if (handler) {
-            handler(...args);
-          }
-        },
-      }),
+      emit: (event: string, ...args: any[]) => {
+        const handler = events.get(event);
+        if (handler) {
+          handler(...args);
+        }
+      },
       on: jest
         .fn()
         .mockImplementation(function (this: any, eventName, callback) {
@@ -71,11 +69,10 @@ const testProviderConfig = {
 const clientId = 'some-random-prosmirror-client-Id';
 
 describe('provider unit tests', () => {
-  let socket: any;
+  let channel: any;
 
   beforeEach(() => {
-    const channel = new Channel({} as any);
-    socket = channel.getSocket()!;
+    channel = new Channel({} as any);
   });
 
   afterEach(jest.clearAllMocks);
@@ -144,7 +141,7 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('connected', { sid: 'sid-123' });
+      channel.emit('connected', { sid: 'sid-123' });
     });
 
     it('should emit init event', async (done) => {
@@ -165,8 +162,8 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('connected', { sid });
-      socket.emit('init', {
+      channel.emit('connected', { sid });
+      channel.emit('init', {
         doc: 'bla',
         version: 1,
         userId,
@@ -174,6 +171,58 @@ describe('provider unit tests', () => {
           title: 'some-random-title',
         },
       });
+    });
+
+    it('should emit events for restoration', async (done) => {
+      const triggerCollabAnalyticsEventSpy = jest.spyOn(
+        analytics,
+        'triggerCollabAnalyticsEvent',
+      );
+      const mockedMetadata = { b: 1 };
+      const mockedSteps = [{ type: 'fakeStep' }, { type: 'fakeStep' }];
+      const mockRestoreData = {
+        doc: { a: 1 },
+        version: 1,
+        userId: 'abc',
+        metadata: mockedMetadata,
+      };
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      jest
+        .spyOn(provider as any, 'getUnconfirmedSteps')
+        .mockImplementation(() => {
+          return {
+            steps: mockedSteps,
+          };
+        });
+      provider.initialize(() => editorState);
+      provider.on('init', (data) => {
+        expect(data).toEqual({
+          doc: mockRestoreData.doc,
+          version: mockRestoreData.version,
+          metadata: mockedMetadata,
+          reserveCursor: true,
+        });
+      });
+      provider.on('metadata:changed', (metadata) => {
+        expect(metadata).toEqual(mockedMetadata);
+      });
+      provider.on('local-steps', ({ steps }) => {
+        expect(steps).toEqual(mockedSteps);
+        // Event emmit is a sync operation, so put done here is enough.
+        expect(triggerCollabAnalyticsEventSpy).toBeCalledTimes(1);
+        expect(triggerCollabAnalyticsEventSpy).toBeCalledWith(
+          {
+            attributes: {
+              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+              numUnconfirmedSteps: 2,
+            },
+            eventAction: 'reinitialiseDocument',
+          },
+          undefined,
+        );
+        done();
+      });
+      channel.emit('restore', mockRestoreData);
     });
 
     it('should emit error and trigger catchup', () => {
@@ -192,7 +241,7 @@ describe('provider unit tests', () => {
 
       provider.initialize(() => editorState);
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR + 2; i++) {
-        socket.emit('error', stepRejectedError);
+        channel.emit('error', stepRejectedError);
       }
       expect(throttledCatchupSpy).toBeCalledTimes(3);
     });
@@ -206,13 +255,13 @@ describe('provider unit tests', () => {
         expect(left).toBe(undefined);
       });
       provider.initialize(() => editorState);
-      socket.emit('participant:updated', {
+      channel.emit('participant:updated', {
         sessionId: 'random-sessionId',
         timestamp: Date.now(),
         userId: 'blabla-userId',
         clientId: 'blabla-clientId',
       });
-      socket.emit('participant:updated', {
+      channel.emit('participant:updated', {
         sessionId: 'random-sessionId',
         timestamp: Date.now(),
         userId: 'blabla-userId',
@@ -231,18 +280,18 @@ describe('provider unit tests', () => {
         mockFn(reason, sid);
       });
       provider.initialize(() => editorState);
-      socket.emit('connected', { sid: 'sid-1' });
-      socket.emit('disconnect', { reason: 'transport close' });
-      socket.emit('connected', { sid: 'sid-2' });
-      socket.emit('disconnect', { reason: 'transport error' });
-      socket.emit('connected', { sid: 'sid-3' });
-      socket.emit('disconnect', { reason: 'ping timeout' });
-      socket.emit('connected', { sid: 'sid-4' });
-      socket.emit('disconnect', { reason: 'io client disconnect' });
-      socket.emit('connected', { sid: 'sid-5' });
-      socket.emit('disconnect', { reason: 'io server disconnect' });
-      socket.emit('connected', { sid: 'sid-6' });
-      socket.emit('disconnect', { reason: 'blah?' });
+      channel.emit('connected', { sid: 'sid-1' });
+      channel.emit('disconnect', { reason: 'transport close' });
+      channel.emit('connected', { sid: 'sid-2' });
+      channel.emit('disconnect', { reason: 'transport error' });
+      channel.emit('connected', { sid: 'sid-3' });
+      channel.emit('disconnect', { reason: 'ping timeout' });
+      channel.emit('connected', { sid: 'sid-4' });
+      channel.emit('disconnect', { reason: 'io client disconnect' });
+      channel.emit('connected', { sid: 'sid-5' });
+      channel.emit('disconnect', { reason: 'io server disconnect' });
+      channel.emit('connected', { sid: 'sid-6' });
+      channel.emit('disconnect', { reason: 'blah?' });
       expect(mockFn.mock.calls.length).toBe(6);
       expect(mockFn.mock.calls).toEqual([
         ['SOCKET_CLOSED', 'sid-1'],
@@ -265,7 +314,7 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('metadata:changed', {
+      channel.emit('metadata:changed', {
         title: 'some-random-title',
       });
     });
@@ -279,7 +328,7 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('metadata:changed', {
+      channel.emit('metadata:changed', {
         title: '',
       });
     });
@@ -294,7 +343,7 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('metadata:changed', {
+      channel.emit('metadata:changed', {
         editorWidth: 'full-page',
         version: 1,
       });
@@ -309,7 +358,7 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('metadata:changed', {
+      channel.emit('metadata:changed', {
         editorWidth: '',
       });
     });
@@ -331,7 +380,7 @@ describe('provider unit tests', () => {
         });
       });
       provider.initialize(() => editorState);
-      socket.emit('init', {
+      channel.emit('init', {
         doc: 'bla',
         version: 1,
         userId,
@@ -392,7 +441,7 @@ describe('provider unit tests', () => {
         });
 
         it('should use this window function', () => {
-          socket.emit('error', stepRejectedError);
+          channel.emit('error', stepRejectedError);
           expect(requestIdleCallbackMock).toHaveBeenCalled();
         });
 
@@ -401,7 +450,7 @@ describe('provider unit tests', () => {
             (cb as Function)(),
           );
 
-          socket.emit('error', stepRejectedError);
+          channel.emit('error', stepRejectedError);
           expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(
             1,
           );
@@ -410,7 +459,7 @@ describe('provider unit tests', () => {
 
       describe('and when requestIdleCallback is not available', () => {
         it('should use the requestAnimationFrame', () => {
-          socket.emit('error', stepRejectedError);
+          channel.emit('error', stepRejectedError);
           expect(window.requestAnimationFrame).toHaveBeenCalled();
         });
 
@@ -418,7 +467,7 @@ describe('provider unit tests', () => {
           (window.requestAnimationFrame as jest.Mock).mockImplementation((cb) =>
             (cb as Function)(),
           );
-          socket.emit('error', stepRejectedError);
+          channel.emit('error', stepRejectedError);
           expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(
             1,
           );
@@ -439,14 +488,14 @@ describe('provider unit tests', () => {
         });
         provider.initialize(() => editorState);
 
-        socket.emit('participant:updated', {
+        channel.emit('participant:updated', {
           sessionId: 'sessionId-1',
           timestamp: Date.now(),
           userId: 'userId-1',
           clientId: 'clientId-1',
         });
 
-        socket.emit('participant:updated', {
+        channel.emit('participant:updated', {
           sessionId: 'sessionId-2',
           timestamp: Date.now(),
           userId: 'userId-2',
@@ -507,7 +556,7 @@ describe('provider unit tests', () => {
         message: 'Unable to save into S3',
       };
       provider.initialize(() => editorState);
-      socket.emit('error', failedOnS3Error);
+      channel.emit('error', failedOnS3Error);
     });
 
     it('should emit failed_to_save dynamo errors to consumer', (done) => {
@@ -534,7 +583,7 @@ describe('provider unit tests', () => {
         message: 'failedOnDynamo',
       };
       provider.initialize(() => editorState);
-      socket.emit('error', failedOnDynamo);
+      channel.emit('error', failedOnDynamo);
     });
 
     it('should emit no permission errors to consumer', (done) => {
@@ -562,7 +611,7 @@ describe('provider unit tests', () => {
         message: 'No permission!',
       };
       provider.initialize(() => editorState);
-      socket.emit('error', noPermissionError);
+      channel.emit('error', noPermissionError);
     });
 
     it('should emit catchup failed errors to consumer', (done) => {
@@ -589,7 +638,7 @@ describe('provider unit tests', () => {
         message: 'Cannot fetch catchup from collab service',
       };
       provider.initialize(() => editorState);
-      socket.emit('error', catchupError);
+      channel.emit('error', catchupError);
     });
 
     it('should emit 404 errors to consumer', (done) => {
@@ -609,7 +658,7 @@ describe('provider unit tests', () => {
         done();
       });
       provider.initialize(() => editorState);
-      socket.emit('error', {
+      channel.emit('error', {
         data: {
           code: 'DOCUMENT_NOT_FOUND',
         },
@@ -625,7 +674,7 @@ describe('provider unit tests', () => {
       );
       const provider = createSocketIOCollabProvider(testProviderConfig);
       provider.initialize(() => editorState);
-      socket.emit('metadata:changed', {
+      channel.emit('metadata:changed', {
         title: "What's in a good title?",
       });
 
@@ -680,12 +729,16 @@ describe('provider unit tests', () => {
           origins: [1],
         },
       };
+      let triggerCollabAnalyticsEventSpy: jest.SpyInstance;
+      beforeEach(() => {
+        triggerCollabAnalyticsEventSpy = jest.spyOn(
+          analytics,
+          'triggerCollabAnalyticsEvent',
+        );
+        jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
+      });
 
       describe("should fail if can't sync up", () => {
-        beforeEach(() => {
-          jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
-        });
-
         it('should throw ', async () => {
           provider.initialize(() => newState);
 
@@ -694,7 +747,19 @@ describe('provider unit tests', () => {
           ).rejects.toThrowError(
             new Error("Can't sync up with Collab Service"),
           );
-
+          expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(1);
+          expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledWith(
+            {
+              eventAction: 'commitUnconfirmedSteps',
+              attributes: {
+                documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+                eventStatus: 'FAILURE',
+                numUnconfirmedSteps: 1,
+                latency: undefined, // undefined because performance API is not available in jest env
+              },
+            },
+            undefined,
+          );
           expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
         });
 
@@ -719,21 +784,53 @@ describe('provider unit tests', () => {
       });
 
       it('should return if it can sync up', async () => {
-        let called = 0;
+        const mockedSteps = [{ type: 'fakeStep' }];
         jest
           .spyOn(provider as any, 'sendStepsFromCurrentState')
-          .mockImplementation(() => {
-            if (called > 0) {
-              newState.collab.steps = [called + 1];
-              newState.collab.origins = [called + 1];
-            }
-
-            called++;
+          .mockImplementation(() => {});
+        jest
+          .spyOn(provider as any, 'getUnconfirmedSteps')
+          .mockImplementationOnce(() => {
+            return {
+              steps: mockedSteps,
+              origins: [1],
+            };
+          })
+          .mockImplementationOnce(() => {
+            return {
+              steps: [],
+            };
           });
         provider.initialize(() => editorState);
 
         const finalAck = await provider.getFinalAcknowledgedState();
 
+        expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(2);
+        expect(triggerCollabAnalyticsEventSpy).toHaveBeenNthCalledWith(
+          1,
+          {
+            eventAction: 'commitUnconfirmedSteps',
+            attributes: {
+              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+              eventStatus: 'SUCCESS',
+              numUnconfirmedSteps: 1,
+              latency: undefined, // undefined because performance API is not available in jest env
+            },
+          },
+          undefined,
+        );
+        expect(triggerCollabAnalyticsEventSpy).toHaveBeenNthCalledWith(
+          2,
+          {
+            eventAction: 'convertPMToADF',
+            attributes: {
+              documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+              eventStatus: 'SUCCESS',
+              latency: undefined, // undefined because performance API is not available in jest env
+            },
+          },
+          undefined,
+        );
         expect(finalAck).toEqual({
           stepVersion: 0,
           content: {
@@ -773,7 +870,7 @@ describe('provider unit tests', () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       provider.initialize(() => editorState);
 
-      socket.emit('init', {
+      channel.emit('init', {
         doc: 'document-content',
         version: 1,
         metadata: {
@@ -783,7 +880,7 @@ describe('provider unit tests', () => {
       await nextTick();
       await verifyMetadataTitle('original-title');
 
-      socket.emit('metadata:changed', {
+      channel.emit('metadata:changed', {
         title: 'new-title',
       });
       await nextTick();
@@ -852,7 +949,7 @@ describe('provider unit tests', () => {
 
       provider.initialize(() => editorState);
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
-        socket.emit('error', stepRejectedError);
+        channel.emit('error', stepRejectedError);
       }
 
       expect(throttledCatchupSpy).toBeCalledTimes(1);
@@ -861,7 +958,7 @@ describe('provider unit tests', () => {
       await new Promise(process.nextTick);
 
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
-        socket.emit('error', stepRejectedError);
+        channel.emit('error', stepRejectedError);
       }
 
       expect(throttledCatchupSpy).toBeCalledTimes(2);
@@ -891,7 +988,7 @@ describe('provider unit tests', () => {
 
       provider.initialize(() => editorState);
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
-        socket.emit('error', stepRejectedError);
+        channel.emit('error', stepRejectedError);
       }
 
       expect(throttledCatchupSpy).toBeCalledTimes(1);
@@ -908,7 +1005,7 @@ describe('provider unit tests', () => {
       );
 
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
-        socket.emit('error', stepRejectedError);
+        channel.emit('error', stepRejectedError);
       }
 
       expect(triggerCollabAnalyticsEvent).toBeCalledTimes(

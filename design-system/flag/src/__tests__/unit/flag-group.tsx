@@ -8,12 +8,14 @@ import FlagGroup from '../../flag-group';
 
 import { matchers } from '@emotion/jest';
 
+import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+
 expect.extend(matchers);
 
 describe('FlagGroup', () => {
   const generateFlag = (extraProps?: Partial<FlagProps>) => (
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <Flag id={''} icon={<div />} title="Flag" {...extraProps} />
+    <Flag id={''} icon={<Box />} title="Flag" {...extraProps} />
   );
 
   beforeEach(() => {
@@ -241,14 +243,14 @@ describe('FlagGroup', () => {
     const spy = jest.fn();
     const { getByTestId } = render(
       <FlagGroup>
-        <div>
+        <Box>
           {generateFlag({
             id: 'a',
             testId: 'a',
             onDismissed: spy,
           })}
-        </div>
-        <div>{generateFlag({ id: 'b' })}</div>
+        </Box>
+        <Box>{generateFlag({ id: 'b' })}</Box>
       </FlagGroup>,
     );
 

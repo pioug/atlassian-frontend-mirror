@@ -23,6 +23,10 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 
   getContentDOM() {
     const dom = document.createElement('div');
+    // setting a className prevents PM/Chrome mutation observer from
+    // incorrectly deleting nodes
+    dom.className = 'caption-wrapper';
+
     return { dom };
   }
 

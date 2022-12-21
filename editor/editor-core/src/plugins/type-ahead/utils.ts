@@ -48,6 +48,7 @@ export const isTypeAheadHandler = (
   );
 };
 
+/** Is a typeahead plugin open? */
 export const isTypeAheadOpen = (editorState: EditorState) => {
   return (
     typeAheadPluginKey?.getState(editorState)?.decorationSet?.find().length > 0
@@ -142,7 +143,7 @@ export const moveSelectedIndex =
       nextIndex = selectedIndex >= items.length - 1 ? 0 : selectedIndex + 1;
     } else {
       stats.increaseArrowUp();
-      nextIndex = selectedIndex === 0 ? items.length - 1 : selectedIndex - 1;
+      nextIndex = selectedIndex <= 0 ? items.length - 1 : selectedIndex - 1;
     }
 
     updateSelectedIndex(nextIndex)(editorView.state, editorView.dispatch);

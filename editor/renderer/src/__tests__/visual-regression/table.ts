@@ -283,22 +283,25 @@ describe('Snapshot Test: triple click selection', () => {
       // This test is to document existing behaviour. Once fixed, update this test.
       expectedSelectionDescription: `from first paragraph above panel to first paragraph inside panel`,
     },
-    {
-      fixtureTableCellRow: 4,
-      fixtureTableCellCol: 1,
-      fixtureTableCellType: `cell`,
-      // We hook into lower-level page.mouse.click path to try to avoid the scrollIntoViewIfNeeded puppeteer
-      // path, which seems to cause flakiness errors (Node is detached from document)
-      clickTargetClickPos: `top left`,
-      clickTargetAdjustPx: 5,
-      clickTargetSelector: `${codeBlockSelectors.codeBlock} code span:nth-of-type(2)`,
-      clickTargetDescription: `first line in codeblock`,
-      expectedSelectionStartSelector: `${codeBlockSelectors.codeBlock} code span:nth-of-type(2)`,
-      expectedSelectionEndSelector: `${codeBlockSelectors.codeBlock} code span:nth-of-type(3)`,
-      // Selection ending in the next line-number instead of in the same line of text is probably unwanted behaviour,
-      // but we haven't fixed this yet. This test is to document existing behaviour. Once fixed, update this test.
-      expectedSelectionDescription: `from line of codeblock to next line number of codeblock`,
-    },
+
+    // NOTE: The below test has been disabled as it requires custom logic for testing.
+    // see see https://product-fabric.atlassian.net/browse/DSP-6360
+    // {
+    //   fixtureTableCellRow: 4,
+    //   fixtureTableCellCol: 1,
+    //   fixtureTableCellType: `cell`,
+    //   // We hook into lower-level page.mouse.click path to try to avoid the scrollIntoViewIfNeeded puppeteer
+    //   // path, which seems to cause flakiness errors (Node is detached from document)
+    //   clickTargetClickPos: `top left`,
+    //   clickTargetAdjustPx: 5,
+    //   clickTargetSelector: `${codeBlockSelectors.codeBlock} code span:nth-of-type(2)`,
+    //   clickTargetDescription: `first line in codeblock`,
+    //   expectedSelectionStartSelector: `${codeBlockSelectors.codeBlock} code span:nth-of-type(2)`,
+    //   expectedSelectionEndSelector: `${codeBlockSelectors.codeBlock} code span:nth-of-type(3)`,
+    //   // Selection ending in the next line-number instead of in the same line of text is probably unwanted behaviour,
+    //   // but we haven't fixed this yet. This test is to document existing behaviour. Once fixed, update this test.
+    //   expectedSelectionDescription: `from line of codeblock to next line number of codeblock`,
+    // },
     {
       fixtureTableCellRow: 4,
       fixtureTableCellCol: 1,
@@ -434,6 +437,7 @@ describe('Snapshot Test: triple click selection', () => {
               expectedSelectionStart?.contains(anchorNode);
             const selectionEndsInExpectedSelection =
               expectedSelectionEnd?.contains(focusNode);
+
             return {
               type,
               selectionStartsInTableCell,
@@ -455,4 +459,57 @@ describe('Snapshot Test: triple click selection', () => {
       });
     },
   );
+
+  /**
+   * The below test is a replacement for the above test (which was disabled)
+   * This is a result of the the line numbers changing to float left,
+   * see https://product-fabric.atlassian.net/browse/DSP-6360
+   *
+   * The reason for this; window.getSelection() behaviour changes when content is floated. This causes "focusNode" to
+   * return "last code line" text node, when previously it would return the line number 2 span.
+   * The problem is the "last code line" is a text node and cannot be queried via selectors; and the 'expectedSelectionEndSelector' query
+   * returns the same node (span line 2) regardless of whether it floats or not.
+   */
+  it(`on triple-clicking first line in codeblock in table cell (row: 4, col: 1), it should select from line of codeblock to next line number of codeblock inside table cell`, async () => {
+    await initRenderer(
+      page,
+      tableComplexSelectionsAdf,
+      undefined,
+      undefined,
+      true,
+      { height: 700, width: 700 },
+    );
+
+    await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
+
+    const codeBlockSelector = `tr:nth-of-type(4) td:nth-of-type(1) ${codeBlockSelectors.codeBlock} code`;
+    const rect = await getBoundingClientRect(
+      page,
+      `${codeBlockSelector} span:nth-of-type(2)`,
+    );
+    const px: number = 5;
+    await page.mouse.click(rect.left + px, rect.top + px, {
+      clickCount: 3,
+    });
+
+    const { collapsed, selectionInsideCodeBlock, selectionText } =
+      await page.evaluate((selectorCodeBlock) => {
+        // We'll use range here because it doesn't care about selection directionality.
+        const selection = window.getSelection();
+        const range = selection?.getRangeAt(0);
+        const codeBlock = document.querySelector(selectorCodeBlock);
+
+        return {
+          collapsed: range?.collapsed,
+          selectionInsideCodeBlock:
+            range?.commonAncestorContainer === codeBlock ?? false,
+          selectionText: selection?.toString(),
+        };
+      }, codeBlockSelector);
+
+    expect(collapsed).toBe(false);
+    expect(selectionInsideCodeBlock).toBe(true);
+    // NOTE: the selection text ends with "2", even though what is actually selected on screen doesn't contain it.
+    expect(selectionText).toBe('first code line\n2');
+  });
 });

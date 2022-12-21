@@ -1,5 +1,104 @@
 # @atlaskit/select
 
+## 16.0.0
+
+### Major Changes
+
+- [`95b3630e9b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95b3630e9b5) - Update `@atlaskit/select` to use react-select v5, and update types
+
+  Use forwardRef for all wrapped components - this means that if you were accessing anything on the Select instance using a ref, the ref will now reference the internal Select directly (see below for how to upgrade)
+
+  Replace HOCs with hooks - if you were using our HOCs to create custom Selects (i.e., makeCreatableSelect, manageState, makeAsyncSelect) these have now been replaced by hooks (i.e., useCreatable, useStateManager, useAsync)
+
+  Remove imports of `@types/react-select` - no longer required as react-select v5 now uses Typescript,
+
+  **_ Example _**
+
+  @atlaskit/select v15 and earlier:
+
+  ```javascript
+  import { makeAsyncSelect } from '@atlaskit/select';
+
+  const AsyncSelect = makeAsyncSelect(ProxyBaseSelect);
+
+  return (
+    <AsyncSelect ... />
+  )
+  ```
+
+  @atlaskit/select v16:
+
+  ```javascript
+  import Select, { useAsync } from '@atlaskit/select';
+
+  const asyncProps = useAsync({
+    promiseFn: useCallback(() => loadOptions(inputValue), [inputValue])
+  });
+
+  return (
+    <Select
+      inputValue={inputValue}
+      isLoading={asyncProps.isLoading}
+      options={!asyncProps.isLoading ? asyncProps.data : []}
+      ...
+    />
+  )
+  ```
+
+  Remove dependency on AutosizeInput - our new solution uses CSS grid which IE11 does not fully support; also .prefix\_\_input now targets the input and NOT the container
+
+  `IndicatorProps` is deprecated and replaced with `ClearIndicatorProps, DropdownIndicatorProps, LoadingIndicatorProps`. Examples can be viewed in the constellation docs
+
+  `onInputChange` now requires a 2nd argument of type `InputActionMeta`
+
+  `NoticeProps` should be used as the prop to customize `LoadingMessage` and `NoOptionsMessage` components
+
+- [`b8430db3873`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8430db3873) - "select package now uses declarative entry points. atlaskit/select now exports all necessary types. Consumers should now import directly from atlaskit/select, not from eg atlaskit/select/types"
+
+### Minor Changes
+
+- [`c55a340ea4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55a340ea4c) - Consumers using Popup Select custom modifiers will now have typescript errors. This is how to fix them.
+
+  Custom popper.js modifiers passed into Popup Select are now strictly typed, providing additional type safety and IDE code-completion.
+
+  To support this, a third generic for <PopupSelect/> has been added. This generic takes a union of the names of each modifier you include in popperProps.
+
+  If you currently set custom modifiers like this:
+
+  ```javascript
+  import {OptionType, PopupSelect} from '@atlaskit/select'
+
+  <PopupSelect<OptionType, false>
+    popperProps = {modifiers: [
+        {name: 'custom-modifier', ...},
+        {name: 'custom-modifier-2', ...}
+    ]}>
+    ...
+  </>
+  ```
+
+  In order to avoid type errors in the new release, you will need to add a generic to PopupSelect specifying the modifiers you are providing:
+
+  ```javascript
+  import {OptionType, PopupSelect} from '@atlaskit/select'
+  type myModifiers = 'custom-modifier' | 'custom-modifier-2'
+
+  <PopupSelect<OptionType, false, myModifiers>>
+  ```
+
+  In addition, the ModifierList type is now exported. ModifierList is a union type containing the names of the default modifiers passed into PopupSelect. If you need to use them as well:
+
+  ```javascript
+  import {OptionType, PopupSelect, ModifierList} from '@atlaskit/select'
+  type myModifiers = ModifierList | 'custom-modifier' | 'custom-modifier-2'
+
+  <PopupSelect<OptionType, false, myModifiers>>
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.7.7
 
 ### Patch Changes

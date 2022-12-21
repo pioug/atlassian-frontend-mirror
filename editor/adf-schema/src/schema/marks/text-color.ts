@@ -1,4 +1,7 @@
 import { Mark, MarkSpec } from 'prosemirror-model';
+
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
+
 import { COLOR } from '../groups';
 import {
   rgbToHex,
@@ -142,6 +145,14 @@ export const textColor: MarkSpec = {
           : false;
       },
     },
+    // This rule ensures when loading from a renderer or editor where the
+    // presented text color does not match the stored hex color -- that the
+    // text color is preserved.
+    //
+    // This was initially introduced to ensure text-color marks were not lost
+    // when text-color was used inside a link, and is now also used to support
+    // where the hex color stored in ADF is used as an ID for a design system
+    // token (and based on theme mode -- the presented color will change).
     {
       tag: '.fabric-text-color-mark',
       getAttrs: (maybeElement) => {
@@ -159,11 +170,16 @@ export const textColor: MarkSpec = {
     },
   ],
   toDOM(mark) {
+    // Note -- while there is no way to create custom colors using default tooling
+    // the editor does supported ad hoc color values -- and there may be content
+    // which has been migrated or created via apis which use such values.
+    const paletteColorValue =
+      hexToEditorTextPaletteColor(mark.attrs.color) || mark.attrs.color;
     return [
       'span',
       {
         class: 'fabric-text-color-mark',
-        style: `--custom-text-color: ${mark.attrs.color}`,
+        style: `--custom-palette-color: ${paletteColorValue}`,
         ['data-text-custom-color']: mark.attrs.color,
       },
     ];

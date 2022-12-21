@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 74.3.0
+
+### Minor Changes
+
+- [`6de3a9494a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6de3a9494a8) - [ux] Instrumented `@atlaskit/media-card` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`5eb06146a4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eb06146a4e) - Added support traceContext to be supplied to all request endpoint points.
+- Updated dependencies
+
 ## 74.2.0
 
 ### Minor Changes

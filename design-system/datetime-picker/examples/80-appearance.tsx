@@ -8,9 +8,13 @@ export default () => {
   return (
     <div>
       <Label htmlFor="react-select-time-default-no-icon--input">
-        TimePicker - default no icon
+        TimePicker - default
       </Label>
       <TimePicker id="time-default-no-icon" onChange={console.log} />
+      <Label htmlFor="react-select-time-hide-icon--input">
+        TimePicker - hide clear indicator icon
+      </Label>
+      <TimePicker id="date-hide-icon" onChange={console.log} hideIcon />
       <Label htmlFor="react-select-time-subtle--input">
         TimePicker - subtle appearance
       </Label>
@@ -42,6 +46,8 @@ export default () => {
       </Label>
       <TimePicker id="time-compact" onChange={console.log} spacing="compact" />
 
+      <br />
+
       <Label htmlFor="react-select-date-default--input">
         DatePicker - default
       </Label>
@@ -62,6 +68,8 @@ export default () => {
         DatePicker - compact spacing
       </Label>
       <DatePicker id="date-compact" onChange={console.log} spacing="compact" />
+
+      <br />
 
       <Label htmlFor="react-select-datetime-default--input">
         DateTimePicker - default

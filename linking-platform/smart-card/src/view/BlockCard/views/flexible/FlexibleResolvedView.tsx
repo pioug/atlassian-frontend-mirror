@@ -9,6 +9,7 @@ import {
 } from '../../../FlexibleCard/components/blocks';
 import {
   ActionName,
+  CardDisplay,
   ElementName,
   MediaPlacement,
   SmartLinkPosition,
@@ -95,7 +96,7 @@ const FlexibleResolvedView = ({
               analytics.operational.invokeSucceededEvent({
                 id: analyticsId,
                 actionType: 'preview',
-                display: 'block',
+                display: CardDisplay.Block,
               });
             },
           },
@@ -106,7 +107,7 @@ const FlexibleResolvedView = ({
               analytics.operational.invokeSucceededEvent({
                 id: analyticsId,
                 actionType: 'view',
-                display: 'block',
+                display: CardDisplay.Block,
               });
             },
           },
@@ -117,7 +118,7 @@ const FlexibleResolvedView = ({
               analytics.operational.invokeSucceededEvent({
                 id: analyticsId,
                 actionType: 'download',
-                display: 'block',
+                display: CardDisplay.Block,
               });
             },
           },

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 const style = `
@@ -22,6 +23,7 @@ export const errorIcon = (
         y2="200.15"
         gradientUnits="userSpaceOnUse"
       >
+        {/* TODO https://product-fabric.atlassian.net/browse/DSP-6955 */}
         <stop offset="0" stopColor="#ffd740" />
         <stop offset="1" stopColor="#ffab00" />
       </linearGradient>

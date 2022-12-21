@@ -3,7 +3,11 @@ import { JsonLd } from 'json-ld-types';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { extractType } from '@atlaskit/linking-common/extractors';
 import { ActionItem } from '../../../../FlexibleCard/components/blocks/types';
-import { ActionName, SmartLinkSize } from '../../../../../constants';
+import {
+  ActionName,
+  CardDisplay,
+  SmartLinkSize,
+} from '../../../../../constants';
 import {
   FooterBlock,
   MetadataBlock,
@@ -17,11 +21,7 @@ import {
 } from './styled';
 import FlexibleCard from '../../../../FlexibleCard';
 import { useSmartCardActions } from '../../../../../state/actions';
-import {
-  getSimulatedMetadata,
-  toActionableMetadata,
-  SMART_CARD_ANALYTICS_DISPLAY,
-} from '../../../utils';
+import { getSimulatedMetadata, toActionableMetadata } from '../../../utils';
 import { LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';
 import { CustomActionItem } from '../../../../FlexibleCard/components/blocks/types';
 import SnippetOrPreview from '../../SnippetOrPreview';
@@ -70,7 +70,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
     // Since this hover view is only rendered on resolved status,
     // there is no need to check for statuses.
     analytics.ui.renderSuccessEvent({
-      display: SMART_CARD_ANALYTICS_DISPLAY,
+      display: CardDisplay.HoverCardPreview,
       status: cardState.status,
     });
   }, [analytics.ui, cardState.status]);

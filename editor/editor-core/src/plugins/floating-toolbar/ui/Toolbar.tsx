@@ -561,6 +561,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
       return;
     }
     if (event.key === 'Escape') {
+      this.currentSelectedItemIndex = 0;
       this.props.editorView?.focus();
       event.preventDefault();
       event.stopPropagation();

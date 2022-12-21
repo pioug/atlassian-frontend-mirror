@@ -369,6 +369,7 @@ class Example extends React.Component<{}, State> {
           actions={hasActions ? actions : []}
           cardPreview={dataURI ? { dataURI, source: 'remote' } : undefined}
           dimensions={dimensions}
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           titleBoxBgColor={withBgColorAndIcon ? Y75 : undefined}
           titleBoxIcon={withBgColorAndIcon ? 'LockFilledIcon' : undefined}
           error={mediaCardErrorState(error)}

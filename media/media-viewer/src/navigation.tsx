@@ -1,9 +1,9 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { Component } from 'react';
 import { Identifier } from '@atlaskit/media-client';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/chevron-left-circle';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
-import { N800 } from '@atlaskit/theme/colors';
 import { hideControlsClassName } from '@atlaskit/media-ui';
 import Button from '@atlaskit/button/standard-button';
 import { Shortcut } from '@atlaskit/media-ui';
@@ -27,6 +27,7 @@ export type NavigationProps = Readonly<{
   items: Identifier[];
   selectedItem: Identifier;
   onChange: (item: Identifier) => void;
+  isArchiveSideBarVisible?: boolean;
 }> &
   WithAnalyticsEventsProps;
 
@@ -60,7 +61,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, isArchiveSideBarVisible } = this.props;
     const { selectedIndex } = this;
 
     if (selectedIndex === -1) {
@@ -75,7 +76,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 
     return (
       <ArrowsWrapper>
-        <LeftWrapper>
+        <LeftWrapper isArchiveSideBarVisible={!!isArchiveSideBarVisible}>
           {isLeftVisible ? (
             <Arrow className={hideControlsClassName}>
               <Shortcut keyCode={37} handler={prev('keyboard')} />
@@ -84,7 +85,10 @@ export class NavigationBase extends Component<NavigationProps, {}> {
                 onClick={prev('mouse')}
                 iconBefore={
                   <ArrowLeftCircleIcon
-                    primaryColor={N800}
+                    // DN800
+                    primaryColor="#9FADBC"
+                    // DN0
+                    secondaryColor="#161A1D"
                     size="xlarge"
                     label="Previous"
                   />
@@ -103,7 +107,10 @@ export class NavigationBase extends Component<NavigationProps, {}> {
                 onClick={next('mouse')}
                 iconBefore={
                   <ArrowRightCircleIcon
-                    primaryColor={N800}
+                    // DN800
+                    primaryColor="#9FADBC"
+                    // DN0
+                    secondaryColor="#161A1D"
                     size="xlarge"
                     label="Next"
                   />

@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 import React, { useState } from 'react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { N20, N30, N700 } from '@atlaskit/theme/colors';
 import { copyTextToClipboard } from '../utils/clipboard';
@@ -32,19 +32,28 @@ const copyButtonWrapperStyles = css`
     padding: 2px;
     opacity: 0;
     transition: opacity 0.2s ease 0s;
-    border: 2px solid ${token('color.border.inverse', '#fff')};
+    border: 2px solid ${token('color.border', '#fff')};
     border-radius: 4px;
-    background-color: ${token('color.background.neutral.subtle', N20)};
-    color: ${token('color.icon', 'rgb(66, 82, 110)')};
+    background-color: ${token('elevation.surface.overlay', N20)};
+    color: ${token('color.text', 'rgb(66, 82, 110)')} !important;
   }
 
   button:hover {
-    background-color: ${token('color.background.neutral.hovered', N30)};
+    border: 2px solid ${token('color.border', 'transparent')};
+    background-color: ${token('elevation.surface.overlay.hovered', N30)};
+  }
+
+  button:active {
+    border: 2px solid ${token('color.border', 'transparent')};
+    background-color: ${token('elevation.surface.overlay.pressed', N30)};
   }
 
   button.clicked {
-    background-color: ${token('color.background.neutral.bold.pressed', N700)};
-    color: ${token('color.icon.inverse', '#fff')} !important;
+    background-color: ${token('elevation.surface.overlay', N700)};
+    color: ${token('color.text', '#fff')} !important;
+  }
+  button.clicked:hover {
+    background-color: ${token('elevation.surface.overlay.hovered', N700)};
   }
 `;
 

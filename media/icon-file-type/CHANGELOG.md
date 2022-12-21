@@ -1,5 +1,20 @@
 # @atlaskit/icon-file-type
 
+## 6.3.6
+
+### Patch Changes
+
+- [`d2f7ffb6b78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2f7ffb6b78) - [ux] Updated the fill color of the following file icons to use new colors from the new color palette to avoid contrast issue in dark mode:
+
+  - archive
+  - excel-spreadsheet
+  - executable
+  - figma
+  - generic
+  - google-form
+  - presentation
+  - word-document
+
 ## 6.3.5
 
 ### Patch Changes

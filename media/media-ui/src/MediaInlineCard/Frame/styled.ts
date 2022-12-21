@@ -1,19 +1,18 @@
+import { token } from '@atlaskit/tokens';
 import styled from '@emotion/styled';
-import { B300, N30A, N40A, text } from '@atlaskit/theme/colors';
+import { B300, N30A, N40A, N900 } from '@atlaskit/theme/colors';
 import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
-import { themed } from '@atlaskit/theme/components';
 
 export interface WrapperProps {
   isSelected?: boolean;
 }
 
-const FONT_COLOR = text;
-// TODO: Dark mode background color to be added in the future.
-const BACKGROUND_COLOR_LIGHT = N30A;
+const FONT_COLOR = token('color.text', N900);
+const BACKGROUND_COLOR = token('color.background.neutral', N30A);
 
 const selected = `
   cursor: pointer;
-  box-shadow: 0 0 0 1px ${B300};
+  box-shadow: 0 0 0 1px ${token('color.border.selected', B300)};
   outline: none;
   user-select: none;
   border-color: transparent;
@@ -49,15 +48,13 @@ export const Wrapper = styled.span<WrapperProps>`
   display: inline;
   border-radius: ${akBorderRadius()}px;
   color: ${FONT_COLOR};
-  background-color: ${themed({
-    light: BACKGROUND_COLOR_LIGHT,
-  })};
+  background-color: ${BACKGROUND_COLOR};
   ${(props) => isSelected(props)};
   transition: 0.1s all ease-in-out;
   -moz-user-select: none;
   cursor: pointer;
 
   &:hover {
-    background-color: ${N40A};
+    background-color: ${token('color.background.neutral.hovered', N40A)};
   }
 `;

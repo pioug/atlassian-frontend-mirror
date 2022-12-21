@@ -211,8 +211,8 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
     quickInsert: ({ formatMessage }) => [
       {
         id: 'media',
-        title: formatMessage(messages.filesAndImages),
-        description: formatMessage(messages.filesAndImagesDescription),
+        title: formatMessage(messages.mediaFiles),
+        description: formatMessage(messages.mediaFilesDescription),
         priority: 400,
         keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video'],
         icon: () => <IconImages />,

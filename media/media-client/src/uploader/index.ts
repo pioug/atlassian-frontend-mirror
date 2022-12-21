@@ -6,7 +6,7 @@ import { createHasher } from '../utils/hashing/hasherCreator';
 import { UploaderError } from './error';
 import { CHUNK_SIZE, PROCESSING_BATCH_SIZE } from '../constants';
 import { calculateChunkSize, fileSizeError } from './calculateChunkSize';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import { getMediaFeatureFlag, MediaTraceContext } from '@atlaskit/media-common';
 
 // TODO: Allow to pass multiple files
 export type UploadableFile = {
@@ -42,14 +42,19 @@ const createProbingFunction =
     store: MediaStore,
     deferredUploadId: Promise<string>,
     collectionName?: string,
+    traceContext?: MediaTraceContext,
   ) =>
   async (chunks: Chunk[]): Promise<boolean[]> => {
-    const response = await store.probeChunks(hashedChunks(chunks), {
-      collectionName,
-      uploadId: getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
-        ? await deferredUploadId
-        : undefined,
-    });
+    const response = await store.probeChunks(
+      hashedChunks(chunks),
+      {
+        collectionName,
+        uploadId: getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
+          ? await deferredUploadId
+          : undefined,
+      },
+      traceContext,
+    );
     const results = response.data.results;
 
     return (Object as any).values(results).map((result: any) => result.exists);
@@ -60,22 +65,29 @@ const createUploadingFunction =
     store: MediaStore,
     deferredUploadId: Promise<string>,
     collectionName?: string,
+    traceContext?: MediaTraceContext,
   ) =>
   async (chunk: Chunk) => {
     const options = getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
       ? { partNumber: chunk.partNumber, uploadId: await deferredUploadId }
       : {};
 
-    return await store.uploadChunk(chunk.hash, chunk.blob, {
-      collectionName,
-      ...options,
-    });
+    return await store.uploadChunk(
+      chunk.hash,
+      chunk.blob,
+      {
+        collectionName,
+        ...options,
+      },
+      traceContext,
+    );
   };
 
 const createProcessingFunction = (
   store: MediaStore,
   deferredUploadId: Promise<string>,
   collection?: string,
+  traceContext?: MediaTraceContext,
 ) => {
   let offset = 0;
   return async (chunks: Chunk[]) => {
@@ -86,6 +98,7 @@ const createProcessingFunction = (
         offset,
       },
       collection,
+      traceContext,
     );
     offset += chunks.length;
   };
@@ -96,6 +109,7 @@ const createFileFromUpload = async (
   store: MediaStore,
   uploadableFileUpfrontIds: UploadableFileUpfrontIds,
   uploadId: string,
+  traceContext?: MediaTraceContext,
 ) => {
   const { collection, name, mimeType } = file;
   const { id, occurrenceKey } = uploadableFileUpfrontIds;
@@ -107,6 +121,7 @@ const createFileFromUpload = async (
       collection,
       replaceFileId: id,
     },
+    traceContext,
   );
 };
 
@@ -115,6 +130,7 @@ export const uploadFile = (
   store: MediaStore,
   uploadableFileUpfrontIds: UploadableFileUpfrontIds,
   callbacks?: UploadFileCallbacks,
+  traceContext?: MediaTraceContext,
 ): UploadFileResult => {
   const { content, collection } = file;
   const { deferredUploadId, id, occurrenceKey } = uploadableFileUpfrontIds;
@@ -155,17 +171,20 @@ export const uploadFile = (
         store,
         deferredUploadId,
         collection,
+        traceContext,
       ),
       probingFunction: createProbingFunction(
         store,
         deferredUploadId,
         collection,
+        traceContext,
       ),
       processingBatchSize: PROCESSING_BATCH_SIZE,
       processingFunction: createProcessingFunction(
         store,
         deferredUploadId,
         collection,
+        traceContext,
       ),
     },
     {
@@ -190,6 +209,7 @@ export const uploadFile = (
                 store,
                 uploadableFileUpfrontIds,
                 uploadId,
+                traceContext,
               ),
             ),
           ),

@@ -164,6 +164,7 @@ export const clearHoverSelection = () =>
         [],
         TableDecorations.ALL_CONTROLS_HOVER,
       ),
+      isInDanger: false,
     },
   }));
 

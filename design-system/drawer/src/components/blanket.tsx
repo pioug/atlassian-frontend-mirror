@@ -1,7 +1,11 @@
+/** @jsx jsx */
 import React from 'react';
+
+import { css, jsx } from '@emotion/react';
 
 import AkBlanket from '@atlaskit/blanket';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+import { layers } from '@atlaskit/theme/constants';
 
 import { animationTimingFunction, transitionDurationMs } from '../constants';
 
@@ -12,6 +16,14 @@ type BlanketProps = {
   ) => void;
   testId?: string;
 };
+
+/**
+ * The FadeIn opacity transition creates a new stacking context so we need ensure layering is the same as @atlaskit/blanket
+ */
+const stackingStyles = css({
+  position: 'relative',
+  zIndex: layers.blanket(),
+});
 
 /**
  * A wrapper around `@atlaskit/blanket` that adds a fade in/out transition.
@@ -36,7 +48,7 @@ const Blanket = ({ isOpen, onBlanketClicked, testId }: BlanketProps) => {
           animationTimingFunction={animationTimingFunction}
         >
           {({ className }) => (
-            <div className={className}>
+            <div className={className} css={stackingStyles}>
               <AkBlanket
                 isTinted
                 onBlanketClicked={onBlanketClicked}

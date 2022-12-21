@@ -33,19 +33,51 @@ import throttle from 'lodash/throttle';
 const HEADER_ROW_SCROLL_THROTTLE_TIMEOUT = 200;
 
 // timeout for resetting the scroll class - if it’s too long then users won’t be able to click on the header cells,
-// if too short it would trigger too many dom udpates.
+// if too short it would trigger too many dom updates.
 const HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT = 400;
 
+const anyChildCellMergedAcrossRow = (node: PmNode) =>
+  mapChildren(node, (child) => child.attrs.rowspan || 0).some(
+    (rowspan) => rowspan > 1,
+  );
+
+/**
+ * Compare two table row nodes and return true if the two table rows have a
+ * different number of table cells or if table cell row spans are different
+ */
+const rowHasDifferentMergedCells = (prevNode: PmNode, incomingNode: PmNode) => {
+  const incomingNodeChildrenRowSpan = mapChildren(
+    prevNode,
+    (child) => child.attrs.rowspan || 0,
+  );
+  const currentNodeChildrenRowSpan = mapChildren(
+    incomingNode,
+    (child) => child.attrs.rowspan || 0,
+  );
+
+  return (
+    incomingNodeChildrenRowSpan.length !== currentNodeChildrenRowSpan.length ||
+    currentNodeChildrenRowSpan.some(
+      (child, index) => child !== incomingNodeChildrenRowSpan[index],
+    )
+  );
+};
+
+/**
+ * Check if a given node is a header row with this definition:
+ *  - all children are tableHeader cells
+ *  - no table cells have been have merged with other table row cells
+ *
+ * @param node ProseMirror node
+ * @return boolean if it meets definition
+ */
 export const supportedHeaderRow = (node: PmNode) => {
   const allHeaders = mapChildren(
     node,
     (child) => child.type.name === 'tableHeader',
   ).every(Boolean);
 
-  const someMerged = mapChildren(
-    node,
-    (child) => child.attrs.rowspan || 0,
-  ).some((rowspan) => rowspan > 1);
+  const someMerged = anyChildCellMergedAcrossRow(node);
 
   return allHeaders && !someMerged;
 };
@@ -297,8 +329,8 @@ export class TableRowNodeView implements NodeView {
       { root: this.editorScrollableElement as Element },
     );
   }
-  /* paint/update loop */
 
+  /* paint/update loop */
   previousDomTop: number | undefined;
   previousPadding: number | undefined;
 
@@ -367,7 +399,6 @@ export class TableRowNodeView implements NodeView {
   };
 
   /* nodeview lifecycle */
-
   update(node: PmNode, ..._args: any[]) {
     // do nothing if nodes were identical
     if (node === this.node) {
@@ -376,9 +407,13 @@ export class TableRowNodeView implements NodeView {
 
     // see if we're changing into a header row or
     // changing away from one
-    const newNodeisHeaderRow = supportedHeaderRow(node);
-    if (this.isHeaderRow !== newNodeisHeaderRow) {
+    const newNodeIsHeaderRow = supportedHeaderRow(node);
+    if (this.isHeaderRow !== newNodeIsHeaderRow) {
       return false; // re-create nodeview
+    }
+
+    if (rowHasDifferentMergedCells(this.node, node)) {
+      return false;
     }
 
     // node is different but no need to re-create nodeview

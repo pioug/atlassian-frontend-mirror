@@ -1,5 +1,5 @@
 import { Auth, isClientBasedAuth } from '@atlaskit/media-core';
-
+import { MediaTraceContext } from '@atlaskit/media-common';
 import { mapAuthToQueryParameters } from '../../models/auth-query-parameters';
 import { RequestError, isRequestError } from './errors';
 
@@ -41,7 +41,29 @@ export function isRateLimitedError(error: Error | undefined) {
   );
 }
 
-export function mapAuthToRequestHeaders(auth: Auth): RequestHeaders {
+export const ZipkinHeaderKeys = {
+  traceId: 'x-b3-traceid',
+  spanId: 'x-b3-spanid',
+  parentSpanId: 'x-b3-parentspanid',
+  sampled: 'x-b3-sampled',
+  flags: 'x-b3-flags',
+};
+
+const mapTraceIdToRequestHeaders = (
+  traceContext?: Required<MediaTraceContext>,
+) => {
+  return traceContext
+    ? {
+        [ZipkinHeaderKeys.traceId]: traceContext.traceId,
+        [ZipkinHeaderKeys.spanId]: traceContext.spanId,
+      }
+    : {};
+};
+
+export function mapAuthToRequestHeaders(auth?: Auth): RequestHeaders {
+  if (!auth) {
+    return {};
+  }
   if (isClientBasedAuth(auth)) {
     return {
       'X-Client-Id': auth.clientId,
@@ -74,16 +96,19 @@ export function createUrl(
   return parsedUrl.toString();
 }
 
-export function withAuth(auth?: Auth) {
-  return (headers?: RequestHeaders): Record<string, string> | undefined => {
-    if (auth) {
-      return {
-        ...(headers || {}),
-        ...mapAuthToRequestHeaders(auth),
-      };
-    }
+export function extendHeaders(
+  headers?: RequestHeaders,
+  auth?: Auth,
+  traceContext?: Required<MediaTraceContext>,
+): RequestHeaders | undefined {
+  if (!auth && !traceContext && !headers) {
+    return undefined;
+  }
 
-    return headers;
+  return {
+    ...(headers ?? {}),
+    ...mapAuthToRequestHeaders(auth),
+    ...mapTraceIdToRequestHeaders(traceContext),
   };
 }
 

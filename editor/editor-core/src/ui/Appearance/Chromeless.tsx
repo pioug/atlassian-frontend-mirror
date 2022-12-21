@@ -34,6 +34,10 @@ const chromelessEditor = css`
     white-space: pre-wrap;
     padding: 0;
     margin: 0;
+
+    & > :last-child {
+      padding-bottom: 0.5em;
+    }
   }
 `;
 

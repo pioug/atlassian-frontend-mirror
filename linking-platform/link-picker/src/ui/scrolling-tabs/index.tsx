@@ -50,6 +50,8 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
     if (target) {
       target.scrollIntoView({
         behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
       });
     }
   }, []);

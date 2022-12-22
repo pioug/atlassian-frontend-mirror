@@ -35,9 +35,6 @@ export default {
     'Prøv igen med et andet ord.',
   'fabric.linkPicker.search.noResults.heading':
     'Vi kunne ikke finde noget, der opfylder dine søgekriterier.',
-  'fabric.linkPicker.time.ago': 'siden',
-  'fabric.linkPicker.time.updated': 'Opdateret for',
-  'fabric.linkPicker.time.viewed': 'Set for',
   'fabric.linkPicker.unhandledError.description': 'Prøv at genindlæse siden.',
   'fabric.linkPicker.unhandledError.heading': 'Noget gik galt!',
 };

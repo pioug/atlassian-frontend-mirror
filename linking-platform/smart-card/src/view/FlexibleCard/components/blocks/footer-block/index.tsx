@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { css, SerializedStyles } from '@emotion/react';
 import { FooterBlockProps } from './types';
 import {
@@ -39,7 +39,17 @@ const FooterBlock: React.FC<FooterBlockProps> = (props) => {
     actions,
     size = SmartLinkSize.Medium,
     testId = 'smart-footer-block',
+    onActionMenuOpenChange,
   } = props;
+
+  const onDropdownOpenChange = useCallback(
+    (isOpen) => {
+      if (onActionMenuOpenChange) {
+        onActionMenuOpenChange({ isOpen });
+      }
+    },
+    [onActionMenuOpenChange],
+  );
 
   if (status !== SmartLinkStatus.Resolved) {
     return null;
@@ -56,7 +66,11 @@ const FooterBlock: React.FC<FooterBlockProps> = (props) => {
           overrideCss={getActionGroupStyles(size)}
           width={SmartLinkWidth.Flexible}
         >
-          <ActionGroup items={actions} appearance="default" />
+          <ActionGroup
+            onDropdownOpenChange={onDropdownOpenChange}
+            items={actions}
+            appearance="default"
+          />
         </ElementGroup>
       ) : null}
     </Block>

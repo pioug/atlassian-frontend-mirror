@@ -53,7 +53,8 @@
         "analytics-next"
       ],
       "theming": [
-        "react-context"
+        "react-context",
+        "tokens"
       ],
       "ui-components": [
         "lite-mode"

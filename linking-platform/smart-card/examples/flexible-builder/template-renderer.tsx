@@ -112,7 +112,12 @@ const TemplateRenderer: React.FC<{
             <FlexibleDataView url={url} />
           </div>
           <div css={cardContainerStyles(width, !showDataView)}>
-            <Card appearance="block" ui={template.ui} url={url}>
+            <Card
+              appearance="block"
+              ui={template.ui}
+              {...template.cardProps}
+              url={url}
+            >
               {template.blocks.map((block, idx) =>
                 renderBlock(block, block.name + idx),
               )}

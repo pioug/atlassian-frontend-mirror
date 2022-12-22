@@ -26,6 +26,8 @@ export default {
   'fabric.linking.connect_to': '{name} hesabını bağlan',
   'fabric.linking.connect_unauthorised_account_action':
     '{context} hesabını bağlayın',
+  'fabric.linking.connect_unauthorised_account_description':
+    "Çalışmanız ve iş birliklerinizle ilgili daha fazla ayrıntıyı tek bir yerde bir arada görmek için hesabınızı Atlassian'a bağlayın.",
   'fabric.linking.couldnt_load_link':
     'Bilinmeyen bir nedenden dolayı bu bağlantıyı yükleyemedik.',
   'fabric.linking.create_on_absolute': '{context} tarihinde oluşturuldu',
@@ -42,6 +44,8 @@ export default {
     'Bu önizlemeyi görüntülemek için erişim izni talep etmeniz veya farklı bir hesap kullanmanız gerekir.',
   'fabric.linking.join_to_view':
     'Bu konuyu görüntülemek için {context} ürününe katılın',
+  'fabric.linking.learn_more_about_smart_links':
+    'Smart Links hakkında daha fazla bilgi edinin.',
   'fabric.linking.loading': 'Yükleniyor...',
   'fabric.linking.modified_on_absolute': '{context} tarihinde güncellendi',
   'fabric.linking.modified_on_relative': '{context} güncellendi',

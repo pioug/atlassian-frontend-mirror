@@ -27,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'Conectarse a {name}',
   'fabric.linking.connect_unauthorised_account_action':
     'Conectarse a {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Conéctate con Atlassian para ver más detalles de tu trabajo y tu colaboración desde un único lugar.',
   'fabric.linking.couldnt_load_link':
     'Por algún motivo que desconocemos, no hemos podido cargar este enlace.',
   'fabric.linking.create_on_absolute': 'Creación: {context}',
@@ -42,6 +44,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Deberás solicitar el acceso o probar con otra cuenta para obtener esta vista previa.',
   'fabric.linking.join_to_view': 'Únete a {context} para ver esta incidencia',
+  'fabric.linking.learn_more_about_smart_links':
+    'Más información sobre Smart Links.',
   'fabric.linking.loading': 'Cargando…',
   'fabric.linking.modified_on_absolute': 'Fecha de actualización: {context}',
   'fabric.linking.modified_on_relative': 'Fecha de actualización: {context}',
@@ -49,6 +53,7 @@ export default {
   'fabric.linking.not_found_description':
     'No hemos encontrado el enlace. Comprueba la URL y prueba a editarla, o pégala de nuevo.',
   'fabric.linking.not_found_title': '¡Vaya! No encontramos este enlace',
+  'fabric.linking.open_link_in_a_new_tab': 'Abrir enlace en una nueva pestaña',
   'fabric.linking.pending_request': 'Tu solicitud de acceso está pendiente',
   'fabric.linking.preview': 'Vista de pantalla completa',
   'fabric.linking.preview_close': 'Cerrar vista previa',

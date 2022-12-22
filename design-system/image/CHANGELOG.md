@@ -1,5 +1,11 @@
 # @atlaskit/image
 
+## 1.0.1
+
+### Patch Changes
+
+- [`98f5ba36c98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98f5ba36c98) - Updates atlaskit/image thumbnails + descriptions for the website
+
 ## 1.0.0
 
 ### Major Changes

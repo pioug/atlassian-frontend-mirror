@@ -6,17 +6,17 @@ import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkA
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import HoverCardContent from '../components/HoverCardContent';
-import { HoverCardContainer, CARD_GAP_PX } from '../styled';
+import { CARD_GAP_PX } from '../styled';
 import { HoverCardComponentProps } from '../types';
 import { CardDisplay } from '../../../constants';
-
-export const hoverCardClassName = 'smart-links-hover-preview';
 
 export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   children,
   url,
   analyticsHandler,
   analytics,
+  canOpen = true,
+  closeOnChildClick = false,
 }) => {
   const delay = 300;
   const [isOpen, setIsOpen] = React.useState(false);
@@ -111,35 +111,37 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   );
 
   // Stop hover preview content to propagate event to parent.
-  const onClick = useCallback((e) => e.stopPropagation(), []);
+
+  const onChildClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+      if (closeOnChildClick) {
+        hideCard();
+      }
+    },
+    [closeOnChildClick, hideCard],
+  );
 
   return (
     <Popup
       testId="hover-card"
-      isOpen={isOpen}
+      isOpen={isOpen && canOpen}
       onClose={hideCard}
       placement="bottom-start"
       offset={popupOffset.current}
       autoFocus={false}
       content={({ update }) => (
-        <div
+        <HoverCardContent
           onMouseEnter={initShowCard}
           onMouseLeave={initHideCard}
-          onClick={onClick}
-          css={HoverCardContainer}
-          // class name for trello to exclude click events
-          className={hoverCardClassName}
-        >
-          <HoverCardContent
-            analytics={analytics}
-            cardActions={linkActions}
-            cardState={linkState}
-            onActionClick={onActionClick}
-            onResolve={update}
-            renderers={renderers}
-            url={url}
-          />
-        </div>
+          analytics={analytics}
+          cardActions={linkActions}
+          cardState={linkState}
+          onActionClick={onActionClick}
+          onResolve={update}
+          renderers={renderers}
+          url={url}
+        />
       )}
       trigger={(triggerProps) => (
         <span ref={parentSpan}>
@@ -148,6 +150,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
             onMouseEnter={initShowCard}
             onMouseLeave={initHideCard}
             onMouseMove={setMousePosition}
+            onClick={onChildClick}
           >
             {children}
           </span>

@@ -49,9 +49,6 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Stop AK dropdown menu to propagate event on click.
-  const onClick = useCallback((e) => e.stopPropagation(), []);
-
   const onOpenChange = useCallback(
     (attrs) => {
       setIsOpen(attrs.isOpen);
@@ -101,7 +98,7 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   );
 
   return (
-    <div css={styles} className="actions-button-group" onClick={onClick}>
+    <div css={styles} className="actions-button-group">
       <ButtonGroup>
         {buttonGroupElement}
         {dropdownItemActions.length > 0 &&

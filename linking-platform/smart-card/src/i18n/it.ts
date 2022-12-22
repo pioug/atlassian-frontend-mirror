@@ -25,6 +25,8 @@ export default {
     'Connetti il tuo account {context}',
   'fabric.linking.connect_to': 'Collegati a {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Connetti a {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    "Effettua la connessione ad Atlassian per visualizzare maggiori dettagli sul lavoro e sulla collaborazione da un'unica posizione.",
   'fabric.linking.couldnt_load_link':
     'Non è stato possibile caricare questo link per un motivo sconosciuto.',
   'fabric.linking.create_on_absolute': 'Creazione: {context}',
@@ -41,8 +43,8 @@ export default {
     "Per visualizzare quest'anteprima devi richiedere l'accesso o provare con un altro account.",
   'fabric.linking.join_to_view':
     'Unisciti a {context} per visualizzare questo ticket',
-  'fabric.linking.learn_more_about_smart_links_security':
-    'Scopri di più sulla sicurezza e sulle autorizzazioni degli Smart Link.',
+  'fabric.linking.learn_more_about_smart_links':
+    'Scopri di più sugli Smart Link.',
   'fabric.linking.loading': 'Caricamento in corso...',
   'fabric.linking.modified_on_absolute': 'Aggiornato il {context}',
   'fabric.linking.modified_on_relative': 'Aggiornamento: {context}',

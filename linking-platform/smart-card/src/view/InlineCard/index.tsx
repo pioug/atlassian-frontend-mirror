@@ -11,6 +11,7 @@ import { InlineCardResolvedView } from './ResolvedView';
 import { InlineCardResolvingView } from './ResolvingView';
 import { InlineCardUnauthorizedView } from './UnauthorisedView';
 import { extractProvider } from '@atlaskit/linking-common/extractors';
+import { useFeatureFlag } from '@atlaskit/link-provider';
 
 export {
   InlineCardResolvedView,
@@ -38,6 +39,12 @@ export const InlineCard: FC<InlineCardProps> = ({
   const { status, details } = cardState;
   const cardDetails = (details && details.data) || getEmptyJsonLd();
   const testIdWithStatus = testId ? `${testId}-${status}-view` : undefined;
+
+  const showHoverPreviewFlag = useFeatureFlag('showHoverPreview');
+  if (showHoverPreview === undefined && showHoverPreviewFlag !== undefined) {
+    showHoverPreview = Boolean(showHoverPreviewFlag);
+  }
+
   switch (status) {
     case 'pending':
     case 'resolving':

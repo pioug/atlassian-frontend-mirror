@@ -24,6 +24,8 @@ export default {
   'fabric.linking.connect_link_account_card_view_name': '連結 {context} 帳戶',
   'fabric.linking.connect_to': '連結至 {name}',
   'fabric.linking.connect_unauthorised_account_action': '連結至 {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    '連結至 Atlassian 以從單一位置檢視更多工作和協作的詳細資料。',
   'fabric.linking.couldnt_load_link': '基於不明原因，我們無法載入此連結。',
   'fabric.linking.create_on_absolute': '於 {context} 建立',
   'fabric.linking.create_on_relative': '建立時間：{context}',
@@ -38,6 +40,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     '您需要請求存取或嘗試不同的帳戶，來檢視此預覽。',
   'fabric.linking.join_to_view': '加入 {context} 以查看此議題',
+  'fabric.linking.learn_more_about_smart_links': '深入了解 Smart Links。',
   'fabric.linking.loading': '正在載入...',
   'fabric.linking.modified_on_absolute': '更新於 {context}',
   'fabric.linking.modified_on_relative': '更新時間：{context}',

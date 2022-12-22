@@ -1,10 +1,15 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
+import { mount } from 'enzyme';
 import { render } from '@testing-library/react';
 import { CardState } from '@atlaskit/linking-common';
 import FlexibleCard from '../index';
 import { TitleBlock } from '../components/blocks';
 import { SmartLinkStatus } from '../../../constants';
+import { HoverCard } from '../../HoverCard';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { FlexibleUiContext } from '../../../state/flexible-ui-context';
+import context from '../../../__fixtures__/flexible-ui-data-context';
 
 describe('FlexibleCard', () => {
   const title = 'some-name';
@@ -43,6 +48,155 @@ describe('FlexibleCard', () => {
     expect(container).toBeTruthy();
     expect(titleBlock).toBeTruthy();
     expect(titleBlock.textContent).toEqual(title);
+  });
+
+  describe('hover preview', () => {
+    it('should not render a hover preview when parameter is not provided', async () => {
+      const cardState: CardState = {
+        status: 'resolved',
+        details: {
+          meta: {
+            access: 'granted',
+            visibility: 'public',
+          },
+          data: {
+            '@type': 'Object',
+            '@context': {
+              '@vocab': 'https://www.w3.org/ns/activitystreams#',
+              atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+              schema: 'http://schema.org/',
+            },
+            url,
+            name: title,
+          },
+        },
+      };
+
+      const element = mount(
+        <SmartCardProvider>
+          <FlexibleUiContext.Provider value={context}>
+            <FlexibleCard cardState={cardState} url={url}>
+              <TitleBlock />
+            </FlexibleCard>
+          </FlexibleUiContext.Provider>
+        </SmartCardProvider>,
+      );
+
+      expect(element.find(HoverCard)).toHaveLength(0);
+    });
+
+    it('should render a hover preview when its prop is enabled and link is included', async () => {
+      const cardState: CardState = {
+        status: 'resolved',
+        details: {
+          meta: {
+            access: 'granted',
+            visibility: 'public',
+          },
+          data: {
+            '@type': 'Object',
+            '@context': {
+              '@vocab': 'https://www.w3.org/ns/activitystreams#',
+              atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+              schema: 'http://schema.org/',
+            },
+            url,
+            name: title,
+          },
+        },
+      };
+
+      const element = mount(
+        <SmartCardProvider>
+          <FlexibleUiContext.Provider value={context}>
+            <FlexibleCard
+              showHoverPreview={true}
+              cardState={cardState}
+              url={url}
+            >
+              <TitleBlock />
+            </FlexibleCard>
+          </FlexibleUiContext.Provider>
+        </SmartCardProvider>,
+      );
+
+      expect(element.find(HoverCard)).toHaveLength(1);
+    });
+
+    it('should not render a hover preview when its prop is diabled and link is included', async () => {
+      const cardState: CardState = {
+        status: 'resolved',
+        details: {
+          meta: {
+            access: 'granted',
+            visibility: 'public',
+          },
+          data: {
+            '@type': 'Object',
+            '@context': {
+              '@vocab': 'https://www.w3.org/ns/activitystreams#',
+              atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+              schema: 'http://schema.org/',
+            },
+            url,
+            name: title,
+          },
+        },
+      };
+
+      const element = mount(
+        <SmartCardProvider>
+          <FlexibleUiContext.Provider value={context}>
+            <FlexibleCard
+              showHoverPreview={false}
+              cardState={cardState}
+              url={url}
+            >
+              <TitleBlock />
+            </FlexibleCard>
+          </FlexibleUiContext.Provider>
+        </SmartCardProvider>,
+      );
+
+      expect(element.find(HoverCard)).toHaveLength(0);
+    });
+
+    it('should not render a hover preview when url is not provided in context', async () => {
+      const cardState: CardState = {
+        status: 'resolved',
+        details: {
+          meta: {
+            access: 'granted',
+            visibility: 'public',
+          },
+          data: {
+            '@type': 'Object',
+            '@context': {
+              '@vocab': 'https://www.w3.org/ns/activitystreams#',
+              atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+              schema: 'http://schema.org/',
+            },
+            name: title,
+          },
+        },
+      };
+
+      const element = mount(
+        <SmartCardProvider>
+          <FlexibleUiContext.Provider value={context}>
+            <FlexibleCard
+              showHoverPreview={true}
+              cardState={cardState}
+              url={url}
+            >
+              <TitleBlock />
+            </FlexibleCard>
+          </FlexibleUiContext.Provider>
+        </SmartCardProvider>,
+      );
+
+      expect(element.find(HoverCard)).toHaveLength(0);
+    });
   });
 
   describe('status', () => {

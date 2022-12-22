@@ -83,6 +83,12 @@ export type FlexibleCardProps = {
    * Determines the URL of the Smart Link.
    */
   url: string;
+
+  /**
+   * Determine whether or not a preview card should show up when a user hovers
+   * over the smartlink. Default value is false.
+   */
+  showHoverPreview?: Boolean;
 };
 
 export type FlexibleUiOptions = {

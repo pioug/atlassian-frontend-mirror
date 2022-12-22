@@ -42,8 +42,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "You'll need to request access or try a different account to view this preview.",
   'fabric.linking.join_to_view': 'Join {context} to view this issue',
-  'fabric.linking.learn_more_about_smart_links_security':
-    'Learn more about smart link security and permissions.',
+  'fabric.linking.learn_more_about_smart_links':
+    'Learn more about Smart Links.',
   'fabric.linking.loading': 'Loading...',
   'fabric.linking.modified_on_absolute': 'Updated on {context}',
   'fabric.linking.modified_on_relative': 'Updated {context}',

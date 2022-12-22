@@ -1,4 +1,5 @@
 import { ActionItem, BlockProps } from '../types';
+import { OnActionMenuOpenChangeOptions } from '../types';
 
 export type FooterBlockProps = {
   /**
@@ -8,4 +9,9 @@ export type FooterBlockProps = {
    * @see ActionItem
    */
   actions?: ActionItem[];
+
+  /**
+   * Function to be called when footer action dropdown open state is changed.
+   */
+  onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
 } & BlockProps;

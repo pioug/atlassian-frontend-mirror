@@ -538,6 +538,7 @@ export const FooterBlock: React_2.FC<FooterBlockProps>;
 // @public (undocumented)
 type FooterBlockProps = {
   actions?: ActionItem[];
+  onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
 } & BlockProps;
 
 export { InlineCardAdf };

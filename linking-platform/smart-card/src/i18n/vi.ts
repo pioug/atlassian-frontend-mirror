@@ -25,6 +25,8 @@ export default {
     'Kết nối tài khoản {context} của bạn',
   'fabric.linking.connect_to': 'Kết nối với {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Kết nối với {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Kết nối với Atlassian để xem thêm chi tiết về công việc và hoạt động cộng tác của bạn ở một nơi tập trung.',
   'fabric.linking.couldnt_load_link':
     'Chúng tôi không thể tải đường liên kết này vì một lý do không xác định.',
   'fabric.linking.create_on_absolute': 'Đã tạo vào {context}',
@@ -40,8 +42,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bạn cần có quyền truy cập hoặc thử một tài khoản khác để xem bản xem trước này.',
   'fabric.linking.join_to_view': 'Tham gia {context} để xem vấn đề này',
-  'fabric.linking.learn_more_about_smart_links_security':
-    'Tìm hiểu thêm về các quyền và bảo mật liên kết thông minh',
+  'fabric.linking.learn_more_about_smart_links': 'Tìm hiểu thêm về Smart Link.',
   'fabric.linking.loading': 'Đang tải...',
   'fabric.linking.modified_on_absolute': 'Đã cập nhật trên {context}',
   'fabric.linking.modified_on_relative': 'Đã cập nhật {context}',

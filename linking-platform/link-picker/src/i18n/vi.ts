@@ -35,9 +35,6 @@ export default {
     'Hãy thử lại bằng cụm từ tìm kiếm khác.',
   'fabric.linkPicker.search.noResults.heading':
     'Không tìm thấy bất kỳ nội dung nào phù hợp với yêu cầu tìm kiếm của bạn.',
-  'fabric.linkPicker.time.ago': 'trước',
-  'fabric.linkPicker.time.updated': 'Đã cập nhật',
-  'fabric.linkPicker.time.viewed': 'Đã xem',
   'fabric.linkPicker.unhandledError.description': 'Hãy thử tải lại trang.',
   'fabric.linkPicker.unhandledError.heading': 'Đã xảy ra lỗi!',
 };

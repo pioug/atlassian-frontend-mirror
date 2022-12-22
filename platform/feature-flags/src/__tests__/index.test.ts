@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 beforeEach(() => {
   jest.resetModules();
 
@@ -101,13 +105,13 @@ describe('FF overrides', () => {
 
 describe('tests support', function () {
   beforeEach(() => {
-    delete process.env.ENABLE_PLATFORM_FF;
-    delete process.env.STORYBOOK_ENABLE_PLATFORM_FF;
+    delete globalThis.process.env.ENABLE_PLATFORM_FF;
+    delete globalThis.process.env.STORYBOOK_ENABLE_PLATFORM_FF;
   });
 
   it('should always return true when getting a FF value while running tests with "ENABLE_PLATFORM_FF" environment flag', () => {
     // given
-    process.env.ENABLE_PLATFORM_FF = 'true';
+    globalThis.process.env.ENABLE_PLATFORM_FF = 'true';
 
     // when
     const { getBooleanFF } = loadApi();
@@ -125,5 +129,20 @@ describe('tests support', function () {
 
     //then
     expect(getBooleanFF('my-platform-feature-flag')).toBe(true);
+  });
+});
+
+describe('browser environment', () => {
+  beforeEach(() => {
+    // @ts-expect-error Yep, we are running dangerous operation here
+    delete globalThis.process;
+  });
+
+  it('should work when "process" variable doesn\'t exist', function () {
+    // given, when
+    const { getBooleanFF } = loadApi();
+
+    // then
+    expect(getBooleanFF('browser.my-platform-feature-flag')).toBe(false);
   });
 });

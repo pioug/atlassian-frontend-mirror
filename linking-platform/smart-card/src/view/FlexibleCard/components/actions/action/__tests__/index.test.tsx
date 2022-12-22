@@ -103,22 +103,6 @@ describe('Action', () => {
       const action = await findByTestId(`${testId}-button-wrapper`);
       expect(action).toHaveStyleDeclaration('font-style', 'italic');
     });
-
-    it('does not propagate click event to parent container', async () => {
-      const containerOnClick = jest.fn();
-      const actionOnClick = jest.fn();
-      const { findByTestId } = render(
-        <div onClick={containerOnClick}>
-          <Action onClick={actionOnClick} content="Click!" />,
-        </div>,
-      );
-
-      const element = await findByTestId(testId);
-      await user.click(element);
-
-      expect(actionOnClick).toHaveBeenCalledTimes(1);
-      expect(containerOnClick).not.toHaveBeenCalled();
-    });
   });
 
   describe('as dropdown item', () => {
@@ -148,27 +132,6 @@ describe('Action', () => {
 
       await user.click(element);
       expect(onClick).toHaveBeenCalled();
-    });
-
-    it('does not propagate click event to parent container', async () => {
-      const containerOnClick = jest.fn();
-      const actionOnClick = jest.fn();
-      const { findByTestId } = render(
-        <div onClick={containerOnClick}>
-          <Action
-            asDropDownItem={true}
-            onClick={actionOnClick}
-            content="Click!"
-          />
-          ,
-        </div>,
-      );
-
-      const element = await findByTestId(testId);
-      await user.click(element);
-
-      expect(actionOnClick).toHaveBeenCalledTimes(1);
-      expect(containerOnClick).not.toHaveBeenCalled();
     });
   });
 });

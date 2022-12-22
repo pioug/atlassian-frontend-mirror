@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.2
 
 ### Patch Changes

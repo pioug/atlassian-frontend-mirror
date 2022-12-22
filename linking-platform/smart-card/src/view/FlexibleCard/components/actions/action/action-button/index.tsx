@@ -71,16 +71,10 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     [],
   );
 
-  const onContainerClick = useCallback((e: React.BaseSyntheticEvent) => {
-    // Stop button on click event from propagate into parent container.
-    e.stopPropagation();
-  }, []);
-
   return (
     <div
       css={[getButtonStyle(size, iconOnly), overrideCss]}
       data-testid={`${testId}-button-wrapper`}
-      onClick={onContainerClick}
     >
       <Tooltip
         content={tooltipMessage}

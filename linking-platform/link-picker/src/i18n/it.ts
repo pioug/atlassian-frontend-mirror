@@ -35,9 +35,6 @@ export default {
     'Riprova con un termine diverso.',
   'fabric.linkPicker.search.noResults.heading':
     'Non è stato possibile trovare risultati corrispondenti alla ricerca.',
-  'fabric.linkPicker.time.ago': 'fa',
-  'fabric.linkPicker.time.updated': 'Aggiornato',
-  'fabric.linkPicker.time.viewed': 'Visualizzato',
   'fabric.linkPicker.unhandledError.description':
     'Prova a ricaricare la pagina.',
   'fabric.linkPicker.unhandledError.heading': 'Si è verificato un problema.',

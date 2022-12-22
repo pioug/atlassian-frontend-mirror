@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.0.6
+
+### Patch Changes
+
+- [`cfc66979dd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfc66979dd1) - FLEX-78: Fix browser runtime compatibility
+
 ## 0.0.5
 
 ### Patch Changes

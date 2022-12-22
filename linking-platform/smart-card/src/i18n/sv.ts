@@ -25,6 +25,8 @@ export default {
     'Anslut ditt {context}-konto',
   'fabric.linking.connect_to': 'Anslut till {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Anslut till {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Anslut till Atlassian för att se mer information om ditt arbete och samarbete på ett och samma ställe.',
   'fabric.linking.couldnt_load_link':
     'Vi kunde inte läsa in den här länken av okänd anledning.',
   'fabric.linking.create_on_absolute': 'Skapades {context}',
@@ -40,8 +42,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
   'fabric.linking.join_to_view': 'Anslut till {context} för att visa ärendet',
-  'fabric.linking.learn_more_about_smart_links_security':
-    'Läs mer om Smart Link-säkerhet och -behörigheter.',
+  'fabric.linking.learn_more_about_smart_links': 'Läs mer om Smart Links.',
   'fabric.linking.loading': 'Läser in ...',
   'fabric.linking.modified_on_absolute': 'Uppdaterades {context}',
   'fabric.linking.modified_on_relative': 'Uppdaterades {context}',

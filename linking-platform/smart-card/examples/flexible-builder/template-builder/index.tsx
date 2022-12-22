@@ -3,10 +3,11 @@ import { jsx } from '@emotion/react';
 import React, { useCallback } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import Form, { FormFooter } from '@atlaskit/form';
-import { BlockTemplate, FlexibleTemplate } from '../types';
+import { BlockTemplate, FlexibleTemplate, CardBuilderProps } from '../types';
 import UiBuilder from './ui-builder';
 import BlockBuilder from './block-builder';
 import { DefaultTemplate } from '../constants';
+import CardBuilder from './card-builder';
 
 const TemplateBuilder: React.FC<{
   template: FlexibleTemplate;
@@ -38,11 +39,27 @@ const TemplateBuilder: React.FC<{
     onChange({ ...DefaultTemplate });
   }, [onChange]);
 
+  const handleOnPropChange = useCallback(
+    (cardProps: CardBuilderProps) => {
+      if (Object.entries(cardProps).length > 0) {
+        onChange({ ...template, cardProps });
+      } else {
+        const { cardProps, ...rest } = template;
+        onChange(rest);
+      }
+    },
+    [onChange, template],
+  );
+
   return (
     <Form onSubmit={console.log}>
       {({ formProps }) => (
         <form {...formProps}>
           <UiBuilder onChange={handleOnUiChange} ui={template.ui} />
+          <CardBuilder
+            template={template.cardProps}
+            onChange={handleOnPropChange}
+          />
           <BlockBuilder
             blocks={template.blocks}
             onChange={handleOnBlockChange}

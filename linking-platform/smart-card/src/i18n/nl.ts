@@ -26,6 +26,8 @@ export default {
   'fabric.linking.connect_to': 'Met {name} verbinden',
   'fabric.linking.connect_unauthorised_account_action':
     'Met {context} koppelen',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Koppel aan Atlassian om meer gegevens van je werk te kunnen bekijken en samen te werken vanaf één plek.',
   'fabric.linking.couldnt_load_link':
     'Om een onbekende reden konden we deze link niet laden.',
   'fabric.linking.create_on_absolute': 'Aangemaakt op {context}',
@@ -42,8 +44,8 @@ export default {
     'Je moet om toegang vragen of een ander account proberen om deze voorvertoning te bekijken.',
   'fabric.linking.join_to_view':
     'Word lid van {context} om deze issue te bekijken',
-  'fabric.linking.learn_more_about_smart_links_security':
-    'Meer informatie over Smart Link-beveiliging en -rechten.',
+  'fabric.linking.learn_more_about_smart_links':
+    'Meer informatie over Smart Links.',
   'fabric.linking.loading': 'Laden...',
   'fabric.linking.modified_on_absolute': 'Bijgewerkt op {context}',
   'fabric.linking.modified_on_relative': 'Bijgewerkt: {context}',

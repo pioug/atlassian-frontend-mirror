@@ -26,7 +26,7 @@ import { fireEvent, render, cleanup, waitFor } from '@testing-library/react';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { fakeFactory } from '../../../utils/mocks';
 import { CardClient } from '@atlaskit/link-provider';
-import { Provider, ProviderProps } from '../../..';
+import { Provider, ProviderProps, TitleBlock } from '../../..';
 import * as analytics from '../../../utils/analytics/analytics';
 import { Card } from '../../Card';
 import { IntlProvider } from 'react-intl-next';
@@ -688,6 +688,43 @@ describe('HoverCard', () => {
     fireEvent.click(link);
 
     const previewButton = await findByTestId('preview-content');
+    fireEvent.click(previewButton);
+
+    expect(containerOnClick).not.toHaveBeenCalled();
+  });
+
+  it('does not propagate event to parent when clicking inside hover card content on a flexui link', async () => {
+    const containerOnClick = jest.fn();
+    mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+    mockClient = new (fakeFactory(mockFetch))();
+
+    const { findByTestId } = render(
+      <div onClick={containerOnClick}>
+        <Provider client={mockClient}>
+          <Card
+            appearance="block"
+            showHoverPreview={true}
+            url="https://some.url"
+          >
+            <TitleBlock />
+          </Card>
+        </Provider>
+      </div>,
+    );
+
+    const element = await findByTestId('smart-links-container');
+    jest.useFakeTimers();
+    fireEvent.mouseEnter(element);
+    jest.runAllTimers();
+
+    const metadataBlock = await findByTestId(
+      'smart-block-metadata-resolved-view',
+    );
+    fireEvent.click(metadataBlock);
+
+    const previewButton = await findByTestId(
+      'smart-footer-block-resolved-view',
+    );
     fireEvent.click(previewButton);
 
     expect(containerOnClick).not.toHaveBeenCalled();

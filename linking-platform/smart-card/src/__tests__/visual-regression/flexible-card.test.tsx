@@ -276,6 +276,59 @@ describe('Flexible Card', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  describe('hover card', () => {
+    const renderHoverCard = async (
+      examplePage: string,
+      height: number = 800,
+    ) => {
+      const url = getURL(examplePage);
+      const page = await setup(url);
+
+      await page.setViewport({
+        width: 800,
+        height: height,
+      });
+
+      await page.waitForSelector('[data-testid="smart-element-icon-icon"]');
+      await page.hover('[data-testid="smart-element-icon-icon"]');
+      await page.waitForSelector(
+        '[data-testid="hover-card-open-button-button-wrapper"]',
+      );
+      await page.waitForSelector(
+        '[data-testid="hover-card-open-button-tooltip--container"]',
+      );
+      await page.waitForSelector(
+        '[data-testid="smart-block-metadata-resolved-view"]',
+      );
+      await page.waitForSelector(
+        '[data-testid="smart-block-preview-resolved-view"]',
+      );
+
+      return page;
+    };
+
+    it('should open below trigger component when there is room below in viewport', async () => {
+      const height = 500;
+
+      const page = await renderHoverCard('vr-flexible-ui-hover-card', height);
+
+      const image = await takeSnapshot(page, height);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('should open on top of trigger component when there is no room below and there is room above in viewport', async () => {
+      const height = 550;
+
+      const page = await renderHoverCard(
+        'vr-flexible-ui-hover-card-limited-space',
+        height,
+      );
+
+      const image = await takeSnapshot(page, height);
+      expect(image).toMatchProdImageSnapshot();
+    });
+  });
+
   it('renders variants of Forbidden views of Block Card with Flexible UI', async () => {
     const url = getURL('vr-flexible-block-card-variants-of-forbidden-views');
     const page = await setup(url);

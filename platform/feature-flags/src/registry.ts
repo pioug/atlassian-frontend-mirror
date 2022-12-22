@@ -13,8 +13,8 @@ const registry: FeatureFlagRegistry = {};
 // STORYBOOK_ENABLE_PLATFORM_FF is included as storybook only allows env vars prefixed with STORYBOOK
 // https://github.com/storybookjs/storybook/issues/12270
 const IN_TESTS_ENABLE_PLATFORM_FF =
-  (process?.env?.ENABLE_PLATFORM_FF === 'true' ||
-    process?.env?.STORYBOOK_ENABLE_PLATFORM_FF === 'true') ??
+  (globalThis?.process?.env?.ENABLE_PLATFORM_FF === 'true' ||
+    globalThis?.process?.env?.STORYBOOK_ENABLE_PLATFORM_FF === 'true') ??
   false;
 
 // A list of property keys that are not allowed to exist on the store proxy object.

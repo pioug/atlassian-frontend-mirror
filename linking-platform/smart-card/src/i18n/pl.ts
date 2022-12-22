@@ -26,6 +26,8 @@ export default {
     'Połącz konto {context}',
   'fabric.linking.connect_to': 'Połącz z {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Połącz z {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Połącz z Atlassian, aby wyświetlać więcej szczegółów dotyczących pracy i współpracy w jednym miejscu.',
   'fabric.linking.couldnt_load_link':
     'Z nieznanego powodu nie udało się wczytać tego łącza.',
   'fabric.linking.create_on_absolute': 'Utworzono {context}',
@@ -42,6 +44,8 @@ export default {
     'Musisz poprosić o dostęp lub spróbować innego konta, aby zobaczyć ten podgląd.',
   'fabric.linking.join_to_view':
     'Dołącz do {context}, aby wyświetlić to zgłoszenie',
+  'fabric.linking.learn_more_about_smart_links':
+    'Dowiedz się więcej o łączach Smart Link.',
   'fabric.linking.loading': 'Ładowanie...',
   'fabric.linking.modified_on_absolute': 'Zaktualizowano {context}',
   'fabric.linking.modified_on_relative': 'Zaktualizowano {context}',

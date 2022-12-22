@@ -25,6 +25,8 @@ export default {
     '连接您的 {context} 帐户',
   'fabric.linking.connect_to': '连接到 {name}',
   'fabric.linking.connect_unauthorised_account_action': '连接到 {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    '连接到 Atlassian，以从一个位置查看工作和协作的更多详细信息。',
   'fabric.linking.couldnt_load_link': '由于未知原因，无法加载此链接。',
   'fabric.linking.create_on_absolute': '创建时间：{context}',
   'fabric.linking.create_on_relative': '创建时间：{context}',
@@ -39,6 +41,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     '您需要请求访问权限或尝试使用其他帐户来查看此预览。',
   'fabric.linking.join_to_view': '加入{context}以查看此事务',
+  'fabric.linking.learn_more_about_smart_links':
+    '了解有关 Smart Link 的更多信息。',
   'fabric.linking.loading': '正在加载...',
   'fabric.linking.modified_on_absolute': '更新时间：{context}',
   'fabric.linking.modified_on_relative': '更新时间：{context}',

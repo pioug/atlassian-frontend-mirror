@@ -26,6 +26,8 @@ export default {
   'fabric.linking.connect_to': 'Підключення до {name}',
   'fabric.linking.connect_unauthorised_account_action':
     'Підключитися до {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Підключіться до Atlassian, щоб переглядати більше деталей про вашу роботу й співпрацю на одному ресурсі.',
   'fabric.linking.couldnt_load_link': 'Не вдалося завантажити це посилання.',
   'fabric.linking.create_on_absolute': 'Створено {context}',
   'fabric.linking.create_on_relative': 'Створено {context}',
@@ -41,6 +43,7 @@ export default {
     'Надішліть запит на доступ або ввійдіть в інший обліковий запис для попереднього перегляду.',
   'fabric.linking.join_to_view':
     'Можна приєднатися до {context}, щоб переглянути цю проблему',
+  'fabric.linking.learn_more_about_smart_links': 'Докладніше про Smart Links.',
   'fabric.linking.loading': 'Завантаження...',
   'fabric.linking.modified_on_absolute': 'Оновлено {context}',
   'fabric.linking.modified_on_relative': 'Оновлено {context}',

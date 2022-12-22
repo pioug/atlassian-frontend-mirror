@@ -35,9 +35,6 @@ export default {
     'Yritä uudelleen eri hakutermillä.',
   'fabric.linkPicker.search.noResults.heading':
     'Hakuasi vastaavia tuloksia ei löytynyt.',
-  'fabric.linkPicker.time.ago': 'sitten',
-  'fabric.linkPicker.time.updated': 'Päivitetty',
-  'fabric.linkPicker.time.viewed': 'Katseltu',
   'fabric.linkPicker.unhandledError.description':
     'Yritä ladata sivu uudelleen.',
   'fabric.linkPicker.unhandledError.heading': 'Jotain meni vikaan',

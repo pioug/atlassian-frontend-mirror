@@ -4,6 +4,7 @@ import * as Blocks from '../view/FlexibleCard/components/blocks';
 import {
   PreviewBlock,
   TitleBlock,
+  FooterBlock,
 } from '../view/FlexibleCard/components/blocks';
 import * as Elements from '../view/FlexibleCard/components/elements';
 
@@ -32,3 +33,6 @@ export const isFlexibleUiTitleBlock = (node: React.ReactNode): boolean =>
 
 export const isFlexibleUiPreviewBlock = (node: React.ReactNode): boolean =>
   React.isValidElement(node) && node.type === PreviewBlock;
+
+export const isFlexibleUiFooterBlock = (node: React.ReactNode): boolean =>
+  React.isValidElement(node) && node.type === FooterBlock;

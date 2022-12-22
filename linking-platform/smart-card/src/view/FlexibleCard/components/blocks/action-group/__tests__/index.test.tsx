@@ -49,15 +49,6 @@ describe('ActionGroup', () => {
       const { queryByTestId } = setup(1);
       expect(queryByTestId('action-group-more-button')).toBeNull();
     });
-
-    it('does not propagate click event to parent container', async () => {
-      const { findByTestId } = setup(1);
-
-      const action = await findByTestId('smart-element-test-1');
-      userEvent.click(action);
-
-      expect(containerOnClick).not.toHaveBeenCalled();
-    });
   });
 
   describe.each([3, 2, 1])(
@@ -142,33 +133,6 @@ describe('ActionGroup', () => {
             expect(secondActionElement?.textContent).toMatch('Delete');
           }
         });
-
-        /**
-         * for visibleButtonsNum = 3 and total 4 buttons,
-         * dropdown shows actions #3, #4 (indices 2, 3)
-         *
-         * for visibleButtonsNum = 2 and total 3 buttons,
-         * dropdown shows actions #2, #3 (indices 1, 2)
-         *
-         * for visibleButtonsNum = 1 and total 2 buttons,
-         * dropdown shows actions #1, #2 (indices 0, 1)
-         */
-        for (let i = 0; i < 2; i++) {
-          it(`does not propagate click event to parent container when dropdown item ${
-            i + visibleButtonsNum
-          }  is clicked`, async () => {
-            const itemCount = visibleButtonsNum + 1;
-            const { findByTestId } = setup(itemCount, visibleButtonsNum);
-            const moreButton = await findByTestId('action-group-more-button');
-            userEvent.click(moreButton); // Open dropdown
-            expect(containerOnClick).not.toHaveBeenCalled();
-
-            const actionTestId = `smart-element-test-${i + visibleButtonsNum}`;
-            const action = await findByTestId(actionTestId);
-            userEvent.click(action);
-            expect(containerOnClick).not.toHaveBeenCalled();
-          });
-        }
 
         it('renders tooltip when "more actions" button is hovered', async () => {
           const { findByTestId } = setup(

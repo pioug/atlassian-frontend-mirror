@@ -7,8 +7,8 @@ export default md`
 
   ## Quick Links
 
-  - [Prerequisites and Installation Guide](/packages/confluence/embedded-confluence-public/docs/Prerequisites-and-Installation)
-  - [Components of Embedded Pages](/packages/confluence/embedded-confluence-public/docs/Components-of-Embedded-Pages)
+  - [Prerequisites and Installation Guide](/packages/confluence/embedded-confluence-public/docs/Prerequisites-and-installation)
+  - [Components of Embedded Pages](/packages/confluence/embedded-confluence-public/docs/components-of-Embedded-Pages)
   - [Experience Tracker](/packages/confluence/embedded-confluence-public/docs/Experience-Tracker)
   - [API References](/packages/confluence/embedded-confluence-public/docs/API-References)
 

@@ -27,6 +27,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   onClick,
   testId,
   analytics,
+  showHoverPreview,
 }: React.PropsWithChildren<FlexibleCardProps>) => {
   const { status: cardType, details } = cardState;
   const status = cardType as SmartLinkStatus;
@@ -58,6 +59,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
         <Container
           testId={testId}
           {...ui}
+          showHoverPreview={showHoverPreview}
           onClick={onClick}
           retry={retry}
           status={status}

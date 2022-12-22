@@ -35,9 +35,6 @@ export default {
     '別の検索語句でもう一度お試しください。',
   'fabric.linkPicker.search.noResults.heading':
     '検索条件に一致する結果が見つかりませんでした。',
-  'fabric.linkPicker.time.ago': '前',
-  'fabric.linkPicker.time.updated': '最終更新: ',
-  'fabric.linkPicker.time.viewed': '最終閲覧: ',
   'fabric.linkPicker.unhandledError.description':
     'ページを再読み込みしてください。',
   'fabric.linkPicker.unhandledError.heading': 'エラーが発生しました。',

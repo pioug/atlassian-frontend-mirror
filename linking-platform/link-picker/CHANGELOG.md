@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 1.16.2
+
+### Patch Changes
+
+- [`998a9316ce3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/998a9316ce3) - EDM-4959 update scrolling tabs to remain still for link picker when tabs are changed as a fix for a flakey vr test
+
+## 1.16.1
+
+### Patch Changes
+
+- [`f3aa608f0ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3aa608f0ba) - Update i18n translations from Traduki
+
 ## 1.16.0
 
 ### Minor Changes

@@ -25,6 +25,8 @@ export default {
     'Koble til {context}-kontoen din',
   'fabric.linking.connect_to': 'Koble til {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Koble til {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Koble til Atlassian for å se flere detaljer fra arbeidet og samarbeidet ditt på ett sted.',
   'fabric.linking.couldnt_load_link':
     'Vi kan ikke laste inn denne koblingen av ukjent grunn.',
   'fabric.linking.create_on_absolute': 'Opprettet {context}',
@@ -40,6 +42,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Du må be om tilgang eller prøve en annen konto for kunne se denne forhåndsvisningen.',
   'fabric.linking.join_to_view': 'Bli med {context} for å se denne saken',
+  'fabric.linking.learn_more_about_smart_links': 'Finn ut mer om Smart Links.',
   'fabric.linking.loading': 'Laster …',
   'fabric.linking.modified_on_absolute': 'Oppdatert {context}',
   'fabric.linking.modified_on_relative': 'Oppdatert {context}',

@@ -26,6 +26,8 @@ export default {
   'fabric.linking.connect_to': 'Yhdistä kohteeseen {name}',
   'fabric.linking.connect_unauthorised_account_action':
     'Yhdistä kohteeseen {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Yhdistä Atlassianiin, niin näet lisää tietoja työstäsi ja yhteistyöstä yhdestä paikasta.',
   'fabric.linking.couldnt_load_link':
     'Tämän linkin lataaminen epäonnistui tuntemattomasta syystä.',
   'fabric.linking.create_on_absolute': 'Luotiin {context}',
@@ -42,8 +44,8 @@ export default {
     'Pyydä käyttöoikeus tai käytä toista tiliä, jos haluat nähdä tämän esikatselun.',
   'fabric.linking.join_to_view':
     'Liity palveluun {context} niin voit tarkastella asiaa',
-  'fabric.linking.learn_more_about_smart_links_security':
-    'Lue lisää Smart Link -tietoturvasta ja käyttöoikeuksista.',
+  'fabric.linking.learn_more_about_smart_links':
+    'Lue lisää Smart Link -linkeistä.',
   'fabric.linking.loading': 'Ladataan...',
   'fabric.linking.modified_on_absolute': 'Päivitetty {context}',
   'fabric.linking.modified_on_relative': 'Päivitetty {context}',

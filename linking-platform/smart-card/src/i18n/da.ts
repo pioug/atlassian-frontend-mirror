@@ -25,6 +25,8 @@ export default {
     'Forbind din {context}-konto',
   'fabric.linking.connect_to': 'Forbind til {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Forbind til {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Opret tilknytning til Atlassian for at se flere detaljer fra dit arbejde og samarbejde på ét sted.',
   'fabric.linking.couldnt_load_link':
     'Af en ukendt årsag kunne vi ikke indlæse dette link.',
   'fabric.linking.create_on_absolute': 'Oprettet {context}',
@@ -40,8 +42,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
   'fabric.linking.join_to_view': 'Deltag i {context} for at se denne sag',
-  'fabric.linking.learn_more_about_smart_links_security':
-    'Få mere at vide om Smart Link-sikkerhed og -tilladelser.',
+  'fabric.linking.learn_more_about_smart_links':
+    'Få mere at vide om Smart Links.',
   'fabric.linking.loading': 'Indlæser ...',
   'fabric.linking.modified_on_absolute': 'Opdateret {context}',
   'fabric.linking.modified_on_relative': 'Opdateret: {context}',

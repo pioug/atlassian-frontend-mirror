@@ -25,6 +25,8 @@ export default {
     'Conectar a conta do {context}',
   'fabric.linking.connect_to': 'Conectar-se ao {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Conectar ao {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Conecte-se à Atlassian para ver mais informações do seu trabalho e sua colaboração em um só lugar.',
   'fabric.linking.couldnt_load_link':
     'Não foi possível carregar esse link por um motivo desconhecido.',
   'fabric.linking.create_on_absolute': 'Data de criação em {context}',
@@ -40,8 +42,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Você precisa solicitar o acesso ou tentar usar outra conta para poder visualizar.',
   'fabric.linking.join_to_view': 'Entre em {context} para ver esse item',
-  'fabric.linking.learn_more_about_smart_links_security':
-    'Saiba mais sobre a segurança e as permissões do Smart Link.',
+  'fabric.linking.learn_more_about_smart_links':
+    'Saiba mais sobre os Smart Links.',
   'fabric.linking.loading': 'Carregando...',
   'fabric.linking.modified_on_absolute': 'Atualizado em {context}',
   'fabric.linking.modified_on_relative': 'Atualizado em {context}',

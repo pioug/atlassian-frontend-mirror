@@ -26,6 +26,8 @@ export default {
   'fabric.linking.connect_to': 'Csatlakozás ehhez: {name}',
   'fabric.linking.connect_unauthorised_account_action':
     'Csatlakozás ehhez: {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Az Atlassian csatlakoztatásával további részleteket nézhetsz meg egy helyen a munkádról és az együttműködésről.',
   'fabric.linking.couldnt_load_link':
     'Ismeretlen okból nem tudtuk betölteni ezt a linket.',
   'fabric.linking.create_on_absolute': 'Létrehozva ekkor: {context}',
@@ -42,6 +44,8 @@ export default {
     'Az előnézet megtekintéséhez hozzáférést kell kérned, vagy másik fiókba kell belépned.',
   'fabric.linking.join_to_view':
     'Az ügy megtekintése érdekében csatlakozz ehhez: {context}',
+  'fabric.linking.learn_more_about_smart_links':
+    'További információ a Smart Linksről.',
   'fabric.linking.loading': 'Betöltés…',
   'fabric.linking.modified_on_absolute': 'Frissítve ekkor: {context}',
   'fabric.linking.modified_on_relative': 'Frissítve: {context}',

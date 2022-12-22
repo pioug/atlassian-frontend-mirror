@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useContext } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import {
@@ -13,6 +13,7 @@ import {
   isFlexibleUiBlock,
   isFlexibleUiPreviewBlock,
   isFlexibleUiTitleBlock,
+  isFlexibleUiFooterBlock,
 } from '../../../../utils/flexible';
 import { RetryOptions } from '../../types';
 import { tokens } from '../../../../utils/token';
@@ -20,7 +21,9 @@ import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import LayeredLink from './layered-link';
 import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { TitleBlockProps } from '../blocks/title-block/types';
+import { HoverCard } from '../../../HoverCard';
 import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
+import { OnActionMenuOpenChangeOptions } from '../blocks/types';
 
 const elevationStyles: SerializedStyles = css`
   border: 1px solid transparent;
@@ -158,6 +161,7 @@ const renderChildren = (
   status?: SmartLinkStatus,
   retry?: RetryOptions,
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
+  onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void,
 ): React.ReactNode =>
   React.Children.map(children, (child) => {
     if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
@@ -170,6 +174,12 @@ const renderChildren = (
           size,
           status,
           theme: containerTheme,
+        });
+      } else if (onActionMenuOpenChange && isFlexibleUiFooterBlock(child)) {
+        return React.cloneElement(child, {
+          size,
+          status,
+          onActionMenuOpenChange,
         });
       }
       return React.cloneElement(child, { size, status });
@@ -221,6 +231,7 @@ const Container: React.FC<ContainerProps> = ({
   hideBackground = false,
   hideElevation = false,
   hidePadding = false,
+  showHoverPreview = false,
   onClick,
   retry,
   size = SmartLinkSize.Medium,
@@ -230,8 +241,15 @@ const Container: React.FC<ContainerProps> = ({
 }) => {
   const context = useContext(FlexibleUiContext);
   const childrenOptions = getChildrenOptions(children, context);
+  const [hoverCardCanOpen, setHoverCardCanOpen] = useState(true);
 
-  return (
+  const onActionMenuOpenChange = useCallback(
+    (options: OnActionMenuOpenChangeOptions) =>
+      setHoverCardCanOpen(!options.isOpen),
+    [],
+  );
+
+  const containerContent = (
     <div
       css={getContainerStyles(
         size,
@@ -247,9 +265,31 @@ const Container: React.FC<ContainerProps> = ({
       {clickableContainer
         ? getLayeredLink(testId, context, children, onClick)
         : null}
-      {renderChildren(children, size, theme, status, retry, onClick)}
+      {renderChildren(
+        children,
+        size,
+        theme,
+        status,
+        retry,
+        onClick,
+        showHoverPreview ? onActionMenuOpenChange : undefined,
+      )}
     </div>
   );
+
+  if (showHoverPreview && context?.url) {
+    return (
+      <HoverCard
+        url={context?.url}
+        canOpen={hoverCardCanOpen}
+        closeOnChildClick={true}
+      >
+        {containerContent}
+      </HoverCard>
+    );
+  }
+
+  return containerContent;
 };
 
 export default Container;

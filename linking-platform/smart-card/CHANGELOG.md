@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 23.9.0
+
+### Minor Changes
+
+- [`5c7c532de88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c7c532de88) - [ux] Add showHoverPreview as a ui parameter to allow hover cards on flex ui links.
+
+## 23.8.2
+
+### Patch Changes
+
+- [`f3aa608f0ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3aa608f0ba) - Update i18n translations from Traduki
+
+## 23.8.1
+
+### Patch Changes
+
+- [`af251caa485`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af251caa485) - Push div from hoverCardComponent into hoverCardContent to allow conditional rendering from inside hoverCardContent.
+
 ## 23.8.0
 
 ### Minor Changes

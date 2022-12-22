@@ -1,5 +1,8 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { extractType } from '@atlaskit/linking-common/extractors';
+import { CardState } from '../../../state/types';
 import { JsonLd } from 'json-ld-types';
 import React, { useCallback, useMemo } from 'react';
 import {
@@ -18,7 +21,11 @@ import {
   CustomActionItem,
 } from '../../FlexibleCard/components/blocks/types';
 import { FlexibleCardProps } from '../../FlexibleCard/types';
-import { flexibleUiOptions, titleBlockCss } from '../styled';
+import {
+  HoverCardContainer,
+  flexibleUiOptions,
+  titleBlockCss,
+} from '../styled';
 import { HoverCardContentProps } from '../types';
 import { getSimulatedMetadata } from '../utils';
 import HoverCardLoadingView from './views/resolving';
@@ -26,6 +33,8 @@ import HoverCardUnauthorisedView from './views/unauthorised';
 import HoverCardResolvedView from './views/resolved';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
+
+export const hoverCardClassName = 'smart-links-hover-preview';
 
 export const getOpenAction = (
   url: string,
@@ -56,6 +65,8 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   onResolve,
   renderers,
   url,
+  onMouseEnter,
+  onMouseLeave,
 }) => {
   const extensionKey = useMemo(
     () => getExtensionKey(cardState.details),
@@ -108,40 +119,59 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     children: {},
   };
 
-  if (cardState.metadataStatus === 'pending') {
-    return (
-      <HoverCardLoadingView
-        flexibleCardProps={flexibleCardProps}
-        titleBlockProps={titleBlockProps}
-      />
-    );
-  }
+  const onClickStopPropagation = useCallback((e) => e.stopPropagation(), []);
 
-  if (cardState.status === 'unauthorized') {
-    return (
-      <HoverCardUnauthorisedView
-        analytics={analytics}
-        extensionKey={extensionKey}
-        id={id}
-        flexibleCardProps={flexibleCardProps}
-        url={url}
-      />
-    );
-  }
+  const getCardView = (cardState: CardState) => {
+    if (cardState.metadataStatus === 'pending') {
+      return (
+        <HoverCardLoadingView
+          flexibleCardProps={flexibleCardProps}
+          titleBlockProps={titleBlockProps}
+        />
+      );
+    }
 
-  // if metadataStatus is 'errored' simply render using data available (normal path)
-  return (
-    <HoverCardResolvedView
-      id={id}
-      url={url}
-      extensionKey={extensionKey}
-      analytics={analytics}
-      cardActions={cardActions}
-      cardState={cardState}
-      flexibleCardProps={flexibleCardProps}
-      onActionClick={onActionClick}
-      titleBlockProps={titleBlockProps}
-    />
-  );
+    if (cardState.status === 'unauthorized') {
+      return (
+        <HoverCardUnauthorisedView
+          analytics={analytics}
+          extensionKey={extensionKey}
+          id={id}
+          flexibleCardProps={flexibleCardProps}
+          url={url}
+        />
+      );
+    }
+
+    if (cardState.status === 'resolved') {
+      return (
+        <HoverCardResolvedView
+          id={id}
+          url={url}
+          extensionKey={extensionKey}
+          analytics={analytics}
+          cardActions={cardActions}
+          cardState={cardState}
+          flexibleCardProps={flexibleCardProps}
+          onActionClick={onActionClick}
+          titleBlockProps={titleBlockProps}
+        />
+      );
+    }
+    return null;
+  };
+
+  const cardView = getCardView(cardState);
+  return cardView ? (
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={onClickStopPropagation}
+      className={hoverCardClassName}
+      css={HoverCardContainer}
+    >
+      {cardView}
+    </div>
+  ) : null;
 };
 export default HoverCardContent;

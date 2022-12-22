@@ -27,6 +27,8 @@ export default {
   'fabric.linking.connect_to': 'Mit {name} verbinden',
   'fabric.linking.connect_unauthorised_account_action':
     'Mit {context} verbinden',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Mit Atlassian verbinden, damit mehr Details zu Ihrer Arbeit und Zusammenarbeit an einem zentralen Ort angezeigt werden.',
   'fabric.linking.couldnt_load_link':
     'Dieser Link konnte aus unbekannten Gründen nicht geladen werden.',
   'fabric.linking.create_on_absolute': 'Erstellt am: {context}',
@@ -43,6 +45,8 @@ export default {
     'Bitte senden Sie eine Zugriffsanfrage oder versuchen Sie, die Vorschau über ein anderes Konto anzusehen.',
   'fabric.linking.join_to_view':
     '{context} beitreten, um diesen Vorgang anzuzeigen',
+  'fabric.linking.learn_more_about_smart_links':
+    'Mehr über Smart Links erfahren',
   'fabric.linking.loading': 'Lädt ...',
   'fabric.linking.modified_on_absolute': 'Aktualisiert am: {context}',
   'fabric.linking.modified_on_relative': 'Aktualisiert: {context}',

@@ -25,6 +25,8 @@ export default {
     'ご使用の {context} アカウントを接続',
   'fabric.linking.connect_to': '{name} に接続',
   'fabric.linking.connect_unauthorised_account_action': '{context} に接続',
+  'fabric.linking.connect_unauthorised_account_description':
+    'アトラシアンに接続すると、作業やコラボレーションの詳細を 1 か所で確認できます。',
   'fabric.linking.couldnt_load_link':
     '不明な理由によって、このリンクを読み込めませんでした。',
   'fabric.linking.create_on_absolute': '作成日: {context}',
@@ -40,8 +42,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
   'fabric.linking.join_to_view': '{context}に参加してこの課題を見る',
-  'fabric.linking.learn_more_about_smart_links_security':
-    'Smart Link のセキュリティと権限に関する詳細についてご確認ください。',
+  'fabric.linking.learn_more_about_smart_links': 'Smart Link の詳細',
   'fabric.linking.loading': '読み込み中…',
   'fabric.linking.modified_on_absolute': '更新日: {context}',
   'fabric.linking.modified_on_relative': '更新日: {context}',

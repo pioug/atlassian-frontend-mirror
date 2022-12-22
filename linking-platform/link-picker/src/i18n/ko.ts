@@ -35,9 +35,6 @@ export default {
     '다른 검색어로 다시 시도하세요.',
   'fabric.linkPicker.search.noResults.heading':
     '검색 조건과 일치하는 항목을 찾을 수 없습니다.',
-  'fabric.linkPicker.time.ago': '전',
-  'fabric.linkPicker.time.updated': '업데이트',
-  'fabric.linkPicker.time.viewed': '조회',
   'fabric.linkPicker.unhandledError.description':
     '페이지를 다시 로드해 보세요.',
   'fabric.linkPicker.unhandledError.heading': '문제가 발생했습니다.',

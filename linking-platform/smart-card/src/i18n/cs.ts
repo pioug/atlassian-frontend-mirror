@@ -26,6 +26,8 @@ export default {
     'Připojte svůj účet {context}',
   'fabric.linking.connect_to': 'Připojit k {name}',
   'fabric.linking.connect_unauthorised_account_action': 'Připojit k: {context}',
+  'fabric.linking.connect_unauthorised_account_description':
+    'Připojte Atlassian a budete moci sledovat další podrobnosti o své práci a spolupráci na jednom místě.',
   'fabric.linking.couldnt_load_link':
     'Tento odkaz se z neznámého důvodu nepodařilo načíst.',
   'fabric.linking.create_on_absolute': 'Vytvořeno: {context}',
@@ -42,6 +44,8 @@ export default {
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup nebo vyzkoušejte jiný účet.',
   'fabric.linking.join_to_view':
     'Chcete-li si zobrazit tento požadavek, připojte se ke službě {context}.',
+  'fabric.linking.learn_more_about_smart_links':
+    'Další informace o odkazech Smart Link',
   'fabric.linking.loading': 'Načítání…',
   'fabric.linking.modified_on_absolute': 'Aktualizováno: {context}',
   'fabric.linking.modified_on_relative': 'Aktualizováno: {context}',

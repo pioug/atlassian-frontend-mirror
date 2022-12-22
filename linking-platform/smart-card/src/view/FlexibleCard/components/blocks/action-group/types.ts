@@ -31,7 +31,7 @@ export type ActionGroupProps = {
   visibleButtonsNum?: number;
 
   /**
-   * Callback used by the dropdown. Is called when the dropdown is opened.
+   * Called when the action dropdown menu (if present) is open/closed.
    */
   onDropdownOpenChange?: (isOpen: boolean) => void;
 

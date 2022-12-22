@@ -25,6 +25,12 @@ export type ContainerProps = FlexibleUiOptions & {
    * serving as a hook for automated tests
    */
   testId?: string;
+
+  /**
+   * Determine whether or not a preview card should show up when a user hovers
+   * over the smartlink.
+   */
+  showHoverPreview?: Boolean;
 };
 
 export type ChildrenOptions = {

@@ -65,11 +65,6 @@ export function CardWithUrlContent({
 
   let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
 
-  const showHoverPreviewFlag = useFeatureFlag('showHoverPreview');
-  if (showHoverPreview === undefined && showHoverPreviewFlag !== undefined) {
-    showHoverPreview = Boolean(showHoverPreviewFlag);
-  }
-
   const showAuthTooltipValue = useFeatureFlag('showAuthTooltip');
   const showAuthTooltip =
     !!showAuthTooltipValue && showAuthTooltipValue === 'experiment';
@@ -202,6 +197,7 @@ export function CardWithUrlContent({
         onClick={handleClickWrapper}
         renderers={renderers}
         ui={ui}
+        showHoverPreview={showHoverPreview}
         url={url}
         testId={testId}
         onResolve={onResolve}

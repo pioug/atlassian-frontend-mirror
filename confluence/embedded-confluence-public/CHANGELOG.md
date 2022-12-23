@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.6.1
+
+### Patch Changes
+
+- [`e7023873ce8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7023873ce8) - [ux] Fix to not overflow content outside Embedded page for parent products not using the default height set content feature.
+
 ## 1.6.0
 
 ### Minor Changes

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import algoliasearch from 'algoliasearch';
 import Page from '@atlaskit/page';
 
-import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
 import Help, { ARTICLE_TYPE } from '../src';
 import type { Article, articleId, HistoryItem } from '../src';
 
@@ -67,26 +66,24 @@ const Example: React.FC = () => {
       <Page>
         <HelpContainer>
           <HelpWrapper>
-            <LocaleIntlProvider locale={'en'}>
-              <Help
-                navigation={{
-                  navigationData,
-                  setNavigationData: navigationDataSetter,
-                }}
-                helpArticle={{
-                  onGetHelpArticle,
-                }}
-                footer={
-                  <FooterContent>
-                    <span>Footer</span>
-                  </FooterContent>
-                }
-              >
-                <ExampleDefaultContent>
-                  <span>Default content</span>
-                </ExampleDefaultContent>
-              </Help>
-            </LocaleIntlProvider>
+            <Help
+              navigation={{
+                navigationData,
+                setNavigationData: navigationDataSetter,
+              }}
+              helpArticle={{
+                onGetHelpArticle,
+              }}
+              footer={
+                <FooterContent>
+                  <span>Footer</span>
+                </FooterContent>
+              }
+            >
+              <ExampleDefaultContent>
+                <span>Default content</span>
+              </ExampleDefaultContent>
+            </Help>
           </HelpWrapper>
         </HelpContainer>
       </Page>

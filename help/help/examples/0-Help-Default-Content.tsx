@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Page from '@atlaskit/page';
 
-import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
 import Help, { ARTICLE_TYPE } from '../src';
 import type { Article, articleId, HistoryItem } from '../src';
 
@@ -48,26 +47,24 @@ const Example: React.FC = () => {
         <HelpContainer>
           <HelpWrapper>
             <AnalyticsListener channel="atlaskit" onEvent={handleEvent}>
-              <LocaleIntlProvider locale={'en'}>
-                <Help
-                  navigation={{
-                    navigationData,
-                    setNavigationData: navigationDataSetter,
-                  }}
-                  helpArticle={{
-                    onGetHelpArticle,
-                  }}
-                  footer={
-                    <FooterContent>
-                      <span>Footer</span>
-                    </FooterContent>
-                  }
-                >
-                  <ExampleDefaultContent>
-                    <span>Default content</span>
-                  </ExampleDefaultContent>
-                </Help>
-              </LocaleIntlProvider>
+              <Help
+                navigation={{
+                  navigationData,
+                  setNavigationData: navigationDataSetter,
+                }}
+                helpArticle={{
+                  onGetHelpArticle,
+                }}
+                footer={
+                  <FooterContent>
+                    <span>Footer</span>
+                  </FooterContent>
+                }
+              >
+                <ExampleDefaultContent>
+                  <span>Default content</span>
+                </ExampleDefaultContent>
+              </Help>
             </AnalyticsListener>
           </HelpWrapper>
         </HelpContainer>

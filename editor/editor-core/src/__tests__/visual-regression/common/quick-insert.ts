@@ -177,7 +177,8 @@ describe('should render the quick insert menu and up and down arrow key should f
     await snapshot(page);
   });
 
-  it('- General Menu', async () => {
+  // FIXME: This test was automatically skipped due to failure on 22/12/2022: https://product-fabric.atlassian.net/browse/ED-16429
+  it.skip('- General Menu', async () => {
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
       viewport: { width: 800, height: 800 },

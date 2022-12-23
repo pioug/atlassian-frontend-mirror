@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.20
+
+### Patch Changes
+
+- [`605b2be739b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/605b2be739b) - Moved LocaleIntlProvider inside the @altaskit/help component and remove MessageIntlProvider file (not longer used)
+
 ## 7.1.19
 
 ### Patch Changes

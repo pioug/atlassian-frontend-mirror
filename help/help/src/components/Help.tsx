@@ -4,6 +4,7 @@ import {
   WithAnalyticsEventsProps,
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
+import { IntlProvider } from 'react-intl-next';
 import { defaultAnalyticsAttributes } from '../analytics';
 import { Help as HelpInterface } from '../model/Help';
 
@@ -14,33 +15,44 @@ import { NavigationContextProvider } from './contexts/navigationContext';
 import { RelatedArticlesContextProvider } from './contexts/relatedArticlesContext';
 import { SearchContextProvider } from './contexts/searchContext';
 import { WhatsNewArticleProvider } from './contexts/whatsNewArticleContext';
-import MessagesIntlProvider from './MessagesIntlProvider';
 
 import HelpContent from './HelpContent';
 
 export type Props = HelpInterface & WithAnalyticsEventsProps;
 
+const LocaleIntlProvider = ({
+  locale = 'en',
+  children,
+}: {
+  locale?: string;
+  children: React.ReactNode;
+}) => (
+  <IntlProvider key={locale} locale={locale}>
+    {children}
+  </IntlProvider>
+);
+
 export class Help extends React.PureComponent<Props> {
   render() {
     const { children, footer, ...rest } = this.props;
     return (
-      <HeaderContextProvider {...rest.header}>
-        <HomeContextProvider {...rest.home} homeContent={children}>
-          <HelpArticleContextProvider {...rest.helpArticle}>
-            <RelatedArticlesContextProvider {...rest.relatedArticles}>
-              <SearchContextProvider {...rest.search}>
-                <WhatsNewArticleProvider {...rest.whatsNew}>
-                  <NavigationContextProvider {...rest.navigation}>
-                    <MessagesIntlProvider>
+      <LocaleIntlProvider>
+        <HeaderContextProvider {...rest.header}>
+          <HomeContextProvider {...rest.home} homeContent={children}>
+            <HelpArticleContextProvider {...rest.helpArticle}>
+              <RelatedArticlesContextProvider {...rest.relatedArticles}>
+                <SearchContextProvider {...rest.search}>
+                  <WhatsNewArticleProvider {...rest.whatsNew}>
+                    <NavigationContextProvider {...rest.navigation}>
                       <HelpContent footer={footer} />
-                    </MessagesIntlProvider>
-                  </NavigationContextProvider>
-                </WhatsNewArticleProvider>
-              </SearchContextProvider>
-            </RelatedArticlesContextProvider>
-          </HelpArticleContextProvider>
-        </HomeContextProvider>
-      </HeaderContextProvider>
+                    </NavigationContextProvider>
+                  </WhatsNewArticleProvider>
+                </SearchContextProvider>
+              </RelatedArticlesContextProvider>
+            </HelpArticleContextProvider>
+          </HomeContextProvider>
+        </HeaderContextProvider>
+      </LocaleIntlProvider>
     );
   }
 }

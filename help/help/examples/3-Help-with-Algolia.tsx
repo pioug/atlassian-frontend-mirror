@@ -11,8 +11,6 @@ import ShipIcon from '@atlaskit/icon/glyph/ship';
 import * as colors from '@atlaskit/theme/colors';
 import { Field, HelperMessage } from '@atlaskit/form';
 
-import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
-
 import {
   ExampleWrapper,
   HelpWrapper,
@@ -738,113 +736,109 @@ const Example: React.FC = () => {
           {showComponent && (
             <HelpContainer>
               <HelpWrapper>
-                <LocaleIntlProvider locale={'en'}>
-                  <Help
-                    home={{
-                      homeOptions: [
-                        {
-                          id: 'test-button',
-                          onClick: (id: string) => {
-                            console.log('test button');
-                          },
-                          text: `Test Button`,
-                          href: 'https://www.google.com',
-                          icon: (
-                            <ShipIcon
-                              primaryColor={token(
-                                'color.icon.subtle',
-                                colors.N600,
-                              )}
-                              size="medium"
-                              label=""
-                            />
-                          ),
+                <Help
+                  home={{
+                    homeOptions: [
+                      {
+                        id: 'test-button',
+                        onClick: (id: string) => {
+                          console.log('test button');
                         },
-                      ],
+                        text: `Test Button`,
+                        href: 'https://www.google.com',
+                        icon: (
+                          <ShipIcon
+                            primaryColor={token(
+                              'color.icon.subtle',
+                              colors.N600,
+                            )}
+                            size="medium"
+                            label=""
+                          />
+                        ),
+                      },
+                    ],
+                  }}
+                  footer={Footer}
+                  helpArticle={{
+                    onGetHelpArticle: getArticleById,
+                    onHelpArticleLoadingFailTryAgainButtonClick:
+                      handleOnHelpArticleLoadingFailTryAgainButtonClick,
+                    onWasHelpfulSubmit: handleOnWasHelpfulSubmit,
+                    onWasHelpfulYesButtonClick:
+                      handleOnWasHelpfulYesButtonClick,
+                    onWasHelpfulNoButtonClick: handleOnWasHelpfulNoButtonClick,
+                  }}
+                  navigation={{
+                    navigationData,
+                    setNavigationData: navigationDataSetter,
+                  }}
+                  search={{
+                    onSearch: searchArticles,
+                    onSearchInputChanged: handleOnSearchInputChanged,
+                    onSearchInputCleared: handleOnSearchInputCleared,
+                    onSearchResultItemClick: handleOnSearchResultItemClick,
+                    onSearchExternalUrlClick: handleOnSearchExternalUrlClick,
+                    searchExternalUrl: SEARCH_EXTERNAL_URL,
+                  }}
+                  relatedArticles={{
+                    routeGroup: routeGroup,
+                    routeName: routeName,
+                    onGetRelatedArticles: getRelatedArticles,
+                    onRelatedArticlesShowMoreClick:
+                      handleOnRelatedArticlesShowMoreClick,
+                    onRelatedArticlesListItemClick:
+                      handleOnRelatedArticlesListItemClick,
+                  }}
+                  whatsNew={{
+                    whatsNewGetNotificationProvider:
+                      Promise.resolve(notificationsClient),
+                    productName: 'Jira',
+                    onWhatsNewButtonClick: handleOnWhatsNewButtonClick,
+                    onSearchWhatsNewShowMoreClick:
+                      handleOnSearchWhatsNewShowMoreClick,
+                    onSearchWhatsNewArticles: onSearchWhatsNewArticles,
+                    onGetWhatsNewArticle: getWhatsNewArticle,
+                    onWhatsNewResultItemClick: handleOnWhatsNewResultItemClick,
+                  }}
+                  header={{
+                    onCloseButtonClick: handleOnCloseButtonClick,
+                    onBackButtonClick: handleOnBackButtonClick,
+                  }}
+                >
+                  <RelatedArticles
+                    onRelatedArticlesListItemClick={(
+                      event: React.MouseEvent<HTMLElement, MouseEvent>,
+                      analytics: UIAnalyticsEvent,
+                      articleData: ArticleItem,
+                    ) => {
+                      console.log('onRelatedArticlesListItemClick');
+                      console.log(event);
+                      console.log(analytics);
+                      console.log(articleData);
+                      setNavigationData({
+                        ...navigationData,
+                        articleId: {
+                          id: articleData.id,
+                          type: ARTICLE_TYPE.HELP_ARTICLE,
+                        },
+                      });
                     }}
-                    footer={Footer}
-                    helpArticle={{
-                      onGetHelpArticle: getArticleById,
-                      onHelpArticleLoadingFailTryAgainButtonClick:
-                        handleOnHelpArticleLoadingFailTryAgainButtonClick,
-                      onWasHelpfulSubmit: handleOnWasHelpfulSubmit,
-                      onWasHelpfulYesButtonClick:
-                        handleOnWasHelpfulYesButtonClick,
-                      onWasHelpfulNoButtonClick:
-                        handleOnWasHelpfulNoButtonClick,
+                    onRelatedArticlesShowMoreClick={(
+                      event: React.MouseEvent<HTMLElement, MouseEvent>,
+                      analytics: UIAnalyticsEvent,
+                      isCollapsed: boolean,
+                    ) => {
+                      console.log('onRelatedArticlesShowMoreClick');
+                      console.log(event);
+                      console.log(analytics);
+                      console.log(isCollapsed);
                     }}
-                    navigation={{
-                      navigationData,
-                      setNavigationData: navigationDataSetter,
-                    }}
-                    search={{
-                      onSearch: searchArticles,
-                      onSearchInputChanged: handleOnSearchInputChanged,
-                      onSearchInputCleared: handleOnSearchInputCleared,
-                      onSearchResultItemClick: handleOnSearchResultItemClick,
-                      onSearchExternalUrlClick: handleOnSearchExternalUrlClick,
-                      searchExternalUrl: SEARCH_EXTERNAL_URL,
-                    }}
-                    relatedArticles={{
-                      routeGroup: routeGroup,
-                      routeName: routeName,
-                      onGetRelatedArticles: getRelatedArticles,
-                      onRelatedArticlesShowMoreClick:
-                        handleOnRelatedArticlesShowMoreClick,
-                      onRelatedArticlesListItemClick:
-                        handleOnRelatedArticlesListItemClick,
-                    }}
-                    whatsNew={{
-                      whatsNewGetNotificationProvider:
-                        Promise.resolve(notificationsClient),
-                      productName: 'Jira',
-                      onWhatsNewButtonClick: handleOnWhatsNewButtonClick,
-                      onSearchWhatsNewShowMoreClick:
-                        handleOnSearchWhatsNewShowMoreClick,
-                      onSearchWhatsNewArticles: onSearchWhatsNewArticles,
-                      onGetWhatsNewArticle: getWhatsNewArticle,
-                      onWhatsNewResultItemClick:
-                        handleOnWhatsNewResultItemClick,
-                    }}
-                    header={{
-                      onCloseButtonClick: handleOnCloseButtonClick,
-                      onBackButtonClick: handleOnBackButtonClick,
-                    }}
-                  >
-                    <RelatedArticles
-                      onRelatedArticlesListItemClick={(
-                        event: React.MouseEvent<HTMLElement, MouseEvent>,
-                        analytics: UIAnalyticsEvent,
-                        articleData: ArticleItem,
-                      ) => {
-                        console.log('onRelatedArticlesListItemClick');
-                        console.log(event);
-                        console.log(analytics);
-                        console.log(articleData);
-                        setNavigationData({
-                          ...navigationData,
-                          articleId: {
-                            id: articleData.id,
-                            type: ARTICLE_TYPE.HELP_ARTICLE,
-                          },
-                        });
-                      }}
-                      onRelatedArticlesShowMoreClick={(
-                        event: React.MouseEvent<HTMLElement, MouseEvent>,
-                        analytics: UIAnalyticsEvent,
-                        isCollapsed: boolean,
-                      ) => {
-                        console.log('onRelatedArticlesShowMoreClick');
-                        console.log(event);
-                        console.log(analytics);
-                        console.log(isCollapsed);
-                      }}
-                      onGetRelatedArticles={getRelatedArticles}
-                      routeGroup={routeGroup}
-                      routeName={routeName}
-                    />
-                  </Help>
-                </LocaleIntlProvider>
+                    onGetRelatedArticles={getRelatedArticles}
+                    routeGroup={routeGroup}
+                    routeName={routeName}
+                  />
+                </Help>
               </HelpWrapper>
             </HelpContainer>
           )}

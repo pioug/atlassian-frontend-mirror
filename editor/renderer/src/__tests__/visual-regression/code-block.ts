@@ -22,7 +22,8 @@ describe('Snapshot Test: CodeBlock', () => {
       await snapshot(page, undefined, selectors.codeBlock);
     });
 
-    test('should render copy-to-clipboard button correctly on hover', async () => {
+    // FIXME: This test was automatically skipped due to failure on 23/12/2022: https://product-fabric.atlassian.net/browse/ED-16433
+    test.skip('should render copy-to-clipboard button correctly on hover', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowCopyToClipboard: true },

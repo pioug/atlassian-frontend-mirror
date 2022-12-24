@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.6.2
+
+### Patch Changes
+
+- [`df6307e601e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df6307e601e) - Revert "Powered by Confluence" footer display order change to fix a UI regression bug happening on Project Pages
+
 ## 1.6.1
 
 ### Patch Changes

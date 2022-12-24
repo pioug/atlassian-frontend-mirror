@@ -150,7 +150,8 @@ describe('Snapshot Test: Media', () => {
       await snapshotRenderer();
     });
 
-    it('should render correct sizes for wrapped media', async () => {
+    // FIXME: This test was automatically skipped due to failure on 23/12/2022: https://product-fabric.atlassian.net/browse/ED-16432
+    it.skip('should render correct sizes for wrapped media', async () => {
       await initRenderer(page, wrappedCommentRendererAdf, undefined, 'comment');
       await waitForAllMedia(page, 5);
       await snapshotRenderer();

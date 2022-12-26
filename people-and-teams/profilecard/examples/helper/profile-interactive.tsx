@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 
-import styled, {
-  ThemeProvider as StyledThemeProvider,
-} from 'styled-components';
+import styled from '@emotion/styled';
 // @ts-ignore
 import uid from 'uid';
 
 import { N0, N800 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
-import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import { token } from '@atlaskit/tokens';
 
 import { ProfileCard } from '../../src';
@@ -282,157 +279,142 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 
     /* eslint-disable max-len */
     return (
-      <DeprecatedThemeProvider
-        mode={this.state.hasDarkTheme ? 'dark' : 'light'}
-        provider={StyledThemeProvider}
-      >
-        <StoryWrapper>
-          <ProfileCardWrapper>
-            <ProfileCard
-              isLoading={this.state.hasLoadingState}
-              hasError={this.state.hasErrorState}
-              actions={this.state.hasNoActions ? [] : actions}
-              isBot={this.state.isBot}
-              status={this.state.status}
-              statusModifiedDate={this.state.statusModifiedDate}
-              avatarUrl={this.state.hasAvatar ? this.state.avatarUrl : ''}
-              email={this.state.email}
-              fullName={
-                this.state.hasLongName
-                  ? `${this.state.fullName} Hathaway ${this.state.fullName}`
-                  : this.state.fullName
-              }
-              location={this.state.hasLocation ? this.state.location : ''}
-              companyName={
-                this.state.hasCompanyName ? this.state.companyName : ''
-              }
-              meta={this.state.hasMeta ? meta : ''}
-              nickname={this.state.nickname}
-              timestring={
-                this.state.hasTime ? getTimeString(this.state.hasWeekday) : ''
-              }
-              reportingLines={{
-                managers: this.state.hasManagers
-                  ? reportingLinesData.managers
-                  : undefined,
-                reports: this.state.hasDirectReports
-                  ? reportingLinesData.reports
-                  : undefined,
-              }}
-              reportingLinesProfileUrl={
-                this.state.hasReportingLineProfileUrl ? '/' : undefined
-              }
-              onReportingLinesClick={
-                this.state.hasReportingLineClickHandler
-                  ? (user) => {
-                      console.log('Clicked on ' + user.accountIdentifier);
-                    }
-                  : undefined
-              }
-              clientFetchProfile={handleActionClick('Retry')}
-              disabledAccountMessage={
-                this.state.hasDisabledAccountMessage ? (
-                  <React.Fragment>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                    <p>
-                      Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                      laboris nisi ut aliquip ex ea commodo.
-                    </p>
-                  </React.Fragment>
-                ) : undefined
-              }
-              hasDisabledAccountLozenge={this.state.hasDisabledAccountLozenge}
-              customLozenges={this.createCustomLozengeArray()}
-            />
-          </ProfileCardWrapper>
+      <StoryWrapper>
+        <ProfileCardWrapper>
+          <ProfileCard
+            isLoading={this.state.hasLoadingState}
+            hasError={this.state.hasErrorState}
+            actions={this.state.hasNoActions ? [] : actions}
+            isBot={this.state.isBot}
+            status={this.state.status}
+            statusModifiedDate={this.state.statusModifiedDate}
+            avatarUrl={this.state.hasAvatar ? this.state.avatarUrl : ''}
+            email={this.state.email}
+            fullName={
+              this.state.hasLongName
+                ? `${this.state.fullName} Hathaway ${this.state.fullName}`
+                : this.state.fullName
+            }
+            location={this.state.hasLocation ? this.state.location : ''}
+            companyName={
+              this.state.hasCompanyName ? this.state.companyName : ''
+            }
+            meta={this.state.hasMeta ? meta : ''}
+            nickname={this.state.nickname}
+            timestring={
+              this.state.hasTime ? getTimeString(this.state.hasWeekday) : ''
+            }
+            reportingLines={{
+              managers: this.state.hasManagers
+                ? reportingLinesData.managers
+                : undefined,
+              reports: this.state.hasDirectReports
+                ? reportingLinesData.reports
+                : undefined,
+            }}
+            reportingLinesProfileUrl={
+              this.state.hasReportingLineProfileUrl ? '/' : undefined
+            }
+            onReportingLinesClick={
+              this.state.hasReportingLineClickHandler
+                ? (user) => {
+                    console.log('Clicked on ' + user.accountIdentifier);
+                  }
+                : undefined
+            }
+            clientFetchProfile={handleActionClick('Retry')}
+            disabledAccountMessage={
+              this.state.hasDisabledAccountMessage ? (
+                <React.Fragment>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </p>
+                  <p>
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                    laboris nisi ut aliquip ex ea commodo.
+                  </p>
+                </React.Fragment>
+              ) : undefined
+            }
+            hasDisabledAccountLozenge={this.state.hasDisabledAccountLozenge}
+            customLozenges={this.createCustomLozengeArray()}
+          />
+        </ProfileCardWrapper>
 
-          <div style={{ marginTop: '16px', clear: 'both', overflow: 'auto' }}>
-            <ul>
-              <li>{this.createCheckboxBooleanAttribute('hasAvatar')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasAltActions')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasNoActions')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasMeta')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasLocation')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasCompanyName')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasTime')}</li>
-            </ul>
+        <div style={{ marginTop: '16px', clear: 'both', overflow: 'auto' }}>
+          <ul>
+            <li>{this.createCheckboxBooleanAttribute('hasAvatar')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasAltActions')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasNoActions')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasMeta')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasLocation')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasCompanyName')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasTime')}</li>
+          </ul>
 
-            <ul>
-              <li>{this.createCheckboxBooleanAttribute('hasLongName')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasLongRole')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasWeekday')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasManagers')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasDirectReports')}</li>
-              <li>
-                {this.createCheckboxBooleanAttribute(
-                  'hasReportingLineProfileUrl',
-                )}
-              </li>
-              <li>
-                {this.createCheckboxBooleanAttribute(
-                  'hasReportingLineClickHandler',
-                )}
-              </li>
-            </ul>
+          <ul>
+            <li>{this.createCheckboxBooleanAttribute('hasLongName')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasLongRole')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasWeekday')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasManagers')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasDirectReports')}</li>
+            <li>
+              {this.createCheckboxBooleanAttribute(
+                'hasReportingLineProfileUrl',
+              )}
+            </li>
+            <li>
+              {this.createCheckboxBooleanAttribute(
+                'hasReportingLineClickHandler',
+              )}
+            </li>
+          </ul>
 
-            <ul>
-              <li>{this.createCheckboxBooleanAttribute('hasLoadingState')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasErrorState')}</li>
-              <li>{this.createCheckboxBooleanAttribute('isBot')}</li>
-              <li>{this.createCheckboxBooleanAttribute('hasDarkTheme')}</li>
-            </ul>
+          <ul>
+            <li>{this.createCheckboxBooleanAttribute('hasLoadingState')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasErrorState')}</li>
+            <li>{this.createCheckboxBooleanAttribute('isBot')}</li>
+            <li>{this.createCheckboxBooleanAttribute('hasDarkTheme')}</li>
+          </ul>
 
-            <ul>
-              <li>
-                {this.createCheckboxBooleanAttribute('showCustomLozenge1')}
-              </li>
-              <li>
-                {this.createCheckboxBooleanAttribute('showCustomLozenge2')}
-              </li>
-              <li>
-                {this.createCheckboxBooleanAttribute('showCustomLozenge3')}
-              </li>
-            </ul>
-          </div>
+          <ul>
+            <li>{this.createCheckboxBooleanAttribute('showCustomLozenge1')}</li>
+            <li>{this.createCheckboxBooleanAttribute('showCustomLozenge2')}</li>
+            <li>{this.createCheckboxBooleanAttribute('showCustomLozenge3')}</li>
+          </ul>
+        </div>
 
-          <div style={{ marginTop: '16px', clear: 'both', overflow: 'auto' }}>
-            <ul>
-              <li>{this.createRadioStatusAttribute('active')}</li>
-              <li>{this.createRadioStatusAttribute('inactive')}</li>
-              <li>{this.createRadioStatusAttribute('closed')}</li>
-            </ul>
+        <div style={{ marginTop: '16px', clear: 'both', overflow: 'auto' }}>
+          <ul>
+            <li>{this.createRadioStatusAttribute('active')}</li>
+            <li>{this.createRadioStatusAttribute('inactive')}</li>
+            <li>{this.createRadioStatusAttribute('closed')}</li>
+          </ul>
 
-            <ul>
-              <li>
-                <strong>
-                  These are applied when `status` is `inactive` or `closed`
-                </strong>
-              </li>
-              <li>{this.createRadioStatusModifiedDate('noDate')}</li>
-              <li>{this.createRadioStatusModifiedDate('thisWeek')}</li>
-              <li>{this.createRadioStatusModifiedDate('thisMonth')}</li>
-              <li>{this.createRadioStatusModifiedDate('lastMonth')}</li>
-              <li>{this.createRadioStatusModifiedDate('aFewMonths')}</li>
-              <li>{this.createRadioStatusModifiedDate('severalMonths')}</li>
-              <li>{this.createRadioStatusModifiedDate('moreThanAYear')}</li>
-              <li>
-                {this.createCheckboxBooleanAttribute(
-                  'hasDisabledAccountMessage',
-                )}
-              </li>
-              <li>
-                {this.createCheckboxBooleanAttribute(
-                  'hasDisabledAccountLozenge',
-                )}
-              </li>
-            </ul>
-          </div>
-        </StoryWrapper>
-      </DeprecatedThemeProvider>
+          <ul>
+            <li>
+              <strong>
+                These are applied when `status` is `inactive` or `closed`
+              </strong>
+            </li>
+            <li>{this.createRadioStatusModifiedDate('noDate')}</li>
+            <li>{this.createRadioStatusModifiedDate('thisWeek')}</li>
+            <li>{this.createRadioStatusModifiedDate('thisMonth')}</li>
+            <li>{this.createRadioStatusModifiedDate('lastMonth')}</li>
+            <li>{this.createRadioStatusModifiedDate('aFewMonths')}</li>
+            <li>{this.createRadioStatusModifiedDate('severalMonths')}</li>
+            <li>{this.createRadioStatusModifiedDate('moreThanAYear')}</li>
+            <li>
+              {this.createCheckboxBooleanAttribute('hasDisabledAccountMessage')}
+            </li>
+            <li>
+              {this.createCheckboxBooleanAttribute('hasDisabledAccountLozenge')}
+            </li>
+          </ul>
+        </div>
+      </StoryWrapper>
     );
   }
 }

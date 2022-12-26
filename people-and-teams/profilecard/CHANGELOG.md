@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 18.0.0
+
+### Major Changes
+
+- [`d1789629297`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1789629297) - Switch from styled-components to emotion for CSS
+
 ## 17.3.1
 
 ### Patch Changes

@@ -4,8 +4,8 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
 
 exports[`ReportingLinesDetails should match snapshot when manager and reports are specified 1`] = `
 <Fragment>
-  <styled.div>
-    <styled.h5
+  <Styled(div)>
+    <Styled(h5)
       style={
         Object {
           "marginBottom": 0,
@@ -17,8 +17,8 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
         description="Title for a section on the profile card that show the user's direct manager"
         id="pt.team-profile-card.manager.heading"
       />
-    </styled.h5>
-    <styled.div>
+    </Styled(h5)>
+    <Styled(div)>
       <CustomThemeButton
         appearance="subtle"
         href="profile-urlabcd"
@@ -26,26 +26,26 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
         onClick={[Function]}
         spacing="none"
       >
-        <styled.div>
+        <Styled(div)>
           <Avatar
             size="xsmall"
             src="picture"
           />
-          <styled.span>
+          <Styled(span)>
             name
-          </styled.span>
-        </styled.div>
+          </Styled(span)>
+        </Styled(div)>
       </CustomThemeButton>
-    </styled.div>
-  </styled.div>
-  <styled.div>
-    <styled.h5>
+    </Styled(div)>
+  </Styled(div)>
+  <Styled(div)>
+    <Styled(h5)>
       <MemoizedFormattedMessage
         defaultMessage="Direct reports"
         description="Title for a section on the profile card that show the user's direct reports"
         id="pt.team-profile-card.directReports.heading"
       />
-    </styled.h5>
+    </Styled(h5)>
     <AvatarGroup
       appearance="stack"
       data={
@@ -70,6 +70,6 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
       size="small"
       testId="profilecard-reports-avatar-group"
     />
-  </styled.div>
+  </Styled(div)>
 </Fragment>
 `;

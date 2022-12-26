@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import { G400, G75, R75, Y75 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';

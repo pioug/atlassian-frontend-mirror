@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import ExampleWrapper from './helper/example-wrapper';
 import ProfilecardInteractive from './helper/profile-interactive';

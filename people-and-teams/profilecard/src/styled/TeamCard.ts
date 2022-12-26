@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from '@emotion/styled';
 
 import { N20, N200 } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
@@ -20,31 +20,15 @@ export const CardWrapper = styled.div`
   -moz-osx-font-smoothing: grayscale;
 `;
 
-const loadingImage = css`
-  background-color: ${token('color.background.neutral', N20)};
-`;
-
-const defaultImage = css`
-  background-color: ${teamHeaderBgColor};
-`;
-
 export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
-  ${(props) => {
-    if (props.isLoading) {
-      return loadingImage;
-    }
-
-    if (props.image) {
-      return css`
-        background-image: url('${props.image}');
-        background-size: cover;
-        background-position: center;
-      `;
-    }
-
-    return defaultImage;
-  }};
+  background-color: ${(props) =>
+    props.isLoading
+      ? token('color.background.neutral', N20)
+      : props.image
+      ? `url('${props.image}')`
+      : teamHeaderBgColor};
   background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
   box-sizing: content-box;
   height: ${gridSize() * 16}px;

@@ -1,4 +1,7 @@
-import styled, { css, keyframes } from 'styled-components';
+import React from 'react';
+
+import { keyframes } from '@emotion/core';
+import styled from '@emotion/styled';
 
 import {
   borderRadius,
@@ -53,7 +56,7 @@ const kudosButtonAnimationTransformation = keyframes`{
   100% { transform: translate(90px, -70px); }
 }`;
 
-export const KudosBlobAnimation = styled.div`
+export const KudosBlobAnimationStyle = styled.div`
   display: none;
   height: 150px;
   width: 150px;
@@ -71,9 +74,16 @@ export const KudosBlobAnimation = styled.div`
   overflow: hidden;
 `;
 
+export const KudosBlobAnimation: React.FC = (props) => (
+  <KudosBlobAnimationStyle className="kudos-blob-animation" {...props} />
+);
+
 export const AnimatedKudosButton = styled.div`
   margin-left: ${gridSize}px;
-  &:hover ${KudosBlobAnimation} {
+
+  /* Need babel-plugin-emotion to use component selector */
+  /* Previously with styled-components: &:hover {KudosBlobAnimation} { */
+  &:hover .kudos-blob-animation {
     display: block;
   }
 
@@ -217,11 +227,9 @@ export const CardContainer = styled.div`
   box-sizing: content-box;
   padding: ${gridSize() * 3}px;
   ${(props: CardContainerProps) => {
-    if (props.withoutElevation) {
-      return '';
-    }
-
-    return css`
+    return props.withoutElevation
+      ? ''
+      : `
       box-shadow: ${boxShadow};
       border-radius: ${borderRadius}px;
     `;

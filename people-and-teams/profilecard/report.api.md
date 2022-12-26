@@ -714,8 +714,7 @@ export interface WithOuterListenersProps {
 ```json
 {
   "react": "^16.8.0",
-  "react-dom": "^16.8.0",
-  "styled-components": "^3.2.6"
+  "react-dom": "^16.8.0"
 }
 ```
 

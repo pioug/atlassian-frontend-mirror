@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import styled from '@emotion/styled';
 import sample from 'lodash/sample';
-import styled from 'styled-components';
 
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';

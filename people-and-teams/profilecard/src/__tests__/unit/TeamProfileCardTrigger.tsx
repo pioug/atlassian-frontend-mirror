@@ -54,7 +54,7 @@ const mockResourceClient: unknown = {
     return Promise.resolve(sampleProfile);
   },
   shouldShowGiveKudos: () => {
-    return Promise.resolve(true);
+    return Promise.resolve(false);
   },
   getTeamCentralBaseUrl: () => {
     return 'http://dummy-url';
@@ -115,6 +115,34 @@ describe('TeamProfileCardTrigger', () => {
       });
 
       expect(queryByTestId('team-profilecard')).toBe(null);
+    });
+
+    it('should open "click" trigger after click (with kudos)', async () => {
+      const resourceClient: unknown = {
+        ...(mockResourceClient as object),
+        shouldShowGiveKudos: () => {
+          return Promise.resolve(true);
+        },
+      };
+
+      jest.useFakeTimers();
+
+      const { findByText, getByTestId } = renderWithIntl(
+        <TeamProfileCardTrigger
+          {...defaultProps}
+          resourceClient={resourceClient as ProfileClient}
+          trigger="click"
+        >
+          <span data-testid="test-inner-trigger">This is the trigger</span>
+        </TeamProfileCardTrigger>,
+      );
+
+      act(() => {
+        fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
+        jest.runAllTimers();
+      });
+
+      expect(await findByText('Give kudos')).toBeDefined();
     });
 
     it('should open "hover" trigger after mouse over', () => {
@@ -387,13 +415,8 @@ describe('TeamProfileCardTrigger', () => {
     it('should show error when resource client throws', async () => {
       const getTeamProfile = jest.fn();
       const resourceClient: unknown = {
+        ...(mockResourceClient as object),
         getTeamProfile,
-        shouldShowGiveKudos: () => {
-          return Promise.resolve(true);
-        },
-        getTeamCentralBaseUrl: () => {
-          return 'http://dummy-url';
-        },
       };
 
       jest.useFakeTimers();
@@ -425,13 +448,8 @@ describe('TeamProfileCardTrigger', () => {
     it('should re-fetch when clicking refresh button', async () => {
       const getTeamProfile = jest.fn();
       const resourceClient: unknown = {
+        ...(mockResourceClient as object),
         getTeamProfile,
-        shouldShowGiveKudos: () => {
-          return Promise.resolve(true);
-        },
-        getTeamCentralBaseUrl: () => {
-          return 'http://dummy-url';
-        },
       };
 
       jest.useFakeTimers();

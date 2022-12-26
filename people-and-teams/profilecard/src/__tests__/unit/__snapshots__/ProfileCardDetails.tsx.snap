@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ProfileCardDetails reportingLines property should match snapshot when no reporting lines are specified 1`] = `
-<styled.div>
-  <styled.span
+<Styled(div)>
+  <Styled(span)
     data-testid="profilecard-name"
     noMeta={true}
   >
     full name test (jscrazy) 
-  </styled.span>
+  </Styled(span)>
   <CustomLozenges />
   <IconLabel
     icon="email"
@@ -26,17 +26,17 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
   <ReportingLinesDetails
     fireAnalyticsWithDuration={[MockFunction]}
   />
-</styled.div>
+</Styled(div)>
 `;
 
 exports[`ProfileCardDetails reportingLines property should match snapshot when no reporting lines are specified 2`] = `
-<styled.div>
-  <styled.span
+<Styled(div)>
+  <Styled(span)
     data-testid="profilecard-name"
     noMeta={true}
   >
     full name test (jscrazy) 
-  </styled.span>
+  </Styled(span)>
   <CustomLozenges />
   <IconLabel
     icon="email"
@@ -56,17 +56,17 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
     fireAnalyticsWithDuration={[MockFunction]}
     reportingLines={Object {}}
   />
-</styled.div>
+</Styled(div)>
 `;
 
 exports[`ProfileCardDetails reportingLines property should match snapshot when no reporting lines are specified 3`] = `
-<styled.div>
-  <styled.span
+<Styled(div)>
+  <Styled(span)
     data-testid="profilecard-name"
     noMeta={true}
   >
     full name test (jscrazy) 
-  </styled.span>
+  </Styled(span)>
   <CustomLozenges />
   <IconLabel
     icon="email"
@@ -91,17 +91,17 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
       }
     }
   />
-</styled.div>
+</Styled(div)>
 `;
 
 exports[`ProfileCardDetails reportingLines property should match snapshot when reporting lines are specified 1`] = `
-<styled.div>
-  <styled.span
+<Styled(div)>
+  <Styled(span)
     data-testid="profilecard-name"
     noMeta={true}
   >
     full name test (jscrazy) 
-  </styled.span>
+  </Styled(span)>
   <CustomLozenges />
   <IconLabel
     icon="email"
@@ -152,5 +152,5 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when r
       }
     }
   />
-</styled.div>
+</Styled(div)>
 `;

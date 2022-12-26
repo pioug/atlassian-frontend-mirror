@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 // Simulating import from '@atlaskit/profilecard/user'
 import ProfileCardTrigger from '../src/components/User';

@@ -1,4 +1,4 @@
-import { BaseToken } from '../../palettes/typography/font-size-scale';
+import { FontSizeBaseToken as BaseToken } from '../../palettes/typography-palette';
 import { FontSizeTokenSchema, ValueSchema } from '../../types';
 
 const font: ValueSchema<FontSizeTokenSchema<BaseToken>> = {

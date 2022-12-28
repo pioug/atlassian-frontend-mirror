@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.12.0
+
+### Minor Changes
+
+- [`5892d12b125`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5892d12b125) - Refactors token artifact generation via style-dictionary. The tokens package no longer outputs redundant files on a per theme basis and instead consolidates schema-focused outputs into individual files where possible.
+
 ## 0.11.6
 
 ### Patch Changes

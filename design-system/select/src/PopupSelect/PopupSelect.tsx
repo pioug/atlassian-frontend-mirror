@@ -386,15 +386,15 @@ export default class PopupSelect<
    * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
    */
   close = (options?: { controlOverride?: boolean }) => {
-    const { onMenuClose } = this.props;
+    const { onClose } = this.props;
 
     if (!options?.controlOverride && this.isOpenControlled) {
       // Prevent popup closing if it's open state is already being controlled
       return;
     }
 
-    if (onMenuClose) {
-      onMenuClose();
+    if (onClose) {
+      onClose();
     }
 
     this.setState({ isOpen: false });

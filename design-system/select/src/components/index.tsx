@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
-import { components, MultiValueRemoveProps } from 'react-select';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
+import { components } from 'react-select';
+import { MultiValueRemoveProps } from '../types';
 
 export {
   ClearIndicator,

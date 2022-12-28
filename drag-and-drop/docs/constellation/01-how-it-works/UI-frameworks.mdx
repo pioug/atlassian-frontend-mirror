@@ -1,0 +1,149 @@
+---
+order: 3
+title: Usage with UI Frameworks
+description: How to use @atlaskit/drag-and-drop with different UI libraries and frameworks
+---
+
+Atlassian drag and drop has been designed to be used with any UI library or framework. This allows us to:
+
+- support deferred loading without needing to lean into any library specific abstractions.
+- have drag and drop between pieces of UI written in different UI libraries.
+- get fantastic performance.
+
+
+Here are some tips to help you implement drag and drop when using speicific frameworks (more coming soon). 
+
+## React
+
+### Attaching behavior
+
+We advise that you attach drag and drop behaviour to elements using [the `useEffect` hook](https://reactjs.org/docs/hooks-effect.html).
+
+```tsx
+// card.tsx
+import {draggable, dropTargetForElements} from '@atlaskit/drag-and-drop/adapter/element';
+
+export default function Card({ item }: { item: Item }) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const itemId = item.itemId;
+  const [state, setState] = useState<DraggableState>('idle');
+
+  useEffect(() => {
+    const cleanup = combine(
+      draggable({
+        element: ref.current,
+        getInitialData: () => ({ type: 'card', itemId: itemId }),
+      }),
+      dropTargetForElements({
+        element: ref.current,
+        canDrop: args => args.source.data.type === 'card',
+      }),
+    );
+    return cleanup;
+  }, [itemId]);
+
+  return (
+    <div ref={ref}>
+      item id: {item.itemId}</span>
+    </div>
+  );
+};
+```
+
+It is fine if your `draggable` or `dropTargetForElements` effect is cleaned up and re-created, even during a drag. For both of `draggable` and _drop targets_, the `element` is used as the _key_ for the entity. For more information, see [entity equality](TODO?);
+
+### Monitors
+
+Using effects is also a nice way to manage the lifecyle of monitors:
+
+```tsx
+export function App() {
+
+  useEffect(() => {
+    // this is nice as the monitor will be cleaned up when <App /> is unmounted
+    const cleanup = monitorForFiles({
+      onDragStart: () => console.log('A file is dragging!');
+    });
+
+    return cleanup;
+  }, []);
+
+  return <Example>;
+};
+```
+
+### Deferred loading
+
+React lazy loading is based on components ([more details](https://reactjs.org/docs/code-splitting.html)).
+
+You can use this component pattern with Atlassian drag and drop:
+
+```tsx
+import {Suspense, lazy} from 'react';
+
+// importing our `card.tsx` file from above
+const LazyCard = lazy(() => ('./card.tsx'));
+
+function App() {
+  return <Suspense fallback="loading..."><LazyCard></Suspense>
+}
+```
+
+Since this framework is not tied to `react`, you can also attach drag and drop behavior at some point after a component has already been rendered:
+
+```tsx
+function Card({ item }: { item: Item }) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const itemId = item.itemId;
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    // Look! We are attaching behaviour after the component has rendered!
+    // Note: Atlassian's, please use http://go/react-async rather than this promise based approach
+    (async () => {
+      const modules = await Promise.all([
+        await import('@atlaskit/drag-and-drop/adapter/element'),
+        await import('@atlaskit/drag-and-drop/util/combine'),
+      ]);
+
+      if (controller.signal.aborted) {
+        return;
+      }
+
+      const [{ draggable, dropTargetForElements }, { combine }] = modules;
+
+      if (!ref.current) {
+        return;
+      }
+
+      const cleanup = combine(
+        draggable({
+          element: ref.current,
+          getInitialData: () => ({ type: 'card', itemId: itemId }),
+        }),
+        dropTargetForElements({
+          element: ref.current,
+          canDrop: args => args.source.data.type === 'card',
+          getData: () => ({ type: 'card', itemId: itemId }),
+        }),
+      );
+
+      controller.signal.addEventListener('abort', cleanup, { once: true });
+    })();
+
+    return () => {
+      controller.abort();
+    };
+  }, [itemId]);
+
+  return (
+    <div ref={ref}>
+      item id: {item.itemId}</span>
+    </div>
+  );
+};
+```
+
+For more details, see our [deferred loading guide](/components/drag-and-drop/improving-performance/deferred-loading/deferred-loading).
+

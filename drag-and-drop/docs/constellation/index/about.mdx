@@ -5,46 +5,37 @@ order: 0
 import BoardExample from '../../examples/board-with-autoscroll';
 import SectionMessage from '@atlaskit/section-message';
 
-`@atlaskit/drag-and-drop` is a performance optimized drag and drop framework. `@atlaskit/drag-and-drop` is a thin layer on the browsers powerful drag and drop API which allows you to quickly build up highly robust and fast experiences - only ever paying for the features that you actual use.
+Atlassian drag and drop is here to help you build fast and intuitive drag and drop experiences, such as dragging cards on a page, file uploads, table rows, and more.
+
+This light-weight framework uses the browser's drag and drop API to power experiences, improving page performance and package sizes. Customize your experience with addons for changes to basic feel, accessibility flows, and other utilities as needed. 
+
 
 <Example Component={BoardExample} sourceVisible={false} />
 
-[→ more examples](/components/drag-and-drop/examples)
-
-## Core characteristics
-
-- 🌎 Platform powered: leverages the browsers drag and drop capabilities
-- 🐁 Tiny: ~`4.5kB` base
-- 🪡 Incremental: only pay for what you use
-- ⏳ Deferred compatible: consumers can delay the loading of `@atlaskit/drag-and-drop` (and related packages) in order to improve page load speeds
-- 🎨 Headless: full rendering and style control
-- 🦊 Cross browser support: full feature support in Firefox, Safari and Chrome
-- 📱 Touch device compatible
-- 🎁 Addons: patterns that allow sharing small pieces of functionality that can be added together
-- 🎄 Framework agnostic: works with any frontend framework
-- 👾 Virtualization support
-- 🧑‍🦽 Accessible: [comprehensive toolchain and patterns](/components/drag-and-drop/accessibility/overview) for creating highly accessible experiences
-
 <SectionMessage>
 
-
-`@atlaskit/drag-and-drop` is currently in early access and is on a `0.x` version to reflect that. There will likely be some API instability as we head towards stable versions `1.x`. We have done this to allow us the room to quickly evolve `@atlaskit/drag-and-drop` in order to meet the needs of our consumers. All API changes will be clearly communicated during `0.x`, but we won't be providing automated change tooling until we hit stable versions.
+**Atlassian drag and drop is currently in early access release. Expect frequent changes.** <br/>
+We'll communicate all API changes during the early access phase, but we won't provide automated change tooling until we hit stable versions 1.0+.
 
 </SectionMessage>
 
+## About Atlassian drag and drop
 
-## Quick start
+- **Platform powered:** Leverages the browser's drag and drop capabilities
+- **Tiny:** ~`4.5kB` base
+- **Incremental:** Only pay (in performance) for what you use
+- **Deferred compatible:** Delay the loading of `@atlaskit/drag-and-drop` (and related packages) in order to improve page load speeds
+- **Headless:** Full rendering and style control
+- **Touch device compatible**
+- **Addons:** Patterns that allow sharing small pieces of functionality that can be added together
+- **Framework agnostic:** Works with any frontend framework
+- **Virtualization support**
+- **Accessible:** Includes [tooling and patterns](/components/drag-and-drop/accessibility/overview) for creating accessible experiences
+- **Supported browsers:** Full feature support in Firefox, Safari, and Chrome
 
-1. ✨ Be inspired by our [Examples](/components/drag-and-drop/examples)
-2. 📖 Read this summary page
-3. 📖 Read [Adapters](/components/drag-and-drop/adapters), [Drop targets](/components/drag-and-drop/drop-targets) and [Monitors](/components/drag-and-drop/monitors)
-4. 🎁 Head over to our [Packages Catalogue](/components/drag-and-drop/packages) and choose the pieces you want to use
+## Supported experiences and features
 
-## Feature set
-
-`@atlaskit/drag-and-drop` can be used to power any drag and drop experience on the web, of any entity type.
-
-Some experiences you can power with `@atlaskit/drag-and-drop`:
+Atlassian drag and drop can power any drag and drop experience on the web, including:
 
 - lists
 - boards
@@ -57,17 +48,20 @@ Some experiences you can power with `@atlaskit/drag-and-drop`:
 - resizing
 - dragging between windows (experimental)
 
+See [more examples](/components/drag-and-drop/examples).
+
+
 <details>
-    <summary>The lower level capabilities</summary>
+    <summary>Detailed capabilities</summary>
 
 
-- Supports dragging of different entity types (eg elements, text, images, external files etc)
-- Nested _drop targets_ (elements that can be dropped on)
-- Flexible _drop target_ sizes
+- Supports dragging of different entity types (such as elements, text, images, external files)
+- Nested drop targets (elements that can be dropped on)
+- Flexible drop target sizes
 - Can add, remove, or change _drop targets_ while dragging
 - Conditional dropping
 - Auto scrolling
-- Stickiness: a _drop targets_ can maintain selection even after it is no longer being dragged over
+- Stickiness: a drop target can maintain selection even after it is no longer being dragged over
 - [`dropEffect`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/dropEffect) control
 - High frequency input updates to power high fidelity interactions
 
@@ -86,123 +80,26 @@ Some experiences you can power with `@atlaskit/drag-and-drop`:
 </details>
 
 
-## The Pieces
+## How it works
 
 <figure>
   <img src="/images/drag-and-drop--high-level-pieces.png" />
   <figcaption style="text-align:center">
-    How the various pieces of @atlaskit/drag-and-drop fit together
+    How the various pieces of ADS drag-and-drop fit together
   </figcaption>
 </figure>
 
-### Adapter
-
-A drag adapter teaches `@atlaskit/drag-and-drop` how to handle dragging a particular entity (eg [elements](/components/drag-and-drop/adapters/element-adapter), [external files](/components/drag-and-drop/adapters/file-adapter), text etc). When you use a drag adapter you will bring in the code required for that entity and no more. For example, if you use the element adapter, your application won't include any code for handling files.
-
-A drag adapter always provides at least two pieces:
-
-1. A way of registering _drop target_ (eg `dropTargetForElements`).
-2. A way to create a _monitor_ (eg `monitorForFiles`).
-
-```ts
-import {
-  dropTargetForFiles,
-  monitorForFiles,
-} from '@atlaskit/drag-and-drop/adapter/file';
-
-import {
-  dropTargetForElements,
-  monitorForElements,
-} from '@atlaskit/drag-and-drop/adapter/element';
-```
-
-A drag adapter can also provide additional pieces. For example, the [element adapter](/components/drag-and-drop/adapters/element-adapter) provides a `draggable` function which is a way of registering an `Element` as being draggable.
-
-```ts
-import { draggable } from '@atlaskit/drag-and-drop/adapter/element';
-
-const cleanup = draggable({
-  element: myElement,
-});
-```
-
-### Drop targets
-
-An `Element` that can be dropped on by something that is dragging.
-
-```ts
-import { dropTargetForFiles } from '@atlaskit/drag-and-drop/adapter/file';
-
-const cleanup = dropTargetForFiles({
-  element: myElement,
-});
-```
-
-More information → [drop target](/components/drag-and-drop/drop-targets)
-
-### Monitors
-
-A way of listening for `@atlaskit/drag-and-drop` drag operation events anywhere.
-
-```ts
-import { monitorForElements } from '@atlaskit/drag-and-drop/adapter/element';
-
-const cleanup = monitorForElements({
-  element: myElement,
-  onDragStart: () => console.log('an element started dragging'),
-});
-```
-
-### Addons
-
-An addon piece of code that impacts the control flow of your drag operation (eg [hitbox detection addon](/components/drag-and-drop/packages/hitbox)) or performs some side effect during the drag operation (eg the [auto scroller addon](/components/drag-and-drop/packages/autoscroll)).
-
-```ts
-import { autoScroller } from '@atlaskit/drag-and-drop-autoscroll';
-
-const cleanup = monitorForElements({
-  onDragStart: ({ location }) => {
-    autoScroller.start({ input: location.current.input });
-  },
-  onDrop: () => {
-    autoScroller.stop();
-  },
-  onDrag: ({ location }) => {
-    autoScroller.updateInput({
-      input: location.current.input,
-    });
-  },
-});
-```
-
-### Utilities
-
-Small helpers functions common tasks (eg `once` for simple memoization, `combine` to collapse cleanup functions).
-
-```ts
-import { combine } from '@atlaskit/drag-and-drop/util/combine';
-
-const cleanup = combine(
-  draggable({
-    element: myElement,
-  }),
-  dropTarget({
-    element: myElement,
-  }),
-);
-```
-
-<figure>
-  <img src="/images/drag-and-drop--only-pay-for-what-you-use.png" />
-  <figcaption style="text-align:center">
-    You only pay the bytes for the pieces of @atlaskit/drag-and-drop that you use. This helps keep bundles lean!
-  </figcaption>
-</figure>
+Learn more about how [how Atlassian drag and drop works]/components/drag-and-drop/how-it-works/how-it-works.
 
 ## Common terms
 
-These are some terms you will see used to refer to particular entities:
+These are some of the terms you'll see used to refer to particular entities:
 
-- **Drag source**: The entity that is dragging. These can be internal to a page (eg a `draggable` from the [element adapter](/components/drag-and-drop/adapters/element-adapter)) or external (eg a [file](/components/drag-and-drop/adapters/file-adapter))
-- **Drag preview**: The _thing_ that a user drags around. For elements, this is generally a picture of the drag source (a `draggable` element)
+- **Drag source**: The entity that is dragging. These can be internal to a page (a `draggable` from the [element adapter](/drag-and-drop/how-it-works/adapters/element-adapter)) or external [file adapter](/drag-and-drop/how-it-works/adapters/file-adapter))
+- **Drag preview**: The thing that a user drags around. For elements, this is generally a picture of the drag source (a `draggable` element)
 - **Drop indicator**: Something that is drawn to indicate where the drag source will be dropped (generally a line). You are free to draw your own drop indicators. We also have a package of premade ones: `@atlaskit/drag-and-drop-indicator`.
+
+## What's next
+
+- Check out our [Examples](/components/drag-and-drop/examples).
+- Get started with [how Atlassian drag and drop works]/components/drag-and-drop/how-it-works/how-it-works.

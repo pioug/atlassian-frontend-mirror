@@ -468,7 +468,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
       );
       expect(providerLabel).toBeFalsy();
 
-      const connectButton = getByTestId('smart-action');
+      const connectButton = getByTestId('smart-action-connect-account');
       expect(connectButton).toBeTruthy();
       expect(connectButton.innerHTML).not.toContain('Connect to');
       expect(connectButton.innerHTML).toContain('Connect');
@@ -554,7 +554,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
       );
       expect(providerLabel).toBeTruthy();
       expect(providerLabel.innerHTML).toContain('Google');
-      const connectButton = getByTestId('smart-action');
+      const connectButton = getByTestId('smart-action-connect-account');
       expect(connectButton).toBeTruthy();
       expect(connectButton.innerHTML).toContain('Connect to Google');
     });

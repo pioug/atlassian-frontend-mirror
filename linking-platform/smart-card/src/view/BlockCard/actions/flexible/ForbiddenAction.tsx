@@ -25,5 +25,6 @@ export const ForbiddenAction = (
   ({
     name: ActionName.CustomAction,
     content: <FormattedMessage {...messages[content]} values={{ context }} />,
-    onClick: onClick,
+    onClick,
+    testId: 'smart-action-connect-other-account',
   } as CustomActionItem);

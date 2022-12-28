@@ -38,6 +38,8 @@ export const typescriptTokenFormatter: Format['formatter'] = ({
       ${tokenReturnKeyValues}
     };
 
+    export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
+
     export default tokens;\n`,
     { parser: 'typescript', singleQuote: true },
   );

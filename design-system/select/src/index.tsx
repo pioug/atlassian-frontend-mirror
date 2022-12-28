@@ -16,6 +16,7 @@ export { default as PopupSelect } from './PopupSelect';
 export type { PopupSelectProps, ModifierList } from './PopupSelect';
 
 export type {
+  SelectInstance,
   ActionMeta,
   ControlProps,
   FormatOptionLabelMeta,

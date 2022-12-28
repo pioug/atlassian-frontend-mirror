@@ -1,5 +1,6 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
+  SelectInstance,
   Props as ReactSelectProps,
   FormatOptionLabelMeta,
   OnChangeValue as RSValueType,
@@ -24,6 +25,7 @@ import {
   PlaceholderProps as RSPlaceholderProps,
   SingleValueProps,
   ValueContainerProps as RSValueContainerProps,
+  MultiValueRemoveProps,
 } from 'react-select';
 
 import { AsyncProps } from 'react-select/async';
@@ -130,6 +132,7 @@ export type ValueContainerProps<
 export type GroupedOptionsType<Option> = ReadonlyArray<GroupType<Option>>;
 
 export type {
+  SelectInstance,
   FormatOptionLabelMeta,
   InputActionMeta,
   GroupType,
@@ -142,6 +145,7 @@ export type {
   IndicatorSeparatorProps,
   LoadingIndicatorProps,
   NoticeProps,
+  MultiValueRemoveProps,
 };
 
 declare module 'react-select/dist/declarations/src/Select' {

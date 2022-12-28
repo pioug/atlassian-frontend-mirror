@@ -1,4 +1,4 @@
-import type { BaseToken } from '../../../palettes/typography/font-weight-scale';
+import type { FontWeightBaseToken as BaseToken } from '../../../palettes/typography-palette';
 import type { AttributeSchema, FontWeightTokenSchema } from '../../../types';
 
 const font: AttributeSchema<FontWeightTokenSchema<BaseToken>> = {

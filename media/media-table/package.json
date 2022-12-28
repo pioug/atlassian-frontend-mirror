@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-table",
-  "version": "14.1.0",
+  "version": "14.1.1",
   "description": "Table UI component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
     "@atlaskit/media-ui": "^22.2.0",
     "@atlaskit/media-viewer": "^47.2.0",
     "@atlaskit/theme": "^12.2.0",
-    "@atlaskit/tokens": "^0.11.1",
+    "@atlaskit/tokens": "^0.12.0",
     "@atlaskit/tooltip": "^17.6.0",
     "@babel/runtime": "^7.0.0",
     "memoize-one": "^6.0.0"

@@ -1,4 +1,4 @@
-import { BaseToken } from '../../palettes/typography/line-height-scale';
+import { LineHeightBaseToken as BaseToken } from '../../palettes/typography-palette';
 import { LineHeightTokenSchema, ValueSchema } from '../../types';
 
 const font: ValueSchema<LineHeightTokenSchema<BaseToken>> = {

@@ -16,4 +16,5 @@ export const RetryAction = (onRetry: () => void): CustomActionItem =>
     name: ActionName.CustomAction,
     onClick: onRetry,
     content: <FormattedMessage {...messages.try_again} />,
+    testId: 'smart-action-try-again',
   } as CustomActionItem);

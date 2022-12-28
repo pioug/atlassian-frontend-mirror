@@ -84,6 +84,7 @@ export const BlockCard: FC<BlockCardProps> = ({
       url,
       testId,
       onError,
+      onResolve,
       renderers,
       ui,
       analytics,
@@ -93,6 +94,14 @@ export const BlockCard: FC<BlockCardProps> = ({
     switch (status) {
       case 'pending':
       case 'resolving':
+        return (
+          <div css={flexibleBlockCardElevationStyle}>
+            <FlexibleResolvedView
+              {...flexibleProps}
+              testId={'smart-block-resolving-view'}
+            />
+          </div>
+        );
       case 'resolved':
         return (
           <div css={flexibleBlockCardElevationStyle}>
@@ -128,6 +137,20 @@ export const BlockCard: FC<BlockCardProps> = ({
         );
       case 'fallback':
       case 'errored':
+      default:
+        if (onError) {
+          onError({ url, status });
+        }
+        if (authFlow && authFlow === 'disabled') {
+          return (
+            <CardLinkView
+              link={url}
+              isSelected={isSelected}
+              onClick={handleFrameClick}
+              testId={`${testId}-${status}`}
+            />
+          );
+        }
         return (
           <div css={flexibleBlockCardElevationStyle}>
             <FlexibleErroredView

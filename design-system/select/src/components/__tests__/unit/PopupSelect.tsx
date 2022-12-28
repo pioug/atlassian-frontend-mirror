@@ -200,7 +200,7 @@ describe('Popup Select', () => {
           options={OPTIONS}
           value={OPTIONS[0]}
           testId={'PopupSelect'}
-          onMenuClose={onMenuCloseMock}
+          onClose={onMenuCloseMock}
           target={({ ref }) => (
             <button ref={ref} data-testid="select-trigger">
               Target

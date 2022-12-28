@@ -114,6 +114,25 @@ export const mocks = {
       url: 'https://some.url',
     },
   } as JsonLd.Response,
+  forbiddenWithNoAuth: {
+    meta: {
+      visibility: 'restricted',
+      access: 'forbidden',
+      auth: [],
+      definitionId: 'd1',
+      key: 'object-provider',
+    },
+    data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Object',
+      name: 'I love cheese',
+      url: 'https://some.url',
+    },
+  } as JsonLd.Response,
   unauthorized: {
     meta: {
       visibility: 'restricted',
@@ -125,6 +144,25 @@ export const mocks = {
           url: 'https://outbound-auth/flow',
         },
       ],
+      definitionId: 'd1',
+      key: 'object-provider',
+    },
+    data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Object',
+      name: 'I love cheese',
+      url: 'https://some.url',
+    },
+  } as JsonLd.Response,
+  unauthorizedWithNoAuth: {
+    meta: {
+      visibility: 'restricted',
+      access: 'unauthorized',
+      auth: [],
       definitionId: 'd1',
       key: 'object-provider',
     },

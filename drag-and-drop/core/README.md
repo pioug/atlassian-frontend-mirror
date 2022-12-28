@@ -1,4 +1,4 @@
-# `@atlaskit/drag-and-drop`
+# Atlassian drag and drop
 
 A performance optimized drag and drop framework
 
@@ -6,7 +6,7 @@ A performance optimized drag and drop framework
 
 ## Background
 
-There exist a wealth of existing drag and drop libraries for the web. Some drag and drop libraries are general purpose (eg `@shopify/draggable`, `react-dnd`), and some are for specific experiences (eg `react-beautiful-dnd` is for lists and connected lists). Some libraries leverage the platform's built in drag and drop capabilities, and some rebuild the drag and drop operation from scratch.
+There are a wealth of existing drag and drop libraries for the web. Some drag and drop libraries are general purpose (e.g. `@shopify/draggable`, `react-dnd`), and some are for specific experiences (e.g. `react-beautiful-dnd` is for lists and connected lists). Some libraries leverage the platform's built in drag and drop capabilities, and some rebuild the drag and drop operation from scratch.
 
 Every drag and drop solution will make tradeoffs regarding feature sets, user experience, startup performance and runtime performance.
 
@@ -40,4 +40,4 @@ yarn add @atlaskit/drag-and-drop
 
 ## Usage
 
-Detailed docs and example usage can be found on [atlassian.design](https://atlassian.design/components/drag-and-drop/).
+Detailed docs and example usage can be found on [atlassian.design](https://atlassian.design/components/atlassian-drag-and-drop/).

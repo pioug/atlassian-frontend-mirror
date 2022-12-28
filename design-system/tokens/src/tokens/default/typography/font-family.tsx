@@ -1,4 +1,4 @@
-import type { BaseToken } from '../../../palettes/typography/font-family';
+import type { FontFamilyBaseToken as BaseToken } from '../../../palettes/typography-palette';
 import type { AttributeSchema, FontFamilyTokenSchema } from '../../../types';
 
 const font: AttributeSchema<FontFamilyTokenSchema<BaseToken>> = {

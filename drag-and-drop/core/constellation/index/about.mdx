@@ -1,19 +1,20 @@
 ---
 order: 0
-description: The framework agnostic core drag and drop package
 ---
 
 import SectionMessage from '@atlaskit/section-message';
 
-This packages contains the essential pieces of the system, and is not tied to any JavaScript framework
+<!-- I'd like to change this section to be called Drag-and-drop or something, not Core, but still mulling it over. -->
 
-- `@atlaskit/drag-and-drop/adapter/element`: The [element adapter](/components/drag-and-drop/adapter/element-adapter) used to power drag operations of elements
-- `@atlaskit/drag-and-drop/adapter/file`: The [file adapter](/components/drag-and-drop/adapter/file-adapter) used to power drag operations of external files
-- `@atlaskit/drag-and-drop/types`: All of the base TypeScript types of `@atlaskit/drag-and-drop`
+This package contains the essential pieces of the system, and is not tied to any JavaScript framework.
+
+- The [element adapter](/components/drag-and-drop/adapter/element-adapter) powers drag operations of elements.
+- The [file adapter](/components/drag-and-drop/adapter/file-adapter) powers drag operations of external files.
+- All of the base TypeScript types of Atlassian drag and drop are in `@atlaskit/drag-and-drop/types`.
 
 ## Addons
 
-### `cancelUnhandled`
+### Cancel unhandled
 
 ```ts
 import { cancelUnhandled } from '@atlaskit/drag-and-drop/addon/cancel-unhandled';
@@ -39,13 +40,14 @@ monitorForFiles({
 
 ## Utilities
 
-### `combine`
+### Combine cleanup functions
+
+Combines the cleanup functions returned by _draggables_, _drop targets_ and _monitors_.
 
 ```ts
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 ```
-
-`draggables`, _drop targets_ and _monitors_ return a cleanup function
+_Draggables_, _drop targets_ and _monitors_ return a cleanup function.
 
 ```ts
 import { CleanupFn } from '@atlaskit/drag-and-drop/types';
@@ -72,7 +74,7 @@ cleanupDropTarget();
 cleanupMonitor();
 ```
 
-`combine` smooshes multiple cleanup functions into a single cleanup function
+The `combine` utility smooshes multiple cleanup functions into a single cleanup function.
 
 ```ts
 const cleanup: CleanupFn = combine(
@@ -113,13 +115,15 @@ useEffect(() => {
 }, []);
 ```
 
-### `once`
+### Once 
+
+A function that will only allow the provided function to be called once.
 
 ```ts
 import { once } from '@atlaskit/drag-and-drop/util/once';
 ```
 
-A function that will only allow the provided function to be called once. This is useful if your drop target `getData()` is expensive to calculate
+This is useful if your drop target `getData()` is expensive to calculate.
 
 ```ts
 dropTargetForFiles({
@@ -146,13 +150,15 @@ dropTargetForFiles({
 });
 ```
 
-### `reorder`
+### Reorder array
+
+A function to make common array reordering operations easier.
 
 ```ts
 import { reorder } from '@atlaskit/drag-and-drop/util/reorder';
 ```
 
-A function to make common array reordering operations easier. This is useful when you want to reorder items in a list. `reorder` returns a new array and does not modify the provided `list`
+This is useful when you want to reorder items in a list. `reorder` returns a new array and does not modify the provided `list`.
 
 ```ts
 const reordered = reorder({
@@ -163,13 +169,13 @@ const reordered = reorder({
 console.log(reordered); // [B, A, C]
 ```
 
-### `disableNativeDragPreview`
+### Disable native drag preview
+
+In some situations, you might want to disable the native drag preview. The `disableNativeDragPreview` utility does this for all supported browsers and platforms.
 
 ```ts
 import { disableNativeDragPreview } from '@atlaskit/drag-and-drop/util/disable-native-drag-preview';
 ```
-
-In some situations you might want completely disable the native drag preview. We have created a `disableNativeDragPreview` utility to do this for you that will work across all supported browsers and platforms
 
 ```ts
 import { disableNativeDragPreview } from '@atlaskit/drag-and-drop/util/disable-native-drag-preview';
@@ -182,13 +188,15 @@ draggable({
 });
 ```
 
-### `scrollJustEnoughIntoView`
+### Scroll just enough into view
+
+A function that scrolls a draggable element just enough into view so that the element becomes totally visible. If the element is already fully visible, then no scrolling will occur.
 
 ```ts
 import { scrollJustEnoughIntoView } from '@atlaskit/drag-and-drop/util/scroll-just-enough-into-view';
 ```
 
-A function that will scroll an draggable element just enough into view so that the element becomes totally visible. If the element is already totally visible then no scrolling will occur. Useful to avoid having drag previews cut off by scroll containers. See [element adapter](/components/drag-and-drop/adapter/element-adapter) for more information
+Useful to avoid having drag previews cut off by scroll containers. See [element adapter](/components/drag-and-drop/adapter/element-adapter) for more information.
 
 ```ts
 import { scrollJustEnoughIntoView } from '@atlaskit/drag-and-drop/util/scroll-just-enough-into-view';
@@ -204,8 +212,7 @@ draggable({
 
 <SectionMessage>
 
-
-We don't bake `scrollJustEnoughIntoView` into the `@atlaskit/drag-and-drop` itself as it may not be the best approach in all circumstances (for example, you might be making a small drag preview for a large draggable element, or you might be opting out of the native drag preview)
+We don't bake `scrollJustEnoughIntoView` into Atlassian drag and drop, as it may not be the best approach in all circumstances (for example, you might be making a small drag preview for a large draggable element, or you might be opting out of the native drag preview)
 
 </SectionMessage>
 

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 23.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.9.1
+
+### Patch Changes
+
+- [`484be3ed430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/484be3ed430) - This adds onResolve back to Flexible Block Card
+
 ## 23.9.0
 
 ### Minor Changes

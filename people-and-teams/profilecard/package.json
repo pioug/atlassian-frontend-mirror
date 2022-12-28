@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/profilecard",
-  "version": "18.0.0",
+  "version": "18.0.1",
   "description": "A React component to display a card with user information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
     "@atlaskit/popup": "^1.5.0",
     "@atlaskit/spinner": "^15.3.0",
     "@atlaskit/theme": "^12.2.0",
-    "@atlaskit/tokens": "^0.11.0",
+    "@atlaskit/tokens": "^0.12.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^11.0.0",

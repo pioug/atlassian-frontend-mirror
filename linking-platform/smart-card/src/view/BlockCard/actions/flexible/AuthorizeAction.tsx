@@ -27,4 +27,5 @@ export const AuthorizeAction = (
       <FormattedMessage {...messages.connect_link_account_card} />
     ),
     onClick: onAuthorize,
+    testId: 'smart-action-connect-account',
   } as CustomActionItem);

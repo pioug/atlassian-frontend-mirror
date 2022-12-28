@@ -4,19 +4,19 @@ title: Hitbox
 description: An addon to extract collision information from a user's drag.
 ---
 
-This package includes _addons_ and _utilities_ to extract additional information about the impact of the users current drag.
+This package includes addons and utilities to extract additional information about the user's current drag.
 
-- [@atlasit/drag-and-drop-hitbox/closest-edge](/components/drag-and-drop/packages/hitbox/closest-edge) - detecting the closest edge (`"top", "right", "bottom", "left"`) for a _drop target_ being dragged over
-- Trees (_coming soon_)
-- `@atlasit/drag-and-drop-hitbox/types` - a way to import the types of this package without any implementation (includes the `Edge` type)
+- **Closest edge:** Detects the [closest edge](/components/drag-and-drop/packages/hitbox/closest-edge) (`"top", "right", "bottom", "left"`) for a drop target being dragged over.
+- **Trees** (coming soon)
+- **Hitbox types:** A way to import the types of this package without any implementation (includes the `Edge` type).
 
 ## Addons
 
 ### Closest edge
 
-The closest edge _addon_ is used to know what the closest edge (`"top", "right", "bottom", "left"`) is when dragging over a _drop target_. Knowing the closest edge can be helpful when doing reordering and moving operations. This addon leverages the fact that `getData()` is _repeatedly_ called throughout a drag and drop operation.
+The closest edge addon is used to know what the closest edge is when dragging over a drop target. Knowing the closest edge can be helpful when doing reordering and moving operations. This addon leverages the fact that `getData()` is repeatedly called throughout a drag and drop operation.
 
-`attachClosestEdge()` adds a unique `Symbol` to your _drop targets_ `data` object which allows for type safe lookups with `extractClosestEdge()`
+The `attachClosestEdge()` function adds a unique `Symbol` to your drop target's `data` object, which allows for type safe lookups with `extractClosestEdge()`.
 
 ```ts
 type Edge = 'top' | 'right' | 'bottom' | 'left';

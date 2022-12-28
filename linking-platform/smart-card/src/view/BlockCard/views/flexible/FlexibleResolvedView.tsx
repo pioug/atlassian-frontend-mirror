@@ -27,6 +27,7 @@ const FlexibleResolvedView = ({
   cardState,
   onClick,
   onError,
+  onResolve,
   testId = 'smart-block-resolved-view',
   ui,
   url,
@@ -47,6 +48,7 @@ const FlexibleResolvedView = ({
       cardState={cardState}
       onClick={onClick}
       onError={onError}
+      onResolve={onResolve}
       testId={testId}
       ui={ui}
       url={url}
@@ -76,7 +78,6 @@ const FlexibleResolvedView = ({
         ]}
         maxLines={1}
       />
-      <MetadataBlock />
       <SnippetBlock />
       {!isPreviewBlockErrored ? (
         <PreviewBlock

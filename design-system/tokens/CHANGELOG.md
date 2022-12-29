@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.13.0
+
+### Minor Changes
+
+- [`00c057bdd71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00c057bdd71) - Removes spacing-raw & typography-raw entrypoints in favor of tokens-raw
+
 ## 0.12.0
 
 ### Minor Changes

@@ -11,8 +11,10 @@ import {
   property,
 } from 'eslint-codemod-utils';
 
-import spacingScale from '@atlaskit/tokens/spacing-raw';
-import typographyTokens from '@atlaskit/tokens/typography-raw';
+import {
+  spacing as spacingScale,
+  typography as typographyTokens,
+} from '@atlaskit/tokens/tokens-raw';
 
 import { isDecendantOfGlobalToken } from '../utils/is-node';
 

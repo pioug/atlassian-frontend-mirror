@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 1.6.3
+
+### Patch Changes
+
+- [`00c057bdd71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00c057bdd71) - Removes spacing-raw & typography-raw entrypoints in favor of tokens-raw
+- Updated dependencies
+
 ## 1.6.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.5.1
 
 ### Patch Changes

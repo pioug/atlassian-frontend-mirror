@@ -1,5 +1,11 @@
 # @atlaskit/media-avatar-picker
 
+## 24.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.1.1
 
 ### Patch Changes

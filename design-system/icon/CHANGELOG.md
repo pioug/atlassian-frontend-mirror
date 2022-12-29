@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.11.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.11.3
 
 ### Patch Changes

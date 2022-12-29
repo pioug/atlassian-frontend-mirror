@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.13.10
+
+### Patch Changes
+
+- [`00c057bdd71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00c057bdd71) - Removes spacing-raw & typography-raw entrypoints in favor of tokens-raw
+- Updated dependencies
+
 ## 4.13.9
 
 ### Patch Changes

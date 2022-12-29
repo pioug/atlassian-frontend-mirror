@@ -1,7 +1,7 @@
 import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
-import tokens from '@atlaskit/tokens/spacing-raw';
+import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import { capitalize, tokenToStyle } from './utils';
 

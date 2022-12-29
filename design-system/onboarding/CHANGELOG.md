@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.6.4
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import {
   AnalyticsPayload,
 } from '../../utils/types';
 import {
+  chunkloadFailedEvent,
   connectFailedEvent,
   connectSucceededEvent,
   context,
@@ -752,6 +753,42 @@ export const useSmartLinkAnalytics = (
         if (event) {
           dispatchAnalytics(applyCommonAttributes(event, commonAttributes));
         }
+      },
+
+      /**
+       * This fires an event that represents when a Smart Link renders unsuccessfuly.
+       * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+       * @param id The unique ID for this Smart Link.
+       * @param error: An error representing why the Smart Link render failed.
+       * @param errorInfo: Additional details about the error including the stack trace.
+       */
+      chunkloadFailedEvent: ({
+        display,
+        error,
+        errorInfo,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: UiRenderFailedEventProps) => {
+        dispatchAnalytics(
+          applyCommonAttributes(
+            chunkloadFailedEvent({
+              display,
+              error,
+              errorInfo,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
+        );
       },
     }),
     [defaultId, commonAttributes, dispatchAnalytics],

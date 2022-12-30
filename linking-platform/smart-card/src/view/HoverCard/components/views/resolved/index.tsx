@@ -20,7 +20,6 @@ import {
   metadataBlockCss,
 } from './styled';
 import FlexibleCard from '../../../../FlexibleCard';
-import { useSmartCardActions } from '../../../../../state/actions';
 import { getSimulatedMetadata, toActionableMetadata } from '../../../utils';
 import { LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';
 import { CustomActionItem } from '../../../../FlexibleCard/components/blocks/types';
@@ -60,11 +59,6 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   extensionKey,
 }) => {
   const showActionableElement = useFeatureFlag('enableActionableElement');
-  const actions = useSmartCardActions(id, url, analytics);
-
-  useEffect(() => {
-    actions.loadMetadata();
-  }, [actions]);
 
   useEffect(() => {
     // Since this hover view is only rendered on resolved status,

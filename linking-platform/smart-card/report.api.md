@@ -86,6 +86,7 @@ type ActionProps = {
 // @public (undocumented)
 export type AnalyticsAction =
   | 'authStarted'
+  | 'chunkLoadFailed'
   | 'clicked'
   | 'closed'
   | 'connectFailed'
@@ -1097,6 +1098,17 @@ export const useSmartLinkAnalytics: (
       location,
       error,
     }: InstrumentEventProps) => void;
+    chunkloadFailedEvent: ({
+      display,
+      error,
+      errorInfo,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: UiRenderFailedEventProps) => void;
   };
   track: {
     appAccountConnected: ({

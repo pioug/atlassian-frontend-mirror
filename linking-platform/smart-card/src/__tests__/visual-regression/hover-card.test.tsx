@@ -150,4 +150,24 @@ describe('Hover Card', () => {
     const image = await takeSnapshot(page, height);
     expect(image).toMatchProdImageSnapshot(snapshotOptions);
   });
+
+  it('shows when wrapping simple span element', async () => {
+    const height = 400;
+
+    const url = getURL('vr-hover-card-on-span');
+    const page = await setup(url);
+
+    await page.setViewport({
+      width: 800,
+      height: height,
+    });
+
+    await page.waitForSelector('[data-testid="hover-test-span"]');
+    await page.hover('[data-testid="hover-test-span"]');
+    await page.waitForSelector('[data-testid="hover-card"]');
+    await page.waitForSelector('[data-testid="smart-links-container"]');
+
+    const image = await takeSnapshot(page, height);
+    expect(image).toMatchProdImageSnapshot(snapshotOptions);
+  });
 });

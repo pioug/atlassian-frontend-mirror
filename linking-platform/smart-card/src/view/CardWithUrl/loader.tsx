@@ -16,12 +16,15 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { useSmartLinkAnalytics } from '../../state/analytics';
 import { LoadingCardLink } from './component-lazy/LazyFallback';
 import { CardWithUrlContentProps } from './types';
+import { importWithRetry } from '../../utils';
 
-const LazyCardWithUrlContent = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_smartcard-urlcardcontent" */ './component-lazy/index'
-    ),
+const LazyCardWithUrlContent = lazy(() =>
+  importWithRetry(
+    () =>
+      import(
+        /* webpackChunkName: "@atlaskit-internal_smartcard-urlcardcontent" */ './component-lazy/index'
+      ),
+  ),
 );
 
 export function CardWithURLRenderer(props: CardProps) {
@@ -83,14 +86,21 @@ export function CardWithURLRenderer(props: CardProps) {
       },
     ) => {
       const { componentStack } = info;
+      const errorInfo: ErrorInfo = {
+        componentStack,
+      };
       // NB: APIErrors are thrown in response to Object Resolver Service. We do not
       // fire an event for these, as they do not cover failed UI render events.
       // The rest of the errors caught here are unexpected, and correlate
       // to the reliability of the smart-card front-end components.
-      if (error.name !== 'APIError') {
-        const errorInfo: ErrorInfo = {
-          componentStack,
-        };
+      // Likewise, chunk loading errors are not caused by a failure of smart-card rendering.
+      if (error.name === 'ChunkLoadError') {
+        analytics.operational.chunkloadFailedEvent({
+          display: appearance,
+          error,
+          errorInfo,
+        });
+      } else if (error.name !== 'APIError') {
         analytics.ui.renderFailedEvent({
           display: appearance,
           id,
@@ -103,7 +113,7 @@ export function CardWithURLRenderer(props: CardProps) {
       // In the case of editor this allows the Smart Link to fallback to a blue link.
       throw error;
     },
-    [analytics.ui, appearance, id],
+    [analytics.operational, analytics.ui, appearance, id],
   );
 
   if (!url) {

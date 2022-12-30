@@ -4,7 +4,7 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { extractType } from '@atlaskit/linking-common/extractors';
 import { CardState } from '../../../state/types';
 import { JsonLd } from 'json-ld-types';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import {
   ActionName,
   CardDisplay,
@@ -33,6 +33,7 @@ import HoverCardUnauthorisedView from './views/unauthorised';
 import HoverCardResolvedView from './views/resolved';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
+import { useSmartCardActions } from '../../../state/actions';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
@@ -72,6 +73,11 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     () => getExtensionKey(cardState.details),
     [cardState.details],
   );
+  const actions = useSmartCardActions(id, url, analytics);
+
+  useEffect(() => {
+    actions.loadMetadata();
+  }, [actions]);
 
   const onClick = useCallback(
     (event: React.MouseEvent | React.KeyboardEvent) => {

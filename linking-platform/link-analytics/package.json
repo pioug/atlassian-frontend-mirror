@@ -36,7 +36,7 @@
     "@atlaskit/link-picker": "^1.16.0",
     "@atlaskit/link-test-helpers": "^2.0.0",
     "@atlaskit/popup": "^1.5.0",
-    "@atlaskit/smart-card": "^23.9.0",
+    "@atlaskit/smart-card": "^23.10.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react-hooks": "^8.0.1",
     "fetch-mock": "^8.0.0",

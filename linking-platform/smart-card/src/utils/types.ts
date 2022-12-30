@@ -18,7 +18,8 @@ export type AnalyticsAction =
   | 'renderWithStatus'
   | 'resolved'
   | 'viewed'
-  | 'unresolved';
+  | 'unresolved'
+  | 'chunkLoadFailed';
 
 export type AnalyticsActionSubject =
   | 'smartLink'

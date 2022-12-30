@@ -10,10 +10,13 @@ import { mocks } from '../../../utils/mocks';
 import { APIError } from '@atlaskit/linking-common';
 import { CardClient } from '@atlaskit/link-provider';
 import * as analytics from '../../../utils/analytics';
+import * as lazyComponent from '../../CardWithUrl/component-lazy/index';
+import { ChunkLoadError } from '../../../utils/__tests__/index.test';
 
 describe('smart-card: error analytics', () => {
   let mockWindowOpen: jest.Mock;
   let mockUrl: string;
+  const mockedLazyComponent = jest.spyOn(lazyComponent, 'default');
 
   beforeEach(() => {
     mockWindowOpen = jest.fn();
@@ -313,5 +316,40 @@ describe('smart-card: error analytics', () => {
       definitionId: 'd1',
       extensionKey: 'object-provider',
     });
+  });
+
+  it('should throw ChunkLoadError and emit chunkLoadFailed event', async () => {
+    const chunkLoadError = new ChunkLoadError();
+    mockedLazyComponent.mockImplementation(() => {
+      throw chunkLoadError;
+    });
+
+    const onError = jest.fn();
+    class MockClient extends CardClient {
+      async fetchData(url: string): Promise<JsonLd.Response> {
+        return mocks.success;
+      }
+    }
+    const client = new MockClient();
+    const { getByTestId } = render(
+      <Provider client={client}>
+        <TestErrorBoundary onError={onError}>
+          <Card appearance="inline" url={mockUrl} />
+        </TestErrorBoundary>
+      </Provider>,
+    );
+
+    await waitFor(() => getByTestId('error-boundary'));
+    await waitFor(() =>
+      expect(analytics.chunkloadFailedEvent).toHaveBeenCalledTimes(1),
+    );
+    expect(onError).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: chunkLoadError.name,
+      }),
+      expect.objectContaining({
+        componentStack: expect.any(String),
+      }),
+    );
   });
 });

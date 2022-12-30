@@ -545,3 +545,29 @@ export const uiLearnMoreLinkClickedEvent = (): AnalyticsPayload => ({
     ...context,
   },
 });
+
+export const chunkloadFailedEvent = ({
+  display,
+  error,
+  errorInfo,
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: UiRenderFailedEventProps): AnalyticsPayload => ({
+  action: 'chunkLoadFailed',
+  actionSubject: 'smartLink',
+  eventType: 'operational',
+  attributes: {
+    ...context,
+    error,
+    errorInfo,
+    display,
+    extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
+  },
+});

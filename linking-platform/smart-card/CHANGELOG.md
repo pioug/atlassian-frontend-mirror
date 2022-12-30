@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 23.10.1
+
+### Patch Changes
+
+- [`d88eda329c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d88eda329c1) - seperate chunk load errors into it's own analytics event and do retries when lazy loading smartcard-urlcardcontent fails
+
+## 23.10.0
+
+### Minor Changes
+
+- [`aa44d74bf40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa44d74bf40) - Expose a new entry point to hover cards at @atlaskit/smart-card/hover-card
+
 ## 23.9.3
 
 ### Patch Changes

@@ -11,6 +11,7 @@ export {
   unresolvedEvent,
   invokeSucceededEvent,
   invokeFailedEvent,
+  chunkloadFailedEvent,
   connectSucceededEvent,
   connectFailedEvent,
   trackAppAccountAuthStarted,

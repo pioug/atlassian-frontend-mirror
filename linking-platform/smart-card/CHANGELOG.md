@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.10.2
+
+### Patch Changes
+
+- [`cb819660949`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb819660949) - [ux] Add a lonzenge to restricted links.
+
 ## 23.10.1
 
 ### Patch Changes

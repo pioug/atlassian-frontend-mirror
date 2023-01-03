@@ -102,4 +102,50 @@ describe('IconAndTitleLayout', () => {
     expect(emoji).toBeDefined();
     expect(queryByTestId('inline-card-icon-default')).toBeNull;
   });
+
+  describe('rightSideSpacer prop', () => {
+    it('should render spacer when undefined', () => {
+      const leftText = 'Left side text';
+      const rightText = 'Right side text';
+      const element = mount(
+        <IconAndTitleLayout
+          title={leftText}
+          testId="inline-card-icon"
+          rightSide={rightText}
+        />,
+      );
+
+      expect(element.text()).toEqual(`${leftText} - ${rightText}`);
+    });
+
+    it('should render spacer when true', () => {
+      const leftText = 'Left side text';
+      const rightText = 'Right side text';
+      const element = mount(
+        <IconAndTitleLayout
+          title={leftText}
+          testId="inline-card-icon"
+          rightSide={rightText}
+          rightSideSpacer={true}
+        />,
+      );
+
+      expect(element.text()).toEqual(`${leftText} - ${rightText}`);
+    });
+
+    it('should not render spacer when false', () => {
+      const leftText = 'Left side text';
+      const rightText = 'Right side text';
+      const element = mount(
+        <IconAndTitleLayout
+          title={leftText}
+          testId="inline-card-icon"
+          rightSide={rightText}
+          rightSideSpacer={false}
+        />,
+      );
+
+      expect(element.text()).toEqual(`${leftText}${rightText}`);
+    });
+  });
 });

@@ -67,9 +67,6 @@ export const IconTitleWrapper = styled.span`
 export const LozengeWrapper = styled.span`
   display: inline-block;
   vertical-align: 1px;
-  & > span {
-    margin-left: 4px;
-  }
 `;
 // TODO: Replace overrides with proper AtlasKit solution.
 export const LozengeBlockWrapper = styled.span`

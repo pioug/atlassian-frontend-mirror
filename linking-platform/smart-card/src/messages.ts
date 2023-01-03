@@ -226,7 +226,7 @@ export const messages: Messages = defineMessages({
   },
   invalid_permissions: {
     id: 'fabric.linking.invalid_permissions',
-    defaultMessage: 'Restricted link',
+    defaultMessage: 'Restricted content',
     description:
       'Message shown when a user does not have permissions to view an item',
   },

@@ -217,7 +217,7 @@ describe('smart-card: card states, embed', () => {
           await new Promise((resolve) => setTimeout(resolve, 1000));
 
           const forbiddenLink = await waitFor(() =>
-            getByText(/Restricted link/),
+            getByText(/Restricted content/),
           );
           expect(forbiddenLink).toBeTruthy();
           const forbiddenLinkButton = container.querySelector('button');
@@ -244,7 +244,7 @@ describe('smart-card: card states, embed', () => {
             </Provider>,
           );
           const forbiddenLink = await waitFor(() =>
-            getByText(/Restricted link/),
+            getByText(/Restricted content/),
           );
           expect(forbiddenLink).toBeTruthy();
           expect(mockFetch).toBeCalled();

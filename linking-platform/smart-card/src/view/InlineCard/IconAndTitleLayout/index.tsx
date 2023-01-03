@@ -25,10 +25,15 @@ export interface IconAndTitleLayoutProps {
   testId?: string;
   link?: string;
   rightSide?: React.ReactNode;
+  rightSideSpacer: boolean;
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 }
 
 export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps> {
+  public static defaultProps = {
+    rightSideSpacer: true,
+  };
+
   private renderAtlaskitIcon() {
     const { icon, emoji } = this.props;
 
@@ -163,7 +168,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
           )}
           {rightSide ? (
             <NoLinkAppearance>
-              {' - '}
+              {this.props.rightSideSpacer && ' - '}
               {rightSide}
             </NoLinkAppearance>
           ) : null}

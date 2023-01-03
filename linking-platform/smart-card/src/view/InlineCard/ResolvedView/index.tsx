@@ -2,7 +2,10 @@ import React from 'react';
 import { Frame } from '../Frame';
 import Lozenge from '@atlaskit/lozenge';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { LozengeWrapper } from '../IconAndTitleLayout/styled';
+import {
+  LozengeWrapper,
+  LozengeBlockWrapper,
+} from '../IconAndTitleLayout/styled';
 import { LozengeProps } from '../../../types';
 import { HoverCard } from '../../../view/HoverCard/index';
 
@@ -38,14 +41,16 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
       return null;
     }
     return (
-      <LozengeWrapper>
-        <Lozenge
-          appearance={lozenge.appearance || 'default'}
-          isBold={lozenge.isBold}
-        >
-          {lozenge.text}
-        </Lozenge>
-      </LozengeWrapper>
+      <LozengeBlockWrapper>
+        <LozengeWrapper>
+          <Lozenge
+            appearance={lozenge.appearance || 'default'}
+            isBold={lozenge.isBold}
+          >
+            {lozenge.text}
+          </Lozenge>
+        </LozengeWrapper>
+      </LozengeBlockWrapper>
     );
   }
 

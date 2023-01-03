@@ -202,14 +202,15 @@ describe('smart-card: card states, inline', () => {
             </Provider>,
           );
           const forbiddenLink = await waitForElement(() =>
-            getByText(/Restricted link/),
+            getByText(/Restricted content/),
           );
           const forbiddenLinkButton =
             container.querySelector('[type="button"]');
           expect(forbiddenLink).toBeTruthy();
           expect(forbiddenLinkButton).toBeTruthy();
-          expect(forbiddenLinkButton!.innerHTML).toContain(
-            'Try another account',
+          const forbiddenLinkButtonHTML = forbiddenLinkButton as HTMLElement;
+          expect(forbiddenLinkButtonHTML!.innerText).toContain(
+            'Restricted content',
           );
           expect(mockFetch).toBeCalled();
           expect(mockFetch).toBeCalledTimes(1);

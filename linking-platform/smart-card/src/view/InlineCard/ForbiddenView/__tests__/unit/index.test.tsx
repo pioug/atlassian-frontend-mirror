@@ -58,9 +58,7 @@ describe('Forbidden view', () => {
         <InlineCardForbiddenView url={URL} onAuthorise={jest.fn()} />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(
-      `${URL} - Restricted link, Try another account`,
-    );
+    expect(element.text()).toEqual(`${URL}Restricted content`);
   });
 
   it('should show correct icon if present', () => {
@@ -74,9 +72,7 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(
-      `${URL} - Restricted link, Try another account`,
-    );
+    expect(element.text()).toEqual(`${URL}Restricted content`);
     expect(element.find('img').prop('src')).toBe(iconUrl);
   });
 
@@ -86,9 +82,7 @@ describe('Forbidden view', () => {
         <InlineCardForbiddenView url={URL} onAuthorise={jest.fn()} />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(
-      `${URL} - Restricted link, Try another account`,
-    );
+    expect(element.text()).toEqual(`${URL}Restricted content`);
     expect(element.find(LockIcon)).toHaveLength(1);
     expect(element.find(LockIcon).prop('label')).toBe('error');
   });

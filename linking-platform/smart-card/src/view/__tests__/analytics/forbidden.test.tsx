@@ -63,7 +63,10 @@ describe('smart-card: forbidden analytics', () => {
       const forbiddenLinkButton = container.querySelector('[type="button"]');
       expect(forbiddenLink).toBeTruthy();
       expect(forbiddenLinkButton).toBeTruthy();
-      expect(forbiddenLinkButton!.innerHTML).toContain('Try another');
+      const forbiddenLinkButtonHTML = forbiddenLinkButton as HTMLElement;
+      expect(forbiddenLinkButtonHTML!.innerText).toContain(
+        'Restricted content',
+      );
       // Mock out auth flow, & click connect.
       asMockFunction(auth).mockImplementationOnce(async () => {});
       fireEvent.click(forbiddenLinkButton!);
@@ -116,7 +119,10 @@ describe('smart-card: forbidden analytics', () => {
       const forbiddenLinkButton = container.querySelector('[type="button"]');
       expect(forbiddenLink).toBeTruthy();
       expect(forbiddenLinkButton).toBeTruthy();
-      expect(forbiddenLinkButton!.innerHTML).toContain('Try another');
+      const forbiddenLinkButtonHTML = forbiddenLinkButton as HTMLElement;
+      expect(forbiddenLinkButtonHTML!.innerText).toContain(
+        'Restricted content',
+      );
       // Mock out auth flow, & click connect.
       asMockFunction(auth).mockImplementationOnce(() =>
         Promise.reject(new AuthError('')),

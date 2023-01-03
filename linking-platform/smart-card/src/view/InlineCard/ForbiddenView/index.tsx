@@ -8,8 +8,13 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';
 import { messages } from '../../../messages';
 import { FormattedMessage } from 'react-intl-next';
-import { IconStyledButton, LowercaseAppearance } from '../styled';
+import { IconStyledButton } from '../styled';
 import { RequestAccessContextProps } from '../../types';
+import Lozenge from '@atlaskit/lozenge';
+import {
+  LozengeWrapper,
+  LozengeBlockWrapper,
+} from '../IconAndTitleLayout/styled';
 
 export interface InlineCardForbiddenViewProps {
   /** The url to display */
@@ -41,6 +46,11 @@ const FallbackForbiddenIcon = (
 );
 
 export class InlineCardForbiddenView extends React.Component<InlineCardForbiddenViewProps> {
+  state = {
+    hasRequestAccessContextMessage:
+      !!this.props?.requestAccessContext?.callToActionMessageKey,
+  };
+
   handleRetry = (event: React.MouseEvent<HTMLElement>) => {
     const { onAuthorise } = this.props;
     event.preventDefault();
@@ -66,14 +76,7 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
       <>
         <FormattedMessage {...messages.invalid_permissions}>
           {(formattedMessage) => {
-            return <>{formattedMessage}, </>;
-          }}
-        </FormattedMessage>
-        <FormattedMessage {...messages.try_another_account}>
-          {(formattedMessage) => {
-            return (
-              <LowercaseAppearance>{formattedMessage}</LowercaseAppearance>
-            );
+            return <>{formattedMessage}</>;
           }}
         </FormattedMessage>
       </>
@@ -82,20 +85,42 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
 
   renderRightSide = () => {
     const { onAuthorise } = this.props;
-    const hasRequestAccessContextMessage =
-      this.props?.requestAccessContext?.callToActionMessageKey;
 
-    return onAuthorise || hasRequestAccessContextMessage ? (
-      <Button
-        spacing="none"
-        appearance="subtle-link"
-        onClick={this.handleRetry}
-        component={IconStyledButton}
-        testId="button-connect-other-account"
-      >
-        {this.renderForbiddenAccessMessage()}
-      </Button>
-    ) : null;
+    if (this.state.hasRequestAccessContextMessage) {
+      return (
+        <Button
+          spacing="none"
+          appearance="subtle-link"
+          onClick={this.handleRetry}
+          component={IconStyledButton}
+          testId="button-connect-other-account"
+        >
+          {this.renderForbiddenAccessMessage()}
+        </Button>
+      );
+    }
+
+    if (onAuthorise) {
+      return (
+        <LozengeBlockWrapper>
+          <Button
+            spacing="none"
+            appearance="subtle-link"
+            onClick={this.handleRetry}
+            component={IconStyledButton}
+            testId="button-connect-other-account"
+          >
+            <LozengeWrapper>
+              <Lozenge appearance={'moved'}>
+                {this.renderForbiddenAccessMessage()}
+              </Lozenge>
+            </LozengeWrapper>
+          </Button>
+        </LozengeBlockWrapper>
+      );
+    }
+
+    return null;
   };
 
   render() {
@@ -113,8 +138,9 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
           link={url}
           title={url}
           onClick={onClick}
-          rightSide={this.renderRightSide()}
           titleColor={token('color.text.subtle', N500)}
+          rightSide={this.renderRightSide()}
+          rightSideSpacer={this.state.hasRequestAccessContextMessage}
         />
       </Frame>
     );

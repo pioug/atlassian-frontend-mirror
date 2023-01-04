@@ -24,7 +24,7 @@ import {
   typeaheadRenderedEvent,
   ufoExperiences,
 } from '../../util/analytics';
-import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
+import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 
 import EmojiList from './EmojiTypeAheadList';
@@ -351,14 +351,8 @@ export default class EmojiTypeAheadComponent extends PureComponent<
       display: visible ? 'block' : 'none',
     };
 
-    const emojiContextValue = {
-      emoji: {
-        emojiProvider: this.props.emojiProvider,
-      },
-    };
-
     return (
-      <LegacyEmojiContextProvider emojiContextValue={emojiContextValue}>
+      <EmojiCommonProvider emojiProvider={this.props.emojiProvider}>
         <div
           style={style}
           className={'ak-emoji-typeahead'}
@@ -371,7 +365,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<
             loading={loading}
           />
         </div>
-      </LegacyEmojiContextProvider>
+      </EmojiCommonProvider>
     );
   }
 }

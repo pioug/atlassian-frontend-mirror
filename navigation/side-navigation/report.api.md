@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/side-navigation"
 
@@ -159,6 +159,7 @@ export interface NestableNavigationContentProps {
   children: JSX.Element | JSX.Element[];
   initialStack?: string[];
   onChange?: (stack: string[]) => void;
+  onUnknownNest?: (stack: string[]) => void;
   // @deprecated
   overrides?: {
     GoBackItem?: {

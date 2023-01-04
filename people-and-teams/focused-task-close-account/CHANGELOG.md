@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 2.0.4
+
+### Patch Changes
+
+- [`6fefd25917e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fefd25917e) - Moved `@emotion/styled` to dependency to ensure correct version (v11) is resolved.
+
 ## 2.0.3
 
 ### Patch Changes

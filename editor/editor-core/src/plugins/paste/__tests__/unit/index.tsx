@@ -352,6 +352,7 @@ describe('paste plugins', () => {
                   type: 'file',
                   collection: 'MediaServicesSample',
                   __fileMimeType: 'image/jpeg',
+                  __mediaTraceId: expect.any(String),
                 })(),
               ),
             ),
@@ -382,6 +383,7 @@ describe('paste plugins', () => {
                         __fileMimeType: 'image/png',
                         __fileName: 'image-20190325-222039.png',
                         __fileSize: 29502,
+                        __mediaTraceId: expect.any(String),
                         height: 288,
                         width: 490,
                       })(),
@@ -981,6 +983,7 @@ describe('paste plugins', () => {
             })(
               media({
                 __contextId: '414734770',
+                __mediaTraceId: expect.any(String),
                 collection: 'contentId-414734770',
                 height: 844,
                 id: 'ade9cc46-35a9-49b1-b4ff-477670463481',
@@ -1151,13 +1154,13 @@ describe('paste plugins', () => {
 
       it('should preserve marks when pasting inline text into list', () => {
         const { editorView } = editor(
-          doc(ol(li(p(strong(em('this is a {<>}text')))))),
+          doc(ol()(li(p(strong(em('this is a {<>}text')))))),
         );
         dispatchPasteEvent(editorView, {
           html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
-          doc(ol(li(p(strong(em('this is a strong em {<>}text')))))),
+          doc(ol()(li(p(strong(em('this is a strong em {<>}text')))))),
         );
       });
 
@@ -1435,14 +1438,14 @@ describe('paste plugins', () => {
 
       it('should preserve marks when pasting paragraphs into list', () => {
         const { editorView } = editor(
-          doc(ol(li(p(strong(em('this is a {<>}text')))))),
+          doc(ol()(li(p(strong(em('this is a {<>}text')))))),
         );
         dispatchPasteEvent(editorView, {
           html: "<meta charset='utf-8'><p data-pm-slice='1 1 []'>strong em </p><p>hello </p>",
         });
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            ol(
+            ol()(
               li(
                 p(strong(em('this is a strong em {<>}'))),
                 p(strong(em('hello text'))),
@@ -2284,7 +2287,7 @@ describe('paste plugins', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             table({ localId: TABLE_LOCAL_ID })(
-              tr(td()(ol(li(p('Lorem'))), p('Ipsum'))),
+              tr(td()(ol()(li(p('Lorem'))), p('Ipsum'))),
               tr(td()(p())),
             ),
           ),
@@ -3018,7 +3021,7 @@ describe('paste plugins', () => {
       dispatchPasteEvent(editorView, { html });
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(ol(li(p('line 1')), li(p('line 2')), li(p('line 3')))),
+        doc(ol()(li(p('line 1')), li(p('line 2')), li(p('line 3')))),
       );
     });
 
@@ -3073,7 +3076,7 @@ describe('paste plugins', () => {
       dispatchPasteEvent(editorView, { html });
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(ol(li(p('line 1')), li(p('line 2')), li(p('line 3')))),
+        doc(ol()(li(p('line 1')), li(p('line 2')), li(p('line 3')))),
       );
     });
 
@@ -3084,7 +3087,7 @@ describe('paste plugins', () => {
       dispatchPasteEvent(editorView, { html });
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(ul(li(p('line 1'))), ol(li(p('line 2'))), ul(li(p('line 3')))),
+        doc(ul(li(p('line 1'))), ol()(li(p('line 2'))), ul(li(p('line 3')))),
       );
     });
 
@@ -3107,7 +3110,7 @@ describe('paste plugins', () => {
 
   describe('analytics V3', () => {
     const paragraphDoc = doc(p('Five{<>}'));
-    const orderedListDoc = doc(ol(li(p('Five{<>}'))));
+    const orderedListDoc = doc(ol()(li(p('Five{<>}'))));
     const bulletListDoc = doc(ul(li(p('Five{<>}'))));
     const headingDoc = doc(h1('Five{<>}'));
     const panelDoc = doc(panel()(p('Five{<>}')));

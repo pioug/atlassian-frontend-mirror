@@ -12,9 +12,9 @@ import { INPUT_METHOD } from '../../../analytics';
 import { stateKey as pluginKey } from '../../pm-plugins/main';
 import WithPluginState from '../../../../ui/WithPluginState';
 import { getFeatureFlags } from '../../../feature-flags-context';
-import { EditorLinkPicker } from '../EditorLinkPicker';
+import { EditorLinkPicker, EditorLinkPickerProps } from '../EditorLinkPicker';
 
-export interface Props {
+export interface Props extends Pick<EditorLinkPickerProps, 'onCancel'> {
   view: EditorView;
   providerFactory: ProviderFactory;
   onSubmit: (
@@ -53,6 +53,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
       displayUrl,
       providerFactory,
       view,
+      onCancel,
     } = this.props;
 
     return (
@@ -68,15 +69,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
             render={({ hyperlinkPluginState }) => {
               const { lpLinkPicker } = getFeatureFlags(view.state);
 
-              /**
-               * If activityProvider or searchProvider are present then only enable if there are plugins supplied to
-               * faciliate providing link search capabilities
-               */
-              if (
-                lpLinkPicker &&
-                ((!activityProvider && !searchProvider) ||
-                  Boolean(linkPickerOptions?.plugins?.length))
-              ) {
+              if (lpLinkPicker) {
                 return (
                   <EditorLinkPicker
                     view={view}
@@ -84,6 +77,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
                     url={displayUrl}
                     displayText={displayText}
                     onSubmit={onSubmitInterface(onSubmit)}
+                    onCancel={onCancel}
                   />
                 );
               }

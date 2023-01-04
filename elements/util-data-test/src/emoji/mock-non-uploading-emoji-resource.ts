@@ -61,7 +61,7 @@ export class MockNonUploadingEmojiResource
   }
 
   public getOptimisticImageURL(emojiId: EmojiId) {
-    return 'optimisticUrl';
+    return undefined;
   }
 
   getCurrentUser(): OptionalUser {

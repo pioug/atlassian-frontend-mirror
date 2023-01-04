@@ -4,6 +4,7 @@ import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 import DecisionItem from '../src/components/DecisionItem';
 import { dumpRef } from '../example-helpers/story-utils';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import type { DocNode } from '@atlaskit/adf-schema';
 
 export default () => (
   <AtlaskitThemeProvider mode="dark">
@@ -26,7 +27,7 @@ export default () => (
 
       <h3>Simple DecisionItem with renderer</h3>
       <DecisionItem contentRef={dumpRef}>
-        <Renderer document={document} />
+        <Renderer document={document as DocNode} />
       </DecisionItem>
 
       <h3>Simple DecisionItem with placeholder</h3>

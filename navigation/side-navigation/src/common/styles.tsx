@@ -1,17 +1,9 @@
 import { CSSFn, StatelessCSSFn } from '@atlaskit/menu';
-import { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';
-import {
-  borderRadius as borderRadiusFn,
-  gridSize as gridSizeFn,
-} from '@atlaskit/theme/constants';
+import { B400, B50, N30, N500 } from '@atlaskit/theme/colors';
+import { borderRadius as borderRadiusFn } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-const gridSize = gridSizeFn();
 const borderRadius = borderRadiusFn();
-const itemIconSize = gridSize * 3;
-const leftIconRightSpacing = gridSize * 2;
-
-export const ITEM_SIDE_PADDING = gridSize * 1.25;
 
 /**
  * Allows chaining of style functions on top of base style functions
@@ -60,13 +52,16 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
   return {
     // This padding is set to ensure that the center of the left icon
     // is approximately center aligned with the horizontal app switcher.
-    padding: `${gridSize}px ${ITEM_SIDE_PADDING}px`,
+    padding: `${token('spacing.scale.100', '8px')} ${token(
+      'spacing.scale.100',
+      '10px',
+    )}`,
     borderRadius,
 
     // -- TODO: DELETE THESE COLOR OVERRIDES WHEN CLEANING UP FALLBACK THEMING --
     // Menu and side navigation are now color aligned so they do not need this!
     // See: https://product-fabric.atlassian.net/browse/DSP-1684
-    backgroundColor: token('elevation.surface', N10),
+    backgroundColor: token('color.background.neutral.subtle', 'transparent'),
     ...(!isDisabled && !isSelected && defaultStyles),
     ...(!isDisabled && isSelected && selectedStyles),
     // -- END TODO --------------------------------------------------------------
@@ -75,18 +70,19 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
       // TODO: Can this be moved into menu?
       // center align icons with app-switcher regardless of size
       display: 'flex',
-      height: itemIconSize,
-      width: itemIconSize,
+      height: token('spacing.scale.300', '24px'),
+      width: token('spacing.scale.300', '24px'),
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: leftIconRightSpacing,
+      // this margin could be removed if the respective item had a more
+      // compositional API so an Inline could be used to separate elements instead
+      marginRight: token('spacing.scale.200', '16px'),
     },
   };
 };
 
-export const sectionHeaderStyle: StatelessCSSFn = () => {
+export const sectionHeaderSpacingStyles: StatelessCSSFn = () => {
   return {
-    paddingLeft: `${ITEM_SIDE_PADDING}px`,
-    paddingRight: `${ITEM_SIDE_PADDING}px`,
+    paddingInline: token('spacing.scale.100', '10px'),
   };
 };

@@ -1,5 +1,5 @@
-import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
 import { CategoryId } from './categories';
+import { VirtualList } from './VirtualList';
 
 /**
  * Mapping between CategoryId and row

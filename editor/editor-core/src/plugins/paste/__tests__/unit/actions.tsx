@@ -71,7 +71,7 @@ describe('action paste handler', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([pastePlugin, {}])
-        .add([tasksAndDecisionsPlugin])
+        .add([tasksAndDecisionsPlugin, {}])
         .add(blockTypePlugin)
         .add(captionPlugin)
         .add([

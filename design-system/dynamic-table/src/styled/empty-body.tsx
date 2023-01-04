@@ -10,8 +10,16 @@ const fixedHeightStyles = css({
   height: `${gridSize() * 18}px`,
 });
 
-export const EmptyViewWithFixedHeight: FC = ({ children }) => (
-  <div css={fixedHeightStyles}>{children}</div>
+export const EmptyViewWithFixedHeight: FC<{ testId?: string }> = ({
+  children,
+  testId,
+}) => (
+  <div
+    css={fixedHeightStyles}
+    data-testid={testId && `${testId}--empty-view-with-fixed-height`}
+  >
+    {children}
+  </div>
 );
 
 const emptyViewContainerStyles = css({
@@ -21,6 +29,14 @@ const emptyViewContainerStyles = css({
   textAlign: 'center',
 });
 
-export const EmptyViewContainer: FC = ({ children }) => (
-  <div css={emptyViewContainerStyles}>{children}</div>
-);
+export const EmptyViewContainer: FC<{ testId?: string }> = (props) => {
+  const { children, testId } = props;
+  return (
+    <div
+      css={emptyViewContainerStyles}
+      data-testid={testId && `${testId}--empty-view-container`}
+    >
+      {children}
+    </div>
+  );
+};

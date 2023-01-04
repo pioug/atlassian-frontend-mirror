@@ -399,7 +399,7 @@ describe('BitbucketTransformer: serializer', () => {
     it('with elements should serialize', () => {
       expect(
         markdownSerializer.serialize(
-          doc(ol(li(p('foo')), li(p('bar')), li(p('baz'))))(defaultSchema),
+          doc(ol()(li(p('foo')), li(p('bar')), li(p('baz'))))(defaultSchema),
         ),
       ).toEqual('1. foo\n2. bar\n3. baz\n\n');
     });
@@ -409,7 +409,7 @@ describe('BitbucketTransformer: serializer', () => {
         markdownSerializer.serialize(
           doc(
             p('para'),
-            ol(li(p('foo')), li(p('bar'))),
+            ol()(li(p('foo')), li(p('bar'))),
             p('baz'),
           )(defaultSchema),
         ),
@@ -420,7 +420,7 @@ describe('BitbucketTransformer: serializer', () => {
       expect(
         markdownSerializer.serialize(
           doc(
-            ol(
+            ol()(
               li(p('item')),
               li(p('item')),
               li(p('item')),
@@ -441,7 +441,7 @@ describe('BitbucketTransformer: serializer', () => {
 
     it('with one empty element is preserved', () => {
       expect(
-        markdownSerializer.serialize(doc(ol(li(p(''))))(defaultSchema)),
+        markdownSerializer.serialize(doc(ol()(li(p(''))))(defaultSchema)),
       ).toEqual('1. \n\n');
     });
 
@@ -449,11 +449,11 @@ describe('BitbucketTransformer: serializer', () => {
       expect(
         markdownSerializer.serialize(
           doc(
-            ol(
+            ol()(
               li(
                 p('foo 1'),
-                ol(
-                  li(p('bar 1'), ol(li(p('baz 1')), li(p('baz 2')))),
+                ol()(
+                  li(p('bar 1'), ol()(li(p('baz 1')), li(p('baz 2')))),
                   li(p('bar 2')),
                 ),
               ),
@@ -475,6 +475,89 @@ describe('BitbucketTransformer: serializer', () => {
           '\n',
       );
     });
+
+    describe('custom start numbers (restartNumberedLists)', () => {
+      it('with list with order (1) should serialize', () => {
+        expect(
+          markdownSerializer.serialize(
+            doc(ol({ order: 1 })(li(p('foo')), li(p('bar')), li(p('baz'))))(
+              defaultSchema,
+            ),
+          ),
+        ).toEqual('1. foo\n2. bar\n3. baz\n\n');
+      });
+
+      it('with list with order (99) should serialize', () => {
+        expect(
+          markdownSerializer.serialize(
+            doc(ol({ order: 99 })(li(p('foo')), li(p('bar')), li(p('baz'))))(
+              defaultSchema,
+            ),
+          ),
+        ).toEqual('99. foo\n100. bar\n101. baz\n\n');
+      });
+
+      it('with list with order (0) should serialize', () => {
+        expect(
+          markdownSerializer.serialize(
+            doc(ol({ order: 0 })(li(p('foo')), li(p('bar')), li(p('baz'))))(
+              defaultSchema,
+            ),
+          ),
+        ).toEqual('0. foo\n1. bar\n2. baz\n\n');
+      });
+
+      it('with list with order (-3) should serialize', () => {
+        expect(
+          markdownSerializer.serialize(
+            doc(ol({ order: -3 })(li(p('foo')), li(p('bar')), li(p('baz'))))(
+              defaultSchema,
+            ),
+          ),
+        ).toEqual('1. foo\n2. bar\n3. baz\n\n');
+      });
+
+      it('with list with order (2.9) should serialize', () => {
+        expect(
+          markdownSerializer.serialize(
+            doc(ol({ order: 2.9 })(li(p('foo')), li(p('bar')), li(p('baz'))))(
+              defaultSchema,
+            ),
+          ),
+        ).toEqual('2. foo\n3. bar\n4. baz\n\n');
+      });
+
+      it('with nesting should serialize', () => {
+        expect(
+          markdownSerializer.serialize(
+            doc(
+              ol({ order: 6 })(
+                li(
+                  p('foo 1'),
+                  ol()(
+                    li(p('bar 1'), ol()(li(p('baz 1')), li(p('baz 2')))),
+                    li(p('bar 2')),
+                  ),
+                ),
+                li(p('foo 2')),
+              ),
+            )(defaultSchema),
+          ),
+        ).toEqual(
+          '6. foo 1\n' +
+            '\n' +
+            '    1. bar 1\n' +
+            '    \n' +
+            '        1. baz 1\n' +
+            '        2. baz 2\n' +
+            '        \n' +
+            '    2. bar 2\n' +
+            '    \n' +
+            '7. foo 2\n' +
+            '\n',
+        );
+      });
+    });
   });
 
   describe('mixed lists', () => {
@@ -482,13 +565,13 @@ describe('BitbucketTransformer: serializer', () => {
       expect(
         markdownSerializer.serialize(
           doc(
-            ol(
+            ol()(
               li(
                 p('foo 1'),
                 ul(
                   li(
                     p('bar 1'),
-                    ol(li(p('baz 1')), li(p('baz 2'), ul(li(p('banana'))))),
+                    ol()(li(p('baz 1')), li(p('baz 2'), ul(li(p('banana'))))),
                   ),
                   li(p('bar 2')),
                 ),
@@ -519,9 +602,9 @@ describe('BitbucketTransformer: serializer', () => {
       expect(
         markdownSerializer.serialize(
           doc(
-            ol(li(p('foo 1')), li(p('foo 2'))),
+            ol()(li(p('foo 1')), li(p('foo 2'))),
             ul(li(p('bar 1')), li(p('bar 2'))),
-            ol(li(p('baz 1')), li(p('baz 2'))),
+            ol()(li(p('baz 1')), li(p('baz 2'))),
           )(defaultSchema),
         ),
       ).toEqual(

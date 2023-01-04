@@ -1,4 +1,5 @@
 import React from 'react';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 
@@ -25,7 +26,7 @@ export default () => (
 
     <h3>Simple DecisionItem with renderer</h3>
     <DecisionItem contentRef={dumpRef}>
-      <Renderer document={document} />
+      <Renderer document={document as DocNode} />
     </DecisionItem>
 
     <h3>Simple DecisionItem with placeholder</h3>

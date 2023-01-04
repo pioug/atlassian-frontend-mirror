@@ -13,7 +13,11 @@ import {
   recordSelectionFailedSli,
 } from '@atlaskit/emoji';
 
-import type { Command, EditorPlugin, PMPluginFactoryParams } from '../../types';
+import type {
+  Command,
+  NextEditorPlugin,
+  PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
 
 import { getInlineNodeViewProducer } from '../../nodeviews/getInlineNodeViewProducer';
 
@@ -29,7 +33,6 @@ import {
 import { IconEmoji } from '../quick-insert/assets';
 import { EmojiNodeView } from './nodeviews/emoji';
 import { TypeAheadHandler, TypeAheadItem } from '../type-ahead/types';
-import { EmojiContextProvider } from './ui/EmojiContextProvider';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { EmojiPluginOptions, EmojiPluginState } from './types';
 import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';
@@ -42,15 +45,13 @@ export const emojiToTypeaheadItem = (
   key: emoji.id || emoji.shortName,
   render({ isSelected, onClick, onHover }) {
     return (
-      // It's required to pass emojiProvider through the context for custom emojis to work
-      <EmojiContextProvider emojiProvider={emojiProvider}>
-        <EmojiTypeAheadItem
-          emoji={emoji}
-          selected={isSelected}
-          onMouseMove={onHover}
-          onSelection={onClick}
-        />
-      </EmojiContextProvider>
+      <EmojiTypeAheadItem
+        emoji={emoji}
+        selected={isSelected}
+        onMouseMove={onHover}
+        onSelection={onClick}
+        emojiProvider={emojiProvider}
+      />
     );
   },
   emoji,
@@ -100,7 +101,9 @@ type EmojiProviderChangeHandler = {
   result: (res: { emojis: Array<EmojiDescription> }) => void;
 };
 const TRIGGER = ':';
-const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => {
+const emojiPlugin: NextEditorPlugin<'emoji', never, EmojiPluginOptions> = (
+  options,
+) => {
   const typeAhead: TypeAheadHandler = {
     id: TypeAheadAvailableNodes.EMOJI,
     trigger: TRIGGER,

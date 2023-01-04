@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/adf-schema"
 
@@ -1000,6 +1000,8 @@ export interface MediaBaseAttributes {
   // (undocumented)
   __fileSize?: null | number;
   // (undocumented)
+  __mediaTraceId?: null | string;
+  // (undocumented)
   alt?: string;
   // (undocumented)
   collection: string;
@@ -1248,7 +1250,7 @@ export const orderedList: NodeSpec;
 export interface OrderedListDefinition {
   // (undocumented)
   attrs?: {
-    order: number;
+    order?: number;
   };
   // (undocumented)
   content: Array<ListItemDefinition>;
@@ -1258,6 +1260,9 @@ export interface OrderedListDefinition {
 
 // @public (undocumented)
 export const orderedListSelector = '.ak-ol';
+
+// @public (undocumented)
+export const orderedListWithOrder: NodeSpec;
 
 // @public (undocumented)
 export const P100 = '#998DD9';

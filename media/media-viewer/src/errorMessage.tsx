@@ -29,6 +29,7 @@ import {
   UFOFailedEventPayload,
 } from './analytics/ufoExperiences';
 import { FileStateFlags } from './components/types';
+import { MediaTraceContext } from '@atlaskit/media-common';
 
 export type Props = Readonly<{
   error: MediaViewerError;
@@ -37,6 +38,7 @@ export type Props = Readonly<{
   fileState?: FileState;
   children?: ReactNode;
   fileStateFlags?: FileStateFlags;
+  traceContext?: MediaTraceContext;
 }>;
 
 export type FormatMessageFn = (messageDescriptor: MessageDescriptor) => string;
@@ -112,9 +114,14 @@ export class ErrorMessage extends React.Component<
 
   componentDidMount() {
     const { props } = this;
-    const { supressAnalytics, error, fileState, fileId } = props;
+    const { supressAnalytics, error, fileState, fileId, traceContext } = props;
     if (supressAnalytics !== true) {
-      const payload = ErrorMessage.getEventPayload(error, fileId, fileState);
+      const payload = ErrorMessage.getEventPayload(
+        error,
+        fileId,
+        fileState,
+        traceContext,
+      );
       fireAnalytics(payload, props);
       const rawPayload: UFOFailedEventPayload & { status?: string } = {
         ...payload?.attributes,
@@ -133,12 +140,13 @@ export class ErrorMessage extends React.Component<
     error: MediaViewerError,
     fileId: string,
     fileState?: FileState,
+    traceContext?: MediaTraceContext,
   ) {
     if (fileState && getPrimaryErrorReason(error) === 'unsupported') {
       // this is not an SLI, its just a useful metric for unsupported
       return createPreviewUnsupportedEvent(fileState);
     } else {
-      return createLoadFailedEvent(fileId, error, fileState);
+      return createLoadFailedEvent(fileId, error, fileState, traceContext);
     }
   }
 

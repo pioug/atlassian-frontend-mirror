@@ -1,5 +1,26 @@
 # @atlaskit/emoji
 
+## 67.0.0
+
+### Major Changes
+
+- [`f25b0c5379b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f25b0c5379b) - Drop support for legacy React Context, and create new EmojiCommonProvider to provide emoji provider
+- [`62789954243`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62789954243) - react-virutlaized has been replaced with @tanstack/react-virutal in @atlaskit/emoji
+
+### Minor Changes
+
+- [`c7649c62641`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7649c62641) - add getEmojiProvider in EmojiResource to return emoji provider
+- [`1d41bbc2965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d41bbc2965) - This changeset introduces non breaking changes to support ssr within the loader emoji component
+- [`b7678f756b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7678f756b3) - useEmoji hook introduced to work along side EmojiCommonProvider
+
+### Patch Changes
+
+- [`d9b8aef8963`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9b8aef8963) - Remove resolution of optimistic image url inside resourced emoji
+- [`2d8e77c92f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d8e77c92f0) - Remove export from useEmoji hook
+- [`157052c5719`](https://bitbucket.org/atlassian/atlassian-frontend/commits/157052c5719) - improve sampling algorithm in ufo analytics, and add lazyload metadata to emoji rendered ufo analytics
+- [`004378db934`](https://bitbucket.org/atlassian/atlassian-frontend/commits/004378db934) - Fix VirtualList component force rendering while been unmounted and re-mounted in the DOM
+- Updated dependencies
+
 ## 66.1.2
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import Avatar, { SizeType } from '@atlaskit/avatar';
 import { PopupMenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip, { PositionType } from '@atlaskit/tooltip';
 
 import AvatarGroupItem from './avatar-group-item';
 import Grid from './grid';
@@ -112,6 +112,14 @@ export interface AvatarGroupProps {
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides?: AvatarGroupOverrides;
+
+  /**
+   *
+   * Where the tooltip should appear relative to its target.
+   * Defaults to tooltip position "bottom".
+   */
+  tooltipPosition?: Extract<PositionType, 'bottom' | 'top'>;
+
   /**
    * Disables tooltips
    */
@@ -174,6 +182,7 @@ const AvatarGroup = ({
   size = 'medium',
   testId,
   label = 'avatar group',
+  tooltipPosition = 'bottom',
 }: AvatarGroupProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = useCallback(() => setIsOpen(false), []);
@@ -297,6 +306,7 @@ const AvatarGroup = ({
             key={composeUniqueKey(avatarData, idx)}
             content={avatarData.name}
             testId={testId && `${testId}--tooltip-${idx}`}
+            position={tooltipPosition}
           >
             {finalAvatar}
           </Tooltip>

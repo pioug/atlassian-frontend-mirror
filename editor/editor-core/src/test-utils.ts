@@ -13,6 +13,7 @@ import { createSchema } from './create-editor/create-schema';
 import { MarkConfig, NodeConfig } from './types/pm-config';
 import basePlugin from './plugins/base';
 import { analyticsPluginKey } from './plugins/analytics/plugin-key';
+import { AllBuilderPlugins } from '@atlaskit/editor-common/types';
 
 export { createTypeAheadTools } from './plugins/type-ahead/api';
 export { Preset } from './labs/next/presets/preset';
@@ -90,7 +91,12 @@ type PluginData = {
   onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
 };
 export const createPMSchemaAndPlugins =
-  (preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>()) =>
+  (
+    preset: Preset<
+      LightEditorPlugin,
+      AllBuilderPlugins[]
+    > = new Preset<LightEditorPlugin>(),
+  ) =>
   (
     pluginFactoryParams: Omit<LightPMPluginFactoryParams, 'schema'>,
   ): PluginData => {

@@ -14,7 +14,7 @@ import {
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 
-export const loadActionButton = '[aria-label="Action item"]';
+export const loadActionButton = '[aria-label*="Action item"]';
 const TYPE_AHEAD_MENU_LIST = `[aria-label="Popup"] [role="listbox"]`;
 
 /*
@@ -83,7 +83,7 @@ BrowserTestCase(
       allowPanel: true,
     });
 
-    await browser.waitForSelector('button[aria-label="Action item"]');
+    await browser.waitForSelector('button[aria-label*="Action item"]');
     await browser.click(loadActionButton);
     await browser.waitForSelector(
       'div[data-node-type="actionList"] span + div',

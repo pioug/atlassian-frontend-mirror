@@ -14,7 +14,7 @@ import {
   toJSONTableCell,
   toJSONTableHeader,
 } from '@atlaskit/adf-schema';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 
 import { markOverrideRuleFor } from './markOverrideRules';
 import { sanitizeNode } from './sanitize/sanitize-node';
@@ -25,6 +25,11 @@ export type { JSONDocNode, JSONNode } from './types';
 interface Transformer<T> {
   encode(node: PMNode): T;
   parse(content: T): PMNode;
+}
+
+export enum SchemaStage {
+  FINAL = 'final',
+  STAGE_0 = 'stage0',
 }
 
 const isType = (type: string) => (node: PMNode | PMMark) =>
@@ -51,19 +56,18 @@ const isDataConsumer = isType('dataConsumer');
 const isFragmentMark = isType('fragment');
 
 const filterNull = (subject: any) => {
-  return Object.keys(subject).reduce((acc, key) => {
-    let current = subject[key];
-
+  let output = { ...subject };
+  for (const key in output) {
+    const current = output[key];
     if (current === null) {
-      return acc;
+      const { [key]: unusedKey, ...filteredObj } = output;
+      output = filteredObj;
+    } else if (typeof current === 'object' && !Array.isArray(current)) {
+      output[key] = filterNull(current);
     }
+  }
 
-    if (typeof current === 'object' && !Array.isArray(current)) {
-      current = filterNull(current);
-    }
-
-    return { ...acc, [key]: current };
-  }, {});
+  return output;
 };
 
 const createDocFromContent = (content: JSONNode[]): JSONDocNode => {
@@ -221,22 +225,26 @@ export class JSONTransformer implements Transformer<JSONDocNode> {
     return createDocFromContent(content);
   }
 
-  private internalParse(content: JSONDocNode): PMNode {
-    const doc = defaultSchema.nodeFromJSON(content);
+  private internalParse(
+    content: JSONDocNode,
+    stage: SchemaStage = SchemaStage.FINAL,
+  ): PMNode {
+    const schema = getSchemaBasedOnStage(stage);
+    const doc = schema.nodeFromJSON(content);
     doc.check();
     return doc;
   }
 
-  parse(content: JSONDocNode): PMNode {
+  parse(content: JSONDocNode, stage?: SchemaStage): PMNode {
     if (content.type !== 'doc') {
       throw new Error('Expected content format to be ADF');
     }
 
     if (!content.content || content.content.length === 0) {
-      return this.internalParse(emptyDoc);
+      return this.internalParse(emptyDoc, stage);
     }
 
-    return this.internalParse(content);
+    return this.internalParse(content, stage);
   }
 
   /**

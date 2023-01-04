@@ -39,6 +39,7 @@ import { insideBreakoutLayout } from './renderer-node';
 import { MediaOptions } from '../types/mediaOptions';
 import { SmartLinksOptions } from '../types/smartLinksOptions';
 import { isCodeMark } from './marks/code';
+import { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 export interface ReactSerializerInit {
   providers?: ProviderFactory;
   eventHandlers?: EventHandlers;
@@ -57,6 +58,7 @@ export interface ReactSerializerInit {
   allowMediaLinking?: boolean;
   surroundTextNodesWithTextWrapper?: boolean;
   media?: MediaOptions;
+  emojiResourceConfig?: EmojiResourceConfig;
   smartLinks?: SmartLinksOptions;
   allowCopyToClipboard?: boolean;
   allowPlaceholderText?: boolean;
@@ -151,6 +153,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private startPos: number = 1;
   private surroundTextNodesWithTextWrapper: boolean = false;
   private media?: MediaOptions;
+  private emojiResourceConfig?: EmojiResourceConfig;
   private smartLinks?: SmartLinksOptions;
   private allowAnnotations: boolean = false;
   private allowSelectAllTrap?: boolean;
@@ -181,6 +184,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       init.surroundTextNodesWithTextWrapper,
     );
     this.media = init.media;
+    this.emojiResourceConfig = init.emojiResourceConfig;
     this.smartLinks = init.smartLinks;
     this.allowSelectAllTrap = init.allowSelectAllTrap;
     this.nodeComponents = init.nodeComponents;
@@ -205,6 +209,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
         return this.getHeadingProps(node, path);
       case 'media':
         return this.getMediaProps(node, path);
+      case 'emoji':
+        return this.getEmojiProps(node);
       case 'mediaGroup':
         return this.getMediaGroupProps(node);
       case 'mediaInline':
@@ -495,6 +501,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       featureFlags: this.media && this.media.featureFlags,
       shouldOpenMediaViewer: this.shouldOpenMediaViewer,
       ssr: this.media?.ssr,
+    };
+  }
+
+  private getEmojiProps(node: Node) {
+    return {
+      ...this.getProps(node),
+      resourceConfig: this.emojiResourceConfig,
     };
   }
 

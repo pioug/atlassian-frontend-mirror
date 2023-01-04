@@ -37,7 +37,7 @@ const PanelStyled: React.FC<
       ${panelSharedStylesWithoutPrefix({ theme })}
 
       &[data-panel-type=${PanelType.CUSTOM}] {
-        ${hasIcon ? '' : 'padding: 12px;'}
+        ${hasIcon ? '' : 'padding-left: 12px;'}
       }
     }
   `;
@@ -56,7 +56,7 @@ const PanelStyled: React.FC<
 
         &[data-panel-type=${PanelType.CUSTOM}] {
           ${customStyle};
-          ${hasIcon ? '' : 'padding: 12px;'}
+          ${hasIcon ? '' : 'padding-left: 12px;'}
         }
       `;
     };

@@ -71,10 +71,6 @@ export const factoryDecorations = ({
       (editorView: EditorView, getDecorationPosition: () => number) => {
         typeaheadComponent.setAttribute('id', decorationId);
         typeaheadComponent.setAttribute('role', 'search');
-        typeaheadComponent.setAttribute(
-          'aria-label',
-          `On ${triggerHandler.id}`,
-        );
 
         typeaheadComponent.dataset.typeAheadQuery = 'true';
         typeaheadComponent.dataset.trigger = triggerHandler.trigger;
@@ -119,7 +115,6 @@ export const factoryDecorations = ({
 
             return result;
           }
-
           return false;
         };
 

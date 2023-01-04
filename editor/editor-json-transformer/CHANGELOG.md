@@ -1,5 +1,13 @@
 # @atlaskit/editor-json-transformer
 
+## 8.8.3
+
+### Patch Changes
+
+- [`43cb4da169a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43cb4da169a) - Refactored filterNull to use a for loop rather than reduce
+- [`3e03d26ca36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e03d26ca36) - [ESS-3031] Added the capability to parse ADF documents for the stage-0 schema
+- Updated dependencies
+
 ## 8.8.2
 
 ### Patch Changes

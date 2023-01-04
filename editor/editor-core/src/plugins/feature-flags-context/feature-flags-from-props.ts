@@ -57,9 +57,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
           ),
 
     placeholderBracketHint: !!props.placeholderBracketHint,
-    placeholderHints:
-      Array.isArray(props.placeholderHints) &&
-      props.placeholderHints.length > 0,
 
     moreTextColors:
       typeof props.allowTextColor === 'boolean'
@@ -71,11 +68,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     findReplaceMatchCase:
       typeof props.allowFindReplace === 'object' &&
       Boolean(props.allowFindReplace.allowMatchCase),
-
-    keyboardAccessibleDatepicker:
-      typeof props.allowKeyboardAccessibleDatepicker === 'boolean'
-        ? props.allowKeyboardAccessibleDatepicker
-        : false,
 
     addColumnWithCustomStep:
       !props.allowTables || typeof props.allowTables === 'boolean'
@@ -187,13 +179,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
           undefined
         : undefined,
 
-    viewChangingExperimentToolbarStyle:
-      typeof props.featureFlags?.['view-changing-experiment-toolbar-style'] ===
-      'string'
-        ? props.featureFlags['view-changing-experiment-toolbar-style'] ||
-          undefined
-        : undefined,
-
     tableCellOptionsInFloatingToolbar:
       typeof tableCellOptionsInFloatingToolbar === 'boolean'
         ? tableCellOptionsInFloatingToolbar
@@ -244,5 +229,25 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     restartNumberedListsToolbar:
       normalizedFeatureFlags.restartNumberedListsToolbar === true ||
       props.featureFlags?.restartNumberedListsToolbar === true,
+
+    useSomewhatSemanticTextColorNames: Boolean(
+      (typeof normalizedFeatureFlags.useSomewhatSemanticTextColorNames ===
+        'boolean' &&
+        !!normalizedFeatureFlags.useSomewhatSemanticTextColorNames) ||
+        (typeof props.featureFlags?.useSomewhatSemanticTextColorNames ===
+        'boolean'
+          ? !!props.featureFlags?.useSomewhatSemanticTextColorNames
+          : false),
+    ),
+
+    lpLinkPickerFocusTrap: Boolean(
+      normalizedFeatureFlags.lpLinkPickerFocusTrap,
+    ),
+
+    preventPopupOverflow: Boolean(
+      typeof props.featureFlags?.['prevent-popup-overflow'] === 'boolean'
+        ? !!props.featureFlags?.['prevent-popup-overflow']
+        : false,
+    ),
   };
 }

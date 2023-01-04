@@ -243,6 +243,43 @@ describe('Media Analytics', () => {
         failReason: 'ssr-server-uri',
         error: 'missingInitialAuth',
         errorDetail: 'missingInitialAuth',
+        metadataTraceContext: undefined,
+      });
+    });
+
+    it('extractErrorInfo should return failReason, secondaryError and secondaryError detail, metadataTraceContext when metadataTraceContext is provided via param', () => {
+      expect(
+        extractErrorInfo(
+          new MediaCardError('ssr-server-uri', createMediaStoreError()),
+          {
+            traceId: 'test-id',
+          },
+        ),
+      ).toStrictEqual({
+        failReason: 'ssr-server-uri',
+        error: 'missingInitialAuth',
+        errorDetail: 'missingInitialAuth',
+        metadataTraceContext: {
+          traceId: 'test-id',
+        },
+      });
+    });
+
+    it('extractErrorInfo should return failReason, secondaryError and secondaryError detail, metadataTraceContext when metadataTraceContext is provided via Error', () => {
+      const rateLimitedError = createRateLimitedError({
+        traceContext: {
+          traceId: 'test-id',
+        },
+      });
+      const error = new MediaCardError('ssr-server-uri', rateLimitedError);
+
+      expect(extractErrorInfo(error)).toStrictEqual({
+        failReason: 'ssr-server-uri',
+        error: 'serverRateLimited',
+        errorDetail: 'serverRateLimited',
+        metadataTraceContext: {
+          traceId: 'test-id',
+        },
       });
     });
   });

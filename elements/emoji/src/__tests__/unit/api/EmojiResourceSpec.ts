@@ -8,8 +8,6 @@ import {
   ServiceConfig,
 } from '@atlaskit/util-service-support';
 
-import { waitUntil } from '@atlaskit/elements-test-helpers';
-
 import {
   EmojiDescription,
   EmojiId,
@@ -90,7 +88,6 @@ const provider1: ServiceConfig = {
 };
 
 const singleFetchApiProvider: SingleEmojiApiLoaderConfig = {
-  url: singleEmojiApiUrl,
   getUrl: (emojiId) => `${singleEmojiApiUrl + emojiId}`,
   securityProvider: () => header(defaultSecurityCode),
 };
@@ -248,14 +245,63 @@ describe('EmojiResource', () => {
     it('activeLoaders is logical amount if SiteEmojiResource errors', async () => {
       fetchMock.mock({
         matcher: `begin:${provider1.url}`,
-        response: providerServiceData1,
+        response: 500,
       });
 
       const resource = new ErrorEmojiResource(defaultApiConfig);
-      resource.fetchEmojiProvider();
       const spy = jest.spyOn(resource, 'initSiteEmojiResource');
-      await waitUntil(() => spy.mock.calls.length > 0);
+      // should always resolve emoji provider, even if fetchEmojiProvider inside failed
+      try {
+        await resource.getEmojiProvider();
+      } catch (err) {
+        expect(err).not.toBeDefined();
+      }
+      expect(spy).not.toBeCalled();
       expect(resource.getActiveLoaders()).toEqual(0);
+    });
+  });
+
+  describe('#get emoji provider', () => {
+    it('get emoji provider with disable auto fetch at start', async () => {
+      const resource = new EmojiResource(defaultApiConfig);
+      resource.fetchEmojiProvider = jest.fn();
+      resource.getEmojiProvider({ fetchAtStart: false });
+      expect(resource.fetchEmojiProvider).not.toHaveBeenCalled();
+    });
+    it('get emoji provider with auto fetch at start', async () => {
+      fetchMock.mock({
+        matcher: `begin:${provider1.url}`,
+        response: providerServiceData1,
+      });
+      const resource = new EmojiResource(defaultApiConfig);
+      resource.getEmojiProvider();
+      const onChange = new MockOnProviderChange();
+      const filteredPromise = onChange.waitForResult().then((emojiResponse) => {
+        expect(onChange.resultCalls.length).toEqual(1);
+        expect(emojiResponse.emojis.length).toEqual(providerData1.length);
+        checkOrder(providerData1, emojiResponse.emojis);
+      });
+      resource.subscribe(onChange);
+      resource.filter('');
+      return filteredPromise;
+    });
+    it('get emoji provider with failure should still return emojiProvider', async () => {
+      fetchMock.mock({
+        matcher: `begin:${provider1.url}`,
+        response: 500,
+      });
+      const resource = new EmojiResource(defaultApiConfig);
+      const emojiProvider = resource.getEmojiProvider();
+      const onChange = new MockOnProviderChange();
+      resource.subscribe(onChange);
+      resource.filter('');
+      expect(emojiProvider).toBeDefined();
+      const filteredPromise = onChange
+        .waitForAnyCall()
+        .then((emojiResponse) => {
+          expect(onChange.errorCalls.length).toEqual(1);
+        });
+      return filteredPromise;
     });
   });
 
@@ -286,7 +332,7 @@ describe('EmojiResource', () => {
       };
 
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const onChange = new MockOnProviderChange();
       const filteredPromise = onChange.waitForResult().then((emojiResponse) => {
         expect(onChange.resultCalls.length).toEqual(1);
@@ -311,7 +357,7 @@ describe('EmojiResource', () => {
 
       const skinTone = 2;
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const onChange = new MockOnProviderChange();
       const filteredPromise = onChange.waitForResult().then((emojiResponse) => {
         expect(onChange.resultCalls.length).toEqual(1);
@@ -359,7 +405,7 @@ describe('EmojiResource', () => {
         });
 
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const onChange = new MockOnProviderChange();
       const filteredPromise = onChange.waitForResults(2).then(() => {
         expect(onChange.resultCalls.length).toEqual(2);
@@ -416,7 +462,7 @@ describe('EmojiResource', () => {
         });
 
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const onChange = new MockOnProviderChange();
       const filteredPromiseChain = onChange
         .waitForResult()
@@ -483,7 +529,7 @@ describe('EmojiResource', () => {
         });
 
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const onChange = new MockOnProviderChange();
       const filteredPromise = onChange.waitForResult().then(() => {
         expect(onChange.resultCalls.length).toEqual(1);
@@ -517,7 +563,7 @@ describe('EmojiResource', () => {
       });
 
       const resource = new EmojiResource(defaultApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const onChange = new MockOnProviderChange();
       const filteredPromise = onChange
         .waitForAnyCall()
@@ -554,7 +600,7 @@ describe('EmojiResource', () => {
         });
 
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const onChange = new MockOnProviderChange();
       const filteredPromise = onChange.waitForResults(2).then(() => {
         expect(onChange.resultCalls.length).toEqual(2);
@@ -598,7 +644,7 @@ describe('EmojiResource', () => {
         defaultApiConfig,
         mockEmojiRepository,
       );
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       return resource.recordSelection(grinEmoji).then(() => {
         expect(fetchMock.called('record')).toEqual(true);
@@ -611,7 +657,7 @@ describe('EmojiResource', () => {
         { providers: [provider1] },
         mockEmojiRepository,
       );
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       return resource.recordSelection(grinEmoji).then(() => {
         expect(mockRecordUsage.calledWith(grinEmoji)).toEqual(true);
       });
@@ -619,7 +665,7 @@ describe('EmojiResource', () => {
   });
 
   describe('#deleteSiteEmoji', () => {
-    it('Should not attempt to delete if there is no media emoji resource', () => {
+    it('Should not attempt to delete if there is no media emoji resource', async () => {
       fetchMock
         .mock({
           matcher: `begin:${siteUrl}`,
@@ -644,7 +690,7 @@ describe('EmojiResource', () => {
       };
 
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       return resource
         .deleteSiteEmoji(mediaEmoji)
         .then((success) => expect(success).toEqual(false));
@@ -663,7 +709,7 @@ describe('EmojiResource', () => {
       });
 
       const resource = new EmojiResource(defaultApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiPromise = alwaysPromise(
         resource.fetchByEmojiId({ shortName: ':grin:', id: '1f601' }, false),
@@ -686,7 +732,7 @@ describe('EmojiResource', () => {
       });
 
       const resource = new EmojiResource(singleEmojiApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiPromise = alwaysPromise(
         resource.fetchByEmojiId({ shortName: ':grin:', id: '1f601' }, false),
@@ -704,7 +750,7 @@ describe('EmojiResource', () => {
 
       fetchMock
         .mock({
-          matcher: `begin:${singleEmojiApiConfig.singleEmojiApi!.url}`,
+          matcher: `begin:${singleEmojiApiConfig.singleEmojiApi!.getUrl}`,
           response: new Promise((resolve) => {
             resolveProvider1 = resolve;
           }),
@@ -724,7 +770,7 @@ describe('EmojiResource', () => {
       const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       resolveProvider1!(singleEmojiServiceData);
       resolveProvider2!(providerServiceData1);
       return done;
@@ -736,7 +782,7 @@ describe('EmojiResource', () => {
 
       fetchMock
         .mock({
-          matcher: `begin:${singleEmojiApiConfig.singleEmojiApi!.url}`,
+          matcher: `begin:${singleEmojiApiConfig.singleEmojiApi!.getUrl}`,
           response: new Promise((resolve, reject) => {
             resolveProvider1 = reject;
           }),
@@ -749,7 +795,7 @@ describe('EmojiResource', () => {
         });
 
       const resource = new EmojiResource(singleEmojiApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiPromise = alwaysPromise(
         resource.fetchByEmojiId({ shortName: ':grin:', id: '1f601' }, true),
@@ -775,7 +821,7 @@ describe('EmojiResource', () => {
       });
 
       const resource = new EmojiResource(defaultApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':wontbeused:', id: '1f601' }),
@@ -798,7 +844,7 @@ describe('EmojiResource', () => {
       });
 
       const resource = new EmojiResource(defaultApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':grin:' }),
@@ -821,7 +867,7 @@ describe('EmojiResource', () => {
       });
 
       const resource = new EmojiResource(defaultApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':grin:', id: 'unknownid' }),
@@ -855,7 +901,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':wontbeused:', id: '1f601' }),
       ); // grin
@@ -889,7 +935,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({
           shortName: ':wontbeused:',
@@ -926,7 +972,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':wontbeused:', id: 'bogus' }),
       ); // does not exist
@@ -953,7 +999,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({
           shortName: ':wontbeused:',
@@ -985,7 +1031,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({ shortName: ':wontbeused:', id: '1f601' }),
       ); // grin
@@ -1015,7 +1061,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByEmojiId({
           shortName: ':wontbeused:',
@@ -1063,7 +1109,7 @@ describe('EmojiResource', () => {
       };
 
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       return alwaysPromise(resource.findByEmojiId(missingMediaEmojiId)).then(
         (emoji) => {
@@ -1113,7 +1159,7 @@ describe('EmojiResource', () => {
         ],
       };
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       return alwaysPromise(resource.findByEmojiId(standardId)).then((emoji) => {
         const fetchStandardEmojiCalls = fetchMock.calls('fetch-standard-emoji');
@@ -1157,7 +1203,7 @@ describe('EmojiResource', () => {
       };
 
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiId = {
         ...missingMediaEmojiId,
@@ -1201,7 +1247,7 @@ describe('EmojiResource', () => {
       };
 
       const resource = new EmojiResource(config);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiId = {
         ...missingMediaEmojiId,
@@ -1239,7 +1285,7 @@ describe('EmojiResource', () => {
       });
 
       const resource = new EmojiResource(defaultApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiPromise = alwaysPromise(resource.findById('unknownid'));
       const done = emojiPromise.then((emoji) => {
@@ -1260,7 +1306,7 @@ describe('EmojiResource', () => {
       });
 
       const resource = new EmojiResource(defaultApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
 
       const emojiPromise = alwaysPromise(resource.findById('1f601'));
       const done = emojiPromise.then((emoji) => {
@@ -1283,7 +1329,7 @@ describe('EmojiResource', () => {
       });
 
       const resource = new EmojiResource(defaultApiConfig);
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
       const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
@@ -1314,7 +1360,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
       const done = emojiPromise.then((emoji) => {
         checkEmoji(grinEmoji, emoji);
@@ -1346,7 +1392,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByShortName(':evilburns:'),
       );
@@ -1384,7 +1430,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
       const done = emojiPromise.then((emoji) => {
         checkEmoji(p2grin, emoji);
@@ -1423,7 +1469,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
       const done = emojiPromise.then((emoji) => {
         checkEmoji(p2grin, emoji);
@@ -1458,7 +1504,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(resource.findByShortName(':bogus:'));
       const done = emojiPromise.then((emoji) => {
         expect(emoji).toEqual(undefined);
@@ -1483,7 +1529,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByShortName(':evilburns:'),
       );
@@ -1512,7 +1558,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(resource.findByShortName(':grin:'));
       const done = emojiPromise.then((emoji) => {
         expect(emoji).toEqual(undefined);
@@ -1540,7 +1586,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByShortName(':evilburns:'),
       );
@@ -1570,7 +1616,7 @@ describe('EmojiResource', () => {
         ...defaultApiConfig,
         providers: [provider1, provider2],
       });
-      resource.fetchEmojiProvider();
+      resource.getEmojiProvider();
       const emojiPromise = alwaysPromise(
         resource.findByShortName(':evilburns:'),
       );

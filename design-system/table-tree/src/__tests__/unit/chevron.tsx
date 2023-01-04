@@ -1,49 +1,51 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
-
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import Chevron from '../../components/internal/chevron';
 
 const controlledId = 'controlled_element_id';
 
 test('accessibility', () => {
-  const wrapper = mount(
-    <Chevron ariaControls={controlledId} isExpanded={false} />,
-  );
-  const button = wrapper.find('button');
-  expect(button).toHaveLength(1);
-  expect(button.props()).toHaveProperty('aria-controls', controlledId);
+  render(<Chevron ariaControls={controlledId} isExpanded={false} />);
+
+  const button = screen.getByRole('button');
+  expect(button).toBeInTheDocument();
+  expect(button.getAttribute('aria-controls')).toBe(controlledId);
 });
 
 test('expanded', () => {
-  const wrapper = mount(<Chevron ariaControls={controlledId} isExpanded />);
-  const button = wrapper.find('button');
-  expect(button.find(ChevronRightIcon)).toHaveLength(0);
-  expect(button.find(ChevronDownIcon)).toHaveLength(1);
+  render(<Chevron ariaControls={controlledId} isExpanded />);
+
+  const chevronLeftIcon = screen.queryByLabelText('Expand');
+  const chevronRightIcon = screen.getByLabelText('Collapse');
+
+  expect(chevronLeftIcon).not.toBeInTheDocument();
+  expect(chevronRightIcon).toBeInTheDocument();
 });
 
 test('collapsed', () => {
-  const wrapper = mount(
-    <Chevron ariaControls={controlledId} isExpanded={false} />,
-  );
-  const button = wrapper.find('button');
-  expect(button.find(ChevronRightIcon)).toHaveLength(1);
-  expect(button.find(ChevronDownIcon)).toHaveLength(0);
+  render(<Chevron ariaControls={controlledId} isExpanded={false} />);
+
+  const chevronLeftIcon = screen.getByLabelText('Expand');
+  const chevronRightIcon = screen.queryByLabelText('Collapse');
+
+  expect(chevronLeftIcon).toBeInTheDocument();
+  expect(chevronRightIcon).not.toBeInTheDocument();
 });
 
 test('onExpandToggle', () => {
-  const spy = jest.fn();
-  const wrapper = mount(
+  const onExpandToggle = jest.fn();
+  render(
     <Chevron
       ariaControls={controlledId}
+      onExpandToggle={onExpandToggle}
       isExpanded={false}
-      onExpandToggle={spy}
     />,
   );
-  const button = wrapper.find('button');
-  button.simulate('click');
-  expect(spy).toHaveBeenCalled();
+
+  const button = screen.getByRole('button');
+  fireEvent.click(button);
+
+  expect(onExpandToggle).toHaveBeenCalled();
 });

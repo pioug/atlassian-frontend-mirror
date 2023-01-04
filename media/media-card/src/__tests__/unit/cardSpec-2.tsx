@@ -7,7 +7,6 @@
  * - the "setup" function hides the base conditions of the tests, making them hard to understand
  * - many tests have to recreate many previous operations to test some features. They should be simplified
  */
-jest.mock('../../card/getCardPreview/cache');
 jest.mock('../../utils/globalScope/getSSRData');
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -40,6 +39,7 @@ import { extractErrorInfo, getFileAttributes } from '../../utils/analytics';
 import { getFileDetails } from '../../utils/metadata';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ImageResizeMode } from '@atlaskit/media-client';
+import cardPreviewCache from '../../card/getCardPreview/cache';
 
 const getCardPreviewFromCache = jest.spyOn(
   getCardPreviewModule,
@@ -70,6 +70,11 @@ const getCardStateFromFileState = jest.spyOn(
 const fireOperationalEvent = jest.spyOn(
   cardAnalyticsModule,
   'fireOperationalEvent',
+);
+
+const fireNonCriticalErrorEvent = jest.spyOn(
+  cardAnalyticsModule,
+  'fireNonCriticalErrorEvent',
 );
 
 const createAnalyticsEvent = jest.fn(() => ({
@@ -115,6 +120,9 @@ const fileStates: { processed: ProcessedFileState } = {
       image: {},
     },
     preview: { value: 'some-file-preview' },
+    metadataTraceContext: {
+      traceId: 'some-trace-id',
+    },
   },
 };
 
@@ -154,6 +162,7 @@ describe('Media Card', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.spyOn(performance, 'now').mockReturnValue(1000);
+    cardPreviewCache.remove(indentifiers.file.id, defaultMode);
   });
 
   describe('Card Init', () => {
@@ -275,6 +284,47 @@ describe('Media Card', () => {
       // We need to flush promises after calling fetchAndCacheRemotePreview
       await flushPromises();
       expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
+    });
+
+    it(`should catch and log the error when refetch the preview if ssr client dimensions are bigger than server`, async () => {
+      const ssrDimensions = { width: 333, height: 222 };
+      const expectedPreview = filePreviews.ssrClientGlobalScope;
+      (getSSRData as jest.Mock).mockReturnValueOnce({
+        dataURI: filePreviews.ssrClientGlobalScope.dataURI,
+        dimensions: ssrDimensions,
+      });
+
+      fetchAndCacheRemotePreview.mockRejectedValueOnce(
+        new Error(`I've failed you`),
+      );
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          dimensions={{ width: 444, height: 222 }}
+          ssr={'client'}
+          createAnalyticsEvent={createAnalyticsEvent}
+        />,
+      );
+      expect(getSSRData).toBeCalledTimes(1);
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+      // We need to flush promises after calling fetchAndCacheRemotePreview
+      await flushPromises();
+      expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
+      // This error should be logged
+      expect(fireNonCriticalErrorEvent).toBeCalledTimes(1);
+      expect(fireNonCriticalErrorEvent).toBeCalledWith(
+        createAnalyticsEvent,
+        expect.any(String),
+        expect.any(Object),
+        expect.any(Object),
+        expect.objectContaining({
+          primaryReason: 'remote-preview-fetch-ssr',
+        }),
+        expect.any(Object),
+        undefined,
+      );
     });
 
     it(`should not refetch the preview if ssr client dimensions are smaller than server`, () => {
@@ -563,6 +613,7 @@ describe('Media Card', () => {
       expect(createStateUpdater).toBeCalledTimes(1);
       expect(createStateUpdater).toBeCalledWith(
         expect.objectContaining({ status: 'some-status', some: 'card-state' }),
+        expect.any(Function),
       );
       expect(mediaCard.state()).toEqual(
         expect.objectContaining({
@@ -669,6 +720,7 @@ describe('Media Card', () => {
         expect(createStateUpdater).toBeCalledTimes(1);
         expect(mediaCard.state('status')).toEqual('error');
         expect(mediaCard.state('error')).toEqual(expect.any(MediaCardError));
+
         const expectedError =
           name === 'Unexpected Error'
             ? expect.objectContaining({ secondaryError: error })
@@ -698,7 +750,6 @@ describe('Media Card', () => {
       await flushPromises();
       expect(mediaCard.state('isBannedLocalPreview')).toBe(true);
       // Shouldn't set state to error
-      expect(createStateUpdater).toBeCalledTimes(0);
       expect(mediaCard.state('status')).not.toEqual('error');
       expect(mediaCard.state('error')).toBe(undefined);
     });
@@ -798,6 +849,89 @@ describe('Media Card', () => {
     });
   });
 
+  describe('refetch on resize', () => {
+    it.each([
+      ['refetch', 'bigger', 200, 200, 2],
+      ['refetch', 'bigger', 50, 200, 2],
+      ['refetch', 'bigger', 200, 50, 2],
+      ['not refetch', 'smaller', 45, 45, 1],
+      ['not refetch', 'smaller', 45, 100, 1],
+      ['not refetch', 'smaller', 100, 45, 1],
+      ['not refetch', 'no change', 100, 100, 1],
+    ])(
+      'should %s when dimensions are %s',
+      async (_title1, _title2, width, height, callTimes) => {
+        const dimensions = { width: 100, height: 100 };
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            dimensions={dimensions}
+          />,
+        );
+
+        // state from the subscription that should trigger the first fetch
+        mediaCard.setState({
+          status: 'loading-preview',
+          fileState: fileStates.processed,
+        });
+
+        // simulate the result of the first preview fetch
+        mediaCard.setState({
+          cardPreview: {},
+          status: 'complete',
+        });
+
+        const newDimensions = { width, height };
+        mediaCard.setProps({ dimensions: newDimensions });
+        await flushPromises();
+
+        expect(getCardPreview).toBeCalledTimes(callTimes);
+      },
+    );
+
+    it('should not refetch a second time if the first refetch failed', async () => {
+      const dimensions = { width: 100, height: 100 };
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          dimensions={dimensions}
+        />,
+      );
+
+      // state from the subscription that should trigger the first fetch
+      mediaCard.setState({
+        status: 'loading-preview',
+        fileState: fileStates.processed,
+      });
+
+      // simulate the result of the first preview fetch
+      mediaCard.setState({
+        cardPreview: {},
+        status: 'complete',
+      });
+
+      const newDimensions = { width: 120, height: 120 };
+
+      getCardPreview.mockImplementation(() => {
+        /**
+         * We are throwing the error instead of rejecting the promise.
+         * This is to make the test fail. If we reject the promise instead, the
+         * test times out if we are facing an infinite loop situation.
+         */
+        throw new RemotePreviewError('remote-preview-fetch');
+      });
+
+      mediaCard.setProps({ dimensions: newDimensions });
+
+      await flushPromises();
+
+      expect(getCardPreview).toBeCalledTimes(2);
+      getCardPreview.mockReset(); // IMPORTANT
+    });
+  });
+
   describe('onImageLoad', () => {
     it('should set previewDidRender to true when onImageLoad is called', () => {
       const unsubscribe = jest.fn();
@@ -845,7 +979,6 @@ describe('Media Card', () => {
         const onImageLoad = cardView.prop('onImageLoad');
         expect(onImageLoad).toEqual(expect.any(Function));
         onImageLoad();
-        expect(createStateUpdater).toBeCalledTimes(0);
         expect(mediaCard.state('status')).toBe(status);
       },
     );
@@ -916,6 +1049,7 @@ describe('Media Card', () => {
             mediaClient={fakeMediaClient()}
             identifier={indentifiers.file}
             dimensions={dimensions}
+            createAnalyticsEvent={createAnalyticsEvent}
           />,
         );
         // We add the preview to the state to test it later on the error
@@ -932,6 +1066,7 @@ describe('Media Card', () => {
           indentifiers.file.id,
           defaultMode,
         );
+        expect(fireNonCriticalErrorEvent).toBeCalledTimes(1);
       },
     );
 
@@ -1113,6 +1248,9 @@ describe('Media Card', () => {
         {
           traceId: expect.any(String),
         },
+        {
+          traceId: expect.any(String),
+        },
       );
     });
 
@@ -1170,6 +1308,9 @@ describe('Media Card', () => {
         {
           traceId: expect.any(String),
         },
+        {
+          traceId: expect.any(String),
+        },
       );
     });
 
@@ -1219,6 +1360,9 @@ describe('Media Card', () => {
           },
         },
         undefined,
+        {
+          traceId: expect.any(String),
+        },
         {
           traceId: expect.any(String),
         },
@@ -1276,6 +1420,9 @@ describe('Media Card', () => {
         {
           traceId: expect.any(String),
         },
+        {
+          traceId: expect.any(String),
+        },
       );
     });
 
@@ -1325,6 +1472,9 @@ describe('Media Card', () => {
         {
           traceId: expect.any(String),
         },
+        {
+          traceId: expect.any(String),
+        },
       );
     });
 
@@ -1371,6 +1521,9 @@ describe('Media Card', () => {
           client: { status: 'success' },
         },
         undefined,
+        {
+          traceId: expect.any(String),
+        },
         {
           traceId: expect.any(String),
         },

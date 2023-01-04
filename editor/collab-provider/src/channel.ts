@@ -22,8 +22,13 @@ import {
   startMeasure,
   stopMeasure,
 } from './analytics/performance';
-import { triggerCollabAnalyticsEvent } from './analytics';
+import { triggerAnalyticsEvent } from './analytics';
 import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
+import {
+  ExperiencePerformanceTypes,
+  ExperienceTypes,
+  UFOExperience,
+} from '@atlaskit/ufo';
 
 const logger = createLogger('Channel', 'green');
 
@@ -34,6 +39,17 @@ export class Channel extends Emitter<ChannelEvent> {
 
   private initialized: boolean = false;
   private analyticsClient?: AnalyticsWebClient;
+  private initExperience = new UFOExperience('collab-provider.document-init', {
+    type: ExperienceTypes.Load,
+    performanceType: ExperiencePerformanceTypes.Custom,
+    performanceConfig: {
+      histogram: {
+        [ExperiencePerformanceTypes.Custom]: {
+          duration: '250_500_1000_1500_2000_3000_4000',
+        },
+      },
+    },
+  });
 
   constructor(config: Config) {
     super();
@@ -55,6 +71,7 @@ export class Channel extends Emitter<ChannelEvent> {
     startMeasure(MEASURE_NAME.SOCKET_CONNECT);
     if (!this.initialized) {
       startMeasure(MEASURE_NAME.DOCUMENT_INIT);
+      this.initExperience.start();
     }
     const { documentAri, url } = this.config;
     const { createSocket } = this.config;
@@ -67,7 +84,7 @@ export class Channel extends Emitter<ChannelEvent> {
           .then((token) => {
             cb({
               // The permission token.
-              token,
+              ...(token ? { token } : {}),
               // The initialized status. If false, BE will send document, otherwise not.
               initialized: this.initialized,
               // ESS-1009 Allow to opt-in into 404 response
@@ -161,7 +178,7 @@ export class Channel extends Emitter<ChannelEvent> {
     // Ensure the error emit to the provider has the same structure, so we can handle them unified.
     this.socket.on('connect_error', (error: Error) => {
       const measure = stopMeasure(MEASURE_NAME.SOCKET_CONNECT);
-      triggerCollabAnalyticsEvent(
+      triggerAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.CONNECTION,
           attributes: {
@@ -191,7 +208,7 @@ export class Channel extends Emitter<ChannelEvent> {
     this.connected = true;
     logger('Connected.', this.socket!.id);
     const measure = stopMeasure(MEASURE_NAME.SOCKET_CONNECT);
-    triggerCollabAnalyticsEvent(
+    triggerAnalyticsEvent(
       {
         eventAction: EVENT_ACTION.CONNECTION,
         attributes: {
@@ -217,7 +234,8 @@ export class Channel extends Emitter<ChannelEvent> {
     if (data.type === 'initial') {
       if (!this.initialized) {
         const measure = stopMeasure(MEASURE_NAME.DOCUMENT_INIT);
-        triggerCollabAnalyticsEvent(
+        this.initExperience.success();
+        triggerAnalyticsEvent(
           {
             eventAction: EVENT_ACTION.DOCUMENT_INIT,
             attributes: {
@@ -266,7 +284,8 @@ export class Channel extends Emitter<ChannelEvent> {
             headers: {
               ...(this.config.permissionTokenRefresh
                 ? {
-                    'x-token': await this.config.permissionTokenRefresh(),
+                    'x-token':
+                      (await this.config.permissionTokenRefresh()) ?? undefined,
                   }
                 : {}),
               'x-product': getProduct(this.config.productInfo),
@@ -300,12 +319,13 @@ export class Channel extends Emitter<ChannelEvent> {
   broadcast<K extends keyof ChannelEvent>(
     type: K,
     data: Omit<ChannelEvent[K], 'timestamp'>,
+    callback?: Function,
   ) {
     if (!this.connected || !this.socket) {
       return;
     }
 
-    this.socket.emit('broadcast', { type, ...data });
+    this.socket.emit('broadcast', { type, ...data }, callback);
   }
 
   sendMetadata(metadata: Metadata) {

@@ -198,6 +198,15 @@ const createPlugin = (
               clearEditingContext(state, dispatch);
             }
 
+            // if an extension is no longer selected, but the plugin has cached the previous selected extension id/ref
+            // then this should clear those values so that if an exention is selected again, then this sees it as a change
+            // and updates the state correctly.
+            if (!!localId || !!element) {
+              updateState({
+                localId: undefined,
+                element: undefined,
+              })(state, dispatch);
+            }
             return;
           }
 

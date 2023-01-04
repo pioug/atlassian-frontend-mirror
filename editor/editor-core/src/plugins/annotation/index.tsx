@@ -1,6 +1,6 @@
 import React from 'react';
 import { annotation } from '@atlaskit/adf-schema';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import { stateKey as reactPluginKey } from '../../plugins/base/pm-plugins/react-nodeview';
 import { FloatingToolbarConfig } from '../floating-toolbar/types';
@@ -21,9 +21,11 @@ import { getPluginState, inlineCommentPluginKey } from './utils';
 import { buildToolbar } from './toolbar';
 import { InlineCommentView } from './ui/InlineCommentView';
 
-const annotationPlugin = (
-  annotationProviders?: AnnotationProviders,
-): EditorPlugin => {
+const annotationPlugin: NextEditorPlugin<
+  'annotation',
+  never,
+  AnnotationProviders | undefined
+> = (annotationProviders?) => {
   return {
     name: 'annotation',
 

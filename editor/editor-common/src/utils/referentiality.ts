@@ -1,5 +1,19 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { Mark, Node as PMNode } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
+
+import type { FragmentAttributes } from '@atlaskit/adf-schema/schema';
+
+import { ConfirmDialogChildInfo } from '../types';
+
+type LocalId = FragmentAttributes['localId'];
+
+type NodeAndTargetLinkages = {
+  readonly localId: LocalId;
+  readonly name: string;
+  readonly node: PMNode;
+  readonly pos: number;
+  readonly targets: LocalId[];
+};
 
 export const isReferencedSource = (
   state: EditorState,
@@ -47,4 +61,257 @@ export const isReferencedSource = (
   });
 
   return found;
+};
+
+const getConnections = (state: EditorState) => {
+  const result: Record<LocalId, NodeAndTargetLinkages> = {};
+
+  const { doc, schema } = state;
+
+  // Keeps a map of all raw ids -> to their preferred normalised varient. A node with both fragmentMark & localId will
+  // have both ids mapped here to the same normalized version.
+  const normalizedIds = new Map<LocalId, LocalId>();
+  const dataConsumerSources = new Map<LocalId, LocalId[]>();
+
+  // Perform a prelim scan creating the initial id to connection link mappings.
+  // This will also save a list of data sources consumed per node.
+  doc.descendants((node, pos) => {
+    let dataConsumer: Mark | undefined;
+    let fragmentMark: Mark | undefined;
+
+    node.marks.some((mark) => {
+      if (mark.type === schema.marks.dataConsumer) {
+        dataConsumer = mark;
+      } else if (mark.type === schema.marks.fragment) {
+        fragmentMark = mark;
+      }
+
+      // Stop searching marks if we've found both consumer and fragment.
+      return !!dataConsumer && !!fragmentMark;
+    });
+
+    // If node cannot be referenced by any means then abort.
+    if (!fragmentMark && !node.attrs?.localId) {
+      return true;
+    }
+
+    const normalizedId: LocalId | undefined =
+      fragmentMark?.attrs?.localId ?? node.attrs?.localId;
+
+    if (!normalizedId) {
+      return true;
+    }
+
+    if (!!fragmentMark?.attrs?.localId) {
+      normalizedIds.set(fragmentMark.attrs.localId, normalizedId);
+    }
+
+    if (!!node.attrs?.localId) {
+      normalizedIds.set(node.attrs.localId, normalizedId);
+    }
+
+    if (!!result[normalizedId]) {
+      // Duplicate ID has been found, we'll care about the first one for now.
+      return true;
+    }
+
+    result[normalizedId] = {
+      localId: normalizedId,
+      name: fragmentMark?.attrs?.name ?? normalizedId,
+      node,
+      pos,
+      targets: [],
+    };
+
+    if (!!dataConsumer && dataConsumer.attrs.sources.length) {
+      dataConsumerSources.set(normalizedId, dataConsumer.attrs.sources);
+    }
+
+    // Do not descend into children of a node which has a dataConsumer attached. This assumes all children of the node cannot
+    // be referenced by another node.
+    return !dataConsumer;
+  });
+
+  // This 2nd-pass only looks at the consumer sources and updates all connections with the correct id refs.
+  for (const [localId, sources] of dataConsumerSources) {
+    // This is a ref to the node (connection link) which contains the consumer.
+
+    sources.forEach((src: string) => {
+      const normalizedId = normalizedIds.get(src) ?? src;
+      const srcLink = result[normalizedId];
+
+      if (srcLink && normalizedId !== localId) {
+        srcLink.targets.push(localId);
+      }
+    });
+  }
+  return result;
+};
+
+export const removeConnectedNodes = (state: EditorState, node?: PMNode) => {
+  if (!node) {
+    return state.tr;
+  }
+
+  const selectedLocalIds = getSelectedLocalIds(state, node);
+  const allNodes = getConnections(state);
+  const idsToBeDeleted = getIdsToBeDeleted(selectedLocalIds, allNodes);
+
+  if (!idsToBeDeleted?.length) {
+    return state.tr;
+  }
+
+  const { tr } = state;
+  let newTr = tr;
+  idsToBeDeleted.forEach((id) => {
+    if (!allNodes[id]) {
+      return;
+    }
+    const { node, pos } = allNodes[id];
+    newTr = newTr.delete(
+      newTr.mapping.map(pos),
+      newTr.mapping.map(node.nodeSize + pos),
+    );
+  });
+  return newTr;
+};
+
+// find all ids need to be remove connected to selected extension
+const getIdsToBeDeleted = (
+  selectedIds: Set<string>,
+  allNodes: Record<LocalId, NodeAndTargetLinkages>,
+): string[] => {
+  if (!selectedIds.size) {
+    return [];
+  }
+
+  let searchSet = [...selectedIds];
+  const deletedIds = new Set<string>();
+
+  while (searchSet.length) {
+    const id = searchSet.pop()!;
+    if (allNodes[id]) {
+      deletedIds.add(allNodes[id].localId);
+      searchSet = searchSet.concat(
+        allNodes[id]?.targets.filter(
+          (targetId: string) => !deletedIds.has(allNodes[targetId]?.localId),
+        ) ?? [],
+      );
+    }
+  }
+
+  return Array.from(deletedIds);
+};
+
+// for get children info for confirmation dialog
+export const getChildrenInfo = (
+  state: EditorState,
+  node?: PMNode,
+): ConfirmDialogChildInfo[] => {
+  if (!node) {
+    return [];
+  }
+
+  const childrenIdSet = new Set<string>();
+  const childrenInfoArray: ConfirmDialogChildInfo[] = [];
+  const allNodes = getConnections(state);
+
+  const selectedNodeIds = getSelectedLocalIds(state, node);
+  selectedNodeIds.forEach((id: string) => {
+    if (allNodes[id]) {
+      allNodes[id].targets.forEach(childrenIdSet.add, childrenIdSet);
+    }
+  });
+  childrenIdSet.forEach((id) => {
+    childrenInfoArray.push({
+      id,
+      name: getNodeNameById(id, allNodes),
+      amount: getChildrenNodeAmount(id, allNodes),
+    });
+  });
+  return childrenInfoArray;
+};
+
+const getChildrenNodeAmount = (
+  id: string,
+  allNodes: Record<LocalId, NodeAndTargetLinkages>,
+): number => {
+  const searchTerms: Set<string> = new Set<string>([id]);
+  const traverseHistory: Map<string, boolean> = new Map<string, boolean>();
+  const childrenIds: Set<string> = new Set<string>();
+
+  traverseHistory.set(id, false);
+
+  while (searchTerms.size > 0) {
+    const [currTerm] = searchTerms;
+    let targets = getNodeTargetsById(currTerm, allNodes);
+
+    targets.forEach((target: string) => {
+      const isTargetCounted = traverseHistory.get(target);
+      if (!isTargetCounted) {
+        searchTerms.add(target);
+        childrenIds.add(target);
+      }
+      target !== id && childrenIds.add(target);
+    });
+    traverseHistory.set(currTerm, true);
+    searchTerms.delete(currTerm);
+  }
+
+  return childrenIds.size;
+};
+
+const getNodeTargetsById = (
+  id: string | undefined,
+  allNodes: any,
+): string[] => {
+  if (!id || !allNodes[id]) {
+    return [];
+  }
+  return allNodes[id].targets;
+};
+
+const DEFAULT_EXTENSION_NAME = 'Default extension';
+
+const getNodeNameById = (
+  id: string | Set<string>,
+  allNodes: Record<LocalId, NodeAndTargetLinkages>,
+): string => {
+  if (typeof id === 'object') {
+    let name: string | undefined;
+    id.forEach((localId) => {
+      name = name ?? allNodes[localId]?.name;
+    });
+
+    return name ?? DEFAULT_EXTENSION_NAME;
+  }
+  if (!id || !allNodes[id]) {
+    return DEFAULT_EXTENSION_NAME;
+  }
+  return allNodes[id].name;
+};
+
+const getSelectedLocalIds = (
+  state: EditorState,
+  node?: PMNode,
+): Set<string> => {
+  if (!node) {
+    return new Set<string>([]);
+  }
+
+  const localIds = new Set<string>(
+    [
+      node.attrs?.localId,
+      node.marks?.find((mark) => mark.type === state.schema.marks.fragment)
+        ?.attrs?.localId,
+    ].filter(Boolean),
+  );
+  return localIds;
+};
+
+export const getNodeName = (state: EditorState, node?: PMNode): string => {
+  return (
+    node?.marks?.find((mark) => mark.type === state.schema.marks.fragment)
+      ?.attrs?.name ?? ''
+  );
 };

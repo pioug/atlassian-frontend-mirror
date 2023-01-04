@@ -1,11 +1,10 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4116
-
 import { css } from '@emotion/react';
 
 import { akEditorShadowZIndex } from '@atlaskit/editor-shared-styles';
 import { N40A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { shadowClassNames } from '../../ui/OverflowShadow';
 import { shadowObserverClassNames } from '../../ui/OverflowShadow/shadowObserver';
@@ -47,7 +46,16 @@ const shadowSharedStyle = css`
   }
 
   & .${shadowClassNames.LEFT_SHADOW}::before {
-    background: linear-gradient(to left, rgba(99, 114, 130, 0) 0, ${N40A} 100%);
+    background: linear-gradient(
+        to left,
+        transparent 0,
+        ${token('elevation.shadow.overflow.spread', N40A)} 100%
+      ),
+      linear-gradient(
+        to right,
+        ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+        transparent 1px
+      );
     top: 0px;
     left: 0;
     display: block;
@@ -55,14 +63,20 @@ const shadowSharedStyle = css`
 
   & .${shadowClassNames.RIGHT_SHADOW}::after {
     background: linear-gradient(
-      to right,
-      rgba(99, 114, 130, 0) 0,
-      ${N40A} 100%
-    );
+        to right,
+        transparent 0,
+        ${token('elevation.shadow.overflow.spread', N40A)} 100%
+      ),
+      linear-gradient(
+        to left,
+        ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+        transparent 1px
+      );
     left: calc(100% - ${shadowWidth}px);
     top: 0px;
     display: block;
   }
+
   & .${shadowObserverClassNames.SENTINEL_LEFT} {
     height: 100%;
     width: 0px;

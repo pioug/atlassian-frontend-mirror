@@ -15,7 +15,6 @@ const relevantFlags = {
   observedWidth: false,
   mediaInline: false,
   folderUploads: true,
-  mediaUploadApiV2: true,
   memoryCacheLogging: false,
 };
 

@@ -4,7 +4,10 @@ import { EditorView } from 'prosemirror-view';
 import { Node as PMNode, Mark as PMMark } from 'prosemirror-model';
 import { breakout, BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
-import { EditorPlugin, PMPluginFactoryParams } from '../../types';
+import {
+  NextEditorPlugin,
+  PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import { pluginKey as widthPluginKey, WidthPluginState } from '../width';
 import LayoutButton from './ui/LayoutButton';
@@ -171,7 +174,11 @@ interface BreakoutPluginOptions {
   allowBreakoutButton?: boolean;
 }
 
-const breakoutPlugin = (options?: BreakoutPluginOptions): EditorPlugin => ({
+const breakoutPlugin: NextEditorPlugin<
+  'breakout',
+  never,
+  BreakoutPluginOptions
+> = (options) => ({
   name: 'breakout',
 
   pmPlugins() {

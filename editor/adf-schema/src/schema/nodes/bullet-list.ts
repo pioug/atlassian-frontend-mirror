@@ -1,17 +1,4 @@
 import { NodeSpec } from 'prosemirror-model';
-// eslint-disable-next-line import/no-cycle
-import { ListItemDefinition as ListItemNode } from './list-item';
-
-/**
- * @name bulletList_node
- */
-export interface BulletListDefinition {
-  type: 'bulletList';
-  /**
-   * @minItems 1
-   */
-  content: Array<ListItemNode>;
-}
 
 export const bulletListSelector = '.ak-ul';
 

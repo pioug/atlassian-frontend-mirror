@@ -1,37 +1,36 @@
-import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
-import { Node, Schema, NodeType } from 'prosemirror-model';
 import { closeHistory } from 'prosemirror-history';
+import { Node, NodeType, Schema } from 'prosemirror-model';
+import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
 
-import { pluginKey } from './plugin-key';
-import { CardPluginState, CardReplacementInputMethod, Request } from '../types';
+import { isSafeUrl } from '@atlaskit/adf-schema';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   CardAdf,
   CardAppearance,
 } from '@atlaskit/editor-common/provider-factory';
-import { queueCards, resolveCard } from './actions';
-import { appearanceForNodeType } from '../utils';
-import { Command } from '../../../types';
-import { nodesBetweenChanged, processRawValue } from '../../../utils';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   addAnalytics,
-  EVENT_TYPE,
   AnalyticsEventPayload,
-  INPUT_METHOD,
+  EVENT_TYPE,
   InputMethodInsertLink,
+  INPUT_METHOD,
 } from '../../../plugins/analytics';
-import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
-import { isSafeUrl } from '@atlaskit/adf-schema';
-import { isFromCurrentDomain } from '../../hyperlink/utils';
-import { shouldReplaceLink } from './shouldReplaceLink';
+import { UnlinkToolbarAEP } from '../../../plugins/analytics/types/link-tool-bar-events';
 import { SMART_LINK_TYPE } from '../../../plugins/analytics/types/node-events';
 import { getLinkCreationAnalyticsEvent } from '../../../plugins/hyperlink/analytics';
+import { Command } from '../../../types';
+import { nodesBetweenChanged, processRawValue } from '../../../utils';
 import { unlinkPayload } from '../../../utils/linking-utils';
-import { UnlinkToolbarAEP } from '../../../plugins/analytics/types/link-tool-bar-events';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { getFeatureFlags } from '../../feature-flags-context';
+import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
+import { isFromCurrentDomain } from '../../hyperlink/utils';
+import { CardPluginState, CardReplacementInputMethod, Request } from '../types';
+import { appearanceForNodeType } from '../utils';
+import { queueCards, resolveCard } from './actions';
+import { pluginKey } from './plugin-key';
+import { shouldReplaceLink } from './shouldReplaceLink';
 
 /**
  * Attempt to replace the link into the respective card.
@@ -259,7 +258,6 @@ export const changeSelectedCardToLink =
 
     if (sendAnalytics) {
       if (selectedNode) {
-        const { viewChangingExperimentToolbarStyle } = getFeatureFlags(state);
         addAnalytics(state, tr, {
           action: ACTION.CHANGED_TYPE,
           actionSubject: ACTION_SUBJECT.SMART_LINK,
@@ -267,7 +265,6 @@ export const changeSelectedCardToLink =
           attributes: {
             newType: SMART_LINK_TYPE.URL,
             previousType: appearanceForNodeType(selectedNode.type),
-            featureFlag: viewChangingExperimentToolbarStyle || 'noChange',
           },
         } as AnalyticsEventPayload);
       }
@@ -426,7 +423,6 @@ export const setSelectedCardAppearance: (
   const { from } = state.selection;
   const nodeType = getLinkNodeType(appearance, state.schema.nodes);
   const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
-  const { viewChangingExperimentToolbarStyle } = getFeatureFlags(state);
   addAnalytics(state, tr, {
     action: ACTION.CHANGED_TYPE,
     actionSubject: ACTION_SUBJECT.SMART_LINK,
@@ -434,7 +430,6 @@ export const setSelectedCardAppearance: (
     attributes: {
       newType: appearance,
       previousType: appearanceForNodeType(selectedNode.type),
-      featureFlag: viewChangingExperimentToolbarStyle || 'noChange',
     },
   } as AnalyticsEventPayload);
 

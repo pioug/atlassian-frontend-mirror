@@ -32,6 +32,7 @@ import {
   MenuIconState,
   IconTypes,
 } from '../types';
+import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 
 const withToolbarInputMethod = (
   func: (props: { inputMethod: INPUT_METHOD.TOOLBAR }) => Command,
@@ -126,6 +127,10 @@ const getIcon = ({
     },
     isActive,
     isDisabled,
+    'aria-label': tooltipKeymap
+      ? tooltip(tooltipKeymap, String(content))
+      : String(content),
+    'aria-keyshortcuts': getAriaKeyshortcuts(tooltipKeymap),
   };
 };
 

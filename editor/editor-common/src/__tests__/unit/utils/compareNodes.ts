@@ -1,7 +1,19 @@
 import { EditorView } from 'prosemirror-view';
 
 import { CardAttributes, UrlType } from '@atlaskit/adf-schema';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import cardPlugin from '@atlaskit/editor-core/src/plugins/card';
+import datePlugin from '@atlaskit/editor-core/src/plugins/date';
+import hyperlinkPlugin from '@atlaskit/editor-core/src/plugins/hyperlink';
+import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
+import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   a,
   BuilderContent,
@@ -36,18 +48,27 @@ const compareResultToValue = {
 };
 
 describe('Compare Nodes', () => {
-  const createEditor = createEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
   let editorView: EditorView;
 
   beforeAll(() => {
+    const preset = new Preset<LightEditorPlugin>()
+      .add(mentionsPlugin)
+      .add(hyperlinkPlugin)
+      .add(datePlugin)
+      .add([cardPlugin, { platform: 'web' }])
+      .add([statusPlugin, { menuDisabled: false }])
+      .add([tablesPlugin, { tableOptions: { allowHeaderRow: true } }]);
+
+    const contextIdentifierProvider = storyContextIdentifierProviderFactory();
+    const providerFactory = ProviderFactory.create({
+      contextIdentifierProvider,
+      mentionProvider: Promise.resolve(mentionResourceProvider),
+    });
+
     ({ editorView } = createEditor({
-      editorProps: {
-        allowTables: true,
-        allowStatus: true,
-        allowDate: true,
-        smartLinks: {},
-        mentionProvider: Promise.resolve(mentionResourceProvider),
-      },
+      providerFactory,
+      preset,
     }));
   });
 
@@ -85,11 +106,51 @@ describe('Compare Nodes', () => {
         ['hello world', CompareResult.equal, 'hello universe'],
       ]);
 
-      describe('use string comparison for complex numbers', () => {
-        testTextNodesComparison([
-          ['1.000.000$', CompareResult.less, '200.000$'],
-          ['1000000$', CompareResult.greater, '1.000.000$'],
-        ]);
+      describe('for complex numbers', () => {
+        let languageSpy: jest.SpyInstance;
+
+        beforeEach(() => {
+          languageSpy = jest.spyOn(window.navigator, 'language', 'get');
+        });
+
+        afterEach(() => {
+          languageSpy.mockReset();
+        });
+
+        describe('when locale is pt-BR', () => {
+          beforeEach(() => {
+            languageSpy.mockReturnValue('pt-BR');
+          });
+
+          testTextNodesComparison([
+            ['1.000.000$', CompareResult.greater, '200.000$'],
+            ['1000000$', CompareResult.equal, '1.000.000$'],
+          ]);
+        });
+
+        describe('when locale is en-US', () => {
+          beforeEach(() => {
+            languageSpy.mockReturnValue('en-US');
+          });
+
+          testTextNodesComparison([
+            ['1,000,000$', CompareResult.greater, '200,000$'],
+            ['1000000$', CompareResult.equal, '1,000,000$'],
+          ]);
+        });
+
+        describe('when the number does not match with locale', () => {
+          beforeEach(() => {
+            languageSpy.mockReturnValue('en-US');
+          });
+
+          describe('use string comparison instead', () => {
+            testTextNodesComparison([
+              ['1.000.000$', CompareResult.greater, '200.000$'],
+              ['1000000$', CompareResult.less, '1.000.000$'],
+            ]);
+          });
+        });
       });
 
       describe('use number comparison when text start with a number', () => {
@@ -99,6 +160,14 @@ describe('Compare Nodes', () => {
           ['5.10', CompareResult.greater, '5.09'],
         ]);
       });
+    });
+
+    describe('make sure numbers mixed with numbers are sorted by text', () => {
+      testTextNodesComparison([
+        ['2022R5', CompareResult.greater, '2022R4'],
+        ['2022R4', CompareResult.less, '2022R5'],
+        ['2022R4', CompareResult.equal, '2022R4'],
+      ]);
     });
   });
 

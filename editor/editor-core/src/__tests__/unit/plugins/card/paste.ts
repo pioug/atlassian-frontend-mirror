@@ -13,16 +13,19 @@ import {
   blockCard,
   embedCard,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { CardOptions } from '@atlaskit/editor-common/card';
 
 describe('card', () => {
   const createEditor = createEditorFactory();
 
-  const editor = (doc: DocBuilder) => {
+  const editor = (doc: DocBuilder, cardOptions: CardOptions = {}) => {
     return createEditor({
       doc,
       editorProps: {
         smartLinks: {
           allowEmbeds: true,
+          allowBlockCards: true,
+          ...cardOptions,
         },
       },
       pluginKey,
@@ -228,8 +231,8 @@ describe('card', () => {
       });
     });
 
-    describe('pasting a block link where is not supported ', () => {
-      it('converts it to inline card', () => {
+    describe('pasting a block link ', () => {
+      it('converts it to inline card where it is not supported', () => {
         const html = `<meta charset='utf-8'><a data-block-card="" href="https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing" data-card-data="" data-pm-slice="0 0 []"></a>`;
         const { editorView } = editor(
           doc(p('Paragraph'), blockquote(p('{<>}'))),
@@ -249,6 +252,28 @@ describe('card', () => {
                   url: 'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing',
                 })(),
               ),
+            ),
+          ),
+        );
+      });
+
+      it('converts it to inline card where it is disabled', () => {
+        const html = `<a data-block-card="" href="https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing" data-card-data="" data-pm-slice="0 0 []"></a>`;
+        const { editorView } = editor(doc(p('{<>}')), {
+          allowBlockCards: false,
+        });
+        const { state, dispatch } = editorView;
+
+        const provider = new EditorTestCardProvider();
+        dispatch(setProvider(provider)(state.tr));
+
+        dispatchPasteEvent(editorView, { html });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            p(
+              inlineCard({
+                url: 'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing',
+              })(),
             ),
           ),
         );

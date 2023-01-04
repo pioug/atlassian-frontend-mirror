@@ -21,7 +21,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../../../analytics/enums';
+} from '@atlaskit/editor-common/analytics';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 
 type ListenEventProps = {

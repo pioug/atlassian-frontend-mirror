@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import debounce from 'lodash/debounce';
 import ReactDOM from 'react-dom';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { ReactRenderer } from '@atlaskit/renderer';
 
 import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';
@@ -174,7 +175,7 @@ export const ArticleBody = (props: Props) => {
       <div id={IFRAME_CONTAINER_ID} />
     ) : (
       <ReactRenderer
-        document={props.body}
+        document={props.body as DocNode}
         eventHandlers={{
           link: {
             onClick: (event, href) => {

@@ -2,9 +2,10 @@ import React from 'react';
 import Form from '@atlaskit/form';
 import { shallow, ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { FieldComponent, FieldComponentProps } from '../../FormContent';
+import { FieldComponent } from '../../FormContent';
 import ColorPickerField from '../../Fields/ColorPicker';
 import ColorPickerButton from '../../../ColorPickerButton';
+import { FieldComponentProps } from '../../types';
 
 describe('ColorField', () => {
   it('should render a color field when given the props with type: "color"', () => {

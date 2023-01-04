@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import {
+  fireEvent,
+  getAllByRole,
+  getByRole,
+  queryByRole,
+  render,
+  screen,
+} from '@testing-library/react';
 
-import CommonCell from '../../components/internal/common-cell';
 import TableTree, { Cell, Header, Headers, Row, Rows } from '../../index';
 
 test('flat tree', async () => {
@@ -12,7 +18,7 @@ test('flat tree', async () => {
     { title: 'Chapter Three', page: 30 },
   ];
 
-  const wrapper = mount(
+  render(
     <TableTree>
       <Rows
         items={flatItems}
@@ -26,12 +32,20 @@ test('flat tree', async () => {
     </TableTree>,
   );
 
-  const tree = createTreeHarness(wrapper);
-  expect(tree.rows()).toHaveLength(3);
+  const rows = screen.getAllByRole('row');
 
-  expect(tree.textOfCellsInRow(0)).toEqual(['Chapter One', '10']);
-  expect(tree.textOfCellsInRow(1)).toEqual(['Chapter Two', '20']);
-  expect(tree.textOfCellsInRow(2)).toEqual(['Chapter Three', '30']);
+  expect(rows).toHaveLength(3);
+
+  const [firstRow, secondRow, thirdRow] = rows.map((row) =>
+    getAllByRole(row, 'gridcell'),
+  );
+
+  expect(firstRow[0]).toHaveTextContent('Chapter One');
+  expect(firstRow[1]).toHaveTextContent('10');
+  expect(secondRow[0]).toHaveTextContent('Chapter Two');
+  expect(secondRow[1]).toHaveTextContent('20');
+  expect(thirdRow[0]).toHaveTextContent('Chapter Three');
+  expect(thirdRow[1]).toHaveTextContent('30');
 });
 
 test('chevron next to items with children', async () => {
@@ -51,7 +65,7 @@ test('chevron next to items with children', async () => {
       ],
     },
   ];
-  const wrapper = mount(
+  render(
     <TableTree>
       <Rows
         items={nestedData}
@@ -64,10 +78,17 @@ test('chevron next to items with children', async () => {
       />
     </TableTree>,
   );
-  const tree = createTreeHarness(wrapper);
 
-  expect(tree.expandChevron(0)).toHaveLength(0);
-  expect(tree.expandChevron(1)).toHaveLength(1);
+  const [firstRow, secondRow] = screen.getAllByRole('row');
+  const firstRowExpandChevron = queryByRole(firstRow, 'button', {
+    name: /expand/i,
+  });
+  const secondRowExpandChevron = queryByRole(secondRow, 'button', {
+    name: /expand/i,
+  });
+
+  expect(firstRowExpandChevron).not.toBeInTheDocument();
+  expect(secondRowExpandChevron).toBeInTheDocument();
 });
 
 test('expanding and collapsing', async () => {
@@ -78,16 +99,12 @@ test('expanding and collapsing', async () => {
     c('Chapter 3'),
   ];
 
-  const wrapper = mount(
+  render(
     <TableTree>
       <Rows
         items={nestedData}
         render={({ title, children }: any) => (
-          <Row
-            itemId={title}
-            items={children}
-            hasChildren={children && children.length}
-          >
+          <Row itemId={title} items={children} hasChildren={children?.length}>
             <Cell>{title}</Cell>
           </Row>
         )}
@@ -95,40 +112,48 @@ test('expanding and collapsing', async () => {
     </TableTree>,
   );
 
-  const tree = createTreeHarness(wrapper);
+  let rows = screen.getAllByRole('row');
+  let rowContent = rows.map((row) => getByRole(row, 'gridcell'));
+  expect(rowContent[0]).toHaveTextContent('Chapter 1');
+  expect(rowContent[1]).toHaveTextContent('Chapter 2');
+  expect(rowContent[2]).toHaveTextContent('Chapter 3');
 
-  expect(tree.textOfCellsInColumn(0)).toEqual([
-    'Chapter 1',
-    'Chapter 2',
-    'Chapter 3',
-  ]);
+  let secondRowExpandButton = getByRole(rowContent[1], 'button', {
+    name: /expand/i,
+  });
+  fireEvent.click(secondRowExpandButton);
 
-  tree.expandChevron(1).simulate('click');
+  rows = screen.getAllByRole('row');
+  rowContent = rows.map((row) => getByRole(row, 'gridcell'));
 
-  expect(tree.textOfCellsInColumn(0)).toEqual([
-    'Chapter 1',
-    'Chapter 2',
-    'Chapter 2.1',
-    'Chapter 3',
-  ]);
+  expect(rowContent[0]).toHaveTextContent('Chapter 1');
+  expect(rowContent[1]).toHaveTextContent('Chapter 2');
+  expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
+  expect(rowContent[3]).toHaveTextContent('Chapter 3');
 
-  tree.expandChevron(2).simulate('click');
+  let secondFistChildRowExpandButton = getByRole(rowContent[2], 'button', {
+    name: /expand/i,
+  });
+  fireEvent.click(secondFistChildRowExpandButton);
 
-  expect(tree.textOfCellsInColumn(0)).toEqual([
-    'Chapter 1',
-    'Chapter 2',
-    'Chapter 2.1',
-    'Chapter 2.1.1',
-    'Chapter 3',
-  ]);
+  rows = screen.getAllByRole('row');
+  rowContent = rows.map((row) => getByRole(row, 'gridcell'));
+  expect(rowContent[0]).toHaveTextContent('Chapter 1');
+  expect(rowContent[1]).toHaveTextContent('Chapter 2');
+  expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
+  expect(rowContent[3]).toHaveTextContent('Chapter 2.1.1');
+  expect(rowContent[4]).toHaveTextContent('Chapter 3');
 
-  tree.collapseChevron(1).at(0).simulate('click');
+  secondRowExpandButton = getByRole(rowContent[1], 'button', {
+    name: /collapse/i,
+  });
+  fireEvent.click(secondRowExpandButton);
 
-  expect(tree.textOfCellsInColumn(0)).toEqual([
-    'Chapter 1',
-    'Chapter 2',
-    'Chapter 3',
-  ]);
+  rows = screen.getAllByRole('row');
+  rowContent = rows.map((row) => getByRole(row, 'gridcell'));
+  expect(rowContent[0]).toHaveTextContent('Chapter 1');
+  expect(rowContent[1]).toHaveTextContent('Chapter 2');
+  expect(rowContent[2]).toHaveTextContent('Chapter 3');
 });
 
 test('with isDefaultExpanded property', async () => {
@@ -139,7 +164,7 @@ test('with isDefaultExpanded property', async () => {
     c('Chapter 3'),
   ];
 
-  const wrapper = mount(
+  render(
     <TableTree>
       <Rows
         items={nestedData}
@@ -157,15 +182,14 @@ test('with isDefaultExpanded property', async () => {
     </TableTree>,
   );
 
-  const tree = createTreeHarness(wrapper);
+  const rows = screen.getAllByRole('row');
+  const rowContent = rows.map((row) => getByRole(row, 'gridcell'));
 
-  expect(tree.textOfCellsInColumn(0)).toEqual([
-    'Chapter 1',
-    'Chapter 2',
-    'Chapter 2.1',
-    'Chapter 2.1.1',
-    'Chapter 3',
-  ]);
+  expect(rowContent[0]).toHaveTextContent('Chapter 1');
+  expect(rowContent[1]).toHaveTextContent('Chapter 2');
+  expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
+  expect(rowContent[3]).toHaveTextContent('Chapter 2.1.1');
+  expect(rowContent[4]).toHaveTextContent('Chapter 3');
 });
 
 test('with isExpanded=true property', async () => {
@@ -177,7 +201,7 @@ test('with isExpanded=true property', async () => {
   ];
   const onCollapseSpy = jest.fn();
 
-  const wrapper = mount(
+  render(
     <TableTree>
       <Rows
         items={nestedData}
@@ -196,27 +220,29 @@ test('with isExpanded=true property', async () => {
     </TableTree>,
   );
 
-  const tree = createTreeHarness(wrapper);
+  let rows = screen.getAllByRole('row');
+  let rowContent = rows.map((row) => getByRole(row, 'gridcell'));
 
-  expect(tree.textOfCellsInColumn(0)).toEqual([
-    'Chapter 1',
-    'Chapter 2',
-    'Chapter 2.1',
-    'Chapter 2.1.1',
-    'Chapter 3',
-  ]);
+  expect(rowContent[0]).toHaveTextContent('Chapter 1');
+  expect(rowContent[1]).toHaveTextContent('Chapter 2');
+  expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
+  expect(rowContent[3]).toHaveTextContent('Chapter 2.1.1');
+  expect(rowContent[4]).toHaveTextContent('Chapter 3');
 
-  tree.collapseChevron(1).at(0).simulate('click');
+  const secondRowExpandButton = getByRole(rowContent[1], 'button', {
+    name: /collapse/i,
+  });
+  fireEvent.click(secondRowExpandButton);
 
-  wrapper.update();
+  rows = screen.getAllByRole('row');
+  rowContent = rows.map((row) => getByRole(row, 'gridcell'));
 
-  expect(tree.textOfCellsInColumn(0)).toEqual([
-    'Chapter 1',
-    'Chapter 2',
-    'Chapter 2.1',
-    'Chapter 2.1.1',
-    'Chapter 3',
-  ]);
+  expect(rowContent[0]).toHaveTextContent('Chapter 1');
+  expect(rowContent[1]).toHaveTextContent('Chapter 2');
+  expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
+  expect(rowContent[3]).toHaveTextContent('Chapter 2.1.1');
+  expect(rowContent[4]).toHaveTextContent('Chapter 3');
+
   expect(onCollapseSpy).toBeCalledWith(
     expect.objectContaining({
       ...c('Chapter 2'),
@@ -235,7 +261,7 @@ test('with isExpanded=false property', async () => {
   ];
   const onExpandSpy = jest.fn();
 
-  const wrapper = mount(
+  render(
     <TableTree>
       <Rows
         items={nestedData}
@@ -254,23 +280,23 @@ test('with isExpanded=false property', async () => {
     </TableTree>,
   );
 
-  const tree = createTreeHarness(wrapper);
+  let rows = screen.getAllByRole('row');
+  let rowContent = rows.map((row) => getByRole(row, 'gridcell'));
+  expect(rowContent[0]).toHaveTextContent('Chapter 1');
+  expect(rowContent[1]).toHaveTextContent('Chapter 2');
+  expect(rowContent[2]).toHaveTextContent('Chapter 3');
 
-  expect(tree.textOfCellsInColumn(0)).toEqual([
-    'Chapter 1',
-    'Chapter 2',
-    'Chapter 3',
-  ]);
+  let secondRowExpandButton = getByRole(rowContent[1], 'button', {
+    name: /expand/i,
+  });
+  fireEvent.click(secondRowExpandButton);
 
-  tree.expandChevron(1).simulate('click');
+  rows = screen.getAllByRole('row');
+  rowContent = rows.map((row) => getByRole(row, 'gridcell'));
 
-  wrapper.update();
-
-  expect(tree.textOfCellsInColumn(0)).toEqual([
-    'Chapter 1',
-    'Chapter 2',
-    'Chapter 3',
-  ]);
+  expect(rowContent[0]).toHaveTextContent('Chapter 1');
+  expect(rowContent[1]).toHaveTextContent('Chapter 2');
+  expect(rowContent[2]).toHaveTextContent('Chapter 3');
   expect(onExpandSpy).toBeCalledWith(
     expect.objectContaining({
       ...c('Chapter 2'),
@@ -298,7 +324,7 @@ test('headers and column widths', async () => {
     },
   ];
 
-  const wrapper = mount(
+  render(
     <TableTree>
       <Headers>
         <Header width={300}>Chapter title</Header>
@@ -315,57 +341,32 @@ test('headers and column widths', async () => {
       />
     </TableTree>,
   );
-  const tree = createTreeHarness(wrapper);
 
-  tree.expandChevron(1).simulate('click');
+  let [, ...rows] = screen.getAllByRole('row');
+  let rowContent = rows.map((row) => getAllByRole(row, 'gridcell'));
 
-  const titleHeader = tree.header(0);
-  expect(titleHeader.text()).toEqual('Chapter title');
+  expect(rows).toHaveLength(2);
 
-  const pageHeader = tree.header(1);
-  expect(pageHeader.text()).toEqual('Page #');
+  const secondRowExpandButton = getByRole(rowContent[1][0], 'button', {
+    name: /expand/i,
+  });
+  fireEvent.click(secondRowExpandButton);
 
-  expect(tree.cell(0, 0).find(CommonCell).props().width).toEqual(300);
-  expect(tree.cell(0, 1).find(CommonCell).props().width).toEqual(100);
-  expect(tree.cell(1, 0).find(CommonCell).props().width).toEqual(300);
-  expect(tree.cell(1, 1).find(CommonCell).props().width).toEqual(100);
-  expect(tree.cell(2, 0).find(CommonCell).props().width).toEqual(300);
-  expect(tree.cell(2, 1).find(CommonCell).props().width).toEqual(100);
+  const headers = screen.getAllByRole('columnheader');
+  expect(headers[1]).toHaveTextContent('Page #');
+
+  [, ...rows] = screen.getAllByRole('row');
+  screen.logTestingPlaygroundURL();
+
+  const [firstRow, secondRow, thirdRow] = rows.map((row) =>
+    getAllByRole(row, 'gridcell'),
+  );
+
+  expect(rows).toHaveLength(3);
+  expect(firstRow[0]).toHaveStyle({ width: '300px' });
+  expect(firstRow[1]).toHaveStyle({ width: '100px' });
+  expect(secondRow[0]).toHaveStyle({ width: '300px' });
+  expect(secondRow[1]).toHaveStyle({ width: '100px' });
+  expect(thirdRow[0]).toHaveStyle({ width: '300px' });
+  expect(thirdRow[1]).toHaveStyle({ width: '100px' });
 });
-
-function createTreeHarness(treeWrapper: any) {
-  const header = (columnIndex: number) =>
-    treeWrapper.find('Headers Header').at(columnIndex);
-
-  const rows = () => treeWrapper.find('Row');
-
-  const row = (index: number) => rows().at(index);
-
-  const cell = (rowIndex: number, cellIndex: number) =>
-    row(rowIndex).find('Cell').at(cellIndex);
-
-  const textOfCellsInColumn = (columnIndex = 0) =>
-    treeWrapper
-      .find('Row')
-      .map((rowWrapper: any) => rowWrapper.find('Cell').at(columnIndex).text());
-
-  const textOfCellsInRow = (rowIndex: number) =>
-    row(rowIndex)
-      .find('Cell')
-      .map((c: any) => c.text());
-
-  const expandChevron = (rowIndex: number) => row(rowIndex).find('button');
-
-  const collapseChevron = (rowIndex: number) => row(rowIndex).find('button');
-
-  return {
-    header,
-    rows,
-    row,
-    cell,
-    textOfCellsInColumn,
-    textOfCellsInRow,
-    expandChevron,
-    collapseChevron,
-  };
-}

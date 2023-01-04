@@ -1,150 +1,133 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { ErrorPayload } from '../../types';
-import { fireAnalyticsEvent, triggerCollabAnalyticsEvent } from '../index';
-import { EVENT_ACTION, EVENT_STATUS, EVENT_SUBJECT } from '../../helpers/const';
+import { triggerAnalyticsEvent } from '../index';
+import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version-wrapper';
 
-describe('Sending analytics', () => {
-  let fakeAnalyticsWebClient: AnalyticsWebClient = {
+describe('Analytics helper function', () => {
+  const fakeAnalyticsWebClient: AnalyticsWebClient = {
     sendOperationalEvent: jest.fn(),
     sendScreenEvent: jest.fn(),
     sendTrackEvent: jest.fn(),
     sendUIEvent: jest.fn(),
   };
-  const stepRejectedError: ErrorPayload = {
-    data: {
-      status: 409,
-      code: 'HEAD_VERSION_UPDATE_FAILED',
-      meta: 'The version number does not match the current head version.',
-    },
-    message: 'Version number does not match current head version.',
-  };
-  let originalRequestIdleCallback: Function | undefined;
-  describe('when fireAnalyticsEvent is called', () => {
-    let originalRequestIdleCallback: Function | undefined;
-    beforeEach(() => {
-      jest.spyOn(window, 'requestAnimationFrame');
-      originalRequestIdleCallback = (window as any).requestIdleCallback;
-      (window as any).requestIdleCallback = undefined;
-      (window.requestAnimationFrame as jest.Mock).mockImplementation((cb) =>
-        (cb as Function)(),
-      );
-    });
+  const originalRequestIdleCallback = (window as any).requestIdleCallback;
 
-    afterEach(() => {
-      jest.clearAllMocks();
-      (window.requestAnimationFrame as jest.Mock).mockRestore();
-      (window as any).requestIdleCallback = originalRequestIdleCallback;
-    });
-    it('should preserve original values and add `action: collab` by default ', () => {
-      fireAnalyticsEvent(fakeAnalyticsWebClient, {
-        actionSubject: 'testSubject',
-        source: 'neverland',
-      });
+  beforeAll(() => {
+    (window as any).requestIdleCallback = undefined;
+  });
 
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith(
-        expect.objectContaining({
-          action: 'collab',
-          actionSubject: 'testSubject',
-          source: 'neverland',
-          tags: ['editor'],
-        }),
-      );
-    });
+  afterAll(() => {
+    (window as any).requestIdleCallback = originalRequestIdleCallback;
+  });
 
-    it('should add "unknown" source as default', () => {
-      fireAnalyticsEvent(fakeAnalyticsWebClient, {
-        actionSubject: 'testSubject',
-      });
+  beforeEach(() => {
+    jest
+      .spyOn(window, 'requestAnimationFrame')
+      .mockImplementationOnce((cb) => (cb as Function)());
+  });
 
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith(
-        expect.objectContaining({ source: 'unknown' }),
-      );
+  afterEach(jest.resetAllMocks);
+
+  it('should send an analytics event without attributes', () => {
+    triggerAnalyticsEvent(
+      {
+        eventAction: EVENT_ACTION.UPDATE_PARTICIPANTS,
+        attributes: {},
+      },
+      fakeAnalyticsWebClient,
+    );
+
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+      action: 'updateParticipants',
+      actionSubject: 'collab',
+      attributes: {
+        packageName,
+        packageVersion,
+        collabService: 'ncs',
+      },
+      tags: ['editor'],
+      source: 'unknown',
     });
   });
 
-  describe('trigger analytics for events', () => {
-    beforeEach(() => {
-      jest.spyOn(window, 'requestAnimationFrame');
-      originalRequestIdleCallback = (window as any).requestIdleCallback;
-      (window as any).requestIdleCallback = undefined;
-      (window.requestAnimationFrame as jest.Mock).mockImplementation((cb) =>
-        (cb as Function)(),
-      );
-    });
-
-    afterEach(() => {
-      jest.clearAllMocks();
-      (window.requestAnimationFrame as jest.Mock).mockRestore();
-      (window as any).requestIdleCallback = originalRequestIdleCallback;
-    });
-
-    it('call triggerCollabAnalyticsEvent should trigger fireAnalyticsEvent and add relevant data', async () => {
-      triggerCollabAnalyticsEvent(
-        {
-          eventAction: EVENT_ACTION.ADD_STEPS,
-          attributes: {
-            eventStatus: EVENT_STATUS.SUCCESS,
-            latency: 200.13,
-            meetsSLO: true,
-            participants: 3,
-            documentAri: 'abc',
-          },
-        },
-        fakeAnalyticsWebClient,
-      );
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-        action: EVENT_ACTION.ADD_STEPS,
-        actionSubject: EVENT_SUBJECT,
+  it('should send an analytics event with optional attributes', () => {
+    triggerAnalyticsEvent(
+      {
+        eventAction: EVENT_ACTION.CONVERT_PM_TO_ADF,
         attributes: {
-          collabService: 'ncs',
-          packageName,
-          packageVersion,
+          documentAri:
+            'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/3110142491',
           eventStatus: EVENT_STATUS.SUCCESS,
-          latency: 200.13,
           meetsSLO: true,
+          latency: 123.45,
           participants: 3,
-          documentAri: 'abc',
+          numUnconfirmedSteps: 6,
         },
-        source: 'unknown',
-        tags: ['editor'],
-      });
-    });
+      },
+      fakeAnalyticsWebClient,
+    );
 
-    it('call triggerCollabAnalyticsEvent with an error should trigger fireAnalyticsEvent and add relevant data', async () => {
-      triggerCollabAnalyticsEvent(
-        {
-          eventAction: EVENT_ACTION.ADD_STEPS,
-          attributes: {
-            eventStatus: EVENT_STATUS.FAILURE,
-            latency: 200.13,
-            meetsSLO: true,
-            error: stepRejectedError,
-          },
-        },
-        fakeAnalyticsWebClient,
-      );
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-        action: EVENT_ACTION.ADD_STEPS,
-        actionSubject: EVENT_SUBJECT,
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+      action: 'convertPMToADF',
+      actionSubject: 'collab',
+      attributes: {
+        packageName,
+        packageVersion,
+        collabService: 'ncs',
+        eventStatus: 'SUCCESS',
+        latency: 123.45,
+        meetsSLO: true,
+        participants: 3,
+        numUnconfirmedSteps: 6,
+        documentAri:
+          'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:page/3110142491',
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+  });
+
+  it('should send an analytics event with error information', () => {
+    const stepRejectedError: ErrorPayload = {
+      data: {
+        status: 409,
+        code: 'HEAD_VERSION_UPDATE_FAILED',
+        meta: 'The version number does not match the current head version.',
+      },
+      message: 'Version number does not match current head version.',
+    };
+
+    triggerAnalyticsEvent(
+      {
+        eventAction: EVENT_ACTION.CONNECTION,
         attributes: {
-          collabService: 'ncs',
-          packageName,
-          packageVersion,
           eventStatus: EVENT_STATUS.FAILURE,
-          latency: 200.13,
-          meetsSLO: true,
           error: stepRejectedError,
         },
-        tags: ['editor'],
-        source: 'unknown',
-      });
+      },
+      fakeAnalyticsWebClient,
+    );
+
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+      action: 'connection',
+      actionSubject: 'collab',
+      attributes: {
+        packageName,
+        packageVersion,
+        collabService: 'ncs',
+        eventStatus: 'FAILURE',
+        error: stepRejectedError,
+      },
+      tags: ['editor'],
+      source: 'unknown',
     });
   });
 });

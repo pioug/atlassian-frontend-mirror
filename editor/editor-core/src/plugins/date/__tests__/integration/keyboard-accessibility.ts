@@ -34,7 +34,6 @@ BrowserTestCase(
     await mountEditor(page, {
       appearance: 'full-page',
       allowDate: true,
-      allowKeyboardAccessibleDatepicker: true,
     });
     await page.click(editable);
 
@@ -67,7 +66,6 @@ BrowserTestCase(
       {
         appearance: 'full-page',
         allowDate: true,
-        allowKeyboardAccessibleDatepicker: true,
       },
       { i18n: { locale } },
     );
@@ -101,7 +99,6 @@ BrowserTestCase(
       {
         appearance: 'full-page',
         allowDate: true,
-        allowKeyboardAccessibleDatepicker: true,
       },
       { i18n: { locale } },
     );
@@ -136,7 +133,6 @@ BrowserTestCase(
       {
         appearance: 'full-page',
         allowDate: true,
-        allowKeyboardAccessibleDatepicker: true,
       },
       { i18n: { locale } },
     );
@@ -174,7 +170,6 @@ BrowserTestCase(
       {
         appearance: 'full-page',
         allowDate: true,
-        allowKeyboardAccessibleDatepicker: true,
       },
       { i18n: { locale } },
     );
@@ -211,7 +206,6 @@ BrowserTestCase(
       {
         appearance: 'full-page',
         allowDate: true,
-        allowKeyboardAccessibleDatepicker: true,
       },
       { i18n: { locale: 'en-gb' } },
     );
@@ -244,7 +238,6 @@ BrowserTestCase(
       {
         appearance: 'full-page',
         allowDate: true,
-        allowKeyboardAccessibleDatepicker: true,
       },
       { i18n: { locale: 'en-gb' } },
     );
@@ -281,7 +274,6 @@ BrowserTestCase(
     await mountEditor(page, {
       appearance: 'full-page',
       allowDate: true,
-      allowKeyboardAccessibleDatepicker: true,
     });
 
     await page.click(editable);
@@ -312,7 +304,6 @@ BrowserTestCase(
       {
         appearance: 'full-page',
         allowDate: true,
-        allowKeyboardAccessibleDatepicker: true,
       },
       { i18n: { locale: 'en-gb' } },
     );
@@ -359,7 +350,6 @@ BrowserTestCase(
       {
         appearance: 'full-page',
         allowDate: true,
-        allowKeyboardAccessibleDatepicker: true,
       },
       { i18n: { locale: 'en-gb' } },
     );
@@ -416,7 +406,6 @@ BrowserTestCase(
       {
         appearance: 'full-page',
         allowDate: true,
-        allowKeyboardAccessibleDatepicker: true,
       },
       { i18n: { locale: 'en-gb' } },
     );

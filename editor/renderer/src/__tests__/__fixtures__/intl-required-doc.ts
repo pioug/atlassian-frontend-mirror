@@ -1,4 +1,6 @@
-export const intlRequiredDoc = {
+import type { DocNode } from '@atlaskit/adf-schema';
+
+export const intlRequiredDoc: DocNode = {
   version: 1,
   type: 'doc',
   content: [

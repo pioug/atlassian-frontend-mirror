@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { createSearchProvider, Scope } from '@atlassian/search-provider';
 import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin';
@@ -31,16 +31,30 @@ const FullPageWithLinkPicker = () => {
     <FullPageExample
       editorProps={{
         linking: { linkPicker },
-        featureFlags: { 'lp-link-picker': true },
+        featureFlags: {
+          'lp-link-picker': true,
+          'lp-link-picker-focus-trap': true,
+          'prevent-popup-overflow': true,
+        },
       }}
     />
   );
 };
 
 export default () => {
+  const featureFlags = useMemo(() => {
+    const flagKey = 'disableLinkPickerPopupPositioningFix';
+    return {
+      [flagKey]: Boolean(
+        new URLSearchParams(window.location.search).get(flagKey) ?? false,
+      ),
+    } as const;
+  }, []);
+
   return (
-    <SmartCardProvider client={smartCardClient}>
+    <SmartCardProvider client={smartCardClient} featureFlags={featureFlags}>
       <FullPageWithLinkPicker />
     </SmartCardProvider>
   );
 };
+``;

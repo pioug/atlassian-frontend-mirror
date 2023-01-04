@@ -13,6 +13,7 @@ describe('Lozenge', () => {
         </Lozenge>,
       );
 
+      expect(getByTestId('lozenge')).toHaveStyle(`max-width: 100%`);
       expect(getByTestId('lozenge--text')).toHaveStyle(
         `max-width: calc(200px - var(--ds-space-100, 8px))`,
       );
@@ -25,21 +26,21 @@ describe('Lozenge', () => {
         </Lozenge>,
       );
 
+      expect(getByTestId('lozenge')).toHaveStyle(`max-width: 100%`);
       expect(getByTestId('lozenge--text')).toHaveStyle(
         `max-width: calc(120px - var(--ds-space-100, 8px))`,
       );
     });
 
-    it('should set custom string max width - percentage', () => {
+    it('should set custom string max width - percentage on Box rather than Text', () => {
       const { getByTestId } = render(
         <Lozenge appearance="new" maxWidth="99%" testId="lozenge">
           hello world
         </Lozenge>,
       );
 
-      expect(getByTestId('lozenge--text')).toHaveStyle(
-        `max-width: calc(99% - var(--ds-space-100, 8px))`,
-      );
+      expect(getByTestId('lozenge')).toHaveStyle(`max-width: 99%`);
+      expect(getByTestId('lozenge--text')).toHaveStyle(`max-width: 100%`);
     });
 
     it('should set custom string max width - none', () => {
@@ -49,7 +50,19 @@ describe('Lozenge', () => {
         </Lozenge>,
       );
 
+      expect(getByTestId('lozenge')).not.toHaveStyleRule('max-width');
       expect(getByTestId('lozenge--text')).not.toHaveStyleRule('max-width');
+    });
+
+    it('should not set width properties', () => {
+      const { getByTestId } = render(
+        <Lozenge appearance="new" maxWidth="none" testId="lozenge">
+          hello world
+        </Lozenge>,
+      );
+
+      expect(getByTestId('lozenge')).not.toHaveStyleRule('width');
+      expect(getByTestId('lozenge--text')).not.toHaveStyleRule('width');
     });
   });
 });

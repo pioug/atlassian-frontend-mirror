@@ -22,7 +22,6 @@ describe('DatePicker', () => {
       <DatePicker
         isNew={true}
         element={element}
-        showTextField={true}
         onSelect={onSelect}
         onTextChanged={onTextChanged}
         onDelete={onDelete}

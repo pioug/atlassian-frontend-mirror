@@ -1,5 +1,12 @@
 # @atlaskit/radio
 
+## 5.4.6
+
+### Patch Changes
+
+- [`22d4be4674b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22d4be4674b) - Fixes issue where disabled radios were using the wrong background and border tokens
+- [`8e6acf8f038`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e6acf8f038) - Updates tokens used for border and dot, improved tokens appearance when radio is both checked and disabled
+
 ## 5.4.5
 
 ### Patch Changes

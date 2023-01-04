@@ -3,7 +3,6 @@ import React, {
   ReactElement,
   cloneElement,
   ChangeEvent,
-  useEffect,
   useState,
 } from 'react';
 import {
@@ -12,7 +11,7 @@ import {
   EmojiResourceConfig,
 } from '../src/resource';
 
-export function getEmojiConfig() {
+export function getEmojiConfig(allowUpload = true) {
   let emojiConfig;
   try {
     // eslint-disable-next-line import/no-unresolved
@@ -23,13 +22,20 @@ export function getEmojiConfig() {
     ] as EmojiResourceConfig;
   }
 
-  emojiConfig.allowUpload = true;
+  emojiConfig.allowUpload = allowUpload;
   return emojiConfig;
 }
 
+// get emojiProvider
 export function getRealEmojiResource() {
   const resource = new EmojiResource(getEmojiConfig());
-  return Promise.resolve(resource);
+  return resource;
+}
+
+// get promise emojiProvider for dataProviders in editor/renderer
+export function getRealEmojiProvider() {
+  const resource = getRealEmojiResource();
+  return resource.getEmojiProvider();
 }
 
 export interface Props {
@@ -56,10 +62,6 @@ export const ResourcedEmojiControl: FC<Props> = (props) => {
     const config = new Function('', `return (${event.target.value})`)();
     refreshEmoji(config);
   };
-
-  useEffect(() => {
-    refreshEmoji(emojiConfig);
-  }, [emojiConfig]);
 
   return (
     <div style={{ padding: '10px' }}>

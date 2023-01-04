@@ -64,7 +64,7 @@ describe('list -> actions -> wrap-and-join-lists', () => {
           ),
           expected: doc(
             ul(li(p('before'))),
-            ol(li(p('{<}aaa')), li(p('bbb')), li(p('ccc{>}'))),
+            ol()(li(p('{<}aaa')), li(p('bbb')), li(p('ccc{>}'))),
             ul(li(p('after'))),
           ),
         },
@@ -114,7 +114,7 @@ describe('list -> actions -> wrap-and-join-lists', () => {
           expected: doc(
             panel({
               panelType: PanelType.INFO,
-            })(ol(li(p('{<>}foo')))),
+            })(ol()(li(p('{<>}foo')))),
           ),
         },
       ],
@@ -138,8 +138,8 @@ describe('list -> actions -> wrap-and-join-lists', () => {
         "doesn't wrap the first paragraph in a different type of list item",
         {
           listType: orderedList,
-          original: doc(ol(li(p('{<>}foo')))),
-          expected: doc(ol(li(p('{<>}foo')))),
+          original: doc(ol()(li(p('{<>}foo')))),
+          expected: doc(ol()(li(p('{<>}foo')))),
         },
       ],
       [
@@ -155,16 +155,16 @@ describe('list -> actions -> wrap-and-join-lists', () => {
         {
           listType: orderedList,
           original: doc(ul(li(p('foo')), li(p('{<>}bar')), li(p('baz')))),
-          expected: doc(ul(li(p('foo'), ol(li(p('{<>}bar')))), li(p('baz')))),
+          expected: doc(ul(li(p('foo'), ol()(li(p('{<>}bar')))), li(p('baz')))),
         },
       ],
       [
         'only splits items where valid',
         {
           listType: orderedList,
-          original: doc(p('{<}one'), ol(li(p('two'))), p('three{>}')),
+          original: doc(p('{<}one'), ol()(li(p('two'))), p('three{>}')),
           expected: doc(
-            ol(li(p('{<}one'), ol(li(p('two')))), li(p('three{>}'))),
+            ol()(li(p('{<}one'), ol()(li(p('two')))), li(p('three{>}'))),
           ),
         },
       ],

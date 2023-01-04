@@ -1,7 +1,7 @@
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
 
-const clipboard = (): EditorPlugin => ({
+const clipboard: NextEditorPlugin<'clipboard'> = () => ({
   name: 'clipboard',
 
   pmPlugins() {

@@ -123,9 +123,14 @@ export function isCode(str: string) {
 // @see https://product-fabric.atlassian.net/browse/ED-3159
 // @see https://github.com/markdown-it/markdown-it/issues/38
 export function escapeLinks(text: string) {
-  return text.replace(/(\[([^\]]+)\]\()?((https?|ftp):\/\/[^\s]+)/g, (str) => {
-    return str.match(/^(https?|ftp):\/\/[^\s]+$/) ? `<${str}>` : str;
-  });
+  return text.replace(
+    /(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s]+)/g,
+    (str) => {
+      return str.match(/^(https?|ftp|jamfselfservice):\/\/[^\s]+$/)
+        ? `<${str}>`
+        : str;
+    },
+  );
 }
 
 export function hasOnlyNodesOfType(

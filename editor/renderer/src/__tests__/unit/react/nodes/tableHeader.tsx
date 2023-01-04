@@ -9,7 +9,7 @@ import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
-} from '../../../../analytics/enums';
+} from '@atlaskit/editor-common/analytics';
 import { RendererCssClassName } from '../../../../consts';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';

@@ -155,7 +155,7 @@ describe('BitbucketTransformer: serializer', () => {
           table()(
             tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
             tr(
-              td({})(ol(li(p('l1')), li(p('l2')))),
+              td({})(ol()(li(p('l1')), li(p('l2')))),
               td({})(p('c12')),
               td({})(p('c13')),
             ),

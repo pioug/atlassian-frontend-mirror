@@ -7,28 +7,30 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { EditorView } from 'prosemirror-view';
 import { TextSelection } from 'prosemirror-state';
-import { placeHolderClassName } from '../../styles';
 import { focusStateKey } from '../../../base/pm-plugins/focus-handler';
 import createEvent from '@atlaskit/editor-test-helpers/create-event';
-import placeholderPlugin from '../../';
+import placeholderPlugin, { placeholderTestId } from '../../';
 import typeAheadPlugin from '../../../type-ahead';
 
 function expectNoPlaceholder(editorView: EditorView) {
-  const placeholder = editorView.dom.querySelector(`.${placeHolderClassName}`);
+  const placeholder = editorView.dom.querySelector(
+    `[data-testid=${placeholderTestId}]`,
+  );
 
   expect(placeholder).toBe(null);
 }
 
 function expectPlaceHolderWithText(editorView: EditorView, text: string) {
   editorView.focus();
-  const placeholder = editorView.dom.querySelector(`.${placeHolderClassName}`);
+  const placeholder = editorView.dom.querySelector(
+    `[data-testid=${placeholderTestId}]`,
+  );
 
   expect(placeholder).toBeDefined();
   expect(placeholder!.textContent).toEqual(text);
 }
 
 const defaultPlaceholder = 'defaultPlaceholder';
-const slashPlaceholder = "Type '/' to insert content.";
 const bracketPlaceholder = "Did you mean to use '/' to insert content?";
 const event = createEvent('event');
 
@@ -57,65 +59,6 @@ describe('placeholder', () => {
       insertText(editorView, 'a', 0);
 
       expectNoPlaceholder(editorView);
-    });
-  });
-
-  describe('Hint placeholder', () => {
-    const hintPlaceholderEditor = (doc: DocBuilder) =>
-      createProsemirrorEditor({
-        doc,
-        preset: new Preset<LightEditorPlugin>().add([
-          placeholderPlugin,
-          { placeholderHints: [slashPlaceholder] },
-        ]),
-      });
-
-    it('renders hint placeholder on a blank content', async () => {
-      const { editorView } = await hintPlaceholderEditor(doc(p()));
-
-      expectPlaceHolderWithText(editorView, slashPlaceholder);
-    });
-
-    it('renders hint placeholder in a empty line', async () => {
-      const { editorView } = await hintPlaceholderEditor(
-        doc(p('Hello World'), p('{<>}')),
-      );
-
-      expectPlaceHolderWithText(editorView, slashPlaceholder);
-    });
-
-    it('disappears after changing selection to a non empty line', async () => {
-      const { editorView, refs } = await hintPlaceholderEditor(
-        doc(p('Hello World{noEmptyLine}'), p('{<>}')),
-      );
-
-      expectPlaceHolderWithText(editorView, slashPlaceholder);
-
-      editorView.dispatch(
-        editorView.state.tr.setSelection(
-          TextSelection.create(editorView.state.doc, refs!['noEmptyLine']),
-        ),
-      );
-
-      expectNoPlaceholder(editorView);
-    });
-
-    it("shouldn't render placeholder while composition", async () => {
-      const { editorView } = await hintPlaceholderEditor(
-        doc(p('Hello World'), p('{<>}')),
-      );
-
-      const container = document.createTextNode('');
-      //@ts-ignore
-      jest.spyOn(editorView.root, 'getSelection').mockImplementation(() => ({
-        focusNode: container,
-      }));
-
-      expectPlaceHolderWithText(editorView, slashPlaceholder);
-      editorView.dom.dispatchEvent(new CompositionEvent('compositionstart'));
-      expectNoPlaceholder(editorView);
-      editorView.dom.dispatchEvent(new CompositionEvent('compositionend'));
-      expectPlaceHolderWithText(editorView, slashPlaceholder);
     });
   });
 
@@ -172,7 +115,6 @@ describe('placeholder', () => {
           placeholderPlugin,
           {
             placeholder: defaultPlaceholder,
-            placeholderHints: [slashPlaceholder],
           },
         ]),
       });
@@ -190,21 +132,11 @@ describe('placeholder', () => {
         preset: new Preset<LightEditorPlugin>().add([
           placeholderPlugin,
           {
-            placeholderHints: [slashPlaceholder],
             placeholderBracketHint: bracketPlaceholder,
           },
         ]),
         pluginKey: focusStateKey,
       });
-
-    it('slash placeholder disappears', async () => {
-      const { plugin, editorView } = await fullPlaceholderEditor(doc(p()));
-
-      expectPlaceHolderWithText(editorView, slashPlaceholder);
-
-      plugin!.props.handleDOMEvents!.blur(editorView, event);
-      expectNoPlaceholder(editorView);
-    });
 
     it('bracket placeholder disappears', async () => {
       const { plugin, editorView } = await fullPlaceholderEditor(doc(p('{')));

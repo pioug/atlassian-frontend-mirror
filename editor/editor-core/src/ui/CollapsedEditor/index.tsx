@@ -1,3 +1,4 @@
+import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
 import React from 'react';
 import Editor from '../../editor';
 import EditorWithActions from '../../labs/EditorWithActions';
@@ -48,10 +49,12 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 
     if (!this.props.isExpanded) {
       return (
-        <ChromeCollapsed
-          onFocus={this.props.onFocus}
-          text={this.props.placeholder}
-        />
+        <IntlProviderIfMissingWrapper>
+          <ChromeCollapsed
+            onFocus={this.props.onFocus}
+            text={this.props.placeholder}
+          />
+        </IntlProviderIfMissingWrapper>
       );
     }
 

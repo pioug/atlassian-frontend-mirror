@@ -18,6 +18,8 @@ import {
   getEnableLightDarkTheming,
   getAllowCaptions,
   getEnableNewMediaCard,
+  getRestartNumberedLists,
+  getListNumberContinuity,
 } from '../query-param-reader';
 import { rendererAnalyticsClient } from './renderer-analytics-client';
 import { useRendererContent } from './hooks/use-set-renderer-content';
@@ -36,11 +38,12 @@ import { injectIntl, IntlShape } from 'react-intl-next';
 import { geti18NMessages } from './renderer-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
 import RendererBridgeImplementation from './native-to-web/implementation';
+import type { DocNode } from '@atlaskit/adf-schema';
 
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
   disableMediaLinking?: boolean;
-  document: string;
+  document: DocNode;
   emojiProvider: Promise<EmojiResource>;
   intl: IntlShape;
   mediaProvider: Promise<MediaProviderType>;
@@ -59,7 +62,7 @@ type BasicRendererProps = {
   containerAri: string;
   disableMediaLinking: boolean;
   disableActions: boolean;
-  document: string;
+  document: DocNode;
   emojiProvider: Promise<EmojiResource>;
   extensionHandlers: ExtensionHandlers;
   intl: IntlShape;
@@ -144,6 +147,10 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
       eventHandlers={eventHandlers}
       useSpecBasedValidator={true}
       allowCustomPanels={allowCustomPanels}
+      featureFlags={{
+        'restart-numbered-lists': getRestartNumberedLists(),
+        'list-number-continuity': getListNumberContinuity(),
+      }}
     />
   );
 };

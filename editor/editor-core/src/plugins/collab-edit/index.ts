@@ -1,7 +1,7 @@
 import { collab } from 'prosemirror-collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin, pluginKey } from './plugin';
 import {
   CollabEditOptions,
@@ -34,7 +34,11 @@ const providerBuilder: ProviderBuilder =
     }
   };
 
-const collabEditPlugin = (options: PrivateCollabEditOptions): EditorPlugin => {
+const collabEditPlugin: NextEditorPlugin<
+  'collabEdit',
+  never,
+  PrivateCollabEditOptions
+> = (options) => {
   let providerResolver: (value: CollabEditProvider) => void = () => {};
   const collabEditProviderPromise: Promise<CollabEditProvider> = new Promise(
     (_providerResolver) => {

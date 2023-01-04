@@ -282,17 +282,17 @@ h2. header`;
       defaultSchema,
       WIKI_NOTATION,
       doc(
-        ol(li(p('Item 1')), li(p('Item 2')), li(p('Item 3'))),
+        ol()(li(p('Item 1')), li(p('Item 2')), li(p('Item 3'))),
         table()(
           tr(th({})(p('Table')), th({})(p('Header')), th({})(p('Here'))),
           tr(td({})(p('and')), td({})(p('a')), td({})(p('row'))),
           tr(td({})(p('the')), td({})(p('last')), td({})(p('row'))),
         ),
-        ol(
+        ol()(
           li(
             p(
               'Item 4',
-              ol(li(p('Item 4.1')), li(p('Item 4.2')), li(p('Item 4.3'))),
+              ol()(li(p('Item 4.1')), li(p('Item 4.2')), li(p('Item 4.3'))),
             ),
           ),
           li(p('Item 5')),

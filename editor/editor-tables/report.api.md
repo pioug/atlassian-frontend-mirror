@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/editor-tables"
 
@@ -132,7 +132,11 @@ export class TableMap {
   // (undocumented)
   static get(table: Node_2): TableMap;
   // (undocumented)
+  getMaxColInRow(pos: ResolvedPos): number | undefined;
+  // (undocumented)
   height: number;
+  // (undocumented)
+  isPosMerged(pos: number): boolean;
   // (undocumented)
   map: number[];
   // (undocumented)
@@ -143,6 +147,8 @@ export class TableMap {
   problems?: TableProblem[] | null;
   // (undocumented)
   rectBetween(a: number, b: number): Rect;
+  // (undocumented)
+  rowCount(pos: number): number;
   // (undocumented)
   width: number;
 }

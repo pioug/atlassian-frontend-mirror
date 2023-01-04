@@ -1,6 +1,7 @@
 jest.useFakeTimers();
 import React from 'react';
 import { mount } from 'enzyme';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema/schema';
 import MobileRendererWrapper, {
   MobileRenderer,
@@ -37,7 +38,7 @@ jest.mock('../../hooks/use-renderer-configuration', () => ({
   }),
 }));
 
-const initialDocument = JSON.stringify({
+const initialDocument = {
   version: 1,
   type: 'doc',
   content: [
@@ -60,7 +61,7 @@ const initialDocument = JSON.stringify({
       ],
     },
   ],
-});
+} as DocNode;
 
 let container: HTMLElement;
 let enableReflowMock = jest.fn();
@@ -97,7 +98,7 @@ describe('renderer bridge', () => {
       messageDescriptor && messageDescriptor.defaultMessage,
   } as unknown as IntlShape;
   const initRenderer = (
-    adf: string,
+    adf: DocNode,
     allowAnnotations: boolean,
   ): HTMLElement => {
     act(() => {

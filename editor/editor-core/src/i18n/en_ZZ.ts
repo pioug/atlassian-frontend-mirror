@@ -149,9 +149,8 @@ export default {
   'fabric.editor.errorPanel.description':
     '⁣⁢Call out errors in a colored panel⁡⁬⁠⁪⁪⁮⁪؜⁡⁮‍‌⁪⁮⁯‍⁬⁪⁯؜‍⁯⁯⁣⁤',
   'fabric.editor.extension.confirmDeleteLinkedModalMessage':
-    '⁣⁢Removing this extension will break anything connected to it.⁠؜⁡⁬⁬⁫⁬⁪‌⁭⁪‌‍‌⁡⁠⁡⁡⁡⁮⁡⁣⁤',
-  'fabric.editor.extension.confirmDeleteLinkedModalOKButton':
-    '⁣⁢Remove extension⁡‍‌‍⁪⁪⁫⁠⁯⁯‌⁬⁬⁯‍⁬⁭‍⁮⁬⁫⁠⁠⁬⁣⁤',
+    'Deleting {nodeName} will break anything connected to it.⁠؜⁡⁬⁬⁫⁬⁪‌⁭⁪‌‍‌⁡⁠⁡⁡⁡⁮⁡⁣⁤',
+  'fabric.editor.extension.confirmDeleteLinkedModalOKButton': '⁣Delete⁡⁤',
   'fabric.editor.extensions.config-panel.save-indicator':
     '⁣⁢All changes are always autosaved⁠⁯⁫⁮⁯⁪‍؜‌‌‍⁫⁮⁫‍⁡‌⁯‌‍‌‌⁬⁣⁤',
   'fabric.editor.find': '⁣⁢Find⁯⁠⁪⁭⁫⁪‌⁯⁠⁮⁪‌⁪⁭⁯⁬⁯⁠⁪‍⁯⁫؜⁣⁤',

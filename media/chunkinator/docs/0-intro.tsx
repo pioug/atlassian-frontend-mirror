@@ -1,8 +1,15 @@
 import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
-import { createRxjsNotice } from '@atlaskit/media-common/docs';
+import {
+  createRxjsNotice,
+  createMediaUseOnlyNotice,
+} from '@atlaskit/media-common/docs';
 
 export default md`
+${createMediaUseOnlyNotice('Chunkinator', [
+  { name: 'Media Picker', link: '/packages/media/media-picker' },
+])}
+
   ${(<AtlassianInternalWarning />)}
 
   ${createRxjsNotice('Chunkinator')}

@@ -14,8 +14,9 @@ import {
   keyboardShortcutSelect,
 } from './styled';
 import { tooltip, findKeymapByDescription } from '../../../../keymaps';
-import { MenuItem } from '../../../../ui/DropdownMenu/types';
+import { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { BlockTypeButton } from './blocktype-button';
+import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 import { EditorView } from 'prosemirror-view';
 
 export type DropdownItem = MenuItem & {
@@ -154,6 +155,7 @@ class ToolbarBlockType extends React.PureComponent<
       const isActive = currentBlockType === blockType;
       const tagName = blockType.tagName || 'p';
       const Tag = tagName as keyof React.ReactHTML;
+      const keyMap = findKeymapByDescription(blockType.title.defaultMessage);
 
       return {
         content: (
@@ -163,10 +165,12 @@ class ToolbarBlockType extends React.PureComponent<
         ),
         value: blockType,
         label: formatMessage(blockType.title),
+        'aria-label': tooltip(keyMap, formatMessage(blockType.title)),
+        keyShortcuts: getAriaKeyshortcuts(keyMap),
         key: `${blockType.name}-${index}`,
         elemAfter: (
           <div css={[keyboardShortcut, isActive && keyboardShortcutSelect]}>
-            {tooltip(findKeymapByDescription(blockType.title.defaultMessage))}
+            {tooltip(keyMap)}
           </div>
         ),
         isActive,

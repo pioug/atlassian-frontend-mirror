@@ -222,6 +222,18 @@ describe('mobile editor element', () => {
     });
   });
 
+  it('should pass allowDistributeColumns and allowColumnResizing by default', () => {
+    const editor = initEditor().find(Editor);
+    expect(editor.prop('allowTables')).toHaveProperty(
+      'allowDistributeColumns',
+      true,
+    );
+    expect(editor.prop('allowTables')).toHaveProperty(
+      'allowColumnResizing',
+      true,
+    );
+  });
+
   describe('when the mobile editor is mounted', () => {
     it('should have called useEditorLifecycle', () => {
       const useEditorLifecycle = jest.spyOn(
@@ -319,28 +331,6 @@ describe('mobile editor element', () => {
       initEditor();
 
       expect(mockedIsTableCellOptionsInFloatingToolbar).toBeCalled();
-    });
-
-    it('should have called isRestartNumberedListsEnabled', () => {
-      const mockedIsRestartNumberedListsEnabled = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isRestartNumberedListsEnabled',
-      );
-
-      initEditor();
-
-      expect(mockedIsRestartNumberedListsEnabled).toBeCalled();
-    });
-
-    it('should have called isListNumberContinuityEnabled', () => {
-      const mockedIsListNumberContinuityEnabled = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isListNumberContinuityEnabled',
-      );
-
-      initEditor();
-
-      expect(mockedIsListNumberContinuityEnabled).toBeCalled();
     });
   });
 

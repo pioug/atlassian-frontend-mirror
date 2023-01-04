@@ -31,7 +31,7 @@
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/locale": "^2.1.0",
     "@atlaskit/popper": "^5.4.0",
-    "@atlaskit/select": "^16.0.0",
+    "@atlaskit/select": "^16.1.0",
     "@atlaskit/theme": "^12.2.0",
     "@atlaskit/tokens": "^0.13.0",
     "@babel/runtime": "^7.0.0",

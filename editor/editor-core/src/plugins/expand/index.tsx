@@ -1,6 +1,6 @@
 import React from 'react';
 import { expand, nestedExpand } from '@atlaskit/adf-schema';
-import { EditorPlugin, EditorProps } from '../../types';
+import { NextEditorPlugin, EditorProps } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import { expandKeymap } from './pm-plugins/keymap';
 import { IconExpand } from '../quick-insert/assets';
@@ -22,7 +22,9 @@ interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   appearance?: EditorProps['appearance'];
 }
 
-const expandPlugin = (options: ExpandPluginOptions = {}): EditorPlugin => ({
+const expandPlugin: NextEditorPlugin<'expand', never, ExpandPluginOptions> = (
+  options = {},
+) => ({
   name: 'expand',
 
   nodes() {

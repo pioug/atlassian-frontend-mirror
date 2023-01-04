@@ -5,44 +5,20 @@ import { verifyElementIn } from '../_helper';
 const selector = "[data-testid='button-items']";
 
 describe('<ButtonItem />', () => {
-  it('should match the items when stacked', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'menu',
-      'button-item',
-      global.__BASEURL__,
-    );
+  it.each(['dark', 'light', 'none'] as const)(
+    'should match the items when "%s"',
+    async (theme) => {
+      const url = getExampleUrl(
+        'design-system',
+        'menu',
+        'button-item',
+        global.__BASEURL__,
+        theme,
+      );
 
-    const expectSnapshotToMatch = verifyElementIn(url);
+      const expectSnapshotToMatch = verifyElementIn(url);
 
-    await expectSnapshotToMatch(selector);
-  });
-
-  it('should match the items when light', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'menu',
-      'button-item',
-      global.__BASEURL__,
-      'light',
-    );
-
-    const expectSnapshotToMatch = verifyElementIn(url);
-
-    await expectSnapshotToMatch(selector);
-  });
-
-  it('should match the items when dark', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'menu',
-      'button-item',
-      global.__BASEURL__,
-      'dark',
-    );
-
-    const expectSnapshotToMatch = verifyElementIn(url);
-
-    await expectSnapshotToMatch(selector);
-  });
+      await expectSnapshotToMatch(selector);
+    },
+  );
 });

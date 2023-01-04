@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/media-picker"
 
@@ -19,6 +19,7 @@
 import { MediaClient } from '@atlaskit/media-client';
 import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common';
+import { MediaTraceContext } from '@atlaskit/media-common';
 import { default as React_2 } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
@@ -62,7 +63,6 @@ interface BrowserOwnProps {
   children?: (browse: () => void) => React_2.ReactChild;
   // (undocumented)
   config: BrowserConfig;
-  // (undocumented)
   isOpen?: boolean;
   onBrowseFn?: (browse: () => void) => void;
   // (undocumented)
@@ -285,12 +285,14 @@ type State_3 = {
 // @public (undocumented)
 export type UploadEndEventPayload = {
   readonly file: MediaFile;
+  readonly traceContext?: MediaTraceContext;
 };
 
 // @public (undocumented)
 export type UploadErrorEventPayload = {
   readonly fileId: string;
   readonly error: MediaError_2;
+  readonly traceContext?: MediaTraceContext;
 };
 
 // @public (undocumented)
@@ -310,6 +312,7 @@ export type UploadPreviewUpdateEventPayload = {
 // @public (undocumented)
 export type UploadsStartEventPayload = {
   readonly files: MediaFile[];
+  readonly traceContext?: MediaTraceContext;
 };
 
 // (No @packageDocumentation comment for this package)

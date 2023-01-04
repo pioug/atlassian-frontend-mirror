@@ -7,7 +7,7 @@ async function setup() {
   const url = getExampleUrl(
     'media',
     'media-card',
-    'media-inline-vr',
+    'Test-VR-media-inline',
     global.__BASEURL__,
   );
 

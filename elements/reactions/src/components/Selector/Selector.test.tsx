@@ -40,7 +40,7 @@ describe('@atlaskit/reactions/components/selector', () => {
     expect(emojiWrappers.length).toEqual(constants.DefaultReactions.length);
 
     constants.DefaultReactions.forEach(({ id, shortName }) => {
-      const elem = screen.getByLabelText(shortName);
+      const elem = screen.getByLabelText(shortName, { exact: false });
       expect(elem).toBeInTheDocument();
     });
   });

@@ -40,11 +40,6 @@ export default ({ intl, scrollContainerRef, node, disabled }: Props) => {
   const [canScrollLeft, setCanScrollLeft] = useState(true);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const items = Array.from(
-    (scrollContainerRef.current?.firstChild
-      ?.childNodes as NodeListOf<HTMLElement>) || {},
-  );
-
   const scheduledSetCanScroll = rafSchedule(() => {
     const { scrollLeft, scrollWidth, offsetWidth } =
       scrollContainerRef.current!;
@@ -55,73 +50,35 @@ export default ({ intl, scrollContainerRef, node, disabled }: Props) => {
   const onScroll = () => scheduledSetCanScroll();
 
   const scrollLeft = () => {
-    // find the first item partially visible
-    for (const [itemIndex, item] of items.reverse().entries()) {
-      const { left: itemLeft, width: itemWidth } = item.getBoundingClientRect();
-      const { left: scrollContainerLeft = 0, width: scrollContainerWidth = 0 } =
-        scrollContainerRef.current?.getBoundingClientRect() || {};
+    const { width: scrollContainerWidth = 0 } =
+      scrollContainerRef.current?.getBoundingClientRect() || {};
 
-      // if item is partially visible on the left, scroll to it so it became the last item visible
-      if (itemLeft <= scrollContainerLeft) {
-        const gap = scrollContainerWidth - itemWidth;
-        let scrollTo = item.offsetLeft - gap;
+    const scrollLeft = scrollContainerRef.current?.scrollLeft || 0;
 
-        // if scrollTo is same as current scrollLeft
-        if (
-          Math.floor(scrollTo) ===
-          Math.floor(scrollContainerRef?.current?.scrollLeft || 0)
-        ) {
-          // if this is the first item, scroll to the beginning, otherwise find next item to scroll to
-          if (itemIndex === items.length - 1) {
-            scrollTo = 0;
-          } else {
-            continue;
-          }
-        }
-        scrollContainerRef?.current?.scrollTo({
-          top: 0,
-          left: scrollTo,
-          behavior: 'smooth',
-        });
-        break;
-      }
-    }
+    // scroll to current position - scroll container width
+    let scrollTo = scrollLeft - scrollContainerWidth;
+
+    scrollContainerRef.current?.scrollTo({
+      top: 0,
+      left: scrollTo,
+      behavior: 'smooth',
+    });
   };
+
   const scrollRight = () => {
-    // find the last item partially visible
-    for (const item of items) {
-      const { left: itemLeft, width: itemWidth } = item.getBoundingClientRect();
-      const { left: scrollContainerLeft = 0, width: scrollContainerWidth = 0 } =
-        scrollContainerRef.current?.getBoundingClientRect() || {};
+    const { width: scrollContainerWidth = 0 } =
+      scrollContainerRef.current?.getBoundingClientRect() || {};
 
-      // if item is partially visible on the right
-      if (itemLeft + itemWidth >= scrollContainerLeft + scrollContainerWidth) {
-        let scrollTo = item.offsetLeft;
+    const scrollLeft = scrollContainerRef.current?.scrollLeft || 0;
 
-        // if the item is longer than the entire container width, just scroll past it
-        if (
-          itemWidth >= scrollContainerWidth &&
-          (scrollContainerRef.current?.scrollLeft || 0) >= itemLeft - 1
-        ) {
-          scrollTo = item.offsetLeft + item.offsetWidth;
-        }
+    // scroll to current position + scroll container width
+    let scrollTo = scrollLeft + scrollContainerWidth;
 
-        // if scrollTo is same as current scrollLeft, find next item to scroll to
-        if (
-          Math.floor(scrollTo) ===
-          Math.floor(scrollContainerRef?.current?.scrollLeft || 0)
-        ) {
-          continue;
-        }
-
-        scrollContainerRef.current?.scrollTo({
-          top: 0,
-          left: scrollTo,
-          behavior: 'smooth',
-        });
-        break;
-      }
-    }
+    scrollContainerRef.current?.scrollTo({
+      top: 0,
+      left: scrollTo,
+      behavior: 'smooth',
+    });
   };
 
   const resizeObserver = new ResizeObserver((t) => {
@@ -165,7 +122,11 @@ export default ({ intl, scrollContainerRef, node, disabled }: Props) => {
   }, [node, scrollContainerRef]);
 
   return needScroll ? (
-    <div ref={buttonsContainerRef} css={toolbarScrollButtons}>
+    <div
+      ref={buttonsContainerRef}
+      css={toolbarScrollButtons}
+      className="scroll-buttons"
+    >
       <Button
         title={intl.formatMessage(messages.floatingToolbarScrollLeft)}
         icon={

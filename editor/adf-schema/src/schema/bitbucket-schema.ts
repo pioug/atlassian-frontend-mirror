@@ -1,6 +1,9 @@
 import { Schema } from 'prosemirror-model';
 import { createSchema } from './create-schema';
 
+/**
+ * @deprecated [ED-15676] We have stopped supporting product specific schemas. Use `@atlaskit/adf-schema/schema-default` instead.
+ **/
 export const bitbucketSchema: Schema = createSchema({
   nodes: [
     'doc',

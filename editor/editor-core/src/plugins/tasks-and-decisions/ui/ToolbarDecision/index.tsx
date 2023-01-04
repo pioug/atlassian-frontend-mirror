@@ -42,6 +42,7 @@ export class ToolbarDecision extends PureComponent<
         disabled={disabled || isDisabled}
         spacing={isReducedSpacing ? 'none' : 'default'}
         title={`${label} <>`}
+        aria-keyshortcuts="Shift+, Shift+. space"
         iconBefore={<DecisionIcon label={label} />}
       />
     );

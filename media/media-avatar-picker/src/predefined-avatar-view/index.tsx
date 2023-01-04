@@ -9,6 +9,7 @@ import { Avatar } from '../avatar-list';
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
 import Button from '@atlaskit/button/custom-theme-button';
 import { LargeAvatarImage } from './largeImageAvatar';
+import { imageButton } from '../avatar-list/styles';
 
 export interface BackBtnProps {
   onClick?: () => void;
@@ -48,13 +49,20 @@ export class PredefinedAvatarView extends PureComponent<
       this.props;
     const cards = avatars.map((avatar, idx) => {
       const elementKey = `predefined-avatar-${idx}`;
+
       return (
         <li key={elementKey}>
-          <LargeAvatarImage
-            isSelected={avatar === selectedAvatar}
-            src={avatar.dataURI}
+          <button
             onClick={this.createOnItemClickHandler(avatar)}
-          />
+            aria-label={avatar.name || undefined}
+            css={imageButton({ isSelected: avatar === selectedAvatar })}
+          >
+            <LargeAvatarImage
+              isSelected={avatar === selectedAvatar}
+              src={avatar.dataURI}
+              alt={avatar.name || undefined}
+            />
+          </button>
         </li>
       );
     });

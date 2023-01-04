@@ -1,5 +1,6 @@
 import { mount } from 'enzyme';
 import React from 'react';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { ResolveResponse } from '@atlaskit/smart-card';
 import {
   MobileSmartCardClient,
@@ -95,7 +96,7 @@ class MockedMobileSmartCardClient extends MobileSmartCardClient {
 
 const mockCardClient = new MockedMobileSmartCardClient();
 
-const linkADF = JSON.stringify({
+const linkADF: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -117,8 +118,8 @@ const linkADF = JSON.stringify({
       ],
     },
   ],
-});
-const smartLinkADF = JSON.stringify({
+};
+const smartLinkADF: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -134,7 +135,7 @@ const smartLinkADF = JSON.stringify({
       ],
     },
   ],
-});
+};
 
 /**
  * This test suite ensures that clicking links inside the mobile renderer

@@ -44,7 +44,7 @@ describe('hyperlink', () => {
 
   const editor = (
     doc: DocBuilder,
-    preset: Preset<LightEditorPlugin> = new Preset<LightEditorPlugin>(),
+    preset: Preset<LightEditorPlugin, any[]> = new Preset<LightEditorPlugin>(),
   ) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     return createEditor({

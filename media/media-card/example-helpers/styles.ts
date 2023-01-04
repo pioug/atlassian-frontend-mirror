@@ -84,6 +84,19 @@ export const externalIdentifierWrapperStyles = css`
   }
 `;
 
+export const unhandledErrorCardWrapperStyles = css`
+  padding: 20px;
+
+  > div:first-child {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  label {
+    margin-right: 20px;
+  }
+`;
+
 export const inlineCardVideoWrapperItemStyles = css`
   padding: 10px;
   border: 1px solid ${token('color.border.bold', 'black')};

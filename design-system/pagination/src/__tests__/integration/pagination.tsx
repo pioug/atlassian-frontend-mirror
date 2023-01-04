@@ -81,10 +81,10 @@ BrowserTestCase(
 
     const startingEllipsisText = await ellipsis[0].getText();
 
-    expect(startingEllipsisText).toBe('...');
+    expect(startingEllipsisText).toEqual('\u2026');
 
     const endingEllipsisText = await ellipsis[1].getText();
 
-    expect(endingEllipsisText).toBe('...');
+    expect(endingEllipsisText).toEqual('\u2026');
   },
 );

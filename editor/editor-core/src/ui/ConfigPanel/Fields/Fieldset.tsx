@@ -17,9 +17,7 @@ import {
 } from '@atlaskit/editor-common/extensions';
 
 import { messages } from '../messages';
-// eslint-disable-next-line import/no-cycle
-import FormContent from '../FormContent';
-import { OnFieldChange } from '../types';
+import { FormContentProps, OnFieldChange } from '../types';
 import { getNameFromDuplicateField, isDuplicateField } from '../utils';
 
 type OptionType = {
@@ -97,6 +95,7 @@ type Props = {
   onFieldChange: OnFieldChange;
   firstVisibleFieldName?: string;
   error?: string;
+  formComponent: (props: FormContentProps) => JSX.Element;
 } & WrappedComponentProps;
 
 type State = {
@@ -276,6 +275,7 @@ class FieldsetField extends React.Component<Props, State> {
       onFieldChange,
       firstVisibleFieldName,
       error,
+      formComponent: FormComponent,
     } = this.props;
 
     const { label, options } = field;
@@ -288,7 +288,7 @@ class FieldsetField extends React.Component<Props, State> {
         <div>
           {options.showTitle && <h5>{label}</h5>}
 
-          <FormContent
+          <FormComponent
             fields={selectedFields}
             parentName={name}
             extensionManifest={extensionManifest}

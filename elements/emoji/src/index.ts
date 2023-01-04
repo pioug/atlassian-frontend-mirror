@@ -6,7 +6,6 @@ import EmojiPicker from './components/picker/EmojiPicker';
 import EmojiUploader from './components/uploader/EmojiUploader';
 import EmojiTypeAhead from './components/typeahead/EmojiTypeAhead';
 import EmojiTypeAheadItem from './components/typeahead/EmojiTypeAheadItem';
-import { EmojiImage } from './components/common/EmojiImage';
 export {
   // renaming exports to prevent breaking changes due to renaming
   commonSelectedStyles as selected,
@@ -39,8 +38,10 @@ import {
   emojiPickerHeight,
 } from './util/constants';
 import { UsageFrequencyTracker } from './api/internal/UsageFrequencyTracker';
+import { useEmoji } from './hooks/useEmoji';
 import { useEmojiContext } from './hooks/useEmojiContext';
 import { EmojiContextProvider } from './context/EmojiContextProvider';
+import { EmojiCommonProvider } from './context/EmojiCommonProvider';
 
 export {
   // Classes
@@ -51,12 +52,13 @@ export {
   EmojiPicker,
   EmojiUploader,
   EmojiResource,
+  EmojiCommonProvider,
   EmojiRepository,
   EmojiTypeAhead,
-  EmojiImage,
   ResourcedEmoji,
   EmojiContextProvider,
   // hooks,
+  useEmoji,
   useEmojiContext,
   // functions
   denormaliseEmojiServiceResponse,

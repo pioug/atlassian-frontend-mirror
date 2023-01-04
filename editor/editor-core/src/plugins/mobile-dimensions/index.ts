@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { Dispatch } from '../../event-dispatcher';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { setWindowHeight } from './commands';
 import { MobileDimensionsPluginState } from './types';
 import { createPluginState, mobileDimensionsPluginKey } from './plugin-factory';
@@ -86,7 +86,7 @@ const createPlugin = (dispatch: Dispatch) => {
   });
 };
 
-const mobileDimensionsPlugin = (): EditorPlugin => ({
+const mobileDimensionsPlugin: NextEditorPlugin<'mobileDimensions'> = () => ({
   name: 'mobileDimensions',
   pmPlugins() {
     return [

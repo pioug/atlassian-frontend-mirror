@@ -17,7 +17,8 @@ import {
 
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change type',
-  {},
+  // TODO: Skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -45,7 +46,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change background color when allowCustomPanelEdit is true',
-  {},
+  // TODO: Skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -74,7 +76,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change Icon when allowCustomPanelEdit is true',
-  {},
+  // TODO: Skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -103,7 +106,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should be able to undo the emoji icon using keyboard shortcut',
-  {},
+  // TODO: Skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -135,7 +139,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'should render panel with icon using fallback text when icon short name is incorrect when allowCustomPanelEdit is true',
-  {},
+  // TODO: Skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

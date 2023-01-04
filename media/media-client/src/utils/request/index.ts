@@ -32,7 +32,7 @@ export async function request(
     traceContext,
   } = options;
   const { retryOptions } = clientOptions;
-  const metadata: RequestMetadata = { method, endpoint };
+  const metadata: RequestMetadata = { method, endpoint, traceContext };
 
   // TODO BMPT-918: add client timeout feature behing a FF (using clientOptions.clientTimeout + Promise.race)
   const doFetch = (): Promise<Response> =>

@@ -10,6 +10,21 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { sleep } from '@atlaskit/media-test-helpers';
+import cloneDeep from 'lodash/cloneDeep';
+
+const expectUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
+  expect(doc.content[2].content[0].attrs).toEqual(
+    expect.objectContaining({
+      __mediaTraceId: expect.any(String),
+    }),
+  );
+};
+
+const removeUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
+  const copy = cloneDeep(doc);
+  delete copy.content[2].content[0].attrs.__mediaTraceId;
+  return copy;
+};
 
 const baseAdf = {
   type: 'doc',
@@ -67,7 +82,10 @@ BrowserTestCase(
     await sleep(0);
 
     const doc = await page.$eval(editable, getDocFromElement);
-    expect(doc).toMatchCustomDocSnapshot(testCase);
+    expectUniqueGeneratedMediaAttrs(doc);
+    expect(removeUniqueGeneratedMediaAttrs(doc)).toMatchCustomDocSnapshot(
+      testCase,
+    );
   },
 );
 

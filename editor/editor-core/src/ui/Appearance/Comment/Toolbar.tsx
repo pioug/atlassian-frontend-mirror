@@ -6,7 +6,6 @@ import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import {
   akEditorToolbarKeylineHeight,
-  akEditorGridLineZIndex,
   akEditorMenuZIndex,
 } from '@atlaskit/editor-shared-styles';
 
@@ -40,7 +39,7 @@ const stickyToolbarWrapperStyle = css`
   position: sticky;
   /* stylelint-enable declaration-block-no-duplicate-properties */
   padding-bottom: ${gridSize()}px;
-  z-index: ${akEditorGridLineZIndex + akEditorMenuZIndex};
+  z-index: ${akEditorMenuZIndex};
   transition: box-shadow ease-in-out 0.2s;
   &.show-keyline {
     box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0

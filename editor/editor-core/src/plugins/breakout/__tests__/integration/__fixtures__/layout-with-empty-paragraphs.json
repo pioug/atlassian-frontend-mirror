@@ -1,0 +1,63 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "marks": [
+                {
+                  "type": "indentation",
+                  "attrs": {
+                    "level": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "paragraph"
+            },
+            {
+              "type": "paragraph"
+            },
+            {
+              "type": "paragraph"
+            },
+            {
+              "type": "paragraph"
+            },
+            {
+              "type": "paragraph"
+            },
+            {
+              "type": "paragraph",
+              "marks": [
+                {
+                  "type": "indentation",
+                  "attrs": {
+                    "level": 6
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

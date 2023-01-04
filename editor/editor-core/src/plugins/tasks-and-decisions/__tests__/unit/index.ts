@@ -21,6 +21,7 @@ import {
   td,
   th,
   DocBuilder,
+  BuilderContent,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
@@ -115,7 +116,12 @@ describe('tasks and decisions', () => {
       ];
 
       listTypes.forEach((listType) => {
-        const list = listType.list;
+        const list =
+          listType.name === 'ol'
+            ? (...content: BuilderContent[]) =>
+                (listType.list as typeof ol)()(...content)
+            : (listType.list as typeof ul);
+
         describe(`${listType.name} with single list item`, () => {
           let editorView: EditorView;
           beforeEach(() => {
@@ -156,6 +162,7 @@ describe('tasks and decisions', () => {
 
         describe(`unordered list one level of nesting`, () => {
           let editorView: EditorView;
+
           beforeEach(() => {
             const originalDoc = doc(
               scenario.list({ localId: 'local-uuid' })(

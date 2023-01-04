@@ -70,7 +70,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts with a paragraph and ends inside a list', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One')),
         li(p('Two')),
         li(p('Three')),
@@ -81,7 +81,7 @@ describe('lists plugin -> converting lists', () => {
     const { editorView } = editor(
       doc(
         p('{<}One'),
-        ol(
+        ol()(
           li(p('Two{>}')),
           li(p('Three')),
           li(p('Four'))
@@ -96,7 +96,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection contains a list but starts and end with paragraphs', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One')),
         li(p('Two')),
         li(p('Three')),
@@ -107,7 +107,7 @@ describe('lists plugin -> converting lists', () => {
     const { editorView } = editor(
       doc(
         p('{<}One'),
-        ol(
+        ol()(
           li(p('Two')),
           li(p('Three'))
         ),
@@ -122,7 +122,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts inside a list and ends with a paragraph', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One')),
         li(p('Two')),
         li(p('Three')),
@@ -132,7 +132,7 @@ describe('lists plugin -> converting lists', () => {
     // prettier-ignore
     const { editorView } = editor(
       doc(
-        ol(
+        ol()(
           li(p('One')),
           li(p('{<}Two')),
           li(p('Three'))
@@ -148,7 +148,7 @@ describe('lists plugin -> converting lists', () => {
     // prettier-ignore
     const expectedOutput = doc(
       p('One'),
-      ol(
+      ol()(
         li(p('Two')),
         li(p('Three')),
         li(p('Four')),
@@ -161,7 +161,7 @@ describe('lists plugin -> converting lists', () => {
         p('One'),
         p('Tw{<}o'),
         p('Three'),
-        ol(
+        ol()(
           li(p('Four')),
           li(p('Five{>}'))
         ),
@@ -175,7 +175,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts inside a list and ends in the middle of text in multiple paragraph', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One')),
         li(p('Two')),
         li(p('Three')),
@@ -187,7 +187,7 @@ describe('lists plugin -> converting lists', () => {
     // prettier-ignore
     const { editorView } = editor(
       doc(
-        ol(
+        ol()(
           li(p('One')),
           li(p('{<}Two')),
           li(p('Three')),
@@ -205,7 +205,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts with a status node and ends inside a list', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('{<}', status({ text: 'test', color: '#FFF', localId: 'a' }))),
         li(p('One{>}')),
         li(p('Two')),
@@ -231,7 +231,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts inside a list and ends with a status node', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One{<}')),
         li(p('Two')),
         li(p('Three')),
@@ -257,7 +257,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts with multiple text nodes in a paragraph and ends inside a list', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('{<}', strong('hello'), 'world')),
         li(p('One{>}')),
         li(p('Two')),
@@ -283,7 +283,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts inside a list and ends with multiple text nodes in a paragraph', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One{<}')),
         li(p('Two')),
         li(p('Three')),
@@ -309,7 +309,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts with multiple paragraphs and ends inside a list', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('{<}', 'p1')),
         li(p('p2')),
         li(p('p3')),
@@ -339,7 +339,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts inside a list and ends with multiple paragraphs', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One{<}')),
         li(p('Two')),
         li(p('Three')),
@@ -369,7 +369,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts with multiple paragraphs including a status node and ends inside a list', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('{<}', status({ text: 'test', color: '#FFF', localId: 'a' }), 'p1')),
         li(p('p2')),
         li(p('p3')),
@@ -399,7 +399,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert selection to a list when the selection starts inside a list and ends with multiple paragraphs including a status node', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One{<}')),
         li(p('Two')),
         li(p('Three')),
@@ -455,7 +455,7 @@ describe('lists plugin -> converting lists', () => {
   it('should convert the list when the selection starts inside a list and ends with a panel node', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One{<}')),
         li(p('Two')),
         li(p('Three'))
@@ -511,14 +511,14 @@ describe('lists plugin -> converting lists', () => {
   it('should convert the list when the selection starts inside a list and ends with multiple paragraphs with a panel in between', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One{<}')),
         li(p('Two')),
         li(p('Three')),
         li(p('p1')),
       ),
       panel()(p('panel')),
-      ol(
+      ol()(
         li(p('p2{>}')),
       ),
     );
@@ -546,7 +546,7 @@ describe('lists plugin -> converting lists', () => {
       p("{<}p1"),
       p("p2"),
       p("p3"),
-      ol(li(p("A")), li(p("B")), li(p("C"))),
+      ol()(li(p("A")), li(p("B")), li(p("C"))),
       p("p4"),
       panel({ panelType: "info" })(p("test")),
       p("p5{>}")
@@ -557,7 +557,7 @@ describe('lists plugin -> converting lists', () => {
         p("{<}p1"),
         p("p2"),
         p("p3"),
-        ol(li(p("A")), li(p("B")), li(p("C"))),
+        ol()(li(p("A")), li(p("B")), li(p("C"))),
         p("p4"),
         panel({ panelType: "info" })(p("test")),
         p("p5{>}")
@@ -575,7 +575,7 @@ describe('lists plugin -> converting lists', () => {
         tr(th({})(p()), th({})(p()), th({})(p())),
         tr(
           td({})(
-            ol(
+            ol()(
               li(p("paragraph")),
               li(p("A")),
               li(p("B")),
@@ -625,7 +625,7 @@ describe('lists plugin -> converting lists', () => {
     // prettier-ignore
     const { editorView } = editor(
       doc(
-        ol(
+        ol()(
           li(p('{<}One')),
           li(p('Two')),
           li(p()),
@@ -668,7 +668,7 @@ describe('lists plugin -> converting lists', () => {
         p("p1"),
         p("p2"),
         p("p3 "),
-        ol(
+        ol()(
           li(p("A")),
           li(p("B")),
           li(p("C"))),
@@ -737,7 +737,7 @@ describe('lists plugin -> converting lists', () => {
     expect(editorView.state.doc).toEqualDocument(
       doc(
         table({ localId: TABLE_LOCAL_ID })(
-          tr(td()(p('')), td()(ol(li(p('One{<>}'))))),
+          tr(td()(p('')), td()(ol()(li(p('One{<>}'))))),
         ),
       ),
     );
@@ -761,13 +761,13 @@ describe('lists plugin -> converting lists', () => {
     const { editorView } = editor(
       doc(
         p('{<}One'),
-        ol(
+        ol()(
           li(p('Two{>}')),
           li(p('Three')),
           li(p('Four'))
         ),
         p('Five'),
-        ol(
+        ol()(
           li(p('Six{>}')),
           li(p('Seven')),
           li(p('Eight'))
@@ -796,12 +796,12 @@ describe('lists plugin -> converting lists', () => {
     const { editorView } = editor(
       doc(
         p('{<}One'),
-        ol(
+        ol()(
           li(p('Two')),
           li(p('Three'))
         ),
         p('Four'),
-        ol(
+        ol()(
           li(p('Five')),
           li(p('Six'))
         ),
@@ -840,7 +840,7 @@ describe('lists plugin -> converting lists', () => {
           li(p("Four"))
         ),
         p(),
-        ol(
+        ol()(
           li(p("Five")),
           li(p("Six")),
           li(p("Seven"))
@@ -873,7 +873,7 @@ describe('lists plugin -> converting lists', () => {
     const { editorView } = editor(
       doc(
         p('{<}One'),
-        ol(
+        ol()(
           li(p('Two{>}')),
           li(p('Three')),
           li(p('Four'))
@@ -881,7 +881,7 @@ describe('lists plugin -> converting lists', () => {
         p('Five'),
         p('Six'),
         p('Seven'),
-        ol(
+        ol()(
           li(p('Eight{>}')),
           li(p('Nine')),
           li(p('Ten'))
@@ -912,14 +912,14 @@ describe('lists plugin -> converting lists', () => {
     const { editorView } = editor(
       doc(
         p('{<}One'),
-        ol(
+        ol()(
           li(p('Two')),
           li(p('Three'))
         ),
         p('Four'),
         p('Five'),
         p('Six'),
-        ol(
+        ol()(
           li(p('Seven')),
           li(p('Eight'))
         ),
@@ -962,7 +962,7 @@ describe('lists plugin -> converting lists', () => {
         p(),
         p(),
         p(),
-        ol(
+        ol()(
           li(p("Five")),
           li(p("Six")),
           li(p("Seven"))
@@ -1003,7 +1003,7 @@ describe('lists plugin -> converting lists', () => {
         p(),
         p(),
         p(),
-        ol(
+        ol()(
           li(p("Four")),
           li(p("Five")),
           li(p("Six{>}"))
@@ -1018,13 +1018,13 @@ describe('lists plugin -> converting lists', () => {
   it('should convert all lists + non empty paragraphs when the selection contains multiple paragraphs, an empty paragraph, then a list', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p("paragraph")),
         li(p("paragraph")),
         li(p("paragraph")),
       ),
       p(),
-      ol(
+      ol()(
         li(p("One")),
         li(p("Two")),
         li(p("Three"))
@@ -1061,7 +1061,7 @@ describe('lists plugin -> converting lists', () => {
     });
 
     it('wraps codeblock in a numbered list', () => {
-      const expectedOutput = doc(ol(li(code_block({})('some code'))));
+      const expectedOutput = doc(ol()(li(code_block({})('some code'))));
       const { editorView, refs } = editor(
         doc('{pos}', code_block({})('some code')),
       );
@@ -1071,7 +1071,7 @@ describe('lists plugin -> converting lists', () => {
     });
 
     it('toggles bullet to numbered list', () => {
-      const expectedOutput = doc(ol(li(code_block({})('some code'))));
+      const expectedOutput = doc(ol()(li(code_block({})('some code'))));
       const { editorView, refs } = editor(
         doc(ul(li('{pos}', code_block({})('some code')))),
       );
@@ -1083,7 +1083,7 @@ describe('lists plugin -> converting lists', () => {
     it('toggles numbered to bullet list', () => {
       const expectedOutput = doc(ul(li(code_block({})('some code'))));
       const { editorView, refs } = editor(
-        doc(ol(li('{pos}', code_block({})('some code')))),
+        doc(ol()(li('{pos}', code_block({})('some code')))),
       );
       setGapCursorSelection(editorView, refs.pos, Side.LEFT);
       toggleBulletList(editorView);
@@ -1103,7 +1103,7 @@ describe('lists plugin -> converting lists', () => {
     });
 
     it('wraps codeblock in a numbered list', () => {
-      const expectedOutput = doc(ol(li(code_block({})('some code'))));
+      const expectedOutput = doc(ol()(li(code_block({})('some code'))));
       const { editorView, refs } = editor(
         doc(code_block({})('some {pos}code')),
       );
@@ -1115,7 +1115,7 @@ describe('lists plugin -> converting lists', () => {
     it('toggles bullet to numbered list', () => {
       const expectedOutput = doc(ul(li(code_block({})('some code'))));
       const { editorView, refs } = editor(
-        doc(ol(li(code_block({})('some {pos}code')))),
+        doc(ol()(li(code_block({})('some {pos}code')))),
       );
       setNodeSelection(editorView, refs.pos);
       toggleBulletList(editorView);
@@ -1125,7 +1125,7 @@ describe('lists plugin -> converting lists', () => {
     it('toggles numbered to bullet list', () => {
       const expectedOutput = doc(ul(li(code_block({})('some code'))));
       const { editorView, refs } = editor(
-        doc(ol(li(code_block({})('some {pos}code')))),
+        doc(ol()(li(code_block({})('some {pos}code')))),
       );
       setNodeSelection(editorView, refs.pos);
       toggleBulletList(editorView);

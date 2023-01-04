@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { EditorView } from 'prosemirror-view';
-import React, { ReactNode, useLayoutEffect, useRef } from 'react';
+import React, { ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
 
 export interface KeyDownHandlerContext {
   handleArrowLeft: () => void;
@@ -30,28 +30,35 @@ export const KeyDownHandlerContext = React.createContext<KeyDownHandlerContext>(
 export const ToolbarArrowKeyNavigationProvider = ({
   children,
   editorView,
+  childComponentSelector,
+  handleEscape,
+  disableArrowKeyNavigation,
 }: {
   children: ReactNode;
   editorView?: EditorView;
+  //Selector is used to filterout the keyevents originated outside of toolbars/any child component
+  childComponentSelector: string;
+  handleEscape?: (event: KeyboardEvent) => void;
+  disableArrowKeyNavigation?: boolean;
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const currentSelectedItemIndex = useRef(0);
+  const selectedItemIndex = useRef(0);
 
-  const incrementIndex = (list: HTMLElement[]) => {
-    if (currentSelectedItemIndex.current === list.length - 1) {
-      currentSelectedItemIndex.current = 0;
+  const incrementIndex = useCallback((list: HTMLElement[]) => {
+    if (selectedItemIndex.current === list.length - 1) {
+      selectedItemIndex.current = 0;
     } else {
-      currentSelectedItemIndex.current = currentSelectedItemIndex.current + 1;
+      selectedItemIndex.current = selectedItemIndex.current + 1;
     }
-  };
+  }, []);
 
-  const decrementIndex = (list: HTMLElement[]) => {
-    if (currentSelectedItemIndex.current === 0) {
-      currentSelectedItemIndex.current = list.length - 1;
+  const decrementIndex = useCallback((list: HTMLElement[]) => {
+    if (selectedItemIndex.current === 0) {
+      selectedItemIndex.current = list.length - 1;
     } else {
-      currentSelectedItemIndex.current = currentSelectedItemIndex.current - 1;
+      selectedItemIndex.current = selectedItemIndex.current - 1;
     }
-  };
+  }, []);
 
   const handleArrowRight = (): void => {
     const filteredFocusableElements = getFilteredFocusableElements(
@@ -59,7 +66,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
     );
 
     incrementIndex(filteredFocusableElements);
-    filteredFocusableElements[currentSelectedItemIndex.current]?.focus();
+    filteredFocusableElements[selectedItemIndex.current]?.focus();
   };
 
   const handleArrowLeft = (): void => {
@@ -68,14 +75,23 @@ export const ToolbarArrowKeyNavigationProvider = ({
     );
 
     decrementIndex(filteredFocusableElements);
-    filteredFocusableElements[currentSelectedItemIndex.current]?.focus();
+    filteredFocusableElements[selectedItemIndex.current]?.focus();
   };
 
   const handleTab = (): void => {
     const filteredFocusableElements = getFilteredFocusableElements(
       wrapperRef?.current,
     );
-    filteredFocusableElements[currentSelectedItemIndex.current]?.focus();
+    filteredFocusableElements[selectedItemIndex.current]?.focus();
+  };
+
+  const focusAndScrollToElement = (element: HTMLElement): void => {
+    element?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest',
+    });
+    element.focus();
   };
 
   const submenuKeydownHandleContext = {
@@ -85,7 +101,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
   };
 
   useLayoutEffect(() => {
-    if (!wrapperRef.current) {
+    if (!wrapperRef.current || disableArrowKeyNavigation) {
       return;
     }
     const { current: element } = wrapperRef;
@@ -95,11 +111,11 @@ export const ToolbarArrowKeyNavigationProvider = ({
      * @param event
      */
     const handleKeyDown = (event: KeyboardEvent): void => {
-      //To trap the focus inside the horizontal main toolbar for left and right arrow keys
+      //To trap the focus inside the horizontal toolbar for left and right arrow keys
       const targetElement = event.target as HTMLElement;
 
-      //To filter out the events outside the main toolbar
-      if (!targetElement.closest("[data-testid='ak-editor-main-toolbar']")) {
+      //To filter out the events outside the child component
+      if (!targetElement.closest(`${childComponentSelector}`)) {
         return;
       }
 
@@ -110,8 +126,12 @@ export const ToolbarArrowKeyNavigationProvider = ({
             '[data-role="droplistContent"], [data-test-id="color-picker-menu"], [data-emoji-picker-container="true"]',
           )
           ?.contains(targetElement) ||
+        document
+          .querySelector('[data-test-id="color-picker-menu"]')
+          ?.contains(targetElement) ||
         event.key === 'ArrowUp' ||
-        event.key === 'ArrowDown'
+        event.key === 'ArrowDown' ||
+        disableArrowKeyNavigation
       ) {
         return;
       }
@@ -129,26 +149,49 @@ export const ToolbarArrowKeyNavigationProvider = ({
       //This is kind of hack to reset the current focused toolbar item
       //to handle some usecases such as Tab in/out of main toolbar
       if (!wrapperRef.current?.contains(targetElement)) {
-        currentSelectedItemIndex.current = -1;
+        selectedItemIndex.current = -1;
       } else {
-        currentSelectedItemIndex.current =
+        selectedItemIndex.current =
           filteredFocusableElements.indexOf(targetElement) > -1
             ? filteredFocusableElements.indexOf(targetElement)
-            : currentSelectedItemIndex.current;
+            : selectedItemIndex.current;
       }
-      if (event.key === 'ArrowRight') {
-        incrementIndex(filteredFocusableElements);
-      } else if (event.key === 'ArrowLeft') {
-        decrementIndex(filteredFocusableElements);
-      }
-      filteredFocusableElements[currentSelectedItemIndex.current]?.focus();
-    };
 
+      switch (event.key) {
+        case 'ArrowRight':
+          incrementIndex(filteredFocusableElements);
+          focusAndScrollToElement(
+            filteredFocusableElements[selectedItemIndex.current],
+          );
+          event.preventDefault();
+          break;
+        case 'ArrowLeft':
+          decrementIndex(filteredFocusableElements);
+          focusAndScrollToElement(
+            filteredFocusableElements[selectedItemIndex.current],
+          );
+          event.preventDefault();
+          break;
+        case 'Escape':
+          handleEscape!(event);
+          break;
+        default:
+      }
+    };
     element?.addEventListener('keydown', handleKeyDown);
     return () => {
       element?.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentSelectedItemIndex, wrapperRef, editorView]);
+  }, [
+    selectedItemIndex,
+    wrapperRef,
+    editorView,
+    disableArrowKeyNavigation,
+    handleEscape,
+    childComponentSelector,
+    incrementIndex,
+    decrementIndex,
+  ]);
 
   return (
     <div className="custom-key-handler-wrapper" ref={wrapperRef}>
@@ -180,6 +223,7 @@ function getFilteredFocusableElements(
     (elm) =>
       !elm.closest('[data-role="droplistContent"]') &&
       !elm.closest('[data-emoji-picker-container="true"]') &&
-      !elm.closest('[data-test-id="color-picker-menu"]'),
+      !elm.closest('[data-test-id="color-picker-menu"]') &&
+      !elm.closest('.scroll-buttons'),
   );
 }

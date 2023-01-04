@@ -209,11 +209,18 @@ const buildInitialTableToolbarItems = () => [
         key: '2.5',
       },
       {
+        id: 'editor.table.distributeColumns',
+        title: 'Distribute columns',
+        selected: false,
+        disabled: true,
+        key: '2.6',
+      },
+      {
         id: 'editor.table.clearCells',
         title: 'Clear cell',
         selected: false,
         disabled: false,
-        key: '2.6',
+        key: '2.7',
       },
     ],
     key: '2',
@@ -443,9 +450,24 @@ export default async () => {
       await page.click(`.${TableSharedCssClassName.TABLE_CELL_WRAPPER}`);
       let calls = await getDummyBridgeCalls(page, 'onNodeSelected');
       expect(calls.length).toBe(1);
-      expect(calls[0][0]).toBe('table');
-      expect(JSON.parse(calls[0][1])).toMatchObject(
-        buildInitialTableToolbarItems(),
+
+      // Match table options
+      const expectValues = buildInitialTableToolbarItems();
+      const resultValues = JSON.parse(calls[0][1]);
+
+      // Match editor.table.tableOptions
+      expect(resultValues[0]).toEqual(expect.objectContaining(expectValues[0]));
+      // Match editor.table.cellOptions and the options array
+      const { options: options, ...expectedValuesWithoutOptions } =
+        expectValues[2];
+      expect(resultValues[2]).toEqual(
+        expect.objectContaining(expectedValuesWithoutOptions),
+      );
+      // console.log(resultValues[2].options)
+      expect(resultValues[2].options).toEqual(
+        expect.arrayContaining(
+          (options ?? []).map((option) => expect.objectContaining(option)),
+        ),
       );
     },
   );

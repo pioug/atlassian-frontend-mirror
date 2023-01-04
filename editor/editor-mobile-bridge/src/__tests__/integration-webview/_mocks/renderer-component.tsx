@@ -11,7 +11,7 @@ import getBridge from '../../../renderer/native-to-web/bridge-initialiser';
 import useRendererConfiguration from '../../../renderer/hooks/use-renderer-configuration';
 
 const App = () => {
-  const initialDocSerialized = JSON.stringify(getEmptyADF());
+  const initialDocSerialized = getEmptyADF();
   const rendererBridge = getBridge();
   const rendererConfiguration = useRendererConfiguration(rendererBridge);
 

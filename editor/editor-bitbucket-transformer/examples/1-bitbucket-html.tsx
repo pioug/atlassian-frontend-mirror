@@ -74,6 +74,9 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                       taskDecisionProvider={Promise.resolve(
                         getMockTaskDecisionResource(),
                       )}
+                      featureFlags={{
+                        'restart-numbered-lists': true,
+                      }}
                     />
                   </CollapsedEditor>
                 </div>

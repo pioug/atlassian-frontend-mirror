@@ -15,8 +15,8 @@ import { adfs } from './__fixtures__/indentationButtonADFs';
 
 describe('Editor toolbar indentation buttons: ', () => {
   const buttonSelectors = {
-    indent: 'button[aria-label="Indent"]',
-    outdent: 'button[aria-label="Outdent"]',
+    indent: 'button[data-testid="indent"]',
+    outdent: 'button[data-testid="outdent"]',
   };
 
   const initEditorAndClickButton = async ({

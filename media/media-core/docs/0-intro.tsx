@@ -1,11 +1,19 @@
 import React from 'react';
 import { md, code, AtlassianInternalWarning } from '@atlaskit/docs';
-import { createRxjsNotice } from '@atlaskit/media-common/docs';
+import {
+  createRxjsNotice,
+  createMediaUseOnlyNotice,
+} from '@atlaskit/media-common/docs';
 
 export default md`
-  ${(<AtlassianInternalWarning />)}
+${createMediaUseOnlyNotice('Media Core', [
+  { name: 'Media Card', link: '/packages/media/media-card' },
+  { name: 'Media Picker', link: '/packages/media/media-picker' },
+])}
 
-  ${createRxjsNotice('Media Core')}
+${(<AtlassianInternalWarning />)}
+
+${createRxjsNotice('Media Core')}
 
   This package is required by other Media Components, and should not be used
   directly.

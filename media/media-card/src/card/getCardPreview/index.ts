@@ -66,7 +66,7 @@ export type CardPreviewParams = {
   id: string;
   dimensions?: CardDimensions;
   filePreview?: FilePreview | Promise<FilePreview>;
-  onLocalPreviewError?: (error: MediaCardError) => void;
+  onLocalPreviewError: (error: MediaCardError) => void;
   isRemotePreviewReady: boolean;
   imageUrlParams: MediaStoreGetFileImageParams;
   mediaBlobUrlAttrs?: MediaBlobUrlAttrs;

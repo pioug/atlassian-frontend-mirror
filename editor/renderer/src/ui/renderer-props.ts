@@ -5,6 +5,7 @@ import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
+import { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { RendererContext } from '../';
 import { RenderOutputStat } from '../render-document';
@@ -16,7 +17,8 @@ import {
 } from './Renderer/types';
 import { MediaOptions } from '../types/mediaOptions';
 import { SmartLinksOptions } from '../types/smartLinksOptions';
-import { ACTION_SUBJECT } from '../analytics/enums';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import { DocNode } from '@atlaskit/adf-schema';
 
 export interface RawObjectFeatureFlags {
   ['renderer-render-tracking']: string;
@@ -32,7 +34,7 @@ export interface NormalizedObjectFeatureFlags {
 }
 
 export interface RendererProps {
-  document: any;
+  document: DocNode;
   dataProviders?: ProviderFactory;
   eventHandlers?: EventHandlers;
   extensionHandlers?: ExtensionHandlers;
@@ -59,6 +61,7 @@ export interface RendererProps {
   allowAltTextOnImages?: boolean;
   stickyHeaders?: StickyHeaderProps;
   media?: MediaOptions;
+  emojiResourceConfig?: EmojiResourceConfig;
   smartLinks?: SmartLinksOptions;
   allowAnnotations?: boolean;
   annotationProvider?: AnnotationProviders | null;

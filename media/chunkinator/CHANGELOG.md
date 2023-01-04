@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.3
+
+### Patch Changes
+
+- [`a8eeb045e3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8eeb045e3a) - adding media only callouts to docs
+
 ## 4.1.2
 
 ### Patch Changes

@@ -128,6 +128,11 @@ describe('normalizeUrl', () => {
     'https://google.com/search?q=query#id',
     // Trims url
     { input: 'https://google.com    ', expected: 'https://google.com' },
+    // Jamf Self Service on MacOS
+    {
+      input: 'jamfselfservice://content?entity=policy&id=551&action=view ',
+      expected: 'jamfselfservice://content?entity=policy&id=551&action=view',
+    },
   ])('correctly handles normalizeUrl case for `%o`', testData => {
     // If testdata is string only, expected value is the input value
     if (typeof testData === 'string') {

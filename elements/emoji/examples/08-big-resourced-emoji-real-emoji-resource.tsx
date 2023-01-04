@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
-  getRealEmojiResource,
+  getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
 import { EmojiProvider, OnEmojiProviderChange } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
@@ -100,16 +100,17 @@ class ResourcedFilteredEmojiList extends PureComponent<
 }
 
 export default function Example() {
+  const emojiProvider = getRealEmojiProvider();
   const emojiList = (
     <ResourcedFilteredEmojiList
-      emojiProvider={getRealEmojiResource()}
+      emojiProvider={emojiProvider}
       fitToHeight={72}
     />
   );
   return (
     <ResourcedEmojiControl
       emojiConfig={getEmojiConfig()}
-      customEmojiProvider={getRealEmojiResource()}
+      customEmojiProvider={emojiProvider}
       children={emojiList}
     />
   );

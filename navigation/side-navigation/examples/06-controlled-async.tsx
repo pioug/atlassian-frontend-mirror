@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import Box from '@atlaskit/ds-explorations/box';
 import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';
 import Select from '@atlaskit/select';
 
@@ -57,7 +58,14 @@ const ControlledAsyncExample = () => {
   return (
     <AppFrame
       content={
-        <div css={{ flexGrow: 1, padding: 32 }}>
+        <Box
+          as="div"
+          padding="scale.400"
+          display="block"
+          UNSAFE_style={{
+            flexGrow: 1,
+          }}
+        >
           <Select<Option>
             onChange={(value) => setStack((value as Option).value || [])}
             options={[
@@ -80,7 +88,7 @@ const ControlledAsyncExample = () => {
               value: stack,
             }}
           />
-        </div>
+        </Box>
       }
     >
       <SideNavigation label="project" testId="side-navigation">

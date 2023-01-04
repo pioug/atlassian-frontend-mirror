@@ -13,6 +13,7 @@ Object {
             "__fileMimeType": "inode/x-empty",
             "__fileName": "example.png",
             "__fileSize": 11,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "MediaServicesSample",
             "height": null,

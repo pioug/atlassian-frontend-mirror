@@ -43,6 +43,7 @@ export {
   nestedExpand,
   orderedList,
   orderedListSelector,
+  orderedListWithOrder,
   panel,
   paragraph,
   placeholder,

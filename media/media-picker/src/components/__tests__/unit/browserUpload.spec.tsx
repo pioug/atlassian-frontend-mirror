@@ -66,6 +66,7 @@ describe('Browser upload phases', () => {
           type: 'text/plain',
         },
       ],
+      traceContext: { traceId: expect.any(String) },
     });
   });
 
@@ -109,6 +110,7 @@ describe('Browser upload phases', () => {
         size: 13,
         type: 'text/plain',
       },
+      traceContext: { traceId: expect.any(String) },
     });
   });
 
@@ -151,6 +153,7 @@ describe('Browser upload phases', () => {
           rawError: error,
         },
         fileId: uuidRegexMatcher,
+        traceContext: { traceId: expect.any(String) },
       },
     ]);
   });

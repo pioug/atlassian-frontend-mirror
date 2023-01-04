@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 export const RECENT_SEARCH_WIDTH_IN_PX = 420;
 export const RECENT_SEARCH_WIDTH_WITHOUT_ITEMS_IN_PX = 360;
 export const RECENT_SEARCH_HEIGHT_IN_PX = 360;
+export const LINKPICKER_HEIGHT_IN_PX = 570;
 
 export const inputWrapper = css`
   display: flex;

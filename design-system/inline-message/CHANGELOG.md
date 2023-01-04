@@ -1,5 +1,11 @@
 # @atlaskit/inline-message
 
+## 11.4.6
+
+### Patch Changes
+
+- [`25902de2d93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25902de2d93) - [ux] Added pressed (active) state styles for the secondary text.
+
 ## 11.4.5
 
 ### Patch Changes

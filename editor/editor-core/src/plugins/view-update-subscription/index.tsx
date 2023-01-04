@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { EditorPlugin } from '../../types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 type UpdateArgs = {
   newEditorState: EditorState;
@@ -40,7 +40,9 @@ class Tracker {
 
 const pluginKey = new PluginKey('viewUpdateSubscriptionKey');
 
-const createViewUpdateSubscriptionPlugin = (): EditorPlugin => {
+const createViewUpdateSubscriptionPlugin: NextEditorPlugin<
+  'viewUpdateSubscription'
+> = () => {
   let tracker: Tracker | undefined;
   const lastUpdateRef: LastUpdateRef = {
     current: null,

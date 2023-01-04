@@ -172,6 +172,47 @@ exports[`emoji-2.ts: should be able to use emoji inside orderedList 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "attrs": Object {
+                    "id": "1f170",
+                    "shortName": ":a:",
+                    "text": "🅰",
+                  },
+                  "type": "emoji",
+                },
+                Object {
+                  "text": " ",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`emoji-2.ts: should be able to use emoji inside orderedList with restartNumberedLists 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [

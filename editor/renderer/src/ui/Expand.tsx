@@ -18,7 +18,11 @@ import {
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../analytics/events';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics/enums';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import _uniqueId from 'lodash/uniqueId';

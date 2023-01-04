@@ -22,13 +22,13 @@ describe('EmojiTypeAhead', () => {
       mockSelectItem?: any,
       dispatchAnalyticsEvent?: any,
     ) => {
-      const emojiPluginMonkeyPatched = (options?: EmojiPluginOptions) => {
+      const emojiPluginMonkeyPatched = (options: EmojiPluginOptions) => {
         const emojiEditorPlugin = emojiPlugin(options);
         return {
           ...emojiEditorPlugin,
           pluginsOptions: {
             typeAhead: {
-              ...emojiPlugin(options).pluginsOptions!.typeAhead,
+              ...emojiPlugin(options).pluginsOptions!.typeAhead!,
               getItems:
                 customGetItems ||
                 emojiEditorPlugin.pluginsOptions!.typeAhead!.getItems,

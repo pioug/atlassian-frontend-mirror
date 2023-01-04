@@ -506,11 +506,17 @@ describe('validationErrorHandler', () => {
 
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedUnhandled',
         attributes: {
-          unsupportedNode: unsupportedNode,
+          unsupportedNode: {
+            ancestry: '',
+            attrs: {},
+            marks: [],
+            parentType: '',
+            type: 'xyz',
+          },
           errorCode: 'INVALID_TYPE',
         },
         eventType: 'track',
@@ -595,11 +601,17 @@ describe('validationErrorHandler', () => {
 
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedUnhandled',
         attributes: {
-          unsupportedNode: nodeWithInvalidContentLength,
+          unsupportedNode: {
+            ancestry: '',
+            attrs: {},
+            marks: [],
+            parentType: '',
+            type: 'panel',
+          },
           errorCode: 'INVALID_CONTENT_LENGTH',
         },
         eventType: 'track',

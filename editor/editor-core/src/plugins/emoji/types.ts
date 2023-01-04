@@ -1,5 +1,9 @@
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EmojiProvider, EmojiDescription } from '@atlaskit/emoji';
+import {
+  EmojiProvider,
+  EmojiDescription,
+  EmojiResourceConfig,
+} from '@atlaskit/emoji';
 
 export interface EmojiPluginOptions {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -8,5 +12,6 @@ export interface EmojiPluginOptions {
 
 export type EmojiPluginState = {
   emojiProvider?: EmojiProvider;
+  emojiResourceConfig?: EmojiResourceConfig;
   asciiMap?: Map<string, EmojiDescription>;
 };

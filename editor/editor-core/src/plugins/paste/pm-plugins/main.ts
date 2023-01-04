@@ -328,7 +328,11 @@ export function createPlugin(
           }
         }
 
-        slice = transformUnsupportedBlockCardToInline(slice, state);
+        slice = transformUnsupportedBlockCardToInline(
+          slice,
+          state,
+          cardOptions,
+        );
 
         // Handles edge case so that when copying text from the top level of the document
         // it can be pasted into nodes like panels/actions/decisions without removing them.

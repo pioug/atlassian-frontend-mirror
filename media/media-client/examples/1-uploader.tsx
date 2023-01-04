@@ -135,7 +135,7 @@ class UploaderExample extends Component<
       authProvider: defaultMediaPickerAuthProvider(),
     });
     const fileId = uuid();
-    const traceId = getRandomHex(16);
+    const traceId = getRandomHex(8);
     this.setState({ traceId });
     const deferredTouchedFiles = mediaStore.touchFiles(
       {

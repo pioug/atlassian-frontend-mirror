@@ -10,7 +10,7 @@ import {
   expectToEqual,
   expectFunctionToHaveBeenCalledWith,
 } from '@atlaskit/media-test-helpers';
-
+import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
 import {
   ImageViewer,
   ImageViewerContent,
@@ -31,6 +31,10 @@ const imageItem: ProcessedFileState = {
   representations: {
     image: {},
   },
+};
+
+const traceContext: MediaTraceContext = {
+  traceId: getRandomHex(8),
 };
 
 function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
@@ -54,6 +58,7 @@ function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
       onClose={onClose}
       onLoad={onLoaded}
       onError={onError}
+      traceContext={traceContext}
       {...props}
     />,
   );
@@ -235,6 +240,7 @@ describe('ImageViewer', () => {
       },
       expect.anything(),
       true,
+      traceContext,
     );
   });
 

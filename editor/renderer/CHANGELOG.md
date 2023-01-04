@@ -1,5 +1,50 @@
 # @atlaskit/renderer
 
+## 105.0.0
+
+### Major Changes
+
+- [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) - [ED-16166] Changes the renderer prop document type from any to DocNode
+
+  BREAKING for `@atlaskit/renderer`: Previously the `document` prop for the renderer component had the type of `any`. This has now been changed to `DocNode` which comes from `@atlaskit/adf-schema`.
+
+  Documents being passed into the renderer component will need to be updated to use this type.
+
+  Example Usage:
+
+  ```tsx
+  import { DocNode } from '@atlaskit/adf-schema';
+
+  const emptyDoc: DocNode = {
+    type: 'doc',
+    version: 1,
+    content: [],
+  };
+  ```
+
+- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
+
+  Note: restartNumberedLists will be off by default. To enable it, consumers will need to set <Editor featureFlags={{ restartNumberedLists: true }}> or <Renderer featureFlags={{ restartNumberedLists: true }}>
+
+### Minor Changes
+
+- [`a730df6e3ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a730df6e3ed) - ED-16163 Refactored analytics constants to be in editor-common
+- [`1d41bbc2965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d41bbc2965) - This changeset introduces non breaking changes to support ssr within the loader emoji component
+
+### Patch Changes
+
+- [`b616ba20f04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b616ba20f04) - [ux] The height of the panel stays the same when the emoji is removed
+- [`ec05886ac07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec05886ac07) - [ux] ED-15871 Fixed issue with pasting a table from renderer does not respect theme mode
+- [`b2fa6d3e611`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2fa6d3e611) - [ED-16106] Fix margin top when paragraph has alignment marks
+- [`4fbaeb2a1fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fbaeb2a1fd) - DSP-4118 Updated tokens used to render overflow shadows in code blocks.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in beta).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+  `overflowShadow` now optionally supports customizing the size of the "covers" that appear over shadows when at the edge of content, via `leftCoverWidth` and `rightCoverWidth`, and the shadow width via the `width` prop.
+
+- Updated dependencies
+
 ## 104.0.2
 
 ### Patch Changes

@@ -9,18 +9,23 @@ import {
   createExtensionProvider,
 } from '../providers';
 import { createEmojiProvider } from '../providers/emojiProvider';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
 import { fetchProxy } from '../utils/fetch-proxy';
 import getBridge from './native-to-web/bridge-initialiser';
 import useRendererConfiguration from './hooks/use-renderer-configuration';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Serialized } from '../types';
-import { getEnableLegacyMobileMacros } from '../query-param-reader';
+import {
+  getEnableLegacyMobileMacros,
+  getListNumberContinuity,
+  getRestartNumberedLists,
+} from '../query-param-reader';
 import { eventHandlers } from './event-handlers';
 import { handleAnalyticsEvent } from './renderer-analytics-client';
 
 interface AppProps {
-  document: string;
+  document: DocNode;
 }
 
 const initialDocSerialized = JSON.stringify(getEmptyADF());
@@ -63,6 +68,10 @@ export const App: React.FC<AppProps> = (props) => {
       onWillLocaleChange={onWillLocaleChange}
       rendererBridge={rendererBridge}
       allowCustomPanels={rendererConfiguration.isCustomPanelEnabled()}
+      featureFlags={{
+        restartNumberedLists: getRestartNumberedLists(),
+        listNumberContinuity: getListNumberContinuity(),
+      }}
     />
   );
 };
@@ -73,7 +82,9 @@ function main() {
   // Read default value from defaultValue query parameter when in development
   const rawDefaultValue = IS_DEV ? params.get('defaultValue') : null;
   const defaultValue =
-    IS_DEV && rawDefaultValue ? atob(rawDefaultValue) : initialDocSerialized;
+    IS_DEV && rawDefaultValue
+      ? JSON.parse(atob(rawDefaultValue))
+      : initialDocSerialized;
 
   ReactDOM.render(
     <App document={defaultValue} />,

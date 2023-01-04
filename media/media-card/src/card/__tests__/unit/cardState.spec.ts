@@ -45,25 +45,38 @@ describe('createStateUpdater', () => {
     jest.clearAllMocks();
   });
 
+  it('returns next card state if it does not include status', () => {
+    const newCardState = { something: 'very cool' } as unknown as CardState;
+    const prevCardState = { status: 'processing' } as CardState;
+
+    const updater = createStateUpdater(newCardState, () => {});
+
+    expect(updater(prevCardState)).toEqual(
+      expect.objectContaining(newCardState),
+    );
+  });
+
   it.each([
     [nonFinalStatus, finalStatus],
     ['error', 'complete'],
     ['failed-processing', 'complete'],
   ])(
-    'should extend previous card state with new card state if the old status is %s and the new status is %s',
+    'returns next card state if the previous status is %s and the next status is %s',
     (prevStatus, nextStatus) => {
-      const newCardState = { status: nextStatus } as CardState;
+      const errorLogger = jest.fn();
+      const error = new Error();
+
+      const newCardState = { status: nextStatus, error } as CardState;
       const prevCardState = { status: prevStatus } as CardState;
 
-      const updater = createStateUpdater(newCardState);
+      const updater = createStateUpdater(newCardState, errorLogger);
 
       expect(updater(prevCardState)).toEqual(
-        expect.objectContaining({
-          ...prevCardState,
-          ...newCardState,
-        }),
+        expect.objectContaining(newCardState),
       );
       expect(isFinalCardStatus).toBeCalledTimes(1);
+      // Should not log the error
+      expect(errorLogger).toBeCalledTimes(0);
     },
   );
 
@@ -72,15 +85,21 @@ describe('createStateUpdater', () => {
     ['complete', 'error'],
     ['complete', 'failed-processing'],
   ])(
-    'should return previous card state if the old status is %s and the new status is %s',
+    'returns previous card state if the old status is %s and the new status is %s',
     (prevStatus, nextStatus) => {
-      const newCardState = { status: nextStatus } as CardState;
+      const errorLogger = jest.fn();
+      const error = new Error();
+
+      const newCardState = { status: nextStatus, error } as CardState;
       const prevCardState = { status: prevStatus } as CardState;
 
-      const updater = createStateUpdater(newCardState);
+      const updater = createStateUpdater(newCardState, errorLogger);
 
       expect(updater(prevCardState)).toBe(prevCardState);
       expect(isFinalCardStatus).toBeCalledTimes(1);
+      // Should log the error
+      expect(errorLogger).toBeCalledTimes(1);
+      expect(errorLogger).toBeCalledWith(error);
     },
   );
 });

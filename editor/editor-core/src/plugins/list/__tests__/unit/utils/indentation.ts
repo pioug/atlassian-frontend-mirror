@@ -6,17 +6,17 @@ describe('utils', () => {
   describe('indentation', () => {
     // prettier-ignore
     const documentWithIndentedLists = doc(
-      ol(
+      ol()(
         li(p('A'),
-        ol(
+        ol()(
           li(p('B'),
-          ol(
+          ol()(
             li(p('C'),
-            ol(
+            ol()(
               li(p('D'),
-              ol(
+              ol()(
                 li(p('E'),
-                ol(
+                ol()(
                   li(p('F')),
                 )),
               )),

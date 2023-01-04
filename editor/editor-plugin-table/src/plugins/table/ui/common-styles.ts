@@ -4,6 +4,7 @@ import {
   tableMarginTop,
   tableSharedStyle,
 } from '@atlaskit/editor-common/styles';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { fontSize } from '@atlaskit/theme/constants';
 import { N40A, B300, N300, N20A, N0, R500 } from '@atlaskit/theme/colors';
 import {
@@ -112,8 +113,18 @@ const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
   }
 }`;
 
+// previous styles to add spacing to numbered lists with
+// large item markers (e.g. 101, 102, ...) when nested inside tables
+const listLargeNumericMarkersOldStyles = `
+  .ProseMirror .pm-table-cell-content-wrap ol[data-child-count='100+'] {
+    padding-left: revert;
+  }
+`;
+
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4139
-export const tableStyles = (props: ThemeProps) => css`
+export const tableStyles = (
+  props: ThemeProps & { featureFlags?: FeatureFlags },
+) => css`
   .${ClassName.LAYOUT_BUTTON} button {
     background: ${token('color.background.neutral', N20A)};
     color: ${token('color.icon', N300)};
@@ -713,9 +724,14 @@ export const tableStyles = (props: ThemeProps) => css`
     cursor: col-resize;
   }
 
-  .ProseMirror .pm-table-cell-content-wrap ol[data-child-count='100+'] {
-    padding-left: revert;
-  }
+  /* 
+  ED-15882: When custom start numbers is enabled for lists, we have
+  styles that handle this generally (in editor-common) so we can
+  throw away the older table-specific styles here.
+  */
+  ${props?.featureFlags?.restartNumberedLists
+    ? ``
+    : listLargeNumericMarkersOldStyles}
 `;
 
 export const tableFullPageEditorStyles = css`

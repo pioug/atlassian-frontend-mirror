@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/comment"
 
@@ -16,6 +16,7 @@
 ```ts
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
+import { PropsWithChildren } from 'react';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
@@ -24,19 +25,7 @@ import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
 
 // @public (undocumented)
-interface ActionItemProps extends WithAnalyticsEventsProps {
-  children?: ReactNode;
-  isDisabled?: boolean;
-  onClick?: (
-    event: React_2.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent?: UIAnalyticsEvent,
-  ) => void;
-  onFocus?: (event: React_2.FocusEvent<HTMLElement>) => void;
-  onMouseOver?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
-}
-
-// @public (undocumented)
-interface AuthorProps extends WithAnalyticsEventsProps {
+export interface AuthorProps extends WithAnalyticsEventsProps {
   children?: ReactNode;
   href?: string;
   onClick?: (
@@ -54,7 +43,10 @@ export default Comment_2;
 // @public (undocumented)
 export const CommentAction: React_2.ForwardRefExoticComponent<
   Pick<
-    Omit<ActionItemProps, keyof WithAnalyticsEventsProps> &
+    Omit<
+      React_2.PropsWithChildren<CommentActionItemProps>,
+      keyof WithAnalyticsEventsProps
+    > &
       React_2.RefAttributes<any> &
       WithContextProps,
     | 'analyticsContext'
@@ -69,9 +61,24 @@ export const CommentAction: React_2.ForwardRefExoticComponent<
 >;
 
 // @public (undocumented)
+export interface CommentActionItemProps extends WithAnalyticsEventsProps {
+  children?: ReactNode;
+  isDisabled?: boolean;
+  onClick?: (
+    event: React_2.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
+  onFocus?: (event: React_2.FocusEvent<HTMLElement>) => void;
+  onMouseOver?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+
+// @public (undocumented)
 export const CommentAuthor: React_2.ForwardRefExoticComponent<
   Pick<
-    Omit<AuthorProps, keyof WithAnalyticsEventsProps> &
+    Omit<
+      React_2.PropsWithChildren<AuthorProps>,
+      keyof WithAnalyticsEventsProps
+    > &
       React_2.RefAttributes<any> &
       WithContextProps,
     | 'analyticsContext'
@@ -88,7 +95,7 @@ export const CommentAuthor: React_2.ForwardRefExoticComponent<
 // @public (undocumented)
 export const CommentEdited: ForwardRefExoticComponent<
   Pick<
-    Omit<EditedProps, keyof WithAnalyticsEventsProps> &
+    Omit<PropsWithChildren<EditedProps>, keyof WithAnalyticsEventsProps> &
       RefAttributes<any> &
       WithContextProps,
     'analyticsContext' | 'children' | 'key' | 'onFocus' | 'onMouseOver'
@@ -97,7 +104,18 @@ export const CommentEdited: ForwardRefExoticComponent<
 >;
 
 // @public
-export const CommentLayout: FC<LayoutProps>;
+export const CommentLayout: FC<CommentLayoutProps>;
+
+// @public (undocumented)
+export interface CommentLayoutProps {
+  avatar?: ReactNode;
+  children?: ReactNode;
+  content?: ReactNode;
+  highlighted?: boolean;
+  id?: string;
+  shouldRenderNestedCommentsInline?: boolean;
+  testId?: string;
+}
 
 // @public (undocumented)
 export interface CommentProps {
@@ -126,7 +144,10 @@ export interface CommentProps {
 // @public (undocumented)
 export const CommentTime: React_2.ForwardRefExoticComponent<
   Pick<
-    Omit<TimeProps, keyof WithAnalyticsEventsProps> &
+    Omit<
+      React_2.PropsWithChildren<CommentTimeProps>,
+      keyof WithAnalyticsEventsProps
+    > &
       React_2.RefAttributes<any> &
       WithContextProps,
     | 'analyticsContext'
@@ -141,25 +162,7 @@ export const CommentTime: React_2.ForwardRefExoticComponent<
 >;
 
 // @public (undocumented)
-interface EditedProps extends WithAnalyticsEventsProps {
-  children?: ReactNode;
-  onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
-  onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-}
-
-// @public (undocumented)
-interface LayoutProps {
-  avatar?: ReactNode;
-  children?: ReactNode;
-  content?: ReactNode;
-  highlighted?: boolean;
-  id?: string;
-  shouldRenderNestedCommentsInline?: boolean;
-  testId?: string;
-}
-
-// @public (undocumented)
-interface TimeProps extends WithAnalyticsEventsProps {
+export interface CommentTimeProps extends WithAnalyticsEventsProps {
   children?: ReactNode;
   href?: string;
   onClick?: (
@@ -168,6 +171,13 @@ interface TimeProps extends WithAnalyticsEventsProps {
   ) => void;
   onFocus?: (event: React_2.FocusEvent<HTMLElement>) => void;
   onMouseOver?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+
+// @public (undocumented)
+export interface EditedProps extends WithAnalyticsEventsProps {
+  children?: ReactNode;
+  onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
+  onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 // (No @packageDocumentation comment for this package)

@@ -3,6 +3,7 @@ import {
   Transaction,
   TextSelection,
   NodeSelection,
+  EditorState,
 } from 'prosemirror-state';
 import { NodeRange, Slice, Fragment, ResolvedPos } from 'prosemirror-model';
 import {
@@ -10,6 +11,7 @@ import {
   ReplaceAroundStep,
   ReplaceStep,
 } from 'prosemirror-transform';
+import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';
 import {
   isListNode,
   isListItemNode,
@@ -25,8 +27,12 @@ import {
   createListNodeRange,
 } from '../utils/selection';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
+import { getFeatureFlags } from '../../feature-flags-context';
 
-export const outdentListItemsSelected = (tr: Transaction) => {
+export const outdentListItemsSelected = (
+  tr: Transaction,
+  state: EditorState,
+) => {
   const originalSelection = tr.selection;
   const normalizedSelection = normalizeListItemsSelection({
     selection: tr.selection,
@@ -60,7 +66,7 @@ export const outdentListItemsSelected = (tr: Transaction) => {
     if (isListItemNode($from.node(mappedRange.depth - 1))) {
       outdentRangeToParentList({ tr, range: mappedRange });
     } else {
-      extractListItemsRangeFromList({ tr, range: mappedRange });
+      extractListItemsRangeFromList({ tr, range: mappedRange, state });
       hasNormalizedToPositionLiftedOut =
         hasNormalizedToPositionLiftedOut ||
         (oldTo >= range.from && oldTo < range.to);
@@ -248,7 +254,8 @@ const outdentRangeToParentList = ({ tr, range }: OutdentListRangeProps) => {
 const extractListItemsRangeFromList = ({
   tr,
   range,
-}: OutdentListRangeProps) => {
+  state,
+}: OutdentListRangeProps & { state: EditorState }) => {
   const list = range.parent;
   const $start = tr.doc.resolve(range.start);
 
@@ -275,9 +282,24 @@ const extractListItemsRangeFromList = ({
     }
   }
 
-  const nextListFragment = listItemContent.append(
-    Fragment.from(list.copy(Fragment.empty)),
-  );
+  let nextList = list.copy(Fragment.empty);
+
+  const featureFlags = getFeatureFlags(state);
+
+  if (featureFlags?.restartNumberedLists) {
+    // if splitting a numbered list, keep the splitted item
+    // counter as the start of the next (second half) list (instead
+    // of reverting back to 1 as a starting number)
+    const order = getOrderFromOrderedListNode(list);
+    if (list.type.name === 'orderedList') {
+      nextList.attrs = {
+        ...nextList.attrs,
+        order: range.endIndex - 1 + order,
+      };
+    }
+  }
+
+  const nextListFragment = listItemContent.append(Fragment.from(nextList));
 
   if (isTheEntireList) {
     const slice = new Slice(listItemContent, 0, 0);

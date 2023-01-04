@@ -30,10 +30,15 @@ import {
 } from '../types';
 
 export type DropzoneProps = LocalUploadComponentBaseProps & {
+  //config
   config: DropzoneConfig;
+  //Fired when a file is dropped on the drop zone
   onDrop?: () => void;
+  //Fired when a file is dragged over the drop zone
   onDragEnter?: (payload: DropzoneDragEnterEventPayload) => void;
+  //Fired when a file is dragged away from the drop zone after entering
   onDragLeave?: (payload: DropzoneDragLeaveEventPayload) => void;
+  //Provides a callback which can be used to manually cancel an upload if required
   onCancelFn?: (cancel: (uniqueIdentifier: string) => void) => void;
 };
 
@@ -315,7 +320,7 @@ export class DropzoneBase extends LocalUploadComponentReact<
     return null;
   }
 }
-
+export default DropzoneBase;
 export const Dropzone = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),
   {

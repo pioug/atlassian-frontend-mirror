@@ -33,7 +33,6 @@ BrowserTestCase(
     });
 
     await waitForBlockCardSelection(page);
-    await page.click('div[aria-label="Floating Toolbar"] button');
     // Click the "Display inline" to switch to inline card
     await page.click('[data-testid="inline-appearance"]');
 

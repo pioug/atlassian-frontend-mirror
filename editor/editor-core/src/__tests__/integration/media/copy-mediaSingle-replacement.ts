@@ -10,6 +10,21 @@ import {
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { waitForNumImages } from './_utils';
 import adf from './_fixtures_/three-images.adf';
+import cloneDeep from 'lodash/cloneDeep';
+
+const expectUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
+  expect(doc.content[2].content[0].attrs).toEqual(
+    expect.objectContaining({
+      __mediaTraceId: expect.any(String),
+    }),
+  );
+};
+
+const removeUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
+  const copy = cloneDeep(doc);
+  delete copy.content[2].content[0].attrs.__mediaTraceId;
+  return copy;
+};
 
 BrowserTestCase(
   'copy-mediaSingle-replacement.ts: Copies and pastes mediaSingle on fullpage',
@@ -37,6 +52,9 @@ BrowserTestCase(
     await page.paste();
 
     const doc = await page.$eval(editable, getDocFromElement);
-    expect(doc).toMatchCustomDocSnapshot(testCase);
+    expectUniqueGeneratedMediaAttrs(doc);
+    expect(removeUniqueGeneratedMediaAttrs(doc)).toMatchCustomDocSnapshot(
+      testCase,
+    );
   },
 );

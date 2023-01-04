@@ -70,7 +70,7 @@ describe('Item', () => {
 
   it('should render a CustomItem when contained in an active nested view', () => {
     const CustomButton: FC<CustomItemComponentProps> = (props) => (
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @repo/internal/react/use-primitives
       <div {...props}>Hello world</div>
     );
 

@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/media-card"
 
@@ -147,7 +147,6 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly isLazy?: boolean;
   // (undocumented)
   readonly mediaClient: MediaClient;
-  // (undocumented)
   readonly mediaViewerDataSource?: MediaViewerDataSource;
   // (undocumented)
   readonly shouldEnableDownloadButton?: boolean;
@@ -333,6 +332,7 @@ export { NumericalCardDimensions };
 // @public (undocumented)
 type RemotePreviewPrimaryReason =
   | 'remote-preview-fetch'
+  | 'remote-preview-fetch-ssr'
   | 'remote-preview-not-ready';
 
 // @public (undocumented)

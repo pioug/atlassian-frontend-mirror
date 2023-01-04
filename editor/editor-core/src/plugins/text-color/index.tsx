@@ -2,7 +2,7 @@ import React from 'react';
 
 import { textColor } from '@atlaskit/adf-schema';
 
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 
 import {
@@ -23,9 +23,10 @@ const pluginConfig = (
   return textColorConfig;
 };
 
-const textColorPlugin = (
-  textColorConfig?: TextColorPluginConfig | boolean,
-): EditorPlugin => ({
+type Config = TextColorPluginConfig | boolean;
+const textColorPlugin: NextEditorPlugin<'textColor', never, Config> = (
+  textColorConfig?,
+) => ({
   name: 'textColor',
 
   marks() {

@@ -145,6 +145,7 @@ describe('MediaClient', () => {
             expect(mediaClient.mediaStore.getItems).lastCalledWith(
               [id],
               'some-collection',
+              expect.any(Object),
             );
             expect(state).toEqual({
               id,
@@ -155,6 +156,7 @@ describe('MediaClient', () => {
               size: 1,
               artifacts: {},
               representations: {},
+              metadataTraceContext: expect.any(Object),
             });
             done();
           },

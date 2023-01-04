@@ -38,9 +38,6 @@ const initEditor = async (
     adf: adf,
     appearance: Appearance.fullPage,
     viewport: viewport,
-    editorProps: {
-      allowKeyboardAccessibleDatepicker: true,
-    },
     mode: getModeFromTheme(theme),
   });
 

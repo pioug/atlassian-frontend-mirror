@@ -1,10 +1,16 @@
 import React from 'react';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { BeforePrimaryToolbarWrapper } from './ui/BeforePrimaryToolbarWrapper';
 
-const beforePrimaryToolbar = (props: {
+type Config = {
   beforePrimaryToolbarComponents?: any;
-}): EditorPlugin => ({
+};
+
+const beforePrimaryToolbar: NextEditorPlugin<
+  'beforePrimaryToolbar',
+  never,
+  Config
+> = (props) => ({
   name: 'beforePrimaryToolbar',
 
   primaryToolbarComponent() {

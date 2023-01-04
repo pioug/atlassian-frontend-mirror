@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
+
+import Box from '@atlaskit/ds-explorations/box';
 
 import { CustomItemComponentProps, Header, NavigationHeader } from '../src';
 
@@ -9,7 +11,7 @@ const InteractiveContainer = ({
   ...props
 }: CustomItemComponentProps) => {
   return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @repo/internal/react/use-primitives
     <a href="#" {...props}>
       {children}
     </a>
@@ -18,7 +20,11 @@ const InteractiveContainer = ({
 
 const Example = () => {
   return (
-    <div onClick={(e) => e.preventDefault()}>
+    <Box
+      display="block"
+      onClick={(e: MouseEvent) => e.preventDefault()}
+      as="div"
+    >
       <NavigationHeader>
         <Header description="Next-gen software">Concise Systems</Header>
       </NavigationHeader>
@@ -47,7 +53,7 @@ const Example = () => {
           Concise Systems
         </Header>
       </NavigationHeader>
-    </div>
+    </Box>
   );
 };
 

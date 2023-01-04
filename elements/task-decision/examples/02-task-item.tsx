@@ -1,4 +1,5 @@
 import React from 'react';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 
@@ -34,7 +35,7 @@ export default () => (
       contentRef={dumpRef}
       onChange={action('onChange')}
     >
-      <Renderer document={document} />
+      <Renderer document={document as DocNode} />
     </TaskItem>
 
     <h3>Simple TaskItem with renderer</h3>
@@ -43,7 +44,7 @@ export default () => (
       contentRef={dumpRef}
       onChange={action('onChange')}
     >
-      <Renderer document={document} />
+      <Renderer document={document as DocNode} />
     </TaskItem>
 
     <h3>Simple TaskItem with placeholder</h3>

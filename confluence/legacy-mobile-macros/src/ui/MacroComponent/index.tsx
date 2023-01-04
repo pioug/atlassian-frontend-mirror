@@ -13,6 +13,7 @@ import {
   MacroFallbackCard,
   MacroFallbackComponent,
 } from './MacroFallbackComponent';
+import { PlaceholderComponent } from './PlaceholderComponent';
 import { MacroComponentProps } from './types';
 
 const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
@@ -59,6 +60,11 @@ const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
 
     case 'inlineDynamic':
       return renderInlineDynamic();
+
+    case 'placeholderUrlImplementation':
+      return (
+        <PlaceholderComponent renderFallback={renderFallback} {...props} />
+      );
 
     default:
       return renderFallback();

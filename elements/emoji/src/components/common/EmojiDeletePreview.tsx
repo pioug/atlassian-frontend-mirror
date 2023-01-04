@@ -25,6 +25,8 @@ export interface OnDeleteEmoji {
   (emoji: EmojiDescription): Promise<boolean>;
 }
 
+export const emojiDeletePreviewTestId = 'emoji-delete-preview';
+
 export interface Props {
   emoji: EmojiDescription;
   onDeleteEmoji: OnDeleteEmoji;
@@ -82,7 +84,7 @@ class EmojiDeletePreview extends Component<
     const { formatMessage } = intl;
 
     return (
-      <div css={deletePreview}>
+      <div css={deletePreview} data-testid={emojiDeletePreviewTestId}>
         <div css={deleteText}>
           <h5>
             <FormattedMessage {...messages.deleteEmojiTitle} />

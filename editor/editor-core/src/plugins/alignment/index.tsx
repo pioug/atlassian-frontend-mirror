@@ -1,6 +1,7 @@
 import React from 'react';
 import { alignment } from '@atlaskit/adf-schema';
-import { EditorPlugin } from '../../types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+
 import WithPluginState from '../../ui/WithPluginState';
 import { pluginKey, createPlugin } from './pm-plugins/main';
 import { changeAlignment } from './commands';
@@ -12,7 +13,7 @@ export const defaultConfig: AlignmentPluginState = {
   align: 'start',
 };
 
-const alignmentPlugin = (): EditorPlugin => ({
+const alignmentPlugin: NextEditorPlugin<'alignment', never> = () => ({
   name: 'alignment',
 
   marks() {

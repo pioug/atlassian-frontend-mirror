@@ -38,6 +38,7 @@ import {
   editLink,
   editLinkToolbarConfig,
 } from './ui/EditLinkToolbar';
+
 import {
   displayInfoForCard,
   findCardInfo,
@@ -166,10 +167,20 @@ export const floatingToolbar = (
       ? FLOATING_TOOLBAR_LINKPICKER_CLASSNAME
       : undefined;
 
+    /**
+     * Enable focus trap only if feature flag is enabled AND for the new version of the picker
+     */
+    const { lpLinkPicker, lpLinkPickerFocusTrap, preventPopupOverflow } =
+      getFeatureFlags(state);
+    const shouldEnableFocusTrap = lpLinkPicker && lpLinkPickerFocusTrap;
+    const isLinkPickerEnabled =
+      !!lpLinkPicker && !!linkPickerOptions?.plugins?.length;
+
     return {
       title: intl.formatMessage(messages.card),
       className,
       nodeType,
+      preventPopupOverflow,
       ...toolbarOffset,
       getDomRef: (view) => {
         const element = findDomRefAtPos(
@@ -193,8 +204,12 @@ export const floatingToolbar = (
         platform,
         linkPickerOptions,
       ),
-      ...(pluginState.showLinkingToolbar ? editLinkToolbarConfig : {}),
       scrollable: pluginState.showLinkingToolbar ? false : true,
+      focusTrap: shouldEnableFocusTrap && pluginState.showLinkingToolbar,
+      ...editLinkToolbarConfig(
+        pluginState.showLinkingToolbar,
+        isLinkPickerEnabled,
+      ),
     };
   };
 };
@@ -296,6 +311,7 @@ const generateToolbarItems =
         ...getSettingsButtonGroup(state, intl),
         {
           id: 'editor.link.delete',
+          focusEditoronEnter: true,
           type: 'button',
           appearance: 'danger',
           icon: RemoveIcon,
@@ -357,6 +373,7 @@ const getUnlinkButtonGroup = (
     ? ([
         {
           id: 'editor.link.unlink',
+          focusEditoronEnter: true,
           type: 'button',
           title: intl.formatMessage(linkToolbarMessages.unlink),
           icon: UnlinkIcon,

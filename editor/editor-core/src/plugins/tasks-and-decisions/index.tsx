@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/adf-schema';
 import { Node as PMNode, Schema } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '../analytics';
 import { messages as insertBlockMessages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { IconAction, IconDecision } from '../quick-insert/assets';
@@ -49,11 +49,11 @@ const addItem =
     );
   };
 
-const tasksAndDecisionsPlugin = ({
-  allowNestedTasks,
-  consumeTabs,
-  useLongPressSelection,
-}: TaskDecisionPluginOptions = {}): EditorPlugin => ({
+const tasksAndDecisionsPlugin: NextEditorPlugin<
+  'taskDecision',
+  never,
+  TaskDecisionPluginOptions
+> = ({ allowNestedTasks, consumeTabs, useLongPressSelection } = {}) => ({
   name: 'taskDecision',
   nodes() {
     return [

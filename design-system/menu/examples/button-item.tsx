@@ -21,6 +21,9 @@ export default () => (
     <ButtonItem isDisabled>Activate</ButtonItem>
     <ButtonItem>Activate</ButtonItem>
     <ButtonItem description="Next-gen software project">Activate</ButtonItem>
+    <ButtonItem description="Legacy software project" isDisabled>
+      Activate
+    </ButtonItem>
     <ButtonItem
       iconBefore={<ImgIcon src={Yeti} alt={'Yeti'} />}
       description="Next-gen software project"

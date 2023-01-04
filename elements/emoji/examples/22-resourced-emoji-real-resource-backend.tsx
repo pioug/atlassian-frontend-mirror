@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
-  getRealEmojiResource,
+  getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
 import { emojiPickerHeight } from '../src/util/constants';
 import { IntlProvider } from 'react-intl-next';
@@ -110,7 +110,7 @@ export const RenderRealResourcedEmojis = (props: RenderRealEmojisProps) => {
 };
 
 export default function Example() {
-  const provider = getRealEmojiResource();
+  const provider = getRealEmojiProvider();
   return (
     <IntlProvider locale="en">
       <ResourcedEmojiControl

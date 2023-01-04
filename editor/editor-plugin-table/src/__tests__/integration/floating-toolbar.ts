@@ -16,6 +16,7 @@ import {
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { TableCssClassName } from '../../plugins/table/types';
 import basicTable from './__fixtures__/basic-table';
+import { documentWithMergedCells } from './__fixtures__/merged-rows-and-cols-document';
 
 BrowserTestCase(
   'should floating toolbar context menu sit above other context menu layers',
@@ -165,5 +166,58 @@ BrowserTestCase(
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'should show tooltip on hover on disabled sort button then remove it on mouse out',
+  { skip: ['safari'] }, // The test does not pass on CI but works on physical browser
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(
+      client,
+      'editor-plugin-table',
+    );
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      allowTables: {
+        allowColumnSorting: true,
+        allowDistributeColumns: true,
+        allowCellOptionsInFloatingToolbar: true,
+      },
+      defaultValue: documentWithMergedCells,
+    });
+    const tableFloatingToolbarContextMenuSelector = `div[aria-label="Table floating controls"][data-editor-popup=true]`;
+    const sortAtoZButtonSelector =
+      'div[data-role=droplistContent] div[role=presentation]';
+    const sortZtoAButtonSelector =
+      'div[data-role=droplistContent] div[role=presentation]:nth-of-type(2)';
+    const tooltipSelector = 'div.atlaskit-portal div[role=tooltip]';
+
+    // Click on the cell on the table
+    await clickFirstCell(page);
+
+    // Table floating toolbar should appear, then hover on "Cell Options", which brings up another context menu
+    const cellOptionsMenuItem = await (
+      await page.$(tableFloatingToolbarContextMenuSelector)
+    ).$(`button=${tableSelectors.cellOptionsFloatingToolbarText}`);
+    await cellOptionsMenuItem.waitForClickable();
+    await cellOptionsMenuItem.click();
+
+    // No tooltip is shown
+    expect((await page.$$(tooltipSelector)).length).toBe(0);
+
+    // Hover Sort column A -> Z button then it should show tooltip
+    const sortAtoZButton = await page.$(sortAtoZButtonSelector);
+    await sortAtoZButton.moveTo();
+    const tooltip = await page.$(tooltipSelector);
+    await tooltip.waitForExist();
+    expect((await page.$$(tooltipSelector)).length).toBe(1);
+
+    // Tooltip should be removed after mouseout to next button
+    const sortZtoAButton = await page.$(sortZtoAButtonSelector);
+    await sortZtoAButton.moveTo();
+    await tooltip.waitUntil(async () => {
+      return (await page.$$(tooltipSelector)).length === 0;
+    });
   },
 );

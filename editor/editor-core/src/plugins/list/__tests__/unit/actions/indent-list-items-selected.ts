@@ -867,7 +867,7 @@ describe('indent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(p('A')),
           li(
             p('B {<node>}', mention({ id: '1' })(),'1'),
@@ -880,10 +880,10 @@ describe('indent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(
             p('A'),
-            ol(
+            ol()(
               li(
                 p('B {<node>}', mention({ id: '1' })(),'1'),
               ),
@@ -901,7 +901,7 @@ describe('indent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(
             p('A'),
             ul(
@@ -918,7 +918,7 @@ describe('indent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(
             p('A'),
             ul(

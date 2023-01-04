@@ -78,6 +78,7 @@ import {
   fireCommencedEvent,
   fireCopiedEvent,
   fireScreenEvent,
+  fireNonCriticalErrorEvent,
 } from './cardAnalytics';
 import getDocument from '../utils/document';
 import {
@@ -123,7 +124,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   private ssrData?: MediaCardSsrData;
   // Generate unique traceId for file
   private traceContext: MediaTraceContext = {
-    traceId: getRandomHex(16),
+    traceId: getRandomHex(8),
   };
   static defaultProps: Partial<CardProps> = {
     appearance: 'auto',
@@ -406,7 +407,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       mediaClient,
       id,
       dimensions,
-      onLocalPreviewError: this.fireLocalPreviewErrorEvent,
+      onLocalPreviewError: this.fireNonCriticalErrorEvent,
       filePreview: isBannedLocalPreview
         ? undefined
         : getFilePreviewFromFileState(fileState),
@@ -447,8 +448,12 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       );
       this.safeSetState({ cardPreview });
     } catch (e) {
-      // No need to log this error.
-      // If preview fails, it will be refetched later
+      const wrappedError = ensureMediaCardError(
+        'remote-preview-fetch-ssr',
+        e as Error,
+        true,
+      );
+      this.fireNonCriticalErrorEvent(wrappedError);
     }
   };
 
@@ -467,6 +472,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       //  we can stay in the same status until there is a remote preview available
       //  If it's any other error we set status 'error'
       if (isLocalPreviewError(wrappedError)) {
+        // This error should already been logged inside the getCardPreview. No need to log it here.
         this.safeSetState({ isBannedLocalPreview: true });
       } else {
         this.safeSetState({ status: 'error', error: wrappedError });
@@ -580,7 +586,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       const updateState: Partial<CardState> = { cardPreview: undefined };
       if (isLocal) {
         updateState.isBannedLocalPreview = true;
-        this.fireLocalPreviewErrorEvent(error);
+        this.fireNonCriticalErrorEvent(error);
       }
       const { identifier, resizeMode } = this.props;
       const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
@@ -627,7 +633,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   };
 
   private fireOperationalEvent() {
-    const { status, error } = this.state;
+    const { status, error, fileState } = this.state;
     const { createAnalyticsEvent } = this.props;
 
     createAnalyticsEvent &&
@@ -639,6 +645,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         this.ssrReliability,
         error,
         this.traceContext,
+        fileState?.metadataTraceContext,
       );
     completeUfoExperience(
       this.internalOccurrenceKey,
@@ -679,21 +686,36 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       fireScreenEvent(createAnalyticsEvent, this.fileAttributes);
   };
 
-  private fireLocalPreviewErrorEvent = (error: MediaCardError) => {
-    // TODO: track local preview success rate
-    // https://product-fabric.atlassian.net/browse/MEX-774
+  private fireNonCriticalErrorEvent = (error: MediaCardError) => {
+    const { createAnalyticsEvent } = this.props;
+    const { fileState } = this.state;
+    createAnalyticsEvent &&
+      fireNonCriticalErrorEvent(
+        createAnalyticsEvent,
+        this.state.status,
+        this.fileAttributes,
+        this.ssrReliability,
+        error,
+        this.traceContext,
+        fileState?.metadataTraceContext,
+      );
   };
 
-  private safeSetState = (state: Partial<CardState>) => {
+  private safeSetState = (newState: Partial<CardState>) => {
     if (this.hasBeenMounted) {
-      // If it's setting the status, we need to use a state updater function,
-      // which ensures that no non-final status overrides a final status.
-      // If no status is set, we don't need a sate updater
-      const updater = !!state.status
-        ? createStateUpdater(state)
-        : (state as Pick<CardState, keyof CardState>);
-
-      this.setState(updater);
+      /**
+       * createStateUpdater helper returns a callback to be passed to setState.
+       * It decides wether to update the 'status' depending on the current state vs the input state.
+       * From docs: "Both state and props received by the updater function are guaranteed to be up-to-date."
+       * If the input state brings an error and it won't be updating the state, the error will be logged as non-critical inside the helper.
+       * If the error persists int the state, it means it is a critical error and should be logged as a failed event for Card
+       */
+      this.setState(
+        createStateUpdater(newState, this.fireNonCriticalErrorEvent) as (
+          // TODO: revisit this casting
+          prevState: CardState,
+        ) => Pick<CardState, keyof CardState>,
+      );
     }
   };
 

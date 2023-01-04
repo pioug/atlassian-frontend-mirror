@@ -1,22 +1,19 @@
 import React from 'react';
-import { md, Props } from '@atlaskit/docs';
-import IconExplorer from '../examples/icon-explorer';
+import { md } from '@atlaskit/docs';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import UsageTab from './content/usage';
+import PropsDefinitionTab from './content/props-definition';
 
 export default md`
-  ## Icon explorer
+### Description
+This package provides the collections of icons for the different types of content used across Atlassian products.
 
   ${(
-    <p>
-      <IconExplorer />
-    </p>
-  )}
-
-  ### Props
-
-  ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../../../design-system/icon/src/extract-react-types/glyph-no-color-size')}
+    <DocsContentTabs
+      tabs={[
+        { name: 'Usage', content: UsageTab },
+        { name: 'Props Definition', content: PropsDefinitionTab },
+      ]}
     />
   )}
 `;

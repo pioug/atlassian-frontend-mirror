@@ -78,6 +78,11 @@ const isFocusingModal = (event: Event) =>
   event.relatedTarget instanceof HTMLElement &&
   event.relatedTarget.closest('[role="dialog"]');
 
+const isFocusingFloatingToolbar = (event: Event) =>
+  event instanceof FocusEvent &&
+  event.relatedTarget instanceof HTMLElement &&
+  event.relatedTarget.closest('[role="toolbar"]');
+
 export const handleBlur = (view: EditorView, event: Event): boolean => {
   const { state, dispatch } = view;
   // IE version check for ED-4665
@@ -85,7 +90,8 @@ export const handleBlur = (view: EditorView, event: Event): boolean => {
   if (
     browser.ie_version !== 11 &&
     !isFocusingCalendar(event) &&
-    !isFocusingModal(event)
+    !isFocusingModal(event) &&
+    !isFocusingFloatingToolbar(event)
   ) {
     setEditorFocus(false)(state, dispatch);
   }

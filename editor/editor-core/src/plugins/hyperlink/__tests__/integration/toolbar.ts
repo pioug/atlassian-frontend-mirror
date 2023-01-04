@@ -13,7 +13,9 @@ import {
   hyperlinkSelectors,
   linkPickerSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
+import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import basicHyperlinkAdf from '../__fixtures__/basic-hyperlink.adf.json';
+import { isFocusTrapped } from './_utils';
 
 BrowserTestCase(
   'can unlink hyperlink using toolbar',
@@ -335,6 +337,9 @@ describe('with feature flag: lp-link-picker', () => {
 
       const doc = await page.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);
+
+      const editor = await page.$(selectors.editor);
+      expect(await editor.isFocused()).toBe(true);
     },
   );
 
@@ -367,6 +372,9 @@ describe('with feature flag: lp-link-picker', () => {
 
       const doc = await page.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);
+
+      const editor = await page.$(selectors.editor);
+      expect(await editor.isFocused()).toBe(true);
     },
   );
 
@@ -412,6 +420,102 @@ describe('with feature flag: lp-link-picker', () => {
       );
 
       expect(await page.isExisting(linkPickerSelectors.linkInput)).toBe(true);
+    },
+  );
+
+  /**
+   * NOTE: This behaviour can change if all floating toolbars are expected to trap focus
+   */
+  BrowserTestCase(
+    'with ff lp-link-picker-focus-trap: does not trap focus within the floating toolbar',
+    {
+      // Skip safari as per https://hello.atlassian.net/wiki/spaces/AF/pages/971139617/Browserstack+known+issues
+      skip: ['safari'],
+    },
+    async (client: any) => {
+      const page = await goToEditorTestingWDExample(client);
+      await mountEditor(
+        page,
+        {
+          appearance: fullpage.appearance,
+          defaultValue: basicHyperlinkAdf,
+          featureFlags: {
+            'lp-link-picker': true,
+            'lp-link-picker-focus-trap': true,
+          },
+        },
+        {
+          withLinkPickerOptions: true,
+        },
+      );
+
+      await page.waitForSelector(hyperlinkSelectors.hyperlink);
+      await page.click(hyperlinkSelectors.hyperlink);
+      const editor = await page.$(selectors.editor);
+
+      // Editor (hyperlink) should be in focus
+      expect(await editor.isFocused()).toBe(true);
+
+      // Shift tab should bring us to last item in toolbar
+      await page.keys(['Shift', 'Tab', 'Shift'], true);
+
+      await page.waitForSelector(hyperlinkSelectors.unlinkBtn);
+      const unlinkButton = await page.$(hyperlinkSelectors.unlinkBtn);
+      expect(await editor.isFocused()).toBe(false);
+      expect(await unlinkButton.isFocused()).toBe(true);
+
+      await page.pause(100);
+
+      // Pressing tab returns focus to editor (not trapped)
+      await page.keys(['Tab']);
+      expect(await editor.isFocused()).toBe(true);
+    },
+  );
+
+  describe.each([true, false])(
+    'when ff lp-link-picker-focus-trap is %p',
+    (featureFlag: boolean) => {
+      BrowserTestCase(
+        `ff lp-link-picker-focus-trap is ${featureFlag}: when editing a link mark, focus ${
+          featureFlag ? 'IS' : 'IS NOT'
+        } trapped within the link picker`,
+        {
+          // Skip safari as per https://hello.atlassian.net/wiki/spaces/AF/pages/971139617/Browserstack+known+issues
+          skip: ['safari'],
+        },
+        async (client: any) => {
+          const page = await goToEditorTestingWDExample(client);
+          await mountEditor(
+            page,
+            {
+              appearance: fullpage.appearance,
+              defaultValue: basicHyperlinkAdf,
+              featureFlags: {
+                'lp-link-picker': true,
+                'lp-link-picker-focus-trap': featureFlag,
+              },
+            },
+            {
+              withLinkPickerOptions: true,
+            },
+          );
+
+          await page.waitForSelector(hyperlinkSelectors.hyperlink);
+          await page.click(hyperlinkSelectors.hyperlink);
+          await page.waitForSelector(hyperlinkSelectors.editLinkBtn);
+          await page.click(hyperlinkSelectors.editLinkBtn);
+
+          const linkInput = await page.$(linkPickerSelectors.linkInput);
+
+          expect(
+            await isFocusTrapped(
+              page,
+              linkInput,
+              linkPickerSelectors.linkPicker,
+            ),
+          ).toBe(featureFlag);
+        },
+      );
     },
   );
 });

@@ -60,14 +60,14 @@ export interface OptionProps<
 interface CustomSelectProps extends WithAnalyticsEventsProps {
   /** This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
   spacing?: 'compact' | 'default';
-  /** @deprecated Use isInvalid instead. The state of validation if used in a form.  */
-  validationState?: ValidationState;
   /** This prop affects the backgroundColor and border of the Select field. 'subtle' makes these transparent while 'none' removes them completely */
   appearance?: 'default' | 'subtle' | 'none';
-  /** This prop indicates if the component is in an error state */
-  isInvalid?: boolean;
   /** Prop for testing */
   testId?: string;
+  /** This prop indicates if the component is in an error state */
+  isInvalid?: boolean;
+  /** @deprecated Use isInvalid instead. The state of validation if used in a form.  */
+  validationState?: ValidationState;
 }
 
 export interface SelectProps<Option, IsMulti extends boolean = false>

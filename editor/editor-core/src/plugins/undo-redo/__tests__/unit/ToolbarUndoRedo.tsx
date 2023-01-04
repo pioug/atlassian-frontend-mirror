@@ -244,4 +244,31 @@ describe('ToolbarUndoRedo', () => {
       );
     });
   });
+
+  describe('keyboard shortcuts', () => {
+    it('should have ARIA keyshortcuts attribute', () => {
+      const { editorView } = editor(doc(p('some text')));
+      const historyState = historyPluginKey.getState(editorView.state);
+
+      const { getByTestId } = render(
+        <ToolbarUndoRedo
+          editorView={editorView}
+          historyState={historyState}
+          // @ts-ignore
+          intl={mockIntl}
+        />,
+      );
+
+      expect(
+        getByTestId('ak-editor-toolbar-button-undo').getAttribute(
+          'aria-keyshortcuts',
+        ),
+      ).toEqual('Control+z');
+      expect(
+        getByTestId('ak-editor-toolbar-button-redo').getAttribute(
+          'aria-keyshortcuts',
+        ),
+      ).toEqual('Control+y');
+    });
+  });
 });

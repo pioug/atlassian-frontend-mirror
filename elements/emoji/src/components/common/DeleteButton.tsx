@@ -32,6 +32,7 @@ const DeleteButton: FC<CustomThemeButtonProps> = (props) => (
       onClick={props.onClick}
       appearance="subtle-link"
       spacing="none"
+      testId="emoji-delete-button"
     />
   </span>
 );

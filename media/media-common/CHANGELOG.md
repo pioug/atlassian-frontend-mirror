@@ -1,5 +1,18 @@
 # @atlaskit/media-common
 
+## 2.18.0
+
+### Minor Changes
+
+- [`81573c1dfa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81573c1dfa7) - Items call creates a batched metadata trace Id
+- [`0bccac57db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bccac57db6) - remove mediaUploadApiV2 Feature flag
+
+### Patch Changes
+
+- [`a8eeb045e3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8eeb045e3a) - adding media only callouts to docs
+- [`3d40d5e9b37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d40d5e9b37) - Refactor traceId generator getRandomHex function to avoid id collision
+- [`10480433c71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10480433c71) - Fix getRandomHex function to mitigate the issue of lacking digits in hex value.
+
 ## 2.17.0
 
 ### Minor Changes

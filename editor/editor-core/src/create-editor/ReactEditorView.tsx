@@ -6,6 +6,7 @@ import { Node as PMNode } from 'prosemirror-model';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { editorMessages } from './messages';
 
 import {
   browser,
@@ -995,7 +996,9 @@ export class ReactEditorView<T = {}> extends React.Component<
       className={getUAPrefix()}
       key="ProseMirror"
       ref={this.handleEditorViewRef}
-      aria-label="Main content area"
+      aria-label={this.props.intl.formatMessage(
+        editorMessages.editorAssistiveLabel,
+      )}
       role="textbox"
     />
   );

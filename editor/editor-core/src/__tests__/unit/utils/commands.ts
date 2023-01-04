@@ -536,7 +536,7 @@ describe('utils -> commands', () => {
         );
       });
 
-      it('removes the bold mark when only part of the selection has the mark', () => {
+      it('bolds the selection when only part of the selection has the bold mark', () => {
         const { editorView } = createEditor({
           doc: doc(
             table()(
@@ -556,8 +556,8 @@ describe('utils -> commands', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             table({ localId: TABLE_LOCAL_ID })(
-              tr(td({})(p('{<cell}a1')), tdEmpty, tdEmpty),
-              tr(tdEmpty, tdEmpty, td({})(p('b3{cell>}'))),
+              tr(td({})(p(strong('{<cell}a1'))), tdEmpty, tdEmpty),
+              tr(tdEmpty, tdEmpty, td({})(p(strong('b3{cell>}')))),
               tr(tdEmpty, tdEmpty, tdEmpty),
             ),
           ),
@@ -578,7 +578,7 @@ describe('utils -> commands', () => {
       );
     });
 
-    it('removes the bold mark when only part of the selection has the mark', () => {
+    it('bolds the selection when only part of the selection has the bold mark', () => {
       const { editorView } = editor(
         doc(p('{<}text', hardBreak(), strong('here{>}'))),
       );
@@ -589,11 +589,71 @@ describe('utils -> commands', () => {
       );
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(p('text', hardBreak(), 'here')),
+        doc(p(strong('text'), hardBreak(), strong('here'))),
       );
     });
 
-    it('enables mutliple marks when toggled', () => {
+    it('bolds the selection when only part of the selection has the bold mark with various elements', () => {
+      const { editorView } = editor(
+        doc(
+          p('{<}text', hardBreak(), 'other text'),
+          ul(li(p('first item')), li(p('second item'))),
+          p(subsup({ type: 'sub' })('sub text')),
+          p(strong('here{>}')),
+        ),
+      );
+
+      toggleMark(editorView.state.schema.marks.strong)(
+        editorView.state,
+        editorView.dispatch,
+      );
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p(strong('text'), hardBreak(), strong('other text')),
+          ul(li(p(strong('first item'))), li(p(strong('second item')))),
+          p(subsup({ type: 'sub' })(strong('sub text'))),
+          p(strong('here')),
+        ),
+      );
+    });
+
+    it('bolds the selection when only part of the selection has the bold mark mixed with tables', () => {
+      const { editorView } = editor(
+        doc(
+          p('{<}text', hardBreak(), 'other text'),
+          ul(li(p('first item')), li(p('second item'))),
+          p(subsup({ type: 'sub' })('sub text')),
+          table()(
+            tr(td({})(p('a1')), tdEmpty, tdEmpty),
+            tr(tdEmpty, tdEmpty, td({})(p(strong('b3')))),
+            tr(tdEmpty, tdEmpty, tdEmpty),
+          ),
+          p(strong('here{>}')),
+        ),
+      );
+
+      toggleMark(editorView.state.schema.marks.strong)(
+        editorView.state,
+        editorView.dispatch,
+      );
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          p(strong('text'), hardBreak(), strong('other text')),
+          ul(li(p(strong('first item'))), li(p(strong('second item')))),
+          p(subsup({ type: 'sub' })(strong('sub text'))),
+          table({ localId: TABLE_LOCAL_ID })(
+            tr(td({})(p(strong('a1'))), tdEmpty, tdEmpty),
+            tr(tdEmpty, tdEmpty, td({})(p(strong('b3')))),
+            tr(tdEmpty, tdEmpty, tdEmpty),
+          ),
+          p(strong('here')),
+        ),
+      );
+    });
+
+    it('enables muliple marks when toggled', () => {
       const { editorView } = editor(doc(p('{<}text', hardBreak(), 'here{>}')));
 
       toggleMark(editorView.state.schema.marks.strong)(
@@ -668,9 +728,11 @@ describe('utils -> commands', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(
-            'This is the first normal text This text is sup Spacer words ',
-            subsup({ type: 'sub' })('This text is sub'),
-            ' Words at the end',
+            'This is the first normal ',
+            subsup({ type: 'sup' })(
+              'text This text is sup Spacer words This text is sub Words at',
+            ),
+            ' the end',
           ),
         ),
       );

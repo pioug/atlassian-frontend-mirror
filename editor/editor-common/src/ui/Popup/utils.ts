@@ -32,6 +32,7 @@ export function getVerticalPlacement(
   fitHeight?: number,
   alignY?: string,
   forcePlacement?: boolean,
+  preventOverflow?: boolean,
 ): string {
   if (forcePlacement && alignY) {
     return alignY;
@@ -57,6 +58,13 @@ export function getVerticalPlacement(
   const spaceBelow =
     boundariesTop + boundariesHeight - (targetTop + targetHeight);
 
+  // Force vertical placement to bottom if the space above doesn't accomodate the fitHeight
+  if (preventOverflow) {
+    if (spaceAbove <= fitHeight) {
+      return 'bottom';
+    }
+  }
+
   if (spaceBelow >= fitHeight || spaceBelow >= spaceAbove) {
     return 'bottom';
   }
@@ -73,8 +81,10 @@ export function getHorizontalPlacement(
   fitWidth?: number,
   alignX?: string,
   forcePlacement?: boolean,
+  preventOverflow?: boolean,
 ): string {
-  if (forcePlacement && alignX) {
+  // force placement unless preventOverflow is enabled
+  if (forcePlacement && alignX && !preventOverflow) {
     return alignX;
   }
 
@@ -92,6 +102,7 @@ export function getHorizontalPlacement(
     boundariesElement.getBoundingClientRect();
   const spaceLeft = targetLeft - boundariesLeft + targetWidth;
   const spaceRight = boundariesLeft + boundariesWidth - targetLeft;
+
   if (alignX && spaceLeft > fitWidth && spaceRight > fitWidth) {
     return alignX;
   } else if (spaceRight >= fitWidth || (spaceRight >= spaceLeft && !alignX)) {
@@ -108,6 +119,7 @@ export function calculatePlacement(
   alignX?: string,
   alignY?: string,
   forcePlacement?: boolean,
+  preventOverflow?: boolean,
 ): [string, string] {
   return [
     getVerticalPlacement(
@@ -116,6 +128,7 @@ export function calculatePlacement(
       fitHeight,
       alignY,
       forcePlacement,
+      preventOverflow,
     ),
     getHorizontalPlacement(
       target,
@@ -123,6 +136,7 @@ export function calculatePlacement(
       fitWidth,
       alignX,
       forcePlacement,
+      preventOverflow,
     ),
   ];
 }

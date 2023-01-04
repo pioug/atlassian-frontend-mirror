@@ -1,5 +1,20 @@
 # @atlaskit/form
 
+## 8.8.3
+
+### Patch Changes
+
+- [`1b8e257525f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b8e257525f) - [ux] Message content now preserves whitespace between elements.
+- [`ea1ad1d867f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea1ad1d867f) - Message typings have been corrected, removing a number of props. These props existed only in the type and had no effect when used.
+
+  The props which were removed from the typings are:
+
+  - `error`
+  - `fieldId`
+  - `valid`
+
+- [`b96e69cdf36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b96e69cdf36) - [ux] DSP-6625: Updated Form label text color token to match the design.
+
 ## 8.8.2
 
 ### Patch Changes

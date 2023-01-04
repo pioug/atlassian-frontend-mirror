@@ -1,5 +1,4 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { closeHistory } from 'prosemirror-history';
 import type { Node as PMNode, NodeType } from 'prosemirror-model';
 import { Mark as PMMark } from 'prosemirror-model';
 import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
@@ -13,6 +12,9 @@ import {
 } from '@atlaskit/prosemirror-input-rules';
 import { addAnalytics } from '../plugins/analytics';
 import { AnalyticsEventPayload } from '../plugins/analytics/types';
+import { closeHistory } from 'prosemirror-history';
+import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
+import { getFeatureFlags } from '../plugins/feature-flags-context';
 
 type GetPayload =
   | AnalyticsEventPayload
@@ -216,6 +218,31 @@ export const createWrappingJoinRule = ({
     }
 
     tr.wrap(range, wrapping);
+
+    const featureFlags = getFeatureFlags(state);
+
+    if (
+      featureFlags?.restartNumberedLists &&
+      nodeType === state.schema.nodes.orderedList
+    ) {
+      // if an orderedList node would be inserted by the input rule match, and
+      // that orderedList node is being added directly before another orderedList
+      // node, then join those nodes
+      const $end = tr.doc.resolve(tr.mapping.map(end));
+      const node = findParentNodeOfTypeClosestToPos($end, nodeType);
+      if (node) {
+        const nodeEnd = node.pos + node.node.nodeSize;
+        const after = tr.doc.resolve(nodeEnd).nodeAfter;
+        if (
+          after &&
+          after.type === nodeType &&
+          canJoin(tr.doc, nodeEnd) &&
+          (!joinPredicate || joinPredicate(match, after))
+        ) {
+          tr.join(nodeEnd);
+        }
+      }
+    }
 
     const before = tr.doc.resolve(fixedStart - 1).nodeBefore;
 

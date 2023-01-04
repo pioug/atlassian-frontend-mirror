@@ -15,6 +15,9 @@ export interface Props {
   loading: boolean;
 }
 
+export const retryUploadButtonTestId = 'retry-upload-button';
+export const uploadEmojiButtonTestId = 'upload-emoji-button';
+
 const LoadingSpinner: FC = () => {
   return (
     <span css={buttonSpinner}>
@@ -33,6 +36,7 @@ const RetryButton: FC<Props> = (props) => {
           css={uploadRetryButton}
           appearance="warning"
           onClick={onSubmit}
+          testId={retryUploadButtonTestId}
         >
           {retryLabel}
         </AkButton>
@@ -48,6 +52,7 @@ const UploadButton: FC<Props> = (props) => {
       css={uploadEmojiButton}
       appearance={appearance as any}
       onClick={onSubmit}
+      testId={uploadEmojiButtonTestId}
     >
       {label}
     </AkButton>

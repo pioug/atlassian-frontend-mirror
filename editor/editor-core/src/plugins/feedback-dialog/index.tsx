@@ -1,6 +1,7 @@
 import React from 'react';
 import { PluginKey } from 'prosemirror-state';
-import { EditorPlugin, FeedbackInfo } from '../../types';
+import type { FeedbackInfo } from '../../types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { IconFeedback } from '../quick-insert/assets';
 import { version as coreVersion } from '../../version-wrapper';
 
@@ -66,7 +67,11 @@ export const openFeedbackDialog = async (feedbackInfo?: FeedbackInfo) =>
     resolve(timeoutId);
   });
 
-const feedbackDialog = (feedbackInfo: FeedbackInfo): EditorPlugin => {
+const feedbackDialog: NextEditorPlugin<
+  'feedbackDialog',
+  never,
+  FeedbackInfo
+> = (feedbackInfo: FeedbackInfo) => {
   defaultFeedbackInfo = feedbackInfo;
   return {
     name: 'feedbackDialog',

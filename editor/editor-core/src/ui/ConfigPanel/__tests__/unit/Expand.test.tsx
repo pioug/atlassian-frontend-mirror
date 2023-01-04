@@ -5,7 +5,8 @@ import { mount } from 'enzyme';
 import { act } from '@testing-library/react-hooks';
 import { IntlProvider } from 'react-intl-next';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
-import { FieldComponent, FieldComponentProps } from '../../FormContent';
+import { FieldComponent } from '../../FormContent';
+import { FieldComponentProps } from '../../types';
 
 expect.extend(matchers);
 

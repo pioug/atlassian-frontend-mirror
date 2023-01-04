@@ -1,5 +1,12 @@
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+} from '../analytics';
+
 export const getAnalyticsAppearance = (
   appearance?: string,
 ): EDITOR_APPEARANCE_CONTEXT | undefined => {
@@ -45,31 +52,6 @@ export {
 } from './unsupportedContent/get-unsupported-content-level-data';
 
 export type { UnsupportedContentLevelsTracking } from './unsupportedContent/get-unsupported-content-level-data';
-
-export enum EVENT_TYPE {
-  TRACK = 'track',
-  UI = 'ui',
-}
-
-export enum ACTION {
-  UNSUPPORTED_CONTENT_ENCOUNTERED = 'unsupportedContentEncountered',
-  UNSUPPORTED_TOOLTIP_VIEWED = 'viewed',
-}
-
-export enum ACTION_SUBJECT {
-  DOCUMENT = 'document',
-  TOOLTIP = 'tooltip',
-}
-
-export enum ACTION_SUBJECT_ID {
-  UNSUPPORTED_BLOCK = 'unsupportedBlock',
-  UNSUPPORTED_INLINE = 'unsupportedInline',
-  UNSUPPORTED_MARK = 'unsupportedMark',
-  UNSUPPORTED_ERROR = 'unsupportedUnhandled',
-  UNSUPPORTED_NODE_ATTRIBUTE = 'unsupportedNodeAttribute',
-  ON_UNSUPPORTED_INLINE = 'onUnsupportedInline',
-  ON_UNSUPPORTED_BLOCK = 'onUnsupportedBlock',
-}
 
 type AEP<Action, ActionSubject, ActionSubjectID, Attributes, EventType> = {
   action: Action;

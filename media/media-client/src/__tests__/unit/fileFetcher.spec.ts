@@ -405,10 +405,12 @@ describe('FileFetcher', () => {
           expect(mediaStore.getItems.mock.calls[0]).toEqual([
             [items[0].id, items[1].id],
             'collection-1',
+            expect.any(Object),
           ]);
           expect(mediaStore.getItems.mock.calls[1]).toEqual([
             [items[2].id],
             'collection-2',
+            expect.any(Object),
           ]);
           done();
         });
@@ -442,6 +444,7 @@ describe('FileFetcher', () => {
         expect(mediaStore.getItems.mock.calls[0]).toEqual([
           [items[0].id, items[1].id, items[2].id],
           undefined,
+          expect.any(Object),
         ]);
         done();
       });
@@ -493,6 +496,7 @@ describe('FileFetcher', () => {
           size: 0,
           artifacts: {},
           representations: {},
+          metadataTraceContext: expect.any(Object),
         });
 
         done();
@@ -570,6 +574,7 @@ describe('FileFetcher', () => {
           size: 0,
           artifacts: {},
           representations: {},
+          metadataTraceContext: expect.any(Object),
         });
 
         done();
@@ -993,6 +998,7 @@ describe('FileFetcher', () => {
       expect(mediaStore.getItems).toHaveBeenCalledWith(
         ['copied-file-id'],
         destination.collection,
+        expect.any(Object),
       );
     });
 

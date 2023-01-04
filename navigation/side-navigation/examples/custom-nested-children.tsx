@@ -1,6 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
+import Box from '@atlaskit/ds-explorations/box';
+import Text from '@atlaskit/ds-explorations/text';
+
 import {
   NestableNavigationContent,
   NestingItem,
@@ -13,17 +16,17 @@ import AppFrame from './common/app-frame';
 
 const IncorrectCustomLeafNodeComponent = () => {
   return (
-    <div
-      css={{
-        padding: 8,
-        fontWeight: 500,
-        textTransform: 'uppercase',
-        textAlign: 'center',
-        fontSize: 12,
-      }}
-    >
-      Always rendered
-    </div>
+    <Box padding="scale.100" display="block">
+      <Text
+        fontWeight="500"
+        textTransform="uppercase"
+        textAlign="center"
+        fontSize="12px"
+        as="p"
+      >
+        Always rendered
+      </Text>
+    </Box>
   );
 };
 
@@ -34,17 +37,19 @@ const CorrectCustomLeafNodeComponent = () => {
   }
 
   return (
-    <div
-      css={{
-        padding: 8,
-        fontWeight: 500,
-        textTransform: 'uppercase',
-        textAlign: 'center',
-        fontSize: 12,
-      }}
-    >
-      Only rendered when parent view is shown
-    </div>
+    <Box padding="scale.100" display="block">
+      <Text
+        UNSAFE_style={{
+          fontWeight: 500,
+          textTransform: 'uppercase',
+          textAlign: 'center',
+          fontSize: 12,
+        }}
+        as="p"
+      >
+        Only rendered when parent view is shown
+      </Text>
+    </Box>
   );
 };
 

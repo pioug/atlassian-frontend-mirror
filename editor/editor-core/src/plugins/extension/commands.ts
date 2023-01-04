@@ -1,10 +1,12 @@
 import { removeSelectedNode, removeParentNodeOfType } from 'prosemirror-utils';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
+import { Node as PMNode } from 'prosemirror-model';
 
 import { applyChange } from '../context-panel/transforms';
 import { createCommand } from './plugin-factory';
 import { ExtensionAction, ExtensionState } from './types';
 import { getSelectedExtension } from './utils';
+import { removeConnectedNodes } from '@atlaskit/editor-common/utils';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
@@ -103,5 +105,16 @@ export const removeExtension = () =>
       } else {
         return removeParentNodeOfType(state.schema.nodes.bodiedExtension)(tr);
       }
+    },
+  );
+
+export const removeDescendantNodes = (sourceNode?: PMNode) =>
+  createCommand(
+    {
+      type: 'UPDATE_STATE',
+      data: { element: undefined },
+    },
+    (tr, state) => {
+      return sourceNode ? removeConnectedNodes(state, sourceNode) : tr;
     },
   );

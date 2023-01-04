@@ -24,7 +24,7 @@ BrowserTestCase(
     const url = getExampleUrl(
       'media',
       'media-card',
-      'test-surrounding-elements',
+      'Test-Integration-surrounding-elements',
     );
     const fileCardSelector =
       '[data-testid="media-file-card-view"][data-test-status="complete"]';

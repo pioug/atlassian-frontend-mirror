@@ -61,6 +61,7 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
   aria-label="Activity"
   className="emotion-1"
   data-category-id="ACTIVITY"
+  data-testid="category-selector-ACTIVITY"
   onClick={[Function]}
   title="Activity"
   type="button"

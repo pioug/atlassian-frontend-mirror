@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/media-filmstrip"
 
@@ -168,7 +168,6 @@ export interface FilmstripViewProps {
   offset?: number;
   onScroll?: (event: ScrollEvent) => void;
   onSize?: (event: SizeEvent) => void;
-  // (undocumented)
   testId?: string;
 }
 

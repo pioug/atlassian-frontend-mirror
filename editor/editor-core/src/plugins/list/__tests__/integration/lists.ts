@@ -36,6 +36,24 @@ async function insertList(
   await page.keys(['Enter', 'Enter']); // double enter to exit list
 }
 
+async function insertNumberAndBulletLists(
+  client: any,
+  modifierKey: KEY,
+  restartNumberedListsEnabled: boolean = false,
+) {
+  const page = await goToEditorTestingWDExample(client);
+  await mountEditor(page, {
+    appearance: 'full-page',
+    featureFlags: {
+      restartNumberedLists: restartNumberedListsEnabled,
+    },
+  });
+  await page.click(editable);
+  await insertList(page, modifierKey, 'number');
+  await insertList(page, modifierKey, 'bullet');
+  return page;
+}
+
 BrowserTestCase(
   'list: tabbing through a tableCell that contains a list should go to the next cell',
   { skip: [] },
@@ -128,14 +146,17 @@ BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Windows)',
   { skip: ['safari', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, {
-      appearance: 'full-page',
-    });
-    await page.click(editable);
-    await insertList(page, KEY.CONTROL, 'number');
-    await insertList(page, KEY.CONTROL, 'bullet');
+    const page = await insertNumberAndBulletLists(client, KEY.CONTROL);
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
 
+BrowserTestCase(
+  'list: should be able to insert lists via keyboard shortcut (Windows) with restartNumberedLists',
+  { skip: ['safari', 'firefox'] },
+  async (client: any, testName: string) => {
+    const page = await insertNumberAndBulletLists(client, KEY.CONTROL, true);
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
@@ -145,14 +166,17 @@ BrowserTestCase(
   'list: should be able to insert lists via keyboard shortcut (Mac)',
   { skip: ['chrome', 'firefox'] },
   async (client: any, testName: string) => {
-    const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, {
-      appearance: 'full-page',
-    });
-    await page.click(editable);
-    await insertList(page, KEY.META, 'number');
-    await insertList(page, KEY.META, 'bullet');
+    const page = await insertNumberAndBulletLists(client, KEY.META);
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
 
+BrowserTestCase(
+  'list: should be able to insert lists via keyboard shortcut (Mac) with restartNumberedLists',
+  { skip: ['chrome', 'firefox'] },
+  async (client: any, testName: string) => {
+    const page = await insertNumberAndBulletLists(client, KEY.META, true);
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
@@ -278,6 +302,80 @@ BrowserTestCase(
   },
 );
 
+//Will test cases for paragraphs and other list nodes when backspacing at the start of a list
+//Cases below refer to the cases found in this document: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1146954996/List+Backspace+and+Delete+Behaviour
+BrowserTestCase(
+  'list: should handle backspace correctly when at the start of a list with restartNumberedLists',
+  { skip: ['safari', 'firefox'] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: listsAdf,
+      shouldFocus: true,
+      featureFlags: {
+        restartNumberedLists: true,
+      },
+    });
+
+    //Case 2 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 14, head: 14 });
+    await page.keys('Backspace');
+
+    //Case 4 with outdented child
+    await setProseMirrorTextSelection(page, { anchor: 45, head: 45 });
+    await page.keys('Backspace');
+
+    //Case 4 with double nested previous listItem
+    await setProseMirrorTextSelection(page, { anchor: 54, head: 54 });
+    await page.keys('Backspace');
+
+    //Case 3 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 21, head: 21 });
+    await page.keys('Backspace');
+
+    //Case 3 with no children
+    await setProseMirrorTextSelection(page, { anchor: 28, head: 28 });
+    await page.keys('Backspace');
+
+    //Case 1 with paragraphs with and without content
+    await setProseMirrorTextSelection(page, { anchor: 49, head: 49 });
+    await page.keys('Backspace');
+    await setProseMirrorTextSelection(page, { anchor: 49, head: 49 });
+    await page.keys('Backspace');
+
+    //Case 2 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 69, head: 69 });
+    await page.keys('Backspace');
+
+    //Case 4 with outdented child
+    await setProseMirrorTextSelection(page, { anchor: 100, head: 100 });
+    await page.keys('Backspace');
+
+    //Case 4 with double nested previous listItem
+    await setProseMirrorTextSelection(page, { anchor: 109, head: 109 });
+    await page.keys('Backspace');
+
+    //Case 3 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 76, head: 76 });
+    await page.keys('Backspace');
+
+    //Case 3 with no children
+    await setProseMirrorTextSelection(page, { anchor: 83, head: 83 });
+    await page.keys('Backspace');
+
+    //Case 1 with paragraphs with and without content
+    await setProseMirrorTextSelection(page, { anchor: 104, head: 104 });
+    await page.keys('Backspace');
+    await setProseMirrorTextSelection(page, { anchor: 104, head: 104 });
+    await page.keys('Backspace');
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
 //Will test cases for paragraphs and other list nodes when deleting at the end of a list
 BrowserTestCase(
   'list: should handle delete correctly when at the end of a list',
@@ -289,6 +387,77 @@ BrowserTestCase(
       appearance: fullpage.appearance,
       defaultValue: listsAdf,
       shouldFocus: true,
+    });
+
+    //Case 2 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 10, head: 10 });
+    await page.keys('Delete');
+
+    //Case 4 with outdented child
+    await setProseMirrorTextSelection(page, { anchor: 39, head: 39 });
+    await page.keys('Delete');
+
+    //Case 4 with double nested previous listItem
+    await setProseMirrorTextSelection(page, { anchor: 46, head: 46 });
+    await page.keys('Delete');
+
+    //Case 3 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 17, head: 17 });
+    await page.keys('Delete');
+
+    //Case 3 with no children
+    await setProseMirrorTextSelection(page, { anchor: 24, head: 24 });
+    await page.keys('Delete');
+
+    //Case 1 with paragraphs with and without content
+    await setProseMirrorTextSelection(page, { anchor: 45, head: 45 });
+    await page.keys('Delete');
+    await page.keys('Delete');
+
+    //Case 2 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 65, head: 65 });
+    await page.keys('Delete');
+
+    //Case 4 with outdented child
+    await setProseMirrorTextSelection(page, { anchor: 94, head: 94 });
+    await page.keys('Delete');
+
+    //Case 4 with double nested previous listItem
+    await setProseMirrorTextSelection(page, { anchor: 101, head: 101 });
+    await page.keys('Delete');
+
+    //Case 3 with indented child
+    await setProseMirrorTextSelection(page, { anchor: 72, head: 72 });
+    await page.keys('Delete');
+
+    //Case 3 with no children
+    await setProseMirrorTextSelection(page, { anchor: 79, head: 79 });
+    await page.keys('Delete');
+
+    //Case 1 with paragraphs with and without content
+    await setProseMirrorTextSelection(page, { anchor: 100, head: 100 });
+    await page.keys('Delete');
+    await page.keys('Delete');
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+//Will test cases for paragraphs and other list nodes when deleting at the end of a list
+BrowserTestCase(
+  'list: should handle delete correctly when at the end of a list with restartNumberedLists',
+  { skip: ['safari', 'firefox'] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: listsAdf,
+      shouldFocus: true,
+      featureFlags: {
+        restartNumberedLists: true,
+      },
     });
 
     //Case 2 with indented child

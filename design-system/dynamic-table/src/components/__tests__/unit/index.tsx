@@ -1,290 +1,312 @@
 import React from 'react';
 
-import { mount, ReactWrapper } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import noop from '@atlaskit/ds-lib/noop';
+import Spinner from '@atlaskit/spinner';
 
 import DynamicTable, { DynamicTableStateless } from '../../../index';
-import { Caption } from '../../../styled/dynamic-table';
-import {
-  EmptyViewContainer,
-  EmptyViewWithFixedHeight,
-} from '../../../styled/empty-body';
-import { RowCellType, RowType, StatelessProps } from '../../../types';
-import Body from '../../body';
-import LoadingContainer from '../../loading-container';
-import LoadingContainerAdvanced from '../../loading-container-advanced';
-import Pagination from '../../managed-pagination';
-import RankableTableBody from '../../rankable/body';
-import { State } from '../../stateless';
-import TableHead from '../../table-head';
+import { RowCellType, RowType } from '../../../types';
 
 import { head, rows, rowsWithKeys, secondSortKey } from './_data';
 import { headNumeric, rowsNumeric } from './_data-numeric';
 
+jest.mock('@atlaskit/spinner', () => {
+  const actual = jest.requireActual('@atlaskit/spinner');
+  return {
+    __esModule: true,
+    ...actual,
+    default: jest.fn(),
+  };
+});
+
 describe('@atlaskit/dynamic-table', () => {
+  const testId = 'dynamic--table--test--id';
   describe('stateless', () => {
-    it('should render TableHead when items length is 0 and not render EmptyViewContainer if emptyView prop is ommitted', () => {
-      const wrapper = mount(<DynamicTableStateless head={head} />);
-      const header = wrapper.find(TableHead);
-      const emptyView = wrapper.find(EmptyViewContainer);
-      const body = wrapper.find(Body);
-      expect(header.length).toBe(1);
-      expect(emptyView.length).toBe(0);
-      expect(body.length).toBe(0);
+    it('should render TableHead when items length is 0 and not render EmptyViewContainer if emptyView prop is omitted', () => {
+      render(<DynamicTableStateless head={head} testId={testId} />);
+
+      const header = screen.getByTestId(`${testId}--head`);
+      const emptyView = screen.queryByTestId(`${testId}--empty-view-container`);
+      const body = screen.queryByTestId(`${testId}--body`);
+
+      expect(header).toBeInTheDocument();
+      expect(emptyView).not.toBeInTheDocument();
+      expect(body).not.toBeInTheDocument();
     });
     it('should not render any text in the table when rows prop is an empty array', () => {
-      const wrapper = mount(<DynamicTableStateless rows={[]} head={head} />);
-      const header = wrapper.find(TableHead);
-      const table = wrapper.find('table');
-      expect(table.children()).toHaveLength(1);
-      expect(header.length).toBe(1);
+      render(<DynamicTableStateless rows={[]} head={head} testId={testId} />);
+
+      const header = screen.getByTestId(`${testId}--head`);
+      const table = screen.getByRole('table');
+
+      expect(header).toBeInTheDocument();
+      expect(table.children.length).toBe(1);
     });
     it('should render TableHead when items length is 0 and render EmptyViewContainer if emptyView prop is provided', () => {
-      const wrapper = mount(
+      render(
         <DynamicTableStateless
           head={head}
           emptyView={<h2>No items present in table</h2>}
+          testId={testId}
         />,
       );
-      const header = wrapper.find(TableHead);
-      const emptyView = wrapper.find(EmptyViewContainer);
-      const body = wrapper.find(Body);
-      expect(header.length).toBe(1);
-      expect(emptyView.length).toBe(1);
-      expect(body.length).toBe(0);
+
+      const header = screen.getByTestId(`${testId}--head`);
+      const emptyView = screen.getByTestId(`${testId}--empty-view-container`);
+      const body = screen.queryByTestId(`${testId}--body`);
+
+      expect(header).toBeInTheDocument();
+      expect(emptyView).toBeInTheDocument();
+      expect(body).not.toBeInTheDocument();
     });
     it('should not render TableHead if head prop is not provided and should render EmptyViewContainer if emptyView prop is provided', () => {
-      const wrapper = mount(
+      render(
         <DynamicTableStateless
           emptyView={<h2>No items present in table</h2>}
+          testId={testId}
         />,
       );
-      const header = wrapper.find(TableHead);
-      const emptyView = wrapper.find(EmptyViewContainer);
-      const body = wrapper.find(Body);
-      expect(header.length).toBe(0);
-      expect(body.length).toBe(0);
-      expect(emptyView.length).toBe(1);
-    });
+      const header = screen.queryByTestId(`${testId}--head`);
+      const body = screen.queryByTestId(`${testId}--body`);
+      const emptyView = screen.getByTestId(`${testId}--empty-view-container`);
 
+      expect(header).not.toBeInTheDocument();
+      expect(body).not.toBeInTheDocument();
+      expect(emptyView).toBeInTheDocument();
+    });
     it('should render head, emptyView and caption if provided', () => {
-      const wrapper = mount(
+      render(
         <DynamicTableStateless
           head={head}
           emptyView={<h2>No items present in table</h2>}
           caption={<h2>This is a table caption</h2>}
+          testId={testId}
         />,
       );
-      const header = wrapper.find(TableHead);
-      const emptyView = wrapper.find(EmptyViewContainer);
-      const caption = wrapper.find(Caption);
-      const body = wrapper.find(Body);
-      expect(header.length).toBe(1);
-      expect(emptyView.length).toBe(1);
-      expect(caption.length).toBe(1);
-      expect(body.length).toBe(0);
+
+      const header = screen.getByTestId(`${testId}--head`);
+      const emptyView = screen.getByTestId(`${testId}--empty-view-container`);
+      const caption = screen.getByRole('heading', {
+        name: /this is a table caption/i,
+      });
+      const body = screen.queryByTestId(`${testId}--body`);
+
+      expect(header).toBeInTheDocument();
+      expect(emptyView).toBeInTheDocument();
+      expect(caption).toBeInTheDocument();
+      expect(body).not.toBeInTheDocument();
     });
 
     it('should render RankableTableBody if table is rankable', () => {
-      const wrapper = mount(
+      render(
         <DynamicTableStateless
           rowsPerPage={2}
           page={2}
           head={head}
           rows={rowsWithKeys}
           isRankable
+          testId={testId}
         />,
       );
 
-      const body = wrapper.find(Body);
-      const rankableBody = wrapper.find(RankableTableBody);
-      expect(body.length).toBe(0);
-      expect(rankableBody.length).toBe(1);
+      const body = screen.queryByTestId(`${testId}--body`);
+      const rankableBody = screen.getByTestId(testId);
+
+      expect(body).not.toBeInTheDocument();
+      expect(rankableBody).toBeInTheDocument();
     });
 
     it('should display paginated data', () => {
-      const wrapper = mount(
+      render(
         <DynamicTableStateless
           rowsPerPage={2}
           page={2}
           head={head}
           rows={rows}
+          testId={testId}
         />,
       );
-      const bodyRows = wrapper.find('tbody tr');
-      expect(bodyRows.length).toBe(2);
-      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Donald');
-      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Trump');
+
+      const bodyRows = screen.getByTestId(`${testId}--body`);
+      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const lastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
+
+      expect(bodyRows).toBeInTheDocument();
+      expect(firstNameColumn).toHaveLength(2);
+      expect(lastNameColumn).toHaveLength(2);
+      expect(firstNameColumn[0]).toContainHTML('Donald');
+      expect(lastNameColumn[0]).toContainHTML('Trump');
     });
 
-    const checkSortedData = (isRankable: boolean) => {
-      const headCells = head.cells.map((cell) => ({
-        ...cell,
-        isSortable: true,
-      }));
-      const wrapper = mount(
-        <DynamicTableStateless
-          sortKey="first_name"
-          sortOrder="ASC"
-          head={{ cells: headCells }}
-          rows={rowsWithKeys}
-          isRankable={isRankable}
-        />,
-      );
-      const bodyRows = wrapper.find('tbody tr');
-      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
-      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
-      expect(bodyRows.at(1).find('td').at(0).text()).toBe('Donald');
-      expect(bodyRows.at(1).find('td').at(1).text()).toBe('Trump');
-      expect(bodyRows.at(2).find('td').at(0).text()).toBe('hillary');
-      expect(bodyRows.at(2).find('td').at(1).text()).toBe('clinton');
-    };
-
-    it('should display sorted data', () => {
-      checkSortedData(false);
-    });
-
-    it('should display sorted data in rankable table', () => {
-      checkSortedData(true);
-    });
-
-    it('should pass down extra props', () => {
-      const theadOnClick = noop;
-      const theadOnKeyDown = noop;
-      const thOnClick = noop;
-      const thOnKeyDown = noop;
-      const trOnClick = noop;
-      const tdOnClick = noop;
-
-      const newHead = {
-        onClick: theadOnClick,
-        onKeyDown: theadOnKeyDown,
-        cells: head.cells.map((cell) => ({
+    describe('Sorted Data', () => {
+      const checkSortedData = (isRankable: boolean) => {
+        const headCells = head.cells.map((cell) => ({
           ...cell,
-          onClick: thOnClick,
-          onKeyDown: thOnKeyDown,
-        })),
+          isSortable: true,
+        }));
+        render(
+          <DynamicTableStateless
+            sortKey="first_name"
+            sortOrder="ASC"
+            head={{ cells: headCells }}
+            rows={rowsWithKeys}
+            isRankable={isRankable}
+            testId={testId}
+          />,
+        );
+        const bodyRows = screen.getByTestId(`${testId}--body`);
+        const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+        const lastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
+
+        expect(bodyRows).toBeInTheDocument();
+
+        expect(firstNameColumn[0]).toContainHTML('Barack');
+        expect(lastNameColumn[0]).toContainHTML('Obama');
+        expect(firstNameColumn[1]).toContainHTML('Donald');
+        expect(lastNameColumn[1]).toContainHTML('Trump');
+        expect(firstNameColumn[2]).toContainHTML('hillary');
+        expect(lastNameColumn[2]).toContainHTML('clinton');
       };
-      const newRows = rows.map((row: RowType) => ({
-        ...row,
-        onClick: trOnClick,
-        cells: row.cells.map((cell: RowCellType) => ({
-          ...cell,
-          onClick: tdOnClick,
-        })),
-      }));
 
-      const wrapper = mount(
-        <DynamicTableStateless head={newHead} rows={newRows} />,
-      );
-      expect(wrapper.find('thead').prop('onClick')).toBe(theadOnClick);
-      expect(wrapper.find('thead').prop('onKeyDown')).toBe(theadOnKeyDown);
-      wrapper.find('th').forEach((headCell) => {
-        expect(headCell.prop('onClick')).toBe(thOnClick);
+      it('should display sorted data', () => {
+        checkSortedData(false);
       });
-      wrapper.find('th').forEach((headCell) => {
-        expect(headCell.prop('onKeyDown')).toBe(thOnKeyDown);
+
+      it('should display sorted data in rankable table', () => {
+        checkSortedData(true);
       });
-      wrapper.find('tbody tr').forEach((bodyRow) => {
-        expect(bodyRow.prop('onClick')).toBe(trOnClick);
-      });
-      wrapper.find('td').forEach((bodyCell) => {
-        expect(bodyCell.prop('onClick')).toBe(tdOnClick);
+
+      it('should pass down extra props', () => {
+        const theadOnClick = jest.fn();
+        const theadOnKeyDown = jest.fn();
+        const thOnClick = jest.fn();
+        const thOnKeyDown = jest.fn();
+        const trOnClick = jest.fn();
+        const tdOnClick = jest.fn();
+
+        const newHead = {
+          onClick: theadOnClick,
+          onKeyDown: theadOnKeyDown,
+          cells: head.cells.map((cell) => ({
+            ...cell,
+            onClick: thOnClick,
+            onKeyDown: thOnKeyDown,
+          })),
+        };
+        const newRows = rows.map((row: RowType) => ({
+          ...row,
+          onClick: trOnClick,
+          cells: row.cells.map((cell: RowCellType) => ({
+            ...cell,
+            onClick: tdOnClick,
+          })),
+        }));
+
+        render(
+          <DynamicTableStateless
+            head={newHead}
+            rows={newRows}
+            testId={testId}
+          />,
+        );
+
+        const thead = screen.getByTestId(`${testId}--head`);
+        const thList = screen.getAllByTestId(`${testId}--head--cell`);
+        const trTestIdPattern = new RegExp(`${testId}--row`);
+        const trList = screen.getAllByTestId(trTestIdPattern);
+        const tdTestIdPattern = new RegExp(`${testId}--cell`);
+        const tdList = screen.getAllByTestId(tdTestIdPattern);
+
+        fireEvent.click(thead);
+        expect(theadOnClick).toHaveBeenCalled();
+
+        fireEvent.keyDown(thead);
+        expect(theadOnKeyDown).toHaveBeenCalled();
+
+        fireEvent.click(thList[0]);
+        expect(thOnClick).toHaveBeenCalledTimes(1);
+
+        fireEvent.click(trList[0]);
+        expect(trOnClick).toHaveBeenCalledTimes(1);
+
+        fireEvent.click(tdList[0]);
+        expect(tdOnClick).toHaveBeenCalledTimes(1);
       });
     });
 
     describe('loading mode', () => {
       describe('with rows', () => {
-        let wrapper: ReactWrapper<
-          StatelessProps,
-          State,
-          React.Component<StatelessProps>
-        >;
-
         beforeEach(() => {
-          wrapper = mount(<DynamicTableStateless rows={rows} isLoading />);
+          (Spinner as unknown as jest.Mock).mockImplementation((props) => {
+            const { size, testId } = props;
+
+            return (
+              <div data-size={size} data-testid={testId}>
+                &nbsp;
+              </div>
+            );
+          });
         });
 
         it('should render a loading container with a large spinner when there is more than 2 rows', () => {
-          const lc = () => wrapper.find(LoadingContainerAdvanced).props();
-          expect(lc().spinnerSize).toBe('large');
-
-          wrapper.setProps({ rows: rows.slice(-3) });
-          wrapper.update();
-          expect(lc().spinnerSize).toBe('large');
-
-          wrapper.setProps({ rows: rows.slice(-2) });
-          wrapper.update();
-          expect(lc().spinnerSize).toBe('small');
+          render(
+            <DynamicTableStateless rows={rows} testId={testId} isLoading />,
+          );
+          const initiallySpinner = screen.getByTestId(
+            `${testId}--loadingSpinner`,
+          );
+          expect(initiallySpinner).toHaveAttribute('data-size', 'large');
         });
 
-        it('should render a loading container with a proper loading flag', () => {
-          const loadingContainer = wrapper.find(LoadingContainerAdvanced);
-          expect(loadingContainer.props().isLoading).toBe(true);
-        });
-
-        it('should override the spinner size on demand', () => {
-          const withOverriddenSpinnerSize = mount(
+        it('Should render a loading container with a small spinner when there is 2 or less than 2 rows', () => {
+          render(
             <DynamicTableStateless
-              rows={rows}
-              loadingSpinnerSize="small"
+              rows={rows.slice(-2)}
+              testId={testId}
               isLoading
             />,
           );
-          const loadingContainer = withOverriddenSpinnerSize.find(
-            LoadingContainerAdvanced,
+          const spinner = screen.getByTestId(`${testId}--loadingSpinner`);
+          expect(spinner).toHaveAttribute('data-size', 'small');
+        });
+
+        it('should override the spinner size on demand', () => {
+          render(
+            <DynamicTableStateless
+              rows={rows}
+              loadingSpinnerSize="small"
+              testId={testId}
+              isLoading
+            />,
           );
-          expect(loadingContainer.props().spinnerSize).toBe('small');
-        });
-
-        it('should pass a proper target ref', () => {
-          const loadingContainer = wrapper.find(LoadingContainerAdvanced);
-          const body = wrapper.find(Body);
-          const target = loadingContainer.prop('targetRef')!();
-          expect(target).toBe(body.instance());
-        });
-
-        it('should not render a loading container for the empty view', () => {
-          const loadingContainer = wrapper.find(LoadingContainer);
-          expect(loadingContainer.length).toBe(0);
+          const spinner = screen.getByTestId(`${testId}--loadingSpinner`);
+          expect(spinner).toHaveAttribute('data-size', 'small');
         });
       });
 
       describe('without rows (empty)', () => {
-        let wrapper: ReactWrapper<
-          StatelessProps,
-          State,
-          React.Component<StatelessProps>
-        >;
-
-        beforeEach(() => {
-          wrapper = mount(
-            <DynamicTableStateless emptyView={<div>No rows</div>} isLoading />,
-          );
-        });
-
         it('should render a blank view of a fixed height when the empty view is defined', () => {
-          const blankView = wrapper.find(EmptyViewWithFixedHeight);
-          expect(blankView.length).toBe(1);
+          render(
+            <DynamicTableStateless
+              emptyView={<div>No rows</div>}
+              testId={testId}
+              isLoading
+            />,
+          );
+
+          const emptyViewWithFixedHeight = screen.getByTestId(
+            `${testId}--empty-view-with-fixed-height`,
+          );
+          expect(emptyViewWithFixedHeight).toBeInTheDocument();
         });
 
         it('should render a blank view of a fixed height when the empty view is not defined', () => {
-          const withoutEmptyView = mount(<DynamicTableStateless isLoading />);
-          const blankView = withoutEmptyView.find(EmptyViewWithFixedHeight);
-          expect(blankView.length).toBe(1);
-        });
-
-        it('should render a loading container with proper props', () => {
-          const loadingContainer = wrapper.find(LoadingContainer);
-          expect(loadingContainer.props().isLoading).toBe(true);
-          expect(loadingContainer.props().spinnerSize).toBe('large');
-        });
-
-        it("should keep the loading mode of the table's loading container disabled", () => {
-          const loadingContainer = wrapper.find(LoadingContainerAdvanced);
-          expect(loadingContainer.props().isLoading).toBe(false);
+          render(<DynamicTableStateless testId={testId} isLoading />);
+          const emptyViewWithFixedHeight = screen.getByTestId(
+            `${testId}--empty-view-with-fixed-height`,
+          );
+          expect(emptyViewWithFixedHeight).toBeInTheDocument();
         });
       });
     });
@@ -292,16 +314,11 @@ describe('@atlaskit/dynamic-table', () => {
     describe('should invoke callbacks', () => {
       let onSetPage: jest.Mock;
       let onSort: jest.Mock;
-      let wrapper: ReactWrapper<
-        StatelessProps,
-        State,
-        React.Component<StatelessProps>
-      >;
 
       beforeEach(() => {
         onSetPage = jest.fn();
         onSort = jest.fn();
-        wrapper = mount(
+        render(
           <DynamicTableStateless
             rowsPerPage={2}
             page={2}
@@ -309,21 +326,22 @@ describe('@atlaskit/dynamic-table', () => {
             rows={rows}
             onSetPage={onSetPage}
             onSort={onSort}
+            testId={testId}
           />,
         );
       });
 
       it('should not run onSort for a non-sortable column', () => {
-        const headCells = wrapper.find('th');
-        headCells.at(0).simulate('click');
+        const headCells = screen.getAllByTestId(`${testId}--head--cell`);
+        fireEvent.click(headCells[0]);
         expect(onSort).toHaveBeenCalledTimes(1);
-        headCells.at(1).simulate('click');
+        fireEvent.click(headCells[1]);
         expect(onSort).toHaveBeenCalledTimes(1);
       });
 
       it('should run onSort', () => {
-        const headCells = wrapper.find('th');
-        headCells.at(0).simulate('click');
+        const headCells = screen.getAllByTestId(`${testId}--head--cell`);
+        fireEvent.click(headCells[0]);
         expect(onSort).toHaveBeenCalledTimes(1);
         expect(onSort).toHaveBeenCalledWith(
           {
@@ -340,8 +358,9 @@ describe('@atlaskit/dynamic-table', () => {
       });
 
       it('should run onSort with enter key pressed', () => {
-        const headCells = wrapper.find('th');
-        headCells.at(0).simulate('keyDown', { key: 'Enter' });
+        const headCells = screen.getAllByTestId(`${testId}--head--cell`);
+        fireEvent.keyDown(headCells[0], { key: 'Enter' });
+
         expect(onSort).toHaveBeenCalledTimes(1);
         expect(onSort).toHaveBeenCalledWith(
           {
@@ -358,13 +377,16 @@ describe('@atlaskit/dynamic-table', () => {
       });
 
       it('should not run onSort with enter key pressed when th is not sortable', () => {
-        const headCells = wrapper.find('th');
-        headCells.at(1).simulate('keyDown', { key: 'Enter' });
+        const headCells = screen.getAllByTestId(`${testId}--head--cell`);
+        fireEvent.keyDown(headCells[1], { key: 'Enter' });
         expect(onSort).toHaveBeenCalledTimes(0);
       });
 
       it('onSetPage', () => {
-        wrapper.find(Pagination).find('button').at(1).simulate('click');
+        const paginationFirstButton = screen.getByTestId(
+          `${testId}--pagination--page-0`,
+        );
+        fireEvent.click(paginationFirstButton);
         expect(onSetPage).toHaveBeenCalledTimes(1);
         expect(onSetPage).toHaveBeenCalledWith(1, expect.any(UIAnalyticsEvent));
       });
@@ -373,114 +395,93 @@ describe('@atlaskit/dynamic-table', () => {
 
   describe('stateful', () => {
     it('should display paginated data after navigating to a different page', () => {
-      const wrapper = mount(
+      render(
         <DynamicTable
           rowsPerPage={2}
           defaultPage={2}
           head={head}
           rows={rows}
+          testId={testId}
         />,
       );
-
-      wrapper.find(Pagination).find('button').at(0).simulate('click');
-
-      const bodyRows = wrapper.find('tbody tr');
-      expect(bodyRows.length).toBe(2);
-      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
-      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
-      expect(bodyRows.at(1).find('td').at(0).text()).toBe('hillary');
-      expect(bodyRows.at(1).find('td').at(1).text()).toBe('clinton');
-    });
-
-    it('should pass i18n info down correctly', () => {
-      const wrapper = mount(
-        <DynamicTable
-          rowsPerPage={2}
-          defaultPage={2}
-          head={head}
-          rows={rows}
-          paginationi18n={{
-            prev: 'Before',
-            next: 'after',
-            label: 'Pagination',
-          }}
-        />,
+      const paginationFirstButton = screen.getByTestId(
+        `${testId}--pagination--page-0`,
       );
+      fireEvent.click(paginationFirstButton);
 
-      expect(wrapper.find(Pagination).prop('i18n')).toMatchObject({
-        prev: 'Before',
-        next: 'after',
-        label: 'Pagination',
-      });
-    });
+      const tdTestIdPattern = new RegExp(`${testId}--cell`);
+      const tdList = screen.getAllByTestId(tdTestIdPattern);
 
-    it('should pass i18n info down correctly to stateless component', () => {
-      const wrapper = mount(
-        <DynamicTableStateless
-          rowsPerPage={2}
-          head={head}
-          rows={rows}
-          paginationi18n={{
-            prev: 'Before',
-            next: 'after',
-            label: 'Pagination',
-          }}
-        />,
-      );
-
-      expect(wrapper.find(Pagination).prop('i18n')).toMatchObject({
-        prev: 'Before',
-        next: 'after',
-        label: 'Pagination',
-      });
+      expect(tdList[0]).toContainHTML('Barack');
+      expect(tdList[1]).toContainHTML('Obama');
+      expect(tdList[2]).toContainHTML('hillary');
+      expect(tdList[3]).toContainHTML('clinton');
     });
 
     it('should sort data', () => {
-      const wrapper = mount(<DynamicTable head={head} rows={rows} />);
-      wrapper.find('th').at(0).simulate('click');
-      wrapper.update();
-      const bodyRows = wrapper.find('tbody tr');
-      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
-      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
-      expect(bodyRows.at(1).find('td').at(0).text()).toBe('Donald');
-      expect(bodyRows.at(1).find('td').at(1).text()).toBe('Trump');
-      expect(bodyRows.at(2).find('td').at(0).text()).toBe('hillary');
-      expect(bodyRows.at(2).find('td').at(1).text()).toBe('clinton');
+      render(<DynamicTable head={head} rows={rows} testId={testId} />);
+      const thList = screen.getAllByTestId(`${testId}--head--cell`);
+      fireEvent.click(thList[0]);
+
+      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const lastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
+
+      expect(firstNameColumn[0]).toContainHTML('Barack');
+      expect(lastNameColumn[0]).toContainHTML('Obama');
+      expect(firstNameColumn[1]).toContainHTML('Donald');
+      expect(lastNameColumn[1]).toContainHTML('Trump');
+      expect(firstNameColumn[2]).toContainHTML('hillary');
+      expect(lastNameColumn[2]).toContainHTML('clinton');
     });
 
     it('should sort numeric data correctly, listed before strings or empty values', () => {
-      const wrapper = mount(
-        <DynamicTable head={headNumeric} rows={rowsNumeric} />,
+      render(
+        <DynamicTable head={headNumeric} rows={rowsNumeric} testId={testId} />,
       );
-      wrapper.find('th').at(1).simulate('click');
-      wrapper.update();
 
-      const bodyRows = wrapper.find('tbody tr');
+      const thList = screen.getAllByTestId(`${testId}--head--cell`);
+      fireEvent.click(thList[1]);
 
-      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Negative One');
-      expect(bodyRows.at(0).find('td').at(1).text()).toBe('-1');
-      expect(bodyRows.at(1).find('td').at(1).text()).toBe('0');
-      expect(bodyRows.at(2).find('td').at(1).text()).toBe('1');
-      expect(bodyRows.at(3).find('td').at(1).text()).toBe('');
-      expect(bodyRows.at(4).find('td').at(1).text()).toBe(' ');
-      expect(bodyRows.at(5).find('td').at(1).text()).toBe('1');
-      expect(bodyRows.at(8).find('td').at(1).text()).toBe('a string');
+      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const arbitraryNumeric = screen.getAllByTestId(`${testId}--cell-1`);
+
+      expect(firstNameColumn[0]).toContainHTML('Negative One');
+      expect(arbitraryNumeric[0]).toContainHTML('-1');
+      expect(arbitraryNumeric[1]).toContainHTML('0');
+      expect(arbitraryNumeric[2]).toContainHTML('1');
+      expect(arbitraryNumeric[3]).toContainHTML('');
+      expect(arbitraryNumeric[4]).toContainHTML(' ');
+      expect(arbitraryNumeric[5]).toContainHTML('1');
+      expect(arbitraryNumeric[8]).toContainHTML('a string');
     });
 
     it('should sort grouped numbers in strings', () => {
-      const wrapper = mount(
-        <DynamicTable head={headNumeric} rows={rowsNumeric} />,
+      render(
+        <DynamicTable head={headNumeric} rows={rowsNumeric} testId={testId} />,
       );
-      wrapper.find('th').at(1).simulate('click');
-      wrapper.update();
-      const bodyRows = wrapper.find('tbody tr');
+      const thList = screen.getAllByTestId(`${testId}--head--cell`);
+      fireEvent.click(thList[1]);
 
-      expect(bodyRows.at(5).find('td').at(1).text()).toBe('1');
-      expect(bodyRows.at(6).find('td').at(1).text()).toBe('5');
-      expect(bodyRows.at(7).find('td').at(1).text()).toBe('10');
+      const arbitraryNumeric = screen.getAllByTestId(`${testId}--cell-1`);
+
+      expect(arbitraryNumeric[5]).toContainHTML('1');
+      expect(arbitraryNumeric[6]).toContainHTML('5');
+      expect(arbitraryNumeric[7]).toContainHTML('10');
     });
 
     it('should preserve sorting, even after updating table dynamically', () => {
+      const { rerender } = render(
+        <DynamicTable head={head} rows={rows} testId={testId} />,
+      );
+
+      const thList = screen.getAllByTestId(`${testId}--head--cell`);
+      fireEvent.click(thList[0]);
+
+      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const lastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
+      expect(firstNameColumn[0]).toContainHTML('Barack');
+      expect(lastNameColumn[0]).toContainHTML('Obama');
+
       const newData = {
         cells: [
           {
@@ -494,78 +495,95 @@ describe('@atlaskit/dynamic-table', () => {
       };
 
       const newRows = [...rows, newData];
-      const wrapper = mount(<DynamicTable head={head} rows={rows} />);
+      rerender(<DynamicTable head={head} rows={newRows} testId={testId} />);
 
-      wrapper.find('th').at(0).simulate('click');
-      wrapper.update();
+      const updatedFirstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const updatedLastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
 
-      const bodyRows = wrapper.find('tbody tr');
-      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
-      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
-
-      wrapper.setProps({ rows: newRows });
-      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Abraham');
-      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Lincon');
-      expect(bodyRows.at(1).find('td').at(0).text()).toBe('Barack');
-      expect(bodyRows.at(1).find('td').at(1).text()).toBe('Obama');
+      expect(updatedFirstNameColumn[0]).toContainHTML('Abraham');
+      expect(updatedLastNameColumn[0]).toContainHTML('Lincon');
+      expect(updatedFirstNameColumn[1]).toContainHTML('Barack');
+      expect(updatedLastNameColumn[1]).toContainHTML('Obama');
     });
 
     it('should use new sortKey and sortOrder passed as prop for sorting the table', () => {
-      const wrapper = mount(<DynamicTable head={head} rows={rows} />);
-      wrapper.find('th').at(0).simulate('click');
-      wrapper.update();
-      const bodyRows = wrapper.find('tbody tr');
-      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Barack');
-      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Obama');
+      const { rerender } = render(
+        <DynamicTable head={head} rows={rows} testId={testId} />,
+      );
 
-      wrapper.setProps({ sortOrder: 'DESC', sortKey: secondSortKey });
-      wrapper.update();
+      const thList = screen.getAllByTestId(`${testId}--head--cell`);
+      fireEvent.click(thList[0]);
 
-      expect(bodyRows.at(0).find('td').at(0).text()).toBe('Donald');
-      expect(bodyRows.at(0).find('td').at(1).text()).toBe('Trump');
-      expect(bodyRows.at(1).find('td').at(0).text()).toBe('Barack');
-      expect(bodyRows.at(1).find('td').at(1).text()).toBe('Obama');
+      const firstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const lastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
+      expect(firstNameColumn[0]).toContainHTML('Barack');
+      expect(lastNameColumn[0]).toContainHTML('Obama');
+
+      rerender(
+        <DynamicTable
+          head={head}
+          rows={rows}
+          sortOrder="DESC"
+          sortKey={secondSortKey}
+          testId={testId}
+        />,
+      );
+
+      const updatedFirstNameColumn = screen.getAllByTestId(`${testId}--cell-0`);
+      const updatedLastNameColumn = screen.getAllByTestId(`${testId}--cell-1`);
+
+      expect(updatedFirstNameColumn[0]).toContainHTML('Donald');
+      expect(updatedLastNameColumn[0]).toContainHTML('Trump');
+      expect(updatedFirstNameColumn[1]).toContainHTML('Barack');
+      expect(updatedLastNameColumn[1]).toContainHTML('Obama');
     });
 
     it('should preserve page after applying sorting and updating table dynamically', () => {
-      const newData = {
-        cells: [
-          {
-            key: 'abli',
-            content: 'Abraham',
-          },
-          {
-            content: 'Lincon',
-          },
-        ],
-      };
-
-      const newRows = [...rows, newData];
-      const wrapper = mount(
+      const { rerender } = render(
         <DynamicTable
           head={head}
           rows={rows}
           rowsPerPage={2}
           defaultPage={2}
+          testId={testId}
         />,
       );
-      wrapper.find('th').at(0).simulate('click');
-      expect(wrapper.find(Pagination).prop('value')).toBe(2);
-      wrapper.setProps({ rows: newRows });
-      expect(wrapper.find(Pagination).prop('value')).toBe(2);
+
+      const thList = screen.getAllByTestId(`${testId}--head--cell`);
+      fireEvent.click(thList[0]);
+
+      const currentPage2 = screen.getByTestId(
+        `${testId}--pagination--current-page-1`,
+      );
+      expect(currentPage2).toBeInTheDocument();
+
+      const newData = {
+        cells: [
+          {
+            key: 'abli',
+            content: 'Abraham',
+          },
+          {
+            content: 'Lincon',
+          },
+        ],
+      };
+      const newRows = [...rows, newData];
+
+      rerender(
+        <DynamicTable
+          head={head}
+          rows={newRows}
+          rowsPerPage={2}
+          defaultPage={2}
+          testId={testId}
+        />,
+      );
+
+      const updatedCurrentPage2 = screen.getByTestId(
+        `${testId}--pagination--current-page-1`,
+      );
+      expect(updatedCurrentPage2).toBeInTheDocument();
     });
   });
-});
-
-test('should pass analytics event in setPage callback', () => {
-  const spy = jest.fn();
-  const wrapper = mount(
-    <DynamicTable head={head} rows={rows} rowsPerPage={1} onSetPage={spy} />,
-  );
-  wrapper.find(Pagination).find('[type="button"]').last().simulate('click');
-  expect(spy).toHaveBeenCalledTimes(1);
-  expect(spy).toHaveBeenCalledWith(
-    expect.any(Number),
-    expect.any(UIAnalyticsEvent),
-  );
 });

@@ -11,6 +11,9 @@ export interface Props {
   isDisabled?: boolean;
 }
 
+export const chooseFileButtonTestId = 'choose-file-button';
+export const fileUploadInputTestId = 'file-upload';
+
 const FileChooser: FC<Props> = (props) => {
   const { accept, ariaDescribedBy, isDisabled, label, onChange, onClick } =
     props;
@@ -33,6 +36,7 @@ const FileChooser: FC<Props> = (props) => {
         onClick={handleOnChooseFile}
         isDisabled={isDisabled}
         aria-describedby={ariaDescribedBy}
+        testId={chooseFileButtonTestId}
       >
         {label}
       </AkButton>
@@ -43,6 +47,7 @@ const FileChooser: FC<Props> = (props) => {
         type="file"
         accept={accept}
         style={{ display: 'none' }}
+        data-testid={fileUploadInputTestId}
       />
     </span>
   );

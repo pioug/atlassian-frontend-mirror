@@ -101,7 +101,7 @@ describe('Pagination', () => {
         assertPageButtonRendering(renderResult, { page, isSelected });
       });
 
-      expect(renderResult.getByText('...')).toBeInTheDocument();
+      expect(renderResult.getByText('\u2026')).toBeInTheDocument();
 
       ['6', '7', '8', '9'].forEach((page) => {
         expect(renderResult.queryByText(page)).not.toBeInTheDocument();
@@ -296,7 +296,7 @@ describe('Pagination', () => {
           assertPageButtonRendering(renderResult, { page, isSelected });
         });
 
-        expect(renderResult.queryByText('...')).not.toBeInTheDocument();
+        expect(renderResult.queryByText('\u2026')).not.toBeInTheDocument();
 
         renderResult.rerender(<Pagination {...props} max={8} />);
 
@@ -312,7 +312,7 @@ describe('Pagination', () => {
           assertPageButtonRendering(renderResult, { page, isSelected });
         });
 
-        expect(renderResult.getByText('...')).toBeInTheDocument();
+        expect(renderResult.getByText('\u2026')).toBeInTheDocument();
 
         ['7', '8', '9'].forEach((page) => {
           expect(renderResult.queryByText(page)).not.toBeInTheDocument();
@@ -408,19 +408,19 @@ describe('Pagination', () => {
     describe('#renderEllipsis', () => {
       it('should re-render with new ellipsis', () => {
         const { renderResult, props } = setup({
-          renderEllipsis: jest.fn().mockReturnValue('...E...'),
+          renderEllipsis: jest.fn().mockReturnValue('\u2026E\u2026'),
         });
 
-        expect(renderResult.getByText('...E...')).toBeInTheDocument();
+        expect(renderResult.getByText('\u2026E\u2026')).toBeInTheDocument();
 
         renderResult.rerender(
           <Pagination
             {...props}
-            renderEllipsis={jest.fn().mockReturnValue('...Ell...')}
+            renderEllipsis={jest.fn().mockReturnValue('\u2026Ell\u2026')}
           />,
         );
 
-        expect(renderResult.getByText('...Ell...')).toBeInTheDocument();
+        expect(renderResult.getByText('\u2026Ell\u2026')).toBeInTheDocument();
       });
     });
   });
@@ -444,7 +444,7 @@ describe('Pagination', () => {
         assertPageButtonRendering(renderResult, { page, isSelected });
       });
 
-      expect(renderResult.getAllByText('...').length).toBe(2);
+      expect(renderResult.getAllByText('\u2026').length).toBe(2);
 
       ['2', '3', '7', '8', '9'].forEach((page) => {
         expect(renderResult.queryByText(page)).not.toBeInTheDocument();
@@ -472,7 +472,7 @@ describe('Pagination', () => {
         assertPageButtonRendering(renderResult, { page, isSelected });
       });
 
-      expect(renderResult.getByText('...')).toBeInTheDocument();
+      expect(renderResult.getByText('\u2026')).toBeInTheDocument();
 
       ['6', '7', '8', '9'].forEach((page) => {
         expect(renderResult.queryByText(page)).not.toBeInTheDocument();
@@ -502,7 +502,7 @@ describe('Pagination', () => {
         assertPageButtonRendering(renderResult, { page, isSelected });
       });
 
-      expect(renderResult.getByText('...')).toBeInTheDocument();
+      expect(renderResult.getByText('\u2026')).toBeInTheDocument();
       ['2', '3', '4', '5'].forEach((page) => {
         expect(renderResult.queryByText(page)).not.toBeInTheDocument();
       });

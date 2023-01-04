@@ -122,7 +122,7 @@ describe('paste paragraph edge cases', () => {
     id: 'case03',
     target: doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(
           p('{<>}'),
         ),
@@ -131,7 +131,7 @@ describe('paste paragraph edge cases', () => {
     source: `<a href="https://gnu.org"><p>Hello</p></a>`,
     result: doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(
           p(
             link({ href: 'https://gnu.org' })('Hello'),
@@ -145,7 +145,7 @@ describe('paste paragraph edge cases', () => {
     id: 'case04',
     target: doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(
           p('{<>}'),
         ),
@@ -158,7 +158,7 @@ describe('paste paragraph edge cases', () => {
     `,
     result: doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(
           p(),
         ),
@@ -172,7 +172,7 @@ describe('paste paragraph edge cases', () => {
     id: 'case05',
     target: doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(
           p('Test {<>}'),
         ),
@@ -185,7 +185,7 @@ describe('paste paragraph edge cases', () => {
     `,
     result: doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(
           p(
             'Test ',
@@ -222,7 +222,7 @@ describe('paste paragraph edge cases', () => {
     id: 'case07',
     target: doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(
           p('{<>}Test'),
         ),
@@ -235,7 +235,7 @@ describe('paste paragraph edge cases', () => {
     `,
     result: doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(
           p(
             'Test',
@@ -268,7 +268,7 @@ describe('paste paragraph edge cases', () => {
       ul(
         li(
           p(
-            link({href: 'https://duckduckgo.com' })('All'),
+            link({ href: 'https://duckduckgo.com' })('All'),
           ),
         ),
       ),
@@ -317,7 +317,7 @@ describe('paste paragraph edge cases', () => {
       })(
         tr(
           td()(
-            h1(link({href: 'https://gnu.org/'})('world'))
+            h1(link({ href: 'https://gnu.org/' })('world'))
           )
         )
       ),
@@ -348,7 +348,7 @@ describe('paste paragraph edge cases', () => {
       })(
         tr(
           td()(
-            h1(link({href: 'https://gnu.org/'})('world'))
+            h1(link({ href: 'https://gnu.org/' })('world'))
           )
         )
       ),
@@ -379,7 +379,7 @@ describe('paste paragraph edge cases', () => {
       })(
         tr(
           td()(
-            h1(link({href: 'https://gnu.org/'})('world'))
+            h1(link({ href: 'https://gnu.org/' })('world'))
           )
         )
       ),
@@ -410,7 +410,7 @@ describe('paste paragraph edge cases', () => {
       })(
         tr(
           td()(
-            p('Hello ', link({href: 'https://gnu.org/'})('world'))
+            p('Hello ', link({ href: 'https://gnu.org/' })('world'))
           )
         )
       ),
@@ -441,7 +441,7 @@ describe('paste paragraph edge cases', () => {
       })(
         tr(
           td()(
-            p('Hello ', link({href: 'https://gnu.org/'})('world'))
+            p('Hello ', link({ href: 'https://gnu.org/' })('world'))
           )
         )
       ),
@@ -471,7 +471,7 @@ describe('paste paragraph edge cases', () => {
           p('One')
         ),
         layoutColumn({ width: 50 })(
-          h1(link({href: 'https://gnu.org/'})('world'))
+          h1(link({ href: 'https://gnu.org/' })('world'))
         ),
       ),
     ),
@@ -493,7 +493,7 @@ describe('paste paragraph edge cases', () => {
       panel()(
         p(
           'Test ',
-          link({href: 'https://gnu.org/'})('world')
+          link({ href: 'https://gnu.org/' })('world')
         ),
       ),
     ),
@@ -562,7 +562,7 @@ describe('paste paragraph edge cases', () => {
     result: doc(
       // prettier-ignore
       h3(
-        link({ href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript'})('JavaScript - MDN Web Docs'),
+        link({ href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' })('JavaScript - MDN Web Docs'),
       ),
       p(
         link({
@@ -723,8 +723,8 @@ describe('paste paragraph edge cases', () => {
         li(
           p(
             '... that ',
-            strong(link({ href: 'https://en.wikipedia.org/wiki/HMS_Cicala'})('HMS ')),
-            em(strong(link({ href: 'https://en.wikipedia.org/wiki/HMS_Cicala'})('Cicala'))),
+            strong(link({ href: 'https://en.wikipedia.org/wiki/HMS_Cicala' })('HMS ')),
+            em(strong(link({ href: 'https://en.wikipedia.org/wiki/HMS_Cicala' })('Cicala'))),
             ' was commanded at the 1941 ?'
           )
         )
@@ -810,6 +810,7 @@ describe('paste paragraph edge cases', () => {
             __fileMimeType: 'image/png',
             __fileName: 'image-20211102-012839.png',
             __fileSize: 124587,
+            __mediaTraceId: expect.any(String),
             alt: '',
             collection: 'MediaServicesSample',
             height: 501,
@@ -976,11 +977,11 @@ describe('paste paragraph edge cases', () => {
     `,
     result: doc(
       // prettier-ignore
-      taskList({localId: expect.any(String)})(
-        taskItem({localId: expect.any(String)})(
+      taskList({ localId: expect.any(String) })(
+        taskItem({ localId: expect.any(String) })(
           'action 1',
         ),
-        taskItem({localId: expect.any(String)})(
+        taskItem({ localId: expect.any(String) })(
           'action 2',
         ),
       ),
@@ -1027,6 +1028,7 @@ describe('paste paragraph edge cases', () => {
             __fileMimeType: 'image/png',
             __fileName: 'image-20211213-mochi.png',
             __fileSize: 112233,
+            __mediaTraceId: expect.any(String),
             alt: '',
             collection: 'MediaServicesSample',
             height: 418,
@@ -1077,6 +1079,7 @@ describe('paste paragraph edge cases', () => {
             __fileMimeType: 'image/png',
             __fileName: 'image-20211213-mochi.png',
             __fileSize: 112233,
+            __mediaTraceId: expect.any(String),
             alt: '',
             collection: 'MediaServicesSample',
             height: 418,

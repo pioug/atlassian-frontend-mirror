@@ -7,7 +7,11 @@ import {
   useComponentRenderTracking,
 } from '@atlaskit/editor-common/utils';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
-import { EVENT_TYPE, ACTION_SUBJECT, ACTION } from '../../../analytics/enums';
+import {
+  EVENT_TYPE,
+  ACTION_SUBJECT,
+  ACTION,
+} from '@atlaskit/editor-common/analytics';
 
 export type FireAnalyticsCallback = <T = void>(
   payload: AnalyticsEventPayload<T>,

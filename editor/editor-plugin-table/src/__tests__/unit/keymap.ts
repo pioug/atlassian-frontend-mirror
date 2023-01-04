@@ -101,7 +101,7 @@ describe('table keymap', () => {
     .add([statusPlugin, { menuDisabled: false }])
     .add([mediaPlugin, { allowMediaSingle: true }])
     .add([analyticsPlugin, { createAnalyticsEvent }])
-    .add([featureFlagsPlugin]);
+    .add([featureFlagsPlugin, {}]);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({

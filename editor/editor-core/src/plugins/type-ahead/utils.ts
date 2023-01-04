@@ -4,7 +4,13 @@ import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
 import { updateSelectedIndex } from './commands/update-selected-index';
 import { StatsModifier } from './stats-modifier';
-import type { TypeAheadHandler, TypeAheadPluginState } from './types';
+import type {
+  TypeAheadHandler,
+  TypeAheadItem,
+  TypeAheadPluginState,
+} from './types';
+import { typeAheadListMessages } from './messages';
+import { IntlShape } from 'react-intl-next';
 
 export const findTypeAheadDecorations = (
   state: EditorState,
@@ -148,3 +154,59 @@ export const moveSelectedIndex =
 
     updateSelectedIndex(nextIndex)(editorView.state, editorView.dispatch);
   };
+
+type TypeAheadAssistiveLabels = {
+  popupAriaLabel: string;
+  listItemAriaLabel?: string;
+};
+
+export const getTypeAheadListAriaLabels = (
+  trigger: string | undefined,
+  intl: IntlShape,
+  item?: TypeAheadItem,
+): TypeAheadAssistiveLabels => {
+  switch (trigger) {
+    case '@':
+      return {
+        popupAriaLabel: intl.formatMessage(
+          typeAheadListMessages.mentionPopupLabel,
+        ),
+        listItemAriaLabel: intl.formatMessage(
+          typeAheadListMessages.metionListItemLabel,
+          {
+            name: item?.mention?.name || '',
+            shortName: item?.mention?.mentionName || '',
+          },
+        ),
+      };
+    case '/':
+      return {
+        popupAriaLabel: intl.formatMessage(
+          typeAheadListMessages.quickInsertPopupLabel,
+        ),
+        listItemAriaLabel: intl.formatMessage(
+          typeAheadListMessages.emojiListItemLabel,
+          { name: item?.title || '', shortcut: item?.emoji?.shortName || '' },
+        ),
+      };
+    case ':':
+      return {
+        popupAriaLabel: intl.formatMessage(
+          typeAheadListMessages.emojiPopupLabel,
+        ),
+        listItemAriaLabel: intl.formatMessage(
+          typeAheadListMessages.emojiListItemLabel,
+          {
+            name: item?.emoji?.name || '',
+            shortcut: item?.emoji?.shortName || '',
+          },
+        ),
+      };
+    default:
+      return {
+        popupAriaLabel: intl.formatMessage(
+          typeAheadListMessages.typeAheadPopupLabel,
+        ),
+      };
+  }
+};

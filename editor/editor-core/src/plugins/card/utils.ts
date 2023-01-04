@@ -6,6 +6,7 @@ import { CardPluginState } from './types';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { mapChildren } from '../../utils/slice';
 import { isSupportedInParent } from '../..//utils/nodes';
+import { CardOptions } from '@atlaskit/editor-common/card';
 
 export const appearanceForNodeType = (
   spec: NodeType,
@@ -63,12 +64,16 @@ export const findCardInfo = (state: EditorState) => {
 export const transformUnsupportedBlockCardToInline = (
   slice: Slice,
   state: EditorState,
+  cardOptions?: CardOptions,
 ): Slice => {
   const { blockCard, inlineCard } = state.schema.nodes;
   const children = [] as Node[];
 
   mapChildren(slice.content, (node: Node, i: number, frag: Fragment) => {
-    if (node.type === blockCard && !isSupportedInParent(state, frag)) {
+    if (
+      node.type === blockCard &&
+      !isBlockCardSupported(state, frag, cardOptions?.allowBlockCards ?? false)
+    ) {
       children.push(
         inlineCard.createChecked(node.attrs, node.content, node.marks),
       );
@@ -82,4 +87,18 @@ export const transformUnsupportedBlockCardToInline = (
     slice.openStart,
     slice.openEnd,
   );
+};
+/**
+ * Function to determine if a block card is supported by the editor
+ * @param state
+ * @param frag
+ * @param allowBlockCards
+ * @returns
+ */
+const isBlockCardSupported = (
+  state: EditorState,
+  frag: Fragment<any>,
+  allowBlockCards: boolean,
+) => {
+  return allowBlockCards && isSupportedInParent(state, frag);
 };

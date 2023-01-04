@@ -25,7 +25,7 @@ export interface CollabEventInitData {
 export interface CollabEventRemoteData {
   json?: any;
   newState?: EditorState;
-  userIds?: string[];
+  userIds?: (number | string)[];
 }
 
 export interface CollabEventConnectionData {

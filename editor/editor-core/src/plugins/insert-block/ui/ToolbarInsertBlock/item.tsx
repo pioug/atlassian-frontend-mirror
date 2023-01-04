@@ -25,6 +25,7 @@ import { shortcutStyle } from '../../../../ui/styles';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { tooltip, addLink, toggleTable } from '../../../../keymaps';
 import { shallowEquals } from './shallow-equals';
+import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 
 interface ItemInit {
   content: string;
@@ -35,6 +36,7 @@ interface ItemInit {
   Icon: React.ComponentType<{ label: string }>;
   'aria-label'?: React.AriaAttributes['aria-label'];
   'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
+  'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
 }
 
 const from = (init: ItemInit): MenuItem => ({
@@ -45,8 +47,11 @@ const from = (init: ItemInit): MenuItem => ({
   elemAfter: init.shortcut ? (
     <div css={shortcutStyle}>{init.shortcut}</div>
   ) : undefined,
-  'aria-label': init.content,
+  'aria-label': init.shortcut
+    ? init.content + ' ' + init.shortcut
+    : init.content,
   'aria-haspopup': init['aria-haspopup'],
+  'aria-keyshortcuts': init['aria-keyshortcuts'],
   shortcut: init.shortcut,
   isDisabled: init.disabled,
 });
@@ -70,6 +75,7 @@ export const action = mem((init: CreateInit) => {
     name: 'action',
     shortcut: '[]',
     Icon: TaskIcon,
+    'aria-keyshortcuts': '[ ] Space',
   });
 });
 
@@ -82,6 +88,7 @@ export const link = mem((init: CreateInit) =>
     shortcut: tooltip(addLink),
     Icon: LinkIcon,
     'aria-haspopup': init['aria-haspopup'],
+    'aria-keyshortcuts': getAriaKeyshortcuts(addLink),
   }),
 );
 
@@ -114,6 +121,7 @@ export const mention = mem((init: CreateInit) =>
     Icon: MentionIcon,
     shortcut: '@',
     'aria-haspopup': init['aria-haspopup'],
+    'aria-keyshortcuts': 'Shift+2 Space',
   }),
 );
 
@@ -126,6 +134,7 @@ export const emoji = mem((init: CreateInit) =>
     Icon: EmojiIcon,
     shortcut: ':',
     'aria-haspopup': init['aria-haspopup'],
+    'aria-keyshortcuts': 'Shift+;',
   }),
 );
 
@@ -137,6 +146,7 @@ export const table = mem((init: CreateInit) =>
     name: 'table',
     Icon: TableIcon,
     shortcut: tooltip(toggleTable),
+    'aria-keyshortcuts': getAriaKeyshortcuts(toggleTable),
   }),
 );
 
@@ -158,6 +168,7 @@ export const codeblock = mem((init: CreateInit & { shortcut?: string }) =>
     name: 'codeblock',
     Icon: CodeIcon,
     shortcut: init.shortcut,
+    'aria-keyshortcuts': getAriaKeyshortcuts(init.shortcut),
   }),
 );
 
@@ -169,6 +180,7 @@ export const panel = mem((init: CreateInit & { shortcut?: string }) =>
     name: 'panel',
     Icon: InfoIcon,
     shortcut: init.shortcut,
+    'aria-keyshortcuts': getAriaKeyshortcuts(init.shortcut),
   }),
 );
 
@@ -180,6 +192,7 @@ export const blockquote = mem((init: CreateInit & { shortcut?: string }) =>
     name: 'blockquote',
     Icon: QuoteIcon,
     shortcut: init.shortcut,
+    'aria-keyshortcuts': 'Shift+. Space',
   }),
 );
 
@@ -191,6 +204,7 @@ export const decision = mem((init: CreateInit) =>
     name: 'decision',
     Icon: DecisionIcon,
     shortcut: '<>',
+    'aria-keyshortcuts': 'Shift+, Shift+. Space',
   }),
 );
 
@@ -202,6 +216,7 @@ export const horizontalrule = mem((init: CreateInit) =>
     name: 'horizontalrule',
     Icon: HorizontalRuleIcon,
     shortcut: '---',
+    'aria-keyshortcuts': '- - -',
   }),
 );
 
@@ -223,6 +238,7 @@ export const date = mem((init: CreateInit) =>
     name: 'date',
     Icon: DateIcon,
     shortcut: '//',
+    'aria-keyshortcuts': '/ / Enter',
   }),
 );
 

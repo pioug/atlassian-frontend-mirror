@@ -6,7 +6,10 @@ import {
 } from '@atlaskit/editor-common/provider-factory';
 import { setMacroProvider } from './actions';
 import { Dispatch } from '../../event-dispatcher';
-import { EditorPlugin, PMPluginFactoryParams } from '../../types';
+import {
+  NextEditorPlugin,
+  PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
 import { pluginKey } from './plugin-key';
 import { MacroState } from './types';
 
@@ -61,7 +64,7 @@ export const createPlugin = (
     },
   });
 
-const macroPlugin = (): EditorPlugin => ({
+const macroPlugin: NextEditorPlugin<'macro'> = () => ({
   name: 'macro',
 
   pmPlugins() {

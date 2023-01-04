@@ -6,6 +6,7 @@ import {
   SuccessAttributes,
   FailureAttributes,
   OperationalEventPayload,
+  MediaTraceContext,
 } from '@atlaskit/media-common';
 
 import { LocalUploadConfig } from './components/types';
@@ -38,6 +39,7 @@ export type Preview = NonImagePreview | ImagePreview;
 
 export type UploadsStartEventPayload = {
   readonly files: MediaFile[];
+  readonly traceContext?: MediaTraceContext;
 };
 
 export type UploadPreviewUpdateEventPayload = {
@@ -49,11 +51,13 @@ export type UploadPreviewUpdateEventPayload = {
 
 export type UploadEndEventPayload = {
   readonly file: MediaFile;
+  readonly traceContext?: MediaTraceContext;
 };
 
 export type UploadErrorEventPayload = {
   readonly fileId: string;
   readonly error: MediaError;
+  readonly traceContext?: MediaTraceContext;
 };
 
 // Events public API

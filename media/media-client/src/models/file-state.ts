@@ -1,4 +1,7 @@
-import { FileStatus as CommonFileStatus } from '@atlaskit/media-common';
+import {
+  FileStatus as CommonFileStatus,
+  MediaTraceContext,
+} from '@atlaskit/media-common';
 import { MediaStoreResponse } from '../client/media-store';
 import { MediaFileArtifacts } from './artifacts';
 import {
@@ -7,6 +10,10 @@ import {
   MediaRepresentations,
   MediaType,
 } from './media';
+
+export type BaseFileState = {
+  metadataTraceContext?: MediaTraceContext;
+};
 
 export type FileStatus = CommonFileStatus;
 
@@ -24,7 +31,7 @@ export interface GetFileOptions {
   collectionName?: string;
   occurrenceKey?: string;
 }
-export interface UploadingFileState {
+export interface UploadingFileState extends BaseFileState {
   status: 'uploading';
   id: string;
   occurrenceKey?: string;
@@ -41,7 +48,7 @@ export interface PreviewableFileState {
   preview: FilePreview | Promise<FilePreview>;
 }
 
-export interface ProcessingFileState {
+export interface ProcessingFileState extends BaseFileState {
   status: 'processing';
   id: string;
   occurrenceKey?: string;
@@ -55,7 +62,7 @@ export interface ProcessingFileState {
   createdAt?: number;
 }
 
-export interface ProcessedFileState {
+export interface ProcessedFileState extends BaseFileState {
   status: 'processed';
   id: string;
   occurrenceKey?: string;
@@ -68,7 +75,7 @@ export interface ProcessedFileState {
   representations?: MediaRepresentations;
   createdAt?: number;
 }
-export interface ProcessingFailedState {
+export interface ProcessingFailedState extends BaseFileState {
   status: 'failed-processing';
   id: string;
   occurrenceKey?: string;
@@ -81,7 +88,7 @@ export interface ProcessingFailedState {
   representations?: MediaRepresentations;
   createdAt?: number;
 }
-export interface ErrorFileState {
+export interface ErrorFileState extends BaseFileState {
   status: 'error';
   id: string;
   occurrenceKey?: string;
@@ -146,6 +153,7 @@ export const mapMediaFileToFileState = (
     mimeType,
     representations,
     createdAt,
+    metadataTraceContext,
   } = mediaFile.data;
   const baseState = {
     id,
@@ -156,6 +164,7 @@ export const mapMediaFileToFileState = (
     artifacts,
     representations,
     createdAt,
+    metadataTraceContext,
   };
 
   switch (processingStatus) {

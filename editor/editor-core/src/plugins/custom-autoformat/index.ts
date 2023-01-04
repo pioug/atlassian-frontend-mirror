@@ -3,7 +3,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { keydownHandler } from 'prosemirror-keymap';
 
-import { EditorPlugin, PMPluginFactoryParams } from '../../types';
+import { NextEditorPlugin, PMPluginFactoryParams } from '../../types';
 import { CustomAutoformatState, CustomAutoformatAction } from './types';
 
 import reducers from './reducers';
@@ -114,7 +114,7 @@ export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
   });
 };
 
-const customAutoformatPlugin = (): EditorPlugin => ({
+const customAutoformatPlugin: NextEditorPlugin<'customAutoformat'> = () => ({
   name: 'customAutoformat',
 
   pmPlugins() {

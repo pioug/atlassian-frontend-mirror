@@ -218,6 +218,49 @@ export function findShortcutByKeymap(keymap: Keymap): string | undefined {
   return keymap.windows;
 }
 
+export function getAriaKeyshortcuts(
+  keymap: Keymap | string | undefined,
+): string | undefined {
+  let keyShortcuts;
+  if (typeof keymap === 'string') {
+    keyShortcuts = keymap;
+  } else if (typeof keymap === 'object') {
+    keyShortcuts = keymap[browser.mac ? 'mac' : 'windows'];
+  }
+  if (keyShortcuts) {
+    return keyShortcuts
+      .toLowerCase()
+      .split('-')
+      .map((modifier) => {
+        switch (modifier) {
+          case 'cmd':
+            return 'Meta';
+          case 'ctrl':
+            return 'Control';
+          case 'alt':
+            return 'Alt';
+          case 'shift':
+            return 'Shift';
+          case 'enter':
+            return 'Enter';
+          case 'esc':
+            return 'Esc';
+          case 'tab':
+            return 'Tab';
+          case 'space':
+            return 'Space';
+          case 'backspace':
+            return 'Backspace';
+          default:
+            return modifier.split('').join(' ');
+        }
+      })
+      .join('+');
+  } else {
+    return undefined;
+  }
+}
+
 const ALL = [
   toggleOrderedList,
   toggleBulletList,

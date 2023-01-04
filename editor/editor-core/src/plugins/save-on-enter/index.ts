@@ -13,7 +13,10 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../plugins/analytics';
-import { CommandDispatch, EditorPlugin } from '../../types';
+import {
+  CommandDispatch,
+  NextEditorPlugin,
+} from '@atlaskit/editor-common/types';
 import { analyticsEventKey } from '../analytics/consts';
 
 export function createPlugin(
@@ -72,9 +75,12 @@ const analyticsPayload = (
   },
 });
 
-const saveOnEnterPlugin = (
-  onSave?: (editorView: EditorView) => void,
-): EditorPlugin => ({
+type Config = (editorView: EditorView) => void;
+const saveOnEnterPlugin: NextEditorPlugin<
+  'saveOnEnter',
+  never,
+  Config | undefined
+> = (onSave?) => ({
   name: 'saveOnEnter',
 
   pmPlugins() {

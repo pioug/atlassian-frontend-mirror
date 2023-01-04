@@ -4,7 +4,11 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from './enums';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { PLATFORM, AnalyticsEventPayload } from './events';
 
 type DispatchAnalyticsEvent = (event: AnalyticsEventPayload) => void;

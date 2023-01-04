@@ -26,11 +26,16 @@ export default function inputRulePlugin(
     );
   }
 
+  const expression = featureFlags?.restartNumberedLists
+    ? /((^[1-9]{1}[0-9]{0,2})|^(0))[\.\)] $/
+    : /^(1)[\.\)] $/;
+
   if (orderedList) {
     rules.push(
       createRuleForListType({
-        expression: /^(1)[\.\)] $/,
+        expression,
         listType: orderedList,
+        featureFlags,
       }),
     );
   }

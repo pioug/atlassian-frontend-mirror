@@ -11,7 +11,7 @@ const LabelElement = styled.label`
   font-size: ${headingSizes.h200.size / fontSize()}em;
   font-style: inherit;
   line-height: ${headingSizes.h200.lineHeight / headingSizes.h200.size};
-  color: ${token('color.text.subtlest', N200)};
+  color: ${token('color.text.subtle', N200)};
   font-weight: 600;
   display: inline-block;
   margin-bottom: 4px;

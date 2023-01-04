@@ -16,6 +16,7 @@ import {
   smallImageFileId,
   asMock,
 } from '@atlaskit/media-test-helpers';
+import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
 import { FileState } from '@atlaskit/media-client';
 import { messages as i18nMessages } from '@atlaskit/media-ui';
 import { createLoadFailedEvent } from '../../../analytics/events/operational/loadFailed';
@@ -71,6 +72,10 @@ describe('Error Message', () => {
       size: 1,
     };
 
+    const traceContext: MediaTraceContext = {
+      traceId: getRandomHex(8),
+    };
+
     beforeEach(() => {
       asMock(createPreviewUnsupportedEvent).mockReset();
       asMock(createLoadFailedEvent).mockReset();
@@ -106,6 +111,7 @@ describe('Error Message', () => {
             fileId={smallImageFileId.id}
             error={error}
             fileState={fileState}
+            traceContext={traceContext}
           >
             <Button />
           </ErrorMessage>
@@ -115,6 +121,7 @@ describe('Error Message', () => {
         smallImageFileId.id,
         error,
         fileState,
+        traceContext,
       );
       expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
     });
@@ -155,22 +162,25 @@ describe('Error Message', () => {
         new MediaViewerError('imageviewer-external-onerror'),
         'some-id',
         fileState,
+        traceContext,
       );
       expect(createLoadFailedEvent).toHaveBeenCalledWith(
         'some-id',
         new Error('imageviewer-external-onerror'),
         fileState,
+        traceContext,
       );
       expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
     });
 
     it('should give load fail for other MediaViewerErrors', () => {
       const error = new MediaViewerError('imageviewer-fetch-url');
-      ErrorMessage.getEventPayload(error, 'some-id', fileState);
+      ErrorMessage.getEventPayload(error, 'some-id', fileState, traceContext);
       expect(createLoadFailedEvent).toHaveBeenCalledWith(
         'some-id',
         error,
         fileState,
+        traceContext,
       );
       expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
     });

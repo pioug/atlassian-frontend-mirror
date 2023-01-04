@@ -30,7 +30,7 @@ export const panelAttrsToDom = (
 
   const style = [
     `${panelColor && isCustomPanel ? `background-color: ${panelColor};` : ''}`,
-    `${hasIcon ? '' : 'padding: 12px;'}`,
+    `${hasIcon ? '' : 'padding-left: 12px;'}`,
   ].join('');
 
   let panelAttrs: DomPanelAtrrs = {

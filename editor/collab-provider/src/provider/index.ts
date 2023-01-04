@@ -1,41 +1,60 @@
 import { getVersion, sendableSteps } from 'prosemirror-collab';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { Step } from 'prosemirror-transform';
+import type { EditorState, Transaction } from 'prosemirror-state';
+import type { Step as ProseMirrorStep } from 'prosemirror-transform';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import throttle from 'lodash/throttle';
-import isequal from 'lodash/isEqual';
+import isEqual from 'lodash/isEqual';
+import countBy from 'lodash/countBy';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import {
+  ExperiencePerformanceTypes,
+  ExperienceTypes,
+  UFOExperience,
+} from '@atlaskit/ufo';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
-import {
+import type {
+  AcknowledgementErrorPayload,
+  AcknowledgementPayload,
+  AddStepAcknowledgementPayload,
+} from '../types';
+import type {
   CollabEditProvider,
   CollabParticipant,
   ResolvedEditorState,
 } from '@atlaskit/editor-common/collab';
 import type {
+  CollabEvents,
+  CollabInitPayload,
   Config,
   ErrorPayload,
   Metadata,
+  NamespaceStatus,
   PresencePayload,
   StepJson,
   StepsPayload,
   TelepointerPayload,
-  CollabEvents,
-  CollabInitPayload,
-  NamespaceStatus,
 } from '../types';
 
 import { createLogger, getParticipant, sleep } from '../helpers/utils';
-import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
-import { triggerCollabAnalyticsEvent } from '../analytics';
+import {
+  ACK_MAX_TRY,
+  EVENT_ACTION,
+  EVENT_STATUS,
+  ADD_STEPS_TYPE,
+  AnalyticsEvent,
+} from '../helpers/const';
+import { triggerAnalyticsEvent } from '../analytics';
 import { catchup } from './catchup';
 import { errorCodeMapper } from '../error-code-mapper';
+import { AcknowledgementResponseTypes } from '../types';
+
 import {
   DisconnectReason,
   socketIOReasons,
 } from '../disconnected-reason-mapper';
 
-import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
+import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 
 import {
   MEASURE_NAME,
@@ -59,24 +78,101 @@ const commitStep = ({
   version,
   userId,
   clientId,
+  documentAri,
+  analyticsClient,
+  onStepsAdded,
+  onErrorHandled,
 }: {
   channel: Channel;
-  steps: Step[];
+  steps: ProseMirrorStep[];
   version: number;
   userId: string;
-  clientId: string;
+  clientId: number | string;
+  documentAri: string;
+  onStepsAdded: (data: StepsPayload, disableAnalytics: boolean) => void;
+  onErrorHandled: (error: ErrorPayload, disableAnalytics: boolean) => void;
+  analyticsClient?: AnalyticsWebClient;
 }) => {
   const stepsWithClientAndUserId = steps.map((step) => ({
     ...step.toJSON(),
     clientId,
     userId,
-  }));
+  })) as StepJson[];
 
-  channel.broadcast('steps:commit', {
-    steps: stepsWithClientAndUserId,
-    version,
-    userId,
-  });
+  const start = new Date().getTime();
+  channel.broadcast(
+    'steps:commit',
+    {
+      steps: stepsWithClientAndUserId,
+      version,
+      userId,
+    },
+    (response: AddStepAcknowledgementPayload) => {
+      const latency = new Date().getTime() - start;
+
+      if (response.type === AcknowledgementResponseTypes.SUCCESS) {
+        onStepsAdded(
+          {
+            steps: stepsWithClientAndUserId,
+            version: response.version,
+          },
+          true,
+        );
+        let analyticStepEvent: AnalyticsEvent = {
+          eventAction: EVENT_ACTION.ADD_STEPS,
+          attributes: {
+            eventStatus: EVENT_STATUS.SUCCESS,
+            type: ADD_STEPS_TYPE.ACCEPTED,
+            documentAri,
+            latency,
+          },
+        };
+        analyticStepEvent.attributes.stepType = countBy(
+          stepsWithClientAndUserId,
+          (stepWithClientAndUserId) => stepWithClientAndUserId.stepType!,
+        );
+        triggerAnalyticsEvent(analyticStepEvent, analyticsClient);
+      } else if (response.type === AcknowledgementResponseTypes.ERROR) {
+        onErrorHandled(response.error, true);
+        triggerAnalyticsEvent(
+          {
+            eventAction: EVENT_ACTION.ADD_STEPS,
+            attributes: {
+              eventStatus: EVENT_STATUS.FAILURE,
+              // User tried committing steps but they were rejected because:
+              // - HEAD_VERSION_UPDATE_FAILED: the collab service's latest stored step tail version didn't correspond to the head version of the first step submitted
+              // - VERSION_NUMBER_ALREADY_EXISTS: while storing the steps there was a conflict meaning someone else wrote steps into the database more quickly
+              type:
+                response.error?.data?.code === 'HEAD_VERSION_UPDATE_FAILED' ||
+                response.error?.data?.code === 'VERSION_NUMBER_ALREADY_EXISTS'
+                  ? ADD_STEPS_TYPE.REJECTED
+                  : ADD_STEPS_TYPE.ERROR,
+              documentAri,
+              latency,
+              error: response.error,
+            },
+          },
+          analyticsClient,
+        );
+      } else {
+        triggerAnalyticsEvent(
+          {
+            eventAction: EVENT_ACTION.ADD_STEPS,
+            attributes: {
+              eventStatus: EVENT_STATUS.FAILURE,
+              type: ADD_STEPS_TYPE.ERROR,
+              documentAri,
+              latency,
+              error: {
+                message: 'Invalid Acknowledgement',
+              },
+            },
+          },
+          analyticsClient,
+        );
+      }
+    },
+  );
 };
 
 const throttledCommitStep = throttle(commitStep, SEND_STEPS_THROTTLE, {
@@ -92,7 +188,7 @@ type BaseEvents = Pick<
 export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private participants: Map<
     string,
-    CollabParticipant & { userId: string; clientId: string }
+    CollabParticipant & { userId: string; clientId: number | string }
   > = new Map();
   private channel: Channel;
   private config: Config;
@@ -112,7 +208,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private sessionId?: string;
 
   // ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
-  private clientId?: string;
+  private clientId?: number | string;
 
   // UserID is the users actual account id.
   private userId?: string;
@@ -245,8 +341,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       return;
     }
 
-    startMeasure(MEASURE_NAME.ADD_STEPS);
-
     // Avoid reference issues using a
     // method outside of the provider
     // scope
@@ -256,21 +350,25 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       clientId: this.clientId!,
       steps,
       version,
+      documentAri: this.config.documentAri,
+      analyticsClient: this.analyticsClient,
+      onStepsAdded: this.onStepsAdded.bind(this),
+      onErrorHandled: this.onErrorHandled.bind(this),
     });
   }
 
   // Triggered when page recovery has emitted an 'init' event on a page client is currently connected to.
   private onRestore = ({ doc, version, metadata }: CollabInitPayload) => {
-    // Preseve the unconfirmed steps to prevent data loss.
+    // Preserve the unconfirmed steps to prevent data loss.
     const { steps: unconfirmedSteps } = this.getUnconfirmedSteps() || {
       steps: [],
     };
 
     // Reset the editor,
-    //  - Repalce the document, keep in sync with the server
-    //  - Repalce the version number, so editor is in sync with NCS server and can commit new changes.
-    //  - Repalce the metadata
-    //  - Reserve the cursore position, in case a cursor jump.
+    //  - Replace the document, keep in sync with the server
+    //  - Replace the version number, so editor is in sync with NCS server and can commit new changes.
+    //  - Replace the metadata
+    //  - Reserve the cursor position, in case a cursor jump.
     this.updateDocumentWithMetadata({
       doc,
       version,
@@ -278,7 +376,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       reserveCursor: true,
     });
 
-    triggerCollabAnalyticsEvent(
+    triggerAnalyticsEvent(
       {
         eventAction: EVENT_ACTION.REINITIALISE_DOCUMENT,
         attributes: {
@@ -291,14 +389,17 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
     // Re-apply the unconfirmed steps, not 100% of them can be applied, if document is changed significantly.
     if (unconfirmedSteps.length > 0) {
-      this.applyLocalsteps(unconfirmedSteps);
+      this.applyLocalSteps(unconfirmedSteps);
     }
   };
 
   /**
    * Called when we receive steps from the service
    */
-  private onStepsAdded = (data: StepsPayload) => {
+  private onStepsAdded = (
+    data: StepsPayload,
+    disableAnalytics: boolean = false,
+  ) => {
     logger(`Received steps`, { steps: data.steps, version: data.version });
 
     if (!data.steps) {
@@ -312,7 +413,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     if (data.version === currentVersion) {
       logger(`Received steps we already have. Ignoring.`);
     } else if (data.version === expectedVersion) {
-      this.processSteps(data);
+      this.processSteps(data, disableAnalytics);
     } else if (data.version > expectedVersion) {
       logger(
         `Version too high. Expected "${expectedVersion}" but got "${data.version}. Current local version is ${currentVersion}.`,
@@ -331,7 +432,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     trailing: true,
   });
 
-  private fitlerQueue = (
+  private filterQueue = (
     condition: (stepsPayload: StepsPayload) => boolean,
   ) => {
     this.queue = this.queue.filter(condition);
@@ -355,7 +456,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
   };
 
-  private applyLocalsteps = (steps: Step[]) => {
+  private applyLocalSteps = (steps: ProseMirrorStep[]) => {
     // Re-aply local steps
     this.emit('local-steps', { steps });
   };
@@ -374,7 +475,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    *   * try to accept steps but version is behind.
    */
   private catchup = async () => {
-    startMeasure(MEASURE_NAME.CALLING_CATCHUP_API);
+    const start = new Date().getTime();
     // if the queue is already paused, we are busy with something else, so don't proceed.
     if (this.pauseQueue) {
       logger(`Queue is paused. Aborting.`);
@@ -386,31 +487,31 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         getCurrentPmVersion: this.getCurrentPmVersion,
         fetchCatchup: this.channel.fetchCatchup.bind(this.channel),
         getUnconfirmedSteps: this.getUnconfirmedSteps,
-        fitlerQueue: this.fitlerQueue,
+        filterQueue: this.filterQueue,
         updateDocumentWithMetadata: this.updateDocumentWithMetadata,
-        applyLocalsteps: this.applyLocalsteps,
+        applyLocalSteps: this.applyLocalSteps,
       });
-      const measure = stopMeasure(MEASURE_NAME.CALLING_CATCHUP_API);
-      triggerCollabAnalyticsEvent(
+      const latency = new Date().getTime() - start;
+      triggerAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.CATCHUP,
           attributes: {
             eventStatus: EVENT_STATUS.SUCCESS,
-            latency: measure?.duration,
+            latency,
             documentAri: this.config.documentAri,
           },
         },
         this.analyticsClient,
       );
     } catch (error) {
-      const measure = stopMeasure(MEASURE_NAME.CALLING_CATCHUP_API);
-      triggerCollabAnalyticsEvent(
+      const latency = new Date().getTime() - start;
+      triggerAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.CATCHUP,
           attributes: {
             eventStatus: EVENT_STATUS.FAILURE,
             error: error as ErrorPayload,
-            latency: measure?.duration,
+            latency,
             documentAri: this.config.documentAri,
           },
         },
@@ -425,41 +526,55 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
   };
 
-  private onErrorHandled = (error: ErrorPayload) => {
-    if (error && error.data) {
+  /**
+   * @param error - The error to handle
+   * @param disableAnalytics - If analytics is already dispatched for this error, re-sending it here can be disabled
+   */
+  private onErrorHandled = (
+    error: ErrorPayload,
+    disableAnalytics: boolean = false,
+  ) => {
+    if (error?.data) {
+      // User tried committing steps but they were rejected because:
+      // HEAD_VERSION_UPDATE_FAILED: the collab service's latest stored step tail version didn't correspond to the head version of the first step submitted
+      // VERSION_NUMBER_ALREADY_EXISTS: while storing the steps there was a conflict meaning someone else wrote steps into the database more quickly
       if (
         error.data.code === 'HEAD_VERSION_UPDATE_FAILED' ||
         error.data.code === 'VERSION_NUMBER_ALREADY_EXISTS'
       ) {
-        const measure = stopMeasure(MEASURE_NAME.ADD_STEPS);
-        triggerCollabAnalyticsEvent(
-          {
-            eventAction: EVENT_ACTION.ADD_STEPS,
-            attributes: {
-              eventStatus: EVENT_STATUS.FAILURE,
-              error,
-              documentAri: this.config.documentAri,
-              latency: measure?.duration,
+        // TODO: Remove this analytics logic once we have validated the ack messages and aren't likely to go back to a generic error handler
+        if (!disableAnalytics) {
+          triggerAnalyticsEvent(
+            {
+              eventAction: EVENT_ACTION.ADD_STEPS,
+              attributes: {
+                eventStatus: EVENT_STATUS.FAILURE,
+                type: ADD_STEPS_TYPE.REJECTED,
+                error,
+                documentAri: this.config.documentAri,
+              },
             },
-          },
-          this.analyticsClient,
-        );
+            this.analyticsClient,
+          );
+        }
         this.stepRejectCounter++;
+        logger(`Steps rejected (tries=${this.stepRejectCounter})`);
+
+        if (this.stepRejectCounter >= MAX_STEP_REJECTED_ERROR) {
+          logger(
+            `The steps were rejected too many times (tries=${this.stepRejectCounter}, limit=${MAX_STEP_REJECTED_ERROR}). Trying to catch-up.`,
+          );
+          this.throttledCatchup();
+        }
       }
-      logger(`The stepRejectCounter("${this.stepRejectCounter}")`);
-      if (this.stepRejectCounter >= MAX_STEP_REJECTED_ERROR) {
-        logger(
-          `The stepRejected("${this.stepRejectCounter}") exceed maximun("${MAX_STEP_REJECTED_ERROR}"), trigger catch`,
-        );
-        this.throttledCatchup();
-      }
+
       const errorToEmit = errorCodeMapper(error);
       if (errorToEmit) {
         this.emit('error', errorToEmit);
       }
     }
 
-    logger(`Error from collab service`, error);
+    logger('Error from collab service', error);
   };
 
   private pauseQueue?: boolean;
@@ -496,27 +611,31 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
   }
 
-  private processSteps(data: StepsPayload) {
+  private processSteps(data: StepsPayload, disableAnalytics: boolean = false) {
     const { version, steps } = data;
     logger(`Processing data. Version "${version}".`);
 
-    if (steps && steps.length) {
+    if (steps?.length) {
       const clientIds = steps.map(({ clientId }) => clientId);
       this.emit('data', { json: steps, version, userIds: clientIds });
       // If steps can apply to local editor successfully, no need to accumulate the error counter.
       this.stepRejectCounter = 0;
-      const measure = stopMeasure(MEASURE_NAME.ADD_STEPS);
-      triggerCollabAnalyticsEvent(
-        {
+      // TODO: Remove this analytics logic after we've validated the ack call-backs
+      if (!disableAnalytics && clientIds.indexOf(this.clientId!) >= 0) {
+        let analyticStepEvent: AnalyticsEvent = {
           eventAction: EVENT_ACTION.ADD_STEPS,
           attributes: {
             eventStatus: EVENT_STATUS.SUCCESS,
+            type: ADD_STEPS_TYPE.ACCEPTED,
             documentAri: this.config.documentAri,
-            latency: measure?.duration,
           },
-        },
-        this.analyticsClient,
-      );
+        };
+        analyticStepEvent.attributes.stepType = countBy(
+          steps,
+          (step) => step.stepType,
+        );
+        triggerAnalyticsEvent(analyticStepEvent, this.analyticsClient);
+      }
       this.emitTelepointersFromSteps(steps);
 
       // Resend local steps if none of the received steps originated with us!
@@ -538,13 +657,54 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     const { userId, sessionId, clientId } = this;
     switch (type) {
       case 'telepointer':
-        const { selection } = rest;
-        this.channel.broadcast('participant:telepointer', {
-          selection,
-          userId: userId!,
-          sessionId: sessionId!,
-          clientId: clientId!,
+        const telepointerExperience = new UFOExperience(
+          'collab-provider.telepointer',
+          {
+            type: ExperienceTypes.Operation,
+            performanceType: ExperiencePerformanceTypes.Custom,
+            performanceConfig: {
+              histogram: {
+                [ExperiencePerformanceTypes.Custom]: {
+                  duration: '250_500_1000_1500_2000_3000_4000',
+                },
+              },
+            },
+          },
+        );
+        telepointerExperience.addMetadata({
+          documentAri: this.config.documentAri,
         });
+        telepointerExperience.start();
+
+        const { selection } = rest;
+        this.channel.broadcast(
+          'participant:telepointer',
+          {
+            selection,
+            userId: userId!,
+            sessionId: sessionId!,
+            clientId: clientId!,
+          },
+          (response: AcknowledgementPayload) => {
+            if (response.type === AcknowledgementResponseTypes.SUCCESS) {
+              telepointerExperience.success();
+            } else if (response.type === AcknowledgementResponseTypes.ERROR) {
+              const errorMessage = (response as AcknowledgementErrorPayload)
+                .error;
+              telepointerExperience.addMetadata({
+                error: errorMessage,
+              });
+              logger(
+                'Error from collab service with telepointer broadcast',
+                errorMessage,
+              );
+              telepointerExperience.failure();
+            } else {
+              // Abort if invalid ACK sent
+              telepointerExperience.abort();
+            }
+          },
+        );
         break;
     }
   }
@@ -592,7 +752,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    *
    */
   private onMetadataChanged = (metadata: Metadata) => {
-    if (metadata !== undefined && !isequal(this.metadata, metadata)) {
+    if (metadata !== undefined && !isEqual(this.metadata, metadata)) {
       this.metadata = metadata;
       this.emit('metadata:changed', metadata);
     }
@@ -695,7 +855,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   private updateParticipants = (
     joined: CollabParticipant[] = [],
-    userIds: string[] = [],
+    userIds: (number | string)[] = [],
   ) => {
     if (this.participantUpdateTimeout) {
       clearTimeout(this.participantUpdateTimeout);
@@ -721,7 +881,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     left.forEach((p) => this.participants.delete(p.sessionId));
 
     if (joined.length || left.length) {
-      triggerCollabAnalyticsEvent(
+      triggerAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.UPDATE_PARTICIPANTS,
           attributes: {
@@ -872,7 +1032,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
             });
           }
           const measure = stopMeasure(MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS);
-          triggerCollabAnalyticsEvent(
+          triggerAnalyticsEvent(
             {
               eventAction: EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS,
               attributes: {
@@ -890,7 +1050,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       }
 
       const measure = stopMeasure(MEASURE_NAME.COMMIT_UNCONFIRMED_STEPS);
-      triggerCollabAnalyticsEvent(
+      triggerAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.COMMIT_UNCONFIRMED_STEPS,
           attributes: {
@@ -912,7 +1072,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       startMeasure(MEASURE_NAME.CONVERT_PM_TO_ADF);
       adfDocument = new JSONTransformer().encode(state.doc);
       const measure = stopMeasure(MEASURE_NAME.CONVERT_PM_TO_ADF);
-      triggerCollabAnalyticsEvent(
+      triggerAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.CONVERT_PM_TO_ADF,
           attributes: {
@@ -925,7 +1085,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       );
     } catch (error) {
       const measure = stopMeasure(MEASURE_NAME.CONVERT_PM_TO_ADF);
-      triggerCollabAnalyticsEvent(
+      triggerAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.CONVERT_PM_TO_ADF,
           attributes: {

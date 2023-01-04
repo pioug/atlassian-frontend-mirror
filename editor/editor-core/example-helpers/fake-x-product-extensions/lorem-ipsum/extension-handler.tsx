@@ -1,5 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { ExtensionComponentProps } from '@atlaskit/editor-common/extensions';
 import { ReactRenderer } from '@atlaskit/renderer';
 
@@ -40,11 +41,13 @@ export default function ({ node }: ExtensionComponentProps<LoremParams>) {
           <ReactRenderer
             allowHeadingAnchorLinks
             adfStage="stage0"
-            document={{
-              type: 'doc',
-              version: '1',
-              content: node.content,
-            }}
+            document={
+              {
+                type: 'doc',
+                version: 1,
+                content: node.content,
+              } as DocNode
+            }
             appearance="full-page"
           />
           <p>{parameters && parameters.sentence}</p>

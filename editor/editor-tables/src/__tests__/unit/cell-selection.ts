@@ -204,3 +204,116 @@ describe('normalizeSelection', () => {
     expect(a.eq(b)).toEqual(true);
   });
 });
+
+describe('isRowSelection', () => {
+  describe('when there is a merged cell in the first column', () => {
+    const tbl = createTableWithDoc(
+      tr(/* 2*/ cEmpty, /* 6*/ cEmpty, /*10*/ cEmpty),
+      tr(/*16*/ c(1, 2), /*20*/ cEmpty, /*24*/ cEmpty),
+      tr(
+        /* empty */ /* selection starts here */ cAnchor,
+        /* selection ends here */ cHead,
+      ),
+      tr(cEmpty, cEmpty, cEmpty),
+    );
+
+    it('should return TRUE if select rest of cells in a row', () => {
+      const selection = selectionFor(tbl);
+
+      expect(selection).toBeInstanceOf(CellSelection);
+      expect((selection as CellSelection).isRowSelection()).toBe(true);
+    });
+  });
+
+  describe('when there is a merged cell in the last column', () => {
+    const tbl = createTableWithDoc(
+      tr(/* 2*/ cEmpty, /* 6*/ cEmpty, /*10*/ cEmpty),
+      tr(/*16*/ cEmpty, /*20*/ cEmpty, /*24*/ c(1, 2)),
+      tr(/* selection starts here */ cAnchor, /* selection ends here */ cHead),
+      tr(cEmpty, cEmpty, cEmpty),
+    );
+
+    it('should return TRUE if select rest of cells in a row', () => {
+      const selection = selectionFor(tbl);
+
+      expect(selection).toBeInstanceOf(CellSelection);
+      expect((selection as CellSelection).isRowSelection()).toBe(true);
+    });
+  });
+
+  describe('when there is a merged cell in the middle column', () => {
+    const tbl = createTableWithDoc(
+      tr(/* 2*/ cEmpty, /* 6*/ cEmpty, /*10*/ cEmpty),
+      tr(/*16*/ cEmpty, /*20*/ c(1, 2), /*24*/ cEmpty),
+      tr(/* selection starts here */ cAnchor, /* selection ends here */ cHead),
+      tr(cEmpty, cEmpty, cEmpty),
+    );
+
+    it('should return TRUE if select rest of cells in a row', () => {
+      const selection = selectionFor(tbl);
+
+      expect(selection).toBeInstanceOf(CellSelection);
+      expect((selection as CellSelection).isRowSelection()).toBe(true);
+    });
+  });
+
+  describe('when there no merged cell in the table', () => {
+    const tbl = createTableWithDoc(
+      tr(/* 2*/ cEmpty, /* 6*/ cEmpty, /*10*/ cEmpty),
+      tr(/*16*/ cEmpty, /*20*/ cEmpty, /*24*/ cEmpty),
+      tr(/*30*/ cEmpty, /*34*/ cEmpty, /*36*/ cEmpty),
+    );
+
+    it('should be FALSE if select part of row', () => {
+      const selection = CellSelection.create(tbl, 2, 6);
+      expect(selection).toBeInstanceOf(CellSelection);
+      expect((selection as CellSelection).isRowSelection()).toBe(false);
+    });
+
+    it('should be FALSE if select part of row', () => {
+      const selection = CellSelection.create(tbl, 20, 34);
+      expect(selection).toBeInstanceOf(CellSelection);
+      expect((selection as CellSelection).isRowSelection()).toBe(false);
+    });
+
+    it('should be TRUE if select a row', () => {
+      const selection = CellSelection.create(tbl, 2, 10);
+      expect(selection).toBeInstanceOf(CellSelection);
+      expect((selection as CellSelection).isRowSelection()).toBe(true);
+    });
+
+    it('should be TRUE if select two rows', () => {
+      const selection = CellSelection.create(tbl, 2, 24);
+      expect(selection).toBeInstanceOf(CellSelection);
+      expect((selection as CellSelection).isRowSelection()).toBe(true);
+    });
+  });
+
+  describe('when there is a merged cell been selected', () => {
+    it('should return FALSE if select merged cell in middle', () => {
+      const tbl = createTableWithDoc(
+        tr(/* 2*/ cEmpty, /* 6*/ cEmpty, /*10*/ cEmpty),
+        tr(/*16*/ cEmpty, /*20*/ c(1, 2), /*24*/ cEmpty),
+        tr(/*30*/ cEmpty, /*20 merged*/ /*34*/ cEmpty),
+      );
+
+      const selection = CellSelection.create(tbl, 20, 31);
+
+      expect(selection).toBeInstanceOf(CellSelection);
+      expect((selection as CellSelection).isRowSelection()).toBe(false);
+    });
+
+    it('should return TRUE if select merged cell in last column and first column', () => {
+      const tbl = createTableWithDoc(
+        tr(/* 2*/ cEmpty, /* 6*/ cEmpty, /*10*/ cEmpty),
+        tr(/*16*/ cEmpty, /*20*/ cEmpty, /*24*/ c(1, 2)),
+        tr(/*30*/ cEmpty, /*34*/ cEmpty),
+      );
+
+      const selection = CellSelection.create(tbl, 24, 31);
+
+      expect(selection).toBeInstanceOf(CellSelection);
+      expect((selection as CellSelection).isRowSelection()).toBe(true);
+    });
+  });
+});

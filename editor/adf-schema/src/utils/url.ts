@@ -1,8 +1,13 @@
+/**
+ * This file has been duplicated in packages/linking-platform/link-picker/src/common/utils/url.ts
+ * Any changes made here should be mirrored there.
+ */
 import LinkifyIt from 'linkify-it';
 
 const whitelistedURLPatterns = [
   /^https?:\/\//im,
   /^ftps?:\/\//im,
+  /^jamfselfservice:\/\//im,
   /^\//im,
   /^mailto:/im,
   /^skype:/im,
@@ -60,6 +65,7 @@ export interface Match {
 
 export const linkify = LinkifyIt();
 linkify.add('sourcetree:', 'http:');
+linkify.add('jamfselfservice:', 'http:');
 
 const tlds =
   'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split(
@@ -70,7 +76,7 @@ const tlds2Char =
 tlds.push(tlds2Char);
 linkify.tlds(tlds, false);
 
-export const LINK_REGEXP = /(https?|ftp):\/\/[^\s]+/;
+export const LINK_REGEXP = /(https?|ftp|jamfselfservice):\/\/[^\s]+/;
 
 export const linkifyMatch = (text: string): Match[] => {
   const matches: Match[] = [];

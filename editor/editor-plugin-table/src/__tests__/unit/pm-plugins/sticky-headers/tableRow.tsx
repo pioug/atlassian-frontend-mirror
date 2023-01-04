@@ -54,9 +54,10 @@ describe('TableRowNodeView', () => {
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([tablePlugin])
+        .add(tablePlugin)
         .add([featureFlagsPlugin, featureFlags]),
       pluginKey,
+      attachTo: document.body,
     });
   };
   let editorView: EditorView;
@@ -81,7 +82,7 @@ describe('TableRowNodeView', () => {
       const editorWithTableSticky = (doc: DocBuilder) =>
         createEditor({
           doc,
-          preset: new Preset<LightEditorPlugin>().add([tablePlugin]),
+          preset: new Preset<LightEditorPlugin>().add(tablePlugin),
           pluginKey,
         });
       const editorData = editorWithTableSticky(
@@ -349,44 +350,42 @@ describe('TableRowNodeView', () => {
       tableRowNodeView.dom = tableRowDom;
     });
 
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
     function getTableElements(tableRowDom: HTMLTableRowElement) {
       const tableWrapper = tableRowDom.closest(
         `.${TableCssClassName.NODEVIEW_WRAPPER}`,
       );
       const tableElement = tableRowDom.closest('table');
       const tableParent = tableElement?.parentElement;
-
       const scrollContainer = tableWrapper?.parentElement;
       return { tableWrapper, tableElement, tableParent, scrollContainer };
     }
-
     function mockScrollPositions(tableRowDom: HTMLTableRowElement) {
       const { tableWrapper, tableParent, scrollContainer } =
         getTableElements(tableRowDom);
       (findOverflowScrollParent as unknown as jest.SpyInstance).mockReturnValue(
         scrollContainer,
       );
-
       jest
         .spyOn(scrollContainer as HTMLElement, 'getBoundingClientRect')
         .mockImplementationOnce(() => ({
           ...baseBoundingRect,
           top: -50,
         }));
-
       jest
         .spyOn(tableParent as HTMLElement, 'getBoundingClientRect')
         .mockImplementationOnce(() => ({
           ...baseBoundingRect,
         }));
-
       jest
         .spyOn(tableWrapper as HTMLElement, 'getBoundingClientRect')
         .mockImplementationOnce(() => ({
           ...baseBoundingRect,
           top: -100,
         }));
-
       return scrollContainer;
     }
 
@@ -578,6 +577,89 @@ describe('TableRowNodeView', () => {
         isHeaderRowEnabled: false,
       });
       expect(sentinelBottom.dataset.isObserved).toBeUndefined();
+    });
+  });
+
+  describe('makeRowHeaderNotSticky', () => {
+    let makeRowHeaderNotStickySpy: jest.SpyInstance;
+    let tableRef: HTMLElement;
+    beforeEach(() => {
+      const editorData = editor(
+        doc(table()(tr(thEmpty, thEmpty), tr(tdEmpty, tdEmpty))),
+        true, // toggle to enable optimization
+      );
+      editorView = editorData.editorView;
+      eventDispatcher = editorData.eventDispatcher;
+      tableRowNode = editorView.state.doc.firstChild!.firstChild!;
+      tableRowDom = editorView.dom.getElementsByTagName('tr')[0];
+
+      tableRowNodeView = new TableRowNodeView(
+        tableRowNode,
+        editorView,
+        jest.fn(),
+        eventDispatcher,
+        fakeGetEditorFeatureFlags,
+      );
+      tableRowNodeView.dom = tableRowDom;
+
+      // Initialize with sticky off
+      tableRowNodeView.isSticky = false;
+      tableRowNodeView.top = 0;
+      tableRowNodeView.padding = 0;
+
+      makeRowHeaderNotStickySpy = jest.spyOn(
+        tableRowNodeView as any,
+        'makeRowHeaderNotSticky',
+      );
+      tableRef = document.querySelector(
+        '.ProseMirror table',
+      ) as HTMLTableElement;
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should not be called if table is not selected', () => {
+      eventDispatcher.emit((pluginKey as any).key, {
+        isHeaderRowEnabled: false,
+        tableRef: null,
+      });
+      expect(makeRowHeaderNotStickySpy).not.toHaveBeenCalled();
+    });
+
+    it('should not be called if header row is enabled', () => {
+      eventDispatcher.emit((pluginKey as any).key, {
+        isHeaderRowEnabled: true,
+        tableRef,
+      });
+      expect(makeRowHeaderNotStickySpy).not.toHaveBeenCalled();
+    });
+
+    it('should be called if header row is disabled and table is selected', () => {
+      eventDispatcher.emit((pluginKey as any).key, {
+        isHeaderRowEnabled: false,
+        tableRef,
+      });
+      expect(makeRowHeaderNotStickySpy).toHaveBeenCalled();
+    });
+
+    it('should cause isSticky state to be set to false when called', () => {
+      // Begin test with stickyheaders state on
+      tableRowNodeView.isSticky = true;
+      tableRowNodeView.top = 1;
+      tableRowNodeView.padding = 1;
+
+      tableRowNodeView.makeRowHeaderNotSticky(tableRef);
+
+      expect(updateStickyState).toHaveBeenCalledWith(
+        expect.objectContaining({
+          sticky: false,
+        }),
+      );
+      expect(tableRowNodeView.isSticky).toBe(false);
+      expect(tableRowNodeView.top).toBe(0);
+      expect(tableRowNodeView.padding).toBe(0);
     });
   });
 });

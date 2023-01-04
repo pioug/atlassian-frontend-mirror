@@ -135,7 +135,7 @@ export const emojiPickerList = css({
   height: '0',
 });
 
-// react-virtualized enables focus style by default - turn it off
+// focus style is enabled by default - turn it off
 export const virtualList = css({
   '&:focus': {
     outline: 'none',

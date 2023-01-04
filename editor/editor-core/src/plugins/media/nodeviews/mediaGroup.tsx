@@ -131,7 +131,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
         await mediaNodeUpdater.hasDifferentContextId();
 
       if (hasDifferentContextId) {
-        await mediaNodeUpdater.copyNode();
+        await mediaNodeUpdater.copyNode({ traceId: node.attrs.__mediaTraceId });
       }
     });
   }
@@ -192,10 +192,8 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
     const oldMediaNodes = this.mediaNodes;
     this.mediaNodes = [] as Array<PMNode>;
     node.forEach((item, childOffset) => {
-      this.mediaPluginState.mediaGroupNodes[item.attrs.id] = {
-        node: item,
-        getPos: () => props.getPos() + childOffset + 1,
-      };
+      const getPos = () => props.getPos() + childOffset + 1;
+      this.mediaPluginState.setMediaGroupNode(item, getPos);
       this.mediaNodes.push(item);
     });
 

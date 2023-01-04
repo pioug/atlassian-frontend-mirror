@@ -55,7 +55,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/progress-indicator": "^9.4.0",
-    "@atlaskit/select": "^16.0.0",
+    "@atlaskit/select": "^16.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

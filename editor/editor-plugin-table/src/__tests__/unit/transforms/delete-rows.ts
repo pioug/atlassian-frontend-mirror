@@ -41,7 +41,7 @@ describe('table plugin -> transforms -> delete rows', () => {
     uuid.setStatic(false);
   });
   const createEditor = createProsemirrorEditorFactory();
-  const preset = new Preset<LightEditorPlugin>().add([tablePlugin]);
+  const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
 
   const editor = (doc: DocBuilder) =>
     createEditor<TablePluginState, PluginKey>({

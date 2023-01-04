@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/media-test-helpers"
 
@@ -258,6 +258,14 @@ export const docFileDetails: FileDetails;
 
 // @public (undocumented)
 export const docFileId: FileIdentifier;
+
+// @public (undocumented)
+export const DocsContentTabs: React.FC<DocsContentTabsProps>;
+
+// @public (undocumented)
+type DocsContentTabsProps = {
+  tabs: TabItems[];
+};
 
 // @public (undocumented)
 export const emailFileId: FileIdentifier;
@@ -906,6 +914,12 @@ export interface StoryListProps {
   // (undocumented)
   readonly display?: 'column' | 'row';
 }
+
+// @public (undocumented)
+type TabItems = {
+  name: string;
+  content: ReactNode;
+};
 
 // @public (undocumented)
 export const tallImage =

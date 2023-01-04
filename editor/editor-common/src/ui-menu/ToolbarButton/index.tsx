@@ -14,7 +14,7 @@ import {
   EVENT_TYPE,
   TOOLBAR_ACTION_SUBJECT_ID,
 } from '../../analytics';
-import { MenuItem } from '../DropdownMenu/types';
+import { MenuItem } from '../DropdownMenu';
 
 import Button from './styles';
 
@@ -41,6 +41,7 @@ export type Props = {
   'aria-expanded'?: React.AriaAttributes['aria-expanded'];
   'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
   'aria-pressed'?: React.AriaAttributes['aria-pressed'];
+  'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
 } & Pick<ButtonProps, 'aria-label' | 'children'>;
 
 const buttonWrapper = css`
@@ -71,6 +72,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
       'aria-haspopup': ariaHasPopup,
       'aria-expanded': ariaExpanded,
       'aria-pressed': ariaPressed,
+      'aria-keyshortcuts': ariaKeyShortcuts,
       onClick,
       onItemClick,
     } = props;
@@ -129,6 +131,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
         aria-haspopup={ariaHasPopup}
         aria-label={ariaLabel}
         aria-pressed={ariaPressed}
+        aria-keyshortcuts={ariaKeyShortcuts}
       >
         {children}
       </Button>

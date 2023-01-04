@@ -20,7 +20,7 @@ import {
   ProductInformation,
   NamespaceStatus,
 } from '../../types';
-import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
+import type { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { io, Socket } from 'socket.io-client';
 import { getProduct, getSubProduct } from '../../helpers/utils';

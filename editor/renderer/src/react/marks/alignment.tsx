@@ -28,7 +28,10 @@ const MarkWrapper: React.FC<
 
 export default function Alignment(props: MarkProps<AlignmentAttributes>) {
   return (
-    <MarkWrapper className="fabric-editor-block-mark" data-align={props.align}>
+    <MarkWrapper
+      className="fabric-editor-block-mark fabric-editor-alignment"
+      data-align={props.align}
+    >
       {props.children}
     </MarkWrapper>
   );

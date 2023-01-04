@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.forge",
+        "extensionKey": "awesome:daterange",
+        "parameters": {},
+        "layout": "default",
+        "localId": "ffe7f586-2352-4df2-be4c-975002cc74fb"
+      }
+    }
+  ]
+}

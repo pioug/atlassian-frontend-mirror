@@ -2,7 +2,7 @@ export type NewCollabSyncUpErrorAttributes = {
   lengthOfUnconfirmedSteps?: number;
   tries: number;
   maxRetries: number;
-  clientId?: string;
+  clientId?: number | string;
   version: number;
 };
 

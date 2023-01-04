@@ -271,15 +271,16 @@ describe('MediaNodeUpdater', () => {
       );
     });
 
-    it('should call copyFile with right source and destination', async () => {
+    it('should call copyFile with media traceId, right source and destination', async () => {
       const {
         mediaNodeUpdater,
         mediaClient,
         uploadMediaClientConfig,
         authFromContext,
       } = setup();
+      const traceId = '123';
 
-      await mediaNodeUpdater.copyNode();
+      await mediaNodeUpdater.copyNode({ traceId });
       expect(mediaClient.file.copyFile).toBeCalledTimes(1);
       expect(mediaClient.file.copyFile).toBeCalledWith(
         {
@@ -292,6 +293,8 @@ describe('MediaNodeUpdater', () => {
           authProvider: uploadMediaClientConfig.authProvider,
           occurrenceKey: expect.anything(),
         },
+        undefined,
+        { traceId },
       );
       const authProvider = (mediaClient.file.copyFile as jest.Mock).mock
         .calls[0][0].authProvider;

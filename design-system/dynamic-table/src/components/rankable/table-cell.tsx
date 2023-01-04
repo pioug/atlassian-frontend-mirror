@@ -17,7 +17,7 @@ export class RankableTableCell extends React.Component<
   {}
 > {
   render() {
-    const { cell, head, isFixedSize, isRanking, refWidth, innerRef } =
+    const { cell, head, isFixedSize, isRanking, refWidth, innerRef, testId } =
       this.props;
     const { content, ...restCellProps } = cell;
     const { shouldTruncate, width }: HeadCellType =
@@ -34,6 +34,7 @@ export class RankableTableCell extends React.Component<
         style={inlineStyles}
         onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => e.stopPropagation()}
         innerRef={innerRef}
+        data-testid={testId && `${testId}--rankable--table--body--cell`}
       >
         {content}
       </RankableTableBodyCell>

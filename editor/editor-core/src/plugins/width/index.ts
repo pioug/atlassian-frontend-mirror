@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from 'prosemirror-state';
 
 import { Dispatch } from '../../event-dispatcher';
-import { EditorPlugin } from '../../types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 
 export type WidthPluginState = EditorContainerWidth;
@@ -47,7 +47,7 @@ export function createPlugin(
   });
 }
 
-const widthPlugin = (): EditorPlugin => ({
+const widthPlugin: NextEditorPlugin<'width'> = () => ({
   name: 'width',
 
   pmPlugins: () => [

@@ -42,7 +42,7 @@ describe('createPluginsList', () => {
 
   it('should add helpDialogPlugin if allowHelpDialog is true', () => {
     const plugins = createPluginsList({ allowHelpDialog: true });
-    expect(plugins).toContain(helpDialogPlugin());
+    expect(plugins).toContain(helpDialogPlugin(false));
   });
 
   it('should add fakeTextCursorPlugin by default', () => {
@@ -115,7 +115,7 @@ describe('createPluginsList', () => {
 
   it('should add layoutPlugin if allowLayout prop is provided', () => {
     const plugins = createPluginsList({ allowLayouts: true });
-    expect(plugins).toContain(layoutPlugin());
+    expect(plugins).toContain(layoutPlugin({}));
   });
 
   it('should initialise hyperlink with `linking.smartLinks` if provided', () => {
@@ -405,15 +405,6 @@ describe('createPluginsList', () => {
 
       expect(placeholderPlugin).toHaveBeenCalledWith({
         placeholder: defaultPlaceholder,
-      });
-    });
-
-    it('should pass placeholder hints from editor props', function () {
-      const placeholderHints = ['Hello World!'];
-      createPluginsList({ placeholderHints });
-
-      expect(placeholderPlugin).toHaveBeenCalledWith({
-        placeholderHints,
       });
     });
   });

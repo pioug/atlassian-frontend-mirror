@@ -45,6 +45,9 @@ exports[`JIRA wiki markup - Lists ADFS-453 should NOT create a list of more than
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [
@@ -184,6 +187,9 @@ Object {
       "type": "bulletList",
     },
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [
@@ -299,6 +305,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -369,6 +376,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -388,6 +396,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -407,6 +416,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -426,6 +436,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -469,6 +480,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -488,6 +500,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -507,6 +520,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -526,6 +540,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -596,6 +611,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": null,
@@ -991,6 +1007,9 @@ exports[`JIRA wiki markup - Lists should create a list if started with multiple 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [
@@ -998,6 +1017,9 @@ Object {
               "type": "paragraph",
             },
             Object {
+              "attrs": Object {
+                "order": 1,
+              },
               "content": Array [
                 Object {
                   "content": Array [
@@ -1219,6 +1241,9 @@ exports[`JIRA wiki markup - Lists should find mixed ordered -> unordered lists 1
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [
@@ -1348,6 +1373,9 @@ Object {
               "type": "paragraph",
             },
             Object {
+              "attrs": Object {
+                "order": 1,
+              },
               "content": Array [
                 Object {
                   "content": Array [
@@ -1423,6 +1451,9 @@ exports[`JIRA wiki markup - Lists should find ordered lists 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [
@@ -2171,6 +2202,7 @@ Object {
                     "__fileMimeType": null,
                     "__fileName": null,
                     "__fileSize": null,
+                    "__mediaTraceId": null,
                     "alt": "",
                     "collection": "",
                     "height": 183,

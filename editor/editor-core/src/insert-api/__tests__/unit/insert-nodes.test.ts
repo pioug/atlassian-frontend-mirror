@@ -12,13 +12,18 @@ import {
   td,
   tr as tableRow,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { EditorPlugin } from '../../../types/editor-plugin';
+import type {
+  EditorPlugin,
+  NextEditorPlugin,
+} from '../../../types/editor-plugin';
 import { handleInsertContent } from '../../insert-content-handlers';
 
 describe('#handleInsertContent: Insert Nodes', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder, fakeEditorPlugin: () => EditorPlugin) => {
-    const preset = new Preset<EditorPlugin>().add(fakeEditorPlugin);
+    const preset = new Preset<EditorPlugin>().add(
+      fakeEditorPlugin as NextEditorPlugin<string, never, any>,
+    );
     const editorPlugins = preset.getEditorPlugins();
 
     return {

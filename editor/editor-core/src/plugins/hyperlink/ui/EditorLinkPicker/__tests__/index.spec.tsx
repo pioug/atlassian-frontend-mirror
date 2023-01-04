@@ -24,6 +24,7 @@ describe('EditorLinkPicker', () => {
   it('dispatches to hide the link picker when escape is pressed', async () => {
     const { editorView } = createEditor({});
     const dispatch = jest.spyOn(editorView, 'dispatch');
+    const onCancel = jest.fn();
 
     render(
       <EditorLinkPicker
@@ -31,6 +32,7 @@ describe('EditorLinkPicker', () => {
         displayText="My favourite search engine"
         url="google.com"
         onSubmit={jest.fn()}
+        onCancel={onCancel}
       />,
     );
 
@@ -43,16 +45,22 @@ describe('EditorLinkPicker', () => {
     expect(dispatch.mock.calls[1][0].getMeta(cardPluginKey).type).toBe(
       'HIDE_LINK_TOOLBAR',
     );
+    expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
   it('dispatches to hide the link picker when the user clicks outside the picker', async () => {
     const { editorView } = createEditor({});
     const dispatch = jest.spyOn(editorView, 'dispatch');
+    const onCancel = jest.fn();
 
     render(
       <div>
         <div data-testid="outside-link-picker">Element outside link picker</div>
-        <EditorLinkPicker view={editorView} onSubmit={jest.fn()} />
+        <EditorLinkPicker
+          view={editorView}
+          onSubmit={jest.fn()}
+          onCancel={onCancel}
+        />
       </div>,
     );
 
@@ -64,11 +72,13 @@ describe('EditorLinkPicker', () => {
         type: LinkAction.HIDE_TOOLBAR,
       },
     );
+    expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
   it('dispatches to hide the link picker when the cancel button is pressed', async () => {
     const { editorView } = createEditor({});
     const dispatch = jest.spyOn(editorView, 'dispatch');
+    const onCancel = jest.fn();
 
     render(
       <EditorLinkPicker
@@ -76,6 +86,7 @@ describe('EditorLinkPicker', () => {
         displayText="My favourite search engine"
         url="google.com"
         onSubmit={jest.fn()}
+        onCancel={onCancel}
       />,
     );
 
@@ -88,6 +99,7 @@ describe('EditorLinkPicker', () => {
     expect(dispatch.mock.calls[1][0].getMeta(cardPluginKey).type).toBe(
       'HIDE_LINK_TOOLBAR',
     );
+    expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
   it('calls onSubmit on link picker insert', async () => {

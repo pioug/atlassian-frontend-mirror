@@ -9,9 +9,11 @@ import type {
   ValidationErrorMap,
 } from '@atlaskit/adf-utils/validatorTypes';
 
+import { ACTION_SUBJECT_ID } from '../analytics';
+
 export const UNSUPPORTED_NODE_ATTRIBUTE = 'unsupportedNodeAttribute';
 
-import { ACTION_SUBJECT_ID, UnsupportedContentPayload } from './analytics';
+import { UnsupportedContentPayload } from './analytics';
 import { fireUnsupportedEvent } from './track-unsupported-content';
 
 export type DispatchAnalyticsEvent = (event: UnsupportedContentPayload) => void;
@@ -151,10 +153,17 @@ function trackValidationError(
   if (!dispatchAnalyticsEvent) {
     return;
   }
+
   fireUnsupportedEvent(
     dispatchAnalyticsEvent,
     ACTION_SUBJECT_ID.UNSUPPORTED_ERROR,
-    entity,
+    {
+      type: entity.type || '',
+      ancestry: entity.ancestorHierarchy || '',
+      parentType: entity.parentType || '',
+      marks: entity.marks || [],
+      attrs: entity.attrs || {},
+    },
     error.code,
   );
 }

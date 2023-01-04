@@ -30,7 +30,11 @@ import { createLoadSucceededEvent } from './analytics/events/operational/loadSuc
 import { fireAnalytics, getFileAttributes } from './analytics';
 import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import {
+  getRandomHex,
+  MediaFeatureFlags,
+  MediaTraceContext,
+} from '@atlaskit/media-common';
 import type { ImageViewerProps } from './viewers/image';
 import type { Props as VideoViewerProps } from './viewers/video';
 import type { Props as AudioViewerProps } from './viewers/audio';
@@ -107,6 +111,8 @@ export class ItemViewerBase extends React.Component<Props, State> {
     wasStatusProcessing: false,
   };
 
+  private traceContext: MediaTraceContext = { traceId: getRandomHex(8) };
+
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
     if (this.needsReset(this.props, nextProps)) {
       this.release();
@@ -133,7 +139,10 @@ export class ItemViewerBase extends React.Component<Props, State> {
     item.whenSuccessful((fileItem) => {
       if (isFileStateItem(fileItem)) {
         const fileAttributes = getFileAttributes(fileItem);
-        fireAnalytics(createLoadSucceededEvent(fileAttributes), this.props);
+        fireAnalytics(
+          createLoadSucceededEvent(fileAttributes, this.traceContext),
+          this.props,
+        );
         succeedMediaFileUfoExperience({
           fileAttributes,
           fileStateFlags: this.fileStateFlags,
@@ -219,6 +228,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
             onLoad={this.onSuccess}
             onError={this.onLoadFail}
             contextId={contextId}
+            traceContext={this.traceContext}
             {...viewerProps}
           />
         );
@@ -278,6 +288,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
           error={error}
           fileState={fileState}
           fileStateFlags={this.fileStateFlags}
+          traceContext={this.traceContext}
         >
           <p>
             <FormattedMessage {...messages.try_downloading_file} />
@@ -381,7 +392,8 @@ export class ItemViewerBase extends React.Component<Props, State> {
     }
 
     const { id } = identifier;
-    fireAnalytics(createCommencedEvent(id), this.props);
+
+    fireAnalytics(createCommencedEvent(id, this.traceContext), this.props);
     startMediaFileUfoExperience();
     this.subscription = mediaClient.file
       .getFileState(id, {

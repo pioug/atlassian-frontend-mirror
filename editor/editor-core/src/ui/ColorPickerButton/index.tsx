@@ -119,7 +119,7 @@ const ColorPickerButton = (props: Props) => {
         zIndex={props.setDisableParentScroll ? 600 : undefined}
         ariaLabel="Color picker popup"
       >
-        <div css={colorPickerWrapper}>
+        <div css={colorPickerWrapper} data-test-id="color-picker-menu">
           <ColorPaletteWithListeners
             palette={props.colorPalette}
             cols={props.cols}

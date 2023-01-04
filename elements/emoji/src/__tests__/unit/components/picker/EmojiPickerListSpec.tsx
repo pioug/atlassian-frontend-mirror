@@ -2,7 +2,7 @@ import React from 'react';
 import { screen, act, fireEvent } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
+import { VirtualList } from '../../../../components/picker/VirtualList';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
 import EmojiPickerList, {
@@ -264,7 +264,6 @@ describe('<EmojiPickerList />', () => {
         />,
       );
 
-      mockOnCategoryActivated.mockReset();
       const virtualList = wrapper.find(VirtualList);
       const onRowsRendered = virtualList.prop('onRowsRendered') as Function;
       onRowsRendered(onRowsRenderedArgs(9, 10, 15, 20));

@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/dropdown-menu"
 
@@ -18,7 +18,6 @@
 
 import type { CustomItemProps } from '@atlaskit/menu/types';
 import { default as DropdownItemGroup } from '@atlaskit/menu/section';
-import { jsx } from '@emotion/react';
 import { KeyboardEvent as KeyboardEvent_2 } from 'react';
 import { MouseEvent as MouseEvent_2 } from 'react';
 import { ReactElement } from 'react';
@@ -124,7 +123,7 @@ interface DropdownItemRadioProps {
 // @public
 const DropdownMenu: <T extends HTMLElement = HTMLElement>(
   props: DropdownMenuProps<T>,
-) => jsx.JSX.Element;
+) => JSX.Element;
 export default DropdownMenu;
 
 // @public (undocumented)

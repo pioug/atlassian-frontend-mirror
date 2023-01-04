@@ -1,10 +1,12 @@
 import {
   ACTION,
   ACTION_SUBJECT,
-  AEP,
-  EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from './enums';
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
+
+import { AEP } from './enums';
+
 import {
   PropsDifference,
   SEVERITY,

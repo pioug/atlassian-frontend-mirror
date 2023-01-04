@@ -1320,14 +1320,14 @@ describe('paste list', () => {
     // Destination
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(p('A')),
         li(
           p('B'),
-          ol(
+          ol()(
             li(
               p('{<}B1'),
-              ol(
+              ol()(
                 li(p('B2')),
                 li(p('B3')),
               ),
@@ -1356,11 +1356,11 @@ describe('paste list', () => {
     // Expected Document
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(p('A')),
         li(
           p('B'),
-          ol(
+          ol()(
             li(p('the')),
             li(p('pasted')),
             li(p('list{<>}')),
@@ -1378,14 +1378,14 @@ describe('paste list', () => {
     // Destination
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(p('A')),
         li(
           p('B'),
-          ol(
+          ol()(
             li(
               p('{<}B1'),
-              ol(
+              ol()(
                 li(p('B2')),
                 li(p('B3')),
               ),
@@ -1422,11 +1422,11 @@ describe('paste list', () => {
     // Expected Document
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(p('A')),
         li(
           p('B'),
-          ol(
+          ol()(
             li(
               p('qux'),
               ul(
@@ -1452,14 +1452,14 @@ describe('paste list', () => {
     // Destination
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(p('A')),
         li(
           p('{<}B'),
-          ol(
+          ol()(
             li(
               p('B1'),
-              ol(
+              ol()(
                 li(p('B2{>}')),
                 li(p('B3')),
               ),
@@ -1487,10 +1487,10 @@ describe('paste list', () => {
         ),
       ),
       p(''),
-      ol(
+      ol()(
         li(
           p('foo'),
-          ol(li(p('bar')))
+          ol()(li(p('bar')))
         ),
         li(p('baz{>}')),
       ),
@@ -1498,7 +1498,7 @@ describe('paste list', () => {
     // Expected Document
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(p('A')),
         li(
           p('qux'),
@@ -1513,14 +1513,14 @@ describe('paste list', () => {
         ),
       ),
       p(''),
-      ol(
+      ol()(
         li(
           p('foo'),
-          ol(li(p('bar')))
+          ol()(li(p('bar')))
         ),
         li(
           p('baz{<>}'),
-          ol(li(p('B3'))),
+          ol()(li(p('B3'))),
         ),
         li(p('C')),
       ),

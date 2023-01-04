@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 
 import { Section as MenuSection } from '@atlaskit/menu';
 
-import { sectionHeaderStyle } from '../../common/styles';
+import { sectionHeaderSpacingStyles } from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
 export interface SectionProps {
@@ -53,7 +53,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
         {...props}
         ref={ref}
         // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
-        overrides={{ HeadingItem: { cssFn: sectionHeaderStyle } }}
+        overrides={{ HeadingItem: { cssFn: sectionHeaderSpacingStyles } }}
       />
     );
   },

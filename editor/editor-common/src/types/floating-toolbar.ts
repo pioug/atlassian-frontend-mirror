@@ -26,6 +26,8 @@ export interface DropdownOptionT<T> {
   onMouseOver?: T;
   onMouseEnter?: T;
   onMouseLeave?: T;
+  onFocus?: T;
+  onBlur?: T;
   selected?: boolean;
   disabled?: boolean;
   hidden?: boolean;
@@ -64,12 +66,30 @@ interface Position {
   left?: number;
 }
 
+export type ConfirmDialogChildInfo = {
+  id: string;
+  name: string;
+  amount: number;
+};
+
 export interface ConfirmDialogOptions {
   title?: string; // Defaults to "Are you sure?"
   message: string;
   okButtonLabel?: string; // Defaults to "OK"
   cancelButtonLabel?: string; // Defaults to "Cancel"
+  isReferentialityDialog?: boolean; //option for extra content
+  checkboxLabel?: string;
+  messagePrefix?: string;
+  getChildrenInfo?: () => ConfirmDialogChildInfo[];
+  onConfirm?: (...args: any[]) => Command;
 }
+
+export type ConfirmationDialogProps = {
+  onConfirm: (isCheck?: boolean) => void;
+  onClose: () => void;
+  options?: ConfirmDialogOptions;
+  testId?: string;
+};
 
 export type FloatingToolbarCopyButton = {
   type: 'copy-button';
@@ -98,7 +118,7 @@ export type FloatingToolbarButton<T> = {
   tooltipContent?: React.ReactNode;
   testId?: string;
   hideTooltipOnClick?: boolean;
-  confirmDialog?: ConfirmDialogOptions;
+  confirmDialog?: ConfirmDialogOptions | (() => ConfirmDialogOptions);
   // For sending data over the mobile bridge
   metadata?: { [key: string]: string };
   ariaHasPopup?:
@@ -110,6 +130,7 @@ export type FloatingToolbarButton<T> = {
     | 'grid'
     | undefined;
   tabIndex?: number | null | undefined;
+  focusEditoronEnter?: boolean; //To focus the editor when button is pressed default value - false
 };
 
 export type FloatingToolbarInput<T> = {
@@ -201,6 +222,7 @@ export type FloatingToolbarSeparator = {
 };
 
 export type FloatingToolbarDropdown<T> = {
+  testId?: string;
   id?: string;
   type: 'dropdown';
   title: string;
@@ -278,6 +300,11 @@ export interface FloatingToolbarConfig {
     nextPos: Position,
   ) => Position;
   scrollable?: boolean;
+  /**
+   * Enable Popup component's focus trap
+   */
+  focusTrap?: boolean;
+  preventPopupOverflow?: boolean;
 }
 
 export type FloatingToolbarHandler = (

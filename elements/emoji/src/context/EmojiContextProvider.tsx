@@ -1,5 +1,6 @@
 import React, { FC, useMemo, useEffect } from 'react';
 import { EmojiContext, EmojiContextType } from './EmojiContext';
+import debug from '../util/logger';
 
 type EmojiContextProviderType = {
   emojiContextValue: EmojiContextType;
@@ -17,7 +18,11 @@ export const EmojiContextProvider: FC<EmojiContextProviderType> = ({
   useEffect(() => {
     // trigger emoji fetching
     async function fetchEmojiProvider() {
-      await memoizedEmojiContextValue?.emoji.emojiProvider.fetchEmojiProvider();
+      try {
+        await memoizedEmojiContextValue?.emoji.emojiProvider.fetchEmojiProvider();
+      } catch (error) {
+        debug('fetchEmojiProvider error catched from outside', error);
+      }
     }
     fetchEmojiProvider();
   }, [memoizedEmojiContextValue]);

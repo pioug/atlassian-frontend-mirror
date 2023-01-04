@@ -37,3 +37,31 @@ BrowserTestCase(
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );
+
+BrowserTestCase(
+  'handlers.ts: handleRichText: flatten nested list with restartNumberedLists',
+  { skip: [] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      allowTables: true,
+      defaultValue: JSON.stringify(documentWithListAndTable),
+      featureFlags: {
+        restartNumberedLists: true,
+      },
+    });
+    await page.click(fullpage.placeholder);
+
+    // range selection on nested list item + top-level list item
+    await setProseMirrorTextSelection(page, { anchor: 8, head: 16 });
+    await page.copy();
+
+    // cursor selection on middle table cell
+    await setProseMirrorTextSelection(page, { anchor: 41 });
+    await page.paste();
+
+    const doc = await page.$eval(editorSelector, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);

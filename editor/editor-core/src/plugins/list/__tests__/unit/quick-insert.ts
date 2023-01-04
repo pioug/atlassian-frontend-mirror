@@ -46,7 +46,7 @@ describe('lists plugin -> quick insert', () => {
     });
 
     it('should insert a numbered list', () => {
-      expect(editorView.state.doc).toEqualDocument(doc(ol(li(p('{<>}')))));
+      expect(editorView.state.doc).toEqualDocument(doc(ol()(li(p('{<>}')))));
     });
 
     it('should fire Analytics GAS V3 events', () => {

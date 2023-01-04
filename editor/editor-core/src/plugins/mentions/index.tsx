@@ -4,7 +4,7 @@ import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { ELEMENTS_CHANNEL } from '@atlaskit/mention/resource';
 import { mention } from '@atlaskit/adf-schema';
 
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import { isTypeAheadAllowed } from '../type-ahead/utils';
 import ToolbarMention from './ui/ToolbarMention';
@@ -26,7 +26,11 @@ import { createMentionPlugin } from './pm-plugins/main';
 
 export { mentionPluginKey };
 
-const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
+const mentionsPlugin: NextEditorPlugin<
+  'mention',
+  never,
+  MentionPluginOptions | undefined
+> = (options?) => {
   let sessionId = uuid();
   const fireEvent: FireElementsChannelEvent = <T extends AnalyticsEventPayload>(
     payload: T,

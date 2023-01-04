@@ -72,6 +72,28 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
+  'mention-1.ts: user can see mention inside orderedList with restartNumberedLists',
+  {},
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      featureFlags: {
+        restartNumberedLists: true,
+      },
+    });
+
+    await page.type(editable, '1. ');
+    await page.waitForSelector('ol');
+    await page.type(editable, 'list ');
+    await insertMention(page, 'Carolyn');
+    await page.waitForSelector(lozenge);
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
   'mention-1.ts: user can see mention inside decision',
   {},
   async (client: any, testName: string) => {

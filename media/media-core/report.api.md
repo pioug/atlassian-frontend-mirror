@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/media-core"
 
@@ -14,7 +14,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { EventEmitter2 } from 'eventemitter2';
+import { EventEmitter2 as EventEmitter2_2 } from 'eventemitter2';
 import { LRUMap } from 'lru_map';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
@@ -49,7 +49,7 @@ export const authToOwner: (auth: Auth) => AsapBasedAuth | ClientAltBasedAuth;
 // @public (undocumented)
 export interface CachedMediaState<T> {
   // (undocumented)
-  eventEmitter?: EventEmitter2;
+  eventEmitter?: EventEmitter2_2;
   // (undocumented)
   stateDeferreds: Map<string, StateDeferredValue<T>>;
   // (undocumented)

@@ -11,11 +11,11 @@ import { getPluginState, createPluginState, pluginKey } from './plugin-factory';
 import { EditorProps } from '../../../types';
 import { IntlShape } from 'react-intl-next';
 
-function containsClass(
+export function containsClass(
   element: Element | null,
   className: string,
-): element is Element {
-  return !!element && element.classList.contains(className);
+): boolean {
+  return Boolean(element?.classList?.contains(className));
 }
 
 export const createPlugin = (

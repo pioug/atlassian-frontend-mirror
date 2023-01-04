@@ -153,6 +153,9 @@ Object {
       "type": "bulletList",
     },
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [
@@ -334,6 +337,56 @@ Object {
     },
     Object {
       "type": "rule",
+    },
+    Object {
+      "attrs": Object {
+        "order": 6,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "One",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Two",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "Three",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
     },
   ],
   "type": "doc",

@@ -104,6 +104,15 @@ export default () => {
             >
               Active items
             </LinkItem>
+            <LinkItem
+              isDisabled={true}
+              iconAfter={<ArrowRightIcon label="" />}
+              iconBefore={<PresenceActiveIcon label="Active icon" />}
+              description="You have 4 archived items."
+              href="#"
+            >
+              Active items (disabled)
+            </LinkItem>
           </Section>
           <Section title="Favourite articles" hasSeparator isScrollable>
             <ButtonItem iconBefore={<Blog24Icon label="Quote icon" />}>

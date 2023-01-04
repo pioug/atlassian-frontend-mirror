@@ -130,6 +130,7 @@ describe('<Toolbar />', () => {
           onClick: onClickCommand,
           confirmDialog: {
             message: 'Hear ye hear ye!',
+            onConfirm: jest.fn(),
           },
         },
       ];
@@ -190,7 +191,10 @@ describe('<ConfirmationModal />', () => {
     const wrapper = mount(
       <IntlProvider locale="en">
         <ConfirmationModal
-          options={{ message: 'This is the message.' }}
+          options={{
+            message: 'This is the message.',
+            onConfirm,
+          }}
           onConfirm={onConfirm}
           onClose={onClose}
           testId={testId}
@@ -225,6 +229,7 @@ describe('<ConfirmationModal />', () => {
             title: 'Oh hello there!',
             okButtonLabel: 'Yeah',
             cancelButtonLabel: 'Nah',
+            onConfirm,
           }}
           onConfirm={onConfirm}
           onClose={onClose}
@@ -253,7 +258,10 @@ describe('<ConfirmationModal />', () => {
     const wrapper = mount(
       <IntlProvider locale="en">
         <ConfirmationModal
-          options={{ message: 'This is the message.' }}
+          options={{
+            message: 'This is the message.',
+            onConfirm,
+          }}
           onConfirm={onConfirm}
           onClose={onClose}
           testId={testId}
@@ -274,7 +282,10 @@ describe('<ConfirmationModal />', () => {
     const wrapper = mount(
       <IntlProvider locale="en">
         <ConfirmationModal
-          options={{ message: 'This is the message.' }}
+          options={{
+            message: 'This is the message.',
+            onConfirm: jest.fn(),
+          }}
           onConfirm={onConfirm}
           onClose={onClose}
           testId={testId}
@@ -295,7 +306,10 @@ describe('<ConfirmationModal />', () => {
     const wrapper = mount(
       <IntlProvider locale="en">
         <ConfirmationModal
-          options={{ message: 'This is the message.' }}
+          options={{
+            message: 'This is the message.',
+            onConfirm,
+          }}
           onConfirm={onConfirm}
           onClose={onClose}
           testId={testId}
@@ -315,5 +329,71 @@ describe('<ConfirmationModal />', () => {
 
     expect(onConfirm).toBeCalledTimes(0);
     expect(onClose).toBeCalledTimes(1);
+  });
+
+  it('should render CheckboxModal with checkbox', () => {
+    const nodes = [{ id: '1', name: 'ext 1', amount: 3 }];
+    const wrapper = mount(
+      <IntlProvider locale="en">
+        <ConfirmationModal
+          options={{
+            message: 'This is the message.',
+            isReferentialityDialog: true,
+            getChildrenInfo: () => nodes,
+            onConfirm,
+          }}
+          onConfirm={onConfirm}
+          onClose={onClose}
+          testId={testId}
+        />
+      </IntlProvider>,
+    );
+
+    expect(wrapper.find(`input[type="checkbox"]`).length).toEqual(1);
+    expect(wrapper.find(`li`).first().text()).toContain('3 connected elements');
+  });
+
+  it('should render CheckboxModal with checkbox - singular check', () => {
+    const nodes = [{ id: '1', name: 'ext 1', amount: 1 }];
+    const wrapper = mount(
+      <IntlProvider locale="en">
+        <ConfirmationModal
+          options={{
+            message: 'This is the message.',
+            isReferentialityDialog: true,
+            getChildrenInfo: () => nodes,
+            onConfirm,
+          }}
+          onConfirm={onConfirm}
+          onClose={onClose}
+          testId={testId}
+        />
+      </IntlProvider>,
+    );
+
+    expect(wrapper.find(`input[type="checkbox"]`).length).toEqual(1);
+    expect(wrapper.find(`li`).first().text()).toMatch(/.*\(.*element\)$/);
+  });
+
+  it('should render CheckboxModal with checkbox - zero check', () => {
+    const nodes = [{ id: '1', name: 'ext 1', amount: 0 }];
+    const wrapper = mount(
+      <IntlProvider locale="en">
+        <ConfirmationModal
+          options={{
+            message: 'This is the message.',
+            isReferentialityDialog: true,
+            getChildrenInfo: () => nodes,
+            onConfirm,
+          }}
+          onConfirm={onConfirm}
+          onClose={onClose}
+          testId={testId}
+        />
+      </IntlProvider>,
+    );
+
+    expect(wrapper.find('input[type="checkbox"]').length).toEqual(1);
+    expect(wrapper.find('li').first().text()).not.toMatch(/.*\d*\selement/);
   });
 });

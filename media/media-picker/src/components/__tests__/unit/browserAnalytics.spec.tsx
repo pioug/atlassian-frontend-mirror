@@ -27,7 +27,6 @@ describe('Browser analytics instrumentation', () => {
   const someFeatureFlags: MediaFeatureFlags = {
     folderUploads: true,
     newCardExperience: false,
-    mediaUploadApiV2: false,
   };
   const uploadId = 'upload id';
   let oldDateNow: () => number;
@@ -110,6 +109,7 @@ describe('Browser analytics instrumentation', () => {
               fileSize: 13,
             },
             serviceName: 'upload',
+            traceContext: { traceId: expect.any(String) },
           },
         },
       }),
@@ -187,6 +187,7 @@ describe('Browser analytics instrumentation', () => {
             },
             serviceName: 'upload',
             uploadDurationMsec: -1,
+            traceContext: { traceId: expect.any(String) },
           },
         },
       }),
@@ -273,6 +274,7 @@ describe('Browser analytics instrumentation', () => {
               fileId: expect.any(String),
             },
             uploadDurationMsec: -1,
+            traceContext: { traceId: expect.any(String) },
           },
         },
       }),
@@ -365,6 +367,7 @@ describe('Browser analytics instrumentation', () => {
               fileSize: 13,
             },
             serviceName: 'upload',
+            traceContext: { traceId: expect.any(String) },
           },
         },
       }),
@@ -400,6 +403,7 @@ describe('Browser analytics instrumentation', () => {
             },
             serviceName: 'upload',
             uploadDurationMsec: 0,
+            traceContext: { traceId: expect.any(String) },
           },
         },
       }),

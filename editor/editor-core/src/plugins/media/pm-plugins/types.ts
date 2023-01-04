@@ -89,4 +89,5 @@ export interface MediaPluginState {
       Pick<this, 'allowsUploads' | 'allUploadsFinished' | 'isFullscreen'>
     >,
   ): void;
+  setMediaGroupNode: (node: PMNode<any>, getPos: () => number) => void;
 }

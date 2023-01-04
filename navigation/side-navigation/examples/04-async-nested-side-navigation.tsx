@@ -7,7 +7,6 @@ import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';
 import VidBackwardIcon from '@atlaskit/icon/glyph/vid-backward';
 
 import {
-  CustomItemComponentProps,
   Footer,
   NavigationFooter,
   NavigationHeader,
@@ -19,6 +18,7 @@ import {
 } from '../src';
 
 import AppFrame from './common/app-frame';
+import { CustomItemFooter } from './common/sample-footer';
 import SampleHeader from './common/sample-header';
 
 let isLoaded: Record<string, boolean> = {};
@@ -54,18 +54,6 @@ const DelayedComponent: FC<{ id: number }> = ({ id }) => {
   );
 };
 
-const InteractiveFooter: React.FC<CustomItemComponentProps> = ({
-  children,
-  ...props
-}) => {
-  return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <a href="#" {...props}>
-      {children}
-    </a>
-  );
-};
-
 const BasicExample = () => {
   const [key, setKey] = useState(0);
   const reset = () => {
@@ -88,7 +76,7 @@ const BasicExample = () => {
           <Footer
             iconBefore={<VidBackwardIcon label="" />}
             description="Will load everything again"
-            component={InteractiveFooter}
+            component={CustomItemFooter}
             onClick={reset}
           >
             Reset

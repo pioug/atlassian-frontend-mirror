@@ -1,11 +1,62 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { RankableBody } from '../../rankable/body';
 
 import { head, rowsWithKeys } from './_data';
+
+const testId = 'dynamic--table--test--id';
+
+jest.mock('react-beautiful-dnd', () => {
+  const actual = jest.requireActual('react-beautiful-dnd');
+  return {
+    __esModule: true,
+    ...actual,
+    DragDropContext: jest.fn().mockImplementation((props) => {
+      const triggerDragEnd: React.MouseEventHandler<HTMLButtonElement> = (
+        event,
+      ) => {
+        // @ts-ignore - Hack to pass custom data from test.
+        props.onDragEnd(event.target.dragData);
+      };
+
+      return (
+        <>
+          <table>{props.children}</table>
+          <button type="button" onClick={triggerDragEnd}>
+            Trigger Drag End
+          </button>
+        </>
+      );
+    }),
+    Droppable: jest.fn().mockImplementation((props) => {
+      const innerRef = { current: {} };
+      const droppableProps = {};
+      return props.children({ innerRef, droppableProps });
+    }),
+    Draggable: jest.fn().mockImplementation((props) => {
+      const innerRef = jest.fn();
+      const droppableProps = {};
+
+      const dragHandleProps = {};
+      const draggableProps = {};
+
+      const provided = {
+        innerRef,
+        droppableProps,
+        dragHandleProps,
+        draggableProps,
+      };
+
+      const snapshot = {
+        isDragging: true,
+      };
+
+      return props.children(provided, snapshot);
+    }),
+  };
+});
 
 const createProps = () => ({
   head,
@@ -18,6 +69,7 @@ const createProps = () => ({
   refHeight: -1,
   pageRows: rowsWithKeys,
   isRankingDisabled: false,
+  testId,
 });
 
 const createDragEndProps = (
@@ -39,50 +91,17 @@ const createDragEndProps = (
   };
 };
 
-test('only one DragDropContext and Droppable are rendered', () => {
-  const props = createProps();
-  const wrapper = mount(
-    <table>
-      <RankableBody {...props} />
-    </table>,
-  );
-
-  const dragDropContext = wrapper.find(DragDropContext);
-  const droppable = wrapper.find(Droppable);
-  const draggable = wrapper.find(Draggable);
-
-  expect(dragDropContext).toHaveLength(1);
-  expect(droppable).toHaveLength(1);
-  expect(draggable).toHaveLength(rowsWithKeys.length);
-});
-
-test('onDragStart - onRankStart is called with proper arguments', () => {
-  const props = createProps();
-  const key = 'draggable-id';
-  const index = 1;
-
-  const wrapper = shallow(<RankableBody {...props} isRanking />);
-
-  const dndContext = wrapper.find(DragDropContext);
-  dndContext.simulate('beforeDragStart', {
-    draggableId: key,
-    source: { index },
-  });
-
-  const { onRankStart } = props;
-  expect(onRankStart).toHaveBeenCalledTimes(1);
-  expect(onRankStart).toHaveBeenLastCalledWith({ key, index });
-});
-
 test('onDragEnd - onRankEnd is called with proper empty destination if drag was cancelled', () => {
   const props = createProps();
   const sourceKey = 'source-key-draggable';
   const sourceIndex = 1;
 
-  const wrapper = shallow(<RankableBody {...props} />);
+  render(<RankableBody {...props} />);
+  const dragBtn = screen.getByRole('button', { name: 'Trigger Drag End' });
 
-  const dndContext = wrapper.find(DragDropContext);
-  dndContext.simulate('dragEnd', createDragEndProps(sourceKey, sourceIndex));
+  fireEvent.click(dragBtn, {
+    target: { dragData: createDragEndProps(sourceKey, sourceIndex) },
+  });
 
   const { onRankEnd } = props;
   expect(onRankEnd).toHaveBeenCalledTimes(1);
@@ -98,13 +117,15 @@ const testOnRankEnd = (
   const props = createProps();
   const sourceKey = 'source-key-draggable';
 
-  const wrapper = shallow(<RankableBody {...props} />);
+  render(<RankableBody {...props} />);
 
-  const dndContext = wrapper.find(DragDropContext);
-  dndContext.simulate(
-    'dragEnd',
-    createDragEndProps(sourceKey, sourceIndex, destinationIndex),
-  );
+  const dragBtn = screen.getByRole('button', { name: 'Trigger Drag End' });
+
+  fireEvent.click(dragBtn, {
+    target: {
+      dragData: createDragEndProps(sourceKey, sourceIndex, destinationIndex),
+    },
+  });
 
   const { onRankEnd } = props;
   expect(onRankEnd).toHaveBeenCalledTimes(1);

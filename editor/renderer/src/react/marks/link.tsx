@@ -6,7 +6,11 @@ import { LinkAttributes } from '@atlaskit/adf-schema';
 
 import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { MarkProps } from '../types';
 
 import { token } from '@atlaskit/tokens';

@@ -132,10 +132,7 @@ describe('getToolbarConfig', () => {
       );
 
       const button = getButton(editorView);
-      expect(button.confirmDialog).toEqual({
-        message: 'fabric.editor.tables.confirmDeleteLinkedModalMessage',
-        okButtonLabel: 'fabric.editor.tables.confirmDeleteLinkedModalOKButton',
-      });
+      expect(typeof button.confirmDialog).toBe('function');
     });
   });
 });

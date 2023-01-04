@@ -485,6 +485,7 @@ describe('media-single', () => {
               __fileMimeType: 'image/png',
               __fileName: 'hollow knight.png',
               __fileSize: 263056,
+              __mediaTraceId: expect.any(String),
             })(),
           ),
         ),

@@ -52,7 +52,7 @@ describe('list conversion', () => {
     it('converts all siblings', () => {
       // prettier-ignore
       const originalDoc = doc(
-        ol(
+        ol()(
           li(p('A')),
           li(p('{<>}B'))
         )
@@ -75,7 +75,7 @@ describe('list conversion', () => {
           li(p('A')),
           li(
             p('B'),
-            ol(
+            ol()(
               li(p('B1{<>}'))
             )
           ),
@@ -102,13 +102,13 @@ describe('list conversion', () => {
     it('converts siblings but leaves children alone', () => {
       // prettier-ignore
       const originalDoc = doc(
-        ol(
+        ol()(
           li(
             p('A{<>}'),
-            ol(
+            ol()(
               li(
                 p('A-1'),
-                ol(
+                ol()(
                   li(p('A-1-1'))
                 )
               )
@@ -122,10 +122,10 @@ describe('list conversion', () => {
         ul(
           li(
             p('A{<>}'),
-            ol(
+            ol()(
               li(
                 p('A-1'),
-                ol(
+                ol()(
                   li(p('A-1-1'))
                 )
               )
@@ -143,7 +143,7 @@ describe('list conversion', () => {
     it('converts all siblings even if selection only covers some of them', () => {
       // prettier-ignore
       const originalDoc = doc(
-        ol(
+        ol()(
           li(p('AAA')),
           li(p('B{<}BB')),
           li(p('CC{>}C')),
@@ -167,16 +167,16 @@ describe('list conversion', () => {
       it('scenario 1', () => {
         // prettier-ignore
         const originalDoc = doc(
-          ol(
+          ol()(
             li(
               p('{<}AAA'),
-              ol(
+              ol()(
                 li(
                   p('AAA-1{>}'),
-                  ol(
+                  ol()(
                     li(
                       p('AAA-1-1'),
-                      ol(
+                      ol()(
                         li(p('AAA-1-1-1'))
                       )
                     )
@@ -194,10 +194,10 @@ describe('list conversion', () => {
               ul(
                 li(
                   p('AAA-1{>}'),
-                  ol(
+                  ol()(
                     li(
                       p('AAA-1-1'),
-                      ol(
+                      ol()(
                         li(p('AAA-1-1-1'))
                       )
                     )
@@ -214,16 +214,16 @@ describe('list conversion', () => {
       it('scenario 2', () => {
         // prettier-ignore
         const originalDoc = doc(
-          ol(
+          ol()(
             li(
               p('{<}AAA'),
-              ol(
+              ol()(
                 li(
                   p('AAA-1{>}'),
-                  ol(
+                  ol()(
                     li(
                       p('AAA-1-1'),
-                      ol(
+                      ol()(
                         li(p('AAA-1-1-1'))
                       )
                     )
@@ -243,10 +243,10 @@ describe('list conversion', () => {
               ul(
                 li(
                   p('AAA-1{>}'),
-                  ol(
+                  ol()(
                     li(
                       p('AAA-1-1'),
-                      ol(
+                      ol()(
                         li(p('AAA-1-1-1'))
                       )
                     )
@@ -265,16 +265,16 @@ describe('list conversion', () => {
       it('scenario 3', () => {
         // prettier-ignore
         const originalDoc = doc(
-          ol(
+          ol()(
             li(
               p('AAA'),
-              ol(
+              ol()(
                 li(
                   p('AAA-1'),
-                  ol(
+                  ol()(
                     li(
                       p('AA{<}A-1-1'),
-                      ol(
+                      ol()(
                         li(p('AAA-1{>}-1-1'))
                       )
                     )
@@ -288,10 +288,10 @@ describe('list conversion', () => {
         );
         // prettier-ignore
         const convertedDoc = doc(
-          ol(
+          ol()(
             li(
               p('AAA'),
-              ol(
+              ol()(
                 li(
                   p('AAA-1'),
                   ul(
@@ -316,10 +316,10 @@ describe('list conversion', () => {
       it('scenario 4', () => {
         // prettier-ignore
         const originalDoc = doc(
-          ol(
+          ol()(
             li(
               p('AAA'),
-              ol(
+              ol()(
                 li(p('AAA-1')),
                 li(p('AA{<}A-2'))
               )
@@ -347,10 +347,10 @@ describe('list conversion', () => {
       it('scenario 5', () => {
         // prettier-ignore
         const originalDoc = doc(
-          ol(
+          ol()(
             li(
               p('AAA'),
-              ol(
+              ol()(
                 li(p('AAA-1')),
                 li(p('{<}AA{>}A-2'))
               )
@@ -360,7 +360,7 @@ describe('list conversion', () => {
         );
         // prettier-ignore
         const convertedDoc = doc(
-          ol(
+          ol()(
             li(
               p('AAA'),
               ul(
@@ -380,16 +380,16 @@ describe('list conversion', () => {
       it('scenario 1', () => {
         // prettier-ignore
         const originalDoc = doc(
-          ol(
+          ol()(
             li(
               p('{<}AAA'),
-              ol(
+              ol()(
                 li(
                   p('AAA-1'),
-                  ol(
+                  ol()(
                     li(
                       p('AAA-1-1'),
-                      ol(
+                      ol()(
                         li(p('AAA-1-1-1{>}'))
                       )
                     )
@@ -427,10 +427,10 @@ describe('list conversion', () => {
       it('scenario 2', () => {
         // prettier-ignore
         const originalDoc = doc(
-          ol(
+          ol()(
             li(
               p('{<}AAA'),
-              ol(
+              ol()(
                 li(p('AAA-1')),
                 li(p('AAA-2')),
                 li(p('AAA-3'))
@@ -438,7 +438,7 @@ describe('list conversion', () => {
             ),
             li(
               p('BBB'),
-              ol(
+              ol()(
                 li(p('BBB-1')),
                 li(p('BBB-2'))
               )

@@ -27,7 +27,7 @@ describe('Avatar List', () => {
     const component = renderWithProps({ avatars, selectedAvatar, onItemClick });
 
     // click on the selected avatar
-    component.find(SmallAvatarImage).simulate('click');
+    component.find(SmallAvatarImage).parent().simulate('click');
 
     expect(onItemClick).toBeCalledWith(selectedAvatar);
   });

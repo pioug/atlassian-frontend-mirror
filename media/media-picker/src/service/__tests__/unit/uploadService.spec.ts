@@ -11,9 +11,14 @@ import {
   TouchedFiles,
   ProcessingFileState,
   createMediaSubscribable,
+  RequestError,
 } from '@atlaskit/media-client';
 import uuidV4 from 'uuid/v4';
-import { asMock, fakeMediaClient } from '@atlaskit/media-test-helpers';
+import {
+  asMock,
+  fakeMediaClient,
+  flushPromises,
+} from '@atlaskit/media-test-helpers';
 import { Subscriber } from 'rxjs/Subscriber';
 import { UploadServiceImpl } from '../../uploadServiceImpl';
 import * as getPreviewModule from '../../../util/getPreviewFromBlob';
@@ -24,6 +29,7 @@ import {
   UploadPreviewUpdateEventPayload,
   UploadsStartEventPayload,
 } from '../../../types';
+import { LocalFileSource, LocalFileWithSource } from '../../../service/types';
 
 describe('UploadService', () => {
   const baseUrl = 'some-api-url';
@@ -45,6 +51,10 @@ describe('UploadService', () => {
       ...options,
     });
   const file = { size: 100, name: 'some-filename', type: 'video/mp4' } as File;
+  const localFileWithSource = {
+    file,
+    source: LocalFileSource.LocalUpload,
+  } as LocalFileWithSource;
   const setup = (
     mediaClient: MediaClient = getMediaClient(),
     tenantUploadParams: UploadParams = { collection: '' },
@@ -285,6 +295,7 @@ describe('UploadService', () => {
             occurrenceKey: expect.any(String),
           },
         ],
+        traceContext: expect.any(Object),
       };
       expect(filesAddedCallback).toHaveBeenCalledWith(expectedPayload);
       expect(filesAddedCallback.mock.calls[0][0].files[0].id).not.toEqual(
@@ -391,7 +402,102 @@ describe('UploadService', () => {
           description: 'Some reason',
           rawError: error,
         },
+        traceContext: expect.any(Object),
       });
+    });
+  });
+
+  describe('TraceContext in addFilesWithSource', () => {
+    it('should pass traceContext to mediaClient filefetch', () => {
+      const { uploadService, mediaClient } = setup();
+
+      uploadService.addFilesWithSource([localFileWithSource]);
+
+      expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(1);
+      expect(asMock(mediaClient.file.touchFiles).mock.calls[0][2]).toEqual({
+        traceId: expect.any(String),
+      });
+
+      expect(mediaClient.file.upload).toHaveBeenCalledTimes(1);
+      expect(asMock(mediaClient.file.upload).mock.calls[0][3]).toEqual({
+        traceId: expect.any(String),
+      });
+    });
+
+    it('should pass traceContext to mediaClient.mediaStore if any error is thrown when resolving touchedFiles', async () => {
+      const { uploadService, mediaClient } = setup();
+      const createUploadMock = asMock(mediaClient.mediaStore.createUpload);
+      createUploadMock.mockResolvedValue({ data: [{ id: 'some-id' }] });
+      asMock(mediaClient.file.touchFiles).mockRejectedValueOnce(
+        new RequestError('serverUnexpectedError', { statusCode: 409 }),
+      );
+
+      uploadService.addFilesWithSource([localFileWithSource]);
+      await flushPromises();
+
+      expect(mediaClient.mediaStore.createUpload).toHaveBeenCalledTimes(1);
+      expect(createUploadMock.mock.calls[0][2]).toEqual({
+        traceId: expect.any(String),
+      });
+    });
+
+    it('should pass traceContext in files-added event', () => {
+      const { uploadService } = setup();
+      const filesAddedCallback = jest.fn();
+      uploadService.on('files-added', filesAddedCallback);
+
+      uploadService.addFilesWithSource([localFileWithSource]);
+      expect(filesAddedCallback).toHaveBeenCalledTimes(1);
+      expect(filesAddedCallback.mock.calls[0][0]).toEqual(
+        expect.objectContaining({
+          traceContext: { traceId: expect.any(String) },
+        }),
+      );
+    });
+
+    it('should pass traceContext in file-converting event if upload succeeded', () => {
+      const { uploadService, mediaClient } = setup();
+      const fileConvertingCallback = jest.fn();
+      uploadService.on('file-converting', fileConvertingCallback);
+
+      jest.spyOn(mediaClient.file, 'upload').mockReturnValue(
+        createMediaSubscribable({
+          status: 'processing',
+          id: 'public-file-id',
+        } as ProcessingFileState),
+      );
+
+      uploadService.addFilesWithSource([localFileWithSource]);
+
+      expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
+      expect(fileConvertingCallback.mock.calls[0][0]).toEqual(
+        expect.objectContaining({
+          traceContext: { traceId: expect.any(String) },
+        }),
+      );
+    });
+
+    it('should pass traceContext in file-upload-error event if upload failed', () => {
+      const { uploadService, mediaClient } = setup();
+      const error = new Error('Some reason');
+      const fileUploadErrorCallback = jest.fn();
+      uploadService.on('file-upload-error', fileUploadErrorCallback);
+
+      jest.spyOn(mediaClient.file, 'upload').mockReturnValue({
+        // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
+        subscribe(subscription: Subscriber<FileState>) {
+          subscription.error(error);
+        },
+      });
+
+      uploadService.addFilesWithSource([localFileWithSource]);
+
+      expect(fileUploadErrorCallback).toHaveBeenCalledTimes(1);
+      expect(fileUploadErrorCallback.mock.calls[0][0]).toEqual(
+        expect.objectContaining({
+          traceContext: { traceId: expect.any(String) },
+        }),
+      );
     });
   });
 

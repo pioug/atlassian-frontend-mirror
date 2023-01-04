@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.5.3
+
+### Patch Changes
+
+- [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
+
 ## 16.5.2
 
 ### Patch Changes

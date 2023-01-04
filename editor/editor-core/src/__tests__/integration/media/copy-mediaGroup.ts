@@ -11,6 +11,21 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { waitForAtLeastNumFileCards } from './_utils';
+import cloneDeep from 'lodash/cloneDeep';
+
+const expectUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
+  expect(doc.content[1].content[0].attrs).toEqual(
+    expect.objectContaining({
+      __mediaTraceId: expect.any(String),
+    }),
+  );
+};
+
+const removeUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
+  const copy = cloneDeep(doc);
+  delete copy.content[1].content[0].attrs.__mediaTraceId;
+  return copy;
+};
 
 const baseADF = {
   version: 1,
@@ -62,6 +77,10 @@ BrowserTestCase(
     await waitForAtLeastNumFileCards(page, 2);
 
     const doc = await page.$eval(editable, getDocFromElement);
-    expect(doc).toMatchCustomDocSnapshot(testCase);
+
+    expectUniqueGeneratedMediaAttrs(doc);
+    expect(removeUniqueGeneratedMediaAttrs(doc)).toMatchCustomDocSnapshot(
+      testCase,
+    );
   },
 );

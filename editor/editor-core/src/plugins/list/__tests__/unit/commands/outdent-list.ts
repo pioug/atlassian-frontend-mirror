@@ -52,11 +52,11 @@ describe('lists plugin -> commands -> outdentList', () => {
       it('should keep the list item at the right level', () => {
         // prettier-ignore
         const document = doc(
-          ol(
+          ol()(
             li(p('A')),
             li(
               p('B'),
-              ol(
+              ol()(
                 li(p('{<>}B1')),
               ),
             ),
@@ -65,7 +65,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         // prettier-ignore
         const expected =doc(
-          ol(
+          ol()(
             li(p('A')),
             li(p('B')),
             li(p('B1')),
@@ -86,7 +86,7 @@ describe('lists plugin -> commands -> outdentList', () => {
       it('should keep the list type from the target list', () => {
         // prettier-ignore
         const document = doc(
-          ol(
+          ol()(
             li(p('A')),
             li(
               p('B'),
@@ -99,7 +99,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         // prettier-ignore
         const expected = doc(
-          ol(
+          ol()(
             li(p('A')),
             li(p('B')),
             li(p('B1')),
@@ -120,7 +120,7 @@ describe('lists plugin -> commands -> outdentList', () => {
       it('should join the list items into a single list', () => {
         // prettier-ignore
         const document = doc(
-          ol(
+          ol()(
             li(
               p('A{<>}'),
               ul(
@@ -133,7 +133,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         // prettier-ignore
         const expected = doc(
           p('A'),
-          ol(
+          ol()(
             li(p('B')),
             li(p('C')),
           ),
@@ -152,10 +152,10 @@ describe('lists plugin -> commands -> outdentList', () => {
       it('should join the list items into a single list', () => {
         // prettier-ignore
         const document = doc(
-          ol(
+          ol()(
             li(
               p('A{<>}'),
-              ol(
+              ol()(
                 li(p('B')),
               ),
             ),
@@ -165,7 +165,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         // prettier-ignore
         const expected = doc(
           p('A'),
-          ol(
+          ol()(
             li(p('B')),
             li(p('C')),
           ),
@@ -184,13 +184,13 @@ describe('lists plugin -> commands -> outdentList', () => {
       it('should join the list items into a single list', () => {
         // prettier-ignore
         const document = doc(
-          ol(
+          ol()(
             li(
               p('A{<>}'),
-              ol(
+              ol()(
                 li(
                   p('B'),
-                  ol(
+                  ol()(
                     li(p('B1')),
                   ),
                 ),
@@ -202,10 +202,10 @@ describe('lists plugin -> commands -> outdentList', () => {
         // prettier-ignore
         const expected = doc(
           p('A'),
-          ol(
+          ol()(
             li(
               p('B'),
-              ol(
+              ol()(
                 li(p('B1')),
               ),
             ),
@@ -226,7 +226,7 @@ describe('lists plugin -> commands -> outdentList', () => {
       it('should join the list items into a single list', () => {
         // prettier-ignore
         const document = doc(
-          ol(
+          ol()(
             li(
               p('A{<>}'),
               ul(
@@ -244,7 +244,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         // prettier-ignore
         const expected = doc(
           p('A'),
-          ol(
+          ol()(
             li(
               p('B'),
               ul(
@@ -275,7 +275,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             tr(
               td()(p('Hello')),
               td()(
-                ol(
+                ol()(
                   li(p('{selStart}Item 1')),
                   li(p('Item 2')),
                   li(p('Item 3{selEnd}')),
@@ -324,7 +324,7 @@ describe('lists plugin -> commands -> outdentList', () => {
             tr(
               td()(p('{helloPosBefore}Hello{helloPosAfter}')),
               td()(
-                ol(li(p('{item1Pos}Item 1')), li(p('Item 2'))),
+                ol()(li(p('{item1Pos}Item 1')), li(p('Item 2'))),
                 p('list after text{textPos}'),
               ),
               tdEmpty,
@@ -348,7 +348,7 @@ describe('lists plugin -> commands -> outdentList', () => {
     });
 
     it('should call outdent analytics', () => {
-      const document = doc(ol(li(p('One'), ul(li(p('Two{<>}'))))));
+      const document = doc(ol()(li(p('One'), ul(li(p('Two{<>}'))))));
       const { editorView } = editor(document);
       outdentList(INPUT_METHOD.KEYBOARD)(editorView.state, editorView.dispatch);
       expect(createAnalyticsEvent).toHaveBeenCalledWith({

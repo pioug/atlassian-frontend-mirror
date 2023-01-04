@@ -1,5 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { MobileRenderer } from '../../../renderer/mobile-renderer-element';
 import WebBridgeImpl from '../../../renderer/native-to-web/implementation';
 import { createIntl, RawIntlProvider } from 'react-intl-next';
@@ -12,7 +13,7 @@ import {
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
 
-const initialDocument = JSON.stringify({
+const initialDocument: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -26,9 +27,10 @@ const initialDocument = JSON.stringify({
       ],
     },
   ],
-});
+};
 
-const invalidDocument = JSON.stringify({
+// @ts-ignore
+const invalidDocument = {
   version: 1,
   type: 'doc',
   content: [
@@ -42,7 +44,7 @@ const invalidDocument = JSON.stringify({
       ],
     },
   ],
-});
+} as DocNode;
 
 describe('general', () => {
   const bridge: any = new WebBridgeImpl();
@@ -58,7 +60,7 @@ describe('renderer bridge', () => {
   const rendererBridge = new RendererBridgeImplementation();
   const intl = createIntl({ locale: 'en' });
 
-  const initRenderer = (adf: string): ReactWrapper => {
+  const initRenderer = (adf: DocNode): ReactWrapper => {
     return mount(
       <RawIntlProvider value={intl}>
         <MobileRenderer

@@ -5,15 +5,29 @@ import { MediaCardError } from '../errors';
 import { getCardStatus, isFinalCardStatus } from './getCardStatus';
 import { extractFilePreviewStatus } from './getCardPreview';
 
+/**
+ * From docs: "Both state and props received by the updater function are guaranteed to be up-to-date.
+ * The output of the updater is shallowly merged with state."
+ */
 export const createStateUpdater =
-  (newState: Partial<CardState>) =>
-  (prevState: CardState): Pick<CardState, keyof CardState> => {
-    // Only override if previous status is non-final
-    // or new status is 'complete'
-    if (isFinalCardStatus(prevState.status) && newState.status !== 'complete') {
+  (
+    newState: Partial<CardState>,
+    fireErrorEvent: (error: MediaCardError) => void,
+  ) =>
+  (prevState: CardState): Partial<CardState> => {
+    // Only override if previous status is non-final or new status is 'complete'
+    if (
+      !!newState.status &&
+      isFinalCardStatus(prevState.status) &&
+      newState.status !== 'complete'
+    ) {
+      // Log the error if the new state is not going to store it.
+      // i.e. this is a non critical error
+      !!newState.error && fireErrorEvent(newState.error);
       return prevState;
     }
-    return { ...prevState, ...newState };
+
+    return newState;
   };
 
 export const getCardStateFromFileState = (

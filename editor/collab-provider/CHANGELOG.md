@@ -1,5 +1,25 @@
 # @atlaskit/collab-provider
 
+## 8.0.0
+
+### Major Changes
+
+- [`618b64f0d8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/618b64f0d8c) - Introduce ufo and measure document init latency with histogram
+
+### Minor Changes
+
+- [`83060253868`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83060253868) - [ESS-2752] Introduced the capability to distinguish step commit failures due to errors and step rejections in collab provider analytics
+- [`cc8b81f8fd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc8b81f8fd8) - Use socket.io acknowledgements to improve add-step performance tracking
+- [`50d8749c3fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50d8749c3fa) - Track telepointer latency
+
+### Patch Changes
+
+- [`0a482422f75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a482422f75) - Update add-steps analytic
+- [`9f1f34a71ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f1f34a71ea) - [ESS-3020] Turned all type dependencies in dev dependencies
+- [`de027d19a65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de027d19a65) - Handle null for permission token refresh callback response
+- [`62332c99254`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62332c99254) - ESS-2964 - add numSteps and stepType to ADD-STEPS analytic events
+- Updated dependencies
+
 ## 7.7.0
 
 ### Minor Changes

@@ -30,6 +30,7 @@ import widthPlugin from '../../../width';
 import layoutPlugin from '../../../layout';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import mediaPlugin from '../../../media';
+import featureFlagsPlugin from '../../../feature-flags-context';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
@@ -60,7 +61,7 @@ describe('lists', () => {
 
   describe('API', () => {
     it('should be enabled when selecting ordered list', () => {
-      const { editorView } = editor(doc(ol(li(p('te{<>}xt')))));
+      const { editorView } = editor(doc(ol()(li(p('te{<>}xt')))));
       const pluginState = pluginKey.getState(editorView.state);
 
       expect(pluginState).toHaveProperty('orderedListActive', true);
@@ -85,7 +86,7 @@ describe('lists', () => {
       const { editorView } = editor(doc(p('t{a}ex{b}t')));
 
       toggleOrderedList(editorView);
-      expect(editorView.state.doc).toEqualDocument(doc(ol(li(p('text')))));
+      expect(editorView.state.doc).toEqualDocument(doc(ol()(li(p('text')))));
       toggleOrderedList(editorView);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
@@ -100,7 +101,7 @@ describe('lists', () => {
     });
 
     it('should allow toggling between ordered and bullet list', () => {
-      const { editorView } = editor(doc(ol(li(p('t{<}ex{>}t')))));
+      const { editorView } = editor(doc(ol()(li(p('t{<}ex{>}t')))));
 
       toggleBulletList(editorView);
       expect(editorView.state.doc).toEqualDocument(doc(ul(li(p('text')))));
@@ -153,12 +154,12 @@ describe('lists', () => {
   describe('untoggling a list', () => {
     // prettier-ignore
     const expectedOutput = doc(
-      ol(
+      ol()(
         li(p('One')),
       ),
       p('Two'),
       p('Three'),
-      ol(
+      ol()(
         li(p('Four'))
       ),
     );
@@ -167,7 +168,7 @@ describe('lists', () => {
       const { editorView } = editor(
         // prettier-ignore
         doc(
-          ol(
+          ol()(
             li(p('One')),
             li(p('{<}Two')),
             li(p('Three{>}')),
@@ -182,7 +183,7 @@ describe('lists', () => {
 
     it('should untoggle empty paragraphs in a list', () => {
       const { editorView } = editor(
-        doc(ol(li(p('{<}One')), li(p('Two')), li(p()), li(p('Three{>}')))),
+        doc(ol()(li(p('{<}One')), li(p('Two')), li(p()), li(p('Three{>}')))),
       );
 
       toggleOrderedList(editorView);
@@ -195,13 +196,13 @@ describe('lists', () => {
       const { editorView } = editor(
         // prettier-ignore
         doc(
-          ol(
+          ol()(
             li(p('One')),
             li(p('{<}Two')),
             li(p('Three')),
           ),
           p('LOL'),
-          ol(
+          ol()(
             li(p('One{>}')),
             li(p('Two')),
           ),
@@ -212,14 +213,14 @@ describe('lists', () => {
       expect(editorView.state.doc).toEqualDocument(
         // prettier-ignore
         doc(
-          ol(
+          ol()(
             li(p('One')),
           ),
           p('Two'),
           p('Three'),
           p('LOL'),
           p('One'),
-          ol(
+          ol()(
             li(p('Two')),
           ),
         ),
@@ -231,7 +232,7 @@ describe('lists', () => {
       const { editorView } = editor(
         doc(
           table({ localId: TABLE_LOCAL_ID })(
-            tr(td()(p('')), td()(ol(li(p('One{<>}'))))),
+            tr(td()(p('')), td()(ol()(li(p('One{<>}'))))),
           ),
         ),
       );
@@ -250,60 +251,60 @@ describe('lists', () => {
   describe('nested list scenarios', () => {
     it('should be possible to toggle a simple nested list', () => {
       const { editorView } = editor(
-        doc(ol(li(p('text'), ol(li(p('text{<>}')))), li(p('text')))),
+        doc(ol()(li(p('text'), ol()(li(p('text{<>}')))), li(p('text')))),
       );
 
       toggleOrderedList(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(ol(li(p('text'))), p('text{<>}'), ol(li(p('text')))),
+        doc(ol()(li(p('text'))), p('text{<>}'), ol()(li(p('text')))),
       );
     });
 
     it('should be possible to toggle an empty nested list item', () => {
       const { editorView } = editor(
-        doc(ol(li(p('text'), ol(li(p('{<>}')))), li(p('text')))),
+        doc(ol()(li(p('text'), ol()(li(p('{<>}')))), li(p('text')))),
       );
 
       toggleOrderedList(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(ol(li(p('text'))), p('{<>}'), ol(li(p('text')))),
+        doc(ol()(li(p('text'))), p('{<>}'), ol()(li(p('text')))),
       );
     });
 
     it('should be possible to toggle a selection across different depths in the list', () => {
       const { editorView } = editor(
-        doc(ol(li(p('te{<}xt'), ol(li(p('text{>}')))), li(p('text')))),
+        doc(ol()(li(p('te{<}xt'), ol()(li(p('text{>}')))), li(p('text')))),
       );
 
       toggleOrderedList(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(p('te{<}xt'), p('text{>}'), ol(li(p('text')))),
+        doc(p('te{<}xt'), p('text{>}'), ol()(li(p('text')))),
       );
     });
 
     it('should be possible to toggle a selection across lists with different parent lists', () => {
       const { editorView } = editor(
         doc(
-          ol(li(p('te{<}xt'), ol(li(p('text'))))),
-          ol(li(p('te{>}xt'), ol(li(p('text'))))),
+          ol()(li(p('te{<}xt'), ol()(li(p('text'))))),
+          ol()(li(p('te{>}xt'), ol()(li(p('text'))))),
         ),
       );
 
       toggleOrderedList(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(p('te{<}xt'), p('text'), p('te{>}xt'), ol(li(p('text')))),
+        doc(p('te{<}xt'), p('text'), p('te{>}xt'), ol()(li(p('text')))),
       );
     });
 
     it('should be create a new list for children of lifted list item', () => {
       const { editorView } = editor(
         doc(
-          ol(
-            li(p('text'), ol(li(p('te{<>}xt'), ol(li(p('text')))))),
+          ol()(
+            li(p('text'), ol()(li(p('te{<>}xt'), ol()(li(p('text')))))),
             li(p('text')),
           ),
         ),
@@ -312,15 +313,19 @@ describe('lists', () => {
       toggleOrderedList(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(ol(li(p('text'))), p('te{<>}xt'), ol(li(p('text')), li(p('text')))),
+        doc(
+          ol()(li(p('text'))),
+          p('te{<>}xt'),
+          ol()(li(p('text')), li(p('text'))),
+        ),
       );
     });
 
     it('should only change type to bullet list when toggling orderedList to bulletList', () => {
       const { editorView } = editor(
         doc(
-          ol(
-            li(p('text'), ol(li(p('text'), ol(li(p('te{<>}xt')))))),
+          ol()(
+            li(p('text'), ol()(li(p('text'), ol()(li(p('te{<>}xt')))))),
             li(p('text')),
           ),
         ),
@@ -330,8 +335,8 @@ describe('lists', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          ol(
-            li(p('text'), ol(li(p('text'), ul(li(p('te{<>}xt')))))),
+          ol()(
+            li(p('text'), ol()(li(p('text'), ul(li(p('te{<>}xt')))))),
             li(p('text')),
           ),
         ),
@@ -394,11 +399,11 @@ describe('lists', () => {
     });
   });
 
-  describe('child count attribute', () => {
+  describe('child-count attribute', () => {
     it('should add data-child-count attribute, when number of listItem is more than 99', () => {
       const { editorView } = editor(
         doc(
-          ol(
+          ol()(
             li(p('1')),
             li(p('1')),
             li(p('1')),
@@ -512,7 +517,7 @@ describe('lists', () => {
     it('should not add data-child-count attribute, when number of listItem is less than 100', () => {
       const { editorView } = editor(
         doc(
-          ol(
+          ol()(
             li(p('1')),
             li(p('1')),
             li(p('1')),
@@ -527,6 +532,63 @@ describe('lists', () => {
       const pluginState = pluginKey.getState(editorView.state);
 
       expect(pluginState.decorationSet.find()[1]).toBeUndefined();
+    });
+  });
+});
+
+describe('restart numbered lists', () => {
+  const createEditor = createProsemirrorEditorFactory();
+
+  const editor = (doc: DocBuilder) => {
+    const preset = new Preset<LightEditorPlugin>()
+      .add([listPlugin, { restartNumberedLists: true }])
+      .add([featureFlagsPlugin, { restartNumberedLists: true }]);
+
+    return createEditor({
+      doc,
+      preset,
+    });
+  };
+
+  describe('item counter spacing styles', () => {
+    const testCases = [
+      {
+        scenario:
+          'when number of listItem is less than 3 digits (eg up to "3")',
+        totalListItems: 3,
+        expectedInlineStyle: '--ed--list--item-counter--padding:2.385ch;',
+      },
+      {
+        scenario:
+          'when number of listItem is less than 3 digits (eg up to "99")',
+        totalListItems: 99,
+        expectedInlineStyle: '--ed--list--item-counter--padding:2.385ch;',
+      },
+      {
+        scenario: 'when number of listItem is 3 digits (eg up to "105")',
+        totalListItems: 105,
+        expectedInlineStyle:
+          '--ed--list--item-counter--padding:calc(4ch - 2px);',
+      },
+      {
+        scenario: 'when number of listItem is 4 digits (eg up to "8989")',
+        totalListItems: 8989,
+        expectedInlineStyle:
+          '--ed--list--item-counter--padding:calc(5ch - 2px);',
+      },
+    ];
+
+    testCases.forEach(({ scenario, totalListItems, expectedInlineStyle }) => {
+      it(`should add an inline-style CSS variable reflecting a dynamically calculated left padding value, ${scenario}`, () => {
+        const listWithXItems = doc(
+          ol()(...Array(totalListItems).fill(li(p('item')))),
+        );
+        const { editorView } = editor(listWithXItems);
+        const pluginState = pluginKey.getState(editorView.state);
+        expect(pluginState.decorationSet.find()[1].type.attrs).toEqual({
+          style: expectedInlineStyle,
+        });
+      });
     });
   });
 });

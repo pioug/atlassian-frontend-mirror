@@ -20,7 +20,7 @@ export const createEditor = createProsemirrorEditorFactory();
 export const getFindReplacePreset = (
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) => {
-  let preset = new Preset<LightEditorPlugin>().add([
+  let preset: any = new Preset<LightEditorPlugin>().add([
     findReplacePlugin,
     { takeFullWidth: false, twoLineEditorToolbar: false },
   ]);

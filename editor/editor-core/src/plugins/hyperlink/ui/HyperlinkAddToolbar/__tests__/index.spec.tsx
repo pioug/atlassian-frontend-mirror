@@ -67,47 +67,6 @@ describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {
         },
       });
 
-    it('renders the legacy picker if `activityProvider` is present but no link picker plugins are supplied', () => {
-      const onSubmit = jest.fn();
-      const { editorView } = createEditorWithNewLinkPicker();
-      const providerFactory = ProviderFactory.create({
-        activityProvider: activityProviderMock,
-      });
-
-      const component = mountWithIntl(
-        <HyperlinkAddToolbarWithProviderFactory
-          view={editorView}
-          providerFactory={providerFactory}
-          displayText={'some-display-text'}
-          displayUrl={'some-display-url'}
-          onSubmit={onSubmit}
-        />,
-      );
-
-      expect(component.find(HyperlinkAddToolbar).exists()).toBe(true);
-      expect(component.find(EditorLinkPicker).exists()).toBe(false);
-    });
-
-    it('renders the legacy picker if `searchProvider` is present but no link picker plugins are supplied', () => {
-      const onSubmit = jest.fn();
-      const { editorView } = createEditorWithNewLinkPicker();
-      const providerFactory = ProviderFactory.create({
-        searchProvider: searchProviderMock,
-      });
-      const component = mountWithIntl(
-        <HyperlinkAddToolbarWithProviderFactory
-          view={editorView}
-          providerFactory={providerFactory}
-          displayText={'some-display-text'}
-          displayUrl={'some-display-url'}
-          onSubmit={onSubmit}
-        />,
-      );
-
-      expect(component.find(HyperlinkAddToolbar).exists()).toBe(true);
-      expect(component.find(EditorLinkPicker).exists()).toBe(false);
-    });
-
     it('renders `EditorLinkPicker` and correctly passes all `linkPickerOptions`', () => {
       const onSubmit = jest.fn();
       const { editorView } = createEditorWithNewLinkPicker();

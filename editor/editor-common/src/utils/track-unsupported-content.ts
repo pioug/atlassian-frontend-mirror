@@ -5,6 +5,9 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
+} from '../analytics';
+
+import {
   UnsupportedContentPayload,
   UnsupportedContentTooltipPayload,
 } from './analytics';
@@ -107,14 +110,13 @@ export const findAndTrackUnsupportedContentNodes = (
     nodeMarks.forEach((mark) => {
       if (mark.type === unsupportedMark) {
         const { originalValue } = mark.attrs || {};
-        const sanitizedAttrs = sanitizeAttributes(originalValue.attrs) || {};
         const { type } = (originalValue || {}) as { type?: string };
         const unsupportedNode = {
           type: type || '',
           ancestry: ancestorHierarchy,
           parentType: parentType,
           marks: [],
-          attrs: sanitizedAttrs || {},
+          attrs: originalValue.attrs || {},
         };
         fireUnsupportedEvent(
           dispatchAnalyticsEvent,
@@ -123,13 +125,12 @@ export const findAndTrackUnsupportedContentNodes = (
         );
       } else if (mark.type === unsupportedNodeAttribute) {
         const { unsupported } = mark.attrs || {};
-        const sanitizedAttrs = sanitizeAttributes(unsupported) || {};
         const unsupportedNodeAttribute = {
           type: nodeType.name || '',
           ancestry: ancestorHierarchy,
           parentType: parentType,
           marks: [],
-          attrs: sanitizedAttrs || {},
+          attrs: unsupported || {},
         };
         fireUnsupportedEvent(
           dispatchAnalyticsEvent,
@@ -148,8 +149,8 @@ export const findAndTrackUnsupportedContentNodes = (
       type: type || '',
       ancestry: ancestorHierarchy,
       parentType: parentType,
-      marks: sanitizeMarks(marks) || [],
-      attrs: sanitizeAttributes(attrs) || {},
+      marks: marks || [],
+      attrs: attrs || {},
     };
     const actionSubjectId =
       nodeType === unsupportedInline
@@ -173,26 +174,41 @@ export const findAndTrackUnsupportedContentNodes = (
   }
 };
 
+interface UnsupportedNode {
+  type: string;
+  ancestry: string;
+  parentType: string;
+  marks: {
+    [key: string]: any;
+  }[];
+  attrs: {
+    [key: string]: any;
+  };
+}
+
 export const fireUnsupportedEvent = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   actionSubjectId: ACTION_SUBJECT_ID,
-  unsupportedNode: {} = {},
+  unsupportedNode: UnsupportedNode,
   errorCode?: string,
 ) => {
-  let attrs: {
-    unsupportedNode: Record<string, any>;
-    errorCode?: String;
-  } = {
-    unsupportedNode: unsupportedNode,
+  const sanitizedAttrs = sanitizeAttributes(unsupportedNode.attrs);
+  const sanitizedMarks = sanitizeMarks(unsupportedNode.marks);
+  const sanitizedUnsupportedNode = {
+    type: unsupportedNode.type,
+    ancestry: unsupportedNode.ancestry,
+    parentType: unsupportedNode.parentType,
+    attrs: sanitizedAttrs,
+    marks: sanitizedMarks,
   };
-  if (errorCode) {
-    attrs.errorCode = errorCode;
-  }
   const payload: UnsupportedContentPayload = {
     action: ACTION.UNSUPPORTED_CONTENT_ENCOUNTERED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,
     actionSubjectId,
-    attributes: attrs,
+    attributes: {
+      unsupportedNode: sanitizedUnsupportedNode,
+      ...(!!errorCode && { errorCode }),
+    },
     eventType: EVENT_TYPE.TRACK,
   };
   dispatchAnalyticsEvent(payload);

@@ -21,7 +21,7 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../constants';
 import { AssistiveText } from './AssistiveText';
 import { typeAheadListMessages } from '../messages';
-import { useIntl } from 'react-intl-next';
+import { IntlShape, useIntl } from 'react-intl-next';
 import { token } from '@atlaskit/tokens';
 import * as colors from '@atlaskit/theme/colors';
 
@@ -52,6 +52,19 @@ const isUndoRedoShortcut = (
 const isSelectAllShortcut = (event: KeyboardEvent): boolean => {
   const key = keyNameNormalized(event as any);
   return (event.ctrlKey || event.metaKey) && key === 'a';
+};
+
+const getAriaLabel = (triggerPrefix: string, intl: IntlShape) => {
+  switch (triggerPrefix) {
+    case '@':
+      return typeAheadListMessages.mentionInputLabel;
+    case '/':
+      return typeAheadListMessages.quickInsertInputLabel;
+    case ':':
+      return typeAheadListMessages.emojiInputLabel;
+    default:
+      return typeAheadListMessages.quickInsertInputLabel;
+  }
 };
 
 type InputQueryProps = {
@@ -495,6 +508,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           />
         </span>
         <span id={assistiveHintID} style={{ display: 'none' }}>
+          {intl.formatMessage(getAriaLabel(triggerQueryPrefix, intl))},
           {intl.formatMessage(typeAheadListMessages.inputQueryAssistiveLabel)}
         </span>
 

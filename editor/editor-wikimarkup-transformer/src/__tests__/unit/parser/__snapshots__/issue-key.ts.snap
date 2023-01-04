@@ -188,6 +188,7 @@ Object {
             "__fileMimeType": null,
             "__fileName": null,
             "__fileSize": null,
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "",
             "height": 183,

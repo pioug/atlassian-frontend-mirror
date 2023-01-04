@@ -10,7 +10,7 @@ import {
 
 import { SortOrder } from '../types';
 
-enum ContentType {
+export enum ContentType {
   NUMBER = 0,
   TEXT = 5,
   MENTION = 10,
@@ -39,6 +39,90 @@ type NodeMeta =
 function getLinkMark(node: PMNode): Mark | null {
   const [linkMark] = node.marks.filter((mark) => mark.type.name === 'link');
   return linkMark || null;
+}
+
+// Source: https://stackoverflow.com/questions/12004808/does-javascript-take-local-decimal-separators-into-account
+function parseLocaleNumber(stringNumber: string): number | null {
+  if (stringNumber.trim() === '') {
+    return null;
+  }
+
+  const locale = window.navigator.language;
+  const thousandSeparator = Intl.NumberFormat(locale)
+    .format(11111)
+    .replace(/\p{Number}/gu, '');
+  const decimalSeparator = Intl.NumberFormat(locale)
+    .format(1.1)
+    .replace(/\p{Number}/gu, '');
+
+  const maybeANumber = Number(
+    stringNumber
+      .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
+      .replace(new RegExp('\\' + decimalSeparator), '.'),
+  );
+
+  const isANumber = !Number.isNaN(maybeANumber);
+  if (!isANumber) {
+    return null;
+  }
+
+  return maybeANumber;
+}
+
+function extractFirstWordFromString(text: string): string {
+  // Firefox is the only browser that doesn't support it
+  if (!Intl || !Intl.Segmenter) {
+    // If the Segment API is not available
+    // let's fallback to a dumb way to extract the first word.
+    // However, this method doesn't cover some languages like Japanase
+    const firstEmptySpace = text.indexOf(' ');
+    const firstWord =
+      firstEmptySpace !== -1 ? text.substring(0, firstEmptySpace) : text;
+    return firstWord;
+  }
+
+  const languageSegment = new Intl.Segmenter(window.navigator.language, {
+    granularity: 'word',
+  });
+  const segmentsIterator = languageSegment.segment(text);
+
+  if (!segmentsIterator) {
+    return text;
+  }
+  const segmentsArray = Array.from(segmentsIterator);
+  if (segmentsArray.length === 0) {
+    return text;
+  }
+
+  return segmentsArray[0].segment;
+}
+
+export function extractMetaFromTextNode(textNode: PMNode): NodeMeta {
+  // treat as a link if contain a link
+  const linkMark = getLinkMark(textNode);
+  if (linkMark) {
+    const value = textNode.text || '';
+    return {
+      type: ContentType.LINK,
+      value,
+    };
+  }
+
+  const text = textNode.text || '';
+
+  const firstWord = extractFirstWordFromString(text);
+  const maybeANumber = parseLocaleNumber(firstWord);
+  if (maybeANumber !== null) {
+    return {
+      type: ContentType.NUMBER,
+      value: maybeANumber,
+    };
+  }
+
+  return {
+    type: ContentType.TEXT,
+    value: firstWord,
+  };
 }
 
 function getMetaFromNode(
@@ -81,31 +165,7 @@ function getMetaFromNode(
     }
 
     case 'text': {
-      // treat as a link if contain a link
-      const linkMark = getLinkMark(firstChild);
-      if (linkMark) {
-        const value = firstChild.text || '';
-        return {
-          type: ContentType.LINK,
-          value,
-        };
-      }
-
-      const text = firstChild.text || '';
-      const firstEmptySpace = text.indexOf(' ');
-      const firstWord =
-        firstEmptySpace !== -1 ? text.substring(0, firstEmptySpace) : text;
-      const maybeANumber = Number.parseFloat(firstWord);
-      if (!Number.isNaN(maybeANumber)) {
-        return {
-          type: ContentType.NUMBER,
-          value: maybeANumber,
-        };
-      }
-      return {
-        type: ContentType.TEXT,
-        value: firstWord,
-      };
+      return extractMetaFromTextNode(firstChild);
     }
     case 'status': {
       const text = (firstChild.attrs as StatusDefinition['attrs']).text;

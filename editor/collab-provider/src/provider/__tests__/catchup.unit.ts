@@ -21,13 +21,13 @@ describe('Catchup ', () => {
         ],
         version: 2,
       }),
-      fitlerQueue: jest.fn(),
+      filterQueue: jest.fn(),
       updateDocumentWithMetadata: jest.fn(),
-      applyLocalsteps: jest.fn(),
+      applyLocalSteps: jest.fn(),
     };
 
     await catchup(options);
-    expect(options.fitlerQueue).toBeCalled();
+    expect(options.filterQueue).toBeCalled();
     expect(options.updateDocumentWithMetadata).toBeCalledWith({
       doc: JSON.parse(exampleDoc),
       version: 2,

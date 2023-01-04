@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 9.2.0
+
+### Minor Changes
+
+- [`3f8f08a1888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f8f08a1888) - Updating Avatar-group component to position the tooltip either to top or bottom based on configuration.
+
 ## 9.1.4
 
 ### Patch Changes

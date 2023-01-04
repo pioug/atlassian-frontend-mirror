@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, Transaction } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Dispatch } from '../../event-dispatcher';
 
 export const pluginKey = new PluginKey<MaxContentSizePluginState>(
@@ -33,7 +33,11 @@ export function createPlugin(
   });
 }
 
-const maxContentSizePlugin = (maxContentSize?: number): EditorPlugin => ({
+const maxContentSizePlugin: NextEditorPlugin<
+  'maxContentSize',
+  never,
+  number
+> = (maxContentSize?: number) => ({
   name: 'maxContentSize',
 
   pmPlugins() {

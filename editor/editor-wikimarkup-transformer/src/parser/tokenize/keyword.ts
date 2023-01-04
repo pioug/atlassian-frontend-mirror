@@ -49,6 +49,7 @@ const keywordTokenMap: { [key: string]: TokenType } = {
   '[': TokenType.LINK_FORMAT,
   http: TokenType.LINK_TEXT,
   ftp: TokenType.LINK_TEXT,
+  jamfselfservice: TokenType.LINK_TEXT,
   irc: TokenType.LINK_TEXT,
   mailto: TokenType.LINK_TEXT,
   '\\\\': TokenType.FORCE_LINE_BREAK,

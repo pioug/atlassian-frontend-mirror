@@ -48,7 +48,6 @@ export interface Props {
   scrollableElement?: HTMLElement;
   closeDatePickerWithAnalytics: ({ date }: { date?: DateType }) => void;
   onTextChanged: (date: DateType) => void;
-  showTextField?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
 
@@ -93,7 +92,6 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
       mountTo,
       boundariesElement,
       scrollableElement,
-      showTextField,
       intl,
       dispatchAnalyticsEvent,
       isNew,
@@ -124,18 +122,16 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
         scrollableElement={scrollableElement}
       >
         <div css={popupContentWrapper}>
-          {showTextField === true && (
-            <DatePickerInput
-              date={date}
-              onNewDate={this.handleNewDate}
-              onSubmitDate={this.handleKeyboardSubmitDate}
-              onEmptySubmit={this.handleEmptySubmitDate}
-              locale={intl.locale}
-              dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-              autoFocus={autoFocus}
-              autoSelectAll={isNew}
-            />
-          )}
+          <DatePickerInput
+            date={date}
+            onNewDate={this.handleNewDate}
+            onSubmitDate={this.handleKeyboardSubmitDate}
+            onEmptySubmit={this.handleEmptySubmitDate}
+            locale={intl.locale}
+            dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+            autoFocus={autoFocus}
+            autoSelectAll={isNew}
+          />
           <Calendar
             onChange={this.handleOnChange}
             onSelect={(date: DateType) => onSelect(date, INPUT_METHOD.PICKER)}

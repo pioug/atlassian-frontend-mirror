@@ -101,7 +101,7 @@ describe('Panel - panelAttrsToDom', () => {
           class: 'ak-editor-panel',
           'data-panel-color': 'red',
           'data-panel-type': 'custom',
-          style: 'background-color: red;padding: 12px;',
+          style: 'background-color: red;padding-left: 12px;',
         },
         ['div', { class: 'ak-editor-panel__content' }, 0],
       ]);
@@ -114,7 +114,7 @@ describe('Panel - panelAttrsToDom', () => {
         {
           class: 'ak-editor-panel',
           'data-panel-type': 'custom',
-          style: 'padding: 12px;',
+          style: 'padding-left: 12px;',
         },
         ['div', { class: 'ak-editor-panel__content' }, 0],
       ]);

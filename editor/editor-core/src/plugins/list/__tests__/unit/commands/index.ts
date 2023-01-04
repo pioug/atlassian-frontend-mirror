@@ -83,12 +83,14 @@ describe('lists plugin -> commands', () => {
     it('should not outdent a list when list item has visible content', () => {
       const timestamp = Date.now();
       const { editorView } = editor(
-        doc(ol(li(p('text')), li(p('{<>}', hardBreak(), date({ timestamp }))))),
+        doc(
+          ol()(li(p('text')), li(p('{<>}', hardBreak(), date({ timestamp })))),
+        ),
       );
       enterKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          ol(
+          ol()(
             li(p('text')),
             li(p('')),
             li(p('', hardBreak(), date({ timestamp }))),
@@ -98,10 +100,10 @@ describe('lists plugin -> commands', () => {
     });
 
     it("should outdent a list when list item doesn't have visible content", () => {
-      const { editorView } = editor(doc(ol(li(p('text')), li(p('{<>} ')))));
+      const { editorView } = editor(doc(ol()(li(p('text')), li(p('{<>} ')))));
       enterKeyCommand(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
-        doc(ol(li(p('text'))), p(' ')),
+        doc(ol()(li(p('text'))), p(' ')),
       );
     });
   });
@@ -109,12 +111,12 @@ describe('lists plugin -> commands', () => {
   describe('backspaceKeyCommand', () => {
     describe('when cursor is inside nested node', () => {
       it('should not outdent a list', () => {
-        const { editorView } = editor(doc(ol(li(code_block()('{<>}text')))));
+        const { editorView } = editor(doc(ol()(li(code_block()('{<>}text')))));
 
         backspaceKeyCommand(editorView.state, editorView.dispatch);
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(ol(li(code_block()('text')))),
+          doc(ol()(li(code_block()('text')))),
         );
       });
     });
@@ -122,7 +124,7 @@ describe('lists plugin -> commands', () => {
     describe('when GapCursor is inside a listItem and before the nested codeBlock', () => {
       it('should outdent a list', () => {
         const { editorView } = editor(
-          doc(ol(li('{<gap|>}', code_block()('text')))),
+          doc(ol()(li('{<gap|>}', code_block()('text')))),
         );
 
         backspaceKeyCommand(editorView.state, editorView.dispatch);
@@ -133,12 +135,12 @@ describe('lists plugin -> commands', () => {
     describe('when GapCursor is before a codeBlock and after a list', () => {
       it('should join codeBlock with the list', () => {
         const { editorView } = editor(
-          doc(ol(li(p('text'))), '{<gap|>}', code_block()('code')),
+          doc(ol()(li(p('text'))), '{<gap|>}', code_block()('code')),
         );
 
         backspaceKeyCommand(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(
-          doc(ol(li(p('text')), li(code_block()('code')))),
+          doc(ol()(li(p('text')), li(code_block()('code')))),
         );
       });
     });
@@ -150,7 +152,7 @@ describe('lists plugin -> commands', () => {
       const { editorView: { state, dispatch } } = editor(
         doc(
           p('{<>}text'),
-          ol(
+          ol()(
             li(p('A')),
             li(p('B'))
           ),
@@ -164,17 +166,17 @@ describe('lists plugin -> commands', () => {
       // prettier-ignore
       const { editorView: { state, dispatch } } = editor(
         doc(
-          ol(
+          ol()(
             li(p('A'),
-              ol(
+              ol()(
                 li(p('B'),
-                  ol(
+                  ol()(
                     li(p('C'),
-                      ol(
+                      ol()(
                         li(p('D'),
-                          ol(
+                          ol()(
                             li(p('E'),
-                              ol(
+                              ol()(
                                 li(p('F1')),
                                 li(p('{<>}F2')),
                               )),
@@ -193,7 +195,7 @@ describe('lists plugin -> commands', () => {
       // prettier-ignore
       const { editorView: { state, dispatch } } = editor(
         doc(
-          ol(
+          ol()(
             li(p('A')),
             li(p('B'))
           ),
@@ -207,7 +209,7 @@ describe('lists plugin -> commands', () => {
       createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
       const {
         editorView: { state, dispatch },
-      } = editor(doc(ol(li(p('A')), li(p('B')))));
+      } = editor(doc(ol()(li(p('A')), li(p('B')))));
 
       indentList(INPUT_METHOD.KEYBOARD)(state, dispatch);
 
@@ -248,7 +250,7 @@ describe('lists plugin -> commands', () => {
           {
             listType: 'orderedList',
             content: doc(indentation({ level: 1 })(p('{<>}text'))),
-            expected: doc(ol(li(p('{<>}text')))),
+            expected: doc(ol()(li(p('{<>}text')))),
           },
         ],
         [
@@ -311,7 +313,7 @@ describe('lists plugin -> commands', () => {
               alignment({ align: 'center' })(p('bbb')),
               alignment({ align: 'end' })(p('ccc{>}')),
             ),
-            expected: doc(ol(li(p('{<}aaa')), li(p('bbb')), li(p('ccc{>}')))),
+            expected: doc(ol()(li(p('{<}aaa')), li(p('bbb')), li(p('ccc{>}')))),
           },
         ],
         [
@@ -349,7 +351,7 @@ describe('lists plugin -> commands', () => {
     });
 
     it('should be able to toggle ol to ul inside a panel', () => {
-      const { editorView } = editor(doc(panel()(ol(li(p('text{<>}'))))));
+      const { editorView } = editor(doc(panel()(ol()(li(p('text{<>}'))))));
 
       toggleList(INPUT_METHOD.TOOLBAR, 'bulletList')(
         editorView.state,
@@ -370,7 +372,7 @@ describe('lists plugin -> commands', () => {
       );
 
       expect(editorView.state.doc).toEqualDocument(
-        doc(panel()(ol(li(p('text{<>}'))))),
+        doc(panel()(ol()(li(p('text{<>}'))))),
       );
     });
 
@@ -426,7 +428,7 @@ describe('lists plugin -> commands', () => {
             li(p('c'))
           ),
           p('{<}text'),
-          ol(
+          ol()(
             li(p('1')),
             li(p('2')),
             li(p('3{>}'))
@@ -446,7 +448,7 @@ describe('lists plugin -> commands', () => {
             li(p('b')),
             li(p('c'))
           ),
-          ol(
+          ol()(
             li(p('text')),
             li(p('1')),
             li(p('2')),
@@ -466,7 +468,7 @@ describe('lists plugin -> commands', () => {
             li(p('c'))
           ),
           p('{<}text'),
-          ol(
+          ol()(
             li(p('1')),
             li(p('2')),
             li(p('3{>}'))

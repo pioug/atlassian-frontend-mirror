@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/form"
 
@@ -200,6 +200,15 @@ interface FormSectionProps {
 export const HelperMessage: React_2.FC<MessageProps>;
 
 // @public
+interface InternalMessageProps {
+  appearance?: MessageAppearance;
+  children: ReactNode;
+  // (undocumented)
+  fieldId?: string;
+  testId?: string;
+}
+
+// @public
 export const Label: FC<LabelProps>;
 
 // @public (undocumented)
@@ -211,14 +220,10 @@ export interface LabelProps {
 }
 
 // @public (undocumented)
-interface MessageProps {
-  children: ReactNode;
-  error?: boolean;
-  // (undocumented)
-  fieldId?: string;
-  testId?: string;
-  valid?: boolean;
-}
+type MessageAppearance = 'default' | 'error' | 'valid';
+
+// @public
+type MessageProps = Pick<InternalMessageProps, 'children' | 'testId'>;
 
 // @public (undocumented)
 interface Meta {

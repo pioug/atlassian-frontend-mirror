@@ -91,7 +91,7 @@ export interface PopupSelectProps<
     The props passed down to React Popper.
 
     Use these to override the default positioning strategy, behaviour and placement used by this library.
-    For more information, see the [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).
+    For more information, see the Popper Props section below, or [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).
 
    */
   popperProps?: PopperPropsNoChildren<Modifiers>;
@@ -353,15 +353,15 @@ export default class PopupSelect<
    * @param options.controlOverride  - Force the popup to open when it's open state is being controlled
    */
   open = (options?: { controlOverride?: boolean }) => {
-    const { onMenuOpen } = this.props;
+    const { onOpen } = this.props;
 
     if (!options?.controlOverride && this.isOpenControlled) {
       // Prevent popup opening if it's open state is already being controlled
       return;
     }
 
-    if (onMenuOpen) {
-      onMenuOpen();
+    if (onOpen) {
+      onOpen();
     }
 
     this.setState({ isOpen: true });

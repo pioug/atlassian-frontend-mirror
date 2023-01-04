@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ComponentCrashErrorAEP, PLATFORM } from '../../analytics/events';
-import { ACTION, EVENT_TYPE } from '../../analytics/enums';
+import { ACTION, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 

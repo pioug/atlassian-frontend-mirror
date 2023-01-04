@@ -1,7 +1,7 @@
 import React from 'react';
 import { IntlShape } from 'react-intl-next';
 import { blockquote, hardBreak, heading } from '@atlaskit/adf-schema';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin, pluginKey } from './pm-plugins/main';
 import keymapPlugin from './pm-plugins/keymap';
 import inputRulePlugin from './pm-plugins/input-rule';
@@ -110,7 +110,11 @@ const blockquotePluginOptions = (
   ];
 };
 
-const blockTypePlugin = (options?: BlockTypePluginOptions): EditorPlugin => ({
+const blockTypePlugin: NextEditorPlugin<
+  'blockType',
+  never,
+  BlockTypePluginOptions | undefined
+> = (options?) => ({
   name: 'blockType',
 
   nodes() {

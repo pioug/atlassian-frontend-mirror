@@ -26,7 +26,6 @@ export default class ExampleEditor extends React.Component<Props, State> {
         <FullPageExample
           editorProps={{
             allowHelpDialog: true,
-            allowKeyboardAccessibleDatepicker: true,
             primaryToolbarComponents: (
               <WithEditorActions
                 render={(actions) => (

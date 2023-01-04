@@ -13,6 +13,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { Context } from '../src/interfaces';
+import type { DocNode } from '@atlaskit/adf-schema';
 
 const container = css`
   display: grid;
@@ -83,7 +84,7 @@ const providerFactory = ProviderFactory.create({
 const wikiTransformer = new WikiMarkupTransformer(defaultSchema);
 const adfTransformer = new JSONTransformer();
 
-function getADF(wiki: string) {
+function getADF(wiki: string): DocNode {
   const context: Context = {
     tokenErrCallback: (err, type) => console.log(err, type),
     conversion: {
@@ -103,7 +104,7 @@ function getADF(wiki: string) {
   };
   const pmNode = wikiTransformer.parse(wiki, context);
 
-  return adfTransformer.encode(pmNode);
+  return adfTransformer.encode(pmNode) as DocNode;
 }
 
 export interface State {
@@ -118,7 +119,8 @@ class Example extends React.PureComponent<{}, State> {
   };
 
   render() {
-    const doc = this.state.source ? getADF(this.state.source) : '';
+    // @ts-ignore
+    const doc = this.state.source ? getADF(this.state.source) : ('' as DocNode);
     return (
       <div css={container}>
         <textarea id="source" onChange={this.handleChange} />

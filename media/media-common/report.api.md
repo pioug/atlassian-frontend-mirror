@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/media-common"
 
@@ -110,7 +110,7 @@ export function getMediaFeatureFlag<T = boolean>(
 export const getMediaTypeFromMimeType: (mimeType: string) => MediaType;
 
 // @public (undocumented)
-export function getRandomHex(size: number): string;
+export function getRandomHex(byte: number): string;
 
 // @public (undocumented)
 export const isAudioMimeTypeSupportedByServer: (mimeType: string) => boolean;
@@ -155,8 +155,6 @@ export interface MediaFeatureFlags {
   folderUploads?: boolean;
   // (undocumented)
   mediaInline?: boolean;
-  // (undocumented)
-  mediaUploadApiV2?: boolean;
   // (undocumented)
   memoryCacheLogging?: boolean;
   // (undocumented)
@@ -203,7 +201,8 @@ export type OperationalAttributes =
   | (BaseAttributes &
       WithFileAttributes &
       StatusAttributes &
-      WithPerformanceAttributes)
+      WithPerformanceAttributes &
+      WithTraceContext)
   | (BaseAttributes & WithFileAttributes & StatusAttributes)
   | (BaseAttributes & WithFileAttributes)
   | BaseAttributes;
@@ -353,6 +352,7 @@ export type WithPerformanceAttributes = {
 // @public (undocumented)
 export type WithTraceContext = {
   traceContext?: MediaTraceContext;
+  metadataTraceContext?: MediaTraceContext;
 };
 
 // (No @packageDocumentation comment for this package)

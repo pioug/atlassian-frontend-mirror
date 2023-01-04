@@ -344,7 +344,7 @@ describe('Uploader', () => {
     expect.assertions(3);
   });
 
-  it('should call `calculateChunkSize` when file.content is a Blob and `mediaUploadApiV2` feature flag is true', () => {
+  it('should call `calculateChunkSize` when file.content is a Blob', () => {
     const { mediaStore } = setup();
     getMediaFeatureFlagSpy.mockReturnValue(true);
 
@@ -364,7 +364,7 @@ describe('Uploader', () => {
     expect(calculateChunkSizeSpy).toHaveBeenCalled();
   });
 
-  it('should NOT call `calculateChunkSize` when file.content is a string and `mediaUploadApiV2` feature flag is true', async () => {
+  it('should NOT call `calculateChunkSize` when file.content is a string', async () => {
     const { mediaStore } = setup();
     getMediaFeatureFlagSpy.mockReturnValue(true);
 
@@ -382,27 +382,6 @@ describe('Uploader', () => {
     );
 
     expect(calculateChunkSizeSpy).not.toHaveBeenCalled();
-  });
-
-  it('should NOT call `calculateChunkSize` when file.content is a blob and `mediaUploadApiV2` feature flag is false', async () => {
-    const { mediaStore } = setup();
-    getMediaFeatureFlagSpy.mockReturnValue(false);
-
-    uploadFile(
-      {
-        ...file,
-        content: new Blob([]),
-      },
-      mediaStore as MediaStore,
-      uploadableFileUpfrontIds,
-      {
-        onProgress: jest.fn(),
-        onUploadFinish: jest.fn(),
-      },
-    );
-
-    expect(calculateChunkSizeSpy).not.toHaveBeenCalled();
-    calculateChunkSizeSpy.mockRestore();
   });
 
   it('should call handle errors from `calculateChunkSize`', async () => {

@@ -51,7 +51,6 @@ import {
   TimeRangeProps,
 } from '../../../customMediaPlayer/timeRange';
 import { PlaybackSpeedControls } from '../../../customMediaPlayer/playbackSpeedControls';
-import { PlayPauseBlanket } from '../../../customMediaPlayer/playPauseBlanket';
 import { ReactWrapper } from 'enzyme';
 import * as getControlsWrapperClassNameModule from '../../../customMediaPlayer/getControlsWrapperClassName';
 import MediaButton from '../../../MediaButton';
@@ -166,7 +165,7 @@ describe('<CustomMediaPlayer />', () => {
       'button[type="button"][data-testid="custom-media-player-skip-forward-button"]',
     );
 
-    const blanket = component.find(PlayPauseBlanket);
+    const blanket = component.find('[data-testid="play-pause-blanket"]').at(1);
 
     const getTimeRange = () => component.find(TimeRange).at(0);
     const getVolumeRange = () => component.find(TimeRange).at(1);

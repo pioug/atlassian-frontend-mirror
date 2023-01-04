@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
-  getRealEmojiResource,
+  getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
 import EmojiPicker, { EmojiUploader } from '../src';
 import { onSelection } from '../example-helpers';
@@ -30,7 +30,7 @@ if (typeof window !== 'undefined') {
   ufologger.enable();
 }
 
-const provider = getRealEmojiResource();
+const provider = getRealEmojiProvider();
 
 export default () => (
   <>

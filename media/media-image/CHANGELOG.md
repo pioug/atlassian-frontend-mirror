@@ -1,5 +1,15 @@
 # @atlaskit/media-image
 
+## 17.3.0
+
+### Minor Changes
+
+- [`79660ee4fa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79660ee4fa7) - Restructured the Media-Image and added CSS to make doc responsive.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.2.7
 
 ### Patch Changes

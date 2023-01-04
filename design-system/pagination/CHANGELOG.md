@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.2.5
+
+### Patch Changes
+
+- [`207726a4cb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/207726a4cb2) - [ux] Replace ellipsis made with three periods (...) with ellipsis character (…)
+
 ## 14.2.4
 
 ### Patch Changes

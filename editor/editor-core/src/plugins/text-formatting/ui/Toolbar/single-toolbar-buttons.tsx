@@ -29,6 +29,7 @@ export const SingleToolbarButtons: React.FC<{
       {items.map((item) => (
         <ToolbarButton
           key={item.key}
+          testId={`editor-toolbar__${String(item.content)}`}
           buttonId={item.buttonId}
           spacing={isReducedSpacing ? 'none' : 'default'}
           onClick={onClick(item.command)}
@@ -37,7 +38,8 @@ export const SingleToolbarButtons: React.FC<{
           title={item.tooltipElement}
           iconBefore={item.iconElement}
           aria-pressed={item.isActive}
-          aria-label={String(item.content)}
+          aria-label={item['aria-label'] ?? String(item.content)}
+          aria-keyshortcuts={item['aria-keyshortcuts']}
         />
       ))}
     </span>

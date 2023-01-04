@@ -9,6 +9,7 @@ import * as colors from '@atlaskit/theme/colors';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
+import { VAR_SECONDARY_TEXT_COLOR } from '../../constants';
 import type { IconAppearance, InlineDialogPlacement } from '../../types';
 import MessageIcon from '../message-icon';
 
@@ -79,6 +80,7 @@ const textStyles = css({
     'spacing.scale.050',
     '4px',
   )}`,
+  color: `var(${VAR_SECONDARY_TEXT_COLOR})`,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
@@ -93,11 +95,18 @@ const rootStyles = css({
   '&:hover': {
     // eslint-disable-next-line @repo/internal/styles/no-nested-styles
     '[data-ds--inline-message--icon]': {
+      // Legacy style
       color: 'var(--icon-accent-color)',
     },
     // eslint-disable-next-line @repo/internal/styles/no-nested-styles
     '[data-ds--inline-message--button]': {
       textDecoration: 'underline',
+    },
+  },
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '[data-ds--inline-message--button]': {
+    '&:active [data-ds--inline-message--secondary-text]': {
+      color: token('color.text.subtle', `var(${VAR_SECONDARY_TEXT_COLOR})`),
     },
   },
 });
@@ -220,7 +229,12 @@ const InlineMessage: FC<InlineMessageProps> = ({
             )}
             {secondaryText && (
               <span
-                style={{ color: textColor({ theme }) }}
+                data-ds--inline-message--secondary-text
+                style={
+                  {
+                    [VAR_SECONDARY_TEXT_COLOR]: textColor({ theme }),
+                  } as CSSProperties
+                }
                 css={textStyles}
                 data-testid={testId && `${testId}--text`}
               >

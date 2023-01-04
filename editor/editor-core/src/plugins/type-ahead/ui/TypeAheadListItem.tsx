@@ -108,6 +108,7 @@ type TypeAheadListItemProps = {
   itemsLength: number;
   itemIndex: number;
   selectedIndex: number;
+  ariaLabel?: string;
   onItemClick: (mode: SelectItemMode, index: number) => void;
 };
 
@@ -140,6 +141,7 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
   selectedIndex,
   onItemClick,
   itemIndex,
+  ariaLabel,
 }) => {
   /**
    * To select and highlight the first Item when no item is selected
@@ -187,8 +189,8 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
     return (
       <div
         aria-selected={isSelected}
-        aria-label={title}
         role="option"
+        aria-label={ariaLabel}
         aria-setsize={itemsLength}
         tabIndex={0}
         css={listItemClasses}
@@ -198,20 +200,22 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
         //CSS classes added for test cases purpose
         ref={customItemRef}
       >
-        <Comp
-          onClick={insertSelectedItem}
-          isSelected={false} //The selection styles are handled in the parent div instead. Hence isSelected is made false always.
-          onHover={noop}
-        />
+        <div aria-hidden={true}>
+          <Comp
+            onClick={insertSelectedItem}
+            isSelected={false} //The selection styles are handled in the parent div instead. Hence isSelected is made false always.
+            onHover={noop}
+          />
+        </div>
       </div>
     );
   }, [
     customRenderItem,
-    insertSelectedItem,
     isSelected,
-    title,
-    customItemRef,
+    ariaLabel,
     itemsLength,
+    customItemRef,
+    insertSelectedItem,
   ]);
 
   if (customItem) {
@@ -225,7 +229,7 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
         iconBefore={elementIcon}
         isSelected={isSelected}
         aria-selected={isSelected}
-        aria-label={item.title}
+        aria-label={title}
         aria-setsize={itemsLength}
         role="option"
         ref={buttonItemRef}

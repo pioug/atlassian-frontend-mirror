@@ -147,9 +147,6 @@ const radioStyles = css({
       '--radio-border-color': 'var(--local-border-disabled)',
       '--radio-dot-color': 'var(--local-dot-disabled)',
     },
-  '&:checked:disabled': {
-    '--radio-border-color': 'transparent', // TODO: Investigate token solution
-  },
 });
 
 const RadioWithMode = forwardRef(function Radio(

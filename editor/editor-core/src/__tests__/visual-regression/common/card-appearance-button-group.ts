@@ -10,22 +10,22 @@ import {
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
 import cardListAppearanceAdf from './__fixtures__/card-list-appearance.adf.json';
-import cardInsideLayout from './__fixtures__/card-inside-layout-adf.json';
 import cardListBlueLinkAppearanceAdf from './__fixtures__/card-list-blue-link-appearance.adf.json';
 import cardInsideUnsupportedNodesAdf from './__fixtures__/card_inside_unsupported_nodes.adf.json';
 import cardInsideTable from './__fixtures__/card-inside-table.adf.json';
 import {
   waitForInlineCardSelection,
   waitForResolvedInlineCard,
-  blockCardSelector,
+  inlineCardSelector,
 } from '@atlaskit/media-integration-test-helpers';
-import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { contexts } from './__helpers__/card-utils';
+import {
+  waitForCardToolbar,
+  toolbarAppearanceSelectors,
+} from '@atlaskit/editor-test-helpers/page-objects/smart-links';
+import { hyperlinkSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
-/**
- * [EDM-2640]
- * These tests are intended to replace those in `card-appearance.ts`
- */
-describe('Cards: w/ FF `viewChangingExperimentToolbarStyle` as `toolbarIcons`', () => {
+describe('Cards with icons toolbar', () => {
   const initEditor = async (
     adf: any,
     viewport: { width: number; height: number } = {
@@ -38,9 +38,6 @@ describe('Cards: w/ FF `viewChangingExperimentToolbarStyle` as `toolbarIcons`', 
         resolveBeforeMacros: ['jira'],
         allowBlockCards: true,
         allowEmbeds: true,
-      },
-      featureFlags: {
-        'view-changing-experiment-toolbar-style': 'toolbarIcons',
       },
     });
   };
@@ -65,13 +62,13 @@ describe('Cards: w/ FF `viewChangingExperimentToolbarStyle` as `toolbarIcons`', 
     await waitForResolvedInlineCard(page);
     await waitForInlineCardSelection(page);
     // change the appearance to blue link
-    await page.click('[data-testid="url-appearance"]');
+    await page.click(toolbarAppearanceSelectors.url);
     await page.waitForSelector('a[href="https://inlineCardTestUrl"]');
     // make sure we render a blue link
     await page.mouse.move(0, 0);
     await snapshot(page);
     await page.click('a[href="https://inlineCardTestUrl"]');
-    await page.waitForSelector('div[aria-label="Floating Toolbar"]');
+    await page.waitForSelector(hyperlinkSelectors.floatingToolbar);
     // we can see the appearance switcher for the blue link
     await page.mouse.move(0, 0);
     await snapshot(page);
@@ -87,13 +84,13 @@ describe('Cards: w/ FF `viewChangingExperimentToolbarStyle` as `toolbarIcons`', 
 
   it('should show a tooltip when hovering a disabled appearance', async () => {
     const takeSnapshot = async () => {
-      await page.hover('[data-testid="block-appearance"]');
+      await page.hover(toolbarAppearanceSelectors.block);
       await waitForTooltip(page);
       await snapshot(page);
       // move mouse away and wait until tooltip disappear.;
       await page.mouse.move(0, 0);
       await page.waitForTimeout(500);
-      await page.hover('[data-testid="embed-appearance"]');
+      await page.hover(toolbarAppearanceSelectors.embed);
       await waitForTooltip(page);
       await snapshot(page);
     };
@@ -122,33 +119,48 @@ describe('Cards: w/ FF `viewChangingExperimentToolbarStyle` as `toolbarIcons`', 
     await initEditor(cardListBlueLinkAppearanceAdf);
     await page.waitForSelector('a[href="https://inlineCardTestUrl"]');
     await page.click('a[href="https://inlineCardTestUrl"]');
-    await page.waitForSelector('div[aria-label="Floating Toolbar"]');
+    await page.waitForSelector(hyperlinkSelectors.floatingToolbar);
     await snapshot(page);
   });
 
-  // [EDM-1580]
-  it('can switch appearance inside layouts', async () => {
-    await initEditor(cardInsideLayout, {
-      width: 1440,
-      height: 1020,
+  describe.each(contexts)('', ({ name, adf, appearances }) => {
+    describe(`can switch appearance inside ${name} from inline to`, () => {
+      const setup = async () => {
+        await initEditor(adf, {
+          width: 1440,
+          height: 600,
+        });
+        await waitForResolvedInlineCard(page);
+        await page.click(inlineCardSelector());
+        await waitForCardToolbar(page);
+      };
+
+      if (appearances?.includes('card')) {
+        it('card', async () => {
+          await setup();
+          await page.click(toolbarAppearanceSelectors.block);
+          await page.mouse.move(0, 0);
+          await snapshot(page);
+        });
+      }
+
+      if (appearances?.includes('embed')) {
+        it('embed', async () => {
+          await setup();
+          await page.click(toolbarAppearanceSelectors.embed);
+          await waitForElementCount(page, '[data-iframe-loaded="true"]', 1);
+          await page.mouse.move(0, 0);
+          await snapshot(page);
+        });
+      }
+
+      it('url', async () => {
+        await setup();
+        await page.click(toolbarAppearanceSelectors.url);
+        await page.mouse.move(0, 0);
+        await snapshot(page);
+      });
     });
-    await waitForResolvedInlineCard(page);
-    await waitForInlineCardSelection(page);
-
-    // change the appearance to block
-    await page.click('[data-testid="block-appearance"]');
-    await page.mouse.move(0, 0);
-    await snapshot(page);
-
-    // change the appearance to embed
-    await page.click(blockCardSelector());
-    await page.waitForSelector('div[aria-label="Floating Toolbar"]');
-    await page.click('[data-testid="embed-appearance"]');
-    await page.mouse.move(0, 0);
-    await waitForFloatingControl(page, 'Card options');
-    await waitForElementCount(page, '[data-iframe-loaded="true"]', 1);
-    await page.hover('.embed-header');
-    await snapshot(page);
   });
 
   it('should wrap from the first line when its wider than its container', async () => {

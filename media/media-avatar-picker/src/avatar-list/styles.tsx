@@ -26,3 +26,16 @@ export const avatarListWrapperStyles = css`
     visibility: hidden;
   }
 `;
+
+interface ImageProps {
+  isSelected: boolean;
+}
+
+export const imageButton = ({ isSelected }: ImageProps) => css`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  ${isSelected ? ':focus { outline:none }' : ''}
+`;

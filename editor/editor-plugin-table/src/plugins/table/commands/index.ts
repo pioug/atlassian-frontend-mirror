@@ -38,3 +38,4 @@ export {
 } from './misc';
 export { sortByColumn } from './sort';
 export { goToNextCell } from './go-to-next-cell';
+export { removeDescendantNodes } from './referentiality';

@@ -15,6 +15,7 @@ Object {
             "__displayType": null,
             "__external": true,
             "__fileName": "example.png",
+            "__mediaTraceId": null,
             "alt": "",
             "collection": "MediaServicesSample",
             "height": 147,

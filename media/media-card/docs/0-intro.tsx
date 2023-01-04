@@ -1,64 +1,34 @@
 import React from 'react';
-import {
-  md,
-  code,
-  Example,
-  Props,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
-import { createRxjsNotice } from '@atlaskit/media-common/docs';
+import { md, AtlassianInternalWarning } from '@atlaskit/docs';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import UsageTab from './content/usage';
+import PropsDefinitionTab from './content/props-definition';
+import BabelNotice from './content/babel-notice';
 
 export default md`
 ${(<AtlassianInternalWarning />)}
 
-${createRxjsNotice('Media Card')}
-  
-  ### Note:
+${(<BabelNotice />)}
 
-  Don't forget to add polyfills for fetch, ES6 & ES7 to your product build if you want to target older browsers.
-  We recommend the use of [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) & [babel-polyfill](https://babeljs.io/docs/usage/polyfill/)
+### Description
+This package provides the capability to display a preview of a file that has been already uploaded. 
+It leverages the returned id opon a successful file upload and does all the work required to show the preview. 
+Additionaly it also takes care of displaying the upload status of the file.
 
-  ## Usage
+  ${(
+    <DocsContentTabs
+      tabs={[
+        { name: 'Usage', content: UsageTab },
+        { name: 'Props Definition', content: PropsDefinitionTab },
+      ]}
+    />
+  )}
 
-  ${code`
-  import { Card } from '@atlaskit/media-card';
-  import { MediaClientConfig } from '@atlaskit/media-core';
+  ### Error UI Design Matrix for Media Card
 
-  const mediaClientConfig = {
-    authProvider,
-  };
+  In the past we have refactored the list of Media Card's error UI in 4 categories: \`Generic Error\`, \`Rate Limited Error\`, \`Polling Max Attempts Error\` and \`Upload Error\`.
+  All of this is available to be previewed in Card View Matrix example page.
 
-  // external url preview
-  const urlPreviewId = {
-    mediaItemType: 'external-image',
-    dataURI: 'http://external-image-url',
-  };
-
-  <Card mediaClientConfig={mediaClientConfig} identifier={urlPreviewId} />;
-
-  // stored file
-  const fileId = {
-    mediaItemType: 'file',
-    id: 'some-file-id',
-    collectionName: 'some-collection-name',
-  };
-
-  <Card mediaClientConfig={mediaClientConfig} identifier={fileId} />;
-`}
-
-${(
-  <Example
-    Component={require('../examples/0-file-card-flow').default}
-    title="File Card"
-    source={require('!!raw-loader!../examples/0-file-card-flow')}
-  />
-)}
-
-${(
-  <Props
-    heading="Properties"
-    props={require('!!extract-react-types-loader!../src/card')}
-  />
-)}
+  The list of the error UI design can be referenced [here](https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3070230558/New+Error+UI+design+for+Media+Card+new+experience).
 
 `;

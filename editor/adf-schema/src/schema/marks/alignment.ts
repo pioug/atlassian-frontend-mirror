@@ -39,7 +39,7 @@ export const alignment: MarkSpec = {
     return [
       'div',
       {
-        class: `fabric-editor-block-mark fabric-editor-align-${mark.attrs.align}`,
+        class: `fabric-editor-block-mark fabric-editor-alignment fabric-editor-align-${mark.attrs.align}`,
         'data-align': mark.attrs.align,
       },
       0,

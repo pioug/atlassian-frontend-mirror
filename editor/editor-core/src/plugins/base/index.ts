@@ -3,7 +3,7 @@ import { history } from 'prosemirror-history';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { browser } from '@atlaskit/editor-common/utils';
 import { doc, paragraph, text } from '@atlaskit/adf-schema';
-import { EditorPlugin, PMPluginFactory } from '../../types';
+import { NextEditorPlugin, PMPluginFactory } from '../../types';
 import filterStepsPlugin from './pm-plugins/filter-steps';
 import focusHandlerPlugin from './pm-plugins/focus-handler';
 import fixChrome88SelectionPlugin from './pm-plugins/fix-chrome-88-selection';
@@ -37,7 +37,11 @@ export interface BasePluginOptions {
 export const isChromeWithSelectionBug =
   browser.chrome && browser.chrome_version >= 88;
 
-const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
+const basePlugin: NextEditorPlugin<
+  'base',
+  never,
+  BasePluginOptions | undefined
+> = (options?) => ({
   name: 'base',
 
   pmPlugins() {

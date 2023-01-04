@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
@@ -27,7 +28,7 @@ export const wrapper: any = css`
 
 window.logBridge = window.logBridge || [];
 
-const initialDocument = JSON.stringify({
+const initialDocument = {
   version: 1,
   type: 'doc',
   content: [
@@ -41,7 +42,7 @@ const initialDocument = JSON.stringify({
       ],
     },
   ],
-});
+} as DocNode;
 
 const providerFactory = ProviderFactory.create({
   mentionProvider: Promise.resolve({} as MentionProvider),

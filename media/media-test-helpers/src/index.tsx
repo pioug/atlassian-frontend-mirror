@@ -182,3 +182,4 @@ export type {
   FileStateFactoryOptions,
   MediaClientMockOptions,
 } from './fileStateFactory';
+export { DocsContentTabs } from './docs-content-tabs';

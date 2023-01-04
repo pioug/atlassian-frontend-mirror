@@ -12,10 +12,14 @@ const containerStyles = css({
   position: 'relative',
 });
 
-export const Container = (props: HTMLProps<HTMLDivElement>) => (
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  <div css={containerStyles} {...props} />
-);
+type ContainerProps = HTMLProps<HTMLDivElement> & { testId?: string };
+export const Container = (props: ContainerProps) => {
+  const { testId, ...rest } = props;
+  return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+    <div css={containerStyles} {...rest} data-testid={testId} />
+  );
+};
 
 const spinnerBackdropStyles = css({
   display: 'flex',
@@ -29,8 +33,16 @@ const spinnerBackdropStyles = css({
   pointerEvents: 'none',
 });
 
-export const SpinnerBackdrop: FC = ({ children }) => (
-  <div css={spinnerBackdropStyles}>{children}</div>
+export const SpinnerBackdrop: FC<{ testId?: string }> = ({
+  children,
+  testId,
+}) => (
+  <div
+    css={spinnerBackdropStyles}
+    data-testid={testId && `${testId}--spinner-backdrop`}
+  >
+    {children}
+  </div>
 );
 
 const spinnerContainerStyles = css({

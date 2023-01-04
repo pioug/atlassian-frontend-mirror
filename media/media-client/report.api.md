@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/media-client"
 
@@ -48,6 +48,11 @@ export type AppendChunksToUploadRequestBody = {
 // @public (undocumented)
 export type Artifacts = {
   [name: string]: MediaArtifact;
+};
+
+// @public (undocumented)
+type BaseFileState = {
+  metadataTraceContext?: MediaTraceContext;
 };
 
 // @public
@@ -186,7 +191,7 @@ export interface EmptyFile {
 }
 
 // @public (undocumented)
-export interface ErrorFileState {
+export interface ErrorFileState extends BaseFileState {
   // (undocumented)
   id: string;
   // (undocumented)
@@ -866,6 +871,7 @@ export type MediaCollectionItemFullDetails = {
   readonly artifacts: MediaFileArtifacts;
   readonly representations: MediaRepresentations;
   readonly createdAt?: number;
+  readonly metadataTraceContext?: MediaTraceContext;
 };
 
 // @public (undocumented)
@@ -891,6 +897,7 @@ export type MediaFile = {
   readonly artifacts: MediaFileArtifacts;
   readonly representations: MediaRepresentations;
   readonly createdAt?: number;
+  readonly metadataTraceContext?: MediaTraceContext;
 };
 
 // @public (undocumented)
@@ -1363,7 +1370,7 @@ export interface PreviewableFileState {
 export interface PreviewOptions {}
 
 // @public (undocumented)
-export interface ProcessedFileState {
+export interface ProcessedFileState extends BaseFileState {
   // (undocumented)
   artifacts: MediaFileArtifacts;
   // (undocumented)
@@ -1389,7 +1396,7 @@ export interface ProcessedFileState {
 }
 
 // @public (undocumented)
-export interface ProcessingFailedState {
+export interface ProcessingFailedState extends BaseFileState {
   // (undocumented)
   artifacts: Object;
   // (undocumented)
@@ -1415,7 +1422,7 @@ export interface ProcessingFailedState {
 }
 
 // @public (undocumented)
-export interface ProcessingFileState {
+export interface ProcessingFileState extends BaseFileState {
   // (undocumented)
   artifacts?: MediaFileArtifacts;
   // (undocumented)
@@ -1515,6 +1522,7 @@ export type RequestMetadata = {
   readonly endpoint?: string;
   readonly mediaRegion?: string;
   readonly mediaEnv?: string;
+  readonly traceContext?: MediaTraceContext;
 };
 
 // @public (undocumented)
@@ -1543,6 +1551,8 @@ export interface ResponseFileItem {
   details: MediaCollectionItemFullDetails;
   // (undocumented)
   id: string;
+  // (undocumented)
+  metadataTraceContext?: MediaTraceContext;
   // (undocumented)
   type: 'file';
 }
@@ -1651,7 +1661,7 @@ export interface UploadFileResult {
 }
 
 // @public (undocumented)
-export interface UploadingFileState {
+export interface UploadingFileState extends BaseFileState {
   // (undocumented)
   createdAt?: number;
   // (undocumented)

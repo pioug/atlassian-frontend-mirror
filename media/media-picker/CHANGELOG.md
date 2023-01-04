@@ -1,5 +1,17 @@
 # @atlaskit/media-picker
 
+## 64.1.0
+
+### Minor Changes
+
+- [`3d40d5e9b37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d40d5e9b37) - Add traceId for media picker when uploading file(s)
+- [`9ba2183f9e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ba2183f9e6) - Updated Media-Picker documentation with new tab structure and simpler usage example
+- [`0bccac57db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bccac57db6) - remove mediaUploadApiV2 Feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 64.0.1
 
 ### Patch Changes

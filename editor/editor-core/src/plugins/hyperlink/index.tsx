@@ -1,7 +1,7 @@
 import React from 'react';
 import { link } from '@atlaskit/adf-schema';
 
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
 
 import { createKeymapPlugin } from './pm-plugins/keymap';
@@ -21,7 +21,11 @@ import { IconLink } from '../quick-insert/assets';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { HyperlinkPluginOptions } from './types';
 
-const hyperlinkPlugin = (options?: HyperlinkPluginOptions): EditorPlugin => ({
+const hyperlinkPlugin: NextEditorPlugin<
+  'hyperlink',
+  never,
+  HyperlinkPluginOptions | undefined
+> = (options?) => ({
   name: 'hyperlink',
 
   marks() {

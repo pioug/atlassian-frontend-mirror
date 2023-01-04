@@ -1,6 +1,10 @@
 import React from 'react';
 import AnalyticsContext from '../../analytics/analyticsContext';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { ElementSelection } from './element-selection';
 
 export const useSelectAllTrap = <

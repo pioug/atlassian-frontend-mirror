@@ -1,5 +1,6 @@
 /* eslint-disable @atlassian/tangerine/import/entry-points */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
 
 import React, { CSSProperties, memo, ReactNode } from 'react';
 
@@ -72,6 +73,7 @@ const Lozenge = memo(
       appearance in backgroundColors[appearanceStyle] ? appearance : 'default';
     const maxWidthValue =
       typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
+    const maxWidthIsPc = typeof maxWidth === 'string' && /%$/.test(maxWidth);
 
     return (
       <Box
@@ -85,7 +87,7 @@ const Lozenge = memo(
         overflow="hidden"
         UNSAFE_style={{
           backgroundColor: style?.backgroundColor,
-          maxWidth: '100%',
+          maxWidth: maxWidthIsPc ? maxWidth : '100%',
         }}
       >
         <Text
@@ -98,7 +100,9 @@ const Lozenge = memo(
           UNSAFE_style={{
             color: style?.color,
             // to negate paddingInline specified on Box above
-            maxWidth: `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
+            maxWidth: maxWidthIsPc
+              ? '100%'
+              : `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
           }}
           testId={testId && `${testId}--text`}
         >

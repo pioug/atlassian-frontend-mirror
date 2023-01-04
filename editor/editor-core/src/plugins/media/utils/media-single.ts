@@ -33,6 +33,7 @@ import {
 import { getFeatureFlags } from '../../feature-flags-context';
 import { isImage } from './is-image';
 import { atTheBeginningOfBlock } from '../../../utils/prosemirror/position';
+import { getRandomHex } from '@atlaskit/media-common';
 
 export interface MediaSingleState extends MediaState {
   dimensions: { width: number; height: number };
@@ -232,6 +233,7 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
     bulletList,
     orderedList,
     media,
+    mediaInline,
     expand,
   } = schema.nodes;
 
@@ -257,15 +259,35 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
       });
     }
 
-    newSlice = mapSlice(newSlice, (node) =>
-      node.type.name === 'media' && node.attrs.type === 'external'
-        ? media.createChecked(
-            { ...node.attrs, __external: true },
-            node.content,
-            node.marks,
-          )
-        : node,
-    );
+    const __mediaTraceId = getRandomHex(8);
+
+    newSlice = mapSlice(newSlice, (node) => {
+      if (node.type.name === 'media') {
+        return media.createChecked(
+          {
+            ...node.attrs,
+            __external: node.attrs.type === 'external',
+            __mediaTraceId:
+              node.attrs.type === 'external' ? null : __mediaTraceId,
+          },
+          node.content,
+          node.marks,
+        );
+      }
+
+      if (node.type.name === 'mediaInline') {
+        return mediaInline.createChecked(
+          {
+            ...node.attrs,
+            __mediaTraceId,
+          },
+          node.content,
+          node.marks,
+        );
+      }
+
+      return node;
+    });
 
     return newSlice;
   };

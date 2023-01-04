@@ -46,6 +46,8 @@ export interface MediaBaseAttributes {
   __displayType?: DisplayType | null;
   // For copy & paste
   __contextId?: string | null;
+  // For tracing media operations
+  __mediaTraceId?: string | null;
 
   // is set to true when new external media is inserted, false for external media in existing documents
   __external?: boolean;
@@ -80,6 +82,7 @@ export const defaultAttrs: DefaultAttributes<MediaADFAttrs> = {
   __fileMimeType: { default: null },
   __displayType: { default: null },
   __contextId: { default: null },
+  __mediaTraceId: { default: null },
   __external: { default: false },
 };
 

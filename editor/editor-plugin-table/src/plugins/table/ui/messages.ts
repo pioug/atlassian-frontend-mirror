@@ -29,15 +29,30 @@ export default defineMessages({
 
   confirmDeleteLinkedModalOKButton: {
     id: 'fabric.editor.tables.confirmDeleteLinkedModalOKButton',
-    defaultMessage: 'Remove table and data',
+    defaultMessage: 'Delete',
     description:
       'Action button label for confirm modal when deleting a table linked to an extension.',
   },
   confirmDeleteLinkedModalMessage: {
     id: 'fabric.editor.tables.confirmDeleteLinkedModalMessage',
-    defaultMessage:
-      'Removing this table will break all the charts connected to it.',
+    defaultMessage: 'Deleting {nodeName} will break anything connected to it.',
     description:
       'Message for confirm modal when deleting a table linked to an extension.',
+  },
+  confirmDeleteLinkedModalMessagePrefix: {
+    id: 'fabric.editor.extension.confirmDeleteLinkedModalMessagePrefix',
+    defaultMessage: 'Deleting',
+    description: 'prefix for confirmation dialog text',
+  },
+  confirmModalCheckboxLabel: {
+    id: 'fabric.editor.floatingToolbar.confirmModalCheckboxLabel',
+    defaultMessage: 'Also delete connected elements',
+    description: 'checkbox label text',
+  },
+  deleteElementTitle: {
+    id: 'fabric.editor.extension.deleteElementTitle',
+    defaultMessage: 'Delete element',
+    description:
+      'Title text for confirm modal when deleting an extension linked to a data consumer.',
   },
 });

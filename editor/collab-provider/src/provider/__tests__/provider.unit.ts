@@ -20,7 +20,7 @@ jest.mock('prosemirror-collab', () => {
 jest.mock('../../channel', () => {
   const events = new Map<string, (...args: any) => {}>();
 
-  function Channel(config: any) {
+  function Channel() {
     return {
       emit: (event: string, ...args: any[]) => {
         const handler = events.get(event);
@@ -54,13 +54,13 @@ jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
 import * as analytics from '../../analytics';
 import { catchup } from '../catchup';
-import { triggerCollabAnalyticsEvent } from '../../analytics';
+import { triggerAnalyticsEvent } from '../../analytics';
 import { Channel } from '../../channel';
 import { ErrorPayload } from '../../types';
 import { MAX_STEP_REJECTED_ERROR } from '../';
 import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
-import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { Node } from 'prosemirror-model';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
 const testProviderConfig = {
   url: `http://provider-url:66661`,
@@ -174,9 +174,9 @@ describe('provider unit tests', () => {
     });
 
     it('should emit events for restoration', async (done) => {
-      const triggerCollabAnalyticsEventSpy = jest.spyOn(
+      const triggerAnalyticsEventSpy = jest.spyOn(
         analytics,
-        'triggerCollabAnalyticsEvent',
+        'triggerAnalyticsEvent',
       );
       const mockedMetadata = { b: 1 };
       const mockedSteps = [{ type: 'fakeStep' }, { type: 'fakeStep' }];
@@ -209,8 +209,8 @@ describe('provider unit tests', () => {
       provider.on('local-steps', ({ steps }) => {
         expect(steps).toEqual(mockedSteps);
         // Event emmit is a sync operation, so put done here is enough.
-        expect(triggerCollabAnalyticsEventSpy).toBeCalledTimes(1);
-        expect(triggerCollabAnalyticsEventSpy).toBeCalledWith(
+        expect(triggerAnalyticsEventSpy).toBeCalledTimes(1);
+        expect(triggerAnalyticsEventSpy).toBeCalledWith(
           {
             attributes: {
               documentAri: 'ari:cloud:confluence:ABC:page/testpage',
@@ -477,9 +477,9 @@ describe('provider unit tests', () => {
 
     describe('fire participants events', () => {
       it('should update the the participants', async () => {
-        const triggerCollabAnalyticsEventSpy = jest.spyOn(
+        const triggerAnalyticsEventSpy = jest.spyOn(
           analytics,
-          'triggerCollabAnalyticsEvent',
+          'triggerAnalyticsEvent',
         );
         const provider = createSocketIOCollabProvider(testProviderConfig);
         provider.on('presence', ({ joined, left }) => {
@@ -503,8 +503,8 @@ describe('provider unit tests', () => {
         });
 
         await new Promise(process.nextTick);
-        expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(2);
-        expect(triggerCollabAnalyticsEventSpy).toHaveBeenNthCalledWith(
+        expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(2);
+        expect(triggerAnalyticsEventSpy).toHaveBeenNthCalledWith(
           1,
           {
             eventAction: 'updateParticipants',
@@ -515,7 +515,7 @@ describe('provider unit tests', () => {
           },
           undefined,
         );
-        expect(triggerCollabAnalyticsEventSpy).toHaveBeenNthCalledWith(
+        expect(triggerAnalyticsEventSpy).toHaveBeenNthCalledWith(
           2,
           {
             eventAction: 'updateParticipants',
@@ -668,9 +668,9 @@ describe('provider unit tests', () => {
 
   describe('getFinalAcknowledgedState', () => {
     it('should return the final state', async () => {
-      const triggerCollabAnalyticsEventSpy = jest.spyOn(
+      const triggerAnalyticsEventSpy = jest.spyOn(
         analytics,
-        'triggerCollabAnalyticsEvent',
+        'triggerAnalyticsEvent',
       );
       const provider = createSocketIOCollabProvider(testProviderConfig);
       provider.initialize(() => editorState);
@@ -704,8 +704,8 @@ describe('provider unit tests', () => {
           version: 1,
         },
       });
-      expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(1);
-      expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledWith(
+      expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(1);
+      expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
         {
           eventAction: 'convertPMToADF',
           attributes: {
@@ -729,11 +729,11 @@ describe('provider unit tests', () => {
           origins: [1],
         },
       };
-      let triggerCollabAnalyticsEventSpy: jest.SpyInstance;
+      let triggerAnalyticsEventSpy: jest.SpyInstance;
       beforeEach(() => {
-        triggerCollabAnalyticsEventSpy = jest.spyOn(
+        triggerAnalyticsEventSpy = jest.spyOn(
           analytics,
-          'triggerCollabAnalyticsEvent',
+          'triggerAnalyticsEvent',
         );
         jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
       });
@@ -747,8 +747,8 @@ describe('provider unit tests', () => {
           ).rejects.toThrowError(
             new Error("Can't sync up with Collab Service"),
           );
-          expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(1);
-          expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledWith(
+          expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(1);
+          expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
             {
               eventAction: 'commitUnconfirmedSteps',
               attributes: {
@@ -805,8 +805,8 @@ describe('provider unit tests', () => {
 
         const finalAck = await provider.getFinalAcknowledgedState();
 
-        expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(2);
-        expect(triggerCollabAnalyticsEventSpy).toHaveBeenNthCalledWith(
+        expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(2);
+        expect(triggerAnalyticsEventSpy).toHaveBeenNthCalledWith(
           1,
           {
             eventAction: 'commitUnconfirmedSteps',
@@ -819,7 +819,7 @@ describe('provider unit tests', () => {
           },
           undefined,
         );
-        expect(triggerCollabAnalyticsEventSpy).toHaveBeenNthCalledWith(
+        expect(triggerAnalyticsEventSpy).toHaveBeenNthCalledWith(
           2,
           {
             eventAction: 'convertPMToADF',
@@ -888,9 +888,9 @@ describe('provider unit tests', () => {
     });
 
     it('should not log UGC when logging an error', async () => {
-      const triggerCollabAnalyticsEventSpy = jest.spyOn(
+      const triggerAnalyticsEventSpy = jest.spyOn(
         analytics,
-        'triggerCollabAnalyticsEvent',
+        'triggerAnalyticsEvent',
       );
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const invalidDocument = {
@@ -909,8 +909,8 @@ describe('provider unit tests', () => {
 
       await provider.getFinalAcknowledgedState();
 
-      expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(1);
-      expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledWith(
+      expect(triggerAnalyticsEventSpy).toHaveBeenCalledTimes(1);
+      expect(triggerAnalyticsEventSpy).toHaveBeenCalledWith(
         {
           eventAction: 'convertPMToADF',
           attributes: {
@@ -928,7 +928,7 @@ describe('provider unit tests', () => {
 
   describe('catchup should reset the flags (pauseQueue and stepRejectCounter) when called', () => {
     beforeEach(() => {
-      jest.spyOn(analytics, 'triggerCollabAnalyticsEvent');
+      jest.spyOn(analytics, 'triggerAnalyticsEvent');
     });
 
     it('should reset pauseQueue and stepRejectCounter flags', async () => {
@@ -993,7 +993,7 @@ describe('provider unit tests', () => {
 
       expect(throttledCatchupSpy).toBeCalledTimes(1);
       expect(catchup).toBeCalledTimes(1);
-      expect(triggerCollabAnalyticsEvent).nthCalledWith(
+      expect(triggerAnalyticsEvent).nthCalledWith(
         MAX_STEP_REJECTED_ERROR + 1,
         {
           eventAction: EVENT_ACTION.CATCHUP,
@@ -1008,7 +1008,7 @@ describe('provider unit tests', () => {
         channel.emit('error', stepRejectedError);
       }
 
-      expect(triggerCollabAnalyticsEvent).toBeCalledTimes(
+      expect(triggerAnalyticsEvent).toBeCalledTimes(
         MAX_STEP_REJECTED_ERROR * 2 + 2,
       );
       expect(throttledCatchupSpy).toBeCalledTimes(2);

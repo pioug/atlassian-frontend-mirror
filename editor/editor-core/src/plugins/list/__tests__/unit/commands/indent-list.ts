@@ -42,7 +42,7 @@ describe('lists plugin -> commands -> outdentList', () => {
     describe('when the cursor is at the last maximum nested list item allowed', () => {
       // prettier-ignore
       const document = doc(
-        ol(
+        ol()(
           li(
             p('One'),
             ul(
@@ -99,7 +99,7 @@ describe('lists plugin -> commands -> outdentList', () => {
     describe('when the cursor is at the first list item of a nested item', () => {
       // prettier-ignore
       const document = doc(
-        ol(
+        ol()(
           li(
             p('One'),
             ul(
@@ -131,7 +131,7 @@ describe('lists plugin -> commands -> outdentList', () => {
     describe('when the cursor is at the first list item', () => {
       // prettier-ignore
       const document = doc(
-        ol(
+        ol()(
           li(
             p('One{<>}'),
             ul(
@@ -163,7 +163,7 @@ describe('lists plugin -> commands -> outdentList', () => {
     describe('when indented', () => {
       // prettier-ignore
       const document = doc(
-        ol(
+        ol()(
           li(
             p('One'),
             ul(

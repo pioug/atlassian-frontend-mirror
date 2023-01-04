@@ -1,5 +1,16 @@
 # @atlaskit/media-viewer
 
+## 47.3.0
+
+### Minor Changes
+
+- [`2168c4e0d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2168c4e0d81) - Implement traceContext in media-viewer
+- [`0bccac57db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bccac57db6) - remove mediaUploadApiV2 Feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 47.2.2
 
 ### Patch Changes

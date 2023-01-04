@@ -54,6 +54,7 @@ describe('nodeviews/mediaGroup', () => {
     pluginState.handleMediaNodeRemoval = () => {};
     pluginState.handleMediaGroupUpdate = () => {};
     pluginState.mediaClientConfig = (await mediaProvider).viewMediaClientConfig;
+    pluginState.setMediaGroupNode = jest.fn();
     jest.spyOn(mediaStateKey, 'getState').mockImplementation(() => pluginState);
     MockMediaNodeUpdater.mockReset(); // part of mocked class API, not original
   });

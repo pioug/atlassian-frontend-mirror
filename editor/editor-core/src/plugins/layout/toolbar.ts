@@ -120,6 +120,7 @@ export const buildToolbar = (
       id: 'editor.layout.delete',
       type: 'button',
       appearance: 'danger',
+      focusEditoronEnter: true,
       icon: RemoveIcon,
       testId: commonMessages.remove.id,
       title: intl.formatMessage(commonMessages.remove),

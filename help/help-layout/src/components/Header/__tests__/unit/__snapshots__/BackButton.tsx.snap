@@ -31,7 +31,7 @@ exports[`BackButton Should match snapshot 1`] = `
   -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
   transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
   white-space: nowrap;
-  background: none;
+  background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-text, #42526E)!important;
   cursor: pointer;
   height: 2.2857142857142856em;
@@ -46,7 +46,7 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 .emotion-3:visited {
-  background: none;
+  background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-text, #42526E)!important;
 }
 
@@ -59,7 +59,7 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 .emotion-3:focus {
-  background: none;
+  background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-text, #42526E)!important;
   box-shadow: 0 0 0 2px var(--ds-border-focused, #4C9AFF);
   transition-duration: 0s,0.2s;
@@ -79,7 +79,7 @@ exports[`BackButton Should match snapshot 1`] = `
 }
 
 .emotion-3[disabled] {
-  background: none;
+  background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-text-disabled, #A5ADBA)!important;
   cursor: not-allowed;
   -webkit-text-decoration: none;
@@ -94,7 +94,7 @@ exports[`BackButton Should match snapshot 1`] = `
 
 .emotion-3[data-has-overlay="true"]:not([disabled]):hover,
 .emotion-3[data-has-overlay="true"]:not([disabled]):active {
-  background: none;
+  background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-text, #42526E)!important;
 }
 

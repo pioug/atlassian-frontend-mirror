@@ -1,5 +1,17 @@
 # @atlaskit/adf-utils
 
+## 18.0.0
+
+### Major Changes
+
+- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
+
+  Note: restartNumberedLists will be off by default. To enable it, consumers will need to set <Editor featureFlags={{ restartNumberedLists: true }}> or <Renderer featureFlags={{ restartNumberedLists: true }}>
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.1.5
 
 ### Patch Changes

@@ -19,10 +19,10 @@ import {
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 
+import { ACTION_SUBJECT_ID } from '../../../analytics';
 import * as Hooks from '../../../ui/unsupported-content-helper';
 import UnsupportedBlockNode from '../../../ui/UnsupportedBlock';
 import UnsupportedInlineNode from '../../../ui/UnsupportedInline';
-import { ACTION_SUBJECT_ID } from '../../../utils/analytics';
 import { trackUnsupportedContentTooltipDisplayedFor } from '../../../utils/track-unsupported-content';
 
 jest.mock('../../../utils/track-unsupported-content', () => {

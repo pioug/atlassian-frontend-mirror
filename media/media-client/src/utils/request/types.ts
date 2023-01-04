@@ -23,6 +23,7 @@ export type RequestMetadata = {
   readonly endpoint?: string;
   readonly mediaRegion?: string;
   readonly mediaEnv?: string;
+  readonly traceContext?: MediaTraceContext;
 };
 
 export type RequestOptions = RequestMetadata & {

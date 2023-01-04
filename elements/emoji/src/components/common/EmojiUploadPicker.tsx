@@ -43,6 +43,8 @@ export interface OnUploadEmoji {
   (upload: EmojiUpload, retry: boolean, onSuccessHandler?: () => void): void;
 }
 
+export const uploadEmojiNameInputTestId = 'upload-emoji-name-input';
+
 export interface Props {
   onUploadEmoji: OnUploadEmoji;
   onUploadCancelled: () => void;
@@ -145,6 +147,7 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = (props) => {
             value={name}
             isCompact
             autoFocus
+            testId={uploadEmojiNameInputTestId}
           />
         </span>
         <span css={uploadChooseFileBrowse}>

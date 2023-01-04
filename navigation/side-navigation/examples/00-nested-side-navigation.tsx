@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { Fragment } from 'react';
+
 import { jsx } from '@emotion/react';
 
 import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
@@ -121,7 +123,7 @@ const BasicExample = () => {
               testId="dropbox-nesting-item"
               isDisabled
             >
-              <span />
+              <Fragment />
             </NestingItem>
             <ButtonItem iconBefore={<WorkIcon label="" />}>
               Your work

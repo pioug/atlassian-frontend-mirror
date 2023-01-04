@@ -16,6 +16,7 @@ import { Outcome } from '../../domain';
 import { MediaViewerError } from '../../errors';
 import { InteractiveImg } from './interactive-img';
 import { BaseViewer } from '../base-viewer';
+import { MediaTraceContext } from '@atlaskit/media-common';
 
 export type ObjectUrl = string;
 
@@ -27,6 +28,7 @@ export type ImageViewerProps = {
   onError: (error: MediaViewerError) => void;
   onClose?: () => void;
   contextId?: string;
+  traceContext?: MediaTraceContext;
 };
 
 export interface ImageViewerContent {
@@ -55,7 +57,12 @@ export class ImageViewer extends BaseViewer<
   private cancelImageFetch?: () => void;
 
   protected async init() {
-    const { item: fileState, mediaClient, collectionName } = this.props;
+    const {
+      item: fileState,
+      mediaClient,
+      collectionName,
+      traceContext,
+    } = this.props;
     if (fileState.status === 'error') {
       return;
     }
@@ -90,6 +97,7 @@ export class ImageViewer extends BaseViewer<
           },
           controller,
           true,
+          traceContext,
         );
         this.cancelImageFetch = () => controller && controller.abort();
         objectUrl = URL.createObjectURL(await response);

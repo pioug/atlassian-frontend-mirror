@@ -26,6 +26,10 @@ import { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types'
 import type { EditorProps } from '../../../../types';
 
 import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
+import {
+  pressKey,
+  pressKeyCombo,
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 
 const dropdownListSelector =
   '[aria-label="Popup"] [data-role="droplistContent"]';
@@ -36,6 +40,10 @@ interface InitOptions {
   appearance?: Appearance;
   doc?: any;
   editorProps?: Partial<EditorProps>;
+}
+
+async function focusToolbar() {
+  await pressKeyCombo(page, ['Alt', 'F10']);
 }
 
 describe('Floating toolbars:', () => {
@@ -92,6 +100,16 @@ describe('Floating toolbars:', () => {
     });
 
     it('should render scroll buttons', async () => {});
+
+    it('should render scroll buttons', async () => {
+      focusToolbar();
+      await pressKey(page, ['ArrowRight', 'ArrowRight', 'ArrowRight']);
+    });
+
+    it('should render scroll buttons', async () => {
+      focusToolbar();
+      await pressKey(page, ['ArrowLeft', 'ArrowRight']);
+    });
 
     it('should render dropdown at the correct position and scroll buttons disabled when dropdown is opened', async () => {
       await clickTableOptions(page);

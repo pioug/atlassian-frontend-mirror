@@ -14,6 +14,7 @@ import {
   tr,
   th,
   td,
+  ol,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('MarkdownTransformer', () => {
@@ -130,6 +131,44 @@ ${CODE_FENCE}`;
             'Does not link url https://example.com, hostname test.example.com and email address example@example.com',
           ),
         ),
+      );
+    });
+  });
+
+  describe('Lists', () => {
+    it('should convert lists starting at 0 to an ordered list with an order attribute', () => {
+      const md = `0. One\n1. Two\n2. Three`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(ol({ order: 0 })(li(p('One')), li(p('Two')), li(p('Three')))),
+      );
+    });
+    it('should convert lists starting at 1 to an ordered list with an order attribute', () => {
+      const md = `1. One\n2. Two\n3. Three`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(ol({ order: 1 })(li(p('One')), li(p('Two')), li(p('Three')))),
+      );
+    });
+    it('should convert lists starting at a number > 1 to an ordered list with an order attribute', () => {
+      const md = `6. One\n7. Two\n8. Three`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(ol({ order: 6 })(li(p('One')), li(p('Two')), li(p('Three')))),
+      );
+    });
+    it('should NOT convert lists starting at a decimal number (1.999) to an ordered list', () => {
+      const md = `1.999 One\n2. Two\n3. Three`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(p(`1.999 One\n2. Two\n3. Three`)),
+      );
+    });
+    it('should NOT convert lists starting at a negative number to an ordered list', () => {
+      const md = `-3. One\n-2. Two\n-1. Three`;
+
+      expect(transformer.parse(md)).toEqualDocument(
+        doc(p(`-3. One\n-2. Two\n-1. Three`)),
       );
     });
   });

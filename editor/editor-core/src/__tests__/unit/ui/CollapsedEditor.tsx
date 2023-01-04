@@ -1,4 +1,5 @@
 import { name } from '../../../version-wrapper';
+import { mount } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import Editor from '../../../editor';
@@ -7,6 +8,16 @@ import ChromeCollapsed from '../../../ui/ChromeCollapsed';
 
 describe(name, () => {
   describe('CollapsedEditor', () => {
+    it('should load even if IntlProvider is not provided', () => {
+      const wrapper = mount(
+        <CollapsedEditor isExpanded={false}>
+          <Editor />
+        </CollapsedEditor>,
+      );
+      expect(wrapper.find(Editor).exists()).toBe(false);
+      expect(wrapper.find(ChromeCollapsed).exists()).toBe(true);
+    });
+
     it('should not render the editor when isExpanded is false', () => {
       const wrapper = mountWithIntl(
         <CollapsedEditor isExpanded={false}>

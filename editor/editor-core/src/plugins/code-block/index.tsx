@@ -14,12 +14,19 @@ import {
   EVENT_TYPE,
 } from '../analytics';
 import { IconCode } from '../quick-insert/assets';
-import { PMPluginFactoryParams, EditorPlugin } from '../../types';
+import {
+  PMPluginFactoryParams,
+  NextEditorPlugin,
+} from '@atlaskit/editor-common/types';
 import { messages } from '../block-type/messages';
 import { CodeBlockOptions } from './types';
 import refreshBrowserSelectionOnChange from './refresh-browser-selection';
 
-const codeBlockPlugin = (options: CodeBlockOptions): EditorPlugin => ({
+const codeBlockPlugin: NextEditorPlugin<
+  'codeBlock',
+  never,
+  CodeBlockOptions
+> = (options) => ({
   name: 'codeBlock',
 
   nodes() {

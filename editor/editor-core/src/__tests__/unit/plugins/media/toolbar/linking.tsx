@@ -691,7 +691,7 @@ describe('media', () => {
           ),
           20,
         ],
-        ['list', doc(ol(li(temporaryMediaSingle()))), 2],
+        ['list', doc(ol()(li(temporaryMediaSingle()))), 2],
         [
           'layout',
           doc(

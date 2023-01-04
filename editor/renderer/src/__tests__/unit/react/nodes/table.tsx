@@ -663,9 +663,9 @@ describe('Renderer - React/Nodes/Table', () => {
         wrap.update();
 
         const tableState = [
-          ['1a', '@yolo'],
           [' C', 'C'],
           ['!c', 'A nEw world'],
+          ['1a', '@yolo'],
           ['a1', 'be@ns'],
           ['BBb', ' '],
           ['Bbb', 'A'],
@@ -682,9 +682,9 @@ describe('Renderer - React/Nodes/Table', () => {
         wrap.update();
 
         const tableState = [
-          ['1a', '@yolo'],
           [' C', 'C'],
           ['!c', 'A nEw world'],
+          ['1a', '@yolo'],
           ['a1', 'be@ns'],
           ['BBb', ' '],
           ['Bbb', 'A'],

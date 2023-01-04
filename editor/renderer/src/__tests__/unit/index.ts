@@ -18,7 +18,11 @@ jest.mock('@atlaskit/editor-common/validator', () => ({
 import * as common from '@atlaskit/editor-common/validator';
 import { renderDocument, Serializer } from '../../index';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 
 import { PLATFORM } from '../../analytics/events';
 import doc from '../__fixtures__/basic-document.adf.json';

@@ -100,7 +100,7 @@ export enum ACTION {
   TYPING_FINISHED = 'typingFinished',
   TYPING_STARTED = 'typingStarted',
   UNLINK = 'unlinked',
-  UNSUPPORTED_CONTENT_ENCOUNTERED = 'unsupportedContentEncountered',
+  UNSUPPORTED_CONTENT_ENCOUNTERED = 'unsupportedContentEncounteredV2',
   UPDATED = 'updated',
   /** used in @atlassian/editor-referentiality */
   UPDATED_FRAGMENT_MARK_NAME = 'updatedFragmentMarkName',
@@ -120,6 +120,16 @@ export enum ACTION {
   UFO_SESSION_COMPLETE = 'ufoSessionComplete',
   INVALID_PROSEMIRROR_DOCUMENT = 'invalidProsemirrorDocument',
   DOCUMENT_PROCESSING_ERROR = 'documentProcessingError',
+  RENDERER_TTI = 'tti',
+  CRASHED = 'unhandledErrorCaught',
+  SELECT_ALL_CAUGHT = 'selectAllCaught',
+  SELECT_ALL_ESCAPED = 'selectAllEscaped',
+  SORT_COLUMN = 'sortedColumn',
+  SORT_COLUMN_NOT_ALLOWED = 'sortColumnNotAllowed',
+  CREATE_NOT_ALLOWED = 'createNotAllowed',
+  UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED = 'unsupportedContentLevelsTrackingSucceeded',
+  UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED = 'unsupportedContentLevelsTrackingErrored',
+  UNSUPPORTED_TOOLTIP_VIEWED = 'viewed',
 }
 
 export enum INPUT_METHOD {
@@ -200,6 +210,10 @@ export enum ACTION_SUBJECT {
   CREATE_LINK_INLINE_DIALOG = 'createLinkInlineDialog',
   CODE_BLOCK = 'codeBlock',
   REACT_EDITOR_VIEW = 'reactEditorView',
+  RENDERER = 'renderer',
+  ANCHOR_LINK = 'anchorLink',
+  LINK = 'link',
+  TOOLTIP = 'tooltip',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -315,9 +329,14 @@ export enum ACTION_SUBJECT_ID {
   TYPEAHEAD_QUICK_INSERT = 'quickInsertTypeAhead',
   UNKNOWN_NODE = 'unknownNode',
   UNLINK = 'unlink',
+  HEADING_ANCHOR_LINK = 'headingAnchorLink',
+  UNSUPPORTED_ERROR = 'unsupportedUnhandled',
+  UNSUPPORTED_NODE_ATTRIBUTE = 'unsupportedNodeAttribute',
   UNSUPPORTED_BLOCK = 'unsupportedBlock',
   UNSUPPORTED_INLINE = 'unsupportedInline',
   UNSUPPORTED_MARK = 'unsupportedMark',
+  ON_UNSUPPORTED_INLINE = 'onUnsupportedInline',
+  ON_UNSUPPORTED_BLOCK = 'onUnsupportedBlock',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

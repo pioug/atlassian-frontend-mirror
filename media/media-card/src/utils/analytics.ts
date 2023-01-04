@@ -32,7 +32,7 @@ import {
   MediaCardError,
   MediaCardErrorPrimaryReason,
 } from '../errors';
-import { CardPreviewSource, CardDimensions } from '../types';
+import { CardPreviewSource, CardDimensions, CardStatus } from '../types';
 
 const relevantFlags = {
   newCardExperience: true,
@@ -41,7 +41,6 @@ const relevantFlags = {
   observedWidth: true,
   mediaInline: false,
   folderUploads: false,
-  mediaUploadApiV2: true,
   memoryCacheLogging: true,
 };
 
@@ -69,6 +68,7 @@ export type MediaCardErrorInfo = {
   failReason: FailedErrorFailReason;
   error: MediaClientErrorReason | 'nativeError';
   errorDetail: string;
+  metadataTraceContext?: MediaTraceContext;
 };
 
 export type SSRStatusFail = MediaCardErrorInfo & {
@@ -102,6 +102,44 @@ export type RenderFailedEventPayload = OperationalEventPayload<
     },
   'failed',
   'mediaCardRender'
+>;
+
+export type ErrorEventPayload = OperationalEventPayload<
+  WithFileAttributes &
+    WithPerformanceAttributes &
+    WithSSRReliability &
+    WithTraceContext &
+    FailureAttributes & {
+      cardStatus: CardStatus;
+      failReason: FailedErrorFailReason | 'failed-processing';
+      error?: MediaClientErrorReason | 'nativeError';
+      request?: RequestMetadata;
+    },
+  'nonCriticalFail',
+  'mediaCardRender'
+>;
+
+export type ErrorBoundaryErrorInfo = {
+  componentStack: string;
+};
+
+export type AnalyticsErrorBoundaryAttributes = {
+  error?: Error | string;
+  info?: ErrorBoundaryErrorInfo;
+  browserInfo: string;
+  failReason: string;
+};
+
+export type AnalyticsErrorBoundaryCardPayload = OperationalEventPayload<
+  AnalyticsErrorBoundaryAttributes,
+  'failed',
+  'mediaCardRender'
+>;
+
+export type AnalyticsErrorBoundaryInlinePayload = OperationalEventPayload<
+  AnalyticsErrorBoundaryAttributes,
+  'failed',
+  'mediaInlineRender'
 >;
 
 export type RenderSucceededEventPayload = OperationalEventPayload<
@@ -158,7 +196,10 @@ export type MediaCardAnalyticsEventPayload =
   | ClickedEventPayload
   | RenderScreenEventPayload
   | CacheHitEventPayload
-  | RemoteSuccessEventPayload;
+  | RemoteSuccessEventPayload
+  | ErrorEventPayload
+  | AnalyticsErrorBoundaryCardPayload
+  | AnalyticsErrorBoundaryInlinePayload;
 
 export const getFileAttributes = (
   metadata: FileDetails,
@@ -208,6 +249,7 @@ export const getRenderSucceededEventPayload = (
   performanceAttributes: PerformanceAttributes,
   ssrReliability: SSRStatus,
   traceContext: MediaTraceContext,
+  metadataTraceContext?: MediaTraceContext,
 ): RenderSucceededEventPayload => ({
   eventType: 'operational',
   action: 'succeeded',
@@ -218,6 +260,7 @@ export const getRenderSucceededEventPayload = (
     status: 'success',
     ssrReliability,
     traceContext,
+    metadataTraceContext,
   },
 });
 
@@ -288,6 +331,18 @@ export const getRenderErrorErrorDetail = (error: MediaCardError): string => {
   }
 };
 
+export const getErrorTraceContext = (
+  error: MediaCardError,
+): MediaTraceContext | undefined => {
+  if (
+    isMediaCardError(error) &&
+    !!error.secondaryError &&
+    isRequestError(error.secondaryError)
+  ) {
+    return error.secondaryError.metadata?.traceContext;
+  }
+};
+
 export const getRenderErrorRequestMetadata = (
   error: MediaCardError,
 ): RequestMetadata | undefined => {
@@ -300,11 +355,15 @@ export const getRenderErrorRequestMetadata = (
   }
 };
 
-export const extractErrorInfo = (error: MediaCardError): MediaCardErrorInfo => {
+export const extractErrorInfo = (
+  error: MediaCardError,
+  metadataTraceContext?: MediaTraceContext,
+): MediaCardErrorInfo => {
   return {
     failReason: getRenderErrorFailReason(error),
     error: getRenderErrorErrorReason(error),
     errorDetail: getRenderErrorErrorDetail(error),
+    metadataTraceContext: metadataTraceContext ?? getErrorTraceContext(error),
   };
 };
 
@@ -314,6 +373,7 @@ export const getRenderErrorEventPayload = (
   error: MediaCardError,
   ssrReliability: SSRStatus,
   traceContext: MediaTraceContext,
+  metadataTraceContext?: MediaTraceContext,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: 'failed',
@@ -322,10 +382,32 @@ export const getRenderErrorEventPayload = (
     fileAttributes,
     performanceAttributes,
     status: 'fail',
-    ...extractErrorInfo(error),
+    ...extractErrorInfo(error, metadataTraceContext),
     request: getRenderErrorRequestMetadata(error),
     ssrReliability,
     traceContext,
+  },
+});
+
+export const getErrorEventPayload = (
+  cardStatus: CardStatus,
+  fileAttributes: FileAttributes,
+  error: MediaCardError,
+  ssrReliability: SSRStatus,
+  traceContext: MediaTraceContext,
+  metadataTraceContext?: MediaTraceContext,
+): ErrorEventPayload => ({
+  eventType: 'operational',
+  action: 'nonCriticalFail',
+  actionSubject: 'mediaCardRender',
+  attributes: {
+    fileAttributes,
+    status: 'fail',
+    ...extractErrorInfo(error, metadataTraceContext),
+    request: getRenderErrorRequestMetadata(error),
+    ssrReliability,
+    traceContext,
+    cardStatus,
   },
 });
 
@@ -334,6 +416,7 @@ export const getRenderFailedFileStatusPayload = (
   performanceAttributes: PerformanceAttributes,
   ssrReliability: SSRStatus,
   traceContext: MediaTraceContext,
+  metadataTraceContext?: MediaTraceContext,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: 'failed',
@@ -345,6 +428,7 @@ export const getRenderFailedFileStatusPayload = (
     failReason: 'failed-processing',
     ssrReliability,
     traceContext,
+    metadataTraceContext,
   },
 });
 

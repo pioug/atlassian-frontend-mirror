@@ -1,5 +1,11 @@
 # @atlaskit/media-avatar-picker
 
+## 24.2.0
+
+### Minor Changes
+
+- [`ba83d964c58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba83d964c58) - [ux] Add keyboard navigation support to select an image on the media-avatar-picker package
+
 ## 24.1.2
 
 ### Patch Changes

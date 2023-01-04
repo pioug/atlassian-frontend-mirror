@@ -535,7 +535,7 @@ export class MediaStore {
     const extendedTraceContext = traceContext
       ? {
           ...traceContext,
-          spanId: traceContext?.spanId || getRandomHex(16),
+          spanId: traceContext?.spanId || getRandomHex(8),
         }
       : undefined;
 
@@ -603,6 +603,7 @@ export interface ResponseFileItem {
   type: 'file';
   details: MediaCollectionItemFullDetails;
   collection?: string;
+  metadataTraceContext?: MediaTraceContext;
 }
 
 export interface ItemsPayload {

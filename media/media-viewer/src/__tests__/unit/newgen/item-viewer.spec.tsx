@@ -174,6 +174,9 @@ describe('<ItemViewer />', () => {
     expect(el.find(ImageViewer).prop('collectionName')).toEqual(
       identifier.collectionName,
     );
+    expect(el.find(ImageViewer).prop('traceContext')).toEqual({
+      traceId: expect.any(String),
+    });
   });
 
   it('should should error and download button if processing Status failed', () => {
@@ -195,6 +198,9 @@ describe('<ItemViewer />', () => {
       'itemviewer-file-failed-processing-status',
     );
     expect(errorMessage.find(ErrorViewDownloadButton).length).toEqual(1);
+    expect(errorMessage.prop('traceContext')).toEqual({
+      traceId: expect.any(String),
+    });
   });
 
   it('should should error and download button if file is in error state', () => {
@@ -480,7 +486,6 @@ describe('<ItemViewer />', () => {
       );
       const { el } = mountComponent(mediaClient, identifier);
       el.update();
-
       expect(asMock(fireAnalytics).mock.calls[0][0]).toEqual({
         action: 'commenced',
         actionSubject: 'mediaFile',
@@ -488,6 +493,7 @@ describe('<ItemViewer />', () => {
           fileAttributes: {
             fileId: 'some-id',
           },
+          traceContext: { traceId: expect.any(String) },
         },
         eventType: 'operational',
       });
@@ -522,6 +528,7 @@ describe('<ItemViewer />', () => {
           },
           fileMediatype: 'image',
           status: 'success',
+          traceContext: { traceId: expect.any(String) },
         },
         eventType: 'operational',
       });
@@ -565,6 +572,7 @@ describe('<ItemViewer />', () => {
           },
           fileMediatype: 'image',
           status: 'success',
+          traceContext: { traceId: expect.any(String) },
         },
         eventType: 'operational',
       });
@@ -703,6 +711,7 @@ describe('<ItemViewer />', () => {
           },
           fileMediatype: 'image',
           status: 'success',
+          traceContext: { traceId: expect.any(String) },
         },
         eventType: 'operational',
       });
@@ -783,6 +792,7 @@ describe('<ItemViewer />', () => {
         failReason: error.message,
         request: undefined,
         fileAttributes: fileAttributes,
+        traceContext: { traceId: expect.any(String) },
         fileStateFlags: {
           wasStatusUploading: false,
           wasStatusProcessing: false,

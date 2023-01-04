@@ -30,16 +30,16 @@ export default class LoadingContainer extends React.Component<LoadingContainerPr
       this.props;
 
     return (
-      <Container>
+      <Container testId={testId}>
         {!isLoading ? (
           children
         ) : (
-          <ContentsContainer contentsOpacity={contentsOpacity}>
+          <ContentsContainer contentsOpacity={contentsOpacity} testId={testId}>
             {children}
           </ContentsContainer>
         )}
         {isLoading && (
-          <SpinnerContainer>
+          <SpinnerContainer testId={testId}>
             <Spinner
               size={spinnerSize}
               testId={testId && `${testId}--loadingSpinner`}

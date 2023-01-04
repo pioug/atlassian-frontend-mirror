@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, EditorState } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelHandler } from './types';
 import { Dispatch } from '../../event-dispatcher';
 
@@ -64,7 +64,7 @@ function contextPanelPluginFactory(
   });
 }
 
-const contextPanelPlugin = (): EditorPlugin => ({
+const contextPanelPlugin: NextEditorPlugin<'contextPanel', never> = () => ({
   name: 'contextPanel',
 
   pmPlugins(contextPanels: Array<ContextPanelHandler> = []) {

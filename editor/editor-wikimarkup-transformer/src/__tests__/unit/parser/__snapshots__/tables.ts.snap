@@ -40,6 +40,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
+                        "__mediaTraceId": null,
                         "alt": "",
                         "collection": "",
                         "height": null,
@@ -59,6 +60,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
+                        "__mediaTraceId": null,
                         "alt": "",
                         "collection": "",
                         "height": null,
@@ -92,6 +94,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
+                        "__mediaTraceId": null,
                         "alt": "",
                         "collection": "",
                         "height": null,
@@ -111,6 +114,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
+                        "__mediaTraceId": null,
                         "alt": "",
                         "collection": "",
                         "height": null,
@@ -510,6 +514,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "order": 1,
+                  },
                   "content": Array [
                     Object {
                       "content": Array [
@@ -3984,6 +3991,7 @@ Object {
                         "__fileMimeType": null,
                         "__fileName": null,
                         "__fileSize": null,
+                        "__mediaTraceId": null,
                         "alt": "",
                         "collection": "",
                         "height": 400,

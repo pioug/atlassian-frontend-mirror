@@ -12,8 +12,8 @@ describe('Registering renderer actions', () => {
         create(
           <RendererActionsContext>
             <>
-              <Renderer document={{ version: 1, ...initialDoc }} />
-              <Renderer document={{ version: 1, ...initialDoc }} />
+              <Renderer document={initialDoc} />
+              <Renderer document={initialDoc} />
             </>
           </RendererActionsContext>,
         );
@@ -28,7 +28,7 @@ describe('Registering renderer actions', () => {
       act(() => {
         create(
           <RendererActionsContext>
-            <Renderer document={{ version: 1, ...initialDoc }} />
+            <Renderer document={initialDoc} />
           </RendererActionsContext>,
         );
       });
@@ -40,8 +40,8 @@ describe('Registering renderer actions', () => {
       act(() => {
         create(
           <>
-            <Renderer document={{ version: 1, ...initialDoc }} />
-            <Renderer document={{ version: 1, ...initialDoc }} />
+            <Renderer document={initialDoc} />
+            <Renderer document={initialDoc} />
           </>,
         );
       });

@@ -1,26 +1,12 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
-import {
-  md,
-  code,
-  Example,
-  Props,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
-import { createRxjsNotice } from '@atlaskit/media-common/docs';
-
-import { hrStyles } from './shared';
+import { md, AtlassianInternalWarning } from '@atlaskit/docs';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import example from '../content/example';
+import props from '../content/props';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
-
-  ${createRxjsNotice('Media Image')}
-
-  ### 🛠 [Upgrade guide](/packages/media/media-image/docs/upgrade-guide)
-
-  View this guide to help upgrade breaking changes between major versions of media-image.
-
-  ${(<hr css={hrStyles} />)}
 
   This package exports \`MediaImage\` component using
   [render prop pattern](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce).
@@ -33,28 +19,12 @@ export default md`
   This package is required by other Media Components, and should not be used
   directly.
 
-  ## Usage
-
-  ${code`import { MediaImage } from '@atlaskit/media-image';
-
-  `}
-
   ${(
-    <Example
-      packageName="@atlaskit/media-image"
-      Component={require('../examples/0-basic').default}
-      title="MediaImage Basic"
-      source={require('!!raw-loader!../examples/0-basic')}
+    <DocsContentTabs
+      tabs={[
+        { name: 'Usage', content: example },
+        { name: 'Props', content: props },
+      ]}
     />
   )}
-
-  The component loads the image based on these propss.
-
-  ${(
-    <Props
-      heading="MediaImage Props"
-      props={require('!!extract-react-types-loader!../src/mediaImage')}
-    />
-  )}
-
 `;

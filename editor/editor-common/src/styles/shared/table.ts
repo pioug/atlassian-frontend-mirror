@@ -1,7 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4118
-
 import { css } from '@emotion/react';
 
 import {
@@ -187,7 +185,7 @@ const tableSharedStyle = (props: ThemeProps) => css`
                   ),
                   dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
                 })(props),
-                width: `${gridSize()}px`,
+                leftCoverWidth: `${gridSize() * 3}px`,
               })};
 
               background-color: ${themed({
@@ -213,7 +211,7 @@ const tableSharedStyle = (props: ThemeProps) => css`
                   ),
                   dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
                 })(props),
-                width: `${gridSize()}px`,
+                leftCoverWidth: `${gridSize() * 3}px`,
               })}!important;
 
               background-color: ${themed({

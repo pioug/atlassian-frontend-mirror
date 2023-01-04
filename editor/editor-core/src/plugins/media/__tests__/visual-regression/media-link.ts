@@ -66,7 +66,7 @@ async function initEditor(page: PuppeteerPage, mediaLink: string) {
   // force the toolbar to appear first, because it doesn't automatically appear if the ADF that
   // gets loaded in doesn't pass validation
   await page.click(mediaCardSelector);
-  await page.click('[aria-label="Action item"]');
+  await page.click('[aria-label*="Action item"]');
   await page.waitForSelector(selectors.actionList);
   await page.keyboard.press('Backspace');
 

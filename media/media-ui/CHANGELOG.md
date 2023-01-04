@@ -1,5 +1,18 @@
 # @atlaskit/media-ui
 
+## 22.2.4
+
+### Patch Changes
+
+- [`a8eeb045e3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8eeb045e3a) - adding media only callouts to docs
+- Updated dependencies
+
+## 22.2.3
+
+### Patch Changes
+
+- [`65527c85a64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65527c85a64) - Bump @emotion
+
 ## 22.2.2
 
 ### Patch Changes

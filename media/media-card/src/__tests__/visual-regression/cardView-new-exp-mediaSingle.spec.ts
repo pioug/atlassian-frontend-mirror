@@ -6,8 +6,12 @@ import { sleep } from '@atlaskit/media-test-helpers';
 
 function getURL(params: string): string {
   return (
-    getExampleUrl('media', 'media-card', 'card-view-vr', global.__BASEURL__) +
-    params
+    getExampleUrl(
+      'media',
+      'media-card',
+      'Test-VR-card-view',
+      global.__BASEURL__,
+    ) + params
   );
 }
 

@@ -215,13 +215,13 @@ describe('list-conversion', () => {
     const { editorView } = editor(
       // prettier-ignore
       doc(
-        ol(
+        ol()(
           li(p('A'),
-          ol(
+          ol()(
             li(p('{<>}A1'))),
           ),
           li(p('B'),
-          ol(
+          ol()(
             li(p('B1'))),
           ),
         ),

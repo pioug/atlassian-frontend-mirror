@@ -75,6 +75,7 @@ export interface FilmstripViewProps {
    * - animate - A **boolean**. Whether the change should be animated (this arg could probably do with a better name!)
    */
   onScroll?: (event: ScrollEvent) => void;
+  /** A **string** property that will be assigned to the top level DOM element as **data-testid** attribute.*/
   testId?: string;
 }
 

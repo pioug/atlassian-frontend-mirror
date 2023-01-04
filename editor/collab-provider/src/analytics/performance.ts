@@ -1,9 +1,7 @@
 export enum MEASURE_NAME {
-  CALLING_CATCHUP_API = 'callingCatchupApi',
   SOCKET_CONNECT = 'socketConnect',
   DOCUMENT_INIT = 'documentInit',
   CONVERT_PM_TO_ADF = 'convertPMToADF',
-  ADD_STEPS = 'addSteps',
   COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps',
 }
 

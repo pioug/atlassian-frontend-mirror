@@ -27,6 +27,8 @@ const emojiPickerWrapper = css`
   margin-top: -4px;
 `;
 
+const EmojiPickerWithListener = withOuterListeners(EmojiPicker);
+
 export const EmojiPickerButton: React.FunctionComponent<{
   className?: string;
   editorView?: EditorView;
@@ -40,7 +42,6 @@ export const EmojiPickerButton: React.FunctionComponent<{
 }> = (props) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
-  const EmojiPickerWithListener = withOuterListeners(EmojiPicker);
 
   React.useEffect(() => {
     if (props.setDisableParentScroll) {

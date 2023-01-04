@@ -533,6 +533,16 @@ describe(`${packageName}/schema table node`, () => {
           '<th style="background-color: #ff0000;" class="pm-table-header-content-wrap"></th>',
         );
       });
+
+      it('should strip out background style with var(--ds-background-neutral)', () => {
+        const attrs = {
+          background: 'var(--ds-background-neutral, #F4F5F7)',
+        } as CellAttributes;
+        const cell = schema.nodes.tableHeader.create(attrs);
+        expect(toHTML(cell, schema)).toEqual(
+          '<th style="" class="pm-table-header-content-wrap"></th>',
+        );
+      });
     });
 
     describe('row node', () => {

@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { withTheme } from '@emotion/react';
 
 import { PluginKey } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
   breakoutWideScaleRatio,
@@ -198,7 +198,9 @@ interface GridPluginOptions {
   shouldCalcBreakoutGridLines?: boolean;
 }
 
-const gridPlugin = (options?: GridPluginOptions): EditorPlugin => ({
+const gridPlugin: NextEditorPlugin<'grid', never, GridPluginOptions> = (
+  options?,
+) => ({
   name: 'grid',
 
   contentComponent: ({ editorView }) => {

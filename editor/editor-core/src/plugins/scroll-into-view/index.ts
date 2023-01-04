@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, Transaction } from 'prosemirror-state';
 
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { TEXT_INPUT_RULE_TRANSACTION_KEY } from '@atlaskit/prosemirror-input-rules';
 
 /**
@@ -44,7 +44,7 @@ const createPlugin = () =>
     },
   });
 
-const scrollIntoViewPlugin = (): EditorPlugin => ({
+const scrollIntoViewPlugin: NextEditorPlugin<'scrollIntoView'> = () => ({
   name: 'scrollIntoView',
   pmPlugins() {
     return [{ name: 'scrollIntoView', plugin: () => createPlugin() }];

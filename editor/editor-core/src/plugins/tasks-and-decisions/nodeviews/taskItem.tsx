@@ -9,6 +9,7 @@ import {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 
 import { EventDispatcher } from '../../../event-dispatcher';
 import {
@@ -36,10 +37,14 @@ class Task extends ReactNodeView<Props> {
     const { tr } = this.view.state;
     const nodePos = (this.getPos as getPosHandlerNode)();
 
-    tr.setNodeMarkup(nodePos, undefined, {
-      state: isChecked ? 'DONE' : 'TODO',
-      localId: taskId,
-    });
+    // SetAttrsStep should be used to prevent task updates from being dropped when mapping task ticks
+    // from a previous version of the document, such as a published page.
+    tr.step(
+      new SetAttrsStep(nodePos, {
+        state: isChecked ? 'DONE' : 'TODO',
+        localId: taskId,
+      }),
+    );
     tr.setMeta('scrollIntoView', false);
 
     this.view.dispatch(tr);

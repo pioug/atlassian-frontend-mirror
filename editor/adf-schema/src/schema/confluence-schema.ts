@@ -63,7 +63,13 @@ const marks = [
   'unsupportedNodeAttribute',
 ];
 
+/**
+ * @deprecated [ED-15676] We have stopped supporting product specific schemas. Use `@atlaskit/adf-schema/schema-default` instead.
+ **/
 export const confluenceSchema: Schema = createSchema({ nodes, marks });
+/**
+ * @deprecated [ED-15676] We have stopped supporting product specific schemas. Use `@atlaskit/adf-schema/schema-default` instead.
+ **/
 export const confluenceSchemaWithMediaSingle: Schema = createSchema({
   nodes: nodes.concat('mediaSingle'),
   marks,

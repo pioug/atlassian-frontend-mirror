@@ -13,6 +13,10 @@ import { MacroComponent, macroExtensionHandlerKey } from './MacroComponent';
 const chartExtensionType = 'com.atlassian.chart';
 const chartExtensionKey = 'chart';
 
+let contentIdDeferred = {
+  promise: new Promise<number>(() => {}),
+};
+
 function getConfluenceMobileMacroManifests<
   createPromiseType extends Function,
   eventDispatcherType,
@@ -22,6 +26,10 @@ function getConfluenceMobileMacroManifests<
   handleAnalyticsEvent: (event: GasPurePayload) => void,
   onLinkClick?: Function,
 ): Promise<ExtensionManifest[]> {
+  let resolveContentId: (contentId: number) => void;
+  contentIdDeferred.promise = new Promise((resolve) => {
+    resolveContentId = resolve;
+  });
   return createPromise('customConfigurationMacro')
     .submit()
     .then((result: any) => {
@@ -52,6 +60,8 @@ function getConfluenceMobileMacroManifests<
 
       const contentId = resultObj.contentId;
       const baseUrl = resultObj.siteUrlString;
+
+      resolveContentId(contentId);
 
       loadResourceTags(
         [
@@ -85,23 +95,26 @@ function getConfluenceMobileMacroManifests<
                 default: {
                   type: 'extension',
                   render: () =>
-                    Promise.resolve(({ node }: { node: any }) => {
-                      const renderingStrategy = useRenderingStrategyMap
-                        ? resultObj.renderingStrategyMap?.[
-                            node.extensionType
-                          ]?.[node.extensionKey]
-                        : 'fallback';
-                      return renderMacro(
-                        node,
-                        contentId,
-                        baseUrl,
-                        renderingStrategy,
-                        createPromise,
-                        eventDispatcher,
-                        handleAnalyticsEvent,
-                        onLinkClick,
-                      );
-                    }),
+                    contentIdDeferred.promise.then(
+                      (latestContentId) =>
+                        ({ node }: { node: any }) => {
+                          const renderingStrategy = useRenderingStrategyMap
+                            ? resultObj.renderingStrategyMap?.[
+                                node.extensionType
+                              ]?.[node.extensionKey]
+                            : 'fallback';
+                          return renderMacro(
+                            node,
+                            latestContentId,
+                            baseUrl,
+                            renderingStrategy,
+                            createPromise,
+                            eventDispatcher,
+                            handleAnalyticsEvent,
+                            onLinkClick,
+                          );
+                        },
+                    ),
                 },
               },
             },

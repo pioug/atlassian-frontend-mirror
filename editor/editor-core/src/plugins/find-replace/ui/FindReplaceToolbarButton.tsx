@@ -15,7 +15,12 @@ import ToolbarButton, { TOOLBAR_BUTTON } from '../../../ui/ToolbarButton';
 import Dropdown from '../../../ui/Dropdown';
 import FindReplace, { FindReplaceProps } from './FindReplace';
 import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../../analytics/types';
-import { ToolTipContent, findKeymapByDescription } from '../../../keymaps';
+import {
+  ToolTipContent,
+  findKeymapByDescription,
+  tooltip,
+} from '../../../keymaps';
+import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 
 const toolbarButtonWrapper = css`
   display: flex;
@@ -91,6 +96,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
     const title = formatMessage(messages.findReplaceToolbarButton);
     const stackBelowOtherEditorFloatingPanels = akEditorFloatingPanelZIndex - 1;
 
+    const keymap = findKeymapByDescription('Find');
     return (
       <div
         css={[
@@ -116,16 +122,13 @@ class FindReplaceToolbarButton extends React.PureComponent<
               buttonId={TOOLBAR_BUTTON.FIND_REPLACE}
               spacing={isReducedSpacing ? 'none' : 'default'}
               selected={isActive}
-              title={
-                <ToolTipContent
-                  description={title}
-                  keymap={findKeymapByDescription('Find')}
-                />
-              }
+              title={<ToolTipContent description={title} keymap={keymap} />}
               iconBefore={<EditorSearchIcon label={title} />}
               onClick={this.toggleOpen}
               aria-expanded={isActive}
               aria-haspopup
+              aria-label={keymap ? tooltip(keymap, title) : title}
+              aria-keyshortcuts={getAriaKeyshortcuts(keymap)}
             />
           }
         >

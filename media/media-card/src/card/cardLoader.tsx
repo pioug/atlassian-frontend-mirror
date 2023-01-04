@@ -7,7 +7,7 @@ import { useMemoizeFeatureFlags } from '@atlaskit/media-common';
 import Loadable from 'react-loadable';
 import { CardLoading } from '../utils/lightCards/cardLoading';
 import type { CardBaseProps } from './card';
-import type { MediaCardAnalyticsErrorBoundaryProps } from '../utils/media-card-analytics-error-boundary';
+import type { MediaCardAnalyticsErrorBoundaryProps } from './media-card-analytics-error-boundary';
 
 export type CardWithMediaClientConfigProps =
   WithMediaClientConfigProps<CardBaseProps>;
@@ -32,7 +32,7 @@ const MediaCardErrorBoundary = Loadable({
     React.ComponentType<MediaCardAnalyticsErrorBoundaryProps>
   > =>
     import(
-      /* webpackChunkName: "@atlaskit-internal_media-card-error-boundary" */ '../utils/media-card-analytics-error-boundary'
+      /* webpackChunkName: "@atlaskit-internal_media-card-error-boundary" */ './media-card-analytics-error-boundary'
     ).then((mod) => mod.default),
   loading: () => <CardLoadingWithContext />,
 });
@@ -53,14 +53,14 @@ const CardWithMediaClient: React.FC<
     withMediaClient: WithMediaClientFunction;
   }
 > = (props) => {
-  const { withMediaClient, featureFlags } = props;
+  const { withMediaClient, dimensions, featureFlags, onClick } = props;
   const memoizedFeatureFlags = useMemoizeFeatureFlags(featureFlags);
   const Card = React.useMemo(() => {
     return withMediaClient(MediaCard, memoizedFeatureFlags);
   }, [withMediaClient, memoizedFeatureFlags]);
-
   return (
-    <MediaCardErrorBoundary>
+    // onClick is passed into MediaCardErrorBoundary so MediaGroup items can get the toolbar menu in Editor
+    <MediaCardErrorBoundary dimensions={dimensions} onClick={onClick}>
       <Card {...props} />
     </MediaCardErrorBoundary>
   );

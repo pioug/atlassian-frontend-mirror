@@ -24,7 +24,7 @@ describe('JIRATransformer', () => {
       'ordered list',
       schema,
       '<ol><li data-parent="ol">one</li><li data-parent="ol">two</li></ol>',
-      doc(ol(li(p('one')), li(p('two')))),
+      doc(ol()(li(p('one')), li(p('two')))),
     );
 
     checkParseEncodeRoundTrips(
@@ -38,7 +38,7 @@ describe('JIRATransformer', () => {
       'ordered list with strong',
       schema,
       '<ol><li data-parent="ol">A piggy</li><li data-parent="ol"><b>Bigger</b> piggy</li></ol>',
-      doc(ol(li(p('A piggy')), li(p(strong('Bigger'), ' piggy')))),
+      doc(ol()(li(p('A piggy')), li(p(strong('Bigger'), ' piggy')))),
     );
 
     checkParseEncodeRoundTrips(
@@ -52,7 +52,7 @@ describe('JIRATransformer', () => {
       'nested ordered list with no text content',
       schema,
       '<ol><li data-parent="ol"><ol><li data-parent="ol"><ol><li data-parent="ol">test</li></ol></li></ol></li></ol>',
-      doc(ol(li(p(''), ol(li(p(''), ol(li(p('test')))))))),
+      doc(ol()(li(p(''), ol()(li(p(''), ol()(li(p('test')))))))),
     );
 
     checkParseEncodeRoundTrips(
@@ -60,11 +60,11 @@ describe('JIRATransformer', () => {
       schema,
       '<ol><li data-parent="ol">one</li><li data-parent="ol">two<ol><li data-parent="ol">two.one</li><li data-parent="ol">two.two</li><li data-parent="ol">two.three</li></ol></li><li data-parent="ol">three</li></ol>',
       doc(
-        ol(
+        ol()(
           li(p('one')),
           li(
             p('two'),
-            ol(li(p('two.one')), li(p('two.two')), li(p('two.three'))),
+            ol()(li(p('two.one')), li(p('two.two')), li(p('two.three'))),
           ),
           li(p('three')),
         ),
@@ -104,7 +104,7 @@ describe('JIRATransformer', () => {
           li(p('one')),
           li(
             p('two'),
-            ol(li(p('two.one')), li(p('two.two')), li(p('two.three'))),
+            ol()(li(p('two.one')), li(p('two.two')), li(p('two.three'))),
           ),
           li(p('three')),
         ),

@@ -75,7 +75,9 @@ export const updateMediaNodeAttributes = async (props: MediaInlineProps) => {
 
   if (hasDifferentContextId) {
     try {
-      const copyNode = mediaNodeUpdater.copyNode();
+      const copyNode = mediaNodeUpdater.copyNode({
+        traceId: node.attrs.__mediaTraceId,
+      });
       addPendingTask(copyNode);
       await copyNode;
     } catch (e) {

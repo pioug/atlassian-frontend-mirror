@@ -1,13 +1,18 @@
 import React from 'react';
 import { createPlugin } from './plugin';
 import keymapPlugin from './keymap';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import FindReplaceToolbarButtonWithState from './FindReplaceToolbarButtonWithState';
 
-export const findReplacePlugin = (props: {
+type Config = {
   takeFullWidth: boolean;
   twoLineEditorToolbar: boolean;
-}): EditorPlugin => {
+};
+export const findReplacePlugin: NextEditorPlugin<
+  'findReplace',
+  never,
+  Config
+> = (props) => {
   return {
     name: 'findReplace',
 

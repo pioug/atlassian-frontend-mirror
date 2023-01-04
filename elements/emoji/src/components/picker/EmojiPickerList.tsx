@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
-import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
+import { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import {
   customCategory,
   defaultEmojiPickerSize,
@@ -38,8 +38,11 @@ import {
 import EmojiActions from '../common/EmojiActions';
 import { OnUploadEmoji } from '../common/EmojiUploadPicker';
 import { OnDeleteEmoji } from '../common/EmojiDeletePreview';
-import { emojiPickerList, virtualList } from './styles';
+import { emojiPickerList } from './styles';
 import { emojiPickerHeightOffset } from './utils';
+import { VirtualList } from './VirtualList';
+import { Props as CategoryHeadingProps } from './EmojiPickerCategoryHeading';
+import { Props as EmojiRowProps } from './EmojiPickerEmojiRow';
 
 /**
  * Test id for wrapper Emoji Picker List div
@@ -116,7 +119,9 @@ export default class EmojiPickerVirtualList extends PureComponent<
 
   private allEmojiGroups!: EmojiGroup[];
   private activeCategoryId: CategoryId | undefined | null;
-  private virtualItems: VirtualItem<any>[] = [];
+  private virtualItems: VirtualItem<
+    CategoryHeadingProps | EmojiRowProps | {}
+  >[] = [];
   private categoryTracker: CategoryTracker = new CategoryTracker();
 
   constructor(props: Props) {
@@ -172,9 +177,9 @@ export default class EmojiPickerVirtualList extends PureComponent<
 
   private buildVirtualItemFromGroup = (
     group: EmojiGroup,
-  ): VirtualItem<any>[] => {
+  ): VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>[] => {
     const { onEmojiSelected, onEmojiDelete } = this.props;
-    const items: VirtualItem<any>[] = [];
+    const items: VirtualItem<CategoryHeadingProps | EmojiRowProps>[] = [];
 
     items.push(
       new CategoryHeadingItem({
@@ -207,7 +212,8 @@ export default class EmojiPickerVirtualList extends PureComponent<
   private buildVirtualItems = (props: Props, _state: State): void => {
     const { emojis, loading, query } = props;
 
-    let items: Items.VirtualItem<any>[] = [];
+    let items: Items.VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>[] =
+      [];
 
     this.categoryTracker.reset();
 
@@ -365,10 +371,12 @@ export default class EmojiPickerVirtualList extends PureComponent<
     }
   };
 
-  private rowSize = ({ index }: { index: number }) =>
-    this.virtualItems[index].height;
-  private renderRow = (context: Items.VirtualRenderContext) =>
-    virtualItemRenderer(this.virtualItems, context);
+  private rowSize = (index: number) =>
+    this.virtualItems[index]?.height || sizes.categoryHeadingHeight;
+
+  private renderRow = (context: VirtualItemContext) => {
+    return virtualItemRenderer(this.virtualItems, context);
+  };
 
   render() {
     const {
@@ -419,13 +427,12 @@ export default class EmojiPickerVirtualList extends PureComponent<
         <VirtualList
           ref="list"
           height={sizes.listHeight + emojiPickerHeightOffset(size)}
-          overscanRowCount={5}
+          overscanRowCount={10}
           rowCount={this.virtualItems.length}
           rowHeight={this.rowSize}
           rowRenderer={this.renderRow}
           scrollToAlignment="start"
           width={sizes.listWidth}
-          css={virtualList}
           onRowsRendered={this.checkCategoryIdChange}
         />
       </div>

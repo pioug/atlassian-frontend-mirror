@@ -54,7 +54,7 @@ export function buildDataAttributes({
 }
 
 export const annotation: MarkSpec = {
-  inclusive: false,
+  inclusive: true,
   group: 'annotation',
   excludes: '',
   attrs: {

@@ -1,5 +1,7 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React, { forwardRef } from 'react';
 
+import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
 import { CSSFn, CustomItemComponentProps } from '@atlaskit/menu';
 import { N500 } from '@atlaskit/theme/colors';
 import { headingSizes } from '@atlaskit/theme/typography';
@@ -8,9 +10,42 @@ import { token } from '@atlaskit/tokens';
 import { overrideStyleFunction } from '../../common/styles';
 import { CustomItem } from '../Item';
 
-const Container: React.FC<CustomItemComponentProps> = (props) => {
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  return <div {...props} />;
+/**
+ * __Container__
+ *
+ * A container for Header and Footer that safely handles props to the child component
+ */
+export const Container: React.FC<CustomItemComponentProps> = ({
+  children,
+  ...props
+}) => {
+  // https://stackoverflow.com/a/39333479
+  const safeProps = (({
+    className,
+    'data-testid': testId,
+    onClick,
+    onMouseDown,
+    onDragStart,
+    draggable,
+    ref,
+    tabIndex,
+    disabled,
+  }) => ({
+    className,
+    testId,
+    onClick,
+    onMouseDown,
+    onDragStart,
+    draggable,
+    ref,
+    tabIndex,
+    disabled,
+  }))(props);
+  return (
+    <Box as="div" display="block" {...safeProps}>
+      {children as BoxProps['children']}
+    </Box>
+  );
 };
 
 export interface HeaderProps {
@@ -81,11 +116,17 @@ const Header = forwardRef<HTMLElement, HeaderProps>(
         },
         // Will look interactive if the `component` is anything other than a div.
         'div&:hover': {
-          backgroundColor: 'transparent',
+          backgroundColor: token(
+            'color.background.neutral.subtle',
+            'transparent',
+          ),
           cursor: 'default',
         },
         'div&:active': {
-          backgroundColor: 'transparent',
+          backgroundColor: token(
+            'color.background.neutral.subtle',
+            'transparent',
+          ),
           color: token('color.text', N500),
         },
       }),

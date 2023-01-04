@@ -23,8 +23,8 @@ import {
 } from './TypeAheadListItem';
 import { WrappedComponentProps, injectIntl, useIntl } from 'react-intl-next';
 import { typeAheadListMessages } from '../messages';
-import type { TypeAheadItem } from '../types';
-import { moveSelectedIndex } from '../utils';
+import type { TypeAheadHandler, TypeAheadItem } from '../types';
+import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../utils';
 import { updateSelectedIndex } from '../commands/update-selected-index';
 import { EditorView } from 'prosemirror-view';
 import { AssistiveText } from './AssistiveText';
@@ -40,6 +40,7 @@ type TypeAheadListProps = {
   onItemClick: (mode: SelectItemMode, index: number) => void;
   fitHeight: number;
   decorationElement: HTMLElement;
+  triggerHandler?: TypeAheadHandler;
 } & WrappedComponentProps;
 
 const TypeaheadAssistiveTextPureComponent = React.memo(
@@ -68,6 +69,7 @@ const TypeAheadListComponent = React.memo(
     intl,
     fitHeight,
     decorationElement,
+    triggerHandler,
   }: TypeAheadListProps) => {
     const listRef = useRef<List>() as React.MutableRefObject<List>;
     const listContainerRef = useRef<HTMLDivElement>(null);
@@ -271,6 +273,7 @@ const TypeAheadListComponent = React.memo(
     ]);
 
     const renderRow = ({ index, key, style, parent }: any) => {
+      const currentItem = items[index];
       return (
         <CellMeasurer
           key={key}
@@ -283,17 +286,29 @@ const TypeAheadListComponent = React.memo(
             <div data-testid={`list-item-height-observed-${index}`}>
               <TypeAheadListItem
                 key={items[index].title}
-                item={items[index]}
+                item={currentItem}
                 itemsLength={items.length}
                 itemIndex={index}
                 selectedIndex={selectedIndex}
                 onItemClick={actions.onItemClick}
+                ariaLabel={
+                  getTypeAheadListAriaLabels(
+                    triggerHandler?.trigger,
+                    intl,
+                    currentItem,
+                  ).listItemAriaLabel
+                }
               />
             </div>
           </div>
         </CellMeasurer>
       );
     };
+
+    const popupAriaLabel = getTypeAheadListAriaLabels(
+      triggerHandler?.trigger,
+      intl,
+    ).popupAriaLabel;
 
     if (!Array.isArray(items)) {
       return null;
@@ -305,12 +320,7 @@ const TypeAheadListComponent = React.memo(
         ?.getAttribute('aria-controls') || TYPE_AHEAD_DECORATION_ELEMENT_ID;
 
     return (
-      <MenuGroup
-        aria-label={intl.formatMessage(
-          typeAheadListMessages.typeAheadResultLabel,
-        )}
-        aria-relevant="additions removals"
-      >
+      <MenuGroup aria-label={popupAriaLabel} aria-relevant="additions removals">
         <div id={menuGroupId} ref={listContainerRef}>
           <List
             rowRenderer={renderRow}

@@ -1,8 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
-import { FieldComponent, FieldComponentProps } from '../../FormContent';
+import { FieldComponent } from '../../FormContent';
 import { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import { FieldComponentProps } from '../../types';
 
 describe('Tabs', () => {
   const mountField = (field: FieldDefinition) => {

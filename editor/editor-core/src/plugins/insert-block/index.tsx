@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { pluginKey as blockTypeStateKey } from '../block-type/pm-plugins/main';
@@ -59,7 +59,11 @@ function handleInsertBlockType(name: string) {
   return insertBlockTypesWithAnalytics(name, INPUT_METHOD.TOOLBAR);
 }
 
-const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
+const insertBlockPlugin: NextEditorPlugin<
+  'insertBlock',
+  never,
+  InsertBlockOptions
+> = (options = {}) => ({
   name: 'insertBlock',
 
   primaryToolbarComponent({

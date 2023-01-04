@@ -45,6 +45,7 @@ export interface MenuItem {
   className?: string;
   'aria-label'?: React.AriaAttributes['aria-label'];
   'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
+  'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
   onClick?: (editorActions: EditorActions) => void;
 }
 

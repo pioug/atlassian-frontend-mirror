@@ -9,7 +9,6 @@ import VidBackwardIcon from '@atlaskit/icon/glyph/vid-backward';
 
 import {
   ButtonItem,
-  CustomItemComponentProps,
   Footer,
   HeadingItem,
   LinkItem,
@@ -25,19 +24,8 @@ import {
 } from '../src';
 
 import AppFrame from './common/app-frame';
+import { CustomItemFooter } from './common/sample-footer';
 import SampleHeader from './common/sample-header';
-
-const InteractiveFooter: React.FC<CustomItemComponentProps> = ({
-  children,
-  ...props
-}) => {
-  return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <a href="#" {...props}>
-      {children}
-    </a>
-  );
-};
 
 const LazySettingsItems = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -141,7 +129,7 @@ const LoadingSkeleton = () => {
             onClick={() => reset()}
             iconBefore={<VidBackwardIcon label="" />}
             description="Will load everything again"
-            component={InteractiveFooter}
+            component={CustomItemFooter}
           >
             Reset
           </Footer>

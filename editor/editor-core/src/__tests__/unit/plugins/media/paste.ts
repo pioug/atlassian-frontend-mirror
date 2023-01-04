@@ -12,10 +12,10 @@ import {
   tr,
   table,
   td,
+  media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-
-import { temporaryMedia } from './_utils';
 import { transformSliceForMedia } from '../../../../plugins/media/utils/media-single';
+import { temporaryMediaAttrs } from './_utils';
 
 const removeRef = (node: Node) =>
   Node.fromJSON(node.type.schema, node.toJSON());
@@ -23,6 +23,10 @@ const fragment =
   (...args: any) =>
   (schema: Schema) =>
     Fragment.from(args.map((i: any) => removeRef(i(schema))));
+const temporaryMedia = media({
+  __mediaTraceId: expect.any(String),
+  ...temporaryMediaAttrs,
+})();
 
 describe('Media plugin', () => {
   describe('#transformSliceForMedia', () => {
@@ -91,7 +95,7 @@ describe('Media plugin', () => {
 
     it('removes mediaSingle attributes when pasted into an ordered list', () => {
       const editorState = createEditorState(
-        doc(ol(li(p('hello {<>}')), li(p('world')))),
+        doc(ol()(li(p('hello {<>}')), li(p('world')))),
       );
 
       const { selection, schema } = editorState;

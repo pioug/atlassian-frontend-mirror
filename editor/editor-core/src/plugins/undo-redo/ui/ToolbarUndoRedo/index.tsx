@@ -10,6 +10,7 @@ import {
   undo as undoKeymap,
   redo as redoKeymap,
   ToolTipContent,
+  tooltip,
 } from '../../../../keymaps';
 import { buttonGroupStyle, separatorStyles } from '../../../../ui/styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
@@ -18,6 +19,7 @@ import { HistoryPluginState } from '../../../history/types';
 import { createTypeAheadTools } from '../../../type-ahead/api';
 import { undoFromToolbar, redoFromToolbar } from '../../commands';
 import { Command } from '../../../../types/command';
+import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 
 export interface Props {
   undoDisabled?: boolean;
@@ -82,7 +84,8 @@ export class ToolbarUndoRedo extends PureComponent<
           spacing={isReducedSpacing ? 'none' : 'default'}
           onClick={handleUndo}
           disabled={!canUndo || disabled}
-          aria-label={labelUndo}
+          aria-label={tooltip(undoKeymap, labelUndo)}
+          aria-keyshortcuts={getAriaKeyshortcuts(undoKeymap)}
           title={<ToolTipContent description={labelUndo} keymap={undoKeymap} />}
           iconBefore={<UndoIcon label="" />}
           testId="ak-editor-toolbar-button-undo"
@@ -95,7 +98,8 @@ export class ToolbarUndoRedo extends PureComponent<
           title={<ToolTipContent description={labelRedo} keymap={redoKeymap} />}
           iconBefore={<RedoIcon label="" />}
           testId="ak-editor-toolbar-button-redo"
-          aria-label={labelRedo}
+          aria-label={tooltip(redoKeymap, labelRedo)}
+          aria-keyshortcuts={getAriaKeyshortcuts(redoKeymap)}
         />
         <span css={separatorStyles} />
       </span>

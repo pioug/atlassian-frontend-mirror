@@ -1,26 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { IntlShape } from 'react-intl-next';
-import { EditorState } from 'prosemirror-state';
-import { CardPlatform } from '@atlaskit/smart-card';
-import { CardContext } from '@atlaskit/link-provider';
-import { EditorView } from 'prosemirror-view';
-import { Fragment } from 'prosemirror-model';
-import {
-  setSelectedCardAppearance,
-  changeSelectedCardToLink,
-} from '../pm-plugins/doc';
 import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
-import { isSupportedInParent } from '../../../utils/nodes';
-import Dropdown from '../../floating-toolbar/ui/Dropdown';
-import { messages } from '../messages';
+import { CardContext } from '@atlaskit/link-provider';
+import { CardPlatform } from '@atlaskit/smart-card';
+import PropTypes from 'prop-types';
+import { Fragment } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+import React from 'react';
+import { IntlShape } from 'react-intl-next';
 import nodeNames from '../../../messages';
-import { getFeatureFlags } from '../../../plugins/feature-flags-context';
-import { LinkToolbarIconDropdown } from './LinkToolbarIconDropdown';
-import { LinkToolbarButtonGroup } from './LinkToolbarButtonGroup';
+import { isSupportedInParent } from '../../../utils/nodes';
+import { messages } from '../messages';
+import {
+  changeSelectedCardToLink,
+  setSelectedCardAppearance,
+} from '../pm-plugins/doc';
 import { getButtonGroupOption } from './link-toolbar-button-group-options';
+import { LinkToolbarButtonGroup } from './LinkToolbarButtonGroup';
 import { OptionConfig } from './types';
-import { getIconDropdownOption } from './link-toolbar-icon-dropdown-options';
 
 export interface LinkToolbarAppearanceProps {
   intl: IntlShape;
@@ -122,44 +118,12 @@ export class LinkToolbarAppearance extends React.Component<
       options.push(embedOption);
     }
 
-    const { viewChangingExperimentToolbarStyle } = getFeatureFlags(editorState);
-
-    if (viewChangingExperimentToolbarStyle === 'toolbarIcons') {
-      return (
-        <LinkToolbarButtonGroup
-          key="link-toolbar-button-group"
-          options={options.map((option) =>
-            getButtonGroupOption(intl, dispatchCommand, option),
-          )}
-        />
-      );
-    }
-
-    if (viewChangingExperimentToolbarStyle === 'newDropdown') {
-      return (
-        <LinkToolbarIconDropdown
-          key="link-toolbar-icon-dropdown"
-          title="Change view"
-          buttonTestId="link-toolbar-appearance-button"
-          dispatchCommand={dispatchCommand}
-          options={options.map((option) =>
-            getIconDropdownOption(intl, dispatchCommand, option),
-          )}
-        />
-      );
-    }
-
-    const title = intl.formatMessage(
-      currentAppearance ? messages[currentAppearance] : messages.url,
-    );
-
     return (
-      <Dropdown
-        key="link-toolbar"
-        buttonTestId="link-toolbar-appearance-button"
-        title={title}
-        dispatchCommand={dispatchCommand}
-        options={options}
+      <LinkToolbarButtonGroup
+        key="link-toolbar-button-group"
+        options={options.map((option) =>
+          getButtonGroupOption(intl, dispatchCommand, option),
+        )}
       />
     );
   };

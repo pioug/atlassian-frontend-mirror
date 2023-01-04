@@ -66,10 +66,10 @@ describe('ADF => WikiMarkup - Table', () => {
       table()(
         tr(
           td()(ul(li(p('item 1')), li(p('item 2')))),
-          td()(ol(li(p('item 1')), li(p('item 2')))),
+          td()(ol()(li(p('item 1')), li(p('item 2')))),
         ),
         tr(
-          td()(ol(li(p('item 1')), li(p('item 2')))),
+          td()(ol()(li(p('item 1')), li(p('item 2')))),
           td()(ul(li(p('item 1')), li(p('item 2')))),
         ),
       ),
@@ -82,10 +82,10 @@ describe('ADF => WikiMarkup - Table', () => {
       table()(
         tr(
           td()(ul(li(p('item 1')), li(p('item 2'))), p('below the list')),
-          td()(ol(li(p('item 1')), li(p('item 2'))), p('below the list')),
+          td()(ol()(li(p('item 1')), li(p('item 2'))), p('below the list')),
         ),
         tr(
-          td()(ol(li(p('item 1')), li(p('item 2'))), p('below the list')),
+          td()(ol()(li(p('item 1')), li(p('item 2'))), p('below the list')),
           td()(ul(li(p('item 1')), li(p('item 2'))), p('below the list')),
         ),
       ),

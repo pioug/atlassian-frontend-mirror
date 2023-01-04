@@ -8,6 +8,7 @@ import {
   getRequestMetadata,
   MediaViewerError,
 } from '../../../errors';
+import { MediaTraceContext } from '@atlaskit/media-common';
 
 export type LoadFailedEventPayload = MediaFileEventPayload<
   MediaViewerFailureAttributes,
@@ -18,6 +19,7 @@ export const createLoadFailedEvent = (
   fileId: string,
   error: MediaViewerError,
   fileState?: FileState,
+  traceContext?: MediaTraceContext,
 ): LoadFailedEventPayload => {
   const { fileMediatype, fileMimetype, fileSize } =
     getFileAttributes(fileState);
@@ -37,6 +39,7 @@ export const createLoadFailedEvent = (
         fileMimetype,
         fileSize,
       },
+      traceContext: fileMediatype === 'image' ? traceContext : undefined,
     },
   };
 };

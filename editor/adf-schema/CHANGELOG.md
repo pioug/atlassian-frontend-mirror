@@ -1,5 +1,52 @@
 # @atlaskit/adf-schema
 
+## 25.0.0
+
+### Major Changes
+
+- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
+
+  Note: restartNumberedLists will be off by default. To enable it, consumers will need to set <Editor featureFlags={{ restartNumberedLists: true }}> or <Renderer featureFlags={{ restartNumberedLists: true }}>
+
+### Minor Changes
+
+- [`92613b1f023`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92613b1f023) - ED-15018 and ED-13913 - Remove all circular dependencies and ignored warnings in editor
+
+### Patch Changes
+
+- [`aa3c130c43a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa3c130c43a) - Changes the annotation mark to inclusive in order to fix the annotation being deleted when doing composition
+- [`7590e54ccc2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7590e54ccc2) - ED-15676 deprecated product-specific schema exports from @atlaskit/adf-schema (`schema-bitbucket`, `schema-confluence` and `schema-jira`). Use `@atlaskit/adf-schema/schema-default` instead.
+
+  From `@atlaskit/adf-schema/schema-bitbucket`
+
+  - `default (bitbucketSchema)`
+
+  From `@atlaskit/adf-schema/schema-confluence`
+
+  - `default (confluenceSchema)`
+  - `confluenceSchemaWithMediaSingle`
+
+  From `@atlaskit/adf-schema/schema-jira`
+
+  - `default (jiraSchema)`
+  - `JIRASchemaConfig`
+  - `isSchemaWithLists`
+  - `isSchemaWithMentions`
+  - `isSchemaWithEmojis`
+  - `isSchemaWithLinks`
+  - `isSchemaWithAdvancedTextFormattingMarks`
+  - `isSchemaWithSubSupMark`
+  - `isSchemaWithCodeBlock`
+  - `isSchemaWithBlockQuotes`
+  - `isSchemaWithMedia`
+  - `isSchemaWithTextColor`
+  - `isSchemaWithTables`
+
+- [`ec05886ac07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec05886ac07) - [ux] ED-15871 Fixed issue with pasting a table from renderer does not respect theme mode
+- [`3a35da6c331`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a35da6c331) - DTR-825 ED-9775: added jamfselfservice:// to whitelistedURLPatterns
+- [`1267ffe2c42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1267ffe2c42) - Add media traceId into copy/paste operations
+- [`b2fa6d3e611`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2fa6d3e611) - [ED-16106] Fix margin top when paragraph has alignment marks
+
 ## 24.0.3
 
 ### Patch Changes

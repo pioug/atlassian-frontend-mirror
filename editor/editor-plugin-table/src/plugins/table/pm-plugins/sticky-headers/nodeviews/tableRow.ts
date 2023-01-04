@@ -97,7 +97,6 @@ export class TableRowNodeView implements NodeView {
   focused = false;
   topPosEditorElement = 0;
   isSticky: boolean;
-  isTableInit: boolean;
   lastTimePainted: number;
 
   private intersectionObserver?: IntersectionObserver;
@@ -134,7 +133,6 @@ export class TableRowNodeView implements NodeView {
     this.lastTimePainted = 0;
     this.isHeaderRow = supportedHeaderRow(node);
     this.isSticky = false;
-    this.isTableInit = false;
 
     if (this.isHeaderRow) {
       this.dom.setAttribute('data-header-row', 'true');
@@ -486,14 +484,6 @@ export class TableRowNodeView implements NodeView {
       return;
     }
 
-    // make it non-sticky initially to avoid making it look separated
-    if (!this.isTableInit) {
-      if (this.tree) {
-        this.makeRowHeaderNotSticky(this.tree.table);
-        this.isTableInit = true;
-      }
-    }
-
     // when header rows are toggled off - mark sentinels as unobserved
     if (!state.isHeaderRowEnabled) {
       [this.sentinels.top, this.sentinels.bottom].forEach((el) => {
@@ -504,6 +494,11 @@ export class TableRowNodeView implements NodeView {
     }
 
     const isCurrentTableSelected = tableRef === tree.table;
+
+    // If current table selected and header row is toggled off, turn off sticky header
+    if (isCurrentTableSelected && !state.isHeaderRowEnabled && this.tree) {
+      this.makeRowHeaderNotSticky(this.tree.table);
+    }
     if (isCurrentTableSelected !== this.focused) {
       focusChanged = true;
     }
@@ -597,6 +592,13 @@ export class TableRowNodeView implements NodeView {
     }
 
     const { table } = tree;
+
+    // ED-16035 Make sure sticky header is only applied to first row
+    const tbody = this.dom.parentElement;
+    const isFirstHeader = tbody?.firstChild?.isEqualNode(this.dom);
+    if (!isFirstHeader) {
+      return;
+    }
 
     const currentTableTop = this.getCurrentTableTop(tree);
     const domTop =

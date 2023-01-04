@@ -40,8 +40,6 @@ BrowserTestCase(
       ),
     ).toBe(true);
 
-    await page.waitForSelector('span[aria-label="Expand dropdown menu"]');
-    await page.click('span[aria-label="Expand dropdown menu"]');
     await page.waitForSelector('[data-testid="block-appearance"]');
     await page.click('[data-testid="block-appearance"]');
     await waitForBlockCardSelection(page);

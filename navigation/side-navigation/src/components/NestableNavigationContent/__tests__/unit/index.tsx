@@ -2,6 +2,9 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
+import Box from '@atlaskit/ds-explorations/box';
+import Text from '@atlaskit/ds-explorations/text';
+
 import * as raf from '../../../../__tests__/unit/__utils__/raf';
 import { ButtonItem, GoBackItem } from '../../../Item';
 import { default as NestingItem } from '../../../NestingItem';
@@ -321,23 +324,23 @@ describe('NestingTransitionProvider', () => {
   it('should not break with any intermediate elements between nesting items', () => {
     const { queryByText, getByText } = render(
       <NestingTransitionProvider>
-        <div>
-          <div>
+        <Box>
+          <Box>
             <ButtonItem>Hello World</ButtonItem>
-          </div>
-          <div>
+          </Box>
+          <Box>
             <NestingItem id="1" title="Hello Nested">
-              <div>
+              <Box>
                 <ButtonItem>Nested Hello World</ButtonItem>
-              </div>
+              </Box>
               <NestingItem id="1-1" title="Hello Deeply Nested">
-                <div>
+                <Box>
                   <ButtonItem>Deeply Nested Hello World</ButtonItem>
-                </div>
+                </Box>
               </NestingItem>
             </NestingItem>
-          </div>
-        </div>
+          </Box>
+        </Box>
       </NestingTransitionProvider>,
     );
 
@@ -460,7 +463,7 @@ describe('NestingTransitionProvider', () => {
       }, []);
 
       return isLoading ? (
-        <p>test loading</p>
+        <Text as="p">test loading</Text>
       ) : (
         <NestingItem id="1-1" title="Custom Nesting Item">
           <ButtonItem>Hello world</ButtonItem>
@@ -626,14 +629,8 @@ describe('NestingTransitionProvider', () => {
       </NestingTransitionProvider>,
     );
 
-    expect(getByTestId('parent-anim-entering')).toHaveStyleDeclaration(
-      'width',
-      '100%',
-    );
-    expect(getByTestId('parent-anim-entering')).toHaveStyleDeclaration(
-      'height',
-      '100%',
-    );
+    expect(getByTestId('parent-anim-entering')).toHaveStyle({ width: '100%' });
+    expect(getByTestId('parent-anim-entering')).toHaveStyle({ height: '100%' });
   });
 
   const modifierKeys = [

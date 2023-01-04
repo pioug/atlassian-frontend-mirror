@@ -5,22 +5,24 @@ import rafSchedule from 'raf-schd';
 
 import { getInlineNodeViewProducer } from '../../../nodeviews/getInlineNodeViewProducer';
 
-import { CardPluginOptions, CardPluginState } from '../types';
-import reducer from './reducers';
+import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
 import { PMPluginFactoryParams } from '../../../types';
+import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
+import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
+import { InlineCardNodeView } from '../nodeviews/inlineCard';
+import {
+  CardPluginOptions,
+  CardPluginState,
+  OutstandingRequests,
+} from '../types';
 import { pluginKey } from './plugin-key';
+import reducer from './reducers';
 import { handleProvider, resolveWithProvider } from './util/resolve';
 import {
   getNewRequests,
   getPluginState,
   getPluginStateWithUpdatedPos,
 } from './util/state';
-import { OutstandingRequests } from '../types';
-import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
-import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
-import { InlineCardNodeView } from '../nodeviews/inlineCard';
-import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../plugins/analytics';
 
 export { pluginKey } from './plugin-key';
 
@@ -37,22 +39,6 @@ export const createPlugin =
     return new SafePlugin({
       state: {
         init(): CardPluginState {
-          const { viewChangingExperimentToolbarStyle } =
-            pmPluginFactoryParams.featureFlags;
-
-          pmPluginFactoryParams.dispatchAnalyticsEvent({
-            eventType: EVENT_TYPE.OPERATIONAL,
-            action: ACTION.EXPOSED,
-            actionSubject: ACTION_SUBJECT.FEATURE,
-            attributes: {
-              flagKey:
-                'confluence.frontend.fabric.editor.view-changing-experiment-toolbar-style',
-              value: viewChangingExperimentToolbarStyle || 'noChange',
-            },
-            source: '@atlaskit/feature-flag-client',
-            tags: ['measurement'],
-          });
-
           return {
             requests: [],
             provider: null,

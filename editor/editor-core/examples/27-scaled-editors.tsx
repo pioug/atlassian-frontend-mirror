@@ -75,7 +75,6 @@ const editor = (
     editorProps={{
       appearance: 'chromeless',
       placeholder: '',
-      placeholderHints: [],
       contentComponents: undefined,
       disabled: false,
     }}

@@ -54,6 +54,7 @@ export type WithPerformanceAttributes = {
 
 export type WithTraceContext = {
   traceContext?: MediaTraceContext;
+  metadataTraceContext?: MediaTraceContext;
 };
 
 export type SuccessAttributes = {
@@ -80,7 +81,8 @@ export type OperationalAttributes =
   | (BaseAttributes &
       WithFileAttributes &
       StatusAttributes &
-      WithPerformanceAttributes);
+      WithPerformanceAttributes &
+      WithTraceContext);
 
 export type OperationalEventPayload<
   Attributes extends OperationalAttributes,

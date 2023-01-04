@@ -6,7 +6,7 @@ import { createHasher } from '../utils/hashing/hasherCreator';
 import { UploaderError } from './error';
 import { CHUNK_SIZE, PROCESSING_BATCH_SIZE } from '../constants';
 import { calculateChunkSize, fileSizeError } from './calculateChunkSize';
-import { getMediaFeatureFlag, MediaTraceContext } from '@atlaskit/media-common';
+import { MediaTraceContext } from '@atlaskit/media-common';
 
 // TODO: Allow to pass multiple files
 export type UploadableFile = {
@@ -49,9 +49,7 @@ const createProbingFunction =
       hashedChunks(chunks),
       {
         collectionName,
-        uploadId: getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
-          ? await deferredUploadId
-          : undefined,
+        uploadId: await deferredUploadId,
       },
       traceContext,
     );
@@ -68,16 +66,13 @@ const createUploadingFunction =
     traceContext?: MediaTraceContext,
   ) =>
   async (chunk: Chunk) => {
-    const options = getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
-      ? { partNumber: chunk.partNumber, uploadId: await deferredUploadId }
-      : {};
-
     return await store.uploadChunk(
       chunk.hash,
       chunk.blob,
       {
         collectionName,
-        ...options,
+        partNumber: chunk.partNumber,
+        uploadId: await deferredUploadId,
       },
       traceContext,
     );
@@ -136,10 +131,7 @@ export const uploadFile = (
   const { deferredUploadId, id, occurrenceKey } = uploadableFileUpfrontIds;
   let chunkSize = CHUNK_SIZE;
   try {
-    if (
-      content instanceof Blob &&
-      getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
-    ) {
+    if (content instanceof Blob) {
       chunkSize = calculateChunkSize(content.size);
     }
   } catch (err) {

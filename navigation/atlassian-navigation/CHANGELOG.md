@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.3.4
+
+### Patch Changes
+
+- [`cdc1dd169be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cdc1dd169be) - [ux] When updating tokens for Search component of `atlassian-navigation` package we found that some styles don't apply. This is due to the fact that some dynamic styles for `hover` and `focus` states used to be passed via `style` attribute. `style` attribute doesn't allow usage of pseudo-classes hens styles were never applied. We fixed this and made tokens follow the spec. However, to prevent consumer's VR tests from breaking we decided to fallback on default styles so the UI on legacy theming unchanged.
+
 ## 2.3.3
 
 ### Patch Changes

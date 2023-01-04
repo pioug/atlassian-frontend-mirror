@@ -25,8 +25,8 @@ BrowserTestCase(
       },
     });
     await page.click('[aria-label="Lists"]');
-    await page.waitForSelector('[aria-label="Bullet list"]');
-    await page.click('[aria-label="Bullet list"]');
+    await page.waitForSelector('[data-testid="Bullet list"]');
+    await page.click('[data-testid="Bullet list"]');
     await page.type(editable, '*');
 
     await insertMedia(page);
@@ -51,8 +51,37 @@ BrowserTestCase(
       },
     });
     await page.click('[aria-label="Lists"]');
-    await page.waitForSelector('[aria-label="Numbered list"');
-    await page.click('[aria-label="Numbered list"');
+    await page.waitForSelector('[aria-label*="Numbered list"]');
+    await page.click('[aria-label*="Numbered list"]');
+    await page.type(editable, '*');
+
+    await insertMedia(page);
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  `list: insert a media single inside a numbered list with restartNumberedLists`,
+  { skip: [] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: Appearance.fullPage,
+      media: {
+        allowMediaSingle: true,
+      },
+      featureFlags: {
+        restartNumberedLists: true,
+      },
+    });
+    await page.click('[aria-label="Lists"]');
+    await page.waitForSelector('[aria-label*="Numbered list"');
+    await page.click('[aria-label*="Numbered list"');
     await page.type(editable, '*');
 
     await insertMedia(page);

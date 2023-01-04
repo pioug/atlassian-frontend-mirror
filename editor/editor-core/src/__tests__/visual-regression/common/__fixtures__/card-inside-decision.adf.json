@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "decisionList",
+      "attrs": {
+        "localId": "6c5a4775-ccfa-48b3-a903-414e18c2f6a7"
+      },
+      "content": [
+        {
+          "type": "decisionItem",
+          "attrs": {
+            "localId": "191d4aec-f6f8-4a9c-90fc-9495dd551cd4",
+            "state": "DECIDED"
+          },
+          "content": [
+            {
+              "type": "inlineCard",
+              "attrs": {
+                "url": "https://inlineCardTestUrl"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -5,7 +5,7 @@ import { onClose, onOpen, onSelection } from '../example-helpers';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
-  getRealEmojiResource,
+  getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
 import {
@@ -130,11 +130,13 @@ class EmojiTypeAheadTextInput extends Component<
   }
 }
 
+const emojiProvider = getRealEmojiProvider();
+
 const getTypeAhead = () => (
   <EmojiTypeAheadTextInput
     label="Emoji search"
     onSelection={onSelection}
-    emojiProvider={getRealEmojiResource()}
+    emojiProvider={emojiProvider}
     position="below"
   />
 );
@@ -143,7 +145,7 @@ export default function Example() {
   return (
     <ResourcedEmojiControl
       emojiConfig={getEmojiConfig()}
-      customEmojiProvider={getRealEmojiResource()}
+      customEmojiProvider={emojiProvider}
       children={getTypeAhead()}
       customPadding={emojiTypeAheadMaxHeight}
     />

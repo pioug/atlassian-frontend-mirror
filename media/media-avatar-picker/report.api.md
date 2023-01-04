@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/media-avatar-picker"
 
@@ -32,6 +32,8 @@ interface AsyncAvatarPickerDialogState {
 export interface Avatar {
   // (undocumented)
   dataURI: string;
+  // (undocumented)
+  name?: string;
 }
 
 // @public (undocumented)

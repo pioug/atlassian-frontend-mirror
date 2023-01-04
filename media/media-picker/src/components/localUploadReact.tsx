@@ -29,9 +29,13 @@ import {
 export type LocalUploadComponentBaseProps = {
   mediaClient: MediaClient;
   config: LocalUploadConfig;
+  //This event is fired when files begin to upload
   onUploadsStart?: (payload: UploadsStartEventPayload) => void;
+  //This event is fired when a preview (image) of the files uploaded is available
   onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
+  //This event is fired when the upload ends
   onEnd?: (payload: UploadEndEventPayload) => void;
+  //This event is fired when errors occur during upload
   onError?: (payload: UploadErrorEventPayload) => void;
   featureFlags?: MediaFeatureFlags;
 } & WithAnalyticsEventsProps;
@@ -85,33 +89,34 @@ export class LocalUploadComponentReact<
   }
 
   private fireCommencedEvent = (payload: UploadsStartEventPayload) => {
-    payload.files.forEach(
-      ({ id: fileId, size: fileSize, type: fileMimetype }) => {
-        start(`MediaPicker.fireUpload.${fileId}`);
+    const { files, traceContext } = payload;
+    files.forEach(({ id: fileId, size: fileSize, type: fileMimetype }) => {
+      start(`MediaPicker.fireUpload.${fileId}`);
 
-        this.createAndFireAnalyticsEvent({
-          eventType: 'operational',
-          action: 'commenced',
-          actionSubject: 'mediaUpload',
-          actionSubjectId: 'localMedia',
-          attributes: {
-            sourceType: 'local',
-            serviceName: 'upload',
-            fileAttributes: {
-              fileId,
-              fileSize,
-              fileMimetype,
-            },
+      this.createAndFireAnalyticsEvent({
+        eventType: 'operational',
+        action: 'commenced',
+        actionSubject: 'mediaUpload',
+        actionSubjectId: 'localMedia',
+        attributes: {
+          sourceType: 'local',
+          serviceName: 'upload',
+          fileAttributes: {
+            fileId,
+            fileSize,
+            fileMimetype,
           },
-        });
-        startMediaUploadUfoExperience(fileId, this.componentName);
-      },
-    );
+          traceContext,
+        },
+      });
+      startMediaUploadUfoExperience(fileId, this.componentName);
+    });
   };
 
   private fireUploadSucceeded = (payload: UploadEndEventPayload) => {
     const {
       file: { id: fileId, size: fileSize, type: fileMimetype },
+      traceContext,
     } = payload;
 
     const { duration: uploadDurationMsec = -1 } = end(
@@ -133,6 +138,7 @@ export class LocalUploadComponentReact<
           fileMimetype,
         },
         uploadDurationMsec,
+        traceContext,
       },
     });
     succeedMediaUploadUfoExperience(fileId, {
@@ -146,6 +152,7 @@ export class LocalUploadComponentReact<
     const {
       fileId,
       error: { name: errorName, rawError },
+      traceContext,
     } = payload;
 
     const { duration: uploadDurationMsec = -1 } = end(
@@ -168,6 +175,7 @@ export class LocalUploadComponentReact<
           fileId,
         },
         uploadDurationMsec,
+        traceContext,
       },
     });
 
@@ -198,8 +206,11 @@ export class LocalUploadComponentReact<
     this.uploadService.setUploadParams(uploadParams);
   }
 
-  private onFilesAdded = ({ files }: UploadsStartEventPayload): void => {
-    this.uploadComponent.emitUploadsStart(files);
+  private onFilesAdded = ({
+    files,
+    traceContext,
+  }: UploadsStartEventPayload): void => {
+    this.uploadComponent.emitUploadsStart(files, traceContext);
   };
 
   private onFilePreviewUpdate = ({
@@ -209,14 +220,18 @@ export class LocalUploadComponentReact<
     this.uploadComponent.emitUploadPreviewUpdate(file, preview);
   };
 
-  private onFileConverting = ({ file }: UploadEndEventPayload): void => {
-    this.uploadComponent.emitUploadEnd(file);
+  private onFileConverting = ({
+    file,
+    traceContext,
+  }: UploadEndEventPayload): void => {
+    this.uploadComponent.emitUploadEnd(file, traceContext);
   };
 
   private onUploadError = ({
     fileId,
     error,
+    traceContext,
   }: UploadErrorEventPayload): void => {
-    this.uploadComponent.emitUploadError(fileId, error);
+    this.uploadComponent.emitUploadError(fileId, error, traceContext);
   };
 }

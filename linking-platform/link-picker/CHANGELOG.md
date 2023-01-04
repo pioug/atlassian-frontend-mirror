@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.16.5
+
+### Patch Changes
+
+- [`3a35da6c331`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a35da6c331) - DTR-825 ED-9775: added jamfselfservice:// to whitelistedURLPatterns
+
 ## 1.16.4
 
 ### Patch Changes

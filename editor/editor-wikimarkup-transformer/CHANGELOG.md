@@ -1,5 +1,31 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.11
+
+### Patch Changes
+
+- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - ED-15882: Make editor-wikimarkup-transformer example page work, update tests for restartNumberedLists feature (custom start numbers for ordered lists)
+- [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) - [ED-16166] Changes the renderer prop document type from any to DocNode
+
+  BREAKING for `@atlaskit/renderer`: Previously the `document` prop for the renderer component had the type of `any`. This has now been changed to `DocNode` which comes from `@atlaskit/adf-schema`.
+
+  Documents being passed into the renderer component will need to be updated to use this type.
+
+  Example Usage:
+
+  ```tsx
+  import { DocNode } from '@atlaskit/adf-schema';
+
+  const emptyDoc: DocNode = {
+    type: 'doc',
+    version: 1,
+    content: [],
+  };
+  ```
+
+- [`3a35da6c331`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a35da6c331) - DTR-825 ED-9775: added jamfselfservice:// to whitelistedURLPatterns
+- Updated dependencies
+
 ## 11.1.10
 
 ### Patch Changes

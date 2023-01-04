@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "0f343442-4116-48aa-9c2c-401ec1357aa3"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "f70ce6c0-d1d9-438f-adfd-bc6718672550",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "inlineCard",
+              "attrs": {
+                "url": "https://inlineCardTestUrl"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

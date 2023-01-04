@@ -71,7 +71,11 @@ export async function gotoCardFilesMockedPage(
   client: any,
 ): Promise<CardFilesMockedPage> {
   const page = new Page(client);
-  const url = getExampleUrl('media', 'media-card', 'test-card-files-mocked');
+  const url = getExampleUrl(
+    'media',
+    'media-card',
+    'Test-Integration-card-files-mocked',
+  );
   await page.goto(url);
   return new CardFilesMockedPage(page);
 }

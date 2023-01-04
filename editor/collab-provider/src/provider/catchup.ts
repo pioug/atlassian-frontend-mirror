@@ -51,7 +51,7 @@ export const catchup = async (opt: CatchupOptions) => {
        * the version we received from service. Keep steps that might be
        * newer.
        */
-      opt.fitlerQueue((data) => data.version > serverVersion);
+      opt.filterQueue((data) => data.version > serverVersion);
 
       // We are too far behind - replace the entire document
       logger(`Replacing document: ${doc}`);
@@ -106,7 +106,7 @@ export const catchup = async (opt: CatchupOptions) => {
           } mapped unconfirmed steps: ${JSON.stringify(newUnconfirmedSteps)}`,
         );
         // Re-aply local steps
-        opt.applyLocalsteps(newUnconfirmedSteps);
+        opt.applyLocalSteps(newUnconfirmedSteps);
       }
     }
   }

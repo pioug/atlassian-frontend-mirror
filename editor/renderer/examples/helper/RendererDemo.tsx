@@ -368,6 +368,11 @@ export default class RendererDemo extends React.Component<
         };
       }
 
+      props.featureFlags = {
+        'restart-numbered-lists': true,
+        ...props.featureFlags,
+      };
+
       props.appearance = this.props.appearance;
 
       const expandButton = (

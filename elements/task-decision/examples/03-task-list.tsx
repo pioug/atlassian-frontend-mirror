@@ -1,6 +1,7 @@
 import React from 'react';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
+import type { DocNode } from '@atlaskit/adf-schema';
 import TaskList from '../src/components/TaskList';
 import TaskItem from '../src/components/TaskItem';
 import { dumpRef, TaskStateManager } from '../example-helpers/story-utils';
@@ -25,7 +26,7 @@ export default () => (
             onChange={onChangeListener}
             isDone={taskStates.get('task-2')}
           >
-            <Renderer document={document} />
+            <Renderer document={document as DocNode} />
           </TaskItem>
           <TaskItem
             contentRef={dumpRef}

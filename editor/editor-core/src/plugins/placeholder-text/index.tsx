@@ -10,7 +10,7 @@ import { EditorView } from 'prosemirror-view';
 import { placeholder } from '@atlaskit/adf-schema';
 import MediaServicesTextIcon from '@atlaskit/icon/glyph/media-services/text';
 import { getPosHandler } from '../../nodeviews/types';
-import { EditorPlugin } from '../../types/editor-plugin';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import { Dispatch } from '../../event-dispatcher';
 import { isNodeEmpty } from '../../utils';
@@ -173,9 +173,11 @@ export function createPlugin(
   });
 }
 
-const basePlaceholderTextPlugin = (
-  options: PlaceholderTextOptions,
-): EditorPlugin => ({
+const basePlaceholderTextPlugin: NextEditorPlugin<
+  'placeholderText',
+  never,
+  PlaceholderTextOptions
+> = (options: PlaceholderTextOptions) => ({
   name: 'placeholderText',
 
   nodes() {
@@ -231,9 +233,11 @@ const basePlaceholderTextPlugin = (
 });
 
 const decorateWithPluginOptions = (
-  plugin: EditorPlugin,
+  plugin: ReturnType<
+    NextEditorPlugin<'placeholderText', never, PlaceholderTextOptions>
+  >,
   options: PlaceholderTextOptions,
-): EditorPlugin => {
+) => {
   if (!options.allowInserting) {
     return plugin;
   }
@@ -267,7 +271,11 @@ const decorateWithPluginOptions = (
   return plugin;
 };
 
-const placeholderTextPlugin = (options: PlaceholderTextOptions): EditorPlugin =>
+const placeholderTextPlugin: NextEditorPlugin<
+  'placeholderText',
+  never,
+  PlaceholderTextOptions
+> = (options: PlaceholderTextOptions) =>
   decorateWithPluginOptions(basePlaceholderTextPlugin(options), options);
 
 export default placeholderTextPlugin;

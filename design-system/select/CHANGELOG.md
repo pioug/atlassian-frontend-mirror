@@ -1,5 +1,16 @@
 # @atlaskit/select
 
+## 16.1.0
+
+### Minor Changes
+
+- [`017e3dccdf3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/017e3dccdf3) - Add SelectInstance for export
+- [`2368982b4d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2368982b4d2) - Add MultiValueRemoveProps, SelectInstance to export
+
+### Patch Changes
+
+- [`c74089f0c6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c74089f0c6d) - Revert the onOpen and onClose logic in PopupSelect
+
 ## 16.0.3
 
 ### Patch Changes

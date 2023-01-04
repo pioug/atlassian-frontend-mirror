@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/pagination"
 
@@ -14,10 +14,8 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-/// <reference types="react" />
-
 import type { CSSProperties } from 'react';
-import { jsx } from '@emotion/react';
+import { default as React_2 } from 'react';
 import type { ReactElement } from 'react';
 import type { SyntheticEvent } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -44,8 +42,8 @@ function InnerPagination<T>(
     analyticsContext,
     testId,
   }: PaginationPropTypes<T>,
-  ref: React.Ref<HTMLDivElement>,
-): jsx.JSX.Element;
+  ref: React_2.Ref<HTMLDivElement>,
+): JSX.Element;
 
 // @public (undocumented)
 export interface PaginationPropTypes<T = unknown> {

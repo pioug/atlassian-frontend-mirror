@@ -2,7 +2,7 @@ import React from 'react';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import Loadable from 'react-loadable';
 import { date } from '@atlaskit/adf-schema';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import {
   insertDate,
@@ -13,8 +13,6 @@ import {
 } from './actions';
 import createDatePlugin from './pm-plugins/main';
 import keymap from './pm-plugins/keymap';
-
-import { getFeatureFlags } from '../feature-flags-context';
 
 import { pluginKey as editorDisabledPluginKey } from '../editor-disabled';
 import { IconDate } from '../quick-insert/assets';
@@ -41,7 +39,7 @@ const DatePicker = Loadable({
   loading: () => null,
 });
 
-const datePlugin = (): EditorPlugin => ({
+const datePlugin: NextEditorPlugin<'date'> = () => ({
   name: 'date',
 
   nodes() {
@@ -74,7 +72,7 @@ const datePlugin = (): EditorPlugin => ({
     popupsBoundariesElement,
     popupsScrollableElement,
   }) {
-    const { state, dispatch } = editorView;
+    const { dispatch } = editorView;
     const domAtPos = editorView.domAtPos.bind(editorView);
     return (
       <WithPluginState
@@ -96,16 +94,12 @@ const datePlugin = (): EditorPlugin => ({
             domAtPos,
           ) as HTMLElement;
 
-          const allFlags = getFeatureFlags(state);
-          const { keyboardAccessibleDatepicker } = allFlags;
-
           return (
             <DatePicker
               mountTo={popupsMountPoint}
               boundariesElement={popupsBoundariesElement}
               scrollableElement={popupsScrollableElement}
               key={showDatePickerAt}
-              showTextField={keyboardAccessibleDatepicker}
               element={element}
               isNew={isNew}
               autoFocus={focusDateInput}

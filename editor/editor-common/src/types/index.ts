@@ -74,7 +74,9 @@ export type {
   Icon,
   RenderOptionsProps,
   AlignType,
+  ConfirmDialogChildInfo,
   ConfirmDialogOptions,
+  ConfirmationDialogProps,
   FloatingToolbarButton,
   FloatingToolbarCopyButton,
   FloatingToolbarInput,
@@ -130,6 +132,15 @@ export type {
   getPosHandler,
   getPosHandlerNode,
 } from './editor-plugin';
+
+export type {
+  AllBuilderPlugins,
+  VerifyPluginDependencies,
+  AllNextEditorPlugins,
+  NextEditorPlugin,
+  NextEditorPluginWithDependencies,
+  SafePresetCheck,
+} from './next-editor-plugin';
 
 export type IconProps = {
   label?: string;

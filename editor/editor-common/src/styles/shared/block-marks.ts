@@ -7,7 +7,14 @@ export const blockMarksSharedStyles = css`
    */
   *:not(.fabric-editor-block-mark) >,
   /* For nested block marks apart from those with indentation mark */
-  *:not(.fabric-editor-block-mark) > div.fabric-editor-block-mark:first-of-type:not(.fabric-editor-indentation-mark),
+  *:not(.fabric-editor-block-mark) >
+    div.fabric-editor-block-mark:first-of-type
+    /* Do not remove the margin top for nodes inside indentation marks */
+      :not(.fabric-editor-indentation-mark)
+    /* Do not remove the margin top for nodes inside alignment marks */
+      :not(.fabric-editor-alignment),
+  // If first element inside a block node has alignment mark, then remove the margin-top
+  .fabric-editor-alignment:first-of-type:first-child,
   // If first document element has indentation mark remove margin-top
   .ProseMirror .fabric-editor-indentation-mark:first-of-type:first-child {
     p,

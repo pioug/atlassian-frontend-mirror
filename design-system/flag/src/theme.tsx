@@ -61,15 +61,51 @@ export const flagFocusRingColor: Record<AppearanceTypes, string> = {
   warning: token('color.border.focused', N200),
 };
 
+type ActionBackgroundColor = Record<
+  Exclude<AppearanceTypes, 'normal'>,
+  {
+    default: 'var(--ds-background-inverse-subtle)';
+    active: 'var(--ds-background-inverse-subtle-pressed)';
+    pressed: 'var(--ds-background-inverse-subtle-hovered)';
+  }
+> &
+  Record<
+    Extract<AppearanceTypes, 'normal'>,
+    {
+      default: 'none';
+      active: 'none';
+      pressed: 'none';
+    }
+  >;
+
 // TODO: DSP-2519 Interaction tokens should be used for hovered and pressed states
 // https://product-fabric.atlassian.net/browse/DSP-2519
-
-export const actionBackgroundColor: Record<AppearanceTypes, string> = {
-  success: token('color.background.neutral', N30A),
-  info: token('color.background.neutral', N30A),
-  error: token('color.background.neutral', N30A),
-  warning: token('color.background.neutral', N30A),
-  normal: 'none',
+export const actionBackgroundColor: ActionBackgroundColor = {
+  success: {
+    default: token('color.background.inverse.subtle', N30A),
+    active: token('color.background.inverse.subtle.pressed', N30A),
+    pressed: token('color.background.inverse.subtle.hovered', N30A),
+  },
+  info: {
+    default: token('color.background.inverse.subtle', N30A),
+    active: token('color.background.inverse.subtle.pressed', N30A),
+    pressed: token('color.background.inverse.subtle.hovered', N30A),
+  },
+  error: {
+    default: token('color.background.inverse.subtle', N30A),
+    active: token('color.background.inverse.subtle.pressed', N30A),
+    pressed: token('color.background.inverse.subtle.hovered', N30A),
+  },
+  warning: {
+    default: token('color.background.inverse.subtle', N30A),
+    active: token('color.background.inverse.subtle.pressed', N30A),
+    pressed: token('color.background.inverse.subtle.hovered', N30A),
+  },
+  normal: {
+    default: 'none',
+    active: 'none',
+    pressed: 'none',
+  },
 };
 
 export const actionTextColor: Record<AppearanceTypes, string> = {

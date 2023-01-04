@@ -1,5 +1,12 @@
 # @atlaskit/dynamic-table
 
+## 14.8.8
+
+### Patch Changes
+
+- [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
+- [`d0298c778ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0298c778ed) - Added additional testId props for testing purposes
+
 ## 14.8.7
 
 ### Patch Changes

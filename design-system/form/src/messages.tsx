@@ -2,7 +2,7 @@
 
 import React, { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -17,70 +17,12 @@ import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field';
 
-const gridSize = getGridSize();
-const fontFamily = getFontFamily();
+type MessageAppearance = 'default' | 'error' | 'valid';
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-const lightH200Styles = css(h200({ theme: { mode: 'light' } }));
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-const darkH200Styles = css(h200({ theme: { mode: 'dark' } }));
-
-const messageErrorColorStyles = css({
-  color: token('color.text.danger', '#AE2A19'),
-});
-
-const messageNeutralColorStyles = css({
-  color: token('color.text.subtlest', N200),
-});
-
-const messageValidColorStyles = css({
-  color: token('color.text.success', '#216E4E'),
-});
-
-const messageStyles = css({
-  display: 'flex',
-  marginTop: `${gridSize * 0.5}px`,
-  justifyContent: 'baseline',
-  fontFamily: `${fontFamily}`,
-  fontWeight: 'normal',
-});
-
-const iconWrapperStyles = css({
-  display: 'flex',
-});
-
-const IconWrapper: React.FC = ({ children }) => {
-  return <span css={iconWrapperStyles}>{children}</span>;
-};
-
-const Message: React.FC<MessageProps> = ({
-  children,
-  error,
-  valid,
-  fieldId,
-  testId,
-}) => {
-  const { mode } = useGlobalTheme();
-  return (
-    <div
-      css={[
-        mode === 'light' ? lightH200Styles : darkH200Styles,
-        messageStyles,
-        error
-          ? messageErrorColorStyles
-          : valid
-          ? messageValidColorStyles
-          : messageNeutralColorStyles,
-      ]}
-      data-testid={testId}
-      id={fieldId}
-    >
-      {children}
-    </div>
-  );
-};
-
-interface MessageProps {
+/**
+ * API for the internal `<Message />` component. This is not public API.
+ */
+interface InternalMessageProps {
   /**
    * The content of the message
    */
@@ -92,17 +34,94 @@ interface MessageProps {
    */
   testId?: string;
   /**
-   * Checks whether message input is invalid and should show an error.
+   * Determines the appearance of the message.
    */
-  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-  error?: boolean;
-  /**
-   * Checks whether message input is valid.
-   */
-  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-  valid?: boolean;
+  appearance?: MessageAppearance;
   fieldId?: string;
 }
+
+/**
+ * Public API of the various message components.
+ */
+type MessageProps = Pick<InternalMessageProps, 'children' | 'testId'>;
+
+const gridSize = getGridSize();
+const fontFamily = getFontFamily();
+
+// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+const lightH200Styles = css(h200({ theme: { mode: 'light' } }));
+// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+const darkH200Styles = css(h200({ theme: { mode: 'dark' } }));
+
+const messageStyles = css({
+  display: 'flex',
+  marginTop: `${gridSize * 0.5}px`,
+  justifyContent: 'baseline',
+  fontFamily: `${fontFamily}`,
+  fontWeight: 'normal',
+});
+
+const messageAppearanceStyles: Record<MessageAppearance, SerializedStyles> = {
+  default: css({
+    color: token('color.text.subtlest', N200),
+  }),
+  error: css({
+    color: token('color.text.danger', '#AE2A19'),
+  }),
+  valid: css({
+    color: token('color.text.success', '#216E4E'),
+  }),
+};
+
+const iconWrapperStyles = css({
+  display: 'flex',
+});
+
+const IconWrapper: React.FC = ({ children }) => {
+  return <span css={iconWrapperStyles}>{children}</span>;
+};
+
+const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
+  error: <ErrorIcon size="small" label="error" />,
+  valid: <SuccessIcon size="small" label="success" />,
+};
+
+const Message: React.FC<InternalMessageProps> = ({
+  children,
+  appearance = 'default',
+  fieldId,
+  testId,
+}) => {
+  const { mode } = useGlobalTheme();
+
+  const icon = messageIcons[appearance];
+
+  /**
+   * The wrapping span is necessary to preserve spaces between children.
+   * Otherwise the flex layout of the message will remove any whitespace
+   * between children.
+   *
+   * If the child is just a string, this is not required and we can use one
+   * less DOM element.
+   */
+  const content =
+    typeof children === 'string' ? children : <span>{children}</span>;
+
+  return (
+    <div
+      css={[
+        mode === 'light' ? lightH200Styles : darkH200Styles,
+        messageStyles,
+        messageAppearanceStyles[appearance],
+      ]}
+      data-testid={testId}
+      id={fieldId}
+    >
+      {icon && <IconWrapper>{icon}</IconWrapper>}
+      {content}
+    </div>
+  );
+};
 
 /**
  * __Helper message__
@@ -141,13 +160,10 @@ export const ErrorMessage: React.FC<MessageProps> = ({
   <FieldId.Consumer>
     {(fieldId) => (
       <Message
-        error
+        appearance="error"
         fieldId={fieldId ? `${fieldId}-error` : undefined}
         testId={testId}
       >
-        <IconWrapper>
-          <ErrorIcon size="small" label="error" />
-        </IconWrapper>
         {children}
       </Message>
     )}
@@ -168,13 +184,10 @@ export const ValidMessage: React.FC<MessageProps> = ({
   <FieldId.Consumer>
     {(fieldId) => (
       <Message
+        appearance="valid"
         fieldId={fieldId ? `${fieldId}-valid` : undefined}
         testId={testId}
-        valid
       >
-        <IconWrapper>
-          <SuccessIcon size="small" label="success" />
-        </IconWrapper>
         {children}
       </Message>
     )}

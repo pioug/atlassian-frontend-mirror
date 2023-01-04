@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 1.4.4
+
+### Patch Changes
+
+- [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
+- [`981faeea2ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/981faeea2ff) - Application of spacing tokens for some internal styles of `MenuPrimitive`.
+- [`bcbd0c5b5bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bcbd0c5b5bf) - Fix text color styling of disabled descriptions in menu and link items
+
 ## 1.4.3
 
 ### Patch Changes

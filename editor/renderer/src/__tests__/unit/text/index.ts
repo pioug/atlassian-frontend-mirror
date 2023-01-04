@@ -529,6 +529,53 @@ describe('Renderer - TextSerializer', () => {
     expect(render(doc)).toEqual('1. 1\n2. 2');
   });
 
+  const orderedListTestCases = [
+    { order: 1, expectedStart: 1 },
+    { order: 0, expectedStart: 0 },
+    { order: 99, expectedStart: 99 },
+    { order: 2.999, expectedStart: 2 },
+    { order: -99, expectedStart: 1 },
+  ];
+
+  orderedListTestCases.forEach(({ order, expectedStart }) => {
+    it(`should render ordered lists with custom starting numbers (order: ${expectedStart})`, () => {
+      const doc = {
+        type: 'doc',
+        version: 1,
+        content: [
+          {
+            type: 'orderedList',
+            attrs: {
+              order,
+            },
+            content: [
+              {
+                type: 'listItem',
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [{ type: 'text', text: 'One' }],
+                  },
+                ],
+              },
+              {
+                type: 'listItem',
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [{ type: 'text', text: 'Two' }],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const expectedText = `${expectedStart}. One\n${expectedStart + 1}. Two`;
+      expect(render(doc)).toEqual(expectedText);
+    });
+  });
+
   [1, 2, 3, 4, 5, 6].forEach((level) => {
     it(`should render heading level ${level}`, () => {
       const doc = {

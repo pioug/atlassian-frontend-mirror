@@ -51,6 +51,7 @@ describe('createFileDataLoader', () => {
       size: 0,
       artifacts: {},
       representations: {},
+      metadataTraceContext: expect.any(Object),
     };
 
     const defaultError = new Error('Sorry buddy!');

@@ -45,6 +45,7 @@ import {
   textColorIconBar,
   textColorIconWrapper,
 } from './styles';
+import { getFeatureFlags } from '../../../feature-flags-context/get-feature-flags';
 
 const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
 const EXPERIMENT_GROUP_CONTROL: string = 'control';
@@ -101,14 +102,17 @@ export class ToolbarTextColor extends React.Component<
       popupsScrollableElement,
       isReducedSpacing,
       pluginState,
-      pluginState: { paletteExpanded },
       intl: { formatMessage },
       disabled,
     } = this.props;
 
     const labelTextColor = formatMessage(messages.textColor);
 
-    const palette = paletteExpanded || pluginState.palette;
+    const palette = pluginState.palette;
+
+    const { useSomewhatSemanticTextColorNames } = getFeatureFlags(
+      this.props.editorView.state,
+    );
 
     let fitWidth: number | undefined;
     if (document.body.clientWidth <= 740) {
@@ -176,6 +180,9 @@ export class ToolbarTextColor extends React.Component<
               }
               selectedColor={pluginState.color}
               textPalette={true}
+              useSomewhatSemanticTextColorNames={
+                useSomewhatSemanticTextColorNames
+              }
             />
           </div>
         </Dropdown>
@@ -195,13 +202,11 @@ export class ToolbarTextColor extends React.Component<
   private changeTextColor = (color: string, disabled?: boolean) => {
     if (!disabled) {
       const {
-        pluginState: { palette, paletteExpanded, defaultColor },
+        pluginState: { palette, defaultColor },
       } = this.props;
 
       // we store color names in analytics
-      const swatch = (paletteExpanded || palette).find(
-        (sw) => sw.value === color,
-      );
+      const swatch = palette.find((sw) => sw.value === color);
       const isNewColor =
         color !== defaultColor &&
         !originalTextColors.some((col) => col.value === color);

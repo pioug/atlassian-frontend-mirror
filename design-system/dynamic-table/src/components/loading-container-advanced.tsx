@@ -223,7 +223,7 @@ export default class LoadingContainerAdvanced extends React.Component<
     const { children, isLoading, spinnerSize, testId } = this.props;
 
     return (
-      <Container>
+      <Container testId={testId && `${testId}--loading--container--advanced`}>
         {/* eslint-disable-next-line @repo/internal/react/no-clone-element */}
         {React.cloneElement(children, {
           ref: (el: HTMLElement) => {
@@ -231,7 +231,7 @@ export default class LoadingContainerAdvanced extends React.Component<
           },
         })}
         {isLoading && (
-          <SpinnerBackdrop>
+          <SpinnerBackdrop testId={testId}>
             <SpinnerContainer
               ref={(el: HTMLDivElement) => (this.spinnerRef = el)}
             >

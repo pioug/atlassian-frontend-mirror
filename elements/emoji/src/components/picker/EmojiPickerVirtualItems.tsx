@@ -10,9 +10,10 @@ import EmojiPickerEmojiRow, {
 } from './EmojiPickerEmojiRow';
 import { sizes } from './EmojiPickerSizes';
 import { emojiPickerSpinner } from './styles';
+import { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 
 export interface RenderItem {
-  (context?: VirtualRenderContext): ReactNode;
+  (context?: VirtualItemContext): ReactNode;
 }
 
 export interface VirtualItem<P> {
@@ -63,29 +64,13 @@ export class CategoryHeadingItem extends AbstractItem<CategoryHeadingProps> {
   renderItem = () => <EmojiPickerCategoryHeading {...this.props} />;
 }
 
-/**
- * These are the values provided by react-virtualized.
- */
-export interface VirtualRenderContext {
-  index: number; // Index of row
-  isScrolling: boolean; // The List is currently being scrolled
-  isVisible: boolean; // This row is visible within the List (eg it is not an overscanned row)
-  key: any; // Unique key within array of rendered rows
-  parent: any; // Reference to the parent List (instance)
-  style: any; // Style object to be applied to row (to position it);
-  // This must be passed through to the rendered row element.
-}
-
 export const virtualItemRenderer = (
-  rows: VirtualItem<any>[],
-  context: VirtualRenderContext,
+  rows: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>[],
+  context: VirtualItemContext,
 ) => {
-  const { index, key, style } = context;
-  const row: VirtualItem<any> = rows[index];
+  const { index, key } = context;
+  const row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}> =
+    rows[index];
 
-  return (
-    <div style={style} key={key}>
-      {row.renderItem(context)}
-    </div>
-  );
+  return <div key={key}>{row && row.renderItem(context)}</div>;
 };

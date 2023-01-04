@@ -2,11 +2,11 @@ import type { Transaction } from 'prosemirror-state';
 import type { Step } from 'prosemirror-transform';
 import type {
   CollabParticipant,
-  CollabEventTelepointerData as EditorCollabTelepointerData,
-  CollabEventConnectionData as EditorCollabConnetedData,
-  CollabEventInitData as EditorCollabInitData,
-  CollabEventRemoteData as EditorCollabData,
-  CollabEventPresenceData as EditorCollabPresenceData,
+  CollabEventTelepointerData,
+  CollabEventConnectionData,
+  CollabEventInitData,
+  CollabEventRemoteData,
+  CollabEventPresenceData,
 } from '@atlaskit/editor-common/collab';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager } from 'socket.io-client';
@@ -36,7 +36,7 @@ export interface Config {
   ): Promise<
     Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & { userId: string }
   >;
-  permissionTokenRefresh?: () => Promise<string>;
+  permissionTokenRefresh?: () => Promise<string | null>;
   productInfo?: ProductInformation;
 }
 
@@ -59,7 +59,7 @@ export interface Lifecycle {
   on(event: LifecycleEvents, handler: EventHandler): void;
 }
 
-export type CollabConnectedPayload = EditorCollabConnetedData;
+export type CollabConnectedPayload = CollabEventConnectionData;
 export interface CollabDisconnectedPayload {
   reason: DisconnectReason;
   sid: string;
@@ -70,21 +70,22 @@ export interface CollabErrorPayload {
   message: string;
   reason?: string;
 }
-export interface CollabInitPayload extends EditorCollabInitData {
+export interface CollabInitPayload extends CollabEventInitData {
   doc: any;
   version: number;
   userId?: string;
   metadata?: Metadata;
+  reserveCursor?: boolean;
 }
 
-export interface CollabDataPayload extends EditorCollabData {
+export interface CollabDataPayload extends CollabEventRemoteData {
   version: number;
   json: StepJson[];
-  userIds: string[];
+  userIds: (number | string)[];
 }
 
-export type CollabTelepointerPayload = EditorCollabTelepointerData;
-export type CollabPresencePayload = EditorCollabPresenceData;
+export type CollabTelepointerPayload = CollabEventTelepointerData;
+export type CollabPresencePayload = CollabEventPresenceData;
 export type CollabMetadataPayload = Metadata;
 export type CollabLocalStepsPayload = {
   steps: Step[];
@@ -118,7 +119,7 @@ export type InitPayload = {
 export type PresencePayload = {
   sessionId: string;
   userId: string;
-  clientId: string;
+  clientId: number | string;
   timestamp: number;
 };
 
@@ -134,9 +135,38 @@ export type StepJson = {
   from?: number;
   to?: number;
   stepType?: string;
-  clientId: string;
+  clientId: number | string;
   userId: string;
+  createdAt?: number; // Potentially required?
+  structure?: boolean;
 };
+
+export enum AcknowledgementResponseTypes {
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+}
+
+export type AcknowledgementSuccessPayload = {
+  type: AcknowledgementResponseTypes.SUCCESS;
+};
+
+export type AcknowledgementPayload =
+  | AcknowledgementSuccessPayload
+  | AcknowledgementErrorPayload;
+
+export type AddStepAcknowledgementSuccessPayload = {
+  type: AcknowledgementResponseTypes.SUCCESS;
+  version: number;
+};
+
+export type AcknowledgementErrorPayload = {
+  type: AcknowledgementResponseTypes.ERROR;
+  error: ErrorPayload;
+};
+
+export type AddStepAcknowledgementPayload =
+  | AddStepAcknowledgementSuccessPayload
+  | AcknowledgementErrorPayload;
 
 export type StepsPayload = {
   version: number;
@@ -192,7 +222,7 @@ export interface CatchupResponse {
 export interface CatchupOptions {
   getCurrentPmVersion: () => number;
   fetchCatchup: (fromVersion: number) => Promise<CatchupResponse>;
-  fitlerQueue: (condition: (stepsPayload: StepsPayload) => boolean) => void;
+  filterQueue: (condition: (stepsPayload: StepsPayload) => boolean) => void;
   getUnconfirmedSteps: () =>
     | {
         version: number;
@@ -208,7 +238,7 @@ export interface CatchupOptions {
     metadata,
     reserveCursor,
   }: CollabInitPayload) => void;
-  applyLocalsteps: (steps: Step[]) => void;
+  applyLocalSteps: (steps: Step[]) => void;
 }
 
 export type ProductInformation = {

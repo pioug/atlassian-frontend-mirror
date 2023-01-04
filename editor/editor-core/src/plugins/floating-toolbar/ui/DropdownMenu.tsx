@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { useState, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
 import { gridSize } from '@atlaskit/theme/constants';
@@ -10,6 +11,7 @@ import { DropdownOptionT } from './types';
 import { injectIntl, WrappedComponentProps, IntlShape } from 'react-intl-next';
 import messages from './messages';
 import { token } from '@atlaskit/tokens';
+import { EditorView } from 'prosemirror-view';
 
 export const menuItemDimensions = {
   width: 175,
@@ -42,6 +44,7 @@ export interface Props {
   dispatchCommand: Function;
   items: Array<DropdownOptionT<Function>>;
   showSelected?: boolean;
+  editorView?: EditorView;
 }
 
 // Extend the ButtonItem component type to allow mouse events to be accepted from the Typescript check
@@ -49,6 +52,8 @@ export interface DropdownButtonItemProps extends ButtonItemProps {
   onMouseEnter?: (event: React.MouseEvent | React.KeyboardEvent) => void;
   onMouseOver?: (event: React.MouseEvent | React.KeyboardEvent) => void;
   onMouseLeave?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+  onFocus?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+  onBlur?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 }
 const DropdownButtonItem: React.MemoExoticComponent<
   React.ForwardRefExoticComponent<
@@ -56,67 +61,142 @@ const DropdownButtonItem: React.MemoExoticComponent<
   >
 > = ButtonItem as any;
 
+const DropdownMenuItem = ({
+  item,
+  hide,
+  dispatchCommand,
+  editorView,
+  iconBefore,
+}: {
+  item: DropdownOptionT<Function>;
+  hide: Function;
+  dispatchCommand: Function;
+  editorView?: EditorView;
+  iconBefore: React.ReactNode;
+}) => {
+  const [tooltipContent, setTooltipContent] = useState<string>(
+    item.tooltip || '',
+  );
+
+  const handleTooltipMouseOut = useCallback(() => {
+    setTooltipContent('');
+  }, []);
+
+  const handleItemMouseDown = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
+  const handleItemMouseOver = useCallback(
+    (e) => {
+      setTooltipContent(item.tooltip || '');
+      if (item.onMouseOver) {
+        e.preventDefault();
+        dispatchCommand(item.onMouseOver);
+      }
+    },
+    [item.tooltip, item.onMouseOver, dispatchCommand],
+  );
+
+  const handleItemMouseEnter = useCallback(
+    (e) => {
+      if (item.onMouseEnter) {
+        e.preventDefault();
+        dispatchCommand(item.onMouseEnter);
+      }
+    },
+    [item.onMouseEnter, dispatchCommand],
+  );
+
+  const handleItemMouseLeave = useCallback(
+    (e) => {
+      if (item.onMouseLeave) {
+        e.preventDefault();
+        dispatchCommand(item.onMouseLeave);
+      }
+    },
+    [item.onMouseLeave, dispatchCommand],
+  );
+
+  const handleItemOnFocus = useCallback(
+    (e) => {
+      if (item.onFocus) {
+        e.preventDefault();
+        dispatchCommand(item.onFocus);
+      }
+    },
+    [item.onFocus, dispatchCommand],
+  );
+
+  const handleItemOnBlur = useCallback(
+    (e) => {
+      if (item.onBlur) {
+        e.preventDefault();
+        dispatchCommand(item.onBlur);
+      }
+    },
+    [item.onBlur, dispatchCommand],
+  );
+
+  const handleItemClick = useCallback(() => {
+    /**
+     * The order of dispatching the event and hide() is important, because
+     * the ClickAreaBlock will be relying on the element to calculate the
+     * click coordinate.
+     * For more details, please visit the comment in this PR https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5328/edm-1321-set-selection-near-smart-link?link_source=email#chg-packages/editor/editor-core/src/plugins/floating-toolbar/ui/DropdownMenu.tsx
+     */
+    dispatchCommand(item.onClick);
+    hide();
+    if (!editorView?.hasFocus()) {
+      editorView?.focus();
+    }
+  }, [dispatchCommand, item.onClick, hide, editorView]);
+
+  const itemContent = (
+    <DropdownButtonItem
+      iconBefore={iconBefore}
+      iconAfter={item.elemAfter}
+      onClick={handleItemClick}
+      data-testid={item.testId}
+      isDisabled={item.disabled}
+      onMouseDown={handleItemMouseDown}
+      onMouseOver={handleItemMouseOver}
+      onMouseEnter={handleItemMouseEnter}
+      onMouseLeave={handleItemMouseLeave}
+      onFocus={handleItemOnFocus}
+      onBlur={handleItemOnBlur}
+    >
+      {item.title}
+    </DropdownButtonItem>
+  );
+
+  if (tooltipContent) {
+    return (
+      <Tooltip content={tooltipContent}>
+        <div onMouseOut={handleTooltipMouseOut}>{itemContent}</div>
+      </Tooltip>
+    );
+  }
+
+  return itemContent;
+};
+
 class Dropdown extends Component<Props & WrappedComponentProps> {
   render() {
-    const { hide, dispatchCommand, items, intl } = this.props;
+    const { hide, dispatchCommand, items, intl, editorView } = this.props;
     return (
       <div css={menuContainer}>
         {items
           .filter((item) => !item.hidden)
-          .map((item, idx) => {
-            const itemContent = (
-              <DropdownButtonItem
-                key={idx}
-                iconBefore={this.renderSelected(item, intl)}
-                iconAfter={item.elemAfter}
-                onClick={() => {
-                  /**
-                   * The order of dispatching the event and hide() is important, because
-                   * the ClickAreaBlock will be relying on the element to calculate the
-                   * click coordinate.
-                   * For more details, please visit the comment in this PR https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5328/edm-1321-set-selection-near-smart-link?link_source=email#chg-packages/editor/editor-core/src/plugins/floating-toolbar/ui/DropdownMenu.tsx
-                   */
-                  dispatchCommand(item.onClick);
-                  hide();
-                }}
-                data-testid={item.testId}
-                isDisabled={item.disabled}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                }}
-                onMouseOver={(e) => {
-                  if (item.onMouseOver) {
-                    e.preventDefault();
-                    dispatchCommand(item.onMouseOver);
-                  }
-                }}
-                onMouseEnter={(e) => {
-                  if (item.onMouseEnter) {
-                    e.preventDefault();
-                    dispatchCommand(item.onMouseEnter);
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (item.onMouseLeave) {
-                    e.preventDefault();
-                    dispatchCommand(item.onMouseLeave);
-                  }
-                }}
-              >
-                {item.title}
-              </DropdownButtonItem>
-            );
-
-            if (item.tooltip) {
-              return (
-                <Tooltip key={idx} content={item.tooltip}>
-                  {itemContent}
-                </Tooltip>
-              );
-            }
-
-            return itemContent;
-          })}
+          .map((item, idx) => (
+            <DropdownMenuItem
+              key={idx}
+              item={item}
+              hide={hide}
+              dispatchCommand={dispatchCommand}
+              editorView={editorView}
+              iconBefore={this.renderSelected(item, intl)}
+            />
+          ))}
       </div>
     );
   }

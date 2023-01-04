@@ -1,4 +1,8 @@
-import SelectProps from '!!extract-react-types-loader!../../src/ert';
+import SelectProps from '!!extract-react-types-loader!../../src/extract-react-types/ert';
+import NativeReactSelectProps from '!!extract-react-types-loader!../../src/extract-react-types/react-select-props';
+import NativeReactPopperProps from '!!extract-react-types-loader!../../src/extract-react-types/react-popper-props';
+import ReactSelectAsyncProps from '!!extract-react-types-loader!../../src/extract-react-types/react-select-async';
+import ReactSelectCreatableProps from '!!extract-react-types-loader!../../src/extract-react-types/react-select-creatable';
 import PopupSelectProps from '!!extract-react-types-loader!../../src/PopupSelect/PopupSelect';
 import SingleSelect from '../../examples/constellation/select-single';
 
@@ -8,18 +12,31 @@ import SectionMessage from '@atlaskit/section-message';
 
 <SectionMessage>
   <p>
-    <Snippet>@atlaskit/select</Snippet> extends the functionality of React Select.
+    <Snippet>@atlaskit/select</Snippet> extends the functionality of React Select v5.4.0.
     To view the full set of available props for Select, please refer to the <a rel="noopener noreferrer" href="https://react-select.com/props" target="_blank">react-select documentation</a>.
   </p>
 </SectionMessage>
 
 <PropsTable heading="" props={SelectProps} />
 
+<PropsTable heading="" props={NativeReactSelectProps} />
+
 ### Popup Select Props
 
 PopupSelect accepts all of Select's props, in addition to the props shown below:
 
 <PropsTable heading="" props={PopupSelectProps} />
+
+#### PopperProps
+<PropsTable heading="" props={NativeReactPopperProps} />
+
+
+### Asyn Select Props
+<PropsTable heading="" props={ReactSelectAsyncProps} />
+
+### Creatable props
+<PropsTable heading="" props={ReactSelectCreatableProps} />
+
 
 ## Prop usage
 

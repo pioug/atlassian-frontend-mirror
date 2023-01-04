@@ -2,7 +2,7 @@ import React from 'react';
 import { keymap } from 'prosemirror-keymap';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import * as keymaps from '../../keymaps';
 import { openHelp, tooltip } from '../../keymaps';
 import WithPluginState from '../../ui/WithPluginState';
@@ -17,7 +17,7 @@ import {
   INPUT_METHOD,
 } from '../../plugins/analytics';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
-import { Providers } from '@atlaskit/editor-common/provider-factory';
+
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { openHelpCommand } from './commands';
 import { pluginKey } from './plugin-key';
@@ -43,9 +43,9 @@ export function createPlugin(dispatch: Function, imageEnabled: boolean) {
   });
 }
 
-const helpDialog = (
-  legacyImageUploadProvider?: Providers['imageUploadProvider'],
-): EditorPlugin => ({
+const helpDialog: NextEditorPlugin<'helpDialog', never, boolean> = (
+  imageUploadProviderExists = false,
+) => ({
   name: 'helpDialog',
 
   pmPlugins() {
@@ -53,7 +53,7 @@ const helpDialog = (
       {
         name: 'helpDialog',
         plugin: ({ dispatch }) =>
-          createPlugin(dispatch, !!legacyImageUploadProvider),
+          createPlugin(dispatch, imageUploadProviderExists),
       },
       {
         name: 'helpDialogKeymap',

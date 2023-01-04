@@ -1,8 +1,5 @@
 import React from 'react';
-
-export type FeatureFlags = {
-  showHoverPreview?: boolean;
-};
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type RendererContextProps = {
   featureFlags?: FeatureFlags;

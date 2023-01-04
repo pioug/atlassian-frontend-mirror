@@ -23,9 +23,9 @@ describe('collapse', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   const editor = (doc: DocBuilder, expandInPlugins?: boolean) => {
-    const preset = new Preset<LightEditorPlugin>().add([tablePlugin]);
+    const preset = new Preset<LightEditorPlugin>().add(tablePlugin);
 
-    const finalPreset = expandInPlugins ? preset.add([expandPlugin]) : preset;
+    const finalPreset = expandInPlugins ? preset.add(expandPlugin) : preset;
 
     return createEditor({ doc, preset: finalPreset });
   };

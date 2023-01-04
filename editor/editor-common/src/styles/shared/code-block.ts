@@ -76,19 +76,20 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
       overflow-x: auto;
 
       background-image: ${overflowShadow({
-        // TODO: https://product-fabric.atlassian.net/browse/DSP-4118
         background: themed({
           light: token('color.background.neutral', N20),
           dark: token('color.background.neutral', DN50),
         })(props),
-        width: '8px',
+        leftCoverWidth: `${gridSize() * 3}px`,
       })};
 
       background-repeat: no-repeat;
-      background-attachment: local, local, local, local, scroll, scroll;
-      background-size: 8px 100%, 8px 100%, 8px 100%, 8px 100%, 8px 100%,
-        8px 100%;
-      background-position: 0 0, 0 0, 100% 0, 100% 0, 100% 0, 0 0;
+      background-attachment: local, local, local, local, scroll, scroll, scroll,
+        scroll;
+      background-size: ${gridSize() * 3}px 100%, ${gridSize() * 3}px 100%,
+        ${gridSize()}px 100%, ${gridSize()}px 100%, ${gridSize()}px 100%,
+        1px 100%, ${gridSize()}px 100%, 1px 100%;
+      background-position: 0 0, 0 0, 100% 0, 100% 0, 100% 0, 100% 0, 0 0, 0 0;
 
       /* Be careful if refactoring this; it is needed to keep arrow key navigation in Firefox consistent with other browsers. */
       overflow-y: hidden;

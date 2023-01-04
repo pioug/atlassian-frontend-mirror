@@ -68,7 +68,10 @@ const mdToPmMapping = {
   bullet_list: { block: 'bulletList' },
   ordered_list: {
     block: 'orderedList',
-    attrs: (tok: any) => ({ order: +tok.attrGet('order') || 1 }),
+    attrs: (tok: any) => ({
+      order:
+        typeof tok.attrGet('start') === 'number' ? tok.attrGet('start') : 1,
+    }),
   },
   code_inline: { mark: 'code' },
   fence: {

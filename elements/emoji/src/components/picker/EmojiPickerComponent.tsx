@@ -14,7 +14,6 @@ import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
 import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 import { getEmojiVariation } from '../../api/EmojiRepository';
 import {
-  EmojiProvider,
   OnEmojiProviderChange,
   supportsUploadFeature,
 } from '../../api/EmojiResource';
@@ -70,8 +69,8 @@ import {
   ufoExperiences,
 } from '../../util/analytics';
 import { emojiPicker } from './styles';
-import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
 import { useDidMount } from '../hooks';
+import { useEmoji } from '../../hooks/useEmoji';
 
 const FREQUENTLY_USED_MAX = 16;
 
@@ -80,10 +79,6 @@ export interface PickerRefHandler {
 }
 
 export interface Props {
-  /**
-   * EmojiResource instance that handles emoji meta data.
-   */
-  emojiProvider: EmojiProvider;
   /**
    * Callback to be executed when user selects an emoji.
    */
@@ -101,13 +96,13 @@ export interface Props {
 }
 
 const EmojiPickerComponent = ({
-  emojiProvider,
   onSelection,
   onPickerRef,
   hideToneSelector,
   createAnalyticsEvent,
   size = defaultEmojiPickerSize,
 }: Props) => {
+  const { emojiProvider, isUploadSupported } = useEmoji();
   const [filteredEmojis, setFilteredEmojis] = useState<EmojiDescription[]>([]);
   const [searchEmojis, setSearchEmojis] = useState<EmojiDescription[]>([]);
   const [frequentlyUsedEmojis, setFrequentlyUsedEmojis] = useState<
@@ -119,7 +114,6 @@ const EmojiPickerComponent = ({
     !hideToneSelector ? emojiProvider.getSelectedTone() : undefined,
   );
   const [loading, setLoading] = useState(true);
-  const [uploadSupported, setUploadSupported] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState<
     EmojiDescription | undefined
@@ -178,10 +172,6 @@ const EmojiPickerComponent = ({
   const calculateElapsedTime = () => {
     return Date.now() - openTime.current;
   };
-
-  const onUploadSupported = useCallback((supported: boolean) => {
-    setUploadSupported(supported);
-  }, []);
 
   const onDynamicCategoryChange = useCallback((categories: CategoryId[]) => {
     setDynamicCategories(categories);
@@ -431,15 +421,6 @@ const EmojiPickerComponent = ({
     [uploadErrorMessage],
   );
 
-  const emojiContextValue = useMemo(
-    () => ({
-      emoji: {
-        emojiProvider,
-      },
-    }),
-    [emojiProvider],
-  );
-
   const onFileChooserClicked = useCallback(() => {
     fireAnalytics(selectedFileEvent());
   }, [fireAnalytics]);
@@ -475,9 +456,6 @@ const EmojiPickerComponent = ({
   }, [emojiProvider, fireAnalytics]);
 
   const scrollToEndOfList = useCallback(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
     if (emojiPickerList.current) {
       // Wait a tick to ensure repaint and updated height for picker list
       window.setTimeout(() => {
@@ -558,9 +536,6 @@ const EmojiPickerComponent = ({
   const onComponentDidMount = useCallback(() => {
     emojiProvider.subscribe(onProviderChange);
     onSearch(query);
-    if (supportsUploadFeature(emojiProvider)) {
-      emojiProvider.isUploadSupported().then(onUploadSupported);
-    }
     if (!hideToneSelector) {
       const toneEmoji = getToneEmoji(emojiProvider);
       if (isPromise<OptionalEmojiDescriptionWithVariations>(toneEmoji)) {
@@ -569,14 +544,7 @@ const EmojiPickerComponent = ({
         setToneEmoji(toneEmoji);
       }
     }
-  }, [
-    emojiProvider,
-    hideToneSelector,
-    onProviderChange,
-    onSearch,
-    onUploadSupported,
-    query,
-  ]);
+  }, [emojiProvider, hideToneSelector, onProviderChange, onSearch, query]);
 
   if (isMounting.current) {
     // componentWillMount equivalent
@@ -599,14 +567,11 @@ const EmojiPickerComponent = ({
     previousEmojiProvider.current = emojiProvider;
 
     emojiProvider.subscribe(onProviderChange);
-    if (supportsUploadFeature(emojiProvider)) {
-      emojiProvider.isUploadSupported().then(onUploadSupported);
-    }
 
     return () => {
       emojiProvider.unsubscribe(onProviderChange);
     };
-  }, [emojiProvider, onProviderChange, onUploadSupported]);
+  }, [emojiProvider, onProviderChange]);
 
   useEffect(() => {
     // We changed provider which means we subscribed to filter results for a new subscriber.
@@ -667,49 +632,47 @@ const EmojiPickerComponent = ({
   const showPreview = selectedEmoji && !uploading;
 
   return (
-    <LegacyEmojiContextProvider emojiContextValue={emojiContextValue}>
-      <div
-        css={emojiPicker(showPreview, size)}
-        ref={onPickerRef}
-        data-emoji-picker-container
-      >
-        <CategorySelector
-          activeCategoryId={activeCategory}
-          dynamicCategories={dynamicCategories}
-          disableCategories={disableCategories}
-          onCategorySelected={onCategorySelected}
-        />
-        <EmojiPickerList
-          emojis={filteredEmojis}
-          currentUser={currentUser}
-          onEmojiSelected={recordUsageOnSelection}
-          onEmojiActive={onEmojiActive}
-          onEmojiDelete={onTriggerDelete}
-          onCategoryActivated={onCategoryActivated}
-          onSearch={onSearch}
-          query={query}
-          selectedTone={selectedTone}
-          loading={loading}
-          ref={emojiPickerList}
-          initialUploadName={query}
-          onToneSelected={onToneSelected}
-          onToneSelectorCancelled={onToneSelectorCancelled}
-          toneEmoji={toneEmoji}
-          uploading={uploading}
-          emojiToDelete={emojiToDelete}
-          uploadErrorMessage={formattedErrorMessage}
-          uploadEnabled={uploadSupported && !uploading}
-          onUploadEmoji={onUploadEmoji}
-          onUploadCancelled={onUploadCancelled}
-          onDeleteEmoji={onDeleteEmoji}
-          onCloseDelete={onCloseDelete}
-          onFileChooserClicked={onFileChooserClicked}
-          onOpenUpload={onOpenUpload}
-          size={size}
-        />
-        {showPreview && <EmojiPickerFooter selectedEmoji={selectedEmoji} />}
-      </div>
-    </LegacyEmojiContextProvider>
+    <div
+      css={emojiPicker(showPreview, size)}
+      ref={onPickerRef}
+      data-emoji-picker-container
+    >
+      <CategorySelector
+        activeCategoryId={activeCategory}
+        dynamicCategories={dynamicCategories}
+        disableCategories={disableCategories}
+        onCategorySelected={onCategorySelected}
+      />
+      <EmojiPickerList
+        emojis={filteredEmojis}
+        currentUser={currentUser}
+        onEmojiSelected={recordUsageOnSelection}
+        onEmojiActive={onEmojiActive}
+        onEmojiDelete={onTriggerDelete}
+        onCategoryActivated={onCategoryActivated}
+        onSearch={onSearch}
+        query={query}
+        selectedTone={selectedTone}
+        loading={loading}
+        ref={emojiPickerList}
+        initialUploadName={query}
+        onToneSelected={onToneSelected}
+        onToneSelectorCancelled={onToneSelectorCancelled}
+        toneEmoji={toneEmoji}
+        uploading={uploading}
+        emojiToDelete={emojiToDelete}
+        uploadErrorMessage={formattedErrorMessage}
+        uploadEnabled={isUploadSupported && !uploading}
+        onUploadEmoji={onUploadEmoji}
+        onUploadCancelled={onUploadCancelled}
+        onDeleteEmoji={onDeleteEmoji}
+        onCloseDelete={onCloseDelete}
+        onFileChooserClicked={onFileChooserClicked}
+        onOpenUpload={onOpenUpload}
+        size={size}
+      />
+      {showPreview && <EmojiPickerFooter selectedEmoji={selectedEmoji} />}
+    </div>
   );
 };
 

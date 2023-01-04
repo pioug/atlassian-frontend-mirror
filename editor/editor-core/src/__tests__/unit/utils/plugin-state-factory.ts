@@ -51,7 +51,7 @@ describe('@atlaskit/editor-core utils/plugin-state-factory', () => {
         const tr = getTransactionMock();
         const pluginState = { pos: 3 };
         state.apply(tr, pluginState, {} as EditorState, {} as EditorState);
-        expect(mapping).toHaveBeenCalledWith(tr, pluginState);
+        expect(mapping).toHaveBeenCalledWith(tr, pluginState, {});
       });
     });
 
@@ -152,7 +152,7 @@ describe('@atlaskit/editor-core utils/plugin-state-factory', () => {
         tr.docChanged = true;
         const pluginState = { pos: 11 };
         state.apply(tr, pluginState, {} as EditorState, {} as EditorState);
-        expect(onDocChanged).toHaveBeenCalledWith(tr, pluginState);
+        expect(onDocChanged).toHaveBeenCalledWith(tr, pluginState, {});
       });
     });
 
@@ -190,7 +190,7 @@ describe('@atlaskit/editor-core utils/plugin-state-factory', () => {
       tr.selectionSet = true;
       const pluginState = { pos: 12 };
       state.apply(tr, pluginState, {} as EditorState, {} as EditorState);
-      expect(onSelectionChanged).toHaveBeenCalledWith(tr, pluginState);
+      expect(onSelectionChanged).toHaveBeenCalledWith(tr, pluginState, {});
     });
   });
 

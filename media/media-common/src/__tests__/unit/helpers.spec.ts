@@ -1,12 +1,26 @@
 import {
   debounce,
+  getRandomHex,
   isUndefined,
   matches,
   omitBy,
   pick,
 } from '../../utils/helpers';
+import crypto from 'crypto';
 
 describe('helpers', () => {
+  const prevCrypto = window.crypto;
+  beforeAll(() => {
+    //@ts-ignore
+    window.crypto = {
+      getRandomValues: function (buffer: any) {
+        return crypto.randomFillSync(buffer);
+      },
+    };
+  });
+
+  afterAll(() => (window.crypto = prevCrypto));
+
   it('isUndefined', () => {
     expect(isUndefined(undefined)).toBeTruthy();
     expect(isUndefined(123)).toBeFalsy();
@@ -45,5 +59,13 @@ describe('helpers', () => {
     expect(matches({ a: 4, c: 6 })(obj)).toBeTruthy();
     expect(matches({ a: 1, c: 6 })(obj)).toBeFalsy();
     expect(matches({ d: 5 })(obj)).toBeFalsy();
+  });
+
+  it('getRandomHex', () => {
+    //Expect random hex returned to be 16 charaters.
+    for (let i = 0; i < 1000; i++) {
+      const randomHex = getRandomHex(8);
+      expect(randomHex.length).toBe(16);
+    }
   });
 });

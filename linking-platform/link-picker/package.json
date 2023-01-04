@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-picker",
-  "version": "1.16.4",
+  "version": "1.16.5",
   "description": "Standalone link picker",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -61,8 +61,8 @@
   "devDependencies": {
     "@af/codegen": "*",
     "@atlaskit/activity-provider": "^2.3.2",
-    "@atlaskit/adf-schema": "^24.0.0",
-    "@atlaskit/adf-utils": "^17.1.4",
+    "@atlaskit/adf-schema": "^25.0.0",
+    "@atlaskit/adf-utils": "^18.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/link-analytics": "^2.0.0",
     "@atlaskit/link-provider": "^1.3.0",

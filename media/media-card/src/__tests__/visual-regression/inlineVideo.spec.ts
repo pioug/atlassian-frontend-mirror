@@ -4,7 +4,7 @@ function getURL(): string {
   return getExampleUrl(
     'media',
     'media-card',
-    'vr-inline-video-card',
+    'Test-VR-inline-video-card',
     global.__BASEURL__,
   );
 }

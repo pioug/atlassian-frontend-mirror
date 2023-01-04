@@ -11,9 +11,12 @@ import {
   linkUrlSelector,
   insertLongText,
   fullpage,
+  quickInsert,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
+
+import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import { isFocusTrapped } from '../_utils';
 
 // FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16002
 BrowserTestCase(
@@ -76,6 +79,56 @@ describe('with feature flag: lp-link-picker', () => {
 
       const doc = await page.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+
+  describe.each([true, false])(
+    'when ff lp-link-picker-focus-trap is %p',
+    (featureFlag: boolean) => {
+      BrowserTestCase(
+        `inserting a smart card, focus ${
+          featureFlag ? 'IS' : 'IS NOT'
+        } trapped within the link picker`,
+        {
+          // Skip safari as per https://hello.atlassian.net/wiki/spaces/AF/pages/971139617/Browserstack+known+issues
+          skip: ['safari'],
+        },
+        async (client: any) => {
+          const page = await goToEditorTestingWDExample(client);
+          await mountEditor(
+            page,
+            {
+              appearance: fullpage.appearance,
+              smartLinks: {
+                allowEmbeds: true,
+              },
+              featureFlags: {
+                'lp-link-picker': true,
+                'lp-link-picker-focus-trap': featureFlag,
+              },
+            },
+            {
+              providers: {
+                cards: true,
+              },
+              withLinkPickerOptions: true,
+            },
+          );
+
+          await quickInsert(page, 'Link');
+          await page.waitForSelector(linkPickerSelectors.linkInput);
+
+          const linkInput = await page.$(linkPickerSelectors.linkInput);
+
+          expect(
+            await isFocusTrapped(
+              page,
+              linkInput,
+              linkPickerSelectors.linkPicker,
+            ),
+          ).toBe(featureFlag);
+        },
+      );
     },
   );
 });

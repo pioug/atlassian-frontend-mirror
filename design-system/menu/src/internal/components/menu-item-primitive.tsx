@@ -5,10 +5,7 @@ import { ClassNames, css, jsx } from '@emotion/react';
 
 import FocusRing from '@atlaskit/focus-ring';
 import { N20, N200, N30 } from '@atlaskit/theme/colors';
-import {
-  fontSize as fontSizeFn,
-  gridSize as gridSizeFn,
-} from '@atlaskit/theme/constants';
+import { fontSize as fontSizeFn } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -19,24 +16,19 @@ const defaultRender: RenderFunction = (Component, props) => (
   <Component {...props} />
 );
 
-const gridSize = gridSizeFn();
 const fontSize = fontSizeFn();
-const itemTopBottomPadding = token('spacing.scale.100', '8px');
-const itemSidePadding = token('spacing.scale.250', '20px');
-const itemElemSpacing = token('spacing.scale.150', '12px');
-const itemDescriptionSpacing = gridSize * 0.375;
 const itemMinHeight = token('spacing.scale.500', '40px');
 
 const beforeElementStyles = css({
   display: 'flex',
-  marginRight: itemElemSpacing,
+  marginRight: token('spacing.scale.150', '12px'),
   alignItems: 'center',
   flexShrink: 0,
 });
 
 const afterElementStyles = css({
   display: 'flex',
-  marginLeft: itemElemSpacing,
+  marginLeft: token('spacing.scale.150', '12px'),
   alignItems: 'center',
   flexShrink: 0,
 });
@@ -47,6 +39,7 @@ const contentStyles = css({
   flexDirection: 'column',
   flexGrow: 1,
   // Fix - avoid clipped text descenders when using standard 16px line-height
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   lineHeight: 1.22,
   outline: 'none',
   overflow: 'hidden',
@@ -65,9 +58,14 @@ const wordBreakStyles = css({
 });
 
 const descriptionStyles = css({
-  marginTop: itemDescriptionSpacing,
+  marginTop: token('spacing.scale.050', '3px'),
   color: token('color.text.subtlest', N200),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   fontSize: headingSizes.h200.size,
+});
+
+const disabledDescriptionStyles = css({
+  color: token('color.text.disabled', N200),
 });
 
 const primitiveStyles = css({
@@ -77,9 +75,14 @@ const primitiveStyles = css({
   minHeight: itemMinHeight,
   // TODO Delete this comment after verifying spacing token -> previous value `0`
   margin: token('spacing.scale.0', '0px'),
-  padding: `${itemTopBottomPadding} ${itemSidePadding}`,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  padding: `${token('spacing.scale.100', '8px')} ${token(
+    'spacing.scale.250',
+    '20px',
+  )}`,
   alignItems: 'center',
   border: 0,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   fontSize: fontSize,
   outline: 0,
   textDecoration: 'none',
@@ -97,7 +100,7 @@ const interactiveStyles = css({
 });
 
 const unselectedStyles = css({
-  backgroundColor: 'transparent',
+  backgroundColor: token('color.background.neutral.subtle', 'transparent'),
   color: 'currentColor',
   ':visited': {
     color: 'currentColor',
@@ -116,7 +119,7 @@ const unselectedStyles = css({
 const disabledStyles = css({
   cursor: 'not-allowed',
   '&, :hover, :active': {
-    backgroundColor: 'transparent',
+    backgroundColor: token('color.background.neutral.subtle', 'transparent'),
     color: token('color.text.disabled', N200),
   },
 });
@@ -204,6 +207,7 @@ const MenuItemPrimitive = ({
                           data-item-description
                           css={[
                             descriptionStyles,
+                            isDisabled && disabledDescriptionStyles,
                             shouldDescriptionWrap
                               ? wordBreakStyles
                               : truncateStyles,

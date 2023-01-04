@@ -4,7 +4,7 @@ import { Transaction } from 'prosemirror-state';
 
 import { rule } from '@atlaskit/adf-schema';
 
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -19,7 +19,7 @@ import { IconDivider } from '../quick-insert/assets';
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
 
-const rulePlugin = (): EditorPlugin => ({
+const rulePlugin: NextEditorPlugin<'rule'> = () => ({
   name: 'rule',
 
   nodes() {

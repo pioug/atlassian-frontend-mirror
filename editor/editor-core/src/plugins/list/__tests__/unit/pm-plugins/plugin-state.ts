@@ -20,7 +20,7 @@ describe('outdent-list-items-selected', () => {
     // Scenario
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(p('A')),
         li(p('B{<>}')),
         li(p('C')),
@@ -59,7 +59,7 @@ describe('outdent-list-items-selected', () => {
     // Scenario
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(p('A')),
         li(p('B')),
         li(p('C')),
@@ -80,7 +80,7 @@ describe('outdent-list-items-selected', () => {
     // Scenario
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(p('A')),
         li(p('B')),
         li(p('C')),

@@ -27,7 +27,6 @@ export const areEqualFeatureFlags = (
     folderUploads: ffA.folderUploads === ffB.folderUploads,
     observedWidth: ffA.observedWidth === ffB.observedWidth,
     timestampOnVideo: ffA.timestampOnVideo === ffB.timestampOnVideo,
-    mediaUploadApiV2: ffA.mediaUploadApiV2 === ffB.mediaUploadApiV2,
     memoryCacheLogging: ffA.memoryCacheLogging === ffB.memoryCacheLogging,
   };
   return Object.values(results).every((result) => result);
@@ -82,7 +81,6 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   folderUploads: false,
   observedWidth: false,
   timestampOnVideo: false,
-  mediaUploadApiV2: true,
   memoryCacheLogging: false,
 };
 

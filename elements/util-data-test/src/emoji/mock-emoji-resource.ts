@@ -55,7 +55,7 @@ export class MockEmojiResource
   }
 
   public getOptimisticImageURL(emojiId: EmojiId) {
-    return 'optimisticUrl';
+    return undefined;
   }
 
   isUploadSupported(): Promise<boolean> {

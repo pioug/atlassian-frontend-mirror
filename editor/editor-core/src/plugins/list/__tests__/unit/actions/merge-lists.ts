@@ -51,7 +51,7 @@ describe('list -> actions -> merge-lists', () => {
             p('A'),
           ),
         ),
-        ol(
+        ol()(
           li(
             p('B'),
           ),
@@ -59,7 +59,7 @@ describe('list -> actions -> merge-lists', () => {
       );
       // prettier-ignore
       const documentExpected = doc(
-        ol(
+        ol()(
           li(
             p('A'),
           ),

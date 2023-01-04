@@ -1,8 +1,5 @@
 import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 import { Transaction, EditorState } from 'prosemirror-state';
-
-// TODO: Check if this circular dependency is still needed or is just legacy
-// eslint-disable-next-line import/no-cycle
 import { PMPlugin } from './pm-plugin';
 import { MarkConfig, NodeConfig } from './pm-config';
 import { UIComponentFactory } from './ui-components';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { shallow } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import {
   RankableTableCell,
@@ -9,6 +9,7 @@ import {
 
 import { cellWithKey as cell, head } from './_data';
 
+const testId = 'dynamic--table--test--id';
 const createProps = () => ({
   cell,
   head: head.cells[0],
@@ -17,14 +18,28 @@ const createProps = () => ({
   refWidth: -1,
   refHeight: -1,
   isFixedSize: false,
+  testId,
 });
 
-test('onKeyDown events are not propagated', () => {
+test('onKeyDown events are not propagated for RankableTableCell', () => {
   const props: RankableTableCellProps = createProps();
-  const wrapper = shallow(<RankableTableCell {...props} />);
+  const trKeyDownPropagation = jest.fn();
+  render(
+    <table>
+      <tbody>
+        <tr data-testid={`${testId}--tr`} onKeyDown={trKeyDownPropagation}>
+          <RankableTableCell {...props} />
+        </tr>
+      </tbody>
+    </table>,
+  );
 
-  const stopPropagation = jest.fn();
+  const cell = screen.getByTestId(`${testId}--rankable--table--body--cell`);
+  const tr = screen.getByTestId(`${testId}--tr`);
 
-  wrapper.simulate('keyDown', { stopPropagation });
-  expect(stopPropagation).toHaveBeenCalledTimes(1);
+  fireEvent.keyDown(cell);
+  expect(trKeyDownPropagation).toHaveBeenCalledTimes(0);
+
+  fireEvent.keyDown(tr);
+  expect(trKeyDownPropagation).toHaveBeenCalledTimes(1);
 });

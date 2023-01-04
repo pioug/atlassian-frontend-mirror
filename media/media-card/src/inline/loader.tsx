@@ -36,7 +36,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
     this.isMounted = true;
     if (!this.state.MediaInlineCard) {
       try {
-        const [mediaClient, cardModule, mediaCardErrorBoundaryModule] =
+        const [mediaClient, cardModule, mediaInlineErrorBoundaryModule] =
           await Promise.all([
             import(
               /* webpackChunkName: "@atlaskit-internal_media-client" */ '@atlaskit/media-client'
@@ -45,7 +45,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
               /* webpackChunkName: "@atlaskit-internal_inline-media-card" */ './mediaInlineCard'
             ),
             import(
-              /* webpackChunkName: "@atlaskit-internal_media-card-error-boundary" */ '../utils/media-card-analytics-error-boundary'
+              /* webpackChunkName: "@atlaskit-internal_media-inline-error-boundary" */ './mediaInlineAnalyticsErrorBoundary'
             ),
           ]);
 
@@ -53,7 +53,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
           cardModule.MediaInlineCard,
         );
         MediaInlineCardLoader.ErrorBoundary =
-          mediaCardErrorBoundaryModule.default;
+          mediaInlineErrorBoundaryModule.default;
 
         if (this.isMounted) {
           this.setState({

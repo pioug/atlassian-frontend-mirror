@@ -49,13 +49,13 @@ describe('utils/node', () => {
         // Scenario
         // prettier-ignore
         doc(
-        ol(li(p('{<}A'))),
-        ol(li(p('B{>}'))),
+        ol()(li(p('{<}A'))),
+        ol()(li(p('B{>}'))),
       ),
         // Expected Result
         // prettier-ignore
         doc(
-        ol(
+        ol()(
           li(p('{<}A')),
           li(p('B{>}')),
         ),
@@ -76,11 +76,11 @@ describe('utils/node', () => {
         ul(
           li(
             p('A'),
-            ol(
+            ol()(
               li(p('B1')),
               li(p('B2{<>}')),
             ),
-            ol(
+            ol()(
               li(p('C1')),
             ),
           ),
@@ -92,7 +92,7 @@ describe('utils/node', () => {
         ul(
           li(
             p('A'),
-            ol(
+            ol()(
               li(p('B1')),
               li(p('B2{<>}')),
               li(p('C1')),
@@ -140,7 +140,7 @@ describe('utils/node', () => {
         ul(
           li(p('A{<>}')),
         ),
-        ol(
+        ol()(
           li(p('B')),
         ),
       ),
@@ -150,7 +150,7 @@ describe('utils/node', () => {
         ul(
           li(p('A{<>}')),
         ),
-        ol(
+        ol()(
           li(p('B')),
         ),
       ),
@@ -171,7 +171,7 @@ describe('utils/node', () => {
           ul(
             li(p('A{<>}')),
           ),
-          ol(
+          ol()(
             li(p('B')),
           ),
         ),
@@ -183,7 +183,7 @@ describe('utils/node', () => {
           ul(
             li(p('A{<>}')),
           ),
-          ol(
+          ol()(
             li(p('B')),
           ),
         ),
@@ -238,10 +238,10 @@ describe('utils/node', () => {
           ul(
             li(p('A')),
           ),
-          ol(
+          ol()(
             li(p('B1')),
           ),
-          ol(
+          ol()(
             li(p('B2')),
           ),
         ),
@@ -251,7 +251,7 @@ describe('utils/node', () => {
         ul(
           li(p('A2')),
         ),
-        ol(
+        ol()(
           li(
             p('B3'),
             ul(
@@ -268,7 +268,7 @@ describe('utils/node', () => {
             ul(
               li(p('Y1')),
             ),
-            ol(
+            ol()(
               li(p('Y2')),
             ),
           ),
@@ -282,7 +282,7 @@ describe('utils/node', () => {
           ul(
             li(p('A')),
           ),
-          ol(
+          ol()(
             li(p('B1')),
             li(p('B2')),
           ),
@@ -291,7 +291,7 @@ describe('utils/node', () => {
           li(p('A1')),
           li(p('A2')),
         ),
-        ol(
+        ol()(
           li(
             p('B3'),
             ul(
@@ -303,7 +303,7 @@ describe('utils/node', () => {
         ul(
           li(
             p('B4'),
-            ol(
+            ol()(
               li(p('Y1')),
               li(p('Y2')),
             ),
@@ -328,16 +328,16 @@ describe('utils/node', () => {
           ul(
             li(p('A')),
           ),
-          ol(
+          ol()(
             li(p('B1')),
           ),
-          ol(
+          ol()(
             li(p('B2')),
           ),
-          ol(
+          ol()(
             li(p('B3')),
           ),
-          ol(
+          ol()(
             li(p('B4')),
           ),
         ),
@@ -350,7 +350,7 @@ describe('utils/node', () => {
           ul(
             li(p('A')),
           ),
-          ol(
+          ol()(
             li(p('B1')),
             li(p('B2')),
             li(p('B3')),
@@ -376,16 +376,16 @@ describe('utils/node', () => {
           ul(
             li(
               p('A'),
-              ol(
+              ol()(
                 li(p('B1')),
               ),
-              ol(
+              ol()(
                 li(p('B2')),
               ),
-              ol(
+              ol()(
                 li(p('B3')),
               ),
-              ol(
+              ol()(
                 li(p('B4')),
               ),
             ),
@@ -400,7 +400,7 @@ describe('utils/node', () => {
           ul(
             li(
               p('A'),
-              ol(
+              ol()(
                 li(p('B1')),
                 li(p('B2')),
                 li(p('B3')),
@@ -428,13 +428,13 @@ describe('utils/node', () => {
           ul(
             li(
               p('A'),
-              ol(
+              ol()(
                 li(p('B1')),
               ),
               ul(
                 li(p('B2')),
               ),
-              ol(
+              ol()(
                 li(p('B3')),
               ),
               ul(

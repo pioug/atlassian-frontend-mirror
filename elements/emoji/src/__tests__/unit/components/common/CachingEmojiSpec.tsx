@@ -54,8 +54,7 @@ describe('<CachingEmoji />', () => {
     });
     it('renders nothing if context is missing', async () => {
       const result = await render(<CachingEmoji emoji={mediaEmoji} />);
-      expect(result).not.toBeNull();
-      expect(result.container.children.length).toEqual(1);
+      expect(result.container.children.length).toEqual(0);
     });
 
     describe('with a valid provider', () => {

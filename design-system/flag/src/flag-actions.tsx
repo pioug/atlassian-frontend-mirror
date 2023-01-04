@@ -9,7 +9,14 @@ import type { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 
-import { DEFAULT_APPEARANCE } from './constants';
+import {
+  DEFAULT_APPEARANCE,
+  VAR_COLOR,
+  VAR_BG_COLOR,
+  VAR_BG_COLOR_HOVER,
+  VAR_BG_COLOR_ACTIVE,
+  VAR_FOCUS_COLOR,
+} from './constants';
 import {
   flagFocusRingColor,
   actionBackgroundColor,
@@ -29,15 +36,21 @@ const gridSize = getGridSize();
 const buttonStyles = css({
   '&&, a&&': {
     padding: `0 ${gridSize}px !important`,
-    background: `var(--bg-color)`,
-    color: `var(--color) !important`,
+    background: `var(${VAR_BG_COLOR})`,
+    color: `var(${VAR_COLOR}) !important`,
     fontWeight: 500,
   },
   '&&:focus, a&&:focus': {
-    boxShadow: `0 0 0 2px var(--focus-color)`,
+    boxShadow: `0 0 0 2px var(${VAR_FOCUS_COLOR})`,
   },
   '&&:hover, &&:active, a&&:hover, a&&:active': {
     textDecoration: 'underline',
+  },
+  '&&:hover': {
+    backgroundColor: `var(${VAR_BG_COLOR_HOVER})`,
+  },
+  '&&:active': {
+    backgroundColor: `var(${VAR_BG_COLOR_ACTIVE})`,
   },
 });
 
@@ -81,9 +94,11 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
           key={index}
           style={
             {
-              '--color': actionTextColor[appearance],
-              '--bg-color': actionBackgroundColor[appearance],
-              '--focus-color': flagFocusRingColor[appearance],
+              [VAR_COLOR]: actionTextColor[appearance],
+              [VAR_BG_COLOR]: actionBackgroundColor[appearance].default,
+              [VAR_BG_COLOR_HOVER]: actionBackgroundColor[appearance].pressed,
+              [VAR_BG_COLOR_ACTIVE]: actionBackgroundColor[appearance].active,
+              [VAR_FOCUS_COLOR]: flagFocusRingColor[appearance],
             } as CSSProperties
           }
           css={[

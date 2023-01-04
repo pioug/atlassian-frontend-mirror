@@ -166,6 +166,7 @@ export const getSchemaBasedOnStage = (stage = 'final') => {
     };
     defaultSchemaConfig.nodes.push('mediaInline');
   }
+
   return createSchema(defaultSchemaConfig);
 };
 

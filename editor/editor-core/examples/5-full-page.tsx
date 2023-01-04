@@ -408,13 +408,6 @@ export class ExampleEditorComponent extends React.Component<
                 }}
                 allowHelpDialog
                 placeholder="Use markdown shortcuts to format your page as you type, like * for lists, # for headers, and *** for a horizontal rule."
-                placeholderHints={[
-                  "Type '/' to insert content.",
-                  "Type ':' to insert an emoji.",
-                  "Type '@' to insert a mention.",
-                  "We added more background colors to tables cells. Try it, type '/tables'.",
-                  "Do you need more help? Type '/help'",
-                ]}
                 placeholderBracketHint="Did you mean to use '/' to insert content?"
                 shouldFocus={true}
                 disabled={this.state.disabled}
@@ -747,7 +740,6 @@ export function FullPageExample(props: ExampleProps) {
     stickyHeadersOptimization: true,
     tableOverflowShadowsOptimization: true,
     maxUnsafeChromeSpellcheckingVersion: 100,
-    'view-changing-experiment-toolbar-style': 'newDropdown',
   };
 
   const featureFlags =

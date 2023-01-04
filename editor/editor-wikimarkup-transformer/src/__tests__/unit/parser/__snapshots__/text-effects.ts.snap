@@ -80,6 +80,9 @@ exports[`JIRA wiki markup - Text effects ADFEXP-38 ordered list should not conta
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [

@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/editor-shared-styles"
 
@@ -286,9 +286,13 @@ export const hideNativeBrowserTextSelectionStyles =
 export const overflowShadow: ({
   background,
   width,
+  leftCoverWidth,
+  rightCoverWidth,
 }: {
   background: string;
-  width: string;
+  width?: string | undefined;
+  leftCoverWidth?: string | undefined;
+  rightCoverWidth?: string | undefined;
 }) => SerializedStyles;
 
 // @public (undocumented)

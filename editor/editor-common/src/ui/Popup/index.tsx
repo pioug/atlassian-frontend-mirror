@@ -1,5 +1,6 @@
 import React from 'react';
 
+import createFocusTrap, { FocusTrap } from 'focus-trap';
 import rafSchedule from 'raf-schd';
 import { createPortal } from 'react-dom';
 
@@ -35,6 +36,9 @@ export interface Props {
   allowOutOfBounds?: boolean; // Allow to correct position elements inside table: https://product-fabric.atlassian.net/browse/ED-7191
   rect?: DOMRect;
   style?: React.CSSProperties;
+  /** Enable focus trap to contain the user's focus within the popup */
+  focusTrap?: boolean;
+  preventOverflow?: boolean;
 }
 
 export interface State {
@@ -58,6 +62,11 @@ export default class Popup extends React.Component<Props, State> {
     validPosition: true,
   };
 
+  private popupRef: React.MutableRefObject<HTMLElement | null> =
+    React.createRef<HTMLDivElement>();
+
+  private focusTrap?: FocusTrap;
+
   private placement: [string, string] = ['', ''];
 
   /**
@@ -78,6 +87,7 @@ export default class Popup extends React.Component<Props, State> {
       forcePlacement,
       allowOutOfBounds,
       rect,
+      preventOverflow,
     } = props;
 
     if (!target || !popup) {
@@ -92,6 +102,7 @@ export default class Popup extends React.Component<Props, State> {
       alignX,
       alignY,
       forcePlacement,
+      preventOverflow,
     );
 
     if (onPlacementChanged && this.placement.join('') !== placement.join('')) {
@@ -156,6 +167,8 @@ export default class Popup extends React.Component<Props, State> {
    * Checks whether it's possible to position popup along given target, and if it's not throws an error.
    */
   private initPopup(popup: HTMLElement) {
+    this.popupRef.current = popup;
+
     const { target } = this.props;
     const overflowScrollParent = findOverflowScrollParent(popup);
 
@@ -178,6 +191,10 @@ export default class Popup extends React.Component<Props, State> {
      * which is currently working for most of the floating toolbar and other popups.
      */
     this.scheduledUpdatePosition(this.props);
+
+    if (this.props.focusTrap) {
+      this.initFocusTrap();
+    }
   }
 
   private handleRef = (popup: HTMLDivElement) => {
@@ -205,6 +222,60 @@ export default class Popup extends React.Component<Props, State> {
         this.scheduledUpdatePosition(this.props);
       })
     : undefined;
+
+  /**
+   * Raf scheduled so that it also occurs after the initial update position
+   */
+  private initFocusTrap = rafSchedule(() => {
+    const popup = this.popupRef.current;
+    if (!popup) {
+      return;
+    }
+
+    const trapConfig = {
+      clickOutsideDeactivates: true,
+      escapeDeactivates: true,
+      initialFocus: popup,
+      fallbackFocus: popup,
+      returnFocusOnDeactivate: false,
+    };
+
+    this.focusTrap = createFocusTrap(popup, trapConfig);
+    this.focusTrap.activate();
+  });
+
+  /**
+   * Cancels the initialisation of the focus trap if it has not yet occured
+   * Deactivates the focus trap if it exists
+   */
+  private destroyFocusTrap() {
+    this.initFocusTrap.cancel();
+    this.focusTrap?.deactivate();
+  }
+
+  /**
+   * Handle pausing, unpausing, and initialising (if not yet initialised) of the focus trap
+   */
+  handleChangedFocusTrapProp(prevProps: Props) {
+    if (prevProps.focusTrap !== this.props.focusTrap) {
+      // If currently set to disable, then pause the trap if it exists
+      if (!this.props.focusTrap) {
+        return this.focusTrap?.pause();
+      }
+
+      // If set to enabled and trap already exists, unpause
+      if (this.focusTrap) {
+        this.focusTrap.unpause();
+      }
+
+      // Else initialise the focus trap
+      return this.initFocusTrap();
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    this.handleChangedFocusTrapProp(prevProps);
+  }
 
   componentDidMount() {
     window.addEventListener('resize', this.onResize);
@@ -235,6 +306,8 @@ export default class Popup extends React.Component<Props, State> {
       this.resizeObserver.unobserve(this.scrollParentElement);
     }
     this.scheduledUpdatePosition.cancel();
+
+    this.destroyFocusTrap();
   }
 
   private renderPopup() {

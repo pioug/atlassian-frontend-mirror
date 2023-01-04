@@ -28,7 +28,7 @@ export default function CustomEllipsisExample() {
             key={key}
             aria-label="expand"
           >
-            ···
+            &hellip;
           </Button>
         )}
         max={maxPageSize}

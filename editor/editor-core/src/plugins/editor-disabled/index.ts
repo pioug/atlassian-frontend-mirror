@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Dispatch } from '../../event-dispatcher';
 
 import { pluginFactory } from '../../utils/plugin-state-factory';
@@ -48,7 +48,7 @@ export function createPlugin(
   });
 }
 
-const editorDisabledPlugin = (): EditorPlugin => ({
+const editorDisabledPlugin: NextEditorPlugin<'editorDisabled'> = () => ({
   name: 'editorDisabled',
 
   pmPlugins: () => [

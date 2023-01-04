@@ -87,8 +87,8 @@ export function useMobilePreset({
   // Begin -> This would be exclude if the provider doesnt exist in the factory
   preset.add(tasksAndDecisionsPlugin);
   preset.add([cardPlugin, { allowBlockCards: true, platform: 'mobile' }]);
-  preset.add([mentionsPlugin]);
-  preset.add([emojiPlugin]);
+  preset.add(mentionsPlugin);
+  preset.add(emojiPlugin);
   // End
 
   if (maxContentSize) {

@@ -3,6 +3,7 @@ import { Node as PMNode } from 'prosemirror-model';
 import { uuid } from '@atlaskit/adf-schema';
 import { bitbucketSchema } from '@atlaskit/adf-schema/schema-bitbucket';
 import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
+import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
 import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -24,6 +25,7 @@ import {
   emoji,
   expand,
   extension,
+  fragmentMark,
   h1,
   h2,
   h3,
@@ -57,7 +59,12 @@ import {
 import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
-import { JSONDocNode, JSONNode, JSONTransformer } from '../../index';
+import {
+  JSONDocNode,
+  JSONNode,
+  JSONTransformer,
+  SchemaStage,
+} from '../../index';
 import * as markOverride from '../../markOverrideRules';
 import { sanitizeNode } from '../../sanitize/sanitize-node';
 
@@ -87,6 +94,8 @@ describe('JSONTransformer:', () => {
     uuid.setStatic(false);
   });
 
+  afterEach(jest.clearAllMocks);
+
   describe('encode', () => {
     const editor = (
       doc: DocBuilder,
@@ -109,6 +118,9 @@ describe('JSONTransformer:', () => {
           allowRule: true,
           allowTables: true,
           allowExpand: true,
+          featureFlags: {
+            restartNumberedLists: true,
+          },
           ...(options?.editorProps || {}),
         },
         providerFactory: ProviderFactory.create({ emojiProvider }),
@@ -201,7 +213,7 @@ describe('JSONTransformer:', () => {
             textColor({ color: 'red' })('Red :D'),
           ),
           ul(li(p('ichi')), li(p('ni')), li(p('san'))),
-          ol(li(p('ek')), li(p('dui')), li(p('tin'))),
+          ol()(li(p('ek')), li(p('dui')), li(p('tin'))),
           blockquote(p('1')),
           h1('H1'),
           h2('H2'),
@@ -213,6 +225,7 @@ describe('JSONTransformer:', () => {
           panel()(p('hello from panel')),
           panelNote(p('hello from note panel')),
           hr(),
+          ol({ order: 6 })(li(p('One')), li(p('Two')), li(p('Three'))),
         ),
       );
       const pmDoc = editorView.state.doc;
@@ -1725,7 +1738,7 @@ describe('JSONTransformer:', () => {
     });
 
     describe('data consumer mark', () => {
-      it(`shouldn't drop data consumer mark with sources`, () => {
+      it("shouldn't drop data consumer mark with sources", () => {
         const { editorView } = editor(
           doc(
             dataConsumer({
@@ -1782,6 +1795,65 @@ describe('JSONTransformer:', () => {
         expect(marks).toBeUndefined();
       });
     });
+
+    describe('ProseMirror schema version', () => {
+      it('should be able to encode a document with stage-0 features', () => {
+        const stage0Schema = AdfSchemaDefault.getSchemaBasedOnStage('stage0');
+        const pmDoc = doc(
+          p(
+            fragmentMark({
+              localId: '6d9e04f9-7c77-4313-93a7-62c9612e94b1',
+            })('lol'),
+          ),
+        )(stage0Schema);
+        const adf: JSONDocNode = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'lol',
+                  marks: [
+                    {
+                      type: 'fragment',
+                      attrs: {
+                        localId: '6d9e04f9-7c77-4313-93a7-62c9612e94b1',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(pmDoc)).toEqual(adf);
+      });
+
+      it('should be able to encode a document with final / default schema features', () => {
+        const pmDoc = doc(p('lol'))(AdfSchemaDefault.defaultSchema);
+        const adf: JSONDocNode = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'lol',
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(toJSON(pmDoc)).toEqual(adf);
+      });
+    });
   });
 
   describe('parse', () => {
@@ -1827,6 +1899,100 @@ describe('JSONTransformer:', () => {
         ],
       };
       expect(parseJSON(adf)).toEqualDocument(doc(p('hello')));
+    });
+
+    describe('ProseMirror schema version', () => {
+      let getSchemaBasedOnStageSpy: jest.SpyInstance;
+      beforeEach(() => {
+        getSchemaBasedOnStageSpy = jest.spyOn(
+          AdfSchemaDefault,
+          'getSchemaBasedOnStage',
+        );
+      });
+
+      it('should use the stage-0 schema if passed', () => {
+        const adf: JSONDocNode = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'lol',
+                  marks: [
+                    {
+                      type: 'fragment',
+                      attrs: {
+                        localId: '6d9e04f9-7c77-4313-93a7-62c9612e94b1',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(transformer.parse(adf, SchemaStage.STAGE_0)).toEqualDocument(
+          doc(
+            p(
+              fragmentMark({ localId: '6d9e04f9-7c77-4313-93a7-62c9612e94b1' })(
+                'lol',
+              ),
+            ),
+          ),
+        );
+        expect(getSchemaBasedOnStageSpy).toBeCalledTimes(1);
+        expect(getSchemaBasedOnStageSpy).toBeCalledWith('stage0');
+      });
+
+      it('should use the final / default schema if passed', () => {
+        const adf: JSONDocNode = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'hello',
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(transformer.parse(adf, SchemaStage.FINAL)).toEqualDocument(
+          doc(p('hello')),
+        );
+        expect(getSchemaBasedOnStageSpy).toBeCalledTimes(1);
+        expect(getSchemaBasedOnStageSpy).toBeCalledWith('final');
+      });
+
+      it('should use the final / default schema when nothing is passed', () => {
+        const adf: JSONDocNode = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'hello',
+                },
+              ],
+            },
+          ],
+        };
+
+        expect(transformer.parse(adf)).toEqualDocument(doc(p('hello')));
+        expect(getSchemaBasedOnStageSpy).toBeCalledTimes(1);
+        expect(getSchemaBasedOnStageSpy).toBeCalledWith('final');
+      });
     });
   });
 

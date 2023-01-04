@@ -328,7 +328,39 @@ describe('BitbucketTransformer: parser', () => {
     it('that are ordered should be parsed', () => {
       expect(
         parse('<ol>' + '<li>foo</li>' + '<li>bar</li>' + '</ol>'),
-      ).toEqualDocument(doc(ol(li(p('foo')), li(p('bar')))));
+      ).toEqualDocument(doc(ol()(li(p('foo')), li(p('bar')))));
+    });
+
+    describe('custom start numbers (restartNumberedLists)', () => {
+      it('that are ordered starting from 99 should be parsed (start from 99)', () => {
+        expect(
+          parse('<ol start="99">' + '<li>foo</li>' + '<li>bar</li>' + '</ol>'),
+        ).toEqualDocument(doc(ol({ order: 99 })(li(p('foo')), li(p('bar')))));
+      });
+
+      it('that are ordered starting from 0 should be parsed (start from 0)', () => {
+        expect(
+          parse('<ol start="0">' + '<li>foo</li>' + '<li>bar</li>' + '</ol>'),
+        ).toEqualDocument(doc(ol({ order: 0 })(li(p('foo')), li(p('bar')))));
+      });
+
+      it('that are ordered starting from 1 should be parsed (start from 1)', () => {
+        expect(
+          parse('<ol start="1">' + '<li>foo</li>' + '<li>bar</li>' + '</ol>'),
+        ).toEqualDocument(doc(ol({ order: 1 })(li(p('foo')), li(p('bar')))));
+      });
+
+      it('that are ordered starting from -2 should be parsed (start from 1)', () => {
+        expect(
+          parse('<ol start="-2">' + '<li>foo</li>' + '<li>bar</li>' + '</ol>'),
+        ).toEqualDocument(doc(ol({ order: 1 })(li(p('foo')), li(p('bar')))));
+      });
+
+      it('that are ordered starting from 2.9 should be parsed (round down to 2)', () => {
+        expect(
+          parse('<ol start="2.9">' + '<li>foo</li>' + '<li>bar</li>' + '</ol>'),
+        ).toEqualDocument(doc(ol({ order: 2 })(li(p('foo')), li(p('bar')))));
+      });
     });
 
     it('that are nested and homogeneous should be parsed', () => {
@@ -343,7 +375,9 @@ describe('BitbucketTransformer: parser', () => {
             '</li>' +
             '</ol>',
         ),
-      ).toEqualDocument(doc(ol(li(p('foo')), li(p('bar'), ol(li(p('baz')))))));
+      ).toEqualDocument(
+        doc(ol()(li(p('foo')), li(p('bar'), ol()(li(p('baz')))))),
+      );
 
       expect(
         parse(
@@ -371,7 +405,9 @@ describe('BitbucketTransformer: parser', () => {
             '</li>' +
             '</ul>',
         ),
-      ).toEqualDocument(doc(ul(li(p('foo')), li(p('bar'), ol(li(p('baz')))))));
+      ).toEqualDocument(
+        doc(ul(li(p('foo')), li(p('bar'), ol()(li(p('baz')))))),
+      );
     });
 
     it('with multiple paragraphs should be parsed', () => {
@@ -389,7 +425,7 @@ describe('BitbucketTransformer: parser', () => {
             '</ul>',
         ),
       ).toEqualDocument(
-        doc(ul(li(p('foo'), p('bar'), ol(li(p('nested foo'))), p('baz')))),
+        doc(ul(li(p('foo'), p('bar'), ol()(li(p('nested foo'))), p('baz')))),
       );
     });
   });

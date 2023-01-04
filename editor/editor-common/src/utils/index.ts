@@ -146,6 +146,18 @@ export { useComponentRenderTracking } from './performance/hooks/use-component-re
 export type { UseComponentRenderTrackingArgs } from './performance/hooks/use-component-render-tracking';
 export { isOutdatedBrowser } from './outdated-browsers';
 
-export { isReferencedSource } from './referentiality';
+export {
+  isReferencedSource,
+  removeConnectedNodes,
+  getChildrenInfo,
+  getNodeName,
+} from './referentiality';
 
 export { sendLogs } from './sendLogs';
+
+export { Builder } from './builder';
+export {
+  getItemCounterDigitsSize,
+  getOrderFromOrderedListNode,
+  resolveOrder,
+} from './list';

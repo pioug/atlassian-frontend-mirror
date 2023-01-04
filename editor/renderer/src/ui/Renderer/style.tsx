@@ -38,6 +38,7 @@ import {
 } from '@atlaskit/editor-common/styles';
 
 import { shadowClassNames } from '@atlaskit/editor-common/ui';
+
 import { browser } from '@atlaskit/editor-common/utils';
 import {
   editorFontSize,

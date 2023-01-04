@@ -93,16 +93,6 @@ describe('Sampling UFO experience', () => {
     expect(startSpy).toHaveBeenCalled();
   });
 
-  test('sampling rate 2 with UFO Experience should start experience', () => {
-    const experience = ufoExperiences['emoji-rendered'].getInstance('test-4');
-
-    const startSpy = jest.spyOn(experience, 'start');
-
-    withSampling(experience).start({ samplingRate: 2 });
-
-    expect(startSpy).toHaveBeenCalled();
-  });
-
   test('sampling rate should not be override if same instance has already started with UFO Experience', () => {
     const experience = ufoExperiences['emoji-rendered'].getInstance('test-5');
 

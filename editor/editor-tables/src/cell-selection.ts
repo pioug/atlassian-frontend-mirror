@@ -257,8 +257,30 @@ export class CellSelection extends Selection {
       return false;
     }
 
-    const map = TableMap.get(this.$anchorCell.node(-1));
     const start = this.$anchorCell.start(-1);
+    const map = TableMap.get(this.$anchorCell.node(-1));
+    const rowAtAnchorCell = map.rowCount(this.$anchorCell.pos - start);
+    const rowAtHeadCell = map.rowCount(this.$headCell.pos - start);
+    const isSelectionSameRow = rowAtAnchorCell === rowAtHeadCell;
+
+    // if anchor and head in the same line, counting how many cells
+    // should be in the row except merged cell
+    let maxColumnInSelectedRow = map.getMaxColInRow(this.$anchorCell);
+
+    // if selected cells less than table max column amount, and
+    // the anchor/head not in a merged cell
+    // it should be select maxColumnInSelectedRow to be TRUE
+    if (
+      isSelectionSameRow &&
+      this.ranges.length <= map.width &&
+      !map.isPosMerged(this.$anchorCell.pos - start) &&
+      !map.isPosMerged(this.$headCell.pos - start)
+    ) {
+      return this.ranges.length === maxColumnInSelectedRow;
+    }
+
+    // If anchor and head in different row, it should be always in first and
+    // last column to select the whole row.
     const anchorLeft = map.colCount(this.$anchorCell.pos - start);
     const headLeft = map.colCount(this.$headCell.pos - start);
     if (Math.min(anchorLeft, headLeft) > 0) {

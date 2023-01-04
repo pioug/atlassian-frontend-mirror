@@ -18,7 +18,7 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 
 import WithPluginState from '../../ui/WithPluginState';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Dispatch } from '../../event-dispatcher';
 import {
   DispatchAnalyticsEvent,
@@ -154,7 +154,7 @@ function filterUndefined<T>(x?: T): x is T {
   return !!x;
 }
 
-const floatingToolbarPlugin = (): EditorPlugin => ({
+const floatingToolbarPlugin: NextEditorPlugin<'floatingToolbar'> = () => ({
   name: 'floatingToolbar',
 
   pmPlugins(floatingToolbarHandlers: Array<FloatingToolbarHandler> = []) {
@@ -222,7 +222,9 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
             zIndex,
             offset = [0, 12],
             forcePlacement,
+            preventPopupOverflow,
             onPositionCalculated,
+            focusTrap,
           } = config;
           const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
 
@@ -259,6 +261,11 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
             getFeatureFlags(editorView.state).floatingToolbarCopyButton &&
             config.scrollable;
 
+          const confirmDialogOptions =
+            typeof confirmButtonItem?.confirmDialog === 'function'
+              ? confirmButtonItem?.confirmDialog()
+              : confirmButtonItem?.confirmDialog;
+
           return (
             <ErrorBoundary
               component={ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN}
@@ -282,6 +289,8 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
                 scrollableElement={popupsScrollableElement}
                 onPositionCalculated={customPositionCalculation}
                 style={scrollable ? { maxWidth: '100%' } : {}}
+                focusTrap={focusTrap}
+                preventOverflow={preventPopupOverflow}
               >
                 <ToolbarLoader
                   target={targetRef}
@@ -302,12 +311,15 @@ const floatingToolbarPlugin = (): EditorPlugin => ({
               </Popup>
 
               <ConfirmationModal
-                options={confirmButtonItem?.confirmDialog}
-                onConfirm={() => {
-                  dispatchCommand(confirmButtonItem!.onClick);
+                options={confirmDialogOptions}
+                onConfirm={(isChecked = false) => {
+                  if (!!confirmDialogOptions!.onConfirm) {
+                    dispatchCommand(confirmDialogOptions!.onConfirm(isChecked));
+                  } else {
+                    dispatchCommand(confirmButtonItem!.onClick);
+                  }
                   dispatchCommand(hideConfirmDialog());
-                }}
-                // When closed without clicking OK or cancel buttons
+                }} // When closed without clicking OK or cancel buttons
                 onClose={() => {
                   dispatchCommand(hideConfirmDialog());
                 }}

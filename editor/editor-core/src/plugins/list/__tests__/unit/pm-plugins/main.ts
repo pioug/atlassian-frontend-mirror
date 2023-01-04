@@ -8,13 +8,13 @@ describe('lists', () => {
       const state = createEditorState(
         // prettier-ignore
         doc(
-        ol(
+        ol()(
           li(
             p('A'),
             ul(
               li(
                 p('B'),
-                ol(
+                ol()(
                   li(
                     p('C'),
                     ul(
@@ -33,7 +33,7 @@ describe('lists', () => {
       ),
       );
 
-      const decorations = getDecorations(state.doc).find();
+      const decorations = getDecorations(state.doc, state).find();
       expect(decorations).toHaveLength(4); // one for each level of indentation
 
       const decorationAttrs = decorations.map(
@@ -48,16 +48,16 @@ describe('lists', () => {
       const state = createEditorState(
         // prettier-ignore
         doc(
-        ol(
+        ol()(
           li(
             p('A'),
-            ol(
+            ol()(
               li(
                 p('B'),
-                ol(
+                ol()(
                   li(
                     p('C'),
-                    ol(
+                    ol()(
                       li(
                         p('D')
                       )
@@ -71,12 +71,12 @@ describe('lists', () => {
           li(p('A')),
         ),
         p(''),
-        ol(li(p('A')))
+        ol()(li(p('A')))
       ),
       );
 
       const firstOuterListNode = state.doc.nodeAt(0)!;
-      const secondOuterListDecoration = getDecorations(state.doc).find(
+      const secondOuterListDecoration = getDecorations(state.doc, state).find(
         firstOuterListNode.nodeSize + 1,
       );
       expect(secondOuterListDecoration).toHaveLength(1);
@@ -93,7 +93,7 @@ describe('lists', () => {
         ul(
           li(p('A')),
         ),
-        ol(
+        ol()(
           li(p('B')),
         ),
         ul(
@@ -102,7 +102,7 @@ describe('lists', () => {
       ),
       );
 
-      const decorations = getDecorations(state.doc).find();
+      const decorations = getDecorations(state.doc, state).find();
       expect(decorations).toHaveLength(3);
 
       decorations.forEach((decoration) => {
@@ -123,14 +123,14 @@ describe('lists', () => {
             ),
           ),
         ),
-        ol(
+        ol()(
           li(p('C')),
         ),
       ),
       );
 
       const firstOuterListNode = state.doc.nodeAt(0)!;
-      const secondOuterListDecoration = getDecorations(state.doc).find(
+      const secondOuterListDecoration = getDecorations(state.doc, state).find(
         firstOuterListNode.nodeSize + 1,
       );
       expect(secondOuterListDecoration).toHaveLength(1);

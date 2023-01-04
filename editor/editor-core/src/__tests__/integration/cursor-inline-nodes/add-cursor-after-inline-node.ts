@@ -2,8 +2,8 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { Node as PMNode } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import {
-  editable,
   expectToMatchSelection,
+  setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 
 import {
@@ -13,7 +13,6 @@ import {
 import {
   selectors,
   getDocFromElement,
-  getBoundingRect,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   animationFrame,
@@ -22,10 +21,16 @@ import {
 
 import { adfs } from './__fixtures__/inline-nodes';
 
+interface nodePositions {
+  anchor: number;
+  head: number;
+}
+
 const testIt = async (
   client: any,
   testName: string,
   inlineNodeType: string,
+  nodePositions: nodePositions,
 ) => {
   const page = await goToEditorTestingWDExample(client);
   await mountEditor(page, {
@@ -37,15 +42,11 @@ const testIt = async (
   const FIRST_LIST_ITEM = '.ProseMirror ul li:nth-child(1)';
   await page.waitForSelector(FIRST_LIST_ITEM);
 
-  // Get the first task item with the status node
-  const bounds = await getBoundingRect(page, FIRST_LIST_ITEM);
+  await setProseMirrorTextSelection(page, {
+    anchor: nodePositions.anchor,
+    head: nodePositions.head,
+  });
 
-  // Click after the inline node
-  const x = Math.ceil(bounds.width / 2) + 1;
-  const y = 1;
-
-  await page.moveTo(FIRST_LIST_ITEM, x, y);
-  await page.click();
   await page.keys('Backspace');
 
   await animationFrame(page);
@@ -67,7 +68,8 @@ const testIt = async (
 const testSelectLineOfInlineNodes = async (
   client: any,
   testName: string,
-  modifierKey: any,
+  selectionKey: any,
+  nodePositions: nodePositions,
 ) => {
   const page = await goToEditorTestingWDExample(client);
   await mountEditor(page, {
@@ -75,28 +77,21 @@ const testSelectLineOfInlineNodes = async (
     defaultValue: adfs['multipleMentions'],
   });
 
-  await page.click(editable);
-
   const FIRST_PARAGRAPH = '.ProseMirror p:nth-child(1)';
   await page.waitForSelector(FIRST_PARAGRAPH);
 
-  // Get the first task item with the status node
-  const bounds = await getBoundingRect(page, FIRST_PARAGRAPH);
+  await setProseMirrorTextSelection(page, {
+    anchor: nodePositions.anchor,
+    head: nodePositions.head,
+  });
 
-  // Click after the inline node
-  const x = Math.ceil(bounds.width * 0.9) + 1;
-  const y = 1;
-
-  await page.moveTo(FIRST_PARAGRAPH, x, y);
-  await page.click();
-
-  await page.keyboard.type('ArrowLeft', [modifierKey, 'Shift']);
+  await page.selectInDirection(selectionKey);
 
   // @ts-ignore
   await expectToMatchSelection(page, {
     type: 'text',
-    anchor: 1,
-    head: 4,
+    anchor: 4,
+    head: 1,
   });
 };
 
@@ -104,43 +99,68 @@ BrowserTestCase(
   'when the cursor is at the end of the status and backspace is pressed the inline node should be deleted',
   { skip: [] },
   async (client: any, testName: string) => {
-    testIt(client, testName, 'status');
+    const nodePositions: nodePositions = {
+      anchor: 4,
+      head: 4,
+    };
+    await testIt(client, testName, 'status', nodePositions);
   },
 );
 BrowserTestCase(
   'when the cursor is at the end of the emoji and backspace is pressed the inline node should be deleted',
   { skip: [] },
   async (client: any, testName: string) => {
-    testIt(client, testName, 'emoji');
+    const nodePositions: nodePositions = {
+      anchor: 4,
+      head: 4,
+    };
+    await testIt(client, testName, 'emoji', nodePositions);
   },
 );
 BrowserTestCase(
   'when the cursor is at the end of the inlineExtension and backspace is pressed the inline node should be deleted',
   { skip: [] },
   async (client: any, testName: string) => {
-    testIt(client, testName, 'inlineExtension');
+    const nodePositions: nodePositions = {
+      anchor: 4,
+      head: 4,
+    };
+    await testIt(client, testName, 'inlineExtension', nodePositions);
   },
 );
 BrowserTestCase(
   'when the cursor is at the end of the mention and backspace is pressed the inline node should be deleted',
   { skip: [] },
   async (client: any, testName: string) => {
-    testIt(client, testName, 'mention');
+    const nodePositions: nodePositions = {
+      anchor: 4,
+      head: 4,
+    };
+    await testIt(client, testName, 'mention', nodePositions);
   },
 );
 BrowserTestCase(
   'when the cursor is at the end of the date and backspace is pressed the inline node should be deleted',
   { skip: [] },
   async (client: any, testName: string) => {
-    testIt(client, testName, 'date');
+    const nodePositions: nodePositions = {
+      anchor: 4,
+      head: 4,
+    };
+    await testIt(client, testName, 'date', nodePositions);
   },
 );
 
+//Windows shortcut ctrl + shift + arrow left doesn't work the same as it does on macOS, equivalent shortcut is ctrl + shift + home
 BrowserTestCase(
-  'when cmd + shift + left arrow is pressed after inline nodes, the whole line should be selected in Chrome, Edge & Firefox',
+  'when ctrl + shift + home is pressed after inline nodes, the whole line should be selected in Chrome, Edge & Firefox',
   { skip: ['safari'] },
   async (client: any, testName: string) => {
-    testSelectLineOfInlineNodes(client, testName, 'Control');
+    const nodePositions: nodePositions = {
+      anchor: 5,
+      head: 5,
+    };
+    await testSelectLineOfInlineNodes(client, testName, 'Home', nodePositions);
   },
 );
 
@@ -148,6 +168,15 @@ BrowserTestCase(
   'when cmd + shift + left arrow is pressed after inline nodes, the whole line should be selected in Safari',
   { skip: ['chrome', 'firefox'] },
   async (client: any, testName: string) => {
-    testSelectLineOfInlineNodes(client, testName, 'Command');
+    const nodePositions: nodePositions = {
+      anchor: 5,
+      head: 5,
+    };
+    await testSelectLineOfInlineNodes(
+      client,
+      testName,
+      'ArrowLeft',
+      nodePositions,
+    );
   },
 );

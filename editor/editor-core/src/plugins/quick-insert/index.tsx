@@ -10,7 +10,7 @@ import {
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 
 import { Dispatch } from '../../event-dispatcher';
-import { EditorPlugin, Command } from '../../types';
+import { NextEditorPlugin, Command } from '../../types';
 
 import { pluginKey } from './plugin-key';
 import { searchQuickInsertItems } from './search';
@@ -32,9 +32,11 @@ export type {
 };
 export { pluginKey };
 
-const quickInsertPlugin = (
-  options?: QuickInsertPluginOptions,
-): EditorPlugin => ({
+const quickInsertPlugin: NextEditorPlugin<
+  'quickInsert',
+  never,
+  QuickInsertPluginOptions | undefined
+> = (options?) => ({
   name: 'quickInsert',
 
   pmPlugins(quickInsert: Array<QuickInsertHandler>) {

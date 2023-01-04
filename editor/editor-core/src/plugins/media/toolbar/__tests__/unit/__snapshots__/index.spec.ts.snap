@@ -4,6 +4,7 @@ exports[`floatingToolbar() mediaGroup should not return media group items if all
 Array [
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.media.delete",
     "onBlur": [Function],
@@ -66,6 +67,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.media.delete",
     "onBlur": [Function],
@@ -128,6 +130,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.media.delete",
     "onBlur": [Function],

@@ -1168,69 +1168,6 @@ describe('card', () => {
           }),
         );
       });
-      it('feature flag should default to noChange if no value passed in', function () {
-        const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
-        );
-
-        setSelectedCardAppearance('block')(
-          editorView.state,
-          editorView.dispatch,
-        );
-
-        expect(createAnalyticsEvent).toBeCalledWith(
-          expect.objectContaining({
-            action: 'changedType',
-            attributes: expect.objectContaining({
-              featureFlag: 'noChange',
-            }),
-          }),
-        );
-      });
-      it('feature flag should be correctly passed to analytics event', function () {
-        editor = (doc: DocBuilder) => {
-          createAnalyticsEvent =
-            createAnalyticsEventMock() as unknown as CreateUIAnalyticsEvent;
-          const editorWrapper = createEditor({
-            doc,
-            editorProps: {
-              allowTables: {
-                advanced: true,
-              },
-              allowAnalyticsGASV3: true,
-              allowExtension: true,
-              allowPanel: true,
-              allowTasksAndDecisions: true,
-              smartLinks: {},
-              featureFlags: {
-                'view-changing-experiment-toolbar-style': 'meow',
-              },
-            },
-            createAnalyticsEvent,
-            pluginKey,
-          });
-          (createAnalyticsEvent as any).mockClear();
-          return editorWrapper;
-        };
-        asMock(shouldReplaceLink).mockReturnValue(true);
-        const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
-        );
-
-        setSelectedCardAppearance('block')(
-          editorView.state,
-          editorView.dispatch,
-        );
-
-        expect(createAnalyticsEvent).toBeCalledWith(
-          expect.objectContaining({
-            action: 'changedType',
-            attributes: expect.objectContaining({
-              featureFlag: 'meow',
-            }),
-          }),
-        );
-      });
     });
   });
 });

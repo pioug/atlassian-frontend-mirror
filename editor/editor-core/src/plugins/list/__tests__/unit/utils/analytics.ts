@@ -154,11 +154,11 @@ describe('utils', () => {
         li(p('B')),
       ),
       p('--'),
-      ol(
+      ol()(
         li(p('Z1')),
         li(
           p('Z2'),
-          ol(
+          ol()(
             li(p('Y1')),
           )
         ),

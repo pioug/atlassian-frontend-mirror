@@ -121,10 +121,10 @@ describe.skip('WikiMarkup Transformer', () => {
       defaultSchema,
       WIKI_NOTATION,
       doc(
-        ol(
-          li(p('two'), ol(li(p('two-one')), li(p('two-two')))),
+        ol()(
+          li(p('two'), ol()(li(p('two-one')), li(p('two-two')))),
           li(p('three')),
-          li(p('four'), ol(li(p('four-one')))),
+          li(p('four'), ol()(li(p('four-one')))),
         ),
       ),
     );
@@ -229,7 +229,7 @@ describe.skip('WikiMarkup Transformer', () => {
       WIKI_NOTATION,
       doc(
         p('Just a list:'),
-        ol(
+        ol()(
           li(p('first item')),
           li(
             p('second item'),
@@ -266,8 +266,8 @@ describe.skip('WikiMarkup Transformer', () => {
       WIKI_NOTATION,
       doc(
         p('Just a list:'),
-        ol(
-          li(p('one'), ol(li(p('two')), li(p('three'))), ul(li(p('four')))),
+        ol()(
+          li(p('one'), ol()(li(p('two')), li(p('three'))), ul(li(p('four')))),
           li(p('five')),
         ),
       ),
@@ -283,7 +283,7 @@ describe.skip('WikiMarkup Transformer', () => {
       WIKI_NOTATION,
       defaultSchema,
       WIKI_NOTATION,
-      doc(ol(li(p('foo'), ul(li(ul(li(ul(li(p('bar')))))))), li(p('baz')))),
+      doc(ol()(li(p('foo'), ul(li(ul(li(ul(li(p('bar')))))))), li(p('baz')))),
     );
   });
 
@@ -398,7 +398,7 @@ and the third section
       WIKI_NOTATION,
       doc(
         h2('Just a list here'),
-        ol(
+        ol()(
           li(p('item one ', code('a preformatted *block* and more'))),
           li(p('second item')),
           li(
@@ -424,7 +424,7 @@ and the third section
       defaultSchema,
       WIKI_NOTATION,
       doc(
-        ol(
+        ol()(
           li(p('Just')),
           li(p('Some')),
           li(p(link({ href: 'http://www.yahoo.com' })('link to yahoo'))),
@@ -453,12 +453,12 @@ and the third section
       defaultSchema,
       WIKI_NOTATION,
       doc(
-        ol(
+        ol()(
           li(p('List item one')),
           li(p('List item two')),
           li(
             p('List item three'),
-            ol(
+            ol()(
               li(p('List item two')),
               li(p('List item three')),
               li(p('List item four')),
@@ -480,7 +480,7 @@ and the third section
       defaultSchema,
       WIKI_NOTATION,
       doc(
-        ol(
+        ol()(
           li(
             p(
               'Follow these instructions and then click ',

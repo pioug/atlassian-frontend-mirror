@@ -142,24 +142,39 @@ const applyMarkOnRange = (
   return tr;
 };
 
+const entireSelectionContainsMark = (
+  mark: Mark,
+  doc: PMNode,
+  fromPos: number,
+  toPos: number,
+) => {
+  let onlyContainsMark = true;
+
+  doc.nodesBetween(fromPos, toPos, (node) => {
+    // Skip recursion once we've found text which doesn't include the mark
+    if (!onlyContainsMark) {
+      return false;
+    }
+    if (node.isText) {
+      onlyContainsMark &&= mark.isInSet(node.marks);
+    }
+  });
+  return onlyContainsMark;
+};
+
 const toggleMarkInRange =
   (mark: Mark): Command =>
   (state, dispatch) => {
     const tr = state.tr;
     if (state.selection instanceof CellSelection) {
-      let markInRange = false;
+      let removeMark = true;
       const cells: { node: PMNode; pos: number }[] = [];
       state.selection.forEachCell((cell, cellPos) => {
         cells.push({ node: cell, pos: cellPos });
         const from = cellPos;
         const to = cellPos + cell.nodeSize;
-        if (!markInRange) {
-          markInRange = state.doc.rangeHasMark(
-            from,
-            to,
-            mark as unknown as MarkType,
-          );
-        }
+
+        removeMark &&= entireSelectionContainsMark(mark, state.doc, from, to);
       });
 
       for (let i = cells.length - 1; i >= 0; i--) {
@@ -167,22 +182,23 @@ const toggleMarkInRange =
         const from = cell.pos;
         const to = from + cell.node.nodeSize;
 
-        applyMarkOnRange(from, to, markInRange, mark, tr);
+        applyMarkOnRange(from, to, removeMark, mark, tr);
       }
     } else {
       const { $from, $to } = state.selection;
-      // The type for `rangeHasMark` only accepts a `MarkType` as a third param,
-      // Yet the internals use a method that exists on both MarkType and Mark (one checks attributes the other doesnt)
-      // For example, with our subsup mark: We use the same mark with different attributes to convert
-      // different formatting but when using `MarkType.isInSet(marks)` it returns true for both.
-      // Calling `Mark.isInSet(marks)` compares attributes as well.
-      const markInRange = state.doc.rangeHasMark(
+      // We decide to remove the mark only if the entire selection contains the mark
+      // Examples with *bold* text
+      // Scenario 1: Selection contains both bold and non-bold text -> bold entire selection
+      // Scenario 2: Selection contains only bold text -> un-bold entire selection
+      // Scenario 3: Selection contains no bold text -> bold entire selection
+      const removeMark = entireSelectionContainsMark(
+        mark,
+        state.doc,
         $from.pos,
         $to.pos,
-        mark as unknown as MarkType,
       );
 
-      applyMarkOnRange($from.pos, $to.pos, markInRange, mark, tr);
+      applyMarkOnRange($from.pos, $to.pos, removeMark, mark, tr);
     }
 
     if (tr.docChanged) {

@@ -51,6 +51,11 @@ const traceContext: MediaTraceContext = {
   spanId: 'some-span-Id',
 };
 
+const metadataTraceContext: MediaTraceContext = {
+  traceId: 'some-trace-Id',
+  spanId: 'some-span-Id',
+};
+
 describe('fireOperationalEvent', () => {
   beforeEach(() => {
     event.fire.mockClear();
@@ -66,6 +71,7 @@ describe('fireOperationalEvent', () => {
       ssrReliability,
       undefined,
       traceContext,
+      metadataTraceContext,
     );
 
     expect(getRenderFailedFileStatusPayload).toBeCalledWith(
@@ -73,6 +79,7 @@ describe('fireOperationalEvent', () => {
       performanceAttributes,
       ssrReliability,
       traceContext,
+      metadataTraceContext,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-failed-payload');
     expect(event.fire).toBeCalledTimes(1);
@@ -89,6 +96,7 @@ describe('fireOperationalEvent', () => {
       ssrReliability,
       error,
       traceContext,
+      metadataTraceContext,
     );
 
     expect(getRenderErrorEventPayload).toBeCalledWith(
@@ -97,6 +105,7 @@ describe('fireOperationalEvent', () => {
       error,
       ssrReliability,
       traceContext,
+      metadataTraceContext,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-error-payload');
     expect(event.fire).toBeCalledTimes(1);
@@ -112,6 +121,7 @@ describe('fireOperationalEvent', () => {
       ssrReliability,
       undefined,
       traceContext,
+      metadataTraceContext,
     );
 
     expect(getRenderErrorEventPayload).toBeCalledWith(
@@ -120,6 +130,7 @@ describe('fireOperationalEvent', () => {
       expect.any(Error),
       ssrReliability,
       traceContext,
+      metadataTraceContext,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-error-payload');
     expect(event.fire).toBeCalledTimes(1);
@@ -135,6 +146,7 @@ describe('fireOperationalEvent', () => {
       ssrReliability,
       undefined,
       traceContext,
+      metadataTraceContext,
     );
 
     expect(getRenderSucceededEventPayload).toBeCalledWith(
@@ -142,6 +154,7 @@ describe('fireOperationalEvent', () => {
       performanceAttributes,
       ssrReliability,
       traceContext,
+      metadataTraceContext,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-suceeded-payload');
     expect(event.fire).toBeCalledTimes(1);

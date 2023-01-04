@@ -14,14 +14,21 @@ import {
 
 export interface BrowserOwnProps {
   config: BrowserConfig;
+  /**
+   * when true, the dialog will show when the component is rendered
+   * (NOTE: without this value, no dialog will appear unless you use the **onBrowserFn** hook)
+   */
   isOpen?: boolean;
+  // Fires when browser dialog is closed.
   onClose?: () => void;
   /**
    * This prop will be mainly used for those contexts (like Editor) where there is no react lifecylce and we cannot rerender easily.
    * Otherwise, isOpen prop is preferred.
    */
   onBrowseFn?: (browse: () => void) => void;
+  // Provides a callback which can be used to manually cancel an upload if required
   onCancelFn?: (cancel: (uniqueIdentifier: string) => void) => void;
+  // You can pass a children factory in a shape of (browse) => React.ReactChild
   children?: (browse: () => void) => React.ReactChild;
 }
 
@@ -157,6 +164,7 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
     );
   }
 }
+export default BrowserBase;
 
 export const Browser = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),

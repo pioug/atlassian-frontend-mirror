@@ -28,14 +28,14 @@ describe('ADF => WikiMarkup - List', () => {
   });
 
   test('should convert orderedList node', () => {
-    const node = doc(ol(li(p('item 1')), li(p('item 2'))))(defaultSchema);
+    const node = doc(ol()(li(p('item 1')), li(p('item 2'))))(defaultSchema);
     expect(transformer.encode(node)).toMatchSnapshot();
   });
 
   test('should convert nested orderedList inside bulletList', () => {
     const node = doc(
       ul(
-        li(p('item 1'), ol(li(p('innner item 1')), li(p('innner item 2')))),
+        li(p('item 1'), ol()(li(p('innner item 1')), li(p('innner item 2')))),
         li(p('item 2')),
       ),
     )(defaultSchema);
@@ -44,7 +44,7 @@ describe('ADF => WikiMarkup - List', () => {
 
   test('should convert nested bulletList inside orderedList', () => {
     const node = doc(
-      ol(
+      ol()(
         li(p('item 1'), ul(li(p('innner item 1')), li(p('innner item 2')))),
         li(p('item 2')),
       ),

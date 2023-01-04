@@ -54,6 +54,9 @@ export default class Example extends React.PureComponent<
           allowTables={true}
           onChange={this.handleChangeInTheEditor}
           taskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}
+          featureFlags={{
+            'restart-numbered-lists': true,
+          }}
         />
         <div
           id="output"

@@ -229,7 +229,10 @@ describe('create-editor/error-boundary', () => {
 
   it('should not fail all active UFO experiences when an error is caught and ufo is not enabled', async () => {
     const { editorView } = createEditor({
-      preset: new Preset<LightEditorPlugin>().add([featureFlagsContextPlugin]),
+      preset: new Preset<LightEditorPlugin>().add([
+        featureFlagsContextPlugin,
+        {},
+      ]),
     });
     wrapper = shallow(
       <EditorErrorBoundary

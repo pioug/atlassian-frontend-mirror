@@ -1,18 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import Box from '@atlaskit/ds-explorations/box';
+import { token } from '@atlaskit/tokens';
 
 export interface NavigationHeaderProps {
   children: JSX.Element | JSX.Element[];
 }
-
-const navigationHeaderStyles = css({
-  paddingTop: gridSize() * 3,
-  paddingRight: gridSize(),
-  paddingBottom: gridSize(),
-  paddingLeft: gridSize(),
-});
 
 /**
  * __Navigation header__
@@ -25,9 +19,16 @@ const navigationHeaderStyles = css({
 const NavigationHeader = (props: NavigationHeaderProps) => {
   const { children } = props;
   return (
-    <div data-navheader css={navigationHeaderStyles}>
+    <Box
+      display="block"
+      data-navheader
+      padding="scale.100"
+      UNSAFE_style={{
+        paddingTop: token('spacing.scale.300', '24px'),
+      }}
+    >
       {children}
-    </div>
+    </Box>
   );
 };
 

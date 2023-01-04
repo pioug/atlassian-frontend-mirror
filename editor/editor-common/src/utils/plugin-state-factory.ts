@@ -68,6 +68,7 @@ export type Reducer<PluginState, Action> = (
 type MapState<PluginState> = (
   tr: ReadonlyTransaction,
   pluginState: PluginState,
+  editorState: EditorState,
 ) => PluginState;
 
 type SafePlugin<PluginState, Action, InitialState extends PluginState> = {
@@ -105,25 +106,31 @@ export function pluginFactory<
         init: (_, state) =>
           isFunction(initialState) ? initialState(state) : initialState,
 
-        apply: (tr, _pluginState) => {
-          const oldState = mapping ? mapping(tr, _pluginState) : _pluginState;
-          let newState = oldState;
+        apply: (tr, _pluginState, _oldEditorState, newEditorState) => {
+          const oldPluginState = mapping
+            ? mapping(tr, _pluginState, newEditorState)
+            : _pluginState;
+          let newPluginState = oldPluginState;
 
           const meta = tr.getMeta(pluginKey);
           if (meta) {
-            newState = reducer(oldState, meta);
+            newPluginState = reducer(oldPluginState, meta);
           }
 
           if (onDocChanged && tr.docChanged) {
-            newState = onDocChanged(tr, newState);
+            newPluginState = onDocChanged(tr, newPluginState, newEditorState);
           } else if (onSelectionChanged && tr.selectionSet) {
-            newState = onSelectionChanged(tr, newState);
+            newPluginState = onSelectionChanged(
+              tr,
+              newPluginState,
+              newEditorState,
+            );
           }
 
-          if (newState !== oldState) {
-            dispatch(pluginKey, newState);
+          if (newPluginState !== oldPluginState) {
+            dispatch(pluginKey, newPluginState);
           }
-          return newState;
+          return newPluginState;
         },
       };
     },

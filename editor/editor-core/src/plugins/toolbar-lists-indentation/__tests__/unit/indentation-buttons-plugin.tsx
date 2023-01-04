@@ -158,19 +158,21 @@ describe('Indentation buttons state', () => {
 
     describe('selection is in a list item that has been indented 6 times', () => {
       const listDoc = doc(
-        ol(
+        ol()(
           li(
             p('one'),
-            ol(
+            ol()(
               li(
                 p('two'),
-                ol(
+                ol()(
                   li(
                     p('three'),
-                    ol(
+                    ol()(
                       li(
                         p('four'),
-                        ol(li(p('five'), ol(li(p('six{<>}')), li(p('seven'))))),
+                        ol()(
+                          li(p('five'), ol()(li(p('six{<>}')), li(p('seven')))),
+                        ),
                       ),
                     ),
                   ),

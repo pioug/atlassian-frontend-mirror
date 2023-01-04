@@ -61,7 +61,7 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
     const editorTemp = createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([emojiPlugin])
+        .add([emojiPlugin, {}])
         .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
         .add(typeAheadPlugin)
         .add(blockTypePlugin)
@@ -504,7 +504,7 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
         initialDocument: p('1.{<>}'),
         text: ' ',
         expectedDocument: {
-          afterAutoformatting: ol(li(p(''))),
+          afterAutoformatting: ol()(li(p(''))),
           afterFirstUndo: p('1. '),
           afterSecondUndo: p('1.'),
         },
@@ -514,7 +514,7 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
         initialDocument: [p('Hello '), p('1.{<>}')],
         text: ' ',
         expectedDocument: {
-          afterAutoformatting: [p('Hello '), ol(li(p('')))],
+          afterAutoformatting: [p('Hello '), ol()(li(p('')))],
           afterFirstUndo: [p('Hello '), p('1. ')],
           afterSecondUndo: [p('Hello '), p('1.')],
         },
@@ -524,7 +524,7 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
         initialDocument: p('1.{<>}'),
         text: ' ',
         expectedDocument: {
-          afterAutoformatting: ol(li(p(''))),
+          afterAutoformatting: ol()(li(p(''))),
           afterFirstUndo: p('1. '),
           afterSecondUndo: p('1.'),
         },
@@ -534,7 +534,7 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
         initialDocument: [p('Hello '), p('1.{<>}')],
         text: ' ',
         expectedDocument: {
-          afterAutoformatting: [p('Hello '), ol(li(p('')))],
+          afterAutoformatting: [p('Hello '), ol()(li(p('')))],
           afterFirstUndo: [p('Hello '), p('1. ')],
           afterSecondUndo: [p('Hello '), p('1.')],
         },

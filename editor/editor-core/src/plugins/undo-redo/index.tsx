@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { EditorPlugin } from '../../types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { keymapPlugin } from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
 import { historyPluginKey } from '../history';
 import ToolbarUndoRedo from './ui/ToolbarUndoRedo';
 import WithPluginState from '../../ui/WithPluginState';
 
-const undoRedoPlugin = (): EditorPlugin => ({
+const undoRedoPlugin: NextEditorPlugin<'undoRedoPlugin'> = () => ({
   name: 'undoRedoPlugin',
 
   pmPlugins() {

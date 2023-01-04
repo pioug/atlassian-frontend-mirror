@@ -64,16 +64,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Whether placeholder hints were provided (`string[] => boolean`)
-   * Placeholder text values to display on new empty lines.
-   *
-   * @see https://product-fabric.atlassian.net/l/c/GG1Yv9cK
-   * @default false
-   */
-  placeholderHints?: boolean;
-
-  /**
-   * @description
    * Enable additional text colours within the colour palette.
    *
    * @see https://product-fabric.atlassian.net/l/c/YhyvfWqg
@@ -108,15 +98,6 @@ export type FeatureFlags = {
    */
   extensionLocalIdGeneration?: boolean;
 
-  /**
-   * @description
-   * Enable date picker which has a textbox for internationalised keyboard date
-   * input.
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-8928
-   * @default false
-   */
-  keyboardAccessibleDatepicker?: boolean;
   /**
    * @description
    * Enable add column custom step
@@ -295,14 +276,6 @@ export type FeatureFlags = {
   tableCellOptionsInFloatingToolbar?: boolean;
 
   /**
-   * Number to distinguish between which different toolbar is being displayed
-   * as part of the smart link view changing experiment run by the Linking Platform.
-   * @see https://product-fabric.atlassian.net/browse/EDM-2640
-   * @default null
-   */
-  viewChangingExperimentToolbarStyle?: string;
-
-  /**
    * @description
    * Enable display of a preview modal on mouse over of inline smart card
    *
@@ -362,6 +335,17 @@ export type FeatureFlags = {
 
   /**
    * @description
+   * Enables focus trap for the linking platform link picker
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone
+   * @see https://product-fabric.atlassian.net/browse/EDM-2577
+   * @see https://product-fabric.atlassian.net/browse/EDM-4919
+   * @default false
+   */
+  lpLinkPickerFocusTrap?: boolean;
+
+  /**
+   * @description
    * Show link settings button in the Floating toolbar
    *
    * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3199172609/POP+Some+users+need+to+work+with+URLs+to+get+their+job+done
@@ -399,6 +383,28 @@ export type FeatureFlags = {
    * @default false
    */
   restartNumberedListsToolbar?: boolean;
+
+  /**
+   * @description
+   * Show semantic text color names in tooltips when hovering over colors in the text color picker.
+   * Note that this flag is called 'somewhat semantic' as the text color names for white/dark gray
+   * colors are not semantic.
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3365994869/EXTERNAL+MAKE+PP+COMMIT-5058+Enable+dark+mode+usage+of+text+colors+in+UGC+and+non+custom+panels+in+Jira
+   * @see https://product-fabric.atlassian.net/browse/ED-16176
+   * @default false
+   */
+  useSomewhatSemanticTextColorNames?: boolean;
+
+  /**
+   * @description
+   * Force the Popup placement if the space does not accomodate the Popup fitHeight
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone
+   * @see https://product-fabric.atlassian.net/browse/EDM-2577
+   * @default false
+   */
+  preventPopupOverflow?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

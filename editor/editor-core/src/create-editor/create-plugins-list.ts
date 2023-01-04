@@ -149,7 +149,6 @@ export function getDefaultPresetOptionsFromEditorProps(
     },
     placeholder: {
       placeholder: props.placeholder,
-      placeholderHints: props.placeholderHints,
       placeholderBracketHint: props.placeholderBracketHint,
     },
     textFormatting: {
@@ -242,7 +241,14 @@ export default function createPluginsList(
   }
 
   // Needs to be after allowTextColor as order of buttons in toolbar depends on it
-  preset.add(listPlugin);
+  preset.add([
+    listPlugin,
+    {
+      restartNumberedLists: featureFlags?.restartNumberedLists,
+      restartNumberedListsToolbar: featureFlags?.restartNumberedListsToolbar,
+      listNumberContinuity: featureFlags?.listNumberContinuity,
+    },
+  ]);
 
   if (props.allowRule) {
     preset.add(rulePlugin);
@@ -357,10 +363,10 @@ export default function createPluginsList(
   }
 
   if (props.allowHelpDialog) {
-    preset.add([helpDialogPlugin, props.legacyImageUploadProvider]);
+    preset.add([helpDialogPlugin, !!props.legacyImageUploadProvider]);
   }
 
-  if (props.saveOnEnter) {
+  if (props.saveOnEnter && props.onSave) {
     preset.add([saveOnEnterPlugin, props.onSave]);
   }
 
@@ -447,7 +453,7 @@ export default function createPluginsList(
 
   // See default list for when adding annotations with a provider
   if (!props.annotationProviders && props.allowConfluenceInlineComment) {
-    preset.add(annotationPlugin);
+    preset.add([annotationPlugin, undefined as any]);
   }
 
   if (props.allowDate) {
@@ -606,7 +612,7 @@ export default function createPluginsList(
   }
 
   if (featureFlags.enableViewUpdateSubscription) {
-    preset.add([viewUpdateSubscriptionPlugin]);
+    preset.add(viewUpdateSubscriptionPlugin);
   }
 
   preset.add([

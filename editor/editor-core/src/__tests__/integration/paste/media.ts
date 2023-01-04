@@ -10,15 +10,27 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import cloneDeep from 'lodash/cloneDeep';
 
 const editorSelector = selectors.editor;
 
-// FIXME: This test was automatically skipped due to failure on 11/12/2022: https://product-fabric.atlassian.net/browse/ED-16373
+const expectUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
+  expect(doc.content[1].content[0].attrs).toEqual(
+    expect.objectContaining({
+      __mediaTraceId: expect.any(String),
+    }),
+  );
+};
+
+const removeUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
+  const copy = cloneDeep(doc);
+  delete copy.content[1].content[0].attrs.__mediaTraceId;
+  return copy;
+};
+
 BrowserTestCase(
   'media: when message is not a media image node does nothing',
-  {
-    skip: ['*'],
-  },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -43,6 +55,10 @@ BrowserTestCase(
     await page.paste();
 
     const doc = await page.$eval(editorSelector, getDocFromElement);
-    expect(doc).toMatchCustomDocSnapshot(testName);
+
+    expectUniqueGeneratedMediaAttrs(doc);
+    expect(removeUniqueGeneratedMediaAttrs(doc)).toMatchCustomDocSnapshot(
+      testName,
+    );
   },
 );

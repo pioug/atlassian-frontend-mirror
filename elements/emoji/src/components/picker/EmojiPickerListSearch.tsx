@@ -22,6 +22,8 @@ interface InputSelection {
   selectionDirection?: SelectionDirectionType;
 }
 
+export const emojiPickerSearchTestId = 'emoji-picker-serach';
+
 class EmojiPickerListSearch extends PureComponent<
   Props & WrappedComponentProps
 > {
@@ -122,6 +124,7 @@ class EmojiPickerListSearch extends PureComponent<
               <SearchIcon label="" />
             </span>
           }
+          testId={emojiPickerSearchTestId}
         />
       </div>
     );

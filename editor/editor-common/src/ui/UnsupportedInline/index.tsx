@@ -12,9 +12,9 @@ import { borderRadius, fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
+import { ACTION_SUBJECT_ID } from '../../analytics';
 import { unsupportedContentMessages } from '../../messages/unsupportedContent';
 import { UnsupportedContentTooltipPayload } from '../../utils';
-import { ACTION_SUBJECT_ID } from '../../utils/analytics';
 import { trackUnsupportedContentTooltipDisplayedFor } from '../../utils/track-unsupported-content';
 import { getUnsupportedContent } from '../unsupported-content-helper';
 

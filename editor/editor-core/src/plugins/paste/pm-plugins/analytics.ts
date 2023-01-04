@@ -54,6 +54,8 @@ type PastePayloadAttributes = {
   hyperlinkPasteOnText: boolean;
   /** How many links are in our pasted content? */
   linksInPasteCount: number;
+  /** An identifier for tracing media operations(trouble shooting purpose) */
+  mediaTraceId?: string;
 };
 
 const contentToPasteContent: { [name: string]: PasteContent } = {
@@ -146,6 +148,17 @@ export function getContent(state: EditorState, slice: Slice): PasteContent {
   return pasteContent ? pasteContent : PasteContents.uncategorized;
 }
 
+export function getMediaTraceId(slice: Slice) {
+  let traceId;
+  mapSlice(slice, (node) => {
+    if (node.type.name === 'media' || node.type.name === 'mediaInline') {
+      traceId = node.attrs.__mediaTraceId;
+    }
+    return node;
+  });
+  return traceId;
+}
+
 function getActionSubjectId(view: EditorView): PASTE_ACTION_SUBJECT_ID {
   const {
     state: {
@@ -230,6 +243,7 @@ export function createPasteAnalyticsPayload(
   const pasteSize = slice.size;
   const content = getContent(view.state, slice);
   const linkUrls: string[] = [];
+  const mediaTraceId = getMediaTraceId(slice);
 
   // If we have a link among the pasted content, grab the
   // domain and send it up with the analytics event
@@ -270,6 +284,7 @@ export function createPasteAnalyticsPayload(
       source,
       hyperlinkPasteOnText: !!pasteContext.hyperlinkPasteOnText,
       linksInPasteCount: linkUrls.length,
+      mediaTraceId,
     },
     linkDomains,
   );

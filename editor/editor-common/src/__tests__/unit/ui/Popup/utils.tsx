@@ -77,6 +77,8 @@ describe('@atlaskit/editor-common popup utils', () => {
 
       popupEl.getBoundingClientRect = () =>
         ({
+          top: 0,
+          left: 0,
           height: 10,
           width: 50,
           x: 0,
@@ -203,6 +205,31 @@ describe('@atlaskit/editor-common popup utils', () => {
       );
 
       expect(calc).toEqual('top-right');
+    });
+
+    it('should not force position X when preventOverflow is sent', () => {
+      const calc = getHorizontalPlacement(
+        targetEl,
+        popupEl,
+        32,
+        'top-right',
+        true,
+        true,
+      );
+
+      expect(calc).not.toEqual('top-right');
+    });
+
+    it('should force placement bottom when preventOverflow is sent', () => {
+      const calc = getVerticalPlacement(
+        targetEl,
+        popupEl,
+        32,
+        'top',
+        false,
+        true,
+      );
+      expect(calc).toEqual('bottom');
     });
 
     it('should calculatePosition for bottom and left placement', () => {

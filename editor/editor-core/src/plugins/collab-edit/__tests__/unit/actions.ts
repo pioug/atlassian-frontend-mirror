@@ -60,7 +60,7 @@ describe('collab-edit: actions', () => {
         ];
 
         initializeCollab(editorView);
-        applyRemoteSteps(replaceWithAStep, [], editorView);
+        applyRemoteSteps(replaceWithAStep, editorView, []);
 
         const { from, to } = editorView.state.selection;
         expect({ from, to }).toEqual({
@@ -92,7 +92,7 @@ describe('collab-edit: actions', () => {
       ];
 
       initializeCollab(editorView);
-      applyRemoteSteps(replaceWithAStep, [], editorView);
+      applyRemoteSteps(replaceWithAStep, editorView, []);
       expect(editorView.state.storedMarks).toEqual([
         editorView.state.schema.marks.strong.create(),
       ]);

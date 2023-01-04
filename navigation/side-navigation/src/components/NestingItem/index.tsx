@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
+import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
 import RightArrow from '@atlaskit/icon/glyph/arrow-right-circle';
 import {
   ButtonItemProps,
@@ -11,7 +12,6 @@ import {
   Overrides,
 } from '@atlaskit/menu';
 import { N10 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { overrideStyleFunction } from '../../common/styles';
@@ -126,14 +126,6 @@ export interface NestingItemProps<
   overrides?: NestingItemOverrides;
 }
 
-const nestingItemStyles = css({
-  marginRight: gridSize(),
-  marginLeft: gridSize(),
-  // This padding bottom needs to match the section margin inside @atlaskit/menu.
-  paddingTop: gridSize() * 0.75,
-  paddingBottom: gridSize() * 0.75,
-});
-
 /**
  * NestingItem will render itself differently depending in what context it is rendered in.
  * When not open - it will render itself as an item.
@@ -224,7 +216,16 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
   if (currentStackId === id) {
     return (
       <NestedContext.Provider value={context}>
-        {stack.length >= 1 && <div css={nestingItemStyles}>{backButton}</div>}
+        {stack.length >= 1 && (
+          <Box
+            as="div"
+            display="block"
+            paddingBlock="scale.075"
+            paddingInline="scale.100"
+          >
+            {backButton as BoxProps['children']}
+          </Box>
+        )}
         <NavigationContent
           testId={testId}
           showTopScrollIndicator={stack.length >= 1}
@@ -242,14 +243,18 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
   const componentProps = {
     iconAfter: (
       <Fragment>
-        {iconAfter ? <span data-custom-icon>{iconAfter}</span> : null}
-        <span data-right-arrow>
+        {iconAfter ? (
+          <Box data-custom-icon display="inline" as="span">
+            {iconAfter as BoxProps['children']}
+          </Box>
+        ) : null}
+        <Box data-right-arrow display="inline" as="span">
           <RightArrow
             testId={testId && `${testId}--item--right-arrow`}
             secondaryColor={token('elevation.surface', N10)}
             label=""
           />
-        </span>
+        </Box>
       </Fragment>
     ),
     onClick: onClickHandler,

@@ -45,6 +45,10 @@ const addNewCategories = (
     .sort(sortCategories);
 };
 
+export const categorySelectorComponentTestId = 'category-selector-component';
+export const categorySelectorCategoryTestId = (categoryId: string) =>
+  `category-selector-${categoryId}`;
+
 class CategorySelector extends PureComponent<
   Props & WrappedComponentProps,
   State
@@ -103,7 +107,7 @@ class CategorySelector extends PureComponent<
       const { formatMessage } = intl;
 
       categoriesSection = (
-        <ul>
+        <ul data-testid={categorySelectorComponentTestId}>
           {categories.map((categoryId: CategoryId) => {
             const category = CategoryDescriptionMap[categoryId];
             const categoryClasses = [categoryStyles];
@@ -128,6 +132,7 @@ class CategorySelector extends PureComponent<
                   onClick={this.onClick}
                   title={categoryName}
                   type="button"
+                  data-testid={categorySelectorCategoryTestId(categoryId)}
                 >
                   <Icon label={categoryName} />
                 </button>

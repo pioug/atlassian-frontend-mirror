@@ -265,6 +265,9 @@ export default class TeamMentionResource
 
   private trimTeamARI(teamId: string = '') {
     const TEAM_ARI_PREFIX = 'ari:cloud:teams::team/';
-    return teamId.replace(TEAM_ARI_PREFIX, '');
+    const IDENTITY_TEAM_ARI_PREFIX = 'ari:cloud:identity::team/';
+    return teamId
+      .replace(TEAM_ARI_PREFIX, '')
+      .replace(IDENTITY_TEAM_ARI_PREFIX, '');
   }
 }

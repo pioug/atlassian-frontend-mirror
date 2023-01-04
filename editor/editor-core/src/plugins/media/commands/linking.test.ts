@@ -34,7 +34,7 @@ jest.mock('../utils/check-media-type', () => ({
 
 describe('image linking', () => {
   const createEditor = createProsemirrorEditorFactory();
-  const preset = new Preset<LightEditorPlugin>();
+
   const mediaProvider = Promise.resolve({
     viewMediaClientConfig: getDefaultMediaClientConfig(),
   });
@@ -42,14 +42,12 @@ describe('image linking', () => {
     mediaProvider,
   });
 
-  preset
-    .add([mediaPlugin, { allowMediaSingle: true, allowLinking: true }])
-    .add(hyperlinkPlugin);
-
   const editor = (doc: any) => {
     return createEditor({
       doc,
-      preset,
+      preset: new Preset<LightEditorPlugin>()
+        .add([mediaPlugin, { allowMediaSingle: true, allowLinking: true }])
+        .add(hyperlinkPlugin),
       providerFactory,
     });
   };

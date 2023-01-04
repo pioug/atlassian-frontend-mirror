@@ -15,6 +15,7 @@ export type ITableRowProps = {
 };
 
 const rowStyles = css({
+  backgroundColor: token('color.background.neutral.subtle', 'transparent'),
   '&:focus': {
     outline: `2px solid ${token(
       'color.border.focused',

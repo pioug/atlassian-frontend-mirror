@@ -1,32 +1,32 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, MouseEvent } from 'react';
 
+import Button from '@atlaskit/button';
+import Box from '@atlaskit/ds-explorations/box';
 import Icon from '@atlaskit/icon';
 
-import { CustomItemComponentProps, Footer, NavigationFooter } from '../src';
+import { Footer, NavigationFooter } from '../src';
 
 import SampleIcon from './common/next-gen-project-icon';
-
-const InteractiveContainer = ({
-  children,
-  ...props
-}: CustomItemComponentProps) => {
-  return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <a href="#" {...props}>
-      {children}
-    </a>
-  );
-};
+import { CustomItemFooter } from './common/sample-footer';
 
 const Example = () => {
   return (
-    <div onClick={(e) => e.preventDefault()}>
+    <Box
+      display="block"
+      onClick={(e: MouseEvent) => e.preventDefault()}
+      as="div"
+    >
       <NavigationFooter>
         <Footer
           description={
             <Fragment>
-              <a>Give feedback</a> {' ∙ '}
-              <a>Learn more</a>
+              <Button appearance="link" href="/feedback" spacing="none">
+                Give feedback
+              </Button>
+              {' ∙ '}
+              <Button appearance="link" href="/learn" spacing="none">
+                Learn more
+              </Button>
             </Fragment>
           }
         >
@@ -39,8 +39,13 @@ const Example = () => {
           iconBefore={<Icon label="" glyph={SampleIcon} />}
           description={
             <Fragment>
-              <a>Give feedback</a> {' ∙ '}
-              <a>Learn more</a>
+              <Button appearance="link" href="/feedback" spacing="none">
+                Give feedback
+              </Button>
+              {' ∙ '}
+              <Button appearance="link" href="/learn" spacing="none">
+                Learn more
+              </Button>
             </Fragment>
           }
         >
@@ -52,12 +57,12 @@ const Example = () => {
         <Footer
           iconBefore={<Icon label="" glyph={SampleIcon} />}
           description="Learn more"
-          component={InteractiveContainer}
+          component={CustomItemFooter}
         >
           You're in a next gen-project
         </Footer>
       </NavigationFooter>
-    </div>
+    </Box>
   );
 };
 

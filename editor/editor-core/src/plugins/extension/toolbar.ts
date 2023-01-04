@@ -13,6 +13,7 @@ import { Command } from '../../types';
 import commonMessages from '../../messages';
 import { MacroState } from '../macro';
 import {
+  ConfirmDialogOptions,
   FloatingToolbarConfig,
   FloatingToolbarHandler,
   FloatingToolbarItem,
@@ -22,9 +23,18 @@ import { editExtension } from './actions';
 import { getPluginState } from './pm-plugins/main';
 import { ExtensionState } from './types';
 import { getSelectedExtension } from './utils';
-import { updateExtensionLayout, removeExtension } from './commands';
+import {
+  updateExtensionLayout,
+  removeExtension,
+  removeDescendantNodes,
+} from './commands';
+
 import { pluginKey as macroPluginKey } from '../macro/plugin-key';
-import { isReferencedSource } from '@atlaskit/editor-common/utils';
+import {
+  isReferencedSource,
+  getChildrenInfo,
+  getNodeName,
+} from '@atlaskit/editor-common/utils';
 
 export const messages = defineMessages({
   edit: {
@@ -32,18 +42,28 @@ export const messages = defineMessages({
     defaultMessage: 'Edit',
     description: 'Edit the properties for this extension.',
   },
+  deleteElementTitle: {
+    id: 'fabric.editor.extension.deleteElementTitle',
+    defaultMessage: 'Delete element',
+    description:
+      'Title text for confirm modal when deleting an extension linked to a data consumer.',
+  },
   confirmDeleteLinkedModalOKButton: {
     id: 'fabric.editor.extension.confirmDeleteLinkedModalOKButton',
-    defaultMessage: 'Remove extension',
+    defaultMessage: 'Delete',
     description:
       'Action button label for confirm modal when deleting an extension linked to a data consumer.',
   },
   confirmDeleteLinkedModalMessage: {
     id: 'fabric.editor.extension.confirmDeleteLinkedModalMessage',
-    defaultMessage:
-      'Removing this extension will break anything connected to it.',
+    defaultMessage: 'Deleting {nodeName} will break anything connected to it.',
     description:
       'Message for confirm modal when deleting a extension linked to an data consumer.',
+  },
+  confirmModalCheckboxLabel: {
+    id: 'fabric.editor.floatingToolbar.confirmModalCheckboxLabel',
+    defaultMessage: 'Also delete connected elements',
+    description: 'checkbox label text',
   },
 });
 
@@ -142,6 +162,7 @@ const editButton = (
       },
       title: formatMessage(messages.edit),
       tabIndex: null,
+      focusEditoronEnter: true,
     },
   ];
 };
@@ -176,11 +197,21 @@ export const getToolbarConfig =
       // Check if we need to show confirm dialog for delete button
       let confirmDialog;
       if (isReferencedSource(state, extensionObj?.node)) {
-        confirmDialog = {
-          okButtonLabel: formatMessage(
-            messages.confirmDeleteLinkedModalOKButton,
-          ),
-          message: formatMessage(messages.confirmDeleteLinkedModalMessage),
+        confirmDialog = (): ConfirmDialogOptions => {
+          return {
+            title: formatMessage(messages.deleteElementTitle),
+            okButtonLabel: formatMessage(
+              messages.confirmDeleteLinkedModalOKButton,
+            ),
+            message: formatMessage(messages.confirmDeleteLinkedModalMessage, {
+              nodeName: getNodeName(state, extensionObj?.node),
+            }),
+            isReferentialityDialog: true,
+            getChildrenInfo: () => getChildrenInfo(state, extensionObj?.node),
+            checkboxLabel: formatMessage(messages.confirmModalCheckboxLabel),
+            onConfirm: (isChecked = false) =>
+              clickWithCheckboxHandler(isChecked, extensionObj?.node),
+          };
         };
       }
 
@@ -221,6 +252,7 @@ export const getToolbarConfig =
             onMouseLeave: hoverDecoration(nodeType, false),
             onFocus: hoverDecoration(nodeType, true),
             onBlur: hoverDecoration(nodeType, false),
+            focusEditoronEnter: true,
             title: formatMessage(commonMessages.remove),
             tabIndex: null,
             confirmDialog,
@@ -230,4 +262,19 @@ export const getToolbarConfig =
       } as FloatingToolbarConfig;
     }
     return;
+  };
+
+const clickWithCheckboxHandler =
+  (isChecked: boolean, node?: PMNode): Command =>
+  (state, dispatch) => {
+    if (!node) {
+      return false;
+    }
+
+    if (!isChecked) {
+      removeExtension()(state, dispatch);
+    } else {
+      removeDescendantNodes(node)(state, dispatch);
+    }
+    return true;
   };

@@ -123,16 +123,15 @@ Object {
 exports[`generateTheme atlassian theme should match theme object for "search" 1`] = `
 Object {
   "default": Object {
-    "backgroundColor": "var(--ds-surface, #FFFFFF)",
-    "borderColor": "var(--ds-border, #DFE1E6)",
+    "backgroundColor": "var(--ds-background-input, #FFFFFF)",
+    "borderColor": "var(--ds-border-input, #DFE1E6)",
     "color": "var(--ds-text-subtlest, #6B778C)",
   },
   "focus": Object {
-    "borderColor": "var(--ds-border-focused, #2684FF)",
+    "borderColor": "var(--ds-border-focused, #DFE1E6)",
   },
   "hover": Object {
-    "backgroundColor": "var(--ds-surface, rgba(222, 235, 255, 0.9))",
-    "color": "var(--ds-text-selected, #0052CC)",
+    "backgroundColor": "var(--ds-background-input-hovered, #FFFFFF)",
   },
 }
 `;

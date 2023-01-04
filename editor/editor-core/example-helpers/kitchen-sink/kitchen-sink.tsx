@@ -519,7 +519,10 @@ export class KitchenSink extends React.Component<
                 dataProviders={this.dataProviders}
                 isFullPage={this.state.appearance.startsWith('full')}
                 locale={this.props.locale}
-                featureFlags={parseSafely(this.state.featureFlagInput)}
+                featureFlags={{
+                  'restart-numbered-lists': true,
+                  ...parseSafely(this.state.featureFlagInput),
+                }}
               />
             </div>
             {this.state.showADF ? (

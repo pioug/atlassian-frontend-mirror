@@ -171,6 +171,8 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
   }
 }
 
+export default ClipboardBase;
+
 export const Clipboard = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),
   {

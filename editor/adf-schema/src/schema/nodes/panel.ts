@@ -1,7 +1,7 @@
 import { NodeSpec, Node, AttributeSpec } from 'prosemirror-model';
 import { ParagraphDefinition as Paragraph } from './paragraph';
-import { OrderedListDefinition as OrderedList } from './ordered-list';
-import { BulletListDefinition as BulletList } from './bullet-list';
+import { OrderedListDefinition as OrderedList } from './types/list';
+import { BulletListDefinition as BulletList } from './types/list';
 import { HeadingDefinition as Heading } from './heading';
 import { BlockCardDefinition as BlockCard } from './block-card';
 

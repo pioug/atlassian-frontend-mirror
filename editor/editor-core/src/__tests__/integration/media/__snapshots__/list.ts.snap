@@ -1,9 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`list: insert a media single inside a bullet list 1`] = `
+exports[`list: insert a media single inside a numbered list 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [
@@ -30,6 +33,7 @@ Object {
                     "__fileMimeType": "image/jpeg",
                     "__fileName": "example.png",
                     "__fileSize": 756325,
+                    "__mediaTraceId": null,
                     "alt": "",
                     "collection": "MediaServicesSample",
                     "height": 636,
@@ -48,17 +52,20 @@ Object {
           "type": "listItem",
         },
       ],
-      "type": "bulletList",
+      "type": "orderedList",
     },
   ],
   "type": "doc",
 }
 `;
 
-exports[`list: insert a media single inside a numbered list 1`] = `
+exports[`list: insert a media single inside a numbered list with restartNumberedLists 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [
@@ -85,6 +92,7 @@ Object {
                     "__fileMimeType": "image/jpeg",
                     "__fileName": "example.png",
                     "__fileSize": 756325,
+                    "__mediaTraceId": null,
                     "alt": "",
                     "collection": "MediaServicesSample",
                     "height": 636,

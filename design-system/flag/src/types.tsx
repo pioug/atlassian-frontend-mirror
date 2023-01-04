@@ -23,9 +23,9 @@ export type ActionsType = Array<ActionType>;
 export type AppearanceTypes =
   | 'error'
   | 'info'
-  | 'normal'
   | 'success'
-  | 'warning';
+  | 'warning'
+  | 'normal';
 
 // exported for testing - keep in sync from `type AppearanceTypes`
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

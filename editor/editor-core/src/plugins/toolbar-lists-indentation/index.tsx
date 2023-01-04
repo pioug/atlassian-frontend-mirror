@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import ToolbarListsIndentation from './ui';
 import WithPluginState from '../../ui/WithPluginState';
 import { ToolbarSize } from '../../ui/Toolbar/types';
@@ -9,13 +9,15 @@ import {
   createPlugin as indentationButtonsPlugin,
 } from './pm-plugins/indentation-buttons';
 
-const toolbarListsIndentationPlugin = ({
-  showIndentationButtons,
-  allowHeadingAndParagraphIndentation,
-}: {
+type Config = {
   showIndentationButtons: boolean;
   allowHeadingAndParagraphIndentation: boolean;
-}): EditorPlugin => ({
+};
+const toolbarListsIndentationPlugin: NextEditorPlugin<
+  'toolbarListsIndentation',
+  never,
+  Config
+> = ({ showIndentationButtons, allowHeadingAndParagraphIndentation }) => ({
   name: 'toolbarListsIndentation',
 
   pmPlugins() {

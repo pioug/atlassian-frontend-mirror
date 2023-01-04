@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
+import Box from '@atlaskit/ds-explorations/box';
 import BookIcon from '@atlaskit/icon/glyph/book';
 import OpenIcon from '@atlaskit/icon/glyph/open';
 
 import { LinkItem } from '../src';
 
 const Example = () => (
-  <div onClick={(e) => e.preventDefault()}>
+  <Box display="block" onClick={(e: MouseEvent) => e.preventDefault()} as="div">
     <LinkItem href="#">My articles</LinkItem>
     <LinkItem href="#" isDisabled>
       My articles
@@ -42,7 +43,7 @@ const Example = () => (
     >
       My articles
     </LinkItem>
-  </div>
+  </Box>
 );
 
 export default Example;

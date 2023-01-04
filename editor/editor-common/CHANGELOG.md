@@ -1,5 +1,76 @@
 # @atlaskit/editor-common
 
+## 72.0.0
+
+### Major Changes
+
+- [`ac1c880cf4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac1c880cf4c) - [ux] ED-12395 - Remove the keyboard accessible date picker feature flag, which has been 100% rolled out
+
+  ## **DEPRECATION WARNING:**
+
+  There's two deprecations in this change:
+
+  ### 1. Remove `keyboardAccessibleDatepicker` and the `allowKeyboardAccessibleDatepicker` feature flag
+
+  Now that this has been fully rolled out, this feature flag is no longer required. The if-statement that depends on this feature flag was also removed in point 2 below:
+
+  ### 2. Remove the `showTextField` prop on the DatePicker
+
+  This was exclusively used to conditionally render the `DatePickerInput`. Its usage was always set to `true` in code or through the feature flag that has now been rolled out. Thus, this deprecation simplifies the API.
+
+  Since no code related to this feature flag remains, there are no inline deprecation warnings.
+
+- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
+
+  Note: restartNumberedLists will be off by default. To enable it, consumers will need to set <Editor featureFlags={{ restartNumberedLists: true }}> or <Renderer featureFlags={{ restartNumberedLists: true }}>
+
+### Minor Changes
+
+- [`fbe1cd7d043`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbe1cd7d043) - Adds a new feature flag: preventPopupOverflow that can be used to force the popup placement when it overflows the screen
+- [`a730df6e3ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a730df6e3ed) - ED-16163 Refactored analytics constants to be in editor-common
+- [`5307b130e91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5307b130e91) - Cleaned up placeholder lint feature as it was no longer being used
+- [`195fa69b80a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/195fa69b80a) - Minor referentiality util housekeeping
+- [`4ed695c539e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ed695c539e) - Renamed Popup prop preventTopOverflow to preventOverflow used for both vertical and horizontal placement now
+- [`c42a0344d32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c42a0344d32) - The linking view changing experiment toolbar style will be removed, including the feature flag. All variants will be removed except for toolbarIcons which will be the only view of the toolbar of the linking view switcher.
+- [`8820442c2b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8820442c2b2) - [ux] ED-15709: add feature for delete element if it is `isReferencedSource` is `true`
+
+  - add checkbox confirmation dialog when then config have `isReferentiality.`
+  - add referentiality helper functions.
+  - update confirmDialog config to a handler to reduce traverse times.
+  - user can now tick checkbox to delete descendent nodes or only selected node when user click the delete icon in floating toolbar.
+
+- [`1d41bbc2965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d41bbc2965) - This changeset introduces non breaking changes to support ssr within the loader emoji component
+- [`651dee737d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/651dee737d2) - ED-15301 Added initial preset builder types
+- [`d2c62b69a6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2c62b69a6a) - [ux] Adds support to floating toolbar configuration to enable trapping focus within the Popup.
+
+### Patch Changes
+
+- [`2fd53283b55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd53283b55) - Updated i18n language files
+- [`a70436952a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a70436952a6) - [ED-15980] Reinstate unsupportedContentEncountered event
+- [`3a54fce9ade`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a54fce9ade) - DSP-4513 Updated tokens used to render annotations.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in beta).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+- [`9940267512c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9940267512c) - [ED-15979] Fix column sorting when comparing text with mixed alpha and numeric values
+- [`a838c2e281e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a838c2e281e) - [ux] ED-15959 Migrate panel to use editor-palette package for background colours.
+- [`60068f7fcbe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60068f7fcbe) - [ED-16007] Changes made to improve the floating toolbar's keyboard accessibility
+- [`ed617ce197c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed617ce197c) - [ux] DSP-4451 - Adds design tokens to table overflow shadows. Fixes visual bug with table overflow shadow size and placement.
+- [`f608bc44cf2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f608bc44cf2) - [ux] ED-16177 Added new text color labels. These new labels are disabled by default and only present when useSomewhatSemanticTextColorNames feature flag is set to true.
+- [`bb9a5f9d77d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb9a5f9d77d) - [ux] ED-16176 Added useSomewhatSemanticTextColorNames feature flag. This is part of COMMIT-5058 work to unblock dark mode for Jira. The intention of the flag is to show semantic names in tooltips when hovering over colors in the text color palette in token light/dark mode. Note that the flag is 'somewhat semantic' due to white/dark-gray not being semantic names.
+- [`233e03b2d92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/233e03b2d92) - ED-16007 To highlight the table rows and columns when the 'Delete Row' and 'Delete Column' options are highlighted in the 'cell options' menu of floating toolbar
+- [`7fd5785d37d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fd5785d37d) - [ESS-2752] Fix clientId type derived from prosemirror-collab
+- [`b2fa6d3e611`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2fa6d3e611) - [ED-16106] Fix margin top when paragraph has alignment marks
+- [`e4089f2c471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4089f2c471) - Modified toolbar buttons to read out keyboard shortcuts by screen readers.
+- [`4fbaeb2a1fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fbaeb2a1fd) - DSP-4118 Updated tokens used to render overflow shadows in code blocks.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in beta).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+  `overflowShadow` now optionally supports customizing the size of the "covers" that appear over shadows when at the edge of content, via `leftCoverWidth` and `rightCoverWidth`, and the shadow width via the `width` prop.
+
+- Updated dependencies
+
 ## 71.0.3
 
 ### Patch Changes

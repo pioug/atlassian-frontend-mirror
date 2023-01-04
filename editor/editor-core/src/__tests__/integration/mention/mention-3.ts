@@ -24,8 +24,8 @@ BrowserTestCase(
       appearance: fullpage.appearance,
     });
 
-    await page.waitForSelector('[aria-label="Mention"]');
-    await page.click('[aria-label="Mention"]');
+    await page.waitForSelector('[aria-label*="Mention"]');
+    await page.click('[aria-label*="Mention"]');
     await page.waitForSelector(mentionId);
     await page.click(mentionId);
     const doc = await page.$eval(editable, getDocFromElement);

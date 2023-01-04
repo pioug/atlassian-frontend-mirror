@@ -1,12 +1,16 @@
 import React from 'react';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { CollabEditOptions } from '../collab-edit';
 import AvatarGroupPluginWrapper from './ui/AvatarGroupPluginWrapper';
 
-const avatarGroup = (props: {
+type Config = {
   collabEdit?: CollabEditOptions;
   takeFullWidth: boolean;
-}): EditorPlugin => ({
+};
+
+const avatarGroup: NextEditorPlugin<'avatarGroup', never, Config> = (
+  props,
+) => ({
   name: 'avatarGroup',
 
   primaryToolbarComponent({

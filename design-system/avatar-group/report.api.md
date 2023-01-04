@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/avatar-group"
 
@@ -19,6 +19,7 @@ import type { AvatarPropTypes } from '@atlaskit/avatar';
 import { ElementType } from 'react';
 import { jsx } from '@emotion/react';
 import { MouseEventHandler } from 'react';
+import { PositionType } from '@atlaskit/tooltip';
 import type { ReactNode } from 'react';
 import { SizeType } from '@atlaskit/avatar';
 
@@ -38,6 +39,7 @@ const AvatarGroup: ({
   size,
   testId,
   label,
+  tooltipPosition,
 }: AvatarGroupProps) => jsx.JSX.Element;
 export default AvatarGroup;
 
@@ -93,6 +95,7 @@ export interface AvatarGroupProps {
   showMoreButtonProps?: Partial<React.HTMLAttributes<HTMLElement>>;
   size?: SizeType;
   testId?: string;
+  tooltipPosition?: Extract<PositionType, 'bottom' | 'top'>;
 }
 
 // @public (undocumented)

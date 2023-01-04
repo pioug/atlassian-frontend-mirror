@@ -7,6 +7,7 @@ import commonMessages from '@atlaskit/editor-common/messages';
 import type {
   Command,
   CommandDispatch,
+  ConfirmDialogOptions,
   DropdownOptionT,
   FloatingToolbarDropdown,
   FloatingToolbarHandler,
@@ -21,6 +22,7 @@ import {
   hoverTable,
   hoverColumns,
   hoverRows,
+  removeDescendantNodes,
 } from './commands';
 import {
   deleteTableWithAnalytics,
@@ -54,7 +56,12 @@ import {
   getSelectedColumnIndexes,
   getSelectedRowIndexes,
 } from './utils';
-import { isReferencedSource } from './utils/referentiality';
+import {
+  isReferencedSource,
+  getChildrenInfo,
+  getNodeName,
+} from '@atlaskit/editor-common/utils';
+
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   findCellRectClosestToPos,
@@ -72,6 +79,7 @@ import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import { findParentDomRefOfType } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
+import { Node as PMNode } from 'prosemirror-model';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import {
   addColumnAfter,
@@ -157,6 +165,7 @@ export const getToolbarMenuConfig = (
   return {
     id: 'editor.table.tableOptions',
     type: 'dropdown',
+    testId: 'table_options',
     title: formatMessage(messages.tableOptions),
     hidden: options.every((option) => option.hidden),
     options,
@@ -239,17 +248,9 @@ export const getToolbarCellOptionsConfig = (
         }
         return true;
       },
-      onMouseOver: (state: EditorState, dispatch?: CommandDispatch) => {
-        const selectionRect = getClosestSelectionRect(state);
-        if (selectionRect) {
-          hoverColumns(getSelectedColumnIndexes(selectionRect), true)(
-            state,
-            dispatch,
-          );
-          return true;
-        }
-        return false;
-      },
+      onFocus: highlightColumnsHandler,
+      onBlur: clearHoverSelection(),
+      onMouseOver: highlightColumnsHandler,
       onMouseLeave: clearHoverSelection(),
       selected: false,
       disabled: false,
@@ -270,17 +271,9 @@ export const getToolbarCellOptionsConfig = (
         }
         return true;
       },
-      onMouseOver: (state: EditorState, dispatch?: CommandDispatch) => {
-        const selectionRect = getClosestSelectionRect(state);
-        if (selectionRect) {
-          hoverRows(getSelectedRowIndexes(selectionRect), true)(
-            state,
-            dispatch,
-          );
-          return true;
-        }
-        return false;
-      },
+      onFocus: highlightRowsHandler,
+      onBlur: clearHoverSelection(),
+      onMouseOver: highlightRowsHandler,
       onMouseLeave: clearHoverSelection(),
       selected: false,
       disabled: false,
@@ -396,6 +389,7 @@ export const getToolbarCellOptionsConfig = (
 
   return {
     id: 'editor.table.cellOptions',
+    testId: 'cell_options',
     type: 'dropdown',
     title: formatMessage(tableMessages.cellOptions),
     options,
@@ -456,17 +450,28 @@ export const getToolbarConfig =
 
       // Check if we need to show confirm dialog for delete button
       let confirmDialog;
-      const localId: string | undefined = tableObject.node.attrs.localId;
 
-      if (localId && isReferencedSource(state, localId)) {
-        confirmDialog = {
+      if (isReferencedSource(state, tableObject.node)) {
+        confirmDialog = (): ConfirmDialogOptions => ({
+          title: intl.formatMessage(tableMessages.deleteElementTitle),
           okButtonLabel: intl.formatMessage(
             tableMessages.confirmDeleteLinkedModalOKButton,
           ),
           message: intl.formatMessage(
             tableMessages.confirmDeleteLinkedModalMessage,
+            { nodeName: getNodeName(state, tableObject.node) },
           ),
-        };
+          messagePrefix: intl.formatMessage(
+            tableMessages.confirmDeleteLinkedModalMessagePrefix,
+          ),
+          isReferentialityDialog: true,
+          getChildrenInfo: () => getChildrenInfo(state, tableObject.node),
+          checkboxLabel: intl.formatMessage(
+            tableMessages.confirmModalCheckboxLabel,
+          ),
+          onConfirm: (isChecked = false) =>
+            clickWithCheckboxHandler(isChecked, tableObject.node),
+        });
       }
 
       const getDomRef = (editorView: EditorView) => {
@@ -516,6 +521,8 @@ export const getToolbarConfig =
                 nodeType,
                 onMouseEnter: hoverTable(false, true),
                 onMouseLeave: clearHoverSelection(),
+                onFocus: hoverTable(false, true),
+                onBlur: clearHoverSelection(),
               },
               { type: 'separator' },
             ],
@@ -528,8 +535,11 @@ export const getToolbarConfig =
             onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
             disabled: !!resizeState && !!resizeState.dragging,
             onMouseEnter: hoverTable(true),
+            onFocus: hoverTable(true),
+            onBlur: clearHoverSelection(),
             onMouseLeave: clearHoverSelection(),
             title: intl.formatMessage(commonMessages.remove),
+            focusEditoronEnter: true,
             confirmDialog,
           },
         ],
@@ -604,7 +614,7 @@ const getColorPicker = (
 
   return [
     {
-      id: 'editor.panel.colorPicker',
+      id: 'editor.table.colorPicker',
       title: formatMessage(ContextualMenuMessages.cellBackground),
       type: 'select',
       selectType: 'color',
@@ -619,4 +629,50 @@ const getColorPicker = (
     },
     separator(menu.hidden),
   ];
+};
+
+const clickWithCheckboxHandler =
+  (
+    isChecked: boolean,
+    node?: PMNode,
+    editorAnalyticsAPI?: EditorAnalyticsAPI | undefined | null,
+  ): Command =>
+  (state, dispatch) => {
+    if (!node) {
+      return false;
+    }
+
+    if (!isChecked) {
+      return deleteTableWithAnalytics(editorAnalyticsAPI)(state, dispatch);
+    } else {
+      removeDescendantNodes(node)(state, dispatch);
+    }
+    return true;
+  };
+
+const highlightRowsHandler = (
+  state: EditorState,
+  dispatch?: CommandDispatch,
+) => {
+  const selectionRect = getClosestSelectionRect(state);
+  if (selectionRect) {
+    hoverRows(getSelectedRowIndexes(selectionRect), true)(state, dispatch);
+    return true;
+  }
+  return false;
+};
+
+const highlightColumnsHandler = (
+  state: EditorState,
+  dispatch?: CommandDispatch,
+) => {
+  const selectionRect = getClosestSelectionRect(state);
+  if (selectionRect) {
+    hoverColumns(getSelectedColumnIndexes(selectionRect), true)(
+      state,
+      dispatch,
+    );
+    return true;
+  }
+  return false;
 };

@@ -1475,6 +1475,7 @@ describe('Card', () => {
           {
             traceId: expect.any(String),
           },
+          undefined,
         );
 
         component.setState({ status: 'another-status' as CardStatus });
@@ -1497,6 +1498,7 @@ describe('Card', () => {
           {
             traceId: expect.any(String),
           },
+          undefined,
         );
       });
     });

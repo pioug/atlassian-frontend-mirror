@@ -20,8 +20,8 @@ const input = 'helloworld ';
     `toolbar-1.ts: should be able to select normal text, bold, italics, underline style for ${editor.name} editor`,
     { skip: [] },
     async (client: any, testName: string) => {
-      const bold = `[aria-label="${textFormattingMessages.bold.defaultMessage}"]`;
-      const italic = `[aria-label="${textFormattingMessages.italic.defaultMessage}"]`;
+      const bold = `[aria-label*="${textFormattingMessages.bold.defaultMessage}"]`;
+      const italic = `[aria-label*="${textFormattingMessages.italic.defaultMessage}"]`;
       const changeFormatting = `[aria-label="${blockTypeToolbarMessages.textStyles.defaultMessage}"]`;
       const normalText = `span=${blockTypeMessages.normal.defaultMessage}`;
       const more = `[aria-label="${textFormattingMessages.moreFormatting.defaultMessage}"]`;

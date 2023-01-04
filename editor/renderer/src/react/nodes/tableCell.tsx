@@ -8,7 +8,11 @@ import { SortOrder } from '@atlaskit/editor-common/types';
 
 import SortingIcon from '../../ui/SortingIcon';
 import { AnalyticsEventPayload, MODE, PLATFORM } from '../../analytics/events';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { RendererCssClassName } from '../../consts';
 import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { tableCellMessages } from '../../messages';
@@ -78,7 +82,11 @@ const getStyle = (
   offsetTop?: number,
 ): CSSProperties => {
   const style: CSSProperties = {};
-  if (background) {
+  if (
+    background &&
+    // ignore setting inline styles if ds neutral token is detected
+    !background.includes('--ds-background-neutral')
+  ) {
     style.backgroundColor = background;
   }
 

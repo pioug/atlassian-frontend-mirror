@@ -1,5 +1,5 @@
 import { Preset } from '../../preset';
-import { EditorPlugin } from '../../../../../types';
+import { NextEditorPlugin } from '../../../../../types';
 
 describe('Editor Preset', () => {
   it('should be able to override any plugin', () => {
@@ -52,15 +52,22 @@ describe('Editor Preset', () => {
   });
 
   it('should support different cases for providing plugin configuration in a type-safe way', () => {
-    const p1 = (): EditorPlugin => ({ name: 'p1' });
-    const p2 = (bool: boolean): EditorPlugin => ({ name: 'p2' });
-    const p3 = (props?: { b: number }): EditorPlugin => ({ name: 'p3' });
-    const p4 = (props: { a: string }): EditorPlugin => ({ name: 'p4' });
+    const p1: NextEditorPlugin<'p1'> = () => ({ name: 'p1' });
+    const p2: NextEditorPlugin<'p2', never, boolean> = (bool: boolean) => ({
+      name: 'p2',
+    });
+    type P3Props = { b: number };
+    const p3: NextEditorPlugin<'p3', never, P3Props | undefined> = (
+      props?: P3Props,
+    ) => ({ name: 'p3' });
+    const p4: NextEditorPlugin<'p4', never, { a: string }> = (props: {
+      a: string;
+    }) => ({ name: 'p4' });
 
     const preset = new Preset();
     preset.add(p1);
     preset.add([p2, true]);
-    preset.add([p3]);
+    preset.add(p3);
     preset.add([p3, { b: 123 }]);
     preset.add([p4, { a: 'string' }]);
 

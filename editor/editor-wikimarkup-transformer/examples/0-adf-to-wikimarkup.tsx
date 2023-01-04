@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
@@ -47,47 +48,49 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
           <ToolsDrawer
             renderEditor={({ onChange, disabled }: RenderEditorProps) => (
               <div style={{ padding: '20px' }}>
-                <CollapsedEditor
-                  placeholder="What do you want to say?"
-                  isExpanded={this.state.isExpanded}
-                  onFocus={this.onFocus}
-                  onExpand={EXPAND_ACTION}
-                >
-                  <Editor
-                    appearance="comment"
+                <IntlProvider locale="en">
+                  <CollapsedEditor
                     placeholder="What do you want to say?"
-                    shouldFocus={true}
-                    allowTextColor={true}
-                    allowRule={true}
-                    allowTables={{
-                      allowColumnResizing: true,
-                      allowMergeCells: true,
-                      allowNumberColumn: true,
-                      allowBackgroundColor: true,
-                      allowHeaderRow: true,
-                      allowHeaderColumn: true,
-                      permittedLayouts: 'all',
-                    }}
-                    allowDate={true}
-                    media={{
-                      provider: mediaProvider,
-                      allowMediaSingle: true,
-                      allowLinking: true,
-                      featureFlags: {
-                        captions: true,
-                        mediaInline: true,
-                      },
-                    }}
-                    disabled={disabled}
-                    mentionProvider={Promise.resolve(mentionResourceProvider)}
-                    taskDecisionProvider={Promise.resolve(
-                      getMockTaskDecisionResource(),
-                    )}
-                    onChange={onChange}
-                    onSave={SAVE_ACTION}
-                    onCancel={CANCEL_ACTION}
-                  />
-                </CollapsedEditor>
+                    isExpanded={this.state.isExpanded}
+                    onFocus={this.onFocus}
+                    onExpand={EXPAND_ACTION}
+                  >
+                    <Editor
+                      appearance="comment"
+                      placeholder="What do you want to say?"
+                      shouldFocus={true}
+                      allowTextColor={true}
+                      allowRule={true}
+                      allowTables={{
+                        allowColumnResizing: true,
+                        allowMergeCells: true,
+                        allowNumberColumn: true,
+                        allowBackgroundColor: true,
+                        allowHeaderRow: true,
+                        allowHeaderColumn: true,
+                        permittedLayouts: 'all',
+                      }}
+                      allowDate={true}
+                      media={{
+                        provider: mediaProvider,
+                        allowMediaSingle: true,
+                        allowLinking: true,
+                        featureFlags: {
+                          captions: true,
+                          mediaInline: true,
+                        },
+                      }}
+                      disabled={disabled}
+                      mentionProvider={Promise.resolve(mentionResourceProvider)}
+                      taskDecisionProvider={Promise.resolve(
+                        getMockTaskDecisionResource(),
+                      )}
+                      onChange={onChange}
+                      onSave={SAVE_ACTION}
+                      onCancel={CANCEL_ACTION}
+                    />
+                  </CollapsedEditor>
+                </IntlProvider>
               </div>
             )}
           />

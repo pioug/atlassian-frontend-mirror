@@ -1,5 +1,16 @@
 # @atlaskit/media-test-helpers
 
+## 30.1.0
+
+### Minor Changes
+
+- [`79660ee4fa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79660ee4fa7) - Restructured the Media-Image and added CSS to make doc responsive.
+- [`db73d317050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db73d317050) - Added ContentTabs component to be used in docs of media components.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.8
 
 ### Patch Changes

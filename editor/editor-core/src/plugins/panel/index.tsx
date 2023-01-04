@@ -5,7 +5,7 @@ import {
   QuickInsertItem,
 } from '@atlaskit/editor-common/provider-factory';
 import { EditorState } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
 import keymap from './pm-plugins/keymaps';
@@ -59,7 +59,9 @@ const insertPanelType = (
     state.schema.nodes.paragraph.createChecked(),
   );
 
-const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
+const panelPlugin: NextEditorPlugin<'panel', never, PanelPluginOptions> = (
+  options = {},
+) => ({
   name: 'panel',
 
   nodes() {

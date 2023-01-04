@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { SideNavigation } from '../src';
 
@@ -8,7 +8,7 @@ const Example = () => {
   return (
     <AppFrame shouldHideAppBar shouldHideBorder>
       <SideNavigation label="project">
-        <span />
+        <Fragment />
       </SideNavigation>
     </AppFrame>
   );

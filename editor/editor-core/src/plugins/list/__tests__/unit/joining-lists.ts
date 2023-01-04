@@ -27,7 +27,7 @@ describe('lists plugin -> joining lists', () => {
   };
 
   const expectedOutputForPreviousList = doc(
-    ol(
+    ol()(
       li(p('One')),
       li(p('Two')),
       li(p('Three')),
@@ -38,7 +38,7 @@ describe('lists plugin -> joining lists', () => {
   );
   const expectedOutputForNextList = doc(
     p('One'),
-    ol(
+    ol()(
       li(p('Two')),
       li(p('Three')),
       li(p('Four')),
@@ -47,7 +47,7 @@ describe('lists plugin -> joining lists', () => {
     ),
   );
   const expectedOutputForPreviousAndNextList = doc(
-    ol(
+    ol()(
       li(p('One')),
       li(p('Two')),
       li(p('Three')),
@@ -60,7 +60,7 @@ describe('lists plugin -> joining lists', () => {
   it("should join with previous list if it's of the same type", () => {
     const { editorView } = editor(
       doc(
-        ol(li(p('One')), li(p('Two')), li(p('Three'))),
+        ol()(li(p('One')), li(p('Two')), li(p('Three'))),
         p('{<}Four'),
         p('Five{>}'),
         p('Six'),
@@ -74,7 +74,7 @@ describe('lists plugin -> joining lists', () => {
   it("should join with previous list if it's of the same type and selection starts at the end of previous line", () => {
     const { editorView } = editor(
       doc(
-        ol(li(p('One')), li(p('Two')), li(p('Three{<}'))),
+        ol()(li(p('One')), li(p('Two')), li(p('Three{<}'))),
         p('Four'),
         p('Five{>}'),
         p('Six'),
@@ -88,7 +88,7 @@ describe('lists plugin -> joining lists', () => {
   it("should not join with previous list if it's not of the same type", () => {
     const { editorView } = editor(
       doc(
-        ol(li(p('One')), li(p('Two')), li(p('Three'))),
+        ol()(li(p('One')), li(p('Two')), li(p('Three'))),
         p('{<}Four'),
         p('Five{>}'),
         p('Six'),
@@ -98,7 +98,7 @@ describe('lists plugin -> joining lists', () => {
     toggleBulletList(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
-        ol(li(p('One')), li(p('Two')), li(p('Three'))),
+        ol()(li(p('One')), li(p('Two')), li(p('Three'))),
         ul(li(p('Four')), li(p('Five'))),
         p('Six'),
       ),
@@ -108,7 +108,7 @@ describe('lists plugin -> joining lists', () => {
   it("should join with previous list if it's not of the same type and selection starts at the end of previous line", () => {
     const { editorView } = editor(
       doc(
-        ol(li(p('One')), li(p('Two')), li(p('Three{<}'))),
+        ol()(li(p('One')), li(p('Two')), li(p('Three{<}'))),
         p('Four'),
         p('Five{>}'),
         p('Six'),
@@ -136,7 +136,7 @@ describe('lists plugin -> joining lists', () => {
         p('One'),
         p('{<}Two'),
         p('Three{>}'),
-        ol(li(p('Four')), li(p('Five')), li(p('Six'))),
+        ol()(li(p('Four')), li(p('Five')), li(p('Six'))),
       ),
     );
 
@@ -150,14 +150,14 @@ describe('lists plugin -> joining lists', () => {
         p('One{<}'),
         p('Two'),
         p('Three{>}'),
-        ol(li(p('Four')), li(p('Five')), li(p('Six'))),
+        ol()(li(p('Four')), li(p('Five')), li(p('Six'))),
       ),
     );
 
     toggleOrderedList(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
-        ol(
+        ol()(
           li(p('One')),
           li(p('Two')),
           li(p('Three')),
@@ -175,7 +175,7 @@ describe('lists plugin -> joining lists', () => {
         p('One'),
         p('{<}Two'),
         p('Three{>}'),
-        ol(li(p('Four')), li(p('Five')), li(p('Six'))),
+        ol()(li(p('Four')), li(p('Five')), li(p('Six'))),
       ),
     );
 
@@ -184,7 +184,7 @@ describe('lists plugin -> joining lists', () => {
       doc(
         p('One'),
         ul(li(p('Two')), li(p('Three'))),
-        ol(li(p('Four')), li(p('Five')), li(p('Six'))),
+        ol()(li(p('Four')), li(p('Five')), li(p('Six'))),
       ),
     );
   });
@@ -195,7 +195,7 @@ describe('lists plugin -> joining lists', () => {
         p('One{<}'),
         p('Two'),
         p('Three{>}'),
-        ol(li(p('Four')), li(p('Five')), li(p('Six'))),
+        ol()(li(p('Four')), li(p('Five')), li(p('Six'))),
       ),
     );
 
@@ -203,7 +203,7 @@ describe('lists plugin -> joining lists', () => {
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ul(li(p('One')), li(p('Two')), li(p('Three'))),
-        ol(li(p('Four')), li(p('Five')), li(p('Six'))),
+        ol()(li(p('Four')), li(p('Five')), li(p('Six'))),
       ),
     );
   });
@@ -211,10 +211,10 @@ describe('lists plugin -> joining lists', () => {
   it("should join with previous and next list if they're of the same type", () => {
     const { editorView } = editor(
       doc(
-        ol(li(p('One')), li(p('Two'))),
+        ol()(li(p('One')), li(p('Two'))),
         p('{<}Three'),
         p('Four{>}'),
-        ol(li(p('Five')), li(p('Six'))),
+        ol()(li(p('Five')), li(p('Six'))),
       ),
     );
 
@@ -227,18 +227,18 @@ describe('lists plugin -> joining lists', () => {
   it("should join with previous but not the next list if they're of the same type and selection starts at the end of previous line", () => {
     const { editorView } = editor(
       doc(
-        ol(li(p('One')), li(p('Two{<}'))),
+        ol()(li(p('One')), li(p('Two{<}'))),
         p('Three'),
         p('Four{>}'),
-        ol(li(p('Five')), li(p('Six'))),
+        ol()(li(p('Five')), li(p('Six'))),
       ),
     );
 
     toggleOrderedList(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
-        ol(li(p('One')), li(p('Two')), li(p('Three')), li(p('Four{>}'))),
-        ol(li(p('Five')), li(p('Six'))),
+        ol()(li(p('One')), li(p('Two')), li(p('Three')), li(p('Four{>}'))),
+        ol()(li(p('Five')), li(p('Six'))),
       ),
     );
   });
@@ -246,19 +246,19 @@ describe('lists plugin -> joining lists', () => {
   it("should not join with previous and next list if they're not of the same type", () => {
     const { editorView } = editor(
       doc(
-        ol(li(p('One')), li(p('Two'))),
+        ol()(li(p('One')), li(p('Two'))),
         p('{<}Three'),
         p('Four{>}'),
-        ol(li(p('Five')), li(p('Six'))),
+        ol()(li(p('Five')), li(p('Six'))),
       ),
     );
 
     toggleBulletList(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
-        ol(li(p('One')), li(p('Two'))),
+        ol()(li(p('One')), li(p('Two'))),
         ul(li(p('Three')), li(p('Four'))),
-        ol(li(p('Five')), li(p('Six'))),
+        ol()(li(p('Five')), li(p('Six'))),
       ),
     );
   });
@@ -266,10 +266,10 @@ describe('lists plugin -> joining lists', () => {
   it("should join with previous but not the next list if they're not of the same type and selectoin starts at the end of previous line", () => {
     const { editorView } = editor(
       doc(
-        ol(li(p('One')), li(p('Two{<}'))),
+        ol()(li(p('One')), li(p('Two{<}'))),
         p('Three'),
         p('Four{>}'),
-        ol(li(p('Five')), li(p('Six'))),
+        ol()(li(p('Five')), li(p('Six'))),
       ),
     );
 
@@ -277,7 +277,7 @@ describe('lists plugin -> joining lists', () => {
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ul(li(p('One')), li(p('Two')), li(p('Three')), li(p('Four'))),
-        ol(li(p('Five')), li(p('Six'))),
+        ol()(li(p('Five')), li(p('Six'))),
       ),
     );
   });

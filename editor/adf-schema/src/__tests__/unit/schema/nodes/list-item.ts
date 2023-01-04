@@ -23,12 +23,12 @@ describe(`${packageName}/schema listItem node`, () => {
       '<ol><li><blockquote>text</blockquote></li></ol>',
       schema,
     );
-    expect(docFromHTML.toJSON()).toEqual(doc(ol(li(p('text')))).toJSON());
+    expect(docFromHTML.toJSON()).toEqual(doc(ol()(li(p('text')))).toJSON());
   });
 
   it('should be possible to have paragraph inside list', () => {
     const docFromHTML = fromHTML('<ol><li><p>text</p></li></ol>', schema);
-    expect(docFromHTML.toJSON()).toEqual(doc(ol(li(p('text')))).toJSON());
+    expect(docFromHTML.toJSON()).toEqual(doc(ol()(li(p('text')))).toJSON());
   });
 
   it('should be possible to have sublist inside list', () => {
@@ -37,7 +37,7 @@ describe(`${packageName}/schema listItem node`, () => {
       schema,
     );
     expect(docFromHTML.toJSON()).toEqual(
-      doc(ol(li(p('text'), ol(li(p('sublist')))))).toJSON(),
+      doc(ol()(li(p('text'), ol()(li(p('sublist')))))).toJSON(),
     );
   });
 
@@ -47,7 +47,7 @@ describe(`${packageName}/schema listItem node`, () => {
       schema,
     );
     expect(docFromHTML.toJSON()).toEqual(
-      doc(ol(li(p('sublist'), p('text')))).toJSON(),
+      doc(ol()(li(p('sublist'), p('text')))).toJSON(),
     );
   });
 });

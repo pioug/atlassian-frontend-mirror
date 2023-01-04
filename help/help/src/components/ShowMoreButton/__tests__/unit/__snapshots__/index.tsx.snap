@@ -41,7 +41,7 @@ exports[`ShowMoreButton Should match snapshot 1`] = `
   -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
   transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
   white-space: nowrap;
-  background: none;
+  background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-link, #0052CC)!important;
   cursor: pointer;
   height: 1.7142857142857142em;

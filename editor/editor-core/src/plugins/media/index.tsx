@@ -1,4 +1,6 @@
 import React from 'react';
+import { PluginKey, NodeSelection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import {
   media,
@@ -7,7 +9,7 @@ import {
   mediaSingleWithCaption,
   mediaInline,
 } from '@atlaskit/adf-schema';
-import { EditorPlugin, PMPlugin, PMPluginFactoryParams } from '../../types';
+import { NextEditorPlugin, PMPlugin, PMPluginFactoryParams } from '../../types';
 import {
   stateKey as pluginKey,
   createPlugin,
@@ -43,7 +45,11 @@ import { ReactMediaInlineNode } from './nodeviews/mediaInline';
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
 
-const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
+const mediaPlugin: NextEditorPlugin<
+  'media',
+  never,
+  MediaOptions | undefined
+> = (options?) => ({
   name: 'media',
 
   nodes() {
@@ -171,6 +177,42 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
         plugin: ({ schema }) => keymapLinkingPlugin(schema),
       });
     }
+
+    pmPlugins.push({
+      name: 'mediaSelectionHandler',
+      plugin: () => {
+        const mediaSelectionHandlerPlugin = new SafePlugin({
+          key: new PluginKey('mediaSelectionHandlerPlugin'),
+          props: {
+            handleScrollToSelection: (view) => {
+              const {
+                state: { selection },
+              } = view;
+              if (
+                !(selection instanceof NodeSelection) ||
+                selection.node.type.name !== 'media'
+              ) {
+                return false;
+              }
+
+              const { node, offset } = view.domAtPos(selection.from);
+              if (
+                // Is the media element mounted already?
+                offset === node.childNodes.length
+              ) {
+                // Media is not ready, so stop the scroll request
+                return true;
+              }
+
+              // Media is ready, keep the scrolling request
+              return false;
+            },
+          },
+        });
+
+        return mediaSelectionHandlerPlugin;
+      },
+    });
 
     return pmPlugins;
   },

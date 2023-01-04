@@ -64,6 +64,7 @@ export class RankableTableRow extends React.Component<RankableTableRowProps> {
             isHighlighted={isHighlighted}
             isRanking={isRanking}
             isRankingItem={snapshot.isDragging}
+            data-testid={testId && `${testId}--rankable--table--body--row`}
           >
             {cells.map((cell, cellIndex) => {
               const headCell = (head || { cells: [] }).cells[cellIndex];

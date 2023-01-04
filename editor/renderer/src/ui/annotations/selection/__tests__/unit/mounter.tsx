@@ -13,7 +13,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../../../../../analytics/enums';
+} from '@atlaskit/editor-common/analytics';
 jest.mock('../../../draft');
 
 describe('Annotations: SelectionInlineCommentMounter', () => {

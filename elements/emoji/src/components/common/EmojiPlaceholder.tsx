@@ -16,6 +16,9 @@ export interface Props {
   loading?: boolean;
 }
 
+export const emojiPlaceholderTestId = (shortName: string) =>
+  `emoji-placeholder-${shortName}`;
+
 const EmojiPlaceholder = (props: Props) => {
   const {
     shortName,
@@ -46,7 +49,7 @@ const EmojiPlaceholder = (props: Props) => {
 
   return (
     <span
-      data-testid={`emoji-placeholder-${shortName}`}
+      data-testid={emojiPlaceholderTestId(shortName)}
       aria-busy={loading}
       aria-label={shortName}
       className={placeholder}

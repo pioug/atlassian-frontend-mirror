@@ -33,6 +33,9 @@ export interface EmojiUploadPreviewProps {
   onAddEmoji: () => void;
 }
 
+export const uploadPreviewTestId = 'upload-preview';
+export const cancelUploadButtonTestId = 'cancel-upload-button';
+
 class EmojiUploadPreview extends PureComponent<
   EmojiUploadPreviewProps & WrappedComponentProps,
   {}
@@ -71,7 +74,7 @@ class EmojiUploadPreview extends PureComponent<
 
     return (
       <div css={uploadPreviewFooter}>
-        <div css={uploadPreview}>
+        <div css={uploadPreview} data-testid={uploadPreviewTestId}>
           <div css={uploadPreviewText}>
             <h5>
               <FormattedMessage {...messages.emojiPreviewTitle} />
@@ -103,7 +106,7 @@ class EmojiUploadPreview extends PureComponent<
             appearance="subtle"
             isDisabled={uploading}
             css={cancelButton}
-            testId="cancel-upload-button"
+            testId={cancelUploadButtonTestId}
           >
             <FormattedMessage {...messages.cancelLabel} />
           </AkButton>

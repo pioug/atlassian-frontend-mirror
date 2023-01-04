@@ -1,7 +1,11 @@
-import { WithFileAttributes } from '@atlaskit/media-common';
+import {
+  MediaTraceContext,
+  WithFileAttributes,
+  WithTraceContext,
+} from '@atlaskit/media-common';
 import { MediaFileEventPayload } from './_mediaFile';
 
-export type CommencedAttributes = WithFileAttributes;
+export type CommencedAttributes = WithFileAttributes & WithTraceContext;
 
 export type CommencedEventPayload = MediaFileEventPayload<
   CommencedAttributes,
@@ -10,6 +14,7 @@ export type CommencedEventPayload = MediaFileEventPayload<
 
 export const createCommencedEvent = (
   fileId: string,
+  traceContext: MediaTraceContext,
 ): CommencedEventPayload => ({
   eventType: 'operational',
   action: 'commenced',
@@ -18,5 +23,6 @@ export const createCommencedEvent = (
     fileAttributes: {
       fileId: fileId,
     },
+    traceContext,
   },
 });

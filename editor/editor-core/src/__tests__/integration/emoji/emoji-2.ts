@@ -55,6 +55,25 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
+  'emoji-2.ts: should be able to use emoji inside orderedList with restartNumberedLists',
+  {},
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: 'full-page',
+      featureFlags: {
+        restartNumberedLists: true,
+      },
+    });
+    await page.type(editable, '1. ');
+    await insertEmoji(page, 'a');
+    await page.waitForSelector(emojiItem('a'), { timeout: 1000 });
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
   'emoji-2.ts: should be able remove emoji on backspace',
   {},
   async (client: any, testName: string) => {

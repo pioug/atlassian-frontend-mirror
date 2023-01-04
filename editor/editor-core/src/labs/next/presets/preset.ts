@@ -1,17 +1,46 @@
-export class Preset<T extends { name: string }> {
-  private plugins: PluginsPreset;
+import type {
+  AllBuilderPlugins,
+  AllNextEditorPlugins,
+  SafePresetCheck,
+} from '@atlaskit/editor-common/types';
+import { Builder } from '@atlaskit/editor-common/utils';
+export class Preset<
+  T extends { name: string },
+  StackPlugins extends AllBuilderPlugins[] = [],
+> implements Builder<T, StackPlugins>
+{
+  public data: [...StackPlugins];
 
-  constructor() {
-    this.plugins = [];
+  constructor(...more: [...StackPlugins]) {
+    this.data = [...more] || [];
   }
 
-  add<PluginFactory>(plugin: PluginConfig<PluginFactory, T>): this {
-    this.plugins.push(plugin);
-    return this;
+  add<NewPlugin extends AllBuilderPlugins>(
+    nextOrTuple: SafePresetCheck<NewPlugin, StackPlugins>,
+  ): Preset<T, [...[NewPlugin], ...StackPlugins]> {
+    const newPreset = new Preset<T, [...[NewPlugin], ...StackPlugins]>(
+      nextOrTuple as NewPlugin,
+      ...this.data,
+    );
+    // TODO: remove this `this.data.push`,
+    // once refactoring `create-plugins-list` to address this complexity:
+    /**
+     * preset.add(x)
+     * preset.add(y)
+     * preset.add(z)
+     */
+    // to:
+    /**
+     * immutablePreset = preset.add(x).add(foo).add(bar)
+     * presetWithY = presetWithY.add(y)
+     * presetWithZ = preset.add(z)
+     */
+    this.data.push(nextOrTuple as NewPlugin);
+    return newPreset;
   }
 
-  has(plugin: () => T): boolean {
-    return this.plugins.some((pluginPreset) => {
+  has(plugin: AllBuilderPlugins): boolean {
+    return this.data.some((pluginPreset) => {
       if (Array.isArray(pluginPreset)) {
         return pluginPreset[0] === plugin;
       }
@@ -27,7 +56,7 @@ export class Preset<T extends { name: string }> {
 
   private processEditorPlugins() {
     const cache = new Map();
-    this.plugins.forEach((pluginEntry) => {
+    this.data.forEach((pluginEntry) => {
       if (Array.isArray(pluginEntry)) {
         const [fn, options] = pluginEntry;
         cache.set(fn, options);
@@ -47,15 +76,24 @@ export class Preset<T extends { name: string }> {
       }
     });
 
-    let plugins: Array<T> = [];
+    let plugins: Array<AllNextEditorPlugins> = [];
     cache.forEach((options, fn) => {
       plugins.push(fn(options));
     });
 
+    if (plugins.some((plugin) => typeof plugin === 'function')) {
+      throw new Error(
+        "!!! NextEditorPluginWithDependencies detected in presets. That's an unsupported runtime use case right now.",
+      );
+    }
+
     return plugins;
   }
 
-  private removeExcludedPlugins(plugins: Array<T>, excludes?: Set<string>) {
+  private removeExcludedPlugins(
+    plugins: AllNextEditorPlugins[],
+    excludes?: Set<string>,
+  ) {
     if (excludes) {
       return plugins.filter((plugin) => !plugin || !excludes.has(plugin.name));
     }
@@ -72,6 +110,8 @@ export type PluginsPreset = Array<PluginConfig<any, any>>;
  * – () => EditorPlugin
  * – (options: any) => EditorPlugin
  * – (options?: any) => EditorPlugin
+ * (In the future, a preset may contain NextEditorPluginWithDependencies)
+ * – (props.externalPlugins) => (options?: any) => EditorPlugin
  *
  * Usage:
  * – preset.add(plugin)

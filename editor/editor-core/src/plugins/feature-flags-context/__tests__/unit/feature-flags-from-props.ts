@@ -121,25 +121,6 @@ describe('Feature Flags from Props', () => {
   });
 
   describe('placeholder text', () => {
-    it('should default placeholderHints to false if a an empty placeholderHints string array is provided', () => {
-      const flags = createFeatureFlagsFromProps({
-        placeholderHints: [],
-      });
-      expect(flags.placeholderHints).toBe(false);
-    });
-    it('should default placeholderHints to false if a no placeholderHints string array is provided', () => {
-      const flags = createFeatureFlagsFromProps({
-        placeholderHints: undefined,
-      });
-      expect(flags.placeholderHints).toBe(false);
-    });
-    it('should set placeholderHints to true if a placeholderHints string array is provided', () => {
-      const flags = createFeatureFlagsFromProps({
-        placeholderHints: ['foo', 'bar', 'baz'],
-      });
-      expect(flags.placeholderHints).toBe(true);
-    });
-
     it('should default placeholderBracketHint to false if a no placeholderBracketHint string is provided', () => {
       const flags = createFeatureFlagsFromProps({
         placeholderBracketHint: undefined,
@@ -271,12 +252,10 @@ describe('Feature Flags from Props', () => {
             newInsertionBehaviour: true,
             interactiveExpand: true,
             placeholderBracketHint: true,
-            placeholderHints: true,
             moreTextColors: true,
             findReplace: true,
             findReplaceMatchCase: true,
             extensionLocalIdGeneration: true,
-            keyboardAccessibleDatepicker: true,
             addColumnWithCustomStep: true,
             undoRedoButtons: true,
             catchAllTracking: true,
@@ -304,46 +283,6 @@ describe('Feature Flags from Props', () => {
       ).toEqual(
         expect.objectContaining({
           synchronyErrorDocStructure: true,
-        }),
-      );
-    });
-  });
-
-  describe('viewChangingExperimentToolbarStyle', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            'view-changing-experiment-toolbar-style': 'true',
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          viewChangingExperimentToolbarStyle: 'true',
-        }),
-      );
-    });
-    it('should default to undefined if not a string', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            'view-changing-experiment-toolbar-style': true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          viewChangingExperimentToolbarStyle: undefined,
-        }),
-      );
-    });
-    it('should default to undefined if nothing passed in', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {},
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          viewChangingExperimentToolbarStyle: undefined,
         }),
       );
     });
@@ -455,6 +394,33 @@ describe('Feature Flags from Props', () => {
     });
   });
 
+  describe('useSomewhatSemanticTextColorNames', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            'use-somewhat-semantic-text-color-names': true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          useSomewhatSemanticTextColorNames: true,
+        }),
+      );
+    });
+    it('should default to false if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          useSomewhatSemanticTextColorNames: false,
+        }),
+      );
+    });
+  });
+
   describe('floating toolbar link settings button', () => {
     it('should add the FF value', () => {
       expect(
@@ -466,19 +432,6 @@ describe('Feature Flags from Props', () => {
       ).toEqual(
         expect.objectContaining({
           floatingToolbarLinkSettingsButton: 'true',
-        }),
-      );
-    });
-    it('should default to undefined if not a string', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            'view-changing-experiment-toolbar-style': true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          floatingToolbarLinkSettingsButton: undefined,
         }),
       );
     });
@@ -571,6 +524,60 @@ describe('Feature Flags from Props', () => {
       ).toEqual(
         expect.objectContaining({
           restartNumberedListsToolbar: false,
+        }),
+      );
+    });
+  });
+
+  describe('lpLinkPickerFocusTrap', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            'lp-link-picker-focus-trap': true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          lpLinkPickerFocusTrap: true,
+        }),
+      );
+    });
+    it('should default to false if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          lpLinkPickerFocusTrap: false,
+        }),
+      );
+    });
+  });
+
+  describe('prevent popup overflow', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            ['prevent-popup-overflow']: true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          preventPopupOverflow: true,
+        }),
+      );
+    });
+    it('should default to false if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          preventPopupOverflow: false,
         }),
       );
     });

@@ -139,7 +139,10 @@ export const EditorToolbar: React.FunctionComponent<
   return (
     <ContextPanelConsumer>
       {({ width: contextPanelWidth }) => (
-        <ToolbarArrowKeyNavigationProvider editorView={props.editorView}>
+        <ToolbarArrowKeyNavigationProvider
+          editorView={props.editorView}
+          childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+        >
           <div
             css={mainToolbarStyle(
               props.showKeyline || contextPanelWidth > 0,

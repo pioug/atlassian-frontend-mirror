@@ -33,8 +33,27 @@ export const matches = (srcObj: Object) => {
   };
 };
 
-export function getRandomHex(size: number) {
-  return [...Array(size)]
+function getRandomHexValues(byte: number) {
+  return [...Array(byte * 2)]
     .map(() => Math.floor(Math.random() * 16).toString(16))
     .join('');
+}
+
+export function getRandomHex(byte: number): string {
+  let randomHex;
+  if (window?.crypto) {
+    try {
+      randomHex = Array.from(
+        window.crypto.getRandomValues(new Uint8Array(byte)),
+      )
+        .map((b) => b.toString(16).padStart(2, '0'))
+        .join('');
+    } catch (e) {
+      randomHex = getRandomHexValues(byte);
+    }
+  } else {
+    randomHex = getRandomHexValues(byte);
+  }
+
+  return randomHex;
 }

@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 12.0.8
+
+### Patch Changes
+
+- [`acb689ac0da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acb689ac0da) - Change to an example available on atlassian.design so it does not use internal components.
+
 ## 12.0.7
 
 ### Patch Changes

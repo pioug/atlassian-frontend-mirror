@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 21.0.15
+
+### Patch Changes
+
+- [`9ace7f714e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ace7f714e3) - Handle new Teams ARI format in mentions
+
 ## 21.0.14
 
 ### Patch Changes

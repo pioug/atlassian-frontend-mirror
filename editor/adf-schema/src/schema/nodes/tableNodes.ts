@@ -33,8 +33,8 @@ import {
   ParagraphWithAlignmentDefinition as ParagraphWithMarks,
 } from './paragraph';
 import { BlockQuoteDefinition as Blockquote } from './blockquote';
-import { OrderedListDefinition as OrderedList } from './ordered-list';
-import { BulletListDefinition as BulletList } from './bullet-list';
+import { OrderedListDefinition as OrderedList } from './types/list';
+import { BulletListDefinition as BulletList } from './types/list';
 import { RuleDefinition as Rule } from './rule';
 import {
   HeadingDefinition as Heading,
@@ -45,7 +45,6 @@ import { MediaGroupDefinition as MediaGroup } from './media-group';
 import { MediaSingleDefinition as MediaSingle } from './media-single';
 import { DecisionListDefinition as DecisionList } from './decision-list';
 import { TaskListDefinition as TaskList } from './task-list';
-// eslint-disable-next-line import/no-cycle
 import { ExtensionDefinition as Extension } from './extension';
 import { BlockCardDefinition as BlockCard } from './block-card';
 import { EmbedCardDefinition as EmbedCard } from './embed-card';
@@ -74,10 +73,16 @@ export const getCellAttrs = (
       : null;
   const colspan = Number(dom.getAttribute('colspan') || 1);
   let { backgroundColor } = dom.style;
-  if (backgroundColor && isRgb(backgroundColor)) {
-    const result = rgbToHex(backgroundColor);
-    if (result !== null) {
-      backgroundColor = result;
+
+  // ignore setting background attr if ds neutral token is detected
+  if (backgroundColor.includes('--ds-background-neutral')) {
+    backgroundColor = '';
+  } else {
+    if (backgroundColor && isRgb(backgroundColor)) {
+      const result = rgbToHex(backgroundColor);
+      if (result !== null) {
+        backgroundColor = result;
+      }
     }
   }
 
@@ -125,11 +130,14 @@ export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
     // to ensure that we don't overwrite product's style:
     // - it clears background color for <th> if its set to gray
     // - it clears background color for <td> if its set to white
+    // - it clears background color for <th> if ds neutral token is detected
     const ignored =
       (nodeType === 'tableHeader' &&
         background === tableBackgroundColorNames.get('light gray')) ||
       (nodeType === 'tableCell' &&
-        background === tableBackgroundColorNames.get('white'));
+        background === tableBackgroundColorNames.get('white')) ||
+      (nodeType === 'tableHeader' &&
+        background.includes('--ds-background-neutral'));
 
     if (ignored) {
       attrs.style = '';

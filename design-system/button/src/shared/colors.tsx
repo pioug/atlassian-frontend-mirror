@@ -149,7 +149,10 @@ const values: Values = {
       },
     },
     link: {
-      default: { light: 'none', dark: 'none' },
+      default: {
+        light: token('color.background.neutral.subtle', 'none'),
+        dark: token('color.background.neutral.subtle', 'none'),
+      },
       selected: {
         light: token('color.background.selected', colors.N700),
         dark: token('color.background.selected', colors.N20),
@@ -160,7 +163,10 @@ const values: Values = {
       },
     },
     subtle: {
-      default: { light: 'none', dark: 'none' },
+      default: {
+        light: token('color.background.neutral.subtle', 'none'),
+        dark: token('color.background.neutral.subtle', 'none'),
+      },
       hover: {
         light: token('color.background.neutral.subtle.hovered', colors.N30A),
         dark: token('color.background.neutral.subtle.hovered', colors.DN60),
@@ -169,7 +175,10 @@ const values: Values = {
         light: token('color.background.neutral.subtle.pressed', fadedB75),
         dark: token('color.background.neutral.subtle.pressed', colors.B75),
       },
-      disabled: { light: 'none', dark: 'none' },
+      disabled: {
+        light: token('color.background.neutral.subtle', 'none'),
+        dark: token('color.background.neutral.subtle', 'none'),
+      },
       selected: {
         light: token('color.background.selected', colors.N700),
         dark: token('color.background.selected', colors.DN0),
@@ -180,7 +189,10 @@ const values: Values = {
       },
     },
     'subtle-link': {
-      default: { light: 'none', dark: 'none' },
+      default: {
+        light: token('color.background.neutral.subtle', 'none'),
+        dark: token('color.background.neutral.subtle', 'none'),
+      },
       selected: {
         light: token('color.background.selected', colors.N700),
         dark: token('color.background.selected', colors.N20),

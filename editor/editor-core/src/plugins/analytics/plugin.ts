@@ -4,7 +4,7 @@ import {
   isPerformanceAPIAvailable,
   measureRender,
 } from '@atlaskit/editor-common/utils';
-import { EditorPlugin } from '../../types/editor-plugin';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { ACTION, AnalyticsEventPayload, EVENT_TYPE } from './types';
 import { getAnalyticsEventsFromTransaction } from './utils';
 import { analyticsPluginKey } from './plugin-key';
@@ -79,7 +79,11 @@ function createPlugin(options: AnalyticsPluginOptions) {
   });
 }
 
-const analyticsPlugin = (options: AnalyticsPluginOptions): EditorPlugin => ({
+const analyticsPlugin: NextEditorPlugin<
+  'analytics',
+  never,
+  AnalyticsPluginOptions
+> = (options) => ({
   name: 'analytics',
 
   pmPlugins() {

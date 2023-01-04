@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 34.0.1
+
+### Patch Changes
+
+- [`a8eeb045e3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8eeb045e3a) - adding media only callouts to docs
+
 ## 34.0.0
 
 ### Major Changes

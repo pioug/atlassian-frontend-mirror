@@ -1,6 +1,11 @@
 import React from 'react';
-import { orderedList, bulletList, listItem } from '@atlaskit/adf-schema';
-import { EditorPlugin } from '../../types';
+import {
+  orderedList,
+  orderedListWithOrder,
+  bulletList,
+  listItem,
+} from '@atlaskit/adf-schema';
+import { NextEditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymapPlugin from './pm-plugins/keymap';
@@ -15,14 +20,28 @@ import {
 } from '../analytics';
 import { tooltip, toggleBulletList, toggleOrderedList } from '../../keymaps';
 import { IconList, IconListNumber } from '../quick-insert/assets';
+import type { ListPluginOptions } from './types';
 
-const listPlugin = (): EditorPlugin => ({
+/*
+  Toolbar buttons to bullet and ordered list can be found in
+  packages/editor/editor-core/src/plugins/toolbar-lists-indentation/ui/Toolbar.tsx
+ */
+const listPlugin: NextEditorPlugin<
+  'list',
+  never,
+  ListPluginOptions | undefined
+> = (options?) => ({
   name: 'list',
 
   nodes() {
     return [
       { name: 'bulletList', node: bulletList },
-      { name: 'orderedList', node: orderedList },
+      {
+        name: 'orderedList',
+        node: options?.restartNumberedLists
+          ? orderedListWithOrder
+          : orderedList,
+      },
       { name: 'listItem', node: listItem },
     ];
   },

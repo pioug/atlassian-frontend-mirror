@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { forwardRef, HTMLAttributes, Ref } from 'react';
 
@@ -39,7 +40,7 @@ const NavigationContent = forwardRef<
   // We place HTMLAttributes here so ERT doesn't blow up.
   NavigationContentProps & HTMLAttributes<HTMLElement>
 >((props: NavigationContentProps, ref) => {
-  const { showTopScrollIndicator, children } = props;
+  const { showTopScrollIndicator, children, testId } = props;
   const { shouldRender } = useShouldNestedElementRender();
   const scrollbar = useScrollbarWidth();
 
@@ -47,13 +48,15 @@ const NavigationContent = forwardRef<
     return children as JSX.Element;
   }
 
+  const typedRef = ref as Ref<HTMLDivElement>;
   return (
     <div
-      ref={ref as Ref<HTMLDivElement>}
+      ref={typedRef}
       css={outerContainerCSS({
         showTopScrollIndicator,
         scrollbarWidth: scrollbar.width,
       })}
+      data-testid={testId}
     >
       <div
         ref={scrollbar.ref}

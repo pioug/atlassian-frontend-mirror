@@ -1,4 +1,4 @@
-import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
+import { VirtualList } from '../../../../components/picker/VirtualList';
 import CategoryTracker from '../../../../components/picker/CategoryTracker';
 import { defaultCategories } from '../../../../util/constants';
 

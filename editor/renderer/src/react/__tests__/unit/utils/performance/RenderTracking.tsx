@@ -7,7 +7,7 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT,
   ACTION,
-} from '../../../../../analytics/enums';
+} from '@atlaskit/editor-common/analytics';
 
 type ComponentProps = {
   prop1?: string;

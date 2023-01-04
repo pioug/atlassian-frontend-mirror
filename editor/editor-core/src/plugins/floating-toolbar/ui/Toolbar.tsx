@@ -18,8 +18,6 @@ import { FloatingToolbarItem } from '../types';
 import {
   compareArrays,
   getFirstFocusableElement,
-  getLastFocusableElement,
-  getFocusableElements,
   shallowEqual,
 } from '../utils';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
@@ -41,6 +39,7 @@ import { token } from '@atlaskit/tokens';
 import { decorationStateKey, ACTIONS } from '../../base/pm-plugins/decoration';
 
 import ScrollButtons from './ScrollButtons';
+import { ToolbarArrowKeyNavigationProvider } from '../../../ui/ToolbarArrowKeyNavigationProvider';
 
 const akGridSize = gridSize();
 
@@ -104,6 +103,9 @@ const ToolbarItems = React.memo(
                     dispatchCommand(showConfirmDialog(idx));
                   } else {
                     dispatchCommand(item.onClick);
+                    if (item.focusEditoronEnter && !editorView?.hasFocus()) {
+                      editorView?.focus();
+                    }
                   }
                 };
 
@@ -169,6 +171,8 @@ const ToolbarItems = React.memo(
                     scrollableElement={popupsScrollableElement}
                     dropdownWidth={item.dropdownWidth}
                     showSelected={item.showSelected}
+                    buttonTestId={item.testId}
+                    editorView={editorView}
                     setDisableParentScroll={
                       scrollable ? setDisableScroll : undefined
                     }
@@ -471,7 +475,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
   private scrollContainerRef: React.RefObject<HTMLDivElement>;
   private mountRef: React.RefObject<HTMLDivElement>;
   private toolbarContainerRef: React.RefObject<HTMLDivElement>;
-  private currentSelectedItemIndex: number;
 
   constructor(props: Props & WrappedComponentProps) {
     super(props);
@@ -482,7 +485,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
       scrollDisabled: false,
       mounted: false,
     };
-    this.currentSelectedItemIndex = 0;
   }
   // remove any decorations added by toolbar buttons i.e danger and selected styling
   // this prevents https://product-fabric.atlassian.net/browse/ED-10207
@@ -543,59 +545,21 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
     }
   };
 
-  /**
-   * Traps the focus inside the floating toolbar until 'Esc' is pressed.
-   * @param event
-   * @returns
-   */
+  private shouldHandleArrowKeys = (): boolean => {
+    //To prevent the keydown handling of arrow keys for custom toolbar items with 'disableArrowNavigation' prop enabled,
+    //Usually the button which has menus or popups
+    return !this.props.items?.find(
+      (item) => item.type === 'custom' && item.disableArrowNavigation,
+    );
+  };
 
-  private handleKeyDown = (
-    event: React.KeyboardEvent<HTMLDivElement>,
-  ): void => {
-    //To prevent the keydown handing of arrow keys for 'hyper link floating toolbar'
-    if (
-      this.props.items?.find(
-        (item) => item.type === 'custom' && item.disableArrowNavigation,
-      )
-    ) {
-      return;
-    }
-    if (event.key === 'Escape') {
-      this.currentSelectedItemIndex = 0;
+  private handleEscape = (event: KeyboardEvent): void => {
+    //If any dropdown is open inside the floating toolbar 'Esc' key should not
+    //focus the editorview. The event cannot be stopped as dropdown is not childnode of floating toolbar
+    if (!document.querySelector('[data-role="droplistContent"]')) {
       this.props.editorView?.focus();
       event.preventDefault();
       event.stopPropagation();
-    } else {
-      //To trap the focus inside the toolbar using left and right arrow keys
-      const focusableElements = getFocusableElements(
-        this.toolbarContainerRef?.current,
-      );
-      const firstFocsuableElement = getFirstFocusableElement(
-        this.toolbarContainerRef?.current,
-      );
-      const lastFocsuableElement = getLastFocusableElement(
-        this.toolbarContainerRef?.current,
-      );
-      if (!focusableElements || focusableElements.length === 0) {
-        return;
-      }
-      if (event.key === 'ArrowRight') {
-        if (this.currentSelectedItemIndex === focusableElements.length - 1) {
-          firstFocsuableElement?.focus();
-          this.currentSelectedItemIndex = 0;
-        } else {
-          focusableElements[this.currentSelectedItemIndex + 1]?.focus();
-          this.currentSelectedItemIndex++;
-        }
-      } else if (event.key === 'ArrowLeft') {
-        if (this.currentSelectedItemIndex === 0) {
-          lastFocsuableElement?.focus();
-          this.currentSelectedItemIndex = focusableElements.length - 1;
-        } else {
-          focusableElements[this.currentSelectedItemIndex - 1]?.focus();
-          this.currentSelectedItemIndex--;
-        }
-      }
     }
   };
 
@@ -614,50 +578,57 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 
     return (
       <React.Fragment>
-        <div
-          ref={this.toolbarContainerRef}
-          css={(theme: ThemeProps) => [
-            toolbarContainer(
-              { theme },
-              scrollable,
-              hasSelect !== undefined,
-              firstElementIsSelect,
-            ),
-          ]}
-          aria-label={intl.formatMessage(messages.floatingToolbarAriaLabel)}
-          role="toolbar"
-          className={className}
-          onKeyDown={this.handleKeyDown}
+        <ToolbarArrowKeyNavigationProvider
+          editorView={this.props.editorView}
+          handleEscape={this.handleEscape}
+          disableArrowKeyNavigation={!this.shouldHandleArrowKeys()}
+          childComponentSelector={"[data-testid='editor-floating-toolbar']"}
         >
-          <Announcer
-            text={intl.formatMessage(messages.floatingToolbarAnnouncer)}
-            delay={250}
-          />
           <div
-            ref={this.scrollContainerRef}
-            css={toolbarOverflow(
-              scrollable,
-              this.state.scrollDisabled,
-              firstElementIsSelect,
-            )}
+            ref={this.toolbarContainerRef}
+            css={(theme: ThemeProps) => [
+              toolbarContainer(
+                { theme },
+                scrollable,
+                hasSelect !== undefined,
+                firstElementIsSelect,
+              ),
+            ]}
+            aria-label={intl.formatMessage(messages.floatingToolbarAriaLabel)}
+            role="toolbar"
+            data-testid="editor-floating-toolbar"
+            className={className}
           >
-            <ToolbarItems
-              {...this.props}
-              setDisableScroll={this.setDisableScroll.bind(this)}
-              mountRef={this.mountRef}
-              mounted={this.state.mounted}
+            <Announcer
+              text={intl.formatMessage(messages.floatingToolbarAnnouncer)}
+              delay={250}
             />
+            <div
+              ref={this.scrollContainerRef}
+              css={toolbarOverflow(
+                scrollable,
+                this.state.scrollDisabled,
+                firstElementIsSelect,
+              )}
+            >
+              <ToolbarItems
+                {...this.props}
+                setDisableScroll={this.setDisableScroll.bind(this)}
+                mountRef={this.mountRef}
+                mounted={this.state.mounted}
+              />
+            </div>
+            {scrollable && (
+              <ScrollButtons
+                intl={intl}
+                scrollContainerRef={this.scrollContainerRef}
+                node={node}
+                disabled={this.state.scrollDisabled}
+              />
+            )}
           </div>
-          {scrollable && (
-            <ScrollButtons
-              intl={intl}
-              scrollContainerRef={this.scrollContainerRef}
-              node={node}
-              disabled={this.state.scrollDisabled}
-            />
-          )}
-        </div>
-        <div ref={this.mountRef}></div>
+          <div ref={this.mountRef}></div>
+        </ToolbarArrowKeyNavigationProvider>
       </React.Fragment>
     );
   }

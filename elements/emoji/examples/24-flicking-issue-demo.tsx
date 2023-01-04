@@ -1,8 +1,8 @@
-import React, { FC, memo, useMemo, useState } from 'react';
+import React, { FC, memo, useState } from 'react';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
-  getRealEmojiResource,
+  getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
 import { emojiPickerHeight } from '../src/util/constants';
 import { IntlProvider } from 'react-intl-next';
@@ -142,7 +142,7 @@ const Parent: FC<ParentProps> = ({
 };
 
 export default function Example() {
-  const provider = useMemo(() => getRealEmojiResource(), []);
+  const provider = getRealEmojiProvider();
   const [count, setCount] = useState(1);
   const [enableKey, setEnableKey] = useState(false);
 

@@ -100,70 +100,65 @@ describe('table -> nodeviews -> tableCell.tsx', () => {
     });
   });
 
-  describe('with tableCellOptimization on', () => {
-    describe('nodeview update', () => {
-      it('should not recreate nodeviews on attrs update', () => {
-        const {
-          editorView,
-          refs: { pos },
-        } = editor(
-          doc(p('text'), table()(tr(td()(p('{pos}text')), tdEmpty, tdEmpty))),
-          {
-            tableCellOptimization: true,
-          },
-        );
-        const { state, dispatch } = editorView;
-        const cell = findCellClosestToPos(state.doc.resolve(pos))!;
-        const background = tableBackgroundColorNames.get('red');
-        const updateSpy = jest.spyOn(TableCellViews.prototype, 'update');
-        dispatch(setCellAttrs(cell, { background })(state.tr));
-        expect(updateSpy).toHaveReturnedWith(true);
-        const cellDomNode = document.querySelector('td')!;
-        expect(rgbToHex(cellDomNode.style.backgroundColor!)).toEqual(
-          background,
-        );
+  describe('nodeview update', () => {
+    it('should not recreate nodeviews on attrs update', () => {
+      const {
+        editorView,
+        refs: { pos },
+      } = editor(
+        doc(p('text'), table()(tr(td()(p('{pos}text')), tdEmpty, tdEmpty))),
+        {
+          tableCellOptimization: true,
+        },
+      );
+      const { state, dispatch } = editorView;
+      const cell = findCellClosestToPos(state.doc.resolve(pos))!;
+      const background = tableBackgroundColorNames.get('red');
+      const updateSpy = jest.spyOn(TableCellViews.prototype, 'update');
+      dispatch(setCellAttrs(cell, { background })(state.tr));
+      expect(updateSpy).toHaveReturnedWith(true);
+      const cellDomNode = document.querySelector('td')!;
+      expect(rgbToHex(cellDomNode.style.backgroundColor!)).toEqual(background);
+    });
+
+    it('should preserve the correct rowspan and colspan after merge cells and undo', () => {
+      jest.spyOn(domHelpers, 'getTop').mockImplementation(() => 0);
+
+      const originalDoc = doc(
+        table({ localId: TABLE_LOCAL_ID })(
+          tr(th()(p('{<cell}')), thEmpty, thEmpty),
+          tr(td()(p('{cell>}')), tdEmpty, tdEmpty),
+          tr(tdEmpty, tdEmpty, tdEmpty),
+        ),
+      );
+      const { editorView } = editor(originalDoc, {
+        stickyHeaders: true,
       });
+      const { state, dispatch } = editorView;
 
-      it('preserves correct rowspan and colspan after merge cells and undo', () => {
-        jest.spyOn(domHelpers, 'getTop').mockImplementation(() => 0);
-
-        const originalDoc = doc(
+      dispatch(mergeCells(state.tr));
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
           table({ localId: TABLE_LOCAL_ID })(
-            tr(th()(p('{<cell}')), thEmpty, thEmpty),
-            tr(td()(p('{cell>}')), tdEmpty, tdEmpty),
+            tr(th({ rowspan: 2 })(p('')), thEmpty, thEmpty),
+            tr(tdEmpty, tdEmpty),
             tr(tdEmpty, tdEmpty, tdEmpty),
           ),
-        );
-        const { editorView } = editor(originalDoc, {
-          stickyHeaders: true,
-          tableCellOptimization: true,
-        });
-        const { state, dispatch } = editorView;
+        ),
+      );
 
-        dispatch(mergeCells(state.tr));
-        expect(editorView.state.doc).toEqualDocument(
-          doc(
-            table({ localId: TABLE_LOCAL_ID })(
-              tr(th({ rowspan: 2 })(p('')), thEmpty, thEmpty),
-              tr(tdEmpty, tdEmpty),
-              tr(tdEmpty, tdEmpty, tdEmpty),
-            ),
-          ),
-        );
-
-        sendKeyToPm(editorView, 'Mod-z');
-        validateUnmergedDomCells();
-        expect(editorView.state.doc).toEqualDocument(originalDoc);
-      });
-
-      // make sure all colspan/rowspan attributes are removed from cells
-      function validateUnmergedDomCells() {
-        const cells = document.querySelectorAll('table td, table th');
-        Array.from(cells).forEach((cell) => {
-          expect(cell.getAttribute('rowspan')).toBeFalsy();
-          expect(cell.getAttribute('colspan')).toBeFalsy();
-        });
-      }
+      sendKeyToPm(editorView, 'Mod-z');
+      validateUnmergedDomCells();
+      expect(editorView.state.doc).toEqualDocument(originalDoc);
     });
+
+    // make sure all colspan/rowspan attributes are removed from cells
+    function validateUnmergedDomCells() {
+      const cells = document.querySelectorAll('table td, table th');
+      Array.from(cells).forEach((cell) => {
+        expect(cell.getAttribute('rowspan')).toBeFalsy();
+        expect(cell.getAttribute('colspan')).toBeFalsy();
+      });
+    }
   });
 });

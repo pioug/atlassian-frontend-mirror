@@ -28,6 +28,7 @@ import {
   updateMediaNodeAttrs,
 } from '../commands/helpers';
 import { ProsemirrorGetPosHandler } from '../../../nodeviews';
+import { MediaTraceContext } from '@atlaskit/media-common';
 
 export type RemoteDimensions = { id: string; height: number; width: number };
 
@@ -363,7 +364,7 @@ export class MediaNodeUpdater {
   };
 
   // Copies the pasted node into the current collection
-  copyNode = async () => {
+  copyNode = async (traceContext?: MediaTraceContext) => {
     const mediaProvider = await this.props.mediaProvider;
     const { isMediaSingle, view } = this.props;
     const attrs = this.getAttrs();
@@ -401,7 +402,12 @@ export class MediaNodeUpdater {
         authProvider: uploadMediaClientConfig.authProvider,
         occurrenceKey: uuidV4(),
       };
-      const mediaFile = await mediaClient.file.copyFile(source, destination);
+      const mediaFile = await mediaClient.file.copyFile(
+        source,
+        destination,
+        undefined,
+        traceContext,
+      );
 
       updateMediaNodeAttrs(
         source.id,

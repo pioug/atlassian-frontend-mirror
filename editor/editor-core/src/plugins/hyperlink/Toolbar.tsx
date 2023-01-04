@@ -30,6 +30,7 @@ import {
 } from '../../messages';
 import { isSafeUrl, LinkAttributes } from '@atlaskit/adf-schema';
 import {
+  LINKPICKER_HEIGHT_IN_PX,
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '../../ui/LinkSearch/ToolbarComponents';
@@ -128,6 +129,13 @@ export const getToolbarConfig =
   (state, intl, providerFactory) => {
     const { formatMessage } = intl;
     const linkState: HyperlinkState | undefined = stateKey.getState(state);
+
+    /**
+     * Enable focus trap only if feature flag is enabled AND for the new version of the picker
+     */
+    const { lpLinkPicker, lpLinkPickerFocusTrap, preventPopupOverflow } =
+      getFeatureFlags(state);
+    const shouldEnableFocusTrap = lpLinkPicker && lpLinkPickerFocusTrap;
 
     if (linkState && linkState.activeLinkMark) {
       const { activeLinkMark } = linkState;
@@ -264,10 +272,17 @@ export const getToolbarConfig =
             ? getLinkText(activeLinkMark, state)
             : linkState.activeText;
 
+          const popupHeight =
+            lpLinkPicker && Boolean(options?.linkPicker?.plugins?.length)
+              ? LINKPICKER_HEIGHT_IN_PX
+              : RECENT_SEARCH_HEIGHT_IN_PX;
+
           return {
             ...hyperLinkToolbar,
-            height: RECENT_SEARCH_HEIGHT_IN_PX,
+            preventPopupOverflow,
+            height: popupHeight,
             width: RECENT_SEARCH_WIDTH_IN_PX,
+            focusTrap: shouldEnableFocusTrap,
             items: [
               {
                 type: 'custom',
@@ -288,6 +303,7 @@ export const getToolbarConfig =
                       displayUrl={link}
                       displayText={displayText || ''}
                       providerFactory={providerFactory}
+                      onCancel={() => view.focus()}
                       onSubmit={(
                         href,
                         title = '',

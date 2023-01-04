@@ -1,6 +1,7 @@
 import React from 'react';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
+import type { DocNode } from '@atlaskit/adf-schema';
 
 import DecisionList from '../src/components/DecisionList';
 import DecisionItem from '../src/components/DecisionItem';
@@ -14,13 +15,13 @@ export default () => (
         Hello <b>world</b>.
       </DecisionItem>
       <DecisionItem contentRef={dumpRef}>
-        <Renderer document={document} />
+        <Renderer document={document as DocNode} />
       </DecisionItem>
       <DecisionItem contentRef={dumpRef}>
         Hello <b>world</b>.
       </DecisionItem>
       <DecisionItem contentRef={dumpRef}>
-        <Renderer document={document} />
+        <Renderer document={document as DocNode} />
       </DecisionItem>
     </DecisionList>
 

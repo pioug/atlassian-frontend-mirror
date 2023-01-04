@@ -2,11 +2,12 @@
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 
-import { avatarListWrapperStyles } from './styles';
+import { avatarListWrapperStyles, imageButton } from './styles';
 import { SmallAvatarImage } from '../predefined-avatar-view/smallImageAvatar';
 
 export interface Avatar {
   dataURI: string;
+  name?: string;
 }
 
 export interface AvatarListProps {
@@ -22,16 +23,23 @@ export class AvatarList extends PureComponent<AvatarListProps, {}> {
 
   render() {
     const { avatars, selectedAvatar } = this.props;
+
     const cards = avatars.map((avatar, idx) => {
       const elementKey = `predefined-avatar-${idx}`;
       return (
         <li key={elementKey}>
-          <SmallAvatarImage
-            isSelected={avatar === selectedAvatar}
-            src={avatar.dataURI}
+          <button
             onClick={this.onItemClick(avatar)}
-            id="small-avatar-image"
-          />
+            aria-label={avatar.name || undefined}
+            css={imageButton({ isSelected: avatar === selectedAvatar })}
+          >
+            <SmallAvatarImage
+              isSelected={avatar === selectedAvatar}
+              src={avatar.dataURI}
+              id="small-avatar-image"
+              alt={avatar.name || undefined}
+            />
+          </button>
         </li>
       );
     });

@@ -1,5 +1,19 @@
 # @atlaskit/side-navigation
 
+## 1.5.0
+
+### Minor Changes
+
+- [`caa68aad0fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caa68aad0fd) - Internal changes around styles:
+
+  - Application of primitives for more declarative code
+  - Application of spacing tokens to internal styles
+
+### Patch Changes
+
+- [`f96f3ebd861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f96f3ebd861) - [ux] Use color.background.neutral.subtle token to represent transparent background.
+- [`fbe4c12c94b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbe4c12c94b) - DTR-995 fix move page dialog bg color
+
 ## 1.4.3
 
 ### Patch Changes

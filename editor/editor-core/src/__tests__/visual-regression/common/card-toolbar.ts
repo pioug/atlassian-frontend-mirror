@@ -2,16 +2,29 @@ import {
   PuppeteerPage,
   waitForNoTooltip,
 } from '@atlaskit/visual-regression/helper';
-
 import {
   initFullPageEditorWithAdf,
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
 import {
   waitForInlineCardSelection,
   waitForResolvedInlineCard,
 } from '@atlaskit/media-integration-test-helpers';
+import { typeInEditor } from '@atlaskit/editor-test-helpers/page-objects/editor';
+
+import {
+  clickToolbarMenu,
+  ToolbarMenuItem,
+} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+
+import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
+import blankAdf from './__fixtures__/blank-adf.json';
+
+const typeParagraphs = async (page: PuppeteerPage, lines = 6) => {
+  for (let i = 0; i < 6; i++) {
+    await typeInEditor(page, 'Test one, two, three\r\n');
+  }
+};
 
 describe('Card toolbar:', () => {
   let page: PuppeteerPage;
@@ -89,7 +102,7 @@ describe('Card toolbar:', () => {
     await snapshot(page);
   });
 
-  it('renders properly when feature flag `viewChangingExperimentToolbarStyle` is set to `toolbarIcons`', async () => {
+  it('renders properly with icons toolbar', async () => {
     await initFullPageEditorWithAdf(
       page,
       cardAppearanceAdf,
@@ -99,9 +112,6 @@ describe('Card toolbar:', () => {
         height: 1020,
       },
       {
-        featureFlags: {
-          'view-changing-experiment-toolbar-style': 'toolbarIcons',
-        },
         smartLinks: {
           resolveBeforeMacros: ['jira'],
           allowBlockCards: true,
@@ -115,6 +125,27 @@ describe('Card toolbar:', () => {
     await page.waitForSelector(
       'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-edit-link-button"]',
     );
+    await snapshot(page);
+  });
+
+  it('repositions the popup to bottom when feature flag `preventPopupOverflow` is enabled', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      blankAdf,
+      undefined,
+      {
+        width: 950,
+        height: 500,
+      },
+      {
+        featureFlags: {
+          'prevent-popup-overflow': true,
+        },
+      },
+    );
+
+    await typeParagraphs(page);
+    await clickToolbarMenu(page, ToolbarMenuItem.link);
     await snapshot(page);
   });
 });

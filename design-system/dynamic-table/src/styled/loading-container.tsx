@@ -4,18 +4,21 @@ import { FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-const CSS_VAR_CONTENTS_OPACITY = '--contents-opacity';
+export const CSS_VAR_CONTENTS_OPACITY = '--contents-opacity';
 
 type LoadingContainerProps = {
   contentsOpacity: number;
+  testId?: string;
 };
 
 const containerStyles = css({
   position: 'relative',
 });
 
-export const Container: FC = ({ children }) => (
-  <div css={containerStyles}>{children}</div>
+export const Container: FC<{ testId?: string }> = ({ children, testId }) => (
+  <div css={containerStyles} data-testid={testId && `${testId}--container`}>
+    {children}
+  </div>
 );
 
 const contentsContainerStyles = css({
@@ -24,14 +27,16 @@ const contentsContainerStyles = css({
 });
 
 export const ContentsContainer: FC<LoadingContainerProps> = ({
-  contentsOpacity,
   children,
+  contentsOpacity,
+  testId,
 }) => (
   <div
     style={
       { [CSS_VAR_CONTENTS_OPACITY]: contentsOpacity } as React.CSSProperties
     }
     css={[contentsContainerStyles]}
+    data-testid={testId && `${testId}--contents--container`}
   >
     {children}
   </div>
@@ -48,6 +53,14 @@ const spinnerContainerStyles = css({
   justifyContent: 'center',
 });
 
-export const SpinnerContainer: FC = ({ children }) => (
-  <div css={spinnerContainerStyles}>{children}</div>
+export const SpinnerContainer: FC<{ testId?: string }> = ({
+  children,
+  testId,
+}) => (
+  <div
+    css={spinnerContainerStyles}
+    data-testid={testId && `${testId}--spinner--container`}
+  >
+    {children}
+  </div>
 );

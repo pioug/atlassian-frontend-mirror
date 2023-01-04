@@ -5,6 +5,7 @@ import {
 import { Mark, Node as PMNode } from 'prosemirror-model';
 import { escapeMarkdown, stringRepeat } from './util';
 import tableNodes from './tableSerializer';
+import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';
 
 /**
  * Look for series of backticks in a string, find length of the longest one, then
@@ -233,13 +234,17 @@ const editorNodes = {
     parent: PMNode,
     index: number,
   ) {
+    const order = getOrderFromOrderedListNode(parent);
     const delimiter =
-      parent.type.name === 'bulletList' ? '* ' : `${index + 1}. `;
+      parent.type.name === 'bulletList' ? '* ' : `${order + index}. `;
     for (let i = 0; i < node.childCount; i++) {
       const child = node.child(i);
+      // if  at second child or more of list item, add a newline
       if (i > 0) {
         state.write('\n');
       }
+      // if at first child of list item, add delimiter (e.g "1.").
+      // if at second child or more of list item, only add spacing (not delimiter)
       if (i === 0) {
         state.wrapBlock('  ', delimiter, node, () =>
           state.render(child, parent, i),
@@ -254,6 +259,7 @@ const editorNodes = {
       }
       state.flushClose(1);
     }
+    // if we're at the final list item, add a final closing newline
     if (index === parent.childCount - 1) {
       state.write('\n');
     }

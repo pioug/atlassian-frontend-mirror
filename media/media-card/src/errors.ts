@@ -26,7 +26,8 @@ export type ImageLoadPrimaryReason =
 
 export type RemotePreviewPrimaryReason =
   | 'remote-preview-fetch'
-  | 'remote-preview-not-ready';
+  | 'remote-preview-not-ready'
+  | 'remote-preview-fetch-ssr';
 
 export type LocalPreviewPrimaryReason =
   | 'local-preview-get'
@@ -47,7 +48,6 @@ export class MediaCardError extends Error {
     readonly secondaryError?: Error,
   ) {
     super(primaryReason);
-
     // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-newtarget
     Object.setPrototypeOf(this, new.target.prototype);
 
@@ -126,13 +126,22 @@ export function isImageLoadError(err: Error): err is ImageLoadError {
   return err instanceof ImageLoadError;
 }
 
-// In a try/catch statement, the error caught is the type of any.
+// In a try/catch statement, the error caught is the type of unknown.
 // We can use this helper to ensure that the error handled is the type of MediaCardError if unsure
+// If updatePrimaryReason is true, if it's a MediaCardError already, it will update it's primary reason
 export const ensureMediaCardError = (
   primaryReason: MediaCardErrorPrimaryReason,
   error: Error,
-) =>
-  isMediaCardError(error) ? error : new MediaCardError(primaryReason, error);
+  updatePrimaryReason?: boolean,
+) => {
+  if (isMediaCardError(error)) {
+    if (updatePrimaryReason && error.primaryReason !== primaryReason) {
+      return new MediaCardError(primaryReason, error.secondaryError);
+    }
+    return error;
+  }
+  return new MediaCardError(primaryReason, error);
+};
 
 export const isUploadError = (error?: MediaCardError) =>
   error && error.primaryReason === 'upload';

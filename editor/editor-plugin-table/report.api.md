@@ -15,9 +15,9 @@
 
 ```ts
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { TableLayout } from '@atlaskit/adf-schema';
 
 // @public (undocumented)
@@ -60,8 +60,6 @@ interface PluginConfig {
   // (undocumented)
   permittedLayouts?: PermittedLayoutsDescriptor;
   // (undocumented)
-  stickToolbarToBottom?: boolean;
-  // (undocumented)
   stickyHeaders?: boolean;
   // (undocumented)
   stickyHeadersOptimization?: boolean;
@@ -94,9 +92,11 @@ interface TablePluginOptions {
 }
 
 // @public (undocumented)
-export const tablesPlugin: (
-  options?: TablePluginOptions | undefined,
-) => EditorPlugin;
+export const tablesPlugin: NextEditorPlugin<
+  'table',
+  never,
+  TablePluginOptions | undefined
+>;
 
 // (No @packageDocumentation comment for this package)
 ```

@@ -2,14 +2,8 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { browser } from '@atlaskit/editor-common/utils';
 import { PluginKey, EditorState } from 'prosemirror-state';
 import { DecorationSet, Decoration } from 'prosemirror-view';
-import { EditorPlugin } from '../../types';
-import {
-  isInEmptyLine,
-  isEmptyDocument,
-  bracketTyped,
-} from '../../utils/document';
-import { pluginKey as alignmentPluginKey } from '../alignment/pm-plugins/main';
-import { placeHolderClassName } from './styles';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { isEmptyDocument, bracketTyped } from '../../utils/document';
 
 export const pluginKey = new PluginKey('placeholderPlugin');
 import { focusStateKey } from '../base/pm-plugins/focus-handler';
@@ -25,6 +19,7 @@ interface PlaceHolderState {
 function getPlaceholderState(editorState: EditorState): PlaceHolderState {
   return pluginKey.getState(editorState);
 }
+export const placeholderTestId = 'placeholder-test-id';
 
 export function createPlaceholderDecoration(
   editorState: EditorState,
@@ -32,18 +27,21 @@ export function createPlaceholderDecoration(
   pos: number = 1,
 ): DecorationSet {
   const placeholderDecoration = document.createElement('span');
-  let placeHolderClass = placeHolderClassName;
+  let placeholderNodeWithText = placeholderDecoration;
 
-  const alignment = alignmentPluginKey.getState(editorState);
-  if (alignment && alignment.align === 'end') {
-    placeHolderClass = placeHolderClass + ' align-end';
-  } else if (alignment && alignment.align === 'center') {
-    placeHolderClass = placeHolderClass + ' align-center';
+  placeholderDecoration.setAttribute('data-testid', placeholderTestId);
+  placeholderDecoration.className = 'placeholder-decoration';
+
+  // PM sets contenteditable to false on Decorations so Firefox doesn't display the flashing cursor
+  // So adding an extra span which will contain the placeholder text
+  if (browser.gecko) {
+    const placeholderNode = document.createElement('span');
+    placeholderNode.setAttribute('contenteditable', 'true'); // explicitly overriding the default Decoration behaviour
+    placeholderDecoration.appendChild(placeholderNode);
+    placeholderNodeWithText = placeholderNode;
   }
-  placeholderDecoration.className = placeHolderClass;
-  const placeholderNode = document.createElement('span');
-  placeholderNode.textContent = placeholderText;
-  placeholderDecoration.appendChild(placeholderNode);
+
+  placeholderNodeWithText.textContent = placeholderText || ' ';
 
   // ME-2289 Tapping on backspace in empty editor hides and displays the keyboard
   // Add a editable buff node as the cursor moving forward is inevitable
@@ -57,7 +55,7 @@ export function createPlaceholderDecoration(
 
   return DecorationSet.create(editorState.doc, [
     Decoration.widget(pos, placeholderDecoration, {
-      side: -1,
+      side: 0,
       key: 'placeholder',
     }),
   ]);
@@ -78,7 +76,6 @@ const emptyPlaceholder: PlaceHolderState = { hasPlaceholder: false };
 
 function createPlaceHolderStateFrom(
   editorState: EditorState,
-  getPlaceholderHintMessage: () => string | undefined,
   defaultPlaceholderText?: string,
   bracketPlaceholderText?: string,
 ): PlaceHolderState {
@@ -92,12 +89,6 @@ function createPlaceHolderStateFrom(
     return setPlaceHolderState(defaultPlaceholderText);
   }
 
-  const placeholderHint = getPlaceholderHintMessage();
-  if (placeholderHint && isInEmptyLine(editorState) && isEditorFocused) {
-    const { $from } = editorState.selection;
-    return setPlaceHolderState(placeholderHint, $from.pos);
-  }
-
   if (bracketPlaceholderText && bracketTyped(editorState) && isEditorFocused) {
     const { $from } = editorState.selection;
     // Space is to account for positioning of the bracket
@@ -107,34 +98,13 @@ function createPlaceHolderStateFrom(
   return emptyPlaceholder;
 }
 
-function createGetPlaceholderHintMessage(
-  placeholderHints?: string[],
-): () => string | undefined {
-  let index = 0;
-
-  return () => {
-    if (!placeholderHints || placeholderHints.length === 0) {
-      return;
-    }
-    const { length } = placeholderHints;
-
-    const placeholder = placeholderHints[index++];
-    index = index % length;
-
-    return placeholder;
-  };
-}
-
 export function createPlugin(
   defaultPlaceholderText?: string,
-  placeholderHints?: string[],
   bracketPlaceholderText?: string,
 ): SafePlugin | undefined {
-  if (!defaultPlaceholderText && !placeholderHints && !bracketPlaceholderText) {
+  if (!defaultPlaceholderText && !bracketPlaceholderText) {
     return;
   }
-  const getPlaceholderHintMessage =
-    createGetPlaceholderHintMessage(placeholderHints);
 
   return new SafePlugin<PlaceHolderState>({
     key: pluginKey,
@@ -142,7 +112,6 @@ export function createPlugin(
       init: (_, state) =>
         createPlaceHolderStateFrom(
           state,
-          getPlaceholderHintMessage,
           defaultPlaceholderText,
           bracketPlaceholderText,
         ),
@@ -157,7 +126,6 @@ export function createPlugin(
           if (meta.applyPlaceholderIfEmpty) {
             return createPlaceHolderStateFrom(
               newEditorState,
-              getPlaceholderHintMessage,
               defaultPlaceholderText,
               bracketPlaceholderText,
             );
@@ -166,7 +134,6 @@ export function createPlugin(
 
         return createPlaceHolderStateFrom(
           newEditorState,
-          getPlaceholderHintMessage,
           defaultPlaceholderText,
           bracketPlaceholderText,
         );
@@ -193,13 +160,14 @@ export function createPlugin(
 
 export interface PlaceholderPluginOptions {
   placeholder?: string;
-  placeholderHints?: string[];
   placeholderBracketHint?: string;
 }
 
-const placeholderPlugin = (
-  options?: PlaceholderPluginOptions,
-): EditorPlugin => ({
+const placeholderPlugin: NextEditorPlugin<
+  'placeholder',
+  never,
+  PlaceholderPluginOptions | undefined
+> = (options?) => ({
   name: 'placeholder',
 
   pmPlugins() {
@@ -209,7 +177,6 @@ const placeholderPlugin = (
         plugin: () =>
           createPlugin(
             options && options.placeholder,
-            options && options.placeholderHints,
             options && options.placeholderBracketHint,
           ),
       },

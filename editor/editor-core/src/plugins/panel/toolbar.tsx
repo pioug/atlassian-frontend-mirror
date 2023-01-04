@@ -307,6 +307,7 @@ export const getToolbarItems = (
       id: 'editor.panel.delete',
       type: 'button',
       appearance: 'danger',
+      focusEditoronEnter: true,
       icon: RemoveIcon,
       onClick: removePanel(),
       onMouseEnter: hoverDecoration(panelNodeType, true),

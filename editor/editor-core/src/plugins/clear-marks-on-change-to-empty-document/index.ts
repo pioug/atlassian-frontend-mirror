@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, EditorState, Transaction } from 'prosemirror-state';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { isEmptyDocument } from '../../utils';
 
 export const pluginKey = new PluginKey(
@@ -24,7 +24,9 @@ export function createPlugin(): SafePlugin {
   });
 }
 
-const clearMarksOnChangeToEmptyDocumentPlugin = (): EditorPlugin => ({
+const clearMarksOnChangeToEmptyDocumentPlugin: NextEditorPlugin<
+  'clearMarksOnEmptyDoc'
+> = () => ({
   name: 'clearMarksOnEmptyDoc',
 
   pmPlugins() {

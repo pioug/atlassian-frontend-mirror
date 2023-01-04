@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import { forwardRef } from 'react';
+import { forwardRef, MouseEvent } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import Box from '@atlaskit/ds-explorations/box';
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import OpenIcon from '@atlaskit/icon/glyph/open';
 
@@ -12,10 +13,10 @@ type CustomProps = CustomItemComponentProps & { href: string };
 
 const CustomLink = forwardRef<HTMLAnchorElement, CustomProps>(
   (props: CustomProps, ref) => {
-    const { children, ...rest } = props;
+    const { children, href, ...rest } = props;
     return (
-      //@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
-      <a href="/spa-link" ref={ref} {...rest}>
+      // eslint-disable-next-line @repo/internal/react/use-primitives
+      <a href={href || '/spa-link'} ref={ref} {...rest}>
         {children}
       </a>
     );
@@ -23,7 +24,7 @@ const CustomLink = forwardRef<HTMLAnchorElement, CustomProps>(
 );
 
 const Example = () => (
-  <div onClick={(e) => e.preventDefault()}>
+  <Box display="block" onClick={(e: MouseEvent) => e.preventDefault()} as="div">
     <CustomItem href="/create-article-1" component={CustomLink}>
       Custom create article
     </CustomItem>
@@ -80,7 +81,7 @@ const Example = () => (
     >
       Custom create article
     </CustomItem>
-  </div>
+  </Box>
 );
 
 export default Example;

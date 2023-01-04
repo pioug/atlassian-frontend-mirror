@@ -1,8 +1,8 @@
 import { PanelDefinition as Panel } from '../panel';
 import { ParagraphDefinition as Paragraph } from '../paragraph';
 import { BlockQuoteDefinition as Blockquote } from '../blockquote';
-import { OrderedListDefinition as OrderedList } from '../ordered-list';
-import { BulletListDefinition as BulletList } from '../bullet-list';
+import { OrderedListDefinition as OrderedList } from '../types/list';
+import { BulletListDefinition as BulletList } from '../types/list';
 import { RuleDefinition as Rule } from '../rule';
 import { HeadingDefinition as Heading } from '../heading';
 import { CodeBlockDefinition as CodeBlock } from '../code-block';

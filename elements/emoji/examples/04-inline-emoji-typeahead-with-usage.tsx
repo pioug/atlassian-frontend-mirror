@@ -30,7 +30,7 @@ const loremContent = (
   </div>
 );
 
-const EmojiTextInput: FC<TypeaheadProps> = (props) => {
+export const EmojiTextInput: FC<TypeaheadProps> = (props) => {
   const emojiTypeAheadRef = useRef<EmojiTypeAhead | null>();
   const { onSelection, label, emojiProvider, position } = props;
   const target = position ? '#demo-input' : undefined;

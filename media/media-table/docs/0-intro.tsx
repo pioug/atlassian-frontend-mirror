@@ -1,45 +1,21 @@
 import React from 'react';
-import { md, code, Props, AtlassianInternalWarning } from '@atlaskit/docs';
-import { createRxjsNotice } from '@atlaskit/media-common/docs';
+import { md, AtlassianInternalWarning } from '@atlaskit/docs';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import UsageTab from './content/usage';
+import PropsDefinitionTab from './content/props-definitions';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
 
-  ${createRxjsNotice('Media Table')}
-
-  # Media Table
-
-  ## Usage
-
-  ${code`
-    import {MediaClientConfig} from '@atlaskit/media-core';
-    import { MediaTable, MediaTableItem } from '@atlaskit/media-table';
-
-    const mediaClientConfig: MediaClientConfig = {
-      authProvider: () => Promise.resolve()
-    };
-    const items: MediaTableItem[] = [{
-      identifier: {
-        id: 'file-id-1',
-        mediaItemType: 'file'
-      }
-    }, {
-      identifier: {
-        id: 'file-id-2',
-        mediaItemType: 'file'
-      }
-    }]
-
-    <MediaTable
-      items={items}
-      mediaClientConfig={mediaClientConfig}
-    />
-  `}
+  ### Description
+  This package provides the capability to display the already uploaded media in tabular format with pagination.
 
   ${(
-    <Props
-      heading="Media Table Props"
-      props={require('!!extract-react-types-loader!../src/component/mediaTable')}
+    <DocsContentTabs
+      tabs={[
+        { name: 'Usage', content: UsageTab },
+        { name: 'Props Definition', content: PropsDefinitionTab },
+      ]}
     />
   )}
 `;

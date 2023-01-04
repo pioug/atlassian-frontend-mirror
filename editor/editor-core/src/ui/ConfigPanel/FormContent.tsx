@@ -1,11 +1,8 @@
 import React from 'react';
-import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 
 import {
   FieldDefinition,
   isFieldset,
-  Parameters,
   TabGroupField,
   TabField,
 } from '@atlaskit/editor-common/extensions';
@@ -15,7 +12,6 @@ import CustomSelect from './Fields/CustomSelect';
 import Date from './Fields/Date';
 import DateRange from './Fields/DateRange';
 import Enum from './Fields/Enum';
-// eslint-disable-next-line import/no-cycle
 import Fieldset from './Fields/Fieldset';
 import Number from './Fields/Number';
 import String from './Fields/String';
@@ -25,18 +21,9 @@ import Expand from './Fields/Expand';
 import TabGroup from './Fields/TabGroup';
 
 import RemovableField from './NestedForms/RemovableField';
-import { OnFieldChange } from './types';
+import { FieldComponentProps, FormContentProps } from './types';
 import { getSafeParentedName } from './utils';
 import { FormErrorBoundary } from './FormErrorBoundary';
-
-export interface FieldComponentProps {
-  field: FieldDefinition;
-  parameters: Parameters;
-  parentName?: string;
-  extensionManifest: ExtensionManifest;
-  firstVisibleFieldName?: string;
-  onFieldChange: OnFieldChange;
-}
 
 export function FieldComponent({
   field,
@@ -152,6 +139,7 @@ export function FieldComponent({
           extensionManifest={extensionManifest}
           parameters={defaultValue || {}}
           error={error}
+          formComponent={FormContent}
         />
       );
 
@@ -244,17 +232,7 @@ export default function FormContent({
   onFieldChange,
   firstVisibleFieldName,
   contextIdentifierProvider,
-}: {
-  fields: FieldDefinition[];
-  parentName?: string;
-  parameters?: Parameters;
-  extensionManifest: ExtensionManifest;
-  canRemoveFields?: boolean;
-  onClickRemove?: (fieldName: string) => void;
-  onFieldChange: OnFieldChange;
-  firstVisibleFieldName?: string;
-  contextIdentifierProvider?: ContextIdentifierProvider;
-}) {
+}: FormContentProps) {
   return (
     <FormErrorBoundary
       contextIdentifierProvider={contextIdentifierProvider}

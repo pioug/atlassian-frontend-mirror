@@ -9,7 +9,7 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-} from '../../../../analytics/enums';
+} from '@atlaskit/editor-common/analytics';
 
 describe('ErrorBoundary', () => {
   let mockCreateAnalyticsEvent: jest.Mock;

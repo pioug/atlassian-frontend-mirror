@@ -18,7 +18,8 @@ import statusAdf from './__fixtures__/status-inside-lists.adf.json';
 import dateAdf from './__fixtures__/date-inside-lists.adf.json';
 import floatsAdf from './__fixtures__/lists-adjacent-floats-adf.json';
 import floatsAdf2 from './__fixtures__/action-decision-lists-adjacent-floats-adf.json';
-import list100ItemsAdf from './__fixtures__/lists-100-items.adf';
+import { createListWithNItems } from './__fixtures__/very-long-lists.adf';
+import listsWithOrderAndNestedListsAdf from './__fixtures__/lists-with-order-and-nested-lists-adf.json';
 import {
   waitForCardToolbar,
   clickOnCard,
@@ -105,9 +106,49 @@ describe('Lists', () => {
     await waitForDatePicker(page);
   });
 
-  it('should not cut off numbers in long ordered lists', async () => {
-    await initEditor(page, list100ItemsAdf);
-    await scrollToBottom(page);
+  describe('when restartNumberedLists (custom start numbers in ordered lists) is disabled', () => {
+    const featureFlags = { restartNumberedLists: false };
+    const listWithNItems = createListWithNItems(101);
+    it('should not cut off numbers in long ordered lists (100+)', async () => {
+      await initEditor(page, listWithNItems, undefined, { featureFlags });
+      await scrollToBottom(page);
+    });
+  });
+
+  describe('when restartNumberedLists (custom start numbers in ordered lists) is enabled', () => {
+    const featureFlags = { restartNumberedLists: true };
+
+    // TODO: Add back 9999 case (flaky timing out VR test: https://product-fabric.atlassian.net/browse/ED-16361)
+    const totalListItemsTestCases = [1, 9, 99, 999];
+
+    totalListItemsTestCases.forEach((totalListItems) => {
+      it(`should not cut off numbers in long ordered lists (list with ${totalListItems} items)`, async () => {
+        const listWithNItems = createListWithNItems(totalListItems);
+        await initEditor(page, listWithNItems, undefined, {
+          featureFlags,
+        });
+        await scrollToBottom(page);
+      });
+    });
+    totalListItemsTestCases.forEach((totalListItems) => {
+      it(`should not cut off numbers in long ordered lists inside tables (list with ${totalListItems} items)`, async () => {
+        const listInTableWithNItems = createListWithNItems(
+          totalListItems,
+          true,
+        );
+        await initEditor(page, listInTableWithNItems, undefined, {
+          featureFlags,
+          allowTables: { advanced: true },
+        });
+        await scrollToBottom(page);
+      });
+    });
+    it('should render indented lists inside ordered lists with specific padding', async () => {
+      await initEditor(page, listsWithOrderAndNestedListsAdf, undefined, {
+        featureFlags,
+        allowTables: { advanced: true },
+      });
+    });
   });
 });
 

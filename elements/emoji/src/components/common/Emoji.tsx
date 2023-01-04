@@ -79,6 +79,11 @@ export interface Props {
   onLoadError?: OnEmojiEvent<HTMLImageElement>;
 
   /**
+   * Callback for if an emoji image succesfully loads.
+   */
+  onLoadSuccess?: (emoji: EmojiDescription) => void;
+
+  /**
    * Additional css classes, if required.
    */
   className?: string;
@@ -99,7 +104,24 @@ export interface Props {
    */
   fitToHeight?: number;
 
+  /**
+   * Indicates whether emoji is an interactive element (tab index and role) or just a view
+   */
   shouldBeInteractive?: boolean;
+
+  /**
+   * Disables lazy load on images
+   */
+  disableLazyLoad?: boolean;
+
+  /**
+   * Auto Width takes the constraint of height and enables native scaling based on the emojis image.
+   * This is primarily used when rendering emojis for SSR as the component does not know the width and height
+   * at the time of the render. It overrides the emoji representations width with 'auto' on the images width attribute
+   *
+   * Used only for image based emojis
+   */
+  autoWidth?: boolean;
 }
 
 const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
@@ -242,6 +264,9 @@ export const ImageEmoji = (props: Props) => {
     showTooltip,
     showDelete,
     shouldBeInteractive,
+    onLoadSuccess,
+    disableLazyLoad,
+    autoWidth,
   } = props;
 
   const [ref, inView] = useInView({
@@ -286,7 +311,7 @@ export const ImageEmoji = (props: Props) => {
   if (fitToHeight && width && height) {
     // Presize image, to prevent reflow due to size changes after loading
     sizing = {
-      width: (fitToHeight / height) * width,
+      width: autoWidth ? 'auto' : (fitToHeight / height) * width,
       height: fitToHeight,
     };
   }
@@ -295,18 +320,23 @@ export const ImageEmoji = (props: Props) => {
     handleImageError(props, event);
   };
 
-  const markStartLoadFromMountedTime = useCallback(() => {
+  const onLoad = () => {
     const mountedMark = ufoExp.metrics.marks.find(
       (mark) => mark.name === UfoEmojiTimings.MOUNTED_END,
     );
-    ufoExp.mark(UfoEmojiTimings.ONLOAD_START, mountedMark?.time);
-  }, [ufoExp]);
-
-  const onLoad = () => {
     // onload could trigger before onBeforeLoad when emojis in viewport at start, so we need to mark onload start manually.
     if (!hasUfoMarked(ufoExp, UfoEmojiTimings.ONLOAD_START)) {
-      markStartLoadFromMountedTime();
+      ufoExp.mark(UfoEmojiTimings.ONLOAD_START, mountedMark?.time);
     }
+    const loadedStartMark = ufoExp.metrics.marks.find(
+      (mark) => mark.name === UfoEmojiTimings.ONLOAD_START,
+    );
+    if (mountedMark && loadedStartMark) {
+      ufoExp.addMetadata({
+        lazyLoad: loadedStartMark.time > mountedMark.time,
+      });
+    }
+    // onload_start
     if (!hasUfoMarked(ufoExp, UfoEmojiTimings.ONLOAD_END)) {
       ufoExp.mark(UfoEmojiTimings.ONLOAD_END);
     }
@@ -315,6 +345,10 @@ export const ImageEmoji = (props: Props) => {
         IBSupported: isIntersectionObserverSupported,
       },
     });
+
+    if (onLoadSuccess) {
+      onLoadSuccess(emoji);
+    }
   };
 
   const onBeforeLoad = useCallback(() => {
@@ -333,7 +367,7 @@ export const ImageEmoji = (props: Props) => {
   const emojiNode = (
     <img
       //@ts-ignore
-      loading="lazy"
+      loading={disableLazyLoad ? 'eager' : 'lazy'}
       src={src}
       key={src}
       alt={emoji.shortName}

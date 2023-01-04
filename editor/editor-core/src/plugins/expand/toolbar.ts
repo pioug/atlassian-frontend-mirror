@@ -36,6 +36,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
           id: 'editor.expand.delete',
           type: 'button',
           appearance: 'danger',
+          focusEditoronEnter: true,
           icon: RemoveIcon,
           onClick: deleteExpand(),
           onMouseEnter: hoverDecoration([nestedExpand, expand], true),

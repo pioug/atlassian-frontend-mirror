@@ -17,6 +17,7 @@ Object {
             "__fileMimeType": "image/jpeg",
             "__fileName": "example.png",
             "__fileSize": 58705,
+            "__mediaTraceId": null,
             "alt": "test",
             "collection": "MediaServicesSample",
             "height": 374,

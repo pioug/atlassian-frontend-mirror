@@ -11,17 +11,25 @@ export interface Props {
   messageStyles: SerializedStyles;
 }
 
+export const emojiErrorMessageTestId = 'emoji-error-message';
+export const emojiErrorMessageTooltipTestId = 'emoji-error-message-tooltip';
+export const emojiErrorIconTestId = 'emoji-error-icon';
+
 const EmojiErrorMessage: FC<Props> = (props) => {
   const { messageStyles, message, tooltip } = props;
 
   return tooltip ? (
-    <div css={messageStyles}>
-      <Tooltip content={message} position="top">
-        <ErrorIcon label="Error" size="medium" />
+    <div css={messageStyles} data-testid={emojiErrorMessageTestId}>
+      <Tooltip
+        content={message}
+        position="top"
+        testId={emojiErrorMessageTooltipTestId}
+      >
+        <ErrorIcon label="Error" size="medium" testId={emojiErrorIconTestId} />
       </Tooltip>
     </div>
   ) : (
-    <div css={messageStyles}>
+    <div css={messageStyles} data-testid={emojiErrorMessageTestId}>
       <ErrorIcon label="Error" size="small" /> {message}
     </div>
   );

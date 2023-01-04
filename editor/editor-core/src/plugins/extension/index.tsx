@@ -4,7 +4,7 @@ import {
   inlineExtension,
 } from '@atlaskit/adf-schema';
 import { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { EditorPlugin, EditorAppearance } from '../../types';
+import { NextEditorPlugin, EditorAppearance } from '../../types';
 import { LongPressSelectionPluginOptions } from '../selection/types';
 import { createPlugin } from './pm-plugins/main';
 import keymapPlugin from './pm-plugins/keymap';
@@ -19,9 +19,11 @@ interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
   appearance?: EditorAppearance;
 }
 
-const extensionPlugin = (
-  options: ExtensionPluginOptions = {},
-): EditorPlugin => ({
+const extensionPlugin: NextEditorPlugin<
+  'extension',
+  never,
+  ExtensionPluginOptions
+> = (options = {}) => ({
   name: 'extension',
 
   nodes() {

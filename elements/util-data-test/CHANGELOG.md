@@ -1,5 +1,13 @@
 # @atlaskit/util-data-test
 
+## 17.6.6
+
+### Patch Changes
+
+- [`1d41bbc2965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d41bbc2965) - This changeset introduces non breaking changes to support ssr within the loader emoji component
+- [`b7678f756b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7678f756b3) - useEmoji hook introduced to work along side EmojiCommonProvider
+- Updated dependencies
+
 ## 17.6.5
 
 ### Patch Changes

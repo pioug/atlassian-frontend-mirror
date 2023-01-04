@@ -209,7 +209,22 @@ export default class TableView extends ReactNodeView<Props> {
     return super.viewShouldUpdate(nextNode);
   }
 
-  ignoreMutation() {
+  ignoreMutation(
+    mutation: MutationRecord | { type: 'selection'; target: Element },
+  ) {
+    const {
+      type,
+      target: { nodeName, firstChild },
+    } = mutation;
+
+    if (
+      type === 'selection' &&
+      nodeName?.toUpperCase() === 'DIV' &&
+      firstChild?.nodeName.toUpperCase() === 'TABLE'
+    ) {
+      return false;
+    }
+
     return true;
   }
 

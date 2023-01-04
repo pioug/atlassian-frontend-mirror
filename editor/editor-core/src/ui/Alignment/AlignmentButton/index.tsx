@@ -3,7 +3,8 @@ import { PureComponent } from 'react';
 
 import ToolbarButton from '../../ToolbarButton';
 import { AlignmentState } from '../../../plugins/alignment/pm-plugins/types';
-import { ToolTipContent, Keymap } from '../../../keymaps';
+import { ToolTipContent, Keymap, tooltip } from '../../../keymaps';
+import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 
 export interface Props {
   value: AlignmentState;
@@ -22,8 +23,9 @@ class AlignmentButton extends PureComponent<Props> {
         disabled={false}
         selected={isSelected}
         title={<ToolTipContent description={label} keymap={shortcut} />}
-        aria-label={label}
+        aria-label={shortcut ? tooltip(shortcut, label) : label}
         aria-pressed={isSelected}
+        aria-keyshortcuts={getAriaKeyshortcuts(shortcut)}
         onClick={this.onClick}
         iconBefore={content}
       />

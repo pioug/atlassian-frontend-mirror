@@ -1,5 +1,38 @@
 # @atlaskit/editor-mobile-bridge
 
+## 35.1.52
+
+### Patch Changes
+
+- [`dca00b9db07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dca00b9db07) - [ED-15854] Refactor restart numbered lists feature flags (restartNumberedLists, listNumberContinuity) to use URL params instead of editor config.
+- [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) - [ED-16166] Changes the renderer prop document type from any to DocNode
+
+  BREAKING for `@atlaskit/renderer`: Previously the `document` prop for the renderer component had the type of `any`. This has now been changed to `DocNode` which comes from `@atlaskit/adf-schema`.
+
+  Documents being passed into the renderer component will need to be updated to use this type.
+
+  Example Usage:
+
+  ```tsx
+  import { DocNode } from '@atlaskit/adf-schema';
+
+  const emptyDoc: DocNode = {
+    type: 'doc',
+    version: 1,
+    content: [],
+  };
+  ```
+
+- [`1d41bbc2965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d41bbc2965) - This changeset introduces non breaking changes to support ssr within the loader emoji component
+- [`cfd9f4ab2ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfd9f4ab2ca) - ED-16120 - Enable table advance features, to allow sort columns and distribute columns function on mobile.
+- Updated dependencies
+
+## 35.1.51
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.1.50
 
 ### Patch Changes

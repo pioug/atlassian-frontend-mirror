@@ -243,22 +243,27 @@ export const DeleteButton = css`
   }
 `;
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4451
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const OverflowShadow = (props: ThemeProps) => css`
   .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
     display: block;
-    height: calc(
-      100% - ${tableMarginTop + tableMarginBottom + tableToolbarSize - 2}px
-    );
+    height: calc(100% - ${tableMarginTop + tableMarginBottom}px);
     position: absolute;
     pointer-events: none;
-    top: ${tableMarginTop + tableToolbarSize - 1}px;
+    top: ${tableMarginTop}px;
     z-index: ${akEditorShadowZIndex};
     width: 8px;
   }
   .${ClassName.TABLE_LEFT_SHADOW} {
-    background: linear-gradient(to left, rgba(99, 114, 130, 0) 0, ${N40A} 100%);
+    background: linear-gradient(
+        to left,
+        transparent 0,
+        ${token('elevation.shadow.overflow.spread', N40A)} 100%
+      ),
+      linear-gradient(
+        to right,
+        ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+        transparent 1px
+      );
     left: 0px;
   }
   .${ClassName.TABLE_CONTAINER}[data-number-column='true'] > :not(.${ClassName.TABLE_STICKY_SHADOW}).${ClassName.TABLE_LEFT_SHADOW} {
@@ -266,23 +271,27 @@ export const OverflowShadow = (props: ThemeProps) => css`
   }
   .${ClassName.TABLE_RIGHT_SHADOW} {
     background: linear-gradient(
-      to right,
-      rgba(99, 114, 130, 0) 0,
-      ${N40A} 100%
-    );
+        to right,
+        transparent 0,
+        ${token('elevation.shadow.overflow.spread', N40A)} 100%
+      ),
+      linear-gradient(
+        to left,
+        ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+        transparent 1px
+      );
     left: calc(100% + 2px);
   }
   .${ClassName.WITH_CONTROLS} {
     .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
-      height: calc(100% - ${tableMarginTop + tableMarginBottom - 2}px);
-      top: ${tableMarginTop - 1}px;
+      height: calc(100% - ${tableMarginTop + tableMarginBottom}px);
+      top: ${tableMarginTop}px;
     }
     .${ClassName.TABLE_LEFT_SHADOW} {
       border-left: 1px solid ${tableBorderColor(props)};
     }
   }
 `;
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 const columnHeaderButton = (props: ThemeProps, cssString?: string) => css`
   background: ${tableToolbarColor(props)};

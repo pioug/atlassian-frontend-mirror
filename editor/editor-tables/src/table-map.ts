@@ -1,4 +1,4 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode, ResolvedPos } from 'prosemirror-model';
 
 import { Axis } from './types';
 
@@ -177,6 +177,24 @@ export class TableMap {
     throw new RangeError('No cell with offset ' + pos + ' found');
   }
 
+  // Find the top side of the cell at the given position.
+  rowCount(pos: number): number {
+    if (this.width <= 0) {
+      throw new RangeError('Wrong table width found');
+    }
+
+    for (let i = 0; i < this.map.length; i++) {
+      if (this.map[i] === pos) {
+        return Math.floor(i / this.width);
+      }
+    }
+    throw new RangeError('No cell with offset ' + pos + ' found');
+  }
+
+  isPosMerged(pos: number): boolean {
+    return this.map.filter((cellPos) => cellPos === pos).length > 1;
+  }
+
   // :: (number, string, number) → ?number
   // Find the next cell in the given direction, starting from the cell
   // at `pos`, if any.
@@ -259,6 +277,13 @@ export class TableMap {
         return index === rowEndIndex ? rowEnd - 1 : this.map[index];
       }
       rowStart = rowEnd;
+    }
+  }
+
+  getMaxColInRow(pos: ResolvedPos) {
+    let parentRowNode = pos.parent;
+    if (parentRowNode.type.name === 'tableRow') {
+      return parentRowNode.childCount;
     }
   }
 

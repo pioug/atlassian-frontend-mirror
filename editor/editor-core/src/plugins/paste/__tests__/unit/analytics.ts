@@ -6,11 +6,19 @@ import {
   table,
   tr,
   td,
+  mediaSingle,
+  mediaGroup,
+  mediaInline,
+  media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { toJSON } from '../../../../utils';
-import { getContentNodeTypes } from '../../pm-plugins/analytics';
+import {
+  getContentNodeTypes,
+  getMediaTraceId,
+} from '../../pm-plugins/analytics';
+import { temporaryMediaAttrs } from '../../../../__tests__/unit/plugins/media/_utils';
 
 describe('paste analytics', () => {
   describe('getContentNodeTypes()', () => {
@@ -52,6 +60,63 @@ describe('paste analytics', () => {
       expect(getContentNodeTypes(slice.content).sort()).toEqual(
         expectedNodeTypes,
       );
+    });
+  });
+
+  describe('getMediaTraceId()', () => {
+    const testMediaTraceId = 'test-trace-id';
+    const temporaryMedia = media({
+      ...temporaryMediaAttrs,
+      __mediaTraceId: testMediaTraceId,
+    })();
+
+    it('should return mediaTraceId if nested nodes have mediaSingle node', () => {
+      const slice = new Slice(
+        doc(
+          p('some text'),
+          mediaSingle()(temporaryMedia),
+          p('another text'),
+        )(defaultSchema).content,
+        1,
+        1,
+      );
+
+      expect(getMediaTraceId(slice)).toEqual(testMediaTraceId);
+    });
+
+    it('should return mediaTraceId if nested nodes have mediaGroup node', () => {
+      const slice = new Slice(
+        doc(
+          p('some text'),
+          mediaGroup(temporaryMedia),
+          p('another text'),
+        )(defaultSchema).content,
+        1,
+        1,
+      );
+
+      expect(getMediaTraceId(slice)).toEqual(testMediaTraceId);
+    });
+
+    it('should return mediaTraceId if nested nodes have mediaInline node', () => {
+      const slice = new Slice(
+        doc(
+          p('some text'),
+          p(
+            mediaInline({
+              type: 'file',
+              id: 'test-id',
+              collection: 'test-collection',
+              __mediaTraceId: testMediaTraceId,
+            })(),
+          ),
+          p('another text'),
+        )(defaultSchema).content,
+        1,
+        1,
+      );
+
+      expect(getMediaTraceId(slice)).toEqual(testMediaTraceId);
     });
   });
 });

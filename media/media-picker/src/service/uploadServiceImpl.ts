@@ -26,6 +26,7 @@ import {
 } from './types';
 import { LocalFileSource, LocalFileWithSource } from '../service/types';
 import { getPreviewFromBlob } from '../util/getPreviewFromBlob';
+import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
 
 export interface CancellableFileUpload {
   mediaFile: MediaFile;
@@ -103,10 +104,14 @@ export class UploadServiceImpl implements UploadService {
         collection,
       });
     }
+    const traceContext: MediaTraceContext = {
+      traceId: getRandomHex(8),
+    };
 
     const promisedTouchFiles = mediaClient.file.touchFiles(
       touchFileDescriptors,
       collection,
+      traceContext,
     );
 
     const cancellableFileUploads: CancellableFileUpload[] = files.map(
@@ -136,7 +141,7 @@ export class UploadServiceImpl implements UploadService {
                 requestError.metadata.statusCode === 409
               ) {
                 return mediaClient.mediaStore
-                  .createUpload(1, collection)
+                  .createUpload(1, collection, traceContext)
                   .then((res) => {
                     return res.data[0].id;
                   });
@@ -163,6 +168,7 @@ export class UploadServiceImpl implements UploadService {
           uploadableFile,
           controller,
           uploadableUpfrontIds,
+          traceContext,
         );
 
         const mediaFile: MediaFile = {
@@ -192,11 +198,11 @@ export class UploadServiceImpl implements UploadService {
                 mediaClient.emit('file-added', state);
                 globalMediaEventEmitter.emit('file-added', state);
               }
-              onFileSuccess(cancellableFileUpload, id);
+              onFileSuccess(cancellableFileUpload, id, traceContext);
             }
           },
           error: (error) => {
-            this.onFileError(mediaFile, 'upload_fail', error);
+            this.onFileError(mediaFile, 'upload_fail', error, traceContext);
           },
         });
 
@@ -210,7 +216,7 @@ export class UploadServiceImpl implements UploadService {
       (cancellableFileUpload) => cancellableFileUpload.mediaFile,
     );
 
-    this.emit('files-added', { files: mediaFiles });
+    this.emit('files-added', { files: mediaFiles, traceContext });
     this.emitPreviews(cancellableFileUploads);
   }
 
@@ -308,11 +314,13 @@ export class UploadServiceImpl implements UploadService {
   private readonly onFileSuccess = async (
     cancellableFileUpload: CancellableFileUpload,
     fileId: string,
+    traceContext?: MediaTraceContext,
   ) => {
     const { mediaFile } = cancellableFileUpload;
 
     this.emit('file-converting', {
       file: mediaFile,
+      traceContext,
     });
 
     cancellableFileUpload.cancel = () => {
@@ -324,6 +332,7 @@ export class UploadServiceImpl implements UploadService {
     mediaFile: MediaFile,
     name: MediaErrorName,
     error: Error | string,
+    traceContext?: MediaTraceContext,
   ) => {
     this.releaseCancellableFile(mediaFile);
 
@@ -344,6 +353,7 @@ export class UploadServiceImpl implements UploadService {
         description,
         rawError,
       },
+      traceContext,
     });
   };
 }

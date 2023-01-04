@@ -13,22 +13,27 @@ async function waitForCodeblock(page: PuppeteerPage) {
 }
 
 describe('Snapshot Test', () => {
-  it('Inline Code basic example should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'code',
-      'inline-code-basic',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForInlineCode(page);
-    const example = await page.waitForSelector('#inline-examples');
-    const image = await example?.screenshot();
+  it.each(['light', 'dark', 'none'] as const)(
+    'Inline Code basic example should match production example (theme: %s)',
+    async (theme) => {
+      const url = getExampleUrl(
+        'design-system',
+        'code',
+        'inline-code-basic',
+        global.__BASEURL__,
+        theme,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      await waitForInlineCode(page);
+      const example = await page.waitForSelector('#inline-examples');
+      const image = await example?.screenshot();
 
-    expect(image).toMatchProdImageSnapshot();
-  });
-  it('Inline Code (dark) basic example should match production example', async () => {
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
+
+  it('Inline Code (dark - legacy theming) basic example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'code',
@@ -43,11 +48,32 @@ describe('Snapshot Test', () => {
 
     expect(image).toMatchProdImageSnapshot();
   });
-  it('CodeBlock example should match production example', async () => {
+
+  it.each(['light', 'dark', 'none'] as const)(
+    'CodeBlock basic example should match production example (theme: %s)',
+    async (theme) => {
+      const url = getExampleUrl(
+        'design-system',
+        'code',
+        'code-block-basic',
+        global.__BASEURL__,
+        theme,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      await waitForCodeblock(page);
+      const example = await page.waitForSelector('#examples > div');
+      const image = await example?.screenshot();
+
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
+
+  it('CodeBlock (dark - legacy theming) basic example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'code',
-      'code-block-basic',
+      'code-block-dark-theme',
       global.__BASEURL__,
     );
     const { page } = global;

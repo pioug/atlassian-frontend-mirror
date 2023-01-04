@@ -1,6 +1,7 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
-import { render, waitFor, cleanup } from '@testing-library/react';
+import Loadable from 'react-loadable';
+import { render, waitFor, cleanup, screen } from '@testing-library/react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
@@ -21,6 +22,7 @@ import { ufoExperiences } from '../../../../util/analytics';
 import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
 import * as browserSupport from '../../../../util/browser-support';
+import { EmojiId } from '../../../..';
 
 const mockedBrowserSupport = browserSupport as {
   isIntersectionObserverSupported: boolean;
@@ -47,6 +49,8 @@ const mockConstants = constants as {
   SAMPLING_RATE_EMOJI_RENDERED_EXP: number;
 };
 
+Loadable.preloadAll();
+
 describe('<ResourcedEmoji />', () => {
   beforeAll(() => {
     mockedBrowserSupport.isIntersectionObserverSupported = true;
@@ -59,9 +63,71 @@ describe('<ResourcedEmoji />', () => {
   });
   afterEach(cleanup);
 
+  describe('has an unresolved emoji provider', () => {
+    it('shows ResourcedEmojiComponent placeholder', async () => {
+      render(
+        <ResourcedEmoji
+          emojiProvider={getEmojiResourcePromise()}
+          emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
+        />,
+      );
+      screen.debug();
+      const label = screen.queryByLabelText('does-not-exist');
+      expect(label).toBeInTheDocument();
+      expect(
+        screen.queryByTestId('emoji-placeholder-does-not-exist'),
+      ).toBeInTheDocument();
+    });
+    it('shows optimistic image when provided', async () => {
+      render(
+        <ResourcedEmoji
+          emojiProvider={getEmojiResourcePromise()}
+          emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
+          optimisticImageURL="foo.jpg"
+        />,
+      );
+      const image = screen.queryByAltText('does-not-exist');
+      expect(image).toBeInTheDocument();
+      expect(image?.getAttribute('src')).toEqual('foo.jpg');
+    });
+    it('shows placeholder when optimistic image is null', async () => {
+      const optimiticImageApi = {
+        getUrl: (_: EmojiId) => undefined,
+      };
+      const emoji = { shortName: 'emoji-exists', id: 'emoji-exists' };
+      render(
+        <ResourcedEmoji
+          emojiProvider={getEmojiResourcePromise()}
+          emojiId={emoji}
+          optimisticImageURL={optimiticImageApi?.getUrl(emoji)}
+        />,
+      );
+      expect(screen.queryByLabelText('emoji-exists')).toBeInTheDocument();
+      expect(
+        screen.queryByTestId('emoji-placeholder-emoji-exists'),
+      ).toBeInTheDocument();
+    });
+  });
+
+  describe('has a resolved instance of emoji provider', () => {
+    it('should render an emoji', async () => {
+      const resolvedEmojiProvider = await getEmojiResourcePromise();
+      render(
+        <ResourcedEmoji
+          emojiProvider={resolvedEmojiProvider}
+          emojiId={{ ...grinEmoji }}
+        />,
+      );
+      const emoji = await screen.findByTestId(
+        `sprite-emoji-${grinEmoji.shortName}`,
+      );
+      expect(emoji).toBeInTheDocument();
+    });
+  });
+
   it('should render a fallback element if emoji cannot be found', async () => {
     const fallback = <h1>wow cool</h1>;
-    const component = await render(
+    const component = render(
       <ResourcedEmoji
         emojiProvider={getEmojiResourcePromise()}
         emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
@@ -76,7 +142,7 @@ describe('<ResourcedEmoji />', () => {
   });
 
   it('should render a fallback string if emoji cannot be found', async () => {
-    const component = await render(
+    const component = render(
       <ResourcedEmoji
         emojiProvider={getEmojiResourcePromise()}
         emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
@@ -134,7 +200,7 @@ describe('<ResourcedEmoji />', () => {
   });
 
   it('should not wrap with a tooltip if there is no showTooltip prop', async () => {
-    const result = await render(
+    const result = render(
       <ResourcedEmoji
         emojiProvider={getEmojiResourcePromise()}
         emojiId={grinEmoji}
@@ -150,7 +216,7 @@ describe('<ResourcedEmoji />', () => {
   });
 
   it('should wrap with tooltip if showTooltip is set to true', async () => {
-    const result = await render(
+    const result = render(
       <ResourcedEmoji
         emojiProvider={getEmojiResourcePromise()}
         emojiId={grinEmoji}

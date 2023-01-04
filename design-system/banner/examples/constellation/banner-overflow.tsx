@@ -1,6 +1,6 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import Banner from '../../src';
@@ -10,11 +10,11 @@ const message =
 
 const BannerOverflowExample = () => {
   return (
-    <Box display="block" UNSAFE_style={{ maxWidth: 400, margin: 'auto' }}>
+    <div style={{ maxWidth: 400, margin: 'auto' }}>
       <Banner icon={<WarningIcon label="" secondaryColor="inherit" />}>
         {message}
       </Banner>
-    </Box>
+    </div>
   );
 };
 

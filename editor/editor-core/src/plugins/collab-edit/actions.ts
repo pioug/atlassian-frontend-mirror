@@ -32,7 +32,7 @@ export const handleInit = (
     tr.setMeta('isRemote', true);
     view.dispatch(tr);
   } else if (json) {
-    applyRemoteSteps(json, undefined, view);
+    applyRemoteSteps(json, view);
   }
 };
 
@@ -63,14 +63,14 @@ export const applyRemoteData = (
 ) => {
   const { json, userIds = [] } = remoteData;
   if (json) {
-    applyRemoteSteps(json, userIds, view, options);
+    applyRemoteSteps(json, view, userIds, options);
   }
 };
 
 export const applyRemoteSteps = (
   json: any[],
-  userIds: string[] | undefined,
   view: EditorView,
+  userIds?: (number | string)[],
   options?: PrivateCollabEditOptions,
 ) => {
   if (!json || !json.length) {

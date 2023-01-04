@@ -40,7 +40,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/avatar": "^21.1.0",
-    "@atlaskit/avatar-group": "^9.1.0",
+    "@atlaskit/avatar-group": "^9.2.0",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/dropdown-menu": "^11.5.0",
     "@atlaskit/give-kudos": "^1.0.0",
@@ -68,7 +68,7 @@
     "@atlaskit/dynamic-table": "^14.8.0",
     "@atlaskit/flag": "^15.0.0",
     "@atlaskit/inline-edit": "^12.2.0",
-    "@atlaskit/select": "^16.0.0",
+    "@atlaskit/select": "^16.1.0",
     "@atlaskit/util-data-test": "^17.6.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",

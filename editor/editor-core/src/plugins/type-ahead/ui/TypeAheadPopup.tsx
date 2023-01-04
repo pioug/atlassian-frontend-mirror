@@ -299,6 +299,7 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
             fitHeight={fitHeight}
             editorView={editorView}
             decorationElement={anchorElement}
+            triggerHandler={triggerHandler}
           />
         </div>
       </Popup>

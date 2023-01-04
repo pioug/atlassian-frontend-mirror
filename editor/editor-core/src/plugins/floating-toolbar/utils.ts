@@ -70,43 +70,21 @@ export function findNode(
   return matchedNode;
 }
 
-export function getFirstFocusableElement(
-  rootNode: HTMLElement | null,
-): HTMLElement | undefined {
-  if (!rootNode) {
-    return;
-  }
-  const focusableModalElements =
-    (rootNode.querySelectorAll(
-      'a[href], button:not([disabled]), textarea, input, select',
-    ) as NodeListOf<HTMLElement>) || [];
-  return focusableModalElements[0] as HTMLElement;
-}
-
 export function getFocusableElements(
   rootNode: HTMLElement | null,
-): NodeListOf<HTMLElement> | undefined {
+): HTMLElement[] {
   if (!rootNode) {
-    return;
+    return [];
   }
   const focusableModalElements =
     (rootNode.querySelectorAll(
       'a[href], button:not([disabled]), textarea, input, select',
     ) as NodeListOf<HTMLElement>) || [];
-  return focusableModalElements;
+  return Array.from(focusableModalElements) || [];
 }
 
-export function getLastFocusableElement(
+export function getFirstFocusableElement(
   rootNode: HTMLElement | null,
-): HTMLElement | undefined {
-  if (!rootNode) {
-    return;
-  }
-  const focusableModalElements =
-    (rootNode.querySelectorAll(
-      'a[href], button:not([disabled]), textarea, input, select',
-    ) as NodeListOf<HTMLElement>) || [];
-  return focusableModalElements[
-    focusableModalElements.length - 1
-  ] as HTMLElement;
+): HTMLElement {
+  return getFocusableElements(rootNode)[0];
 }

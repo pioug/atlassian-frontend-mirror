@@ -148,8 +148,13 @@ const contentStyles = (props: ContentStylesProps) => css`
     text-align: center;
   }
 
-  .pm-table-header-content-wrap,
-  .pm-table-cell-content-wrap div.fabric-editor-block-mark {
+  .pm-table-header-content-wrap :not(.fabric-editor-alignment),
+  .pm-table-header-content-wrap
+    :not(p, .fabric-editor-block-mark)
+    + div.fabric-editor-block-mark,
+  .pm-table-cell-content-wrap
+    :not(p, .fabric-editor-block-mark)
+    + div.fabric-editor-block-mark {
     p:first-of-type {
       margin-top: 0;
     }

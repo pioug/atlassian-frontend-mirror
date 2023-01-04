@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 // import prettier from 'prettier/standalone';
 // import parser from 'prettier/parser-babel';
 //
@@ -235,124 +235,124 @@ import React from 'react';
 //   });
 // };
 
-export default class Example extends React.Component {
-  render() {
-    return null;
-  }
-  //private editorActions?: EditorActions;
-  //private adfTextArea?: HTMLTextAreaElement;
-  //private docBuilderTextArea?: HTMLTextAreaElement;
+// export default class Example extends React.Component {
+//   render() {
+//     return null;
+//   }
+//private editorActions?: EditorActions;
+//private adfTextArea?: HTMLTextAreaElement;
+//private docBuilderTextArea?: HTMLTextAreaElement;
 
-  //constructor(props: {}) {
-  //  super(props);
+//constructor(props: {}) {
+//  super(props);
 
-  //  this.state = {
-  //    adfValid: true,
-  //    docBuilderValid: true,
-  //  };
-  //}
+//  this.state = {
+//    adfValid: true,
+//    docBuilderValid: true,
+//  };
+//}
 
-  //render() {
-  //  return (
-  //    <EditorContext>
-  //      <div
-  //        style={{
-  //          display: 'grid',
-  //          padding: '10px',
-  //          gridTemplateColumns: '1fr 1fr 1fr',
-  //          gridTemplateRows: '1fr 1fr',
-  //          gridGap: '6px 6px',
-  //        }}
-  //      >
-  //        <DevTools />
-  //        <div style={{ gridArea: '1 / 1 / 3 / 3' }}>
-  //          <WithEditorActions
-  //            render={(actions) => {
-  //              this.editorActions = actions;
-  //              return (
-  //                <FullPageEditor
-  //                  editorProps={{
-  //                    onChange: (e) => this.handleEditorChange(),
-  //                  }}
-  //                />
-  //              );
-  //            }}
-  //          />
-  //        </div>
-  //        <div style={{ gridArea: '1 / 3 / 2 / 4' }}>
-  //          <h2>ADF</h2>
-  //          <TextArea
-  //            onChange={(e) => this.handleAdfChange(e.target.value)}
-  //            isInvalid={!this.state.adfValid}
-  //            ref={(ref: any) => (this.adfTextArea = ref)}
-  //            placeholder='{"version": 1...'
-  //            isMonospaced={true}
-  //            minimumRows={20}
-  //          />
-  //        </div>
-  //        <div style={{ gridArea: '2 / 3 / 3 / 4' }}>
-  //          <h2>Doc Builder</h2>
-  //          <TextArea
-  //            onChange={(e) => this.handleDocBuilderChange(e.target.value)}
-  //            isInvalid={!this.state.docBuilderValid}
-  //            ref={(ref: any) => (this.docBuilderTextArea = ref)}
-  //            placeholder="doc(..."
-  //            isMonospaced={true}
-  //            minimumRows={20}
-  //          />
-  //        </div>
-  //      </div>
-  //    </EditorContext>
-  //  );
-  //}
+//render() {
+//  return (
+//    <EditorContext>
+//      <div
+//        style={{
+//          display: 'grid',
+//          padding: '10px',
+//          gridTemplateColumns: '1fr 1fr 1fr',
+//          gridTemplateRows: '1fr 1fr',
+//          gridGap: '6px 6px',
+//        }}
+//      >
+//        <DevTools />
+//        <div style={{ gridArea: '1 / 1 / 3 / 3' }}>
+//          <WithEditorActions
+//            render={(actions) => {
+//              this.editorActions = actions;
+//              return (
+//                <FullPageEditor
+//                  editorProps={{
+//                    onChange: (e) => this.handleEditorChange(),
+//                  }}
+//                />
+//              );
+//            }}
+//          />
+//        </div>
+//        <div style={{ gridArea: '1 / 3 / 2 / 4' }}>
+//          <h2>ADF</h2>
+//          <TextArea
+//            onChange={(e) => this.handleAdfChange(e.target.value)}
+//            isInvalid={!this.state.adfValid}
+//            ref={(ref: any) => (this.adfTextArea = ref)}
+//            placeholder='{"version": 1...'
+//            isMonospaced={true}
+//            minimumRows={20}
+//          />
+//        </div>
+//        <div style={{ gridArea: '2 / 3 / 3 / 4' }}>
+//          <h2>Doc Builder</h2>
+//          <TextArea
+//            onChange={(e) => this.handleDocBuilderChange(e.target.value)}
+//            isInvalid={!this.state.docBuilderValid}
+//            ref={(ref: any) => (this.docBuilderTextArea = ref)}
+//            placeholder="doc(..."
+//            isMonospaced={true}
+//            minimumRows={20}
+//          />
+//        </div>
+//      </div>
+//    </EditorContext>
+//  );
+//}
 
-  //private handleDocBuilderChange = (value: string) => {
-  //  const buildDoc = evaluateDocBuilderExpression(value);
-  //  const docBuilderValid = !(buildDoc instanceof Error);
-  //  this.setState({ docBuilderValid });
+//private handleDocBuilderChange = (value: string) => {
+//  const buildDoc = evaluateDocBuilderExpression(value);
+//  const docBuilderValid = !(buildDoc instanceof Error);
+//  this.setState({ docBuilderValid });
 
-  //  if (buildDoc instanceof Error) {
-  //    console.error(buildDoc);
-  //  } else {
-  //    this.editorActions?.replaceDocument(buildDoc(schema).toJSON());
-  //  }
-  //};
+//  if (buildDoc instanceof Error) {
+//    console.error(buildDoc);
+//  } else {
+//    this.editorActions?.replaceDocument(buildDoc(schema).toJSON());
+//  }
+//};
 
-  //private handleAdfChange = (value: string) => {
-  //  try {
-  //    this.editorActions?.replaceDocument(value);
-  //    this.setState({ adfValid: true });
-  //  } catch (error) {
-  //    this.setState({ adfValid: false });
-  //    if (error instanceof Error) {
-  //      throw error;
-  //    }
-  //    throw new Error(String(error));
-  //  }
-  //};
+//private handleAdfChange = (value: string) => {
+//  try {
+//    this.editorActions?.replaceDocument(value);
+//    this.setState({ adfValid: true });
+//  } catch (error) {
+//    this.setState({ adfValid: false });
+//    if (error instanceof Error) {
+//      throw error;
+//    }
+//    throw new Error(String(error));
+//  }
+//};
 
-  //private handleEditorChange = () => {
-  //  this.updateFields();
-  //};
+//private handleEditorChange = () => {
+//  this.updateFields();
+//};
 
-  //private updateFields = () => {
-  //  if (!this.editorActions) {
-  //    return;
-  //  }
+//private updateFields = () => {
+//  if (!this.editorActions) {
+//    return;
+//  }
 
-  //  const activeElement = document.activeElement;
+//  const activeElement = document.activeElement;
 
-  //  this.editorActions.getValue().then((value) => {
-  //    if (this.adfTextArea && activeElement !== this.adfTextArea) {
-  //      this.adfTextArea.value = JSON.stringify(value, null, 2);
-  //    }
+//  this.editorActions.getValue().then((value) => {
+//    if (this.adfTextArea && activeElement !== this.adfTextArea) {
+//      this.adfTextArea.value = JSON.stringify(value, null, 2);
+//    }
 
-  //    if (
-  //      this.docBuilderTextArea &&
-  //      activeElement !== this.docBuilderTextArea
-  //    ) {
-  //      this.docBuilderTextArea.value = toDocBuilder(value);
-  //    }
-  //  });
-  //};
-}
+//    if (
+//      this.docBuilderTextArea &&
+//      activeElement !== this.docBuilderTextArea
+//    ) {
+//      this.docBuilderTextArea.value = toDocBuilder(value);
+//    }
+//  });
+//};
+// }

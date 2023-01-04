@@ -3,10 +3,10 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { toEmojiId } from '../../util/type-helpers';
-import { EmojiDescription, OnEmojiEvent } from '../../types';
+import { EmojiDescription, EmojiProvider, OnEmojiEvent } from '../../types';
 import { leftClick } from '../../util/mouse';
-import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
+import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import {
   typeAheadItem,
   selected as selectedStyles,
@@ -19,6 +19,7 @@ export interface Props {
   onSelection: OnEmojiEvent;
   selected: boolean;
   emoji: EmojiDescription;
+  emojiProvider?: EmojiProvider;
 }
 
 export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
@@ -41,11 +42,11 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
   };
 
   render() {
-    const { selected, emoji } = this.props;
+    const { selected, emoji, emojiProvider } = this.props;
     const classes = [typeAheadItem, selected && selectedStyles];
 
     return (
-      <LegacyEmojiContextProvider>
+      <EmojiCommonProvider emojiProvider={emojiProvider}>
         <div
           className={`ak-emoji-typeahead-item ${
             selected ? typeaheadSelected : ''
@@ -59,7 +60,7 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
             {emoji && <EmojiPreviewComponent emoji={emoji} />}
           </div>
         </div>
-      </LegacyEmojiContextProvider>
+      </EmojiCommonProvider>
     );
   }
 }

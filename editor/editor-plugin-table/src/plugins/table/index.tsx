@@ -59,6 +59,7 @@ import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
+  NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
 import { EditorState, Transaction } from 'prosemirror-state';
 
@@ -76,7 +77,11 @@ interface TablePluginOptions {
 
 const defaultGetEditorFeatureFlags = () => ({});
 
-const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => {
+const tablesPlugin: NextEditorPlugin<
+  'table',
+  never,
+  TablePluginOptions | undefined
+> = (options?: TablePluginOptions) => {
   const editorViewRef: Record<'current', EditorView | null> = { current: null };
   const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {
     if (!editorViewRef.current) {

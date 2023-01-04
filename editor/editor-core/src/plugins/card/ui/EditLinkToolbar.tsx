@@ -17,6 +17,7 @@ import {
 import { addAnalytics, ACTION_SUBJECT_ID } from '../../analytics';
 
 import {
+  LINKPICKER_HEIGHT_IN_PX,
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '../../../ui/LinkSearch/ToolbarComponents';
@@ -109,8 +110,8 @@ export const buildEditLinkToolbar = ({
 }): FloatingToolbarItem<Command> => {
   return {
     type: 'custom',
-    fallback: [],
     disableArrowNavigation: true,
+    fallback: [],
     render: (view, idx) => {
       if (!view || !providerFactory) {
         return null;
@@ -150,8 +151,17 @@ export const buildEditLinkToolbar = ({
   };
 };
 
-export const editLinkToolbarConfig: Partial<FloatingToolbarConfig> = {
-  height: RECENT_SEARCH_HEIGHT_IN_PX,
-  width: RECENT_SEARCH_WIDTH_IN_PX,
-  forcePlacement: true,
+export const editLinkToolbarConfig = (
+  showLinkingToolbar: boolean,
+  linkPickerOptions: boolean,
+): Partial<FloatingToolbarConfig> => {
+  return showLinkingToolbar
+    ? {
+        height: linkPickerOptions
+          ? LINKPICKER_HEIGHT_IN_PX
+          : RECENT_SEARCH_HEIGHT_IN_PX,
+        width: RECENT_SEARCH_WIDTH_IN_PX,
+        forcePlacement: true,
+      }
+    : {};
 };

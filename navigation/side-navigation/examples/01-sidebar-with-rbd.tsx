@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, Ref, useState } from 'react';
+import { forwardRef, Fragment, Ref, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 import {
@@ -9,6 +9,7 @@ import {
   Droppable,
 } from 'react-beautiful-dnd';
 
+import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
 import ItemIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import RBDIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import { CustomItemComponentProps } from '@atlaskit/menu';
@@ -58,31 +59,33 @@ const ADragDropView = (props: { items: CustomDraggable[] }) => {
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="droppable-1">
         {(provided) => (
-          <div
-            css={{ display: 'flex', flexDirection: 'column' }}
+          <Box
+            display="block"
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {draggables.map((item, index) => {
-              return (
-                <Draggable
-                  disableInteractiveElementBlocking={true}
-                  key={item.key}
-                  draggableId={item.key}
-                  index={index}
-                >
-                  {(provided) => {
-                    return item.renderItem({
-                      ref: provided.innerRef,
-                      dragHandleProps: provided.dragHandleProps,
-                      draggableProps: provided.draggableProps,
-                    });
-                  }}
-                </Draggable>
-              );
-            })}
-            {provided.placeholder}
-          </div>
+            <Fragment>
+              {draggables.map((item, index) => {
+                return (
+                  <Draggable
+                    disableInteractiveElementBlocking={true}
+                    key={item.key}
+                    draggableId={item.key}
+                    index={index}
+                  >
+                    {(provided) => {
+                      return item.renderItem({
+                        ref: provided.innerRef,
+                        dragHandleProps: provided.dragHandleProps,
+                        draggableProps: provided.draggableProps,
+                      });
+                    }}
+                  </Draggable>
+                );
+              })}
+              {provided.placeholder}
+            </Fragment>
+          </Box>
         )}
       </Droppable>
     </DragDropContext>
@@ -123,9 +126,9 @@ const generateDraggableCustomItems = (n: number): CustomDraggable[] => {
   const CustomComponent = forwardRef<any, CustomItemComponentProps>(
     ({ children, ...rest }, ref) => {
       return (
-        <div ref={ref} {...rest}>
-          {children}
-        </div>
+        <Box ref={ref} {...rest}>
+          {children as BoxProps['children']}
+        </Box>
       );
     },
   );
@@ -170,6 +173,7 @@ const generateDraggableCats = (): CustomDraggable[] => {
   return urls.map((url) => ({
     key: url,
     renderItem: (props) => (
+      // eslint-disable-next-line @repo/internal/react/use-primitives
       <img
         ref={props.ref}
         {...props.dragHandleProps}

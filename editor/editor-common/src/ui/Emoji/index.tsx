@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
+import { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { EmojiId } from '@atlaskit/emoji/types';
 
 import {
@@ -14,6 +15,7 @@ export interface EmojiProps extends EmojiId {
   providers?: ProviderFactory;
   fitToHeight?: number;
   showTooltip?: boolean;
+  resourceConfig?: EmojiResourceConfig;
 }
 
 export default class EmojiNode extends PureComponent<EmojiProps, {}> {
@@ -45,6 +47,7 @@ export default class EmojiNode extends PureComponent<EmojiProps, {}> {
       fallback,
       fitToHeight,
       showTooltip,
+      resourceConfig,
     } = this.props;
 
     if (allowTextFallback && !providers.emojiProvider) {
@@ -69,6 +72,12 @@ export default class EmojiNode extends PureComponent<EmojiProps, {}> {
         emojiProvider={providers.emojiProvider}
         showTooltip={showTooltip}
         fitToHeight={fitToHeight}
+        optimistic
+        optimisticImageURL={resourceConfig?.optimisticImageApi?.getUrl({
+          id,
+          fallback,
+          shortName,
+        })}
       />
     );
   };

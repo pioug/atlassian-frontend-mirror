@@ -1,5 +1,16 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.2.0
+
+### Minor Changes
+
+- [`5dd2d6c3561`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5dd2d6c3561) - [ux] Support drawio macro in mobile bridge
+
+### Patch Changes
+
+- [`24d49972999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24d49972999) - Fixed an issue where the children macro on Android may render children from another page when webview reuse is enabled
+- Updated dependencies
+
 ## 2.1.28
 
 ### Patch Changes

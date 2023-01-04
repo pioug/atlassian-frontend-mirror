@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/collab-provider"
 
@@ -15,19 +15,19 @@
 
 ```ts
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { CollabEditProvider } from '@atlaskit/editor-common/collab';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { CollabEventConnectionData } from '@atlaskit/editor-common/collab';
 import type { CollabEventInitData } from '@atlaskit/editor-common/collab';
 import type { CollabEventPresenceData } from '@atlaskit/editor-common/collab';
 import type { CollabEventRemoteData } from '@atlaskit/editor-common/collab';
 import type { CollabEventTelepointerData } from '@atlaskit/editor-common/collab';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from 'prosemirror-state';
 import type { Manager } from 'socket.io-client';
-import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
+import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import type { Step } from 'prosemirror-transform';
-import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
-import { Transaction } from 'prosemirror-state';
+import type { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
+import type { Transaction } from 'prosemirror-state';
 
 // @public (undocumented)
 type BaseEvents = Pick<
@@ -43,7 +43,7 @@ export interface CollabDataPayload extends CollabEventRemoteData {
   // (undocumented)
   json: StepJson[];
   // (undocumented)
-  userIds: string[];
+  userIds: (number | string)[];
   // (undocumented)
   version: number;
 }
@@ -99,6 +99,8 @@ export interface CollabInitPayload extends CollabEventInitData {
   // (undocumented)
   metadata?: Metadata_2;
   // (undocumented)
+  reserveCursor?: boolean;
+  // (undocumented)
   userId?: string;
   // (undocumented)
   version: number;
@@ -141,7 +143,7 @@ interface Config {
   // (undocumented)
   need404?: boolean;
   // (undocumented)
-  permissionTokenRefresh?: () => Promise<string>;
+  permissionTokenRefresh?: () => Promise<null | string>;
   // (undocumented)
   productInfo?: ProductInformation;
   // (undocumented)
@@ -256,8 +258,10 @@ type StepJson = {
   from?: number;
   to?: number;
   stepType?: string;
-  clientId: string;
+  clientId: number | string;
   userId: string;
+  createdAt?: number;
+  structure?: boolean;
 };
 
 // @public (undocumented)

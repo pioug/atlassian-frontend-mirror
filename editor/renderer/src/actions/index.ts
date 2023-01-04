@@ -23,7 +23,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../analytics/enums';
+} from '@atlaskit/editor-common/analytics';
 import { getIndexMatch } from './matches-utils';
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;

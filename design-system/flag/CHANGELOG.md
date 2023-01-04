@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 15.0.3
+
+### Patch Changes
+
+- [`56a44cd0ae9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56a44cd0ae9) - - [ux] Updated Flag component colored background buttons to use correct tokens for better contrast
+  - Made the button color type stricter and extracted local css variable names into constants
+
 ## 15.0.2
 
 ### Patch Changes

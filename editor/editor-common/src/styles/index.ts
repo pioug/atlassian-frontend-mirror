@@ -29,7 +29,11 @@ export { ruleSharedStyles } from './shared/rule';
 export { whitespaceSharedStyles } from './shared/whitespace';
 export { paragraphSharedStyles } from './shared/paragraph';
 export { linkSharedStyle } from './shared/link';
-export { listsSharedStyles, listPaddingLeftMarkerSpace } from './shared/lists';
+export {
+  listsSharedStyles,
+  listItemCounterPadding,
+  getOrderedListInlineStyles,
+} from './shared/lists';
 export { indentationSharedStyles } from './shared/indentation';
 export { blockMarksSharedStyles } from './shared/block-marks';
 export { codeMarkSharedStyles } from './shared/code-mark';

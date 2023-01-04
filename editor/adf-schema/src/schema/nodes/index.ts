@@ -8,7 +8,7 @@ export type { DocNode } from './doc';
 export { blockquote } from './blockquote';
 export type { BlockQuoteDefinition } from './blockquote';
 export { bulletList, bulletListSelector } from './bullet-list';
-export type { BulletListDefinition } from './bullet-list';
+export type { BulletListDefinition } from './types/list';
 export { codeBlock, toJSON as codeBlockToJSON } from './code-block';
 export type {
   CodeBlockDefinition,
@@ -28,8 +28,12 @@ export type {
 } from './heading';
 export { rule } from './rule';
 export type { RuleDefinition } from './rule';
-export { orderedList, orderedListSelector } from './ordered-list';
-export type { OrderedListDefinition } from './ordered-list';
+export {
+  orderedList,
+  orderedListSelector,
+  orderedListWithOrder,
+} from './ordered-list';
+export type { OrderedListDefinition } from './types/list';
 export { paragraph } from './paragraph';
 export type {
   ParagraphDefinition,
@@ -48,7 +52,7 @@ export type {
   MentionDefinition,
 } from './mention';
 export { listItem } from './list-item';
-export type { ListItemArray, ListItemDefinition } from './list-item';
+export type { ListItemArray, ListItemDefinition } from './types/list';
 export { panel, PanelType } from './panel';
 export type { PanelAttributes, PanelDefinition } from './panel';
 export { text } from './text';

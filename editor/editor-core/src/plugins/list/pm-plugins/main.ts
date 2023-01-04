@@ -11,9 +11,12 @@ import { ListState } from '../types';
 import { setGapCursorSelection } from '../../../utils';
 import { Side } from '../../selection/gap-cursor-selection';
 import {
-  listPaddingLeftMarkerSpace,
+  listItemCounterPadding,
   CodeBlockSharedCssClassName,
+  getOrderedListInlineStyles,
 } from '@atlaskit/editor-common/styles';
+import { getItemCounterDigitsSize } from '@atlaskit/editor-common/utils';
+import { getFeatureFlags } from '../../feature-flags-context';
 
 const listPluginKey = new PluginKey<ListState>('listPlugin');
 export const pluginKey = listPluginKey;
@@ -26,8 +29,12 @@ const initialState: ListState = {
   decorationSet: DecorationSet.empty,
 };
 
-export const getDecorations = (doc: Node): DecorationSet => {
+export const getDecorations = (
+  doc: Node,
+  state: EditorState,
+): DecorationSet => {
   const decorations: Decoration[] = [];
+  const featureFlags = getFeatureFlags(state);
 
   // this stack keeps track of each (nested) list to calculate the indentation level
   const processedListsStack: { node: Node; startPos: number }[] = [];
@@ -59,12 +66,29 @@ export const getDecorations = (doc: Node): DecorationSet => {
         }),
       );
 
-      if (node.childCount >= 100) {
-        decorations.push(
-          Decoration.node(from, to, {
-            'data-child-count': '100+',
-          }),
-        );
+      if (featureFlags?.restartNumberedLists) {
+        // If a numbered list has item counters numbering >= 100, we'll need to add special
+        // spacing to account for the extra digit chars
+        const digitsSize = getItemCounterDigitsSize({
+          itemsCount: node?.childCount,
+          order: node?.attrs?.order,
+        });
+
+        if (digitsSize) {
+          decorations.push(
+            Decoration.node(from, to, {
+              style: getOrderedListInlineStyles(digitsSize, 'string'),
+            }),
+          );
+        }
+      } else {
+        if (node.childCount >= 100) {
+          decorations.push(
+            Decoration.node(from, to, {
+              'data-child-count': '100+',
+            }),
+          );
+        }
       }
     }
   });
@@ -75,9 +99,10 @@ export const getDecorations = (doc: Node): DecorationSet => {
 const handleDocChanged = (
   tr: ReadonlyTransaction,
   pluginState: ListState,
+  editorState: EditorState,
 ): ListState => {
   const nextPluginState = handleSelectionChanged(tr, pluginState);
-  const decorationSet = getDecorations(tr.doc);
+  const decorationSet = getDecorations(tr.doc, editorState);
   return {
     ...nextPluginState,
     decorationSet,
@@ -144,7 +169,7 @@ const { getPluginState, createPluginState } = pluginFactory(
 const createInitialState = (state: EditorState) => {
   return {
     ...initialState,
-    decorationSet: getDecorations(state.doc),
+    decorationSet: getDecorations(state.doc, state),
   };
 };
 
@@ -170,7 +195,7 @@ export const createPlugin = (eventDispatch: Dispatch): SafePlugin =>
             const isCodeBlockNextToListMarker = Boolean(
               document
                 ?.elementFromPoint(
-                  event.clientX + (listPaddingLeftMarkerSpace + bufferPx),
+                  event.clientX + (listItemCounterPadding + bufferPx),
                   event.clientY,
                 )
                 ?.closest(

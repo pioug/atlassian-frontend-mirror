@@ -14,8 +14,10 @@ const previewFooterClassnames = [
   emojiPickerFooterWithTopShadow,
 ];
 
+export const emojiPickerFooterTestId = 'emoji-picker-footer';
+
 const EmojiPickerFooter = ({ selectedEmoji }: Props) => (
-  <div css={previewFooterClassnames} data-testid="emoji-picker-footer">
+  <div css={previewFooterClassnames} data-testid={emojiPickerFooterTestId}>
     {selectedEmoji && <EmojiPreviewComponent emoji={selectedEmoji} />}
   </div>
 );

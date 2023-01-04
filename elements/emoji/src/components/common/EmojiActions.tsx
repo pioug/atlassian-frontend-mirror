@@ -58,6 +58,9 @@ export interface Props {
   onChange: any;
 }
 
+export const emojiActionsTestId = 'emoji-actions';
+export const uploadEmojiTestId = 'upload-emoji';
+
 // Generic Type for the wrapped functional component
 type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 
@@ -72,7 +75,7 @@ const AddOwnEmoji: FC<AddOwnEmojiProps> = (props) => {
   return (
     <Fragment>
       {uploadEnabled && (
-        <div css={addCustomEmoji}>
+        <div css={addCustomEmoji} data-testid={uploadEmojiTestId}>
           <FormattedMessage {...messages.addCustomEmojiLabel}>
             {(label) => (
               <AkButton
@@ -216,7 +219,7 @@ export const EmojiActions: FC<EmojiActionsProps> = (props) => {
 
   return (
     <div
-      data-testid="emoji-actions"
+      data-testid={emojiActionsTestId}
       css={previewFooterClassnames}
       onMouseLeave={onMouseLeaveHandler}
     >

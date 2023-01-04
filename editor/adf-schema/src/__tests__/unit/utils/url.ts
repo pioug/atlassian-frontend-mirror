@@ -19,6 +19,10 @@ describe(`${packageName}/url url utils`, () => {
         `https://test.blah.com/something#/search?_filter=(filters:!(),var:(x:!t,value:0),time:(from:now-1h,to:now))&_query=(fields:!(field.name,field.message),filters:!(('$state':(store:appState)),sort:!())`,
         'handles links with nested parentheses',
       ],
+      [
+        'jamfselfservice://content?entity=policy&id=551&action=view',
+        'jamfselfservice://content?entity=policy&id=551&action=view',
+      ],
     ];
     examples.forEach(([actual, expected, message]) => {
       const testCase =

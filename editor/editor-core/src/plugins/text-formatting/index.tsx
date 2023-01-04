@@ -9,7 +9,7 @@ import {
   underline,
 } from '@atlaskit/adf-schema';
 
-import { EditorPlugin } from '../../types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 
 import {
@@ -29,7 +29,11 @@ import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
 import { TextFormattingOptions } from './types';
 import Toolbar from './ui/Toolbar';
 
-const textFormatting = (options: TextFormattingOptions = {}): EditorPlugin => ({
+const textFormatting: NextEditorPlugin<
+  'textFormatting',
+  never,
+  TextFormattingOptions | undefined
+> = (options = {}) => ({
   name: 'textFormatting',
 
   marks() {

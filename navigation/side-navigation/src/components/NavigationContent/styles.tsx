@@ -14,22 +14,19 @@ const scrollIndicatorHeight = 2;
 const scrollIndicatorBorderRadius = 1;
 const containerPadding = gridSize();
 
-const itemHeadingTopMargin = containerPadding * 2.5;
-const itemHeadingBottomMargin = containerPadding * 0.75;
-
-// Skeleton content is slightly shorter than the real content.
-// Because of that we slightly increase the top margin to offset this so the
-// containing size both real and skeleton always equal approx 30px.
 const itemHeadingContentHeight = headingSizes.h100.lineHeight;
 const skeletonHeadingHeight = containerPadding;
 const skeletonHeadingMarginOffset = 3;
+// Skeleton content is slightly shorter than the real content.
+// Because of that we slightly increase the top margin to offset this so the
+// containing size both real and skeleton always equal approx 30px.
 const skeletonHeadingTopMargin =
-  itemHeadingTopMargin +
+  containerPadding * 2.5 +
   (itemHeadingContentHeight - skeletonHeadingHeight) -
   skeletonHeadingMarginOffset;
 // We want to move the entire body up by 3px without affecting the height of the skeleton container.
 const skeletonHeadingBottomMargin =
-  itemHeadingBottomMargin + skeletonHeadingMarginOffset;
+  containerPadding * 0.75 + skeletonHeadingMarginOffset;
 
 interface StyleOpts {
   showTopScrollIndicator?: boolean;
@@ -143,14 +140,14 @@ export const containerCSS = (opts: StyleOpts) =>
     // so the spacing between matches what it would be if the indicator was a "block" element.
     // We use margin here so any child absolutely positioned elements are positioned correctly.
     marginTop: opts.showTopScrollIndicator ? scrollIndicatorHeight : 0,
-    marginLeft: containerPadding,
-    marginRight: containerPadding,
+    marginLeft: token('spacing.scale.100', '8px'),
+    marginRight: token('spacing.scale.100', '8px'),
     // Enables child absolutely positioned elements to be positioned relative to this element.
     position: 'relative',
 
     '& [data-ds--menu--heading-item]': {
-      marginTop: itemHeadingTopMargin,
-      marginBottom: itemHeadingBottomMargin,
+      marginBottom: token('spacing.scale.075', '6px'),
+      marginTop: token('spacing.scale.200', '20px'),
     },
     '& [data-ds--menu--skeleton-heading-item]': {
       marginTop: skeletonHeadingTopMargin,

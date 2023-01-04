@@ -4,7 +4,6 @@ import { forwardRef } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { N10, N500 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export interface SideNavigationProps {
@@ -30,10 +29,12 @@ export interface SideNavigationProps {
   testId?: string;
 }
 
+const sidebarMinWidth = '240px';
+
 const sideNavStyles = css({
   display: 'flex',
   width: '100%',
-  minWidth: gridSize() * 30,
+  minWidth: sidebarMinWidth,
   height: '100%',
   position: 'relative',
   flexDirection: 'column',
@@ -55,6 +56,7 @@ const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
   (props: SideNavigationProps, ref) => {
     const { children, testId, label } = props;
     return (
+      // eslint-disable-next-line @repo/internal/react/use-primitives
       <nav
         ref={ref}
         data-testid={testId}

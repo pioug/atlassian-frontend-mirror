@@ -1,5 +1,119 @@
 # @atlaskit/editor-core
 
+## 177.0.0
+
+### Major Changes
+
+- [`ac1c880cf4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac1c880cf4c) - [ux] ED-12395 - Remove the keyboard accessible date picker feature flag, which has been 100% rolled out
+
+  ## **DEPRECATION WARNING:**
+
+  There's two deprecations in this change:
+
+  ### 1. Remove `keyboardAccessibleDatepicker` and the `allowKeyboardAccessibleDatepicker` feature flag
+
+  Now that this has been fully rolled out, this feature flag is no longer required. The if-statement that depends on this feature flag was also removed in point 2 below:
+
+  ### 2. Remove the `showTextField` prop on the DatePicker
+
+  This was exclusively used to conditionally render the `DatePickerInput`. Its usage was always set to `true` in code or through the feature flag that has now been rolled out. Thus, this deprecation simplifies the API.
+
+  Since no code related to this feature flag remains, there are no inline deprecation warnings.
+
+- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
+
+  Note: restartNumberedLists will be off by default. To enable it, consumers will need to set <Editor featureFlags={{ restartNumberedLists: true }}> or <Renderer featureFlags={{ restartNumberedLists: true }}>
+
+### Minor Changes
+
+- [`5307b130e91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5307b130e91) - Cleaned up placeholder lint feature as it was no longer being used
+- [`fe0fa175ab6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe0fa175ab6) - Add support to prevent Editor Popup overflowing top of the viewport.
+  To enable the behaviour use the feature flag `prevent-popup-overflow` as follows:
+
+  ```tsx
+  <Editor
+    featureFlags={{
+      'prevent-popup-overflow': true,
+    }}
+  />
+  ```
+
+- [`3ca38fe77c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ca38fe77c1) - [ux] ED-16206 Fixed - Tooltip for “Sort column Z-A“ option isn’t displayed if you first hover over the “Sort column A-Z“ option
+- [`c42a0344d32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c42a0344d32) - The linking view changing experiment toolbar style will be removed, including the feature flag. All variants will be removed except for toolbarIcons which will be the only view of the toolbar of the linking view switcher.
+- [`c253ecf5377`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c253ecf5377) - Use preventPopupOverflow ff to prevent the link picker going off the screen horizontally in the inline comment Editor
+- [`8820442c2b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8820442c2b2) - [ux] ED-15709: add feature for delete element if it is `isReferencedSource` is `true`
+
+  - add checkbox confirmation dialog when then config have `isReferentiality.`
+  - add referentiality helper functions.
+  - update confirmDialog config to a handler to reduce traverse times.
+  - user can now tick checkbox to delete descendent nodes or only selected node when user click the delete icon in floating toolbar.
+
+- [`1d41bbc2965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d41bbc2965) - This changeset introduces non breaking changes to support ssr within the loader emoji component
+- [`d2c62b69a6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2c62b69a6a) - [ux] Adds support to floating toolbar configuration to enable trapping focus within the Popup.
+- [`92613b1f023`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92613b1f023) - ED-15018 and ED-13913 - Remove all circular dependencies and ignored warnings in editor
+
+### Patch Changes
+
+- [`2fd53283b55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2fd53283b55) - Updated i18n language files
+- [`dfb5f68a5c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfb5f68a5c3) - [ux] ED-16187: prevent CollapsedEditor from crashing when IntlProvider isn't provided
+- [`b03147b4b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b03147b4b1e) - [ux] editor copy paste block cards as inline where allowBlockCards is false
+- [`1ea235bf3f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ea235bf3f5) - ED-15489 Changes to improve the assistive text for emoji and mention typeaheads
+- [`4a79928bc16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a79928bc16) - Updated aria label for editor content area according to content design recommendations.
+- [`4c80b42a754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c80b42a754) - [ED-16245] Make sure the Media dom nodes are mounted before scroll into
+- [`0d5dfdc07bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5dfdc07bc) - Refactored Typeahead component to be compatible with VoiceOver in Safari.
+- [`873ba4d6ae1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/873ba4d6ae1) - Fix task ticks updates not being reflected in the editor.
+- [`aa3c130c43a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa3c130c43a) - Changes the annotation mark to inclusive in order to fix the annotation being deleted when doing composition
+- [`9f142486837`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f142486837) - ED-14867 updated zIndex for width toggle breakout btn to be below other popups
+- [`b616ba20f04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b616ba20f04) - [ux] The height of the panel stays the same when the emoji is removed
+- [`c1eedb6a5e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1eedb6a5e1) - [ux] Removed extra span and it's related styles from Placeholder plugin to align height of flashing cursor with height of text line
+- [`f608bc44cf2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f608bc44cf2) - [ux] ED-16177 Added new text color labels. These new labels are disabled by default and only present when useSomewhatSemanticTextColorNames feature flag is set to true.
+- [`62789954243`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62789954243) - react-virutlaized has been replaced with @tanstack/react-virutal in @atlaskit/emoji
+- [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) - [ED-16166] Changes the renderer prop document type from any to DocNode
+
+  BREAKING for `@atlaskit/renderer`: Previously the `document` prop for the renderer component had the type of `any`. This has now been changed to `DocNode` which comes from `@atlaskit/adf-schema`.
+
+  Documents being passed into the renderer component will need to be updated to use this type.
+
+  Example Usage:
+
+  ```tsx
+  import { DocNode } from '@atlaskit/adf-schema';
+
+  const emptyDoc: DocNode = {
+    type: 'doc',
+    version: 1,
+    content: [],
+  };
+  ```
+
+- [`41810bb081d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41810bb081d) - [ux] ED-15897 fixed unexpected behaviour when using scroll buttons
+- [`76183098160`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76183098160) - [ux] ED-15285 - fix initial visibility of edit icon on extension floating toolbar when selecting an editable extension at the first node in the document
+- [`bb9a5f9d77d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb9a5f9d77d) - [ux] ED-16176 Added useSomewhatSemanticTextColorNames feature flag. This is part of COMMIT-5058 work to unblock dark mode for Jira. The intention of the flag is to show semantic names in tooltips when hovering over colors in the text color palette in token light/dark mode. Note that the flag is 'somewhat semantic' due to white/dark-gray not being semantic names.
+- [`233e03b2d92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/233e03b2d92) - ED-16007 To highlight the table rows and columns when the 'Delete Row' and 'Delete Column' options are highlighted in the 'cell options' menu of floating toolbar
+- [`7fd5785d37d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fd5785d37d) - [ESS-2752] Fix clientId type derived from prosemirror-collab
+- [`651dee737d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/651dee737d2) - ED-15301 Added initial preset builder types
+- [`3a35da6c331`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a35da6c331) - DTR-825 ED-9775: added jamfselfservice:// to whitelistedURLPatterns
+- [`069fe0a9aa4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/069fe0a9aa4) - [ux] When trying to apply a mark and the selection contains a mix of the selected mark and other content it will apply the mark rather than removing the mark from the selection.
+- [`3a236cfd8d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a236cfd8d3) - refactor typeahead emoji plugin by removing usage of legacy context provider
+- [`129c07f042d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/129c07f042d) - ED-16271 To skip the scroll buttons when user uses arrow keys to navigate in floating toolbar as it is not keyboard user friendly (changes are not feature falgged)
+- [`1267ffe2c42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1267ffe2c42) - Add media traceId into copy/paste operations
+- [`b2fa6d3e611`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2fa6d3e611) - [ED-16106] Fix margin top when paragraph has alignment marks
+- [`0745d7b54df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0745d7b54df) - Updated containsClass method to be more robust, to prevent console errors
+- [`97eb6fb59c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97eb6fb59c8) - [ux] Fixes focus being lost when closing the new link picker user interface when inserting via shortcut or toolbar. Focus instead now returns to the editor.
+- [`f451c36becf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f451c36becf) - Fixed reconciliation issue causing emoji picker in floating-toolbar to re-mount on parent component update
+- [`e4089f2c471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4089f2c471) - Modified toolbar buttons to read out keyboard shortcuts by screen readers.
+- [`968ac659016`](https://bitbucket.org/atlassian/atlassian-frontend/commits/968ac659016) - [ux] ED-16274 fixed typeahead query line height issue
+- [`53b8ef2ab95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53b8ef2ab95) - Updates link picker feature flag to be the only logic to determine if the new link picker UI should be used.
+- [`e3c011d1c03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3c011d1c03) - [ux] Fixed issue where z-index of stickyToolbar was way to high, which meant popups were under the toolbar instead of over it
+- [`60068f7fcbe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60068f7fcbe) - [ED-16007] Changes made to improve the floating toolbar's keyboard accessibility
+- Updated dependencies
+
+## 176.0.3
+
+### Patch Changes
+
+- [`7f49aa601ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f49aa601ae) - ED-16445: Fix to set allowUndoRedoButtons prop codemod in editor-core to run against the correct editor version v175 rather than v173
+
 ## 176.0.2
 
 ### Patch Changes

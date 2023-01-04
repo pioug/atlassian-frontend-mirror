@@ -5,6 +5,7 @@ import Dataloader from 'dataloader';
 
 import { MediaStore, ResponseFileItem } from '../client/media-store';
 import { MediaCollectionItemFullDetails } from '../models/media';
+import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
 
 export const MAX_BATCH_SIZE = 100;
 
@@ -42,7 +43,10 @@ export const getItemsFromKeys = (
 
     prev[key] = isBatchLoadingErrorResult(fileItem)
       ? fileItem.error
-      : fileItem.details;
+      : {
+          ...fileItem.details,
+          metadataTraceContext: fileItem.metadataTraceContext,
+        };
 
     return prev;
   }, {});
@@ -87,6 +91,10 @@ export function createBatchLoadingFunc(mediaStore: MediaStore) {
 
     await Promise.all(
       Object.keys(fileIdsByCollection).map(async (collectionNameKey) => {
+        const metadataTraceContext: MediaTraceContext = {
+          traceId: getRandomHex(8),
+          spanId: getRandomHex(8),
+        };
         const fileIds = fileIdsByCollection[collectionNameKey];
         const collectionName =
           collectionNameKey === nonCollectionName
@@ -94,8 +102,19 @@ export function createBatchLoadingFunc(mediaStore: MediaStore) {
             : collectionNameKey;
 
         try {
-          const response = await mediaStore.getItems(fileIds, collectionName);
-          items.push(...response.data.items);
+          const response = await mediaStore.getItems(
+            fileIds,
+            collectionName,
+            metadataTraceContext,
+          );
+
+          const itemsWithMetadataTraceContext = response.data.items.map(
+            (item) => ({
+              ...item,
+              metadataTraceContext,
+            }),
+          );
+          items.push(...itemsWithMetadataTraceContext);
         } catch (error) {
           fileIds.forEach((fileId) => {
             items.push({

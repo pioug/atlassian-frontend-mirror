@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from 'prosemirror-state';
 import { confluenceJiraIssue } from '@atlaskit/adf-schema';
-import { EditorPlugin, PMPluginFactory } from '../../types';
+import { NextEditorPlugin, PMPluginFactory } from '../../types';
 import { ReactNodeView } from '../../nodeviews';
 import ReactJIRAIssueNode from './nodeviews/jira-issue';
 
@@ -25,7 +25,7 @@ const createPlugin: PMPluginFactory = ({
   });
 };
 
-const jiraIssuePlugin = (): EditorPlugin => ({
+const jiraIssuePlugin: NextEditorPlugin<'confluenceJiraIssue'> = () => ({
   name: 'confluenceJiraIssue',
 
   nodes() {

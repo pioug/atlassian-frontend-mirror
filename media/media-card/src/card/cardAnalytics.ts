@@ -14,6 +14,7 @@ import {
   MediaCardAnalyticsEventPayload,
   getRenderPreviewableCardPayload,
   SSRStatus,
+  getErrorEventPayload,
 } from '../utils/analytics';
 import { CardStatus } from '../types';
 import { MediaCardError } from '../errors';
@@ -26,6 +27,7 @@ export const fireOperationalEvent = (
   ssrReliability: SSRStatus,
   error: MediaCardError = new MediaCardError('missing-error-data'),
   traceContext: MediaTraceContext,
+  metadataTraceContext?: MediaTraceContext,
 ) => {
   const fireEvent = (payload: MediaCardAnalyticsEventPayload) =>
     fireMediaCardEvent(payload, createAnalyticsEvent);
@@ -38,6 +40,7 @@ export const fireOperationalEvent = (
           performanceAttributes,
           ssrReliability,
           traceContext,
+          metadataTraceContext,
         ),
       );
       break;
@@ -48,6 +51,7 @@ export const fireOperationalEvent = (
           performanceAttributes,
           ssrReliability,
           traceContext,
+          metadataTraceContext,
         ),
       );
       break;
@@ -59,6 +63,7 @@ export const fireOperationalEvent = (
           error,
           ssrReliability,
           traceContext,
+          metadataTraceContext,
         ),
       );
       break;
@@ -102,4 +107,25 @@ export const fireScreenEvent = (
     getRenderPreviewableCardPayload(fileAttributes),
     createAnalyticsEvent,
   );
+};
+
+export const fireNonCriticalErrorEvent = (
+  createAnalyticsEvent: CreateUIAnalyticsEvent,
+  cardStatus: CardStatus,
+  fileAttributes: FileAttributes,
+  ssrReliability: SSRStatus,
+  error: MediaCardError = new MediaCardError('missing-error-data'),
+  traceContext: MediaTraceContext,
+  metadataTraceContext?: MediaTraceContext,
+) => {
+  const errorPayload = getErrorEventPayload(
+    cardStatus,
+    fileAttributes,
+    error,
+    ssrReliability,
+    traceContext,
+    metadataTraceContext,
+  );
+
+  fireMediaCardEvent(errorPayload, createAnalyticsEvent);
 };

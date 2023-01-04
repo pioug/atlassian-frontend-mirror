@@ -5,7 +5,16 @@ import { css, jsx } from '@emotion/react';
 
 import SearchIcon from '@atlaskit/icon/glyph/search';
 
-import { CREATE_BREAKPOINT, fontSize, gridSize } from '../../common/constants';
+import {
+  CREATE_BREAKPOINT,
+  fontSize,
+  gridSize,
+  varSearchBackgroundColor,
+  varSearchBorderColor,
+  varSearchColor,
+  varSearchFocusBorderColor,
+  varSearchHoverBackgroundColor,
+} from '../../common/constants';
 import { useTheme } from '../../theme';
 import { IconButton } from '../IconButton';
 
@@ -35,12 +44,21 @@ const searchInputStyles = css({
   width: '220px',
   height: `${gridSize * 4}px`,
   padding: `0 ${gridSize}px 0 40px`,
+  backgroundColor: `var(${varSearchBackgroundColor})`,
   border: '2px solid',
+  borderColor: `var(${varSearchBorderColor})`,
   borderRadius: 6,
+  color: `var(${varSearchColor})`,
   fontSize: `${fontSize}px`,
   outline: 'none',
   '::placeholder': {
     color: 'inherit',
+  },
+  '&:focus': {
+    borderColor: `var(${varSearchFocusBorderColor})`,
+  },
+  '&:hover': {
+    backgroundColor: `var(${varSearchHoverBackgroundColor})`,
   },
 });
 
@@ -74,8 +92,11 @@ const SearchComponent = (props: SearchComponentProps) => {
   };
 
   const searchInputDynamicStyles = {
-    ...search.default,
-    ':focus': search.focus,
+    [varSearchBackgroundColor]: search.default.backgroundColor,
+    [varSearchColor]: search.default.color,
+    [varSearchBorderColor]: search.default.borderColor,
+    [varSearchFocusBorderColor]: search.focus.borderColor,
+    [varSearchHoverBackgroundColor]: search.hover.backgroundColor,
   };
 
   return (

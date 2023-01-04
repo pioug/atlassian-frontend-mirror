@@ -37,6 +37,8 @@ import {
   getMediaImageResize,
   getAllowMediaInline,
   getEnableNewMediaCard,
+  getRestartNumberedLists,
+  getListNumberContinuity,
 } from '../query-param-reader';
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
@@ -79,6 +81,8 @@ const tableOptions: EditorProps['allowTables'] = {
   allowHeaderRow: true,
   allowMergeCells: true,
   allowNumberColumn: true,
+  allowDistributeColumns: true,
+  allowColumnResizing: true,
 };
 
 const expandOptions: EditorProps['allowExpand'] = {
@@ -201,8 +205,8 @@ export function MobileEditor(props: MobileEditorProps) {
     ...featureFlags,
     tableCellOptionsInFloatingToolbar:
       editorConfiguration.isTableCellOptionsInFloatingToolbar(),
-    restartNumberedLists: editorConfiguration.isRestartNumberedListsEnabled(),
-    listNumberContinuity: editorConfiguration.isListNumberContinuityEnabled(),
+    restartNumberedLists: getRestartNumberedLists(),
+    listNumberContinuity: getListNumberContinuity(),
     enableViewUpdateSubscription: true,
   };
 

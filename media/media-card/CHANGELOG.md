@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 74.4.0
+
+### Minor Changes
+
+- [`81573c1dfa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81573c1dfa7) - Media Card logs metadata trace Id
+- [`0bccac57db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bccac57db6) - remove mediaUploadApiV2 Feature flag
+
+### Patch Changes
+
+- [`5f36954436c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f36954436c) - Ensure all secondary errors from backend responses are logged in media card
+- [`2b5f5a740d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b5f5a740d3) - [ux] catch unexpected error in media card error boundary with a fallback error component and fire analytics event
+- [`8b373447406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b373447406) - Updated names for Media card examples and updated their references.
+- [`f36a3d972cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f36a3d972cf) - Updated Media-Card documentation with new tab structure and simpler usage example
+- [`3d40d5e9b37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d40d5e9b37) - Adopt updated version of getRandomHex function for generating traceId
+- Updated dependencies
+
 ## 74.3.2
 
 ### Patch Changes

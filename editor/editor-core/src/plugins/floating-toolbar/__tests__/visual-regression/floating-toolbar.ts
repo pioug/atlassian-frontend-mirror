@@ -25,6 +25,11 @@ import {
 async function focusToolbar() {
   await pressKeyCombo(page, ['Alt', 'F10']);
 }
+interface InitOptions {
+  appearance?: Appearance;
+  doc?: any;
+  editorProps?: Partial<EditorProps>;
+}
 
 describe('Floating toolbars:', () => {
   let page: PuppeteerPage;
@@ -122,6 +127,29 @@ describe('Floating toolbars:', () => {
       );
 
       await waitForElementWithText(page, tableSelectors.tableOptionsText);
+
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
+      focusToolbar();
+    });
+
+    it('should render the table toolbar', async () => {
+      const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
+      await page.waitForSelector(endCellSelector);
+      await retryUntilStablePosition(
+        page,
+        () => page.click(endCellSelector),
+        tableSelectors.floatingToolbar,
+      );
+
+      await waitForElementWithText(page, tableSelectors.tableOptionsText);
+
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
+      focusToolbar();
+      await pressKey(page, ['ArrowRight', 'ArrowRight', 'ArrowRight']);
     });
 
     it('should remove macro danger styling when toolbar updates', async () => {
@@ -201,5 +229,55 @@ describe('Floating toolbars:', () => {
       );
       await waitForElementWithText(page, 'Item with icon and label');
     });
+  });
+});
+
+describe('Table Floating Toolbar with Cell options', () => {
+  let page: PuppeteerPage;
+
+  async function initEditor(options?: InitOptions) {
+    const {
+      appearance = Appearance.fullPage,
+      doc = toolbarAdf,
+      editorProps = {},
+    } = options || {};
+    const featureFlags = editorProps.featureFlags || {};
+
+    await initEditorWithAdf(page, {
+      appearance,
+      viewport: { width: 1280, height: 700 },
+      adf: doc,
+      editorProps: {
+        ...editorProps,
+        featureFlags: {
+          floatingToolbarCopyButton: true,
+          tableCellOptionsInFloatingToolbar: true,
+          ...featureFlags,
+        },
+      },
+    });
+  }
+
+  beforeEach(async () => {
+    page = global.page;
+  });
+
+  it('should highlight table rows & cols when delete row & delete cell options are focused', async () => {
+    await initEditor();
+    const endCellSelector = getSelectorForTableCell({ row: 3, cell: 2 });
+    await page.waitForSelector(endCellSelector);
+    await retryUntilStablePosition(
+      page,
+      () => page.click(endCellSelector),
+      tableSelectors.floatingToolbar,
+    );
+
+    await waitForElementWithText(page, tableSelectors.tableOptionsText);
+    focusToolbar();
+    await pressKey(page, ['ArrowRight', 'Enter']);
+    await pressKey(page, ['ArrowDown', 'ArrowDown', 'ArrowDown']);
+    await snapshot(page);
+    await pressKey(page, ['ArrowDown']);
+    await snapshot(page);
   });
 });

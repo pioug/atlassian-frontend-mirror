@@ -1,7 +1,12 @@
+/**
+ * This file has been duplicated in packages/editor/adf-schema/src/utils/url.ts
+ * Any changes made here should be mirrored there.
+ */
 import LinkifyIt from 'linkify-it';
 
 const linkify = LinkifyIt();
 linkify.add('sourcetree:', 'http:');
+linkify.add('jamfselfservice:', 'http:');
 
 const tlds =
   'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split(
@@ -15,6 +20,7 @@ linkify.tlds(tlds, false);
 const whitelistedURLPatterns = [
   /^https?:\/\/[^\s]*$/im,
   /^ftps?:\/\//im,
+  /^jamfselfservice:\/\/[^\s]*$/im,
   /^\//im,
   /^mailto:/im,
   /^skype:/im,
@@ -72,7 +78,7 @@ const getLinkMatch = (str?: string): Match | null => {
     : null;
 };
 
-const LINK_REGEXP = /(https?|ftp):\/\/[^\s]+/;
+const LINK_REGEXP = /(https?|ftp|jamfselfservice):\/\/[^\s]+/;
 const linkifyMatch = (text: string): Match[] => {
   const matches: Match[] = [];
 

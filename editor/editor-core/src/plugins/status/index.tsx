@@ -4,7 +4,7 @@ import { findDomRefAtPos } from 'prosemirror-utils';
 
 import { status } from '@atlaskit/adf-schema';
 
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import {
   ACTION,
@@ -24,7 +24,11 @@ import { pluginKey } from './plugin-key';
 import { StatusPluginOptions, StatusState, StatusType } from './types';
 import StatusPicker from './ui/statusPicker';
 
-const baseStatusPlugin = (options?: StatusPluginOptions): EditorPlugin => ({
+const baseStatusPlugin: NextEditorPlugin<
+  'status',
+  never,
+  StatusPluginOptions
+> = (options?) => ({
   name: 'status',
 
   nodes() {
@@ -97,9 +101,9 @@ const baseStatusPlugin = (options?: StatusPluginOptions): EditorPlugin => ({
 });
 
 const decorateWithPluginOptions = (
-  plugin: EditorPlugin,
+  plugin: ReturnType<NextEditorPlugin<'status', never, StatusPluginOptions>>,
   options: StatusPluginOptions,
-): EditorPlugin => {
+) => {
   if (options.menuDisabled === true) {
     return plugin;
   }
@@ -129,7 +133,8 @@ const decorateWithPluginOptions = (
   return plugin;
 };
 
-const statusPlugin = (options: StatusPluginOptions): EditorPlugin =>
-  decorateWithPluginOptions(baseStatusPlugin(options), options);
+const statusPlugin: NextEditorPlugin<'status', never, StatusPluginOptions> = (
+  options: StatusPluginOptions,
+) => decorateWithPluginOptions(baseStatusPlugin(options), options);
 
 export default statusPlugin;

@@ -8,7 +8,7 @@ async function setup(params: string = '') {
     getExampleUrl(
       'media',
       'media-card',
-      'inline-player-vr',
+      'Test-VR-inline-player',
       global.__BASEURL__,
     ) + params;
 

@@ -82,19 +82,31 @@ export interface CardEvent {
 }
 
 export interface SharedCardProps {
-  // only relevant to file card with image appearance
+  // Overlay the media file.
   readonly disableOverlay?: boolean;
+  // Resize the media to 'crop' | 'fit' | 'full-fit' | 'stretchy-fit'.
   readonly resizeMode?: ImageResizeMode;
+  // Includes media features like caption, timestamp etc.
   readonly featureFlags?: MediaFeatureFlags;
+  // Sets meida card appearance
   readonly appearance?: CardAppearance;
+  // Custom media card dimension like width and height.
   readonly dimensions?: CardDimensions;
+  // Original media card dimension like width and height.
   readonly originalDimensions?: NumericalCardDimensions;
+  // Array of additional media card actions.
   readonly actions?: Array<CardAction>;
+  // Enable media card selectable.
   readonly selectable?: boolean;
+  // Renders media card as selected, if selected is true.
   readonly selected?: boolean;
+  // Alternate text for an media card.
   readonly alt?: string;
+  // ID for testing the media card.
   readonly testId?: string;
+  // Sets the title box background color.
   readonly titleBoxBgColor?: string;
+  // Sets the title box icon.
   readonly titleBoxIcon?: TitleBoxIcon;
 }
 
@@ -103,7 +115,9 @@ export interface CardOnClickCallback {
 }
 
 export interface CardEventProps {
+  // Callback function to be called when user clicks on media card.
   readonly onClick?: CardOnClickCallback;
+  // Callback function to be called when the mouse pointer is moved onto an media card.
   readonly onMouseEnter?: (result: CardEvent) => void;
   /** Callback function to be called when video enters and exit fullscreen.
    * `fullscreen = true` indicates video enters fullscreen
@@ -113,14 +127,25 @@ export interface CardEventProps {
 }
 
 export interface CardProps extends SharedCardProps, CardEventProps {
+  // Instance of MediaClient.
   readonly mediaClient: MediaClient;
+  // Instance of file identifier.
   readonly identifier: Identifier;
+  // Lazy loads the media file.
   readonly isLazy?: boolean;
+  // Uses the inline player for media file.
   readonly useInlinePlayer?: boolean;
+  // Uses media MediaViewer to preview the media file.
   readonly shouldOpenMediaViewer?: boolean;
+  /** Imported from MediaViewer. It includes data source like collection name,
+   *  media file list.
+   */
   readonly mediaViewerDataSource?: MediaViewerDataSource;
+  // Retrieve auth based on a given context.
   readonly contextId?: string;
+  // Enables the download button for media file.
   readonly shouldEnableDownloadButton?: boolean;
+  // Server-Side-Rendering modes are "media" and "client"
   readonly ssr?: SSR;
 }
 

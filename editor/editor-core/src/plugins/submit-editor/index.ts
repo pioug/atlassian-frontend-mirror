@@ -4,7 +4,11 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { Dispatch } from '../../event-dispatcher';
-import { EditorPlugin, CommandDispatch, EditorProps } from '../../types';
+import type { EditorProps } from '../../types/editor-props';
+import type {
+  NextEditorPlugin,
+  CommandDispatch,
+} from '@atlaskit/editor-common/types';
 import * as keymaps from '../../keymaps';
 import {
   ACTION,
@@ -64,7 +68,10 @@ const analyticsPayload = (
   },
 });
 
-const submitEditorPlugin = (onSave?: EditorProps['onSave']): EditorPlugin => ({
+type Config = EditorProps['onSave'];
+const submitEditorPlugin: NextEditorPlugin<'submitEditor', never, Config> = (
+  onSave?,
+) => ({
   name: 'submitEditor',
 
   pmPlugins() {

@@ -5,8 +5,12 @@ import {
 
 function getURL(): string {
   return (
-    getExampleUrl('media', 'media-card', 'SSR-cases', global.__BASEURL__) +
-    `&additionalProps={"featureFlags":{"newCardExperience":true}}`
+    getExampleUrl(
+      'media',
+      'media-card',
+      'Test-VR-SSR-cases',
+      global.__BASEURL__,
+    ) + `&additionalProps={"featureFlags":{"newCardExperience":true}}`
   );
 }
 

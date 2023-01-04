@@ -193,10 +193,10 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           popupsMountPoint={popupMountPoint}
           primaryToolbarComponents={primaryToolbarComponents}
           featureFlags={{
-            ...this.props.featureFlags,
-            // Enabling to catch during dev by default
             'safer-dispatched-transactions': true,
             'floating-toolbar-copy-button': true,
+            'restart-numbered-lists': true,
+            ...this.props.featureFlags,
           }}
           dangerouslyAppendPlugins={{
             __plugins: this.props.editorPlugins ?? EMPTY,

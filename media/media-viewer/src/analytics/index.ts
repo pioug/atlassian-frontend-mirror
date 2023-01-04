@@ -6,6 +6,7 @@ import {
   WithFileAttributes,
   FailureAttributes,
   ANALYTICS_MEDIA_CHANNEL,
+  WithTraceContext,
 } from '@atlaskit/media-common';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { PrimaryErrorReason } from '../errors';
@@ -30,7 +31,6 @@ export const relevantFlags = {
   observedWidth: false,
   mediaInline: false,
   folderUploads: false,
-  mediaUploadApiV2: true,
   memoryCacheLogging: false,
 };
 
@@ -76,7 +76,8 @@ export type MediaViewerFailureAttributes = Omit<
 > & {
   failReason: PrimaryErrorReason;
   request?: RequestMetadata;
-} & WithFileAttributes;
+} & WithFileAttributes &
+  WithTraceContext;
 
 export function fireAnalytics(
   payload: MediaViewerEventPayload,

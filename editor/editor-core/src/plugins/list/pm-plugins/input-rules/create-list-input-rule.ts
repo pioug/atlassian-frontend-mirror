@@ -1,4 +1,6 @@
 import { Node as PMNode, NodeType } from 'prosemirror-model';
+
+import { FeatureFlags } from '../../../../types/feature-flags';
 import {
   ruleWithAnalytics,
   createWrappingJoinRule,
@@ -16,8 +18,13 @@ import {
 type Props = {
   listType: NodeType;
   expression: RegExp;
+  featureFlags?: FeatureFlags;
 };
-export function createRuleForListType({ listType, expression }: Props) {
+export function createRuleForListType({
+  listType,
+  expression,
+  featureFlags,
+}: Props) {
   const isBulletList = listType.name === 'bulletList';
   const actionSubjectId = isBulletList
     ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
@@ -35,10 +42,20 @@ export function createRuleForListType({ listType, expression }: Props) {
 
   const shouldJoinNextNodeWhen = (_: string[], node: PMNode) =>
     node.type === listType;
+
+  let getAttrs = {};
+  if (featureFlags?.restartNumberedLists) {
+    getAttrs = (matchResult: RegExpExecArray): Record<string, any> => {
+      return {
+        order: Number(matchResult[1]),
+      };
+    };
+  }
+
   const inputRule = createWrappingJoinRule({
     match: expression,
     nodeType: listType,
-    getAttrs: {},
+    getAttrs,
     joinPredicate: shouldJoinNextNodeWhen,
   });
 

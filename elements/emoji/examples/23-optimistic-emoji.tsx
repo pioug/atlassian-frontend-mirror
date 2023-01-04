@@ -5,9 +5,9 @@ import { IntlProvider } from 'react-intl-next';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
-  getRealEmojiResource,
+  getRealEmojiProvider,
 } from '../example-helpers/demo-resource-control';
-import { EmojiId, ResourcedEmoji } from '../src';
+import { EmojiId, EmojiProvider, ResourcedEmoji } from '../src';
 
 const emojiIds: EmojiId[] = [
   { shortName: ':grimacing:', id: '1f603' },
@@ -54,7 +54,13 @@ export default function Example() {
   }, [handlePickOfEmojis]);
 
   const emojiProvider = useMemo(() => {
-    return getRealEmojiResource();
+    return new Promise<EmojiProvider>((resolve) => {
+      console.log('downloading emoji provider');
+      setTimeout(() => {
+        console.log('downloaded emoji provider');
+        resolve(getRealEmojiProvider());
+      }, 2500);
+    });
   }, []);
 
   return (
@@ -80,7 +86,7 @@ export default function Example() {
               emojiId={emojiIds[0]}
               emojiProvider={emojiProvider}
               optimistic
-              optimisticImageURL="https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/64x64/1f603.png"
+              optimisticImageURL="https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/caa27a19-fc09-4452-b2b4-a301552fd69c/64x64/1f603.png"
             />
             <ResourcedEmoji
               emojiId={emojiIds[3]}

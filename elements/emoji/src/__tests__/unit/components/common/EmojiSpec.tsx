@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import Emoji from '../../../../components/common/Emoji';
 import { spriteEmoji, imageEmoji } from '../../_test-data';
@@ -140,6 +140,36 @@ describe('<Emoji />', () => {
       expect(
         result.queryByTestId(RENDER_EMOJI_DELETE_BUTTON_TESTID),
       ).toBeNull();
+    });
+
+    it('should automatically set width to auto if autoWidth is true', async () => {
+      const result = await render(
+        <Emoji emoji={imageEmoji} fitToHeight={25} autoWidth />,
+      );
+      const image = result.getByAltText(imageEmoji.shortName);
+      expect(image).toHaveAttribute('width', 'auto');
+    });
+
+    it('should disable lazy load if disableLazyLoad is true', async () => {
+      const result = await render(<Emoji emoji={imageEmoji} disableLazyLoad />);
+      const image = result.getByAltText(imageEmoji.shortName);
+      expect(image).toHaveAttribute('loading', 'eager');
+    });
+
+    it('should call onLoadSuccess handler if image is fetched succesfully', async () => {
+      const onLoadSuccess = jest.fn();
+      const result = await render(
+        <Emoji
+          emoji={imageEmoji}
+          disableLazyLoad
+          onLoadSuccess={onLoadSuccess}
+        />,
+      );
+      const image = result.getByAltText(imageEmoji.shortName);
+      if (image) {
+        fireEvent.load(image);
+      }
+      expect(onLoadSuccess).toHaveBeenCalled();
     });
   });
 });

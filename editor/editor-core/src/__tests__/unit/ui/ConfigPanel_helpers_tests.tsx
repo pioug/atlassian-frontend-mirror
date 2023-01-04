@@ -40,30 +40,6 @@ describe('resolveOption', () => {
     );
   });
 
-  // TODO: https://product-fabric.atlassian.net/browse/DSP-7209
-  it.skip('supports asynchronous loading of options', async () => {
-    const OPTION = asOption('bar');
-    const spy = jest.fn();
-    const wrapper = await mount(
-      <AsyncSelect
-        onChange={spy}
-        loadOptions={async () => {
-          await new Promise((resolve) => setTimeout(resolve, 200));
-          return [OPTION];
-        }}
-      />,
-    );
-
-    expect(await resolveOption(wrapper, 'foo')).toBe(false); // missing
-    expect(await resolveOption(wrapper, 'bar')).toBe(true); // pre-existing
-    expect(spy).toBeCalledTimes(1);
-    expect(spy).nthCalledWith(
-      1,
-      expect.objectContaining(OPTION),
-      expect.anything(),
-    );
-  });
-
   it('uses the searchTerm', async () => {
     const OPTION = asOption('bar');
     const spy = jest.fn();

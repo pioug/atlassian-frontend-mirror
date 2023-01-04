@@ -30,21 +30,47 @@ describe('Snapshot Test', () => {
     },
   );
 
-  it('Lozenge inside overflow container example should match production example', async () => {
+  it('Lozenge width handling examples should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'lozenge',
-      'inside-overflow-container',
+      'width-handling',
       global.__BASEURL__,
     );
     const { page } = global;
     await loadPage(page, url);
+
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-default-short"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-default-long"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-override-100"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-override-none"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-override-100%"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-override-90%"]',
+    );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-override-50%"]',
+    );
     await page.waitForSelector(
       'span[data-testid="lozenge-truncated-by-maxWidth"]',
     );
     await page.waitForSelector(
       'span[data-testid="lozenge-truncated-by-container-size"]',
     );
+    await page.waitForSelector(
+      'span[data-testid="lozenge-truncated-by-container-pc"]',
+    );
+
     const containerSelector = "[data-testid='test-container']";
     const image = await takeElementScreenShot(page, containerSelector);
     expect(image).toMatchProdImageSnapshot();

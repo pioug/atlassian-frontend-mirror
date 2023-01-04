@@ -27,16 +27,22 @@ export interface MediaViewerExtensions {
 }
 
 export interface MediaViewerProps {
+  // Instance of media client.
   readonly mediaClient: MediaClient;
+  // Media item from data source that will be visible to user.
   readonly selectedItem: Identifier;
+  // Data source for media viewer.
   readonly dataSource: MediaViewerDataSource;
-
+  // The collection name.
   readonly collectionName: string;
+  // The page size
   readonly pageSize?: number;
-
+  // Callback function to be called when user closes media viewer.
   readonly onClose?: () => void;
-
+  // Includes media features like caption, timestamp etc.
   readonly featureFlags?: MediaFeatureFlags;
+  // Sidebar configuration for media viewer.
   readonly extensions?: MediaViewerExtensions;
+  // Retrieve auth based on a given context.
   readonly contextId?: string;
 }

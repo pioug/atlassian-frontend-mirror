@@ -22,12 +22,14 @@ const DY75a = 'rgba(111, 92, 37, 0.5)';
 const DY200 = '#82641c';
 
 export const AnnotationSharedCSSByState = (props: ThemeProps) => ({
-  /* eslint-disable */
   focus: css`
     // Background is not coming through in confluence, suspecting to be caused by some specific combination of
     // emotion and token look up
 
-    background: ${themed({ light: Y75, dark: DY75 })(props)};
+    background: ${themed({
+      light: token('color.background.accent.yellow.subtler', Y75),
+      dark: token('color.background.accent.yellow.subtler', DY75),
+    })(props)};
     border-bottom: 2px solid
       ${themed({
         light: token('color.border.accent.yellow', Y300),
@@ -41,7 +43,10 @@ export const AnnotationSharedCSSByState = (props: ThemeProps) => ({
     cursor: pointer;
   `,
   blur: css`
-    background: ${themed({ light: Y75a, dark: DY75a })(props)};
+    background: ${themed({
+      light: token('color.background.accent.yellow.subtlest', Y75a),
+      dark: token('color.background.accent.yellow.subtlest', DY75a),
+    })(props)};
     border-bottom: 2px solid
       ${themed({
         light: token('color.border.accent.yellow', Y200a),
@@ -49,7 +54,6 @@ export const AnnotationSharedCSSByState = (props: ThemeProps) => ({
       })(props)};
     cursor: pointer;
   `,
-  /* eslint-enable */
 });
 
 export const annotationSharedStyles = (props: ThemeProps) => css`

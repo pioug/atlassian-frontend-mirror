@@ -28,8 +28,16 @@ function fetchLastPublishedJSONSchema(): Promise<string> {
 }
 
 expect.extend({
-  toBeBackwardsCompatibleWith(received: any, argument: any) {
+  toBeBackwardsCompatibleWith(
+    received: any,
+    argument: any,
+    definitionsToSkip: string[] = [],
+  ) {
     try {
+      definitionsToSkip.forEach((definition) => {
+        received.definitions[definition] = argument.definitions[definition];
+      });
+
       validateSchemaCompatibility(argument, received, {
         allowNewOneOf: true,
         allowNewEnumValue: true,
@@ -49,11 +57,16 @@ expect.extend({
 });
 
 describe('JSON schema', () => {
-  // to be un-skipped after the change gets to `master` branch
   it('should be backwards compatible', async () => {
     const existingSchema = await fetchLastPublishedJSONSchema();
     try {
-      expect(newSchema).toBeBackwardsCompatibleWith(existingSchema);
+      // TODO: Remove this orderedList_node skip after ADF schema changes merge to master
+      // (See: https://product-fabric.atlassian.net/browse/ED-15903)
+      const definitionsToSkip = ['orderedList_node'];
+      expect(newSchema).toBeBackwardsCompatibleWith(
+        existingSchema,
+        definitionsToSkip,
+      );
     } catch (ex: any) {
       throw new Error(
         'JSON schema backwards compatibility test failed. ' +

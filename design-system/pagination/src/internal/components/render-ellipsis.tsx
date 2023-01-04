@@ -15,7 +15,7 @@ export default function renderEllipsis({
   return (
     <Box as="span" testId={testId} key={key} paddingInline="scale.100">
       <Text testId={`${testId}-text`} verticalAlign="middle">
-        ...
+        &hellip;
       </Text>
     </Box>
   );

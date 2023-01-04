@@ -175,7 +175,8 @@ describe('Snapshot Test: Media', () => {
         MediaLayout.wrapLeft,
         MediaLayout.wrapRight,
       ]) {
-        it(`using layout ${MediaLayout[layout]}`, async () => {
+        // TODO: Unskip tests (skipped due to CI reporting slight diff, couldnt repro locally: https://product-fabric.atlassian.net/browse/ED-16362)
+        it.skip(`using layout ${MediaLayout[layout]}`, async () => {
           await changeMediaLayout(page, layout);
           await animationFrame(page);
           await snapshot(page, undefined, undefined, {

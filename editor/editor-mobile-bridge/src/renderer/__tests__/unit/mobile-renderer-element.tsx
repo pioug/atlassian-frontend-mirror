@@ -10,6 +10,7 @@ import {
 } from '../../../providers';
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { sendToBridge as originalSendToBridge } from '../../../bridge-utils';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { doc, p, text, date } from '@atlaskit/adf-utils/builders';
 import { render as renderTestingLib, cleanup } from '@testing-library/react';
 import { mount } from 'enzyme';
@@ -61,7 +62,8 @@ describe('renderer bridge', () => {
       });
       mount(
         <MobileRenderer
-          document={''}
+          // @ts-ignore
+          document={'' as DocNode}
           cardClient={createCardClient()}
           emojiProvider={createEmojiProvider(fetchProxy)}
           mediaProvider={createMediaProvider()}
@@ -79,10 +81,12 @@ describe('renderer bridge', () => {
         .spyOn(useTranslations, 'useTranslations')
         .mockReturnValue({ locale: 'pl', messages });
 
-      const initialDoc = doc(p(date({ timestamp: '1603756800000' })));
+      const initialDoc = doc(
+        p(date({ timestamp: '1603756800000' })),
+      ) as DocNode;
       const result = mount(
         <MobileRendererWithIntl
-          document={JSON.stringify(initialDoc)}
+          document={initialDoc}
           cardClient={createCardClient()}
           emojiProvider={createEmojiProvider(fetchProxy)}
           mediaProvider={createMediaProvider()}
@@ -114,10 +118,10 @@ describe('renderer bridge', () => {
     });
 
     it('should call rendererReady when the initial document has been renderer', async () => {
-      const initialDoc = doc(p(text('foo')));
+      const initialDoc = doc(p(text('foo'))) as DocNode;
       const result = renderTestingLib(
         <MobileRenderer
-          document={JSON.stringify(initialDoc)}
+          document={initialDoc}
           cardClient={createCardClient()}
           emojiProvider={createEmojiProvider(fetchProxy)}
           mediaProvider={createMediaProvider()}
@@ -138,7 +142,7 @@ describe('renderer bridge', () => {
       const initialDoc = doc(p(text('foo')));
       const result = renderTestingLib(
         <MobileRenderer
-          document={JSON.stringify(initialDoc)}
+          document={initialDoc as DocNode}
           cardClient={createCardClient()}
           emojiProvider={createEmojiProvider(fetchProxy)}
           mediaProvider={createMediaProvider()}

@@ -11,6 +11,8 @@ export type MarkOptions = {
   markType: MarkType;
   onMouseEnter?: undefined;
   onMouseLeave?: undefined;
+  onFocus?: Command;
+  onBlur?: Command;
 };
 
 export type NodeOptions = {
@@ -20,4 +22,6 @@ export type NodeOptions = {
   markType?: undefined;
   onMouseEnter?: Command;
   onMouseLeave?: Command;
+  onFocus?: Command;
+  onBlur?: Command;
 };

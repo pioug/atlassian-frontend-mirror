@@ -1,6 +1,9 @@
 /** @jsx jsx */
+import { Fragment, MouseEvent } from 'react';
+
 import { jsx } from '@emotion/react';
 
+import Box from '@atlaskit/ds-explorations/box';
 import OpenIcon from '@atlaskit/icon/glyph/open';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 
@@ -18,7 +21,7 @@ const CustomNestingItem = ({
   ...props
 }: CustomItemComponentProps & { href: string }) => {
   return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @repo/internal/react/use-primitives
     <a href={href} {...props}>
       {children}
     </a>
@@ -27,14 +30,19 @@ const CustomNestingItem = ({
 
 const BasicExample = () => {
   return (
-    <div
-      onClick={(e) => e.preventDefault()}
-      css={{ height: 340, overflow: 'hidden' }}
+    <Box
+      display="block"
+      onClick={(e: MouseEvent) => e.preventDefault()}
+      overflow="hidden"
+      UNSAFE_style={{
+        height: 340,
+      }}
+      as="div"
     >
       <NestableNavigationContent>
         <Section>
           <NestingItem id="0" title="Settings">
-            <span />
+            <Fragment />
           </NestingItem>
           <NestingItem
             id="1"
@@ -42,14 +50,14 @@ const BasicExample = () => {
             iconBefore={<SettingsIcon label="" />}
             title="Settings"
           >
-            <span />
+            <Fragment />
           </NestingItem>
           <NestingItem
             description="I have a description"
             id="2"
             title="Settings"
           >
-            <span />
+            <Fragment />
           </NestingItem>
           <NestingItem
             id="3"
@@ -58,7 +66,7 @@ const BasicExample = () => {
             title="Settings"
             description="I have a custom after element"
           >
-            <span />
+            <Fragment />
           </NestingItem>
           <NestingItem
             id="4"
@@ -76,7 +84,7 @@ const BasicExample = () => {
               },
             }}
           >
-            <span />
+            <Fragment />
           </NestingItem>
           <NestingItem
             id="5"
@@ -85,7 +93,7 @@ const BasicExample = () => {
             description="I'm disabled"
             isDisabled
           >
-            <span />
+            <Fragment />
           </NestingItem>
           <NestingItem
             id="6"
@@ -104,11 +112,11 @@ const BasicExample = () => {
             description="I have a custom item"
             component={CustomNestingItem}
           >
-            <span />
+            <Fragment />
           </NestingItem>
         </Section>
       </NestableNavigationContent>
-    </div>
+    </Box>
   );
 };
 

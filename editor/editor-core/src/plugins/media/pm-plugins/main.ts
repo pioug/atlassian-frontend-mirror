@@ -632,6 +632,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     }
   };
 
+  public setMediaGroupNode = (node: PMNode<any>, getPos: () => number) => {
+    this.mediaGroupNodes[node.attrs.id] = { node, getPos };
+  };
+
   removeNodeById = (state: MediaState) => {
     const { id } = state;
     const mediaNodeWithPos = helpers.findMediaNode(

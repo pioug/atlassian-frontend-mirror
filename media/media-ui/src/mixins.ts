@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/core';
+import { keyframes } from '@emotion/react';
 import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
 
 export const ellipsis = (maxWidth: string | number = '100%') => {

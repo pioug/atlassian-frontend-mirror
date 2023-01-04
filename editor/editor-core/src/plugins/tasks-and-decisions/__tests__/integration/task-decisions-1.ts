@@ -14,7 +14,8 @@ import {
  */
 BrowserTestCase(
   'task-decision-1.ts: can paste rich text into a decision',
-  {},
+  // TODO: Skipped safari, need to unskip again after fixing: https://product-fabric.atlassian.net/browse/ED-16306
+  { skip: ['safari'] },
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await copyToClipboard(

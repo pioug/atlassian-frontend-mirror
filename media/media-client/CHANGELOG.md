@@ -1,5 +1,18 @@
 # @atlaskit/media-client
 
+## 19.1.0
+
+### Minor Changes
+
+- [`81573c1dfa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81573c1dfa7) - Items call creates a batched metadata trace Id
+- [`0bccac57db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0bccac57db6) - remove mediaUploadApiV2 Feature flag
+
+### Patch Changes
+
+- [`a8eeb045e3a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8eeb045e3a) - adding media only callouts to docs
+- [`3d40d5e9b37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d40d5e9b37) - Adopt updated version of getRandomHex function for generating traceId
+- Updated dependencies
+
 ## 19.0.0
 
 ### Major Changes

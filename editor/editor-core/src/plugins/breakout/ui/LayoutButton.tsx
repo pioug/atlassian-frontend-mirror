@@ -22,6 +22,8 @@ import { NodeSelection, Selection } from 'prosemirror-state';
 import { BreakoutPluginState } from '../types';
 import { isSupportedNodeForBreakout } from '../utils/is-supported-node';
 import { token } from '@atlaskit/tokens';
+import { layers } from '@atlaskit/theme/constants';
+
 const toolbarButtonWrapper = css`
   && button {
     background: ${token('color.background.neutral', N20A)};
@@ -124,6 +126,7 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, {}> {
     const titleMessage = getTitle(breakoutMode);
     const title = formatMessage(titleMessage);
     const nextBreakoutMode = getNextBreakoutMode(breakoutMode);
+    const belowOtherPopupsZIndex = layers.layer() - 1;
 
     let pluginState = getPluginState(state);
 
@@ -156,6 +159,7 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, {}> {
         scrollableElement={scrollableElement}
         stick={true}
         forcePlacement={true}
+        zIndex={belowOtherPopupsZIndex}
       >
         <div css={toolbarButtonWrapper}>
           <ToolbarButton

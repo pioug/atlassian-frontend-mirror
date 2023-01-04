@@ -1,13 +1,15 @@
 import React from 'react';
 import { inlineCard, blockCard, embedCard } from '@atlaskit/adf-schema';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
 import { floatingToolbar } from './toolbar';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 import { cardKeymap } from './pm-plugins/keymap';
 import { CardPluginOptions } from './types';
 
-const cardPlugin = (options: CardPluginOptions): EditorPlugin => {
+const cardPlugin: NextEditorPlugin<'card', never, CardPluginOptions> = (
+  options,
+) => {
   return {
     name: 'card',
 

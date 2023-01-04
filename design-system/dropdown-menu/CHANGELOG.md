@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.5.9
+
+### Patch Changes
+
+- [`c9b09094bfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9b09094bfe) - Wrap DropdownMenu > MenuWrapper setInitialFocusRef call in useEffect to resolve React console error
+
 ## 11.5.8
 
 ### Patch Changes

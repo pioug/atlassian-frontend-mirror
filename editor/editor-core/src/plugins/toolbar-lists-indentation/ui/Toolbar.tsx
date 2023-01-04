@@ -11,12 +11,14 @@ import {
   indent as toggleIndentKeymap,
   outdent as toggleOutdentKeymap,
   ToolTipContent,
+  tooltip,
 } from '../../../keymaps';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../ui/ToolbarButton';
 import { messages } from '../../list/messages';
 import { messages as indentationMessages } from '../../indentation/messages';
 import { ButtonName, ToolbarProps } from '../types';
 import { buttonGroupStyle, separatorStyles } from '../../../ui/styles';
+import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 
 export function Toolbar(props: ToolbarProps) {
   const { formatMessage } = useIntl();
@@ -34,6 +36,8 @@ export function Toolbar(props: ToolbarProps) {
   } = props;
   const labelUnorderedList = formatMessage(messages.unorderedList);
   const labelOrderedList = formatMessage(messages.orderedList);
+  const indentMessage = formatMessage(indentationMessages.indent);
+  const outdentMessage = formatMessage(indentationMessages.outdent);
 
   const handleOnItemActivated =
     (buttonName: ButtonName) =>
@@ -44,11 +48,13 @@ export function Toolbar(props: ToolbarProps) {
     <span css={buttonGroupStyle}>
       <ToolbarButton
         buttonId={TOOLBAR_BUTTON.BULLET_LIST}
+        testId={labelUnorderedList}
         spacing={isReducedSpacing ? 'none' : 'default'}
         onClick={handleOnItemActivated('bullet_list')}
         selected={bulletListActive}
         aria-pressed={bulletListActive}
-        aria-label={labelUnorderedList}
+        aria-label={tooltip(toggleBulletListKeymap, labelUnorderedList)}
+        aria-keyshortcuts={getAriaKeyshortcuts(toggleBulletListKeymap)}
         disabled={bulletListDisabled || disabled}
         title={
           <ToolTipContent
@@ -60,11 +66,13 @@ export function Toolbar(props: ToolbarProps) {
       />
       <ToolbarButton
         buttonId={TOOLBAR_BUTTON.ORDERED_LIST}
+        testId={labelOrderedList}
         spacing={isReducedSpacing ? 'none' : 'default'}
         onClick={handleOnItemActivated('ordered_list')}
         selected={orderedListActive}
         aria-pressed={orderedListActive}
-        aria-label={labelOrderedList}
+        aria-label={tooltip(toggleOrderedListKeymap, labelOrderedList)}
+        aria-keyshortcuts={getAriaKeyshortcuts(toggleOrderedListKeymap)}
         disabled={orderedListDisabled || disabled}
         title={
           <ToolTipContent
@@ -82,10 +90,11 @@ export function Toolbar(props: ToolbarProps) {
           onClick={handleOnItemActivated('outdent')}
           iconBefore={<OutdentIcon label="" />}
           disabled={outdentDisabled || disabled}
-          aria-label={formatMessage(indentationMessages.outdent)}
+          aria-label={tooltip(toggleOutdentKeymap, outdentMessage)}
+          aria-keyshortcuts={getAriaKeyshortcuts(toggleOutdentKeymap)}
           title={
             <ToolTipContent
-              description={formatMessage(indentationMessages.outdent)}
+              description={outdentMessage}
               keymap={toggleOutdentKeymap}
             />
           }
@@ -99,10 +108,11 @@ export function Toolbar(props: ToolbarProps) {
           onClick={handleOnItemActivated('indent')}
           iconBefore={<IndentIcon label="" />}
           disabled={indentDisabled || disabled}
-          aria-label={formatMessage(indentationMessages.indent)}
+          aria-label={tooltip(toggleIndentKeymap, indentMessage)}
+          aria-keyshortcuts={getAriaKeyshortcuts(toggleIndentKeymap)}
           title={
             <ToolTipContent
-              description={formatMessage(indentationMessages.indent)}
+              description={indentMessage}
               keymap={toggleIndentKeymap}
             />
           }

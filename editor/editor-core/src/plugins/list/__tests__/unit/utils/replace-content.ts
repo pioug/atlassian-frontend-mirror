@@ -20,7 +20,7 @@ describe('plugins/lists/backspace: move content inside lists', () => {
   describe('when there is not leaf nodes inside the previous list item', () => {
     const case00 = doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(p('')),
         li(
           p('nice', '{insertPosition}'),
@@ -47,7 +47,7 @@ describe('plugins/lists/backspace: move content inside lists', () => {
 
   describe('when there is leaf block nodes inside the previous list item', () => {
     const case00 = doc(
-      ol(
+      ol()(
         li(p('')),
         li(
           p('nice{insertPosition}'),
@@ -66,7 +66,7 @@ describe('plugins/lists/backspace: move content inside lists', () => {
     )(defaultSchema);
     const case01 = doc(
       // prettier-ignore
-      ol(
+      ol()(
         li(p('')),
         li(
           p('nice{insertPosition}'),
@@ -94,7 +94,7 @@ describe('plugins/lists/backspace: move content inside lists', () => {
     describe('and when the target is empty', () => {
       it('should return a replace step', () => {
         const currentDoc = doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice{insertPosition}'),

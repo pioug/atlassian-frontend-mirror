@@ -17,7 +17,7 @@ import {
 } from '../../util/analytics';
 import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
-import { useEmojiContext } from '../../hooks/useEmojiContext';
+import { useEmoji } from '../../hooks/useEmoji';
 import { useCallback } from 'react';
 import { extractErrorInfo } from '../../util/analytics/analytics';
 export interface State {
@@ -87,7 +87,7 @@ export const CachingMediaEmoji: FC<CachingEmojiProps> = (props) => {
   const [cachedEmoji, setCachedEmoji] = useState<EmojiDescription>();
   const [inValidImage, setInvalidImage] = useState(false);
 
-  const context = useEmojiContext();
+  const { emojiProvider } = useEmoji();
 
   const loadEmoji = useCallback(
     (emojiProvider: EmojiProvider) => {
@@ -117,10 +117,10 @@ export const CachingMediaEmoji: FC<CachingEmojiProps> = (props) => {
   );
 
   useEffect(() => {
-    if (context && context.emoji.emojiProvider) {
-      loadEmoji(context.emoji.emojiProvider);
+    if (emojiProvider) {
+      loadEmoji(emojiProvider);
     }
-  }, [context, loadEmoji]);
+  }, [emojiProvider, loadEmoji]);
 
   const handleLoadError = (_emojiId: EmojiId) => {
     sampledUfoRenderedEmoji(_emojiId).failure({

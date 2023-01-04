@@ -1,19 +1,14 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
+import { token } from '@atlaskit/tokens';
 
 export interface NavigationFooterProps {
   children: ReactNode;
 }
-
-const footerStyles = css({
-  padding: gridSize(),
-  paddingBottom: gridSize() * 1.75,
-  position: 'relative',
-});
 
 /**
  * __Navigation footer__
@@ -24,7 +19,18 @@ const footerStyles = css({
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
 const NavigationFooter = ({ children }: NavigationFooterProps) => {
-  return <div css={footerStyles}>{children}</div>;
+  return (
+    <Box
+      display="block"
+      position="relative"
+      padding="scale.100"
+      UNSAFE_style={{
+        paddingBottom: token('spacing.scale.200', '14px'),
+      }}
+    >
+      {children as BoxProps['children']}
+    </Box>
+  );
 };
 
 export default NavigationFooter;

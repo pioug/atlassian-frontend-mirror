@@ -1313,7 +1313,7 @@ describe('Media plugin', () => {
 
   describe('when inserting into a list', () => {
     it('should insert media group after orderer list', async () => {
-      const listDoc = doc(ol(li(p('text'))));
+      const listDoc = doc(ol()(li(p('text'))));
       const { pluginState, editorView } = editor(listDoc);
       await mediaProvider;
 
@@ -1321,7 +1321,7 @@ describe('Media plugin', () => {
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
-          ol(li(p('text'))),
+          ol()(li(p('text'))),
           mediaGroup(
             media({
               id: pdfFile.id,

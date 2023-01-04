@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-table
 
+## 1.0.0
+
+### Major Changes
+
+- [`5d317ed8aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d317ed8aa3) - [ux] ED-15882: Implement custom starting numbers for orderedList nodes in adf-schema, editor, renderer, transformers behind restartNumberedLists feature flag. Users will be able to set a custom starting number when typing to create a numbered list in the Editor and this will be persisted across Renderer and other format transformations.
+
+  Note: restartNumberedLists will be off by default. To enable it, consumers will need to set <Editor featureFlags={{ restartNumberedLists: true }}> or <Renderer featureFlags={{ restartNumberedLists: true }}>
+
+### Minor Changes
+
+- [`8820442c2b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8820442c2b2) - [ux] ED-15709: add feature for delete element if it is `isReferencedSource` is `true`
+
+  - add checkbox confirmation dialog when then config have `isReferentiality.`
+  - add referentiality helper functions.
+  - update confirmDialog config to a handler to reduce traverse times.
+  - user can now tick checkbox to delete descendent nodes or only selected node when user click the delete icon in floating toolbar.
+
+### Patch Changes
+
+- [`f0901dad354`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0901dad354) - ED-16218 - Patch to fix editor.table.colorPicker id
+- [`bd809217772`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd809217772) - [ux] Table plugin will now re-read the selection or re-parse the range around the mutation for 'selection' mutations
+- [`ed617ce197c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed617ce197c) - [ux] DSP-4451 - Adds design tokens to table overflow shadows. Fixes visual bug with table overflow shadow size and placement.
+- [`38a9332eed9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38a9332eed9) - [ux] Fixed sticky header related table render issues when header row is toggled
+- [`7a123e47141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a123e47141) - [ux] Make sure sticky header is only applied to first row
+- [`233e03b2d92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/233e03b2d92) - ED-16007 To highlight the table rows and columns when the 'Delete Row' and 'Delete Column' options are highlighted in the 'cell options' menu of floating toolbar
+- [`f788287d932`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f788287d932) - [ux] Fix table sticky header becoming unsticky when cursor moves below table
+- [`60068f7fcbe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60068f7fcbe) - [ED-16007] Changes made to enable the keyboard accessibility to the table's floating toolbar
+
+  1. Use Alt+F10 to access the table's floating toolbar
+  2. Use 'Esc' to return to table
+  3. If any of the options accessed in dropdown of floating toolbar the focus should be retained on editor's current selection.
+
+- Updated dependencies
+
 ## 0.2.6
 
 ### Patch Changes

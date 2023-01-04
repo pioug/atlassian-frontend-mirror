@@ -1,6 +1,6 @@
 import React from 'react';
 import { layoutColumn, layoutSection } from '@atlaskit/adf-schema';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { FloatingToolbarConfig } from '../floating-toolbar/types';
 import { default as createLayoutPlugin } from './pm-plugins/main';
 import { buildToolbar } from './toolbar';
@@ -21,7 +21,9 @@ import { LayoutPluginOptions } from './types';
 
 export { pluginKey };
 
-const layoutPlugin = (options: LayoutPluginOptions = {}): EditorPlugin => ({
+const layoutPlugin: NextEditorPlugin<'layout', never, LayoutPluginOptions> = (
+  options = {},
+) => ({
   name: 'layout',
 
   nodes() {

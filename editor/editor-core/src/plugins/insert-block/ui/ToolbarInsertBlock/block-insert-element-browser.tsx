@@ -57,6 +57,7 @@ export const BlockInsertElementBrowser: React.FC<
         onClick={props.onClick}
         spacing={props.spacing}
         label={props.label}
+        aria-keyshortcuts="/"
       />
     </>
   );

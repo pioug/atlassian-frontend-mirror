@@ -35,7 +35,11 @@ import { ReactSerializer, renderDocument, RendererContext } from '../../';
 import { rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
 import { RendererAppearance } from './types';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../../analytics/events';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
@@ -256,6 +260,7 @@ export class Renderer extends PureComponent<RendererProps> {
       allowMediaLinking: props.media && props.media.allowLinking,
       surroundTextNodesWithTextWrapper: allowAnnotationsDraftMode,
       media: props.media,
+      emojiResourceConfig: props.emojiResourceConfig,
       smartLinks: props.smartLinks,
       allowCopyToClipboard: props.allowCopyToClipboard,
       allowCustomPanels: props.allowCustomPanels,
@@ -681,7 +686,11 @@ const RendererWithAnnotationSelection = (props: RendererProps) => {
         adfDocument={adfDocument}
         annotationProvider={props.annotationProvider}
       >
-        <RendererWithAnalytics innerRef={innerRef} {...props} />
+        <RendererWithAnalytics
+          innerRef={innerRef}
+          {...props}
+          featureFlags={props.featureFlags}
+        />
       </AnnotationsWrapper>
     </RendererActionsContext>
   );

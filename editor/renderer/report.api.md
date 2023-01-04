@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/renderer"
 
@@ -16,9 +16,15 @@
 ```ts
 /// <reference types="react" />
 
+import { ACTION } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { DocNode } from '@atlaskit/adf-schema';
+import { EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { Fragment } from 'prosemirror-model';
@@ -39,92 +45,6 @@ import { UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from '@atlaskit/editor-common/util
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentPayload } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/utils';
-
-// @public (undocumented)
-enum ACTION {
-  // (undocumented)
-  CLICKED = 'clicked',
-  // (undocumented)
-  CLOSED = 'closed',
-  // (undocumented)
-  CRASHED = 'unhandledErrorCaught',
-  // (undocumented)
-  CREATE_NOT_ALLOWED = 'createNotAllowed',
-  // (undocumented)
-  DELETED = 'deleted',
-  // (undocumented)
-  EDITED = 'edited',
-  // (undocumented)
-  INSERTED = 'inserted',
-  // (undocumented)
-  INVALID_PROSEMIRROR_DOCUMENT = 'invalidProsemirrorDocument',
-  // (undocumented)
-  MEDIA_LINK_TRANSFORMED = 'mediaLinkTransformed',
-  // (undocumented)
-  OPENED = 'opened',
-  // (undocumented)
-  RE_RENDERED = 'reRendered',
-  // (undocumented)
-  RENDERED = 'rendered',
-  // (undocumented)
-  RENDERER_TTI = 'tti',
-  // (undocumented)
-  RESOLVED = 'resolved',
-  // (undocumented)
-  SELECT_ALL_CAUGHT = 'selectAllCaught',
-  // (undocumented)
-  SELECT_ALL_ESCAPED = 'selectAllEscaped',
-  // (undocumented)
-  SORT_COLUMN = 'sortedColumn',
-  // (undocumented)
-  SORT_COLUMN_NOT_ALLOWED = 'sortColumnNotAllowed',
-  // (undocumented)
-  STARTED = 'started',
-  // (undocumented)
-  TOGGLE_EXPAND = 'toggleExpand',
-  // (undocumented)
-  UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED = 'unsupportedContentLevelsTrackingErrored',
-  // (undocumented)
-  UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED = 'unsupportedContentLevelsTrackingSucceeded',
-  // (undocumented)
-  VIEWED = 'viewed',
-  // (undocumented)
-  VISITED = 'visited',
-}
-
-// @public (undocumented)
-enum ACTION_SUBJECT {
-  // (undocumented)
-  ANCHOR_LINK = 'anchorLink',
-  // (undocumented)
-  ANNOTATION = 'annotation',
-  // (undocumented)
-  BUTTON = 'button',
-  // (undocumented)
-  EXPAND = 'expand',
-  // (undocumented)
-  LINK = 'link',
-  // (undocumented)
-  MEDIA = 'media',
-  // (undocumented)
-  MEDIA_SINGLE = 'mediaSingle',
-  // (undocumented)
-  NESTED_EXPAND = 'nestedExpand',
-  // (undocumented)
-  RENDERER = 'renderer',
-  // (undocumented)
-  TABLE = 'table',
-}
-
-// @public (undocumented)
-enum ACTION_SUBJECT_ID {
-  // (undocumented)
-  HEADING_ANCHOR_LINK = 'headingAnchorLink',
-  // (undocumented)
-  INLINE_COMMENT = 'inlineComment',
-  // (undocumented)
-  LINK = 'link',
-}
 
 // @public (undocumented)
 export class ADFEncoder<T> {
@@ -247,18 +167,6 @@ type ComponentCrashErrorAEP = AEP<
 
 // @public (undocumented)
 type DispatchAnalyticsEvent = (event: AnalyticsEventPayload) => void;
-
-// @public (undocumented)
-enum EVENT_TYPE {
-  // (undocumented)
-  OPERATIONAL = 'operational',
-  // (undocumented)
-  SCREEN = 'screen',
-  // (undocumented)
-  TRACK = 'track',
-  // (undocumented)
-  UI = 'ui',
-}
 
 // @public (undocumented)
 type ExpandAEP = AEP<
@@ -419,6 +327,8 @@ interface ReactSerializerInit {
   // (undocumented)
   disableHeadingIDs?: boolean;
   // (undocumented)
+  emojiResourceConfig?: EmojiResourceConfig;
+  // (undocumented)
   eventHandlers?: EventHandlers;
   // (undocumented)
   extensionHandlers?: ExtensionHandlers;
@@ -520,7 +430,9 @@ export interface RendererProps {
   // (undocumented)
   disableHeadingIDs?: boolean;
   // (undocumented)
-  document: any;
+  document: DocNode;
+  // (undocumented)
+  emojiResourceConfig?: EmojiResourceConfig;
   // (undocumented)
   enableSsrInlineScripts?: boolean;
   // (undocumented)

@@ -5,7 +5,7 @@ import {
   SkeletonHeadingItemProps,
 } from '@atlaskit/menu';
 
-import { ITEM_SIDE_PADDING } from '../../common/styles';
+import { sectionHeaderSpacingStyles } from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
 export type { SkeletonHeadingItemProps } from '@atlaskit/menu';
@@ -27,8 +27,7 @@ const SkeletonHeadingItem = (props: SkeletonHeadingItemProps) => {
     <MenuSkeletonHeadingItem
       // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
       cssFn={() => ({
-        paddingLeft: ITEM_SIDE_PADDING,
-        paddingRight: ITEM_SIDE_PADDING,
+        ...sectionHeaderSpacingStyles(),
       })}
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...props}

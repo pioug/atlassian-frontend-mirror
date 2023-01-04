@@ -16,7 +16,7 @@ export class AnnotationNodeView extends ReactNodeView {
   render(_props: {}, forwardRef: ForwardRef) {
     return (
       // all inline comment states are now set in decorations at ../pm-plugins/inline-comment.ts
-      <span ref={forwardRef} />
+      <span data-mark-type="annotation" ref={forwardRef} />
     );
   }
 }

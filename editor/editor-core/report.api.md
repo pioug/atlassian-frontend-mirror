@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/editor-core"
 
@@ -14,7 +14,6 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-/// <reference types="cypress" />
 /// <reference types="node" />
 /// <reference types="react" />
 
@@ -96,6 +95,7 @@ import { MentionProvider as MentionProvider_2 } from '@atlaskit/mention';
 import { MentionResource } from '@atlaskit/mention/resource';
 import { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { default as messages } from '@atlaskit/editor-common/messages';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Node as Node_2 } from 'prosemirror-model';
 import { NodeConfig } from '@atlaskit/editor-common/types';
 import { NodeType } from 'prosemirror-model';
@@ -274,13 +274,7 @@ export class BaseReactEditorView<T = {}> extends React_2.Component<
     >;
   };
   // (undocumented)
-  createEditorState: (options: {
-    props: EditorViewProps;
-    context: EditorReactContext;
-    doc?: Object | Node_2<any> | string | undefined;
-    resetting?: boolean | undefined;
-    selectionAtStart?: boolean | undefined;
-  }) => EditorState<any>;
+  createEditorState: (options: CreateEditorStateOptions) => EditorState<any>;
   // (undocumented)
   dispatch: Dispatch;
   // (undocumented)
@@ -520,6 +514,20 @@ type Context = {
 export class ContextPanel extends React_2.Component<Props_4> {
   // (undocumented)
   render(): jsx.JSX.Element;
+}
+
+// @public (undocumented)
+interface CreateEditorStateOptions {
+  // (undocumented)
+  context: EditorReactContext;
+  // (undocumented)
+  doc?: Object | Node_2 | string;
+  // (undocumented)
+  props: EditorViewProps;
+  // (undocumented)
+  resetting?: boolean;
+  // (undocumented)
+  selectionAtStart?: boolean;
 }
 
 // @public (undocumented)
@@ -928,8 +936,6 @@ export interface EditorProps {
   // (undocumented)
   allowJiraIssue?: boolean;
   // (undocumented)
-  allowKeyboardAccessibleDatepicker?: boolean;
-  // (undocumented)
   allowLayouts?: LayoutPluginOptions | boolean;
   // (undocumented)
   allowNestedTasks?: boolean;
@@ -1047,8 +1053,6 @@ export interface EditorProps {
   placeholder?: string;
   // (undocumented)
   placeholderBracketHint?: string;
-  // (undocumented)
-  placeholderHints?: string[];
   // (undocumented)
   popupsBoundariesElement?: HTMLElement;
   // (undocumented)
@@ -1679,7 +1683,11 @@ export interface MediaOptions {
 }
 
 // @public (undocumented)
-export const mediaPlugin: (options?: MediaOptions | undefined) => EditorPlugin;
+export const mediaPlugin: NextEditorPlugin<
+  'media',
+  never,
+  MediaOptions | undefined
+>;
 
 // @public (undocumented)
 export const mediaPluginKey: PluginKey<MediaPluginState, any>;
@@ -1783,6 +1791,8 @@ interface MediaPluginState {
   selectedMediaContainerNode: () => Node_2 | undefined;
   // (undocumented)
   setBrowseFn: (browseFn: () => void) => void;
+  // (undocumented)
+  setMediaGroupNode: (node: Node_2<any>, getPos: () => number) => void;
   // (undocumented)
   setMediaProvider: (mediaProvider?: Promise<MediaProvider_2>) => Promise<void>;
   // (undocumented)
@@ -1991,6 +2001,7 @@ interface PanelPluginConfig {
 
 // @public (undocumented)
 type PastePluginOptions = {
+  plainTextPasteLinkification?: boolean;
   cardOptions?: CardOptions;
   sanitizePrivateContent?: boolean;
 };
@@ -2071,8 +2082,6 @@ interface PlaceholderPluginOptions {
   placeholder?: string;
   // (undocumented)
   placeholderBracketHint?: string;
-  // (undocumented)
-  placeholderHints?: string[];
 }
 
 // @public (undocumented)

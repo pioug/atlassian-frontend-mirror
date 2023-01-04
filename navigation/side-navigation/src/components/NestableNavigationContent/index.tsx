@@ -239,6 +239,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
   };
 
   return (
+    // eslint-disable-next-line @repo/internal/react/use-primitives
     <div
       data-testid={testId}
       css={nestableNavigationContentStyles}
@@ -256,6 +257,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
           testId={testId && `${testId}-anim`}
         >
           {(motion) => (
+            // eslint-disable-next-line @repo/internal/react/use-primitives
             <div css={nestingRootStyles} {...motion}>
               <NestedContext.Provider
                 // This provider is inside the NestingMotion to ensure it keeps a stale

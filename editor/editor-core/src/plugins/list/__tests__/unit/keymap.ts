@@ -28,6 +28,7 @@ import emojiPlugin, { emojiPluginKey } from '../../../emoji';
 import panelPlugin from '../../../panel';
 import analyticsPlugin from '../../../analytics';
 import mediaPlugin from '../../../media';
+import featureFlagsPlugin from '../../../feature-flags-context';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import simulatePlatform, {
@@ -55,13 +56,14 @@ describe('lists plugin -> keymap', () => {
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const preset = new Preset<LightEditorPlugin>()
-      .add(listPlugin)
+      .add([listPlugin, { restartNumberedLists: true }])
       .add(blockTypePlugin)
       .add(emojiPlugin)
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([mediaPlugin, { allowMediaSingle: true }]);
+      .add([mediaPlugin, { allowMediaSingle: true }])
+      .add([featureFlagsPlugin, { restartNumberedLists: true }]);
 
     return createEditor({
       doc,
@@ -78,13 +80,13 @@ describe('lists plugin -> keymap', () => {
     describe('on empty nested list item', () => {
       it('should create new list item in parent list', () => {
         const { editorView } = editor(
-          doc(ol(li(p('text'), ol(li(p('{<>}')))), li(p('text')))),
+          doc(ol()(li(p('text'), ol()(li(p('{<>}')))), li(p('text')))),
         );
 
         sendKeyToPm(editorView, 'Enter');
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(ol(li(p('text')), li(p('{<>}')), li(p('text')))),
+          doc(ol()(li(p('text')), li(p('{<>}')), li(p('text')))),
         );
       });
     });
@@ -92,14 +94,17 @@ describe('lists plugin -> keymap', () => {
     describe('on non-empty nested list item', () => {
       it('should created new nested list item', () => {
         const { editorView } = editor(
-          doc(ol(li(p('text'), ol(li(p('test{<>}')))), li(p('text')))),
+          doc(ol()(li(p('text'), ol()(li(p('test{<>}')))), li(p('text')))),
         );
 
         sendKeyToPm(editorView, 'Enter');
 
         expect(editorView.state.doc).toEqualDocument(
           doc(
-            ol(li(p('text'), ol(li(p('test')), li(p('{<>}')))), li(p('text'))),
+            ol()(
+              li(p('text'), ol()(li(p('test')), li(p('{<>}')))),
+              li(p('text')),
+            ),
           ),
         );
       });
@@ -108,13 +113,13 @@ describe('lists plugin -> keymap', () => {
     describe('on non-empty top level list item', () => {
       it('should created new list item at top level', () => {
         const { editorView } = editor(
-          doc(ol(li(p('text')), li(p('test{<>}')), li(p('text')))),
+          doc(ol()(li(p('text')), li(p('test{<>}')), li(p('text')))),
         );
 
         sendKeyToPm(editorView, 'Enter');
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(ol(li(p('text')), li(p('test')), li(p('{<>}')), li(p('text')))),
+          doc(ol()(li(p('text')), li(p('test')), li(p('{<>}')), li(p('text')))),
         );
       });
     });
@@ -122,7 +127,7 @@ describe('lists plugin -> keymap', () => {
     describe('on non-empty top level list item inside panel', () => {
       it('should created new list item at top level', () => {
         const { editorView } = editor(
-          doc(panel()(ol(li(p('text')), li(p('test{<>}')), li(p('text'))))),
+          doc(panel()(ol()(li(p('text')), li(p('test{<>}')), li(p('text'))))),
         );
 
         sendKeyToPm(editorView, 'Enter');
@@ -130,7 +135,7 @@ describe('lists plugin -> keymap', () => {
         expect(editorView.state.doc).toEqualDocument(
           doc(
             panel()(
-              ol(li(p('text')), li(p('test')), li(p('{<>}')), li(p('text'))),
+              ol()(li(p('text')), li(p('test')), li(p('{<>}')), li(p('text'))),
             ),
           ),
         );
@@ -138,29 +143,39 @@ describe('lists plugin -> keymap', () => {
     });
 
     describe('on empty top level list item', () => {
-      it('should create new paragraph outside the list', () => {
+      it('should create new paragraph outside the list and set "order" attr on bottom orderedList to continue from the top orderedList', () => {
         const { editorView } = editor(
-          doc(ol(li(p('text')), li(p('{<>}')), li(p('text')))),
+          doc(ol()(li(p('text')), li(p('{<>}')), li(p('text')))),
         );
 
         sendKeyToPm(editorView, 'Enter');
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(ol(li(p('text'))), p('{<>}'), ol(li(p('text')))),
+          doc(
+            ol({ order: 1 })(li(p('text'))),
+            p('{<>}'),
+            ol({ order: 2 })(li(p('text'))),
+          ),
         );
       });
     });
 
     describe('on empty top level list item inside panel', () => {
-      it('should create new paragraph outside the list', () => {
+      it('should create new paragraph outside the list and set "order" attr on bottom orderedList to continue from the top orderedList', () => {
         const { editorView } = editor(
-          doc(panel()(ol(li(p('text')), li(p('{<>}')), li(p('text'))))),
+          doc(panel()(ol()(li(p('text')), li(p('{<>}')), li(p('text'))))),
         );
 
         sendKeyToPm(editorView, 'Enter');
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(panel()(ol(li(p('text'))), p('{<>}'), ol(li(p('text'))))),
+          doc(
+            panel()(
+              ol({ order: 1 })(li(p('text'))),
+              p('{<>}'),
+              ol({ order: 2 })(li(p('text'))),
+            ),
+          ),
         );
       });
     });
@@ -169,13 +184,13 @@ describe('lists plugin -> keymap', () => {
   describe('when hit Tab', () => {
     let editorView: EditorView;
     beforeEach(() => {
-      ({ editorView } = editor(doc(ol(li(p('text')), li(p('text{<>}'))))));
+      ({ editorView } = editor(doc(ol()(li(p('text')), li(p('text{<>}'))))));
       sendKeyToPm(editorView, 'Tab');
     });
 
     it('should create a sublist', () => {
       expect(editorView.state.doc).toEqualDocument(
-        doc(ol(li(p('text'), ol(li(p('text{<>}')))))),
+        doc(ol()(li(p('text'), ol()(li(p('text{<>}')))))),
       );
     });
   });
@@ -200,36 +215,36 @@ describe('lists plugin -> keymap', () => {
 
     it('should remove empty paragraph', () => {
       backspaceCheck(
-        doc(ol(li(p('text')), li(p('{<>}')))),
-        doc(ol(li(p('text{<>}')))),
+        doc(ol()(li(p('text')), li(p('{<>}')))),
+        doc(ol()(li(p('text{<>}')))),
       );
     });
 
     it('should move paragraph content back to previous list item', () => {
       backspaceCheck(
-        doc(ol(li(p('text')), li(p('{<>}second text')))),
-        doc(ol(li(p('text{<>}second text')))),
+        doc(ol()(li(p('text')), li(p('{<>}second text')))),
+        doc(ol()(li(p('text{<>}second text')))),
       );
     });
 
     it('should remove nested empty paragraph', () => {
       backspaceCheck(
-        doc(ol(li(p('text'), ol(li(p('{<>}')))))),
-        doc(ol(li(p('text{<>}')))),
+        doc(ol()(li(p('text'), ol()(li(p('{<>}')))))),
+        doc(ol()(li(p('text{<>}')))),
       );
     });
 
     it('should move paragraph content back to previous outdented list item', () => {
       backspaceCheck(
-        doc(ol(li(p('text'), ol(li(p('{<>}subtext')))))),
-        doc(ol(li(p('text{<>}subtext')))),
+        doc(ol()(li(p('text'), ol()(li(p('{<>}subtext')))))),
+        doc(ol()(li(p('text{<>}subtext')))),
       );
     });
 
     it('should move paragraph content back to previous (nested) list item', () => {
       backspaceCheck(
-        doc(ol(li(p('text'), ol(li(p('text'))))), p('{<>}after')),
-        doc(ol(li(p('text'), ol(li(p('text{<>}after')))))),
+        doc(ol()(li(p('text'), ol()(li(p('text'))))), p('{<>}after')),
+        doc(ol()(li(p('text'), ol()(li(p('text{<>}after')))))),
       );
     });
 
@@ -237,10 +252,10 @@ describe('lists plugin -> keymap', () => {
       backspaceCheck(
         doc(
           // prettier-ignore
-          ol(
+          ol()(
             li(
               p('{<>}A'),
-              ol(
+              ol()(
                 li(p('B')),
               ),
             ),
@@ -251,7 +266,7 @@ describe('lists plugin -> keymap', () => {
         // prettier-ignore
         doc(
           p('{<>}A'),
-          ol(
+          ol()(
             li(p('B')),
             li(p('C')),
           ),
@@ -263,30 +278,30 @@ describe('lists plugin -> keymap', () => {
     it('merges two single-level lists when the middle paragraph is backspaced', () => {
       backspaceCheck(
         doc(
-          ol(li(p('A')), li(p('B'))),
+          ol()(li(p('A')), li(p('B'))),
 
           p('{<>}middle'),
 
-          ol(li(p('C')), li(p('D'))),
+          ol()(li(p('C')), li(p('D'))),
         ),
-        doc(ol(li(p('A')), li(p('B{<>}middle')), li(p('C')), li(p('D')))),
+        doc(ol()(li(p('A')), li(p('B{<>}middle')), li(p('C')), li(p('D')))),
       );
     });
 
     it('merges two double-level lists when the middle paragraph is backspaced', () => {
       backspaceCheck(
         doc(
-          ol(li(p('A'), ol(li(p('B')))), li(p('C'))),
+          ol()(li(p('A'), ol()(li(p('B')))), li(p('C'))),
 
           p('{<>}middle'),
 
-          ol(li(p('D'), ol(li(p('E')))), li(p('F'))),
+          ol()(li(p('D'), ol()(li(p('E')))), li(p('F'))),
         ),
         doc(
-          ol(
-            li(p('A'), ol(li(p('B')))),
+          ol()(
+            li(p('A'), ol()(li(p('B')))),
             li(p('C{<>}middle')),
-            li(p('D'), ol(li(p('E')))),
+            li(p('D'), ol()(li(p('E')))),
             li(p('F')),
           ),
         ),
@@ -296,12 +311,12 @@ describe('lists plugin -> keymap', () => {
     it('moves directly to previous list item if it was empty', () => {
       backspaceCheck(
         doc(
-          ol(li(p('nice')), li(p('')), li(p('{<>}text'))),
+          ol()(li(p('nice')), li(p('')), li(p('{<>}text'))),
 
           p('after'),
         ),
         doc(
-          ol(li(p('nice')), li(p('{<>}text'))),
+          ol()(li(p('nice')), li(p('{<>}text'))),
 
           p('after'),
         ),
@@ -311,12 +326,12 @@ describe('lists plugin -> keymap', () => {
     it('moves directly to previous list item if it was empty, but with two paragraphs', () => {
       backspaceCheck(
         doc(
-          ol(li(p('nice')), li(p('')), li(p('{<>}text'), p('double'))),
+          ol()(li(p('nice')), li(p('')), li(p('{<>}text'), p('double'))),
 
           p('after'),
         ),
         doc(
-          ol(li(p('nice')), li(p('{<>}text'), p('double'))),
+          ol()(li(p('nice')), li(p('{<>}text'), p('double'))),
 
           p('after'),
         ),
@@ -326,12 +341,12 @@ describe('lists plugin -> keymap', () => {
     it('backspaces paragraphs within a list item rather than the item itself', () => {
       backspaceCheck(
         doc(
-          ol(li(p('')), li(p('nice'), p('{<>}two'))),
+          ol()(li(p('')), li(p('nice'), p('{<>}two'))),
 
           p('after'),
         ),
         doc(
-          ol(li(p('')), li(p('nice{<>}two'))),
+          ol()(li(p('')), li(p('nice{<>}two'))),
 
           p('after'),
         ),
@@ -341,12 +356,12 @@ describe('lists plugin -> keymap', () => {
     it('backspaces line breaks correctly within list items, with content after', () => {
       backspaceCheck(
         doc(
-          ol(li(p('')), li(p('nice'), p('two', br(), '{<>}three'))),
+          ol()(li(p('')), li(p('nice'), p('two', br(), '{<>}three'))),
 
           p('after'),
         ),
         doc(
-          ol(li(p('')), li(p('nice'), p('two{<>}three'))),
+          ol()(li(p('')), li(p('nice'), p('two{<>}three'))),
 
           p('after'),
         ),
@@ -356,12 +371,12 @@ describe('lists plugin -> keymap', () => {
     it('backspaces line breaks correctly within list items, with content before', () => {
       backspaceCheck(
         doc(
-          ol(li(p('')), li(p('nice'), p('two', br(), br(), '{<>}'))),
+          ol()(li(p('')), li(p('nice'), p('two', br(), br(), '{<>}'))),
 
           p('after'),
         ),
         doc(
-          ol(li(p('')), li(p('nice'), p('two', br(), '{<>}'))),
+          ol()(li(p('')), li(p('nice'), p('two', br(), '{<>}'))),
 
           p('after'),
         ),
@@ -371,14 +386,14 @@ describe('lists plugin -> keymap', () => {
     it('backspaces correctly with paragraphs after the list items', () => {
       backspaceCheck(
         doc(
-          ol(li(p('')), li(p('nice'), p('two'))),
+          ol()(li(p('')), li(p('nice'), p('two'))),
           p('{<>}'),
           p(''),
           p(''),
           p('after'),
         ),
         doc(
-          ol(li(p('')), li(p('nice'), p('two', '{<>}'))),
+          ol()(li(p('')), li(p('nice'), p('two', '{<>}'))),
           p(''),
           p(''),
           p('after'),
@@ -388,22 +403,28 @@ describe('lists plugin -> keymap', () => {
 
     it('backspaces correctly with paragraphs after an empty list item', () => {
       backspaceCheck(
-        doc(ol(li(p('first')), li(p(''))), p('{<>}'), p(''), p(''), p('after')),
-        doc(ol(li(p('first')), li(p('{<>}'))), p(''), p(''), p('after')),
+        doc(
+          ol()(li(p('first')), li(p(''))),
+          p('{<>}'),
+          p(''),
+          p(''),
+          p('after'),
+        ),
+        doc(ol()(li(p('first')), li(p('{<>}'))), p(''), p(''), p('after')),
       );
     });
 
     it('backspaces correctly with paragraphs after the list items with emoji', () => {
       backspaceCheck(
         doc(
-          ol(li(p('')), li(p('nice', emoji(grinEmojiId)()))),
+          ol()(li(p('')), li(p('nice', emoji(grinEmojiId)()))),
           p('{<>}'),
           p(''),
           p(''),
           p('after'),
         ),
         doc(
-          ol(li(p('')), li(p('nice', emoji(grinEmojiId)(), '{<>}'))),
+          ol()(li(p('')), li(p('nice', emoji(grinEmojiId)(), '{<>}'))),
           p(''),
           p(''),
           p('after'),
@@ -414,7 +435,7 @@ describe('lists plugin -> keymap', () => {
     it('moves text from after list to below mediaSingle in list item', () => {
       backspaceCheck(
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -433,7 +454,7 @@ describe('lists plugin -> keymap', () => {
           p('{<>}after'),
         ),
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -455,7 +476,7 @@ describe('lists plugin -> keymap', () => {
     it('moves text from after list to into a new list item', () => {
       backspaceCheck(
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -473,7 +494,7 @@ describe('lists plugin -> keymap', () => {
           p('{<>}after'),
         ),
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -495,7 +516,7 @@ describe('lists plugin -> keymap', () => {
     it('empty paragraph after list should select media', () => {
       backspaceCheck(
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -513,7 +534,7 @@ describe('lists plugin -> keymap', () => {
           p('{<>}'),
         ),
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -536,7 +557,7 @@ describe('lists plugin -> keymap', () => {
     it('moves code block from after list to into a new list item', () => {
       backspaceCheck(
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -554,7 +575,7 @@ describe('lists plugin -> keymap', () => {
           code_block()('{<>}after'),
         ),
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -576,18 +597,18 @@ describe('lists plugin -> keymap', () => {
     it('moves empty paragraph inside code block', () => {
       backspaceCheck(
         doc(
-          ol(li(p('')), li(p('nice'), code_block()('hello'))),
+          ol()(li(p('')), li(p('nice'), code_block()('hello'))),
 
           p('{<>}'),
         ),
-        doc(ol(li(p('')), li(p('nice'), code_block()('hello{<>}')))),
+        doc(ol()(li(p('')), li(p('nice'), code_block()('hello{<>}')))),
       );
     });
 
     it('selects mediaSingle in list if inside the empty paragraph after', () => {
       backspaceCheck(
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -606,7 +627,7 @@ describe('lists plugin -> keymap', () => {
           p('after'),
         ),
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice'),
@@ -630,7 +651,7 @@ describe('lists plugin -> keymap', () => {
     it('backspaces mediaSingle in list if selected', () => {
       backspaceCheck(
         doc(
-          ol(
+          ol()(
             li(p('')),
             li(
               p('nice{<}'),
@@ -647,7 +668,7 @@ describe('lists plugin -> keymap', () => {
           ),
           p('after'),
         ),
-        doc(ol(li(p('')), li(p('nice'))), p('{<>}after')),
+        doc(ol()(li(p('')), li(p('nice'))), p('{<>}after')),
       );
     });
   });
@@ -655,13 +676,13 @@ describe('lists plugin -> keymap', () => {
   describe('when hit Shift-Tab', () => {
     let editorView: EditorView;
     beforeEach(() => {
-      ({ editorView } = editor(doc(ol(li(p('One'), ul(li(p('Two{<>}'))))))));
+      ({ editorView } = editor(doc(ol()(li(p('One'), ul(li(p('Two{<>}'))))))));
       sendKeyToPm(editorView, 'Shift-Tab');
     });
 
     it('should outdent the list', () => {
       expect(editorView.state.doc).toEqualDocument(
-        doc(ol(li(p('One')), li(p('Two{<>}')))),
+        doc(ol()(li(p('One')), li(p('Two{<>}')))),
       );
     });
   });
@@ -676,7 +697,7 @@ describe('lists plugin -> keymap', () => {
     });
 
     it('should create a list', () => {
-      expect(editorView.state.doc).toEqualDocument(doc(ol(li(p('One')))));
+      expect(editorView.state.doc).toEqualDocument(doc(ol()(li(p('One')))));
     });
 
     it('should call numbered list analytics V3 event', () => {

@@ -153,13 +153,17 @@ class DynamicTable extends React.Component<Props, State> {
   };
 
   renderEmptyBody = () => {
-    const { emptyView, isLoading } = this.props;
+    const { emptyView, isLoading, testId } = this.props;
 
     if (isLoading) {
-      return <EmptyViewWithFixedHeight />;
+      return <EmptyViewWithFixedHeight testId={testId} />;
     }
 
-    return emptyView && <EmptyViewContainer>{emptyView}</EmptyViewContainer>;
+    return (
+      emptyView && (
+        <EmptyViewContainer testId={testId}>{emptyView}</EmptyViewContainer>
+      )
+    );
   };
 
   render() {

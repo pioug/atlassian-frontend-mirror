@@ -7,7 +7,7 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-} from '../../analytics/enums';
+} from '@atlaskit/editor-common/analytics';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { NodeProps } from '../types';

@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 22.0.3
+
+### Patch Changes
+
+- [`16aa7646472`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16aa7646472) - update ufo sampling rate due to change of sampling algorithm
+- Updated dependencies
+
 ## 22.0.2
 
 ### Patch Changes

@@ -1,6 +1,8 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { css } from '@emotion/react';
 
 import { PanelType } from '@atlaskit/adf-schema';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import {
   akEditorTableCellMinWidth,
   blockNodesVerticalMargin,
@@ -23,8 +25,6 @@ const tokenPanelColor = {
 } as const;
 
 const lightPanelColor = {
-  // TODO: https://product-fabric.atlassian.net/browse/DSP-4066
-  /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
   info: colors.B50,
   note: colors.P50,
   tip: colors.G50,
@@ -109,7 +109,6 @@ export const darkPanelColors = {
 
   TextColor: '#D9DDE3',
 };
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 const lightIconColor = {
   info: token('color.icon.information', colors.B400),
@@ -136,7 +135,6 @@ const panelEmojiSpriteVerticalAlignment =
 const panelEmojiImageVerticalAlignment = panelEmojiSpriteVerticalAlignment - 1;
 
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4066
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const panelDarkModeColors = [
   [colors.B50, darkPanelColors.B1200S],
   [colors.B75, darkPanelColors.B900],
@@ -161,6 +159,7 @@ const panelDarkModeColors = [
   [colors.P100, darkPanelColors.P800S],
 ];
 
+// used for custom panels
 export const getPanelDarkColor = (panelColor: string) => {
   const colorObject = panelDarkModeColors.find(
     (color) => color[0] === panelColor || color[1] === panelColor,
@@ -168,6 +167,7 @@ export const getPanelDarkColor = (panelColor: string) => {
   return colorObject ? colorObject[1] : darkPanelColors.B1200S;
 };
 
+// used for custom panels
 export const getPanelBackgroundDarkModeColors = panelDarkModeColors
   .map(([colorName, colorValue]) => getPanelDarkModeCSS(colorName, colorValue))
   .join('\n');
@@ -242,9 +242,8 @@ export const getPanelTypeBackground = (
 ): string => {
   // TODO: https://product-fabric.atlassian.net/browse/DSP-4066
   /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
-  const light = token(tokenPanelColor[panelType], lightPanelColor[panelType]);
+  const light = hexToEditorBackgroundPaletteColor(lightPanelColor[panelType]);
   const dark = token(tokenPanelColor[panelType], darkPanelColors[panelType]);
-  /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
   const background = themed({ light, dark })(props);
   return background || 'none';
 };

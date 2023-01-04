@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/select"
 
@@ -53,6 +53,7 @@ import { ReactNode } from 'react';
 import { Props as ReactSelectProps } from 'react-select';
 import { SelectComponents } from 'react-select/dist/declarations/src/components';
 import { SelectComponentsConfig as SelectComponentsConfig_2 } from 'react-select';
+import { SelectInstance } from 'react-select';
 import { SingleValueProps } from 'react-select';
 import { StylesConfig as StylesConfig_2 } from 'react-select';
 import { UnbindFn } from 'bind-event-listener';
@@ -867,6 +868,8 @@ export type SelectComponentsConfig<
   Option,
   IsMulti extends boolean = false,
 > = SelectComponentsConfig_2<Option, IsMulti, GroupType<Option>>;
+
+export { SelectInstance };
 
 // @public (undocumented)
 export interface SelectProps<Option, IsMulti extends boolean = false>

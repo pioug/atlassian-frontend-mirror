@@ -159,16 +159,15 @@ const defaultTheme: { mode: Mode } = {
     },
     search: {
       default: {
-        backgroundColor: token('elevation.surface', N0),
+        backgroundColor: token('color.background.input', N0),
         color: token('color.text.subtlest', N200),
-        borderColor: token('color.border', N40),
+        borderColor: token('color.border.input', N40),
       },
       focus: {
-        borderColor: token('color.border.focused', B200),
+        borderColor: token('color.border.focused', N40),
       },
       hover: {
-        color: token('color.text.selected', B400),
-        backgroundColor: token('elevation.surface', hexToRGBA(B50, 0.9)),
+        backgroundColor: token('color.background.input.hovered', N0),
       },
     },
     skeleton: {

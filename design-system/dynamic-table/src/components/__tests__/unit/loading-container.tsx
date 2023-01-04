@@ -1,85 +1,130 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
-import Spinner from '@atlaskit/spinner';
-
-import {
-  Container,
-  ContentsContainer,
-  SpinnerContainer,
-} from '../../../styled/loading-container';
+import { CSS_VAR_CONTENTS_OPACITY } from '../../../styled/loading-container';
 import LoadingContainer from '../../loading-container';
 
 describe('LoadingContainer', () => {
-  const Contents = () => <div>Contents</div>;
+  const testId = 'dynamic--table--test--id';
+  const Contents = () => (
+    <div data-testid={`${testId}--contents`}>Contents</div>
+  );
 
   it('should always wrap contents into the container with a relative position so absolute positioned elements inside the children behave consistently despite the loading mode', () => {
-    const wrapper = mount(
-      <LoadingContainer isLoading>
+    const { rerender } = render(
+      <LoadingContainer testId={testId} isLoading>
         <Contents />
       </LoadingContainer>,
     );
-    expect(wrapper.find(Container).length).toBe(1);
 
-    wrapper.setProps({ isLoading: false });
-    expect(wrapper.find(Container).length).toBe(1);
+    let container = screen.getByTestId(`${testId}--container`);
+    expect(container).toBeInTheDocument();
+
+    rerender(
+      <LoadingContainer testId={testId} isLoading={false}>
+        <Contents />
+      </LoadingContainer>,
+    );
+
+    container = screen.getByTestId(`${testId}--container`);
+    expect(container).toBeInTheDocument();
   });
 
   describe('when loading is disabled', () => {
     it('should render children as is right inside the container', () => {
-      const wrapper = shallow(
-        <LoadingContainer isLoading={false}>
+      render(
+        <LoadingContainer testId={testId} isLoading={false}>
           <Contents />
         </LoadingContainer>,
       );
-      const container = wrapper.find(Container);
-      expect(container.children().is(Contents)).toBe(true);
+
+      let contents = screen.getByTestId(`${testId}--contents`);
+      expect(contents).toBeInTheDocument();
     });
 
     it('should not render the spinner container', () => {
-      const wrapper = mount(
-        <LoadingContainer isLoading={false}>
+      render(
+        <LoadingContainer testId={testId} isLoading={false}>
           <Contents />
         </LoadingContainer>,
       );
-      const spinnerContainer = wrapper.find(SpinnerContainer);
-      expect(spinnerContainer.length).toBe(0);
+      const spinnerContainer = screen.queryByTestId(
+        `${testId}--spinner--container`,
+      );
+      expect(spinnerContainer).not.toBeInTheDocument();
     });
   });
 
   describe('when loading is enabled', () => {
     it('should render with a proper default values', () => {
-      const wrapper = mount(
-        <LoadingContainer>
+      render(
+        <LoadingContainer testId={testId}>
           <Contents />
         </LoadingContainer>,
       );
-      expect(wrapper.props().isLoading).toBe(true);
-      expect(wrapper.find(ContentsContainer).props().contentsOpacity).toBe(
-        0.22,
+
+      const loadingSpinner = screen.getByTestId(`${testId}--loadingSpinner`);
+      const contentsContainer = screen.getByTestId(
+        `${testId}--contents--container`,
       );
-      expect(wrapper.find(Spinner).prop('size')).toBe('large');
+      const computedStyle = getComputedStyle(contentsContainer);
+      const contentsOpacity = computedStyle.getPropertyValue(
+        CSS_VAR_CONTENTS_OPACITY,
+      );
+
+      expect(loadingSpinner).toBeInTheDocument();
+      expect(loadingSpinner.getAttribute('width')).toBe('48');
+
+      expect(contentsContainer).toBeInTheDocument();
+      screen.debug(contentsContainer);
+      expect(contentsOpacity).toBe('0.22');
     });
 
     it('should wrap children into another container with a specified opacity', () => {
-      const wrapper = shallow(
-        <LoadingContainer contentsOpacity={0.5}>
+      render(
+        <LoadingContainer testId={testId} contentsOpacity={0.5}>
           <Contents />
         </LoadingContainer>,
       );
-      const contentsContainer = wrapper.children(ContentsContainer);
-      expect(contentsContainer.children().is(Contents)).toBe(true);
-      expect(contentsContainer.props().contentsOpacity).toBe(0.5);
+
+      const contents = screen.getByTestId(`${testId}--contents`);
+      const contentsContainer = screen.getByTestId(
+        `${testId}--contents--container`,
+      );
+      const computedStyle = getComputedStyle(contentsContainer);
+      const contentsOpacity = computedStyle.getPropertyValue(
+        CSS_VAR_CONTENTS_OPACITY,
+      );
+
+      expect(contents).toBeInTheDocument();
+      expect(contentsOpacity).toBe('0.5');
     });
 
     it('should render the spinner of a given size', () => {
-      const wrapper = mount(
-        <LoadingContainer spinnerSize="xlarge">
+      const { rerender } = render(
+        <LoadingContainer testId={testId} spinnerSize="xlarge">
           <Contents />
         </LoadingContainer>,
       );
-      expect(wrapper.find(Spinner).prop('size')).toBe('xlarge');
+      let loadingSpinner = screen.getByTestId(`${testId}--loadingSpinner`);
+      expect(loadingSpinner.getAttribute('width')).toBe('96');
+
+      rerender(
+        <LoadingContainer testId={testId} spinnerSize="medium">
+          <Contents />
+        </LoadingContainer>,
+      );
+      loadingSpinner = screen.getByTestId(`${testId}--loadingSpinner`);
+      expect(loadingSpinner.getAttribute('width')).toBe('24');
+
+      rerender(
+        <LoadingContainer testId={testId} spinnerSize="small">
+          <Contents />
+        </LoadingContainer>,
+      );
+      loadingSpinner = screen.getByTestId(`${testId}--loadingSpinner`);
+      expect(loadingSpinner.getAttribute('width')).toBe('16');
     });
   });
 });

@@ -1,7 +1,11 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
-import { EmojiResource } from '../../api/EmojiResource';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { EmojiProvider } from '../../api/EmojiResource';
 import { defaultEmojiHeight } from '../../util/constants';
-import { isPromise } from '../../util/type-helpers';
+import {
+  isImageRepresentation,
+  isMediaRepresentation,
+  isPromise,
+} from '../../util/type-helpers';
 import {
   EmojiId,
   OptionalEmojiDescription,
@@ -10,8 +14,7 @@ import {
 import Emoji from './Emoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
 import { sampledUfoRenderedEmoji } from '../../util/analytics';
-import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
-import { EmojiImage } from './EmojiImage';
+import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 
 export interface BaseResourcedEmojiProps {
@@ -56,90 +59,95 @@ export interface Props extends BaseResourcedEmojiProps {
   /**
    * EmojiResource instance that handles fetching of emoji data.
    */
-  emojiProvider: EmojiResource;
+  emojiProvider: Promise<EmojiProvider>;
 }
 
 enum ResourcedEmojiComponentRenderStatesEnum {
   INITIAL = 'INITIAL',
-  OPTIMISTIC = 'OPTIMISTIC',
   FALLBACK = 'FALLBACK',
   EMOJI = 'EMOJI',
 }
 
-export const ResourcedEmojiComponent: FC<Props> = ({
-  emojiProvider,
-  emojiId,
-  showTooltip = false,
-  customFallback = undefined,
-  fitToHeight = defaultEmojiHeight,
-  optimistic = false,
-  optimisticImageURL = undefined,
-}) => {
+export const ResourcedEmojiComponent: FC<Props> = (props) => {
+  const {
+    emojiProvider,
+    emojiId,
+    showTooltip = false,
+    customFallback = undefined,
+    fitToHeight = defaultEmojiHeight,
+    optimistic = false,
+    optimisticImageURL = undefined,
+  } = props;
   const { shortName, id, fallback } = emojiId;
-  const emojiContextValue = {
-    emoji: {
-      emojiProvider,
-    },
-  };
   const [emoji, setEmoji] = useState<OptionalEmojiDescription>();
   const [loaded, setLoaded] = useState(false);
+  const [imageLoadError, setImageLoadError] = useState(false);
+  const [resolvedEmojiProvider, setResolvedEmojiProvider] =
+    useState<EmojiProvider>();
 
-  const fetchOrGetEmoji = (
-    emojiProvider: EmojiResource,
-    emojiId: EmojiId,
-    optimisticFetch: boolean = false,
-  ) => {
-    // TODO: Pass in optimistic into findByEmojiId to allow a single emoji meta fetch
-    const foundEmoji = emojiProvider.fetchByEmojiId(emojiId, optimisticFetch);
-    sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_START);
+  const fetchOrGetEmoji = useCallback(
+    async (
+      _emojiProvider: EmojiProvider,
+      emojiId: EmojiId,
+      optimisticFetch: boolean = false,
+    ) => {
+      if (!_emojiProvider.fetchByEmojiId) {
+        setEmoji(undefined);
+        sampledUfoRenderedEmoji(emojiId).failure({
+          metadata: {
+            reason: 'missing fetchByEmojiId interface',
+            source: 'ResourcedEmojiComponent',
+          },
+        });
+      }
 
-    if (isPromise<OptionalEmojiDescription>(foundEmoji)) {
-      setLoaded(false);
-      foundEmoji
-        .then((emoji) => {
-          setEmoji(emoji);
-          if (!emoji) {
-            // emoji is undefined
-            sampledUfoRenderedEmoji(emojiId).failure({
-              metadata: {
-                reason: 'failed to find',
-                source: 'ResourcedEmojiComponent',
-                emojiId: emojiId.id,
-              },
-            });
-            sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
+      const foundEmoji = _emojiProvider.fetchByEmojiId(
+        emojiId,
+        optimisticFetch,
+      );
+      sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_START);
+      if (isPromise<OptionalEmojiDescription>(foundEmoji)) {
+        setLoaded(false);
+        foundEmoji
+          .then((emoji) => {
+            setEmoji(emoji);
             if (!emoji) {
               // emoji is undefined
               sampledUfoRenderedEmoji(emojiId).failure({
                 metadata: {
                   reason: 'failed to find',
                   source: 'ResourcedEmojiComponent',
-                  emojiId: emojiId.id,
+                  data: {
+                    emoji: { id: emojiId.id, shortName: emojiId.shortName },
+                  },
                 },
               });
             }
-          }
-        })
-        .catch(() => {
-          setEmoji(undefined);
-          sampledUfoRenderedEmoji(emojiId).failure({
-            metadata: {
-              reason: 'failed to load',
-              source: 'ResourcedEmojiComponent',
-              emojiId: emojiId.id,
-            },
+          })
+          .catch(() => {
+            setEmoji(undefined);
+            sampledUfoRenderedEmoji(emojiId).failure({
+              metadata: {
+                reason: 'failed to load',
+                source: 'ResourcedEmojiComponent',
+                data: {
+                  emoji: { id: emojiId.id, shortName: emojiId.shortName },
+                },
+              },
+            });
+          })
+          .finally(() => {
+            setLoaded(true);
+            sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
           });
-        })
-        .finally(() => {
-          setLoaded(true);
-          sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
-        });
-    } else {
-      setEmoji(foundEmoji);
-      setLoaded(true);
-      sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
-    }
-  };
+      } else {
+        setEmoji(foundEmoji);
+        setLoaded(true);
+        sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!emojiId) {
@@ -153,25 +161,67 @@ export const ResourcedEmojiComponent: FC<Props> = ({
   }, [emojiId]);
 
   useMemo(() => {
-    if (!emojiProvider || !emojiId) {
+    if (!resolvedEmojiProvider || !emojiId) {
       return;
     }
-    fetchOrGetEmoji(emojiProvider, emojiId, optimistic);
-  }, [emojiProvider, emojiId, optimistic]);
+    fetchOrGetEmoji(resolvedEmojiProvider, emojiId, optimistic);
+  }, [resolvedEmojiProvider, emojiId, optimistic, fetchOrGetEmoji]);
+
+  useEffect(() => {
+    Promise.resolve(emojiProvider).then((emojiProvider) => {
+      setResolvedEmojiProvider(emojiProvider);
+    });
+  }, [emojiProvider]);
 
   const emojiRenderState =
     useMemo<ResourcedEmojiComponentRenderStatesEnum>(() => {
       if (!emoji && !loaded && !optimisticImageURL) {
         return ResourcedEmojiComponentRenderStatesEnum.INITIAL;
-      } else if (!emoji && !loaded && optimisticImageURL) {
-        return ResourcedEmojiComponentRenderStatesEnum.OPTIMISTIC;
-      } else if (!emoji && loaded) {
+      } else if ((!emoji && loaded) || imageLoadError) {
         return ResourcedEmojiComponentRenderStatesEnum.FALLBACK;
       }
+
       return ResourcedEmojiComponentRenderStatesEnum.EMOJI;
-    }, [emoji, loaded, optimisticImageURL]);
+    }, [emoji, loaded, optimisticImageURL, imageLoadError]);
+
+  const optimisticEmojiDescription = useMemo(() => {
+    if (optimisticImageURL) {
+      if (
+        emoji &&
+        (isImageRepresentation(emoji.representation) ||
+          isMediaRepresentation(emoji?.representation))
+      ) {
+        const { width, height } = emoji.representation;
+        return {
+          ...emoji,
+          representation: {
+            width,
+            height,
+            imagePath: optimisticImageURL,
+          },
+        };
+      } else {
+        return {
+          id,
+          shortName,
+          fallback,
+          type: '',
+          category: '',
+          representation: {
+            height: fitToHeight || defaultEmojiHeight,
+            width: fitToHeight || defaultEmojiHeight,
+            imagePath: optimisticImageURL,
+          },
+          searchable: true,
+        };
+      }
+    }
+
+    return emoji;
+  }, [emoji, optimisticImageURL, fallback, fitToHeight, id, shortName]);
 
   const handleOnLoadError = (emojiId: EmojiId) => {
+    setImageLoadError(true);
     sampledUfoRenderedEmoji(emojiId).failure({
       metadata: {
         reason: 'load error',
@@ -182,7 +232,7 @@ export const ResourcedEmojiComponent: FC<Props> = ({
   };
 
   return (
-    <LegacyEmojiContextProvider emojiContextValue={emojiContextValue}>
+    <EmojiCommonProvider emojiProvider={resolvedEmojiProvider}>
       <span
         data-emoji-id={id}
         data-emoji-short-name={shortName}
@@ -198,29 +248,21 @@ export const ResourcedEmojiComponent: FC<Props> = ({
           />
         )}
         {emojiRenderState ===
-          ResourcedEmojiComponentRenderStatesEnum.OPTIMISTIC &&
-          optimisticImageURL && (
-            <EmojiImage
-              emojiId={emojiId}
-              imageUrl={optimisticImageURL}
-              maxSize={fitToHeight || defaultEmojiHeight}
-            />
-          )}
-        {emojiRenderState ===
           ResourcedEmojiComponentRenderStatesEnum.FALLBACK && (
           <>{customFallback || fallback || shortName}</>
         )}
         {emojiRenderState === ResourcedEmojiComponentRenderStatesEnum.EMOJI &&
-          emoji && (
+          optimisticEmojiDescription && (
             <Emoji
-              emoji={emoji}
+              emoji={optimisticEmojiDescription}
               onLoadError={handleOnLoadError}
               showTooltip={showTooltip}
               fitToHeight={fitToHeight}
+              autoWidth={!!emoji ? false : true}
             />
           )}
       </span>
-    </LegacyEmojiContextProvider>
+    </EmojiCommonProvider>
   );
 };
 

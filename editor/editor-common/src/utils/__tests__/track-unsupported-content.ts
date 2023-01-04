@@ -2,11 +2,7 @@ import { Node as PMNode } from 'prosemirror-model';
 
 import { createSchema } from '@atlaskit/adf-schema';
 
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-} from '../../utils/analytics';
+import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../../analytics';
 import {
   findAndTrackUnsupportedContentNodes,
   fireUnsupportedEvent,
@@ -106,7 +102,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     );
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedBlock',
         attributes: {
@@ -164,7 +160,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     );
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedInline',
         attributes: {
@@ -272,7 +268,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedInline',
         attributes: {
@@ -295,7 +291,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       2,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedBlock',
         attributes: {
@@ -347,7 +343,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     );
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -403,7 +399,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     );
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -461,7 +457,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     );
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -542,7 +538,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -562,7 +558,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       2,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -580,7 +576,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       3,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -671,7 +667,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedNodeAttribute',
         attributes: {
@@ -729,7 +725,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedInline',
         attributes: {
@@ -830,7 +826,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedBlock',
         attributes: {
@@ -888,7 +884,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedInline',
         attributes: {
@@ -950,7 +946,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -1009,7 +1005,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedNodeAttribute',
         attributes: {
@@ -1102,7 +1098,7 @@ describe('findAndTrackUnsupportedContentNodes', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedNodeAttribute',
         attributes: {
@@ -1154,7 +1150,7 @@ describe('Track unsupported contents', () => {
     );
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -1171,13 +1167,22 @@ describe('Track unsupported contents', () => {
     );
   });
 
-  it('should fire unsupproted event for inline node', () => {
+  it('should fire unsupported event for inline node', () => {
     const unsupportedNode = {
       type: 'new-type',
       ancestry: '',
       parentType: '',
-      marks: [],
-      attrs: {},
+      marks: [
+        {
+          attrs: {
+            ugcContent: "watch out there's UGC marks content here!!!",
+          },
+        },
+      ],
+      attrs: {
+        ugcContent: "watch out there's UGC attrs content here!!!",
+      },
+      ugcContent: "watch out there's UGC content here!!!",
     };
     fireUnsupportedEvent(
       dispatchAnalyticsEventMock,
@@ -1186,7 +1191,7 @@ describe('Track unsupported contents', () => {
     );
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedInline',
         attributes: {
@@ -1194,8 +1199,8 @@ describe('Track unsupported contents', () => {
             type: 'new-type',
             parentType: '',
             ancestry: '',
-            marks: [],
-            attrs: {},
+            marks: [{ attrs: { ugcContent: '' } }],
+            attrs: { ugcContent: '' },
           },
         },
         eventType: 'track',
@@ -1218,7 +1223,7 @@ describe('Track unsupported contents', () => {
     );
     expect(dispatchAnalyticsEventMock).toBeCalledWith(
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedBlock',
         attributes: {
@@ -1273,7 +1278,7 @@ describe('Track unsupported contents', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedNodeAttribute',
         attributes: {
@@ -1391,7 +1396,7 @@ describe('Track unsupported contents', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -1411,7 +1416,7 @@ describe('Track unsupported contents', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       2,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedMark',
         attributes: {
@@ -1429,7 +1434,7 @@ describe('Track unsupported contents', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       3,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedNodeAttribute',
         attributes: {
@@ -1450,7 +1455,7 @@ describe('Track unsupported contents', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       4,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedInline',
         attributes: {
@@ -1470,7 +1475,7 @@ describe('Track unsupported contents', () => {
     expect(dispatchAnalyticsEventMock).toHaveBeenNthCalledWith(
       5,
       expect.objectContaining({
-        action: 'unsupportedContentEncountered',
+        action: 'unsupportedContentEncounteredV2',
         actionSubject: 'document',
         actionSubjectId: 'unsupportedBlock',
         attributes: {

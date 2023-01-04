@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/editor-json-transformer"
 
@@ -38,7 +38,15 @@ export class JSONTransformer implements Transformer_2<JSONDocNode> {
   encode(node: Node_2): JSONDocNode;
   encodeNode(node: Node_2): JSONNode;
   // (undocumented)
-  parse(content: JSONDocNode): Node_2;
+  parse(content: JSONDocNode, stage?: SchemaStage): Node_2;
+}
+
+// @public (undocumented)
+export enum SchemaStage {
+  // (undocumented)
+  FINAL = 'final',
+  // (undocumented)
+  STAGE_0 = 'stage0',
 }
 
 // @public (undocumented)

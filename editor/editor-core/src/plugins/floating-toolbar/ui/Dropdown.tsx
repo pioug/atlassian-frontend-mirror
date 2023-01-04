@@ -3,10 +3,11 @@ import React, { Component, ReactElement } from 'react';
 import { css, jsx } from '@emotion/react';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
-import UiDropdown from '../../../ui/Dropdown';
+import UiDropdown, { OpenChangedEvent } from '../../../ui/Dropdown';
 import Button from './Button';
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
 import { DropdownOptions, DropdownOptionT } from './types';
+import { EditorView } from 'prosemirror-view';
 
 const dropdownExpandContainer = css`
   margin: 0px -4px;
@@ -42,6 +43,7 @@ export interface Props {
   // Show a check next to selected dropdown menu items (true by default)
   showSelected?: boolean;
   setDisableParentScroll?: (disable: boolean) => void;
+  editorView?: EditorView;
 }
 
 export interface State {
@@ -66,6 +68,7 @@ export default class Dropdown extends Component<Props, State> {
       tooltip,
       buttonTestId,
       dropdownWidth,
+      editorView,
     } = this.props;
 
     let trigger;
@@ -121,9 +124,11 @@ export default class Dropdown extends Component<Props, State> {
         isOpen={isOpen}
         handleClickOutside={this.hide}
         handleEscapeKeydown={this.hideonEsc}
+        onOpenChange={this.onOpenChanged}
         fitWidth={fitWidth + fitTolerance}
         fitHeight={fitHeight + fitTolerance}
         trigger={trigger}
+        editorView={editorView}
       >
         {Array.isArray(options)
           ? this.renderArrayOptions(options)
@@ -133,13 +138,14 @@ export default class Dropdown extends Component<Props, State> {
   }
 
   private renderArrayOptions = (options: Array<DropdownOptionT<Function>>) => {
-    const { showSelected, dispatchCommand } = this.props;
+    const { showSelected, dispatchCommand, editorView } = this.props;
     return (
       <DropdownMenu
         hide={this.hide}
         dispatchCommand={dispatchCommand}
         items={options}
         showSelected={showSelected}
+        editorView={editorView}
       />
     );
   };
@@ -160,6 +166,15 @@ export default class Dropdown extends Component<Props, State> {
         `[data-testid=${this.props.buttonTestId}]`,
       ) as HTMLElement
     )?.focus();
+  };
+
+  private onOpenChanged = (openChangedEvent: OpenChangedEvent) => {
+    if (
+      !openChangedEvent.isOpen &&
+      openChangedEvent.event instanceof KeyboardEvent
+    ) {
+      openChangedEvent.event?.key === 'Escape' ? this.hideonEsc() : this.hide();
+    }
   };
 
   componentDidUpdate(prevProps: Props, prevState: State) {

@@ -1,5 +1,11 @@
 # @atlaskit/icon-file-type
 
+## 6.3.7
+
+### Patch Changes
+
+- [`ea9ecef219f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea9ecef219f) - Updated Icon File Type documentation with new tab structure
+
 ## 6.3.6
 
 ### Patch Changes

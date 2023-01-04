@@ -5,7 +5,10 @@ import {
   HeadingItem as MenuHeadingItem,
 } from '@atlaskit/menu';
 
-import { overrideStyleFunction, sectionHeaderStyle } from '../../common/styles';
+import {
+  overrideStyleFunction,
+  sectionHeaderSpacingStyles,
+} from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
 export type { HeadingItemProps } from '@atlaskit/menu';
@@ -22,7 +25,7 @@ const HeadingItem = (props: HeadingItemProps) => {
     return null;
   }
 
-  const cssFn = overrideStyleFunction(sectionHeaderStyle, props.cssFn);
+  const cssFn = overrideStyleFunction(sectionHeaderSpacingStyles, props.cssFn);
 
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides, @repo/internal/react/no-unsafe-spread-props
   return <MenuHeadingItem {...props} cssFn={cssFn} />;

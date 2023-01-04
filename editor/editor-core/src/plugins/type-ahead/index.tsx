@@ -6,8 +6,8 @@
  *
  *
  */
-import React, { useCallback } from 'react';
-import { EditorPlugin } from '../../types/editor-plugin';
+import React from 'react';
+import { NextEditorPlugin } from '../../types/editor-plugin';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from 'prosemirror-view';
@@ -82,7 +82,7 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
       [onItemInsert, query],
     );
 
-    const cancel = useCallback(
+    const cancel = React.useCallback(
       ({
         setSelectionAt,
         addPrefixTrigger,
@@ -158,7 +158,11 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
  *
  *
  */
-const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => {
+const typeAheadPlugin: NextEditorPlugin<
+  'typeAhead',
+  never,
+  TypeAheadPluginOptions
+> = (options?) => {
   const fireAnalyticsCallback = fireAnalyticsEvent(
     options?.createAnalyticsEvent,
   );

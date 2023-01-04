@@ -32,7 +32,8 @@ function isNodeOptions(
 export function getCopyButtonConfig(
   options: MarkOptions | NodeOptions,
 ): FloatingToolbarButton<Command> {
-  const { state, formatMessage, onMouseEnter, onMouseLeave } = options;
+  const { state, formatMessage, onMouseEnter, onMouseLeave, onFocus, onBlur } =
+    options;
   const copyButtonState = copyButtonPluginKey.getState(state);
 
   let buttonActionHandlers;
@@ -46,16 +47,14 @@ export function getCopyButtonConfig(
       onMouseEnter:
         onMouseEnter ||
         hoverDecoration(options.nodeType, true, 'ak-editor-selected-node'),
-      onFocus: hoverDecoration(
-        options.nodeType,
-        true,
-        'ak-editor-selected-node',
-      ),
+      onFocus:
+        onFocus ||
+        hoverDecoration(options.nodeType, true, 'ak-editor-selected-node'),
 
       // Note for future changes: these two handlers should perform
       // the same action.
       onMouseLeave: resetCopiedState(options.nodeType, onMouseLeave),
-      onBlur: resetCopiedState(options.nodeType),
+      onBlur: resetCopiedState(options.nodeType, onBlur),
     };
   } else {
     buttonActionHandlers = {

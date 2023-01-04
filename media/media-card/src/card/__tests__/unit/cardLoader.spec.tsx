@@ -78,9 +78,9 @@ describe('Async Card Loader', () => {
         __esModule: true,
         Card: mockCardModule,
       }));
-      jest.unmock('../../../utils/media-card-analytics-error-boundary');
+      jest.unmock('../../../card/media-card-analytics-error-boundary');
       MediaPickerAnalyticsErrorBoundary = jest.requireActual(
-        '../../../utils/media-card-analytics-error-boundary',
+        '../../../card/media-card-analytics-error-boundary',
       ).default;
     });
 
@@ -108,7 +108,7 @@ describe('Async Card Loader', () => {
   describe('When the async import for Error Boundary returns with error', () => {
     beforeEach(() => {
       jest.unmock('../../card');
-      jest.mock('../../../utils/media-card-analytics-error-boundary', () => {
+      jest.mock('../../../card/media-card-analytics-error-boundary', () => {
         throw new Error('Forcing error boundary async import error');
       });
     });

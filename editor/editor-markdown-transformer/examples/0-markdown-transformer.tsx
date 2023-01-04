@@ -71,6 +71,9 @@ class Example extends React.PureComponent<Props, State> {
             new MarkdownTransformer(schema)
           }
           taskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}
+          featureFlags={{
+            'restart-numbered-lists': true,
+          }}
         />
       </div>
     );

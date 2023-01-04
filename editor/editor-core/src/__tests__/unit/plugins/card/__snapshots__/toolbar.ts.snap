@@ -43,6 +43,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -145,6 +146,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -193,6 +195,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -248,6 +251,7 @@ Array [
     "type": "separator",
   },
   Object {
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.unlink",
     "onClick": [Function],
@@ -259,6 +263,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -314,6 +319,7 @@ Array [
     "type": "separator",
   },
   Object {
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.unlink",
     "onClick": [Function],
@@ -325,6 +331,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -421,6 +428,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -533,6 +541,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -591,6 +600,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -646,6 +656,7 @@ Array [
     "type": "separator",
   },
   Object {
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.unlink",
     "onClick": [Function],
@@ -667,6 +678,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -722,6 +734,7 @@ Array [
     "type": "separator",
   },
   Object {
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.unlink",
     "onClick": [Function],
@@ -743,6 +756,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -799,6 +813,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -901,6 +916,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -949,6 +965,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -1004,6 +1021,7 @@ Array [
     "type": "separator",
   },
   Object {
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.unlink",
     "onClick": [Function],
@@ -1015,6 +1033,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],
@@ -1070,6 +1089,7 @@ Array [
     "type": "separator",
   },
   Object {
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.unlink",
     "onClick": [Function],
@@ -1081,6 +1101,7 @@ Array [
   },
   Object {
     "appearance": "danger",
+    "focusEditoronEnter": true,
     "icon": [Function],
     "id": "editor.link.delete",
     "onBlur": [Function],

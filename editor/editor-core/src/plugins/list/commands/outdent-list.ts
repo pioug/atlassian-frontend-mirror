@@ -39,7 +39,7 @@ export function outdentList(
       : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
     let customTr: Transaction = state.tr;
-    outdentListAction(customTr);
+    outdentListAction(customTr, state);
     if (!customTr || !customTr.docChanged) {
       // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
       // If inside table cell and can't outdent list, then let it handle by table keymap

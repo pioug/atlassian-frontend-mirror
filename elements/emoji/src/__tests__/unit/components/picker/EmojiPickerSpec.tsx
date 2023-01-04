@@ -1,6 +1,6 @@
 import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { act } from '@testing-library/react';
+import { act, waitFor, within } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
@@ -9,13 +9,12 @@ import {
   renderWithIntl,
 } from '../../_testing-library';
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
-import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
+import { VirtualList } from '../../../../components/picker/VirtualList';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import Emoji, {
   Props as EmojiProps,
 } from '../../../../components/common/Emoji';
 import EmojiButton from '../../../../components/common/EmojiButton';
-import EmojiPlaceholder from '../../../../components/common/EmojiPlaceholder';
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import CategorySelector, {
@@ -28,7 +27,6 @@ import EmojiPicker, {
 import EmojiPickerFooter from '../../../../components/picker/EmojiPickerFooter';
 import {
   customCategory,
-  customTitle,
   defaultCategories,
   defaultEmojiPickerSize,
   emojiPickerHeight,
@@ -44,6 +42,7 @@ import {
   standardEmojis,
 } from '../../_test-data';
 import * as helper from './_emoji-picker-test-helpers';
+import * as helperTestingLibrary from './_emoji-picker-helpers-testing-library';
 import {
   categoryClickedEvent,
   closedPickerEvent,
@@ -56,10 +55,23 @@ import {
   toneSelectorClosedEvent,
   recordFailed,
 } from '../../../../util/analytics';
-import EmojiActions from '../../../../components/common/EmojiActions';
+import EmojiActions, {
+  emojiActionsTestId,
+} from '../../../../components/common/EmojiActions';
 import { ufoExperiences } from '../../../../util/analytics';
 import EmojiPickerComponent from '../../../../components/picker/EmojiPickerComponent';
 import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
+
+const emojiListHeaders = {
+  ALL_UPLOADS: 'All uploads',
+  ATLASSIAN: 'Productivity',
+  FLAGS: 'Flags',
+};
+
+const emojiCategoryIds = {
+  ATLASSIAN: 'ATLASSIAN',
+  FLAGS: 'FLAGS',
+};
 
 // Add the custom matchers provided by '@emotion/jest'
 expect.extend(matchers);
@@ -110,6 +122,14 @@ describe('<EmojiPicker />', () => {
     ufoEmojiRecordedStartSpy.mockClear();
     ufoEmojiRecordedSuccessSpy.mockClear();
     ufoEmojiRecordedFailureSpy.mockClear();
+
+    // scrolling of the virutal list doesn't work out of the box for the tests
+    // mocking `scrollToRow` for all tests
+    jest
+      .spyOn(VirtualList.prototype, 'scrollToRow')
+      .mockImplementation((index?: number) =>
+        helperTestingLibrary.scrollToIndex(index || 0),
+      );
   });
 
   const renderEmojiPicker = (pickerProps: Partial<EmojiPickerProps> = {}) => {
@@ -246,26 +266,21 @@ describe('<EmojiPicker />', () => {
           return Promise.resolve(result);
         },
       };
-      const component = await helper.setupPicker(
-        {} as EmojiPickerProps,
-        mockConfig,
-      );
+      helperTestingLibrary.renderPicker(undefined, mockConfig);
 
-      await helper.showCategory(customCategory, component, customTitle);
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+      });
 
-      const list = getUpdatedList(component);
-      const customHeading = helper.findCategoryHeading(customCategory, list);
-      expect(customHeading).toHaveLength(1);
-      expect(customHeading.prop('title')).toEqual(customTitle);
+      await waitFor(() => {
+        helperTestingLibrary.selectCategory(customCategory);
+      });
 
-      const customEmojiRows = helper.emojiRowsVisibleInCategory(
-        customCategory,
-        component,
-      );
-      const placeholders = customEmojiRows.find(EmojiPlaceholder);
-      expect(placeholders).toHaveLength(1);
-      const props = placeholders.get(0).props;
-      expect(props.shortName).toEqual(mediaEmoji.shortName);
+      await waitFor(() => {
+        expect(
+          helperTestingLibrary.getEmojiPlaceholder(mediaEmoji.shortName),
+        ).toBeInTheDocument();
+      });
     });
   });
 
@@ -293,61 +308,94 @@ describe('<EmojiPicker />', () => {
 
   describe('category', () => {
     it('selecting category should show that category', async () => {
-      const component = await helper.setupPicker(undefined, undefined, onEvent);
-      // Update list until provider resolved and emojis comes in
-      await waitUntil(() =>
-        helper.emojisVisible(component, getUpdatedList(component)),
-      );
-      const categoryId = 'FLAGS';
-      expect(helper.categoryVisible(categoryId, component)).toBe(false);
+      helperTestingLibrary.renderPicker(undefined, undefined, onEvent);
 
-      act(() => {
-        helper.showCategory(categoryId, component);
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
       });
 
-      await waitUntil(() => helper.categoryVisible(categoryId, component));
-      const list = getUpdatedList(component);
-      const emoji = helper.findEmojiInCategory(
-        helper.findEmoji(list),
-        categoryId,
-      );
-      expect(emoji!.category).toEqual(categoryId);
+      expect(
+        helperTestingLibrary.queryEmojiCategoryHeader(emojiListHeaders.FLAGS),
+      ).not.toBeInTheDocument();
+
+      helperTestingLibrary.selectCategory(emojiCategoryIds.FLAGS);
+
+      await waitFor(() => {
+        expect(
+          helperTestingLibrary.queryEmojiCategoryHeader(emojiListHeaders.FLAGS),
+        ).toBeInTheDocument();
+      });
+
       expect(onEvent).toHaveBeenLastCalledWith(
         expect.objectContaining({
-          payload: categoryClickedEvent({ category: categoryId }),
+          payload: categoryClickedEvent({ category: emojiCategoryIds.FLAGS }),
         }),
         'fabric-elements',
       );
     });
 
     it('selecting custom category scrolls to bottom', async () => {
-      const component = await helper.setupPicker();
-      await waitUntil(() =>
-        helper.emojisVisible(component, getUpdatedList(component)),
-      );
-      expect(helper.categoryVisible(customCategory, component)).toBe(false);
-      helper.showCategory(customCategory, component, customTitle);
-      await waitUntil(() => helper.categoryVisible(customCategory, component));
+      helperTestingLibrary.renderPicker();
 
-      const list = getUpdatedList(component);
-      const emoji = helper.findEmojiInCategory(
-        helper.findEmoji(list),
-        customCategory,
-      );
-      expect(emoji!.category).toEqual(customCategory);
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+      });
+
+      expect(
+        helperTestingLibrary.queryEmojiCategoryHeader(
+          emojiListHeaders.ALL_UPLOADS,
+        ),
+      ).not.toBeInTheDocument();
+
+      helperTestingLibrary.selectCategory(customCategory);
+
+      await waitFor(() => {
+        expect(
+          helperTestingLibrary.queryEmojiCategoryHeader(
+            emojiListHeaders.ALL_UPLOADS,
+          ),
+        ).toBeInTheDocument();
+      });
     });
 
     it('does not add non-standard categories to the selector if there are no emojis in those categories', async () => {
-      const component = await helper.setupPicker({
+      helperTestingLibrary.renderPicker({
         emojiProvider: mockNonUploadingEmojiResourceFactory(
           new EmojiRepository(standardEmojis),
         ),
       });
-      const categorySelector = component.find(CategorySelector);
-      const buttons = categorySelector.find('button');
+
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+      });
+
+      const buttons = within(
+        helperTestingLibrary.getCategorySelector(),
+      ).getAllByRole('button');
       expect(buttons).toHaveLength(defaultCategories.length);
-      expect(helper.categoryVisible(customCategory, component)).toBe(false);
-      expect(helper.categoryVisible('ATLASSIAN', component)).toBe(false);
+
+      const lastRowIndex = Math.round(standardEmojis.length / 8);
+      await waitFor(() => {
+        helperTestingLibrary.scrollToIndex(lastRowIndex);
+      });
+
+      expect(
+        helperTestingLibrary.queryCategorySelector(customCategory),
+      ).not.toBeInTheDocument();
+      expect(
+        helperTestingLibrary.queryCategorySelector(emojiCategoryIds.ATLASSIAN),
+      ).not.toBeInTheDocument();
+
+      expect(
+        helperTestingLibrary.queryEmojiCategoryHeader(
+          emojiListHeaders.ALL_UPLOADS,
+        ),
+      ).not.toBeInTheDocument();
+      expect(
+        helperTestingLibrary.queryEmojiCategoryHeader(
+          emojiListHeaders.ATLASSIAN,
+        ),
+      ).not.toBeInTheDocument();
     });
 
     it('should display frequent category when there are frequently used emoji', async () => {
@@ -409,13 +457,28 @@ describe('<EmojiPicker />', () => {
     });
 
     it('adds non-standard categories to the selector dynamically based on whether they are populated with emojis', async () => {
-      const component = await helper.setupPicker();
-      helper.showCategory(customCategory, component, customTitle);
-      await waitUntil(() => helper.categoryVisible(customCategory, component));
-      const categorySelector = component.find(CategorySelector);
-      const buttons = categorySelector.find('button');
+      helperTestingLibrary.renderPicker();
+
+      await waitFor(() => {
+        expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+      });
+
+      const buttons = within(
+        helperTestingLibrary.getCategorySelector(),
+      ).getAllByRole('button');
       expect(buttons).toHaveLength(defaultCategories.length + 2);
-      expect(helper.categoryVisible('ATLASSIAN', component)).toBe(true);
+
+      await waitFor(() => {
+        helperTestingLibrary.selectCategory(customCategory);
+      });
+
+      await waitFor(() => {
+        expect(
+          helperTestingLibrary.getEmojiCategoryHeader(
+            emojiListHeaders.ATLASSIAN,
+          ),
+        ).toBeInTheDocument();
+      });
     });
   });
 
@@ -797,7 +860,9 @@ describe('<EmojiPicker />', () => {
         'fabric-elements',
       );
       act(() => {
-        const wrapper = preview.find({ 'data-testid': 'emoji-actions' }).last();
+        const wrapper = preview
+          .find({ 'data-testid': emojiActionsTestId })
+          .last();
         wrapper.simulate('mouseleave');
       });
       expect(onEvent).toHaveBeenLastCalledWith(

@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 11.3.5
+
+### Patch Changes
+
+- [`76428a4966a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76428a4966a) - Fix lozenge truncation at maxWidth=100%
+
 ## 11.3.4
 
 ### Patch Changes

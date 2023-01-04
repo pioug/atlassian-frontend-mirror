@@ -267,6 +267,7 @@ function DropdownMenuItem({
       <CustomItem
         item={item}
         key={item.key ?? String(item.content)}
+        testId={`dropdown-item__${String(item.content)}`}
         role={shouldUseDefaultRole ? 'button' : 'menuitem'}
         iconBefore={item.elemBefore}
         iconAfter={item.elemAfter}
@@ -274,6 +275,7 @@ function DropdownMenuItem({
         onClick={() => onItemActivated && onItemActivated({ item })}
         aria-label={item['aria-label'] || String(item.content)}
         aria-pressed={shouldUseDefaultRole ? item.isActive : undefined}
+        aria-keyshortcuts={item['aria-keyshortcuts']}
         onMouseDown={(e) => {
           e.preventDefault();
         }}

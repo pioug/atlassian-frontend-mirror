@@ -1,6 +1,7 @@
 import {
   getMediaFeatureFlag,
   MediaFeatureFlags,
+  MediaTraceContext,
   MediaType,
 } from '@atlaskit/media-common';
 
@@ -37,6 +38,7 @@ export type MediaFile = {
   readonly artifacts: MediaFileArtifacts;
   readonly representations: MediaRepresentations;
   readonly createdAt?: number;
+  readonly metadataTraceContext?: MediaTraceContext;
 };
 
 export type MediaCollection = {
@@ -70,6 +72,7 @@ export type MediaCollectionItemFullDetails = {
   readonly artifacts: MediaFileArtifacts;
   readonly representations: MediaRepresentations;
   readonly createdAt?: number;
+  readonly metadataTraceContext?: MediaTraceContext;
 };
 
 export type MediaRepresentations = {

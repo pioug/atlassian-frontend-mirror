@@ -15,10 +15,10 @@ import { UnsupportedInlineNodeView } from './unsupported-inline-node-view';
 
 import { ReactNodeView } from '../../nodeviews';
 import {
-  EditorPlugin,
+  NextEditorPlugin,
   PMPluginFactory,
   PMPluginFactoryParams,
-} from '../../types';
+} from '@atlaskit/editor-common/types';
 import { getInlineNodeViewProducer } from '../../nodeviews/getInlineNodeViewProducer';
 
 export const pluginKey = new PluginKey('unsupportedContentPlugin');
@@ -64,7 +64,9 @@ const createPlugin: PMPluginFactory = (
   });
 };
 
-const unsupportedContentPlugin = (): EditorPlugin => ({
+const unsupportedContentPlugin: NextEditorPlugin<
+  'unsupportedContent'
+> = () => ({
   name: 'unsupportedContent',
 
   marks() {

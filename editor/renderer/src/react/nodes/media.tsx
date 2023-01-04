@@ -16,7 +16,7 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-} from '../../analytics/enums';
+} from '@atlaskit/editor-common/analytics';
 
 import { AnalyticsEventPayload, MODE, PLATFORM } from '../../analytics/events';
 

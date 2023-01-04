@@ -230,6 +230,7 @@ describe('WrapperTypeAhead', () => {
 
         const inputQuery = getByRole('combobox');
         act(() => {
+          // Trigger a change event on the typeahead input field
           fireEvent.change(inputQuery, {
             target: { value: 'l' },
           });
@@ -254,12 +255,9 @@ describe('WrapperTypeAhead', () => {
 
         const inputQuery = getByRole('combobox');
         act(() => {
-          // There is no way to test a true contenteditable event with jsdom
-          // so we are faking it
           fireEvent.change(inputQuery, {
             target: { value: 'l' },
           });
-          fireEvent.keyUp(inputQuery, { key: 'l' });
         });
 
         expect(editorView.state).toEqualDocumentAndSelection(

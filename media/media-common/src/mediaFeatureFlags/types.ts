@@ -8,7 +8,6 @@ export interface MediaFeatureFlags {
   folderUploads?: boolean;
   observedWidth?: boolean;
   timestampOnVideo?: boolean;
-  mediaUploadApiV2?: boolean;
   memoryCacheLogging?: boolean;
 }
 

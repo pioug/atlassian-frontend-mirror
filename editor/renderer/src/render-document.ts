@@ -9,7 +9,11 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
 import { Node as PMNode, Schema } from 'prosemirror-model';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from './analytics/enums';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { AnalyticsEventPayload, PLATFORM } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
 import { RendererAppearance } from './ui/Renderer/types';

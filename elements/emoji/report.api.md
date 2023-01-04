@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/emoji"
 
@@ -103,6 +103,14 @@ class DuplicateLimitedQueue<T> {
 // @public (undocumented)
 export const Emoji: (props: Props) => jsx.JSX.Element;
 
+// @public
+export const EmojiCommonProvider: FC<EmojiCommonProviderProps>;
+
+// @public (undocumented)
+interface EmojiCommonProviderProps {
+  emojiProvider?: EmojiProvider;
+}
+
 // @public (undocumented)
 interface EmojiContext {
   // (undocumented)
@@ -163,9 +171,6 @@ export interface EmojiId {
 }
 
 // @public (undocumented)
-export const EmojiImage: FC<EmojiImageType>;
-
-// @public (undocumented)
 export const emojiImage = 'emoji-common-emoji-image';
 
 // @public (undocumented)
@@ -175,17 +180,6 @@ export interface EmojiImageRepresentation {
   // (undocumented)
   width: number;
 }
-
-// @public (undocumented)
-type EmojiImageType = {
-  emojiId: EmojiId;
-  imageUrl: string;
-  showImageBeforeLoad?: boolean;
-  maxSize?: number;
-  representation?: EmojiImageRepresentation;
-  showTooltip?: boolean;
-  onImageLoadError?: () => void;
-};
 
 // @public
 export class EmojiLoader {
@@ -380,6 +374,8 @@ class EmojiResource_2
   // (undocumented)
   protected emojiRepository?: EmojiRepository;
   // (undocumented)
+  protected emojiResponses: EmojiResponse[];
+  // (undocumented)
   fetchByEmojiId(
     emojiId: EmojiId,
     optimistic: boolean,
@@ -406,6 +402,7 @@ class EmojiResource_2
   getAsciiMap(): Promise<Map<string, EmojiDescription>>;
   // (undocumented)
   getCurrentUser(): OptionalUser;
+  getEmojiProvider(options?: GetEmojiProviderOptions): Promise<EmojiProvider>;
   // (undocumented)
   getFrequentlyUsed(options?: SearchOptions): Promise<EmojiDescription[]>;
   getMediaEmojiDescriptionURLWithInlineToken(
@@ -424,8 +421,6 @@ class EmojiResource_2
   ): Promise<void>;
   // (undocumented)
   protected isInitialised: boolean;
-  // (undocumented)
-  protected isLoaded: () => EmojiRepository | false | undefined;
   // (undocumented)
   protected lastQuery?: LastQuery;
   // (undocumented)
@@ -625,6 +620,11 @@ class EmojiUploaderInternal extends LoadingEmojiComponent<Props_5, State> {
 // @public
 export interface EmojiVariationDescription extends EmojiDescription {
   baseId: string;
+}
+
+// @public (undocumented)
+interface GetEmojiProviderOptions {
+  fetchAtStart?: boolean;
 }
 
 // @public (undocumented)
@@ -900,7 +900,7 @@ export interface OnToneSelectorCancelled {
 }
 
 // @public (undocumented)
-interface OptimisticImageApiLoaderConfig extends ServiceConfig {
+interface OptimisticImageApiLoaderConfig extends Omit<ServiceConfig, 'url'> {
   // (undocumented)
   getUrl: (emojiId: EmojiId) => string;
 }
@@ -927,16 +927,18 @@ export type PickerSize = 'large' | 'medium' | 'small';
 
 // @public (undocumented)
 interface Props {
+  autoWidth?: boolean;
   className?: string;
+  disableLazyLoad?: boolean;
   emoji: EmojiDescription;
   fitToHeight?: number;
   onDelete?: OnEmojiEvent;
   onLoadError?: OnEmojiEvent<HTMLImageElement>;
+  onLoadSuccess?: (emoji: EmojiDescription) => void;
   onMouseMove?: OnEmojiEvent;
   onSelected?: OnEmojiEvent;
   selected?: boolean;
   selectOnHover?: boolean;
-  // (undocumented)
   shouldBeInteractive?: boolean;
   showDelete?: boolean;
   showTooltip?: boolean;
@@ -944,13 +946,15 @@ interface Props {
 
 // @public (undocumented)
 interface Props_10 extends BaseResourcedEmojiProps {
-  emojiProvider: EmojiResource_2;
+  emojiProvider: Promise<EmojiProvider>;
 }
 
 // @public (undocumented)
 interface Props_11 {
   // (undocumented)
   emoji: EmojiDescription;
+  // (undocumented)
+  emojiProvider?: EmojiProvider;
   // (undocumented)
   onMouseMove: OnEmojiEvent;
   // (undocumented)
@@ -1021,7 +1025,7 @@ interface Props_8 extends EmojiTypeAheadBaseProps {
 }
 
 // @public (undocumented)
-interface Props_9 extends BaseResourcedEmojiProps, Props_4 {}
+interface Props_9 extends Props_10 {}
 
 // @public
 interface QueueOptions {
@@ -1059,26 +1063,7 @@ interface ResolveReject<T> {
 }
 
 // @public (undocumented)
-export class ResourcedEmoji extends LoadingEmojiComponent<Props_9, State> {
-  constructor(props: Props_9);
-  // (undocumented)
-  asyncLoadComponent(): void;
-  // (undocumented)
-  static AsyncLoadedComponent: FC<Props_10>;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
-  renderLoaded(
-    loadedEmojiProvider: EmojiResource,
-    ResourcedEmojiComponent: ComponentClass<Props_10>,
-  ): JSX.Element;
-  // (undocumented)
-  renderLoading(): JSX.Element;
-  // (undocumented)
-  state: {
-    asyncLoadedComponent: React_2.FC<Props_10>;
-  };
-}
+export const ResourcedEmoji: FC<Props_9>;
 
 // @public (undocumented)
 interface Retry<T> {
@@ -1116,7 +1101,7 @@ export const selected = 'emoji-common-selected';
 export const selectOnHover = 'emoji-common-select-on-hover';
 
 // @public (undocumented)
-interface SingleEmojiApiLoaderConfig extends ServiceConfig {
+interface SingleEmojiApiLoaderConfig extends Omit<ServiceConfig, 'url'> {
   // (undocumented)
   getUrl: (emojiId: EmojiId) => string;
 }
@@ -1300,6 +1285,12 @@ export class UsageFrequencyTracker {
 }
 
 // @public (undocumented)
+export const useEmoji: () => {
+  emojiProvider: EmojiProvider;
+  isUploadSupported: boolean;
+};
+
+// @public @deprecated (undocumented)
 export const useEmojiContext: () => EmojiContextType;
 
 // @public (undocumented)

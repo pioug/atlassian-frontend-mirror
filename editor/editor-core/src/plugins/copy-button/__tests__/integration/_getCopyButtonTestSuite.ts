@@ -88,6 +88,11 @@ export async function _getCopyButtonTestSuite({
           doc.content[2].attrs.originalHeight = null;
         }
 
+        if (nodeName === 'Media') {
+          //remove random mediaTraceIds
+          doc.content[1].content[0].attrs.__mediaTraceId = 'test-trace-id';
+        }
+
         expect(doc).toMatchCustomDocSnapshot(testName);
       },
     );

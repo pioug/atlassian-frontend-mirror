@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.2.3
+
+### Patch Changes
+
+- [`dbef481f7df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbef481f7df) - [ux] ED-15724: fix the merged row(2nd row or later) cannot been recongnized as row selection and cannot be deleted.
+
 ## 2.2.2
 
 ### Patch Changes

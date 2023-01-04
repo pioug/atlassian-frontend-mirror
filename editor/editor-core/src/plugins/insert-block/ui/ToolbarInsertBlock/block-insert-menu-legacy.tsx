@@ -47,6 +47,7 @@ export const BlockInsertMenuLegacy: React.FC<BlockInsertMenuLegacyProps> = (
         onClick={props.onClick}
         spacing={props.spacing}
         label={props.label}
+        aria-keyshortcuts="/"
       />
     </DropdownMenu>
   );

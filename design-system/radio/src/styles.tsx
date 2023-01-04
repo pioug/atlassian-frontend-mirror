@@ -28,15 +28,15 @@ const radioThemeColors = {
     backgroundChecked: token('color.background.brand.bold', B400),
     backgroundCheckedHover: token('color.background.brand.bold.hovered', B300),
     backgroundCheckedActive: token('color.background.brand.bold.pressed', B50),
-    backgroundDisabled: token('color.background.input', N20),
+    backgroundDisabled: token('color.background.disabled', N20),
 
-    dotChecked: token('color.text.inverse', N10),
-    dotDisabled: token('color.text.disabled', N70),
-    dotActive: token('color.text.inverse', B400),
+    dotChecked: token('color.icon.inverse', N10),
+    dotDisabled: token('color.icon.disabled', N70),
+    dotActive: token('color.icon.inverse', B400),
 
     border: token('color.border.input', N40),
     borderHover: token('color.border.input', N40),
-    borderDisabled: token('color.background.disabled', N20),
+    borderDisabled: token('color.border.disabled', N20),
     borderFocus: token('color.border.focused', B100),
   },
   dark: {
@@ -46,15 +46,15 @@ const radioThemeColors = {
     backgroundChecked: token('color.background.brand.bold', B400),
     backgroundCheckedHover: token('color.background.brand.bold.hovered', B75),
     backgroundCheckedActive: token('color.background.brand.bold.pressed', B200),
-    backgroundDisabled: token('color.background.input', DN10),
+    backgroundDisabled: token('color.background.disabled', DN10),
 
-    dotChecked: token('color.text.inverse', DN10),
-    dotDisabled: token('color.text.disabled', DN90),
-    dotActive: token('color.text.inverse', DN10),
+    dotChecked: token('color.icon.inverse', DN10),
+    dotDisabled: token('color.icon.disabled', DN90),
+    dotActive: token('color.icon.inverse', DN10),
 
     border: token('color.border.input', DN80),
     borderHover: token('color.border.input', DN200),
-    borderDisabled: token('color.background.disabled', DN10),
+    borderDisabled: token('color.border.disabled', DN10),
     borderFocus: token('color.border.focused', B75),
   },
 };

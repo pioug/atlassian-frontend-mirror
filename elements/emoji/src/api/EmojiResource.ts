@@ -9,6 +9,7 @@ import {
   SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP,
   selectedToneStorageKey,
 } from '../util/constants';
+import debug from '../util/logger';
 import {
   isMediaEmoji,
   isMediaRepresentation,
@@ -32,7 +33,6 @@ import {
   UploadingEmojiProvider,
   User,
 } from '../types';
-import debug from '../util/logger';
 import EmojiLoader from './EmojiLoader';
 import EmojiRepository from './EmojiRepository';
 import SiteEmojiResource from './media/SiteEmojiResource';
@@ -42,6 +42,14 @@ import {
   SingleEmojiApiLoaderConfig,
 } from './EmojiUtils';
 import { sampledUfoEmojiResourceFetched } from '../util/analytics/ufoExperiences';
+
+interface GetEmojiProviderOptions {
+  /**
+   * Whether fetch emoji provider at start
+   * @defaultValue true
+   */
+  fetchAtStart?: boolean;
+}
 
 export type { EmojiProvider, UploadingEmojiProvider } from '../types'; // Re-exporting to not cause a breaking change
 // Re-exporting to not cause a breaking change
@@ -142,6 +150,7 @@ export class EmojiResource
   protected selectedTone: ToneSelection;
   protected currentUser?: User;
   protected isInitialised: boolean = false;
+  protected emojiResponses: EmojiResponse[];
   public emojiProviderConfig: EmojiResourceConfig;
 
   constructor(config: EmojiResourceConfig) {
@@ -157,56 +166,82 @@ export class EmojiResource
     if (config.providers.length === 0) {
       throw new Error('No providers specified');
     }
+
+    this.activeLoaders = this.emojiProviderConfig.providers.length;
+    this.emojiResponses = [];
   }
 
-  public fetchEmojiProvider(force?: boolean) {
+  /**
+   * Get the emoji provider from Emoji Resource
+   * @returns Promise<EmojiProvider>
+   */
+  public async getEmojiProvider(
+    options: GetEmojiProviderOptions = { fetchAtStart: true },
+  ): Promise<EmojiProvider> {
+    if (options.fetchAtStart) {
+      try {
+        await this.fetchEmojiProvider();
+      } catch (error) {
+        debug(error);
+        return Promise.resolve(this);
+      }
+    }
+    return Promise.resolve(this);
+  }
+
+  private async fetchIndividualProvider(
+    provider: ServiceConfig,
+    index: number,
+  ): Promise<void> {
+    const providerType = this.getProviderType(provider);
+    try {
+      sampledUfoEmojiResourceFetched(providerType).start({
+        samplingRate: SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP,
+      });
+      sampledUfoEmojiResourceFetched(providerType).addMetadata({
+        type: providerType,
+      });
+
+      const loader = new EmojiLoader(provider);
+      // fetch emoji from provider url and denormalise
+      const emojiResponse = await loader.loadEmoji();
+      sampledUfoEmojiResourceFetched(providerType).success();
+      // setup emoji repository
+      this.emojiResponses[index] = emojiResponse;
+      this.initEmojiRepository(this.emojiResponses);
+      await this.initSiteEmojiResource(emojiResponse, provider);
+      this.activeLoaders--;
+      this.performRetries();
+      this.refreshLastFilter();
+    } catch (error: any) {
+      this.activeLoaders--;
+      this.notifyError(error);
+      sampledUfoEmojiResourceFetched(providerType).failure({
+        metadata: {
+          reason: error,
+          source: 'EmojiProvider',
+          providerUrl: provider.url,
+        },
+      });
+      debug(`failed to fetch emoji provider for ${provider.url}`, error);
+      throw new Error(`failed to fetch emoji from ${provider.url}`);
+    }
+  }
+
+  public async fetchEmojiProvider(force = false) {
     // unless (re-)fetch is being forced, fetching will only
     // happen if no emojiRepository exists
     // in case this method is called and emojiRepository has already been populated
     // the method will just return the existing emojiRepository
     if (force || (!this.emojiRepository && !this.isInitialised)) {
       this.isInitialised = true;
-      // Ensure order is retained by tracking until all done.
-      const emojiResponses: EmojiResponse[] = [];
-
-      this.activeLoaders = this.emojiProviderConfig.providers.length;
-
-      this.emojiProviderConfig.providers.forEach(async (provider, index) => {
-        const providerType = this.getProviderType(provider);
-        sampledUfoEmojiResourceFetched(providerType).start({
-          samplingRate: SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP,
-        });
-        sampledUfoEmojiResourceFetched(providerType).addMetadata({
-          type: providerType,
-        });
-
-        const loader = new EmojiLoader(provider);
-        const emojis = loader.loadEmoji();
-        await emojis
-          .then((emojiResponse) => {
-            emojiResponses[index] = emojiResponse;
-            this.initEmojiRepository(emojiResponses);
-            this.initSiteEmojiResource(emojiResponse, provider).then(() => {
-              this.activeLoaders--;
-              this.performRetries();
-              this.refreshLastFilter();
-              // if not site emoji it would still resolve
-              // TODO: improve the logic in future
-              sampledUfoEmojiResourceFetched(providerType).success();
-            });
-          })
-          .catch((reason) => {
-            this.activeLoaders--;
-            this.notifyError(reason);
-            sampledUfoEmojiResourceFetched(providerType).failure({
-              metadata: {
-                reason,
-                source: 'EmojiProvider',
-                providerUrl: provider.url,
-              },
-            });
-          });
-      });
+      this.emojiResponses = [];
+      // fetch emoji providers
+      await Promise.all(
+        this.emojiProviderConfig.providers.map((provider, index) =>
+          this.fetchIndividualProvider(provider, index),
+        ),
+      );
     }
     return Promise.resolve(this.emojiRepository);
   }
@@ -337,6 +372,8 @@ export class EmojiResource
     return;
   };
 
+  private isLoaded = () => this.activeLoaders === 0 && !!this.emojiRepository;
+
   private loadStoredTone(): ToneSelection {
     if (typeof window === 'undefined') {
       return undefined;
@@ -358,8 +395,6 @@ export class EmojiResource
       this.filter(query, options);
     }
   }
-
-  protected isLoaded = () => this.activeLoaders === 0 && this.emojiRepository;
 
   protected retryIfLoading<T>(retry: Retry<T>, defaultResponse: T): Promise<T> {
     if (!this.isLoaded()) {

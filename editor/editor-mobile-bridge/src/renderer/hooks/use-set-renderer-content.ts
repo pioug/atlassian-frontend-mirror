@@ -7,6 +7,7 @@ import {
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
 import { Serialized } from '../../types';
+import type { DocNode } from '@atlaskit/adf-schema';
 
 function parseContent(
   content: Serialized<JSONDocNode>,
@@ -23,13 +24,15 @@ function parseContent(
   return content;
 }
 
-export function useRendererContent(initialDocument: string): JSONDocNode {
+export function useRendererContent(
+  initialDocument: string | JSONDocNode,
+): DocNode {
   const [document, setDocument] = useState<JSONDocNode>(() => {
     const content = parseContent(initialDocument);
     if (content) {
       return content;
     }
-    return getEmptyADF() as JSONDocNode;
+    return getEmptyADF() as DocNode;
   });
 
   useLayoutEffect(() => {
@@ -57,5 +60,5 @@ export function useRendererContent(initialDocument: string): JSONDocNode {
     };
   }, []);
 
-  return document;
+  return document as DocNode;
 }

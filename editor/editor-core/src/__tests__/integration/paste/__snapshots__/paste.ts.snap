@@ -33,145 +33,6 @@ Object {
 }
 `;
 
-exports[`paste.ts: decision item copied from renderer and pasted 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "xx",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-    Object {
-      "attrs": Object {
-        "localId": "abc-123",
-      },
-      "content": Array [
-        Object {
-          "attrs": Object {
-            "localId": "abc-123",
-            "state": "DECIDED",
-          },
-          "content": Array [
-            Object {
-              "text": "Decision 1",
-              "type": "text",
-            },
-          ],
-          "type": "decisionItem",
-        },
-        Object {
-          "attrs": Object {
-            "localId": "abc-123",
-            "state": "DECIDED",
-          },
-          "content": Array [
-            Object {
-              "text": "Decision 2",
-              "type": "text",
-            },
-          ],
-          "type": "decisionItem",
-        },
-      ],
-      "type": "decisionList",
-    },
-    Object {
-      "attrs": Object {
-        "level": 3,
-      },
-      "content": Array [
-        Object {
-          "text": "h3",
-          "type": "text",
-        },
-      ],
-      "type": "heading",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`paste.ts: inline card copied from renderer and pasted 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "This is an inline card",
-          "type": "text",
-        },
-        Object {
-          "attrs": Object {
-            "data": null,
-            "url": "https://inlineCardTestUrl",
-          },
-          "type": "inlineCard",
-        },
-        Object {
-          "text": ". This is end of sentence.",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`paste.ts: media inline card copied from renderer and pasted 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "This is an media inline card",
-          "type": "text",
-        },
-        Object {
-          "attrs": Object {
-            "__contextId": "DUMMY-OBJECT-ID",
-            "__displayType": null,
-            "__external": false,
-            "__fileMimeType": "image/jpeg",
-            "__fileName": "tall_image.jpeg",
-            "__fileSize": 58705,
-            "alt": "",
-            "collection": "MediaServicesSample",
-            "height": null,
-            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
-            "occurrenceKey": null,
-            "type": "file",
-            "url": null,
-            "width": null,
-          },
-          "type": "mediaInline",
-        },
-      ],
-      "type": "paragraph",
-    },
-    Object {
-      "attrs": Object {
-        "level": 3,
-      },
-      "content": Array [
-        Object {
-          "text": "h3",
-          "type": "text",
-        },
-      ],
-      "type": "heading",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
 exports[`paste.ts: paste code with new lines into code block. ensure up arrow is working 1`] = `
 Object {
   "content": Array [
@@ -224,6 +85,131 @@ int main() {
         },
       ],
       "type": "codeBlock",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`paste.ts: paste tests on fullpage editor with restart numbered lists: ordered list 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "this is ele1",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "this is a link ",
+                  "type": "text",
+                },
+                Object {
+                  "marks": Array [
+                    Object {
+                      "attrs": Object {
+                        "__confluenceMetadata": null,
+                        "href": "http://www.google.com",
+                      },
+                      "type": "link",
+                    },
+                  ],
+                  "text": "www.google.com",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "attrs": Object {
+                "order": 1,
+              },
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "more elements with some ",
+                          "type": "text",
+                        },
+                        Object {
+                          "marks": Array [
+                            Object {
+                              "type": "strong",
+                            },
+                          ],
+                          "text": "format",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "some addition",
+                          "type": "text",
+                        },
+                        Object {
+                          "marks": Array [
+                            Object {
+                              "type": "em",
+                            },
+                          ],
+                          "text": " formatting",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "orderedList",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "last element",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
     },
   ],
   "type": "doc",
@@ -370,6 +356,9 @@ exports[`paste.ts: paste tests on fullpage editor: ordered list 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [
@@ -410,6 +399,9 @@ Object {
               "type": "paragraph",
             },
             Object {
+              "attrs": Object {
+                "order": 1,
+              },
               "content": Array [
                 Object {
                   "content": Array [

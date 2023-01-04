@@ -1,5 +1,11 @@
 /** @jsx jsx */
-import { KeyboardEvent, MouseEvent, useContext, useLayoutEffect } from 'react';
+import {
+  KeyboardEvent,
+  MouseEvent,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -48,6 +54,7 @@ const MenuWrapper = ({
   ...props
 }: MenuWrapperProps) => {
   const { menuItemRefs } = useContext(FocusManagerContext);
+
   const closeOnMenuItemClick = (e: MouseEvent | KeyboardEvent) => {
     const isTargetMenuItemOrDecendant = menuItemRefs.some(
       (menuItem: FocusableElement) => {
@@ -74,7 +81,9 @@ const MenuWrapper = ({
     onUpdate();
   }, [isLoading, onUpdate]);
 
-  setInitialFocusRef && setInitialFocusRef(menuItemRefs[0]);
+  useEffect(() => {
+    setInitialFocusRef?.(menuItemRefs[0]);
+  }, [menuItemRefs, setInitialFocusRef]);
 
   return (
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

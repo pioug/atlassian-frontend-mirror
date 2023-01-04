@@ -33,6 +33,7 @@ import {
 } from '@atlaskit/media-test-helpers/collectionNames';
 import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { DocNode } from '@atlaskit/adf-schema';
 
 const wrapper = css`
   box-sizing: border-box;
@@ -154,7 +155,7 @@ export interface ExampleProps {
   onTitleChange?: (title: string) => void;
 }
 
-const rendererDoc = {
+const rendererDoc: DocNode = {
   type: 'doc',
   version: 1,
   content: [
@@ -200,7 +201,6 @@ const rendererDoc = {
     },
     {
       type: 'mediaSingle',
-      attrs: {},
       content: [
         {
           type: 'media',

@@ -1,4 +1,4 @@
-<!-- API Report Version: 2.2 -->
+<!-- API Report Version: 2.3 -->
 
 ## API Report File for "@atlaskit/lozenge"
 
@@ -19,7 +19,7 @@ import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 
 // @public
-const Lozenge: MemoExoticComponent<
+const Lozenge: React_2.MemoExoticComponent<
   ({
     children,
     testId,
@@ -27,7 +27,7 @@ const Lozenge: MemoExoticComponent<
     appearance,
     maxWidth,
     style,
-  }: LozengeProps) => jsx.JSX.Element
+  }: LozengeProps) => JSX.Element
 >;
 export default Lozenge;
 

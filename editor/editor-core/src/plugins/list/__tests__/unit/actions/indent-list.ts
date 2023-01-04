@@ -77,7 +77,7 @@ describe('lists plugin: actions', () => {
         ul(
           li(p('one')),
           li(p('...'),
-          ol(
+          ol()(
             li(p('two'))
           )),
           li(p('t{<>}hree')),
@@ -88,7 +88,7 @@ describe('lists plugin: actions', () => {
         ul(
           li(p('one')),
           li(p('...'),
-          ol(
+          ol()(
             li(p('two')),
             li(p('three'))
           ))

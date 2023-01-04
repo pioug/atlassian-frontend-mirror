@@ -1,5 +1,16 @@
 # @atlaskit/editor-shared-styles
 
+## 2.3.0
+
+### Minor Changes
+
+- [`4fbaeb2a1fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fbaeb2a1fd) - DSP-4118 Updated tokens used to render overflow shadows in code blocks.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in beta).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+  `overflowShadow` now optionally supports customizing the size of the "covers" that appear over shadows when at the edge of content, via `leftCoverWidth` and `rightCoverWidth`, and the shadow width via the `width` prop.
+
 ## 2.2.5
 
 ### Patch Changes

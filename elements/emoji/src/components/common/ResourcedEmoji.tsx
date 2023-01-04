@@ -1,103 +1,58 @@
-import React, { FC } from 'react';
-import { ComponentClass } from 'react';
-
-import {
-  defaultEmojiHeight,
-  SAMPLING_RATE_EMOJI_RENDERED_EXP,
-} from '../../util/constants';
-import EmojiPlaceholder from './EmojiPlaceholder';
-import LoadingEmojiComponent, {
-  Props as LoadingProps,
-  State as LoadingState,
-} from './LoadingEmojiComponent';
-import EmojiProvider from '../../api/EmojiResource';
-import {
-  Props as ComponentProps,
-  BaseResourcedEmojiProps,
-} from './ResourcedEmojiComponent';
-import { sampledUfoRenderedEmoji, ufoExperiences } from '../../util/analytics';
+import React, { FC, useEffect } from 'react';
+import Loadable from 'react-loadable';
+import { Props as ResourcedEmojiProps } from './ResourcedEmojiComponent';
 import { UfoErrorBoundary } from './UfoErrorBoundary';
+import { sampledUfoRenderedEmoji, ufoExperiences } from '../../util/analytics';
+import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
 
-export interface Props extends BaseResourcedEmojiProps, LoadingProps {}
+export interface Props extends ResourcedEmojiProps {}
 
-const resourcedEmojiModuleLoader = () =>
-  import(
-    /* webpackChunkName:"@atlaskit-internal_resourcedEmojiComponent" */ './ResourcedEmojiComponent'
-  );
+const ResourcedEmojiComponent = Loadable({
+  loader: (): Promise<React.ComponentType<Props>> =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_resourcedEmojiComponent" */ './ResourcedEmojiComponent'
+    ).then((component) => component.ResourcedEmojiComponent),
+  loading: () => null,
+});
 
-const resourcedEmojiComponentLoader: () => Promise<FC<ComponentProps>> = () =>
-  resourcedEmojiModuleLoader().then((module) => module.ResourcedEmojiComponent);
+const ResourcedEmoji: FC<Props> = (props) => {
+  const { emojiId } = props;
 
-export default class ResourcedEmoji extends LoadingEmojiComponent<
-  Props,
-  LoadingState
-> {
-  // state initialised with static component to prevent
-  // rerender when the module has already been loaded
-  static AsyncLoadedComponent: FC<ComponentProps>;
-  state = {
-    asyncLoadedComponent: ResourcedEmoji.AsyncLoadedComponent,
-  };
+  useEffect(() => {
+    if (!emojiId) {
+      return;
+    }
 
-  constructor(props: Props) {
-    super(props, {});
-    sampledUfoRenderedEmoji(props.emojiId).start({
+    sampledUfoRenderedEmoji(emojiId).start({
       samplingRate: SAMPLING_RATE_EMOJI_RENDERED_EXP,
     });
-
     ufoExperiences['emoji-rendered']
-      .getInstance(props.emojiId.id || props.emojiId.shortName)
+      .getInstance(emojiId.id || emojiId.shortName)
       .addMetadata({
         source: 'ResourcedEmoji',
-        emojiId: props.emojiId.id,
+        emojiId: emojiId.id,
       });
-  }
+    return () => {
+      sampledUfoRenderedEmoji(emojiId).abort({
+        metadata: {
+          source: 'ResourcedEmoji',
+          reason: 'unmount',
+        },
+      });
+    };
+  }, [emojiId]);
 
-  componentWillUnmount() {
-    sampledUfoRenderedEmoji(this.props.emojiId).abort({
-      metadata: {
-        source: 'ResourcedEmoji',
-        reason: 'unmount',
-      },
-    });
-  }
+  return (
+    <UfoErrorBoundary
+      experiences={[
+        ufoExperiences['emoji-rendered'].getInstance(
+          props.emojiId.id || props.emojiId.shortName,
+        ),
+      ]}
+    >
+      <ResourcedEmojiComponent {...props} />
+    </UfoErrorBoundary>
+  );
+};
 
-  asyncLoadComponent() {
-    resourcedEmojiComponentLoader().then((component) => {
-      ResourcedEmoji.AsyncLoadedComponent = component;
-      this.setAsyncState(component);
-    });
-  }
-
-  renderLoading() {
-    const { fitToHeight, emojiId, showTooltip } = this.props;
-    return (
-      <EmojiPlaceholder
-        shortName={emojiId.shortName}
-        showTooltip={showTooltip}
-        size={fitToHeight || defaultEmojiHeight}
-      />
-    );
-  }
-
-  renderLoaded(
-    loadedEmojiProvider: EmojiProvider,
-    ResourcedEmojiComponent: ComponentClass<ComponentProps>,
-  ) {
-    const { emojiProvider, ...otherProps } = this.props;
-    return (
-      <UfoErrorBoundary
-        experiences={[
-          ufoExperiences['emoji-rendered'].getInstance(
-            this.props.emojiId.id || this.props.emojiId.shortName,
-          ),
-        ]}
-      >
-        <ResourcedEmojiComponent
-          {...otherProps}
-          emojiProvider={loadedEmojiProvider}
-        />
-      </UfoErrorBoundary>
-    );
-  }
-}
+export default ResourcedEmoji;

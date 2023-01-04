@@ -8,23 +8,32 @@ import { hideLinkToolbar } from '../../commands';
 
 import { useEscapeClickaway } from './useEscapeClickaway';
 
+/**
+ * Returns a type that matches T but where keys (K) are now optional
+ */
+type OptionalKeys<T extends {}, K extends keyof T> = Omit<T, K> &
+  Partial<Pick<T, K>>;
+
 export interface EditorLinkPickerProps
-  extends Omit<LinkPickerProps, 'onCancel'> {
+  extends OptionalKeys<LinkPickerProps, 'onCancel'> {
   view: EditorView;
 }
 
 export const EditorLinkPicker = ({
   view,
+  onCancel,
   ...restProps
 }: EditorLinkPickerProps) => {
   const onEscape = useCallback(() => {
     hideLinkToolbar()(view.state, view.dispatch);
     view.dispatch(cardHideLinkToolbar(view.state.tr));
-  }, [view]);
+    onCancel?.();
+  }, [view, onCancel]);
 
   const onClickAway = useCallback(() => {
     hideLinkToolbar()(view.state, view.dispatch);
-  }, [view]);
+    onCancel?.();
+  }, [view, onCancel]);
 
   const ref = useEscapeClickaway<HTMLDivElement>(onEscape, onClickAway);
 

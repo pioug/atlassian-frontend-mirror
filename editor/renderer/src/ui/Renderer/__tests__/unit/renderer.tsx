@@ -5,6 +5,7 @@ import {
   AnnotationMarkStates,
   AnnotationTypes,
   AnnotationId,
+  DocNode,
 } from '@atlaskit/adf-schema';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import type {
@@ -55,7 +56,8 @@ jest.mock('@atlaskit/editor-common/utils', () => {
 
 describe('Renderer', () => {
   const annotationsId: string[] = ['id_1', 'id_2', 'id_3'];
-  const adf = {
+
+  const adf: DocNode = {
     version: 1,
     type: 'doc',
     content: [
@@ -70,6 +72,7 @@ describe('Renderer', () => {
                 type: 'annotation',
                 attrs: {
                   id: annotationsId[0],
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
                 },
               },
             ],
@@ -95,12 +98,14 @@ describe('Renderer', () => {
                 type: 'annotation',
                 attrs: {
                   id: annotationsId[1],
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
                 },
               },
               {
                 type: 'annotation',
                 attrs: {
                   id: annotationsId[2],
+                  annotationType: AnnotationTypes.INLINE_COMMENT,
                 },
               },
             ],
@@ -215,6 +220,7 @@ describe('Renderer', () => {
 
 describe('spec based validator', () => {
   it('should render unsupported content block when the document has invalid block', () => {
+    // @ts-ignore
     const docWithInvalidBlock = {
       type: 'doc',
       version: 1,
@@ -229,7 +235,7 @@ describe('spec based validator', () => {
           ],
         },
       ],
-    };
+    } as DocNode;
     let wrapper: ShallowWrapper;
     act(() => {
       wrapper = shallow(
@@ -244,7 +250,7 @@ describe('spec based validator', () => {
   });
 
   it('should NOT render unsupported content block when the document is valid', () => {
-    const docWithValidParagraph = {
+    const docWithValidParagraph: DocNode = {
       type: 'doc',
       version: 1,
       content: [
@@ -275,6 +281,7 @@ describe('spec based validator', () => {
   });
 
   it('should render unsupported inline when the document has invalid inline', () => {
+    // @ts-ignore
     const docWithInvalidInline = {
       type: 'doc',
       version: 1,
@@ -291,7 +298,7 @@ describe('spec based validator', () => {
           ],
         },
       ],
-    };
+    } as DocNode;
 
     let wrapper: ShallowWrapper;
     act(() => {
@@ -307,7 +314,7 @@ describe('spec based validator', () => {
   });
 
   it('should NOT render unsupported inline when the document has valid inline', () => {
-    const docWithValidInline = {
+    const docWithValidInline: DocNode = {
       type: 'doc',
       version: 1,
       content: [
@@ -780,7 +787,7 @@ describe('severity', () => {
         ],
       },
     ],
-  };
+  } as DocNode;
 
   beforeEach(() => {
     jest.clearAllMocks();

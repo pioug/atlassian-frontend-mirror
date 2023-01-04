@@ -1,27 +1,21 @@
 import React from 'react';
 
-import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { overrideStyleFunction } from '../../common/styles';
-import { HeaderProps } from '../Header';
+import { Container, HeaderProps as FooterProps } from '../Header';
 import { CustomItem } from '../Item';
 
-const Container: React.FC<CustomItemComponentProps> = (props) => {
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  return <div {...props} />;
-};
-
-export type { HeaderProps as FooterProps } from '../Header';
+export type { FooterProps };
 
 /**
- * __Header__
+ * __Footer__
  *
  * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const Footer = (props: HeaderProps) => {
+const Footer = (props: FooterProps) => {
   const cssFn = overrideStyleFunction(
     () => ({
       userSelect: 'auto',
@@ -31,8 +25,8 @@ const Footer = (props: HeaderProps) => {
       alignItems: 'center',
       width: '100%',
       '[data-item-elem-before]': {
-        marginRight: 0,
-        marginBottom: '8px',
+        marginRight: token('spacing.scale.0', '0px'),
+        marginBottom: token('spacing.scale.100', '8px'),
         display: 'inline-block',
       },
       '[data-item-title]': {
@@ -42,25 +36,44 @@ const Footer = (props: HeaderProps) => {
       '[data-item-description]': {
         textAlign: 'center',
         display: 'inline-block',
-        margin: '6px',
+        margin: token('spacing.scale.075', '6px'),
       },
       // Will look interactive if the `component` is anything other than a div.
       'div&:hover': {
-        backgroundColor: 'transparent',
+        backgroundColor: token(
+          'color.background.neutral.subtle',
+          'transparent',
+        ),
         cursor: 'default',
       },
       'div&:active': {
-        backgroundColor: 'transparent',
+        backgroundColor: token(
+          'color.background.neutral.subtle',
+          'transparent',
+        ),
         color: token('color.text.subtle', N500),
       },
     }),
     props.cssFn,
   );
 
+  // https://stackoverflow.com/a/39333479
+  const safeProps = (({
+    iconBefore,
+    onClick,
+    description,
+    children,
+    testId,
+  }) => ({
+    iconBefore,
+    onClick,
+    description,
+    children,
+    testId,
+  }))(props);
   return (
     <CustomItem
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      {...props}
+      {...safeProps}
       component={props.component || Container}
       // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}

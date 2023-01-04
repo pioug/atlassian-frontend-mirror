@@ -66,7 +66,7 @@ and *bold*, -strike- and _emphasised_ text.
         h5('almost smallest heading'),
         h6('smallest heading'),
         table()(tr(td({})(p('simple')), td({})(p('table')))),
-        ol(li(p('numbered')), li(p('bullets'))),
+        ol()(li(p('numbered')), li(p('bullets'))),
         ul(li(p('normal')), li(p('bullets'))),
         blockquote(p('with some block quoted text')),
         p(

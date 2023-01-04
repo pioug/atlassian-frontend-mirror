@@ -266,6 +266,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
         {buttons.map((btn) => (
           <ToolbarButton
             item={btn}
+            testId={String(btn.content)}
             ref={btn.value.name === 'emoji' ? this.handleEmojiButtonRef : noop}
             key={btn.value.name}
             spacing={isReducedSpacing ? 'none' : 'default'}
@@ -275,6 +276,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
             title={btn.title}
             aria-label={btn['aria-label']}
             aria-haspopup={btn['aria-haspopup']}
+            aria-keyshortcuts={btn['aria-keyshortcuts']}
             onItemClick={this.insertToolbarMenuItem}
           />
         ))}

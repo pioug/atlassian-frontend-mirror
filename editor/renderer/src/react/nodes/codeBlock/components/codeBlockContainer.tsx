@@ -16,7 +16,6 @@ import CopyButton from '../../codeBlockCopyButton';
 import { Props as CodeBlockProps } from '../codeBlock';
 import { token } from '@atlaskit/tokens';
 
-// TODO: Quality ticket https://product-fabric.atlassian.net/browse/DSP-4118
 const codeBlockStyleOverrides = (props?: ThemeProps) =>
   css`
     tab-size: 4;
@@ -33,10 +32,11 @@ const codeBlockStyleOverrides = (props?: ThemeProps) =>
           light: token('color.background.neutral', N20),
           dark: token('color.background.neutral', DN50),
         })(props),
-        width: `${gridSize()}px`,
+        leftCoverWidth: `${gridSize() * 3}px`,
       })};
-      background-attachment: local, local, local, local, scroll, scroll;
-      background-position: 0 0, 0 0, 100% 0, 100% 0, 100% 0, 0 0;
+      background-attachment: local, local, local, local, scroll, scroll, scroll,
+        scroll;
+      background-position: 0 0, 0 0, 100% 0, 100% 0, 100% 0, 100% 0, 0 0, 0 0;
     }
   `;
 

@@ -7,13 +7,18 @@ import {
 import { GenericEventEmitter } from '../util/eventEmitter';
 import { SelectedItem } from '../popup/domain';
 import { PluginItemPayload } from '../domain/plugin';
+import { MediaTraceContext } from '@atlaskit/media-common';
 
 export interface UploadEventEmitter {
   emitPluginItemsInserted(selectedPluginItems: SelectedItem[]): void;
-  emitUploadsStart(files: MediaFile[]): void;
+  emitUploadsStart(files: MediaFile[], traceContext?: MediaTraceContext): void;
   emitUploadPreviewUpdate(file: MediaFile, preview: Preview): void;
-  emitUploadEnd(file: MediaFile): void;
-  emitUploadError(fileId: string, error: MediaError): void;
+  emitUploadEnd(file: MediaFile, traceContext?: MediaTraceContext): void;
+  emitUploadError(
+    fileId: string,
+    error: MediaError,
+    traceContext?: MediaTraceContext,
+  ): void;
 }
 
 export class UploadComponent<M extends UploadEventPayloadMap>
@@ -34,9 +39,10 @@ export class UploadComponent<M extends UploadEventPayloadMap>
     this.emit('plugin-items-inserted', payload);
   }
 
-  emitUploadsStart(files: MediaFile[]): void {
+  emitUploadsStart(files: MediaFile[], traceContext?: MediaTraceContext): void {
     this.emit('uploads-start', {
       files,
+      traceContext,
     });
   }
 
@@ -47,14 +53,19 @@ export class UploadComponent<M extends UploadEventPayloadMap>
     });
   }
 
-  emitUploadEnd(file: MediaFile): void {
-    this.emit('upload-end', { file });
+  emitUploadEnd(file: MediaFile, traceContext?: MediaTraceContext): void {
+    this.emit('upload-end', { file, traceContext });
   }
 
-  emitUploadError(fileId: string, error: MediaError): void {
+  emitUploadError(
+    fileId: string,
+    error: MediaError,
+    traceContext?: MediaTraceContext,
+  ): void {
     this.emit('upload-error', {
       fileId,
       error,
+      traceContext,
     });
   }
 }

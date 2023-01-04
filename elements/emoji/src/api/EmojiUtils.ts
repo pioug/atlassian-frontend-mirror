@@ -31,11 +31,12 @@ export interface EmojiLoaderConfig extends ServiceConfig {
   getRatio?: () => number;
 }
 
-export interface SingleEmojiApiLoaderConfig extends ServiceConfig {
+export interface SingleEmojiApiLoaderConfig extends Omit<ServiceConfig, 'url'> {
   getUrl: (emojiId: EmojiId) => string;
 }
 
-export interface OptimisticImageApiLoaderConfig extends ServiceConfig {
+export interface OptimisticImageApiLoaderConfig
+  extends Omit<ServiceConfig, 'url'> {
   getUrl: (emojiId: EmojiId) => string;
 }
 

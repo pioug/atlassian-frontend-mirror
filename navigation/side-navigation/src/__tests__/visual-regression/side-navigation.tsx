@@ -15,21 +15,37 @@ const clickNextButton = async () => {
   const nextButton = await page.$$('[data-testid="spotlight--dialog"] button');
   await nextButton[0].click();
 };
+
+type openFnOpts = Partial<{
+  screenSize: { width: number; height: number };
+  disableSideEffects: boolean;
+  theme: 'dark' | 'light' | 'none';
+}>;
+
 describe('<SideNavigation /> integration tests', () => {
   const openExamplesAndWaitFor = async (
     example: string,
     selector: string,
-    screenSize: { width: number; height: number } = {
-      width: 1920,
-      height: 800,
-    },
-    disableSideEffects = true,
+    optsOverrides: openFnOpts = {},
   ) => {
+    const { screenSize, disableSideEffects, theme } = Object.assign(
+      {
+        screenSize: {
+          width: 1920,
+          height: 800,
+        },
+        disableSideEffects: true,
+        theme: 'none',
+      },
+      optsOverrides,
+    );
+
     const url = getExampleUrl(
       'navigation',
       'side-navigation',
       example,
       global.__BASEURL__,
+      theme,
     );
 
     const { page } = global;
@@ -60,6 +76,19 @@ describe('<SideNavigation /> integration tests', () => {
     ).toMatchProdImageSnapshot();
   });
 
+  it.each(['light', 'dark', 'none'] as const)(
+    'side-navigation for theme "%s" should match production example',
+    async (theme) => {
+      await openExamplesAndWaitFor('nested-side-navigation', sideNavigation, {
+        theme,
+      });
+
+      expect(
+        await takeElementScreenShot(global.page, sideNavigation),
+      ).toMatchProdImageSnapshot();
+    },
+  );
+
   it('should match nested navigation custom icon with production example', async () => {
     await openExamplesAndWaitFor(
       'nested-side-navigation',
@@ -85,17 +114,15 @@ describe('<SideNavigation /> integration tests', () => {
   });
 
   it('should render a scrollable section when items overflow', async () => {
-    await openExamplesAndWaitFor(
-      'nested-side-navigation',
-      sideNavigation,
-      {
+    await openExamplesAndWaitFor('nested-side-navigation', sideNavigation, {
+      screenSize: {
         width: 1920,
         height: 400,
       },
       // Keep side effects enabled in VR to allow CSS transitions
       // which are needed for the nested menu component
-      false,
-    );
+      disableSideEffects: false,
+    });
     const { page } = global;
     await page.waitForSelector(filterNestingItem);
     await page.click(filterNestingItem);
@@ -109,14 +136,11 @@ describe('<SideNavigation /> integration tests', () => {
   });
 
   it('should not render a scrollable section when items do not overflow', async () => {
-    await openExamplesAndWaitFor(
-      'nested-side-navigation',
-      sideNavigation,
-      undefined,
+    await openExamplesAndWaitFor('nested-side-navigation', sideNavigation, {
       // Keep side effects enabled in VR allow CSS transitions
       // which are needed for the nested menu component
-      false,
-    );
+      disableSideEffects: false,
+    });
     const { page } = global;
     await page.waitForSelector(filterNestingItem);
     await page.click(filterNestingItem);
@@ -157,11 +181,13 @@ describe('<SideNavigation /> integration tests', () => {
     const { page } = global;
     const startSpotlight = '#show-spotlight';
 
-    const buttonItemSpotlight = '#buttonItemSpotlightMessage';
-    const linkItemSpotlight = '#linkItemSpotlightMessage';
-    const disabledItemSpotlight = '#disabledItemSpotlightMessage';
-    const nestingItemSpotlight = '#nestingItemSpotlightMessage';
-    const selectedNestingItemSpotlight = '#selectedNestingItemSpotlightMessage';
+    const buttonItemSpotlight = '[data-testid="buttonItemSpotlightMessage"]';
+    const linkItemSpotlight = '[data-testid="linkItemSpotlightMessage"]';
+    const disabledItemSpotlight =
+      '[data-testid="disabledItemSpotlightMessage"]';
+    const nestingItemSpotlight = '[data-testid="nestingItemSpotlightMessage"]';
+    const selectedNestingItemSpotlight =
+      '[data-testid="selectedNestingItemSpotlightMessage"]';
 
     const spotlightClone = '[data-testid="spotlight--target"]';
 
@@ -246,6 +272,20 @@ describe('<SideNavigation /> integration tests', () => {
 
     expect(
       await takeElementScreenShot(global.page, dropboxButton),
+    ).toMatchProdImageSnapshot();
+  });
+
+  it('should match styles for Section', async () => {
+    const testId = '[data-testid="navigation-content-for-sections"]';
+    await openExamplesAndWaitFor('section', testId, {
+      screenSize: {
+        width: 400,
+        height: 800,
+      },
+    });
+
+    expect(
+      await takeElementScreenShot(global.page, testId),
     ).toMatchProdImageSnapshot();
   });
 });

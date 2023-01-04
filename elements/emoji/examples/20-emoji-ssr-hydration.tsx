@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import Loadable from 'react-loadable';
 import ReactDOMServer from 'react-dom/server';
 import { renderEmoji } from './00-simple-emoji';
 import EmojiPickerWithUpload from './05-standard-emoji-picker-with-upload';
-import { EmojiImage } from '../src/components/common/EmojiImage';
-import { getRealEmojiResource } from '../example-helpers/demo-resource-control';
+import { getRealEmojiProvider } from '../example-helpers/demo-resource-control';
 import { ResourcedEmoji } from '../src';
 
 const Page: React.FC<{ title: string }> = ({ title, children }) => {
@@ -39,6 +39,7 @@ export default () => {
       const txt = ReactDOMServer.renderToString(
         <Page title={'SSR Only'}>{node}</Page>,
       );
+
       const elem = document.querySelector(`#${containerId}`);
 
       if (elem) {
@@ -52,24 +53,24 @@ export default () => {
   };
 
   useEffect(() => {
-    // TODO: add ssr prop to components, e.g. <EmojiPickerWithUpload ssr={true} />
-    runSSR(
-      serverOnlyResourceId,
-      <EmojiImage
-        showImageBeforeLoad
-        emojiId={{ shortName: ':grimacing:', id: '1f603' }}
-        imageUrl="https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/64x64/1f603.png"
-      />,
-    );
-    runSSR(
-      hydrationResourceId,
-      <ResourcedEmoji
-        emojiId={{ shortName: ':grimacing:', id: '1f603' }}
-        emojiProvider={getRealEmojiResource()}
-        optimisticImageURL="https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/64x64/1f603.png"
-      />,
-      true,
-    );
+    Loadable.preloadAll().then(() => {
+      runSSR(
+        serverOnlyResourceId,
+        <ResourcedEmoji
+          emojiId={{ shortName: ':grimacing:', id: '1f603' }}
+          emojiProvider={getRealEmojiProvider()}
+          optimisticImageURL="https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/64x64/1f603.png"
+        />,
+      );
+      runSSR(
+        hydrationResourceId,
+        <ResourcedEmoji
+          emojiId={{ shortName: ':grimacing:', id: '1f603' }}
+          emojiProvider={getRealEmojiProvider()}
+        />,
+        true,
+      );
+    });
     runSSR(serverOnlySingleId, renderEmoji(40));
     runSSR(hydrationSingleId, renderEmoji(40), true);
     runSSR(serverOnlyPickerId, <EmojiPickerWithUpload />);

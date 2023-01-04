@@ -30,6 +30,10 @@ import ToolbarListsIndentation, {
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
 
+import { render } from '@testing-library/react';
+import { Toolbar } from '../../../ui/Toolbar';
+import { IntlProvider } from 'react-intl-next';
+
 function clickToolbarOption(toolbarOption: ReactWrapper, title: string) {
   toolbarOption
     .find(ToolbarButton)
@@ -210,6 +214,36 @@ describe('ToolbarListsIndentation', () => {
           direction: 'outdent',
         }),
       });
+    });
+  });
+
+  describe('keyboard shortcuts', () => {
+    it('should have ARIA keyshortcuts attribute', () => {
+      const { editorView } = editor({ doc: doc(p('')) });
+      const { getByTestId } = render(
+        <IntlProvider locale="en">
+          <Toolbar
+            editorView={editorView}
+            showIndentationButtons={true}
+            onItemActivated={({ buttonName, editorView }) => ({
+              buttonName,
+              editorView,
+            })}
+          />
+        </IntlProvider>,
+      );
+      expect(
+        getByTestId('Bullet list').getAttribute('aria-keyshortcuts'),
+      ).toEqual('Control+Shift+8');
+      expect(
+        getByTestId('Numbered list').getAttribute('aria-keyshortcuts'),
+      ).toEqual('Control+Shift+7');
+      expect(getByTestId('indent').getAttribute('aria-keyshortcuts')).toEqual(
+        'Tab',
+      );
+      expect(getByTestId('outdent').getAttribute('aria-keyshortcuts')).toEqual(
+        'Shift+Tab',
+      );
     });
   });
 });

@@ -6,9 +6,14 @@ import chromatism from 'chromatism';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { N0, N500 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import Color from './Color';
+import getColorMessage from './Palettes/getColorMessage';
+import {
+  newDarkPalette,
+  newLightPalette,
+} from './Palettes/paletteMessagesTokenModeNames';
 import { PaletteColor } from './Palettes/type';
 import { colorPaletteWrapper } from './styles';
 
@@ -26,6 +31,13 @@ interface Props {
    * @default false
    */
   textPalette?: boolean;
+  /**
+   * Used to detect if the useSomewhatSemanticTextColorNames feature flag
+   * is true. If so, text color tooltips in the color picker will
+   * show semantic names (excluding white/dark gray).
+   * @default false
+   */
+  useSomewhatSemanticTextColorNames?: boolean;
 }
 
 /**
@@ -63,7 +75,10 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
     className,
     intl: { formatMessage },
     textPalette = false,
+    useSomewhatSemanticTextColorNames = false,
   } = props;
+
+  const tokenTheme = useThemeObserver();
 
   const colorsPerRow = React.useMemo(() => {
     return palette.reduce(
@@ -88,18 +103,28 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
           key={`row-first-color-${row[0].value}`}
           role="radiogroup"
         >
-          {row.map(({ value, label, border, message }, colorIdx) => (
-            <Color
-              key={value}
-              value={value}
-              borderColor={border}
-              label={message ? formatMessage(message) : label}
-              onClick={onClick}
-              isSelected={value === selectedColor}
-              checkMarkColor={getCheckMarkColor(value, textPalette)}
-              useDesignTokens={textPalette === true}
-            />
-          ))}
+          {row.map(({ value, label, border, message }, colorIdx) => {
+            if (textPalette === true && useSomewhatSemanticTextColorNames) {
+              if (tokenTheme === 'dark') {
+                message = getColorMessage(newDarkPalette, value.toUpperCase());
+              }
+              if (tokenTheme === 'light') {
+                message = getColorMessage(newLightPalette, value.toUpperCase());
+              }
+            }
+            return (
+              <Color
+                key={value}
+                value={value}
+                borderColor={border}
+                label={message ? formatMessage(message) : label}
+                onClick={onClick}
+                isSelected={value === selectedColor}
+                checkMarkColor={getCheckMarkColor(value, textPalette)}
+                useDesignTokens={textPalette === true}
+              />
+            );
+          })}
         </div>
       ))}
     </React.Fragment>

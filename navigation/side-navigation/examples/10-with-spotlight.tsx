@@ -1,8 +1,12 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import Button from '@atlaskit/button';
+import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
+import Box from '@atlaskit/ds-explorations/box';
+import Text from '@atlaskit/ds-explorations/text';
 import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
 import WorkIcon from '@atlaskit/icon/glyph/folder';
 import CustomerIcon from '@atlaskit/icon/glyph/person';
@@ -58,14 +62,10 @@ const LanguageSettings = () => {
   );
 };
 
-const twoColumnWrapper = {
-  display: 'flex',
-  gap: 8,
-};
 const BasicExample = () => {
   return (
     <SpotlightManager>
-      <div css={twoColumnWrapper}>
+      <Inline gap="scale.100">
         <AppFrame shouldHideAppBar>
           <SideNavigation label="project" testId="side-navigation">
             <NavigationHeader>
@@ -90,7 +90,7 @@ const BasicExample = () => {
                     title="Dropbox"
                     isDisabled
                   >
-                    <span />
+                    <Fragment />
                   </NestingItem>
                 </SpotlightTarget>
                 <SpotlightTarget name="nestingItem">
@@ -133,7 +133,7 @@ const BasicExample = () => {
         <SpotlightTransition>
           <SpotlightRenderer />
         </SpotlightTransition>
-      </div>
+      </Inline>
     </SpotlightManager>
   );
 };
@@ -154,7 +154,9 @@ const SpotlightRenderer = () => {
       target="buttonItem"
       key="buttonItem"
     >
-      <p id="buttonItemSpotlightMessage">Check out this cool thing</p>
+      <Text as="p" testId="buttonItemSpotlightMessage">
+        Check out this cool thing
+      </Text>
     </Spotlight>,
 
     <Spotlight
@@ -174,7 +176,9 @@ const SpotlightRenderer = () => {
       target="linkItem"
       key="linkItem"
     >
-      <p id="linkItemSpotlightMessage">Check out this cool thing</p>
+      <Text as="p" testId="linkItemSpotlightMessage">
+        Check out this cool thing
+      </Text>
     </Spotlight>,
 
     <Spotlight
@@ -194,7 +198,9 @@ const SpotlightRenderer = () => {
       target="disabledItem"
       key="disabledItem"
     >
-      <p id="disabledItemSpotlightMessage">Check out this cool thing</p>
+      <Text as="p" testId="disabledItemSpotlightMessage">
+        Check out this cool thing
+      </Text>
     </Spotlight>,
 
     <Spotlight
@@ -214,7 +220,9 @@ const SpotlightRenderer = () => {
       target="nestingItem"
       key="nestingItem"
     >
-      <p id="nestingItemSpotlightMessage">Check out this cool thing</p>
+      <Text as="p" testId="nestingItemSpotlightMessage">
+        Check out this cool thing
+      </Text>
     </Spotlight>,
 
     <Spotlight
@@ -234,7 +242,9 @@ const SpotlightRenderer = () => {
       target="selectedNestingItem"
       key="selectedNestingItem"
     >
-      <p id="selectedNestingItemSpotlightMessage">Check out this cool thing</p>
+      <Text as="p" testId="selectedNestingItemSpotlightMessage">
+        Check out this cool thing
+      </Text>
     </Spotlight>,
   ];
 
@@ -243,11 +253,15 @@ const SpotlightRenderer = () => {
   }
 
   return (
-    <div>
-      <button id="show-spotlight" onClick={() => setVariant(0)} type="button">
+    <Box padding="scale.200">
+      <Button
+        id="show-spotlight"
+        onClick={() => setVariant(0)}
+        appearance="default"
+      >
         Show spotlight
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 };
 export default BasicExample;

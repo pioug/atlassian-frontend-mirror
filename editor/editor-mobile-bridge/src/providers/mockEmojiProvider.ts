@@ -66,7 +66,7 @@ class EmojiProviderImpl implements EmojiProvider {
   }
 
   getOptimisticImageURL(emojiId: EmojiId): string | undefined {
-    return;
+    return undefined;
   }
 
   setSelectedTone() {}

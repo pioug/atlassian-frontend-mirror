@@ -3,7 +3,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import { pluginKey } from './plugin-key';
 import { createPlugin as createFragmentMarkConsistencyPlugin } from './pm-plugins/fragment-consistency';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 export function createPlugin(): SafePlugin {
   return new SafePlugin({
@@ -11,7 +11,7 @@ export function createPlugin(): SafePlugin {
   });
 }
 
-const fragmentMarkPlugin = (): EditorPlugin => ({
+const fragmentMarkPlugin: NextEditorPlugin<'fragmentPlugin'> = () => ({
   name: 'fragmentPlugin',
 
   marks() {

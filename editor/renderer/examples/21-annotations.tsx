@@ -18,6 +18,7 @@ import {
   annotationsStore,
   AnnotationsStoreProvider,
 } from './helper/annotations';
+import type { DocNode } from '@atlaskit/adf-schema';
 
 const updateAnnotationSubscriber = new AnnotationUpdateEmitter();
 const AnnotationCheckbox = (props: {
@@ -172,7 +173,7 @@ const App = () => {
       <main css={mainStyle}>
         <Renderer
           appearance="full-page"
-          document={doc}
+          document={doc as DocNode}
           annotationProvider={annotationProvider}
           allowAnnotations
         />

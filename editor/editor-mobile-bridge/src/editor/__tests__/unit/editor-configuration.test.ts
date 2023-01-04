@@ -16,8 +16,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isCustomPanelEnabled()).toEqual(false);
     expect(editorConfig.isCustomPanelEditable()).toEqual(false);
     expect(editorConfig.isTableCellOptionsInFloatingToolbar()).toEqual(false);
-    expect(editorConfig.isRestartNumberedListsEnabled()).toEqual(false);
-    expect(editorConfig.isListNumberContinuityEnabled()).toEqual(false);
   });
 
   it('should persist scroll gutter for compact editor', () => {
@@ -76,8 +74,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isRestartNumberedListsEnabled()).toEqual(false);
-    expect(editorConfig.isListNumberContinuityEnabled()).toEqual(false);
   });
 
   it('should set the locale value and retain the rest with default values', () => {
@@ -88,8 +84,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isRestartNumberedListsEnabled()).toEqual(false);
-    expect(editorConfig.isListNumberContinuityEnabled()).toEqual(false);
   });
 
   it('should set the isQuickInsertEnabled value and retain the rest with default values', () => {
@@ -102,8 +96,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(true);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isRestartNumberedListsEnabled()).toEqual(false);
-    expect(editorConfig.isListNumberContinuityEnabled()).toEqual(false);
   });
 
   it('should set the isSelectionObserverEnabled value and retain the rest with default values', () => {
@@ -116,8 +108,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(true);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isRestartNumberedListsEnabled()).toEqual(false);
-    expect(editorConfig.isListNumberContinuityEnabled()).toEqual(false);
   });
 
   it('should set the allowCollabProvider value and retain the rest with default values', () => {
@@ -130,8 +120,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(true);
-    expect(editorConfig.isRestartNumberedListsEnabled()).toEqual(false);
-    expect(editorConfig.isListNumberContinuityEnabled()).toEqual(false);
   });
 
   it('should set the allowCustomPanel value', () => {
@@ -168,8 +156,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isRestartNumberedListsEnabled()).toEqual(true);
-    expect(editorConfig.isListNumberContinuityEnabled()).toEqual(false);
   });
 
   it('should set the listNumberContinuity value and retain the rest with default values', () => {
@@ -182,8 +168,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(editorConfig.isRestartNumberedListsEnabled()).toEqual(false);
-    expect(editorConfig.isListNumberContinuityEnabled()).toEqual(true);
   });
 
   it('should clone and update the current configuration with the new configuration', () => {
@@ -199,8 +183,6 @@ describe('Editor Configuration', () => {
     expect(newEditorConfig.isQuickInsertEnabled()).toEqual(true);
     expect(newEditorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(newEditorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(newEditorConfig.isRestartNumberedListsEnabled()).toEqual(false);
-    expect(newEditorConfig.isListNumberContinuityEnabled()).toEqual(false);
   });
 
   it('should clone and update the default configuration with the new configuration', () => {
@@ -215,8 +197,6 @@ describe('Editor Configuration', () => {
     expect(newEditorConfig.isQuickInsertEnabled()).toEqual(true);
     expect(newEditorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(newEditorConfig.isCollabProviderEnabled()).toEqual(false);
-    expect(newEditorConfig.isRestartNumberedListsEnabled()).toEqual(false);
-    expect(newEditorConfig.isListNumberContinuityEnabled()).toEqual(false);
   });
 
   it('should persist scroll gutter for compact editor', () => {

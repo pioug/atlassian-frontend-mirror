@@ -181,6 +181,52 @@ exports[`mention-1.ts: user can see mention inside orderedList 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "order": 1,
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "list ",
+                  "type": "text",
+                },
+                Object {
+                  "attrs": Object {
+                    "accessLevel": "",
+                    "id": "0",
+                    "text": "@Carolyn",
+                    "userType": null,
+                  },
+                  "type": "mention",
+                },
+                Object {
+                  "text": " ",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "orderedList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`mention-1.ts: user can see mention inside orderedList with restartNumberedLists 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "order": 1,
+      },
       "content": Array [
         Object {
           "content": Array [

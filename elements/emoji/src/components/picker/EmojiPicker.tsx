@@ -20,6 +20,7 @@ import { LoadingItem } from './EmojiPickerVirtualItems';
 import { emojiPicker } from './styles';
 import { UfoErrorBoundary } from '../common/UfoErrorBoundary';
 import { defaultEmojiPickerSize } from '../../util/constants';
+import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 
 const emojiPickerModuleLoader = () =>
   import(
@@ -99,10 +100,9 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
     const { emojiProvider, ...otherProps } = this.props;
     return (
       <UfoErrorBoundary experiences={[ufoExperiences['emoji-picker-opened']]}>
-        <EmojiPickerComponent
-          emojiProvider={loadedEmojiProvider}
-          {...otherProps}
-        />
+        <EmojiCommonProvider emojiProvider={loadedEmojiProvider}>
+          <EmojiPickerComponent {...otherProps} />
+        </EmojiCommonProvider>
       </UfoErrorBoundary>
     );
   }

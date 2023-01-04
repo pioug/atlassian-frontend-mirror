@@ -769,7 +769,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(p('A')),
           li(
             p('B'),
@@ -787,7 +787,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(p('A')),
           li(
             p('B'),
@@ -809,7 +809,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(
             p('A{<>}'),
             ul(
@@ -825,7 +825,7 @@ describe('outdent-list-items-selected', () => {
     doc(
       panel()(
         p('A{<>}'),
-        ol(
+        ol()(
           li(p('B1')),
           li(p('C')),
         ),
@@ -838,7 +838,7 @@ describe('outdent-list-items-selected', () => {
     // Scenario
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(
           p('{<>}A'),
           ul(
@@ -852,7 +852,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       p('{<>}A'),
-      ol(
+      ol()(
         li(p('B1')),
         li(p('C')),
       ),
@@ -865,7 +865,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(
             p('{<>}A'),
             ul(
@@ -881,7 +881,7 @@ describe('outdent-list-items-selected', () => {
     doc(
       panel()(
         p('{<>}A'),
-        ol(
+        ol()(
           li(p('B1')),
           li(p('C')),
         ),
@@ -894,7 +894,7 @@ describe('outdent-list-items-selected', () => {
     // Scenario
     // prettier-ignore
     doc(
-      ol(
+      ol()(
         li(
           p('B{<}AL{>}A'),
           ul(
@@ -908,7 +908,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       p('B{<}AL{>}A'),
-      ol(
+      ol()(
         li(p('B1')),
         li(p('C')),
       ),
@@ -921,7 +921,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(
             p('B{<}AL{>}A'),
             ul(
@@ -937,7 +937,7 @@ describe('outdent-list-items-selected', () => {
     doc(
       panel()(
         p('B{<}AL{>}A'),
-        ol(
+        ol()(
           li(p('B1')),
           li(p('C')),
         ),
@@ -951,7 +951,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(
             p('B {<node>}', mention({ id: '1' })(),'A'),
             ul(
@@ -967,7 +967,7 @@ describe('outdent-list-items-selected', () => {
     doc(
       panel()(
         p('B {<node>}', mention({ id: '1' })(),'A'),
-        ol(
+        ol()(
           li(p('B1')),
           li(p('C')),
         ),
@@ -981,7 +981,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(
             p('A'),
             ul(
@@ -1009,7 +1009,7 @@ describe('outdent-list-items-selected', () => {
     // prettier-ignore
     doc(
       panel()(
-        ol(
+        ol()(
           li(p('A')),
           li(p('{<}B')),
           li(
@@ -1063,7 +1063,7 @@ describe('outdent-list-items-selected', () => {
       const myState = createEditorState(previousDocument);
       const { tr } = myState;
 
-      outdentListItemsSelected(tr);
+      outdentListItemsSelected(tr, myState);
 
       expect(tr).toEqualDocumentAndSelection(expectedDocument(sampleSchema));
     });

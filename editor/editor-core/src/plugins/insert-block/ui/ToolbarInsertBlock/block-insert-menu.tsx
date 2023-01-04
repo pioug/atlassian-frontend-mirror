@@ -44,6 +44,7 @@ export const BlockInsertMenu: React.FC<BlockInsertMenuProps> = (props) => {
           onClick={props.onClick}
           spacing={props.spacing}
           label={props.label}
+          aria-keyshortcuts="/"
         />
       </div>
     );

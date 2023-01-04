@@ -22,7 +22,7 @@ ReactDOM.render(
 
 export default function Component() {
   return (
-    <>
+    <div>
       <AtlaskitThemeProvider mode="dark">
         <CodeBlock language="jsx" text={exampleCodeBlock} />
       </AtlaskitThemeProvider>
@@ -48,6 +48,6 @@ export default function Component() {
           />
         </Theme.Provider>
       </AtlaskitThemeProvider>
-    </>
+    </div>
   );
 }

@@ -2,7 +2,7 @@ import { pluginFactory } from '../../utils/plugin-state-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from 'prosemirror-state';
 import { Dispatch } from '../../event-dispatcher';
-import { EditorPlugin } from '../../types';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import reducer from './reducer';
 import { HistoryActionTypes } from './actions';
 import { getPmHistoryPluginState } from './utils';
@@ -62,7 +62,7 @@ const createPlugin = (dispatch: Dispatch) =>
     },
   });
 
-const historyPlugin = (): EditorPlugin => ({
+const historyPlugin: NextEditorPlugin<'history'> = () => ({
   name: 'history',
   pmPlugins() {
     return [

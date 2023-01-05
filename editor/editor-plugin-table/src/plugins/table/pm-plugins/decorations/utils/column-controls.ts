@@ -83,5 +83,5 @@ export const buildColumnControlsDecorations: DecorationTransformer = ({
     removeControlsHoverDecoration,
     maybeUpdateColumnSelectedDecoration,
     maybeUpdateColumnControlsDecoration,
-  ])({ decorationSet: DecorationSet.empty, tr });
+  ])({ decorationSet, tr });
 };

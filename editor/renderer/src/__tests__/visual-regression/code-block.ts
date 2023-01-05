@@ -69,9 +69,6 @@ describe('Snapshot Test: CodeBlock', () => {
     });
 
     describe('when scrolled into viewport', () => {
-      afterEach(async () => {
-        await snapshot(page, undefined);
-      });
       it('should eventually render a normal AkCodeBlock (with syntax highlighting)', async () => {
         await initRendererWithADF(page, {
           appearance: 'full-page',
@@ -82,8 +79,12 @@ describe('Snapshot Test: CodeBlock', () => {
           adf: adfCodeBlockOutsideViewport,
         });
         await page.waitForSelector(selectors.lightWeightCodeBlock);
+        await snapshot(page, undefined, selectors.lightWeightCodeBlock, {
+          captureBeyondViewport: true,
+        });
         await scrollToBottom(page);
         await page.waitForSelector(selectors.designSystemCodeBlock);
+        await snapshot(page, undefined);
       });
     });
   });

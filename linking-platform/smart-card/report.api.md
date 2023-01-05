@@ -100,6 +100,7 @@ export type AnalyticsAction =
   | 'renderWithStatus'
   | 'resolved'
   | 'unresolved'
+  | 'updated'
   | 'viewed';
 
 // @public (undocumented)
@@ -109,6 +110,7 @@ export type AnalyticsActionSubject =
   | 'consentModal'
   | 'embedPreviewModal'
   | 'hoverCard'
+  | 'link'
   | 'modal'
   | 'smartLink'
   | 'smartLinkAction';
@@ -1123,6 +1125,11 @@ export const useSmartLinkAnalytics: (
       extensionKey,
       location,
     }: TrackAppAccountConnectedProps) => void;
+    linkUpdated: (
+      props: CommonEventProps & {
+        [key: string]: any;
+      },
+    ) => void;
   };
   screen: {
     authPopupEvent: ({

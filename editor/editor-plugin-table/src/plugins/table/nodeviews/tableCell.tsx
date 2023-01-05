@@ -99,7 +99,9 @@ export default class TableCellNodeView implements NodeView {
 
   update(node: Node) {
     const didUpdate = this.updateNodeView(node);
-    this.node = node;
+    if (didUpdate) {
+      this.node = node;
+    }
     return didUpdate;
   }
 

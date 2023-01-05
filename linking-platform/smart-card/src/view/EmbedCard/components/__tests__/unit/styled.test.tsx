@@ -107,7 +107,7 @@ describe('IconWrapper', () => {
     const element = mount(<IconWrapper isPlaceholder={true} />);
     expect(element).toHaveStyleRule(
       'background-color',
-      'var(--ds-skeleton,#EBECF0)',
+      'var(--ds-skeleton, #EBECF0)',
     );
   });
 
@@ -115,7 +115,7 @@ describe('IconWrapper', () => {
     const element = mount(<IconWrapper isPlaceholder={false} />);
     expect(element).not.toHaveStyleRule(
       'background-color',
-      'var(--ds-skeleton,#EBECF0)',
+      'var(--ds-skeleton, #EBECF0)',
     );
   });
 });
@@ -125,7 +125,7 @@ describe('TextWrapper', () => {
     const element = mount(<TextWrapper isPlaceholder={true} />);
     expect(element).toHaveStyleRule(
       'background-color',
-      'var(--ds-skeleton,#EBECF0)',
+      'var(--ds-skeleton, #EBECF0)',
     );
   });
 
@@ -133,7 +133,7 @@ describe('TextWrapper', () => {
     const element = mount(<TextWrapper isPlaceholder={false} />);
     expect(element).not.toHaveStyleRule(
       'background-color',
-      'var(--ds-skeleton,#EBECF0)',
+      'var(--ds-skeleton, #EBECF0)',
     );
   });
 });

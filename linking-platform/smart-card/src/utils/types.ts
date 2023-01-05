@@ -19,6 +19,7 @@ export type AnalyticsAction =
   | 'resolved'
   | 'viewed'
   | 'unresolved'
+  | 'updated'
   | 'chunkLoadFailed';
 
 export type AnalyticsActionSubject =
@@ -29,7 +30,8 @@ export type AnalyticsActionSubject =
   | 'consentModal'
   | 'hoverCard'
   | 'modal'
-  | 'embedPreviewModal';
+  | 'embedPreviewModal'
+  | 'link';
 
 export type AnalyticsName = 'embedPreviewModal';
 

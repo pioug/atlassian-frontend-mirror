@@ -34,6 +34,7 @@ import { getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { addMetadataToExperience } from '../analytics';
 import { CardInnerAppearance } from '../../view/Card/types';
 import { SmartLinkStatus } from '../../constants';
+import { extractLozengeText } from '../../extractors/common/lozenge/extractLozengeText';
 
 export const useSmartCardActions = (
   id: string,
@@ -233,14 +234,54 @@ export const useSmartCardActions = (
 
   const reload = useCallback(() => {
     const definitionId = getDefinitionId(details);
-    if (definitionId) {
+
+    // Start: Smart link Actions experiment
+    if (
+      definitionId === 'jira-object-provider' &&
+      details?.data?.['@type']?.includes('atlassian:Task')
+    ) {
+      // EDM-5149: This is part of actionable element experiment where we
+      // reload jira issue link after embed view modal is closed.
+      // In our component, `reload` is only used in auth flow which
+      // jira link, being Atlassian product, would not fall into this category
+      // and would not be reloaded in normal smart link context.
+      // The code from resolve is duplicated here to avoid changing the response
+      // shape of resolve.
+      const previousJiraStatus = extractLozengeText(details);
+      connections.client
+        .fetchData(url, true)
+        .then((response) => {
+          handleResolvedLinkResponse(url, response, true, false);
+
+          const jiraStatus = extractLozengeText(response);
+          analytics.track.linkUpdated({
+            actionSubjectId: 'jiraIssueStatus',
+            previousJiraStatus,
+            jiraStatus,
+          });
+        })
+        .catch((error) =>
+          handleResolvedLinkError(url, error, undefined, false),
+        );
+    }
+    // End: Smart ink Actions experiment
+    else if (definitionId) {
       getByDefinitionId(definitionId, getState()).map((url) =>
         resolve(url, true),
       );
     } else {
       resolve(url, true);
     }
-  }, [url, details, getState, resolve]);
+  }, [
+    details,
+    connections.client,
+    url,
+    handleResolvedLinkResponse,
+    analytics.track,
+    handleResolvedLinkError,
+    getState,
+    resolve,
+  ]);
 
   const loadMetadata = useCallback(() => {
     //metadataStatus will be undefined for SSR links only

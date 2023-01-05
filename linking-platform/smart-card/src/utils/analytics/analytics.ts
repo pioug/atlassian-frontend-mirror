@@ -8,6 +8,7 @@ import { AnalyticsPayload } from '../types';
 import { CardInnerAppearance } from '../../view/Card/types';
 import { getMeasure } from '../performance';
 import {
+  CommonEventProps,
   ConnectFailedEventProps,
   ConnectSucceededEventProps,
   InvokeFailedEventProps,
@@ -254,6 +255,20 @@ export const trackAppAccountAuthStarted = ({
     ...context,
     extensionKey,
     location,
+  },
+});
+
+export const trackLinkUpdated = ({
+  actionSubjectId,
+  ...attributes
+}: CommonEventProps & { [key: string]: any }): AnalyticsPayload => ({
+  action: 'updated',
+  actionSubject: 'link',
+  actionSubjectId,
+  eventType: 'track',
+  attributes: {
+    ...context,
+    ...attributes,
   },
 });
 

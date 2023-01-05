@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 105.0.1
+
+### Patch Changes
+
+- [`d61e8688afd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d61e8688afd) - DSP-8078: Fixes bug where windowed codeblock rendered incorrectly
+
 ## 105.0.0
 
 ### Major Changes

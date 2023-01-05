@@ -62,6 +62,7 @@ import {
   UiRenderSuccessEventProps,
 } from '../../utils/analytics/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { trackLinkUpdated } from '../../utils/analytics/analytics';
 
 const applyCommonAttributes = (
   event: AnalyticsPayload,
@@ -843,6 +844,17 @@ export const useSmartLinkAnalytics = (
               extensionKey,
               location,
             }),
+            commonAttributes,
+          ),
+        ),
+
+      /**
+       * This fires a tracking event before and after link updated.
+       */
+      linkUpdated: (props: CommonEventProps & { [key: string]: any }) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            trackLinkUpdated({ ...commonAttributes, ...props }),
             commonAttributes,
           ),
         ),

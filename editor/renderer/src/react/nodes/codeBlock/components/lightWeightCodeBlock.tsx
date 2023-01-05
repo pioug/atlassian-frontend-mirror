@@ -68,14 +68,20 @@ const LightWeightCodeBlock = forwardRef(
       >
         <div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}>
           <div
-            className={CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}
+            className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
           >
-            {textRows.map((_, index) => (
-              <span key={index} />
-            ))}
-          </div>
-          <div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}>
-            <code>{renderBidiWarnings(text)}</code>
+            <div
+              className={
+                CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER
+              }
+            >
+              {textRows.map((_, index) => (
+                <span key={index} />
+              ))}
+            </div>
+            <div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}>
+              <code>{renderBidiWarnings(text)}</code>
+            </div>
           </div>
         </div>
       </div>

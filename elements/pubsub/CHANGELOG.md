@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.1.0
+
+### Minor Changes
+
+- [`6591533faf6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6591533faf6) - VULN-1028179 Force patched version of vm2 to address CVE-2022-25893
+
 ## 6.0.9
 
 ### Patch Changes

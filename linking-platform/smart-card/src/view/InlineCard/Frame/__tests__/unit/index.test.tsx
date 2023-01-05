@@ -1,5 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
+
 import { Frame } from '../..';
 import { WrapperSpan, WrapperAnchor } from '../../styled';
 
@@ -34,32 +36,29 @@ describe('Frame', () => {
 
   it('should call onClick when the card is clicked', () => {
     const onClick = jest.fn();
-    const element = mount(<Frame onClick={onClick} />);
-    element.simulate('click', {
-      preventDefault: jest.fn(),
-      stopPropagation: jest.fn(),
-    });
+    render(<Frame onClick={onClick} />);
+    fireEvent.click(screen.getByRole('button'));
     expect(onClick).toHaveBeenCalled();
   });
 
   it('should call onClick when the space key is pressed', () => {
     const onClick = jest.fn();
-    const element = mount(<Frame onClick={onClick} />);
-    element.simulate('keypress', {
+    render(<Frame onClick={onClick} />);
+
+    screen.getByRole('button').focus();
+
+    fireEvent.keyPress(screen.getByRole('button'), {
       key: ' ',
-      preventDefault: jest.fn(),
-      stopPropagation: jest.fn(),
+      charCode: 32, // note: hacky — for unknown reasons the space event listener is not triggered without charCode
     });
     expect(onClick).toHaveBeenCalled();
   });
 
   it('should call onClick when the enter key is pressed', () => {
     const onClick = jest.fn();
-    const element = mount(<Frame onClick={onClick} />);
-    element.simulate('keypress', {
-      key: 'Enter',
-      preventDefault: jest.fn(),
-      stopPropagation: jest.fn(),
+    render(<Frame onClick={onClick} />);
+    fireEvent.keyPress(screen.getByRole('button'), {
+      keyCode: '13',
     });
     expect(onClick).toHaveBeenCalled();
   });

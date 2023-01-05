@@ -182,17 +182,29 @@ export const createColumnControlsDecoration = (
   let index = 0;
   return cells.map((cell) => {
     const colspan = (cell.node.attrs as CellAttributes).colspan || 1;
-    const element = document.createElement('div');
-    element.classList.add(ClassName.COLUMN_CONTROLS_DECORATIONS);
-    element.dataset.startIndex = `${index}`;
-    index += colspan;
-    element.dataset.endIndex = `${index}`;
+    // It's important these values are scoped locally as the widget callback could be executed anytime in the future
+    // and we want to avoid value leak
+    const startIndex = index;
+    const endIndex = startIndex + colspan;
 
-    return Decoration.widget(cell.pos + 1, () => element, {
-      key: `${TableDecorations.COLUMN_CONTROLS_DECORATIONS}_${index}`,
-      // this decoration should be the first one, even before gap cursor.
-      side: -100,
-    });
+    // The next cell start index will commence from the current cell end index.
+    index = endIndex;
+
+    return Decoration.widget(
+      cell.pos + 1,
+      () => {
+        const element = document.createElement('div');
+        element.classList.add(ClassName.COLUMN_CONTROLS_DECORATIONS);
+        element.dataset.startIndex = `${startIndex}`;
+        element.dataset.endIndex = `${endIndex}`;
+        return element;
+      },
+      {
+        key: `${TableDecorations.COLUMN_CONTROLS_DECORATIONS}_${endIndex}`,
+        // this decoration should be the first one, even before gap cursor.
+        side: -100,
+      },
+    );
   });
 };
 
@@ -312,16 +324,20 @@ export const createResizeHandleDecoration = (
     cellPos: number,
     cellNode: PmNode,
   ): Decoration => {
-    const element = document.createElement('div');
-    element.classList.add(ClassName.RESIZE_HANDLE_DECORATION);
-
-    element.dataset.startIndex = `${cellColumnPositioning.left}`;
-    element.dataset.endIndex = `${cellColumnPositioning.right}`;
     const position = cellPos + cellNode.nodeSize - 1;
-
-    return Decoration.widget(position, element, {
-      key: `${TableDecorations.COLUMN_RESIZING_HANDLE}_${rowIndex}_${columnIndex}`,
-    });
+    return Decoration.widget(
+      position,
+      () => {
+        const element = document.createElement('div');
+        element.classList.add(ClassName.RESIZE_HANDLE_DECORATION);
+        element.dataset.startIndex = `${cellColumnPositioning.left}`;
+        element.dataset.endIndex = `${cellColumnPositioning.right}`;
+        return element;
+      },
+      {
+        key: `${TableDecorations.COLUMN_RESIZING_HANDLE}_${rowIndex}_${columnIndex}`,
+      },
+    );
   };
 
   const createLastCellElementDecoration = (

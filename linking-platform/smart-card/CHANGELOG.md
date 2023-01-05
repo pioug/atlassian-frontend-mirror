@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 23.11.1
+
+### Patch Changes
+
+- [`44f83adace3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44f83adace3) - Add documentation for the standalone hover cards on atlaskit.
+
+## 23.11.0
+
+### Minor Changes
+
+- [`32aa136af5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32aa136af5c) - Hover Preview: Add actionable element experiment reload analytics
+
+## 23.10.3
+
+### Patch Changes
+
+- [`bca078a37af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bca078a37af) - Bump to @emotion v11
+
 ## 23.10.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 1.0.1
+
+### Patch Changes
+
+- [`04f178ea323`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04f178ea323) - [ux] ED-15823 - Table cells on the second column would change their color upon unchecking "Header Column" table option when the selection cursor was placed in the 3rd column. This was caused by a view update not identifying the cells to update correctly. This was causing table data cells to be changed to table header cells.
+
 ## 1.0.0
 
 ### Major Changes

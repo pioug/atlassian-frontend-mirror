@@ -60,6 +60,7 @@ export const createPlugin = () => {
         }
 
         if (tr.docChanged || tr.selectionSet) {
+          pluginState = pluginState.map(tr.mapping, tr.doc);
           return handleDocOrSelectionChanged(tr, pluginState, oldState);
         }
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "23.10.2",
+  "version": "23.11.1",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "@atlaskit/ufo": "^0.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^10.0.7",
+    "@emotion/styled": "^11.0.0",
     "@formatjs/intl-utils": "^3.8.4",
     "facepaint": "^1.2.1",
     "json-ld-types": "3.2.0",

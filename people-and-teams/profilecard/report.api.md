@@ -480,6 +480,8 @@ export interface ProfileClientOptions {
   teamCentralBaseUrl?: string;
   teamCentralUrl?: string;
   // (undocumented)
+  teamsUseV2?: boolean;
+  // (undocumented)
   url: string;
 }
 

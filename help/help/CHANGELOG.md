@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.23
+
+### Patch Changes
+
+- [`4ad56486a8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ad56486a8a) - [ux] Added title attribute to search input field
+
 ## 7.1.22
 
 ### Patch Changes

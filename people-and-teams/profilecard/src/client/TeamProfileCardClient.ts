@@ -89,7 +89,8 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
         analytics(teamRequestAnalytics('triggered'));
       }
 
-      const shouldUseGateway = !!this.options.gatewayGraphqlUrl;
+      const shouldUseGateway =
+        !!this.options.gatewayGraphqlUrl && !this.options.teamsUseV2;
 
       const promise = shouldUseGateway
         ? this.makeRequestViaGateway(teamId, orgId)

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "5.4.3",
+  "version": "5.4.4",
   "description": "Wrapper for react-popper with common config and some helpers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@atlaskit/in-product-testing": "^0.1.5",
-    "@atlaskit/platform-feature-flags": "^0.0.6",
+    "@atlaskit/platform-feature-flags": "^0.0.7",
     "@babel/runtime": "^7.0.0",
     "@popperjs/core": "^2.9.1",
     "react-popper": "^2.2.3"

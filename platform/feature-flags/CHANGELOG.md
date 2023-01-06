@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.0.7
+
+### Patch Changes
+
+- [`f81aa3efb8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f81aa3efb8b) - Fix overriding platform FFs by Storybook and test's runners
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 18.1.1
+
+### Patch Changes
+
+- [`60b1c9b0f05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b1c9b0f05) - Upgrade profilecard to the latest major version of emotion
+
+## 18.1.0
+
+### Minor Changes
+
+- [`227230d34f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/227230d34f2) - Allow option to force team profilecard to use pf-directory
+
 ## 18.0.2
 
 ### Patch Changes

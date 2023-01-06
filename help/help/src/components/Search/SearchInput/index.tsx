@@ -97,6 +97,7 @@ export const SearchInput: React.FC<WrappedComponentProps> = ({
   return (
     <SearchInputContainer>
       <Textfield
+        title="Help articles search input"
         autoComplete="off"
         ref={inputRef}
         name="help-search-input"

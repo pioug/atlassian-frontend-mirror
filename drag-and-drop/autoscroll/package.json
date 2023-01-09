@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop-autoscroll",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Beautiful auto scrolling addon for @atlaskit/drag-and-drop",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

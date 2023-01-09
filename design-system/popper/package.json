@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "5.4.4",
+  "version": "5.4.5",
   "description": "Wrapper for react-popper with common config and some helpers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -89,5 +89,10 @@
     }
   },
   "homepage": "https://atlaskit.atlassian.com/packages/design-system/popper",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "uip.popper.flex-team": {
+      "type": "boolean"
+    }
+  }
 }

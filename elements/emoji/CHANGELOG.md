@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.0.1
+
+### Patch Changes
+
+- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+
 ## 67.0.0
 
 ### Major Changes

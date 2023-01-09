@@ -15,16 +15,7 @@ import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-const tokenPanelColor = {
-  info: 'color.background.information',
-  note: 'color.background.discovery',
-  tip: 'color.background.success',
-  success: 'color.background.success',
-  warning: 'color.background.warning',
-  error: 'color.background.danger',
-} as const;
-
-const lightPanelColor = {
+const lightPanelColors = {
   info: colors.B50,
   note: colors.P50,
   tip: colors.G50,
@@ -126,6 +117,15 @@ const darkIconColor = {
   success: token('color.icon.success', colors.G200),
   warning: token('color.icon.warning', colors.Y100),
   error: token('color.icon.danger', colors.R200),
+};
+
+const tokenDarkPanelColors = {
+  info: token('color.background.information', darkPanelColors['info']),
+  note: token('color.background.discovery', darkPanelColors['note']),
+  tip: token('color.background.success', darkPanelColors['tip']),
+  success: token('color.background.success', darkPanelColors['success']),
+  warning: token('color.background.warning', darkPanelColors['warning']),
+  error: token('color.background.danger', darkPanelColors['error']),
 };
 
 // New custom icons are a little smaller than predefined icons.
@@ -230,7 +230,7 @@ export const getPanelTypeBackgroundNoTokens = (
   panelType: Exclude<PanelType, PanelType.CUSTOM>,
   props: ThemeProps = {},
 ): string => {
-  const light = lightPanelColor[panelType];
+  const light = lightPanelColors[panelType];
   const dark = darkPanelColors[panelType];
   const background = themed({ light, dark })(props);
   return background || 'none';
@@ -240,10 +240,9 @@ export const getPanelTypeBackground = (
   panelType: Exclude<PanelType, PanelType.CUSTOM>,
   props: ThemeProps = {},
 ): string => {
-  // TODO: https://product-fabric.atlassian.net/browse/DSP-4066
-  /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
-  const light = hexToEditorBackgroundPaletteColor(lightPanelColor[panelType]);
-  const dark = token(tokenPanelColor[panelType], darkPanelColors[panelType]);
+  const light = hexToEditorBackgroundPaletteColor(lightPanelColors[panelType]);
+  // hexToEditorBackgroundPaletteColor has a light mode as a fallback color - for legacy dark mode we define the tokens locally
+  const dark = tokenDarkPanelColors[panelType];
   const background = themed({ light, dark })(props);
   return background || 'none';
 };

@@ -1,81 +1,59 @@
-import React, { Component } from 'react';
+/* eslint-disable @repo/internal/react/use-primitives */
+/** @jsx jsx */
+import { FC, useState } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 
 import { ProgressIndicator } from '../../src';
 
-const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+const containerStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
 
-interface ExampleProps {
-  selectedIndex: number;
-  values: Array<string>;
-}
+const Example: FC<{}> = () => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [values] = useState(['first', 'second', 'third']);
 
-interface State {
-  selectedIndex: number;
-}
-
-// eslint-disable-next-line @repo/internal/react/no-class-components
-export default class Example extends Component<ExampleProps, State> {
-  static defaultProps = {
-    selectedIndex: 0,
-    values: ['first', 'second', 'third'],
+  const handlePrev = () => {
+    setSelectedIndex((prevState) => prevState - 1);
   };
 
-  state = {
-    selectedIndex: this.props.selectedIndex,
+  const handleNext = () => {
+    setSelectedIndex((prevState) => prevState + 1);
   };
 
-  /* eslint-disable */
-  /* prettier-ignore */
-  handleSelect = ({
+  const handleSelect = ({
     event,
     index: selectedIndex,
   }: {
     event: React.MouseEvent<HTMLButtonElement>;
     index: number;
   }): void => {
-    this.setState({ selectedIndex });
+    setSelectedIndex(selectedIndex);
   };
 
-  handlePrev = () => {
-    this.setState((prevState) => ({
-      selectedIndex: prevState.selectedIndex - 1,
-    }));
-  };
+  return (
+    <div css={containerStyles}>
+      <Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
+        Prev
+      </Button>
+      <ProgressIndicator
+        onSelect={handleSelect}
+        selectedIndex={selectedIndex}
+        values={values}
+      />
+      <Button
+        isDisabled={selectedIndex === values.length - 1}
+        onClick={handleNext}
+      >
+        Next
+      </Button>
+    </div>
+  );
+};
 
-  handleNext = () => {
-    this.setState((prevState) => ({
-      selectedIndex: prevState.selectedIndex + 1,
-    }));
-  };
-
-  render() {
-    const { values } = this.props;
-    const { selectedIndex } = this.state;
-    return (
-      <Footer>
-        <Button isDisabled={selectedIndex === 0} onClick={this.handlePrev}>
-          Prev
-        </Button>
-        <ProgressIndicator
-          selectedIndex={selectedIndex}
-          values={values}
-          onSelect={this.handleSelect}
-        />
-        <Button
-          isDisabled={selectedIndex === values.length - 1}
-          onClick={this.handleNext}
-        >
-          Next
-        </Button>
-      </Footer>
-    );
-  }
-}
+export default Example;

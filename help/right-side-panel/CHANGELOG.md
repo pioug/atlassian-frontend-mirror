@@ -1,5 +1,11 @@
 # @atlaskit/right-side-panel
 
+## 1.1.12
+
+### Patch Changes
+
+- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+
 ## 1.1.11
 
 ### Patch Changes

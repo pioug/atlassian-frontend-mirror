@@ -175,8 +175,8 @@ this is a new line text, not in the table`,
       ['should parse quote', `|{quote}foo{quote}|`],
       ['should parse anchor', `|{anchor}foo{anchor}|`],
       [
-        'should parse table with multiple line breaks',
-        `|.\n\n{adf}{"type":"nestedExpand"}{adf}`,
+        'ADFEXP-227 Should wrap nestedExpand inside a table',
+        `|test table|test table\r\n\r\n{adf:display=block}{"type":"nestedExpand","attrs":{"title":"title"}}{adf}\r\nsample text`,
       ],
     ];
 

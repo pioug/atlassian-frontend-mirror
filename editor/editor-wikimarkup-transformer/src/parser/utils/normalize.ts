@@ -3,6 +3,7 @@ import {
   createParagraphNodeFromInlineNodes,
   createEmptyParagraphNode,
 } from '../nodes/paragraph';
+import { TableBuilder } from '../builder/table-builder';
 
 export function normalizePMNodes(nodes: PMNode[], schema: Schema): PMNode[] {
   return [normalizeMediaGroups, normalizeInlineNodes].reduce(
@@ -28,7 +29,12 @@ export function normalizeInlineNodes(
       );
     }
     inlineNodeBuffer = []; // clear buffer
-    output.push(node);
+    if (node?.type?.name === 'nestedExpand') {
+      //ADFEXP-227 handle nested expand at root level
+      output.push(wrapNestedExpandInTable(node, schema));
+    } else {
+      output.push(node);
+    }
   }
   if (inlineNodeBuffer.length > 0) {
     output.push(
@@ -134,4 +140,15 @@ function isEmptyTextNode(n: PMNode): boolean {
 export function isNextLineEmpty(input: string) {
   // Line with only spaces is considered an empty line
   return input.trim().length === 0;
+}
+
+function wrapNestedExpandInTable(node: PMNode, schema: Schema) {
+  const builder = new TableBuilder(schema);
+  const cell = {
+    style: '|',
+    content: [node],
+  };
+  builder.add([cell]);
+  const tableNode = builder.buildPMNode();
+  return tableNode;
 }

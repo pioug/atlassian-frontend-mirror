@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-registration */
 
 beforeEach(() => {
   jest.resetModules();

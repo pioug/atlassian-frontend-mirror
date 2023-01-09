@@ -1,76 +1,57 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import React, { Component } from 'react';
+/* eslint-disable @repo/internal/react/use-primitives */
+/** @jsx jsx */
+import { FC, useState } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import { ProgressIndicator } from '../../src';
 
-const Footer = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: 1em;
-`;
+const containerStyles = css({
+  display: 'flex',
+  padding: token('space.200', '16px'),
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  backgroundColor: token('color.text', '#1b2638'),
+});
 
-interface ExampleProps {
-  selectedIndex: number;
-  values: Array<string>;
-}
+const InvertedExample: FC<{}> = () => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [values] = useState(['first', 'second', 'third']);
 
-interface State {
-  selectedIndex: number;
-}
-
-// eslint-disable-next-line @repo/internal/react/no-class-components
-export default class Example extends Component<ExampleProps, State> {
-  static defaultProps = {
-    selectedIndex: 0,
-    values: ['first', 'second', 'third'],
+  const handlePrev = () => {
+    setSelectedIndex((prevState) => prevState - 1);
   };
 
-  state = {
-    selectedIndex: this.props.selectedIndex,
+  const handleNext = () => {
+    setSelectedIndex((prevState) => prevState + 1);
   };
 
-  handlePrev = () => {
-    this.setState((prevState) => ({
-      selectedIndex: prevState.selectedIndex - 1,
-    }));
-  };
+  return (
+    <div css={containerStyles}>
+      <Button
+        isDisabled={selectedIndex === 0}
+        onClick={handlePrev}
+        appearance="primary"
+      >
+        Prev
+      </Button>
+      <ProgressIndicator
+        appearance="inverted"
+        selectedIndex={selectedIndex}
+        values={values}
+      />
+      <Button
+        isDisabled={selectedIndex === values.length - 1}
+        onClick={handleNext}
+        appearance="primary"
+      >
+        Next
+      </Button>
+    </div>
+  );
+};
 
-  handleNext = () => {
-    this.setState((prevState) => ({
-      selectedIndex: prevState.selectedIndex + 1,
-    }));
-  };
-
-  render() {
-    const { values } = this.props;
-    const { selectedIndex } = this.state;
-    return (
-      <Footer style={{ backgroundColor: '#1b2638' }}>
-        <Button
-          isDisabled={selectedIndex === 0}
-          onClick={this.handlePrev}
-          appearance={'primary'}
-        >
-          Prev
-        </Button>
-        <ProgressIndicator
-          selectedIndex={selectedIndex}
-          values={values}
-          appearance={'inverted'}
-        />
-        <Button
-          isDisabled={selectedIndex === values.length - 1}
-          onClick={this.handleNext}
-          appearance={'primary'}
-        >
-          Next
-        </Button>
-      </Footer>
-    );
-  }
-}
+export default InvertedExample;

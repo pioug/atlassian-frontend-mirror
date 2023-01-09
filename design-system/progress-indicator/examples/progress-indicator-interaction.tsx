@@ -1,5 +1,4 @@
-/* eslint-disable @repo/internal/react/no-class-components */
-import React, { Component } from 'react';
+import React, { FC, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Box from '@atlaskit/ds-explorations/box';
@@ -19,72 +18,51 @@ const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
 
 interface ExampleProps {
   selectedIndex: number;
-  values: Array<string>;
+  values: string[];
 }
 
-interface State {
-  selectedIndex: number;
-}
+const Example: FC<ExampleProps> = ({ values = ['one', 'two', 'three'] }) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-class Example extends Component<ExampleProps, State> {
-  static defaultProps = {
-    selectedIndex: 0,
-    values: ['first', 'second', 'third'],
-  };
-
-  state = {
-    selectedIndex: this.props.selectedIndex,
-  };
-
-  /* eslint-disable */
-  /* prettier-ignore */
-  handleSelect = ({
+  const handleSelect = ({
     event,
     index: selectedIndex,
   }: {
     event: React.MouseEvent<HTMLButtonElement>;
     index: number;
   }): void => {
-    this.setState({ selectedIndex });
+    setSelectedIndex(selectedIndex);
   };
 
-  handlePrev = () => {
-    this.setState((prevState) => ({
-      selectedIndex: prevState.selectedIndex - 1,
-    }));
+  const handlePrev = () => {
+    setSelectedIndex((prevState) => prevState - 1);
   };
 
-  handleNext = () => {
-    this.setState((prevState) => ({
-      selectedIndex: prevState.selectedIndex + 1,
-    }));
+  const handleNext = () => {
+    setSelectedIndex((prevState) => prevState + 1);
   };
 
-  render() {
-    const { values } = this.props;
-    const { selectedIndex } = this.state;
-    return (
-      <Box paddingInline="scale.200" paddingBlock="scale.200" display="block">
-        <SpreadInlineLayout>
-          <Button isDisabled={selectedIndex === 0} onClick={this.handlePrev}>
-            Prev
-          </Button>
-          <ProgressIndicator
-            onSelect={this.handleSelect}
-            selectedIndex={selectedIndex}
-            values={values}
-            size="default"
-          />
-          <Button
-            isDisabled={selectedIndex === values.length - 1}
-            onClick={this.handleNext}
-          >
-            Next
-          </Button>
-        </SpreadInlineLayout>
-      </Box>
-    );
-  }
-}
+  return (
+    <Box paddingInline="scale.200" paddingBlock="scale.200" display="block">
+      <SpreadInlineLayout>
+        <Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
+          Prev
+        </Button>
+        <ProgressIndicator
+          onSelect={handleSelect}
+          selectedIndex={selectedIndex}
+          values={values}
+          size="default"
+        />
+        <Button
+          isDisabled={selectedIndex === values.length - 1}
+          onClick={handleNext}
+        >
+          Next
+        </Button>
+      </SpreadInlineLayout>
+    </Box>
+  );
+};
 
 export default Example;

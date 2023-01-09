@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.12
+
+### Patch Changes
+
+- [`e5c1d82be63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5c1d82be63) - ADFEXP-227 Wrap nestedExpand inside table
+
 ## 11.1.11
 
 ### Patch Changes

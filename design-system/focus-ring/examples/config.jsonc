@@ -4,6 +4,9 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
+  "testExamples": [
+    "00-basic.tsx"
+  ],
   "exampleDependencies": [
     "@atlaskit/button",
     "@atlaskit/progress-indicator",

@@ -1,5 +1,4 @@
-/* eslint-disable @repo/internal/react/no-class-components */
-import React, { Component } from 'react';
+import React, { FC, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Box from '@atlaskit/ds-explorations/box';
@@ -20,59 +19,42 @@ const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
 
 interface ExampleProps {
   selectedIndex: number;
-  values: Array<DotsAppearance>;
+  values: DotsAppearance[];
 }
 
-interface State {
-  selectedIndex: number;
-}
+const Example: FC<ExampleProps> = ({
+  values = ['default', 'inverted', 'primary', 'help'],
+}) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-class Example extends Component<ExampleProps, State> {
-  static defaultProps = {
-    selectedIndex: 0,
-    values: ['default', 'inverted', 'primary', 'help'],
+  const handlePrev = () => {
+    setSelectedIndex((prevState) => prevState - 1);
   };
 
-  state = {
-    selectedIndex: this.props.selectedIndex,
+  const handleNext = () => {
+    setSelectedIndex((prevState) => prevState + 1);
   };
 
-  handlePrev = () => {
-    this.setState((prevState) => ({
-      selectedIndex: prevState.selectedIndex - 1,
-    }));
-  };
-
-  handleNext = () => {
-    this.setState((prevState) => ({
-      selectedIndex: prevState.selectedIndex + 1,
-    }));
-  };
-
-  render() {
-    const { values } = this.props;
-    const { selectedIndex } = this.state;
-    return (
-      <Box paddingInline="scale.200" paddingBlock="scale.200" display="block">
-        <SpreadInlineLayout>
-          <Button isDisabled={selectedIndex === 0} onClick={this.handlePrev}>
-            Prev
-          </Button>
-          <ProgressIndicator
-            selectedIndex={selectedIndex}
-            values={values}
-            appearance={values[selectedIndex]}
-          />
-          <Button
-            isDisabled={selectedIndex === values.length - 1}
-            onClick={this.handleNext}
-          >
-            Next
-          </Button>
-        </SpreadInlineLayout>
-      </Box>
-    );
-  }
-}
+  return (
+    <Box paddingInline="scale.200" paddingBlock="scale.200" display="block">
+      <SpreadInlineLayout>
+        <Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
+          Prev
+        </Button>
+        <ProgressIndicator
+          selectedIndex={selectedIndex}
+          values={values}
+          appearance={values[selectedIndex]}
+        />
+        <Button
+          isDisabled={selectedIndex === values.length - 1}
+          onClick={handleNext}
+        >
+          Next
+        </Button>
+      </SpreadInlineLayout>
+    </Box>
+  );
+};
 
 export default Example;

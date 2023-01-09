@@ -1,5 +1,11 @@
 # @atlaskit/rating
 
+## 0.2.61
+
+### Patch Changes
+
+- [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+
 ## 0.2.60
 
 ### Patch Changes

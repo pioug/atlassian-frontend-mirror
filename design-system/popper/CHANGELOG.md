@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.4.5
+
+### Patch Changes
+
+- [`85dc0230439`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85dc0230439) - Add eslint rule to allow for platform feature flag usage
+
 ## 5.4.4
 
 ### Patch Changes

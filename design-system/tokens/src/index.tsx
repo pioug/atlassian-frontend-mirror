@@ -1,4 +1,5 @@
 export { default as token } from './get-token';
+export { default as getTokenValue } from './get-token-value';
 export { default as setGlobalTheme } from './set-global-theme';
 export type { CSSToken } from './artifacts/token-names';
 export type { Themes, ThemeIds } from './theme-config';

@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 0.13.2
+
+### Patch Changes
+
+- [`716af1d3387`](https://bitbucket.org/atlassian/atlassian-frontend/commits/716af1d3387) - Bump @atlaskit/heading from 1.0.0 to 1.0.1 to avoid resolving to poison dependency version
+
+## 0.13.1
+
+### Patch Changes
+
+- [`a5eed85fe2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5eed85fe2e) - Added a new `getTokenValue()` API - it accepts a dot-separated token name and a fallback value, and returns the current computed CSS value for the resulting CSS Custom Property. This should be used when the CSS cascade isn't available, eg. `<canvas>` elements, JS charting libraries, etc.
+
 ## 0.13.0
 
 ### Minor Changes

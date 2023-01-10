@@ -79,6 +79,12 @@ describe('HoverCard', () => {
 
     fireEvent.mouseEnter(element);
 
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: () => {},
+      },
+    });
+
     return { findByTestId, queryByTestId, element };
   };
 
@@ -875,6 +881,20 @@ describe('HoverCard', () => {
 
         expect(queryByTestId('state-metadata-element-lozenge')).not.toBeNull();
         expect(queryByTestId('state-metadata-element-action')).toBeNull();
+      });
+
+      it('successfully copies the url to clipboard', async () => {
+        const { findByTestId } = await setup(mockActionableElementResponse);
+
+        jest.runAllTimers();
+
+        jest.spyOn(navigator.clipboard, 'writeText');
+
+        const copyButtonElem = await findByTestId('hover-card-copy-button');
+        fireEvent.click(copyButtonElem);
+        expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
+          'https://some.url',
+        );
       });
     });
 

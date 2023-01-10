@@ -13,7 +13,7 @@ export const isDecendantOfGlobalToken = (node: EslintNode): boolean => {
   if (
     isNodeOfType(node, 'CallExpression') &&
     isNodeOfType(node.callee, 'Identifier') &&
-    node.callee.name === 'token'
+    (node.callee.name === 'token' || node.callee.name === 'getTokenValue')
   ) {
     return true;
   }

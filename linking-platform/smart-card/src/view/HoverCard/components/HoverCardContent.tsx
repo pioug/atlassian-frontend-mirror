@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { extractType } from '@atlaskit/linking-common/extractors';
 import { CardState } from '../../../state/types';
 import { JsonLd } from 'json-ld-types';
@@ -57,6 +58,16 @@ export const getOpenAction = (
     testId: 'hover-card-open-button',
   } as CustomActionItem);
 
+export const getCopyAction = (url: string): ActionItem =>
+  ({
+    name: ActionName.CustomAction,
+    icon: <CopyIcon label="copy url" size="medium" />,
+    iconPosition: 'before',
+    onClick: async () => await navigator.clipboard.writeText(url),
+    tooltipMessage: <FormattedMessage {...messages.copy_url_to_clipboard} />,
+    testId: 'hover-card-copy-button',
+  } as CustomActionItem);
+
 const HoverCardContent: React.FC<HoverCardContentProps> = ({
   id = '',
   analytics,
@@ -94,7 +105,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   );
 
   const titleActions = useMemo(
-    () => [getOpenAction(url, analytics, onActionClick)],
+    () => [getCopyAction(url), getOpenAction(url, analytics, onActionClick)],
     [url, analytics, onActionClick],
   );
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-common",
-  "version": "1.16.3",
+  "version": "1.17.0",
   "description": "Contains utils and interfaces shared across different LP components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,6 +28,7 @@
     "@atlaskit/tokens": "^0.13.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "3.2.0",
+    "linkify-it": "^2.0.3",
     "redux": "^3.7.2"
   },
   "peerDependencies": {
@@ -51,6 +52,7 @@
   "af:exports": {
     "./types": "./src/types.ts",
     "./extractors": "./src/extractors/index.ts",
+    "./url": "./src/url.ts",
     ".": "./src/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

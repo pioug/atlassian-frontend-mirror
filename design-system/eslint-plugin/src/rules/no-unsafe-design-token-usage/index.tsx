@@ -123,112 +123,123 @@ token('color.background.blanket');
         }
       },
 
-      'CallExpression[callee.name="token"]': (node: Rule.Node) => {
-        if (!isNodeOfType(node, 'CallExpression')) {
-          return;
-        }
-
-        if (
-          node.arguments.length < 2 &&
-          config.shouldEnforceFallbacks === true
-        ) {
-          context.report({
-            messageId: 'tokenFallbackEnforced',
-            node,
-          });
-        } else if (
-          node.arguments.length > 1 &&
-          config.shouldEnforceFallbacks === false
-        ) {
-          if (node.arguments[0].type === 'Literal') {
-            const { value } = node.arguments[0];
-            context.report({
-              messageId: 'tokenFallbackRestricted',
-              node: node.arguments[1],
-              fix: (fixer: Rule.RuleFixer) =>
-                fixer.replaceText(node, `token('${value}')`),
-            });
-          } else {
-            context.report({
-              messageId: 'tokenFallbackRestricted',
-              node: node.arguments[1],
-            });
+      'CallExpression:matches([callee.name="token"], [callee.name="getTokenValue"])':
+        (node: Rule.Node) => {
+          if (!isNodeOfType(node, 'CallExpression')) {
+            return;
           }
-        }
 
-        if (node.arguments[0] && node.arguments[0].type !== 'Literal') {
-          context.report({ messageId: 'staticToken', node });
-          return;
-        }
+          if (
+            node.arguments.length < 2 &&
+            config.shouldEnforceFallbacks === true
+          ) {
+            context.report({
+              messageId: 'tokenFallbackEnforced',
+              node,
+            });
+          } else if (
+            node.arguments.length > 1 &&
+            config.shouldEnforceFallbacks === false
+          ) {
+            if (node.arguments[0].type === 'Literal') {
+              const { value } = node.arguments[0];
+              context.report({
+                messageId: 'tokenFallbackRestricted',
+                node: node.arguments[1],
+                fix: (fixer: Rule.RuleFixer) =>
+                  fixer.replaceText(
+                    node,
+                    `${
+                      isNodeOfType(node.callee, 'Identifier')
+                        ? node.callee.name
+                        : 'token'
+                    }('${value}')`,
+                  ),
+              });
+            } else {
+              context.report({
+                messageId: 'tokenFallbackRestricted',
+                node: node.arguments[1],
+              });
+            }
+          }
 
-        const tokenKey = node.arguments[0].value;
+          if (node.arguments[0] && node.arguments[0].type !== 'Literal') {
+            context.report({ messageId: 'staticToken', node });
+            return;
+          }
 
-        if (!tokenKey) {
-          return;
-        }
+          const tokenKey = node.arguments[0].value;
 
-        const deletedMigrationMeta = renameMapping
-          .filter((t) => t.state === 'deleted')
-          .find((t) => getTokenId(t.path) === tokenKey);
+          if (!tokenKey) {
+            return;
+          }
 
-        if (typeof tokenKey === 'string' && deletedMigrationMeta) {
-          const cleanTokenKey = getTokenId(deletedMigrationMeta.replacement);
+          const deletedMigrationMeta = renameMapping
+            .filter((t) => t.state === 'deleted')
+            .find((t) => getTokenId(t.path) === tokenKey);
 
-          context.report({
-            messageId: 'tokenRemoved',
-            node,
-            data: {
-              name: tokenKey,
-              replacement: cleanTokenKey,
-            },
-            fix: (fixer) =>
-              fixer.replaceText(node.arguments[0], `'${cleanTokenKey}'`),
-          });
-          return;
-        }
+          if (typeof tokenKey === 'string' && deletedMigrationMeta) {
+            const cleanTokenKey = getTokenId(deletedMigrationMeta.replacement);
 
-        const experimentalMigrationMeta = renameMapping
-          .filter((t) => t.state === 'experimental')
-          .find((t) => getTokenId(t.path) === tokenKey);
+            context.report({
+              messageId: 'tokenRemoved',
+              node,
+              data: {
+                name: tokenKey,
+                replacement: cleanTokenKey,
+              },
+              fix: (fixer) =>
+                fixer.replaceText(node.arguments[0], `'${cleanTokenKey}'`),
+            });
+            return;
+          }
 
-        const tokenNames = Object.keys(tokens);
+          const experimentalMigrationMeta = renameMapping
+            .filter((t) => t.state === 'experimental')
+            .find((t) => getTokenId(t.path) === tokenKey);
 
-        if (typeof tokenKey === 'string' && experimentalMigrationMeta) {
-          const replacementValue = experimentalMigrationMeta.replacement;
+          const tokenNames = Object.keys(tokens);
 
-          const isReplacementAToken = tokenNames.includes(replacementValue);
+          if (typeof tokenKey === 'string' && experimentalMigrationMeta) {
+            const replacementValue = experimentalMigrationMeta.replacement;
 
-          context.report({
-            messageId: 'tokenIsExperimental',
-            node,
-            data: {
-              name: tokenKey,
-              replacement: replacementValue,
-            },
-            fix: (fixer) =>
-              isReplacementAToken
-                ? fixer.replaceText(node.arguments[0], `'${replacementValue}'`)
-                : fixer.replaceText(node, `'${replacementValue}'`),
-          });
-          return;
-        }
+            const isReplacementAToken = tokenNames.includes(replacementValue);
 
-        if (
-          typeof tokenKey !== 'string' ||
-          (typeof tokenKey === 'string' &&
-            !tokens[tokenKey as keyof typeof tokens] &&
-            !UNSAFE_ignoreTokens.has(tokenKey))
-        ) {
-          context.report({
-            messageId: 'invalidToken',
-            node,
-            data: {
-              name: tokenKey.toString(),
-            },
-          });
-          return;
-        }
-      },
+            context.report({
+              messageId: 'tokenIsExperimental',
+              node,
+              data: {
+                name: tokenKey,
+                replacement: replacementValue,
+              },
+              fix: (fixer) =>
+                isReplacementAToken
+                  ? fixer.replaceText(
+                      node.arguments[0],
+                      `'${replacementValue}'`,
+                    )
+                  : fixer.replaceText(node, `'${replacementValue}'`),
+            });
+            return;
+          }
+
+          if (
+            typeof tokenKey !== 'string' ||
+            (typeof tokenKey === 'string' &&
+              !tokens[tokenKey as keyof typeof tokens] &&
+              !UNSAFE_ignoreTokens.has(tokenKey))
+          ) {
+            context.report({
+              messageId: 'invalidToken',
+              node,
+              data: {
+                name: tokenKey.toString(),
+              },
+            });
+            return;
+          }
+        },
     };
   },
 };

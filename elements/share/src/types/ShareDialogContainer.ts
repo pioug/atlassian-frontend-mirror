@@ -160,4 +160,6 @@ export type ShareDialogContainerProps = {
   tabIndex?: number;
   /* If present, will add a tooltip to the copy link and display link tooltip text */
   copyTooltipText?: string;
+  /* disable looking up users and teams */
+  isBrowseUsersDisabled?: boolean;
 };

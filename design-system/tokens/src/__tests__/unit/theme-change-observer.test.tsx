@@ -62,15 +62,6 @@ describe('useThemeObserver', () => {
     expect(result.current).toEqual(null);
   });
 
-  it('should return auto if it has been set', async () => {
-    setGlobalTheme('light', true);
-    const { result } = renderHook(() => useThemeObserver(), {
-      wrapper: ({ children }) => <HookWrapper isAuto>{children}</HookWrapper>,
-    });
-
-    expect(result.current).toEqual('auto');
-  });
-
   it('should return the theme if it has been set', async () => {
     const { result } = renderHook(() => useThemeObserver(), {
       wrapper: HookWrapper,

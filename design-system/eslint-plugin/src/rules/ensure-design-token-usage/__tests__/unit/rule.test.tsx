@@ -123,8 +123,24 @@ tester.run('ensure-design-token-usage', rule, {
     {
       options: [{ shouldEnforceFallbacks: true }],
       code: `
+      css({
+        boxShadow: getTokenValue('shadow.card', 'red'),
+      })
+    `,
+    },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `
       css\`
         box-shadow: \${token('shadow.card', 'red')};
+      \`
+    `,
+    },
+    {
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `
+      css\`
+        box-shadow: \${getTokenValue('shadow.card', 'red')};
       \`
     `,
     },

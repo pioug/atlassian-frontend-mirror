@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.14.0
+
+### Minor Changes
+
+- [`be1ec01a101`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be1ec01a101) - Added another valid callee `getTokenValue()` which is used for getting the current computed CSS value for the resulting CSS Custom Property, hard-coded colors that wrapped in `getTokenValue()` call won't fail.
+
 ## 4.13.10
 
 ### Patch Changes

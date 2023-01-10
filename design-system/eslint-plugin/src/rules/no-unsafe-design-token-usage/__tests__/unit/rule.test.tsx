@@ -303,11 +303,23 @@ tester.run('no-unsafe-design-token-usage', rule, {
       output: `css({ color: token('shadow.card') })`,
       errors: [{ messageId: 'tokenFallbackRestricted' }],
     },
+    {
+      // should error when a fallback is supplied
+      code: `css({ color: getTokenValue('shadow.card', 'red') })`,
+      output: `css({ color: getTokenValue('shadow.card') })`,
+      errors: [{ messageId: 'tokenFallbackRestricted' }],
+    },
     // Using config -> shouldEnforceFallbacks: true
     {
       // should error when a fallback is not supplied
       options: [{ shouldEnforceFallbacks: true }],
       code: `css({ color: token('shadow.card') })`,
+      errors: [{ messageId: 'tokenFallbackEnforced' }],
+    },
+    {
+      // should error when a fallback is not supplied
+      options: [{ shouldEnforceFallbacks: true }],
+      code: `css({ color: getTokenValue('shadow.card') })`,
       errors: [{ messageId: 'tokenFallbackEnforced' }],
     },
   ],

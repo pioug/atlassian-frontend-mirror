@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.11.3
+
+### Patch Changes
+
+- [`08ef315c46d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08ef315c46d) - [ux] Add a copy url button to hover cards.
+
 ## 23.11.2
 
 ### Patch Changes

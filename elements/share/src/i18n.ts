@@ -31,6 +31,11 @@ export const messages = defineMessages({
     defaultMessage: 'Retry',
     description: 'Label for Share from retry button.',
   },
+  formNoPermissions: {
+    id: 'fabric.elements.share.form.no-permissions',
+    defaultMessage: 'You do not have the ability to share.',
+    description: 'Copy to show when a user can not share.',
+  },
   commentPlaceholder: {
     id: 'fabric.elements.share.form.comment.placeholder',
     defaultMessage: 'Add a message',
@@ -60,6 +65,12 @@ export const messages = defineMessages({
     description:
       'Existing user only placeholder for the user picker field in Share form.',
   },
+  userPickerGenericEmailOnlyPlaceholder: {
+    id: 'fabric.elements.share.form.user-picker.placeholder.emailOnly',
+    defaultMessage: 'Enter email',
+    description:
+      'Email only placeholder for the user picker field in Share form.',
+  },
   userPickerAddMoreMessage: {
     id: 'fabric.elements.share.form.user-picker.add-more',
     defaultMessage: 'Enter more',
@@ -78,6 +89,13 @@ export const messages = defineMessages({
     description:
       'Required error message for the user picker field in Share form. ' +
       'This message is used only for Jira product because Jira does not have Group concept.',
+  },
+  userPickerRequiredMessageEmailOnly: {
+    id: 'fabric.elements.share.form.user-picker.validation.required.email-only',
+    defaultMessage: 'Select at least one email.',
+    description:
+      'Required error message for the user picker field when email only enabled in Share form. ' +
+      'This message is used for both jira and confluence.',
   },
   userPickerRequiredExistingUserOnlyMessage: {
     id: 'fabric.elements.share.form.user-picker.validation.required.existingUserOnly',

@@ -419,6 +419,12 @@ type CSSTokenMap = {
 type ExtensionThemeId = ThemeIds;
 
 // @public
+export function getTokenValue<T extends keyof Tokens_2>(
+  tokenId: T,
+  fallback?: string,
+): string;
+
+// @public
 type Palettes =
   | 'defaultPalette'
   | 'legacyPalette'
@@ -898,6 +904,9 @@ const tokens: {
   readonly 'font.lineHeight.500': '--ds-font-lineHeight-500';
   readonly 'font.lineHeight.600': '--ds-font-lineHeight-600';
 };
+
+// @public (undocumented)
+type Tokens_2 = typeof tokens;
 
 // @public
 export const useThemeObserver: () => ThemeIds | null;

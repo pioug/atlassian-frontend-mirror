@@ -5,9 +5,13 @@ import {
 } from '../nodes/paragraph';
 import { TableBuilder } from '../builder/table-builder';
 
-export function normalizePMNodes(nodes: PMNode[], schema: Schema): PMNode[] {
+export function normalizePMNodes(
+  nodes: PMNode[],
+  schema: Schema,
+  parentNode?: string,
+): PMNode[] {
   return [normalizeMediaGroups, normalizeInlineNodes].reduce(
-    (currentNodes, normFunc) => normFunc(currentNodes, schema),
+    (currentNodes, normFunc) => normFunc(currentNodes, schema, parentNode),
     nodes,
   );
 }
@@ -15,6 +19,7 @@ export function normalizePMNodes(nodes: PMNode[], schema: Schema): PMNode[] {
 export function normalizeInlineNodes(
   nodes: PMNode[],
   schema: Schema,
+  parentNode?: string,
 ): PMNode[] {
   const output: PMNode[] = [];
   let inlineNodeBuffer: PMNode[] = [];
@@ -29,7 +34,7 @@ export function normalizeInlineNodes(
       );
     }
     inlineNodeBuffer = []; // clear buffer
-    if (node?.type?.name === 'nestedExpand') {
+    if (node?.type?.name === 'nestedExpand' && parentNode === 'doc') {
       //ADFEXP-227 handle nested expand at root level
       output.push(wrapNestedExpandInTable(node, schema));
     } else {
@@ -55,7 +60,11 @@ export function normalizeInlineNodes(
  * @param nodes list of nodes to normalize. Must not be null
  * @param schema
  */
-function normalizeMediaGroups(nodes: PMNode[], schema: Schema): PMNode[] {
+function normalizeMediaGroups(
+  nodes: PMNode[],
+  schema: Schema,
+  parentNode?: string,
+): PMNode[] {
   const output: PMNode[] = [];
   let mediaGroupBuffer: PMNode[] = [];
   let separatorBuffer: PMNode[] = [];

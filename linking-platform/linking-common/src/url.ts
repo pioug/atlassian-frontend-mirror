@@ -1,6 +1,6 @@
 /**
  * This file has been duplicated in packages/editor/adf-schema/src/utils/url.ts
- * Any changes made here should be mirrored there.
+ * Any changes made here should be mirrored there until the duplicate behaviour is resolved
  */
 import LinkifyIt from 'linkify-it';
 
@@ -131,7 +131,7 @@ export const isSafeUrl = (url: string): boolean => {
 /**
  * Adds protocol to url if needed.
  */
-export function normalizeUrl(url?: string | null) {
+export function normalizeUrl(url?: string | null): string | null {
   if (!url) {
     return '';
   }

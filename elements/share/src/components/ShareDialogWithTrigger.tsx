@@ -508,6 +508,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       copyTooltipText,
       integrationMode,
       shareIntegrations,
+      isBrowseUsersDisabled,
     } = this.props;
 
     const style =
@@ -573,6 +574,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                 onTabChange={this.onTabChange}
                 //ref
                 selectPortalRef={this.selectPortalRef}
+                isBrowseUsersDisabled={isBrowseUsersDisabled}
               />
             </div>
           )}

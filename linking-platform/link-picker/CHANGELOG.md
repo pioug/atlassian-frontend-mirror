@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 1.16.7
+
+### Patch Changes
+
+- [`10410539ac9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10410539ac9) - Url utils added (normalizeURL and isSafeUrl). Available to export
+- Updated dependencies
+
 ## 1.16.6
 
 ### Patch Changes

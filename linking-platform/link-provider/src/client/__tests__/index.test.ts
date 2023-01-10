@@ -226,6 +226,56 @@ describe('Smart Card: Client', () => {
     }
   });
 
+  it('should handle errors containing error instance while fetching data', async () => {
+    expect.assertions(2);
+    mockRequest.mockImplementationOnce(async () =>
+      Promise.reject(new Error('test error')),
+    );
+    const client = new SmartCardClient();
+    const resourceUrl = 'https://i.love.cheese';
+    try {
+      await client.fetchData(resourceUrl);
+    } catch (error) {
+      expect(error).toBeInstanceOf(APIError);
+      expect(error).toEqual(
+        expect.objectContaining({
+          kind: 'fatal',
+          hostname: 'i.love.cheese',
+          type: 'UnexpectedError',
+          name: 'APIError',
+          message: expect.stringContaining('"message":"test error"'),
+        }),
+      );
+    }
+  });
+
+  it('should handle errors containing error instance (child class) while fetching data', async () => {
+    expect.assertions(2);
+    class SomeSpecificError extends Error {}
+
+    mockRequest.mockImplementationOnce(async () =>
+      Promise.reject(new SomeSpecificError('test error from child class')),
+    );
+    const client = new SmartCardClient();
+    const resourceUrl = 'https://i.love.cheese';
+    try {
+      await client.fetchData(resourceUrl);
+    } catch (error) {
+      expect(error).toBeInstanceOf(APIError);
+      expect(error).toEqual(
+        expect.objectContaining({
+          kind: 'fatal',
+          hostname: 'i.love.cheese',
+          type: 'UnexpectedError',
+          name: 'APIError',
+          message: expect.stringContaining(
+            '"message":"test error from child class"',
+          ),
+        }),
+      );
+    }
+  });
+
   it('should return fallback error when error is a network error', async () => {
     expect.assertions(2);
     mockRequest.mockImplementationOnce(async () =>

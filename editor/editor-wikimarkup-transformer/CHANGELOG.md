@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.13
+
+### Patch Changes
+
+- [`d907868ec78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d907868ec78) - ADFEXP-227 Wrap nestedExpand only at root level
+
 ## 11.1.12
 
 ### Patch Changes

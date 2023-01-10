@@ -28,3 +28,11 @@ A React hook which returns the current color scheme set on `<html>`, or `null` i
 An observer which watches the `<html>` element for changes to the theme. In React, use the `useThemeObserver` hook.
 
 <TokenPropsTable propName={'callback'} description={'Watches the <html> element for changes to the theme. The supplied callback function fires when the theme changes.'} typing={'(theme: Themes | null) => unknown'} required={true}/>
+
+### getTokenValue(path, fallback)
+
+The `getTokenValue()` function takes the same dot-separated token names as the main `token()` function, however it returns the currently computed value based on the current theme. This is useful for things like `<canvas>` which cannot inherit a CSS Variable.
+
+Additionally, provide a fallback argument to the `getTokenValue()` method to ensure experiences remain consistent for users until we are ready to launch. When the theme CSS is not present in your app, the fallback color will render instead. Keep the fallback colour as the color visible in your app today.
+
+<TokenPropsTable propName={'path'} description={'Name of the color token in string form'} typing={'keyof CSSTokenMap'} required={true}/>

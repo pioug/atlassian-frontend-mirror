@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.17.0
+
+### Minor Changes
+
+- [`10410539ac9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10410539ac9) - Url utils added (normalizeURL and isSafeUrl). Available to export
+
 ## 1.16.3
 
 ### Patch Changes

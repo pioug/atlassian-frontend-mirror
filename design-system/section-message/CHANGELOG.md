@@ -1,5 +1,11 @@
 # @atlaskit/section-message
 
+## 6.3.8
+
+### Patch Changes
+
+- [`716af1d3387`](https://bitbucket.org/atlassian/atlassian-frontend/commits/716af1d3387) - Bump @atlaskit/heading from 1.0.0 to 1.0.1 to avoid resolving to poison dependency version
+
 ## 6.3.7
 
 ### Patch Changes

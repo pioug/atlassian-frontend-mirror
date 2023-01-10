@@ -131,6 +131,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       copyTooltipText,
       helperMessage,
       orgId,
+      isBrowseUsersDisabled,
       intl: { formatMessage },
     } = this.props;
 
@@ -154,6 +155,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               isPublicLink={isPublicLink}
               helperMessage={helperMessage}
               orgId={orgId}
+              isBrowseUsersDisabled={isBrowseUsersDisabled}
             />
           </div>
           <div css={formFieldStyles}>

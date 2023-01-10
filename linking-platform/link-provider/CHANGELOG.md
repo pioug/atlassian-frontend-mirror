@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.3.8
+
+### Patch Changes
+
+- [`1acb31160ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1acb31160ec) - error loggin improvement for cases when error property is an instance or Error
+
 ## 1.3.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.6.0
+
+### Minor Changes
+
+- [`9bd59066a1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9bd59066a1c) - [ux] Added prop isBrowseUsersDisabled to handle users without permission to search for users and groups
+
 ## 3.5.10
 
 ### Patch Changes

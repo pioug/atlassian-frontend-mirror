@@ -239,6 +239,7 @@ export const ShareDialogContainer: React_2.ForwardRefExoticComponent<
     | 'formatCopyLink'
     | 'integrationMode'
     | 'isAutoOpenDialog'
+    | 'isBrowseUsersDisabled'
     | 'isCopyDisabled'
     | 'isPublicLink'
     | 'loadUserOptions'
@@ -340,6 +341,7 @@ export type ShareDialogContainerProps = {
   shareIntegrations?: Array<Integration>;
   tabIndex?: number;
   copyTooltipText?: string;
+  isBrowseUsersDisabled?: boolean;
 };
 
 // @public (undocumented)

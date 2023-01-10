@@ -178,6 +178,10 @@ this is a new line text, not in the table`,
         'ADFEXP-227 Should wrap nestedExpand inside a table',
         `|test table|test table\r\n\r\n{adf:display=block}{"type":"nestedExpand","attrs":{"title":"title"}}{adf}\r\nsample text`,
       ],
+      [
+        'ADFEXP-227 Should keep nestedExpand inside a table',
+        `|test table|{adf:display=block}{"type":"nestedExpand","attrs":{"title":"title"}}{adf}`,
+      ],
     ];
 
     for (const [testCaseDescription, markup] of testCases) {

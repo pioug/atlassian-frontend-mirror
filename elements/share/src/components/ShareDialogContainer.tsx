@@ -439,6 +439,7 @@ export class ShareDialogContainerInternal extends React.Component<
       tabIndex,
       copyTooltipText,
       onDialogClose,
+      isBrowseUsersDisabled,
     } = this.props;
     const { config, isFetchingConfig } = this.state;
 
@@ -491,6 +492,7 @@ export class ShareDialogContainerInternal extends React.Component<
             tabIndex={tabIndex}
             copyTooltipText={copyTooltipText}
             onDialogClose={onDialogClose}
+            isBrowseUsersDisabled={isBrowseUsersDisabled}
           />
         </MessagesIntlProvider>
       </ErrorBoundary>

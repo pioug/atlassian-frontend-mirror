@@ -10,7 +10,7 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { LinkPickerAnalyticsContextType } from '../../analytics.codegen';
 import { LinkPickerProps } from '../../';
 import { ANALYTICS_CHANNEL } from '../constants';
-import { normalizeUrl } from '../utils/url';
+import { normalizeUrl } from '@atlaskit/linking-common/url';
 
 type AnalyticsContextAttributesType = LinkPickerAnalyticsContextType;
 

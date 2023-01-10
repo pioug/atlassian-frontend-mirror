@@ -1,12 +1,15 @@
 /** @jsx jsx */
+/** @jsxFrag */
 import React from 'react';
 
 import { jsx } from '@emotion/react';
+import { FormattedMessage } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
 import { gridSize } from '@atlaskit/theme/constants';
 
+import { messages } from '../../i18n';
 import type {
   ShareData,
   ShareDialogWithTriggerProps,
@@ -16,6 +19,7 @@ import { INTEGRATION_MODAL_SOURCE } from '../analytics/analytics';
 import { IntegrationForm, IntegrationFormProps } from '../IntegrationForm';
 import { ShareForm } from '../ShareForm';
 import { ShareFormWrapper } from '../ShareFormWrapper';
+import { allowEmails } from '../utils';
 
 export type LazyShareFormProps = Pick<
   ShareDialogWithTriggerProps,
@@ -40,6 +44,7 @@ export type LazyShareFormProps = Pick<
   | 'integrationMode'
   | 'onDialogClose'
   | 'orgId'
+  | 'isBrowseUsersDisabled'
 > &
   Pick<
     ShareDialogWithTriggerStates,
@@ -107,6 +112,7 @@ function LazyShareForm(props: LazyShareFormProps) {
     defaultValue,
     showTitle,
     orgId,
+    isBrowseUsersDisabled,
   } = props;
 
   const footer = (
@@ -132,6 +138,8 @@ function LazyShareForm(props: LazyShareFormProps) {
     setIsLoading(false);
   });
 
+  const allowEmail = allowEmails(config);
+
   return (
     <ShareFormWrapper
       footer={footer}
@@ -147,36 +155,45 @@ function LazyShareForm(props: LazyShareFormProps) {
           />
         </AnalyticsContext>
       ) : (
-        <ShareForm
-          copyLink={copyLink}
-          loadOptions={loadOptions}
-          title={shareFormTitle}
-          showTitle={showTitle}
-          helperMessage={shareFormHelperMessage}
-          shareError={shareError}
-          defaultValue={defaultValue}
-          config={config}
-          submitButtonLabel={submitButtonLabel}
-          product={product}
-          enableSmartUserPicker={enableSmartUserPicker}
-          loggedInAccountId={loggedInAccountId}
-          cloudId={cloudId}
-          fieldsFooter={shareFieldsFooter}
-          selectPortalRef={selectPortalRef}
-          copyTooltipText={copyTooltipText}
-          integrationMode={integrationMode}
-          shareIntegrations={shareIntegrations}
-          isSharing={isSharing}
-          isFetchingConfig={isFetchingConfig}
-          isPublicLink={isPublicLink}
-          orgId={orgId}
-          onSubmit={onSubmit}
-          onDismiss={onDismiss}
-          onLinkCopy={onLinkCopy}
-          onUserSelectionChange={onUserSelectionChange}
-          handleCloseDialog={onDialogClose}
-          onTabChange={onTabChange}
-        />
+        <>
+          {allowEmail || !isBrowseUsersDisabled ? (
+            <ShareForm
+              copyLink={copyLink}
+              loadOptions={loadOptions}
+              title={shareFormTitle}
+              showTitle={showTitle}
+              helperMessage={shareFormHelperMessage}
+              shareError={shareError}
+              defaultValue={defaultValue}
+              config={config}
+              submitButtonLabel={submitButtonLabel}
+              product={product}
+              enableSmartUserPicker={enableSmartUserPicker}
+              loggedInAccountId={loggedInAccountId}
+              cloudId={cloudId}
+              fieldsFooter={shareFieldsFooter}
+              selectPortalRef={selectPortalRef}
+              copyTooltipText={copyTooltipText}
+              integrationMode={integrationMode}
+              shareIntegrations={shareIntegrations}
+              isSharing={isSharing}
+              isFetchingConfig={isFetchingConfig}
+              isPublicLink={isPublicLink}
+              orgId={orgId}
+              onSubmit={onSubmit}
+              onDismiss={onDismiss}
+              onLinkCopy={onLinkCopy}
+              onUserSelectionChange={onUserSelectionChange}
+              handleCloseDialog={onDialogClose}
+              onTabChange={onTabChange}
+              isBrowseUsersDisabled={isBrowseUsersDisabled}
+            />
+          ) : (
+            <p>
+              <FormattedMessage {...messages.formNoPermissions} />
+            </p>
+          )}
+        </>
       )}
     </ShareFormWrapper>
   );

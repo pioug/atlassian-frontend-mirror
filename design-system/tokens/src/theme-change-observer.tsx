@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
+import { THEME_DATA_ATTRIBUTE } from './constants';
 import { ThemeIds } from './theme-config';
 
 const getGlobalTheme = (): ThemeIds | null =>
   typeof document !== 'undefined'
     ? (document.documentElement.getAttribute(
-        COLOR_MODE_ATTRIBUTE,
+        THEME_DATA_ATTRIBUTE,
       ) as ThemeIds | null)
     : null;
 

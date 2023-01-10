@@ -31,7 +31,8 @@ import {
   withInputFieldTracking,
   withLinkPickerAnalyticsContext,
 } from '../../common/analytics';
-import { normalizeUrl, isSafeUrl } from '../../common/utils/url';
+import { normalizeUrl, isSafeUrl } from '@atlaskit/linking-common/url';
+
 import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
 import useFixHeight from '../../controllers/use-fix-height';

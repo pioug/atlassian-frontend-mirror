@@ -18,6 +18,7 @@ export type MessageKey =
   | 'connect_unauthorised_account_action'
   | 'connect_unauthorised_account_description'
   | 'connect_unauthorised_account_description_no_provider'
+  | 'copy_url_to_clipboard'
   | 'could_not_load_link'
   | 'download'
   | 'invalid_permissions'
@@ -182,6 +183,11 @@ export const messages: Messages = defineMessages({
       'Connect to Atlassian to view more details from your work and collaboration from one place.',
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link on card view and we do not have the providers name.',
+  },
+  copy_url_to_clipboard: {
+    id: 'fabric.linking.download',
+    defaultMessage: 'Copy link',
+    description: '',
   },
   could_not_load_link: {
     id: 'fabric.linking.couldnt_load_link',

@@ -17,6 +17,7 @@ export type ShareFormProps = Pick<
   | 'loggedInAccountId'
   | 'enableSmartUserPicker'
   | 'orgId'
+  | 'isBrowseUsersDisabled'
 > & {
   config?: ConfigResponse;
   isFetchingConfig?: boolean;

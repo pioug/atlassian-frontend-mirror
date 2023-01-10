@@ -47,11 +47,13 @@ export type Props = {
   isPublicLink?: boolean;
   helperMessage?: string;
   orgId?: string;
+  isBrowseUsersDisabled?: boolean;
 };
 
 type GetPlaceHolderMessageDescriptor = (
   product?: ProductName,
   allowEmail?: boolean,
+  isBrowseUsersDisabled?: boolean,
 ) => MessageDescriptor;
 
 type GetNoOptionMessageDescriptor = (
@@ -95,6 +97,7 @@ const getNoOptionsMessage =
 const getPlaceHolderMessageDescriptor: GetPlaceHolderMessageDescriptor = (
   product: ProductName = 'confluence',
   allowEmail?: boolean,
+  isBrowseUsersDisabled?: boolean,
 ) => {
   if (!allowEmail) {
     const placeholderMessage = {
@@ -103,6 +106,10 @@ const getPlaceHolderMessageDescriptor: GetPlaceHolderMessageDescriptor = (
     };
 
     return placeholderMessage[product];
+  }
+
+  if (isBrowseUsersDisabled) {
+    return messages.userPickerGenericEmailOnlyPlaceholder;
   }
 
   const placeholderMessage = {
@@ -126,12 +133,17 @@ const requiredMessagesWithoutEmail = {
 const getRequiredMessage = (
   product: ProductName,
   allowEmail: boolean,
+  isBrowseUsersDisabled?: boolean,
 ): MessageDescriptor => {
-  const messages = allowEmail
+  if (isBrowseUsersDisabled) {
+    return messages.userPickerRequiredMessageEmailOnly;
+  }
+
+  const emailMessages = allowEmail
     ? requiredMessagesWithEmail
     : requiredMessagesWithoutEmail;
 
-  return messages[product];
+  return emailMessages[product];
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -191,10 +203,11 @@ export class UserPickerFieldComponent extends React.Component<
       selectPortalRef,
       isPublicLink,
       orgId,
+      isBrowseUsersDisabled,
     } = this.props;
 
     const smartUserPickerProps: Partial<SmartUserPickerProps> =
-      enableSmartUserPicker
+      enableSmartUserPicker && !isBrowseUsersDisabled
         ? {
             productKey: product,
             principalId: loggedInAccountId,
@@ -208,7 +221,11 @@ export class UserPickerFieldComponent extends React.Component<
 
     const allowEmail = allowEmails(config);
 
-    const requiredMessage = getRequiredMessage(product, allowEmail);
+    const requiredMessage = getRequiredMessage(
+      product,
+      allowEmail,
+      isBrowseUsersDisabled,
+    );
 
     const commonPickerProps: Partial<UserPickerProps> = {
       fieldId: 'share',
@@ -217,7 +234,11 @@ export class UserPickerFieldComponent extends React.Component<
       width: '100%',
       placeholder: (
         <FormattedMessage
-          {...getPlaceHolderMessageDescriptor(product, allowEmail)}
+          {...getPlaceHolderMessageDescriptor(
+            product,
+            allowEmail,
+            isBrowseUsersDisabled,
+          )}
         />
       ),
       allowEmail,
@@ -230,9 +251,10 @@ export class UserPickerFieldComponent extends React.Component<
 
     const UserPickerComponent:
       | React.FunctionComponent<any>
-      | React.ComponentClass<any> = enableSmartUserPicker
-      ? SmartUserPicker
-      : UserPicker;
+      | React.ComponentClass<any> =
+      enableSmartUserPicker && !isBrowseUsersDisabled
+        ? SmartUserPicker
+        : UserPicker;
 
     const menuPortalTarget = getMenuPortalTargetCurrentHTML(selectPortalRef);
 

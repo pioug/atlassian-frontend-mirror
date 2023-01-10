@@ -317,11 +317,38 @@ export default class CardClient implements CardClientInterface {
       }
     }
     // Catch all: we don't know this error, bail out.
+    const { error, ...rest } = response;
     return new APIError(
       'fatal',
       hostname,
-      JSON.stringify(response),
+      // reason we stringify the error differently is because
+      // JSON.stringify will return "{}" if it is an instance of Error
+      // e.g. JSON.stringify(new Error('something went wrong')) will return '{}'
+      // reason is JSON.stringify method only serializes enumerable properties but properties like "message" and "stack" are non enumerable
+      // e.g. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/message
+      // more info here https://stackoverflow.com/questions/18391212/is-it-not-possible-to-stringify-an-error-using-json-stringify
+      // we assume 'rest'  to "serializable" meaning all its properties are enumerable
+      `${this.stringifyError(error)} ${JSON.stringify(rest)}`,
       'UnexpectedError',
+    );
+  }
+
+  /**
+   * This method will strigify both enumerable and  non enumerable properties of an object
+   * @param err
+   * @returns object serialized to JSON with both enumerable and non enumerable objects
+   */
+  private stringifyError(err: object) {
+    /**
+     * By default JSON.stringify only serializes enumerable properties of an object. In order for us to
+     * serialize non enumerable properties out of an error we need to expclitily provide the non enumerable property names.
+     * the second parameter to JSON.stringify gets the properties that will be serialized from the object passed in the first argument
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames
+     */
+    return JSON.stringify(
+      err,
+      //In ES5, if the argument to getOwnPropertyNames method is not an object (a primitive), then it will cause a TypeError
+      typeof err === 'object' ? Object.getOwnPropertyNames(err) : undefined,
     );
   }
 }

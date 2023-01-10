@@ -63,6 +63,7 @@ export type ShareDialogWithTriggerProps = Pick<
   | 'copyTooltipText'
   | 'dialogZIndex'
   | 'orgId'
+  | 'isBrowseUsersDisabled'
 > & {
   config?: ConfigResponse;
   isFetchingConfig?: boolean;

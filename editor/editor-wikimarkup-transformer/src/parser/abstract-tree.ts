@@ -25,7 +25,7 @@ export default class AbstractTree {
 
     return this.schema.nodes.doc.createChecked(
       {},
-      normalizePMNodes(content, this.schema),
+      normalizePMNodes(content, this.schema, 'doc'),
     );
   }
 }

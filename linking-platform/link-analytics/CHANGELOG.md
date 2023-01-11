@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 2.1.0
+
+### Minor Changes
+
+- [`06a9ae91ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06a9ae91ce0) - Add nonPrivacySafeAttributes.domainName to event payload
+
 ## 2.0.0
 
 ### Patch Changes

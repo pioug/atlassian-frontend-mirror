@@ -11,6 +11,7 @@ describe('useSearchQuery', () => {
     selectedIndex: -1,
     invalidUrl: false,
     activeTab: 0,
+    preventHidingRecents: false,
   };
 
   it('Should return a query if state has a invalid url', () => {

@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -50,3 +51,16 @@ export const useSmartLinkLifecycleAnalytics: () => SmartLinkLifecycleMethods;
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "@atlaskit/link-provider": "^1.3.4",
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

@@ -6,7 +6,7 @@ import {
 
 import { linkCreatedPayload, linkDeletedPayload } from './analytics';
 import { LinkLifecycleEventCallback, SmartLinkLifecycleMethods } from './types';
-import { mergeAttributes } from './process-attributes';
+import { getDomainFromUrl, mergeAttributes } from './process-attributes';
 import { name as packageName, version as packageVersion } from './version.json';
 
 const PACKAGE_DATA = {
@@ -24,6 +24,9 @@ const generateCallback = (
     createAnalyticsEvent({
       ...PACKAGE_DATA,
       attributes: mergeAttributes(details, sourceEvent, attributes),
+      nonPrivacySafeAttributes: {
+        domainName: getDomainFromUrl(details.url),
+      },
       ...eventPayload,
     }).fire(ANALYTICS_CHANNEL);
   };

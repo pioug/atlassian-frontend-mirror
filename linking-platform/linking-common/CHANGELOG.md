@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.18.0
+
+### Minor Changes
+
+- [`c3528743169`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3528743169) - Introduce enableLinkPickerForgeTabs feature flag
+
 ## 1.17.0
 
 ### Minor Changes

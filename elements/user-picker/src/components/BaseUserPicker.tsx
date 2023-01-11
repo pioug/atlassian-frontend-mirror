@@ -583,7 +583,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
-        onClose={this.handleClose}
+        onMenuClose={this.handleClose}
         onInputChange={this.handleInputChange}
         onClearIndicatorHover={this.handleClearIndicatorHover}
         onKeyDown={this.handleKeyDown}

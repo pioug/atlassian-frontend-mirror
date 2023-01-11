@@ -97,10 +97,7 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
    * If message is null, no message will be displayed.
    * If message is undefined, default message will be displayed.
    */
-  noOptionsMessage?:
-    | ((value: { inputValue: string }) => string | null)
-    | string
-    | null;
+  noOptionsMessage?: ((value: { inputValue: string }) => string | null) | null;
   /** Controls if the user picker has a value or not. If not provided, UserPicker will control the value internally. */
   value?: Value;
   /** Disable all interactions with the picker, putting it in a read-only state. */

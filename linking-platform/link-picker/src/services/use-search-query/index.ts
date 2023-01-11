@@ -7,10 +7,16 @@ export function useSearchQuery(state: PickerState) {
   const queryState = useRef<LinkPickerState | null>(null);
 
   /*
-   * When state contains a valid url AND is NOT selected from results
-   * queryState should be null to clear the items in plugin state
+   * When state contains a valid url AND is NOT selected from results, and the url was updated
+   * from the textbox, queryState should be null to clear the items in plugin state.
+   *
+   * Checking `lastEditedBy` prevents the items being cleared when the tab is changed.
    */
-  if (isSafeUrl(state.url) && state.selectedIndex === -1) {
+  if (
+    isSafeUrl(state.url) &&
+    state.selectedIndex === -1 &&
+    !state.preventHidingRecents
+  ) {
     queryState.current = null;
   }
 

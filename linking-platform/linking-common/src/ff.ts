@@ -27,4 +27,8 @@ export interface LinkingPlatformFeatureFlags {
    * Enables alternative tabs for Atlassian tabs in products
    */
   useLinkPickerAtlassianTabs?: boolean;
+  /**
+   * Enable forge providers tabs in products
+   */
+  enableLinkPickerForgeTabs?: boolean;
 }

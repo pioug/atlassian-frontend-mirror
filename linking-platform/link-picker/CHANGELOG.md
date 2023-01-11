@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 1.16.8
+
+### Patch Changes
+
+- [`5441fa9235d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5441fa9235d) - [ux] XPC3P-106 Fix recents not showing when switching tabs in new link picker
+- Updated dependencies
+
 ## 1.16.7
 
 ### Patch Changes

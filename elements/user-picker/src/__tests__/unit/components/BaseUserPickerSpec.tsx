@@ -1,5 +1,7 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select from '@atlaskit/select';
+import { render, fireEvent } from '@testing-library/react';
+import selectEvent from 'react-select-event';
 import { ConcurrentExperience, UFOExperience, ufologger } from '@atlaskit/ufo';
 import { mount, shallow, ReactWrapper } from 'enzyme';
 import debounce from 'lodash/debounce';
@@ -99,6 +101,7 @@ const getBasePicker =
   (props: Partial<BaseUserPickerProps> = {}) =>
     (
       <BasePickerComponent
+        inputId="test"
         fieldId="test"
         SelectComponent={Select}
         styles={{}}
@@ -113,6 +116,13 @@ const getBasePickerWithoutAnalytics = getBasePicker(
 );
 
 const getBasePickerWithAnalytics = getBasePicker(BaseUserPicker);
+
+const getBasePickerWithForm = (props: Partial<BaseUserPickerProps> = {}) => (
+  <form>
+    <label htmlFor="test">Test</label>
+    {getBasePicker(BaseUserPickerWithoutAnalytics)(props)}
+  </form>
+);
 
 describe('BaseUserPicker', () => {
   const shallowUserPicker = (props: Partial<UserPickerProps> = {}) =>
@@ -216,108 +226,150 @@ describe('BaseUserPicker', () => {
   });
 
   it('should disable picker if isDisabled is true', () => {
-    const component = shallowUserPicker({ isDisabled: true });
-    const select = component.find(Select);
-    expect(select.prop('isDisabled')).toEqual(true);
+    const { getByRole } = render(
+      getBasePickerWithoutAnalytics({ isDisabled: true }),
+    );
+
+    // enable hidden since input is disabled
+    const input = getByRole('combobox', { hidden: true });
+
+    expect(input).toBeDisabled();
   });
 
   it('should set custom placeholder', () => {
-    const custom = 'Custom';
-    const component = shallowUserPicker({ placeholder: custom });
-    const select = component.find(Select);
-    expect(select.prop('placeholder')).toEqual(custom);
+    const custom = 'custom placeholder';
+    const { container } = render(
+      getBasePickerWithoutAnalytics({ placeholder: custom }),
+    );
+
+    expect(
+      container.querySelectorAll(
+        '#react-select-test-placeholder',
+      )[0] as HTMLElement,
+    ).toHaveTextContent(custom);
   });
 
-  it('should set custom empty placeholder', () => {
+  it('should set custom empty placeholder', async () => {
     const custom = '';
-    const component = shallowUserPicker({ placeholder: custom });
-    const select = component.find(Select);
-    expect(select.prop('placeholder')).toEqual(custom);
+    const defaultPlaceholder = 'Enter people or teams...';
+    const { container } = render(
+      getBasePickerWithoutAnalytics({ placeholder: custom }),
+    );
+
+    const input = container.querySelectorAll(
+      '#react-select-test-placeholder',
+    )[0] as HTMLElement;
+    // make sure default message does not exist
+    expect(input).not.toHaveTextContent(defaultPlaceholder);
+    expect(input).toHaveTextContent(custom);
   });
 
-  it('should pass custom no options message to picker', () => {
+  it('should pass custom no options message to picker', async () => {
     const customMessage = 'Custom';
-    const component = shallowUserPicker({ noOptionsMessage: customMessage });
-    const select = component.find(Select);
-    expect(select.prop('noOptionsMessage')).toEqual(customMessage);
+    const { container } = render(
+      getBasePickerWithoutAnalytics({ noOptionsMessage: () => customMessage }),
+    );
+
+    await selectEvent.openMenu(
+      container.querySelectorAll('#test')[0] as HTMLElement,
+    );
+
+    expect(container).toHaveTextContent(customMessage);
   });
 
-  it('should trigger onChange with User', () => {
+  it('should trigger onChange with User', async () => {
     const onChange = jest.fn();
-    const component = shallowUserPicker({ onChange });
+    const { getByLabelText } = render(
+      getBasePickerWithForm({ onChange, options }),
+    );
 
-    const select = component.find(Select);
-    select.simulate('change', userOptions[0], { action: 'select-option' });
+    await selectEvent.select(getByLabelText('Test'), options[0].name);
 
     expect(onChange).toHaveBeenCalledWith(options[0], 'select-option');
   });
 
-  it('should trigger props.onSelection if onChange with select-option action', () => {
+  it('should trigger props.onSelection if onChange with select-option action', async () => {
     const onSelection = jest.fn();
-    const component = shallowUserPicker({ onSelection });
+    const { getByLabelText } = render(
+      getBasePickerWithForm({ onSelection, options }),
+    );
 
-    const select = component.find(Select);
-    select.simulate('change', userOptions[0], { action: 'select-option' });
+    await selectEvent.select(getByLabelText('Test'), options[0].name);
 
-    expect(onSelection).toHaveBeenCalledWith(options[0], undefined);
+    expect(onSelection).toHaveBeenCalledWith(options[0], 'random-session-id');
   });
 
-  it('should trigger props.onClear if onChange with clear action', () => {
+  it('should trigger props.onClear if onChange with clear action', async () => {
     const onClear = jest.fn();
-    const component = shallowUserPicker({ onClear });
+    const { getByLabelText } = render(
+      getBasePickerWithForm({
+        onClear,
+        defaultValue: {
+          id: 'id',
+          name: 'default user',
+          type: 'user',
+        },
+      }),
+    );
 
-    const select = component.find(Select);
-    select.simulate('change', userOptions[0], { action: 'clear' });
+    // use helper library to trigger clear event
+    await selectEvent.clearFirst(getByLabelText('Test'));
 
     expect(onClear).toHaveBeenCalled();
   });
 
-  it('should display no loading message', () => {
-    const component = shallowUserPicker();
-    const select = component.find(Select);
-    expect(select.prop('loadingMessage')()).toEqual(null);
+  it('should display no loading message', async () => {
+    const { container } = render(
+      getBasePickerWithoutAnalytics({ isLoading: true }),
+    );
+
+    await selectEvent.openMenu(
+      container.querySelectorAll('#test')[0] as HTMLElement,
+    );
+
+    expect(container).not.toHaveTextContent('No options');
   });
 
   it('should call onFocus handler', () => {
     const onFocus = jest.fn();
-    const component = shallowUserPicker({ onFocus });
+    const { getByRole } = render(getBasePickerWithoutAnalytics({ onFocus }));
 
-    component.simulate('focus');
-    expect(onFocus).toHaveBeenCalled();
+    getByRole('combobox').focus();
+    expect(onFocus).toHaveBeenCalledWith('random-session-id');
   });
 
   it('should call onBlur handler', () => {
     const onBlur = jest.fn();
-    const component = shallowUserPicker({ onBlur });
+    const { getByRole } = render(getBasePickerWithoutAnalytics({ onBlur }));
 
-    component.simulate('blur');
-    expect(onBlur).toHaveBeenCalled();
+    const input = getByRole('combobox');
+    input.focus();
+    input.blur();
+    expect(onBlur).toHaveBeenCalledWith('random-session-id');
   });
 
   it('should call onClose handler', () => {
     const onClose = jest.fn();
-    const component = shallowUserPicker({ onClose });
 
-    component.simulate('close');
-    expect(onClose).toHaveBeenCalled();
+    const { getByRole } = render(getBasePickerWithoutAnalytics({ onClose }));
+
+    const input = getByRole('combobox');
+    input.focus();
+    input.blur();
+    expect(onClose).toHaveBeenCalledWith('random-session-id');
   });
 
-  // Can unskip after https://product-fabric.atlassian.net/browse/UR-3946
-  it.skip('should clear options on blur', () => {
-    const onBlur = jest.fn();
-    const component = shallowUserPicker({ onBlur, options });
-    expect(component.state('options')).toEqual(options);
-    component.simulate('blur');
-    expect(component.state('options')).toEqual([]);
-  });
+  it('should call onInputChange handler', () => {
+    const onInputChange = jest.fn();
 
-  // Can unskip after https://product-fabric.atlassian.net/browse/UR-3946
-  it.skip('should clear options on close', () => {
-    const onClose = jest.fn();
-    const component = shallowUserPicker({ onClose, options });
-    expect(component.state('options')).toEqual(options);
-    component.simulate('close');
-    expect(component.state('options')).toEqual([]);
+    const { getByRole } = render(
+      getBasePickerWithoutAnalytics({ onInputChange }),
+    );
+
+    const input = getByRole('combobox');
+    input.focus();
+    fireEvent.change(input, { target: { value: 't' } });
+    expect(onInputChange).toHaveBeenCalledWith('t', 'random-session-id');
   });
 
   describe('Multiple users select', () => {
@@ -654,46 +706,6 @@ describe('BaseUserPicker', () => {
           'random-session-id',
         );
       });
-
-      const testData = [
-        {
-          callback: jest.fn(),
-          payload: ['random-session-id'],
-          prop: 'onFocus',
-          toString: () => 'onFocus',
-        },
-        {
-          callback: jest.fn(),
-          payload: ['random-session-id'],
-          prop: 'onBlur',
-          toString: () => 'onBlur',
-        },
-        {
-          callback: jest.fn(),
-          payload: ['random-session-id'],
-          prop: 'onClose',
-          toString: () => 'onClose',
-        },
-        {
-          callback: jest.fn(),
-          payload: ['search', 'random-session-id'],
-          prop: 'onInputChange',
-          propParams: ['search', { action: 'input-change' }],
-          toString: () => 'onInputChange',
-        },
-      ];
-
-      test.each(testData)(
-        'should pass session id %s',
-        ({ callback, payload, prop, propParams = [] }) => {
-          const component = mount(
-            getBasePickerWithAnalytics({ [prop]: callback, open: true }),
-          );
-          const input = component.find(Select);
-          input.props()[prop](...propParams);
-          expect(callback).toHaveBeenCalledWith(...payload);
-        },
-      );
 
       it('should pass session id on select when it starts opened', () => {
         const onSelection = jest.fn();

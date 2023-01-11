@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.0.0
+
+### Major Changes
+
+- [`ed632fa5f70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed632fa5f70) - Changing the typing for noOptionsMessage to accept either functions/null. No strings accepted; previously, due to a downstream change, providing strings did not work. Also fixed onClose behavior, previously did not work. Converted some tests to react testing library.
+
 ## 9.7.4
 
 ### Patch Changes

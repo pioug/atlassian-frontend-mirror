@@ -148,5 +148,29 @@ describe('useSmartLinkLifecycleAnalytics', () => {
         ANALYTICS_CHANNEL,
       );
     });
+
+    it(`${name} derives the URL domain and includes in nonPrivacySafeAttributes`, () => {
+      const { onEvent, result } = setup();
+      act(() => {
+        result.current[method]({
+          url: 'sub.test.com/abc/123',
+          smartLinkId: 'xyz',
+        });
+      });
+
+      expect(onEvent).toBeCalledWith(
+        expect.objectContaining({
+          hasFired: true,
+          payload: expect.objectContaining({
+            ...payload,
+            nonPrivacySafeAttributes: {
+              domainName: 'sub.test.com',
+            },
+            packageName: '@atlaskit/link-analytics',
+          }),
+        }),
+        ANALYTICS_CHANNEL,
+      );
+    });
   });
 });

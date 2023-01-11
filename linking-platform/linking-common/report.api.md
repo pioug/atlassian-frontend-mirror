@@ -220,6 +220,7 @@ export interface LinkingPlatformFeatureFlags {
   embedModalSize?: string;
   enableActionableElement?: boolean;
   enableFlexibleBlockCard?: boolean;
+  enableLinkPickerForgeTabs?: boolean;
   showAuthTooltip?: string;
   // (undocumented)
   showHoverPreview?: boolean;

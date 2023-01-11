@@ -1277,6 +1277,65 @@ describe('<LinkPicker />', () => {
           mockedPluginData[1].name,
         );
       });
+
+      it('should still show recents when second tab clicked after arrow key used to highlight url on first tab', async () => {
+        const promise1 = Promise.resolve(mockedPluginData.slice(0, 1));
+        const plugin1 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab1',
+          tabTitle: 'tab1',
+          promise: promise1,
+        });
+
+        const promise2 = Promise.resolve(mockedPluginData.slice(1, 2));
+        const plugin2 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab2',
+          tabTitle: 'tab2',
+          promise: promise2,
+        });
+
+        const resolve1 = jest.spyOn(plugin1, 'resolve');
+        const resolve2 = jest.spyOn(plugin2, 'resolve');
+
+        const { testIds } = setupWithGenericPlugin({
+          plugins: [plugin1, plugin2],
+        });
+
+        await asyncAct(() => promise1);
+        await asyncAct(() => promise2);
+        act(() => {
+          // Press down arrow once to set first item to active
+          fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+            keyCode: 40,
+          });
+        });
+
+        // Expect url field to have the first (index 0) URL in it after arrow down
+        expect(screen.getByTestId(testIds.urlInputField)).toHaveValue(
+          mockedPluginData[0].url,
+        );
+
+        // Click second tab
+        await user.click(screen.getAllByTestId(testIds.tabItem)[1]);
+
+        expect(resolve1).toBeCalledTimes(1);
+        expect(resolve2).toBeCalledTimes(1);
+
+        // Check our URL is still displayed in the url field
+        expect(screen.getByTestId(testIds.urlInputField)).toHaveValue(
+          mockedPluginData[0].url,
+        );
+
+        // There should be one recent still displayed on the new tab
+        expect(
+          await screen.findAllByTestId(testIds.searchResultItem),
+        ).toHaveLength(1);
+
+        // The recent displayed in the new tab is the second (index 1) element as that's
+        // what we put in in the promise2 slice.
+        expect(screen.getByTestId(testIds.searchResultItem)).toHaveTextContent(
+          mockedPluginData[1].name,
+        );
+      });
     });
 
     describe('on Error', () => {

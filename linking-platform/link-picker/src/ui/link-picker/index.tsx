@@ -138,15 +138,18 @@ export interface PickerState {
   displayText: string;
   invalidUrl: boolean;
   activeTab: number;
+  /** When true, even if the selected index is -1, don't hide the recents. */
+  preventHidingRecents: boolean;
 }
 
-const initState = {
+const initState: PickerState = {
   url: '',
   displayText: '',
   activeIndex: -1,
   selectedIndex: -1,
   invalidUrl: false,
   activeTab: 0,
+  preventHidingRecents: false,
 };
 
 function reducer(state: PickerState, payload: Partial<PickerState>) {
@@ -247,6 +250,8 @@ function LinkPicker({
       trackAttribute('linkFieldContentInputSource', null);
       dispatch({
         url: e.currentTarget.value,
+        // If the last action was changing tabs, make sure we're now allowing recents to be hidden
+        preventHidingRecents: false,
       });
     },
     [dispatch, trackAttribute],
@@ -417,8 +422,13 @@ function LinkPicker({
   const handleTabChange = useCallback(
     (activeTab: number) => {
       dispatch({
-        selectedIndex: -1,
+        // We don't want any selection to exist after changing tab, as the selection
+        // wouldn't mean anything.
         activeIndex: -1,
+        selectedIndex: -1,
+
+        // We don't want recents to be hidden, even though we don't have a selection
+        preventHidingRecents: true,
         invalidUrl: false,
         activeTab,
       });

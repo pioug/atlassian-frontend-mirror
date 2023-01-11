@@ -1,6 +1,9 @@
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { processAttributesFromBaseEvent } from '../../process-attributes';
+import {
+  getDomainFromUrl,
+  processAttributesFromBaseEvent,
+} from '../../process-attributes';
 
 describe('processAttributesFromBaseEvent', () => {
   it('should correctly assign `sourceEvent` attribute with `actionSubjectId`', () => {
@@ -78,7 +81,7 @@ describe('processAttributesFromBaseEvent', () => {
     );
   });
 
-  it('should should support getting a "confluence" style event with action and action subject on data object', () => {
+  it('should support getting a "confluence" style event with action and action subject on data object', () => {
     const event = processAttributesFromBaseEvent(
       new UIAnalyticsEvent({
         payload: {
@@ -100,5 +103,25 @@ describe('processAttributesFromBaseEvent', () => {
         xyz: '123',
       }),
     );
+  });
+});
+
+describe('getDomainFromUrl', () => {
+  it('should extract the domain from a URL string', () => {
+    const domain = getDomainFromUrl('https://test.com/xyz');
+
+    expect(domain).toBe('test.com');
+  });
+
+  it('should extract the domain from a URL string without the protocol defined', () => {
+    const domain = getDomainFromUrl('abc.test.com/xyz/123');
+
+    expect(domain).toBe('abc.test.com');
+  });
+
+  it('should return null for non-URL strings', () => {
+    const domain = getDomainFromUrl('invalid url');
+
+    expect(domain).toBe(null);
   });
 });

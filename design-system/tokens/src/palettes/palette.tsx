@@ -909,15 +909,15 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Neutral500: {
-        value: '#8993A5',
+        value: '#8590A2',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',
         },
       },
       Neutral500A: {
-        // #091E42 48%
-        value: '#091E427A',
+        // #091E42 49%
+        value: '#091E427D',
         attributes: {
           group: 'palette',
           category: 'light mode neutral',

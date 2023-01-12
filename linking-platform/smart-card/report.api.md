@@ -94,6 +94,8 @@ export type AnalyticsAction =
   | 'connected'
   | 'created'
   | 'dismissed'
+  | 'dwelled'
+  | 'focused'
   | 'inserted'
   | 'renderFailed'
   | 'renderSuccess'
@@ -113,7 +115,8 @@ export type AnalyticsActionSubject =
   | 'link'
   | 'modal'
   | 'smartLink'
-  | 'smartLinkAction';
+  | 'smartLinkAction'
+  | 'smartLinkIframe';
 
 // @public (undocumented)
 type AnalyticsFacade = ReturnType<typeof useSmartLinkAnalytics>;
@@ -906,6 +909,22 @@ type UiHoverCardViewedEventProps = CommonEventProps & {
 };
 
 // @public (undocumented)
+type UiIframeDwelledEventProps = CommonEventProps & {
+  id: string;
+  display: CardInnerAppearance;
+  status: CardType;
+  dwellTime: number;
+  dwellPercentVisible: number;
+};
+
+// @public (undocumented)
+type UiIframeFocusedEventProps = CommonEventProps & {
+  id: string;
+  display: CardInnerAppearance;
+  status: CardType;
+};
+
+// @public (undocumented)
 type UiRenderFailedEventProps = CommonEventProps & {
   display: CardInnerAppearance;
   error: Error;
@@ -961,6 +980,28 @@ export const useSmartLinkAnalytics: (
       destinationSubproduct,
       actionSubjectId,
     }: UiCardClickedEventProps) => void;
+    iframeDwelledEvent: ({
+      id,
+      display,
+      status,
+      definitionId,
+      extensionKey,
+      location,
+      destinationProduct,
+      destinationSubproduct,
+      dwellTime,
+      dwellPercentVisible,
+    }: UiIframeDwelledEventProps) => void;
+    iframeFocusedEvent: ({
+      id,
+      display,
+      status,
+      definitionId,
+      extensionKey,
+      location,
+      destinationProduct,
+      destinationSubproduct,
+    }: UiIframeFocusedEventProps) => void;
     actionClickedEvent: ({
       id,
       actionType,

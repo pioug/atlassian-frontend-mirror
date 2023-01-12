@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::205edd62aa560873b737d1349fd8ddc5>>
+ * @codegen <<SignedSource::da0a371535fe8d9484ef4d1f97070077>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -302,6 +302,100 @@ const tokens = {
   'color.blanket': '--ds-blanket',
   'color.blanket.selected': '--ds-blanket-selected',
   'color.blanket.danger': '--ds-blanket-danger',
+  'color.chart.brand': '--ds-chart-brand',
+  'color.chart.brand.hovered': '--ds-chart-brand-hovered',
+  'color.chart.neutral': '--ds-chart-neutral',
+  'color.chart.neutral.hovered': '--ds-chart-neutral-hovered',
+  'color.chart.success': '--ds-chart-success',
+  'color.chart.success.hovered': '--ds-chart-success-hovered',
+  'color.chart.success.bold': '--ds-chart-success-bold',
+  'color.chart.success.bold.hovered': '--ds-chart-success-bold-hovered',
+  'color.chart.danger': '--ds-chart-danger',
+  'color.chart.danger.hovered': '--ds-chart-danger-hovered',
+  'color.chart.danger.bold': '--ds-chart-danger-bold',
+  'color.chart.danger.bold.hovered': '--ds-chart-danger-bold-hovered',
+  'color.chart.warning': '--ds-chart-warning',
+  'color.chart.warning.hovered': '--ds-chart-warning-hovered',
+  'color.chart.warning.bold': '--ds-chart-warning-bold',
+  'color.chart.warning.bold.hovered': '--ds-chart-warning-bold-hovered',
+  'color.chart.information': '--ds-chart-information',
+  'color.chart.information.hovered': '--ds-chart-information-hovered',
+  'color.chart.information.bold': '--ds-chart-information-bold',
+  'color.chart.information.bold.hovered': '--ds-chart-information-bold-hovered',
+  'color.chart.discovery': '--ds-chart-discovery',
+  'color.chart.discovery.hovered': '--ds-chart-discovery-hovered',
+  'color.chart.discovery.bold': '--ds-chart-discovery-bold',
+  'color.chart.discovery.bold.hovered': '--ds-chart-discovery-bold-hovered',
+  'color.chart.categorical.1': '--ds-chart-categorical-1',
+  'color.chart.categorical.1.hovered': '--ds-chart-categorical-1-hovered',
+  'color.chart.categorical.2': '--ds-chart-categorical-2',
+  'color.chart.categorical.2.hovered': '--ds-chart-categorical-2-hovered',
+  'color.chart.categorical.3': '--ds-chart-categorical-3',
+  'color.chart.categorical.3.hovered': '--ds-chart-categorical-3-hovered',
+  'color.chart.categorical.4': '--ds-chart-categorical-4',
+  'color.chart.categorical.4.hovered': '--ds-chart-categorical-4-hovered',
+  'color.chart.categorical.5': '--ds-chart-categorical-5',
+  'color.chart.categorical.5.hovered': '--ds-chart-categorical-5-hovered',
+  'color.chart.categorical.6': '--ds-chart-categorical-6',
+  'color.chart.categorical.6.hovered': '--ds-chart-categorical-6-hovered',
+  'color.chart.categorical.7': '--ds-chart-categorical-7',
+  'color.chart.categorical.7.hovered': '--ds-chart-categorical-7-hovered',
+  'color.chart.categorical.8': '--ds-chart-categorical-8',
+  'color.chart.categorical.8.hovered': '--ds-chart-categorical-8-hovered',
+  'color.chart.blue.bold': '--ds-chart-blue-bold',
+  'color.chart.blue.bold.hovered': '--ds-chart-blue-bold-hovered',
+  'color.chart.blue.bolder': '--ds-chart-blue-bolder',
+  'color.chart.blue.bolder.hovered': '--ds-chart-blue-bolder-hovered',
+  'color.chart.blue.boldest': '--ds-chart-blue-boldest',
+  'color.chart.blue.boldest.hovered': '--ds-chart-blue-boldest-hovered',
+  'color.chart.red.bold': '--ds-chart-red-bold',
+  'color.chart.red.bold.hovered': '--ds-chart-red-bold-hovered',
+  'color.chart.red.bolder': '--ds-chart-red-bolder',
+  'color.chart.red.bolder.hovered': '--ds-chart-red-bolder-hovered',
+  'color.chart.red.boldest': '--ds-chart-red-boldest',
+  'color.chart.red.boldest.hovered': '--ds-chart-red-boldest-hovered',
+  'color.chart.orange.bold': '--ds-chart-orange-bold',
+  'color.chart.orange.bold.hovered': '--ds-chart-orange-bold-hovered',
+  'color.chart.orange.bolder': '--ds-chart-orange-bolder',
+  'color.chart.orange.bolder.hovered': '--ds-chart-orange-bolder-hovered',
+  'color.chart.orange.boldest': '--ds-chart-orange-boldest',
+  'color.chart.orange.boldest.hovered': '--ds-chart-orange-boldest-hovered',
+  'color.chart.yellow.bold': '--ds-chart-yellow-bold',
+  'color.chart.yellow.bold.hovered': '--ds-chart-yellow-bold-hovered',
+  'color.chart.yellow.bolder': '--ds-chart-yellow-bolder',
+  'color.chart.yellow.bolder.hovered': '--ds-chart-yellow-bolder-hovered',
+  'color.chart.yellow.boldest': '--ds-chart-yellow-boldest',
+  'color.chart.yellow.boldest.hovered': '--ds-chart-yellow-boldest-hovered',
+  'color.chart.green.bold': '--ds-chart-green-bold',
+  'color.chart.green.bold.hovered': '--ds-chart-green-bold-hovered',
+  'color.chart.green.bolder': '--ds-chart-green-bolder',
+  'color.chart.green.bolder.hovered': '--ds-chart-green-bolder-hovered',
+  'color.chart.green.boldest': '--ds-chart-green-boldest',
+  'color.chart.green.boldest.hovered': '--ds-chart-green-boldest-hovered',
+  'color.chart.teal.bold': '--ds-chart-teal-bold',
+  'color.chart.teal.bold.hovered': '--ds-chart-teal-bold-hovered',
+  'color.chart.teal.bolder': '--ds-chart-teal-bolder',
+  'color.chart.teal.bolder.hovered': '--ds-chart-teal-bolder-hovered',
+  'color.chart.teal.boldest': '--ds-chart-teal-boldest',
+  'color.chart.teal.boldest.hovered': '--ds-chart-teal-boldest-hovered',
+  'color.chart.purple.bold': '--ds-chart-purple-bold',
+  'color.chart.purple.bold.hovered': '--ds-chart-purple-bold-hovered',
+  'color.chart.purple.bolder': '--ds-chart-purple-bolder',
+  'color.chart.purple.bolder.hovered': '--ds-chart-purple-bolder-hovered',
+  'color.chart.purple.boldest': '--ds-chart-purple-boldest',
+  'color.chart.purple.boldest.hovered': '--ds-chart-purple-boldest-hovered',
+  'color.chart.magenta.bold': '--ds-chart-magenta-bold',
+  'color.chart.magenta.bold.hovered': '--ds-chart-magenta-bold-hovered',
+  'color.chart.magenta.bolder': '--ds-chart-magenta-bolder',
+  'color.chart.magenta.bolder.hovered': '--ds-chart-magenta-bolder-hovered',
+  'color.chart.magenta.boldest': '--ds-chart-magenta-boldest',
+  'color.chart.magenta.boldest.hovered': '--ds-chart-magenta-boldest-hovered',
+  'color.chart.gray.bold': '--ds-chart-gray-bold',
+  'color.chart.gray.bold.hovered': '--ds-chart-gray-bold-hovered',
+  'color.chart.gray.bolder': '--ds-chart-gray-bolder',
+  'color.chart.gray.bolder.hovered': '--ds-chart-gray-bolder-hovered',
+  'color.chart.gray.boldest': '--ds-chart-gray-boldest',
+  'color.chart.gray.boldest.hovered': '--ds-chart-gray-boldest-hovered',
   'color.interaction.hovered': '--ds-interaction-hovered',
   'color.interaction.pressed': '--ds-interaction-pressed',
   'color.interaction.inverse.hovered': '--ds-interaction-inverse-hovered',
@@ -698,6 +792,100 @@ export type CSSTokenMap = {
   'color.blanket': 'var(--ds-blanket)';
   'color.blanket.selected': 'var(--ds-blanket-selected)';
   'color.blanket.danger': 'var(--ds-blanket-danger)';
+  'color.chart.brand': 'var(--ds-chart-brand)';
+  'color.chart.brand.hovered': 'var(--ds-chart-brand-hovered)';
+  'color.chart.neutral': 'var(--ds-chart-neutral)';
+  'color.chart.neutral.hovered': 'var(--ds-chart-neutral-hovered)';
+  'color.chart.success': 'var(--ds-chart-success)';
+  'color.chart.success.hovered': 'var(--ds-chart-success-hovered)';
+  'color.chart.success.bold': 'var(--ds-chart-success-bold)';
+  'color.chart.success.bold.hovered': 'var(--ds-chart-success-bold-hovered)';
+  'color.chart.danger': 'var(--ds-chart-danger)';
+  'color.chart.danger.hovered': 'var(--ds-chart-danger-hovered)';
+  'color.chart.danger.bold': 'var(--ds-chart-danger-bold)';
+  'color.chart.danger.bold.hovered': 'var(--ds-chart-danger-bold-hovered)';
+  'color.chart.warning': 'var(--ds-chart-warning)';
+  'color.chart.warning.hovered': 'var(--ds-chart-warning-hovered)';
+  'color.chart.warning.bold': 'var(--ds-chart-warning-bold)';
+  'color.chart.warning.bold.hovered': 'var(--ds-chart-warning-bold-hovered)';
+  'color.chart.information': 'var(--ds-chart-information)';
+  'color.chart.information.hovered': 'var(--ds-chart-information-hovered)';
+  'color.chart.information.bold': 'var(--ds-chart-information-bold)';
+  'color.chart.information.bold.hovered': 'var(--ds-chart-information-bold-hovered)';
+  'color.chart.discovery': 'var(--ds-chart-discovery)';
+  'color.chart.discovery.hovered': 'var(--ds-chart-discovery-hovered)';
+  'color.chart.discovery.bold': 'var(--ds-chart-discovery-bold)';
+  'color.chart.discovery.bold.hovered': 'var(--ds-chart-discovery-bold-hovered)';
+  'color.chart.categorical.1': 'var(--ds-chart-categorical-1)';
+  'color.chart.categorical.1.hovered': 'var(--ds-chart-categorical-1-hovered)';
+  'color.chart.categorical.2': 'var(--ds-chart-categorical-2)';
+  'color.chart.categorical.2.hovered': 'var(--ds-chart-categorical-2-hovered)';
+  'color.chart.categorical.3': 'var(--ds-chart-categorical-3)';
+  'color.chart.categorical.3.hovered': 'var(--ds-chart-categorical-3-hovered)';
+  'color.chart.categorical.4': 'var(--ds-chart-categorical-4)';
+  'color.chart.categorical.4.hovered': 'var(--ds-chart-categorical-4-hovered)';
+  'color.chart.categorical.5': 'var(--ds-chart-categorical-5)';
+  'color.chart.categorical.5.hovered': 'var(--ds-chart-categorical-5-hovered)';
+  'color.chart.categorical.6': 'var(--ds-chart-categorical-6)';
+  'color.chart.categorical.6.hovered': 'var(--ds-chart-categorical-6-hovered)';
+  'color.chart.categorical.7': 'var(--ds-chart-categorical-7)';
+  'color.chart.categorical.7.hovered': 'var(--ds-chart-categorical-7-hovered)';
+  'color.chart.categorical.8': 'var(--ds-chart-categorical-8)';
+  'color.chart.categorical.8.hovered': 'var(--ds-chart-categorical-8-hovered)';
+  'color.chart.blue.bold': 'var(--ds-chart-blue-bold)';
+  'color.chart.blue.bold.hovered': 'var(--ds-chart-blue-bold-hovered)';
+  'color.chart.blue.bolder': 'var(--ds-chart-blue-bolder)';
+  'color.chart.blue.bolder.hovered': 'var(--ds-chart-blue-bolder-hovered)';
+  'color.chart.blue.boldest': 'var(--ds-chart-blue-boldest)';
+  'color.chart.blue.boldest.hovered': 'var(--ds-chart-blue-boldest-hovered)';
+  'color.chart.red.bold': 'var(--ds-chart-red-bold)';
+  'color.chart.red.bold.hovered': 'var(--ds-chart-red-bold-hovered)';
+  'color.chart.red.bolder': 'var(--ds-chart-red-bolder)';
+  'color.chart.red.bolder.hovered': 'var(--ds-chart-red-bolder-hovered)';
+  'color.chart.red.boldest': 'var(--ds-chart-red-boldest)';
+  'color.chart.red.boldest.hovered': 'var(--ds-chart-red-boldest-hovered)';
+  'color.chart.orange.bold': 'var(--ds-chart-orange-bold)';
+  'color.chart.orange.bold.hovered': 'var(--ds-chart-orange-bold-hovered)';
+  'color.chart.orange.bolder': 'var(--ds-chart-orange-bolder)';
+  'color.chart.orange.bolder.hovered': 'var(--ds-chart-orange-bolder-hovered)';
+  'color.chart.orange.boldest': 'var(--ds-chart-orange-boldest)';
+  'color.chart.orange.boldest.hovered': 'var(--ds-chart-orange-boldest-hovered)';
+  'color.chart.yellow.bold': 'var(--ds-chart-yellow-bold)';
+  'color.chart.yellow.bold.hovered': 'var(--ds-chart-yellow-bold-hovered)';
+  'color.chart.yellow.bolder': 'var(--ds-chart-yellow-bolder)';
+  'color.chart.yellow.bolder.hovered': 'var(--ds-chart-yellow-bolder-hovered)';
+  'color.chart.yellow.boldest': 'var(--ds-chart-yellow-boldest)';
+  'color.chart.yellow.boldest.hovered': 'var(--ds-chart-yellow-boldest-hovered)';
+  'color.chart.green.bold': 'var(--ds-chart-green-bold)';
+  'color.chart.green.bold.hovered': 'var(--ds-chart-green-bold-hovered)';
+  'color.chart.green.bolder': 'var(--ds-chart-green-bolder)';
+  'color.chart.green.bolder.hovered': 'var(--ds-chart-green-bolder-hovered)';
+  'color.chart.green.boldest': 'var(--ds-chart-green-boldest)';
+  'color.chart.green.boldest.hovered': 'var(--ds-chart-green-boldest-hovered)';
+  'color.chart.teal.bold': 'var(--ds-chart-teal-bold)';
+  'color.chart.teal.bold.hovered': 'var(--ds-chart-teal-bold-hovered)';
+  'color.chart.teal.bolder': 'var(--ds-chart-teal-bolder)';
+  'color.chart.teal.bolder.hovered': 'var(--ds-chart-teal-bolder-hovered)';
+  'color.chart.teal.boldest': 'var(--ds-chart-teal-boldest)';
+  'color.chart.teal.boldest.hovered': 'var(--ds-chart-teal-boldest-hovered)';
+  'color.chart.purple.bold': 'var(--ds-chart-purple-bold)';
+  'color.chart.purple.bold.hovered': 'var(--ds-chart-purple-bold-hovered)';
+  'color.chart.purple.bolder': 'var(--ds-chart-purple-bolder)';
+  'color.chart.purple.bolder.hovered': 'var(--ds-chart-purple-bolder-hovered)';
+  'color.chart.purple.boldest': 'var(--ds-chart-purple-boldest)';
+  'color.chart.purple.boldest.hovered': 'var(--ds-chart-purple-boldest-hovered)';
+  'color.chart.magenta.bold': 'var(--ds-chart-magenta-bold)';
+  'color.chart.magenta.bold.hovered': 'var(--ds-chart-magenta-bold-hovered)';
+  'color.chart.magenta.bolder': 'var(--ds-chart-magenta-bolder)';
+  'color.chart.magenta.bolder.hovered': 'var(--ds-chart-magenta-bolder-hovered)';
+  'color.chart.magenta.boldest': 'var(--ds-chart-magenta-boldest)';
+  'color.chart.magenta.boldest.hovered': 'var(--ds-chart-magenta-boldest-hovered)';
+  'color.chart.gray.bold': 'var(--ds-chart-gray-bold)';
+  'color.chart.gray.bold.hovered': 'var(--ds-chart-gray-bold-hovered)';
+  'color.chart.gray.bolder': 'var(--ds-chart-gray-bolder)';
+  'color.chart.gray.bolder.hovered': 'var(--ds-chart-gray-bolder-hovered)';
+  'color.chart.gray.boldest': 'var(--ds-chart-gray-boldest)';
+  'color.chart.gray.boldest.hovered': 'var(--ds-chart-gray-boldest-hovered)';
   'color.interaction.hovered': 'var(--ds-interaction-hovered)';
   'color.interaction.pressed': 'var(--ds-interaction-pressed)';
   'color.interaction.inverse.hovered': 'var(--ds-interaction-inverse-hovered)';

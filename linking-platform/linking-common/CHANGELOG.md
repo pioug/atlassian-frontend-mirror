@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.19.0
+
+### Minor Changes
+
+- [`d5a9fd04c02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5a9fd04c02) - Analytics to track dwell time and focus on smart links embedded iframes
+
 ## 1.18.0
 
 ### Minor Changes

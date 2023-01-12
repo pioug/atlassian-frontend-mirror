@@ -114,6 +114,23 @@ interface resultId {
   'icon/neutral/subtle': any;
   'icon/neutral/on-bold': any;
   'icon/neutral/disabled': any;
+  'data-visualisation/end-user': any;
+  'data-visualisation/product/none/one-color': any;
+  'data-visualisation/product/none/primary-and-neutral': any;
+  'data-visualisation/product/none/more-than-one-color': any;
+  'data-visualisation/product/success/one-or-more': any;
+  'data-visualisation/product/success/primary-and-neutral': any;
+  'data-visualisation/product/warning/one-or-more': any;
+  'data-visualisation/product/warning/primary-and-neutral': any;
+  'data-visualisation/product/danger/one-or-more': any;
+  'data-visualisation/product/danger/primary-and-neutral': any;
+  'data-visualisation/product/discovery/one-or-more': any;
+  'data-visualisation/product/discovery/primary-and-neutral': any;
+  'data-visualisation/product/information/one-or-more': any;
+  'data-visualisation/product/information/primary-and-neutral': any;
+  'data-visualisation/product/neutral': any;
+  'data-visualisation/product/brand/one-or-more': any;
+  'data-visualisation/product/brand/primary-and-neutral': any;
   'other/blanket/modal': any;
   'other/blanket/deletion': any;
   'other/blanket/selection': any;
@@ -609,6 +626,96 @@ const results: Results = {
   'icon/neutral/disabled': {
     suggestion: ['color.icon.disabled'],
   },
+
+  'data-visualisation/end-user': {
+    suggestion: [
+      'color.chart.green.bold',
+      'color.chart.green.bolder',
+      'color.chart.green.boldest',
+      'color.chart.red.bold',
+      'color.chart.red.bolder',
+      'color.chart.red.boldest',
+      'color.chart.blue.bold',
+      'color.chart.blue.bolder',
+      'color.chart.blue.boldest',
+      'color.chart.purple.bold',
+      'color.chart.purple.bolder',
+      'color.chart.purple.boldest',
+      'color.chart.teal.bold',
+      'color.chart.teal.bolder',
+      'color.chart.teal.boldest',
+      'color.chart.orange.bold',
+      'color.chart.orange.bolder',
+      'color.chart.orange.boldest',
+      'color.chart.yellow.bold',
+      'color.chart.yellow.bolder',
+      'color.chart.yellow.boldest',
+      'color.chart.magenta.bold',
+      'color.chart.magenta.bolder',
+      'color.chart.magenta.boldest',
+      'color.chart.gray.bold',
+      'color.chart.gray.bolder',
+      'color.chart.gray.boldest',
+    ],
+  },
+  'data-visualisation/product/none/one-color': {
+    suggestion: ['color.chart.brand'],
+  },
+  'data-visualisation/product/none/primary-and-neutral': {
+    suggestion: ['color.chart.brand', 'color.chart.neutral'],
+  },
+  'data-visualisation/product/none/more-than-one-color': {
+    suggestion: [
+      'color.chart.categorical.1',
+      'color.chart.categorical.2',
+      'color.chart.categorical.3',
+      'color.chart.categorical.4',
+      'color.chart.categorical.5',
+      'color.chart.categorical.6',
+      'color.chart.categorical.7',
+      'color.chart.categorical.8',
+    ],
+  },
+  'data-visualisation/product/success/one-or-more': {
+    suggestion: ['color.chart.success', 'color.chart.success.bold'],
+  },
+  'data-visualisation/product/success/primary-and-neutral': {
+    suggestion: ['color.chart.success.bold', 'color.chart.neutral'],
+  },
+  'data-visualisation/product/warning/one-or-more': {
+    suggestion: ['color.chart.warning', 'color.chart.warning.bold'],
+  },
+  'data-visualisation/product/warning/primary-and-neutral': {
+    suggestion: ['color.chart.warning.bold', 'color.chart.neutral'],
+  },
+  'data-visualisation/product/danger/one-or-more': {
+    suggestion: ['color.chart.danger', 'color.chart.danger.bold'],
+  },
+  'data-visualisation/product/danger/primary-and-neutral': {
+    suggestion: ['color.chart.danger.bold', 'color.chart.neutral'],
+  },
+  'data-visualisation/product/discovery/one-or-more': {
+    suggestion: ['color.chart.discovery', 'color.chart.discovery.bold'],
+  },
+  'data-visualisation/product/discovery/primary-and-neutral': {
+    suggestion: ['color.chart.discovery.bold', 'color.chart.neutral'],
+  },
+  'data-visualisation/product/information/one-or-more': {
+    suggestion: ['color.chart.information', 'color.chart.information.bold'],
+  },
+  'data-visualisation/product/information/primary-and-neutral': {
+    suggestion: ['color.chart.information.bold', 'color.chart.neutral'],
+  },
+  'data-visualisation/product/neutral': {
+    suggestion: ['color.chart.neutral'],
+  },
+  'data-visualisation/product/brand/one-or-more': {
+    suggestion: ['color.chart.brand'],
+  },
+  'data-visualisation/product/brand/primary-and-neutral': {
+    suggestion: ['color.chart.brand', 'color.chart.neutral'],
+  },
+
   'other/blanket/modal': {
     suggestion: ['color.blanket'],
   },

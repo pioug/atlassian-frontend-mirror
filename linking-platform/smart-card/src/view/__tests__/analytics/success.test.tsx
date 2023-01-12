@@ -20,6 +20,11 @@ import { IntlProvider } from 'react-intl-next';
 import { isSpecialEvent } from '../../../utils';
 import * as cardWithUrlContent from '../../CardWithUrl/component';
 import { TestErrorBoundary } from '../_boundary';
+import { act } from '@testing-library/react';
+
+jest.mock('@atlaskit/link-provider', () => ({
+  useFeatureFlag: () => true,
+}));
 
 describe('smart-card: success analytics', () => {
   let mockClient: CardClient;
@@ -59,6 +64,63 @@ describe('smart-card: success analytics', () => {
   });
 
   describe('resolved', () => {
+    describe('embeds', () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+      });
+
+      afterEach(() => {
+        jest.useRealTimers();
+      });
+
+      it('should fire the dwelled analytics event when the user dwells on the iframe', async () => {
+        const mockUrl = 'https://this.is.the.sixth.url';
+        const { findByTestId } = render(
+          <IntlProvider locale="en">
+            <Provider
+              client={mockClient}
+              featureFlags={{ trackIframeDwellEvents: true }}
+            >
+              <Card appearance="embed" url={mockUrl} />
+            </Provider>
+          </IntlProvider>,
+        );
+        const resolvedView = await findByTestId('embed-card-resolved-view');
+        expect(resolvedView).toBeTruthy();
+        expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+        expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+        expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+          display: 'embed',
+          status: 'resolved',
+          definitionId: 'd1',
+          extensionKey: 'object-provider',
+        });
+
+        const resolvedViewFrame = await findByTestId(
+          'embed-card-resolved-view-frame',
+        );
+        fireEvent.load(resolvedViewFrame);
+        fireEvent.mouseEnter(resolvedViewFrame);
+        expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(0);
+        act(() => {
+          jest.advanceTimersByTime(6000);
+        });
+        expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(1);
+        expect(analytics.uiIframeDwelledEvent).toBeCalledWith({
+          definitionId: 'd1',
+          destinationProduct: undefined,
+          destinationSubproduct: undefined,
+          display: 'embed',
+          dwellPercentVisible: 100,
+          dwellTime: 5,
+          extensionKey: 'object-provider',
+          id: 'some-uuid-1',
+          location: undefined,
+          status: 'resolved',
+        });
+      });
+    });
+
     it('should fire the resolved analytics event when the url was resolved', async () => {
       const mockUrl = 'https://this.is.the.sixth.url';
       const { findByTestId, getByRole } = render(

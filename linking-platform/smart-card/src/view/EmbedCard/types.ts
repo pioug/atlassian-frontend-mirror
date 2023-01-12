@@ -24,6 +24,8 @@ export type EmbedCardProps = {
   testId?: string;
   inheritDimensions?: boolean;
   showActions?: boolean;
+  onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
+  onIframeFocus?: () => void;
 };
 export interface WithShowControlMethodProp {
   showControls?: () => void;

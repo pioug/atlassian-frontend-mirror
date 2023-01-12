@@ -58,11 +58,17 @@ import {
   UiHoverCardDismissedEventProps,
   UiHoverCardOpenLinkClickedEventProps,
   UiHoverCardViewedEventProps,
+  UiIframeDwelledEventProps,
+  UiIframeFocusedEventProps,
   UiRenderFailedEventProps,
   UiRenderSuccessEventProps,
 } from '../../utils/analytics/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { trackLinkUpdated } from '../../utils/analytics/analytics';
+import {
+  trackLinkUpdated,
+  uiIframeDwelledEvent,
+  uiIframeFocusedEvent,
+} from '../../utils/analytics/analytics';
 
 const applyCommonAttributes = (
   event: AnalyticsPayload,
@@ -250,6 +256,84 @@ export const useSmartLinkAnalytics = (
               destinationProduct,
               destinationSubproduct,
               actionSubjectId,
+            }),
+            commonAttributes,
+          ),
+        ),
+      /**
+       * This fires an event that represents when a user dwells their cursor on a Smart Link's iframe.
+       * @param id The unique ID for this Smart Link.
+       * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+       * @param status What status the Smart Link is currently in (e.g. resolved, unresolved)
+       * @param definitionId The definitionId of the Smart Link resolver invoked.
+       * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+       * @param location Where the Smart Link is currently rendered.
+       * @param destinationProduct The product the Smart Link is linked to.
+       * @param dwellTime Total seconds that the user has dwelled on this iframe
+       * @param dwellPercentVisible Percentage element was visible at end of dwell
+       * @returns
+       */
+      iframeDwelledEvent: ({
+        id,
+        display,
+        status,
+        definitionId,
+        extensionKey,
+        location,
+        destinationProduct,
+        destinationSubproduct,
+        dwellTime,
+        dwellPercentVisible,
+      }: UiIframeDwelledEventProps) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            uiIframeDwelledEvent({
+              id,
+              display,
+              status,
+              definitionId,
+              extensionKey,
+              location,
+              destinationProduct,
+              destinationSubproduct,
+              dwellTime,
+              dwellPercentVisible,
+            }),
+            commonAttributes,
+          ),
+        ),
+      /**
+       * This fires an event that represents when a user clicks or tabs into a Smart Link's iframe.
+       * @param id The unique ID for this Smart Link.
+       * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+       * @param status What status the Smart Link is currently in (e.g. resolved, unresolved)
+       * @param definitionId The definitionId of the Smart Link resolver invoked.
+       * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+       * @param location Where the Smart Link is currently rendered.
+       * @param destinationProduct The product the Smart Link is linked to.
+       * @returns
+       */
+      iframeFocusedEvent: ({
+        id,
+        display,
+        status,
+        definitionId,
+        extensionKey,
+        location,
+        destinationProduct,
+        destinationSubproduct,
+      }: UiIframeFocusedEventProps) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            uiIframeFocusedEvent({
+              id,
+              display,
+              status,
+              definitionId,
+              extensionKey,
+              location,
+              destinationProduct,
+              destinationSubproduct,
             }),
             commonAttributes,
           ),

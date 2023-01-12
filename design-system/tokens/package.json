@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -94,6 +94,8 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/chrome": "^0.0.171",
     "copy-webpack-plugin": "^6.4.0",
+    "echarts": "^5.4.1",
+    "echarts-for-react": "^3.0.2",
     "fuse.js": "^6.6.2",
     "lodash": "^4.17.21",
     "prettier": "^2.7.0",

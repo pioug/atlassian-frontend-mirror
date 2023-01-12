@@ -34,6 +34,8 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
       onError,
       testId,
       inheritDimensions,
+      onIframeDwell,
+      onIframeFocus,
     },
     iframeRef,
   ) => {
@@ -70,6 +72,8 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
               inheritDimensions={inheritDimensions}
               onClick={handleFrameClick}
               ref={iframeRef}
+              onIframeDwell={onIframeDwell}
+              onIframeFocus={onIframeFocus}
             />
           );
         } else {

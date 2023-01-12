@@ -18,6 +18,7 @@ const subgroups = [
   'color.icon',
   'color.border',
   'color.background',
+  'color.chart',
   'color.blanket',
   'color.skeleton',
   'elevation.surface',

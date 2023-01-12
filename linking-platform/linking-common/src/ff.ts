@@ -1,5 +1,6 @@
 export interface LinkingPlatformFeatureFlags {
   showHoverPreview?: boolean;
+  trackIframeDwellEvents?: boolean;
   useLinkPickerScrollingTabs?: boolean;
   embedModalSize?: string;
   /**

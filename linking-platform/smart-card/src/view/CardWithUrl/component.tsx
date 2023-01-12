@@ -179,6 +179,55 @@ export function CardWithUrlContent({
     id,
   ]);
 
+  const onIframeDwell = useCallback(
+    (dwellTime: number, dwellPercentVisible: number) => {
+      analytics.ui.iframeDwelledEvent({
+        id,
+        display: isFlexibleUi ? 'flexible' : appearance,
+        status: state.status,
+        definitionId,
+        extensionKey,
+        destinationProduct: product,
+        destinationSubproduct: subproduct,
+        dwellTime: dwellTime,
+        dwellPercentVisible: dwellPercentVisible,
+      });
+    },
+    [
+      id,
+      state.status,
+      analytics.ui,
+      appearance,
+      definitionId,
+      extensionKey,
+      isFlexibleUi,
+      product,
+      subproduct,
+    ],
+  );
+
+  const onIframeFocus = useCallback(() => {
+    analytics.ui.iframeFocusedEvent({
+      id,
+      display: isFlexibleUi ? 'flexible' : appearance,
+      status: state.status,
+      definitionId,
+      extensionKey,
+      destinationProduct: product,
+      destinationSubproduct: subproduct,
+    });
+  }, [
+    id,
+    state.status,
+    analytics.ui,
+    appearance,
+    definitionId,
+    extensionKey,
+    isFlexibleUi,
+    product,
+    subproduct,
+  ]);
+
   if (isFlexibleUi) {
     let cardState = state;
     if (error) {
@@ -274,6 +323,8 @@ export function CardWithUrlContent({
           inheritDimensions={inheritDimensions}
           showActions={showActions}
           ref={embedIframeRef}
+          onIframeDwell={onIframeDwell}
+          onIframeFocus={onIframeFocus}
         />
       );
   }

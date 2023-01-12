@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::41518a11c47a9133edad1df4225d715e>>
+ * @codegen <<SignedSource::02ca57d1cc640341d0b5c27cb3d19115>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -168,7 +168,7 @@ synchronizeFigmaTokens('AtlassianLight', {
       "introduced": "0.10.5",
       "description": "Use for text and icons on gray subtle accent backgrounds."
     },
-    "value": "#172B4D"
+    "value": "#091E42"
   },
   "Color/Text/Default": {
     "attributes": {
@@ -987,7 +987,7 @@ synchronizeFigmaTokens('AtlassianLight', {
       "introduced": "0.7.0",
       "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#8993A5"
+    "value": "#8590A2"
   },
   "Color/Background/Accent/Gray/Bolder": {
     "attributes": {
@@ -1500,7 +1500,7 @@ synchronizeFigmaTokens('AtlassianLight', {
       "introduced": "0.0.15",
       "description": "Use for the screen overlay that appears with modal dialogs"
     },
-    "value": "#091E427A"
+    "value": "#091E427D"
   },
   "Color/Blanket/Selected": {
     "attributes": {
@@ -1519,6 +1519,852 @@ synchronizeFigmaTokens('AtlassianLight', {
       "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
     },
     "value": "#EF5C4814"
+  },
+  "Color/Chart/Brand/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Our primary color for data visualisation. Use when only one color is required."
+    },
+    "value": "#1D7AFC"
+  },
+  "Color/Chart/Brand/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.brand."
+    },
+    "value": "#0C66E4"
+  },
+  "Color/Chart/Neutral/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
+    },
+    "value": "#8590A2"
+  },
+  "Color/Chart/Neutral/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.neutral."
+    },
+    "value": "#758195"
+  },
+  "Color/Chart/Success/Default/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating positive information, such as 'on track'."
+    },
+    "value": "#22A06B"
+  },
+  "Color/Chart/Success/Default/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.success."
+    },
+    "value": "#1F845A"
+  },
+  "Color/Chart/Success/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.success."
+    },
+    "value": "#216E4E"
+  },
+  "Color/Chart/Success/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.success.bold."
+    },
+    "value": "#164B35"
+  },
+  "Color/Chart/Danger/Default/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating negative information, such as 'off track'."
+    },
+    "value": "#EF5C48"
+  },
+  "Color/Chart/Danger/Default/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.danger."
+    },
+    "value": "#E34935"
+  },
+  "Color/Chart/Danger/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.danger."
+    },
+    "value": "#AE2A19"
+  },
+  "Color/Chart/Danger/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.danger.bold."
+    },
+    "value": "#601E16"
+  },
+  "Color/Chart/Warning/Default/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating caution, such as 'at risk' statuses."
+    },
+    "value": "#B38600"
+  },
+  "Color/Chart/Warning/Default/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.warning."
+    },
+    "value": "#946F00"
+  },
+  "Color/Chart/Warning/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.warning."
+    },
+    "value": "#7F5F01"
+  },
+  "Color/Chart/Warning/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.warning.bold."
+    },
+    "value": "#533F04"
+  },
+  "Color/Chart/Information/Default/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating low priority or in-progress statuses."
+    },
+    "value": "#388BFF"
+  },
+  "Color/Chart/Information/Default/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.information."
+    },
+    "value": "#1D7AFC"
+  },
+  "Color/Chart/Information/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.information."
+    },
+    "value": "#0055CC"
+  },
+  "Color/Chart/Information/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.information.bold."
+    },
+    "value": "#09326C"
+  },
+  "Color/Chart/Discovery/Default/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating 'new' statuses."
+    },
+    "value": "#8F7EE7"
+  },
+  "Color/Chart/Discovery/Default/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.discovery."
+    },
+    "value": "#8270DB"
+  },
+  "Color/Chart/Discovery/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.discovery."
+    },
+    "value": "#5E4DB2"
+  },
+  "Color/Chart/Discovery/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.discovery.bold."
+    },
+    "value": "#352C63"
+  },
+  "Color/Chart/Categorical/1/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#1D9AAA"
+  },
+  "Color/Chart/Categorical/1/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.1."
+    },
+    "value": "#1D7F8C"
+  },
+  "Color/Chart/Categorical/2/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#5E4DB2"
+  },
+  "Color/Chart/Categorical/2/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.2."
+    },
+    "value": "#352C63"
+  },
+  "Color/Chart/Categorical/3/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#D97008"
+  },
+  "Color/Chart/Categorical/3/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.3."
+    },
+    "value": "#B65C02"
+  },
+  "Color/Chart/Categorical/4/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#943D73"
+  },
+  "Color/Chart/Categorical/4/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.4."
+    },
+    "value": "#50253F"
+  },
+  "Color/Chart/Categorical/5/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#09326C"
+  },
+  "Color/Chart/Categorical/5/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.5."
+    },
+    "value": "#082145"
+  },
+  "Color/Chart/Categorical/6/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#8F7EE7"
+  },
+  "Color/Chart/Categorical/6/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.6."
+    },
+    "value": "#8270DB"
+  },
+  "Color/Chart/Categorical/7/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#50253F"
+  },
+  "Color/Chart/Categorical/7/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.7."
+    },
+    "value": "#341829"
+  },
+  "Color/Chart/Categorical/8/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#974F0C"
+  },
+  "Color/Chart/Categorical/8/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.8."
+    },
+    "value": "#5F3811"
+  },
+  "Color/Chart/Blue/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#388BFF"
+  },
+  "Color/Chart/Blue/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.blue.bold."
+    },
+    "value": "#1D7AFC"
+  },
+  "Color/Chart/Blue/Bolder/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#1D7AFC"
+  },
+  "Color/Chart/Blue/Bolder/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.blue.bolder."
+    },
+    "value": "#0C66E4"
+  },
+  "Color/Chart/Blue/Boldest/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#0055CC"
+  },
+  "Color/Chart/Blue/Boldest/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.blue.boldest."
+    },
+    "value": "#09326C"
+  },
+  "Color/Chart/Red/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#EF5C48"
+  },
+  "Color/Chart/Red/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.red.bold."
+    },
+    "value": "#E34935"
+  },
+  "Color/Chart/Red/Bolder/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#E34935"
+  },
+  "Color/Chart/Red/Bolder/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.red.bolder."
+    },
+    "value": "#CA3521"
+  },
+  "Color/Chart/Red/Boldest/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#AE2A19"
+  },
+  "Color/Chart/Red/Boldest/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.red.boldest."
+    },
+    "value": "#601E16"
+  },
+  "Color/Chart/Orange/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#D97008"
+  },
+  "Color/Chart/Orange/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.orange.bold."
+    },
+    "value": "#B65C02"
+  },
+  "Color/Chart/Orange/Bolder/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#B65C02"
+  },
+  "Color/Chart/Orange/Bolder/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.orange.bolder."
+    },
+    "value": "#974F0C"
+  },
+  "Color/Chart/Orange/Boldest/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#974F0C"
+  },
+  "Color/Chart/Orange/Boldest/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.orange.boldest."
+    },
+    "value": "#5F3811"
+  },
+  "Color/Chart/Yellow/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#B38600"
+  },
+  "Color/Chart/Yellow/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.yellow.bold."
+    },
+    "value": "#946F00"
+  },
+  "Color/Chart/Yellow/Bolder/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#946F00"
+  },
+  "Color/Chart/Yellow/Bolder/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.yellow.bolder."
+    },
+    "value": "#7F5F01"
+  },
+  "Color/Chart/Yellow/Boldest/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#7F5F01"
+  },
+  "Color/Chart/Yellow/Boldest/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.yellow.boldest."
+    },
+    "value": "#533F04"
+  },
+  "Color/Chart/Green/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#22A06B"
+  },
+  "Color/Chart/Green/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.green.bold."
+    },
+    "value": "#1F845A"
+  },
+  "Color/Chart/Green/Bolder/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#1F845A"
+  },
+  "Color/Chart/Green/Bolder/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.green.bolder."
+    },
+    "value": "#216E4E"
+  },
+  "Color/Chart/Green/Boldest/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#216E4E"
+  },
+  "Color/Chart/Green/Boldest/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.green.boldest."
+    },
+    "value": "#164B35"
+  },
+  "Color/Chart/Teal/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#1D9AAA"
+  },
+  "Color/Chart/Teal/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.teal.bold."
+    },
+    "value": "#1D7F8C"
+  },
+  "Color/Chart/Teal/Bolder/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#1D7F8C"
+  },
+  "Color/Chart/Teal/Bolder/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.teal.bolder."
+    },
+    "value": "#206B74"
+  },
+  "Color/Chart/Teal/Boldest/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#206B74"
+  },
+  "Color/Chart/Teal/Boldest/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.teal.boldest."
+    },
+    "value": "#1D474C"
+  },
+  "Color/Chart/Purple/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#8F7EE7"
+  },
+  "Color/Chart/Purple/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.purple.bold."
+    },
+    "value": "#8270DB"
+  },
+  "Color/Chart/Purple/Bolder/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#8270DB"
+  },
+  "Color/Chart/Purple/Bolder/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.purple.bolder."
+    },
+    "value": "#6E5DC6"
+  },
+  "Color/Chart/Purple/Boldest/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#5E4DB2"
+  },
+  "Color/Chart/Purple/Boldest/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.purple.boldest."
+    },
+    "value": "#352C63"
+  },
+  "Color/Chart/Magenta/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#DA62AC"
+  },
+  "Color/Chart/Magenta/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.magenta.bold."
+    },
+    "value": "#CD519D"
+  },
+  "Color/Chart/Magenta/Bolder/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#CD519D"
+  },
+  "Color/Chart/Magenta/Bolder/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.magenta.bolder."
+    },
+    "value": "#AE4787"
+  },
+  "Color/Chart/Magenta/Boldest/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#943D73"
+  },
+  "Color/Chart/Magenta/Boldest/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.magenta.boldest."
+    },
+    "value": "#50253F"
+  },
+  "Color/Chart/Gray/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#8590A2"
+  },
+  "Color/Chart/Gray/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.gray.bold."
+    },
+    "value": "#758195"
+  },
+  "Color/Chart/Gray/Bolder/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#758195"
+  },
+  "Color/Chart/Gray/Bolder/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.gray.bolder."
+    },
+    "value": "#626F86"
+  },
+  "Color/Chart/Gray/Boldest/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#44546F"
+  },
+  "Color/Chart/Gray/Boldest/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.gray.boldest."
+    },
+    "value": "#2C3E5D"
   },
   "Color/Interaction/Hovered": {
     "attributes": {

@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 23.12.0
+
+### Minor Changes
+
+- [`d5a9fd04c02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5a9fd04c02) - Analytics to track dwell time and focus on smart links embedded iframes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.11.3
 
 ### Patch Changes

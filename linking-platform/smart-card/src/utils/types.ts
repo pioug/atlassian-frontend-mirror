@@ -20,7 +20,9 @@ export type AnalyticsAction =
   | 'viewed'
   | 'unresolved'
   | 'updated'
-  | 'chunkLoadFailed';
+  | 'chunkLoadFailed'
+  | 'dwelled'
+  | 'focused';
 
 export type AnalyticsActionSubject =
   | 'smartLink'
@@ -31,6 +33,7 @@ export type AnalyticsActionSubject =
   | 'hoverCard'
   | 'modal'
   | 'embedPreviewModal'
+  | 'smartLinkIframe'
   | 'link';
 
 export type AnalyticsName = 'embedPreviewModal';

@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.6.4
+
+### Patch Changes
+
+- [`1e46e236f6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e46e236f6f) - This changeset exists because a PR touches these packages in a way that doesn't require a release
+
 ## 1.6.3
 
 ### Patch Changes

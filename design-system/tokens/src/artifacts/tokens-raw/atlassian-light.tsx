@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a654d8b889b7fca74b9184ff6687882>>
+ * @codegen <<SignedSource::869423562b716bc3cb54013f76f6bfae>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -487,7 +487,7 @@ const tokens = [
       "introduced": "0.10.5",
       "description": "Use for text and icons on gray subtle accent backgrounds."
     },
-    "value": "#172B4D",
+    "value": "#091E42",
     "filePath": "src/tokens/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -497,7 +497,7 @@ const tokens = [
         "introduced": "0.10.5",
         "description": "Use for text and icons on gray subtle accent backgrounds."
       },
-      "value": "Neutral1000"
+      "value": "Neutral1100"
     },
     "name": "color.text.accent.gray.bolder",
     "path": [
@@ -3779,7 +3779,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#8993A5",
+    "value": "#8590A2",
     "filePath": "src/tokens/atlassian-light/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -5574,7 +5574,7 @@ const tokens = [
       "replacement": "color.blanket.[default]",
       "description": "Use for the screen overlay that appears with modal dialogs"
     },
-    "value": "#091E427A",
+    "value": "#091E427D",
     "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
     "isSource": true,
     "original": {
@@ -7051,7 +7051,7 @@ const tokens = [
       "introduced": "0.0.15",
       "description": "Use for the screen overlay that appears with modal dialogs"
     },
-    "value": "#091E427A",
+    "value": "#091E427D",
     "filePath": "src/tokens/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -7120,6 +7120,2634 @@ const tokens = [
       "color",
       "blanket",
       "danger"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Our primary color for data visualisation. Use when only one color is required."
+    },
+    "value": "#1D7AFC",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Our primary color for data visualisation. Use when only one color is required."
+      },
+      "value": "Blue600"
+    },
+    "name": "color.chart.brand.[default]",
+    "path": [
+      "color",
+      "chart",
+      "brand",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.brand."
+    },
+    "value": "#0C66E4",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.brand."
+      },
+      "value": "Blue700"
+    },
+    "name": "color.chart.brand.hovered",
+    "path": [
+      "color",
+      "chart",
+      "brand",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
+    },
+    "value": "#8590A2",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
+      },
+      "value": "Neutral500"
+    },
+    "name": "color.chart.neutral.[default]",
+    "path": [
+      "color",
+      "chart",
+      "neutral",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.neutral."
+    },
+    "value": "#758195",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.neutral."
+      },
+      "value": "Neutral600"
+    },
+    "name": "color.chart.neutral.hovered",
+    "path": [
+      "color",
+      "chart",
+      "neutral",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating positive information, such as 'on track'."
+    },
+    "value": "#22A06B",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation communicating positive information, such as 'on track'."
+      },
+      "value": "Green600"
+    },
+    "name": "color.chart.success.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "success",
+      "[default]",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.success."
+    },
+    "value": "#1F845A",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.success."
+      },
+      "value": "Green700"
+    },
+    "name": "color.chart.success.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "success",
+      "[default]",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.success."
+    },
+    "value": "#216E4E",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "A stronger emphasis option of color.chart.success."
+      },
+      "value": "Green800"
+    },
+    "name": "color.chart.success.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "success",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.success.bold."
+    },
+    "value": "#164B35",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.success.bold."
+      },
+      "value": "Green900"
+    },
+    "name": "color.chart.success.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "success",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating negative information, such as 'off track'."
+    },
+    "value": "#EF5C48",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation communicating negative information, such as 'off track'."
+      },
+      "value": "Red500"
+    },
+    "name": "color.chart.danger.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "danger",
+      "[default]",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.danger."
+    },
+    "value": "#E34935",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.danger."
+      },
+      "value": "Red600"
+    },
+    "name": "color.chart.danger.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "danger",
+      "[default]",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.danger."
+    },
+    "value": "#AE2A19",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "A stronger emphasis option of color.chart.danger."
+      },
+      "value": "Red800"
+    },
+    "name": "color.chart.danger.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "danger",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.danger.bold."
+    },
+    "value": "#601E16",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.danger.bold."
+      },
+      "value": "Red900"
+    },
+    "name": "color.chart.danger.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "danger",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating caution, such as 'at risk' statuses."
+    },
+    "value": "#B38600",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation communicating caution, such as 'at risk' statuses."
+      },
+      "value": "Yellow600"
+    },
+    "name": "color.chart.warning.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "warning",
+      "[default]",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.warning."
+    },
+    "value": "#946F00",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.warning."
+      },
+      "value": "Yellow700"
+    },
+    "name": "color.chart.warning.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "warning",
+      "[default]",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.warning."
+    },
+    "value": "#7F5F01",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "A stronger emphasis option of color.chart.warning."
+      },
+      "value": "Yellow800"
+    },
+    "name": "color.chart.warning.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "warning",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.warning.bold."
+    },
+    "value": "#533F04",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.warning.bold."
+      },
+      "value": "Yellow900"
+    },
+    "name": "color.chart.warning.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "warning",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating low priority or in-progress statuses."
+    },
+    "value": "#388BFF",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation communicating low priority or in-progress statuses."
+      },
+      "value": "Blue500"
+    },
+    "name": "color.chart.information.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "information",
+      "[default]",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.information."
+    },
+    "value": "#1D7AFC",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.information."
+      },
+      "value": "Blue600"
+    },
+    "name": "color.chart.information.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "information",
+      "[default]",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.information."
+    },
+    "value": "#0055CC",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "A stronger emphasis option of color.chart.information."
+      },
+      "value": "Blue800"
+    },
+    "name": "color.chart.information.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "information",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.information.bold."
+    },
+    "value": "#09326C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.information.bold."
+      },
+      "value": "Blue900"
+    },
+    "name": "color.chart.information.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "information",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation communicating 'new' statuses."
+    },
+    "value": "#8F7EE7",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation communicating 'new' statuses."
+      },
+      "value": "Purple500"
+    },
+    "name": "color.chart.discovery.[default].[default]",
+    "path": [
+      "color",
+      "chart",
+      "discovery",
+      "[default]",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.discovery."
+    },
+    "value": "#8270DB",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.discovery."
+      },
+      "value": "Purple600"
+    },
+    "name": "color.chart.discovery.[default].hovered",
+    "path": [
+      "color",
+      "chart",
+      "discovery",
+      "[default]",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "A stronger emphasis option of color.chart.discovery."
+    },
+    "value": "#5E4DB2",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "A stronger emphasis option of color.chart.discovery."
+      },
+      "value": "Purple800"
+    },
+    "name": "color.chart.discovery.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "discovery",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.discovery.bold."
+    },
+    "value": "#352C63",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.discovery.bold."
+      },
+      "value": "Purple900"
+    },
+    "name": "color.chart.discovery.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "discovery",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#1D9AAA",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Teal600"
+    },
+    "name": "color.chart.categorical.1.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "1",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.1."
+    },
+    "value": "#1D7F8C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.categorical.1."
+      },
+      "value": "Teal700"
+    },
+    "name": "color.chart.categorical.1.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "1",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#5E4DB2",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Purple800"
+    },
+    "name": "color.chart.categorical.2.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "2",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.2."
+    },
+    "value": "#352C63",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.categorical.2."
+      },
+      "value": "Purple900"
+    },
+    "name": "color.chart.categorical.2.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "2",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#D97008",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Orange600"
+    },
+    "name": "color.chart.categorical.3.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "3",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.3."
+    },
+    "value": "#B65C02",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.categorical.3."
+      },
+      "value": "Orange700"
+    },
+    "name": "color.chart.categorical.3.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "3",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#943D73",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Magenta800"
+    },
+    "name": "color.chart.categorical.4.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "4",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.4."
+    },
+    "value": "#50253F",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.categorical.4."
+      },
+      "value": "Magenta900"
+    },
+    "name": "color.chart.categorical.4.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "4",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#09326C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Blue900"
+    },
+    "name": "color.chart.categorical.5.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "5",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.5."
+    },
+    "value": "#082145",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.categorical.5."
+      },
+      "value": "Blue1000"
+    },
+    "name": "color.chart.categorical.5.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "5",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#8F7EE7",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Purple500"
+    },
+    "name": "color.chart.categorical.6.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "6",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.6."
+    },
+    "value": "#8270DB",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.categorical.6."
+      },
+      "value": "Purple600"
+    },
+    "name": "color.chart.categorical.6.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "6",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#50253F",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Magenta900"
+    },
+    "name": "color.chart.categorical.7.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "7",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.7."
+    },
+    "value": "#341829",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.categorical.7."
+      },
+      "value": "Magenta1000"
+    },
+    "name": "color.chart.categorical.7.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "7",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#974F0C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Orange800"
+    },
+    "name": "color.chart.categorical.8.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "8",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.categorical.8."
+    },
+    "value": "#5F3811",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.categorical.8."
+      },
+      "value": "Orange900"
+    },
+    "name": "color.chart.categorical.8.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "8",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#388BFF",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Blue500"
+    },
+    "name": "color.chart.blue.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.blue.bold."
+    },
+    "value": "#1D7AFC",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.blue.bold."
+      },
+      "value": "Blue600"
+    },
+    "name": "color.chart.blue.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#1D7AFC",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Blue600"
+    },
+    "name": "color.chart.blue.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "bolder",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.blue.bolder."
+    },
+    "value": "#0C66E4",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.blue.bolder."
+      },
+      "value": "Blue700"
+    },
+    "name": "color.chart.blue.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "bolder",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#0055CC",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Blue800"
+    },
+    "name": "color.chart.blue.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "boldest",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.blue.boldest."
+    },
+    "value": "#09326C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.blue.boldest."
+      },
+      "value": "Blue900"
+    },
+    "name": "color.chart.blue.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "blue",
+      "boldest",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#EF5C48",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Red500"
+    },
+    "name": "color.chart.red.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.red.bold."
+    },
+    "value": "#E34935",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.red.bold."
+      },
+      "value": "Red600"
+    },
+    "name": "color.chart.red.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#E34935",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Red600"
+    },
+    "name": "color.chart.red.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "bolder",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.red.bolder."
+    },
+    "value": "#CA3521",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.red.bolder."
+      },
+      "value": "Red700"
+    },
+    "name": "color.chart.red.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "bolder",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#AE2A19",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Red800"
+    },
+    "name": "color.chart.red.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "boldest",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.red.boldest."
+    },
+    "value": "#601E16",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.red.boldest."
+      },
+      "value": "Red900"
+    },
+    "name": "color.chart.red.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "red",
+      "boldest",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#D97008",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Orange600"
+    },
+    "name": "color.chart.orange.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.orange.bold."
+    },
+    "value": "#B65C02",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.orange.bold."
+      },
+      "value": "Orange700"
+    },
+    "name": "color.chart.orange.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#B65C02",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Orange700"
+    },
+    "name": "color.chart.orange.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "bolder",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.orange.bolder."
+    },
+    "value": "#974F0C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.orange.bolder."
+      },
+      "value": "Orange800"
+    },
+    "name": "color.chart.orange.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "bolder",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#974F0C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Orange800"
+    },
+    "name": "color.chart.orange.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "boldest",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.orange.boldest."
+    },
+    "value": "#5F3811",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.orange.boldest."
+      },
+      "value": "Orange900"
+    },
+    "name": "color.chart.orange.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "orange",
+      "boldest",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#B38600",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Yellow600"
+    },
+    "name": "color.chart.yellow.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.yellow.bold."
+    },
+    "value": "#946F00",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.yellow.bold."
+      },
+      "value": "Yellow700"
+    },
+    "name": "color.chart.yellow.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#946F00",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Yellow700"
+    },
+    "name": "color.chart.yellow.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "bolder",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.yellow.bolder."
+    },
+    "value": "#7F5F01",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.yellow.bolder."
+      },
+      "value": "Yellow800"
+    },
+    "name": "color.chart.yellow.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "bolder",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#7F5F01",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Yellow800"
+    },
+    "name": "color.chart.yellow.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "boldest",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.yellow.boldest."
+    },
+    "value": "#533F04",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.yellow.boldest."
+      },
+      "value": "Yellow900"
+    },
+    "name": "color.chart.yellow.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "yellow",
+      "boldest",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#22A06B",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Green600"
+    },
+    "name": "color.chart.green.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.green.bold."
+    },
+    "value": "#1F845A",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.green.bold."
+      },
+      "value": "Green700"
+    },
+    "name": "color.chart.green.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#1F845A",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Green700"
+    },
+    "name": "color.chart.green.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "bolder",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.green.bolder."
+    },
+    "value": "#216E4E",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.green.bolder."
+      },
+      "value": "Green800"
+    },
+    "name": "color.chart.green.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "bolder",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#216E4E",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Green800"
+    },
+    "name": "color.chart.green.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "boldest",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.green.boldest."
+    },
+    "value": "#164B35",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.green.boldest."
+      },
+      "value": "Green900"
+    },
+    "name": "color.chart.green.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "green",
+      "boldest",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#1D9AAA",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Teal600"
+    },
+    "name": "color.chart.teal.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.teal.bold."
+    },
+    "value": "#1D7F8C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.teal.bold."
+      },
+      "value": "Teal700"
+    },
+    "name": "color.chart.teal.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#1D7F8C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Teal700"
+    },
+    "name": "color.chart.teal.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "bolder",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.teal.bolder."
+    },
+    "value": "#206B74",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.teal.bolder."
+      },
+      "value": "Teal800"
+    },
+    "name": "color.chart.teal.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "bolder",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#206B74",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Teal800"
+    },
+    "name": "color.chart.teal.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "boldest",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.teal.boldest."
+    },
+    "value": "#1D474C",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.teal.boldest."
+      },
+      "value": "Teal900"
+    },
+    "name": "color.chart.teal.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "teal",
+      "boldest",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#8F7EE7",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Purple500"
+    },
+    "name": "color.chart.purple.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.purple.bold."
+    },
+    "value": "#8270DB",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.purple.bold."
+      },
+      "value": "Purple600"
+    },
+    "name": "color.chart.purple.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#8270DB",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Purple600"
+    },
+    "name": "color.chart.purple.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "bolder",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.purple.bolder."
+    },
+    "value": "#6E5DC6",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.purple.bolder."
+      },
+      "value": "Purple700"
+    },
+    "name": "color.chart.purple.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "bolder",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#5E4DB2",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Purple800"
+    },
+    "name": "color.chart.purple.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "boldest",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.purple.boldest."
+    },
+    "value": "#352C63",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.purple.boldest."
+      },
+      "value": "Purple900"
+    },
+    "name": "color.chart.purple.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "purple",
+      "boldest",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#DA62AC",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Magenta500"
+    },
+    "name": "color.chart.magenta.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.magenta.bold."
+    },
+    "value": "#CD519D",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.magenta.bold."
+      },
+      "value": "Magenta600"
+    },
+    "name": "color.chart.magenta.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#CD519D",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Magenta600"
+    },
+    "name": "color.chart.magenta.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "bolder",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.magenta.bolder."
+    },
+    "value": "#AE4787",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.magenta.bolder."
+      },
+      "value": "Magenta700"
+    },
+    "name": "color.chart.magenta.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "bolder",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#943D73",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Magenta800"
+    },
+    "name": "color.chart.magenta.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "boldest",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.magenta.boldest."
+    },
+    "value": "#50253F",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.magenta.boldest."
+      },
+      "value": "Magenta900"
+    },
+    "name": "color.chart.magenta.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "magenta",
+      "boldest",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#8590A2",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Neutral500"
+    },
+    "name": "color.chart.gray.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.gray.bold."
+    },
+    "value": "#758195",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.gray.bold."
+      },
+      "value": "Neutral600"
+    },
+    "name": "color.chart.gray.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#758195",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Neutral600"
+    },
+    "name": "color.chart.gray.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "bolder",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.gray.bolder."
+    },
+    "value": "#626F86",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.gray.bolder."
+      },
+      "value": "Neutral700"
+    },
+    "name": "color.chart.gray.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "bolder",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "For data visualisation only."
+    },
+    "value": "#44546F",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "For data visualisation only."
+      },
+      "value": "Neutral800"
+    },
+    "name": "color.chart.gray.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "boldest",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.2",
+      "description": "Hovered state of color.chart.gray.boldest."
+    },
+    "value": "#2C3E5D",
+    "filePath": "src/tokens/atlassian-light/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.2",
+        "description": "Hovered state of color.chart.gray.boldest."
+      },
+      "value": "Neutral900"
+    },
+    "name": "color.chart.gray.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "gray",
+      "boldest",
+      "hovered"
     ]
   },
   {
@@ -7962,7 +10590,7 @@ const tokens = [
       "replacement": "color.interaction.pressed",
       "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
     },
-    "value": "#091E427A",
+    "value": "#091E427D",
     "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
     "isSource": true,
     "original": {

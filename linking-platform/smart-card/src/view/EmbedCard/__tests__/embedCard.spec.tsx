@@ -62,6 +62,10 @@ const setup = (cardState: CardState, url: string) => {
   };
 };
 
+jest.mock('@atlaskit/link-provider', () => ({
+  useFeatureFlag: () => false,
+}));
+
 describe('EmbedCard view component', () => {
   describe('resolved embed with preview', () => {
     const expectedUrl = 'http://some-url.com';

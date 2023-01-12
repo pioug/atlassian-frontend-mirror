@@ -69,6 +69,20 @@ export type UiCardClickedEventProps = CommonEventProps & {
   actionSubjectId?: string;
 };
 
+export type UiIframeDwelledEventProps = CommonEventProps & {
+  id: string;
+  display: CardInnerAppearance;
+  status: CardType;
+  dwellTime: number;
+  dwellPercentVisible: number;
+};
+
+export type UiIframeFocusedEventProps = CommonEventProps & {
+  id: string;
+  display: CardInnerAppearance;
+  status: CardType;
+};
+
 export type UiActionClickedEventProps = CommonEventProps & {
   id: string;
   display: CardInnerAppearance;

@@ -28,6 +28,7 @@ export {
   uiHoverCardDismissedEvent,
   uiHoverCardOpenLinkClickedEvent,
   uiLearnMoreLinkClickedEvent,
+  uiIframeDwelledEvent,
 } from './analytics';
 
 export const instrumentEvent = ({

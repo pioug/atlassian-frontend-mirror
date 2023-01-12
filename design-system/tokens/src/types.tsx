@@ -553,6 +553,234 @@ export interface SkeletonColorTokenSchema<BaseToken> {
   };
 }
 
+export interface ChartColorTokenSchema<BaseToken> {
+  color: {
+    chart: {
+      // semantic chart tokens
+      brand: {
+        '[default]': PaintToken<BaseToken>;
+        hovered: PaintToken<BaseToken>;
+      };
+      neutral: {
+        '[default]': PaintToken<BaseToken>;
+        hovered: PaintToken<BaseToken>;
+      };
+      success: {
+        '[default]': {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      danger: {
+        '[default]': {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      warning: {
+        '[default]': {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      information: {
+        '[default]': {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      discovery: {
+        '[default]': {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      // categorical chart tokens
+      categorical: {
+        1: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        2: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        3: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        4: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        5: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        6: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        7: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        8: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      // generic chart tokens
+      blue: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      red: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      orange: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      yellow: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      green: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      teal: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      purple: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      magenta: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      gray: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+    };
+  };
+}
+
 export interface UtilTokenSchema<BaseToken> {
   UNSAFE_util: {
     transparent: RawToken;

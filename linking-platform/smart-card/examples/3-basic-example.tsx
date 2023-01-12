@@ -67,7 +67,14 @@ class Example extends React.Component<{}, ExampleState> {
 
   renderCard(url: string, isSelected: boolean, appearance: CardAppearance) {
     if (url) {
-      return <Card isSelected={isSelected} appearance={appearance} url={url} />;
+      return (
+        <Card
+          isSelected={isSelected}
+          appearance={appearance}
+          url={url}
+          platform={'web'}
+        />
+      );
     }
     return null;
   }
@@ -77,7 +84,10 @@ class Example extends React.Component<{}, ExampleState> {
 
     return (
       <IntlProvider locale="en">
-        <Provider client={new SmartCardClient('staging')}>
+        <Provider
+          client={new SmartCardClient('staging')}
+          featureFlags={{ trackIframeDwellEvents: true }}
+        >
           <Page>
             <Grid>
               <GridColumn medium={12} key={url}>
@@ -111,6 +121,7 @@ class Example extends React.Component<{}, ExampleState> {
                             options={[
                               { label: 'Block', value: 'block' },
                               { label: 'Inline', value: 'inline' },
+                              { label: 'Embed', value: 'embed' },
                             ]}
                             value={appearance}
                             onChange={this.handleAppearanceChange}

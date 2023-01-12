@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
   "license": "Apache-2.0",
   "atlassian": {

@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.6.3
+
+### Patch Changes
+
+- [`99ab0322881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99ab0322881) - [ux] Set default value of hasFooterLogo to true, so that when getting hasFooterLogo as undefined from JSM it still shows the footer container
+
 ## 1.6.2
 
 ### Patch Changes

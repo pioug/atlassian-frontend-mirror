@@ -30,6 +30,10 @@ export interface EmbedCardResolvedViewProps {
   testId?: string;
 
   inheritDimensions?: boolean;
+  /** Optional callback for when user dwells cursor over iframe - for analytics **/
+  onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
+  /** Optional callback for when user navigates into an iframe - for analytics **/
+  onIframeFocus?: () => void;
 }
 
 export const EmbedCardResolvedView = React.forwardRef<
@@ -48,6 +52,8 @@ export const EmbedCardResolvedView = React.forwardRef<
       isTrusted,
       testId = 'embed-card-resolved-view',
       inheritDimensions,
+      onIframeDwell,
+      onIframeFocus,
     },
     embedIframeRef,
   ) => {
@@ -88,6 +94,8 @@ export const EmbedCardResolvedView = React.forwardRef<
           isTrusted={isTrusted}
           testId={testId}
           ref={embedIframeRef}
+          onIframeDwell={onIframeDwell}
+          onIframeFocus={onIframeFocus}
         />
       </ExpandedFrame>
     );

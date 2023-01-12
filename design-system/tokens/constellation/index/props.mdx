@@ -36,3 +36,4 @@ The `getTokenValue()` function takes the same dot-separated token names as the m
 Additionally, provide a fallback argument to the `getTokenValue()` method to ensure experiences remain consistent for users until we are ready to launch. When the theme CSS is not present in your app, the fallback color will render instead. Keep the fallback colour as the color visible in your app today.
 
 <TokenPropsTable propName={'path'} description={'Name of the color token in string form'} typing={'keyof CSSTokenMap'} required={true}/>
+<TokenPropsTable propName={'fallback'} description={'Optional color value, represented as a color code or hex value, used for when token usage has not been switched on for the site'} typing={'string'}/>

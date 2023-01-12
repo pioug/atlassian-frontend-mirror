@@ -1,5 +1,49 @@
 # @atlaskit/tokens
 
+## 0.13.3
+
+### Patch Changes
+
+- [`0438a9318a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0438a9318a1) - Tweaked the values of the `Neutral500` and `Neutral500` base tokens and updated `text.accent.gray.bolder` to improve color contrast:
+
+  - Adjust `Neutral500` from `#8993A5` to `#8590A2` so that it passes 3:1 contrast against sunken surfaces in light mode
+  - Adjust `Neutral500A` from `#091E42 @ 48%` to `#091E42 @ 49%` to match color of `Neutral500` on default surfaces
+  - Update `text.accent.gray.bolder` to use `Neutral1100` so gray tags pass contrast requirements
+
+- [`765c27c301e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/765c27c301e) - Adds new chart tokens for data visualisation and charts.
+
+  27 generic chart tokens and hovered state tokens:
+
+  - `color.chart.[color].bold`
+  - `color.chart.[color].bolder`
+  - `color.chart.[color].boldest`
+
+  12 semantic chart tokens and hovered state tokens:
+
+  - `color.chart.brand`
+  - `color.chart.neutral`
+  - `color.chart.success`
+  - `color.chart.success.bold`
+  - `color.chart.danger`
+  - `color.chart.danger.bold`
+  - `color.chart.warning`
+  - `color.chart.warning.bold`
+  - `color.chart.information`
+  - `color.chart.information.bold`
+  - `color.chart.discovery`
+  - `color.chart.discovery.bold`
+
+  8 categorical chart tokens and hovered state tokens:
+
+  - `color.chart.categorical.1`
+  - `color.chart.categorical.2`
+  - `color.chart.categorical.3`
+  - `color.chart.categorical.4`
+  - `color.chart.categorical.5`
+  - `color.chart.categorical.6`
+  - `color.chart.categorical.7`
+  - `color.chart.categorical.8`
+
 ## 0.13.2
 
 ### Patch Changes

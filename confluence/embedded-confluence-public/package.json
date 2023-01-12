@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/embedded-confluence",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Public release version of Embeddedable Pages for Confluence",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

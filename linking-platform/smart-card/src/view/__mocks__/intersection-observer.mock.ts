@@ -6,7 +6,9 @@ export class MockIntersectionObserver implements IntersectionObserver {
   constructor(public callback: IntersectionObserverCallback) {}
 
   observe(_element: HTMLElement) {
-    const entries = [{ isIntersecting: true }] as IntersectionObserverEntry[];
+    const entries = [
+      { isIntersecting: true, intersectionRatio: 1 },
+    ] as IntersectionObserverEntry[];
     this.callback(entries, this);
   }
   disconnect = jest.fn();

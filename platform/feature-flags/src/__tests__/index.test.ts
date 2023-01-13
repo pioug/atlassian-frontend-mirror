@@ -27,6 +27,7 @@ describe('feature flags API', () => {
     const { getBooleanFF } = loadApi();
 
     // then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('my-random-undefined-ff')).toBe(false);
   });
 
@@ -35,9 +36,11 @@ describe('feature flags API', () => {
     const { getBooleanFF, setBooleanFF } = loadApi();
 
     // when
+    // @ts-expect-error flag doesn't exist
     setBooleanFF('my-flag', true);
 
     // then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('my-flag')).toBe(true);
   });
 
@@ -50,6 +53,7 @@ describe('feature flags API', () => {
     setBooleanFF('my-new-flag', 'red!');
 
     // then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('my-new-flag')).toBe(false);
   });
 });
@@ -63,6 +67,7 @@ describe('FF overrides', () => {
     const { getBooleanFF } = loadApi();
 
     // then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('my-pre-defined-flag')).toBe(true);
   });
 
@@ -74,6 +79,7 @@ describe('FF overrides', () => {
     const { getBooleanFF } = loadApi();
 
     // then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('my-pre-defined-flag')).toBe(false);
   });
 
@@ -85,9 +91,11 @@ describe('FF overrides', () => {
     const { getBooleanFF, setBooleanFF } = loadApi();
 
     // when
+    // @ts-expect-error flag doesn't exist
     setBooleanFF('my-pre-defined-flag', true);
 
     // then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('my-pre-defined-flag')).toBe(false);
   });
 
@@ -100,6 +108,7 @@ describe('FF overrides', () => {
     const { getBooleanFF } = loadApi();
 
     // then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('my-invalid-pre-defined-flag')).toBe(false);
   });
 });
@@ -118,6 +127,7 @@ describe('tests support', function () {
     const { getBooleanFF } = loadApi();
 
     //then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('my-platform-feature-flag')).toBe(true);
   });
 
@@ -129,6 +139,7 @@ describe('tests support', function () {
     const { getBooleanFF } = loadApi();
 
     //then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('my-platform-feature-flag')).toBe(true);
   });
 });
@@ -144,6 +155,9 @@ describe('browser environment', () => {
     const { getBooleanFF } = loadApi();
 
     // then
+    // @ts-expect-error flag doesn't exist
     expect(getBooleanFF('browser.my-platform-feature-flag')).toBe(false);
   });
 });
+
+export {};

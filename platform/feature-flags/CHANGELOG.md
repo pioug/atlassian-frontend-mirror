@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.0.8
+
+### Patch Changes
+
+- [`7888ba61c3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7888ba61c3b) - Add platform feature flag registration and dynamic type generation for platform feature flag client
+
 ## 0.0.7
 
 ### Patch Changes

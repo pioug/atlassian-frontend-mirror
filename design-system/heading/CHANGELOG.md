@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.1.0
+
+### Minor Changes
+
+- [`fce52a022f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fce52a022f5) - Adds typography tokens to @atlaskit/heading.
+
 ## 1.0.4
 
 ### Patch Changes

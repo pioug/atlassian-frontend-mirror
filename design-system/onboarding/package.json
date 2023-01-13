@@ -29,7 +29,7 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/ds-lib": "^2.1.0",
-    "@atlaskit/heading": "^1.0.1",
+    "@atlaskit/heading": "^1.1.0",
     "@atlaskit/modal-dialog": "^12.4.0",
     "@atlaskit/popper": "^5.4.0",
     "@atlaskit/portal": "^4.0.0",

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/platform-feature-flags",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "DO NOT USE",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,15 @@
   },
   "peerDependencies": {},
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1"
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "fast-glob": "^3.2.11"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "scripts": {
+    "generate": "ts-node ./scripts/generate-types.ts && yarn update-built-types",
+    "postinstall": "yarn generate",
+    "pr-pipeline:pre": "sh ./scripts/pr-pipeline-clean.sh && yarn update-built-types",
+    "pr-pipeline:post": "ts-node ./scripts/generate-types.ts && yarn update-built-types",
+    "update-built-types": "sh ./scripts/update-built-types.sh"
+  }
 }

@@ -46,7 +46,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/dynamic-table": "^14.8.0",
-    "@atlaskit/heading": "^1.0.1",
+    "@atlaskit/heading": "^1.1.0",
     "@atlaskit/section-message": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

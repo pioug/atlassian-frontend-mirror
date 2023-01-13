@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.12.1
+
+### Patch Changes
+
+- [`59104c1e92f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59104c1e92f) - [ux] Fix message shown in unauthorised Smart Link appearances as per design decision
+
 ## 23.12.0
 
 ### Minor Changes

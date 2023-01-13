@@ -173,14 +173,14 @@ export const messages: Messages = defineMessages({
   connect_unauthorised_account_description: {
     id: 'fabric.linking.connect_unauthorised_account_description',
     defaultMessage:
-      'Connect {context} to Atlassian to view more details from your work and collaboration from one place.',
+      'Connect {context} to Atlassian to view more details of your work and collaborate from one place.',
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link on card view.',
   },
   connect_unauthorised_account_description_no_provider: {
     id: 'fabric.linking.connect_unauthorised_account_description',
     defaultMessage:
-      'Connect to Atlassian to view more details from your work and collaboration from one place.',
+      'Connect to Atlassian to view more details of your work and collaborate from one place.',
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link on card view and we do not have the providers name.',
   },

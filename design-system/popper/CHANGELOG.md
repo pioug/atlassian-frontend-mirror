@@ -1,5 +1,12 @@
 # @atlaskit/popper
 
+## 5.4.6
+
+### Patch Changes
+
+- [`7888ba61c3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7888ba61c3b) - Add platform feature flag registration and dynamic type generation for platform feature flag client
+- Updated dependencies
+
 ## 5.4.5
 
 ### Patch Changes

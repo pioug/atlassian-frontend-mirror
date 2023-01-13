@@ -249,7 +249,7 @@ describe('EmbedCard view component', () => {
         'embed-card-unauthorized-view-unresolved-description',
       );
       expect(description.textContent).toBe(
-        'Connect 3P to Atlassian to view more details from your work and collaboration from one place. Learn more about Smart Links.',
+        'Connect 3P to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
       );
       expect(description).toHaveStyle('max-width: 400px');
 

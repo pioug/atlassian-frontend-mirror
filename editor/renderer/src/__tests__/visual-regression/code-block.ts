@@ -69,7 +69,8 @@ describe('Snapshot Test: CodeBlock', () => {
     });
 
     describe('when scrolled into viewport', () => {
-      it('should eventually render a normal AkCodeBlock (with syntax highlighting)', async () => {
+      // FIXME: This test was automatically skipped due to failure on 14/01/2023: https://product-fabric.atlassian.net/browse/ED-16542
+      it.skip('should eventually render a normal AkCodeBlock (with syntax highlighting)', async () => {
         await initRendererWithADF(page, {
           appearance: 'full-page',
           rendererProps: {

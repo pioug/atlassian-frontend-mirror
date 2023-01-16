@@ -5,6 +5,7 @@ import {
   copyLinkButtonClicked,
   errorEncountered,
   formShareSubmitted,
+  shareTabClicked,
   shareTriggerButtonClicked,
   shortUrlGenerated,
   shortUrlRequested,
@@ -46,6 +47,35 @@ describe('share analytics', () => {
         actionSubject: 'button',
         actionSubjectId: 'share',
         source: 'shareModal',
+        attributes: expect.objectContaining({
+          packageVersion: expect.any(String),
+          packageName: expect.any(String),
+        }),
+      });
+    });
+  });
+
+  describe('shareTabClicked', () => {
+    it('should create event payload with shareContentType attribute if FF is ON', () => {
+      expect(shareTabClicked('shareToSlackTab', 'list', true)).toMatchObject({
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'tab',
+        actionSubjectId: 'shareToSlackTab',
+        attributes: expect.objectContaining({
+          packageVersion: expect.any(String),
+          packageName: expect.any(String),
+          shareContentType: 'list',
+        }),
+      });
+    });
+
+    it('should create event payload without shareContentType attribute if FF is OFF', () => {
+      expect(shareTabClicked('shareToSlackTab', 'list', false)).toMatchObject({
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'tab',
+        actionSubjectId: 'shareToSlackTab',
         attributes: expect.objectContaining({
           packageVersion: expect.any(String),
           packageName: expect.any(String),

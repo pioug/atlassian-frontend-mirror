@@ -162,4 +162,5 @@ export type ShareDialogContainerProps = {
   copyTooltipText?: string;
   /* disable looking up users and teams */
   isBrowseUsersDisabled?: boolean;
+  isJwmShareToSlackFFEnabled?: boolean;
 };

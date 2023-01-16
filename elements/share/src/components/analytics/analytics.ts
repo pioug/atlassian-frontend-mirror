@@ -92,13 +92,20 @@ export const shareTriggerButtonClicked = () =>
 
 export type TabSubjectIdType = 'shareTab' | 'shareToSlackTab';
 
-export const shareTabClicked = (subjectId: TabSubjectIdType) =>
+export const shareTabClicked = (
+  subjectId: TabSubjectIdType,
+  shareContentType?: string,
+  isJwmShareToSlackFFEnabled?: boolean,
+) =>
   createEvent(
     'ui',
     ANALYTICS_SOURCE,
     'clicked',
     'tab',
     subjectId || 'shareTab',
+    isJwmShareToSlackFFEnabled && {
+      shareContentType,
+    },
   );
 
 export const cancelShare = (start: number) =>

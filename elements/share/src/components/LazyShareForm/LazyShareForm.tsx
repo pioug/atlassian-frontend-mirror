@@ -44,6 +44,8 @@ export type LazyShareFormProps = Pick<
   | 'integrationMode'
   | 'onDialogClose'
   | 'orgId'
+  | 'shareContentType'
+  | 'isJwmShareToSlackFFEnabled'
   | 'isBrowseUsersDisabled'
 > &
   Pick<
@@ -112,6 +114,8 @@ function LazyShareForm(props: LazyShareFormProps) {
     defaultValue,
     showTitle,
     orgId,
+    shareContentType,
+    isJwmShareToSlackFFEnabled,
     isBrowseUsersDisabled,
   } = props;
 
@@ -173,6 +177,7 @@ function LazyShareForm(props: LazyShareFormProps) {
               cloudId={cloudId}
               fieldsFooter={shareFieldsFooter}
               selectPortalRef={selectPortalRef}
+              {...(isJwmShareToSlackFFEnabled && { shareContentType })}
               copyTooltipText={copyTooltipText}
               integrationMode={integrationMode}
               shareIntegrations={shareIntegrations}

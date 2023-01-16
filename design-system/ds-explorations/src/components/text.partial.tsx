@@ -218,11 +218,11 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::61daf1362fce18ffbc609fc6cb456484>>
+ * @codegen <<SignedSource::d88a2527302fee634bec7ae405e9217b>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::ae0b86bfc4c093b614a97d5bcf328dd0>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::db7a1282630a6e5b9424b807614086af>>
  */
 const textColorMap = {
   'color.text': css({

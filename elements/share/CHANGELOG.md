@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.7.0
+
+### Minor Changes
+
+- [`fb2fac8e456`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb2fac8e456) - Passing down the shareContentType prop to allow custom feedback messages
+
 ## 3.6.1
 
 ### Patch Changes

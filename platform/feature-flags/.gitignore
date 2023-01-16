@@ -1,0 +1,3 @@
+src/types.ts
+scripts/generate-types.js
+types.generated.ts

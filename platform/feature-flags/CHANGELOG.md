@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.0.9
+
+### Patch Changes
+
+- [`0ba3b02365e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ba3b02365e) - Fix postinstall hook and ship less dependencies
+
 ## 0.0.8
 
 ### Patch Changes

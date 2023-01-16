@@ -9,7 +9,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
           attributes: {
             group: 'paint',
             state: 'active',
-            introduced: '0.13.2',
+            introduced: '0.13.3',
             description:
               'Our primary color for data visualisation. Use when only one color is required.',
           },
@@ -18,7 +18,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
           attributes: {
             group: 'paint',
             state: 'active',
-            introduced: '0.13.2',
+            introduced: '0.13.3',
             description: 'Hovered state of color.chart.brand.',
           },
         },
@@ -28,7 +28,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
           attributes: {
             group: 'paint',
             state: 'active',
-            introduced: '0.13.2',
+            introduced: '0.13.3',
             description:
               "A secondary color for data visualisation or to communicate 'to-do' statues.",
           },
@@ -37,7 +37,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
           attributes: {
             group: 'paint',
             state: 'active',
-            introduced: '0.13.2',
+            introduced: '0.13.3',
             description: 'Hovered state of color.chart.neutral.',
           },
         },
@@ -48,7 +48,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 "For data visualisation communicating positive information, such as 'on track'.",
             },
@@ -57,7 +57,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.success.',
             },
           },
@@ -67,7 +67,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'A stronger emphasis option of color.chart.success.',
             },
           },
@@ -75,7 +75,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.success.bold.',
             },
           },
@@ -87,7 +87,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 "For data visualisation communicating negative information, such as 'off track'.",
             },
@@ -96,7 +96,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.danger.',
             },
           },
@@ -106,7 +106,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'A stronger emphasis option of color.chart.danger.',
             },
           },
@@ -114,7 +114,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.danger.bold.',
             },
           },
@@ -126,7 +126,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 "For data visualisation communicating caution, such as 'at risk' statuses.",
             },
@@ -135,7 +135,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.warning.',
             },
           },
@@ -145,7 +145,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'A stronger emphasis option of color.chart.warning.',
             },
           },
@@ -153,7 +153,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.warning.bold.',
             },
           },
@@ -165,7 +165,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'For data visualisation communicating low priority or in-progress statuses.',
             },
@@ -174,7 +174,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.information.',
             },
           },
@@ -184,7 +184,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'A stronger emphasis option of color.chart.information.',
             },
@@ -193,7 +193,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.information.bold.',
             },
           },
@@ -205,7 +205,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 "For data visualisation communicating 'new' statuses.",
             },
@@ -214,7 +214,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.discovery.',
             },
           },
@@ -224,7 +224,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'A stronger emphasis option of color.chart.discovery.',
             },
@@ -233,7 +233,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.discovery.bold.',
             },
           },
@@ -246,7 +246,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'For data visualisation only. Follow numbered sequence.',
             },
@@ -255,7 +255,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.categorical.1.',
             },
           },
@@ -265,7 +265,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'For data visualisation only. Follow numbered sequence.',
             },
@@ -274,7 +274,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.categorical.2.',
             },
           },
@@ -284,7 +284,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'For data visualisation only. Follow numbered sequence.',
             },
@@ -293,7 +293,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.categorical.3.',
             },
           },
@@ -303,7 +303,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'For data visualisation only. Follow numbered sequence.',
             },
@@ -312,7 +312,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.categorical.4.',
             },
           },
@@ -322,7 +322,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'For data visualisation only. Follow numbered sequence.',
             },
@@ -331,7 +331,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.categorical.5.',
             },
           },
@@ -341,7 +341,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'For data visualisation only. Follow numbered sequence.',
             },
@@ -350,7 +350,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.categorical.6.',
             },
           },
@@ -360,7 +360,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'For data visualisation only. Follow numbered sequence.',
             },
@@ -369,7 +369,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.categorical.7.',
             },
           },
@@ -379,7 +379,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description:
                 'For data visualisation only. Follow numbered sequence.',
             },
@@ -388,7 +388,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.categorical.8.',
             },
           },
@@ -401,7 +401,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -409,7 +409,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.blue.bold.',
             },
           },
@@ -419,7 +419,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -427,7 +427,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.blue.bolder.',
             },
           },
@@ -437,7 +437,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -445,7 +445,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.blue.boldest.',
             },
           },
@@ -457,7 +457,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -465,7 +465,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.red.bold.',
             },
           },
@@ -475,7 +475,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -483,7 +483,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.red.bolder.',
             },
           },
@@ -493,7 +493,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -501,7 +501,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.red.boldest.',
             },
           },
@@ -513,7 +513,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -521,7 +521,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.orange.bold.',
             },
           },
@@ -531,7 +531,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -539,7 +539,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.orange.bolder.',
             },
           },
@@ -549,7 +549,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -557,7 +557,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.orange.boldest.',
             },
           },
@@ -569,7 +569,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -577,7 +577,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.yellow.bold.',
             },
           },
@@ -587,7 +587,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -595,7 +595,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.yellow.bolder.',
             },
           },
@@ -605,7 +605,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -613,7 +613,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.yellow.boldest.',
             },
           },
@@ -625,7 +625,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -633,7 +633,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.green.bold.',
             },
           },
@@ -643,7 +643,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -651,7 +651,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.green.bolder.',
             },
           },
@@ -661,7 +661,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -669,7 +669,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.green.boldest.',
             },
           },
@@ -681,7 +681,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -689,7 +689,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.teal.bold.',
             },
           },
@@ -699,7 +699,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -707,7 +707,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.teal.bolder.',
             },
           },
@@ -717,7 +717,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -725,7 +725,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.teal.boldest.',
             },
           },
@@ -737,7 +737,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -745,7 +745,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.purple.bold.',
             },
           },
@@ -755,7 +755,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -763,7 +763,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.purple.bolder.',
             },
           },
@@ -773,7 +773,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -781,7 +781,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.purple.boldest.',
             },
           },
@@ -793,7 +793,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -801,7 +801,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.magenta.bold.',
             },
           },
@@ -811,7 +811,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -819,7 +819,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.magenta.bolder.',
             },
           },
@@ -829,7 +829,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -837,7 +837,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.magenta.boldest.',
             },
           },
@@ -849,7 +849,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -857,7 +857,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.gray.bold.',
             },
           },
@@ -867,7 +867,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -875,7 +875,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.gray.bolder.',
             },
           },
@@ -885,7 +885,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'For data visualisation only.',
             },
           },
@@ -893,7 +893,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.2',
+              introduced: '0.13.3',
               description: 'Hovered state of color.chart.gray.boldest.',
             },
           },

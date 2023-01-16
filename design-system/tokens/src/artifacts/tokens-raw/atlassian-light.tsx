@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::869423562b716bc3cb54013f76f6bfae>>
+ * @codegen <<SignedSource::ac1310b3bb7f756e1c3fd359f4a2a852>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -7126,7 +7126,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Our primary color for data visualisation. Use when only one color is required."
     },
     "value": "#1D7AFC",
@@ -7136,7 +7136,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Our primary color for data visualisation. Use when only one color is required."
       },
       "value": "Blue600"
@@ -7153,7 +7153,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.brand."
     },
     "value": "#0C66E4",
@@ -7163,7 +7163,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.brand."
       },
       "value": "Blue700"
@@ -7180,7 +7180,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
     },
     "value": "#8590A2",
@@ -7190,7 +7190,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
       },
       "value": "Neutral500"
@@ -7207,7 +7207,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.neutral."
     },
     "value": "#758195",
@@ -7217,7 +7217,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.neutral."
       },
       "value": "Neutral600"
@@ -7234,7 +7234,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating positive information, such as 'on track'."
     },
     "value": "#22A06B",
@@ -7244,7 +7244,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation communicating positive information, such as 'on track'."
       },
       "value": "Green600"
@@ -7262,7 +7262,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.success."
     },
     "value": "#1F845A",
@@ -7272,7 +7272,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.success."
       },
       "value": "Green700"
@@ -7290,7 +7290,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.success."
     },
     "value": "#216E4E",
@@ -7300,7 +7300,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.success."
       },
       "value": "Green800"
@@ -7318,7 +7318,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.success.bold."
     },
     "value": "#164B35",
@@ -7328,7 +7328,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.success.bold."
       },
       "value": "Green900"
@@ -7346,7 +7346,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating negative information, such as 'off track'."
     },
     "value": "#EF5C48",
@@ -7356,7 +7356,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation communicating negative information, such as 'off track'."
       },
       "value": "Red500"
@@ -7374,7 +7374,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.danger."
     },
     "value": "#E34935",
@@ -7384,7 +7384,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.danger."
       },
       "value": "Red600"
@@ -7402,7 +7402,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.danger."
     },
     "value": "#AE2A19",
@@ -7412,7 +7412,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.danger."
       },
       "value": "Red800"
@@ -7430,7 +7430,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.danger.bold."
     },
     "value": "#601E16",
@@ -7440,7 +7440,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.danger.bold."
       },
       "value": "Red900"
@@ -7458,7 +7458,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating caution, such as 'at risk' statuses."
     },
     "value": "#B38600",
@@ -7468,7 +7468,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation communicating caution, such as 'at risk' statuses."
       },
       "value": "Yellow600"
@@ -7486,7 +7486,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.warning."
     },
     "value": "#946F00",
@@ -7496,7 +7496,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.warning."
       },
       "value": "Yellow700"
@@ -7514,7 +7514,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.warning."
     },
     "value": "#7F5F01",
@@ -7524,7 +7524,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.warning."
       },
       "value": "Yellow800"
@@ -7542,7 +7542,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.warning.bold."
     },
     "value": "#533F04",
@@ -7552,7 +7552,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.warning.bold."
       },
       "value": "Yellow900"
@@ -7570,7 +7570,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating low priority or in-progress statuses."
     },
     "value": "#388BFF",
@@ -7580,7 +7580,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation communicating low priority or in-progress statuses."
       },
       "value": "Blue500"
@@ -7598,7 +7598,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.information."
     },
     "value": "#1D7AFC",
@@ -7608,7 +7608,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.information."
       },
       "value": "Blue600"
@@ -7626,7 +7626,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.information."
     },
     "value": "#0055CC",
@@ -7636,7 +7636,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.information."
       },
       "value": "Blue800"
@@ -7654,7 +7654,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.information.bold."
     },
     "value": "#09326C",
@@ -7664,7 +7664,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.information.bold."
       },
       "value": "Blue900"
@@ -7682,7 +7682,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating 'new' statuses."
     },
     "value": "#8F7EE7",
@@ -7692,7 +7692,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation communicating 'new' statuses."
       },
       "value": "Purple500"
@@ -7710,7 +7710,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.discovery."
     },
     "value": "#8270DB",
@@ -7720,7 +7720,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.discovery."
       },
       "value": "Purple600"
@@ -7738,7 +7738,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.discovery."
     },
     "value": "#5E4DB2",
@@ -7748,7 +7748,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.discovery."
       },
       "value": "Purple800"
@@ -7766,7 +7766,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.discovery.bold."
     },
     "value": "#352C63",
@@ -7776,7 +7776,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.discovery.bold."
       },
       "value": "Purple900"
@@ -7794,7 +7794,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#1D9AAA",
@@ -7804,7 +7804,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
       "value": "Teal600"
@@ -7822,7 +7822,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.1."
     },
     "value": "#1D7F8C",
@@ -7832,7 +7832,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.1."
       },
       "value": "Teal700"
@@ -7850,7 +7850,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#5E4DB2",
@@ -7860,7 +7860,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
       "value": "Purple800"
@@ -7878,7 +7878,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.2."
     },
     "value": "#352C63",
@@ -7888,7 +7888,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.2."
       },
       "value": "Purple900"
@@ -7906,7 +7906,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#D97008",
@@ -7916,7 +7916,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
       "value": "Orange600"
@@ -7934,7 +7934,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.3."
     },
     "value": "#B65C02",
@@ -7944,7 +7944,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.3."
       },
       "value": "Orange700"
@@ -7962,7 +7962,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#943D73",
@@ -7972,7 +7972,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
       "value": "Magenta800"
@@ -7990,7 +7990,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.4."
     },
     "value": "#50253F",
@@ -8000,7 +8000,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.4."
       },
       "value": "Magenta900"
@@ -8018,7 +8018,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#09326C",
@@ -8028,7 +8028,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
       "value": "Blue900"
@@ -8046,7 +8046,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.5."
     },
     "value": "#082145",
@@ -8056,7 +8056,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.5."
       },
       "value": "Blue1000"
@@ -8074,7 +8074,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#8F7EE7",
@@ -8084,7 +8084,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
       "value": "Purple500"
@@ -8102,7 +8102,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.6."
     },
     "value": "#8270DB",
@@ -8112,7 +8112,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.6."
       },
       "value": "Purple600"
@@ -8130,7 +8130,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#50253F",
@@ -8140,7 +8140,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
       "value": "Magenta900"
@@ -8158,7 +8158,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.7."
     },
     "value": "#341829",
@@ -8168,7 +8168,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.7."
       },
       "value": "Magenta1000"
@@ -8186,7 +8186,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#974F0C",
@@ -8196,7 +8196,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
       "value": "Orange800"
@@ -8214,7 +8214,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.8."
     },
     "value": "#5F3811",
@@ -8224,7 +8224,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.8."
       },
       "value": "Orange900"
@@ -8242,7 +8242,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#388BFF",
@@ -8252,7 +8252,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Blue500"
@@ -8270,7 +8270,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.blue.bold."
     },
     "value": "#1D7AFC",
@@ -8280,7 +8280,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.blue.bold."
       },
       "value": "Blue600"
@@ -8298,7 +8298,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#1D7AFC",
@@ -8308,7 +8308,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Blue600"
@@ -8326,7 +8326,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.blue.bolder."
     },
     "value": "#0C66E4",
@@ -8336,7 +8336,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.blue.bolder."
       },
       "value": "Blue700"
@@ -8354,7 +8354,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#0055CC",
@@ -8364,7 +8364,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Blue800"
@@ -8382,7 +8382,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.blue.boldest."
     },
     "value": "#09326C",
@@ -8392,7 +8392,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.blue.boldest."
       },
       "value": "Blue900"
@@ -8410,7 +8410,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#EF5C48",
@@ -8420,7 +8420,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Red500"
@@ -8438,7 +8438,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.red.bold."
     },
     "value": "#E34935",
@@ -8448,7 +8448,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.red.bold."
       },
       "value": "Red600"
@@ -8466,7 +8466,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#E34935",
@@ -8476,7 +8476,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Red600"
@@ -8494,7 +8494,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.red.bolder."
     },
     "value": "#CA3521",
@@ -8504,7 +8504,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.red.bolder."
       },
       "value": "Red700"
@@ -8522,7 +8522,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#AE2A19",
@@ -8532,7 +8532,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Red800"
@@ -8550,7 +8550,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.red.boldest."
     },
     "value": "#601E16",
@@ -8560,7 +8560,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.red.boldest."
       },
       "value": "Red900"
@@ -8578,7 +8578,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#D97008",
@@ -8588,7 +8588,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Orange600"
@@ -8606,7 +8606,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.orange.bold."
     },
     "value": "#B65C02",
@@ -8616,7 +8616,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.orange.bold."
       },
       "value": "Orange700"
@@ -8634,7 +8634,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#B65C02",
@@ -8644,7 +8644,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Orange700"
@@ -8662,7 +8662,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.orange.bolder."
     },
     "value": "#974F0C",
@@ -8672,7 +8672,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.orange.bolder."
       },
       "value": "Orange800"
@@ -8690,7 +8690,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#974F0C",
@@ -8700,7 +8700,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Orange800"
@@ -8718,7 +8718,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.orange.boldest."
     },
     "value": "#5F3811",
@@ -8728,7 +8728,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.orange.boldest."
       },
       "value": "Orange900"
@@ -8746,7 +8746,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#B38600",
@@ -8756,7 +8756,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Yellow600"
@@ -8774,7 +8774,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.yellow.bold."
     },
     "value": "#946F00",
@@ -8784,7 +8784,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.yellow.bold."
       },
       "value": "Yellow700"
@@ -8802,7 +8802,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#946F00",
@@ -8812,7 +8812,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Yellow700"
@@ -8830,7 +8830,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.yellow.bolder."
     },
     "value": "#7F5F01",
@@ -8840,7 +8840,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.yellow.bolder."
       },
       "value": "Yellow800"
@@ -8858,7 +8858,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#7F5F01",
@@ -8868,7 +8868,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Yellow800"
@@ -8886,7 +8886,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.yellow.boldest."
     },
     "value": "#533F04",
@@ -8896,7 +8896,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.yellow.boldest."
       },
       "value": "Yellow900"
@@ -8914,7 +8914,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#22A06B",
@@ -8924,7 +8924,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Green600"
@@ -8942,7 +8942,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.green.bold."
     },
     "value": "#1F845A",
@@ -8952,7 +8952,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.green.bold."
       },
       "value": "Green700"
@@ -8970,7 +8970,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#1F845A",
@@ -8980,7 +8980,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Green700"
@@ -8998,7 +8998,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.green.bolder."
     },
     "value": "#216E4E",
@@ -9008,7 +9008,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.green.bolder."
       },
       "value": "Green800"
@@ -9026,7 +9026,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#216E4E",
@@ -9036,7 +9036,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Green800"
@@ -9054,7 +9054,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.green.boldest."
     },
     "value": "#164B35",
@@ -9064,7 +9064,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.green.boldest."
       },
       "value": "Green900"
@@ -9082,7 +9082,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#1D9AAA",
@@ -9092,7 +9092,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Teal600"
@@ -9110,7 +9110,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.teal.bold."
     },
     "value": "#1D7F8C",
@@ -9120,7 +9120,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.teal.bold."
       },
       "value": "Teal700"
@@ -9138,7 +9138,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#1D7F8C",
@@ -9148,7 +9148,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Teal700"
@@ -9166,7 +9166,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.teal.bolder."
     },
     "value": "#206B74",
@@ -9176,7 +9176,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.teal.bolder."
       },
       "value": "Teal800"
@@ -9194,7 +9194,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#206B74",
@@ -9204,7 +9204,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Teal800"
@@ -9222,7 +9222,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.teal.boldest."
     },
     "value": "#1D474C",
@@ -9232,7 +9232,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.teal.boldest."
       },
       "value": "Teal900"
@@ -9250,7 +9250,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#8F7EE7",
@@ -9260,7 +9260,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Purple500"
@@ -9278,7 +9278,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.purple.bold."
     },
     "value": "#8270DB",
@@ -9288,7 +9288,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.purple.bold."
       },
       "value": "Purple600"
@@ -9306,7 +9306,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#8270DB",
@@ -9316,7 +9316,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Purple600"
@@ -9334,7 +9334,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.purple.bolder."
     },
     "value": "#6E5DC6",
@@ -9344,7 +9344,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.purple.bolder."
       },
       "value": "Purple700"
@@ -9362,7 +9362,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#5E4DB2",
@@ -9372,7 +9372,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Purple800"
@@ -9390,7 +9390,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.purple.boldest."
     },
     "value": "#352C63",
@@ -9400,7 +9400,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.purple.boldest."
       },
       "value": "Purple900"
@@ -9418,7 +9418,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#DA62AC",
@@ -9428,7 +9428,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Magenta500"
@@ -9446,7 +9446,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.magenta.bold."
     },
     "value": "#CD519D",
@@ -9456,7 +9456,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.magenta.bold."
       },
       "value": "Magenta600"
@@ -9474,7 +9474,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#CD519D",
@@ -9484,7 +9484,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Magenta600"
@@ -9502,7 +9502,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.magenta.bolder."
     },
     "value": "#AE4787",
@@ -9512,7 +9512,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.magenta.bolder."
       },
       "value": "Magenta700"
@@ -9530,7 +9530,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#943D73",
@@ -9540,7 +9540,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Magenta800"
@@ -9558,7 +9558,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.magenta.boldest."
     },
     "value": "#50253F",
@@ -9568,7 +9568,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.magenta.boldest."
       },
       "value": "Magenta900"
@@ -9586,7 +9586,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#8590A2",
@@ -9596,7 +9596,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Neutral500"
@@ -9614,7 +9614,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.gray.bold."
     },
     "value": "#758195",
@@ -9624,7 +9624,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.gray.bold."
       },
       "value": "Neutral600"
@@ -9642,7 +9642,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#758195",
@@ -9652,7 +9652,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Neutral600"
@@ -9670,7 +9670,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.gray.bolder."
     },
     "value": "#626F86",
@@ -9680,7 +9680,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.gray.bolder."
       },
       "value": "Neutral700"
@@ -9698,7 +9698,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#44546F",
@@ -9708,7 +9708,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "For data visualisation only."
       },
       "value": "Neutral800"
@@ -9726,7 +9726,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.gray.boldest."
     },
     "value": "#2C3E5D",
@@ -9736,7 +9736,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.2",
+        "introduced": "0.13.3",
         "description": "Hovered state of color.chart.gray.boldest."
       },
       "value": "Neutral900"

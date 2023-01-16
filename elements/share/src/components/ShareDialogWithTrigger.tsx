@@ -151,12 +151,15 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 
   private onTabChange = (index: number) => {
     let subjectId = 'shareTab' as TabSubjectIdType;
+    const { shareContentType, isJwmShareToSlackFFEnabled } = this.props;
 
     if (index === 1) {
       subjectId = 'shareToSlackTab';
     }
 
-    this.createAndFireEvent(shareTabClicked(subjectId));
+    this.createAndFireEvent(
+      shareTabClicked(subjectId, shareContentType, isJwmShareToSlackFFEnabled),
+    );
     this.setState({ tabIndex: index });
   };
 
@@ -509,6 +512,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       integrationMode,
       shareIntegrations,
       isBrowseUsersDisabled,
+      shareContentType,
     } = this.props;
 
     const style =
@@ -550,6 +554,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                 }
                 shareFormHelperMessage={shareFormHelperMessage}
                 shareError={shareError}
+                shareContentType={shareContentType}
                 defaultValue={defaultValue}
                 config={config}
                 isFetchingConfig={isFetchingConfig}

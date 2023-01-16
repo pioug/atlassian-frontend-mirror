@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::e7e52396ed1e76fca01b4ec9c1487483>>
+ * @codegen <<SignedSource::204727d92519935cbb4600043eb8ffcf>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -1524,7 +1524,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Our primary color for data visualisation. Use when only one color is required."
     },
     "value": "#388BFF"
@@ -1533,7 +1533,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.brand."
     },
     "value": "#579DFF"
@@ -1542,7 +1542,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A secondary color for data visualisation or to communicate 'to-do' statues."
     },
     "value": "#738496"
@@ -1551,7 +1551,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.neutral."
     },
     "value": "#8696A7"
@@ -1560,7 +1560,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating positive information, such as 'on track'."
     },
     "value": "#2ABB7F"
@@ -1569,7 +1569,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.success."
     },
     "value": "#4BCE97"
@@ -1578,7 +1578,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.success."
     },
     "value": "#7EE2B8"
@@ -1587,7 +1587,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.success.bold."
     },
     "value": "#BAF3DB"
@@ -1596,7 +1596,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating negative information, such as 'off track'."
     },
     "value": "#E34935"
@@ -1605,7 +1605,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.danger."
     },
     "value": "#EF5C48"
@@ -1614,7 +1614,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.danger."
     },
     "value": "#FF9C8F"
@@ -1623,7 +1623,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.danger.bold."
     },
     "value": "#FFD2CC"
@@ -1632,7 +1632,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating caution, such as 'at risk' statuses."
     },
     "value": "#CF9F02"
@@ -1641,7 +1641,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.warning."
     },
     "value": "#E2B203"
@@ -1650,7 +1650,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.warning."
     },
     "value": "#F5CD47"
@@ -1659,7 +1659,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.warning.bold."
     },
     "value": "#F8E6A0"
@@ -1668,7 +1668,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating low priority or in-progress statuses."
     },
     "value": "#1D7AFC"
@@ -1677,7 +1677,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.information."
     },
     "value": "#388BFF"
@@ -1686,7 +1686,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.information."
     },
     "value": "#85B8FF"
@@ -1695,7 +1695,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.information.bold."
     },
     "value": "#CCE0FF"
@@ -1704,7 +1704,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation communicating 'new' statuses."
     },
     "value": "#8270DB"
@@ -1713,7 +1713,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.discovery."
     },
     "value": "#8F7EE7"
@@ -1722,7 +1722,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.discovery."
     },
     "value": "#B8ACF6"
@@ -1731,7 +1731,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.discovery.bold."
     },
     "value": "#DFD8FD"
@@ -1740,7 +1740,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#1D9AAA"
@@ -1749,7 +1749,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.1."
     },
     "value": "#37B4C3"
@@ -1758,7 +1758,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#B8ACF6"
@@ -1767,7 +1767,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.2."
     },
     "value": "#DFD8FD"
@@ -1776,7 +1776,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#D97008"
@@ -1785,7 +1785,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.3."
     },
     "value": "#F18D13"
@@ -1794,7 +1794,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#F797D2"
@@ -1803,7 +1803,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.4."
     },
     "value": "#FDD0EC"
@@ -1812,7 +1812,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#CCE0FF"
@@ -1821,7 +1821,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.5."
     },
     "value": "#E9F2FF"
@@ -1830,7 +1830,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#8270DB"
@@ -1839,7 +1839,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.6."
     },
     "value": "#8F7EE7"
@@ -1848,7 +1848,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#FDD0EC"
@@ -1857,7 +1857,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.7."
     },
     "value": "#FFECF8"
@@ -1866,7 +1866,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
     "value": "#FEC57B"
@@ -1875,7 +1875,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.8."
     },
     "value": "#FFE2BD"
@@ -1884,7 +1884,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#1D7AFC"
@@ -1893,7 +1893,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.blue.bold."
     },
     "value": "#388BFF"
@@ -1902,7 +1902,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#388BFF"
@@ -1911,7 +1911,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.blue.bolder."
     },
     "value": "#579DFF"
@@ -1920,7 +1920,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#85B8FF"
@@ -1929,7 +1929,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.blue.boldest."
     },
     "value": "#CCE0FF"
@@ -1938,7 +1938,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#E34935"
@@ -1947,7 +1947,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.red.bold."
     },
     "value": "#EF5C48"
@@ -1956,7 +1956,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#EF5C48"
@@ -1965,7 +1965,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.red.bolder."
     },
     "value": "#F87462"
@@ -1974,7 +1974,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#FF9C8F"
@@ -1983,7 +1983,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.red.boldest."
     },
     "value": "#FFD2CC"
@@ -1992,7 +1992,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#F18D13"
@@ -2001,7 +2001,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.orange.bold."
     },
     "value": "#FAA53D"
@@ -2010,7 +2010,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#FAA53D"
@@ -2019,7 +2019,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.orange.bolder."
     },
     "value": "#FEC57B"
@@ -2028,7 +2028,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#FEC57B"
@@ -2037,7 +2037,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.orange.boldest."
     },
     "value": "#FFE2BD"
@@ -2046,7 +2046,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#CF9F02"
@@ -2055,7 +2055,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.yellow.bold."
     },
     "value": "#E2B203"
@@ -2064,7 +2064,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#E2B203"
@@ -2073,7 +2073,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.yellow.bolder."
     },
     "value": "#F5CD47"
@@ -2082,7 +2082,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#F5CD47"
@@ -2091,7 +2091,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.yellow.boldest."
     },
     "value": "#F8E6A0"
@@ -2100,7 +2100,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#2ABB7F"
@@ -2109,7 +2109,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.green.bold."
     },
     "value": "#4BCE97"
@@ -2118,7 +2118,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#4BCE97"
@@ -2127,7 +2127,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.green.bolder."
     },
     "value": "#7EE2B8"
@@ -2136,7 +2136,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#7EE2B8"
@@ -2145,7 +2145,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.green.boldest."
     },
     "value": "#BAF3DB"
@@ -2154,7 +2154,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#37B4C3"
@@ -2163,7 +2163,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.teal.bold."
     },
     "value": "#60C6D2"
@@ -2172,7 +2172,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#60C6D2"
@@ -2181,7 +2181,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.teal.bolder."
     },
     "value": "#8BDBE5"
@@ -2190,7 +2190,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#8BDBE5"
@@ -2199,7 +2199,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.teal.boldest."
     },
     "value": "#C1F0F5"
@@ -2208,7 +2208,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#8270DB"
@@ -2217,7 +2217,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.purple.bold."
     },
     "value": "#8F7EE7"
@@ -2226,7 +2226,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#8F7EE7"
@@ -2235,7 +2235,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.purple.bolder."
     },
     "value": "#9F8FEF"
@@ -2244,7 +2244,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#B8ACF6"
@@ -2253,7 +2253,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.purple.boldest."
     },
     "value": "#DFD8FD"
@@ -2262,7 +2262,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#CD519D"
@@ -2271,7 +2271,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.magenta.bold."
     },
     "value": "#DA62AC"
@@ -2280,7 +2280,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#DA62AC"
@@ -2289,7 +2289,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.magenta.bolder."
     },
     "value": "#E774BB"
@@ -2298,7 +2298,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#F797D2"
@@ -2307,7 +2307,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.magenta.boldest."
     },
     "value": "#FDD0EC"
@@ -2316,7 +2316,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#738496"
@@ -2325,7 +2325,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.gray.bold."
     },
     "value": "#8696A7"
@@ -2334,7 +2334,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#8696A7"
@@ -2343,7 +2343,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.gray.bolder."
     },
     "value": "#9FADBC"
@@ -2352,7 +2352,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
     "value": "#9FADBC"
@@ -2361,7 +2361,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.2",
+      "introduced": "0.13.3",
       "description": "Hovered state of color.chart.gray.boldest."
     },
     "value": "#B6C2CF"

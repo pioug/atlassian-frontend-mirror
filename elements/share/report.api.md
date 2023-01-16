@@ -241,6 +241,7 @@ export const ShareDialogContainer: React_2.ForwardRefExoticComponent<
     | 'isAutoOpenDialog'
     | 'isBrowseUsersDisabled'
     | 'isCopyDisabled'
+    | 'isJwmShareToSlackFFEnabled'
     | 'isPublicLink'
     | 'loadUserOptions'
     | 'loggedInAccountId'
@@ -342,6 +343,7 @@ export type ShareDialogContainerProps = {
   tabIndex?: number;
   copyTooltipText?: string;
   isBrowseUsersDisabled?: boolean;
+  isJwmShareToSlackFFEnabled?: boolean;
 };
 
 // @public (undocumented)

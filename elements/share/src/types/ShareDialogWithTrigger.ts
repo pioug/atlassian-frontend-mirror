@@ -39,6 +39,7 @@ export type ShareDialogWithTriggerProps = Pick<
   | 'onUserSelectionChange'
   | 'renderCustomTriggerButton'
   | 'shareContentType'
+  | 'isJwmShareToSlackFFEnabled'
   | 'shareFormTitle'
   | 'shareFormHelperMessage'
   | 'showFlags'

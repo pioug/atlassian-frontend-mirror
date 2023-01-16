@@ -195,6 +195,10 @@ export const messages = defineMessages({
       'draft {Draft shared}' + // this is a placeholder for Invite to edit in Confluence
       'filter {Filter shared}' +
       'issue {Issue shared}' +
+      'summary {Summary shared}' +
+      'list {List shared}' +
+      'timeline {Timeline shared}' +
+      'form {Form shared}' +
       'media {Media shared}' +
       'page {Page shared}' +
       'project {Project shared}' +

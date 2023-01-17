@@ -427,4 +427,88 @@ describe('Client', () => {
       });
     });
   });
+
+  describe('APS Protocol support', () => {
+    beforeEach(() => {
+      fetchMock.mock(`${baseUrl}/subscribe`, {
+        body: {
+          protocol: {
+            type: 'some-protocol',
+          },
+        },
+      });
+    });
+
+    afterEach(() => {
+      fetchMock.restore();
+    });
+
+    it('should not support APS by default', (done) => {
+      const client = new Client({
+        url: baseUrl,
+        product: 'STRIDE',
+        featureFlags: {},
+      });
+
+      return client.join(['ari:cloud:platform::site/666']).then(() => {
+        const lastCall = fetchMock.lastCall(`${baseUrl}/subscribe`);
+        expect(lastCall).toBeDefined();
+
+        const options: RequestInit = lastCall[1];
+        const body = JSON.parse(options.body as string);
+        expect(body.clientInfo.capabilities).toEqual(['PUBNUB']);
+
+        done();
+      });
+    });
+
+    it('should not support APS when custom protocols are passed in the constructor', (done) => {
+      const protocols = ['PROTOCOL_A', 'PROTOCOL_B'].map(makeAProtocol);
+
+      const client = new Client(
+        {
+          url: baseUrl,
+          product: 'STRIDE',
+          featureFlags: {},
+        },
+        protocols,
+      );
+
+      return client.join(['ari:cloud:platform::site/666']).then(() => {
+        const lastCall = fetchMock.lastCall(`${baseUrl}/subscribe`);
+        expect(lastCall).toBeDefined();
+
+        const options: RequestInit = lastCall[1];
+        const body = JSON.parse(options.body as string);
+        expect(body.clientInfo.capabilities).toEqual([
+          'PROTOCOL_A',
+          'PROTOCOL_B',
+        ]);
+
+        done();
+      });
+    });
+
+    it('should support APS when indicated in Client constructor', (done) => {
+      const client = new Client({
+        url: baseUrl,
+        product: 'STRIDE',
+        featureFlags: {},
+        apsProtocol: {
+          enabled: true,
+        },
+      });
+
+      return client.join(['ari:cloud:platform::site/666']).then(() => {
+        const lastCall = fetchMock.lastCall(`${baseUrl}/subscribe`);
+        expect(lastCall).toBeDefined();
+
+        const options: RequestInit = lastCall[1];
+        const body = JSON.parse(options.body as string);
+        expect(body.clientInfo.capabilities).toEqual(['PUBNUB', 'APS']);
+
+        done();
+      });
+    });
+  });
 });

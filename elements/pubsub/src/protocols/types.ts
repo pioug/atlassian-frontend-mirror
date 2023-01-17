@@ -29,3 +29,7 @@ export interface Message {
   time: number;
   payload: any;
 }
+export interface APSProtocolConfig extends ProtocolConfig {
+  type: string;
+  channels: string[];
+}

@@ -13,3 +13,7 @@ export default {
     },
   },
 };
+
+// The URL that should be used when establishing a Web Socket connection with Atlassian PubSub
+export const apsUrl =
+  'wss://atlassian-pubsub.us-east-1.staging.atl-paas.net/endpoints/$ENDPOINT_ID/connect';

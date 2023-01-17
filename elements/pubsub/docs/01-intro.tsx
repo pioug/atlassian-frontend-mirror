@@ -64,4 +64,21 @@ export default md`
       source={PubSubdSource}
     />
   )}
+
+  ### Enabling the Atlassian PubSub (aka APS) protocol
+
+  To enable the APS protocol in your client, simply pass "true" to the "apsProtocol.enabled" field in the constructor config.
+  You can also specify a custom URL for the APS service via the "apsProtocol.url" field, although it is recommended that the
+  default URL should be used in most cases.
+
+  ${code`
+  return new Client({
+    product: 'STRIDE',
+    url: 'https://api-private.atlassian.com/pubsub',
+    apsProtocol: {
+      enabled: true,
+      url: '{optionalUrl}'
+    },
+  }); `}
+
 `;

@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.2.0
+
+### Minor Changes
+
+- [`fcc2b0f4bf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fcc2b0f4bf1) - Add support for the Atlassian PubSub (APS) protocol
+
 ## 6.1.0
 
 ### Minor Changes

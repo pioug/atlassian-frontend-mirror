@@ -1,59 +1,88 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import Textfield from '@atlaskit/textfield';
 import Lozenge from '@atlaskit/lozenge';
 
 import Client, { PubSubClientConfig, SpecialEventType } from '../src';
+import { FeatureFlags } from '../src/featureFlags';
+import PubNubProtocol from '../src/protocols/pubnub';
+import APSProtocol from '../src/protocols/aps';
 
 let clientConfig: { serviceConfig: PubSubClientConfig };
+let defaultApsUrl: string;
 try {
   // eslint-disable-next-line import/no-unresolved
-  clientConfig = require('../local-config')['default'];
+  const localConfig = require('../local-config');
+  clientConfig = localConfig['default'];
+  defaultApsUrl = localConfig.apsUrl;
 } catch (e) {
-  clientConfig = require('../local-config-example')['default'];
+  // eslint-disable-next-line import/no-unresolved
+  const localConfig = require('../local-config-example');
+  clientConfig = localConfig['default'];
+  defaultApsUrl = localConfig.apsUrl;
 }
 
 interface State {
-  url: string;
+  fpsUrl: string;
+  apsUrl: string;
   channelInput: string;
   eventType: string;
   events: string[];
   status: string;
+  protocols: ProtocolName[];
+  client: Client;
 }
 
+type ProtocolName = 'PUBNUB' | 'APS';
+
 class PubSubEventComponent extends Component<{}, State> {
-  private client!: Client;
-  private serviceConfig: PubSubClientConfig;
+  private readonly serviceConfig: PubSubClientConfig;
 
   constructor(props: any) {
     super(props);
     this.serviceConfig = clientConfig.serviceConfig;
     this.state = {
-      url: clientConfig.serviceConfig.url,
+      fpsUrl: clientConfig.serviceConfig.url,
+      apsUrl: defaultApsUrl,
       channelInput: 'ari:cloud:platform::site/666',
       eventType: 'avi:emoji-service:updated:emoji',
       events: [],
       status: 'NOT CONNECTED',
+      protocols: ['PUBNUB', 'APS'],
+      client: this.initClient(clientConfig.serviceConfig.url, defaultApsUrl, [
+        'PUBNUB',
+        'APS',
+      ]),
     };
-    this.initClient(clientConfig.serviceConfig.url);
   }
 
+  toggleProtocol = (protocol: ProtocolName) => {
+    const protocols = this.state.protocols;
+    if (this.usesProtocol(protocol)) {
+      this.setState({ protocols: protocols.filter((p) => p !== protocol) });
+    } else {
+      this.setState({ protocols: [...protocols, protocol] });
+    }
+  };
+
+  usesProtocol = (protocol: ProtocolName) =>
+    this.state.protocols.includes(protocol);
+
   onJoin = () => {
-    this.client.join([this.state.channelInput]);
+    this.state.client.join([this.state.channelInput]);
   };
 
   onLeave = () => {
-    this.client.leave([this.state.channelInput]);
+    this.state.client.leave([this.state.channelInput]);
   };
 
   onNetworkUp = () => {
-    this.client.networkUp();
+    this.state.client.networkUp();
   };
 
   onNetworkDown = () => {
-    this.client.networkDown();
+    this.state.client.networkDown();
   };
 
   onChannelChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -65,11 +94,11 @@ class PubSubEventComponent extends Component<{}, State> {
   onUrlChange = (e: React.FormEvent<HTMLInputElement>) => {
     const newUrl = e.currentTarget.value;
     this.setState({
-      url: e.currentTarget.value,
+      fpsUrl: e.currentTarget.value,
     });
 
-    this.client.leave([this.state.channelInput]).then((_) => {
-      this.initClient(newUrl);
+    this.state.client.leave([this.state.channelInput]).then((_) => {
+      this.initClient(newUrl, this.state.apsUrl, this.state.protocols);
     });
   };
 
@@ -80,11 +109,11 @@ class PubSubEventComponent extends Component<{}, State> {
   };
 
   onSubscribe = () => {
-    this.client.on(this.state.eventType, this.onEvent);
+    this.state.client.on(this.state.eventType, this.onEvent);
   };
 
   onUnsubscribe = () => {
-    this.client.off(this.state.eventType, this.onEvent);
+    this.state.client.off(this.state.eventType, this.onEvent);
   };
 
   onEvent = (event: any, _: any) => {
@@ -101,15 +130,32 @@ class PubSubEventComponent extends Component<{}, State> {
     });
   };
 
-  private initClient = (url: string) => {
+  private initClient = (
+    fpsUrl: string,
+    apsUrl: string,
+    protocols: ProtocolName[],
+  ): Client => {
     this.setState({
       status: 'NOT CONNECTED',
     });
 
-    this.client = new Client({ ...this.serviceConfig, url });
-    this.client.on(SpecialEventType.CONNECTED, () =>
-      this.updateStatus('CONNECTED'),
+    const protocolsMap = {
+      PUBNUB: new PubNubProtocol(
+        new FeatureFlags(this.serviceConfig.featureFlags),
+      ),
+      APS: new APSProtocol(apsUrl ? new URL(apsUrl) : undefined),
+    };
+
+    const usedProtocols = protocols.map((protocol) => protocolsMap[protocol]);
+
+    const client = new Client(
+      { ...this.serviceConfig, url: fpsUrl },
+      usedProtocols,
     );
+
+    client.on(SpecialEventType.CONNECTED, () => this.updateStatus('CONNECTED'));
+
+    return client;
   };
 
   render() {
@@ -122,8 +168,37 @@ class PubSubEventComponent extends Component<{}, State> {
           id="serviceUrl"
           label="Service"
           onChange={this.onUrlChange}
-          value={this.state.url}
+          value={this.state.fpsUrl}
         />
+        <label>Protocols</label>
+        <div>
+          <ButtonGroup>
+            <Button
+              id="pubnubProtocol"
+              onClick={() => this.toggleProtocol('PUBNUB')}
+              appearance={this.usesProtocol('PUBNUB') ? 'primary' : undefined}
+            >
+              PubNub
+            </Button>
+            <Button
+              id="apsProtocol"
+              onClick={() => this.toggleProtocol('APS')}
+              appearance={this.usesProtocol('APS') ? 'primary' : undefined}
+            >
+              APS
+            </Button>
+          </ButtonGroup>
+          {this.usesProtocol('APS') && (
+            <div>
+              <label>APS URL</label>
+              <Textfield
+                id="apsURL"
+                label="APS URL"
+                value={this.state.apsUrl}
+              />
+            </div>
+          )}
+        </div>
         <label>Channel</label>
         <Textfield
           id="channel"

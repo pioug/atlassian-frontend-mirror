@@ -112,6 +112,11 @@ export interface PubSubClient {
 // @public (undocumented)
 export interface PubSubClientConfig extends ServiceConfig {
   // (undocumented)
+  apsProtocol?: {
+    enabled: boolean;
+    url?: URL;
+  };
+  // (undocumented)
   featureFlags?: {
     [key: string]: boolean;
   };

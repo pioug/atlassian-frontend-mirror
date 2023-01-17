@@ -31,6 +31,16 @@ export enum SpecialEventType {
 
 export interface PubSubClientConfig extends ServiceConfig {
   product: string;
+  apsProtocol?: {
+    /**
+     * When 'true', this Client will support the APS protocol, as long as the default one - PubNub
+     */
+    enabled: boolean;
+    /**
+     * In case the consumer needs to specify a custom URL. If this value is not passed the default URL will be used.
+     */
+    url?: URL;
+  };
   featureFlags?: {
     [key: string]: boolean;
   };

@@ -1,5 +1,11 @@
 # @atlaskit/in-product-testing-sample
 
+## 0.2.6
+
+### Patch Changes
+
+- [`68ce35bc0f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ce35bc0f5) - Created an in-product test for `people-menu`
+
 ## 0.2.5
 
 ### Patch Changes

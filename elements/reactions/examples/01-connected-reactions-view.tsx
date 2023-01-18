@@ -46,6 +46,34 @@ export default () => {
           {/* Example 2 */}
           <Example
             title={
+              '"ConnectedReactionsView" with miniMode for add reaction button'
+            }
+            body={
+              <ConnectedReactionsView
+                store={store}
+                containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
+                ari={`${ExampleConstants.AriPrefix}1`}
+                emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+                miniMode
+              />
+            }
+          />
+
+          <hr />
+
+          <strong
+            style={{
+              fontSize: '14px',
+              marginLeft: '10px',
+              textDecoration: 'underline',
+            }}
+          >
+            "miniMode" prop - make the emoji picker button show as mini mode
+          </strong>
+
+          {/* Example 3 */}
+          <Example
+            title={
               '"ConnectedReactionsView" with allowAllEmojis prop set to true (Select custom emojis from the picker instead of just a pre-defined list)'
             }
             body={
@@ -59,7 +87,7 @@ export default () => {
             }
           />
 
-          {/* Example 3 */}
+          {/* Example 4 */}
           <Example
             title={
               '"ConnectedReactionsView" with allowAllEmojis flag set is not provided or false'
@@ -87,7 +115,7 @@ export default () => {
             from the picker popup when the reaction add button is clicked
           </strong>
 
-          {/* Example 4 */}
+          {/* Example 5 */}
           <Example
             title={
               '"ConnectedReactionsView" with non-empty pickerQuickReactionEmojiIds array populated a single item'
@@ -106,7 +134,7 @@ export default () => {
             }
           />
 
-          {/* Example 5 */}
+          {/* Example 6 */}
           <Example
             title={
               '"ConnectedReactionsView" with empty pickerQuickReactionEmojiIds array (shows the full picker selector)'
@@ -137,7 +165,7 @@ export default () => {
             created on the post/reply yet
           </strong>
 
-          {/* Example 6 */}
+          {/* Example 7 */}
           <Example
             title={
               '"ConnectedReactionsView" with quickReactionEmojis array without any emoji (undefined or empty array) added to the container|ari item'
@@ -154,7 +182,7 @@ export default () => {
             }
           />
 
-          {/* Example 7 */}
+          {/* Example 8 */}
           <Example
             title={
               '"ConnectedReactionsView" with quickReactionEmojis array with some quick emoji icons selections to choose'
@@ -175,7 +203,7 @@ export default () => {
               />
             }
           />
-          {/* Example 8 */}
+          {/* Example 9 */}
           <Example
             title={
               '"ConnectedReactionsView" with large emoji picker, emojiPickerSize could be small, medium or large (default to medium).'
@@ -205,7 +233,7 @@ export default () => {
             to show a full user list associated with all reactions
           </strong>
 
-          {/* Example 9 */}
+          {/* Example 10 */}
           <Example
             title={'Connected reactions with reactions dialog enabled'}
             body={
@@ -233,7 +261,7 @@ export default () => {
             reactions with event callbacks shown
           </strong>
 
-          {/* Example 10 */}
+          {/* Example 11 */}
           <Example
             title={
               'Connected reactions with reactions dialog enabled and callbacks shown as alert dialogs'

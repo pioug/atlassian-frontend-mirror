@@ -11,12 +11,9 @@ const props = {
   allowSelectAllTrap: true,
 };
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16390
 BrowserTestCase(
-  'select.ts: Mod+A does not select before',
-  {
-    skip: ['*'],
-  },
+  'select.ts: Mod+a does not select before',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -25,7 +22,7 @@ BrowserTestCase(
     const renderer = await page.$(selectors.document);
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const beforeSelected = await page.evaluate(() => {
       const el = document.querySelector('[data-sentinel="before"]');
@@ -37,12 +34,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16391
 BrowserTestCase(
-  'select.ts: Mod+A does not select after',
-  {
-    skip: ['*'],
-  },
+  'select.ts: Mod+a does not select after',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -51,7 +45,7 @@ BrowserTestCase(
     const renderer = await page.$(selectors.document);
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const afterSelected = await page.evaluate(() => {
       const el = document.querySelector('[data-sentinel="after"]');
@@ -63,19 +57,16 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16392
 BrowserTestCase(
-  'select.ts: Mod+A selects renderer',
-  {
-    skip: ['*'],
-  },
+  'select.ts: Mod+a selects renderer',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
 
     const renderer = await page.$(selectors.document);
     await renderer.click();
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const rendererSelected = await page.evaluate((selector) => {
       const el = document.querySelector(selector);
@@ -88,19 +79,16 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16393
 BrowserTestCase(
-  'select.ts: Mod+A fires selectAllCaught event',
-  {
-    skip: ['*'],
-  },
+  'select.ts: Mod+a fires selectAllCaught event',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
 
     const renderer = await page.$(selectors.document);
     await renderer.click();
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const events = await getEvents(page);
     expect(events).toContainEqual(
@@ -112,23 +100,21 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16394
 BrowserTestCase(
-  'select.ts: Mod+A twice selects before',
-  {
-    // skip: ['safari'],
-    skip: ['*'],
-  },
+  'select.ts: Mod+a twice selects before',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
+
     await mountRenderer(page, props, simpleAdf);
+    await page.waitForSelector(selectors.document);
     await addSentinels(page);
 
     const renderer = await page.$(selectors.document);
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const beforeSelected = await page.evaluate(() => {
       const el = document.querySelector('[data-sentinel="before"]');
@@ -140,13 +126,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16395
 BrowserTestCase(
-  'select.ts: Mod+A twice selects after',
-  {
-    // skip: ['safari'],
-    skip: ['*'],
-  },
+  'select.ts: Mod+a twice selects after',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -155,8 +137,8 @@ BrowserTestCase(
     const renderer = await page.$(selectors.document);
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const afterSelected = await page.evaluate(() => {
       const el = document.querySelector('[data-sentinel="after"]');
@@ -168,20 +150,17 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16396
 BrowserTestCase(
-  'select.ts: Mod+A twice fires selectAllEscaped event',
-  {
-    skip: ['*'],
-  },
+  'select.ts: Mod+a twice fires selectAllEscaped event',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
 
     const renderer = await page.$(selectors.document);
     await renderer.click();
-    await page.keyboard.type('A', ['Mod']);
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const events = await getEvents(page);
     expect(events).toContainEqual(
@@ -193,12 +172,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16397
 BrowserTestCase(
-  'select.ts: Mod+A twice, click, Mod+A does not select before',
-  {
-    skip: ['*'],
-  },
+  'select.ts: Mod+a twice, click, Mod+a does not select before',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -207,12 +183,12 @@ BrowserTestCase(
     const renderer = await page.$(selectors.document);
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const afterSelected = await page.evaluate(() => {
       const el = document.querySelector('[data-sentinel="before"]');
@@ -224,12 +200,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16398
 BrowserTestCase(
-  'select.ts: Mod+A twice, click, Mod+A does not select after',
-  {
-    skip: ['*'],
-  },
+  'select.ts: Mod+a twice, click, Mod+a does not select after',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -238,12 +211,12 @@ BrowserTestCase(
     const renderer = await page.$(selectors.document);
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const afterSelected = await page.evaluate(() => {
       const el = document.querySelector('[data-sentinel="after"]');
@@ -255,12 +228,9 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/12/2022: https://product-fabric.atlassian.net/browse/ED-16399
 BrowserTestCase(
-  'select.ts: Mod+A twice, click, Mod+A selects renderer',
-  {
-    skip: ['*'],
-  },
+  'select.ts: Mod+a twice, click, Mod+a selects renderer',
+  {},
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, props, simpleAdf);
@@ -268,12 +238,12 @@ BrowserTestCase(
     const renderer = await page.$(selectors.document);
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     await renderer.click();
 
-    await page.keyboard.type('A', ['Mod']);
+    await page.keyboard.type('a', ['Mod']);
 
     const rendererSelected = await page.evaluate((selector) => {
       const el = document.querySelector(selector);

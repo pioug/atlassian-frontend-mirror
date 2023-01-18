@@ -73,19 +73,8 @@ export type TextColorKey =
   | 'Light red'
   | 'Light purple';
 
-const colorArrayPalette: Array<[string, TextColorKey]> = [
-  // default row
-  // [N800, default],
-  [N80, 'Light gray'],
-  [P300, 'Purple'],
-  [T300, 'Teal'],
-  [G300, 'Green'],
-  [R300, 'Red'],
-  [Y400, 'Orange'],
-];
-
 // used for extended palette in text color picker
-const colorArrayPaletteExtended: Array<[string, TextColorKey]> = [
+const colorArrayPalette: Array<[string, TextColorKey]> = [
   // default row - first color is added programatically
   // [N800, 'Squid ink'], // default dark gray
   [B500, 'Dark blue'], // Chore coat
@@ -114,13 +103,11 @@ const colorArrayPaletteExtended: Array<[string, TextColorKey]> = [
 
 // @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/55979455/Colour+picker+decisions#Colourpickerdecisions-Visualdesigndecisions
 export const colorPalette = new Map<string, TextColorKey>();
-export const colorPaletteExtended = new Map<string, TextColorKey>();
+/** @deprecated [ED-15849] The extended palette is now rolled into the main one. Use `colorPalette` instead. */
+export const colorPaletteExtended = colorPalette;
 
 colorArrayPalette.forEach(([color, label]) =>
   colorPalette.set(color.toLowerCase(), label),
-);
-colorArrayPaletteExtended.forEach(([color, label]) =>
-  colorPaletteExtended.set(color.toLowerCase(), label),
 );
 
 export const textColor: MarkSpec = {
@@ -139,8 +126,7 @@ export const textColor: MarkSpec = {
           hexColor = value.toLowerCase();
         }
         // else handle other colour formats
-        return hexColor &&
-          (colorPalette.has(hexColor) || colorPaletteExtended.has(hexColor))
+        return hexColor && colorPalette.has(hexColor)
           ? { color: hexColor }
           : false;
       },
@@ -162,8 +148,7 @@ export const textColor: MarkSpec = {
 
         const hexColor = maybeElement.dataset.textCustomColor;
 
-        return hexColor &&
-          (colorPalette.has(hexColor) || colorPaletteExtended.has(hexColor))
+        return hexColor && colorPalette.has(hexColor)
           ? { color: hexColor }
           : false;
       },

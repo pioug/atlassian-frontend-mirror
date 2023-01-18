@@ -5,6 +5,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CardDimensions, CardAppearance } from '../../../types';
 import { Breakpoint } from '../common';
 import { MediaCardCursor } from '../../../types';
+import { GlobalThemeTokens } from '@atlaskit/theme/components';
 
 export interface NewFileExperienceWrapperProps {
   testId?: string;
@@ -26,4 +27,5 @@ export interface NewFileExperienceWrapperProps {
   shouldDisplayTooltip: boolean;
   innerRef?: RefObject<HTMLDivElement>;
   children?: JSX.Element;
+  theme?: GlobalThemeTokens;
 }

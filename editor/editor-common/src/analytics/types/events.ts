@@ -248,10 +248,11 @@ type ComponentCrashAdditionalInfoErrorAEP = OperationalAEP<
   ACTION_SUBJECT.EDITOR,
   undefined,
   {
-    errorStack: string;
     errorId: string;
   },
-  undefined
+  {
+    errorStack: string;
+  }
 >;
 
 type SmartLinkErrorAEP = OperationalAEP<

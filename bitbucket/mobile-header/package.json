@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/mobile-header",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "A React component rendering a mobile header",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,11 +25,11 @@
     "@atlaskit/button": "^16.5.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/theme": "^12.2.0",
-    "@babel/runtime": "^7.0.0"
+    "@babel/runtime": "^7.0.0",
+    "@emotion/styled": "^11.0.0"
   },
   "peerDependencies": {
     "@emotion/react": "^11.0.0",
-    "@emotion/styled": "^11.0.0",
     "react": "^16.8.0"
   },
   "devDependencies": {

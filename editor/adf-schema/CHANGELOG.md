@@ -1,5 +1,68 @@
 # @atlaskit/adf-schema
 
+## 25.1.0
+
+### Minor Changes
+
+- [`055a333dad9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/055a333dad9) - [ux] Remove `moreTextColors` feature flag and deprecate `allowMoreTextColors` field of `allowTextColor` editor prop and `colorPaletteExtended` mark.
+
+  Showing more colors in the color selection palette is now a default behaviour.
+
+  ## **DEPRECATION WARNING:**
+
+  There are 2 deprecations in this change:
+
+  ### 1. `allowMoreTextColors` field of `allowTextColor` editor prop.
+
+  `allowMoreTextColors` field of `allowTextColor` editor prop. **is now deprecated and will be removed in the next stable release of `@atlaskit/editor-core` package**. Please take steps to remove that field from your code. E.g.:
+
+  ```tsx
+  <Editor
+   ...
+   allowTextColor ={
+    allowMoreTextColors: true // <-- Deprecated
+    defaultColour: {color: 'red', label: 'red'}
+   }
+  />
+  ```
+
+  Remove all instances of `allowMoreTextColors` field from `allowTextColor` `Editor` prop. I.e.:
+
+  ```tsx
+  <Editor
+   ...
+   allowTextColor ={
+    defaultColour: {color: 'red', label: 'red'}
+   }
+  />
+  ```
+
+  If the resulting `allowTextColor` prop is an empty object, set `allowTextColor` property value to `true`. E.g.:
+
+  ```tsx
+  <Editor
+   appearance="full-page"
+   ...
+   allowTextColor ={
+    allowMoreTextColors: true // <-- Invalid
+   }
+  />
+  ```
+
+  should become
+
+  ```tsx
+  <Editor
+   appearance="full-page"
+   ...
+   allowTextColor={true}
+  />
+  ```
+
+  ### 2. `colorPaletteExtended` mark of the ADF schema
+
+  `colorPaletteExtended` mark of the ADF schema **is now deprecated and will be removed in the next stable release**. The extended palette is now rolled into the main one. use `colorPalette` instead.
+
 ## 25.0.0
 
 ### Major Changes

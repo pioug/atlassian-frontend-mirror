@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.4.5
+
+### Patch Changes
+
+- [`021eea6cdc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/021eea6cdc6) - Remove unnecessary styles. There is no expected behaviour change for consumers.
+
 ## 7.4.4
 
 ### Patch Changes

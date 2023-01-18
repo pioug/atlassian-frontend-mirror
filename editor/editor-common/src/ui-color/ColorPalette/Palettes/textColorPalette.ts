@@ -1,4 +1,4 @@
-import { colorPalette, colorPaletteExtended } from '@atlaskit/adf-schema';
+import { colorPalette } from '@atlaskit/adf-schema';
 
 import { DEFAULT_BORDER_COLOR } from './common';
 import getColorMessage from './getColorMessage';
@@ -19,11 +19,7 @@ const mapPaletteColor = (label: string, color: string) => {
 
 // row 1
 export const textColorPalette: Array<PaletteColor> = [];
-export const textColorPaletteExtended: Array<PaletteColor> = [];
 
 colorPalette.forEach((label, color) => {
   textColorPalette.push(mapPaletteColor(label, color));
-});
-colorPaletteExtended.forEach((label, color) => {
-  textColorPaletteExtended.push(mapPaletteColor(label, color));
 });

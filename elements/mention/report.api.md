@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -1104,3 +1105,17 @@ export enum UserType {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

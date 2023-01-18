@@ -32,7 +32,7 @@ export const reactionStyle = css({
   borderRadius: '20px',
   color: `${token('color.text.subtle', N400)}`,
   cursor: 'pointer',
-  margin: 0,
+  margin: '4px 4px 0 0',
   padding: 0,
   transition: '200ms ease-in-out',
   '&:hover': {

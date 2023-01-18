@@ -15,7 +15,6 @@ type ExperimentalAEP<Action, ActionSubject, ActionSubjectId, Attributes> =
 
 export interface TextColorSelectedAttr {
   color: string;
-  isNewColor: boolean;
 }
 export type TextColorSelectedAEP = ExperimentalAEP<
   ACTION.FORMATTED,

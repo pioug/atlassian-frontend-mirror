@@ -58,11 +58,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
 
     placeholderBracketHint: !!props.placeholderBracketHint,
 
-    moreTextColors:
-      typeof props.allowTextColor === 'boolean'
-        ? false
-        : Boolean(props.allowTextColor?.allowMoreTextColors === true),
-
     findReplace: !!props.allowFindReplace,
 
     findReplaceMatchCase:
@@ -165,6 +160,16 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         !!normalizedFeatureFlags.saferDispatchedTransactions) ||
         (typeof props.featureFlags?.saferDispatchedTransactions === 'boolean'
           ? !!props.featureFlags?.saferDispatchedTransactions
+          : false),
+    ),
+
+    saferDispatchedTransactionsAnalyticsOnly: Boolean(
+      (typeof normalizedFeatureFlags.saferDispatchedTransactionsAnalyticsOnly ===
+        'boolean' &&
+        !!normalizedFeatureFlags.saferDispatchedTransactionsAnalyticsOnly) ||
+        (typeof props.featureFlags?.saferDispatchedTransactionsAnalyticsOnly ===
+        'boolean'
+          ? !!props.featureFlags?.saferDispatchedTransactionsAnalyticsOnly
           : false),
     ),
 

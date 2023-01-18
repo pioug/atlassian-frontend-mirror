@@ -1,4 +1,1 @@
-export {
-  textColorPalette,
-  textColorPaletteExtended,
-} from '@atlaskit/editor-common/ui-color';
+export { textColorPalette } from '@atlaskit/editor-common/ui-color';

@@ -58,37 +58,6 @@ describe('Feature Flags from Props', () => {
     });
   });
 
-  describe('moreTextColors', () => {
-    it('should default moreTextColors to false if allowTextColour is true', () => {
-      const flags = createFeatureFlagsFromProps({
-        allowTextColor: true,
-      });
-      expect(flags.moreTextColors).toBe(false);
-    });
-    it('should default moreTextColors to false if allowTextColour is an empty object', () => {
-      const flags = createFeatureFlagsFromProps({
-        allowTextColor: {},
-      });
-      expect(flags.moreTextColors).toBe(false);
-    });
-    it('should set moreTextColors to false if allowTextColour.allowMoreTextColors is false', () => {
-      const flags = createFeatureFlagsFromProps({
-        allowTextColor: {
-          allowMoreTextColors: false,
-        },
-      });
-      expect(flags.moreTextColors).toBe(false);
-    });
-    it('should set moreTextColors to true if allowTextColour.allowMoreTextColors is true', () => {
-      const flags = createFeatureFlagsFromProps({
-        allowTextColor: {
-          allowMoreTextColors: true,
-        },
-      });
-      expect(flags.moreTextColors).toBe(true);
-    });
-  });
-
   describe('singleLayout', () => {
     it('should default singleLayout to false if allowLayouts has boolean value', () => {
       let flags = createFeatureFlagsFromProps({
@@ -252,7 +221,6 @@ describe('Feature Flags from Props', () => {
             newInsertionBehaviour: true,
             interactiveExpand: true,
             placeholderBracketHint: true,
-            moreTextColors: true,
             findReplace: true,
             findReplaceMatchCase: true,
             extensionLocalIdGeneration: true,

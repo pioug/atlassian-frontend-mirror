@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -262,3 +263,15 @@ export const VAR_SEPARATOR_COLOR = '--ds-menu-seperator-color';
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

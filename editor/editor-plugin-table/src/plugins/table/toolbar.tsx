@@ -23,6 +23,7 @@ import {
   hoverColumns,
   hoverRows,
   removeDescendantNodes,
+  hoverMergedCells,
 } from './commands';
 import {
   deleteTableWithAnalytics,
@@ -339,6 +340,17 @@ export const getToolbarCellOptionsConfig = (
     options.push({
       id: 'editor.table.sortColumnAsc',
       title: formatMessage(ContextualMenuMessages.sortColumnASC),
+      onMouseOver: (state: EditorState, dispatch?: CommandDispatch) => {
+        if (getMergedCellsPositions(state.tr).length !== 0) {
+          hoverMergedCells()(state, dispatch);
+          return true;
+        }
+        return false;
+      },
+      onMouseOut: (state: EditorState, dispatch?: CommandDispatch) => {
+        clearHoverSelection()(state, dispatch);
+        return true;
+      },
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         sortColumnWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.FLOATING_TB,
@@ -355,6 +367,17 @@ export const getToolbarCellOptionsConfig = (
     options.push({
       id: 'editor.table.sortColumnDesc',
       title: formatMessage(ContextualMenuMessages.sortColumnDESC),
+      onMouseOver: (state: EditorState, dispatch?: CommandDispatch) => {
+        if (getMergedCellsPositions(state.tr).length !== 0) {
+          hoverMergedCells()(state, dispatch);
+          return true;
+        }
+        return false;
+      },
+      onMouseOut: (state: EditorState, dispatch?: CommandDispatch) => {
+        clearHoverSelection()(state, dispatch);
+        return true;
+      },
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         sortColumnWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.FLOATING_TB,

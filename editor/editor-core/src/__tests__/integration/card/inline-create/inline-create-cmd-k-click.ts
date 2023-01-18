@@ -1,27 +1,38 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
-  getDocFromElement,
   editable,
-  gotoEditor,
-  linkUrlSelector,
-  insertLongText,
   fullpage,
+  getDocFromElement,
+  insertLongText,
+  linkUrlSelector,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
 BrowserTestCase(
   `card: selecting a link from CMD + K menu should create an inline card with click`,
   {},
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
-    const page = new Page(client);
-
-    await gotoEditor(page);
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        smartLinks: {
+          allowEmbeds: true,
+        },
+      },
+      {
+        providers: {
+          cards: true,
+        },
+      },
+    );
 
     await insertLongText(page);
     await page.click(`[aria-label="${messages.link.defaultMessage}"]`);

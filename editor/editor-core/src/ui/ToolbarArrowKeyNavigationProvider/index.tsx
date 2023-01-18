@@ -33,6 +33,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
   childComponentSelector,
   handleEscape,
   disableArrowKeyNavigation,
+  isShortcutToFocusToolbar,
 }: {
   children: ReactNode;
   editorView?: EditorView;
@@ -40,6 +41,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
   childComponentSelector: string;
   handleEscape?: (event: KeyboardEvent) => void;
   disableArrowKeyNavigation?: boolean;
+  isShortcutToFocusToolbar?: (event: KeyboardEvent) => boolean;
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const selectedItemIndex = useRef(0);
@@ -178,9 +180,31 @@ export const ToolbarArrowKeyNavigationProvider = ({
         default:
       }
     };
+
+    const globalKeyDownHandler = (event: KeyboardEvent): void => {
+      //To focus the first element in the toolbar
+      if (isShortcutToFocusToolbar!(event)) {
+        const filteredFocusableElements = getFilteredFocusableElements(
+          wrapperRef?.current,
+        );
+        filteredFocusableElements[0]?.focus();
+        filteredFocusableElements[0]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest',
+        });
+      }
+    };
+
     element?.addEventListener('keydown', handleKeyDown);
+    if (isShortcutToFocusToolbar) {
+      document.addEventListener('keydown', globalKeyDownHandler);
+    }
     return () => {
       element?.removeEventListener('keydown', handleKeyDown);
+      if (isShortcutToFocusToolbar) {
+        document.removeEventListener('keydown', globalKeyDownHandler);
+      }
     };
   }, [
     selectedItemIndex,
@@ -191,6 +215,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
     childComponentSelector,
     incrementIndex,
     decrementIndex,
+    isShortcutToFocusToolbar,
   ]);
 
   return (

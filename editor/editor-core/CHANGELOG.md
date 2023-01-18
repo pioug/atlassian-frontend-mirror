@@ -1,5 +1,88 @@
 # @atlaskit/editor-core
 
+## 178.0.0
+
+### Major Changes
+
+- [`04e3aacbcc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04e3aacbcc0) - ED-16069 Unskip type over mediagroup integ test
+
+### Minor Changes
+
+- [`055a333dad9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/055a333dad9) - [ux] Remove `moreTextColors` feature flag and deprecate `allowMoreTextColors` field of `allowTextColor` editor prop and `colorPaletteExtended` mark.
+
+  Showing more colors in the color selection palette is now a default behaviour.
+
+  ## **DEPRECATION WARNING:**
+
+  There are 2 deprecations in this change:
+
+  ### 1. `allowMoreTextColors` field of `allowTextColor` editor prop.
+
+  `allowMoreTextColors` field of `allowTextColor` editor prop. **is now deprecated and will be removed in the next stable release of `@atlaskit/editor-core` package**. Please take steps to remove that field from your code. E.g.:
+
+  ```tsx
+  <Editor
+   ...
+   allowTextColor ={
+    allowMoreTextColors: true // <-- Deprecated
+    defaultColour: {color: 'red', label: 'red'}
+   }
+  />
+  ```
+
+  Remove all instances of `allowMoreTextColors` field from `allowTextColor` `Editor` prop. I.e.:
+
+  ```tsx
+  <Editor
+   ...
+   allowTextColor ={
+    defaultColour: {color: 'red', label: 'red'}
+   }
+  />
+  ```
+
+  If the resulting `allowTextColor` prop is an empty object, set `allowTextColor` property value to `true`. E.g.:
+
+  ```tsx
+  <Editor
+   appearance="full-page"
+   ...
+   allowTextColor ={
+    allowMoreTextColors: true // <-- Invalid
+   }
+  />
+  ```
+
+  should become
+
+  ```tsx
+  <Editor
+   appearance="full-page"
+   ...
+   allowTextColor={true}
+  />
+  ```
+
+  ### 2. `colorPaletteExtended` mark of the ADF schema
+
+  `colorPaletteExtended` mark of the ADF schema **is now deprecated and will be removed in the next stable release**. The extended palette is now rolled into the main one. use `colorPalette` instead.
+
+### Patch Changes
+
+- [`a7eb7a6bb47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7eb7a6bb47) - ED-16068 unskipped tests
+- [`f7cdc36d75b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7cdc36d75b) - ED016195 update EDITOR_CRASHED_ADDITIONAL_INFORMATION event name
+- [`20117f2de5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20117f2de5a) - [ux] ED-16204 Fix table cell options floating toolbar context menu closes after clicking on disabled options
+- [`3f3720a4964`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f3720a4964) - EDM-5368 make type="button" to the buttons in HyperLinkToolbar. This has caused an issue in Jira Portal where clicking the button would submit the creation form.
+- [`efa8b7ee68e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa8b7ee68e) - ED-15808 Changes to replace usage of enzyme with React test library
+- [`df20a33d886`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df20a33d886) - ED-16445: Set allowUndoRedoButtons prop codemod in editor-core to run against the correct editor version (v175)
+- [`e1637ca6a5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1637ca6a5c) - ED-16004 unskipped test
+- [`31c37c54ee2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31c37c54ee2) - ED-15548 To add keyboard shortcut Alt + F9 to reach main toolbar and on 'Esc' user comes back to editor
+- [`70d0799eee0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70d0799eee0) - ED-14002 Added `safer-dispatched-transactions` featureFlag to preventtransactions from being mutated after dispatch at runtime.
+- [`c6c0cab10e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6c0cab10e0) - [ux] ED-16205 - Fix missing yellow highlight on merged table cells when hover sort column options on table floating toolbar
+- [`b9141027f87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9141027f87) - [ux] ED-13873 fixes a bug where after deleting a list in a panel or table the cursor would move to the cell to the right. Uses setSelection to position the cursor as expected after delete.
+- [`e9a8cb724c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9a8cb724c1) - [ux] ED-16207 - Update color picker button size and background to allow hover effect to standout
+- Updated dependencies
+
 ## 177.0.1
 
 ### Patch Changes

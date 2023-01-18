@@ -668,7 +668,7 @@ describe('lists plugin -> keymap', () => {
           ),
           p('after'),
         ),
-        doc(ol()(li(p('')), li(p('nice'))), p('{<>}after')),
+        doc(ol()(li(p('')), li(p('nice{<>}'))), p('after')),
       );
     });
   });

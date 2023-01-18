@@ -16,7 +16,7 @@ BrowserTestCase(
   { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
-    page.teardownMockDate();
+    await page.teardownMockDate();
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
     await page.click(editorSelector);
     await insertBlockMenuItem(page, 'Date');
@@ -27,17 +27,12 @@ BrowserTestCase(
   },
 );
 
-// https://product-fabric.atlassian.net/browse/ED-5033
-// FIXME: This test was automatically skipped due to failure on 18/11/2022: https://product-fabric.atlassian.net/browse/ED-16235
 BrowserTestCase(
   'calendar.ts: clicking date when calendar is open should close it',
-  {
-    // skip: ['safari'],
-    skip: ['*'],
-  },
+  { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
-    page.teardownMockDate();
+    await page.teardownMockDate();
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
     await page.click(editorSelector);
     await insertBlockMenuItem(page, 'Date');
@@ -51,16 +46,12 @@ BrowserTestCase(
   },
 );
 
-// FIXME: This test was automatically skipped due to failure on 18/11/2022: https://product-fabric.atlassian.net/browse/ED-16236
 BrowserTestCase(
   'calendar.ts: clicking on another date should open its date picker',
-  {
-    // skip: ['safari'],
-    skip: ['*'],
-  },
+  { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
-    page.teardownMockDate();
+    await page.teardownMockDate();
     await mountEditor(page, { appearance: 'full-page', allowDate: true });
     await page.click(editorSelector);
     await insertBlockMenuItem(page, 'Date');

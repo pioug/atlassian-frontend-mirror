@@ -5,5 +5,5 @@ export type SkipLinkData = {
 };
 
 export type SkipLinkWrapperProps = {
-  skipLinksLabel: string;
+  skipLinksLabel?: string;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 
 import { useCallback, useState } from 'react';
@@ -6,7 +7,7 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
 
@@ -14,10 +15,10 @@ import Drawer from '../src';
  * Styles to allow the body to be scrollable and placed for the VR snapshot.
  */
 const containerStyles = css({
-  width: '50%',
+  display: 'flex',
   height: '200%',
-  marginLeft: 'auto',
-  padding: `${gridSize() * 2}px`,
+  padding: token('spacing.scale.200', '16px'),
+  justifyContent: 'flex-end',
 });
 
 const DrawersExample = () => {
@@ -27,16 +28,20 @@ const DrawersExample = () => {
 
   return (
     <div css={containerStyles}>
-      <p>This body content will not be scrollable while the drawer is open.</p>
-      <br />
-      <br />
-      <p>Only the drawer content will be scrollable.</p>
+      <div>
+        <p>
+          This body content will not be scrollable while the drawer is open.
+        </p>
+        <br />
+        <br />
+        <p>Only the drawer content will be scrollable.</p>
 
-      <br />
-      <br />
-      <Button type="button" onClick={openDrawer} testId="open-drawer">
-        Open drawer
-      </Button>
+        <br />
+        <br />
+        <Button type="button" onClick={openDrawer} testId="open-drawer">
+          Open drawer
+        </Button>
+      </div>
 
       <Drawer onClose={closeDrawer} isOpen={isOpen}>
         {/* Strictly used to target the content drawer for programmatic scrolling… */}

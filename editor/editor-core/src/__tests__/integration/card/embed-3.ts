@@ -16,12 +16,9 @@ import * as embedCardAdf from './_fixtures_/embed-card.adf.json';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16004
 BrowserTestCase(
   'card: copy paste of embed link should work as expected in editor',
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

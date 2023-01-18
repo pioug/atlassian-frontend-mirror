@@ -13,11 +13,13 @@ const isReadOnlyProperty = (prop: PropertyKey) =>
 interface FreezeUnsafeTransactionOptions {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   pluginKey?: string;
+  analyticsOnly?: boolean;
 }
 
 export const freezeUnsafeTransactionProperties = <TrType extends object>({
   dispatchAnalyticsEvent,
   pluginKey,
+  analyticsOnly,
 }: FreezeUnsafeTransactionOptions): ProxyHandler<TrType> => {
   const isUnsafe = () => {
     if (dispatchAnalyticsEvent) {
@@ -28,9 +30,14 @@ export const freezeUnsafeTransactionProperties = <TrType extends object>({
         attributes: {
           pluginKey: pluginKey || 'unknown',
         },
+        nonPrivacySafeAttributes: {
+          stack: new Error().stack,
+        },
       });
     }
-    throw new Error(UNSAFE_PROPERTY_SET_ERROR);
+    if (!analyticsOnly) {
+      throw new Error(UNSAFE_PROPERTY_SET_ERROR);
+    }
   };
   return {
     get: function (target, prop, receiver) {

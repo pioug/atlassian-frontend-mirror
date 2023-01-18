@@ -5,11 +5,11 @@ import { CSSObject } from '@emotion/react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 export type Widths = {
-  extended: string;
-  full: string;
-  medium: number;
-  narrow: number;
-  wide: number;
+  extended: { width: string };
+  full: { width: string };
+  medium: { width: number };
+  narrow: { width: number };
+  wide: { width: number };
 };
 
 export type DrawerWidth = 'extended' | 'full' | 'medium' | 'narrow' | 'wide';

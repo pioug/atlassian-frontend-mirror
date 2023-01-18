@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 74.4.1
+
+### Patch Changes
+
+- [`6adc56f320d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6adc56f320d) - [MEX-2003] Fix dark mode regression in new card experience
+- Updated dependencies
+
 ## 74.4.0
 
 ### Minor Changes

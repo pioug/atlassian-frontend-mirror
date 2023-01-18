@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -90,3 +91,16 @@ interface MobileHeaderState {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "@emotion/react": "^11.0.0",
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

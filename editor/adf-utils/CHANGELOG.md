@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 18.0.1
+
+### Patch Changes
+
+- [`070984d00ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/070984d00ea) - Dummy changeset to trigger product integrator to use latest adf-utils from develop
+- Updated dependencies
+
 ## 18.0.0
 
 ### Major Changes

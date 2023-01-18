@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import {
   getExampleUrl,
-  navigateToUrl,
+  loadPage,
   PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 import mentionAdf from './__fixtures__/mention-adf.json';
@@ -29,23 +29,21 @@ describe('Mention', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 13/09/2022: https://product-fabric.atlassian.net/browse/ED-15650
-  it.skip('Should repaint when theme mode changes', async () => {
+  it('Should repaint when theme mode changes', async () => {
     const url = getExampleUrl('editor', 'editor-core', 'kitchen-sink');
-    await navigateToUrl(page, url, false);
+
+    const { page } = global;
+    await loadPage(page, url);
+
     await page.keyboard.type('@carolyn\n');
 
-    const frames = await page.frames();
-    const exampleFrame = frames.find(async (f) => {
-      return (await f.title()) === 'example';
-    });
+    const selector = '.theme-select';
+    await page.waitForSelector(selector);
+    await page.click(selector);
 
-    if (exampleFrame != null) {
-      const themeSelector = await exampleFrame!.$('.theme-select');
-      await themeSelector!.click();
-      await page.keyboard.type('dark theme');
-      await page.keyboard.press('Enter');
-      await snapshot(page);
-    }
+    await page.keyboard.type('dark theme');
+    await page.keyboard.press('Enter');
+
+    await snapshot(page);
   });
 });

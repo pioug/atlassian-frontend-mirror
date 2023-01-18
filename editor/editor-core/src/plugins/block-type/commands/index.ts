@@ -15,3 +15,4 @@ export {
   isConvertableToCodeBlock,
   transformToCodeBlockAction,
 } from './transform-to-code-block';
+export { deleteAndMoveCursor } from './delete-and-move-cursor';

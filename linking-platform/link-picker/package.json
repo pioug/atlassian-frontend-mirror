@@ -61,7 +61,7 @@
   "devDependencies": {
     "@af/codegen": "*",
     "@atlaskit/activity-provider": "^2.3.2",
-    "@atlaskit/adf-schema": "^25.0.0",
+    "@atlaskit/adf-schema": "^25.1.0",
     "@atlaskit/adf-utils": "^18.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/link-analytics": "^2.1.0",
@@ -75,7 +75,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/link-picker-atlassian-plugin": "^26.0.0",
     "@atlassian/link-picker-plugins": "^14.1.0",
-    "@atlassian/recent-work-client": "^1.6.0",
+    "@atlassian/recent-work-client": "^1.7.0",
     "@atlassian/search-provider": "^2.3.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/jest-dom": "^5.16.5",

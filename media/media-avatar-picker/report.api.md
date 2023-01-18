@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -126,3 +127,17 @@ export type OnLoadHandler = (params: LoadParameters) => void;
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "@emotion/react": "^11.7.1",
+  "react": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

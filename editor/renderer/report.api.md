@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -727,3 +728,18 @@ type VisitMediaLinkAEP = AEP<
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "@atlaskit/link-provider": "^1.3.4",
+  "@atlaskit/media-core": "^34.0.1",
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

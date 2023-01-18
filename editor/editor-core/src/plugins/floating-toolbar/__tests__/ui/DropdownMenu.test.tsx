@@ -32,9 +32,9 @@ describe('<DropdownMenu />', () => {
     expect(dropdownMenu.find(Tooltip)).toHaveLength(1);
     expect(dropdownMenu.find(Tooltip).prop('content')).toEqual('tooltip text');
     expect(dropdownMenu.find(Tooltip).find(ButtonItem)).toHaveLength(1);
-    expect(
-      dropdownMenu.find(Tooltip).find(ButtonItem).prop('children'),
-    ).toEqual('item with tooltip');
+    expect(dropdownMenu.find(Tooltip).find(ButtonItem).text()).toEqual(
+      'item with tooltip',
+    );
   });
 
   it('should trigger mouse events when mouse interact with the menu item', async () => {

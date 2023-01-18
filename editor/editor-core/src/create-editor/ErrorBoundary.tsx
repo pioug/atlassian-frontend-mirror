@@ -116,8 +116,10 @@ export class ErrorBoundaryWithEditorView extends React.Component<
       actionSubject: ACTION_SUBJECT.EDITOR,
       eventType: EVENT_TYPE.OPERATIONAL,
       attributes: {
-        errorStack,
         errorId: sharedId,
+      },
+      nonPrivacySafeAttributes: {
+        errorStack,
       },
     });
 

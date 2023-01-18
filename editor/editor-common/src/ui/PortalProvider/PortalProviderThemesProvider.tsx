@@ -27,10 +27,6 @@ export function PortalProviderThemeProviders(props: {
   const atlaskitTheme = React.useCallback(() => ({ mode }), [mode]);
 
   return (
-    // TODO: ED-15585
-    // import { ThemeProvider as DeprectateStyledComponentsProvider } from 'styled-components';
-    // <DeprectateStyledComponentsProvider theme={styledComponentsAndEmotionTheme}>
-    // </DeprectateStyledComponentsProvider>
     <ThemeProvider theme={styledComponentsAndEmotionTheme}>
       <AtlaskitTheme.Provider value={atlaskitTheme}>
         {children}

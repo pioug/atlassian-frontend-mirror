@@ -107,12 +107,20 @@ describe('typeahead: at different view sizes', () => {
     {},
     async (client: any) => {
       const page = await goToEditorTestingWDExample(client);
-      await page.type(selectors.EDITOR, 'abc\n');
-      await openTypeAhead(
-        page,
+
+      const [windowWidth, windowHeight] = [
         DEFAULT_WINDOW_WIDTH,
         HEIGHT_BREAKPOINT_WITH_TEXT,
-      );
+      ];
+
+      await page.setWindowSize(windowWidth, windowHeight);
+      await mountEditor(page, fullpage);
+
+      await page.type(selectors.EDITOR, 'abc\n');
+
+      await quickInsert(page, '', false);
+      await page.waitForVisible(selectors.TYPEAHEAD_MENU);
+
       const isClipped = await isTypeAheadMenuClipped(page);
       expect(isClipped).toBeTruthy();
     },

@@ -23,9 +23,11 @@ export interface DropdownOptionT<T> {
   id?: string;
   title: string;
   onClick: T;
+  onMouseDown?: T;
   onMouseOver?: T;
   onMouseEnter?: T;
   onMouseLeave?: T;
+  onMouseOut?: T;
   onFocus?: T;
   onBlur?: T;
   selected?: boolean;

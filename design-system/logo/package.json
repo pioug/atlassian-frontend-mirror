@@ -77,7 +77,10 @@
       "design-system": "v1",
       "dom-events": "use-bind-event-listener",
       "analytics": "analytics-next",
-      "theming": "react-context",
+      "theming": [
+        "react-context",
+        "tokens"
+      ],
       "styling": [
         "static",
         "emotion"

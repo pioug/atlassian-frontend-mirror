@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 
 import { Component, SyntheticEvent } from 'react';
@@ -20,7 +21,7 @@ const stackingStyles = css({
 });
 
 const visualStyles = css({
-  padding: '24px',
+  padding: token('space.300', '24px'),
   backgroundColor: token('color.background.neutral', N20),
   border: `1px solid ${token('color.background.accent.gray.subtle', N500)}`,
 });

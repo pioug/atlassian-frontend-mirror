@@ -1,6 +1,9 @@
 import React from 'react';
 
+import { screen } from '@testing-library/react';
+
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { MentionProvider } from '@atlaskit/mention';
 import { ResourcedMention } from '@atlaskit/mention/element';
 
@@ -22,13 +25,9 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     console.error = consoleError;
   });
   it('should render resourced mention', () => {
-    const mention = mountWithIntl(
-      <Mention id="abcd-abcd-abcd" text="@Oscar Wallhult" />,
-    );
-    const resourcedMention = mention.find(ResourcedMention);
+    renderWithIntl(<Mention id="abcd-abcd-abcd" text="@Oscar Wallhult" />);
 
-    expect(resourcedMention.prop('id')).toEqual('abcd-abcd-abcd');
-    expect(resourcedMention.prop('text')).toEqual('@Oscar Wallhult');
+    expect(screen.getByText('@Oscar Wallhult')).toBeInTheDocument();
   });
 
   it('should not render ResourcedMentionWithProfilecard if profilecardProvider is not set', () => {

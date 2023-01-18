@@ -13,12 +13,13 @@ const allLinks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
  * This regression test has been added to cover the case.
  */
 
-// FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16005
+const UNICODE_CHARACTERS = {
+  Control: '\uE009',
+  Meta: '\uE03D',
+};
 BrowserTestCase(
   `The link should be clickable inside renderer with media card`,
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: BrowserObject) => {
     const page = new Page(client);
     const baseUrl = getExampleUrl(
@@ -31,20 +32,36 @@ BrowserTestCase(
     await page.setWindowSize(600, 950);
     await client.navigateTo(baseUrl);
     await mountRenderer(page, {}, mediaCardInteractionAdf);
+    const rendererWindowHandler = (await page.getWindowHandles())[0];
 
     for (const link of allLinks) {
-      const currentPage = `https://link${link}/`;
-      const elem = await client.$(`a[title="${currentPage}"]`);
+      const currentLinkUrl = `https://link${link}/`;
+      const elementSelector = `a[title="${currentLinkUrl}"]`;
+      const elem = await client.$(elementSelector);
+
+      const modChar = page.isWindowsPlatform() ? 'Control' : 'Meta';
+      const modUnicode = UNICODE_CHARACTERS[modChar];
 
       if (page.isBrowser('chrome')) {
         await elem.moveTo({ xOffset: 2, yOffset: 2 });
+        // Press Control key
+        await client.keys(modChar);
         await client.positionClick();
+        // Release Control key
+        await client.keys(modChar);
       } else {
         await elem.scrollIntoView();
         const { top, left, height, width } = await page.getBoundingRect(
-          `a[title="${currentPage}"]`,
+          `a[title="${currentLinkUrl}"]`,
         );
+
         await client.performActions([
+          {
+            type: 'key',
+            id: 'keyboard',
+
+            actions: [{ type: 'keyDown', value: modUnicode }],
+          },
           {
             type: 'pointer',
             id: 'finger1',
@@ -66,21 +83,32 @@ BrowserTestCase(
         await client.releaseActions();
       }
 
-      expect(
-        await client.waitUntil(
-          async () => (await client.getUrl()) === currentPage,
-        ),
-      ).toBe(true);
+      let allHandles = await page.getWindowHandles();
 
-      if (page.isBrowser('Safari')) {
-        // Back and Forward navigation is not supported so we need to remount the page every time.
-        // https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/3771
-        await client.navigateTo(baseUrl);
-        await mountRenderer(page, {}, mediaCardInteractionAdf);
+      expect(allHandles).toHaveLength(2);
+
+      const newWindowOpened = allHandles.find(
+        (handle) => handle !== rendererWindowHandler,
+      );
+      await client.switchToWindow(newWindowOpened!);
+
+      if (page.isBrowser('firefox')) {
+        // yeah, Firefox is weird. It sets the url to "about:blank"
+        // so, we need to check using this weird (and slow) approach
+        expect(
+          await client.waitUntil(
+            async () => (await client.getUrl()) === currentLinkUrl,
+          ),
+        ).toBe(true);
       } else {
-        await client.back();
+        const newPageUrl = await client.getUrl();
+        expect(newPageUrl).toEqual(currentLinkUrl);
       }
+
+      await client.closeWindow();
+      allHandles = await page.getWindowHandles();
+      expect(allHandles).toHaveLength(1);
+      await client.switchToWindow(rendererWindowHandler);
     }
-    expect.assertions(allLinks.length);
   },
 );

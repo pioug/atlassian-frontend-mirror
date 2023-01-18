@@ -56,8 +56,8 @@
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
       "design-system": "v1",
-      "deprecation": "no-deprecated-imports",
       "theming": "tokens",
+      "deprecation": "no-deprecated-imports",
       "styling": "emotion"
     }
   },

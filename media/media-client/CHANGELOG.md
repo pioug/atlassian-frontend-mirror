@@ -1,5 +1,15 @@
 # @atlaskit/media-client
 
+## 20.0.0
+
+### Major Changes
+
+- [`2e902a363ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e902a363ad) - MEX-1649 Update uploadChunk and probeChunk functions in mediastore with mandatory params - uploadId and partNumber
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.1.1
 
 ### Patch Changes

@@ -10,9 +10,6 @@ export {
   lightModeStatusColorPalette,
   darkModeStatusColorPalette,
 } from './ColorPalette/Palettes/statusColorPalette';
-export {
-  textColorPalette,
-  textColorPaletteExtended,
-} from './ColorPalette/Palettes/textColorPalette';
+export { textColorPalette } from './ColorPalette/Palettes/textColorPalette';
 export { DEFAULT_BORDER_COLOR } from './ColorPalette/Palettes/common';
 export type { PaletteColor } from './ColorPalette/Palettes/type';

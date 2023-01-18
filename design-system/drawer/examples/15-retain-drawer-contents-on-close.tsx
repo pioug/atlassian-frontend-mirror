@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 
 import { Component } from 'react';
@@ -51,7 +52,7 @@ export default class DrawersExample extends Component<{}, State> {
         <Button type="button" onClick={this.openDrawer}>
           Open drawer
         </Button>
-        <div style={{ marginTop: '2rem' }}>
+        <div style={{ paddingTop: '2rem' }}>
           <label htmlFor="checkbox">
             <input
               id="checkbox"

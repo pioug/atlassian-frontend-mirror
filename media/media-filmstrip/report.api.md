@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -233,3 +234,17 @@ export interface SizeEvent {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "@atlaskit/media-core": "^34.0.1",
+  "@emotion/react": "^11.7.1",
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

@@ -1,5 +1,77 @@
 # @atlaskit/editor-common
 
+## 72.1.0
+
+### Minor Changes
+
+- [`055a333dad9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/055a333dad9) - [ux] Remove `moreTextColors` feature flag and deprecate `allowMoreTextColors` field of `allowTextColor` editor prop and `colorPaletteExtended` mark.
+
+  Showing more colors in the color selection palette is now a default behaviour.
+
+  ## **DEPRECATION WARNING:**
+
+  There are 2 deprecations in this change:
+
+  ### 1. `allowMoreTextColors` field of `allowTextColor` editor prop.
+
+  `allowMoreTextColors` field of `allowTextColor` editor prop. **is now deprecated and will be removed in the next stable release of `@atlaskit/editor-core` package**. Please take steps to remove that field from your code. E.g.:
+
+  ```tsx
+  <Editor
+   ...
+   allowTextColor ={
+    allowMoreTextColors: true // <-- Deprecated
+    defaultColour: {color: 'red', label: 'red'}
+   }
+  />
+  ```
+
+  Remove all instances of `allowMoreTextColors` field from `allowTextColor` `Editor` prop. I.e.:
+
+  ```tsx
+  <Editor
+   ...
+   allowTextColor ={
+    defaultColour: {color: 'red', label: 'red'}
+   }
+  />
+  ```
+
+  If the resulting `allowTextColor` prop is an empty object, set `allowTextColor` property value to `true`. E.g.:
+
+  ```tsx
+  <Editor
+   appearance="full-page"
+   ...
+   allowTextColor ={
+    allowMoreTextColors: true // <-- Invalid
+   }
+  />
+  ```
+
+  should become
+
+  ```tsx
+  <Editor
+   appearance="full-page"
+   ...
+   allowTextColor={true}
+  />
+  ```
+
+  ### 2. `colorPaletteExtended` mark of the ADF schema
+
+  `colorPaletteExtended` mark of the ADF schema **is now deprecated and will be removed in the next stable release**. The extended palette is now rolled into the main one. use `colorPalette` instead.
+
+### Patch Changes
+
+- [`f7cdc36d75b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7cdc36d75b) - ED016195 update EDITOR_CRASHED_ADDITIONAL_INFORMATION event name
+- [`efa8b7ee68e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa8b7ee68e) - ED-15808 Changes to replace usage of enzyme with React test library
+- [`70d0799eee0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70d0799eee0) - ED-14002 Added `safer-dispatched-transactions` featureFlag to preventtransactions from being mutated after dispatch at runtime.
+- [`c6c0cab10e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6c0cab10e0) - [ux] ED-16205 - Fix missing yellow highlight on merged table cells when hover sort column options on table floating toolbar
+- [`b9141027f87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9141027f87) - [ux] ED-13873 fixes a bug where after deleting a list in a panel or table the cursor would move to the cell to the right. Uses setSelection to position the cursor as expected after delete.
+- Updated dependencies
+
 ## 72.0.1
 
 ### Patch Changes

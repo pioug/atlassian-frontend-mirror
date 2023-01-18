@@ -515,6 +515,7 @@ export class ReactEditorView<T = {}> extends React.Component<
   }
 
   private editorPlugins: EditorPlugin[] = [];
+
   // Helper to allow tests to inject plugins directly
   getPlugins(
     editorProps: EditorProps,
@@ -702,15 +703,19 @@ export class ReactEditorView<T = {}> extends React.Component<
 
     const nodes: PMNode[] = findChangedNodesFromTransaction(unsafeTransaction);
     const changedNodesValid = validateNodes(nodes);
-    const transaction = this.featureFlags.saferDispatchedTransactions
-      ? new Proxy(
-          unsafeTransaction,
-          freezeUnsafeTransactionProperties<Transaction>({
-            dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-            pluginKey: 'unknown-reacteditorview',
-          }),
-        )
-      : unsafeTransaction;
+    const transaction =
+      this.featureFlags.saferDispatchedTransactions ||
+      this.featureFlags.saferDispatchedTransactionsAnalyticsOnly
+        ? new Proxy(
+            unsafeTransaction,
+            freezeUnsafeTransactionProperties<Transaction>({
+              dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+              pluginKey: 'unknown-reacteditorview',
+              analyticsOnly:
+                this.featureFlags.saferDispatchedTransactionsAnalyticsOnly,
+            }),
+          )
+        : unsafeTransaction;
 
     if (changedNodesValid) {
       const oldEditorState = this.view.state;

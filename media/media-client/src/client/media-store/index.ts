@@ -190,15 +190,9 @@ export class MediaStore {
   async uploadChunk(
     etag: string,
     blob: Blob,
-    {
-      collectionName,
-      uploadId,
-      partNumber,
-    }: {
-      collectionName?: string;
-      uploadId?: string;
-      partNumber?: number;
-    } = {},
+    uploadId: string,
+    partNumber: number,
+    collectionName?: string,
     traceContext?: MediaTraceContext,
   ): Promise<void> {
     const metadata: RequestMetadata = {
@@ -219,13 +213,8 @@ export class MediaStore {
 
   probeChunks(
     chunks: string[],
-    {
-      collectionName,
-      uploadId,
-    }: {
-      collectionName?: string;
-      uploadId?: string;
-    } = {},
+    uploadId: string,
+    collectionName?: string,
     traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaChunksProbe>> {
     const metadata: RequestMetadata = {

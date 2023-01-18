@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React from 'react';
 
 import {
@@ -9,7 +10,7 @@ import {
 } from '@testing-library/react';
 
 import DrawerPrimitive from '../../primitives';
-import { widths } from '../../primitives/drawer-wrapper';
+import { wrapperWidth } from '../../primitives/drawer-wrapper';
 import { DrawerWidth } from '../../types';
 
 const DrawerContent = () => (
@@ -112,7 +113,9 @@ describe('Drawer primitive', () => {
       </DrawerPrimitive>,
     );
     const drawerWrapper = screen.getByTestId('test');
-    expect(drawerWrapper).toHaveStyle(`width: ${widths.medium}px`);
+    expect(drawerWrapper).toHaveStyle(
+      `width: ${wrapperWidth['medium'].width}px;`,
+    );
   });
 
   it('should call onClose when the icon is clicked', () => {

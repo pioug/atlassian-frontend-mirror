@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
+import { DEFAULT_I18N_PROPS_SKIP_LINKS } from '../../../../common/constants';
 import { SkipLinksContext } from '../../../../controllers/skip-link-context';
 import { SkipLinkWrapper, useCustomSkipLink } from '../../../skip-links';
 import Banner from '../../../slots/banner-slot';
@@ -11,24 +12,88 @@ import PageLayout from '../../../slots/page-layout';
 
 describe('skip links', () => {
   describe('SkipLinkWrapper', () => {
-    it('generate 3 links', () => {
-      const title = '跳转到';
-      const context = {
-        skipLinksData: [
-          { id: 'left', skipLinkTitle: 'Left panel' },
-          { id: 'right', skipLinkTitle: 'Right panel' },
-        ],
-        registerSkipLink: noop,
-        unregisterSkipLink: noop,
-      };
-      const { container } = render(
-        <SkipLinksContext.Provider value={context}>
-          <SkipLinkWrapper skipLinksLabel={title}></SkipLinkWrapper>,
-        </SkipLinksContext.Provider>,
-      );
+    const label = '跳转到';
+    const emptyLabel = '';
+    const spaceLabel = ' ';
+    const context = {
+      skipLinksData: [
+        { id: 'left', skipLinkTitle: 'Left panel' },
+        { id: 'right', skipLinkTitle: 'Right panel' },
+      ],
+      registerSkipLink: noop,
+      unregisterSkipLink: noop,
+    };
+    const skipLinksWithLabel = (
+      <SkipLinksContext.Provider value={context}>
+        <SkipLinkWrapper skipLinksLabel={label}></SkipLinkWrapper>
+      </SkipLinksContext.Provider>
+    );
+    const skipLinksNoLabel = (
+      <SkipLinksContext.Provider value={context}>
+        <SkipLinkWrapper />
+      </SkipLinksContext.Provider>
+    );
+    const skipLinksEmptyLabel = (
+      <SkipLinksContext.Provider value={context}>
+        <SkipLinkWrapper skipLinksLabel={emptyLabel} />
+      </SkipLinksContext.Provider>
+    );
+    const skipLinksSpacesLabel = (
+      <SkipLinksContext.Provider value={context}>
+        <SkipLinkWrapper skipLinksLabel={spaceLabel} />
+      </SkipLinksContext.Provider>
+    );
 
-      expect(container.querySelector('h5')!.innerText).toBe(title);
-      expect(container.querySelectorAll('a').length).toBe(2);
+    it('generate 3 links', () => {
+      const component = render(skipLinksWithLabel);
+      expect(component.getByText(label)).toBeInTheDocument();
+      expect(component.getAllByRole('link')).toHaveLength(2);
+    });
+
+    it('uses default label in the heading if skipLinksLabel is undefined', () => {
+      const component = render(skipLinksNoLabel);
+      expect(
+        component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS),
+      ).toBeInTheDocument();
+    });
+
+    it('uses default label in the heading if skipLinksLabel is empty', () => {
+      const component = render(skipLinksEmptyLabel);
+      expect(
+        component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS),
+      ).toBeInTheDocument();
+      expect(() => component.getByText(emptyLabel)).toThrow();
+    });
+
+    it('forces no heading if a skipLinksLabel comprising only of spaces is provided', () => {
+      const component = render(skipLinksSpacesLabel);
+      expect(() =>
+        component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS),
+      ).toThrow();
+      expect(() => component.getByText(spaceLabel)).toThrow();
+    });
+
+    it('uses the provided label in SkipLink titles', () => {
+      const component = render(skipLinksWithLabel);
+      const links = component.getAllByRole('link');
+      expect(links).toHaveLength(2);
+      expect(links.every((link) => link.title.startsWith(label))).toBeTruthy();
+    });
+
+    it('uses the default label in SkipLink titles if skipLinksLabel is undefined, empty, or only spaces', () => {
+      [skipLinksNoLabel, skipLinksEmptyLabel, skipLinksSpacesLabel].forEach(
+        (jsx) => {
+          const component = render(jsx);
+          const links = component.getAllByRole('link');
+          expect(links).toHaveLength(2);
+          expect(
+            links.every((link) =>
+              link.title.startsWith(DEFAULT_I18N_PROPS_SKIP_LINKS),
+            ),
+          ).toBeTruthy();
+          component.unmount();
+        },
+      );
     });
   });
 
@@ -42,9 +107,9 @@ describe('skip links', () => {
       const ExternalFooter = () => {
         useCustomSkipLink('external-footer', 'External Footer', 7);
 
-        return <div id="intro-section">intro</div>;
+        return <div id="external-footer">external footer</div>;
       };
-      const { container, getByText } = render(
+      const component = render(
         <PageLayout>
           <IntroSection />
           <ExternalFooter />
@@ -61,15 +126,12 @@ describe('skip links', () => {
           }
         </PageLayout>,
       );
+      const allLinksInSkipLinks = component.getAllByRole('link');
 
-      expect(container.querySelectorAll('a').length).toBe(3);
-      expect(getByText('Intro Section')).toBe(
-        container.querySelectorAll('a')[0],
-      );
-      expect(getByText('Banner')).toBe(container.querySelectorAll('a')[1]);
-      expect(getByText('External Footer')).toBe(
-        container.querySelectorAll('a')[2],
-      );
+      expect(allLinksInSkipLinks).toHaveLength(3);
+      expect(allLinksInSkipLinks[0]).toHaveTextContent('Intro Section');
+      expect(allLinksInSkipLinks[1]).toHaveTextContent('Banner');
+      expect(allLinksInSkipLinks[2]).toHaveTextContent('External Footer');
     });
   });
 });

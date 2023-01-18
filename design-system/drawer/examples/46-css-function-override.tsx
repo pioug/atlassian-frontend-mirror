@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 

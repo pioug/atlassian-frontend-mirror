@@ -13,7 +13,6 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
 import ColorPalette from '../../../../ui/ColorPalette';
-import { textColorPalette as originalTextColors } from '../../../../ui/ColorPalette/Palettes/textColorPalette';
 import Dropdown from '../../../../ui/Dropdown';
 import {
   expandIconWrapperStyle,
@@ -202,19 +201,15 @@ export class ToolbarTextColor extends React.Component<
   private changeTextColor = (color: string, disabled?: boolean) => {
     if (!disabled) {
       const {
-        pluginState: { palette, defaultColor },
+        pluginState: { palette },
       } = this.props;
 
       // we store color names in analytics
       const swatch = palette.find((sw) => sw.value === color);
-      const isNewColor =
-        color !== defaultColor &&
-        !originalTextColors.some((col) => col.value === color);
 
       this.dispatchAnalyticsEvent(
         this.buildAnalyticsSelectColor({
           color: (swatch ? swatch.label : color).toLowerCase(),
-          isNewColor,
         }),
       );
 

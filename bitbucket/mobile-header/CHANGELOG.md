@@ -1,5 +1,11 @@
 # @atlaskit/mobile-header
 
+## 6.0.1
+
+### Patch Changes
+
+- [`005b25fd40d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/005b25fd40d) - Moved `@emotion/styled` to dependency to ensure correct version (v11) is resolved.
+
 ## 6.0.0
 
 ### Major Changes

@@ -15,11 +15,7 @@ import { DN70 } from '@atlaskit/theme/colors';
 import { getFeatureFlags } from '../../feature-flags-context';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { FloatingToolbarItem } from '../types';
-import {
-  compareArrays,
-  getFirstFocusableElement,
-  shallowEqual,
-} from '../utils';
+import { compareArrays, shallowEqual } from '../utils';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
 import Button from './Button';
 import Dropdown from './Dropdown';
@@ -517,7 +513,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 
   componentDidMount() {
     this.setState({ mounted: true });
-    document.addEventListener('keydown', this.focusToolbar);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -532,18 +527,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
     this.resetStyling({
       table: this.props.node.type.name === 'table',
     });
-    document.removeEventListener('keydown', this.focusToolbar);
   }
-
-  /**
-   * To listen to keyboard shortcut Alt+F10 and focus floating toolbar's first focusable element.
-   * @param event
-   */
-  private focusToolbar = (event: KeyboardEvent): void => {
-    if (event.altKey && event.keyCode === 121) {
-      getFirstFocusableElement(this.toolbarContainerRef?.current)?.focus();
-    }
-  };
 
   private shouldHandleArrowKeys = (): boolean => {
     //To prevent the keydown handling of arrow keys for custom toolbar items with 'disableArrowNavigation' prop enabled,
@@ -575,6 +559,10 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
     const hasSelect = items.find(
       (item) => item.type === 'select' && item.selectType === 'list',
     );
+    const isShortcutToFocusToolbar = (event: KeyboardEvent) => {
+      //Alt + F10 to reach first element in this floating toolbar
+      return event.altKey && (event.key === 'F10' || event.keyCode === 121);
+    };
 
     return (
       <React.Fragment>
@@ -583,6 +571,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
           handleEscape={this.handleEscape}
           disableArrowKeyNavigation={!this.shouldHandleArrowKeys()}
           childComponentSelector={"[data-testid='editor-floating-toolbar']"}
+          isShortcutToFocusToolbar={isShortcutToFocusToolbar}
         >
           <div
             ref={this.toolbarContainerRef}

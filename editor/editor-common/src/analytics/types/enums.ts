@@ -38,7 +38,7 @@ export enum ACTION {
   DISPATCHED_VALID_TRANSACTION = 'dispatchedValidTransaction',
   EDITED = 'edited',
   EDITOR_CRASHED = 'unhandledErrorCaught',
-  EDITOR_CRASHED_ADDITIONAL_INFORMATION = 'unhandledErrorCaughtAdditionalInfo',
+  EDITOR_CRASHED_ADDITIONAL_INFORMATION = 'unhandledErrorCaughtAdditionalInfov2',
   EDITOR_MOUNTED = 'mounted',
   EDITOR_TTI = 'tti',
   EDITOR_CONTENT_RETRIEVAL_PERFORMED = 'contentRetrievalPerformed',

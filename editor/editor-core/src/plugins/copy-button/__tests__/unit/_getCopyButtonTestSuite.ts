@@ -29,28 +29,28 @@ export async function _getCopyButtonTestSuite({
 }) {
   const dummyFormatMessage = (messageDescriptor: MessageDescriptor) =>
     (messageDescriptor.defaultMessage as string) || '';
+  let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
   describe(`floating toolbar copy button analytics: [${
     nodeName || nodeType
   }]: `, () => {
-    const createEditor = createEditorFactory();
-    let createAnalyticsEvent: CreateUIAnalyticsEvent;
-
-    const editor = (doc: DocBuilder) => {
-      createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-      return createEditor({
-        doc,
-        editorProps: {
-          allowAnalyticsGASV3: true,
-          ...editorOptions,
-        },
-        createAnalyticsEvent,
-      });
-    };
-
-    const { editorView } = editor(doc);
-
     it('should dispatch analytics event when copy button is clicked', () => {
+      const createEditor = createEditorFactory();
+      const editor = (doc: DocBuilder) => {
+        createAnalyticsEvent = jest.fn(
+          () => ({ fire() {} } as UIAnalyticsEvent),
+        );
+        return createEditor({
+          doc,
+          editorProps: {
+            allowAnalyticsGASV3: true,
+            ...editorOptions,
+          },
+          createAnalyticsEvent,
+        });
+      };
+
+      const { editorView } = editor(doc);
       const copyButton = getCopyButtonConfig({
         state: editorView.state,
         formatMessage: dummyFormatMessage as IntlShape['formatMessage'],

@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -2497,7 +2498,7 @@ type TextColorDefaultColor = {
 
 // @public (undocumented)
 interface TextColorPluginConfig {
-  // (undocumented)
+  // @deprecated (undocumented)
   allowMoreTextColors?: boolean;
   // (undocumented)
   defaultColor?: TextColorDefaultColor;
@@ -2509,7 +2510,6 @@ export const textColorPluginKey: PluginKey<TextColorPluginState, any>;
 // @public (undocumented)
 export type TextColorPluginState = {
   palette: Array<PaletteColor>;
-  paletteExpanded?: Array<PaletteColor>;
   defaultColor: string;
   disabled?: boolean;
   color: null | string;
@@ -2862,3 +2862,19 @@ export { WithPluginState };
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "@atlaskit/link-provider": "^1.3.4",
+  "@atlaskit/media-core": "^34.0.1",
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

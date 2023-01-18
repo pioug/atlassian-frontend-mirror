@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 1.0.3
+
+### Patch Changes
+
+- [`20117f2de5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20117f2de5a) - [ux] ED-16204 Fix table cell options floating toolbar context menu closes after clicking on disabled options
+- [`c6c0cab10e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6c0cab10e0) - [ux] ED-16205 - Fix missing yellow highlight on merged table cells when hover sort column options on table floating toolbar
+- [`e3b699e5069`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3b699e5069) - ED-15794 - Fix merged cells in table not highlighting on delete hover when in bottom right corner
+- [`746d7339a88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/746d7339a88) - [ux] ED-15823 - Table cells on the second column would change their color upon unchecking "Header Column" table option when the selection cursor was placed in the 3rd column. This was caused by a view update not identifying the cells to update correctly. This was causing table data cells to be changed to table header cells.
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
+import styled from 'styled-components';
+
+import { DN100 } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+
 import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 
 import { PlaceholderComponentProps } from './types';
@@ -7,6 +12,14 @@ import { PlaceholderComponentProps } from './types';
 class MacroPlaceholderImageError {
   constructor() {}
 }
+
+const PlaceholderImage = styled.img`
+  max-width: ${(props) => `${props.width}px`};
+  background-color: ${themed({ dark: DN100 })};
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+`;
 
 export const PlaceholderComponent = (props: PlaceholderComponentProps) => {
   const { createPromise, extension, renderFallback } = props;
@@ -47,11 +60,20 @@ export const PlaceholderComponent = (props: PlaceholderComponentProps) => {
     }
   }, [createPromise, setPlaceholderDataUrl, placeholderRemoteUrl]);
 
+  const openImageInWebView = (url: String) => {
+    createPromise('customOpenUrlInWebView', url)
+      .submit()
+      .catch(() => {});
+  };
+
   if (placeholderDataUrl != null) {
     return !(placeholderDataUrl instanceof MacroPlaceholderImageError) ? (
-      <a href={placeholderDataUrl}>
-        <img src={placeholderDataUrl} data-testid="placeholder-image" />
-      </a>
+      <PlaceholderImage
+        onClick={() => openImageInWebView(placeholderDataUrl)}
+        src={placeholderDataUrl}
+        data-testid="placeholder-image"
+        width={window.innerWidth}
+      />
     ) : (
       renderFallback()
     );

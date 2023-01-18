@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 18.1.3
+
+### Patch Changes
+
+- [`5e697be0410`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e697be0410) - [ux] Fix team header image bug
+
 ## 18.1.2
 
 ### Patch Changes

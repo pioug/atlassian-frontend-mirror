@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 8.0.1
+
+### Patch Changes
+
+- [`7ba48e47e3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ba48e47e3b) - NO-ISSUE Re-removed some unused prod dependencies that were accidentally merged back in
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

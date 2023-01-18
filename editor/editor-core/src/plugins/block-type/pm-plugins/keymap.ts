@@ -1,5 +1,6 @@
 import { redo, undo } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
+import { chainCommands } from 'prosemirror-commands';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../keymaps';
 import * as commands from '../../../commands';
@@ -8,11 +9,22 @@ import { keymap } from '../../../utils/keymap';
 import { FeatureFlags } from '../../../types/feature-flags';
 import {
   cleanUpAtTheStartOfDocument,
+  deleteAndMoveCursor,
   insertBlockTypesWithAnalytics,
 } from '../commands';
 import { deleteEmptyParagraphAndMoveBlockUp } from '../../../utils/commands';
 import { INPUT_METHOD } from '../../analytics';
 import { isNodeAWrappingBlockNode } from '../utils';
+
+const backspace = chainCommands(
+  cleanUpAtTheStartOfDocument,
+  deleteAndMoveCursor,
+);
+
+const del = chainCommands(
+  deleteEmptyParagraphAndMoveBlockUp(isNodeAWrappingBlockNode),
+  deleteAndMoveCursor,
+);
 
 export default function keymapPlugin(
   schema: Schema,
@@ -43,23 +55,11 @@ export default function keymapPlugin(
 
   keymaps.bindKeymapWithCommand(keymaps.undo.common!, undo, list);
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.backspace.common!,
-    cleanUpAtTheStartOfDocument,
-    list,
-  );
+  keymaps.bindKeymapWithCommand(keymaps.backspace.common!, backspace, list);
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.deleteKey.common!,
-    deleteEmptyParagraphAndMoveBlockUp(isNodeAWrappingBlockNode),
-    list,
-  );
+  keymaps.bindKeymapWithCommand(keymaps.deleteKey.common!, del, list);
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.forwardDelete.mac,
-    deleteEmptyParagraphAndMoveBlockUp(isNodeAWrappingBlockNode),
-    list,
-  );
+  keymaps.bindKeymapWithCommand(keymaps.forwardDelete.mac, del, list);
 
   if (schema.nodes[blockTypes.BLOCK_QUOTE.nodeName]) {
     keymaps.bindKeymapWithCommand(

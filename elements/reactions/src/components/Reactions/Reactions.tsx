@@ -63,7 +63,7 @@ export const RENDER_VIEWALL_REACTED_USERS_DIALOG =
 export interface ReactionsProps
   extends Pick<
       ReactionPickerProps,
-      'allowAllEmojis' | 'emojiProvider' | 'emojiPickerSize'
+      'allowAllEmojis' | 'emojiProvider' | 'emojiPickerSize' | 'miniMode'
     >,
     Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
     Pick<ReactionProps, 'allowUserDialog'> {
@@ -165,6 +165,7 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
     onDialogCloseCallback = () => {},
     onDialogSelectReactionCallback = () => {},
     emojiPickerSize = 'medium',
+    miniMode = false,
   }) => {
     const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
     const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -366,7 +367,6 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
         {memorizedReactions.map((reaction) => (
           <Reaction
             key={reaction.emojiId}
-            css={styles.reactionStyle}
             reaction={reaction}
             emojiProvider={emojiProvider}
             onClick={onReactionClick}
@@ -378,9 +378,8 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
           />
         ))}
         <ReactionPicker
-          css={styles.reactionStyle}
+          css={styles.reactionPickerStyle}
           emojiProvider={emojiProvider}
-          miniMode
           allowAllEmojis={allowAllEmojis}
           pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
           disabled={status !== ReactionStatus.ready}
@@ -390,6 +389,7 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
           onShowMore={handleOnMore}
           tooltipContent={getTooltip(status, errorMessage)}
           emojiPickerSize={emojiPickerSize}
+          miniMode={miniMode}
         />
         {allowUserDialog && reactions.length > 0 && (
           <Tooltip

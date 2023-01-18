@@ -273,10 +273,7 @@ describe('MediaStore', () => {
             statusText: 'Created',
           });
 
-          await mediaStore.uploadChunk(etag, blob, {
-            uploadId,
-            partNumber,
-          });
+          await mediaStore.uploadChunk(etag, blob, uploadId!, partNumber!);
 
           expect(fetchMock).toHaveBeenCalledWith(
             `${baseUrl}/chunk/${etag}${query}`,
@@ -304,10 +301,9 @@ describe('MediaStore', () => {
         await mediaStore.uploadChunk(
           etag,
           blob,
-          {
-            uploadId: testUploadId,
-            partNumber: testPartNumber,
-          },
+          testUploadId,
+          testPartNumber,
+          undefined,
           {
             traceId: 'test-trace-id',
           },
@@ -343,10 +339,7 @@ describe('MediaStore', () => {
     describe('probeChunks', () => {
       const testUploadId = 'test-upload-id';
 
-      it.each([
-        ['', undefined],
-        [`?uploadId=${testUploadId}`, testUploadId],
-      ])(
+      it.each([[`?uploadId=${testUploadId}`, testUploadId]])(
         'should POST to /chunk/probe endpoint with correct query %s',
         async (query, uploadId) => {
           const etag = 'some-etag';
@@ -364,7 +357,7 @@ describe('MediaStore', () => {
             statusText: 'Ok',
           });
 
-          const response = await mediaStore.probeChunks(chunks, { uploadId });
+          const response = await mediaStore.probeChunks(chunks, uploadId);
 
           expect(response).toEqual({ data });
 
@@ -387,6 +380,7 @@ describe('MediaStore', () => {
       it('should fail if response is malformed JSON', async () => {
         const etag = 'some-etag';
         const chunks = [etag];
+        const uploadId = 'test-upload-id';
 
         fetchMock.once('Invalid Body', {
           status: 200,
@@ -394,7 +388,7 @@ describe('MediaStore', () => {
         });
 
         try {
-          await mediaStore.probeChunks(chunks);
+          await mediaStore.probeChunks(chunks, uploadId);
         } catch (err) {
           // @ts-expect-error
           if (!isRequestError(err)) {
@@ -430,13 +424,9 @@ describe('MediaStore', () => {
           statusText: 'Ok',
         });
 
-        await mediaStore.probeChunks(
-          chunks,
-          { uploadId: 'test-upload-id' },
-          {
-            traceId: 'test-trace-id',
-          },
-        );
+        await mediaStore.probeChunks(chunks, 'test-upload-id', undefined, {
+          traceId: 'test-trace-id',
+        });
 
         expect(requestModuleMock).toBeCalledWith(
           `${baseUrl}/chunk/probe`,

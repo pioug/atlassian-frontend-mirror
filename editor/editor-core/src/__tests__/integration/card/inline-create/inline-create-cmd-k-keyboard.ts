@@ -1,33 +1,40 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import {
+  editable,
+  fullpage,
+  getDocFromElement,
+  insertLongText,
+  linkUrlSelector,
+  quickInsert,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import {
-  getDocFromElement,
-  editable,
-  gotoEditor,
-  linkUrlSelector,
-  insertLongText,
-  fullpage,
-  quickInsert,
-} from '@atlaskit/editor-test-helpers/integration/helpers';
-import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
-
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { isFocusTrapped } from '../_utils';
 
-// FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16002
 BrowserTestCase(
   `card: selecting a link from CMD + K menu should create an inline card using keyboard`,
-  {
-    skip: ['*'],
-  },
+  {},
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
-    const page = new Page(client);
-
-    await gotoEditor(page);
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        smartLinks: {
+          allowEmbeds: true,
+        },
+      },
+      {
+        providers: {
+          cards: true,
+        },
+      },
+    );
 
     await insertLongText(page);
     await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
@@ -43,12 +50,9 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
-  // FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16002
   BrowserTestCase(
     `card: selecting a link from CMD + K menu should create an inline card using keyboard`,
-    {
-      skip: ['*'],
-    },
+    {},
     async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(

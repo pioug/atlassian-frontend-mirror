@@ -232,7 +232,6 @@ describe('ToolbarTextColor', () => {
             color: 'dark teal',
             experiment: 'editor.toolbarTextColor.moreColors',
             experimentGroup: 'control',
-            isNewColor: true,
           },
           eventType: 'track',
         }),

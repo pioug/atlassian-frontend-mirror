@@ -1,5 +1,6 @@
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { screen } from '@testing-library/react';
 
 import * as utils from '@atlaskit/editor-common/utils';
 jest.mock('@atlaskit/editor-common/utils', () => {
@@ -116,8 +117,11 @@ describe('disable spellchecking on safari', () => {
   ])('[case%#] when safari is true', (props) => {
     describe(`when the current safari version is ${props.safari_version} and browser range are valid`, () => {
       it('should set the spellcheck attribute to false', () => {
-        const { wrapper } = setupEditorView(props);
-        expect(wrapper.html()).toContain('spellcheck="false"');
+        setupEditorView(props);
+        expect(screen.getByRole('textbox')).toHaveAttribute(
+          'spellcheck',
+          'false',
+        );
       });
     });
   });
@@ -175,8 +179,11 @@ describe('disable spellchecking on safari', () => {
   ])('[case%#] when safari is true', (props) => {
     describe(`when the current safari version is ${props.safari_version} and the browser range is outside the current browser version,`, () => {
       it('should not set the spellcheck attribute to false', () => {
-        const { wrapper } = setupEditorView(props);
-        expect(wrapper.html()).not.toContain('spellcheck="false"');
+        setupEditorView(props);
+        expect(screen.getByRole('textbox')).not.toHaveAttribute(
+          'spellcheck',
+          'false',
+        );
       });
     });
   });
@@ -260,8 +267,11 @@ describe('disable spellchecking on chrome', () => {
   ])('[case%#] when chrome is true', (props) => {
     describe(`when the current chrome version is ${props.chrome_version} and the browser range is valid.`, () => {
       it('should set the spellcheck attribute to false', () => {
-        const { wrapper } = setupEditorView(props);
-        expect(wrapper.html()).toContain('spellcheck="false"');
+        setupEditorView(props);
+        expect(screen.getByRole('textbox')).toHaveAttribute(
+          'spellcheck',
+          'false',
+        );
       });
     });
   });
@@ -319,8 +329,11 @@ describe('disable spellchecking on chrome', () => {
   ])('[case%#] when chrome is true', (props) => {
     describe(`when the current chrome version is ${props.chrome_version} and the browser range is outside the browser version.`, () => {
       it('should not set the spellcheck attribute to false', () => {
-        const { wrapper } = setupEditorView(props);
-        expect(wrapper.html()).not.toContain('spellcheck="false"');
+        setupEditorView(props);
+        expect(screen.getByRole('textbox')).not.toHaveAttribute(
+          'spellcheck',
+          'false',
+        );
       });
     });
   });

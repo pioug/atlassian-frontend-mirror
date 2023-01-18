@@ -185,6 +185,8 @@ describe('create-editor/error-boundary', () => {
       eventType: EVENT_TYPE.OPERATIONAL,
       attributes: {
         errorId: expect.any(String),
+      },
+      nonPrivacySafeAttributes: {
         errorStack: expect.any(String),
       },
     };

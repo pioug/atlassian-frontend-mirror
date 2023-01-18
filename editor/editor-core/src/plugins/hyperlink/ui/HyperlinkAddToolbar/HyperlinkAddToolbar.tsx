@@ -634,7 +634,11 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
             />
             {displayUrl && (
               <Tooltip content={formatClearLinkText}>
-                <button css={clearText} onClick={this.handleClearText}>
+                <button
+                  type="button"
+                  css={clearText}
+                  onClick={this.handleClearText}
+                >
                   <CrossCircleIcon label={formatClearLinkText} />
                 </button>
               </Tooltip>
@@ -660,6 +664,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
             {displayText && (
               <Tooltip content={formatMessage(messages.clearText)}>
                 <button
+                  type="button"
                   css={clearText}
                   onClick={this.handleClearDisplayText}
                   onKeyDown={this.handleClearTextKeyDown}

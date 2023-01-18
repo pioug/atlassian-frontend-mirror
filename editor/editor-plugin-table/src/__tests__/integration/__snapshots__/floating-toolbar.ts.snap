@@ -319,3 +319,295 @@ Object {
   "type": "doc",
 }
 `;
+
+exports[`should show yellow highlight on the megred rows when hover disabled sort column ASC menu option 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 2,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should show yellow highlight on the megred rows when hover disabled sort column DESC menu option 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__autoSize": false,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableHeader",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            Object {
+              "attrs": Object {
+                "background": null,
+                "colspan": 2,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": Array [
+                Object {
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
+    },
+  ],
+  "type": "doc",
+}
+`;

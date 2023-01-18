@@ -8,13 +8,18 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="react" />
+
+import { ForwardRefExoticComponent } from 'react';
 import { default as React_2 } from 'react';
+import { RefAttributes } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithIntlProps } from 'react-intl-next';
 import { WrappedComponentProps } from 'react-intl-next';
@@ -32,7 +37,7 @@ interface OwnProps {
   // (undocumented)
   localId?: string;
   // (undocumented)
-  onClick?: (event: React_2.SyntheticEvent<any>) => void;
+  onClick?: (event: React.SyntheticEvent<any>) => void;
   // (undocumented)
   onHover?: () => void;
   // (undocumented)
@@ -47,8 +52,8 @@ interface OwnProps {
 export type Props = OwnProps & WithAnalyticsEventsProps;
 
 // @public (undocumented)
-export const Status: React_2.ForwardRefExoticComponent<
-  Omit<Props, keyof WithAnalyticsEventsProps> & React_2.RefAttributes<any>
+export const Status: ForwardRefExoticComponent<
+  Omit<Props, keyof WithAnalyticsEventsProps> & RefAttributes<any>
 >;
 
 // @public (undocumented)
@@ -85,3 +90,16 @@ export type StatusStyle = 'bold' | 'subtle';
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0",
+  "react-intl-next": "npm:react-intl@^5.18.1"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

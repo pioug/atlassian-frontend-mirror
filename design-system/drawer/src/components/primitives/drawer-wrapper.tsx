@@ -2,35 +2,29 @@
 
 import { forwardRef, ReactElement, Ref, useCallback } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { useMergeRefs } from 'use-callback-ref';
 
-import { N0 } from '@atlaskit/theme/colors';
-import { gridSize, layers } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
+import Box from '@atlaskit/ds-explorations/box';
+import { gridSize } from '@atlaskit/theme/constants';
 
 import { DrawerPrimitiveProps, Widths } from '../types';
 
 import usePreventProgrammaticScroll from './hooks/use-prevent-programmatic-scroll';
 
-export const widths: Widths = {
-  full: '100vw',
-  extended: '95vw',
-  narrow: 45 * gridSize(),
-  medium: 60 * gridSize(),
-  wide: 75 * gridSize(),
+export const wrapperWidth: Widths = {
+  full: { width: '100vw' },
+  extended: { width: '95vw' },
+  narrow: { width: 45 * gridSize() },
+  medium: { width: 60 * gridSize() },
+  wide: { width: 75 * gridSize() },
 };
 
-const wrapperStyles = css({
-  display: 'flex',
-  height: '100vh',
-  position: 'fixed',
-  zIndex: layers.blanket() + 1,
+const wrapperStyles = {
   top: 0,
   left: 0,
-  backgroundColor: token('elevation.surface.overlay', N0),
-  overflow: 'hidden',
-});
+  height: '100vh',
+};
 
 interface FocusLockRefTargetProps
   extends Pick<DrawerPrimitiveProps, 'width' | 'testId'> {
@@ -52,7 +46,7 @@ interface FocusLockRefTargetProps
  * A wrapper that controls the styling of the drawer with a few hacks with refs to get our Touch±Scroll locks working.
  */
 const DrawerWrapper = forwardRef<HTMLElement, FocusLockRefTargetProps>(
-  ({ children, className, width, testId, drawerRef }, scrollRef) => {
+  ({ children, className, width = 'narrow', testId, drawerRef }, scrollRef) => {
     /**
      * We use a callback ref to assign the `<Content />` component to the forwarded `scrollRef`.
      * This ref comes from `react-scrolllock` to allow touch scrolling, eg.: `<ScrollLock><TouchScrollable>{children}</TouchScrollable><ScrollLock>`
@@ -75,17 +69,22 @@ const DrawerWrapper = forwardRef<HTMLElement, FocusLockRefTargetProps>(
     usePreventProgrammaticScroll();
 
     return (
-      <div
-        className={className}
-        css={wrapperStyles}
-        style={{
-          width: widths[width ?? 'narrow'],
+      <Box
+        display="flex"
+        position="fixed"
+        backgroundColor="elevation.surface.overlay"
+        overflow="hidden"
+        layer="blanket"
+        UNSAFE_style={{
+          ...wrapperStyles,
+          ...wrapperWidth[width],
         }}
-        data-testid={testId}
+        className={className}
+        testId={testId}
         ref={ref}
       >
         {children}
-      </div>
+      </Box>
     );
   },
 );

@@ -21,27 +21,17 @@ import {
   td,
   th,
   DocBuilder,
-  BuilderContent,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import { act } from '@testing-library/react';
 
-describe('tasks and decisions', () => {
+let createAnalyticsEvent: CreateUIAnalyticsEvent;
+
+function createEditor() {
   const createEditor = createEditorFactory();
 
-  const scenarios = [
-    { name: 'action', menuItem: 'task', list: taskList, item: taskItem },
-    {
-      name: 'decision',
-      menuItem: 'decision',
-      list: decisionList,
-      item: decisionItem,
-    },
-  ];
-
-  let createAnalyticsEvent: CreateUIAnalyticsEvent;
-
-  const editor = (doc: DocBuilder) => {
-    createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+  return (doc: DocBuilder) => {
+    createAnalyticsEvent = getAnalyticsEvent();
     return createEditor({
       doc,
       editorProps: {
@@ -53,6 +43,22 @@ describe('tasks and decisions', () => {
       createAnalyticsEvent,
     });
   };
+}
+
+function getAnalyticsEvent() {
+  return jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+}
+
+describe('tasks and decisions', () => {
+  const scenarios = [
+    { name: 'action', menuItem: 'task', list: taskList, item: taskItem },
+    {
+      name: 'decision',
+      menuItem: 'decision',
+      list: decisionList,
+      item: decisionItem,
+    },
+  ];
 
   beforeEach(() => {
     uuid.setStatic('local-uuid');
@@ -70,21 +76,25 @@ describe('tasks and decisions', () => {
       beforeEach(async () => {
         _queueMicrotask = window.queueMicrotask;
         window.queueMicrotask = () => {};
-        const { editorView: _editorView, typeAheadTool } = editor(
-          doc(p('{<>}')),
-        );
-
-        await typeAheadTool
-          .searchQuickInsert(scenario.menuItem)
-          ?.insert({ index: 0 });
-        editorView = _editorView;
       });
 
       afterAll(() => {
         window.queueMicrotask = _queueMicrotask;
       });
 
-      it('should insert item', () => {
+      it('should insert item', async () => {
+        const editor = createEditor();
+        const { editorView: _editorView, typeAheadTool } = editor(
+          doc(p('{<>}')),
+        );
+        await act(async () => {
+          typeAheadTool
+            .searchQuickInsert(scenario.menuItem)
+            ?.insert({ index: 0 });
+
+          editorView = _editorView;
+        });
+
         expect(editorView.state.doc).toEqualDocument(
           doc(
             scenario.list({ localId: 'local-uuid' })(
@@ -94,7 +104,17 @@ describe('tasks and decisions', () => {
         );
       });
 
-      it(`should fire v3 analytics event when ${scenario.name} inserted`, () => {
+      it(`should fire v3 analytics event when ${scenario.name} inserted`, async () => {
+        const editor = createEditor();
+        const { editorView: _editorView, typeAheadTool } = editor(
+          doc(p('{<>}')),
+        );
+        await typeAheadTool
+          .searchQuickInsert(scenario.menuItem)
+          ?.insert({ index: 0 });
+
+        editorView = _editorView;
+
         expect(createAnalyticsEvent).toHaveBeenCalledWith({
           action: 'inserted',
           actionSubject: 'document',
@@ -116,25 +136,20 @@ describe('tasks and decisions', () => {
       ];
 
       listTypes.forEach((listType) => {
-        const list =
-          listType.name === 'ol'
-            ? (...content: BuilderContent[]) =>
-                (listType.list as typeof ol)()(...content)
-            : (listType.list as typeof ul);
-
+        const list = listType.list;
         describe(`${listType.name} with single list item`, () => {
           let editorView: EditorView;
-          beforeEach(() => {
+
+          it('should outdent following list to paragraph, then join it', () => {
             const originalDoc = doc(
               scenario.list({ localId: 'local-uuid' })(
                 scenario.item({ localId: 'local-uuid' })(`1{<>}`),
               ),
               ul(li(p('2'))),
             );
-            ({ editorView } = editor(originalDoc));
-          });
 
-          it('should outdent following list to paragraph, then join it', () => {
+            const editor = createEditor();
+            ({ editorView } = editor(originalDoc));
             // Forward delete
             sendKeyToPm(editorView, 'Delete');
 
@@ -163,17 +178,17 @@ describe('tasks and decisions', () => {
         describe(`unordered list one level of nesting`, () => {
           let editorView: EditorView;
 
-          beforeEach(() => {
+          it('should outdent following list to paragraph, then join it', () => {
             const originalDoc = doc(
               scenario.list({ localId: 'local-uuid' })(
                 scenario.item({ localId: 'local-uuid' })(`1{<>}`),
               ),
-              list(li(p('2'), list(li(p('3')))), li(p('4'))),
+              list === ol
+                ? ol()(li(p('2'), ol()(li(p('3')))), li(p('4')))
+                : ul(li(p('2'), ul(li(p('3')))), li(p('4'))),
             );
+            const editor = createEditor();
             ({ editorView } = editor(originalDoc));
-          });
-
-          it('should outdent following list to paragraph, then join it', () => {
             // Forward delete
             sendKeyToPm(editorView, 'Delete');
 
@@ -183,7 +198,9 @@ describe('tasks and decisions', () => {
                   scenario.item({ localId: 'local-uuid' })(`1`),
                 ),
                 p('2'),
-                list(li(p('3')), li(p('4'))),
+                list === ol
+                  ? ol()(li(p('3')), li(p('4')))
+                  : ul(li(p('3')), li(p('4'))),
               ),
             );
 
@@ -195,7 +212,9 @@ describe('tasks and decisions', () => {
                 scenario.list({ localId: 'local-uuid' })(
                   scenario.item({ localId: 'local-uuid' })(`12`),
                 ),
-                list(li(p('3')), li(p('4'))),
+                list === ol
+                  ? ol()(li(p('3')), li(p('4')))
+                  : ul(li(p('3')), li(p('4'))),
               ),
             );
           });
@@ -203,16 +222,17 @@ describe('tasks and decisions', () => {
       });
 
       describe('before a paragraph', () => {
-        let editorView: EditorView;
-        const originalDoc = doc(
-          scenario.list({ localId: 'local-uuid' })(
-            scenario.item({ localId: 'local-uuid' })('1{<>}'),
-          ),
-          p('2'),
-        );
-        ({ editorView } = editor(originalDoc));
-
         it('should join the text', () => {
+          let editorView: EditorView;
+          const originalDoc = doc(
+            scenario.list({ localId: 'local-uuid' })(
+              scenario.item({ localId: 'local-uuid' })('1{<>}'),
+            ),
+            p('2'),
+          );
+          const editor = createEditor();
+          ({ editorView } = editor(originalDoc));
+
           // Forward delete
           sendKeyToPm(editorView, 'Delete');
 
@@ -227,16 +247,17 @@ describe('tasks and decisions', () => {
       });
 
       describe(`two times before another ${scenario.name}`, () => {
-        let editorView: EditorView;
-        const originalDoc = doc(
-          scenario.list({ localId: 'local-uuid' })(
-            scenario.item({ localId: 'local-uuid' })('1{<>}'),
-            scenario.item({ localId: 'local-uuid' })('2'),
-          ),
-        );
-        ({ editorView } = editor(originalDoc));
-
         it('should join the text', () => {
+          let editorView: EditorView;
+          const originalDoc = doc(
+            scenario.list({ localId: 'local-uuid' })(
+              scenario.item({ localId: 'local-uuid' })('1{<>}'),
+              scenario.item({ localId: 'local-uuid' })('2'),
+            ),
+          );
+
+          const editor = createEditor();
+          ({ editorView } = editor(originalDoc));
           // Forward delete two times
           sendKeyToPm(editorView, 'Delete');
           sendKeyToPm(editorView, 'Delete');
@@ -254,16 +275,15 @@ describe('tasks and decisions', () => {
 
       describe('when inside table', () => {
         let editorView: EditorView;
-        const shouldNotJoinContent = (
-          view: EditorView,
-          targetDoc: DocBuilder,
-        ) => {
+        const shouldNotJoinContent = (targetDoc: DocBuilder) => {
           it('should not join nodes outside of current cell', () => {
+            const editor = createEditor();
+            ({ editorView } = editor(targetDoc));
             // Forward delete
-            sendKeyToPm(view, 'Delete');
+            sendKeyToPm(editorView, 'Delete');
 
             // should not have changed the document
-            expect(view.state.doc).toEqualDocument(targetDoc);
+            expect(editorView.state.doc).toEqualDocument(targetDoc);
           });
         };
 
@@ -281,9 +301,7 @@ describe('tasks and decisions', () => {
               ),
             ),
           );
-          ({ editorView } = editor(originalDoc));
-
-          shouldNotJoinContent(editorView, originalDoc);
+          shouldNotJoinContent(originalDoc);
         });
 
         describe('cell', () => {
@@ -300,9 +318,7 @@ describe('tasks and decisions', () => {
               ),
             ),
           );
-          ({ editorView } = editor(originalDoc));
-
-          shouldNotJoinContent(editorView, originalDoc);
+          shouldNotJoinContent(originalDoc);
         });
 
         describe('last cell on the row', () => {
@@ -322,9 +338,7 @@ describe('tasks and decisions', () => {
             ),
             p('2'),
           );
-          ({ editorView } = editor(originalDoc));
-
-          shouldNotJoinContent(editorView, originalDoc);
+          shouldNotJoinContent(originalDoc);
         });
 
         describe('last cell with no following node', () => {
@@ -343,9 +357,7 @@ describe('tasks and decisions', () => {
               ),
             ),
           );
-          ({ editorView } = editor(originalDoc));
-
-          shouldNotJoinContent(editorView, originalDoc);
+          shouldNotJoinContent(originalDoc);
         });
         describe('last cell with following node', () => {
           const originalDoc = doc(
@@ -364,9 +376,7 @@ describe('tasks and decisions', () => {
             ),
             p('2'),
           );
-          ({ editorView } = editor(originalDoc));
-
-          shouldNotJoinContent(editorView, originalDoc);
+          shouldNotJoinContent(originalDoc);
         });
       });
     });

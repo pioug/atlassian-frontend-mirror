@@ -61,8 +61,7 @@ export const changeColor =
       const withColorAnalytics = createWithColorAnalytics(
         color,
         activeColor,
-        // palette is a subset of paletteExpanded
-        pluginState.paletteExpanded || pluginState.palette,
+        pluginState.palette,
       );
 
       if (pluginState.disabled) {

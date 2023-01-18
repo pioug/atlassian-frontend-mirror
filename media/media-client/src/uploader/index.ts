@@ -47,10 +47,8 @@ const createProbingFunction =
   async (chunks: Chunk[]): Promise<boolean[]> => {
     const response = await store.probeChunks(
       hashedChunks(chunks),
-      {
-        collectionName,
-        uploadId: await deferredUploadId,
-      },
+      await deferredUploadId,
+      collectionName,
       traceContext,
     );
     const results = response.data.results;
@@ -69,11 +67,9 @@ const createUploadingFunction =
     return await store.uploadChunk(
       chunk.hash,
       chunk.blob,
-      {
-        collectionName,
-        partNumber: chunk.partNumber,
-        uploadId: await deferredUploadId,
-      },
+      await deferredUploadId,
+      chunk.partNumber,
+      collectionName,
       traceContext,
     );
   };

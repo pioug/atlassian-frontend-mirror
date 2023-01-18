@@ -24,6 +24,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '../../plugins/analytics/types';
+import { token } from '@atlaskit/tokens';
 
 // helps adjusts position of popup
 const colorPickerButtonWrapper = css`
@@ -133,6 +134,23 @@ const ColorPickerButton = (props: Props) => {
   };
 
   const title = props.title || '';
+  const buttonStyle = css`
+    padding: 6px;
+    background-color: ${token('color.background.neutral', 'transparent')};
+    &:before {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-self: center;
+      content: '';
+      border: 1px solid ${DEFAULT_BORDER_COLOR};
+      border-radius: ${borderRadius()}px;
+      background-color: ${props.currentColor || 'transparent'};
+      width: ${props.size?.width || 14}px;
+      height: ${props.size?.height || 14}px;
+      padding: 0;
+    }
+  `;
 
   return (
     <div css={colorPickerButtonWrapper}>
@@ -142,13 +160,7 @@ const ColorPickerButton = (props: Props) => {
           aria-label={title}
           spacing="compact"
           onClick={togglePopup}
-          style={{
-            backgroundColor: props.currentColor || 'transparent',
-            border: `1px solid ${DEFAULT_BORDER_COLOR}`,
-            width: `${props.size?.width || 20}px`,
-            height: `${props.size?.height || 20}px`,
-            padding: 0,
-          }}
+          css={buttonStyle}
         />
       </Tooltip>
       {renderPopup()}

@@ -12,7 +12,10 @@ import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
 import { N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { PAGE_LAYOUT_CONTAINER_SELECTOR } from '../../common/constants';
+import {
+  DEFAULT_I18N_PROPS_SKIP_LINKS,
+  PAGE_LAYOUT_CONTAINER_SELECTOR,
+} from '../../common/constants';
 import { SkipLinkData, useSkipLinks } from '../../controllers';
 
 import { SkipLinkWrapperProps } from './types';
@@ -51,6 +54,8 @@ const skipLinkStyles = css({
   },
 });
 
+const skipLinkHeadingStyles = css({ fontWeight: 600 });
+
 const skipLinkListStyles = css({
   marginTop: 4,
   paddingLeft: 0,
@@ -67,7 +72,14 @@ const assignIndex = (num: number, arr: number[]): number => {
 
   return assignIndex(num + 1, arr);
 };
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+
+/**
+ * The default label will be used when the `skipLinksLabel` attribute is not
+ * provided or the attribute is an empty string. If a string comprised only of
+ * spaces is provided, the skip link heading element will be removed, but the
+ * default label will still be used in `title` attribute of the skip links
+ * themselves.
+ */
 export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
   const { skipLinksData } = useSkipLinks();
 
@@ -119,6 +131,10 @@ export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
   const removeEscHandler = () =>
     window.removeEventListener('keydown', escapeHandler, false);
 
+  const emptyLabelOverride = !!skipLinksLabel?.match(/^\s+$/);
+
+  const label = skipLinksLabel || DEFAULT_I18N_PROPS_SKIP_LINKS;
+
   return (
     <div
       onFocus={attachEscHandler}
@@ -126,7 +142,7 @@ export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
       css={[skipLinkStyles, prefersReducedMotionStyles]}
       data-skip-link-wrapper
     >
-      <h5>{skipLinksLabel}</h5>
+      {emptyLabelOverride ? null : <p css={skipLinkHeadingStyles}>{label}</p>}
       <ol css={skipLinkListStyles}>
         {sortSkipLinks(skipLinksData).map(
           ({ id, skipLinkTitle }: SkipLinkData) => (
@@ -134,7 +150,11 @@ export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
               key={id}
               href={`#${id}`}
               isFocusable
-              title={`${skipLinksLabel} ${skipLinkTitle}`}
+              title={
+                emptyLabelOverride
+                  ? `${DEFAULT_I18N_PROPS_SKIP_LINKS} ${skipLinkTitle}`
+                  : `${label} ${skipLinkTitle}`
+              }
             >
               {skipLinkTitle}
             </SkipLink>

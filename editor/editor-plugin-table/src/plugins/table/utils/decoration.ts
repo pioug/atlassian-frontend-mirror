@@ -1,6 +1,6 @@
 import { Node as PmNode } from 'prosemirror-model';
 import { Selection, Transaction, ReadonlyTransaction } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 import {
   findTable,
@@ -96,7 +96,32 @@ export const createControlsHoverDecoration = (
   // to match the "clicked" selection
 
   if (danger) {
-    const rect = map.rectBetween(min - table.start, max - table.start);
+    // Find the bounding rectangle of all the given cells, also considering
+    // merged cells.
+    const { recLeft, recTop, recRight, recBottom } = cells.reduce(
+      (acc, cell) => {
+        const { left, right, bottom, top } = map.findCell(
+          cell.pos - table.start,
+        );
+        // Finding the bounding rect requires finding the min left and top positions,
+        // and the max right and bottom positions of the cells
+        return {
+          recLeft: Math.min(acc.recLeft, left),
+          recTop: Math.min(acc.recTop, top),
+          recRight: Math.max(acc.recRight, right),
+          recBottom: Math.max(acc.recBottom, bottom),
+        };
+      },
+      // +-Infinity as initialisation vars which will always be overwritten
+      // by smaller/larger values respectively
+      {
+        recLeft: Infinity,
+        recTop: Infinity,
+        recRight: -Infinity,
+        recBottom: -Infinity,
+      },
+    );
+    const rect = new Rect(recLeft, recTop, recRight, recBottom);
     updatedCells = map.cellsInRect(rect).map((x) => x + table.start);
   }
 

@@ -227,7 +227,9 @@ type TransactionMutatedAEP = OperationalAEP<
   {
     pluginKey: string;
   },
-  undefined
+  {
+    stack: string | undefined;
+  }
 >;
 
 type WithPluginStateCalledAEP = OperationalAEP<

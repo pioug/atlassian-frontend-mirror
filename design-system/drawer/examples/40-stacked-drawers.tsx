@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { Component, SyntheticEvent } from 'react';
 
@@ -13,6 +14,7 @@ interface State {
 }
 
 const spacingStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   padding: '2rem',
 });
 export default class DrawersExample extends Component<{}, State> {

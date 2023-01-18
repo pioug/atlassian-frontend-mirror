@@ -8,7 +8,6 @@ export const pickerStyle = css({
   verticalAlign: 'middle',
   '&.miniMode': {
     display: 'inline-block',
-    marginRight: '4px',
   },
 });
 

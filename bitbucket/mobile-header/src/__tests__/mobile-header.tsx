@@ -86,7 +86,10 @@ test('clicking blanket calls onDrawerClose', () => {
       pageHeading=""
     />,
   );
-  wrapper.find(styles.FakeBlanket).simulate('click');
+  wrapper
+    .find(styles.FakeBlanket)
+    .findWhere((node) => node.name() === 'div')
+    .simulate('click');
   expect(closeSpy).toHaveBeenCalledTimes(1);
 });
 

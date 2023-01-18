@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.1.0
+
+### Minor Changes
+
+- [`14258b03842`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14258b03842) - make reaction buttons more compact, and introduce miniMode for add reaction button
+
 ## 22.0.4
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import { borderRadius } from '@atlaskit/media-ui';
 import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
+import { themed } from '@atlaskit/theme/components';
 
 import { transition } from '../../styles';
 import { fixedBlanketStyles, blanketClassName } from '../blanket/styles';
@@ -22,6 +23,8 @@ import {
 } from '../styles';
 import { NewFileExperienceWrapperProps } from './types';
 
+const BACKGROUND_COLOR_DARK = '#22272C';
+
 export const newFileExperienceWrapperStyles = ({
   breakpoint,
   dimensions,
@@ -33,6 +36,7 @@ export const newFileExperienceWrapperStyles = ({
   isTickBoxSelectable,
   shouldDisplayTooltip,
   mediaCardCursor,
+  theme,
 }: NewFileExperienceWrapperProps) => css`
   ${transition()}
   box-sizing: border-box;
@@ -43,7 +47,10 @@ export const newFileExperienceWrapperStyles = ({
   font-family: ${fontFamily()};
   ${getWrapperDimensions(dimensions, appearance)}
   ${displayBackground &&
-  `background-color: ${token('color.background.neutral', N20)};`}
+  `background: ${themed({
+    light: token('color.background.neutral', N20),
+    dark: token('color.background.neutral', BACKGROUND_COLOR_DARK),
+  })({ theme })};`}
   ${borderRadius}
   ${getCursorStyle(mediaCardCursor)}
   ${getWrapperShadow(disableOverlay, selected)}

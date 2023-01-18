@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';

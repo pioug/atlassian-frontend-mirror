@@ -19,7 +19,7 @@ export async function mountRenderer(
   props?: RendererPropsOverrides,
   adf?: Object,
 ) {
-  await page.waitForSelector('#renderer-container');
+  await page.waitForSelector('#renderer-container', { timeout: 30000 });
   await page.executeAsync(
     (props, adf, done: () => void) => {
       function waitAndCall() {
@@ -61,6 +61,8 @@ export async function goToRendererTestingExample(
 
   if (currentUrl !== url) {
     await page.goto(url);
+  } else {
+    await page.refresh();
   }
 
   await page.maximizeWindow();

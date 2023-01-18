@@ -9,13 +9,14 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { Node } from 'prosemirror-model';
+import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
 [comment].forEach((editor) => {
-  // FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-16000
   BrowserTestCase(
     `insert-mediaGroup.ts: Inserts a media group on ${editor.name}`,
     {
-      skip: ['*'],
+      skip: [],
     },
     async (
       client: Parameters<typeof goToEditorTestingWDExample>[0],
@@ -36,10 +37,15 @@ import {
       // now we can insert media as necessary
       await insertMedia(page);
 
-      expect(await page.isVisible('.wrapper')).toBe(true);
+      expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+        true,
+      );
 
-      const doc = await page.$eval(editable, getDocFromElement);
-      expect(doc).toMatchCustomDocSnapshot(testName);
+      const jsonDocument = await page.$eval(editable, getDocFromElement);
+      const pmDocument = Node.fromJSON(sampleSchema, jsonDocument);
+
+      const maybeMediaGroupNode = pmDocument.nodeAt(11);
+      expect(maybeMediaGroupNode?.type.name).toEqual('mediaGroup');
     },
   );
 

@@ -64,12 +64,13 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Enable additional text colours within the colour palette.
+   * Whether placeholder hints were provided (`string[] => boolean`)
+   * Placeholder text values to display on new empty lines.
    *
-   * @see https://product-fabric.atlassian.net/l/c/YhyvfWqg
+   * @see https://product-fabric.atlassian.net/l/c/GG1Yv9cK
    * @default false
    */
-  moreTextColors?: boolean;
+  placeholderHints?: boolean;
 
   /**
    * @description
@@ -244,13 +245,23 @@ export type FeatureFlags = {
   twoLineEditorToolbar?: boolean;
 
   /**
-   * Prevent transactions from being mutated (e.g. apply, filterTransaction,
-   * appendTransaction) after being dispatched
+   * Prevent transactions from being mutated (e.g. apply, filterTransaction, appendTransaction) after being dispatched,
+   * will throw on transaction dispatch unless saferDispatchedTransactionsAnalyticsOnly is enabled.
    * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/3131836958/Editor+DACI+013+Avoid+content+loss+with+bad+transactions+Ghost+Steps
    * @see https://product-fabric.atlassian.net/browse/ED-14002
    * @default false
    */
   saferDispatchedTransactions?: boolean;
+
+  /**
+   * Detect when transaction is being mutated after being dispatched and emit analytics event if so (e.g. apply, filterTransaction,
+   * appendTransaction)
+   * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/3131836958/Editor+DACI+013+Avoid+content+loss+with+bad+transactions+Ghost+Steps
+   * @see https://product-fabric.atlassian.net/browse/ED-14002
+   * @see https://product-fabric.atlassian.net/wiki/spaces/AS/pages/3321201329/Rolling+out+safer-dispatched+transaction
+   * @default false
+   */
+  saferDispatchedTransactionsAnalyticsOnly?: boolean;
 
   /**
    * @description

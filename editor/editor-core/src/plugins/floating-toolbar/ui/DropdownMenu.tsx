@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, createRef } from 'react';
 import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
 import { gridSize } from '@atlaskit/theme/constants';
@@ -38,6 +38,11 @@ const menuContainer = css`
   }
 `;
 
+const label = css`
+  display: inline-block;
+  width: 100%;
+`;
+
 export const itemSpacing = gridSize() / 2;
 export interface Props {
   hide: Function;
@@ -52,6 +57,7 @@ export interface DropdownButtonItemProps extends ButtonItemProps {
   onMouseEnter?: (event: React.MouseEvent | React.KeyboardEvent) => void;
   onMouseOver?: (event: React.MouseEvent | React.KeyboardEvent) => void;
   onMouseLeave?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+  onMouseOut?: (event: React.MouseEvent | React.KeyboardEvent) => void;
   onFocus?: (event: React.MouseEvent | React.KeyboardEvent) => void;
   onBlur?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 }
@@ -78,24 +84,29 @@ const DropdownMenuItem = ({
     item.tooltip || '',
   );
 
-  const handleTooltipMouseOut = useCallback(() => {
+  const handleItemMouseOut = useCallback(() => {
     setTooltipContent('');
-  }, []);
+    if (item.onMouseOut) {
+      dispatchCommand(item.onMouseOut);
+    }
+  }, [item.onMouseOut, dispatchCommand]);
 
-  const handleItemMouseDown = useCallback((e) => {
-    e.preventDefault();
-  }, []);
-
-  const handleItemMouseOver = useCallback(
+  const handleItemMouseDown = useCallback(
     (e) => {
-      setTooltipContent(item.tooltip || '');
-      if (item.onMouseOver) {
-        e.preventDefault();
-        dispatchCommand(item.onMouseOver);
+      e.preventDefault(); // ED-16204 - This is needed for safari to get handleItemClick() to work
+      if (item.onMouseDown) {
+        dispatchCommand(item.onMouseDown);
       }
     },
-    [item.tooltip, item.onMouseOver, dispatchCommand],
+    [item.onMouseDown, dispatchCommand],
   );
+
+  const handleItemMouseOver = useCallback(() => {
+    setTooltipContent(item.tooltip || '');
+    if (item.onMouseOver) {
+      dispatchCommand(item.onMouseOver);
+    }
+  }, [item.tooltip, item.onMouseOver, dispatchCommand]);
 
   const handleItemMouseEnter = useCallback(
     (e) => {
@@ -151,6 +162,36 @@ const DropdownMenuItem = ({
     }
   }, [dispatchCommand, item.onClick, hide, editorView]);
 
+  /* ED-16704 - Native mouse event handler to overcome firefox issue on disabled <button> - https://github.com/whatwg/html/issues/5886 */
+  const labelRef = createRef<HTMLDivElement>();
+  const handleTitleWrapperMouseEvent = useCallback(
+    (e) => {
+      if (item.disabled) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    },
+    [item.disabled],
+  );
+  useEffect(() => {
+    const labelRefCurrent = labelRef.current;
+    labelRefCurrent?.addEventListener('click', handleTitleWrapperMouseEvent);
+    labelRefCurrent?.addEventListener(
+      'mousedown',
+      handleTitleWrapperMouseEvent,
+    );
+    return () => {
+      labelRefCurrent?.removeEventListener(
+        'click',
+        handleTitleWrapperMouseEvent,
+      );
+      labelRefCurrent?.removeEventListener(
+        'mousedown',
+        handleTitleWrapperMouseEvent,
+      );
+    };
+  });
+
   const itemContent = (
     <DropdownButtonItem
       iconBefore={iconBefore}
@@ -162,19 +203,18 @@ const DropdownMenuItem = ({
       onMouseOver={handleItemMouseOver}
       onMouseEnter={handleItemMouseEnter}
       onMouseLeave={handleItemMouseLeave}
+      onMouseOut={handleItemMouseOut}
       onFocus={handleItemOnFocus}
       onBlur={handleItemOnBlur}
     >
-      {item.title}
+      <span ref={labelRef} css={label}>
+        {item.title}
+      </span>
     </DropdownButtonItem>
   );
 
   if (tooltipContent) {
-    return (
-      <Tooltip content={tooltipContent}>
-        <div onMouseOut={handleTooltipMouseOut}>{itemContent}</div>
-      </Tooltip>
-    );
+    return <Tooltip content={tooltipContent}>{itemContent}</Tooltip>;
   }
 
   return itemContent;

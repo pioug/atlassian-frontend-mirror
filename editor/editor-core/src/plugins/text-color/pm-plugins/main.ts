@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
 
 import { Dispatch } from '../../../event-dispatcher';
-import { textColorPaletteExtended } from '../../../ui/ColorPalette/Palettes/textColorPalette';
+import { textColorPalette } from '../../../ui/ColorPalette/Palettes/textColorPalette';
 import { PaletteColor } from '../../../ui/ColorPalette/Palettes/type';
 import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
 import { DEFAULT_COLOR, getActiveColor } from '../utils/color';
@@ -12,7 +12,6 @@ export { DEFAULT_COLOR } from '../utils/color';
 
 export type TextColorPluginState = {
   palette: Array<PaletteColor>;
-  paletteExpanded?: Array<PaletteColor>;
   defaultColor: string;
   disabled?: boolean;
   color: string | null;
@@ -35,7 +34,7 @@ export type TextColorDefaultColor = {
 
 export interface TextColorPluginConfig {
   defaultColor?: TextColorDefaultColor;
-  // Allow "show more colours" option
+  /** @deprecated [ED-15849] Color selection palette now shows more colors by default. */
   allowMoreTextColors?: boolean;
 }
 
@@ -51,7 +50,7 @@ export function createInitialPluginState(
       label: defaultColor.label,
       border: DEFAULT_BORDER_COLOR,
     },
-    ...textColorPaletteExtended,
+    ...textColorPalette,
   ];
 
   const state = {

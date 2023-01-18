@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/react';
 import { render } from '@testing-library/react';
 
+import { DEFAULT_I18N_PROPS_SKIP_LINKS } from '../../../../common/constants';
 import {
   Banner,
   Content,
@@ -45,7 +46,7 @@ describe('page-layout', () => {
     const bannerName = 'Banner panel';
     const topNavName = 'Top Navigation panel';
 
-    const { container } = render(
+    const component = render(
       <PageLayout>
         <Banner
           testId="banner"
@@ -71,13 +72,20 @@ describe('page-layout', () => {
       </PageLayout>,
     );
 
-    const panel = container.querySelector('div[data-skip-link-wrapper="true"]');
-    const links = panel!.querySelectorAll('ol li a');
+    // Heading
+    expect(
+      component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS),
+    ).toBeInTheDocument();
 
-    expect(panel!.querySelector('h5')!.innerText).toBe('Skip to:');
-    expect(links.length).toBe(2);
-
-    expect(links[0]!.getAttribute('title')).toEqual(`Skip to: ${bannerName}`);
-    expect(links[1]!.getAttribute('title')).toEqual(`Skip to: ${topNavName}`);
+    const skipLinks = component.getAllByTitle((content, element) =>
+      content.startsWith(DEFAULT_I18N_PROPS_SKIP_LINKS),
+    );
+    expect(skipLinks).toHaveLength(2);
+    expect(skipLinks[0].title).toEqual(
+      `${DEFAULT_I18N_PROPS_SKIP_LINKS} ${bannerName}`,
+    );
+    expect(skipLinks[1].title).toEqual(
+      `${DEFAULT_I18N_PROPS_SKIP_LINKS} ${topNavName}`,
+    );
   });
 });

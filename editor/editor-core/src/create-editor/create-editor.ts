@@ -119,11 +119,14 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
     transactionTracking = TRACKING_DEFAULT,
   } = performanceTracking;
   const saferDispatchedTransactions = featureFlags.saferDispatchedTransactions;
+  const saferDispatchedTransactionsAnalyticsOnly =
+    featureFlags.saferDispatchedTransactionsAnalyticsOnly;
 
   const useInstrumentedPlugin =
     uiTracking.enabled ||
     transactionTracking.enabled ||
-    saferDispatchedTransactions;
+    saferDispatchedTransactions ||
+    saferDispatchedTransactionsAnalyticsOnly;
 
   if (
     process.env.NODE_ENV === 'development' &&
@@ -144,6 +147,7 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
             uiTracking,
             transactionTracking,
             saferDispatchedTransactions,
+            saferDispatchedTransactionsAnalyticsOnly,
             dispatchAnalyticsEvent,
           },
           transactionTracker,

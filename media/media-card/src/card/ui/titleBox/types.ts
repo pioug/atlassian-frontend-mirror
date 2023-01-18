@@ -3,6 +3,8 @@ import { MessageDescriptor } from 'react-intl-next';
 import { Breakpoint } from '../common';
 import { TitleBoxIcon as TitleBoxIconType } from '../../../types';
 
+import { GlobalThemeTokens } from '@atlaskit/theme/components';
+
 export type TitleBoxProps = {
   name: string;
   breakpoint: Breakpoint;
@@ -17,6 +19,7 @@ export type TitleBoxWrapperProps = {
   breakpoint: Breakpoint;
   titleBoxBgColor?: string;
   children?: JSX.Element | JSX.Element[] | any;
+  theme?: GlobalThemeTokens;
 };
 
 export type TitleBoxFooterProps = {

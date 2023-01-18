@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -1024,13 +1025,8 @@ export class MediaStore {
   // (undocumented)
   probeChunks(
     chunks: string[],
-    {
-      collectionName,
-      uploadId,
-    }?: {
-      collectionName?: string;
-      uploadId?: string;
-    },
+    uploadId: string,
+    collectionName?: string,
     traceContext?: MediaTraceContext,
   ): Promise<MediaStoreResponse<MediaChunksProbe>>;
   // (undocumented)
@@ -1060,15 +1056,9 @@ export class MediaStore {
   uploadChunk(
     etag: string,
     blob: Blob,
-    {
-      collectionName,
-      uploadId,
-      partNumber,
-    }?: {
-      collectionName?: string;
-      uploadId?: string;
-      partNumber?: number;
-    },
+    uploadId: string,
+    partNumber: number,
+    collectionName?: string,
     traceContext?: MediaTraceContext,
   ): Promise<void>;
 }
@@ -1718,3 +1708,17 @@ export type WithMediaClientFunction = <P extends WithMediaClient>(
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "@atlaskit/media-core": "^34.0.1",
+  "@emotion/react": "^11.7.1",
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

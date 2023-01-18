@@ -15,6 +15,7 @@ import { DispatchAnalyticsEvent } from '../../plugins/analytics/types';
 
 type InstrumentedPluginOptions = EditorProps['performanceTracking'] & {
   saferDispatchedTransactions?: FeatureFlags['saferDispatchedTransactions'];
+  saferDispatchedTransactionsAnalyticsOnly?: FeatureFlags['saferDispatchedTransactionsAnalyticsOnly'];
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 };
 
@@ -31,12 +32,14 @@ export class InstrumentedPlugin<
       transactionTracking = { enabled: false },
       uiTracking = { enabled: false },
       saferDispatchedTransactions = false,
+      saferDispatchedTransactionsAnalyticsOnly = false,
       dispatchAnalyticsEvent,
     } = options;
 
     const shouldOverrideApply =
       (transactionTracking.enabled && transactionTracker) ||
-      saferDispatchedTransactions;
+      saferDispatchedTransactions ||
+      saferDispatchedTransactionsAnalyticsOnly;
 
     if (shouldOverrideApply && spec.state) {
       const originalApply = spec.state.apply.bind(spec.state);
@@ -48,15 +51,18 @@ export class InstrumentedPlugin<
         newState: EditorState<NodeSchema>,
       ) => {
         const self = this as any;
-        const tr = saferDispatchedTransactions
-          ? new Proxy(
-              aTr,
-              freezeUnsafeTransactionProperties<ReadonlyTransaction>({
-                dispatchAnalyticsEvent,
-                pluginKey: self.key,
-              }),
-            )
-          : aTr;
+        const tr =
+          saferDispatchedTransactions ||
+          saferDispatchedTransactionsAnalyticsOnly
+            ? new Proxy(
+                aTr,
+                freezeUnsafeTransactionProperties<ReadonlyTransaction>({
+                  dispatchAnalyticsEvent,
+                  pluginKey: self.key,
+                  analyticsOnly: saferDispatchedTransactionsAnalyticsOnly,
+                }),
+              )
+            : aTr;
         const shouldTrackTransactions =
           transactionTracker?.shouldTrackTransaction(transactionTracking);
 

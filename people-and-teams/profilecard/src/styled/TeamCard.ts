@@ -25,8 +25,9 @@ export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
     props.isLoading
       ? token('color.background.neutral', N20)
       : props.image
-      ? `url('${props.image}')`
+      ? ''
       : teamHeaderBgColor};
+  background-image: ${(props) => (props.image ? `url(${props.image})` : '')};
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

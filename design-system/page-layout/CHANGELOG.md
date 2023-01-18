@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.3.7
+
+### Patch Changes
+
+- [`7f3ff7f0081`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f3ff7f0081) - [ux] Enhance accessibility of header for skip links component
+
 ## 1.3.6
 
 ### Patch Changes

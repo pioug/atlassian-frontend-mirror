@@ -1,5 +1,18 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.3.0
+
+### Minor Changes
+
+- [`1d432bde0ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d432bde0ec) - [ux] Add click handler to drawio placeholder image in mobile to open in webview
+- [`5e7b9edb448`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e7b9edb448) - [ux] Constrain width of drawio placeholder diagram to width of mobile device
+- [`f6ca4a03780`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6ca4a03780) - [ux] Adds padding to drawio placeholder image and grey background while in dark mode
+
+### Patch Changes
+
+- [`bf6b57dc154`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf6b57dc154) - [ux] Constrain width for additional drawio placeholder images
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

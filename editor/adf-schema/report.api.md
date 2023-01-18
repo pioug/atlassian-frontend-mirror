@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -323,7 +324,7 @@ export interface CodeDefinition {
 // @public (undocumented)
 export const colorPalette: Map<string, TextColorKey>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const colorPaletteExtended: Map<string, TextColorKey>;
 
 // @public (undocumented)
@@ -1817,3 +1818,13 @@ export const Y75 = '#FFF0B3';
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{}
+```
+
+<!--SECTION END: Peer Dependencies-->

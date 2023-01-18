@@ -517,6 +517,17 @@ export default class Editor extends React.Component<EditorProps, State> {
         `Advanced table options are deprecated (except isHeaderRowRequired) to continue using advanced table features use - <Editor allowTables={{ advanced: true }} /> [Will be changed in editor-core@${nextVersion}]`,
       );
     }
+
+    if (
+      props.hasOwnProperty('allowTextColor') &&
+      typeof props.allowTextColor !== 'boolean' &&
+      props?.allowTextColor?.allowMoreTextColors !== undefined
+    ) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `"allowMoreTextColors" field of "allowTextColor" property is deprecated. It will be removedin editor-core@${nextVersion}. The color palette now shows more colors by default.`,
+      );
+    }
   }
 
   onEditorDestroyed(_instance: {

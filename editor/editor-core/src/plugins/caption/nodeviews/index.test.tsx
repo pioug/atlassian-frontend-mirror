@@ -9,13 +9,13 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { Schema } from 'prosemirror-model';
 import { setNodeSelection, setTextSelection } from '../../../utils';
-import { render, RenderResult } from '@testing-library/react';
 import { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import captionNodeView from '.';
 import { EditorView } from 'prosemirror-view';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { EventDispatcher } from '../../../event-dispatcher';
+import { screen } from '@testing-library/react';
 
 jest.mock('../../base/pm-plugins/react-nodeview', () => ({
   stateKey: {
@@ -23,14 +23,14 @@ jest.mock('../../base/pm-plugins/react-nodeview', () => ({
   },
 }));
 
-const createEditorTestingLibrary = createEditorFactory(render);
+const createEditorTestingLibrary = createEditorFactory();
 const editor = (doc: (schema: Schema<any, any>) => RefsNode) =>
   createEditorTestingLibrary({
     doc,
     editorProps: {
       media: { allowMediaSingle: true, featureFlags: { captions: true } },
     },
-  }) as any & { wrapper: RenderResult };
+  });
 
 const mediaNodeAttrs = {
   id: 'a559980d-cd47-43e2-8377-27359fcb905f',
@@ -43,56 +43,44 @@ const mediaNodeAttrs = {
 describe('caption', () => {
   it('should render caption children', () => {
     const CAPTION_TEXT = 'this is a very cool caption';
-    const {
-      wrapper: { getByText },
-    } = editor(
-      doc(mediaSingle()(media(mediaNodeAttrs)(), caption(CAPTION_TEXT))),
-    );
-    expect(getByText(CAPTION_TEXT)).not.toBeNull();
+    editor(doc(mediaSingle()(media(mediaNodeAttrs)(), caption(CAPTION_TEXT))));
+    expect(screen.getByText(CAPTION_TEXT)).not.toBeNull();
   });
 
   it("should show a placeholder if there's no children", () => {
-    const {
-      wrapper: { getByText },
-    } = editor(
+    editor(
       doc(
         '{<node>}', // node selection
         mediaSingle()(media(mediaNodeAttrs)()),
       ),
     );
-    expect(getByText('Add a caption')).not.toBeNull();
+    expect(screen.getByText('Add a caption')).not.toBeNull();
   });
 
   it('should not show a placeholder when selecting away from media single', () => {
-    const {
-      wrapper: { queryByText, getByText },
-      editorView,
-    } = editor(
+    const { editorView } = editor(
       doc(
         '{<node>}', // node selection
         mediaSingle()(media(mediaNodeAttrs)()),
         p('this is a random piece of text'),
       ),
     );
-    expect(getByText('Add a caption')).not.toBeNull();
+    expect(screen.getByText('Add a caption')).not.toBeNull();
     setTextSelection(editorView, 13, 14);
-    expect(queryByText('Add a caption')).toBeNull();
+    expect(screen.queryByText('Add a caption')).toBeNull();
   });
 
   it('should show a placeholder when selecting a media single', () => {
-    const {
-      wrapper: { queryByText, getByText },
-      editorView,
-    } = editor(
+    const { editorView } = editor(
       doc(
         '{node}', // node selection
         mediaSingle()(media(mediaNodeAttrs)()),
         p('this is a random p{<>}iece of text'),
       ),
     );
-    expect(queryByText('Add a caption')).toBeNull();
+    expect(screen.queryByText('Add a caption')).toBeNull();
     setNodeSelection(editorView, 0);
-    expect(getByText('Add a caption')).not.toBeNull();
+    expect(screen.getByText('Add a caption')).not.toBeNull();
   });
 });
 

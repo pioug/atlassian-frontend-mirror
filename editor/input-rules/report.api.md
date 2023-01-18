@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -80,3 +81,13 @@ export const TEXT_INPUT_RULE_TRANSACTION_KEY = 'input_rule_plugin_transaction';
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{}
+```
+
+<!--SECTION END: Peer Dependencies-->

@@ -15,9 +15,7 @@ import {
   // FIXME: This test was automatically skipped due to failure on 06/11/2022: https://product-fabric.atlassian.net/browse/ED-16069
   BrowserTestCase(
     `type-over-mediaGroup.ts: Typeover the selected media item in a media group`,
-    {
-      skip: ['*'],
-    },
+    {},
     async (
       client: Parameters<typeof goToEditorTestingWDExample>[0],
       testName: string,
@@ -37,7 +35,7 @@ import {
       // now we can insert media as necessary
       await insertMedia(page, ['one.jpg', 'one.jpg', 'one.jpg']);
 
-      const fileCards = await waitForAtLeastNumFileCards(page, 2);
+      const fileCards = await waitForAtLeastNumFileCards(page, 3);
       await fileCards[0].click();
 
       await page.type(editable, 'replace first file card');

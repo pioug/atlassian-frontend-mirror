@@ -74,7 +74,8 @@
         "analytics-next"
       ],
       "theming": [
-        "react-context"
+        "react-context",
+        "tokens"
       ],
       "deprecation": "no-deprecated-imports",
       "styling": [

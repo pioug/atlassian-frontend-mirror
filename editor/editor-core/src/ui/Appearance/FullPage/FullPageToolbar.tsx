@@ -136,12 +136,26 @@ export const EditorToolbar: React.FunctionComponent<
       return () => window.removeEventListener('resize', updateOnResize);
     }
   });
+
+  const isShortcutToFocusToolbar = (event: KeyboardEvent) => {
+    //Alt + F9 to reach first element in this main toolbar
+    return event.altKey && (event.key === 'F9' || event.keyCode === 120);
+  };
+
+  const handleEscape = (event: KeyboardEvent) => {
+    if (!props.editorView?.hasFocus()) {
+      props.editorView?.focus();
+    }
+  };
+
   return (
     <ContextPanelConsumer>
       {({ width: contextPanelWidth }) => (
         <ToolbarArrowKeyNavigationProvider
           editorView={props.editorView}
           childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+          isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+          handleEscape={handleEscape}
         >
           <div
             css={mainToolbarStyle(

@@ -1729,12 +1729,23 @@ describe('HyperlinkLinkAddToolbar', () => {
         component.find(PanelTextInput).first().prop('describedById'),
       ).toEqual(screenReaderDescriptionId);
     });
+
     it('should render LinkSearchList component with correct ariaControls prop', async () => {
       const ariaControlValue = 'fabric.editor.hyperlink.suggested.results';
       const { component } = await setup();
       expect(component.find(LinkSearchList).prop('ariaControls')).toEqual(
         ariaControlValue,
       );
+    });
+
+    it('should render clear text button with type="button"', async () => {
+      const { component, updateInputFieldWithStateUpdated } = await setup();
+
+      await updateInputFieldWithStateUpdated('link-url', 'something');
+      clock.tick(500);
+      component.update();
+
+      expect(component.find('button').first().prop('type')).toEqual('button');
     });
   });
 });

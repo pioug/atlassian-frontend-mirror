@@ -27,7 +27,12 @@ import {
   scrollToBottom,
   selectors as prosemirrorSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
+
+async function focusToolbar() {
+  await pressKeyCombo(page, ['Alt', 'F9']);
+}
 
 describe('Toolbar', () => {
   let page: PuppeteerPage;
@@ -64,6 +69,32 @@ describe('Toolbar', () => {
     await page.setViewport({ width: 1000, height: 700 });
     await clickToolbarMenu(page, ToolbarMenuItem.insertMenu);
     await waitForTooltip(page, 'Insert');
+  });
+});
+
+describe('Toolbar keyboard shortcut', () => {
+  let page: PuppeteerPage;
+
+  beforeEach(async () => {
+    page = global.page;
+    await initEditorWithAdf(page, {
+      appearance: Appearance.fullPage,
+      viewport: { width: 1000, height: 350 },
+    });
+  });
+
+  it('should focus main toolbar first element and return on "ESC" ', async () => {
+    focusToolbar();
+    await snapshot(page, undefined, editorSelector);
+    await page.keyboard.down('Escape');
+    await page.keyboard.type('Test'); //To confirm that focus is back to editor
+    await retryUntilStablePosition(
+      page,
+      async () => {
+        await snapshot(page, undefined, editorSelector);
+      },
+      editorSelector,
+    );
   });
 });
 

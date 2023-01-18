@@ -366,14 +366,12 @@ describe('expand: arrow key navigation', () => {
     );
 
     describe('and in code block', () => {
-      // FIXME: This test was automatically skipped due to failure on 31/10/2022: https://product-fabric.atlassian.net/browse/ED-15999
       BrowserTestCase(
         'dont jump to expand title when user hits up and down arrow in code block',
         // safari skipped until prosemirror-view upgraded with this fix
         // https://github.com/ProseMirror/prosemirror-view/pull/134
         {
-          // skip: ['safari'],
-          skip: ['*'],
+          skip: ['safari'],
         },
         async (client: any, testName: string) => {
           const page = await startEditor(

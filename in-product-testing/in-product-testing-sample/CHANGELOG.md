@@ -1,5 +1,11 @@
 # @atlaskit/in-product-testing-sample
 
+## 0.2.7
+
+### Patch Changes
+
+- [`13d94f43dd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13d94f43dd0) - Created an in-product test for the recent work component
+
 ## 0.2.6
 
 ### Patch Changes

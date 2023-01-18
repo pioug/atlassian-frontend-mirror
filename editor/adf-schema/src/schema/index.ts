@@ -172,6 +172,7 @@ export {
   breakout,
   code,
   colorPalette,
+  /** @deprecated [ED-15849] The extended palette is now rolled into the main one. Use `colorPalette` instead. */
   colorPaletteExtended,
   confluenceInlineComment,
   dataConsumer,

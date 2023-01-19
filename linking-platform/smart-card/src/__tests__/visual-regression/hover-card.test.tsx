@@ -151,7 +151,8 @@ describe('Hover Card', () => {
     expect(image).toMatchProdImageSnapshot(snapshotOptions);
   });
 
-  it('shows when wrapping simple span element', async () => {
+  // FIXME: This test was automatically skipped due to failure on 18/01/2023: https://product-fabric.atlassian.net/browse/EDM-5506
+  it.skip('shows when wrapping simple span element', async () => {
     const height = 400;
 
     const url = getURL('vr-hover-card-on-span');

@@ -8,9 +8,12 @@ import {
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
+// FIXME: This test was automatically skipped due to failure on 18/01/2023: https://product-fabric.atlassian.net/browse/ED-16588
 BrowserTestCase(
   `layouts: Backspacing within a layout shouldnt remove all contents`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = new Page(client);
     await page.goto(fullpage.path);

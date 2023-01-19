@@ -1,0 +1,4 @@
+/* EDM-5331: Override global h3 in the test to create the similar environment as Trello */
+h3 {
+  margin-bottom: 8px;
+}

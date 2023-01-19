@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.12.2
+
+### Patch Changes
+
+- [`2c80995745e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c80995745e) - Embed Preview Modal: Fix title alignment causing by global override (margin-bottom)
+
 ## 23.12.1
 
 ### Patch Changes

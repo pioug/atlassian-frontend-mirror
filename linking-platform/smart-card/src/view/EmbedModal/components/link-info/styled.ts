@@ -36,6 +36,7 @@ export const titleCss = css`
     line-height: ${height};
 
     display: -webkit-box;
+    margin-bottom: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;

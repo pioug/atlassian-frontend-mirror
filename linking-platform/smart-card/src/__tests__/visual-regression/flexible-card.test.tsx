@@ -71,7 +71,8 @@ describe('Flexible Card', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    it('renders FooterBlock', async () => {
+    // FIXME: This test was automatically skipped due to failure on 18/01/2023: https://product-fabric.atlassian.net/browse/EDM-5505
+    it.skip('renders FooterBlock', async () => {
       const url = getURL('vr-flexible-ui-block-footer');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');

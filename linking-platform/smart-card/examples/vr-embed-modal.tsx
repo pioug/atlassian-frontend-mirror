@@ -5,6 +5,7 @@ import { mockAnalytics } from '../src/utils/mocks';
 import { overrideEmbedContent } from './utils/common';
 import { VRTestWrapper } from './utils/vr-test';
 import EmbedModal from '../src/view/EmbedModal';
+import './utils/embed-modal-override.css';
 
 export default () => (
   <VRTestWrapper title="Embed Modal">

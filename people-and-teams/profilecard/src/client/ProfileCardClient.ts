@@ -55,16 +55,10 @@ class ProfileCardClient {
   }
 
   shouldShowGiveKudos(): Promise<boolean> {
-    // Check if the kudos feature enabled and if the user has TC
-    // if the user does not have TC the tc client will be undefined.
-    return (
-      (this.getTeamCentralBaseUrl() &&
-        this.tcClient?.getFlagEnabled(
-          'team-central-kudos-enabled-m2',
-          this.tcClient?.options.productIdentifier,
-        )) ||
-      Promise.resolve(false)
-    );
+    if (!this.tcClient || !this.getTeamCentralBaseUrl()) {
+      return Promise.resolve(false);
+    }
+    return this.tcClient.checkWorkspaceExists();
   }
 }
 

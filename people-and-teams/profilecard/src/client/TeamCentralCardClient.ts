@@ -241,6 +241,18 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
     );
   }
 
+  checkWorkspaceExists(): Promise<boolean> {
+    return this.isTCReadyPromise.then(
+      (workSpaceExists) => {
+        if (workSpaceExists) {
+          return Promise.resolve(true);
+        }
+        return Promise.resolve(false);
+      },
+      () => Promise.resolve(false),
+    );
+  }
+
   private filterReportingLinesUser(
     users: ReportingLinesUser[] = [],
   ): ReportingLinesUser[] {

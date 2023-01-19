@@ -557,6 +557,8 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
   constructor(options: TeamCentralCardClientOptions);
   bypassOnFailure: boolean;
   // (undocumented)
+  checkWorkspaceExists(): Promise<boolean>;
+  // (undocumented)
   createTcReadyPromise(config: ProfileClientOptions): Promise<boolean>;
   // (undocumented)
   featureFlagKeys: Map<string, boolean>;

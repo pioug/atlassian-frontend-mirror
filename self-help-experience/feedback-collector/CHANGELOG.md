@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.7.0
+
+### Minor Changes
+
+- [`27bfb6f0bb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27bfb6f0bb1) - allow separate entries for gateway and feedback urls
+
 ## 10.6.10
 
 ### Patch Changes

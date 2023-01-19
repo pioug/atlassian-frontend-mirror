@@ -492,42 +492,57 @@ describe('Feedback Collector unit tests', () => {
         expect(unmountSpy).toHaveBeenCalled();
         expect(onSubmit).toHaveBeenCalled();
       });
-      test('Should try to get entitlement', async () => {
-        class TestableFeedbackCollector extends FeedbackCollector {}
 
-        const onSubmit = jest.fn();
-        const timeoutOnSubmit = 700;
+      test.each`
+        url               | customGatewayUrl        | expected
+        ${'/gateway/api'} | ${undefined}            | ${'/gateway/api'}
+        ${undefined}      | ${'custom-gateway-url'} | ${'custom-gateway-url'}
+        ${'/gateway/api'} | ${'custom-gateway-url'} | ${'custom-gateway-url'}
+      `(
+        'Should try to get entitlement based on url or customGatewayUrl',
+        async ({ url, customGatewayUrl, expected }) => {
+          class TestableFeedbackCollector extends FeedbackCollector {}
 
-        const wrapper = shallow<TestableFeedbackCollector>(
-          <TestableFeedbackCollector
-            onClose={() => wrapper.unmount()}
-            onSubmit={onSubmit}
-            timeoutOnSubmit={timeoutOnSubmit}
-            email="email"
-            name="name"
-            embeddableKey="some-key"
-            requestTypeId="some-type"
-          />,
-        );
-        const feedbackCollector = wrapper.instance();
+          const onSubmit = jest.fn();
+          const timeoutOnSubmit = 700;
 
-        const entitlementSpy = jest.spyOn(
-          feedbackCollector,
-          'getEntitlementInformation',
-        );
-        entitlementSpy.mockResolvedValue([]);
+          const wrapper = shallow<TestableFeedbackCollector>(
+            <TestableFeedbackCollector
+              onClose={() => wrapper.unmount()}
+              onSubmit={onSubmit}
+              timeoutOnSubmit={timeoutOnSubmit}
+              email="email"
+              name="name"
+              embeddableKey="some-key"
+              requestTypeId="some-type"
+              url={url}
+              customGatewayUrl={customGatewayUrl}
+            />,
+          );
+          const feedbackCollector = wrapper.instance();
 
-        // Emulates the user clicking the submit button within the rendered form.
-        const feedback: FormFields = {
-          type: 'empty',
-          description: `This won't actually dispatch due to missing embeddableKey & requestTypeId props`,
-          canBeContacted: false,
-          enrollInResearchGroup: false,
-        };
+          const gatewayUrl = feedbackCollector.getGatewayUrl();
+          expect(gatewayUrl).toStrictEqual(expected);
 
-        await feedbackCollector.postFeedback(feedback);
-        expect(entitlementSpy).toHaveBeenCalled();
-      });
+          const entitlementSpy = jest.spyOn(
+            feedbackCollector,
+            'getEntitlementInformation',
+          );
+          entitlementSpy.mockResolvedValue([]);
+
+          // Emulates the user clicking the submit button within the rendered form.
+          const feedback: FormFields = {
+            type: 'empty',
+            description: `This won't actually dispatch due to missing embeddableKey & requestTypeId props`,
+            canBeContacted: false,
+            enrollInResearchGroup: false,
+          };
+
+          await feedbackCollector.postFeedback(feedback);
+
+          expect(entitlementSpy).toHaveBeenCalled();
+        },
+      );
 
       test.each`
         url                                             | expected
@@ -549,6 +564,47 @@ describe('Feedback Collector unit tests', () => {
               requestTypeId="request_type_id"
               embeddableKey="embeddable_key"
               url={url}
+              showTypeField={false}
+            />,
+          );
+          const textarea = screen.getByPlaceholderText(
+            "Let us know what's on your mind",
+          );
+          textarea.innerText = 'Some comment';
+          fireEvent.change(textarea);
+          const submitBtn = screen.getByTestId('feedbackCollectorSubmitBtn');
+          await waitFor(() => {
+            expect(submitBtn).not.toBeDisabled();
+          });
+          fireEvent.click(submitBtn);
+          await waitFor(() => {
+            expect(mocked.mock.calls?.[0]?.[0]).toBe(expected);
+          });
+        },
+      );
+
+      test.each`
+        url                                             | customFeedbackUrl        | expected
+        ${'/not-a-gateway-url'}                         | ${undefined}             | ${'https://feedback-collector-api.services.atlassian.com/feedback'}
+        ${'/not-a-gateway-url'}                         | ${'custom-feedback-url'} | ${'custom-feedback-url/feedback'}
+        ${'/gateway/api'}                               | ${undefined}             | ${'/gateway/api/feedback-collector-api/feedback'}
+        ${'https://api-gateway.trello.com/gateway/api'} | ${undefined}             | ${'https://api-gateway.trello.com/gateway/api/feedback-collector-api/feedback'}
+      `(
+        'Should correctly determine feedback url based on passed parameters',
+        async ({ url, customFeedbackUrl, expected }) => {
+          fetchMock.mockClear();
+          const mocked = fetchMock.mockResponseOnce(
+            JSON.stringify({
+              status: 'OK',
+              message: 'Successfully collected and dispatched Feedback',
+            }),
+          );
+          render(
+            <FeedbackCollector
+              requestTypeId="request_type_id"
+              embeddableKey="embeddable_key"
+              url={url}
+              customFeedbackUrl={customFeedbackUrl}
               showTypeField={false}
             />,
           );

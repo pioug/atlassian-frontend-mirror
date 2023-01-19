@@ -20,8 +20,12 @@ type FeedbackType = {
 };
 
 export interface Props {
-  /** Override the URL for HTTPS calls, only needed if service is not behind stargate (like the Atlaskit frontend itself) */
-  url: string;
+  /** Override the URL for all HTTPS calls, only needed if service is not behind stargate (like the Atlaskit frontend itself) */
+  url?: string;
+  /** A custom URL for the Stargate gateway, this field takes priority over `url` */
+  customGatewayUrl?: string;
+  /** A custom URL for the Feedback Collector API, this field takes priority over `url` */
+  customFeedbackUrl?: string;
   /** The customer email */
   email?: string;
   /** The customer name */
@@ -137,8 +141,32 @@ export default class FeedbackCollector extends Component<Props> {
     onSubmit: () => {},
   };
 
+  getGatewayUrl(): string {
+    const { customGatewayUrl, url } = this.props;
+
+    if (customGatewayUrl) {
+      return customGatewayUrl;
+    }
+    if (url) {
+      return url;
+    }
+    return FeedbackCollector.defaultProps.url;
+  }
+
+  getFeedbackUrl(): string {
+    const { customFeedbackUrl, url } = this.props;
+
+    if (customFeedbackUrl) {
+      return customFeedbackUrl;
+    }
+    if (url) {
+      return url;
+    }
+    return FeedbackCollector.defaultProps.url;
+  }
+
   async getEntitlementInformation(): Promise<FieldType[] | []> {
-    const url = this.props.url;
+    const url = this.getGatewayUrl();
     // jira / confluence / bitbucket / trello
     let productName;
     let productEntitlement;
@@ -178,9 +206,7 @@ export default class FeedbackCollector extends Component<Props> {
             headers: {
               'Content-Type': 'application/json',
             },
-            ...(isApiGatewayUrl(this.props.url)
-              ? { credentials: 'include' }
-              : {}),
+            ...(isApiGatewayUrl(url) ? { credentials: 'include' } : {}),
           },
         );
       } catch (e) {
@@ -252,13 +278,13 @@ export default class FeedbackCollector extends Component<Props> {
             ),
           };
         }
-        const url = this.props.url;
+        const url = this.getGatewayUrl();
         const result = await fetch(`${url}/me`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
-          credentials: 'include',
+          ...(isApiGatewayUrl(url) ? { credentials: 'include' } : {}),
         });
 
         const json = await result.json();
@@ -351,7 +377,7 @@ export default class FeedbackCollector extends Component<Props> {
   postFeedback = async (formValues: FormFields) => {
     const requestType: string = this.props.requestTypeId;
     const embedKey: string = this.props.embeddableKey;
-    let fetchUrl: string = this.props.url;
+    let fetchUrl: string = this.getFeedbackUrl();
 
     // Don't dispatch unless we have suitable props (allows tests to pass through empty strings and avoid redundant network calls)
     if (embedKey && requestType) {
@@ -363,9 +389,9 @@ export default class FeedbackCollector extends Component<Props> {
           ...formData,
         },
       };
-      if (isApiGatewayUrl(this.props.url)) {
+      if (isApiGatewayUrl(fetchUrl)) {
         fetchUrl += '/feedback-collector-api';
-      } else {
+      } else if (!this.props.customFeedbackUrl) {
         fetchUrl = 'https://feedback-collector-api.services.atlassian.com';
       }
       const postData = Buffer.from(JSON.stringify(body)).toString('base64');

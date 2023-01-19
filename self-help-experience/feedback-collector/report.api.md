@@ -90,6 +90,10 @@ class FeedbackCollector extends Component<Props> {
   // (undocumented)
   getEntitlementInformation(): Promise<FieldType[] | []>;
   // (undocumented)
+  getFeedbackUrl(): string;
+  // (undocumented)
+  getGatewayUrl(): string;
+  // (undocumented)
   getSummary(formValues: FormFields): FieldValueType;
   // (undocumented)
   getTypeFieldValue(dtype: SelectValue): FieldValueType;
@@ -151,6 +155,8 @@ interface Props {
   cancelButtonLabel?: string;
   customerNameDefaultValue: FieldValueType;
   customerNameFieldId: string;
+  customFeedbackUrl?: string;
+  customGatewayUrl?: string;
   descriptionDefaultValue: FieldValueType;
   descriptionFieldId: string;
   email?: string;
@@ -181,7 +187,7 @@ interface Props {
   typeFieldId: string;
   typeQuestionDefaultValue: FieldValueType;
   typeSuggestionDefaultValue: FieldValueType;
-  url: string;
+  url?: string;
 }
 
 // @public (undocumented)

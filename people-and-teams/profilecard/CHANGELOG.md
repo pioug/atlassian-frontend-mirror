@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 18.2.0
+
+### Minor Changes
+
+- [`da891855ee9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da891855ee9) - Remove Atlas give kudos M2 feature flag check
+
 ## 18.1.3
 
 ### Patch Changes

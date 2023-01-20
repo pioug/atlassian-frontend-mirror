@@ -1,5 +1,4 @@
 import { store } from './registry';
-import { BooleanFeatureFlagType } from './types';
 
 /**
  * Sets a feature flag to a given value.
@@ -7,10 +6,7 @@ import { BooleanFeatureFlagType } from './types';
  * @param name
  * @param value
  */
-export function setBooleanFF(
-  name: BooleanFeatureFlagType,
-  value: boolean,
-): void {
+export function setBooleanFF(name: string, value: boolean): void {
   store[name] = value;
 }
 
@@ -18,7 +14,7 @@ export function setBooleanFF(
  * Returns the value of a feature flag. If the flag is not set, returns the "false" as a default value.
  * @param name
  */
-export function getBooleanFF(name: BooleanFeatureFlagType): boolean {
+export function getBooleanFF(name: string): boolean {
   const defaultValue = false;
 
   return store?.[name] ?? defaultValue;

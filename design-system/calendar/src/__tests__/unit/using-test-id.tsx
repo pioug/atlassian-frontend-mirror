@@ -49,7 +49,7 @@ describe('Calendar should be found by data-testid', () => {
 
     expect(() => getByTestId(testIdSelectedDay)).toThrow();
 
-    fireEvent.click(monthContainer.children[0].children[0]);
+    fireEvent.click(monthContainer.children[0]);
 
     expect(getByTestId(testIdSelectedDay)).toBeTruthy();
   });

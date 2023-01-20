@@ -26,6 +26,8 @@ export interface Props {
   customGatewayUrl?: string;
   /** A custom URL for the Feedback Collector API, this field takes priority over `url` */
   customFeedbackUrl?: string;
+  /** Whether to request email details and product entitlements */
+  shouldGetEntitlementDetails?: boolean;
   /** The customer email */
   email?: string;
   /** The customer name */
@@ -115,6 +117,7 @@ const singleLineTruncatedText = (
 export default class FeedbackCollector extends Component<Props> {
   static defaultProps = {
     url: '/gateway/api',
+    shouldGetEntitlementDetails: true,
     canBeContactedFieldId: 'customfield_10043',
     canBeContactedDefaultValue: [{ id: '10109' }],
     additionalFields: [],
@@ -270,7 +273,7 @@ export default class FeedbackCollector extends Component<Props> {
   async getEmailAndAtlassianID(formValues: FormFields) {
     try {
       if (formValues.canBeContacted) {
-        if (this.props.email) {
+        if (this.props.email || !this.props.shouldGetEntitlementDetails) {
           return {
             email: this.props.email,
             aaidOrHash: Buffer.from(this.props.email as string).toString(
@@ -325,7 +328,12 @@ export default class FeedbackCollector extends Component<Props> {
   }
 
   async mapFormToJSD(formValues: FormFields) {
-    const entitlementInformation = await this.getEntitlementInformation();
+    let entitlementInformation = null;
+
+    if (this.props.shouldGetEntitlementDetails) {
+      entitlementInformation = await this.getEntitlementInformation();
+    }
+
     const userDetails = await this.getEmailAndAtlassianID(formValues);
 
     return {

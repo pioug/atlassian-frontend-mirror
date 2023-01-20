@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/ds-explorations": "^1.1.0",
+    "@atlaskit/ds-explorations": "^1.7.0",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/menu": "^1.4.0",

@@ -201,10 +201,11 @@ describe('Snapshot Test', () => {
     const url = getExampleUrl(
       'design-system',
       'calendar',
-      'theme',
+      'testing',
       global.__BASEURL__,
+      'dark',
     );
-    const calendarSelector = '[data-testid="calendar--container"]';
+    const calendarSelector = '[data-testid="the-calendar--container"]';
     await loadPage(page, url);
     const image = await takeElementScreenShot(page, calendarSelector);
     expect(image).toMatchProdImageSnapshot();

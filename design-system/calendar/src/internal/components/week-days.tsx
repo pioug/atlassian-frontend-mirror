@@ -1,19 +1,14 @@
 /** @jsx jsx */
 import { memo } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import type { ThemeModes } from '@atlaskit/theme/types';
 
 import { DateObj, Week } from '../types';
 
 import DateComponent from './date';
-
-const daysGridStyles = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(7, 1fr)',
-  border: 0,
-});
+import WeekdayGrid from './week-day-grid';
 
 interface WeekDaysProps {
   weeks: Week[];
@@ -29,30 +24,28 @@ const WeekDays = memo<WeekDaysProps>(function WeekDays({
   testId,
 }) {
   return (
-    <div role="grid" data-testid={testId && `${testId}--month`}>
-      {weeks.map((week) => (
-        <div role="row" key={week.id} css={daysGridStyles}>
-          {week.values.map((weekDay) => (
-            <DateComponent
-              key={weekDay.id}
-              isDisabled={weekDay.isDisabled}
-              isFocused={weekDay.isFocused}
-              isToday={weekDay.isToday}
-              month={weekDay.month}
-              onClick={handleClickDay}
-              isPreviouslySelected={weekDay.isPreviouslySelected}
-              isSelected={weekDay.isSelected}
-              isSibling={weekDay.isSiblingMonth}
-              year={weekDay.year}
-              mode={mode}
-              testId={testId}
-            >
-              {weekDay.day}
-            </DateComponent>
-          ))}
-        </div>
-      ))}
-    </div>
+    <WeekdayGrid role="grid" testId={testId && `${testId}--month`}>
+      {weeks.map((week) =>
+        week.values.map((weekDay) => (
+          <DateComponent
+            key={`${week.id}-${weekDay.id}`}
+            isDisabled={weekDay.isDisabled}
+            isFocused={weekDay.isFocused}
+            isToday={weekDay.isToday}
+            month={weekDay.month}
+            onClick={handleClickDay}
+            isPreviouslySelected={weekDay.isPreviouslySelected}
+            isSelected={weekDay.isSelected}
+            isSibling={weekDay.isSiblingMonth}
+            year={weekDay.year}
+            mode={mode}
+            testId={testId}
+          >
+            {weekDay.day}
+          </DateComponent>
+        )),
+      )}
+    </WeekdayGrid>
   );
 });
 

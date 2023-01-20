@@ -16,16 +16,10 @@
 
 ```ts
 // @public
-type BooleanFeatureFlagType = 'uip.popper.flex-team';
+export function getBooleanFF(name: string): boolean;
 
 // @public
-export function getBooleanFF(name: BooleanFeatureFlagType): boolean;
-
-// @public
-export function setBooleanFF(
-  name: BooleanFeatureFlagType,
-  value: boolean,
-): void;
+export function setBooleanFF(name: string, value: boolean): void;
 
 // (No @packageDocumentation comment for this package)
 ```

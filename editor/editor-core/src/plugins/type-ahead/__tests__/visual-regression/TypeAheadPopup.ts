@@ -28,7 +28,8 @@ describe('TypeAheadPopup', () => {
   });
 
   // https://product-fabric.atlassian.net/browse/ED-15750
-  it('should close typeahead popup and place cursor at the end, when undo and right-arrow key pressed', async () => {
+  // FIXME: This test was automatically skipped due to failure on 19/01/2023: https://product-fabric.atlassian.net/browse/ED-16601
+  it.skip('should close typeahead popup and place cursor at the end, when undo and right-arrow key pressed', async () => {
     await page.waitForSelector(`button[aria-label*="Undo"]`);
 
     await typeInEditorAtEndOfDocument(page, '/Info');

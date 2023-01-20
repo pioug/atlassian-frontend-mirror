@@ -39,6 +39,7 @@ class FeedbackCollector extends Component<Props> {
   // (undocumented)
   static defaultProps: {
     url: string;
+    shouldGetEntitlementDetails: boolean;
     canBeContactedFieldId: string;
     canBeContactedDefaultValue: {
       id: string;
@@ -174,6 +175,7 @@ interface Props {
   onClose: () => void;
   onSubmit: (formFields: FormFields) => void;
   requestTypeId: string;
+  shouldGetEntitlementDetails?: boolean;
   showTypeField: boolean;
   submitButtonLabel?: string;
   summaryDefaultValue: FieldValueType;

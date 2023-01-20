@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.0.10
+
+### Patch Changes
+
+- [`be91072734f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be91072734f) - Remove dynamic typegen - going with static analysis instead
+
 ## 0.0.9
 
 ### Patch Changes

@@ -47,6 +47,8 @@ ${(
 
 Use \`hideContent\` to hide the action button label.
 
+Note: When hiding content, the text will still appear in a tooltip when hovering over the icon.
+
 ${(
   <CustomExample
     Component={require('../../../examples/content/action-hide-content').default}
@@ -92,6 +94,8 @@ There are also a few constraints.
 
 * If \`hideContent\` is \`true\`, \`icon\` must be specified.
 * If \`hideIcon\` is \`true\`, \`content\` must be specified.
+
+Note: When hiding content, the text will still appear in a tooltip when hovering over the icon.
 
 ${(
   <CustomExample

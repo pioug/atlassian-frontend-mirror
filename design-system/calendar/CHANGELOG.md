@@ -1,5 +1,25 @@
 # @atlaskit/calendar
 
+## 13.0.0
+
+### Major Changes
+
+- [`642298a54dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/642298a54dc) - Major changes:
+
+  - Removing support for legacy dark mode.
+
+  Minor changes:
+
+  - Removal of row containers in day of month grid.
+  - Vertically center heading inside the calendar.
+  - Minor changes to visual layout to conform to design system tokens.
+  - Composition change of DOM elements in day of week header.
+  - Remove hardcoded `width: 289px`. Calendar now fills natural width of content.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.5
 
 ### Patch Changes

@@ -623,6 +623,47 @@ describe('Feedback Collector unit tests', () => {
           });
         },
       );
+
+      test('should not send requests for email and entitlement if shouldGetEntitlementDetails is false', async () => {
+        class TestableFeedbackCollector extends FeedbackCollector {}
+
+        const onSubmit = jest.fn();
+        const timeoutOnSubmit = 700;
+
+        const wrapper = shallow<TestableFeedbackCollector>(
+          <TestableFeedbackCollector
+            onClose={() => wrapper.unmount()}
+            onSubmit={onSubmit}
+            timeoutOnSubmit={timeoutOnSubmit}
+            email="email"
+            name="name"
+            embeddableKey="some-key"
+            requestTypeId="some-type"
+            customFeedbackUrl={'/custom-feedback-url'}
+            customGatewayUrl={'/custom-gateway-url'}
+            shouldGetEntitlementDetails={false}
+          />,
+        );
+        const feedbackCollector = wrapper.instance();
+        const feedback: FormFields = {
+          type: 'empty',
+          description: `This won't actually dispatch due to missing embeddableKey & requestTypeId props`,
+          canBeContacted: true,
+          enrollInResearchGroup: false,
+        };
+        const entitlementSpy = jest.spyOn(
+          feedbackCollector,
+          'getEntitlementInformation',
+        );
+        const gatewayUrlSpy = jest.spyOn(feedbackCollector, 'getGatewayUrl');
+
+        entitlementSpy.mockClear();
+        gatewayUrlSpy.mockClear();
+        await feedbackCollector.mapFormToJSD(feedback);
+
+        expect(entitlementSpy).not.toHaveBeenCalled();
+        expect(gatewayUrlSpy).not.toHaveBeenCalled();
+      });
     });
 
     describe('Localisation', () => {

@@ -18,6 +18,7 @@ describe('Calendar should not submit form', () => {
 
   it('Day selection does not trigger form (click)', () => {
     const { getByTestId } = render(
+      // eslint-disable-next-line @repo/internal/react/use-primitives
       <form onSubmit={onSubmit}>
         <Calendar testId={testId} />
       </form>,
@@ -28,7 +29,7 @@ describe('Calendar should not submit form', () => {
     expect(() => getByTestId(testIdSelectedDay)).toThrow();
 
     // this is 'a day'
-    fireEvent.click(monthContainer.children[0].children[0]);
+    fireEvent.click(monthContainer.children[0]);
 
     expect(onSubmit).toHaveBeenCalledTimes(0);
 
@@ -38,6 +39,7 @@ describe('Calendar should not submit form', () => {
 
   it('Day selection does not trigger form (enter)', () => {
     const { getByTestId } = render(
+      // eslint-disable-next-line @repo/internal/react/use-primitives
       <form onSubmit={onSubmit}>
         <Calendar testId={testId} />
       </form>,
@@ -48,7 +50,7 @@ describe('Calendar should not submit form', () => {
     expect(() => getByTestId(testIdSelectedDay)).toThrow();
 
     // this is 'a day'
-    fireEvent.keyDown(monthContainer.children[0].children[0], {
+    fireEvent.keyDown(monthContainer.children[0], {
       key: 'Enter',
       code: 13,
     });

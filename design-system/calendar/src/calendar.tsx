@@ -1,16 +1,16 @@
 /** @jsx jsx */
 import { forwardRef, memo, useMemo } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import Box from '@atlaskit/ds-explorations/box';
+import Stack from '@atlaskit/ds-explorations/stack';
 import noop from '@atlaskit/ds-lib/noop';
-import { DN600, N0, N700, N900 } from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
-import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import HeadingComponent from './internal/components/heading';
+import Header from './internal/components/header';
 import WeekDaysComponent from './internal/components/week-days';
 import WeekHeaderComponent from './internal/components/week-header';
 import { blankStringArray } from './internal/constants';
@@ -23,37 +23,6 @@ import useHandleDateSelect from './internal/hooks/use-handle-date-select';
 import useLocale from './internal/hooks/use-locale';
 import useUniqueId from './internal/hooks/use-unique-id';
 import type { CalendarProps } from './types';
-
-const lightWrapperStyles = css({
-  display: 'inline-block',
-  boxSizing: 'border-box',
-  // TODO Delete this comment after verifying spacing token -> previous value `16`
-  padding: token('spacing.scale.200', '16px'),
-  backgroundColor: token('utility.UNSAFE_util.transparent', N0),
-  color: token('color.text', N900),
-  outline: 'none',
-  userSelect: 'none',
-});
-
-const darkWrapperStyles = css({
-  display: 'inline-block',
-  boxSizing: 'border-box',
-  // TODO Delete this comment after verifying spacing token -> previous value `16`
-  padding: token('spacing.scale.200', '16px'),
-  backgroundColor: token('utility.UNSAFE_util.transparent', N700),
-  color: token('color.text', DN600),
-  outline: 'none',
-  userSelect: 'none',
-});
-
-const gridsContainerStyles = css({
-  display: 'inline-block',
-  width: 289,
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
-  margin: token('spacing.scale.0', '0px'),
-  marginBottom: 5,
-  textAlign: 'center',
-});
 
 const analyticsAttributes = {
   componentName: 'calendar',
@@ -90,7 +59,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       weekStartDay = 0,
       testId,
       calendarRef,
-      mode,
+      mode = 'light',
       className,
       style,
       tabIndex = 0,
@@ -180,53 +149,59 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
     const { monthsLong, daysShort } = useLocale({ locale, weekStartDay });
 
     return (
-      <div
+      <Box
         className={className}
-        style={style}
+        UNSAFE_style={style}
+        backgroundColor="elevation.surface"
         onBlur={handleContainerBlur}
         onFocus={handleContainerFocus}
         onKeyDown={handleContainerKeyDown}
         role="presentation"
-        data-testid={testId && `${testId}--container`}
+        testId={testId && `${testId}--container`}
         ref={ref}
       >
         <VisuallyHidden>
+          {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
           <span id={announceId} aria-live="assertive" aria-relevant="text">
             {announcerDate}
           </span>
         </VisuallyHidden>
-        <div
-          css={
-            !mode || mode === 'light' ? lightWrapperStyles : darkWrapperStyles
-          }
+        <Box
+          display="inlineBlock"
+          padding="scale.200"
+          UNSAFE_style={{
+            userSelect: 'none',
+          }}
           aria-describedby={announceId}
           aria-label="calendar"
           role="grid"
           tabIndex={tabIndex}
         >
-          <HeadingComponent
-            // The month number needs to be translated to index in the month
-            // name array e.g. 1 (January) -> 0
-            monthLongTitle={monthsLong[monthValue - 1]}
-            year={yearValue}
-            nextMonthLabel={nextMonthLabel}
-            previousMonthLabel={previousMonthLabel}
-            handleClickNext={handleClickNext}
-            handleClickPrev={handleClickPrev}
-            mode={mode}
-            testId={testId}
-          />
-          <div css={gridsContainerStyles} role="presentation">
-            <WeekHeaderComponent daysShort={daysShort} mode={mode} />
-            <WeekDaysComponent
-              weeks={weeks}
-              handleClickDay={handleClickDay}
+          <Stack gap="scale.150">
+            <Header
+              // The month number needs to be translated to index in the month
+              // name array e.g. 1 (January) -> 0
+              monthLongTitle={monthsLong[monthValue - 1]}
+              year={yearValue}
+              nextMonthLabel={nextMonthLabel}
+              previousMonthLabel={previousMonthLabel}
+              handleClickNext={handleClickNext}
+              handleClickPrev={handleClickPrev}
               mode={mode}
               testId={testId}
             />
-          </div>
-        </div>
-      </div>
+            <Box display="block" role="presentation">
+              <WeekHeaderComponent daysShort={daysShort} mode={mode} />
+              <WeekDaysComponent
+                weeks={weeks}
+                handleClickDay={handleClickDay}
+                mode={mode}
+                testId={testId}
+              />
+            </Box>
+          </Stack>
+        </Box>
+      </Box>
     );
   },
 );

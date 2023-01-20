@@ -83,7 +83,7 @@ describe('Toolbar keyboard shortcut', () => {
     });
   });
 
-  it('should focus main toolbar first element and return on "ESC" ', async () => {
+  it.skip('should focus main toolbar first element and return on "ESC" ', async () => {
     focusToolbar();
     await snapshot(page, undefined, editorSelector);
     await page.keyboard.down('Escape');

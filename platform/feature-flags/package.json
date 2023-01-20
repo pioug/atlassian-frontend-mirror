@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/platform-feature-flags",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "DO NOT USE",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,16 +33,6 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
-  "scripts": {
-    "generate": "./scripts/generate-types.sh",
-    "postinstall": "npm run generate",
-    "update-built-types": "./scripts/update-built-types.sh",
-    "build-typegenerator": "tsc --esModuleInterop --skipLibCheck scripts/generate-types.ts --outDir dist",
-    "internal-use-scripts-after-this": "echo noop",
-    "ak-postbuild": "npm run build-typegenerator",
-    "pr-pipeline:pre": "./scripts/pr-pipeline-clean.sh && yarn update-built-types",
-    "pr-pipeline:post": "ts-node ./scripts/generate-types.ts && yarn update-built-types"
-  },
   "bugs": {
     "url": "https://bitbucket.org/atlassian/atlassian-frontend-mirror/issues"
   },

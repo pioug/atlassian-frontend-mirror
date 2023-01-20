@@ -214,6 +214,7 @@ const displayMap: {
   inline: SerializedStyles;
   flex: SerializedStyles;
   inlineFlex: SerializedStyles;
+  inlineBlock: SerializedStyles;
 };
 
 // @public

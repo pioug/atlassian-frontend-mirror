@@ -151,6 +151,28 @@ describe('Hover Card', () => {
     expect(image).toMatchProdImageSnapshot(snapshotOptions);
   });
 
+  it('shows tooltip on an action in hover previews', async () => {
+    const height = 300;
+
+    const url = getURL('vr-hover-cards');
+    const page = await setup(url);
+
+    await page.setViewport({
+      width: 800,
+      height: height,
+    });
+
+    await page.waitForSelector('[data-testid="inline-card-resolved-view"]');
+    await page.hover('[data-testid="inline-card-resolved-view"]');
+    await page.waitForSelector('[data-testid="hover-card"]');
+    await page.waitForSelector('[data-testid="preview-content"]');
+    await page.hover('[data-testid="preview-content"]');
+    await page.waitForSelector('[data-testid="preview-content-tooltip"]');
+
+    const image = await takeSnapshot(page, height);
+    expect(image).toMatchProdImageSnapshot(snapshotOptions);
+  });
+
   // FIXME: This test was automatically skipped due to failure on 18/01/2023: https://product-fabric.atlassian.net/browse/EDM-5506
   it.skip('shows when wrapping simple span element', async () => {
     const height = 400;

@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/blanket": "^12.3.0",
-    "@atlaskit/ds-explorations": "^1.6.3",
+    "@atlaskit/ds-explorations": "^1.7.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/motion": "^1.3.0",
     "@atlaskit/portal": "^4.0.0",

@@ -1,0 +1,19 @@
+---
+order: 0
+---
+
+import Grid from '../../examples/constellation/grid-default';
+import NestedGrid from '../../examples/constellation/grid-nested';
+
+## Basic
+
+Grids are composed of a container `Grid` and child `GridItems`. These two elements work together to form the grid.
+
+<Example Component={Grid} packageName="@atlaskit/grid" />
+
+## Nested grids
+
+Grids can be composed together. When a grid is composed only the root grid applies margin. This means
+that the whitespace of the inner grid will match the whitespace of the outer grid.
+
+<Example Component={NestedGrid} packageName="@atlaskit/grid" />

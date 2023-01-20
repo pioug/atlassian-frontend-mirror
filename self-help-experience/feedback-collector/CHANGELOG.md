@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.7.1
+
+### Patch Changes
+
+- [`3b897f937e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b897f937e4) - add option to exclude entitlement detail and email
+
 ## 10.7.0
 
 ### Minor Changes

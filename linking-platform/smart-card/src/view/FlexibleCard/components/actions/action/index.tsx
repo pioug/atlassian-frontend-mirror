@@ -58,7 +58,7 @@ const Action: React.FC<ActionProps> = ({
         overrideCss={overrideCss}
         size={size}
         testId={testId}
-        tooltipMessage={tooltipMessage}
+        tooltipMessage={tooltipMessage || content}
       />
     );
   }

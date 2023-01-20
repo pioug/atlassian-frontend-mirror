@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 1.7.0
+
+### Minor Changes
+
+- [`642298a54dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/642298a54dc) - Box - Allow `display` prop to take `inline-block`.
+
 ## 1.6.4
 
 ### Patch Changes

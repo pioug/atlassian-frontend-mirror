@@ -94,9 +94,14 @@ const FlexibleResolvedView = ({
             name: ActionName.PreviewAction,
             hideIcon: true,
             onClick: () => {
+              analytics.ui.actionClickedEvent({
+                id: analyticsId,
+                actionType: 'PreviewAction',
+                display: CardDisplay.Block,
+              });
               analytics.operational.invokeSucceededEvent({
                 id: analyticsId,
-                actionType: 'preview',
+                actionType: 'PreviewAction',
                 display: CardDisplay.Block,
               });
             },
@@ -105,9 +110,14 @@ const FlexibleResolvedView = ({
             name: ActionName.ViewAction,
             hideIcon: true,
             onClick: () => {
+              analytics.ui.actionClickedEvent({
+                id: analyticsId,
+                actionType: 'ViewAction',
+                display: CardDisplay.Block,
+              });
               analytics.operational.invokeSucceededEvent({
                 id: analyticsId,
-                actionType: 'view',
+                actionType: 'ViewAction',
                 display: CardDisplay.Block,
               });
             },
@@ -116,9 +126,14 @@ const FlexibleResolvedView = ({
             name: ActionName.DownloadAction,
             hideIcon: true,
             onClick: () => {
+              analytics.ui.actionClickedEvent({
+                id: analyticsId,
+                actionType: 'DownloadAction',
+                display: CardDisplay.Block,
+              });
               analytics.operational.invokeSucceededEvent({
                 id: analyticsId,
-                actionType: 'download',
+                actionType: 'DownloadAction',
                 display: CardDisplay.Block,
               });
             },

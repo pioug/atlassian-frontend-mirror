@@ -1,33 +1,15 @@
 /** @jsx jsx */
 import { memo } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
+import Box from '@atlaskit/ds-explorations/box';
+import Text from '@atlaskit/ds-explorations/text';
 import { N200 } from '@atlaskit/theme/colors';
 import type { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-const dayNameGridStyles = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(7, 1fr)',
-  border: 0,
-});
-
-const dayNameCellStyles = css({
-  boxSizing: 'border-box',
-  minWidth: 40,
-  padding: `${token('spacing.scale.100', '8px')} ${token(
-    'spacing.scale.100',
-    '8px',
-  )}`,
-  border: 0,
-  color: token('color.text.subtle', N200),
-  fontSize: 11,
-  fontWeight: 700,
-  textAlign: 'center',
-  textTransform: 'uppercase',
-  whiteSpace: 'nowrap',
-});
+import WeekDayGrid from './week-day-grid';
 
 interface WeekHeaderProps {
   daysShort: string[];
@@ -36,13 +18,31 @@ interface WeekHeaderProps {
 
 const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({ daysShort }) {
   return (
-    <div css={dayNameGridStyles}>
+    <WeekDayGrid>
       {daysShort.map((shortDay) => (
-        <span css={dayNameCellStyles} key={shortDay}>
-          {shortDay}
-        </span>
+        <Box
+          padding="scale.100"
+          display="block"
+          UNSAFE_style={{
+            minWidth: 40, // Account for languages with short week day names
+            whiteSpace: 'nowrap', // Account for languages with long week day names
+            textAlign: 'center',
+            lineHeight: '16px',
+            color: token('color.text.subtle', N200), // Apply correct fallback to shortDay text
+          }}
+          key={shortDay}
+        >
+          <Text
+            fontWeight="700"
+            fontSize="11px"
+            verticalAlign="middle"
+            textTransform="uppercase"
+          >
+            {shortDay}
+          </Text>
+        </Box>
       ))}
-    </div>
+    </WeekDayGrid>
   );
 });
 

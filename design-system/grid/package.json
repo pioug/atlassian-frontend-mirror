@@ -1,0 +1,76 @@
+{
+  "name": "@atlaskit/grid",
+  "version": "0.0.2",
+  "description": "A grid is a responsive layout component designed to manage the content of a page.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
+  "atlassian": {
+    "disableProductCI": true,
+    "team": "Design System Team",
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Grid",
+      "category": "Components",
+      "status": {
+        "type": "alpha"
+      }
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx"
+  },
+  "dependencies": {
+    "@atlaskit/tokens": "^0.13.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/react": "^11.7.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0"
+  },
+  "devDependencies": {
+    "@atlaskit/ds-explorations": "*",
+    "@atlaskit/heading": "*",
+    "@atlaskit/logo": "*",
+    "@atlaskit/page-layout": "*",
+    "@atlaskit/textfield": "*",
+    "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "typescript": "4.5.5"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions",
+      "circular-dependencies": "file-and-folder-level"
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "design-system": "v1",
+      "styling": [
+        "static",
+        "emotion"
+      ],
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "deprecation": "no-deprecated-imports"
+    }
+  },
+  "homepage": "https://atlassian.design/components/grid/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "typesVersions": {
+    ">=4.0 <4.5": {
+      "*": [
+        "dist/types-ts4.0/index.d.ts"
+      ]
+    }
+  }
+}

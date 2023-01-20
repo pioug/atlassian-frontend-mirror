@@ -27,6 +27,14 @@ export default () => (
           content: 'Magic!',
           onClick: () => {},
         },
+        {
+          name: ActionName.CustomAction,
+          icon: <PremiumIcon label="magic" />,
+          content:
+            'This is an example of a custom action with hidden content. Note how the content still appears in the tooltip.',
+          hideContent: true,
+          onClick: () => {},
+        },
       ]}
       overrideCss={styles}
     />

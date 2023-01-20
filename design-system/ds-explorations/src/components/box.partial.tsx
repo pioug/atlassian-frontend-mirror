@@ -288,6 +288,7 @@ const displayMap = {
   inline: css({ display: 'inline' }),
   flex: css({ display: 'flex' }),
   inlineFlex: css({ display: 'inline-flex' }),
+  inlineBlock: css({ display: 'inline-block' }),
 };
 
 type Position = keyof typeof positionMap;

@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 23.12.3
+
+### Patch Changes
+
+- [`27b8d8e0b4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b8d8e0b4b) - [ux] This adds tooltip messages to custom Flexible UI actions.
+  Now, when hovering over custom actions, the "content" prop will be displayed in the tooltip.
+  This also affects hover preview actions, which now show the tooltip message when hovering over actions inside of the hover preview card.
+
+  Additionally, some changes have been made to Flexible UI block card actions so that the analytics fired have the same attribute action type as hover preview's.
+
 ## 23.12.2
 
 ### Patch Changes

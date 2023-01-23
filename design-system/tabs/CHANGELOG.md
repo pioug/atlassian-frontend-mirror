@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 13.3.9
+
+### Patch Changes
+
+- [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
+
 ## 13.3.8
 
 ### Patch Changes

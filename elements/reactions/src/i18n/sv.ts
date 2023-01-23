@@ -6,9 +6,20 @@
  */
 //Swedish
 export default {
-  'fabric.reactions.error.unexpected': 'Något gick fel',
+  'fabric.reactions.add': 'Lägg till reaktion',
+  'fabric.reactions.error.unexpected':
+    'Reaktioner är inte tillgängliga just nu',
   'fabric.reactions.loading': 'Läser in ...',
-  'fabric.reactions.more.emoji': 'Fler emoji',
+  'fabric.reactions.more.emojis': 'Fler emojis',
+  'fabric.reactions.more.info': 'Mer info',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {och en annan} other {och {count} andra}}',
+  'fabric.reactions.reactwithemoji': 'Reagera med emojin {emoji}',
+  'reactions.dialog.close': 'Stäng',
+  'reactions.dialog.left.navigate': 'Vänster navigering',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reaktion} other {{count,number} reaktioner}}',
+  'reactions.dialog.right.navigate': 'Höger navigering',
+  'reactions.dialog.viewall': 'Se vem som har reagerat',
+  'reactions.dialog.viewall.tooltip': 'Visa alla reaktioner från användare',
 };

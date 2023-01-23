@@ -92,7 +92,7 @@ export default () => {
                 border: 'none',
                 borderRadius: '3px 3px 0 0',
                 color: '#172b4d',
-                fontSize: '24px',
+                fontSize: token('font.size.400', '24px'),
                 ':hover': {
                   backgroundColor: N10,
                 },
@@ -110,8 +110,8 @@ export default () => {
                         display: 'flex',
                         // TODO Delete this comment after verifying spacing token -> previous value `'16px'`
                         padding: token('spacing.scale.200', '16px'),
-                        fontSize: '16px',
-                        fontWeight: 500,
+                        fontSize: token('font.size.200', '16px'),
+                        fontWeight: token('font.weight.medium', '500'),
                         ':hover': {
                           backgroundColor: N20,
                         },

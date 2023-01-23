@@ -28,7 +28,7 @@ const textStyles = css({
 });
 
 const hasAuthorStyles = css({
-  fontWeight: 500,
+  fontWeight: token('font.weight.medium', '500'),
 });
 
 /**

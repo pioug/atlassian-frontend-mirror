@@ -29,6 +29,8 @@ export default {
   'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.source.confluence': 'Confluence',
   'fabric.elements.user-picker.source.jira': 'Jira',
+  'fabric.elements.user-picker.source.other-atlassian':
+    'Các sản phẩm khác của Atlassian',
   'fabric.elements.user-picker.team.member.50plus': 'Nhóm • 50+ thành viên',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Nhóm • 50+ thành viên, bao gồm cả bạn',

@@ -25,7 +25,7 @@ export const headingSizes = {
 export const h900 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h900.size, headingSizes.h900.lineHeight),
   color: token('color.text', heading(props)),
-  fontWeight: 500,
+  fontWeight: token('font.weight.medium', '500'),
   letterSpacing: `-0.01em`,
   marginTop: `${gridSize() * 6.5}px`,
 });
@@ -33,7 +33,7 @@ export const h900 = (props: ThemeProps = {}) => ({
 export const h800 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h800.size, headingSizes.h800.lineHeight),
   color: token('color.text', heading(props)),
-  fontWeight: 600,
+  fontWeight: token('font.weight.semibold', '600'),
   letterSpacing: `-0.01em`,
   marginTop: `${gridSize() * 5}px`,
 });
@@ -41,7 +41,7 @@ export const h800 = (props: ThemeProps = {}) => ({
 export const h700 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h700.size, headingSizes.h700.lineHeight),
   color: token('color.text', heading(props)),
-  fontWeight: 500,
+  fontWeight: token('font.weight.medium', '500'),
   letterSpacing: `-0.01em`,
   marginTop: `${gridSize() * 5}px`,
 });
@@ -49,7 +49,7 @@ export const h700 = (props: ThemeProps = {}) => ({
 export const h600 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h600.size, headingSizes.h600.lineHeight),
   color: token('color.text', heading(props)),
-  fontWeight: 500,
+  fontWeight: token('font.weight.medium', '500'),
   letterSpacing: `-0.008em`,
   marginTop: `${gridSize() * 3.5}px`,
 });
@@ -57,7 +57,7 @@ export const h600 = (props: ThemeProps = {}) => ({
 export const h500 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h500.size, headingSizes.h500.lineHeight),
   color: token('color.text', heading(props)),
-  fontWeight: 600,
+  fontWeight: token('font.weight.semibold', '600'),
   letterSpacing: `-0.006em`,
   marginTop: `${gridSize() * 3}px`,
 });
@@ -65,7 +65,7 @@ export const h500 = (props: ThemeProps = {}) => ({
 export const h400 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h400.size, headingSizes.h400.lineHeight),
   color: token('color.text', heading(props)),
-  fontWeight: 600,
+  fontWeight: token('font.weight.semibold', '600'),
   letterSpacing: `-0.003em`,
   marginTop: `${gridSize() * 2}px`,
 });
@@ -73,7 +73,7 @@ export const h400 = (props: ThemeProps = {}) => ({
 export const h300 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h300.size, headingSizes.h300.lineHeight),
   color: token('color.text', heading(props)),
-  fontWeight: 600,
+  fontWeight: token('font.weight.semibold', '600'),
   marginTop: `${gridSize() * 2.5}px`,
   textTransform: 'uppercase' as const,
 });
@@ -81,13 +81,13 @@ export const h300 = (props: ThemeProps = {}) => ({
 export const h200 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h200.size, headingSizes.h200.lineHeight),
   color: token('color.text.subtlest', subtleHeading(props)),
-  fontWeight: 600,
+  fontWeight: token('font.weight.semibold', '600'),
   marginTop: `${gridSize() * 2}px`,
 });
 
 export const h100 = (props: ThemeProps = {}) => ({
   ...baseHeading(headingSizes.h100.size, headingSizes.h100.lineHeight),
   color: token('color.text.subtlest', subtleHeading(props)),
-  fontWeight: 700,
+  fontWeight: token('font.weight.bold', '700'),
   marginTop: `${gridSize() * 2}px`,
 });

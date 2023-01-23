@@ -6,9 +6,20 @@
  */
 //Dutch (Netherlands)
 export default {
-  'fabric.reactions.error.unexpected': 'Er is iets misgegaan',
+  'fabric.reactions.add': 'Reactie toevoegen',
+  'fabric.reactions.error.unexpected':
+    'Reacties zijn tijdelijk niet beschikbaar',
   'fabric.reactions.loading': 'Bezig met laden…',
-  'fabric.reactions.more.emoji': 'Meer emoji',
+  'fabric.reactions.more.emojis': "Meer emoji's",
+  'fabric.reactions.more.info': 'Meer info',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {en één andere} other {en {count} andere}}',
+  'fabric.reactions.reactwithemoji': 'Reageren met emoticon {emoji}',
+  'reactions.dialog.close': 'Sluiten',
+  'reactions.dialog.left.navigate': 'Navigeer naar links',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reactie} other {{count,number} reacties}}',
+  'reactions.dialog.right.navigate': 'Navigeer naar rechts',
+  'reactions.dialog.viewall': 'Bekijken wie er heeft gereageerd',
+  'reactions.dialog.viewall.tooltip': 'Alle reacties van gebruikers bekijken',
 };

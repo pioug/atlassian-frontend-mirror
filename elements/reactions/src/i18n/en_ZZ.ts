@@ -6,10 +6,24 @@
  */
 //
 export default {
+  'fabric.reactions.add': '⁣⁢Add reaction⁭⁡‌؜؜⁡⁮‍⁫⁪⁪⁠⁯⁭⁭⁡⁪⁮⁪⁮⁠⁣⁤',
   'fabric.reactions.error.unexpected':
-    '⁣⁢Something went wrong⁯⁮⁭‍‌⁯؜؜⁮‌‌⁠⁫‍⁯⁪⁭⁮⁣⁤',
+    '⁣⁢Reactions are temporarily unavailable⁡‍‍؜⁬‍⁡⁪‌؜؜⁭⁪⁭⁬⁮⁯؜؜‍⁪⁠‍⁣⁤',
   'fabric.reactions.loading': '⁣⁢Loading...⁭⁫⁡⁬⁮⁭؜⁬⁫⁬⁪⁫⁯⁯؜؜⁪‌⁣⁤',
-  'fabric.reactions.more.emoji': '⁣⁢More emoji‍⁯⁠⁭⁠⁡؜‌⁫⁫⁠⁫⁪⁭⁫⁯⁯⁮⁡⁫⁯⁬⁫⁮⁠⁣⁤',
+  'fabric.reactions.more.emojis': '⁣⁢More emojis⁪‌‍⁠⁠⁭‍⁪⁬⁭؜‍⁡⁠⁬⁡؜‌⁫⁮⁪⁠⁣⁤',
+  'fabric.reactions.more.info': '⁣⁢More info؜؜؜‍⁠‍⁪؜⁯⁬⁭⁭⁬⁠؜⁮⁪⁠؜⁡⁯⁯⁯⁣⁤',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {⁣⁢and one other⁫⁯‍⁠؜⁯⁠⁭⁬⁪⁡⁬‌⁫⁠⁫⁠⁠⁪⁫⁣⁤} other {⁣⁢and {count} others⁫⁯‍⁠؜⁯⁠⁭⁬⁪⁡⁬‌⁫⁠⁫⁠⁠⁪⁫⁣⁤}}',
+  'fabric.reactions.reactwithemoji':
+    '⁣⁢React with {emoji} emoji⁯⁪⁫‌⁯‍؜‍⁫⁫⁫⁫⁡⁬⁬⁭⁠⁪⁮⁫⁡⁬⁣⁤',
+  'reactions.dialog.close': '⁣⁢Close‍⁡⁬⁫⁪‌؜‍⁭⁫⁯⁫⁬⁡‌⁫‌⁭⁮⁫⁯⁫⁣⁤',
+  'reactions.dialog.emoji.name': '⁣⁢{emojiName}⁭⁪⁡‌⁪⁫‌‍⁯؜⁠⁡⁪‍⁡؜⁬⁠‌‌‍⁪‍⁡⁣⁤',
+  'reactions.dialog.left.navigate': '⁣⁢Left Navigate⁫⁪؜⁯⁯⁫‍⁮‌⁫؜⁪⁠⁭؜⁡‍⁠⁠⁡⁭⁣⁤',
+  'reactions.dialog.reactions.count':
+    '⁣⁢{reactionsCountFormatted} reactions⁭⁭⁬‌⁪⁯⁭⁮‍‌‍⁠⁭⁮‍⁪⁭⁯⁣⁤',
+  'reactions.dialog.right.navigate':
+    '⁣⁢Right Navigate⁪⁬⁭⁪⁠⁪؜؜⁯⁠⁭⁪⁯⁭⁭‌‌⁡‍⁫⁪‍⁠⁠⁮⁪⁣⁤',
+  'reactions.dialog.viewall': '⁣⁢See who reacted⁮⁮؜⁮⁮⁬⁭؜⁡⁯⁮‍⁬⁯⁭‍⁮‍⁮⁪⁣⁤',
+  'reactions.dialog.viewall.tooltip':
+    '⁣⁢View all user reactions⁮⁡⁫‌⁮؜؜⁡⁪⁪⁡⁯‌⁭⁬⁯‍؜⁬؜⁬⁣⁤',
 };

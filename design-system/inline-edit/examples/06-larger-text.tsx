@@ -36,9 +36,9 @@ const wrapperStyles = css({
     'spacing.scale.100',
     '8px',
   )}`,
-  fontSize: '24px',
-  fontWeight: 'bold',
-  lineHeight: '24px',
+  fontSize: token('font.size.400', '24px'),
+  fontWeight: token('font.weight.bold', '700'),
+  lineHeight: token('font.lineHeight.300', '24px'),
 });
 
 const textFieldStyles = css({

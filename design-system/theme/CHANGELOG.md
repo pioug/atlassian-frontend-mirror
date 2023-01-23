@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.2.6
+
+### Patch Changes
+
+- [`b0f6dd0bc35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0f6dd0bc35) - Updated to use typography tokens. There is no expected behaviour or visual change.
+
 ## 12.2.5
 
 ### Patch Changes

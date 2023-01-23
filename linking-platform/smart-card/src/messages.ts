@@ -18,9 +18,11 @@ export type MessageKey =
   | 'connect_unauthorised_account_action'
   | 'connect_unauthorised_account_description'
   | 'connect_unauthorised_account_description_no_provider'
+  | 'continue'
   | 'copy_url_to_clipboard'
   | 'could_not_load_link'
   | 'download'
+  | 'go_back'
   | 'invalid_permissions'
   | 'invalid_permissions_description'
   | 'join_to_view'
@@ -28,10 +30,12 @@ export type MessageKey =
   | 'created_by'
   | 'created_on_relative'
   | 'created_on_absolute'
+  | 'check_this_link'
   | 'delete'
   | 'edit'
   | 'learn_more_about_smart_links'
   | 'loading'
+  | 'link_safety_warning_message'
   | 'modified_by'
   | 'modified_on_relative'
   | 'modified_on_absolute'
@@ -126,6 +130,11 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Close',
     description: '',
   },
+  check_this_link: {
+    id: 'fabric.linking.check_this_link',
+    defaultMessage: 'Check this link',
+    description: 'Link safety warning modal header',
+  },
   connect_to: {
     id: 'fabric.linking.connect_to',
     defaultMessage: 'Connect to {name}',
@@ -184,6 +193,11 @@ export const messages: Messages = defineMessages({
     description:
       'Shown when a user does not have access to a link, but can connect their external account to view the link on card view and we do not have the providers name.',
   },
+  continue: {
+    id: 'fabric.linking.continue',
+    defaultMessage: 'Continue',
+    description: 'continue',
+  },
   copy_url_to_clipboard: {
     id: 'fabric.linking.download',
     defaultMessage: 'Copy link',
@@ -229,6 +243,11 @@ export const messages: Messages = defineMessages({
     defaultMessage:
       'You don’t have access to this preview. Contact the site admin if you need access.',
     description: 'Informs the user that they cannot view this content.',
+  },
+  go_back: {
+    id: 'fabric.linking.go_back',
+    defaultMessage: 'Go back',
+    description: 'go back',
   },
   invalid_permissions: {
     id: 'fabric.linking.invalid_permissions',
@@ -451,6 +470,12 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Try another account',
     description:
       'Allows the user to try an action again with a different account',
+  },
+  link_safety_warning_message: {
+    id: 'fabric.linking.link_safety_warning_message',
+    defaultMessage:
+      'The link {unsafeLinkText} is taking you to a different site, <a>actual link here</a>',
+    description: 'Link safety check warning message',
   },
   unlink_account: {
     id: 'fabric.linking.unlink_account',

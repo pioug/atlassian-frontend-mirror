@@ -49,8 +49,9 @@ const buttonStyles = css({
   '&&': {
     backgroundColor: token('color.background.neutral', N20),
     color: token('color.text', N500),
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     fontFamily: 'inherit',
-    fontWeight: 500,
+    fontWeight: token('font.weight.medium', '500'),
 
     '&:hover': {
       backgroundColor: token('color.background.neutral.hovered', N30),

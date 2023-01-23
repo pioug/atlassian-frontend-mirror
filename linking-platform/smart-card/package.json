@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "23.12.3",
+  "version": "23.13.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -120,6 +120,7 @@
     "./types": "./src/types.ts",
     "./hooks": "./src/hooks.ts",
     "./hover-card": "./src/hoverCard.ts",
+    "./link-url": "./src/linkUrl.ts",
     ".": "./src/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",

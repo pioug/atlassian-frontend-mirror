@@ -48,7 +48,7 @@ export default {
   'fabric.elements.share.main.tab.text.confluence': 'Del side',
   'fabric.elements.share.main.tab.text.jira': 'Del sag',
   'fabric.elements.share.success.message':
-    '{object, select, blogpost {Blogindlæg blev delt} board {Tavle blev delt} calendar {Kalender blev delt} draft {Kladde blev delt} filter {Filter blev delt} issue {Sag blev delt} media {Medie blev delt} page {Side blev delt} project {Projekt blev delt} pullrequest {Pullanmodning blev delt} question {Spørgsmål blev delt} report {Rapport blev delt} repository {Lager blev delt} request {Anmodning blev delt} roadmap {Oversigt blev delt} site {Side blev delt} space {Område blev delt} other {Link blev delt}}',
+    '{object, select, blogpost {Blogindlæg blev delt} board {Tavle blev delt} calendar {Kalender blev delt} draft {Kladde blev delt} filter {Filter blev delt} issue {Sag blev delt} media {Medie blev delt} page {Side blev delt} project {Projekt blev delt} pullrequest {Pullanmodning blev delt} question {Spørgsmål blev delt} report {Rapport blev delt} repository {Lager blev delt} request {Anmodning blev delt} roadmap {Køreplan blev delt} site {Side blev delt} space {Område blev delt} other {Link blev delt}}',
   'fabric.elements.share.to.integration.button': 'Del med {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Del ikon',
   'fabric.elements.share.trigger.button.invite.text': 'Invitér',

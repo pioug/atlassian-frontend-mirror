@@ -26,7 +26,7 @@ const panelStyles = css({
   borderRadius: `${borderRadius}px`,
   color: token('color.text.subtlest', N200),
   fontSize: '4em',
-  fontWeight: 500,
+  fontWeight: token('font.weight.medium', '500'),
 });
 
 export const Panel = ({

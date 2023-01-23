@@ -42,6 +42,8 @@ export default {
   'fabric.elements.user-picker.source.confluence':
     '⁣⁢Confluence⁬⁠⁪⁫⁮⁡‌⁬⁮⁡⁠⁫⁪⁫‌⁪؜⁬⁯‍⁮⁠؜⁡⁠⁣⁤',
   'fabric.elements.user-picker.source.jira': '⁣⁢Jira⁬⁯⁪⁫⁪⁪⁫⁡⁪⁫⁯⁮⁫‌‍⁪⁪⁬⁪‌⁪⁫⁮⁣⁤',
+  'fabric.elements.user-picker.source.other-atlassian':
+    '⁣⁢Other Atlassian products⁭⁭؜⁯⁫⁯⁮⁠⁫‍⁠‌⁯⁯‍⁪‍؜⁭‌⁬⁯‌⁪⁭⁣⁤',
   'fabric.elements.user-picker.team.member.50plus':
     '⁣⁢Team • 50+ members⁭⁫؜⁪‍⁭⁠‍⁭⁮⁪⁪⁡⁪⁮⁮⁬⁪؜؜⁯⁯⁣⁤',
   'fabric.elements.user-picker.team.member.50plus.including.you':

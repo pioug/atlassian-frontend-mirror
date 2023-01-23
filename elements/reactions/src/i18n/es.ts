@@ -6,9 +6,21 @@
  */
 //Spanish (International)
 export default {
-  'fabric.reactions.error.unexpected': 'Algo ha fallado',
+  'fabric.reactions.add': 'Añadir reacción',
+  'fabric.reactions.error.unexpected':
+    'Las reacciones no están disponibles temporalmente',
   'fabric.reactions.loading': 'Cargando...',
-  'fabric.reactions.more.emoji': 'Más emojis',
+  'fabric.reactions.more.emojis': 'Más emojis',
+  'fabric.reactions.more.info': 'Más información',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {y 1 más} other {y {count} más}}',
+  'fabric.reactions.reactwithemoji': 'Reaccionar con el emoticono {emoji}',
+  'reactions.dialog.close': 'Cerrar',
+  'reactions.dialog.left.navigate': 'Desplazarse hacia la izquierda',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reacción} other {{count,number} reacciones}}',
+  'reactions.dialog.right.navigate': 'Desplazarse hacia la derecha',
+  'reactions.dialog.viewall': 'Ver quién ha reaccionado',
+  'reactions.dialog.viewall.tooltip':
+    'Ver todas las reacciones de los usuarios',
 };

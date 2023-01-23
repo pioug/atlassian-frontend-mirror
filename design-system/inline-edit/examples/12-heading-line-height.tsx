@@ -34,8 +34,8 @@ const messageStyles = css({
 const Message: FC = ({ children }) => <div css={messageStyles}>{children}</div>;
 
 const headingOneStyles = css({
-  fontSize: '24px',
-  fontWeight: 500,
+  fontSize: token('font.size.400', '24px'),
+  fontWeight: token('font.weight.medium', '500'),
   lineHeight: 'inherit',
 });
 
@@ -46,9 +46,13 @@ const HeadingOne: FC = ({ children }) => (
 const textFieldStyles = css({
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& > [data-ds--text-field--input]': {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     margin: '-11px -4px',
-    padding: '8px 6px',
-    fontSize: 24,
+    padding: `${token('spacing.scale.100', '8px')} ${token(
+      'spacing.scale.075',
+      '6px',
+    )}`,
+    fontSize: token('font.size.400', '24px'),
   },
 });
 

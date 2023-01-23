@@ -6,9 +6,19 @@
  */
 //Polish (Poland)
 export default {
-  'fabric.reactions.error.unexpected': 'Coś poszło nie tak',
+  'fabric.reactions.add': 'Dodaj reakcję',
+  'fabric.reactions.error.unexpected': 'Reakcje są tymczasowo niedostępne',
   'fabric.reactions.loading': 'Ładowanie...',
-  'fabric.reactions.more.emoji': 'Więcej emoji',
+  'fabric.reactions.more.emojis': 'Więcej emoji',
+  'fabric.reactions.more.info': 'Więcej informacji',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {i jeszcze 1} few {i jeszcze {count}} many {i jeszcze {count}} other {i jeszcze {count}}}',
+  'fabric.reactions.reactwithemoji': 'Zareaguj za pomocą emoji {emoji}',
+  'reactions.dialog.close': 'Zamknij',
+  'reactions.dialog.left.navigate': 'Przejdź w lewo',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reakcja} few {{count,number} reakcje} many {{count,number} reakcji} other {{count,number} reakcji}}',
+  'reactions.dialog.right.navigate': 'Przejdź w prawo',
+  'reactions.dialog.viewall': 'Zobacz, kto zareagował',
+  'reactions.dialog.viewall.tooltip': 'Wyświetl wszystkie reakcje użytkowników',
 };

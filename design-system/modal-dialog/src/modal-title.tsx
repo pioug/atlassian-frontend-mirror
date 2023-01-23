@@ -23,9 +23,9 @@ const titleStyles = css({
   margin: token('spacing.scale.0', '0px'),
   alignItems: 'center',
 
-  fontSize: `${fontSize}px`,
+  fontSize: token('font.size.300', '20px'),
   fontStyle: 'inherit',
-  fontWeight: 500,
+  fontWeight: token('font.weight.medium', '500'),
   letterSpacing: `-0.008em`,
   lineHeight: lineHeight,
 });

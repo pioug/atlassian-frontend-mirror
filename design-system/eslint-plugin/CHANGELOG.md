@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.14.1
+
+### Patch Changes
+
+- [`03697c65399`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03697c65399) - Improved handling of font-family properties.
+
 ## 4.14.0
 
 ### Minor Changes

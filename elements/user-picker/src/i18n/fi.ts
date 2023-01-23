@@ -30,6 +30,8 @@ export default {
   'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.source.confluence': 'Confluence',
   'fabric.elements.user-picker.source.jira': 'Jira',
+  'fabric.elements.user-picker.source.other-atlassian':
+    'Muut Atlassian-tuotteet',
   'fabric.elements.user-picker.team.member.50plus': 'Tiimi • 50+ jäsentä',
   'fabric.elements.user-picker.team.member.50plus.including.you':
     'Tiimi • 50+ jäsentä sinä mukaan lukien',

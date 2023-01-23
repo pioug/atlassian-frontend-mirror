@@ -74,7 +74,7 @@ const captionStyles = css({
   marginBottom: token('spacing.scale.100', '8px'),
   fontSize: '1.42857143em',
   fontStyle: 'inherit',
-  fontWeight: 500,
+  fontWeight: token('font.weight.medium', '500'),
   letterSpacing: '-0.008em',
   lineHeight: 1.2,
   textAlign: 'left',

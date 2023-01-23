@@ -6,9 +6,20 @@
  */
 //Danish (Denmark)
 export default {
-  'fabric.reactions.error.unexpected': 'Noget gik galt',
+  'fabric.reactions.add': 'Tilføj reaktion',
+  'fabric.reactions.error.unexpected':
+    'Reaktioner er midlertidigt utilgængelige',
   'fabric.reactions.loading': 'Indlæser ...',
-  'fabric.reactions.more.emoji': 'Flere emoji',
+  'fabric.reactions.more.emojis': 'Flere emojis',
+  'fabric.reactions.more.info': 'Flere oplysninger',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {og én anden} other {og {count} andre}}',
+  'fabric.reactions.reactwithemoji': 'Reager med emojien {emoji}',
+  'reactions.dialog.close': 'Luk',
+  'reactions.dialog.left.navigate': 'Navigation til venstre',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reaktion} other {{count,number} reaktioner}}',
+  'reactions.dialog.right.navigate': 'Navigation til højre',
+  'reactions.dialog.viewall': 'Se, hvem der har reageret',
+  'reactions.dialog.viewall.tooltip': 'Se alle brugerreaktioner',
 };

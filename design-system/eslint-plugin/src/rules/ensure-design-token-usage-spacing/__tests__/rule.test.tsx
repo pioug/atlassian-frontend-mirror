@@ -35,7 +35,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         padding: '8px',
         margin: '12px',
         fontWeight: 400,
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+        fontFamily: \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`,
         fontSize: '20px',
         lineHeight: '24px',
       })`,
@@ -46,7 +46,7 @@ tester.run('ensure-design-token-usage-spacing', rule, {
         margin: token('space.150', '12px'),
         // TODO Delete this comment after verifying spacing token -> previous value \`400\`
         fontWeight: token('font.weight.regular', '400'),
-        // TODO Delete this comment after verifying spacing token -> previous value \`"-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"\`
+        // TODO Delete this comment after verifying spacing token -> previous value \`\`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\`
         fontFamily: token('font.family.sans', \"-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\"),
         // TODO Delete this comment after verifying spacing token -> previous value \`'20px'\`
         fontSize: token('font.size.300', '20px'),

@@ -72,7 +72,7 @@ const titleStyles = css({
     'spacing.scale.050',
     '4px',
   )}`,
-  fontWeight: 500,
+  fontWeight: token('font.weight.medium', '500'),
 });
 
 const textStyles = css({

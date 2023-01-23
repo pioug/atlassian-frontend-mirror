@@ -265,7 +265,7 @@ const getValueFromUnaryExpression = (
 const getValueFromTemplateLiteral = (
   node: EslintNode,
   context: Rule.RuleContext,
-): number | null | number[] => {
+): number | number[] | string | null => {
   if (!isNodeOfType(node, `TemplateLiteral`)) {
     return null;
   }
@@ -277,10 +277,14 @@ const getValueFromTemplateLiteral = (
       }`;
     })
     .join('')
-    .trim()
-    .split(' ');
+    .trim();
 
-  return combinedString.map(removePixelSuffix) as any[];
+  const fontFamily = /(sans-serif$)|(monospace$)/;
+  if (fontFamily.test(combinedString)) {
+    return combinedString;
+  }
+
+  return combinedString.split(' ').map(removePixelSuffix) as any[];
 };
 
 const getValueFromBinaryExpression = (

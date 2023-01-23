@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.13.0
+
+### Minor Changes
+
+- [`67cfd8e13d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67cfd8e13d0) - LinkUrl component with built-in link safety check added
+
 ## 23.12.3
 
 ### Patch Changes

@@ -6,9 +6,20 @@
  */
 //Norwegian (Bokmål)
 export default {
-  'fabric.reactions.error.unexpected': 'Det oppsto en feil',
+  'fabric.reactions.add': 'Legg til reaksjon',
+  'fabric.reactions.error.unexpected':
+    'Reaksjoner er midlertidig utilgjengelige',
   'fabric.reactions.loading': 'Laster inn …',
-  'fabric.reactions.more.emoji': 'Flere emoji-er',
+  'fabric.reactions.more.emojis': 'Flere emojier',
+  'fabric.reactions.more.info': 'Mer informasjon',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {og én annen} other {og {count} andre}}',
+  'fabric.reactions.reactwithemoji': 'Reager med emojien {emoji}',
+  'reactions.dialog.close': 'Lukk',
+  'reactions.dialog.left.navigate': 'Naviger til venstre',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reaksjon} other {{count,number} reaksjoner}}',
+  'reactions.dialog.right.navigate': 'Naviger til høyre',
+  'reactions.dialog.viewall': 'Se hvem som har reagert',
+  'reactions.dialog.viewall.tooltip': 'Se alle brukerreaksjoner',
 };

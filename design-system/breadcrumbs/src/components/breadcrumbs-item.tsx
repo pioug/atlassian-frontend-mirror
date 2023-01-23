@@ -52,13 +52,13 @@ const VAR_STEP_TRUNCATION_WIDTH = '--max-width';
 
 const staticItemWithTruncationStyles = css({
   maxWidth: `var(${VAR_STEP_TRUNCATION_WIDTH})`,
-  fontWeight: 400,
+  fontWeight: token('font.weight.regular', '400'),
 });
 
 const staticItemWithoutTruncationStyles = css({
   minWidth: 0,
   flexShrink: 1,
-  fontWeight: 400,
+  fontWeight: token('font.weight.regular', '400'),
 });
 
 const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {

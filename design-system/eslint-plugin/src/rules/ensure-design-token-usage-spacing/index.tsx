@@ -210,6 +210,7 @@ const rule: Rule.RuleModule = {
             const pixelValue = isFontFamily
               ? value
               : emToPixels(value, fontSize);
+
             return context.report({
               node,
               messageId: 'noRawSpacingValues',

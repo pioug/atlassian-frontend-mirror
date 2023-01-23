@@ -8,6 +8,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { UNSAFE_Inline as Inline } from '@atlaskit/ds-explorations';
 import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import {
   DEFAULT_APPEARANCE,
@@ -38,7 +39,7 @@ const buttonStyles = css({
     padding: `0 ${gridSize}px !important`,
     background: `var(${VAR_BG_COLOR})`,
     color: `var(${VAR_COLOR}) !important`,
-    fontWeight: 500,
+    fontWeight: token('font.weight.medium', '500'),
   },
   '&&:focus, a&&:focus': {
     boxShadow: `0 0 0 2px var(${VAR_FOCUS_COLOR})`,

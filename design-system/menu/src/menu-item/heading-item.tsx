@@ -20,7 +20,7 @@ const headingStyles = css({
   padding: `0 ${itemSidePadding}px`,
   color: token('color.text.subtle', N300),
   fontSize: itemHeadingFontSize,
-  fontWeight: 700,
+  fontWeight: token('font.weight.bold', '700'),
   lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
   textTransform: 'uppercase',
 });

@@ -5,6 +5,7 @@ import {
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import { getTabColors, getTabLineColor, getTabPanelFocusColor } from './colors';
 
@@ -79,7 +80,7 @@ export const getTabListStyles = (mode: ThemeModes): SerializedStyles =>
   // eslint-disable-next-line @repo/internal/styles/no-exported-styles
   css({
     '& [role="tab"]': getTabStyles(mode),
-    fontWeight: 500,
+    fontWeight: token('font.weight.medium', '500'),
     '&::before': {
       ...tabLineStyles,
       height: underlineHeight,

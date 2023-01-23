@@ -55,14 +55,14 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
   borderRadius: 3,
   color: textColor[mode],
   cursor: 'pointer',
-  fontSize: 14,
+  fontSize: token('font.size.100', '14px'),
   textAlign: 'center',
   '&[data-sibling]': {
     color: token('color.text.subtlest', N200),
   },
   '&[data-today]': {
     color: todayColor[mode],
-    fontWeight: 'bold',
+    fontWeight: token('font.weight.bold', 'bold'),
     '&::after': {
       display: 'block',
       height: 2,

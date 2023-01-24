@@ -48,18 +48,40 @@ const documentTypeToIcon = (
 ): React.ReactNode | undefined => {
   switch (type) {
     case 'schema:BlogPosting':
-      return <BlogIcon label={opts.title || 'blog'} />;
+      return <BlogIcon label={opts.title || 'blog'} testId="blog-icon" />;
     case 'schema:DigitalDocument':
-      return <FileIcon label={opts.title || 'file'} />;
+      return <FileIcon label={opts.title || 'file'} testId="file-icon" />;
     case 'schema:TextDigitalDocument':
-      return <DocumentIcon label={opts.title || 'document'} />;
+      return (
+        <DocumentIcon label={opts.title || 'document'} testId="document-icon" />
+      );
     case 'schema:PresentationDigitalDocument':
-      return <PresentationIcon label={opts.title || 'presentation'} />;
+      return (
+        <PresentationIcon
+          label={opts.title || 'presentation'}
+          testId="presentation-icon"
+        />
+      );
     case 'schema:SpreadsheetDigitalDocument':
-      return <SpreadsheetIcon label={opts.title || 'spreadsheet'} />;
+      return (
+        <SpreadsheetIcon
+          label={opts.title || 'spreadsheet'}
+          testId="spreadsheet-icon"
+        />
+      );
     case 'atlassian:Template':
-      return <DocumentFilledIcon label={opts.title || 'template'} />;
+      return (
+        <DocumentFilledIcon
+          label={opts.title || 'template'}
+          testId="document-filled-icon"
+        />
+      );
     case 'atlassian:UndefinedLink':
-      return <DocumentIcon label={opts.title || 'undefinedLink'} />;
+      return (
+        <DocumentIcon
+          label={opts.title || 'undefinedLink'}
+          testId="document-icon"
+        />
+      );
   }
 };

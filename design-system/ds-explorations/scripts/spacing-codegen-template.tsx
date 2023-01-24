@@ -26,11 +26,11 @@ const spacingProperties = {
   },
 } as const;
 
-const onlyScaleTokens = tokens.filter((token) =>
+const onlySpaceTokens = tokens.filter((token) =>
   token.name.startsWith('space.'),
 );
 
-const activeTokens = onlyScaleTokens.map((t) => ({
+const activeTokens = onlySpaceTokens.map((t) => ({
   name: t.name,
   fallback: t.attributes.pixelValue!,
 }));
@@ -51,8 +51,7 @@ const ${spacingProperty}Map = {
   ${activeTokens
     .sort((a, b) => (a.name < b.name ? -1 : 1))
     .map((token) => {
-      // TODO change this when we want to cut a major on the package
-      const propName = token.name.replace('space.', 'scale.');
+      const propName = token.name;
       return `'${propName}': ${tokenToStyle(
         cssProperty,
         token.name,

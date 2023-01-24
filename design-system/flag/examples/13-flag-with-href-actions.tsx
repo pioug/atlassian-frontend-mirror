@@ -91,7 +91,7 @@ const flagVariants: Array<FlagVariant> = [
 ];
 
 export default () => (
-  <Stack gap="scale.100">
+  <Stack gap="space.100">
     {flagVariants.map((flag: FlagVariant) => (
       <Flag
         appearance={flag.appearance}

@@ -22,6 +22,9 @@ const DummyNavigationComponent = createComponentWithAnalytics(
 const DummyNotificationsComponent = createComponentWithAnalytics(
   FabricChannel.notifications,
 );
+const DummyLinkingPlatformComponent = createComponentWithAnalytics(
+  FabricChannel.linkingPlatform,
+);
 
 const myOnClickHandler = () => {
   console.log('Button clicked ! Yay!');
@@ -66,6 +69,8 @@ function Example() {
         <AnalyticsContext data={{ attributes: { customAttribute: 'yes!' } }}>
           <DummyNotificationsComponent onClick={myOnClickHandler} />
         </AnalyticsContext>
+
+        <DummyLinkingPlatformComponent onClick={myOnClickHandler} />
       </div>
     </FabricAnalyticsListeners>
   );

@@ -60,7 +60,7 @@ const ControlledAsyncExample = () => {
       content={
         <Box
           as="div"
-          padding="scale.400"
+          padding="space.400"
           display="block"
           UNSAFE_style={{
             flexGrow: 1,

@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 15.0.23
+
+### Patch Changes
+
+- [`a7f643a0ee7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7f643a0ee7) - Updated badge line-height to use design system values, removed block padding. There are no visual or behaviour changes.
+- [`eadbf13d8c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eadbf13d8c0) - Updated usages of `Text`, `Box`, `Stack`, and `Inline` primitives to reflect their updated APIs. There are no visual or behaviour changes.
+- Updated dependencies
+
 ## 15.0.22
 
 ### Patch Changes

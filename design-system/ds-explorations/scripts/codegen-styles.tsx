@@ -11,6 +11,7 @@ import { createInteractionStylesFromTemplate } from './interaction-codegen';
 import { createStylesFromTemplate } from './misc-codegen-template';
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 import { createSpacingScaleTemplate } from './spacing-scale-template';
+import { createTypographyStylesFromTemplate } from './typography-codegen-template';
 
 const colorMapOutputFolder = join(__dirname, '../', 'src', 'internal');
 const colorTokensDependencyPath = require.resolve(
@@ -18,6 +19,9 @@ const colorTokensDependencyPath = require.resolve(
 );
 const spacingTokensDependencyPath = require.resolve(
   '../../tokens/src/artifacts/tokens-raw/atlassian-spacing',
+);
+const typographyTokensDependencyPath = require.resolve(
+  '../../tokens/src/artifacts/tokens-raw/atlassian-typography',
 );
 
 writeFile(
@@ -78,6 +82,29 @@ Promise.all(
             id: 'spacing',
             absoluteFilePath: targetPath,
             dependencies: [spacingTokensDependencyPath],
+          },
+        );
+
+        return writeFile(targetPath, source).then(() =>
+          console.log(`${targetPath} written!`),
+        );
+      }),
+    );
+  })
+  .then(() => {
+    // generate typography values
+    return Promise.all(
+      [{ target: 'text.partial.tsx' }].map(({ target }) => {
+        const targetPath = join(__dirname, '../', 'src', 'components', target);
+
+        const source = createPartialSignedArtifact(
+          (options) =>
+            options.map(createTypographyStylesFromTemplate).join('\n'),
+          'yarn codegen-styles',
+          {
+            id: 'typography',
+            absoluteFilePath: targetPath,
+            dependencies: [typographyTokensDependencyPath],
           },
         );
 

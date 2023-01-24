@@ -27,7 +27,7 @@ const Column: FC<THProps> = ({
       testId={testId}
       backgroundColor={backgroundColor}
     >
-      <Text color="color.text" fontWeight="500">
+      <Text color="color.text" fontWeight="medium">
         {children}
       </Text>
     </TH>

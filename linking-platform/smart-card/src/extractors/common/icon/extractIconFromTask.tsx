@@ -33,6 +33,7 @@ export const extractIconFromTask = (
   // Render Atlaskit icons for all supported Jira issue types.
   const { taskType, provider } = opts;
   const taskLabel = opts.title || 'task';
+  const defaultIcon = <TaskIcon label={taskLabel} testId="default-task-icon" />;
   if (
     provider &&
     provider.id === JIRA_GENERATOR_ID &&
@@ -43,30 +44,33 @@ export const extractIconFromTask = (
     const taskTypeName = taskTypeId.split('#').pop();
     switch (taskTypeName) {
       case JIRA_TASK:
-        return <JiraTaskIcon label={taskLabel} />;
+        return <JiraTaskIcon label={taskLabel} testId="jira-task-icon" />;
       case JIRA_SUB_TASK:
-        return <JiraSubTaskIcon label={taskLabel} />;
+        return <JiraSubTaskIcon label={taskLabel} testId="jira-subtask-icon" />;
       case JIRA_STORY:
-        return <JiraStoryIcon label={taskLabel} />;
+        return <JiraStoryIcon label={taskLabel} testId="jira-story-icon" />;
       case JIRA_BUG:
-        return <JiraBugIcon label={taskLabel} />;
+        return <JiraBugIcon label={taskLabel} testId="jira-bug-icon" />;
       case JIRA_EPIC:
-        return <JiraEpicIcon label={taskLabel} />;
+        return <JiraEpicIcon label={taskLabel} testId="jira-epic-icon" />;
       case JIRA_INCIDENT:
-        return <JiraIncidentIcon label={taskLabel} />;
-      case JIRA_SERVICE_REQUEST:
-        return <JiraServiceRequestIcon label={taskLabel} />;
-      case JIRA_CHANGE:
-        return <JiraChangeIcon label={taskLabel} />;
-      case JIRA_PROBLEM:
-        return <JiraProblemIcon label={taskLabel} />;
-      case JIRA_CUSTOM_TASK_TYPE:
         return (
-          taskType.icon ||
-          opts.icon ||
-          provider.icon || <TaskIcon label={taskLabel} />
+          <JiraIncidentIcon label={taskLabel} testId="jira-incident-icon" />
         );
+      case JIRA_SERVICE_REQUEST:
+        return (
+          <JiraServiceRequestIcon
+            label={taskLabel}
+            testId="jira-service-request-icon"
+          />
+        );
+      case JIRA_CHANGE:
+        return <JiraChangeIcon label={taskLabel} testId="jira-change-icon" />;
+      case JIRA_PROBLEM:
+        return <JiraProblemIcon label={taskLabel} testId="jira-problem-icon" />;
+      case JIRA_CUSTOM_TASK_TYPE:
+        return taskType.icon || opts.icon || provider.icon || defaultIcon;
     }
   }
-  return <TaskIcon label={taskLabel} />;
+  return defaultIcon;
 };

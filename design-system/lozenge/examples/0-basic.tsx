@@ -19,10 +19,10 @@ const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 ];
 
 export default () => (
-  <Stack testId="test-container" gap="scale.400">
-    <Inline gap="scale.400">
-      <Stack gap="scale.100">
-        <Text fontWeight="500">Subtle</Text>
+  <Stack testId="test-container" gap="space.400">
+    <Inline gap="space.400">
+      <Stack gap="space.100">
+        <Text fontWeight="medium">Subtle</Text>
         <>
           {APPEARANCES.map((a) => (
             <Box key={a.value}>
@@ -33,8 +33,8 @@ export default () => (
           ))}
         </>
       </Stack>
-      <Stack gap="scale.100">
-        <Text fontWeight="500">Bold</Text>
+      <Stack gap="space.100">
+        <Text fontWeight="medium">Bold</Text>
         <>
           {APPEARANCES.map((a) => (
             <Box key={a.value}>
@@ -47,8 +47,8 @@ export default () => (
       </Stack>
     </Inline>
 
-    <Stack gap="scale.100">
-      <Text fontWeight="500">Overflowed Lozenge</Text>
+    <Stack gap="space.100">
+      <Text fontWeight="medium">Overflowed Lozenge</Text>
       <Box>
         <Lozenge testId="lozenge-truncated">
           Long text will be truncated after a point.
@@ -65,8 +65,8 @@ export default () => (
       </Box>
     </Stack>
 
-    <Stack gap="scale.100">
-      <Text fontWeight="500">Defaults</Text>
+    <Stack gap="space.100">
+      <Text fontWeight="medium">Defaults</Text>
       <Box>
         <Lozenge maxWidth="none" testId="lozenge-defaults">
           Default appearance and boldness

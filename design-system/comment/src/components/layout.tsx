@@ -106,14 +106,14 @@ const Layout: FC<CommentLayoutProps> = ({
     {avatar && <AvatarSlot>{avatar}</AvatarSlot>}
     {content && <ContentSlot>{content}</ContentSlot>}
     {children && (
-      <Stack gap="scale.400" UNSAFE_style={stackOverrideStyles}>
+      <Stack gap="space.400" UNSAFE_style={stackOverrideStyles}>
         {children}
       </Stack>
     )}
     {highlighted && (
       <Box
         display="block"
-        padding="scale.100"
+        padding="space.100"
         position="absolute"
         css={highlightOverlayStyles}
       />

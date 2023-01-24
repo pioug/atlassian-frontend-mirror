@@ -24,7 +24,7 @@ const JSMCard: FC<{
 }) => {
   return (
     <Card>
-      <Inline gap="scale.200">
+      <Inline gap="space.200">
         <Box
           UNSAFE_style={{ flexShrink: 0 }}
           display="block"
@@ -33,7 +33,7 @@ const JSMCard: FC<{
           width="size.500"
           height="size.500"
         />
-        <Stack gap="scale.100">
+        <Stack gap="space.100">
           <Heading as="h3" level="h600">
             {title}
           </Heading>

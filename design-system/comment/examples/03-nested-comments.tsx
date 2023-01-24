@@ -29,7 +29,7 @@ const ExampleComment: FC<{ isHighlighted?: boolean }> = ({
 );
 
 export default () => (
-  <Box display="block" padding="scale.200" testId="nested">
+  <Box display="block" padding="space.200" testId="nested">
     <ExampleComment isHighlighted>
       <ExampleComment>
         <ExampleComment />

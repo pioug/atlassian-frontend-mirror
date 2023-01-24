@@ -24,11 +24,11 @@ export const BulkActionOverlay: FC = ({ children }) => (
   <Box
     as="th"
     position="absolute"
-    paddingInline="scale.100"
+    paddingInline="space.100"
     backgroundColor="elevation.surface"
     css={overlayStyles}
   >
-    <Inline gap="scale.300" alignItems="center">
+    <Inline gap="space.300" alignItems="center">
       {children}
     </Inline>
   </Box>

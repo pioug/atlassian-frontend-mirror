@@ -512,7 +512,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       integrationMode,
       shareIntegrations,
       isBrowseUsersDisabled,
-      shareContentType,
     } = this.props;
 
     const style =
@@ -554,7 +553,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                 }
                 shareFormHelperMessage={shareFormHelperMessage}
                 shareError={shareError}
-                shareContentType={shareContentType}
                 defaultValue={defaultValue}
                 config={config}
                 isFetchingConfig={isFetchingConfig}

@@ -11,7 +11,7 @@ import Stack from '@atlaskit/ds-explorations/stack';
 
 export default md`
   ${(
-    <Stack gap="scale.200">
+    <Stack gap="space.200">
       <AtlassianInternalWarning />
       <DevPreviewWarning />
     </Stack>

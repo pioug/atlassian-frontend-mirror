@@ -62,6 +62,12 @@ type FabricEditorAnalyticsContextProps = Props & {
 export const FabricElementsAnalyticsContext: StatelessComponent<Props>;
 
 // @public (undocumented)
+export const LINKING_PLATFORM_CONTEXT = 'linkingPlatformCtx';
+
+// @public (undocumented)
+export const LinkingPlatformAnalyticsContext: StatelessComponent<Props>;
+
+// @public (undocumented)
 export const MEDIA_CONTEXT = 'mediaCtx';
 
 // @public (undocumented)

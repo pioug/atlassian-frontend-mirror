@@ -10,7 +10,7 @@ const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Inline gap="scale.100" justifyContent="space-between" alignItems="center">
+    <Inline gap="space.100" justifyContent="space-between" alignItems="center">
       {children}
     </Inline>
   );
@@ -43,7 +43,7 @@ const Example: FC<ExampleProps> = ({ values = ['one', 'two', 'three'] }) => {
   };
 
   return (
-    <Box paddingInline="scale.200" paddingBlock="scale.200" display="block">
+    <Box paddingInline="space.200" paddingBlock="space.200" display="block">
       <SpreadInlineLayout>
         <Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
           Prev

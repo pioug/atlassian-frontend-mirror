@@ -16,12 +16,12 @@ import AppFrame from './common/app-frame';
 
 const IncorrectCustomLeafNodeComponent = () => {
   return (
-    <Box padding="scale.100" display="block">
+    <Box padding="space.100" display="block">
       <Text
-        fontWeight="500"
+        fontWeight="medium"
         textTransform="uppercase"
         textAlign="center"
-        fontSize="12px"
+        fontSize="size.075"
         as="p"
       >
         Always rendered
@@ -37,7 +37,7 @@ const CorrectCustomLeafNodeComponent = () => {
   }
 
   return (
-    <Box padding="scale.100" display="block">
+    <Box padding="space.100" display="block">
       <Text
         UNSAFE_style={{
           fontWeight: 500,

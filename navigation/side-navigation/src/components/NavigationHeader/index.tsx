@@ -22,7 +22,7 @@ const NavigationHeader = (props: NavigationHeaderProps) => {
     <Box
       display="block"
       data-navheader
-      padding="scale.100"
+      padding="space.100"
       UNSAFE_style={{
         paddingTop: token('spacing.scale.300', '24px'),
       }}

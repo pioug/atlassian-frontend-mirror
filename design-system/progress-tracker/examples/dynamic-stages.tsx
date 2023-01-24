@@ -41,7 +41,7 @@ export default () => {
   const [itemsNumber, setItemsNumber] = useState(3);
   const [currentStage, setCurrentStage] = useState(0);
   return (
-    <Stack gap="scale.100">
+    <Stack gap="space.100">
       <Tracker itemsNumber={itemsNumber} currentStage={currentStage} />
       <Box UNSAFE_style={{ borderBottom: '1px solid' }}>
         <Button
@@ -74,7 +74,7 @@ export default () => {
         </Button>
       </Box>
 
-      <Inline gap="scale.100">
+      <Inline gap="space.100">
         <Button
           testId="button--add"
           className="button"

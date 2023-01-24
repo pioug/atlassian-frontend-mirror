@@ -65,7 +65,7 @@ export default () => {
               height: '100%',
             }}
           >
-            <Stack gap="scale.100">
+            <Stack gap="space.100">
               <div>Space Navigation</div>
               <select
                 value={width}

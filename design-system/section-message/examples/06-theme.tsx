@@ -121,7 +121,7 @@ export default function ThemeExample() {
           of my undertaking.
         </Text>
       </SectionMessage>
-      <Box paddingBlock="scale.050">
+      <Box paddingBlock="space.050">
         <Button testId="toggle-theme" onClick={toggleMode}>
           Toggle theme
         </Button>

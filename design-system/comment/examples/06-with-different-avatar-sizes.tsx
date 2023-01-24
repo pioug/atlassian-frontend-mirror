@@ -12,7 +12,7 @@ const getSampleText = () =>
   `Cookie macaroon liquorice. Marshmallow donut lemon drops candy canes marshmallow topping chocolate cake. Croissant pastry soufflé waffle cake fruitcake. Brownie oat cake sugar plum.`;
 
 export default () => (
-  <Stack gap="scale.300">
+  <Stack gap="space.300">
     {(['small', 'medium', 'large', 'xlarge'] as const).map((size) => (
       <Comment
         key={size}

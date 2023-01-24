@@ -61,35 +61,6 @@ export interface TextProps extends BasePrimitiveProps {
   verticalAlign?: VerticalAlign;
 }
 
-const fontFamily = `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`;
-
-type FontSize = keyof typeof fontSizeMap;
-const fontSizeMap = {
-  '11px': css({ fontSize: '11px' }),
-  '12px': css({ fontSize: '12px' }),
-  '14px': css({ fontSize: '14px' }),
-};
-
-type FontWeight = keyof typeof fontWeightMap;
-// NOTE: can't use numbers as keys or Constellation won't build. Weird one.
-const fontWeightMap = {
-  '400': css({ fontWeight: 400 }),
-  '500': css({ fontWeight: 500 }),
-  '600': css({ fontWeight: 600 }),
-  '700': css({ fontWeight: 700 }),
-};
-
-type LineHeight = keyof typeof lineHeightMap;
-const lineHeightMap = {
-  '12px': css({ lineHeight: '12px' }),
-  '16px': css({ lineHeight: '16px' }),
-  '20px': css({ lineHeight: '20px' }),
-  '24px': css({ lineHeight: '24px' }),
-  '28px': css({ lineHeight: '28px' }),
-  '32px': css({ lineHeight: '32px' }),
-  '40px': css({ lineHeight: '40px' }),
-};
-
 type TextAlign = keyof typeof textAlignMap;
 const textAlignMap = {
   center: css({ textAlign: 'center' }),
@@ -113,9 +84,8 @@ const verticalAlignMap = {
 
 const baseStyles = css({
   boxSizing: 'border-box',
-  margin: '0px',
-  padding: '0px',
-  fontFamily,
+  margin: token('space.0', '0px'),
+  padding: token('space.0', '0px'),
 });
 
 const truncateStyles = css({
@@ -188,6 +158,7 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
       style={UNSAFE_style}
       css={[
         baseStyles,
+        fontFamilyMap.sans,
         color && textColorMap[color],
         fontSize && fontSizeMap[fontSize],
         fontWeight && fontWeightMap[fontWeight],
@@ -215,6 +186,104 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
 };
 
 export default Text;
+
+/**
+ * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::bd36caff8bedb3bdc89b6f2311c6160a>>
+ * @codegenId typography
+ * @codegenCommand yarn codegen-styles
+ * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography.tsx <<SignedSource::39bc8db0f376f5635a25be0137792642>>
+ */
+const fontSizeMap = {
+  'size.050': css({
+    fontSize: token('font.size.050', '11px'),
+  }),
+  'size.075': css({
+    fontSize: token('font.size.075', '12px'),
+  }),
+  'size.100': css({
+    fontSize: token('font.size.100', '14px'),
+  }),
+  'size.200': css({
+    fontSize: token('font.size.200', '16px'),
+  }),
+  'size.300': css({
+    fontSize: token('font.size.300', '20px'),
+  }),
+  'size.400': css({
+    fontSize: token('font.size.400', '24px'),
+  }),
+  'size.500': css({
+    fontSize: token('font.size.500', '29px'),
+  }),
+  'size.600': css({
+    fontSize: token('font.size.600', '35px'),
+  }),
+};
+
+export type FontSize = keyof typeof fontSizeMap;
+
+const fontWeightMap = {
+  bold: css({
+    fontWeight: token('font.weight.bold', '700'),
+  }),
+  medium: css({
+    fontWeight: token('font.weight.medium', '500'),
+  }),
+  regular: css({
+    fontWeight: token('font.weight.regular', '400'),
+  }),
+  semibold: css({
+    fontWeight: token('font.weight.semibold', '600'),
+  }),
+};
+
+export type FontWeight = keyof typeof fontWeightMap;
+
+const fontFamilyMap = {
+  monospace: css({
+    fontFamily: token(
+      'font.family.monospace',
+      '"SFMono-Medium", "SF Mono", "Segoe UI Mono", "Roboto Mono", "Ubuntu Mono", Menlo, Consolas, Courier, monospace',
+    ),
+  }),
+  sans: css({
+    fontFamily: token(
+      'font.family.sans',
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+    ),
+  }),
+};
+
+export type FontFamily = keyof typeof fontFamilyMap;
+
+const lineHeightMap = {
+  'lineHeight.100': css({
+    lineHeight: token('font.lineHeight.100', '16px'),
+  }),
+  'lineHeight.200': css({
+    lineHeight: token('font.lineHeight.200', '20px'),
+  }),
+  'lineHeight.300': css({
+    lineHeight: token('font.lineHeight.300', '24px'),
+  }),
+  'lineHeight.400': css({
+    lineHeight: token('font.lineHeight.400', '28px'),
+  }),
+  'lineHeight.500': css({
+    lineHeight: token('font.lineHeight.500', '32px'),
+  }),
+  'lineHeight.600': css({
+    lineHeight: token('font.lineHeight.600', '40px'),
+  }),
+};
+
+export type LineHeight = keyof typeof lineHeightMap;
+
+/**
+ * @codegenEnd
+ */
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}

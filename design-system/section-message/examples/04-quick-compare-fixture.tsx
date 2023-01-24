@@ -51,8 +51,8 @@ const Example = () => (
       This example has been constructed for ease-of-reference and comparison in
       developing section message. It is not a suggested implementation.
     </Text>
-    <Box display="block" padding="scale.100">
-      <Stack gap="scale.200">
+    <Box display="block" padding="space.100">
+      <Stack gap="space.200">
         <SomeParts body title actions />
         <SomeParts body title />
         <SomeParts body actions />

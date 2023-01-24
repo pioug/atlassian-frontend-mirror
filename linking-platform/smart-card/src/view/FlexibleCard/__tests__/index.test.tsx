@@ -1,12 +1,10 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { mount } from 'enzyme';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { CardState } from '@atlaskit/linking-common';
 import FlexibleCard from '../index';
 import { TitleBlock } from '../components/blocks';
 import { SmartLinkStatus } from '../../../constants';
-import { HoverCard } from '../../HoverCard';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { FlexibleUiContext } from '../../../state/flexible-ui-context';
 import context from '../../../__fixtures__/flexible-ui-data-context';
@@ -72,7 +70,7 @@ describe('FlexibleCard', () => {
         },
       };
 
-      const element = mount(
+      render(
         <SmartCardProvider>
           <FlexibleUiContext.Provider value={context}>
             <FlexibleCard cardState={cardState} url={url}>
@@ -82,7 +80,9 @@ describe('FlexibleCard', () => {
         </SmartCardProvider>,
       );
 
-      expect(element.find(HoverCard)).toHaveLength(0);
+      expect(
+        screen.queryByTestId('hover-card-trigger-wrapper'),
+      ).not.toBeInTheDocument();
     });
 
     it('should render a hover preview when its prop is enabled and link is included', async () => {
@@ -106,7 +106,7 @@ describe('FlexibleCard', () => {
         },
       };
 
-      const element = mount(
+      render(
         <SmartCardProvider>
           <FlexibleUiContext.Provider value={context}>
             <FlexibleCard
@@ -120,7 +120,9 @@ describe('FlexibleCard', () => {
         </SmartCardProvider>,
       );
 
-      expect(element.find(HoverCard)).toHaveLength(1);
+      expect(
+        await screen.findByTestId('hover-card-trigger-wrapper'),
+      ).toBeInTheDocument();
     });
 
     it('should not render a hover preview when its prop is diabled and link is included', async () => {
@@ -144,7 +146,7 @@ describe('FlexibleCard', () => {
         },
       };
 
-      const element = mount(
+      render(
         <SmartCardProvider>
           <FlexibleUiContext.Provider value={context}>
             <FlexibleCard
@@ -158,7 +160,9 @@ describe('FlexibleCard', () => {
         </SmartCardProvider>,
       );
 
-      expect(element.find(HoverCard)).toHaveLength(0);
+      expect(
+        screen.queryByTestId('hover-card-trigger-wrapper'),
+      ).not.toBeInTheDocument();
     });
 
     it('should not render a hover preview when url is not provided in context', async () => {
@@ -181,7 +185,7 @@ describe('FlexibleCard', () => {
         },
       };
 
-      const element = mount(
+      render(
         <SmartCardProvider>
           <FlexibleUiContext.Provider value={context}>
             <FlexibleCard
@@ -195,7 +199,9 @@ describe('FlexibleCard', () => {
         </SmartCardProvider>,
       );
 
-      expect(element.find(HoverCard)).toHaveLength(0);
+      expect(
+        screen.queryByTestId('hover-card-trigger-wrapper'),
+      ).not.toBeInTheDocument();
     });
   });
 

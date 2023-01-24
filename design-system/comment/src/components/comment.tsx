@@ -64,8 +64,8 @@ const Comment: FC<CommentProps> = ({
       id={id}
       avatar={avatar}
       content={
-        <Stack gap="scale.075">
-          <Stack gap="scale.050">
+        <Stack gap="space.075">
+          <Stack gap="space.050">
             <Header testId={testId && `${testId}-header`} {...headerProps} />
             <Text
               as="div"

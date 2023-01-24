@@ -18,7 +18,7 @@ export default function AnalyticsExample() {
 
   return (
     <AnalyticsListener channel="atlaskit" onEvent={sendAnalytics}>
-      <Stack gap="scale.500">
+      <Stack gap="space.500">
         <Pagination
           testId="pagination"
           getPageLabel={(page: any) =>
@@ -26,11 +26,11 @@ export default function AnalyticsExample() {
           }
           pages={pageLinks}
         />
-        <Stack gap="scale.150">
+        <Stack gap="space.150">
           <Heading level="h700">Analytics event context received</Heading>
           <Code>{JSON.stringify(analyticEventContext, null, 2)}</Code>
         </Stack>
-        <Stack gap="scale.150">
+        <Stack gap="space.150">
           <Heading level="h700">Analytics event payload received</Heading>
           <Code>{JSON.stringify(analyticEventPayload, null, 2)}</Code>
         </Stack>

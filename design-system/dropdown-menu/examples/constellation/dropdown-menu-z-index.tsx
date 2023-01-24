@@ -22,7 +22,7 @@ const DropdownMenuZIndex = () => {
       placement="bottom-start"
       zIndex={600}
       content={() => (
-        <Box padding="scale.100" UNSAFE_style={containerStyles}>
+        <Box padding="space.100" UNSAFE_style={containerStyles}>
           <DropdownMenu trigger="Page actions" zIndex={610} testId="dropdown">
             <DropdownItemGroup>
               <DropdownItem>Move</DropdownItem>

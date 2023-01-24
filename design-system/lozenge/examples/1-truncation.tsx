@@ -8,7 +8,7 @@ import {
 import Lozenge from '../src';
 
 export default () => (
-  <Stack gap="scale.100">
+  <Stack gap="space.100">
     <Text>
       <Lozenge appearance="success">
         very very very wide text which truncates

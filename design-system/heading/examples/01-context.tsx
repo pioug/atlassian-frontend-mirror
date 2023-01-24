@@ -12,7 +12,7 @@ import Heading, { HeadingContextProvider } from '../src';
 const Section = ({ level, children }: any) => (
   <HeadingContextProvider>
     <Stack
-      gap="scale.100"
+      gap="space.100"
       UNSAFE_style={{ paddingLeft: token('spacing.scale.100', '8px') }}
     >
       <Heading level={level}>{level}</Heading>
@@ -32,7 +32,7 @@ export default () => {
     <HeadingContextProvider>
       <Stack
         testId="headings"
-        gap="scale.100"
+        gap="space.100"
         UNSAFE_style={{ maxWidth: 850, margin: 'auto' }}
       >
         <Heading level="h900">h900 and H1</Heading>

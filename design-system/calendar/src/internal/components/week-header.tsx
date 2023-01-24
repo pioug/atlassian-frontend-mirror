@@ -21,7 +21,7 @@ const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({ daysShort }) {
     <WeekDayGrid>
       {daysShort.map((shortDay) => (
         <Box
-          padding="scale.100"
+          padding="space.100"
           display="block"
           UNSAFE_style={{
             minWidth: 40, // Account for languages with short week day names
@@ -33,8 +33,8 @@ const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({ daysShort }) {
           key={shortDay}
         >
           <Text
-            fontWeight="700"
-            fontSize="11px"
+            fontWeight="bold"
+            fontSize="size.050"
             verticalAlign="middle"
             textTransform="uppercase"
           >

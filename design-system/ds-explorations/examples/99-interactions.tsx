@@ -35,10 +35,10 @@ const fieldsetStyles = css({
 
 export default () => {
   return (
-    <Box width="size.500" padding="scale.100" testId="all">
-      <Stack gap="scale.200">
+    <Box width="size.500" padding="space.100" testId="all">
+      <Stack gap="space.200">
         <Heading level="h400">Current ADS Buttons</Heading>
-        <Inline gap="scale.200">
+        <Inline gap="space.200">
           <Button appearance="primary">brand.bold</Button>
           <Button appearance="default">neutral</Button>
           <Button appearance="warning">warning.bold</Button>
@@ -46,7 +46,7 @@ export default () => {
         <Heading level="h400">
           Buttons with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline gap="scale.200" testId="buttons">
+        <Inline gap="space.200" testId="buttons">
           {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
             <FocusRing key={app}>
               <Box
@@ -54,15 +54,15 @@ export default () => {
                 onClick={() => console.log('hello')}
                 borderRadius="normal"
                 position="relative"
-                paddingInline="scale.150"
+                paddingInline="space.150"
                 backgroundColor={app}
               >
                 <InteractionSurface>
                   <Text
                     textAlign="center"
-                    fontSize="14px"
-                    lineHeight="32px"
-                    fontWeight="500"
+                    fontSize="size.100"
+                    lineHeight="lineHeight.500"
+                    fontWeight="medium"
                   >
                     {app}
                   </Text>
@@ -74,7 +74,7 @@ export default () => {
         <Heading level="h400">
           Icon Buttons with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline gap="scale.200" testId="icon-buttons">
+        <Inline gap="space.200" testId="icon-buttons">
           <FocusRing>
             <Box
               as="button"
@@ -82,7 +82,7 @@ export default () => {
               onClick={() => console.log('hello')}
               borderRadius="normal"
               position="relative"
-              padding="scale.050"
+              padding="space.050"
             >
               <InteractionSurface>
                 <WarningIcon
@@ -100,7 +100,7 @@ export default () => {
               onClick={() => console.log('hello')}
               borderRadius="normal"
               position="relative"
-              padding="scale.050"
+              padding="space.050"
             >
               <InteractionSurface>
                 <WarningIcon label="icon button" />
@@ -114,7 +114,7 @@ export default () => {
               onClick={() => console.log('hello')}
               borderRadius="normal"
               position="relative"
-              padding="scale.050"
+              padding="space.050"
             >
               <InteractionSurface>
                 <WarningIcon
@@ -129,7 +129,7 @@ export default () => {
         <Heading level="h400">
           Progress Indicator with <Code>InteractionSurface</Code>
         </Heading>
-        <Inline gap="scale.200" testId="progress-indicators">
+        <Inline gap="space.200" testId="progress-indicators">
           {(['brand.bold', 'neutral', 'warning.bold'] as const).map((app) => (
             <FocusRing>
               <Box
@@ -139,7 +139,7 @@ export default () => {
                 onClick={() => console.log('hello')}
                 borderRadius="rounded"
                 position="relative"
-                padding="scale.050"
+                padding="space.050"
               >
                 <InteractionSurface>
                   <Fragment />
@@ -149,14 +149,14 @@ export default () => {
           ))}
         </Inline>
         <Heading level="h400">Textfield / input spikes</Heading>
-        <Inline gap="scale.200">
+        <Inline gap="space.200">
           <Textfield />
           <Box
             as="fieldset"
             borderRadius="normal"
             borderStyle="solid"
             borderWidth="2px"
-            padding="scale.100"
+            padding="space.100"
             tabIndex={-1}
             borderColor="color.border"
             backgroundColor="input"

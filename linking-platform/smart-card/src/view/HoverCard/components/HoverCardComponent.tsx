@@ -151,6 +151,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
             onMouseLeave={initHideCard}
             onMouseMove={setMousePosition}
             onClick={onChildClick}
+            data-testid="hover-card-trigger-wrapper"
           >
             {children}
           </span>

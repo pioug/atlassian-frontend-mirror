@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { extractActions } from '../extractActions';
@@ -15,7 +15,7 @@ describe('extractBlockActionPropsFromJSONLD()', () => {
     expect(extractActions(document as any, handler)).toEqual([]);
   });
 
-  it('should return client and server actions together', () => {
+  it('should return client and server actions together', async () => {
     const props = extractActions(TEST_DOCUMENT_WITH_ACTIONS as any, handler);
     expect(props).toEqual([
       {
@@ -29,13 +29,8 @@ describe('extractBlockActionPropsFromJSONLD()', () => {
         promise: expect.any(Function),
       },
     ]);
-    const downloadMessage = mount(
-      <IntlProvider locale="en">{props[0].text}</IntlProvider>,
-    );
-    const downloadMessageProp = downloadMessage
-      .find('FormattedMessage')
-      .prop('defaultMessage');
-    expect(downloadMessageProp).toEqual('Download');
+    render(<IntlProvider locale="en">{props[0].text}</IntlProvider>);
+    expect(await screen.findByText('Download')).toBeVisible();
   });
 
   it('should use action @type when @id is not defined', () => {

@@ -128,7 +128,7 @@ const Flag: FC<FlagProps> = (props) => {
         display="block"
         backgroundColor={flagBackgroundColor[appearance]}
         shadow="overlay"
-        padding="scale.200"
+        padding="space.200"
         borderRadius="normal"
         overflow="hidden"
         layer="flag"
@@ -141,7 +141,7 @@ const Flag: FC<FlagProps> = (props) => {
         testId={testId}
         {...autoDismissProps}
       >
-        <Inline gap="scale.200">
+        <Inline gap="space.200">
           <Box
             alignItems="start"
             UNSAFE_style={{ color: iconColor, flexShrink: 0 }}
@@ -149,17 +149,17 @@ const Flag: FC<FlagProps> = (props) => {
             {icon}
           </Box>
           <Stack
-            gap={shouldRenderGap ? 'scale.100' : 'scale.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
+            gap={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
             UNSAFE_style={{
               flexGrow: 1,
               transition: `gap 0.3s`,
             }}
           >
-            <Inline gap="scale.100" justifyContent="spaceBetween">
+            <Inline gap="space.100" justifyContent="spaceBetween">
               <Box display="block" UNSAFE_style={{ paddingTop: 2 }}>
                 <Text
                   color={textColor}
-                  fontWeight="600"
+                  fontWeight="semibold"
                   UNSAFE_style={{
                     overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
                   }}

@@ -23,7 +23,7 @@ const NavigationFooter = ({ children }: NavigationFooterProps) => {
     <Box
       display="block"
       position="relative"
-      padding="scale.100"
+      padding="space.100"
       UNSAFE_style={{
         paddingBottom: token('spacing.scale.200', '14px'),
       }}

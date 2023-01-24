@@ -11,15 +11,26 @@ import {
 
 export default () => {
   return (
-    <Stack gap="scale.300">
+    <Stack gap="space.300">
       <Heading level="h400" as="h3">
         Text examples
       </Heading>
-      <Stack gap="scale.200">
+      <Stack gap="space.200">
         <Box display="block">
           <Heading level="h300">Font size</Heading>
-          <Inline gap="scale.200" testId="font-sizes">
-            {(['11px', '12px', '14px'] as const).map((fontSize) => (
+          <Inline gap="space.200" testId="font-sizes">
+            {(
+              [
+                'size.050',
+                'size.075',
+                'size.100',
+                'size.200',
+                'size.300',
+                'size.400',
+                'size.500',
+                'size.600',
+              ] as const
+            ).map((fontSize) => (
               <Text key={fontSize} fontSize={fontSize}>
                 fontSize {fontSize}
               </Text>
@@ -30,21 +41,30 @@ export default () => {
           <Heading level="h300" as="h4">
             Font weight
           </Heading>
-          <Inline gap="scale.200" testId="font-weights">
-            {(['400', '500'] as const).map((fontWeight) => (
-              <Text key={fontWeight} fontWeight={fontWeight}>
-                fontWeight {fontWeight}
-              </Text>
-            ))}
+          <Inline gap="space.200" testId="font-weights">
+            {(['regular', 'medium', 'semibold', 'bold'] as const).map(
+              (fontWeight) => (
+                <Text key={fontWeight} fontWeight={fontWeight}>
+                  fontWeight {fontWeight}
+                </Text>
+              ),
+            )}
           </Inline>
         </Box>
         <Box display="block">
           <Heading level="h300" as="h4">
             Line height
           </Heading>
-          <Inline gap="scale.200" testId="line-heights" alignItems="center">
+          <Inline gap="space.200" testId="line-heights" alignItems="center">
             {(
-              ['12px', '16px', '20px', '24px', '28px', '32px', '40px'] as const
+              [
+                'lineHeight.100',
+                'lineHeight.200',
+                'lineHeight.300',
+                'lineHeight.400',
+                'lineHeight.500',
+                'lineHeight.600',
+              ] as const
             ).map((lineHeight) => (
               <Box
                 key={lineHeight}
@@ -60,7 +80,7 @@ export default () => {
           <Heading level="h300" as="h4">
             Testing
           </Heading>
-          <Stack gap="scale.050" testId="testing">
+          <Stack gap="space.050" testId="testing">
             <Text as="p">Paragraph</Text>
             <Text as="div">A div</Text>
             <Text>
@@ -68,9 +88,9 @@ export default () => {
             </Text>
             <Text
               color="brand"
-              fontSize="14px"
-              lineHeight="16px"
-              fontWeight="500"
+              fontSize="size.100"
+              lineHeight="lineHeight.100"
+              fontWeight="medium"
               id="some-id"
             >
               Text with various props

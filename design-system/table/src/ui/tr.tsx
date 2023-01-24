@@ -22,6 +22,7 @@ const selectedStyles = css({
 });
 
 const bodyRowStyles = css({
+  borderBottom: `1px solid ${token('color.border', '#eee')}`,
   '&:hover': {
     backgroundColor: token(
       'color.background.neutral.subtle.hovered',
@@ -30,13 +31,6 @@ const bodyRowStyles = css({
   },
   '&:focus-visible::after': {
     boxShadow: 'none',
-  },
-  '&:after': {
-    position: 'absolute',
-    boxShadow: `inset 0 -1px 0 0 ${token('color.border', '#eee')}`,
-    content: "''",
-    inset: 0,
-    pointerEvents: 'none',
   },
 });
 

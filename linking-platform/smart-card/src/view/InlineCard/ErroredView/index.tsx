@@ -50,6 +50,7 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
           appearance="subtle-link"
           component={IconStyledButton}
           onClick={this.handleRetry}
+          role="button"
         >
           <FormattedMessage {...messages.try_again}>
             {(formattedMessage) => {
@@ -81,6 +82,7 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
                   label="error"
                   size="small"
                   primaryColor={token('color.icon.danger', R300)}
+                  testId="errored-view-default-icon"
                 />
               </AKIconWrapper>
             )

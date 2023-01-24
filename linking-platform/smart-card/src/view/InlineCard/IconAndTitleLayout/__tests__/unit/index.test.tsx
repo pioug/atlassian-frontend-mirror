@@ -1,16 +1,20 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { IconAndTitleLayout } from '../../index';
-import { TitleWrapper } from '../../styled';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 
 jest.mock('react-render-image');
 
 describe('IconAndTitleLayout', () => {
-  it('should render the text', () => {
-    const element = mount(<IconAndTitleLayout title="some text content" />);
+  it('should render the text', async () => {
+    renderWithIntl(
+      <IconAndTitleLayout
+        title="some text content"
+        testId="icon-and-title-layout"
+      />,
+    );
 
-    expect(element.find(TitleWrapper).text()).toContain('some text content');
+    await expectElementWithText('icon-and-title-layout', 'some text content');
   });
 
   describe('renderIcon', () => {
@@ -104,48 +108,57 @@ describe('IconAndTitleLayout', () => {
   });
 
   describe('rightSideSpacer prop', () => {
-    it('should render spacer when undefined', () => {
+    it('should render spacer when undefined', async () => {
       const leftText = 'Left side text';
       const rightText = 'Right side text';
-      const element = mount(
+      renderWithIntl(
         <IconAndTitleLayout
           title={leftText}
-          testId="inline-card-icon"
+          testId="icon-and-title-layout"
           rightSide={rightText}
         />,
       );
 
-      expect(element.text()).toEqual(`${leftText} - ${rightText}`);
+      await expectElementWithText(
+        'icon-and-title-layout',
+        `${leftText} - ${rightText}`,
+      );
     });
 
-    it('should render spacer when true', () => {
+    it('should render spacer when true', async () => {
       const leftText = 'Left side text';
       const rightText = 'Right side text';
-      const element = mount(
+      renderWithIntl(
         <IconAndTitleLayout
           title={leftText}
-          testId="inline-card-icon"
+          testId="icon-and-title-layout"
           rightSide={rightText}
           rightSideSpacer={true}
         />,
       );
 
-      expect(element.text()).toEqual(`${leftText} - ${rightText}`);
+      await expectElementWithText(
+        'icon-and-title-layout',
+        `${leftText} - ${rightText}`,
+      );
     });
 
-    it('should not render spacer when false', () => {
+    it('should not render spacer when false', async () => {
       const leftText = 'Left side text';
       const rightText = 'Right side text';
-      const element = mount(
+      renderWithIntl(
         <IconAndTitleLayout
           title={leftText}
-          testId="inline-card-icon"
+          testId="icon-and-title-layout"
           rightSide={rightText}
           rightSideSpacer={false}
         />,
       );
 
-      expect(element.text()).toEqual(`${leftText}${rightText}`);
+      await expectElementWithText(
+        'icon-and-title-layout',
+        `${leftText}${rightText}`,
+      );
     });
   });
 });

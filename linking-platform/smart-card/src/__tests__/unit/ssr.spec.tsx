@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { ErrorBoundary } from 'react-error-boundary';
+import { render, screen } from '@testing-library/react';
 import { CardSSR, CardSSRProps } from '../../ssr';
 import { Provider, Client } from '../../';
-import { CardWithUrlContent } from '../../view/CardWithUrl/component';
+import * as CardWithUrlContent from '../../view/CardWithUrl/component';
 import { url, cardState } from '@atlaskit/media-test-helpers/smart-card-state';
-import { LoadingCardLink } from '../../view/CardWithUrl/component-lazy/LazyFallback';
+
+const cardMock = jest.spyOn(CardWithUrlContent, 'CardWithUrlContent');
 
 describe('<SSRCard />', () => {
   const cardProps: CardSSRProps = {
@@ -18,33 +18,27 @@ describe('<SSRCard />', () => {
         [url]: cardState,
       },
     };
-    const card = mount(
+    render(
       <Provider storeOptions={storeOptions} client={new Client('stg')}>
         <CardSSR {...cardProps} />
       </Provider>,
     );
-
-    return {
-      card,
-    };
   };
-  it('should render CardWithUrlContent with provided props', () => {
-    const { card } = setup();
-
-    expect(card.find(CardWithUrlContent).props()).toEqual(
-      expect.objectContaining(cardProps),
-    );
+  it('should render CardWithUrlContent with provided props', async () => {
+    setup();
+    const resolvedCard = await screen.findByTestId('inline-card-resolved-view');
+    expect(resolvedCard).toBeVisible();
+    expect(resolvedCard).toHaveAttribute('href', url);
   });
 
-  it('should render error fallback component with correct props', () => {
-    const { card } = setup();
-
-    const FallbackComponent = card
-      .find(ErrorBoundary)
-      .prop('FallbackComponent') as () => any;
-
-    const fallbackComponent = FallbackComponent();
-    expect(fallbackComponent.type).toBe(LoadingCardLink);
-    expect(fallbackComponent.props).toEqual(expect.objectContaining(cardProps));
+  it('should render error fallback component with correct props', async () => {
+    cardMock.mockImplementation(() => {
+      throw new Error();
+    });
+    setup();
+    const fallbackComponent = await screen.findByTestId(
+      'lazy-render-placeholder',
+    );
+    expect(fallbackComponent).toBeVisible();
   });
 });

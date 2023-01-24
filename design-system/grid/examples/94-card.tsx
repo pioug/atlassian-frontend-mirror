@@ -9,7 +9,7 @@ const Card: FC = ({ children }) => {
   return (
     <Box
       display="block"
-      padding="scale.300"
+      padding="space.300"
       borderColor="color.border"
       borderWidth="1px"
       borderRadius="badge"

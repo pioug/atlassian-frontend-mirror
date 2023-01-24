@@ -42,7 +42,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
       <Box
         as="section"
         backgroundColor={appearanceMap[appearance]}
-        padding="scale.200"
+        padding="space.200"
         borderRadius="normal"
         testId={testId}
         ref={ref}
@@ -50,7 +50,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
           wordBreak: 'break-word',
         }}
       >
-        <Inline gap="scale.200">
+        <Inline gap="space.200">
           <Box
             UNSAFE_style={{
               margin: '-2px 0',
@@ -62,7 +62,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
               secondaryColor={secondaryColor}
             />
           </Box>
-          <Stack gap="scale.100" testId={testId && `${testId}--content`}>
+          <Stack gap="space.100" testId={testId && `${testId}--content`}>
             {!!title && (
               <Heading as="h2" level="h500">
                 {title}
@@ -74,7 +74,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
                 flexWrap="wrap"
                 testId={testId && `${testId}--actions`}
                 divider="·"
-                gap="scale.100"
+                gap="space.100"
               >
                 {actionsArray}
               </Inline>

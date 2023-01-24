@@ -1,5 +1,15 @@
 # @atlaskit/analytics-listeners
 
+## 8.4.0
+
+### Minor Changes
+
+- [`5968718f21e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5968718f21e) - Added linkingPlatform listener
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.2
 
 ### Patch Changes

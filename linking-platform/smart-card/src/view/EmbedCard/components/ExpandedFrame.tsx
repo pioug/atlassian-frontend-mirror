@@ -113,6 +113,8 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         data-trello-do-not-use-override={testId}
         data-is-selected={isSelected}
         data-is-visible={isVisible}
+        data-wrapper-type="default"
+        data-is-interactive={isInteractive()}
       >
         {renderHeader()}
         {renderContent()}

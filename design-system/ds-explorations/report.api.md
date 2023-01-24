@@ -189,20 +189,20 @@ type ColumnGap = keyof typeof columnGapMap;
 
 // @public
 const columnGapMap: {
-  'scale.0': SerializedStyles;
-  'scale.025': SerializedStyles;
-  'scale.050': SerializedStyles;
-  'scale.075': SerializedStyles;
-  'scale.100': SerializedStyles;
-  'scale.1000': SerializedStyles;
-  'scale.150': SerializedStyles;
-  'scale.200': SerializedStyles;
-  'scale.250': SerializedStyles;
-  'scale.300': SerializedStyles;
-  'scale.400': SerializedStyles;
-  'scale.500': SerializedStyles;
-  'scale.600': SerializedStyles;
-  'scale.800': SerializedStyles;
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -322,11 +322,16 @@ const flexWrapMap_2: {
 // @public (undocumented)
 type FontSize = keyof typeof fontSizeMap;
 
-// @public (undocumented)
+// @public
 const fontSizeMap: {
-  '11px': SerializedStyles;
-  '12px': SerializedStyles;
-  '14px': SerializedStyles;
+  'size.050': SerializedStyles;
+  'size.075': SerializedStyles;
+  'size.100': SerializedStyles;
+  'size.200': SerializedStyles;
+  'size.300': SerializedStyles;
+  'size.400': SerializedStyles;
+  'size.500': SerializedStyles;
+  'size.600': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -334,10 +339,10 @@ type FontWeight = keyof typeof fontWeightMap;
 
 // @public (undocumented)
 const fontWeightMap: {
-  '400': SerializedStyles;
-  '500': SerializedStyles;
-  '600': SerializedStyles;
-  '700': SerializedStyles;
+  bold: SerializedStyles;
+  medium: SerializedStyles;
+  regular: SerializedStyles;
+  semibold: SerializedStyles;
 };
 
 // @public (undocumented)
@@ -387,13 +392,12 @@ type LineHeight = keyof typeof lineHeightMap;
 
 // @public (undocumented)
 const lineHeightMap: {
-  '12px': SerializedStyles;
-  '16px': SerializedStyles;
-  '20px': SerializedStyles;
-  '24px': SerializedStyles;
-  '28px': SerializedStyles;
-  '32px': SerializedStyles;
-  '40px': SerializedStyles;
+  'lineHeight.100': SerializedStyles;
+  'lineHeight.200': SerializedStyles;
+  'lineHeight.300': SerializedStyles;
+  'lineHeight.400': SerializedStyles;
+  'lineHeight.500': SerializedStyles;
+  'lineHeight.600': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -413,20 +417,20 @@ type PaddingBlock = keyof typeof paddingBlockMap;
 
 // @public (undocumented)
 const paddingBlockMap: {
-  'scale.0': SerializedStyles;
-  'scale.025': SerializedStyles;
-  'scale.050': SerializedStyles;
-  'scale.075': SerializedStyles;
-  'scale.100': SerializedStyles;
-  'scale.1000': SerializedStyles;
-  'scale.150': SerializedStyles;
-  'scale.200': SerializedStyles;
-  'scale.250': SerializedStyles;
-  'scale.300': SerializedStyles;
-  'scale.400': SerializedStyles;
-  'scale.500': SerializedStyles;
-  'scale.600': SerializedStyles;
-  'scale.800': SerializedStyles;
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -434,38 +438,38 @@ type PaddingInline = keyof typeof paddingInlineMap;
 
 // @public (undocumented)
 const paddingInlineMap: {
-  'scale.0': SerializedStyles;
-  'scale.025': SerializedStyles;
-  'scale.050': SerializedStyles;
-  'scale.075': SerializedStyles;
-  'scale.100': SerializedStyles;
-  'scale.1000': SerializedStyles;
-  'scale.150': SerializedStyles;
-  'scale.200': SerializedStyles;
-  'scale.250': SerializedStyles;
-  'scale.300': SerializedStyles;
-  'scale.400': SerializedStyles;
-  'scale.500': SerializedStyles;
-  'scale.600': SerializedStyles;
-  'scale.800': SerializedStyles;
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
 };
 
 // @public
 const paddingMap: {
-  'scale.0': SerializedStyles;
-  'scale.025': SerializedStyles;
-  'scale.050': SerializedStyles;
-  'scale.075': SerializedStyles;
-  'scale.100': SerializedStyles;
-  'scale.1000': SerializedStyles;
-  'scale.150': SerializedStyles;
-  'scale.200': SerializedStyles;
-  'scale.250': SerializedStyles;
-  'scale.300': SerializedStyles;
-  'scale.400': SerializedStyles;
-  'scale.500': SerializedStyles;
-  'scale.600': SerializedStyles;
-  'scale.800': SerializedStyles;
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
 };
 
 // @public (undocumented)
@@ -484,20 +488,20 @@ type RowGap = keyof typeof rowGapMap;
 
 // @public
 const rowGapMap: {
-  'scale.0': SerializedStyles;
-  'scale.025': SerializedStyles;
-  'scale.050': SerializedStyles;
-  'scale.075': SerializedStyles;
-  'scale.100': SerializedStyles;
-  'scale.1000': SerializedStyles;
-  'scale.150': SerializedStyles;
-  'scale.200': SerializedStyles;
-  'scale.250': SerializedStyles;
-  'scale.300': SerializedStyles;
-  'scale.400': SerializedStyles;
-  'scale.500': SerializedStyles;
-  'scale.600': SerializedStyles;
-  'scale.800': SerializedStyles;
+  'space.0': SerializedStyles;
+  'space.025': SerializedStyles;
+  'space.050': SerializedStyles;
+  'space.075': SerializedStyles;
+  'space.100': SerializedStyles;
+  'space.1000': SerializedStyles;
+  'space.150': SerializedStyles;
+  'space.200': SerializedStyles;
+  'space.250': SerializedStyles;
+  'space.300': SerializedStyles;
+  'space.400': SerializedStyles;
+  'space.500': SerializedStyles;
+  'space.600': SerializedStyles;
+  'space.800': SerializedStyles;
 };
 
 // @public (undocumented)

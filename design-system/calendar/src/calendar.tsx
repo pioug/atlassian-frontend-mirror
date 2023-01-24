@@ -168,7 +168,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
         </VisuallyHidden>
         <Box
           display="inlineBlock"
-          padding="scale.200"
+          padding="space.200"
           UNSAFE_style={{
             userSelect: 'none',
           }}
@@ -177,7 +177,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
           role="grid"
           tabIndex={tabIndex}
         >
-          <Stack gap="scale.150">
+          <Stack gap="space.150">
             <Header
               // The month number needs to be translated to index in the month
               // name array e.g. 1 (January) -> 0

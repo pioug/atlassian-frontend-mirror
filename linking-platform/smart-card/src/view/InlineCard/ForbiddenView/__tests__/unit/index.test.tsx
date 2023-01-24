@@ -1,9 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import LockIcon from '@atlaskit/icon/glyph/lock-filled';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { InlineCardForbiddenView } from '../..';
+import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 
 jest.mock('react-render-image');
 
@@ -11,23 +11,23 @@ const URL =
   'http://product.example.com/lorem/ipsum/dolor/sit/amet/consectetur/adipiscing/volutpat/';
 
 describe('Forbidden view', () => {
-  it('should do click if try again clicked', () => {
+  it('should do click if try again clicked', async () => {
     const onRetrySpy = jest.fn();
-    const element = mount(
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView url={URL} onAuthorise={onRetrySpy} />
       </IntlProvider>,
     );
-    element
-      .find('span[data-testid="button-connect-other-account"]')
-      .simulate('click');
+    fireEvent.click(
+      await screen.findByRole('button', { name: 'Restricted content' }),
+    );
     expect(onRetrySpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should not call onClick if onRetry was triggered', () => {
+  it('should not call onClick if onRetry was triggered', async () => {
     const onClickSpy = jest.fn();
     const onRetrySpy = jest.fn();
-    const element = mount(
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
           url={URL}
@@ -36,34 +36,38 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    element
-      .find('span[data-testid="button-connect-other-account"]')
-      .simulate('click');
+    fireEvent.click(
+      await screen.findByRole('button', { name: 'Restricted content' }),
+    );
     expect(onRetrySpy).toHaveBeenCalledTimes(1);
     expect(onClickSpy).not.toHaveBeenCalled();
   });
 
-  it('should show correct text', () => {
-    const element = mount(
+  it('should show correct text', async () => {
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView url={URL} />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(URL);
+    await expectElementWithText('inline-card-forbidden-view', URL);
   });
 
-  it('should show correct text if actionable', () => {
-    const element = mount(
+  it('should show correct text if actionable', async () => {
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView url={URL} onAuthorise={jest.fn()} />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(`${URL}Restricted content`);
+
+    await expectElementWithText(
+      'inline-card-forbidden-view',
+      `${URL}Restricted content`,
+    );
   });
 
-  it('should show correct icon if present', () => {
+  it('should show correct icon if present', async () => {
     const iconUrl = 'https://google.com/favicon.ico';
-    const element = mount(
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
           url={URL}
@@ -72,24 +76,31 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(`${URL}Restricted content`);
-    expect(element.find('img').prop('src')).toBe(iconUrl);
+    await expectElementWithText(
+      'inline-card-forbidden-view',
+      `${URL}Restricted content`,
+    );
+    expect(await screen.findByRole('img')).toHaveAttribute('src', iconUrl);
   });
 
-  it('should show correct icon if not present (fallback icon)', () => {
-    const element = mount(
+  it('should show correct icon if not present (fallback icon)', async () => {
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView url={URL} onAuthorise={jest.fn()} />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(`${URL}Restricted content`);
-    expect(element.find(LockIcon)).toHaveLength(1);
-    expect(element.find(LockIcon).prop('label')).toBe('error');
+    await expectElementWithText(
+      'inline-card-forbidden-view',
+      `${URL}Restricted content`,
+    );
+    expect(
+      await screen.findByTestId('forbidden-view-fallback-icon'),
+    ).toHaveAttribute('aria-label', 'error');
   });
 
-  it('should show correct text if request access type is DIRECT_ACCESS', () => {
+  it('should show correct text if request access type is DIRECT_ACCESS', async () => {
     const requestAccessContext = { callToActionMessageKey: 'click_to_join' };
-    const element = mount(
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
           url={URL}
@@ -98,16 +109,19 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(`${URL} - Join Jira`);
+    await expectElementWithText(
+      'inline-card-forbidden-view',
+      `${URL} - Join Jira`,
+    );
   });
 
-  it('should do promise if Join to preview clicked', () => {
+  it('should do promise if Join to preview clicked', async () => {
     const promise = jest.fn();
     const requestAccessContext = {
       callToActionMessageKey: 'click_to_join',
       action: { promise },
     };
-    const element = mount(
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
           url={URL}
@@ -115,15 +129,13 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    element
-      .find('span[data-testid="button-connect-other-account"]')
-      .simulate('click');
+    fireEvent.click(await screen.findByRole('button', { name: 'Join' }));
     expect(promise).toHaveBeenCalledTimes(1);
   });
 
-  it('should show correct text if request access type is REQUEST_ACCESS', () => {
+  it('should show correct text if request access type is REQUEST_ACCESS', async () => {
     const requestAccessContext = { callToActionMessageKey: 'request_access' };
-    const element = mount(
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
           url={URL}
@@ -131,16 +143,20 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    expect(element.text()).toEqual(`${URL} - Request access`);
+
+    await expectElementWithText(
+      'inline-card-forbidden-view',
+      `${URL} - Request access`,
+    );
   });
 
-  it('should do promise if request access is clicked', () => {
+  it('should do promise if request access is clicked', async () => {
     const promise = jest.fn();
     const requestAccessContext = {
       callToActionMessageKey: 'request_access',
       action: { promise },
     };
-    const element = mount(
+    render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView
           url={URL}
@@ -148,9 +164,9 @@ describe('Forbidden view', () => {
         />
       </IntlProvider>,
     );
-    element
-      .find('span[data-testid="button-connect-other-account"]')
-      .simulate('click');
+    fireEvent.click(
+      await screen.findByRole('button', { name: 'Request access' }),
+    );
     expect(promise).toHaveBeenCalledTimes(1);
   });
 });

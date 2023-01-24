@@ -76,7 +76,7 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
 
   return (
     <Inline
-      gap="scale.100"
+      gap="space.100"
       flexWrap="wrap"
       alignItems="center"
       divider={isBold ? null : '·'}

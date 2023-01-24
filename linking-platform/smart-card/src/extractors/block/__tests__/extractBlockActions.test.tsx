@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { extractBlockActions } from '../index';
@@ -24,7 +24,7 @@ describe('extractors.block.extractBlockActions', () => {
     expect(extractBlockActions(blockCardProps, TEST_DOCUMENT)).toEqual([]);
   });
 
-  it('should return actions if opts are passed', () => {
+  it('should return actions if opts are passed', async () => {
     const props = extractBlockActions(
       blockCardProps,
       TEST_DOCUMENT_WITH_ACTIONS,
@@ -45,13 +45,8 @@ describe('extractors.block.extractBlockActions', () => {
         text: 'assign',
       },
     ]);
-    const downloadMessage = mount(
-      <IntlProvider locale="en">{props[0].text}</IntlProvider>,
-    );
-    const downloadMessageProp = downloadMessage
-      .find('FormattedMessage')
-      .prop('defaultMessage');
-    expect(downloadMessageProp).toEqual('Download');
+    render(<IntlProvider locale="en">{props[0].text}</IntlProvider>);
+    expect(await screen.findByText('Download')).toBeVisible();
   });
 
   it('should return preview action when platform is supported', () => {

@@ -15,10 +15,10 @@ import { spacingScale } from '../src/internal/spacing-scale';
  */
 export default () => {
   return (
-    <Stack gap="scale.400" alignItems="flexStart">
-      <Stack gap="scale.200" testId="box-with-background-and-paddingBlock">
+    <Stack gap="space.400" alignItems="flexStart">
+      <Stack gap="space.200" testId="box-with-background-and-paddingBlock">
         <Heading level="h600">paddingBlock</Heading>
-        <Inline gap="scale.200" alignItems="center">
+        <Inline gap="space.200" alignItems="center">
           {spacingScale.map((space) => (
             <Box
               key={space}
@@ -33,9 +33,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="scale.200" testId="box-with-background-and-paddingInline">
+      <Stack gap="space.200" testId="box-with-background-and-paddingInline">
         <Heading level="h600">paddingInline</Heading>
-        <Stack gap="scale.200" alignItems="center">
+        <Stack gap="space.200" alignItems="center">
           {spacingScale.map((space) => (
             <Box
               key={space}
@@ -50,9 +50,9 @@ export default () => {
         </Stack>
       </Stack>
 
-      <Stack gap="scale.200" testId="box-with-background-and-padding">
+      <Stack gap="space.200" testId="box-with-background-and-padding">
         <Heading level="h600">padding</Heading>
-        <Inline gap="scale.200" alignItems="center">
+        <Inline gap="space.200" alignItems="center">
           {spacingScale.map((space) => (
             <Box key={space} backgroundColor="discovery.bold" padding={space}>
               <Box backgroundColor="elevation.surface" justifyContent="center">
@@ -63,9 +63,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="scale.200" testId="box-with-backgroundColor">
+      <Stack gap="space.200" testId="box-with-backgroundColor">
         <Heading level="h600">backgroundColor</Heading>
-        <Inline gap="scale.200" alignItems="center">
+        <Inline gap="space.200" alignItems="center">
           {(
             [
               'discovery.bold',
@@ -76,7 +76,7 @@ export default () => {
               'brand.bold',
             ] as const
           ).map((bgColor) => (
-            <Box key={bgColor} backgroundColor={bgColor} padding="scale.400">
+            <Box key={bgColor} backgroundColor={bgColor} padding="space.400">
               <Box justifyContent="center">
                 <Text>{bgColor}</Text>
               </Box>
@@ -85,9 +85,9 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="scale.200" testId="box-with-borderColor">
+      <Stack gap="space.200" testId="box-with-borderColor">
         <Heading level="h600">borderColor</Heading>
-        <Inline gap="scale.200" alignItems="center">
+        <Inline gap="space.200" alignItems="center">
           {(
             [
               'discovery',
@@ -104,7 +104,7 @@ export default () => {
               borderColor={borderColor}
               borderStyle="solid"
               borderWidth="2px"
-              padding="scale.400"
+              padding="space.400"
             >
               <Box justifyContent="center">
                 <Text color="color.text">{borderColor}</Text>
@@ -114,15 +114,15 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="scale.200" testId="box-with-shadow">
+      <Stack gap="space.200" testId="box-with-shadow">
         <Heading level="h600">shadow</Heading>
-        <Inline gap="scale.200" alignItems="center">
+        <Inline gap="space.200" alignItems="center">
           {(['raised', 'overflow', 'overlay'] as const).map((shadow) => (
             <Box
               key={shadow}
               backgroundColor="elevation.surface"
               shadow={shadow}
-              padding="scale.400"
+              padding="space.400"
             >
               <Box justifyContent="center">
                 <Text color="color.text">{shadow}</Text>
@@ -132,7 +132,7 @@ export default () => {
         </Inline>
       </Stack>
 
-      <Stack gap="scale.200" testId="box-with-layer">
+      <Stack gap="space.200" testId="box-with-layer">
         <Heading level="h600">layer</Heading>
         <Box alignItems="center" UNSAFE_style={{ width: 800, height: 650 }}>
           {(
@@ -153,7 +153,7 @@ export default () => {
               backgroundColor="elevation.surface"
               layer={layer}
               shadow="overlay"
-              padding="scale.400"
+              padding="space.400"
               position="absolute"
               UNSAFE_style={{
                 top: index * 64,

@@ -52,7 +52,7 @@ const SpreadInlineLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Inline gap="scale.100" justifyContent="space-between" alignItems="center">
+    <Inline gap="space.100" justifyContent="space-between" alignItems="center">
       {children}
     </Inline>
   );
@@ -99,10 +99,10 @@ const ProgressIndicatorDots: FC<{}> = () => {
 
   return (
     <Box display="block" css={pageStyles}>
-      <Box display="block" paddingBlock="scale.400">
-        <Stack gap="scale.400">
+      <Box display="block" paddingBlock="space.400">
+        <Stack gap="space.400">
           <SpreadInlineLayout>
-            <Stack gap="scale.150">
+            <Stack gap="space.150">
               <Box css={headingStyles} display="block">
                 Appearance
               </Box>
@@ -119,7 +119,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
                 ))}
               </ButtonGroup>
             </Stack>
-            <Stack gap="scale.150">
+            <Stack gap="space.150">
               <Box css={headingStyles} display="block">
                 Spacing
               </Box>
@@ -136,7 +136,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
                 ))}
               </ButtonGroup>
             </Stack>
-            <Stack gap="scale.150">
+            <Stack gap="space.150">
               <Box css={headingStyles} display="block">
                 Size
               </Box>
@@ -156,7 +156,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
           </SpreadInlineLayout>
           <SpreadInlineLayout>
             <Box as="label" htmlFor="input">
-              <Inline gap="scale.100" alignItems="center">
+              <Inline gap="space.100" alignItems="center">
                 {/* eslint-disable-next-line @repo/internal/react/use-primitives*/}
                 <input
                   checked={isInteractive}
@@ -164,7 +164,7 @@ const ProgressIndicatorDots: FC<{}> = () => {
                   onChange={toggleInteractivity}
                   type="checkbox"
                 />
-                <Text as="strong" fontWeight="700">
+                <Text as="strong" fontWeight="bold">
                   Allow interaction with indicators
                 </Text>
               </Inline>
@@ -185,8 +185,8 @@ const ProgressIndicatorDots: FC<{}> = () => {
                   role="tabpanel"
                   UNSAFE_style={{ display: selected ? 'block' : 'none' }}
                 >
-                  <Stack gap="scale.100">
-                    <Text as="strong" fontSize="14px" fontWeight="700">
+                  <Stack gap="space.100">
+                    <Text as="strong" fontSize="size.100" fontWeight="bold">
                       Panel {i + 1}
                     </Text>
                     <Lorem count={3} />
@@ -198,8 +198,8 @@ const ProgressIndicatorDots: FC<{}> = () => {
           <Footer appearance={selectedAppearance}>
             <Box
               display="block"
-              paddingBlock="scale.150"
-              paddingInline="scale.100"
+              paddingBlock="space.150"
+              paddingInline="space.100"
             >
               <SpreadInlineLayout>
                 <Button

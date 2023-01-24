@@ -50,6 +50,8 @@ export enum FabricChannel {
   // (undocumented)
   elements = 'fabric-elements',
   // (undocumented)
+  linkingPlatform = 'linkingPlatform',
+  // (undocumented)
   media = 'media',
   // (undocumented)
   navigation = 'navigation',

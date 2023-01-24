@@ -413,6 +413,7 @@ export class ShareDialogContainerInternal extends React.Component<
       loadUserOptions,
       renderCustomTriggerButton,
       shareContentType,
+      isJwmShareToSlackFFEnabled,
       shareFormTitle,
       shareFormHelperMessage,
       shouldCloseOnEscapePress,
@@ -459,6 +460,7 @@ export class ShareDialogContainerInternal extends React.Component<
             onShareSubmit={this.handleSubmitShare}
             renderCustomTriggerButton={renderCustomTriggerButton}
             shareContentType={shareContentType}
+            isJwmShareToSlackFFEnabled={isJwmShareToSlackFFEnabled}
             shareFormTitle={shareFormTitle}
             shareFormHelperMessage={shareFormHelperMessage}
             copyLinkOrigin={this.getCopyLinkOriginTracing()}

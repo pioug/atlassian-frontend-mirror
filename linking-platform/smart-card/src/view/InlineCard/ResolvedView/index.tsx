@@ -44,6 +44,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
       <LozengeBlockWrapper>
         <LozengeWrapper>
           <Lozenge
+            testId="inline-card-resolved-view-lozenge"
             appearance={lozenge.appearance || 'default'}
             isBold={lozenge.isBold}
           >

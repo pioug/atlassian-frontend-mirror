@@ -9,8 +9,8 @@ import {
 import SectionMessage, { SectionMessageAction } from '../src';
 
 const Example = () => (
-  <Box display="block" padding="scale.100">
-    <Stack gap="scale.200">
+  <Box display="block" padding="space.100">
+    <Stack gap="space.200">
       <SectionMessage
         appearance="information"
         title="Atlassian"
@@ -24,20 +24,20 @@ const Example = () => (
           </SectionMessageAction>,
         ]}
       >
-        <Stack gap="scale.100">
+        <Stack gap="space.100">
           <Text>
             Atlassian provides the tools to help every team unleash their full
             potential.
           </Text>
 
-          <Text fontWeight="700">Bitbucket:</Text>
+          <Text fontWeight="bold">Bitbucket:</Text>
           <Text>
             Bitbucket is more than just Git code management. Bitbucket gives
             teams one place to plan projects, collaborate on code, test, and
             deploy.
           </Text>
 
-          <Text fontWeight="700">Jira:</Text>
+          <Text fontWeight="bold">Jira:</Text>
           <Text>The #1 software development tool used by agile teams.</Text>
         </Stack>
       </SectionMessage>
@@ -50,8 +50,8 @@ const Example = () => (
           </SectionMessageAction>
         }
       >
-        <Stack gap="scale.100">
-          <Text fontWeight="700">Google:</Text>
+        <Stack gap="space.100">
+          <Text fontWeight="bold">Google:</Text>
           <Text>
             Our mission is to organise the world’s information and make it
             universally accessible and useful.

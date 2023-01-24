@@ -102,7 +102,7 @@ function InnerPagination<T>(
       aria-label={label}
       as="nav"
     >
-      <Inline gap="scale.0" alignItems="center">
+      <Inline gap="space.0" alignItems="center">
         <Navigator
           key="left-navigator"
           component={components!.Previous}

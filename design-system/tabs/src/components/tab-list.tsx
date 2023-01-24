@@ -131,7 +131,7 @@ const TabList = (props: TabListProps) => {
       role="tablist"
       display="flex"
       position="relative"
-      padding="scale.0"
+      padding="space.0"
       ref={ref}
       // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
       css={tabListStyles}

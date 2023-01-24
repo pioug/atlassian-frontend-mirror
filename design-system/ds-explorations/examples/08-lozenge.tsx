@@ -11,18 +11,18 @@ import {
 
 export default () => {
   return (
-    <Inline gap="scale.200">
+    <Inline gap="space.200">
       <Lozenge>Default</Lozenge>
       <Box
         backgroundColor="neutral"
         borderRadius="normal"
         as="span"
-        paddingInline="scale.050"
+        paddingInline="space.050"
       >
         <Text
           color="color.text"
-          fontSize="11px"
-          fontWeight="700"
+          fontSize="size.050"
+          fontWeight="bold"
           textTransform="uppercase"
         >
           Default

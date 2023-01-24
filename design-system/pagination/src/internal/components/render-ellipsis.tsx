@@ -13,7 +13,7 @@ export default function renderEllipsis({
   testId,
 }: EllipsisProp): ReactElement {
   return (
-    <Box as="span" testId={testId} key={key} paddingInline="scale.100">
+    <Box as="span" testId={testId} key={key} paddingInline="space.100">
       <Text testId={`${testId}-text`} verticalAlign="middle">
         &hellip;
       </Text>

@@ -10,13 +10,13 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Banner from '../src';
 
 const Padded = ({ children }: { children: React.ReactNode }) => (
-  <Box display="block" paddingInline="scale.200">
+  <Box display="block" paddingInline="space.200">
     <Text>{children}</Text>
   </Box>
 );
 
 export default () => (
-  <Stack gap="scale.200" UNSAFE_style={{ width: 400 }}>
+  <Stack gap="space.200" UNSAFE_style={{ width: 400 }}>
     <Banner icon={<WarningIcon label="" secondaryColor="inherit" />}>
       JIRA Service Desk pricing has been updated. Please migrate within 3
       months.

@@ -1,37 +1,26 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { render, screen, fireEvent } from '@testing-library/react';
 
 import { Frame } from '../..';
-import { WrapperSpan, WrapperAnchor } from '../../styled';
 
 describe('Frame', () => {
-  it('should not render interactive props when the frame is not clickable', () => {
-    const element = mount(<Frame />);
-    expect(element.find(WrapperSpan).props()).not.toEqual(
-      expect.objectContaining({
-        isInteractive: true,
-        tabIndex: 0,
-        role: 'button',
-      }),
-    );
+  it('should not render interactive props when the frame is not clickable', async () => {
+    render(<Frame testId="frame" />);
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.getByTestId('frame')).not.toHaveAttribute('tabindex', '0');
   });
 
-  it('should render interactive props when the frame is clickable', () => {
-    const element = mount(
+  it('should render interactive props when the frame is clickable', async () => {
+    render(
       <Frame
         onClick={() => {
           /* noop */
         }}
+        testId="frame"
       />,
     );
-    expect(element.find(WrapperAnchor).props()).toEqual(
-      expect.objectContaining({
-        isInteractive: true,
-        tabIndex: 0,
-        role: 'button',
-      }),
-    );
+    expect(await screen.findByRole('button')).toBeInTheDocument();
+    expect(screen.getByTestId('frame')).toHaveAttribute('tabindex', '0');
   });
 
   it('should call onClick when the card is clicked', () => {

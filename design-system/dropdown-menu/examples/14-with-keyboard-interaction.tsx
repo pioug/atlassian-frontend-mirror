@@ -19,7 +19,7 @@ export default () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <Stack gap="scale.250">
+    <Stack gap="space.250">
       <Heading level="h700">
         Click dropdown button and try to open the modal using your keyboard.
       </Heading>
@@ -52,7 +52,7 @@ export default () => {
             </ModalHeader>
 
             <ModalBody>
-              <Box paddingBlock="scale.250">
+              <Box paddingBlock="space.250">
                 <Button onClick={() => setModalOpen(false)}>Close modal</Button>
                 <DropdownMenu
                   trigger="Open dropdown"

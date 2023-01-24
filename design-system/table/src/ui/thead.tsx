@@ -10,14 +10,9 @@ const baseStyles = css({
   zIndex: 1,
   backgroundColor: token('elevation.surface', 'white'),
   border: 'none',
+  borderBottom: `2px solid ${token('color.border', '#eee')}`,
+  borderTop: '2px solid transparent',
   inset: 0,
-  '&:after': {
-    position: 'absolute',
-    boxShadow: `inset 0 -2px 0 0 ${token('color.border', '#eee')}`,
-    content: "''",
-    inset: 0,
-    pointerEvents: 'none',
-  },
 });
 
 /**

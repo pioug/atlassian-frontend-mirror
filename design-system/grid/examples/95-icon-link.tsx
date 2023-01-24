@@ -10,7 +10,7 @@ import {
 
 const IconLink: FC = ({ children }) => {
   return (
-    <Inline gap="scale.100" alignItems="center">
+    <Inline gap="space.100" alignItems="center">
       <Box
         display="block"
         borderRadius="normal"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 import {
   extractAttachmentCount,
@@ -14,13 +14,16 @@ describe('extractors.detail.AttachmentCount', () => {
     expect(extractAttachmentCount(BASE_DATA)).toBe(undefined);
   });
 
-  it('returns number and icon when attachment count present', () => {
+  it('returns number and icon when attachment count present', async () => {
     const detail = extractAttachmentCount({
       ...BASE_DATA,
       'atlassian:attachmentCount': 12,
     });
     expect(detail).toBeDefined();
     expect(detail!.text).toBe('12');
-    expect(mount(<>{detail!.icon}</>).find('AttachmentIcon')).toHaveLength(1);
+    render(<>{detail!.icon}</>);
+    const icon = await screen.findByRole('img');
+    expect(icon).toBeInTheDocument();
+    expect(icon).toHaveAttribute('aria-label', 'attachments');
   });
 });

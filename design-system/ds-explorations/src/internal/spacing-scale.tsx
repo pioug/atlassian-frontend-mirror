@@ -3,22 +3,22 @@
  *
  * Internal codegen of the spacing scale values. Only used for internal examples.
  *
- * @codegen <<SignedSource::d351e41acd06f256fb46554409694f31>>
+ * @codegen <<SignedSource::885d6c601dfa9fccaf33a7bd461ef59d>>
  * @codegenCommand yarn codegen-styles
  */
 export const spacingScale = [
-  'scale.0',
-  'scale.025',
-  'scale.050',
-  'scale.075',
-  'scale.100',
-  'scale.150',
-  'scale.200',
-  'scale.250',
-  'scale.300',
-  'scale.400',
-  'scale.500',
-  'scale.600',
-  'scale.800',
-  'scale.1000',
+  'space.0',
+  'space.025',
+  'space.050',
+  'space.075',
+  'space.100',
+  'space.150',
+  'space.200',
+  'space.250',
+  'space.300',
+  'space.400',
+  'space.500',
+  'space.600',
+  'space.800',
+  'space.1000',
 ] as const;

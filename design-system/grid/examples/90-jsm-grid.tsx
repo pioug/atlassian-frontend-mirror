@@ -47,7 +47,7 @@ const JSMGrid = () => {
         display="block"
       >
         {/* Nav */}
-        <Box paddingBlock="scale.300" paddingInline="scale.400">
+        <Box paddingBlock="space.300" paddingInline="space.400">
           <JiraServiceManagementLogo
             appearance={theme === 'dark' ? 'brand' : 'inverse'}
           />
@@ -56,12 +56,12 @@ const JSMGrid = () => {
         <Box
           justifyContent="center"
           alignItems="center"
-          paddingBlock="scale.1000"
+          paddingBlock="space.1000"
           UNSAFE_style={{ paddingBottom: 144 }}
         >
           <Grid width="wide">
             <GridItem offset={{ md: 3 }} span={{ md: 8 }}>
-              <Stack gap="scale.200" alignItems="center">
+              <Stack gap="space.200" alignItems="center">
                 <Heading
                   level="h700"
                   color={theme === 'light' ? 'inverse' : 'default'}
@@ -81,10 +81,10 @@ const JSMGrid = () => {
       <Box css={dynamicSizedVerticalPaddingStyles}>
         <Grid width="wide">
           <GridItem>
-            <Stack gap="scale.800">
+            <Stack gap="space.800">
               <Grid>
                 <GridItem span={{ sm: 3, md: 4 }}>
-                  <Stack gap="scale.300">
+                  <Stack gap="space.300">
                     <JSMConfigCard title="Design Collection">
                       <IconLink>Join Figma support slack channel</IconLink>
                       <IconLink>Join Figma support slack channel</IconLink>
@@ -93,7 +93,7 @@ const JSMGrid = () => {
                   </Stack>
                 </GridItem>
                 <GridItem span={{ sm: 3, md: 4 }}>
-                  <Stack gap="scale.300">
+                  <Stack gap="space.300">
                     <JSMConfigCard title="New hire basics" />
                     <JSMConfigCard title="Payroll">
                       <IconLink>Join Figma support slack channel</IconLink>
@@ -107,7 +107,7 @@ const JSMGrid = () => {
               </Grid>
               <Grid>
                 <GridItem>
-                  <Inline justifyContent="space-between" gap="scale.0">
+                  <Inline justifyContent="space-between" gap="space.0">
                     <Heading level="h800" as="h2">
                       Featured service desks
                     </Heading>
@@ -146,7 +146,7 @@ const JSMGrid = () => {
               </Grid>
               <Grid>
                 <GridItem>
-                  <Inline justifyContent="space-between" gap="scale.0">
+                  <Inline justifyContent="space-between" gap="space.0">
                     <Heading level="h800" as="h2">
                       Recently used forms
                     </Heading>

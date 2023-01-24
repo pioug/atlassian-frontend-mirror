@@ -1,6 +1,6 @@
-import { render } from '../../__mocks__/render';
+import { withIntl } from '../../__mocks__/withIntl';
 import { extractIconFromTask } from '../extractIconFromTask';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import {
   JIRA_GENERATOR_ID,
   JIRA_TASK,
@@ -17,84 +17,96 @@ import {
 import { TEST_URL } from '../../__mocks__/jsonld';
 
 describe('extractors.icon.task', () => {
-  it('returns default icon if no opts given', () => {
+  it('returns default icon if no opts given', async () => {
     const icon = extractIconFromTask({});
-    expect(mount(render(icon)).find('Task16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('default-task-icon')).toBeVisible();
   });
 
-  it('returns jira icon if jira task', () => {
+  it('returns jira icon if jira task', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_TASK },
     });
-    expect(mount(render(icon)).find('Task16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('jira-task-icon')).toBeVisible();
   });
 
-  it('returns jira icon if jira sub task', () => {
+  it('returns jira icon if jira sub task', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_SUB_TASK },
     });
-    expect(mount(render(icon)).find('Subtask16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('jira-subtask-icon')).toBeVisible();
   });
 
-  it('returns jira icon if jira story', () => {
+  it('returns jira icon if jira story', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_STORY },
     });
-    expect(mount(render(icon)).find('Story16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('jira-story-icon')).toBeVisible();
   });
 
-  it('returns jira icon if jira bug', () => {
+  it('returns jira icon if jira bug', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_BUG },
     });
-    expect(mount(render(icon)).find('Bug16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('jira-bug-icon')).toBeVisible();
   });
 
-  it('returns jira icon if jira epic', () => {
+  it('returns jira icon if jira epic', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_EPIC },
     });
-    expect(mount(render(icon)).find('Epic16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('jira-epic-icon')).toBeVisible();
   });
 
-  it('returns jira icon if jira incident', () => {
+  it('returns jira icon if jira incident', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_INCIDENT },
     });
-    expect(mount(render(icon)).find('Incident16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('jira-incident-icon')).toBeVisible();
   });
 
-  it('returns jira icon if jira service request', () => {
+  it('returns jira icon if jira service request', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_SERVICE_REQUEST },
     });
-    expect(mount(render(icon)).find('Issue16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(
+      await screen.findByTestId('jira-service-request-icon'),
+    ).toBeVisible();
   });
 
-  it('returns jira icon if jira change', () => {
+  it('returns jira icon if jira change', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_CHANGE },
     });
-    expect(mount(render(icon)).find('Changes16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('jira-change-icon')).toBeVisible();
   });
 
-  it('returns jira icon if jira problem', () => {
+  it('returns jira icon if jira problem', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_PROBLEM },
     });
-    expect(mount(render(icon)).find('Problem16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('jira-problem-icon')).toBeVisible();
   });
 
-  it('returns icon if jira custom task - task type icon defined', () => {
+  it('returns icon if jira custom task - task type icon defined', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_CUSTOM_TASK_TYPE, icon: TEST_URL },
@@ -102,7 +114,7 @@ describe('extractors.icon.task', () => {
     expect(icon).toBe(TEST_URL);
   });
 
-  it('returns icon if jira custom task - top-level icon defined', () => {
+  it('returns icon if jira custom task - top-level icon defined', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_CUSTOM_TASK_TYPE },
@@ -111,7 +123,7 @@ describe('extractors.icon.task', () => {
     expect(icon).toBe(TEST_URL);
   });
 
-  it('returns icon if jira custom task - provider icon defined', () => {
+  it('returns icon if jira custom task - provider icon defined', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira', icon: TEST_URL },
       taskType: { id: JIRA_CUSTOM_TASK_TYPE },
@@ -119,11 +131,12 @@ describe('extractors.icon.task', () => {
     expect(icon).toBe(TEST_URL);
   });
 
-  it('returns icon if jira custom task - default fallback icon', () => {
+  it('returns icon if jira custom task - default fallback icon', async () => {
     const icon = extractIconFromTask({
       provider: { id: JIRA_GENERATOR_ID, text: 'Jira' },
       taskType: { id: JIRA_CUSTOM_TASK_TYPE },
     });
-    expect(mount(render(icon)).find('Task16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('default-task-icon')).toBeVisible();
   });
 });

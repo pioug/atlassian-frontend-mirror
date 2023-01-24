@@ -1,5 +1,18 @@
 # @atlaskit/table
 
+## 0.2.1
+
+### Patch Changes
+
+- [`eadbf13d8c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eadbf13d8c0) - Updated usages of `Text`, `Box`, `Stack`, and `Inline` primitives to reflect their updated APIs. There are no visual or behaviour changes.
+- Updated dependencies
+
+## 0.2.0
+
+### Minor Changes
+
+- [`0fc5e276eb4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fc5e276eb4) - [ux] Fix borders not showing in Safari. Table is shifted down slightly as a result.
+
 ## 0.1.4
 
 ### Patch Changes

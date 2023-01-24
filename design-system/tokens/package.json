@@ -69,7 +69,7 @@
     "@atlaskit/code": "^14.4.0",
     "@atlaskit/docs": "^9.0.10",
     "@atlaskit/dropdown-menu": "^11.5.0",
-    "@atlaskit/ds-explorations": "^1.7.0",
+    "@atlaskit/ds-explorations": "^2.0.0",
     "@atlaskit/dynamic-table": "^14.8.0",
     "@atlaskit/empty-state": "^7.4.0",
     "@atlaskit/focus-ring": "^1.2.0",

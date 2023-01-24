@@ -151,53 +151,53 @@ export default Inline;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3bb74c0e18d35310a98408ecd49c1526>>
+ * @codegen <<SignedSource::0a2a4380b534d14cdad759ff2d33a6c8>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["columnGap"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::a2b43f8447798dfdd9c6223bd22b78c7>>
  */
 const columnGapMap = {
-  'scale.0': css({
+  'space.0': css({
     columnGap: token('space.0', '0px'),
   }),
-  'scale.025': css({
+  'space.025': css({
     columnGap: token('space.025', '2px'),
   }),
-  'scale.050': css({
+  'space.050': css({
     columnGap: token('space.050', '4px'),
   }),
-  'scale.075': css({
+  'space.075': css({
     columnGap: token('space.075', '6px'),
   }),
-  'scale.100': css({
+  'space.100': css({
     columnGap: token('space.100', '8px'),
   }),
-  'scale.1000': css({
+  'space.1000': css({
     columnGap: token('space.1000', '80px'),
   }),
-  'scale.150': css({
+  'space.150': css({
     columnGap: token('space.150', '12px'),
   }),
-  'scale.200': css({
+  'space.200': css({
     columnGap: token('space.200', '16px'),
   }),
-  'scale.250': css({
+  'space.250': css({
     columnGap: token('space.250', '20px'),
   }),
-  'scale.300': css({
+  'space.300': css({
     columnGap: token('space.300', '24px'),
   }),
-  'scale.400': css({
+  'space.400': css({
     columnGap: token('space.400', '32px'),
   }),
-  'scale.500': css({
+  'space.500': css({
     columnGap: token('space.500', '40px'),
   }),
-  'scale.600': css({
+  'space.600': css({
     columnGap: token('space.600', '48px'),
   }),
-  'scale.800': css({
+  'space.800': css({
     columnGap: token('space.800', '64px'),
   }),
 };

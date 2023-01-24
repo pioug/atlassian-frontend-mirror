@@ -121,6 +121,16 @@ export class DummyAtlasComponent extends React.Component<Props> {
     );
   }
 }
+export class DummyLinkingPlatformComponent extends React.Component<Props> {
+  render() {
+    return (
+      <CustomButton
+        text={FabricChannel.linkingPlatform}
+        onClick={this.props.onClick}
+      />
+    );
+  }
+}
 
 class MyButton extends React.Component<Props> {
   static displayName = 'MyButton';
@@ -143,6 +153,7 @@ const componentChannels = {
   [FabricChannel.notifications]: DummyNotificationsComponent,
   [FabricChannel.recentWork]: DummyNotificationsComponent,
   [FabricChannel.atlas]: DummyAtlasComponent,
+  [FabricChannel.linkingPlatform]: DummyLinkingPlatformComponent,
 };
 
 export const createComponentWithAnalytics = (channel: FabricChannel) =>

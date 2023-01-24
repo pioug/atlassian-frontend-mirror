@@ -1,5 +1,12 @@
 # @atlaskit/comment
 
+## 10.7.5
+
+### Patch Changes
+
+- [`eadbf13d8c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eadbf13d8c0) - Updated usages of `Text`, `Box`, `Stack`, and `Inline` primitives to reflect their updated APIs. There are no visual or behaviour changes.
+- Updated dependencies
+
 ## 10.7.4
 
 ### Patch Changes

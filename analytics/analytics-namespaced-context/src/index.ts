@@ -32,3 +32,8 @@ export {
 } from './RecentWorkAnalyticsContext';
 
 export { ATLAS_CONTEXT, AtlasAnalyticsContext } from './AtlasAnalyticsContext';
+
+export {
+  LINKING_PLATFORM_CONTEXT,
+  LinkingPlatformAnalyticsContext,
+} from './LinkingPlatformAnalyticsContext';

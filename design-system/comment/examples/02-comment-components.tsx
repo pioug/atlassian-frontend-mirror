@@ -10,7 +10,7 @@ import {
 } from '../src';
 
 export default () => (
-  <Stack gap="scale.100">
+  <Stack gap="space.100">
     <CommentAuthor href="/author">John Smith</CommentAuthor>
     <CommentTime>30 August, 2016</CommentTime>
     <CommentEdited>Edited</CommentEdited>

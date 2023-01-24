@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.7.1
+
+### Patch Changes
+
+- [`665bb54f9fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/665bb54f9fd) - "Passing down existing props to share and integrations package"
+
 ## 3.7.0
 
 ### Minor Changes

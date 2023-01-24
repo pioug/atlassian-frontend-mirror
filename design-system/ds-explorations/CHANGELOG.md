@@ -1,5 +1,23 @@
 # @atlaskit/ds-explorations
 
+## 2.0.0
+
+### Major Changes
+
+- [`544c409d79f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/544c409d79f) - **Breaking Change**
+
+  ### `Text`
+
+  fontSize, fontWeight, and lineHeight APIs have changed due to typography tokens being introduced. The new values for fontSize and lineHeight follow a scale whereas fontWeight accepts keyword values.
+
+  ### `Box`
+
+  `padding`, `paddingBlock`, and `paddingInline` prop values now follow the pattern `space.x` instead of `scale.x` to align with spacing tokens.
+
+  ### `Inline` and `Stack`
+
+  `gap` prop values now follow the pattern `space.x` instead of `scale.x` to align with spacing tokens.
+
 ## 1.7.0
 
 ### Minor Changes

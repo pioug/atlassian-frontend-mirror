@@ -68,21 +68,36 @@ const extractIconByType = (
     case 'atlassian:UndefinedLink':
       return extractIconFromDocument(type, opts);
     case 'atlassian:Goal':
-      return opts.icon || <TaskIcon label={opts.title || 'goal'} />;
+      return (
+        opts.icon || (
+          <TaskIcon label={opts.title || 'goal'} testId="task-icon" />
+        )
+      );
     case 'atlassian:Project':
       return (
         opts.icon || (
-          <ProjectIcon label={opts.title || 'project'} size="small" />
+          <ProjectIcon
+            label={opts.title || 'project'}
+            size="small"
+            testId="project-icon"
+          />
         )
       );
     case 'atlassian:SourceCodeCommit':
-      return <CommitIcon label={opts.title || 'commit'} />;
+      return <CommitIcon label={opts.title || 'commit'} testId="commit-icon" />;
     case 'atlassian:SourceCodePullRequest':
-      return <PullRequestIcon label={opts.title || 'pullRequest'} />;
+      return (
+        <PullRequestIcon
+          label={opts.title || 'pullRequest'}
+          testId="pull-request-icon"
+        />
+      );
     case 'atlassian:SourceCodeReference':
-      return <BranchIcon label={opts.title || 'reference'} />;
+      return (
+        <BranchIcon label={opts.title || 'reference'} testId="branch-icon" />
+      );
     case 'atlassian:SourceCodeRepository':
-      return <RepoIcon label={opts.title || 'repository'} />;
+      return <RepoIcon label={opts.title || 'repository'} testId="repo-icon" />;
     case 'atlassian:Task':
       return extractIconFromTask(opts);
     default:

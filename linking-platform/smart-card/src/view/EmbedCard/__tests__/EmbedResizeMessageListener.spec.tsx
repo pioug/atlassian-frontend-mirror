@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 import { EmbedResizeMessageListener } from '../EmbedResizeMessageListener';
 import { embedHeaderHeight } from '../components/styled';
@@ -15,17 +15,17 @@ describe('EmbedResizeMessageListener', () => {
     return iframe;
   };
 
-  const setup = () => {
+  const setup = async () => {
     const onHeightUpdate = jest.fn<void, [number]>();
     const iframeRef: React.RefObject<HTMLIFrameElement> = {
       current: getIframeElement(1),
     };
-    const component = mount(
+    const { unmount } = render(
       <EmbedResizeMessageListener
         embedIframeRef={iframeRef}
         onHeightUpdate={onHeightUpdate}
       >
-        <div id="child">child</div>
+        <div data-testid="child">child</div>
       </EmbedResizeMessageListener>,
     );
 
@@ -53,20 +53,20 @@ describe('EmbedResizeMessageListener', () => {
     };
 
     return {
-      component,
+      unmount,
       onHeightUpdate,
       iframeEl,
       getValidMessageEvent,
     };
   };
 
-  it('should render children', () => {
-    const { component } = setup();
-    expect(component.find('div#child')).toHaveLength(1);
+  it('should render children', async () => {
+    await setup();
+    expect(await screen.findByTestId('child')).toBeInTheDocument();
   });
 
-  it('should call onHeightUpdate when iframe sends message with new size', () => {
-    const { onHeightUpdate, iframeEl } = setup();
+  it('should call onHeightUpdate when iframe sends message with new size', async () => {
+    const { onHeightUpdate, iframeEl } = await setup();
 
     expect.assertions(4);
 
@@ -177,10 +177,10 @@ describe('EmbedResizeMessageListener', () => {
     expect(onHeightUpdate).toHaveBeenCalledWith(1021 + embedHeaderHeight);
   });
 
-  it('should not call onHeightUpdate when iframe sends message with new size after component has been unmounted', () => {
-    const { onHeightUpdate, getValidMessageEvent, component } = setup();
+  it('should not call onHeightUpdate when iframe sends message with new size after component has been unmounted', async () => {
+    const { onHeightUpdate, getValidMessageEvent, unmount } = await setup();
 
-    component.unmount();
+    unmount();
 
     window.dispatchEvent(getValidMessageEvent());
     expect(onHeightUpdate).not.toHaveBeenCalled();

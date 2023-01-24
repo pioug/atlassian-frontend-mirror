@@ -34,8 +34,8 @@ const Header = memo<HeaderProps>(function Header({
   testId,
 }) {
   return (
-    <Box display="block" paddingInline="scale.100" aria-hidden="true">
-      <Inline gap="scale.0" alignItems="center" justifyContent="space-between">
+    <Box display="block" paddingInline="space.100" aria-hidden="true">
+      <Inline gap="space.0" alignItems="center" justifyContent="space-between">
         <Button
           appearance="subtle"
           spacing="none"

@@ -19,9 +19,9 @@ describe('Text component', () => {
     expect(getByTestId('test')).toMatchInlineSnapshot(`
       .emotion-0 {
         box-sizing: border-box;
-        margin: 0px;
-        padding: 0px;
-        font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+        margin: var(--ds-space-0, 0px);
+        padding: var(--ds-space-0, 0px);
+        font-family: var(--ds-font-family-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif);
       }
 
       <span

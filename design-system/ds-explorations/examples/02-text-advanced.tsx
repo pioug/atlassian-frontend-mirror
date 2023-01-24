@@ -6,10 +6,10 @@ import Text from '../src/components/text.partial';
 
 export default () => {
   return (
-    <Inline gap="scale.100">
+    <Inline gap="space.100">
       <Box
-        paddingBlock="scale.400"
-        paddingInline="scale.400"
+        paddingBlock="space.400"
+        paddingInline="space.400"
         alignItems="center"
         backgroundColor="information"
       >
@@ -18,20 +18,20 @@ export default () => {
         </Text>
       </Box>
       <Box
-        paddingBlock="scale.400"
-        paddingInline="scale.400"
+        paddingBlock="space.400"
+        paddingInline="space.400"
         alignItems="center"
         backgroundColor="information"
       >
-        <Text fontWeight="600">Text on information</Text>
+        <Text fontWeight="semibold">Text on information</Text>
       </Box>
       <Box
-        paddingBlock="scale.400"
-        paddingInline="scale.400"
+        paddingBlock="space.400"
+        paddingInline="space.400"
         alignItems="center"
         backgroundColor="brand.bold"
       >
-        <Text fontWeight="600">Text on brand bold</Text>
+        <Text fontWeight="semibold">Text on brand bold</Text>
       </Box>
     </Inline>
   );

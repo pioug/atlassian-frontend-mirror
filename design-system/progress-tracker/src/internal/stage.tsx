@@ -149,8 +149,8 @@ export default class ProgressTrackerStage extends PureComponent<
             {/* eslint-disable-next-line @repo/internal/react/use-primitives */}
             <div css={titleStyles}>
               <Text
-                fontSize="14px"
-                lineHeight="16px"
+                fontSize="size.100"
+                lineHeight="lineHeight.100"
                 testId={testId && `${testId}-title`}
                 color={getTextColor(item.status)}
                 fontWeight={getFontWeight(item.status)}

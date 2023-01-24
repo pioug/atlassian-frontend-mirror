@@ -11,6 +11,7 @@ import PeopleTeamsAnalyticsListener from './peopleTeams/PeopleTeamsAnalyticsList
 import NotificationsAnalyticsListener from './notifications/NotificationsAnalyticsListener';
 import RecentWorkAnalyticsListener from './recentWork/RecentWorkAnalyticsListener';
 import AtlasAnalyticsListener from './atlas/AtlasAnalyticsListener';
+import LinkingPlatformAnalyticsListener from './linkingPlatform/LinkingPlatformAnalyticsListener';
 
 export type Props = {
   /** Children! */
@@ -31,6 +32,7 @@ const listenerMap = {
   [FabricChannel.notifications]: NotificationsAnalyticsListener,
   [FabricChannel.recentWork]: RecentWorkAnalyticsListener,
   [FabricChannel.atlas]: AtlasAnalyticsListener,
+  [FabricChannel.linkingPlatform]: LinkingPlatformAnalyticsListener,
 };
 
 class FabricAnalyticsListeners extends React.Component<Props> {

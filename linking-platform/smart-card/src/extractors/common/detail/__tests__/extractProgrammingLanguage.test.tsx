@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 import {
   extractProgrammingLanguage,
@@ -14,13 +14,16 @@ describe('extractors.detail.programmingLanguage', () => {
     expect(extractProgrammingLanguage(BASE_DATA)).toBe(undefined);
   });
 
-  it('returns number and icon when programming language present', () => {
+  it('returns number and icon when programming language present', async () => {
     const detail = extractProgrammingLanguage({
       ...BASE_DATA,
       'schema:programmingLanguage': 'JavaScript',
     });
     expect(detail).toBeDefined();
     expect(detail!.text).toBe('JavaScript');
-    expect(mount(<>{detail!.icon}</>).find('CodeIcon')).toHaveLength(1);
+    render(<>{detail!.icon}</>);
+    const icon = await screen.findByRole('img');
+    expect(icon).toBeInTheDocument();
+    expect(icon).toHaveAttribute('aria-label', 'code');
   });
 });

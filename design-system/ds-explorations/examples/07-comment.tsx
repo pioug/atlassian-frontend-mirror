@@ -9,7 +9,7 @@ import Stack from '../src/components/stack.partial';
 import Text from '../src/components/text.partial';
 
 const Author = ({ children }: any) => {
-  return <Text fontWeight="500">{children}</Text>;
+  return <Text fontWeight="medium">{children}</Text>;
 };
 
 const Date = ({ children }: any) => {
@@ -21,14 +21,14 @@ const EditIndicator = ({ hasBeenEdited }: any) => {
 };
 
 const CommentAction = ({ children }: any) => {
-  return <Text fontWeight="500">{children}</Text>;
+  return <Text fontWeight="medium">{children}</Text>;
 };
 
 export default () => {
   return (
     <Box>
-      <Stack gap="scale.050">
-        <Inline gap="scale.100" alignItems="center">
+      <Stack gap="space.050">
+        <Inline gap="space.100" alignItems="center">
           <Author>Jane Citizen</Author>
           <Lozenge>Author</Lozenge>
           <Date>Jun 15, 2022</Date>
@@ -41,7 +41,7 @@ export default () => {
           aliquip ex ea commodo consequat.
         </Text>
         <Box color="subtle">
-          <Inline gap="scale.100" divider="·">
+          <Inline gap="space.100" divider="·">
             <CommentAction>Reply</CommentAction>
             <CommentAction>Edit</CommentAction>
             <CommentAction>Like</CommentAction>

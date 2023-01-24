@@ -1,114 +1,119 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import Lozenge from '@atlaskit/lozenge';
+import { render, screen } from '@testing-library/react';
 import { InlineCardResolvedView } from '../../index';
-import { Icon } from '../../../../InlineCard/Icon';
-import { IconAndTitleLayout } from '../../../IconAndTitleLayout';
 import { LozengeProps } from '../../../../../types';
-import { HoverCard } from '../../../../HoverCard';
+import { token } from '@atlaskit/tokens';
+import { Provider } from '../../../../../';
 
 jest.mock('react-render-image');
 
 describe('ResolvedView', () => {
-  it('should render the title', () => {
-    const element = mount(<InlineCardResolvedView title="some text content" />);
-    expect(element.text()).toContain('some text content');
+  it('should render the title', async () => {
+    render(<InlineCardResolvedView title="some text content" />);
+    expect(await screen.findByText('some text content')).toBeVisible();
   });
 
-  it('should render an icon when one is provided', () => {
-    const element = mount(
+  it('should render an icon when one is provided', async () => {
+    render(
       <InlineCardResolvedView
         icon="some-link-to-icon"
         title="some text content"
       />,
     );
-    const elementIcon = element.find(Icon);
-    expect(elementIcon).toHaveLength(1);
-    const elementIconImage = elementIcon.find('img');
-    expect(elementIconImage).toHaveLength(1);
-    expect(elementIconImage.props()).toEqual(
-      expect.objectContaining({
-        src: 'some-link-to-icon',
-      }),
+    expect(await screen.findByRole('img')).toHaveAttribute(
+      'src',
+      'some-link-to-icon',
     );
   });
 
-  it('should render text color when provided', () => {
-    const element = mount(
+  it('should not render icon when one is not provided', async () => {
+    render(<InlineCardResolvedView title="some text content" />);
+    expect(await screen.findByRole('img')).not.toHaveAttribute('src');
+  });
+
+  it('should render text color when provided', async () => {
+    render(
       <InlineCardResolvedView
         icon="some-link-to-icon"
         title="some text content"
         titleTextColor="#FFFFFF"
       />,
     );
-    const iconAndTitleLayout = element.find(IconAndTitleLayout);
-    expect(iconAndTitleLayout.props()).toEqual(
-      expect.objectContaining({
-        titleTextColor: '#FFFFFF',
-      }),
+    expect(await screen.findByText('some text content')).toHaveStyle(
+      'color: #FFFFFF',
     );
   });
 
-  it('should not render an icon when one is not provided', () => {
-    const element = mount(<InlineCardResolvedView title="some text content" />);
-    expect(element.find(Icon)).toHaveLength(0);
-  });
-
-  it('should render a lozenge when one is provided', () => {
-    const lozenge: LozengeProps = {
+  it('should render a lozenge when one is provided', async () => {
+    const lozengeProps: LozengeProps = {
       text: 'some-lozenge-text',
       isBold: true,
       appearance: 'inprogress',
     };
-    const element = shallow(
-      <InlineCardResolvedView title="some text content" lozenge={lozenge} />,
+    render(
+      <InlineCardResolvedView
+        title="some text content"
+        lozenge={lozengeProps}
+      />,
     );
-    expect(element.find(Lozenge)).toHaveLength(1);
-    expect(element.find(Lozenge).props()).toEqual(
-      expect.objectContaining({
-        appearance: 'inprogress',
-        isBold: true,
-        children: 'some-lozenge-text',
-      }),
+    const lozenge = await screen.findByText('some-lozenge-text');
+    expect(lozenge).toHaveStyle(
+      `background-color: ${token(
+        'color.background.information.bold',
+        '#0052CC',
+      )}`,
+    );
+    expect(lozenge).toHaveStyle(
+      `color: ${token('color.text.inverse', '#FFFFFF')}`,
     );
   });
 
   it('should not render a lozenge when one is not provided', () => {
-    const element = shallow(
-      <InlineCardResolvedView title="some text content" />,
-    );
-    expect(element.find(Lozenge)).toHaveLength(0);
+    render(<InlineCardResolvedView title="some text content" />);
+    expect(
+      screen.queryByTestId('inline-card-resolved-view-lozenge'),
+    ).not.toBeInTheDocument();
   });
 
-  it('should render a hover preview when its prop is enabled and link is included', () => {
-    const element = shallow(
-      <InlineCardResolvedView showHoverPreview={true} link="www.test.com" />,
+  it('should render a hover preview when its prop is enabled and link is included', async () => {
+    render(
+      <Provider>
+        <InlineCardResolvedView showHoverPreview={true} link="www.test.com" />,
+      </Provider>,
     );
-    expect(element.find(HoverCard)).toHaveLength(1);
+    expect(
+      await screen.findByTestId('hover-card-trigger-wrapper'),
+    ).toBeInTheDocument();
   });
 
   it('should not render a hover preview when its prop is disabled and link is not included', () => {
-    const element = shallow(
-      <InlineCardResolvedView showHoverPreview={false} />,
-    );
-    expect(element.find(HoverCard)).toHaveLength(0);
+    render(<InlineCardResolvedView showHoverPreview={false} />);
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
   });
 
   it('should not render a hover preview when prop is enabled and link is not included', () => {
-    const element = shallow(<InlineCardResolvedView showHoverPreview={true} />);
-    expect(element.find(HoverCard)).toHaveLength(0);
+    render(<InlineCardResolvedView showHoverPreview={true} />);
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
   });
 
   it('should not render a hover preview when prop is disabled and link is included', () => {
-    const element = shallow(
+    render(
       <InlineCardResolvedView showHoverPreview={false} link="www.test.com" />,
     );
-    expect(element.find(HoverCard)).toHaveLength(0);
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
   });
 
   it('should not render a hover preview when prop is not provided', () => {
-    const element = shallow(<InlineCardResolvedView link="www.test.com" />);
-    expect(element.find(HoverCard)).toHaveLength(0);
+    render(<InlineCardResolvedView link="www.test.com" />);
+    expect(
+      screen.queryByTestId('hover-card-trigger-wrapper'),
+    ).not.toBeInTheDocument();
   });
 });

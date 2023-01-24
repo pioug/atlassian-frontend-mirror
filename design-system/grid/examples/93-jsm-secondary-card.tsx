@@ -15,15 +15,15 @@ import Card from './94-card';
 const SecondaryCard: FC = () => {
   return (
     <Card>
-      <Inline gap="scale.200">
+      <Inline gap="space.200">
         <Box
           UNSAFE_style={{ flexShrink: 0, marginBlock: 2 }}
           width="size.100"
           height="size.100"
           backgroundColor="neutral"
         />
-        <Stack gap="scale.050">
-          <Text lineHeight="16px">
+        <Stack gap="space.050">
+          <Text lineHeight="lineHeight.100">
             <a href="#id">Kudos in Kudos</a>
           </Text>
           <Text>

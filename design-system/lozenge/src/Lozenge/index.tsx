@@ -81,7 +81,7 @@ const Lozenge = memo(
         display="inlineFlex"
         backgroundColor={backgroundColors[appearanceStyle][appearanceType]}
         borderRadius="normal"
-        paddingInline="scale.050"
+        paddingInline="space.050"
         position="static"
         testId={testId}
         overflow="hidden"
@@ -91,9 +91,9 @@ const Lozenge = memo(
         }}
       >
         <Text
-          fontSize="11px"
-          fontWeight="700"
-          lineHeight="16px"
+          fontSize="size.050"
+          fontWeight="bold"
+          lineHeight="lineHeight.100"
           textTransform="uppercase"
           color={textColors[appearanceStyle][appearanceType]}
           shouldTruncate

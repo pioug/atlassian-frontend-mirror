@@ -154,7 +154,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 
     return (
       <>
-        <IconTitleWrapper style={{ color: titleColor }}>
+        <IconTitleWrapper style={{ color: titleColor }} data-testid={testId}>
           {link ? (
             <LinkAppearance
               href={link}

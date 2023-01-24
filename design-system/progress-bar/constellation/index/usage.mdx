@@ -2,11 +2,14 @@
 order: 2
 ---
 
+import progressBarDo from './images/progress-bar-loading-do.png';
+import progressBarDont from './images/progress-bar-data-viz-dont.png';
+
 ## Usage
 
-A progress bar shows the completion status of an ongoing task. It also indicates whether a user can leave the current view.
+A progress bar shows the duration of a system process, such as saving or processing changes, uploading and downloading files, and loading or updating an application.
 
-Use a progress bar when you can determine the percentage of the completed task at any time. This can include uploading files or upgrading an application. 
+Use a progress bar when you can determine the percentage of the completed task at any time.  
 
 ## Anatomy
 
@@ -15,6 +18,28 @@ Use a progress bar when you can determine the percentage of the completed task a
 1. Progress line: The visual representation of the progress.
 2. Progress bar container: Determine the length of the bar by the available screen space.
 
+## Best practice
+
+<DoDont
+  type="do"
+  image={{
+    url: progressBarDo,
+    alt: 'Atlaskit button that says Reset Password'
+  }}
+>
+  Use the progress bar component as a loading indicator or to communicate the status of a system process.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: progressBarDont,
+    alt: 'Atlaskit button that says Click here to choose a password'
+  }}
+>
+  Don't use the progress bar for data visualization. Use a custom component instead.
+</DoDont>
+
 ## Content guidelines
 
 - Use helper text with a progress bar if the process is complex or has a long wait time. This lets users know what sub-processes are taking place.
@@ -22,4 +47,5 @@ Use a progress bar when you can determine the percentage of the completed task a
 
 ## Related
     
-- To find guidelines on an alternative indeterminate loading state for constrained spaces, see [spinner](/components/spinner).
+- To find guidelines on an alternative indeterminate loading state for constrained spaces, see [spinner](/components/spinner). 
+- To find guidelines on applying color to custom progress bars for data visualization, see [data visualization color](/foundations/color-new/data-visualization-color/). 

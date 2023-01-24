@@ -74,14 +74,14 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
     }, [appearance]);
 
     return (
-      <Box display="block" backgroundColor={backgroundColors[appearanceType]} paddingInline="scale.150" overflow="hidden" testId={testId} ref={ref} {...accessibilityProps} UNSAFE_style={{ paddingBlock: '14px', maxHeight: '52px', }} css={nestedLinkStyles} >
-        <Inline gap="scale.050" alignItems="center" justifyContent="start">
+      <Box display="block" backgroundColor={backgroundColors[appearanceType]} paddingInline="space.150" overflow="hidden" testId={testId} ref={ref} {...accessibilityProps} UNSAFE_style={{ paddingBlock: '14px', maxHeight: '52px', }} css={nestedLinkStyles} >
+        <Inline gap="space.050" alignItems="center" justifyContent="start">
           {icon ? (
             <Box
               as="span"
               display="inline"
-              width="scale.300"
-              height="scale.300" // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
+              width="size.300"
+              height="size.300" // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
               UNSAFE_style={{
                 fill: tokenBackgroundColors[appearanceType],
                 color: tokenTextColors[appearanceType],
@@ -91,7 +91,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
               {icon}
             </Box>
           ) : null}
-          <Text fontWeight="500" lineHeight="24px" color={textColors[appearanceType]} shouldTruncate> {children} </Text>
+          <Text fontWeight="medium" lineHeight="lineHeight.300" color={textColors[appearanceType]} shouldTruncate> {children} </Text>
         </Inline>
       </Box>
     );

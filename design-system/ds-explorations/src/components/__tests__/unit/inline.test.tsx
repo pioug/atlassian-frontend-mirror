@@ -9,7 +9,7 @@ describe('Inline component', () => {
 
   it('should render inline', () => {
     const { getByText } = render(
-      <Inline gap="scale.050">
+      <Inline gap="space.050">
         <Text>1</Text>
         <Text>2</Text>
       </Inline>,
@@ -20,7 +20,7 @@ describe('Inline component', () => {
 
   it('should render inline with dividers', () => {
     const { getByText } = render(
-      <Inline gap="scale.050" divider="/">
+      <Inline gap="space.050" divider="/">
         <Text>1</Text>
         <Text>2</Text>
       </Inline>,
@@ -32,7 +32,7 @@ describe('Inline component', () => {
 
   it('should render with a given test id', () => {
     const { getByTestId } = render(
-      <Inline gap="scale.050" testId={testId}>
+      <Inline gap="space.050" testId={testId}>
         <Text>1</Text>
         <Text>2</Text>
       </Inline>,

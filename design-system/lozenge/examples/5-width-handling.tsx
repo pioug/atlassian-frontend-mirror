@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 import Lozenge from '../src';
 
 export default () => (
-  <Stack gap="scale.100" testId="test-container">
+  <Stack gap="space.100" testId="test-container">
     <Text>
       <Lozenge appearance="success" testId="lozenge-truncated-default-short">
         short text
@@ -32,7 +32,7 @@ export default () => (
       </Lozenge>
     </Text>
     <Stack
-      gap="scale.100"
+      gap="space.100"
       testId="test-container"
       UNSAFE_style={{
         width: '400px',
@@ -40,7 +40,7 @@ export default () => (
       }}
     >
       <Text>
-        <Text fontWeight="500" as="p">
+        <Text fontWeight="medium" as="p">
           In a 400px wide container
         </Text>
         <Lozenge
@@ -81,7 +81,7 @@ export default () => (
     </Stack>
 
     <Text as="p">
-      <Text fontWeight="500" as="p">
+      <Text fontWeight="medium" as="p">
         Constrained by maxWidth
       </Text>
       <Lozenge
@@ -93,7 +93,7 @@ export default () => (
       </Lozenge>
     </Text>
 
-    <Text fontWeight="500">Constrained by container size</Text>
+    <Text fontWeight="medium">Constrained by container size</Text>
     <Box UNSAFE_style={{ width: 125, overflow: 'hidden' }}>
       <Lozenge
         appearance="success"
@@ -103,7 +103,7 @@ export default () => (
       </Lozenge>
     </Box>
 
-    <Text fontWeight="500">
+    <Text fontWeight="medium">
       In a % width context truncates at lowest of % and maxWidth
     </Text>
     <Box UNSAFE_style={{ width: '20%', overflow: 'hidden' }}>

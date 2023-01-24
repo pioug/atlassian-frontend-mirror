@@ -13,10 +13,10 @@ export default () => {
         borderRadius="badge"
         backgroundColor="neutral"
         display="inlineFlex"
-        paddingInline="scale.075"
+        paddingInline="space.075"
         UNSAFE_style={{ lineHeight: '16px' }}
       >
-        <Text fontSize="12px">8</Text>
+        <Text fontSize="size.075">8</Text>
       </Box>
     </>
   );

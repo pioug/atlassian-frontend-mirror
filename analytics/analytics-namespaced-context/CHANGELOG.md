@@ -1,5 +1,11 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.6.0
+
+### Minor Changes
+
+- [`f07e3c52271`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07e3c52271) - Added linkingPlatform namespaced context
+
 ## 6.5.2
 
 ### Patch Changes

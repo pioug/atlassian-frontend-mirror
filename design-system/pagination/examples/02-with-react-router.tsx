@@ -79,7 +79,7 @@ const PaginationWithSelectPage = ({
 }: {
   pageSelected: number;
 }) => (
-  <Box paddingBlock="scale.300">
+  <Box paddingBlock="space.300">
     <Pagination
       testId="pagination"
       getPageLabel={(page: any) =>

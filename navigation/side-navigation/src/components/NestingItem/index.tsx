@@ -220,8 +220,8 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
           <Box
             as="div"
             display="block"
-            paddingBlock="scale.075"
-            paddingInline="scale.100"
+            paddingBlock="space.075"
+            paddingInline="space.100"
           >
             {backButton as BoxProps['children']}
           </Box>

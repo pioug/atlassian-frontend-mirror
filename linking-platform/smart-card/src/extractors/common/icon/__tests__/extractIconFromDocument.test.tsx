@@ -1,61 +1,68 @@
 import { extractIconFromDocument } from '../extractIconFromDocument';
-import { mount } from 'enzyme';
-import { render } from '../../__mocks__/render';
+import { render, screen } from '@testing-library/react';
+import { withIntl } from '../../__mocks__/withIntl';
 import { TEST_URL } from '../../__mocks__/jsonld';
 
 describe('extractors.icon.document', () => {
-  it('returns blog icon for BlogPosting', () => {
+  it('returns blog icon for BlogPosting', async () => {
     const icon = extractIconFromDocument('schema:BlogPosting', {});
-    expect(mount(render(icon)).find('Blog16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('blog-icon')).toBeVisible();
   });
 
-  it('returns file icon for DigitalDocument', () => {
+  it('returns file icon for DigitalDocument', async () => {
     const icon = extractIconFromDocument('schema:DigitalDocument', {});
-    expect(mount(render(icon)).find('Generic16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('file-icon')).toBeVisible();
   });
 
-  it('returns document icon for TextDigitalDocument', () => {
+  it('returns document icon for TextDigitalDocument', async () => {
     const icon = extractIconFromDocument('schema:TextDigitalDocument', {});
-    expect(mount(render(icon)).find('Document16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('document-icon')).toBeVisible();
   });
 
-  it('returns document icon for UndefinedLink', () => {
+  it('returns document icon for UndefinedLink', async () => {
     const icon = extractIconFromDocument('atlassian:UndefinedLink', {});
-    expect(mount(render(icon)).find('Document16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('document-icon')).toBeVisible();
   });
 
-  it('returns presentation icon for PresentationDigitalDocument', () => {
+  it('returns presentation icon for PresentationDigitalDocument', async () => {
     const icon = extractIconFromDocument(
       'schema:PresentationDigitalDocument',
       {},
     );
-    expect(mount(render(icon)).find('Presentation16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('presentation-icon')).toBeVisible();
   });
 
-  it('returns spreadsheet icon for SpreadsheetDigitalDocument', () => {
+  it('returns spreadsheet icon for SpreadsheetDigitalDocument', async () => {
     const icon = extractIconFromDocument(
       'schema:SpreadsheetDigitalDocument',
       {},
     );
-    expect(mount(render(icon)).find('Spreadsheet16Icon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('spreadsheet-icon')).toBeVisible();
   });
 
-  it('returns document filled icon for Template', () => {
+  it('returns document filled icon for Template', async () => {
     const icon = extractIconFromDocument('atlassian:Template', {});
-    expect(mount(render(icon)).find('DocumentFilledIcon')).toHaveLength(1);
+    render(withIntl(icon));
+    expect(await screen.findByTestId('document-filled-icon')).toBeVisible();
   });
 
-  it('privileges file mime type icon for other documents', () => {
+  it('privileges file mime type icon for other documents', async () => {
     const icon = extractIconFromDocument('Document', {
       fileFormat: 'image/png',
     });
-    // Enzyme doesn't play well with LoadableComponents - let's iterate on
-    // this assertion as move forward - maybe `@testing/library` would be
-    // a better fit (?).
-    expect(mount(render(icon))).toBeDefined();
+    render(withIntl(icon));
+    expect(
+      await screen.findByTestId('document-file-format-icon'),
+    ).toBeVisible();
   });
 
-  it('privileges fileFormat icon for other documents', () => {
+  it('privileges fileFormat icon for other documents', async () => {
     const icon = extractIconFromDocument('Document', {
       fileFormat: 'image/png',
       provider: { icon: TEST_URL, text: 'favicon' },
@@ -64,7 +71,7 @@ describe('extractors.icon.document', () => {
     expect(icon).toBeDefined();
   });
 
-  it('privileges provider icon if specified as priority', () => {
+  it('privileges provider icon if specified as priority', async () => {
     const icon = extractIconFromDocument('schema:BlogPosting', {
       fileFormat: 'image/png',
       provider: { icon: TEST_URL, text: 'favicon' },

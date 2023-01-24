@@ -54,7 +54,7 @@ const Header: FC<HeaderProps> = ({
     edited ||
     type;
   return shouldRender ? (
-    <Inline alignItems="center" testId={testId} gap="scale.100">
+    <Inline alignItems="center" testId={testId} gap="space.100">
       {author && headingProps ? (
         // eslint-disable-next-line @repo/internal/react/use-primitives
         <span {...headingProps}>{author}</span>
@@ -68,7 +68,7 @@ const Header: FC<HeaderProps> = ({
       {restrictedTo && (
         <Inline
           alignItems="center"
-          gap="scale.050"
+          gap="space.050"
           UNSAFE_style={{ color: token('color.text.subtlest', N100A) }}
         >
           &bull;

@@ -30,7 +30,6 @@ export type ShareFormProps = Pick<
   helperMessage?: string;
   defaultValue?: ShareData;
   product?: ProductName;
-  shareContentType?: string;
   fieldsFooter?: React.ReactNode;
   selectPortalRef?: React.Ref<HTMLDivElement>;
   isDisabled?: boolean;

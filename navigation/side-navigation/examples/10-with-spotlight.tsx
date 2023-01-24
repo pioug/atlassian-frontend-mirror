@@ -65,7 +65,7 @@ const LanguageSettings = () => {
 const BasicExample = () => {
   return (
     <SpotlightManager>
-      <Inline gap="scale.100">
+      <Inline gap="space.100">
         <AppFrame shouldHideAppBar>
           <SideNavigation label="project" testId="side-navigation">
             <NavigationHeader>
@@ -253,7 +253,7 @@ const SpotlightRenderer = () => {
   }
 
   return (
-    <Box padding="scale.200">
+    <Box padding="space.200">
       <Button
         id="show-spotlight"
         onClick={() => setVariant(0)}

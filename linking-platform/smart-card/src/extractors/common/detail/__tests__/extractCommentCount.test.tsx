@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 import { extractCommentCount, LinkCommentType } from '../extractCommentCount';
 import { TEST_BASE_DATA } from '../../__mocks__/jsonld';
@@ -11,13 +11,16 @@ describe('extractors.detail.commentCount', () => {
     expect(extractCommentCount(BASE_DATA)).toBe(undefined);
   });
 
-  it('returns number and icon when comment count present', () => {
+  it('returns number and icon when comment count present', async () => {
     const detail = extractCommentCount({
       ...BASE_DATA,
       'schema:commentCount': 40,
     });
     expect(detail).toBeDefined();
     expect(detail!.text).toBe('40');
-    expect(mount(<>{detail!.icon}</>).find('CommentIcon')).toHaveLength(1);
+    render(<>{detail!.icon}</>);
+    const icon = await screen.findByRole('img');
+    expect(icon).toBeInTheDocument();
+    expect(icon).toHaveAttribute('aria-label', 'comment-count');
   });
 });

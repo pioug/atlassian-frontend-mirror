@@ -6,7 +6,7 @@ import Heading from '../../src';
 
 export default () => {
   return (
-    <Stack gap="scale.100">
+    <Stack gap="space.100">
       <Heading level="h900">H900</Heading>
       <Heading level="h800">H800</Heading>
       <Heading level="h700">H700</Heading>

@@ -72,8 +72,8 @@ export const BaseCell = forwardRef<HTMLTableCellElement, BaseCellProps>(
       as,
       children,
       align = 'text',
-      paddingBlock = 'scale.100',
-      paddingInline = 'scale.200',
+      paddingBlock = 'space.100',
+      paddingInline = 'space.200',
       backgroundColor,
       scope,
       width,
@@ -93,7 +93,7 @@ export const BaseCell = forwardRef<HTMLTableCellElement, BaseCellProps>(
       className={className}
       UNSAFE_style={width ? { width } : undefined}
     >
-      <Inline justifyContent={alignMap[align]} gap="scale.0">
+      <Inline justifyContent={alignMap[align]} gap="space.0">
         {children}
       </Inline>
     </Box>

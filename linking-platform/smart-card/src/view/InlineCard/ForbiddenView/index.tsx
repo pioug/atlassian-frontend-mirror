@@ -41,6 +41,7 @@ const FallbackForbiddenIcon = (
       label="error"
       size="small"
       primaryColor={token('color.icon.danger', R400)}
+      testId="forbidden-view-fallback-icon"
     />
   </AKIconWrapper>
 );
@@ -94,6 +95,7 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
           onClick={this.handleRetry}
           component={IconStyledButton}
           testId="button-connect-other-account"
+          role="button"
         >
           {this.renderForbiddenAccessMessage()}
         </Button>
@@ -109,6 +111,7 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
             onClick={this.handleRetry}
             component={IconStyledButton}
             testId="button-connect-other-account"
+            role="button"
           >
             <LozengeWrapper>
               <Lozenge appearance={'moved'}>

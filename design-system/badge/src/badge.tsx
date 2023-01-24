@@ -31,8 +31,7 @@ const Badge = memo(function Badge({
       backgroundColor={backgroundColors[appearance]}
       borderRadius="badge"
       display="inlineFlex"
-      paddingInline="scale.075"
-      paddingBlock="scale.025"
+      paddingInline="space.075"
       UNSAFE_style={
         style?.backgroundColor
           ? { backgroundColor: style.backgroundColor }
@@ -40,8 +39,8 @@ const Badge = memo(function Badge({
       }
     >
       <Text
-        fontSize="12px"
-        lineHeight="12px"
+        fontSize="size.075"
+        lineHeight="lineHeight.100"
         textAlign="center"
         color={textColors[appearance]}
         UNSAFE_style={style?.color ? { color: style.color } : undefined}

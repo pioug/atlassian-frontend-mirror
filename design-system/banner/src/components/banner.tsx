@@ -104,7 +104,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
         display="block"
         backgroundColor={backgroundColors[appearanceType]}
         overflow="hidden"
-        padding="scale.150"
+        padding="space.150"
         testId={testId}
         ref={ref}
         {...accessibilityProps}
@@ -113,7 +113,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
         }}
         css={nestedLinkStyles}
       >
-        <Inline gap="scale.050" alignItems="center" justifyContent="start">
+        <Inline gap="space.050" alignItems="center" justifyContent="start">
           {icon ? (
             <Box
               as="span"
@@ -130,8 +130,8 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
             </Box>
           ) : null}
           <Text
-            fontWeight="500"
-            lineHeight="24px"
+            fontWeight="medium"
+            lineHeight="lineHeight.300"
             color={textColors[appearanceType]}
             shouldTruncate
           >

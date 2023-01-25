@@ -3,6 +3,7 @@ export type ServerErrorType =
   | 'ResolveAuthError'
   | 'ResolveUnsupportedError'
   | 'ResolveFailedError'
+  | 'ResolveRateLimitError'
   | 'ResolveTimeoutError'
   | 'SearchBadRequestError'
   | 'SearchAuthError'

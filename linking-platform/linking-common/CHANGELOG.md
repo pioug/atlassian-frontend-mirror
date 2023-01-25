@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.20.0
+
+### Minor Changes
+
+- [`42be2053e92`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42be2053e92) - Add ResolveRateLimitError to ServerErrorTypes
+
 ## 1.19.0
 
 ### Minor Changes

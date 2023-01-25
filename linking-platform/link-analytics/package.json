@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.3.1",
-    "@atlaskit/linking-common": "^1.19.0",
+    "@atlaskit/linking-common": "^1.20.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

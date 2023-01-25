@@ -352,6 +352,19 @@ describe('HoverCard', () => {
       expect(tooltip.textContent).toBe('Open link in a new tab');
     });
 
+    it('should show tooltip on copy link button', async () => {
+      const { findByTestId } = await setup();
+      jest.runAllTimers();
+
+      const content = await findByTestId('smart-block-title-resolved-view');
+      const copyButton = await findByTestId('hover-card-copy-button');
+      fireEvent.mouseOver(copyButton);
+      const tooltip = await findByTestId('hover-card-copy-button-tooltip');
+
+      expect(content).toBeTruthy();
+      expect(tooltip.textContent).toBe('Copy link');
+    });
+
     it('should open url in a new tab after clicking open button', async () => {
       const mockOpen = jest.fn();
       // @ts-ignore

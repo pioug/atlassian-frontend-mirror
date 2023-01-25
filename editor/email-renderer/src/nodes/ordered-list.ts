@@ -48,6 +48,14 @@ export const styles = `
 }
 `;
 
-export default function orderedList({ text }: NodeSerializerOpts) {
-  return createTag('ol', { class: createClassName('ol') }, text);
+export default function orderedList({ text, attrs }: NodeSerializerOpts) {
+  const tagAttrs: { class: string; start?: number } = {
+    class: createClassName('ol'),
+  };
+
+  //check if order exist and if it is a positive integer
+  if (Number.isInteger(attrs?.order) && attrs?.order >= 0) {
+    tagAttrs.start = attrs.order;
+  }
+  return createTag('ol', tagAttrs, text);
 }

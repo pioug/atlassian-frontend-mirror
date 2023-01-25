@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 72.1.1
+
+### Patch Changes
+
+- [`2b78f58c35c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b78f58c35c) - [ux] ED-16490 fixed bug so big margin will not occur before a Decision node on iOS
+
 ## 72.1.0
 
 ### Minor Changes

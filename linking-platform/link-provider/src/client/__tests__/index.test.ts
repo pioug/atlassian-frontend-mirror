@@ -11,7 +11,7 @@ import {
   isSuccessfulResponse,
   SuccessResponse,
 } from '../types/responses';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError, ErrorType } from '@atlaskit/linking-common';
 import { NetworkError } from '../api';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 
@@ -19,8 +19,16 @@ import { flushPromises } from '@atlaskit/media-test-helpers';
 const errorResponse = {
   status: 500,
   error: {
-    type: 'ResolveFailedError',
+    type: 'ResolveFailedError' as ErrorType,
     message: 'received failure error',
+  },
+};
+const errorResponse429 = {
+  status: 200,
+  error: {
+    type: 'ResolveRateLimitError' as ErrorType,
+    message: 'rate limit error',
+    status: 429,
   },
 };
 let successfulResponse: SuccessResponse;
@@ -274,6 +282,23 @@ describe('Smart Card: Client', () => {
         }),
       );
     }
+  });
+
+  it('fetchData should handle malformed responses and throw the appropriate error', async () => {
+    mockRequest.mockImplementationOnce(async () => ({ status: 200 }));
+
+    const client = new SmartCardClient();
+    const resourceUrl = 'https://i.love.cheese';
+
+    await expect(client.fetchData(resourceUrl)).rejects.toEqual(
+      new APIError(
+        'fatal',
+        'i.love.cheese',
+        'Response undefined',
+        'UnexpectedError',
+      ),
+    );
+    expect(mockRequest).toBeCalled();
   });
 
   it('should return fallback error when error is a network error', async () => {
@@ -643,6 +668,132 @@ describe('Smart Card: Client', () => {
       expect(mockRequest.mock.calls.shift()).toMatchSnapshot('fetch request');
       expect(mockRequest.mock.calls.shift()).toMatchSnapshot('initial request');
       expect(mockRequest.mock.calls.shift()).toMatchSnapshot('retry attempt 1');
+    });
+  });
+
+  describe('fetchData retry', () => {
+    it('successfully triggers retry with exponential backoff for a url which returns 429', async () => {
+      mockRequest.mockResolvedValueOnce([successfulResponse, errorResponse429]);
+
+      mockRequest.mockResolvedValueOnce([errorResponse429]);
+      mockRequest.mockResolvedValueOnce([successfulResponse]);
+
+      const client = new SmartCardClient();
+      const responses = await Promise.all([
+        client.fetchData(`${hostname}/1`),
+        client.fetchData(`${hostname}/2`),
+      ]);
+
+      expect(responses).toEqual([mocks.success, mocks.success]);
+
+      expect(mockRequest).toHaveBeenCalledTimes(3);
+
+      const expectedFirstRequestParams = [
+        'post',
+        expectedDefaultResolveBatchUrl,
+        [{ resourceUrl: `${hostname}/1` }, { resourceUrl: `${hostname}/2` }],
+      ];
+
+      expect(mockRequest).toHaveBeenNthCalledWith(
+        1,
+        ...expectedFirstRequestParams,
+      );
+
+      const expectedConsequentRequestParams = [
+        'post',
+        expectedDefaultResolveBatchUrl,
+        [{ resourceUrl: `${hostname}/2` }],
+      ];
+
+      expect(mockRequest).toHaveBeenNthCalledWith(
+        2,
+        ...expectedConsequentRequestParams,
+      );
+      expect(mockRequest).toHaveBeenNthCalledWith(
+        3,
+        ...expectedConsequentRequestParams,
+      );
+    });
+
+    it('successfully retries url which returns 429 until failure', async () => {
+      mockRequest.mockResolvedValue([errorResponse429]);
+
+      const client = new SmartCardClient();
+
+      await expect(client.fetchData(`${hostname}/1`)).rejects.toEqual(
+        new APIError(
+          'error',
+          `${hostname}/1`,
+          errorResponse429.error.message,
+          errorResponse429.error.type,
+        ),
+      );
+
+      expect(mockRequest).toHaveBeenCalledTimes(4);
+
+      const expectedRequestParams = [
+        'post',
+        expectedDefaultResolveBatchUrl,
+        [{ resourceUrl: `${hostname}/1` }],
+      ];
+
+      for (let i = 1; i <= 4; i++) {
+        expect(mockRequest).toHaveBeenNthCalledWith(
+          i,
+          ...expectedRequestParams,
+        );
+      }
+    });
+    it('successfully retries and returns an unauth response', async () => {
+      mockRequest.mockResolvedValueOnce([errorResponse429]);
+      mockRequest.mockResolvedValueOnce([errorResponse429]);
+      mockRequest.mockResolvedValueOnce([unauthorizedResponse]);
+
+      const client = new SmartCardClient();
+      const unauthResponse = await client.fetchData(`${hostname}/unauthorized`);
+
+      expect(unauthResponse).toBe(mocks.unauthorized);
+      expect(mockRequest).toHaveBeenCalledTimes(3);
+      const expectedRequestParams = [
+        'post',
+        expectedDefaultResolveBatchUrl,
+        [{ resourceUrl: `${hostname}/unauthorized` }],
+      ];
+      for (let i = 1; i <= 3; i++) {
+        expect(mockRequest).toHaveBeenNthCalledWith(
+          i,
+          ...expectedRequestParams,
+        );
+      }
+    });
+
+    it('successfully retries but throws error response on failure', async () => {
+      mockRequest.mockResolvedValueOnce([errorResponse429]);
+      mockRequest.mockResolvedValueOnce([errorResponse429]);
+      mockRequest.mockResolvedValueOnce([errorResponse]);
+
+      const client = new SmartCardClient();
+      await expect(client.fetchData(`${hostname}/1`)).rejects.toEqual(
+        new APIError(
+          'error',
+          `${hostname}/1`,
+          errorResponse.error.message,
+          errorResponse.error.type,
+        ),
+      );
+
+      expect(mockRequest).toHaveBeenCalledTimes(3);
+      const expectedRequestParams = [
+        'post',
+        expectedDefaultResolveBatchUrl,
+        [{ resourceUrl: `${hostname}/1` }],
+      ];
+      for (let i = 1; i <= 3; i++) {
+        expect(mockRequest).toHaveBeenNthCalledWith(
+          i,
+          ...expectedRequestParams,
+        );
+      }
     });
   });
 });

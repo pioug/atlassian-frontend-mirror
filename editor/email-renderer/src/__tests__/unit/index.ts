@@ -31,6 +31,7 @@ import * as mediaInline from './__fixtures__/media-inline.adf.json';
 import * as caption from './__fixtures__/caption.adf.json';
 import * as mediaInlineAllTypes from './__fixtures__/media-inline-all-types.adf.json';
 import * as lists from './__fixtures__/lists.adf.json';
+import * as orderedList from './__fixtures__/ordered-list.adf.json';
 import * as text from './__fixtures__/text.adf.json';
 import * as expand from './__fixtures__/expand.adf.json';
 
@@ -323,6 +324,11 @@ describe('Renderer - EmailSerializer', () => {
 
   it('should render lists', () => {
     const { result } = render(lists);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should render ordered lists', () => {
+    const { result } = render(orderedList);
     expect(result).toMatchSnapshot('html');
   });
 

@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.13.1
+
+### Patch Changes
+
+- [`02d341ecf63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02d341ecf63) - [ux] Fix copy button tooltip to show Copy link, not Download
+
 ## 23.13.0
 
 ### Minor Changes

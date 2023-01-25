@@ -285,6 +285,7 @@ export type ServerErrorType =
   | 'ResolveAuthError'
   | 'ResolveBadRequestError'
   | 'ResolveFailedError'
+  | 'ResolveRateLimitError'
   | 'ResolveTimeoutError'
   | 'ResolveUnsupportedError'
   | 'SearchAuthError'

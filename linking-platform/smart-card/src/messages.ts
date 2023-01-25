@@ -199,7 +199,7 @@ export const messages: Messages = defineMessages({
     description: 'continue',
   },
   copy_url_to_clipboard: {
-    id: 'fabric.linking.download',
+    id: 'fabric.linking.copy_url_to_clipboard',
     defaultMessage: 'Copy link',
     description: '',
   },

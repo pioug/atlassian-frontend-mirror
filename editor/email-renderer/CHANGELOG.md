@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 8.0.11
+
+### Patch Changes
+
+- [`ecb263f4201`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecb263f4201) - added support for custom starting numbers for ordered-list
+
 ## 8.0.10
 
 ### Patch Changes

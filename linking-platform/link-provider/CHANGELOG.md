@@ -1,5 +1,12 @@
 # @atlaskit/link-provider
 
+## 1.3.9
+
+### Patch Changes
+
+- [`d211e7df62b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d211e7df62b) - Retry request in fetchData upon receiving 429 from ORS.
+- Updated dependencies
+
 ## 1.3.8
 
 ### Patch Changes

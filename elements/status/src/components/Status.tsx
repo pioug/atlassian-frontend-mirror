@@ -37,6 +37,7 @@ const MAX_WIDTH = 200;
 const inlineBlockStyles = css({
   '& > *': {
     display: 'inline-block !important',
+    lineHeight: '16px',
   },
 });
 

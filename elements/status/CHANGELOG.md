@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 1.2.7
+
+### Patch Changes
+
+- [`dde37c411c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dde37c411c8) - Fixes an oversight in DSP-7701 that causes some rendering issues with lozenges on the Hybrid Renderer on Android
+
 ## 1.2.6
 
 ### Patch Changes

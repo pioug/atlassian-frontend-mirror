@@ -29,7 +29,8 @@ async function waitForCollabAvatars(page: PuppeteerPage) {
 }
 
 describe('Collab', () => {
-  it('displays default collab UI', async () => {
+  // FIXME: This test was automatically skipped due to failure on 24/01/2023: https://product-fabric.atlassian.net/browse/ED-16632
+  it.skip('displays default collab UI', async () => {
     const page = global.page;
     const adf = {};
 

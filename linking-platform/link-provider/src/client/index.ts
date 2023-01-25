@@ -207,11 +207,27 @@ export default class CardClient implements CardClientInterface {
     }
   }
 
+  private isRateLimitError(
+    response: ErrorResponse | SuccessResponse,
+  ): response is ErrorResponse {
+    return isErrorResponse(response) && response.error.status === 429;
+  }
+
   public async fetchData(
     url: string,
     force?: boolean,
   ): Promise<JsonLd.Response> {
-    const response = await this.resolveUrl(url, force);
+    let response = await this.resolveUrl(url, force);
+
+    if (this.isRateLimitError(response)) {
+      response = await retry(async () => {
+        const retryResponse = await this.resolveUrl(url, false);
+        if (this.isRateLimitError(retryResponse)) {
+          throw this.mapErrorResponse(retryResponse, new URL(url).hostname);
+        }
+        return retryResponse;
+      }, this.retryConfig);
+    }
 
     if (!isSuccessfulResponse(response)) {
       throw this.mapErrorResponse(response, new URL(url).hostname);
@@ -282,7 +298,7 @@ export default class CardClient implements CardClientInterface {
 
   private mapErrorResponse(response: ErrorResponse, hostname: string = '') {
     // Catch non-200 server responses to fallback or return useful information.
-    if (response.error) {
+    if (response?.error) {
       const errorType = response.error.type;
       const errorMessage = response.error.message;
       // this means there was a network error and we fallback to blue link
@@ -312,12 +328,13 @@ export default class CardClient implements CardClientInterface {
         case 'ResolveTimeoutError': // Timeouts
         case 'SearchTimeoutError':
         case 'SearchRateLimitError': //Rate Limit Error
+        case 'ResolveRateLimitError':
         case 'InternalServerError': // ORS failures
           return new APIError('error', hostname, errorMessage, errorType);
       }
     }
     // Catch all: we don't know this error, bail out.
-    const { error, ...rest } = response;
+    const { error, ...rest } = response || {};
     return new APIError(
       'fatal',
       hostname,
@@ -328,7 +345,9 @@ export default class CardClient implements CardClientInterface {
       // e.g. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/message
       // more info here https://stackoverflow.com/questions/18391212/is-it-not-possible-to-stringify-an-error-using-json-stringify
       // we assume 'rest'  to "serializable" meaning all its properties are enumerable
-      `${this.stringifyError(error)} ${JSON.stringify(rest)}`,
+      response
+        ? `${this.stringifyError(error)} ${JSON.stringify(rest)}`
+        : 'Response undefined',
       'UnexpectedError',
     );
   }

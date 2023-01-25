@@ -23,6 +23,8 @@ import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
+import { TaskDecisionSharedCssClassName } from './task-decision';
+
 export const CodeBlockSharedCssClassName = {
   CODEBLOCK_CONTAINER: 'code-block',
   CODEBLOCK_START: 'code-block--start',
@@ -147,9 +149,11 @@ export const codeBlockSharedStyles = (props: ThemeProps) => css`
 `;
 
 export const codeBlockInListSafariFix = css`
-  ::before {
-    content: ' ';
-    line-height: ${akEditorLineHeight};
+  &:not(.${TaskDecisionSharedCssClassName.DECISION_CONTAINER}) {
+    ::before {
+      content: ' ';
+      line-height: ${akEditorLineHeight};
+    }
   }
 
   > p:first-child,

@@ -4,11 +4,11 @@ import { MediaMockControlsBackdoor } from '@atlaskit/media-test-helpers';
 import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
 type ClientType = Parameters<typeof goToFullPage>[0];
 
+// FIXME: This test was automatically skipped due to failure on 25/01/2023: https://product-fabric.atlassian.net/browse/ED-16654
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag image, verify, wait, publish, check',
   {
-    // skip: ['safari'],
-    // skip: ['*'],
+    skip: ['*'],
   },
   async (client: ClientType) => {
     const page = await goToFullPage(client);

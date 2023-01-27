@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 18.2.1
+
+### Patch Changes
+
+- [`20f162117fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20f162117fb) - Remove usaged of themed for light and dark theme
+
 ## 18.2.0
 
 ### Minor Changes

@@ -14,6 +14,7 @@ const Example = () => {
           <UserPicker
             disableInput={!!selectedUser}
             fieldId="example"
+            inputId="disabled-input-single-user-picker" // used for VR test
             onChange={(value) => {
               setSelectedUser(value);
             }}
@@ -26,15 +27,16 @@ const Example = () => {
       <ExampleWrapper>
         {({ options, onInputChange }) => (
           <UserPicker
-            disableInput={selectedUsers?.length > 2}
+            disableInput={selectedUsers?.length > 0}
             fieldId="example"
+            inputId="disabled-input-multi-user-picker" // used for VR test
             isMulti
             onChange={(value) => {
               setSelectedUsers(value as OptionData[]);
             }}
             onInputChange={onInputChange}
             options={options}
-            placeholder={'Disable input on the third user selected'}
+            placeholder={'Disable input on the first user selected'}
           />
         )}
       </ExampleWrapper>

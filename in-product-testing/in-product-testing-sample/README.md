@@ -12,3 +12,7 @@ import { editorFundamentalsTestCollection } from '@atlaskit/editor-common/in-pro
 editorFundamentalsTestCollection({}).test(cy);
 
 ```
+
+Run the example tests with the following command:
+
+`bolt test:cypress:watch -e BOT_USERNAME=<STG_USERNAME>,BOT_PASSWORD=<STG_PASSWORD>`

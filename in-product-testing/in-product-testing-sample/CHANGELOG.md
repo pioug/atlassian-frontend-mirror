@@ -1,5 +1,11 @@
 # @atlaskit/in-product-testing-sample
 
+## 0.2.8
+
+### Patch Changes
+
+- [`e6930b68815`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6930b68815) - Added basic in-product tests for notifications
+
 ## 0.2.7
 
 ### Patch Changes

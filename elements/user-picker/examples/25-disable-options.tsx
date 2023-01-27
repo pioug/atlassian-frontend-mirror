@@ -12,7 +12,7 @@ const Example = () => {
             fieldId="example"
             onInputChange={onInputChange}
             options={options.map((option, index) => {
-              if (index % 2 === 0) {
+              if (index > 3) {
                 return option;
               }
 

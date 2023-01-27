@@ -32,7 +32,11 @@ const renderRows = (count: number) => {
             {({ options, onInputChange }) => (
               <PopupUserPicker
                 fieldId="example"
-                target={({ ref }) => <button ref={ref}>Target</button>}
+                target={({ ref }) => (
+                  <button ref={ref} data-testId={`popup-button-${i}`}>
+                    Target
+                  </button>
+                )}
                 options={options}
                 onInputChange={onInputChange}
                 onChange={console.log}

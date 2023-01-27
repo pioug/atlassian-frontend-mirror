@@ -266,9 +266,9 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 
   render() {
     const customActions = [
-      { label: 'Foo', id: 'foo', callback: handleActionClick('Foo') },
-      { label: 'Bar', id: 'bar', callback: handleActionClick('Bar') },
-      { label: 'Baz', id: 'baz', callback: handleActionClick('Baz') },
+      { label: 'Foo 1', id: 'foo', callback: handleActionClick('Foo') },
+      { label: 'Bar 2', id: 'bar', callback: handleActionClick('Bar') },
+      { label: 'Baz 3', id: 'baz', callback: handleActionClick('Baz') },
     ];
 
     const actions = this.state.hasAltActions ? customActions : this.actions;

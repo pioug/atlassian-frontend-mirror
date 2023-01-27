@@ -3,6 +3,7 @@ import React from 'react';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { N50A, N60A } from '@atlaskit/theme/colors';
 import {
   borderRadius,
   fontSizeSmall,
@@ -14,7 +15,6 @@ import {
   appLabelBgColor,
   appLabelTextColor,
   bgColor,
-  boxShadow,
   headerBgColor,
   headerBgColorDisabledUser,
   headerTextColor,
@@ -226,14 +226,16 @@ export const CardContainer = styled.div`
   background-size: 100% ${gridSize() * 12}px;
   box-sizing: content-box;
   padding: ${gridSize() * 3}px;
-  ${(props: CardContainerProps) => {
-    return props.withoutElevation
+  box-shadow: ${(props: CardContainerProps) =>
+    props.withoutElevation
       ? ''
-      : `
-      box-shadow: ${boxShadow};
-      border-radius: ${borderRadius}px;
-    `;
-  }}
+      : `${token(
+          'elevation.shadow.overlay',
+          `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+        )}`};
+  border-radius: ${(props: CardContainerProps) =>
+    props.withoutElevation ? '' : `${borderRadius()}px`};
+
   overflow: hidden;
 `;
 

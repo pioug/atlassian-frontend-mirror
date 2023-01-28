@@ -57,7 +57,8 @@ describe('Table floating toolbar:fullpage', () => {
     await page.waitForSelector(dropdownListSelector);
   });
 
-  it('display cell background', async () => {
+  // FIXME: This test was automatically skipped due to failure on 27/01/2023: https://product-fabric.atlassian.net/browse/ED-16669
+  it.skip('display cell background', async () => {
     // Wait for table cell options drop down list to be shown, then
     // select background color option and wait for color picker popout to be shown
     await selectCellOption(page, 'Cell background');

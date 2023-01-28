@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.7.0
+
+### Minor Changes
+
+- [`db2e7822839`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db2e7822839) - [ux] Added toggle for space selector in templates browser
+
 ## 1.6.3
 
 ### Patch Changes

@@ -36,22 +36,26 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('other configurations should match snapshot', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'button',
-      'more-options',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    // Wait for page content
-    const image = await takeElementScreenShot(
-      page,
-      '[data-testid="combinations"]',
-    );
-    expect(image).toMatchProdImageSnapshot();
-  });
+  it.each(Array.from({ length: 26 }).map((_, i) => i))(
+    'other configurations should match snapshot %s',
+    async (i) => {
+      const url = getExampleUrl(
+        'design-system',
+        'button',
+        'more-options',
+        global.__BASEURL__,
+        'light',
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      // Wait for page content
+      const image = await takeElementScreenShot(
+        page,
+        `[data-testid="combinations"] > :nth-child(${i + 1})`,
+      );
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
   it('Should not show a gap for empty/null items', async () => {
     const url = getExampleUrl(

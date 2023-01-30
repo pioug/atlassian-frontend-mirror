@@ -132,6 +132,17 @@ export class DummyLinkingPlatformComponent extends React.Component<Props> {
   }
 }
 
+export class DummyCrossFlowComponent extends React.Component<Props> {
+  render() {
+    return (
+      <CustomButton
+        text={FabricChannel.crossFlow}
+        onClick={this.props.onClick}
+      />
+    );
+  }
+}
+
 class MyButton extends React.Component<Props> {
   static displayName = 'MyButton';
   render() {
@@ -154,6 +165,7 @@ const componentChannels = {
   [FabricChannel.recentWork]: DummyNotificationsComponent,
   [FabricChannel.atlas]: DummyAtlasComponent,
   [FabricChannel.linkingPlatform]: DummyLinkingPlatformComponent,
+  [FabricChannel.crossFlow]: DummyCrossFlowComponent,
 };
 
 export const createComponentWithAnalytics = (channel: FabricChannel) =>

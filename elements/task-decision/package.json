@@ -42,7 +42,7 @@
     "url-search-params": "^0.10.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^8.4.0",
+    "@atlaskit/analytics-listeners": "^8.5.0",
     "@atlaskit/avatar": "^21.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-common": "^72.1.0",

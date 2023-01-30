@@ -27,5 +27,6 @@ export enum FabricChannel {
   notifications = 'notifications',
   recentWork = 'recentWork',
   atlas = 'atlas',
+  crossFlow = 'crossFlow',
   linkingPlatform = 'linkingPlatform',
 }

@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.5",
-    "@atlaskit/analytics-listeners": "^8.4.0",
+    "@atlaskit/analytics-listeners": "^8.5.0",
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/smart-common": "^0.1.0",
     "@atlaskit/ufo": "^0.1.0",

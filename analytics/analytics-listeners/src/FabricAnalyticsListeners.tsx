@@ -11,6 +11,7 @@ import PeopleTeamsAnalyticsListener from './peopleTeams/PeopleTeamsAnalyticsList
 import NotificationsAnalyticsListener from './notifications/NotificationsAnalyticsListener';
 import RecentWorkAnalyticsListener from './recentWork/RecentWorkAnalyticsListener';
 import AtlasAnalyticsListener from './atlas/AtlasAnalyticsListener';
+import CrossFlowAnalyticsListener from './discovery/CrossFlowAnalyticsListener';
 import LinkingPlatformAnalyticsListener from './linkingPlatform/LinkingPlatformAnalyticsListener';
 
 export type Props = {
@@ -32,6 +33,7 @@ const listenerMap = {
   [FabricChannel.notifications]: NotificationsAnalyticsListener,
   [FabricChannel.recentWork]: RecentWorkAnalyticsListener,
   [FabricChannel.atlas]: AtlasAnalyticsListener,
+  [FabricChannel.crossFlow]: CrossFlowAnalyticsListener,
   [FabricChannel.linkingPlatform]: LinkingPlatformAnalyticsListener,
 };
 

@@ -46,6 +46,8 @@ export enum FabricChannel {
   // (undocumented)
   atlaskit = 'atlaskit',
   // (undocumented)
+  crossFlow = 'crossFlow',
+  // (undocumented)
   editor = 'editor',
   // (undocumented)
   elements = 'fabric-elements',

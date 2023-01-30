@@ -1,5 +1,11 @@
 # @atlaskit/analytics-listeners
 
+## 8.5.0
+
+### Minor Changes
+
+- [`e8ee5a82bf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8ee5a82bf4) - First draft of discovery-analytics, type definitions and APIs, and implement fire viewed and clicked events. Add new listener for crossFlow.
+
 ## 8.4.0
 
 ### Minor Changes

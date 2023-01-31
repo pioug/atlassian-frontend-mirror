@@ -18,13 +18,12 @@ const defaultIsEnabled = {
 };
 
 export const ruleName = 'design-system/ensure-design-token-usage';
+
+const tokenUrl = 'https://atlassian.design/components/tokens/examples';
 export const messages = stylelint.utils.ruleMessages(ruleName, {
-  noHardcodedColors:
-    'Colors should be sourced from the global theme using design token CSS variables.',
-  noHardcodedSpacing:
-    'Spacing values should be sourced from the global theme using design token CSS variables.',
-  noHardcodedTypography:
-    'Typography values should be sourced from the global theme using design token CSS variables.',
+  noHardcodedColors: `Color values should be design tokens. See ${tokenUrl} for guidance.`,
+  noHardcodedSpacing: `Spacing values should be design tokens. See ${tokenUrl} for guidance.`,
+  noHardcodedTypography: `Typography values should be design tokens. See ${tokenUrl} for guidance.`,
   noNonTokenVars: 'CSS variables should be wrapped in a design token.',
 });
 

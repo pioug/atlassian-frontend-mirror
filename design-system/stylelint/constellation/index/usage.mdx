@@ -2,4 +2,32 @@
 order: 2
 ---
 
-usage
+This plugin contains rules that should be used with the Atlassian Design System.
+
+You can read more about configuring Stylelint in their [documentation](https://stylelint.io/user-guide/get-started).
+
+## Configuration
+
+Add the plugin to your Stylelint configuration file.
+
+```diff
+// .stylelintrc.js
+
+module.exports = {
+  plugins: [
++    '@atlaskit/stylelint-design-system',
+  ],
+};
+```
+
+Enable any desired rules. The rules and options shown below are strongly recommended.
+
+```diff
+module.exports = {
+  rules: {
++    'design-system/ensure-design-token-usage': { color: true, spacing: true },
++    'design-system/no-deprecated-design-token-usage': true,
++    'design-system/no-unsafe-design-token-usage': [true, { shouldEnsureFallbackUsage: true }]
+  },
+};
+```

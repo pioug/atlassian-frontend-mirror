@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 0.3.15
+
+### Patch Changes
+
+- [`6944a4754db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6944a4754db) - Updated error messages to include a link to further guidance.
+
 ## 0.3.14
 
 ### Patch Changes

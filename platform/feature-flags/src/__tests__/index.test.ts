@@ -133,14 +133,40 @@ describe('tests support', function () {
   });
 });
 
+/* eslint-disable no-console */
 describe('browser environment', () => {
+  const orgProcess = globalThis.process;
+
   beforeEach(() => {
-    // @ts-expect-error Yep, we are running dangerous operation here
-    delete globalThis.process;
+    globalThis.process = orgProcess;
+
+    console.assert(globalThis.process);
+    console.assert(globalThis.process.env);
   });
 
-  it('should work when "process" variable doesn\'t exist', function () {
-    // given, when
+  it(`should work when "process" variable doesn't exist`, function () {
+    // given
+    // @ts-expect-error Yep, we are running dangerous operation here
+    delete globalThis.process;
+
+    expect(globalThis.process).toBe(undefined);
+
+    // when
+    const { getBooleanFF } = loadApi();
+
+    // then
+    expect(getBooleanFF('browser.my-platform-feature-flag')).toBe(false);
+  });
+
+  it(`should work when "process" variable exists by "process.env" does not`, function () {
+    // given
+    // @ts-expect-error Yep, we are running dangerous operation here
+    delete globalThis.process.env;
+
+    expect(globalThis.process).toBeDefined();
+    expect(globalThis.process.env).toBe(undefined);
+
+    // when
     const { getBooleanFF } = loadApi();
 
     // then
@@ -148,4 +174,4 @@ describe('browser environment', () => {
   });
 });
 
-export {};
+/* eslint-enable no-console */

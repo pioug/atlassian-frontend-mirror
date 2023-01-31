@@ -27,7 +27,7 @@ Enable any desired rules.
 ```diff
 module.exports = {
   rules: {
-+    'design-system/ensure-design-token-usage': true,
++    'design-system/ensure-design-token-usage': { color: true, spacing: true },
 +    'design-system/no-deprecated-design-token-usage': true,
 +    'design-system/no-unsafe-design-token-usage': [true, { shouldEnsureFallbackUsage: true }]
   },

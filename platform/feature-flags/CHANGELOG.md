@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.0.11
+
+### Patch Changes
+
+- [`d603f6fb55b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d603f6fb55b) - Fix Platform Feature Flag overrides
+
 ## 0.0.10
 
 ### Patch Changes

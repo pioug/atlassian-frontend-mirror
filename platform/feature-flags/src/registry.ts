@@ -10,21 +10,23 @@ const pkgName = '@atlaskit/platform-feature-flags';
 
 const registry: FeatureFlagRegistry = {};
 
+const hasProcessEnv =
+  typeof process !== 'undefined' && typeof process.env !== 'undefined';
+
 // FF global overrides can be configured by test runners or Storybook
-const ENV_ENABLE_PLATFORM_FF =
-  // Use global "process" variable and process.env['FLAG_NAME'] syntax, so it can be replaced by webpack DefinePlugin
-  typeof process !== 'undefined'
-    ? process.env['ENABLE_PLATFORM_FF'] === 'true'
-    : false;
+const ENV_ENABLE_PLATFORM_FF = hasProcessEnv
+  ? // Use global "process" variable and process.env['FLAG_NAME'] syntax, so it can be replaced by webpack DefinePlugin
+    process.env['ENABLE_PLATFORM_FF'] === 'true'
+  : false;
 
 // STORYBOOK_ENABLE_PLATFORM_FF is included as storybook only allows env vars prefixed with STORYBOOK
 // https://github.com/storybookjs/storybook/issues/12270
 
-const ENV_STORYBOOK_ENABLE_PLATFORM_FF =
-  // Use global "process" variable and process.env['FLAG_NAME'] syntax, so it can be replaced by webpack DefinePlugin
-  typeof process !== 'undefined'
-    ? process.env['STORYBOOK_ENABLE_PLATFORM_FF'] === 'true'
-    : false;
+const ENV_STORYBOOK_ENABLE_PLATFORM_FF = hasProcessEnv
+  ? // Use global "process" variable and process.env['FLAG_NAME'] syntax, so it can be replaced by webpack DefinePlugin
+
+    process.env['STORYBOOK_ENABLE_PLATFORM_FF'] === 'true'
+  : false;
 
 const ENABLE_GLOBAL_PLATFORM_FF_OVERRIDE =
   ENV_ENABLE_PLATFORM_FF || ENV_STORYBOOK_ENABLE_PLATFORM_FF;

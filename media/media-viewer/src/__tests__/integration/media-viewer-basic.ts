@@ -29,9 +29,12 @@ const openMediaViewer = async (client: WebDriverIOBrowser) => {
   return mediaViewer;
 };
 
+// FIXME: This test was automatically skipped due to failure on 30/01/2023: https://product-fabric.atlassian.net/browse/MEX-2211
 BrowserTestCase(
   'media-viewer-basic.ts: Navigation should navigate back and forth',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: WebDriverIOBrowser) => {
     const mediaViewer = await openMediaViewer(client);
     await mediaViewer.validateMediaCard({

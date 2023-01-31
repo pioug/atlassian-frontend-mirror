@@ -1,9 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * Generates analytics utilities from the package analytics spec yaml
+ * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::758b8a20cae1b6d410cecd4493453a21>>
+ * @codegen <<SignedSource::254da005ee62004d45537995770eba56>>
  * @codegenCommand yarn workspace @atlaskit/link-picker run codegen-analytics
  */
 export type PackageMetaDataType = {

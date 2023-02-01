@@ -1,7 +1,18 @@
 import React from 'react';
 import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
 import LinkWarningModal from './LinkWarningModal';
-import { LinkUrlProps } from './types';
+import { LinkUrlProps, PackageDataType } from './types';
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import {
+  name as packageName,
+  version as packageVersion,
+} from '../../version.json';
+
+const PACKAGE_DATA: PackageDataType = {
+  packageName,
+  packageVersion,
+  componentName: 'linkUrl',
+};
 
 const LinkUrl: React.FC<LinkUrlProps> = ({
   href,
@@ -31,4 +42,4 @@ const LinkUrl: React.FC<LinkUrlProps> = ({
   );
 };
 
-export default LinkUrl;
+export default withAnalyticsContext(PACKAGE_DATA)(LinkUrl);

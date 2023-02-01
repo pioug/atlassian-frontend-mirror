@@ -747,7 +747,9 @@ export const rendererStyles =
         > div:last-of-type.code-block {
           margin-bottom: ${blockNodesVerticalMargin};
         }
+      }
 
+      & :not([data-node-type='decisionList']) > li {
         ${browser.safari ? codeBlockInListSafariFix : ''}
       }
     `;

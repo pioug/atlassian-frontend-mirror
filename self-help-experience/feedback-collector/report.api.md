@@ -76,6 +76,7 @@ class FeedbackCollector extends Component<Props> {
       id: string;
     };
     showTypeField: boolean;
+    showDefaultTextFields: boolean;
     onClose: () => void;
     onSubmit: () => void;
   };
@@ -154,6 +155,7 @@ interface Props {
   canBeContactedFieldId: string;
   canBeContactedLabel?: React_2.ReactChild;
   cancelButtonLabel?: string;
+  customContent?: React_2.ReactChild;
   customerNameDefaultValue: FieldValueType;
   customerNameFieldId: string;
   customFeedbackUrl?: string;
@@ -176,6 +178,7 @@ interface Props {
   onSubmit: (formFields: FormFields) => void;
   requestTypeId: string;
   shouldGetEntitlementDetails?: boolean;
+  showDefaultTextFields?: boolean;
   showTypeField: boolean;
   submitButtonLabel?: string;
   summaryDefaultValue: FieldValueType;
@@ -196,6 +199,7 @@ interface Props {
 interface Props_2 {
   canBeContactedLabel?: React_2.ReactChild;
   cancelButtonLabel?: string;
+  customContent?: React_2.ReactChild;
   enrolInResearchLabel?: React_2.ReactChild;
   feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
   feedbackTitle?: React_2.ReactText;
@@ -203,6 +207,7 @@ interface Props_2 {
   locale?: string;
   onClose: () => void;
   onSubmit: (formValues: FormFields) => void;
+  showDefaultTextFields?: boolean;
   showTypeField?: boolean;
   submitButtonLabel?: string;
   summaryPlaceholder?: string;

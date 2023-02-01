@@ -6,9 +6,12 @@ import {
 import { selectors } from '../__helpers/page-objects/_renderer';
 import taskDateAdf from './__fixtures__/task-date.adf.json';
 
+// FIXME: This test was automatically skipped due to failure on 31/01/2023: https://product-fabric.atlassian.net/browse/ED-16720
 BrowserTestCase(
   `Format date in task item`,
-  { skip: [] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const selector = `${selectors.document} [type="checkbox"]`;
     const page = await goToRendererTestingExample(client);

@@ -15,7 +15,6 @@ import {
 } from 'react-intl-next';
 
 import { messages } from '../../../messages';
-
 interface LinkWarningModalProps {
   isOpen: boolean;
   onClose: () => void;

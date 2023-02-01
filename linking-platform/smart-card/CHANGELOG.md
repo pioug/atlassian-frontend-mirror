@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 23.13.2
+
+### Patch Changes
+
+- [`465e0f001fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/465e0f001fb) - Operational analytics event added to the LinkUrl component. It fires when Link Safety Warning message shown.
+
 ## 23.13.1
 
 ### Patch Changes

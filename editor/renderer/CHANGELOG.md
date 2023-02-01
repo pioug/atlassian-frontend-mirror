@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 105.0.4
+
+### Patch Changes
+
+- [`2ff1c66a6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ff1c66a6ab) - [ux] ED-16490 fixed bug so big margin will not occur before a Decision node in Renderer on iOS
+
 ## 105.0.3
 
 ### Patch Changes

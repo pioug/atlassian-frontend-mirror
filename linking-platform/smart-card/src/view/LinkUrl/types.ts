@@ -6,3 +6,9 @@ export interface LinkUrlProps
   checkSafety?: boolean;
   testId?: string;
 }
+
+export type PackageDataType = {
+  packageName: '@atlaskit/smart-card';
+  packageVersion: string;
+  componentName: 'linkUrl';
+};

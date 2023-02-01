@@ -1,5 +1,17 @@
 # @atlaskit/feedback-collector
 
+## 10.8.1
+
+### Patch Changes
+
+- [`89da7b835e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89da7b835e1) - [ux] Don't close if clicked outside modal, add 'x' button to header
+
+## 10.8.0
+
+### Minor Changes
+
+- [`9fcfa8846e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fcfa8846e9) - Add properties to allow custom feedback models
+
 ## 10.7.1
 
 ### Patch Changes

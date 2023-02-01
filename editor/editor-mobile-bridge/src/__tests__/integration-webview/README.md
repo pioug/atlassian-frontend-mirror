@@ -16,7 +16,7 @@ Examples:
 
 **These mobile integation tests are designed to compliment the desktop tests and cover the gaps.**
 
-> Read the `@atlaskit/webdriver-runner` [webview docs](../../../../../../build/test-utils/webdriver-runner/utils/mobile/README.md) to learn more.
+> Read the `@atlaskit/webdriver-runner` [webview docs](../../../../../../build/test-tooling/webdriver-runner/utils/mobile/README.md) to learn more.
 
 #### Requesting Access
 

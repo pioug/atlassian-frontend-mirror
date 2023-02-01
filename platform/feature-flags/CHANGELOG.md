@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.0.12
+
+### Patch Changes
+
+- [`fdefe6037f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdefe6037f9) - Add PFF to Jira push consumption model
+
 ## 0.0.11
 
 ### Patch Changes

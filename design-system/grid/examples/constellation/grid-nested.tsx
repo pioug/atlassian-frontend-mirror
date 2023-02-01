@@ -1,50 +1,40 @@
-import React, { FC } from 'react';
-
-import Box from '@atlaskit/ds-explorations/box';
+import React from 'react';
 
 import Grid, { GridItem } from '../../src';
 
-const SkeletonBox: FC = ({ children }) => (
-  <Box
-    UNSAFE_style={{ textAlign: 'center' }}
-    display="flex"
-    alignItems="center"
-    justifyContent="center"
-    backgroundColor="elevation.surface.sunken"
-    borderColor="color.border"
-    borderWidth="3px"
-    borderStyle="solid"
-    height="size.600"
-  >
-    {children}
-  </Box>
-);
+import { SkeletonBox } from './shared/skeleton-box';
 
 export default () => {
   return (
     <Grid>
       <GridItem span={{ md: 4 }}>
-        <SkeletonBox>First</SkeletonBox>
+        <SkeletonBox>md=4</SkeletonBox>
       </GridItem>
       <GridItem span={{ md: 4 }}>
-        <SkeletonBox>Second</SkeletonBox>
+        <SkeletonBox>md=4</SkeletonBox>
       </GridItem>
       <GridItem span={{ md: 4 }}>
-        <SkeletonBox>Third</SkeletonBox>
+        <SkeletonBox>md=4</SkeletonBox>
       </GridItem>
-      <GridItem>
+
+      <GridItem span={{ md: 6 }}>
         <Grid>
-          <GridItem span={{ md: 3 }}>
-            <SkeletonBox>Nested First</SkeletonBox>
+          <GridItem span={{ md: 6 }}>
+            <SkeletonBox>md=6 | md=6</SkeletonBox>
           </GridItem>
-          <GridItem span={{ md: 3 }}>
-            <SkeletonBox>Nested Second</SkeletonBox>
+          <GridItem span={{ md: 6 }}>
+            <SkeletonBox>md=6 | md=6</SkeletonBox>
           </GridItem>
-          <GridItem span={{ md: 3 }}>
-            <SkeletonBox>Nested Third</SkeletonBox>
+        </Grid>
+      </GridItem>
+
+      <GridItem span={{ md: 6 }}>
+        <Grid>
+          <GridItem span={{ md: 6 }}>
+            <SkeletonBox>md=6 | md=6</SkeletonBox>
           </GridItem>
-          <GridItem span={{ md: 3 }}>
-            <SkeletonBox>Nested Fourth</SkeletonBox>
+          <GridItem span={{ md: 6 }}>
+            <SkeletonBox>md=6 | md=6</SkeletonBox>
           </GridItem>
         </Grid>
       </GridItem>

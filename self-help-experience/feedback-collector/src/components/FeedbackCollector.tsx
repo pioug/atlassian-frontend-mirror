@@ -102,6 +102,10 @@ export interface Props {
   onSubmit: (formFields: FormFields) => void;
   /**  Optional locale for i18n */
   locale?: string;
+  /** Optional custom modal content */
+  customContent?: React.ReactChild;
+  /**  Override to hide the default text fields for feedback */
+  showDefaultTextFields?: boolean;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -140,6 +144,7 @@ export default class FeedbackCollector extends Component<Props> {
     typeQuestionDefaultValue: { id: '10108' },
     typeEmptyDefaultValue: { id: 'empty' },
     showTypeField: true,
+    showDefaultTextFields: true,
     onClose: () => {},
     onSubmit: () => {},
   };
@@ -430,9 +435,11 @@ export default class FeedbackCollector extends Component<Props> {
   render() {
     return (
       <FeedbackForm
+        customContent={this.props.customContent}
         feedbackTitle={this.props.feedbackTitle}
         feedbackTitleDetails={this.props.feedbackTitleDetails}
         showTypeField={this.props.showTypeField}
+        showDefaultTextFields={this.props.showDefaultTextFields}
         canBeContactedLabel={this.props.canBeContactedLabel}
         enrolInResearchLabel={this.props.enrolInResearchLabel}
         summaryPlaceholder={this.props.summaryPlaceholder}

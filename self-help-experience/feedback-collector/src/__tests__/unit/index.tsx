@@ -411,10 +411,13 @@ describe('Feedback Collector unit tests', () => {
         const feedbackFormWrapper = wrapper.find(FeedbackForm);
 
         expect(wrapper.find('button')).toBeTruthy();
-        expect(wrapper.find('button').length).toBe(2);
-        wrapper.find('button')?.forEach((action, index) => {
-          expect(action.text()).toEqual(expectedButtonLabels[index]);
-        });
+        expect(wrapper.find('button').length).toBe(3); // now includes 'x'
+        wrapper
+          .find('button')
+          ?.slice(1)
+          .forEach((action, index) => {
+            expect(action.text()).toEqual(expectedButtonLabels[index]);
+          });
 
         expect(wrapper.find(Select)).toBeTruthy();
         expect(defaultValue).toEqual(emptyOptionData);

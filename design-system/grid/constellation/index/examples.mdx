@@ -3,13 +3,60 @@ order: 0
 ---
 
 import Grid from '../../examples/constellation/grid-default';
+import GridFluid from '../../examples/constellation/grid-fluid';
+import GridNarrow from '../../examples/constellation/grid-narrow';
+import GridWide from '../../examples/constellation/grid-wide';
+import ItemSpan from '../../examples/constellation/item-span';
+import ItemOffset from '../../examples/constellation/item-offset';
 import NestedGrid from '../../examples/constellation/grid-nested';
 
 ## Basic
 
-Grids are composed of a container `Grid` and child `GridItems`. These two elements work together to form the grid.
+Grids are composed of a container `Grid` and child `GridItem`s. These two elements work together to form the grid.
 
 <Example Component={Grid} packageName="@atlaskit/grid" />
+
+## Grid width
+
+You can restrict the width of the Grid to pre-defined sizes.  The default value is `fluid`.
+
+### fluid
+
+The Grid takes all available space.
+
+<Example Component={GridFluid} packageName="@atlaskit/grid" />
+
+### narrow
+
+The Grid's maximum width is `744px`.  On smaller screens it will take up all available width.
+
+<Example Component={GridNarrow} packageName="@atlaskit/grid" />
+
+### wide
+
+The Grid's maximum width is `1128px`.  On smaller screens it will take up all available width.
+
+<Example Component={GridWide} packageName="@atlaskit/grid" />
+
+## Item span
+
+Define how many columns an item will span (per-breakpoint).  Defaults to full-width, but lower breakpoints will cascade up as the default value if not set.
+
+⚠️ Cascading will result in weird scenarios as columns change.  `xs=2` will show 2/6 columns in sm and 2/12 columns in md and above.  If you set `sm` you should always set `md`.  If you set `xs` you should always set `sm` and `md` to ensure it works as you expect.
+
+See our [breakpoints](../usage) for details on columns available.
+
+<Example Component={ItemSpan} packageName="@atlaskit/grid" />
+
+## Item offset starting column
+
+Define the column at which your item will start (per-breakpoint).  Defaults to none, but lower breakpoints will cascade up as the default value if not set.
+
+⚠️ Cascading will result in weird scenarios as columns change.  `xs=2` will start at the 2nd of 6 columns in sm and the 2nd of 12 columns in md and above.  If you set `sm` you should always set `md`.  If you set `xs` you should always set `sm` and `md` to ensure it works as you expect.
+
+See our [breakpoints](../usage) for details on columns available.
+
+<Example Component={ItemOffset} packageName="@atlaskit/grid" />
 
 ## Nested grids
 

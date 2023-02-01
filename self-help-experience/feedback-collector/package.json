@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feedback-collector",
-  "version": "10.7.1",
+  "version": "10.8.1",
   "description": "A component that collects feedback across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,7 +45,9 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/logo": "^13.10.0",
+    "@atlaskit/section-message": "^6.3.8",
     "@atlaskit/ssr": "*",
+    "@atlaskit/textfield": "^5.3.4",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",

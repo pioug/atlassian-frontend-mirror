@@ -5,6 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field } from '@atlaskit/form';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
 import Modal, {
   ModalBody,
   ModalFooter,
@@ -13,6 +14,8 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
+import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';
 import { FormFields, SelectOptionDetails, SelectValue } from '../types';
@@ -24,6 +27,8 @@ interface Props {
   feedbackTitle?: React.ReactText;
   /**  Override to hide the feedback type select drop down for the feedback **/
   showTypeField?: boolean;
+  /**  Override to hide the default text fields for feedback **/
+  showDefaultTextFields?: boolean;
   /**  Message which will be shown below the title of the feedback dialog **/
   feedbackTitleDetails?: React.ReactChild;
   /**  Message which will be shown next to the enrol in research checkbox **/
@@ -44,6 +49,8 @@ interface Props {
   onSubmit: (formValues: FormFields) => void;
   /**  Optional locale for i18n **/
   locale?: string;
+  /** Optional custom content */
+  customContent?: React.ReactChild;
 }
 
 export interface OptionType {
@@ -53,6 +60,8 @@ export interface OptionType {
 
 const FeedbackForm: React.FunctionComponent<Props> = ({
   showTypeField = true,
+  showDefaultTextFields = true,
+  customContent,
   onClose,
   onSubmit,
   feedbackTitle,
@@ -132,7 +141,11 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
   });
 
   return (
-    <Modal onClose={onClose} testId="feedbackCollectorModalDialog">
+    <Modal
+      shouldCloseOnOverlayClick={false}
+      onClose={onClose}
+      testId="feedbackCollectorModalDialog"
+    >
       <Form
         onSubmit={() => {
           onSubmit({
@@ -151,9 +164,16 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                   <FormattedMessage {...messages.feedbackTitle} />
                 )}
               </ModalTitle>
+              <Button tabIndex={-1} onClick={onClose}>
+                <CrossIcon
+                  label="Close Modal"
+                  primaryColor={token('color.text.subtle', N500)}
+                />
+              </Button>
             </ModalHeader>
             <ModalBody>
               {feedbackTitleDetails}
+              {customContent}
               {showTypeField ? (
                 <Select<OptionType>
                   onChange={(option) => {
@@ -173,7 +193,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                   options={getSelectOptions(feedbackGroupLabels)}
                 />
               ) : null}
-              {canShowTextField && (
+              {showDefaultTextFields && canShowTextField && (
                 <>
                   <Field
                     label={
